@@ -58,7 +58,7 @@ into one ERP Worker + one APQC/BPMN/OCEL projector, with the read path defined a
 2. **No industry coverage.** The ERP is generic. The founder directive of 2026-06-03 is
    *"ISIC のすべての産業にそれぞれ対応した ERP"* — an ERP tailored to every industry. The
    monorepo already holds the full ISIC Rev.4 classification (428 classes + 21 sections A–U,
-   `60-apps/ai-gftd-project-open-isic/`), but nothing connects it to the ERP.
+   `60-apps/etzhayyim-project-open-isic/`), but nothing connects it to the ERP.
 
 3. **No suite integration.** The directive also names *mailer, drive, docs, sheets* (a
    Google-Workspace-shaped productivity layer) to be "連携、統合" with the ERP. The Svelte
@@ -174,7 +174,7 @@ third-party-ad transport (Charter Rider §2, substrate boundary).
   replacement for the Kotoba/Datomic `getApqcCoverage` MV). **7 test files, 39 tests green;
   `tsc --noEmit` clean.** rw-free reference layer COMPLETE.
 - **R2 (keystone landed 2026-06-03)** — `xrpc-bridge.ts` (`createXrpcBridge`) adapts the
-  magatama-host-sdk AT-repo `XrpcClient` (`sdk.pds`) to the `Etzhayyim` read/write surface,
+  kotodama-host-sdk AT-repo `XrpcClient` (`sdk.pds`) to the `Etzhayyim` read/write surface,
   letting the ERP Worker DELETE its `createKyselyDb(env.HYPERDRIVE)` read paths and route
   every command through the tested rw-free functions. Verified by driving the real rw-free
   functions through a mock XrpcClient (8 test files, 43 tests green). The actual `app.ts`
@@ -325,4 +325,4 @@ just its section. **23 test files, 100 tests green; `tsc --noEmit` clean.**
 - ADR-2605312345 — kotoba Datom = first-class canonical state
 - ADR-2605181100 — kotoba E2E encrypted-record envelope (Tier-3 PII)
 - ADR-0025 — kyber APQC/BPMN/OCEL projector consolidation (read path superseded by D1)
-- `60-apps/ai-gftd-project-open-isic/rw-free/src/types.ts` — `sectionForDivision` (mirrored)
+- `60-apps/etzhayyim-project-open-isic/rw-free/src/types.ts` — `sectionForDivision` (mirrored)

@@ -14,12 +14,12 @@ AI Agent (Murakumo/Qwen) が花粉症を撲滅するために自律的に調査�
 
 ## Architecture
 
-- **Runtime**: magatama runtime (TS Native)
+- **Runtime**: kotodama runtime (TS Native)
 - **nanoid**: `n97ik10n`
 - **LLM**: Murakumo (`murakumo.etzhayyim.com`, model: `qwen3-vl-8b`)
 - **Evolution**: W Protocol cross-actorEvolution via Connect command façade `Evolution.run` (performer-framework)
 - **Matrix UI**: `@etzhayyim/appshell/matrix` (RoomList, EventTimeline, MessageComposer)
-- **Storage**: magatama WIT bindings (SQL graph)
+- **Storage**: kotodama WIT bindings (SQL graph)
 
 ## Components
 
@@ -85,8 +85,8 @@ cd svelte && pnpm install && pnpm build && cd ..
 e7m actor build .
 e7m actor deploy .
 kubectl apply -f k8s/cronjob.yaml
-# performer-framework の magatama process 再起動が必要な場合:
-# kubectl port-forward -n magatama-runtime performer-framework-0 8082:8080
+# performer-framework の kotodama process 再起動が必要な場合:
+# kubectl port-forward -n kotodama-runtime performer-framework-0 8082:8080
 # curl -X POST localhost:8082/api/apps/pb/scale -H "Content-Type: application/json" -d '{"replicas":0}'
 # curl -X POST localhost:8082/api/apps/pb/scale -H "Content-Type: application/json" -d '{"replicas":1}'
 ```

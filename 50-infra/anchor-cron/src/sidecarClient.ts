@@ -12,7 +12,7 @@
  *                      sidecar so it stamps the row with tx_hash etc.
  *
  * Framing: 4-byte big-endian length prefix + msgpack body. Same on both
- * sides, identical to pymagatama.checkpointer.mst_saver.
+ * sides, identical to kotodama.checkpointer.mst_saver.
  */
 
 import {connect, type Socket} from "node:net";
@@ -78,7 +78,7 @@ function decode(b: Uint8Array): unknown {
 
 /** Send one framed request, receive one framed response. Opens a fresh
  *  connection per call — anchor-cron runs as a short CronJob tick, so
- *  the persistent-connection optimisation in `pymagatama` is unnecessary
+ *  the persistent-connection optimisation in `kotodama` is unnecessary
  *  here. */
 async function call(
   socketPath: string,

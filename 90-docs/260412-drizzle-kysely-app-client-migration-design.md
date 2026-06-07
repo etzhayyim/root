@@ -11,7 +11,7 @@
 **Cypher string literals (G() builder, cypherQueryAsync) → Drizzle/Kysely type-safe queries.**
 
 - **Schema SSoT**: `@etzhayyim/graph-schema/schema.ts` (Drizzle ORM, hand-managed)
-- **Query builder**: `createKyselyDb()` from `@etzhayyim/magatama-host-sdk`
+- **Query builder**: `createKyselyDb()` from `@etzhayyim/kotodama-host-sdk`
 - **Type-safe row types**: exported from `@etzhayyim/graph-schema` (e.g., VertexActorRow, VertexOtherRow)
 - **Scope**: 40+ wasm app clients (intel, ipaddress, natural-person, site, yorishiro, etc)
 - **Migration**: Phase 1 (SDK + schema) complete 2026-04-11. Phase 2 (app clients) in-progress 2026-04-12.
@@ -22,7 +22,7 @@
 
 ```typescript
 // App code
-import { G } from "@etzhayyim/magatama-host-sdk";
+import { G } from "@etzhayyim/kotodama-host-sdk";
 
 async function getActors(did: string) {
   const cypher = `MATCH (a:Actor {did: $did}) RETURN a.vertex_id, a.name LIMIT 50`;
@@ -48,7 +48,7 @@ async function getActors(did: string) {
 
 ```typescript
 // App code
-import { createKyselyDb } from "@etzhayyim/magatama-host-sdk";
+import { createKyselyDb } from "@etzhayyim/kotodama-host-sdk";
 import type { Database, VertexActorRow } from "@etzhayyim/graph-schema";
 
 async function getActors(sql: Sql, env: WorkerEnv, did: string) {
@@ -192,7 +192,7 @@ async function searchIntel(sdk: HostSDK, params: SearchParams) {
 - [x] Drizzle schema.ts created (188 pgTable definitions)
 - [x] drizzle-kit integration (pnpm db:generate)
 - [x] Kysely database.ts + Database type
-- [x] magatama-host-sdk: createKyselyDb() export
+- [x] kotodama-host-sdk: createKyselyDb() export
 - [x] Type exports: @etzhayyim/graph-schema (Database, VertexActorRow, etc)
 - [x] Python schema archived (_archive/30-graph/graph-schema-py-260412)
 - [x] Documentation: CLAUDE.md + design doc
@@ -204,7 +204,7 @@ async function searchIntel(sdk: HostSDK, params: SearchParams) {
 - [ ] natural-person: db.selectFrom() full migration
 - [ ] site (webpage): db.selectFrom() full migration
 - [ ] yorishiro (all providers): db.selectFrom() full migration
-- [ ] magatama graph-builder.ts: Drizzle only (no Cypher fallback)
+- [ ] kotodama graph-builder.ts: Drizzle only (no Cypher fallback)
 - [ ] Type safety: all row types imported + used
 
 **Sub-tasks per app**:
@@ -221,7 +221,7 @@ async function searchIntel(sdk: HostSDK, params: SearchParams) {
 - [ ] 30-graph/graph-schema/src/*.gen.ts → delete
   - p10.gen.ts, ddl.gen.ts, naming.gen.ts, etc
   - Currently frozen artifacts (only Cypher transpiler uses)
-- [ ] 20-actors/magatama/sdk/magatama-host-sdk/src/cypher.ts → delete
+- [ ] 40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/cypher.ts → delete
   - G() builder, cypherQueryAsync
   - Replaced by createKyselyDb()
 - [ ] Integration tests: replace Cypher test cases with Kysely
@@ -315,7 +315,7 @@ const rows = await db.selectFrom('vertex_actor')
 
 - `@etzhayyim/graph-schema/CLAUDE.md` — schema management + migration procedure
 - `@etzhayyim/graph-schema/drizzle.config.ts` — drizzle-kit configuration
-- `20-actors/magatama/CLAUDE.md` — SDK architecture + createKyselyDb()
+- `40-engine/kotoba/crates/kotoba-kotodama/CLAUDE.md` — SDK architecture + createKyselyDb()
 - `deps.toml [[migrations."drizzle-to-kysely"]]` — phase tracking
 - `deps.toml [[conventions."App Data Access: Drizzle ORM + Kysely"]]` — standards
 

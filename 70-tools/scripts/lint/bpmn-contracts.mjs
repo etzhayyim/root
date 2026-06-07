@@ -70,7 +70,7 @@ function isBpmnMigration(file) {
 
 function isWorkerFile(file) {
   return (
-    file.startsWith("20-actors/magatama/py/src/pymagatama/") ||
+    file.startsWith("40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/") ||
     file.startsWith("50-infra/vultr/") ||
     file.startsWith("60-apps/")
   ) && file.endsWith(".py");

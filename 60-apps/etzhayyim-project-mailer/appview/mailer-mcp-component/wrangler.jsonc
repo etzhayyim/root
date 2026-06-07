@@ -1,5 +1,5 @@
 {
-  "name": "magatama-a8wwtz73",
+  "name": "kotodama-a8wwtz73",
   "main": "svelte/.svelte-kit/cloudflare/_worker.js",
   "compatibility_date": "2025-03-17",
   "compatibility_flags": [
@@ -18,7 +18,7 @@
     "APP_DISPLAY_NAME": "Mailer",
     "APP_EMBED_URL": "https://a8wwtz73.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/ai.etzhayyim.mcp.message",
     "APP_NANOID": "a8wwtz73",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview"

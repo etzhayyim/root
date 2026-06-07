@@ -16,9 +16,9 @@ from pathlib import Path
 from typing import Any
 
 # Pinned in the rendered manifest. Override-able by future ADR/SoT.
-IMAGE_DEFAULT = "ghcr.io/etzhayyim/pymagatama:main"
+IMAGE_DEFAULT = "ghcr.io/etzhayyim/kotodama:main"
 NAMESPACE_DEFAULT = "etzhayyim-cells"
-CELL_RUNNER_MODULE = "pymagatama.cell_runner_main"
+CELL_RUNNER_MODULE = "kotodama.cell_runner_main"
 
 
 def kebab(name: str) -> str:
@@ -30,7 +30,7 @@ def snake(name: str) -> str:
     """CamelCase → snake_case. CharterAttestationRequestCell → charter_attestation_request_cell.
 
     The cell module path conventionally drops the trailing `_cell` suffix
-    (20-actors/magatama/cells/charter_attestation_request/, no `_cell`).
+    (40-engine/kotoba/crates/kotoba-kotodama/cells/charter_attestation_request/, no `_cell`).
     """
     s = re.sub(r"(?<!^)(?=[A-Z])", "_", name).lower()
     return s[: -len("_cell")] if s.endswith("_cell") else s

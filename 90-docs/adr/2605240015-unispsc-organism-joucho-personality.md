@@ -67,7 +67,7 @@ the UNSPSC code itself. The mapping is:
 The function uses a SHA-256 hash of the code combined with a small
 per-segment bias table. Output is clamped to [0, 100] per axis.
 
-Lives in `pymagatama.organism.personality`. Exposes:
+Lives in `kotodama.organism.personality`. Exposes:
 
 ```python
 def joucho_personality_provider(actor_did: str) -> JouchoScores: ...
@@ -176,5 +176,5 @@ organism should report the same mood across restarts.
 
 - ADR-2605232345 — UNSPSC actor as ecosystem organism (Wave 1)
 - ADR-2605240000 — UNSPSC organism fleet mass-deploy (Wave 2)
-- `20-actors/magatama/py/src/pymagatama/organism/personality.py`
-- `20-actors/magatama/py/src/pymagatama/organism/joucho.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/personality.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/joucho.py`

@@ -25,23 +25,23 @@ from fastapi.responses import JSONResponse
 from langgraph.graph import END, START, StateGraph
 from typing_extensions import TypedDict
 
-from pymagatama.hakkou_worker_main import (
+from kotodama.hakkou_worker_main import (
     task_create_ferment_record,
     task_finalize_ferment,
     task_llm_transform,
 )
-from pymagatama.kabi_worker_main import task_anastomosis_probe
-from pymagatama.ki_worker_main import task_absorb, task_bloom, task_ring, task_synthesize
-from pymagatama.kinoko_worker_main import task_check_flow_threshold
-from pymagatama.kobo_worker_main import task_bud_agent, task_germinate, task_sporulate
-from pymagatama.koke_worker_main import (
+from kotodama.kabi_worker_main import task_anastomosis_probe
+from kotodama.ki_worker_main import task_absorb, task_bloom, task_ring, task_synthesize
+from kotodama.kinoko_worker_main import task_check_flow_threshold
+from kotodama.kobo_worker_main import task_bud_agent, task_germinate, task_sporulate
+from kotodama.koke_worker_main import (
     task_classify_fixation,
     task_fix_signal,
     task_handoff_to_hakkou,
     task_handoff_to_saikin,
     task_scan_raw_signals,
 )
-from pymagatama.saikin_worker_main import (
+from kotodama.saikin_worker_main import (
     task_form_colony,
     task_handoff_to_ki,
     task_lyse,

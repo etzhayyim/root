@@ -114,7 +114,7 @@ scope ごとに別 lease。複数 scope を同 worker が掛け持ち可。
 - 本 ADR は **lex + 設計のみ**。 implementation は別 PR で:
   - browser:`@etzhayyim/sdk` の write API 経由で lease 記録
   - daemon Path A/B:同じく SDK 経由で記録
-  - takeover algorithm を `swarm.ts` / `pymagatama.projects.ameno.swarm`
+  - takeover algorithm を `swarm.ts` / `kotodama.projects.ameno.swarm`
     に追加
 - substrate write 1 lease ≒ 1 KB MST + L2 anchor cost。 5 分間隔
   renewal で 1 day ~288 writes per scope per worker。 brief 流量に

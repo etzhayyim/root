@@ -56,7 +56,7 @@ The Worker enforces these as `const: true` from the Lexicon schema.
 | File | Role |
 |---|---|
 | `PROJECT.jsonld` | Project metadata |
-| `worker/magatama.jsonld` | Worker app metadata (consumed by `etzhayyim deploy`) |
+| `worker/kotodama.jsonld` | Worker app metadata (consumed by `etzhayyim deploy`) |
 | `worker/src/app.ts` | XRPC handler skeleton (P0 stub — proxies to langserver) |
 | `worker/package.json` | Worker dependencies |
 

@@ -17,11 +17,11 @@ import (
 	"time"
 )
 
-// Default base image for magatama-server Cloudflare Containers.
+// Default base image for kotodama-server Cloudflare Containers.
 // Update via --base-image flag or etzhayyim.json "base_image" field.
-const defaultBaseImage = "ghcr.io/etzhayyim/magatama-server:20260318-223437"
+const defaultBaseImage = "ghcr.io/etzhayyim/kotodama-server:20260318-223437"
 
-// Secrets Store ID shared by all magatama Workers.
+// Secrets Store ID shared by all kotodama Workers.
 const secretsStoreID = "1824561668fe47cc9127d493961885af"
 
 func runDeploy(args []string) error {
@@ -30,7 +30,7 @@ func runDeploy(args []string) error {
 	smokeURL := fs.String("smoke-url", "", "URL for smoke test health check after deploy")
 	noSmoke := fs.Bool("no-smoke", false, "skip smoke test")
 	noCheck := fs.Bool("no-check", false, "skip svelte-check type validation")
-	baseImage := fs.String("base-image", "", "magatama-server base image (default: "+defaultBaseImage+")")
+	baseImage := fs.String("base-image", "", "kotodama-server base image (default: "+defaultBaseImage+")")
 	if err := fs.Parse(args); err != nil {
 		if err == flag.ErrHelp {
 			return nil
@@ -54,12 +54,12 @@ func runDeploy(args []string) error {
 		return deployNativeCF(cfg, compDir, *noSmoke, *smokeURL)
 	}
 
-	// MagatamaApp mode: direct CF Container deploy from source directory
+	// KotodamaApp mode: direct CF Container deploy from source directory
 	return deployCFDirect(cfg, compDir, *noSmoke, *noCheck, *smokeURL, *baseImage)
 }
 
 // etzhayyimJSON is the deployment envelope read from etzhayyim.json.
-// Runtime config (triggers, pool, yata) lives in magatama.toml — not duplicated here.
+// Runtime config (triggers, pool, yata) lives in kotodama.toml — not duplicated here.
 type etzhayyimJSON struct {
 	// Required: component name
 	Name string `json:"name"`
@@ -67,13 +67,13 @@ type etzhayyimJSON struct {
 	Nanoid string `json:"nanoid"`
 	// Optional: project folder suffix = subdomain (e.g. "lawfirm" → lawfirm.etzhayyim.com)
 	Project string `json:"project,omitempty"`
-	// Optional: "native" for non-MagatamaApp containers
+	// Optional: "native" for non-KotodamaApp containers
 	Type string `json:"type,omitempty"`
 	// Optional: Clerk org_id binding
 	Org string `json:"org,omitempty"`
-	// Optional: Dockerfile name (default: "Dockerfile.magatama")
+	// Optional: Dockerfile name (default: "Dockerfile.kotodama")
 	Dockerfile string `json:"dockerfile,omitempty"`
-	// Optional: magatama-server base image override
+	// Optional: kotodama-server base image override
 	BaseImage string `json:"base_image,omitempty"`
 	// Optional: health check path (default: "/health")
 	HealthCheck string `json:"health_check,omitempty"`
@@ -170,7 +170,7 @@ func setupAppDir(cfBaseDir, appID string) (string, error) {
 	return appDir, nil
 }
 
-// deployCFDirect deploys a MagatamaApp to Cloudflare Containers directly from source.
+// deployCFDirect deploys a KotodamaApp to Cloudflare Containers directly from source.
 // Each app gets its own staging directory: infra/cloudflare-containers/{appID}/.
 func deployCFDirect(cfg *etzhayyimJSON, compDir string, noSmoke, noCheck bool, smokeURL, baseImageFlag string) error {
 	appID := cfg.AppID()
@@ -186,7 +186,7 @@ func deployCFDirect(cfg *etzhayyimJSON, compDir string, noSmoke, noCheck bool, s
 	templateDir := filepath.Join(cfBaseDir, "templates")
 
 	// Pre-flight: WIT version consistency
-	witDir := filepath.Join(gitRoot, "packages", "rust", "magatama", "wit")
+	witDir := filepath.Join(gitRoot, "packages", "rust", "kotodama", "wit")
 	if err := validateWITVersion(witDir); err != nil {
 		return err
 	}
@@ -267,7 +267,7 @@ func deployCFDirect(cfg *etzhayyimJSON, compDir string, noSmoke, noCheck bool, s
 	isISR := cfg.ISR
 	isrTemplateDir := filepath.Join(templateDir, "isr")
 
-	// Step 1b: Copy extension WASM files (if any declared in magatama.toml)
+	// Step 1b: Copy extension WASM files (if any declared in kotodama.toml)
 	if extFiles, err := copyExtensionFiles(compDir, componentsDir); err != nil {
 		return fmt.Errorf("copy extensions: %w", err)
 	} else if len(extFiles) > 0 {
@@ -362,10 +362,10 @@ func deployCFDirect(cfg *etzhayyimJSON, compDir string, noSmoke, noCheck bool, s
 		fmt.Fprintf(os.Stderr, "    SvelteKit → _svelte/ (assets) + _svelte_worker.js + src/worker.ts\n")
 	}
 
-	// Step 2: Generate magatama.toml (CF Container format)
-	fmt.Fprintf(os.Stderr, "--- generate magatama.toml ---\n")
-	if err := generateCFMagatamaToml(appDir, compDir, appID, isISR); err != nil {
-		return fmt.Errorf("generate magatama.toml: %w", err)
+	// Step 2: Generate kotodama.toml (CF Container format)
+	fmt.Fprintf(os.Stderr, "--- generate kotodama.toml ---\n")
+	if err := generateCFKotodamaToml(appDir, compDir, appID, isISR); err != nil {
+		return fmt.Errorf("generate kotodama.toml: %w", err)
 	}
 
 	// Select template directory based on ISR mode
@@ -449,12 +449,12 @@ func deployCFDirect(cfg *etzhayyimJSON, compDir string, noSmoke, noCheck bool, s
 	return nil
 }
 
-// generateCFMagatamaToml transforms the app's magatama.toml into a CF Container server config.
+// generateCFKotodamaToml transforms the app's kotodama.toml into a CF Container server config.
 // When isISR is true, static_dir and spa settings are removed (Worker serves static via Assets binding).
-func generateCFMagatamaToml(appDir, compDir, appID string, isISR bool) error {
-	appToml, err := os.ReadFile(filepath.Join(compDir, "magatama.toml"))
+func generateCFKotodamaToml(appDir, compDir, appID string, isISR bool) error {
+	appToml, err := os.ReadFile(filepath.Join(compDir, "kotodama.toml"))
 	if err != nil {
-		return fmt.Errorf("read magatama.toml: %w", err)
+		return fmt.Errorf("read kotodama.toml: %w", err)
 	}
 
 	content := "mode = \"single-tenant\"\n\n" + string(appToml)
@@ -498,7 +498,7 @@ func generateCFMagatamaToml(appDir, compDir, appID string, isISR bool) error {
 		content = strings.Replace(content, "[yata]\n", "[yata]\nfuse = false\n", 1)
 	}
 
-	// Remove sections not supported by current magatama-server
+	// Remove sections not supported by current kotodama-server
 	for _, section := range []string{
 		"[yata.s3]",              // R2 config via YATA_S3_* env vars
 		"[triggers.at_firehose]", // abolished; events via yata-wrpc
@@ -550,7 +550,7 @@ func generateCFMagatamaToml(appDir, compDir, appID string, isISR bool) error {
 	}
 	content = strings.Join(lines, "\n")
 
-	return os.WriteFile(filepath.Join(appDir, "magatama.toml"), []byte(content), 0o644)
+	return os.WriteFile(filepath.Join(appDir, "kotodama.toml"), []byte(content), 0o644)
 }
 
 // r2Manifest maps R2 keys to their MD5 hex hashes for incremental upload.
@@ -732,12 +732,12 @@ func smokeTest(url string) error {
 }
 
 // copyExtensionFiles copies extension WASM files from source directory to Container staging.
-// Reads [[extensions]] from magatama.toml and copies each component WASM file.
+// Reads [[extensions]] from kotodama.toml and copies each component WASM file.
 func copyExtensionFiles(compDir, componentsDir string) ([]string, error) {
-	tomlPath := filepath.Join(compDir, "magatama.toml")
+	tomlPath := filepath.Join(compDir, "kotodama.toml")
 	data, err := os.ReadFile(tomlPath)
 	if err != nil {
-		return nil, nil // no magatama.toml = no extensions
+		return nil, nil // no kotodama.toml = no extensions
 	}
 
 	// Simple parse: find all 'component = "..."' lines under [[extensions]]
@@ -814,7 +814,7 @@ func gitShortSHA(dir string) (string, error) {
 	return strings.TrimSpace(string(out)), nil
 }
 
-// deployNativeCF deploys a native (non-MagatamaApp) container to Cloudflare Containers.
+// deployNativeCF deploys a native (non-KotodamaApp) container to Cloudflare Containers.
 func deployNativeCF(cfg *etzhayyimJSON, compDir string, noSmoke bool, smokeURL string) error {
 	appID := cfg.AppID()
 	workerName := cfg.Name
@@ -853,7 +853,7 @@ func deployNativeCF(cfg *etzhayyimJSON, compDir string, noSmoke bool, smokeURL s
 	// Docker build
 	dockerfileName := cfg.Dockerfile
 	if dockerfileName == "" {
-		dockerfileName = "Dockerfile.magatama"
+		dockerfileName = "Dockerfile.kotodama"
 	}
 	dockerfilePath := filepath.Join(compDir, dockerfileName)
 	fmt.Fprintf(os.Stderr, "==> docker build %s\n", fullImage)

@@ -95,7 +95,7 @@ Subject: Pre-reading for `<VP Sales>` / `<RevOps>`'s CRM renewal decision
 
 ## Sequence B — "LLM-led" (Tier A/B where own-LLM signal is strongest)
 
-Same cadence, different beats. Openers reference their named model in production and how `magatama.Invoke` from inside the CRM UI lets the seat DID call that model directly. Beat 2 links Pillar 2 video; Beat 5 links the `atproto.etzhayyim.com` post "per-seat LLM auth is the seat DID, not an API key".
+Same cadence, different beats. Openers reference their named model in production and how `kotodama.Invoke` from inside the CRM UI lets the seat DID call that model directly. Beat 2 links Pillar 2 video; Beat 5 links the `atproto.etzhayyim.com` post "per-seat LLM auth is the seat DID, not an API key".
 
 ## Sequence C — "Security-led" (Tier A in regulated industry)
 

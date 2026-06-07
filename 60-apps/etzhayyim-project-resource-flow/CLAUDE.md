@@ -168,8 +168,8 @@ Country APP が書いた flow records を **直接 SQL query** で集計:
 
 ```go
 // 日本 FY2025 の全 currency flow を省庁別集計
-result, _ := magatama.G("GovCurrencyFlow").
-    Match(magatama.Eq{"fiscal_year": "2025"}).
+result, _ := kotodama.G("GovCurrencyFlow").
+    Match(kotodama.Eq{"fiscal_year": "2025"}).
     Where("sourceDid", "STARTS WITH", "did:web:gov-jpn.etzhayyim.com").
     Return("destDid", "SUM(amount) AS total").
     GroupBy("destDid").
@@ -177,7 +177,7 @@ result, _ := magatama.G("GovCurrencyFlow").
     Query()
 ```
 
-## subscribeRepos collections (magatama.jsonld)
+## subscribeRepos collections (kotodama.jsonld)
 
 以下の 2 系統を両方 accept する:
 

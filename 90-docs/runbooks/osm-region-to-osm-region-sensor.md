@@ -2,7 +2,7 @@
 
 Per **ADR-2605262400** §3 + §4.2 + W1. Bridges the gap between
 `e7m-dataset pull osm --region <slug>` (Geofabrik `.osm.pbf` fetch)
-and the `pymagatama.organism.sensors.OsmRegionSensor` which consumes
+and the `kotodama.organism.sensors.OsmRegionSensor` which consumes
 a **GeoJSON-NDJSON sidecar** (one Feature per line). The conversion
 runs on the operator's workstation via the
 [osmium-tool](https://osmcode.org/osmium-tool/) suite — explicitly
@@ -136,7 +136,7 @@ Expects `ok: true / fail_count: 0`.
 
 ```python
 from pathlib import Path
-from pymagatama.organism.sensors import (
+from kotodama.organism.sensors import (
     DatasetPin, OsmRegionSensor, StaticPinResolver,
 )
 
@@ -203,4 +203,4 @@ tick.
 - ADR-2605241500 — dataset substrate (DataLad + annex + IPFS)
 - ADR-2605192200 — Charter Rider §3 (license SA propagation)
 - `70-tools/e7m-dataset/src/e7m_dataset/fetchers/osm.py` — fetcher
-- `20-actors/magatama/py/src/pymagatama/organism/sensors/osm_region_sensor.py` — sensor
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/sensors/osm_region_sensor.py` — sensor

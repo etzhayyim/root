@@ -22,7 +22,7 @@ spec:
       - command:
         - python
         - -m
-        - pymagatama.cell_runner_main
+        - kotodama.cell_runner_main
         - --node
         - levi
         - --cell-only
@@ -36,7 +36,7 @@ spec:
           value: /etc/etzhayyim/fleet.toml
         - name: COUNCIL_FLEET_ATTESTATION_TX_HASH
           value: '0xabcdef1234567890'
-        image: ghcr.io/etzhayyim/pymagatama:main
+        image: ghcr.io/etzhayyim/kotodama:main
         name: cell
         volumeMounts:
         - mountPath: /etc/etzhayyim

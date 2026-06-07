@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "com.etzhayyim.gov.dataset.parliamentRecord",
-  "description": "Per-legislature parliament record attestation (debate / committee / bill / vote / member-statement / petition / question). R0 skeleton per ADR-2605263900 §3 (GovParliamentSensor). Authored by `pymagatama.organism.sensors.gov.gov_parliament_sensor` after passive-only fetch of an official parliamentary archive (Congress.gov / Hansard / OEIL / 国会会議録 / Bundestag / Assemblée). Speaker / member-statement pass-through per upstream publication rule across W1-W3 jurisdictions (parliament transcripts are public by design); GDPR right-to-be-forgotten DSARs route through chigiri.data_privacy to upstream publisher.",
+  "description": "Per-legislature parliament record attestation (debate / committee / bill / vote / member-statement / petition / question). R0 skeleton per ADR-2605263900 §3 (GovParliamentSensor). Authored by `kotodama.organism.sensors.gov.gov_parliament_sensor` after passive-only fetch of an official parliamentary archive (Congress.gov / Hansard / OEIL / 国会会議録 / Bundestag / Assemblée). Speaker / member-statement pass-through per upstream publication rule across W1-W3 jurisdictions (parliament transcripts are public by design); GDPR right-to-be-forgotten DSARs route through chigiri.data_privacy to upstream publisher.",
   "defs": {
     "main": {
       "type": "record",

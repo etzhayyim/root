@@ -1,6 +1,6 @@
 {
   "$comment": "LangGraph Server config — open-isic.etzhayyim.com (ISIC Rev.4 classification runtime). Graphs: classify_entity + hierarchical_classify.",
-  "dependencies": ["./lg_open_isic", "../../../20-actors/magatama/py"],
+  "dependencies": ["./lg_open_isic", "../../../40-engine/kotoba/crates/kotoba-kotodama/py"],
   "graphs": {
     "health":               "./lg_open_isic/graphs/health.py:GRAPH",
     "classify_entity":      "./lg_open_isic/graphs/classify_entity.py:GRAPH",

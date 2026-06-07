@@ -57,7 +57,7 @@ async def _node_fetch_topic(state: _State) -> dict[str, Any]:
         return {}
     try:
         import asyncio
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         client = get_kotoba_client()
         raw_rows = await asyncio.to_thread(client.select_where, "vertex_yukkuri_video", "video_id", video_id, limit=1)
         if raw_rows:
@@ -105,7 +105,7 @@ async def _node_insert_asset(state: _State) -> dict[str, Any]:
     created_at = datetime.now(tz=timezone.utc).isoformat()
     try:
         import asyncio
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         client = get_kotoba_client()
         await asyncio.to_thread(client.insert_row, "vertex_yukkuri_asset", {
             "vertex_id": asset_id,

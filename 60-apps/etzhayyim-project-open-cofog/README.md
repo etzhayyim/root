@@ -21,7 +21,7 @@ data/classes/{code}.json         one file per 4-digit Class (authoritative data)
 worker/src/taxonomy.ts           Division + Group skeleton
 worker/src/classes-index.ts      classes import index + progress counter
 worker/src/app.ts                XRPC router
-worker/magatama.jsonld           profile + space + triggers
+worker/kotodama.jsonld           profile + space + triggers
 worker/wrangler.jsonc            CF Worker config
 ```
 

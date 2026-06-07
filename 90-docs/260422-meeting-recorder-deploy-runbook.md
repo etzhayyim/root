@@ -140,7 +140,7 @@ helm -n meeting-recorder rollback meeting-recorder 0
 
 ## References
 
-- ADR-0042 — magatama MCP Tool Facade (XRPC ↔ MCP co-exposure)
+- ADR-0042 — kotodama MCP Tool Facade (XRPC ↔ MCP co-exposure)
 - ADR-0036 — Worker-direct Hyperdrive Persistence
 - ADR-0048 — Kotoba/Datomic Vultr + B2 primary (egress-free)
 - ADR-0018 — PII Tier 3 (transcript encrypt)

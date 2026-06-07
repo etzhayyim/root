@@ -26,7 +26,7 @@ commercial K8s (Karmada / VKE); fiat payment processors (Stripe / PayPal).
 | ADR-2605191346 | No commercial K8s — Murakumo fleet only (no Vultr VKE / Karmada) |
 | ADR-2605191358 | yoro / murakumo RW-free rewrite map (status: proposed; 14 known RW touchpoints) |
 | ADR-2605214000 | Vendor→religious-corp lexicon port verdict taxonomy (PORT-direct / PORT-adapted / REJECT) |
-| ADR-2605215000 | No RunPod / no commercial GPU rental; pymagatama REDIRECT/VENDOR-ONLY/REIMPLEMENT |
+| ADR-2605215000 | No RunPod / no commercial GPU rental; kotodama REDIRECT/VENDOR-ONLY/REIMPLEMENT |
 
 ## Verdict key
 
@@ -48,7 +48,7 @@ commercial K8s (Karmada / VKE); fiat payment processors (Stripe / PayPal).
 | Path | Contents |
 |---|---|
 | `20-actors/kuni-umi/` | 6 Pregel cells + 1 BPMN + 3 DMN + CLAUDE.md + README.md |
-| `20-actors/magatama/cells/` | 5 magatama-level Pregel cells (religious-corp only — charter/tithe/etc.); no kuni-umi cells here |
+| `40-engine/kotoba/crates/kotoba-kotodama/cells/` | 5 kotodama-level Pregel cells (religious-corp only — charter/tithe/etc.); no kuni-umi cells here |
 
 kuni-umi cells are entirely self-contained under `20-actors/kuni-umi/cells/`:
 `audit_witness`, `commissioning`, `construction_orchestration`, `decommission`, `deployment_planning`, `site_survey`.
@@ -74,7 +74,7 @@ Grep patterns executed: `runpod|RunPod|_RUNPOD_|api\.runpod\.ai|proxy\.runpod\.n
 
 ### §1 Summary
 
-kuni-umi is **fully substrate-clean**. Zero actual RunPod, RisingWave, Hyperdrive, Karmada, VKE, Stripe, or PayPal references appear in executable code or infrastructure configs. The two CLAUDE.md lines enumerate prohibited substrates (correct practice). All 6 cells use only `pymagatama.cell_runtime`, AT MST listener, IPFS, and Base L2 Web3 ports — entirely within the religious-corp substrate boundary.
+kuni-umi is **fully substrate-clean**. Zero actual RunPod, RisingWave, Hyperdrive, Karmada, VKE, Stripe, or PayPal references appear in executable code or infrastructure configs. The two CLAUDE.md lines enumerate prohibited substrates (correct practice). All 6 cells use only `kotodama.cell_runtime`, AT MST listener, IPFS, and Base L2 Web3 ports — entirely within the religious-corp substrate boundary.
 
 **kuni-umi finding count: 0 violations (2 PORT-direct documentation references)**
 
@@ -86,15 +86,15 @@ kuni-umi is **fully substrate-clean**. Zero actual RunPod, RisingWave, Hyperdriv
 
 | Path | Contents |
 |---|---|
-| `20-actors/magatama/py/src/pymagatama/shinka/__init__.py` | Core LangGraph loop (494 lines) |
-| `20-actors/magatama/py/src/pymagatama/primitives/shinka.py` | LangServer task handlers (145 lines; note: file content is different from module name — it contains handler wrappers, not primitives) |
-| `20-actors/magatama/py/src/pymagatama/handlers/shinka.py` | UDF handler entry point (77 lines) |
-| `20-actors/magatama/py/src/pymagatama/langgraph_graphs/shinka_cron_tick.py` | LangGraph StateGraph port (72 lines) |
-| `20-actors/magatama/py/sqlmesh/models/mv_shinka_activity_hourly.sql` | RisingWave MV (vendor sqlmesh model) |
-| `20-actors/magatama/py/sqlmesh/models/mv_shinka_knowledge_degree.sql` | RisingWave MV (vendor sqlmesh model) |
-| `20-actors/magatama/py/sqlmesh/models/mv_shinka_propagation_queue_stats.sql` | RisingWave MV (vendor sqlmesh model) |
-| `20-actors/magatama/py/tests/test_shinka_pure_helpers.py` | Pure helper tests (no DB/infra) |
-| `20-actors/magatama/py/tests/test_shinka_plan_agents.py` | Plan agent tests (no DB/infra) |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/shinka/__init__.py` | Core LangGraph loop (494 lines) |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/shinka.py` | LangServer task handlers (145 lines; note: file content is different from module name — it contains handler wrappers, not primitives) |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/handlers/shinka.py` | UDF handler entry point (77 lines) |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs/shinka_cron_tick.py` | LangGraph StateGraph port (72 lines) |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/sqlmesh/models/mv_shinka_activity_hourly.sql` | RisingWave MV (vendor sqlmesh model) |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/sqlmesh/models/mv_shinka_knowledge_degree.sql` | RisingWave MV (vendor sqlmesh model) |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/sqlmesh/models/mv_shinka_propagation_queue_stats.sql` | RisingWave MV (vendor sqlmesh model) |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/tests/test_shinka_pure_helpers.py` | Pure helper tests (no DB/infra) |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/tests/test_shinka_plan_agents.py` | Plan agent tests (no DB/infra) |
 
 ### Violation grep results
 
@@ -106,20 +106,20 @@ Zero matches in all shinka files.
 | File:Line | Finding | Verdict | Reason |
 |---|---|---|---|
 | `shinka/__init__.py:21` | `"K8s CronJob in the mitama-udf namespace"` | VENDOR-ONLY | Module docstring describes deployment topology on vendor Karmada / VKE cluster (`mitama-udf` namespace). Religious-corp uses Murakumo fleet CronJob placement (`50-infra/murakumo/fleet.toml`). Comment must be updated at Step 8 cutover. |
-| `shinka/__init__.py:160` | `"Pull joucho mood + last heartbeat + cadence rows from RW."` (comment) | REIMPLEMENT | `_load_state` function docstring. The function calls `fetch_one("SELECT mood, ... FROM vertex_joucho ...")` and `fetch_all("SELECT ... FROM vertex_actor_shinka_state ...")` via `pymagatama.db_sync` (psycopg3 → `RW_URL` env var). Structural direct RisingWave read. Religious-corp must replace with AT MST read via `@etzhayyim/sdk`. |
+| `shinka/__init__.py:160` | `"Pull joucho mood + last heartbeat + cadence rows from RW."` (comment) | REIMPLEMENT | `_load_state` function docstring. The function calls `fetch_one("SELECT mood, ... FROM vertex_joucho ...")` and `fetch_all("SELECT ... FROM vertex_actor_shinka_state ...")` via `kotodama.db_sync` (psycopg3 → `RW_URL` env var). Structural direct RisingWave read. Religious-corp must replace with AT MST read via `@etzhayyim/sdk`. |
 | `shinka/__init__.py:166` | `FROM vertex_joucho WHERE owner_did = %s` | REIMPLEMENT | Direct RisingWave SQL query inside `_load_state`. Must become AT MST collection traverse for `com.etzhayyim.joucho.*` records. |
 | `shinka/__init__.py:186` | `FROM vertex_actor_shinka_state WHERE repo_did = %s` | REIMPLEMENT | Direct RisingWave SQL query inside `_load_state`. Must become AT MST traverse for heartbeat cadence records. |
 | `shinka/__init__.py:232–233` | `INSERT INTO vertex_shinka_knowledge (vertex_id, _seq, ...)` | REIMPLEMENT | Direct RisingWave INSERT in `_kyumei_gather`. Religious-corp must write via `@etzhayyim/sdk` `e.write({collection, record})` → PDS commit → IPFS pin. |
 | `shinka/__init__.py:263` | `SELECT count(*) FROM vertex_shinka_knowledge WHERE owner_did = %s` | REIMPLEMENT | Direct RisingWave read in `_koji_validate`. Must be replaced with MST subtree count. |
 | `shinka/__init__.py:282` | `SELECT count(*) FROM vertex_repo_commit WHERE repo = %s AND ts_ms > %s` | REIMPLEMENT | Direct RisingWave read in `_shinka_analyze`. Must be replaced with MST event query. |
-| `shinka/__init__.py:299–300` | Comment: `"pymagatama.llm → Vultr Serverless"` | VENDOR-ONLY | Comment in `_compose_content` docstring references Vultr Serverless as LLM backend. Religious-corp routes via Murakumo LiteLLM gateway (ADR-2605215000). Comment must be updated. |
+| `shinka/__init__.py:299–300` | Comment: `"kotodama.llm → Vultr Serverless"` | VENDOR-ONLY | Comment in `_compose_content` docstring references Vultr Serverless as LLM backend. Religious-corp routes via Murakumo LiteLLM gateway (ADR-2605215000). Comment must be updated. |
 | `shinka/__init__.py:304` | `vertex_shinka_evolution.props.draft` (comment) | PORT-adapted | Comment references RW table name for post-promotion. The structural REIMPLEMENT below covers this; comment update follows naturally. |
 | `shinka/__init__.py:372–381` | `INSERT INTO vertex_actor_shinka_state ... ON CONFLICT ...` | REIMPLEMENT | Direct RisingWave UPSERT in `_write_heartbeat`. Must become AT record write via `e.write()`. |
 | `shinka/__init__.py:399–405` | `INSERT INTO vertex_shinka_evolution (vertex_id, _seq, ...)` | REIMPLEMENT | Direct RisingWave INSERT in `_emit_evolution`. Must become AT record write via `e.write()`. |
 | `handlers/shinka.py:13–14` | `vertex_actor_shinka_state UPSERT` / `vertex_shinka_evolution row` (docstring) | PORT-adapted | Docstring describes RW tables. Actual call path delegates to `shinka/__init__.py` functions; structural fix is in `__init__.py`. Docstring update follows. |
 | `handlers/shinka.py:17–18` | `"K8s CronJob in the mitama-udf namespace"` | VENDOR-ONLY | Same as `__init__.py:21` — vendor deployment topology reference. |
 | `handlers/shinka.py:22–24` | `"Vultr Serverless Devstral-2-123B"` + `vertex_shinka_evolution.props.draft` | VENDOR-ONLY | LLM routing comment references Vultr Serverless. Update to Murakumo LiteLLM gateway at Step 8. |
-| `primitives/shinka.py:4` | `"LangServer/MCP path does not import deprecated broker clients"` — uses `pymagatama.db_sync.sync_cursor` | REIMPLEMENT | `task_shinka_tick` executes `SELECT shinka_tick_actor(%s)` via `sync_cursor` (direct RW psycopg3). The `shinka_tick_actor` is a RisingWave SQL UDF. Religious-corp needs a Murakumo-native equivalent that calls the LangGraph loop directly without a SQL UDF intermediary. |
+| `primitives/shinka.py:4` | `"LangServer/MCP path does not import deprecated broker clients"` — uses `kotodama.db_sync.sync_cursor` | REIMPLEMENT | `task_shinka_tick` executes `SELECT shinka_tick_actor(%s)` via `sync_cursor` (direct RW psycopg3). The `shinka_tick_actor` is a RisingWave SQL UDF. Religious-corp needs a Murakumo-native equivalent that calls the LangGraph loop directly without a SQL UDF intermediary. |
 | `primitives/shinka.py:26–28` | `with sync_cursor() as cur: cur.execute("SELECT shinka_tick_actor(%s)", ...)` | REIMPLEMENT | Structural RisingWave UDF call. No env-var redirect possible. Requires new call path. |
 | `langgraph_graphs/shinka_cron_tick.py:5` | `"Triggered by K8s CronJob (every 15 minutes) via POST /runs."` | VENDOR-ONLY | Deployment topology comment references vendor K8s CronJob. Religious-corp deployment is `fleet.toml` Murakumo cell. Update comment at Step 8. |
 | `sqlmesh/models/mv_shinka_activity_hourly.sql` | Entire file | VENDOR-ONLY | Vendor RisingWave materialised view. Religious-corp has no RisingWave; this sqlmesh model is vendor-only infrastructure. No religious-corp equivalent needed (KPI aggregation will be MST-projector snapshots). |
@@ -150,12 +150,12 @@ shinka has **no RunPod coupling** and **no fiat payment coupling**, but has deep
 | `60-apps/etzhayyim-project-yoro/rw-free/src/` | RW-free rewrite library (AT MST client) — 5 TS files |
 | `60-apps/etzhayyim-project-yoro/xrpc-adapter/src/` | XRPC adapter — 1 TS file |
 | `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/` | Main SvelteKit UI (~150 TS/Svelte source files) |
-| `20-actors/magatama/py/src/pymagatama/primitives/yoro_social.py` | Python social primitives (1687 lines) |
-| `20-actors/magatama/py/src/pymagatama/primitives/yoro_product.py` | Python product primitives |
-| `20-actors/magatama/py/src/pymagatama/langgraph_graphs/yoro_platform_pulse.py` | LangGraph platform pulse graph |
-| `20-actors/magatama/py/src/pymagatama/langgraph_graphs/yoro_product_ingest.py` | LangGraph product ingest graph |
-| `20-actors/magatama/py/sqlmesh/models/mv_yoro_*.sql` | 5 RisingWave Materialised Views (vendor sqlmesh models) |
-| `20-actors/magatama/py/alembic/versions/20260515_0003_gyosei_yoro_integration.py` | Alembic DB migration (vendor) |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/yoro_social.py` | Python social primitives (1687 lines) |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/yoro_product.py` | Python product primitives |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs/yoro_platform_pulse.py` | LangGraph platform pulse graph |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs/yoro_product_ingest.py` | LangGraph product ingest graph |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/sqlmesh/models/mv_yoro_*.sql` | 5 RisingWave Materialised Views (vendor sqlmesh models) |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/alembic/versions/20260515_0003_gyosei_yoro_integration.py` | Alembic DB migration (vendor) |
 
 ADR-2605191358 (status: proposed) is the active rewrite map for this actor. It documents 14 known RW touchpoints at the CLAUDE.md documentation level; this audit adds specific file:line citations for the code-level occurrences.
 
@@ -170,7 +170,7 @@ Zero matches in all yoro files (Python, TypeScript, Svelte).
 |---|---|---|---|
 | `primitives/yoro_social.py:3` | `"vertex_repo_record fallback"` (module docstring) | PORT-adapted | Docstring describes RW table name. Actual INSERT calls below are structural. |
 | `primitives/yoro_social.py:85` | `"Build a vertex_repo_record row..."` (comment in `_build_record`) | PORT-adapted | Comment describes vendor data model. |
-| `primitives/yoro_social.py:93` | `f"Karmada hub and murakumo-k3s actor worker path alive at {created_at}."` | VENDOR-ONLY | Default pulse text string in `_build_record`. This is the intentional remainder documented in `PYMAGATAMA-MIGRATION-NOTES.md` Known Intentional Remainders table (`tests/test_yoro_social.py:57` / `primitives/yoro_social.py:93`). Describes vendor cluster topology. Do NOT rewrite; mark `# ETZHAYYIM: vendor-only` at Step 8. |
+| `primitives/yoro_social.py:93` | `f"Karmada hub and murakumo-k3s actor worker path alive at {created_at}."` | VENDOR-ONLY | Default pulse text string in `_build_record`. This is the intentional remainder documented in `PYKOTODAMA-MIGRATION-NOTES.md` Known Intentional Remainders table (`tests/test_yoro_social.py:57` / `primitives/yoro_social.py:93`). Describes vendor cluster topology. Do NOT rewrite; mark `# ETZHAYYIM: vendor-only` at Step 8. |
 | `primitives/yoro_social.py:192–196` | `INSERT INTO vertex_profile (vertex_id, _seq, ...)` | REIMPLEMENT | Direct RisingWave INSERT in `upsert_profile`. Must become AT record write via `e.write({collection:'app.bsky.actor.profile', ...})`. |
 | `primitives/yoro_social.py:245–268` | `DELETE FROM vertex_repo_record` + `INSERT INTO vertex_repo_record` + `DELETE FROM vertex_post` + `INSERT INTO vertex_post` | REIMPLEMENT | Multi-table direct RisingWave write sequence in `_sync_post`. Must become AT record write via `e.write()`. |
 | `primitives/yoro_social.py:402` | `FROM vertex_repo_record` (SELECT in `get_recent_posts`) | REIMPLEMENT | Direct RisingWave read. Must become AT MST list query. |
@@ -219,7 +219,7 @@ Zero matches in all yoro files (Python, TypeScript, Svelte).
 | `appview/.../actor/actor-store.svelte.ts:39` | `// Single path: PDS XRPC getAuthorProfile → graph SQL path → RisingWave` | PORT-adapted | Comment only. |
 
 #### Karmada / VKE / commercial K8s
-`primitives/yoro_social.py:93` — `Karmada hub and murakumo-k3s actor worker path alive` — VENDOR-ONLY (intentional remainder, per PYMAGATAMA-MIGRATION-NOTES.md).
+`primitives/yoro_social.py:93` — `Karmada hub and murakumo-k3s actor worker path alive` — VENDOR-ONLY (intentional remainder, per PYKOTODAMA-MIGRATION-NOTES.md).
 
 Zero Karmada/VKE matches in TypeScript/Svelte layers.
 
@@ -281,10 +281,10 @@ The `rw-free/` sub-library is **clean** — the replacement substrate is scaffol
    - Gate the ProfilePanel card-management section behind a vendor consent-capability XRPC call (progressive enhancement per ADR-2605192115 §4)
 
 2. **shinka AT MST rewrite ADR**
-   shinka's 8 REIMPLEMENT items (direct RisingWave reads/writes via `pymagatama.db_sync`) have no ADR covering the MST-native replacement. ADR-2605191358 scopes to yoro/murakumo only. A new ADR is needed to define: (a) the AT record schema for `joucho`, `shinkaKnowledge`, `actorShinkaState`, `shinkaEvolution` MST collections; (b) the `@etzhayyim/sdk` write path replacing `db_sync`; (c) the `shinka_tick_actor` SQL UDF replacement strategy.
+   shinka's 8 REIMPLEMENT items (direct RisingWave reads/writes via `kotodama.db_sync`) have no ADR covering the MST-native replacement. ADR-2605191358 scopes to yoro/murakumo only. A new ADR is needed to define: (a) the AT record schema for `joucho`, `shinkaKnowledge`, `actorShinkaState`, `shinkaEvolution` MST collections; (b) the `@etzhayyim/sdk` write path replacing `db_sync`; (c) the `shinka_tick_actor` SQL UDF replacement strategy.
 
 3. **yoro Python primitives rewrite sequencing**
-   `yoro_social.py` (1687 lines, 14+ REIMPLEMENT hits) is the largest single source of RW coupling. ADR-2605191358 describes the high-level path (AT MST via `@etzhayyim/sdk`) but does not itemise per-function migration. A per-function migration table (analogous to PYMAGATAMA-MIGRATION-NOTES.md) is needed before the Step 8 cutover can proceed safely.
+   `yoro_social.py` (1687 lines, 14+ REIMPLEMENT hits) is the largest single source of RW coupling. ADR-2605191358 describes the high-level path (AT MST via `@etzhayyim/sdk`) but does not itemise per-function migration. A per-function migration table (analogous to PYKOTODAMA-MIGRATION-NOTES.md) is needed before the Step 8 cutover can proceed safely.
 
 ### Actor requiring most urgent follow-up ADR
 

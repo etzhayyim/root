@@ -21,8 +21,8 @@ This app is the etzhayyim-side **public-services hub** (`gov.etzhayyim.com`) —
 2. `appview/gov-mcp-component/svelte/src/routes/xrpc/[...path]/+server.ts`
    - Forwards to `mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message`. Re-target to etzhayyim XRPC adapter.
 3. `appview/gov-mcp-component/svelte/svelte.config.js` + `package.json`
-   - Package name `@etzhayyim/magatama-gv7ps2m1` → `@etzhayyim/magatama-gv7ps2m1` (ADR-2605214000 §3 atomic cutover wave — still pending).
-4. `src/app.ts` retains `@etzhayyim/magatama-host-sdk` import (preserved by design — atomic cutover deferred). Once ADR-2605214000 lands, drop the unused `createKyselyDb`, `Database` imports and switch the package name.
+   - Package name `@etzhayyim/kotodama-gv7ps2m1` → `@etzhayyim/kotodama-gv7ps2m1` (ADR-2605214000 §3 atomic cutover wave — still pending).
+4. `src/app.ts` retains `@etzhayyim/kotodama-host-sdk` import (preserved by design — atomic cutover deferred). Once ADR-2605214000 lands, drop the unused `createKyselyDb`, `Database` imports and switch the package name.
 
 ## Deliberately preserved as-is
 

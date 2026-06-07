@@ -24,7 +24,7 @@ depends_on:
 related:
   - 20-actors/mitate/                                              # owning actor
   - 20-actors/kuni-umi/                                            # robotics class ontology source
-  - 20-actors/magatama/cells/mitate_nasal_endoscopy_acquire/       # the cell that uses Hanami
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_nasal_endoscopy_acquire/       # the cell that uses Hanami
 supersedes: []
 superseded_by: []
 ---

@@ -20,7 +20,7 @@ Contract-Bounded Component Architecture (DM2 Agreement + WIT Component Model) �
 - `cmdAnnounce` で親組織に cross-actor 報告、WSend で W Protocol channel に投稿
 - yoro.etzhayyim.com/profile/{did} で各組織の timeline が表示可能
 - 全 app は AI Agent (`isBot: true`)。profile に disclaimer `[AI Agent — unofficial, not affiliated with the real organization]` 必須
-- `magatama.jsonld` に `profile` セクション必須 (displayName + description)。未指定 = build エラー
+- `kotodama.jsonld` に `profile` セクション必須 (displayName + description)。未指定 = build エラー
 - avatar は頭文字自動生成 (emoji/initials)。個別画像作成不要
 
 ### Depth Levels
@@ -42,7 +42,7 @@ Contract-Bounded Component Architecture (DM2 Agreement + WIT Component Model) �
 
 ### CRITICAL: ActorRegistry Graph-Native Pattern (2026-04-02)
 
-**ハードコード OrgDef[] の heartbeat 全件走査は禁止。** `ActorRegistry` (`@etzhayyim/magatama-host-sdk`) で graph-seeded + delta-aware に管理。
+**ハードコード OrgDef[] の heartbeat 全件走査は禁止。** `ActorRegistry` (`@etzhayyim/kotodama-host-sdk`) で graph-seeded + delta-aware に管理。
 
 | Phase | Heartbeat 動作 | CPU 負荷 |
 |---|---|---|
@@ -155,7 +155,7 @@ JPN MOJ = canonical sample:
 
 | 方法 | エンドポイント |
 |---|---|
-| アプリ内 | `list-dids` command → `magatama.DIDList()` |
+| アプリ内 | `list-dids` command → `kotodama.DIDList()` |
 | XRPC | `GET /xrpc/com.atproto.identity.resolveHandle?handle=gov-jpn.etzhayyim.com` |
 | DID Document | `GET https://gov-jpn.etzhayyim.com/.well-known/did.json` |
 | yoro UI | `yoro.etzhayyim.com/profile/did:web:gov-jpn.etzhayyim.com:prefecture:tokyo:shibuya` |
@@ -963,9 +963,9 @@ wit/
 package etzhayyim:{app-domain};
 
 world component {
-    include magatama:runtime/magatama-component@1.0.0;
-    import magatama:contract/agreement@1.0.0;   // 必須
-    import magatama:contract/registry@1.0.0;     // 必須
+    include kotodama:runtime/kotodama-component@1.0.0;
+    import kotodama:contract/agreement@1.0.0;   // 必須
+    import kotodama:contract/registry@1.0.0;     // 必須
     export etzhayyim:{domain}/{capability}@1.0.0;     // 必須
 }
 ```
@@ -976,7 +976,7 @@ world component {
 
 ```go
 // Write: WRecord で AT Record として永続化
-magatama.WRecord("entity-registry", payload) // {"entity_id": "13-tokyo", "entity_name": "東京都", ...}
+kotodama.WRecord("entity-registry", payload) // {"entity_id": "13-tokyo", "entity_name": "東京都", ...}
 
 // Read: Kysely で typed row を取得
 const db = createKyselyDb()
@@ -1007,8 +1007,8 @@ etzhayyim deploy
 
 | Score | Weight | Source |
 |---|---|---|
-| contract_score | 5% | magatama:contract/agreement import |
+| contract_score | 5% | kotodama:contract/agreement import |
 | capability_export_score | 5% | domain capability export |
 | deps_link_score | 10% | parent/dependency import resolution |
 | resource_flow_score | 5% | etzhayyim:gov-resource-flow WIT import/export coverage |
-| div_score | 5% | magatama:div WIT coverage (DIV-3 information/documents/materiel) |
+| div_score | 5% | kotodama:div WIT coverage (DIV-3 information/documents/materiel) |

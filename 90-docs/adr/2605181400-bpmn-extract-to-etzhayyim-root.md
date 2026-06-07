@@ -52,7 +52,7 @@ etzhayyim-root は AT Protocol app surface 専念に絞る。
    - 481 new file additions, 841 overwrites of pre-existing etzhayyim
      versions (etzhayyim side = source-of-truth on conflict)
 4. **References 873 件は本 ADR 範囲外** (file move only):
-   - Worker handler / `magatama.jsonld` `derive` rule / lexicon registry /
+   - Worker handler / `kotodama.jsonld` `derive` rule / lexicon registry /
      docs 内の `00-contracts/bpmn/` / `60-apps/*/bpmn/` パス参照は
      etzhayyim 側で一時的に broken。
    - 後続 iter (iter145+) で `@etzhayyim/bpmn-*` package 経由参照 / pnpm
@@ -72,7 +72,7 @@ etzhayyim-root は AT Protocol app surface 専念に絞る。
 
 **Negative / リスク**
 - etzhayyim 側 build chain が 873 参照分 broken。CI fail 想定。
-- per-project `bpmn/` を import している magatama actor は path
+- per-project `bpmn/` を import している kotodama actor は path
   resolution 失敗。
 - ADR-2605082200 PyZeebe handler thin-dispatcher contract 内の
   BPMN path 参照が `etzhayyim-root` 側にしかなくなるため、
@@ -86,7 +86,7 @@ bpmn-extract-to-etzhayyim-root-2026-05-18` で追跡):
 
 1. etzhayyim-root iter145+ で `00-contracts/bpmn/` 参照 873 件を
    `@etzhayyim/bpmn-*` package 参照 or pnpm workspace path に sed。
-2. magatama actor の `magatama.jsonld` `derive` rule が参照する BPMN path
+2. kotodama actor の `kotodama.jsonld` `derive` rule が参照する BPMN path
    を package import 経由に書き換え。
 3. bpmn-dispatcher 配置先決定: etzhayyim-root K8s cluster に移すか、
    etzhayyim 側に残し etzhayyim BPMN を fetch する形にするか。
@@ -120,12 +120,12 @@ bpmn-extract-to-etzhayyim-root-2026-05-18` で追跡):
 
 ## D2: bpmn-dispatcher 配置 = etzhayyim 側残置
 
-bpmn-dispatcher の source は `20-actors/magatama/py/src/pymagatama/
-dispatcher_main.py` (74KB Python, pymagatama package の一部) で、
-pymagatama は etzhayyim-root 側にある (etzhayyim-root に
+bpmn-dispatcher の source は `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/
+dispatcher_main.py` (74KB Python, kotodama package の一部) で、
+kotodama は etzhayyim-root 側にある (etzhayyim-root に
 移してない)。判断:
 
-- dispatcher を etzhayyim-root へ移すには pymagatama 全体 (or
+- dispatcher を etzhayyim-root へ移すには kotodama 全体 (or
   dispatcher subset) を切り出す必要があり、Stream A critical path
   (lawfirm 集客) と関係薄い。
 - BPMN file の所有権は etzhayyim-root、dispatcher の所有権は
@@ -200,10 +200,10 @@ iter144 sed で path prefix は自動更新済 (`CLAUDE.md` は sed 対象)。
 当該条項を以下で置換する。
 
 **実態の変化** (2026-05-18 以降):
-- pymagatama 全体が etzhayyim-root へ移管完了
-  (`etzhayyim/20-actors/magatama/py/src/pymagatama/`)
-- etzhayyim-apps-etzhayyimcojp 側 `20-actors/magatama/` は削除済
-- D2 の rationale (「pymagatama が etzhayyim にあるので dispatcher も残置」)
+- kotodama 全体が etzhayyim-root へ移管完了
+  (`etzhayyim/40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/`)
+- etzhayyim-apps-etzhayyimcojp 側 `40-engine/kotoba/crates/kotoba-kotodama/` は削除済
+- D2 の rationale (「kotodama が etzhayyim にあるので dispatcher も残置」)
   は無効化
 
 **新 D2 (active)**: bpmn-dispatcher infra も etzhayyim-root 側に集約。
@@ -214,8 +214,8 @@ iter144 sed で path prefix は自動更新済 (`CLAUDE.md` は sed 対象)。
 | `deployment-dispatcher.yaml` | `50-infra/vultr/mitama-udf-pool/templates/dispatcher.yaml` (Helm → plain manifest) |
 | `tunnel.yaml` | `50-infra/vultr/cloudflared/bpmn-dispatcher-tunnel.yaml` |
 | `ingress-dispatcher.yaml` | `50-infra/vultr/mitama-udf-app-raw/manifests/ingress-networking-k8s-io-dispatcher-etzhayyim-ai.json` |
-| `configmap-pymagatama-cache-fix.yaml` | `…/configmap-pymagatama-dispatcher-main-cache-fix.json` |
-| `configmap-pymagatama-sse-fix.yaml` | `…/configmap-pymagatama-dispatcher-main-sse-fix.json` |
+| `configmap-kotodama-cache-fix.yaml` | `…/configmap-kotodama-dispatcher-main-cache-fix.json` |
+| `configmap-kotodama-sse-fix.yaml` | `…/configmap-kotodama-dispatcher-main-sse-fix.json` |
 | `configmap-mailer-direct-patch.yaml` | `…/configmap-bpmn-dispatcher-mailer-direct-patch.json` |
 | `README.md` + `RUNBOOK.md` | new |
 
@@ -224,11 +224,11 @@ Domain rewrites: `dispatcher.etzhayyim.com` → `dispatcher.etzhayyim.com`,
 `ses-api.etzhayyim.com`.
 
 **Substrate-boundary 注記** (ADR-2605172100 hard rule "MUST NOT integrate
-fiat payment processors"): 移管した dispatcher Deployment は pymagatama
+fiat payment processors"): 移管した dispatcher Deployment は kotodama
 の `lawfirm_billing` / `lawfirm_checkout` / `ingest.stripe` 依存により
 `STRIPE_*` (5 個) + `KOTOBA_URL` env を継承する。本 iter では runtime 互換性
-維持のため preserve。Substrate purity 回復は pymagatama Stripe 抽出 +
-binding registry の AT MST 化を行う別 iter で対応。pymagatama 自体が
+維持のため preserve。Substrate purity 回復は kotodama Stripe 抽出 +
+binding registry の AT MST 化を行う別 iter で対応。kotodama 自体が
 2026-05-18 以前から etzhayyim 内に Stripe 関連ファイルを持つため、本
 移管は **新規違反を導入していない**。
 
@@ -239,7 +239,7 @@ binding registry の AT MST 化を行う別 iter で対応。pymagatama 自体�
 2. DNS: `dispatcher.etzhayyim.com` + `mcp.etzhayyim.com`
    (+ `ses-api.etzhayyim.com`) CNAME → `<tunnel>.cfargotunnel.com`
    (proxied=True)。
-3. pymagatama image build & push (`ghcr.io/etzhayyim/pymagatama:<tag>`)。
+3. kotodama image build & push (`ghcr.io/etzhayyim/kotodama:<tag>`)。
 4. Secret provision (`bpmn-dispatcher-auth` /
    `bpmn-dispatcher-rw` / `lawfirm-stripe` 等)、namespace `mitama-udf`。
 5. `kubectl apply -f 50-infra/k8s/bpmn-dispatcher/` (etzhayyim VKE)。

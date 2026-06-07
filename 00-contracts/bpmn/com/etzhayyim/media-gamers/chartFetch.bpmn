@@ -6,7 +6,7 @@
   Timer R/P7D fires every Monday → fetch top-20 from SteamSpy + RAWG →
   persist vertex_game_chart_snapshot → LLM analyze → social post.
 
-  Task types (pymagatama primitives/media_gamers_chart.py):
+  Task types (kotodama primitives/media_gamers_chart.py):
     mediaGamers.chart.fetchAndPersist  — HTTP fetch + title matching + DB insert
     mediaGamers.chart.analyze          — LLM trend analysis + social post
 

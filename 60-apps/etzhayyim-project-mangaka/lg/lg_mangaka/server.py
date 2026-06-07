@@ -78,10 +78,10 @@ _API_KEY = os.environ.get("LG_API_KEY", "").strip()
 async def _b2_blob_fetcher(key: str) -> bytes | None:
     """Async wrapper for `lg_mangaka.blob.get` (sync stdlib urllib).
 
-    Passed to `pymagatama.langgraph_loader.load_active_graphs` so the
+    Passed to `kotodama.langgraph_loader.load_active_graphs` so the
     `kind='llm_vision'` resolver can materialise B2 blob keys (e.g.
     `blobs/anonymous/{sha256hex}`) into PNG bytes at call time.
-    `pymagatama` itself stays storage-agnostic — this closure is the only
+    `kotodama` itself stays storage-agnostic — this closure is the only
     place mangaka's B2 layout leaks into the resolver.
     """
     import asyncio
@@ -105,8 +105,8 @@ async def _maybe_load_topology_graphs(
     if os.environ.get("MANGAKA_USE_TOPOLOGY", "0") != "1":
         return
     try:
-        from pymagatama.langgraph_loader import load_active_graphs
-    except Exception as exc:  # pragma: no cover — pymagatama may not be installed in dev envs
+        from kotodama.langgraph_loader import load_active_graphs
+    except Exception as exc:  # pragma: no cover — kotodama may not be installed in dev envs
         _log.warning("topology loader unavailable: %s", exc)
         return
 
@@ -366,7 +366,7 @@ async def _dispatch_mcp_tool(nsid: str, body: dict[str, Any]) -> dict[str, Any]:
 
 # ── MCP envelope handler (com.etzhayyim.mcp.message, ADR-2605141200 P9 blocker #4)
 #
-# `pymagatama.langgraph_node_resolvers.make_mcp_tool_node` POSTs a JSON-RPC
+# `kotodama.langgraph_node_resolvers.make_mcp_tool_node` POSTs a JSON-RPC
 # 2.0 `tools/call` envelope at `/xrpc/com.etzhayyim.mcp.message`. Inside the
 # Phase C topology this resolves to the pod itself when
 # `MCP_NSID_OVERRIDE_ai_etzhayyim_apps_mangaka_tools=http://localhost:8000` is

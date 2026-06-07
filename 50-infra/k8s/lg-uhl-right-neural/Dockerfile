@@ -1,6 +1,6 @@
 # lg-uhl-right-neural — LangServer image for the uhl_right_neural Pregel.
 #
-# Build context: repo root (so the COPY can reach 20-actors/magatama/py).
+# Build context: repo root (so the COPY can reach 40-engine/kotoba/crates/kotoba-kotodama/py).
 #
 #   docker build -f 50-infra/k8s/lg-uhl-right-neural/Dockerfile \
 #     -t ghcr.io/etzhayyim/lg-uhl-right-neural:$(git rev-parse --short HEAD) .
@@ -13,7 +13,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 
-# Install langgraph CLI + minimal runtime deps. pymagatama is installed in
+# Install langgraph CLI + minimal runtime deps. kotodama is installed in
 # editable mode in the next stage so seed YAMLs are picked up via importlib.
 RUN apt-get update \
  && apt-get install -y --no-install-recommends ca-certificates \
@@ -24,9 +24,9 @@ RUN apt-get update \
       "pydantic>=2.5,<3" \
       "pyyaml>=6.0,<7"
 
-# Copy the pymagatama package (project source layout).
-COPY 20-actors/magatama/py /opt/pymagatama
-RUN pip install --no-cache-dir -e /opt/pymagatama
+# Copy the kotodama package (project source layout).
+COPY 40-engine/kotoba/crates/kotoba-kotodama/py /opt/kotodama
+RUN pip install --no-cache-dir -e /opt/kotodama
 
 # Langgraph CLI config (this directory only).
 COPY 50-infra/k8s/lg-uhl-right-neural/langgraph.json /app/langgraph.json

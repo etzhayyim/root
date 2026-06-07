@@ -69,10 +69,10 @@ kotoba-datomic is a spec, not a package. Implementations live in their natural l
 | kotoba-datomic-agent (DID + passkey + SBT) | `50-infra/etzhayyim-did-web/`, `50-infra/etzhayyim-membership-contract/` |
 | kotoba-datomic-chain (PDS MST) | `50-infra/k8s/atproto-pds/`, `50-infra/mst-projector/` |
 | kotoba-datomic-dht (IPFS + L2) | `50-infra/ipfs/`, `50-infra/l2-anchor-contract/`, `50-infra/anchor-cron/` |
-| kotoba-datomic-membrane (Lexicon + Rego + LangGraph) | `00-contracts/lexicons/`, `00-contracts/policies/`, `20-actors/magatama/cells/` |
+| kotoba-datomic-membrane (Lexicon + Rego + LangGraph) | `00-contracts/lexicons/`, `00-contracts/policies/`, `40-engine/kotoba/crates/kotoba-kotodama/cells/` |
 | kotoba-datomic-witnesses (Pregel cells + quorum) | `20-actors/etzhayyim-sdk/src/kotoba-datomic/` (witness-selector + quorum, shipped 2026-05-23); cell-side attestation publishing per-cell |
 | kotoba-datomic-cap (JWT-cap + WebAuthn) | atproto standard, `20-actors/etzhayyim-sdk/src/pds.ts` |
-| kotoba-datomic-cells (Pregel cells / zomes) | `20-actors/magatama/cells/`, `50-infra/murakumo/fleet.toml` |
+| kotoba-datomic-cells (Pregel cells / zomes) | `40-engine/kotoba/crates/kotoba-kotodama/cells/`, `50-infra/murakumo/fleet.toml` |
 
 App-side import remains exclusively via `@etzhayyim/sdk` per ADR-2605172000.
 

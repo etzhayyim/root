@@ -60,4 +60,4 @@ This rule set defines authorization for the app review and publish workflow usin
 
 ## Implementation Note
 
-These rules are enforced by the `magatama:agent/governance` WIT host (RBAC + RACI policy) and the `magatama:observability/audit-trail` WIT host. BPMN orchestrates sequence; governance WIT gates transitions.
+These rules are enforced by the `kotodama:agent/governance` WIT host (RBAC + RACI policy) and the `kotodama:observability/audit-trail` WIT host. BPMN orchestrates sequence; governance WIT gates transitions.

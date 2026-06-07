@@ -147,7 +147,7 @@ watermark ←  graph.write  (UPDATE vertex_m365_sync_state SET last_sync_at=NOW,
 | `com.etzhayyim.host.m365.fetchMailFolders` | `query` | `/mailFolders` recursive (childFolders) |
 | `com.etzhayyim.host.m365.fetchMessagesPage` | `query` | `/messages` 1 page (caller が `nextLink` ループ) |
 
-TS impl: `20-actors/magatama/sdk/magatama-host-sdk/src/capabilities/m365.ts` (`createM365Capability(cfg)`).
+TS impl: `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/capabilities/m365.ts` (`createM365Capability(cfg)`).
 
 Wire-up: `createHostDispatcher(hostImports, { m365: createM365Capability({ tenantId, clientId, clientSecret }) })`.
 
@@ -233,7 +233,7 @@ Migration `20260417190000_vertex_m365_sync_state.ts`:
 - `20-actors/m365-ingest/CLAUDE.md` (run-book)
 - `00-contracts/lexicons/com/etzhayyim/host/m365/*.json` (4)
 - `00-contracts/lexicons/com/etzhayyim/apps/m365Ingest/*.json` (3)
-- `20-actors/magatama/sdk/magatama-host-sdk/src/capabilities/m365.ts`
+- `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/capabilities/m365.ts`
 - `30-graph/graph-schema/migrations/20260417190000_vertex_m365_sync_state.ts`
 - ADR-0014 PII Tier 3 + Cohort-First Pattern
 - `90-docs/260408-actor-executor-p5p3-architecture-design.md` (T1/T2 executor topology)

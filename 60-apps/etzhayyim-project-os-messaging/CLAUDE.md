@@ -9,7 +9,7 @@
 LINE/Telegram public open-channel collection is owned by LangServer/Python worker, separate from the webhook bridge.
 
 - BPMN: `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/os-messaging/crawlOpenChannels.bpmn` (`os_messaging_crawl_open_channels`, timer `R/PT6H`)
-- Python tasks: `osMessaging.openChannels.queueSeedRuns` and `osMessaging.openChannels.processQueue` in `20-actors/magatama/py/src/pymagatama/primitives/os_messaging_open_channels.py`
+- Python tasks: `osMessaging.openChannels.queueSeedRuns` and `osMessaging.openChannels.processQueue` in `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/os_messaging_open_channels.py`
 - Writes: direct `RW_URL` / `sync_cursor()` inserts into `vertex_os_messaging_open_channel`, `vertex_os_messaging_open_message`, and `vertex_os_messaging_open_scraper_run`
 - Existing Telegram/LINE webhook commands remain the consented inbound messaging path; they are not the public crawler.
 

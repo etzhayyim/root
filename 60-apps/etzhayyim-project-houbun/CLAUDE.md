@@ -54,7 +54,7 @@ Phase 2 (別 PR): `caseLaw` record + `ingestStatuteUsa` / `ingestEurLex` / `inge
 ## Runtime
 
 - **Type**: Logical actor (ADR-0049 Mode A reactive)
-- **Runtime placement**: `20-actors/magatama/py/src/pymagatama/handlers/houbun.py` — shared UDF pool on Vultr VKE (`mitama-udf-pool`)
+- **Runtime placement**: `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/handlers/houbun.py` — shared UDF pool on Vultr VKE (`mitama-udf-pool`)
 - **No dedicated Worker**. PDS XRPC → UDF pool RPC 1 hop
 - **Write path**: Hyperdrive direct (ADR-0036)
 - **License compliance**: e-Gov CC-BY-4.0 / GovInfo public domain / EUR-Lex attribution

@@ -98,7 +98,7 @@ describe("PdsPollingTransport — requestAttestation", () => {
       client: staticReadClient([]),
       attestationRepo: "did:web:test",
       requestEndpoint: () => "https://example.test/attest",
-      requestHeaders: () => ({ "x-magatama-verified": "test-token" }),
+      requestHeaders: () => ({ "x-kotodama-verified": "test-token" }),
       fetch: fetchMock as unknown as typeof fetch,
     });
 
@@ -122,7 +122,7 @@ describe("PdsPollingTransport — requestAttestation", () => {
     const [, init] = fetchMock.mock.calls[0];
     const headers = init?.headers as Record<string, string>;
     expect(headers["Content-Type"]).toBe("application/json");
-    expect(headers["x-magatama-verified"]).toBe("test-token");
+    expect(headers["x-kotodama-verified"]).toBe("test-token");
   });
 
   it("throws on 4xx — orchestrator can log + treat cell as non-responsive", async () => {

@@ -188,7 +188,7 @@ Each transition ADR is independent and requires its own Council vote. **No batch
 - `com.etzhayyim.liberation.wellbecomingAttestation` (encrypted; XChaCha20 envelope per ADR-2605181100)
 - `com.etzhayyim.liberation.adherentExitNotice` (private; only `exit happened: bool` published)
 
-**Pregel cells** (20-actors/magatama/cells/):
+**Pregel cells** (40-engine/kotoba/crates/kotoba-kotodama/cells/):
 - `liberation_stage_advance` (levi node): per-stage gate evaluation + Council multisig collection
 - `liberation_metric_aggregate` (levi node): quarterly aggregate from encrypted wellbecoming + wage-labor reports
 - `liberation_wellbecoming_audit` (levi node): 1-in-100 manual review sampling + Council distribution

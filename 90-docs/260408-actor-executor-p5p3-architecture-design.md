@@ -2,7 +2,7 @@
 
 **Date**: 2026-04-08
 **Status**: `[IMPLEMENTED]` `[PRODUCTION]`
-**Evidence**: `50-infra/cloudflare/workers/atproto/src/actor-executor-*.ts`, `50-infra/cloudflare/workers/atproto/src/bpmn-pipeline-compiler.ts`, `00-contracts/wit/deps/magatama-actor-executor/package.wit`
+**Evidence**: `50-infra/cloudflare/workers/atproto/src/actor-executor-*.ts`, `50-infra/cloudflare/workers/atproto/src/bpmn-pipeline-compiler.ts`, `00-contracts/wit/deps/kotodama-actor-executor/package.wit`
 **Deploy**: PDS Worker `etzhayyim-pds-2603241700` (atproto.etzhayyim.com)
 **Graph**: Kotoba/Datomic `graphar.vertex_actor` (1,732 rows), `graphar.vertex_actor_manifest`
 
@@ -70,15 +70,15 @@ interface ActorManifest {
 
 | Primitive | Host Import | BPMN Element |
 |---|---|---|
-| `graph.query` | `magatama:graph/cypher.cypherQuery` | ServiceTask (camunda:type=graph-query) |
-| `graph.write` | `magatama:graph/cypher.cypherBatchExec` | ServiceTask (camunda:type=graph-write) |
-| `graph.vectorSearch` | `magatama:graph/vector-search.vectorSearch` | ServiceTask |
-| `agent.chat` | `magatama:agent.agentChat` | ServiceTask (camunda:type=agent-chat) |
+| `graph.query` | `kotodama:graph/cypher.cypherQuery` | ServiceTask (camunda:type=graph-query) |
+| `graph.write` | `kotodama:graph/cypher.cypherBatchExec` | ServiceTask (camunda:type=graph-write) |
+| `graph.vectorSearch` | `kotodama:graph/vector-search.vectorSearch` | ServiceTask |
+| `agent.chat` | `kotodama:agent.agentChat` | ServiceTask (camunda:type=agent-chat) |
 | `agent.invoke` | `etzhayyim:invoke/invoke.invoke` | ServiceTask (camunda:type=agent-invoke) |
-| `identity.resolve` | `magatama:identity.identityResolve` | ServiceTask |
-| `browser.fetch` | `magatama:browser.navigate` | ServiceTask (camunda:type=browser-fetch) |
+| `identity.resolve` | `kotodama:identity.identityResolve` | ServiceTask |
+| `browser.fetch` | `kotodama:browser.navigate` | ServiceTask (camunda:type=browser-fetch) |
 | `signal.encrypt` | `etzhayyim:signal.ratchetEncrypt` | ServiceTask |
-| `consent.check` | `magatama:consent.consentCheck` | ServiceTask |
+| `consent.check` | `kotodama:consent.consentCheck` | ServiceTask |
 | `derive:social` | PDS commit pipeline | EndEvent (etzhayyim:deriveTemplate) |
 | `dmn.evaluate` | FEEL decision table eval | BusinessRuleTask |
 | `form.collect` | FormTask graph node | UserTask |
@@ -158,8 +158,8 @@ EndEvent              →  derive:social (etzhayyim:deriveTemplate)
 
 ## WIT Contract
 
-**Package**: `magatama:actor-executor@1.0.0`
-**Source**: `00-contracts/wit/deps/magatama-actor-executor/package.wit`
+**Package**: `kotodama:actor-executor@1.0.0`
+**Source**: `00-contracts/wit/deps/kotodama-actor-executor/package.wit`
 
 3 interfaces: `primitives` (12 functions), `executor` (4 functions), `sandbox` (1 function).
 
@@ -222,7 +222,7 @@ Proof:                  filesystem ⊆ graph = PASS
 
 | File | Purpose |
 |---|---|
-| `00-contracts/wit/deps/magatama-actor-executor/package.wit` | WIT contract |
+| `00-contracts/wit/deps/kotodama-actor-executor/package.wit` | WIT contract |
 | `50-infra/.../pds/src/actor-manifest.ts` | Schema + validation |
 | `50-infra/.../pds/src/actor-executor-primitives.ts` | 12 MCP primitive dispatch |
 | `50-infra/.../pds/src/actor-executor-shared.ts` | T1 executor + XRPC handlers |

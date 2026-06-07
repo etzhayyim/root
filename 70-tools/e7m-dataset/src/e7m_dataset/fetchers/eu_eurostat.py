@@ -34,7 +34,7 @@ row shape:
    "value": 83440000, "valueUnit": "NR",
    "observationPeriod": "2025", "payloadCid": ""}
 
-Consumed by ``pymagatama.organism.sensors.gov.eu_eurostat_sensor.EuEurostatSensor``.
+Consumed by ``kotodama.organism.sensors.gov.eu_eurostat_sensor.EuEurostatSensor``.
 
 Two operator paths supported (matching gleif_lei.py + worldbank_open_data.py pattern):
 

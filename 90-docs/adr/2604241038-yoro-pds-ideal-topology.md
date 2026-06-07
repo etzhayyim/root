@@ -81,7 +81,7 @@ install / wrangler deploy / DNS route まだ未実行**。現状:
 |---|---|---|
 | yoro (旧 AppView) | hostname が `yoro.etzhayyim.com` なら **drop** | `app.ts:172-183` (削除済) |
 | bsky (新 AppView) | `x-etzhayyim-internal-trust` shared secret 一致時のみ受理 | `handlers/appview.ts:35-52` |
-| PDS 内部 (service binding) | `x-magatama-verified=true` かつ binding 存在 | `auth/verify.ts:472-493` |
+| PDS 内部 (service binding) | `x-kotodama-verified=true` かつ binding 存在 | `auth/verify.ts:472-493` |
 | BPMN dispatcher | `x-internal-trust` (別 header!) | `dispatch.ts:408-411` |
 
 4 通りの trust 判定 pattern。1 つに統一できていない。
@@ -289,7 +289,7 @@ downstream Worker:
 
 | 旧方式 | 理由 |
 |---|---|
-| `x-magatama-verified: true` header | spoofable、ADR-0023 P4 で deprecated と明記済み |
+| `x-kotodama-verified: true` header | spoofable、ADR-0023 P4 で deprecated と明記済み |
 | `x-internal-trust` (plain-text secret) | HMAC でない、replay 可能 |
 | hostname-based drop (yoro の `PUBLIC_YORO_HOSTS`) | coincidental defense、trust layer になっていない |
 | `APPVIEW_SERVICE` service binding の "binding 存在" を trust の根拠にする | 環境依存、テストで偽装可能 |

@@ -13,4 +13,4 @@ Rust control-plane core for crawler split v2.
 - This crate is intentionally pure Rust domain logic first.
 - The next step is to wrap it with:
   - a `etzhayyim:w/w-extension` export for W Protocol
-  - a `magatama` HTTP facade for Connect routes
+  - a `kotodama` HTTP facade for Connect routes

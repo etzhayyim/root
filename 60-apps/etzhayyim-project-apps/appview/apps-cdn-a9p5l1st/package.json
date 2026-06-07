@@ -1,5 +1,5 @@
 {
-  "name": "magatama-a9p5l1st",
+  "name": "kotodama-a9p5l1st",
   "version": "1.0.0",
   "description": "Apps CDN worker for apps.etzhayyim.com",
   "main": "src/app.ts",

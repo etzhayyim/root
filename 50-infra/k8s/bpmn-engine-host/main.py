@@ -38,7 +38,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
 from engine import SpiffEngine
-from pymagatama.kotoba_datomic import get_kotoba_client
+from kotodama.kotoba_datomic import get_kotoba_client
 
 log = logging.getLogger("bpmn_engine_host")
 logging.basicConfig(

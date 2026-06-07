@@ -202,9 +202,9 @@ SET p.doc_id = $doc_id,
             let response = client
                 .post(sql_exec_url)
                 .header(CONTENT_TYPE, "application/json")
-                .header("X-Magatama-Internal-Token", internal_token)
-                .header("X-Magatama-App-Id", app_id)
-                .header("X-Magatama-Org-Id", org_id)
+                .header("X-Kotodama-Internal-Token", internal_token)
+                .header("X-Kotodama-App-Id", app_id)
+                .header("X-Kotodama-Org-Id", org_id)
                 .body(serde_json::to_vec(&payload).map_err(|err| err.to_string())?)
                 .send()
                 .map_err(|err| err.to_string())?;
@@ -263,7 +263,7 @@ async fn main() {
     let graph_exec_url = env::var("YATA_SQL_EXEC_URL").unwrap_or_else(|_| {
         "https://yata.etzhayyim.com/etzhayyim.sql.v1.SqlQueryService/Execute".to_string()
     });
-    let graph_internal_token = String::new(); // legacy MAGATAMA_INTERNAL_TOKEN removed
+    let graph_internal_token = String::new(); // legacy KOTODAMA_INTERNAL_TOKEN removed
     let graph_app_id = env::var("YATA_GRAPH_APP_ID").unwrap_or_else(|_| "search".to_string());
     let graph_org_id = env::var("YATA_GRAPH_ORG_ID").unwrap_or_else(|_| "search".to_string());
     let search_index_url = env::var("SEARCH_INDEX_URL").unwrap_or_else(|_| {

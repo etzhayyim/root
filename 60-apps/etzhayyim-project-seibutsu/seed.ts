@@ -16,7 +16,7 @@ const ROOT_DID = process.env.ROOT_DID ?? "did:plc:y3nnbwowvrtamshornglr7fa";
 const PROJECT_ID = "seibutsu";
 
 // ADR-0023 P4: use etzhayyim_TOKEN (sk_live_*) Bearer instead of spoofable
-// x-magatama-verified header. Required: `export etzhayyim_TOKEN=$(etzhayyim auth token)`
+// x-kotodama-verified header. Required: `export etzhayyim_TOKEN=$(etzhayyim auth token)`
 // before running this script.
 const etzhayyim_TOKEN = process.env.etzhayyim_TOKEN;
 if (!etzhayyim_TOKEN) {

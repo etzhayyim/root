@@ -6,17 +6,17 @@ This runbook starts the Phase 1 actor/post embedding backfill.
 
 The current runtime image in Kubernetes must include:
 
-- `pymagatama.primitives.vector_embedding`
-- `pymagatama.vector_embedding_worker_main`
-- `pymagatama.vector_embedding_ops`
+- `kotodama.primitives.vector_embedding`
+- `kotodama.vector_embedding_worker_main`
+- `kotodama.vector_embedding_ops`
 
-Build and push a new image from `20-actors/magatama/py` before scaling the
+Build and push a new image from `40-engine/kotoba/crates/kotoba-kotodama/py` before scaling the
 worker:
 
 ```sh
-cd 20-actors/magatama/py
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
 docker buildx build --platform linux/arm64 \
-  -t ghcr.io/etzhayyim/pymagatama:yoro-vector-embedding-20260427-arm64 \
+  -t ghcr.io/etzhayyim/kotodama:yoro-vector-embedding-20260427-arm64 \
   --push .
 ```
 
@@ -27,9 +27,9 @@ to use that image tag.
 ## 2. Deploy BPMN
 
 ```sh
-cd 20-actors/magatama/py
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
 AGENTGATEWAY_MCP_URL="$AGENTGATEWAY_MCP_URL" \
-  uv run python -m pymagatama.vector_embedding_ops deploy \
+  uv run python -m kotodama.vector_embedding_ops deploy \
   --bpmn ../../../etzhayyim-root/00-contracts/bpmn/com/etzhayyim/vector-embedding/backfillBatch.bpmn
 ```
 
@@ -52,9 +52,9 @@ Optional Hume AI emotion enrichment:
 ## 4. Start Dry Run
 
 ```sh
-cd 20-actors/magatama/py
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
 AGENTGATEWAY_MCP_URL="$AGENTGATEWAY_MCP_URL" \
-  uv run python -m pymagatama.vector_embedding_ops start \
+  uv run python -m kotodama.vector_embedding_ops start \
   --surface posts \
   --limit 10 \
   --dry-run
@@ -63,9 +63,9 @@ AGENTGATEWAY_MCP_URL="$AGENTGATEWAY_MCP_URL" \
 ## 5. Start Small Write Batch
 
 ```sh
-cd 20-actors/magatama/py
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
 AGENTGATEWAY_MCP_URL="$AGENTGATEWAY_MCP_URL" \
-  uv run python -m pymagatama.vector_embedding_ops start \
+  uv run python -m kotodama.vector_embedding_ops start \
   --surface posts \
   --limit 25
 ```
@@ -96,9 +96,9 @@ To backfill Hume emotion signals for already embedded rows without creating new
 vectors:
 
 ```sh
-cd 20-actors/magatama/py
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
 AGENTGATEWAY_MCP_URL="$AGENTGATEWAY_MCP_URL" \
-  uv run python -m pymagatama.vector_embedding_ops start \
+  uv run python -m kotodama.vector_embedding_ops start \
   --surface posts \
   --limit 25 \
   --emotion-only

@@ -8,7 +8,7 @@
 
 | 項目 | 値 |
 |---|---|
-| Language | TypeScript (`@etzhayyim/magatama-host-sdk` host, TS Native) |
+| Language | TypeScript (`@etzhayyim/kotodama-host-sdk` host, TS Native) |
 | Build | `etzhayyim deploy` (app.ts が直接 wrangler entrypoint) |
 | Architecture | AT Protocol commit pipeline (`com.atproto.repo.applyWrites` batch) |
 | Write | repo record upsert / `com.atproto.repo.applyWrites` → PDS → sign → kagamiWrite → typed vertex / edge tables |

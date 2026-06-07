@@ -1,7 +1,7 @@
 {
   "version": 1,
   "apps": {
-    "ai-gftd-wasm-senkyo-snky0e01": {
+    "etzhayyim-wasm-senkyo-snky0e01": {
       "nanoid": "snky0e01",
       "app_version": "1.0.0",
       "last_deployed_at": "2026-04-02T09:21:21Z",

@@ -8,7 +8,7 @@
   <!--
     outreachSequence.bpmn — Sales Outreach Automation (ADR-2605072000)
     Triggered by: com.etzhayyim.apps.outreach.createSequence XRPC
-    Workers: 20-actors/magatama/py/src/pymagatama/outreach_worker_main.py
+    Workers: 40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/outreach_worker_main.py
     PII: prospect email/title/company = Tier 3 (sensitivity_ord=3, ADR-0018)
   -->
 

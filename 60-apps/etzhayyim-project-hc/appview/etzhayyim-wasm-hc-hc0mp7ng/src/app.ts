@@ -13,7 +13,7 @@ import {
   parseLexiconInput,
   sql,
   createKyselyDb,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 const cadenceState = createCadenceState();
 const inbox = createInboxBuffer();

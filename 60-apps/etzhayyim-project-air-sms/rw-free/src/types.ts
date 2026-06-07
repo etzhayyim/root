@@ -13,7 +13,7 @@
  * catalogs are plaintext):
  *
  *   PUBLIC (plaintext AT records) — operational safety facts with NO protected
- *   identity: `operationalEvent` (public ops timeline; matches magatama.jsonld
+ *   identity: `operationalEvent` (public ops timeline; matches kotodama.jsonld
  *   subscribeRepos), `hazard` (hazard register / risk catalog), `safetyBulletin`
  *   (distributed safety bulletins) and `dangerousGoodsCheck` (DG screening
  *   result + UN hazard class). FK safetyBulletin → hazard via exists().

@@ -103,11 +103,11 @@ organism's Shinka stream.
 ## Local development (no k8s)
 
 ```bash
-cd 20-actors/magatama/py
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
 UNISPSC_ORGANISM_SHARD_ALL=1 \
 UNISPSC_ORGANISM_POST_SINK=ndjson \
 UNISPSC_ORGANISM_POST_QUEUE_PATH=$HOME/.etzhayyim/log/organism-posts/dev.ndjson \
-  uv run python -m pymagatama.organism.fleet_cell_main &
+  uv run python -m kotodama.organism.fleet_cell_main &
 curl -s localhost:13040/healthz | jq
 tail -f ~/.etzhayyim/log/organism-posts/dev.ndjson
 ```

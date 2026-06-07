@@ -21,7 +21,7 @@ from typing import Any, Literal, TypedDict
 
 from langgraph.graph import START, END, StateGraph
 
-from pymagatama.cell_runtime import (
+from kotodama.cell_runtime import (
     CellDeps,
     default_state_from_event,
     default_thread_id_from_event,
@@ -77,8 +77,8 @@ def bom_generation(state: DeploymentPlanningState, deps: CellDeps) -> Deployment
     Per ADR-2605171300 — fleet has 18,345 specialized agents indexed by UNSPSC code.
     """
     raise NotImplementedError(
-        "Requires pymagatama.unispsc.dispatch helper + 18,345 specialized agents at "
-        "20-actors/magatama/unispsc_agents/. Currently MCP server exists but Python "
+        "Requires kotodama.unispsc.dispatch helper + 18,345 specialized agents at "
+        "40-engine/kotoba/crates/kotoba-kotodama/unispsc_agents/. Currently MCP server exists but Python "
         "dispatch wrapper does not (per session residency audit 2026-05-20)."
     )
 
@@ -123,7 +123,7 @@ def payment_plan(state: DeploymentPlanningState, deps: CellDeps) -> DeploymentPl
 def fleet_allocation(state: DeploymentPlanningState, deps: CellDeps) -> DeploymentPlanningState:
     """Request Giemon fleet from open-robo + estimate robot-hours."""
     raise NotImplementedError(
-        "Requires pymagatama.open_robo.fleet (does not exist yet — see session residency audit)."
+        "Requires kotodama.open_robo.fleet (does not exist yet — see session residency audit)."
     )
 
 
@@ -175,7 +175,7 @@ def healthz_extra(deps: CellDeps) -> dict:
     return {
         "phase": "2-planning",
         "trigger_nsid": "com.etzhayyim.apps.etzhayyim.kuniUmi.submitSiteSurvey",
-        "depends_on_fleet": ["pymagatama.unispsc.dispatch", "pymagatama.open_robo.fleet"],
+        "depends_on_fleet": ["kotodama.unispsc.dispatch", "kotodama.open_robo.fleet"],
         "depends_on_contracts": [
             "ChartersComplianceRegistry",
             "TitheRouter",

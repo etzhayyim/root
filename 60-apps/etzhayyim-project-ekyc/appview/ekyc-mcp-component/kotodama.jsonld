@@ -1,0 +1,106 @@
+{
+  "@context": "https://etzhayyim.com/ns/kotodama/v1",
+  "@id": "did:web:ekyc.etzhayyim.com",
+  "component": {
+    "env": {
+      "MURAKUMO_URL": "https://murakumo.etzhayyim.com/api/openai/v1/chat/completions"
+    }
+  },
+  "convoSystemPrompt": "You are the eKYC/AML compliance agent. You handle identity verification (KYC), customer due diligence (CDD), sanctions screening (OFAC/EU/UN), transaction monitoring for anti-money laundering (AML) and counter-terrorism financing (CTF), and suspicious activity reporting (SAR). You can submit verification requests, check CDD tiers, screen names against sanctions lists, monitor transactions for suspicious patterns, create SAR drafts, and freeze accounts. Always respond helpfully in the user's language.",
+  "duties": [
+    "勤労の義務"
+  ],
+  "governance": {
+    "classification": "internal",
+    "complianceFrameworks": [
+      "Act on Prevention of Transfer of Criminal Proceeds (Japan)",
+      "FATF Recommendations",
+      "JAFIC Guidelines"
+    ],
+    "raci": "responsible"
+  },
+  "kpi": [
+    "credits の獲得"
+  ],
+  "name": "ekyc",
+  "nanoid": "hzaooy0f",
+  "performerType": "service",
+  "profile": {
+    "agentType": "autonomous",
+    "avatar": "KYC",
+    "capabilities": [
+      "submit_verification",
+      "submit_liveness",
+      "process_verification",
+      "get_verification_status",
+      "check_cdd",
+      "screen_sanctions",
+      "monitor_transaction",
+      "report_sar",
+      "freeze_account"
+    ],
+    "category": "compliance",
+    "contract": "Act on Prevention of Transfer of Criminal Proceeds",
+    "country": "jpn",
+    "description": "Electronic identity verification (eKYC), anti-money laundering (AML), counter-terrorism financing (CTF) compliance — CDD, sanctions screening, transaction monitoring, SAR filing",
+    "displayName": "eKYC / AML Compliance",
+    "isBot": true,
+    "operator": "etzhayyim.com"
+  },
+  "project": "ekyc",
+  "routes": [
+    {
+      "host": "ekyc.etzhayyim.com",
+      "paths": [
+        "/"
+      ],
+      "tls": true
+    }
+  ],
+  "runtimeType": "worker",
+  "space": {
+    "channels": [
+      {
+        "default": true,
+        "description": "Verification events and compliance updates",
+        "kind": "public",
+        "name": "ekyc-feed"
+      },
+      {
+        "description": "AML alerts, sanctions hits, SAR notifications",
+        "kind": "public",
+        "name": "ekyc-alerts"
+      },
+      {
+        "description": "Audit trail for compliance reviews",
+        "kind": "public",
+        "name": "ekyc-audit"
+      }
+    ],
+    "description": "Identity verification, AML/CTF compliance, sanctions screening, transaction monitoring",
+    "historyVisibility": "world-readable",
+    "joinRule": "public",
+    "name": "eKYC / AML Compliance"
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "com.etzhayyim.apps.ekyc.verificationRequest",
+        "com.etzhayyim.apps.ekyc.verificationResult",
+        "com.etzhayyim.apps.ekyc.livenessChallenge",
+        "com.etzhayyim.apps.ekyc.kycEvidence",
+        "com.etzhayyim.apps.ekyc.sanctionsScreening",
+        "com.etzhayyim.apps.ekyc.transactionMonitor",
+        "com.etzhayyim.apps.ekyc.sarReport",
+        "com.etzhayyim.apps.ekyc.accountFreeze",
+        "com.etzhayyim.apps.credits.transaction",
+        "com.etzhayyim.apps.yabai.alert",
+        "app.bsky.feed.post",
+        "app.bsky.feed.like",
+        "app.bsky.feed.repost",
+        "app.bsky.graph.follow"
+      ]
+    }
+  },
+  "uiType": "appview"
+}

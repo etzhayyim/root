@@ -9,7 +9,7 @@
 //   4. nsid() tagged helper — enforces NSID existence at call site
 //   5. LexiconInput<N> / LexiconOutput<N> — per-NSID I/O type maps from main.input/output schemas
 //
-// Output: 20-actors/magatama/sdk/magatama-host-sdk/src/generated/lexicon-nsid-types.ts
+// Output: 40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/generated/lexicon-nsid-types.ts
 
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -19,7 +19,7 @@ import { jsonSchemaToTs, hasProperties } from "./lib/lexicon-scan.mjs";
 const ROOT = process.cwd();
 const OUT_FILE = path.join(
   ROOT,
-  "20-actors/magatama/sdk/magatama-host-sdk/src/generated/lexicon-nsid-types.ts",
+  "40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/generated/lexicon-nsid-types.ts",
 );
 const LEXICON_ROOTS = ["00-contracts/lexicons", "projects", "packages"].filter((dir) =>
   existsSync(path.join(ROOT, dir)),
@@ -63,7 +63,7 @@ function extractInputType(lex) {
 /**
  * Extract a runtime-serializable input schema descriptor for validation.
  * Returns null when there's no schema (typed as `unknown`).
- * Consumed by parseLexiconInput() in magatama-host-sdk/src/lexicon-validator.ts.
+ * Consumed by parseLexiconInput() in kotodama-host-sdk/src/lexicon-validator.ts.
  */
 function extractInputSchemaRuntime(lex) {
   const main = lex?.defs?.main;
@@ -178,7 +178,7 @@ function generate() {
   lines.push("// ── NSID guards (F-Plan F2 archive, 2026-04-13) ──");
   lines.push("// `sdk.app.command` / `sdk.app.query` enforce StrictCommandNSID / StrictQueryNSID.");
   lines.push("// Legacy loose AssertCommandNSID / AssertQueryNSID archived to");
-  lines.push("// _archive/20-actors/magatama/sdk/magatama-host-sdk-legacy-nsid-assert-260413/.");
+  lines.push("// _archive/40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk-legacy-nsid-assert-260413/.");
   lines.push("");
   lines.push("type QueryAsCommandError<N extends string> = `NSID \"${N}\" is a lexicon query; register via app.query(...)`;");
   lines.push("type ProcedureAsQueryError<N extends string> = `NSID \"${N}\" is a lexicon procedure; register via app.command(...)`;");
@@ -241,7 +241,7 @@ function generate() {
   lines.push("");
   lines.push("// ── Runtime input schema registry (F-Plan F2+6, 2026-04-13) ──");
   lines.push("// Compact per-NSID input schema used by parseLexiconInput() runtime validator in");
-  lines.push("// magatama-host-sdk/src/lexicon-validator.ts. Only properties + required are stored.");
+  lines.push("// kotodama-host-sdk/src/lexicon-validator.ts. Only properties + required are stored.");
   lines.push("");
   lines.push("export type LexiconPrimitiveType = 'string' | 'integer' | 'number' | 'boolean' | 'array' | 'object' | 'unknown';");
   lines.push("");

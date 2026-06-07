@@ -9,10 +9,10 @@
 Per `etzhayyim/etzhayyim-root` deps.toml `tranche-f-public-malak-classification-2026-05-20` (status `judgment-recorded`): 3-axis OR-test all clean (`Liability`/`Custody`/`Settlement`) → confirmed etzhayyim move target.
 
 **Inverted partial-migration shape** (as of 2026-05-20):
-- Vendor (etzhayyim) retains: project scaffold (CLAUDE.md, magatama.jsonld), 14 lexicons under `publicMalak/`, 280 MB crawled corpus (`60-apps/etzhayyim-project-public-malak/data/ingest/`).
+- Vendor (etzhayyim) retains: project scaffold (CLAUDE.md, kotodama.jsonld), 14 lexicons under `publicMalak/`, 280 MB crawled corpus (`60-apps/etzhayyim-project-public-malak/data/ingest/`).
 - etzhayyim already had: BPMN definitions (`00-contracts/bpmn/com/etzhayyim/public-malak/{analyzeAd,crawlAds}.bpmn`).
 
-This commit lands the etzhayyim-side scaffold mirror (CLAUDE.md + OWNERS + PROJECT.jsonld + magatama.jsonld) and 14 lexicons. The worker (`src/app.ts`), rw-free reference impl, and corpus residency follow separately:
+This commit lands the etzhayyim-side scaffold mirror (CLAUDE.md + OWNERS + PROJECT.jsonld + kotodama.jsonld) and 14 lexicons. The worker (`src/app.ts`), rw-free reference impl, and corpus residency follow separately:
 
 - **rw-free**: deferred per user direction (rw-free fixes happen post-migration).
 - **corpus residency**: Option A (vendor RW mirror, etzhayyim worker ingests fresh). Same architectural pattern as ADR-2605202400 GTFS-RT carve-out and `tranche-f-public-malak-classification-2026-05-20`. Vendor retains the 923-file `data/ingest/` mirror as historical artifact; etzhayyim deploy ingests directly from public ad-library APIs.
@@ -37,7 +37,7 @@ All surface the ad-library scraper graph (Meta / Facebook / Instagram / WhatsApp
 ## Ad crawl execution
 
 - BPMN: `00-contracts/bpmn/com/etzhayyim/public-malak/crawlAds.bpmn` (`public_malak_crawl_ads`, timer `R/PT6H`) and `analyzeAd.bpmn` (`public_malak_analyze_ad`, on-demand). Both already present in this repo.
-- Python tasks: `publicMalak.ads.queueSeedRuns`, `publicMalak.ads.processQueue`, `publicMalak.ads.analyzeCreative` — to be ported from vendor `20-actors/magatama/py/src/pymagatama/primitives/public_malak_ads.py` in Phase 2.
+- Python tasks: `publicMalak.ads.queueSeedRuns`, `publicMalak.ads.processQueue`, `publicMalak.ads.analyzeCreative` — to be ported from vendor `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/public_malak_ads.py` in Phase 2.
 - Writes: PDS XRPC (Phase 2). Worker appview XRPC remains as the read/manual control surface.
 
 ## cross-actor

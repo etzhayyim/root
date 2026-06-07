@@ -1,4 +1,4 @@
-// TypeScript port of pymagatama.nv_compat.isaacsim.assets.anymal_c
+// TypeScript port of kotodama.nv_compat.isaacsim.assets.anymal_c
 //
 // ANYmal C asset wrapper — 12-DoF quadruped (4 legs × 3 joints).
 //

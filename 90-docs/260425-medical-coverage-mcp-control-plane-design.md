@@ -437,7 +437,7 @@ Cons:
 - Needs a private in-cluster control API or Kubernetes API proxy.
 - More moving pieces.
 
-### Option C: Register as `pymagatama` UDF/MCP handlers
+### Option C: Register as `kotodama` UDF/MCP handlers
 
 Pros:
 

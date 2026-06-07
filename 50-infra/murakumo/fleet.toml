@@ -10,7 +10,7 @@
 # placement source-of-truth; `70-tools/fleet-to-kustomize/` projects it to
 # the kustomize overlay applied by the cluster.
 #
-# `magatama-cell-runner --node <name>` is retained as a local-dev debug path
+# `kotodama-cell-runner --node <name>` is retained as a local-dev debug path
 # (`--cell-only <CellName>`) but is no longer the production entrypoint.
 #
 # LAN IPs (`ip_lan`) recorded per ADR-2605211910 — verified 2026-05-21 via
@@ -373,7 +373,7 @@ api_port_base = 16100  # per-shard
 adr = ["2605171300", "2605192415", "2605202345"]
 sharding = "by-segment-prefix"
 shard_assignments = { shard-0 = "10-29", shard-1 = "30-44", shard-2 = "45-60" }
-agents_pkg = "pymagatama.langgraph_graphs.unispsc_agents"
+agents_pkg = "kotodama.langgraph_graphs.unispsc_agents"
 warm_lru_max = 4096
 cold_start_ms_p50 = 50  # StateGraph compile, per ADR-2605171300
 llm_primary = "claude-haiku-4-5"  # classify hot path
@@ -403,7 +403,7 @@ api_port_base = 13140
 adr = ["2605240000", "2605232345", "2605240015", "2605240030", "2605171300"]
 sharding = "by-segment-prefix"
 shard_assignments = { shard-0 = "10-29", shard-1 = "30-44", shard-2 = "45-60" }
-module = "pymagatama.organism.fleet_cell_main"
+module = "kotodama.organism.fleet_cell_main"
 registry_path = "00-contracts/actor-registry/unispsc.json"
 organism_lru_max = 4096
 tick_interval_s = 300  # 5-min heartbeat per organism (cooldowns suppress most ticks)
@@ -427,7 +427,7 @@ healthz_port = 13070
 trigger = "cron"
 cron = "*/10 * * * *"
 adr = ["2605240200", "2605240100", "2605240000", "2605232345"]
-module = "pymagatama.organism.kaizen_cell_main"
+module = "kotodama.organism.kaizen_cell_main"
 entry = "fire"
 actor_did = "did:web:etzhayyim.com:actor:kaizen-observer"
 proposal_path = "/var/lib/etzhayyim/kaizen-proposals/observer.ndjson"
@@ -483,7 +483,7 @@ urban_mining_handoff = "60-apps/etzhayyim-project-open-robo/docs/urban-mining-au
 
 # ─── External inference backends (non-cell, GPU pods) ───────────────
 # Per ADR-2605202345. Windows / non-launchd machines that provide LLM
-# and image/video inference for cells. Do NOT run magatama cells here
+# and image/video inference for cells. Do NOT run kotodama cells here
 # (launchd-only per ADR-2605202100).
 
 [[inference_backends]]

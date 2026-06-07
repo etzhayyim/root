@@ -10,7 +10,7 @@ AI Design Desk — 画像・テキストから CadQuery/STEP を生成し tsukur
 | domain | `aidesk.etzhayyim.com` |
 | AT bot DID | `did:web:aidesk.etzhayyim.com` |
 | Primary DID | `did:erc725:etzhayyim:260505:{identityContract}` |
-| Runtime | T3 CF Worker (thin edge) + T2 pymagatama BPMN (LangServer) |
+| Runtime | T3 CF Worker (thin edge) + T2 kotodama BPMN (LangServer) |
 | NSID prefix (商用) | `com.etzhayyim.apps.aidesk.*` |
 | NSID prefix (研究) | `com.etzhayyim.apps.aidesk.research.*` (Phase 2) |
 | ADR | `90-docs/adr/2605051200-aidesk-cad-synthesis-actor.md` |
@@ -59,9 +59,9 @@ etzhayyim deploy --smoke-url https://a1d3sk00.etzhayyim.com/health
 - `mv_aidesk_job_status` — ステータス集計 Streaming MV
 - `vertex_aidesk_research_artifact` — 研究用 (Non-Commercial, 商用 table と JOIN 不可)
 
-## pymagatama Primitives
+## kotodama Primitives
 
-- `pymagatama/primitives/aidesk.py`
+- `kotodama/primitives/aidesk.py`
   - `task_aidesk_cad_synthesize` — Zero-To-CAD inference
   - `task_aidesk_cad_execute` — CadQuery → STEP
   - `task_aidesk_tsukuru_handoff` — license gate + K8s-internal dispatch

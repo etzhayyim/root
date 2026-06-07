@@ -43,7 +43,7 @@
           "cellRef": {
             "type": "ref",
             "ref": "#layerRef",
-            "description": "L3 — LangGraph cell reference. Path to a Pregel cell directory under 20-actors/magatama/cells/ with content hash of the deterministic step function source. Must be replica-deterministic per kotoba-datomic SPEC §7."
+            "description": "L3 — LangGraph cell reference. Path to a Pregel cell directory under 40-engine/kotoba/crates/kotoba-kotodama/cells/ with content hash of the deterministic step function source. Must be replica-deterministic per kotoba-datomic SPEC §7."
           },
           "quorumSize": {
             "type": "integer",

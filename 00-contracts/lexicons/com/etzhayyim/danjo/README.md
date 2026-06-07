@@ -85,4 +85,4 @@ its 8-test regression suite.
 - `/90-docs/adr/2605301600-danjo-public-accountability-oversight-tier-b-actor-r0.md` — master ADR
 - `/00-contracts/lexicons/com/etzhayyim/gov/dataset/README.md` — primary input corpus namespace
 - `/20-actors/danjo/` — manifest + README + CLAUDE.md
-- `/20-actors/magatama/cells/danjo_*/` — cell modules (R0 path-reserved)
+- `/40-engine/kotoba/crates/kotoba-kotodama/cells/danjo_*/` — cell modules (R0 path-reserved)

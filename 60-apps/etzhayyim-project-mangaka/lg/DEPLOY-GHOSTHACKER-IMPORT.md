@@ -29,7 +29,7 @@ TAG=0.1.1-$(date +%Y%m%d%H%M%S)-amd64
 docker buildx build \
   --builder etzhayyim-vke \
   --platform linux/amd64 \
-  --build-context py=../../../20-actors/magatama/py \
+  --build-context py=../../../40-engine/kotoba/crates/kotoba-kotodama/py \
   --cache-from type=registry,ref=ghcr.io/etzhayyim/build-cache:main \
   --cache-to   type=registry,ref=ghcr.io/etzhayyim/build-cache:main,mode=max \
   -t ghcr.io/etzhayyim/lg-mangaka:${TAG} \

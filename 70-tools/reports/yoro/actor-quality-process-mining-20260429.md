@@ -57,7 +57,7 @@ Task-level conformance cannot be measured yet because no actorQuality rows were 
 
 ## Next Control Point
 
-Implemented next step: lightweight event emission was added to the pod worker path in `pymagatama.primitives.yoro_social`, not to the Cloudflare Worker path.
+Implemented next step: lightweight event emission was added to the pod worker path in `kotodama.primitives.yoro_social`, not to the Cloudflare Worker path.
 
 Cloudflare Worker remains responsible for ingress/process-start visibility:
 
@@ -73,7 +73,7 @@ The pod worker is responsible for task-level process mining:
 
 Deployment status:
 
-- image: `ghcr.io/etzhayyim/pymagatama:yoro-actor-quality-process-mining-6209801e7cb5-20260429072810-amd64`
+- image: `ghcr.io/etzhayyim/kotodama:yoro-actor-quality-process-mining-6209801e7cb5-20260429072810-amd64`
 - Kubernetes deployment: `yoro-actors/yoro-actor-zeebe-worker`
 - worker profile: `ZEEBE_WORKER_PROFILE=yoro_actor_quality`
 - rollout: `1/1` ready
@@ -96,7 +96,7 @@ Recommended next rollout gate: run `--limit=100 --live --sleep-ms=750 --source-h
 - PDS `ok` rate remains 100%
 - reconstructed complete cases increase by 100
 - AppView spot checks show `description` and `postsCount >= 1`
-- worker image remains `ghcr.io/etzhayyim/pymagatama:yoro-actor-quality-dedicated-664fc09d87dd-20260429063130-amd64`
+- worker image remains `ghcr.io/etzhayyim/kotodama:yoro-actor-quality-dedicated-664fc09d87dd-20260429063130-amd64`
 
 ## Controlled Batch 100 Result
 
@@ -119,7 +119,7 @@ Result:
 - seed posts written: `84`
 - complete artifact cases for this source hint: `84`
 - artifact window: `2026-04-29T07:54:05Z..2026-04-29T07:55:29Z`
-- deployment image during run: `ghcr.io/etzhayyim/pymagatama:yoro-actor-quality-process-mining-6209801e7cb5-20260429072810-amd64`
+- deployment image during run: `ghcr.io/etzhayyim/kotodama:yoro-actor-quality-process-mining-6209801e7cb5-20260429072810-amd64`
 
 Task-level BPMN activity rows for this source hint:
 

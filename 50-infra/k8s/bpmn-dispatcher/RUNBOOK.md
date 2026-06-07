@@ -4,7 +4,7 @@
 
 - etzhayyim CF account access (`cloudflared` CLI authenticated)
 - `kubectl` context = etzhayyim VKE
-- pymagatama image built and pushed to `ghcr.io/etzhayyim/pymagatama:<tag>`
+- kotodama image built and pushed to `ghcr.io/etzhayyim/kotodama:<tag>`
 - Namespace `mitama-udf` exists (created by `bpmn-engine-host` Deployment)
 
 ## Bring-up
@@ -26,7 +26,7 @@ cloudflared tunnel route dns bpmn-dispatcher mcp.etzhayyim.com
 # (ses-api.etzhayyim.com if SES API is to be exposed via this tunnel)
 
 # 4. Patch dispatcher deployment image
-IMAGE_REF="ghcr.io/etzhayyim/pymagatama:<tag>"
+IMAGE_REF="ghcr.io/etzhayyim/kotodama:<tag>"
 sed -i.bak "s|REPLACE_ME_IMAGE_REF|${IMAGE_REF}|g" deployment-dispatcher.yaml
 
 # 5. Provision secrets in mitama-udf
@@ -80,13 +80,13 @@ bring-up step 1-6 with corrected values.
 
 ## Hot-patch reconciliation (follow-up)
 
-The three `configmap-pymagatama-*-fix.yaml` ConfigMaps are legacy
+The three `configmap-kotodama-*-fix.yaml` ConfigMaps are legacy
 hot-patches. To retire them:
 
 1. Diff `data.dispatcher_main.py` against
-   `etzhayyim/20-actors/magatama/py/src/pymagatama/dispatcher_main.py`.
+   `etzhayyim/40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/dispatcher_main.py`.
 2. Merge any unique fixes into the canonical source.
-3. Rebuild pymagatama image with merged fixes baked in.
+3. Rebuild kotodama image with merged fixes baked in.
 4. Remove the ConfigMaps from this dir + corresponding volume mounts
    from `deployment-dispatcher.yaml` (currently the Deployment in this
    directory does NOT mount these ConfigMaps — they were applied via

@@ -51,6 +51,6 @@ Delivery accepts the same shape (with required fields) at `POST /api/v1/register
 
 ## Namespace and image conventions
 
-- WADM namespace: `magatama-runtime`
-- Route backend namespace: `magatama-system`
+- WADM namespace: `kotodama-runtime`
+- Route backend namespace: `kotodama-system`
 - Image registry: `ghcr.io/etzhayyim/*`

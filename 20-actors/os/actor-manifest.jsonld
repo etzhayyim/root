@@ -14,7 +14,7 @@
   ],
   "convoSystemPrompt": "You are the Etzhayyim OS agent — the platform service layer for agent lifecycle management. You manage agent spawning and termination, consent request/grant flows, the DID directory, budget allocation per actor, audit log entries, and sync coordination. Query the graph for OsAgent, OsConsentRequest, OsBudgetAllocation, OsDirectoryEntry, and OsAuditEntry nodes. The KAMI compositor layer (Rust WASM window-manager) is handled separately; you manage only the service orchestration layer.",
   "description": "Agent lifecycle management, consent orchestration, directory resolution, budget allocation, audit trail, sync coordination, and window-manager service. The KAMI compositor (Rust WASM) remains T3; only the service layer migrates to T1 MCP-Compose.",
-  "displayName": "Etzhayyim OS — Magatama Service Layer",
+  "displayName": "Etzhayyim OS — Kotodama Service Layer",
   "domainKnowledgeRequired": true,
   "runtime": "k8s-langserver",
   "edge": "sveltekit-proxy",
@@ -204,7 +204,7 @@
         },
         {
           "args": {
-            "message": "You are Etzhayyim OS — Magatama Service Layer. Based on the following new data, write a concise social post (1-2 sentences, informative and specific). Data: $coverageSnapshot.text"
+            "message": "You are Etzhayyim OS — Kotodama Service Layer. Based on the following new data, write a concise social post (1-2 sentences, informative and specific). Data: $coverageSnapshot.text"
           },
           "depends_on": [
             "coverageSnapshot"
@@ -263,8 +263,8 @@
       "audit-trail",
       "sync-coordinate"
     ],
-    "description": "OS-level agent lifecycle, consent, directory, budget, audit, and sync services. Coordinates Magatama actor spawning, permission grants, and resource allocation across the platform.",
-    "displayName": "Etzhayyim OS — Magatama Service Layer",
+    "description": "OS-level agent lifecycle, consent, directory, budget, audit, and sync services. Coordinates Kotodama actor spawning, permission grants, and resource allocation across the platform.",
+    "displayName": "Etzhayyim OS — Kotodama Service Layer",
     "isBot": true,
     "operator": "etzhayyim.co.jp"
   },

@@ -1,7 +1,7 @@
 {
   "version": 1,
   "apps": {
-    "ai-gftd-wasm-apqc-asset-management-iz0kka4n": {
+    "etzhayyim-wasm-apqc-asset-management-iz0kka4n": {
       "nanoid": "iz0kka4n",
       "app_version": "1.0.0",
       "last_deployed_at": "2026-04-02T11:01:27Z",
@@ -14,7 +14,7 @@
         }
       ]
     },
-    "ai-gftd-wasm-apqc-business-capability-z8826h1p": {
+    "etzhayyim-wasm-apqc-business-capability-z8826h1p": {
       "nanoid": "z8826h1p",
       "app_version": "1.0.0",
       "last_deployed_at": "2026-04-02T11:01:45Z",
@@ -27,7 +27,7 @@
         }
       ]
     },
-    "ai-gftd-wasm-apqc-customer-service-db5vpkbm": {
+    "etzhayyim-wasm-apqc-customer-service-db5vpkbm": {
       "nanoid": "db5vpkbm",
       "app_version": "1.0.0",
       "last_deployed_at": "2026-04-02T11:02:03Z",
@@ -40,7 +40,7 @@
         }
       ]
     },
-    "ai-gftd-wasm-apqc-external-relations-fp88e6nr": {
+    "etzhayyim-wasm-apqc-external-relations-fp88e6nr": {
       "nanoid": "fp88e6nr",
       "app_version": "1.0.0",
       "last_deployed_at": "2026-04-02T11:02:19Z",
@@ -53,7 +53,7 @@
         }
       ]
     },
-    "ai-gftd-wasm-apqc-financial-resources-xlgbv5yn": {
+    "etzhayyim-wasm-apqc-financial-resources-xlgbv5yn": {
       "nanoid": "xlgbv5yn",
       "app_version": "1.0.0",
       "last_deployed_at": "2026-04-02T11:02:34Z",
@@ -66,7 +66,7 @@
         }
       ]
     },
-    "ai-gftd-wasm-apqc-human-capital-gff3fxty": {
+    "etzhayyim-wasm-apqc-human-capital-gff3fxty": {
       "nanoid": "gff3fxty",
       "app_version": "1.0.0",
       "last_deployed_at": "2026-04-02T11:02:49Z",
@@ -79,7 +79,7 @@
         }
       ]
     },
-    "ai-gftd-wasm-apqc-info-technology-maip1rtg": {
+    "etzhayyim-wasm-apqc-info-technology-maip1rtg": {
       "nanoid": "maip1rtg",
       "app_version": "1.0.0",
       "last_deployed_at": "2026-04-02T11:03:06Z",
@@ -92,7 +92,7 @@
         }
       ]
     },
-    "ai-gftd-wasm-apqc-market-sell-k4hoea6r": {
+    "etzhayyim-wasm-apqc-market-sell-k4hoea6r": {
       "nanoid": "k4hoea6r",
       "app_version": "1.0.0",
       "last_deployed_at": "2026-04-02T11:03:20Z",
@@ -105,7 +105,7 @@
         }
       ]
     },
-    "ai-gftd-wasm-apqc-product-service-sxyg5m0o": {
+    "etzhayyim-wasm-apqc-product-service-sxyg5m0o": {
       "nanoid": "sxyg5m0o",
       "app_version": "1.0.0",
       "last_deployed_at": "2026-04-02T11:03:35Z",
@@ -118,7 +118,7 @@
         }
       ]
     },
-    "ai-gftd-wasm-apqc-production-ops-c64d1lij": {
+    "etzhayyim-wasm-apqc-production-ops-c64d1lij": {
       "nanoid": "c64d1lij",
       "app_version": "1.0.0",
       "last_deployed_at": "2026-04-02T11:03:53Z",
@@ -131,7 +131,7 @@
         }
       ]
     },
-    "ai-gftd-wasm-apqc-risk-compliance-f5fcv3cz": {
+    "etzhayyim-wasm-apqc-risk-compliance-f5fcv3cz": {
       "nanoid": "f5fcv3cz",
       "app_version": "1.0.0",
       "last_deployed_at": "2026-04-02T11:04:24Z",
@@ -144,7 +144,7 @@
         }
       ]
     },
-    "ai-gftd-wasm-apqc-supply-chain-o5n5ptbj": {
+    "etzhayyim-wasm-apqc-supply-chain-o5n5ptbj": {
       "nanoid": "o5n5ptbj",
       "app_version": "1.0.0",
       "last_deployed_at": "2026-04-02T11:04:39Z",
@@ -157,7 +157,7 @@
         }
       ]
     },
-    "ai-gftd-wasm-apqc-vision-strategy-optjhocn": {
+    "etzhayyim-wasm-apqc-vision-strategy-optjhocn": {
       "nanoid": "optjhocn",
       "app_version": "1.0.0",
       "last_deployed_at": "2026-04-02T11:04:55Z",

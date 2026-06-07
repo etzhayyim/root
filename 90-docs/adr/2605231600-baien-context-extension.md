@@ -236,7 +236,7 @@ continual-pretrain plan) before kickoff.
 | `baien-distill` (ADR-2605231300, SFT max_seq=1024) | Stage 2 unlocks usable training on longer Opus-distill rows (the dataset has rows up to 32k tok — currently truncated) |
 | `baien-graft-pipeline` (ADR-2605202115 — 3D multi-view caption) | Stage 1 unlocks 16k caption batches; Stage 2 unlocks full 3D-asset chains |
 | `baien-MX` (ADR-2605101000 — modality grafts) | Stage 2+ required for multi-modality long sequences (4k splits modality budgets too thin) |
-| `magatama-host-sdk` `MODEL_REGISTRY` | `contextWindow` is updated per-stage when an extended variant is committed via `gen-distilled-entries.mjs` |
+| `kotodama-host-sdk` `MODEL_REGISTRY` | `contextWindow` is updated per-stage when an extended variant is committed via `gen-distilled-entries.mjs` |
 
 # Out of scope
 

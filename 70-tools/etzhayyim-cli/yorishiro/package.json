@@ -2,7 +2,7 @@
   "name": "@etzhayyim/yorishiro",
   "version": "0.1.0",
   "private": false,
-  "description": "yorishiro (依代) generator — wrap external apps/webservices as etzhayyim 3-layer actors (Lexicon + magatama Pregel cell + MCP server). Per ADR-2605211900. Phase 1: OpenAPI v3 mode.",
+  "description": "yorishiro (依代) generator — wrap external apps/webservices as etzhayyim 3-layer actors (Lexicon + kotodama Pregel cell + MCP server). Per ADR-2605211900. Phase 1: OpenAPI v3 mode.",
   "license": "Apache-2.0",
   "type": "module",
   "main": "./src/cli.ts",
@@ -29,7 +29,7 @@
   "keywords": [
     "etzhayyim",
     "yorishiro",
-    "magatama",
+    "kotodama",
     "lexicon",
     "mcp",
     "code-generator"

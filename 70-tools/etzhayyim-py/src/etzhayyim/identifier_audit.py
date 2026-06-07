@@ -99,7 +99,7 @@ def run_audit(ws: Path) -> list[AuditViolation]:
             continue
         if any(d in p.parts for d in _SKIP_DIRS):
             continue
-        if p.name == "magatama.jsonld" or p.suffix == ".jsonld":
+        if p.name == "kotodama.jsonld" or p.suffix == ".jsonld":
             violations.extend(_audit_jsonld(p, ws))
         elif p.suffix in (".ts", ".svelte"):
             violations.extend(_audit_ts(p, ws))

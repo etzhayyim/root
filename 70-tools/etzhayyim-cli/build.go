@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	defaultWITWorld         = "magatama:runtime/magatama-component"
+	defaultWITWorld         = "kotodama:runtime/kotodama-component"
 	defaultWASIAdapterVer   = "28.0.0"
 	wASIAdapterURLTemplate  = "https://github.com/bytecodealliance/wasmtime/releases/download/v%s/wasi_snapshot_preview1.reactor.wasm"
 	adapterCacheDir         = ".cache/etzhayyim/adapters"
@@ -27,7 +27,7 @@ func runBuild(args []string) error {
 	witWorld := fs.String("wit-world", defaultWITWorld, "WIT world identifier for component embed")
 	adapterVer := fs.String("adapter-version", defaultWASIAdapterVer, "wasmtime WASI preview1 adapter version")
 	adapterPath := fs.String("adapter", "", "path to wasi_snapshot_preview1.reactor.wasm (overrides --adapter-version)")
-	output := fs.String("output", "", "output component .wasm (default: derived from magatama.toml component.path)")
+	output := fs.String("output", "", "output component .wasm (default: derived from kotodama.toml component.path)")
 	noSvelte := fs.Bool("no-svelte", false, "skip svelte/pnpm build even if svelte/ dir exists")
 	noCheck := fs.Bool("no-check", false, "skip svelte-check type validation")
 	extension := fs.Bool("extension", false, "build as W Protocol extension component (world: etzhayyim:w/w-extension)")
@@ -62,11 +62,11 @@ func runBuild(args []string) error {
 		}
 	}
 
-	// Resolve output name from magatama.toml component.path if not given
+	// Resolve output name from kotodama.toml component.path if not given
 	outputWasm := *output
 	if outputWasm == "" {
-		magatamaTOML := filepath.Join(compDir, "magatama.toml")
-		if compPath, err := readMagatamaComponentPath(magatamaTOML); err == nil {
+		kotodamaTOML := filepath.Join(compDir, "kotodama.toml")
+		if compPath, err := readKotodamaComponentPath(kotodamaTOML); err == nil {
 			outputWasm = filepath.Join(compDir, filepath.Base(compPath))
 		} else {
 			// Fall back: use directory basename + .wasm
@@ -77,12 +77,12 @@ func runBuild(args []string) error {
 	// Resolve WIT dir
 	resolvedWITDir := *witDir
 	if resolvedWITDir == "" {
-		if env := os.Getenv("MAGATAMA_WIT_DIR"); env != "" {
+		if env := os.Getenv("KOTODAMA_WIT_DIR"); env != "" {
 			resolvedWITDir = env
 		} else if gitRoot, err := findGitRoot(compDir); err == nil {
-			resolvedWITDir = filepath.Join(gitRoot, "packages", "rust", "magatama", "wit")
+			resolvedWITDir = filepath.Join(gitRoot, "packages", "rust", "kotodama", "wit")
 		} else {
-			return fmt.Errorf("cannot auto-detect WIT dir: not in a git repository. Use --wit-dir or set MAGATAMA_WIT_DIR")
+			return fmt.Errorf("cannot auto-detect WIT dir: not in a git repository. Use --wit-dir or set KOTODAMA_WIT_DIR")
 		}
 	}
 	if _, err := os.Stat(resolvedWITDir); err != nil {
@@ -90,7 +90,7 @@ func runBuild(args []string) error {
 	}
 
 	// Extension mode: WIT dir is the wproto WIT dir (contains w-extension world).
-	// The magatama WIT dir doesn't contain extension worlds.
+	// The kotodama WIT dir doesn't contain extension worlds.
 	if *extension && *witDir == "" {
 		if gitRoot, err := findGitRoot(compDir); err == nil {
 			wprotoWITDir := filepath.Join(gitRoot, "packages", "rust", "wproto", "wit")
@@ -101,8 +101,8 @@ func runBuild(args []string) error {
 		}
 	}
 
-	// Validate WIT version matches the deployed magatama-server.
-	// Skip for extension builds — extensions use etzhayyim:w WIT, not magatama:runtime.
+	// Validate WIT version matches the deployed kotodama-server.
+	// Skip for extension builds — extensions use etzhayyim:w WIT, not kotodama:runtime.
 	if !*extension {
 		if err := validateWITVersion(resolvedWITDir); err != nil {
 			return err
@@ -227,8 +227,8 @@ func runBuild(args []string) error {
 	return nil
 }
 
-// readMagatamaComponentPath parses [component].path from a magatama.toml file.
-func readMagatamaComponentPath(path string) (string, error) {
+// readKotodamaComponentPath parses [component].path from a kotodama.toml file.
+func readKotodamaComponentPath(path string) (string, error) {
 	f, err := os.Open(path)
 	if err != nil {
 		return "", err
@@ -349,7 +349,7 @@ func getEnvFromSlice(env []string, key string) string {
 	return ""
 }
 
-// validateWITVersion reads the WIT package version from magatama.wit and
+// validateWITVersion reads the WIT package version from kotodama.wit and
 // detects the WIT version from world.wit. Returns error if version cannot be parsed.
 func validateWITVersion(witDir string) error {
 	_, err := detectWITVersion(witDir)
@@ -366,8 +366,8 @@ func detectWITVersion(witDir string) (string, error) {
 	}
 	for _, line := range strings.Split(string(data), "\n") {
 		line = strings.TrimSpace(line)
-		if strings.HasPrefix(line, "package magatama:runtime@") {
-			ver := strings.TrimPrefix(line, "package magatama:runtime@")
+		if strings.HasPrefix(line, "package kotodama:runtime@") {
+			ver := strings.TrimPrefix(line, "package kotodama:runtime@")
 			ver = strings.TrimSuffix(ver, ";")
 			ver = strings.TrimSpace(ver)
 			if ver == "" {
@@ -376,7 +376,7 @@ func detectWITVersion(witDir string) (string, error) {
 			return ver, nil
 		}
 	}
-	return "", fmt.Errorf("cannot find 'package magatama:runtime@...' in %s", witFile)
+	return "", fmt.Errorf("cannot find 'package kotodama:runtime@...' in %s", witFile)
 }
 
 // witVersionTagPrefix returns a short tag prefix like "wit02" from semver "0.2.0".
@@ -408,9 +408,9 @@ func validateNoCORSHeaders(compDir string) error {
 	return nil
 }
 
-// validateComponentImports checks that all magatama:* imports in the component
+// validateComponentImports checks that all kotodama:* imports in the component
 // are present in the current WIT directory. WASI imports (wasi:*) are ignored
-// as they are provided by the wasmtime WASI linker, not the magatama host.
+// as they are provided by the wasmtime WASI linker, not the kotodama host.
 func validateComponentImports(componentWasm, witDir string) error {
 	// Extract component's imports via `wasm-tools component wit`
 	compOut, err := exec.Command("wasm-tools", "component", "wit", componentWasm).Output()
@@ -423,7 +423,7 @@ func validateComponentImports(componentWasm, witDir string) error {
 		return fmt.Errorf("failed to parse WIT directory: %w", err)
 	}
 
-	// Parse "import <iface>" lines from component (e.g. "import magatama:runtime/cypher@0.2.0;")
+	// Parse "import <iface>" lines from component (e.g. "import kotodama:runtime/cypher@0.2.0;")
 	importRe := regexp.MustCompile(`(?m)^\s*import\s+(\S+)`)
 	compImports := importRe.FindAllStringSubmatch(string(compOut), -1)
 
@@ -439,11 +439,11 @@ func validateComponentImports(componentWasm, witDir string) error {
 	var missing []string
 	for _, m := range compImports {
 		iface := strings.TrimSuffix(m[1], ";")
-		// Skip WASI imports — provided by wasmtime, not by magatama host
+		// Skip WASI imports — provided by wasmtime, not by kotodama host
 		if strings.HasPrefix(iface, "wasi:") {
 			continue
 		}
-		// Extract short name: "magatama:runtime/cypher@0.2.0" → "cypher"
+		// Extract short name: "kotodama:runtime/cypher@0.2.0" → "cypher"
 		shortName := iface
 		if idx := strings.LastIndex(shortName, "/"); idx >= 0 {
 			shortName = shortName[idx+1:]

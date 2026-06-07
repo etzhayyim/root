@@ -150,7 +150,7 @@ entries. Existing (read OK via vault-id URI):
 Missing — must be created before first H100 apply:
 
 - `etzhayyim.runpod-training/AUTH_TOKEN` — bearer the H100 pod's
-  `pymagatama.training_http_server` expects on `/train/run` and
+  `kotodama.training_http_server` expects on `/train/run` and
   `/train/status/*`. Distinct from `RUNPOD_API_KEY`. Single
   `password` field, value = random 32-byte hex shared with the pod.
 
@@ -234,7 +234,7 @@ end apply against live RunPod is gated on:
    existing — **still missing as of session-close 2026-05-10**.
    Create as a `Password`-category item with a single `password`
    field set to `openssl rand -hex 32` output, shared between the
-   manifest and the H100 pod's `pymagatama.training_http_server`
+   manifest and the H100 pod's `kotodama.training_http_server`
    bearer check. This is the only remaining gate before
    `ansible-playbook --limit h100_training playbooks/apply.yaml`
    can run end-to-end and unblock Baien-MX step 6.

@@ -1,6 +1,6 @@
 # tsukuru — etzhayyim→etzhayyim rename items (Phase 5, GATED — DO NOT EXECUTE STANDALONE)
 
-> **GATE (P0b)**: これらの rename は **法人登記後の magatama atomic cutover wave**
+> **GATE (P0b)**: これらの rename は **法人登記後の kotodama atomic cutover wave**
 > (ADR-2605214000 §3 + ADR-2605215000 §4) の一部として **単一 PR で**実行する。
 > 部分実行は runtime を壊す（env var + config dir + DNS suffix + WIT package が相互依存）。
 > repo-root `CLAUDE.md` § "Do Not" の「Do not rename `etzhayyim-*` identifiers … outside the
@@ -57,7 +57,7 @@ Phase 2–4 (manifest.edn / cells / lex / kotoba / py) は既に landed（非ゲ
 
 ## Acceptance (Phase 5 done)
 
-- [ ] magatama atomic wave PR に本項目を merge（単独 PR にしない）
+- [ ] kotodama atomic wave PR に本項目を merge（単独 PR にしない）
 - [ ] `grep -r "etzhayyim:" 20-actors/tsukuru` が 0
 - [ ] `60-apps/etzhayyim-project-tsukuru` が存在しない
 - [ ] `actor-manifest.jsonld` 削除 + `manifest.edn` のみ

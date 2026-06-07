@@ -221,5 +221,5 @@ L1=0.95 (直接導出), L2=0.80 (統計), L3=0.60 (波及), L4=0.40 (LLM), L5=0.
 
 ## Known Limitations
 
-- `magatama.jsonld` の `interfaces.package` が `etzhayyim:intel@0.1.0` (古い) — WIT は `etzhayyim:intel-i7n73l0x` に移行済み
-- HTTP routing (`magatama.Handle(handleHTTP)`) と `app.Command` が二重 init — 要統一
+- `kotodama.jsonld` の `interfaces.package` が `etzhayyim:intel@0.1.0` (古い) — WIT は `etzhayyim:intel-i7n73l0x` に移行済み
+- HTTP routing (`kotodama.Handle(handleHTTP)`) と `app.Command` が二重 init — 要統一

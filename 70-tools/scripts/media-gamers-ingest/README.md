@@ -44,5 +44,5 @@ node 70-tools/scripts/media-gamers-ingest/pokedex.mjs \
 
 Design E Follow-based input is the AT-native pattern for continuous ingestion:
 scraper worker publishes to its own repo, media-gamers follows + `onCommit`.
-That's a separate PR — builds its own magatama.jsonld + DID + profile. Don't
+That's a separate PR — builds its own kotodama.jsonld + DID + profile. Don't
 build the cron scraper before infra is stable.

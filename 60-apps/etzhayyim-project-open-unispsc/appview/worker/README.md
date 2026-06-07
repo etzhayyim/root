@@ -5,7 +5,7 @@ XRPC AppView for the UNSPSC LangGraph Pregel fleet. ADR-2605180900 Phase 7.
 Public surface at `https://unispsc.etzhayyim.com`. Proxies XRPC under
 `/xrpc/com.etzhayyim.apps.unispsc.*` to the in-cluster `lg-open-unispsc`
 langserver. The handler itself lives in
-`@etzhayyim/magatama-host-sdk/langserver-xrpc-handler` — this Worker is
+`@etzhayyim/kotodama-host-sdk/langserver-xrpc-handler` — this Worker is
 just a thin CF Worker entry that supplies environment.
 
 ## Endpoints
@@ -36,5 +36,5 @@ domain and sets `LG_UNISPSC_ENDPOINT` to
 ## Tests
 
 The handler library is exercised by 13 vitest cases at
-`20-actors/magatama/sdk/magatama-host-sdk/test/langserver-xrpc-handler.test.ts`
+`40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/test/langserver-xrpc-handler.test.ts`
 (see PR for status). The Worker entry has no additional logic to test.

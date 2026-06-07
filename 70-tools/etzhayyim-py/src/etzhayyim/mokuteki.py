@@ -166,9 +166,9 @@ def _weighted_score(components: list[MokutekiComponent]) -> float:
 
 
 def _scan_app_meta(ws: Path) -> dict[str, dict]:
-    """Scan magatama.jsonld files for app metadata."""
+    """Scan kotodama.jsonld files for app metadata."""
     meta: dict[str, dict] = {}
-    for f in _walk(ws, name="magatama.jsonld"):
+    for f in _walk(ws, name="kotodama.jsonld"):
         try:
             data = json.loads(f.read_text(errors="replace"))
         except (OSError, json.JSONDecodeError):
@@ -196,7 +196,7 @@ def eval_layer_a(ws: Path) -> MokutekiLayer:
         details=f"redundancy_rate={report.redundancy_rate*100:.1f}%",
     )
 
-    # A2: App count (connectivity proxy) — count magatama.jsonld files
+    # A2: App count (connectivity proxy) — count kotodama.jsonld files
     meta = _scan_app_meta(ws)
     total_apps = len(meta)
     apps_with_collections = sum(1 for m in meta.values() if m["collections"])
@@ -207,7 +207,7 @@ def eval_layer_a(ws: Path) -> MokutekiLayer:
     )
 
     # A3: Hypergraph coupling — fewer multi-writer collections = better
-    # (simplified: count collections mentioned in multiple magatama.jsonld)
+    # (simplified: count collections mentioned in multiple kotodama.jsonld)
     coll_writers: dict[str, set[str]] = {}
     for nanoid, m in meta.items():
         for c in m["collections"]:
@@ -281,7 +281,7 @@ def eval_layer_d(ws: Path) -> MokutekiLayer:
     )
 
     # D3: Policy as code — CLAUDE.md presence per project dir
-    project_dirs = {f.parent.parent for f in ws.rglob("magatama.jsonld")}
+    project_dirs = {f.parent.parent for f in ws.rglob("kotodama.jsonld")}
     with_claude_md = sum(1 for d in project_dirs if (d / "CLAUDE.md").exists())
     d3_score = (with_claude_md / max(len(project_dirs), 1)) * 100
     d3 = MokutekiComponent(

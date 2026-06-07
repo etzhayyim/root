@@ -83,10 +83,10 @@ of substrate primitives mandated by ADR-2605172000. Place the protocol family at
 | 1 | `agent_pub_key` | kotoba-datomic-agent | `did:web` / `did:plc` + WebAuthn passkey + Adherent SBT (`50-infra/etzhayyim-membership-contract/`) |
 | 2 | Source chain (per-agent append-log) | kotoba-datomic-chain | atproto PDS MST repo (`50-infra/k8s/atproto-pds/`) — append-only, hash-chained, DID-signed |
 | 3 | DHT (shared content store) | kotoba-datomic-dht | IPFS (`50-infra/ipfs/`) + Base L2 anchor (`50-infra/l2-anchor-contract/`) — content-addressed graph + global Merkle root agreement |
-| 4 | DNA (validation membrane) | kotoba-datomic-membrane | Lexicon (`00-contracts/lexicons/`) + Rego policy (`00-contracts/policies/`) + LangGraph cell catalog (`20-actors/magatama/cells/`) |
+| 4 | DNA (validation membrane) | kotoba-datomic-membrane | Lexicon (`00-contracts/lexicons/`) + Rego policy (`00-contracts/policies/`) + LangGraph cell catalog (`40-engine/kotoba/crates/kotoba-kotodama/cells/`) |
 | 5 | Validation by random witnesses | kotoba-datomic-witnesses | Pregel cell instances on Murakumo fleet (`50-infra/murakumo/fleet.toml`, 10 nodes × 15 cells), selected by `hash(record_cid) % N_cells`, quorum ≥3-of-5 |
 | 6 | Capability tokens | kotoba-datomic-cap | atproto JWT-cap + WebAuthn DID-bound passkey |
-| 7 | Zomes (application modules) | kotoba-datomic-cells | Pregel cells per ADR-2605192415, with cell catalog at `20-actors/magatama/cells/README.md` |
+| 7 | Zomes (application modules) | kotoba-datomic-cells | Pregel cells per ADR-2605192415, with cell catalog at `40-engine/kotoba/crates/kotoba-kotodama/cells/README.md` |
 
 ### Membrane proof
 
@@ -137,7 +137,7 @@ when witness quorum fails or when the membrane itself is being amended.
 
 - Apps get one architecture name to refer to (e.g., "this is kotoba-datomic-compliant")
   instead of enumerating four primitive ADRs each time
-- The witness quorum spec (≥3-of-5) becomes implementable as `20-actors/magatama/src/validation/{witness-selector,quorum}.ts` without inventing a new
+- The witness quorum spec (≥3-of-5) becomes implementable as `40-engine/kotoba/crates/kotoba-kotodama/src/validation/{witness-selector,quorum}.ts` without inventing a new
   abstraction — the ADR-2605192415 Pregel cell catalog already enumerates the
   witness pool
 - Charter §1 anti-individualism alignment improves: kotoba-datomic frames every record

@@ -35,4 +35,4 @@ hierarchicalClassify endpoint correctly returns an escalated empty path.
 ## Tests
 
 Handler library covered by 13 vitest cases at
-`20-actors/magatama/sdk/magatama-host-sdk/test/langserver-xrpc-handler.test.ts`.
+`40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/test/langserver-xrpc-handler.test.ts`.

@@ -37,12 +37,12 @@ spec:
         - name: ghcr-pull
       containers:
         - name: cell
-          image: ghcr.io/etzhayyim/pymagatama:main
+          image: ghcr.io/etzhayyim/kotodama:main
           imagePullPolicy: Always
           command:
             - python
             - -m
-            - pymagatama.cell_runner_main
+            - kotodama.cell_runner_main
             - --node
             - benjamin
             - --cell-only

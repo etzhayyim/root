@@ -8,8 +8,8 @@
 
 | Layer | Initial estimate | Real coverage (post-audit) |
 |---|---|---|
-| Pregel cell (religious-corp `20-actors/magatama/cells/`) | 0 gov | **0 gov** (unchanged — gov-specific cells were never religious-corp scope) |
-| MCP server (`20-actors/magatama/mcp/`) | 0 gov | **0 gov** (unchanged — same reason) |
+| Pregel cell (religious-corp `40-engine/kotoba/crates/kotoba-kotodama/cells/`) | 0 gov | **0 gov** (unchanged — gov-specific cells were never religious-corp scope) |
+| MCP server (`40-engine/kotoba/crates/kotoba-kotodama/mcp/`) | 0 gov | **0 gov** (unchanged — same reason) |
 | App appview (`60-apps/`) | 4 gov-adjacent scaffolds | **9 apps** including the 1229-file `etzhayyim-project-cofog` covering UN COFOG × country |
 | BPMN namespace (`00-contracts/bpmn/com/etzhayyim/`) | 1127 .bpmn / 140国 | unchanged |
 | Ingest script (`70-tools/scripts/gov/`) | 6 (5 IN + 1 AGO) | unchanged |

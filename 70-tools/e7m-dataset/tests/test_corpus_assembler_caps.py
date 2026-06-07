@@ -23,7 +23,7 @@ ASSEMBLER_PATH = (
     REPO_ROOT
     / "70-tools/baien-moemoekyun-train/scripts/assemble-public-corpus.py"
 )
-PYMAGATAMA_SRC = REPO_ROOT / "20-actors/magatama/py/src"
+PYKOTODAMA_SRC = REPO_ROOT / "40-engine/kotoba/crates/kotoba-kotodama/py/src"
 
 
 def _load_assembler():
@@ -39,7 +39,7 @@ def _load_assembler():
 
 @pytest.fixture
 def assembler(monkeypatch):
-    monkeypatch.setenv("ETZ_PYMAGATAMA_SRC", str(PYMAGATAMA_SRC))
+    monkeypatch.setenv("ETZ_PYKOTODAMA_SRC", str(PYKOTODAMA_SRC))
     return _load_assembler()
 
 

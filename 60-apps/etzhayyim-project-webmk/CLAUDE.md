@@ -53,7 +53,7 @@ createProposal XRPC
 
 ## Python Worker
 
-`20-actors/magatama/py/src/pymagatama/webmk_worker_main.py`
+`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/webmk_worker_main.py`
 
 Job types handled:
 - `webmk.run_proposal_agent` — LangGraph loop (main agent)
@@ -78,7 +78,7 @@ cd 60-apps/etzhayyim-project-webmk/appview/webmk-wbmk0001
 etzhayyim deploy
 
 # Start Python worker
-python -m pymagatama.webmk_worker_main
+python -m kotodama.webmk_worker_main
 
 # Smoke test
 curl https://wbmk0001.etzhayyim.com/health

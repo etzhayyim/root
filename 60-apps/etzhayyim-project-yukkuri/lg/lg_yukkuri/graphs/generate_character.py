@@ -144,7 +144,7 @@ async def _node_insert(state: _State) -> dict[str, Any]:
     created_at = datetime.now(tz=timezone.utc).isoformat()
     try:
         import asyncio
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         client = get_kotoba_client()
         for s in state["sheets"]:
             asset_id = (

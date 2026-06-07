@@ -275,7 +275,7 @@
     "2605250500"
   ],
   "dependencies": {
-    "runtime": "magatama-cell-runner (launchd) — gated import-time RuntimeError until R1+ Council attestation",
+    "runtime": "kotodama-cell-runner (launchd) — gated import-time RuntimeError until R1+ Council attestation",
     "actors": [
       "yakushi (drug-side sibling — cross-actor lexicon emit per master Decision 8)",
       "kuni-umi (robotics class ontology source — Hitogata / Mimi / Otete reused; Hanami / Kafun-watch new R2+/R3+ placeholders)",

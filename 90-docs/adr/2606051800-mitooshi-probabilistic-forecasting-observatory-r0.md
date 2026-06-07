@@ -9,7 +9,7 @@ last_verified: 2026-06-05
 priority: 6.2
 axis: actor
 weight: 0.62
-priority_note: "Answers 「kotoba で quant market や Google-Trends の model での未来予測 actor は設計しているか? 実際の予測と、事実からモデル誤差・weight を修正・学習する architecture は?」 (was: no forecasting actor; only scattered fragments — kakaku price-history, magatama opportunity.forecast, ameno predict-next; kanjo/yobel explicitly PROHIBIT forecasting/speculation). A naive quant predictor is a trading bot = profit speculation (Charter §1.3 + yobel prohibition), so mitooshi is its INVERSE: a probabilistic OBSERVATORY (watari/kanjo-style non-adjudicating mirror) that forecasts distributions over public series routed to resilience and NEVER trades. The fact→error→weight→learn loop is made structural on the append-only Datom log (leak-free proper-scoring). Charter-clean by construction (nusa/tazuna pattern): distribution-only (G1) + non-speculative (G2) + primary-public-source (G4) + leak-free-skill-honest scoring (G5). ZERO invariant amendments."
+priority_note: "Answers 「kotoba で quant market や Google-Trends の model での未来予測 actor は設計しているか? 実際の予測と、事実からモデル誤差・weight を修正・学習する architecture は?」 (was: no forecasting actor; only scattered fragments — kakaku price-history, kotodama opportunity.forecast, ameno predict-next; kanjo/yobel explicitly PROHIBIT forecasting/speculation). A naive quant predictor is a trading bot = profit speculation (Charter §1.3 + yobel prohibition), so mitooshi is its INVERSE: a probabilistic OBSERVATORY (watari/kanjo-style non-adjudicating mirror) that forecasts distributions over public series routed to resilience and NEVER trades. The fact→error→weight→learn loop is made structural on the append-only Datom log (leak-free proper-scoring). Charter-clean by construction (nusa/tazuna pattern): distribution-only (G1) + non-speculative (G2) + primary-public-source (G4) + leak-free-skill-honest scoring (G5). ZERO invariant amendments."
 authoritative_for:
   - "mitooshi actor scope (probabilistic forecasting over public time-series + leak-free proper-scoring backtest + residual-driven recalibration; design-only)"
   - "the distribution-only / no-point-assertion invariant (:forecast/point-asserted false — 非終末論 made structural)"
@@ -49,7 +49,7 @@ architecture は?」*
 
 **The honest pre-state (verified by full-roster search):** there is **no forecasting
 actor**. Across 146 actor directories the only prediction-adjacent fragments are
-`kakaku` (price *history* storage, no model), `magatama` (`opportunity.forecast` CRM
+`kakaku` (price *history* storage, no model), `kotodama` (`opportunity.forecast` CRM
 heuristic), `recruit` (`DemandForecast` cohort), `maps` (`forecast_get` sensor sim), and
 `ameno` (active-inference `predict-next` for chat UX, ADR-2605191113). There is **no**
 quant-market actor, **no** prediction-market actor, **no** time-series model, **no**

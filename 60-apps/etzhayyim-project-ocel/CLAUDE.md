@@ -6,11 +6,11 @@ performerType: `system` (observability infrastructure)
 
 ## Runtime
 
-**TS Native + `@etzhayyim/magatama-host-sdk`**。Single-file: `wasm/ocel-core-component/src/app.ts`。
+**TS Native + `@etzhayyim/kotodama-host-sdk`**。Single-file: `wasm/ocel-core-component/src/app.ts`。
 
 | 項目 | 値 |
 |---|---|
-| Language | TS Native (`@etzhayyim/magatama-host-sdk`) |
+| Language | TS Native (`@etzhayyim/kotodama-host-sdk`) |
 | Architecture | **wRPC stream-native reactive** (Design E) |
 | UI mode | `appview` (Protocol Canvas card) |
 | Input | `ComAtprotoSyncSubscribeRepos` — PDS commit stream (profile/auth/deploy/social events) |

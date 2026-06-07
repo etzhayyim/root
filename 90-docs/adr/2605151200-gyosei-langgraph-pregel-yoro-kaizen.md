@@ -43,12 +43,12 @@ The existing infrastructure relied on static BPMN task definitions (`xrpc.com.et
 
 4. **Graph as Data — `py_factory` kind**
    - Adhering strictly to ADR-2605082000, all new graphs (`gov-fractal-pregel`, `gyosei-intake-agent`, `gyosei-internal-processing`, `gyosei-procedure-kaizen-pregel`, `gyosei-procedure-pregel`) are registered via Alembic into `vertex_langgraph_assistant` (kind=`'py_factory'`) and `vertex_langgraph_deployment`.
-   - `py_factory` references a `factory_path` (e.g. `pymagatama.agents.gov_pregel`) whose `build_graph()` callable returns a compiled `CompiledStateGraph`. No `vertex_langgraph_node_binding` rows are required.
+   - `py_factory` references a `factory_path` (e.g. `kotodama.agents.gov_pregel`) whose `build_graph()` callable returns a compiled `CompiledStateGraph`. No `vertex_langgraph_node_binding` rows are required.
    - Node implementations are purely functional Python mapping to MCP tool calls, executed on dedicated Kubernetes pools (`lg-gov`, `lg-gyosei`).
    - Alembic seeds: `20260515_0001` (gov-fractal-pregel), `20260515_0002` (gyosei-procedure-pregel), `20260515_0003` (gyosei-intake-agent + gyosei-internal-processing), `20260515_0004` (gyosei-procedure-kaizen-pregel).
 
 5. **Deployment Infrastructure (`Dockerfile.lg`, Helm unpark)**
-   - `20-actors/magatama/py/Dockerfile.lg` created as the canonical lightweight build target for both `ghcr.io/etzhayyim/lg-gov:latest` and `ghcr.io/etzhayyim/lg-gyosei:latest` (python:3.11-slim-bookworm, libpq5, uv install, uv stripped post-install).
+   - `40-engine/kotoba/crates/kotoba-kotodama/py/Dockerfile.lg` created as the canonical lightweight build target for both `ghcr.io/etzhayyim/lg-gov:latest` and `ghcr.io/etzhayyim/lg-gyosei:latest` (python:3.11-slim-bookworm, libpq5, uv install, uv stripped post-install).
    - `langgraph_server_app.py` `/health` alias added (stacked above `/healthz`) to satisfy Helm liveness/readiness probes which target `/health`.
    - `lg-gov-raw` and `lg-gyosei-raw` Helm deployments unparked: `replicas: 0 → 1`, `state: parked` label removed from helmfile.yaml.
    - **Operator steps pending**: `docker buildx build --builder etzhayyim-vke` for both images → `helmfile sync -l pool=gov` → `helmfile sync -l pool=gyosei` → `alembic upgrade head` against prod Kotoba/Datomic.

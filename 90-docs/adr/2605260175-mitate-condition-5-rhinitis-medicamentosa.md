@@ -17,10 +17,10 @@ depends_on:
   - adr-2605250500-yakushi-pharmaceutical-rd-charter
   - adr-2605250515-yakushi-otc-ophthalmic-api-synthesis
 related:
-  - 20-actors/magatama/cells/mitate_rhinitis_intake/
-  - 20-actors/magatama/cells/mitate_medication_history_audit/
-  - 20-actors/magatama/cells/mitate_treatment_router/
-  - 20-actors/magatama/cells/mitate_outcome_qol_followup/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_rhinitis_intake/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_medication_history_audit/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_treatment_router/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_outcome_qol_followup/
 supersedes: []
 superseded_by: []
 ---
