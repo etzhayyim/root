@@ -14007,6 +14007,22 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606072600-talent-kotoba-native-registry",
+      "type": "TechArticle",
+      "title": "ADR-2606072600: talent — kotoba-native cohort-first talent registry (Indeed/LinkedIn-Recruiter inversion); remediation Phase A",
+      "status": "proposed",
+      "topic": "talent-kotoba-native",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/talent"
+      ],
+      "related": [
+        "doc:2606072200",
+        "doc:2606072400"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
