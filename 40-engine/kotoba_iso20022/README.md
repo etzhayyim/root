@@ -206,8 +206,20 @@ kotoba_iso20022/
 ├── conformance.py  # CBPR+ Usage-Guideline rule checks over the parsed model
 ├── datoms.py       # message → kotoba EAVT Datom ingress + reconciliation mapping
 ├── bridge.py       # message → com.etzhayyim.iso20022.ingressAttestation records
+├── helpers.py      # new_uetr() + auto NbOfTxs/CtrlSum group-header builders
 └── __init__.py     # public surface
-tests/              # 81 tests (validators + round-trip + datoms + camt + BAH + CBPR+ + bridge)
+tests/              # 109 tests · 95% branch / 98% line coverage
+```
+
+## Construction helpers
+
+`helpers.py` removes the two most common ways a hand-built message fails
+CBPR+ conformance — a miscounted `NbOfTxs` and a mismatched `CtrlSum`:
+
+```python
+from kotoba_iso20022 import new_uetr, pacs008_group_header
+tx = CreditTransferTransaction(end_to_end_id="E", uetr=new_uetr(), ...)
+gh = pacs008_group_header("MSG-1", "2026-06-08T09:30:00Z", (tx,))  # NbOfTxs+CtrlSum derived
 ```
 
 ## Tests
@@ -215,11 +227,16 @@ tests/              # 81 tests (validators + round-trip + datoms + camt + BAH + 
 ```bash
 cd 40-engine/kotoba_iso20022
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=. python3 -m pytest tests/ -q
-# → 43 passed
+# → 109 passed
+
+# with coverage (pip install coverage):
+PYTHONPATH=. coverage run -m pytest tests/ -q && coverage report
+# → 95% branch / 98% line
 ```
 
 IBAN test vectors are the published ISO 13616 registry examples (DE/GB/FR/
-CH/BE); BIC vectors are real ISO 9362 codes.
+CH/BE); BIC vectors are real ISO 9362 codes. See `CHANGELOG.md` for the
+full surface.
 
 ## Charter & substrate alignment
 

@@ -69,6 +69,12 @@ from .conformance import (
 )
 from .bridge import LEXICON_VERSION, RECORD_TYPE, ingress_attestations
 from .datoms import NS, Datom, to_datoms, tx_entity_of
+from .helpers import (
+    control_sum_of,
+    new_uetr,
+    pacs008_group_header,
+    pain001_group_header,
+)
 from .validate import (
     InvalidAmount,
     InvalidBic,
@@ -113,6 +119,11 @@ __all__ = (
     "ingress_attestations",
     "RECORD_TYPE",
     "LEXICON_VERSION",
+    # construction helpers
+    "new_uetr",
+    "control_sum_of",
+    "pacs008_group_header",
+    "pain001_group_header",
     # validators
     "validate_iban",
     "validate_bic",

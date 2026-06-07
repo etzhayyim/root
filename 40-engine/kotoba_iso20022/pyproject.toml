@@ -13,9 +13,22 @@ dependencies = []
 
 [project.optional-dependencies]
 test = ["pytest>=8"]
+cov = ["pytest>=8", "coverage>=7"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["kotoba_iso20022"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["kotoba_iso20022"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+exclude_also = [
+  "raise NotImplementedError",
+  "if __name__ == .__main__.:",
+  "pragma: no cover",
+]
