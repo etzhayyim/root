@@ -17,7 +17,10 @@
     "verifiedAt": "2026-06-08",
     "resources": [
       "Customer",
-      "PaymentIntent"
+      "PaymentIntent",
+      "Charge",
+      "Invoice",
+      "Subscription"
     ],
     "enums": {
       "PaymentIntent": {
@@ -29,6 +32,27 @@
           "requires_capture",
           "canceled",
           "succeeded"
+        ]
+      },
+      "Invoice": {
+        "status": [
+          "draft",
+          "open",
+          "paid",
+          "uncollectible",
+          "void"
+        ]
+      },
+      "Subscription": {
+        "status": [
+          "incomplete",
+          "incomplete_expired",
+          "trialing",
+          "active",
+          "past_due",
+          "canceled",
+          "unpaid",
+          "paused"
         ]
       }
     }

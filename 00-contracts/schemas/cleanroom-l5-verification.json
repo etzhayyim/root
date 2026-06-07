@@ -224,9 +224,33 @@
             "status": ["requires_payment_method", "requires_confirmation", "requires_action", "processing", "requires_capture", "canceled", "succeeded"]
           },
           "gaps": ["amount_received", "client_secret", "payment_method", "metadata", "latest_charge"]
+        },
+        {
+          "entity": "Charge",
+          "source": "https://docs.stripe.com/api/charges/object",
+          "verifiedFields": ["customer", "paymentIntent", "amount", "currency", "status"],
+          "fieldStatus": "all generated fields confirmed (paymentIntent = real payment_intent); status confirmed present but the fetched excerpt did not enumerate the full enum, so it is NOT force-enforced",
+          "discoveredEnums": {},
+          "gaps": ["status-enum (succeeded/pending/failed documented elsewhere, not enumerated in excerpt)", "receipt_url", "outcome", "refunded"]
+        },
+        {
+          "entity": "Invoice",
+          "source": "https://docs.stripe.com/api/invoices/object",
+          "verifiedFields": ["customer", "amountDue", "currency", "status"],
+          "fieldStatus": "all generated fields confirmed (amountDue = real amount_due)",
+          "discoveredEnums": {"status": ["draft", "open", "paid", "uncollectible", "void"]},
+          "gaps": ["amount_paid", "hosted_invoice_url", "number", "lines"]
+        },
+        {
+          "entity": "Subscription",
+          "source": "https://docs.stripe.com/api/subscriptions/object",
+          "verifiedFields": ["customer", "status", "currentPeriodEnd"],
+          "fieldStatus": "customer/status confirmed; currentPeriodEnd maps to the real current_period_end (now per subscription-item)",
+          "discoveredEnums": {"status": ["incomplete", "incomplete_expired", "trialing", "active", "past_due", "canceled", "unpaid", "paused"]},
+          "gaps": ["items", "cancel_at_period_end", "latest_invoice", "default_payment_method"]
         }
       ],
-      "note": "Customer + PaymentIntent reconciled against official docs; remaining stripe resources (Charge/Refund/Invoice/Subscription/Product/Price) pending verification before the actor is fully L5-complete. Recorded as L5 (partial — core resources verified)."
+      "note": "Customer + PaymentIntent + Charge + Invoice + Subscription reconciled against official docs (5/8 resources); Refund/Product/Price pending. Enforceable enums: PaymentIntent.status, Invoice.status, Subscription.status."
     }
   ]
 }

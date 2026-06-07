@@ -392,6 +392,8 @@ def create_invoice(request):
     err = _require(data, ['customer', 'amountDue'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['draft', 'open', 'paid', 'uncollectible', 'void']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['draft', 'open', 'paid', 'uncollectible', 'void']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("stripe_inv")}
     rec["customer"] = data.get('customer')
     rec["amountDue"] = _as_int(data.get('amountDue'))
@@ -431,6 +433,8 @@ def update_invoice(request, eid):
     err = _reject_unknown(data, ['customer', 'amountDue', 'currency', 'status'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['draft', 'open', 'paid', 'uncollectible', 'void']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['draft', 'open', 'paid', 'uncollectible', 'void']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -458,6 +462,8 @@ def create_subscription(request):
     err = _require(data, ['customer', 'status'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['incomplete', 'incomplete_expired', 'trialing', 'active', 'past_due', 'canceled', 'unpaid', 'paused']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['incomplete', 'incomplete_expired', 'trialing', 'active', 'past_due', 'canceled', 'unpaid', 'paused']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("stripe_sub")}
     rec["customer"] = data.get('customer')
     rec["priceId"] = data.get('priceId')
@@ -498,6 +504,8 @@ def update_subscription(request, eid):
     err = _reject_unknown(data, ['customer', 'priceId', 'status', 'currentPeriodEnd'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['incomplete', 'incomplete_expired', 'trialing', 'active', 'past_due', 'canceled', 'unpaid', 'paused']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['incomplete', 'incomplete_expired', 'trialing', 'active', 'past_due', 'canceled', 'unpaid', 'paused']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
