@@ -2,46 +2,59 @@ from dataclasses import dataclass
 from typing import List
 from datetime import datetime
 
+# SAP Standard Model: MARA (Material Master Data)
 @dataclass
-class Material:
-    material_id: str
-    name: str
-    unit_of_measure: str
+class MARA:
+    matnr: str # Material Number
+    maktx: str # Material Description
+    meins: str # Base Unit of Measure
 
+# SAP Standard Model: EKPO (Purchasing Document Item)
 @dataclass
-class PurchaseOrderLine:
-    material_id: str
-    quantity: float
-    price_per_unit: float
+class EKPO:
+    ebeln: str # Purchasing Document Number
+    ebelp: str # Item Number of Purchasing Document
+    matnr: str # Material Number
+    menge: float # Purchase Order Quantity
+    netpr: float # Net Price
 
+# SAP Standard Model: EKKO (Purchasing Document Header)
 @dataclass
-class PurchaseOrder:
-    po_number: str
-    vendor_id: str
-    lines: List[PurchaseOrderLine]
-    status: str = 'OPEN' # 'OPEN', 'RECEIVED', 'CLOSED'
+class EKKO:
+    ebeln: str # Purchasing Document Number
+    lifnr: str # Vendor Account Number
+    bedat: datetime # Purchasing Document Date
+    items: List[EKPO]
+    status: str = 'OPEN'
 
+# SAP Standard Model: MSEG (Document Segment: Material)
 @dataclass
-class GoodsReceiptLine:
-    material_id: str
-    received_quantity: float
+class MSEG:
+    mblnr: str # Number of Material Document
+    zeile: str # Item in Material Document
+    bwart: str # Movement Type (e.g., '101' for Goods Receipt)
+    matnr: str # Material Number
+    menge: float # Quantity
+    ebeln: str # Purchase Order Number
+    ebelp: str # Purchase Order Item
 
+# SAP Standard Model: MKPF (Header: Material Document)
 @dataclass
-class GoodsReceipt:
-    receipt_id: str
-    po_number: str
-    date: datetime
-    lines: List[GoodsReceiptLine]
-    status: str = 'DRAFT' # 'DRAFT', 'POSTED'
+class MKPF:
+    mblnr: str # Number of Material Document
+    budat: datetime # Posting Date in the Document
+    usnam: str # User Name
+    items: List[MSEG]
+    status: str = 'DRAFT'
 
-    def validate_receipt(self, po: PurchaseOrder) -> bool:
+    def validate_receipt(self, po: EKKO) -> bool:
         """Enterprise Business Rule: Goods receipt must match a valid PO and not exceed ordered quantity."""
-        # Simple validation for prototype: check if materials exist in PO
-        po_materials = {line.material_id: line.quantity for line in po.lines}
-        for line in self.lines:
-            if line.material_id not in po_materials:
+        # Simple validation: mapping PO items by Material Number (in a real system, map by EBELP)
+        po_materials = {item.matnr: item.menge for item in po.items}
+        for item in self.items:
+            if item.matnr not in po_materials:
                 return False
-            # Check quantity (simplification: exact match or partial)
-            if line.received_quantity <= 0 or line.received_quantity > po_materials[line.material_id]:
+            # Ensure we are not receiving more than ordered
+            if item.menge <= 0 or item.menge > po_materials[item.matnr]:
                 return False
         return True
