@@ -196,6 +196,8 @@ def create_call(request):
     err = _require(data, ['fromNumber', 'toNumber'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['queued', 'ringing', 'in-progress', 'canceled', 'completed', 'busy', 'failed', 'no-answer']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['queued', 'ringing', 'in-progress', 'canceled', 'completed', 'busy', 'failed', 'no-answer']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("twilio_cal")}
     rec["fromNumber"] = data.get('fromNumber')
     rec["toNumber"] = data.get('toNumber')
@@ -235,6 +237,8 @@ def update_call(request, eid):
     err = _reject_unknown(data, ['fromNumber', 'toNumber', 'status', 'durationSec'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['queued', 'ringing', 'in-progress', 'canceled', 'completed', 'busy', 'failed', 'no-answer']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['queued', 'ringing', 'in-progress', 'canceled', 'completed', 'busy', 'failed', 'no-answer']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):

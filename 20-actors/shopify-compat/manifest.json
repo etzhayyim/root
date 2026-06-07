@@ -16,7 +16,8 @@
     "source": "https://shopify.dev/docs/api/admin-rest",
     "verifiedAt": "2026-06-08",
     "resources": [
-      "Product"
+      "Product",
+      "Order"
     ],
     "enums": {
       "Product": {
@@ -24,6 +25,17 @@
           "active",
           "archived",
           "draft"
+        ]
+      },
+      "Order": {
+        "financialStatus": [
+          "pending",
+          "authorized",
+          "partially_paid",
+          "paid",
+          "partially_refunded",
+          "refunded",
+          "voided"
         ]
       }
     }

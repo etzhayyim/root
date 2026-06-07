@@ -16,7 +16,8 @@
     "source": "https://www.twilio.com/docs",
     "verifiedAt": "2026-06-08",
     "resources": [
-      "Message"
+      "Message",
+      "Call"
     ],
     "enums": {
       "Message": {
@@ -39,6 +40,18 @@
           "outbound-api",
           "outbound-call",
           "outbound-reply"
+        ]
+      },
+      "Call": {
+        "status": [
+          "queued",
+          "ringing",
+          "in-progress",
+          "canceled",
+          "completed",
+          "busy",
+          "failed",
+          "no-answer"
         ]
       }
     }

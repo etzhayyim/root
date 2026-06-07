@@ -1248,7 +1248,17 @@
             "type": "string"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "queued",
+              "ringing",
+              "in-progress",
+              "canceled",
+              "completed",
+              "busy",
+              "failed",
+              "no-answer"
+            ]
           },
           "durationSec": {
             "type": "integer"
@@ -1273,7 +1283,17 @@
             "type": "string"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "queued",
+              "ringing",
+              "in-progress",
+              "canceled",
+              "completed",
+              "busy",
+              "failed",
+              "no-answer"
+            ]
           },
           "durationSec": {
             "type": "integer"

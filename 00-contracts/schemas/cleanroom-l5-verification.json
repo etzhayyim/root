@@ -135,9 +135,17 @@
           "fieldStatus": "all generated fields confirmed (productType = real product_type)",
           "discoveredEnums": {"status": ["active", "archived", "draft"]},
           "gaps": ["handle", "tags", "published_at", "options", "images"]
+        },
+        {
+          "entity": "Order",
+          "source": "https://shopify.dev/docs/api/admin-rest/latest/resources/order",
+          "verifiedFields": ["customerId", "totalPrice", "currency", "financialStatus"],
+          "fieldStatus": "all generated fields confirmed (customerId via customer object, totalPrice=total_price, financialStatus=financial_status)",
+          "discoveredEnums": {"financialStatus": ["pending", "authorized", "partially_paid", "paid", "partially_refunded", "refunded", "voided"]},
+          "gaps": ["fulfillment_status", "line_items", "email", "order_number"]
         }
       ],
-      "note": "Product reconciled against the official Shopify Admin REST docs; Variant/Order/Customer/Collection/Fulfillment/DiscountCode pending."
+      "note": "Product + Order reconciled against the official Shopify Admin REST docs; Variant/Customer/Collection/Fulfillment/DiscountCode pending. Enforced enums: product.status, order.financialStatus."
     },
     {
       "handle": "plaid-compat",
@@ -216,9 +224,17 @@
             "direction": ["inbound", "outbound-api", "outbound-call", "outbound-reply"]
           },
           "gaps": ["price", "num_segments", "error_code", "messaging_service_sid", "date_sent"]
+        },
+        {
+          "entity": "Call",
+          "source": "https://www.twilio.com/docs/voice/api/call-resource",
+          "verifiedFields": ["fromNumber", "toNumber", "status", "durationSec"],
+          "fieldStatus": "all generated fields confirmed (fromNumber=from, toNumber=to, durationSec=duration in seconds)",
+          "discoveredEnums": {"status": ["queued", "ringing", "in-progress", "canceled", "completed", "busy", "failed", "no-answer"]},
+          "gaps": ["price", "direction", "answered_by", "start_time", "end_time"]
         }
       ],
-      "note": "Message reconciled against the official Twilio docs; Call/PhoneNumber/Verification/Recording/Conference pending."
+      "note": "Message + Call reconciled against the official Twilio docs; PhoneNumber/Verification/Recording/Conference pending. Enforced enums: message.status, message.direction, call.status."
     },
     {
       "handle": "stripe-compat",

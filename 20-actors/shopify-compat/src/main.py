@@ -258,6 +258,8 @@ def create_order(request):
     err = _require(data, ['number', 'totalPrice'])
     if err:
         return err, 400
+    if data.get('financialStatus') and data['financialStatus'] not in ['pending', 'authorized', 'partially_paid', 'paid', 'partially_refunded', 'refunded', 'voided']:
+        return {"error": {"message": "invalid financialStatus; allowed: " + ", ".join(['pending', 'authorized', 'partially_paid', 'paid', 'partially_refunded', 'refunded', 'voided']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("shopify_ord")}
     rec["customerId"] = data.get('customerId')
     rec["number"] = data.get('number')
@@ -299,6 +301,8 @@ def update_order(request, eid):
     err = _reject_unknown(data, ['customerId', 'number', 'totalPrice', 'currency', 'financialStatus'])
     if err:
         return err, 400
+    if data.get('financialStatus') and data['financialStatus'] not in ['pending', 'authorized', 'partially_paid', 'paid', 'partially_refunded', 'refunded', 'voided']:
+        return {"error": {"message": "invalid financialStatus; allowed: " + ", ".join(['pending', 'authorized', 'partially_paid', 'paid', 'partially_refunded', 'refunded', 'voided']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):

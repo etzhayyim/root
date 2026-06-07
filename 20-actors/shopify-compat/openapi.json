@@ -1452,7 +1452,16 @@
             "type": "string"
           },
           "financialStatus": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "pending",
+              "authorized",
+              "partially_paid",
+              "paid",
+              "partially_refunded",
+              "refunded",
+              "voided"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1480,7 +1489,16 @@
             "type": "string"
           },
           "financialStatus": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "pending",
+              "authorized",
+              "partially_paid",
+              "paid",
+              "partially_refunded",
+              "refunded",
+              "voided"
+            ]
           }
         },
         "required": [
