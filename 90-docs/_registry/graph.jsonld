@@ -14075,6 +14075,15 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606073000-session-close-app-coverage-wave",
+      "type": "TechArticle",
+      "title": "ADR-2606073000: Session close — app-coverage charter-clean inversion wave + substrate-remediation ratchet",
+      "status": "active",
+      "topic": "session-close-app-coverage-wave",
+      "authoritative": false,
+      "lastVerified": "2026-06-07"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

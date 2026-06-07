@@ -22030,6 +22030,33 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606073000-session-close-app-coverage-charter-clean-inversion-wave.md",
+      "id": "adr-2606073000-session-close-app-coverage-wave",
+      "title": "ADR-2606073000: Session close — app-coverage charter-clean inversion wave + substrate-remediation ratchet",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-app-coverage-wave",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606071400",
+        "2606071500",
+        "2606071600",
+        "2606071800",
+        "2606072000",
+        "2606072200",
+        "2606072400",
+        "2606072600",
+        "2606072800"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
