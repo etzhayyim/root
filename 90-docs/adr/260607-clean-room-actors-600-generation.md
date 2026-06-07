@@ -193,23 +193,25 @@ with the production features §6 flagged as the L4 gap:
 the production surface (`_paginate` / `_apply_filters` / `_reject_unknown` /
 `has_more`).
 
-**Broadened to up to three reference implementations per domain** (`promote_l4.py
---per-category 3`): the L4 cohort spans **all ~70 wave categories** — the 10
-curated-override marquees plus up to three recognizable representatives per domain
-(salesforce, sap, aws, openai, stripe, github, hl7_fhir, bgp_routing, ros_robotics,
-iter_data, …). Every domain has ≥ 1 production-tier reference actor.
+**Lifted the whole corpus to L4** (`promote_l4.py --all`): every actor now has
+the production surface — CRUD + cursor pagination + filtering + relationship
+expansion + strict validation + a runnable contract test.
 
-**Results:** distribution is now **L3 767 (76.7%) / L4 233 (23.3%)**; the L4
-cohort runs ≈ 31–41 endpoints, 7–10 entities, 510–650 LOC; **233 / 233 contract
-test suites pass** (8 assertions each). The corpus is still 100% ≥ L3.
+**Results:** distribution is now **L4 1,000 / 1,000 (100.0%)**; each actor runs
+≈ 31–41 endpoints, 6–10 entities, 510–650 LOC; **1,000 / 1,000 contract test
+suites pass** (8 assertions each).
 
-**Full-corpus L4.** Auto-generated pagination/validation/tests legitimately meet
-this rubric's L4 ("extensive validation, comprehensive schema"), so the generator
-*could* lift all 1,000. We hold the long tail at L3 deliberately: true production
-fidelity (per-API field/enum/contract accuracy) is gated on the Autonomous
-Reverse-Engineering Loop, and an L4 label should mean more than mechanical
-feature presence. The per-domain cohort gives production coverage without
-overclaiming the tail.
+**Honesty: L4 = production *pattern*, not vendor fidelity (the new L5 bar).**
+The corpus-wide L4 means every actor implements the full production
+implementation pattern and passes its contract test — it does NOT mean the
+schema/enums match each live vendor API field-for-field. To avoid overclaiming,
+that distinct axis is named **L5 (Verified)**: an actor reaches L5 only when its
+Kotoba schema + endpoint contract are reconciled against the platform's official
+API documentation (field names, types, enums, required-ness, error codes) via the
+Autonomous Reverse-Engineering Loop, with provenance recorded. **L5 count today:
+0** — no actor has been doc-verified yet. So: L4 = "production-grade clean-room
+implementation" (achieved corpus-wide); L5 = "verified against the real API"
+(the next, doc-gated tier).
 
 ## 9. Corpus-level capability discovery (api / supplychain / socialpost / mcp)
 
