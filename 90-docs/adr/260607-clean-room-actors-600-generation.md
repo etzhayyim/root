@@ -154,7 +154,16 @@ Per actor the registrar:
 **Results:** 1,000 / 1,000 actors registered; 1,000 / 1,000 wasm CIDs valid
 `bafkrei` raw-CIDv1; each exposes api + supplychain + socialpost + mcp.
 
-**Next (loop):** wire `cleanroom-actors-seed.kotoba.edn` into
-`publish-actor-records.mjs` so the Datoms ingest into the live `actors-v1`
-graph + CF KV; build the actual WASM components (the program CID re-derives at
-build) and pin their CARs to IPFS; light up the ameno browser actor-panel rows.
+**Publisher wiring (DONE).** `publish-actor-records.mjs` now takes a
+`--seed <path>` override, so the clean-room seed publishes through the *same*
+did:web pipeline as the canonical actors. Verified end-to-end (offline mode):
+all **1,000 / 1,000** actors materialize a valid DID document (each with the
+`EtzhayyimWasmComponent` + api/supplychain/socialpost/mcp services), a profile
+view, and a **unique content-addressed did.json CID** (1,000 distinct CIDs).
+Operator-gated `--put-kv` / `--ingest-kotoba` / `--pin-did` paths are unchanged
+and ready to push the corpus into live CF KV + the `actors-v1` kotoba graph + IPFS.
+
+**Next (loop):** build the actual WASM components (the program CID re-derives at
+build) and pin their CARs to IPFS; run the operator-gated `--put-kv` /
+`--ingest-kotoba`; light up the ameno browser actor-panel rows; push a curated
+subset L3 → L4 (pagination / filtering / relationship-expansion + contract tests).
