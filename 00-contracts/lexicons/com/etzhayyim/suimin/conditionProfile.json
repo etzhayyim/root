@@ -25,7 +25,7 @@
           "icd11Code": {
             "type": "string",
             "maxLength": 50,
-            "description": "WHO ICD-11 code (e.g., 7A40 obstructive / 7A41 central). Anchor only."
+            "description": "WHO ICD-11 code (anchor only). Per ICD-11 MMS: 7A41 = obstructive sleep apnoea, 7A40 = central sleep apnoeas."
           },
           "layDescription": {
             "type": "string",
