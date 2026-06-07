@@ -319,3 +319,25 @@ runtime that runs in-browser today, AND both real WASM build tiers validated.
 The follow-up is per-actor codegen of the Rust guest from the domain model (the
 `wasm-rs` PoC currently carries a generic store surface) and IPFS pinning to
 swap each `:actor/wasm-cid` source-bundle stand-in for the built component's CID.
+
+## 14. Registration carries actually-built WASM CIDs (provenance-tracked)
+
+The registration loop is closed for the first cohort: an actor's
+`:actor/wasm-cid` is now the CID of an **actually-built, validated WASM
+component**, not just the source-bundle stand-in.
+
+*   `70-tools/gen_rust_actor.py` builds a per-actor Rust→WASM module (the
+    `wasm-rs` crate, with the actor's handle + entity list embedded so each
+    module's bytes — and raw CID — are actor-specific), validates it, computes
+    its raw CIDv1, and records every build in
+    `00-contracts/schemas/cleanroom-built-actors.json` (10 marquee actors,
+    ~2.1 KB each, all valid `bafkrei`).
+*   `register_cleanroom_actors.py` prefers a built CID when present and tags each
+    actor `wasmProvenance ∈ {built-rust-raw, source-bundle}` in the manifest +
+    index; `verify_cleanroom_system.py` skips the source-bundle freshness check
+    for built actors.
+
+So 10 actors now resolve (via the did:web publisher) to a DID document whose
+`EtzhayyimWasmComponent` `ipfs://<cid>` is the CID of a real, validated,
+browser-local WASM artifact. Remaining: widen the built cohort + IPFS-pin the
+components (operator step, needs a daemon) so the CIDs are fetch-resolvable.
