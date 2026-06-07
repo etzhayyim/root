@@ -1,0 +1,758 @@
+{
+  "schemaVersion": "1.0",
+  "handle": "bgp_rpki-compat",
+  "did": "did:web:etzhayyim.com:actor:bgp_rpki-compat",
+  "kind": "compat",
+  "title": "bgp_rpki clean-room actor",
+  "description": "Clean-room, API-compatible deep internet / core routing actor (bgp_rpki); runs browser-local on IPFS + kotoba-WASM.",
+  "wasmCid": "bafkreihewslegemkgm4i2jjuyvgdhbqy6n4ahbzcayiy66tcczum4bmjeu",
+  "runtime": "kotoba-wasm",
+  "exec": "browser-local|donated-mesh",
+  "ipfs": "ipfs://bafkreihewslegemkgm4i2jjuyvgdhbqy6n4ahbzcayiy66tcczum4bmjeu",
+  "schema": "schema/bgp_rpki.kotoba",
+  "entities": [
+    "Prefix",
+    "Route",
+    "Peer",
+    "Zone",
+    "Record",
+    "Tunnel"
+  ],
+  "adr": [
+    "260607",
+    "2606014500",
+    "2606013800",
+    "2606036000"
+  ],
+  "capabilities": {
+    "api": {
+      "type": "rest",
+      "runtime": "kotoba-wasm",
+      "endpointCount": 30,
+      "routes": [
+        {
+          "method": "POST",
+          "path": "/v1/prefixes",
+          "op": "create Prefix"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/prefixes",
+          "op": "list Prefix"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/prefixes/{id}",
+          "op": "get Prefix"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/prefixes/{id}",
+          "op": "update Prefix"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/prefixes/{id}",
+          "op": "delete Prefix"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/routes",
+          "op": "create Route"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/routes",
+          "op": "list Route"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/routes/{id}",
+          "op": "get Route"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/routes/{id}",
+          "op": "update Route"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/routes/{id}",
+          "op": "delete Route"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/peers",
+          "op": "create Peer"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/peers",
+          "op": "list Peer"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/peers/{id}",
+          "op": "get Peer"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/peers/{id}",
+          "op": "update Peer"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/peers/{id}",
+          "op": "delete Peer"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/zones",
+          "op": "create Zone"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/zones",
+          "op": "list Zone"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/zones/{id}",
+          "op": "get Zone"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/zones/{id}",
+          "op": "update Zone"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/zones/{id}",
+          "op": "delete Zone"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/records",
+          "op": "create Record"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/records",
+          "op": "list Record"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/records/{id}",
+          "op": "get Record"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/records/{id}",
+          "op": "update Record"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/records/{id}",
+          "op": "delete Record"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/tunnels",
+          "op": "create Tunnel"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/tunnels",
+          "op": "list Tunnel"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/tunnels/{id}",
+          "op": "get Tunnel"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/tunnels/{id}",
+          "op": "update Tunnel"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/tunnels/{id}",
+          "op": "delete Tunnel"
+        }
+      ],
+      "health": "/healthz"
+    },
+    "supplychain": {
+      "type": "cyclonedx-sbom",
+      "runtime": "kotoba-wasm",
+      "sbom": "manifest:supplychain.sbom",
+      "sbomData": {
+        "bomFormat": "CycloneDX",
+        "specVersion": "1.5",
+        "metadata": {
+          "component": {
+            "type": "application",
+            "name": "bgp_rpki-compat",
+            "purl": "pkg:etzhayyim/bgp_rpki-compat"
+          }
+        },
+        "components": [
+          {
+            "type": "library",
+            "name": "kotoba",
+            "scope": "required",
+            "purl": "pkg:etzhayyim/kotoba"
+          },
+          {
+            "type": "library",
+            "name": "kotodama-wasm",
+            "scope": "required",
+            "purl": "pkg:etzhayyim/kotodama-wasm"
+          },
+          {
+            "type": "library",
+            "name": "datomic-client",
+            "scope": "required",
+            "purl": "pkg:etzhayyim/datomic-client"
+          }
+        ]
+      },
+      "adr": [
+        "2606036000"
+      ]
+    },
+    "socialpost": {
+      "type": "datom-event-feed",
+      "runtime": "kotoba-wasm",
+      "lexicon": "app.bsky.feed.post",
+      "source": "bgp_rpki.* Datom events",
+      "mode": "dry-run",
+      "gate": "G8"
+    },
+    "mcp": {
+      "type": "model-context-protocol",
+      "runtime": "kotoba-wasm",
+      "transport": "ipfs+kotoba-wasm",
+      "toolCount": 30,
+      "tools": [
+        {
+          "name": "create_prefix",
+          "description": "Create a Prefix.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "cidr": {
+                "type": "string"
+              },
+              "originAsn": {
+                "type": "string"
+              },
+              "validity": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "cidr",
+              "originAsn"
+            ]
+          }
+        },
+        {
+          "name": "list_prefixes",
+          "description": "List Prefixes.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_prefix",
+          "description": "Get a Prefix by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_prefix",
+          "description": "Update a Prefix.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "cidr": {
+                "type": "string"
+              },
+              "originAsn": {
+                "type": "string"
+              },
+              "validity": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_prefix",
+          "description": "Delete a Prefix.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_route",
+          "description": "Create a Route.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "prefixId": {
+                "type": "string"
+              },
+              "nextHop": {
+                "type": "string"
+              },
+              "asPath": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "nextHop",
+              "asPath"
+            ]
+          }
+        },
+        {
+          "name": "list_routes",
+          "description": "List Routes.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_route",
+          "description": "Get a Route by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_route",
+          "description": "Update a Route.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "prefixId": {
+                "type": "string"
+              },
+              "nextHop": {
+                "type": "string"
+              },
+              "asPath": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_route",
+          "description": "Delete a Route.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_peer",
+          "description": "Create a Peer.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "asn": {
+                "type": "string"
+              },
+              "ipAddress": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "asn",
+              "ipAddress"
+            ]
+          }
+        },
+        {
+          "name": "list_peers",
+          "description": "List Peers.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_peer",
+          "description": "Get a Peer by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_peer",
+          "description": "Update a Peer.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "asn": {
+                "type": "string"
+              },
+              "ipAddress": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_peer",
+          "description": "Delete a Peer.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_zone",
+          "description": "Create a Zone.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "serial": {
+                "type": "integer"
+              },
+              "refreshSec": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "name",
+              "serial"
+            ]
+          }
+        },
+        {
+          "name": "list_zones",
+          "description": "List Zones.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_zone",
+          "description": "Get a Zone by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_zone",
+          "description": "Update a Zone.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "serial": {
+                "type": "integer"
+              },
+              "refreshSec": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_zone",
+          "description": "Delete a Zone.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_record",
+          "description": "Create a Record.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "zoneId": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "type"
+            ]
+          }
+        },
+        {
+          "name": "list_records",
+          "description": "List Records.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_record",
+          "description": "Get a Record by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_record",
+          "description": "Update a Record.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "zoneId": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_record",
+          "description": "Delete a Record.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_tunnel",
+          "description": "Create a Tunnel.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "localAddr": {
+                "type": "string"
+              },
+              "remoteAddr": {
+                "type": "string"
+              },
+              "protocol": {
+                "type": "string"
+              },
+              "active": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "localAddr",
+              "remoteAddr"
+            ]
+          }
+        },
+        {
+          "name": "list_tunnels",
+          "description": "List Tunnels.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_tunnel",
+          "description": "Get a Tunnel by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_tunnel",
+          "description": "Update a Tunnel.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "localAddr": {
+                "type": "string"
+              },
+              "remoteAddr": {
+                "type": "string"
+              },
+              "protocol": {
+                "type": "string"
+              },
+              "active": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_tunnel",
+          "description": "Delete a Tunnel.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

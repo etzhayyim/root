@@ -117,3 +117,44 @@ platform's official API documentation, reconcile field names/types/enums against
 the generated model, add list pagination + filtering + relationship endpoints,
 and generate per-actor contract tests. `deepen_actors.py`'s curated-override map
 is the seam where that per-platform fidelity lands.
+
+## 7. Registration as etzhayyim Actors (IPFS + kotoba-WASM, browser-local)
+
+**Tool:** `70-tools/register_cleanroom_actors.py`.
+
+The L3 corpus is registered into the **`actors-v1` kotoba graph** (schema
+`00-contracts/schemas/actor-profile.kotoba.edn`, ADR-2606013800) so every
+clean-room actor becomes a first-class, resolvable **etzhayyim.com actor** that
+runs **browser-local on IPFS + kotoba-WASM** — the "one Worker, many WASM
+actors" model (ADR-2606014500). No per-actor server; no server-minted key
+(`:actor/vm []`, did:web trust root = TLS, ADR-2605231525).
+
+Per actor the registrar:
+*   Computes a content-addressed **CIDv1 (raw, sha2-256, base32 → `bafkrei…`)**
+    over the actor's program bundle (schema + main.py + deps.toml), byte-for-byte
+    matching the apex Worker's `cidV1Raw()` / `isRawCidV1()`. The Worker turns
+    `:actor/wasm-cid` into an `EtzhayyimWasmComponent` service `ipfs://<cid>`
+    with `x-runtime: kotoba-wasm`, `x-exec: browser-local|donated-mesh`.
+*   Emits a self-describing `20-actors/<platform>-compat/manifest.json` declaring
+    **four capability surfaces, all on the one WASM component:**
+    - **api** — the L3 CRUD REST surface (≈ 30–40 routes) + `/healthz`.
+    - **supplychain** — a CycloneDX 1.5 SBOM derived from `deps.toml` (purl per
+      component), per ADR-2606036000.
+    - **socialpost** — a Datom-event → `app.bsky.feed.post` surface, **dry-run /
+      G8-gated** (outward posting stays gated).
+    - **mcp** — a Model-Context-Protocol tool manifest (one tool per CRUD op per
+      entity, JSON-Schema inputs) so the actor is callable as MCP tools over
+      `ipfs+kotoba-wasm`.
+*   Writes the global `00-contracts/schemas/cleanroom-actors-seed.kotoba.edn`
+    (publisher-ready `:seed` Datoms, each with `:actor/wasm-cid` + the four
+    capability `:actor/service` entries) and a compact
+    `cleanroom-actors.index.json` (actors.json-style index for the apex Worker /
+    ameno actor panel).
+
+**Results:** 1,000 / 1,000 actors registered; 1,000 / 1,000 wasm CIDs valid
+`bafkrei` raw-CIDv1; each exposes api + supplychain + socialpost + mcp.
+
+**Next (loop):** wire `cleanroom-actors-seed.kotoba.edn` into
+`publish-actor-records.mjs` so the Datoms ingest into the live `actors-v1`
+graph + CF KV; build the actual WASM components (the program CID re-derives at
+build) and pin their CARs to IPFS; light up the ameno browser actor-panel rows.
