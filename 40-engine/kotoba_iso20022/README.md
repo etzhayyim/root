@@ -47,8 +47,9 @@ Every wire detail comes from the **open published standard**, not vendor code:
   canonical default-namespace `<Document xmlns="…">` form.
 - **Embedded identifiers** — validated by independent reimplementations of
   the *open* identifier standards: **ISO 13616** IBAN (check digits via
-  **ISO 7064 MOD 97-10**), **ISO 9362** BIC, **ISO 4217** currency, and the
-  ISO 20022 `ActiveCurrencyAndAmount` lexical constraints.
+  **ISO 7064 MOD 97-10**, the full SWIFT IBAN-registry country-length set),
+  **ISO 9362** BIC, **ISO 4217** currency, and the ISO 20022
+  `ActiveCurrencyAndAmount` lexical constraints.
 
 This is the same cleanroom posture warifu applied to ISO 8583 in
 `50-infra/warifu-gateway/` — facts of an open standard are not
@@ -208,7 +209,7 @@ kotoba_iso20022/
 ├── bridge.py       # message → com.etzhayyim.iso20022.ingressAttestation records
 ├── helpers.py      # new_uetr() + auto NbOfTxs/CtrlSum group-header builders
 └── __init__.py     # public surface
-tests/              # 109 tests · 95% branch / 98% line coverage
+tests/              # 207 tests · 95% branch / 98% line · mypy --strict clean
 ```
 
 ## Construction helpers
@@ -227,11 +228,15 @@ gh = pacs008_group_header("MSG-1", "2026-06-08T09:30:00Z", (tx,))  # NbOfTxs+Ctr
 ```bash
 cd 40-engine/kotoba_iso20022
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=. python3 -m pytest tests/ -q
-# → 109 passed
+# → 207 passed
 
 # with coverage (pip install coverage):
 PYTHONPATH=. coverage run -m pytest tests/ -q && coverage report
 # → 95% branch / 98% line
+
+# static typing (pip install mypy): the package passes --strict clean
+PYTHONPATH=. mypy kotoba_iso20022 --strict
+# → Success: no issues found
 ```
 
 IBAN test vectors are the published ISO 13616 registry examples (DE/GB/FR/

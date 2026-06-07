@@ -18,7 +18,7 @@ move money (kawase G2/G13 stay with the gated ingress cell).
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Optional, Union
 
 from .datoms import tx_entity_of
 from .model import (
@@ -30,7 +30,16 @@ from .model import (
     StatementEntry,
 )
 
-__all__ = ("ingress_attestations", "RECORD_TYPE", "LEXICON_VERSION")
+__all__ = ("ingress_attestations", "RECORD_TYPE", "LEXICON_VERSION", "ValueBearingMessage")
+
+# The message kinds that carry a settlement value-event (vs. a status report).
+ValueBearingMessage = Union[
+    CustomerCreditTransferInitiation,
+    FIToFICustomerCreditTransfer,
+    BankToCustomerStatement,
+    BankToCustomerDebitCreditNotification,
+]
+Record = dict[str, object]
 
 RECORD_TYPE = "com.etzhayyim.iso20022.ingressAttestation"
 LEXICON_VERSION = 1
@@ -58,8 +67,8 @@ def _base_record(
     cbpr_conformant: Optional[bool] = None,
     linked_deposit_cid: Optional[str] = None,
     datom_count: Optional[int] = None,
-) -> dict:
-    rec: dict = {
+) -> Record:
+    rec: Record = {
         "$type": RECORD_TYPE,
         "v": LEXICON_VERSION,
         "messageDefinition": message_definition,
@@ -92,7 +101,7 @@ def _from_transaction(
     include_party_names: bool,
     cbpr_conformant: Optional[bool],
     linked_deposit_cid: Optional[str],
-) -> Optional[dict]:
+) -> Optional[Record]:
     amt = tx.interbank_amount or tx.instructed_amount
     if amt is None:
         return None
@@ -130,7 +139,7 @@ def _from_entry(
     ingested_at: str,
     cbpr_conformant: Optional[bool],
     linked_deposit_cid: Optional[str],
-) -> Optional[dict]:
+) -> Optional[Record]:
     ref = entry.end_to_end_id or entry.account_servicer_reference
     if ref is None:
         return None
@@ -152,14 +161,14 @@ def _from_entry(
 
 
 def ingress_attestations(
-    msg,
+    msg: ValueBearingMessage,
     *,
     ingested_at: str,
     message_definition: Optional[str] = None,
     include_party_names: bool = False,
     cbpr_conformant: Optional[bool] = None,
     linked_deposit_cid: Optional[str] = None,
-) -> list[dict]:
+) -> list[Record]:
     """Map a value-bearing ISO 20022 message to ``ingressAttestation`` records.
 
     One record per transaction (pain.001 / pacs.008) or per entry
@@ -180,7 +189,7 @@ def ingress_attestations(
         )
     msgdef = message_definition or DEFAULT_VERSIONS[reported_by]
     mid = msg.group_header.message_id
-    out: list[dict] = []
+    out: list[Record] = []
 
     if isinstance(msg, CustomerCreditTransferInitiation):
         txs = [tx for pmt in msg.payments for tx in pmt.transactions]
