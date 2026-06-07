@@ -111,5 +111,5 @@ Initial backfill: `syncAll {since: "1970-01-01T00:00:00Z", maxPagesPerType: 200}
 - `30-graph/graph-schema/sql_migrations/20260510010000_vertex_hubspot.{up,down}.sql`
 - `30-graph/graph-schema/alembic/current_versions/r_20260510010000_vertex_hubspot.py`
 - `00-contracts/lexicons/com/etzhayyim/apps/hubspot/{syncObjectType,syncAll,listObjects,getSyncStatus}.json`
-- `60-apps/etzhayyim-project-hubspot-hb5p0t1n/appview/etzhayyim-wasm-hubspot-hb5p0t1n/{magatama.jsonld,wrangler.jsonc,package.json,tsconfig.json,src/app.ts}`
+- `60-apps/etzhayyim-project-hubspot-hb5p0t1n/appview/etzhayyim-wasm-hubspot-hb5p0t1n/{kotodama.jsonld,wrangler.jsonc,package.json,tsconfig.json,src/app.ts}`
 - `_working/etzhayyim-revenue/DECISION-LOG.md` iter 123, 127

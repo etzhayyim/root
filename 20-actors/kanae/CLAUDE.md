@@ -63,7 +63,7 @@ boundaries are structural and constitutional:
    live portal scraping, NO per-query API, NO non-public sources, NO
    whistleblower intake. This is the hard wall against §2(c) covert-ops /
    surveillance drift. kanae does NOT re-fetch from government portals;
-   `pymagatama.organism.sensors.gov.*` (upstream) + danjo already did.
+   `kotodama.organism.sensors.gov.*` (upstream) + danjo already did.
 5. **Aggregate-first visualization (G10)** — every visualization is
    aggregate by default (recipient classes, program totals, juris-to-juris
    columns). A named-party element is permitted ONLY where the source
@@ -86,7 +86,7 @@ boundaries are structural and constitutional:
 
 ## Architecture
 
-5 Pregel cells, each path-reserved at R0 under `20-actors/magatama/cells/kanae_*/`:
+5 Pregel cells, each path-reserved at R0 under `40-engine/kotoba/crates/kotoba-kotodama/cells/kanae_*/`:
 
 ```
 flow_assembler ──┐

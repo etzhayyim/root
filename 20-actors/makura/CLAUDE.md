@@ -170,7 +170,7 @@ Returns error in R0; waits for R1 ADR activation.
 **Smoke test**: Verify all 9 cells import without exception:
 
 ```bash
-cd 20-actors/magatama
+cd 40-engine/kotoba/crates/kotoba-kotodama
 python -c "from cells.pillow_polyol_attestation import PillowPolyolAttestationCell; assert PillowPolyolAttestationCell"
 python -c "from cells.pillow_isocyanate_dispensing import PillowIsocyanateDispensingCell; assert PillowIsocyanateDispensingCell"
 python -c "from cells.pillow_foam_blowing import PillowFoamBlowingCell; assert PillowFoamBlowingCell"

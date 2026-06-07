@@ -50,7 +50,7 @@ NSID prefix をデプロイ面 (CF edge / K8s Vultr) の判定キーに昇格さ
 | `com.etzhayyim.apps.*` per-actor Worker | **0 個** | 0 個維持 |
 | BPMN bindings | 137 rows, 16 NSID が `NSID_EXACT_MATCH_TABLE` で dispatcher:8080 へ pipethrough | 全 `com.etzhayyim.apps.*` が default で dispatcher へ |
 | K8s XRPC ingress | CF Tunnel (cloudflared pod) → zeebe-gateway ClusterIP → aiohttp :8080 (HTTP, `noTLSVerify`) | cert-manager TLS termination |
-| Trust plane | 4 パターン混在 (`x-etzhayyim-authenticated-did` / `x-magatama-verified` / `x-internal-trust` / binding existence) | HMAC-SHA256 `x-etzhayyim-internal-trust` 1 本 (ADR-2604241038 Contract 3) |
+| Trust plane | 4 パターン混在 (`x-etzhayyim-authenticated-did` / `x-kotodama-verified` / `x-internal-trust` / binding existence) | HMAC-SHA256 `x-etzhayyim-internal-trust` 1 本 (ADR-2604241038 Contract 3) |
 
 したがって本 ADR は新規大規模 migration ではなく、**既存トラジェクトリの終端定義** である。
 
@@ -101,7 +101,7 @@ Rule 1 の `com.etzhayyim.apps.*` → K8s に対する **唯一の例外** は *
 
 ## Rule 5 — Trust plane HMAC-SHA256 統一 (ADR-2604241038 Contract 3 依存)
 
-本 ADR は独立した trust plane 決定を持たず、ADR-2604241038 Contract 3 (Phase γ1–4) の完遂を implicit dependency とする。edge → K8s の全 pipethrough は `x-etzhayyim-internal-trust` HMAC-SHA256 header (`timestamp:method:path` 入力で署名) を K8s 側 ingress middleware で verify する。既存 `x-magatama-verified` / `x-etzhayyim-authenticated-did` (unsigned) / binding-existence 推論は廃止する。
+本 ADR は独立した trust plane 決定を持たず、ADR-2604241038 Contract 3 (Phase γ1–4) の完遂を implicit dependency とする。edge → K8s の全 pipethrough は `x-etzhayyim-internal-trust` HMAC-SHA256 header (`timestamp:method:path` 入力で署名) を K8s 側 ingress middleware で verify する。既存 `x-kotodama-verified` / `x-etzhayyim-authenticated-did` (unsigned) / binding-existence 推論は廃止する。
 
 # Rationale
 
@@ -152,7 +152,7 @@ C は edge-thin PDS + K8s actor core の「責務分離」止まりで、NSID pr
 
 ## Phase δ4 — Trust plane HMAC 統一 (ADR-2604241038 Contract 3 依存、並走可)
 
-- `x-magatama-verified` / `x-etzhayyim-authenticated-did` (unsigned) を全 handler から除去
+- `x-kotodama-verified` / `x-etzhayyim-authenticated-did` (unsigned) を全 handler から除去
 - `x-etzhayyim-internal-trust` HMAC-SHA256 を PDS dispatch.ts / bpmn-dispatcher / chat / signal で強制
 - K8s ingress middleware で verify 失敗時 401 を返す
 

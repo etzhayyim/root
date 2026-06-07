@@ -1,7 +1,7 @@
 {
   "version": 1,
   "apps": {
-    "ai-gftd-wasm-aircraft-ac7mv2xp": {
+    "etzhayyim-wasm-aircraft-ac7mv2xp": {
       "nanoid": "ac7mv2xp",
       "app_version": "1.0.0",
       "last_deployed_at": "2026-04-02T10:21:15Z",

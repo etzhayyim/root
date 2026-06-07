@@ -13,9 +13,9 @@ go build -o /opt/homebrew/bin/e7m .
 
 | Command | Purpose | Doc |
 |---|---|---|
-| `e7m build` | TinyGo WASM component → wasm-tools componentize (magatama WIT) | `build.go` |
-| `e7m build-server` | magatama-server binary + Docker image (zigbuild cross-compile) | `build_server.go` |
-| `e7m deploy` | Cloudflare Container deploy (magatama.toml + etzhayyim.json → wrangler deploy + smoke) | `deploy.go` |
+| `e7m build` | TinyGo WASM component → wasm-tools componentize (kotodama WIT) | `build.go` |
+| `e7m build-server` | kotodama-server binary + Docker image (zigbuild cross-compile) | `build_server.go` |
+| `e7m deploy` | Cloudflare Container deploy (kotodama.toml + etzhayyim.json → wrangler deploy + smoke) | `deploy.go` |
 | `e7m plugin` | Manage build tools (wasm-tools, tinygo adapters) | `plugin.go` |
 | `e7m bench` | Dispatch baien benches (micro / core4) | `bench.go` |
 | `e7m version` | Print version | `main.go` |

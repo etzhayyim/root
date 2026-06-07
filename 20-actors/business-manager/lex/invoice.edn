@@ -1,0 +1,26 @@
+;; com.etzhayyim.businessManager.invoice — lexicon (EDN form)
+;; AP (payable) / AR (receivable) invoice. `approved` is DERIVED (>1M JPY → approval-required,
+;; G6), never caller-set. Member-signed (G4). Append-only: settlement emits a new :paid state,
+;; it does not mutate the original (G7).
+;; ADR-2606072000
+{:lexicon 1
+ :id "com.etzhayyim.businessManager.invoice"
+ :defs
+ {:main
+  {:type "record"
+   :key "tid"
+   :record
+   {:type "object"
+    :required ["invoiceId" "direction" "amountMinor" "postedBy"]
+    :properties
+    {:invoiceId     {:type "string"}
+     :direction     {:type "string" :description "payable (AP) | receivable (AR)"}
+     :party         {:type "string" :description "vendor (AP) or customer (AR); prefer internal okaimono/producing actor"}
+     :amountMinor   {:type "integer" :description "JPY minor; > 0; drives approval (G6)"}
+     :currency      {:type "string" :description "const JPY"}
+     :dueDate       {:type "string" :format "date"}
+     :fiscalYear    {:type "string"}
+     :approved      {:type "string" :description "DERIVED (G6): auto-approved | approval-required"}
+     :paymentStatus {:type "string" :description "open | overdue | paid (append-only G7)"}
+     :postedBy      {:type "string" :description "member DID (G4)"}
+     :settledSig    {:type "string" :description "member signature ref on settlement; server sig refused (G4)"}}}}}}

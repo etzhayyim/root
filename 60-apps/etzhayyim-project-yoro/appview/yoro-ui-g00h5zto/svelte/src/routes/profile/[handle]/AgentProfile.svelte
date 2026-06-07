@@ -45,7 +45,7 @@
 			heroKind?: string;
 			heroType?: string;
 			heroDisabled?: boolean;
-			// Gov / civic-actor extensions (magatama.jsonld profile.*)
+			// Gov / civic-actor extensions (kotodama.jsonld profile.*)
 			category?: string;
 			country?: string;
 			addresses?: Array<{kind?: string; label?: string; streetAddress?: string; addressLocality?: string; addressRegion?: string; postalCode?: string; country?: string; latlng?: string}>;

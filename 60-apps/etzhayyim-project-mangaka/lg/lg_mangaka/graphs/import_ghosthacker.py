@@ -107,7 +107,7 @@ async def _node_import(state: _State) -> dict[str, Any]:
                 "character": 0, "environment": 0, "organization": 0, "generatedImage": 0}
 
     try:
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         import asyncio
         client = get_kotoba_client()
 

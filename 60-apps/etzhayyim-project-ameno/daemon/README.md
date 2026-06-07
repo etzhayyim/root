@@ -121,8 +121,8 @@ The daemon auto-restarts on crash (`KeepAlive.SuccessfulExit=false`).
   If you need browser WebGPU Gemma, use the svelte appview (tab-resident,
   ADR-2605191135).
 - **Not Tier 1** — Tier 1 is Murakumo Mac mini fleet (Python
-  `pymagatama.agent_daemon_main`, ADR-2605182312). This daemon is the
-  TypeScript Path A. The Python Path B (port to pymagatama) is the
+  `kotodama.agent_daemon_main`, ADR-2605182312). This daemon is the
+  TypeScript Path A. The Python Path B (port to kotodama) is the
   follow-up ADR.
 
 ## Substrate boundary

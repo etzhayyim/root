@@ -1,9 +1,9 @@
 > **DEPRECATED**: Actor migrated to `20-actors/os/actor-manifest.jsonld` (T1 MCP-Compose). This project wasm/*/src/app.ts is retained as T3 fallback only.
 
-# etzhayyim-project-os — KAMI + Magatama OS
+# etzhayyim-project-os — KAMI + Kotodama OS
 
 etzhayyim OS はユーザーのデスクトップ上で動作する **Web4 ローカルインターフェース**。
-KAMI Engine (wgpu compositor) + Magatama host-sdk (TS Native) の 2 層で構成。
+KAMI Engine (wgpu compositor) + Kotodama host-sdk (TS Native) の 2 層で構成。
 
 ## Architecture
 
@@ -22,7 +22,7 @@ KAMI Engine (wgpu compositor) + Magatama host-sdk (TS Native) の 2 層で構成
 └───────────┬─────────────────────────┬─────────────┘
             │ XRPC                    │ ECS
 ┌───────────▼───────────┐  ┌─────────▼────────────┐
-│  Magatama OS Service  │  │  kami-os Rust WASM    │
+│  Kotodama OS Service  │  │  kami-os Rust WASM    │
 │  (src/app.ts)         │  │  (hecs ECS)           │
 │  • agent-runtime      │  │  • CompositorState    │
 │  • consent            │  │  • WindowComponent    │
@@ -46,18 +46,18 @@ KAMI Engine (wgpu compositor) + Magatama host-sdk (TS Native) の 2 層で構成
 | Layer | Technology | Responsibility |
 |---|---|---|
 | **Shell (rendering + input)** | kami-os (Rust WASM, `40-engine/kami-engine/kami-os/`) | Window compositor, GPU UI, input routing, taskbar, launcher, notifications, consent modal |
-| **Services (OS logic)** | Magatama host-sdk (TS Native, `src/app.ts`) | Agent lifecycle, consent governance, GCC budget, directory, audit, sync, window events |
+| **Services (OS logic)** | Kotodama host-sdk (TS Native, `src/app.ts`) | Agent lifecycle, consent governance, GCC budget, directory, audit, sync, window events |
 
 ## File Structure
 
 ```
 60-apps/etzhayyim-project-os/
 ├── CLAUDE.md                  # This file
-├── magatama.jsonld            # Magatama app definition (did:web:os.etzhayyim.com)
+├── kotodama.jsonld            # Kotodama app definition (did:web:os.etzhayyim.com)
 ├── PROJECT.jsonld             # Metadata
 ├── OWNERS
 ├── src/
-│   └── app.ts                 # Magatama OS service (TS Native, single file)
+│   └── app.ts                 # Kotodama OS service (TS Native, single file)
 ├── wit/
 │   └── world.wit              # OS WIT contract (7 capability exports + automaton imports)
 └── provider/
@@ -105,9 +105,9 @@ Imports `etzhayyim:automaton@0.1.0` (survival, policy, memory, soul, replication
 |---|---|---|
 | `FocusManager` | `kami-input` (Rust) | `input_router.rs` delegates focus routing |
 | `ToastStack` | `kami-ui-gpu` (Rust) | `notification.rs` delegates toast rendering |
-| `createConsentHelper` | `@etzhayyim/magatama-host-sdk` (TS) | `src/app.ts` consent commands |
-| `createAgentLifecycle` | `@etzhayyim/magatama-host-sdk` (TS) | `src/app.ts` agent commands |
-| `createAuditHelper` | `@etzhayyim/magatama-host-sdk` (TS) | `src/app.ts` audit trail |
+| `createConsentHelper` | `@etzhayyim/kotodama-host-sdk` (TS) | `src/app.ts` consent commands |
+| `createAgentLifecycle` | `@etzhayyim/kotodama-host-sdk` (TS) | `src/app.ts` agent commands |
+| `createAuditHelper` | `@etzhayyim/kotodama-host-sdk` (TS) | `src/app.ts` audit trail |
 
 ## Graph Labels (kagami)
 
@@ -137,7 +137,7 @@ All labels include RLS columns: `org_id`, `user_id`, `actor_id`, `created_at`.
 ## Nested References
 
 - KAMI Engine: `40-engine/kami-engine/CLAUDE.md`
-- Magatama SDK: `20-actors/magatama/CLAUDE.md`
+- Kotodama SDK: `40-engine/kotoba/crates/kotoba-kotodama/CLAUDE.md`
 - WIT contracts: `_archive/00-contracts/wit/` (archived 2026-04-12)
 - Automaton WIT: `provider/automaton/wit/automaton.wit`
 - Projects rules: `60-apps/CLAUDE.md`
@@ -149,7 +149,7 @@ All labels include RLS columns: `org_id`, `user_id`, `actor_id`, `created_at`.
 cd 40-engine/kami-engine
 wasm-pack build --target web kami-os
 
-# Magatama OS service (TS Native)
+# Kotodama OS service (TS Native)
 cd 60-apps/etzhayyim-project-os
 etzhayyim build
 etzhayyim deploy --smoke-url https://os-etzhayyim-01.etzhayyim.com/health

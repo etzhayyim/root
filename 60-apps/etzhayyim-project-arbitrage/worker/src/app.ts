@@ -2,7 +2,7 @@
 //
 // Business logic lives in BPMN + Python LangServer:
 //   - BPMN: etzhayyim-root/00-contracts/bpmn/com/etzhayyim/arb
-//   - Python: pymagatama.ingest.arbitrage
+//   - Python: kotodama.ingest.arbitrage
 
 interface SecretBinding {
   get(): Promise<string>;
@@ -29,7 +29,7 @@ export default {
         nanoid: env.APP_NANOID ?? "arb2x301",
         displayName: env.APP_DISPLAY_NAME ?? "Arb - Cross-Asset Arbitrage Signals",
         execution: "edge-proxy+agentgateway-mcp+langserver",
-        businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/arbitrage.py",
+        businessLogic: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/arbitrage.py",
         bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/arb",
         adr: "ADR-0036, ADR-2604282300",
       });

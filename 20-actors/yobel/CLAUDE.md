@@ -10,7 +10,7 @@ Per [ADR-2605201800](../../90-docs/adr/2605201800-etzhayyim-yobel-debt-release-a
 | State / records | AT MST + IPFS + Base L2 anchor via `@etzhayyim/sdk` | RisingWave / Postgres / Kysely / centralized DB |
 | Settlement | USDC on Base L2 + ERC725 Smart Wallet + `TitheRouter.route()` (10% Tithe reverse-neutral for releases) | Stripe / PayPal / fiat / 銀行決済 |
 | Identity | path-based DID `did:web:etzhayyim.com:yobel:...` | server JWTs without DID binding |
-| Substrate clients | only via `@etzhayyim/sdk` / `pymagatama` | direct `@atproto/api` / `viem` / IPFS / `@noble/ciphers` / libsignal |
+| Substrate clients | only via `@etzhayyim/sdk` / `kotodama` | direct `@atproto/api` / `viem` / IPFS / `@noble/ciphers` / libsignal |
 | Lexicon operations | one-way debt forgiveness (declare → enroll → release) | 貸付 (loan origination) / 利息計算 (interest accrual) / margin call / liquidation / arbitrage / 担保差し押さえ |
 | Eligibility | SBT membership (Council Lv1+) ∧ rite-type DMN gate | open-to-all enrollment |
 | Rite declaration | Council Lv6+ × 3 ratification + Lv9 chair (per DMN) | unilateral steward declaration |
@@ -32,11 +32,11 @@ cells/{cell_name}/
 
 Common deps (when implementation lands in S1):
 
-- Checkpointing — `pymagatama.checkpointer.MstCheckpointSaver` ([ADR-2605191559](../../90-docs/adr/2605191559-ameno-mst-checkpointer-stage-2-activation.md))
-- MST listener — `pymagatama.listener.MstListener` subscribes to `com.etzhayyim.apps.etzhayyim.yobel.*` (canonical NSID: `org.etzhayyim.yobel.*` post-cutover)
-- Web3 — `pymagatama.eligibility.web3_ports.{GethPrivatePort, BaseL2Port}` for `CouncilSBT` / `CouncilRatification` / `EtzhayyimPaymaster` / `TitheRouter`
-- Signature verify — `pymagatama.identity.erc725.verify_eip712_signed_consent(creditorDid, payloadHash, signature)`
-- Anchor — `pymagatama.anchor.AnchorBridge` (ADR-2605171800) for MST → IPFS → Base L2 batched anchor
+- Checkpointing — `kotodama.checkpointer.MstCheckpointSaver` ([ADR-2605191559](../../90-docs/adr/2605191559-ameno-mst-checkpointer-stage-2-activation.md))
+- MST listener — `kotodama.listener.MstListener` subscribes to `com.etzhayyim.apps.etzhayyim.yobel.*` (canonical NSID: `org.etzhayyim.yobel.*` post-cutover)
+- Web3 — `kotodama.eligibility.web3_ports.{GethPrivatePort, BaseL2Port}` for `CouncilSBT` / `CouncilRatification` / `EtzhayyimPaymaster` / `TitheRouter`
+- Signature verify — `kotodama.identity.erc725.verify_eip712_signed_consent(creditorDid, payloadHash, signature)`
+- Anchor — `kotodama.anchor.AnchorBridge` (ADR-2605171800) for MST → IPFS → Base L2 batched anchor
 
 ## Witness invariant
 

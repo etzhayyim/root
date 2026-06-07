@@ -6,7 +6,7 @@ export async function containerCall<T = unknown>(
 	method: string,
 	body: unknown = {}
 ): Promise<T> {
-	const container = platform.env.MAGATAMA.getByName(APP_ID);
+	const container = platform.env.KOTODAMA.getByName(APP_ID);
 	const resp = await container.fetch(`http://container/xrpc/${service}/${method}`, {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },

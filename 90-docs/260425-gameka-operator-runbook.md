@@ -141,7 +141,7 @@ kubectl apply -f 50-infra/vultr/gameka-build-runner/deployment.yaml
 # com.etzhayyim.agent.gameka.visualCritic
 # gameka.codegen.renderKamiApp
 # gameka.avatar.render
-cd $REPO/20-actors/magatama/py
+cd $REPO/40-engine/kotoba/crates/kotoba-kotodama/py
 docker build -t ghcr.io/etzhayyim/zeebe-worker:$(date +%Y%m%d-%H%M%S) \
               -t ghcr.io/etzhayyim/zeebe-worker:latest .
 docker push ghcr.io/etzhayyim/zeebe-worker:latest
@@ -276,7 +276,7 @@ Locally:
 ```bash
 # Same 4 steps the workflow runs:
 node 70-tools/scripts/lint/lint-gameka-rollout.mjs
-python3 -c "import ast, glob; [ast.parse(open(p).read()) for p in sorted(glob.glob('20-actors/magatama/py/src/pymagatama/handlers/gameka_*.py') + glob.glob('20-actors/magatama/py/src/pymagatama/agents/gameka_*.py') + glob.glob('20-actors/magatama/py/tests/test_gameka_*.py') + ['20-actors/magatama/py/src/pymagatama/zeebe_worker_main.py'])]"
+python3 -c "import ast, glob; [ast.parse(open(p).read()) for p in sorted(glob.glob('40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/handlers/gameka_*.py') + glob.glob('40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/agents/gameka_*.py') + glob.glob('40-engine/kotoba/crates/kotoba-kotodama/py/tests/test_gameka_*.py') + ['40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/zeebe_worker_main.py'])]"
 # Step 3 inline: see .github/workflows/gameka-rollout-lint.yml
 python3 -c "import html.parser as h; \
   class V(h.HTMLParser):

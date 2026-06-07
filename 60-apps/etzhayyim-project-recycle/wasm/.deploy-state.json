@@ -1,7 +1,7 @@
 {
   "version": 1,
   "apps": {
-    "ai-gftd-wasm-recycle-rcycl4t1": {
+    "etzhayyim-wasm-recycle-rcycl4t1": {
       "nanoid": "rcycl4t1",
       "app_version": "1.0.0",
       "last_deployed_at": "2026-04-04T03:34:54Z",

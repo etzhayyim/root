@@ -53,7 +53,7 @@ Record the session deliverable as committed in **`0077e4413`** (branch `feat/soc
 
 **Pipeline** — ADR-2605302358 (§1.16 real-world delivery, R0):
 - 6-stage human-facing flow built only from existing charter-compliant substrate: outreach (feed-post + MCP) → vow (kotoba+IPFS+SBT) → compute (Murakumo-only) → notify (openmail) → publish (atproto MST, aggregate-only) → social → MCP expose.
-- Coordinator = 産土 (ubusuna) magatama cell-group; **no new did:web actor, no new Solidity**.
+- Coordinator = 産土 (ubusuna) kotodama cell-group; **no new did:web actor, no new Solidity**.
 
 **R0 artifacts** (all outward-inert):
 - 5 lexicons: `com.etzhayyim.membership.commitmentVow` + `com.etzhayyim.socialsecurity.{entitlement,metricReport,outreachPost,noticeEmail}`
@@ -68,7 +68,7 @@ Record the session deliverable as committed in **`0077e4413`** (branch `feat/soc
 | 5 lexicons parse + `additionalProperties:false` | ✓ |
 | 6/6 cells raise `RuntimeError` at import (inert) | ✓ |
 | No new Solidity | ✓ |
-| No live MCP facade `magatama.jsonld` (R1 work, deferred) | ✓ |
+| No live MCP facade `kotodama.jsonld` (R1 work, deferred) | ✓ |
 | deps.toml valid TOML | ✓ |
 | 24 lefthook pre-commit gates (lexicon-validate / substrate-boundary / no-advertising / secret-scan / registry-fresh / e7m-verify …) | all pass |
 

@@ -11,7 +11,7 @@ import {
   genID,
   nsid,
   parseLexiconInput,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 const APP_SLUG = "seibutsu";
 let actorDID = "";

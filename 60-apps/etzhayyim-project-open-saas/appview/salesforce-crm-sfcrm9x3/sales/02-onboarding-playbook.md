@@ -55,7 +55,7 @@ Rule: any field not in the map table is dropped, not guessed. Customer reviews t
 - **Resumability**: each batch writes a content-addressed manifest (`sha256(batch.jsonl)` → B2). Re-running with the same manifest key is a no-op. Weekend power loss → `migrate --resume` picks up.
 
 ### Saturday 12:00–18:00 — derivation warm-up
-- Replay the last 6 months of Salesforce stage transitions → triggers the `derive` rule in `magatama.jsonld` (opportunity stage-change → activity). This seeds `activity` rows so Monday morning's pipeline review sees history.
+- Replay the last 6 months of Salesforce stage transitions → triggers the `derive` rule in `kotodama.jsonld` (opportunity stage-change → activity). This seeds `activity` rows so Monday morning's pipeline review sees history.
 - Start RisingWave MV `mv_opensaas_salesforce_pipeline_by_stage` and wait for steady-state (<100ms freshness, usually <5min).
 
 ### Saturday 18:00–Sunday 12:00 — reconciliation

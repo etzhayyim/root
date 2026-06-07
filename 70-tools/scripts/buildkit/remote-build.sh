@@ -8,9 +8,9 @@ Usage:
 
 Examples:
   70-tools/scripts/buildkit/remote-build.sh \
-    --image ghcr.io/etzhayyim/pymagatama \
-    --context 20-actors/magatama/py \
-    --dockerfile 20-actors/magatama/py/Dockerfile
+    --image ghcr.io/etzhayyim/kotodama \
+    --context 40-engine/kotoba/crates/kotoba-kotodama/py \
+    --dockerfile 40-engine/kotoba/crates/kotoba-kotodama/py/Dockerfile
 
 Environment:
   BUILDKIT_BUILDER       buildx builder name, default etzhayyim-vke

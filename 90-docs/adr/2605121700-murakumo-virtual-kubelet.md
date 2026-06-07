@@ -27,7 +27,7 @@ We will integrate the Mac mini fleet into the Kubernetes cluster natively by dev
 
 ## 3. Rationale
 
-- **Zero Overhead:** By completely bypassing Linux VMs and Docker, the spawned processes (e.g., `llama-server` or `pymagatama` Langservers) execute directly on macOS, utilizing 100% of the Apple Silicon GPU via Metal and MLX.
+- **Zero Overhead:** By completely bypassing Linux VMs and Docker, the spawned processes (e.g., `llama-server` or `kotodama` Langservers) execute directly on macOS, utilizing 100% of the Apple Silicon GPU via Metal and MLX.
 - **Unified Orchestration:** All workloads, whether they run on Vultr A40s, RunPod RTX 6000s, or local Mac minis, are now managed purely via standard Kubernetes manifests (`kubectl apply`).
 - **Cost-Efficiency:** Utilizing the wired local fleet for continuous, resident processes (like the Malak/Keiei Langserver heartbeats) offloads significant compute from the billed cloud GPU instances.
 

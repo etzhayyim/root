@@ -14,16 +14,6 @@
 // live same-origin `datomic.datoms` endpoint.
 
 import init, { KotobaNode } from "./kotoba/kotoba_wasm.js";
-// Pure feed/profile assembly + CRDT merge — single source of truth, shared with
-// node tests (tests/kotoba-feed.test.mjs). See public/kotoba-feed.js.
-import {
-  edVal,
-  safeParse,
-  actorMatches,
-  buildPostViews,
-  buildProfileView,
-  mergeDatoms,
-} from "./kotoba-feed.js";
 
 const SEED_URL = "/kotoba/seed-datoms.json"; // JSON snapshot fallback (CORS-free)
 // IPFS-block path (ADR-2605312345 / 2606014600): the canonical source. The
@@ -176,45 +166,133 @@ let seedDatoms = [];
 // feed/profile responses as x-kotoba-src for observability.
 let hydrateSource = "none";
 
-// (feed/profile assembly helpers moved to ./kotoba-feed.js — imported above)
+// v_edn is the EDN-encoded value; for our string-typed attrs that is exactly
+// JSON.stringify(value), so JSON.parse recovers it. Posts carry a render-ready
+// `:yoro.post/view` whose value is the JSON-stringified feedView object.
+function edVal(v_edn) {
+  try {
+    return JSON.parse(v_edn);
+  } catch {
+    return v_edn;
+  }
+}
 
-function jsonResponse(obj, tag, status = 200) {
+// did:web:etzhayyim.com:actor:foo  → also matches handle / bare actor segment.
+function actorMatches(view, wanted) {
+  if (!wanted) return true;
+  const a = view && view.author ? view.author : {};
+  const w = String(wanted).toLowerCase();
+  return [a.did, a.handle, a.displayName]
+    .filter(Boolean)
+    .some((x) => String(x).toLowerCase() === w || String(x).toLowerCase().includes(w));
+}
+
+// Build the render-ready feedView post objects from the local datom log.
+// Each post entity carries `:yoro.post/view` (the full app.bsky.feed.defs#postView
+// produced upstream and stored at publish time), plus scalar attrs for sort/filter.
+function buildPostViews(datoms) {
+  const byE = new Map();
+  for (const d of datoms) {
+    if (!d || !d.a || !d.a.startsWith(":yoro.post/")) continue;
+    let o = byE.get(d.e);
+    if (!o) {
+      o = {};
+      byE.set(d.e, o);
+    }
+    const k = d.a.slice(":yoro.post/".length);
+    const v = edVal(d.v_edn);
+    o[k] = k === "view" ? safeParse(v) : v;
+  }
+  // Engagement counts DERIVED from the log (Wikipedia-style: counts are a
+  // function of the append-only like/repost datoms, not a stored mutable field).
+  const likeBy = new Map(); // postUri -> count
+  const repostBy = new Map();
+  for (const d of datoms) {
+    if (d && d.a === ":yoro.like/subject") {
+      const u = edVal(d.v_edn);
+      likeBy.set(u, (likeBy.get(u) || 0) + 1);
+    } else if (d && d.a === ":yoro.repost/subject") {
+      const u = edVal(d.v_edn);
+      repostBy.set(u, (repostBy.get(u) || 0) + 1);
+    }
+  }
+  const out = [];
+  for (const o of byE.values()) {
+    const view = o.view && typeof o.view === "object" ? o.view : null;
+    if (!view || !view.uri) continue;
+    if (likeBy.has(view.uri)) view.likeCount = (view.likeCount || 0) + likeBy.get(view.uri);
+    if (repostBy.has(view.uri)) view.repostCount = (view.repostCount || 0) + repostBy.get(view.uri);
+    // sort key: prefer scalar createdAt, fall back to the view's record.
+    view.__sortAt = o.createdAt || (view.record && view.record.createdAt) || view.indexedAt || "";
+    out.push(view);
+  }
+  out.sort((a, b) => (b.__sortAt < a.__sortAt ? -1 : b.__sortAt > a.__sortAt ? 1 : 0));
+  for (const v of out) delete v.__sortAt;
+  return out;
+}
+function safeParse(s) {
+  if (typeof s !== "string") return s;
+  try {
+    return JSON.parse(s);
+  } catch {
+    return null;
+  }
+}
+
+function buildProfileView(datoms, wanted) {
+  const byE = new Map();
+  for (const d of datoms) {
+    if (!d || !d.a || !d.a.startsWith(":yoro.profile/")) continue;
+    let o = byE.get(d.e);
+    if (!o) {
+      o = {};
+      byE.set(d.e, o);
+    }
+    o[d.a.slice(":yoro.profile/".length)] = edVal(d.v_edn);
+  }
+  const w = String(wanted || "").toLowerCase();
+  let hit = null;
+  for (const p of byE.values()) {
+    if (!w) continue;
+    if (
+      String(p.did || "").toLowerCase() === w ||
+      String(p.handle || "").toLowerCase() === w ||
+      String(p.handle || "").toLowerCase().includes(w)
+    ) {
+      hit = p;
+      break;
+    }
+  }
+  if (!hit) return null;
+  const posts = buildPostViews(datoms).filter((v) =>
+    actorMatches(v, hit.did) || actorMatches(v, hit.handle),
+  );
+  return {
+    did: hit.did || "",
+    handle: hit.handle || "",
+    displayName: hit.displayName || hit.handle || "",
+    description: hit.description || "",
+    avatar:
+      hit.avatar ||
+      `https://api.dicebear.com/9.x/identicon/svg?seed=${encodeURIComponent(hit.did || hit.handle || "")}`,
+    postsCount: posts.length,
+    followersCount: 0,
+    followsCount: 0,
+    indexedAt: hit.indexedAt || new Date(0).toISOString(),
+    viewer: {},
+    labels: [],
+  };
+}
+
+function jsonResponse(obj, tag) {
   return new Response(JSON.stringify(obj), {
-    status,
+    status: 200,
     headers: {
       "content-type": "application/json; charset=utf-8",
       "x-kotoba-sw": tag,
       "x-kotoba-src": hydrateSource,
     },
   });
-}
-
-// Browser-only minimal profile for an actor that has no `:yoro.profile/*` record
-// but DOES appear as a post author in the published blocks — derive a basic
-// getProfile view from the embedded author (did/handle/displayName/avatar). Keeps
-// feed-author profiles resolvable without any server (no RisingWave fallback).
-function profileFromPostAuthor(actor) {
-  if (!actor) return null;
-  const want = String(actor);
-  for (const v of buildPostViews(seedDatoms)) {
-    const a = v && v.author ? v.author : null;
-    if (a && (a.did === want || a.handle === want)) {
-      return {
-        did: a.did || want,
-        handle: a.handle || want,
-        displayName: a.displayName || a.handle || want,
-        avatar: a.avatar,
-        description: "",
-        followersCount: 0,
-        followsCount: 0,
-        postsCount: 0,
-        indexedAt: v.indexedAt || undefined,
-        viewer: {},
-        labels: [],
-      };
-    }
-  }
-  return null;
 }
 
 // ── Member signing identity (no-server-key) ─────────────────────────────────
@@ -347,7 +425,21 @@ const PUBLISH_URL = "/xrpc/com.etzhayyim.apps.kotoba.block.put";
 // The published root this SW last rebased on (optimistic-concurrency base).
 let publishedRoot = null;
 
-// (mergeDatoms moved to ./kotoba-feed.js — imported above)
+// Union two datom arrays, deduped by (e, attr, value) — the CRDT merge of two
+// append-only Datom sets (order-independent, idempotent).
+function mergeDatoms(a, b) {
+  const key = (d) => `${d.e} ${d.a} ${d.v_edn}`;
+  const seen = new Set(a.map(key));
+  const out = a.slice();
+  for (const d of b) {
+    const k = key(d);
+    if (!seen.has(k)) {
+      seen.add(k);
+      out.push(d);
+    }
+  }
+  return out;
+}
 
 // Hydrate a published root into a throwaway node and return its datoms (used to
 // rebase on a concurrent publisher's head).
@@ -424,14 +516,6 @@ async function publishToApex(edit) {
         publishedRoot = resJson.currentRoot;
         console.log(`[kotoba-sw] publish conflict → rebased on ${String(resJson.currentRoot).slice(0, 12)}…, retry`);
         continue;
-      }
-
-      if (r.status === 429) {
-        // Rate limited — do NOT retry. The write is already applied locally; it
-        // will propagate with the next publish (which rebuilds the full tree).
-        await idbPut("last-publish", { ok: false, rateLimited: true, root: signed.root, total: blocks.length });
-        console.warn(`[kotoba-sw] publish rate-limited — will propagate on next write`);
-        return;
       }
 
       if (r.ok) publishedRoot = signed.root;
@@ -757,20 +841,11 @@ self.addEventListener("fetch", (event) => {
           await ensureReady();
           const limit = Math.max(1, Math.min(100, parseInt(url.searchParams.get("limit") || "50", 10) || 50));
 
-          // BROWSER-ONLY (no server): kotoba reads are answered ENTIRELY from the
-          // in-browser Datom log (IPFS blocks + kotoba-wasm). On a miss we DO NOT
-          // fall through to the RisingWave AppView — a miss returns a clean empty /
-          // notFound browser-side result. Coverage = whatever is in the published
-          // blocks; content outside them is simply not shown (per the browser-only
-          // directive + ADR-2605262130 / 2605312345). Writes/auth/search keep their
-          // own routes; this branch governs kotoba feed/profile/thread reads only.
           if (PROFILE_NSIDS.has(nsid)) {
             const actor = url.searchParams.get("actor") || url.searchParams.get("handle") || "";
-            const prof = buildProfileView(seedDatoms, actor) || profileFromPostAuthor(actor);
+            const prof = buildProfileView(seedDatoms, actor);
             if (prof) return jsonResponse(prof, "local-wasm-profile");
-            // No browser-side record → notFound (was: RisingWave). 404 so the UI
-            // shows "not found" rather than a fabricated blank profile.
-            return jsonResponse({ error: "NotFound", message: "actor not in kotoba blocks" }, "local-wasm-profile-miss", 404);
+            return fetch(event.request);
           }
 
           if (FEED_THREAD_NSIDS.has(nsid)) {
@@ -782,11 +857,7 @@ self.addEventListener("fetch", (event) => {
                 "local-wasm-thread",
               );
             }
-            // Browser-only notFound thread (was: RisingWave).
-            return jsonResponse(
-              { thread: { $type: "app.bsky.feed.defs#notFoundPost", uri, notFound: true } },
-              "local-wasm-thread-miss",
-            );
+            return fetch(event.request);
           }
 
           // getTimeline / getDiscoverFeed / getAuthorFeed
@@ -796,20 +867,14 @@ self.addEventListener("fetch", (event) => {
             views = views.filter((v) => actorMatches(v, actor));
           }
           const feed = views.slice(0, limit).map((v) => ({ post: v }));
-          // Empty local set → return an EMPTY feed (browser-only). Previously this
-          // deferred to the network (RisingWave); that fallback is removed.
+          // Empty local set → defer to network (don't shadow a live server with []).
+          if (feed.length === 0) return fetch(event.request);
           return jsonResponse(
             { feed, cursor: "" },
             FEED_AUTHOR_NSIDS.has(nsid) ? "local-wasm-authorfeed" : "local-wasm-feed",
           );
-        } catch (e) {
-          // Even on an unexpected error we stay browser-only (no RisingWave):
-          // a feed read degrades to empty, others to a generic 404.
-          console.warn("[kotoba-sw] local read failed → empty (browser-only)", e);
-          if (PROFILE_NSIDS.has(nsid) || FEED_THREAD_NSIDS.has(nsid)) {
-            return jsonResponse({ error: "NotFound" }, "local-wasm-error", 404);
-          }
-          return jsonResponse({ feed: [], cursor: "" }, "local-wasm-error");
+        } catch {
+          return fetch(event.request); // hybrid fallback
         }
       })(),
     );

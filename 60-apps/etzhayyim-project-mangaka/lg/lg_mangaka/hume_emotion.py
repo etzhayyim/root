@@ -1,6 +1,6 @@
 """Hume-derived emotion alignment for compose_scene_3d critique.
 
-Wraps `pymagatama.primitives.hume_image_head.predict_image_emotion` (pure
+Wraps `kotodama.primitives.hume_image_head.predict_image_emotion` (pure
 stdlib PNG decode + visual-feature heuristic / student centroid) and projects
 its top emotions onto a small set of mood families used by mangaka panel
 manifests (`plan.mood` / `gh:tone`). The result is a single [0, 1] score that
@@ -17,8 +17,8 @@ from __future__ import annotations
 from typing import Any
 
 try:
-    from pymagatama.primitives.hume_image_head import predict_image_emotion
-except Exception:  # pragma: no cover — pymagatama optional at import time
+    from kotodama.primitives.hume_image_head import predict_image_emotion
+except Exception:  # pragma: no cover — kotodama optional at import time
     predict_image_emotion = None  # type: ignore[assignment]
 
 

@@ -7,7 +7,7 @@ license = { text = "Apache-2.0" }
 dependencies = [
   # WASM runtime — loads cells/<name>/target/wasm32-unknown-unknown/release/<name>.wasm.
   "wasmtime>=24.0",
-  # LangGraph for #3b. Pinned to >=0.2 to match `20-actors/magatama/py` convention.
+  # LangGraph for #3b. Pinned to >=0.2 to match `40-engine/kotoba/crates/kotoba-kotodama/py` convention.
   "langgraph>=0.2.0",
   # SQLAlchemy Core (per ADR-2605080300) for the OpenOtCheckpointer demo.
   # sqlite stand-in for RisingWave; same Core API, real deployment swaps

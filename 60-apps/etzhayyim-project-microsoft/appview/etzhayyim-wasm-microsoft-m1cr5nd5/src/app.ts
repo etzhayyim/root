@@ -20,7 +20,7 @@ import {
 	parseLexiconInput,
 	requireApproval,
 	type LexiconOutput,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 function parseList(s: string | undefined): string[] {
 	return (s ?? "")

@@ -1,7 +1,7 @@
 """coverage — Coverage analysis commands (Python port).
 
 domain: reuses kaizen 9-axis scoring.
-actors: scans magatama.jsonld for metadata completeness.
+actors: scans kotodama.jsonld for metadata completeness.
 actors heal: LLM-driven metadata healing for actors with missing fields.
 test:   runs local test suites (pytest / cargo / go test).
 """
@@ -49,7 +49,7 @@ def _scan_actors(ws: Path) -> list[dict]:
         return []
 
     results = []
-    for jsonld_path in projects_dir.rglob("magatama.jsonld"):
+    for jsonld_path in projects_dir.rglob("kotodama.jsonld"):
         try:
             data = json.loads(jsonld_path.read_text(errors="replace"))
         except (OSError, json.JSONDecodeError):
@@ -287,7 +287,7 @@ def coverage_actors_heal(workspace_dir: str | None, json_out: bool, dry_run: boo
                          limit: int, concurrency: int) -> None:
     """Heal missing actor metadata fields via LLM.
 
-    Scans magatama.jsonld files, calls LLM for actors with missing required
+    Scans kotodama.jsonld files, calls LLM for actors with missing required
     fields, and writes generated values back to the manifest (unless --dry-run).
     """
     ws = _resolve_root(workspace_dir)
@@ -337,7 +337,7 @@ def coverage_governance(pds: str | None, workspace_dir: str | None, json_out: bo
     """Governance coverage: check operator/authority/visibility fields in actor manifests."""
     ws = _resolve_root(workspace_dir)
     actors = []
-    for p in ws.rglob("magatama.jsonld"):
+    for p in ws.rglob("kotodama.jsonld"):
         try:
             data = json.loads(p.read_text(errors="replace"))
         except Exception:
@@ -377,7 +377,7 @@ def coverage_oil(pds: str | None, workspace_dir: str | None, json_out: bool) -> 
     """Oil/energy domain coverage analysis."""
     ws = _resolve_root(workspace_dir)
     oil_actors = []
-    for p in ws.rglob("magatama.jsonld"):
+    for p in ws.rglob("kotodama.jsonld"):
         try:
             data = json.loads(p.read_text(errors="replace"))
         except Exception:

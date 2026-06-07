@@ -159,8 +159,8 @@ R3 adds silen_shidemori_review cycle.
 
 R1 smoke test (when cells created):
 ```bash
-cd 20-actors/magatama/py
-python -c "from magatama.cells.shidemori_memorial_nft_mint import _r0_marker" 2>&1 | grep "R0 scaffold"
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
+python -c "from kotodama.cells.shidemori_memorial_nft_mint import _r0_marker" 2>&1 | grep "R0 scaffold"
 ```
 
 ## Related Files

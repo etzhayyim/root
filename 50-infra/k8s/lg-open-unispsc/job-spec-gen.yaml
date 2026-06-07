@@ -29,7 +29,7 @@ spec:
       containers:
         - name: batch-runner
           # In production, use the pinned latest hash/tag
-          image: ghcr.io/etzhayyim/pymagatama:main
+          image: ghcr.io/etzhayyim/kotodama:main
           imagePullPolicy: Always
           command:
             - python

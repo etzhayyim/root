@@ -3,7 +3,7 @@
 # Build:
 #   cd 60-apps/etzhayyim-project-recap/lg
 #   docker buildx build --platform linux/amd64 \
-#     --build-context py=../../../20-actors/magatama/py \
+#     --build-context py=../../../40-engine/kotoba/crates/kotoba-kotodama/py \
 #     -t ghcr.io/etzhayyim/lg-recap:0.1.0-amd64 --push .
 
 FROM python:3.11-slim-bookworm
@@ -29,8 +29,8 @@ RUN pip install --no-cache-dir 'uv>=0.4'
 
 WORKDIR /app
 
-COPY --from=py . /opt/pymagatama
-RUN uv pip install --system --no-cache -e /opt/pymagatama
+COPY --from=py . /opt/kotodama
+RUN uv pip install --system --no-cache -e /opt/kotodama
 
 COPY pyproject.toml /app/pyproject.toml
 COPY langgraph.json /app/langgraph.json

@@ -5,7 +5,7 @@
 import {
   asAgentTool, createWorkerExport, nsid, withCapabilityTags,
   type HostSDK,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 export default createWorkerExport((sdk: HostSDK) => {
   const env = sdk.env as Record<string, unknown>;

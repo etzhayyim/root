@@ -27,7 +27,7 @@ Murakumo-only + Charter Rider + no-server-key）へ移行する。
 | # | ゲート | 状態 | 担当 ADR |
 |---|---|---|---|
 | P0a | **命名衝突解消** — silicon-fab orchestration を tsukuru から分離 | 未 | 2606021139（本プラン前提） |
-| P0b | **magatama etzhayyim→etzhayyim atomic rename** — 法人登記後の単一 PR | 未（登記待ち） | 2605214000 §3 / 2605215000 §4 |
+| P0b | **kotodama etzhayyim→etzhayyim atomic rename** — 法人登記後の単一 PR | 未（登記待ち） | 2605214000 §3 / 2605215000 §4 |
 | P0c | okaimono ↔ tsukuru の発注フロー契約（`create-production-order`）凍結 | 既存 | okaimono CLAUDE.md |
 
 > P0b は tsukuru の `etzhayyim:` WIT 5 パッケージ改名を含むため厳密には依存するが、**構造移行
@@ -108,7 +108,7 @@ SBT eligibility/G16 compliance gate/G17 progress-datom/G15 member-sig）+ `test_
 ### Phase 5 — 命名 cutover（P0b wave に同期） — 📋 RUNBOOK 準備済 / 実行は登記ゲート
 
 > runbook: `20-actors/tsukuru/MIGRATION-NOTES.md`（etzhayyim→etzhayyim WIT 5 本・app/contract paths・
-> build/deploy・AT collections・decommission・acceptance を列挙）。**実行は magatama atomic wave
+> build/deploy・AT collections・decommission・acceptance を列挙）。**実行は kotodama atomic wave
 > の単一 PR**（法人登記後）。部分実行禁止（CLAUDE.md §Do Not）。下記は項目登録のみ。
 
 1. `etzhayyim:tsukuru*@*` WIT 5 pkg → `etzhayyim:tsukuru*@*`。
@@ -120,7 +120,7 @@ SBT eligibility/G16 compliance gate/G17 progress-datom/G15 member-sig）+ `test_
 
 - **非ゴール**: 460 factory との実 B2B 商流の即時稼働。外部 inflow は constitutional に禁止
   （G2）— tsukuru は **member/internal 発注 + 外部は self-checkout handoff** が R0 境界。
-- **リスク**: P0b（magatama atomic rename）が法人登記待ちのため、Phase 5 の WIT 改名は
+- **リスク**: P0b（kotodama atomic rename）が法人登記待ちのため、Phase 5 の WIT 改名は
   ブロック。Phase 2-4（構造・kotoba・Murakumo・支払い）は **先行実施可**。
 - **リスク**: silicon-fab 意味論の混入。ADR-2606021139 で分離されるまで Phase 2 の
   manifest に fab lane を入れない。
@@ -130,7 +130,7 @@ SBT eligibility/G16 compliance gate/G17 progress-datom/G15 member-sig）+ `test_
 ```
 P0a (ADR-2606021139 accept) ──► Phase 2 ──► Phase 3 ──► Phase 4 ──┐
                                                                   ├─► Phase 5（P0b 法人登記後）
-P0b (magatama atomic rename, 登記ゲート) ─────────────────────────┘
+P0b (kotodama atomic rename, 登記ゲート) ─────────────────────────┘
 ```
 
 Phase 2-4 は登記を待たず着手可能。Phase 5 のみ P0b ゲート。

@@ -47,7 +47,7 @@ The answer was no. The closest actors stop short of the financials:
 - **toritate 執帳** (ADR-2605262900) does etzhayyim's **own internal** accounting (tithe / Public
   Fund), not external corporate disclosure.
 - **ADR-2605263800** built the **substrate/plumbing** for corporate disclosure — the `corp/` IPFS
-  bucket family, the `pymagatama.organism.sensors.corp.*` sensor families, and the EDGAR / EDINET /
+  bucket family, the `kotodama.organism.sensors.corp.*` sensor families, and the EDGAR / EDINET /
   Companies House / GLEIF fetcher path-reserves (all Tier-A) — but it does **not** define a
   financial-fact EAVT vocabulary or an actor that turns a filing's XBRL into queryable 決算 Datoms.
 - **ADR-2604291500** (superseded) had the right financial-fact *model* (`fiscal_year` / `period_end`

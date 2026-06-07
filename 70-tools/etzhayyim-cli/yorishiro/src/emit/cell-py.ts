@@ -1,4 +1,4 @@
-// emit/cell-py.ts — L2 emitter. Produces a single magatama Pregel cell.py
+// emit/cell-py.ts — L2 emitter. Produces a single kotodama Pregel cell.py
 // conforming to the runtime contract from ADR-2605202200:
 //   - build_graph(checkpointer) -> CompiledStateGraph
 //   - state_from_event(event) -> State
@@ -31,7 +31,7 @@ export interface EmittedCell {
 }
 
 export function emitCell(args: EmitCellArgs): EmittedCell {
-  const cellDir = join(args.repoRoot, "20-actors/magatama/cells", `yorishiro_${args.name}`);
+  const cellDir = join(args.repoRoot, "40-engine/kotoba/crates/kotoba-kotodama/cells", `yorishiro_${args.name}`);
   mkdirSync(cellDir, { recursive: true });
 
   const cellPath = join(cellDir, "cell.py");
@@ -46,7 +46,7 @@ export function emitCell(args: EmitCellArgs): EmittedCell {
   writeFileSync(fragmentPath, renderCellsTomlFragment(args), "utf-8");
 
   // Empty __init__.py so `importlib.import_module("yorishiro_<name>.cell")`
-  // resolves (cell_runner prepends 20-actors/magatama/cells/ to sys.path).
+  // resolves (cell_runner prepends 40-engine/kotoba/crates/kotoba-kotodama/cells/ to sys.path).
   writeFileSync(join(cellDir, "__init__.py"), "", "utf-8");
 
   return { path: cellPath, readmePath };
@@ -65,7 +65,7 @@ function renderCellPy(args: EmitCellArgs): string {
 Yorishiro: ${args.name} (kami: ${args.kami})
 Generator: @etzhayyim/yorishiro v0.1.0
 Per ADR-2605211900 (yorishiro external-actor bridge) + ADR-2605202200
-(magatama cell.py runtime contract).
+(kotodama cell.py runtime contract).
 
 Transport: ${args.transport}
 Base URL : ${args.baseUrl}
@@ -157,7 +157,7 @@ ${args.ops.map((op) => `    g.add_edge("${op.opName}", END)`).join("\n")}
     return g.compile(checkpointer=checkpointer)
 
 
-# ── magatama cell-runner contract (ADR-2605202200) ───────────────────────────
+# ── kotodama cell-runner contract (ADR-2605202200) ───────────────────────────
 
 
 def state_from_event(event: dict[str, Any]) -> ${className}:
@@ -242,7 +242,7 @@ function renderCellReadme(args: EmitCellArgs): string {
 Pregel cell for the **${args.name}** yorishiro (kami: \`${args.kami}\`).
 
 Per **ADR-2605211900** (yorishiro external-actor bridge) +
-**ADR-2605202200** (magatama cell.py runtime contract).
+**ADR-2605202200** (kotodama cell.py runtime contract).
 
 Generator: \`@etzhayyim/yorishiro\` v0.1.0
 Transport: \`${args.transport}\`
@@ -261,7 +261,7 @@ ${opList}
 
 ## MCP exposure
 
-\`20-actors/magatama/mcp/yorishiro-${args.name}-mcp/\` (stdio + Streamable HTTP)
+\`40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-${args.name}-mcp/\` (stdio + Streamable HTTP)
 
 ## Regenerate
 
@@ -277,7 +277,7 @@ OpenAPI spec at \`00-contracts/openapi/kami/${args.name}.openapi.json\` instead.
 The cells.toml fragment \`cells.toml.fragment\` in this directory is the
 authoritative entry for the Murakumo cell-runner. Append it to
 \`50-infra/cluster/murakumo/cell-runner/cells.toml\` once the cell-runner
-supports \`20-actors/magatama/cells/yorishiro_*/cell.py\` discovery
+supports \`40-engine/kotoba/crates/kotoba-kotodama/cells/yorishiro_*/cell.py\` discovery
 (ADR-2605202200 wiring).
 
 ## Claude Desktop / Codex CLI
@@ -287,7 +287,7 @@ supports \`20-actors/magatama/cells/yorishiro_*/cell.py\` discovery
   "mcpServers": {
     "etzhayyim-yorishiro-${args.name}": {
       "command": "node",
-      "args": ["/ABSOLUTE/PATH/TO/repo/20-actors/magatama/mcp/yorishiro-${args.name}-mcp/src/cli.ts"],
+      "args": ["/ABSOLUTE/PATH/TO/repo/40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-${args.name}-mcp/src/cli.ts"],
       "env": { "YORISHIRO_${args.name.toUpperCase()}_BASE_URL": "${args.baseUrl}" }
     }
   }
@@ -313,7 +313,7 @@ function renderCellsTomlFragment(args: EmitCellArgs): string {
 #
 # Append to 50-infra/cluster/murakumo/cell-runner/cells.toml when the
 # cell-runner is wired to discover yorishiri cells under
-# 20-actors/magatama/cells/yorishiro_*/cell.py (ADR-2605202200 + 2605211900).
+# 40-engine/kotoba/crates/kotoba-kotodama/cells/yorishiro_*/cell.py (ADR-2605202200 + 2605211900).
 #
 # Until then, this fragment lives alongside the cell so that the wiring
 # intent is part of the cell's source of truth, not lost to a future

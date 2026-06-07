@@ -1,6 +1,6 @@
 # etzhayyim-project-app-reviewer
 
-App review platform for Magatama app publication.
+App review platform for Kotodama app publication.
 
 ## Goal
 - Evaluate app submissions before publish for bugs, runtime errors, abuse, policy violations, and security risk.

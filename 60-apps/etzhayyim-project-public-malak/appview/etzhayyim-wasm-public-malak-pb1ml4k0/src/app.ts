@@ -52,7 +52,7 @@ export default {
         actor: "did:web:public-malak.etzhayyim.com",
         nanoid: env.APP_NANOID ?? "pb1ml4k0",
         execution: "edge-proxy+agentgateway-mcp+langserver",
-        businessLogic: "20-actors/magatama/py/src/pymagatama/primitives/public_malak_ads.py",
+        businessLogic: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/public_malak_ads.py",
         bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/public-malak",
       });
     }

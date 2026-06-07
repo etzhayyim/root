@@ -62,7 +62,7 @@
  ;; ----------------------------------------------------------------------------
  :inventory
  [{:group :religious-corp-cells
-   :path  "20-actors/magatama/cells/"
+   :path  "40-engine/kotoba/crates/kotoba-kotodama/cells/"
    :count 34
    :char  :hand-written-constitutional   ; treasury_rebalance, tithe_routing, pillow_*, moto_*
    :risk  :high                          ; touch tithe/treasury/Charter invariants
@@ -77,15 +77,15 @@
             :silicon 4 :infra-utility-connect 4 :gov-municipality 3}
    :count 76}
 
-  {:group :magatama-runtime-core
-   :path  "20-actors/magatama/py/src/pymagatama/"
+  {:group :kotodama-runtime-core
+   :path  "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/"
    :count 5                               ; primitives, phenotype_agents, lan_topology, host_inventory, eligibility
    :char  :framework-core
    :risk  :high                           ; underpin all agents; migrate carefully w/ tests
    :auto-migratable false}
 
   {:group :unspsc-agents
-   :path  "20-actors/magatama/py/src/pymagatama/langgraph_graphs/"
+   :path  "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs/"
    :count 8074                            ; UNSPSC 18,342 mass-deploy (ADR-2605240000)
    :char  :codegen-uniform                ; share one template, BUT...
    :risk  :low
@@ -137,7 +137,7 @@
    :status :pending}
 
   {:wave 3
-   :name  "magatama runtime core"
+   :name  "kotodama runtime core"
    :goal  "Port the 5 framework-core modules with full test coverage"
    :targets ["primitives" "phenotype_agents" "lan_topology" "host_inventory" "eligibility"]
    :count 5
@@ -177,10 +177,10 @@
    :method "Per file: agentic generate -> build -> (on fail) feed build error -> retry -> deploy -> invoke-equiv
             -> (on mismatch) feed key-diff -> retry. Ledger-tracked, resumable."
    :assessment-2026-05-31
-   {:structural-mismatch "UNSPSC agents (pymagatama/langgraph_graphs/) are NOT cells/<name>/cell.py with a
+   {:structural-mismatch "UNSPSC agents (kotodama/langgraph_graphs/) are NOT cells/<name>/cell.py with a
                           Cell.solve() — they are flat modules with a `def build_graph(): ... return g.compile()`
                           builder + per-agent TypedDict state. The harness (discover/host_reference assume
-                          cell.py + solve()) needs a pymagatama variant + a per-agent invoke reference."
+                          cell.py + solve()) needs a kotodama variant + a per-agent invoke reference."
     :scale "8074 x ~30-60s/cell agentic = 67-134 HOURS sequential; a dedicated multi-day batch, parallelized
             across Murakumo nodes, NOT a single session. Resumable via the merged ledger + --resume."
     :equivalence "no uniform ref_input -> bulk = build-only verification + SAMPLED invoke-equivalence on a
@@ -190,7 +190,7 @@
 
   {:wave 5
    :name  "Religious-corp constitutional cells"
-   :goal  "Hand-port the 34 magatama/cells/ with Charter-invariant review"
+   :goal  "Hand-port the 34 kotodama/cells/ with Charter-invariant review"
    :count 34
    :gate  :council-reviewable-diff+charter-rider-scan
    :note  "tithe_routing/treasury_rebalance touch 10% auto-split invariant (ADR-2605192115)"

@@ -5,7 +5,7 @@ interface Env { ASSETS?: Fetcher; DISPATCHER_URL?: string; DISPATCHER_INTERNAL_S
 
 const APP = "mailer";
 const ACTOR = "did:web:mailer.etzhayyim.com";
-const NSID_PREFIX = "com.etzhayyim.apps.mailer.";
+const NSID_PREFIX = "ai.etzhayyim.apps.mailer.";
 const PDS_ORIGIN = "https://atproto.etzhayyim.com";
 
 export default {
@@ -17,14 +17,14 @@ export default {
         actor: ACTOR,
         nanoid: env.APP_NANOID ?? "a8wwtz73",
         execution: "edge-assets+xrpc-proxy+bpmn+langserver",
-        businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/mailer.py",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/mailer",
+        businessLogic: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/mailer.py",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/etzhayyim/mailer",
       });
     }
 
-    if (url.pathname === "/api/emails") return proxyToDispatcher(env, "com.etzhayyim.apps.mailer.listEmails", queryBody(url));
-    if (url.pathname === "/api/bindings") return proxyToDispatcher(env, "com.etzhayyim.apps.mailer.listBindings", queryBody(url));
-    if (url.pathname === "/api/stats") return proxyToDispatcher(env, "com.etzhayyim.apps.mailer.stats", {});
+    if (url.pathname === "/api/emails") return proxyToDispatcher(env, "ai.etzhayyim.apps.mailer.listEmails", queryBody(url));
+    if (url.pathname === "/api/bindings") return proxyToDispatcher(env, "ai.etzhayyim.apps.mailer.listBindings", queryBody(url));
+    if (url.pathname === "/api/stats") return proxyToDispatcher(env, "ai.etzhayyim.apps.mailer.stats", {});
 
     const nsid = url.pathname.startsWith("/xrpc/") ? url.pathname.slice("/xrpc/".length) : "";
     if (nsid.startsWith(NSID_PREFIX) && (req.method === "POST" || req.method === "GET")) {

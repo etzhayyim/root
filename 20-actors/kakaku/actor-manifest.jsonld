@@ -64,7 +64,7 @@
       "steps": [
         {
           "args": {
-            "sql": "MATCH (m:KakakuMerchant) WHERE m.status = 'active' RETURN m.merchant_id AS merchantId, m.name AS name, m.domain AS domain LIMIT 100"
+            "datalog": "[:find ?merchantId ?name ?domain :where [?m :merchant/status :active] [?m :merchant/id ?merchantId] [?m :merchant/name ?name] [?m :merchant/domain ?domain]]"
           },
           "fn": "graph.query",
           "id": "activeMerchants"
@@ -93,21 +93,34 @@
       "steps": [
         {
           "args": {
-            "sql": "MATCH (o:KakakuOffer) WHERE o.offer_id = $input.record.offerId RETURN o.price AS price, o.shipping_fee AS shippingFee, o.total_price AS totalPrice, o.availability AS availability, o.observed_at AS observedAt LIMIT 1"
+            "datalog": "[:find ?price ?shippingFee ?totalPrice ?availability ?observedAt :in $ ?offerId :where [?o :offer/id ?offerId] [?o :offer/price ?price] [?o :offer/shipping-fee ?shippingFee] [?o :offer/total-price ?totalPrice] [?o :offer/availability ?availability] [?o :offer/observed-at ?observedAt]]",
+            "in": ["$input.record.offerId"]
           },
           "fn": "graph.query",
           "id": "currentOffer"
         },
         {
           "args": {
-            "template": "CREATE (h:KakakuPriceHistory {repo: $did, collection: 'com.etzhayyim.apps.kakaku.priceHistory', product_id: $input.record.productId, merchant_id: $input.record.merchantId, offer_id: $input.record.offerId, price: $input.record.price, shipping_fee: $input.record.shippingFee, total_price: $input.record.totalPrice, availability: $input.record.availability, observed_at: $input.record.observedAt, source_url: $input.record.productUrl, status: 'active'})"
+            "tx": [
+              {
+                ":ph/product": "$input.record.productId",
+                ":ph/merchant": "$input.record.merchantId",
+                ":ph/offer": "$input.record.offerId",
+                ":ph/total-price": "$input.record.totalPrice",
+                ":ph/availability": "$input.record.availability",
+                ":ph/observed-at": "$input.record.observedAt"
+              }
+            ]
           },
           "fn": "graph.write",
           "id": "writeHistory"
         },
         {
           "args": {
-            "sql": "MATCH (o:KakakuOffer) WHERE o.product_id = $input.record.productId AND o.status = 'active' RETURN o.merchant_id AS merchantId, o.total_price AS totalPrice, o.availability AS availability ORDER BY o.total_price ASC LIMIT 1"
+            "datalog": "[:find ?merchantId ?totalPrice ?availability :in $ ?productId :where [?o :offer/product ?productId] [?o :offer/merchant ?merchantId] [?o :offer/total-price ?totalPrice] [?o :offer/availability ?availability]]",
+            "in": ["$input.record.productId"],
+            "order-by": ["?totalPrice", "asc"],
+            "limit": 1
           },
           "depends_on": [],
           "fn": "graph.query",
@@ -152,14 +165,18 @@
       "steps": [
         {
           "args": {
-            "sql": "MATCH (o:KakakuOffer) WHERE o.product_id = $input.record.productId AND o.status = 'active' RETURN o.offer_id AS offerId, o.merchant_id AS merchantId, o.price AS price, o.shipping_fee AS shippingFee, o.total_price AS totalPrice, o.currency AS currency, o.availability AS availability, o.delivery_eta AS deliveryEta, o.product_url AS productUrl ORDER BY o.total_price ASC LIMIT 50"
+            "datalog": "[:find ?offerId ?merchantId ?price ?shippingFee ?totalPrice ?currency ?availability ?deliveryEtaDays ?productUrl :in $ ?productId :where [?o :offer/product ?productId] [?o :offer/id ?offerId] [?o :offer/merchant ?merchantId] [?o :offer/price ?price] [?o :offer/shipping-fee ?shippingFee] [?o :offer/total-price ?totalPrice] [?o :offer/currency ?currency] [?o :offer/availability ?availability] [?o :offer/delivery-eta-days ?deliveryEtaDays] [?o :offer/product-url ?productUrl]]",
+            "in": ["$input.record.productId"],
+            "order-by": ["?totalPrice", "asc"],
+            "limit": 50
           },
           "fn": "graph.query",
           "id": "productOffers"
         },
         {
           "args": {
-            "sql": "MATCH (m:KakakuMerchant) RETURN m.merchant_id AS merchantId, m.reputation_score AS reputationScore, m.status AS status LIMIT 200"
+            "datalog": "[:find ?merchantId ?reputationScore ?status :where [?m :merchant/id ?merchantId] [?m :merchant/reputation-score ?reputationScore] [?m :merchant/status ?status]]",
+            "limit": 200
           },
           "depends_on": [],
           "fn": "graph.query",
@@ -186,14 +203,18 @@
       "steps": [
         {
           "args": {
-            "sql": "MATCH (n) WHERE n.repo = $did RETURN count(n) AS nodeCount, coalesce(max(n._seq), 0) AS latestSeq LIMIT 1"
+            "datalog": "[:find (count ?e) (max ?seq) :in $ ?did :where [?e :repo ?did] [?e :_seq ?seq]]",
+            "in": ["$did"]
           },
           "fn": "graph.query",
           "id": "coverageNodes"
         },
         {
           "args": {
-            "sql": "MATCH (n) WHERE n.repo = $did AND n.collection IS NOT NULL RETURN n.collection AS collection, count(n) AS cnt ORDER BY cnt DESC LIMIT 10"
+            "datalog": "[:find ?collection (count ?e) :in $ ?did :where [?e :repo ?did] [?e :collection ?collection]]",
+            "in": ["$did"],
+            "order-by": ["(count ?e)", "desc"],
+            "limit": 10
           },
           "depends_on": [],
           "fn": "graph.query",
@@ -201,15 +222,18 @@
         },
         {
           "args": {
-            "params": {
-              "actorName": "kakaku",
-              "bucket": "6h",
-              "collection": "com.etzhayyim.apps.kakaku.coverageSnapshot",
-              "latestSeq": 0,
-              "nanoid": "k4k4kux1",
-              "nodeCount": "$coverageNodes.rows[0].nodeCount"
-            },
-            "template": "MERGE (c:ActorCoverageSnapshot {actorDid: $did, bucket: $bucket, actorName: $actorName, nanoid: $nanoid, nodeCount: $nodeCount, latestTs: $latestTs, repo: $did, collection: $collection, status: 'active'})"
+            "tx": [
+              {
+                ":coverage/actor-did": "$did",
+                ":coverage/actor-name": "kakaku",
+                ":coverage/nanoid": "k4k4kux1",
+                ":coverage/bucket": "6h",
+                ":coverage/collection": "com.etzhayyim.apps.kakaku.coverageSnapshot",
+                ":coverage/node-count": "$coverageNodes.rows[0].nodeCount",
+                ":repo": "$did"
+              }
+            ],
+            "upsert-by": ":coverage/actor-did"
           },
           "depends_on": [
             "coverageNodes"

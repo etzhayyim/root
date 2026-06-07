@@ -41,7 +41,7 @@ AT Protocol spec に忠実に準拠する機能。外部 AT Protocol client は�
 ### [PRODUCTION] Record Format
 
 - AT Lexicon NSID + rkey + SHA-256 CID — 100% 互換
-- Evidence: `00-contracts/wit/deps/magatama-wproto/package.wit` (repo interface)
+- Evidence: `00-contracts/wit/deps/kotodama-wproto/package.wit` (repo interface)
 
 ### [PRODUCTION] DID
 
@@ -59,7 +59,7 @@ AT Protocol spec に忠実に準拠する機能。外部 AT Protocol client は�
 
 - `app.bsky.*` (post/like/repost/follow) — AT Lexicon 準拠
 - cross-actor = mention/reply/thread (AT Protocol native)
-- Evidence: `00-contracts/wit/deps/magatama-wproto/package.wit` (repo interface typed API)
+- Evidence: `00-contracts/wit/deps/kotodama-wproto/package.wit` (repo interface typed API)
 
 ### [PRODUCTION] Firehose
 
@@ -82,7 +82,7 @@ AT Protocol spec に忠実に準拠する機能。外部 AT Protocol client は�
 - WIT `commit-handler` の `commit` record は AT Protocol `subscribeRepos#commit` field names に忠実
 - `seq` / `repo` / `collection` / `rkey` / `action` / `cid` / `rev` / `time` = AT Protocol spec 準拠
 - Host が AT Protocol `ops[]` array を 1 operation/call に flatten (convenience, not deviation)
-- Evidence: `00-contracts/wit/deps/magatama-wproto/package.wit` (commit-handler interface)
+- Evidence: `00-contracts/wit/deps/kotodama-wproto/package.wit` (commit-handler interface)
 
 ### [PRODUCTION] Lexicon Namespace Extension
 
@@ -146,7 +146,7 @@ AT Protocol の前提（public federation, individual actor autonomy, DID signin
 | **隔離方法** | XRPC endpoint = public (AT Protocol auth のみ)。Private method は internal-only (Invoke/Serve via Workers RPC) |
 | **AT Protocol view** | Standard XRPC endpoints、DID signing で認証 |
 | **W Protocol view** | DID-addressed method + GovernanceGate (RBAC/trust/consent) |
-| **Code location** | `00-contracts/wit/deps/magatama-wproto/package.wit` — invoke/serve interfaces |
+| **Code location** | `00-contracts/wit/deps/kotodama-wproto/package.wit` — invoke/serve interfaces |
 
 #### C3. wRPC Stream Backpressure
 

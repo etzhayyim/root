@@ -238,8 +238,8 @@ def check_jscpd(ws_root: Path, ts_dir: Path) -> CQCheck:
     return c
 
 
-def check_magatama_lint(ws_root: Path) -> CQCheck:
-    c = CQCheck(name="magatama_lint", tool="etzhayyim-py lint")
+def check_kotodama_lint(ws_root: Path) -> CQCheck:
+    c = CQCheck(name="kotodama_lint", tool="etzhayyim-py lint")
     # Run our own Python lint command
     py_bin = sys.executable
     out, rc = _run([py_bin, "-m", "etzhayyim", "lint"], ws_root, timeout=60)
@@ -257,7 +257,7 @@ def check_frontend_lint(ws_root: Path) -> CQCheck:
         c.available = False
         return c
     # Check key TS packages
-    pkg_root = ws_root / "20-actors" / "magatama"
+    pkg_root = ws_root / "20-actors" / "kotodama"
     if not pkg_root.exists():
         c.score = 100.0
         c.details = "no TS packages found"
@@ -405,7 +405,7 @@ def run_code_quality(
         ("go_vet",           lambda: check_go_vet(go_dir)),
         ("go_mod_tidy",      lambda: check_go_mod_tidy(go_dir)),
         ("jscpd_clones",     lambda: check_jscpd(ws_root, ts_dir)),
-        ("magatama_lint",    lambda: check_magatama_lint(ws_root)),
+        ("kotodama_lint",    lambda: check_kotodama_lint(ws_root)),
         ("frontend_lint",    lambda: check_frontend_lint(ws_root)),
         ("perf_test",        lambda: check_perf_test(ws_root)),
         ("sql_injection",    lambda: check_sql_injection(ws_root)),
@@ -457,7 +457,7 @@ def cq_run(workspace_dir: str | None, rust_dir: str | None, go_dir: str | None,
     if ws is None or not ws.exists():
         raise click.ClickException("could not find workspace root; use --workspace-dir")
 
-    r_dir = Path(rust_dir) if rust_dir else ws / "20-actors" / "magatama"
+    r_dir = Path(rust_dir) if rust_dir else ws / "20-actors" / "kotodama"
     g_dir = Path(go_dir) if go_dir else ws / "70-tools" / "etzhayyim"
     t_dir = Path(ts_dir) if ts_dir else ws / "20-actors"
     skip_set = {s.strip() for s in skip.split(",") if s.strip()}

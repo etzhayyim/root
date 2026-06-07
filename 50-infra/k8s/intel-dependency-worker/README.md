@@ -50,7 +50,7 @@ kubectl -n intel create secret generic intel-dependency-worker-secrets \
   --dry-run=client -o yaml | kubectl apply -f -
 ```
 
-The Deployment sets `INTEL_LLM_MAGATAMA_VERIFIED=true` for the internal
+The Deployment sets `INTEL_LLM_KOTODAMA_VERIFIED=true` for the internal
 `llm.etzhayyim.com` gateway path. Override `INTEL_LLM_URL` / `INTEL_LLM_MODEL` only
 when pointing the worker at a different OpenAI-compatible endpoint.
 

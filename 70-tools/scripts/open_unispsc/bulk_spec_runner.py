@@ -36,7 +36,7 @@ from pathlib import Path
 from typing import Any
 
 # ---------------------------------------------------------------------------
-# Locate repo root and add pymagatama to path
+# Locate repo root and add kotodama to path
 # ---------------------------------------------------------------------------
 
 _SCRIPT_DIR = Path(__file__).resolve().parent
@@ -46,7 +46,7 @@ for _ in range(6):
         break
     _REPO_ROOT = _REPO_ROOT.parent
 
-_PY_SRC = _REPO_ROOT / "20-actors/magatama/py/src"
+_PY_SRC = _REPO_ROOT / "40-engine/kotoba/crates/kotoba-kotodama/py/src"
 if str(_PY_SRC) not in sys.path:
     sys.path.insert(0, str(_PY_SRC))
 
@@ -173,7 +173,7 @@ async def process_one(
 ) -> dict[str, Any]:
     async with sem:
         try:
-            from pymagatama.langgraph_graphs.open_unispsc_spec_gen import run_spec_gen
+            from kotodama.langgraph_graphs.open_unispsc_spec_gen import run_spec_gen
             result = await run_spec_gen(
                 commodity_code=code,
                 commodity_name=name,

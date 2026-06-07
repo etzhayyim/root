@@ -1,0 +1,47 @@
+{
+  "@context": "https://etzhayyim.com/ns/kotodama/v1",
+  "@id": "did:web:open-saas.etzhayyim.com",
+  "name": "open-saas-console-os4a5s1",
+  "nanoid": "open-saas-console",
+  "project": "open-saas",
+  "runtimeType": "worker",
+  "uiType": "appview",
+  "profile": {
+    "displayName": "Open SaaS Console",
+    "description": "Open-source-first SaaS blueprint and operator console.",
+    "agentType": "autonomous",
+    "isBot": true,
+    "operator": "etzhayyim.com",
+    "capabilities": [
+      "tenant-control-plane",
+      "billing-metering",
+      "audit-visibility"
+    ]
+  },
+  "triggers": {
+    "http": {
+      "listen": "0.0.0.0:8080",
+      "routes": [
+        "/",
+        "/api/open-saas/...",
+        "/healthz",
+        "/..."
+      ],
+      "spa": true,
+      "staticDir": "/wasm/static-ui"
+    }
+  },
+  "routes": [
+    {
+      "host": "open-saas.etzhayyim.com",
+      "paths": [
+        "/"
+      ],
+      "tls": true
+    }
+  ],
+  "ui": {
+    "accent": "#0f766e",
+    "icon": "◫"
+  }
+}

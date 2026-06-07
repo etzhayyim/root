@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "record",
-      "description": "Tier 2 domain record for a single manga page. Carries the facet/embed source fields consumed by the derive rule `page-published-social` in magatama.jsonld to auto-emit a thread-reply app.bsky.feed.post. The page image is carried as app.bsky.embed.recordWithMedia (record = strongRef to self; media = embed.images with compositedImageCid); charactersAppearing[] becomes facet#mention entries; the chapterRef is resolved via the derive engine's {{derived(record.chapterRef).strongRef}} expression to set reply.root / reply.parent for thread continuity.",
+      "description": "Tier 2 domain record for a single manga page. Carries the facet/embed source fields consumed by the derive rule `page-published-social` in kotodama.jsonld to auto-emit a thread-reply app.bsky.feed.post. The page image is carried as app.bsky.embed.recordWithMedia (record = strongRef to self; media = embed.images with compositedImageCid); charactersAppearing[] becomes facet#mention entries; the chapterRef is resolved via the derive engine's {{derived(record.chapterRef).strongRef}} expression to set reply.root / reply.parent for thread continuity.",
       "key": "any",
       "record": {
         "type": "object",

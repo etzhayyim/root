@@ -15,7 +15,7 @@
 #   Phase C (activation) — flip `vertex_langgraph_deployment` to point at the
 #                          topology assistant; py_factory row goes `inactive`.
 #
-# Schema reference: pymagatama.langgraph_loader._compile_topology.
+# Schema reference: kotodama.langgraph_loader._compile_topology.
 # Structural regression guard: lg/tests/test_compose_scene_3d_topology.py.
 #
 # ---------------------------------------------------------------------------
@@ -24,7 +24,7 @@
 #   1. LLM node bindings — text prompts inlined (P10.1, P10.1c). All 3 LLM
 #      nodes (`pose_characters`, `cinematography`, `critique_and_select`)
 #      now carry `config.args.system` + `config.args.user_template` that
-#      `pymagatama.langgraph_node_resolvers.make_llm_node` can consume
+#      `kotodama.langgraph_node_resolvers.make_llm_node` can consume
 #      directly. Drift between these inlined prompts and the Python source
 #      constants (`_CINEMATOGRAPHY_SYSTEM`, `_VISION_SYSTEM`) is guarded by
 #      `lg/tests/test_compose_scene_3d_prompts.py`.
@@ -72,7 +72,7 @@
 #      between the DMN rules and the Python predicate
 #      `_route_after_critique` is guarded by
 #      `lg/tests/test_compose_scene_3d_refinement_dmn.py`.
-#      RESIDUAL — `pymagatama.langgraph_loader._compile_topology` does not
+#      RESIDUAL — `kotodama.langgraph_loader._compile_topology` does not
 #      yet dereference `dmn:<key>@<version>` refs at runtime; the Phase A
 #      in-tree path stays authoritative until the resolver gains a DMN
 #      evaluator. Today the seeded row is still useful for governance /
@@ -85,7 +85,7 @@
 #      `lg_mangaka.tools.*`. ADR-2605111200 compliant — RW, B2 and GPU all
 #      stay pod-side.
 #      Phase C activation: the topology Pregel running on the pod hits
-#      `mcp://com.etzhayyim.mangaka.tools.*` and `pymagatama.langgraph_node_resolvers._resolve_mcp_nsid`
+#      `mcp://com.etzhayyim.mangaka.tools.*` and `kotodama.langgraph_node_resolvers._resolve_mcp_nsid`
 #      short-circuits to localhost via the `MCP_NSID_OVERRIDE_<prefix>`
 #      env var pattern. Helm: `50-infra/vultr/lg-mangaka-pool/values.yaml`
 #      `mcpOverrides.aietzhayyimAppsMangakaTools: "http://localhost:8000"` →
@@ -151,7 +151,7 @@ nodes:
     kind: llm
     ref: structured                # tier — see llm-model-registry.ts
     # P10.1 — prompts inlined per make_llm_node contract
-    # (pymagatama.langgraph_node_resolvers.make_llm_node:252). Returns
+    # (kotodama.langgraph_node_resolvers.make_llm_node:252). Returns
     # raw JSON into state["pose_plan"]; per-character validation +
     # ARKit expression mapping happens in the simulate_one fan-out router.
     config:
@@ -259,13 +259,13 @@ nodes:
       pod_pool: vke-render-pool
   - id: critique_and_select
     # P10.1b — flipped from `kind: llm` to `kind: llm_vision` so the new
-    # resolver `pymagatama.langgraph_node_resolvers.make_llm_vision_node`
+    # resolver `kotodama.langgraph_node_resolvers.make_llm_vision_node`
     # dispatches the multimodal call. `image_keys` is a dotted-path list;
     # `$.renders[*].blobKey` walks every render's blobKey and the
     # `blob_fetcher` callback (passed in by `lg_mangaka.langgraph_loader`
     # bootstrap from `lg_mangaka.blob.get`) materialises each one into
     # bytes that the resolver base64-encodes before calling
-    # `pymagatama.llm.call_tier_vision_json` against the OpenAI-compatible
+    # `kotodama.llm.call_tier_vision_json` against the OpenAI-compatible
     # `vision` tier (gpt-4o-mini by default, override via
     # `OPENAI_VISION_MODEL`).
     #
@@ -274,12 +274,12 @@ nodes:
     # `critique.axes` written here is the LLM self-report; the aggregator
     # overlays the image-feature Hume score before the refinement edge.
     kind: llm_vision
-    ref: vision                    # tier — see _VISION_TIER_OVERRIDES in pymagatama.llm
+    ref: vision                    # tier — see _VISION_TIER_OVERRIDES in kotodama.llm
     config:
       input_keys: [panel_plan, camera_plan]
       # Path grammar: `<list>.*.<field>` walks each list element and
       # collects the named field. Matches the wildcard handling in
-      # `make_llm_vision_node` (pymagatama.langgraph_node_resolvers).
+      # `make_llm_vision_node` (kotodama.langgraph_node_resolvers).
       image_keys: [renders.*.blobKey]
       result_key: critique_raw
       args:

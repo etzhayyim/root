@@ -1,6 +1,6 @@
 {
   "$comment": "LangGraph Server config — yukkuri.etzhayyim.com actor. OSS FastAPI pattern (mirrors lg-animeka). NSID namespace: com.etzhayyim.apps.yukkuri.*",
-  "dependencies": ["./lg_yukkuri", "../../../20-actors/magatama/py"],
+  "dependencies": ["./lg_yukkuri", "../../../40-engine/kotoba/crates/kotoba-kotodama/py"],
   "graphs": {
     "health":            "./lg_yukkuri/graphs/health.py:GRAPH",
     "list_videos":       "./lg_yukkuri/graphs/list_videos.py:GRAPH",

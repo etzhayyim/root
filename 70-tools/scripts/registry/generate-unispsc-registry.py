@@ -2,7 +2,7 @@
 """Generate the canonical unispsc actor registry JSON.
 
 SoT inputs:
-  20-actors/magatama/py/src/pymagatama/langgraph_graphs/unispsc_agents/c*.py
+  40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs/unispsc_agents/c*.py
 
 Output:
   00-contracts/actor-registry/unispsc.json
@@ -37,7 +37,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[3]
 AGENTS_DIR = (
     REPO_ROOT
-    / "20-actors/magatama/py/src/pymagatama/langgraph_graphs/unispsc_agents"
+    / "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs/unispsc_agents"
 )
 OUTPUT_PATH = REPO_ROOT / "00-contracts/actor-registry/unispsc.json"
 # Slim derived artefact bundled into the did-web Worker. The full JSON is 6+ MB
@@ -112,7 +112,7 @@ def main() -> int:
                 "handle": handle,
                 "did": f"did:web:etzhayyim.com:actor:{handle}",
                 "didSubdomain": f"did:web:{handle}.etzhayyim.com",
-                "module": f"pymagatama.langgraph_graphs.unispsc_agents.{path.stem}",
+                "module": f"kotodama.langgraph_graphs.unispsc_agents.{path.stem}",
                 "title": extract_title(path),
                 "segment": seg,
                 "family": fam,

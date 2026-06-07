@@ -272,7 +272,7 @@ The source-neutral skeleton should look like:
 Production code should be importable, not only executable as an operator script.
 
 ```text
-20-actors/magatama/py/src/pymagatama/ingest/
+40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/
   core.py
   houbun/
     __init__.py
@@ -290,7 +290,7 @@ Production code should be importable, not only executable as an operator script.
 ```
 
 `70-tools/scripts/houbun_live_ingest.py` should be refactored by moving reusable
-functions into `pymagatama.ingest.houbun.*`; the script can remain as a thin
+functions into `kotodama.ingest.houbun.*`; the script can remain as a thin
 CLI wrapper for emergency/manual backfills.
 
 ## Worker Handler Skeleton
@@ -298,12 +298,12 @@ CLI wrapper for emergency/manual backfills.
 ```python
 from pyzeebe import ZeebeWorker, create_insecure_channel
 
-from pymagatama.ingest.houbun.config import load_source_config
-from pymagatama.ingest.houbun.egov import plan_egov, fetch_egov
-from pymagatama.ingest.houbun.normalize import normalize_artifact
-from pymagatama.ingest.houbun.write import write_graph
-from pymagatama.ingest.houbun.verify import verify_visibility
-from pymagatama.ingest.core import (
+from kotodama.ingest.houbun.config import load_source_config
+from kotodama.ingest.houbun.egov import plan_egov, fetch_egov
+from kotodama.ingest.houbun.normalize import normalize_artifact
+from kotodama.ingest.houbun.write import write_graph
+from kotodama.ingest.houbun.verify import verify_visibility
+from kotodama.ingest.core import (
     create_run,
     health_gate,
     acquire_cursor,
@@ -357,7 +357,7 @@ asyncio.run(worker.work())
 ```
 
 The real implementation should reuse the liveness mtime pattern already used by
-`pymagatama.zeebe_worker_main`, because a closed gRPC channel can silently park
+`kotodama.zeebe_worker_main`, because a closed gRPC channel can silently park
 tokens.
 
 ## Kubernetes Deployment
@@ -383,8 +383,8 @@ spec:
     spec:
       containers:
         - name: worker
-          image: ghcr.io/etzhayyim/pymagatama:<tag>
-          command: ["python", "-m", "pymagatama.ingest.houbun_worker_main"]
+          image: ghcr.io/etzhayyim/kotodama:<tag>
+          command: ["python", "-m", "kotodama.ingest.houbun_worker_main"]
           env:
             - name: ZEEBE_GATEWAY
               value: zeebe-gateway.mitama-udf.svc:26500
@@ -423,11 +423,11 @@ spec:
           restartPolicy: OnFailure
           containers:
             - name: start
-              image: ghcr.io/etzhayyim/pymagatama:<tag>
+              image: ghcr.io/etzhayyim/kotodama:<tag>
               command:
                 - python
                 - -m
-                - pymagatama.ingest.houbun_start
+                - kotodama.ingest.houbun_start
                 - --process-id
                 - houbun_source_delta
                 - --source-id
@@ -515,7 +515,7 @@ Minimum metrics:
 
 ## Rollout
 
-1. Add importable `pymagatama.ingest.houbun` modules by moving code from
+1. Add importable `kotodama.ingest.houbun` modules by moving code from
    `houbun_live_ingest.py`.
 2. Add the BPMN file and deploy with `zbctl deploy`.
 3. Start one manual instance for `egov-jpn` with `limit=5`.

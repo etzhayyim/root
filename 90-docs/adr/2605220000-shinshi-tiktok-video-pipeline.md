@@ -42,7 +42,7 @@ shinshi.etzhayyim.com の model DID から、**TikTok / Reels / YouTube Shorts �
 
 - LangGraph 新規 graph `shinshi.video.tiktokShort` (lg-shinshi に追加)
 - 5-shot 構造 (hook 1.5s → 4 main shots → CTA 2s, 計 25s)
-- Wan 2.2 I2V を per-shot ドライバとして再利用 (既存 `pymagatama.primitives.shinshi_video`)
+- Wan 2.2 I2V を per-shot ドライバとして再利用 (既存 `kotodama.primitives.shinshi_video`)
 - 音声生成 (TTS + BGM + SFX)
 - ffmpeg mux + caption overlay
 - PDS uploadBlob → feed.post + embed.video + NSFW selfLabel
@@ -123,7 +123,7 @@ pds_post      (feed.post + embed.video + selfLabels:[nsfw,sexual])
 
 #### D3.1 I2V: Wan 2.2 14B fp8
 
-- 既に LAN ComfyUI に配線済み (`pymagatama.primitives.shinshi_video`)
+- 既に LAN ComfyUI に配線済み (`kotodama.primitives.shinshi_video`)
 - Apache 2.0、商用 OK
 - 4-6s @ 720×1280 が GPU 1 枚で実用域
 - HunyuanVideo 13B も候補だが VRAM 重く mangaka と競合悪化
@@ -264,7 +264,7 @@ Daily target: 247 models × 1 clip = 247 clips。LAN GPU 1 枚 24h で
 2. **lg-shinshi**:
    - 新 graph `lg_shinshi/graphs/video_tiktok_short.py`
    - `langgraph.json` の `graphs` に追加
-3. **pymagatama**:
+3. **kotodama**:
    - `primitives/shinshi_voice.py` (Style-Bert-VITS2 client + speaker LoRA cache)
    - `primitives/shinshi_bgm.py` (Stable Audio Open client)
    - `primitives/shinshi_mux.py` (ffmpeg helpers + caption ass writer)
@@ -285,7 +285,7 @@ Daily target: 247 models × 1 clip = 247 clips。LAN GPU 1 枚 24h で
 - ADR-2605211800: mangaka Native ComfyUI Page Pipeline (LAN ComfyUI 共用先)
 - `60-apps/etzhayyim-project-shinshi/lg/CLAUDE.md`: 既存 lg-shinshi 配線
 - `60-apps/etzhayyim-project-shinshi/CLAUDE.md`: shinshi 全体 (write path / blob / ContentLabel)
-- `20-actors/magatama/py/src/pymagatama/primitives/shinshi_video.py`: 既存 Wan 2.2 I2V primitive
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/shinshi_video.py`: 既存 Wan 2.2 I2V primitive
 - Wan 2.2 weights: Alibaba PAI, Apache 2.0
 - Style-Bert-VITS2: <https://github.com/litagin02/Style-Bert-VITS2>
 - Stable Audio Open: Stability AI community release

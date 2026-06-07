@@ -128,7 +128,7 @@ High in-kind provision must not become a Wellbecoming violation (Charter §1.13)
 
 - **Lexicon** (`00-contracts/lexicons/com/etzhayyim/liberation/`): extend `metricReport` with the `basicHighIncome` block (§5).
 - **toritate** (ADR-2605262900, `20-actors/toritate/`): `imputed_income_compute` + `commons_asset_value` Pregel cells; open-source valuation table under `20-actors/toritate/valuation/`.
-- **Pregel cell** (`20-actors/magatama/cells/`): `basic_high_income_aggregate` (levi node) — quarterly aggregate from encrypted per-adherent figures into the §5 report; reuses the §4 aggregation/no-PII pattern.
+- **Pregel cell** (`40-engine/kotoba/crates/kotoba-kotodama/cells/`): `basic_high_income_aggregate` (levi node) — quarterly aggregate from encrypted per-adherent figures into the §5 report; reuses the §4 aggregation/no-PII pattern.
 - **No new Solidity contract** — `LiberationLadder.sol` (ADR-2605261000 §7) carries the stage state; this ADR adds only off-chain valuation + the aggregate metric field. `cashStipendUsd == 0` asserted in the metric-report validator.
 
 ## Consequences

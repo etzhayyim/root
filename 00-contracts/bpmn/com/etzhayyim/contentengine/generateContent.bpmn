@@ -7,7 +7,7 @@
   <!--
     generateContent.bpmn — Personalized Content Engine (ADR-2605072000)
     Triggered by: com.etzhayyim.apps.contentengine.generateContent XRPC
-    Workers: 20-actors/magatama/py/src/pymagatama/contentengine_worker_main.py
+    Workers: 40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/contentengine_worker_main.py
     No PII — cohort-level personalization only (ADR-0018).
   -->
 

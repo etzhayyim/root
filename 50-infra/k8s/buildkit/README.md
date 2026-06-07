@@ -18,9 +18,9 @@ BuildKit pods in the `buildkit` namespace.
 
 ```sh
 70-tools/scripts/buildkit/remote-build.sh \
-  --image ghcr.io/etzhayyim/pymagatama \
-  --context 20-actors/magatama/py \
-  --dockerfile 20-actors/magatama/py/Dockerfile
+  --image ghcr.io/etzhayyim/kotodama \
+  --context 40-engine/kotoba/crates/kotoba-kotodama/py \
+  --dockerfile 40-engine/kotoba/crates/kotoba-kotodama/py/Dockerfile
 ```
 
 The wrapper uses the remote `etzhayyim-vke` builder, targets `linux/amd64`, and
@@ -34,12 +34,12 @@ imports/exports registry cache by default:
 Prefer workload-specific cache refs for repeated deploy paths:
 
 ```sh
-BUILDKIT_CACHE_REF=ghcr.io/etzhayyim/build-cache:pymagatama \
+BUILDKIT_CACHE_REF=ghcr.io/etzhayyim/build-cache:kotodama \
   IMAGE_TAG="$(git rev-parse --short HEAD)-amd64" \
   70-tools/scripts/buildkit/remote-build.sh \
-    --image ghcr.io/etzhayyim/pymagatama \
-    --context 20-actors/magatama/py \
-    --dockerfile 20-actors/magatama/py/Dockerfile
+    --image ghcr.io/etzhayyim/kotodama \
+    --context 40-engine/kotoba/crates/kotoba-kotodama/py \
+    --dockerfile 40-engine/kotoba/crates/kotoba-kotodama/py/Dockerfile
 ```
 
 Only bypass cache when diagnosing a confirmed stale-layer issue:
@@ -47,9 +47,9 @@ Only bypass cache when diagnosing a confirmed stale-layer issue:
 ```sh
 IMAGE_TAG="$(git rev-parse --short HEAD)-amd64" \
   70-tools/scripts/buildkit/remote-build.sh \
-    --image ghcr.io/etzhayyim/pymagatama \
-    --context 20-actors/magatama/py \
-    --dockerfile 20-actors/magatama/py/Dockerfile \
+    --image ghcr.io/etzhayyim/kotodama \
+    --context 40-engine/kotoba/crates/kotoba-kotodama/py \
+    --dockerfile 40-engine/kotoba/crates/kotoba-kotodama/py/Dockerfile \
     --extra-arg --no-cache
 ```
 

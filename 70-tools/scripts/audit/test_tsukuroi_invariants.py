@@ -39,7 +39,7 @@ _VALIDATION = _LEX / "patchValidationResult.json"
 _CLOSURE = _LEX / "closureAttestation.json"
 _SILEN = _LEX / "silenTsukuroiReview.json"
 _MANIFEST = _REPO / "20-actors" / "tsukuroi" / "manifest.jsonld"
-_CELLS = _REPO / "20-actors" / "magatama" / "cells"
+_CELLS = _REPO / "20-actors" / "kotodama" / "cells"
 
 _CELL_NAMES = [
     "tsukuroi_finding_intake",

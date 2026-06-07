@@ -100,9 +100,9 @@ Other L5 cells (`religious_corp_birth_cell` / `religious_corp_death_cell` / `rel
 
 ### 2.1 Cell location and shape
 
-- Path: `20-actors/magatama/cells/member_registry/`
+- Path: `40-engine/kotoba/crates/kotoba-kotodama/cells/member_registry/`
 - Files: `cell.py` (LangGraph Pregel graph) + `__init__.py`.
-- Tier: B (per-domain) per `20-actors/magatama/cells/README.md`.
+- Tier: B (per-domain) per `40-engine/kotoba/crates/kotoba-kotodama/cells/README.md`.
 - Murakumo node (leader): `ephraim` (religious-corp tribe-name convention — to be assigned in `50-infra/murakumo/fleet.toml` if cell is activated).
 - Trigger: MST firehose listener on `com.etzhayyim.member.adherent` + monthly cron for roster snapshot.
 
@@ -189,5 +189,5 @@ The Lexicon is **not** authored as part of this ADR — it lands when Council ra
 - ADR-2605192115 (TitheRouter — referenced as the existing taxation substrate)
 - `00-contracts/lexicons/com/etzhayyim/member/adherent.json` (Adherent SBT Lexicon)
 - `MEMBERS.md` (github-side roster)
-- `20-actors/magatama/cells/README.md` (Pregel cell catalog)
+- `40-engine/kotoba/crates/kotoba-kotodama/cells/README.md` (Pregel cell catalog)
 - `50-infra/murakumo/fleet.toml` (Murakumo node placement — to be updated with `ephraim` leader assignment upon Council ratify)

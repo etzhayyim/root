@@ -5,7 +5,7 @@ codegen-wit-migrate.py — COFOG WIT linker migration for states project.
 Generates component-registry.json and migrates:
   - wit/world.wit → COFOG world (etzhayyim-gov-*)
   - main.go → NewApp pattern (kuruma-style)
-  - magatama.toml → [interfaces] section
+  - kotodama.toml → [interfaces] section
 
 Usage:
   python3 codegen-wit-migrate.py --registry-only       # Generate registry only
@@ -453,7 +453,7 @@ import (
 \t"fmt"
 \t"time"
 
-\tmagatama "github.com/etzhayyim/magatama-go"
+\tkotodama "github.com/etzhayyim/kotodama-go"
 )
 
 const (
@@ -463,7 +463,7 @@ const (
 \tentityName      = "{entity_name}"
 )
 
-var app = magatama.NewApp(magatama.AppDef{{
+var app = kotodama.NewApp(kotodama.AppDef{{
 \tID:          componentNanoID,
 \tName:        "gov-" + countryCode + "-" + govFunction,
 \tDescription: entityName,
@@ -471,19 +471,19 @@ var app = magatama.NewApp(magatama.AppDef{{
 
 func init() {{
 \tapp.Command("GetOrganizationInfo", cmdGetOrgInfo,
-\t\tmagatama.AsAgentTool("Get organization metadata"),
-\t\tmagatama.WithCapabilityTags({cap_tags}),
-\t\tmagatama.Responsible(magatama.AssigneeOrgRole, "{responsible}"),
-\t\tmagatama.Accountable(magatama.AssigneeOrgRole, "{accountable}"),
+\t\tkotodama.AsAgentTool("Get organization metadata"),
+\t\tkotodama.WithCapabilityTags({cap_tags}),
+\t\tkotodama.Responsible(kotodama.AssigneeOrgRole, "{responsible}"),
+\t\tkotodama.Accountable(kotodama.AssigneeOrgRole, "{accountable}"),
 \t)
 \tapp.Command("SendMessage", cmdSendMessage,
-\t\tmagatama.AsAgentTool("Send inter-government message"),
-\t\tmagatama.WithCapabilityTags("government", "messaging", countryCode),
-\t\tmagatama.RequireApproval(magatama.{approval_class}, {approval_count}, "{approval_priority}"),
+\t\tkotodama.AsAgentTool("Send inter-government message"),
+\t\tkotodama.WithCapabilityTags("government", "messaging", countryCode),
+\t\tkotodama.RequireApproval(kotodama.{approval_class}, {approval_count}, "{approval_priority}"),
 \t)
 \tapp.Command("ReceiveMessage", cmdReceiveMessage,
-\t\tmagatama.AsAgentTool("Receive message from government org"),
-\t\tmagatama.WithCapabilityTags("government", "messaging", countryCode),
+\t\tkotodama.AsAgentTool("Receive message from government org"),
+\t\tkotodama.WithCapabilityTags("government", "messaging", countryCode),
 \t)
 \tapp.Query("GetDivisionInfo", qryGetDivision)
 \tapp.Query("GetEvents", qryGetEvents)
@@ -542,7 +542,7 @@ func cmdSendMessage(args map[string]any) (any, error) {{
 \t\t"from": componentNanoID, "to": toOrg,
 \t\t"subject": subject, "body": body, "type": "org.message",
 \t}})
-\tresult, err := magatama.Say(toOrg, "ReceiveMessage", string(msgJSON))
+\tresult, err := kotodama.Say(toOrg, "ReceiveMessage", string(msgJSON))
 \tif err != nil {{
 \t\treturn nil, err
 \t}}
@@ -560,7 +560,7 @@ func cmdReceiveMessage(args map[string]any) (any, error) {{
 // ── queries ──────────────────────────────────────────────────
 
 func qryGetDivision(args map[string]any) (any, error) {{
-\trows, err := magatama.CypherQueryMap(
+\trows, err := kotodama.CypherQueryMap(
 \t\t"MATCH (n:GovDivision {{nanoid: $nanoid}}) RETURN n.name AS name, n.division_type AS type, n.population AS population, n.headquarters AS headquarters",
 \t\tmap[string]any{{"nanoid": componentNanoID}},
 \t)
@@ -568,7 +568,7 @@ func qryGetDivision(args map[string]any) (any, error) {{
 \t\treturn nil, err
 \t}}
 \tif len(rows) == 0 {{
-\t\t_ = magatama.CypherExec(
+\t\t_ = kotodama.CypherExec(
 \t\t\t"CREATE (n:GovDivision {{nanoid: $nanoid, name: $name, division_type: $type, population: 0, headquarters: $hq, country_code: $cc, org_id: \'anon\', user_id: \'anon\', actor_id: \'\'}})",
 \t\t\tmap[string]any{{"nanoid": componentNanoID, "name": entityName, "type": "{cofog_name}", "hq": "", "cc": countryCode}},
 \t\t)
@@ -579,7 +579,7 @@ func qryGetDivision(args map[string]any) (any, error) {{
 
 func qryGetEvents(args map[string]any) (any, error) {{
 \tlimit := ia(args, "limit", 50)
-\trows, err := magatama.CypherQueryMap(
+\trows, err := kotodama.CypherQueryMap(
 \t\tfmt.Sprintf("MATCH (e:OrgEvent {{org_nanoid: $nanoid}}) RETURN e.event_id AS event_id, e.event_type AS event_type, e.timestamp AS timestamp ORDER BY e.timestamp DESC LIMIT %d", limit),
 \t\tmap[string]any{{"nanoid": componentNanoID}},
 \t)
@@ -598,7 +598,7 @@ func logOrgEvent(eventType string, detail map[string]any) {{
 \t\tb, _ := json.Marshal(detail)
 \t\tdetailJSON = string(b)
 \t}}
-\t_ = magatama.CypherExec(
+\t_ = kotodama.CypherExec(
 \t\t"CREATE (e:OrgEvent {{event_id: $eid, org_nanoid: $nanoid, event_type: $et, timestamp: $ts, country_code: $cc, detail_json: $detail, org_id: \'anon\', user_id: \'anon\', actor_id: $actor}})",
 \t\tmap[string]any{{
 \t\t\t"eid": componentNanoID + ":" + now, "nanoid": componentNanoID,
@@ -610,8 +610,8 @@ func logOrgEvent(eventType string, detail map[string]any) {{
 '''
 
 
-def gen_magatama_toml(comp: dict[str, Any]) -> str:
-    """Generate magatama.toml with [interfaces] section."""
+def gen_kotodama_toml(comp: dict[str, Any]) -> str:
+    """Generate kotodama.toml with [interfaces] section."""
     func_name = comp["gov_function"]
     cofog_name = comp["cofog_name"]
     cc = comp["country_code"]
@@ -648,7 +648,7 @@ def gen_magatama_toml(comp: dict[str, Any]) -> str:
     provides_str = ", ".join(f'{{ name = "{f}" }}' for f in provides_functions)
     tags_str = ", ".join(f'"{t}"' for t in ["government", cofog_name, cc])
 
-    return f"""# gov-{cc}-{func_name} — magatama runtime config
+    return f"""# gov-{cc}-{func_name} — kotodama runtime config
 
 [component]
 path = "component.wasm"
@@ -695,7 +695,7 @@ functions = ["send-message", "receive-message"]
 
 
 def migrate_component(comp: dict[str, Any], dry_run: bool = False) -> bool:
-    """Migrate a single component's world.wit, main.go, and magatama.toml."""
+    """Migrate a single component's world.wit, main.go, and kotodama.toml."""
     comp_dir = WASM_DIR / comp["dir"]
     if not comp_dir.exists():
         print(f"  SKIP: {comp['dir']} (not found)")
@@ -703,11 +703,11 @@ def migrate_component(comp: dict[str, Any], dry_run: bool = False) -> bool:
 
     wit_path = comp_dir / "wit" / "world.wit"
     main_path = comp_dir / "main.go"
-    toml_path = comp_dir / "magatama.toml"
+    toml_path = comp_dir / "kotodama.toml"
 
     new_wit = gen_world_wit(comp)
     new_main = gen_main_go(comp)
-    new_toml = gen_magatama_toml(comp)
+    new_toml = gen_kotodama_toml(comp)
 
     if dry_run:
         print(f"  DRY-RUN: {comp['short']}")

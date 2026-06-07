@@ -26,22 +26,22 @@ set -euo pipefail
 : "${KOTOBA_B2_STORE:=/Volumes/260317/etzhayyim/kotoba-b2-pin-store}"
 
 # B2 (S3-compatible) target. Defaults match the existing 1Password item
-# `gftd.b2/datasets` (vault gftdcojp): a bucket-scoped S3 key for bucket
-# `ai-gftd-datasets`. kotoba blocks are isolated under a key prefix so they
+# `etzhayyim.b2/datasets` (vault etzhayyim): a bucket-scoped S3 key for bucket
+# `etzhayyim-datasets`. kotoba blocks are isolated under a key prefix so they
 # never collide with the dataset objects already in that bucket.
 : "${B2_S3_HOST:=s3.us-west-004.backblazeb2.com}"
 : "${B2_S3_REGION:=us-west-004}"
-: "${B2_KOTOBA_BUCKET:=ai-gftd-datasets}"
+: "${B2_KOTOBA_BUCKET:=etzhayyim-datasets}"
 : "${B2_FILEPREFIX:=kotoba-blockstore/}"
 : "${B2_ANNEX_REMOTE:=b2}"
 
 # 1Password references for the B2 application key (op:// item-id form so the
-# slash in the item title 'gftd.b2/datasets' doesn't break path parsing).
-: "${B2_OP_KEYID_REF:=op://gftdcojp/qeskpcwf55wgho6dxjme4dusgi/keyID}"
-: "${B2_OP_SECRET_REF:=op://gftdcojp/qeskpcwf55wgho6dxjme4dusgi/applicationKey}"
+# slash in the item title 'etzhayyim.b2/datasets' doesn't break path parsing).
+: "${B2_OP_KEYID_REF:=op://etzhayyim/qeskpcwf55wgho6dxjme4dusgi/keyID}"
+: "${B2_OP_SECRET_REF:=op://etzhayyim/qeskpcwf55wgho6dxjme4dusgi/applicationKey}"
 # Fallback item lookup (used only if the op:// refs are cleared).
-: "${B2_OP_ITEM:=gftd.b2/datasets}"
-: "${B2_OP_VAULT:=gftdcojp}"
+: "${B2_OP_ITEM:=etzhayyim.b2/datasets}"
+: "${B2_OP_VAULT:=etzhayyim}"
 
 log()  { printf '\033[2m[b2-pin]\033[0m %s\n' "$*" >&2; }
 die()  { printf '\033[31m[b2-pin] ERROR:\033[0m %s\n' "$*" >&2; exit 1; }

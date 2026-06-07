@@ -30,11 +30,11 @@ zone_name = "etzhayyim.com"
 pattern = "www.etzhayyim.com/*"
 zone_name = "etzhayyim.com"
 
-# Service binding — direct Worker→Worker call to magatama-yoro avoids the
+# Service binding — direct Worker→Worker call to kotodama-yoro avoids the
 # CF Bot Management block that public-HTTP fetch hits inside the same zone.
 [[services]]
 binding = "YORO"
-service = "magatama-yoro"
+service = "kotodama-yoro"
 
 # Substrate-side XRPC adapter (rw-free reference impl). Per ADR-2605172000,
 # reads under SUBSTRATE_NSID_ALIASES (worker.ts) MUST resolve through this
@@ -114,6 +114,18 @@ new_classes = ["KotobaRoot"]
 tag = "v2"
 deleted_classes = ["KotobaRoot"]
 
+# Durable Object — single-threaded authoritative head for member-signed kotoba
+# publishing, giving TRUE atomic check-and-set on the published root (KV
+# read-then-write only narrows the race; the DO eliminates it). One instance per
+# graph (idFromName(graph)).
+[[durable_objects.bindings]]
+name = "KOTOBA_ROOT"
+class_name = "KotobaRoot"
+
+[[migrations]]
+tag = "v1"
+new_classes = ["KotobaRoot"]
+
 # Observability — capture failed resolution attempts in CF Logs.
 [observability]
 enabled = true
@@ -121,3 +133,22 @@ head_sampling_rate = 1.0
 
 [placement]
 mode = "smart"
+
+# Durable Objects are NOT used (ADR-2605262130 / 2605312345). kotoba is the
+# canonical, content-addressed substrate: genesis blocks are static files under
+# public/kotoba/blocks/<cid> (served by CF assets), post-genesis member-signed
+# deltas land in the content-addressed KV CAS, and the browser kotoba-wasm
+# resolves blocks directly — there is no operated server-state primitive. There
+# is intentionally NO [[durable_objects.bindings]] block.
+#
+# An earlier deploy briefly created a KotobaRoot DO; the migration chain below
+# records that prior creation (v1) and its deletion (v2) so Cloudflare tears down
+# the existing DO class + instances on the next deploy. Cloudflare requires the
+# delete migration to remain even though no binding exists.
+[[migrations]]
+tag = "v1"
+new_classes = ["KotobaRoot"]
+
+[[migrations]]
+tag = "v2"
+deleted_classes = ["KotobaRoot"]

@@ -45,7 +45,7 @@ def version_cmd() -> None:
 
 @click.group("set-profiles")
 def set_profiles() -> None:
-    """Set actor profile records on PDS from magatama.jsonld files."""
+    """Set actor profile records on PDS from kotodama.jsonld files."""
 
 
 @set_profiles.command("run")
@@ -54,7 +54,7 @@ def set_profiles() -> None:
 @click.option("--workspace-dir", "workspace_dir", default=None)
 @click.option("--concurrency", default=10, type=int, show_default=True)
 def sp_run(dry_run: bool, pds: str | None, workspace_dir: str | None, concurrency: int) -> None:
-    """Set AT Protocol profiles for all actor apps from magatama.jsonld."""
+    """Set AT Protocol profiles for all actor apps from kotodama.jsonld."""
     import json as _json
 
     import httpx
@@ -79,10 +79,10 @@ def sp_run(dry_run: bool, pds: str | None, workspace_dir: str | None, concurrenc
         click.echo(f"error: {apps_dir} does not exist", err=True)
         sys.exit(1)
 
-    # Collect magatama.jsonld files
-    jsonld_files = sorted(apps_dir.rglob("magatama.jsonld"))
+    # Collect kotodama.jsonld files
+    jsonld_files = sorted(apps_dir.rglob("kotodama.jsonld"))
     if not jsonld_files:
-        click.echo("No magatama.jsonld files found under 60-apps/")
+        click.echo("No kotodama.jsonld files found under 60-apps/")
         return
 
     profiles: list[dict] = []
@@ -1297,9 +1297,9 @@ def _scan_ts_graph_labels(project_dir: Path) -> list[str]:
 def _scan_app_schema(project_dir: Path) -> dict:
     import datetime
     import json as _json
-    manifest_path = project_dir / "magatama.jsonld"
+    manifest_path = project_dir / "kotodama.jsonld"
     if not manifest_path.exists():
-        raise click.ClickException(f"magatama.jsonld not found in {project_dir}")
+        raise click.ClickException(f"kotodama.jsonld not found in {project_dir}")
     manifest = _json.loads(manifest_path.read_text(encoding="utf-8"))
 
     schema: dict = {
@@ -1375,14 +1375,14 @@ def _render_schema_md(s: dict) -> str:
 
 @docs_gen.command("schema")
 @click.option("--dir", "component_dir", default=".", show_default=True,
-              help="project directory containing magatama.jsonld")
+              help="project directory containing kotodama.jsonld")
 @click.option("--all", "scan_all", is_flag=True, default=False,
               help="scan all projects under 60-apps/ and write schema.auto.md per project")
 @click.option("--format", "fmt", default="json", type=click.Choice(["json", "md"]),
               show_default=True, help="output format")
 @click.option("--out", "out_path", default="", help="output file path (default: stdout)")
 def docs_gen_schema(component_dir: str, scan_all: bool, fmt: str, out_path: str) -> None:
-    """Generate schema.auto.md / JSON from magatama.jsonld + src scan."""
+    """Generate schema.auto.md / JSON from kotodama.jsonld + src scan."""
     import json as _json
 
     if scan_all:
@@ -1393,7 +1393,7 @@ def docs_gen_schema(component_dir: str, scan_all: bool, fmt: str, out_path: str)
         if not pattern_dir.is_dir():
             raise click.ClickException(f"60-apps/ not found under {git_root}")
         wrote = skipped = 0
-        for manifest in sorted(pattern_dir.glob("etzhayyim-project-*/wasm/*/magatama.jsonld")):
+        for manifest in sorted(pattern_dir.glob("etzhayyim-project-*/wasm/*/kotodama.jsonld")):
             comp = manifest.parent
             if ".etzhayyim-deploy" in str(comp):
                 continue
@@ -1446,7 +1446,7 @@ def _parse_toml_array(s: str) -> list[str]:
 
 
 def _parse_legacy_toml(content: str, manifest: dict) -> None:
-    """Parse magatama.toml line-by-line and populate the manifest dict."""
+    """Parse kotodama.toml line-by-line and populate the manifest dict."""
     section = ""
     channels: list[dict] = []
     current_channel: dict | None = None
@@ -1606,10 +1606,10 @@ def _parse_legacy_toml(content: str, manifest: dict) -> None:
 
 
 def _migrate_single(comp_dir: Path, dry_run: bool) -> bool:
-    """Migrate a single component dir from etzhayyim.json → magatama.jsonld."""
-    jsonld_path = comp_dir / "magatama.jsonld"
+    """Migrate a single component dir from etzhayyim.json → kotodama.jsonld."""
+    jsonld_path = comp_dir / "kotodama.jsonld"
     if jsonld_path.exists() and not dry_run:
-        click.echo(f"  skip {comp_dir.name} (magatama.jsonld already exists)", err=True)
+        click.echo(f"  skip {comp_dir.name} (kotodama.jsonld already exists)", err=True)
         return False
 
     etzhayyim_path = comp_dir / "etzhayyim.json"
@@ -1636,7 +1636,7 @@ def _migrate_single(comp_dir: Path, dry_run: bool) -> bool:
     rt = etzhayyim.get("runtime") or "worker"
 
     manifest: dict = {
-        "@context": "https://etzhayyim.com/ns/magatama/v1",
+        "@context": "https://etzhayyim.com/ns/kotodama/v1",
         "@id": f"did:web:{host}",
         "performerType": "service",
         "name": etzhayyim.get("name", ""),
@@ -1684,13 +1684,13 @@ def _migrate_single(comp_dir: Path, dry_run: bool) -> bool:
             "sleepAfter": sleep_after,
         }.items() if v}
 
-    # Parse magatama.toml if it exists
-    toml_path = comp_dir / "magatama.toml"
+    # Parse kotodama.toml if it exists
+    toml_path = comp_dir / "kotodama.toml"
     if toml_path.exists():
         try:
             _parse_legacy_toml(toml_path.read_text(encoding="utf-8"), manifest)
         except Exception as exc:
-            click.echo(f"  WARN {comp_dir.name}: parse magatama.toml: {exc}", err=True)
+            click.echo(f"  WARN {comp_dir.name}: parse kotodama.toml: {exc}", err=True)
 
     # Remove None/empty values at top level
     manifest = {k: v for k, v in manifest.items() if v is not None and v != "" and v != [] and v != {}}
@@ -1698,7 +1698,7 @@ def _migrate_single(comp_dir: Path, dry_run: bool) -> bool:
     output = json.dumps(manifest, indent=2, ensure_ascii=False) + "\n"
 
     if dry_run:
-        click.echo(f"--- {comp_dir.name}/magatama.jsonld ---")
+        click.echo(f"--- {comp_dir.name}/kotodama.jsonld ---")
         click.echo(output)
         return True
 
@@ -1719,7 +1719,7 @@ def _migrate_single(comp_dir: Path, dry_run: bool) -> bool:
 @click.option("--dry-run", is_flag=True, default=False,
               help="Show what would be generated without writing")
 def mm_run(component_dir: str, batch: bool, dry_run: bool) -> None:
-    """Migrate etzhayyim.json → magatama.jsonld (pure file transformation, no DB)."""
+    """Migrate etzhayyim.json → kotodama.jsonld (pure file transformation, no DB)."""
     abs_dir = Path(component_dir).resolve()
 
     if batch:

@@ -16,8 +16,8 @@ The SQL here is kept as a readable copy of the view definition. Do not commit
 CSV/JSON snapshots; export them from the Python actor image when needed:
 
 ```sh
-python -m pymagatama.pd_color_process_mining csv > /tmp/pdcolor-event-log.csv
-python -m pymagatama.pd_color_process_mining summary > /tmp/pdcolor-process-summary.json
+python -m kotodama.pd_color_process_mining csv > /tmp/pdcolor-event-log.csv
+python -m kotodama.pd_color_process_mining summary > /tmp/pdcolor-process-summary.json
 ```
 
 The CSV shape can be imported into PM4Py, Apromore, Celonis, or a simple

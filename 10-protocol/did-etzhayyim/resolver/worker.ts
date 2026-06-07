@@ -25,7 +25,7 @@ import {
   buildDidDocument,
   type DidetzhayyimDocument,
 } from "../src/index";
-import { createKyselyDb, sql } from "@etzhayyim/magatama-host-sdk/kysely";
+import { createKyselyDb, sql } from "@etzhayyim/kotodama-host-sdk/kysely";
 
 export interface Env {
   HYPERDRIVE: Hyperdrive;

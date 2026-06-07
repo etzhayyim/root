@@ -1,7 +1,7 @@
 /// Standalone compute world for jco transpile validation.
 /// Pattern C: WIT Component Model (P2) + Rust + cargo-component + jco → JS.
 ///
-/// No magatama imports — self-contained pure-compute component.
+/// No kotodama imports — self-contained pure-compute component.
 /// Transpile: jco transpile shannon-jco.wasm --instantiation async → ESM JS
 /// CF Workers: CompiledWasm rule bundles shannon-jco.core.wasm as WebAssembly.Module.
 ///

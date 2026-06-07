@@ -14,7 +14,7 @@ authoritative_for:
   - Tranche F Phase 3 gate status (design vs execution split, 2026-05-21)
   - cross-references from gates to closure ADRs / surveys
 depends_on:
-  - adr-2605212100-magatama-worker-3-axis-tranche-f-closure
+  - adr-2605212100-kotodama-worker-3-axis-tranche-f-closure
 related:
   - adr-2605211757-dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com
   - adr-2605211913-vendor-refactor-and-git-rm-phase-4-5-runbook
@@ -33,7 +33,7 @@ superseded_by: []
 > design patterns + the operational runbook + the vendor cross-references that
 > close gates (b), (c) at the design level and (d) at the survey level. Per-worker
 > RW-free Python re-implementations were prototyped during the session but **not
-> committed** to `etzhayyim/root/20-actors/magatama/py/src/pymagatama/`. Gate (a)
+> committed** to `etzhayyim/root/40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/`. Gate (a)
 > therefore remains the open execution item. This doc reflects the actual on-disk
 > state, not the prototype work that was reverted.
 
@@ -44,7 +44,7 @@ superseded_by: []
 | **(a)** | Per-worker RW-free re-implementation for all 29 etzhayyim-classified workers, following the BeliefStore + SQLite PVC pattern | 🟢 **IN_PROGRESS — 11 / 42 rows (26%) 2026-05-21 evening** | §1 substrate primitives 4/4 ✅ (P1 active_inference_substrate.py RW-free + P2 at_ipfs_belief_store.py + P3 worker_runtime.py new + P4 ingest/core.py psql disabled). §5 utility audit 5/5 ✅ (tools_const/http/json/time/transform byte-identical). §3 Wave A 2/2 ✅ (tools_audit + sixir already ported in pre-session state, verified). 31 rows remain: §2 BeliefStore organism cluster (W1-W8), §3 Wave B-C (W11-W20), §4 ingest-coupled (W21-W24), §6 ingest modules (I1-I4). Progress audit in deps.toml `[platform.tranche_f.phase_3_to_6_governance_2026_05_21]` gate_a_execution_state + gate_a_session_progress_2026_05_21 |
 | **(b)** | DNS cutover ``*.etzhayyim.com`` → ``*.etzhayyim.com`` | ✅ **CLOSED (runbook ready)** | ADR-2605211757 (`etzhayyim/root/90-docs/adr/2605211757-dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com.md`, 431 lines). 4-wave cutover (A read-cache+utility / B single-table primary / C multi-table+JOIN / D write-heavy+ingest), 8-step per-actor procedure, dual-write window for Wave D, sub-5-min rollback before vendor 410. Operator-ready. Execution gated on (a) per the runbook's own Wave A pre-flight |
 | **(c)** | etzhayyim deployment surface choice (Mac mini fleet vs AT-MST-only vs hybrid) | 🟡 **DESIGN DOCUMENTED IN RUNBOOK** | Embedded in ADR-2605211757 §0 pre-flight + §3.1 PVC provisioning: Mac mini fleet via `50-infra/k8s/murakumo-kubelet` + per-actor SQLite PVC under `$ORGANISM_SQLITE_DIR`. The originally-drafted standalone ADR-2605211653 (per-actor SQLite PVC) was **not retained on disk** in this session; its content lives inline in the DNS runbook |
-| **(d)** | Vendor-side worker importer survey clean — workers with in-repo etzhayyim importers must be re-pointed at @etzhayyim/* npm or git submodule before vendor `git rm` is safe | ✅ **CLOSED (survey + 3 relocates + 1 inline)** | `etzhayyim/root/90-docs/2605211800-vendor-importer-survey-gate-d.md` (98 lines). 68 vendor-side `from pymagatama` importers grepped; 4 files identified. Executions this session: (i) `lg_organism/server.py` pre-existed in etzhayyim, (ii) `lg_legal_entity/server.py` relocated to `etzhayyim/60-apps/etzhayyim-project-legal-entity/lg/`, (iii) `lg_curpus2skill/server.py` relocated to `etzhayyim/60-apps/etzhayyim-project-curpus2skill/lg/`, (iv) `etzhayyim/.../hume/scripts/persist_hume_artifacts.py` switched to a local `_local_ingest_core.py` copy (193 LoC). Remaining: vendor `git rm` of the pymagatama originals once gate (a) lands + DNS cutover completes |
+| **(d)** | Vendor-side worker importer survey clean — workers with in-repo etzhayyim importers must be re-pointed at @etzhayyim/* npm or git submodule before vendor `git rm` is safe | ✅ **CLOSED (survey + 3 relocates + 1 inline)** | `etzhayyim/root/90-docs/2605211800-vendor-importer-survey-gate-d.md` (98 lines). 68 vendor-side `from kotodama` importers grepped; 4 files identified. Executions this session: (i) `lg_organism/server.py` pre-existed in etzhayyim, (ii) `lg_legal_entity/server.py` relocated to `etzhayyim/60-apps/etzhayyim-project-legal-entity/lg/`, (iii) `lg_curpus2skill/server.py` relocated to `etzhayyim/60-apps/etzhayyim-project-curpus2skill/lg/`, (iv) `etzhayyim/.../hume/scripts/persist_hume_artifacts.py` switched to a local `_local_ingest_core.py` copy (193 LoC). Remaining: vendor `git rm` of the kotodama originals once gate (a) lands + DNS cutover completes |
 
 **Headline (updated 2026-05-21 evening)**: 2/4 gates fully closed (b runbook + d
 survey/relocates). 1/4 in-progress ((a) 11/42 rows ticked — §1 primitives + §5
@@ -77,7 +77,7 @@ Plus on vendor side (`etzhayyim-root`):
 
 ```
 ├── deps.toml                                            +9 lines (closure cross-ref)
-├── 90-docs/adr/2605212100-magatama-worker-3-axis-tranche-f-closure.md
+├── 90-docs/adr/2605212100-kotodama-worker-3-axis-tranche-f-closure.md
 │                                                       +46 lines (4 STATUS blocks + §2.5)
 └── 60-apps/etzhayyim-project-hume/scripts/
     └── _local_ingest_core.py                            193 lines (gate-d #4)
@@ -91,7 +91,7 @@ Plus on vendor side (`etzhayyim-root`):
      to its per-actor SQLite at `$ORGANISM_SQLITE_DIR/<module>-<actor>.db`,
      following the appropriate pattern (BeliefStore for organism cluster, primary
      store for INSERT/SELECT/UPDATE workers, read-cache for SELECT-only, etc.).
-   - Acceptance: each worker's `from pymagatama.db_sync import sync_cursor`
+   - Acceptance: each worker's `from kotodama.db_sync import sync_cursor`
      becomes `import sqlite3` + a per-actor `_connect()` helper; smoke test
      exercises every task handler in a tmp `$ORGANISM_SQLITE_DIR`.
 
@@ -103,7 +103,7 @@ Plus on vendor side (`etzhayyim-root`):
 
 3. **Gate (d) tail-end** — vendor `git rm` (ADR-2605211913)
    - Remove the 27 ported workers + 4 ingest modules + 4 substrate primitives
-     from `etzhayyim-root/20-actors/magatama/py/src/pymagatama/`.
+     from `etzhayyim-root/40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/`.
    - This is gated on (a) lands + DNS cutover Wave D completes.
    - Operator runbook: ADR-2605211913 (Phase 4-5 vendor refactor + git rm).
      Step 0 pre-flight enforces the gate (a) precondition.

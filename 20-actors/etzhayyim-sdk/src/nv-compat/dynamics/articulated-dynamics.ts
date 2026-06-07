@@ -1,4 +1,4 @@
-// TypeScript port of pymagatama.nv_compat.dynamics.articulated_dynamics
+// TypeScript port of kotodama.nv_compat.dynamics.articulated_dynamics
 //
 // Featherstone-1983 Articulated-Body Algorithm + RNEA + CRBA + forward
 // kinematics + geometric Jacobian. Mirrors the Python implementation
@@ -17,7 +17,7 @@
 //   v = (angular_x, angular_y, angular_z, linear_x, linear_y, linear_z)
 // 6×6 Plücker transforms are nested arrays.
 
-// ── URDF-side types (mirror pymagatama.nv_compat._kernel) ────────────────
+// ── URDF-side types (mirror kotodama.nv_compat._kernel) ────────────────
 
 export interface UrdfPose {
   xyz: [number, number, number];

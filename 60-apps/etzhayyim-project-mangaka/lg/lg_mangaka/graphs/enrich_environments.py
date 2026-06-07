@@ -43,7 +43,7 @@ async def _step_load_existing(state: _State) -> dict[str, Any]:
     if not profiles: return {"existing": {}}
     rkeys = list(profiles.keys())
     out: dict[str, dict] = {}
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     import asyncio
     client = get_kotoba_client()
     for rkey in rkeys:
@@ -79,7 +79,7 @@ async def _step_write_back(state: _State) -> dict[str, Any]:
     updated, created = 0, 0
     now_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     now_date = now_iso[:10]
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     import asyncio
     client = get_kotoba_client()
     for plan in plans:

@@ -18,10 +18,10 @@ etzhayyim murakumo drops all of that:
 |---|---|
 | Vultr VKE hub | (nothing — no hub needed) |
 | Karmada PropagationPolicy | `placement-contract.yaml` (this dir) + `50-infra/murakumo/fleet.toml` |
-| k3s + Lima/krunkit | `launchd` + magatama-cell-runner (`50-infra/cluster/murakumo/cell-runner/`) |
+| k3s + Lima/krunkit | `launchd` + kotodama-cell-runner (`50-infra/cluster/murakumo/cell-runner/`) |
 | WireGuard overlay | self-hosted **tailmesh** (X25519 + XChaCha20-Poly1305, `50-infra/cluster/murakumo/src/murakumo_mesh.rs`) |
 | ghcr.io image registry | Apple Silicon native binaries (cell-runner) + ollama-pulled models |
-| Helm chart per actor | Pregel cell catalog (`20-actors/magatama/cells/`) |
+| Helm chart per actor | Pregel cell catalog (`40-engine/kotoba/crates/kotoba-kotodama/cells/`) |
 
 ## Topology
 
@@ -54,7 +54,7 @@ Single fleet, no hub/member split. Every node is peer.
 | File | Purpose |
 |---|---|
 | `topology.yaml` | Machine-readable node inventory + role labels (single-fleet schema, no hub/member). |
-| `placement-contract.yaml` | Cell group → node group binding. References cells from `20-actors/magatama/cells/` and the fleet defined in `50-infra/murakumo/fleet.toml`. |
+| `placement-contract.yaml` | Cell group → node group binding. References cells from `40-engine/kotoba/crates/kotoba-kotodama/cells/` and the fleet defined in `50-infra/murakumo/fleet.toml`. |
 | `README.md` | this file. |
 
 ## Invariants

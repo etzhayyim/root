@@ -1,5 +1,11 @@
 # etzhayyim-project-organizer — organizer.etzhayyim.com
 
+> **kotoba-native (ADR-2606072400).** Canonical manifest is now `manifest.edn`; data model in
+> `kotoba/schema.edn`; logic + tests in `py/` (14 green). Free auto-organize file commons:
+> content-addressed dedup (Blake3), per-vault isolation, encrypted blobs, member-signed, and
+> **no content mining**. Legacy `actor-manifest.jsonld` (RisingWave) is DEPRECATED
+> (`DEPRECATED-jsonld.md`); subscription-discovery pipeline retained as a follow-up. Below is historical.
+
 **Upload → AI Auto-Organize** — アップロードすれば AI が自動で整理。フォルダ手動整理不要。
 
 ## Architecture
@@ -134,7 +140,7 @@ interface subscription-discovery {
 | inboundEmail 読取 | `confidential` | mailer → organizer Follow (ユーザー有効化時) |
 | subscriptionItem | `confidential` | vault owner のみ |
 | kaiyaku 解約実行 | `confidential` | **明示承認必須** — convo chat approve |
-| stripe 明細取得 | `confidential` | `magatama:consent` GNAP grant 必須 |
+| stripe 明細取得 | `confidential` | `kotodama:consent` GNAP grant 必須 |
 
 ## Reactive Pipeline (ComAtprotoSyncSubscribeRepos) `[DESIGN]`
 
@@ -167,6 +173,6 @@ interface subscription-discovery {
 └── wasm/etzhayyim-wasm-organizer-org4n1z3/
     ├── src/app.ts                      # TS Native — Design E reactive pipeline
     ├── go.mod
-    ├── magatama.jsonld
+    ├── kotodama.jsonld
     └── wit/world.wit                # Component WIT (contract + capability export)
 ```

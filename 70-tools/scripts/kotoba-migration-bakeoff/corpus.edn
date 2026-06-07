@@ -36,7 +36,7 @@
    :ref-strategy :host-python}
 
   {:id        :elv-body-shred
-   :src       "20-actors/magatama/cells/elv_body_shred/cell.py"
+   :src       "40-engine/kotoba/crates/kotoba-kotodama/cells/elv_body_shred/cell.py"
    :loc 78 :nodes 7 :rel-imports 1
    :tier      :complex                   ; 7 nodes, cross-actor (kanayama/silicon) hand-offs
    :class     "ElvBodyShredCell" :entry "solve" :ref-input {}

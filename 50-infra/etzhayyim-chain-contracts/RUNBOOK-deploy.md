@@ -167,7 +167,7 @@ governance.propose(targets, calldatas, keccak256("bootstrap-rationale-cid"));
 ```
 
 The cell and oracle addresses correspond to:
-- **Cell**: the EOA whose private key is held by the Pregel runtime running `pymagatama.eligibility.cell.EligibilityCell` (S2).
+- **Cell**: the EOA whose private key is held by the Pregel runtime running `kotodama.eligibility.cell.EligibilityCell` (S2).
 - **Oracle**: the EOA whose private key is held by the off-chain NAV poller that watches the Treasury Safe on Base and posts updates to `TreasuryMirror.updateNAV` (S3).
 
 ---

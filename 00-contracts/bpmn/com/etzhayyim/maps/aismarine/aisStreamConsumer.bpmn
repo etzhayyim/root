@@ -8,7 +8,7 @@
 
     50-infra/vultr/bulk-ingest/aismarine-consumer/
 
-  The Deployment runs `pymagatama` with env AISMARINE_CONSUMER_MODE=1 which
+  The Deployment runs `kotodama` with env AISMARINE_CONSUMER_MODE=1 which
   switches main entry to `aismarine_consumer_loop()` — a persistent WebSocket
   client that subscribes to aisstream.io with no BoundingBoxes filter
   (global), batches 5s/500-msg, and flushes via:

@@ -38,7 +38,7 @@ python3 70-tools/scripts/lint/verify_deps_toml_paths.py             # axis 1: de
 python3 70-tools/scripts/docs/regen-registry.py --check             # axis 2: docs.json
 python3 70-tools/scripts/docs/regen-graph-jsonld.py --check         # axis 3: graph.jsonld
 python3 70-tools/scripts/docs/validate-registry-schemas.py          # axis 4: schemas
-python3 70-tools/scripts/docs/validate-magatama-manifests.py        # axis 5: magatama
+python3 70-tools/scripts/docs/validate-kotodama-manifests.py        # axis 5: kotodama
 python3 70-tools/scripts/docs/validate-relation-integrity.py        # axis 6: relations (tracker)
 python3 70-tools/scripts/docs/validate-id-filename-consistency.py   # axis 7: id↔filename (tracker)
 python3 70-tools/scripts/docs/validate-md-links.py                  # axis 8: md-links (tracker)
@@ -51,7 +51,7 @@ axis 1 (deps.toml):  566/581 resolve / 15 accepted-reserved / 0 bare drift / 0 d
 axis 2 (docs.json):  in sync (661 entries)
 axis 3 (graph):      in sync (661 nodes)
 axis 4 (schemas):    0 docs + 0 graph schema errors
-axis 5 (magatama):   42/42 magatama manifests valid
+axis 5 (kotodama):   42/42 kotodama manifests valid
 axis 6 (relation):   1011 known dangling/self/circular (tracker)
 axis 7 (id-fname):   53 known mismatches (tracker; rename-pending floor)
 axis 8 (md-links):   33 known broken in-repo links (tracker)
@@ -177,29 +177,29 @@ python3 -m pip install --break-system-packages jsonschema
 - `doc_type: enum [explanation/reference/how-to/tutorial/adr/design/deployment-runbook/engineering-policy/governance-proposal/proof/snapshot]`
 - `last_verified: ^\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2}:\\d{2}Z?)?$`
 
-### Axis 5 — magatama manifest validation (cycle 53)
+### Axis 5 — kotodama manifest validation (cycle 53)
 
-**Source-of-truth**: 42 `60-apps/<app>/magatama.jsonld` files.
-**Schema**: `90-docs/_registry/schemas/magatama.schema.json`.
-**Validator**: `70-tools/scripts/docs/validate-magatama-manifests.py`
+**Source-of-truth**: 42 `60-apps/<app>/kotodama.jsonld` files.
+**Schema**: `90-docs/_registry/schemas/kotodama.schema.json`.
+**Validator**: `70-tools/scripts/docs/validate-kotodama-manifests.py`
 
 ```bash
 # Default:
-python3 70-tools/scripts/docs/validate-magatama-manifests.py
+python3 70-tools/scripts/docs/validate-kotodama-manifests.py
 
 # CI strict:
-python3 70-tools/scripts/docs/validate-magatama-manifests.py --strict
+python3 70-tools/scripts/docs/validate-kotodama-manifests.py --strict
 
 # Machine JSON output:
-python3 70-tools/scripts/docs/validate-magatama-manifests.py --json
+python3 70-tools/scripts/docs/validate-kotodama-manifests.py --json
 ```
 
 **Failure modes**:
-- New app added but `magatama.jsonld` doesn't conform → fix manifest
+- New app added but `kotodama.jsonld` doesn't conform → fix manifest
 - Schema enum needs expansion → propose schema enum addition (cycle 53
   added `yoro`, `static`, `calm-static`, `ameno`, `none`, `logical`,
-  `pymagatama-zeebe`, `advisory`)
-- Canonical `@context` must be `https://etzhayyim.com/ns/magatama/v1`
+  `kotodama-zeebe`, `advisory`)
+- Canonical `@context` must be `https://etzhayyim.com/ns/kotodama/v1`
   (cycle 53 normalized 6 non-canonical variants)
 
 ### Axis 6 — relation integrity (cycle 60 + cycle 64 depends_on)
@@ -306,7 +306,7 @@ grep-based, not auto-fix. `🥊` glyph in lefthook output = hook FAILED.
 | `docs-registry-freshness.yml` | 03:23 UTC | `90-docs/**/*.md` / docs.json / generator / workflow / nightly |
 | `docs-graph-jsonld-freshness.yml` | 03:29 UTC | + graph.jsonld / generator / nightly |
 | `registry-schema-validation.yml` | 03:35 UTC | docs.json / graph.jsonld / schemas / validator / nightly |
-| `magatama-manifest-validation.yml` | 03:41 UTC | `60-apps/*/magatama.jsonld` / schema / validator / nightly |
+| `kotodama-manifest-validation.yml` | 03:41 UTC | `60-apps/*/kotodama.jsonld` / schema / validator / nightly |
 | `md-link-validation.yml` (cycle 68) | 03:47 UTC | `90-docs/**/*.md` / validator / workflow / nightly |
 | `relation-integrity-validation.yml` (cycle 69) | 03:53 UTC | `.md` / docs.json / validator / workflow / nightly |
 | `id-filename-consistency.yml` (cycle 69) | 03:59 UTC | `.md` / docs.json / validator / workflow / nightly |
@@ -327,7 +327,7 @@ lefthook install
 | `docs-registry-freshness` | `90-docs/**/*.md` | full check; fails on drift |
 | `docs-graph-jsonld-freshness` | `90-docs/**/*.md` + `docs.json` | full check; fails on drift |
 | `registry-schema-validation` | registry artifacts + schemas | full validate; fails on violation; warns if jsonschema absent |
-| `magatama-manifest-validation` | `60-apps/*/magatama.jsonld` + schema | full validate; fails on violation; warns if jsonschema absent |
+| `kotodama-manifest-validation` | `60-apps/*/kotodama.jsonld` + schema | full validate; fails on violation; warns if jsonschema absent |
 | `md-link-validation` (cycle 68) | `90-docs/**/*.md` | info-only tracker; `ETZ_MD_LINK_STRICT=1` opt-in for blocking |
 | `relation-integrity` (cycle 69) | `90-docs/**/*.md` + `docs.json` | info-only tracker; `ETZ_RELATION_STRICT=1` opt-in for blocking |
 | `id-filename-consistency` (cycle 69) | `90-docs/**/*.md` + `docs.json` | info-only tracker; `ETZ_ID_FILENAME_STRICT=1` opt-in for blocking |
@@ -374,14 +374,14 @@ python3 70-tools/scripts/docs/validate-registry-schemas.py
 Fix the source `.md` front-matter to conform to schema. Re-run axis 2
 + axis 3 to regenerate.
 
-### "magatama manifest validation failed"
+### "kotodama manifest validation failed"
 
 ```bash
-python3 70-tools/scripts/docs/validate-magatama-manifests.py --json
+python3 70-tools/scripts/docs/validate-kotodama-manifests.py --json
 # Lists which app / field is wrong
 ```
 
-Fix `60-apps/<app>/magatama.jsonld` to conform to `magatama.schema.json`.
+Fix `60-apps/<app>/kotodama.jsonld` to conform to `kotodama.schema.json`.
 
 ### jsonschema not installed locally
 
@@ -403,7 +403,7 @@ python3 70-tools/scripts/lint/verify_deps_toml_paths.py && \
 python3 70-tools/scripts/docs/regen-registry.py --check && \
 python3 70-tools/scripts/docs/regen-graph-jsonld.py --check && \
 python3 70-tools/scripts/docs/validate-registry-schemas.py && \
-python3 70-tools/scripts/docs/validate-magatama-manifests.py && \
+python3 70-tools/scripts/docs/validate-kotodama-manifests.py && \
 echo "✓ all 5 PR-gate axes clean"
 
 # 2. Run 3 tracker axes (informational; verify counts haven't grown):
@@ -432,7 +432,7 @@ python3 70-tools/scripts/docs/validate-md-links.py                  # tracker (b
 | pre-existing (cycle 48 hookup) | `70-tools/scripts/docs/regen-registry.py` (axis 2) |
 | 49 | `70-tools/scripts/docs/regen-graph-jsonld.py` (axis 3) |
 | 50 | `70-tools/scripts/docs/validate-registry-schemas.py` (axis 4) |
-| 53 | `70-tools/scripts/docs/validate-magatama-manifests.py` (axis 5) |
+| 53 | `70-tools/scripts/docs/validate-kotodama-manifests.py` (axis 5) |
 | 60 + 64 | `70-tools/scripts/docs/validate-relation-integrity.py` (axis 6) |
 | 61 | `70-tools/scripts/docs/validate-id-filename-consistency.py` (axis 7) |
 | 67 | `70-tools/scripts/docs/validate-md-links.py` (axis 8) |
@@ -441,7 +441,7 @@ python3 70-tools/scripts/docs/validate-md-links.py                  # tracker (b
 
 - `90-docs/_registry/schemas/docs.schema.json` (cycle 50 rewrite; cycle 64 +depends_on)
 - `90-docs/_registry/schemas/graph.schema.json` (cycle 50 rewrite)
-- `90-docs/_registry/schemas/magatama.schema.json` (cycle 53 5-enum expansion)
+- `90-docs/_registry/schemas/kotodama.schema.json` (cycle 53 5-enum expansion)
 
 ### Constitutional invariants (separate from registry axes)
 

@@ -1,8 +1,8 @@
-"""kotoba Datomic substrate client for the pymagatama worker layer.
+"""kotoba Datomic substrate client for the kotodama worker layer.
 
-This is the **RW-free substrate replacement** for ``pymagatama.rw_async_pool`` +
-``pymagatama.rw_sql`` (ADR-2605262130 + ADR-2605312345: kotoba Datom log is the
-first-class canonical state; no Kotoba/Datomic / Postgres / Kysely). It speaks the
+This is the **RW-free substrate replacement** for ``kotodama.rw_async_pool`` +
+``kotodama.rw_sql`` (ADR-2605262130 + ADR-2605312345: kotoba Datom log is the
+first-class canonical state; no RisingWave / Postgres / Kysely). It speaks the
 kotoba Datomic XRPC surface against a running kotoba node:
 
     POST /xrpc/com.etzhayyim.apps.kotoba.datomic.transact   {graph, tx_edn}
@@ -24,7 +24,7 @@ entity map whose attributes are namespaced by the table:
                                  column ``hired_at``   →  ``:vertex.employee/hired-at``
 
 ``vertex-id`` carries ``:db.unique/identity`` so a re-transact upserts — preserving
-the Kotoba/Datomic "PK implicit overwrite" semantics the old pool relied on. Schema
+the RisingWave "PK implicit overwrite" semantics the old pool relied on. Schema
 install (declaring the identity attributes) is a separate transact; ``ensure_schema``
 helps emit it.
 
@@ -33,7 +33,7 @@ helps emit it.
 Live writes require an operator credential in ``KOTOBA_SESSION_POP`` (verified via
 ``com.etzhayyim.pds.session.verify``) or ``KOTOBA_TOKEN`` bearer. Without one the
 client raises on write so nothing silently no-ops; reads are open against a local
-node. Set ``MAGATAMA_KOTOBA_DRYRUN=1`` to make ``transact`` print + skip instead.
+node. Set ``KOTODAMA_KOTOBA_DRYRUN=1`` to make ``transact`` print + skip instead.
 """
 
 from __future__ import annotations
@@ -50,7 +50,7 @@ NSID_PULL = "com.etzhayyim.apps.kotoba.datomic.pull"
 NSID_SESSION_VERIFY = "com.etzhayyim.pds.session.verify"
 
 DEFAULT_URL = "http://127.0.0.1:8077"
-DEFAULT_GRAPH = "etzhayyim/magatama/graph"
+DEFAULT_GRAPH = "etzhayyim/kotodama/graph"
 
 
 # ─────────────────────────── EDN serialization ───────────────────────────
@@ -177,7 +177,7 @@ class KotobaDatomicClient:
         timeout: float = 30.0,
     ) -> None:
         self.url = (url or os.environ.get("KOTOBA_URL") or DEFAULT_URL).rstrip("/")
-        self.graph = graph or os.environ.get("MAGATAMA_KOTOBA_GRAPH") or DEFAULT_GRAPH
+        self.graph = graph or os.environ.get("KOTODAMA_KOTOBA_GRAPH") or DEFAULT_GRAPH
         self.token = token or os.environ.get("KOTOBA_TOKEN")
         self.session_pop = session_pop or os.environ.get("KOTOBA_SESSION_POP")
         self.timeout = timeout
@@ -212,14 +212,14 @@ class KotobaDatomicClient:
         if not (self.token or self.session_pop):
             raise KotobaTransactError(
                 "no write credential — set KOTOBA_SESSION_POP or KOTOBA_TOKEN "
-                "(ADR-2605231525: no platform-held key). Set MAGATAMA_KOTOBA_DRYRUN=1 to dry-run."
+                "(ADR-2605231525: no platform-held key). Set KOTODAMA_KOTOBA_DRYRUN=1 to dry-run."
             )
 
     # -- public Datomic surface --
     def transact(self, tx_edn: str, *, graph: str | None = None) -> dict[str, Any]:
         """Transact raw tx-data EDN into the Datom log. Returns the node response."""
         g = graph or self.graph
-        if os.environ.get("MAGATAMA_KOTOBA_DRYRUN") == "1":
+        if os.environ.get("KOTODAMA_KOTOBA_DRYRUN") == "1":
             print(f"[kotoba dry-run] transact graph={g} ({len(tx_edn.encode()):,} bytes)\n{tx_edn[:400]}")
             return {"dry_run": True, "graph": g}
         self._require_write_credential()

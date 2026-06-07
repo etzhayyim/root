@@ -68,7 +68,7 @@ related = [
   "50-infra/multicluster/murakumo-vke/yoro-actors/social-translation-cronjob.yaml",
   "50-infra/multicluster/murakumo-vke/yoro-actors/social-translation-script.yaml",
   "50-infra/multicluster/murakumo-vke/yoro-actors/mcp-adapter-script.yaml",
-  "20-actors/magatama/py/src/pymagatama/primitives/yoro_social.py",
+  "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/yoro_social.py",
 ]
 
 [files."adr/2604292130-llm-etzhayyim-ai-runpod-pass.md"]
@@ -77,7 +77,7 @@ kind = "adr"
 tier = "production"
 flags = ["editable"]
 status = "active"
-description = "llm.etzhayyim.com is an independent RunPod pass-through gateway, not a Murakumo or magatama-llm8cf4ai route."
+description = "llm.etzhayyim.com is an independent RunPod pass-through gateway, not a Murakumo or kotodama-llm8cf4ai route."
 related = [
   "60-apps/etzhayyim-project-runpod/serve/worker-gateway.ts",
   "60-apps/etzhayyim-project-runpod/serve/wrangler.jsonc",
@@ -156,9 +156,9 @@ status = "active"
 description = "Authoritative CF Worker thin-edge boundary: T1/T2 business logic runs in BPMN/Zeebe/Python worker or Kotoba/Datomic UDF; Python worker pods use FastAPI + Granian for K8s-internal HTTP surfaces only; maps.etzhayyim.com cutover verified 2026-04-30 with 162 BPMN-backed business commands and 35 retained edge exceptions."
 related = [
   "60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts",
-  "20-actors/magatama/py/src/pymagatama/ingest/maps_collection.py",
-  "20-actors/magatama/py/src/pymagatama/zeebe_worker_main.py",
-  "20-actors/magatama/py/pyproject.toml",
+  "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/maps_collection.py",
+  "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/zeebe_worker_main.py",
+  "40-engine/kotoba/crates/kotoba-kotodama/py/pyproject.toml",
   "70-tools/config/bpmn-coverage-manifest.json",
 ]
 
@@ -199,8 +199,8 @@ status = "active"
 description = "World Monitor-style resident intelligence graph facade for maps.etzhayyim.com: public XRPC product coverage 100%, pod-side maps LangServer reads, dashboard cache, and no new Kotoba/Datomic DDL."
 related = [
   "90-docs/maps-worldmonitor-parity.md",
-  "20-actors/magatama/py/src/pymagatama/worker_api.py",
-  "20-actors/magatama/py/src/pymagatama/dispatcher_main.py",
+  "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/worker_api.py",
+  "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/dispatcher_main.py",
   "60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts",
   "50-infra/vultr/mitama-udf-pool/values.yaml",
 ]
@@ -237,10 +237,10 @@ role = "isin-docs"
 tier = "production"
 description = "ISIN securities identifier docs"
 
-[subdirs.magatama]
-role = "magatama-docs"
+[subdirs.kotodama]
+role = "kotodama-docs"
 tier = "production"
-description = "Magatama architecture docs"
+description = "Kotodama architecture docs"
 
 [subdirs.okaimono]
 role = "okaimono-docs"
@@ -336,5 +336,5 @@ related = [
   "50-infra/vultr/mitama-udf-pool/templates/_public-malak-smoke.tpl",
   "50-infra/vultr/mitama-udf-pool/templates/public-malak-smoke-cronjob.yaml",
   "50-infra/vultr/mitama-udf-pool/templates/public-malak-smoke-job.yaml",
-  "20-actors/magatama/py/src/pymagatama/public_malak_smoke.py",
+  "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/public_malak_smoke.py",
 ]

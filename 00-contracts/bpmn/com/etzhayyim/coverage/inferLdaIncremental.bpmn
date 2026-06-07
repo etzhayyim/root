@@ -10,7 +10,7 @@
   so that inferLdaEntities (P7D) operates on current topic assignments.
 
   Per ADR-0044: Gibbs sampling is heavy Python → generic.llm.json bridges to
-  the pymagatama LDA incremental module (io_threads=100 implicit via pymagatama).
+  the kotodama LDA incremental module (io_threads=100 implicit via kotodama).
 
   Pipeline:
     1. generic.db.select   — read latest model watermark + model_slug
@@ -120,7 +120,7 @@
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_4" sourceRef="Task_ReadPhiWeights" targetRef="Task_IncrementalGibbs"/>
 
-    <!-- Step 4: Incremental Gibbs update via pymagatama LDA module (warm start from existing φ) -->
+    <!-- Step 4: Incremental Gibbs update via kotodama LDA module (warm start from existing φ) -->
     <bpmn:serviceTask id="Task_IncrementalGibbs" name="incremental Gibbs update">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.llm.json"/>

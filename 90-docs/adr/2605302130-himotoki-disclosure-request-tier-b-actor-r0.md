@@ -189,7 +189,7 @@ R0 seed targets (all `unverified-seed`, JP-relevant channels noted):
 
 ## §3 — Architecture (7 Pregel cells, R0 path-reserved)
 
-All cells path-reserved at R0 under `20-actors/magatama/cells/himotoki_*/`;
+All cells path-reserved at R0 under `40-engine/kotoba/crates/kotoba-kotodama/cells/himotoki_*/`;
 each is import-time `RuntimeError("himotoki R0 scaffold: activate via
 Council ADR + R1 ratification")` at W1 creation.
 

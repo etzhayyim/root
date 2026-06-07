@@ -87,7 +87,7 @@
     "2605171800"
   ],
   "dependencies": {
-    "runtime": "magatama-cell-runner (launchd)",
+    "runtime": "kotodama-cell-runner (launchd)",
     "actors": [
       "unispsc (ADR-2605171300)",
       "open-robo",

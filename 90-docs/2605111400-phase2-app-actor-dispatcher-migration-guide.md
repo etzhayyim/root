@@ -26,7 +26,7 @@ ADR-2605111200 / -2605111300 が完了したあと、`60-apps/` 配下の **99 �
 ### Before (Phase 1 throws)
 
 ```ts
-import { createKyselyDb } from "@etzhayyim/magatama-host-sdk";
+import { createKyselyDb } from "@etzhayyim/kotodama-host-sdk";
 
 // Write
 const db = createKyselyDb(sdk.env.HYPERDRIVE);
@@ -73,10 +73,10 @@ dispatcher は `vertex_bpmn_lexicon_binding[nsid]` で route 先を決める (AD
 
 | Handler 種別 | 配置 | 適合用途 |
 |---|---|---|
-| **LangGraph node** (`pymagatama` graph) | `pymagatama.<actor>.graph.py` の `@graph.node` | LLM / tool 呼び出し / multi-step / interrupt |
-| **SpiffWorkflow BPMN worker** (`pymagatama.spiff_worker`) | `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/<actor>/*.bpmn` + worker task | BPMN-native (timer / boundary / audit-friendly) |
-| **pyzeebe / generic primitive** | `pymagatama/zeebe_worker_main.py` の `generic.db.insert/select` で汎用 INSERT/SELECT | 単純 CRUD のみ |
-| **Direct C-path** | `pymagatama/yoro_social.py` の `insert_social_post_record` 等 | `vertex_repo_record` への social write |
+| **LangGraph node** (`kotodama` graph) | `kotodama.<actor>.graph.py` の `@graph.node` | LLM / tool 呼び出し / multi-step / interrupt |
+| **SpiffWorkflow BPMN worker** (`kotodama.spiff_worker`) | `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/<actor>/*.bpmn` + worker task | BPMN-native (timer / boundary / audit-friendly) |
+| **pyzeebe / generic primitive** | `kotodama/zeebe_worker_main.py` の `generic.db.insert/select` で汎用 INSERT/SELECT | 単純 CRUD のみ |
+| **Direct C-path** | `kotodama/yoro_social.py` の `insert_social_post_record` 等 | `vertex_repo_record` への social write |
 
 新規 NSID 追加手順:
 
@@ -101,8 +101,8 @@ dispatcher は `vertex_bpmn_lexicon_binding[nsid]` で route 先を決める (AD
 ### Diff (mechanical)
 
 ```diff
-- import { createKyselyDb, createWorkerExport, nowISO, type HostSDK } from "@etzhayyim/magatama-host-sdk";
-+ import { createWorkerExport, nowISO, type HostSDK } from "@etzhayyim/magatama-host-sdk";
+- import { createKyselyDb, createWorkerExport, nowISO, type HostSDK } from "@etzhayyim/kotodama-host-sdk";
++ import { createWorkerExport, nowISO, type HostSDK } from "@etzhayyim/kotodama-host-sdk";
 
   async function emitStep(sdk: HostSDK, transferRequestUri: string, step: StepName, status: ..., extra: ... = {}) {
     const rkey = `${step}-${Date.now().toString(36)}`;
@@ -159,7 +159,7 @@ dispatcher は `vertex_bpmn_lexicon_binding[nsid]` で route 先を決める (AD
 | `status.ts` | 4 | 287 | vertex_yata_agent_run, vertex_yata_qa_run | `com.etzhayyim.apps.yatabase.status` |
 | `team.ts` | 4 | 225 | vertex_yata_agent_run | `com.etzhayyim.apps.yatabase.team` |
 
-**Estimated work**: ~70 call sites total, ~21 new NSID lexicons, ~21 server-side handlers (pymagatama primitives or LangGraph nodes). 推定 2-3 day-PR per a small team of 1-2 developers.
+**Estimated work**: ~70 call sites total, ~21 new NSID lexicons, ~21 server-side handlers (kotodama primitives or LangGraph nodes). 推定 2-3 day-PR per a small team of 1-2 developers.
 
 ## 全 actor 一覧 (99 files)
 
@@ -181,7 +181,7 @@ Total app-side files in scope: **99**. SDK glue: 3. Total: 102.
 - [ ] 全 `createKyselyDb` callsite が `sdk.pds.xrpc(...)` に置換済
 - [ ] 対応 NSID lexicon JSON が `00-contracts/lexicons/com/etzhayyim/apps/<actor>/` に追加
 - [ ] `gen-lexicon-nsid-types.mjs` を実行して型再生成
-- [ ] server-side handler が一カ所 (pymagatama primitive / LangGraph node / Spiff BPMN) に存在
+- [ ] server-side handler が一カ所 (kotodama primitive / LangGraph node / Spiff BPMN) に存在
 - [ ] `vertex_bpmn_lexicon_binding` row 追加 (どこに route するか宣言)
 - [ ] Smoke test: actor の代表的 XRPC が live で動く
 

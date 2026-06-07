@@ -8,7 +8,7 @@
 |---|---|
 | `/v1/chat/completions` (non-stream) | 200 `error:inference_unavailable` |
 | `/v1/chat/completions` (stream) | identical error |
-| Credits gate | still enforced (`x-credits-did` required unless `x-magatama-verified: true`) |
+| Credits gate | still enforced (`x-credits-did` required unless `x-kotodama-verified: true`) |
 | hayate-v4/v5 → Murakumo | active |
 | Translation (qwen3.5-4b) → Murakumo direct | active (i18n.etzhayyim.com → murakumo.etzhayyim.com) |
 
@@ -62,7 +62,7 @@ credits service 不達・unknown method・その他エラーはスルー (credit
 
 ## Integration
 
-`@etzhayyim/magatama-host-sdk` `llm.ts`:
+`@etzhayyim/kotodama-host-sdk` `llm.ts`:
 - `llmAsk(prompt)` → Ollama Tier 0 (gemma4:e4b)
 - `llmCall(system, user, "hayate-v5")` → Murakumo
 - `agentConverseAsync(msgs, { use_case: "heartbeat" })` → Ollama Tier 0 gemma4:e4b

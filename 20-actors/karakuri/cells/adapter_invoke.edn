@@ -3,7 +3,7 @@
  :cell/kind :langgraph
  :cell/runtime :wasm
  :cell/node "judah"
- :cell/doc "Execute a single ServiceOp via the selected adapter (T1 official-API > T2 ToS-permitted headless > T3 export). Refuses T2 on an :automation-prohibited service (G2) and never evades bot-detection. :read ships at R0 as a dry-run; mutate ops require member-sig (G5). EVERY live execution is Council Lv6+ + operator gated (G6) and written to the kotoba Datom log (G7)."
+ :cell/doc "Execute a single ServiceOp via the selected adapter (T1 official-API > T2 browser-use ToS-permitted headless > T3 export). The T2 engine is browser-use (LangGraph browser agent over Playwright; dry-run plan from methods/t2_browser.py). Refuses T2 on a browser-automation-prohibited service (G2) — incl. Google/Facebook, which are :api-ok but browser-prohibited and route to T1 — and never evades bot-detection (proxy/captcha/stealth verbs unrepresentable). :read ships at R0 as a dry-run; mutate ops require member-sig (G5). EVERY live execution is Council Lv6+ + operator gated (G6) and written to the kotoba Datom log (G7)."
  :cell/entry "cells/adapter_invoke/cell.py"
  :cell/handler "AdapterInvokeCell"
  :cell/state-graph

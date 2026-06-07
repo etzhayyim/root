@@ -1,4 +1,4 @@
-import { createKyselyDb, createWorkerExport, nsid, type HostSDK } from "@etzhayyim/magatama-host-sdk";
+import { createKyselyDb, createWorkerExport, nsid, type HostSDK } from "@etzhayyim/kotodama-host-sdk";
 import type { Database } from "@etzhayyim/graph-schema";
 // ADR-2606021730 Phase 2+: replacing RW queries with kotoba EAVT queries
 import { queryLatentEntities, queryEntityEvidence, getViewpointStats, createKotobaClientAdapter } from "./kotoba-client-wrapper";

@@ -8,7 +8,7 @@ import {Constitution} from "./Constitution.sol";
  * @notice Per-adherent kisha multiplier in basis points. Bounded by the
  *         constitutional floor / ceiling read from {Constitution}.
  *         Populated by the off-chain Pregel `EligibilityCell` (see
- *         `20-actors/magatama/py/src/pymagatama/eligibility/`) which
+ *         `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/eligibility/`) which
  *         signs each update with a registered cell key.
  *
  * @dev Per ADR-2605172300 §2 and §3.1. Apache-2.0.

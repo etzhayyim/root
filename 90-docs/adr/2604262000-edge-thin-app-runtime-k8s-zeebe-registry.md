@@ -88,7 +88,7 @@ Zeebe BPMN process instance
         v
 Kubernetes pods
   - pyzeebe generic workers
-  - pymagatama Python domain workers
+  - kotodama Python domain workers
   - LangGraph / LLM workers where needed
   - source-specific ingest / browser / OCR / conversion pods
         |
@@ -164,7 +164,7 @@ Use Zeebe when a call:
 - is a scheduled actor behavior.
 
 Python worker pods own source-specific logic. They must be importable modules
-under `pymagatama`, not one-off operator scripts. Worker pods report run state
+under `kotodama`, not one-off operator scripts. Worker pods report run state
 to Kotoba/Datomic tables such as `vertex_ingest_run`, domain-specific run tables,
 and OCEL/audit tables.
 
@@ -221,7 +221,7 @@ Exit criteria:
 - Register pyzeebe handlers for generic task types:
   `mcp.call`, `graph.query`, `graph.write`, `agent.run`, `pds.dispatch`,
   `ingest.*`, `audit.emit`.
-- Move long-running app logic out of Workers into `pymagatama` modules.
+- Move long-running app logic out of Workers into `kotodama` modules.
 - Keep k8s CronJobs only as start signal emitters or infra maintenance jobs.
 
 Exit criteria:
@@ -271,9 +271,9 @@ Trade-offs:
 The first country-state retirements have been executed under this ADR's
 topology:
 
-- `magatama-g0vafg01` retired after AFG coverage moved to k8s/BPMN/RW.
-- `magatama-g0vzaf01` retired after ZAF coverage moved to
-  `pymagatama.primitives.gov_zaf`, `govZaf` BPMN/MCP registry rows, and
+- `kotodama-g0vafg01` retired after AFG coverage moved to k8s/BPMN/RW.
+- `kotodama-g0vzaf01` retired after ZAF coverage moved to
+  `kotodama.primitives.gov_zaf`, `govZaf` BPMN/MCP registry rows, and
   Kotoba/Datomic/B2 official-source evidence.
 
 ZAF deletion was gated by `npm run verify:gov-zaf`:
@@ -292,7 +292,7 @@ state Worker retirement checks.
 
 AGO was executed as the next candidate:
 
-- `pymagatama.primitives.gov_ago` registers the `govAgo` Zeebe task surface.
+- `kotodama.primitives.gov_ago` registers the `govAgo` Zeebe task surface.
 - `govAgo` BPMN and lexicons now cover seed, DID registration, site follows,
   official-source ingest, WET sync, shinka, list, resolve, and heartbeat.
 - Seed data is based on the official Angola government portal pages
@@ -302,7 +302,7 @@ AGO was executed as the next candidate:
   direct fallback ingest of the three official pages, the gate was green
   (`deleteAllowed: true`, page/WET/WAT/screenshot/govSources 3/3,
   orgSeeds ministry=24 state=21).
-- `magatama-g0vago01` was deleted after the green gate. Post-delete Cloudflare
+- `kotodama-g0vago01` was deleted after the green gate. Post-delete Cloudflare
   check reports `This Worker does not exist on your account [10007]`, and the
   post-delete AGO verifier remains green.
 

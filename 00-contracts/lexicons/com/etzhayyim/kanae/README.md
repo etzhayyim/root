@@ -91,4 +91,4 @@ and to be guarded by the actor-specific `no-kanae-adjudication.mjs`
 - `/00-contracts/lexicons/com/etzhayyim/danjo/README.md` — upstream engine namespace
 - `/00-contracts/lexicons/com/etzhayyim/gov/dataset/README.md` — primary input corpus namespace
 - `/20-actors/kanae/` — manifest + README + CLAUDE.md + methods
-- `/20-actors/magatama/cells/kanae_*/` — cell modules (R0 path-reserved)
+- `/40-engine/kotoba/crates/kotoba-kotodama/cells/kanae_*/` — cell modules (R0 path-reserved)

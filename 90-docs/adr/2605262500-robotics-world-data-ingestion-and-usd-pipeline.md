@@ -621,7 +621,7 @@ green, no PSNR/SSIM eval yet (eval runs in W2).
    organism perception axis (netreg / DNS / BGP / web-graph) and
    robotics sim axis (geospatial raster + 3D vector + USD pipeline)
    have:
-   - Different consumers (`pymagatama.organism` vs `e7m-sim`).
+   - Different consumers (`kotodama.organism` vs `e7m-sim`).
    - Different invariants (passive-only network discipline vs
      Omniverse N1..N9 NEVER + PhysX N1..N9 NEVER + Genesis-only
      physics).

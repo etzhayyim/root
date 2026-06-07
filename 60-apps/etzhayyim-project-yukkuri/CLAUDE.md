@@ -70,7 +70,7 @@ actor 間連携は **convo chat (`sendProjectMessage`)** + AT Record commit。�
 | `com.etzhayyim.apps.yukkuri.getVideo` | query | video + scenes + lines + assets + last generation |
 | `com.etzhayyim.apps.yukkuri.health` | procedure | health probe (bootstrap) |
 
-## Triggers (magatama.jsonld 予定)
+## Triggers (kotodama.jsonld 予定)
 
 ```jsonc
 {
@@ -130,7 +130,7 @@ XRPC compose
 
 ## LLM Routing (CRITICAL)
 
-**App Workers must call LLM via `llmCall`/`agentConverseAsync` from `@etzhayyim/magatama-host-sdk`.** Direct `fetch()` to `llm.etzhayyim.com` or the Linode Ollama IP (`172.236.133.64`) returns 403 (empty body) from CF WAF for same-account Worker outbound subrequests — confirmed 2026-04-15.
+**App Workers must call LLM via `llmCall`/`agentConverseAsync` from `@etzhayyim/kotodama-host-sdk`.** Direct `fetch()` to `llm.etzhayyim.com` or the Linode Ollama IP (`172.236.133.64`) returns 403 (empty body) from CF WAF for same-account Worker outbound subrequests — confirmed 2026-04-15.
 
 | Path | Result | Use |
 |---|---|---|
@@ -226,7 +226,7 @@ XRPC compose
 | `30-graph/graph-schema/migrations/0059_vertex_yukkuri.ts` | DONE (2026-04-15) |
 | Murakumo `inference/audio` tts provider (kokoro) spec 追記 | TODO |
 | `kokoro-ts` vendoring (`40-engine/kokoro-ts/`) | TODO |
-| `magatama.jsonld` + `src/app.ts` + `wrangler.jsonc` (T1 worker) | DONE (2026-04-15) |
+| `kotodama.jsonld` + `src/app.ts` + `wrangler.jsonc` (T1 worker) | DONE (2026-04-15) |
 | Mac render pool: `yukkuri-renderer` service (`serve_plain.py` + kami-engine CLI) | TODO |
 | `kami-engine` headless render CLI (timeline.json → mp4) | TODO |
 | `70-tools/etzhayyim/yukkuri.go` CLI subcommand (`etzhayyim yukkuri compose/render/list/get`) | TODO |

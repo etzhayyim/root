@@ -1,6 +1,6 @@
 {
   "$comment": "LangGraph Server config — narou.etzhayyim.com. P4 scaffold (2026-05-08), mirrors lg-shinshi/lg-animeka OSS pattern. NSID handlers: health/agent_chat (initial); generation graphs to be added in subsequent iterations.",
-  "dependencies": ["./lg_narou", "../../../20-actors/magatama/py"],
+  "dependencies": ["./lg_narou", "../../../40-engine/kotoba/crates/kotoba-kotodama/py"],
   "graphs": {
     "health":     "./lg_narou/graphs/health.py:GRAPH",
     "agent_chat": "./lg_narou/graphs/agent_chat.py:GRAPH"

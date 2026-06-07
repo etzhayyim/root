@@ -87,9 +87,9 @@ prefix runs the suites in isolation.)
   without Council Lv6+ + operator + a certified-safety review — G8 / G11.
 - Do not hold a process-control / actuation key server-side — G5 (member/operator signs).
 - Do not reintroduce RisingWave / Cypher / `graph.write` — N6 (supersedes legacy `oil-refining`).
-- Do not make **gftd kotobase (`kotobase.net` / `authn.gftd.ai`) the canonical write/auth path** —
+- Do not make **etzhayyim kotobase (`kotobase.net` / `authn.etzhayyim.com`) the canonical write/auth path** —
   Ownership invariant + Murakumo-only consent boundary. Canonical state = etzhayyim's OWN kotoba
   endpoint + etzhayyim DID-bound auth (`ingest.py --push` requires `KOTOBA_ENDPOINT`+`KOTOBA_AUTH`,
-  no vendor default); gftd is an OPTIONAL pinning mirror only (`--mirror-gftd`, content-addressed copy).
+  no vendor default); etzhayyim is an OPTIONAL pinning mirror only (`--mirror-etzhayyim`, content-addressed copy).
 - Do not supply military/naval/aviation fuel — N3 (§2(a) force-separation).
 - Do not lobby for/against fossil policy — route to danjo (facts) / moushibumi (neutral comment).

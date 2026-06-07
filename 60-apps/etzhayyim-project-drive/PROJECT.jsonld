@@ -3,68 +3,29 @@
   "@type": "SoftwareApplication",
   "@id": "https://drive.etzhayyim.com",
   "name": "etzhayyim-project-drive",
-  "description": "Etzhayyim Drive - Cloud file storage with E2EE, sharing, and folder management",
+  "description": "Google Drive v3 + Microsoft Graph (OneDrive) compatible drive API over kotoba datomic (graph drive-v1). Second vertical of the workspace-compat program (ADR-2606010500).",
   "url": "https://drive.etzhayyim.com",
-  "applicationCategory": "Storage",
+  "applicationCategory": "Productivity",
   "operatingSystem": "Kubernetes",
-  "author": {
-    "@type": "Organization",
-    "name": "etzhayyim",
-    "url": "https://etzhayyim.com"
-  },
+  "author": { "@type": "Organization", "name": "etzhayyim", "url": "https://etzhayyim.com" },
+  "softwareVersion": "0.1.0",
   "component": [
     {
       "@type": "SoftwareApplication",
-      "name": "drive",
-      "description": "Go backend - file storage API with App state/pubsub integration",
+      "name": "lg-drive",
+      "description": "LangGraph + FastAPI XRPC server exposing ai.etzhayyim.apps.drive.* over kotoba datomic.",
       "applicationCategory": "Backend",
-      "programmingLanguage": "Go",
-      "runtimePlatform": "App runtime (Tier 2, Event-Driven)"
+      "programmingLanguage": "Python",
+      "runtimePlatform": "Vultr k8s LangServer pod (mitama-udf/lg-drive:8000)"
     },
     {
       "@type": "SoftwareApplication",
-      "name": "drive-ui",
-      "description": "SvelteKit static UI served via nginx",
-      "applicationCategory": "Frontend",
+      "name": "drive-compat",
+      "description": "Cloudflare Worker edge serving Google Drive v3 (/drive/v3) and Microsoft Graph OneDrive (/v1.0/me/drive) REST skins, translating to canonical XRPC.",
+      "applicationCategory": "Edge",
       "programmingLanguage": "TypeScript",
-      "runtimePlatform": "nginx (Tier 3, Static)"
+      "runtimePlatform": "Cloudflare Worker (drive.etzhayyim.com)"
     }
   ],
-  "rdfUnifiedDocuments": {
-    "@type": "Dataset",
-    "name": "Unified top-level RDF/JSON-LD documents",
-    "description": "Consolidated from project top-level *.jsonld files except PROJECT.jsonld.",
-    "documents": [
-      {
-        "fileName": "scheduler.jsonld",
-        "content": {
-          "@context": [
-            "https://schema.org/",
-            {
-              "etzhayyim": "https://etzhayyim.com/schemas/",
-              "capabilities": "etzhayyim:capabilities",
-              "survivalIndicators": "etzhayyim:survivalIndicators",
-              "scheduler": "etzhayyim:scheduler",
-              "milestones": "etzhayyim:milestones",
-              "blockers": "etzhayyim:blockers",
-              "dependsOn": {
-                "@id": "etzhayyim:dependsOn",
-                "@type": "@id"
-              },
-              "ingestKey": "etzhayyim:ingestKey",
-              "window": "etzhayyim:window",
-              "valueUpdatedAt": "etzhayyim:valueUpdatedAt"
-            }
-          ],
-          "@type": "CreativeWork",
-          "name": "etzhayyim-project-drive Scheduler",
-          "identifier": "etzhayyim-project-drive/scheduler",
-          "description": "Project schedule (milestones) and blockers.",
-          "dateCreated": "2026-02-15T04:25:26+00:00",
-          "milestones": [],
-          "blockers": []
-        }
-      }
-    ]
-  }
+  "isBasedOn": "90-docs/adr/2606010500-workspace-compat-datomic-schema.md"
 }
