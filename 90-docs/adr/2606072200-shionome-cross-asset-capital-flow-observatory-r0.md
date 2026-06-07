@@ -1,0 +1,131 @@
+---
+id: adr-2606072200-shionome-cross-asset-capital-flow-observatory-r0
+title: "ADR-2606072200: 潮目 (shionome) — cross-asset capital-flow observatory (ingest · intel · analyze · dry-run social, NO trading) R0 + autonomous kotoba loop"
+status: accepted
+doc_type: adr
+topic: shionome-cross-asset-capital-flow-observatory
+authoritative: true
+last_verified: 2026-06-07
+priority: 5.0
+axis: architecture
+weight: 0.50
+priority_note: ""
+authoritative_for:
+  - shionome-cross-asset-capital-flow-observatory
+  - capital-rotation-flow-graph
+  - no-trade-non-advisory-market-observation
+depends_on:
+  - adr-2606051800-mitooshi-probabilistic-forecasting-observatory
+  - adr-2606071000-intel-osint-actor-cohort-r1-and-fleet-readiness
+  - adr-2605312345-kotoba-datom-first-class-canonical-state
+  - adr-2605262130-kotoba-storage-substrate-unification
+  - adr-2605231525-server-side-signing-capability-boundary
+  - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
+  - adr-2605192100-etzhayyim-mission-charter
+  - adr-2605192200-etzhayyim-ip-free-release-charter-rider
+related:
+  - adr-2605302300-kanae-government-fiscal-flow-visualization
+  - adr-2606032000-kanjo-company-financial-disclosure-graph
+  - adr-2606041827-watari-live-ship-aircraft-position-graph
+  - adr-2606022000-kabuto-supply-chain-knowledge-graph
+  - adr-2606066000-keizu-government-relations-graph-tier-b-actor-r0
+supersedes: []
+superseded_by: []
+---
+
+# ADR-2606072200: 潮目 (shionome) — cross-asset capital-flow observatory R0
+
+- **Status**: accepted
+- **Date**: 2026-06-07 (JST)
+- **Deciders**: founder seat (intel-loop wave)
+- **Supersedes / amends**: none — ZERO invariant amendments
+
+## Context
+
+A standing ask: *「株式・コモディティ・国際・暗号資産・不動産の価格変動から、どこからどこへ
+資金が流れているかを ingest / intel / analyze して social post する actor。ただしトレードは
+しない。」* — observe where capital rotates across the world's asset classes and narrate it, but
+**never trade**.
+
+The intel/OSINT cohort already covers adjacent objects: **mitooshi** forecasts (distribution-only,
+never trades), **kanjo** mirrors company financial *disclosure*, **kanae** renders *government*
+fiscal flows, **watari** tracks live physical positions, **kabuto** maps supply-chain
+concentration. None of them observes **cross-asset capital rotation** — the realized movement of
+money between equities / bonds / credit / commodities / FX / crypto / real-estate / cash. That is a
+distinct object, and a dangerous one: a "where is money flowing" tool is one careless step from a
+"what should I buy" tool. The charter requires that step be **structurally impossible**, not merely
+discouraged.
+
+## Decision
+
+Introduce **潮目 (shionome)**, a Tier-B cross-asset capital-flow observatory, at **R0**:
+ontology + 4 lexicons + a `:representative` seed + an offline analyzer + a kotoba Datom-log writer
++ an **autonomous heartbeat loop** + 5 cell scaffolds + tests. It models the world's capital as a
+graph of public **buckets** (asset-class / sector / region / theme) and **flows** (observed
+capital movement), computes aggregate edge-primary metrics (net flow per bucket, rotation pairs,
+inflow HHI, by-asset-class / by-region, a factual regime descriptor), and narrates **dry-run**
+social posts.
+
+### The defining invariant — トレードはしない (G2, no-trade / non-advisory)
+
+shionome NEVER emits a buy/sell signal, a price target, an over/under-weight call, or any
+portfolio instruction. This is enforced in **four homes**:
+
+1. **Ontology** — trade/advisory tokens are not enum members of `:ontology/flow-kinds`; there is
+   no `:bucket/rating`/`:signal`/`:target`/`:score` attribute (a rating *is* a trade instruction).
+2. **Lexicons** — `noTradeNotice` is `:const true` on `capitalFlowObservation` / `rotationFinding`
+   / `networkPost`.
+3. **`weave.TRADE_TOKENS`** — refused on every flow + bucket kind (`validate_flow`/`validate_bucket`).
+4. **`social._guard_no_trade`** — every post body is scanned and refused if a trade token appears.
+
+`test_charter_invariants.py` parses the data homes and asserts they agree, so weakening the rule in
+one place fails the suite.
+
+### The 11 gates
+
+G1 public-bucket-only / no-doxxing · **G2 no-trade / non-advisory** · G3 ≥2 public sources
+(commercial terminals prohibited, Rider §2(e)) · G4 edge-primary, no per-asset rating · G5
+mirror-not-signal · G6 Murakumo-only · G7 no-server-key · G8 outward-gated · G9 PII-encrypted ·
+G10 non-eschatological append-only as-of · G11 sourcing-honesty. (Full text in
+`20-actors/shionome/CLAUDE.md` + `manifest.jsonld`.)
+
+### Autonomous operation on kotoba (「自律的に稼働」)
+
+`methods/autorun.py` runs the full pipeline by itself each heartbeat —
+observe → validate → weave → aggregate → dry-run post → **persist a content-addressed transaction
+to the append-only kotoba Datom log** (`methods/kotoba.py`). The log is a verifiable commit-DAG
+(each tx links the previous tx's CID; tampering breaks `verify_chain`), append-only (G10), and
+deterministic (cycle index drives tx-id + as-of, so a re-run reproduces the same head CID). This is
+autonomy in the **charter-permitted** form: the actor drives its own observe→analyze→persist cycle
+over its own substrate, with **no live external I/O**. Per ADR-2606071000, that is the reachable
+goal — "deploy-ready", with the single remaining step being a **human gate flip** (G7/G8) to enable
+live market-data ingest + live external posting.
+
+## Consequences
+
+- **Positive**: a new, distinct cross-asset capital-rotation lens for the commons; a hard,
+  test-pinned no-trade boundary that makes a robo-advisor structurally unrepresentable; a working
+  autonomous loop that materializes a content-addressed Datom artifact (deploy-ready); clean
+  hand-offs to kanae (render) and mitooshi (forecast input).
+- **Costs / risks**: the `:representative` seed is illustrative, not authoritative (G11) — readers
+  must not mistake it for live data; live ingest/posting needs Council Lv6+ + operator (by design).
+- **No invariant amendments**: shionome reuses existing constitutional invariants (Murakumo-only,
+  no-server-key, kotoba-canonical, Rider §2(e), non-eschatological) and adds the no-trade gate as a
+  per-actor structural constraint.
+
+## Alternatives Considered
+
+- **Fold into mitooshi** — rejected: mitooshi forecasts distributions; shionome observes realized
+  flows. Conflating realized-observation with forecast would muddy mitooshi's leak-free scoring.
+- **Allow over/under-weight "positioning" language** — rejected: positioning is advisory; the
+  no-trade boundary must be bright-line. Only descriptive flow language is permitted.
+- **Permit a commercial market-data terminal as a source** — rejected (Rider §2(e)/N5): a
+  capital-flow commons built on a paywalled terminal re-introduces the asymmetry it exists to
+  dissolve.
+
+## References
+
+- `20-actors/shionome/` — actor (manifest, CLAUDE.md, methods, lex, cells, registry, data)
+- `00-contracts/schemas/capital-flow-ontology.kotoba.edn` — ontology (closed-vocab SSoT)
+- ADR-2606051800 (mitooshi), ADR-2606071000 (intel cohort deploy-readiness), ADR-2605312345
+  (kotoba Datom canonical state), ADR-2605215000 (Murakumo-only), ADR-2605231525 (no-server-key)

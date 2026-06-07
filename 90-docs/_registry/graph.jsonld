@@ -14020,6 +14020,27 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606072200-shionome-cross-asset-capital-flow-observatory-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606072200: 潮目 (shionome) — cross-asset capital-flow observatory (ingest · intel · analyze · dry-run social, NO trading) R0 + autonomous kotoba loop",
+      "status": "accepted",
+      "topic": "shionome-cross-asset-capital-flow-observatory",
+      "authoritative": true,
+      "authoritativeFor": [
+        "shionome-cross-asset-capital-flow-observatory",
+        "capital-rotation-flow-graph",
+        "no-trade-non-advisory-market-observation"
+      ],
+      "related": [
+        "doc:adr-2605302300-kanae-government-fiscal-flow-visualization",
+        "doc:adr-2606032000-kanjo-company-financial-disclosure-graph",
+        "doc:adr-2606041827-watari-live-ship-aircraft-position-graph",
+        "doc:adr-2606022000-kabuto-supply-chain-knowledge-graph",
+        "doc:adr-2606066000-keizu-government-relations-graph-tier-b-actor-r0"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
       "id": "doc:adr-2606072200-yotei-kotoba-native-scheduling",
       "type": "TechArticle",
       "title": "ADR-2606072200: yotei — kotoba-native scheduling commons (Calendly inversion); remediation Phase A",
