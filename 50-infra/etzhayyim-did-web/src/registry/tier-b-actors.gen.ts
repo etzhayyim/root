@@ -11,7 +11,7 @@
 import type { InfraActorEntry } from "./infra-actors";
 
 export const TIER_B_GENERATED_AT = "2026-06-04T00:00:00+00:00";
-export const TIER_B_TOTAL_COUNT = 43;
+export const TIER_B_TOTAL_COUNT = 42;
 
 export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
   "akashi": {
@@ -100,19 +100,6 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     service: [
       {
         id: "did:web:etzhayyim.com:actor:hikari#atproto_pds",
-        type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
-      },
-    ],
-  },
-  "himawari": {
-    description: "向日葵 — Solar PV Manufacturing",
-    glyph: "向日葵",
-    displayName: "向日葵 — Solar PV Manufacturing",
-    adrs: ["2606021200", "2605261000", "2605261100"],
-    service: [
-      {
-        id: "did:web:etzhayyim.com:actor:himawari#atproto_pds",
         type: "AtprotoPersonalDataServer",
         serviceEndpoint: "https://pds.etzhayyim.com",
       },
@@ -235,6 +222,20 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       },
     ],
   },
+  "keizu": {
+    description: "Weaves government procurement + money + statements + human-relationships + committee/advisory-council composition into one kotoba Datom relation-graph + dry-run social posts; aggregate-first, edge-primary, non-adjudicating, mirror-not-target.",
+    glyph: "系図",
+    displayName: "系図 — Government Power-Relations Graph",
+    primaryLexicon: "com.etzhayyim.keizu.relationEdge",
+    adrs: ["2606066000", "2605301600"],
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:keizu#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+    ],
+  },
   "kizashi": {
     description: "兆 — Non-invasive Multimodal Body-Scan / Sign-Sensing",
     glyph: "兆",
@@ -352,19 +353,6 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       },
     ],
   },
-  "nusa": {
-    description: "Ritual + industrial hemp (麻) heritage knowledge graph + low-THC cultivation-revival design. Datafies Japan's ritual-hemp heritage (Shinto purification 注連縄/祓串/大幣, the imperial 麁服 aratae + 阿波忌部 lineage) and the low-THC fibre cultivars whose licensed cultivation the 2023 reform reopened, into the kotoba Datom log. Charter-clean by construction: fibre + ritual + heritage only; recreational THC excluded by the thc-class invariant; cannabis-derived medicine out of scope; no legalization-advocacy stance.",
-    glyph: "幣",
-    displayName: "幣 — Ritual/Industrial Hemp Heritage + Low-THC Cultivation",
-    adrs: ["2606039800"],
-    service: [
-      {
-        id: "did:web:etzhayyim.com:actor:nusa#atproto_pds",
-        type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
-      },
-    ],
-  },
   "ossekai": {
     description: "御節介 — Information-Arbitrage Elimination + Wellbecoming Nudge",
     glyph: "御節介",
@@ -412,6 +400,19 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     service: [
       {
         id: "did:web:etzhayyim.com:actor:shidemori#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+    ],
+  },
+  "suji": {
+    description: "筋 — Musculoskeletal Posture-Load Biomechanics Simulator",
+    glyph: "筋",
+    displayName: "筋 — Musculoskeletal Posture-Load Biomechanics Simulator",
+    adrs: ["2606061900"],
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:suji#atproto_pds",
         type: "AtprotoPersonalDataServer",
         serviceEndpoint: "https://pds.etzhayyim.com",
       },
@@ -542,19 +543,6 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     service: [
       {
         id: "did:web:etzhayyim.com:actor:watatsumi#atproto_pds",
-        type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
-      },
-    ],
-  },
-  "yadori": {
-    description: "Check DNS/domain availability (RDAP/EPP) and shepherd a member-principal acquisition via the Cloudflare-Registrar at-cost path. The charter-clean inverse of a retail registrar: no fiat inflow, no markup/affiliate, no speculation. Closes the gap between minting an actor DID and the name existing.",
-    glyph: "宿り",
-    displayName: "宿り — DNS-Availability + Domain Acquisition",
-    adrs: ["2606038400", "2606012100"],
-    service: [
-      {
-        id: "did:web:etzhayyim.com:actor:yadori#atproto_pds",
         type: "AtprotoPersonalDataServer",
         serviceEndpoint: "https://pds.etzhayyim.com",
       },

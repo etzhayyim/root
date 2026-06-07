@@ -1,3 +1,4 @@
+# no-server-key: read-only — pending Stage A-E member-signed-writes refactor per ADR-2605231525
 apiVersion: v1
 data:
   dispatcher_main.py: "\"\"\"\nF4 \u2014 generic XRPC dispatcher for BPMN-as-actor\
@@ -16,7 +17,7 @@ data:
     \                  for local rollback. LB exposure at this mode\n            \
     \             is a security risk \u2014 see ADR 2604231432\n                 \
     \        security posture.\n    strict              \u2014 require header `x-internal-trust:\n\
-    \                         <DISPATCHER_INTERNAL_SECRET>` on every\n           \ # no-server-key: read-only
+    \                         <DISPATCHER_INTERNAL_SECRET>` on every\n           \
     \              `/xrpc/*` call. PDS pipethrough adds this\n                   \
     \      header (dispatch.ts); direct callers must\n                         supply\
     \ it too. Unmatched/absent \u2192 401.\n\n`/health` is always open. `/bindings`\
@@ -25,7 +26,7 @@ data:
     \               default 8080\n    ZEEBE_GATEWAY                 default zeebe-gateway:26500\n\
     \    RW_URL                        required (binding lookup)\n    BINDING_TTL_SEC\
     \               default 30 (in-memory cache window)\n    DISPATCHER_AUTH_MODE\
-    \          off | strict (default: strict)\n    DISPATCHER_INTERNAL_SECRET    shared\ # no-server-key: read-only
+    \          off | strict (default: strict)\n    DISPATCHER_INTERNAL_SECRET    shared\
     \ secret when mode=strict\n\"\"\"\n\nfrom __future__ import annotations\n\nimport\
     \ asyncio\nimport json\nimport logging\nimport os\nimport re\nimport signal\n\
     import time\nfrom typing import Any\n\nfrom aiohttp import web\nfrom pyzeebe import\
@@ -38,7 +39,7 @@ data:
     GATEWAY = os.environ.get(\"ZEEBE_GATEWAY\", \"zeebe-gateway:26500\")\nBINDING_TTL_SEC\
     \ = int(os.environ.get(\"BINDING_TTL_SEC\", \"30\"))\n\nAUTH_MODE = os.environ.get(\"\
     DISPATCHER_AUTH_MODE\", \"strict\").lower()\nINTERNAL_SECRET = os.environ.get(\"\
-    DISPATCHER_INTERNAL_SECRET\", \"\")\nINTERNAL_TRUST_HEADER = \"x-internal-trust\"\ # no-server-key: read-only
+    DISPATCHER_INTERNAL_SECRET\", \"\")\nINTERNAL_TRUST_HEADER = \"x-internal-trust\"\
     \n\n\n# \u2500\u2500\u2500 Binding cache \u2500\u2500\u2500\u2500\u2500\u2500\u2500\
     \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
     \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
@@ -144,7 +145,7 @@ data:
     \ Streaming\n# Sink instead.\n\nWATCHER_INTERVAL_SEC = int(os.environ.get(\"WATCHER_INTERVAL_SEC\"\
     , \"30\"))\n\n\ndef _list_pending_defs_sync() -> list[tuple]:\n    # Fetch vertex_id/bpmn_process_id/version\
     \ only \u2014 omitting the xml column\n    # avoids a full-scan / large materialization\
-    \ on Kotoba/Datomic that hangs >30s\n    # when all 23K xml values are streamed at\
+    \ on RisingWave that hangs >30s\n    # when all 23K xml values are streamed at\
     \ once. Xml is fetched per-row in\n    # _fetch_xml_sync() immediately before\
     \ deploy.\n    with sync_cursor() as cur:\n        cur.execute(\n            \"\
     SELECT vertex_id, bpmn_process_id, version \"\n            \"FROM vertex_bpmn_process_def\
@@ -224,7 +225,7 @@ data:
     \ The same `vertex_bpmn_process_def` table\n    holds DMN decisions too \u2014\
     \ they're distinguished by XML namespace at\n    deploy time. For DMN rows the\
     \ `bpmn_process_id` column actually holds\n    the decisionId (DMN has no process\
-    \ concept).\n\n    _deployed_in_flight guards against the Kotoba/Datomic DML buffering\
+    \ concept).\n\n    _deployed_in_flight guards against the RisingWave DML buffering\
     \ window\n    (~150s at checkpoint_frequency=30 \xD7 barrier_interval_ms=5000).\
     \ After\n    _mark_deployed_sync succeeds, the UPDATE is accepted but invisible\
     \ to\n    subsequent _list_pending_defs_sync queries until the checkpoint flush.\n\
@@ -312,9 +313,9 @@ data:
     ):\n        return await handler(request)\n    if AUTH_MODE == \"off\":\n    \
     \    return await handler(request)\n    if AUTH_MODE == \"strict\":\n        if\
     \ not INTERNAL_SECRET:\n            LOG.error(\"DISPATCHER_AUTH_MODE=strict but\
-    \ DISPATCHER_INTERNAL_SECRET empty\")\n            return web.json_response(\n\ # no-server-key: read-only
+    \ DISPATCHER_INTERNAL_SECRET empty\")\n            return web.json_response(\n\
     \                {\"error\": \"AuthMisconfigured\",\n                 \"message\"\
-    : \"dispatcher strict mode requires DISPATCHER_INTERNAL_SECRET\"},\n         \ # no-server-key: read-only
+    : \"dispatcher strict mode requires DISPATCHER_INTERNAL_SECRET\"},\n         \
     \       status=500,\n            )\n        import hmac as _hmac\n        provided\
     \ = request.headers.get(INTERNAL_TRUST_HEADER, \"\")\n        if not provided\
     \ or not _hmac.compare_digest(provided, INTERNAL_SECRET):\n            return\

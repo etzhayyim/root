@@ -18,7 +18,7 @@ runbook section below.
 Usage:
 
     BPMN_ENGINE_URL=http://localhost:8080 \
-    KOTOBA_URL=postgresql://USER:PASSWORD@HOST:4566/dev \
+    RW_DSN=postgresql://USER:PASSWORD@HOST:4566/dev \
     python smoke.py \
       --process-id lawfirm_intake_funnel \
       --concurrency 100 \
@@ -51,6 +51,8 @@ from collections.abc import Iterable
 from typing import Any
 
 import httpx
+import psycopg
+from psycopg.rows import dict_row
 
 log = logging.getLogger("smoke")
 
@@ -123,11 +125,11 @@ def poll_completion(
                     continue
                 r = client.select_where("vertex_spiff_instance", "instance_id", iid, limit=200)
                 rows.extend(r)
-
+                
             latest_by_instance: dict[str, dict[str, Any]] = {}
             for row in sorted(rows, key=lambda r: int(r.get("_seq") or 0)):
                 latest_by_instance[row["instance_id"]] = dict(row)
-
+                
             for row in latest_by_instance.values():
                 if row["status"] not in {"completed", "error", "cancelled"}:
                     continue
@@ -153,7 +155,7 @@ def assert_history_invariants(instance_ids: Iterable[str]) -> list[str]:
     ids = list(instance_ids)
     if not ids:
         return violations
-
+    
     rows_by_instance: dict[str, list[dict[str, Any]]] = {}
     for iid in ids:
         try:
@@ -161,7 +163,7 @@ def assert_history_invariants(instance_ids: Iterable[str]) -> list[str]:
             rows_by_instance[iid] = sorted(rows, key=lambda r: int(r.get("seq") or 0))
         except Exception as exc:
             violations.append(f"{iid}: fetch failed: {exc}")
-
+            
     for iid in ids:
         instance_rows = rows_by_instance.get(iid) or []
         if not instance_rows:
@@ -191,7 +193,7 @@ def assert_no_orphan_jobs(instance_ids: Iterable[str]) -> list[str]:
             latest_by_job = {}
             for r in sorted(rows, key=lambda x: int(x.get("_seq") or 0)):
                 latest_by_job[r.get("job_id")] = r
-
+            
             active = sum(1 for r in latest_by_job.values() if r.get("status") in ("ready", "claimed"))
             if active > 0:
                 violations.append(f"{iid}: {active} job rows still ready/claimed")
@@ -236,9 +238,9 @@ def fetch_db_wall_durations(instance_ids: Iterable[str]) -> dict[str, float]:
 async def run(args: argparse.Namespace) -> int:
     engine_url = (args.engine_url or os.environ.get("BPMN_ENGINE_URL")
                   or DEFAULT_ENGINE_URL).rstrip("/")
-    dsn = args.rw_dsn or os.environ.get("KOTOBA_URL")
+    dsn = args.rw_dsn or os.environ.get("RW_DSN")
     if not dsn:
-        log.error("KOTOBA_URL required (env or --rw-dsn)")
+        log.error("RW_DSN required (env or --rw-dsn)")
         return 2
 
     log.info("smoke: engine=%s concurrency=%d process=%s timeout=%ds",
@@ -350,7 +352,7 @@ def main() -> None:
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--engine-url", default=None,
                     help="default $BPMN_ENGINE_URL or " + DEFAULT_ENGINE_URL)
-    ap.add_argument("--rw-dsn", default=None, help="default $KOTOBA_URL")
+    ap.add_argument("--rw-dsn", default=None, help="default $RW_DSN")
     ap.add_argument("--process-id", default=DEFAULT_PROCESS_ID)
     ap.add_argument("--concurrency", type=int, default=100)
     ap.add_argument("--timeout-s", type=int, default=60)

@@ -42,6 +42,13 @@ const APEX_DOMAIN = 'etzhayyim.com';
 /** kotoba capability for editing one's own profile record (a datom transact). */
 export const CAP_DATOM_TRANSACT = 'kotoba://op/datom:transact';
 export const CAP_DATOM_READ = 'kotoba://op/datom:read';
+/**
+ * Pure proof-of-control capability used by the same-origin login/signup gate
+ * (no write intent — the apex Worker only confirms DID control + freshness).
+ */
+export const CAP_ACCOUNT_LOGIN = 'kotoba://op/account:login';
+/** Register/publish one's own account record (handle alias + profile) to kotoba. */
+export const CAP_ACCOUNT_REGISTER = 'kotoba://op/account:register';
 /** Public actor-profile graph (ADR-2606013800 `actors-v1`). */
 export function graphResource(graphCid: string): string {
 	return `kotoba://graph/${graphCid}`;

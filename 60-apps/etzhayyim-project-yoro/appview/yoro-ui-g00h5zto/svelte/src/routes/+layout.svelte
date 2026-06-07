@@ -11,6 +11,7 @@
 		clerkUser,
 		displayName as clerkDisplayName,
 		getSessionToken,
+		headerCacaoSignIn,
 	} from '$lib/auth';
 	import { SuperAppLayout, Tuner } from '$lib/superapp';
 	import { currentTab, pathToTab } from '$lib/superapp';
@@ -49,25 +50,68 @@
 	let drawerOpen = $state(false);
 	let bootstrapped = $state(false);
 
+	// Auth status banner for the same-origin CACAO sign-in (gated/error feedback;
+	// success is reflected by `isSignedIn` flipping the header).
+	let authMsg = $state('');
+	let authBusy = $state(false);
+
+	// ADR-2606061500: the interactive session is a member-held CACAO ceremony, not
+	// a server-minted accessJwt. The legacy authn-backed JWT path survives ONLY as
+	// an explicit rollback flag (default OFF) — when off, no authn hop + no
+	// server-minted session exist in the interactive path.
+	const LEGACY_JWT = import.meta.env.PUBLIC_AUTH_LEGACY_JWT === '1';
+
+	// Same-origin passkey → CACAO sign-in (the header "ログイン / 新規登録" path).
+	// No authn.etzhayyim.com redirect, no server key. The wrap-store accessors hit
+	// the kotoba zero-access ARK custody (NOT authn); per ADR-2606061500 §4 the
+	// wrap-store CACAO-hardening is a kotoba-node follow-up.
+	async function headerSignIn(): Promise<void> {
+		if (authBusy) return;
+		authBusy = true;
+		authMsg = '';
+		try {
+			const res = await headerCacaoSignIn();
+			if (res.status === 'verified') {
+				authMsg = '';
+			} else if (res.status === 'gated') {
+				authMsg =
+					res.reason ??
+					'サインインは kotoba ノードで完了します（初回デバイス / 新規登録）。';
+			} else {
+				authMsg = res.reason ?? 'サインインに失敗しました。';
+			}
+		} catch (e) {
+			authMsg = e instanceof Error ? e.message : String(e);
+		} finally {
+			authBusy = false;
+		}
+	}
+
 	const menuActions = [
 		{ label: 'New message', onclick: () => { playClick(); goto('/projects'); } },
 		{ label: 'Activities', onclick: () => { playClick(); goto('/activities'); } },
 		{ label: 'Settings', onclick: () => { playClick(); goto('/settings'); } },
 	];
 
-	// Clerk auth bootstrap
+	// Auth bootstrap. CACAO-only (default): no authn restore + no JWT provider —
+	// the CACAO write provider is registered on sign-in (a key-ceremony session is
+	// not persisted, so a cold load starts signed-out until the user taps login).
+	// LEGACY_JWT (rollback): restore the authn-minted session + JWT token provider.
 	$effect(() => {
 		if (bootstrapped) return;
 		bootstrapped = true;
-		const clerkTimeout = setTimeout(() => {
-			if (!get(clerkLoaded)) clerkLoaded.set(true);
-		}, 8000);
-		setTokenProvider(getSessionToken);
-		void (async () => {
-			await initClerk({ publishableKey: DEFAULT_CLERK_PUBLISHABLE_KEY }).catch((e) => console.warn('initClerk failed', e));
-			clearTimeout(clerkTimeout);
-		})();
-		return () => { clearTimeout(clerkTimeout); };
+		if (LEGACY_JWT) {
+			const clerkTimeout = setTimeout(() => {
+				if (!get(clerkLoaded)) clerkLoaded.set(true);
+			}, 8000);
+			setTokenProvider(async () => (await getSessionToken()) ?? '');
+			void (async () => {
+				await initClerk({ publishableKey: DEFAULT_CLERK_PUBLISHABLE_KEY }).catch((e) => console.warn('initClerk failed', e));
+				clearTimeout(clerkTimeout);
+			})();
+			return () => { clearTimeout(clerkTimeout); };
+		}
+		clerkLoaded.set(true);
 	});
 
 	// URL → tab store sync
@@ -232,32 +276,26 @@
 			</button>
 			<Tuner />
 		{:else}
+			<!-- ADR-2606061500: same-origin passkey → CACAO. No authn.etzhayyim.com hop. -->
 			<button
 				type="button"
-				onclick={() => {
-					const isNative = !!(window as any).Capacitor?.isNativePlatform?.();
-					const redirectUrl = isNative
-						? `com.etzhayyim.yoro://callback?target=${encodeURIComponent(window.location.pathname || '/')}`
-						: window.location.href;
-					window.location.href = `https://authn.etzhayyim.com/sign-in?redirect_url=${encodeURIComponent(redirectUrl)}`;
-				}}
-				class="flex min-h-[36px] items-center rounded-full border border-gv2-border px-4 py-1.5 text-[14px] font-semibold text-gv2-text-primary touch-manipulation active:bg-gv2-bg-hover active:scale-[0.97] transition-transform"
+				onclick={headerSignIn}
+				disabled={authBusy}
+				class="flex min-h-[36px] items-center rounded-full border border-gv2-border px-4 py-1.5 text-[14px] font-semibold text-gv2-text-primary touch-manipulation active:bg-gv2-bg-hover active:scale-[0.97] transition-transform disabled:opacity-60"
 			>
-				ログイン
+				{authBusy ? '…' : 'ログイン'}
 			</button>
 			<button
 				type="button"
-				onclick={() => {
-					const isNative = !!(window as any).Capacitor?.isNativePlatform?.();
-					const redirectUrl = isNative
-						? `com.etzhayyim.yoro://callback?target=${encodeURIComponent(window.location.pathname || '/')}`
-						: window.location.href;
-					window.location.href = `https://authn.etzhayyim.com/sign-up?redirect_url=${encodeURIComponent(redirectUrl)}`;
-				}}
-				class="flex min-h-[36px] items-center rounded-full bg-[#58CC02] px-4 py-1.5 text-[14px] font-bold text-white shadow-[0_3px_0_#3D8A00] touch-manipulation active:shadow-none active:translate-y-[3px] transition-all duration-75"
+				onclick={headerSignIn}
+				disabled={authBusy}
+				class="flex min-h-[36px] items-center rounded-full bg-[#58CC02] px-4 py-1.5 text-[14px] font-bold text-white shadow-[0_3px_0_#3D8A00] touch-manipulation active:shadow-none active:translate-y-[3px] transition-all duration-75 disabled:opacity-60"
 			>
-				新規登録
+				{authBusy ? '...' : '新規登録'}
 			</button>
+			{#if authMsg}
+				<p class="ml-2 max-w-[200px] text-[11px] leading-tight text-gv2-text-muted">{authMsg}</p>
+			{/if}
 		{/if}
 	{/snippet}
 

@@ -38,13 +38,9 @@ const staticSeed = resolve(svelteDir, "../static/kotoba/seed-datoms.json");
 
 const argv = process.argv.slice(2);
 const limitArg = argv.indexOf("--limit");
-// --limit caps the TOTAL post set (bounds the browser download). The discover
-// getFeed returns ~100 with no cursor, so coverage beyond that comes from
-// paginating each distinct author's getAuthorFeed (which DOES return a cursor).
-const TOTAL_CAP = limitArg >= 0 ? parseInt(argv[limitArg + 1], 10) || 500 : 500;
-const PER_AUTHOR_CAP = 300; // pages of 100; bounds any single prolific author
+const LIMIT = limitArg >= 0 ? parseInt(argv[limitArg + 1], 10) || 100 : 100;
 const ORIGIN = process.env.FEED_ORIGIN || "https://etzhayyim.com";
-const FEED_URL = `${ORIGIN}/xrpc/app.bsky.feed.getFeed?feed=etzhayyim&limit=100`;
+const FEED_URL = `${ORIGIN}/xrpc/app.bsky.feed.getFeed?feed=etzhayyim&limit=${LIMIT}`;
 
 // EDN-encode a JS string value the way the seed does (== JSON.stringify).
 const edn = (v) => JSON.stringify(v);
@@ -66,11 +62,6 @@ function postDatoms(items) {
   for (const it of items) {
     const view = it && it.post ? it.post : null;
     if (!view || !view.uri || seen.has(view.uri)) continue;
-    // Drop malformed/corrupt posts before they enter the browser-only seed: an
-    // empty author DID or an `at:///…` URI with no repo DID (both observed in the
-    // AppView feed) render as a broken-link card that can resolve no profile/thread.
-    if (!view.author || !view.author.did) continue;
-    if (view.uri.includes(':///')) continue;
     seen.add(view.uri);
     const e = `post:${view.uri}`;
     const rec = view.record || {};
@@ -89,58 +80,13 @@ function postDatoms(items) {
   return out;
 }
 
-async function getJson(url) {
-  const r = await fetch(url, { headers: { accept: "application/json" } });
-  if (!r.ok) throw new Error(`HTTP ${r.status} ${url}`);
-  return r.json();
-}
-
-// Paginate one author's getAuthorFeed via its cursor, up to PER_AUTHOR_CAP.
-async function authorItems(did) {
-  const out = [];
-  let cursor = "";
-  for (let page = 0; page < Math.ceil(PER_AUTHOR_CAP / 100); page++) {
-    const u = `${ORIGIN}/xrpc/app.bsky.feed.getAuthorFeed?actor=${encodeURIComponent(did)}&limit=100${cursor ? `&cursor=${encodeURIComponent(cursor)}` : ""}`;
-    let body;
-    try {
-      body = await getJson(u);
-    } catch (e) {
-      console.warn(`    author ${did} page ${page} failed: ${e.message}`);
-      break;
-    }
-    const items = Array.isArray(body.feed) ? body.feed : [];
-    out.push(...items);
-    if (!body.cursor || items.length === 0) break;
-    cursor = body.cursor;
-  }
-  return out;
-}
-
 async function main() {
-  console.log(`→ discover feed: ${FEED_URL}`);
-  const body = await getJson(FEED_URL);
-  const seed = Array.isArray(body.feed) ? body.feed : [];
-  console.log(`  got ${seed.length} discover items`);
-
-  // Distinct authors → paginate each to expand coverage past the 100 cap.
-  const authors = [...new Set(seed.map((x) => x.post?.author?.did).filter(Boolean))];
-  console.log(`  ${authors.length} distinct authors → paginating getAuthorFeed`);
-
-  const byUri = new Map();
-  const add = (it) => {
-    const uri = it?.post?.uri;
-    if (uri && !byUri.has(uri)) byUri.set(uri, it);
-  };
-  seed.forEach(add);
-  for (const did of authors) {
-    if (byUri.size >= TOTAL_CAP) break;
-    const items = await authorItems(did);
-    items.forEach(add);
-    console.log(`    ${did}: +${items.length} (total ${byUri.size})`);
-  }
-
-  const items = [...byUri.values()].slice(0, TOTAL_CAP);
-  console.log(`  → ${items.length} unique posts (cap ${TOTAL_CAP})`);
+  console.log(`→ fetching feed: ${FEED_URL}`);
+  const r = await fetch(FEED_URL, { headers: { accept: "application/json" } });
+  if (!r.ok) throw new Error(`getFeed HTTP ${r.status}`);
+  const body = await r.json();
+  const items = Array.isArray(body.feed) ? body.feed : [];
+  console.log(`  got ${items.length} feed items`);
 
   const profiles = existingProfileDatoms();
   const posts = postDatoms(items);

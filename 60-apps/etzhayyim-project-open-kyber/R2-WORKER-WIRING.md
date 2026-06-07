@@ -12,6 +12,13 @@ related:
 
 # open-kyber R2 — wire the ERP Worker to rw-free (remove RisingWave/Kysely)
 
+> **Status (2026-06-06): Steps 1–2 + 5-source DONE in `src/app.ts`.** The Worker no longer
+> references `createKyselyDb`/`HYPERDRIVE`; all 28 commands route through the rw-free functions
+> via `createXrpcBridge`, and `app.ts` type-checks clean against the package sources. What
+> remains is the **operator deploy** (`e7m actor build`/`deploy` + smoke) where that toolchain
+> exists, and **Step 3** (new suite/tenant/ISIC commands — still pending lexicon authoring +
+> codegen). The steps below are retained as the deploy + Step-3 reference.
+
 **Goal**: replace the ERP Worker's `createKyselyDb(env.HYPERDRIVE)` read paths (prohibited
 under ADR-2605262130 — no RisingWave) with the tested, kotoba-Datomic rw-free functions,
 via the `createXrpcBridge` keystone. This is R2 of ADR-2606037200.

@@ -8,6 +8,25 @@ import type { ModelDef, UseCaseName } from "./llm-model-types.js";
 
 /** Canonical model registry. Add/remove/update models here only. */
 export const MODEL_REGISTRY: Record<string, ModelDef> = {
+  // ── Maxwell — etzhayyim default LLM weight (ADR-2606061000) ──────────────
+  // Charter-aligned instruction fine-tune of Gemma 4 E4B, served Murakumo-only
+  // (Ollama `maxwell-1` slot + LiteLLM 127.0.0.1:4000 + EVO-X2 LAN per ADR-2605215000).
+  // Server/fleet tier — NOT the edge tier (that is baien; edge invariant ADR-2605241900).
+  // R0: available=false until a real fine-tune clears the microbench gate
+  // (≥250 SGD steps OR ≥+5pp on `e7m bench micro`, recorded in maxwell-models.jsonl).
+  // Until then USE_CASE_DEFAULTS keep resolving to gemma-4-e4b-it and resolveModelId
+  // fails open to it (an unavailable maxwell-1 never breaks routing — see ADR-2606061000 D3).
+  "maxwell-1": {
+    cfModel: "huggingface:etzhayyim/maxwell-1-gemma4-e4b",
+    huggingfaceModel: "etzhayyim/maxwell-1-gemma4-e4b",
+    maxTokens: 4096,
+    contextWindow: 128000,
+    // Inherits the full gemma-4-e4b-it default use-case set; becomes the resolved
+    // target for these at M1 when available flips true (ADR-2606061000 D3).
+    useCases: ["heartbeat", "shinka", "react", "general", "simple", "social", "convo", "japanese", "structured"],
+    available: false,
+    ollamaModel: "maxwell-1",
+  },
   // Tier 0: Gemma 4 E4B — best Gemma4 for Mac Mini M4 16GB (murakumo fleet default)
   "gemma-4-e4b-it": {
     cfModel: "@cf/google/gemma-4-e4b-it",
@@ -162,6 +181,20 @@ export const USE_CASE_DEFAULTS: Record<UseCaseName, string> = {
 export const MURAKUMO_DEFAULT_MODEL = "gemma-4-e4b-it";
 
 /**
+ * Maxwell — etzhayyim's named default LLM weight (ADR-2606061000).
+ * A Charter-aligned instruction fine-tune of Gemma 4 E4B, served Murakumo-only.
+ * This constant is the SSoT for "the religious-corp default weight" — reference it
+ * instead of hardcoding the `"maxwell"` string anywhere (gate G5).
+ *
+ * R0 flip path (ADR-2606061000 D3): until Maxwell weights exist and pass the
+ * microbench gate, `maxwell-1` is registered with `available: false`, so
+ * `USE_CASE_DEFAULTS` and `MURAKUMO_DEFAULT_MODEL` keep resolving to
+ * `gemma-4-e4b-it` and `resolveModelId` fails open to it. At M1 the default
+ * use-cases flip from `"gemma-4-e4b-it"` to `MAXWELL_DEFAULT_WEIGHT`.
+ */
+export const MAXWELL_DEFAULT_WEIGHT = "maxwell-1";
+
+/**
  * Default Hugging Face base-model ID for the H100 training pod
  * (ADR 2605092345). Trainers (`pymagatama.primitives.training_run`,
  * Unsloth runner, distill teacher loader) read this when the lexicon
@@ -180,6 +213,9 @@ export const BAIEN_DEFAULT_TRUNK_MODEL = "microsoft/bitnet-b1.58-2B-4T-bf16";
 
 /** Model alias map for backward compatibility. */
 export const MODEL_ALIASES: Record<string, string> = {
+  // Maxwell — default weight (ADR-2606061000)
+  "maxwell": "maxwell-1",
+  "etzhayyim/maxwell-1-gemma4-e4b": "maxwell-1",
   "gemma-3-12b-it": "gemma-3-12b",
   "@cf/google/gemma-3-12b-it": "gemma-3-12b",
   "gemma-4-e2b": "gemma-4-e2b-it",

@@ -1,5 +1,31 @@
 # etzhayyim-project-maps
 
+> **KOTOBA-NATIVE MIGRATION IN PROGRESS (ADR-2606064500).** Everything below this banner
+> describes the **legacy RisingWave/Hyperdrive** implementation, which is a substrate-boundary
+> violation (ADR-2605262130: the kotoba Datom log is first-class canonical state; NO RisingWave).
+> The migration off SQL is landing in phases — the moving-craft slice already moved to
+> **watari** (ADR-2606041827); the static-feature substrate is moving now.
+>
+> **kotoba-native surfaces (use these for new work):**
+> - Ontology: `00-contracts/schemas/maps-spatial-ontology.kotoba.edn` (`:feature/*`, the
+>   `vertex_spatial` successor; H3-cell-as-Datom + **AVET** spatial index `:feature.cell/rN`).
+> - Methods: `20-actors/maps/methods/{ingest,analyze}.py` (legacy `vertex_spatial` export →
+>   `:feature/*` + H3 cells → `kg.ingest_batch`, G7-gated; Earth-coverage report). `run_tests.sh`
+>   (12 green).
+> - Adapter: `60-apps/.../maps-ui-uqpel6i6/src/kotoba-spatial.ts` (the §3 leverage point —
+>   `queryByCells` AVET read, `ingestFeatures` no-server-key write). `cmdGetChunk` is rewired
+>   **kotoba-first, fail-open** to RisingWave until R3.
+> - Lexicons: `com.etzhayyim.maps.kg.{registerFeature,queryChunk}` +
+>   `00-contracts/lexicons/com/etzhayyim/maps/MIGRATION-NOTES.md` (legacy→new map).
+>
+> **Migration phases:** R0 (foundation, done) · R1 (wire `KOTOBA_ENDPOINT`, backfill, flip
+> getChunk kotoba-primary) · R2 (dumpers + 172-command tail via the adapter) · R3 (delete
+> Hyperdrive + `vertex_*`). The legacy SQL below stays live as the fail-open fallback until R3.
+> **The H3/Earth-coverage situation (Tokyo-anchored 3D walker) is unchanged by this work —
+> it swaps *what stores features*, not *how much Earth is loaded*.**
+
+---
+
 Spatial Intelligence + Digital Twin Platform (maps.etzhayyim.com). Graph-first architecture — 自前グラフを育て、データがない時だけ外部ソースから取得・永続化。全外部ソースは path-based DID で identity 管理。
 
 ## App Identity

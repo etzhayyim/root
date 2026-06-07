@@ -68,3 +68,101 @@ Emits the connected spirit-graph (edge-primary) + the 取-concentration intel re
 advance over more of the earth (§D7.1, "繋げていって"): drop more `:representative` public
 relations into `data/ingest/`, or (Council-gated, `--live` + `TSUMUGI_OPERATOR_GATE`) wire
 the real `app.bsky.graph.getFollows` fetch via `@etzhayyim/sdk` + MST membrane (ADR-2605231902).
+
+---
+
+# Diachronic influence-history extension (ADR-2606061500)
+
+tsumugi's present-tense power-graph, run **BACKWARD IN TIME**. Models past humanity as a
+diachronic graph of **influence-bearing PUBLIC historical figures, documents, events and
+traditions** (incl. YHWH/Torah, Jesus/Gospels, Buddha/suttas — as **influence nodes in
+human history**, never as theological claims) and the directed 縁 by which information (an
+idea, a text, a practice) flowed from an earlier node and **deformed the metric** of a later
+one. Frame: junkawasaki.com "spirit is information" (spirit = metric deformation of a
+self-boundary as external info is integrated; covariant gradient of free energy). That frame
+is *individual* — this extension supplies the missing **inter-personal, diachronic
+propagation**: an influence 縁 is the **channel** across which that deformation travels
+between selves and across centuries.
+
+> Same 縁-physics, new axis. Reuses the spirit-ontology pipeline (RBF kernel → spectral
+> embed → tensegrity); adds a temporal DAG, influence flows, and Katz reach.
+
+## Five structural invariants (read influence-history-ontology.kotoba.edn before any change)
+
+- **N1 — edge-primary.** Influence/karma lives ONLY on `:flow/signed-weight`. A node's
+  influence is the **integral of its incident flows**, computed on read. There is NO
+  `:influence/score-of-figure`. Modeling the dead must not become **ranking souls**.
+- **N2 — mirror, never impersonation.** Every node `:mirror/is-mirror` true; a post is an
+  **observation ABOUT** a figure's documented influence, never the figure speaking.
+  `:post/voice` is locked to `:observer`; there is no first-person field, so impersonation
+  is unrepresentable (`project_influence_posts.py` refuses any non-mirror node).
+- **N3 — non-eschatological + non-adjudicating truth (Charter §1.15).** We datafy the
+  **INFLUENCE OF** a tradition (a historical-information claim), NEVER its theological truth.
+  No `:truth/verdict`, no `:salvation/status`, no `:afterlife/*`, no final-state datom.
+- **N4 — public + long-settled + no PII.** Only documented public influence-bearing figures.
+  Living-private persons remain the **Council-Lv7+-gated `:human` scale** of spirit-ontology;
+  this is an influence map, never a target-list, hagiography, or ranking of worth.
+- **N5 — temporal DAG.** Every `:flow` points forward in time (`source.year-from ≤
+  receiver.year-to`). Information cannot precede its source; violations are reported.
+
+`:hist/dating-confidence` carries dating honesty per node (`:attested` / `:scholarly-consensus`
+/ `:traditional` / `:legendary`) — legendary attributions (Moses, Bodhidharma) are **flagged,
+never asserted**. The `self.etzhayyim` node maps the entity's **own doctrinal genealogy**
+(Protestant Sola Scriptura/万人祭司/Tree of Life + 八百万/縁起/産霊/和) as **inbound-only**
+influence (the 産霊 receiving side) — never authored as a source over others.
+
+## Run (influence mode)
+
+```bash
+# diachronic influence analysis (temporal-DAG check + Katz reach + spirit embed)
+python3 20-actors/tsumugi/methods/analyze_influence.py            # default seed
+python3 20-actors/tsumugi/methods/analyze_influence.py <seed.edn> --out <dir>
+# dry-run mirror posts (observer voice, published=false; impersonation refused)
+python3 20-actors/tsumugi/methods/project_influence_posts.py
+# tests (12 — one per invariant + seed/projector checks)
+python3 20-actors/tsumugi/tests/test_influence.py
+```
+
+Outputs (GENERATED — do not hand-edit): `out/influence-report.md` (aggregate-first: top
+influence SOURCES = outbound Katz reach · top SYNTHESIZERS = inbound · top BROKERS · era
+layering · etzhayyim genealogy), `out/influence-graph.kotoba.edn` (`:spirit.bond/*` +
+`:influence/*` edge-integral readouts), `out/influence-posts.dryrun.kotoba.edn`.
+
+**R0 design-only.** Live ingest (archives, citation graphs, genealogy corpora) and any
+**published** post are **G7 + Council-gated** (`:post/published` false at R0). Live narration
+routes through Murakumo (G6). New lexicons: `com.etzhayyim.influence.{influencePost,influenceFlow}`.
+
+## Coverage measurement + ingest (scaling the seed)
+
+```bash
+# honest coverage report (eras, civilizational streams, denominators, gap map)
+python3 20-actors/tsumugi/methods/coverage_report.py
+# offline influence ingest (Wikidata-P737-shaped fixtures → :flow/ 縁, merged with seed)
+python3 20-actors/tsumugi/methods/ingest_influence.py
+#   → out/seed-plus-ingest.kotoba.edn — run analyze/coverage on THIS to see the lift
+python3 20-actors/tsumugi/methods/analyze_influence.py 20-actors/tsumugi/out/seed-plus-ingest.kotoba.edn
+# live ingest (REAL Wikidata WDQS P737 fetch, stdlib urllib) — G7-gated, refused w/o operator gate:
+TSUMUGI_OPERATOR_GATE=1 TSUMUGI_OPERATOR_DID=did:web:… \
+  python3 …/ingest_influence.py --live --limit 200 [--no-pantheon]
+#   → writes out/seed-plus-ingest-live.kotoba.edn ONLY (gitignored); the committed seed is
+#     NEVER auto-mutated — promotion into the canonical seed is a separate human-reviewed PR.
+# tests (25 total: 12 invariant/seed + 13 coverage/ingest incl. hermetic WDQS-parse fixtures)
+python3 20-actors/tsumugi/tests/test_influence.py
+python3 20-actors/tsumugi/tests/test_ingest_coverage.py
+```
+
+**Coverage truth (honest):** all-past-humanity coverage is ~0 **by design** (a bounded
+`:representative` sample). `coverage_report.py` measures the *useful* coverage — the major
+influence backbone of recorded thought — and names what is thin/missing. After Wave 2:
+**11/11 eras · 17/17 civilizational streams · 1 connected component · 0 isolated**; figures
+≈ 0.05% of MIT-Pantheon's 88,937 notables. Raising the real count needs the G7-gated
+`ingest_influence.py` live path (Wikidata `influencedBy` P737 / Pantheon → `:flow/` 縁;
+**N4 admits deceased/settled public figures only** — living-private persons stay the
+Council-Lv7+ `:human` scale; **N1** keeps notability off the node, influence on the edge).
+
+The live WDQS fetch is **wired + verified against real Wikidata** (a gated smoke pulled real
+P737 pairs, N5 held on real BCE/CE dates, output to `out/` only). **Honest follow-up**: an
+unanchored `LIMIT N` query returns arbitrary influence pairs that are disconnected from the
+curated backbone (components rise). To grow the *connected* graph, the live query should be
+**anchored** to existing seed figures (P737 neighbours of seed QIDs) or domain-filtered —
+a query refinement, not a wiring gap.
