@@ -14007,6 +14007,30 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606071600",
+      "type": "TechArticle",
+      "title": "ADR-2606071600: 透かし (sukashi) — Ad-Tech Supply-Chain + Delivery-Infra + Fraud-Network Observatory Tier-B Actor R0",
+      "status": "proposed",
+      "topic": "sukashi-ad-tech-supply-chain-fraud-network",
+      "authoritative": true,
+      "authoritativeFor": [
+        "sukashi actor charter (R0)",
+        "ad-tech supply-chain + fraud-network knowledge-graph constitutional gates G1..G13",
+        "ad-supply-chain-ontology.kotoba.edn vocabulary"
+      ],
+      "related": [
+        "doc:adr-2606022300-akashi-public-ad-disclosure-kotoba-actor-r0",
+        "doc:adr-2606031600-ipaddress-yabai-kotoba-eavt-refactor-active-collection",
+        "doc:adr-2605301400-tadori-onchain-tx-tracing-actor",
+        "doc:adr-2605312500-kurashimori-consumer-protection-concierge",
+        "doc:adr-2606060900-tasuke-cybercrime-victim-support-membrane",
+        "doc:adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "doc:adr-2606022000-kabuto-public-company-intel-supply-chain",
+        "doc:adr-2606013600-kotoba-wasm-browser-node"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
       "id": "doc:adr-2606071600-shukubo-pilgrim-lodging-commons",
       "type": "TechArticle",
       "title": "ADR-2606071600: shukubo 宿坊 — pilgrim-lodging commons (Airbnb/Hotels charter-clean inversion), R0",
