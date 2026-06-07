@@ -22,7 +22,7 @@ class AppState(TypedDict):
 
     # Fields from PostJournalState
     entry_data: dict
-    journal_entry: object | None
+    bkpf: object | None
     validation_errors: List[str]
     status: str
 
@@ -92,8 +92,8 @@ try:
                 "status": result_state.get("status", "UNKNOWN"),
                 "errors": result_state.get("validation_errors", [])
             }
-            if result_state.get("journal_entry"):
-                output["entry_id"] = result_state["journal_entry"].entry_id
+            if result_state.get("bkpf"):
+                output["entry_id"] = result_state["bkpf"].belnr
 
             return bytes(cbor2.dumps(output))
 except ImportError:

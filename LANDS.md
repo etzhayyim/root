@@ -68,7 +68,7 @@ Each steward annually:
 - Verifies land boundary (in-person inspection)
 - Records biodiversity census (`com.etzhayyim.apps.etzhayyim.land-biodiversity`)
 - Provides reasonable access to etzhayyim adherents for religious gathering / meditation
-- Ensures no commercial extraction (mining / clear-cut / large-scale monoculture)
+- Ensures no commercial extraction (mining / clear-cut / large-scale monoculture) — This prohibition is not merely environmental, but structural: it is designed to create a system that does not depend on monopolistic rare metals or restricted resources, thereby preventing resource monopolies on Earth.
 - Continues national obligations (property tax)
 
 See [ADR-2605192245 §5](90-docs/adr/2605192245-etzhayyim-global-land-sovereignty.md) for full duties.

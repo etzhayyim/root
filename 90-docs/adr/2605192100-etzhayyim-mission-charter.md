@@ -76,7 +76,7 @@ etzhayyim は宗教法人として、**人類が「労働」から構造的に�
 
 religious-corp が開発するすべての新技術・知財は、**方針整合的な他者には無償公開** される。これは ADR-2605192200 (IP-Free-Release + Charter Compliance Rider) によって、Apache 2.0 + Mission Charter Compliance Rider という形で実装される。
 
-Mission 整合的でない事業体 (兵器産業 / 投機金融 / 監視資本主義 / 化石燃料新規採掘 / 専門性独占ゲートキーピング) に対しては license が成立しない。これは「無償公開」と「使用許諾」を分離する religious-corp 固有の判断である。
+Mission 整合的でない事業体 (兵器産業 / 投機金融 / 監視資本主義 / 化石燃料・独占的資源（レアメタル等）の新規採掘 / 専門性独占ゲートキーピング) に対しては license が成立しない。これは「無償公開」と「使用許諾」を分離する religious-corp 固有の判断である。地球上での独占を防ぐため、独占的な資源に依存する採掘業態は構造的に排除される。
 
 ### 1.6 中間排除 (Disintermediation of Middlemen)
 

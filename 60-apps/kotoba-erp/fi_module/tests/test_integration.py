@@ -16,12 +16,10 @@ class TestFIIntegration(unittest.TestCase):
             "validation_errors": []
         }
         
-        # Test invocation without writing to KQE in this context,
-        # we would mock KQE but repository uses a simple mock if imported outside WASM
         result = compiled.invoke(initial_state)
         
         self.assertEqual(result["status"], "POSTED")
-        self.assertEqual(result["journal_entry"].entry_id, "DIRECT-001")
+        self.assertEqual(result["bkpf"].belnr, "DIRECT-001")
         self.assertEqual(result["route"], "direct_journal")
         
     def test_mm_event_processing(self):
@@ -41,18 +39,18 @@ class TestFIIntegration(unittest.TestCase):
         
         self.assertEqual(result["status"], "POSTED")
         self.assertEqual(result["route"], "map_mm_receipt")
-        self.assertEqual(result["journal_entry"].entry_id, "JE-GR-001")
+        self.assertEqual(result["bkpf"].belnr, "JE-GR-001")
         
-        lines = result["journal_entry"].lines
-        self.assertEqual(len(lines), 2)
+        items = result["bkpf"].items
+        self.assertEqual(len(items), 2)
         
-        debit_line = next(l for l in lines if l.is_debit)
-        self.assertEqual(debit_line.account_id, "1300")
-        self.assertEqual(debit_line.amount, 105.0)
+        debit_line = next(l for l in items if l.shkzg == 'S')
+        self.assertEqual(debit_line.hkont, "1300")
+        self.assertEqual(debit_line.wrbtr, 105.0)
         
-        credit_line = next(l for l in lines if not l.is_debit)
-        self.assertEqual(credit_line.account_id, "2110")
-        self.assertEqual(credit_line.amount, 105.0)
+        credit_line = next(l for l in items if l.shkzg == 'H')
+        self.assertEqual(credit_line.hkont, "2110")
+        self.assertEqual(credit_line.wrbtr, 105.0)
 
 if __name__ == "__main__":
     unittest.main()

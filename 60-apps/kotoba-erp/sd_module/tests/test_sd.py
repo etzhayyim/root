@@ -16,9 +16,9 @@ class TestSDIntegration(unittest.TestCase):
         result = compiled.invoke(initial_state)
         
         self.assertEqual(result["status"], "POSTED")
-        self.assertEqual(result["billing_doc"].billing_id, "INV-001")
-        self.assertEqual(result["billing_doc"].total_amount, 1000.0)
-        self.assertEqual(len(result["billing_doc"].lines), 1)
+        self.assertEqual(result["vbrk"].vbeln, "INV-001")
+        self.assertEqual(result["vbrk"].netwr, 1000.0)
+        self.assertEqual(len(result["vbrk"].items), 1)
 
 if __name__ == "__main__":
     unittest.main()

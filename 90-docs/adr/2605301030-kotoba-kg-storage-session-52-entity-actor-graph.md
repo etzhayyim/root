@@ -71,7 +71,7 @@ sealed with `kotoba commit`:
 | planetary-infra-producer | 1 | kuni-umi |
 | tier-b-actor | 28 | repo CLAUDE.md Tier-B roster |
 | constitutional-substrate | 6 | 50-infra religious-corp wave (TitheRouter … Constitution.sol) |
-| core-actor | 6 | kotodama / kuni-umi / etzhayyim-sdk / kotodama-go / effect-cypher / etzhayyim-bpmn-sdk |
+| core-actor | 5 | kotodama / kuni-umi / etzhayyim-sdk / kotodama-go / etzhayyim-bpmn-sdk |
 | labor-liberation-stage | 7 | ladder L0..L6 (precededBy chain) |
 | doctrine | 1 | Basic High Income (ADR-2605301020), linked to ladder/public-fund/tithe-router/land-registry |
 

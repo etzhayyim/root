@@ -2,30 +2,35 @@ from typing import List, Optional
 from datetime import datetime
 from dataclasses import dataclass, field
 
+# SAP Standard Model: SKA1 (G/L Account Master)
 @dataclass
-class Account:
-    account_id: str
-    name: str
-    account_type: str # e.g., 'ASSET', 'LIABILITY', 'EQUITY', 'REVENUE', 'EXPENSE'
-    balance: float = 0.0
+class SKA1:
+    saknr: str # G/L Account Number
+    txt20: str # G/L Account Short Text
+    xbilk: bool # Indicator: Account is a balance sheet account?
 
+# SAP Standard Model: BSEG (Accounting Document Segment)
 @dataclass
-class JournalEntryLine:
-    account_id: str
-    amount: float # Positive for Debit, Negative for Credit (or explicit debit/credit)
-    is_debit: bool
-    description: str
+class BSEG:
+    belnr: str # Accounting Document Number
+    buzei: str # Number of Line Item Within Accounting Document
+    hkont: str # General Ledger Account
+    shkzg: str # Debit/Credit Indicator ('H' for Credit, 'S' for Debit)
+    wrbtr: float # Amount in document currency
+    sgtxt: str # Item Text
 
+# SAP Standard Model: BKPF (Accounting Document Header)
 @dataclass
-class JournalEntry:
-    entry_id: str
-    date: datetime
-    lines: List[JournalEntryLine]
-    status: str = 'DRAFT' # 'DRAFT', 'POSTED', 'REJECTED'
+class BKPF:
+    belnr: str # Accounting Document Number
+    bukrs: str # Company Code
+    bldat: datetime # Document Date in Document
+    budat: datetime # Posting Date in the Document
+    items: List[BSEG]
+    bstat: str = 'V' # Document Status ('V' = Parked/Draft, '' = Posted)
 
     def validate_balance(self) -> bool:
         """Enterprise Business Rule: A journal entry must balance (Debits == Credits)."""
-        debits = sum(line.amount for line in self.lines if line.is_debit)
-        credits = sum(line.amount for line in self.lines if not line.is_debit)
+        debits = sum(item.wrbtr for item in self.items if item.shkzg == 'S')
+        credits = sum(item.wrbtr for item in self.items if item.shkzg == 'H')
         return abs(debits - credits) < 0.0001
-

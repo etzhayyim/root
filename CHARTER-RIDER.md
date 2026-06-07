@@ -171,6 +171,15 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
        doctrinal limit is here promoted to an enforced Rider clause). Prohibited
        regardless of revenue share.
 
+   (l) MONOPOLISTIC RESOURCE EXTRACTION / MINING (NEW in v3.0). Operation of
+       commercial mining or extraction of rare metals and other geologically
+       restricted resources. DERIVED FROM: Charter §1.12 (Anti-Monopoly) and
+       mission to avoid dependence. This prohibition is structural: it is designed
+       to create a system that does not depend on monopolistic rare metals or
+       restricted resources, thereby preventing resource monopolies on Earth.
+       Closed-loop recycling (urban mining) and non-monopolistic material
+       recovery are NOT prohibited.
+
 3. EFFECT OF VIOLATION
 
    Use of this work by a Non-Aligned Entity, or by any entity providing this work
