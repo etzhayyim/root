@@ -14,6 +14,7 @@ SUITES=(
   "methods/test_kakaku_forecast_e2e.py"
   "methods/test_persist.py"
   "methods/test_forecast.py"
+  "methods/test_forecast_quantile.py"
   "methods/test_backtest.py"
   "methods/test_calibrate.py"
   "methods/test_promote.py"
