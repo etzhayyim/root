@@ -3369,7 +3369,7 @@
     {
       "handle": "github-compat",
       "did": "did:web:etzhayyim.com:actor:github-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreiazcxsk43tdp5ac4y2rkb6rdgo3gjqwa4sdsu4ry7uxlflcocucgu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 35,
@@ -8130,7 +8130,7 @@
     {
       "handle": "twilio-compat",
       "did": "did:web:etzhayyim.com:actor:twilio-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreibaqzz7l3fflbzupta7h6ced4hvu2dbb33whck3nxbsihhskpexw4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,

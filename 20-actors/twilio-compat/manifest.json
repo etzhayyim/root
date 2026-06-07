@@ -11,8 +11,38 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreibaqzz7l3fflbzupta7h6ced4hvu2dbb33whck3nxbsihhskpexw4",
   "schema": "schema/twilio.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://www.twilio.com/docs",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "Message"
+    ],
+    "enums": {
+      "Message": {
+        "status": [
+          "queued",
+          "sending",
+          "sent",
+          "failed",
+          "delivered",
+          "undelivered",
+          "receiving",
+          "received",
+          "accepted",
+          "scheduled",
+          "read",
+          "canceled"
+        ],
+        "direction": [
+          "inbound",
+          "outbound-api",
+          "outbound-call",
+          "outbound-reply"
+        ]
+      }
+    }
+  },
   "entities": [
     "Message",
     "Call",

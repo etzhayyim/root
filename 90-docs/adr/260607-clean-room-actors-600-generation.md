@@ -208,7 +208,7 @@ schema/enums match each live vendor API field-for-field. To avoid overclaiming,
 that distinct axis is named **L5 (Verified)**: an actor reaches L5 only when its
 Kotoba schema + endpoint contract are reconciled against the platform's official
 API documentation (field names, types, enums, required-ness, error codes) via the
-Autonomous Reverse-Engineering Loop, with provenance recorded. **L5 count today: 1** — `stripe-compat` is the first doc-verified actor (Customer + PaymentIntent reconciled against docs.stripe.com, real `status` enum captured; see `00-contracts/schemas/cleanroom-l5-verification.json`). So: L4 = "production-grade clean-room
+Autonomous Reverse-Engineering Loop, with provenance recorded. **L5 count today: 3** — `stripe-compat`, `github-compat`, `twilio-compat` are doc-verified (reconciled against official API docs; real enums like Stripe PaymentIntent.status, GitHub issue.state, Twilio Message.status captured; see `00-contracts/schemas/cleanroom-l5-verification.json`).stripe.com, real `status` enum captured; see `00-contracts/schemas/cleanroom-l5-verification.json`). So: L4 = "production-grade clean-room
 implementation" (achieved corpus-wide); L5 = "verified against the real API"
 (the next, doc-gated tier).
 

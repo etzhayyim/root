@@ -4,8 +4,53 @@
   "adr": ["260607"],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 1,
+  "count": 3,
   "actors": [
+    {
+      "handle": "github-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://docs.github.com/en/rest",
+      "resources": [
+        {
+          "entity": "Repository",
+          "source": "https://docs.github.com/en/rest/repos/repos",
+          "verifiedFields": ["name", "owner", "defaultBranch", "private", "stars"],
+          "fieldStatus": "all generated fields confirmed (stars = real stargazers_count; owner = Simple User; defaultBranch = default_branch)",
+          "discoveredEnums": {},
+          "gaps": ["full_name", "fork", "language", "description", "html_url", "visibility"]
+        },
+        {
+          "entity": "Issue",
+          "source": "https://docs.github.com/en/rest/issues/issues",
+          "verifiedFields": ["number", "title", "state", "authorId"],
+          "fieldStatus": "all generated fields confirmed (authorId = real user/Simple User; body also present)",
+          "discoveredEnums": {"state": ["open", "closed"]},
+          "gaps": ["body", "state_reason", "labels", "assignees", "milestone"]
+        }
+      ],
+      "note": "Repository + Issue reconciled against the official GitHub REST docs; PullRequest/Commit/Workflow/Release pending."
+    },
+    {
+      "handle": "twilio-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://www.twilio.com/docs",
+      "resources": [
+        {
+          "entity": "Message",
+          "source": "https://www.twilio.com/docs/messaging/api/message-resource",
+          "verifiedFields": ["fromNumber", "toNumber", "body", "status", "direction"],
+          "fieldStatus": "all generated fields confirmed (fromNumber=from, toNumber=to)",
+          "discoveredEnums": {
+            "status": ["queued", "sending", "sent", "failed", "delivered", "undelivered", "receiving", "received", "accepted", "scheduled", "read", "canceled"],
+            "direction": ["inbound", "outbound-api", "outbound-call", "outbound-reply"]
+          },
+          "gaps": ["price", "num_segments", "error_code", "messaging_service_sid", "date_sent"]
+        }
+      ],
+      "note": "Message reconciled against the official Twilio docs; Call/PhoneNumber/Verification/Recording/Conference pending."
+    },
     {
       "handle": "stripe-compat",
       "verifiedAt": "2026-06-08",

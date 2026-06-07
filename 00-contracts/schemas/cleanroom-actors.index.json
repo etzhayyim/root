@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 999,
-    "L5": 1
+    "L4": 997,
+    "L5": 3
   },
   "actors": [
     {
@@ -6734,7 +6734,7 @@
       "wasmCid": "bafkreiazcxsk43tdp5ac4y2rkb6rdgo3gjqwa4sdsu4ry7uxlflcocucgu",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "github clean-room actor",
       "category": "devops_ci",
       "capabilities": [
@@ -16256,7 +16256,7 @@
       "wasmCid": "bafkreibaqzz7l3fflbzupta7h6ced4hvu2dbb33whck3nxbsihhskpexw4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "twilio clean-room actor",
       "category": "telecom_satellite",
       "capabilities": [

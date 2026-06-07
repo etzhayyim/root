@@ -11,8 +11,23 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiazcxsk43tdp5ac4y2rkb6rdgo3gjqwa4sdsu4ry7uxlflcocucgu",
   "schema": "schema/github.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://docs.github.com/en/rest",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "Repository",
+      "Issue"
+    ],
+    "enums": {
+      "Issue": {
+        "state": [
+          "open",
+          "closed"
+        ]
+      }
+    }
+  },
   "entities": [
     "Repository",
     "Issue",
