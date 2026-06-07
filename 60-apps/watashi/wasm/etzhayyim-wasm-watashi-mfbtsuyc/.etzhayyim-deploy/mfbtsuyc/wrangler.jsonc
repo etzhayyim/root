@@ -1,5 +1,5 @@
 {
-  "name": "magatama-mfbtsuyc",
+  "name": "kotodama-mfbtsuyc",
   "main": "src/app.ts",
   "compatibility_date": "2025-03-17",
   "compatibility_flags": ["nodejs_compat","nodejs_als"],
@@ -44,7 +44,7 @@
     { "binding": "SS_EPIDEMIC_SOUND_JWT_2", "store_id": "1824561668fe47cc9127d493961885af", "secret_name": "epidemic_sound_jwt_2" },
     { "binding": "SS_TURN_KEY_ID", "store_id": "1824561668fe47cc9127d493961885af", "secret_name": "turn_key_id" },
     { "binding": "SS_TURN_KEY_API_TOKEN", "store_id": "1824561668fe47cc9127d493961885af", "secret_name": "turn_key_api_token" },
-    { "binding": "SS_MAGATAMA_INTERNAL_TOKEN", "store_id": "1824561668fe47cc9127d493961885af", "secret_name": "magatama_internal_token" }
+    { "binding": "SS_KOTODAMA_INTERNAL_TOKEN", "store_id": "1824561668fe47cc9127d493961885af", "secret_name": "kotodama_internal_token" }
   ],
   "rules": [
     { "type": "CompiledWasm", "globs": ["**/*.wasm"] }

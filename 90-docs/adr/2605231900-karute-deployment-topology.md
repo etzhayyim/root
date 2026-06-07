@@ -128,7 +128,7 @@ Two-container k3s Pod following ADR-2605171800:
 
 | Container | Image | Role |
 |---|---|---|
-| `server` | `ghcr.io/etzhayyim/lg-karute:main` | Python 3.11 + langgraph-cli + pymagatama. Serves the `karute` graph (31-pipeline StateGraph defined at `pymagatama.projects.karute.pregel:app`). Phase 1 stub: every node returns `{"status": "stub"}` — the graph topology is real, but the substrate calls (encrypt.write / graph.write / agent.chat / agent.invoke) are not yet wired. |
+| `server` | `ghcr.io/etzhayyim/lg-karute:main` | Python 3.11 + langgraph-cli + kotodama. Serves the `karute` graph (31-pipeline StateGraph defined at `kotodama.projects.karute.pregel:app`). Phase 1 stub: every node returns `{"status": "stub"}` — the graph topology is real, but the substrate calls (encrypt.write / graph.write / agent.chat / agent.invoke) are not yet wired. |
 | `checkpointer` | `ghcr.io/etzhayyim/etzhayyim-sdk-checkpointer:main` | TS sidecar. Reads from the Unix socket at `/run/etzhayyim/checkpointer.sock`. AEAD-seals every payload with a per-cell XChaCha20-Poly1305 key (lazy-generated, persisted to PVC). MUST be enabled for karute (`ETZ_CHECKPOINTER_ENCRYPT_CELLS=did:web:karute.etzhayyim.com`). |
 
 Resource profile (initial):

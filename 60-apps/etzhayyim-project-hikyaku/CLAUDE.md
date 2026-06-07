@@ -20,7 +20,7 @@ Browser (SuperApp Mobile-First)
               ├─ HikyakuQueryService — list/search/track/stats
               ├─ actor.SendRoomEvent() → Matrix MessagingService
               ├─ HC Integration → hc.etzhayyim.com HCCommandService (runner 募集)
-              └─ magatama WIT → SQL graph (Arrow schema)
+              └─ kotodama WIT → SQL graph (Arrow schema)
 ```
 
 ## Event Stream Services

@@ -3,7 +3,7 @@
 Society6 加入のための改宗・宣誓・KYC・ブロックチェーン公開記録を統合する App。
 
 - Public URL: `https://conversion.etzhayyim.com`
-- Runtime: App (magatama runtime)
+- Runtime: App (kotodama runtime)
 - Data: LanceDB (performer/lancedbrest)
 
 ## Workflow

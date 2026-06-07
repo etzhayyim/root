@@ -67,7 +67,7 @@
         "verdict": {
           "type": "string",
           "enum": ["approve", "escalate", "unverdicted"],
-          "description": "If a FeedPostCell (`20-actors/magatama/cells/feed_post/`) verdict has been observed for this record, propagate the kind. `reject` records are NOT promoted into the projection. Default `unverdicted` (no verdict observed yet — common for fresh writes pre-membrane)."
+          "description": "If a FeedPostCell (`40-engine/kotoba/crates/kotoba-kotodama/cells/feed_post/`) verdict has been observed for this record, propagate the kind. `reject` records are NOT promoted into the projection. Default `unverdicted` (no verdict observed yet — common for fresh writes pre-membrane)."
         }
       }
     }

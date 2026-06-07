@@ -36,7 +36,7 @@ All artifacts live at `b2://etzhayyim-nats/voxelforge/v1/{designId}/...`.
 |---|---|---|
 | TRELLIS | `kind=text` or `kind=image` (default) | `https://vyp99t9px7h4dl-5000.proxy.runpod.net/v1/generate` |
 | ComfyUI 3D-Pack | `kind=image` (operator override; better at sharp objects) | `https://vyp99t9px7h4dl-8188.proxy.runpod.net/api/...` |
-| CadQuery | `kind=cad` | exec inside LangGraph node sandbox (`pymagatama.voxelforge.converters.exec_cadquery`) |
+| CadQuery | `kind=cad` | exec inside LangGraph node sandbox (`kotodama.voxelforge.converters.exec_cadquery`) |
 
 ## Auth
 

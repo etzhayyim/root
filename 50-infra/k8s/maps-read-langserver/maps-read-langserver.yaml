@@ -20,12 +20,12 @@ spec:
         - name: ghcr-creds
       containers:
         - name: worker-api
-          image: ghcr.io/etzhayyim/pymagatama:maps-worldmonitor-market-91d57ab127d-20260514082800-amd64
+          image: ghcr.io/etzhayyim/kotodama:maps-worldmonitor-market-91d57ab127d-20260514082800-amd64
           imagePullPolicy: IfNotPresent
           command:
             - python
             - -m
-            - pymagatama.worker_api
+            - kotodama.worker_api
           ports:
             - name: http
               containerPort: 8081

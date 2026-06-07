@@ -65,11 +65,11 @@ data-collection, b2-replication, shinka-tick (helm `enabled=false` 扱い)
 - 失敗・retry・compensation を BPMN で記述したい
 - `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/<project>/<method>.bpmn` の DSL で表現可
 
-**現行該当**: yoro/platformPulse, animeka/autopilot, magatama/shinkaCronTick,
+**現行該当**: yoro/platformPulse, animeka/autopilot, kotodama/shinkaCronTick,
 shinka/manualTick, kouza/syncDueConnections, maps/* (6 process),
 tsukuru/* (21 業種), purge/* (7 PII purge), patent/* (3 process)
 
-## 3. Python worker (pymagatama / pyzeebe job worker) — actor primitive
+## 3. Python worker (kotodama / pyzeebe job worker) — actor primitive
 
 **役割**: BPMN ServiceTask から呼ばれる primitive 実装、または
 Zeebe runtime に常駐するカスタム job worker。
@@ -79,7 +79,7 @@ Zeebe runtime に常駐するカスタム job worker。
 - Python エコシステム (pandas / RDKit / playwright / scrapy 等) が必要
 - 単独 cron ではなく、BPMN timer から triggered job として動く
 
-**現行該当**: pymagatama dispatcher (F5 watcher),
+**現行該当**: kotodama dispatcher (F5 watcher),
 generic.{db,pds,agent,llm}.* primitives,
 defence cluster watcher
 
@@ -98,7 +98,7 @@ defence cluster watcher
 - M365 token refresh (calendar/contacts/cowork/docs/drive/gmail/meet/sheets/slides/tasks の `*/15` or `*/30`)
   → BPMN `R/PT15M` timer + `m365TokenRefresh.bpmn` ServiceTask が
   該当 worker の token endpoint を叩く
-- atproto / graph / magatama / murakumo (`*/5`, `* * * * *`) → 内部
+- atproto / graph / kotodama / murakumo (`*/5`, `* * * * *`) → 内部
   state housekeeping。BPMN timer + 該当 worker の `/_cron/tick` XRPC へ
 - bluesky / bpmn / public-malak / kg-curator → 同上、BPMN timer 化
 - **例外**: CF Worker の `scheduled()` handler 自体は残してよいが、

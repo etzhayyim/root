@@ -17,4 +17,4 @@ Original prompt: gameya.etzhayyim.com として game を作り, nintendo quality
 
 Completed rollout evidence:
 - Wired `gameya_quality_loop` to durable RW assistant/deployment rows in `30-graph/graph-schema/sql_migrations/20260509560000_gameya_quality_loop_assistant.up.sql`.
-- Deployed `gameya.etzhayyim.com/*` and `g4m3ya00.etzhayyim.com/*` via Cloudflare Worker `magatama-g4m3ya00`; latest verified Version ID `5bb4d7f1-0df8-4b2a-a7a1-4535a677b89d`.
+- Deployed `gameya.etzhayyim.com/*` and `g4m3ya00.etzhayyim.com/*` via Cloudflare Worker `kotodama-g4m3ya00`; latest verified Version ID `5bb4d7f1-0df8-4b2a-a7a1-4535a677b89d`.

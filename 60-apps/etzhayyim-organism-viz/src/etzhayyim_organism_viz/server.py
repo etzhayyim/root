@@ -133,7 +133,7 @@ async def api_pruning():
 _WATCH_PATHS = [
     "_observations",
     "90-docs/adr",
-    "20-actors/magatama/cells",
+    "40-engine/kotoba/crates/kotoba-kotodama/cells",
     ".git/refs/heads/main",
     ".git/HEAD",
     "LANDS.md",

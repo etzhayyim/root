@@ -1,5 +1,5 @@
 ;; unspsc-ontology — kotoba EAVT vocabulary for the Open-UNSPSC commodity-agent fleet
-;; ADR-2605171300 (Open-UNSPSC Generative Agent Fleet) · actor family: magatama unispsc_agents
+;; ADR-2605171300 (Open-UNSPSC Generative Agent Fleet) · actor family: kotodama unispsc_agents
 ;;
 ;; PURPOSE
 ;;   A content-addressed Datom (EAVT) vocabulary registering the UNSPSC commodity

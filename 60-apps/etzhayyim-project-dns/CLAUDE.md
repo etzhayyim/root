@@ -94,8 +94,8 @@ User message → resolveIntent() → tool name + args → mcp.etzhayyim.com/mcp 
 ### 外部 Agent からの Invoke
 
 ```go
-magatama.Invoke("did:web:scndu0rf.etzhayyim.com", "record_create", `{"domain":"example.com","type":"A","name":"api","content":"1.2.3.4"}`)
-magatama.Invoke("did:web:scndu0rf.etzhayyim.com", "health_check", `{"domain":"example.com"}`)
+kotodama.Invoke("did:web:scndu0rf.etzhayyim.com", "record_create", `{"domain":"example.com","type":"A","name":"api","content":"1.2.3.4"}`)
+kotodama.Invoke("did:web:scndu0rf.etzhayyim.com", "health_check", `{"domain":"example.com"}`)
 ```
 
 ## Squarespace → Cloudflare Transfer (yorishiro-squarespace cross-actor)
@@ -166,7 +166,7 @@ await sdk.did.create("actor:sqExporter", {
 
 ④ cfRegistrar の onCommit(transferOutcome) →
      - success: zone DID create (`sdk.did.create("zone:{slug}")`) + com.etzhayyim.dns.ownershipTransfer record
-     - T1 social announce は magatama.jsonld derive rule で自動導出
+     - T1 social announce は kotodama.jsonld derive rule で自動導出
      - failure: derive rule で失敗通知のみ (rollback は sqExporter が step 単位で re-lock 等を実行)
 ```
 
@@ -180,9 +180,9 @@ await sdk.did.create("actor:sqExporter", {
 
 **Design E rule compliance:**
 - 3 record とも Tier 2 `ComAtprotoRepoCreateRecord()` で書く。handler 内で `postFeed` / explicit Invoke は呼ばない
-- Social announce (transfer 成立/失敗) は `magatama.jsonld` の `derive` rule で PDS commit pipeline が自動導出
+- Social announce (transfer 成立/失敗) は `kotodama.jsonld` の `derive` rule で PDS commit pipeline が自動導出
 - `transferStep.authCodeEncrypted` は `signal:v1:{ciphertext}` prefix 必須 (EPP code を federable Repo record に平文で載せない)
-- `subscribeRepos.collections[]` に 3 NSID を追加 (両 Worker の magatama.jsonld)
+- `subscribeRepos.collections[]` に 3 NSID を追加 (両 Worker の kotodama.jsonld)
 
 ### Governance
 
@@ -201,7 +201,7 @@ await sdk.did.create("actor:sqExporter", {
 |---|---|
 | nanoid | `sqddf3sp` |
 | DID | `did:web:sqddf3sp.etzhayyim.com` |
-| WIT | `magatama:browser/automation@1.0.0` import |
+| WIT | `kotodama:browser/automation@1.0.0` import |
 | project | `etzhayyim-project-yorishiro` |
 | deploy | account-level Worker |
 | known limitation | WASM instantiate に `HEADLESS_BROWSER` binding 必要。Container mode で解消 |
@@ -263,7 +263,7 @@ await sdk.did.create("actor:sqExporter", {
 | DNSSEC API | enable/disable |
 | SSL/TLS API | certificate list |
 
-**認証**: `CLOUDFLARE_API_TOKEN` env → `magatama.ConfigGet()` → `magatama.Send()` (net/http)。
+**認証**: `CLOUDFLARE_API_TOKEN` env → `kotodama.ConfigGet()` → `kotodama.Send()` (net/http)。
 
 ## Commands
 

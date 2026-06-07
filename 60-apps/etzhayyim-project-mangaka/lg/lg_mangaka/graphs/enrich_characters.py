@@ -39,7 +39,7 @@ async def _step_load_targets(state: _State) -> dict[str, Any]:
     if not profiles: return {"targets": []}
     rkeys = list(profiles.keys())
     rows = []
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     import asyncio
     client = get_kotoba_client()
     for rkey in rkeys:
@@ -70,7 +70,7 @@ async def _step_write_back(state: _State) -> dict[str, Any]:
     if state.get("dry_run"):
         return {"status": "enriched", "counts": {"updated": len(merged)}, "error": None}
     written = 0
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     import asyncio
     client = get_kotoba_client()
     for m in merged:

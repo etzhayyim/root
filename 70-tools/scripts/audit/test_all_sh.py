@@ -35,7 +35,7 @@ ALL_SH = REPO_ROOT / "70-tools/scripts/audit/all.sh"
 #
 # 2026-06-05 re-baseline 7 → 8 (investigated, not blind-bumped): the subrepo set
 # turned over since the 2026-05-27 baseline — several 2026-06-03/04 60-apps
-# subrepos (har / watashi / intel / os / news / activity-monitor / ai-gftd-
+# subrepos (har / watashi / intel / os / news / activity-monitor / etzhayyim-
 # resources) were vendored with upstreams that were never published, so all 8
 # current stale URLs are confirmed 404 defunct/unpublished upstreams of vendored
 # app code (nothing internally fixable; restoring them would require pushing the

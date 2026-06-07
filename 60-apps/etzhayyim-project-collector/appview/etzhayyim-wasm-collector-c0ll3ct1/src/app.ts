@@ -26,7 +26,7 @@ export default {
         actor: "did:web:collector.etzhayyim.com",
         nanoid: env.APP_NANOID ?? "c0ll3ct1",
         execution: "thin-edge+bpmn+langserver",
-        businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/collector.py",
+        businessLogic: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/collector.py",
         bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/collector",
         adr: "ADR-0036, ADR-2604282300",
       });

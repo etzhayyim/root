@@ -10,7 +10,7 @@ def process_file(f):
         return
 
     # Replace imports
-    content = re.sub(r'import psycopg', 'from pymagatama.kotoba_datomic import get_kotoba_client\nimport asyncio', content)
+    content = re.sub(r'import psycopg', 'from kotodama.kotoba_datomic import get_kotoba_client\nimport asyncio', content)
     # Some files might already import asyncio, but it's fine if it's duplicated or we can just ignore it since it's already there in most langgraph scripts. Let's do a cleaner replacement.
     content = re.sub(r'_RW_URL = os\.environ\.get\("RW_URL"\).*?\n', '', content)
     content = re.sub(r'if not _RW_URL:\n\s+return\s+\{.*?"error":.*?"RW_URL not set".*?\}\n', '', content)

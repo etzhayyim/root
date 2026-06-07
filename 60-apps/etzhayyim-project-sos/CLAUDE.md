@@ -35,6 +35,6 @@ Threlte-driven systems-thinking app that maps:
 ## References
 
 - `PROJECT.jsonld` — canonical identity (schema.org/Project)
-- `magatama.jsonld` — magatama actor manifest
+- `kotodama.jsonld` — kotodama actor manifest
 - ADR-2605264300 (kami-engine-sdk three.js-free cutover) §2 — confirms this app's Threlte deps are KEEP not dead
 - `60-apps/etzhayyim-project-cad/CLAUDE.md` — sibling Threlte-viewer pattern

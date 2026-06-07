@@ -8,7 +8,7 @@ known operational gotchas before they bite during a live rollout.
 
 - Actor: `did:web:ameno.etzhayyim.com` (nanoid `d94d27cb`)
 - Edge: CF Worker `ameno.etzhayyim.com` (XRPC dispatcher; ADR-2605111200 — no DB)
-- Pod: `ameno-langserver` in namespace `mitama-udf` (pymagatama image)
+- Pod: `ameno-langserver` in namespace `mitama-udf` (kotodama image)
 - Persist: `vertex_ameno_inferenceresult` on Kotoba/Datomic (Vultr VKE)
 - Firehose: NATS JetStream `pds.repo.commit.app_bsky_feed_post`
   (existing `pds-firehose-bridge` deployment)
@@ -80,20 +80,20 @@ The Phase 2 Kysely file at
 is kept as historical lineage and carries a SUPERSEDED header pointing
 at the Alembic revision; do not replay it.
 
-## 2. Rebuild the pymagatama image
+## 2. Rebuild the kotodama image
 
 The pod ships dispatcher routing, the SSE proxy, the ameno NSID
 handlers, and the credit AF write. All four landed in this branch and
 none of them are in the current production image
-`pymagatama:maps-worldmonitor-market-91d57ab127d-20260514082800-amd64`.
+`kotodama:maps-worldmonitor-market-91d57ab127d-20260514082800-amd64`.
 
 ```bash
 # Remote BuildKit only (50-infra/CLAUDE.md — no local docker for VKE
 # images; OrbStack/Rosetta is not a fallback).
 70-tools/scripts/buildkit/remote-build.sh \
-  --image ghcr.io/etzhayyim/pymagatama \
+  --image ghcr.io/etzhayyim/kotodama \
   --tag ameno-phase5c-$(date -u +%Y%m%d%H%M)-amd64 \
-  --context 20-actors/magatama/py
+  --context 40-engine/kotoba/crates/kotoba-kotodama/py
 ```
 
 Note the new tag — every later step substitutes it as `${IMAGE_TAG}`.
@@ -103,7 +103,7 @@ Note the new tag — every later step substitutes it as `${IMAGE_TAG}`.
 ```bash
 # Bump the image to the freshly-built tag (or hand-edit the YAML).
 sed -i.bak \
-  "s|pymagatama:maps-worldmonitor-market-[^[:space:]]*|pymagatama:${IMAGE_TAG}|" \
+  "s|kotodama:maps-worldmonitor-market-[^[:space:]]*|kotodama:${IMAGE_TAG}|" \
   50-infra/k8s/ameno-langserver/ameno-langserver.yaml
 
 kubectl apply -k 50-infra/k8s/ameno-langserver/
@@ -132,7 +132,7 @@ reach NATS — re-check `NATS_URL` (Phase 5a env) and the
 
 ## 4. Bounce the bpmn-dispatcher (picks up new image)
 
-The dispatcher Helm chart already references the same `pymagatama`
+The dispatcher Helm chart already references the same `kotodama`
 image — push the new tag through to it so `_proxy_to_lg_pod_sse`,
 `AMENO_LANGSERVER_PROXY_NSIDS`, and the `subscribeBriefs` route exist
 in-process.
@@ -140,7 +140,7 @@ in-process.
 ```bash
 helm -n mitama-udf upgrade --reuse-values bpmn-dispatcher \
   50-infra/vultr/mitama-udf-pool \
-  --set dispatcher.imageFullRef="ghcr.io/etzhayyim/pymagatama:${IMAGE_TAG}"
+  --set dispatcher.imageFullRef="ghcr.io/etzhayyim/kotodama:${IMAGE_TAG}"
 
 kubectl -n mitama-udf rollout status deploy/bpmn-dispatcher --timeout=120s
 
@@ -182,7 +182,7 @@ etzhayyim deploy --smoke-url https://d94d27cb.etzhayyim.com/health
 cd -
 ```
 
-`etzhayyim deploy` reads `magatama.jsonld` for the embed URL (Phase 1) and
+`etzhayyim deploy` reads `kotodama.jsonld` for the embed URL (Phase 1) and
 publishes the `ameno.etzhayyim.com` route. The smoke-url flag fails the
 deploy if `/health` is not 200 within ~30s.
 

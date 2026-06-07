@@ -6,7 +6,7 @@
     {
       "path": "/api/host-config",
       "method": "GET",
-      "description": "Desktop host runtime configuration exposed by magatama-desktop-host."
+      "description": "Desktop host runtime configuration exposed by kotodama-desktop-host."
     },
     {
       "path": "/api/guest-summary",

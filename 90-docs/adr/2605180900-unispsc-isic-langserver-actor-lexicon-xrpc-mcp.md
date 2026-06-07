@@ -9,7 +9,7 @@ last_verified: 2026-05-18
 priority: 7.5
 axis: architecture
 weight: 0.75
-priority_note: "Operationalizes the 18,343-agent UNSPSC fleet (ADR-2605171300) and authorizes a parallel ISIC Rev. 4 fleet (~428 agents). Establishes one langserver per taxonomy with lazy importlib registry, four call surfaces (HTTP / Magatama actor / XRPC / MCP), and a Haiku-default model policy with confidence-based Sonnet escalation."
+priority_note: "Operationalizes the 18,343-agent UNSPSC fleet (ADR-2605171300) and authorizes a parallel ISIC Rev. 4 fleet (~428 agents). Establishes one langserver per taxonomy with lazy importlib registry, four call surfaces (HTTP / Kotodama actor / XRPC / MCP), and a Haiku-default model policy with confidence-based Sonnet escalation."
 authoritative_for:
   - per-class agent fleet operational pattern (langserver-resident, lazy registry, LRU)
   - four-call-surface contract (direct HTTP, Actor, XRPC, MCP)
@@ -40,10 +40,10 @@ superseded_by: []
 | P3    | ISIC fleet first generation run           | ⏸ gated               | —   | Requires `ANTHROPIC_API_KEY` + explicit operator approval (~$0.30 Anthropic Batch spend) |
 | P4    | UNSPSC langserver pod                     | ✅ manifests-ready    | #19 | `50-infra/k8s/lg-open-unispsc/` Deployment + Service + HPA + Dockerfile; 18,342 agents lazy-loaded; smoke against `c10101501` PASS in 11 ms |
 | P5    | ISIC langserver pod                       | ✅ manifests-ready    | #19 | `50-infra/k8s/lg-open-isic/` same shape; empty registry is a valid steady state until P3 |
-| P6    | Magatama actor wrapper                    | ✅ complete           | #21 | `@etzhayyim/magatama-host-sdk/langserver-actor`; `UnispscActor` + `IsicActor` + `LangserverActorError`; 12/12 vitest |
-| P7    | XRPC handler + AppView                    | ✅ complete           | #27 | `@etzhayyim/magatama-host-sdk/langserver-xrpc-handler` (Hono); 2 CF Workers bound to `unispsc.etzhayyim.com` + `isic.etzhayyim.com`; 10/10 vitest |
+| P6    | Kotodama actor wrapper                    | ✅ complete           | #21 | `@etzhayyim/kotodama-host-sdk/langserver-actor`; `UnispscActor` + `IsicActor` + `LangserverActorError`; 12/12 vitest |
+| P7    | XRPC handler + AppView                    | ✅ complete           | #27 | `@etzhayyim/kotodama-host-sdk/langserver-xrpc-handler` (Hono); 2 CF Workers bound to `unispsc.etzhayyim.com` + `isic.etzhayyim.com`; 10/10 vitest |
 | P8    | MCP server                                | ✅ complete           | #22 | `@etzhayyim/unispsc-isic-mcp` v0.1.0; 9 MCP tools (zod 4 schemas); stdio + programmatic HTTP transports; 25/25 vitest |
-| P9    | Real Anthropic-SDK-backed classifier      | ⏳ pending            | —   | Replaces `stub_classifier` in `pymagatama.langserver.router`; requires `ANTHROPIC_API_KEY` at runtime |
+| P9    | Real Anthropic-SDK-backed classifier      | ⏳ pending            | —   | Replaces `stub_classifier` in `kotodama.langserver.router`; requires `ANTHROPIC_API_KEY` at runtime |
 
 **Four-surface architecture is functionally complete** (HTTP / Actor / XRPC / MCP).
 Remaining work: spend gate (P3) and runtime LLM wiring (P9). Both are
@@ -53,7 +53,7 @@ independent of each other and of the merged manifests.
 
 The repo already contains the UNSPSC LangGraph Pregel fleet authorized by
 ADR-2605171300: **18,343 per-commodity Python files** at
-`20-actors/magatama/py/src/pymagatama/langgraph_graphs/unispsc_agents/c{code}.py`,
+`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs/unispsc_agents/c{code}.py`,
 each exposing a compiled `graph = StateGraph(...).compile()` at module top
 level. Today these files exist as source only — there is no resident process
 serving them, no remote call surface, and no per-class agent fleet on the
@@ -65,7 +65,7 @@ Three forces converge:
 
 1. **Operational reachability**. UNSPSC agents must be invokable end-to-end
    from outside the Python process — from TypeScript apps (XRPC), from MCP
-   clients, from internal Magatama actors. Today only `dynamic_runner.py`
+   clients, from internal Kotodama actors. Today only `dynamic_runner.py`
    can load them, and only in-process.
 2. **Symmetry**. The 18-fold investment in UNSPSC has no ISIC analogue.
    Class-level economic activity classification (4-digit ISIC) is a similar
@@ -87,8 +87,8 @@ ISIC fleet.
 
 ```
                 ┌─ XRPC (10-protocol/xrpc + 60-apps AppView)
-Caller ─────────┼─ MCP server (20-actors/magatama/mcp/)
-                ├─ Magatama Actor (20-actors/magatama/sdk/magatama-host-sdk)
+Caller ─────────┼─ MCP server (40-engine/kotoba/crates/kotoba-kotodama/mcp/)
+                ├─ Kotodama Actor (40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk)
                 └─ Direct HTTP (LangServe /invoke /batch /stream)
                           │
                           ▼
@@ -119,9 +119,9 @@ Each langserver exposes `/invoke`, `/batch`, `/stream`, `/health`, and
 `/agents` over FastAPI + LangServe. Internal calls inside the cluster use
 the in-cluster Service DNS (`lg-open-unispsc.lg-open-unispsc.svc:8000`).
 
-## Call surface 2: Magatama Actor
+## Call surface 2: Kotodama Actor
 
-`20-actors/magatama/sdk/magatama-host-sdk` gets two new actor wrappers:
+`40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk` gets two new actor wrappers:
 
 ```typescript
 const unispsc = sdk.actor("unispsc");
@@ -136,7 +136,7 @@ const { path } = await isic.hierarchicalClassify({
 ```
 
 Implementation is a thin HTTP client targeting the in-cluster langserver
-Service DNS. Magatama auto-generates the actor card and capability
+Service DNS. Kotodama auto-generates the actor card and capability
 declaration from the lexicon set per the host-sdk convention.
 
 ## Call surface 3: XRPC
@@ -161,7 +161,7 @@ to the langserver via in-cluster HTTP.
 
 ## Call surface 4: MCP
 
-A new MCP server at `20-actors/magatama/mcp/unispsc-isic-mcp/` exposes the
+A new MCP server at `40-engine/kotoba/crates/kotoba-kotodama/mcp/unispsc-isic-mcp/` exposes the
 four primary lexicons as MCP tools (`classify_unispsc`, `classify_isic`,
 `invoke_agent`, `list_agents`). Each tool body is a thin wrapper that
 constructs the same lexicon-shaped XRPC payload, so validation and
@@ -202,7 +202,7 @@ Embedding pre-filter (delegated to `30-graph/vectorization/`) narrows the
 candidate space to top-20 codes before Haiku sees the prompt, reducing
 per-call cost to roughly $0.001 / classify.
 
-Model identifiers come from the `MODEL_REGISTRY` SSoT in the magatama
+Model identifiers come from the `MODEL_REGISTRY` SSoT in the kotodama
 host-sdk per existing convention; no hardcoded model strings in app code.
 
 ## ISIC fleet generation
@@ -224,7 +224,7 @@ reruns are cheap.
 Generated files land at:
 
 ```
-20-actors/magatama/py/src/pymagatama/langgraph_graphs/isic_agents/c{classCode}.py
+40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs/isic_agents/c{classCode}.py
 ```
 
 ## Phase ordering
@@ -235,9 +235,9 @@ Phase 2  ISIC fleet generation script     (this PR — done; no API spend yet)
 Phase 3  ISIC fleet first generation run  (separate PR; spends ~$0.30 of Haiku)
 Phase 4  Langserver pod for UNSPSC        (50-infra/k8s/lg-open-unispsc/)
 Phase 5  Langserver pod for ISIC          (50-infra/k8s/lg-open-isic/)
-Phase 6  Magatama actor wrapper           (20-actors/magatama/sdk)
+Phase 6  Kotodama actor wrapper           (40-engine/kotoba/crates/kotoba-kotodama/sdk)
 Phase 7  XRPC handler + AppView           (10-protocol/xrpc + 60-apps)
-Phase 8  MCP server                       (20-actors/magatama/mcp/)
+Phase 8  MCP server                       (40-engine/kotoba/crates/kotoba-kotodama/mcp/)
 Phase 9  Model-router policy hardening    (eval suite + escalation tuning)
 ```
 
@@ -249,7 +249,7 @@ work and together they unblock every following phase.
 ## 正の効果
 
 - **Per-class economic-activity agents become first-class callable units**
-  across the four surfaces a Magatama-shaped runtime knows about.
+  across the four surfaces a Kotodama-shaped runtime knows about.
 - **Bulk classification cost collapses** from Opus/Sonnet pricing to
   Haiku pricing while preserving Sonnet as a quality-gated escalation.
 - **ISIC reaches parity with UNSPSC** for a one-time spend of ~$0.30.
@@ -284,7 +284,7 @@ work and together they unblock every following phase.
 却下理由: per-taxonomy registries differ in size by ~40×; co-tenancy
 forces unfortunate LRU eviction patterns and obscures HPA signals.
 
-## B. Embed agents inside the Magatama actor process directly
+## B. Embed agents inside the Kotodama actor process directly
 
 却下理由: 18,343 modules + LangGraph runtime is too heavy for the
 TS-native Worker target. The actor wrapper is the right shape; the agents
@@ -308,8 +308,8 @@ $0.30 and 30 minutes wall-clock.
 - ADR-2605170900 — etzhayyim/root as canonical home for open ADRs
 - ADR-2605171300 — Open-UNSPSC generative agent fleet (18,343 agents)
 - ADR-2605172000 — RW-free substrate (langservers must not depend on RW)
-- `20-actors/magatama/py/src/pymagatama/langgraph_graphs/unispsc_agents/`
-- `20-actors/magatama/py/src/pymagatama/langgraph_graphs/dynamic_runner.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs/unispsc_agents/`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs/dynamic_runner.py`
 - `60-apps/etzhayyim-project-open-isic/data/classes/` (428 ISIC Rev. 4 class JSONs)
 - `00-contracts/lexicons/com/etzhayyim/apps/{unispsc,isic}/*.json` (this PR)
 - `70-tools/scripts/gen-isic/gen_isic_agents.py` (this PR)

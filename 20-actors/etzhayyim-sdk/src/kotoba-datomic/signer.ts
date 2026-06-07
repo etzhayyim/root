@@ -2,7 +2,7 @@
  * kotoba-datomic production Ed25519 signer + verifier.
  *
  * Pairs with the Python implementation in
- * ``20-actors/magatama/py/src/pymagatama/kotoba-datomic.py`` (``make_ed25519_signer`` +
+ * ``40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/kotoba-datomic.py`` (``make_ed25519_signer`` +
  * ``verify_ed25519_signature``). Both sides use the same canonical bytes
  * (see ``canonicalAttestationBytes`` in `./attestation.ts`), so a
  * signature produced on one side verifies on the other.

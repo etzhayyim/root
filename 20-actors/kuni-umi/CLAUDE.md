@@ -31,11 +31,11 @@ cells/{cell_name}/
 
 Common deps:
 
-- Checkpointing — `pymagatama.checkpointer.MstCheckpointSaver` ([ADR-2605191559](../../90-docs/adr/2605191559-ameno-mst-checkpointer-stage-2-activation.md))
-- MST listener — `pymagatama.listener.MstListener` (subscribes to `com.etzhayyim.kuniUmi.*`)
-- Web3 — `pymagatama.eligibility.web3_ports.{GethPrivatePort, BaseL2Port}` for `ChartersComplianceRegistry` / `TitheRouter`
-- UNSPSC procurement sub-graph — invoke via `pymagatama.unispsc.dispatch(commodityCode, intent="procure", qty=...)`
-- Giemon fleet driver — invoke via `pymagatama.open_robo.fleet.dispatch(fleetDid, taskCid)`
+- Checkpointing — `kotodama.checkpointer.MstCheckpointSaver` ([ADR-2605191559](../../90-docs/adr/2605191559-ameno-mst-checkpointer-stage-2-activation.md))
+- MST listener — `kotodama.listener.MstListener` (subscribes to `com.etzhayyim.kuniUmi.*`)
+- Web3 — `kotodama.eligibility.web3_ports.{GethPrivatePort, BaseL2Port}` for `ChartersComplianceRegistry` / `TitheRouter`
+- UNSPSC procurement sub-graph — invoke via `kotodama.unispsc.dispatch(commodityCode, intent="procure", qty=...)`
+- Giemon fleet driver — invoke via `kotodama.open_robo.fleet.dispatch(fleetDid, taskCid)`
 
 ## Witness invariant
 
@@ -56,4 +56,4 @@ Do NOT skip phases. Each S transition is its own ADR.
 - ADR-2605201400 (master)
 - ADR-2605192415 (3-tier actor + Murakumo placement)
 - ADR-2605171800 (checkpoint pipeline)
-- `20-actors/magatama/cells/README.md` (sibling cell catalog)
+- `40-engine/kotoba/crates/kotoba-kotodama/cells/README.md` (sibling cell catalog)

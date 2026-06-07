@@ -1,0 +1,140 @@
+{
+  "@context": "https://etzhayyim.com/ns/kotodama/v1",
+  "@id": "did:web:shinkansen.etzhayyim.com",
+  "component": {
+    "path": "component.wasm"
+  },
+  "convoSystemPrompt": "You are the Shinkansen reservation agent (shinkansen.etzhayyim.com). You help users book Japan bullet train tickets through natural conversation.\n\n## Booking Flow\nWhen a user wants to book, collect these slots through conversation:\n1. **Route**: departure station (from) and arrival station (to). Accept Japanese names (東京, 新大阪, 博多, etc.)\n2. **Date**: travel date (YYYY-MM-DD). If the user says 明日/来週月曜 etc., resolve to a concrete date.\n3. **Time**: preferred departure time. If not specified, search all times.\n4. **Seat class**: ordinary (普通車指定席, default), green (グリーン車), or unreserved (自由席).\n5. **Platform**: smartex (スマートEX, default for Tokaido/Sanyo) or ekinet (えきねっと, for JR East lines).\n\n## Tool Chaining\nOnce you have the route + date, chain tools in this order:\n1. `searchRoute` → show candidate trains with departure/arrival times\n2. Ask user to pick a train (or auto-pick the best match for their preferred time)\n3. `compareFare` → show fare options (regular, early-bird, SmartEX discount)\n4. `checkAvailability` → confirm seats are available\n5. Summarize: train, time, fare, seat class. Ask for confirmation.\n6. `createReservation` → book it. The user's DID is automatically resolved from the conversation context.\n7. Optionally `selectSeat` → if user wants a specific seat (窓側 A/E = window, 通路側 B/C/D = aisle)\n\n## Important Rules\n- Always respond in the user's language (Japanese or English)\n- Show prices in JPY (¥)\n- For Tokaido/Sanyo Shinkansen: default platform = smartex\n- For Tohoku/Joetsu/Hokuriku/Hokkaido: default platform = ekinet\n- If the user mentions 運行情報 or delays, use `getOperation` to check status before booking\n- If the user says キャンセル, use `cancelReservation`\n- If the user says 予約一覧 or 予約確認, use `listReservations`\n- Be concise. Show a clear summary table before confirming a booking.\n\n## Lines Reference\n東海道 (東京↔新大阪), 山陽 (新大阪↔博多), 東北 (東京↔新青森), 上越 (東京↔新潟), 北陸 (東京↔敦賀), 九州 (博多↔鹿児島中央), 北海道 (新青森↔新函館北斗), 西九州 (武雄温泉↔長崎)",
+  "deploy": {},
+  "duties": [
+    "勤労の義務"
+  ],
+  "governance": {
+    "raci": "responsible",
+    "classification": "internal",
+    "complianceFrameworks": [
+      "shinkansen-policy"
+    ]
+  },
+  "kpi": [
+    "credits の獲得"
+  ],
+  "name": "shinkansen",
+  "nanoid": "sh1nk4n0",
+  "performerType": "service",
+  "pool": {},
+  "profile": {
+    "agentType": "autonomous",
+    "capabilities": [
+      "reservation-management",
+      "timetable-search",
+      "fare-comparison",
+      "operation-status"
+    ],
+    "description": "Shinkansen reservation intelligence — SmartEX, EX-IC, ekinet integration, real-time operation status",
+    "displayName": "新幹線予約",
+    "isBot": true,
+    "operator": "etzhayyim.com"
+  },
+  "project": "shinkansen",
+  "routes": [
+    {
+      "host": "shinkansen.etzhayyim.com",
+      "paths": [
+        "/"
+      ],
+      "tls": true
+    }
+  ],
+  "runtimeType": "worker",
+  "space": {
+    "channels": [
+      {
+        "default": true,
+        "kind": "public",
+        "name": "shinkansen-feed"
+      },
+      {
+        "kind": "private",
+        "name": "my-reservations"
+      }
+    ],
+    "joinRule": "public",
+    "name": "新幹線予約"
+  },
+  "triggers": {
+    "http": {
+      "listen": "0.0.0.0:8080",
+      "routes": [
+        "/api/grpc/...",
+        "/health",
+        "/healthz",
+        "/readyz",
+        "/..."
+      ],
+      "spa": true,
+      "staticDir": "/wasm/svelte/dist"
+    },
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.post",
+        "app.bsky.feed.like",
+        "app.bsky.feed.repost",
+        "app.bsky.graph.follow",
+        "com.etzhayyim.apps.shinkansen.reservation",
+        "com.etzhayyim.apps.shinkansen.operation",
+        "com.etzhayyim.apps.shinkansen.timetable",
+        "com.etzhayyim.apps.calendar.event"
+      ]
+    }
+  },
+  "derive": [
+    {
+      "when": "com.etzhayyim.apps.shinkansen.operation",
+      "condition": "record.status === 'delay' || record.status === 'suspended'",
+      "then": "app.bsky.feed.post",
+      "template": "{{line}} {{status}}: {{detail}}"
+    }
+  ],
+  "uiType": "appview",
+  "projectTemplates": [
+    {
+      "id": "shinkansen-booking",
+      "name": "新幹線予約",
+      "description": "新幹線のチケット予約を会話で進めるプロジェクト",
+      "kind": "booking",
+      "defaultMembers": [
+        "did:web:shinkansen.etzhayyim.com",
+        "did:web:shinkansen.etzhayyim.com:actor:smartex",
+        "did:web:shinkansen.etzhayyim.com:actor:ekinet"
+      ],
+      "tasks": [
+        { "id": "route", "title": "出発駅・到着駅の確定", "order": 1 },
+        { "id": "datetime", "title": "日時の確定", "order": 2 },
+        { "id": "search", "title": "列車候補の検索", "order": 3, "tool": "searchRoute" },
+        { "id": "fare", "title": "料金比較", "order": 4, "tool": "compareFare" },
+        { "id": "confirm", "title": "予約内容の確認", "order": 5 },
+        { "id": "book", "title": "予約確定", "order": 6, "tool": "createReservation" },
+        { "id": "seat", "title": "座席指定（任意）", "order": 7, "tool": "selectSeat", "optional": true }
+      ],
+      "openingMessage": "新幹線の予約をお手伝いします。どちらからどちらへ、いつ頃のご出発ですか？"
+    },
+    {
+      "id": "shinkansen-status",
+      "name": "運行情報確認",
+      "description": "新幹線の運行状況をリアルタイムで確認",
+      "kind": "inquiry",
+      "defaultMembers": [
+        "did:web:shinkansen.etzhayyim.com",
+        "did:web:shinkansen.etzhayyim.com:actor:operation"
+      ],
+      "tasks": [
+        { "id": "check", "title": "運行情報の取得", "order": 1, "tool": "getOperation" }
+      ],
+      "openingMessage": "運行情報をお調べします。どの路線の状況を確認しますか？（東海道/山陽/東北/上越/北陸/九州/北海道/西九州）"
+    }
+  ],
+  "yata": {
+    "dataDir": "/data/yata"
+  }
+}

@@ -113,7 +113,7 @@
   "isolation_penalty": 11,
   "unadapted_penalty": 28.9,
   "scoring": {
-    "model": "overall = 45%*link_blend + 10%*dodaf_v2 + 10%*nist_csf_v2 + 5%*app_wit + 5%*contract + 5%*capability_export + 10%*deps_link + 5%*resource_flow + 5%*div; div = magatama:div WIT coverage (DIV-3 information/documents/materiel); badge penalty = 60%*isolation + 40%*unadapted deficits, applied only when badge data is present",
+    "model": "overall = 45%*link_blend + 10%*dodaf_v2 + 10%*nist_csf_v2 + 5%*app_wit + 5%*contract + 5%*capability_export + 10%*deps_link + 5%*resource_flow + 5%*div; div = kotodama:div WIT coverage (DIV-3 information/documents/materiel); badge penalty = 60%*isolation + 40%*unadapted deficits, applied only when badge data is present",
     "overall_score": 52.9,
     "link_blend_score": 64.9,
     "build_linker_score": 79.4,

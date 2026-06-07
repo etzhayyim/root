@@ -95,7 +95,7 @@ resilience.
   `28cd81764` (ADR-2606013600), this session-close ADR.
 - kotoba subrepo `main`: PR #14 (P0+P1), #15 (P2 transact), #16 (real guest jco);
   local `72f939a` (BSP driver) + `b509042` (real-browser BSP) pending a follow-on PR.
-- deployed: `magatama-yoro` (browser-node SW + bundle), `etzhayyim-did-web`
+- deployed: `kotodama-yoro` (browser-node SW + bundle), `etzhayyim-did-web`
   (browser-native /actors), `yoro-xrpc-adapter` (kotoba read path).
 
 # Honest gaps

@@ -17,14 +17,14 @@ related:
 # lg-karute
 
 LangServer pod serving the `karute` 31-pipeline StateGraph
-(`pymagatama.projects.karute.pregel:app`) over the standard LangGraph
+(`kotodama.projects.karute.pregel:app`) over the standard LangGraph
 CLI HTTP runtime.
 
 ## Files
 
 | File | Role |
 |---|---|
-| `Dockerfile` | python:3.11-slim + langgraph-cli + pymagatama (editable install) |
+| `Dockerfile` | python:3.11-slim + langgraph-cli + kotodama (editable install) |
 | `langgraph.json` | LangGraph CLI config — registers `karute` graph |
 | `deployment.yaml` | k8s ServiceAccount + PVC + Deployment + Service (2-container pod) |
 

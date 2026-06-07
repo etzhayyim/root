@@ -35,7 +35,7 @@ apps + 20-actors + 90-docs to etzhayyim, the inherited code still referenced
 `<LEGACY-DOMAIN>` in:
 
 - **24,559 .jsonld files** (JSON-LD `@context` namespace URIs, e.g.
-  `https://<LEGACY-DOMAIN>/ns/magatama/v1`, `https://yabai.<LEGACY-DOMAIN>/ontology/context`)
+  `https://<LEGACY-DOMAIN>/ns/kotodama/v1`, `https://yabai.<LEGACY-DOMAIN>/ontology/context`)
 - **677 .md files** (design docs, READMEs, ADRs migrated from etzhayyim)
 - **596 .ts / 679 .py / 240 .json / 38 .toml / 23 .js / 10 .mjs files**
   (source code referencing `*.<LEGACY-DOMAIN>` subdomains for app deployment)
@@ -51,7 +51,7 @@ The constitutional `Identity` rule in `/CLAUDE.md` declares
 ## Constraints
 
 1. **JSON-LD namespace URIs are schema identifiers.** Replacing
-   `https://<LEGACY-DOMAIN>/ns/magatama/v1` with the etzhayyim equivalent
+   `https://<LEGACY-DOMAIN>/ns/kotodama/v1` with the etzhayyim equivalent
    creates a new schema URI that must be served at etzhayyim.com to remain
    resolvable. External consumers (other AT Protocol participants, federated
    indexes) that pinned the legacy URI will get 404 until DNS/CDN routing

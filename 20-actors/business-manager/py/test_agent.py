@@ -105,5 +105,72 @@ class TrialBalance(unittest.TestCase):
         self.assertEqual(tb["totalDebitMinor"], tb["totalCreditMinor"])
 
 
+class Invoice(unittest.TestCase):
+    def _inv(self, **kw):
+        base = dict(invoiceId="inv-1", direction="payable", party="mitsuho",
+                    amountMinor=500_000 * 100, dueDate="2026-06-30", postedBy="did:plc:ap")
+        base.update(kw)
+        return base
+
+    def test_payable_staged_auto_approved(self):
+        out = agent.post_invoice(self._inv(), "2026-05-01")
+        self.assertEqual(out["state"], "staged")
+        self.assertEqual(out["direction"], "payable")
+        self.assertEqual(out["approved"], "auto-approved")
+        self.assertEqual(out["paymentStatus"], "open")
+
+    def test_large_invoice_approval_required(self):
+        out = agent.post_invoice(self._inv(amountMinor=2_000_000 * 100), "2026-05-01")
+        self.assertEqual(out["approved"], "approval-required")
+
+    def test_bad_direction_rejected(self):
+        self.assertEqual(agent.post_invoice(self._inv(direction="both"), "2026-05-01")["state"], "rejected")
+
+    def test_nonpositive_rejected(self):
+        self.assertEqual(agent.post_invoice(self._inv(amountMinor=0), "2026-05-01")["state"], "rejected")
+
+    def test_settle_member_only(self):
+        staged = agent.post_invoice(self._inv(), "2026-05-01")
+        srv = agent.settle_invoice(staged, "2026-06-01", {"origin": "server", "ref": "x"})
+        self.assertTrue(srv["refused"])
+        mem = agent.settle_invoice(staged, "2026-06-01", {"origin": "member", "ref": "s"})
+        self.assertEqual(mem["paymentStatus"], "paid")
+        self.assertEqual(mem["paidAt"], "2026-06-01")
+
+    def test_aging_splits_ap_ar_and_overdue(self):
+        invs = [
+            self._inv(invoiceId="ap1", direction="payable", amountMinor=100, dueDate="2026-01-01"),
+            self._inv(invoiceId="ar1", direction="receivable", amountMinor=250, dueDate="2026-12-31"),
+        ]
+        # mark them open (post_invoice output already paymentStatus=open after staging shape)
+        invs = [agent.post_invoice(i, "2026-05-01") for i in invs]
+        out = agent.invoice_aging(invs, "2026-06-07")
+        self.assertEqual(out["apOpenMinor"], 100)
+        self.assertEqual(out["arOpenMinor"], 250)
+        self.assertIn("ap1", out["overdue"])      # due 2026-01-01 < as-of
+        self.assertNotIn("ar1", out["overdue"])   # due 2026-12-31 > as-of
+
+
+class Budget(unittest.TestCase):
+    def test_budget_vs_actual_variance(self):
+        budget = {"account": "5000", "fiscalYear": "FY2026", "allocatedMinor": 1_000_000}
+        entries = [
+            {"fiscalYear": "FY2026", "lines": [{"account": "5000", "debitMinor": 300_000, "creditMinor": 0}]},
+            {"fiscalYear": "FY2026", "lines": [{"account": "5000", "debitMinor": 200_000, "creditMinor": 0}]},
+            {"fiscalYear": "FY2025", "lines": [{"account": "5000", "debitMinor": 999, "creditMinor": 0}]},  # other FY ignored
+        ]
+        out = agent.budget_vs_actual(budget, entries)
+        self.assertEqual(out["spentMinor"], 500_000)
+        self.assertEqual(out["remainingMinor"], 500_000)
+        self.assertFalse(out["over"])
+
+    def test_over_budget_flagged(self):
+        budget = {"account": "5000", "fiscalYear": "FY2026", "allocatedMinor": 100}
+        entries = [{"fiscalYear": "FY2026", "lines": [{"account": "5000", "debitMinor": 250, "creditMinor": 0}]}]
+        out = agent.budget_vs_actual(budget, entries)
+        self.assertTrue(out["over"])
+        self.assertEqual(out["remainingMinor"], -150)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

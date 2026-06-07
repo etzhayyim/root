@@ -172,5 +172,55 @@ class OrderFlow(unittest.TestCase):
         self.assertEqual(o["state"], "in-use")                         # G13: never terminal
 
 
+class NoOversell(unittest.TestCase):
+    def setUp(self):
+        self.sf = _open_actor_storefront()
+        self.listing = agent.create_listing(self.sf, "Koshihikari 5kg", 8_000_000, inventory=3)
+
+    def test_available_minus_active_reservations(self):
+        orders = [{"listingId": self.listing["listingId"], "qty": 2, "state": "settle-intent"}]
+        self.assertEqual(agent.available_inventory(self.listing, orders), 1)
+
+    def test_cancelled_order_releases_inventory(self):
+        orders = [{"listingId": self.listing["listingId"], "qty": 3, "state": "cancelled"}]
+        self.assertEqual(agent.available_inventory(self.listing, orders), 3)
+
+    def test_oversell_refused(self):
+        # 3 on hand, 2 already reserved → only 1 available; ordering 2 is refused
+        existing = [{"listingId": self.listing["listingId"], "qty": 2, "state": "settle-intent"}]
+        out = agent.place_order("did:plc:buyer-alice", self.listing, 2, "c", SBT, open_orders=existing)
+        self.assertEqual(out["state"], "refused")
+        self.assertIn("oversell", out["reason"])
+
+    def test_order_within_available_ok(self):
+        existing = [{"listingId": self.listing["listingId"], "qty": 2, "state": "settle-intent"}]
+        out = agent.place_order("did:plc:buyer-alice", self.listing, 1, "c", SBT, open_orders=existing)
+        self.assertEqual(out["state"], "settle-intent")
+
+    def test_cancel_then_reorder(self):
+        cancelled = [{"listingId": self.listing["listingId"], "qty": 3, "state": "cancelled"}]
+        out = agent.place_order("did:plc:buyer-alice", self.listing, 3, "c", SBT, open_orders=cancelled)
+        self.assertEqual(out["state"], "settle-intent")
+
+
+class OrderCancel(unittest.TestCase):
+    def test_cancel_sets_state(self):
+        out = agent.cancel_order({"state": "settle-intent", "orderId": "o1"})
+        self.assertEqual(out["state"], "cancelled")
+
+    def test_cannot_cancel_delivered(self):
+        out = agent.cancel_order({"state": "delivered", "orderId": "o1"})
+        self.assertTrue(out["refused"])
+
+
+class Fulfilment(unittest.TestCase):
+    def test_non_gig_handoff(self):
+        f = agent.build_fulfilment({"orderId": "o1", "fulfilmentActor": "todoke"})
+        self.assertEqual(f["fulfilmentActor"], "todoke")
+        self.assertFalse(f["gig"])            # G8
+        self.assertFalse(f["serverSigned"])   # G12
+        self.assertEqual(f["state"], "handed-off")
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

@@ -2,7 +2,7 @@
 
 Skyscanner-equivalent flight fare aggregation actor. **P1–P8 shipped 2026-04-28.**
 All compute lives in LangServer BPMN-contract (`etzhayyim-root/00-contracts/bpmn/com/etzhayyim/flight-offer/`) +
-LangServer primitives (`20-actors/magatama/py/src/pymagatama/ingest/flight_offer.py`).
+LangServer primitives (`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/flight_offer.py`).
 The CF Worker in `appview/` is a thin presentation layer.
 
 | Layer | Where |

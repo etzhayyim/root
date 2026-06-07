@@ -82,7 +82,7 @@ narrative, persisting to kotoba EAVT (NOT RisingWave like `maps`).
 
 ## Architecture
 
-5 Pregel cells, each path-reserved at R0 under `20-actors/magatama/cells/kanae_*/`:
+5 Pregel cells, each path-reserved at R0 under `40-engine/kotoba/crates/kotoba-kotodama/cells/kanae_*/`:
 
 ```
 flow_assembler ──┐
@@ -201,8 +201,8 @@ node --test 70-tools/scripts/lint/no-kanae-adjudication.test.mjs
 R1 smoke test (when cells are created):
 
 ```bash
-cd 20-actors/magatama/py
-python -c "from magatama.cells.kanae_flow_assembler import _r0_marker" 2>&1 | grep "R0 scaffold"
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
+python -c "from kotodama.cells.kanae_flow_assembler import _r0_marker" 2>&1 | grep "R0 scaffold"
 # ... similar for all 5 kanae_* cells
 ```
 

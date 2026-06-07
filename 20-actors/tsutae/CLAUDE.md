@@ -117,7 +117,7 @@ e7m actor deploy .
 ```bash
 cd /tmp
 for cell in tsutae_pcb_smt tsutae_chassis_assembly tsutae_display_attachment tsutae_firmware_load tsutae_final_qc tsutae_packaging tsutae_device_attestation tsutae_recycling_intake; do
-  PYTHONPATH=/path/to/etzhayyim-root/20-actors/magatama/cells python3 -c "import ${cell}.cell" 2>&1 | tail -1
+  PYTHONPATH=/path/to/etzhayyim-root/40-engine/kotoba/crates/kotoba-kotodama/cells python3 -c "import ${cell}.cell" 2>&1 | tail -1
 done
 ```
 

@@ -56,7 +56,7 @@ See: `90-docs/adr/0048-kotoba-vultr-b2-primary.md`, `50-infra/vultr/kotoba/`, su
 
 ---
 
-## Recent Completion: pymagatama 0.3.35 — whois RDAP + CC entity cursor fixes (2026-05-05)
+## Recent Completion: kotodama 0.3.35 — whois RDAP + CC entity cursor fixes (2026-05-05)
 
 **Status**: ✅ **COMPLETE — 0.3.35 deployed, vertex_whois_record populating, CC cursors advancing**
 
@@ -94,7 +94,7 @@ See: `90-docs/adr/0048-kotoba-vultr-b2-primary.md`, `50-infra/vultr/kotoba/`, su
 
 ### Deployment
 
-- **Image**: `ghcr.io/etzhayyim/pymagatama:0.3.35-202605050833-amd64` (built `docker buildx --platform linux/amd64 --no-cache --push`)
+- **Image**: `ghcr.io/etzhayyim/kotodama:0.3.35-202605050833-amd64` (built `docker buildx --platform linux/amd64 --no-cache --push`)
 - **Helm**: `mitama-udf-pool` revision 346, `50-infra/vultr/mitama-udf-pool/values.yaml` updated
 - **Hot-patch**: whois fix applied to running 0.3.34 pod via `kubectl exec | tee` while OrbStack was restarting — confirmed insert worked before 0.3.35 image was ready
 - **Verified**: `vertex_whois_record` 18+ rows, `vertex_cc_entity_cursor` cursors advancing for all 4 domains (kuruma, media_anime, media_gamers, handotai)
@@ -105,7 +105,7 @@ See: `90-docs/adr/0048-kotoba-vultr-b2-primary.md`, `50-infra/vultr/kotoba/`, su
 
 ## Recent Completion: OWL QL/EL/DL/RL + SHACL Reasoning Schema + owl_reasoner.py fixes (2026-05-01, ADR-0044)
 
-**Status**: ✅ **Schema live, BPMN deployed, owl_reasoner.py bugs fixed, pymagatama 0.3.26 running**
+**Status**: ✅ **Schema live, BPMN deployed, owl_reasoner.py bugs fixed, kotodama 0.3.26 running**
 
 **Scope**: 3-tier OWL/SHACL reasoning over the existing vertex_/edge_ graph.
 
@@ -128,7 +128,7 @@ See: `90-docs/adr/0048-kotoba-vultr-b2-primary.md`, `50-infra/vultr/kotoba/`, su
 - `_run_el_plus_plus` fallback changed from `except ImportError` → `except Exception` so Pellet/Java subprocess failure (JVM not in pod) correctly routes to `_run_el_naive`
 - First fire verified in pod: 26 axioms loaded (profile=etzhayyim_core_v1), 16 triples inferred, written to `vertex_owl_inferred`
 
-**Deployed**: `pymagatama:0.3.26-202605011151-amd64` (helm rev 321). R/PT1H timer correctly classifies on each fire.
+**Deployed**: `kotodama:0.3.26-202605011151-amd64` (helm rev 321). R/PT1H timer correctly classifies on each fire.
 
 **Migrations**: `20260501140000_vertex_owl_reasoner_schema` + `20260501160000_seed_owl_tbox_etzhayyim_ontology` applied out-of-band (ADR-2604241342).
 
@@ -146,7 +146,7 @@ See: `90-docs/adr/0048-kotoba-vultr-b2-primary.md`, `50-infra/vultr/kotoba/`, su
 
 **HuggingFace Hub push Phase D (commit dc707059974)**:
 - `trainingExport.bpmn` updated: after triple loop completes → `training.push.huggingface` → End
-- `task_training_push_huggingface()` in pymagatama 0.3.26: reads `vertex_training_shard` (status=done), downloads from B2, uploads to `etzhayyim/etzhayyim-corpus` on HF Hub via `huggingface_hub.HfApi`
+- `task_training_push_huggingface()` in kotodama 0.3.26: reads `vertex_training_shard` (status=done), downloads from B2, uploads to `etzhayyim/etzhayyim-corpus` on HF Hub via `huggingface_hub.HfApi`
 - K8s Secret `training-hf-creds` created (`HF_TOKEN` from 1Password `etzhayyim.hf/HF_TOKEN`, `HF_REPO_ID=etzhayyim/etzhayyim-corpus`)
 - Keychain `etzhayyim.huggingface/HF_TOKEN` saved
 - BPMN redeployed to Zeebe (key=2251799825707622) via F5 watcher
@@ -195,7 +195,7 @@ See: `90-docs/adr/0048-kotoba-vultr-b2-primary.md`, `50-infra/vultr/kotoba/`, su
 
 **Status**: ✅ **Live — zeebe-worker helm rev 153, all 3 task families registered and verified**
 
-**Root cause discovered**: psycopg3 v3 auto-promotes SQL to server-side Prepared Statements after 5 executions. Kotoba/Datomic rejects `LIMIT $N` in prepared statements with `"expects an integer after LIMIT, found non-const expression"`. Three pymagatama primitives were silently failing on their 6th+ invocation.
+**Root cause discovered**: psycopg3 v3 auto-promotes SQL to server-side Prepared Statements after 5 executions. Kotoba/Datomic rejects `LIMIT $N` in prepared statements with `"expects an integer after LIMIT, found non-const expression"`. Three kotodama primitives were silently failing on their 6th+ invocation.
 
 **Fixes shipped (commit `91bfbf86435`)**:
 - `onion_crawl._claim_stale_seeds` — `LIMIT %s` → `LIMIT {int(limit)}`
@@ -204,12 +204,12 @@ See: `90-docs/adr/0048-kotoba-vultr-b2-primary.md`, `50-infra/vultr/kotoba/`, su
 
 **public-malak `crawlAds.bpmn` first-deploy (commit `ab4ac6a9adf`)**: Had BPMN 2.0 XSD ordering bug — `<timerEventDefinition>` appeared before `<outgoing>` inside `<startEvent>`. F5 watcher silently rejected it; BPMN was never deployed despite being in the repo. Fixed + added `Start_Manual` none-start event. Zeebe key=2251799818163684.
 
-**Image deployment lessons (codified in `[[conventions]] pymagatama-helm-image-deploy`)**:
+**Image deployment lessons (codified in `[[conventions]] kotodama-helm-image-deploy`)**:
 - Mac arm64 `docker build` → arm64 image → `exec format error` on amd64 VKE nodes
 - Use `docker buildx build --platform linux/amd64 --no-cache --push`
 - `image.fullRef` pinned by a prior `--set` survives `--reuse-values` and silently overrides `image.tag`; must `--set "image.fullRef="` to clear
 
-See: `deps.toml [[conventions]] rw-psycopg3-no-param-limit`, `[[conventions]] pymagatama-helm-image-deploy`, `[[migrations]] pymagatama-rw-limit-fix-20260428`.
+See: `deps.toml [[conventions]] rw-psycopg3-no-param-limit`, `[[conventions]] kotodama-helm-image-deploy`, `[[migrations]] kotodama-rw-limit-fix-20260428`.
 
 ---
 
@@ -236,7 +236,7 @@ See: ADR-2604241038 (topology), ADR-2604241121, ADR-2604241342, `90-docs/260424-
 
 ---
 
-## Recent Fix: yoro social BPMN flush guard + pymagatama 0.3.3 deploy (2026-04-30)
+## Recent Fix: yoro social BPMN flush guard + kotodama 0.3.3 deploy (2026-04-30)
 
 **Status**: ✅ **COMPLETE — platformPulse firing correctly, DB write verified**
 
@@ -244,7 +244,7 @@ See: ADR-2604241038 (topology), ADR-2604241121, ADR-2604241342, `90-docs/260424-
 
 **Fix (commit `826d768d23e`)**: `yoro_social.py` — 4 関数の `flush: bool = True` → `flush: bool = False`。version bump 0.3.2 → 0.3.3。
 
-**Deploy**: `pymagatama:0.3.3-202604301414-amd64` → `mitama-udf/zeebe-worker` helm rollout。
+**Deploy**: `kotodama:0.3.3-202604301414-amd64` → `mitama-udf/zeebe-worker` helm rollout。
 
 ---
 
@@ -348,12 +348,12 @@ See: `90-docs/adr/2604291800-well-becoming-formal-model.md`, `90-docs/adr/260429
 - Public appview serves `/artifacts/html/:cid` and `/artifacts/har/:cid` from S3 fallback with `x-artifact-store: s3`.
 - `listSnapshots` ordering fixed to `ORDER BY scraped_at DESC, vertex_id DESC`.
 - Helm test `public-malak-smoke` and hourly CronJob `public-malak-smoke-cron` validate write → RW snapshot → `listSnapshots` → public HTML/HAR routes.
-- Smoke logic moved from Helm inline Python into `pymagatama.public_malak_smoke`; chart calls `python -u -m pymagatama.public_malak_smoke`.
+- Smoke logic moved from Helm inline Python into `kotodama.public_malak_smoke`; chart calls `python -u -m kotodama.public_malak_smoke`.
 - Optional `PrometheusRule` template added but disabled until the cluster has `monitoring.coreos.com/PrometheusRule`.
 
 **Live verification**:
 - Helm revision `444`.
-- Image: `ghcr.io/etzhayyim/pymagatama:public-malak-smoke-module-e7580bb1bd08-20260507052544-amd64`.
+- Image: `ghcr.io/etzhayyim/kotodama:public-malak-smoke-module-e7580bb1bd08-20260507052544-amd64`.
 - `helm -n mitama-udf test mitama-udf-pool --timeout 1200s` succeeded.
 - CronJob-derived manual job succeeded with HTML/HAR `200`, `store=s3`, and `listSnapshots.status=200`.
 
@@ -370,7 +370,7 @@ See: `90-docs/260507-public-malak-smoke-runbook.md`.
 - follows use `edge_follows`.
 - cohort evidence writes/read MVs use `vertex_cohort_evidence`.
 - Yoro worker, collector, PDS tick, graph consumer, OS, gov, projector,
-  wellbecoming, magatama, murakumo, organizer, handotai, and related state use
+  wellbecoming, kotodama, murakumo, organizer, handotai, and related state use
   domain `vertex_*` tables.
 
 `30-graph/deps.toml` was updated for the live Tier C additions
@@ -385,7 +385,7 @@ PDS create guard: `com.atproto.repo.createRecord` now rejects non-post
 collections before repo write. `com.atproto.repo.applyWrites` rejects non-post
 create/update entries, while delete-only legacy cleanup remains available.
 
-Private graph write helper: `@etzhayyim/magatama-host-sdk` now exports
+Private graph write helper: `@etzhayyim/kotodama-host-sdk` now exports
 `writePrivate()`. App handlers can write non-social state directly to typed
 `vertex_*` / `edge_*` tables over Kysely, and the helper rejects repo-public
 tables such as `vertex_repo_record`.
@@ -486,7 +486,7 @@ Proposals non-federable (internal, sensitivity_ord=2).
 - `vertex_newsletter_engagement` (open/click events from Resend webhook, no PII)
 - `edge_newsletter_sent` (campaign → subscriber, resend_email_id)
 
-**subscribeRepos** (magatama.jsonld triggers):
+**subscribeRepos** (kotodama.jsonld triggers):
 - `com.etzhayyim.apps.news.article` — fresh articles from news.etzhayyim.com
 - `com.etzhayyim.narou.chapter` — chapters from narou.etzhayyim.com
 
@@ -510,16 +510,16 @@ Proposals non-federable (internal, sensitivity_ord=2).
 | `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/outreach/replyDetected.bpmn` | Reply correlation sub-flow |
 | `60-apps/etzhayyim-project-outreach/appview/outreach-otch0001/src/app.ts` | Thin edge CF Worker |
 | `60-apps/etzhayyim-project-outreach/appview/outreach-otch0001/wrangler.jsonc` | Routes |
-| `60-apps/etzhayyim-project-outreach/appview/outreach-otch0001/magatama.jsonld` | subscribeRepos config |
+| `60-apps/etzhayyim-project-outreach/appview/outreach-otch0001/kotodama.jsonld` | subscribeRepos config |
 | `60-apps/etzhayyim-project-outreach/CLAUDE.md` | Runbook |
 | `60-apps/etzhayyim-project-outreach/actor-manifest.jsonld` | Actor declaration |
 | `30-graph/graph-schema/migrations/20260507820000_vertex_outreach_tables.ts` | 5 tables |
-| `20-actors/magatama/py/src/pymagatama/outreach_worker_main.py` | Python Zeebe worker |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/outreach_worker_main.py` | Python Zeebe worker |
 
 ### Files updated
 
 - `deps.toml` — `[[mitama_actors]]` entry for outreach
-- `20-actors/magatama/py/pyproject.toml` — `magatama-outreach-worker` script
+- `40-engine/kotoba/crates/kotoba-kotodama/py/pyproject.toml` — `kotodama-outreach-worker` script
 - `90-docs/session-history.md` — this entry
 
 ### LangGraph nodes (intra-job, outreach.run_research_agent)
@@ -558,7 +558,7 @@ Start → CheckDnc → DncGateway:
 | `vertex_outreach_dnc` | 0 | email (UNIQUE), reason |
 | `edge_outreach_sent` | 3 | sequence_id, prospect_id, step_number, resend_email_id |
 
-### subscribeRepos triggers (magatama.jsonld)
+### subscribeRepos triggers (kotodama.jsonld)
 
 - `com.etzhayyim.apps.gmail.message` — reply detection from Gmail ingest
 - `com.etzhayyim.apps.m365Ingest.email` — reply detection from M365 ingest
@@ -586,7 +586,7 @@ Reply detection via existing gmail/m365Ingest actors — no new inbound infra.
 | `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/compintel/trackCompetitor.bpmn` | Initial deep research |
 | `60-apps/etzhayyim-project-compintel/appview/compintel-cpti0001/` | CF Worker |
 | `30-graph/graph-schema/migrations/20260507830000_vertex_compintel_tables.ts` | 4 tables |
-| `20-actors/magatama/py/src/pymagatama/compintel_worker_main.py` | Python Zeebe worker |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/compintel_worker_main.py` | Python Zeebe worker |
 
 ### LangGraph nodes (compintel.run_research_agent)
 
@@ -618,7 +618,7 @@ fetch_signals → analyze_pricing → analyze_product → analyze_hiring → sco
 | `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/contentengine/generateContent.bpmn` | Generate + sponsor flow |
 | `60-apps/etzhayyim-project-contentengine/appview/contentengine-cten0001/` | CF Worker |
 | `30-graph/graph-schema/migrations/20260507840000_vertex_contentengine_tables.ts` | 2 tables |
-| `20-actors/magatama/py/src/pymagatama/contentengine_worker_main.py` | Python Zeebe worker |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/contentengine_worker_main.py` | Python Zeebe worker |
 
 ### LangGraph nodes (contentengine.run_content_agent)
 

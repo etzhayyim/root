@@ -81,7 +81,7 @@ def test_logs_arch_layer_classifier():
     cases = [
         ("60-apps/proj/app.ts", "projects"),
         ("50-infra/k8s/values.yaml", "infra"),
-        ("20-actors/magatama/py/foo.py", "actors"),
+        ("40-engine/kotoba/crates/kotoba-kotodama/py/foo.py", "actors"),
         ("90-docs/adr/foo.md", "docs"),
         ("40-engine/svelte/pkg/foo.ts", "engine"),
         ("30-graph/schema/foo.sql", "graph"),

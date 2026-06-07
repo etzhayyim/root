@@ -37,7 +37,7 @@ class _HealthState(TypedDict, total=False):
 
 def _node_check_rw(state: _HealthState) -> dict[str, Any]:
     try:
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         started = time.monotonic()
         client = get_kotoba_client()
         client.q("[:find (pull ?e [*]) :where [?e :db/ident _]]")

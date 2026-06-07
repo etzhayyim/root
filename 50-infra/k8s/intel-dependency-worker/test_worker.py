@@ -371,7 +371,7 @@ class IntelWorkerIntegrationTest(unittest.TestCase):
             {
                 "INTEL_LLM_URL": "https://llm.etzhayyim.com/v1/chat/completions",
                 "INTEL_LLM_MODEL": worker.os.environ.get("INTEL_LLM_MODEL", "gemma4-runpod"),
-                "INTEL_LLM_MAGATAMA_VERIFIED": "true",
+                "INTEL_LLM_KOTODAMA_VERIFIED": "true",
                 "INTEL_LLM_CREDITS_DID": worker.os.environ.get("INTEL_LLM_CREDITS_DID", "did:web:llm.etzhayyim.com"),
                 "INTEL_LLM_TIMEOUT_SEC": worker.os.environ.get("INTEL_LLM_TIMEOUT_SEC", "90"),
             },

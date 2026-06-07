@@ -127,7 +127,7 @@ async def _node_render(state: _State) -> dict[str, Any]:
         return {"error": "no scenes in timeline", "temp_dir": temp_dir}
 
     try:
-        from pymagatama.video_compose.renderer import render_video
+        from kotodama.video_compose.renderer import render_video
         await render_video(
             scenes,
             output_mp4,
@@ -198,7 +198,7 @@ async def _node_write_record(state: _State) -> dict[str, Any]:
     vertex_id = f"at://dougaka.etzhayyim.com/com.etzhayyim.apps.dougaka.render/{video_id}"
 
     try:
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         import asyncio
         client = get_kotoba_client()
         await asyncio.to_thread(client.insert_row, "vertex_dougaka_render", {

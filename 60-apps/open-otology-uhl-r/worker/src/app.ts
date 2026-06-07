@@ -18,7 +18,7 @@ import {
   createWorkerExport,
   nsid,
   parseLexiconInput,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 import { getAgent, createRecord } from "@etzhayyim/sdk/pds";
 
 import {

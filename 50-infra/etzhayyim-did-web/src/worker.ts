@@ -1853,13 +1853,13 @@ a{color:inherit}
       return rewriteUpstreamResponse(upstream, url.pathname);
     } catch (err) {
       return new Response(
-        `Service binding fetch to magatama-yoro failed: ${err instanceof Error ? err.message : String(err)}`,
+        `Service binding fetch to kotodama-yoro failed: ${err instanceof Error ? err.message : String(err)}`,
         {
           status: 502,
           headers: {
             "content-type": "text/plain; charset=utf-8",
             "x-proxied-by": "etzhayyim-did-web",
-            "x-proxied-upstream": "service:magatama-yoro",
+            "x-proxied-upstream": "service:kotodama-yoro",
           },
         }
       );

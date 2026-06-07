@@ -121,7 +121,7 @@ Captured here so future agents see the through-line from problem → tool. The 3
 
 | # | Root cause | Remediation | Status |
 |---|---|---|---|
-| 1 | Deployed yoro-ui bundle's minified `atQuery` emitted `POST` for every XRPC (source already fixed) | Surgical 1-byte patch on `static/assets/index-KYx0b32R.js`: `Rf("POST",t,a,void 0,o)` → `Rf("GET",t,void 0,a,o)`; `wrangler deploy magatama-yoro` (Version `a054ad4d-f5d7-4803-8a0d-7cac4a727685`) | ✅ live |
+| 1 | Deployed yoro-ui bundle's minified `atQuery` emitted `POST` for every XRPC (source already fixed) | Surgical 1-byte patch on `static/assets/index-KYx0b32R.js`: `Rf("POST",t,a,void 0,o)` → `Rf("GET",t,void 0,a,o)`; `wrangler deploy kotodama-yoro` (Version `a054ad4d-f5d7-4803-8a0d-7cac4a727685`) | ✅ live |
 | 2 | `rw-free.collectFeed` 500'd with `Could not find repo: did:web:yoro.etzhayyim.com` because the configured `pds.etzhayyim.com` has no repo for that DID | `try/catch` on the substrate read; `Could not find repo` / `RepoNotFound` → empty feed instead of 500; `wrangler deploy yoro-xrpc-adapter` (Version `a60f975d-a578-429e-bc26-3a42de1aa7fe`) | ✅ live |
 | 3 | No sanctioned operator surface for any of the above probes | This ADR — `e7m pds *` + `e7m yoro probe` + 6 new MCP tools | ✅ this commit |
 
@@ -141,7 +141,7 @@ Blocked on the operator obtaining the invite code (not in repo, not knowable to 
 
 - **Per-NSID wrappers.** Rejected: would need ~30 wrappers to cover the surface that today's incident touched, vs one `e7m pds xrpc` with a curated safelist. Adding wrappers later is cheap; removing the generic call after the fact is not.
 - **Generic `e7m pds` exposed via MCP for writes too.** Rejected: mirrors the explicit `prune_approve` decision in `mcp_server.py` — mutations stay operator-attributed. Agents can propose by drafting the CLI command in chat.
-- **Adding the surface to the Go `e7m-cli` (70-tools/e7m-cli/, binary at /opt/homebrew/bin/e7m) instead.** Rejected: the Go CLI's surface is build/deploy/actor for magatama components; the Python `e7m` is explicitly the "operator + MCP server — the only sanctioned external surface for the religious-corp organism" (per `pyproject.toml`). Probing the substrate fits there.
+- **Adding the surface to the Go `e7m-cli` (70-tools/e7m-cli/, binary at /opt/homebrew/bin/e7m) instead.** Rejected: the Go CLI's surface is build/deploy/actor for kotodama components; the Python `e7m` is explicitly the "operator + MCP server — the only sanctioned external surface for the religious-corp organism" (per `pyproject.toml`). Probing the substrate fits there.
 - **Patch the bundle in-place forever.** Rejected — the 1-byte patch is a stopgap; the long-term fix is the SvelteKit migration completing and the build pipeline emitting the corrected bundle. Recording the patch here so a future rebuild does not silently regress.
 
 ## References

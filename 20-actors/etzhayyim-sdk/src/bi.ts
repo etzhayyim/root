@@ -735,7 +735,7 @@ export interface PhenotypeUpdateResult {
  *
  * In typical operation this is NOT called by app code — the Pregel
  * `EligibilityCell` (Python, at
- * `20-actors/magatama/py/src/pymagatama/eligibility/cell.py`)
+ * `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/eligibility/cell.py`)
  * computes the multiplier and submits it directly via web3.py. This
  * SDK function exists for TypeScript-side test rigs and dashboard
  * tooling that want to issue cell updates from the same process that

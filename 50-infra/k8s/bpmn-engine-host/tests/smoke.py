@@ -112,7 +112,7 @@ def poll_completion(
     """Poll `vertex_spiff_instance` until all `instance_ids` reach a terminal
     state (`completed` or `error`) or the deadline expires. Returns
     `{instance_id: {status, completed_at, _seq}}`."""
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     client = get_kotoba_client()
     completed: dict[str, dict[str, Any]] = {}
     while completed.keys() != set(instance_ids) and time.monotonic() < deadline_s:
@@ -149,7 +149,7 @@ def assert_history_invariants(instance_ids: Iterable[str]) -> list[str]:
     """Confirm append-only history per instance: seq starts at 0,
     monotonic, no gaps. Returns a list of violation strings (empty =
     pass)."""
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     client = get_kotoba_client()
     violations: list[str] = []
     ids = list(instance_ids)
@@ -184,7 +184,7 @@ def assert_history_invariants(instance_ids: Iterable[str]) -> list[str]:
 def assert_no_orphan_jobs(instance_ids: Iterable[str]) -> list[str]:
     """No `ready` / `claimed` jobs should remain after instance is
     completed."""
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     client = get_kotoba_client()
     violations: list[str] = []
     for iid in instance_ids:
@@ -204,7 +204,7 @@ def assert_no_orphan_jobs(instance_ids: Iterable[str]) -> list[str]:
 
 def fetch_db_wall_durations(instance_ids: Iterable[str]) -> dict[str, float]:
     """Return DB-clock instance_started -> completed_at durations."""
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     from dateutil import parser
     client = get_kotoba_client()
     ids = list(instance_ids)

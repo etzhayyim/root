@@ -12,12 +12,12 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@etzhayyim/magatama-host-sdk": "workspace:*",
+    "@etzhayyim/kotodama-host-sdk": "workspace:*",
     "hono": "^4.12.23"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20260531.1",
+    "@cloudflare/workers-types": "^4.20260606.1",
     "typescript": "^6.0.3",
-    "wrangler": "^4.95.0"
+    "wrangler": "^4.98.0"
   }
 }

@@ -182,8 +182,8 @@ Signers: council.etzhayyim.eth [3/5 multisig]
 **Responsible:** yakushi team
 
 **Files to modify:**
-- `20-actors/magatama/cells/pharma_chiral_resolution/cell.py`
-- `20-actors/magatama/cells/pharma_liquid_formulation/cell.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_chiral_resolution/cell.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_liquid_formulation/cell.py`
 
 **Changes (template):**
 
@@ -198,8 +198,8 @@ SILEN_PHARMA_BASELINE_REVIEW_CID: str = "bafy[...]"  # IPFS CID from Step 2c
 ```
 
 **Verification:**
-- Run `pytest 20-actors/magatama/cells/pharma_chiral_resolution/tests/test_gate_unlock.py` → ✅ PASS (no RuntimeError on import)
-- Run `python -c "from pymagatama.cells.pharma_chiral_resolution import cell; print(cell.COUNCIL_ATTESTATION_TX_HASH)"` → prints hash (not None)
+- Run `pytest 40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_chiral_resolution/tests/test_gate_unlock.py` → ✅ PASS (no RuntimeError on import)
+- Run `python -c "from kotodama.cells.pharma_chiral_resolution import cell; print(cell.COUNCIL_ATTESTATION_TX_HASH)"` → prints hash (not None)
 
 **PR format:**
 ```
@@ -236,7 +236,7 @@ See ADR-2605250630 for full context.
 
 Before first benchtop PoC synthesis:
 
-- [ ] Gates unlock verified (no RuntimeError on `from pymagatama.cells.pharma_chiral_resolution import cell`)
+- [ ] Gates unlock verified (no RuntimeError on `from kotodama.cells.pharma_chiral_resolution import cell`)
 - [ ] Equipment ready (Chiralcel OD-H column certified, Agilent 1260 HPLC functional, polarimeter calibrated)
 - [ ] Materials sourced (racemic omeprazole H0891-5G, L-mandelic acid M4256, ethyl acetate HPLC)
 - [ ] Protocol printed + reviewed by ≥2 witnesses (operator + QP-equivalent or sensor)

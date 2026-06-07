@@ -14,7 +14,7 @@ dependencies = [
     "httpx>=0.27.0",
     "boto3>=1.34",
     "yt-dlp>=2026.3.17",
-    "pymagatama",
+    "kotodama",
     "pydantic>=2.7.0",
 ]
 

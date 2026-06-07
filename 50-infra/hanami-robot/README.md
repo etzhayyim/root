@@ -37,4 +37,4 @@ Cross-religious-corp manufacturing per ADR-2605260230 §Decision 7 requires `sil
 - [ADR-2605260100](../../90-docs/adr/2605260100-mitate-diagnostic-routing-charter.md) — mitate master charter
 - [ADR-2605260200](../../90-docs/adr/2605260200-mitate-r1-advisory-self-care-pwa.md) — mitate R1 (Hanami mech design listed as R1→R2 transition prerequisite)
 - [`20-actors/mitate/`](../../20-actors/mitate/) — owning actor
-- [`20-actors/magatama/cells/mitate_nasal_endoscopy_acquire/`](../../20-actors/magatama/cells/mitate_nasal_endoscopy_acquire/) — the Pregel cell that drives Hanami at runtime
+- [`40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_nasal_endoscopy_acquire/`](../../40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_nasal_endoscopy_acquire/) — the Pregel cell that drives Hanami at runtime

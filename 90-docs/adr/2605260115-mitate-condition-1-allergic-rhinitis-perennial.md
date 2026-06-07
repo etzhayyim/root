@@ -19,11 +19,11 @@ depends_on:
   - adr-2605250600-yakushi-wave-1b-otc-api-catalog-expansion
   - adr-2605181100-mst-encrypted-records-signal-keywrap
 related:
-  - 20-actors/magatama/cells/mitate_rhinitis_intake/
-  - 20-actors/magatama/cells/mitate_rhinitis_triage/
-  - 20-actors/magatama/cells/mitate_allergy_ige_panel_order/
-  - 20-actors/magatama/cells/mitate_nasal_smear_eosinophil/
-  - 20-actors/magatama/cells/mitate_slit_cohort_tracker/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_rhinitis_intake/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_rhinitis_triage/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_allergy_ige_panel_order/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_nasal_smear_eosinophil/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_slit_cohort_tracker/
 supersedes: []
 superseded_by: []
 ---

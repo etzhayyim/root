@@ -25,7 +25,7 @@ export default {
         actor: "did:web:nist.etzhayyim.com",
         nanoid: env.APP_NANOID ?? "n1st0csf",
         execution: "edge-proxy+agentgateway-mcp+langserver",
-        businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/nist.py",
+        businessLogic: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/nist.py",
         bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/nist",
       });
     }

@@ -10,7 +10,7 @@
 - `wit_imports/exports`: 282 actors (26%) — 削除前に WIT が存在しなかった
 - `convo_system_prompt`: 208 actors (19%) — prompt 未設定
 - `capabilities`: 7 actors — MCP capability 未宣言
-- `performer_type/operator`: 一部 actor — magatama.jsonld 不完全
+- `performer_type/operator`: 一部 actor — kotodama.jsonld 不完全
 
 ## Hinshitsu (品質) Grades
 
@@ -97,7 +97,7 @@ etzhayyim hinshitsu validate <did>
       {
         "fn": "custom",
         "id": "heal",
-        "handler": "export default async (ctx, input) => {\n  const results = [];\n  for (const actor of input.gaps.rows) {\n    const fixes = {};\n    if (!actor.convo_system_prompt) {\n      const r = await ctx.agent.chat({ message: `Generate a concise system prompt for AI actor: ${actor.display_name} - ${actor.description}. Return only the prompt text.` });\n      fixes.convo_system_prompt = r.text;\n    }\n    if (!actor.wit_imports || actor.wit_imports === '[]') {\n      fixes.wit_imports = JSON.stringify(['magatama:governance/governance', 'magatama:identity/capability', 'magatama:agent/agent']);\n      fixes.wit_exports = JSON.stringify([`etzhayyim:${actor.name}/service`]);\n    }\n    if (!actor.performer_type) fixes.performer_type = 'service';\n    if (Object.keys(fixes).length > 0) {\n      const sets = Object.entries(fixes).map(([k,v]) => `${k} = '${v.replace(/'/g, \"\\\\'\")}'`).join(', ');\n      await ctx.graph.write({ template: `UPDATE graphar.vertex_actor SET ${sets} WHERE did = '${actor.did}'` });\n      results.push({ did: actor.did, fixed: Object.keys(fixes) });\n    }\n  }\n  return { healed: results.length, results };\n}",
+        "handler": "export default async (ctx, input) => {\n  const results = [];\n  for (const actor of input.gaps.rows) {\n    const fixes = {};\n    if (!actor.convo_system_prompt) {\n      const r = await ctx.agent.chat({ message: `Generate a concise system prompt for AI actor: ${actor.display_name} - ${actor.description}. Return only the prompt text.` });\n      fixes.convo_system_prompt = r.text;\n    }\n    if (!actor.wit_imports || actor.wit_imports === '[]') {\n      fixes.wit_imports = JSON.stringify(['kotodama:governance/governance', 'kotodama:identity/capability', 'kotodama:agent/agent']);\n      fixes.wit_exports = JSON.stringify([`etzhayyim:${actor.name}/service`]);\n    }\n    if (!actor.performer_type) fixes.performer_type = 'service';\n    if (Object.keys(fixes).length > 0) {\n      const sets = Object.entries(fixes).map(([k,v]) => `${k} = '${v.replace(/'/g, \"\\\\'\")}'`).join(', ');\n      await ctx.graph.write({ template: `UPDATE graphar.vertex_actor SET ${sets} WHERE did = '${actor.did}'` });\n      results.push({ did: actor.did, fixed: Object.keys(fixes) });\n    }\n  }\n  return { healed: results.length, results };\n}",
         "capabilities": ["agent.chat", "graph.query", "graph.write"]
       },
       {
@@ -111,7 +111,7 @@ etzhayyim hinshitsu validate <did>
 
 ### Murakumo Agent Processing Flow
 
-**Model SSoT**: `20-actors/magatama/sdk/magatama-host-sdk/src/llm-model-registry.ts` — `resolveModel(hint, useCase)` で解決。ハードコードモデル名禁止。
+**Model SSoT**: `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts` — `resolveModel(hint, useCase)` で解決。ハードコードモデル名禁止。
 
 ```
 Murakumo Fleet (resolveModel(undefined, "shinka") → gemma-4-e4b-it)
@@ -119,7 +119,7 @@ Murakumo Fleet (resolveModel(undefined, "shinka") → gemma-4-e4b-it)
 1. WIT Generation (useCase: "structured"):
    Model: resolveModel(undefined, "structured") → gemma-4-e4b-it
    Input:  { name: "isbn", description: "ISBN 書籍識別", capabilities: ["graph.write", "browser.fetch"] }
-   Output: { imports: ["magatama:governance/governance", "magatama:identity/capability", ...],
+   Output: { imports: ["kotodama:governance/governance", "kotodama:identity/capability", ...],
              exports: ["etzhayyim:isbn/book-registry", "etzhayyim:isbn/publisher-registry"] }
 
 2. Convo Prompt Generation (useCase: "general"):

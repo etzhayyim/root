@@ -99,7 +99,7 @@ browsers (SSR was clean).
 `feed_served_by_sw ✓`, `skeleton seen→removed ✓`, `posts_rendered ✓`,
 `data_path=csr-sw`. Profile-500 fix verified in headed **and** headless Chromium
 across 3 profiles (was 500 in both → OK). Offline unit tests: 7 signals + 6
-murakumo guard + 12 access-jwt = 25 green. Deploys: apex did-web + magatama-yoro
+murakumo guard + 12 access-jwt = 25 green. Deploys: apex did-web + kotodama-yoro
 (several iterations; final live seed 102 posts / 0 malformed).
 
 ## Consequences

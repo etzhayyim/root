@@ -4,19 +4,19 @@ Legal case management and BPO automation platform (`lawfirm.etzhayyim.com`).
 
 ## Runtime
 
-**containerd-shim-magatama** (`20-actors/magatama`) を使用。App CRD / containerd-shim-magatama は除去済み。
+**containerd-shim-kotodama** (`40-engine/kotoba/crates/kotoba-kotodama`) を使用。App CRD / containerd-shim-kotodama は除去済み。
 
 | 項目 | 値 |
 |---|---|
 | WASM binary | TS Native (`src/app.ts`) |
-| ランタイム | `magatama-server` (Rust) |
+| ランタイム | `kotodama-server` (Rust) |
 | トリガー | HTTP (`0.0.0.0:8080`) |
 | AT コレクション | `com.etzhayyim.command`, `com.etzhayyim.conversation.message` |
 | Storage backend | yata Broker (SQL graph) |
-| Config | `magatama/magatama.jsonld` |
+| Config | `kotodama/kotodama.jsonld` |
 | Deploy | `etzhayyim build && etzhayyim deploy` (Cloudflare Container) |
 
-旧 `deploy config` (App CRD 時代) および `magatama/k8s/deployment.yaml` は除去済み。deploy は `etzhayyim deploy` を使用する。
+旧 `deploy config` (App CRD 時代) および `kotodama/k8s/deployment.yaml` は除去済み。deploy は `etzhayyim deploy` を使用する。
 
 ## Components
 
@@ -34,8 +34,8 @@ Legal case management and BPO automation platform (`lawfirm.etzhayyim.com`).
 
 ## Structured Data
 
-- storage は magatama WIT bindings (`magatama.LanceQuerySQL`, `magatama.LanceUpsertOne`, `magatama.KvGet` 等) 経由
-- storage は magatama WIT bindings 経由。直接 HTTP client 禁止
+- storage は kotodama WIT bindings (`kotodama.LanceQuerySQL`, `kotodama.LanceUpsertOne`, `kotodama.KvGet` 等) 経由
+- storage は kotodama WIT bindings 経由。直接 HTTP client 禁止
 - 主要テーブルは `lawfirmPrimaryKeys` map (`db_http.go`) に定義済み
 - RLS 列 `org_id`, `user_id`, `actor_id` は全テーブルに必須
 

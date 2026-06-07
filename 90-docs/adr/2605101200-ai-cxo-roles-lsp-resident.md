@@ -23,7 +23,7 @@ Author: etzhayyim Claude Agent on behalf of CEO 河崎
 
 ## 1. Decision
 
-Introduce a **C-suite AI agent layer** (`pymagatama.keiei`) that assigns persistent
+Introduce a **C-suite AI agent layer** (`kotodama.keiei`) that assigns persistent
 role-bearing AI agents to every executive function of the operating entity
 (`etzhayyim`) and its vendor org (`etzhayyim Japan`). The roles are served by a
 **resident JSON-RPC 2.0 server** modelled on the Language Server Protocol
@@ -152,9 +152,9 @@ via PDS pipethrough). Both speak identical JSON-RPC 2.0.
 ## 6. Implementation layout
 
 ```
-20-actors/magatama/py/src/pymagatama/keiei/
+40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/keiei/
 ├── __init__.py          # public exports: ROLES, build_role_graph, run_lsp
-├── __main__.py          # entry: python -m pymagatama.keiei [--socket|--ws]
+├── __main__.py          # entry: python -m kotodama.keiei [--socket|--ws]
 ├── roles.py             # declarative role registry (this ADR §3 + §4 in code)
 ├── principals.py        # etzhayyim binding + escalation routing
 ├── graph.py             # LangGraph factory — one graph per role, persisted via checkpointer
@@ -177,13 +177,13 @@ definition (graph-definition-as-data per ADR 2605082000).
   <key>ProgramArguments</key><array>
     <string>/usr/bin/env</string>
     <string>uv</string><string>run</string>
-    <string>python</string><string>-m</string><string>pymagatama.keiei</string>
+    <string>python</string><string>-m</string><string>kotodama.keiei</string>
     <string>--socket</string>
   </array>
   <key>RunAtLoad</key><true/>
   <key>KeepAlive</key><true/>
   <key>WorkingDirectory</key>
-  <string>/Users/junkawasaki/etzhayyim/etzhayyim-root/20-actors/magatama/py</string>
+  <string>/Users/junkawasaki/etzhayyim/etzhayyim-root/40-engine/kotoba/crates/kotoba-kotodama/py</string>
   <key>StandardOutPath</key><string>/tmp/keiei.out.log</string>
   <key>StandardErrorPath</key><string>/tmp/keiei.err.log</string>
 </dict></plist>
@@ -205,7 +205,7 @@ spec:
       containers:
       - name: keiei
         image: ghcr.io/etzhayyim/keiei-lsp:latest
-        command: ["granian","--interface","asgi","pymagatama.keiei.lsp_server:app"]
+        command: ["granian","--interface","asgi","kotodama.keiei.lsp_server:app"]
         env:
         - {name: KEIEI_PRINCIPAL_DID, value: "did:web:etz-hayim"}
         - {name: KEIEI_LEDGER_PATH, value: "/data/CXO-LEDGER.md"}
@@ -237,9 +237,9 @@ CEO inbox within 24h via `microsoft.etzhayyim.com sendMail` (internal direct).
 |---|---|---|
 | **Phase 0** (this ADR) | design + role registry + skeleton LSP server | **proposed** iter123 |
 | Phase 1 | implement `cto` role first (vacant seat, real demand from infra work) — graph + LSP method handlers + ledger emit | **shipped 2026-05-12** (graph/cto.py + LSP `_decide` wired to `dispatch_decide`; ledger seq 11+ rationale-tracked) |
-| Phase 2 | add `cfo` (gated) + `cmo` + `chro` for vacant-seat coverage + 24h auto-disclose mailer | **shipped 2026-05-14** — `graph/{cfo,cmo,chro}.py` lens routing + `pymagatama.keiei.mailer` + launchd plist `com.etzhayyim.keiei-mailer` (hourly tick) + `_working/keiei/CXO-MAILER-STATE.json` watermark. Hard rules force-gated by `roles.gate()` (cfo financial_action_gated, chro payroll_gated). 43 unit tests under `tests/test_keiei_phase2.py` |
+| Phase 2 | add `cfo` (gated) + `cmo` + `chro` for vacant-seat coverage + 24h auto-disclose mailer | **shipped 2026-05-14** — `graph/{cfo,cmo,chro}.py` lens routing + `kotodama.keiei.mailer` + launchd plist `com.etzhayyim.keiei-mailer` (hourly tick) + `_working/keiei/CXO-MAILER-STATE.json` watermark. Hard rules force-gated by `roles.gate()` (cfo financial_action_gated, chro payroll_gated). 43 unit tests under `tests/test_keiei_phase2.py` |
 | Phase 3 | shadow roles (`ceo`/`coo`/`clo`/`ciso`/`cdo`) — chief-of-staff for existing humans | **shipped 2026-05-14** — `graph/{ceo,coo,clo,ciso,cdo}.py` fully expanded with shadow-mode lens routing (AI-CEO impersonation guardrail § ADR §10, COO Track A/B/C ownership map, CLO BCI Rule 36 + atproto OAuth wire-format + malak G2 + outreach placeholder discipline, CISO 8 malak hard invariants + vault zero-knowledge + threat-ledger pattern, CDO Bonsai cultivar metaphor + WCAG 2.2 AA + [data-lang] i18n + paid/owned channel split with AI-CMO). Class B gated to blocking human-confirm via `roles.gate()` shadow rule. 49 unit tests under `tests/test_keiei_phase3.py` (including mailer-excludes-shadow-Class-B regression). |
-| Phase 4 | residency hardening — k8s deploy, mTLS, multi-client, leader-election | **code shipped 2026-05-14 (operator apply pending)** — HTTP transport `pymagatama.keiei.http_server` (FastAPI + bearer auth + JSON-RPC pass-through, granian-served per ADR-2605080600); `pymagatama.keiei.leader.K8sLeaseLeader` acquires/renews `coordination.k8s.io/v1` Lease via stdlib HTTPS (no python-kubernetes dep); `LocalLeader` fallback preserves launchd path; `ledger_append` + `mailer.run_once` gated on `is_leader()`, followers surface `status="not-leader"` + `leaderIdentity` (HTTP 503 + `X-Keiei-Leader`). k8s manifests under `50-infra/k8s/keiei/` (Namespace, ServiceAccount + namespaced Role/RoleBinding scoped to `leases/keiei-writer`, Deployment 3-replica with downward-API identity + RWX PVC `/data/keiei`, Service ClusterIP, Ingress `keiei.etzhayyim.com` with `nginx.ingress.kubernetes.io/auth-tls-secret` mTLS + `proxy-next-upstream` on 503, PDB minAvailable=2, kustomization). Image source `60-apps/etzhayyim-project-keiei/lg/Dockerfile`. RUNBOOK at `50-infra/k8s/keiei/RUNBOOK.md`. Operator (y-nishino) remaining: RWX class verify, image build/push, secret provisioning (`keiei-lsp-secrets` + `keiei-etzhayyim-ai-tls` + `keiei-mtls-ca`), per-client mTLS cert issuance, DNS, `kubectl apply -k`, RUNBOOK §3-§6 walk. 9 unit tests + 6 fastapi-gated tests in `tests/test_keiei_phase4.py` (combined 101 + 6 across all phases). |
+| Phase 4 | residency hardening — k8s deploy, mTLS, multi-client, leader-election | **code shipped 2026-05-14 (operator apply pending)** — HTTP transport `kotodama.keiei.http_server` (FastAPI + bearer auth + JSON-RPC pass-through, granian-served per ADR-2605080600); `kotodama.keiei.leader.K8sLeaseLeader` acquires/renews `coordination.k8s.io/v1` Lease via stdlib HTTPS (no python-kubernetes dep); `LocalLeader` fallback preserves launchd path; `ledger_append` + `mailer.run_once` gated on `is_leader()`, followers surface `status="not-leader"` + `leaderIdentity` (HTTP 503 + `X-Keiei-Leader`). k8s manifests under `50-infra/k8s/keiei/` (Namespace, ServiceAccount + namespaced Role/RoleBinding scoped to `leases/keiei-writer`, Deployment 3-replica with downward-API identity + RWX PVC `/data/keiei`, Service ClusterIP, Ingress `keiei.etzhayyim.com` with `nginx.ingress.kubernetes.io/auth-tls-secret` mTLS + `proxy-next-upstream` on 503, PDB minAvailable=2, kustomization). Image source `60-apps/etzhayyim-project-keiei/lg/Dockerfile`. RUNBOOK at `50-infra/k8s/keiei/RUNBOOK.md`. Operator (y-nishino) remaining: RWX class verify, image build/push, secret provisioning (`keiei-lsp-secrets` + `keiei-etzhayyim-ai-tls` + `keiei-mtls-ca`), per-client mTLS cert issuance, DNS, `kubectl apply -k`, RUNBOOK §3-§6 walk. 9 unit tests + 6 fastapi-gated tests in `tests/test_keiei_phase4.py` (combined 101 + 6 across all phases). |
 
 ## 10. Anti-goals (explicit)
 
@@ -250,7 +250,7 @@ CEO inbox within 24h via `microsoft.etzhayyim.com sendMail` (internal direct).
   signal for 河崎; it never speaks *as* 河崎 to external counterparties.
 - **Not a free-running daemon.** Every Class B/C action is audited; Class A
   is blocking-escalated. Silent autonomy = discipline violation.
-- **Not a separate LLM stack.** Reuses murakumo + magatama + LangGraph
+- **Not a separate LLM stack.** Reuses murakumo + kotodama + LangGraph
   primitives. The novelty is *role-bearing residency*, not new infra.
 
 ## 11. Cross-references

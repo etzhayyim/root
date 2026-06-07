@@ -9,8 +9,8 @@ def process_file(filepath):
     # 1. Imports
     if 'import psycopg' in code:
         code = code.replace('import psycopg\n', '')
-    if 'from pymagatama.kotoba_datomic import get_kotoba_client' not in code:
-        code = code.replace('from typing import Any', 'from typing import Any\nfrom pymagatama.kotoba_datomic import get_kotoba_client')
+    if 'from kotodama.kotoba_datomic import get_kotoba_client' not in code:
+        code = code.replace('from typing import Any', 'from typing import Any\nfrom kotodama.kotoba_datomic import get_kotoba_client')
 
     if 'import asyncio' not in code:
         code = code.replace('import logging', 'import asyncio\nimport logging')

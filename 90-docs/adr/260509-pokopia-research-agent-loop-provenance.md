@@ -382,11 +382,11 @@ Three migrations applied to Kotoba/Datomic:
 
 3. **`202605150300_seed_pokopia_research_langgraph`** — Seeds
    `vertex_langgraph_assistant` (kind=`py_factory`,
-   factory_path=`pymagatama.langgraph_graphs.pokopia_research_agent_loop`) and
+   factory_path=`kotodama.langgraph_graphs.pokopia_research_agent_loop`) and
    `vertex_langgraph_deployment` (status=`active`).
 
 LangGraph graph file:
-`20-actors/magatama/py/src/pymagatama/langgraph_graphs/pokopia_research_agent_loop.py`
+`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs/pokopia_research_agent_loop.py`
 
 7 async nodes: `plan_query → collect_sources → extract_claims → cross_check →
 materialize → publish_lineage → refresh_policy`. Pregel superstep is

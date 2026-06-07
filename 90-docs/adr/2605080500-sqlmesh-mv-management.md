@@ -126,7 +126,7 @@ SQLMesh (~60 MB) is in `[project.optional-dependencies] db-tools` and is never
 imported in the hot-path PyZeebe worker code. Install only in tooling environments:
 
 ```
-pip install "pymagatama[db-tools]"
+pip install "kotodama[db-tools]"
 ```
 
 ---
@@ -134,7 +134,7 @@ pip install "pymagatama[db-tools]"
 ## File Location
 
 ```
-20-actors/magatama/py/
+40-engine/kotoba/crates/kotoba-kotodama/py/
   sqlmesh/
     config.py          # Gateway config (RW + local DuckDB)
     models/
@@ -164,8 +164,8 @@ pip install "pymagatama[db-tools]"
 
 ## References
 
-- `20-actors/magatama/py/sqlmesh/config.py`
-- `20-actors/magatama/py/sqlmesh/models/`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/sqlmesh/config.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/sqlmesh/models/`
 - ADR-2605080300: SQLAlchemy Core Usage Contract
 - ADR-2605080400: Alembic Scope Contract
 - ADR-2605080700: graph-schema Live Kotoba/Datomic Baseline

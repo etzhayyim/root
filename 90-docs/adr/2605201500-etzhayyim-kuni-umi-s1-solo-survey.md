@@ -88,11 +88,11 @@ Decision (本 ADR): **山中湖 plot を S1 baseline target にし、Tokyo works
 # 20-actors/kuni-umi/cells/site_survey/cell.py
 from typing import TypedDict
 from langgraph.graph import StateGraph, START, END
-from pymagatama.checkpointer import MstCheckpointSaver
-from pymagatama.listener import MstListener
-from pymagatama.open_robo.fleet import OpenRoboFleet
-from pymagatama.eligibility.web3_ports import BaseL2Port, GethPrivatePort
-from pymagatama.dmn import evaluate as dmn_eval
+from kotodama.checkpointer import MstCheckpointSaver
+from kotodama.listener import MstListener
+from kotodama.open_robo.fleet import OpenRoboFleet
+from kotodama.eligibility.web3_ports import BaseL2Port, GethPrivatePort
+from kotodama.dmn import evaluate as dmn_eval
 
 
 class SiteSurveyState(TypedDict):
@@ -210,7 +210,7 @@ if __name__ == "__main__":
     listener.run()
 ```
 
-`pymagatama.open_robo.fleet.OpenRoboFleet` は S1 で初実装される thin wrapper — Giemon Otete + Mimi の ROS2 endpoint と HTTP/JSON で talk する。詳細仕様は `20-actors/magatama/py/src/pymagatama/open_robo/README.md` に別書き。
+`kotodama.open_robo.fleet.OpenRoboFleet` は S1 で初実装される thin wrapper — Giemon Otete + Mimi の ROS2 endpoint と HTTP/JSON で talk する。詳細仕様は `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/open_robo/README.md` に別書き。
 
 ## 4. Acceptance criteria (S1 PASS → S2 へ)
 
@@ -269,7 +269,7 @@ if __name__ == "__main__":
 
 ## 負の効果
 
-- Single Otete + stationary Mimi 構成は S3+ の動的 N>=2 witness pattern とは異なるため、後で実装を変える必要 (`pymagatama.open_robo.fleet` の robot selection logic)。Mitigation: S1 wrapper を別 module file に分離
+- Single Otete + stationary Mimi 構成は S3+ の動的 N>=2 witness pattern とは異なるため、後で実装を変える必要 (`kotodama.open_robo.fleet` の robot selection logic)。Mitigation: S1 wrapper を別 module file に分離
 - 山中湖 plot 寒冷期 access NG → 季節制約。Mitigation: workshop garden 並列運用
 - Otete v1 1 機しかない → 故障時 S1 完了不可能。Mitigation: S1 budget で予備機 1 機調達 (Otete v1 BoM JPY 200万 / 機 estimate)
 

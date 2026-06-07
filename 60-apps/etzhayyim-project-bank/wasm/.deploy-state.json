@@ -1,7 +1,7 @@
 {
   "version": 1,
   "apps": {
-    "ai-gftd-wasm-bank-bn3kf8yz": {
+    "etzhayyim-wasm-bank-bn3kf8yz": {
       "nanoid": "bn3kf8yz",
       "app_version": "1.0.0",
       "last_deployed_at": "2026-04-02T11:37:56Z",

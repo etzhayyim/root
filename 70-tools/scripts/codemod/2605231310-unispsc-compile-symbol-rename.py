@@ -11,7 +11,7 @@ The fix is exactly the same line — just rebind to ``graph``.
 
 Usage::
 
-    cd 20-actors/magatama/py
+    cd 40-engine/kotoba/crates/kotoba-kotodama/py
     uv run python ../../../70-tools/scripts/codemod/2605231310-unispsc-compile-symbol-rename.py
     uv run python ../../../70-tools/scripts/codemod/2605231310-unispsc-compile-symbol-rename.py --dry-run
 """
@@ -30,10 +30,10 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 AGENTS_DIR = (
     REPO_ROOT
     / "20-actors"
-    / "magatama"
+    / "kotodama"
     / "py"
     / "src"
-    / "pymagatama"
+    / "kotodama"
     / "langgraph_graphs"
     / "unispsc_agents"
 )

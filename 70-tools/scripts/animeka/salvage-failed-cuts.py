@@ -11,7 +11,7 @@ the audit log. This script reads those audits, filters cuts that have
 at least N non-null CIDs and no prior PDS post, and reposts each as a
 "salvaged" 1-4-image embed.
 
-Auth: uses the legacy `x-magatama-verified: true` internal-trust
+Auth: uses the legacy `x-kotodama-verified: true` internal-trust
 header — the same path the BPMN worker takes (ADR-0023 break-glass).
 PDS verifies via env-toggled `PDS_LEGACY_INTERNAL_TRUST=1`.
 
@@ -161,7 +161,7 @@ def create_post(cut_id: str, embed: dict) -> tuple[int, str]:
         headers={
             "Content-Type": "application/json",
             "Accept": "application/json",
-            "x-magatama-verified": "true",
+            "x-kotodama-verified": "true",
             "User-Agent": UA,
         },
         method="POST",

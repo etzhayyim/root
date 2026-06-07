@@ -147,7 +147,7 @@ cell が rebirth (ADR-2605081400 §D) すると:
 | TS edge mirror (`gradient-flow.ts`) | #1368 | 🟡 open | Same matrix in CF Worker — 18 pure tests |
 | Bonsai prune paired emission | #1368 | ✅ merged | branch / fruit / leaf emit; trunk / seed / flower null — 8 paired-emission tests |
 | AT MST canonical write (emitter) | [#1371](https://github.com/etzhayyim/etzhayyim-root/pull/1371) | ✅ merged | `_atRecordWriter` injection; flip `GRADIENT_FLOW_WRITE_PATH=canonical` |
-| Gradient consumer scaffold (Python) | [#1373](https://github.com/etzhayyim/etzhayyim-root/pull/1373) | ✅ merged | `pymagatama.primitives.gradient_consumer` + `gradient_consumer_main` — scalar SGD stub + health aggregator + floor escalation |
+| Gradient consumer scaffold (Python) | [#1373](https://github.com/etzhayyim/etzhayyim-root/pull/1373) | ✅ merged | `kotodama.primitives.gradient_consumer` + `gradient_consumer_main` — scalar SGD stub + health aggregator + floor escalation |
 | Adapter delta + health snapshot lexicons | #1373 | ✅ merged | `ai.etzhayyim.organism.{adapter.delta,health.snapshot}` records |
 | Consumer canonical PDS writer | [#1374](https://github.com/etzhayyim/etzhayyim-root/pull/1374) | ✅ merged | `make_pds_writer` urllib → `com.atproto.repo.createRecord`. snake_case → camelCase + datetime → ISO bridge. 33 pure tests |
 | Watering / consume / karma / spore / mutate-permit emitters | — | ⏳ pending | matrix supports all 9 signal_kinds; only bonsai emitter wired |

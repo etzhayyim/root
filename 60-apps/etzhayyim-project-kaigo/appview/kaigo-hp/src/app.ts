@@ -1,4 +1,4 @@
-import { createWorkerExport, type HostSDK } from '@etzhayyim/magatama-host-sdk';
+import { createWorkerExport, type HostSDK } from '@etzhayyim/kotodama-host-sdk';
 
 export default createWorkerExport((sdk: HostSDK) => {
   // Idempotent path-based DID registration (ADR-0019)

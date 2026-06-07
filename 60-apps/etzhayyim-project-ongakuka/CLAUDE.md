@@ -60,7 +60,7 @@ actor 間連携は **convo chat (`sendProjectMessage`)** + AT Record commit。st
 | `com.etzhayyim.ongakuka.getTrack` | query | track + stems + last generation |
 | `com.etzhayyim.ongakuka.health` | procedure | health probe (bootstrap) |
 
-## Triggers (magatama.jsonld 予定)
+## Triggers (kotodama.jsonld 予定)
 
 ```jsonc
 {
@@ -169,7 +169,7 @@ XRPC compose
 |---|---|
 | Lexicon JSON × 9 (`00-contracts/lexicons/com/etzhayyim/apps/ongakuka/`) | DONE (2026-04-15) |
 | Murakumo `inference/audio` spec 追記 | DONE (2026-04-15) |
-| `magatama.jsonld` + `src/app.ts` + `wrangler.jsonc` (T1 worker) | TODO |
+| `kotodama.jsonld` + `src/app.ts` + `wrangler.jsonc` (T1 worker) | TODO |
 | `30-graph/graph-schema/migrations/00XX_vertex_ongakuka_*.ts` | TODO |
 | `audio_pool` Ansible group + Mac 32GB+ ノード調達 | TODO |
 | DiffRhythm `serve_plain.py` 拡張 (`/api/audio/v1/music/*`) | TODO |

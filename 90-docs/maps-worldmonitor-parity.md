@@ -83,7 +83,7 @@ The public supporting XRPCs also returned HTTP 200 from the pod LangServer:
 
 ### P0: Restore Reliable Runtime
 
-- [x] Redeploy `magatama-uqpel6i6` so `maps.etzhayyim.com/xrpc/*` routes hit the Worker instead of timing out.
+- [x] Redeploy `kotodama-uqpel6i6` so `maps.etzhayyim.com/xrpc/*` routes hit the Worker instead of timing out.
 - [x] Verify `com.etzhayyim.apps.maps.getDashboard` returns 200 on `maps.etzhayyim.com`.
 - [x] Add defensive edge degrade for dashboard collection reads and live aircraft/satellite reads when Worker-side DB access is prohibited.
 - [x] Move World Monitor dashboard counts, risk snapshot, event feed, brief, alerts, and market signals to pod-side maps LangServer reads.
@@ -112,7 +112,7 @@ The public supporting XRPCs also returned HTTP 200 from the pod LangServer:
 
 ## Deployment Notes
 
-Use the repo-local CLI for the legacy `magatama.jsonld` deploy path:
+Use the repo-local CLI for the legacy `kotodama.jsonld` deploy path:
 
 ```bash
 /Users/junkawasaki/github/etzhayyim-root/etzhayyim deploy

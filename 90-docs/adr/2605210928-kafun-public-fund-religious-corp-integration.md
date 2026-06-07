@@ -40,7 +40,7 @@ superseded_by: []
 
 `60-apps/etzhayyim-project-public-kafun-bokumetsu/` は AI agent (Murakumo/Qwen) が花粉症の根本的解決に向けて自律的に研究・提案・行動・自己進化する project として既に設計済み。構成要素:
 
-- **Pregel (LangGraph)**: `20-actors/magatama/py/src/pymagatama/langgraph_graphs/kafun_{tick,think,research}.py` (3 graphs, 257 lines + 56 lines shared)
+- **Pregel (LangGraph)**: `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs/kafun_{tick,think,research}.py` (3 graphs, 257 lines + 56 lines shared)
 - **Lexicon**: `00-contracts/lexicons/com/etzhayyim/apps/kafun/agent/{tick,think,research}.json` (3 procedures)
 - **Project (App)**: nanoid `n97ik10n`、TS Native + Murakumo runtime、Svelte SPA、K8s CronJob (6h毎)
 - **Graph projection**: `vertex_kafun_langgraph` / `vertex_agent_topo_and_kafun_concrete` / `vertex_kafun_satellite_landowner_stakeholder` (3 alembic migrations)
@@ -224,7 +224,7 @@ kafun の 3 LangGraph (kafun_tick / kafun_think / kafun_research) は ADR-260519
 | Tier | Pregel 種別 | kafun の位置 |
 |---|---|---|
 | **Tier A** — Per-Adherent | `PhenotypeAgent` per SBT (unispsc_agents pattern) | × |
-| **Tier B** — Per-Domain | religious-corp governance cells (15 cells, `20-actors/magatama/cells/`) | × |
+| **Tier B** — Per-Domain | religious-corp governance cells (15 cells, `40-engine/kotoba/crates/kotoba-kotodama/cells/`) | × |
 | **Tier C** — Per-Decision | `CouncilDeliberationCell` (generic) | × |
 | **Tier D (本 ADR で確立)** — Per-Project-Grant | grant 受領 project の operational LangGraph | ✅ kafun_{tick,think,research} |
 
@@ -325,5 +325,5 @@ religious-corp 公式 project から外し、外部 NPO として運営。
 - ADR-2605191559: ameno MST checkpointer Stage 2 (Tier D Pregel checkpoint)
 - ADR-2605192415: religious-corp daemon architecture (Tier B/C cells — kafun は対比として Tier D)
 - 60-apps/etzhayyim-project-public-kafun-bokumetsu/ (本 ADR 対象 project)
-- 20-actors/magatama/py/src/pymagatama/langgraph_graphs/kafun_*.py (本 ADR 対象 LangGraph)
+- 40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs/kafun_*.py (本 ADR 対象 LangGraph)
 - 00-contracts/lexicons/com/etzhayyim/apps/kafun/agent/ (本 ADR 対象 lexicons)

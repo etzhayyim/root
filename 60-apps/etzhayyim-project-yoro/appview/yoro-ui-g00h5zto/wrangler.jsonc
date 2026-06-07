@@ -1,5 +1,5 @@
 {
-  "name": "magatama-yoro",
+  "name": "kotodama-yoro",
   "main": "src/worker.ts",
   "compatibility_date": "2025-03-17",
   "compatibility_flags": [

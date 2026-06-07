@@ -15,7 +15,7 @@ import {
   resolveHeartbeatCadence, createCadenceState, createInboxBuffer, llmAsk, genID, resolveModelId,
   nsid,
   parseLexiconInput,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 const cadenceState = createCadenceState();
 const inbox = createInboxBuffer();

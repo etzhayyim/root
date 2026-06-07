@@ -20,5 +20,5 @@
 ## 境界ルール
 
 - protocol 層は runtime 実装 (`20-actors/*`) に依存しない
-- protocol 層は contract 実装 (`00-contracts/magatama-host-contract`) に依存しない
+- protocol 層は contract 実装 (`00-contracts/kotodama-host-contract`) に依存しない
 - `xrpc` は protocol core として単独で完結させる

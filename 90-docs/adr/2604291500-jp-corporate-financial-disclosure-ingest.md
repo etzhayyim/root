@@ -239,7 +239,7 @@ Zeebe task types:
 Production package:
 
 ```text
-20-actors/magatama/py/src/pymagatama/ingest/jp_corp_finance/
+40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/jp_corp_finance/
   __init__.py
   worker_main.py          # pyzeebe registration
   config.py               # source registry + rate limits

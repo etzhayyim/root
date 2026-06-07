@@ -55,16 +55,16 @@ try {
   if (pdsForbiddenParentIndexPath) await writeFile(pdsForbiddenParentIndexPath, pdsForbiddenModuleBody);
 
   const runtimeTsconfigBase = firstExisting(
-    "20-actors/magatama/sdk/magatama-host-sdk/tsconfig.json",
-    "20-actors/magatama/sdk/magatama-host-sdk/tsconfig.json",
+    "40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/tsconfig.json",
+    "40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/tsconfig.json",
   );
   const runtimeIncludeRoot = firstExisting(
-    "20-actors/magatama/sdk/magatama-host-sdk/src",
-    "20-actors/magatama/sdk/magatama-host-sdk/src",
+    "40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src",
+    "40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src",
   );
   const contractIncludeRoot = firstExisting(
-    "00-contracts/magatama-host-contract/src",
-    "packages/contract/magatama-host-contract/src",
+    "00-contracts/kotodama-host-contract/src",
+    "packages/contract/kotodama-host-contract/src",
   );
   const pdsTsconfigBase = firstExisting(
     "50-infra/cloudflare/workers/atproto/tsconfig.json",
@@ -113,8 +113,8 @@ try {
           "infra/*": ["./forbidden-import.ts"],
           "packages/runtime": ["./forbidden-import.ts"],
           "packages/runtime/*": ["./forbidden-import.ts"],
-          "@etzhayyim/magatama-host-sdk": ["./forbidden-import.ts"],
-          "@etzhayyim/magatama-host-sdk/*": ["./forbidden-import.ts"],
+          "@etzhayyim/kotodama-host-sdk": ["./forbidden-import.ts"],
+          "@etzhayyim/kotodama-host-sdk/*": ["./forbidden-import.ts"],
         },
       },
       include: [path.join(contractIncludeRoot, "**/*.ts")],

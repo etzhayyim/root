@@ -4,8 +4,8 @@ Multi-replica k8s deployment of the C-suite role LSP. Phase 4 of
 [ADR-2605101200](../../../90-docs/adr/2605101200-ai-cxo-roles-lsp-resident.md).
 
 Wraps the same `KeieiServer` dispatcher used by the local stdio /
-Unix-socket transport (`python -m pymagatama.keiei`) behind a thin
-FastAPI HTTP transport (`pymagatama.keiei.http_server:app`) served
+Unix-socket transport (`python -m kotodama.keiei`) behind a thin
+FastAPI HTTP transport (`kotodama.keiei.http_server:app`) served
 by granian per [ADR-2605080600](../../../90-docs/adr/2605080600-langgraph-server-granian-l3-runtime.md).
 
 ## Endpoints
@@ -40,14 +40,14 @@ clients can retry against the lease holder.
 
 ## Build
 
-Remote BuildKit on `etzhayyim-vke` (linux/amd64). Mount the `pymagatama`
+Remote BuildKit on `etzhayyim-vke` (linux/amd64). Mount the `kotodama`
 source tree as a build context so we don't push it to a registry:
 
 ```
 cd 60-apps/etzhayyim-project-keiei/lg
 docker buildx build \
   --builder etzhayyim-vke --platform linux/amd64 \
-  --build-context py=../../../20-actors/magatama/py \
+  --build-context py=../../../40-engine/kotoba/crates/kotoba-kotodama/py \
   --cache-from type=registry,ref=ghcr.io/etzhayyim/build-cache:keiei-lsp \
   --cache-to   type=registry,ref=ghcr.io/etzhayyim/build-cache:keiei-lsp,mode=max \
   -t ghcr.io/etzhayyim/keiei-lsp:0.2.0-amd64 --push .

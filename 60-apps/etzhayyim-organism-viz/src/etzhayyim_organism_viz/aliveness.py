@@ -149,12 +149,12 @@ def motion(observations_dir: Path, repo: Path | None = None, window: int = 7) ->
 def diversity(repo: Path) -> tuple[float, list[str]]:
     """Shannon entropy over cell-type counts (nats).
 
-    Each cell directory under 20-actors/magatama/cells/ is its own category.
+    Each cell directory under 40-engine/kotoba/crates/kotoba-kotodama/cells/ is its own category.
     The earlier version collapsed yorishiro_* into one bucket which
     systematically under-counted the 八百万 (variation as worship) signal —
     each yorishiro binding is a distinct external integration.
     """
-    cells_dir = repo / "20-actors" / "magatama" / "cells"
+    cells_dir = repo / "20-actors" / "kotodama" / "cells"
     if not cells_dir.is_dir():
         return 0.0, ["diversity: cells dir missing"]
     counts: dict[str, int] = {}
@@ -225,7 +225,7 @@ def pruning(repo: Path, *_ignored, **__ignored) -> tuple[float, list[str]]:
       - P < 0.5 → many half-finished cells; needs operator attention
       - P = 1.0 → all tended (fine; the band tolerates this)
     """
-    cells_dir = repo / "20-actors" / "magatama" / "cells"
+    cells_dir = repo / "20-actors" / "kotodama" / "cells"
     if not cells_dir.is_dir():
         return 0.0, ["pruning: cells dir missing"]
     tended = 0

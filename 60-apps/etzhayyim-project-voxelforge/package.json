@@ -9,7 +9,7 @@
     "smoke": "curl -s https://voxelforge.etzhayyim.com/health"
   },
   "dependencies": {
-    "@etzhayyim/magatama-host-sdk": "workspace:*",
+    "@etzhayyim/kotodama-host-sdk": "workspace:*",
     "@etzhayyim/graph-schema": "workspace:*",
     "hono": "^4.6.0"
   },

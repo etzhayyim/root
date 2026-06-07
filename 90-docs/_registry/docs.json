@@ -23,48 +23,7 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/magatama/260319-magatama-wit-dodaf-nist-coverage.md",
-      "id": "260319-kotodama-wit-dodaf-nist-coverage",
-      "title": "App WIT — DoDAF v2 / NIST CSF 2.0 Coverage Map",
-      "status": "active",
-      "doc_type": "reference",
-      "topic": "wit-coverage",
-      "authoritative": true,
-      "authoritative_for": [
-        "kotodama wit package coverage and compliance mapping"
-      ],
-      "related": [
-        "260320-kotodama-cloudflare-containers-evaluation"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "last_verified": "2026-03-20",
-      "amends": [],
-      "amended_by": []
-    },
-    {
       "path": "90-docs/kotodama/260320-kotodama-cloudflare-containers-evaluation.md",
-      "id": "260320-kotodama-cloudflare-containers-evaluation",
-      "title": "Kotodama vs Cloudflare Containers Evaluation",
-      "status": "active",
-      "doc_type": "explanation",
-      "topic": "runtime-selection",
-      "authoritative": true,
-      "authoritative_for": [
-        "kotodama runtime default vs container fallback"
-      ],
-      "related": [
-        "260320-kotodama-cloudflare-containers-evaluation",
-        "260320-kotodama-cloudflare-worker-rpc-optimization"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "last_verified": "2026-03-20",
-      "amends": [],
-      "amended_by": []
-    },
-    {
-      "path": "90-docs/magatama/260320-magatama-cloudflare-containers-evaluation.md",
       "id": "260320-kotodama-cloudflare-containers-evaluation",
       "title": "Kotodama vs Cloudflare Containers Evaluation",
       "status": "active",
@@ -106,53 +65,7 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/magatama/260320-magatama-cloudflare-worker-rpc-optimization.md",
-      "id": "260320-kotodama-cloudflare-worker-rpc-optimization",
-      "title": "Kotodama Cloudflare Worker RPC Optimization",
-      "status": "active",
-      "doc_type": "reference",
-      "topic": "worker-rpc-transport",
-      "authoritative": true,
-      "authoritative_for": [
-        "worker internal transport selection between rpc and http service bindings"
-      ],
-      "related": [
-        "260320-kotodama-cloudflare-containers-evaluation",
-        "260320-kotodama-cloudflare-containers-evaluation"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "last_verified": "2026-03-20",
-      "amends": [],
-      "amended_by": []
-    },
-    {
       "path": "90-docs/kotodama/260320-vault-zero-knowledge-design.md",
-      "id": "260320-vault-zero-knowledge-design",
-      "title": "Vault Zero-Knowledge Design — 1Password-Style Key Hierarchy for All Principal Types",
-      "status": "active",
-      "doc_type": "explanation",
-      "topic": "vault-zero-knowledge-crypto",
-      "authoritative": true,
-      "authoritative_for": [
-        "vault.etzhayyim.com zero knowledge key hierarchy and encryption design",
-        "vault principal types and key exchange patterns",
-        "vault WIT interface design (kotodama:secrets/vault)"
-      ],
-      "related": [
-        "yoro-superapp-oembed-design",
-        "260317-yata-secure-cas-design",
-        "260315-atprotocol-signal-design",
-        "260319-kotodama-wit-dodaf-nist-coverage"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "last_verified": "2026-03-20",
-      "amends": [],
-      "amended_by": []
-    },
-    {
-      "path": "90-docs/magatama/260320-vault-zero-knowledge-design.md",
       "id": "260320-vault-zero-knowledge-design",
       "title": "Vault Zero-Knowledge Design — 1Password-Style Key Hierarchy for All Principal Types",
       "status": "active",
@@ -322,30 +235,6 @@
     },
     {
       "path": "90-docs/kotodama/260403-inference-runtime-and-artifacts-consolidated.md",
-      "id": "260403-inference-runtime-and-artifacts-consolidated",
-      "title": "Inference Runtime and Artifacts (Consolidated)",
-      "status": "active",
-      "doc_type": "explanation",
-      "topic": "inference-runtime-artifacts",
-      "authoritative": true,
-      "authoritative_for": [
-        "inference runtime baseline across rust and wasm paths",
-        "hayate artifact schema and runtime compatibility baseline"
-      ],
-      "related": [],
-      "supersedes": [
-        "260325-claude-native-lifecycle-management",
-        "ingredient-safety-scoring",
-        "260330-hayate-wasm-kotodama-design",
-        "260330-hayate-artifact-schema-design"
-      ],
-      "superseded_by": [],
-      "last_verified": "2026-04-03",
-      "amends": [],
-      "amended_by": []
-    },
-    {
-      "path": "90-docs/magatama/260403-inference-runtime-and-artifacts-consolidated.md",
       "id": "260403-inference-runtime-and-artifacts-consolidated",
       "title": "Inference Runtime and Artifacts (Consolidated)",
       "status": "active",
@@ -979,27 +868,6 @@
     },
     {
       "path": "90-docs/adr/2605191257-ameno-daemon-path-b-kotodama-python.md",
-      "id": "2605191257-ameno-daemon-path-b-kotodama-python",
-      "title": "Ameno headless daemon (Path B) — kotodama Python port",
-      "status": "proposed",
-      "doc_type": "adr",
-      "topic": "ameno-headless-daemon",
-      "authoritative": true,
-      "related": [],
-      "depends_on": [
-        "2605191229-ameno-daemon-path-a-bun-langgraph",
-        "2605182312-local-bring-up-murakumo-gemma4",
-        "2605191135-ameno-tier2-daemon-residency"
-      ],
-      "last_verified": "2026-05-19",
-      "authoritative_for": [],
-      "supersedes": [],
-      "superseded_by": [],
-      "amends": [],
-      "amended_by": []
-    },
-    {
-      "path": "90-docs/adr/2605191257-ameno-daemon-path-b-pymagatama-python.md",
       "id": "2605191257-ameno-daemon-path-b-kotodama-python",
       "title": "Ameno headless daemon (Path B) — kotodama Python port",
       "status": "proposed",
@@ -1814,24 +1682,6 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/0066-magatama-organizer-shinka-shannon-bayes.md",
-      "id": "adr-0066-kotodama-organizer-shinka-shannon-bayes",
-      "title": "ADR-0038: Kotodama Organizer — joucho Shinka × Shannon Optimization × Bayesian Evaluation",
-      "status": "accepted",
-      "doc_type": "adr",
-      "topic": "kotodama-organizer",
-      "authoritative": true,
-      "related": [
-        "adr-0034-agent-cron-goose-kotoba-direct"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "last_verified": "2026-04-20",
-      "authoritative_for": [],
-      "amends": [],
-      "amended_by": []
-    },
-    {
       "path": "90-docs/adr/0075-yoro-engagement-wellbecoming.md",
       "id": "adr-0075-yoro-engagement-wellbecoming",
       "title": "ADR-0030: YORO Engagement Algorithm — Shannon / Bayes / Graph / Topology / Joucho-emotion with well-becoming guardrails",
@@ -1876,36 +1726,6 @@
     },
     {
       "path": "90-docs/adr/0087-kotodama-mcp-tool-facade.md",
-      "id": "adr-0087-kotodama-mcp-tool-facade",
-      "title": "kotodama per-actor MCP tool facade (Hono Streamable HTTP)",
-      "status": "proposed",
-      "doc_type": "adr",
-      "topic": "mcp-tool-facade",
-      "authoritative": true,
-      "authoritative_for": [
-        "per-actor-mcp-endpoint",
-        "llm-agent-tool-discovery",
-        "asagenttool-external-exposure"
-      ],
-      "related": [
-        "90-docs/adr/0004-write-only-derived-architecture.md",
-        "90-docs/adr/0005-shannon-redundancy-prohibition.md",
-        "90-docs/adr/0022-auth-topology-consolidation.md",
-        "90-docs/adr/0023-auth-shannon-optimal-4-layer.md",
-        "90-docs/adr/0036-worker-direct-hyperdrive-persistence.md",
-        "90-docs/260413-agent-loop-unification-path-analysis.md",
-        "adr-2604261000-mcp-registry-via-kysely-schema"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "amended_by": [
-        "adr-2604261000-mcp-registry-via-kysely-schema"
-      ],
-      "last_verified": "2026-04-25",
-      "amends": []
-    },
-    {
-      "path": "90-docs/adr/0087-magatama-mcp-tool-facade.md",
       "id": "adr-0087-kotodama-mcp-tool-facade",
       "title": "kotodama per-actor MCP tool facade (Hono Streamable HTTP)",
       "status": "proposed",
@@ -5576,8 +5396,8 @@
         "Runtime target matrix: native CPU (bitnet.cpp / llama.cpp), browser (WebGPU + WASM), embedded edge (mobile / Pi-class boards)"
       ],
       "related": [
-        "20-actors/kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts",
-        "20-actors/kotodama/py/src/kotodama/primitives/training_run.py",
+        "40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts",
+        "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/training_run.py",
         "30-graph/graph-schema/migrations/20260508000000_vertex_training_lineage.ts"
       ],
       "supersedes": [],
@@ -9213,39 +9033,6 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605202100-etzhayyim-magatama-cell-runner-launchd.md",
-      "id": "adr-2605202100-etzhayyim-kotodama-cell-runner-launchd",
-      "title": "ADR-2605202100: kotodama-cell-runner launchd LaunchAgent — operationalising Tier 1 常駐稼働 on the Murakumo fleet",
-      "status": "proposed",
-      "doc_type": "adr",
-      "topic": "kotodama-cell-runner-launchd",
-      "authoritative": true,
-      "authoritative_for": [
-        "launchd plist template for kotodama-cell-runner",
-        "Per-host installer (`install.sh --node <tribe>`) + uninstaller",
-        "pyproject `[project.scripts]` kotodama-cell-runner entry",
-        "Per-node cell assignment readback contract (fleet.toml ↔ runner CLI)",
-        "常駐起動 OS-level boot path (launchd → uv → kotodama-cell-runner)"
-      ],
-      "related": [
-        "50-infra/cluster/murakumo/cell-runner/",
-        "50-infra/cluster/murakumo/litellm/",
-        "50-infra/murakumo/fleet.toml",
-        "20-actors/kotodama/py/src/kotodama/cell_runner_main.py"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "depends_on": [
-        "2605182312-local-bring-up-murakumo-gemma4",
-        "2605191346-etzhayyim-vultr-free-murakumo-control-plane",
-        "2605191559-ameno-mst-checkpointer-stage-2-activation",
-        "adr-2605192415-etzhayyim-religious-corp-daemon-architecture"
-      ],
-      "last_verified": "2026-05-20",
-      "amends": [],
-      "amended_by": []
-    },
-    {
       "path": "90-docs/adr/2605202115-baien-graft-3d-augmented-dataset.md",
       "id": "adr-2605202115-baien-graft-3d-augmented-dataset",
       "title": "ADR-2605202115: Baien graft 3D-augmented dataset (image, multi-view, caption)",
@@ -9293,8 +9080,8 @@
         "MST listener wiring (fleet.toml.listens_to → cell)"
       ],
       "related": [
-        "20-actors/kotodama/cells/",
-        "20-actors/kotodama/py/src/kotodama/cell_runner_main.py"
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/",
+        "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/cell_runner_main.py"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -10019,9 +9806,9 @@
         "Charter purpose enforcement の lefthook hook 拡張点"
       ],
       "related": [
-        "20-actors/kotodama/mcp/unispsc-isic-mcp/",
-        "20-actors/kotodama/cells/",
-        "20-actors/kotodama/py/src/kotodama/primitives/",
+        "40-engine/kotoba/crates/kotoba-kotodama/mcp/unispsc-isic-mcp/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/",
+        "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/",
         "00-contracts/lexicons/ai/etzhayyim/",
         "70-tools/etzhayyim-cli/",
         "70-tools/charter-rider-applicator/",
@@ -10215,44 +10002,6 @@
     },
     {
       "path": "90-docs/adr/2605212100-kotodama-worker-3-axis-tranche-f-closure.md",
-      "id": "adr-2605212100-kotodama-worker-3-axis-tranche-f-closure",
-      "title": "ADR-2605212100: Tranche F closure — 70 kotodama worker_main 3-axis classification + Phase 3 prerequisites",
-      "status": "active",
-      "doc_type": "adr",
-      "topic": "kotodama-worker-vendor-etzhayyim-boundary",
-      "authoritative": true,
-      "authoritative_for": [
-        "kotodama worker classification under the 3-axis OR-test",
-        "Phase 3 prerequisites for any worker deployment-surface migration to etzhayyim",
-        "corrected helm chart ownership semantics (etzhayyim is RW-free, not a Vultr+Helm copy target)"
-      ],
-      "related": [
-        "adr-2605181400-bpmn-extract-to-etzhayyim-root",
-        "adr-2605152100-etzhayyim-github-org-boundary",
-        "adr-2605211757-dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com",
-        "adr-2605211913-vendor-refactor-and-git-rm-phase-4-5-runbook",
-        "adr-2605211925-phase-6-archive-markers-runbook",
-        "doc-2605211800-vendor-importer-survey-gate-d",
-        "doc-2605211900-tranche-f-all-gates-closure-confirmation",
-        "doc-2605211949-gate-a-execution-checklist",
-        "doc-2605212020-session-post-mortem-2026-05-21",
-        "doc-tranche-f-index"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "depends_on": [
-        "adr-2605172400-etzhayyim-vendor-three-axis-split-rule",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
-        "adr-2605172100-etzhayyim-payments-on-chain-only",
-        "adr-2605211200-etzhayyim-active-inference-organism-on-murakumo",
-        "adr-2605173100-gitguardian-incident-response"
-      ],
-      "last_verified": "2026-05-21",
-      "amends": [],
-      "amended_by": []
-    },
-    {
-      "path": "90-docs/adr/2605212100-magatama-worker-3-axis-tranche-f-closure.md",
       "id": "adr-2605212100-kotodama-worker-3-axis-tranche-f-closure",
       "title": "ADR-2605212100: Tranche F closure — 70 kotodama worker_main 3-axis classification + Phase 3 prerequisites",
       "status": "active",
@@ -11157,7 +10906,7 @@
       ],
       "related": [
         "adr-2604271830-patent-expired-pharma-seiyaku-handoff",
-        "20-actors/kotodama/mcp/open-seiyaku-mcp"
+        "40-engine/kotoba/crates/kotoba-kotodama/mcp/open-seiyaku-mcp"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -11301,7 +11050,7 @@
       "related": [
         "70-tools/seed-post/",
         "00-contracts/policies/app/bsky/feed/",
-        "20-actors/kotodama/cells/feed_post/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/feed_post/",
         "50-infra/mst-projector/projection/",
         "00-contracts/lexicons/com/etzhayyim/membrane/",
         "00-contracts/lexicons/com/etzhayyim/projection/"
@@ -11363,7 +11112,7 @@
       "authoritative": true,
       "authoritative_for": [
         "UNSPSC agent corpus health invariant (100% import + invoke clean)",
-        "6 kuni-umi phase cell.py implementations (canonical at 20-actors/kotodama/cells/*; 20-actors/kuni-umi/cells/* are symlinks)",
+        "6 kuni-umi phase cell.py implementations (canonical at 40-engine/kotoba/crates/kotoba-kotodama/cells/*; 20-actors/kuni-umi/cells/* are symlinks)",
         "KuniUmiApiCell HTTP gateway (naphtali:13030, lan-api, 6 lexicon endpoints + /xrpc/{nsid} + /api/invoke + /api/{short})",
         "mst-listener entry contract for kuni-umi cells (handle_mst_event + cron_fire wrappers)",
         "kotodama.transport.libp2p Python wrapper around etzhayyim-libp2p shell scripts",
@@ -11535,7 +11284,7 @@
         "70-tools/baien-mx-train/                (skeleton — new with this ADR)",
         "70-tools/baien-graft-pipeline/          (data generation)",
         "70-tools/etzhayyim-cli/bench.go         (`e7m bench mx-train` subcommand)",
-        "20-actors/kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts (Move 1 graft registration target)"
+        "40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts (Move 1 graft registration target)"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -11769,7 +11518,7 @@
         "server-side variant naming carve-out"
       ],
       "related": [
-        "20-actors/kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts",
+        "40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts",
         "70-tools/baien-distill/",
         "70-tools/baien-mx-train/"
       ],
@@ -11865,7 +11614,7 @@
         "https://huggingface.co/prism-ml/Bonsai-8B-mlx-1bit (Bonsai reference impl)",
         "https://huggingface.co/Zyphra/Zamba2-7B (Zamba2 base candidate)",
         "https://huggingface.co/Qwen/Qwen3-8B (Qwen3 base, Bonsai-proven)",
-        "20-actors/kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts",
+        "40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts",
         "70-tools/baien-distill/"
       ],
       "supersedes": [],
@@ -12092,7 +11841,7 @@
       "related": [
         "50-infra/silicon/",
         "20-actors/tsukuru/",
-        "20-actors/kotodama/cells/silicon_*/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_*/",
         "00-contracts/lexicons/com/etzhayyim/silicon/"
       ],
       "supersedes": [],
@@ -12130,7 +11879,7 @@
         "50-infra/silicon/iwakura/",
         "50-infra/silicon/shared-ip/ternary-pe/",
         "70-tools/silicon/iwakura-asm/",
-        "20-actors/kotodama/cells/silicon_test/"
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_test/"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -12198,14 +11947,14 @@
       ],
       "related": [
         "50-infra/silicon/equipment/",
-        "20-actors/kotodama/cells/silicon_litho/",
-        "20-actors/kotodama/cells/silicon_deposition/",
-        "20-actors/kotodama/cells/silicon_etch/",
-        "20-actors/kotodama/cells/silicon_implant/",
-        "20-actors/kotodama/cells/silicon_cmp/",
-        "20-actors/kotodama/cells/silicon_metrology/",
-        "20-actors/kotodama/cells/silicon_test/",
-        "20-actors/kotodama/cells/silicon_packaging/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_litho/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_deposition/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_etch/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_implant/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_cmp/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_metrology/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_test/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_packaging/",
         "00-contracts/lexicons/com/etzhayyim/silicon/fabEquipmentTelemetry.json",
         "00-contracts/lexicons/com/etzhayyim/silicon/waferLotAttestation.json",
         "20-actors/tsukuru/"
@@ -12243,7 +11992,7 @@
       "related": [
         "20-actors/ameno/src/train.ts",
         "70-tools/baien-distill/src/baien_distill/nodes/federated_aggregate.py",
-        "20-actors/kotodama/cells/baien_federated_aggregator/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/baien_federated_aggregator/",
         "00-contracts/lexicons/com/etzhayyim/baien/distributedTrainDelta.json"
       ],
       "supersedes": [],
@@ -12432,7 +12181,7 @@
       ],
       "related": [
         "20-actors/yakushi/",
-        "20-actors/kotodama/cells/pharma_*/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_*/",
         "00-contracts/lexicons/com/etzhayyim/pharma/",
         "50-infra/murakumo/fleet.toml"
       ],
@@ -12476,9 +12225,9 @@
       ],
       "related": [
         "20-actors/yakushi/",
-        "20-actors/kotodama/cells/pharma_api_synthesis/",
-        "20-actors/kotodama/cells/pharma_purification/",
-        "20-actors/kotodama/cells/pharma_qc/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_api_synthesis/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_purification/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_qc/",
         "00-contracts/lexicons/com/etzhayyim/pharma/apiSynthesisAttestation.json",
         "00-contracts/lexicons/com/etzhayyim/pharma/purificationAttestation.json",
         "00-contracts/lexicons/com/etzhayyim/pharma/qcAttestation.json"
@@ -12514,8 +12263,8 @@
       ],
       "related": [
         "20-actors/yakushi/",
-        "20-actors/kotodama/cells/pharma_sterile_fill_finish/",
-        "20-actors/kotodama/cells/pharma_container/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_sterile_fill_finish/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_container/",
         "00-contracts/lexicons/com/etzhayyim/pharma/fillFinishAttestation.json",
         "00-contracts/lexicons/com/etzhayyim/pharma/lotAttestation.json"
       ],
@@ -12550,11 +12299,11 @@
       ],
       "related": [
         "20-actors/yakushi/",
-        "20-actors/kotodama/cells/pharma_raw_material/",
-        "20-actors/kotodama/cells/pharma_packaging/",
-        "20-actors/kotodama/cells/pharma_cold_chain/",
-        "20-actors/kotodama/cells/pharma_post_market_surveillance/",
-        "20-actors/kotodama/cells/pharma_adverse_event/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_raw_material/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_packaging/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_cold_chain/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_post_market_surveillance/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_adverse_event/",
         "00-contracts/lexicons/com/etzhayyim/pharma/rawMaterialAttestation.json",
         "00-contracts/lexicons/com/etzhayyim/pharma/silenPharmaReview.json",
         "00-contracts/lexicons/com/etzhayyim/pharma/adverseEventReport.json"
@@ -12593,8 +12342,8 @@
       ],
       "related": [
         "20-actors/yakushi/",
-        "20-actors/kotodama/cells/pharma_tablet_manufacture/",
-        "20-actors/kotodama/cells/pharma_topical_formulation/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_tablet_manufacture/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_topical_formulation/",
         "00-contracts/lexicons/com/etzhayyim/pharma/"
       ],
       "supersedes": [],
@@ -12627,7 +12376,7 @@
       ],
       "related": [
         "20-actors/yakushi/",
-        "20-actors/kotodama/cells/pharma_chiral_resolution/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_chiral_resolution/",
         "00-contracts/lexicons/com/etzhayyim/pharma/"
       ],
       "supersedes": [],
@@ -12699,7 +12448,7 @@
         "R0 → R1..R4 phase plan and gating"
       ],
       "related": [
-        "20-actors/kotodama/py/src/kotodama/",
+        "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/",
         "50-infra/murakumo/fleet.toml",
         "70-tools/baien-distill",
         "30-graph/graph-schema/migrations/"
@@ -13194,7 +12943,7 @@
       ],
       "related": [
         "20-actors/mitate/",
-        "20-actors/kotodama/cells/mitate_*/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_*/",
         "00-contracts/lexicons/com/etzhayyim/mitate/",
         "50-infra/murakumo/fleet.toml"
       ],
@@ -13237,11 +12986,11 @@
         "yakushi Wave 1c cetirizine / loratadine / Wave 1c chlorpheniramine 経路との接続"
       ],
       "related": [
-        "20-actors/kotodama/cells/mitate_rhinitis_intake/",
-        "20-actors/kotodama/cells/mitate_rhinitis_triage/",
-        "20-actors/kotodama/cells/mitate_allergy_ige_panel_order/",
-        "20-actors/kotodama/cells/mitate_nasal_smear_eosinophil/",
-        "20-actors/kotodama/cells/mitate_slit_cohort_tracker/"
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_rhinitis_intake/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_rhinitis_triage/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_allergy_ige_panel_order/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_nasal_smear_eosinophil/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_slit_cohort_tracker/"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -13271,9 +13020,9 @@
         "PNN section (posterior nasal nerve section) surgical routing (R3 severe-refractory)"
       ],
       "related": [
-        "20-actors/kotodama/cells/mitate_rhinitis_triage/",
-        "20-actors/kotodama/cells/mitate_treatment_router/",
-        "20-actors/kotodama/cells/mitate_outcome_qol_followup/"
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_rhinitis_triage/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_treatment_router/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_outcome_qol_followup/"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -13303,10 +13052,10 @@
         "**mitate Wave 1 中 最も Rx + surgical routing 重い condition ― licensed MD-in-loop の最低 Case**"
       ],
       "related": [
-        "20-actors/kotodama/cells/mitate_rhinitis_triage/",
-        "20-actors/kotodama/cells/mitate_nasal_endoscopy_acquire/",
-        "20-actors/kotodama/cells/mitate_paranasal_ct_route/",
-        "20-actors/kotodama/cells/mitate_ess_surgery_planner/"
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_rhinitis_triage/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_nasal_endoscopy_acquire/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_paranasal_ct_route/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_ess_surgery_planner/"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -13334,10 +13083,10 @@
         "軽症 = 点鼻 steroid / 中重症 = septoplasty + 下鼻甲介手術 routing (R3)"
       ],
       "related": [
-        "20-actors/kotodama/cells/mitate_rhinitis_triage/",
-        "20-actors/kotodama/cells/mitate_nasal_endoscopy_acquire/",
-        "20-actors/kotodama/cells/mitate_rhinomanometry/",
-        "20-actors/kotodama/cells/mitate_ess_surgery_planner/"
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_rhinitis_triage/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_nasal_endoscopy_acquire/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_rhinomanometry/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_ess_surgery_planner/"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -13365,10 +13114,10 @@
         "**religious-corp 内 self-care substrate の最初の完結した closed-loop case (yakushi 製造 → adherent 使用 → mitate detection → 離脱 → yakushi label警告 強化)**"
       ],
       "related": [
-        "20-actors/kotodama/cells/mitate_rhinitis_intake/",
-        "20-actors/kotodama/cells/mitate_medication_history_audit/",
-        "20-actors/kotodama/cells/mitate_treatment_router/",
-        "20-actors/kotodama/cells/mitate_outcome_qol_followup/"
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_rhinitis_intake/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_medication_history_audit/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_treatment_router/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_outcome_qol_followup/"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -13399,7 +13148,7 @@
       ],
       "related": [
         "20-actors/mitate/",
-        "20-actors/kotodama/cells/mitate_{rhinitis_intake,emergency_screen,medication_history_audit,rhinitis_triage}/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_{rhinitis_intake,emergency_screen,medication_history_audit,rhinitis_triage}/",
         "60-apps/mitate-pwa/",
         "50-infra/murakumo/fleet.toml"
       ],
@@ -13439,11 +13188,11 @@
       "related": [
         "20-actors/yakushi/",
         "20-actors/mitate/",
-        "20-actors/kotodama/cells/pharma_adverse_event/",
-        "20-actors/kotodama/cells/pharma_post_market_surveillance/",
-        "20-actors/kotodama/cells/pharma_packaging/",
-        "20-actors/kotodama/cells/mitate_outcome_qol_followup/",
-        "20-actors/kotodama/cells/mitate_medication_history_audit/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_adverse_event/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_post_market_surveillance/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_packaging/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_outcome_qol_followup/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_medication_history_audit/",
         "00-contracts/lexicons/com/etzhayyim/pharma/adverseEventReport.json"
       ],
       "supersedes": [],
@@ -13479,7 +13228,7 @@
       "related": [
         "20-actors/mitate/",
         "20-actors/kuni-umi/",
-        "20-actors/kotodama/cells/mitate_nasal_endoscopy_acquire/"
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_nasal_endoscopy_acquire/"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -13957,7 +13706,7 @@
         "40-engine/kami-engine/kami-replicator",
         "40-engine/kami-engine/kami-app-amenominaka",
         "20-actors/etzhayyim-sdk/nv-compat",
-        "20-actors/kotodama/py/kotodama/nv_compat"
+        "40-engine/kotoba/crates/kotoba-kotodama/py/kotodama/nv_compat"
       ],
       "related": [
         "adr-2605242000-roso-pattern-frontier-distill",
@@ -16511,10 +16260,10 @@
         "00-contracts/lexicons/com/etzhayyim/mitate/diagnosticOrder.json",
         "00-contracts/lexicons/com/etzhayyim/mitate/diagnosticConsentReceipt.json",
         "00-contracts/lexicons/com/etzhayyim/iyashi/phlebotomyAttestation.json",
-        "20-actors/kotodama/cells/mitate_diagnostic_consent_orchestrator/",
-        "20-actors/kotodama/cells/mitate_diagnostic_order_general/",
-        "20-actors/kotodama/cells/mitate_diagnostic_result_ingest/",
-        "20-actors/kotodama/cells/iyashi_internal_phlebotomy/"
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_diagnostic_consent_orchestrator/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_diagnostic_order_general/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_diagnostic_result_ingest/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/iyashi_internal_phlebotomy/"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -20259,28 +20008,6 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2606032330-session-close-magatama-risingwave-to-kotoba-datomic-edn.md",
-      "id": "adr-2606032330-session-close-kotodama-kotoba-to-kotoba-datomic-edn",
-      "title": "ADR-2606032330: Session close — kotodama Kotoba/Datomic → kotoba Datomic API/EDN refactor (substrate clients + LangGraph savers + sqlmesh view registry)",
-      "status": "active",
-      "doc_type": "adr",
-      "topic": "session-close-kotodama-rw-to-kotoba",
-      "authoritative": false,
-      "related": [
-        "adr-2605262130-kotoba-storage-substrate-unification",
-        "adr-2605312345-kotoba-datom-first-class-canonical-state",
-        "adr-2605231525-server-side-signing-capability",
-        "adr-2606022150-kotoba-unified-ipld-dagcbor-prolly-datomic",
-        "adr-2606031030-session-close-kotoba-canonical-substrate-and-browser-node"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "last_verified": "2026-06-03",
-      "authoritative_for": [],
-      "amends": [],
-      "amended_by": []
-    },
-    {
       "path": "90-docs/adr/2606032335-session-close-etzhayyim-rename-sweep-contract-batch106-pause.md",
       "id": "adr-2606032335-session-close-etzhayyim-to-etzhayyim-contract-rename-sweep-batch106-pause",
       "title": "ADR-2606032335: Session close - etzhayyim/kotoba-datomic rename sweep paused after contract path batch 106",
@@ -20658,9 +20385,11 @@
         "2605262130",
         "2605312345",
         "2605181100",
-        "0025"
+        "0025",
+        "2606014500",
+        "2606015400"
       ],
-      "last_verified": "2026-06-06",
+      "last_verified": "2026-06-07",
       "amends": [],
       "amended_by": []
     },
@@ -22168,6 +21897,50 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606071600-sukashi-ad-tech-supply-chain-fraud-network-observatory-r0.md",
+      "id": "adr-2606071600",
+      "title": "ADR-2606071600: 透かし (sukashi) — Ad-Tech Supply-Chain + Delivery-Infra + Fraud-Network Observatory Tier-B Actor R0",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "sukashi-ad-tech-supply-chain-fraud-network",
+      "authoritative": true,
+      "authoritative_for": [
+        "sukashi actor charter (R0)",
+        "ad-tech supply-chain + fraud-network knowledge-graph constitutional gates G1..G13",
+        "ad-supply-chain-ontology.kotoba.edn vocabulary"
+      ],
+      "related": [
+        "adr-2606022300-akashi-public-ad-disclosure-kotoba-actor-r0",
+        "adr-2606031600-ipaddress-yabai-kotoba-eavt-refactor-active-collection",
+        "adr-2605301400-tadori-onchain-tx-tracing-actor",
+        "adr-2605312500-kurashimori-consumer-protection-concierge",
+        "adr-2606060900-tasuke-cybercrime-victim-support-membrane",
+        "adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "adr-2606022000-kabuto-public-company-intel-supply-chain",
+        "adr-2606013600-kotoba-wasm-browser-node"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606022300 (akashi — ad-library disclosure sibling + the malakEvidenceCandidate bridge sukashi hands fraud evidence to)",
+        "ADR-2606031600 (ipaddress/yabai — the ip-network + passive-dns-cti ontologies sukashi reuses for delivery infra)",
+        "ADR-2605301400 (tadori — authorized IP/ASN/WHOIS/passive-DNS substrate)",
+        "ADR-2605312500 (kurashimori — consumer-protection routing target)",
+        "ADR-2606060900 (tasuke — cybercrime-victim-support routing target)",
+        "ADR-2605301600 (danjo — non-adjudicating public-accountability boundary + routing target)",
+        "ADR-2605262130 (kotoba storage substrate)",
+        "ADR-2605312345 (kotoba Datom log = first-class canonical state)",
+        "ADR-2606013600 (kotoba-wasm browser node — the render target)",
+        "ADR-2606013800 (actor-profile SSoT + dynamic did.json — the registration path)",
+        "ADR-2605231525 (no-server-key signing capability boundary)",
+        "ADR-2605215000 (Murakumo-only inference)",
+        "ADR-2605192100 (Charter — 広告排除 invariant this actor must preserve)"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606071600-shukubo-pilgrim-lodging-commons-airbnb-hotels-inversion-r0.md",
       "id": "adr-2606071600-shukubo-pilgrim-lodging-commons",
       "title": "ADR-2606071600: shukubo 宿坊 — pilgrim-lodging commons (Airbnb/Hotels charter-clean inversion), R0",
@@ -22246,6 +22019,146 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606072000-kasa-world-computing-capacity-growth-statistics-observatory-r0.md",
+      "id": "adr-2606072000-kasa-world-computing-capacity-growth-statistics-observatory-r0",
+      "title": "ADR-2606072000: kasa 嵩 — Worldwide Computing-Capacity Growth Statistics Observatory (Tier-B Actor R0)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kasa-computing-capacity-growth-observatory",
+      "authoritative": true,
+      "authoritative_for": [
+        "computing-capacity-growth-observatory-actor",
+        "compute-capacity-eavt-vocabulary",
+        "public-compute-source-admissibility-map"
+      ],
+      "related": [
+        "2606013800",
+        "2606013600",
+        "2605242500"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606032000",
+        "2606022000",
+        "2606051800",
+        "2605263800",
+        "2605262130",
+        "2605312345",
+        "2605215000"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606072000-kosatsu-crime-sanctions-competing-claim-observatory-r0.md",
+      "id": "adr-2606072000-kosatsu-crime-sanctions-competing-claim-observatory-r0",
+      "title": "kosatsu 高札 — crime/sanctions competing-claim observatory (Tier-B actor R0; designation-as-attributed-event over the kotoba Datom log; the politically-neutral, asserter-relative inverse of a sanctions-screening product)",
+      "status": "proposed-pending-council-ratification",
+      "doc_type": "adr",
+      "topic": "kosatsu-crime-sanctions-competing-claim",
+      "authoritative": true,
+      "authoritative_for": [
+        "kosatsu actor scope (crime/sanctions designations mirrored into the kotoba Datom log as append-only attributed events + a computed competing-claim/divergence view; design-only)",
+        "the mirror-not-adjudicator invariant (etzhayyim authors no designation; :authority/kind has no self token; :designation/asserted-notice const true)",
+        "the asserter-mandatory invariant (no asserter-less 'global truth' designation; :designation/asserter required)",
+        "the no-verdict invariant (:designation/measure is an authority instrument; criminal/guilty/terrorist/enemy unrepresentable)",
+        "the event-log/as-of invariant (:designation/status :listed|:delisted; a delisting is a new datom with :lifted-at, never an overwrite; 非終末論)",
+        "the edge-primary / no-score invariant (no :subject/risk-score/:guilt/:threat-level; divergence computed on read)",
+        "the political-stance-explicit divergence model (per-subject {contested|unanimous|single-asserter} + coverage-split; silence is reported, never inferred as dissent)"
+      ],
+      "depends_on": [
+        "adr-2605301400-tadori-onchain-tracing-actor-and-kotoba-eavt-migration",
+        "adr-2605301600-danjo-public-accountability-oversight",
+        "adr-2606066000-keizu-government-relations-graph-tier-b-actor-r0",
+        "adr-2606011800-tsumugi-engi-knowledge-graph",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605231525-server-side-signing-capability-boundary",
+        "adr-2605181100-etzhayyim-encrypted-records",
+        "adr-2606042330-entity-as-actor-society-scale-social-mirror"
+      ],
+      "last_verified": "2026-06-07",
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606072100-shomei-believer-identity-binding-proof-of-personhood-r0.md",
+      "id": "adr-2606072100-shomei-believer-identity-binding-proof-of-personhood-r0",
+      "title": "ADR-2606072100: 証明 (shomei) — believer self-sovereign identity binding + proof-of-personhood R0",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "shomei-believer-identity-binding",
+      "authoritative": true,
+      "authoritative_for": [
+        "shomei-believer-identity-binding-actor",
+        "multi-identity-to-did-binding-and-verification",
+        "proof-of-personhood-credential"
+      ],
+      "related": [
+        "adr-2606072300-l5-gov-auth-mynumber-webauthn-r1-shomei-integration",
+        "adr-2605172700-etzhayyim-membership-layering",
+        "adr-2605302000-warifu-open-zero-fee-card",
+        "adr-2605263400-musubi-covenant-ceremony",
+        "adr-2605302130-himotoki-active-disclosure-request-filer"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605260000-l5-gov-auth-mynumber-webauthn",
+        "adr-2605231525-server-side-signing-capability-boundary",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605181100-etzhayyim-confidential-records-encryption",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605172600-etzhayyim-membership-ritual"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606072200-shionome-cross-asset-capital-flow-observatory-r0.md",
+      "id": "adr-2606072200-shionome-cross-asset-capital-flow-observatory-r0",
+      "title": "ADR-2606072200: 潮目 (shionome) — cross-asset capital-flow observatory (ingest · intel · analyze · dry-run social, NO trading) R0 + autonomous kotoba loop",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "shionome-cross-asset-capital-flow-observatory",
+      "authoritative": true,
+      "authoritative_for": [
+        "shionome-cross-asset-capital-flow-observatory",
+        "capital-rotation-flow-graph",
+        "no-trade-non-advisory-market-observation"
+      ],
+      "related": [
+        "adr-2605302300-kanae-government-fiscal-flow-visualization",
+        "adr-2606032000-kanjo-company-financial-disclosure-graph",
+        "adr-2606041827-watari-live-ship-aircraft-position-graph",
+        "adr-2606022000-kabuto-supply-chain-knowledge-graph",
+        "adr-2606066000-keizu-government-relations-graph-tier-b-actor-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606051800-mitooshi-probabilistic-forecasting-observatory",
+        "adr-2606071000-intel-osint-actor-cohort-r1-and-fleet-readiness",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605231525-server-side-signing-capability-boundary",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606072200-yotei-kotoba-native-scheduling-commons-phase-a.md",
       "id": "adr-2606072200-yotei-kotoba-native-scheduling",
       "title": "ADR-2606072200: yotei — kotoba-native scheduling commons (Calendly inversion); remediation Phase A",
@@ -22265,6 +22178,35 @@
         "2606071800",
         "2606072000",
         "2605262130"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606072300-l5-gov-auth-mynumber-webauthn-r1-shomei-integration.md",
+      "id": "adr-2606072300-l5-gov-auth-mynumber-webauthn-r1-shomei-integration",
+      "title": "ADR-2606072300: L5 gov auth R1 — MyNumber + WebAuthn activation design + shomei integration",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "l5-gov-auth-r1-activation",
+      "authoritative": true,
+      "authoritative_for": [
+        "l5-gov-auth-r1-activation-design",
+        "gov-auth-shomei-gov-factor-integration"
+      ],
+      "related": [
+        "adr-2605172700-etzhayyim-membership-layering",
+        "adr-2605262130-kotoba-storage-substrate-unification"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605260000-l5-gov-auth-mynumber-webauthn",
+        "adr-2606072100-shomei-believer-identity-binding-proof-of-personhood-r0",
+        "adr-2605181100-etzhayyim-confidential-records-encryption",
+        "adr-2605231525-server-side-signing-capability-boundary",
+        "adr-2605250100-l5-routing-around-member-registry-cell"
       ],
       "last_verified": "2026-06-07",
       "amends": [],
@@ -22316,6 +22258,384 @@
         "2606071800",
         "2606072000",
         "2605181100"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606072800-bible-translation-coverage-language-tiers.md",
+      "id": "adr-2606072800-bible-translation-coverage-language-tiers",
+      "title": "ADR-2606072800: Supported-language tiers = Bible-translation coverage (Sola Scriptura)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "bible-translation-coverage-language-tiers",
+      "authoritative": true,
+      "authoritative_for": [
+        "language-registry-tiering",
+        "i18n-language-tier-strategy"
+      ],
+      "related": [
+        "2605192100-etzhayyim-mission-charter",
+        "2605263600-kataribe-press-publishing-translation-tier-b-actor-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606072800-session-close-shionome-capital-flow-kotoba-wasm-fleet-cron.md",
+      "id": "adr-2606072800-session-close-shionome-capital-flow-kotoba-wasm-fleet-cron",
+      "title": "ADR-2606072800: Session close — 潮目 (shionome) cross-asset capital-flow observatory: R0 actor + kotoba-WASM component + Murakumo-fleet cron cells",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "shionome-cross-asset-capital-flow-observatory",
+      "authoritative": false,
+      "related": [
+        "90-docs/adr/2606065000-session-close-kawaraban-news-medium.md",
+        "90-docs/adr/2606063000-session-close-ooyake-world-model-reconcile-loop.md"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606072200-shionome-cross-asset-capital-flow-observatory-r0",
+        "adr-2606071000-intel-osint-actor-cohort-r1-and-fleet-readiness",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605231525-server-side-signing-capability-boundary",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state"
+      ],
+      "last_verified": "2026-06-07",
+      "authoritative_for": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606072800-suimin-sleep-disorder-evidence-research-charter.md",
+      "id": "adr-2606072800-suimin-sleep-disorder-evidence-research-charter",
+      "title": "suimin (睡眠) sleep-disorder treatment-evidence research + synthesis actor — reliable-source-only (PubMed / Cochrane / ICSD-3 / ICD-11 / AASM) evidence landscape + referral-to-local-clinic; NON-diagnostic, NON-prescriptive; Wave 1 reference = 睡眠時無呼吸症候群 (OSA/CSA) treatment-method evidence synthesis",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "suimin-sleep-evidence-charter",
+      "authoritative": true,
+      "authoritative_for": [
+        "suimin actor identity (name, DID pattern, tier) — religious-corp first-party sleep-disorder treatment-EVIDENCE research + synthesis (not diagnosis, not treatment)",
+        "mitate sibling boundary (mitate = symptom-intake diagnostic routing; suimin = corpus-level treatment-evidence synthesis + referral; same patient-wellbeing context, no diagnostic overlap)",
+        "Source-whitelist invariant (G1) — PubMed/MeSH + Cochrane systematic reviews + ICSD-3 + ICD-11 + AASM clinical practice guidelines + GRADE-graded sources ONLY; every claim carries verifiable provenance",
+        "Charter Rider §2 clearance reasoning for first-party medical-evidence synthesis (§2(e) anti-gatekeeping pro-clearance + §2(c) anti-surveillance gate)",
+        "13 constitutional gates G1..G13 (non-negotiable)",
+        "10 non-goals N1..N10 (constitutional, not subject to incremental drift)",
+        "4-phase roadmap R0 → R3 with explicit Council-attestation gating + licensed sleep-medicine MD-in-loop activation (R2)",
+        "Wave 1 reference target = 睡眠時無呼吸症候群 (obstructive + central sleep apnea) treatment-method evidence landscape"
+      ],
+      "related": [
+        "20-actors/suimin/",
+        "20-actors/magatama/cells/suimin_*/",
+        "00-contracts/lexicons/com/etzhayyim/suimin/",
+        "50-infra/murakumo/fleet.toml"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192230-etzhayyim-three-tier-enforcement-implementation",
+        "adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605231525-no-server-key-religious-corp-architecture",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605260100-mitate-diagnostic-routing-charter"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606072800-tsubasa-flight-discovery-commons-skyscanner-inversion-r0.md",
+      "id": "adr-2606072800-tsubasa-flight-discovery-commons",
+      "title": "ADR-2606072800: tsubasa 翼 — flight-route/fare discovery commons (Skyscanner inversion), R0+R1",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "tsubasa-flight-commons",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/tsubasa"
+      ],
+      "related": [
+        "2606041827"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606012100",
+        "2606071600",
+        "2605262130"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606073000-coverage-gaps-catalog-and-inochi-biosphere-mirror.md",
+      "id": "adr-2606073000-coverage-gaps-catalog-and-inochi-biosphere-mirror",
+      "title": "ADR-2606073000: World-coverage gap catalog + inochi 命 biosphere KG mirror",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "coverage-gaps-and-inochi",
+      "authoritative": true,
+      "authoritative_for": [
+        "world-coverage gap catalog (what etzhayyim does not yet observe/produce)",
+        "inochi 命 actor (living-world / 生命圏 KG mirror)",
+        "biosphere-ontology"
+      ],
+      "related": [
+        "2606011800",
+        "2606042330",
+        "2606014500"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606011000",
+        "2606011500",
+        "2605081300",
+        "2605301600",
+        "2605302300",
+        "2606066000",
+        "2605312345",
+        "2605215000"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606073000-robotics-remote-work-actor-roster-and-isco-coverage.md",
+      "id": "adr-2606073000-robotics-remote-work-actor-roster-and-isco-coverage",
+      "title": "ADR-2606073000: Robotics remote-work actor roster + ISCO coverage/GAP survey (tazuna as the on-site→remote substrate)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "robotics-remote-work-actor-survey",
+      "authoritative": true,
+      "authoritative_for": [
+        "robotics remote-work (teleoperation) actor roster across the etzhayyim corpus",
+        "on-site→remote-work coverage/GAP map for physical-labour occupations",
+        "remote-work-value reframing of the labour-liberation roadmap"
+      ],
+      "related": [
+        "ADR-2605301020 (Basic High Income — in-kind, cash≡0)",
+        "ADR-2605215000 (Murakumo-only inference)",
+        "ADR-2606042300 (todoke last-mile delivery)",
+        "ADR-2606013400 (funadaiku zero-emission cargo-ship)",
+        "ADR-2605252200 (watatsumi civilian submersible)",
+        "ADR-2606012600 (watatsuna submarine-cable laying)",
+        "ADR-2605250715 (tatekata construction)",
+        "ADR-2605261215 (hodoki ELV disassembly)",
+        "ADR-2606051500 (kamado carbon refining / refinery decommission)",
+        "ADR-2605263100 (mizuho water + sanitation)"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606042100 (tazuna — remote-robotics fleet operation + teleoperation + LfD)",
+        "ADR-2606032100 (Labor-Liberation Robotics-Actor Wave — canonical ISIC/ISCO/UNSPSC LPS ranking)",
+        "ADR-2606032130 (Displacement Dividend — G2 coupling gate)",
+        "ADR-2605261000 (Labor Liberation Ladder — L0..L6)",
+        "ADR-2605192100 (Mission Charter — 構造的労働解放, N1 mining/weapons exclusion)"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606073000-session-close-app-coverage-charter-clean-inversion-wave.md",
+      "id": "adr-2606073000-session-close-app-coverage-wave",
+      "title": "ADR-2606073000: Session close — app-coverage charter-clean inversion wave + substrate-remediation ratchet",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-app-coverage-wave",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606071400",
+        "2606071500",
+        "2606071600",
+        "2606071800",
+        "2606072000",
+        "2606072200",
+        "2606072400",
+        "2606072600",
+        "2606072800"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606073200-asobi-freed-time-play-expression-mirror.md",
+      "id": "adr-2606073200-asobi-freed-time-play-expression-mirror",
+      "title": "ADR-2606073200: asobi 遊び — freed-time play & cultural-expression KG mirror (gap C)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "asobi-freed-time-mirror",
+      "authoritative": true,
+      "authoritative_for": [
+        "asobi 遊び actor (freed-time / play & cultural-expression KG mirror)",
+        "asobi-ontology"
+      ],
+      "related": [
+        "2606011800",
+        "2606014500",
+        "2605261045"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606073000",
+        "2606011000",
+        "2605081300",
+        "2606061900",
+        "2605301600",
+        "2605312345",
+        "2605215000"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606073200-meyasu-unified-arbitrage-intel-orchestrator.md",
+      "id": "adr-2606073200-meyasu-unified-arbitrage-intel-orchestrator",
+      "title": "ADR-2606073200: meyasu 目安 — unified arbitrage / supply-demand intel orchestrator + price-intel cohort maturation",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "meyasu-unified-arbitrage-intel-orchestrator",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/meyasu"
+      ],
+      "related": [
+        "2605091200",
+        "2606051800",
+        "2606012100",
+        "2605264000"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605091200",
+        "2606051800",
+        "2606012100",
+        "2605264000",
+        "2606071800",
+        "2605262130",
+        "2605312345",
+        "2605215000"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606073400-hokorobi-systemic-finance-risk-mirror.md",
+      "id": "adr-2606073400-hokorobi-systemic-finance-risk-mirror",
+      "title": "ADR-2606073400: hokorobi 綻び — systemic finance-risk observation mirror (gap D)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "hokorobi-finance-risk-mirror",
+      "authoritative": true,
+      "authoritative_for": [
+        "hokorobi 綻び actor (systemic finance-risk observation mirror)",
+        "finrisk-ontology"
+      ],
+      "related": [
+        "2606011800",
+        "2606051800",
+        "2606014500"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606073000",
+        "2606073200",
+        "2606032000",
+        "2605302300",
+        "2606022000",
+        "2605301600",
+        "2605312345",
+        "2605215000"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606073600-hoshimori-orbital-stewardship-mirror.md",
+      "id": "adr-2606073600-hoshimori-orbital-stewardship-mirror",
+      "title": "ADR-2606073600: hoshimori 星守 — off-Earth orbital stewardship mirror (gap B)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "hoshimori-orbital-mirror",
+      "authoritative": true,
+      "authoritative_for": [
+        "hoshimori 星守 actor (off-Earth orbital stewardship mirror)",
+        "orbit-ontology"
+      ],
+      "related": [
+        "2606011800",
+        "2606014500"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606073000",
+        "2606073200",
+        "2606073400",
+        "2605192330",
+        "2606041827",
+        "2606012600",
+        "2605312345",
+        "2605215000"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606073800-tsugite-peoples-continuity-mirror.md",
+      "id": "adr-2606073800-tsugite-peoples-continuity-mirror",
+      "title": "ADR-2606073800: tsugite 継ぎ手 — world peoples-continuity mirror (gap E, catalog complete)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "tsugite-peoples-continuity-mirror",
+      "authoritative": true,
+      "authoritative_for": [
+        "tsugite 継ぎ手 actor (world peoples-continuity mirror)",
+        "peoples-ontology"
+      ],
+      "related": [
+        "2606011800",
+        "2606014500",
+        "2605261045"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606073000",
+        "2606073200",
+        "2606073400",
+        "2606073600",
+        "2605181100",
+        "2605302130",
+        "2605312345",
+        "2605215000"
       ],
       "last_verified": "2026-06-07",
       "amends": [],
@@ -24535,7 +24855,7 @@
         "adr-2605202100-etzhayyim-kotodama-cell-runner-launchd",
         "50-infra/cluster/murakumo/cell-runner/cells.toml",
         "50-infra/cluster/murakumo/cell-runner/com.etzhayyim.kotodama-cell-runner.plist",
-        "20-actors/kotodama/py/src/kotodama/cell_runner_main.py"
+        "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/cell_runner_main.py"
       ],
       "last_verified": "2026-05-21",
       "authoritative_for": [],

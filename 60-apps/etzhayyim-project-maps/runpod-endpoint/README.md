@@ -2,7 +2,7 @@
 
 Worker-side counterpart to the maps Sentinel L7 pipeline (ADR-2604271800).
 Invoked by `maps.sentinel.runpod.analyze` LangServer primitive
-(`20-actors/magatama/py/src/pymagatama/primitives/maps_sentinel.py`)
+(`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/maps_sentinel.py`)
 through the standard RunPod `/run` + `/status/{job_id}` polling path.
 
 ## Files
@@ -81,7 +81,7 @@ bake API keys into the image.
 Wire format documented in `handler.py` module docstring. Both sides
 of the contract live in this repo:
 
-- **Caller**: `20-actors/magatama/py/src/pymagatama/primitives/maps_sentinel.py:_runpod_invoke_sync`
+- **Caller**: `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/maps_sentinel.py:_runpod_invoke_sync`
 - **Callee** (this repo): `handler.py:handler`
 
 Lexicon `00-contracts/lexicons/com/etzhayyim/apps/maps/sentinelAnalyze.json`

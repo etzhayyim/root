@@ -1,7 +1,7 @@
 {
   "version": 1,
   "apps": {
-    "ai-gftd-wasm-receipt-rc4pt01": {
+    "etzhayyim-wasm-receipt-rc4pt01": {
       "nanoid": "rc4pt01",
       "app_version": "1.0.0",
       "last_deployed_at": "2026-04-04T03:34:35Z",

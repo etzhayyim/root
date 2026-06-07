@@ -33,7 +33,7 @@
   - `Authorization: Bearer <JWT>` (payload の `org_id`, `user_id` 利用)
   - または `X-etzhayyim-ORG-ID`, `X-etzhayyim-USER-ID`
 
-## magatama runtime 配備
+## kotodama runtime 配備
 
 ```bash
 kubectl apply -f 60-apps/etzhayyim-project-coach/wasm/coach-chat-mcp-component/<repo-deploy-config>
@@ -47,4 +47,4 @@ kubectl apply -f 60-apps/etzhayyim-project-coach/wasm/coach-ui-component/k8s/htt
 - Host: `coach.etzhayyim.com`
 - HTTPRoute namespace: `edge-router-performers`
 - Gateway namespace: `edge-gateway-system`
-- Service namespace: `magatama-runtime`
+- Service namespace: `kotodama-runtime`

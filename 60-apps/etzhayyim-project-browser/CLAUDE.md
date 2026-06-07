@@ -29,7 +29,7 @@
 
 ## Architecture
 
-Single Worker + MagatamaContainer DO (WASM-in-DO)。W Protocol Event Stream で crawl 結果を channel publish。
+Single Worker + KotodamaContainer DO (WASM-in-DO)。W Protocol Event Stream で crawl 結果を channel publish。
 
 ### Webpage DID Architecture (CRITICAL)
 
@@ -50,7 +50,7 @@ did:web:site.etzhayyim.com                        ← primary DID (controller)
 
 ### Darkweb Proxy (Container sidecar)
 
-Darkweb crawling は自前 Container (`darkweb-proxy.etzhayyim.com`) 経由で Tor + headless Chromium を使用。Worker が `magatama.Send()` で Container HTTP API を呼ぶ hybrid 構成。
+Darkweb crawling は自前 Container (`darkweb-proxy.etzhayyim.com`) 経由で Tor + headless Chromium を使用。Worker が `kotodama.Send()` で Container HTTP API を呼ぶ hybrid 構成。
 
 ```
 site.etzhayyim.com (Worker) → POST darkweb-proxy.etzhayyim.com/fetch

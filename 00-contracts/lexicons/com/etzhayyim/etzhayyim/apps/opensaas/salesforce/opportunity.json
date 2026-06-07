@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "record",
-      "description": "Salesforce-equivalent Opportunity: a tracked revenue deal with a stage, amount, and close date. Tier 1 public record — exact amounts over a tenant-configurable threshold should be bucketed into amountBand, with exact amount mirrored to Tier 3 only. Stage transitions emit derived com.etzhayyim.apps.opensaas.salesforce.activity records via the magatama.jsonld derive rule.",
+      "description": "Salesforce-equivalent Opportunity: a tracked revenue deal with a stage, amount, and close date. Tier 1 public record — exact amounts over a tenant-configurable threshold should be bucketed into amountBand, with exact amount mirrored to Tier 3 only. Stage transitions emit derived com.etzhayyim.apps.opensaas.salesforce.activity records via the kotodama.jsonld derive rule.",
       "key": "tid",
       "record": {
         "type": "object",

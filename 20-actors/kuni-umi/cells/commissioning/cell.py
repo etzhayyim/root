@@ -20,7 +20,7 @@ from typing import Any, Literal, TypedDict
 
 from langgraph.graph import START, END, StateGraph
 
-from pymagatama.cell_runtime import (
+from kotodama.cell_runtime import (
     CellDeps,
     default_state_from_event,
     default_thread_id_from_event,

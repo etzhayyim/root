@@ -187,15 +187,15 @@ def test_xrpc_blob_convert_dispatches(client) -> None:
     assert r.status_code in (200, 500)
 
 
-# ── pymagatama graph source tests ─────────────────────────────────────────
+# ── kotodama graph source tests ─────────────────────────────────────────
 
 def test_patent_blob_convert_build_graph() -> None:
-    from pymagatama.langgraph_graphs.patent_blob_convert import build_graph
+    from kotodama.langgraph_graphs.patent_blob_convert import build_graph
     g = build_graph()
     assert g is not None
 
 
 def test_patent_ingest_uspto_weekly_build_graph() -> None:
-    from pymagatama.langgraph_graphs.patent_ingest_uspto_weekly import build_graph
+    from kotodama.langgraph_graphs.patent_ingest_uspto_weekly import build_graph
     g = build_graph()
     assert g is not None

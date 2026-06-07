@@ -79,21 +79,21 @@
   "cells": [
     {
       "name": "scan_session",
-      "module": "magatama.cells.kizashi_scan_session",
+      "module": "kotodama.cells.kizashi_scan_session",
       "murakumoNode": "naphtali",
       "phase": "session",
       "io": "memberDid + scanConsentCid → scanSessionAttestation (encrypted; orchestrates per-modality capture)"
     },
     {
       "name": "signal_fusion",
-      "module": "magatama.cells.kizashi_signal_fusion",
+      "module": "kotodama.cells.kizashi_signal_fusion",
       "murakumoNode": "gad",
       "phase": "session",
       "io": "[modalityObservation] → fused transient feature vector (encrypted; no plaintext persistence)"
     },
     {
       "name": "attribution",
-      "module": "magatama.cells.kizashi_attribution",
+      "module": "kotodama.cells.kizashi_attribution",
       "murakumoNode": "gad",
       "phase": "session",
       "io": "fused features → attributionReport (probabilistic, non-diagnostic; G3 + G7 structural)",
@@ -101,14 +101,14 @@
     },
     {
       "name": "wellbecoming_track",
-      "module": "magatama.cells.kizashi_wellbecoming_track",
+      "module": "kotodama.cells.kizashi_wellbecoming_track",
       "murakumoNode": "gad",
       "phase": "longitudinal",
       "io": "prior scans of same member → wellbecomingTrajectory (encrypted; self-referenced delta, G8)"
     },
     {
       "name": "triage_referral",
-      "module": "magatama.cells.kizashi_triage_referral",
+      "module": "kotodama.cells.kizashi_triage_referral",
       "murakumoNode": "naphtali",
       "phase": "event",
       "io": "attributionReport → triageReferral (routes to mitate/iyashi/kokoro; G5 red-flag emergency)",
@@ -116,7 +116,7 @@
     },
     {
       "name": "modality_registry",
-      "module": "magatama.cells.kizashi_modality_registry",
+      "module": "kotodama.cells.kizashi_modality_registry",
       "murakumoNode": "asher",
       "phase": "event/annual",
       "io": "modality audit → modalityCapability (PUBLIC kotoba-EAVT; evidence grade + regulatory class; G10)"

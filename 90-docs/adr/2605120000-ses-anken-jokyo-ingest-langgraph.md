@@ -302,7 +302,7 @@ mv_ses_anken_active
 
 ```
 60-apps/etzhayyim-project-ses/
-├─ magatama.jsonld          T3 dispatcher actor
+├─ kotodama.jsonld          T3 dispatcher actor
 ├─ wrangler.jsonc           ses.etzhayyim.com/* + PDS_SERVICE / AUTHN_SERVICE binding (HYPERDRIVE なし)
 ├─ package.json
 ├─ tsconfig.json
@@ -315,7 +315,7 @@ mv_ses_anken_active
 ### LangGraph Server (K8s)
 
 ```
-20-actors/magatama/py/src/pymagatama/ses/
+40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ses/
 ├─ __init__.py
 ├─ state.py              SesIngestState + AnkenExtraction (Pydantic v2); source_kind includes 'email_cron'
 ├─ graph.py              6-node StateGraph(SesIngestState)
@@ -328,7 +328,7 @@ mv_ses_anken_active
 │                        + HTML strip + SES LangGraph ainvoke per message (Phase 3)
 │                        + delete-after-ingest: DELETE /users/{upn}/messages/{id}
 │                        on success path only; failure is warn-only (Phase 5)
-├─ cron_main.py          CronJob entrypoint: python -m pymagatama.ses.cron_main (Phase 3)
+├─ cron_main.py          CronJob entrypoint: python -m kotodama.ses.cron_main (Phase 3)
 └─ server.py             Granian-ready FastAPI + ingestAnken / updateJokyo endpoint
                          + POST /cron/outlook-pull (Phase 3 manual trigger)
                          + POST /mcp (JSON-RPC 2.0 — listAnken / getAnken / listJokyo, Phase 4)
@@ -357,7 +357,7 @@ mv_ses_anken_active
 
 Standalone K8s manifests: `50-infra/k8s/lg-ses/` (ServiceAccount + Deployment + Service + CronJob)
 ClusterIP: `lg-ses.mitama-udf.svc.cluster.local:8000`
-Image: `ghcr.io/etzhayyim/lg-ses:{version}-amd64` (Dockerfile: `20-actors/magatama/py/Dockerfile.ses`)
+Image: `ghcr.io/etzhayyim/lg-ses:{version}-amd64` (Dockerfile: `40-engine/kotoba/crates/kotoba-kotodama/py/Dockerfile.ses`)
 Helm release (legacy): `50-infra/vultr/mitama-ses-pool/` (superseded by standalone manifests)
 
 ### Forbidden patterns

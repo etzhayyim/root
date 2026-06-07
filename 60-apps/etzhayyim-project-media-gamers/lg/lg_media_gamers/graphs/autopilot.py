@@ -324,7 +324,7 @@ async def _node_post(state: _State) -> dict[str, Any]:
                 },
                 headers={
                     "Content-Type": "application/json",
-                    "x-magatama-verified": "true",
+                    "x-kotodama-verified": "true",
                     "x-etzhayyim-org-id": "anon",
                 },
             )

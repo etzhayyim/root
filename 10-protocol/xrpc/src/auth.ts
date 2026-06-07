@@ -30,7 +30,7 @@ export class ServiceAuth implements AuthResolver {
 
     // ADR-0023 P4: prefer ES256 Service Auth JWT. When a signer is wired,
     // the JWT alone provides cryptographic proof of caller identity — the
-    // spoofable `x-magatama-verified` header is NOT emitted in that mode.
+    // spoofable `x-kotodama-verified` header is NOT emitted in that mode.
     if (this.opts.signer && nsid) {
       const jwt = await this.opts.signer(nsid);
       if (jwt) {
@@ -46,10 +46,10 @@ export class ServiceAuth implements AuthResolver {
       // Legacy dispatch/HTTP mode: internal token is no longer a valid AT session JWT.
       // Send trusted internal headers instead of Authorization so PDS authenticates this
       // as an internal service call and avoids session/token-scope enforcement.
-      h["x-magatama-verified"] = "true";
-      h["x-magatama-internal-token"] = this.opts.internalToken;
+      h["x-kotodama-verified"] = "true";
+      h["x-kotodama-internal-token"] = this.opts.internalToken;
     } else if (this.opts.isServiceBinding !== false) {
-      h["x-magatama-verified"] = "true";
+      h["x-kotodama-verified"] = "true";
     }
     return h;
   }

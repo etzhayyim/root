@@ -391,7 +391,7 @@ export class CheckpointerSidecar {
     let blobCount = 0;
     if (payloadBytes.byteLength > this.cfg.blobInlineThreshold) {
       const ref = {
-        $type: "magatama.cell.checkpoint.ref",
+        $type: "kotodama.cell.checkpoint.ref",
         blob: payloadCid,
         checkpoint_id: req.checkpoint_id,
         cell_did: req.cell_did,
@@ -405,7 +405,7 @@ export class CheckpointerSidecar {
     await storage.putMany(blocks);
     let mst = await MST.create(storage);
     mst = await mst.add(
-      `magatama.cell.checkpoint/${req.checkpoint_id}`,
+      `kotodama.cell.checkpoint/${req.checkpoint_id}`,
       recordCid
     );
     const unstored = await mst.getUnstoredBlocks();

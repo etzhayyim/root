@@ -12,7 +12,7 @@
  * MVP choices (ratified):
  *   - All layouts collapse to vertical stack (webtoon smartphone reading)
  *   - flux-1-schnell 4 steps (speed priority; tune via --num-steps)
- *   - x-magatama-verified header for PDS image-gen auth (mirrors mangaka cmdGenerateImage)
+ *   - x-kotodama-verified header for PDS image-gen auth (mirrors mangaka cmdGenerateImage)
  *   - prompt cache by SHA-256 of final prompt (idempotent, mid-run resumable)
  *
  * Env:
@@ -117,7 +117,7 @@ function sanitizePrompt(prompt: string): string {
 async function callImageGen(prompt: string): Promise<Response> {
   return await fetch(`${PDS_BASE}/com.etzhayyim.apps.llm.generateImage`, {
     method: "POST",
-    headers: { "content-type": "application/json", "x-magatama-verified": "true" },
+    headers: { "content-type": "application/json", "x-kotodama-verified": "true" },
     body: JSON.stringify({ prompt, num_steps: NUM_STEPS }),
   });
 }

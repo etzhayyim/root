@@ -11,7 +11,7 @@
 import type { InfraActorEntry } from "./infra-actors";
 
 export const TIER_B_GENERATED_AT = "2026-06-04T00:00:00+00:00";
-export const TIER_B_TOTAL_COUNT = 42;
+export const TIER_B_TOTAL_COUNT = 43;
 
 export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
   "akashi": {
@@ -262,6 +262,20 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       },
     ],
   },
+  "kosatsu": {
+    description: "Mirrors crime/sanctions DESIGNATIONS (OFAC/EU/UN/UK-OFSI/JP-MOF/Interpol/…) into the kotoba Datom log as append-only, ATTRIBUTED events; computes a politically-neutral DIVERGENCE view where jurisdictions disagree. etzhayyim authors no designation and asserts no verdict; a designation is asserter-relative by construction.",
+    glyph: "高札",
+    displayName: "高札 — Crime/Sanctions Competing-Claim Board",
+    primaryLexicon: "com.etzhayyim.kosatsu.designationNotice",
+    adrs: ["2606072000", "2605301400"],
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:kosatsu#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+    ],
+  },
   "kurashimori": {
     description: "暮らし守 — Citizen Consumer-Protection Concierge",
     glyph: "暮らし守",
@@ -400,6 +414,20 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     service: [
       {
         id: "did:web:etzhayyim.com:actor:shidemori#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+    ],
+  },
+  "shomei": {
+    description: "Binds MULTIPLE external identities (government IDs, SNS accounts, crypto wallets) and existing etzhayyim substrate commitments to a single member DID via self-sovereign, cryptographically-verifiable claims, then aggregates them into an Identity Assurance Level + W3C Verifiable Credential + proof-of-personhood. The believer's passport-equivalent — DID-centric, self-sovereign, no central KYC.",
+    glyph: "証明",
+    displayName: "証明 — Believer Identity Binding + Proof-of-Personhood",
+    primaryLexicon: "com.etzhayyim.shomei.identityClaim",
+    adrs: ["2606072100", "2605260000", "2606072300"],
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:shomei#atproto_pds",
         type: "AtprotoPersonalDataServer",
         serviceEndpoint: "https://pds.etzhayyim.com",
       },

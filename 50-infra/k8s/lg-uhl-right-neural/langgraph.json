@@ -1,8 +1,8 @@
 {
   "$comment": "LangGraph Server config — uhl-right-neural.etzhayyim.com. Authoritative per ADR-2605181000. Graph: uhl_pregel (16-vertex StateGraph).",
-  "dependencies": ["../../../20-actors/magatama/py"],
+  "dependencies": ["../../../40-engine/kotoba/crates/kotoba-kotodama/py"],
   "graphs": {
-    "uhl_pregel": "pymagatama.projects.uhl_right_neural.pregel:app"
+    "uhl_pregel": "kotodama.projects.uhl_right_neural.pregel:app"
   },
   "env": ".env",
   "python_version": "3.11",

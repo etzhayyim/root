@@ -89,7 +89,7 @@ A record passes the membrane iff **all three** layers accept it:
 |---|---|---|
 | **L1 schema** | Lexicon JSON in `00-contracts/lexicons/{nsid path}/*.json` | malformed input — rejected immediately, no witness consulted |
 | **L2 policy** | Rego module in `00-contracts/policies/{nsid path}/*.rego` | Charter Rider §2 violation, doctrinal-position violation, capability scope mismatch — rejected, audit logged |
-| **L3 determinism** | LangGraph cell in `20-actors/magatama/cells/{cell-id}/` returning the same `(record, ctx) → verdict` for the same inputs | non-deterministic verdict — escalation to Council Lv6+ ≥3 |
+| **L3 determinism** | LangGraph cell in `40-engine/kotoba/crates/kotoba-kotodama/cells/{cell-id}/` returning the same `(record, ctx) → verdict` for the same inputs | non-deterministic verdict — escalation to Council Lv6+ ≥3 |
 
 A new record kind is kotoba-datomic-mountable when (L1, L2, L3) are all populated and
 the lexicon manifest is signed. See `00-contracts/lexicons/CLAUDE.md` for the
@@ -170,7 +170,7 @@ A token is kotoba-datomic-valid iff:
 
 ## §7 kotoba-datomic-cells (zomes)
 
-**Status**: stable catalog. Implementation: `20-actors/magatama/cells/`,
+**Status**: stable catalog. Implementation: `40-engine/kotoba/crates/kotoba-kotodama/cells/`,
 deployment via `50-infra/murakumo/fleet.toml`.
 
 A `Cell` is a LangGraph Pregel subgraph with:
@@ -183,7 +183,7 @@ A `Cell` is a LangGraph Pregel subgraph with:
 
 The full cell catalog (15 cells as of [ADR-2605192415](../../90-docs/adr/2605192415-etzhayyim-religious-corp-daemon-architecture.md)) is the authoritative
 zome registry for kotoba-datomic. Adding a kotoba-datomic-cell = adding a row to
-`50-infra/murakumo/fleet.toml` + a directory under `20-actors/magatama/cells/`.
+`50-infra/murakumo/fleet.toml` + a directory under `40-engine/kotoba/crates/kotoba-kotodama/cells/`.
 
 **Holochain mapping**: Holochain zomes ≡ Pregel cells. The "WASM-compiled
 validation function" property is replaced by "deterministic LangGraph cell";

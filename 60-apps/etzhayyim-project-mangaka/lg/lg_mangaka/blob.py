@@ -1,6 +1,6 @@
 """B2 content-addressed blob helpers (AWS SigV4 over urllib).
 
-Mirrors the `pymagatama.primitives.training_export._b2_put` pattern: no boto3,
+Mirrors the `kotodama.primitives.training_export._b2_put` pattern: no boto3,
 no aiobotocore, just stdlib `urllib` + `hashlib` + `hmac`. Same auth surface so
 ops only needs the existing `B2_ACCESS_KEY_ID` / `B2_SECRET_ACCESS_KEY` /
 `B2_ENDPOINT` env vars used elsewhere in the LangGraph pod.

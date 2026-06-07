@@ -15,7 +15,7 @@ authoritative_for:
   - "EthicsContentClassifierCell LLM fallback ルーティング"
 depends_on:
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
-  - adr-2605202100-etzhayyim-magatama-cell-runner-launchd
+  - adr-2605202100-etzhayyim-kotodama-cell-runner-launchd
 related:
   - 2605191346-etzhayyim-vultr-free-murakumo-control-plane
   - 2605182312-local-bring-up-murakumo-gemma4
@@ -32,7 +32,7 @@ superseded_by: []
 
 # Context
 
-ADR-2605192415 で religious-corp daemon architecture (Murakumo fleet) を 10 ノードの Mac mini で構成した。各ノードは `magatama-cell-runner` を launchd 経由で起動し (ADR-2605202100)、Pregel cell を実行する。LLM 推論が必要な cell (EthicsContentClassifierCell 等) は **各ノードローカル の Ollama gemma3:4b** をフォールバックとして使う構成。
+ADR-2605192415 で religious-corp daemon architecture (Murakumo fleet) を 10 ノードの Mac mini で構成した。各ノードは `kotodama-cell-runner` を launchd 経由で起動し (ADR-2605202100)、Pregel cell を実行する。LLM 推論が必要な cell (EthicsContentClassifierCell 等) は **各ノードローカル の Ollama gemma3:4b** をフォールバックとして使う構成。
 
 2026-05-20 に新規ハードウェア **GMKtec EVO-X2** を導入。仕様:
 - CPU: AMD Ryzen AI Max+ 395 (16C/32T, Zen 5)
@@ -104,7 +104,7 @@ models = ["animagine-xl-4.0", "waiIllustriousSDXL_v160", "wan2.2_ti2v_5B_fp16"]
 ## D2. EVO-X2 は cell を実行しない
 
 理由:
-- `magatama-cell-runner` は macOS launchd 前提 (ADR-2605202100)
+- `kotodama-cell-runner` は macOS launchd 前提 (ADR-2605202100)
 - Windows で同等を再実装すると保守二重化
 - WSL2 入れて Linux 版 cell-runner 動かすと WSL2 を維持する必要 — 別途 ROCm の iGPU サポートが WSL2 で限定的のため AI ワークロードのメリット薄い (ADR-内検証済)
 - EVO-X2 の付加価値は **推論性能** であり cell 実行ではない
@@ -177,7 +177,7 @@ Murakumo fleet の prometheus exporter に EVO-X2 を含める。最小チェッ
 
 ## A1. EVO-X2 を `[[nodes]]` として fleet 統合 (12 tribes 命名拡張)
 
-- 案: 11 番目の支族名 (gad / manasseh など) 付与し、WSL2 で magatama-cell-runner 動かす
+- 案: 11 番目の支族名 (gad / manasseh など) 付与し、WSL2 で kotodama-cell-runner 動かす
 - 却下: WSL2 維持コスト + Linux 側 ROCm が iGPU 非対応で AI ワークロードの優位性消失。OS 統一性も崩れる
 
 ## A2. fleet 外部の独立リソース
@@ -193,7 +193,7 @@ Murakumo fleet の prometheus exporter に EVO-X2 を含める。最小チェッ
 # References
 
 - ADR-2605192415: Religious-Corp Daemon Architecture (Murakumo fleet 起源)
-- ADR-2605202100: magatama-cell-runner launchd 配備
+- ADR-2605202100: kotodama-cell-runner launchd 配備
 - ADR-2605191346: No commercial K8s policy (本 ADR でも独自 control plane 維持)
 - ADR-2605182312: 12-tribes 命名規約 (本 ADR は cell ノードではないので命名対象外)
 - ADR-2605192400: Eros/Gore content classification policy (EthicsContentClassifierCell の理論的基盤)
@@ -213,7 +213,7 @@ Murakumo fleet の prometheus exporter に EVO-X2 を含める。最小チェッ
 ```toml
 # ─── External inference backends (non-cell, GPU pods) ───────────────
 # Per ADR-2605202345. Windows / non-launchd machines that provide LLM
-# and image/video inference for cells. Do NOT run magatama cells here.
+# and image/video inference for cells. Do NOT run kotodama cells here.
 
 [[inference_backends]]
 name = "evo-x2"

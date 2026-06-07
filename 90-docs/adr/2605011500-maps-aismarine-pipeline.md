@@ -172,7 +172,7 @@ Two new rows in `vertex_bpmn_process_def` + 4 in `vertex_bpmn_lexicon_binding` (
 `50-infra/vultr/bulk-ingest/aismarine-consumer/`:
 
 - Helm chart, `replicas: 1` (single WebSocket sufficient for global feed)
-- Reuses pymagatama image, env `AISMARINE_CONSUMER_MODE=1` switches main entry to `aismarine_consumer_loop()`
+- Reuses kotodama image, env `AISMARINE_CONSUMER_MODE=1` switches main entry to `aismarine_consumer_loop()`
 - WebSocket subscribes to aisstream.io with **no `BoundingBoxes` filter** (global)
 - In-process queue, batch flush every 5s **or** 500 messages (whichever first)
 - Batch INSERT via `task_aismarine_position_batch_insert` (psycopg3, `flush=False`)
@@ -183,7 +183,7 @@ Two new rows in `vertex_bpmn_process_def` + 4 in `vertex_bpmn_lexicon_binding` (
 
 ### pyzeebe primitives
 
-`20-actors/magatama/py/src/pymagatama/primitives/aismarine.py`:
+`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/aismarine.py`:
 
 ```python
 def aismarine_consumer_loop()

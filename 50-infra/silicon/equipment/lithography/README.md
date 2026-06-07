@@ -22,7 +22,7 @@ mechanical, KiCad for driver PCB, ROS 2 + URDF for robotics.
 
 ## Pregel cell
 
-Paired with `20-actors/magatama/cells/silicon_litho/`. Each super-step =
+Paired with `40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_litho/`. Each super-step =
 1 wafer-lot exposure. Telemetry stream via libp2p; per-step attestation
 via `com.etzhayyim.silicon.waferLotAttestation`.
 

@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "com.etzhayyim.baien.distributedTrainDelta",
-  "description": "Federated LoRA training delta submitted by a smartphone / browser contributor for a single baien training round. Per ADR-2605242600. Append-only TID-keyed; one record per (actorDid, baseModelCid, iter). The aggregator (20-actors/magatama/cells/baien_federated_aggregator) subscribes to the firehose, verifies the ES256 signature against the member's passkey-derived key, re-runs `charter_rider.scan()` on the dataset shard, applies Wellbecoming + Byzantine + DP gates, then merges accepted deltas into the bf16 master. R0 scaffold — aggregator is import-time-failing until Council attestation activates it.",
+  "description": "Federated LoRA training delta submitted by a smartphone / browser contributor for a single baien training round. Per ADR-2605242600. Append-only TID-keyed; one record per (actorDid, baseModelCid, iter). The aggregator (40-engine/kotoba/crates/kotoba-kotodama/cells/baien_federated_aggregator) subscribes to the firehose, verifies the ES256 signature against the member's passkey-derived key, re-runs `charter_rider.scan()` on the dataset shard, applies Wellbecoming + Byzantine + DP gates, then merges accepted deltas into the bf16 master. R0 scaffold — aggregator is import-time-failing until Council attestation activates it.",
   "defs": {
     "main": {
       "type": "record",

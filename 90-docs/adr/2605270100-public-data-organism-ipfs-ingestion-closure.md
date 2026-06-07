@@ -89,7 +89,7 @@ real-data measurement:
 
 | Cross-cut | Anchor commit | Why |
 |---|---|---|
-| `e7m_dataset.charter` direct-load wrapper | 6c6b8076e | system Python pydantic-core pinning poisons pymagatama init |
+| `e7m_dataset.charter` direct-load wrapper | 6c6b8076e | system Python pydantic-core pinning poisons kotodama init |
 | `e7m_dataset.pii` canonical PII redactor wrapper | 59d2542ec | mirror of charter wrapper; consolidates assembler bespoke loaders |
 | `e7m-dataset assemble-corpus` CLI verb | b9c4f747e | first-class operator entry point for cold-path assembly |
 | Assembler `.geojsonl/.geojsonseq/.jsonl` recognition | ea0122b65 | OSM bucket emitted 0 rows pre-fix |
@@ -283,5 +283,5 @@ NC carve-out activation).
 - `70-tools/e7m-dataset/README.md` — operator CLI surface
 - `90-docs/runbooks/osm-region-to-osm-region-sensor.md` — OSM
   PBF → GeoJSON-NDJSON conversion runbook
-- `20-actors/magatama/py/src/pymagatama/organism/sensors/` — 11
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/sensors/` — 11
   sensor implementations + TierGate + generic bounded helpers

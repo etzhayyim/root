@@ -6,7 +6,7 @@
   shosha.agent.chat:
     1. fetches recent intel + market view + open exposure rows
     2. composes a shosha system prompt
-    3. calls pymagatama.llm.call_tier(tier, system, user)
+    3. calls kotodama.llm.call_tier(tier, system, user)
     4. returns content / model / latency / row counts
 
   This is the canonical "ask shosha" XRPC for human + downstream agents.

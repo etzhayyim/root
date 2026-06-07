@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "com.etzhayyim.gov.dataset.statisticsObservation",
-  "description": "Per-IGO statistics indicator observation attestation. R0 skeleton per ADR-2605263900 §3 (GovStatisticsSensor). Authored by `pymagatama.organism.sensors.gov.gov_statistics_sensor` after passive-only fetch of Eurostat SDMX / OECD.Stat / World Bank Open Data / IMF SDMX / UN data. Powers manabi civic-literacy curriculum + baien-distill civic-reasoning specialist. Dimensions captured as ordered (dim_code, dim_value) pairs preserving SDMX semantics.",
+  "description": "Per-IGO statistics indicator observation attestation. R0 skeleton per ADR-2605263900 §3 (GovStatisticsSensor). Authored by `kotodama.organism.sensors.gov.gov_statistics_sensor` after passive-only fetch of Eurostat SDMX / OECD.Stat / World Bank Open Data / IMF SDMX / UN data. Powers manabi civic-literacy curriculum + baien-distill civic-reasoning specialist. Dimensions captured as ordered (dim_code, dim_value) pairs preserving SDMX semantics.",
   "defs": {
     "main": {
       "type": "record",

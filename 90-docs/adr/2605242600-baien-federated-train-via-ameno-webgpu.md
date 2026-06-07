@@ -29,7 +29,7 @@ depends_on:
 related:
   - 20-actors/ameno/src/train.ts
   - 70-tools/baien-distill/src/baien_distill/nodes/federated_aggregate.py
-  - 20-actors/magatama/cells/baien_federated_aggregator/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/baien_federated_aggregator/
   - 00-contracts/lexicons/com/etzhayyim/baien/distributedTrainDelta.json
 supersedes: []
 superseded_by: []
@@ -119,7 +119,7 @@ Out of scope:
 
 ```
 L5  Settlement       MST + L2 anchor      participationReceipt + optional tithe via TitheRouter
-L4  Aggregator       Murakumo cell        20-actors/magatama/cells/baien_federated_aggregator/
+L4  Aggregator       Murakumo cell        40-engine/kotoba/crates/kotoba-kotodama/cells/baien_federated_aggregator/
                                           + 70-tools/baien-distill/.../nodes/federated_aggregate.py
 L3  Participation    AT lexicon + DID     00-contracts/lexicons/com/etzhayyim/baien/distributedTrainDelta.json
 L2  Local loop       ameno PWA            20-actors/ameno/src/train.ts (WebGPU forward+backward+Δ emit)
@@ -204,7 +204,7 @@ Key invariants enforced by the lexicon schema:
 
 ### L4 — Aggregator (Murakumo Pregel cell)
 
-- Cell scaffold: `20-actors/magatama/cells/baien_federated_aggregator/`
+- Cell scaffold: `40-engine/kotoba/crates/kotoba-kotodama/cells/baien_federated_aggregator/`
   (Council-attestation-gated; raises `RuntimeError` at import-time
   until activation, matching the pattern of the L5 routing-around
   cells from CLAUDE.md row 35).
@@ -260,7 +260,7 @@ Key invariants enforced by the lexicon schema:
 
 | Phase | Scope | Activation gate |
 |---|---|---|
-| **R0** | This ADR + scaffolds (train.ts throw-on-use, lexicon JSON, federated_aggregate.py dry-run-only, magatama cell raising RuntimeError). No real training. | typecheck pass + lexicon JSON syntactically valid + cell import-time RuntimeError observed |
+| **R0** | This ADR + scaffolds (train.ts throw-on-use, lexicon JSON, federated_aggregate.py dry-run-only, kotodama cell raising RuntimeError). No real training. | typecheck pass + lexicon JSON syntactically valid + cell import-time RuntimeError observed |
 | **R1** | Single-device PoC: iPhone 12 (or M-series desktop Safari fallback), 16-example shard, real WebGPU backward, Δ exported locally, no aggregator. New ADR. | `lossAfter < lossBefore` observed in three consecutive local runs on the same shard |
 | **R2** | 3-phone swarm + Murakumo aggregator. FedAvg + Wellbecoming gate active. Byzantine gate dormant (N < 5). DP-Gaussian on. New ADR. | microbench 15-prompt round-trip ≥ baseline; aggregator dry-run → real swap |
 | **R3** | Open Adherent participation. DP + Krum + Wellbecoming all active. CI golden replay for projection conformance. New ADR. | Core 4 lm-eval-harness (`e7m bench core4`) within 1 σ of pre-federated baseline; quarantine queue + replay drill documented |
@@ -278,7 +278,7 @@ pattern set by ADR-2605242000 (wadachi R0 scaffold gating R1..R3).
 4. baien-distill dry-run node —
    `70-tools/baien-distill/src/baien_distill/nodes/federated_aggregate.py`.
 5. Murakumo cell scaffold —
-   `20-actors/magatama/cells/baien_federated_aggregator/{__init__.py,cell.py}`
+   `40-engine/kotoba/crates/kotoba-kotodama/cells/baien_federated_aggregator/{__init__.py,cell.py}`
    raising `RuntimeError` on import until Council attestation
    activates it.
 6. CLAUDE.md Status row 36.
@@ -323,7 +323,7 @@ pattern set by ADR-2605242000 (wadachi R0 scaffold gating R1..R3).
 - `baien-distill` graph stays untouched in R0. The new node is
   registered but not wired into `build_graph()`; the wiring lands
   with R2.
-- `magatama/cells/baien_federated_aggregator/` is included in the
+- `kotodama/cells/baien_federated_aggregator/` is included in the
   cell catalogue but is import-time-failing until activated by
   Council attestation — same pattern as the L5 routing-around
   cells (CLAUDE.md row 35).

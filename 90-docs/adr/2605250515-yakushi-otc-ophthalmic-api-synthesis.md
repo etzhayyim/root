@@ -20,9 +20,9 @@ depends_on:
   - adr-2605181100-mst-encrypted-records-signal-keywrap
 related:
   - 20-actors/yakushi/
-  - 20-actors/magatama/cells/pharma_api_synthesis/
-  - 20-actors/magatama/cells/pharma_purification/
-  - 20-actors/magatama/cells/pharma_qc/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_api_synthesis/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_purification/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_qc/
   - 00-contracts/lexicons/com/etzhayyim/pharma/apiSynthesisAttestation.json
   - 00-contracts/lexicons/com/etzhayyim/pharma/purificationAttestation.json
   - 00-contracts/lexicons/com/etzhayyim/pharma/qcAttestation.json
