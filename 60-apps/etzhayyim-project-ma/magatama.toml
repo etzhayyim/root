@@ -55,7 +55,7 @@ workload_name = "ma-actor-langserver-worker"
 [orchestration]
 dispatcher = "agentgateway-mcp"
 worker = "pymagatama.worker_api"
-graph = "risingwave"
+graph = "kotoba"
 default_email_provider = "mailer.etzhayyim.com"
 outbound_email_provider = "resend"
 inbound_email_provider = "cloudflare-email-routing"

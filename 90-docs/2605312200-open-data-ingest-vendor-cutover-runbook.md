@@ -42,7 +42,7 @@ Unlike NDL's standalone `ndl_ingest.py`, the other adapters are entries in one
 shared `_SOURCES` registry inside `lg_yatabase/graphs/kg_ingest.py`, consumed by
 the **live commercial yatabase/kotobase product**: `server.py` scheduler
 (`_run_kg_ingest` cron) + `kg_handlers.py` reads (`kg.entity/search`, served from
-RisingWave `kg.vertex_entity`). A raw `git rm` now darks a running product.
+Kotoba/Datomic `kg.vertex_entity`). A raw `git rm` now darks a running product.
 
 ### 3a. Scope correction (read the real cutover doc, 2026-05-31)
 

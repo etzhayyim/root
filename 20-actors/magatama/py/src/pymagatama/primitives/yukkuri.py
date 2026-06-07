@@ -22,6 +22,7 @@ Env vars:
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import datetime as _dt
 import json
@@ -31,7 +32,6 @@ import uuid
 from typing import Any
 
 from pymagatama import llm as _llm
-from pymagatama.db_sync import sync_cursor
 from pymagatama.primitives.yoro_social import build_repo_record, insert_social_post_record
 
 DEFAULT_REPO = "did:web:y5kk5r1x.etzhayyim.com"
@@ -160,19 +160,21 @@ def task_yukkuri_scene_persist(
     stored_voice_right = "am_puck"
     duration_sec_orig = 0.0
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             "SELECT title, topic, language, target_sec, resolution, fps, status, "
             "       project_id, seed, script_source, scenes_json, scene_count, line_count, "
             "       voice_left, voice_right, duration_sec "
             "FROM vertex_yukkuri_video WHERE vertex_id = %s LIMIT 1",
             (video_uri,),
         )
-        row = cur.fetchone()
+        row = (_res[0] if _res else None)
         if not row:
             # CF Worker simplified path: no pre-write. Insert initial record using hints.
             _title = title_hint or f"ゆっくり実況: {topic_hint[:48]}"
-            cur.execute(
+            _res = client.q(
                 """
                 INSERT INTO vertex_yukkuri_video (
                   vertex_id, owner_did, project_id, title, topic, status, language,
@@ -352,8 +354,9 @@ def _upsert_video(
         "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, "
         "        %s, %s, %s, %s, %s, %s, %s, %s)"
     )
-    with sync_cursor() as cur:
-        cur.execute(sql, (
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql, (
             vertex_id, owner_did, project_id, title, topic, language, target_sec,
             resolution, fps, status, seed, scenes_json, scene_count, line_count,
             voice_left, voice_right, script_source, duration_sec,
@@ -372,8 +375,9 @@ def _upsert_scene(
         " actor_did, org_did, sensitivity_ord, created_at) "
         "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
     )
-    with sync_cursor() as cur:
-        cur.execute(sql, (
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql, (
             vertex_id, owner_did, video_uri, idx, duration_sec, summary,
             owner_did, owner_did, 1, created_at,
         ))
@@ -389,8 +393,9 @@ def _upsert_line(
         " voice_preset, actor_did, org_did, sensitivity_ord, created_at) "
         "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
     )
-    with sync_cursor() as cur:
-        cur.execute(sql, (
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql, (
             vertex_id, owner_did, video_uri, scene_uri, idx, speaker, text, emotion,
             voice_preset, owner_did, owner_did, 1, created_at,
         ))
@@ -431,13 +436,14 @@ def task_yukkuri_voice_synthesize(
                 "note": "KOKORO_URL not configured"}
 
     lines: list[dict[str, Any]] = []
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             "SELECT vertex_id, idx, speaker, text, emotion, voice_preset, scene_uri "
             "FROM vertex_yukkuri_line WHERE video_uri = %s ORDER BY idx",
             (video_uri,),
         )
-        for row in cur.fetchall():
+        for row in _res:
             lines.append({
                 "vertex_id": row[0], "idx": row[1], "speaker": row[2] or "left",
                 "text": row[3] or "", "emotion": row[4] or "neutral",
@@ -496,8 +502,10 @@ def task_yukkuri_voice_synthesize(
         blob_key = f"yukkuri-voice-{rkey_vid}-l{idx:04d}"
         asset_uri = f"at://{DEFAULT_REPO}/{COLLECTION_ASSET}/{blob_key}"
 
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+
+            client = get_kotoba_client()
+            _res = client.q(
                 "INSERT INTO vertex_yukkuri_asset "
                 "(vertex_id, owner_did, video_uri, kind, asset_uri, "
                 " actor_did, org_did, sensitivity_ord, created_at) "
@@ -507,8 +515,9 @@ def task_yukkuri_voice_synthesize(
             )
 
         # Re-insert line row with voice_blob_key set (RW PK upsert)
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 "INSERT INTO vertex_yukkuri_line "
                 "(vertex_id, owner_did, video_uri, scene_uri, idx, speaker, text, "
                 " emotion, voice_preset, voice_blob_key, "
@@ -572,13 +581,14 @@ def task_yukkuri_image_generate(
         headers["Authorization"] = f"Bearer {comfyui_api_key}"
 
     scenes: list[dict[str, Any]] = []
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             "SELECT vertex_id, idx, summary, duration_sec "
             "FROM vertex_yukkuri_scene WHERE video_uri = %s ORDER BY idx",
             (video_uri,),
         )
-        for row in cur.fetchall():
+        for row in _res:
             scenes.append({
                 "vertex_id": row[0], "idx": row[1],
                 "summary": row[2] or "", "duration_sec": float(row[3] or 0),
@@ -637,8 +647,10 @@ def task_yukkuri_image_generate(
         asset_rkey = f"yukkuri-bg-{rkey_vid}-s{idx:03d}"
         asset_uri = f"at://{DEFAULT_REPO}/{COLLECTION_ASSET}/{asset_rkey}"
 
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+
+            client = get_kotoba_client()
+            _res = client.q(
                 "INSERT INTO vertex_yukkuri_asset "
                 "(vertex_id, owner_did, video_uri, kind, asset_uri, "
                 " actor_did, org_did, sensitivity_ord, created_at) "
@@ -648,8 +660,9 @@ def task_yukkuri_image_generate(
             )
 
         # Re-insert scene row with background_asset_uri set (RW PK upsert)
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 "INSERT INTO vertex_yukkuri_scene "
                 "(vertex_id, owner_did, video_uri, idx, duration_sec, summary, "
                 " background_asset_uri, actor_did, org_did, sensitivity_ord, created_at) "
@@ -695,13 +708,14 @@ def task_yukkuri_video_assemble(
 
     # Load scene rows to calculate total duration.
     scenes: list[dict[str, Any]] = []
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             "SELECT vertex_id, idx, duration_sec, summary "
             "FROM vertex_yukkuri_scene WHERE video_uri = %s ORDER BY idx",
             (video_uri,),
         )
-        for row in cur.fetchall():
+        for row in _res:
             scenes.append({"vertex_id": row[0], "idx": row[1],
                            "duration_sec": float(row[2] or 0), "summary": row[3] or ""})
 
@@ -719,15 +733,16 @@ def task_yukkuri_video_assemble(
 
     # Full-row upsert (RisingWave PK upsert: same vertex_id → overwrite).
     # SELECT existing columns first so we don't clobber title/topic/scenes_json/etc.
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             "SELECT owner_did, project_id, title, topic, language, target_sec, "
             "       resolution, fps, seed, scenes_json, scene_count, line_count, "
             "       voice_left, voice_right, script_source, created_at "
             "FROM vertex_yukkuri_video WHERE vertex_id = %s LIMIT 1",
             (video_uri,),
         )
-        vrow = cur.fetchone()
+        vrow = (_res[0] if _res else None)
     if vrow:
         _upsert_video(
             vertex_id=video_uri,
@@ -794,13 +809,14 @@ def task_yukkuri_critic_review(
 
     # Load video metadata.
     video_row: dict[str, Any] = {}
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             "SELECT duration_sec, scene_count, line_count, title, topic "
             "FROM vertex_yukkuri_video WHERE vertex_id = %s LIMIT 1",
             (video_uri,),
         )
-        row = cur.fetchone()
+        row = (_res[0] if _res else None)
         if row:
             video_row = {
                 "duration_sec": float(row[0] or 0),
@@ -812,12 +828,13 @@ def task_yukkuri_critic_review(
 
     # Load all lines for expression check.
     all_text = ""
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             "SELECT text FROM vertex_yukkuri_line WHERE video_uri = %s",
             (video_uri,),
         )
-        for row in cur.fetchall():
+        for row in _res:
             all_text += str(row[0] or "")
 
     # Duration check.
@@ -844,15 +861,16 @@ def task_yukkuri_critic_review(
 
     # Full-row upsert (RisingWave PK upsert: same vertex_id → overwrite).
     # SELECT existing columns first so we don't clobber title/topic/scenes_json/etc.
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             "SELECT owner_did, project_id, title, topic, language, target_sec, "
             "       resolution, fps, seed, scenes_json, scene_count, line_count, "
             "       voice_left, voice_right, script_source, created_at, duration_sec "
             "FROM vertex_yukkuri_video WHERE vertex_id = %s LIMIT 1",
             (video_uri,),
         )
-        vrow = cur.fetchone()
+        vrow = (_res[0] if _res else None)
     if vrow:
         _upsert_video(
             vertex_id=video_uri,
@@ -917,12 +935,13 @@ def task_yukkuri_social_post(
 
     # Fetch title/topic from DB if BPMN did not pass them.
     if not title:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 "SELECT title, topic FROM vertex_yukkuri_video WHERE vertex_id = %s LIMIT 1",
                 (video_uri,),
             )
-            row = cur.fetchone()
+            row = (_res[0] if _res else None)
             if row:
                 title = str(row[0] or "")
                 topic = str(row[1] or "")
@@ -998,8 +1017,9 @@ def _write_generation(
         " owner_did, org_did, sensitivity_ord, created_at) "
         "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 1, %s)"
     )
-    with sync_cursor() as cur:
-        cur.execute(sql, (
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql, (
             gen_uri, video_uri, stage, actor_did, model_id, params,
             audio_sec, video_sec, status, reject_reason,
             DEFAULT_REPO, DEFAULT_REPO, created_at,

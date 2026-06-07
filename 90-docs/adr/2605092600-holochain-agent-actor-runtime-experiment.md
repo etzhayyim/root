@@ -9,18 +9,18 @@ last_verified: 2026-05-09
 priority: 7.0
 axis: architecture
 weight: 0.70
-priority_note: "Experiment completed; retained as reference only. Production path stays LangGraph/LangServe + SpiffWorkflow + RisingWave."
+priority_note: "Experiment completed; retained as reference only. Production path stays LangGraph/LangServe + SpiffWorkflow + Kotoba/Datomic."
 authoritative_for:
   - runtimeKind=holochain experimental contract
   - Holochain placement as L3 virtual actor runtime experiment
-  - Holochain source-chain/DHT boundary vs RisingWave projection SSoT
+  - Holochain source-chain/DHT boundary vs Kotoba/Datomic projection SSoT
 depends_on:
   - adr-2605080000-distributed-cognitive-actor-system
   - adr-2605082200-langgraph-single-task-and-row-driven-runtime
   - adr-2604262100-erc725-erc8004-k8s-ipfs-agent-runtime
 related:
   - adr-0087-magatama-mcp-tool-facade
-  - adr-0002-persistence-risingwave-only
+  - adr-0002-persistence-kotoba-only
 supersedes: []
 superseded_by: []
 ---
@@ -35,10 +35,10 @@ superseded_by: []
 
 ADR-2605080000 fixes the production cognitive actor stack around L1 Edge,
 L2 LangGraph coordination, L3 virtual actor runtime, L4 MCP capability,
-L5 RisingWave memory, and L6 compute. That stack is correct for centralized
+L5 Kotoba/Datomic memory, and L6 compute. That stack is correct for centralized
 operations, but it leaves one open question: whether per-agent local source
 chains and peer validation are useful for agent/actor runtime events before
-they are projected into RisingWave.
+they are projected into Kotoba/Datomic.
 
 Holochain is a plausible experiment because a hApp is composed from one or
 more DNAs, a DNA defines an isolated peer network and shared graph database,
@@ -55,7 +55,7 @@ After implementation and smoke verification, the production decision is:
 
 - Use LangGraph/LangServe for agent graph serving.
 - Use SpiffWorkflow for BPMN/human workflow orchestration.
-- Use RisingWave for durable/queryable actor memory and projections.
+- Use Kotoba/Datomic for durable/queryable actor memory and projections.
 - Keep Holochain only as a reference experiment for future local-first,
   peer-validated agent event logs.
 
@@ -65,7 +65,7 @@ Placement:
 |---|---|
 | L3 | Holochain conductor lifecycle and hApp cell activation |
 | L4 | MCP/XRPC facade only; conductor admin API is not public |
-| L5 | RisingWave remains the query/projection SSoT |
+| L5 | Kotoba/Datomic remains the query/projection SSoT |
 | L6 | Holochain zome WASM executes actor event validation and command commit |
 
 Holochain stores only the agent-local source chain and replicated DHT evidence
@@ -95,7 +95,7 @@ agent-owned definitions and receipts:
 - `LangActor`: `actor_did`, `assistant_id`, `runtime_family`, `graph_kind`,
   `factory_path` or `graph_spec_cid`, `policy_cid`
 - `GraphRun`: run identity and input CID
-- `ActorEvent`: command/result receipt projected to RisingWave
+- `ActorEvent`: command/result receipt projected to Kotoba/Datomic
 
 ## Implementation
 
@@ -143,7 +143,7 @@ The smoke verifies:
 - schema/runtime enum accepts `holochain`
 - cell binding is modeled as DNA hash + agent DID
 - zome command surface is explicit
-- Holochain event transport remains separated from RisingWave projection SSoT
+- Holochain event transport remains separated from Kotoba/Datomic projection SSoT
 - Vultr remote buildx compiles `actor_runtime_integrity.wasm` and
   `actor_runtime.wasm` for `wasm32-unknown-unknown`
 
@@ -193,7 +193,7 @@ Constraints:
 - Production use requires reproducible `.happ` build in CI and conductor
   image provenance.
 - No public conductor admin API.
-- RisingWave remains the source for platform queries, reports, and materialized
+- Kotoba/Datomic remains the source for platform queries, reports, and materialized
   actor state.
 
 Rejected for current production:

@@ -161,7 +161,7 @@ edge" and the registry returns Baien rather than a server-bound model.
 ## 5. SSoT placement
 
 - **Lineage SSoT**: `vertex_training_run` / `vertex_training_checkpoint`
-  in RisingWave (no schema change).
+  in Kotoba/Datomic (no schema change).
 - **Model alias SSoT**: `MODEL_REGISTRY["baien-bitnet-1.58bit-base"]` in
   `20-actors/magatama/sdk/magatama-host-sdk/src/llm-model-registry.ts`.
   Carries `huggingfaceModel = "microsoft/bitnet-b1.58-2B-4T-bf16"` so

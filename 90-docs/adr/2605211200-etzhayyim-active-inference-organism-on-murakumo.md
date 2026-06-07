@@ -68,7 +68,7 @@ embodiment + self-maintenance** as the organism architecture. The organism is
   cadence (ki-cycle hourly, saikin-cycle every 20m, koke-cycle every 30m,
   newsletter\_send\_campaign 8-node + retry); `/assistants` registry has
   **61 active chains** (deps.toml line 27411).
-- State persists in RisingWave: `vertex_agent_observation`,
+- State persists in Kotoba/Datomic: `vertex_agent_observation`,
   `vertex_agent_belief_state`, `vertex_agent_prior_preference`,
   `vertex_agent_active_inference_tick`, `vertex_agent_action_proposal`,
   `vertex_agent_realworld_effect`, `vertex_agent_homeostasis_snapshot`,
@@ -90,7 +90,7 @@ etzhayyim/root yet.
 Three ADRs together rule out the current implementation surface from etzhayyim:
 
 - **ADR-2605172000 (RW-free substrate)**: etzhayyim apps may only persist to
-  AT MST + IPFS + Base L2. RisingWave is vendor-only.
+  AT MST + IPFS + Base L2. Kotoba/Datomic is vendor-only.
 - **ADR-2605172100 (payments on-chain only)**: USDC + ERC-4337 only. Fiat /
   Stripe / invoiced LLM API rentals stay vendor.
 - **ADR-2605172400 (3-axis OR-test)**: a project moves to etzhayyim only if
@@ -101,7 +101,7 @@ Applied to the organism as it stands today, the verdict is:
 | Axis | Current state | etzhayyim eligible? |
 |------|---------------|---------------------|
 | Liability | Organism makes autonomous decisions; failure damage absorbed by agent + DAO | ✅ clean |
-| Custody | belief state + observation + dispatch ledger sit in operator-controlled RisingWave | ❌ HIT — operator can be compelled to produce |
+| Custody | belief state + observation + dispatch ledger sit in operator-controlled Kotoba/Datomic | ❌ HIT — operator can be compelled to produce |
 | Settlement | LLM synthesis billed to RunPod / Anthropic on etzhayyim Japan invoice | ❌ HIT — fiat fiduciary |
 
 Two axes hit → without intervention the organism stays vendor.
@@ -275,7 +275,7 @@ After D1+D2+D3 the organism's 3-axis position becomes:
    alias to `ai.etzhayyim.agent.*` later.
 2. Add `pymagatama.primitives.active_inference_substrate` module exposing
    `BeliefStore` protocol with two implementations:
-   - `RisingWaveBeliefStore` (existing path, default during Phase 1)
+   - `Kotoba/DatomicBeliefStore` (existing path, default during Phase 1)
    - `AtIpfsLocalBeliefStore` (new: SQLite hot + AT record canonical + IPFS
      large-blob; uses `sdk.pds.createRecord` + `pinning.etzhayyim.com` for IPFS)
 3. Switch primitive callers (`active_inference.py`, `agent_status_main.py`,
@@ -388,7 +388,7 @@ end; murakumo k8s pods read code from etzhayyim/root image registry.
 - 3-axis test re-run at each phase boundary; recorded in deps.toml
   `[[migrations]]` status updates
 - Lefthook pre-commit hook (existing from ADR-2605172400) continues to flag
-  any new `risingwave|kysely|pg|stripe|paypal` import in etzhayyim/root
+  any new `kotoba|kysely|pg|stripe|paypal` import in etzhayyim/root
   organism modules
 
 # Closure (2026-05-21)

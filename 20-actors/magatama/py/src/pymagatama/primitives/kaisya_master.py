@@ -33,6 +33,7 @@ Pyzeebe task types:
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import asyncio
 import datetime as _dt
@@ -42,7 +43,6 @@ import os
 import uuid
 from typing import Any, TypedDict
 
-from pymagatama.db_sync import sync_cursor
 from pymagatama.primitives import langgraph_registry
 
 LOG = logging.getLogger("kaisya.master")
@@ -175,9 +175,10 @@ class OrgState(TypedDict, total=False):
 def _collect_sync() -> dict[str, Any]:
     """Run all DB queries synchronously via sync_cursor."""
     result: dict[str, Any] = {}
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         # Agent runs last 24h
-        cur.execute("""
+        _res = client.q("""
             SELECT
               COUNT(*) AS total,
               SUM(CASE WHEN status = 'error' THEN 1 ELSE 0 END) AS errors,
@@ -185,7 +186,7 @@ def _collect_sync() -> dict[str, Any]:
             FROM vertex_kaisya_agent_run
             WHERE ran_at >= NOW() - INTERVAL '24 hours'
         """)
-        row = cur.fetchone()
+        row = (_res[0] if _res else None)
         result["agent_runs_24h"] = int(row[0] or 0)
         result["error_runs_24h"] = int(row[1] or 0)
         active_agents = set(row[2] or [])
@@ -199,39 +200,39 @@ def _collect_sync() -> dict[str, Any]:
         result["silent_agents"] = sorted(expected - active_agents)
 
         # Pending tasks
-        cur.execute("""
+        _res = client.q("""
             SELECT
               COUNT(*) AS total,
               SUM(CASE WHEN priority = 1 THEN 1 ELSE 0 END) AS critical
             FROM vertex_kaisya_task
             WHERE status = 'pending'
         """)
-        row = cur.fetchone()
+        row = (_res[0] if _res else None)
         result["pending_tasks"] = int(row[0] or 0)
         result["critical_tasks"] = int(row[1] or 0)
 
         # Wellbecoming at-risk
         try:
-            cur.execute("SELECT COUNT(*) FROM mv_wellbecoming_at_risk")
-            result["at_risk_callers"] = int(cur.fetchone()[0] or 0)
+            _res = client.q("SELECT COUNT(*) FROM mv_wellbecoming_at_risk")
+            result["at_risk_callers"] = int((_res[0] if _res else None)[0] or 0)
         except Exception:  # noqa: BLE001
             result["at_risk_callers"] = 0
 
         # Wellbecoming floor violations
         try:
-            cur.execute("""
+            _res = client.q("""
                 SELECT COUNT(*) FROM vertex_kaisya_agent_run
                 WHERE task_type = 'floorViolationAlert'
                   AND ran_at >= NOW() - INTERVAL '2 hours'
                   AND status = 'ok'
             """)
-            result["floor_violated"] = int(cur.fetchone()[0] or 0) > 0
+            result["floor_violated"] = int((_res[0] if _res else None)[0] or 0) > 0
         except Exception:  # noqa: BLE001
             result["floor_violated"] = False
 
         # Legal cases
         try:
-            cur.execute("""
+            _res = client.q("""
                 SELECT
                   COUNT(*) AS total,
                   SUM(CASE WHEN due_date IS NOT NULL
@@ -240,7 +241,7 @@ def _collect_sync() -> dict[str, Any]:
                 FROM vertex_lawfirm_case
                 WHERE status NOT IN ('closed', 'archived')
             """)
-            row = cur.fetchone()
+            row = (_res[0] if _res else None)
             result["open_legal_cases"] = int(row[0] or 0)
             result["urgent_legal_cases"] = int(row[1] or 0)
         except Exception:  # noqa: BLE001
@@ -249,28 +250,28 @@ def _collect_sync() -> dict[str, Any]:
 
         # OKR attainment
         try:
-            cur.execute("SELECT AVG(attainment_bps) FROM vertex_goal WHERE status != 'cancelled'")
-            bps = cur.fetchone()[0] or 5000
+            _res = client.q("SELECT AVG(attainment_bps) FROM vertex_goal WHERE status != 'cancelled'")
+            bps = (_res[0] if _res else None)[0] or 5000
             result["okr_attainment_avg"] = float(bps) / 10000.0
         except Exception:  # noqa: BLE001
             result["okr_attainment_avg"] = 0.5
 
         # Active projects
         try:
-            cur.execute("SELECT COUNT(*) FROM vertex_business_case WHERE status IN ('active','in_progress','pending')")
-            result["active_projects"] = int(cur.fetchone()[0] or 0)
+            _res = client.q("SELECT COUNT(*) FROM vertex_business_case WHERE status IN ('active','in_progress','pending')")
+            result["active_projects"] = int((_res[0] if _res else None)[0] or 0)
         except Exception:  # noqa: BLE001
             result["active_projects"] = 0
 
         # Financial snapshot
         try:
-            cur.execute("""
+            _res = client.q("""
                 SELECT monthly_revenue_jpy, monthly_burn_jpy
                 FROM vertex_strategy_snapshot
                 ORDER BY snapshot_at DESC
                 LIMIT 1
             """)
-            row = cur.fetchone()
+            row = (_res[0] if _res else None)
             if row:
                 result["monthly_revenue_jpy"] = float(row[0] or 0)
                 result["monthly_burn_jpy"] = float(row[1] or 0)
@@ -283,12 +284,12 @@ def _collect_sync() -> dict[str, Any]:
 
         # Previous Ω(t-1)
         try:
-            cur.execute("""
+            _res = client.q("""
                 SELECT omega FROM vertex_kaisya_org_snapshot
                 ORDER BY snapshot_at DESC
                 LIMIT 1
             """)
-            row = cur.fetchone()
+            row = (_res[0] if _res else None)
             result["prev_omega"] = float(row[0]) if row else 0.5
         except Exception:  # noqa: BLE001
             result["prev_omega"] = 0.5
@@ -568,8 +569,9 @@ async def _node_write_snapshot(state: OrgState) -> OrgState:
     vertex_id = _vertex_id("orgSnapshot")
     now = _now_iso()
     decisions_json = json.dumps(state.get("decisions", []))[:4000]
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             """
             INSERT INTO vertex_kaisya_org_snapshot
               (vertex_id, snapshot_at, omega, eta_value, u_total,
@@ -756,8 +758,9 @@ def register(worker: Any, timeout_ms: int = 180_000) -> None:
         now = _now_iso()
         dec_list = json.loads(decisions) if isinstance(decisions, str) else decisions
         floor_violated = any(s == 0.0 for s in [spiritScore, wellbecomingScore, feelingScore, bufferScore])
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 """
                 INSERT INTO vertex_kaisya_org_snapshot
                   (vertex_id, snapshot_at, omega, eta_value, u_total,

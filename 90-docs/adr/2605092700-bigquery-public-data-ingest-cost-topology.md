@@ -1,14 +1,14 @@
 ---
 id: adr-2605092700-bigquery-public-data-ingest-cost-topology
-title: BigQuery Public Data Ingest Cost + RisingWave Graph Topology
+title: BigQuery Public Data Ingest Cost + Kotoba/Datomic Graph Topology
 status: proposed
 doc_type: adr
-topic: bigquery-public-data-risingwave-ingest
+topic: bigquery-public-data-kotoba-ingest
 authoritative: true
 last_verified: 2026-05-09
 authoritative_for:
   - bigquery-public-data-ingest-cost-model
-  - public-dataset-risingwave-vertex-edge-mv-topology
+  - public-dataset-kotoba-vertex-edge-mv-topology
   - llm-training-public-data-source-policy
 related:
   - adr-2605070700-rw-native-model-training-weight-lineage
@@ -22,7 +22,7 @@ related:
 # Goal
 
 BigQuery で公開されている大規模データセット、公式 API/file ingest、
-Common Crawl、自前 domain collectors を、RisingWave の `vertex_*`,
+Common Crawl、自前 domain collectors を、Kotoba/Datomic の `vertex_*`,
 `edge_*`, `mv_*`, index、training dataset snapshot に接続する。
 
 同時に、BigQuery の on-demand scan cost が PB 級で破綻しないように、
@@ -34,10 +34,10 @@ BigQuery は canonical graph store ではない。BigQuery は以下に限定す
 
 - public dataset の発見、schema sampling、source catalog 作成
 - 巨大表の column projection、dedupe、entity matching、window aggregation
-- RisingWave に入れる delta / narrow projection の生成
+- Kotoba/Datomic に入れる delta / narrow projection の生成
 - LLM training 用 corpus の sampling、license / language / quality filter
 
-RisingWave は以下の source of truth とする。
+Kotoba/Datomic は以下の source of truth とする。
 
 - `vertex_*`: canonical facts
 - `edge_*`: graph relation / provenance / training lineage
@@ -45,9 +45,9 @@ RisingWave は以下の source of truth とする。
 - `vertex_ingest_run`, `vertex_ingest_cursor`, `vertex_ingest_artifact`: run,
   cursor, raw/export artifact lineage
 
-巨大 raw payload は RisingWave に入れない。BigQuery export, Common Crawl
+巨大 raw payload は Kotoba/Datomic に入れない。BigQuery export, Common Crawl
 WARC/WET, OSM PBF, training JSONL shard, model weights は B2/GCS/IPFS 等の
-object storage に置き、RisingWave には URI, hash, byte size, row count,
+object storage に置き、Kotoba/Datomic には URI, hash, byte size, row count,
 license, source dataset id を持たせる。
 
 Initial scope is **P0 + P1 only**:
@@ -57,7 +57,7 @@ Initial scope is **P0 + P1 only**:
   bounded samples.
 - **P1 profiling**: for selected candidate datasets, compute null rates, key
   candidates, language/text statistics, top values, PII/training risk samples,
-  and recommended RisingWave vertex/edge targets.
+  and recommended Kotoba/Datomic vertex/edge targets.
 
 P2+ graph projection and production ingest are explicitly out of scope for this
 ADR until P0/P1 outputs have been reviewed.
@@ -66,7 +66,7 @@ ADR until P0/P1 outputs have been reviewed.
 
 P0/P1 answers "what exists, what does it cost to touch, and is it safe enough to
 design an ingest adapter?" It does not move raw all-history data into
-RisingWave.
+Kotoba/Datomic.
 
 ## P0 Catalog/Sample
 
@@ -160,7 +160,7 @@ allowed_for_train
 allowed_for_embedding
 dedupe_strategy
 delta_strategy
-recommended_risingwave_tables_json
+recommended_kotoba_tables_json
 recommended_edges_json
 estimated_monthly_refresh_scan_tib
 estimated_monthly_refresh_cost_usd
@@ -183,7 +183,7 @@ state.
 
 # Source Split
 
-| source family | BigQuery role | self-ingest role | RisingWave destination |
+| source family | BigQuery role | self-ingest role | Kotoba/Datomic destination |
 |---|---|---|---|
 | BigQuery public datasets / Marketplace | primary staging, projection, delta, dedupe | export/import runner | `vertex_public_dataset_*`, domain `vertex_*`, `edge_*` |
 | GitHub / StackOverflow / Wikipedia / Google Trends | history scan, language/topic sampling, repo/page/user aggregate | graph write + training filter | code/text vertices, `v_training_text`, repo/topic edges |
@@ -265,7 +265,7 @@ create or copy into our project. Therefore the expensive mistakes are:
 - repeatedly re-scanning raw public tables instead of materializing smaller
   staging tables
 - copying entire public datasets into our project
-- exporting raw all-history data into RisingWave / Hummock
+- exporting raw all-history data into Kotoba/Datomic / Hummock
 
 # Cost Estimate
 
@@ -285,12 +285,12 @@ These costs exclude:
 
 - object storage for exported JSONL/Parquet/WARC/PBF artifacts
 - network egress if data leaves Google Cloud or crosses billable boundaries
-- RisingWave compute scale-up and B2/Hummock growth
+- Kotoba/Datomic compute scale-up and B2/Hummock growth
 - LLM embedding / OCR / labeling / training GPU costs
 
-Current RisingWave monthly baseline is already tracked separately in infra docs.
+Current Kotoba/Datomic monthly baseline is already tracked separately in infra docs.
 This ADR treats BigQuery as incremental preprocessing cost, not as a replacement
-for RisingWave.
+for Kotoba/Datomic.
 
 # Guardrails
 
@@ -338,7 +338,7 @@ Default budget caps:
    `vertex_ingest_artifact(kind='bigquery.catalog_sample')`.
 5. Generate P1 profiles only for reviewed P0 candidates.
 6. Stop. Do not implement P2 projection until the P0/P1 review produces an
-   explicit dataset allowlist, expected scan budget, and RisingWave schema plan.
+   explicit dataset allowlist, expected scan budget, and Kotoba/Datomic schema plan.
 
 # Acceptance Criteria
 
@@ -425,10 +425,10 @@ non-BigQuery ingest path:
 BigQuery is the **international-public-record substrate** (≈17 domains).
 etzhayyim-internal, JP-vertical, industrial-IoT, private-transaction, and
 PII-observation domains stay on dedicated collectors / partnerships. The two
-paths converge at `vertex_*` / `edge_*` in RisingWave; they do not merge at
+paths converge at `vertex_*` / `edge_*` in Kotoba/Datomic; they do not merge at
 the BigQuery layer.
 
-This makes the ADR's "BigQuery as preprocessing layer, RisingWave as canonical
+This makes the ADR's "BigQuery as preprocessing layer, Kotoba/Datomic as canonical
 graph store" claim concrete: BigQuery cannot be the single source of world
 coverage even within its 17 covered domains, and especially cannot be the
 source for the ~40 JP-vertical / industrial / private-data domains that
@@ -438,11 +438,11 @@ domains like `photos`, `kessai`, `serial`, `seizo`, `bim`, `invoice`,
 
 # Rejected Approach
 
-Reject literal "copy all BigQuery public data into RisingWave". It would turn
-RisingWave into a raw data lake, force Hummock/B2 growth unrelated to graph
+Reject literal "copy all BigQuery public data into Kotoba/Datomic". It would turn
+Kotoba/Datomic into a raw data lake, force Hummock/B2 growth unrelated to graph
 queries, and make LLM training lineage harder rather than easier. The accepted
 pattern is: BigQuery raw public data -> narrow projections / artifacts ->
-RisingWave graph and training manifests.
+Kotoba/Datomic graph and training manifests.
 
 Reject "BigQuery is sufficient for etzhayyim world coverage". Per the §etzhayyim
 World-Coverage Mapping above, BigQuery covers at most ~17 of the ~50+

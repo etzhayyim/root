@@ -282,7 +282,7 @@ Phase 10 追加: `QueryAlertQueueArgs`, `AcknowledgeAlertArgs`, `ValidateRoeArgs
 `audit_chain.submit_audit_receipt` を `asyncio.ensure_future` で非同期発火。
 コントラクト: `DefenseAuditRegistry`, chainId `260425`, アルゴリズム: keccak256 (`web3` optional dep)。
 
-### スキーマ (RisingWave graphar)
+### スキーマ (Kotoba/Datomic graphar)
 
 **Phase 1-8**
 ```
@@ -343,7 +343,7 @@ mv_defense_platform_readiness   — プラットフォーム稼働可能 MV
 - T1/T2 への昇格は deploy topology の差し替えのみで対応可能
 - ATLA vendor 登録・特定秘密取扱業者資格は別途ビジネスプロセスとして進める
 - Pydantic v2 バリデーション (29 モデル) をクリアランスチェック前に置くことで不正 payload の早期排除
-- record-log semantics (INSERT only) が RisingWave append-only モデルと整合する
+- record-log semantics (INSERT only) が Kotoba/Datomic append-only モデルと整合する
 - 夜間バッチ + EVM 監査により ISMAP 準拠の audit trail を自動生成できる
 - ROC-A/B/C を Rego で宣言的に管理することで ROE 変更が単一ファイル更新で完結する
 - kinetic / cyber-destroy の T2 要件を Rego + コードの 2 層で強制し、監査証跡を残す

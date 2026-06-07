@@ -124,8 +124,8 @@
       ],
       "runtimeEvidence": {
         "checkedAt": "2026-04-30T05:18:18Z",
-        "rwWritePath": "pymagatama.db_sync sync_cursor -> RisingWave",
-        "conflictHandling": "SELECT-before-INSERT idempotency; ON CONFLICT removed for RisingWave parser compatibility",
+        "rwWritePath": "pymagatama.db_sync sync_cursor -> Kotoba/Datomic",
+        "conflictHandling": "SELECT-before-INSERT idempotency; ON CONFLICT removed for Kotoba/Datomic parser compatibility",
         "classifyEntity": {
           "ok": true,
           "task": "openIsic.classifyEntity",
@@ -183,8 +183,8 @@
       ],
       "runtimeEvidence": {
         "checkedAt": "2026-04-30T05:18:18Z",
-        "rwWritePath": "pymagatama.db_sync sync_cursor -> RisingWave",
-        "conflictHandling": "SELECT-before-INSERT idempotency; ON CONFLICT removed for RisingWave parser compatibility",
+        "rwWritePath": "pymagatama.db_sync sync_cursor -> Kotoba/Datomic",
+        "conflictHandling": "SELECT-before-INSERT idempotency; ON CONFLICT removed for Kotoba/Datomic parser compatibility",
         "classifyWorker": {
           "ok": true,
           "task": "openIsco.classifyWorker",

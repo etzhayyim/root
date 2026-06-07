@@ -26,7 +26,7 @@ GLEIF LEI (3M active) を起点に、全世界 194+ カ国の法人登記デー�
   → le9k4x2m Worker (command handler per source)
     → normalize → { $type: "com.etzhayyim.legalEntity.legalEntity", ... }
       → sdk.pds.rpc("com.atproto.repo.applyWrites", { repo, writes })
-        → PDS → sign → vertex_legal_entity (RisingWave)
+        → PDS → sign → vertex_legal_entity (Kotoba/Datomic)
         → firehose emit (com.atproto.sync.subscribeRepos)
 ```
 

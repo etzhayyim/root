@@ -70,7 +70,7 @@ spec:
             - { name: RW_ALLOW_FLUSH, value: "0" }
             - { name: RW_SYNC_POOL, value: "1" }
             # SUBSTRATE-VIOLATION (inherited from pymagatama, ADR-2605172100):
-            # RisingWave URL — pymagatama.db_sync uses it for
+            # Kotoba/Datomic URL — pymagatama.db_sync uses it for
             # vertex_bpmn_lexicon_binding lookup. Cleanup path:
             # migrate binding registry to AT MST records, drop RW_URL.
                 secretKeyRef:

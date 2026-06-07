@@ -19,7 +19,7 @@ CSV column formats accepted (auto-detected):
 Checkpoint: each processed row is written to <input>.jsonl.
 Resume: rows already in the JSONL are skipped.
 
-RisingWave write: set RW_URL env var. Without it, rows are only written to JSONL.
+RisingWave write: set KOTOBA_URL env var. Without it, rows are only written to JSONL.
 """
 
 from __future__ import annotations

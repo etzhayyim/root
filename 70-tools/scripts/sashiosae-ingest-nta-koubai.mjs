@@ -24,7 +24,7 @@
  */
 import { readFile } from "node:fs/promises";
 
-const RW_CONN = process.env.RW_CONN ?? "postgresql://root@127.0.0.1:14566/dev?sslmode=disable";
+const KOTOBA_URL = process.env.KOTOBA_URL ?? "postgresql://root@127.0.0.1:14566/dev?sslmode=disable";
 const JWT = process.env.etzhayyim_AUTHORITY_JWT ?? "";
 const XRPC_HOST = process.env.XRPC_HOST ?? "https://atproto.etzhayyim.com";
 const AUTHORITY_DID = "did:web:jpn-state.etzhayyim.com:mof:nta:choushuu:kanka";
@@ -39,7 +39,7 @@ let _pgPool = null;
 async function pool() {
   if (_pgPool) return _pgPool;
   const { default: pg } = await import("/Users/junkawasaki/github/etzhayyim-root/30-graph/graph-schema/node_modules/pg/lib/index.js");
-  _pgPool = new pg.Pool({ connectionString: RW_CONN, max: 2, statement_timeout: 60000 });
+  _pgPool = new pg.Pool({ connectionString: KOTOBA_URL, max: 2, statement_timeout: 60000 });
   return _pgPool;
 }
 

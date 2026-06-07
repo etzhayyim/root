@@ -36,7 +36,7 @@ amended_by: []
 `wrangler.toml` に `workers_dev = true` と `routes = [{ pattern = "search.etzhayyim.com/*" }]` が
 存在し、実際には外部から HTTP で直接到達可能な状態だった。
 
-2026-05-09 の `chat-search-risingwave-only` 変更で `tool_web_search` を RisingWave 内部検索に
+2026-05-09 の `chat-search-kotoba-only` 変更で `tool_web_search` を Kotoba/Datomic 内部検索に
 一本化したことで、`search.etzhayyim.com` への外部 HTTP アクセスを必要とするクライアントは存在しなくなった。
 また MCP as Cell Membrane (ADR-2605091400) により、外部向け API は `mcp.etzhayyim.com/mcp` MCP facade に
 集約する方針が確定している。
@@ -74,7 +74,7 @@ amended_by: []
 - `etzhayyim deploy` 後に CF DNS の `search.etzhayyim.com` A/CNAME レコードは自動削除される。
 - 既存の `atproto.etzhayyim.com` gateway に `WORKER_SEARCH` binding が未登録のため、
   `atproto` 経由での search XRPC ルートも存在せず、機能影響はない。
-- search 機能は `chat-agent` pod の `tool_web_search` が RisingWave 経由で提供しており、
+- search 機能は `chat-agent` pod の `tool_web_search` が Kotoba/Datomic 経由で提供しており、
   外部公開 Worker がなくても検索品質に影響しない。
 - 将来 search を外部公開する場合は `mcp.etzhayyim.com/mcp` MCP tool として公開し、
   Worker への直接 HTTP ルートは設けない (ADR-2605091400)。

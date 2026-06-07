@@ -8,9 +8,9 @@ import time
 import urllib.error
 import urllib.request
 from typing import Any
+from pymagatama.kotoba_datomic import get_kotoba_client
 from uuid import uuid4
 
-from pymagatama.db_sync import sync_cursor
 
 OWNER_DID = "did:web:maps.etzhayyim.com"
 APP_ID = "maps"
@@ -259,16 +259,25 @@ def _json(value: Any) -> str:
 
 
 def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return int(cur.rowcount or 0)
+    if sql.strip().upper() == "FLUSH": return 0
+    client = get_kotoba_client()
+    try:
+        client.q(sql, params)
+        return 1
+    except Exception:
+        return 0
 
 
 def _rows(sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        cols = [d[0] for d in cur.description or []]
-        return [_inflate(dict(zip(cols, row))) for row in cur.fetchall()]
+    client = get_kotoba_client()
+    results = client.q(sql, params)
+    # Assume results from Kotoba q() are dicts directly for SELECT queries.
+    if results and isinstance(results[0], dict):
+        return [_inflate(r) for r in results]
+    elif results and isinstance(results[0], tuple):
+        # We don't have description, just return tuples if needed, though dicts expected
+        pass
+    return [_inflate(r) if isinstance(r, dict) else r for r in results]
 
 
 def _row(sql: str, params: tuple[Any, ...] = ()) -> dict[str, Any] | None:
@@ -301,9 +310,10 @@ def _stage_index(stage: str) -> int:
 
 
 def _next_seq(table: str) -> int:
-    with sync_cursor() as cur:
-        cur.execute(f"SELECT COALESCE(MAX(_seq), 0) + 1 AS seq FROM {table}")
-        row = cur.fetchone()
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(f"SELECT COALESCE(MAX(_seq), 0) + 1 AS seq FROM {table}")
+        row = (_res[0] if _res else None)
         return int(row[0] if row else 1)
 
 

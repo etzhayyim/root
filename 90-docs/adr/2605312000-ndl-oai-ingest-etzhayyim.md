@@ -32,14 +32,14 @@ superseded_by: []
 The National Diet Library (国立国会図書館 / NDL) ingest existed only in the
 **vendor** repo (`etzhayyimcojp:60-apps/etzhayyim-project-yatabase/lg/lg_yatabase/ndl_ingest.py`)
 as a `kg_adapter` inside the commercial yatabase/kotobase Universal Knowledge
-Graph. It was RisingWave-backed (`vertex_ndl_*`, ~620k rows). The vendor RW
+Graph. It was Kotoba/Datomic-backed (`vertex_ndl_*`, ~620k rows). The vendor RW
 adapter **stays in place** — this ADR does not move or delete it.
 
 NDL bibliographic metadata is public-domain library data (3-axis test: Custody
 clean — public; no Settlement, no Liability), so an open-data harvest of it is a
 legitimate etzhayyim open-data source alongside arxiv / common-crawl / houbun.
 The substrate constraint is that etzhayyim is **RW-free** (ADR-2605172000):
-AT MST + IPFS only, no RisingWave. So this is a **re-build on the open
+AT MST + IPFS only, no Kotoba/Datomic. So this is a **re-build on the open
 substrate**, not a file move of the RW adapter.
 
 User direction (2026-05-31): "移行を進めて … refactor は kotoba 側が行います" —
@@ -80,7 +80,7 @@ only**, following the houbun / site_common_crawl pattern.
 - The cross-domain orchestration spine (`ingest.core` run/cursor/artifact) is
   called **best-effort** (`_spine(...)`): it is still RW-coupled via
   `db_sync.sync_cursor` (the spine's own RW-free migration is incomplete), so a
-  missing `RW_URL` degrades to a logged warning and never aborts an ingest.
+  missing `KOTOBA_URL` degrades to a logged warning and never aborts an ingest.
 
 **The kotoba handoff (single seam):** domain-fact writes go through exactly one
 function — `ingest.ndl._persist_items`. The RW→kotoba-datomic refactor

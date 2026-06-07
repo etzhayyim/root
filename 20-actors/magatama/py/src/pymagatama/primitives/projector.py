@@ -32,6 +32,7 @@ into process variables. `single_value=False` registration in `register()`.
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import asyncio
 import datetime as _dt
@@ -44,7 +45,6 @@ from collections import Counter
 from typing import Any, TypedDict
 
 from pymagatama import llm
-from pymagatama.db_sync import sync_cursor
 
 # Phase 3 PDS write path. Reuses the cached _mint_pds_service_auth +
 # generic.pds.dispatch primitives wired in zeebe_worker_main; we import
@@ -154,12 +154,13 @@ def task_projector_command_deferred(command: str = "") -> dict[str, Any]:
 
 def _reflexion_table_exists() -> bool:
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 "SELECT 1 FROM information_schema.columns "
                 "WHERE table_name = 'vertex_projector_reflection' LIMIT 1"
             )
-            return cur.fetchone() is not None
+            return (_res[0] if _res else None) is not None
     except Exception:
         return False
 
@@ -178,16 +179,17 @@ def task_projector_reflexion_load(
     if not _reflexion_table_exists():
         return {"memories": []}
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 "SELECT lesson, attempt, outcome, created_at "
                 "FROM vertex_projector_reflection "
                 "WHERE convo_id = %s "
                 f"ORDER BY created_at DESC LIMIT {max(1, min(limit, 20))}",
                 (convoId,),
             )
-            cols = [d[0] for d in cur.description] if cur.description else []
-            for r in cur.fetchall() or []:
+            cols = [d[0] for d in ([("col",)] if _res else [])] if ([("col",)] if _res else []) else []
+            for r in _res or []:
                 d = dict(zip(cols, r))
                 rows.append(
                     {
@@ -231,8 +233,9 @@ def task_projector_reflexion_write(
 
     written_to = "vertex_projector_reflection"
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 """
                 INSERT INTO vertex_projector_reflection (
                   vertex_id, convo_id, caller_did, lesson, attempt, outcome,
@@ -322,8 +325,9 @@ def task_projector_tools_discover(convoId: str = "") -> dict[str, Any]:
     if not convoId:
         return {"tools": tools}
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 "SELECT card.tools_json "
                 "FROM vertex_convo_member m "
                 "LEFT JOIN vertex_actor_card card ON card.actor_did = m.member_did "
@@ -331,7 +335,7 @@ def task_projector_tools_discover(convoId: str = "") -> dict[str, Any]:
                 "LIMIT 50",
                 (convoId,),
             )
-            for (tools_json,) in cur.fetchall() or []:
+            for (tools_json,) in _res or []:
                 if not tools_json:
                     continue
                 try:
@@ -401,8 +405,9 @@ async def _exec_pm_tool(
         if not q:
             return {"hits": [], "note": "empty query"}
         try:
-            with sync_cursor() as cur:
-                cur.execute(
+            if True:
+                client = get_kotoba_client()
+                _res = client.q(
                     "SELECT vertex_id, display_name "
                     "FROM vertex_actor "
                     "WHERE display_name ILIKE %s "
@@ -411,7 +416,7 @@ async def _exec_pm_tool(
                 )
                 rows = [
                     {"vertexId": r[0], "displayName": r[1]}
-                    for r in cur.fetchall() or []
+                    for r in _res or []
                 ]
             return {"hits": rows}
         except Exception as e:  # noqa: BLE001
@@ -422,8 +427,9 @@ async def _exec_pm_tool(
         if not q:
             return {"agents": []}
         try:
-            with sync_cursor() as cur:
-                cur.execute(
+            if True:
+                client = get_kotoba_client()
+                _res = client.q(
                     "SELECT vertex_id, display_name, description "
                     "FROM vertex_actor "
                     "WHERE (display_name ILIKE %s OR description ILIKE %s) "
@@ -438,7 +444,7 @@ async def _exec_pm_tool(
                         "displayName": r[1],
                         "description": r[2],
                     }
-                    for r in cur.fetchall() or []
+                    for r in _res or []
                 ]
             return {"agents": rows}
         except Exception as e:  # noqa: BLE001
@@ -998,8 +1004,9 @@ async def task_projector_persist_message(
     now = _now_iso()
     ts_ms = int(time.time() * 1000)
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 """
                 INSERT INTO vertex_projector_message (
                   vertex_id, uri, rkey, repo, convo_id, sender_did, role, text,
@@ -1027,7 +1034,7 @@ async def task_projector_persist_message(
                     "projector-bpmn",
                 ),
             )
-            cur.execute(
+            _res = client.q(
                 """
                 INSERT INTO edge_projector_convo_message (
                   edge_id, convo_id, message_vid, relation_kind, ts_ms, created_at, owner_did, sensitivity_ord

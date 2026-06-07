@@ -9,7 +9,7 @@ last_verified: 2026-05-13
 priority: 7.0
 axis: architecture
 weight: 0.7
-priority_note: "Outlook triage の downstream pipeline。clean 判定された email を LLM intent 分類 → RisingWave graph → projector project convo へルーティング。"
+priority_note: "Outlook triage の downstream pipeline。clean 判定された email を LLM intent 分類 → Kotoba/Datomic graph → projector project convo へルーティング。"
 authoritative_for:
   - pregel_triage LangGraph pipeline の全ノード定義
   - vertex_email_message / vertex_email_sender / edge_email_sent_by schema の pregel 拡張列

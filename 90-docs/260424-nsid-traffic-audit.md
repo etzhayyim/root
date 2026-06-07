@@ -193,5 +193,5 @@ via `grep + comm -23` against a fresh tail).
 
 ## Related
 
-- `90-docs/260424-bsky-compat-risingwave-split.md` — MST context (`com.atproto.sync.*` already known dead externally)
+- `90-docs/260424-bsky-compat-kotoba-split.md` — MST context (`com.atproto.sync.*` already known dead externally)
 - `90-docs/260424-silent-catch-audit.md` — silent catch patterns that mask failed invocations

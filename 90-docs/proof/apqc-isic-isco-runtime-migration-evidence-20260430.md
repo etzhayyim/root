@@ -37,7 +37,7 @@ ISIC / ISCO runtime evidence:
 | ISCO classification edge | 1 row read back |
 | ISCO concordance | `SOC:15-1252` exactMatch |
 
-The ISIC / ISCO pyzeebe handlers write through `pymagatama.db_sync` to RisingWave. Idempotency is implemented with SELECT-before-INSERT because RisingWave rejects `ON CONFLICT` in this path.
+The ISIC / ISCO pyzeebe handlers write through `pymagatama.db_sync` to Kotoba/Datomic. Idempotency is implemented with SELECT-before-INSERT because Kotoba/Datomic rejects `ON CONFLICT` in this path.
 
 Runtime evidence is tracked in `90-docs/proof/apqc-isic-isco-runtime-migration-evidence-20260430.json`.
 

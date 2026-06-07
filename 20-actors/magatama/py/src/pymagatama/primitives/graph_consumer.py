@@ -5,6 +5,7 @@ Each run is recorded as graph-visible audit data in vertex_graph_consume_tick.
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import datetime as _dt
 import json
@@ -15,7 +16,6 @@ import urllib.error
 import urllib.request
 from typing import Any, Optional
 
-from pymagatama.db_sync import sync_cursor
 from pymagatama import rw_schema
 
 
@@ -200,12 +200,12 @@ def _get_convention_cols(cur: Any, table: str) -> Optional[set[str]]:
     if table in _convention_col_cache:
         return _convention_col_cache[table]
     try:
-        cur.execute(
+        _res = client.q(
             "SELECT column_name FROM information_schema.columns "
             "WHERE table_schema = 'public' AND table_name = %s",
             (table,),
         )
-        rows = cur.fetchall()
+        rows = _res
         if not rows:
             return None
         cols = {str(r[0]) for r in rows}
@@ -280,27 +280,28 @@ def _consume_commits_local(batch_size: int = 50) -> dict[str, Any]:
     global _memory_cursor
 
     try:
-        with sync_cursor() as cur:
+        if True:
+            client = get_kotoba_client()
             # 1. Read cursor (memory first, DB fallback on cold start)
             last_seq = _memory_cursor
             if last_seq == 0:
                 try:
-                    cur.execute(
+                    _res = client.q(
                         "SELECT last_seq FROM vertex_consumer_cursor WHERE consumer_id = 'graph-worker'"
                     )
-                    row = cur.fetchone()
+                    row = (_res[0] if _res else None)
                     if row:
                         last_seq = int(row[0] or 0)
                 except Exception:
                     pass
 
             # 2. Fetch unprocessed commits
-            cur.execute(
+            _res = client.q(
                 f"SELECT seq, repo, collection, rkey, action, rev, cid, prev, sig, value_json, ts_ms "
                 f"FROM vertex_repo_commit WHERE seq > %s ORDER BY seq ASC LIMIT {int(batch_size)}",
                 (last_seq,),
             )
-            commits = cur.fetchall()
+            commits = _res
             if not commits:
                 return {"ok": True, "processed": 0, "lastSeq": last_seq}
 
@@ -324,13 +325,13 @@ def _consume_commits_local(batch_size: int = 50) -> dict[str, Any]:
                     tables = [explicit] if explicit else _convention_candidates(collection)
                     for tbl in tables:
                         try:
-                            cur.execute(f"DELETE FROM {tbl} WHERE vertex_id = %s", (vid,))
+                            _res = client.q(f"DELETE FROM {tbl} WHERE vertex_id = %s", (vid,))
                             break
                         except Exception:
                             pass
                     if collection == "app.bsky.actor.profile":
                         try:
-                            cur.execute(
+                            _res = client.q(
                                 "DELETE FROM vertex_profile_fragment WHERE repo = %s", (repo,)
                             )
                         except Exception:
@@ -409,7 +410,7 @@ def _consume_commits_local(batch_size: int = 50) -> dict[str, Any]:
                 repos = list(profile_repos_to_refresh)
                 ph = ", ".join(["%s"] * len(repos))
                 try:
-                    cur.execute(f"DELETE FROM vertex_profile_fragment WHERE repo IN ({ph})", repos)
+                    _res = client.q(f"DELETE FROM vertex_profile_fragment WHERE repo IN ({ph})", repos)
                 except Exception:
                     pass
 
@@ -439,7 +440,7 @@ def _consume_commits_local(batch_size: int = 50) -> dict[str, Any]:
                             ph_parts.append("%s")
                         val_rows.append(f"({', '.join(ph_parts)})")
                     col_sql = ", ".join(f'"{c}"' for c in col_list)
-                    cur.execute(
+                    _res = client.q(
                         f"INSERT INTO {table} ({col_sql}) VALUES {', '.join(val_rows)}",
                         params,
                     )
@@ -456,7 +457,7 @@ def _consume_commits_local(batch_size: int = 50) -> dict[str, Any]:
                         try:
                             col_sql = ", ".join(f'"{c}"' for c in r_cols)
                             ph = ", ".join(["%s"] * len(r_cols))
-                            cur.execute(
+                            _res = client.q(
                                 f"INSERT INTO {table} ({col_sql}) VALUES ({ph})",
                                 [r.get(c) for c in r_cols],
                             )
@@ -469,7 +470,7 @@ def _consume_commits_local(batch_size: int = 50) -> dict[str, Any]:
             new_seq = int(commits[-1][0] or 0)
             _memory_cursor = new_seq
             try:
-                cur.execute(
+                _res = client.q(
                     "UPDATE vertex_consumer_cursor SET last_seq = %s WHERE consumer_id = 'graph-worker'",
                     (new_seq,),
                 )
@@ -546,8 +547,9 @@ def write_consume_tick(tick: dict[str, Any], *, flush: bool = True) -> dict[str,
         "owner_did": GRAPH_DID,
         "sensitivity_ord": 2,
     }
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             """
             INSERT INTO vertex_graph_consume_tick (
               vertex_id, tick_id, ok, http_status, processed, last_seq,

@@ -10,21 +10,21 @@ authoritative_for:
   - rw-object-store-multipart-abort-policy
   - rw-s3-keepalive-for-b2
 related:
-  - adr-0048-risingwave-vultr-b2-primary
+  - adr-0048-kotoba-vultr-b2-primary
   - adr-0049-shared-udf-pool
   - adr-2604231349-timestamp-numbering-policy
 supersedes: []
 superseded_by: []
 amends:
-  - adr-0048-risingwave-vultr-b2-primary
+  - adr-0048-kotoba-vultr-b2-primary
 ---
 
 # ADR: RW Hummock on B2 — opendal_writer_abort_on_err + s3.keepalive_ms tuning
 
 ## Context
 
-ADR-0048 cut RisingWave's primary state store over to Backblaze B2
-(`b2://etzhayyim-nats/linode/etzhayyim-iceberg/risingwave/state/`,
+ADR-0048 cut Kotoba/Datomic's primary state store over to Backblaze B2
+(`b2://etzhayyim-nats/linode/etzhayyim-iceberg/kotoba/state/`,
 us-west-004) on Vultr VKE LAX. Single `vhf-8c-32gb` node pool, distributed
 RW chart, free egress via Bandwidth Ally.
 
@@ -49,12 +49,12 @@ Compute / network is healthy through this:
 
 ## Root cause
 
-RisingWave's Hummock SST sink is `opendal://s3` against B2. The default
+Kotoba/Datomic's Hummock SST sink is `opendal://s3` against B2. The default
 RW config has:
 
     [storage.object_store]
     opendal_writer_abort_on_err = false
-    
+
     [storage.object_store.s3]
     keepalive_ms = 600000   # 10 min
 
@@ -93,12 +93,12 @@ failure.
 
 ## Decision
 
-Add the following block to RisingWave's `[storage.*]` configuration in
-`50-infra/vultr/risingwave/helm/values.yaml`:
+Add the following block to Kotoba/Datomic's `[storage.*]` configuration in
+`50-infra/vultr/kotoba/helm/values.yaml`:
 
     [storage.object_store]
     opendal_writer_abort_on_err = true
-    
+
     [storage.object_store.s3]
     keepalive_ms = 30000
 
@@ -139,7 +139,7 @@ Negative / cost:
   transaction per abort; cost is negligible (B2 Class B = $0.004 /
   10k transactions; estimated < $0.01/month at our error rate).
 - A second compactor adds ~$10/mo (2c req × 4 GiB) — fits inside the
-  existing `risingwave-pool-32gb` headroom (3 nodes × 8 vCPU × 32 GiB,
+  existing `kotoba-pool-32gb` headroom (3 nodes × 8 vCPU × 32 GiB,
   current usage ~30 % per node).
 - Slightly more aggressive keepalive churn — measurable in connection
   count, not in cost.
@@ -151,11 +151,11 @@ Reversal:
 
 ## References
 
-- RW boot-time config dump on `risingwave-compute-0` after this
+- RW boot-time config dump on `kotoba-compute-0` after this
   revision: `ObjectStoreConfig { … opendal_writer_abort_on_err: true,
   s3: S3ObjectStoreConfig { keepalive_ms: Some(30000), … } }`
 - RW `src/config/example.toml`:
-  https://github.com/risingwavelabs/risingwave/blob/main/src/config/example.toml
+  https://github.com/kotobalabs/kotoba/blob/main/src/config/example.toml
 - OpenDAL retry-on-close pathology (mailing list discussion):
   https://www.mail-archive.com/commits@opendal.apache.org/msg24602.html
 - B2 S3 abort multipart upload semantics:

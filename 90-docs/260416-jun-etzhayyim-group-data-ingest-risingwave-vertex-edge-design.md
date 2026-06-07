@@ -1,6 +1,6 @@
 ---
-id: jun-etzhayyim-group-data-ingest-risingwave-vertex-edge-design-260416
-title: "jun@etzhayyim.com 全量取り込み設計 — RisingWave / Vertex / Edge"
+id: jun-etzhayyim-group-data-ingest-kotoba-vertex-edge-design-260416
+title: "jun@etzhayyim.com 全量取り込み設計 — Kotoba/Datomic / Vertex / Edge"
 status: active
 doc_type: explanation
 topic: personal-workspace-ingest
@@ -8,7 +8,7 @@ authoritative: true
 last_verified: 2026-04-16
 authoritative_for:
   - jun@etzhayyim.com の非 Microsoft 系データ取り込み設計
-  - RisingWave 上の Vertex / Edge モデル
+  - Kotoba/Datomic 上の Vertex / Edge モデル
   - full backfill + incremental sync + cursor 運用
 related:
   - adr-0018-pii-tier3-cohort-first
@@ -20,7 +20,7 @@ superseded_by: []
 
 # Goal
 
-`jun@etzhayyim.com` に紐づく業務データを、Microsoft 取り込み済み前提で **追加ソースを統合**し、RisingWave 上で横断検索・時系列分析・エージェント利用可能な形にする。
+`jun@etzhayyim.com` に紐づく業務データを、Microsoft 取り込み済み前提で **追加ソースを統合**し、Kotoba/Datomic 上で横断検索・時系列分析・エージェント利用可能な形にする。
 
 # Scope
 
@@ -53,7 +53,7 @@ Google APIs (Gmail/Calendar/Drive/People)
           → mv_workspace_* (lag/activity/actionability)
 ```
 
-## 2) Vertex Schema (RisingWave)
+## 2) Vertex Schema (Kotoba/Datomic)
 
 ### Core
 
@@ -81,7 +81,7 @@ Google APIs (Gmail/Calendar/Drive/People)
 - `vertex_workspace_file_revision`
   - file version history
 
-## 3) Edge Schema (RisingWave)
+## 3) Edge Schema (Kotoba/Datomic)
 
 - `edge_workspace_account_has_message` (`account → message`)
 - `edge_workspace_message_in_thread` (`message → thread`)
@@ -192,7 +192,7 @@ Google APIs (Gmail/Calendar/Drive/People)
 - 推奨 namespace:
   - `external-adapter-prod` (adapter worker)
   - `external-adapter-stg` (staging)
-  - `risingwave` (DB 本体)
+  - `kotoba` (DB 本体)
 
 # References
 

@@ -126,7 +126,7 @@ R0 reserves these predicate groups:
 | `:ad.landing/evidence` | `:landing/url`, `:landing/domain`, `:landing/redirect-summary-cid`, `:landing/content-hash`, `:landing/safety-flags` |
 | `:ad.observation/method` | `:method/name`, `:method/version`, `:method/source-code-cid`, `:method/limits`, `:method/false-positive-notes` |
 
-The graph is stored in kotoba only. No RisingWave/Postgres/Lance projection is
+The graph is stored in kotoba only. No Kotoba/Datomic/Postgres/Lance projection is
 authoritative.
 
 ## Cells

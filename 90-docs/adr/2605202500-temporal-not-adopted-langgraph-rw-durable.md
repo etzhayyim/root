@@ -1,6 +1,6 @@
 ---
 id: adr-2605202500-temporal-not-adopted-langgraph-rw-durable
-title: "ADR-2605202500: Temporal 不採用 — LangGraph + RisingWave Durable Job 継続"
+title: "ADR-2605202500: Temporal 不採用 — LangGraph + Kotoba/Datomic Durable Job 継続"
 status: active
 doc_type: adr
 topic: temporal-not-adopted-langgraph-rw-durable
@@ -12,7 +12,7 @@ weight: 0.85
 priority_note: "Temporal (workflow engine) を採用しない根拠を Shannon 最適 + Minimax regret で定量化"
 authoritative_for:
   - Temporal workflow engine 不採用の根拠
-  - LangGraph Server + RisingWave を durable job 基盤として継続する決定
+  - LangGraph Server + Kotoba/Datomic を durable job 基盤として継続する決定
   - 常駐化・Durable Job の現行設計の正典記述
   - Temporal 検討を再開する条件 (例外)
 depends_on:
@@ -26,10 +26,10 @@ superseded_by: []
 amends: []
 ---
 
-# ADR-2605202500: Temporal 不採用 — LangGraph + RisingWave Durable Job 継続
+# ADR-2605202500: Temporal 不採用 — LangGraph + Kotoba/Datomic Durable Job 継続
 
-**Status**: accepted  
-**Date**: 2026-05-20  
+**Status**: accepted
+**Date**: 2026-05-20
 **Deciders**: Jun Kawasaki
 
 ## Context
@@ -47,7 +47,7 @@ Temporal の主な訴求点:
 
 | 機能 | 実装 |
 |---|---|
-| checkpoint | `vertex_langgraph_checkpoint` (RisingWave `rw_vertex` mode) |
+| checkpoint | `vertex_langgraph_checkpoint` (Kotoba/Datomic `rw_vertex` mode) |
 | HITL long-pause | `vertex_langgraph_checkpoint` (PostgresSaver `postgres` mode) |
 | at-least-once replay | Redis BLPOP → bpmn-dispatcher 再投入 |
 | graph-as-data self-evolution | `vertex_langgraph_assistant` / `vertex_langgraph_deployment` |
@@ -55,24 +55,24 @@ Temporal の主な訴求点:
 
 ## Decision
 
-**Temporal を採用しない。LangGraph Server + RisingWave checkpointer を durable job 基盤として継続する。**
+**Temporal を採用しない。LangGraph Server + Kotoba/Datomic checkpointer を durable job 基盤として継続する。**
 
 ## Rationale
 
 ### 1. 情報エントロピー H(state)
 
 ```
-LangGraph + RisingWave:
-  H(state) = H_rw                  (RisingWave が唯一の状態 SSoT)
+LangGraph + Kotoba/Datomic:
+  H(state) = H_rw                  (Kotoba/Datomic が唯一の状態 SSoT)
   I(状態源 A; 状態源 B) = 0
 
 Temporal を追加した場合:
   H(state) = H_temporal + H_rw + I(temporal; rw)
-  I > 0 (Temporal history DB と RisingWave の同期コストが恒常的に発生)
+  I > 0 (Temporal history DB と Kotoba/Datomic の同期コストが恒常的に発生)
 ```
 
 Temporal は独自の PostgreSQL/Cassandra history store を持つ。
-RisingWave をすでに SSoT として使用しているこのシステムでは、状態が bifurcate し
+Kotoba/Datomic をすでに SSoT として使用しているこのシステムでは、状態が bifurcate し
 **Shannon redundancy が増大する**。
 
 ### 2. チャネル容量と実効スループット
@@ -80,7 +80,7 @@ RisingWave をすでに SSoT として使用しているこのシステムでは
 ```
 LangGraph ASGI パス:
   dispatch latency: ~10-20ms (HTTP → Granian ASGI → StateGraph)
-  checkpoint write: ~2-5KB/step (zlib 圧縮、RisingWave append-only)
+  checkpoint write: ~2-5KB/step (zlib 圧縮、Kotoba/Datomic append-only)
   recovery: single-row SELECT by vertex_id
 
 Temporal パス:
@@ -150,7 +150,7 @@ E[A2] = 0.70×7 + 0.20×9 + 0.05×9 + 0.04×1  + 0.01×5 = 7.24
 | S5 | 0 | 1 |
 | **max regret** | **2** | **9** |
 
-**Minimax 選択: A1 (LangGraph + RisingWave)**  
+**Minimax 選択: A1 (LangGraph + Kotoba/Datomic)**
 max regret 2 vs 9。S4 (自己進化) における Temporal の損失が決定的。
 
 #### S4 が支配する理由
@@ -163,7 +163,7 @@ Temporal の workflow 定義は **コードとして静的にコンパイルさ�
 
 ### 5. Temporal が優位な点と LangGraph での対処
 
-| Temporal の優位点 | LangGraph + RisingWave での対処 |
+| Temporal の優位点 | LangGraph + Kotoba/Datomic での対処 |
 |---|---|
 | Built-in exponential backoff retry | LangGraph node に `retry_policy` 設定 |
 | Timer / alarm | K8s CronJob → `POST /runs` (Phase 5、計画済み) |
@@ -193,7 +193,7 @@ K8s Deployment:
 | モード | バックエンド | 用途 | TTL |
 |---|---|---|---|
 | `none` (default) | なし | 60 秒以下の短期グラフ | — |
-| `rw_vertex` | RisingWave `vertex_langgraph_checkpoint` | ストリーム派生グラフ、高書き込みレート | 24h (MV GC) |
+| `rw_vertex` | Kotoba/Datomic `vertex_langgraph_checkpoint` | ストリーム派生グラフ、高書き込みレート | 24h (MV GC) |
 | `postgres` | PostgresSaver (Hyperdrive) | HITL、長期停止/resume | 30d (cron hard-delete) |
 
 モード変更 = 新 assistant version (immutable ルール)。
@@ -205,7 +205,7 @@ Redis BLPOP (transient queue) が揮発しても:
   bpmn-dispatcher が /runs status=pending を検出
   → 再投入 (at-least-once)
 
-RisingWave checkpoint は append-only:
+Kotoba/Datomic checkpoint は append-only:
   ON CONFLICT → PK implicit upsert (RW は ON CONFLICT 句不要)
   autocommit=True (RW は multi-statement transaction 不可)
 ```
@@ -227,7 +227,7 @@ agent が新しい推論チェーンを発明
 以下のすべてが同時に成立した場合のみ Temporal 採用を再検討する:
 
 1. **graph-as-data 要件がなくなった** (Bonsai Cultivar アーキテクチャの廃止)
-2. **RisingWave が state store として不適合** と判明した
+2. **Kotoba/Datomic が state store として不適合** と判明した
 3. **Temporal の max regret が 2 以下** に下がるシナリオ分布の変化があった
 4. 上記 3 条件を新 ADR で定量的に示した
 

@@ -10,8 +10,8 @@ related_adrs:
   - adr-2604251830-shannon-optimal-layered-architecture
   - adr-2604291800-well-becoming-spirit-objective-function
   - adr-0056-bpmn-as-actor
-  - adr-0002-persistence-risingwave-only
-  - adr-0044-risingwave-udf-language-strategy
+  - adr-0002-persistence-kotoba-only
+  - adr-0044-kotoba-udf-language-strategy
 ---
 
 # Repo = 共有信念の Attractor — 情報構造設計
@@ -59,9 +59,9 @@ q_i^{t+1}(s) = N[
 
 | SBGE 項 | 役割 | Repo 対応層 | 具体的実体 |
 |---|---|---|---|
-| **q_i(s,t)** | 主体 i の信念状態分布 | **L4 RisingWave** | `vertex_*` / `edge_*` テーブル（actor DID ごと） |
+| **q_i(s,t)** | 主体 i の信念状態分布 | **L4 Kotoba/Datomic** | `vertex_*` / `edge_*` テーブル（actor DID ごと） |
 | **-η ∇F_i** | 観測→自由エネルギー最小化 | **L8 Python pods + L7 Zeebe** | `pymagatama/ingest/` — HF・govUsa・houbun・CC・RDAP |
-| **P(o\|s)** | 観測証拠の尤度 | **L6 RisingWave UDF** | `owl_rl_is_type` / `shacl_class` SQL UDF + T1 rules |
+| **P(o\|s)** | 観測証拠の尤度 | **L6 Kotoba/Datomic UDF** | `owl_rl_is_type` / `shacl_class` SQL UDF + T1 rules |
 | **λ Σ_j W_ij Φ** | 他者信念との相互作用・同調 | **L7 Zeebe BPMN + L2 AT Protocol** | `edge_follows` + firehose consumer + `generic.llm.chat` |
 | **W_ij** | 主体間の信頼・影響重み | **`edge_follows`** + `deps.toml [[heuristic_weights]]` | `edge_follows.weight`（AT Protocol social） + `heuristic_weights[].weight`（platform設計軸） |
 | **-γ(q_i - q_i^0)** | 記憶・規範への粘着 | **`00-contracts/`** | Lexicon JSON + `vertex_owl_class` T-Box + DMN + `[[critical_rules]]` |
@@ -96,7 +96,7 @@ repo/
 │       └── src/                Kysely スキーマ = 信念状態の型
 │
 ├── 50-infra/         物理基盤
-│   ├── vultr/risingwave/       L4 = 共有信念状態ストア（SSoT）
+│   ├── vultr/kotoba/       L4 = 共有信念状態ストア（SSoT）
 │   └── vultr/mitama-udf-pool/ L7/L8 = 更新演算子の実行環境
 │
 ├── 60-apps/          P(o|s) 取得口 + ξ_i(t) 観測
@@ -224,7 +224,7 @@ q* = argmin_q F(q | 現実世界)
 | 禁止 | 破壊する SBGE 項 |
 |---|---|
 | CF Worker に actor 実体を持つ | q_i の SSoT 分散（ADR-2604251830） |
-| `ON CONFLICT` の RisingWave 使用 | N[·] 正規化の破壊 |
+| `ON CONFLICT` の Kotoba/Datomic 使用 | N[·] 正規化の破壊 |
 | `db.transaction()` の RW 使用 | 更新の原子性偽装 |
 | handler 内 `postFeed()` / `invoke()` 直呼び | Φ 伝播の二重計算 |
 | LLM モデル名ハードコード | W_ij 計算エンジンの固定化 |
@@ -262,7 +262,7 @@ CREATE TABLE edge_trust_weight (
 
 migration: `30-graph/graph-schema/migrations/20260507100000_mv_attractor_stability.ts`
 
-2 つの streaming MV を RisingWave に適用済み：
+2 つの streaming MV を Kotoba/Datomic に適用済み：
 
 - **`mv_attractor_stability`** — platform 全体の attractor 安定性
 - **`mv_attractor_stability_by_agent`** — agent 別の信念収束度
@@ -276,7 +276,7 @@ migration: `30-graph/graph-schema/migrations/20260507100000_mv_attractor_stabili
   mean_separation_delta=+0.0173（接続増傾向）
 ```
 
-RisingWave 制約（2026-05-07 確認済み）：
+Kotoba/Datomic 制約（2026-05-07 確認済み）：
 - `STDDEV()` 非対応 → `SQRT(E[X^2] - E[X]^2)` で手動計算
 - `COUNT(*) FILTER` / `SUM() FILTER` は MV 内で不可 → `CASE WHEN` で代替
 - `AVG() FILTER` は MV 内で動作する

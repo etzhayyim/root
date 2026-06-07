@@ -42,13 +42,13 @@ The current inventory confirms the scale problem:
 At this scale, interpreting "one app = one Cloudflare Worker" would recreate
 the old P1 static deployment problem. It would also approach the account-level
 Worker cap and split orchestration, retry, cursor, and observability state
-between Cloudflare, Zeebe, Kubernetes, and RisingWave.
+between Cloudflare, Zeebe, Kubernetes, and Kotoba/Datomic.
 
 The intended architecture is already partially decided by existing ADRs:
 
 - ADR-260408 actor executor P5+P3: T1/T2 actors should not require Workers;
   only T3 full custom actors may have a dedicated Worker/Container.
-- ADR-2604261000 MCP registry: tool definitions are Kysely/RisingWave rows,
+- ADR-2604261000 MCP registry: tool definitions are Kysely/Kotoba/Datomic rows,
   not generated per-app Worker bundles.
 - ADR-2604251801 cron consolidation: business schedules move to Zeebe BPMN
   timers and Python workers, not Cloudflare `triggers.crons`.
@@ -93,7 +93,7 @@ Kubernetes pods
   - source-specific ingest / browser / OCR / conversion pods
         |
         v
-RisingWave / B2 / PDS / external APIs
+Kotoba/Datomic / B2 / PDS / external APIs
 ```
 
 ## Cloudflare Worker Boundary
@@ -165,7 +165,7 @@ Use Zeebe when a call:
 
 Python worker pods own source-specific logic. They must be importable modules
 under `pymagatama`, not one-off operator scripts. Worker pods report run state
-to RisingWave tables such as `vertex_ingest_run`, domain-specific run tables,
+to Kotoba/Datomic tables such as `vertex_ingest_run`, domain-specific run tables,
 and OCEL/audit tables.
 
 # Migration Plan
@@ -228,7 +228,7 @@ Exit criteria:
 
 - scheduled app behavior runs through BPMN timers, not CF cron;
 - long-running app calls survive Worker request lifetime and are visible in
-  Zeebe/Operate plus RisingWave run tables.
+  Zeebe/Operate plus Kotoba/Datomic run tables.
 
 ## Phase 4: T3 Reduction
 
@@ -252,7 +252,7 @@ Positive:
 
 - App count no longer consumes Cloudflare Worker count.
 - Durable work gains Zeebe retry, incident, and pause/resume semantics.
-- MCP registry, actor registry, BPMN, and RisingWave become the visible control
+- MCP registry, actor registry, BPMN, and Kotoba/Datomic become the visible control
   plane for agents.
 - Svelte stays available for app UI without forcing per-app edge deployment.
 
@@ -274,7 +274,7 @@ topology:
 - `magatama-g0vafg01` retired after AFG coverage moved to k8s/BPMN/RW.
 - `magatama-g0vzaf01` retired after ZAF coverage moved to
   `pymagatama.primitives.gov_zaf`, `govZaf` BPMN/MCP registry rows, and
-  RisingWave/B2 official-source evidence.
+  Kotoba/Datomic/B2 official-source evidence.
 
 ZAF deletion was gated by `npm run verify:gov-zaf`:
 

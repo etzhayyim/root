@@ -408,7 +408,7 @@ def coverage_world(pds: str | None, json_out: bool, domain: str, top: int, offli
     """World coverage (403 domains) — requires Go binary for Hyperdrive direct query."""
     import sys
     click.echo(
-        "coverage world requires direct RisingWave access. Use: etzhayyim coverage world",
+        "coverage world requires direct Kotoba/Datomic access. Use: etzhayyim coverage world",
         err=True,
     )
     sys.exit(1)
@@ -423,7 +423,7 @@ def coverage_infer(pds: str | None, json_out: bool, method: str, k: int) -> None
     """Statistical entity resolution / cluster inference — requires Go binary (pgxpool)."""
     import sys
     click.echo(
-        "coverage infer requires direct RisingWave access. Use: etzhayyim coverage infer",
+        "coverage infer requires direct Kotoba/Datomic access. Use: etzhayyim coverage infer",
         err=True,
     )
     sys.exit(1)
@@ -437,7 +437,7 @@ def coverage_hospitality(pds: str | None, json_out: bool, domain: str) -> None:
     """Hospitality domain coverage — requires Go binary (pgxpool)."""
     import sys
     click.echo(
-        "coverage hospitality requires direct RisingWave access. Use: etzhayyim coverage hospitality",
+        "coverage hospitality requires direct Kotoba/Datomic access. Use: etzhayyim coverage hospitality",
         err=True,
     )
     sys.exit(1)

@@ -217,10 +217,10 @@ Shannon η (Rank 6, weight 0.45) と同 tier。η は per-decision 効率、
 # §8 — Hyperdrive Write Visibility Lag (2026-05-05 operational note)
 
 handleSettleInvoice / handleObserveDemand などの Worker INSERT は Hyperdrive
-→ RisingWave 経路で **5–15 秒の visibility lag** が観測される。Worker は 200 OK
+→ Kotoba/Datomic 経路で **5–15 秒の visibility lag** が観測される。Worker は 200 OK
 を返すが、直後の psql SELECT で row が見えないことがある。
 
-原因: (1) Hyperdrive write-back caching、(2) RisingWave streaming MV barrier
+原因: (1) Hyperdrive write-back caching、(2) Kotoba/Datomic streaming MV barrier
 (`barrier_interval_ms=5000`)、(3) PK upsert は次の checkpoint まで遅延。
 
 対処: `mv_market_vacuum_score.supply_settled` は次の MV barrier (≤5s) で更新。

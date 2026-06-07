@@ -1,13 +1,13 @@
 ---
 id: adr-2605092700-rw-capability-storage-authority
-title: "RisingWave Capability Storage and Authority Boundary"
+title: "Kotoba/Datomic Capability Storage and Authority Boundary"
 status: accepted
 doc_type: adr
 topic: rw-capability-storage-authority
 authoritative: true
 last_verified: 2026-05-09
 authoritative_for:
-  - RisingWave capability storage target design
+  - Kotoba/Datomic capability storage target design
   - DID-bound authority evaluation over RW writes and reads
   - Tahoe-like read/write/verify capability mapping for etzhayyim storage
   - auth.etzhayyim.com / DID / ERC725 alignment for capability checks
@@ -16,7 +16,7 @@ axis: security
 weight: 0.91
 depends_on:
   - adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion
-  - adr-2605080700-graph-schema-live-risingwave-baseline
+  - adr-2605080700-graph-schema-live-kotoba-baseline
   - adr-2604231800-atproto-permission-spec-integration
 related:
   - 90-docs/dt/260324-dt-secure-file-transfer-design.md
@@ -31,7 +31,7 @@ superseded_by: []
 
 # Context
 
-Current RisingWave (RW) is the canonical queryable graph/projection store for
+Current Kotoba/Datomic (RW) is the canonical queryable graph/projection store for
 `com.etzhayyim.apps.*` domain rows. It is not an end-to-end encrypted database and not
 a Tahoe-LAFS style capability store. Private fields may use the `signal:v1:`
 field convention, and Tenso stores encrypted file manifests/blobs, but RW still

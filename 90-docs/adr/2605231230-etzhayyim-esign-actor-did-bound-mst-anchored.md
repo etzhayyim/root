@@ -49,8 +49,8 @@ superseded_by: []
 
 | 既存資産 | 場所 | 帰属 | 評価 |
 |---|---|---|---|
-| Zeebe task `lawfirm.esign.request` / `lawfirm.esign.webhook` | `20-actors/magatama/py/src/pymagatama/primitives/lawfirm_esign_kpi.py` | etzhayyim vendor (`did:web:lawfirm.etzhayyim.com`) | DocuSign REST 実装 + Adobe/Razorpay stub。`vertex_lawfirm_esign_request` (RisingWave) に書込 |
-| KPI MV | `20-actors/magatama/py/sqlmesh/models/mv_lawfirm_esign_active.sql` | etzhayyim vendor (RLS-gated CEO/COO/CLO) | Hyperdrive + RisingWave projection |
+| Zeebe task `lawfirm.esign.request` / `lawfirm.esign.webhook` | `20-actors/magatama/py/src/pymagatama/primitives/lawfirm_esign_kpi.py` | etzhayyim vendor (`did:web:lawfirm.etzhayyim.com`) | DocuSign REST 実装 + Adobe/Razorpay stub。`vertex_lawfirm_esign_request` (Kotoba/Datomic) に書込 |
+| KPI MV | `20-actors/magatama/py/sqlmesh/models/mv_lawfirm_esign_active.sql` | etzhayyim vendor (RLS-gated CEO/COO/CLO) | Hyperdrive + Kotoba/Datomic projection |
 | ADR-2605180600 §"Future Work" の `com.etzhayyim.apps.lawfirm.eSignRequest` lexicon | (記載のみ) | etzhayyim vendor lexicon namespace | 未作成。ADR 本文に "deferred" と記載 |
 
 religious-corp 側 (`com.etzhayyim.esign.*`) には actor / lexicon / cell / smart
@@ -282,7 +282,7 @@ declined / expired) で 1 record に詰めると mutation が増え、MST の im
 ### E. 既存 `com.etzhayyim.apps.lawfirm.eSignRequest` lexicon を流用 (vendor namespace)
 
 却下。lexicon namespace は **substrate boundary の SSoT** であり、etzhayyim vendor
-namespace に religious-corp 文書を流すと、後段の RisingWave projection / RLS /
+namespace に religious-corp 文書を流すと、後段の Kotoba/Datomic projection / RLS /
 KPI MV まで vendor 側に流れる。namespace 分離が本 ADR の最重要不変条件。
 
 ## References

@@ -9,9 +9,9 @@ last_verified: 2026-05-09
 priority: 8.8
 axis: architecture
 weight: 0.88
-priority_note: "CRITICAL — actor/agent self-evolution の data-only 進化を達成するための残り 3 ピースのうち最重要。LangGraph topology を repo code から RisingWave vertex table に剥がす"
+priority_note: "CRITICAL — actor/agent self-evolution の data-only 進化を達成するための残り 3 ピースのうち最重要。LangGraph topology を repo code から Kotoba/Datomic vertex table に剥がす"
 authoritative_for:
-  - LangGraph graph topology storage location (RisingWave `vertex_langgraph_graph_def`)
+  - LangGraph graph topology storage location (Kotoba/Datomic `vertex_langgraph_graph_def`)
   - LangGraph node contract (MCP tool invocation only, no inline Python logic)
   - graph compiler responsibility (def → StateGraph build at runtime)
   - conditional edge SSoT (Rego/DMN ref, not Python lambda)
@@ -41,7 +41,7 @@ ADR-2605080000 は LangGraph を L2 Cognitive Coordination Layer に固定した
 しかし graph topology そのものは現状 **Python authored code** であり、
 node function も Python module として repo に commit されている。
 
-これは `actor/agent が data 層 (RisingWave) への書き込みのみで自己進化する`
+これは `actor/agent が data 層 (Kotoba/Datomic) への書き込みのみで自己進化する`
 という platform 目標 (BPMN process / MCP tool registry が既に達成済み) と矛盾する。
 
 具体的に、以下が code island として残っていた:
@@ -110,8 +110,8 @@ assistant の immutable lineage を表現する。**新 `lifecycle` 列は追加
 | kind | ref が指すもの | data SSoT |
 |---|---|---|
 | `mcp_tool` | MCP endpoint URI または `mcp://<tool_id>` (registry resolve) | `vertex_mcp_tool_def` |
-| `sql_udf` | SQL function 名 | RisingWave catalog |
-| `py_ext_udf` | External Python UDF 名 (Arrow Flight) | RisingWave catalog |
+| `sql_udf` | SQL function 名 | Kotoba/Datomic catalog |
+| `py_ext_udf` | External Python UDF 名 (Arrow Flight) | Kotoba/Datomic catalog |
 | `llm` | tier 名 (`structured` / `general` / model id) | `llm-model-registry.ts` SSoT |
 
 **禁止**:

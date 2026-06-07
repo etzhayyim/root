@@ -43,7 +43,7 @@ The etzhayyim substrate boundary has been progressively articulated across four 
 
 | ADR | Rule established |
 |---|---|
-| ADR-2605172000 | No RisingWave / no centralized DB — AT MST + IPFS + Base L2 |
+| ADR-2605172000 | No Kotoba/Datomic / no centralized DB — AT MST + IPFS + Base L2 |
 | ADR-2605191346 | No Vultr VKE / no commercial K8s — Mac mini Murakumo fleet is Tier 1 |
 | ADR-2605202345 | EVO-X2 (Radeon 8060S, 192.168.1.70) is the GPU inference backend for the fleet |
 | ADR-2605214000 | No VKE, Murakumo mesh replaces VKE CNI, Lexicon port rules formalized |
@@ -139,7 +139,7 @@ Each pymagatama RunPod-coupled file is assigned one of three verdicts, using the
 
 A module is fit for religious-corp use without rewrite if ALL five conditions hold:
 
-1. No direct commercial DB (RisingWave / Postgres / Kysely) write — AT MST + IPFS + Base L2 only
+1. No direct commercial DB (Kotoba/Datomic / Postgres / Kysely) write — AT MST + IPFS + Base L2 only
 2. No Stripe / PayPal / fiat payment processor
 3. No Vultr VKE / commercial K8s scheduling dependency
 4. **No RunPod / no commercial GPU rental** ← NEW (this ADR)

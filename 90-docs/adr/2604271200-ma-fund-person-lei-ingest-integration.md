@@ -47,7 +47,7 @@ The integration boundary is:
 - BPMN / Zeebe orchestrates durable ingest and deal workflows.
 - Python `pymagatama` workers run deterministic task handlers.
 - PDS app records keep source and app-level records.
-- RisingWave graph tables provide queryable deal, fund, person, and legal
+- Kotoba/Datomic graph tables provide queryable deal, fund, person, and legal
   entity state.
 - `mailer.etzhayyim.com` is the only standard email path. Outbound mail uses Resend;
   inbound mail uses Cloudflare Email Routing for `*@etzhayyim.com`.

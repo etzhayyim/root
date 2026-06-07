@@ -34,7 +34,7 @@ Safety:
     see a re-deploy, and the F5 watcher doesn't retry.
 
 Env:
-  RW_URL    postgresql://…  ;  default from Keychain etzhayyim.rw/ROOT_URL
+  KOTOBA_URL    postgresql://…  ;  default from Keychain etzhayyim.rw/ROOT_URL
 
 Usage:
   migrate-bpmn-vertex-ids.py                          # dry-run (default)
@@ -65,14 +65,14 @@ CANONICAL_BIND_VID_RE = re.compile(
 
 
 def rw_url() -> str:
-    if url := os.environ.get("RW_URL"):
+    if url := os.environ.get("KOTOBA_URL"):
         return url
     out = subprocess.check_output(
         ["security", "find-generic-password", "-s", "etzhayyim.rw", "-a", "ROOT_URL", "-w"],
         text=True,
     ).strip()
     if not out:
-        raise SystemExit("RW_URL not in env and not in Keychain (etzhayyim.rw/ROOT_URL)")
+        raise SystemExit("KOTOBA_URL not in env and not in Keychain (etzhayyim.rw/ROOT_URL)")
     return out
 
 

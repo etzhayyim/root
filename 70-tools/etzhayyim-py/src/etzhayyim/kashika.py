@@ -286,7 +286,7 @@ _SLA_COMPONENTS = [
      "avail": 0.995, "redundancy": 2, "spof": True,
      "issues": ["Single region (LAX)", "Pod restarts lose in-flight LangGraph state"],
      "mitigations": ["LangGraph checkpointer (Postgres)", "Granian multi-worker"]},
-    {"name": "RisingWave (Vultr VKE)", "layer": "data",
+    {"name": "Kotoba/Datomic (Vultr VKE)", "layer": "data",
      "avail": 0.999, "redundancy": 1, "spof": True,
      "issues": ["Single-region streaming DB", "B2 rps quota risk (incident 2026-04-25)"],
      "mitigations": ["B2 defense-in-depth refill levels", "statement_timeout_secs=120"]},

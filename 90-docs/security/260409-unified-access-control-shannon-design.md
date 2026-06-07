@@ -7,7 +7,7 @@ topic: unified-access-control
 authoritative: true
 last_verified: 2026-04-09
 authoritative_for:
-  - read and write access control across PDS, kagami, RisingWave, AT Protocol
+  - read and write access control across PDS, kagami, Kotoba/Datomic, AT Protocol
   - RBAC/RACI/consent/clearance enforcement architecture
   - Signal encryption integration with access control
   - GraphAr schema security columns
@@ -23,13 +23,13 @@ superseded_by: []
 
 ## Goal
 
-Read と write の全経路を RBAC/RACI/consent/clearance + Signal E2E の統一モデルで制御する。現状の「write は repo owner check のみ、read は profile だけ disclosure tier」を解消し、RisingWave/GraphAr/AT Protocol の全レイヤーで一貫した最小権限を実現する。
+Read と write の全経路を RBAC/RACI/consent/clearance + Signal E2E の統一モデルで制御する。現状の「write は repo owner check のみ、read は profile だけ disclosure tier」を解消し、Kotoba/Datomic/GraphAr/AT Protocol の全レイヤーで一貫した最小権限を実現する。
 
 ## Scope
 
 - PDS XRPC handler (read + write)
 - kagami Graph Worker (query execution)
-- RisingWave schema (columns, bloom, MV)
+- Kotoba/Datomic schema (columns, bloom, MV)
 - G class (query builder security predicates)
 - Signal Protocol field-level encryption
 - AT Protocol OAuth scope integration
@@ -49,24 +49,24 @@ Read と write の全経路を RBAC/RACI/consent/clearance + Signal E2E の統�
 | **row-level security** | none | post-filter in JS (profiles only) |
 | **field-level filtering** | none | disclosure tiers (profiles only) |
 | **Signal encryption** | metadata only (sensitivityOrd stored) | not enforced |
-| **RisingWave schema** | no security columns | no security columns |
+| **Kotoba/Datomic schema** | no security columns | no security columns |
 | **G class** | no security predicates | no security predicates |
 
-**Shannon 非効率**: Security metadata (sensitivityOrd, ownerHash) は `buildMergeProps()` で毎回計算し props に渡すが、RisingWave テーブルに promoted column がなく、WHERE pushdown 不可。全 row を JS に引き上げてから filter → 帯域とメモリの浪費。
+**Shannon 非効率**: Security metadata (sensitivityOrd, ownerHash) は `buildMergeProps()` で毎回計算し props に渡すが、Kotoba/Datomic テーブルに promoted column がなく、WHERE pushdown 不可。全 row を JS に引き上げてから filter → 帯域とメモリの浪費。
 
 ### 設計判断
 
 5-layer unified enforcement:
 
 ```
-L0: Schema (RisingWave columns + bloom + MV)
+L0: Schema (Kotoba/Datomic columns + bloom + MV)
 L1: Query (G class security predicates → SQL WHERE pushdown)
 L2: Post-Filter (kagami applySecurityFilter — L1 漏れの safety net)
 L3: Handler (PDS disclosure tier + field redaction)
 L4: Transport (Signal E2E field encrypt/decrypt)
 ```
 
-Shannon 最適: L0+L1 で大半を SQL pushdown (RisingWave で filter)。L2 は defense-in-depth。L3 は AT Protocol 互換の field projection。L4 は end-to-end confidentiality。
+Shannon 最適: L0+L1 で大半を SQL pushdown (Kotoba/Datomic で filter)。L2 は defense-in-depth。L3 は AT Protocol 互換の field projection。L4 は end-to-end confidentiality。
 
 ## Decision
 
@@ -88,7 +88,7 @@ class _VertexBase:
     owner_did = Column(String(512))       # repo DID (denormalized for WHERE pushdown)
 ```
 
-**Rationale**: `sensitivity_ord` + `owner_did` を promoted column にすることで RisingWave bloom filter + WHERE pushdown が効く。現状は JS-derived (pds-helpers.ts:570) で SQL pushdown 不可。
+**Rationale**: `sensitivity_ord` + `owner_did` を promoted column にすることで Kotoba/Datomic bloom filter + WHERE pushdown が効く。現状は JS-derived (pds-helpers.ts:570) で SQL pushdown 不可。
 
 #### 1.2 Edge Base Columns 追加
 
@@ -282,7 +282,7 @@ class G<TRow> {
     if (scope.level === "internal") return this;  // bypass
     this.securityScope = scope;
 
-    // L1: SQL pushdown — filter at RisingWave level
+    // L1: SQL pushdown — filter at Kotoba/Datomic level
     // Row visible if: sensitivity_ord <= maxSensitivity OR owner_did IN ownerDids OR consent grant
     const consentDids = scope.consentGrants
       .filter(c => c.maxSensitivity >= scope.maxSensitivity)
@@ -472,7 +472,7 @@ Client → XRPC createRecord(record with plaintext fields)
     2. If sensitivity >= 2: encrypt sensitive fields with Signal session key
        → record.field = "signal:v1:" + encrypt(plaintext, sessionKey)
     3. KAGAMI_RPC.cypher(MERGE) with sensitivity_ord + owner_did in promoted columns
-  → RisingWave: stored with sensitivity_ord, owner_did as SQL-pushdown columns
+  → Kotoba/Datomic: stored with sensitivity_ord, owner_did as SQL-pushdown columns
 ```
 
 #### 4.3 Read Path: Filter-Then-Decrypt
@@ -507,7 +507,7 @@ Scope is checked BEFORE canAccess() — scope limits the maximum, canAccess() is
 
 Per root CLAUDE.md: "Repo record = always public (federable)".
 
-- `sensitivity_ord` in RisingWave is an **appview-level** control, not a repo-level control
+- `sensitivity_ord` in Kotoba/Datomic is an **appview-level** control, not a repo-level control
 - The AT Protocol repo itself remains publicly federable
 - Access control is enforced at the XRPC response layer (PDS handler), not at the repo storage layer
 - Signal encryption (`signal:v1:`) ensures that even if the repo record is federated, the plaintext is not exposed
@@ -547,7 +547,7 @@ All 7 variables contribute to every access decision. No dead variables. No redun
 ## Exceptions
 
 - `auth.level === "internal"` (service binding) bypasses all security layers — this is by design for PDS→kagami internal calls
-- RisingWave does not support native RLS — L1 (SQL WHERE) + L2 (JS post-filter) is the substitute
+- Kotoba/Datomic does not support native RLS — L1 (SQL WHERE) + L2 (JS post-filter) is the substitute
 - `sensitivity_ord` on existing rows defaults to 0 (public) — backward compatible
 
 ## References

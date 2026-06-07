@@ -6,7 +6,7 @@ previously-opaque status of the ~312 apps that carry no `MIGRATION-TODO.md`.
 
 **Total apps: 391.** Each is bucketed by: has a clean `rw-free/` reference impl?
 has a `MIGRATION-TODO.md`? still imports prohibited substrate
-(`createKyselyDb` / `kysely` / RisingWave / `HYPERDRIVE` / `stripe` / `viem` /
+(`createKyselyDb` / `kysely` / Kotoba/Datomic / `HYPERDRIVE` / `stripe` / `viem` /
 `@atproto/api`) in its non-`rw-free` source?
 
 | Bucket | Count | Meaning |
@@ -259,8 +259,8 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   usage metering→billing, multi-tenant WASM runtime SLA. This IS the etzhayyim
   infra-vendor ("Infura") layer of the Consensys pattern — structurally cannot
   move etzhayyim-front. Stays etzhayyim.
-- **coverage** — axis: **RisingWave**. "World coverage monitor backed by
-  RisingWave live materialized views" — capabilities domain-query + analytics, an
+- **coverage** — axis: **Kotoba/Datomic**. "World coverage monitor backed by
+  Kotoba/Datomic live materialized views" — capabilities domain-query + analytics, an
   HTTP SPA with no record-authoring AT collections. The app IS a read-model over
   RW streaming aggregation across the whole data graph (internal operational
   observability); there is no substrate record layer to migrate. Stays etzhayyim.
@@ -293,7 +293,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   fiat). Explicitly NOT eligible for the etzhayyim/root open mirror (its own
   CLAUDE.md). The SDK it consumes (`@etzhayyim/kami-engine-sdk`) is separately
   public-eligible. Stays etzhayyim.
-- **deai** — axes: **Custody + RisingWave**. Dating/matching app + research-data-
+- **deai** — axes: **Custody + Kotoba/Datomic**. Dating/matching app + research-data-
   collection frontend (Spirit-in-Physics): startAssessment / submitResponse /
   getProfile / listMatches / sendMessage / createCheckin. Every collection is
   PII-bearing — psychometric assessment responses (sensitive), dating profiles,
@@ -319,16 +319,16 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   + kyu/dan coaching, consent-gated per ADR-0018; L1 OSINT actor profiling.
   Sensitive personal psychometric PII — Tier-3 stays server-side (Preferences/
   E2E), never public AT records. Stays etzhayyim.
-- **os-messaging** — axes: **Custody + RisingWave**. Multi-platform messaging
+- **os-messaging** — axes: **Custody + Kotoba/Datomic**. Multi-platform messaging
   bridge (9 platforms: Discord/Telegram/Slack/LINE/WhatsApp/Matrix/Teams/WeChat/
   Kakao → etzhayyim agents): private user DMs (com.etzhayyim.convo.message) +
   platform webhook credentials + messaging-user DID resolution; peripheral
   public-open-channel crawler is RW-backed. Messaging is E2E/signal per root rules,
   never public AT records. The public-open-channel crawl could later be an
   etzhayyim-front feed, but the bridge + credentials stay etzhayyim.
-- **dougaka** — axis: **RisingWave + render compute**. Video-rendering (動画化)
+- **dougaka** — axis: **Kotoba/Datomic + render compute**. Video-rendering (動画化)
   LangGraph pipeline (render + health graphs; com.etzhayyim.apps.dougaka.render)
-  with RW-backed job state (RW_URL / vertex_). Pure GPU/render compute infra — no
+  with RW-backed job state (KOTOBA_URL / vertex_). Pure GPU/render compute infra — no
   consumer catalog layer in the project (cf. animeka, where the generation compute
   stayed etzhayyim and only the catalog migrated; dougaka is just the compute). Stays
   etzhayyim.
@@ -349,19 +349,19 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   sources (HUMINT source identities) + inferred-cohort profiling/surveillance —
   controlled data, never public AT records. Same class as crypto-asset-freeze.
   Stays etzhayyim.
-- **jukyu** — axis: **RisingWave + graph-compute**. Global supply-demand
+- **jukyu** — axis: **Kotoba/Datomic + graph-compute**. Global supply-demand
   System-of-Systems: normalizes domain-actor outputs, runs global Pregel
   propagation (K8s pod-side LangGraph), ranks company exposure, emits signals.
   A DERIVED analytical compute engine — not a source-of-truth catalog (domain
   actors remain SoT, many already migrated). Same class as coverage (RW
   read-model) / dougaka (compute). No standalone rw-free catalog. Stays etzhayyim.
-- **llm** — axes: **RisingWave + Settlement + Custody**. LLM inference gateway
+- **llm** — axes: **Kotoba/Datomic + Settlement + Custody**. LLM inference gateway
   (/v1/chat/completions, routes to CF Workers AI / Murakumo GPU): inferenceRequest
   / inferenceResult / modelConfig. RW-backed inference-event logging + credits-
   gated paid compute (x-credits-did) + inference requests/results carry arbitrary
   user content. The platform's LLM inference SSoT is etzhayyim-resident (ADR-2605211000,
   Vultr A16 GPU primary). Canonical infra-vendor compute layer. Stays etzhayyim.
-- **cowork** — axes: **Custody + RisingWave**. Internal "Claude Cowork" MCP bridge
+- **cowork** — axes: **Custody + Kotoba/Datomic**. Internal "Claude Cowork" MCP bridge
   to Microsoft Graph (Mail/Teams/Files/Calendar/Users) + RW graph (read-only):
   mailDraft (email content), toolGrant (OAuth delegation credentials), syncJob.
   Corporate M365 PII + credential custody; etzhayyim internal IT tooling (M365 =
@@ -374,9 +374,9 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   the on-chain GCC token + TitheRouter 10% tithe is an etzhayyim-EXCLUSIVE
   on-chain primitive (ADR-2605211950 relocate target — Base L2/Ethereum, NOT an
   AT-PDS rw-free registry). No rw-free built here.
-- **shinka** — axes: **RisingWave + compute (LLM inference orchestration)**. The
+- **shinka** — axes: **Kotoba/Datomic + compute (LLM inference orchestration)**. The
   actor-evolution scheduler (`shinka.etzhayyim.com`, `*/5min` cron): queries the
-  stalest actors from `vertex_actor` (37K+ rows, RisingWave), resolves joucho
+  stalest actors from `vertex_actor` (37K+ rows, Kotoba/Datomic), resolves joucho
   (情緒) cadence, and drives **murakumo LLM inference** to repair profiles, run
   kyumei drills, and post socially on each actor's behalf; plus a PropagationJob
   queue (claimJobs/queueStats) and HistoricalEvent/PropagationEvent simulation
@@ -394,12 +394,12 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   family the root invariant keeps server-side (`signal:v1:{ciphertext}` field-
   encrypt, PDS pipethrough). No public catalog to front — surfacing the wrapped
   keys would violate the zero-knowledge invariant. Stays etzhayyim.
-- **voxelforge** — axes: **RisingWave + GPU generation-compute (+ Settlement,
+- **voxelforge** — axes: **Kotoba/Datomic + GPU generation-compute (+ Settlement,
   metered `sk_live_*` API)**. 3D design pipeline (text/image/CAD → mesh+voxel):
   a stateless L3 dispatcher CF Worker forwarding `generate` to the
   `mitama-voxelforge-pool` LangGraph Server, which calls RunPod 6000 Ada GPU
   (TRELLIS / ComfyUI 3D-Pack / CadQuery) and **writes artifacts to B2 +
-  RisingWave directly**. The design/artifact metadata is a read-projection of RW
+  Kotoba/Datomic directly**. The design/artifact metadata is a read-projection of RW
   run-state; `listArtifacts?actorDid=` is a private "my generation history" view,
   not a public reference. **Discriminator**: its records have NO authoritative
   external source — artifacts exist only because a GPU job ran, so `sourceUrl`
@@ -407,7 +407,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   (same family as `dougaka`, NOT a published-work catalog like animeka). Stays
   etzhayyim. (Carry-forward test: can each record cite an authority that isn't our own
   pod/RW? No → (b).)
-- **mangaka** — axes: **RisingWave + GPU generation-compute**. Manga generation
+- **mangaka** — axes: **Kotoba/Datomic + GPU generation-compute**. Manga generation
   studio pipeline (`mangaka.etzhayyim.com`): ComfyUI + USD cinematic page-atom pipeline
   (11+ generation graphs, quality pack, MangakaUSDScene custom nodes) producing
   manga pages via diffusion/LLM compute, artifacts to B2 + RW. Records have NO
@@ -428,7 +428,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   file-transfer payloads — not open-data (no external authority; carry-forward
   test fails). Screen-layout is Tier-3 user config → Preferences, not public
   records. Same encrypted-transport/relay family as `tenso`. Stays etzhayyim.
-- **webmk** — axes: **RisingWave + LLM generation-compute + Custody (client
+- **webmk** — axes: **Kotoba/Datomic + LLM generation-compute + Custody (client
   CRM/PII) + Settlement (ad-campaign)**. Web Marketing Proposal Agent: a
   LangGraph/Claude loop (research→competitors→strategy→copy→quality_gate→store)
   that generates marketing proposals, delivers them via Resend email, and
@@ -439,7 +439,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   private CRM data**, not open-data — a proposal's `sourceUrl` would point at our
   own Claude run (carry-forward test fails). Same generation-agent family as
   `voxelforge`. Stays etzhayyim.
-- **webya** — axes: **RisingWave + LLM generation-compute + Custody (hosted site
+- **webya** — axes: **Kotoba/Datomic + LLM generation-compute + Custody (hosted site
   content + custom-domain) + Liability/Settlement (website-hosting SaaS)**.
   Homepage-generation SaaS (ウェブ屋) for 士業 + 一般企業: a LangGraph loop
   (createSite/reviseSite) generates site HTML, `provisionDomain` sets up custom
@@ -464,7 +464,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   — no external authority (carry-forward test fails), and it acts *as* the user
   on external regulated/financial services. Same credential-custody family as
   `auth`. Stays etzhayyim.
-- **yukkuri** — axes: **RisingWave + generation-compute (murakumo LLM/image/audio
+- **yukkuri** — axes: **Kotoba/Datomic + generation-compute (murakumo LLM/image/audio
   + kami render + ffmpeg) + B2 storage Custody**. AI ゆっくり実況 video generation:
   a multi-actor pipeline (scriptwriter→voiceL/R→character→illustrator→sfx→composer
   →editor→renderer→critic) that drives **murakumo** text/image/audio inference,
@@ -607,12 +607,12 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   covered by the separate `threat-intelligence` app (Bucket A); yabai's distinct
   function is the AML/risk-scoring/enforcement/access-surveillance core. No
   rw-free built.
-- **yatabase** (Bucket D → V) — axes: **RisingWave + Custody (tenant storage /
+- **yatabase** (Bucket D → V) — axes: **Kotoba/Datomic + Custody (tenant storage /
   graph / auth PII) + Settlement (Stripe billing) + Liability (BaaS hosting)**.
   Retail cloud graph DB + Supabase-style BaaS (`yatabase.etzhayyim.com`, codename
   io-yatabase: Cypher/Bolt/Realtime/PostgREST/GraphQL/Auth/Functions/Studio) —
   object storage + buckets + presigned URLs + **Stripe Customer Portal** billing
-  + tenant auth/identity + recovery email; persistence on L4 RisingWave + L7
+  + tenant auth/identity + recovery email; persistence on L4 Kotoba/Datomic + L7
   LangServer. This is the **canonical "kotobase backend"** regulated-infra example
   named in root CLAUDE.md ("kotobase P1, 旧 yatabase を統合") — the etzhayyim commercial
   BaaS data backend that etzhayyim apps consume via consent-capability. Never a
@@ -656,11 +656,11 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   built.
 - **gmail** (Bucket D / ad-pixel → V) — axes: **Custody (private email PII +
   OAuth-token KEK custody) + Liability (email send/triage + messenger-bridge
-  agency) + RisingWave**. Gmail Intelligence Platform (`gmail.etzhayyim.com`):
+  agency) + Kotoba/Datomic**. Gmail Intelligence Platform (`gmail.etzhayyim.com`):
   syncs the user's emails/threads/contacts (email-triage / phishing-detection /
   contact-did-creation / messenger-email-bridge), sends outbound email, and
   custodies **OAuth refresh tokens** (D1 `GMAIL_DB` + KEK envelope, AES-256-GCM,
-  server-side only); RisingWave-backed (`vertex_gmail_*`). Private personal email
+  server-side only); Kotoba/Datomic-backed (`vertex_gmail_*`). Private personal email
   + credentials, not open-data (carry-forward test fails; contrast `github` =
   public open-data → fronted). Same provider/messaging family as `facebook` /
   `communicator` / `mailer`. No rw-free built.
@@ -684,11 +684,11 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   `facebook`. No rw-free built.
 - **meeting-recorder** (Bucket D / ad-pixel → V) — axes: **Custody (meeting
   audio/video + E2E-encrypted transcripts, PII Tier 3) + Liability (consent-gated
-  recording on user's behalf, recording-consent compliance) + RisingWave + B2**.
+  recording on user's behalf, recording-consent compliance) + Kotoba/Datomic + B2**.
   User-delegated meeting recorder for Teams / Meet / Zoom: joins meetings on the
   user's behalf (consent-gated ES256 JWT), captures audio/video + transcript,
   whisper transcription (Murakumo MLX); media chunks in B2, transcripts
-  **Signal-encrypted** (`signal:v1:`), authoritative graph in RisingWave.
+  **Signal-encrypted** (`signal:v1:`), authoritative graph in Kotoba/Datomic.
   Collections (recordingChunk / transcriptSegment) are zero-knowledge E2E
   sensitive meeting content (same family as `tenso` / vault / signal), never a
   public registry (carry-forward test fails). No rw-free built.
@@ -800,7 +800,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   it — direct HTTP fetch prohibited), a 100B-scale hierarchical DID page archive,
   crawl/fetch/frontier pipeline, bulk ingest (Aozora/Gutenberg/NDL/CommonCrawl),
   WET/WAT/WebP output, and LLM text/visual embedding + semantic search. The
-  "frontable" page catalog cannot peel off: a 100B-scale RisingWave + IPFS-pinned
+  "frontable" page catalog cannot peel off: a 100B-scale Kotoba/Datomic + IPFS-pinned
   archive cannot have AT PDS as its canonical store — the catalog IS the archive IS
   the infrastructure (no separable layer; building one = invent-a-catalog /
   physically impossible at scale). Sole-fetch-gateway shared-infra dependency + RW +
@@ -816,7 +816,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
 > regulated function → reclassified to Bucket B (clean).
 
 
-Import vectors: `createKyselyDb` 29 · `HYPERDRIVE` 23 · RisingWave 18 ·
+Import vectors: `createKyselyDb` 29 · `HYPERDRIVE` 23 · Kotoba/Datomic 18 ·
 `kysely` 8 · `stripe` 4 · `@atproto/api` 0 · `viem` 0.
 
 **Build-targets CLEARED (2026-06-02).** Every Bucket C app that needed an

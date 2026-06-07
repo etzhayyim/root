@@ -36,7 +36,7 @@ superseded_by: []
 ## Context
 
 L6 PyZeebe handlers use `db_sync.py` (`sync_cursor()` + `GuardedCursor`) for
-all RisingWave access. Ad-hoc SQL string concatenation in handler code creates
+all Kotoba/Datomic access. Ad-hoc SQL string concatenation in handler code creates
 two problems:
 
 1. **No type safety** — column references are plain strings; schema drift is
@@ -102,7 +102,7 @@ n = sa_rowcount(
 ### Rule 3: `get_sa_engine()` is for Alembic / offline DDL only
 
 `get_sa_engine()` creates a `NullPool` SQLAlchemy engine backed directly by
-`RW_URL`. It attaches a `before_cursor_execute` event that calls
+`KOTOBA_URL`. It attaches a `before_cursor_execute` event that calls
 `_validate_sql_guard()` from `db_sync.py`, replicating the GuardedCursor
 behaviour.
 

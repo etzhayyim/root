@@ -63,7 +63,7 @@ This ADR specifies the canonical wiring between the 18,346 UNSPSC LangGraph acto
 - **No purchase** (§1.2 + ADR-2605192115): the only permissible commodity inflow purpose tags are `donation-in-kind` / `internal-allocation` / `surplus-routing` / `operational-supply`. `purchase` / `sale` / `subscription` MUST NOT be valid envelope purposes.
 - **No advertising** (§2(c) Charter Rider): UNSPSC actor notification posts MUST be factual; no promotional language, no price-discount, no call-to-action.
 - **10% tithe** (ADR-2605192130): every `donation-in-kind` envelope at `anchored` state triggers 1/10 of items routed to Public Fund inventory.
-- **Substrate boundary** (ADR-2605172000): no RisingWave / Postgres / Kysely in the agent path. All state on MST + IPFS + L2 anchor.
+- **Substrate boundary** (ADR-2605172000): no Kotoba/Datomic / Postgres / Kysely in the agent path. All state on MST + IPFS + L2 anchor.
 - **Charter Rider** (ADR-2605192200): template documents bundled with esign MUST NOT include for-profit or advertising templates.
 
 ### Existing actors / contracts that need wiring

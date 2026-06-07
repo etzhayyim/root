@@ -207,7 +207,7 @@ vertex_kobo_prion:
 ```
 Input Signal (生データ)
   ↓  [hakkou BPMN task = 発酵室]
-Structured Knowledge (エタノール) → RisingWave graph INSERT
+Structured Knowledge (エタノール) → Kotoba/Datomic graph INSERT
 Audit Log record (CO₂)          → vertex_hakkou_ferment に永続
 ```
 
@@ -248,7 +248,7 @@ edge_kabi_hypha:
 
 高 η の方向へ接続が優先的に伸長。低 η の菌糸は `pruned_at` を SET して退縮。
 
-更新は RisingWave Streaming MV で 100ms 以内に η を再計算:
+更新は Kotoba/Datomic Streaming MV で 100ms 以内に η を再計算:
 
 ```sql
 CREATE MATERIALIZED VIEW mv_kabi_eta_gradient AS
@@ -348,7 +348,7 @@ Spore (houshi) ──germinate──▶ Vegetative kobo_agent
                 Child kobo_agent  knowledge         houshi_spore
                 prion 転写        + ferment log     → N peer 保管
                      │               ↓
-                edge_kobo_budding  RisingWave graph
+                edge_kobo_budding  Kotoba/Datomic graph
                      │
                anastomosis check
                (kabi layer)
@@ -379,7 +379,7 @@ Spore (houshi) ──germinate──▶ Vegetative kobo_agent
 | 栄養勾配 | Shannon η (`[heuristic_weights]` + `edge_kabi_hypha.eta`) | deps.toml |
 | プリオン記憶 | `vertex_kobo_prion` (heritable=true, non-volatile) | ADR-0002 |
 | 腐生分解 | hakkou BPMN worker (raw → graph triple) | ADR-0032 pattern |
-| 菌糸ネットワーク | `edge_kabi_hypha` RisingWave streaming graph | ADR-0002 |
+| 菌糸ネットワーク | `edge_kabi_hypha` Kotoba/Datomic streaming graph | ADR-0002 |
 | 胞子散布 | AT Protocol `sdk.pds.dispatch` → firehose | ADR-0004 |
 
 ### AT Protocol 15-Layer 配置 (ADR-2604231811)
@@ -454,7 +454,7 @@ Shannon η = PoNF の nutrient flow 計算に使われる technical proxy
 - ADR-0056 — BPMN as Actor
 - ADR-0026 — Agent-Only Reverse Identity Topology
 - ADR-0004 — Write-Only Derived Architecture
-- ADR-0002 — Graph Storage (RisingWave)
+- ADR-0002 — Graph Storage (Kotoba/Datomic)
 - Woronin body / hyphal fusion biology: Glass et al. 2004 *Genetics*
 - Yeast prion [PSI+]: Uptain & Lindquist 2002 *Annu Rev Microbiol*
 - Mycelial network topology: Fricker et al. 2017 *Fungal Biology Reviews*

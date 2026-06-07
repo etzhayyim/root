@@ -193,7 +193,7 @@ AGENT_DAEMON_ENV_FILE=ops/local-agent/agent-daemon.env \
   20-actors/magatama/py/.venv/bin/magatama-agent-status
 ```
 
-The status command reads launchd state plus RisingWave homeostasis, outcome,
+The status command reads launchd state plus Kotoba/Datomic homeostasis, outcome,
 learning, real-world effect, and dispatch ledger rows. It reports the current
 organism state (`active`, `repairing`, `degraded`, `critical`, or `unknown`)
 and a bounded score for quick operator checks.

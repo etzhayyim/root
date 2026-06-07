@@ -20,7 +20,7 @@ The repository contains a large and growing number of Python components (27+ sub
 
 Previously, `pyright` and `pydantic` were used selectively, leading to:
 1. Implicit `Any` propagation resulting in runtime `AttributeError`s and `TypeError`s (especially when dealing with `None` from dict `.get()` calls).
-2. Unreliable dictionary shapes when processing JSON payloads from external systems or databases (e.g., RisingWave `fetch_all` returning tuples vs dicts).
+2. Unreliable dictionary shapes when processing JSON payloads from external systems or databases (e.g., Kotoba/Datomic `fetch_all` returning tuples vs dicts).
 3. Weak developer experience and missed regressions during refactoring.
 
 ## Decision

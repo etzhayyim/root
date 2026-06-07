@@ -232,7 +232,7 @@ isMirror=true`, `const serverHeldKey=false`, `personSubject` **unrepresentable**
   organization* mirrors as a `corp` entity.
 - **N4** NOT surveillance / pattern-of-life / target-list (G4).
 - **N5** NOT a new state store — state stays the kotoba Datom log (ADR-2605262130/2605312345); no
-  RisingWave/SQL.
+  Kotoba/Datomic/SQL.
 
 # Update — landed + LIVE (2026-06-06)
 

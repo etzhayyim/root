@@ -64,7 +64,7 @@ APQC PCF L1 13 process area × 代表 role × locale=jp で seed:
 ### Posterior
 
 - 現時点 accretion `com.etzhayyim.cohort.evidence` 未投入 → posterior baseline は N/A
-- 配線先: RisingWave streaming MV `identity_posterior_mv` (未実装) + Murakumo LLM-as-judge
+- 配線先: Kotoba/Datomic streaming MV `identity_posterior_mv` (未実装) + Murakumo LLM-as-judge
 - Fission 条件 (ADR-0026 §1 Phase C): `posterior > 0.95` AND `judgeAgreement === true`
 - Iteration 2 で MV DDL + judge prompt template を起票
 
@@ -90,7 +90,7 @@ cohort ↔ L1 actor DID の対応表は cohort_actors.segment_hash の `pcfL1` p
 
 **次 iteration TODO**:
 1. `com.etzhayyim.cohort.evidence` write → `onCommit` hook で `apqcEvent` 自動 emit
-2. posterior streaming MV `identity_posterior_mv` の RisingWave DDL
+2. posterior streaming MV `identity_posterior_mv` の Kotoba/Datomic DDL
 3. k reevaluation scheduler task の Path F 登録
 4. locale=en / vertical overlay による cohort 拡張
 
@@ -475,7 +475,7 @@ doubles: [scanned_count, violations_count]
 
 ## Context
 
-Migration 採番が繰り上がり、0034/0035/0036 → **0052/0053/0054 として本番 RisingWave に apply 済み**。runtime 側コードは既に MV/テーブル前提で動作可能。
+Migration 採番が繰り上がり、0034/0035/0036 → **0052/0053/0054 として本番 Kotoba/Datomic に apply 済み**。runtime 側コードは既に MV/テーブル前提で動作可能。
 
 ## Code Artifacts
 
@@ -2420,7 +2420,7 @@ Iter 1 (ADR draft) → Iter 50 (active 化 + drift audit spec) までの累計�
 
 ## Key Architectural Choices (固定済み)
 
-1. **Hummock only, no Iceberg** — RisingWave のみで全データ保持
+1. **Hummock only, no Iceberg** — Kotoba/Datomic のみで全データ保持
 2. **Idempotent seed** — segment_hash で重複防止 (bootstrap 安全)
 3. **Direct Phase B path** — emitEvidence で commit pipeline 経由なし
 4. **3 narrow MV** — pcfL1 sharding なしで 200-10K cohort scale 対応
@@ -2527,7 +2527,7 @@ stats coverage gap gen snapshot diff drift lineage-stats repair-edge
 
 | File | 変更 |
 |---|---|
-| `90-docs/adr/0028-cohort-mv-sharding.md` | 新規 ADR (status: proposed) — 4 Phase sharding strategy。Phase 1 (現状, ~10K) → Phase 2 (10K-500K, index 追加) → Phase 3 (500K-3M, 13 sub-MV per pcfL1) → Phase 4 (3M+, vertex_individual_actor monthly partition)。Iceberg 不使用、RisingWave Hummock cold tier 維持 |
+| `90-docs/adr/0028-cohort-mv-sharding.md` | 新規 ADR (status: proposed) — 4 Phase sharding strategy。Phase 1 (現状, ~10K) → Phase 2 (10K-500K, index 追加) → Phase 3 (500K-3M, 13 sub-MV per pcfL1) → Phase 4 (3M+, vertex_individual_actor monthly partition)。Iceberg 不使用、Kotoba/Datomic Hummock cold tier 維持 |
 | `90-docs/_registry/docs.json` | ADR-0028 entry 追加 |
 
 ## Note
@@ -3014,7 +3014,7 @@ LLM agent から ADR-0026 cohort lifecycle 操作を 5 行で wire-in 可能に�
 
 ## Trigger
 
-50-infra/CLAUDE.md 更新で RisingWave が `g2-gpu-rtx4000a1-l × 1` (16 vCPU / 64 GiB / RTX 4000 Ada 20 GiB VRAM) に移行 ($701/mo)。compute mem 24Gi → 64Gi。
+50-infra/CLAUDE.md 更新で Kotoba/Datomic が `g2-gpu-rtx4000a1-l × 1` (16 vCPU / 64 GiB / RTX 4000 Ada 20 GiB VRAM) に移行 ($701/mo)。compute mem 24Gi → 64Gi。
 
 ## Code Artifacts
 
@@ -3036,7 +3036,7 @@ LLM agent から ADR-0026 cohort lifecycle 操作を 5 行で wire-in 可能に�
 ## GPU 活用候補
 
 RTX 4000 Ada 20 GiB VRAM が空いているため、posterior の Bayesian update 経路を将来 GPU offload 可能:
-- 現状 (2026-04-15): RisingWave streaming actor は CPU only
+- 現状 (2026-04-15): Kotoba/Datomic streaming actor は CPU only
 - 候補: Murakumo native worker で per-batch evidence → posterior を CUDA 計算 → MV 更新
 
 これは ADR-0028 Phase 2 以降の "並列 enhancement" 候補。Phase 1 (現状 200 cohort) では不要。

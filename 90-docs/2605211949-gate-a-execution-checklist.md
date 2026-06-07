@@ -112,7 +112,7 @@ tests use `tempfile.TemporaryDirectory()`.
 
 | # | Target file | Pattern | Smoke | Done |
 |---|---|---|---|---|
-| W9 | `tools_audit_worker_main.py` | audit log | 2 emit + 1 error (empty repo) | [x] 2026-05-21 (already ported; docstring confirms "No psycopg / RW_URL dependency"; `task_audit_emit` importable) |
+| W9 | `tools_audit_worker_main.py` | audit log | 2 emit + 1 error (empty repo) | [x] 2026-05-21 (already ported; docstring confirms "No psycopg / KOTOBA_URL dependency"; `task_audit_emit` importable) |
 | W10 | `sixir_worker_main.py` | read-cache | 6 task: list/get/search × company + filing + earnings; ILIKE→LIKE COLLATE NOCASE | [x] 2026-05-21 (already ported; 8 task handlers importable: get/list × company/filing/earnings) |
 
 ### Wave B (single-table primary store)

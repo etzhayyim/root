@@ -28,6 +28,7 @@ checkpoint は Phase 3 で BaseCheckpointSaver (RisingWave 実装、ADR-26050806
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import hashlib
 import json
@@ -38,7 +39,6 @@ from typing import Any, TypedDict
 from langgraph.graph import END, START, StateGraph
 
 from pymagatama import llm
-from pymagatama.db_sync import sync_cursor
 from pymagatama.primitives import langgraph_registry
 from pymagatama.primitives.otakiage import (
     CATEGORY_MODE,
@@ -131,15 +131,16 @@ async def _node_load_history(state: OtakiageChatState) -> OtakiageChatState:
     history: list[dict[str, str]] = []
     if not is_new:
         max_turns = int(state.get("maxTurns") or 10)
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 f"SELECT user_message, agent_reply FROM vertex_otakiage_conversation_turn "
                 f"WHERE thread_id = %s "
                 f"ORDER BY turn_index DESC "
                 f"LIMIT {int(max_turns)}",
                 (thread_id,),
             )
-            rows = list(cur.fetchall() or [])
+            rows = list(_res or [])
         # Reverse so oldest first
         for um, ar in reversed(rows):
             if um:
@@ -299,11 +300,12 @@ async def _node_search_candidates(state: OtakiageChatState) -> OtakiageChatState
     """
     h3 = state.get("h3Cell") or ""
     candidates: list[dict[str, Any]] = []
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         if h3:
             # Phase 2: exact h3 match. Adjacent cells will be added when the
             # h3 library is wired into the worker pod.
-            cur.execute(
+            _res = client.q(
                 "SELECT vertex_id, category, title, h3_cell "
                 "FROM vertex_otakiage_item "
                 "WHERE state = 'reuse_open' AND h3_cell = %s "
@@ -311,14 +313,14 @@ async def _node_search_candidates(state: OtakiageChatState) -> OtakiageChatState
                 (h3,),
             )
         else:
-            cur.execute(
+            _res = client.q(
                 "SELECT vertex_id, category, title, h3_cell "
                 "FROM vertex_otakiage_item "
                 "WHERE state = 'reuse_open' "
                 "ORDER BY created_at DESC "
                 "LIMIT 20"
             )
-        rows = list(cur.fetchall() or [])
+        rows = list(_res or [])
     for v_id, cat, title, h3c in rows:
         candidates.append({"uri": v_id, "category": cat, "title": title, "h3Cell": h3c or ""})
     return {**state, "candidates": candidates}
@@ -327,14 +329,15 @@ async def _node_search_candidates(state: OtakiageChatState) -> OtakiageChatState
 async def _node_resolve_matsuri(state: OtakiageChatState) -> OtakiageChatState:
     """DB query — list upcoming matsuri (next 90 days)."""
     options: list[dict[str, Any]] = []
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             "SELECT vertex_id, name, scheduled_date, category_scope "
             "FROM vertex_otakiage_matsuri "
             "WHERE state IN ('open','preparing') AND scheduled_date >= CURRENT_DATE "
             "ORDER BY scheduled_date ASC LIMIT 10"
         )
-        rows = list(cur.fetchall() or [])
+        rows = list(_res or [])
     for v_id, name, sched, scope_json in rows:
         try:
             scope = json.loads(scope_json or "[]")
@@ -352,20 +355,21 @@ async def _node_resolve_matsuri(state: OtakiageChatState) -> OtakiageChatState:
 async def _node_fetch_info(state: OtakiageChatState) -> OtakiageChatState:
     """DB query — fetch coverage stats for inquiry."""
     facts: dict[str, Any] = {}
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             "SELECT state, SUM(item_count) FROM mv_otakiage_items_by_state GROUP BY state"
         )
-        rows = list(cur.fetchall() or [])
+        rows = list(_res or [])
         facts["byState"] = {str(s): int(c or 0) for s, c in rows}
-        cur.execute("SELECT COUNT(*) FROM vertex_otakiage_certificate")
-        r = cur.fetchone()
+        _res = client.q("SELECT COUNT(*) FROM vertex_otakiage_certificate")
+        r = (_res[0] if _res else None)
         facts["certificateCount"] = int(r[0]) if r else 0
-        cur.execute(
+        _res = client.q(
             "SELECT COUNT(*) FROM vertex_otakiage_matsuri "
             "WHERE state IN ('open','preparing') AND scheduled_date >= CURRENT_DATE"
         )
-        r = cur.fetchone()
+        r = (_res[0] if _res else None)
         facts["upcomingMatsuriCount"] = int(r[0]) if r else 0
     return {**state, "inquiryFacts": facts}
 
@@ -505,18 +509,20 @@ async def _node_persist_turn(state: OtakiageChatState) -> OtakiageChatState:
     else:
         actions.append({"kind": "no_action", "uri": "", "details": ""})
 
-    with sync_cursor() as cur:
+    if True:
+
+        client = get_kotoba_client()
         # Determine turn_index
-        cur.execute(
+        _res = client.q(
             "SELECT COALESCE(MAX(turn_index), -1) FROM vertex_otakiage_conversation_turn "
             "WHERE thread_id = %s",
             (thread_id,),
         )
-        r = cur.fetchone()
+        r = (_res[0] if _res else None)
         turn_index = (int(r[0]) if r and r[0] is not None else -1) + 1
 
         if is_new:
-            cur.execute(
+            _res = client.q(
                 """
                 INSERT INTO vertex_otakiage_conversation (
                   vertex_id, owner_did, thread_id, caller_did, title, turn_count,
@@ -536,7 +542,7 @@ async def _node_persist_turn(state: OtakiageChatState) -> OtakiageChatState:
                 ),
             )
         else:
-            cur.execute(
+            _res = client.q(
                 "UPDATE vertex_otakiage_conversation "
                 "SET turn_count = turn_count + 1, last_intent = %s, last_message_at = %s "
                 "WHERE thread_id = %s",
@@ -547,7 +553,7 @@ async def _node_persist_turn(state: OtakiageChatState) -> OtakiageChatState:
             f"{thread_id}|{turn_index}|{int(time.time_ns())}".encode("utf-8")
         ).hexdigest()[:24]
         turn_uri = f"at://{caller_did}/com.etzhayyim.apps.otakiage.conversationTurn/{turn_rkey}"
-        cur.execute(
+        _res = client.q(
             """
             INSERT INTO vertex_otakiage_conversation_turn (
               vertex_id, owner_did, turn_id, thread_id, thread_uri, caller_did, turn_index,

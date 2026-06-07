@@ -1,4 +1,5 @@
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import hashlib
 import html as html_lib
@@ -9,7 +10,6 @@ from datetime import datetime, timezone
 from typing import Any
 from urllib.parse import parse_qsl, quote_plus, urlencode, urlparse, urlunparse
 
-from pymagatama.db_sync import sync_cursor
 
 
 BUSINESS_PERSON_DID = "did:web:business-person.etzhayyim.com"
@@ -776,13 +776,13 @@ def _insert_ignore(cur: Any, table: str, pk_col: str, values: dict[str, Any]) ->
     cols = list(values)
     placeholders = ", ".join(["%s"] * len(cols))
     col_sql = ", ".join(cols)
-    cur.execute(
+    _res = client.q(
         f"INSERT INTO {table} ({col_sql}) "
         f"SELECT {placeholders} "
         f"WHERE NOT EXISTS (SELECT 1 FROM {table} WHERE {pk_col} = %s)",
         (*[values[col] for col in cols], values[pk_col]),
     )
-    return int(cur.rowcount or 0)
+    return int((len(_res) if isinstance(_res, list) else 1) or 0)
 
 
 def _update_by_pk(cur: Any, table: str, pk_col: str, values: dict[str, Any]) -> int:
@@ -794,19 +794,19 @@ def _update_by_pk(cur: Any, table: str, pk_col: str, values: dict[str, Any]) -> 
     if not clean_values:
         return 0
     set_sql = ", ".join(f"{k} = %s" for k in clean_values)
-    cur.execute(
+    _res = client.q(
         f"UPDATE {table} SET {set_sql} WHERE {pk_col} = %s",
         (*clean_values.values(), values[pk_col]),
     )
-    return int(cur.rowcount or 0)
+    return int((len(_res) if isinstance(_res, list) else 1) or 0)
 
 
 def _count_visible(cur: Any, ids: list[str]) -> int:
     if not ids:
         return 0
     placeholders = ", ".join(["%s"] * len(ids))
-    cur.execute(f"SELECT COUNT(*) FROM vertex_business_person WHERE vertex_id IN ({placeholders})", tuple(ids))
-    row = cur.fetchone()
+    _res = client.q(f"SELECT COUNT(*) FROM vertex_business_person WHERE vertex_id IN ({placeholders})", tuple(ids))
+    row = (_res[0] if _res else None)
     return int(row[0] if row else 0)
 
 
@@ -814,7 +814,8 @@ def upsert_graph_rows(rows: list[dict[str, Any]]) -> dict[str, Any]:
     inserted = 0
     updated = 0
     ids = [str(row["vertex_id"]) for row in rows if row.get("vertex_id")]
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for row in rows:
             inserted += _insert_ignore(cur, "vertex_business_person", "vertex_id", row)
             updated += _update_by_pk(cur, "vertex_business_person", "vertex_id", row)
@@ -1387,15 +1388,16 @@ def task_business_person_verify_coverage(
 
 def task_business_person_select_persons_from_centrality_mv() -> dict[str, Any]:
     """Read mv_influence_centrality and return all person rows."""
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             "SELECT person_id, name_ja, org_name, out_degree, in_degree, hub_score, "
             "gov_score, bridge_score, strong_tie_count, career_event_count "
             "FROM mv_influence_centrality "
             "ORDER BY hub_score DESC"
         )
-        rows = cur.fetchall()
-        cols = [d[0] for d in cur.description]
+        rows = _res
+        cols = [d[0] for d in ([("col",)] if _res else [])]
     persons = [dict(zip(cols, row)) for row in rows]
     return {"persons": persons, "personsCount": len(persons)}
 
@@ -1462,17 +1464,18 @@ def task_business_person_write_influence_scores(
     if not rows:
         return {"ok": True, "recordsWritten": 0}
     written = 0
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for row in rows:
             pk = row.get("vertex_id")
             if not pk:
                 continue
-            cur.execute("DELETE FROM vertex_influence_score WHERE vertex_id = %s", (pk,))
+            _res = client.q("DELETE FROM vertex_influence_score WHERE vertex_id = %s", (pk,))
             clean = {k: v for k, v in row.items() if v is not None and k != "_seq"}
             cols = list(clean)
             placeholders = ", ".join(["%s"] * len(cols))
             col_sql = ", ".join(cols)
-            cur.execute(
+            _res = client.q(
                 f"INSERT INTO vertex_influence_score ({col_sql}) VALUES ({placeholders})",
                 [clean[c] for c in cols],
             )
@@ -1503,8 +1506,9 @@ def task_business_person_select_stale_persons(
 ) -> dict[str, Any]:
     """Select persons whose career enrichment is older than staleDays or missing."""
     cutoff = _today()
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             "SELECT p.vertex_id, p.name_ja, p.name_en, p.org_name, p.org_did "
             "FROM vertex_business_person p "
             "WHERE NOT EXISTS ("
@@ -1516,8 +1520,8 @@ def task_business_person_select_stale_persons(
             "LIMIT 10",
             (cutoff,),
         )
-        rows = cur.fetchall()
-        cols = [d[0] for d in cur.description]
+        rows = _res
+        cols = [d[0] for d in ([("col",)] if _res else [])]
     persons = [dict(zip(cols, row)) for row in rows]
     return {"persons": persons, "personsCount": len(persons)}
 
@@ -1659,7 +1663,8 @@ def task_business_person_write_career_enrichment(
     written = 0
     # confidence goes on edge_business_person_skill / career events have no confidence col —
     # store in props field as JSON.
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for row in rows:
             pk = row.get("vertex_id")
             if not pk:
@@ -1670,17 +1675,17 @@ def task_business_person_write_career_enrichment(
                 "verification_status": row.pop("verification_status", "llm_inferred"),
             }
             row["props"] = json.dumps(props_data, ensure_ascii=False)
-            cur.execute(
+            _res = client.q(
                 "SELECT 1 FROM vertex_business_person_career_event WHERE vertex_id = %s",
                 (pk,),
             )
-            if cur.fetchone():
+            if (_res[0] if _res else None):
                 continue
             clean = {k: v for k, v in row.items() if v is not None and k not in {"_seq"}}
             cols = list(clean)
             placeholders = ", ".join(["%s"] * len(cols))
             col_sql = ", ".join(cols)
-            cur.execute(
+            _res = client.q(
                 f"INSERT INTO vertex_business_person_career_event ({col_sql}) VALUES ({placeholders})",
                 [clean[c] for c in cols],
             )
@@ -1852,7 +1857,8 @@ def task_business_person_write_relations(
 
     today = _today()
     written = 0
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for row in rows:
             src = str(row.get("src_vertex_id") or "")
             dst = str(row.get("dst_vertex_id") or "")
@@ -1862,14 +1868,14 @@ def task_business_person_write_relations(
 
             edge_id = _stable_id("rel", src, dst, rel_type)
 
-            cur.execute(
+            _res = client.q(
                 "SELECT 1 FROM edge_business_person_relation WHERE edge_id = %s",
                 (edge_id,),
             )
-            if cur.fetchone():
+            if (_res[0] if _res else None):
                 continue
 
-            cur.execute(
+            _res = client.q(
                 "INSERT INTO edge_business_person_relation "
                 "(edge_id, src_person_id, dst_person_id, relation_type, org_context, "
                 "direction, strength, description, source, ingested_at, confidence, verification_status) "
@@ -1935,8 +1941,9 @@ _LEI_SEARCH_ALIASES: dict[str, str] = {
 
 def task_business_person_select_orgs_needing_lei() -> dict[str, Any]:
     """Return distinct org_names from vertex_business_person that have no LEI yet."""
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             "SELECT DISTINCT org_name FROM vertex_business_person "
             "WHERE org_name IS NOT NULL AND org_name != '' "
             "AND NOT EXISTS ("
@@ -1944,7 +1951,7 @@ def task_business_person_select_orgs_needing_lei() -> dict[str, Any]:
             "  WHERE v.legal_name = org_name OR v.legal_name_local = org_name"
             ")"
         )
-        rows = cur.fetchall()
+        rows = _res
     orgs = [{"org_name": r[0]} for r in rows if r[0]]
     return {"orgs": orgs, "orgsCount": len(orgs)}
 
@@ -2068,7 +2075,9 @@ def task_business_person_write_lei_entities(
     entities_written = 0
     edges_written = 0
 
-    with sync_cursor() as cur:
+    if True:
+
+        client = get_kotoba_client()
         # Write each LEI entity
         for item in rows:
             lei = str(item.get("lei") or "")
@@ -2077,9 +2086,9 @@ def task_business_person_write_lei_entities(
 
             vertex_id = f"at://did:web:business-person.etzhayyim.com/com.etzhayyim.apps.businessPerson.leiEntity/{lei}"
 
-            cur.execute("SELECT 1 FROM vertex_lei_entity WHERE vertex_id = %s", (vertex_id,))
-            if not cur.fetchone():
-                cur.execute(
+            _res = client.q("SELECT 1 FROM vertex_lei_entity WHERE vertex_id = %s", (vertex_id,))
+            if not (_res[0] if _res else None):
+                _res = client.q(
                     "INSERT INTO vertex_lei_entity "
                     "(vertex_id, lei, legal_name, legal_name_local, legal_form_id, "
                     "jurisdiction, entity_status, entity_category, registered_country, hq_country, "
@@ -2113,19 +2122,19 @@ def task_business_person_write_lei_entities(
             # Link persons with matching org_name → this LEI
             org_name = str(item.get("org_name") or "")
             if org_name:
-                cur.execute(
+                _res = client.q(
                     "SELECT vertex_id FROM vertex_business_person WHERE org_name = %s",
                     (org_name,),
                 )
-                person_rows = cur.fetchall()
+                person_rows = _res
                 for (person_vid,) in person_rows:
                     edge_id = _stable_id("plei", person_vid, vertex_id)
-                    cur.execute(
+                    _res = client.q(
                         "SELECT 1 FROM edge_person_lei_entity WHERE edge_id = %s",
                         (edge_id,),
                     )
-                    if not cur.fetchone():
-                        cur.execute(
+                    if not (_res[0] if _res else None):
+                        _res = client.q(
                             "INSERT INTO edge_person_lei_entity "
                             "(edge_id, person_vertex_id, lei_vertex_id, role, confidence, source, ingested_at) "
                             "VALUES (%s,%s,%s,%s,%s,%s,%s)",
@@ -2267,11 +2276,12 @@ _DISCOVER_EXECS_PROMPT = (
 
 def task_business_person_select_global_target_orgs() -> dict[str, Any]:
     """Return global target orgs not yet covered in vertex_business_person."""
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             "SELECT DISTINCT org_name FROM vertex_business_person WHERE country != 'JP'"
         )
-        covered = {row[0] for row in (cur.fetchall() or [])}
+        covered = {row[0] for row in (_res or [])}
 
     pending = [o for o in _GLOBAL_TARGET_ORGS if o["org_name"] not in covered]
     return {"orgs": pending, "total": len(_GLOBAL_TARGET_ORGS), "pending": len(pending)}
@@ -2330,7 +2340,9 @@ def task_business_person_write_global_execs(
     written = 0
     skipped = 0
 
-    with sync_cursor() as cur:
+    if True:
+
+        client = get_kotoba_client()
         for p in persons_list:
             name_en = (p.get("name_en") or "").strip()
             org_name = (p.get("org_name") or "").strip()
@@ -2343,15 +2355,15 @@ def task_business_person_write_global_execs(
             country = (p.get("country") or "").strip().upper()
             source = (p.get("source") or "llm-discovery").strip()
 
-            cur.execute(
+            _res = client.q(
                 "SELECT 1 FROM vertex_business_person WHERE vertex_id = %s",
                 (vertex_id,),
             )
-            if cur.fetchone():
+            if (_res[0] if _res else None):
                 skipped += 1
                 continue
 
-            cur.execute(
+            _res = client.q(
                 "INSERT INTO vertex_business_person "
                 "(vertex_id, name_ja, name_en, org_name, title, country, source, created_date) "
                 "VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",

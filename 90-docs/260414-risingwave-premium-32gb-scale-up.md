@@ -1,37 +1,37 @@
 ---
-id: doc-260414-risingwave-premium-32gb-scale-up
-title: RisingWave Premium 32GB Scale-Up — Runbook & Post-Mortem
+id: doc-260414-kotoba-premium-32gb-scale-up
+title: Kotoba/Datomic Premium 32GB Scale-Up — Runbook & Post-Mortem
 status: active
 doc_type: how-to
 topic: infrastructure
 authoritative: true
 last_verified: 2026-04-14
 related:
-  - adr-0020-risingwave-premium-single-node
+  - adr-0020-kotoba-premium-single-node
   - 30-graph/graph-schema/migrations/0025_world_coverage_live_mv.ts
 ---
 
-# RisingWave Premium 32GB Scale-Up — Runbook & Post-Mortem
+# Kotoba/Datomic Premium 32GB Scale-Up — Runbook & Post-Mortem
 
 ## Goal
 
 Document the end-to-end procedure used on 2026-04-14 to migrate the
-RisingWave production cluster from `g6-dedicated-4 × 2` (8 vCPU / 16 GiB
+Kotoba/Datomic production cluster from `g6-dedicated-4 × 2` (8 vCPU / 16 GiB
 total) to `g7-premium-16 × 1` (Premium 32GB) in a zero-downtime fashion,
 and record the observations that drove the design.
 
 ## Scope
 
 - Cluster: `lke589404` (LKE in `sg-sin-2`).
-- Namespace: `risingwave`.
-- Components: RisingWave compute/compactor/meta/frontend, external
+- Namespace: `kotoba`.
+- Components: Kotoba/Datomic compute/compactor/meta/frontend, external
   PostgreSQL metastore.
 
 ## Executive Summary
 
 Streaming MV backfill (migration 0025 world coverage) + bulk INSERT from
 `etzhayyim collect` triggered 3 compute-pod OOM restarts in a 3-hour window.
-Per RisingWave official guidance, scaled up to Premium 32GB single-node.
+Per Kotoba/Datomic official guidance, scaled up to Premium 32GB single-node.
 Net cost delta: **+$202/mo** ($144 → $346). Outcome: stable MV execution,
 block cache locality, single-node shuffle.
 
@@ -39,7 +39,7 @@ block cache locality, single-node shuffle.
 
 | Observation | Evidence |
 |---|---|
-| compute-0 OOM restart × 3 | `kubectl get pod risingwave-compute-0` RESTARTS 3 in 3h |
+| compute-0 OOM restart × 3 | `kubectl get pod kotoba-compute-0` RESTARTS 3 in 3h |
 | Barrier latency warnings | `NOTICE: CREATE MATERIALIZED VIEW has taken more than 30 secs, barrier latency might be high` during backfill |
 | MV build failure mid-backfill | `gRPC request to stream service failed: connection reset` while building `mv_world_record_per_host` |
 | Block cache thrash | Frequent Hummock `cache miss → S3 GET` in compute logs |
@@ -47,11 +47,11 @@ block cache locality, single-node shuffle.
 ## Decision
 
 See ADR 0020. Summary: vertical scale to **Premium 32GB × 1** with all
-RisingWave components consolidated on one node.
+Kotoba/Datomic components consolidated on one node.
 
 ## Migration runbook
 
-Automated via `50-infra/linode/risingwave-iceberg/helm/scale-up-premium.sh`.
+Automated via `50-infra/linode/kotoba-iceberg/helm/scale-up-premium.sh`.
 Six phases; zero downtime on the read path.
 
 ### Phase 0 — Preflight
@@ -75,13 +75,13 @@ kubectl label node <new-node> rw-role=compute rw-compute-premium=true --overwrit
 ### Phase 2 — Scale to `replicas=2`
 
 ```bash
-helm upgrade risingwave risingwavelabs/risingwave --version 0.2.49 \
-  -n risingwave -f values.yaml \
+helm upgrade kotoba kotobalabs/kotoba --version 0.2.49 \
+  -n kotoba -f values.yaml \
   --set computeComponent.replicas=2
 ```
 
 Two compute pods run concurrently — one on old node, one on Premium —
-during RisingWave actor rebalance. Reads stay online.
+during Kotoba/Datomic actor rebalance. Reads stay online.
 
 ### Phase 2a — Transient 2-Premium capacity
 
@@ -117,13 +117,13 @@ Update `values.yaml`:
   leave room for the control-plane pods.
 
 ```bash
-helm upgrade risingwave ... --set computeComponent.replicas=1
+helm upgrade kotoba ... --set computeComponent.replicas=1
 # Then evict the old pods so they reschedule to Premium:
-kubectl -n risingwave delete pod \
-  risingwave-compactor-<old> \
-  risingwave-frontend-<old> \
-  risingwave-meta-0 \
-  risingwave-metastore-<old>
+kubectl -n kotoba delete pod \
+  kotoba-compactor-<old> \
+  kotoba-frontend-<old> \
+  kotoba-meta-0 \
+  kotoba-metastore-<old>
 ```
 
 StatefulSet drops compute-1 (highest ordinal); compute-0 ends up on the
@@ -147,7 +147,7 @@ linode-cli lke pool-delete "$LINODE_CLUSTER_ID" <old-pool-id>
 
 ```bash
 kubectl get nodes -L rw-role -L rw-compute-premium
-kubectl -n risingwave get pods -o wide
+kubectl -n kotoba get pods -o wide
 psql "postgres://root@<pf>:14566/dev?sslmode=disable" \
   -c "SELECT domain, collected, world_total FROM mv_world_coverage_live
       WHERE collected > 0 ORDER BY collected DESC LIMIT 10;"
@@ -158,7 +158,7 @@ returning nonzero rows.
 
 ## Observations / lessons
 
-1. **RisingWave streaming vnode mapping lag.** Immediately after compute
+1. **Kotoba/Datomic streaming vnode mapping lag.** Immediately after compute
    restarts, MV reads fail with `Streaming vnode mapping not found for
    fragment N` for 30-90 s. Retry loop required in ops tooling.
 2. **pgx extended protocol hang on MV reads.** After a prior compute
@@ -184,7 +184,7 @@ returning nonzero rows.
 
 ## References
 
-- `50-infra/linode/risingwave-iceberg/helm/values.yaml` — live config.
-- `50-infra/linode/risingwave-iceberg/helm/scale-up-premium.sh` — script.
-- https://docs.risingwave.com/performance/performance-best-practices
+- `50-infra/linode/kotoba-iceberg/helm/values.yaml` — live config.
+- `50-infra/linode/kotoba-iceberg/helm/scale-up-premium.sh` — script.
+- https://docs.kotoba.com/performance/performance-best-practices
 - ADR 0020 — Decision record.

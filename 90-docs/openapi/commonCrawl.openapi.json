@@ -99,7 +99,7 @@
     },
     "/xrpc/com.etzhayyim.commonCrawl.ingestSegment": {
       "post": {
-        "summary": "Ingest a Common Crawl WAT/WARC segment → DID property graph (Rust rayon, RisingWave Iceberg). Tracks crawl-NN-YYYY/segment-MMMM ingest progress.",
+        "summary": "Ingest a Common Crawl WAT/WARC segment → DID property graph (Rust rayon, Kotoba/Datomic Iceberg). Tracks crawl-NN-YYYY/segment-MMMM ingest progress.",
         "operationId": "com.etzhayyim.commonCrawl.ingestSegment",
         "requestBody": {
           "required": true,

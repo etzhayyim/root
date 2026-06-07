@@ -10,10 +10,10 @@ last_verified: 2026-05-14
 
 # ADR-2605142300 — Giemon Kaigo 介護応用プラットフォーム
 
-**Status**: Accepted  
-**Date**: 2026-05-14  
-**Authors**: Jun Kawasaki  
-**Supersedes**: —  
+**Status**: Accepted
+**Date**: 2026-05-14
+**Authors**: Jun Kawasaki
+**Supersedes**: —
 **Amends**: ADR-2605142200 (Giemon ブランド体系に Kaigo 応用を追加)
 
 ---

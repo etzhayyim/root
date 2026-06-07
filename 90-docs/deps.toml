@@ -36,7 +36,7 @@ kind = "adr"
 tier = "production"
 flags = ["editable"]
 status = "accepted"
-description = "JP tax/fiscal money-flow reverse topology; canonical implementation uses Kysely/RisingWave vertex_, edge_, mv_ schema, not SQLite."
+description = "JP tax/fiscal money-flow reverse topology; canonical implementation uses Kysely/Kotoba/Datomic vertex_, edge_, mv_ schema, not SQLite."
 related = [
   "30-graph/graph-schema/migrations/20260427070000_jp_fiscal_graph.ts",
   "60-apps/etzhayyim-project-states/data/jp_fiscal/sources.json",
@@ -136,7 +136,7 @@ description = "BigQuery public-dataset P2 projection design: per-dataset adapter
 related = [
   "90-docs/adr/2605092700-bigquery-public-data-ingest-cost-topology.md",
   "90-docs/adr/0036-worker-direct-hyperdrive-persistence.md",
-  "90-docs/adr/0044-risingwave-udf-language-strategy.md",
+  "90-docs/adr/0044-kotoba-udf-language-strategy.md",
   "90-docs/260425-ingest-orchestration-zeebe-python-k8s-mcp-design.md",
   "30-graph/deps.toml",
   "30-graph/graph-schema/sql_migrations/20260509600000_vertex_public_dataset_catalog.up.sql",
@@ -153,7 +153,7 @@ kind = "adr"
 tier = "production"
 flags = ["editable"]
 status = "active"
-description = "Authoritative CF Worker thin-edge boundary: T1/T2 business logic runs in BPMN/Zeebe/Python worker or RisingWave UDF; Python worker pods use FastAPI + Granian for K8s-internal HTTP surfaces only; maps.etzhayyim.com cutover verified 2026-04-30 with 162 BPMN-backed business commands and 35 retained edge exceptions."
+description = "Authoritative CF Worker thin-edge boundary: T1/T2 business logic runs in BPMN/Zeebe/Python worker or Kotoba/Datomic UDF; Python worker pods use FastAPI + Granian for K8s-internal HTTP surfaces only; maps.etzhayyim.com cutover verified 2026-04-30 with 162 BPMN-backed business commands and 35 retained edge exceptions."
 related = [
   "60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts",
   "20-actors/magatama/py/src/pymagatama/ingest/maps_collection.py",
@@ -168,7 +168,7 @@ kind = "adr"
 tier = "production"
 flags = ["editable"]
 status = "active"
-description = "Authoritative prohibition on CF Worker direct RisingWave/Hyperdrive access. 2026-05-14 update records SvelteKit thin-BFF inventory, analytics-dashboard read-only CF Analytics exception, and PDS canary 522 rollback gate."
+description = "Authoritative prohibition on CF Worker direct Kotoba/Datomic/Hyperdrive access. 2026-05-14 update records SvelteKit thin-BFF inventory, analytics-dashboard read-only CF Analytics exception, and PDS canary 522 rollback gate."
 related = [
   "90-docs/adr/2605111300-pds-to-pod-bun-container.md",
   "50-infra/cloudflare/workers/analytics-dashboard",
@@ -196,7 +196,7 @@ kind = "adr"
 tier = "production"
 flags = ["editable"]
 status = "active"
-description = "World Monitor-style resident intelligence graph facade for maps.etzhayyim.com: public XRPC product coverage 100%, pod-side maps LangServer reads, dashboard cache, and no new RisingWave DDL."
+description = "World Monitor-style resident intelligence graph facade for maps.etzhayyim.com: public XRPC product coverage 100%, pod-side maps LangServer reads, dashboard cache, and no new Kotoba/Datomic DDL."
 related = [
   "90-docs/maps-worldmonitor-parity.md",
   "20-actors/magatama/py/src/pymagatama/worker_api.py",
@@ -323,7 +323,7 @@ description = "Session record for AFG/ZAF state Worker retirement, ZAF coverage 
 related = [
   "90-docs/adr/2604262000-edge-thin-app-runtime-k8s-zeebe-registry.md",
   "90-docs/adr/2604261000-mcp-registry-via-kysely-schema.md",
-  "90-docs/adr/2604261900-risingwave-ddl-backfill-path-topology.md",
+  "90-docs/adr/2604261900-kotoba-ddl-backfill-path-topology.md",
 ]
 
 [files."260507-public-malak-smoke-runbook.md"]

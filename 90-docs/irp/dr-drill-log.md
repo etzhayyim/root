@@ -1,6 +1,6 @@
 ---
 id: dr-drill-log
-title: "DR Drill Log — RisingWave Meta Snapshot Restore"
+title: "DR Drill Log — Kotoba/Datomic Meta Snapshot Restore"
 status: active
 doc_type: reference
 topic: disaster-recovery

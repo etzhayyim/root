@@ -28,7 +28,7 @@ import { createGunzip } from "node:zlib";
 import { pipeline } from "node:stream/promises";
 import { Readable } from "node:stream";
 
-const RW_CONN   = process.env.RW_CONN ?? "postgresql://root@127.0.0.1:14566/dev?sslmode=disable";
+const KOTOBA_URL   = process.env.KOTOBA_URL ?? "postgresql://root@127.0.0.1:14566/dev?sslmode=disable";
 const RECRUIT_DID = "did:web:recruit.etzhayyim.com";
 const COLLECTION  = "com.etzhayyim.apps.recruit.jobPosting";
 
@@ -229,7 +229,7 @@ async function pool() {
   const { default: pg } = await import(
     "/Users/junkawasaki/github/etzhayyim-root/30-graph/graph-schema/node_modules/pg/lib/index.js"
   );
-  _pool = new pg.Pool({ connectionString: RW_CONN, max: 2, statement_timeout: 60_000 });
+  _pool = new pg.Pool({ connectionString: KOTOBA_URL, max: 2, statement_timeout: 60_000 });
   return _pool;
 }
 async function query(sql, vals = []) { const db = await pool(); return db.query(sql, vals); }

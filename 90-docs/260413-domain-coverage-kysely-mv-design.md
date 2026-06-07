@@ -2,7 +2,7 @@
 
 ## Goal
 
-`etzhayyim coverage domain` の live reconciliation を、`vertex_did` / `vertex_authority_*` への逐次 `COUNT(*)` / `COUNT(DISTINCT)` ではなく、RisingWave の materialized view 経由で安定・低レイテンシに取得する。
+`etzhayyim coverage domain` の live reconciliation を、`vertex_did` / `vertex_authority_*` への逐次 `COUNT(*)` / `COUNT(DISTINCT)` ではなく、Kotoba/Datomic の materialized view 経由で安定・低レイテンシに取得する。
 
 狙いは 3 つ:
 

@@ -7210,7 +7210,7 @@
     },
     "k4g4m1db": {
       "tier": "T3",
-      "notes": "Graph DB Worker (SQL→RisingWave)",
+      "notes": "Graph DB Worker (SQL→Kotoba/Datomic)",
       "assigned_at": "2026-04-09T01:03:22Z",
       "assigned_by": "auto"
     },

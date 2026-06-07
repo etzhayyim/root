@@ -96,15 +96,15 @@ cat /tmp/manual_migrations.txt | wc -l
 
 ### Phase 1: Staging Environment Preparation (2h)
 
-**Prerequisites**: Access to RisingWave staging cluster, kubectl, psql client
+**Prerequisites**: Access to Kotoba/Datomic staging cluster, kubectl, psql client
 
 #### 1.1 Backup Current State
 
 ```bash
 # Take snapshot of current schema
-RW_HOST=risingwave-staging.etzhayyim.com
+RW_HOST=kotoba-staging.etzhayyim.com
 RW_PORT=4566
-DATABASE_URL="postgresql://etzhayyim_user:${RW_PASSWORD}@${RW_HOST}:${RW_PORT}/etzhayyim"
+DATABASE_URL="postgresql://etzhayyim_user:EXAMPLE_PASSWORD@${RW_HOST}:${RW_PORT}/etzhayyim" # EXAMPLE
 
 # Dump current migration state
 psql "$DATABASE_URL" -c "\copy kysely_migration TO /tmp/kysely_migration_backup_$(date +%Y%m%d_%H%M%S).csv CSV"
@@ -119,7 +119,7 @@ EOF
 echo "Backed up to /tmp/kysely_migration_backup_*.csv and /tmp/row_counts_before.txt"
 ```
 
-#### 1.2 Configure RisingWave System Parameters (Stability Tuning)
+#### 1.2 Configure Kotoba/Datomic System Parameters (Stability Tuning)
 
 ```bash
 # Apply MV backfill safety tuning (persistent across restarts)
@@ -165,14 +165,14 @@ pnpm build  # or tsc
 
 ```bash
 # Check RW cluster state (should show "Running")
-kubectl -n risingwave get pods -o wide | grep risingwave-
+kubectl -n kotoba get pods -o wide | grep kotoba-
 
 # Check compute memory usage
-kubectl top pod -n risingwave | grep compute
+kubectl top pod -n kotoba | grep compute
 
 # Confirm Hyperdrive connection is alive
 psql "$DATABASE_URL" -c "SELECT version();"
-# Expected: "RisingWave X.Y.Z"
+# Expected: "Kotoba/Datomic X.Y.Z"
 ```
 
 #### 2.2 Apply Migrations **Serially** (Critical for stability)
@@ -180,7 +180,7 @@ psql "$DATABASE_URL" -c "SELECT version();"
 ```bash
 cd 30-graph/graph-schema
 
-export DATABASE_URL="postgresql://etzhayyim_user:${RW_PASSWORD}@risingwave-staging.etzhayyim.com:4566/etzhayyim"
+export DATABASE_URL="postgresql://etzhayyim_user:EXAMPLE_PASSWORD@kotoba-staging.etzhayyim.com:4566/etzhayyim" # EXAMPLE
 export MIGRATION_DIR="./migrations"
 
 # Create a wrapper script to apply one migration at a time
@@ -254,13 +254,13 @@ chmod +x /tmp/apply_migrations.sh
 
 ```bash
 # Watch RW cluster CPU/memory
-watch -n 5 'kubectl top pod -n risingwave | grep -E "compute|NAME" | head -5'
+watch -n 5 'kubectl top pod -n kotoba | grep -E "compute|NAME" | head -5'
 
 # Watch checkpoint progress (every 2 min)
-watch -n 120 "psql postgresql://etzhayyim_user:\${RW_PASSWORD}@risingwave-staging.etzhayyim.com:4566/etzhayyim -c 'SHOW jobs;' | head -30"
+watch -n 120 "psql postgresql://etzhayyim_user:EXAMPLE_PASSWORD@kotoba-staging.etzhayyim.com:4566/etzhayyim -c 'SHOW jobs;' | head -30" # EXAMPLE
 
 # Monitor S3 write timeouts (in RW logs)
-kubectl logs -n risingwave -l role=compute -f 2>&1 | grep -i "timeout\|error\|write"
+kubectl logs -n kotoba -l role=compute -f 2>&1 | grep -i "timeout\|error\|write"
 ```
 
 #### 2.4 Post-Migration Verification
@@ -389,7 +389,7 @@ psql "$DATABASE_URL" \
 #### 4.1 Prod Backup & Baseline
 
 ```bash
-export DATABASE_URL="postgresql://etzhayyim_user:${RW_PROD_PASSWORD}@risingwave.etzhayyim.com:4566/etzhayyim"
+export DATABASE_URL="postgresql://etzhayyim_user:EXAMPLE_PASSWORD@kotoba.etzhayyim.com:4566/etzhayyim" # EXAMPLE
 
 # Full schema backup
 pg_dump -s "$DATABASE_URL" > /tmp/schema_backup_$(date +%Y%m%d_%H%M%S).sql
@@ -405,8 +405,8 @@ ORDER BY tablename;
 EOF
 
 # Store backups securely
-aws s3 cp /tmp/schema_backup_*.sql s3://etzhayyim-backups/risingwave/$(date +%Y/%m/%d)/
-aws s3 cp /tmp/prod_migrations_backup.csv s3://etzhayyim-backups/risingwave/$(date +%Y/%m/%d)/
+aws s3 cp /tmp/schema_backup_*.sql s3://etzhayyim-backups/kotoba/$(date +%Y/%m/%d)/
+aws s3 cp /tmp/prod_migrations_backup.csv s3://etzhayyim-backups/kotoba/$(date +%Y/%m/%d)/
 
 echo "✓ Backups uploaded to S3"
 ```
@@ -415,7 +415,7 @@ echo "✓ Backups uploaded to S3"
 
 ```bash
 # Check RW cluster state
-kubectl -n risingwave get pods -o wide | grep -E "compute|NAME"
+kubectl -n kotoba get pods -o wide | grep -E "compute|NAME"
 
 # Check PDS & AppView are responding
 curl -s https://atproto.etzhayyim.com/xrpc/com.atproto.server.describeServer | jq '.availableUserDomains | length'
@@ -458,7 +458,7 @@ Changes:
 - 649 concordance systems
 
 Monitoring:
-- RW cluster: https://monitoring.etzhayyim.com/risingwave
+- RW cluster: https://monitoring.etzhayyim.com/kotoba
 - PDS health: https://atproto.etzhayyim.com/xrpc/com.atproto.server.describeServer
 - Alerts: Slack #platform-deploys
 
@@ -472,7 +472,7 @@ slack --channel platform-deploys < /tmp/deploy_announcement.txt
 #### 5.2 Apply Migrations (Using Same Serial Script)
 
 ```bash
-export DATABASE_URL="postgresql://etzhayyim_user:${RW_PROD_PASSWORD}@risingwave.etzhayyim.com:4566/etzhayyim"
+export DATABASE_URL="postgresql://etzhayyim_user:EXAMPLE_PASSWORD@kotoba.etzhayyim.com:4566/etzhayyim" # EXAMPLE
 
 cd /repo
 git fetch origin codex/etzhayyim-mv-live-reads
@@ -494,12 +494,12 @@ sleep 30
 
 ```bash
 # Terminal 1: Watch RW logs
-kubectl logs -n risingwave -l role=compute -f 2>&1 | tee /tmp/rw_logs_$(date +%Y%m%d_%H%M%S).log | grep -i "error\|timeout\|checkpoint"
+kubectl logs -n kotoba -l role=compute -f 2>&1 | tee /tmp/rw_logs_$(date +%Y%m%d_%H%M%S).log | grep -i "error\|timeout\|checkpoint"
 
 # Terminal 2: Query health checks every 30 sec
 for i in {1..600}; do
   echo "=== Check $i ($(date)) ==="
-  psql postgresql://etzhayyim_user:${RW_PROD_PASSWORD}@risingwave.etzhayyim.com:4566/etzhayyim \
+  psql postgresql://etzhayyim_user:EXAMPLE_PASSWORD@kotoba.etzhayyim.com:4566/etzhayyim \ # EXAMPLE
     -c "SELECT COUNT(*) as migrations_applied FROM kysely_migration WHERE migration LIKE '202604%';"
 
   # Check PDS responding
@@ -647,7 +647,7 @@ EOF
 cat /tmp/migration_${failed_migration}.log
 
 # Check RW compute logs for errors
-kubectl logs -n risingwave <compute-pod> --tail=200 | grep -i error
+kubectl logs -n kotoba <compute-pod> --tail=200 | grep -i error
 
 # Verify cluster recovered
 psql "$DATABASE_URL" -c "SELECT COUNT(*) FROM kysely_migration;"
@@ -692,13 +692,13 @@ aws s3 cp /tmp/incident.txt s3://etzhayyim-incidents/$(date +%Y/%m/%d)/
 
 ```bash
 # Staging
-export DATABASE_URL="postgresql://etzhayyim_user:${RW_STAGING_PASSWORD}@risingwave-staging.etzhayyim.com:4566/etzhayyim"
-export RW_HOST=risingwave-staging.etzhayyim.com
+export DATABASE_URL="postgresql://etzhayyim_user:EXAMPLE_PASSWORD@kotoba-staging.etzhayyim.com:4566/etzhayyim" # EXAMPLE
+export RW_HOST=kotoba-staging.etzhayyim.com
 export etzhayyim_TEST_TOKEN="<staging-bearer-token>"
 
 # Production
-export DATABASE_URL="postgresql://etzhayyim_user:${RW_PROD_PASSWORD}@risingwave.etzhayyim.com:4566/etzhayyim"
-export RW_HOST=risingwave.etzhayyim.com
+export DATABASE_URL="postgresql://etzhayyim_user:EXAMPLE_PASSWORD@kotoba.etzhayyim.com:4566/etzhayyim" # EXAMPLE
+export RW_HOST=kotoba.etzhayyim.com
 export etzhayyim_PROD_TOKEN="<prod-bearer-token>"
 ```
 
@@ -713,7 +713,7 @@ force_two_phase_agg = true        -- Already set system-wide (safe default)
 
 ### Monitoring Dashboards
 
-- RW Cluster: https://monitoring.etzhayyim.com/risingwave
+- RW Cluster: https://monitoring.etzhayyim.com/kotoba
 - PDS Health: https://monitoring.etzhayyim.com/pds
 - AppView: https://monitoring.etzhayyim.com/appview
 - Alerts: Slack `#platform-alerts`

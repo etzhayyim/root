@@ -102,8 +102,8 @@ demands:
 | Concern | Allowed | Observed (2026-05-22) |
 |---|---|---|
 | Identity | `did:web:*.etzhayyim.com` + `did:plc:*` + WebAuthn passkey + Adherent SBT | 100% of corpus is `did:web:*.etzhayyim.com`. `query=etzhayyim` returns **0 actors**. `totalActors` claimed by the AppView: **1,311,666,602** — all etzhayyim.com. |
-| State | AT Protocol MST + IPFS + Base L2 anchor | Kysely + HyperdriveDialect → RisingWave (centralized). MST not used, IPFS not used, Base L2 anchor not used. |
-| ADR-2605111200 guard | CF Worker DB I/O must route through AgentGateway MCP → pod-side LangServer | Guard temporarily softened (`throw` → `console.warn`). CF Workers (PDS, AppView) now hold direct RisingWave connections via HyperdriveDialect, which the ADR explicitly prohibits. |
+| State | AT Protocol MST + IPFS + Base L2 anchor | Kysely + HyperdriveDialect → Kotoba/Datomic (centralized). MST not used, IPFS not used, Base L2 anchor not used. |
+| ADR-2605111200 guard | CF Worker DB I/O must route through AgentGateway MCP → pod-side LangServer | Guard temporarily softened (`throw` → `console.warn`). CF Workers (PDS, AppView) now hold direct Kotoba/Datomic connections via HyperdriveDialect, which the ADR explicitly prohibits. |
 | Bundle ad-tech | First-party religious-corp internal-promo only | yoro bundle (deployed) still contains GA4 / AdSense / ExoClick / Media.net code paths. URLs / IDs are now patched to noop hosts (`127.0.0.1.invalid` / `G-NOOP-DISA`) so no traffic leaves the user agent, but the code is still present and a future rebuild from clean source is required to fully comply. |
 
 ### Acceptance of the transient state
@@ -123,7 +123,7 @@ exit criteria. The violations exist because:
   ADR-2605111200.
 - Cutover-grade DID re-registration from `did:web:*.etzhayyim.com` to
   `did:web:*.etzhayyim.com` requires a per-actor signing-key-rotation +
-  `alsoKnownAs` bidirectional pointer + RisingWave migration. The 1.3 billion
+  `alsoKnownAs` bidirectional pointer + Kotoba/Datomic migration. The 1.3 billion
   row count makes this a deliberate operation, not a side effect.
 
 ## Consequences
@@ -165,7 +165,7 @@ exit criteria. The violations exist because:
    `magatama-host-sdk` for `_cfWorkerGuardWarned` returns no matches.
 2. **MST + IPFS + Base L2 substrate live.** `mst-projector` writes the canonical
    MST stream, `ipfs-pinner` pins the resulting blocks, `l2-anchor-contract`
-   anchors the root CID. RisingWave becomes a read-side projection only.
+   anchors the root CID. Kotoba/Datomic becomes a read-side projection only.
 3. **etzhayyim.com DID corpus exists.** At minimum the first-party religious-corp
    actors (council seats, public-fund signers, etc.) are
    `did:web:*.etzhayyim.com`. Migration plan for the broader etzhayyim.com corpus is
@@ -199,7 +199,7 @@ exit criteria. The violations exist because:
   `caaa05eb9` (did-web apex /xrpc/* routes),
   `b3e4ebf18` (GET → POST normalization).
 - ADR-2605091900 — Flowering / Fruiting Surface (yoro openness framing).
-- ADR-2605111200 — CF Worker → RisingWave prohibition; the guard this ADR
+- ADR-2605111200 — CF Worker → Kotoba/Datomic prohibition; the guard this ADR
   temporarily softens.
 - ADR-2605171900 — yoro AppView migration to etzhayyim (Stages 1+2 done; this
   session unblocked Stage 3 visibility).

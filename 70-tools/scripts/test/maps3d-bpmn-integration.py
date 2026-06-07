@@ -15,7 +15,7 @@ Asserts:
 
 Env:
   BPMN_DISPATCHER_URL  default https://dispatcher.etzhayyim.com
-  RW_URL               default: macOS Keychain `etzhayyim.rw / ROOT_URL`
+  KOTOBA_URL               default: macOS Keychain `etzhayyim.rw / ROOT_URL`
   TILE_H3              default: synthetic test tile `8a2a1072b59ffff`
   WAIT_SECS            default 600 (10 min — covers stub handler runtime)
 
@@ -49,7 +49,7 @@ ACTOR_TAG = "sys.test.maps3d-integration"
 
 
 def rw_url() -> str:
-    if url := os.environ.get("RW_URL"):
+    if url := os.environ.get("KOTOBA_URL"):
         return url
     try:
         out = subprocess.check_output(
@@ -60,7 +60,7 @@ def rw_url() -> str:
             return out
     except (subprocess.CalledProcessError, FileNotFoundError):
         pass
-    raise SystemExit("RW_URL not in env and not in Keychain (etzhayyim.rw/ROOT_URL)")
+    raise SystemExit("KOTOBA_URL not in env and not in Keychain (etzhayyim.rw/ROOT_URL)")
 
 
 def http(method: str, path: str, body: dict | None = None, timeout: float = 60.0) -> tuple[int, dict | str]:

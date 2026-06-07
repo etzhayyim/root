@@ -23,6 +23,7 @@ Pyzeebe task types registered via register():
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import datetime as _dt
 import hashlib
@@ -33,7 +34,6 @@ import time
 import uuid
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
 
 LOG = logging.getLogger("karma")
 
@@ -210,8 +210,10 @@ async def task_karma_edge_persist(**kwargs: Any) -> dict[str, Any]:
     today_iso = _dt.datetime.now(tz=_dt.UTC).date().isoformat()
     created_at = _now_ts()
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             """
             INSERT INTO edge_karma_dependency (
                 edge_id, src_vid, dst_vid, _seq, created_date, sensitivity_ord, owner_did,
@@ -257,17 +259,19 @@ async def task_karma_organism_dissolve(**kwargs: Any) -> dict[str, Any]:
     dissolved_at = _now_ts()
     today_iso = _dt.datetime.now(tz=_dt.UTC).date().isoformat()
 
-    with sync_cursor() as cur:
+    if True:
+
+        client = get_kotoba_client()
         # Lookup existing organism pattern
-        cur.execute(
+        _res = client.q(
             "SELECT vertex_id, santana_root_cid FROM vertex_organism_pattern WHERE did = %s LIMIT 1",
             (did,),
         )
-        row = cur.fetchone()
+        row = (_res[0] if _res else None)
 
         if row:
             vertex_id, santana_root_cid = row
-            cur.execute(
+            _res = client.q(
                 """
                 UPDATE vertex_organism_pattern
                 SET dissolved_at = %s,
@@ -282,7 +286,7 @@ async def task_karma_organism_dissolve(**kwargs: Any) -> dict[str, Any]:
             # First-time observation; insert as already-dissolved (rare but possible)
             santana_root_cid = f"santana-{hashlib.sha256(did.encode()).hexdigest()[:32]}"
             vertex_id = f"organism-{santana_root_cid}"
-            cur.execute(
+            _res = client.q(
                 """
                 INSERT INTO vertex_organism_pattern (
                     vertex_id, _seq, created_date, sensitivity_ord, owner_did,
@@ -305,7 +309,7 @@ async def task_karma_organism_dissolve(**kwargs: Any) -> dict[str, Any]:
             )
 
         # Karma.lean N2 edge_outlives_endpoint: count surviving edges
-        cur.execute(
+        _res = client.q(
             """
             SELECT count(*)
             FROM edge_karma_dependency
@@ -313,7 +317,7 @@ async def task_karma_organism_dissolve(**kwargs: Any) -> dict[str, Any]:
             """,
             (did, did),
         )
-        edges_persisting = int(cur.fetchone()[0])
+        edges_persisting = int((_res[0] if _res else None)[0])
 
     return {
         "santanaRootCid": santana_root_cid,
@@ -340,8 +344,10 @@ async def task_karma_witness_persist(**kwargs: Any) -> dict[str, Any]:
     # Witness DID is the agent invoking; not always available, leave NULL-safe
     witness_did = kwargs.get("witnessDid") or "unknown"
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             """
             INSERT INTO vertex_karma_witness (
                 vertex_id, _seq, created_date, sensitivity_ord, owner_did,
@@ -371,12 +377,13 @@ async def task_karma_witness_persist(**kwargs: Any) -> dict[str, Any]:
 
 async def task_karma_ipfs_find_unpinned(**kwargs: Any) -> dict[str, Any]:
     batch_size = int(kwargs.get("batchSize") or 200)
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         # RW psycopg3 no-param LIMIT (rw-psycopg3-no-param-limit convention)
-        cur.execute(
+        _res = client.q(
             f"SELECT edge_id FROM mv_karma_unpinned ORDER BY ts_ms ASC LIMIT {int(batch_size)}"
         )
-        rows = cur.fetchall()
+        rows = _res
     edge_ids = [r[0] for r in rows]
     return {"edgeIds": edge_ids, "count": len(edge_ids)}
 
@@ -408,8 +415,9 @@ async def task_karma_ipfs_pin_batch(**kwargs: Any) -> dict[str, Any]:
         return {"pinned": 0, "failed": 0}
 
     placeholders = ",".join(["%s"] * len(edge_ids))
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             f"""
             SELECT edge_id, source_did_at_event, target_did_at_event,
                    axis, tier, magnitude, direction, victim_vul, ts_ms,
@@ -419,7 +427,7 @@ async def task_karma_ipfs_pin_batch(**kwargs: Any) -> dict[str, Any]:
             """,
             tuple(edge_ids),
         )
-        rows = cur.fetchall()
+        rows = _res
 
         services = ("selfHost", "pinata", "filebase", "web3storage")
         for row in rows:
@@ -446,7 +454,7 @@ async def task_karma_ipfs_pin_batch(**kwargs: Any) -> dict[str, Any]:
                 if ok and not cid:
                     cid = c
                 if ok:
-                    cur.execute(
+                    _res = client.q(
                         """
                         INSERT INTO vertex_karma_ipfs_pin (
                             vertex_id, _seq, created_date, sensitivity_ord, owner_did,
@@ -466,7 +474,7 @@ async def task_karma_ipfs_pin_batch(**kwargs: Any) -> dict[str, Any]:
                     )
 
             if cid:
-                cur.execute(
+                _res = client.q(
                     """
                     UPDATE edge_karma_dependency
                     SET ipfs_cid = %s, ipfs_pinned_at = %s
@@ -486,8 +494,9 @@ async def task_karma_ipfs_pin_batch(**kwargs: Any) -> dict[str, Any]:
 
 async def task_karma_atrepo_find_unlifted(**kwargs: Any) -> dict[str, Any]:
     batch_size = int(kwargs.get("batchSize") or 500)
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             f"""
             SELECT edge_id, source_did_at_event, target_did_at_event,
                    axis, tier, magnitude, direction, victim_vul,
@@ -499,7 +508,7 @@ async def task_karma_atrepo_find_unlifted(**kwargs: Any) -> dict[str, Any]:
             LIMIT {int(batch_size)}
             """
         )
-        rows = cur.fetchall()
+        rows = _res
 
     edges = []
     for r in rows:
@@ -536,7 +545,8 @@ async def task_karma_atrepo_lift_batch(**kwargs: Any) -> dict[str, Any]:
 
     # Stub: in production, dispatch via generic.pds.dispatch (ADR-2604282300
     # §Addendum 2026-04-30 K8s-internal routing). Here we just stamp atrepo_uri.
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for e in edges:
             edge_id = e.get("edgeId")
             if not edge_id:
@@ -546,7 +556,7 @@ async def task_karma_atrepo_lift_batch(**kwargs: Any) -> dict[str, Any]:
             tid = f"karma-{ts_ms}-{uuid.uuid4().hex[:8]}"
             atrepo_uri = f"at://{KARMA_DID}/com.etzhayyim.apps.karma.dependency/{tid}"
             try:
-                cur.execute(
+                _res = client.q(
                     "UPDATE edge_karma_dependency SET atrepo_uri = %s WHERE edge_id = %s",
                     (atrepo_uri, edge_id),
                 )
@@ -566,8 +576,10 @@ async def task_karma_anchor_compute_root(**kwargs: Any) -> dict[str, Any]:
     window_end_ms = now_ms
     window_start_ms = now_ms - 24 * 60 * 60 * 1000
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             """
             SELECT ipfs_cid
             FROM edge_karma_dependency
@@ -578,7 +590,7 @@ async def task_karma_anchor_compute_root(**kwargs: Any) -> dict[str, Any]:
             """,
             (window_start_ms, window_end_ms),
         )
-        rows = cur.fetchall()
+        rows = _res
 
     cids = [r[0] for r in rows if r[0]]
     edge_count = len(cids)
@@ -710,9 +722,10 @@ async def task_karma_anchor_submit_tx(**kwargs: Any) -> dict[str, Any]:
         block_number = int(time.time())
 
     # 4) Persist user op log (regardless of path)
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         try:
-            cur.execute(
+            _res = client.q(
                 """
                 INSERT INTO vertex_karma_user_op_log (
                     vertex_id, _seq, created_date, sensitivity_ord, owner_did,
@@ -755,8 +768,10 @@ async def task_karma_anchor_submit_tx(**kwargs: Any) -> dict[str, Any]:
     anchor_id = f"anchor-{window_end_ms}-{(tx_hash or user_op_hash)[2:14]}"
     anchored_at = _now_ts()
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             """
             INSERT INTO vertex_karma_blockchain_anchor (
                 vertex_id, _seq, created_date, sensitivity_ord, owner_did,
@@ -783,7 +798,7 @@ async def task_karma_anchor_submit_tx(**kwargs: Any) -> dict[str, Any]:
 
         # Backlink anchor_id onto the user_op row.
         try:
-            cur.execute(
+            _res = client.q(
                 """
                 UPDATE vertex_karma_user_op_log
                 SET anchor_id = %s
@@ -812,8 +827,10 @@ async def task_karma_anchor_backlink_edges(**kwargs: Any) -> dict[str, Any]:
     window_end_ms = int(kwargs["windowEndMs"])
     anchored_at = _now_ts()
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             """
             UPDATE edge_karma_dependency
             SET blockchain_anchor_id = %s,
@@ -825,7 +842,7 @@ async def task_karma_anchor_backlink_edges(**kwargs: Any) -> dict[str, Any]:
             (anchor_id, anchored_at, window_start_ms, window_end_ms),
         )
         # RisingWave UPDATE rowcount may be unreliable; recount instead.
-        cur.execute(
+        _res = client.q(
             """
             SELECT count(*)
             FROM edge_karma_dependency
@@ -833,7 +850,7 @@ async def task_karma_anchor_backlink_edges(**kwargs: Any) -> dict[str, Any]:
             """,
             (anchor_id,),
         )
-        updated = int(cur.fetchone()[0])
+        updated = int((_res[0] if _res else None)[0])
 
     return {"updated": updated}
 
@@ -843,8 +860,9 @@ async def task_karma_anchor_backlink_edges(**kwargs: Any) -> dict[str, Any]:
 
 async def task_karma_ipfs_verify_random(**kwargs: Any) -> dict[str, Any]:
     sample_size = int(kwargs.get("sampleSize") or 100)
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             f"""
             SELECT edge_id, ipfs_cid
             FROM edge_karma_dependency
@@ -853,7 +871,7 @@ async def task_karma_ipfs_verify_random(**kwargs: Any) -> dict[str, Any]:
             LIMIT {int(sample_size)}
             """
         )
-        rows = cur.fetchall()
+        rows = _res
 
     sampled = len(rows)
     failures = 0
@@ -879,27 +897,29 @@ async def task_karma_coverage_snapshot(**kwargs: Any) -> dict[str, Any]:
     now_ms = _now_ms()
     cutoff_24h_ms = now_ms - 24 * 60 * 60 * 1000
 
-    with sync_cursor() as cur:
-        cur.execute("SELECT count(*) FROM edge_karma_dependency")
-        edges_total = int(cur.fetchone()[0])
+    if True:
 
-        cur.execute(
+        client = get_kotoba_client()
+        _res = client.q("SELECT count(*) FROM edge_karma_dependency")
+        edges_total = int((_res[0] if _res else None)[0])
+
+        _res = client.q(
             "SELECT count(*) FROM edge_karma_dependency WHERE ts_ms >= %s",
             (cutoff_24h_ms,),
         )
-        edges_last_24h = int(cur.fetchone()[0])
+        edges_last_24h = int((_res[0] if _res else None)[0])
 
-        cur.execute(
+        _res = client.q(
             "SELECT count(*) FROM vertex_organism_pattern WHERE dissolved_at IS NULL"
         )
-        organisms_active = int(cur.fetchone()[0])
+        organisms_active = int((_res[0] if _res else None)[0])
 
-        cur.execute(
+        _res = client.q(
             "SELECT count(*) FROM vertex_organism_pattern WHERE dissolved_at IS NOT NULL"
         )
-        organisms_dissolved = int(cur.fetchone()[0])
+        organisms_dissolved = int((_res[0] if _res else None)[0])
 
-        cur.execute(
+        _res = client.q(
             """
             SELECT count(*) FROM edge_karma_dependency
             WHERE ipfs_cid IS NOT NULL
@@ -907,25 +927,25 @@ async def task_karma_coverage_snapshot(**kwargs: Any) -> dict[str, Any]:
               AND blockchain_anchor_id IS NOT NULL
             """
         )
-        pin_complete = int(cur.fetchone()[0])
+        pin_complete = int((_res[0] if _res else None)[0])
 
-        cur.execute(
+        _res = client.q(
             """
             SELECT count(*) FROM edge_karma_dependency
             WHERE ipfs_cid IS NULL AND atrepo_uri IS NULL AND blockchain_anchor_id IS NULL
             """
         )
-        pin_unstarted = int(cur.fetchone()[0])
+        pin_unstarted = int((_res[0] if _res else None)[0])
 
         pin_partial = max(edges_total - pin_complete - pin_unstarted, 0)
 
-        cur.execute(
+        _res = client.q(
             "SELECT count(*) FROM mv_karma_floor_violations WHERE ts_ms >= %s",
             (cutoff_24h_ms,),
         )
-        floor_violations_24h = int(cur.fetchone()[0])
+        floor_violations_24h = int((_res[0] if _res else None)[0])
 
-        cur.execute(
+        _res = client.q(
             """
             SELECT anchored_at, tx_hash
             FROM vertex_karma_blockchain_anchor
@@ -933,7 +953,7 @@ async def task_karma_coverage_snapshot(**kwargs: Any) -> dict[str, Any]:
             LIMIT 1
             """
         )
-        anchor_row = cur.fetchone()
+        anchor_row = (_res[0] if _res else None)
         last_anchor_at_ms = 0
         last_anchor_tx_hash = ""
         if anchor_row:
@@ -947,7 +967,7 @@ async def task_karma_coverage_snapshot(**kwargs: Any) -> dict[str, Any]:
             last_anchor_tx_hash = anchor_row[1] or ""
 
         # Per-axis counts
-        cur.execute(
+        _res = client.q(
             """
             SELECT axis, count(*)
             FROM edge_karma_dependency
@@ -955,7 +975,7 @@ async def task_karma_coverage_snapshot(**kwargs: Any) -> dict[str, Any]:
             """
         )
         axes = {a: 0 for a in VALID_AXES}
-        for axis_row in cur.fetchall():
+        for axis_row in _res:
             axes[axis_row[0]] = int(axis_row[1])
 
     return {
@@ -984,9 +1004,11 @@ async def task_karma_rebirth_precheck(**kwargs: Any) -> dict[str, Any]:
     did = kwargs["did"]
     new_did = kwargs["newDid"]
 
-    with sync_cursor() as cur:
+    if True:
+
+        client = get_kotoba_client()
         # 1. Old organism must be active.
-        cur.execute(
+        _res = client.q(
             """
             SELECT vertex_id, santana_root_cid, dissolved_at
             FROM vertex_organism_pattern
@@ -996,7 +1018,7 @@ async def task_karma_rebirth_precheck(**kwargs: Any) -> dict[str, Any]:
             """,
             (did,),
         )
-        old_row = cur.fetchone()
+        old_row = (_res[0] if _res else None)
         if old_row and old_row[2] is not None:
             return {
                 "eligible": False,
@@ -1006,11 +1028,11 @@ async def task_karma_rebirth_precheck(**kwargs: Any) -> dict[str, Any]:
         old_santana = old_row[1] if old_row else ""
 
         # 2. New DID must not already exist.
-        cur.execute(
+        _res = client.q(
             "SELECT count(*) FROM vertex_organism_pattern WHERE did = %s",
             (new_did,),
         )
-        if int(cur.fetchone()[0]) > 0:
+        if int((_res[0] if _res else None)[0]) > 0:
             return {
                 "eligible": False,
                 "oldSantanaRootCid": old_santana,
@@ -1019,14 +1041,14 @@ async def task_karma_rebirth_precheck(**kwargs: Any) -> dict[str, Any]:
 
         # 3. Floor debt: any unresolved Tier=Floor harm authored by this did?
         # (Phase K0 commitment: floor debt blocks rebirth absolutely.)
-        cur.execute(
+        _res = client.q(
             """
             SELECT count(*) FROM mv_karma_floor_violations
             WHERE source_did_at_event = %s
             """,
             (did,),
         )
-        if int(cur.fetchone()[0]) > 0:
+        if int((_res[0] if _res else None)[0]) > 0:
             return {
                 "eligible": False,
                 "oldSantanaRootCid": old_santana,
@@ -1075,8 +1097,9 @@ async def task_karma_rebirth_sever_follows(**kwargs: Any) -> dict[str, Any]:
     today_iso = _dt.datetime.now(tz=_dt.UTC).date().isoformat()
 
     # 1) Discover follows in graph
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             """
             SELECT uri, repo, ts_ms,
                    COALESCE(value_json, '') AS value_json
@@ -1088,9 +1111,9 @@ async def task_karma_rebirth_sever_follows(**kwargs: Any) -> dict[str, Any]:
             """,
             (did,),
         )
-        outgoing = cur.fetchall()
+        outgoing = _res
 
-        cur.execute(
+        _res = client.q(
             """
             SELECT uri, repo, ts_ms,
                    COALESCE(value_json, '') AS value_json
@@ -1103,7 +1126,7 @@ async def task_karma_rebirth_sever_follows(**kwargs: Any) -> dict[str, Any]:
             """,
             (f"%{did}%", did),
         )
-        incoming = cur.fetchall()
+        incoming = _res
 
     # 2) Dispatch outgoing deletions via generic.pds.dispatch (K8s-internal C-path)
     for uri, repo, ts_ms, value_json in outgoing:
@@ -1157,14 +1180,15 @@ async def task_karma_rebirth_sever_follows(**kwargs: Any) -> dict[str, Any]:
 
     # 4) Persist severance log
     now_ts = _now_ts()
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for s in severance_log:
             severance_id = hashlib.sha256(
                 f"{s['rebirth_did']}|{s['follow_uri']}|{s['action']}".encode()
             ).hexdigest()[:32]
             vertex_id = f"severance-{severance_id}"
             try:
-                cur.execute(
+                _res = client.q(
                     """
                     INSERT INTO vertex_karma_rebirth_severance_log (
                         vertex_id, _seq, created_date, sensitivity_ord, owner_did,
@@ -1220,9 +1244,11 @@ async def task_karma_rebirth_wipe_agents(**kwargs: Any) -> dict[str, Any]:
     runtime_dissolved = 0
     checkpoint_count = 0
 
-    with sync_cursor() as cur:
+    if True:
+
+        client = get_kotoba_client()
         # 1) Dissolve runtime row(s) — idempotent UPDATE
-        cur.execute(
+        _res = client.q(
             """
             UPDATE vertex_organism_runtime
             SET status = 'dissolved',
@@ -1234,17 +1260,17 @@ async def task_karma_rebirth_wipe_agents(**kwargs: Any) -> dict[str, Any]:
             (f"rebirth-wipe:{now_ts}", now_ts, now_ms, did),
         )
         # Count actually-dissolved rows by re-selecting (RW UPDATE rowcount unreliable)
-        cur.execute(
+        _res = client.q(
             """
             SELECT count(*) FROM vertex_organism_runtime
             WHERE did = %s AND status = 'dissolved'
             """,
             (did,),
         )
-        runtime_dissolved = int(cur.fetchone()[0])
+        runtime_dissolved = int((_res[0] if _res else None)[0])
 
         # 2) Enumerate checkpoints + log each as agent-wiped severance
-        cur.execute(
+        _res = client.q(
             """
             SELECT checkpoint_id, thread_id, langgraph_node, saved_at_ms
             FROM vertex_organism_checkpoint
@@ -1254,7 +1280,7 @@ async def task_karma_rebirth_wipe_agents(**kwargs: Any) -> dict[str, Any]:
             """,
             (did,),
         )
-        checkpoints = cur.fetchall()
+        checkpoints = _res
 
         for ck_id, thread_id, langgraph_node, saved_at_ms in checkpoints:
             severance_id = hashlib.sha256(
@@ -1262,7 +1288,7 @@ async def task_karma_rebirth_wipe_agents(**kwargs: Any) -> dict[str, Any]:
             ).hexdigest()[:32]
             vertex_id = f"severance-{severance_id}"
             try:
-                cur.execute(
+                _res = client.q(
                     """
                     INSERT INTO vertex_karma_rebirth_severance_log (
                         vertex_id, _seq, created_date, sensitivity_ord, owner_did,
@@ -1327,8 +1353,10 @@ async def task_karma_rebirth_emerge(**kwargs: Any) -> dict[str, Any]:
     rebirth_at = _now_ts()
     vertex_id = f"organism-{new_santana}"
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             """
             INSERT INTO vertex_organism_pattern (
                 vertex_id, _seq, created_date, sensitivity_ord, owner_did,

@@ -119,7 +119,7 @@ Dashed arrows = governance / consensus flows that fire occasionally.
 ## Invariants
 
 1. **No app-side direct substrate import.** All substrate access goes through `@etzhayyim/sdk` per ADR-2605181100 + `CLAUDE.md § Substrate boundary client imports`. The map above shows the **server-side** topology; the app-side topology is a single edge: `app → @etzhayyim/sdk → (any of the above)`.
-2. **No state in centralized DB.** Postgres / Kysely / RisingWave / MySQL / Mongo are prohibited per ADR-2605172000.
+2. **No state in centralized DB.** Postgres / Kysely / Kotoba/Datomic / MySQL / Mongo are prohibited per ADR-2605172000.
 3. **No fiat payment processor.** Stripe / PayPal / Square are prohibited per ADR-2605172100. USDC on Base L2 only.
 4. **No external advertising network.** Per ADR-2605192115 §1.2.
 5. **No plaintext private records on MST.** Confidential cargo MUST be wrapped via `com.etzhayyim.encrypted.*` (XChaCha20-Poly1305 + Signal-wrapped per-recipient keys, DID-bound) per ADR-2605181100.

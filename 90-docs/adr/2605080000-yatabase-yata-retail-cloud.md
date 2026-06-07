@@ -14,10 +14,10 @@ authoritative_for:
   - retail-cloud-tenant-isolation
   - io-yatabase-supabase-neo4j-baas-surface
 related:
-  - adr-0002-graph-storage-risingwave
+  - adr-0002-graph-storage-kotoba
   - adr-0036-worker-direct-hyperdrive-persistence
-  - adr-0044-risingwave-udf-language-strategy
-  - adr-0048-risingwave-vultr-b2-primary
+  - adr-0044-kotoba-udf-language-strategy
+  - adr-0048-kotoba-vultr-b2-primary
   - adr-0056-bpmn-as-actor
   - adr-0087-magatama-mcp-tool-facade
   - adr-0095-simplified-3layer-identity-rw-vault
@@ -30,7 +30,7 @@ superseded_by: []
 
 # Goal
 
-etzhayyim platform の余剰能力 (B2 Bandwidth Alliance の実質ゼロ egress、RisingWave
+etzhayyim platform の余剰能力 (B2 Bandwidth Alliance の実質ゼロ egress、Kotoba/Datomic
 shared cluster の compute、self-host RunPod LLM) を **retail cloud product** と
 して外部顧客に再販する。3 つの製品 (yatabase / obj / yata) と 1 つの基盤
 (billing v2) を 1 本の ADR で確定する。原価優位 (B2 storage = $0.006/GB-month、
@@ -43,7 +43,7 @@ In:
 - 課金軸 5 種 (storage / egress / LLM / GPU / API request) の単価 list 価格
 - Plan 階層 6 種 (Free / Starter / Developer / Team / Business / Enterprise)
 - Sales discount 原資階層 (年契約 / multi-year / 学生 / startup / channel partner / volume / migration / floor)
-- 製品 1: **yatabase.etzhayyim.com** — RisingWave-backed graph database (PG / SPARQL / Cypher / MCP)
+- 製品 1: **yatabase.etzhayyim.com** — Kotoba/Datomic-backed graph database (PG / SPARQL / Cypher / MCP)
 - 製品 2: **obj.etzhayyim.com** — B2-backed S3-compatible object storage with auto-tiering / LLM tagging / vector embedding / Vault E2E
 - 製品 3: **yata** Rust crate — canonical client SDK for yatabase
 - 課金 metering schema (`vertex_billing_event` + 5 streaming MV)
@@ -288,7 +288,7 @@ List price (公開価格)              ¥4,980 (例: Developer)
 **CFO 承認**: 40-50%。
 **CEO 承認**: 50% 超 (敗戦処理 / 戦略 deal のみ)。
 
-## D7. Billing 軸 metering schema (RisingWave)
+## D7. Billing 軸 metering schema (Kotoba/Datomic)
 
 ```sql
 -- usage event (per request, per token, per byte)
@@ -530,7 +530,7 @@ backend / billing / tenant 境界 / brand は分離しない**。
 | Cypher / Bolt / Realtime / REST / GraphQL は internal cytoplasmic XRPC を ecosystem ツール向けに wire 互換包装したもの。新 lexicon は導入しない | ADR-2605091400 + 本 ADR §D4 |
 | Domain write は Hyperdrive direct (ADR-0036)。`com.atproto.repo.createRecord` を `com.etzhayyim.apps.yata.*` で使わない | ADR-0036 + 60-apps/etzhayyim-project-yatabase/CLAUDE.md |
 | Tenant 境界は `yata_<sha256(did)[:16]>` per-org RW DB + per-org PG ROLE | 本 ADR §D8 |
-| RW OLTP 制約 (`ON CONFLICT` 不可、tx 不可、`UNIQUE` 不可、strict serializability 不可) は **全 surface で同様に開示**。PostgREST / GraphQL の wire response にも `Sql-Constraint-Mode: rw-eventual` ヘッダで明示 | 90-docs/260424-bsky-compat-risingwave-split.md |
+| RW OLTP 制約 (`ON CONFLICT` 不可、tx 不可、`UNIQUE` 不可、strict serializability 不可) は **全 surface で同様に開示**。PostgREST / GraphQL の wire response にも `Sql-Constraint-Mode: rw-eventual` ヘッダで明示 | 90-docs/260424-bsky-compat-kotoba-split.md |
 | Auth は **atproto OAuth が canonical**。GoTrue 互換 shim (S11) は token mint だけ担当、内部 JWT は ES256 atproto session | ADR-2604231821 + 本 ADR §D8 |
 | billing は既存 5 軸 (`storage_gb_hour` / `egress_gb` / `api_request` / `yata_query_cu_ms` / `yata_node_hour` / `yata_edge_hour`) に正規化。新 metric は導入しない | 本 ADR §D7 + §D22 |
 | Bolt (S7) は **CF Worker の外** (TCP long-lived は Worker 30s/128MB 不可)。Vultr VKE LAX L4 LB に直結 | ADR-2604282300 |
@@ -1256,10 +1256,10 @@ yatabase の MV / SQL query で十分カバー。分離は粗利を稀釈する�
 
 # References
 
-- ADR-0002 RisingWave-backed graph storage (P10v2 GraphAr-native columnar)
+- ADR-0002 Kotoba/Datomic-backed graph storage (P10v2 GraphAr-native columnar)
 - ADR-0036 Worker-direct Hyperdrive persistence (originator of `vertex_<actor>_<kind>` 規約)
-- ADR-0044 RisingWave UDF language strategy (graph reasoning impl 基盤)
-- ADR-0048 RisingWave primary cutover Linode → Vultr+B2 (cost basis)
+- ADR-0044 Kotoba/Datomic UDF language strategy (graph reasoning impl 基盤)
+- ADR-0048 Kotoba/Datomic primary cutover Linode → Vultr+B2 (cost basis)
 - ADR-0056 BPMN-as-actor (billing rollup の実装パターン)
 - ADR-0087 magatama MCP tool facade (yata MCP server export の prior art)
 - ADR-0095 3-Layer Identity + RW canonical columns (`org_did` / `actor_did` / `at_did` schema)
@@ -1268,7 +1268,7 @@ yatabase の MV / SQL query で十分カバー。分離は粗利を稀釈する�
 - ADR-2605011200 graph-expand BPMN LLM edge inference (graph reasoning bridge)
 - ADR-2605091400 MCP-as-cell-membrane / Lexicon+XRPC demotion (D12+ S13 `/mcp` を sole external surface に固定する根拠)
 - 30-graph/kagami-cypher-compiler/ (D13 S6 `/cypher` の openCypher → SQL/PGQ 変換器、in-tree 既存)
-- 90-docs/260424-bsky-compat-risingwave-split.md (RW OLTP 制約の権威ソース)
+- 90-docs/260424-bsky-compat-kotoba-split.md (RW OLTP 制約の権威ソース)
 
 # Appendix A. yata crate Cargo.toml workspace skeleton
 

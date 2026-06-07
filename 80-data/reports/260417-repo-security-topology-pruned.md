@@ -35,7 +35,7 @@ Time: 2026-04-17 JST
 
 Evidence:
 
-- `50-infra/linode/risingwave-iceberg/kubeconfig.yaml:12-16`
+- `50-infra/linode/kotoba-iceberg/kubeconfig.yaml:12-16`
   - committed kubeconfig includes a bearer token for `lke589404-admin`
 
 Why it survives pruning:

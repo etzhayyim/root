@@ -226,7 +226,7 @@ Domain rewrites: `dispatcher.etzhayyim.com` → `dispatcher.etzhayyim.com`,
 **Substrate-boundary 注記** (ADR-2605172100 hard rule "MUST NOT integrate
 fiat payment processors"): 移管した dispatcher Deployment は pymagatama
 の `lawfirm_billing` / `lawfirm_checkout` / `ingest.stripe` 依存により
-`STRIPE_*` (5 個) + `RW_URL` env を継承する。本 iter では runtime 互換性
+`STRIPE_*` (5 個) + `KOTOBA_URL` env を継承する。本 iter では runtime 互換性
 維持のため preserve。Substrate purity 回復は pymagatama Stripe 抽出 +
 binding registry の AT MST 化を行う別 iter で対応。pymagatama 自体が
 2026-05-18 以前から etzhayyim 内に Stripe 関連ファイルを持つため、本

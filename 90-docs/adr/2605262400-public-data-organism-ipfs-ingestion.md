@@ -121,7 +121,7 @@ The constraint surface is dense:
   classification mid-tick). The train-rental amendment ADR-2605262200
   is gated on Council ratification and is independent of this ADR.
 - **ADR-2605262130 (Kotoba)** — read-path queries should not reintroduce
-  RisingWave / Postgres / Lance projection layers; sensor output is
+  Kotoba/Datomic / Postgres / Lance projection layers; sensor output is
   in-memory streamed and may be staged into `kotoba-kqe`
   arrangements if the sensor needs an attribute index, never into a
   separate projection backend.

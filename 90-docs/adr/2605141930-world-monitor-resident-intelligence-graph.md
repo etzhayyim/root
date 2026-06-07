@@ -63,7 +63,7 @@ the public dashboard response satisfies all of the following:
 - `counts.marketSignals > 0`
 
 The resident graph is represented by live read models and existing graph tables
-rather than new DDL in this phase. No RisingWave DDL is required for the
+rather than new DDL in this phase. No Kotoba/Datomic DDL is required for the
 accepted facade. Future Pregel/LangGraph workers may deepen scoring,
 classification, alert routing, and snapshot persistence, but they must preserve
 the same XRPC contract.

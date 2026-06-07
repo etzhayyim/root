@@ -17,14 +17,14 @@ Follow-up to `260420-pds-commit-seq-race-analysis.md` residual issue (b): `sdk.p
 ## Layers inspected
 
 1. **Cloudflare Hyperdrive** — CF edge pool → RW origin
-2. **RisingWave frontend** — pg wire handler (parse/plan/route)
-3. **RisingWave compute** — streaming MV execution
+2. **Kotoba/Datomic frontend** — pg wire handler (parse/plan/route)
+3. **Kotoba/Datomic compute** — streaming MV execution
 4. **PDS Worker (`etzhayyim-pds-2603241700`)** — XRPC → Kysely → Hyperdrive
 5. **app Worker → PDS Worker binding** — CF service binding, same zone
 
 ## Current config (2026-04-21)
 
-### Hyperdrive (`kagami-risingwave`, id `e84c0a2babe44fc7b74818e394b4b896`)
+### Hyperdrive (`kagami-kotoba`, id `e84c0a2babe44fc7b74818e394b4b896`)
 
 | Param | Value | Notes |
 |---|---|---|
@@ -120,7 +120,7 @@ npx wrangler hyperdrive update e84c0a2babe44fc7b74818e394b4b896 \
 
 **(2) Bump frontend CPU: 500m → 2000m (2 CPU)**
 
-`50-infra/linode/risingwave-iceberg/helm/values.yaml`:
+`50-infra/linode/kotoba-iceberg/helm/values.yaml`:
 
 ```diff
  frontendComponent:
@@ -175,7 +175,7 @@ RW takes ≥150s (barrier × checkpoint_frequency) for INSERTs to be visible in 
 2. Wait **≥5 min** (2× max propagation)
 3. Run the 10-parallel `createWork` test (see `260420-pds-commit-seq-race-analysis.md` §Post-fix benchmarks)
 4. `SELECT COUNT(*) FROM vertex_repo_commit WHERE rkey IN (...10 rkeys...)` — target 8-10/10 persistence
-5. `kubectl top pod -n risingwave` — confirm frontend CPU headroom remains
+5. `kubectl top pod -n kotoba` — confirm frontend CPU headroom remains
 
 ## Rollback
 

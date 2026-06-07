@@ -16,7 +16,7 @@ Graphs:
   fetch_worldlii_graph    — WorldLii OAI-PMH → parallel ingest fan-out
   fetch_canlii_graph      — CanLII API → parallel ingest fan-out
 
-CRITICAL (RisingWave vector quirk):
+CRITICAL (Kotoba/Datomic vector quirk):
   psycopg3 rejects ::vector(1024) as a prepared-statement parameter.
   All cosine-search and embedding-update queries inline the vector literal
   as a string: `'[x0,x1,...]'::vector(1024)`.
@@ -86,9 +86,9 @@ async def _embed_text(text: str) -> list[float]:
 
 
 def _vec_literal(embedding: list[float]) -> str:
-    """Format float list as an inline RisingWave vector literal.
+    """Format float list as an inline Kotoba/Datomic vector literal.
 
-    RisingWave psycopg3 rejects ::vector(1024) in parameterized statements;
+    Kotoba/Datomic psycopg3 rejects ::vector(1024) in parameterized statements;
     the literal must be inlined directly in the SQL string.
     """
     return "[" + ",".join(f"{x:.8f}" for x in embedding) + "]"
@@ -265,7 +265,7 @@ def build_embed_document_graph() -> Any:
 # ─────────────────────────────────────────────────────────────
 # 3. SearchDocument graph
 #    Replaces: searchDocument.bpmn + legal.corpus.searchDocument handler
-#    CRITICAL: vec literal inlined to avoid RisingWave psycopg3 rejection
+#    CRITICAL: vec literal inlined to avoid Kotoba/Datomic psycopg3 rejection
 # ─────────────────────────────────────────────────────────────
 
 class SearchState(TypedDict):

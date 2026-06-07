@@ -1022,7 +1022,7 @@ class IntelStore:
             where.append("predicate = %s")
             params.append(predicate)
         where_sql = f"WHERE {' AND '.join(where)}" if where else ""
-        # RisingWave rejects parameterized LIMIT/OFFSET ($N placeholders) —
+        # Kotoba/Datomic rejects parameterized LIMIT/OFFSET ($N placeholders) —
         # inline as integer literals (safe: values are clamped to ints above).
         query = f"""
             SELECT edge_id, src_vid, dst_vid, predicate, dependency_kind,
@@ -1858,7 +1858,7 @@ def run_pipeline(
 
 
 async def run_once_from_env() -> None:
-    store = IntelStore(os.environ["RW_DSN"])
+    store = IntelStore(os.environ["KOTOBA_URL"])
     scope = json.loads(os.environ.get("INTEL_SCOPE_JSON", "{}"))
     if bool_env("INTEL_TOPOLOGY_ANALYZE", False):
         result = run_topology_analysis_with_langgraph(
@@ -1939,7 +1939,7 @@ class LangServerWorker:
 
 async def run_langserver_worker() -> None:
     worker = LangServerWorker()
-    store = IntelStore(os.environ["RW_DSN"])
+    store = IntelStore(os.environ["KOTOBA_URL"])
 
     async def topology_daemon_loop() -> None:
         interval_sec = int_env("INTEL_TOPOLOGY_INTERVAL_SEC", 900, minimum=60)

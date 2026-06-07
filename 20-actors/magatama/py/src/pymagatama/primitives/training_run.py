@@ -35,6 +35,7 @@ teacher.label) work without the heavy stack.
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import gzip
 import hashlib
@@ -45,7 +46,6 @@ import time
 import uuid
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
 from pymagatama.primitives import training_export as _texp
 
 
@@ -187,8 +187,10 @@ def task_train_dataset_snapshot(
     where_label = "AND label = %s" if datasetLabel else ""
     params: tuple = (datasetName, datasetLabel) if datasetLabel else (datasetName,)
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             f"""
             SELECT shard_index, b2_key, row_count
             FROM vertex_training_shard
@@ -197,7 +199,7 @@ def task_train_dataset_snapshot(
             """,
             params,
         )
-        shards = cur.fetchall()
+        shards = _res
 
     if not shards:
         raise RuntimeError(
@@ -216,13 +218,15 @@ def task_train_dataset_snapshot(
         snapshot_id = f"{datasetName}-{datasetRevision}"
     vertex_id = _vid_snapshot(snapshot_id)
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             "SELECT vertex_id, snapshot_id, b2_prefix, shard_count, row_count, content_hash "
             "FROM vertex_training_dataset_snapshot WHERE vertex_id = %s",
             (vertex_id,),
         )
-        existing = cur.fetchone()
+        existing = (_res[0] if _res else None)
         if existing:
             return {
                 "snapshotId": existing[1],
@@ -234,7 +238,7 @@ def task_train_dataset_snapshot(
                 "reused": True,
             }
 
-        cur.execute(
+        _res = client.q(
             """
             INSERT INTO vertex_training_dataset_snapshot
               (vertex_id, owner_did, snapshot_id, dataset_name, label, b2_prefix,
@@ -305,8 +309,9 @@ def task_train_teacher_label(
     if teacherKind == "run":
         if not teacherRunId:
             raise ValueError("teacherKind=run requires teacherRunId")
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 """
                 SELECT alias FROM mv_training_active_serving
                 WHERE alias LIKE %s
@@ -314,7 +319,7 @@ def task_train_teacher_label(
                 """,
                 (f"%{teacherRunId}%",),
             )
-            row = cur.fetchone()
+            row = (_res[0] if _res else None)
         if row is None:
             raise RuntimeError(
                 f"teacherKind=run but no active promotion alias references runId={teacherRunId}; "
@@ -355,8 +360,9 @@ def task_train_teacher_label(
     # Index in vertex_ingest_artifact (Hume layout, ADR-2604300135). We
     # expect the table to already exist; if not, fall back to a noop.
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 """
                 INSERT INTO vertex_ingest_artifact
                   (vertex_id, owner_did, run_id, artifact_kind, b2_uri, byte_size, sample_count,
@@ -724,8 +730,9 @@ def task_train_distill_run(
     else:
         teacher_vid = teacherLabelArtifactRunId
     edge_id = f"distilled:{result['runId']}:{teacher_vid[:60]}"
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             """
             INSERT INTO edge_training_distilled_from
               (edge_id, owner_did, src_vid, dst_vid, teacher_kind, distill_method,
@@ -849,8 +856,9 @@ def _record_eval_row(
 
     eval_id = _gen_id("eval")
     vid = _vid_eval(checkpointId, bench)
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             """
             INSERT INTO vertex_training_eval
               (vertex_id, owner_did, eval_id, checkpoint_id, run_id, bench_name,
@@ -896,23 +904,24 @@ def task_train_promote_checkpoint(
     promoter = promotedBy or _TRAINING_ACTOR
 
     retired_edge_id: str | None = None
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         # Retire prior active edge for this alias.
-        cur.execute(
+        _res = client.q(
             "SELECT edge_id FROM edge_training_promoted_to WHERE alias = %s AND status = 'active'",
             (alias,),
         )
-        prior = cur.fetchone()
+        prior = (_res[0] if _res else None)
         if prior:
             retired_edge_id = prior[0]
-            cur.execute(
+            _res = client.q(
                 "UPDATE edge_training_promoted_to SET status = 'retired', retired_at = %s "
                 "WHERE edge_id = %s",
                 (promoted_at, retired_edge_id),
             )
 
         # Insert new active edge.
-        cur.execute(
+        _res = client.q(
             """
             INSERT INTO edge_training_promoted_to
               (edge_id, owner_did, src_vid, dst_vid, alias, serving_target,
@@ -945,13 +954,14 @@ def task_train_promote_checkpoint(
 
 
 def _resolve_snapshot(snapshot_id: str) -> dict:
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             "SELECT snapshot_id, dataset_name, label, b2_prefix, shard_count, row_count, content_hash "
             "FROM vertex_training_dataset_snapshot WHERE snapshot_id = %s OR vertex_id = %s",
             (snapshot_id, snapshot_id),
         )
-        row = cur.fetchone()
+        row = (_res[0] if _res else None)
     if not row:
         raise RuntimeError(f"unknown snapshot_id={snapshot_id!r}")
     return {
@@ -962,14 +972,15 @@ def _resolve_snapshot(snapshot_id: str) -> dict:
 
 
 def _resolve_checkpoint(checkpoint_id: str) -> dict:
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             "SELECT checkpoint_id, run_id, step, weight_b2_uri, weight_sha256, adapter_kind "
             "FROM vertex_training_checkpoint "
             "WHERE checkpoint_id = %s OR vertex_id = %s LIMIT 1",
             (checkpoint_id, checkpoint_id),
         )
-        row = cur.fetchone()
+        row = (_res[0] if _res else None)
     if not row:
         raise RuntimeError(f"unknown checkpoint_id={checkpoint_id!r}")
     return {
@@ -983,14 +994,15 @@ def _read_snapshot_rows(snapshot: dict, *, limit: int) -> list[dict]:
     decompressed JSONL.
     """
     rows: list[dict] = []
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             "SELECT b2_key FROM vertex_training_shard "
             "WHERE dataset_name = %s AND label = %s AND status = 'done' "
             "ORDER BY shard_index",
             (snapshot["datasetName"], snapshot["label"]),
         )
-        keys = [r[0] for r in cur.fetchall()]
+        keys = [r[0] for r in _res]
     for key in keys:
         if len(rows) >= limit:
             break
@@ -1046,8 +1058,9 @@ def _run_finetune(
     snapshot = _resolve_snapshot(datasetSnapshotId)
 
     # Insert run header (status=running).
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             """
             INSERT INTO vertex_training_run
               (vertex_id, owner_did, run_id, kind, base_model, base_model_revision,
@@ -1068,7 +1081,7 @@ def _run_finetune(
         )
         # Edge: run -> dataset
         consumed_edge_id = f"consumed:{run_id}:{snapshot['snapshotId']}"
-        cur.execute(
+        _res = client.q(
             """
             INSERT INTO edge_training_consumed_dataset
               (edge_id, owner_did, src_vid, dst_vid, role, mix_ratio,
@@ -1101,8 +1114,9 @@ def _run_finetune(
         status = "failed"
 
     # Update run footer.
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             """
             UPDATE vertex_training_run
             SET status = %s, ended_at = %s, completed_steps = %s, failure_reason = %s
@@ -1309,8 +1323,10 @@ def _persist_checkpoint(
     checkpoint_id = f"ck-{run_id}-{step:06d}"
     vid = _vid_checkpoint(run_id, step)
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             """
             INSERT INTO vertex_training_checkpoint
               (vertex_id, owner_did, checkpoint_id, run_id, step, train_loss, learning_rate,
@@ -1334,8 +1350,9 @@ def _persist_checkpoint(
 
 
 def _mark_checkpoint_final(checkpoint_id: str) -> None:
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             "UPDATE vertex_training_checkpoint SET is_final = true WHERE checkpoint_id = %s",
             (checkpoint_id,),
         )
@@ -1437,9 +1454,10 @@ def task_train_list_runs(
         "ORDER BY started_at DESC NULLS LAST LIMIT " + str(cap)
     )
     rows: list[dict[str, Any]] = []
-    with sync_cursor() as cur:
-        cur.execute(sql, tuple(params))
-        for r in cur.fetchall():
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql, tuple(params))
+        for r in _res:
             rows.append({
                 "vertexId": r[0], "runId": r[1], "kind": r[2], "baseModel": r[3],
                 "datasetSnapshotId": r[4], "status": r[5], "startedAt": str(r[6] or ""),
@@ -1473,9 +1491,10 @@ def task_train_list_checkpoints(
         "ORDER BY run_id, step LIMIT " + str(cap)
     )
     rows: list[dict[str, Any]] = []
-    with sync_cursor() as cur:
-        cur.execute(sql, tuple(params))
-        for r in cur.fetchall():
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql, tuple(params))
+        for r in _res:
             rows.append({
                 "vertexId": r[0], "checkpointId": r[1], "runId": r[2], "step": int(r[3] or 0),
                 "isFinal": bool(r[4]), "weightB2Uri": str(r[5] or ""),
@@ -1511,9 +1530,10 @@ def task_train_list_snapshots(
         "ORDER BY row_count DESC NULLS LAST LIMIT " + str(cap)
     )
     rows: list[dict[str, Any]] = []
-    with sync_cursor() as cur:
-        cur.execute(sql, tuple(params))
-        for r in cur.fetchall():
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql, tuple(params))
+        for r in _res:
             rows.append({
                 "vertexId": r[0], "snapshotId": r[1], "datasetName": r[2], "label": r[3],
                 "b2Prefix": r[4], "shardCount": int(r[5] or 0), "rowCount": int(r[6] or 0),
@@ -1530,13 +1550,15 @@ def task_train_coverage_snapshot(**_: Any) -> dict:
     """
     out: dict[str, Any] = {"ok": True, "asOf": _now_iso()}
 
-    with sync_cursor() as cur:
-        cur.execute("SELECT count(*), COALESCE(SUM(row_count), 0) FROM vertex_training_dataset_snapshot WHERE status = 'frozen'")
-        row = cur.fetchone() or (0, 0)
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q("SELECT count(*), COALESCE(SUM(row_count), 0) FROM vertex_training_dataset_snapshot WHERE status = 'frozen'")
+        row = (_res[0] if _res else None) or (0, 0)
         out["snapshotsCount"] = int(row[0] or 0)
         out["datasetSnapshotRows"] = int(row[1] or 0)
 
-        cur.execute(
+        _res = client.q(
             """
             SELECT
               count(*),
@@ -1548,7 +1570,7 @@ def task_train_coverage_snapshot(**_: Any) -> dict:
             FROM vertex_training_run
             """
         )
-        row = cur.fetchone() or (0, 0, 0, 0, 0, None)
+        row = (_res[0] if _res else None) or (0, 0, 0, 0, 0, None)
         out["runsTotal"] = int(row[0] or 0)
         out["runsQueued"] = int(row[1] or 0)
         out["runsRunning"] = int(row[2] or 0)
@@ -1556,7 +1578,7 @@ def task_train_coverage_snapshot(**_: Any) -> dict:
         out["runsFailed"] = int(row[4] or 0)
         out["lastRunStartedAt"] = str(row[5] or "")
 
-        cur.execute(
+        _res = client.q(
             """
             SELECT
               count(*),
@@ -1566,17 +1588,17 @@ def task_train_coverage_snapshot(**_: Any) -> dict:
             FROM vertex_training_checkpoint
             """
         )
-        row = cur.fetchone() or (0, 0, 0, None)
+        row = (_res[0] if _res else None) or (0, 0, 0, None)
         out["checkpointsTotal"] = int(row[0] or 0)
         out["checkpointsFinal"] = int(row[1] or 0)
         out["checkpointBytesTotal"] = int(row[2] or 0)
         out["lastCheckpointAt"] = str(row[3] or "")
 
-        cur.execute("SELECT count(*) FROM vertex_training_eval")
-        out["evalsTotal"] = int((cur.fetchone() or (0,))[0] or 0)
+        _res = client.q("SELECT count(*) FROM vertex_training_eval")
+        out["evalsTotal"] = int(((_res[0] if _res else None) or (0,))[0] or 0)
 
-        cur.execute("SELECT count(*), MAX(promoted_at) FROM mv_training_active_serving")
-        row = cur.fetchone() or (0, None)
+        _res = client.q("SELECT count(*), MAX(promoted_at) FROM mv_training_active_serving")
+        row = (_res[0] if _res else None) or (0, None)
         out["servingActiveCount"] = int(row[0] or 0)
         out["lastPromotedAt"] = str(row[1] or "")
 
@@ -1597,9 +1619,10 @@ def task_train_list_serving(*, alias: str | None = None, **_: Any) -> dict:
         "ORDER BY promoted_at DESC NULLS LAST"
     )
     rows: list[dict[str, Any]] = []
-    with sync_cursor() as cur:
-        cur.execute(sql, tuple(params))
-        for r in cur.fetchall():
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql, tuple(params))
+        for r in _res:
             rows.append({
                 "alias": r[0], "checkpointVertexId": r[1], "servingTarget": str(r[2] or ""),
                 "promotedAt": str(r[3] or ""), "promotedBy": str(r[4] or ""),
@@ -1757,9 +1780,11 @@ def _run_baien_mx(
     hp["loraOverFirst4Layers"] = loraOverFirst4Layers
     hp_json = _stringify_hyperparams(hp)
 
-    with sync_cursor() as cur:
+    if True:
+
+        client = get_kotoba_client()
         # Run header.
-        cur.execute(
+        _res = client.q(
             """
             INSERT INTO vertex_training_run
               (vertex_id, owner_did, run_id, kind, base_model, base_model_revision,
@@ -1781,7 +1806,7 @@ def _run_baien_mx(
         )
         # Edge: run -> dataset.
         consumed_edge_id = f"consumed:{run_id}:{snapshot['snapshotId']}"
-        cur.execute(
+        _res = client.q(
             """
             INSERT INTO edge_training_consumed_dataset
               (edge_id, owner_did, src_vid, dst_vid, role, mix_ratio,
@@ -1831,8 +1856,9 @@ def _write_baien_mx_checkpoint_placeholder(
     H100 runner overwrites on the first save step. Keeping the row
     pre-allocated lets the lexicon caller reference the vertex_id
     immediately after `runBaienMx` returns."""
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             """
             INSERT INTO vertex_training_checkpoint
               (vertex_id, owner_did, checkpoint_id, run_id, step,

@@ -37,15 +37,15 @@ superseded_by: []
 
 # Context
 
-ADR-2605171900 (yoro migration) copied yoro code to `etzhayyim/root/60-apps/etzhayyim-project-yoro/` at stages 1–2 (code + DNS placeholder). Stages 3–5 (AppView deployment, legacy redirect, vendor cleanup) are blocked because the copied code still depends on RisingWave via `atproto.etzhayyim.com PDS + Hyperdrive → RisingWave`, violating ADR-2605172000.
+ADR-2605171900 (yoro migration) copied yoro code to `etzhayyim/root/60-apps/etzhayyim-project-yoro/` at stages 1–2 (code + DNS placeholder). Stages 3–5 (AppView deployment, legacy redirect, vendor cleanup) are blocked because the copied code still depends on Kotoba/Datomic via `atproto.etzhayyim.com PDS + Hyperdrive → Kotoba/Datomic`, violating ADR-2605172000.
 
 Grep evidence (`60-apps/etzhayyim-project-yoro/CLAUDE.md`, 2026-05-19) — 14 RW touchpoints retained verbatim from upstream:
 
 - `kagami-store.svelte.ts` (`query()` / `loadLabel()` / `federatedQuery()` / `listAvailableLabels()` — all backed by RW via Hyperdrive)
-- 12 RisingWave Async MVs feeding event-driven dashboards
+- 12 Kotoba/Datomic Async MVs feeding event-driven dashboards
 - `searchActors` → `vertex_app` + `vertex_repo_record` RW direct
-- Read path `PDS → pipethroughAppView → yoro AppView → HYPERDRIVE → RisingWave`
-- Write path `PDS XRPC → graph SQL path → RisingWave Stream Load → MV refresh`
+- Read path `PDS → pipethroughAppView → yoro AppView → HYPERDRIVE → Kotoba/Datomic`
+- Write path `PDS XRPC → graph SQL path → Kotoba/Datomic Stream Load → MV refresh`
 
 Murakumo has two distinct RW dependencies:
 
@@ -54,7 +54,7 @@ Murakumo has two distinct RW dependencies:
 
 Additional vendor-only assets:
 
-- `50-infra/multicluster/murakumo-vke/placement-contract.yaml` — places `risingwave` service in topology
+- `50-infra/multicluster/murakumo-vke/placement-contract.yaml` — places `kotoba` service in topology
 - `50-infra/vultr/yoro-actors-raw/templates/yoro-social-post.json` — `postgres:16-alpine` container
 
 Per ADR-2605191346, none of the above may target Vultr VKE either. Per ADR-2605172000, none may carry RW dependency. The migration is therefore a **substrate rewrite**, not a `mv`.
@@ -106,7 +106,7 @@ The five RW-dependent paths above are rewritten against AT MST + IPFS + Base L2,
 
 Per ADR-2605191346 §Substrate hard rule, `etzhayyim/*` workloads run on **Murakumo Mac-mini fleet** only. The Vultr VKE placement contract is **retired** rather than rewritten:
 
-- `placement-contract.yaml`: drop `risingwave` from the service list. No replacement service is provisioned on the Mac-mini fleet — RW-free rewrite eliminates the need.
+- `placement-contract.yaml`: drop `kotoba` from the service list. No replacement service is provisioned on the Mac-mini fleet — RW-free rewrite eliminates the need.
 - `topology.yaml` / `karmada-pull-mode-runbook.md`: archive under `50-infra/_archive/vultr/multicluster/` for audit trail; no etzhayyim deploy uses them.
 
 ### vultr yoro-actors-raw (`50-infra/vultr/yoro-actors-raw/`)
@@ -124,7 +124,7 @@ No yoro / murakumo PR merges into `etzhayyim/root/main` unless it passes the sub
 
 1. No direct import of `@atproto/api`, `viem`, `kysely`, `@etzhayyim/magatama-host-sdk`, `pg`, `postgres`, `@signalapp/libsignal-client`, `@noble/ciphers` from app code.
 2. Only `@etzhayyim/sdk` and `@etzhayyim/sdk/encrypted` may appear as substrate-client imports.
-3. CI grep gate (future `lefthook` hook, see §Consequences): `grep -rE 'risingwave|hyperdrive|kysely|createKyselyDb' 60-apps/ etzhayyim-project-yoro 60-apps/ etzhayyim-project-murakumo 50-infra/cloudflare/workers/murakumo` returns empty.
+3. CI grep gate (future `lefthook` hook, see §Consequences): `grep -rE 'kotoba|hyperdrive|kysely|createKyselyDb' 60-apps/ etzhayyim-project-yoro 60-apps/ etzhayyim-project-murakumo 50-infra/cloudflare/workers/murakumo` returns empty.
 
 ## Ordering
 

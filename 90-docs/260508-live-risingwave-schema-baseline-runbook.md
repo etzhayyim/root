@@ -1,12 +1,12 @@
-# Live RisingWave Schema Baseline Runbook (2026-05-08)
+# Live Kotoba/Datomic Schema Baseline Runbook (2026-05-08)
 
-ADR: `90-docs/adr/2605080700-graph-schema-live-risingwave-baseline.md`
+ADR: `90-docs/adr/2605080700-graph-schema-live-kotoba-baseline.md`
 
 ## Current State
 
-`30-graph/graph-schema` starts from the live RisingWave catalog baseline:
+`30-graph/graph-schema` starts from the live Kotoba/Datomic catalog baseline:
 
-- Active Alembic head: `live_risingwave_20260508`
+- Active Alembic head: `live_kotoba_20260508`
 - Active revision directory: `30-graph/graph-schema/alembic/current_versions/`
 - Active version table: `graph_schema_alembic_live`
 - Generated TypeScript schema: `30-graph/graph-schema/src/database.ts`
@@ -58,9 +58,9 @@ uv run alembic heads --verbose
 
 ## Add or Change MV SQL
 
-Use SQLMesh model files for rebuildable MV SQL and lineage. Apply RisingWave
+Use SQLMesh model files for rebuildable MV SQL and lineage. Apply Kotoba/Datomic
 streaming MV DDL through the existing gated DDL path; SQLMesh is not the direct
-executor for RisingWave streaming MVs.
+executor for Kotoba/Datomic streaming MVs.
 
 ## Hummock / Iceberg / Nessie
 
@@ -76,4 +76,4 @@ operation.
 - If `db:drift` reports only `graph_schema_%` tables, keep them excluded from
   introspection; they are Alembic bookkeeping, not app schema.
 - If generated table counts change while running the commands, rerun `db:gen`
-  then `db:drift`; live RisingWave DDL may have completed between reads.
+  then `db:drift`; live Kotoba/Datomic DDL may have completed between reads.

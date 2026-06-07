@@ -15,7 +15,7 @@ related:
 
 # tsukuru → Gen-3 (kotoba-native) Migration Plan (2026-06-02)
 
-目的: `tsukuru`（B2B factory-direct ordering actor）を旧 etzhayyim / RisingWave / JSON-LD
+目的: `tsukuru`（B2B factory-direct ordering actor）を旧 etzhayyim / Kotoba/Datomic / JSON-LD
 世代から、okaimono と同じ **Gen-3 canonical 設計**（`manifest.edn` + kotoba-EAVT +
 Murakumo-only + Charter Rider + no-server-key）へ移行する。
 
@@ -39,7 +39,7 @@ Murakumo-only + Charter Rider + no-server-key）へ移行する。
 | レイヤ | 現状 | Gen-3 目標 |
 |---|---|---|
 | Manifest | `actor-manifest.jsonld`（@context, capabilities `graph.query/write`） | `manifest.edn`（:actor/* + :gates + :cells + :lex） |
-| State | RisingWave / Cypher `MATCH (o:ProductionOrder)…`、`G()` builder | **kotoba Datom EAVT**（`:production-order/*` schema） |
+| State | Kotoba/Datomic / Cypher `MATCH (o:ProductionOrder)…`、`G()` builder | **kotoba Datom EAVT**（`:production-order/*` schema） |
 | Inference | `agent.chat`（k8s-langserver T1） | **Murakumo-only** KotobaLLM 127.0.0.1:4000 |
 | Runtime/edge | `runtime: k8s-langserver` + `sveltekit-proxy` + `legacyExecutionTier: T1` | WASM cells（langgraph）+ kotoba :8077 |
 | Payment | etzhayyim 期の Stripe Issuing 言及が legacy doc に残存（**etzhayyim では非存在**） | **USDC Base L2 + ERC-4337 + TitheRouter 10% + warifu**（最初から fiat 非前提） |
@@ -83,7 +83,7 @@ progress/quality/settlement 5 lex）を landed、全 12 EDN paren-balanced。残
 3. **Cypher `MATCH (o:ProductionOrder)…` → kotoba-kqe Datalog query へ全面置換**。`G()` builder 撤去。
 4. `kotoba/deploy.sh`（okaimono のコピー）。`etzhayyim build/deploy` を廃止。
 
-**完了基準**: production-order の CRUD・進捗・QC が kotoba Datom 上で round-trip。RisingWave 参照ゼロ。
+**完了基準**: production-order の CRUD・進捗・QC が kotoba Datom 上で round-trip。Kotoba/Datomic 参照ゼロ。
 → **達成 (2026-06-02)**: `kotoba/schema.edn`（`:factory/* :production-order/* :progress/* :quality/*
 :settlement/* :sbt/*`、40 attr）+ `seed.edn`（3 factory + BTO worked example、EDN balanced）+
 `ingest_mcp.py` / `ingest_factories.py`（460-DID live projection は G11/G15-gated stub）+ `deploy.sh`

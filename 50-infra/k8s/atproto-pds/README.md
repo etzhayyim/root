@@ -19,8 +19,8 @@ K8s pod replacement for the `atproto.etzhayyim.com` PDS CF Worker (`etzhayyim-pd
 
 ## Why
 
-ADR-2605111200 prohibits CF Worker → RisingWave connections. The PDS is currently
-a CF Worker with 38 source files that directly query RisingWave via Hyperdrive.
+ADR-2605111200 prohibits CF Worker → Kotoba/Datomic connections. The PDS is currently
+a CF Worker with 38 source files that directly query Kotoba/Datomic via Hyperdrive.
 This pod replaces that runtime location while keeping the same TS codebase
 (Bun is a Node-API-compatible runtime, so no rewrite is needed).
 

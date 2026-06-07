@@ -1,6 +1,6 @@
 ---
 id: adr-2605070700-rw-native-model-training-weight-lineage
-title: RisingWave-native Model Training + Weight Lineage (SFT / LoRA / Distill)
+title: Kotoba/Datomic-native Model Training + Weight Lineage (SFT / LoRA / Distill)
 status: proposed
 doc_type: adr
 topic: model-training-weight-lineage
@@ -19,14 +19,14 @@ related:
   - adr-2604292130
   - adr-2605010000
   - adr-2604282100
-  - adr-0044-risingwave-udf-language-strategy
+  - adr-0044-kotoba-udf-language-strategy
 supersedes: []
 superseded_by: []
 ---
 
 # Goal
 
-RisingWave schema を一次情報源として、自前モデルの **train run / checkpoint /
+Kotoba/Datomic schema を一次情報源として、自前モデルの **train run / checkpoint /
 eval** を repo 内で宣言・追跡し、weight を世代を超えて育てられる経路を引く。
 serving (Murakumo / RunPod / Vultr GPU) と完全分離した上で、AppView や agent
 loop から **「現役 weight はどれか」「どの corpus shard で学習したか」「teacher
@@ -45,7 +45,7 @@ In:
   5 pyzeebe primitive
 - Vultr GPU pod (ADR-0068) を Zeebe worker target とした実行
 - Weight artifact の B2 永続化 (`etzhayyim-training-data/v1/checkpoints/...`)
-  と RisingWave 側 reference の分離
+  と Kotoba/Datomic 側 reference の分離
 
 Out:
 - 既に live な corpus export 経路 (`v_training_text` / `v_training_triple`
@@ -62,7 +62,7 @@ Out:
 # Executive Summary
 
 Corpus → shard → HF push までは既に live。足りないのは **weight 側の
-lineage と train run actor**。RisingWave schema 4 vertex + 3 edge と
+lineage と train run actor**。Kotoba/Datomic schema 4 vertex + 3 edge と
 BPMN-as-actor 5 primitive を加え、weight artifact 自体は B2 に置いて
 RW には reference だけを持たせる (Hume と同型、ADR-2604300135 の
 2-store layout を継承)。serving への昇格は `edge_training_promoted_to`
@@ -71,7 +71,7 @@ RW には reference だけを持たせる (Hume と同型、ADR-2604300135 の
 
 # Decision
 
-## 1. Schema (RisingWave, ADR-0036 / ADR-0044 準拠)
+## 1. Schema (Kotoba/Datomic, ADR-0036 / ADR-0044 準拠)
 
 新規 migration 1 本 (`30-graph/graph-schema/migrations/{ts}_vertex_training_lineage.ts`):
 
@@ -136,7 +136,7 @@ GPU が要る handler は **`mitama-training-pool` Helm release** (新設、ADR-
   + `tokenizer.json` + `training_args.json`。LoRA は adapter のみで数十 MB
   〜数百 MB、SFT 全 weight は数 GB。Hummock に置かない (ADR-2604261900 の
   hot-path DDL 回避と同じ理由で巨大 blob を OLAP に持たせない)
-- **RisingWave**: `vertex_training_checkpoint` に `weight_b2_uri` + `weight_sha256`
+- **Kotoba/Datomic**: `vertex_training_checkpoint` に `weight_b2_uri` + `weight_sha256`
   + `weight_byte_size` のみ。serving 側はこの URI を読み、Murakumo /
   RunPod の起動時に B2 から pull する
 
@@ -216,7 +216,7 @@ poll する形に変更する。
     は **RunPod Serverless client** に refactor: payload を `/v2/{endpoint}/run`
     に POST → status poll → 完了時に handler 側が `vertex_training_checkpoint` /
     `vertex_training_eval` に直接 INSERT (RunPod handler が pymagatama を同梱
-    し RW_URL Secret を持つため、worker と同じ書き込み経路)
+    し KOTOBA_URL Secret を持つため、worker と同じ書き込み経路)
 - §3 GPU pod 用 helm 値 (`gpuEnabled` / `nvidia.com/gpu`) — **削除**。
   CPU pod は worker profile=training の薄い orchestrator として固定。GPU
   capacity 計画不要、idle 時 cost 0
@@ -231,7 +231,7 @@ poll する形に変更する。
 | Handler image | `ghcr.io/etzhayyim/pymagatama-runpod-trainer:{tag}` (`90-docs/adr/2605010000-runpod-6000ada-unified-pod.md` の image 系統に合流可能) |
 | Handler entry | `runpod.serverless.start({"handler": handler})` — `handler(event)` が `event["input"]` (kind / runId / baseModel / datasetSnapshotId / hyperparams / teacherLabelArtifactRunId) を受けて training を実行 |
 | 重みアップロード | handler 内で B2 PUT (`B2_*` Secret 同じものを RunPod env に注入) |
-| RW write | handler 内で psycopg + Hyperdrive 経由で `vertex_training_checkpoint` INSERT (RW_URL を Secret から RunPod env に注入) |
+| RW write | handler 内で psycopg + Hyperdrive 経由で `vertex_training_checkpoint` INSERT (KOTOBA_URL を Secret から RunPod env に注入) |
 | GPU type | RTX 6000 Ada / RTX 4090 / A40 / A100 (Serverless template で flashboot=on, workersMin=0, workersMax=4) |
 | Job kind | sync (`/runsync`, ≤ 30s) は使わない / async (`/run` + `/status/{id}` poll) を使用、TTL ≤ 24h |
 | Auth | API key `Bearer ${RUNPOD_API_KEY}` (Secret `training-runpod-creds`) |
@@ -349,7 +349,7 @@ etzhayyim training run --kind sft ...
 
 1. 既存 `50-infra/runpod/vllm-gemma-image/` image の rebuild + RunPod template
    image tag 更新 (CI workflow `runpod-vllm-gemma-image.yml` を `push` で trigger)
-2. RunPod Pod `58pvflvw9w6nt3` の env vars 追加: `RW_URL`, `B2_*`,
+2. RunPod Pod `58pvflvw9w6nt3` の env vars 追加: `KOTOBA_URL`, `B2_*`,
    `HF_TOKEN`, `TRAINING_POD_AUTH_TOKEN`
 3. K8s Secret `training-pod-creds` (`TRAINING_POD_AUTH_TOKEN` のみ) を
    `mitama-udf` namespace に provision (既存 `training-runpod-creds` は退役)
@@ -367,7 +367,7 @@ etzhayyim training run --kind sft ...
 - `90-docs/adr/2604300135-hume-distillation-artifact-persistence.md`
 - `90-docs/adr/0056-bpmn-as-actor.md` (`90-docs/adr/2604231150-bpmn-as-actor.md`)
 - `90-docs/adr/0036-worker-direct-hyperdrive-persistence.md`
-- `90-docs/adr/0044-risingwave-udf-language-strategy.md`
+- `90-docs/adr/0044-kotoba-udf-language-strategy.md`
 - `90-docs/adr/2604282100-llm-bench-gemma4-default-self-hosted.md`
 - `90-docs/adr/2604292130-llm-etzhayyim-ai-runpod-pass.md`
 - `90-docs/adr/2605010000-runpod-6000ada-unified-pod.md`

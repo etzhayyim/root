@@ -12,7 +12,7 @@ authoritative_for:
   - pyzeebe Channel-close intermittent bug (workaround documented)
 related:
   - adr-2604231328-animeka-bpmn-l40s-pipeline
-  - adr-0094-risingwave-stable-three-node-topology
+  - adr-0094-kotoba-stable-three-node-topology
 ---
 
 # Goal

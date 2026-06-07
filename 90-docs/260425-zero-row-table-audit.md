@@ -1,8 +1,8 @@
 # Zero-row vertex_*/edge_* table audit (Phase 4)
 
 Date: 2026-04-25
-Scope: prod RisingWave (Vultr LAX, `45.32.79.245:4566`).
-Followup to: `260424-nsid-traffic-audit.md`, `260424-bsky-compat-risingwave-split.md`.
+Scope: prod Kotoba/Datomic (Vultr LAX, `45.32.79.245:4566`).
+Followup to: `260424-nsid-traffic-audit.md`, `260424-bsky-compat-kotoba-split.md`.
 
 ## Method
 
@@ -68,7 +68,7 @@ The 178 "writes seen" set is therefore a **lower bound** of live tables; the 646
 ## Wave 0 (already done in 260424 session)
 
 Wave 0 = MST commit path removal. Deleted code paths whose target tables are
-also in the 646 candidate list (kept the tables — see `260424-bsky-compat-risingwave-split.md` for why
+also in the 646 candidate list (kept the tables — see `260424-bsky-compat-kotoba-split.md` for why
 DROPing them was deferred):
 - `vertex_repo_block` — 0 rows confirmed; handler removed but table preserved for future federation rebuild.
 - (the `repoBackfillMst` handler now returns 410 Gone)

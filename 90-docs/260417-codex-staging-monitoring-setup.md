@@ -1,12 +1,12 @@
 # Staging Monitoring Setup — PR #1032 Deployment
 
-**Date**: 2026-04-17  
-**Purpose**: Real-time visibility during migration apply (Phase 2)  
+**Date**: 2026-04-17
+**Purpose**: Real-time visibility during migration apply (Phase 2)
 **Duration**: 6 hours (active monitoring window)
 
 ---
 
-## Part 1: Health Check Queries (RisingWave)
+## Part 1: Health Check Queries (Kotoba/Datomic)
 
 Run these in `psql` every 5–15 minutes during deploy. Copy into `/tmp/health_checks.sql`:
 
@@ -16,12 +16,12 @@ SELECT COUNT(*) as total_migrations FROM kysely_migration WHERE migration LIKE '
 SELECT migration FROM kysely_migration WHERE migration LIKE '202604%' ORDER BY executed_at DESC LIMIT 5;
 
 -- 2. CLUSTER CONNECTIVITY TEST
-SELECT version() as risingwave_version;
+SELECT version() as kotoba_version;
 SELECT current_database(), current_user, now() as check_time;
 
 -- 3. TABLE CREATION VERIFICATION
-SELECT COUNT(*) as new_tables FROM pg_tables 
-WHERE schemaname = 'public' 
+SELECT COUNT(*) as new_tables FROM pg_tables
+WHERE schemaname = 'public'
   AND tablename IN ('vertex_orbital_system', 'vertex_orbital_body', 'vertex_maps_job', 'vertex_flight_offer');
 
 -- 4. ROW COUNT BASELINE (should match seed data)
@@ -34,7 +34,7 @@ UNION ALL
 SELECT 'vertex_flight_offer', COUNT(*) FROM vertex_flight_offer;
 
 -- 5. INDEX CREATION CHECK
-SELECT schemaname, tablename, indexname FROM pg_indexes 
+SELECT schemaname, tablename, indexname FROM pg_indexes
 WHERE tablename LIKE 'vertex_orbital%' OR tablename LIKE 'vertex_maps%' OR tablename LIKE 'vertex_flight%'
 ORDER BY tablename;
 
@@ -42,7 +42,7 @@ ORDER BY tablename;
 SHOW JOBS;
 
 -- 7. MATERIALIZED VIEW HEALTH
-SELECT mviewname, schemaname FROM pg_matviews 
+SELECT mviewname, schemaname FROM pg_matviews
 WHERE mviewname LIKE 'mv_world%' OR mviewname LIKE 'mv_flight%'
 ORDER BY mviewname;
 
@@ -50,7 +50,7 @@ ORDER BY mviewname;
 SELECT name, state, error_message FROM rw_catalog.rw_ddl_progress WHERE state = 'Failed';
 
 -- 9. RESOURCE USAGE
-SELECT current_setting('work_mem') as work_mem, 
+SELECT current_setting('work_mem') as work_mem,
        current_setting('maintenance_work_mem') as maint_mem,
        current_setting('shared_buffers') as shared_buffers;
 ```
@@ -61,7 +61,7 @@ SELECT current_setting('work_mem') as work_mem,
 cat > /tmp/monitor_health.sh << 'EOF'
 #!/bin/bash
 
-DB_URL="postgresql://etzhayyim_user:${RW_STAGING_PASSWORD}@risingwave-staging.etzhayyim.com:4566/etzhayyim"
+DB_URL="postgresql://etzhayyim_user:EXAMPLE_PASSWORD@kotoba-staging.etzhayyim.com:4566/etzhayyim" # EXAMPLE
 TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
 
 echo "=== Health Check: $TIMESTAMP ===" >> /tmp/migration_health.log
@@ -103,15 +103,15 @@ echo "Health check monitoring started (logs to /tmp/migration_health.log)"
 
 ## Part 2: Kubernetes Cluster Monitoring
 
-Monitor RisingWave compute/storage pods in parallel terminal:
+Monitor Kotoba/Datomic compute/storage pods in parallel terminal:
 
 ### CPU & Memory Watch (every 30s)
 
 ```bash
 watch -n 30 'echo "=== $(date) ===" && \
-  kubectl top pod -n risingwave -l role=compute 2>/dev/null | head -10 && \
+  kubectl top pod -n kotoba -l role=compute 2>/dev/null | head -10 && \
   echo "---" && \
-  kubectl top node -n risingwave 2>/dev/null | head -10'
+  kubectl top node -n kotoba 2>/dev/null | head -10'
 ```
 
 **Expected during apply**:
@@ -119,10 +119,10 @@ watch -n 30 'echo "=== $(date) ===" && \
 - Memory: 60-75% (should NOT exceed 85%)
 - If memory hits 90%+ → **ABORT**, increase cluster memory
 
-### RisingWave Logs (watch for errors)
+### Kotoba/Datomic Logs (watch for errors)
 
 ```bash
-kubectl logs -n risingwave -l role=compute -f --tail=100 2>&1 | \
+kubectl logs -n kotoba -l role=compute -f --tail=100 2>&1 | \
   grep -E "ERROR|WARN|timeout|checkpoint|write_part" | \
   tee /tmp/rw_errors.log
 ```
@@ -135,7 +135,7 @@ kubectl logs -n risingwave -l role=compute -f --tail=100 2>&1 | \
 ### Pod Restart Detection
 
 ```bash
-kubectl get events -n risingwave -w 2>&1 | \
+kubectl get events -n kotoba -w 2>&1 | \
   grep -E "compute|Restart|Failed" | \
   tee /tmp/pod_events.log
 ```
@@ -159,7 +159,7 @@ echo "=== PDS Health: $TIMESTAMP ===" >> /tmp/pds_health.log
 if response=$(curl -s -w "\n%{http_code}" "$PDS_URL/xrpc/com.atproto.server.describeServer"); then
   http_code=$(echo "$response" | tail -1)
   body=$(echo "$response" | head -n -1)
-  
+
   if [ "$http_code" = "200" ]; then
     echo "PDS Status: ✓ UP (HTTP 200)" >> /tmp/pds_health.log
     echo "Response: $(echo "$body" | jq -c '.did // .appid' 2>/dev/null)" >> /tmp/pds_health.log
@@ -203,7 +203,7 @@ TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
 echo "=== S3 Latency: $TIMESTAMP ===" >> /tmp/s3_latency.log
 
 # Check RW logs for write_part timing (rough estimate)
-latest_write=$(kubectl logs -n risingwave -l role=compute --tail=500 2>/dev/null | \
+latest_write=$(kubectl logs -n kotoba -l role=compute --tail=500 2>/dev/null | \
   grep -i "write_part\|checkpoint" | tail -1)
 
 if [ -n "$latest_write" ]; then
@@ -270,7 +270,7 @@ Progress: $MIGRATION_NUM / 40 migrations
 Timestamp: $TIMESTAMP
 
 All migrations applied successfully so far.
-No errors detected in RisingWave cluster.
+No errors detected in Kotoba/Datomic cluster.
 
 Next milestone: Migrations $((MIGRATION_NUM+1))-$((MIGRATION_NUM+10))
 
@@ -372,7 +372,7 @@ If you have Grafana access, create dashboard with these panels:
 ### Panel 1: Migration Progress
 ```
 Title: Migration Apply Progress
-Query: 
+Query:
   SELECT COUNT(*) FROM kysely_migration WHERE migration LIKE '202604%'
 Refresh: 30s
 Alert: If < expected_count for >10 min
@@ -399,10 +399,10 @@ Alert: If latency > 500ms for >5 min
 
 ### Panel 4: RW Logs (Error aggregation)
 ```
-Title: RisingWave Errors
+Title: Kotoba/Datomic Errors
 Source: Loki (log aggregation)
-Query: 
-  {job="risingwave",level=~"ERROR|WARN"} 
+Query:
+  {job="kotoba",level=~"ERROR|WARN"}
   |= "write_part" or |= "timeout" or |= "OOM"
 Alert: Any ERROR level
 ```
@@ -447,25 +447,25 @@ while true; do
   echo "║                     $(date '+%Y-%m-%d %H:%M:%S')                       ║"
   echo "╚════════════════════════════════════════════════════════════════╝"
   echo ""
-  
+
   # Migration progress
   echo "📊 MIGRATION PROGRESS:"
-  migration_count=$(psql -h risingwave-staging.etzhayyim.com -U etzhayyim_user -d etzhayyim -tc "SELECT COUNT(*) FROM kysely_migration WHERE migration LIKE '202604%';" 2>/dev/null || echo "?")
+  migration_count=$(psql -h kotoba-staging.etzhayyim.com -U etzhayyim_user -d etzhayyim -tc "SELECT COUNT(*) FROM kysely_migration WHERE migration LIKE '202604%';" 2>/dev/null || echo "?")
   echo "   Migrations applied: $migration_count / 40"
   echo ""
-  
+
   # RW Cluster health
   echo "🖥️  CLUSTER HEALTH:"
-  if psql -h risingwave-staging.etzhayyim.com -U etzhayyim_user -d etzhayyim -c "SELECT 1;" > /dev/null 2>&1; then
-    cpu=$(kubectl top pod -n risingwave -l role=compute --no-headers 2>/dev/null | awk '{sum+=$2} END {print sum "m"}' || echo "?")
-    mem=$(kubectl top pod -n risingwave -l role=compute --no-headers 2>/dev/null | awk '{sum+=$3} END {print sum "Mi"}' || echo "?")
+  if psql -h kotoba-staging.etzhayyim.com -U etzhayyim_user -d etzhayyim -c "SELECT 1;" > /dev/null 2>&1; then
+    cpu=$(kubectl top pod -n kotoba -l role=compute --no-headers 2>/dev/null | awk '{sum+=$2} END {print sum "m"}' || echo "?")
+    mem=$(kubectl top pod -n kotoba -l role=compute --no-headers 2>/dev/null | awk '{sum+=$3} END {print sum "Mi"}' || echo "?")
     echo "   Status: ✓ RESPONSIVE"
     echo "   CPU: $cpu  Memory: $mem"
   else
     echo "   Status: ✗ UNRESPONSIVE ⚠️"
   fi
   echo ""
-  
+
   # PDS health
   echo "🌐 PDS STATUS:"
   pds_code=$(curl -s -o /dev/null -w "%{http_code}" https://atproto.etzhayyim.com/xrpc/com.atproto.server.describeServer 2>/dev/null || echo "???")
@@ -475,12 +475,12 @@ while true; do
     echo "   Status: ⚠ HTTP $pds_code"
   fi
   echo ""
-  
+
   # Error summary
   echo "⚠️  RECENT ERRORS (last 3):"
   tail -3 /tmp/rw_errors.log 2>/dev/null | sed 's/^/   /' || echo "   (none)"
   echo ""
-  
+
   # Next refresh
   echo "Next refresh in 30s... (Ctrl+C to exit)"
   sleep 30
@@ -508,10 +508,10 @@ export NOTIFICATION_EMAIL="platform-team@etzhayyim.com"
 tail -f /tmp/migration_health.log
 
 # Terminal 2: K8s pod monitoring
-watch -n 30 'kubectl top pod -n risingwave -l role=compute'
+watch -n 30 'kubectl top pod -n kotoba -l role=compute'
 
 # Terminal 3: RW error logs
-kubectl logs -n risingwave -l role=compute -f --tail=100 | grep -i error
+kubectl logs -n kotoba -l role=compute -f --tail=100 | grep -i error
 
 # Terminal 4: PDS health (2-min checks)
 /tmp/pds_health.sh &
@@ -571,6 +571,6 @@ psql "$DATABASE_URL" -c "SELECT 1;"
 
 ---
 
-**Document Owner**: Platform Team  
-**Created**: 2026-04-17  
+**Document Owner**: Platform Team
+**Created**: 2026-04-17
 **Last Updated**: 2026-04-17

@@ -96,7 +96,7 @@ Priority 3 (自動運転): animeka.etzhayyim.com  ── 10% (CronJob + NATS 自
 ├───────────────────────┴─────────────────────────────────────────────┬───────────────────────────────────────┤
 │ COST STRUCTURE                                                       │ REVENUE STREAMS                       │
 │                                                                      │                                       │
-│ • Vultr VKE (RisingWave, Zeebe): $241/月                            │ 【月額サブスクリプション (主)】          │
+│ • Vultr VKE (Kotoba/Datomic, Zeebe): $241/月                            │ 【月額サブスクリプション (主)】          │
 │ • RunPod Serverless (ComfyUI): ~$22/月                              │   Starter: ¥15,000/月 (〜5ユーザー)    │
 │ • Cloudflare Workers: 従量 (現状ほぼ無料枠)                          │   Growth:  ¥35,000/月 (〜20ユーザー)   │
 │ • Murakumo LLM fleet (Keiei): $0 追加 (共有インフラ)               │   Scale:   ¥80,000/月 (無制限)         │

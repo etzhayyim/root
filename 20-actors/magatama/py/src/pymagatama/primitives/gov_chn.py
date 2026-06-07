@@ -7,6 +7,7 @@ the same graph-visible state the Worker previously wrote via host-sdk.
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import asyncio
 import datetime as _dt
@@ -20,7 +21,6 @@ import urllib.error as _u_err
 import urllib.request as _u_req
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
 
 
 PRIMARY_DID = "did:web:chn-state.etzhayyim.com"

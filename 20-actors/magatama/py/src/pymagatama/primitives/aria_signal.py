@@ -21,6 +21,7 @@ psycopg3 LIMIT rule: always use LIMIT {int(n)} f-string, never LIMIT %s param.
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import datetime as _dt
 import hashlib
@@ -33,7 +34,6 @@ import urllib.error
 import urllib.request
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
 
 LOG = logging.getLogger("aria.signal")
 
@@ -156,9 +156,10 @@ def task_aria_attention_ingest(**kwargs: Any) -> dict[str, Any]:
     # On timeout, handler falls back to default eta=0.5 and still inserts the row.
     counts: dict[str, int] = {}
     try:
-        with sync_cursor() as cur:
-            cur.execute("SET statement_timeout = '10s'")
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q("SET statement_timeout = '10s'")
+            _res = client.q(
                 f"""SELECT collection, COUNT(*) AS cnt
                     FROM vertex_repo_record
                     WHERE ts_ms > (EXTRACT(EPOCH FROM NOW()) * 1000 - 3600000)
@@ -166,7 +167,7 @@ def task_aria_attention_ingest(**kwargs: Any) -> dict[str, Any]:
                     ORDER BY cnt DESC
                     LIMIT {int(50)}"""
             )
-            rows = cur.fetchall()
+            rows = _res
         for collection, cnt in rows:
             counts[str(collection)] = int(cnt or 0)
     except Exception as exc:
@@ -197,12 +198,13 @@ def task_aria_attention_ingest(**kwargs: Any) -> dict[str, Any]:
             google_trends_note = f"error:{str(exc)[:80]}"
 
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 "DELETE FROM vertex_signal_attention WHERE vertex_id = %s",
                 (vertex_id,),
             )
-            cur.execute(
+            _res = client.q(
                 """INSERT INTO vertex_signal_attention
                    (vertex_id, signal_axis, source, magnitude, valence,
                     entropy_h, eta, sample_count, metadata_json, created_at)
@@ -261,9 +263,10 @@ def task_aria_request_ingest(**kwargs: Any) -> dict[str, Any]:
     counts: dict[str, int] = {}
     total = 0
     try:
-        with sync_cursor() as cur:
-            cur.execute("SET statement_timeout = '10s'")
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q("SET statement_timeout = '10s'")
+            _res = client.q(
                 f"""SELECT collection, COUNT(*) AS cnt
                     FROM vertex_repo_record
                     WHERE ts_ms > (EXTRACT(EPOCH FROM NOW()) * 1000 - 3600000)
@@ -271,7 +274,7 @@ def task_aria_request_ingest(**kwargs: Any) -> dict[str, Any]:
                     ORDER BY cnt DESC
                     LIMIT {int(100)}"""
             )
-            rows = cur.fetchall()
+            rows = _res
         for collection, cnt in rows:
             c = int(cnt or 0)
             counts[str(collection)] = c
@@ -290,12 +293,13 @@ def task_aria_request_ingest(**kwargs: Any) -> dict[str, Any]:
     valence = 1.0  # growing assumption (request is active)
 
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 "DELETE FROM vertex_signal_request WHERE vertex_id = %s",
                 (vertex_id,),
             )
-            cur.execute(
+            _res = client.q(
                 """INSERT INTO vertex_signal_request
                    (vertex_id, signal_axis, source, magnitude, valence,
                     entropy_h, eta, sample_count, metadata_json, created_at)
@@ -393,12 +397,13 @@ def task_aria_market_delta_ingest(**kwargs: Any) -> dict[str, Any]:
     valence = 1.0 if net > 0 else (0.0 if net < 0 else 0.5)
 
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 "DELETE FROM vertex_signal_market WHERE vertex_id = %s",
                 (vertex_id,),
             )
-            cur.execute(
+            _res = client.q(
                 """INSERT INTO vertex_signal_market
                    (vertex_id, signal_axis, source, magnitude, valence,
                     entropy_h, eta, sample_count, metadata_json, created_at)
@@ -475,15 +480,16 @@ def task_aria_money_flow_ingest(**kwargs: Any) -> dict[str, Any]:
     # Retrieve 90-day max from stored records
     max_90d: float = trade_volume_usd  # default: current is the max
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 f"""SELECT MAX(magnitude)
                     FROM vertex_signal_money
                     WHERE signal_axis = 'money'
                       AND created_at > NOW() - INTERVAL '90 days'
                     LIMIT {int(1)}"""
             )
-            row = cur.fetchone()
+            row = (_res[0] if _res else None)
         if row and row[0] is not None:
             stored_max_mag = float(row[0])
             # magnitude was already normalised; recover approximate volume max
@@ -503,12 +509,13 @@ def task_aria_money_flow_ingest(**kwargs: Any) -> dict[str, Any]:
     eta_val = _eta(h, 2)
 
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 "DELETE FROM vertex_signal_money WHERE vertex_id = %s",
                 (vertex_id,),
             )
-            cur.execute(
+            _res = client.q(
                 """INSERT INTO vertex_signal_money
                    (vertex_id, signal_axis, source, magnitude, valence,
                     entropy_h, eta, sample_count, metadata_json, created_at)
@@ -573,14 +580,15 @@ def task_aria_emotion_ingest(**kwargs: Any) -> dict[str, Any]:
     sep_deltas: list[float] = []
     axis_counts: dict[str, int] = {}
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 f"""SELECT avg_separation_delta, bottleneck_axis
                     FROM vertex_actor_wellbecoming_profile
                     WHERE at_risk = true
                     LIMIT {int(500)}"""
             )
-            rows = cur.fetchall()
+            rows = _res
         for avg_sep, axis in rows:
             sep_deltas.append(float(avg_sep or 0.0))
             key = str(axis or "unknown")
@@ -609,12 +617,13 @@ def task_aria_emotion_ingest(**kwargs: Any) -> dict[str, Any]:
         eta_val = _eta(h, len(axis_counts)) if axis_counts else 0.5
 
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 "DELETE FROM vertex_signal_emotion WHERE vertex_id = %s",
                 (vertex_id,),
             )
-            cur.execute(
+            _res = client.q(
                 """INSERT INTO vertex_signal_emotion
                    (vertex_id, signal_axis, source, magnitude, valence,
                     entropy_h, eta, sample_count, metadata_json, created_at)
@@ -673,15 +682,16 @@ def task_aria_influence_ingest(**kwargs: Any) -> dict[str, Any]:
     follower_counts: list[int] = []
     top_actor: str = ""
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 f"""SELECT owner_did, COUNT(*) AS follower_cnt
                     FROM edge_follows
                     GROUP BY owner_did
                     ORDER BY follower_cnt DESC
                     LIMIT {int(100)}"""
             )
-            rows = cur.fetchall()
+            rows = _res
         for i, (owner_did, cnt) in enumerate(rows):
             follower_counts.append(int(cnt or 0))
             if i == 0:
@@ -703,12 +713,13 @@ def task_aria_influence_ingest(**kwargs: Any) -> dict[str, Any]:
     valence = 0.5  # neutral: influence concentration is neither good nor bad
 
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 "DELETE FROM vertex_signal_influence WHERE vertex_id = %s",
                 (vertex_id,),
             )
-            cur.execute(
+            _res = client.q(
                 """INSERT INTO vertex_signal_influence
                    (vertex_id, signal_axis, source, magnitude, valence,
                     entropy_h, eta, sample_count, metadata_json, created_at)
@@ -773,14 +784,15 @@ def task_aria_minimax_sweep(**kwargs: Any) -> dict[str, Any]:
 
     # Try mv_signal_entropy first
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 f"""SELECT signal_axis, eta
                     FROM mv_signal_entropy
                     ORDER BY signal_axis
                     LIMIT {int(20)}"""
             )
-            rows = cur.fetchall()
+            rows = _res
         if rows:
             for axis, eta_val in rows:
                 etas[str(axis)] = float(eta_val or 0.5)
@@ -801,8 +813,9 @@ def task_aria_minimax_sweep(**kwargs: Any) -> dict[str, Any]:
         }
         for axis, table in _SIGNAL_TABLES.items():
             try:
-                with sync_cursor() as cur:
-                    cur.execute(
+                if True:
+                    client = get_kotoba_client()
+                    _res = client.q(
                         f"""SELECT eta
                             FROM {table}
                             WHERE signal_axis = %s
@@ -810,7 +823,7 @@ def task_aria_minimax_sweep(**kwargs: Any) -> dict[str, Any]:
                             LIMIT {int(1)}""",
                         (axis,),
                     )
-                    row = cur.fetchone()
+                    row = (_res[0] if _res else None)
                 etas[axis] = float(row[0]) if row and row[0] is not None else 0.5
             except Exception:
                 etas[axis] = 0.5  # default if table missing
@@ -866,8 +879,9 @@ def task_aria_minimax_sweep(**kwargs: Any) -> dict[str, Any]:
     # ── Step 4: write result to vertex_wellbecoming_event ─────────────────────
     event_id = f"aria:minimax:{int(time.time() * 1000):x}"
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 """INSERT INTO vertex_wellbecoming_event
                    (vertex_id, case_id, agent_did, activity, layer_trigger,
                     floor_violated, response_length, response_preview,
@@ -940,14 +954,15 @@ def task_aria_reverse_topo_replan(**kwargs: Any) -> dict[str, Any]:
     # Read current etas
     etas: dict[str, float] = {}
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 f"""SELECT signal_axis, eta
                     FROM mv_signal_entropy
                     ORDER BY signal_axis
                     LIMIT {int(20)}"""
             )
-            rows = cur.fetchall()
+            rows = _res
         for axis, eta_val in rows:
             etas[str(axis)] = float(eta_val or 0.5)
     except Exception as exc:

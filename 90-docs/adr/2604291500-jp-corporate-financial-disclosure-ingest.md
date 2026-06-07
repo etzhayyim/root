@@ -403,7 +403,7 @@ Smoke fixtures:
 | Source incompleteness | coverage table records `missing_reason` instead of pretending completeness |
 | LLM hallucinated numbers | deterministic table parser first, range/sign validation, source location required |
 | Paid / restricted sources | artifact must include license/access class; no scraping behind auth |
-| RisingWave degraded writes | health gate + verify before cursor advancement |
+| Kotoba/Datomic degraded writes | health gate + verify before cursor advancement |
 
 # Open Questions
 

@@ -73,6 +73,6 @@ All operator steps completed in the same session:
 | DNS | `maps-langserver.etzhayyim.com` CNAME → `a84a1d0b…cfargotunnel.com` (proxied) |
 | Tunnel ingress | `maps-langserver.etzhayyim.com` → `http://localhost:8081` |
 | K8s secret | `maps-langserver-tunnel-token` in namespace `maps` |
-| K8s secret | `mitama-udf-pool-rw` copied to namespace `maps` (RW_URL) |
+| K8s secret | `mitama-udf-pool-rw` copied to namespace `maps` (KOTOBA_URL) |
 | Deployment | `maps-read-langserver` — 2/2 Running (worker-api + cloudflared) |
 | Readyz | `{"ok":true,"component":"maps-read-langserver","ready":true}` |

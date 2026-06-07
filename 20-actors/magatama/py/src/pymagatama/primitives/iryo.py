@@ -31,6 +31,7 @@ Content-addressed PKs (ADR-0041) — re-runs idempotent.
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import hashlib
 import json
@@ -43,7 +44,6 @@ import urllib.parse
 import urllib.request
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
 
 # ──────────────────────────────────────────────────────────────────────
 # Constants
@@ -151,14 +151,16 @@ def _slug(s: str, *, max_len: int = 80) -> str:
 
 
 def _rw_execute(sql: str, params: tuple[Any, ...]) -> None:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql, params)
 
 
 def _rw_query(sql: str, params: tuple[Any, ...] = ()) -> list[tuple[Any, ...]]:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return list(cur.fetchall() or [])
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql, params)
+        return list(_res or [])
 
 
 def _vertex_id(collection: str, rkey: str) -> str:

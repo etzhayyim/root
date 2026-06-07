@@ -1,6 +1,6 @@
 ---
-id: adr-2606032330-session-close-magatama-risingwave-to-kotoba-datomic-edn
-title: "ADR-2606032330: Session close — magatama RisingWave → kotoba Datomic API/EDN refactor (substrate clients + LangGraph savers + sqlmesh view registry)"
+id: adr-2606032330-session-close-magatama-kotoba-to-kotoba-datomic-edn
+title: "ADR-2606032330: Session close — magatama Kotoba/Datomic → kotoba Datomic API/EDN refactor (substrate clients + LangGraph savers + sqlmesh view registry)"
 status: active
 doc_type: adr
 topic: session-close-magatama-rw-to-kotoba
@@ -16,22 +16,22 @@ supersedes: []
 superseded_by: []
 ---
 
-# ADR-2606032330: Session close — magatama RisingWave → kotoba Datomic API/EDN
+# ADR-2606032330: Session close — magatama Kotoba/Datomic → kotoba Datomic API/EDN
 
 **Status**: active — documentation-only closure
 **Date**: 2026-06-03
 **Deciders**: Jun Kawasaki
 
-Closure for the request *「repo ないの risingwave を kotoba datomic api, edn に refactor」*.
+Closure for the request *「repo ないの kotoba を kotoba datomic api, edn に refactor」*.
 This is the **magatama application-layer** counterpart to the kotoba-engine-internal
 work in ADR-2606031030. The canonical substrate rule is **ADR-2605262130** (kotoba
-Datom log = the only state home; no RisingWave/Postgres/Kysely) + **ADR-2605312345**
+Datom log = the only state home; no Kotoba/Datomic/Postgres/Kysely) + **ADR-2605312345**
 (Datom log = first-class canonical state). This session ported the magatama Python
-worker layer + the TS app SDK off RisingWave onto the kotoba Datomic XRPC surface.
+worker layer + the TS app SDK off Kotoba/Datomic onto the kotoba Datomic XRPC surface.
 
 ## Scope finding (recorded for the next session)
 
-A full repo scan found **~1,380 files** mentioning `risingwave`. The decisive
+A full repo scan found **~1,380 files** mentioning `kotoba`. The decisive
 result: the **30 Tier-B actors are already RW-free** — every remaining mention there
 is a gate rule *forbidding* RW, a docstring documenting a prior migration, or a
 manifest-cleanup TODO; **zero real RW usage remains in actor code**. The only live
@@ -78,7 +78,7 @@ RW code is two framework surfaces the migration plan had deferred to "P11":
 
 ## Migration recipe (proven, for the resumed app sweep)
 
-| RisingWave / Kysely | kotoba Datomic |
+| Kotoba/Datomic / Kysely | kotoba Datomic |
 |---|---|
 | `selectFrom(t).where(c,"=",v).executeTakeFirst()` | `selectFirstWhere(t,c,v)` |
 | `selectFrom(t).select(cols).execute()` | `selectRows(t,cols)` |

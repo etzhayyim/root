@@ -9,7 +9,7 @@ last_verified: 2026-04-24
 related:
   - adr-2604241038-yoro-pds-ideal-topology
   - adr-2604241121-repo-commit-stays-on-pds
-  - adr-2604241342-risingwave-out-of-band-migration-pattern
+  - adr-2604241342-kotoba-out-of-band-migration-pattern
   - doc-260424-ephemeral-runbook-convention
 ---
 
@@ -45,7 +45,7 @@ just the log of what happened and where to find the pieces.
     oauth-strict-mode-preflight.sh` — 3 gates (deploy age, warn-log
     rates, smoke) exit-coded so the operator can't flip without green.
   - ADR-2604241038 addendum "β2 lesson" — 2-stage deploy budget for any
-    new Worker against RisingWave, because the first deploy typically
+    new Worker against Kotoba/Datomic, because the first deploy typically
     exposes a parameterized-LIMIT or sql-dialect mismatch.
 
 - **sh1n5h1x postsCount fix (0 → 1425+)**
@@ -119,7 +119,7 @@ Refresh of `90-docs/rules/waituntil-requires-catch-baseline.txt`
 | `sh1n5h1x.etzhayyim.com` | `postsCount = 1476` (was 0), did-web root row in `mv_actor_social_stats` |
 | LaunchAgent | `com.etzhayyim.legacy-trust-tally` bootstrapped in `gui/501`, fires 09:17 daily |
 | Tally log | `90-docs/260424-legacy-trust-tally.log` seeded with first samples (0/0 hits) |
-| RisingWave | 1236 tables / 17152 columns, drift clean |
+| Kotoba/Datomic | 1236 tables / 17152 columns, drift clean |
 
 # Known pre-existing CI failures (not caused by this session)
 
@@ -150,7 +150,7 @@ reinventing them.
 
 # Design constraints surfaced this session
 
-1. **RisingWave parameterized LIMIT** — Kysely's `.limit(N)` generates
+1. **Kotoba/Datomic parameterized LIMIT** — Kysely's `.limit(N)` generates
    `LIMIT $n` which RW's sql_parser rejects for MV SELECTs. Any new
    Worker doing MV reads must use `sql` template with inline literal.
    Pre-deploy grep target documented in ADR β2 addendum.

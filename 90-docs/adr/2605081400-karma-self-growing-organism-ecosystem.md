@@ -239,7 +239,7 @@ The dynamic layer is **partially reversible**. Specifically:
 - A cohort can be marked `dissolved` without fission. New genesis
   picks up the slack on next R/PT24H.
 - The `mitama-karma-pool` Helm release can be torn down; existing
-  edges + organism rows persist in RisingWave + 5 layers.
+  edges + organism rows persist in Kotoba/Datomic + 5 layers.
 
 What CANNOT be reversed (constitutional layer):
 - Already-recorded edges

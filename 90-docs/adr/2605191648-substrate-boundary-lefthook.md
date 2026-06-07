@@ -21,7 +21,7 @@ V05191346-etzhayyim-vultr-free-murakumo-control-plane
 ADR-2605172000(RW-free state substrate)+ ADR-2605172100(payments
 on-chain only)が **etzhayyim/* 全体の architectural invariant** を
 定義したが、 enforcement は人間レビューに依存していた。 過去には
-GitGuardian インシデント(ADR-2605173100)で RisingWave credential が
+GitGuardian インシデント(ADR-2605173100)で Kotoba/Datomic credential が
 HEAD に紛れ込むなど、 ガード無しで HEAD が落ちる事故も発生。
 
 contributing pattern が増えるにつれて(parallel branches: `cf-worker-murakumo`、`sdk-write-read-impl`、`ameno-daemon-wave`、`e7m-cli` 等)、commit gate での 機械的 enforcement が必要。
@@ -38,7 +38,7 @@ staged な `.ts` / `.tsx` / `.js` / `.jsx` / `.mjs` / `.cjs` / `.py` / `.svelte`
 
 | カテゴリ | 禁止 import | 推奨置換 |
 |---|---|---|
-| 中央集権 storage(ADR-2605172000) | `kysely` / `pg` / `postgres` / `mysql` / `mongodb` / `risingwave` / `@risingwavelabs/*` / `psycopg` / `psycopg2` / `pg8000` | `@etzhayyim/sdk/{pds,checkpointer}` |
+| 中央集権 storage(ADR-2605172000) | `kysely` / `pg` / `postgres` / `mysql` / `mongodb` / `kotoba` / `@kotobalabs/*` / `psycopg` / `psycopg2` / `pg8000` | `@etzhayyim/sdk/{pds,checkpointer}` |
 | Fiat 決済(ADR-2605172100) | `stripe` / `@stripe/*` / `paypal-rest-sdk` / `@paypal/*` / `square` / `razorpay` / `braintree` / `@braintree/*` / `@adyen/*` | `@etzhayyim/sdk/pay`(USDC + ERC-4337) |
 | Substrate client seam(ADR-2605172000 §seam) | `@atproto/api` / `viem` / `@noble/ciphers` / `@signalapp/libsignal-client` / `ipfs-http-client` / `helia` | `@etzhayyim/sdk` |
 

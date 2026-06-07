@@ -28,7 +28,7 @@ zeebe-worker / ingest-worker Python pods
         |
         +-- source APIs / object storage / local staging
         +-- LLM analysis through existing pymagatama.llm
-        +-- graph writes through RisingWave/Hyperdrive
+        +-- graph writes through Kotoba/Datomic/Hyperdrive
         v
 coverage reconciliation MVs + audit rows
 ```
@@ -153,7 +153,7 @@ Every ingest worker must implement these rules:
   written.
 - LLM outputs are derived artifacts, never the only copy of source truth.
 
-For RisingWave degraded windows, a worker must run `rw.health.probe` or the
+For Kotoba/Datomic degraded windows, a worker must run `rw.health.probe` or the
 equivalent health gate before bulk writes. A successful client-side `INSERT`
 result is not enough; post-write visibility checks drive cursor advancement.
 
@@ -234,7 +234,7 @@ Deployment/ingest-worker
   command: python -m pymagatama.ingest_worker_main
   env:
     ZEEBE_GATEWAY
-    RW_URL
+    KOTOBA_URL
     B2_* / source API credentials
     VULTR_SERVERLESS_KEY for LLM paths
   resources:
@@ -275,7 +275,7 @@ Initial tools:
 
 MCP is an agent/operator facade. It does not become a second source of truth.
 Lexicons define input/output contracts, BPMN defines orchestration, and
-RisingWave graph rows define durable state.
+Kotoba/Datomic graph rows define durable state.
 
 ## Ingest Family Mapping
 

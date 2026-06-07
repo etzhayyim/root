@@ -151,7 +151,7 @@ If EVO-X2 is unreachable at analysis time:
 
 ### P5 — STAC search (T-1 — not a GPU tier)
 
-The STAC search task (`maps.sentinel.stac.search` → `task_maps_sentinel_stac_search`) uses no GPU. The vendor implementation's HTTP logic and AOI handling are substrate-neutral and can be ported directly to `maps_sentinel_murakumo.py` without changes to the HTTP logic. The only change is replacing `sync_cursor()` DB writes (RisingWave) with AT MST record writes via the etzhayyim substrate (AT Protocol MST + IPFS + Base L2 per ADR-2605172000). STAC search runs on the receiving Mac mini node (CPU-only, no tier assignment).
+The STAC search task (`maps.sentinel.stac.search` → `task_maps_sentinel_stac_search`) uses no GPU. The vendor implementation's HTTP logic and AOI handling are substrate-neutral and can be ported directly to `maps_sentinel_murakumo.py` without changes to the HTTP logic. The only change is replacing `sync_cursor()` DB writes (Kotoba/Datomic) with AT MST record writes via the etzhayyim substrate (AT Protocol MST + IPFS + Base L2 per ADR-2605172000). STAC search runs on the receiving Mac mini node (CPU-only, no tier assignment).
 
 ## §3 Lexicon wire-shape stability
 
@@ -265,7 +265,7 @@ Proposal: Serve only Sentinel-2 optical analyses (changeDetection, landUse) and 
 - **related**:
   - ADR-2605201400 — kuni-umi planetary infra fleet (SiteSurveyCell, AuditWitnessCell use SAR analysis)
   - ADR-2605192245 — etzhayyim global land sovereignty (land trust monitoring use case for Sentinel analysis)
-  - ADR-2605172000 — RW-free substrate (AT MST + IPFS + Base L2 replaces RisingWave for scene/analysis record writes)
+  - ADR-2605172000 — RW-free substrate (AT MST + IPFS + Base L2 replaces Kotoba/Datomic for scene/analysis record writes)
 - **Implementation target**: `20-actors/magatama/py/src/pymagatama/primitives/maps_sentinel_murakumo.py` (new file; do not modify vendor `maps_sentinel.py`)
 - **Step 8 cutover sub-list**: `20-actors/magatama/py/PYMAGATAMA-MIGRATION-NOTES.md` (sister document; maps_sentinel row)
 - **Lexicons**: `00-contracts/lexicons/com/etzhayyim/apps/maps/sentinelAnalyze.json`, `sentinelIngest.json` (wire contract; description-only PORT-adapted per ADR-2605214000 §2)

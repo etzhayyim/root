@@ -1,6 +1,6 @@
 ---
 id: adr-2605081200-spiffworkflow-bpmn-engine-replacement
-title: SpiffWorkflow を Zeebe 後継 BPMN engine とする (RisingWave-native, code-as-data)
+title: SpiffWorkflow を Zeebe 後継 BPMN engine とする (Kotoba/Datomic-native, code-as-data)
 status: active
 doc_type: adr
 topic: workflow-engine
@@ -17,8 +17,8 @@ related:
   - adr-2604282300
   - 90-docs/adr/0056-bpmn-as-actor.md
   - 90-docs/adr/0036-worker-direct-hyperdrive-persistence.md
-  - 90-docs/adr/0094-risingwave-stable-three-node-topology.md
-  - 90-docs/260424-bsky-compat-risingwave-split.md
+  - 90-docs/adr/0094-kotoba-stable-three-node-topology.md
+  - 90-docs/260424-bsky-compat-kotoba-split.md
 supersedes: []
 superseded_by: []
 ---
@@ -31,14 +31,14 @@ superseded_by: []
 
 1. **License**: Camunda 8 (Zeebe) は **Camunda Self-Managed License** で商用本番利用に有償ライセンスが必要。Camunda 7 CE は 2025-10-11 で community サポート終了済 (新規採用不可)。
 2. **broker 重量**: Zeebe broker pod は JVM + RocksDB partition で常駐数百 MB〜GiB を占め、`mitama-udf-pool` の compute floor (`vhf-16c-58gb × 2`) を圧迫する。
-3. **データ層二重化**: Zeebe は RocksDB を内部 state とし、別途 RisingWave に解析データを書く。**ADR-0036 (Worker-direct Hyperdrive Persistence) と record-log semantics (`90-docs/260424-bsky-compat-risingwave-split.md`)** の "RW を SSoT、UPDATE 禁止、delete-then-insert、MST なし" 規約と engine 内部状態が分離している。
+3. **データ層二重化**: Zeebe は RocksDB を内部 state とし、別途 Kotoba/Datomic に解析データを書く。**ADR-0036 (Worker-direct Hyperdrive Persistence) と record-log semantics (`90-docs/260424-bsky-compat-kotoba-split.md`)** の "RW を SSoT、UPDATE 禁止、delete-then-insert、MST なし" 規約と engine 内部状態が分離している。
 4. **pyzeebe watchdog hazard**: `50-infra/CLAUDE.md` に既知の "pyzeebe asyncio loop starvation → false restart" issue が記録済。SDK 構造由来の問題で根本回避できない。
 
-**code-as-data deploy + worker pull 型 + RisingWave を data 層** の前提を維持しつつ、license-clean な BPMN engine が必要。代替評価は `[knowledge.bpmn-engine-alternatives-20260508]` (deps.toml 候補) で実施し、SpiffWorkflow / DBOS Transact / bpmn-engine / Flowable / Camunda 7 CE / Temporal / Conductor / RW-native custom interpreter を比較した。
+**code-as-data deploy + worker pull 型 + Kotoba/Datomic を data 層** の前提を維持しつつ、license-clean な BPMN engine が必要。代替評価は `[knowledge.bpmn-engine-alternatives-20260508]` (deps.toml 候補) で実施し、SpiffWorkflow / DBOS Transact / bpmn-engine / Flowable / Camunda 7 CE / Temporal / Conductor / RW-native custom interpreter を比較した。
 
 # Decision
 
-**SpiffWorkflow (LGPL-3.0, sartography/SpiffWorkflow) を Zeebe 後継 BPMN engine として採用する。** Engine 本体のみを Python library として `mitama-udf-pool` の worker pod に in-process 同梱し、`spiff-arena` の REST runtime は使わない。State 永続層は **RisingWave のみ** (ADR-0036 / record-log semantics 準拠、UPDATE / ON CONFLICT 不使用)。
+**SpiffWorkflow (LGPL-3.0, sartography/SpiffWorkflow) を Zeebe 後継 BPMN engine として採用する。** Engine 本体のみを Python library として `mitama-udf-pool` の worker pod に in-process 同梱し、`spiff-arena` の REST runtime は使わない。State 永続層は **Kotoba/Datomic のみ** (ADR-0036 / record-log semantics 準拠、UPDATE / ON CONFLICT 不使用)。
 
 ADR-2605080600 により、L3 actor runtime の main path は LangGraph Server +
 Granian とする。本 ADR の SpiffWorkflow path はそれと競合しない。BPMN XML が
@@ -179,7 +179,7 @@ runbook は手順と当日の acceptance gate を持つ。
 2. `70-tools/scripts/ingest/rw-health-gate.sh`
 3. Alembic migration `r_20260509110000_vertex_spiff_runtime`
 4. immutable image tag build (`bpmn-engine-host` と `open-lei-mcp`)
-5. `bpmn-engine-host-secrets` (`RW_DSN`) 作成
+5. `bpmn-engine-host-secrets` (`KOTOBA_URL`) 作成
 6. `bpmn-engine-host` Deployment + `cronjob-timer-tick.yaml`
 7. `open-lei-spiff-worker` Deployment
 8. low-concurrency smoke (`--concurrency 3`)
@@ -190,7 +190,7 @@ runbook は手順と当日の acceptance gate を持つ。
 
 - `alembic_version` head が `r_20260509110000_vertex_spiff_runtime`
 - `vertex_spiff_{instance,job,timer,history}` と `mv_spiff_ready_jobs`
-  が RisingWave に存在する
+  が Kotoba/Datomic に存在する
 - `vertex_bpmn_instance` など既存 Zeebe runtime shape は無変更
 - `pnpm db:gen && pnpm db:drift` が 0 drift
 - `/healthz` と `/readyz` が 200
@@ -346,7 +346,7 @@ AT record collection paths も整合:
 - SpiffWorkflow: https://github.com/sartography/SpiffWorkflow (LGPL-3.0)
 - ADR-0036 Worker-direct Hyperdrive Persistence: `90-docs/adr/0036-worker-direct-hyperdrive-persistence.md`
 - ADR-0056 BPMN-as-actor: `90-docs/adr/0056-bpmn-as-actor.md`
-- Record-log semantics (no MST): `90-docs/260424-bsky-compat-risingwave-split.md`
+- Record-log semantics (no MST): `90-docs/260424-bsky-compat-kotoba-split.md`
 - ADR 2604282300 CF Worker = Edge Layer / Zeebe・RW UDF = Business Logic
-- RisingWave Smooth Scaling Gate: `50-infra/CLAUDE.md` + `50-infra/vultr/risingwave/scaling-contract.yaml`
+- Kotoba/Datomic Smooth Scaling Gate: `50-infra/CLAUDE.md` + `50-infra/vultr/kotoba/scaling-contract.yaml`
 - Camunda 7 CE EOL: https://docs.camunda.org/manual/7.21/introduction/supported-environments/ (community support 2025-10-11 終了)

@@ -1,17 +1,17 @@
-# Bluesky social-app compatibility on RisingWave: how etzhayyim self-hosted PDS holds the contract
+# Bluesky social-app compatibility on Kotoba/Datomic: how etzhayyim self-hosted PDS holds the contract
 
 Date: 2026-04-24
-Scope: analysis of `50-infra/cloudflare/workers/atproto/` against Bluesky social-app client contract, in light of RisingWave 2.8.1 OLTP gaps confirmed 2026-04-24 (`ON CONFLICT`, write TX, RYW, UNIQUE all unsupported).
+Scope: analysis of `50-infra/cloudflare/workers/atproto/` against Bluesky social-app client contract, in light of Kotoba/Datomic 2.8.1 OLTP gaps confirmed 2026-04-24 (`ON CONFLICT`, write TX, RYW, UNIQUE all unsupported).
 
 Relates: ADR-0002 (GraphAr), ADR-0022 (auth 2-token), ADR-0036 (worker-direct Hyperdrive), ADR-0041 (commit content-PK), ADR-0048 (Vultr+B2), `260424-tranquil-pds-graphar-remap.md` (retracted), `260420-pds-commit-seq-race-analysis.md`
 
 ## TL;DR
 
-- **etzhayyim self-hosted PDS is already compatible with RisingWave's OLTP gaps**. The canonical commit path (`core.ts:2998`) uses **delete-then-insert upsert emulation** explicitly to avoid `ON CONFLICT`. That's why etzhayyim works where tranquil does not.
+- **etzhayyim self-hosted PDS is already compatible with Kotoba/Datomic's OLTP gaps**. The canonical commit path (`core.ts:2998`) uses **delete-then-insert upsert emulation** explicitly to avoid `ON CONFLICT`. That's why etzhayyim works where tranquil does not.
 - **Bluesky social-app client sees only the XRPC HTTP surface**. It doesn't care about storage. Compatibility is held at the XRPC layer, not at the SQL layer.
 - **The OLTP-heavy surface is offloaded to D1** (auth sessions, passkeys, signing keys) and **CF service bindings** (VAULT, AUTH, PLC_DIRECTORY). D1 is SQLite — full OLTP.
-- **RisingWave holds only append-dominant / delete-then-insert graph state** (`vertex_repo_commit`, `vertex_repo_record`, `vertex_repo_block`, `vertex_profile`, domain `vertex_<actor>_*`). This matches streaming semantics.
-- **1 confirmed latent bug**: `agent/memory.ts:284` uses `.onConflict().doUpdateSet()` with comment "RisingWave supports this" — primary-source probe shows this is a **silent failure** on RW. Wrapped in try/catch → warns but loses writes.
+- **Kotoba/Datomic holds only append-dominant / delete-then-insert graph state** (`vertex_repo_commit`, `vertex_repo_record`, `vertex_repo_block`, `vertex_profile`, domain `vertex_<actor>_*`). This matches streaming semantics.
+- **1 confirmed latent bug**: `agent/memory.ts:284` uses `.onConflict().doUpdateSet()` with comment "Kotoba/Datomic supports this" — primary-source probe shows this is a **silent failure** on RW. Wrapped in try/catch → warns but loses writes.
 
 ## etzhayyim storage split (2026-04-24 actual state)
 
@@ -21,7 +21,7 @@ From `50-infra/cloudflare/workers/atproto/wrangler.jsonc` + `60-apps/etzhayyim-p
 |---|---|---|---|
 | **D1** `etzhayyim-auth-passkey` (auth Worker) | Passkey credentials, session tokens, OAuth state | Full OLTP (SQLite). Atomic TX, UNIQUE, ON CONFLICT all supported | official PDS `AccountDB` (SQLite) |
 | **D1** `etzhayyim-keys` (shared) | Per-DID signing keys (envelope-encrypted w/ KEK) | Full OLTP | official PDS `ActorStore` signing key slot |
-| **RisingWave** via `HYPERDRIVE` binding (id `e84c0a2b…`, Vultr LAX `45.32.79.245:4566`) | `vertex_repo_commit`, `vertex_repo_record`, `vertex_repo_block`, `vertex_profile`, domain `vertex_<app>_*` (772 tables, 172 MV) | Append-heavy streaming. PK implicit upsert. No `ON CONFLICT`, no write TX, no RYW, no UNIQUE col constraint | official PDS `ActorStore` per-actor SQLite (repo) + AppView Postgres (feed index) merged |
+| **Kotoba/Datomic** via `HYPERDRIVE` binding (id `e84c0a2b…`, Vultr LAX `45.32.79.245:4566`) | `vertex_repo_commit`, `vertex_repo_record`, `vertex_repo_block`, `vertex_profile`, domain `vertex_<app>_*` (772 tables, 172 MV) | Append-heavy streaming. PK implicit upsert. No `ON CONFLICT`, no write TX, no RYW, no UNIQUE col constraint | official PDS `ActorStore` per-actor SQLite (repo) + AppView Postgres (feed index) merged |
 | **B2** `etzhayyim-graph`, `etzhayyim-cache` | Blobs (CAR blocks for cold archive, media files) | Object store | official PDS blob store (S3-compatible) |
 | **CF service bindings** | VAULT (D1), AUTH (D1), PLC_DIRECTORY (D1), GRAPH_QUERY, MURAKUMO, ROUTING_GATEWAY | Delegated — each has own storage contract | N/A (monolithic in official PDS) |
 
@@ -103,7 +103,7 @@ Reads after writes in the same request cycle are avoided:
 ### Bug 1: `agent/memory.ts:284` silent failure
 
 ```ts
-// Upsert via INSERT ... ON CONFLICT (RisingWave supports this)  ← WRONG
+// Upsert via INSERT ... ON CONFLICT (Kotoba/Datomic supports this)  ← WRONG
 await db
   .insertInto(SEMANTIC_TABLE)
   .values({...})
@@ -164,7 +164,7 @@ The tranquil POC proved that **RW is the constraint, not the choice of PDS imple
 | 2 | Fix `agent/memory.ts:284` — replace with delete-then-insert | P1 |
 | 3 | Audit `handlers/pds/server.ts:308/319/330` profile UPDATE paths for RYW risk | P2 |
 | 4 | Add lint rule: fail CI on `\.onConflict\(` / `ON CONFLICT` outside D1 query paths | P2 |
-| 5 | Document in `CLAUDE.md` LLM Coding Guardrails: "No ON CONFLICT on RisingWave tables; use delete-then-insert (see `core.ts:2998`)" | P1 |
+| 5 | Document in `CLAUDE.md` LLM Coding Guardrails: "No ON CONFLICT on Kotoba/Datomic tables; use delete-then-insert (see `core.ts:2998`)" | P1 |
 
 ## References
 
@@ -174,5 +174,5 @@ The tranquil POC proved that **RW is the constraint, not the choice of PDS imple
 - `50-infra/cloudflare/workers/atproto/src/agent/memory.ts:284` (Bug 1)
 - `90-docs/adr/0041-pds-commit-content-addressed-pk.md` (content-PK rationale)
 - `90-docs/260420-pds-commit-seq-race-analysis.md` (seq race root cause)
-- RisingWave v2.8.1 probe: `ON CONFLICT` parser error, `Read-write transaction is not supported yet`, "column constraints UNIQUE" not implemented (2026-04-24, doc-confirmed v2.9.0 unchanged)
+- Kotoba/Datomic v2.8.1 probe: `ON CONFLICT` parser error, `Read-write transaction is not supported yet`, "column constraints UNIQUE" not implemented (2026-04-24, doc-confirmed v2.9.0 unchanged)
 - Bluesky client: `github.com/bluesky-social/social-app` (TypeScript XRPC over HTTP)

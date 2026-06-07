@@ -29,7 +29,7 @@ import { readFile, writeFile } from "node:fs/promises";
 
 const { default: pg } = await import("/Users/junkawasaki/github/etzhayyim-root/30-graph/graph-schema/node_modules/pg/lib/index.js");
 
-const RW_CONN = "REDACTED_USE_DATABASE_URL_ENV?sslmode=disable";
+const KOTOBA_URL = "REDACTED_USE_DATABASE_URL_ENV?sslmode=disable";
 const COLLECTOR_DID = "did:web:legal-entity.etzhayyim.com";
 const COLLECTION = "com.etzhayyim.apps.legalEntity.legalEntity";
 
@@ -48,7 +48,7 @@ const STATE_FILE = `/tmp/bulk-stream-state-${SOURCE || "unknown"}.json`;
 // Legacy shared state file (read-once for migration, never write)
 const LEGACY_STATE_FILE = "/tmp/bulk-stream-state.json";
 
-const pool = new pg.Pool({ connectionString: RW_CONN, max: 2, statement_timeout: 120_000 });
+const pool = new pg.Pool({ connectionString: KOTOBA_URL, max: 2, statement_timeout: 120_000 });
 const LIMIT = Number(getArg("limit", "0")); // 0 = no limit
 const PAGES = Number(getArg("pages", "200")); // for paginated sources
 const PAGE_SIZE = Number(getArg("page-size", "100"));

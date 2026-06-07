@@ -81,7 +81,7 @@ two false-positive substring matches; corrected.)
 
 So **~58% of /apps tiles (42 / 73)** carry no per-app runtime — they are
 launchers that `goto('/profile/did:web:${id}.etzhayyim.com')`. This matches
-ADR-2604251830's intent: actor SSoT lives in the L4 RisingWave registry, not
+ADR-2604251830's intent: actor SSoT lives in the L4 Kotoba/Datomic registry, not
 in per-app CF Workers. But it also means `/apps` over-reports the deployed
 stack count.
 

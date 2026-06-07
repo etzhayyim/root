@@ -9,7 +9,7 @@
 // DurableObject namespace). Phase P2 / P3 of this migration will replace each.
 
 import worker from "./app";
-import { Pool } from "pg";
+import { Pool } from "pg"; // kotoba-datomic-projection: ADR-2605231500
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -22,9 +22,9 @@ interface PgHyperdriveAdapter {
 }
 
 function buildHyperdriveAdapter(): PgHyperdriveAdapter {
-  const connectionString = process.env.RISINGWAVE_URL;
+  const connectionString = process.env.KOTOBA_URL;
   if (!connectionString) {
-    throw new Error("RISINGWAVE_URL is required (ADR-2605111300, atproto-pds Bun pod)");
+    throw new Error("KOTOBA_URL is required (ADR-2605111300, atproto-pds Bun pod)");
   }
   const pool = new Pool({ connectionString, max: Number(process.env.PG_POOL_MAX ?? 16) });
   return {

@@ -119,7 +119,7 @@ runtime receipts, or human input.
 | `source_kind` | VARCHAR | `tool`, `sensor`, `telemetry`, `social`, `runtime`, `human` |
 | `source_ref` | VARCHAR | URI / topic / task id |
 | `observed_at` | VARCHAR | ISO timestamp |
-| `payload_json` | JSONB or VARCHAR | RisingWave compatibility decides exact type |
+| `payload_json` | JSONB or VARCHAR | Kotoba/Datomic compatibility decides exact type |
 | `confidence` | DOUBLE PRECISION | source reliability |
 | `uncertainty` | DOUBLE PRECISION | normalized [0,1] |
 | `sensitivity_ord` | BIGINT | existing policy convention |
@@ -515,7 +515,7 @@ applies when self-maintenance variables affect future action selection.
 |---|---|---|
 | P0 | This design + ADR registry | architecture contract only |
 | P1 | Lexicon JSON stubs for 9 `com.etzhayyim.apps.agent.*` NSIDs | no new runtime |
-| P2 | RisingWave migration for 7 tables | includes `vertex_agent_realworld_effect`; JSON type choice depends on local migration convention |
+| P2 | Kotoba/Datomic migration for 7 tables | includes `vertex_agent_realworld_effect`; JSON type choice depends on local migration convention |
 | P3 | Python primitive pure helpers for EFE scoring and viability transition | unit-testable, no network |
 | P4 | BPMN seed for `activeInferenceTick` and `homeostasisWatch` | proposal-only action writes |
 | P5 | Real-world effect dispatch bridge | email/web/fax/phone/media/print-mail/robotics require channel gates |

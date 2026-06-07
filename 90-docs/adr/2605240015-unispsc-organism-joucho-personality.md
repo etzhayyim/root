@@ -161,7 +161,7 @@ protocol class). The implementation is deferred to a Wave 3 ADR once the
 却下理由: the ecosystem framing breaks down — identical organisms.
 Layer 1 is cheap and the right shape; do it now.
 
-## B. Read joucho from RisingWave like the TS side
+## B. Read joucho from Kotoba/Datomic like the TS side
 
 却下理由: CHARTER-VIOLATION per existing TS code comment. Substrate
 rules prohibit centralized DB; Python side won't replicate the TS

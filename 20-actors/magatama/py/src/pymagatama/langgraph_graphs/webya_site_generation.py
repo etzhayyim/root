@@ -32,6 +32,7 @@ LLM: RunPod 6000 Ada (ADR-2605010000). Murakumo fallback 禁止.
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import json
 import logging
@@ -44,7 +45,6 @@ from langgraph.graph import END, START, StateGraph
 from pydantic import Field
 
 from pymagatama.primitives.pydantic_job import BaseModelState
-from pymagatama.db_sync import sync_cursor
 from pymagatama import llm
 
 LOG = logging.getLogger(__name__)
@@ -195,17 +195,19 @@ def _strip_think(text: str) -> str:
 
 def _rw_query(sql_str: str, params: tuple = ()) -> list[Any]:
     try:
-        with sync_cursor() as cur:
-            cur.execute(sql_str, params)
-            return cur.fetchall()
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(sql_str, params)
+            return _res
     except Exception as exc:
         LOG.warning("rw_query failed: %s", exc)
         return []
 
 
 def _rw_execute(sql_str: str, params: tuple = ()) -> None:
-    with sync_cursor() as cur:
-        cur.execute(sql_str, params)
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql_str, params)
 
 
 def _load_template_pages(template_id: str) -> list[str]:

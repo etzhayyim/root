@@ -56,7 +56,7 @@ Two defects surfaced when trying to view a Tier-B actor (tsumugi 紡ぎ) on the 
 The fix must respect four constitutional invariants:
 
 - **Datom log = SSoT** (ADR-2605312345). Profile/identity state lives in kotoba, not
-  RisingWave / PDS-SQL (the legacy `getProfile` path is being retired anyway —
+  Kotoba/Datomic / PDS-SQL (the legacy `getProfile` path is being retired anyway —
   b94484a5d routed reads through the apex substrate).
 - **No server-held private key** (ADR-2605231525). The Worker must not sign DID
   documents or mint keys. did:web's trust root is TLS; `verificationMethod` is a
@@ -138,7 +138,7 @@ kotoba, and compiled fallback all render identically.
 # Alternatives Considered
 
 - **Give tsumugi a real PDS repo + `app.bsky.actor.profile` record.** Rejected: breaks
-  the kotoba-native invariant and re-introduces a PDS/RisingWave dependency for actor
+  the kotoba-native invariant and re-introduces a PDS/Kotoba/Datomic dependency for actor
   state that ADR-2605312345 + b94484a5d are removing.
 - **Worker signs the DID document / holds a key.** Rejected: violates ADR-2605231525.
   did:web does not require a signed document — TLS is the trust root.

@@ -192,7 +192,7 @@ def mitama_shinka(pds: str | None, model: str, json_out: bool) -> None:
 @click.option("--json", "json_out", is_flag=True, default=False)
 def mitama_schema_status(table: str, all_tables: bool, state: str, pds: str | None,
                          timeout_sec: int, json_out: bool) -> None:
-    """Show RisingWave ALTER TABLE COLUMN status for graphar tables."""
+    """Show Kotoba/Datomic ALTER TABLE COLUMN status for graphar tables."""
     pds_url = (pds or resolve_pds()).rstrip("/")
     stmt = "SHOW ALTER TABLE COLUMN FROM graphar"
     where_clauses: list[str] = []

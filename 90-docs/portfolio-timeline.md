@@ -53,7 +53,7 @@ SSoT: `deps.toml [etzhayyim_agent.product_portfolio]` + `90-docs/adr/2605180000-
 | LangGraph Server + Granian L3 runtime | 2026-05-08 | ADR-2605080600 |
 | Bonsai Cultivar ecosystem model | 2026-05-09 | ADR-2605091300 |
 | MCP-as-Cell-Membrane | 2026-05-09 | ADR-2605091400 |
-| RisingWave Vultr+B2 primary (LAX) | 2026-04-22 | ADR-0048 |
+| Kotoba/Datomic Vultr+B2 primary (LAX) | 2026-04-22 | ADR-0048 |
 | CF Worker edge-only (no RW connection) | 2026-05-11 | ADR-2605111200 |
 | PDS-to-Pod migration scaffolding | 2026-05-11 | ADR-2605111300 |
 | etzhayyim GitHub org boundary | 2026-05-15 | ADR-2605152100 |
@@ -115,7 +115,7 @@ SSoT: `deps.toml [etzhayyim_agent.product_portfolio]` + `90-docs/adr/2605180000-
 
 ```
 2026-04-22  Vultr VKE LAX live (ADR-0048)
-            RisingWave Vultr+B2 primary — B2 us-west-004
+            Kotoba/Datomic Vultr+B2 primary — B2 us-west-004
             Linode Object Storage 全廃止
 
 2026-04-25  B2 SlowDown incident — Foyer cold-start storm
@@ -170,7 +170,7 @@ SSoT: `deps.toml [etzhayyim_agent.product_portfolio]` + `90-docs/adr/2605180000-
 | Migration | Blocker |
 |---|---|
 | `authority-column-promotion` | Downstream RW schema impact analysis |
-| `hyperdrive-pg-adapter` | Hyperdrive/RisingWave compatibility validation |
+| `hyperdrive-pg-adapter` | Hyperdrive/Kotoba/Datomic compatibility validation |
 | `etzhayyim-org-monorepo-cutover-2026-05-17` | 登記変更 (宗教法人) |
 | `murakumo-fleet-lan-dnsmasq-ethernet-unification` | Vultr GPU unlock |
 | y-nishino RW migrations (3) | Network access from claude host |
@@ -195,7 +195,7 @@ Per ADR-2605200200 (RECOVER):
 | Monthly (1st 02:00 UTC) | `--dry-run` | CronJob `rw-dr-drill-monthly` | snapshot readable + exit 0 |
 | Quarterly (manual) | `--full` | IC (etzhayyim) | catalog table count ≥ baseline (1211) |
 
-Script: `50-infra/vultr/risingwave/dr-restore-drill.sh`
+Script: `50-infra/vultr/kotoba/dr-restore-drill.sh`
 Log: `90-docs/irp/dr-drill-log.md`
 Baseline: 2026-04-15, Snapshot ID=3, tables=1211 (Linode full drill)
 

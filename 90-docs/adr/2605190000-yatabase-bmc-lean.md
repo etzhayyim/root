@@ -12,7 +12,7 @@ related:
   - adr-2605180000-lawfirm-product-focus-bmc-lean
   - adr-2605130000-projector-mcp-project-management
   - adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion
-  - adr-0048-risingwave-vultr-b2-primary
+  - adr-0048-kotoba-vultr-b2-primary
 supersedes: []
 superseded_by:
   - adr-2605210001-yatabase-minimax-pricing-bmc
@@ -26,7 +26,7 @@ superseded_by:
 
 ## Context
 
-yatabase.etzhayyim.com は etzhayyim platform の余剰能力 (B2 Bandwidth Alliance 実質ゼロ egress、RisingWave 共有クラスター、Murakumo 自己ホスト LLM) を **retail cloud product** として外部開発者に再販するプロダクトである。
+yatabase.etzhayyim.com は etzhayyim platform の余剰能力 (B2 Bandwidth Alliance 実質ゼロ egress、Kotoba/Datomic 共有クラスター、Murakumo 自己ホスト LLM) を **retail cloud product** として外部開発者に再販するプロダクトである。
 
 | 項目 | 状態 |
 |---|---|
@@ -45,7 +45,7 @@ Priority 3 (自動運転) : animeka.etzhayyim.com    — 10%
 Priority 4 (プラットフォーム・自律稼働) : yatabase.etzhayyim.com — 専用予算 + 自律 AI 運用
 ```
 
-yatabase は他 3 製品を **支えるインフラ** (RisingWave per-tenant DB、B2 object storage、MCP surface) でもある。エンジニアリング人的介入は機能開発 sprint 時のみ、通常は自律エージェントが運営する。
+yatabase は他 3 製品を **支えるインフラ** (Kotoba/Datomic per-tenant DB、B2 object storage、MCP surface) でもある。エンジニアリング人的介入は機能開発 sprint 時のみ、通常は自律エージェントが運営する。
 
 ## Decision
 
@@ -73,7 +73,7 @@ yatabase は他 3 製品を **支えるインフラ** (RisingWave per-tenant DB�
 │   (Workers/Hyper-      │   + GitHub stargazers、  │ • 1 API key で graph │   ス (/docs    │ AI-native devs          │
 │   drive/R2/DNS)        │   自律 cron)             │   DB + object store  │   /quickstart  │ MCP 対応プロダクト開発   │
 │ • Vultr VKE LAX        │ • Lead enrichment        │   + MCP を統合提供   │   /studio)     │ (primary)               │
-│   (RisingWave cluster  │   (homepage scrape →     │ • MCP-native: 業界   │ • sakamoto     │                        │
+│   (Kotoba/Datomic cluster  │   (homepage scrape →     │ • MCP-native: 業界   │ • sakamoto     │                        │
 │   per-tenant DB)       │   contact_email/         │   初の /mcp surface  │   CS agent が  │ 【Secondary】           │
 │ • Backblaze B2         │   tech_stack)            │   付き graph DB cloud│   support@     │ Indie hackers / side    │
 │   (content-addressed   │ • Outreach drafting      │ • Supabase Pro $25   │   etzhayyim.com を   │ projects (価格感度高)   │
@@ -93,7 +93,7 @@ yatabase は他 3 製品を **支えるインフラ** (RisingWave per-tenant DB�
 │ • CF Worker edge       │ • HN Algolia scrape → cold outreach (autonomous, cron 0 */6)                            │
 │   (yatabase.etzhayyim.com    │ • GitHub stargazers (neo4j/supabase/hasura/dgraph/arangodb) (cron 45 */6)               │
 │   API gateway)         │ • Organic SEO (sitemap.xml, JSON-LD SoftwareApplication + FAQPage)                       │
-│ • RisingWave on Vultr  │ • /comparison page vs Supabase / Neo4j AuraDB / Hasura                                  │
+│ • Kotoba/Datomic on Vultr  │ • /comparison page vs Supabase / Neo4j AuraDB / Hasura                                  │
 │   (per-org yata_<hash> │ • /integrations: Cursor / Claude Desktop / Continue.dev MCP listings (手動)             │
 │   DB isolation)        │ • Product Hunt launch (P10 予定)                                                         │
 │ • B2 object storage    │ • Japan SaaS: 弁護士事務所 / スタートアップ向け LinkedIn + Bluesky                        │
@@ -105,7 +105,7 @@ yatabase は他 3 製品を **支えるインフラ** (RisingWave per-tenant DB�
 │ COST STRUCTURE                                                             │ REVENUE STREAMS                        │
 │                                                                            │                                        │
 │ Fixed (月次):                                                              │ 【サブスクリプション (主)】               │
-│   Vultr VKE LAX (RisingWave shared): $241/月                              │   Free:       $0/月                    │
+│   Vultr VKE LAX (Kotoba/Datomic shared): $241/月                              │   Free:       $0/月                    │
 │   Cloudflare Workers: 従量 (現状ほぼ無料枠内)                              │   Starter:    $13/月 (~¥1,980)         │
 │   Backblaze B2: ~$0.006/GB-month (BWA ゼロ egress)                        │   Developer:  $33/月 (~¥4,980)         │
 │   Stripe: 2.9% + $0.30/transaction                                         │   Business:   $650/月 (~¥98,000)       │
@@ -135,7 +135,7 @@ yatabase は他 3 製品を **支えるインフラ** (RisingWave per-tenant DB�
 ┌────────────────────────────────────────────────────────────────────────────────────────────┐
 │ PROBLEM                      │ SOLUTION                 │ UNIQUE VALUE PROPOSITION          │
 │                              │                          │                                   │
-│ 1. Graph DB + object store   │ • RisingWave PG/SPARQL/  │ 「AI 時代の開発者が最初に選ぶ       │
+│ 1. Graph DB + object store   │ • Kotoba/Datomic PG/SPARQL/  │ 「AI 時代の開発者が最初に選ぶ       │
 │    + AI (MCP) を別々に契約   │   Cypher + B2 object +   │  graph database cloud」            │
 │    すると請求 3〜5 本、       │   /mcp — 1 API key       │                                   │
 │    latency 増、複雑性増大    │   で統合                 │ MCP-native × AT Protocol DID ×     │
@@ -157,7 +157,7 @@ yatabase は他 3 製品を **支えるインフラ** (RisingWave per-tenant DB�
 │ • Hasura Cloud $99+/月       │                          │ • Murakumo 自己ホスト LLM          │
 │ • PlanetScale $0→$39         │ Month 1:                 │   (AI agent 運営コストほぼ $0)      │
 │ • 自前 Docker Compose        │   MRR / paid tenant 数   │ • etzhayyim platform 既存インフラ共用    │
-│   (ops 負担重)               │   free→paid 転換率       │   (RisingWave shared $241/月は      │
+│   (ops 負担重)               │   free→paid 転換率       │   (Kotoba/Datomic shared $241/月は      │
 │                              │                          │   他製品と按分)                     │
 │                              │ Month 3:                 │ • AT Protocol DID mesh:            │
 │                              │   CAC 回収月数           │   lawfirm/shinshi/animeka テナント  │
@@ -296,7 +296,7 @@ projector.create_project {
 
 - **自律運営 vs 機能開発**: AI エージェント (sakamoto/nishino) が日次運営を担うため、エンジニアリング介入は sprint 機能開発時のみ。通常稼働コストはほぼ $0 追加。
 - **USD 主体 vs JPY 主体**: 国際市場はドル建て (AI-native devs)、日本 SaaS は円建て適格請求書。Stripe の multi-currency で両対応済み。
-- **Free tier コスト**: free テナントも RisingWave DB を 1 個消費 → $241/月 の shared cluster に全テナントが乗る。Free テナント過多で超過すると cluster 増設が必要 (trigger: tenant 数 > 500)。
+- **Free tier コスト**: free テナントも Kotoba/Datomic DB を 1 個消費 → $241/月 の shared cluster に全テナントが乗る。Free テナント過多で超過すると cluster 増設が必要 (trigger: tenant 数 > 500)。
 
 ### 制約
 

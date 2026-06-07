@@ -16,7 +16,7 @@ related:
   - adr-0036-shannon-cleanup-did-actor-topology
   - adr-0081-worker-direct-hyperdrive-persistence
   - adr-0049-python-udf-shared-pool-runtime
-  - adr-0044-risingwave-udf-language-strategy
+  - adr-0044-kotoba-udf-language-strategy
   - adr-0059-tool-runtime-selection-python-udf-default
   - adr-0046
   - adr-0092-every-vertex-as-actor
@@ -72,7 +72,7 @@ case A (K8s only) は edge gateway invariant (ADR-0003 / ADR-0023) を
 ## Runtime update — 2026-05-08
 
 ADR-2605081200 changes the concrete engine target from Zeebe/pyzeebe to
-SpiffWorkflow + RisingWave for new runtime work. The placement decision in
+SpiffWorkflow + Kotoba/Datomic for new runtime work. The placement decision in
 this ADR remains: LangGraph belongs behind the BPMN worker primitive, not
 inside CF Workers and not on a separate orchestration path by default.
 
@@ -137,7 +137,7 @@ incident として上がり、Operate UI で再開可能。
 - **≤ 100 KB** — Zeebe variable に直接 (`mode=oneshot`)
 - **100 KB – 10 MB** — Redis sidecar (`langgraph-state-redis` Deployment, TTL 24 h) +
   Zeebe variable には `state_ref` のみ
-- **> 10 MB** — RisingWave `vertex_langgraph_state` table (永続) + `state_ref`
+- **> 10 MB** — Kotoba/Datomic `vertex_langgraph_state` table (永続) + `state_ref`
 
 state ref scheme は ADR-0056 の AT URI 流儀を踏襲する:
 
@@ -164,7 +164,7 @@ LangGraph の `@tool` は **既存の generic primitive を呼ぶシン**とし�
 | Tool execution (db / http / llm / pds.dispatch) | Spiff worker pool (legacy: zeebe-worker) |
 | LangGraph reasoning loop | Spiff worker task `generic.langgraph.run` |
 | Heavy GPU inference (Murakumo) | 既存 Murakumo fleet (CF Tunnel 経由) |
-| Per-row UDF (hash, parser, regex) | RisingWave (ADR-0044/0049) |
+| Per-row UDF (hash, parser, regex) | Kotoba/Datomic (ADR-0044/0049) |
 
 **禁止**: CF Worker 内で LangGraph を直接走らせる (Workers AI を呼ぶ
 だけならよいが、ReAct ループは isolate の CPU time / 1 request 制約に
@@ -234,7 +234,7 @@ LangGraph の `@tool` は **既存の generic primitive を呼ぶシン**とし�
 | 1 | `generic.langgraph.run` の primitive 仕様確定 (input/output schema, state ref scheme) | ADR review pass |
 | 2 | pyzeebe worker に `langgraph_run` handler 追加。`zeebe-worker` image rebuild | integration test green (1 graph, 1 hop, audit emit) |
 | 3 | `langgraph-state-redis` Deployment + Service 追加 (1 replica, 256 Mi, TTL 24 h) | ping OK / state round-trip OK |
-| 4 | `vertex_langgraph_def` table migration (RisingWave schema 追加) | `etzhayyim graph migrate` clean |
+| 4 | `vertex_langgraph_def` table migration (Kotoba/Datomic schema 追加) | `etzhayyim graph migrate` clean |
 | 5 | PoC 1 actor: yoro autonomy loop (ADR-0046) を BPMN + LangGraph に移植 | 24 h soak + audit consistent |
 | 6 | η 実測 (tool call latency p50/p95, trace completeness, cost / 1k loops) | C の 0.89 検証 ± 0.05 以内 |
 | 7 | `[[migrations]] agentic-actor-to-bpmn-langgraph` 横展開 | candidate actor list 確定 |
@@ -292,7 +292,7 @@ ADR が成立した場合のみ再検討する。
 - ADR-0056 — BPMN-as-actor (`90-docs/adr/0056-bpmn-as-actor.md`)
 - ADR-0036 / ADR-0081 — Worker-direct Hyperdrive persistence
 - ADR-0049 — Python UDF shared pool runtime
-- ADR-0044 — RisingWave UDF language strategy
+- ADR-0044 — Kotoba/Datomic UDF language strategy
 - ADR-0046 — yoro triple-witness autonomy monitoring
 - ADR-0092 — every-vertex-as-actor
 - ADR-2604231457 — BPMN security posture / Camunda alignment

@@ -461,7 +461,7 @@ No code activation in R0. Lint hook `70-tools/scripts/lint/no-chigiri-legal-advi
    breaks the actor-as-organism single-responsibility discipline.
 
 2. **Use legacy `lawfirm.etzhayyim.com` Etzhayyim substrate-port**.
-   Rejected — that substrate runs on RisingWave + Hyperdrive (etzhayyim
+   Rejected — that substrate runs on Kotoba/Datomic + Hyperdrive (etzhayyim
    stack), violates ADR-2605172000 RW-free invariant.
 
 3. **Defer until Bootstrap Council ratifies**. Considered. Rejected

@@ -50,7 +50,7 @@ worth answering before designing anything:
 What already existed: a single **legacy `oil-refining`** actor manifest
 (`20-actors/oil-refining/actor-manifest.jsonld`) — but it is (a) an *observation/intel* actor only
 (refinery registry, unit config, outage, yield), (b) charter-**non-compliant**: it drives
-`graph.query`/`graph.write` Cypher (`MATCH (r:Refinery) …`), the RisingWave/graph-DB pattern that
+`graph.query`/`graph.write` Cypher (`MATCH (r:Refinery) …`), the Kotoba/Datomic/graph-DB pattern that
 **ADR-2605262130** prohibits (kotoba Datom log is canonical state), on the legacy
 `did:web:oil-refining.etzhayyim.com` / `legacyExecutionTier:T1` / `kyumei-shinka` stack. It contains
 **no robotics, no plant, no construction**. It is migration debris, exactly like the legacy
@@ -95,7 +95,7 @@ the apparatus is neutral; the carbon source and fate are not. **Three faces** ov
 log:
 
 - **A. observation** (`asset_observation`) — the kotoba-native successor that **supersedes** the
-  legacy `oil-refining` Cypher actor (no RisingWave). Public refinery/unit/outage assets +
+  legacy `oil-refining` Cypher actor (no Kotoba/Datomic). Public refinery/unit/outage assets +
   transition-readiness as an as-of history. A **resilience + transition map, never a target-list**
   (G4; watari/watatsuna sibling). Observation ≠ operation.
 - **B. decommission / transition robotics** (`decommission_plan`) — **§2(d)-permitted**: safely
@@ -174,7 +174,7 @@ no-server-key) and adds none.
 - ADR-2605263500 — energy substance gates (D1–D5; D3 closed-loop carbon; microbial hydrocarbon)
 - ADR-2605261100 — hikari energy actor (renewable power + site conversion)
 - `/CHARTER-RIDER.md` §2(d) — no new fossil extraction · §2(f) — multi-generational harm
-- ADR-2605262130 — kotoba canonical state (no RisingWave/Cypher)
+- ADR-2605262130 — kotoba canonical state (no Kotoba/Datomic/Cypher)
 - ADR-2606042100 (tazuna) · ADR-2606031600 (kotoba-os N2 safety boundary) · ADR-2606032130
   (displacement dividend) · ADR-2605231525 (no-server-key)
 - `20-actors/oil-refining/actor-manifest.jsonld` — the superseded legacy actor

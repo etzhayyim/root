@@ -17,8 +17,8 @@ related:
   - adr-2605092000-ecosystem-as-model-unified-multimodal-fp8-vector-substrate
   - adr-2605092200-continuous-metabolic-training
   - adr-2605092300-fp8-train-inference-colocation
-  - adr-0094-risingwave-stable-three-node-topology
-  - adr-0048-risingwave-vultr-b2-primary
+  - adr-0094-kotoba-stable-three-node-topology
+  - adr-0048-kotoba-vultr-b2-primary
 ---
 
 # ADR 2605110227 — GPU cross-provider pricing research
@@ -89,7 +89,7 @@ this ADR.
 
 ## 2. Decision implications
 
-### 2.1 RisingWave node pool (current pain point: compute-1 over-limit on `vhf-16c-58gb × 2`)
+### 2.1 Kotoba/Datomic node pool (current pain point: compute-1 over-limit on `vhf-16c-58gb × 2`)
 
 | Option | $/mo | Compute fit | Notes |
 |---|---:|---|---|
@@ -99,7 +99,7 @@ this ADR.
 | **DO `gpu-l40s-1` × 2** | ~$2,290 | 48GB VRAM each | mid-option |
 | Stay on `vhf-16c-58gb × 2` + RunPod for GPU | $640 + per-second | RW separated, GPU bursty | most flexible if no Vultr VKE GPU unlock |
 
-**Recommendation**: keep RisingWave on non-GPU VKE pool until UKO-46CXG resolves. Do not migrate RW onto DO/Vultr GPU just to colocate; the savings don't justify the topology churn.
+**Recommendation**: keep Kotoba/Datomic on non-GPU VKE pool until UKO-46CXG resolves. Do not migrate RW onto DO/Vultr GPU just to colocate; the savings don't justify the topology churn.
 
 ### 2.2 Bonsai cultivar / FP8 substrate (ADR-2605092000–2605092300)
 
@@ -137,7 +137,7 @@ The actual pattern is "RunPod beats Vultr on prosumer Ada; Vultr/DO win on enter
 | 3.6c | Run `_working/keiei/gpu-price-research-2026-05-11.sql` (v1) + `gpu-price-research-2026-05-11-v2.sql` + `gpu-price-research-2026-05-11-v3-data-only.sql` + `adr-ingest-2026-05-11.sql` as INSERT-only seed data. v1 is partially live already (32 plans / 15 models persisted); v2/v3 sneak-dropped under barrier latency. Adapt to record-log semantics (no ON CONFLICT). | infra | after 3.6b |
 | 3.6d | `DATABASE_URL=... pnpm db:gen` to regenerate `30-graph/graph-schema/src/database.ts` Kysely Row types for new tables. Then drop the `as any` casts in `50-infra/cloudflare/workers/atproto/src/mcp-adapter.ts handleResearch*` handlers. `pnpm db:drift` should pass after. | infra | after 3.6a (table existence) |
 | 3.7 | Run magatama MCP bundle/deploy recipe for the new research tools added in `src/mcp-adapter.ts` (`etzhayyim.research.gpuPriceCompare`, `etzhayyim.research.listAdrs`) and lexicon JSON under `00-contracts/lexicons/com/etzhayyim/research/`: (1) `node 50-infra/cloudflare/workers/atproto/scripts/bundle-lexicons.mjs` (2) `node 70-tools/scripts/contract/gen-pds-lexicon-registry.mjs` (3) `cd 50-infra/cloudflare/workers/atproto && npx wrangler deploy` — per CLAUDE.md §LLM Coding Guardrails | infra | after 3.6b (MVs must exist) and 3.6d (types regenerated) |
-| 3.8 | After 3.7, exercise tools end-to-end: `etzhayyim mcp list-tools` then `tools/call etzhayyim.research.gpuPriceCompare {"vramMinGb":192}` and `tools/call etzhayyim.research.listAdrs {"q":"risingwave","authoritativeOnly":true}` | research | after 3.7 |
+| 3.8 | After 3.7, exercise tools end-to-end: `etzhayyim mcp list-tools` then `tools/call etzhayyim.research.gpuPriceCompare {"vramMinGb":192}` and `tools/call etzhayyim.research.listAdrs {"q":"kotoba","authoritativeOnly":true}` | research | after 3.7 |
 | 3.9a | sqlc adopted as query-layer codegen (multi-language type safety). Config at `30-graph/graph-schema/sqlc/sqlc.yaml`, queries under `query/`, generated TS under `gen/ts/` (gitignored). Run `pnpm sqlc:gen` after schema or query changes. Plugin: `sqlc-gen-typescript_0.1.3.wasm` (sha256-pinned). Compiled clean 2026-05-11 against schema/research.sql mirror. | research | done (this ADR) |
 | 3.9b | Add `pnpm db:gen --sqlc-schema` (or equivalent) to regenerate `30-graph/graph-schema/sqlc/schema/research.sql` from live RW `information_schema` so the sqlc DDL mirror cannot drift from the canonical schema (which is the live DB per ADR-2605080700). Until that exists, the mirror file is hand-maintained. | infra | followup |
 | 3.9c | Replace inline `sql.unsafe(...)` calls in mcp-adapter.ts research handlers with the sqlc-generated query string + arg interfaces. Runtime call shape: take generated `gpuPriceCompareListQuery` text, bind through Kysely's `sql<Row>\`${rawQuery}\``.execute(db)` or Hyperdrive's `.unsafe()`. This lifts the `as any` casts. | infra | after 3.6d |

@@ -16,7 +16,7 @@ Env:
   CF_WORKER_URL          default https://oss3k41x.etzhayyim.com
   BPMN_DISPATCHER_URL    default https://dispatcher.etzhayyim.com
   DISPATCHER_INTERNAL_SECRET   fetched from kubectl if not set
-  RW_URL                 fetched from Keychain (etzhayyim.rw / ROOT_URL) if not set
+  KOTOBA_URL                 fetched from Keychain (etzhayyim.rw / ROOT_URL) if not set
   etzhayyim_TOKEN             Service Auth JWT for CF Worker calls (from `etzhayyim agent-token`)
 
 Usage:
@@ -82,7 +82,7 @@ def _b64decode(s: str) -> str:
 
 
 def _rw_url() -> str:
-    if url := os.environ.get("RW_URL"):
+    if url := os.environ.get("KOTOBA_URL"):
         return url
     try:
         return subprocess.check_output(
@@ -90,7 +90,7 @@ def _rw_url() -> str:
             text=True, stderr=subprocess.DEVNULL,
         ).strip()
     except Exception:
-        raise SystemExit("RW_URL not available")
+        raise SystemExit("KOTOBA_URL not available")
 
 
 def _agent_token(nsid: str) -> str:

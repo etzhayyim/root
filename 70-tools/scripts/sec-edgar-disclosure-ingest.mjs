@@ -55,7 +55,7 @@
 
 const { default: pg } = await import("/Users/junkawasaki/github/etzhayyim-root/30-graph/graph-schema/node_modules/pg/lib/index.js");
 
-const RW_CONN = process.env.RW_CONN ?? "postgresql://root@127.0.0.1:14566/dev?sslmode=disable";
+const KOTOBA_URL = process.env.KOTOBA_URL ?? "postgresql://root@127.0.0.1:14566/dev?sslmode=disable";
 const COLLECTOR_DID = "did:web:legal-entity.etzhayyim.com";
 const USER_AGENT = process.env.SEC_USER_AGENT ?? "etzhayyim-legal-entity/1.0 legal-entity@etzhayyim.com";
 
@@ -80,7 +80,7 @@ if (!TICKER && !RAW_CIK) {
 let _pool = null;
 async function pool() {
   if (_pool) return _pool;
-  _pool = new pg.Pool({ connectionString: RW_CONN, max: 2, statement_timeout: 60000 });
+  _pool = new pg.Pool({ connectionString: KOTOBA_URL, max: 2, statement_timeout: 60000 });
   return _pool;
 }
 

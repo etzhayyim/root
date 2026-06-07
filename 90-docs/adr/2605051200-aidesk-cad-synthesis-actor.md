@@ -166,7 +166,7 @@ Research NSID は tsukuru handler から **import 不可** (BPMN 依存なし、
 
 ---
 
-## RisingWave Schema
+## Kotoba/Datomic Schema
 
 ```sql
 -- Commercial artifacts (Apache 2.0 only, tsukuru-joinable)
@@ -536,7 +536,7 @@ export default createWorkerExport((sdk) => {
 - ADR-0036 (Worker-direct Hyperdrive)
 - ADR-0095 (3-Layer Identity — actor_did/org_did/at_did columns)
 - ADR-0074 (ERC725 Root Identity)
-- ADR-0044 (RisingWave UDF Language Strategy)
+- ADR-0044 (Kotoba/Datomic UDF Language Strategy)
 - `60-apps/etzhayyim-project-tsukuru/CLAUDE.md`
 - https://huggingface.co/ADSKAILab/Zero-To-CAD-Qwen3-VL-2B (arXiv:2604.24479)
 - https://huggingface.co/ADSKAILab (Make-A-Shape / WaLa — Non-Commercial)

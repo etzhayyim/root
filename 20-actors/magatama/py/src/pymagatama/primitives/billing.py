@@ -39,6 +39,7 @@ with the 90-docs/adr/2605080000-yatabase-yata-retail-cloud.md tables.
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import calendar
 import hashlib
@@ -48,7 +49,6 @@ import time
 from datetime import date, datetime, timedelta, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
 
 # ──────────────────────────────────────────────────────────────────────
 # Constants
@@ -160,8 +160,10 @@ def _resolve_plan(org_did: str) -> tuple[str, float, date, date]:
     last_day = calendar.monthrange(today.year, today.month)[1]
     period_end = date(today.year, today.month, last_day)
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             """
             SELECT plan, applied_discount_pct, billing_period_start, billing_period_end
             FROM vertex_billing_org_plan
@@ -171,7 +173,7 @@ def _resolve_plan(org_did: str) -> tuple[str, float, date, date]:
             """,
             (org_did,),
         )
-        row = cur.fetchone()
+        row = (_res[0] if _res else None)
 
     if row is None:
         return ("free", 0.0, period_start, period_end)
@@ -229,8 +231,10 @@ async def task_billing_event_record(
     )
     today = _today()
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             """
             INSERT INTO vertex_billing_event (
               vertex_id, _seq, created_date, sensitivity_ord, owner_did,
@@ -273,8 +277,10 @@ async def task_billing_rollup_daily(**kwargs: Any) -> dict[str, Any]:
     """
     yesterday = _today() - timedelta(days=1)
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             """
             SELECT COUNT(DISTINCT org_did), COALESCE(SUM(billed_jpy_micro), 0)
             FROM mv_billing_daily_org
@@ -282,7 +288,7 @@ async def task_billing_rollup_daily(**kwargs: Any) -> dict[str, Any]:
             """,
             (yesterday,),
         )
-        row = cur.fetchone() or (0, 0)
+        row = (_res[0] if _res else None) or (0, 0)
     return {
         "ok": True,
         "day": yesterday.isoformat(),
@@ -307,8 +313,10 @@ async def task_billing_rollup_monthly(**kwargs: Any) -> dict[str, Any]:
     else:
         last_month = date(today.year, today.month - 1, 1)
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             """
             SELECT COUNT(DISTINCT org_did), COALESCE(SUM(billed_jpy_micro), 0)
             FROM mv_billing_monthly_org
@@ -316,7 +324,7 @@ async def task_billing_rollup_monthly(**kwargs: Any) -> dict[str, Any]:
             """,
             (last_month,),
         )
-        row = cur.fetchone() or (0, 0)
+        row = (_res[0] if _res else None) or (0, 0)
     return {
         "ok": True,
         "month": last_month.isoformat(),
@@ -339,14 +347,15 @@ async def task_billing_detect_overage(**kwargs: Any) -> dict[str, Any]:
     """
     alerts = 0
     orgs_scanned = 0
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             """
             SELECT org_did, plan, product, metric, consumed_qty
             FROM mv_billing_overage_alert
             """
         )
-        rows = cur.fetchall()
+        rows = _res
 
     seen_orgs: set[str] = set()
     for row in rows:
@@ -392,8 +401,10 @@ async def task_billing_generate_invoice(**kwargs: Any) -> dict[str, Any]:
     total_jpy_micro_all = 0
     credits_consumed_total = 0
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             """
             SELECT org_did,
                    COALESCE(SUM(billed_jpy_micro), 0) AS subtotal,
@@ -404,7 +415,7 @@ async def task_billing_generate_invoice(**kwargs: Any) -> dict[str, Any]:
             """,
             (period_start,),
         )
-        org_rows = cur.fetchall()
+        org_rows = _res
 
     for org_row in org_rows:
         org_did, subtotal_micro, _cost_micro = org_row
@@ -413,8 +424,9 @@ async def task_billing_generate_invoice(**kwargs: Any) -> dict[str, Any]:
             continue
 
         # Apply outstanding credits FIFO (oldest issued_at first).
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 """
                 SELECT credit_id, amount_jpy_micro, consumed_jpy_micro
                 FROM vertex_billing_credit
@@ -424,7 +436,7 @@ async def task_billing_generate_invoice(**kwargs: Any) -> dict[str, Any]:
                 """,
                 (org_did, issued_at),
             )
-            credit_rows = cur.fetchall()
+            credit_rows = _res
 
         remaining = subtotal_micro
         org_credit_consumed = 0
@@ -437,8 +449,9 @@ async def task_billing_generate_invoice(**kwargs: Any) -> dict[str, Any]:
                 break
             new_consumed = int((consumed or 0) + apply)
             new_status = "exhausted" if new_consumed >= int(amt or 0) else "active"
-            with sync_cursor() as cur:
-                cur.execute(
+            if True:
+                client = get_kotoba_client()
+                _res = client.q(
                     """
                     UPDATE vertex_billing_credit
                     SET consumed_jpy_micro = %s, status = %s
@@ -463,8 +476,10 @@ async def task_billing_generate_invoice(**kwargs: Any) -> dict[str, Any]:
 
         line_items = json.dumps([{"month": period_start.isoformat()}])
 
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+
+            client = get_kotoba_client()
+            _res = client.q(
                 """
                 INSERT INTO vertex_billing_invoice (
                   vertex_id, _seq, created_date, sensitivity_ord, owner_did,
@@ -555,8 +570,10 @@ async def task_billing_discount_apply(
     discount_id = f"DSC-{int(_now_ms())}-{hashlib.sha256(orgDid.encode()).hexdigest()[:6]}"
     vid = _content_pk("discount", [orgDid, discount_id])
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             """
             INSERT INTO vertex_billing_discount (
               vertex_id, _seq, created_date, sensitivity_ord, owner_did,
@@ -584,7 +601,7 @@ async def task_billing_discount_apply(
         # Upsert applied_discount_pct on org_plan. RisingWave does not
         # support ON CONFLICT — use delete-then-insert (ADR-0002 RW
         # write semantics) keyed on (org_did, status='active').
-        cur.execute(
+        _res = client.q(
             """
             DELETE FROM vertex_billing_org_plan
             WHERE org_did = %s AND status = 'active'
@@ -592,7 +609,7 @@ async def task_billing_discount_apply(
             (orgDid,),
         )
         plan_vid = _content_pk("orgPlan", [orgDid, period_start.isoformat()])
-        cur.execute(
+        _res = client.q(
             """
             INSERT INTO vertex_billing_org_plan (
               vertex_id, _seq, created_date, sensitivity_ord, owner_did,
@@ -646,8 +663,10 @@ async def task_billing_credit_apply(
     credit_id = f"CRD-{int(_now_ms())}-{hashlib.sha256(orgDid.encode()).hexdigest()[:6]}"
     vid = _content_pk("credit", [orgDid, credit_id])
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             """
             INSERT INTO vertex_billing_credit (
               vertex_id, _seq, created_date, sensitivity_ord, owner_did,
@@ -672,7 +691,7 @@ async def task_billing_credit_apply(
             ),
         )
 
-        cur.execute(
+        _res = client.q(
             """
             SELECT COALESCE(SUM(amount_jpy_micro - consumed_jpy_micro), 0)
             FROM vertex_billing_credit
@@ -681,7 +700,7 @@ async def task_billing_credit_apply(
             """,
             (orgDid, _now_iso()),
         )
-        row = cur.fetchone() or (0,)
+        row = (_res[0] if _res else None) or (0,)
 
     return {
         "ok": True,
@@ -712,9 +731,10 @@ async def task_billing_usage_get(
 
     rows: list[dict[str, Any]] = []
     total = 0
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         if groupBy == "day":
-            cur.execute(
+            _res = client.q(
                 """
                 SELECT day::varchar AS bucket, metric, product,
                        SUM(total_qty) AS qty, SUM(billed_jpy_micro) AS billed
@@ -727,7 +747,7 @@ async def task_billing_usage_get(
                 (orgDid, from_d, to_d, product, product),
             )
         elif groupBy == "metric":
-            cur.execute(
+            _res = client.q(
                 """
                 SELECT metric AS bucket, metric, product,
                        SUM(total_qty) AS qty, SUM(billed_jpy_micro) AS billed
@@ -740,7 +760,7 @@ async def task_billing_usage_get(
                 (orgDid, from_d, to_d, product, product),
             )
         elif groupBy == "product":
-            cur.execute(
+            _res = client.q(
                 """
                 SELECT product AS bucket, ''::varchar AS metric, product,
                        SUM(total_qty) AS qty, SUM(billed_jpy_micro) AS billed
@@ -754,7 +774,7 @@ async def task_billing_usage_get(
         else:
             return {"ok": False, "error": f"unsupported groupBy: {groupBy}"}
 
-        for bucket, metric, prod, qty, billed in cur.fetchall():
+        for bucket, metric, prod, qty, billed in _res:
             qty_f = float(qty or 0)
             billed_i = int(billed or 0)
             rows.append({
@@ -789,8 +809,9 @@ async def task_billing_quota_status(orgDid: str = "", **kwargs: Any) -> dict[str
     rows: list[dict[str, Any]] = []
     for prod, metric_map in plan_limits.items():
         for metric, included in metric_map.items():
-            with sync_cursor() as cur:
-                cur.execute(
+            if True:
+                client = get_kotoba_client()
+                _res = client.q(
                     """
                     SELECT COALESCE(SUM(total_qty), 0), COALESCE(SUM(billed_jpy_micro), 0)
                     FROM mv_billing_daily_org
@@ -799,7 +820,7 @@ async def task_billing_quota_status(orgDid: str = "", **kwargs: Any) -> dict[str
                     """,
                     (orgDid, prod, metric, period_start, period_end),
                 )
-                row = cur.fetchone() or (0, 0)
+                row = (_res[0] if _res else None) or (0, 0)
             consumed = float(row[0] or 0)
             billed = int(row[1] or 0)
             included_f = float(included or 0)
@@ -844,8 +865,9 @@ async def task_billing_invoice_list(
         params.extend([status, status])
     if cursor:
         params.append(cursor)
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             f"""
             SELECT invoice_id, vertex_id, period_start, period_end,
                    total_jpy_micro, total_discount_jpy_micro, status,
@@ -859,7 +881,7 @@ async def task_billing_invoice_list(
             """,
             tuple(params),
         )
-        for row in cur.fetchall():
+        for row in _res:
             invoices.append({
                 "invoiceId": row[0],
                 "vertexId": row[1],
@@ -882,8 +904,9 @@ async def task_billing_invoice_list(
 
 
 async def task_billing_invoice_get(invoiceId: str = "", **kwargs: Any) -> dict[str, Any]:
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             """
             SELECT invoice_id, vertex_id, org_did, period_start, period_end,
                    subtotal_jpy_micro, total_discount_jpy_micro, tax_jpy_micro,
@@ -895,7 +918,7 @@ async def task_billing_invoice_get(invoiceId: str = "", **kwargs: Any) -> dict[s
             """,
             (invoiceId,),
         )
-        row = cur.fetchone()
+        row = (_res[0] if _res else None)
     if row is None:
         return {"ok": False, "error": "invoice not found"}
 
@@ -911,8 +934,9 @@ async def task_billing_invoice_get(invoiceId: str = "", **kwargs: Any) -> dict[s
     # mv_billing_monthly_org for the invoice period.
     if not line_items:
         period_start = row[3]
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 """
                 SELECT product, billed_jpy_micro, total_qty
                 FROM mv_billing_monthly_org
@@ -920,7 +944,7 @@ async def task_billing_invoice_get(invoiceId: str = "", **kwargs: Any) -> dict[s
                 """,
                 (row[2], period_start),
             )
-            for prod, billed, qty in cur.fetchall():
+            for prod, billed, qty in _res:
                 line_items.append({
                     "metric": "(rolled up)",
                     "product": prod or "",
@@ -958,30 +982,31 @@ async def task_billing_invoice_get(invoiceId: str = "", **kwargs: Any) -> dict[s
 
 async def task_billing_coverage_snapshot(asOf: str | None = None, **kwargs: Any) -> dict[str, Any]:
     as_of = asOf or _now_iso()
-    with sync_cursor() as cur:
-        cur.execute("SELECT COUNT(*) FROM vertex_billing_org_plan WHERE status = 'active'")
-        orgs_total = int((cur.fetchone() or (0,))[0] or 0)
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q("SELECT COUNT(*) FROM vertex_billing_org_plan WHERE status = 'active'")
+        orgs_total = int(((_res[0] if _res else None) or (0,))[0] or 0)
+        _res = client.q(
             "SELECT COUNT(*) FROM vertex_billing_org_plan WHERE status = 'active' AND plan = 'free'"
         )
-        orgs_free = int((cur.fetchone() or (0,))[0] or 0)
+        orgs_free = int(((_res[0] if _res else None) or (0,))[0] or 0)
         orgs_paying = orgs_total - orgs_free
 
-        cur.execute(
+        _res = client.q(
             "SELECT COUNT(*), COALESCE(SUM(billed_amount_jpy_micro), 0) FROM vertex_billing_event WHERE ts_ms > %s",
             (_now_ms() - 24 * 60 * 60 * 1000,),
         )
-        ev_row = cur.fetchone() or (0, 0)
+        ev_row = (_res[0] if _res else None) or (0, 0)
         events_24h = int(ev_row[0] or 0)
         billed_24h = int(ev_row[1] or 0)
 
-        cur.execute(
+        _res = client.q(
             "SELECT COUNT(*) FROM vertex_billing_invoice WHERE status IN ('draft', 'issued', 'overdue')"
         )
-        open_inv = int((cur.fetchone() or (0,))[0] or 0)
+        open_inv = int(((_res[0] if _res else None) or (0,))[0] or 0)
 
         # Margin trailing 30d.
-        cur.execute(
+        _res = client.q(
             """
             SELECT COALESCE(SUM(billed_jpy_micro), 0), COALESCE(SUM(cost_jpy_micro), 0)
             FROM mv_billing_margin_actual
@@ -989,7 +1014,7 @@ async def task_billing_coverage_snapshot(asOf: str | None = None, **kwargs: Any)
             """,
             (_today() - timedelta(days=30),),
         )
-        m_row = cur.fetchone() or (0, 0)
+        m_row = (_res[0] if _res else None) or (0, 0)
         billed_30d = int(m_row[0] or 0)
         cost_30d = int(m_row[1] or 0)
         margin_pct = (

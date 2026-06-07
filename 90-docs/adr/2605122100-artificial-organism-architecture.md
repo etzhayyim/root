@@ -36,12 +36,12 @@ Instead of monolithic applications, the organism is composed of specialized cell
 Instead of waiting for RPC calls, agents run an asynchronous `_heartbeat_loop()` (defined in `lsp_server.py` and `langgraph_worker.py`). This acts as the organism's pulse, waking up at fixed intervals (e.g., 10 seconds or 15 minutes) to autonomously pull from OSINT feeds (e.g., OpenPhish) or check internal status, ensuring continuous vigilance.
 
 ### C. Learning and Reasoning (PEGEL - Provenance Evidence Graph Evaluation Loop)
-Inside each LangGraph, intelligence is not blindly trusted. The `pegel_evaluate_node` correlates incoming signals (e.g., an IP address from a honeypot) against the organism's long-term memory (the RisingWave Graph DB). It calculates a `pegel_score` based on supporting/contradicting evidence before allowing the LLM to formulate a decision (`deliberate_node`).
+Inside each LangGraph, intelligence is not blindly trusted. The `pegel_evaluate_node` correlates incoming signals (e.g., an IP address from a honeypot) against the organism's long-term memory (the Kotoba/Datomic Graph DB). It calculates a `pegel_score` based on supporting/contradicting evidence before allowing the LLM to formulate a decision (`deliberate_node`).
 
-### D. Memory and Homeostasis (RisingWave & LangProcessMiner)
+### D. Memory and Homeostasis (Kotoba/Datomic & LangProcessMiner)
 To avoid reliance on third-party SaaS (like LangSmith) and maintain full sovereignty over the organism's "thoughts," we implemented **LangProcessMiner**.
 - A custom LangChain `BaseCallbackHandler` (`lpm_callback.py`) captures every node transition, LLM prompt, and token usage.
-- This trace data is persisted natively into RisingWave (`vertex_langprocessminer_trace` / `span`).
+- This trace data is persisted natively into Kotoba/Datomic (`vertex_langprocessminer_trace` / `span`).
 - A materialized view (`mv_lpm_agent_performance_summary`) provides real-time homeostasis metrics (error rates, latency, token burn), visible instantly on the local Yoro UI (`/lpm-dashboard`).
 
 ## 3. Rationale
@@ -52,5 +52,5 @@ To avoid reliance on third-party SaaS (like LangSmith) and maintain full soverei
 
 ## 4. Consequences
 
-- **DB Dependency:** The Langservers now have a hard dependency on the RisingWave cluster (`RW_URL`). If the internet or VPN connection to Vultr drops, the agents will degrade to fallback stubs (as designed).
+- **DB Dependency:** The Langservers now have a hard dependency on the Kotoba/Datomic cluster (`KOTOBA_URL`). If the internet or VPN connection to Vultr drops, the agents will degrade to fallback stubs (as designed).
 - **Audit Completeness:** The organism leaves an immutable, cryptographically hashable trail of its entire reasoning process in the graph database, fulfilling the strict audit requirements of the Keiei (CXO) layer.
