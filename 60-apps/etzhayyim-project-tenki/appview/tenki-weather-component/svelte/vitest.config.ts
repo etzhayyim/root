@@ -6,8 +6,8 @@ export default defineConfig({
     include: ["test/**/*.test.ts"],
     server: {
       deps: {
-        inline: ["@etzhayyim/sdk-mock", "@noble/hashes"],
-      },
-    },
-  },
+        inline: ["@etzhayyim/sdk-mock", "@noble/hashes"]
+      }
+    }
+  }
 });
