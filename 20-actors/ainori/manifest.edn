@@ -30,13 +30,16 @@
 
  :actor/cells
  [{:cell/id "pool_match"     :cell/kind :langgraph :cell/runtime :wasm   :cell/doc "ride-need → pooled match (occupancy-maximizing, Murakumo)"}
-  {:cell/id "route_sequence" :cell/kind :rust      :cell/runtime :wasm   :cell/doc "REUSES todoke-route: NN+2-opt multi-stop pooled sequencing under SAE-L4 envelope"}
-  {:cell/id "safety_envelope":cell/kind :rust      :cell/runtime :wasm   :cell/doc "per-zone speed/ODD refusal (shared with todoke)"}
+  {:cell/id "route_sequence" :cell/kind :rust      :cell/runtime :wasm   :cell/method "methods/pooled_route.py:sequence_stops"
+                             :cell/doc "WIRED to todoke route core (methods/pooled_route reuses todoke methods/last_mile NN+2-opt); parity-pinned by methods/test_pooled_route.py"}
+  {:cell/id "safety_envelope":cell/kind :rust      :cell/runtime :wasm   :cell/method "py/agent.py:safety_envelope_ok"
+                             :cell/doc "ainori VEHICULAR SAE-L4 refusal envelope (G3) — actor-specific (NOT todoke's pedestrian ODD); sequencing is shared, envelope is not"}
   {:cell/id "settle"         :cell/kind :datalog   :cell/runtime :kotoba :cell/doc "cost-share split + USDC + TitheRouter via warifu (intent-only at R0)"}]
 
  :actor/reuses
- {:crate "20-actors/todoke/route"  ;; route core + safety envelope
-  :note  "ainori adds passenger/occupancy semantics; routing+envelope are the shared todoke crate, not a second engine"}
+ {:crate  "20-actors/todoke/route"            ;; Rust route core (deployed runtime)
+  :module "20-actors/ainori/methods/pooled_route.py"  ;; reuses todoke methods/last_mile sequencing primitives
+  :note   "WIRED: ainori sequences pooled stops via todoke's NN+2-opt core (parity-pinned, test_pooled_route.py). ainori adds passenger/occupancy semantics + its OWN vehicular envelope; only the charter-neutral sequencer is shared, not a second engine."}
 
  :actor/lexicons
  ["com.etzhayyim.ainori.rideRequest"

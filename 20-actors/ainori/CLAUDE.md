@@ -2,7 +2,7 @@
 
 **Pooled passenger-mobility commons — Uber charter-clean inversion. ADR-2606071500. Status: R0.**
 
-Members already travelling offer seats; riders cost-share (fuel/wear only, no margin); the platform is paid `cash≡0`. Reuses the **`todoke` route crate** (`20-actors/todoke/route`: NN+2-opt sequencing + SAE-L4 refusal envelope) — ainori adds passenger/occupancy semantics, not a second routing engine.
+Members already travelling offer seats; riders cost-share (fuel/wear only, no margin); the platform is paid `cash≡0`. **WIRED** to the `todoke` route core: `methods/pooled_route.py` reuses todoke's `methods/last_mile` NN+2-opt sequencing primitives (`Stop`/`_nearest_neighbour`/`_two_opt`), parity-pinned by `methods/test_pooled_route.py` (ainori's `sequence_stops` == todoke's `plan_last_mile` order). ainori adds passenger/occupancy semantics + its **own vehicular SAE-L4 envelope** (`py/agent.py:safety_envelope_ok`, G3) — only the charter-neutral sequencer is shared, not the envelope, and not a second engine.
 
 Two non-gig supply modes:
 - **human-pooled** — member contribution + displacement-dividend coupling (ADR-2606032130).
