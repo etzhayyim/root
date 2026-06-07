@@ -82,7 +82,13 @@ def build_one(platform):
 
 
 def main(argv):
-    if argv and argv[0] == "--per-category":
+    if argv and argv[0] == "--l4":
+        # exactly the actors registered at tier L4 (the production cohort)
+        idx = json.load(open(os.path.join(ROOT, "00-contracts", "schemas",
+                                           "cleanroom-actors.index.json")))
+        cohort = sorted(a["handle"][:-len("-compat")] for a in idx["actors"]
+                        if a.get("tier") == "L4")
+    elif argv and argv[0] == "--per-category":
         depth = int(argv[1]) if len(argv) > 1 and argv[1].isdigit() else 1
         cats = deepen.parse_platform_categories()
         by = {}
