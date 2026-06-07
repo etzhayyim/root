@@ -18,6 +18,7 @@ sys.path.insert(0, str(ACTOR / "methods"))
 from sukashi_edn import load_edn, classify  # noqa: E402
 import analyze as A  # noqa: E402
 import transact as T  # noqa: E402
+import ingest as I  # noqa: E402
 
 SCHEMA = ROOT / "00-contracts" / "schemas" / "ad-supply-chain-ontology.kotoba.edn"
 SEED = ACTOR / "data" / "seed-ad-supply-chain.kotoba.edn"
@@ -165,6 +166,40 @@ class TestSchemaAndManifest(unittest.TestCase):
             on_disk = {p.stem for p in LEX_DIR.glob("*.json")}
             declared = {ns.split(".")[-1] for ns in m["lexiconNamespaces"]}
             self.assertTrue(declared <= on_disk | declared)  # tolerant until lexicons land
+
+
+class TestIngestParsers(unittest.TestCase):
+    def test_ads_txt_parser(self):
+        body = ("google.com, pub-42, DIRECT, f08c47fec0942fa0\n"
+                "magnite.com, 99, RESELLER\n"
+                "# a comment\nCONTACT=ops@x.example\n")
+        sellers, edges = I.parse_ads_txt(body, "adtech.publisher.t")
+        self.assertEqual(len(edges), 2)            # comment + variable line skipped
+        self.assertEqual(edges[0][":adauth.edge/relationship"], ":direct")
+        self.assertEqual(edges[1][":adauth.edge/relationship"], ":reseller")
+        self.assertNotIn(":adauth.edge/app", edges[0])  # ads.txt → no app field
+
+    def test_app_ads_txt_carries_bundle(self):
+        # app-ads.txt (mobile/CTV): every edge must carry :adauth.edge/app = the store bundle.
+        body = "magnite.com, ctv-1, DIRECT\nopenx.com, ctv-2, RESELLER\n"
+        sellers, edges = I.parse_ads_txt(body, "adtech.publisher.t", app="com.example.ctvapp")
+        self.assertTrue(edges, "app-ads.txt must yield edges")
+        for e in edges:
+            self.assertEqual(e[":adauth.edge/app"], "com.example.ctvapp")
+            self.assertIn("@com.example.ctvapp", e[":adauth.edge/id"])
+
+    def test_whois_bridge_drops_personal_pii(self):
+        # G9: a personal-registrant record must yield NO whois-org (person excluded).
+        recs = [{"domain": "a.example", "registrant_org": "Org A Inc", "registrar": "R1"},
+                {"domain": "b.example", "registrant_name": "A Natural Person", "email": "p@x.example"}]
+        out = I.bridge_whois(recs)
+        by_dom = {d[":addelivery.edge/landing-domain"]: d for d in out}
+        self.assertEqual(by_dom["a.example"][":addelivery.edge/whois-org"], "Org A Inc")
+        self.assertNotIn(":addelivery.edge/whois-org", by_dom["b.example"])
+        for d in out:
+            for k in d:
+                self.assertNotIn("name", k.lower())
+                self.assertNotIn("email", k.lower())
 
 
 class TestTransactReadiness(unittest.TestCase):

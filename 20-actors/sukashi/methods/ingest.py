@@ -36,7 +36,8 @@ OPERATOR_GATE = os.environ.get("SUKASHI_OPERATOR_GATE", "") == "1"
 
 # Documented full-web endpoints — NOT fetched unless the operator gate is set.
 SOURCES = {
-    "adstxt": "https://<publisher>/ads.txt + /app-ads.txt (IAB Tech Lab ads.txt 1.1)",
+    "adstxt": "https://<publisher>/ads.txt (IAB Tech Lab ads.txt 1.1)",
+    "appads": "https://<developer-domain>/app-ads.txt (IAB Tech Lab app-ads.txt; pass --app <bundle>)",
     "sellersjson": "https://<exchange>/sellers.json (IAB Tech Lab sellers.json 1.0)",
     "whois": "RDAP (https://rdap.org/domain/<d>) / WHOIS — registrant ORG only (G9 PII guard)",
 }
@@ -49,11 +50,16 @@ def _seller_id_from_domain(domain):
     return "adtech." + "ssp." + re.sub(r'[^a-z0-9]+', '-', str(domain).lower()).strip('-')
 
 
-def parse_ads_txt(text, publisher_id):
+def parse_ads_txt(text, publisher_id, app=None):
     """Parse an ads.txt / app-ads.txt body → :adtech (sellers) + :adauth.edge dicts.
 
     Each non-comment line: <domain>, <account_id>, <DIRECT|RESELLER>[, <cert_authority>].
     Sourcing is :authoritative — ads.txt is a public file the publisher itself signs.
+
+    `app` (optional): when this body is an app-ads.txt (mobile/CTV; the same line format but
+    served at a developer's verified domain and bound to a store BUNDLE id), pass the bundle id
+    → every edge carries :adauth.edge/app. app-ads.txt is a major mobile/CTV spoofing vector
+    (counterfeit apps claiming a real developer's inventory), so the field is first-class here.
     """
     sellers, edges = {}, []
     for raw in text.splitlines():
@@ -69,8 +75,11 @@ def parse_ads_txt(text, publisher_id):
         sellers.setdefault(seller_id, {
             ":adtech/id": seller_id, ":adtech/name": domain, ":adtech/role": ":ssp",
             ":adtech/domain": domain, ":adtech/sourcing": ":authoritative"})
+        eid = f"adauth.{publisher_id}->{domain}:{account}:{rel}"
+        if app:
+            eid += f"@{app}"
         edge = {
-            ":adauth.edge/id": f"adauth.{publisher_id}->{domain}:{account}:{rel}",
+            ":adauth.edge/id": eid,
             ":adauth.edge/publisher": publisher_id,
             ":adauth.edge/seller": seller_id,
             ":adauth.edge/account-id": account,
@@ -80,6 +89,8 @@ def parse_ads_txt(text, publisher_id):
             ":adauth.edge/sourcing": ":authoritative"}
         if cert:
             edge[":adauth.edge/cert-authority"] = cert
+        if app:
+            edge[":adauth.edge/app"] = app
         edges.append(edge)
     return sellers, edges
 
@@ -157,17 +168,19 @@ def main(argv):
     source = argv[argv.index("--source") + 1] if "--source" in argv else None
     infile = argv[argv.index("--in") + 1] if "--in" in argv else None
     publisher = argv[argv.index("--publisher") + 1] if "--publisher" in argv else "adtech.publisher.ingested"
+    app = argv[argv.index("--app") + 1] if "--app" in argv else None
 
     bridged = []
     if source in SOURCES and not infile and not OPERATOR_GATE:
         print(f"sukashi.ingest: source '{source}' = {SOURCES[source]}")
         print("  → G7 GATED: live full-web fetch requires SUKASHI_OPERATOR_GATE=1 (Council). "
               "Provide a local --in file to bridge offline; emitting seed only.")
-    elif source == "adstxt" and infile:
-        sellers, edges = parse_ads_txt(pathlib.Path(infile).read_text(encoding="utf-8"), publisher)
+    elif source in ("adstxt", "appads") and infile:
+        sellers, edges = parse_ads_txt(pathlib.Path(infile).read_text(encoding="utf-8"), publisher, app=app)
         bridged = list(sellers.values()) + edges
-        print(f"sukashi.ingest: bridged {len(sellers)} sellers + {len(edges)} auth edges "
-              f"from {infile} (:authoritative)")
+        kind = "app-ads.txt" if (source == "appads" or app) else "ads.txt"
+        print(f"sukashi.ingest: bridged {len(sellers)} sellers + {len(edges)} {kind} auth edges "
+              f"from {infile}{' [app=' + app + ']' if app else ''} (:authoritative)")
     elif source == "sellersjson" and infile:
         obj = json.loads(pathlib.Path(infile).read_text(encoding="utf-8"))
         sellers = parse_sellers_json(obj)

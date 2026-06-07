@@ -23,7 +23,7 @@
 Coverage growth (each is a `/loop` increment):
 - [ ] seed → 60+ real ad-tech entities (add CTV/DOOH SSPs, mobile networks, retail-media networks)
 - [ ] seed → 25+ real public ads.txt/sellers.json authorization edges (real publishers' public files)
-- [ ] add `:adauth.edge/app` (app-ads.txt / CTV) coverage + a parser test
+- [x] add `:adauth.edge/app` (app-ads.txt / CTV) coverage + a parser test — ingest `--source appads --app <bundle>`; seed CTV publisher + a legit + a FICTIONAL spoof app-ads.txt edge; test_app_ads_txt_carries_bundle + test_ads_txt_parser + test_whois_bridge_drops_personal_pii
 - [ ] seed → 12+ illustrative fraud archetypes (cloaking, typosquat-delivery, malvertising-redirect, sellers-json-mismatch) — all `:synthesized` on fictional entities
 - [ ] cross-link listed ad-tech firms to `org.corp.*` (`:adtech/listed-org`) so kabuto/tsumugi share the entity
 

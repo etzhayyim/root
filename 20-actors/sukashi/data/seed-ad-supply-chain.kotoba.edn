@@ -49,6 +49,7 @@
  ;; ═══════════════════════ PUBLISHERS (ads.txt holders) — illustrative real-shaped ═══════════════════════
  {:adtech/id "adtech.publisher.example-news" :adtech/name "Example News (illustrative publisher)" :adtech/role :publisher :adtech/domain "example-news.example" :adtech/category :media :adtech/sourcing :representative}
  {:adtech/id "adtech.publisher.example-weather" :adtech/name "Example Weather (illustrative publisher)" :adtech/role :publisher :adtech/domain "example-weather.example" :adtech/category :media :adtech/sourcing :representative}
+ {:adtech/id "adtech.publisher.example-ctv-app" :adtech/name "Example CTV App (illustrative app-ads.txt developer)" :adtech/role :publisher :adtech/domain "example-ctv.example" :adtech/category :media :adtech/sourcing :representative}
 
  ;; ═══════════════════════ ADVERTISERS — legit (no fraud signal) ═══════════════════════
  {:adtech/id "org.corp.us.consumer-brand-co" :adtech/name "Consumer Brand Co (illustrative advertiser)" :adtech/role :advertiser :adtech/domain "consumerbrand.example" :adtech/category :ecommerce :adtech/sourcing :representative}
@@ -68,6 +69,13 @@
  {:adauth.edge/id "adauth.example-weather.example->google-adx:pub-2002:direct" :adauth.edge/publisher "adtech.publisher.example-weather" :adauth.edge/seller "adtech.ad-exchange.google-adx" :adauth.edge/account-id "pub-2002" :adauth.edge/relationship :direct :adauth.edge/declared true :adauth.edge/confirmed true :adauth.edge/sourcing :authoritative}
  {:adauth.edge/id "adauth.example-weather.example->index-exchange:pub-2002:reseller" :adauth.edge/publisher "adtech.publisher.example-weather" :adauth.edge/seller "adtech.ad-exchange.index-exchange" :adauth.edge/account-id "idx-3310" :adauth.edge/relationship :reseller :adauth.edge/declared true :adauth.edge/confirmed true :adauth.edge/sourcing :authoritative}
  {:adauth.edge/id "adauth.example-weather.example->taboola:pub-2002:direct" :adauth.edge/publisher "adtech.publisher.example-weather" :adauth.edge/seller "adtech.ad-network.taboola" :adauth.edge/account-id "tb-9001" :adauth.edge/relationship :direct :adauth.edge/declared true :adauth.edge/confirmed true :adauth.edge/sourcing :authoritative}
+
+ ;; app-ads.txt (mobile/CTV): the developer's app-ads.txt at example-ctv.example binds the store
+ ;; bundle id; :adauth.edge/app carries it. Confirmed in the seller's sellers.json (legit).
+ {:adauth.edge/id "adauth.example-ctv.example->magnite:ctv-4410:direct@com.example.ctvapp" :adauth.edge/publisher "adtech.publisher.example-ctv-app" :adauth.edge/seller "adtech.ssp.magnite" :adauth.edge/account-id "ctv-4410" :adauth.edge/relationship :direct :adauth.edge/declared true :adauth.edge/confirmed true :adauth.edge/app "com.example.ctvapp" :adauth.edge/sourcing :authoritative}
+ ;; app-ads.txt spoof surface: a counterfeit app reuses the developer's bundle id but its
+ ;; app-ads.txt declares an unconfirmed reseller (FICTIONAL — mobile/CTV inventory laundering).
+ {:adauth.edge/id "adauth.example-ctv.test->fly-by-night:ctv-0000:reseller@com.example.ctvapp" :adauth.edge/publisher "adtech.publisher.spoofed-news" :adauth.edge/seller "adtech.ssp.fly-by-night" :adauth.edge/account-id "ctv-0000" :adauth.edge/relationship :reseller :adauth.edge/declared true :adauth.edge/confirmed false :adauth.edge/app "com.example.ctvapp" :adauth.edge/sourcing :synthesized}
 
  ;; UNAUTHORIZED RESELLER surface: the legit publisher's ads.txt declares Fly-By-Night SSP,
  ;; but Fly-By-Night's sellers.json does NOT confirm the account (declared && !confirmed).
