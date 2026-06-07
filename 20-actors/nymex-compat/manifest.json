@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreih6j5fxyqyt2eb3ek3cfkl23ev6fkl22dtbn6pttov56tzcquzdte",
   "schema": "schema/nymex.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Commodity",
     "Price",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

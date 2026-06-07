@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiavhveh52kn7r3uw6mfhtkerg2fyipo4vmrzbfpp2lvgh7i3ve3sq",
   "schema": "schema/hannover_re.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Account",
     "Loan",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

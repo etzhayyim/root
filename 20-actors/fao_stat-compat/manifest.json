@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreifvzeyv3ynfqzxymtnddwirwy44beerwctasrld272o3mczqj7ahy",
   "schema": "schema/fao_stat.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Field",
     "Operation",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

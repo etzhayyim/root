@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreib3mqcksgzfdcf7kf4cvov7r2euc4o6q72z4ekp74z3hzvdiz7zie",
   "schema": "schema/mhra.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Filing",
     "Citizen",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

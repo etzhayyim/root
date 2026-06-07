@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreieteak64fls3w7gsnt6psrb5fcm3nqe2udtcaoebtdmfn5yhpcfja",
   "schema": "schema/nvidia_drive.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Vehicle",
     "Signal",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

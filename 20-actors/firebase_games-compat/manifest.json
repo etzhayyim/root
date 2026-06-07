@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreibrge2da7zeyeqxocxaipfdoe5qa6przuhs53ixgoadwzwom4uuly",
   "schema": "schema/firebase_games.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Player",
     "Session",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreic5ifcxqny4c5ms7t5ivys5hvoh2lqurr6whxefutx7ijc2jv7bcu",
   "schema": "schema/synthego.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Strain",
     "Construct",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

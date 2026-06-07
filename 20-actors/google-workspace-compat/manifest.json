@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiakluycvcquik27g5f4mkd3fx5pdma4rfw3d6aaaeznfiddctf5qe",
   "schema": "schema/google-workspace.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Workspace",
     "Document",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

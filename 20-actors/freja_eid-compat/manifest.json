@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiguy7trjyniaxkdslwgzxwvftp7yawydenbpbobnegg234o6hrkzm",
   "schema": "schema/freja_eid.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Identity",
     "Credential",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

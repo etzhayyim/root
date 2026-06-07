@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreialoijy6v7b37ulxre2zw4eww2gv7536t2iw2nhxxnpiactwysowi",
   "schema": "schema/surescripts.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Prescription",
     "Claim",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

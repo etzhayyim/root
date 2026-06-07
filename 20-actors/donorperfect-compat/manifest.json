@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreid2gydknyck6neflbklltcq44af45lihk3ary72fc5vrl2nf55hri",
   "schema": "schema/donorperfect.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Event",
     "Ticket",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

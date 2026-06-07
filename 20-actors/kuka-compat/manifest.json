@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihldmevkwfb3rwymjrn2anbzb4z3rseyujimcjiwsnasoe53ykau4",
   "schema": "schema/kuka.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Part",
     "BOM",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiclr2rqynxpw344fjjbw7d5f4rwxd6xhcwew4htqzsigjo7hewuxy",
   "schema": "schema/opec_data.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Commodity",
     "Price",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

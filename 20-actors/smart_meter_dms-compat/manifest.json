@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigaulkcj4n67mwnm7idni4rptba23pzpglo6aj7okgzq5ls6j65yy",
   "schema": "schema/smart_meter_dms.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Meter",
     "Reading",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

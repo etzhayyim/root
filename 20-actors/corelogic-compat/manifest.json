@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreicyo25nv56sk5uv67u3g33qio7ewkxcnl3gjqaq3vnghem5q3o24y",
   "schema": "schema/corelogic.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Account",
     "Loan",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

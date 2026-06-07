@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigbumoaaz52h7ewvvqbfmun5f374gvy44l2zrqndxap6miymmkft4",
   "schema": "schema/skydio.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Drone",
     "Mission",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

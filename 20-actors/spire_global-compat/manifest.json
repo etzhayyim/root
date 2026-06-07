@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreia6yv3cfphkvokxnp2z7lbuuo2q5bwrokxqqwbp6bjlyt7xpz2hqe",
   "schema": "schema/spire_global.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Object",
     "Position",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

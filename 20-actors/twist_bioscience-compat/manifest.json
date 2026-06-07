@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreifc3lnnnsj55246fgb75px574q4wbitdwbndvcmgzq5kqxuciuf54",
   "schema": "schema/twist_bioscience.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Strain",
     "Construct",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

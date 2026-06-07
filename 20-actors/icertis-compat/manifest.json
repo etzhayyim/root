@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreidysou3nm7kzo4sw3rtgrhq6il7xsllnb5dzpa3rhm6eubk5emgae",
   "schema": "schema/icertis.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "DataSubject",
     "ConsentRecord",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

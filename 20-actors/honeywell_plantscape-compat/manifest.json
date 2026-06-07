@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigl3muml5camvr2xcb32l3yvqyeuanfy4otq2wyy2lg5jkjrxxkzm",
   "schema": "schema/honeywell_plantscape.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Tag",
     "Device",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

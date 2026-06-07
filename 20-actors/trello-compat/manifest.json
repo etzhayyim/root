@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihf73msim45tmmldw2cxptta6hgdkbnsqi4j77p74e3fqrbmhva6i",
   "schema": "schema/trello.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Workspace",
     "Document",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

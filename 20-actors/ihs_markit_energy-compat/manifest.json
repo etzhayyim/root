@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreig76gyoodoonh523al36gaijtglwjp7tdveq3gkptwyox5qqdesy4",
   "schema": "schema/ihs_markit_energy.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Commodity",
     "Price",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

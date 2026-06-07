@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreifoomfsnxwiytptlqopjnshnviu5smv6ycxzdjlwq746or7mxaktq",
   "schema": "schema/tesla_fsd.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Vehicle",
     "Signal",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

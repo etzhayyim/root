@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreibo2ajodykpmusp4az743zowdh63k2cyvnbgr2zcd3hved2khina4",
   "schema": "schema/zoho.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Account",
     "Contact",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

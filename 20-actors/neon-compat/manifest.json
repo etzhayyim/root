@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreicm77bsuqn3w5srxut2g64n5jpkqeq2lzmkmjynstx75we5zrljfy",
   "schema": "schema/neon.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Service",
     "Deployment",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

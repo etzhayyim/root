@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiency6g6x2sjdviptv4p2hq7pg44ebkntt3g6v5ijded6ycqgk6na",
   "schema": "schema/chips_clearing.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihf3sygdb6ogsvbxrnu67hkhxuwnlaz4lmie7vmsczr6twak542ra",
   "schema": "schema/dailyco.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Channel",
     "Message",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

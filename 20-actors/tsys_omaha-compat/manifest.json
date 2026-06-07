@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreieea7b4ivgobx7d2luqudtvrm6cz5u33hs6gml5hntu22zre5jyve",
   "schema": "schema/tsys_omaha.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

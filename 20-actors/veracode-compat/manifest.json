@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreievxxfnshmmaq6jstzap7vgj2zinoa7gqpecsg243bwenw77kjvye",
   "schema": "schema/veracode.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Service",
     "Error",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

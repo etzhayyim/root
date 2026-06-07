@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreibbfqjivc4royojlnhxmbvp26tcuoo73edgp6fsbsjs746rb6htvi",
   "schema": "schema/iceye.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Object",
     "Position",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

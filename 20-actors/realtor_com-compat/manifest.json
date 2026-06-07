@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihv7tnend5ktsmz27bk6bhhw5jczx4njgrqhp3ewrpt4ep3lizu6u",
   "schema": "schema/realtor_com.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Listing",
     "Property",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

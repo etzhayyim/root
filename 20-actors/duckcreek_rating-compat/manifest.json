@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreifwlk4ym3lkcsc42idc64odepyvyxcuv2ups4ze4j2365kii44kee",
   "schema": "schema/duckcreek_rating.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Account",
     "Loan",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

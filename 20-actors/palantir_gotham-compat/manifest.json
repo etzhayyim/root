@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigo5wh4iyizvlsdl6cjsbwrj2xx55lfbsbopkk24xzlwdr5m362ca",
   "schema": "schema/palantir_gotham.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Case",
     "Party",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

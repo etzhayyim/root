@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiejokkxsuo7tyglfb3q43wuoocuzwkmat2aofqg6k2trpn5ivif2a",
   "schema": "schema/clio.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Record",
     "Matter",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

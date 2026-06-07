@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreibcexa7ssjnfvqbgvpjkpiy6djsvsqxwrga4wkakuqb2jp4bgwt3a",
   "schema": "schema/fca_uk.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Filing",
     "Citizen",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

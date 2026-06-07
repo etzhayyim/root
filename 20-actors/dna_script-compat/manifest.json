@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihqsfomgqydgo6vjnch2tgpo74ivekfjgu7it6agux6aanfrc7ltu",
   "schema": "schema/dna_script.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Strain",
     "Construct",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

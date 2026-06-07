@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreic4dgl7qeqmpnql5wkennwuyy3mlbi26mobk62dtjt5xazti23jjm",
   "schema": "schema/pix_brazil.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

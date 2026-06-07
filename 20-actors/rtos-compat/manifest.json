@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreibredqfwk6ffoem4nws3xdjuno6vias4ytszyye7ok6cqgl5ne6m4",
   "schema": "schema/rtos.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Process",
     "Thread",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

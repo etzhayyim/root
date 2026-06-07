@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreicrpbp7vnzqouzknpkmmgfqlv3j5mjupzcg4h7jap7dqajcz6hch4",
   "schema": "schema/tylertech.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Project",
     "Permit",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

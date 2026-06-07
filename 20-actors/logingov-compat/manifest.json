@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreibm7it3qg4cc2lh4nnd3xcgnnko42x6bnqf4oyfbunugh3botucui",
   "schema": "schema/logingov.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Filing",
     "Entity",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

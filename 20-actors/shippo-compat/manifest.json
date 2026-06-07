@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreidv2qf4dwlmkuz6tkw44z4izydinilxs4vbh7y2dz2rvkd4w7kctu",
   "schema": "schema/shippo.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "ContentEntry",
     "Product",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiagm4krxnsrz627kd6czpkv6k6z4y2u4vz3a36uxtcv2kja6i3k3u",
   "schema": "schema/modbus_tcp.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Meter",
     "Reading",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

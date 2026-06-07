@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreieeu24cg5xzyb7htmbby3th6rt67tpqmmgknomifhuhce2xrpqy7u",
   "schema": "schema/hashicorp.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Service",
     "Deployment",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

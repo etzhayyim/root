@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreie4gxxhtmn6xgdixy2iv2qgow6zu35i45o6lfbgabp3s6pwo6kusu",
   "schema": "schema/elasticpath.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Catalog",
     "Product",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

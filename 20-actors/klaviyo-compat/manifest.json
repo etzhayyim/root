@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreif4hrn7utw3nousb7ajuy56nhvxjzexufse3rrmyj2bfagzchsjpu",
   "schema": "schema/klaviyo.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Campaign",
     "Audience",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

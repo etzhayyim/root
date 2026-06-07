@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreic7iev3bs3nbv4xwi7wqge6k5rvcnrpvfq7bi2w4j7j5swqcippby",
   "schema": "schema/square-retail.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Product",
     "Variant",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihqh6ovaxw2y2qnvkmapzkiizcphfxzslo7gptr6y6673sjb2uwiy",
   "schema": "schema/ramp.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

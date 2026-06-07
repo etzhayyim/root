@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreignjlofhvasqayyaot4q7dvm6urc47fs3ybyjoegwnxp6lxqfoafu",
   "schema": "schema/fortinet.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Identity",
     "Policy",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

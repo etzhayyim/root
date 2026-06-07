@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiaekn6255ph5d2jchsutccq2pssmc2xeu7dzomzi6e3f5trnaylsi",
   "schema": "schema/iata_ndc.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Flight",
     "Booking",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

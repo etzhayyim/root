@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreieohf3b36utb74jbqgyzft5iy7jpiune4my5slasnfj25gqqq2xja",
   "schema": "schema/mixpanel.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Campaign",
     "Audience",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

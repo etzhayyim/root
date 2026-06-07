@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihlpu5gxcona54pa4zymipus6jhaybrxh33criunrcindy5jtrsi4",
   "schema": "schema/kakao_cert.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Identity",
     "Credential",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

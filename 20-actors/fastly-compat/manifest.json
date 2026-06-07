@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreih232kk4eal3cvlywe6nk56lowufafbio7zjcjdyb7p4uckig7hau",
   "schema": "schema/fastly.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Asset",
     "Rendition",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihdl6nvb6prwmr56aquam6pt2i35qrmbsypta7efoka7qbbjfa22e",
   "schema": "schema/blue_origin_api.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Object",
     "Position",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

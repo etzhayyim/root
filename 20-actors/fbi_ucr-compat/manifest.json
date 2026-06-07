@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreicla3kuqsrbxrgdo2nhsu7edlzhsazzaoo6s632hdd6n6l2lnc2ka",
   "schema": "schema/fbi_ucr.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Case",
     "Party",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

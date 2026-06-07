@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreicgoipbaydymrqmc4pdbqopnb7l4i7yuphnm4hvnv73flb7r4jati",
   "schema": "schema/zipline.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Drone",
     "Mission",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

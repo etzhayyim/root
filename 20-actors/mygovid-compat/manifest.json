@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreig2dcygmpftv7ys4wgsxq6tv2u25wcek4flgh7qbniscyas4tp3z4",
   "schema": "schema/mygovid.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Filing",
     "Corporation",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

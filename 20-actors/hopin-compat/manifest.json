@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreibp2p36hysql7s7i3c33sinpmhsqf45onoxvj7glrfgqhrhu3ygbi",
   "schema": "schema/hopin.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Event",
     "Ticket",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

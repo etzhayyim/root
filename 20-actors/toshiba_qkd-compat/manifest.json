@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreib44kwkqj2qimm4v7d3avoewpqdu2by5jltaofvuzhjfwi2xiupxm",
   "schema": "schema/toshiba_qkd.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "KeySession",
     "Node",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

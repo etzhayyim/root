@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiapplnz5gxf5kweu2wjc36fzkkfa3t6svzvc6a25bgyhqrcwwvh6u",
   "schema": "schema/nemetschek.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Project",
     "Permit",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

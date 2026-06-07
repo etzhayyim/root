@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreia5v4fxujlr6eg24lqz2cl2dlr76eehbfefgdmepzv3pjrbhlxzsa",
   "schema": "schema/lever.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Employee",
     "Candidate",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

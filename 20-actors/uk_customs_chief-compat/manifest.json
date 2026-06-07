@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiegfhrhstbrqrw6i52kt3pr5ggn3gajpvrkdpnhifjzi7n2nl6oam",
   "schema": "schema/uk_customs_chief.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Declaration",
     "Shipment",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

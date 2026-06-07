@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreifg7lifowfmqqfex4kpv623cl5oqqguzktwaty5xb7tla3yy6a3hq",
   "schema": "schema/smart_on_fhir.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Patient",
     "Observation",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

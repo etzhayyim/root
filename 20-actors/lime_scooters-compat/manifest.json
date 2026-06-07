@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigxrswa6ukdawq2xetnc5nfu35trspcpvgmo4su52ga6iab4i3tuy",
   "schema": "schema/lime_scooters.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Driver",
     "Rider",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

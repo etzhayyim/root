@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreida3kdzdv2inpcct2hl2j3pb7aisbdlpt6q6b7cd2kligcgf4cr6a",
   "schema": "schema/l3harris_net.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Case",
     "Party",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

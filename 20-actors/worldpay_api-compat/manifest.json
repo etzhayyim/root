@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreifhj4gxl4t7b7ehxwoqbsbpqfyskxqkb4w52wlcjaatysmcqtjzkm",
   "schema": "schema/worldpay_api.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

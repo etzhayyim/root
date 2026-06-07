@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreibkwyzn3m33um7piewwwk3oeebsv2hs32s6ovqemsuxky4nt4jr24",
   "schema": "schema/subcom_telemetry.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Object",
     "Position",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

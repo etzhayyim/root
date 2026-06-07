@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreibyjdsf7jpk3mz6ewjedm4st67x6eetz4zyad5s3venud26ffzecy",
   "schema": "schema/mulesoft.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Flow",
     "Step",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

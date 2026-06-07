@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreieilh4czzzbxnpa3lkjfc22qa2k7wp5uxchmuu7aukxiqqf2znnpe",
   "schema": "schema/uspto.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Application",
     "Grant",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

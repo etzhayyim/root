@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigmgl5xoh32pr4qvqghh2nolbrrixdb3i5nlpupeqlrgrfwveur4u",
   "schema": "schema/helium.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Device",
     "Telemetry",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

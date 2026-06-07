@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreicsxf7kslscffsdfy6kdif5fioqnsryu3km7axvh7jhw6i72lryna",
   "schema": "schema/heroku.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Project",
     "ComputeInstance",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

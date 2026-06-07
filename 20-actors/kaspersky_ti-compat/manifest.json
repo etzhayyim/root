@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreie6olyvw5v5u5zioocqeef3suoiqlu4gyewmezq27umg46blhpfly",
   "schema": "schema/kaspersky_ti.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Indicator",
     "Vulnerability",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

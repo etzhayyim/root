@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreidkj7ypazmys5w4vfyizvfyhx53l6pvmooriw4zdfhsjbkxfwz6qy",
   "schema": "schema/patreon.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Event",
     "Ticket",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

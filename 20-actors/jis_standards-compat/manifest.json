@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiajcof3bjw2kwooa64bm2zw6zuwqz3bzkplte6dccdosxnp3ru5cm",
   "schema": "schema/jis_standards.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Substance",
     "Compound",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

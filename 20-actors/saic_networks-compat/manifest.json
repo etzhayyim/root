@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreialwu22m2sydvj447uxaa4s2ardrbatpnhpqu5sjxpxyqreml6gqm",
   "schema": "schema/saic_networks.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Case",
     "Party",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

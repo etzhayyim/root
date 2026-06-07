@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreicmpe7h7vuophw7wyz65n76hucogu3eq26vbyhqhrfodioqnp47va",
   "schema": "schema/evergreen_api.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "TradeItem",
     "Event",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

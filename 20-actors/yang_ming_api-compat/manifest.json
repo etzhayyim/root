@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiahqtrg7k22yw2tgscl4tu5m4m42tbgidir7nuvrpvwarkytpwj2m",
   "schema": "schema/yang_ming_api.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "TradeItem",
     "Event",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

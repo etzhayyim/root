@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreifkkt3y345a5yt4b6dg5l5sg4qxddhekbkblsovwqi4b5dhd46xei",
   "schema": "schema/shopee.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "User",
     "Wallet",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

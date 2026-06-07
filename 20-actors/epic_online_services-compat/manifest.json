@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiaf5tq7hovnijfqsuygxd6gpjqj2ltqcs4726pkv6uwf46ch4brem",
   "schema": "schema/epic_online_services.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Player",
     "Session",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

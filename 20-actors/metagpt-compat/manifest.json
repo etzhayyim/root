@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreic7tzqd7hdudv2uzey3om6vvn5yemz2kh3hafabpuzn7772mvob6e",
   "schema": "schema/metagpt.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Agent",
     "Task",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

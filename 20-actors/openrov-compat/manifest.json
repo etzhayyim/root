@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigze4roukedp5s5rbk2byoo4wvpuja5o7pb7sg3aoa4a55msbcn54",
   "schema": "schema/openrov.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Object",
     "Position",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

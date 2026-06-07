@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiaxevjjk3roe435s5hqra7qewctu5hnf6ztrpai76ghyzz7nsribe",
   "schema": "schema/medallia.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Ticket",
     "Survey",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

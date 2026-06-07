@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreifpi3xc6sjvn6xonajozcueq3xynr2kliqygm3fjfhxtm43xf646y",
   "schema": "schema/mckesson.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Prescription",
     "Claim",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreifedaap5yiomqpdwv76qazdp3j2wdfuxr2rfcetyjefuz7ecbip2i",
   "schema": "schema/rhino.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Project",
     "File",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

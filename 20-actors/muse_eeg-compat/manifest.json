@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreifyruma6zyzqi7xujlk7dcen4jcdxdrbbtpqyex3oc2c5za4zo6ni",
   "schema": "schema/muse_eeg.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Device",
     "Session",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

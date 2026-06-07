@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihqlrepdxurbrbg4dpca2cmlqkr4576o6k4pjwly5hrocd2ztijuq",
   "schema": "schema/dott.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Driver",
     "Rider",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

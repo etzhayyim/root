@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihy6ahraczn2uejkddvaqjldaj754hwvl7cbp3jlcvoekjquxlsuu",
   "schema": "schema/yandex.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Order",
     "Courier",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

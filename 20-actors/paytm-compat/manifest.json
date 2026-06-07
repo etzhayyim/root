@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreicfjzpyc2n2njuwz6zf5iqpjhgbkwym2c2nnmrv2vv3qwl74p4bom",
   "schema": "schema/paytm.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "User",
     "Wallet",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

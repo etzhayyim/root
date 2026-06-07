@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreies22cmajj3hkealczuxuxa6sc6s3knm5lco2xa3bjs2oq4rxk3qu",
   "schema": "schema/pubchem.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Work",
     "Author",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

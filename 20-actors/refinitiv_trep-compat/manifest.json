@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreia3xaul24rfg7nwh7b3zs44p7be72c4nwn4kiol4rwnyyjcnt5rgi",
   "schema": "schema/refinitiv_trep.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Instrument",
     "Quote",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

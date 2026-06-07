@@ -431,7 +431,11 @@ def promote(cohort=None):
 if __name__ == "__main__":
     import sys
     argv = sys.argv[1:]
-    if argv and argv[0] == "--per-category":
+    if argv and argv[0] == "--all":
+        cohort = sorted(d[:-len("-compat")].strip()
+                        for d in os.listdir(ACTORS_DIR) if d.endswith("-compat"))
+        promote(cohort)
+    elif argv and argv[0] == "--per-category":
         depth = int(argv[1]) if len(argv) > 1 and argv[1].isdigit() else 1
         promote(per_category_cohort(depth))
     else:

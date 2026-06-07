@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreidhb7s2r3b2v7kbqtfqbvjdv6ib33io6rulrgkiybee2zkm57wqpe",
   "schema": "schema/ieee_xplore.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Work",
     "Author",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiabajvbcgptfxegp5rr7oo3jm2vfakpbw5zvh6u56i3jo7xtnutdu",
   "schema": "schema/toshiba_global_commerce.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Product",
     "Variant",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

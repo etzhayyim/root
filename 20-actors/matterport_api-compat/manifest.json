@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreibkmhcvbycdz75bm2hatan4tb72ccwi7d777xoy5ps7u4jh2iyddy",
   "schema": "schema/matterport_api.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Anchor",
     "Scene",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

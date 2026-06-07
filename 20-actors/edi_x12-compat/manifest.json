@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreievbdzdmk5mkd3bbxu5m3546bswg7oysvkil5fgct54ckcxtj4ega",
   "schema": "schema/edi_x12.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "TradeItem",
     "Event",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

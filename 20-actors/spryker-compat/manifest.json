@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreieznbarb4f5afmy6zhfvaelpmxo7krnlkkdjfcay55yeo44l6fnl4",
   "schema": "schema/spryker.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Catalog",
     "Product",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

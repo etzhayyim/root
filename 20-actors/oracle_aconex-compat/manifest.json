@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreidkfr2r2j75hugku6v3wfsgtpxfn5fydsmrzohlbnlfnuoauhaquy",
   "schema": "schema/oracle_aconex.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Project",
     "Permit",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

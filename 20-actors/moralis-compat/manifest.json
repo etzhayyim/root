@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreifzbnwfb272arpcxcuwirks3aa7p5trs6oqlkjoa3idwk23z2pxxm",
   "schema": "schema/moralis.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Block",
     "Transaction",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

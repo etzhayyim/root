@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreify6btshv3ohpudvcs4h4cv3l65bjwb6kewu4tccfxa4egnijx4zq",
   "schema": "schema/yokogawa_cx.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Tag",
     "Device",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },
