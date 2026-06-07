@@ -67,6 +67,19 @@ _CHARTER_RIDER_TRIP = ("weapon", "surveillance-for-hire", "addictive", "gore",
 # G6 — dark-pattern / urgency vocabulary that must NEVER appear in a composed advisory.
 _DARK_PATTERN_WORDS = ("hurry", "act now", "limited time", "last chance", "only today",
                        "don't miss", "urgent", "急いで", "今すぐ", "残りわずか")
+# G10 — fear / shame / gore / zero-sum vocabulary the framing audit must reject.
+_NEGATIVE_FRAMING_WORDS = ("fear", "shame", "guilt", "punish", "loser", "victim", "blood",
+                           "kill", "destroy", "恐怖", "罰", "負け組", "搾取される")
+# Domain-sensitive topics require a cross-actor citation (UPL / clinical / financial-advice
+# boundaries). Keyword → (domain, required-citation-actor). ossekai NEVER renders the advice.
+_DOMAIN_KEYWORDS = {
+    "クーリングオフ": ("legal", "chigiri"), "返金": ("legal", "chigiri"),
+    "契約": ("legal", "chigiri"), "訴": ("legal", "chigiri"),
+    "薬": ("pharma", "yakushi"), "処方": ("pharma", "yakushi"),
+    "診断": ("diagnostic", "mitate"), "症状": ("medical", "iyashi"),
+    "治療": ("medical", "iyashi"), "投資": ("financial", "toritate"),
+    "税": ("financial", "toritate"), "決算": ("financial", "toritate"),
+}
 
 OSSEKAI_DID = "did:web:ossekai.etzhayyim.com"
 
@@ -84,6 +97,21 @@ def no_dark_pattern(text: str) -> bool:
     """G6 — True iff the text carries no urgency / scarcity / engagement hook."""
     low = text.lower()
     return not any(w in low for w in _DARK_PATTERN_WORDS)
+
+
+def framing_audit(text: str) -> bool:
+    """G10 — True iff the framing is Wellbecoming-positive: no fear / shame / gore / zero-sum."""
+    low = text.lower()
+    return not any(w in low for w in _NEGATIVE_FRAMING_WORDS)
+
+
+def classify_domain(topic: str):
+    """Return (domain, required_citation_actor) for a topic, or (None, None) if general.
+    Domain-sensitive topics MUST carry a cross-actor citation (UPL / clinical / financial)."""
+    for kw, (domain, actor) in _DOMAIN_KEYWORDS.items():
+        if kw in (topic or ""):
+            return domain, actor
+    return None, None
 
 
 # --------------------------------------------------------------------------- #
@@ -134,6 +162,62 @@ def handle_arbitrage_observer(state: ObserverState) -> ObserverState:
 
 
 # --------------------------------------------------------------------------- #
+# intel_analyzer — gap report → wellbecomingAdvisory (G1/G10/G11/G12)
+# --------------------------------------------------------------------------- #
+def _community_framing(topic: str) -> str:
+    """G11 anti-individualism — frame the benefit in community + multi-generational terms,
+    not individual optimization. This is the body text the audit + publisher consume."""
+    return (f"「{topic}」は誰でも使える公共の制度です。"
+            "ご家族や周りの世代と共有すると、みんなが落ち着いて活用できます。")
+
+
+def _narrate(topic: str) -> str | None:
+    """G12 — optional Murakumo narration via the kotoba `llm` host binding (no external LLM)."""
+    if llm is None:
+        return None
+    try:
+        return str(llm.infer(  # type: ignore[union-attr]
+            model="gemma3:4b",
+            prompt=f"Write ONE calm, community-oriented sentence (no fear, no urgency, no "
+                   f"individual upsell) introducing the public benefit '{topic}'."))
+    except Exception:
+        return None
+
+
+def handle_intel_analyzer(state: dict) -> dict:
+    """Turn arbitrageGapReports into wellbecomingAdvisories. Each advisory carries a G10
+    framing-audit pass (REQUIRED — a failing frame is dropped), a G11 community/multi-gen
+    body, a G1 Charter-Rider pass, and — for legal/medical/financial/diagnostic/pharma
+    topics — a REQUIRED cross-actor citation (UPL/clinical/financial boundary; ossekai never
+    renders the advice itself). Optional Murakumo narration (G12). Reports that fail the
+    framing audit or Charter-Rider scan are dropped with a reason."""
+    advisories: list = []
+    dropped: list = []
+    for r in state.get("reports", []):
+        topic = r.get("topic", "")
+        body = _community_framing(topic)            # G11
+        if not framing_audit(body):                 # G10 — required
+            dropped.append({"topic": topic, "reason": "framing audit failed (G10)"})
+            continue
+        if not charter_rider_clean(body):           # G1
+            dropped.append({"topic": topic, "reason": "Charter-Rider refusal (G1)"})
+            continue
+        domain, actor = classify_domain(topic)
+        advisories.append({
+            "topic": topic,
+            "text": body,
+            "shape": "aggregate",                    # carried through to publisher (G4)
+            "framingAuditPassed": True,              # G10 attestation
+            "communityContext": True,                # G11
+            "domain": domain,                        # None for general topics
+            "crossActorCitation": actor,             # REQUIRED when domain is set (UPL boundary)
+            "narration": _narrate(topic),            # G12 (None in local dev)
+            "gapScore": r.get("gapScore"),
+        })
+    return {**state, "advisories": advisories, "dropped": dropped}
+
+
+# --------------------------------------------------------------------------- #
 # aggregate_publisher — compose anonymized aggregate advisory (G4/G6/G7/G9/G10)
 # --------------------------------------------------------------------------- #
 def compose_advisory(report: dict) -> dict:
@@ -157,27 +241,66 @@ def compose_advisory(report: dict) -> dict:
     }
 
 
+def _post_from_advisory(adv: dict) -> dict:
+    """Build a feed post from an intel_analyzer wellbecomingAdvisory, carrying its G10
+    framing-audit pass, G11 community context, and (when present) the cross-actor citation."""
+    text = adv.get("text", "")
+    cite = adv.get("crossActorCitation")
+    if cite:
+        text = f"{text}（詳しくは {cite} へ）"   # UPL boundary: route, never render the advice
+    return {
+        "text": text, "shape": "aggregate", "lexicon": "app.bsky.feed.post",
+        "signedDid": OSSEKAI_DID, "targetedHandle": None, "nudge": False,
+        "wellbecomingPositive": True, "crossActorCitation": cite,
+        "clean": charter_rider_clean(text) and no_dark_pattern(text) and framing_audit(text),
+    }
+
+
 def handle_aggregate_publisher(state: dict) -> dict:
-    """Compose anonymized aggregate advisories from gap reports and (optionally) post them.
-    Enforces the weekly ceiling (G7), aggregate-first shape (G4), Charter-Rider + dark-pattern
-    cleanliness (G1/G6). Live broadcast is operator-gated (no-server-key): without `operatorRef`
-    the posts are returned as :draft and nothing is broadcast."""
-    reports = state.get("reports", [])
+    """Compose anonymized aggregate advisories and (optionally) post them. Prefers
+    intel_analyzer `advisories` when present (carrying the G10 framing-audit pass + G11
+    community context + UPL cross-actor citation); falls back to composing directly from raw
+    gap `reports`. Enforces the weekly ceiling (G7), aggregate-first shape (G4), Charter-Rider
+    + dark-pattern + framing cleanliness (G1/G6/G10), and — for domain-sensitive advisories —
+    a REQUIRED cross-actor citation (UPL/clinical/financial boundary). Live broadcast is
+    operator-gated (no-server-key): without `operatorRef` posts are :draft, nothing broadcast."""
+    advisories = state.get("advisories")
     posted_this_week = int(state.get("postedThisWeek", 0))
     operator_ref = state.get("operatorRef")
 
     posts: list = []
     skipped: list = []
-    for r in reports:
-        if posted_this_week + len(posts) >= WEEKLY_CEILING:
-            skipped.append({"topic": r.get("topic"), "reason": f"weekly ceiling {WEEKLY_CEILING} reached (G7)"})
-            continue
-        post = compose_advisory(r)
-        if not post["clean"]:
-            skipped.append({"topic": r.get("topic"), "reason": "Charter-Rider/dark-pattern refusal (G1/G6)"})
-            continue
-        post["state"] = "posted" if operator_ref else "draft"   # operator-gated broadcast
-        posts.append(post)
+
+    if advisories is not None:
+        for adv in advisories:
+            topic = adv.get("topic")
+            if posted_this_week + len(posts) >= WEEKLY_CEILING:
+                skipped.append({"topic": topic, "reason": f"weekly ceiling {WEEKLY_CEILING} reached (G7)"})
+                continue
+            if not adv.get("framingAuditPassed"):
+                skipped.append({"topic": topic, "reason": "framing audit not passed (G10)"})
+                continue
+            # UPL/clinical/financial boundary: a domain-sensitive advisory MUST cite a cross-actor
+            if adv.get("domain") and not adv.get("crossActorCitation"):
+                skipped.append({"topic": topic, "reason": f"domain '{adv['domain']}' requires cross-actor citation (UPL boundary)"})
+                continue
+            post = _post_from_advisory(adv)
+            if not post["clean"]:
+                skipped.append({"topic": topic, "reason": "Charter-Rider/dark-pattern/framing refusal (G1/G6/G10)"})
+                continue
+            post["state"] = "posted" if operator_ref else "draft"
+            posts.append(post)
+    else:
+        for r in state.get("reports", []):
+            if posted_this_week + len(posts) >= WEEKLY_CEILING:
+                skipped.append({"topic": r.get("topic"), "reason": f"weekly ceiling {WEEKLY_CEILING} reached (G7)"})
+                continue
+            post = compose_advisory(r)
+            if not post["clean"]:
+                skipped.append({"topic": r.get("topic"), "reason": "Charter-Rider/dark-pattern refusal (G1/G6)"})
+                continue
+            post["state"] = "posted" if operator_ref else "draft"   # operator-gated broadcast
+            posts.append(post)
 
     return {
         **state,

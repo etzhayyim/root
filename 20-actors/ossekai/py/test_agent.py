@@ -193,3 +193,53 @@ def test_dispatcher_posts_with_operator():
         "handles": ["ok"], "attestation": _ATT_OK, "memberImpactAttestationCid": "mi:1",
         "consentState": {}, "now": 100, "operatorRef": "op:1"})
     assert out["dispatches"][0]["state"] == "posted"
+
+
+# ── intel_analyzer (G1/G10/G11/G12) ───────────────────────────────────────
+def test_analyzer_emits_community_framed_advisory():
+    out = agent.handle_intel_analyzer({"reports": [{"topic": "図書館の無料サービス", "gapScore": 0.7}]})
+    assert len(out["advisories"]) == 1
+    adv = out["advisories"][0]
+    assert adv["framingAuditPassed"] is True       # G10
+    assert adv["communityContext"] is True         # G11
+    assert adv["domain"] is None                   # general topic → no citation needed
+    assert adv["crossActorCitation"] is None
+
+
+def test_analyzer_requires_cross_actor_citation_for_legal():
+    out = agent.handle_intel_analyzer({"reports": [{"topic": "クーリングオフ", "gapScore": 0.7}]})
+    adv = out["advisories"][0]
+    assert adv["domain"] == "legal"
+    assert adv["crossActorCitation"] == "chigiri"  # UPL boundary — route, never render
+
+
+def test_analyzer_classify_domain():
+    assert agent.classify_domain("処方薬の話") == ("pharma", "yakushi")
+    assert agent.classify_domain("投資の話") == ("financial", "toritate")
+    assert agent.classify_domain("天気") == (None, None)
+
+
+def test_framing_audit_rejects_fear():
+    assert agent.framing_audit("落ち着いて確認しましょう") is True
+    assert agent.framing_audit("恐怖を煽る punish message") is False
+
+
+# ── analyzer → publisher pipeline ─────────────────────────────────────────
+def test_publisher_consumes_advisories_with_citation():
+    advisories = agent.handle_intel_analyzer(
+        {"reports": [{"topic": "クーリングオフ", "gapScore": 0.7}]})["advisories"]
+    out = agent.handle_aggregate_publisher({"advisories": advisories})
+    assert len(out["posts"]) == 1
+    p = out["posts"][0]
+    assert p["crossActorCitation"] == "chigiri"
+    assert "chigiri" in p["text"]                  # citation routed into the post
+    assert p["state"] == "draft"                   # operator-gated
+
+
+def test_publisher_refuses_domain_advisory_without_citation():
+    # a domain-sensitive advisory whose citation was stripped must be refused (UPL boundary)
+    bad = [{"topic": "クーリングオフ", "text": "…", "shape": "aggregate",
+            "framingAuditPassed": True, "domain": "legal", "crossActorCitation": None}]
+    out = agent.handle_aggregate_publisher({"advisories": bad})
+    assert out["posts"] == []
+    assert any("UPL" in s["reason"] for s in out["skipped"])
