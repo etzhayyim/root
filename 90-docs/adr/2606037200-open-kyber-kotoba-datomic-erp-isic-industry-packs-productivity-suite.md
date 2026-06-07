@@ -5,7 +5,7 @@ status: active
 doc_type: adr
 topic: open-kyber-kotoba-datomic-erp
 authoritative: true
-last_verified: 2026-06-06
+last_verified: 2026-06-07
 priority: 6.0
 axis: architecture
 weight: 0.60
@@ -15,10 +15,12 @@ authoritative_for:
   - isic-industry-pack-model
   - kyber-productivity-suite-integration
 depends_on:
-  - "2605262130"  # kotoba storage substrate unification (no Kotoba/Datomic)
+  - "2605262130"  # kotoba storage substrate unification (no RisingWave)
   - "2605312345"  # kotoba Datom = first-class canonical state
   - "2605181100"  # kotoba E2E encrypted-record envelope (Tier-3 PII)
   - "0025"        # kyber APQC/BPMN/OCEL projector consolidation
+  - "2606014500"  # one Worker, many WASM actors (R3: ERP-as-WASM-actor)
+  - "2606015400"  # mesh-runner serving + IPFS-based DID (e7m-wasm-runner)
 related:
   - "2606032000"  # kanjō (external public-company financials) — sibling reckoning vocab
   - "2606012100"  # okaimono provisioning commons (UNSPSC catalog ties to inventory)
@@ -35,9 +37,16 @@ green incl. the drive file-tree core, `tsc` clean as of 2026-06-06). The **ERP W
 Kysely/Hyperdrive cutover is now done in source** (`etzhayyim-wasm-kyber-erp-kyb3rerp/src/app.ts`
 routes all 28 commands through the rw-free functions via `createXrpcBridge`; zero
 `createKyselyDb`/`HYPERDRIVE` references; worker `app.ts` type-checks clean against the package
-sources). Only the operator **deploy** of that build remains (the worker package has no in-repo
-build harness) — see Consequences § "Open tasks".
-**Date**: 2026-06-03 (status updated 2026-06-06)
+sources). **R3 (the code moves too) landed as a PoC**: the ERP is also compiled to a
+content-addressed **`kotoba-node` WASM actor** (`wasm/kyber-erp-core/`, Rust, exports
+`run(ctx-cbor)` + imports `kotoba:kais/{kqe,auth}`, `wasm-tools validate` ✓) that writes ERP
+state straight into the Datom log via `kqe` — no CF Worker, no XRPC, no PDS hop. CID
+`bafkreigdcmd54zval3z7xwmvmq5tgbsu6rpbxx4gtyhswxhvvfkaltaomi` (raw single-block, 119 KB),
+registered as `did:web:etzhayyim.com:actor:kyber` in `infra-actors.ts` (wasmCid). Remaining: the
+operator **deploy** of the Worker build, the full 28-command Rust parity, and pin/publish of the
+actor bytes — all Council + operator gated. See Consequences § "Open tasks" and
+`WORKER-AS-WASM-ACTOR-MIGRATION.md`.
+**Date**: 2026-06-03 (status updated 2026-06-07)
 **Deciders**: Jun Kawasaki
 
 # Context
@@ -45,11 +54,11 @@ build harness) — see Consequences § "Open tasks".
 open-kyber (brand **Kyber**, `60-apps/etzhayyim-project-open-kyber/`) is the Apache-2.0,
 APQC-PCF-aligned open-source ERP. As shipped under ADR-0025 it consolidates a 13-WASM mess
 into one ERP Worker + one APQC/BPMN/OCEL projector, with the read path defined as
-`PDS createRecord → onCommit → Kotoba/Datomic streaming MV → getApqcCoverage`. Three gaps:
+`PDS createRecord → onCommit → RisingWave streaming MV → getApqcCoverage`. Three gaps:
 
 1. **Substrate drift.** The canonical-state rule for the whole monorepo is now the **kotoba
-   Datom log** (ADR-2605262130 + 2605312345): Kotoba/Datomic / Postgres / Kysely / Hyperdrive
-   are prohibited as canonical or projection stores. open-kyber's Kotoba/Datomic read path and
+   Datom log** (ADR-2605262130 + 2605312345): RisingWave / Postgres / Kysely / Hyperdrive
+   are prohibited as canonical or projection stores. open-kyber's RisingWave read path and
    the `createKyselyDb(env.HYPERDRIVE)` calls in `src/app.ts` are out of compliance, and the
    app's own code comments admit the read paths "currently return empty envelopes" since the
    SQL layer was deprecated 2026-04-13. The `rw-free/` reference module had begun the
@@ -91,7 +100,7 @@ Datom kinds:
 The ERP Worker keeps its existing XRPC surface (`com.etzhayyim.apps.kyber.*`), but writes
 **assert Datoms** and reads are **kqe arrangements** (EAVT/AEVT/AVET/VAET) directly over the
 canonical log. MST = ingress/interop wire, IPFS = block backend, Base L2 = trust anchor.
-**No Kotoba/Datomic, no Kysely, no Hyperdrive** in any religious-corp ERP path. The kyb3proj
+**No RisingWave, no Kysely, no Hyperdrive** in any religious-corp ERP path. The kyb3proj
 APQC projector keeps working: the L1 binding moves from a SQL label to the Datom attribute
 `:apqc/l1`, and `getApqcCoverage` is recomputed from the `:modules` map in the ontology.
 
@@ -171,7 +180,7 @@ third-party-ad transport (Charter Rider §2, substrate boundary).
   (`registerTenant` declares ISIC codes → resolves + PERSISTS `:erp.tenant/active-packs`,
   upsert re-resolves on pivot — closes the ISIC story end-to-end); `coverage-all.ts`
   (`erpCoverage` rolls up every module + suite and reports active APQC L1 — the kqe
-  replacement for the Kotoba/Datomic `getApqcCoverage` MV). **7 test files, 39 tests green;
+  replacement for the RisingWave `getApqcCoverage` MV). **7 test files, 39 tests green;
   `tsc --noEmit` clean.** rw-free reference layer COMPLETE.
 - **R2 (keystone landed 2026-06-03)** — `xrpc-bridge.ts` (`createXrpcBridge`) adapts the
   kotodama-host-sdk AT-repo `XrpcClient` (`sdk.pds`) to the `Etzhayyim` read/write surface,
@@ -264,13 +273,22 @@ extensions that compose on top of the section ext (pharma C21 GMP batch costing,
 K64 interbank book + customer deposits, insurance K65 unearned-premium reserve, health Q86
 claims receivable, …), so a tenant's ledger is tailored to its precise ISIC division, not
 just its section. **23 test files, 100 tests green; `tsc --noEmit` clean.**
-- **R3 (gated)** — live multi-tenant deployment, openmail Postage send, USDC/TitheRouter
-  settlement of intra-suite value flows. Operator + Council gated.
+- **R3 (PoC landed 2026-06-06; live deploy gated)** — the ERP CODE also moves onto the
+  substrate: `wasm/kyber-erp-core/` compiles the ERP to a content-addressed `kotoba-node` WASM
+  actor (Rust, `run(ctx-cbor)` over a `{method,args}` envelope, `kqe`+`auth` host imports) that
+  the kotoba host / `e7m-wasm-runner` stores on IPFS by CID and runs, writing state straight to
+  the Datom log. PoC commands: `createAccount` / `seedChartOfAccounts` / `createJournalEntry`
+  (exact i128-micros double-entry) / `getTrialBalance` + `coverage` (best-effort `kqe.query`) /
+  `ping`. CID `bafkreigdcmd54zval3z7xwmvmq5tgbsu6rpbxx4gtyhswxhvvfkaltaomi`; advertised as
+  `did:web:etzhayyim.com:actor:kyber`. Design in `WORKER-AS-WASM-ACTOR-MIGRATION.md`. Still
+  gated: live multi-tenant deployment, the full 28-command Rust parity + verified read path,
+  openmail Postage send, USDC/TitheRouter settlement of intra-suite value flows, and pin/publish
+  of the actor bytes. Operator + Council gated.
 
 # Consequences
 
 **Positive**
-- Brings open-kyber into substrate compliance: one canonical store, no Kotoba/Datomic/SQL.
+- Brings open-kyber into substrate compliance: one canonical store, no RisingWave/SQL.
 - Accounting gains real audit history (as-of) for free — the substrate *is* the audit log.
 - ISIC section coverage is complete on day one; tailoring deepens without forking.
 - The suite is confidentiality-correct by construction (E2E mail, sealed CIDs) and ad-free.
@@ -304,11 +322,19 @@ just its section. **23 test files, 100 tests green; `tsc --noEmit` clean.**
   is still a later round.
 - **[runtime]** Adopt `SUITE-PY-WASM-MIGRATION.md` to turn the suite cores into CID-addressed
   py/WASM actors (start with `recurrence`, finish with the exact-decimal `sheets-eval`).
+- **[runtime, ADR-2606014500] — PoC DONE (2026-06-06), parity + publish gated** The ERP Worker
+  itself now has a content-addressed `kotoba-node` WASM-actor form (`wasm/kyber-erp-core/`, CID
+  `bafkreigdcmd54z…`, registered as `did:web:etzhayyim.com:actor:kyber`). Remaining: port the
+  full 28-command rw-free surface to Rust (TS Vitest vectors are the conformance oracle), wire
+  the verified kotoba Datalog read path (`list*`/`getTrialBalance`/`erpCoverage`), the encrypted
+  HR E2E host surface, the CBOR `InvokeContext`→`{method,args}` host adapter, then pin the bytes
+  + Council/operator-gated deploy. The CF Worker (`kyb3rerp`) stays the live path until then.
+  Plan: `WORKER-AS-WASM-ACTOR-MIGRATION.md`.
 
 # Alternatives Considered
 
-1. **Keep Kotoba/Datomic projection, add ISIC as SQL views.** Rejected: violates ADR-2605262130
-   (no Kotoba/Datomic) and 2605312345 (Datom is canonical). The whole point is substrate unity.
+1. **Keep RisingWave projection, add ISIC as SQL views.** Rejected: violates ADR-2605262130
+   (no RisingWave) and 2605312345 (Datom is canonical). The whole point is substrate unity.
 2. **Fork one ERP per ISIC class (428 apps).** Rejected: unmaintainable, defeats the single
    APQC-aligned core, and explodes the deploy surface. Base + composable packs is the
    standard ERP "industry vertical" pattern done content-addressably.
@@ -321,7 +347,9 @@ just its section. **23 test files, 100 tests green; `tsc --noEmit` clean.**
 - `00-contracts/schemas/erp-ontology.kotoba.edn` — the ERP EAVT vocabulary (this ADR)
 - `60-apps/etzhayyim-project-open-kyber/industry-packs/isic-packs.kotoba.edn` — 21+8 packs
 - `60-apps/etzhayyim-project-open-kyber/rw-free/` — kotoba-native TS implementation (R1+)
-- ADR-2605262130 — kotoba storage substrate unification (no Kotoba/Datomic)
+- `60-apps/etzhayyim-project-open-kyber/wasm/kyber-erp-core/` — ERP-as-WASM-actor PoC (R3)
+- `60-apps/etzhayyim-project-open-kyber/WORKER-AS-WASM-ACTOR-MIGRATION.md` — R3 migration design
+- ADR-2605262130 — kotoba storage substrate unification (no RisingWave)
 - ADR-2605312345 — kotoba Datom = first-class canonical state
 - ADR-2605181100 — kotoba E2E encrypted-record envelope (Tier-3 PII)
 - ADR-0025 — kyber APQC/BPMN/OCEL projector consolidation (read path superseded by D1)

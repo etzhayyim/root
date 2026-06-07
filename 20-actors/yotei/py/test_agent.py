@@ -99,5 +99,48 @@ class Slots(unittest.TestCase):
         self.assertEqual(starts, [0, 60])   # 30 absent (G4), no scarcity counter (G6)
 
 
+class CancelReschedule(unittest.TestCase):
+    def setUp(self):
+        proposed = agent.propose_booking(_req(600), [])
+        self.confirmed = agent.confirm_booking(proposed, {"origin": "member", "ref": "s1"}, [])
+
+    def test_cancel_frees_slot(self):
+        cancelled = agent.cancel_booking(self.confirmed)
+        self.assertEqual(cancelled["status"], "cancelled")
+        # a cancelled booking does not block availability
+        self.assertTrue(agent.is_free(CAL, 600, 30, [cancelled]))
+
+    def test_reschedule_to_free_slot(self):
+        out = agent.reschedule_booking(self.confirmed, 720, 30, [self.confirmed],
+                                       {"origin": "member", "ref": "s2"})
+        self.assertTrue(out.get("rescheduled"))
+        self.assertEqual(out["startEpochMin"], 720)
+
+    def test_reschedule_excludes_own_slot(self):
+        # rescheduling to (almost) the same window must not collide with itself
+        out = agent.reschedule_booking(self.confirmed, 605, 30, [self.confirmed],
+                                       {"origin": "member", "ref": "s2"})
+        self.assertTrue(out.get("rescheduled"))
+
+    def test_reschedule_into_conflict_refused(self):
+        other = {"bookingId": "bk2", "status": "confirmed", "calendarDid": CAL,
+                 "startEpochMin": 720, "durationMin": 30}
+        out = agent.reschedule_booking(self.confirmed, 720, 30, [self.confirmed, other],
+                                       {"origin": "member", "ref": "s2"})
+        self.assertTrue(out["refused"])
+        self.assertIn("G4", out["reason"])
+
+    def test_reschedule_server_sig_refused(self):
+        out = agent.reschedule_booking(self.confirmed, 720, 30, [self.confirmed],
+                                       {"origin": "server", "ref": "x"})
+        self.assertTrue(out["refused"])
+        self.assertIn("G5", out["reason"])
+
+    def test_reschedule_nonconfirmed_refused(self):
+        proposed = agent.propose_booking(_req(900), [])
+        out = agent.reschedule_booking(proposed, 960, 30, [], {"origin": "member", "ref": "s"})
+        self.assertTrue(out["refused"])
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
