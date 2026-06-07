@@ -298,3 +298,24 @@ The binary (~18 MB, bundles CPython) is gitignored as a build artifact. It is
 compact Rust/AssemblyScript actor build is the follow-up for the browser-local
 tier. Pinning to IPFS (operator step) yields the dag-pb CID that replaces the
 source-bundle stand-in in `:actor/wasm-cid`.
+
+## 13. Both WASM tiers proven (raw browser-local + dag-pb mesh)
+
+The two-tier WASM model of ADR-2606014600 is now demonstrated with real,
+validated artifacts:
+
+*   **Browser-local tier (raw single-block CID)** — `wasm-rs/`: a compact Rust
+    actor compiled `wasm32-unknown-unknown` (no WASI, no host imports) to a
+    **2,026-byte** module. `wasm-tools validate` → VALID; raw CIDv1
+    `bafkreid4jbmgh4yhlbzqqadcearfthjczgke2rwv35shynecizeb4qlqda` is a valid
+    `isRawCidV1` `bafkrei`, so it loads browser-local via the ameno wasm-actor
+    loader. Exports a C-ABI store surface (`alloc` / `actor_create` /
+    `actor_count` / `actor_get_len` / `actor_delete` / `actor_healthz`).
+*   **Mesh tier (multi-block dag-pb CID)** — `wasm/` (§12): the full
+    componentize-py Python guest, ~18 MB, multi-block → dag-pb → `donated-mesh`.
+
+So the corpus has, end to end: the L3/L4 generated CRUD, the JS reference
+runtime that runs in-browser today, AND both real WASM build tiers validated.
+The follow-up is per-actor codegen of the Rust guest from the domain model (the
+`wasm-rs` PoC currently carries a generic store surface) and IPFS pinning to
+swap each `:actor/wasm-cid` source-bundle stand-in for the built component's CID.
