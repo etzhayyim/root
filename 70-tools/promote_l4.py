@@ -35,6 +35,57 @@ _spec.loader.exec_module(deepen)
 # Curated L4 cohort: every platform with a hand-curated override model.
 L4_COHORT = sorted(deepen.PLATFORM_OVERRIDES.keys())
 
+# Preferred per-category representatives (well-known platform per domain) so the
+# L4 reference implementation for each domain is a recognizable one.
+PREFERRED_REP = {
+    "crm_sales": "salesforce", "erp_finance": "sap", "iaas_cloud": "aws",
+    "office_productivity": "notion", "devops_ci": "github", "ehr_health": "epic-systems",
+    "ecommerce": "shopify", "payments": "stripe", "data_analytics": "snowflake",
+    "design_tools": "figma", "ai_ml": "openai", "martech": "mailchimp",
+    "security_iam": "crowdstrike", "hrtech": "workday", "devtools_apm": "datadog",
+    "headless_ec_logistics": "contentful", "fintech_web3": "coinbase", "comms_social": "slack",
+    "cx_survey": "zendesk", "vertical_saas": "servicenow", "lowcode_ipaas": "zapier",
+    "rpa": "uipath", "modern_data_stack": "fivetran", "iot_edge": "samsara",
+    "regtech_privacy": "vanta", "aec_govtech": "autodesk", "media_video_cms": "cloudinary",
+    "event_npo_creator": "eventbrite", "core_banking_insurtech": "mambu",
+    "devsecops_serverless": "supabase", "enterprise_commerce_spend": "coupa",
+    "dpg_india_stack": "aadhaar", "us_federal": "irs", "uk_eu_egov": "hmrc",
+    "japan_apac_egov": "mynumber", "intl_orgs_central_banks": "worldbank",
+    "open_banking_finreg": "openbankinguk", "customs_trade_logistics": "uscbp",
+    "public_health_env_ip": "cdc", "public_safety_law": "interpol",
+    "transit_smart_cities": "gtfs", "fin_market_hft": "fixprotocol", "web3_rpc": "alchemy",
+    "telecom_satellite": "starlink", "healthcare_fhir_bio": "hl7_fhir",
+    "energy_grid_utilities": "opc_ua", "travel_aviation_hospitality": "amadeus_gds",
+    "os_kernel": "posix", "ai_ml_infra_chips": "nvidia_nvml", "cyber_threat_intel": "virustotal",
+    "manufacturing_plm_robotics": "ros_robotics", "isa_quantum": "riscv_isa",
+    "internet_routing": "bgp_routing", "mobility_auto_ev": "can_bus",
+    "space_ocean_earth": "ais_marine", "agritech_food": "johndeere_api",
+    "meta_knowledge_publishing": "crossref", "deep_logistics_supply": "gs1_epcis",
+    "materials_bio_chemical": "cas_registry", "energy_commodities": "platts_api",
+    "physical_benchmarks_classifications": "hs_codes_customs",
+    "superapp": "grab", "delivery_logistics": "doordash", "ride_hailing": "didi_chuxing",
+    "mainframe": "ibm_zos", "scada": "siemens_simatic", "pharmacy_rx": "express_scripts",
+    "real_estate": "reso_web_api", "gaming_backend": "playfab",
+    "legal_ediscovery": "relativity_ediscovery", "bci_neuro": "openbci", "synbio": "benchling",
+    "xr_spatial": "openxr", "drone_robotics": "px4_autopilot", "agent_protocol": "langchain",
+    "qkd": "id_quantique", "fusion_energy": "iter_data",
+}
+
+
+def per_category_cohort():
+    """One representative platform per category model (existing dirs only)."""
+    cats = deepen.parse_platform_categories()
+    by_cat = {}
+    for plat, key in cats.items():
+        by_cat.setdefault(key, []).append(plat)
+    reps = []
+    for key, plats in by_cat.items():
+        pref = PREFERRED_REP.get(key)
+        pick = pref if (pref and pref in plats) else sorted(plats)[0]
+        if os.path.isdir(os.path.join(ACTORS_DIR, f"{pick}-compat")):
+            reps.append(pick)
+    return sorted(set(reps) | set(L4_COHORT))
+
 
 def _snake(name):
     return re.sub(r"(?<!^)(?=[A-Z])", "_", name).lower()
@@ -368,4 +419,8 @@ def promote(cohort=None):
 
 if __name__ == "__main__":
     import sys
-    promote(sys.argv[1:] or None)
+    argv = sys.argv[1:]
+    if argv and argv[0] == "--per-category":
+        promote(per_category_cohort())
+    else:
+        promote(argv or None)
