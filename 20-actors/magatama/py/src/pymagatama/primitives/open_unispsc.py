@@ -13,6 +13,7 @@ logic contract that LangGraph nodes and callers can consume.
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import asyncio
 import csv
@@ -1141,7 +1142,6 @@ async def task_open_unispsc_apply_graph_write_plan(
         }
 
     try:
-        from pymagatama.db_sync import sync_cursor
     except Exception as exc:
         return {
             "ok": False,
@@ -1153,9 +1153,10 @@ async def task_open_unispsc_apply_graph_write_plan(
         }
 
     applied = 0
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for stmt in statements:
-            cur.execute(stmt["sql"], stmt["parameters"])
+            _res = client.q(stmt["sql"], stmt["parameters"])
             applied += 1
     return {
         "ok": True,

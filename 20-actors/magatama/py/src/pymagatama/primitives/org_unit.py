@@ -15,6 +15,7 @@ Materialized-path design (RisingWave has no WITH RECURSIVE):
   children:   WHERE path LIKE "{parent_path}/%" AND level = parent_level+1
 """
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import hashlib
 import json
@@ -150,11 +151,11 @@ VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
 
 def _fetch_parent_info(cur: Any, parent_org_vid: str) -> tuple[str, int] | None:
     """Return (parent_path, parent_level) or None if not found."""
-    cur.execute(
+    _res = client.q(
         "SELECT path, level FROM vertex_org_unit WHERE vertex_id = %s LIMIT 1",
         (parent_org_vid,),
     )
-    row = cur.fetchone()
+    row = (_res[0] if _res else None)
     if row:
         return str(row[0]), int(row[1])
     return None
@@ -162,13 +163,13 @@ def _fetch_parent_info(cur: Any, parent_org_vid: str) -> tuple[str, int] | None:
 
 def _active_children_paths(cur: Any, path_prefix: str) -> list[str]:
     """Return paths of all active descendant org units."""
-    cur.execute(
+    _res = client.q(
         "SELECT path FROM vertex_org_unit WHERE path LIKE %s AND status = 'active' LIMIT {int(10000)}".format(
             int(10000)
         ),
         (f"{path_prefix}/%",),
     )
-    return [row[0] for row in cur.fetchall()]
+    return [row[0] for row in _res]
 
 
 # ── openLei.org.register ──────────────────────────────────────────────────────
@@ -197,8 +198,8 @@ def register_org_unit(
 
     if not dry_run:
         try:
-            from pymagatama.db_sync import sync_cursor
-            with sync_cursor() as cur:
+            if True:
+                client = get_kotoba_client()
                 # Resolve parent context
                 if parent_org_vid:
                     info = _fetch_parent_info(cur, parent_org_vid)
@@ -222,7 +223,7 @@ def register_org_unit(
                     name_en=name_en, purpose=purpose, url=url,
                     valid_from=valid_from, props=props,
                 )
-                cur.execute(_INSERT_ORG_UNIT, (
+                _res = client.q(_INSERT_ORG_UNIT, (
                     row["vertex_id"], row["lei_vertex_id"], row["lei"], row["parent_org_vid"],
                     row["org_type"], row["name"], row["name_en"], row["code"],
                     row["path"], row["level"],
@@ -235,7 +236,7 @@ def register_org_unit(
                 # Parent edge
                 dst_vid  = parent_org_vid if parent_org_vid else lei_vertex_id
                 dst_type = "org_unit" if parent_org_vid else "lei_entity"
-                cur.execute(_INSERT_EDGE_PARENT, (
+                _res = client.q(_INSERT_EDGE_PARENT, (
                     _make_edge_id(vertex_id, dst_vid, "child_of"),
                     vertex_id, dst_vid, dst_type, "child_of",
                     row["created_at"], 1,
@@ -275,20 +276,20 @@ def dissolve_org_unit(
 
     if not dry_run:
         try:
-            from pymagatama.db_sync import sync_cursor
-            with sync_cursor() as cur:
+            if True:
+                client = get_kotoba_client()
                 # Fetch path of target unit
-                cur.execute(
+                _res = client.q(
                     "SELECT path FROM vertex_org_unit WHERE vertex_id = %s LIMIT 1",
                     (org_unit_vid,),
                 )
-                row = cur.fetchone()
+                row = (_res[0] if _res else None)
                 if not row:
                     return {"ok": False, "error": "org_unit not found", "dissolved": 0}
                 own_path = str(row[0])
 
                 # Dissolve self
-                cur.execute(
+                _res = client.q(
                     "UPDATE vertex_org_unit SET status = 'dissolved', valid_until = %s WHERE vertex_id = %s",
                     (until, org_unit_vid),
                 )
@@ -296,13 +297,13 @@ def dissolve_org_unit(
 
                 # Cascade to active descendants
                 if cascade:
-                    cur.execute(
+                    _res = client.q(
                         f"SELECT vertex_id FROM vertex_org_unit WHERE path LIKE %s AND status = 'active' LIMIT {10000}",
                         (f"{own_path}/%",),
                     )
-                    children = [r[0] for r in cur.fetchall()]
+                    children = [r[0] for r in _res]
                     for child_vid in children:
-                        cur.execute(
+                        _res = client.q(
                             "UPDATE vertex_org_unit SET status = 'dissolved', valid_until = %s WHERE vertex_id = %s",
                             (until, child_vid),
                         )
@@ -332,14 +333,14 @@ def move_org_unit(
 
     if not dry_run:
         try:
-            from pymagatama.db_sync import sync_cursor
-            with sync_cursor() as cur:
+            if True:
+                client = get_kotoba_client()
                 # Fetch current state
-                cur.execute(
+                _res = client.q(
                     "SELECT path, level, code FROM vertex_org_unit WHERE vertex_id = %s LIMIT 1",
                     (org_unit_vid,),
                 )
-                row = cur.fetchone()
+                row = (_res[0] if _res else None)
                 if not row:
                     return {"ok": False, "error": "org_unit not found", "updated": 0}
                 old_path, old_level, code = str(row[0]), int(row[1]), str(row[2])
@@ -363,34 +364,34 @@ def move_org_unit(
                 level_delta = new_level - old_level
 
                 # Update self
-                cur.execute(
+                _res = client.q(
                     "UPDATE vertex_org_unit SET path = %s, level = %s, parent_org_vid = %s WHERE vertex_id = %s",
                     (new_path, new_level, new_parent_org_vid, org_unit_vid),
                 )
                 updated += 1
 
                 # Update descendants: replace old_path prefix with new_path
-                cur.execute(
+                _res = client.q(
                     f"SELECT vertex_id, path, level FROM vertex_org_unit WHERE path LIKE %s LIMIT {10000}",
                     (f"{old_path}/%",),
                 )
-                descendants = cur.fetchall()
+                descendants = _res
                 for desc_vid, desc_path, desc_level in descendants:
                     desc_new_path  = new_path + str(desc_path)[len(old_path):]
                     desc_new_level = int(desc_level) + level_delta
-                    cur.execute(
+                    _res = client.q(
                         "UPDATE vertex_org_unit SET path = %s, level = %s WHERE vertex_id = %s",
                         (desc_new_path, desc_new_level, desc_vid),
                     )
                     updated += 1
 
                 # Update parent edge
-                cur.execute(
+                _res = client.q(
                     "DELETE FROM edge_org_unit_parent WHERE src_vid = %s",
                     (org_unit_vid,),
                 )
                 now = _utc_now()
-                cur.execute(_INSERT_EDGE_PARENT, (
+                _res = client.q(_INSERT_EDGE_PARENT, (
                     _make_edge_id(org_unit_vid, new_dst_vid, "child_of"),
                     org_unit_vid, new_dst_vid, new_dst_type, "child_of",
                     now, 1, _OWNER_DID, _OWNER_DID, _OWNER_DID, _ACTOR_ID,
@@ -419,9 +420,9 @@ def add_org_member(
     now = _utc_now()
     if not dry_run:
         try:
-            from pymagatama.db_sync import sync_cursor
-            with sync_cursor() as cur:
-                cur.execute(_INSERT_MEMBER, (
+            if True:
+                client = get_kotoba_client()
+                _res = client.q(_INSERT_MEMBER, (
                     edge_id, person_vertex_id, org_unit_vid, role,
                     since or now[:10], None, confidence, source,
                     now, 1, _OWNER_DID, _OWNER_DID, _OWNER_DID, _ACTOR_ID,
@@ -446,15 +447,15 @@ def remove_org_member(
     until_val = until or _utc_now()[:10]
     if not dry_run:
         try:
-            from pymagatama.db_sync import sync_cursor
-            with sync_cursor() as cur:
+            if True:
+                client = get_kotoba_client()
                 if role:
-                    cur.execute(
+                    _res = client.q(
                         "UPDATE edge_org_unit_member SET until = %s WHERE person_vertex_id = %s AND org_unit_vid = %s AND role = %s AND until IS NULL",
                         (until_val, person_vertex_id, org_unit_vid, role),
                     )
                 else:
-                    cur.execute(
+                    _res = client.q(
                         "UPDATE edge_org_unit_member SET until = %s WHERE person_vertex_id = %s AND org_unit_vid = %s AND until IS NULL",
                         (until_val, person_vertex_id, org_unit_vid),
                     )
@@ -481,14 +482,14 @@ def query_org_subtree(
     error: str | None = None
 
     try:
-        from pymagatama.db_sync import sync_cursor
-        with sync_cursor() as cur:
+        if True:
+            client = get_kotoba_client()
             if root_org_vid:
-                cur.execute(
+                _res = client.q(
                     "SELECT path, level FROM vertex_org_unit WHERE vertex_id = %s LIMIT 1",
                     (root_org_vid,),
                 )
-                res = cur.fetchone()
+                res = (_res[0] if _res else None)
                 if not res:
                     return {"ok": False, "error": "root org_unit not found", "rows": []}
                 prefix = str(res[0])
@@ -513,11 +514,11 @@ def query_org_subtree(
 
             where_sql = " AND ".join(wheres)
             bounded = max(1, min(int(limit), 1000))
-            cur.execute(
+            _res = client.q(
                 f"SELECT vertex_id, lei, parent_org_vid, org_type, name, name_en, code, path, level, status, valid_from, valid_until, purpose FROM vertex_org_unit WHERE {where_sql} ORDER BY path LIMIT {bounded}",
                 params,
             )
-            for r in cur.fetchall():
+            for r in _res:
                 rows.append({
                     "vertexId": r[0], "lei": r[1], "parentOrgVid": r[2],
                     "orgType": r[3], "name": r[4], "nameEn": r[5],

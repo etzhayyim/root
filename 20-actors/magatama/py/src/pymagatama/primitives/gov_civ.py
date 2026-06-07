@@ -7,6 +7,7 @@ the same graph-visible state the Worker previously wrote via host-sdk.
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import asyncio
 import datetime as _dt
@@ -20,7 +21,6 @@ import urllib.error as _u_err
 import urllib.request as _u_req
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
 
 
 PRIMARY_DID = "did:web:civ-state.etzhayyim.com"
@@ -232,8 +232,9 @@ def _insert_repo_record(repo: str, collection: str, rkey: str, record: dict[str,
                 "owner_did": repo,
                 "sensitivity_ord": 2,
             }
-            with sync_cursor() as cur:
-                cur.execute(
+            if True:
+                client = get_kotoba_client()
+                _res = client.q(
                     """
                     INSERT INTO edge_gov_org_site_dependency
                       (edge_id,record_key,from_vertex_id,to_vertex_id,path,site_nanoid,site_topic_did,site_did,value_json,indexed_at,created_at,updated_at,actor_did,org_did,owner_did,sensitivity_ord)
@@ -267,8 +268,9 @@ def _insert_repo_record(repo: str, collection: str, rkey: str, record: dict[str,
         "owner_did": repo,
         "sensitivity_ord": 2,
     }
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             """
             INSERT INTO vertex_gov_record (
               vertex_id, record_kind, record_key, label, status, value_json,
@@ -317,9 +319,10 @@ def _upsert_gov_org(row: dict[str, Any]) -> None:
         "created_at": str(row.get("created_at") or now),
         "props": json.dumps(row.get("props") or {}, separators=(",", ":"), ensure_ascii=False),
     }
-    with sync_cursor() as cur:
-        cur.execute("DELETE FROM vertex_gov_org WHERE vertex_id = %(vertex_id)s", params)
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q("DELETE FROM vertex_gov_org WHERE vertex_id = %(vertex_id)s", params)
+        _res = client.q(
             """
             INSERT INTO vertex_gov_org (
               vertex_id, sensitivity_ord, owner_did, path, name, name_en,
@@ -399,15 +402,16 @@ def _get_org(path: str) -> dict[str, Any] | None:
 
 def task_gov_civ_seed_orgs(limit: int = 30) -> dict[str, Any]:
     limit = max(1, min(int(limit or 30), 100))
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             (
                 "SELECT path FROM vertex_gov_org "
                 "WHERE domain_code = %s AND owner_did = %s AND name_en != '' LIMIT 10000"
             ),
             (DOMAIN_CODE, PRIMARY_DID),
         )
-        existing = {str(r[0]) for r in cur.fetchall()}
+        existing = {str(r[0]) for r in _res}
     pending = [row for row in _load_seed_orgs() if row["path"] not in existing]
     written = 0
     for row in pending[:limit]:

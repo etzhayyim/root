@@ -8,6 +8,7 @@ state so the worker can run continuously without one unbounded transaction.
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import hashlib
 import json
@@ -295,14 +296,14 @@ def _sanitize_seed_item(item: dict[str, Any], default_priority: int = 700) -> di
 
 
 def _frontier_counts() -> dict[str, int]:
-    from pymagatama.db_sync import sync_cursor
 
     counts = {"total": 0, "ready": 0}
-    with sync_cursor() as cur:
-        cur.execute("SELECT COUNT(*) FROM vertex_product_ingest_frontier")
-        row = cur.fetchone()
+    if True:
+        client = get_kotoba_client()
+        _res = client.q("SELECT COUNT(*) FROM vertex_product_ingest_frontier")
+        row = (_res[0] if _res else None)
         counts["total"] = int(row[0] or 0) if row else 0
-        cur.execute(
+        _res = client.q(
             """
             SELECT COUNT(*)
             FROM vertex_product_ingest_frontier
@@ -310,7 +311,7 @@ def _frontier_counts() -> dict[str, int]:
               AND attempts < max_attempts
             """
         )
-        row = cur.fetchone()
+        row = (_res[0] if _res else None)
         counts["ready"] = int(row[0] or 0) if row else 0
     return counts
 
@@ -443,14 +444,14 @@ def seed_frontier(state: GlobalProductIngestResidentState) -> dict[str, Any]:
     items.extend(item for item in state.get("generatedSeedItems", []) if isinstance(item, dict))
     if not items:
         return {"seeded": 0}
-    from pymagatama.db_sync import sync_cursor
 
     now = _now_iso()
     rows = [_frontier_row(item, now) for item in items]
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for row in rows:
-            cur.execute("DELETE FROM vertex_product_ingest_frontier WHERE vertex_id = %s", (row["vertex_id"],))
-            cur.execute(
+            _res = client.q("DELETE FROM vertex_product_ingest_frontier WHERE vertex_id = %s", (row["vertex_id"],))
+            _res = client.q(
                 """
                 INSERT INTO vertex_product_ingest_frontier
                   (vertex_id, _seq, created_date, sensitivity_ord, owner_did,
@@ -484,15 +485,15 @@ def _get_langgraph_run(run_id: str) -> tuple[bool, dict[str, Any]]:
 
 
 def reconcile_active_runs(state: GlobalProductIngestResidentState) -> dict[str, Any]:
-    from pymagatama.db_sync import sync_cursor
 
     limit = _clamp_int((state.get("maxItems") or 10) * 2, 20, 1, 200)
     now = _now_iso()
     lease_until = (_now() + timedelta(seconds=int(state.get("leaseSeconds") or 3600))).isoformat()
     rows: list[tuple[str, str, int, int]] = []
     counts = {"completed": 0, "active": 0, "retry": 0, "inspectFailed": 0}
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             f"""
             SELECT vertex_id, last_run_id, attempts, max_attempts
             FROM vertex_product_ingest_frontier
@@ -502,7 +503,7 @@ def reconcile_active_runs(state: GlobalProductIngestResidentState) -> dict[str, 
             LIMIT {limit}
             """,
         )
-        rows = [(str(row[0]), str(row[1]), int(row[2] or 0), int(row[3] or 1)) for row in cur.fetchall()]
+        rows = [(str(row[0]), str(row[1]), int(row[2] or 0), int(row[3] or 1)) for row in _res]
 
         for vertex_id, run_id, attempts, max_attempts in rows:
             try:
@@ -511,7 +512,7 @@ def reconcile_active_runs(state: GlobalProductIngestResidentState) -> dict[str, 
                 ok, data = False, {"error": str(exc)}
             if not ok:
                 counts["inspectFailed"] += 1
-                cur.execute(
+                _res = client.q(
                     """
                     UPDATE vertex_product_ingest_frontier
                     SET last_error = %s,
@@ -525,7 +526,7 @@ def reconcile_active_runs(state: GlobalProductIngestResidentState) -> dict[str, 
             decision = _run_status_decision(str(data.get("status") or ""))
             if decision == "completed":
                 counts["completed"] += 1
-                cur.execute(
+                _res = client.q(
                     """
                     UPDATE vertex_product_ingest_frontier
                     SET status = 'completed',
@@ -536,7 +537,7 @@ def reconcile_active_runs(state: GlobalProductIngestResidentState) -> dict[str, 
                     """,
                     (lease_until, now, vertex_id),
                 )
-                cur.execute(
+                _res = client.q(
                     """
                     UPDATE vertex_product_ingest_run
                     SET status = 'completed',
@@ -550,7 +551,7 @@ def reconcile_active_runs(state: GlobalProductIngestResidentState) -> dict[str, 
             elif decision == "retry":
                 next_status = "dead" if attempts >= max_attempts else "retry"
                 counts["retry"] += 1
-                cur.execute(
+                _res = client.q(
                     """
                     UPDATE vertex_product_ingest_frontier
                     SET status = %s,
@@ -561,7 +562,7 @@ def reconcile_active_runs(state: GlobalProductIngestResidentState) -> dict[str, 
                     """,
                     (next_status, json.dumps(data, ensure_ascii=False)[:1000], lease_until, now, vertex_id),
                 )
-                cur.execute(
+                _res = client.q(
                     """
                     UPDATE vertex_product_ingest_run
                     SET status = %s,
@@ -574,7 +575,7 @@ def reconcile_active_runs(state: GlobalProductIngestResidentState) -> dict[str, 
                 )
             else:
                 counts["active"] += 1
-                cur.execute(
+                _res = client.q(
                     """
                     UPDATE vertex_product_ingest_frontier
                     SET next_run_at = %s,
@@ -583,7 +584,7 @@ def reconcile_active_runs(state: GlobalProductIngestResidentState) -> dict[str, 
                     """,
                     (lease_until, now, vertex_id),
                 )
-                cur.execute(
+                _res = client.q(
                     """
                     UPDATE vertex_product_ingest_run
                     SET status = 'active',
@@ -597,12 +598,12 @@ def reconcile_active_runs(state: GlobalProductIngestResidentState) -> dict[str, 
 
 
 def select_next_batch(state: GlobalProductIngestResidentState) -> dict[str, Any]:
-    from pymagatama.db_sync import sync_cursor
 
     limit = _clamp_int(state.get("maxItems"), 10, 1, 100)
     now = _now_iso()
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             f"""
             SELECT vertex_id, frontier_id, frontier_kind, query, official_url,
                    merchant_url, brand, model, gtin, category, locale, country,
@@ -616,7 +617,7 @@ def select_next_batch(state: GlobalProductIngestResidentState) -> dict[str, Any]
             """,
             (now,),
         )
-        selected = [_row_to_frontier(row) for row in cur.fetchall()]
+        selected = [_row_to_frontier(row) for row in _res]
     return {"selected": selected}
 
 
@@ -660,17 +661,17 @@ def dispatch_enrich_runs(state: GlobalProductIngestResidentState) -> dict[str, A
 
 
 def update_frontier_status(state: GlobalProductIngestResidentState) -> dict[str, Any]:
-    from pymagatama.db_sync import sync_cursor
 
     now = _now_iso()
     lease_until = (_now() + timedelta(seconds=int(state.get("leaseSeconds") or 3600))).isoformat()
     updated = 0
     run_rows = []
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for item in state.get("dispatched", []):
             run_id = str(item.get("runId") or "")
             frontier_vid = str(item.get("frontierVid") or "")
-            cur.execute(
+            _res = client.q(
                 """
                 UPDATE vertex_product_ingest_frontier
                 SET status = 'active',
@@ -688,7 +689,7 @@ def update_frontier_status(state: GlobalProductIngestResidentState) -> dict[str,
         for item in state.get("failed", []):
             frontier_vid = str(item.get("frontierVid") or "")
             error = json.dumps(item.get("response") or {}, ensure_ascii=False)[:1000]
-            cur.execute(
+            _res = client.q(
                 """
                 UPDATE vertex_product_ingest_frontier
                 SET status = 'retry',
@@ -705,8 +706,8 @@ def update_frontier_status(state: GlobalProductIngestResidentState) -> dict[str,
         for item, status in run_rows:
             run_id = str(item.get("runId") or uuid.uuid4().hex)
             vertex_id = f"at://{OWNER_DID}/com.etzhayyim.apps.gtin.productIngestRun/{_sha256(str(item.get('frontierVid')) + '|' + run_id)[:24]}"
-            cur.execute("DELETE FROM vertex_product_ingest_run WHERE vertex_id = %s", (vertex_id,))
-            cur.execute(
+            _res = client.q("DELETE FROM vertex_product_ingest_run WHERE vertex_id = %s", (vertex_id,))
+            _res = client.q(
                 """
                 INSERT INTO vertex_product_ingest_run
                   (vertex_id, _seq, created_date, sensitivity_ord, owner_did,

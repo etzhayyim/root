@@ -12,6 +12,7 @@ UDF handlers. Both share the same RW_URL env var.
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import os
 import re
@@ -83,7 +84,7 @@ class GuardedCursor:
 
     def execute(self, sql: Any, params: tuple = (), *args: Any, **kwargs: Any) -> Any:
         _validate_sql_guard(sql)
-        return self._cursor.execute(sql, params, *args, **kwargs)
+        return self._res = client.q(sql, params, *args, **kwargs)
 
     def __getattr__(self, name: str) -> Any:
         return getattr(self._cursor, name)
@@ -136,7 +137,7 @@ def close_sync_pool() -> None:
 
 @contextmanager
 def sync_cursor() -> Iterator[Any]:
-    """Short-lived sync cursor. `with sync_cursor() as cur: cur.execute(...)`."""
+    """Short-lived sync cursor. `with sync_cursor() as cur: _res = client.q(...)`."""
     if not _sync_pool_enabled() and psycopg is not None:
         dsn = os.environ.get("RW_URL")
         if not dsn:
@@ -167,18 +168,21 @@ def sync_cursor() -> Iterator[Any]:
 
 
 def fetch_one(sql: str, params: tuple = ()) -> tuple | None:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return cur.fetchone()
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql, params)
+        return (_res[0] if _res else None)
 
 
 def fetch_all(sql: str, params: tuple = ()) -> list[tuple]:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return cur.fetchall()
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql, params)
+        return _res
 
 
 def execute(sql: str, params: tuple = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return cur.rowcount
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql, params)
+        return (len(_res) if isinstance(_res, list) else 1)

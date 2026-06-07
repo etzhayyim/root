@@ -1,6 +1,7 @@
 """Status surface for the local artificial-organism agent loop."""
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import argparse
 import json
@@ -41,12 +42,13 @@ def _rows_to_dicts(columns: list[str], rows: list[tuple]) -> list[dict[str, Any]
 
 
 def _fetch_dicts(sql: str, params: tuple = ()) -> list[dict[str, Any]]:
-    from pymagatama.db_sync import sync_cursor
 
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        columns = [desc[0] for desc in cur.description or []]
-        return _rows_to_dicts(columns, list(cur.fetchall()))
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(sql, params)
+        columns = [desc[0] for desc in ([("col",)] if _res else []) or []]
+        return _rows_to_dicts(columns, list(_res))
 
 
 def load_belief_rows(agent_did: str) -> list[dict[str, Any]]:

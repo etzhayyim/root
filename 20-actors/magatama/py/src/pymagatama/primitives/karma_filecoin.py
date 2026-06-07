@@ -123,74 +123,74 @@ async def task_karma_filecoin_propose_batch(**kwargs: Any) -> dict[str, Any]:
 
     cids = sorted(list(all_pinned_cids - cids_with_active_deals))[:batch_size]
 
-        for cid in cids:
-            sps = _select_sps(sp_count)
-            for sp in sps:
-                nonce = uuid.uuid4().hex
-                deal_id = _deal_id(cid, sp, nonce)
-                proposal_cid = _deal_proposal_cid_stub(cid, sp, nonce)
-                vertex_id = _deal_vertex_id(deal_id)
+    for cid in cids:
+        sps = _select_sps(sp_count)
+        for sp in sps:
+            nonce = uuid.uuid4().hex
+            deal_id = _deal_id(cid, sp, nonce)
+            proposal_cid = _deal_proposal_cid_stub(cid, sp, nonce)
+            vertex_id = _deal_vertex_id(deal_id)
 
-                provider_endpoint = (
-                    ESTUARY_URL if DEAL_PROVIDER == "estuary"
-                    else LIGHTHOUSE_URL if DEAL_PROVIDER == "lighthouse"
-                    else WEB3STORAGE_URL if DEAL_PROVIDER == "web3storage"
-                    else ""
+            provider_endpoint = (
+                ESTUARY_URL if DEAL_PROVIDER == "estuary"
+                else LIGHTHOUSE_URL if DEAL_PROVIDER == "lighthouse"
+                else WEB3STORAGE_URL if DEAL_PROVIDER == "web3storage"
+                else ""
+            )
+
+            use_real_call = bool(provider_endpoint) and DEAL_PROVIDER != "stub"
+            if use_real_call:
+                # Phase K4: HTTP POST to provider /deals endpoint
+                status = "deferred-real-provider-not-wired"
+                error_code = "K3_STUB"
+                error_message = (
+                    "Phase K3 — real Filecoin deal proposal requires "
+                    "py-multiformats / py-cid + provider SDK; recorded "
+                    "as deferred for K4 retry."
                 )
+            else:
+                status = "proposed"
+                error_code = ""
+                error_message = ""
 
-                use_real_call = bool(provider_endpoint) and DEAL_PROVIDER != "stub"
-                if use_real_call:
-                    # Phase K4: HTTP POST to provider /deals endpoint
-                    status = "deferred-real-provider-not-wired"
-                    error_code = "K3_STUB"
-                    error_message = (
-                        "Phase K3 — real Filecoin deal proposal requires "
-                        "py-multiformats / py-cid + provider SDK; recorded "
-                        "as deferred for K4 retry."
-                    )
+            try:
+                deal_data = {
+                    "vertex_id": vertex_id,
+                    "_seq": None,
+                    "created_date": today_iso,
+                    "sensitivity_ord": 1,
+                    "owner_did": KARMA_DID,
+                    "deal_id": deal_id,
+                    "cid": cid,
+                    "sp_address": sp,
+                    "deal_proposal_cid": proposal_cid,
+                    "provider_endpoint": provider_endpoint,
+                    "bundler_used": DEAL_PROVIDER,
+                    "proposed_at": now_ts,
+                    "proposed_at_ms": now_ms,
+                    "sealed_at": None,
+                    "sealed_at_ms": None,
+                    "expires_at_ms": expires_at_ms,
+                    "duration_days": duration_days,
+                    "bytes_size": DEFAULT_BYTES_FALLBACK,
+                    "retrieval_url": f"https://{sp}.deal/{deal_id}",
+                    "cost_usd_estimate": None,
+                    "status": status,
+                    "error_code": error_code,
+                    "error_message": error_message,
+                    "created_at": now_ts,
+                    "org_id": KARMA_DID,
+                    "user_id": KARMA_DID,
+                    "actor_id": "karma.filecoin.proposeBatch",
+                }
+                kc.insert_row("vertex_karma_filecoin_deal", deal_data)
+                if status == "proposed":
+                    proposed += 1
                 else:
-                    status = "proposed"
-                    error_code = ""
-                    error_message = ""
-
-                try:
-                    deal_data = {
-                        "vertex_id": vertex_id,
-                        "_seq": None,
-                        "created_date": today_iso,
-                        "sensitivity_ord": 1,
-                        "owner_did": KARMA_DID,
-                        "deal_id": deal_id,
-                        "cid": cid,
-                        "sp_address": sp,
-                        "deal_proposal_cid": proposal_cid,
-                        "provider_endpoint": provider_endpoint,
-                        "bundler_used": DEAL_PROVIDER,
-                        "proposed_at": now_ts,
-                        "proposed_at_ms": now_ms,
-                        "sealed_at": None,
-                        "sealed_at_ms": None,
-                        "expires_at_ms": expires_at_ms,
-                        "duration_days": duration_days,
-                        "bytes_size": DEFAULT_BYTES_FALLBACK,
-                        "retrieval_url": f"https://{sp}.deal/{deal_id}",
-                        "cost_usd_estimate": None,
-                        "status": status,
-                        "error_code": error_code,
-                        "error_message": error_message,
-                        "created_at": now_ts,
-                        "org_id": KARMA_DID,
-                        "user_id": KARMA_DID,
-                        "actor_id": "karma.filecoin.proposeBatch",
-                    }
-                    kc.insert_row("vertex_karma_filecoin_deal", deal_data)
-                    if status == "proposed":
-                        proposed += 1
-                    else:
-                        skipped += 1
-                except Exception as exc:  # noqa: BLE001
-                    LOG.warning("filecoin.propose INSERT err cid=%s sp=%s: %s", cid, sp, exc)
-                    failed += 1
+                    skipped += 1
+            except Exception as exc:  # noqa: BLE001
+                LOG.warning("filecoin.propose INSERT err cid=%s sp=%s: %s", cid, sp, exc)
+                failed += 1
 
     return {"proposed": proposed, "skipped": skipped, "failed": failed}
 
@@ -221,46 +221,46 @@ async def task_karma_filecoin_renew_expiring(**kwargs: Any) -> dict[str, Any]:
     sorted_deals = sorted(all_expiring_deals, key=lambda x: x.get("expires_at_ms", 0))[:batch_size]
     rows = [(d["cid"], d["sp_address"], d["bytes_size"]) for d in sorted_deals]
 
-        for cid, sp, bytes_size in rows:
-            nonce = uuid.uuid4().hex
-            deal_id = _deal_id(cid, sp, nonce + "-renew")
-            proposal_cid = _deal_proposal_cid_stub(cid, sp, nonce + "-renew")
-            vertex_id = _deal_vertex_id(deal_id)
-            try:
-                deal_data = {
-                    "vertex_id": vertex_id,
-                    "_seq": None,
-                    "created_date": today_iso,
-                    "sensitivity_ord": 1,
-                    "owner_did": KARMA_DID,
-                    "deal_id": deal_id,
-                    "cid": cid,
-                    "sp_address": sp,
-                    "deal_proposal_cid": proposal_cid,
-                    "provider_endpoint": "", # from the VALUES in old code
-                    "bundler_used": DEAL_PROVIDER,
-                    "proposed_at": now_ts,
-                    "proposed_at_ms": now_ms,
-                    "sealed_at": None,
-                    "sealed_at_ms": None,
-                    "expires_at_ms": new_expires_at_ms,
-                    "duration_days": new_duration_days,
-                    "bytes_size": int(bytes_size or DEFAULT_BYTES_FALLBACK),
-                    "retrieval_url": f"https://{sp}.deal/{deal_id}",
-                    "cost_usd_estimate": None,
-                    "status": "proposed",
-                    "error_code": "",
-                    "error_message": "",
-                    "created_at": now_ts,
-                    "org_id": KARMA_DID,
-                    "user_id": KARMA_DID,
-                    "actor_id": "karma.filecoin.renewExpiring",
-                }
-                kc.insert_row("vertex_karma_filecoin_deal", deal_data)
-                renewed += 1
-            except Exception as exc:  # noqa: BLE001
-                LOG.warning("filecoin.renew INSERT err cid=%s sp=%s: %s", cid, sp, exc)
-                failed += 1
+    for cid, sp, bytes_size in rows:
+        nonce = uuid.uuid4().hex
+        deal_id = _deal_id(cid, sp, nonce + "-renew")
+        proposal_cid = _deal_proposal_cid_stub(cid, sp, nonce + "-renew")
+        vertex_id = _deal_vertex_id(deal_id)
+        try:
+            deal_data = {
+                "vertex_id": vertex_id,
+                "_seq": None,
+                "created_date": today_iso,
+                "sensitivity_ord": 1,
+                "owner_did": KARMA_DID,
+                "deal_id": deal_id,
+                "cid": cid,
+                "sp_address": sp,
+                "deal_proposal_cid": proposal_cid,
+                "provider_endpoint": "", # from the VALUES in old code
+                "bundler_used": DEAL_PROVIDER,
+                "proposed_at": now_ts,
+                "proposed_at_ms": now_ms,
+                "sealed_at": None,
+                "sealed_at_ms": None,
+                "expires_at_ms": new_expires_at_ms,
+                "duration_days": new_duration_days,
+                "bytes_size": int(bytes_size or DEFAULT_BYTES_FALLBACK),
+                "retrieval_url": f"https://{sp}.deal/{deal_id}",
+                "cost_usd_estimate": None,
+                "status": "proposed",
+                "error_code": "",
+                "error_message": "",
+                "created_at": now_ts,
+                "org_id": KARMA_DID,
+                "user_id": KARMA_DID,
+                "actor_id": "karma.filecoin.renewExpiring",
+            }
+            kc.insert_row("vertex_karma_filecoin_deal", deal_data)
+            renewed += 1
+        except Exception as exc:  # noqa: BLE001
+            LOG.warning("filecoin.renew INSERT err cid=%s sp=%s: %s", cid, sp, exc)
+            failed += 1
 
     return {"renewed": renewed, "skipped": skipped, "failed": failed}
 

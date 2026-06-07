@@ -25,6 +25,7 @@ Env:
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import asyncio
 import base64
@@ -404,7 +405,6 @@ async def task_shinka_emit_evolution(actorDid: str = "", mood: str = "neutral",
 #     powers classify_t3 / news_translate / mangaka_storyboard, so no
 #     new auth surface.
 
-from pymagatama.db_sync import sync_cursor
 
 _ALLOWED_TABLE_RE = re.compile(r"^(vertex|edge|mv)_[a-z0-9_]+$")
 
@@ -429,13 +429,14 @@ def _binding_write_allowlist(bpmn_process_id: str) -> set[str] | None:
     if not bpmn_process_id:
         return None
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 "SELECT write_table_allowlist FROM vertex_bpmn_lexicon_binding "
                 "WHERE bpmn_process_id = %s LIMIT 1",
                 (bpmn_process_id,),
             )
-            row = cur.fetchone()
+            row = (_res[0] if _res else None)
     except Exception:  # noqa: BLE001  — table may not have the column yet
         return None
     if not row or row[0] is None:
@@ -556,10 +557,11 @@ async def task_generic_db_select(sql: str = "", params: list | None = None,
         psycopg_sql = _re.sub(r"\$\d+", "%s", sql)
         bind = [_param_list[i - 1] for i in _indices]
         try:
-            with sync_cursor() as cur:
-                cur.execute(psycopg_sql, tuple(bind))
-                col_names = [d[0] for d in cur.description] if cur.description else []
-                raw = cur.fetchall() or []
+            if True:
+                client = get_kotoba_client()
+                _res = client.q(psycopg_sql, tuple(bind))
+                col_names = [d[0] for d in ([("col",)] if _res else [])] if ([("col",)] if _res else []) else []
+                raw = _res or []
             import datetime
             from decimal import Decimal
             def _coerce(v: Any) -> Any:
@@ -627,10 +629,11 @@ async def task_generic_db_select(sql: str = "", params: list | None = None,
         sql_text += f" ORDER BY {orderBy}"
     sql_text += f" LIMIT {int(max(1, min(limit, 1000)))}"
     try:
-        with sync_cursor() as cur:
-            cur.execute(sql_text, tuple(bind_params))
-            col_names = [d[0] for d in cur.description] if cur.description else []
-            raw = cur.fetchall() or []
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(sql_text, tuple(bind_params))
+            col_names = [d[0] for d in ([("col",)] if _res else [])] if ([("col",)] if _res else []) else []
+            raw = _res or []
 
         # LangServer serialises task output back to Zeebe via json.dumps, which
         # fails on psycopg2 types that aren't JSON-native (date / datetime /
@@ -671,14 +674,15 @@ def _load_column_types(table: str) -> dict[str, str]:
         return cached
     rows: list = []
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 "SELECT column_name, data_type FROM information_schema.columns "
                 "WHERE table_name = %s",
                 (table,),
             )
-            if cur.description:
-                rows = cur.fetchall()
+            if ([("col",)] if _res else []):
+                rows = _res
     except Exception:
         rows = []
     m = {r[0]: r[1] for r in rows}
@@ -741,9 +745,10 @@ async def task_generic_db_insert(sql: str = "", params: list | None = None,
         psycopg_sql = _re.sub(r"\$\d+", "%s", sql)
         bind = [_param_list[i - 1] for i in _indices] if _indices else _param_list
         try:
-            with sync_cursor() as cur:
-                cur.execute(psycopg_sql, tuple(bind))
-                affected = cur.rowcount if cur.rowcount is not None else 0
+            if True:
+                client = get_kotoba_client()
+                _res = client.q(psycopg_sql, tuple(bind))
+                affected = (len(_res) if isinstance(_res, list) else 1) if (len(_res) if isinstance(_res, list) else 1) is not None else 0
             return {"updated": affected, "inserted": affected}
         except Exception as e:  # noqa: BLE001
             return {"error": f"db.insert failed: {e}", "updated": 0, "inserted": 0}
@@ -814,9 +819,10 @@ async def task_generic_db_insert(sql: str = "", params: list | None = None,
         sql_text = f"INSERT INTO {table} ({col_list}) VALUES ({typed_placeholders})"
 
     try:
-        with sync_cursor() as cur:
-            cur.execute(sql_text, tuple(params))
-            inserted = cur.rowcount
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(sql_text, tuple(params))
+            inserted = (len(_res) if isinstance(_res, list) else 1)
         # Return vertex_id and already_known for ingestDocument BPMN output mapping.
         vid = values.get("vertex_id", "")
         return {"inserted": inserted, "table": table,
@@ -946,9 +952,10 @@ async def task_generic_db_bulk_insert(table: str = "", rows: list | None = None,
             params.append(r.get(c))
 
     try:
-        with sync_cursor() as cur:
-            cur.execute(sql_text, tuple(params))
-            inserted = max(0, cur.rowcount)
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(sql_text, tuple(params))
+            inserted = max(0, (len(_res) if isinstance(_res, list) else 1))
         return {"inserted": inserted, "table": table}
     except Exception as e:  # noqa: BLE001
         return {"error": f"db.bulkInsert failed: {e}", "inserted": 0}
@@ -965,18 +972,19 @@ async def task_generic_db_purge_datacenter_access_pii(rows: list | None = None) 
         return {"deleted": 0}
     deleted = 0
     try:
-        with sync_cursor() as cur:
+        if True:
+            client = get_kotoba_client()
             for row in rows:
                 if not isinstance(row, dict):
                     continue
                 vertex_id = str(row.get("vertex_id") or "")
                 if not vertex_id or not _VID_RE.fullmatch(vertex_id):
                     continue
-                cur.execute(
+                _res = client.q(
                     "DELETE FROM vertex_datacenter_access_request_pii WHERE vertex_id = %s",
                     (vertex_id,),
                 )
-                deleted += max(0, cur.rowcount)
+                deleted += max(0, (len(_res) if isinstance(_res, list) else 1))
     except Exception as e:  # noqa: BLE001
         return {"error": f"db.purgeDatacenterAccessPii failed: {e}", "deleted": deleted}
     return {"deleted": deleted}
@@ -997,24 +1005,25 @@ async def _purge_pair(rows: list | None, *, pii_table: str, meta_table: str,
     deleted = 0
     updated = 0
     try:
-        with sync_cursor() as cur:
+        if True:
+            client = get_kotoba_client()
             for row in rows:
                 if not isinstance(row, dict):
                     continue
                 vertex_id = str(row.get("vertex_id") or "")
                 if not vertex_id or not _VID_RE.fullmatch(vertex_id):
                     continue
-                cur.execute(
+                _res = client.q(
                     f"DELETE FROM {pii_table} WHERE vertex_id = %s",
                     (vertex_id,),
                 )
-                deleted += max(0, cur.rowcount)
-                cur.execute(
+                deleted += max(0, (len(_res) if isinstance(_res, list) else 1))
+                _res = client.q(
                     f"UPDATE {meta_table} SET status = %s "
                     "WHERE vertex_id = %s AND status != %s",
                     ("purged", vertex_id, "purged"),
                 )
-                updated += max(0, cur.rowcount)
+                updated += max(0, (len(_res) if isinstance(_res, list) else 1))
         return {"deleted": deleted, "updated": updated}
     except Exception as e:  # noqa: BLE001
         return {
@@ -1041,12 +1050,13 @@ async def task_generic_db_delete(table: str = "", whereExpr: str = "",
         return {"error": "whereExpr required (refusing full-table delete)", "deleted": 0}
     params = tuple(whereParams or [])
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 f"DELETE FROM {table} WHERE {whereExpr}",
                 params,
             )
-            return {"deleted": max(0, cur.rowcount)}
+            return {"deleted": max(0, (len(_res) if isinstance(_res, list) else 1))}
     except Exception as e:  # noqa: BLE001
         return {"error": f"db.delete failed: {e}", "deleted": 0}
 
@@ -2047,8 +2057,9 @@ async def task_news_udf_score_intel(
     official_count = 1 if official else 0
     corroborated_count = max(0, int(findingCount or 0))
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 """
                 SELECT
                   news_source_credibility(%s, %s, %s) AS credibility,
@@ -2065,7 +2076,7 @@ async def task_news_udf_score_intel(
                     float(impact or 0.5),
                 ),
             )
-            row = cur.fetchone()
+            row = (_res[0] if _res else None)
         return {
             "credibility": float(row[0] if row else 0.5),
             "priority": float(row[1] if row else 0.4),
@@ -3042,14 +3053,15 @@ def _env_key(s: str) -> str:
 
 def _record_ind_efiling_submission(row: dict[str, Any]) -> dict[str, Any]:
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 "SELECT 1 FROM vertex_ind_efiling_submission WHERE vertex_id = %s LIMIT 1",
                 (row["vertex_id"],),
             )
-            if cur.fetchone():
+            if (_res[0] if _res else None):
                 return {"ok": True, "existing": True}
-            cur.execute(
+            _res = client.q(
                 "INSERT INTO vertex_ind_efiling_submission ("
                 "vertex_id, _seq, created_date, sensitivity_ord, owner_did, "
                 "jurisdiction, provider_key, provider_kind, source_vertex_id, "
@@ -3083,11 +3095,11 @@ def _record_ind_efiling_submission(row: dict[str, Any]) -> dict[str, Any]:
                     row.get("actor_id", ""),
                 ),
             )
-            cur.execute(
+            _res = client.q(
                 "SELECT 1 FROM vertex_ind_efiling_submission WHERE vertex_id = %s LIMIT 1",
                 (row["vertex_id"],),
             )
-            if not cur.fetchone():
+            if not (_res[0] if _res else None):
                 return {"ok": False, "error": "submission audit insert accepted but row is not query-visible"}
         return {"ok": True}
     except Exception as e:  # noqa: BLE001
@@ -3336,14 +3348,15 @@ async def task_generic_audit_emit(
         "WHERE NOT EXISTS (SELECT 1 FROM vertex_repo_commit WHERE vertex_id = %s)"
     )
     try:
-        with sync_cursor() as cur:
-            cur.execute(sql_text, (
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(sql_text, (
                 vertex_id, ts_ms, actor_value, "com.etzhayyim.bpmn.audit", rkey, "create",
                 json.dumps({"action": action_value, **payload_value}),
                 ts_ms, created_at,
                 vertex_id,
             ))
-            return {"emitted": cur.rowcount > 0, "rkey": rkey, "vertexId": vertex_id}
+            return {"emitted": (len(_res) if isinstance(_res, list) else 1) > 0, "rkey": rkey, "vertexId": vertex_id}
     except Exception as e:  # noqa: BLE001
         return {"error": f"audit insert failed: {e}", "emitted": False}
 
@@ -3488,8 +3501,9 @@ async def task_business_profit_settle_open_adnetwork(
         params.append(publisher_filter)
 
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 f"""
                 SELECT
                   COALESCE(SUM(i.cpm_usd) / 1000.0, 0.0) AS gross_revenue_usd,
@@ -3503,7 +3517,7 @@ async def task_business_profit_settle_open_adnetwork(
                 """,
                 tuple(params),
             )
-            row = cur.fetchone() or (0.0, 0, 0)
+            row = (_res[0] if _res else None) or (0.0, 0, 0)
     except Exception as e:  # noqa: BLE001
         LOG.exception("business.profit.settleOpenAdnetwork aggregate failed")
         return {"ok": False, "error": f"aggregate failed: {e}", "settled": False}
@@ -3566,8 +3580,9 @@ async def task_business_profit_settle_open_adnetwork(
             break
 
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 """
                 INSERT INTO vertex_open_adnetwork_profit_settlement (
                   vertex_id, settlement_id, publisher_did, window_start_ms, window_end_ms,
@@ -3610,7 +3625,7 @@ async def task_business_profit_settle_open_adnetwork(
                     settlement_id,
                 ),
             )
-            inserted = cur.rowcount if cur.rowcount is not None else 0
+            inserted = (len(_res) if isinstance(_res, list) else 1) if (len(_res) if isinstance(_res, list) else 1) is not None else 0
     except Exception as e:  # noqa: BLE001
         LOG.exception("business.profit.settleOpenAdnetwork insert failed settlementId=%s", settlement_id)
         return {**output_payload, "ok": False, "error": f"insert failed: {e}", "receipt": receipt}
@@ -4734,12 +4749,13 @@ async def task_gyosei_source_link(
     linked = 0
 
     try:
-        with sync_cursor() as cur:
+        if True:
+            client = get_kotoba_client()
             for source_id in normalized:
                 source_vertex_id = f"gyosei-source:{source_id}"
                 if use_precedent_edge:
                     edge_id = f"{owner_did}:edge_gyosei_precedent_source:{resolved_memo_id}:{source_id}:{relation}"
-                    cur.execute(
+                    _res = client.q(
                         """
                         INSERT INTO edge_gyosei_precedent_source (
                           edge_id, owner_did, memo_id, case_id, source_vertex_id, relation, note, created_at
@@ -4758,7 +4774,7 @@ async def task_gyosei_source_link(
                     )
                 else:
                     edge_id = f"{owner_did}:edge_gyosei_case_source:{caseId}:{source_id}:{relation}"
-                    cur.execute(
+                    _res = client.q(
                         """
                         INSERT INTO edge_gyosei_case_source (
                           edge_id, owner_did, case_id, source_vertex_id, relation, note, created_at
@@ -4775,7 +4791,7 @@ async def task_gyosei_source_link(
                             source_vertex_id, edge_id,
                         ),
                     )
-                linked += cur.rowcount or 0
+                linked += (len(_res) if isinstance(_res, list) else 1) or 0
     except Exception as e:  # noqa: BLE001
         return {
             "error": f"gyosei source link failed: {e}",
@@ -4809,9 +4825,10 @@ async def task_shinka_tick(actor: str = "") -> dict:
     if not actor:
         return {"error": "actor required"}
     try:
-        with sync_cursor() as cur:
-            cur.execute("SELECT shinka_tick_actor(%s)", (actor,))
-            row = cur.fetchone()
+        if True:
+            client = get_kotoba_client()
+            _res = client.q("SELECT shinka_tick_actor(%s)", (actor,))
+            row = (_res[0] if _res else None)
     except Exception as e:  # noqa: BLE001
         return {"error": f"shinka_tick_actor failed: {e}", "actor": actor}
 
@@ -5235,10 +5252,11 @@ async def task_legal_corpus_search_document(
         LIMIT {limit_i}
     """
     try:
-        with sync_cursor() as cur:
-            cur.execute(sql)
-            col_names = [d[0] for d in cur.description] if cur.description else []
-            rows = cur.fetchall() or []
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(sql)
+            col_names = [d[0] for d in ([("col",)] if _res else [])] if ([("col",)] if _res else []) else []
+            rows = _res or []
         import datetime
         from decimal import Decimal
 

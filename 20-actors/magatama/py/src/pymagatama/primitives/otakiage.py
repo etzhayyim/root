@@ -21,6 +21,7 @@ Schema (migration 20260508120000):
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import hashlib
 import json
@@ -30,7 +31,6 @@ import uuid
 from datetime import date, datetime, timedelta, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
 
 # ── Constants ──────────────────────────────────────────────────────────
 
@@ -121,8 +121,9 @@ async def task_otakiage_item_submit(  # noqa: PLR0913 — XRPC arity
     state = "reuse_open"  # auto-transition: submitted → reuse_open
     now = _now_iso()
     today = _today().isoformat()
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             """
             INSERT INTO vertex_otakiage_item (
               vertex_id, owner_did, item_id, category, title, story_text, photo_blob_keys,
@@ -142,7 +143,7 @@ async def task_otakiage_item_submit(  # noqa: PLR0913 — XRPC arity
         )
         # owner edge
         owner_edge_id = f"otakiage:{rkey}:owner"
-        cur.execute(
+        _res = client.q(
             """
             INSERT INTO edge_otakiage_item_owner (
               edge_id, owner_did, src_vid, dst_vid, role,
@@ -176,8 +177,9 @@ async def task_otakiage_reuse_request_submit(  # noqa: PLR0913
     today = _today().isoformat()
     # Phase 1: distance approximation = 0 if both cells set, else NULL.
     distance_km: float | None = 0.0 if h3Cell else None
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             """
             INSERT INTO vertex_otakiage_reuse_request (
               vertex_id, owner_did, request_id, item_uri, requester_did, message,
@@ -201,15 +203,16 @@ async def task_otakiage_reuse_request_submit(  # noqa: PLR0913
 
 async def task_otakiage_reuse_find_candidates(maxItems: int = 100, **_: Any) -> dict[str, Any]:
     """R/PT1H BPMN — count reuse_open items per H3 cell (push-notify is Phase 2)."""
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             f"SELECT h3_cell, category, weight_kg_class, COUNT(*) AS c "
             f"FROM vertex_otakiage_item "
             f"WHERE state = 'reuse_open' AND h3_cell IS NOT NULL "
             f"GROUP BY h3_cell, category, weight_kg_class "
             f"LIMIT {int(maxItems)}"
         )
-        rows = cur.fetchall() or []
+        rows = _res or []
     cells = {r[0] for r in rows if r and r[0]}
     return {"candidateCount": len(rows), "cellsScanned": len(cells)}
 
@@ -226,17 +229,18 @@ async def task_otakiage_reuse_expire_open(  # noqa: PLR0913
     cutoff = (datetime.now(timezone.utc) - timedelta(days=int(ttlDays))).strftime("%Y-%m-%dT%H:%M:%SZ")
     moved_ritual = 0
     stayed_expired = 0
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             f"SELECT vertex_id, mode FROM vertex_otakiage_item "
             f"WHERE state = 'reuse_open' AND created_at < %s "
             f"LIMIT {int(maxItems)}",
             (cutoff,),
         )
-        candidates = cur.fetchall() or []
+        candidates = _res or []
         for vertex_id, mode in candidates:
             new_state = "ritual_pending" if mode == "reuse_then_ritual" else "reuse_expired"
-            cur.execute(
+            _res = client.q(
                 "UPDATE vertex_otakiage_item SET state = %s WHERE vertex_id = %s",
                 (new_state, vertex_id),
             )
@@ -265,8 +269,9 @@ async def task_otakiage_handover_confirm(  # noqa: PLR0913
     now = _now_iso()
     today = _today().isoformat()
     cancelled = 0
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             """
             INSERT INTO vertex_otakiage_handover (
               vertex_id, owner_did, handover_id, item_uri, reuse_request_uri,
@@ -284,12 +289,12 @@ async def task_otakiage_handover_confirm(  # noqa: PLR0913
                 now, today, 0, donorDid, donorDid, "otakiage.handover.confirm",
             ),
         )
-        cur.execute(
+        _res = client.q(
             "UPDATE vertex_otakiage_item SET state = 'handed_over' WHERE vertex_id = %s",
             (itemUri,),
         )
         # Cancel sibling pending reuse_requests
-        cur.execute(
+        _res = client.q(
             "UPDATE vertex_otakiage_reuse_request SET state = 'cancelled' "
             "WHERE item_uri = %s AND state = 'pending' "
             "AND vertex_id <> %s",
@@ -297,7 +302,7 @@ async def task_otakiage_handover_confirm(  # noqa: PLR0913
         )
         # Edge: item → handover
         edge_id = f"otakiage:{rkey}:handover"
-        cur.execute(
+        _res = client.q(
             """
             INSERT INTO edge_otakiage_item_handover (
               edge_id, owner_did, src_vid, dst_vid, role,
@@ -331,12 +336,13 @@ async def task_otakiage_ritual_request(
     """
     if not itemUri:
         return {"ok": False, "error": "itemUri required"}
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             "SELECT mode, category, state FROM vertex_otakiage_item WHERE vertex_id = %s",
             (itemUri,),
         )
-        row = cur.fetchone()
+        row = (_res[0] if _res else None)
         if not row:
             return {"ok": False, "error": "item not found"}
         mode, category, state = row
@@ -348,13 +354,13 @@ async def task_otakiage_ritual_request(
         # Auto-assign matsuri if none provided: pick the next upcoming matsuri whose
         # category_scope JSON array contains this category.
         if not matsuriUri:
-            cur.execute(
+            _res = client.q(
                 "SELECT vertex_id, scheduled_date, category_scope "
                 "FROM vertex_otakiage_matsuri "
                 "WHERE state IN ('open', 'preparing') AND scheduled_date >= CURRENT_DATE "
                 "ORDER BY scheduled_date ASC LIMIT 50"
             )
-            for v_id, sched_date, scope_json in cur.fetchall() or []:
+            for v_id, sched_date, scope_json in _res or []:
                 try:
                     scope = json.loads(scope_json or "[]")
                 except Exception:
@@ -363,18 +369,18 @@ async def task_otakiage_ritual_request(
                     matsuriUri = v_id  # noqa: N806 — XRPC param name
                     break
 
-        cur.execute(
+        _res = client.q(
             "UPDATE vertex_otakiage_item SET state = 'ritual_pending', story_text = COALESCE(story_text, '') || %s "
             "WHERE vertex_id = %s",
             (f"\n\n[ritual donor message]\n{donorMessage}" if donorMessage else "", itemUri),
         )
         scheduled = None
         if matsuriUri:
-            cur.execute(
+            _res = client.q(
                 "SELECT scheduled_date FROM vertex_otakiage_matsuri WHERE vertex_id = %s",
                 (matsuriUri,),
             )
-            r = cur.fetchone()
+            r = (_res[0] if _res else None)
             scheduled = r[0].isoformat() if r and r[0] else None
     _ = skipReuse  # currently unused; reserved for explicit skip path
     return {"ok": True, "itemState": "ritual_pending", "matsuriUri": matsuriUri or "", "scheduledDate": scheduled}
@@ -394,12 +400,14 @@ async def task_otakiage_ritual_issue_certificate(
     today = _today().isoformat()
     ceremony_at = ceremonyDate or now
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             "SELECT name, category_scope FROM vertex_otakiage_matsuri WHERE vertex_id = %s",
             (matsuriUri,),
         )
-        m = cur.fetchone()
+        m = (_res[0] if _res else None)
         if not m:
             return {"ok": False, "error": "matsuri not found"}
         matsuri_name, scope_json = m
@@ -409,13 +417,13 @@ async def task_otakiage_ritual_issue_certificate(
             scope = []
 
         # Pull all ritual_pending items whose category is in scope.
-        cur.execute(
+        _res = client.q(
             """
             SELECT vertex_id, donor_did, category FROM vertex_otakiage_item
             WHERE state = 'ritual_pending'
             """
         )
-        candidates = [(v, d, c) for v, d, c in (cur.fetchall() or []) if (not scope) or c in scope]
+        candidates = [(v, d, c) for v, d, c in (_res or []) if (not scope) or c in scope]
 
         item_uris = [v for v, _, _ in candidates]
         donor_dids = list({d for _, d, _ in candidates})
@@ -452,7 +460,7 @@ async def task_otakiage_ritual_issue_certificate(
         }
 
         # INSERT ritual
-        cur.execute(
+        _res = client.q(
             """
             INSERT INTO vertex_otakiage_ritual (
               vertex_id, owner_did, ritual_id, matsuri_uri, item_uris, item_count,
@@ -471,7 +479,7 @@ async def task_otakiage_ritual_issue_certificate(
             ),
         )
         # INSERT certificate
-        cur.execute(
+        _res = client.q(
             """
             INSERT INTO vertex_otakiage_certificate (
               vertex_id, owner_did, certificate_id, ritual_uri, matsuri_uri, item_uris, item_count,
@@ -494,12 +502,12 @@ async def task_otakiage_ritual_issue_certificate(
         )
         # Mark all items ritualized + edges
         for v, _, _ in candidates:
-            cur.execute(
+            _res = client.q(
                 "UPDATE vertex_otakiage_item SET state = 'ritualized' WHERE vertex_id = %s",
                 (v,),
             )
             edge_id = f"otakiage:{ritual_rkey}:{_content_addressed_rkey(v, 'ritual')[:12]}"
-            cur.execute(
+            _res = client.q(
                 """
                 INSERT INTO edge_otakiage_item_ritual (
                   edge_id, owner_did, src_vid, dst_vid, role,
@@ -512,7 +520,7 @@ async def task_otakiage_ritual_issue_certificate(
                 ),
             )
         cert_edge_id = f"otakiage:{ritual_rkey}:cert"
-        cur.execute(
+        _res = client.q(
             """
             INSERT INTO edge_otakiage_ritual_certificate (
               edge_id, owner_did, src_vid, dst_vid, role,
@@ -564,8 +572,9 @@ async def task_otakiage_matsuri_schedule_submit(  # noqa: PLR0913
     matsuri_uri = f"at://{PATH_DID_MATSURI}/com.etzhayyim.apps.otakiage.matsuri/matsuri-{rkey}"
     now = _now_iso()
     today = _today().isoformat()
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             """
             INSERT INTO vertex_otakiage_matsuri (
               vertex_id, owner_did, matsuri_id, name, category_scope, scheduled_date,
@@ -619,16 +628,17 @@ async def task_otakiage_matsuri_seed_next_month(**_: Any) -> dict[str, Any]:
 
     now_iso = _now_iso()
     today = _today().isoformat()
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for slug, scope, dom in template:
             sched_date = date(next_month.year, next_month.month, dom).isoformat()
             vertex_id = f"at://{PATH_DID_MATSURI}/com.etzhayyim.apps.otakiage.matsuri/matsuri-{slug}-{yyyymm}"
             matsuri_id = f"matsuri-{slug}-{yyyymm}"
-            cur.execute(
+            _res = client.q(
                 "SELECT 1 FROM vertex_otakiage_matsuri WHERE vertex_id = %s LIMIT 1",
                 (vertex_id,),
             )
-            if cur.fetchone():
+            if (_res[0] if _res else None):
                 skipped += 1
                 continue
             display_name = {
@@ -638,7 +648,7 @@ async def task_otakiage_matsuri_seed_next_month(**_: Any) -> dict[str, Any]:
                 "omocha": f"おもちゃ供養祭 {next_month.year}",
             }.get(slug, f"{slug} {next_month.year}")
             description = f"{display_name} — etzhayyim 主催の digital ritual。Phase 1 は永続証跡 (AT Record JSON) を発行。"
-            cur.execute(
+            _res = client.q(
                 """
                 INSERT INTO vertex_otakiage_matsuri (
                   vertex_id, owner_did, matsuri_id, name, category_scope, scheduled_date,
@@ -704,13 +714,15 @@ async def task_otakiage_certificate_anchor(  # noqa: PLR0913
     contract = _resolve_anchor_contract(target_chain)
     now = _now_iso()
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             "SELECT certificate_json, anchor_status FROM vertex_otakiage_certificate "
             "WHERE vertex_id = %s",
             (certificateUri,),
         )
-        row = cur.fetchone()
+        row = (_res[0] if _res else None)
         if not row:
             return {"ok": False, "anchorStatus": "pending", "error": "certificate not found"}
         cert_json, current_status = row
@@ -729,7 +741,7 @@ async def task_otakiage_certificate_anchor(  # noqa: PLR0913
             (cert_json or "").encode("utf-8") if isinstance(cert_json, str) else b""
         ).hexdigest()
 
-        cur.execute(
+        _res = client.q(
             "UPDATE vertex_otakiage_certificate "
             "SET anchor_status = 'queued', anchor_chain = %s, anchor_contract = %s, "
             "    content_hash = %s, failure_reason = NULL, anchored_at = NULL "
@@ -772,18 +784,20 @@ async def task_otakiage_certificate_anchor_sweep(maxItems: int = 20, **_: Any) -
     failed = 0
     now = _now_iso()
 
-    with sync_cursor() as cur:
+    if True:
+
+        client = get_kotoba_client()
         # Phase: queued → submitted (stub)
-        cur.execute(
+        _res = client.q(
             f"SELECT vertex_id, content_hash FROM vertex_otakiage_certificate "
             f"WHERE anchor_status = 'queued' "
             f"LIMIT {int(maxItems)}"
         )
-        queued_rows = list(cur.fetchall() or [])
+        queued_rows = list(_res or [])
         for v_id, ch in queued_rows:
             processed += 1
             if not ch:
-                cur.execute(
+                _res = client.q(
                     "UPDATE vertex_otakiage_certificate "
                     "SET anchor_status = 'failed', failure_reason = %s "
                     "WHERE vertex_id = %s",
@@ -793,7 +807,7 @@ async def task_otakiage_certificate_anchor_sweep(maxItems: int = 20, **_: Any) -
                 continue
             # Deterministic token_id from content_hash (16 hex chars = 64-bit).
             token_id = "0x" + ch[:16]
-            cur.execute(
+            _res = client.q(
                 "UPDATE vertex_otakiage_certificate "
                 "SET anchor_status = 'submitted', anchor_token_id = %s "
                 "WHERE vertex_id = %s",
@@ -803,16 +817,16 @@ async def task_otakiage_certificate_anchor_sweep(maxItems: int = 20, **_: Any) -
 
         # Phase: submitted → anchored (stub finalize). Phase 2b2 will only
         # advance on real receipt confirmations.
-        cur.execute(
+        _res = client.q(
             f"SELECT vertex_id, anchor_token_id FROM vertex_otakiage_certificate "
             f"WHERE anchor_status = 'submitted' "
             f"LIMIT {int(maxItems)}"
         )
-        submitted_rows = list(cur.fetchall() or [])
+        submitted_rows = list(_res or [])
         for v_id, token_id in submitted_rows:
             processed += 1
             stub_tx = "stub:" + (token_id or "")[:18]
-            cur.execute(
+            _res = client.q(
                 "UPDATE vertex_otakiage_certificate "
                 "SET anchor_status = 'anchored', anchored_at = %s, anchor_tx_hash = %s, "
                 "    anchor_block_number = NULL "

@@ -29,6 +29,7 @@ re-INSERT on the same PK is the intended upsert).
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import csv
 import gzip
@@ -45,7 +46,6 @@ import zipfile
 from typing import Any
 from xml.etree import ElementTree as ET
 
-from pymagatama.db_sync import sync_cursor
 
 # ──────────────────────────────────────────────────────────────────────
 # Constants / env
@@ -81,9 +81,10 @@ def _now_iso() -> str:
 def _rw_executemany(sql: str, rows: list[tuple[Any, ...]]) -> None:
     if not rows:
         return
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for row in rows:
-            cur.execute(sql, row)
+            _res = client.q(sql, row)
 
 
 def _http_get(url: str, headers: dict[str, str] | None = None, timeout: float = 120.0) -> bytes:

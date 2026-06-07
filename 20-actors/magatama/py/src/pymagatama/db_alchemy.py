@@ -47,6 +47,7 @@ Usage (L6 handler example)
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import logging
 import os
@@ -216,14 +217,14 @@ def sa_execute(
         rows = sa_execute(select(t).where(t.c.actor_did == some_did))
 
     Returns:
-        list of row tuples (same as ``cursor.fetchall()``).
+        list of row tuples (same as ``_res``).
     """
-    from pymagatama.db_sync import sync_cursor
 
     sql_str, bind = _compile_clause(clause, params)
-    with sync_cursor() as cur:
-        cur.execute(sql_str, bind if bind else ())
-        return cur.fetchall()
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql_str, bind if bind else ())
+        return _res
 
 
 def sa_execute_one(
@@ -251,11 +252,11 @@ def sa_rowcount(
 
     Use for INSERT / UPDATE / DELETE expressions.
     """
-    from pymagatama.db_sync import sync_cursor
 
     sql_str, bind = _compile_clause(clause, params)
-    with sync_cursor() as cur:
-        cur.execute(sql_str, bind if bind else ())
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql_str, bind if bind else ())
         rc: int = getattr(cur, "rowcount", 0) or 0
         return rc
 
@@ -267,7 +268,7 @@ def sa_executemany(
 ) -> int:
     """Execute a DML clause for a sequence of row dicts (batch INSERT).
 
-    Uses ``cursor.executemany()`` in chunks to avoid RW per-batch overhead.
+    Uses ``_res = client.q()`` in chunks to avoid RW per-batch overhead.
     Returns the total number of rows processed (not affected rowcount, which
     RW does not always return reliably for bulk INSERT).
 
@@ -280,7 +281,6 @@ def sa_executemany(
                   Column("vertex_id", String), Column("value", BigInteger))
         sa_executemany(t.insert(), rows_list)
     """
-    from pymagatama.db_sync import sync_cursor
 
     total = 0
     for i in range(0, len(rows), chunk_size):
@@ -290,8 +290,9 @@ def sa_executemany(
         # Compile with first row's keys to get the SQL template.
         stmt = clause.values(batch[0])
         sql_str, _ = _compile_clause(stmt)
-        with sync_cursor() as cur:
-            cur.executemany(sql_str, batch)  # type: ignore[attr-defined]
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(sql_str, batch)  # type: ignore[attr-defined]
             total += len(batch)
     return total
 

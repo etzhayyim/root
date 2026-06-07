@@ -6,6 +6,7 @@ bounded HTTP collection and commit rows to the existing graph tables.
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import hashlib
 import base64
@@ -20,7 +21,6 @@ from urllib.parse import urlencode
 
 import aiohttp
 
-from pymagatama.db_sync import sync_cursor
 
 
 _OWNER_DID = "did:web:legal-entity.etzhayyim.com"
@@ -103,12 +103,13 @@ def _table_columns(table: str) -> set[str]:
     cached = _COLUMN_CACHE.get(table)
     if cached is not None:
         return cached
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             "SELECT column_name FROM information_schema.columns WHERE table_name = %s",
             (table,),
         )
-        rows = cur.fetchall()
+        rows = _res
     cols = {str(row[0]) for row in rows}
     _COLUMN_CACHE[table] = cols
     return cols
@@ -123,8 +124,9 @@ def _insert_row(table: str, row: dict[str, Any]) -> bool:
     placeholders = ",".join(["%s"] * len(cols))
     quoted_cols = ",".join(f'"{col}"' for col in cols)
     values = tuple(row[col] for col in cols)
-    with sync_cursor() as cur:
-        cur.execute(f'INSERT INTO "{table}" ({quoted_cols}) VALUES ({placeholders})', values)
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(f'INSERT INTO "{table}" ({quoted_cols}) VALUES ({placeholders})', values)
     return True
 
 
@@ -247,13 +249,14 @@ def task_gleif_register_dids(limit: int = 500, **_: Any) -> dict[str, Any]:
     bounded = max(1, min(int(limit or 500), 5000))
     candidates = 0
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 "SELECT vertex_id FROM vertex_legal_entity "
                 f"WHERE vertex_id IS NOT NULL AND source = %s LIMIT {bounded}",
                 ("gleif",),
             )
-            candidates = len(cur.fetchall())
+            candidates = len(_res)
     except Exception as e:  # noqa: BLE001
         return {"result": {"ok": False, "error": f"GLEIF DID candidate scan failed: {e}", "registered": 0}}
     return {

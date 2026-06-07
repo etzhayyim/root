@@ -7,6 +7,7 @@ columns without owning migrations or generated models.
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import time
 from dataclasses import dataclass
@@ -146,9 +147,9 @@ def _fetch_information_schema_rows(table_schema: str | None = DEFAULT_SCHEMA) ->
     """
     rows: list[dict[str, Any]] = []
     with db_sync.sync_cursor() as cur:
-        cur.execute(sql, (table_schema, table_schema))
+        _res = client.q(sql, (table_schema, table_schema))
         description = getattr(cur, "description", None)
-        raw_rows = cur.fetchall()
+        raw_rows = _res
     if description:
         names = [str(getattr(col, "name", col[0])) for col in description]
         return [dict(zip(names, row)) for row in raw_rows]

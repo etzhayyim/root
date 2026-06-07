@@ -6,6 +6,7 @@ The `patent.blob.convert` task type must NOT be registered here.
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import csv
 import datetime as _dt
@@ -21,7 +22,6 @@ import urllib.request
 import zlib
 from typing import Generator, Any
 
-from pymagatama.db_sync import sync_cursor
 
 
 OWNER_DID = "did:web:patent.etzhayyim.com"
@@ -219,7 +219,7 @@ def task_patent_uspto_patentsview_ingest_patent(
         cols = "(vertex_id,_seq,created_date,sensitivity_ord,owner_did,office_org_id,patent_number,jurisdiction,title,ipc_classes,grant_date,verification,status,created_at,actor_id)"
         placeholders = ",".join("(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" for _ in b)
         flat = [v for row in b for v in row]
-        cur.execute(
+        _res = client.q(
             f"INSERT INTO {table} {cols} VALUES {placeholders}",
             flat,
         )
@@ -231,15 +231,17 @@ def task_patent_uspto_patentsview_ingest_patent(
         cols = "(vertex_id,patent_vertex_id,patent_number,jurisdiction,pdf_source_url,status,collected_at)"
         placeholders = ",".join("(%s,%s,%s,%s,%s,%s,%s)" for _ in b)
         flat = [v for row in b for v in row]
-        cur.execute(
+        _res = client.q(
             f"INSERT INTO {blobTable} {cols} VALUES {placeholders}",
             flat,
         )
         return len(b)
 
-    with sync_cursor() as cur:
-        cur.execute("SET dml_rate_limit = 500")
-        cur.execute("SET statement_timeout = '300s'")
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q("SET dml_rate_limit = 500")
+        _res = client.q("SET statement_timeout = '300s'")
 
         for row in _stream_tsv_zip(tsvUrl, max_rows=maxRows, timeout_sec=1800.0):
             if len(row) < 7:
@@ -332,7 +334,7 @@ def task_patent_uspto_patentsview_ingest_citation(
         cols = "(vertex_id,_seq,created_date,sensitivity_ord,owner_did,citing_patent,cited_patent,citation_type,source,status,created_at,actor_id)"
         placeholders = ",".join("(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" for _ in b)
         flat = [v for row in b for v in row]
-        cur.execute(
+        _res = client.q(
             f"INSERT INTO {vertexTable} {cols} VALUES {placeholders}",
             flat,
         )
@@ -343,14 +345,16 @@ def task_patent_uspto_patentsview_ingest_citation(
         cols = "(edge_id,_seq,created_date,sensitivity_ord,owner_did,src_vid,dst_vid,role,created_at,actor_id)"
         placeholders = ",".join("(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" for _ in b)
         flat = [v for row in b for v in row]
-        cur.execute(
+        _res = client.q(
             f"INSERT INTO {edgeTable} {cols} VALUES {placeholders}",
             flat,
         )
 
-    with sync_cursor() as cur:
-        cur.execute("SET dml_rate_limit = 500")
-        cur.execute("SET statement_timeout = '300s'")
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q("SET dml_rate_limit = 500")
+        _res = client.q("SET statement_timeout = '300s'")
 
         for row in _stream_tsv_zip(tsvUrl, max_rows=maxRows, timeout_sec=1800.0):
             if len(row) < 3:
@@ -448,9 +452,11 @@ def task_patent_epo_ops_fill_citations(
     citations_added = 0
     family_edges_added = 0
 
-    with sync_cursor() as cur:
-        cur.execute("SET statement_timeout = '300s'")
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q("SET statement_timeout = '300s'")
+        _res = client.q(
             f"""
             SELECT p.patent_number, p.vertex_id
             FROM {patentTable} p
@@ -465,7 +471,7 @@ def task_patent_epo_ops_fill_citations(
             """,
             (JURISDICTION_USPTO, limit),
         )
-        pending = cur.fetchall()
+        pending = _res
 
     if not pending:
         return {"ok": True, "citationsAdded": 0, "familyEdgesAdded": 0}
@@ -478,7 +484,7 @@ def task_patent_epo_ops_fill_citations(
             "citing_patent,cited_patent,citation_type,source,status,created_at,actor_id)"
         )
         placeholders = ",".join("(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" for _ in b)
-        cur.execute(
+        _res = client.q(
             f"INSERT INTO {vertexTable} {cols} VALUES {placeholders}",
             [v for row in b for v in row],
         )
@@ -489,15 +495,17 @@ def task_patent_epo_ops_fill_citations(
             return 0
         cols = "(edge_id,_seq,created_date,sensitivity_ord,owner_did,src_vid,dst_vid,role,created_at,actor_id)"
         placeholders = ",".join("(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" for _ in b)
-        cur.execute(
+        _res = client.q(
             f"INSERT INTO {edgeTable} {cols} VALUES {placeholders}",
             [v for row in b for v in row],
         )
         return len(b)
 
-    with sync_cursor() as cur:
-        cur.execute("SET dml_rate_limit = 500")
-        cur.execute("SET statement_timeout = '300s'")
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q("SET dml_rate_limit = 500")
+        _res = client.q("SET statement_timeout = '300s'")
 
         for patent_number, citing_vid in pending:
             patent_number = str(patent_number or "").strip()

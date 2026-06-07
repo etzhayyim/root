@@ -11,6 +11,7 @@ Covers all 3 flow classes: currency, service, personnel.
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import datetime as _dt
 import decimal as _decimal
@@ -21,7 +22,6 @@ import uuid
 from typing import Any
 from urllib.parse import quote
 
-from pymagatama.db_sync import sync_cursor
 
 LOG = logging.getLogger("resource_flow.detect")
 
@@ -143,7 +143,7 @@ def _jsonable(v: Any) -> Any:
 
 
 def _rows_as_dicts(cur: Any, rows: list[Any]) -> list[dict[str, Any]]:
-    cols = [d[0] for d in (cur.description or [])]
+    cols = [d[0] for d in (([("col",)] if _res else []) or [])]
     return [{cols[i]: _jsonable(row[i]) for i in range(len(cols))} for row in rows]
 
 
@@ -288,13 +288,14 @@ def task_resource_flow_detect_anomaly(
         )
 
         try:
-            with sync_cursor() as cur:
-                cur.execute(count_sql)
-                count_row = cur.fetchone()
+            if True:
+                client = get_kotoba_client()
+                _res = client.q(count_sql)
+                count_row = (_res[0] if _res else None)
                 total_scanned += int((count_row or [0])[0])
 
-                cur.execute(detection_sql)
-                anomaly_rows = cur.fetchall() or []
+                _res = client.q(detection_sql)
+                anomaly_rows = _res or []
 
             for a in anomaly_rows:
                 (src, cp, period, ind_code, currency, svc_class,
@@ -307,8 +308,10 @@ def task_resource_flow_detect_anomaly(
                 vid       = _anomaly_vid(run_id, fc, str(src or ""), str(cp or ""), str(period or ""))
                 anomaly_id = f"{src}:{cp}:{period}"
 
-                with sync_cursor() as cur:
-                    cur.execute(
+                if True:
+
+                    client = get_kotoba_client()
+                    _res = client.q(
                         "INSERT INTO vertex_resource_flow_anomaly "
                         "(vertex_id, anomaly_id, flow_class, source_did, counterparty_did, "
                         "fiscal_period, industry_code, currency, service_class, "
@@ -409,9 +412,11 @@ def task_resource_flow_project_flow(
         "counterparty_root_did_hash": _facade_hash(cp_root or "") if cp_root else None,
     }
 
-    with sync_cursor() as cur:
-        cur.execute(f"SELECT vertex_id FROM {table} WHERE vertex_id = %s LIMIT 1", (vid,))
-        if cur.fetchone():
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(f"SELECT vertex_id FROM {table} WHERE vertex_id = %s LIMIT 1", (vid,))
+        if (_res[0] if _res else None):
             return {"flowClass": flow_class, "vertexId": vid, "status": "duplicate"}
 
         if flow_class == "currency":
@@ -439,7 +444,7 @@ def task_resource_flow_project_flow(
             }
 
         cols = list(row.keys())
-        cur.execute(
+        _res = client.q(
             f"INSERT INTO {table} ({', '.join(cols)}) VALUES ({', '.join(['%s'] * len(cols))})",
             tuple(row[c] for c in cols),
         )
@@ -482,9 +487,11 @@ def task_resource_flow_get_sankey(
         sql += " WHERE " + " AND ".join(clauses)
     sql += f" LIMIT {limit_n}"
 
-    with sync_cursor() as cur:
-        cur.execute(sql, tuple(params))
-        rows = _rows_as_dicts(cur, cur.fetchall())
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(sql, tuple(params))
+        rows = _rows_as_dicts(cur, _res)
 
     nodes = sorted({
         str(v)
@@ -509,9 +516,10 @@ def task_resource_flow_get_actor_labels(dids: Any = None, **kwargs: Any) -> dict
         "SELECT * FROM view_resource_flow_actor_label "
         f"WHERE did IN ({', '.join(['%s'] * len(values))})"
     )
-    with sync_cursor() as cur:
-        cur.execute(sql, tuple(values))
-        rows = _rows_as_dicts(cur, cur.fetchall())
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql, tuple(values))
+        rows = _rows_as_dicts(cur, _res)
 
     by_did: dict[str, dict[str, Any]] = {}
     for row in rows:
@@ -569,9 +577,10 @@ def task_resource_flow_list_flows(
     if clauses:
         sql += " WHERE " + " AND ".join(clauses)
     sql += f" LIMIT {limit_n} OFFSET {offset_n}"
-    with sync_cursor() as cur:
-        cur.execute(sql, tuple(params))
-        rows = _rows_as_dicts(cur, cur.fetchall())
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql, tuple(params))
+        rows = _rows_as_dicts(cur, _res)
     return {"flowClass": flow_class, "flows": rows, "total": len(rows), "offset": offset_n, "limit": limit_n}
 
 
@@ -631,9 +640,10 @@ def task_resource_flow_list_anomalies(
     if clauses:
         sql += " WHERE " + " AND ".join(clauses)
     sql += f" ORDER BY a.observed_at DESC LIMIT {limit_n} OFFSET {offset_n}"
-    with sync_cursor() as cur:
-        cur.execute(sql, tuple(params))
-        rows = _rows_as_dicts(cur, cur.fetchall())
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql, tuple(params))
+        rows = _rows_as_dicts(cur, _res)
     return {"anomalies": rows, "total": len(rows), "offset": offset_n, "limit": limit_n, "reviewed": reviewed_v}
 
 
@@ -653,9 +663,11 @@ def task_resource_flow_review_anomaly(
     if action not in _ANOMALY_ACTIONS:
         return {"error": "InvalidAction", "message": "action must be one of acknowledge/dismiss/escalate"}
 
-    with sync_cursor() as cur:
-        cur.execute(f"SELECT vertex_id FROM {_ANOMALY_TABLE} WHERE vertex_id = %s LIMIT 1", (anomalyId,))
-        if not cur.fetchone():
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(f"SELECT vertex_id FROM {_ANOMALY_TABLE} WHERE vertex_id = %s LIMIT 1", (anomalyId,))
+        if not (_res[0] if _res else None):
             return {"error": "AnomalyNotFound", "message": anomalyId}
 
         review_id = _review_id()
@@ -663,7 +675,7 @@ def task_resource_flow_review_anomaly(
         now = _now_iso()
         owner = primaryDid or _PRIMARY_DID
         caller = reviewerDid or owner
-        cur.execute(
+        _res = client.q(
             f"INSERT INTO {_ANOMALY_REVIEW_TABLE} "
             "(vertex_id, sensitivity_ord, owner_did, review_id, anomaly_id, action, "
             "reason, reviewer_did, reviewer_facade, thread_post_uri, observed_at, "

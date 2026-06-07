@@ -26,6 +26,7 @@ Conventions enforced:
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import datetime as _dt
 import json
@@ -34,7 +35,6 @@ import os
 import time
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor  # noqa: F401  (re-exported for mock patching)
 
 # ──────────────────────────────────────────────────────────────────────
 # Constants
@@ -172,10 +172,12 @@ def task_aismarine_position_batch_insert(
     if not valid_rows:
         return {"ok": True, "rows_inserted": 0, "rows_dropped": dropped}
 
-    with sync_cursor() as cur:
+    if True:
+
+        client = get_kotoba_client()
         # ADR-0048 incident_2026_04_25: throttle bulk INSERT
-        cur.execute(f"SET dml_rate_limit = {int(_BULK_DML_RATE_LIMIT)}")
-        cur.executemany(
+        _res = client.q(f"SET dml_rate_limit = {int(_BULK_DML_RATE_LIMIT)}")
+        _res = client.q(
             """
             INSERT INTO vertex_vessel_position
               (vertex_id, created_date, mmsi, ts_ms, lat, lon,
@@ -185,7 +187,7 @@ def task_aismarine_position_batch_insert(
             valid_rows,
         )
         if flush:
-            cur.execute("FLUSH")
+            _res = client.q("FLUSH")
 
     return {"ok": True, "rows_inserted": len(valid_rows), "rows_dropped": dropped}
 
@@ -214,8 +216,10 @@ def task_aismarine_master_upsert(
     today = _today_iso_date()
     upserted = 0
 
-    with sync_cursor() as cur:
-        cur.execute(f"SET dml_rate_limit = {int(_BULK_DML_RATE_LIMIT)}")
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(f"SET dml_rate_limit = {int(_BULK_DML_RATE_LIMIT)}")
         for r in rows:
             if not isinstance(r, dict):
                 continue
@@ -225,7 +229,7 @@ def task_aismarine_master_upsert(
             ts_ms = _coerce_int(r.get("ts_ms")) or _now_ms()
             vid = _vessel_vid(mmsi)
 
-            cur.execute(
+            _res = client.q(
                 """
                 SELECT imo, callsign, name, type_code, length_m, width_m,
                        draught_m, first_seen_ms
@@ -235,7 +239,7 @@ def task_aismarine_master_upsert(
                 """,
                 (vid,),
             )
-            existing = cur.fetchone()
+            existing = (_res[0] if _res else None)
 
             imo = _coerce_int(r.get("imo"))
             callsign = r.get("callsign")
@@ -258,7 +262,7 @@ def task_aismarine_master_upsert(
                 first_seen_ms = ts_ms
 
             mid = mmsi // 1_000_000 if 200_000_000 <= mmsi <= 799_999_999 else None
-            cur.execute(
+            _res = client.q(
                 """
                 INSERT INTO vertex_vessel
                   (vertex_id, created_date, mmsi, imo, callsign, name,
@@ -280,7 +284,7 @@ def task_aismarine_master_upsert(
             upserted += 1
 
         if flush:
-            cur.execute("FLUSH")
+            _res = client.q("FLUSH")
 
     return {"ok": True, "rows_upserted": upserted}
 
@@ -317,8 +321,10 @@ def task_aismarine_voyage_detect_window(
     arrivals = 0
     opened = 0
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             f"""
             SELECT mmsi, ts_ms, lat, lon, nav_status, sog_knot
             FROM vertex_vessel_position
@@ -328,21 +334,21 @@ def task_aismarine_voyage_detect_window(
             """,
             (cutoff_ms,),
         )
-        positions = cur.fetchall()
+        positions = _res
 
         if not positions:
             return {"ok": True, "scanned": 0, "arrivals_recorded": 0, "voyages_opened": 0}
 
         # Pull active ports once. Port count globally ~17K (vertex_open_ports_port);
         # the in-memory radius scan is faster than per-position SQL JOIN here.
-        cur.execute(
+        _res = client.q(
             """
             SELECT vertex_id, un_locode, latitude, longitude
             FROM vertex_open_ports_port
             WHERE latitude IS NOT NULL AND longitude IS NOT NULL
             """
         )
-        ports = cur.fetchall()
+        ports = _res
 
     if not ports:
         return {"ok": True, "scanned": len(positions), "arrivals_recorded": 0, "voyages_opened": 0}
@@ -359,7 +365,9 @@ def task_aismarine_voyage_detect_window(
                 best = (p_vid, p_locode, d)
         return best
 
-    with sync_cursor() as cur:
+    if True:
+
+        client = get_kotoba_client()
         for row in positions:
             mmsi, ts_ms, lat, lon, nav_status, sog_knot = row
             mmsi = int(mmsi)
@@ -374,7 +382,7 @@ def task_aismarine_voyage_detect_window(
             port_vid, locode, _dist = near
 
             # Find open voyage (departure_ms set, arrival_ms NULL, latest).
-            cur.execute(
+            _res = client.q(
                 """
                 SELECT vertex_id, departure_ms
                 FROM vertex_vessel_voyage
@@ -384,11 +392,11 @@ def task_aismarine_voyage_detect_window(
                 """,
                 (mmsi,),
             )
-            open_voy = cur.fetchone()
+            open_voy = (_res[0] if _res else None)
 
             if open_voy is not None and open_voy[1] is not None:
                 voy_vid = open_voy[0]
-                cur.execute(
+                _res = client.q(
                     """
                     UPDATE vertex_vessel_voyage
                     SET arrival_ms = %s, arrival_port_locode = %s
@@ -402,7 +410,7 @@ def task_aismarine_voyage_detect_window(
                 # (departure unknown). Convention: departure_ms = ts_ms,
                 # arrival_ms = ts_ms — represents a single port-call ping.
                 voy_vid = _voyage_vid(mmsi, ts_ms)
-                cur.execute(
+                _res = client.q(
                     """
                     INSERT INTO vertex_vessel_voyage
                       (vertex_id, created_date, mmsi,
@@ -414,7 +422,7 @@ def task_aismarine_voyage_detect_window(
                 )
                 opened += 1
 
-            cur.execute(
+            _res = client.q(
                 """
                 INSERT INTO edge_vessel_visited_port
                   (edge_id, created_date, src_vid, dst_vid,
@@ -454,8 +462,10 @@ def task_aismarine_master_refresh(limit: int = 5000) -> dict[str, Any]:
     if limit > 50000:
         limit = 50000
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             f"""
             SELECT vertex_id, mmsi, type_code
             FROM vertex_vessel
@@ -463,14 +473,14 @@ def task_aismarine_master_refresh(limit: int = 5000) -> dict[str, Any]:
             LIMIT {int(limit)}
             """
         )
-        rows = cur.fetchall()
+        rows = _res
 
         if not rows:
             return {"ok": True, "rows_scanned": 0, "rows_updated": 0}
 
-        cur.execute(f"SET dml_rate_limit = {int(_BULK_DML_RATE_LIMIT)}")
+        _res = client.q(f"SET dml_rate_limit = {int(_BULK_DML_RATE_LIMIT)}")
         for vid, mmsi, type_code in rows:
-            cur.execute(
+            _res = client.q(
                 """
                 UPDATE vertex_vessel
                 SET flag_iso = vessel_flag_iso(%s),
@@ -494,11 +504,12 @@ def task_aismarine_density_verify() -> dict[str, Any]:
     """Sanity-check mv_vessel_density_h3_r6. The MV is autonomous (streaming),
     so this is observability only — counts rows + reports the latest bucket.
     """
-    with sync_cursor() as cur:
-        cur.execute("SELECT COUNT(*) FROM mv_vessel_density_h3_r6")
-        row_count = cur.fetchone()
-        cur.execute("SELECT MAX(bucket_ms) FROM mv_vessel_density_h3_r6")
-        max_bucket = cur.fetchone()
+    if True:
+        client = get_kotoba_client()
+        _res = client.q("SELECT COUNT(*) FROM mv_vessel_density_h3_r6")
+        row_count = (_res[0] if _res else None)
+        _res = client.q("SELECT MAX(bucket_ms) FROM mv_vessel_density_h3_r6")
+        max_bucket = (_res[0] if _res else None)
     return {
         "ok": True,
         "row_count": int(row_count[0]) if row_count and row_count[0] is not None else 0,
@@ -562,9 +573,11 @@ def task_aismarine_query_bbox(
     sql_parts.append(f"LIMIT {int(limit) + 1}")
     sql = "\n".join(sql_parts)
 
-    with sync_cursor() as cur:
-        cur.execute(sql, tuple(params))
-        rows = cur.fetchall()
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(sql, tuple(params))
+        rows = _res
 
     truncated = len(rows) > limit
     if truncated:

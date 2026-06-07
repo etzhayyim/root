@@ -10,6 +10,7 @@ Run:
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import os
 import sys
@@ -20,7 +21,6 @@ from fastapi import FastAPI, Request, Response
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 
-from pymagatama.db_sync import sync_cursor as _sync_cursor
 
 try:
     from prometheus_client import CONTENT_TYPE_LATEST, Gauge, generate_latest
@@ -175,17 +175,18 @@ def _row_dict(columns: tuple[str, ...], row: Any) -> dict[str, Any]:
 
 
 def _maps_count_label(label: str) -> int:
-    with _sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         try:
-            cur.execute(
+            _res = client.q(
                 "SELECT cnt FROM mv_vertex_spatial_count WHERE label = %s LIMIT 1",
                 (label,),
             )
-            row = cur.fetchone()
+            row = (_res[0] if _res else None)
             return int(row[0] if row else 0)
         except Exception:  # noqa: BLE001
-            cur.execute("SELECT COUNT(*) FROM vertex_spatial WHERE label = %s", (label,))
-            row = cur.fetchone()
+            _res = client.q("SELECT COUNT(*) FROM vertex_spatial WHERE label = %s", (label,))
+            row = (_res[0] if _res else None)
             return int(row[0] if row else 0)
 
 
@@ -215,9 +216,10 @@ def _maps_recent_spatial_events(limit: int = 8) -> list[dict[str, Any]]:
         "source",
         "created_at",
     )
-    with _sync_cursor() as cur:
-        cur.execute(sql)
-        return [_row_dict(cols, row) for row in (cur.fetchall() or [])]
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql)
+        return [_row_dict(cols, row) for row in (_res or [])]
 
 
 def _maps_market_signal_summary(limit: int = 5) -> dict[str, Any]:
@@ -233,17 +235,18 @@ def _maps_market_signal_summary(limit: int = 5) -> dict[str, Any]:
     GROUP BY lane
     """
     cols = ("vertex_id", "lane", "signal_kind", "magnitude", "observed_at", "created_at", "actor_id")
-    with _sync_cursor() as cur:
-        cur.execute("SELECT COUNT(*) FROM vertex_market_demand_signal")
-        total_row = cur.fetchone()
+    if True:
+        client = get_kotoba_client()
+        _res = client.q("SELECT COUNT(*) FROM vertex_market_demand_signal")
+        total_row = (_res[0] if _res else None)
         total = int(total_row[0] if total_row else 0)
-        cur.execute(summary_sql)
+        _res = client.q(summary_sql)
         lanes = [
             {"lane": str(row[0] or ""), "count": int(row[1] or 0), "magnitude": float(row[2] or 0)}
-            for row in (cur.fetchall() or [])
+            for row in (_res or [])
         ]
-        cur.execute(rows_sql)
-        signals = [_row_dict(cols, row) for row in (cur.fetchall() or [])]
+        _res = client.q(rows_sql)
+        signals = [_row_dict(cols, row) for row in (_res or [])]
     return {"count": total, "lanes": lanes, "signals": signals}
 
 
@@ -292,9 +295,10 @@ def _maps_list_live_aircraft(payload: dict[str, Any]) -> dict[str, Any]:
         "source",
         "tsMs",
     )
-    with _sync_cursor() as cur:
-        cur.execute(sql, tuple(params))
-        aircraft = [_row_dict(cols, row) for row in (cur.fetchall() or [])]
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql, tuple(params))
+        aircraft = [_row_dict(cols, row) for row in (_res or [])]
     return {"aircraft": aircraft, "count": len(aircraft), "asOfMs": int(time.time() * 1000), "source": "pod-langserver"}
 
 
@@ -325,9 +329,10 @@ def _maps_list_live_satellites(payload: dict[str, Any]) -> dict[str, Any]:
         "visibleAtNight",
         "magnitude",
     )
-    with _sync_cursor() as cur:
-        cur.execute(sql, tuple(params))
-        satellites = [_row_dict(cols, row) for row in (cur.fetchall() or [])]
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql, tuple(params))
+        satellites = [_row_dict(cols, row) for row in (_res or [])]
     return {"satellites": satellites, "count": len(satellites), "asOfMs": now_ms, "source": "pod-langserver"}
 
 

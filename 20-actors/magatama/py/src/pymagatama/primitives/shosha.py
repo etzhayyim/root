@@ -34,6 +34,7 @@ Content-addressed PKs (ADR-0041) — re-runs idempotent.
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import csv
 import hashlib
@@ -49,7 +50,6 @@ from typing import Any
 from xml.etree import ElementTree as ET
 
 from pymagatama import llm
-from pymagatama.db_sync import sync_cursor
 
 # ──────────────────────────────────────────────────────────────────────
 # Constants
@@ -147,8 +147,9 @@ def _http_get_json(url: str, *, timeout: float = 10.0) -> dict[str, Any]:
 
 
 def _rw_execute(sql: str, params: tuple[Any, ...]) -> None:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql, params)
 
 
 def _rw_executemany(sql: str, rows: list[tuple[Any, ...]]) -> None:
@@ -159,15 +160,17 @@ def _rw_executemany(sql: str, rows: list[tuple[Any, ...]]) -> None:
     if not rows:
         return
     chunk = 500
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for i in range(0, len(rows), chunk):
-            cur.executemany(sql, rows[i:i + chunk])
+            _res = client.q(sql, rows[i:i + chunk])
 
 
 def _rw_query(sql: str, params: tuple[Any, ...] = ()) -> list[tuple[Any, ...]]:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return list(cur.fetchall())
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql, params)
+        return list(_res)
 
 
 # ──────────────────────────────────────────────────────────────────────
