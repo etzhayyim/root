@@ -1,38 +1,37 @@
 from typing import TypedDict, List
 import datetime
-from src.domain.entities import BillingDocument, BillingDocumentLine, SalesOrder
+from src.domain.entities import VBRK, VBRP, VBAK
 from src.adapters.repository import SDRepository
 
 class GenerateBillingState(TypedDict):
     input_data: dict
-    billing_doc: BillingDocument | None
-    so: SalesOrder | None
+    vbrk: VBRK | None
+    vbak: VBAK | None
     errors: List[str]
     status: str
 
 def parse_billing_request(state: GenerateBillingState) -> dict:
     data = state["input_data"]
-    order_id = data.get("order_id", "")
+    order_id = data.get("order_id", "") # References VBAK vbeln
     
-    # We will construct the lines from the sales order later
-    # Just initialize the document stub
-    billing_doc = BillingDocument(
-        billing_id=data.get("billing_id", "INV-TEMP"),
-        order_id=order_id,
-        customer_id="", # to be filled from SO
-        date=datetime.datetime.now(),
-        lines=[],
-        total_amount=0.0
+    vbrk = VBRK(
+        vbeln=data.get("billing_id", "INV-TEMP"),
+        fkart="F2", # Invoice
+        kunnr="", # To be filled from VBAK
+        fkdat=datetime.datetime.now(),
+        netwr=0.0,
+        items=[]
     )
-    return {"billing_doc": billing_doc}
+    return {"vbrk": vbrk}
 
 def fetch_sales_order(state: GenerateBillingState) -> dict:
     repo = SDRepository()
-    so = repo.get_sales_order(state["billing_doc"].order_id)
+    # input_data.order_id is passed as the parameter
+    vbak = repo.get_sales_order(state["input_data"].get("order_id", ""))
     errors = state.get("errors", [])
-    if not so:
-        errors.append("Sales Order not found.")
-    return {"so": so, "errors": errors}
+    if not vbak:
+        errors.append("Sales Order (VBAK) not found.")
+    return {"vbak": vbak, "errors": errors}
 
 def check_so_exists(state: GenerateBillingState) -> str:
     if len(state.get("errors", [])) > 0:
@@ -40,34 +39,37 @@ def check_so_exists(state: GenerateBillingState) -> str:
     return "generate_lines"
 
 def generate_lines(state: GenerateBillingState) -> dict:
-    billing_doc: BillingDocument = state["billing_doc"]
-    so: SalesOrder = state["so"]
+    vbrk: VBRK = state["vbrk"]
+    vbak: VBAK = state["vbak"]
     
-    billing_doc.customer_id = so.customer_id
+    vbrk.kunnr = vbak.kunnr
     
     lines = []
     total = 0.0
-    for so_line in so.lines:
-        line_total = so_line.quantity * so_line.unit_price
-        lines.append(BillingDocumentLine(
-            material_id=so_line.material_id,
-            quantity=so_line.quantity,
-            unit_price=so_line.unit_price,
-            line_total=line_total
+    for idx, vbap in enumerate(vbak.items):
+        line_total = vbap.kwmeng * vbap.netpr
+        lines.append(VBRP(
+            vbeln=vbrk.vbeln,
+            posnr=str((idx + 1) * 10), # standard SAP step 10, 20...
+            aubel=vbak.vbeln,
+            aupos=vbap.posnr,
+            matnr=vbap.matnr,
+            fkimg=vbap.kwmeng,
+            netwr=line_total
         ))
         total += line_total
         
-    billing_doc.lines = lines
-    billing_doc.total_amount = total
+    vbrk.items = lines
+    vbrk.netwr = total
     
-    return {"billing_doc": billing_doc}
+    return {"vbrk": vbrk}
 
 def validate_billing(state: GenerateBillingState) -> dict:
-    billing_doc: BillingDocument = state["billing_doc"]
+    vbrk: VBRK = state["vbrk"]
     errors = state.get("errors", [])
     
-    if not billing_doc.validate_totals():
-        errors.append("Billing Document totals do not match line items.")
+    if not vbrk.validate_totals():
+        errors.append("Billing Document (VBRK) totals do not match line items.")
         
     return {"errors": errors}
 
@@ -77,15 +79,15 @@ def check_validation(state: GenerateBillingState) -> str:
     return "post"
 
 def post_billing(state: GenerateBillingState) -> dict:
-    billing_doc: BillingDocument = state["billing_doc"]
-    billing_doc.status = "POSTED"
+    vbrk: VBRK = state["vbrk"]
+    vbrk.status = "POSTED"
     
     repo = SDRepository()
-    repo.save_billing_document(billing_doc)
+    repo.save_billing_document(vbrk)
     
-    return {"billing_doc": billing_doc, "status": "POSTED"}
+    return {"vbrk": vbrk, "status": "POSTED"}
 
 def reject_billing(state: GenerateBillingState) -> dict:
-    billing_doc: BillingDocument = state["billing_doc"]
-    billing_doc.status = "REJECTED"
-    return {"billing_doc": billing_doc, "status": "REJECTED"}
+    vbrk: VBRK = state["vbrk"]
+    vbrk.status = "REJECTED"
+    return {"vbrk": vbrk, "status": "REJECTED"}
