@@ -91,8 +91,18 @@ removed). At that point every read path is `kotoba-kqe` and the boundary is enfo
 *entire* tree, not just new diffs.
 
 **Scope of THIS ADR:** raise the wave, snapshot the inventory, define the frozen-allowlist
-guard + phasing + recipe + exit criterion. The allowlist lint change and the per-module
-migrations land as their own scoped PRs against this ADR.
+guard + phasing + recipe + exit criterion. The per-module migrations land as their own scoped
+PRs against this ADR.
+
+**Implemented in this wave** (the guard, not the migrations):
+- `70-tools/scripts/lint/substrate-remediation-audit.mjs` — full-tree ratchet; `--write` seeds
+  the allowlist, `--audit` FAILS on any storage violation absent from it and WARNs on graduated
+  entries. Wired as a `pre-push` lefthook command.
+- `70-tools/scripts/lint/substrate-frozen-allowlist.json` — the frozen snapshot (124 files at
+  seed; shrink-only).
+- `substrate-boundary.mjs` (pre-commit) extended to **grandfather** frozen-legacy storage
+  violations to a warning (so unrelated edits to a legacy file are not blocked) while still
+  hard-blocking storage imports in any non-frozen file.
 
 # Consequences
 
