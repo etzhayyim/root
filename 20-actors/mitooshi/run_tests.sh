@@ -10,6 +10,8 @@ SUITES=(
   "methods/test_analyze.py"
   "methods/test_ingest.py"
   "methods/test_bridge.py"
+  "methods/test_bridge_kakaku.py"
+  "methods/test_kakaku_forecast_e2e.py"
   "methods/test_persist.py"
   "methods/test_forecast.py"
   "methods/test_backtest.py"
