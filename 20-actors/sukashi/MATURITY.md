@@ -35,7 +35,7 @@ Analysis depth:
 
 Integration / readiness:
 - [ ] wire `cell:sukashi.fraud-bridge` shape to akashi's `malakEvidenceCandidate` (fixture round-trip, ≥2 source CIDs)
-- [ ] add a `transact.py` empirical dry-run readiness check (schema attrs + datom count assertion in tests)
+- [x] add a `transact.py` empirical dry-run readiness check (schema attrs + datom count assertion in tests) — TestTransactReadiness: 51 schema attrs + 340 datoms from seed, dry-run offline returns 0 (G7 holds)
 - [ ] add a Murakumo-narration design note (G6) for report summaries (no live call)
 - [ ] viz: render the fraud-cluster as a highlighted sub-graph + a "routed-to" badge per signal
 

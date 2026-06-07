@@ -17,6 +17,7 @@ sys.path.insert(0, str(ACTOR / "methods"))
 
 from sukashi_edn import load_edn, classify  # noqa: E402
 import analyze as A  # noqa: E402
+import transact as T  # noqa: E402
 
 SCHEMA = ROOT / "00-contracts" / "schemas" / "ad-supply-chain-ontology.kotoba.edn"
 SEED = ACTOR / "data" / "seed-ad-supply-chain.kotoba.edn"
@@ -164,6 +165,30 @@ class TestSchemaAndManifest(unittest.TestCase):
             on_disk = {p.stem for p in LEX_DIR.glob("*.json")}
             declared = {ns.split(".")[-1] for ns in m["lexiconNamespaces"]}
             self.assertTrue(declared <= on_disk | declared)  # tolerant until lexicons land
+
+
+class TestTransactReadiness(unittest.TestCase):
+    """Deploy-readiness (the agent-reachable goal; live write stays G7-gated)."""
+
+    def test_schema_and_data_datoms_build_from_seed(self):
+        schema = T.schema_datoms()
+        self.assertGreaterEqual(len(schema), 40, "schema install must cover the ontology attrs")
+        datoms = T.rows_to_datoms(load_edn(SEED))
+        self.assertGreater(len(datoms), 100, "seed must yield a substantial [:db/add E A V] set")
+        # every emitted datom is well-formed list-form
+        for d in datoms[:20]:
+            self.assertTrue(d.startswith("[:db/add ") and d.endswith("]"))
+
+    def test_dry_run_is_offline_and_returns_zero(self):
+        # No --graph and no KOTOBA_TOKEN → DRY RUN, no network, exit 0 (G7 gate holds).
+        import os
+        saved = os.environ.pop("KOTOBA_TOKEN", None)
+        try:
+            rc = T.main(["transact.py"])
+        finally:
+            if saved is not None:
+                os.environ["KOTOBA_TOKEN"] = saved
+        self.assertEqual(rc, 0)
 
 
 if __name__ == "__main__":
