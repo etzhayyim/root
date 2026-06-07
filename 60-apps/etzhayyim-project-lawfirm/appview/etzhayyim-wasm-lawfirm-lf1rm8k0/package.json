@@ -8,6 +8,10 @@
     "dev": "pnpm --dir svelte dev",
     "build": "pnpm --dir svelte build",
     "preview": "pnpm --dir svelte preview",
-    "check": "pnpm --dir svelte check"
+    "check": "pnpm --dir svelte check",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "vitest": "^4.1.8"
   }
 }

@@ -29,7 +29,8 @@
     "typescript": "^5.9.3",
     "vite": "^6.4.2",
     "@sveltejs/adapter-cloudflare": "^7.2.8",
-    "@sveltejs/kit": "^2.57.1"
+    "@sveltejs/kit": "^2.57.1",
+    "vitest": "^4.1.0"
   },
   "dependencies": {
     "@bufbuild/protobuf": "^2.11.0",
