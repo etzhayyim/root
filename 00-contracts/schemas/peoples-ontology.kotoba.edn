@@ -1,0 +1,68 @@
+;; peoples-ontology — the world-peoples-continuity (民の存続) vocabulary for tsugite 継ぎ手
+;; ADR-2606073800 · sibling of biosphere-ontology (ADR-2606073000), asobi-ontology
+;; (ADR-2606073200), finrisk-ontology (ADR-2606073400) and orbit-ontology (ADR-2606073600),
+;; specialised to HUMAN COLLECTIVES under DISPLACEMENT + ERASURE pressure — migration /
+;; refugees / statelessness AND endangered-language / intangible-culture.
+;;
+;; PURPOSE: weave human COLLECTIVES (diasporas / displaced or stateless populations /
+;; indigenous peoples / language communities), the LANGUAGES they carry, the PRESSURES they
+;; bear, and the HAVENS that protect them into the kotoba Datom log. The lens is
+;; DISPLACEMENT + ERASURE pressure on peoples vs PROTECTION, routed to CONTINUITY (継承) —
+;; safe passage + protection + revitalization.
+;;
+;; CONSTITUTIONAL INVERSION (G1, read first): tsugite is a PEOPLES-CONTINUITY map at AGGREGATE /
+;; collective scale, NEVER a person-tracking / individual-locator / border-enforcement /
+;; deportation / surveillance aid. There are NO individual records, NO real-time location, NO
+;; biometric. The bearer is ALWAYS a collective. It inverts the surveillance/border-control
+;; apparatus: it routes to refuge + revitalization, never to interdiction. Any member-linked
+;; datum is consent-bound + PII-enveloped (himotoki/tsumugi discipline, ADR-2605181100).
+;;
+;; EDGE-PRIMARY (N1): pressure lives ONLY on edges (:en/peril-load). A bearer's
+;; continuity-need = the INTEGRAL of its incident inbound pressure 縁, computed on READ —
+;; never a stored per-collective score. There is no :tsugite/score-of-people.
+
+{:schema/id "peoples-ontology"
+ :schema/version "0.1.0"
+ :schema/adr "2606073800"
+
+ ;; ── nodes ──────────────────────────────────────────────────────────────────
+ :node/attrs
+ [{:attr :organism/id        :doc "stable id, e.g. ppl.people.rohingya / ppl.lang.ainu — COLLECTIVE only"}
+  {:attr :organism/kind       :doc ":people | :language | :pressure | :haven"}
+  {:attr :organism/label      :doc "common/display label"}
+  {:attr :organism/sourcing   :doc ":authoritative (UNHCR/IOM/UNESCO/Ethnologue aggregate) | :representative (bounded seed)"}
+
+  ;; people facet (a COLLECTIVE — population/community/people, never an individual)
+  {:attr :people/kind         :doc ":refugee-population | :stateless | :displaced | :indigenous | :diaspora | :language-community"}
+  {:attr :people/scope        :doc ":aggregate const — aggregate-only marker (G1); per-person scope is unrepresentable"}
+
+  ;; language facet (a tongue and its DISCLOSED vitality)
+  {:attr :lang/family         :doc "language family, e.g. \"Japonic\" \"Polynesian\""}
+  {:attr :lang/vitality       :doc "UNESCO/EGIDS category — :safe :vulnerable :definitely-endangered :severely-endangered :critically-endangered :extinct (DISCLOSED, not adjudicated)"}
+  {:attr :lang/revitalizing?  :doc "true if a recognised revitalization movement exists"}
+
+  ;; pressure facet (the 取-holder; channel of displacement or erasure)
+  {:attr :pressure/kind       :doc ":armed-conflict | :persecution | :statelessness | :disaster-climate | :economic | :assimilation-policy | :language-shift | :education-exclusion"}
+
+  ;; haven facet (the buffer that protects continuity)
+  {:attr :haven/kind          :doc ":asylum-system | :resettlement | :statelessness-reduction | :mother-tongue-education | :revitalization-program | :cultural-archive"}]
+
+ ;; ── edges (縁) ───────────────────────────────────────────────────────────────
+ :edge/attrs
+ [{:attr :en/from            :doc "source organism id"}
+  {:attr :en/to              :doc "target organism id"}
+  {:attr :en/kind            :doc ":displaces | :erases | :speaks | :shelters | :revitalizes | :protects"}
+  {:attr :en/peril-load      :doc "0..1 — for PRESSURE 縁 (:displaces/:erases): severity borne by the collective/tongue; for :speaks: community transmission/coupling; for HAVEN 縁 (:shelters/:revitalizes/:protects): continuity afforded. karma lives HERE (N1)."}
+  {:attr :en/sourcing        :doc ":authoritative | :representative"}]
+
+ ;; ── derived (transient, computed on READ — NEVER stored; N1/G2) ──────────────
+ :derived/attrs
+ [{:attr :bond/continuity-need        :doc "bearer integral of incident inbound pressure 縁 × disclosed vitality weight — the continuity surface"}
+  {:attr :bond/protection-buffer      :doc "node integral of incident :shelters/:revitalizes/:protects loads — protective capacity"}
+  {:attr :bond/transmission-fragility :doc "node integral of incident :speaks loads — people↔tongue coupling at risk"}
+  {:attr :bond/is-transient           :doc "const true — derived readout, not a stored datom"}]
+
+ ;; ── disclosed language-vitality → representative weight (NOT a verdict) ──
+ :vitality/weight
+ {:extinct 1.0 :critically-endangered 0.9 :severely-endangered 0.8
+  :definitely-endangered 0.6 :vulnerable 0.4 :safe 0.1}}

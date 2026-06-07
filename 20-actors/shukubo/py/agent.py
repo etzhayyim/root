@@ -135,17 +135,41 @@ def authorize_settlement(settlement: dict, signature: dict) -> dict:
 # --------------------------------------------------------------------------- #
 # book — Ring-routed reservation (G1 consent, G2 boundary)
 # --------------------------------------------------------------------------- #
+def dates_overlap(in1: str, out1: str, in2: str, out2: str) -> bool:
+    """Half-open date-interval overlap [checkIn, checkOut). Adjacent stays (one's checkout ==
+    the next's checkin) do NOT overlap. ISO date strings compare lexically."""
+    return in1 < out2 and in2 < out1
+
+
+def stay_available(stay_id: str, check_in: str, check_out: str, confirmed_bookings: list) -> bool:
+    """True iff no CONFIRMED booking for this stay overlaps the requested dates (no-double-book).
+    The lodging analogue of yotei's slot guard (G2 hospitality / G13 honest availability)."""
+    for b in confirmed_bookings:
+        if b.get("stayId") != stay_id:
+            continue
+        if b.get("state") not in ("confirmed", "settle-intent"):
+            continue
+        if dates_overlap(check_in, check_out, b.get("checkIn", ""), b.get("checkOut", "")):
+            return False
+    return True
+
+
 def book(stay: Stay, guest_did: str, check_in: str, check_out: str, consent_ref: str,
-         sbt_registry: dict) -> dict:
+         sbt_registry: dict, confirmed_bookings: list | None = None) -> dict:
     """Route a reservation by ring:
       Ring 0 (commons)  — covenantal/cost-share; no platform settlement.
       Ring 1 (internal) — SBT↔SBT; member-signed settlement intent (G7/G8); zero commission (G2).
       Ring 2 (external) — self-book HANDOFF to the operator's own page; shukubo is never the
                           merchant-of-record and takes no inflow (G2); no tithe.
-    Requires consent (G1)."""
+    Requires consent (G1). For commons/internal stays (shukubo-held inventory), refuses a date
+    range that overlaps a confirmed booking (no-double-book); external-mirror stays are not
+    shukubo's inventory so availability is the operator's to assert."""
     if not consent_ref:
         return {"state": "refused", "reason": "missing DID-signed consent (G1)"}
     ring = stay.get("ring")
+    if ring in ("commons", "internal") and confirmed_bookings:
+        if not stay_available(stay["stayId"], check_in, check_out, confirmed_bookings):
+            return {"state": "refused", "reason": "stay already booked for those dates (no-double-book)"}
     common = {
         "bookingId": f"{stay['stayId']}.bk.{abs(hash(guest_did + check_in)) & 0xFFFF:04x}",
         "stayId": stay["stayId"],
@@ -171,3 +195,31 @@ def book(stay: Stay, guest_did: str, check_in: str, check_out: str, consent_ref:
                 "handoffUrl": stay.get("operatorUrl", ""), "settlement": "external-none",
                 "titheMinor": 0}
     return {**common, "state": "refused", "reason": f"unknown ring {ring!r}"}
+
+
+# --------------------------------------------------------------------------- #
+# host registration (G12 hospitality-dignity, G14 privacy)
+# --------------------------------------------------------------------------- #
+_REQUIRED_HABITABILITY = ("water", "heat", "egress")
+
+
+def register_host(host_did: str, stay: Stay) -> dict:
+    """Register a stay's host. Attests the SPACE's habitability (G12 — the space, never the
+    person) and enforces the privacy invariant (G14 — noSurveil). A stay that advertises
+    in-stay surveillance, or that lacks the minimum habitability attestation, is refused.
+    There is no host/guest score field to set (G12 — persons are never rated)."""
+    if stay.get("noSurveil") is not True:
+        return {"state": "refused", "reason": "in-stay surveillance not permitted as a feature (G14)"}
+    habit = (stay.get("habitability") or "").lower()
+    missing = [h for h in _REQUIRED_HABITABILITY if h not in habit]
+    if missing:
+        return {"state": "refused", "reason": f"habitability attestation missing {missing} (G12)"}
+    return {
+        "state": "registered",
+        "hostDid": host_did,
+        "stayId": stay["stayId"],
+        "ring": stay.get("ring"),
+        "habitability": stay.get("habitability"),
+        "noSurveil": True,
+        # NOTE: deliberately no host/guest score, rating, or rank field (G12)
+    }

@@ -60,5 +60,34 @@ class PooledRoute(unittest.TestCase):
         self.assertEqual(pr.sequence_stops([]), ([], 0.0))
 
 
+class PlanPooledTrip(unittest.TestCase):
+    def test_composes_route_and_cost_share(self):
+        out = pr.plan_pooled_trip((0.0, 0.0), [
+            {"id": 1, "x": 5.0, "y": 0.0}, {"id": 2, "x": 1.0, "y": 0.0}], 1_200_000)
+        self.assertEqual(out["order"][0], 0)               # routing (todoke core)
+        self.assertEqual(out["occupancy"], 2)
+        self.assertEqual(out["costSharePerRiderMinor"], 600_000)   # cost_share split (no surge)
+
+    def test_no_profit_invariant(self):
+        # odd cost: per-rider rounds down; total collected ≤ real fuel/wear (carrier absorbs rest)
+        out = pr.plan_pooled_trip((0.0, 0.0), [
+            {"id": 1, "x": 5.0, "y": 0.0}, {"id": 2, "x": 1.0, "y": 0.0},
+            {"id": 3, "x": 3.0, "y": 0.0}], 1_000_000)
+        self.assertLessEqual(out["totalCollectedMinor"], out["fuelWearMinor"])
+
+    def test_pooling_lowers_each_share(self):
+        two = pr.plan_pooled_trip((0.0, 0.0), [{"id": 1, "x": 1.0, "y": 0.0},
+                                               {"id": 2, "x": 2.0, "y": 0.0}], 1_200_000)
+        three = pr.plan_pooled_trip((0.0, 0.0), [{"id": 1, "x": 1.0, "y": 0.0},
+                                                 {"id": 2, "x": 2.0, "y": 0.0},
+                                                 {"id": 3, "x": 3.0, "y": 0.0}], 1_200_000)
+        self.assertLess(three["costSharePerRiderMinor"], two["costSharePerRiderMinor"])
+
+    def test_uses_real_agent_cost_share(self):
+        # composition, not duplication: pr.cost_share IS ainori agent's cost_share
+        import agent as ainori_agent  # noqa: PLC0415
+        self.assertIs(pr.cost_share, ainori_agent.cost_share)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

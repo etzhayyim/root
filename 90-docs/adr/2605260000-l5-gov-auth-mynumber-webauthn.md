@@ -223,7 +223,9 @@ All logic is deferred to R1 activation ADR (post-Council bootstrap).
 
 ## §7 R1 Activation (post-2026-06-19)
 
-Once Council Seats 2-5 are filled (expected by 2026-06-19, per COUNCIL-BOOTSTRAP-RFP.md), the following R1 ADR (ADR-2605260100) shall be proposed:
+> **R1 ADR re-homed (2026-06-07)**: the reserved id `ADR-2605260100` was used by an unrelated ADR (`2605260100-mitate-diagnostic-routing-charter`), so the R1 activation design lives at **ADR-2606072300** (L5 gov auth R1 — activation contract + shomei gov-class-factor integration). Implementation remains Council-gated as below.
+
+Once Council Seats 2-5 are filled (expected by 2026-06-19, per COUNCIL-BOOTSTRAP-RFP.md), the following R1 ADR (now ADR-2606072300) shall be proposed:
 
 **Requirements**:
 - Council Lv6+ ≥3 attestation (multisig on Base L2)
