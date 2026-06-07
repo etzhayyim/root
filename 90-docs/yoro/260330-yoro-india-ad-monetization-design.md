@@ -92,9 +92,9 @@ Consent state は `localStorage('yoro-cookie-consent')` で統一管理 (変更�
 #### Phase 1: Account Registration (Week 1)
 
 1. Create DID emails via mailer.etzhayyim.com
-   - `magatama.DIDCreate("adpushup", {displayName: "AdPushup", description: "Ad monetization provider"})`
-   - `magatama.DIDCreate("ezoic", {displayName: "Ezoic", description: "Ad optimization provider"})`
-   - `magatama.DIDCreate("medianet", {displayName: "Media.net", description: "Contextual ad provider"})`
+   - `kotodama.DIDCreate("adpushup", {displayName: "AdPushup", description: "Ad monetization provider"})`
+   - `kotodama.DIDCreate("ezoic", {displayName: "Ezoic", description: "Ad optimization provider"})`
+   - `kotodama.DIDCreate("medianet", {displayName: "Media.net", description: "Contextual ad provider"})`
 2. Register at each provider with `{name}@etzhayyim.com` email
 3. Submit yoro.etzhayyim.com for review
 4. Await approval (AdPushup: 2-5 days, Ezoic: 1-3 days, Media.net: 5-10 days)

@@ -28,7 +28,7 @@ Browser / API client
 - sk_live_* (HYPERDRIVE `vertex_api_key`, scope=`murakumo:inference`) — API consumers
 - MURAKUMO_API_KEY (break-glass, ADR-0023) — emergency
 - mkc_* HMAC ephemeral (MURAKUMO_CHAT_SECRET) — browser chat UI (1h TTL, anonymous)
-- x-magatama-verified (internal) — dispatcher-side trust
+- x-kotodama-verified (internal) — dispatcher-side trust
 
 **Legacy pruned (2026-04-20, [[migrations]] murakumo-cf-worker-litellm-rewire done)**:
 serve_plain.py / daemon.py / Nomad / Ray / mesh_tunnel / Linode GPU Ollama tier /
@@ -71,21 +71,21 @@ Design doc: `90-docs/260408-murakumo-fleet-redesign-shannon-comparison.md`
 ### WIT Architecture (案 E — interface 分離 + deployment 統合)
 
 ```
-magatama:compute/accelerator@1.0.0    ← compute substrate 抽象化
+kotodama:compute/accelerator@1.0.0    ← compute substrate 抽象化
   ├─ load-model, execute, unload-model, health, list-models
   └─ Providers: MLX (current), CUDA/RunPod (future)
 
-magatama:inference/text@1.0.0          ← 推論抽象化 (OpenAI-compatible)
+kotodama:inference/text@1.0.0          ← 推論抽象化 (OpenAI-compatible)
   ├─ chat-completions, embeddings
   └─ Consumes: compute/accelerator
 
-magatama:inference/image@1.0.0         ← 画像生成抽象化
+kotodama:inference/image@1.0.0         ← 画像生成抽象化
   └─ generations
 
-magatama:inference/fleet@1.0.0         ← fleet 管理
+kotodama:inference/fleet@1.0.0         ← fleet 管理
   └─ get-cluster-status, list-workers
 
-magatama:inference/audio@1.0.0         ← 音楽/音声生成抽象化 (ongakuka.etzhayyim.com 駆動)
+kotodama:inference/audio@1.0.0         ← 音楽/音声生成抽象化 (ongakuka.etzhayyim.com 駆動)
   ├─ text-to-music         (lyrics + style → audio tokens or wav)
   ├─ text-to-music-stems   (vocal/inst/drums/bass を分離 stem で出力)
   ├─ vocoder               (RVQ codes → waveform 44.1kHz)
@@ -184,11 +184,11 @@ GET  /api/audio/v1/models                  → audio model list
 | Stem 出力 | +20 credits/stem |
 | Vocoder only | 1 credit/sec |
 
-Reward / penalty は既存 `magatama:metering/{reward,penalty}` を再利用。`audio_pool` operator の reward base = 5 credits/req (compute weight 高)。
+Reward / penalty は既存 `kotodama:metering/{reward,penalty}` を再利用。`audio_pool` operator の reward base = 5 credits/req (compute weight 高)。
 
 **Status**: Spec only (2026-04-15)。実装は ongakuka MVP 着手と同期。Provider order: DiffRhythm (歌詞付き、最も Suno に近い OSS) → YuE (英語強い、CoT) → 自前 distill (Phase 2)。
 
-## Metering & Credits (magatama:metering)
+## Metering & Credits (kotodama:metering)
 
 **CF Worker = metering point。** per-request で usage tracking、cost 計算、reward/penalty を実行。
 
@@ -235,10 +235,10 @@ Request (x-org-id, x-user-id, x-api-key)
 
 | Interface | 役割 | 実装場所 |
 |---|---|---|
-| `magatama:metering/usage` | per-request usage 記録 + cost 計算 | CF Worker (`calculateCost`, `emitMeteringEvent`) |
-| `magatama:metering/quota` | pre-request quota gate | CF Worker (→ kakin.etzhayyim.com 連携予定) |
-| `magatama:metering/reward` | node operator credit 報酬 | CF Worker (`calculateReward`) → credits.etzhayyim.com |
-| `magatama:metering/penalty` | abuse/SLA violation 処理 | CF Worker → credits.etzhayyim.com |
+| `kotodama:metering/usage` | per-request usage 記録 + cost 計算 | CF Worker (`calculateCost`, `emitMeteringEvent`) |
+| `kotodama:metering/quota` | pre-request quota gate | CF Worker (→ kakin.etzhayyim.com 連携予定) |
+| `kotodama:metering/reward` | node operator credit 報酬 | CF Worker (`calculateReward`) → credits.etzhayyim.com |
+| `kotodama:metering/penalty` | abuse/SLA violation 処理 | CF Worker → credits.etzhayyim.com |
 
 ### Credits Integration
 
@@ -261,9 +261,9 @@ Request (x-org-id, x-user-id, x-api-key)
 | **Mesh tunnel** | `serve/mesh_tunnel.py` — Python TCP-over-UDP tunnel (LN Privacy bypass, future multi-node 用) |
 | **CF Worker gateway (ACTIVE)** | `50-infra/cloudflare/workers/murakumo/src/index.ts` — inference proxy + metering |
 | **CF Worker wrangler (ACTIVE)** | `50-infra/cloudflare/workers/murakumo/wrangler.jsonc` — single route, B2, PDS_SERVICE |
-| **WIT compute** | `_archive/00-contracts/wit/wit/deps/magatama-compute/package.wit` (archived 2026-04-12) — accelerator interface (MLX/CUDA/WebGPU) |
-| **WIT inference** | `_archive/00-contracts/wit/wit/deps/magatama-inference/package.wit` (archived 2026-04-12) — text/image/fleet interfaces |
-| **WIT metering** | `_archive/00-contracts/wit/wit/deps/magatama-metering/package.wit` (archived 2026-04-12) — usage/quota/reward/penalty interfaces |
+| **WIT compute** | `_archive/00-contracts/wit/wit/deps/kotodama-compute/package.wit` (archived 2026-04-12) — accelerator interface (MLX/CUDA/WebGPU) |
+| **WIT inference** | `_archive/00-contracts/wit/wit/deps/kotodama-inference/package.wit` (archived 2026-04-12) — text/image/fleet interfaces |
+| **WIT metering** | `_archive/00-contracts/wit/wit/deps/kotodama-metering/package.wit` (archived 2026-04-12) — usage/quota/reward/penalty interfaces |
 | **Dispatcher passthrough** | `50-infra/cloudflare/workers/dispatcher/worker.ts` — `ORIGIN_PASSTHROUGH_HOSTS` に tunnel hostname 登録 |
 | **Python daemon (LEGACY)** | `cli/daemon.py` v1.4.0 — Nomad poll loop (deprecated) |
 | **Ansible playbooks** | `ansible/` — cloudflared, venv, legacy (ssh-tunnel, nomad) |
@@ -450,7 +450,7 @@ Note: `HF_HOME` is NOT respected by the pinned `huggingface_hub` version in `mur
 
 > **Status: retired** as of 2026-05-23 (ADR-2605231630). The canonical agent runtime is
 > `(LangGraph, kotoba-datomic, langserver)`; Goose recipes + crontab entries on judah are removed
-> in favor of LangGraph cells under `20-actors/magatama/cells/yoro_*/`. Ollama on `:11434` and
+> in favor of LangGraph cells under `40-engine/kotoba/crates/kotoba-kotodama/cells/yoro_*/`. Ollama on `:11434` and
 > the LiteLLM proxy on `:4000` remain in place (they're LLM backend + router, not agent
 > runtime). The historical section below is preserved for context only — do not extend it.
 >
@@ -461,13 +461,13 @@ Note: `HF_HOME` is NOT respected by the pinned `huggingface_hub` version in `mur
 > - `crontab -e` on judah: remove `yoro-profile-heartbeat`, `yoro-persona-cron`,
 >   `yoro-mention-drain` lines.
 > - Re-implement the three pipelines as LangGraph cells (per ADR-2605202200 cell runtime
->   contract) under `20-actors/magatama/cells/yoro_heartbeat/`, `…/yoro_persona_cron/`,
+>   contract) under `40-engine/kotoba/crates/kotoba-kotodama/cells/yoro_heartbeat/`, `…/yoro_persona_cron/`,
 >   `…/yoro_mention_drain/`. Each cell exports `build_graph(deps)` and is wrapped by
 >   `langserver` for XRPC dispatch.
 > - The wrapper-owned deterministic side effects (cadence tracker INSERT into
 >   `vertex_repo_commit`) are reimplemented inside each cell as substrate-anchored
 >   ObservationRecords on kotoba-datomic-dht (per ADR-2605211200 + the Stage D wrapper at
->   `20-actors/magatama/py/src/pymagatama/unispsc_capabilities/wrapper.py`).
+>   `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/unispsc_capabilities/wrapper.py`).
 
 **Goose is the sole agent runtime on judah.** OpenClaw (role + CLI + LaunchAgent) was retired 2026-04-20 — its `chat completion once` cron runner never parsed `tool_calls`, so every scheduled job produced text with zero side effects. Goose has a working MCP tool-use loop (sends `tools[]`, parses `tool_calls`, executes, feeds results back) and is now wired to impersonate T1 actors directly from their `actor-manifest.jsonld`.
 
@@ -726,7 +726,7 @@ etzhayyim-moe-moe-kyun/
    Not exposed via murakumo.etzhayyim.com public endpoint.
 4. **Canonical agent runtime = LangGraph + kotoba-datomic + langserver** (per ADR-2605231630). Goose
    cron recipes on judah (ADR-0034 scope) are **retired**: yoro pipelines re-implement as
-   LangGraph cells under `20-actors/magatama/cells/yoro_*/`. Ollama (model backend) and LiteLLM
+   LangGraph cells under `40-engine/kotoba/crates/kotoba-kotodama/cells/yoro_*/`. Ollama (model backend) and LiteLLM
    (router) stay; only the Goose agent loop is removed.
 5. **Ray / Nomad / Aeron / UCX / RDMA 禁止 — 再導入禁止.** K8s / k3s / WireGuard are permitted
    for etzhayyim/* religious-corp cell scope **only** (per ADR-2605231630 + ADR-2605232100).
@@ -788,7 +788,7 @@ Retired inference + orchestration stacks. Source archived under
 | V1 wrangler.jsonc / V1 CF Worker | Stateless rewrite | Current `50-infra/cloudflare/workers/murakumo/` Tier 1 (Linode GPU Ollama via `ollama-tunnel.etzhayyim.com`) |
 | Aeron / UCX / RDMA / Ray / Nomad / geth / LanceDB projections | Architectural dead ends | n/a |
 | **K8s / k3s / WireGuard (Murakumo LLM scope)** | Was dead 2026-05-11 for Murakumo LLM substrate — **un-deaded 2026-05-23 (ADR-2605231630) for etzhayyim/* religious-corp cell scope only.** Self-hosted k3s on Mac mini Lima VMs is the canonical religious-corp cell substrate per ADR-2605232100. Commercial K8s (Vultr / EKS / GKE / AKS) remains prohibited (ADR-2605191346 §1). | k3s on Lima VMs across Mac mini fleet via `60-apps/etzhayyim-project-murakumo/ansible/k8s-gpu-cluster.yml` |
-| **Goose agent runtime (ADR-0034 scope)** | Single-runtime canonical policy (ADR-2605231630). Recipe-size <3KB ceiling, qwen3.5:9b tool-call brittleness, dollar-quoted-string SQL incompatibility, --no-profile + 16K-context tuning fragility — already breaking down at 3 recipes (yoro). Cannot host the 15-cell religious-corp catalog or the 18,342 UNSPSC actors. | LangGraph cells under `20-actors/magatama/cells/` + langserver XRPC façade (per ADR-2605202200 + ADR-2605232100), reference impl `lg-open-unispsc` |
+| **Goose agent runtime (ADR-0034 scope)** | Single-runtime canonical policy (ADR-2605231630). Recipe-size <3KB ceiling, qwen3.5:9b tool-call brittleness, dollar-quoted-string SQL incompatibility, --no-profile + 16K-context tuning fragility — already breaking down at 3 recipes (yoro). Cannot host the 15-cell religious-corp catalog or the 18,342 UNSPSC actors. | LangGraph cells under `40-engine/kotoba/crates/kotoba-kotodama/cells/` + langserver XRPC façade (per ADR-2605202200 + ADR-2605232100), reference impl `lg-open-unispsc` |
 | **Virtual Kubelet (Murakumo Kubelet, 50-infra/k8s/murakumo-kubelet/)** | Retained as a **bridge** to RunPod for GPU burst (ADR-2605110100 vendor-monorepo). Not "dead", but scoped to GPU-burst overflow only. | unchanged — retain as bridge component |
 | `/api/purge-workers`, `consecutiveFailures` ghost-worker blacklist | Patch for CoordinatorDO worker-pool staleness | No worker pool; LiteLLM retries transient 5xx transparently |
 | MLX `gemma-4-e2b-it-4bit` weights + `mlx_lm.generate` chat template | Agent-loop rejection + single-thread | Ollama `gemma3:1b` (GGUF); larger models via `ollama pull` |

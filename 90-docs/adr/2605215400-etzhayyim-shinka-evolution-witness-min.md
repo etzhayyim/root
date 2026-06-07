@@ -173,5 +173,5 @@ All canonical constants wired into shinka_murakumo.py + mst.py:
 - ADR-2605192300 — Bootstrap Council Five (initial 5-seat Lv6+ roster)
 - ADR-2605192315 — Transparent Religious Force (on-chain audit trail requirement)
 - ADR-2605215200 — shinka Pregel/MST rewrite (implementation reference)
-- `/20-actors/magatama/py/src/pymagatama/shinka_murakumo.py` — real impl
+- `/40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/shinka_murakumo.py` — real impl
 - `/20-actors/etzhayyim-sdk/mst.py` — DID registry + objection queries

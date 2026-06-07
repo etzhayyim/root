@@ -6,4 +6,4 @@ Runtime split:
 
 - `etzhayyim-wasm-systemofsystem-s0s5ys0s/`: App shell and health endpoint
 - `svelte/`: Threlte UI for the 3D system map
-- `Arrow schema`: magatama WIT backed metadata tables and Cypher graph for embeddings
+- `Arrow schema`: kotodama WIT backed metadata tables and Cypher graph for embeddings

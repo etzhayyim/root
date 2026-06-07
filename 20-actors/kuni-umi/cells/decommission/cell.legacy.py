@@ -21,7 +21,7 @@ from typing import Any, Literal, TypedDict
 
 from langgraph.graph import START, END, StateGraph
 
-from pymagatama.cell_runtime import (
+from kotodama.cell_runtime import (
     CellDeps,
     default_state_from_event,
     default_thread_id_from_event,
@@ -81,7 +81,7 @@ def disconnect_from_utility(state: DecommissionState, deps: CellDeps) -> Decommi
 def physical_teardown(state: DecommissionState, deps: CellDeps) -> DecommissionState:
     """Re-dispatch Giemon fleet for disassembly. Witness audit applies."""
     raise NotImplementedError(
-        "Requires pymagatama.open_robo.fleet + AuditWitnessCell coordination."
+        "Requires kotodama.open_robo.fleet + AuditWitnessCell coordination."
     )
 
 

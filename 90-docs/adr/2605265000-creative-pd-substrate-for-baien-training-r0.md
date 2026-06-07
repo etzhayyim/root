@@ -159,7 +159,7 @@ recording layer entirely.
 `jurisdictionConflictResolution` field; pessimistic = REJECT any work
 failing in even one jurisdiction.
 
-## §4. Sensor families (`pymagatama.organism.sensors.creative.*`)
+## §4. Sensor families (`kotodama.organism.sensors.creative.*`)
 
 R1 W1 anchor sensors:
 
@@ -290,7 +290,7 @@ R2 recipes:
 
 1. This ADR (`90-docs/adr/2605265000-creative-pd-substrate-for-baien-training-r0.md`);
 2. 7 Lexicon JSON schema skeletons under `00-contracts/lexicons/com/etzhayyim/creative/` (R0 paths reserved; iteration 6+ writes);
-3. Sensor scaffold paths reserved under `pymagatama.organism.sensors.creative.*` (R0 path-reserved; iteration 7+ writes);
+3. Sensor scaffold paths reserved under `kotodama.organism.sensors.creative.*` (R0 path-reserved; iteration 7+ writes);
 4. Recipe templates path-reserved under `70-tools/baien-moemoekyun-train/recipes/creative/` (R1 writes);
 5. Cold-path corpus assembler skeleton at `70-tools/baien-moemoekyun-train/scripts/assemble-creative-pd-corpus.py` (R1 writes);
 6. deps.toml [[adrs]] + [[modules]] entries;

@@ -7,7 +7,7 @@ Two-tier registration per ADR-2605070700 + ADR-2605092350:
 2. **routing entry** — on commit, we append a JSONL line to
    `90-docs/baien/distilled-models.jsonl`. A separate codegen step
    (`70-tools/scripts/llm-registry/gen-distilled-entries.mjs`) folds
-   this manifest into `magatama-host-sdk/src/llm-model-registry.ts` so
+   this manifest into `kotodama-host-sdk/src/llm-model-registry.ts` so
    the runtime can route to it.
 
 Two-phase ship so that:

@@ -112,7 +112,7 @@ Upload (.xlsx ZIP / .csv)
 ├── wit/xlsx/package.wit                  # Domain WIT capability (3 interfaces)
 └── wasm/etzhayyim-wasm-xlsx-il0ndq6a/
     ├── src/app.ts                       # TS Native — Design E, 20 XRPC commands
-    ├── magatama.jsonld                  # App metadata, DID, triggers
+    ├── kotodama.jsonld                  # App metadata, DID, triggers
     ├── wrangler.jsonc                   # CF Worker config
     ├── wit/world.wit                    # Component WIT (contract + capability export)
     └── svelte/

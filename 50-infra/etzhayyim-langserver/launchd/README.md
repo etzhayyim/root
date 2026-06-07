@@ -7,7 +7,7 @@ com.etzhayyim.langserver.<lang>
   → e.g. com.etzhayyim.langserver.rust, .python, .typescript, .go, .lua, .ruby
 ```
 
-This sits as a sibling of `com.etzhayyim.magatama-cell-runner` and uses the same
+This sits as a sibling of `com.etzhayyim.kotodama-cell-runner` and uses the same
 `@@PLACEHOLDER@@` substitution style.
 
 ## Files
@@ -62,7 +62,7 @@ lsp-multiplexer) can replace fork mode without touching the plist template.
 `pty` is **intentionally OFF** — LSP framing is raw JSON-RPC; a pty would inject
 terminal control sequences and break the protocol.
 
-## Lifecycle settings (mirrors magatama-cell-runner conventions)
+## Lifecycle settings (mirrors kotodama-cell-runner conventions)
 
 - **RunAtLoad** = `true` — start at LaunchAgent load / user login
 - **KeepAlive.SuccessfulExit** = `false` — restart on crash (non-zero exit)

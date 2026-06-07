@@ -37,11 +37,11 @@ superseded_by: []
 A live-debug session (2026-06-03) established two facts on the deployed stack:
 
 1. **`mcp.etzhayyim.com` is down (502)** with body
-   `Service binding fetch failed (MCP → mcp.gftd.ai): this worker has been deleted via a force-delete`.
+   `Service binding fetch failed (MCP → mcp.etzhayyim.com): this worker has been deleted via a force-delete`.
    The CF Worker `etzhayyim-xrpc-proxy` (`50-infra/etzhayyim-xrpc-proxy/wrangler.toml`)
-   binds `MCP` → service `ai-gftd-agentgateway` (route `mcp.gftd.ai`), which has been
+   binds `MCP` → service `etzhayyim-agentgateway` (route `mcp.etzhayyim.com`), which has been
    force-deleted. The same dead router breaks passkey login
-   (`authn.etzhayyim.com` → `ai.gftd.auth.passkeyBeginAuth` → 502/522).
+   (`authn.etzhayyim.com` → `ai.etzhayyim.auth.passkeyBeginAuth` → 502/522).
 
 2. The MCP *logic* is **not** in the Worker. kotoba-server serves a full MCP JSON-RPC 2.0
    facade in native Rust (`40-engine/kotoba/crates/kotoba-server/src/mcp.rs`, ADR-2605091400):
@@ -144,7 +144,7 @@ End state: **browser → WebRTC-direct → `/kotoba/mcp/1` → kotoba-server**, 
 
 Independent of this ADR, the dead MCP/login can be restored **at the etzhayyim-root config
 level** by re-pointing the `xrpc-proxy` `MCP` service binding from the force-deleted
-`ai-gftd-agentgateway` to a live kotoba-server `/mcp` origin and redeploying. That is a
+`etzhayyim-agentgateway` to a live kotoba-server `/mcp` origin and redeploying. That is a
 config change, not a code dependency, and also fixes the passkey 502. This ADR is the
 *structural* answer (remove the edge); the binding repoint is the *operational* hotfix.
 
@@ -248,4 +248,4 @@ MCP-over-libp2p — neither is a transport-feasibility risk anymore.
 - ADR-2606015600 (self-certifying DID attestation — `did:key`↔PeerId binding)
 - `40-engine/kotoba/crates/kotoba-net/{transport,swarm,behaviour}.rs` (current QUIC-only swarm)
 - `40-engine/kotoba/crates/kotoba-server/src/mcp.rs` (MCP handler to be split transport-independent)
-- `50-infra/etzhayyim-xrpc-proxy/wrangler.toml` (dead `MCP` → `ai-gftd-agentgateway` binding)
+- `50-infra/etzhayyim-xrpc-proxy/wrangler.toml` (dead `MCP` → `etzhayyim-agentgateway` binding)

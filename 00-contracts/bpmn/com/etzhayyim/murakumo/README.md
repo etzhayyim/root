@@ -11,7 +11,7 @@ BPMN process contracts for the etzhayyim distributed murakumo cluster. Verdicts 
 
 ## Migration source
 
-The vendor directory (`etzhayyim.com/etzhayyim-apps-etzhayyimcojp/00-contracts/bpmn/com/etzhayyim/murakumo/`) **does not exist** in the current vendor repo state — these two BPMN files are religious-corp-originated, written for etzhayyim under ADR-2605202100 (magatama-cell-runner launchd) and ADR-2605191645 (heartbeat). They are listed under `com.etzhayyim.*` NSID per the shared-namespace pattern (ADR-2605214000 §2 namespace placement rule).
+The vendor directory (`etzhayyim.com/etzhayyim-apps-etzhayyimcojp/00-contracts/bpmn/com/etzhayyim/murakumo/`) **does not exist** in the current vendor repo state — these two BPMN files are religious-corp-originated, written for etzhayyim under ADR-2605202100 (kotodama-cell-runner launchd) and ADR-2605191645 (heartbeat). They are listed under `com.etzhayyim.*` NSID per the shared-namespace pattern (ADR-2605214000 §2 namespace placement rule).
 
 ## Substrate-fit conditions (recap)
 
@@ -32,7 +32,7 @@ Both BPMN files pass all five conditions. The `cronTick.bpmn` adaptation is limi
 ## See also
 
 - ADR-2605214000 — Murakumo distributed cluster (no-VKE mesh) + vendor→religious-corp lexicon port rules
-- ADR-2605202100 — magatama-cell-runner launchd LaunchAgent (origin of cronTick contract)
+- ADR-2605202100 — kotodama-cell-runner launchd LaunchAgent (origin of cronTick contract)
 - ADR-2605191645 — heartbeat (origin of fleetHealthCheck contract)
 - `00-contracts/lexicons/com/etzhayyim/murakumo/README.md` — sister registry for murakumo lexicons
-- `50-infra/cluster/murakumo/cell-runner/com.etzhayyim.magatama-cell-runner.plist` — launchd binding that fires these BPMN definitions
+- `50-infra/cluster/murakumo/cell-runner/com.etzhayyim.kotodama-cell-runner.plist` — launchd binding that fires these BPMN definitions

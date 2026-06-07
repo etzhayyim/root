@@ -654,7 +654,7 @@ async fn cmd_distill(cfg: &config::NodeConfig, args: &[String]) {
     });
 
     let resp: Result<serde_json::Value, _> =
-        api::magatama_app_call(&client, "submit-distill-job", &req).await;
+        api::kotodama_app_call(&client, "submit-distill-job", &req).await;
     match resp {
         Ok(v) => {
             let job_id = v.get("job_id").and_then(|v| v.as_str()).unwrap_or("unknown");
@@ -681,7 +681,7 @@ async fn cmd_distill_status(cfg: &config::NodeConfig, args: &[String]) {
 
     let client = api::http_client();
     let resp: Result<serde_json::Value, _> =
-        api::magatama_app_call(&client, "distill-job-status", &serde_json::json!({ "job_id": job_id })).await;
+        api::kotodama_app_call(&client, "distill-job-status", &serde_json::json!({ "job_id": job_id })).await;
     match resp {
         Ok(v) => println!("{}", serde_json::to_string_pretty(&v).unwrap_or_default()),
         Err(e) => fatal(&format!("get distillation status: {}", e)),
@@ -689,7 +689,7 @@ async fn cmd_distill_status(cfg: &config::NodeConfig, args: &[String]) {
 }
 
 async fn cmd_opus_distill(cfg: &config::NodeConfig, args: &[String]) {
-    let mut task = "magatama-codegen".to_string();
+    let mut task = "kotodama-codegen".to_string();
     let mut student_ids: Vec<String> = Vec::new();
     let mut samples = 20i64;
     let mut anthropic_key = String::new();

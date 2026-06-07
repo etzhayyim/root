@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "com.etzhayyim.gov.procedure",
-  "description": "Read-side catalog record describing a single administrative procedure (申請 / Antrag / petition / filing) operated by a government agency. Authored by L4 ingest scripts (`70-tools/scripts/gov/`); consumed by L3 appview routing and by membrane policies that decide whether a religious-corp procedure can substitute. Per ADR-2605242330 §3.4 this is the schema target for the L4 ingest wave. The `routingAround` field optionally points to a religious-corp Pregel cell (`20-actors/magatama/cells/*`) that offers a parallel substrate for the same outcome under ADR-2605192100 §1.12.",
+  "description": "Read-side catalog record describing a single administrative procedure (申請 / Antrag / petition / filing) operated by a government agency. Authored by L4 ingest scripts (`70-tools/scripts/gov/`); consumed by L3 appview routing and by membrane policies that decide whether a religious-corp procedure can substitute. Per ADR-2605242330 §3.4 this is the schema target for the L4 ingest wave. The `routingAround` field optionally points to a religious-corp Pregel cell (`40-engine/kotoba/crates/kotoba-kotodama/cells/*`) that offers a parallel substrate for the same outcome under ADR-2605192100 §1.12.",
   "defs": {
     "main": {
       "type": "record",
@@ -129,7 +129,7 @@
           },
           "routingAround": {
             "type": "string",
-            "description": "Optional reference to a religious-corp Pregel cell (`20-actors/magatama/cells/<cell-name>`) that offers a parallel substrate for the same outcome (per ADR-2605192100 §1.12 routing-around). Format: `magatama:cells:<cell-name>`. Note that the routing-around cell is *not* a replacement service — it operates within the religious boundary only, for adherents only.",
+            "description": "Optional reference to a religious-corp Pregel cell (`40-engine/kotoba/crates/kotoba-kotodama/cells/<cell-name>`) that offers a parallel substrate for the same outcome (per ADR-2605192100 §1.12 routing-around). Format: `kotodama:cells:<cell-name>`. Note that the routing-around cell is *not* a replacement service — it operates within the religious boundary only, for adherents only.",
             "maxLength": 256
           },
           "sourceUri": {

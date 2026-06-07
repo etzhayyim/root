@@ -161,7 +161,7 @@ pf.{nanoid}.u.{user-id}.s.{key}                     # Per-user state
 2. Add world: Append `etzhayyim-yorishiro-{service}-provider` to `etzhayyim-component.wit`
 3. Add imports to `etzhayyim-component` world
 4. Create component dir: `60-apps/etzhayyim-project-yorishiro/wasm/etzhayyim-wasm-yorishiro-{service}-{nanoid}/`
-5. Create `wit/world.wit`, `magatama.jsonld`, `deploy config`
+5. Create `wit/world.wit`, `kotodama.jsonld`, `deploy config`
 6. Implement service-specific navigation logic in `src/app.ts`
 7. Configure K8s Service → yorishiro-provider connectivity
 

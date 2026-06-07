@@ -196,7 +196,7 @@ substrate actor at `20-actors/mizuho/`, with DID
 - NO water-rights trading / NO water-as-commodity market — water
   is a constitutional commons (extends Land Registry doctrine).
 
-## §3. Cells (6 Pregel cells under `20-actors/magatama/cells/mizuho_*/`)
+## §3. Cells (6 Pregel cells under `40-engine/kotoba/crates/kotoba-kotodama/cells/mizuho_*/`)
 
 All R0 path-reserved; import-time `RuntimeError("mizuho R0 scaffold: activate via Council ADR + R1 ratification + water-source quality baseline established")` at W1 creation.
 
@@ -225,7 +225,7 @@ R1 activation gates each cell separately (Council Lv6+ ≥3 attestation per cell
 
 | Gate | Description |
 |---|---|
-| **G1** | Every water-quality document MUST pass `pymagatama.organism.sensors.charter_rider.scan()` §2(a)-(h). |
+| **G1** | Every water-quality document MUST pass `kotodama.organism.sensors.charter_rider.scan()` §2(a)-(h). |
 | **G2** | Every record MUST emit `com.etzhayyim.mizuho.*` Lexicon with kotoba-datomic attestation lineage. |
 | **G3** | **Community-scale only** — NOT large municipal utility; per-source service population ≤2,500 at R2, ≤25,000 cumulative at R3. |
 | **G4** | **NO commercial water utility software** — Veolia / Suez / American Water / Aquarion / Évian (Danone) / Nestlé Pure Life / Beck Water / Trojan UV proprietary control systems PROHIBITED per Charter Rider §2(e) anti-gatekeeping + §2(c) vendor data-sovereignty. |

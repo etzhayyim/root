@@ -51,4 +51,4 @@
   :wit-packages ["etzhayyim:tsukuru@0.1.0" "etzhayyim:tsukuru-process-registry@1.0.0"
                  "etzhayyim:tsukuru-manufacturer-registry@1.0.0" "etzhayyim:tsukuru-trade-compliance@1.0.0"
                  "etzhayyim:tsukuru-production-order@1.0.0"]
-  :note "etzhayyim: WIT 改名は magatama atomic rename wave (ADR-2605214000 §3) に同期; 法人登記ゲート"}}
+  :note "etzhayyim: WIT 改名は kotodama atomic rename wave (ADR-2605214000 §3) に同期; 法人登記ゲート"}}

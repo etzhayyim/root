@@ -6,14 +6,14 @@
 
 - `search.etzhayyim.com` は RisingWave 上の IVF / IVF+PQ 検索を前提にする。
 - 旧 LanceDB / Tonbo API は deprecated。`lancedb-api/` は historical stub として扱い、新規経路へ戻さない。
-- 旧 Magatama graph/Cypher 前提の `:Page` / `LINKS_TO` 検索は互換説明としてのみ残し、primary path にはしない。
+- 旧 Kotodama graph/Cypher 前提の `:Page` / `LINKS_TO` 検索は互換説明としてのみ残し、primary path にはしない。
 - Primary text/web corpus は `vertex_wet_chunk`。検索用の近傍候補は `embedding`, `embedding_norm`, `ivf_cluster_id` と `vertex_wet_chunk_pq` / `vertex_pq_codebook` を使う。
 - 汎用 768d embedding search は `vertex_vector_embedding_768` (`space_id = etzhayyim-mm-768`) を使う。
 - query vector は `llm.etzhayyim.com` / bge-m3 系 embedding で作成し、RisingWave の PostgreSQL wire protocol 経由で候補取得する。
 
 ## Deployment Rules
 
-- Namespace は `magatama-runtime` 固定。`default` namespace への作成は禁止。
+- Namespace は `kotodama-runtime` 固定。`default` namespace への作成は禁止。
 - デプロイは単一 writer で実施し、同時 deploy を避ける。
 
 ## Storage Rules
@@ -43,4 +43,4 @@
 
 ## Ops Checks
 
-- `kubectl logs -n magatama-runtime deploy/search-mcp-component`
+- `kubectl logs -n kotodama-runtime deploy/search-mcp-component`

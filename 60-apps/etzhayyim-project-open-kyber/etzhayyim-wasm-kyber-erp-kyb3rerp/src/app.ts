@@ -4,17 +4,23 @@
 
 // kyber.etzhayyim.com — Corporate ERP Intelligence
 // TS Native Worker: 28 XRPC commands across Accounting / AP-AR / HR / Procurement / Inventory / Sales / Asset / Governance / Management / Billing
-// Design E 3-Tier Write: domain data via com.atproto.repo.createRecord (internal, non-federable)
 //
-// NOTE: list/read paths currently return empty envelopes — SQL (G()) was deprecated 2026-04-13
-// and Kysely read integration for graphar.vertex_* is pending. Commits are recorded via
-// handleComAtprotoSyncSubscribeReposCommit so the PDS → RisingWave pipeline still projects writes.
+// SUBSTRATE (ADR-2606037200 D1 + ADR-2605262130 + ADR-2605312345): canonical state is the
+// kotoba Datom log. RisingWave / Kysely / Hyperdrive are PROHIBITED in the religious-corp ERP
+// path. Every read/write routes through the tested, kotoba-Datomic rw-free functions
+// (@etzhayyim/open-kyber-rw-free) via `createXrpcBridge`, which adapts the kotodama-host-sdk
+// AT-repo XrpcClient (createRecord / getRecord / listRecords → PDS → Datom log) to the
+// `Etzhayyim` read/write surface. This SUPERSEDES the ADR-0036 "domain writes via Kysely"
+// rule for this app (the runbook is 60-apps/etzhayyim-project-open-kyber/R2-WORKER-WIRING.md).
+//
+// NOTE: list/read paths now return REAL records from the Datom log (not the pre-cutover empty
+// envelopes). The pagination uses AT listRecords; the kqe AEVT/AVET arrangement is the
+// Phase-2.5 index optimization (ADR-2605262130 D7).
 
 import {
   asAgentTool,
   createCadenceState,
   createInboxBuffer,
-  createKyselyDb,
   createWorkerExport,
   decodeJson,
   genID,
@@ -24,7 +30,40 @@ import {
   withCapabilityTags,
   type ComAtprotoSyncSubscribeReposCommit,
   type HostSDK,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
+import type { Etzhayyim } from "@etzhayyim/sdk";
+import {
+  createXrpcBridge,
+  // accounting
+  createAccount,
+  seedChartOfAccounts,
+  createJournalEntry,
+  listJournalEntries,
+  getTrialBalance,
+  // AP/AR
+  createInvoice,
+  listInvoices,
+  // HR (E2E)
+  registerEmployee,
+  listEmployees,
+  // procurement / inventory / sales
+  createPurchaseOrder,
+  listPurchaseOrders,
+  registerInventoryItem,
+  listInventory,
+  createSalesOrder,
+  listSalesOrders,
+  // asset
+  registerFixedAsset,
+  listFixedAssets,
+  runDepreciation,
+  // governance
+  registerPolicyControl,
+  recordRiskIssue,
+  listRiskIssues,
+  // coverage (kqe replacement for the RisingWave getApqcCoverage MV)
+  erpCoverage,
+} from "@etzhayyim/open-kyber-rw-free";
 
 // ───────────────────────────── shared state ─────────────────────────────
 
@@ -37,7 +76,8 @@ let actorDID = "";
 const APQC_PROJECTOR_DID = "did:web:kyber-projector.etzhayyim.com";
 const APQC_PROJECTOR_NANOID = "kyb3proj";
 
-// Department DIDs (multi-DID per app; pre-registered via magatama.jsonld entities)
+// Department DIDs (multi-DID per app; pre-registered via kotodama.jsonld entities).
+// Carried as the acting DID on the bridge so each record is tagged with its writer dept.
 const DEPT = {
   accounting: "did:web:kyber.etzhayyim.com:dept:accounting",
   hr: "did:web:kyber.etzhayyim.com:dept:hr",
@@ -48,58 +88,29 @@ const DEPT = {
   governance: "did:web:kyber.etzhayyim.com:dept:governance",
 } as const;
 
-// IFRS-aligned chart of accounts seed (25 entries)
-const CHART_OF_ACCOUNTS_SEED: Array<{ code: string; name: string; type: string }> = [
-  { code: "1000", name: "Cash", type: "asset" },
-  { code: "1100", name: "Accounts Receivable", type: "asset" },
-  { code: "1200", name: "Inventory", type: "asset" },
-  { code: "1300", name: "Prepaid Expenses", type: "asset" },
-  { code: "1500", name: "Property, Plant & Equipment", type: "asset" },
-  { code: "1510", name: "Accumulated Depreciation", type: "contra-asset" },
-  { code: "1600", name: "Intangible Assets", type: "asset" },
-  { code: "2000", name: "Accounts Payable", type: "liability" },
-  { code: "2100", name: "Accrued Expenses", type: "liability" },
-  { code: "2200", name: "Short-Term Debt", type: "liability" },
-  { code: "2500", name: "Long-Term Debt", type: "liability" },
-  { code: "3000", name: "Share Capital", type: "equity" },
-  { code: "3100", name: "Retained Earnings", type: "equity" },
-  { code: "4000", name: "Sales Revenue", type: "revenue" },
-  { code: "4100", name: "Service Revenue", type: "revenue" },
-  { code: "5000", name: "Cost of Goods Sold", type: "expense" },
-  { code: "5100", name: "Salaries & Wages", type: "expense" },
-  { code: "5200", name: "Rent Expense", type: "expense" },
-  { code: "5300", name: "Utilities", type: "expense" },
-  { code: "5400", name: "Depreciation Expense", type: "expense" },
-  { code: "5500", name: "Marketing", type: "expense" },
-  { code: "5600", name: "Professional Fees", type: "expense" },
-  { code: "5700", name: "Insurance", type: "expense" },
-  { code: "5900", name: "Interest Expense", type: "expense" },
-  { code: "6000", name: "Income Tax Expense", type: "expense" },
-];
+// ───────────────────────────── bridge + helpers ─────────────────────────────
 
-// ───────────────────────────── write helpers ─────────────────────────────
-
-function write(sdk: HostSDK, kind: string, rec: Record<string, unknown>, did?: string): void {
-  const collection = `com.etzhayyim.apps.kyber.${kind}`;
-  const enriched = {
-    ...rec,
-    createdAt: nowISO(),
-    org_id: "anon",
-    user_id: "anon",
-    actor_id: appId,
-  };
-  const payload: Record<string, unknown> = {
-    collection,
-    recordJson: JSON.stringify(enriched),
-  };
-  if (did) payload.did = did;
-  sdk.pds.dispatch({ type: "com.atproto.repo.createRecord", payload });
+/**
+ * Build a kotoba-Datom bridge from the AT-repo XrpcClient (sdk.pds). The acting `did` tags
+ * records with their writer department. The E2E employee path (ADR-2605181100) needs
+ * `encrypted` delegates from a configured @etzhayyim/sdk Etzhayyim instance (PDS/IPFS/L2 env);
+ * until that is wired the HR commands return the bridge's clear "encrypted transport not
+ * configured" error rather than ever dropping PII to plaintext.
+ */
+function bridgeFor(sdk: HostSDK, did: string): Etzhayyim {
+  return createXrpcBridge(sdk.pds as never, { did });
 }
 
-function emptyList<T>(key: string, args: Record<string, unknown>) {
-  const limit = Number(args.limit ?? 50);
-  const offset = Number(args.offset ?? 0);
-  return { ok: true, [key]: [] as T[], total: 0, offset, limit };
+/** Whether an rw-free status string represents a successful (non-rejected) outcome. */
+function okStatus(status: string): boolean {
+  return status !== "rejected" && status !== "error";
+}
+
+/** Validate + normalize a number into a non-negative decimal money STRING (rw-free isMoney). */
+function money(n: unknown): string {
+  const v = Number(n ?? 0);
+  if (!Number.isFinite(v) || v < 0) return "0";
+  return String(v);
 }
 
 function parseItems(raw: unknown): Array<Record<string, unknown>> {
@@ -129,69 +140,46 @@ function sumItems(items: Array<Record<string, unknown>>): { subtotal: number; ta
   return { subtotal, tax, total: subtotal + tax };
 }
 
-function straightLineDepreciationMonthly(asset: Record<string, unknown>): number {
-  const cost = Number(asset.cost ?? 0);
-  const salvageValue = Number(asset.salvageValue ?? 0);
-  const usefulLifeMonths = Number(asset.usefulLifeMonths ?? 0);
-  if (usefulLifeMonths <= 0) return 0;
-  return Math.max(0, (cost - salvageValue) / usefulLifeMonths);
-}
-
 // ───────────────────────────── Accounting (5) ─────────────────────────────
 
 async function cmdCreateJournalEntry(sdk: HostSDK, body: Uint8Array) {
   const args = decodeJson(body, {}) as Record<string, unknown>;
-  const lines = parseItems(args.lines);
-  if (lines.length < 2) return { ok: false, error: "journal requires at least 2 lines (debit + credit)" };
-  let debit = 0;
-  let credit = 0;
-  for (const l of lines) {
-    debit += Number(l.debit ?? 0);
-    credit += Number(l.credit ?? 0);
-  }
-  if (Math.abs(debit - credit) > 0.005) {
-    return { ok: false, error: `unbalanced journal: debit=${debit} credit=${credit}` };
-  }
-  const journalId = genID("je");
-  const date = str(args.date ?? nowISO().slice(0, 10));
-  const debitAccount = str(lines.find((l) => Number(l.debit ?? 0) > 0)?.account ?? "");
-  const creditAccount = str(lines.find((l) => Number(l.credit ?? 0) > 0)?.account ?? "");
-  const now = nowISO();
-  try {
-    const db = createKyselyDb((sdk.env as Record<string, unknown>).HYPERDRIVE as never);
-    await (db.insertInto("vertex_kyber_journal_entry" as never).values({
-      vertex_id: `at://${DEPT.accounting}/com.etzhayyim.apps.kyber.journalEntry/${journalId}`,
-      entry_id: journalId,
-      org_did: "anon",
-      actor_did: DEPT.accounting,
-      date,
-      description: str(args.memo ?? ""),
-      debit_account: debitAccount,
-      credit_account: creditAccount,
-      amount: debit,
-      currency: str(args.currency ?? "JPY"),
-      reference: "",
-      period: date.slice(0, 7),
-      created_at: now,
-    } as never).execute());
-  } catch (err) {
-    return { ok: false, error: "JournalEntryFailed", detail: String(err) };
-  }
-  return { ok: true, journalId, debitTotal: debit, creditTotal: credit };
+  const rawLines = parseItems(args.lines);
+  if (rawLines.length < 2) return { ok: false, error: "journal requires at least 2 lines (debit + credit)" };
+  const lines = rawLines.map((l) => ({
+    account: str(l.account ?? ""),
+    debit: money(l.debit),
+    credit: money(l.credit),
+    memo: l.memo !== undefined ? str(l.memo) : undefined,
+  }));
+  const e = bridgeFor(sdk, DEPT.accounting);
+  const r = await createJournalEntry(e, {
+    number: str(args.number ?? genID("je")),
+    date: args.date !== undefined ? str(args.date) : undefined,
+    memo: args.memo !== undefined ? str(args.memo) : undefined,
+    currency: args.currency !== undefined ? str(args.currency) : undefined,
+    lines,
+  });
+  return { ok: okStatus(r.status), journalId: r.entryId, ...r };
 }
 
-function cmdListJournalEntries(_sdk: HostSDK, body: Uint8Array) {
-  return emptyList("journalEntries", decodeJson(body, {}) as Record<string, unknown>);
-}
-
-function cmdGetTrialBalance(_sdk: HostSDK, body: Uint8Array) {
+async function cmdListJournalEntries(sdk: HostSDK, body: Uint8Array) {
   const args = decodeJson(body, {}) as Record<string, unknown>;
+  const e = bridgeFor(sdk, DEPT.accounting);
+  const r = await listJournalEntries(e, { limit: args.limit !== undefined ? Number(args.limit) : undefined });
+  return { ok: true, journalEntries: r.items, items: r.items, total: r.total, cursor: r.cursor };
+}
+
+async function cmdGetTrialBalance(sdk: HostSDK, _body: Uint8Array) {
+  const e = bridgeFor(sdk, DEPT.accounting);
+  const r = await getTrialBalance(e, {});
   return {
     ok: true,
-    asOf: str(args.asOf ?? nowISO().slice(0, 10)),
-    currency: str(args.currency ?? "JPY"),
-    accounts: [] as Array<Record<string, unknown>>,
-    totals: { debit: 0, credit: 0 },
+    asOf: nowISO().slice(0, 10),
+    rows: r.rows,
+    accounts: r.rows,
+    totals: { debit: r.totalDebit, credit: r.totalCredit },
+    balanced: r.balanced,
   };
 }
 
@@ -201,47 +189,23 @@ async function cmdCreateAccount(sdk: HostSDK, body: Uint8Array) {
   const name = str(args.name ?? "");
   const type = str(args.type ?? "asset");
   if (!code || !name) return { ok: false, error: "code and name required" };
-  const accountId = genID("acc");
-  const now = nowISO();
-  try {
-    const db = createKyselyDb((sdk.env as Record<string, unknown>).HYPERDRIVE as never);
-    await (db.insertInto("vertex_kyber_account" as never).values({
-      vertex_id: `at://${DEPT.accounting}/com.etzhayyim.apps.kyber.account/${accountId}`,
-      account_id: accountId,
-      org_did: "anon",
-      actor_did: DEPT.accounting,
-      code,
-      name,
-      account_type: type,
-      seed: false,
-      created_at: now,
-    } as never).execute());
-  } catch (err) {
-    return { ok: false, error: "CreateAccountFailed", detail: String(err) };
-  }
-  return { ok: true, accountId, code, name, type };
+  const e = bridgeFor(sdk, DEPT.accounting);
+  const r = await createAccount(e, {
+    accountCode: code,
+    name,
+    accountType: type as never,
+    openingBalance: args.openingBalance !== undefined ? money(args.openingBalance) : undefined,
+    currency: args.currency !== undefined ? str(args.currency) : undefined,
+  });
+  return { ok: okStatus(r.status), code, name, type, ...r };
 }
 
-async function cmdSeedChartOfAccounts(sdk: HostSDK, _body: Uint8Array) {
-  const db = createKyselyDb((sdk.env as Record<string, unknown>).HYPERDRIVE as never);
-  const now = nowISO();
-  for (const a of CHART_OF_ACCOUNTS_SEED) {
-    const accountId = genID("acc");
-    try {
-      await (db.insertInto("vertex_kyber_account" as never).values({
-        vertex_id: `at://${DEPT.accounting}/com.etzhayyim.apps.kyber.account/${accountId}`,
-        account_id: accountId,
-        org_did: "anon",
-        actor_did: DEPT.accounting,
-        code: a.code,
-        name: a.name,
-        account_type: a.type,
-        seed: true,
-        created_at: now,
-      } as never).execute());
-    } catch {} // skip duplicates on re-seed
-  }
-  return { ok: true, seeded: CHART_OF_ACCOUNTS_SEED.length };
+async function cmdSeedChartOfAccounts(sdk: HostSDK, body: Uint8Array) {
+  const args = decodeJson(body, {}) as Record<string, unknown>;
+  const isicCodes = Array.isArray(args.isicCodes) ? (args.isicCodes as string[]) : undefined;
+  const e = bridgeFor(sdk, DEPT.accounting);
+  const r = await seedChartOfAccounts(e, { isicCodes });
+  return { ok: true, ...r };
 }
 
 // ───────────────────────────── AP / AR (2) ─────────────────────────────
@@ -249,123 +213,91 @@ async function cmdSeedChartOfAccounts(sdk: HostSDK, _body: Uint8Array) {
 async function cmdCreateInvoice(sdk: HostSDK, body: Uint8Array) {
   const args = decodeJson(body, {}) as Record<string, unknown>;
   const direction = str(args.direction ?? "receivable");
-  const counterparty = str(args.counterparty ?? "");
+  const counterparty = str(args.counterparty ?? args.party ?? "");
   const items = parseItems(args.items);
-  if (!counterparty || items.length === 0) {
-    return { ok: false, error: "counterparty and items required" };
-  }
-  const { subtotal, tax, total } = sumItems(items);
-  const invoiceId = genID("inv");
-  const now = nowISO();
-  try {
-    const db = createKyselyDb((sdk.env as Record<string, unknown>).HYPERDRIVE as never);
-    await (db.insertInto("vertex_kyber_invoice" as never).values({
-      vertex_id: `at://${DEPT.accounting}/com.etzhayyim.apps.kyber.invoice/${invoiceId}`,
-      invoice_id: invoiceId,
-      org_did: "anon",
-      actor_did: DEPT.accounting,
-      invoice_number: invoiceId,
-      invoice_type: direction,
-      party_did: "",
-      party_name: counterparty,
-      issue_date: now.slice(0, 10),
-      due_date: str(args.dueDate ?? ""),
-      subtotal,
-      tax,
-      total,
-      currency: str(args.currency ?? "JPY"),
-      status: "draft",
-      items_json: JSON.stringify(items),
-      created_at: now,
-    } as never).execute());
-  } catch (err) {
-    return { ok: false, error: "CreateInvoiceFailed", detail: String(err) };
-  }
-  return { ok: true, invoiceId, direction, counterparty, subtotal, tax, total };
+  if (!counterparty || items.length === 0) return { ok: false, error: "counterparty and items required" };
+  const { subtotal, tax } = sumItems(items);
+  const e = bridgeFor(sdk, DEPT.accounting);
+  const r = await createInvoice(e, {
+    number: str(args.invoiceNumber ?? genID("inv")),
+    direction: direction as never,
+    party: counterparty,
+    amount: money(subtotal),
+    tax: money(tax),
+    currency: args.currency !== undefined ? str(args.currency) : undefined,
+    due: args.dueDate !== undefined ? str(args.dueDate) : undefined,
+  });
+  return { ok: okStatus(r.status), direction, counterparty, subtotal, tax, ...r };
 }
 
-function cmdListInvoices(_sdk: HostSDK, body: Uint8Array) {
-  return emptyList("invoices", decodeJson(body, {}) as Record<string, unknown>);
+async function cmdListInvoices(sdk: HostSDK, body: Uint8Array) {
+  const args = decodeJson(body, {}) as Record<string, unknown>;
+  const e = bridgeFor(sdk, DEPT.accounting);
+  const r = await listInvoices(e, { limit: args.limit !== undefined ? Number(args.limit) : undefined });
+  return { ok: true, invoices: r.items, items: r.items, total: r.total };
 }
 
-// ───────────────────────────── HR (2) ─────────────────────────────
+// ───────────────────────────── HR (2) — E2E PII (ADR-2605181100) ────────────────────
 
 async function cmdRegisterEmployee(sdk: HostSDK, body: Uint8Array) {
   const args = decodeJson(body, {}) as Record<string, unknown>;
   const name = str(args.name ?? "");
   const department = str(args.department ?? "");
   if (!name || !department) return { ok: false, error: "name and department required" };
-  const employeeId = genID("emp");
-  const nameParts = name.split(" ");
-  const firstName = nameParts[0] ?? name;
-  const lastName = nameParts.slice(1).join(" ") || "";
-  const now = nowISO();
+  const e = bridgeFor(sdk, DEPT.hr);
   try {
-    const db = createKyselyDb((sdk.env as Record<string, unknown>).HYPERDRIVE as never);
-    await (db.insertInto("vertex_kyber_employee" as never).values({
-      vertex_id: `at://${DEPT.hr}/com.etzhayyim.apps.kyber.employee/${employeeId}`,
-      employee_id: employeeId,
-      org_did: "anon",
-      actor_did: DEPT.hr,
-      employee_number: employeeId,
-      first_name: firstName,
-      last_name: lastName,
+    const r = await registerEmployee(e, {
+      employeeId: str(args.employeeId ?? genID("emp")),
+      name,
       email: str(args.email ?? ""),
       department,
-      position: str(args.position ?? ""),
-      employment_type: str(args.employmentType ?? "full-time"),
-      hire_date: now.slice(0, 10),
-      status: "active",
-      created_at: now,
-    } as never).execute());
+      position: args.position !== undefined ? str(args.position) : undefined,
+      employmentType: args.employmentType !== undefined ? (str(args.employmentType) as never) : undefined,
+      salary: args.salary !== undefined ? money(args.salary) : undefined,
+      currency: args.currency !== undefined ? str(args.currency) : undefined,
+    });
+    return { ok: okStatus(r.status), name, department, ...r };
   } catch (err) {
-    return { ok: false, error: "RegisterEmployeeFailed", detail: String(err) };
+    // bridge has no encrypted transport configured — refuse rather than drop PII to plaintext.
+    return { ok: false, error: "EmployeeE2eUnavailable", detail: String(err) };
   }
-  return { ok: true, employeeId, name, department };
 }
 
-function cmdListEmployees(_sdk: HostSDK, body: Uint8Array) {
-  return emptyList("employees", decodeJson(body, {}) as Record<string, unknown>);
+async function cmdListEmployees(sdk: HostSDK, body: Uint8Array) {
+  const args = decodeJson(body, {}) as Record<string, unknown>;
+  const e = bridgeFor(sdk, DEPT.hr);
+  try {
+    const r = await listEmployees(e, { limit: args.limit !== undefined ? Number(args.limit) : undefined });
+    return { ok: true, employees: r.items, items: r.items, total: r.total };
+  } catch (err) {
+    return { ok: false, error: "EmployeeE2eUnavailable", detail: String(err), employees: [], total: 0 };
+  }
 }
 
 // ───────────────────────────── Procurement (2) ─────────────────────────────
 
 async function cmdCreatePurchaseOrder(sdk: HostSDK, body: Uint8Array) {
   const args = decodeJson(body, {}) as Record<string, unknown>;
-  const vendor = str(args.vendor ?? "");
+  const vendor = str(args.vendor ?? args.supplier ?? "");
   const items = parseItems(args.items);
   if (!vendor || items.length === 0) return { ok: false, error: "vendor and items required" };
-  const { subtotal, tax, total } = sumItems(items);
-  const purchaseOrderId = genID("po");
-  const now = nowISO();
-  try {
-    const db = createKyselyDb((sdk.env as Record<string, unknown>).HYPERDRIVE as never);
-    await (db.insertInto("vertex_kyber_purchase_order" as never).values({
-      vertex_id: `at://${DEPT.procurement}/com.etzhayyim.apps.kyber.purchaseOrder/${purchaseOrderId}`,
-      po_id: purchaseOrderId,
-      org_did: "anon",
-      actor_did: DEPT.procurement,
-      po_number: purchaseOrderId,
-      vendor_did: "",
-      vendor_name: vendor,
-      order_date: now.slice(0, 10),
-      expected_delivery: str(args.deliveryDate ?? ""),
-      subtotal,
-      tax,
-      total,
-      currency: str(args.currency ?? "JPY"),
-      status: "draft",
-      items_json: JSON.stringify(items),
-      created_at: now,
-    } as never).execute());
-  } catch (err) {
-    return { ok: false, error: "CreatePurchaseOrderFailed", detail: String(err) };
-  }
-  return { ok: true, purchaseOrderId, vendor, subtotal, tax, total };
+  const { total } = sumItems(items);
+  const e = bridgeFor(sdk, DEPT.procurement);
+  const r = await createPurchaseOrder(e, {
+    number: str(args.poNumber ?? genID("po")),
+    supplier: vendor,
+    total: money(total),
+    currency: args.currency !== undefined ? str(args.currency) : undefined,
+    ordered: args.deliveryDate !== undefined ? str(args.deliveryDate) : undefined,
+  });
+  return { ok: okStatus(r.status), vendor, total, ...r };
 }
 
-function cmdListPurchaseOrders(_sdk: HostSDK, body: Uint8Array) {
-  return emptyList("purchaseOrders", decodeJson(body, {}) as Record<string, unknown>);
+async function cmdListPurchaseOrders(sdk: HostSDK, body: Uint8Array) {
+  const args = decodeJson(body, {}) as Record<string, unknown>;
+  const e = bridgeFor(sdk, DEPT.procurement);
+  const r = await listPurchaseOrders(e, { limit: args.limit !== undefined ? Number(args.limit) : undefined });
+  return { ok: true, purchaseOrders: r.items, items: r.items, total: r.total };
 }
 
 // ───────────────────────────── Inventory (2) ─────────────────────────────
@@ -375,33 +307,23 @@ async function cmdRegisterInventoryItem(sdk: HostSDK, body: Uint8Array) {
   const sku = str(args.sku ?? "");
   const name = str(args.name ?? "");
   if (!sku || !name) return { ok: false, error: "sku and name required" };
-  const inventoryItemId = genID("inv");
-  const now = nowISO();
-  try {
-    const db = createKyselyDb((sdk.env as Record<string, unknown>).HYPERDRIVE as never);
-    await (db.insertInto("vertex_kyber_inventory_item" as never).values({
-      vertex_id: `at://${DEPT.inventory}/com.etzhayyim.apps.kyber.inventoryItem/${inventoryItemId}`,
-      item_id: inventoryItemId,
-      org_did: "anon",
-      actor_did: DEPT.inventory,
-      sku,
-      name,
-      description: "",
-      category: str(args.category ?? ""),
-      quantity_on_hand: Number(args.quantity ?? 0),
-      unit_cost: Number(args.unitCost ?? 0),
-      reorder_point: Number(args.reorderPoint ?? 0),
-      warehouse: str(args.warehouse ?? "default"),
-      created_at: now,
-    } as never).execute());
-  } catch (err) {
-    return { ok: false, error: "RegisterInventoryItemFailed", detail: String(err) };
-  }
-  return { ok: true, inventoryItemId, sku, name };
+  const e = bridgeFor(sdk, DEPT.inventory);
+  const r = await registerInventoryItem(e, {
+    sku,
+    name,
+    qty: args.quantity !== undefined ? money(args.quantity) : undefined,
+    unitCost: args.unitCost !== undefined ? money(args.unitCost) : undefined,
+    currency: args.currency !== undefined ? str(args.currency) : undefined,
+    unspsc: args.unspsc !== undefined ? str(args.unspsc) : undefined,
+  });
+  return { ok: okStatus(r.status), sku, name, ...r };
 }
 
-function cmdListInventory(_sdk: HostSDK, body: Uint8Array) {
-  return emptyList("items", decodeJson(body, {}) as Record<string, unknown>);
+async function cmdListInventory(sdk: HostSDK, body: Uint8Array) {
+  const args = decodeJson(body, {}) as Record<string, unknown>;
+  const e = bridgeFor(sdk, DEPT.inventory);
+  const r = await listInventory(e, { limit: args.limit !== undefined ? Number(args.limit) : undefined });
+  return { ok: true, items: r.items, total: r.total };
 }
 
 // ───────────────────────────── Sales (2) ─────────────────────────────
@@ -411,39 +333,24 @@ async function cmdCreateSalesOrder(sdk: HostSDK, body: Uint8Array) {
   const customer = str(args.customer ?? "");
   const items = parseItems(args.items);
   if (!customer || items.length === 0) return { ok: false, error: "customer and items required" };
-  const { subtotal, tax, total } = sumItems(items);
+  const { total } = sumItems(items);
   const shipping = Number(args.shipping ?? 0);
   const grandTotal = total + shipping;
-  const salesOrderId = genID("so");
-  const now = nowISO();
-  try {
-    const db = createKyselyDb((sdk.env as Record<string, unknown>).HYPERDRIVE as never);
-    await (db.insertInto("vertex_kyber_sales_order" as never).values({
-      vertex_id: `at://${DEPT.sales}/com.etzhayyim.apps.kyber.salesOrder/${salesOrderId}`,
-      order_id: salesOrderId,
-      org_did: "anon",
-      actor_did: DEPT.sales,
-      order_number: salesOrderId,
-      customer_did: "",
-      customer_name: customer,
-      order_date: now.slice(0, 10),
-      expected_delivery: "",
-      subtotal,
-      tax,
-      total: grandTotal,
-      currency: str(args.currency ?? "JPY"),
-      status: "draft",
-      items_json: JSON.stringify(items),
-      created_at: now,
-    } as never).execute());
-  } catch (err) {
-    return { ok: false, error: "CreateSalesOrderFailed", detail: String(err) };
-  }
-  return { ok: true, salesOrderId, customer, subtotal, tax, shipping, total: grandTotal };
+  const e = bridgeFor(sdk, DEPT.sales);
+  const r = await createSalesOrder(e, {
+    number: str(args.orderNumber ?? genID("so")),
+    customer,
+    total: money(grandTotal),
+    currency: args.currency !== undefined ? str(args.currency) : undefined,
+  });
+  return { ok: okStatus(r.status), customer, shipping, total: grandTotal, ...r };
 }
 
-function cmdListSalesOrders(_sdk: HostSDK, body: Uint8Array) {
-  return emptyList("salesOrders", decodeJson(body, {}) as Record<string, unknown>);
+async function cmdListSalesOrders(sdk: HostSDK, body: Uint8Array) {
+  const args = decodeJson(body, {}) as Record<string, unknown>;
+  const e = bridgeFor(sdk, DEPT.sales);
+  const r = await listSalesOrders(e, { limit: args.limit !== undefined ? Number(args.limit) : undefined });
+  return { ok: true, salesOrders: r.items, items: r.items, total: r.total };
 }
 
 // ───────────────────────────── Asset (3) ─────────────────────────────
@@ -453,73 +360,48 @@ async function cmdRegisterFixedAsset(sdk: HostSDK, body: Uint8Array) {
   const assetTag = str(args.assetTag ?? "");
   const name = str(args.name ?? "");
   if (!assetTag || !name) return { ok: false, error: "assetTag and name required" };
-
-  const fixedAssetId = genID("fa");
-  const cost = Number(args.cost ?? 0);
-  const salvageValue = Number(args.salvageValue ?? 0);
-  const usefulLifeMonths = Number(args.usefulLifeMonths ?? 60);
-  const usefulLifeYears = Math.max(1, Math.ceil(usefulLifeMonths / 12));
-  const acquisitionDate = str(args.acquisitionDate ?? nowISO().slice(0, 10));
-  const now = nowISO();
-
-  try {
-    const db = createKyselyDb((sdk.env as Record<string, unknown>).HYPERDRIVE as never);
-    await (db.insertInto("vertex_kyber_fixed_asset" as never).values({
-      vertex_id: `at://${DEPT.asset}/com.etzhayyim.apps.kyber.fixedAsset/${fixedAssetId}`,
-      asset_id: fixedAssetId,
-      org_did: "anon",
-      actor_did: DEPT.asset,
-      asset_number: assetTag,
-      name,
-      category: str(args.category ?? ""),
-      acquisition_date: acquisitionDate,
-      acquisition_cost: cost,
-      useful_life_years: usefulLifeYears,
-      depreciation_method: str(args.depreciationMethod ?? "straight-line"),
-      salvage_value: salvageValue,
-      accumulated_depreciation: 0,
-      net_book_value: cost - salvageValue,
-      location: "",
-      status: str(args.status ?? "active"),
-      created_at: now,
-    } as never).execute());
-  } catch (err) {
-    return { ok: false, error: "RegisterFixedAssetFailed", detail: String(err) };
-  }
-
-  return { ok: true, fixedAssetId, assetTag, name, cost, usefulLifeMonths };
+  const e = bridgeFor(sdk, DEPT.asset);
+  const r = await registerFixedAsset(e, {
+    tag: assetTag,
+    name,
+    cost: money(args.cost),
+    salvage: args.salvageValue !== undefined ? money(args.salvageValue) : undefined,
+    lifeMonths: Number(args.usefulLifeMonths ?? 60),
+    method: args.depreciationMethod !== undefined ? (str(args.depreciationMethod) as never) : undefined,
+    acquired: args.acquisitionDate !== undefined ? str(args.acquisitionDate) : undefined,
+    currency: args.currency !== undefined ? str(args.currency) : undefined,
+  });
+  return { ok: okStatus(r.status), assetTag, name, ...r };
 }
 
-function cmdListFixedAssets(_sdk: HostSDK, body: Uint8Array) {
-  return emptyList("fixedAssets", decodeJson(body, {}) as Record<string, unknown>);
+async function cmdListFixedAssets(sdk: HostSDK, body: Uint8Array) {
+  const args = decodeJson(body, {}) as Record<string, unknown>;
+  const e = bridgeFor(sdk, DEPT.asset);
+  const r = await listFixedAssets(e, { limit: args.limit !== undefined ? Number(args.limit) : undefined });
+  return { ok: true, fixedAssets: r.items, items: r.items, total: r.total };
 }
 
 async function cmdRunDepreciation(sdk: HostSDK, body: Uint8Array) {
   const args = decodeJson(body, {}) as Record<string, unknown>;
   const period = str(args.period ?? nowISO().slice(0, 7));
-  const assets = parseItems(args.assets);
-  const totalAmount = assets.reduce((sum, a) => sum + straightLineDepreciationMonthly(a), 0);
+  const periodIndex = Number(args.periodIndex ?? 0);
+  const e = bridgeFor(sdk, DEPT.asset);
 
-  const depreciationRunId = genID("depr");
-  const now = nowISO();
-  try {
-    const db = createKyselyDb((sdk.env as Record<string, unknown>).HYPERDRIVE as never);
-    await (db.insertInto("vertex_kyber_depreciation_run" as never).values({
-      vertex_id: `at://${DEPT.asset}/com.etzhayyim.apps.kyber.depreciationRun/${depreciationRunId}`,
-      run_id: depreciationRunId,
-      org_did: "anon",
-      actor_did: DEPT.asset,
-      period,
-      total_depreciation: totalAmount,
-      asset_count: assets.length,
-      status: "completed",
-      created_at: now,
-    } as never).execute());
-  } catch (err) {
-    return { ok: false, error: "RunDepreciationFailed", detail: String(err) };
+  // Single asset by tag, or a batch of asset tags. rw-free reads the persisted fixed asset
+  // and posts an accumulating depreciation-run Datom (非終末論, never an in-place edit).
+  const tag = str(args.tag ?? args.assetTag ?? "");
+  if (tag) {
+    const r = await runDepreciation(e, { tag, periodIndex, period });
+    return { ok: okStatus(r.status), period, ...r };
   }
-
-  return { ok: true, depreciationRunId, period, assetCount: assets.length, totalAmount };
+  const assets = parseItems(args.assets);
+  const runs: unknown[] = [];
+  for (const a of assets) {
+    const t = str(a.tag ?? a.assetTag ?? "");
+    if (!t) continue;
+    runs.push(await runDepreciation(e, { tag: t, periodIndex, period }));
+  }
+  return { ok: true, period, assetCount: runs.length, runs };
 }
 
 // ───────────────────────────── Governance (3) ─────────────────────────────
@@ -529,77 +411,56 @@ async function cmdRegisterPolicyControl(sdk: HostSDK, body: Uint8Array) {
   const controlCode = str(args.controlCode ?? "");
   const title = str(args.title ?? "");
   if (!controlCode || !title) return { ok: false, error: "controlCode and title required" };
-
-  const policyControlId = genID("ctl");
-  const now = nowISO();
-  try {
-    const db = createKyselyDb((sdk.env as Record<string, unknown>).HYPERDRIVE as never);
-    await (db.insertInto("vertex_kyber_policy_control" as never).values({
-      vertex_id: `at://${DEPT.governance}/com.etzhayyim.apps.kyber.policyControl/${policyControlId}`,
-      control_id: policyControlId,
-      org_did: "anon",
-      actor_did: DEPT.governance,
-      control_code: controlCode,
-      name: title,
-      description: str(args.description ?? ""),
-      framework: str(args.framework ?? "iso-27001"),
-      category: str(args.category ?? ""),
-      status: str(args.status ?? "active"),
-      owner_did: str(args.owner ?? ""),
-      review_date: "",
-      created_at: now,
-    } as never).execute());
-  } catch (err) {
-    return { ok: false, error: "RegisterPolicyControlFailed", detail: String(err) };
-  }
-
-  return { ok: true, policyControlId, controlCode, title };
+  const e = bridgeFor(sdk, DEPT.governance);
+  const r = await registerPolicyControl(e, {
+    code: controlCode,
+    title,
+    framework: args.framework !== undefined ? str(args.framework) : undefined,
+    status: args.status !== undefined ? (str(args.status) as never) : undefined,
+  });
+  return { ok: okStatus(r.status), controlCode, title, ...r };
 }
 
 async function cmdRecordRiskIssue(sdk: HostSDK, body: Uint8Array) {
   const args = decodeJson(body, {}) as Record<string, unknown>;
   const riskTitle = str(args.riskTitle ?? "");
   if (!riskTitle) return { ok: false, error: "riskTitle required" };
-
-  const riskIssueId = genID("risk");
-  const likelihood = str(args.likelihood ?? "medium");
-  const severity = str(args.severity ?? "medium");
-  const now = nowISO();
-  try {
-    const db = createKyselyDb((sdk.env as Record<string, unknown>).HYPERDRIVE as never);
-    await (db.insertInto("vertex_kyber_risk_issue" as never).values({
-      vertex_id: `at://${DEPT.governance}/com.etzhayyim.apps.kyber.riskIssue/${riskIssueId}`,
-      issue_id: riskIssueId,
-      org_did: "anon",
-      actor_did: DEPT.governance,
-      title: riskTitle,
-      description: str(args.mitigationPlan ?? ""),
-      category: str(args.category ?? "operational"),
-      likelihood,
-      impact: severity,
-      risk_score: null,
-      status: str(args.status ?? "open"),
-      owner_did: str(args.owner ?? ""),
-      due_date: str(args.dueDate ?? ""),
-      created_at: now,
-    } as never).execute());
-  } catch (err) {
-    return { ok: false, error: "RecordRiskIssueFailed", detail: String(err) };
-  }
-
-  return { ok: true, riskIssueId, riskTitle };
+  const e = bridgeFor(sdk, DEPT.governance);
+  const r = await recordRiskIssue(e, {
+    issueId: str(args.issueId ?? genID("risk")),
+    title: riskTitle,
+    severity: (str(args.severity ?? "medium") as never),
+    status: args.status !== undefined ? (str(args.status) as never) : undefined,
+  });
+  return { ok: okStatus(r.status), riskTitle, ...r };
 }
 
-function cmdListRiskIssues(_sdk: HostSDK, body: Uint8Array) {
-  return emptyList("riskIssues", decodeJson(body, {}) as Record<string, unknown>);
+async function cmdListRiskIssues(sdk: HostSDK, body: Uint8Array) {
+  const args = decodeJson(body, {}) as Record<string, unknown>;
+  const e = bridgeFor(sdk, DEPT.governance);
+  const r = await listRiskIssues(e, { limit: args.limit !== undefined ? Number(args.limit) : undefined });
+  return { ok: true, riskIssues: r.items, items: r.items, total: r.total };
 }
 
-// ───────────────────── Billing / Tenant (4) — ADR-2605072300 ─────────────────────────────
+// ───────────────────── Billing / Tenant (4) — kotoba-native, Stripe-disabled ─────────────────────
+//
+// Billing is the COMMERCIAL-FORK concern (kyber.etzhayyim.com for-profit tenancy). Stripe is
+// removed from the canonical religious-corp repo per Charter Rider §1.3 + ADR-2605212100.
+// Post-cutover these store billing tenant / usage-meter / stripe-report as kotoba Datom records
+// (no RisingWave/Kysely). Usage is aggregated from the meter records, replacing the old
+// RisingWave mv_kyber_monthly_usage materialized view.
 
 const BILLING_DID = "did:web:kyber.etzhayyim.com:dept:billing";
+const BILLING_TENANT_COLLECTION = "com.etzhayyim.apps.kyber.billingTenant";
+const USAGE_METER_COLLECTION = "com.etzhayyim.apps.kyber.usageMeter";
+const STRIPE_REPORT_COLLECTION = "com.etzhayyim.apps.kyber.kyberStripeReport";
 
 function nowMonth(): string {
-  return new Date().toISOString().slice(0, 7);
+  return nowISO().slice(0, 7);
+}
+
+function slug(s: string): string {
+  return s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 }
 
 function planLimits(planId: string): { maxUsers: number; maxMonthlyTxns: number } {
@@ -611,20 +472,8 @@ function planLimits(planId: string): { maxUsers: number; maxMonthlyTxns: number 
   }
 }
 
-// Stripe integration is REMOVED from the canonical etzhayyim repo per
-// Charter Rider §1.3 + ADR-2605192115 + ADR-2605211900 §"Constitutional
-// invariants" (no fiat payment processors / no `subscription` purpose
-// on external substrate calls). Downstream commercial forks (e.g.
-// kyber.etzhayyim.com) that operate as for-profit ERP tenancies are expected
-// to patch in their own stripePost implementation locally.
-//
-// This stub keeps the call sites in cmdProvisionTenant + cmdReportUsage
-// type-correct without re-introducing the api.stripe.com URL into the
-// canonical source tree. Calls degrade silently: provision continues
-// without a customer id, usage reporting reports zero. The deployed
-// kyber.etzhayyim.com instance ships a separate billing-non-religious-corp
-// module that re-exports a real stripePost. See
-// 90-docs/adr/2605212100-stripe-removed-from-religious-corp-canonical.md.
+// Stripe is disabled in the canonical etzhayyim repo (Charter Rider §1.3 + ADR-2605212100).
+// Downstream commercial forks re-implement stripePost locally. Calls degrade silently.
 async function stripePost(
   _path: string,
   _params: Record<string, string>,
@@ -638,80 +487,57 @@ async function stripePost(
   };
 }
 
+interface BillingTenantRecord {
+  did: string; tenantId: string; orgDid: string; orgName: string; planId: string;
+  stripeCustomerId: string; status: string; maxUsers: number; maxMonthlyTxns: number;
+  planActivatedAt: string; createdAt: string;
+}
+interface UsageMeterRecord {
+  did: string; meterId: string; orgDid: string; meterType: string; periodMonth: string;
+  deltaCount: number; createdAt: string;
+}
+
 async function cmdProvisionTenant(sdk: HostSDK, body: Uint8Array) {
   const args = decodeJson(body, {}) as Record<string, unknown>;
   const orgDid = str(args.orgDid ?? "");
   const orgName = str(args.orgName ?? "");
   const email = str(args.email ?? "");
   const planId = str(args.planId ?? "free");
-
   if (!orgDid || !orgName) return { ok: false, error: "orgDid and orgName required" };
 
-  const env = sdk.env as Record<string, unknown>;
-  const stripeKey = str(env.STRIPE_SECRET_KEY ?? "");
-  const db = createKyselyDb(env.HYPERDRIVE as never);
+  const e = bridgeFor(sdk, BILLING_DID);
+  const rkey = `tenant-${slug(orgDid)}`;
 
-  // Idempotency check via Hyperdrive read
-  try {
-    const existing = await (db
-      .selectFrom("vertex_kyber_billing_tenant" as never)
-      .select(["tenant_id" as never, "plan_id" as never, "status" as never, "stripe_customer_id" as never])
-      .where("org_did" as never, "=" as never, orgDid as never)
-      .orderBy("created_at" as never, "asc" as never)
-      .limit(1)
-      .executeTakeFirst() as Promise<Record<string, unknown> | undefined>);
-    if (existing) {
-      return {
-        ok: true,
-        tenantId: str(existing.tenant_id ?? ""),
-        planId: str(existing.plan_id ?? planId),
-        status: str(existing.status ?? "active"),
-        stripeCustomerId: str(existing.stripe_customer_id ?? ""),
-        alreadyExisted: true,
-      };
-    }
-  } catch (_) { /* table not ready — fall through */ }
+  // Idempotency: one billing tenant per org (read from the Datom log by rkey).
+  const existing = await e
+    .read<BillingTenantRecord>({ collection: BILLING_TENANT_COLLECTION, rkey })
+    .catch(() => ({ records: [] as { uri: string; value: BillingTenantRecord }[] }));
+  const prev = existing.records[0]?.value;
+  if (prev) {
+    return {
+      ok: true, tenantId: prev.tenantId, planId: prev.planId, status: prev.status,
+      stripeCustomerId: prev.stripeCustomerId, alreadyExisted: true,
+    };
+  }
 
   const tenantId = genID("tenant");
   let stripeCustomerId = "";
+  const stripeKey = str((sdk.env as Record<string, unknown>).STRIPE_SECRET_KEY ?? "");
   if (stripeKey && planId !== "free") {
     const res = await stripePost("customers", {
-      name: orgName,
-      email,
-      "metadata[orgDid]": orgDid,
-      "metadata[tenantId]": tenantId,
-      "metadata[planId]": planId,
+      name: orgName, email, "metadata[orgDid]": orgDid, "metadata[tenantId]": tenantId, "metadata[planId]": planId,
     }, stripeKey);
     if (res.ok && res.id) stripeCustomerId = res.id;
   }
 
   const limits = planLimits(planId);
   const now = nowISO();
-  const vertexId = `at://${BILLING_DID}/com.etzhayyim.apps.kyber.billingTenant/${tenantId}`;
-
-  // ADR-0036: Hyperdrive direct write → RisingWave (T2 Domain)
-  try {
-    await (db
-      .insertInto("vertex_kyber_billing_tenant" as never)
-      .values({
-        vertex_id: vertexId,
-        tenant_id: tenantId,
-        org_did: orgDid,
-        actor_did: BILLING_DID,
-        plan_id: planId,
-        stripe_customer_id: stripeCustomerId,
-        plan_activated_at: now,
-        status: "active",
-        max_users: limits.maxUsers,
-        max_monthly_txns: limits.maxMonthlyTxns,
-        created_at: now,
-        updated_at: now,
-      } as never)
-      .execute());
-  } catch (err) {
-    return { ok: false, error: "ProvisionFailed", detail: String(err) };
-  }
-
+  const record: BillingTenantRecord = {
+    did: `${BILLING_DID}`, tenantId, orgDid, orgName, planId, stripeCustomerId,
+    status: "active", maxUsers: limits.maxUsers, maxMonthlyTxns: limits.maxMonthlyTxns,
+    planActivatedAt: now, createdAt: now,
+  };
+  await e.write({ collection: BILLING_TENANT_COLLECTION, record: record as unknown as Record<string, unknown>, rkey });
   return { ok: true, tenantId, planId, status: "active", stripeCustomerId, alreadyExisted: false };
 }
 
@@ -720,51 +546,38 @@ async function cmdGetTenantPlan(sdk: HostSDK, body: Uint8Array) {
   const orgDid = str(args.orgDid ?? "");
   if (!orgDid) return { ok: false, error: "orgDid required" };
 
-  try {
-    const db = createKyselyDb((sdk.env as Record<string, unknown>).HYPERDRIVE as never);
-    const tenant = await (db
-      .selectFrom("vertex_kyber_billing_tenant" as never)
-      .selectAll()
-      .where("org_did" as never, "=" as never, orgDid as never)
-      .orderBy("created_at" as never, "asc" as never)
-      .limit(1)
-      .executeTakeFirst() as Promise<Record<string, unknown> | undefined>);
+  const e = bridgeFor(sdk, BILLING_DID);
+  const t = await e
+    .read<BillingTenantRecord>({ collection: BILLING_TENANT_COLLECTION, rkey: `tenant-${slug(orgDid)}` })
+    .catch(() => ({ records: [] as { uri: string; value: BillingTenantRecord }[] }));
+  const tenant = t.records[0]?.value;
+  if (!tenant) return { ok: false, error: "TenantNotFound" };
 
-    if (!tenant) return { ok: false, error: "TenantNotFound" };
-
-    const usage = await (db
-      .selectFrom("mv_kyber_monthly_usage" as never)
-      .selectAll()
-      .where("org_did" as never, "=" as never, orgDid as never)
-      .where("period_month" as never, "=" as never, nowMonth() as never)
-      .execute() as Promise<Array<Record<string, unknown>>>);
-
-    const usageMap: Record<string, number> = {};
-    for (const row of usage) {
-      usageMap[str(row.meter_type ?? "")] = Number(row.total_count ?? 0);
-    }
-
-    return {
-      ok: true,
-      tenantId: str(tenant.tenant_id ?? ""),
-      orgDid: str(tenant.org_did ?? ""),
-      planId: str(tenant.plan_id ?? "free"),
-      status: str(tenant.status ?? "active"),
-      maxUsers: Number(tenant.max_users ?? 1),
-      maxMonthlyTxns: Number(tenant.max_monthly_txns ?? 100),
-      stripeCustomerId: str(tenant.stripe_customer_id ?? ""),
-      planActivatedAt: str(tenant.plan_activated_at ?? ""),
-      usage: {
-        xrpcRequests: usageMap.xrpc_request ?? 0,
-        rwRows: usageMap.rw_row ?? 0,
-        llmTokens: usageMap.llm_token ?? 0,
-        langserverInvocations: usageMap.langserver_invocation ?? 0,
-        pdsBytes: usageMap.pds_byte ?? 0,
-      },
-    };
-  } catch (err) {
-    return { ok: false, error: "ReadError", detail: String(err) };
+  // Aggregate this month's usage from the meter records (replaces the RisingWave MV).
+  const meters = await e
+    .read<UsageMeterRecord>({ collection: USAGE_METER_COLLECTION, limit: 100 })
+    .catch(() => ({ records: [] as { uri: string; value: UsageMeterRecord }[] }));
+  const month = nowMonth();
+  const usageMap: Record<string, number> = {};
+  for (const r of meters.records) {
+    const m = r.value;
+    if (m.orgDid !== orgDid || m.periodMonth !== month) continue;
+    usageMap[m.meterType] = (usageMap[m.meterType] ?? 0) + Number(m.deltaCount ?? 0);
   }
+
+  return {
+    ok: true,
+    tenantId: tenant.tenantId, orgDid: tenant.orgDid, planId: tenant.planId, status: tenant.status,
+    maxUsers: tenant.maxUsers, maxMonthlyTxns: tenant.maxMonthlyTxns,
+    stripeCustomerId: tenant.stripeCustomerId, planActivatedAt: tenant.planActivatedAt,
+    usage: {
+      xrpcRequests: usageMap.xrpc_request ?? 0,
+      rwRows: usageMap.rw_row ?? 0,
+      llmTokens: usageMap.llm_token ?? 0,
+      langserverInvocations: usageMap.langserver_invocation ?? 0,
+      pdsBytes: usageMap.pds_byte ?? 0,
+    },
+  };
 }
 
 async function cmdRecordUsage(sdk: HostSDK, body: Uint8Array) {
@@ -773,35 +586,15 @@ async function cmdRecordUsage(sdk: HostSDK, body: Uint8Array) {
   const meterType = str(args.meterType ?? "");
   const deltaCount = Number(args.deltaCount ?? 1);
   const periodMonth = str(args.periodMonth ?? nowMonth());
-
   if (!orgDid || !meterType) return { ok: false, error: "orgDid and meterType required" };
   if (deltaCount <= 0) return { ok: false, error: "deltaCount must be > 0" };
 
+  const e = bridgeFor(sdk, BILLING_DID);
   const meterId = genID("meter");
-  const now = nowISO();
-  const vertexId = `at://${BILLING_DID}/com.etzhayyim.apps.kyber.usageMeter/${meterId}`;
-
-  // ADR-0036: Hyperdrive direct write → RisingWave (T2 Domain)
-  try {
-    const db = createKyselyDb((sdk.env as Record<string, unknown>).HYPERDRIVE as never);
-    await (db
-      .insertInto("vertex_kyber_usage_meter" as never)
-      .values({
-        vertex_id: vertexId,
-        meter_id: meterId,
-        org_did: orgDid,
-        actor_did: BILLING_DID,
-        meter_type: meterType,
-        period_month: periodMonth,
-        delta_count: deltaCount,
-        reported_to_stripe: false,
-        created_at: now,
-      } as never)
-      .execute());
-  } catch (err) {
-    return { ok: false, error: "RecordUsageFailed", detail: String(err) };
-  }
-
+  const record: UsageMeterRecord = {
+    did: BILLING_DID, meterId, orgDid, meterType, periodMonth, deltaCount, createdAt: nowISO(),
+  };
+  await e.write({ collection: USAGE_METER_COLLECTION, record: record as unknown as Record<string, unknown>, rkey: `meter-${meterId}` });
   return { ok: true, meterId };
 }
 
@@ -809,136 +602,100 @@ async function cmdReportUsageToStripe(sdk: HostSDK, body: Uint8Array) {
   const args = decodeJson(body, {}) as Record<string, unknown>;
   const dryRun = Boolean(args.dryRun ?? false);
   const periodMonth = str(args.periodMonth ?? nowMonth());
-  const env = sdk.env as Record<string, unknown>;
-  const stripeKey = str(env.STRIPE_SECRET_KEY ?? "");
+  const stripeKey = str((sdk.env as Record<string, unknown>).STRIPE_SECRET_KEY ?? "");
+  if (!stripeKey) return { ok: false, reported: 0, skipped: 0, errors: ["STRIPE_SECRET_KEY not configured (Stripe disabled in canonical repo)"] };
 
-  if (!stripeKey) return { ok: false, reported: 0, skipped: 0, errors: ["STRIPE_SECRET_KEY not configured"] };
+  const e = bridgeFor(sdk, BILLING_DID);
+  const tenants = await e
+    .read<BillingTenantRecord>({ collection: BILLING_TENANT_COLLECTION, limit: 100 })
+    .catch(() => ({ records: [] as { uri: string; value: BillingTenantRecord }[] }));
+  const meters = await e
+    .read<UsageMeterRecord>({ collection: USAGE_METER_COLLECTION, limit: 100 })
+    .catch(() => ({ records: [] as { uri: string; value: UsageMeterRecord }[] }));
+
+  // Join paid tenants × this-month usage (the in-memory replacement for the RisingWave join).
+  const paidByOrg = new Map<string, BillingTenantRecord>();
+  for (const r of tenants.records) if (r.value.planId !== "free") paidByOrg.set(r.value.orgDid, r.value);
+  const agg = new Map<string, { tenant: BillingTenantRecord; meterType: string; total: number }>();
+  for (const r of meters.records) {
+    const m = r.value;
+    if (m.periodMonth !== periodMonth) continue;
+    const tenant = paidByOrg.get(m.orgDid);
+    if (!tenant) continue;
+    const key = `${tenant.tenantId}:${m.meterType}`;
+    const cur = agg.get(key) ?? { tenant, meterType: m.meterType, total: 0 };
+    cur.total += Number(m.deltaCount ?? 0);
+    agg.set(key, cur);
+  }
+  const rows = [...agg.values()];
+  if (dryRun) return { ok: true, reported: 0, skipped: rows.length, errors: [], dryRun: true, periodMonth };
 
   let reported = 0;
   let skipped = 0;
   const errors: string[] = [];
-
-  try {
-    const db = createKyselyDb(env.HYPERDRIVE as never);
-
-    // Fetch paid tenants with usage this month
-    const rows = await (db
-      .selectFrom("mv_kyber_monthly_usage" as never)
-      .innerJoin(
-        "vertex_kyber_billing_tenant" as never,
-        "vertex_kyber_billing_tenant.tenant_id" as never,
-        "mv_kyber_monthly_usage.tenant_id" as never,
-      )
-      .select([
-        "mv_kyber_monthly_usage.tenant_id" as never,
-        "mv_kyber_monthly_usage.org_did" as never,
-        "mv_kyber_monthly_usage.meter_type" as never,
-        "mv_kyber_monthly_usage.total_count" as never,
-        "vertex_kyber_billing_tenant.plan_id" as never,
-        "vertex_kyber_billing_tenant.stripe_customer_id" as never,
-      ])
-      .where("mv_kyber_monthly_usage.period_month" as never, "=" as never, periodMonth as never)
-      .where("vertex_kyber_billing_tenant.plan_id" as never, "!=" as never, "free" as never)
-      .execute() as Promise<Array<Record<string, unknown>>>);
-
-    if (dryRun) return { ok: true, reported: 0, skipped: rows.length, errors: [], dryRun: true, periodMonth };
-
-    for (const row of rows) {
-      const tenantId = str(row.tenant_id ?? "");
-      const meterType = str(row.meter_type ?? "");
-      const totalCount = Number(row.total_count ?? 0);
-      const stripeCustomerId = str(row.stripe_customer_id ?? "");
-
-      if (!stripeCustomerId || totalCount === 0) { skipped++; continue; }
-
-      // Stripe Meter API (https://docs.stripe.com/api/billing/meter-event/create)
-      const res = await stripePost("billing/meter_events", {
-        event_name: `kyber_${meterType}`,
-        payload: JSON.stringify({ stripe_customer_id: stripeCustomerId, value: String(totalCount) }),
-        identifier: `${tenantId}:${periodMonth}:${meterType}`,
-      }, stripeKey);
-
-      if (res.ok) {
-        reported++;
-        // ADR-0036: record stripe report via Hyperdrive direct write (idempotency)
-        const reportId = genID("srpt");
-        const reportAt = nowISO();
-        try {
-          await (db
-            .insertInto("vertex_kyber_stripe_report" as never)
-            .values({
-              vertex_id: `at://${BILLING_DID}/com.etzhayyim.apps.kyber.kyberStripeReport/${reportId}`,
-              report_id: reportId,
-              tenant_id: tenantId,
-              org_did: str(row.org_did ?? ""),
-              actor_did: BILLING_DID,
-              period_month: periodMonth,
-              meter_type: meterType,
-              total_count: totalCount,
-              stripe_event_id: res.id ?? "",
-              status: "reported",
-              reported_at: reportAt,
-              created_at: reportAt,
-            } as never)
-            .execute());
-        } catch {} // non-fatal: Stripe event already sent
-      } else {
-        errors.push(`${tenantId}/${meterType}: ${res.errorMessage}`);
-      }
+  for (const row of rows) {
+    if (!row.tenant.stripeCustomerId || row.total === 0) { skipped++; continue; }
+    const res = await stripePost("billing/meter_events", {
+      event_name: `kyber_${row.meterType}`,
+      payload: JSON.stringify({ stripe_customer_id: row.tenant.stripeCustomerId, value: String(row.total) }),
+      identifier: `${row.tenant.tenantId}:${periodMonth}:${row.meterType}`,
+    }, stripeKey);
+    if (res.ok) {
+      reported++;
+      const reportId = genID("srpt");
+      const at = nowISO();
+      await e.write({
+        collection: STRIPE_REPORT_COLLECTION,
+        record: {
+          did: BILLING_DID, reportId, tenantId: row.tenant.tenantId, orgDid: row.tenant.orgDid,
+          periodMonth, meterType: row.meterType, totalCount: row.total, stripeEventId: res.id ?? "",
+          status: "reported", reportedAt: at, createdAt: at,
+        },
+        rkey: `srpt-${reportId}`,
+      }).catch(() => {}); // non-fatal: Stripe event already sent
+    } else {
+      errors.push(`${row.tenant.tenantId}/${row.meterType}: ${res.errorMessage}`);
     }
-  } catch (err) {
-    errors.push(String(err));
   }
-
   return { ok: errors.length === 0, reported, skipped, errors, periodMonth };
 }
 
 // ───────────────────────────── Management / Integration (5) ─────────────────────────────
 
-async function cmdRegisterDepartments(sdk: HostSDK, _body: Uint8Array) {
-  const db = createKyselyDb((sdk.env as Record<string, unknown>).HYPERDRIVE as never);
-  const now = nowISO();
-  const entries: Array<{ role: string; did: string; departmentId: string }> = [];
-  for (const [role, did] of Object.entries(DEPT)) {
-    const departmentId = genID("dept");
-    try {
-      await (db.insertInto("vertex_kyber_department" as never).values({
-        vertex_id: `at://${did}/com.etzhayyim.apps.kyber.department/${departmentId}`,
-        department_id: departmentId,
-        org_did: "anon",
-        actor_did: did,
-        role,
-        dept_did: did,
-        created_at: now,
-      } as never).execute());
-    } catch {} // idempotent: skip if already registered
-    entries.push({ role, did, departmentId });
-  }
+function cmdRegisterDepartments(_sdk: HostSDK, _body: Uint8Array) {
+  // Department DIDs are pre-registered via kotodama.jsonld entities; this returns the roster.
+  const entries = Object.entries(DEPT).map(([role, did]) => ({ role, did }));
   return { ok: true, departments: entries };
 }
 
-function cmdDashboard(_sdk: HostSDK, body: Uint8Array) {
+async function cmdDashboard(sdk: HostSDK, body: Uint8Array) {
   const args = decodeJson(body, {}) as Record<string, unknown>;
   const period = str(args.period ?? nowISO().slice(0, 7));
+  // kqe replacement for the RisingWave getApqcCoverage MV — real counts off the Datom log.
+  const e = bridgeFor(sdk, actorDID || "did:web:kyber.etzhayyim.com");
+  const cov = await erpCoverage(e, {});
+  const c = cov.counts;
   return {
     ok: true,
     period,
     modules: {
-      accounting: { journalEntries: 0, trialBalance: { debit: 0, credit: 0 } },
-      apAr: { receivableOpen: 0, payableOpen: 0, currency: "JPY" },
-      hr: { activeEmployees: 0, departments: Object.keys(DEPT).length },
-      procurement: { openPOs: 0 },
-      inventory: { skus: 0, lowStock: 0 },
-      sales: { openOrders: 0 },
-      asset: { activeAssets: 0, depreciationRuns: 0 },
-      governance: { activeControls: 0, openRiskIssues: 0 },
+      accounting: { journalEntries: c.journalEntry ?? 0, accounts: c.account ?? 0 },
+      apAr: { invoices: c.invoice ?? 0 },
+      hr: { activeEmployees: c.employee ?? 0, departments: Object.keys(DEPT).length },
+      procurement: { openPOs: c.purchaseOrder ?? 0 },
+      inventory: { skus: c.inventoryItem ?? 0 },
+      sales: { openOrders: c.salesOrder ?? 0 },
+      asset: { activeAssets: c.fixedAsset ?? 0, depreciationRuns: c.depreciationRun ?? 0 },
+      governance: { activeControls: c.policyControl ?? 0, openRiskIssues: c.riskIssue ?? 0 },
     },
     departments: Object.keys(DEPT),
-    note: "dashboard metrics are stubs; reads re-enable after graphar.vertex_* Kysely wiring",
+    apqcL1Active: cov.apqcL1Active,
+    modulesActive: cov.modulesActive,
+    total: cov.total,
   };
 }
 
-// ───── Bonus: integration catalog (referenced from UI) ─────
+// ───── Integration catalog (referenced from UI) ─────
 
 const INTEGRATION_CATALOG = [
   { id: "mailer", name: "com.etzhayyim.apps.mailer", kind: "messaging", status: "available" },
@@ -953,25 +710,16 @@ function cmdListIntegrationCatalog(_sdk: HostSDK, _body: Uint8Array) {
 }
 
 async function cmdSyncIntegrationCatalog(sdk: HostSDK, _body: Uint8Array) {
-  const db = createKyselyDb((sdk.env as Record<string, unknown>).HYPERDRIVE as never);
+  const e = bridgeFor(sdk, actorDID || "did:web:kyber.etzhayyim.com");
   const now = nowISO();
   for (const i of INTEGRATION_CATALOG) {
-    const bindingId = genID("bind");
-    try {
-      await (db.insertInto("vertex_kyber_integration_binding" as never).values({
-        vertex_id: `at://${actorDID || "did:web:kyber.etzhayyim.com"}/com.etzhayyim.apps.kyber.integrationBinding/${bindingId}`,
-        binding_id: bindingId,
-        org_did: "anon",
-        actor_did: actorDID || "did:web:kyber.etzhayyim.com",
-        integration_id: i.id,
-        name: i.name,
-        description: i.kind,
-        category: i.kind,
-        xrpc_method: "",
-        synced_at: now,
-        created_at: now,
-      } as never).execute());
-    } catch {} // skip duplicates on re-sync
+    const record = {
+      did: actorDID || "did:web:kyber.etzhayyim.com", integrationId: i.id, name: i.name,
+      category: i.kind, status: "available", createdAt: now,
+    };
+    await e
+      .write({ collection: "com.etzhayyim.apps.openKyber.integrationBinding", record, rkey: `bind-${slug(i.id)}` })
+      .catch(() => {}); // idempotent: skip duplicates on re-sync
   }
   return { ok: true, synced: INTEGRATION_CATALOG.length };
 }
@@ -983,8 +731,14 @@ export function handleComAtprotoSyncSubscribeReposCommit(
   commit: ComAtprotoSyncSubscribeReposCommit,
 ): { ok: true; detail: string } {
   if (commit.action !== "create") return { ok: true, detail: "skip non-create" };
+  const c = commit as unknown as Record<string, unknown>;
   const collection = str(commit.collection ?? "");
-  inbox.inboundCommits.push({ collection, action: "create", ts: Date.now() });
+  inbox.inboundCommits.push({
+    collection,
+    repo: str(c.repo ?? c.did ?? ""),
+    rkey: str(c.rkey ?? c.path ?? ""),
+    time: nowISO(),
+  });
   return { ok: true, detail: `accepted ${collection}` };
 }
 
@@ -1042,7 +796,7 @@ function configureApp(sdk: HostSDK): void {
       asAgentTool("Add a chart-of-accounts entry"),
       withCapabilityTags("accounting", "coa"))
     .command(nsid("com.etzhayyim.apps.kyber.seedChartOfAccounts"), async (_c, b) => cmdSeedChartOfAccounts(sdk, b),
-      asAgentTool("Seed 25 IFRS-aligned default accounts"),
+      asAgentTool("Seed 25 IFRS-aligned default accounts (+ ISIC pack extensions)"),
       withCapabilityTags("accounting", "coa", "seed"))
     // AP/AR (2)
     .command(nsid("com.etzhayyim.apps.kyber.createInvoice"), async (_c, b) => cmdCreateInvoice(sdk, b),
@@ -1087,7 +841,7 @@ function configureApp(sdk: HostSDK): void {
       asAgentTool("List fixed assets (category/status/owner filter)"),
       withCapabilityTags("asset", "query"))
     .command(nsid("com.etzhayyim.apps.kyber.runDepreciation"), async (_c, b) => cmdRunDepreciation(sdk, b),
-      asAgentTool("Run period depreciation (straight-line) and post summary"),
+      asAgentTool("Run period depreciation and post an accumulating summary"),
       withCapabilityTags("asset", "depreciation", "accounting"))
     // Governance (3)
     .command(nsid("com.etzhayyim.apps.kyber.registerPolicyControl"), async (_c, b) => cmdRegisterPolicyControl(sdk, b),
@@ -1116,7 +870,7 @@ function configureApp(sdk: HostSDK): void {
     .command(nsid("com.etzhayyim.apps.kyber.initApqcProjector"), async (_c, b) => cmdInitApqcProjector(sdk, b),
       asAgentTool("Bootstrap kyber-projector: follow + emit apqcBootstrap record"),
       withCapabilityTags("apqc", "bpmn", "bootstrap", "cross-project"))
-    // Billing (4) — ADR-2605072300
+    // Billing (4) — ADR-2605072300 (kotoba-native, Stripe disabled in canonical repo)
     .command(nsid("com.etzhayyim.apps.kyber.provisionTenant"), async (_c, b) => cmdProvisionTenant(sdk, b),
       asAgentTool("Provision a kyber tenant (idempotent by orgDid). Called by yoro.etzhayyim.com signup flow."),
       withCapabilityTags("billing", "tenant", "signup"))

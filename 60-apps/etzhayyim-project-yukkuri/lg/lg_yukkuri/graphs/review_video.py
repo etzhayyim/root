@@ -69,7 +69,7 @@ async def _node_fetch_content(state: _State) -> dict[str, Any]:
         return {"error": "video_id required"}
     try:
         import asyncio
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         client = get_kotoba_client()
         raw_video = await asyncio.to_thread(client.select_where, "vertex_yukkuri_video", "video_id", video_id, limit=1)
         topic = raw_video[0].get("topic") if raw_video else ""
@@ -133,7 +133,7 @@ async def _node_update_status(state: _State) -> dict[str, Any]:
     new_status = "published" if passed else "rejected"
     try:
         import asyncio
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         client = get_kotoba_client()
         raw_video = await asyncio.to_thread(client.select_where, "vertex_yukkuri_video", "video_id", video_id)
         if raw_video:

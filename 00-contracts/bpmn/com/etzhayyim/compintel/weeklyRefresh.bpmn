@@ -8,7 +8,7 @@
   <!--
     weeklyRefresh.bpmn — Competitive Intelligence Weekly Refresh (ADR-2605072000)
     Schedule: every Monday 08:00 JST (0 23 * * 0 UTC)
-    Workers: 20-actors/magatama/py/src/pymagatama/compintel_worker_main.py
+    Workers: 40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/compintel_worker_main.py
     No PII — all data is public competitive intelligence.
   -->
 

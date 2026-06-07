@@ -68,7 +68,7 @@
   "cells": [
     {
       "name": "marriage_ceremony",
-      "module": "magatama.cells.musubi_marriage_ceremony",
+      "module": "kotodama.cells.musubi_marriage_ceremony",
       "murakumoNode": "gad",
       "phase": "event",
       "io": "ceremony plan + party consent + officiant + witnesses → ceremonyPerformanceAttestation + chigiri.covenantAttestation cross-emit",
@@ -76,7 +76,7 @@
     },
     {
       "name": "naming_ceremony",
-      "module": "magatama.cells.musubi_naming_ceremony",
+      "module": "kotodama.cells.musubi_naming_ceremony",
       "murakumoNode": "gad",
       "phase": "event",
       "io": "new member OR newborn + consent → ceremonyPerformanceAttestation + chigiri.covenantAttestation cross-emit",
@@ -84,7 +84,7 @@
     },
     {
       "name": "funeral_ceremony",
-      "module": "magatama.cells.musubi_funeral_ceremony",
+      "module": "kotodama.cells.musubi_funeral_ceremony",
       "murakumoNode": "gad",
       "phase": "event",
       "io": "deceased DID + plan + witnesses → ceremonyPerformanceAttestation + chigiri.covenantAttestation + chigiri.inheritanceChain cross-emit",
@@ -92,7 +92,7 @@
     },
     {
       "name": "vocation_vow_ceremony",
-      "module": "magatama.cells.musubi_vocation_vow_ceremony",
+      "module": "kotodama.cells.musubi_vocation_vow_ceremony",
       "murakumoNode": "gad",
       "phase": "event",
       "io": "L5 candidate + commitment scope + witnesses → ceremonyPerformanceAttestation + chigiri.covenantAttestation cross-emit",
@@ -100,14 +100,14 @@
     },
     {
       "name": "rededication_ceremony",
-      "module": "magatama.cells.musubi_rededication_ceremony",
+      "module": "kotodama.cells.musubi_rededication_ceremony",
       "murakumoNode": "gad",
       "phase": "event",
       "io": "returning member + cure-period attestation + Council ≥3 → ceremonyPerformanceAttestation + chigiri.covenantAttestation cross-emit"
     },
     {
       "name": "seasonal_communal_ceremony",
-      "module": "magatama.cells.musubi_seasonal_communal_ceremony",
+      "module": "kotodama.cells.musubi_seasonal_communal_ceremony",
       "murakumoNode": "gad",
       "phase": "calendar-driven (8-12/year)",
       "io": "seasonal cycle + opt-in attendance → seasonalCeremonyCalendar (NO chigiri.covenantAttestation; communal not per-individual)"

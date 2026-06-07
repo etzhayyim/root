@@ -3,7 +3,7 @@
 Two graphs:
   - health         : liveness ping
   - extractEvidence: wraps task_curpus2skill_extract_evidence from
-                     pymagatama.ingest.curpus2skill
+                     kotodama.ingest.curpus2skill
 
 Handler signature (camelCase params):
   task_curpus2skill_extract_evidence(
@@ -27,7 +27,7 @@ from fastapi.responses import JSONResponse
 from langgraph.graph import END, START, StateGraph
 from typing_extensions import TypedDict
 
-from pymagatama.ingest.curpus2skill import task_curpus2skill_extract_evidence
+from kotodama.ingest.curpus2skill import task_curpus2skill_extract_evidence
 
 log = logging.getLogger(__name__)
 

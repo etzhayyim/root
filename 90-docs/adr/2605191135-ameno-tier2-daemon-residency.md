@@ -22,7 +22,7 @@ V05171300
 
 ## Context
 
-ADR-2605182312 が定める organism ecosystem は **Murakumo Tier 1**(Mac mini fleet 10 ノード、native MLX、`pymagatama.agent_daemon_main` で active inference を回す)を主柱としている。**Tier 2 (ameno browser)** は同 ADR で "crowd-sourced inference" の供給源として位置付けられているが、現状の svelte アプリは:
+ADR-2605182312 が定める organism ecosystem は **Murakumo Tier 1**(Mac mini fleet 10 ノード、native MLX、`kotodama.agent_daemon_main` で active inference を回す)を主柱としている。**Tier 2 (ameno browser)** は同 ADR で "crowd-sourced inference" の供給源として位置付けられているが、現状の svelte アプリは:
 
 - chat UI を兼ねた **対人モード** が主
 - "Auto-respond to PDS firehose" ボタンを能動 ON にしないと働かない
@@ -46,7 +46,7 @@ ADR-2605182312 が定める organism ecosystem は **Murakumo Tier 1**(Mac mini 
 | system restart 耐性 | ❌ | ✅ |
 | 役割 | Tier 2 opportunistic worker(ユーザ滞在中) | Tier 1 always-on backbone |
 
-**この etzhayyim 文脈での真の 常駐化 は ADR-2605182312 の Murakumo Tier 1**(Mac mini fleet 10 ノード、native MLX、`pymagatama.agent_daemon_main`)が担う。ameno tab はその **Tier 2 = "browser-resident opportunistic worker"** — 開いてる時だけ寄与する volunteer compute、という設計分離。
+**この etzhayyim 文脈での真の 常駐化 は ADR-2605182312 の Murakumo Tier 1**(Mac mini fleet 10 ノード、native MLX、`kotodama.agent_daemon_main`)が担う。ameno tab はその **Tier 2 = "browser-resident opportunistic worker"** — 開いてる時だけ寄与する volunteer compute、という設計分離。
 
 ### 真の 常駐化 への follow-up path(本 ADR 範囲外)
 

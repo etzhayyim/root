@@ -68,7 +68,7 @@ Walk every consumer of `@etzhayyim/kami-engine-sdk`:
 | Consumer | Current dependency form | Action |
 |---|---|---|
 | `60-apps/etzhayyim-project-cyber-drill/svelte/` | `link:../../../40-engine/kami-engine/kami-engine-sdk` | already canonical; no-op |
-| `20-actors/magatama/sdk/magatama-host-sdk/` | `workspace:*` | confirm resolves to 40-engine after Phase 1 workspace registration |
+| `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/` | `workspace:*` | confirm resolves to 40-engine after Phase 1 workspace registration |
 | `60-apps/etzhayyim-project-{image2vrm,image2metahuman,baminiku,mangaka}/.../svelte/` | `workspace:*` | confirm resolves to 40-engine; these are scaffold stubs that don't yet build, so the resolution path is currently latent |
 
 If all consumers resolve to 40-engine cleanly, Phase 3 unblocks.
@@ -104,7 +104,7 @@ Observations against the pre-existing lockfile (HEAD):
   ⚠ Five consumer apps that declare `@etzhayyim/kami-engine-sdk":
     "workspace:*"` are not themselves listed in `pnpm-workspace.yaml`
     (image2vrm / image2metahuman / baminiku-bm1n1ku8 / mangaka /
-    magatama-host-sdk). Their `workspace:*` declarations are therefore
+    kotodama-host-sdk). Their `workspace:*` declarations are therefore
     not actively evaluated during root install — they would only
     resolve under their own `pnpm install --ignore-workspace`, where
     `link:`-style explicit paths (cyber-drill's pattern) would also

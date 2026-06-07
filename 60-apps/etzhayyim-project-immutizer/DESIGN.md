@@ -3,7 +3,7 @@
 ## 1. Goal
 
 `etzhayyim-project-immutizer` に登録されている SaaS / mailing list / vendor account に対して、
-以下を一元実行する Magatama app を設計する。
+以下を一元実行する Kotodama app を設計する。
 
 - 配信停止 (`unsubscribe`)
 - 契約解約 (`cancel`)
@@ -54,7 +54,7 @@
   - cypher graph/cypher graph projection
   - 原文、レスポンス、タイムライン、添付証跡の保存
 
-初期実装では 1 Magatama app 内の内部 module として開始し、負荷や責務分離が必要になった時点で component 分割する。
+初期実装では 1 Kotodama app 内の内部 module として開始し、負荷や責務分離が必要になった時点で component 分割する。
 
 ## 5. Domain Model
 

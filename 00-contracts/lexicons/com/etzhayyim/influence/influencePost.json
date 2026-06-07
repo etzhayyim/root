@@ -1,0 +1,52 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.influence.influencePost",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "A DRY-RUN mirror social-post OBSERVING the documented historical influence of a public figure / document / event / tradition (tsumugi diachronic extension, ADR-2606061500; built on the entity-as-actor mirror ADR-2606042330 + feed-post membrane ADR-2605231902). N2 mirror-only: the post is an OBSERVATION ABOUT a node's influence, NEVER the figure speaking — 'voice' is const 'observer' so first-person/impersonation is unrepresentable. N3 non-eschatological: it narrates the INFLUENCE OF a tradition, never its theological truth; no verdict/salvation field exists. Body is Murakumo-narrated (G6). LIVE firehose publication is Council + operator gated (G7); R0 = dry-run only ('published' false).",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["aboutNode", "voice", "isMirror", "narrator", "disclaimer", "text", "published"],
+        "properties": {
+          "aboutNode": { "type": "string", "description": "the historical node this post OBSERVES (e.g. 'fig.jesus', 'doc.torah') — observed, never authored-as" },
+          "aboutFlow": { "type": "string", "description": "optional :flow/* influence edge this post narrates (e.g. 'fl.paul.luther')" },
+          "voice": {
+            "type": "string",
+            "const": "observer",
+            "description": "N2 — LOCKED to observer. There is no 'first-person' value; the figure never speaks. Impersonation is structurally unrepresentable."
+          },
+          "isMirror": {
+            "type": "boolean",
+            "const": true,
+            "description": "N2 — a mirror of documented influence, never the person/text itself"
+          },
+          "narrator": {
+            "type": "string",
+            "const": "murakumo",
+            "description": "G6 — narration is Murakumo-only; no vendor/off-Murakumo inference"
+          },
+          "disclaimer": {
+            "type": "string",
+            "description": "REQUIRED — must open the rendered text, e.g. '観察像 — 本人ではない (an observational mirror, not the person)'"
+          },
+          "asOf": {
+            "type": "string",
+            "description": "the diachronic anchor (era/year) this observation pertains to — history, not now (N3 非終末論)"
+          },
+          "published": {
+            "type": "boolean",
+            "description": "G7 — false at R0 (dry-run); true only after Council + operator gate for live firehose"
+          },
+          "sourcing": {
+            "type": "string",
+            "enum": ["authoritative", "representative"],
+            "description": "G5 sourcing honesty"
+          },
+          "text": { "type": "string", "maxLength": 3000, "description": "third-person observation; opens with disclaimer; aggregate-first, :representative-honest" }
+        }
+      }
+    }
+  }
+}

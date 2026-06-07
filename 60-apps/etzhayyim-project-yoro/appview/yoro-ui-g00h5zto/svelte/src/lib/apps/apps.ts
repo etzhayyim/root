@@ -517,26 +517,6 @@ export const apps: GfAppLink[] = [
 		external: false
 	},
 	{
-		id: 'pachinko',
-		name: 'pachinko.etzhayyim.com',
-		shortName: 'Pachinko',
-		href: 'https://pachinko.etzhayyim.com',
-		icon: '🎰',
-		category: 'Services',
-		description: 'Pachinko simulation',
-		external: false
-	},
-	{
-		id: 'casino',
-		name: 'casino.etzhayyim.com',
-		shortName: 'Casino',
-		href: 'https://casino.etzhayyim.com',
-		icon: '🎲',
-		category: 'Services',
-		description: 'World casino directory',
-		external: false
-	},
-	{
 		id: 'oshiete',
 		name: 'oshiete.etzhayyim.com',
 		shortName: 'Oshiete',

@@ -162,7 +162,7 @@ SSoT: `deps.toml [etzhayyim_agent.product_portfolio]` + `90-docs/adr/2605180000-
 | `sdk` | 4 | legacy-host-sdk-factory, handlehttp-wit-compat, cli-lmstudio-api-defaults, cli-etzhayyim-json-manifest |
 | `ui` | 3 | legacy-panel-genimage, legacy-actor-profile, svelte-slot-migration |
 | `design` | 2 | maps-forward-topology-raw-to-webgpu, maps-google-earth-3d-topology |
-| `naming` | 1 | pds-magatamaapp-rename |
+| `naming` | 1 | pds-kotodamaapp-rename |
 | `read-path` | 1 | r2sql-archive |
 
 ### Blocked

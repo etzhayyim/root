@@ -101,7 +101,7 @@ PR-gate axes (5):
   2. docs.json freshness           (cycle 48)
   3. graph.jsonld freshness        (cycle 49)
   4. docs+graph schema validation  (cycle 50 → 51)
-  5. magatama manifest validation  (cycle 53)
+  5. kotodama manifest validation  (cycle 53)
 
 Tracker axes (3):
   6. relation integrity (6-field)  (cycle 60 + 64 depends_on)  baseline 1011
@@ -123,7 +123,7 @@ deps.toml:    566/581 resolve / 15 accepted-reserved / 0 drift / 0 dupes  EXIT 0
 docs.json:    in sync (660 entries)                                          EXIT 0
 graph.jsonld: in sync (660 nodes)                                            EXIT 0
 schema:       0 docs + 0 graph errors                                        EXIT 0
-magatama:     42/42 valid                                                    EXIT 0
+kotodama:     42/42 valid                                                    EXIT 0
 relation:     1011 known (6-field)                                           EXIT 0 / strict: 1
 id-filename:  53 known (rename-pending floor)                                EXIT 0 / strict: 1
 md-links:     33 known                                                       EXIT 0 / strict: 1

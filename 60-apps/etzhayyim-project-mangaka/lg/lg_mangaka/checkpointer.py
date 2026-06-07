@@ -18,7 +18,7 @@ import logging
 from contextlib import asynccontextmanager
 from typing import Any, AsyncIterator
 
-from pymagatama.langgraph_checkpoint_kotoba import get_checkpoint_saver
+from kotodama.langgraph_checkpoint_kotoba import get_checkpoint_saver
 
 _log = logging.getLogger(__name__)
 

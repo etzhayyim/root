@@ -117,7 +117,7 @@ this is the documented MVP failure mode pending a real Vault wrap.
 - ameno becomes the reference implementation for any future
   "browser-local LLM with persist + credit" actor. The pattern is:
   Lexicon × N → Worker (edge proxy, no DB) → routing-table.ts →
-  bpmn-dispatcher → `*-langserver` pod (pymagatama.worker_api +
+  bpmn-dispatcher → `*-langserver` pod (kotodama.worker_api +
   per-actor handlers) → vertex / AF event tables.
 - WebGPU LoRA weight merge is **wired but not applied** (selected
   adapter ids are recorded in `saveResult.loraAdapters` but the
@@ -128,8 +128,8 @@ this is the documented MVP failure mode pending a real Vault wrap.
   landed under the legacy Kysely directory; Phase 5i added the
   Alembic counterpart and the Kysely file is now a SUPERSEDED lineage
   archive.
-- ameno-langserver inherits the `pymagatama` image (no per-actor pod
-  image), so any pymagatama bump touches every Tier 2 actor at once.
+- ameno-langserver inherits the `kotodama` image (no per-actor pod
+  image), so any kotodama bump touches every Tier 2 actor at once.
   Acceptable tradeoff while the pod count stays small.
 
 # Open follow-ups

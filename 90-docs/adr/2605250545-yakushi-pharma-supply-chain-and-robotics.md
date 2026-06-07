@@ -24,11 +24,11 @@ depends_on:
   - adr-2605242900-silicon-logistics-funamori-class
 related:
   - 20-actors/yakushi/
-  - 20-actors/magatama/cells/pharma_raw_material/
-  - 20-actors/magatama/cells/pharma_packaging/
-  - 20-actors/magatama/cells/pharma_cold_chain/
-  - 20-actors/magatama/cells/pharma_post_market_surveillance/
-  - 20-actors/magatama/cells/pharma_adverse_event/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_raw_material/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_packaging/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_cold_chain/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_post_market_surveillance/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_adverse_event/
   - 00-contracts/lexicons/com/etzhayyim/pharma/rawMaterialAttestation.json
   - 00-contracts/lexicons/com/etzhayyim/pharma/silenPharmaReview.json
   - 00-contracts/lexicons/com/etzhayyim/pharma/adverseEventReport.json

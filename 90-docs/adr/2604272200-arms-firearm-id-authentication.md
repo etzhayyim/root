@@ -137,7 +137,7 @@ Key rules:
 
 - Worker: `arms.etzhayyim.com` (CF Worker, `did:web:arms.etzhayyim.com`)
 - nanoid: `arms`
-- magatama.jsonld: `60-apps/etzhayyim-project-arms/worker/magatama.jsonld`
+- kotodama.jsonld: `60-apps/etzhayyim-project-arms/worker/kotodama.jsonld`
 - Migration: `30-graph/graph-schema/migrations/20260427*_arms_*.ts` (9 tables applied)
 - database.ts: regenerated 2026-04-27, 2,227 tables, zero drift
 

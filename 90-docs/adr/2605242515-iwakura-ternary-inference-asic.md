@@ -20,7 +20,7 @@ related:
   - 50-infra/silicon/iwakura/
   - 50-infra/silicon/shared-ip/ternary-pe/
   - 70-tools/silicon/iwakura-asm/                # baien model → iwakura microcode compiler (future)
-  - 20-actors/magatama/cells/silicon_test/        # ATE Pregel cell tests against iwakura
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_test/        # ATE Pregel cell tests against iwakura
 supersedes: []
 superseded_by: []
 ---

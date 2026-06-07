@@ -47,7 +47,7 @@ def test_g4_refuses_non_org_operator():
 
 
 def test_kg_batch_shape_matches_live_kotobase_contract():
-    """ai.gftd.apps.kotobase.kg.ingest {id, type?, label_*, claims?, relations?}."""
+    """ai.etzhayyim.apps.kotobase.kg.ingest {id, type?, label_*, claims?, relations?}."""
     ref, unit, outage = ingest.migrate(_export())
     batch = ingest.to_kg_batch(ref, unit, outage)
     assert len(batch["entities"]) == 12
@@ -67,20 +67,20 @@ def test_canonical_push_refuses_without_etzhayyim_endpoint_and_auth(monkeypatch)
         ingest.main(["ingest.py", "--push"])
 
 
-def test_gftd_mirror_is_explicit_opt_in_and_needs_jwt(monkeypatch):
-    """gftd kotobase is a demoted pinning mirror behind --mirror-gftd, never the default."""
+def test_etzhayyim_mirror_is_explicit_opt_in_and_needs_jwt(monkeypatch):
+    """etzhayyim kotobase is a demoted pinning mirror behind --mirror-etzhayyim, never the default."""
     monkeypatch.delenv("KOTOBA_JWT", raising=False)
     with pytest.raises(SystemExit, match="mirror"):
-        ingest.main(["ingest.py", "--mirror-gftd"])
+        ingest.main(["ingest.py", "--mirror-etzhayyim"])
 
 
 def test_no_hardcoded_vendor_canonical_default():
     """Boundary guard: no vendor endpoint is wired as a canonical/default push target."""
     import inspect
     src = inspect.getsource(ingest)
-    # gftd endpoint may appear ONLY as the explicit mirror constant, never as CANONICAL_*.
+    # etzhayyim endpoint may appear ONLY as the explicit mirror constant, never as CANONICAL_*.
     assert 'CANONICAL_NSID = "com.etzhayyim' in src
-    assert "GFTD_MIRROR_ENDPOINT" in src and "kotobase.net" in src
+    assert "ETZHAYYIM_MIRROR_ENDPOINT" in src and "kotobase.net" in src
     # the canonical --push reads etzhayyim-controlled env, not a vendor constant
     assert 'os.environ.get("KOTOBA_ENDPOINT")' in src
 

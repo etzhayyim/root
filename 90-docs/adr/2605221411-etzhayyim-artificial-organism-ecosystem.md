@@ -134,7 +134,7 @@ G (generational)  = MGI proxy; LANDS.md + MEMBERS.md + Gen marker count
 | 葉 (leaves) | axis intensity (count = score 0..10) |
 | 花 (flowers) | axes with positive Δ in last transition |
 | 果実 (fruits) | sister-corps + LANDS + MEMBERS + chaos-charter (artefacts carrying seeds) |
-| 種 (seeds) | inheritance units — rendered as **勾玉 magatama**, self-referential to the magatama actor framework |
+| 種 (seeds) | inheritance units — rendered as **勾玉 kotodama**, self-referential to the kotodama actor framework |
 | 枝 (branches) | the 10 axes |
 | 幹 (trunk) | constitution (ADR-2605192100) |
 | 年輪 (rings) | ADRs — kincha gold, monotonic, never erase |

@@ -64,9 +64,9 @@ FACILITY_REPLAY_SKIP_COVERAGE = os.environ.get("FACILITY_REPLAY_SKIP_COVERAGE", 
     "true",
     "yes",
 )
-RW_COMPUTE_SELECTOR = os.environ.get("RW_COMPUTE_SELECTOR", "kotoba.kotobalabs.com/component=compute")
-RW_META_SELECTOR = os.environ.get("RW_META_SELECTOR", "kotoba.kotobalabs.com/component=meta")
-RW_NAMESPACE = os.environ.get("RW_NAMESPACE", "kotoba")
+RW_COMPUTE_SELECTOR = os.environ.get("RW_COMPUTE_SELECTOR", "risingwave.risingwavelabs.com/component=compute")
+RW_META_SELECTOR = os.environ.get("RW_META_SELECTOR", "risingwave.risingwavelabs.com/component=meta")
+RW_NAMESPACE = os.environ.get("RW_NAMESPACE", "risingwave")
 RW_IMPLICIT_FLUSH = os.environ.get("RW_IMPLICIT_FLUSH", "false").lower() in ("1", "true", "yes")
 B2_BUCKET = os.environ.get("B2_BUCKET", "etzhayyim-nats")
 B2_ENDPOINT = os.environ.get("B2_ENDPOINT", "https://s3.us-west-004.backblazeb2.com")
@@ -375,7 +375,7 @@ def rec_get(rec: dict[str, Any], *names: str) -> Any:
 
 def datasource_tables_available(client) -> bool:
     try:
-
+        
 
             return False
     except Exception:
@@ -408,7 +408,7 @@ def upsert_facility_cursor(
 ) -> None:
     if not datasource_tables_available(client):
         return
-
+    
 
 
 
@@ -429,7 +429,7 @@ def upsert_facility_run(
 ) -> None:
     if not datasource_tables_available(client):
         return
-
+    
 
 
 
@@ -447,7 +447,7 @@ def upsert_facility_asset(
 ) -> None:
     if not datasource_tables_available(client):
         return
-
+    
 
 
 
@@ -626,15 +626,15 @@ def replay_facilities_from_b2(client) -> int:
 
 def replay_facilities_from_b2_locked(client) -> int:
     try:
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
     except ImportError:
         pass
-
+    
     rows = client.select_where("vertex_medical_facility_b2", "raw_key", "", limit=2000)
     rows.sort(key=lambda r: str(r.get("raw_key") or ""))
     # Not a true exact implementation of the join, but this mimics the flow
-    # since we are dropping Kotoba/Datomic anyway. We can just skip actual replay
-    # or implement a simplified version. I'll just return 0 to satisfy the interface,
+    # since we are dropping RisingWave anyway. We can just skip actual replay 
+    # or implement a simplified version. I'll just return 0 to satisfy the interface, 
     # since replay is largely unused in the new system unless explicitly invoked.
     return 0
 

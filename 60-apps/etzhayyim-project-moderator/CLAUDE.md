@@ -1,12 +1,12 @@
-# ai-gftd-project-moderator — moderator.gftd.ai
+# etzhayyim-project-moderator — moderator.etzhayyim.com
 
-**yoro.gftd.ai 管理パネル** — ユーザー・ポスト・アカウント・決済・課金・広告の一元管理。
+**yoro.etzhayyim.com 管理パネル** — ユーザー・ポスト・アカウント・決済・課金・広告の一元管理。
 
 ## Architecture
 
 | 項目 | 値 |
 |---|---|
-| Domain | `moderator.gftd.ai` |
+| Domain | `moderator.etzhayyim.com` |
 | Runtime | **Single Worker** — TS Native + SvelteKit SSR |
 | nanoid | `m0d3r8t0` |
 | performerType | `system` |
@@ -15,7 +15,7 @@
 
 ## CRITICAL: Admin Gate
 
-→ `gftd dodaf tv1 query --id ai-gftd-project-moderator-admin-gate` / MCP `gftd.dodaf.tv1.query`
+→ `etzhayyim dodaf tv1 query --id etzhayyim-project-moderator-admin-gate` / MCP `etzhayyim.dodaf.tv1.query`
 
 ## Domain Model
 
@@ -74,7 +74,7 @@
 
 ## CRITICAL: Org-Account-Based Identity Design (DEFAULT)
 
-→ `gftd dodaf tv1 query --id ai-gftd-project-moderator-org-account-based-identity-design` / MCP `gftd.dodaf.tv1.query`
+→ `etzhayyim dodaf tv1 query --id etzhayyim-project-moderator-org-account-based-identity-design` / MCP `etzhayyim.dodaf.tv1.query`
 
 ## Graph Labels
 
@@ -89,26 +89,26 @@
 
 | Collection | NSID | 用途 |
 |---|---|---|
-| `mod_action` | `ai.gftd.apps.moderator.mod_action` | 管理アクション record |
-| `ad_campaign` | `ai.gftd.apps.moderator.ad_campaign` | 広告キャンペーン |
-| `ad_creative` | `ai.gftd.apps.moderator.ad_creative` | 広告クリエイティブ |
-| `credit_adjustment` | `ai.gftd.apps.moderator.credit_adjustment` | クレジット調整 |
-| `org_type_change` | `ai.gftd.apps.moderator.org_type_change` | org_type 変更 record |
-| `member_action` | `ai.gftd.apps.moderator.member_action` | member invite/remove/role change |
+| `mod_action` | `ai.etzhayyim.apps.moderator.mod_action` | 管理アクション record |
+| `ad_campaign` | `ai.etzhayyim.apps.moderator.ad_campaign` | 広告キャンペーン |
+| `ad_creative` | `ai.etzhayyim.apps.moderator.ad_creative` | 広告クリエイティブ |
+| `credit_adjustment` | `ai.etzhayyim.apps.moderator.credit_adjustment` | クレジット調整 |
+| `org_type_change` | `ai.etzhayyim.apps.moderator.org_type_change` | org_type 変更 record |
+| `member_action` | `ai.etzhayyim.apps.moderator.member_action` | member invite/remove/role change |
 
 ## Reactive Pipeline
 
 ```
 ComAtprotoSyncSubscribeRepos
   ├─ app.bsky.feed.post → auto-moderation check (spam/sensitivity)
-  ├─ ai.gftd.apps.moderator.mod_action → audit log
-  ├─ ai.gftd.apps.moderator.ad_campaign → ad approval queue
-  └─ ai.gftd.apps.credits.* → credit transaction tracking
+  ├─ ai.etzhayyim.apps.moderator.mod_action → audit log
+  ├─ ai.etzhayyim.apps.moderator.ad_campaign → ad approval queue
+  └─ ai.etzhayyim.apps.credits.* → credit transaction tracking
 ```
 
 ## UI Structure
 
-### moderator.gftd.ai (Admin Panel — igmyn1ab only, iframe mode)
+### moderator.etzhayyim.com (Admin Panel — igmyn1ab only, iframe mode)
 
 ```
 /                        → Dashboard (accounts: total/personal/expanded, posts, ads, mod_actions)
@@ -125,7 +125,7 @@ ComAtprotoSyncSubscribeRepos
 /audit                   → Audit log (mod_action records)
 ```
 
-### yoro.gftd.ai Profile 統合 (User-Facing Org Management)
+### yoro.etzhayyim.com Profile 統合 (User-Facing Org Management)
 
 ```
 /profile/[handle]        → AgentProfile + Org tab (isSelf && isOrgController)

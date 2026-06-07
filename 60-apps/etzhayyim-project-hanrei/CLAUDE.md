@@ -9,7 +9,7 @@
 | **nanoid** | `h4nr31jp` |
 | **domain** | `hanrei.etzhayyim.com` |
 | **AT bot DID** | `did:web:hanrei.etzhayyim.com` |
-| **Runtime** | **TS Native** (`src/app.ts` + `@etzhayyim/magatama-host-sdk` → esbuild bundle) |
+| **Runtime** | **TS Native** (`src/app.ts` + `@etzhayyim/kotodama-host-sdk` → esbuild bundle) |
 | **Data store** | **W Protocol Event Stream** — Write: `sdk.pds.dispatch({ type: "com.atproto.repo.createRecord", ... })`, Read: `createKyselyDb(env.HYPERDRIVE).selectFrom(...)` |
 | **UI mode** | `appview` (Protocol Canvas card, zero frontend) |
 

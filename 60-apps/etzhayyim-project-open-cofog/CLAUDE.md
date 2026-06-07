@@ -67,7 +67,7 @@ data/classes/{4digit}.json       one file per 4-digit Class (authoritative data)
 worker/src/taxonomy.ts           Division + Group skeleton (10 + ~65 entries)
 worker/src/classes-index.ts      generated import index + IMPLEMENTED_COUNT
 worker/src/app.ts                XRPC router (single file, no DB)
-worker/magatama.jsonld           profile + space + triggers
+worker/kotodama.jsonld           profile + space + triggers
 worker/wrangler.jsonc            CF Worker config (no D1)
 ```
 

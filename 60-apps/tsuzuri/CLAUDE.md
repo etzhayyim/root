@@ -8,7 +8,7 @@
 - **Canonical actor DID**: `did:web:etzhayyim.com:actor:tsuzuri`
 - 登録 SSoT: `00-contracts/schemas/actor-profile-seed.kotoba.edn`（`:actor/handle "tsuzuri"`、kind `:infra` / tier `app`）
 - 互換フォールバック: `50-infra/etzhayyim-did-web/src/registry/infra-actors.ts`（`INFRA_ACTORS.tsuzuri`）
-- アプリ manifest: `magatama.jsonld`（`uiType: ameno` / `runtimeType: browser-local`）
+- アプリ manifest: `kotodama.jsonld`（`uiType: ameno` / `runtimeType: browser-local`）
 
 ## ameno 統合スコープ（正直な区別 — CRITICAL）
 

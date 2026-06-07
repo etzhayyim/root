@@ -245,7 +245,7 @@ The public runtime manifest is a redacted projection of the k8s workload:
     "kind": "Deployment",
     "name": "zeebe-worker"
   },
-  "image": "ghcr.io/etzhayyim/pymagatama@sha256:...",
+  "image": "ghcr.io/etzhayyim/kotodama@sha256:...",
   "ports": [
     { "name": "http", "public": false },
     {

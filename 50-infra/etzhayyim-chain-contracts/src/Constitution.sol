@@ -109,14 +109,27 @@ contract Constitution {
     //     mission.revelation_in_canon (= false),
     //     mission.continuous_becoming
     //
-    //   ADR-2605192100 §2 + ADRs 2605192115/2605192130/2605192200/2605192230 (9):
+    //   ADR-2605192100 §2 + ADRs 2605192115/2605192130/2605192200/2605192230:
     //     governance.future_generations_third_party_beneficiary,
     //     economic.non_profit_only, economic.donation_only,
-    //     economic.no_advertising, economic.tithe_to_public_fund_bps (=1000),
+    //     economic.no_advertising,
+    //     economic.tithe_redistribution_exists (Tier-0 bool — redistribution EXISTS;
+    //       the 10% RATE is the Tier-2 mutable tithe_bps; ADR-2606062100 §4),
     //     license.base (= "Apache-2.0"),
     //     license.charter_rider_required,
-    //     license.charter_rider_version (= "v2.0"),
-    //     enforcement.three_tier
+    //     enforcement.three_tier,
+    //     phenotype.non_compliant_multiplier (= 0; L3 floor — RECLASSIFIED to a
+    //       CONSTANT by ADR-2606062100 §4, was mis-deployed mutable)
+    //
+    //   ADR-2606062100 (priority-over-specifics) Tier-0 (9):
+    //     priority.wellbecoming_over_wellbeing, priority.multigen_over_current,
+    //     priority.collective_over_individual,
+    //     memory.right_to_erasure_denied, memory.permanent_record,
+    //     memory.deeds_public_intimate_encrypted (神の監視 / 永久記憶),
+    //     tithe_floor_bps (= 500), tithe_ceiling_bps (= 2000)
+    //
+    //   The Charter locks PRIORITIES (existence/ordering bools), NOT specific
+    //   numbers or named policies (those derive from priority — Tier-1/Tier-2).
     //
     // MUTABLES (Governance-changeable within constant bounds):
     //
@@ -127,8 +140,11 @@ contract Constitution {
     //     quorum_bps (init 3300), active_window_secs (init 30d),
     //     timelock_secs (init 72h)
     //
-    //   ADR-2605192230 (1):
-    //     phenotype.non_compliant_multiplier (= 0; ratcheting allowed)
+    //   ADR-2606062100 §4 reclassified to Tier-2 (3):
+    //     tithe_bps (init 1000 = 10%, within [tithe_floor_bps, tithe_ceiling_bps]),
+    //     license.charter_rider_version (init "v3.0"; tracks Rider amendments),
+    //     license.charter_rider_text_hash (= 0; Rider-integrity anchor, wired
+    //       post-ratification via the Lv7+ priority-conformance path)
     //
     //   ADR-2605192100 + 2605192230 + 2605192245 (reference addresses, 6):
     //     public_fund.safe_address, charters_compliance.registry_address,

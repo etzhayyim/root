@@ -19,7 +19,7 @@ import {
 	withCapabilityTags,
 	DecisionClass,
 	type LexiconOutput,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 const ALLOWED_OPT_IN_SOURCES = new Set(["exhibition_list", "lecture_host", "referral", "inbound"]);
 const ALLOWED_BUSINESS_DAYS = new Set(["Mon", "Tue", "Wed", "Thu", "Fri"]);

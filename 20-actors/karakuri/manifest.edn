@@ -17,7 +17,7 @@
 
  :actor/adapter-tiers
  [{:tier/id "T1" :tier/kind :official-api  :tier/preference 1 :tier/note "preferred — service's published API; ToS-sanctioned, rate-limit-documented"}
-  {:tier/id "T2" :tier/kind :headless-browser :tier/preference 2 :tier/note "Playwright/Puppeteer shape over the member's GUI session; ONLY where ToS permits automation (G2); no detection-evasion"}
+  {:tier/id "T2" :tier/kind :headless-browser :tier/engine :browser-use :tier/preference 2 :tier/note "browser-use (LangGraph-driven browser agent over Playwright) over the member's OWN GUI session; ONLY where the service browser-automation stance permits (G2); no detection-evasion — proxy/captcha/stealth verbs are structurally unrepresentable (methods/t2_browser.py). Google/Facebook are :api-ok but browser-prohibited → routed to T1, T2 refused"}
   {:tier/id "T3" :tier/kind :structured-export :tier/preference 3 :tier/note "import/export round-trip; the data-portability / anti-lock-in leg"}]
 
  :actor/gates
@@ -28,7 +28,7 @@
   {:gate/id "G5" :gate/name "read-default-mutate-gated" :gate/req ":read + :export ship at R0; :create/:update/:delete (esp. destructive :delete) require member-sig + explicit dry-run confirm; live execution Council Lv6+ + operator gated"}
   {:gate/id "G6" :gate/name "outward-gated" :gate/req "ANY live network call to a third-party service (every T1/T2/T3 adapter execution) Council Lv6+ + operator gated; R0 = offline parse/plan/dry-run only"}
   {:gate/id "G7" :gate/name "kotoba-eavt-audit" :gate/req "every planned + executed ServiceOp written to the kotoba Datom log (as-of, replayable); member can audit exactly what touched their account"}
-  {:gate/id "G8" :gate/name "sourcing-honesty" :gate/req ":representative service registry; bounded subset; unknown service/op degrades honestly (:unknown-service / :unsupported-op), never guesses"}
+  {:gate/id "G8" :gate/name "sourcing-honesty" :gate/req ":representative service registry; bounded subset; unknown service degrades honestly (:unknown-service), never guesses"}
   {:gate/id "G9" :gate/name "pii-portability-consent" :gate/req "exported data is the member's OWN data only, consent-bound + encrypted (com.etzhayyim.encrypted.*); no third-party PII collection"}]
 
  :actor/non-goals

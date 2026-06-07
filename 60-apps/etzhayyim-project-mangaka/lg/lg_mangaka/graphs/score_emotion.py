@@ -12,7 +12,7 @@ Super-steps:
   1. load_target    — SELECT props from vertex_mangaka kind='document'
                        → resolve target ai-image nodes (single or batch)
   2. fetch_and_score — GET blob bytes per ai-image, run
-                       `pymagatama.primitives.hume_image_head.predict_image_emotion`
+                       `kotodama.primitives.hume_image_head.predict_image_emotion`
                        with the optional distilled student model
                        (`MANGAKA_HUME_STUDENT_MODEL` env path, JSON);
                        falls back to the stdlib `visual_heuristic_v1`
@@ -158,7 +158,7 @@ async def _step_load_target(state: _State) -> dict[str, Any]:
 
     vertex_id = f"at://{_APP_DID}/{_NSID}/{doc_id}"
     try:
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         import asyncio
         client = get_kotoba_client()
         
@@ -239,7 +239,7 @@ async def _step_fetch_and_score(state: _State) -> dict[str, Any]:
     except Exception as exc:  # noqa: BLE001
         return {"status": "error", "error": f"deps missing: {exc!s}"[:200]}
 
-    from pymagatama.primitives.hume_image_head import predict_image_emotion
+    from kotodama.primitives.hume_image_head import predict_image_emotion
 
     now_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     async with httpx.AsyncClient(timeout=30.0) as client:
@@ -347,7 +347,7 @@ async def _step_persist(state: _State) -> dict[str, Any]:
     now_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     now_date = now_iso[:10]
     try:
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         import asyncio
         client = get_kotoba_client()
         await asyncio.to_thread(client.insert_row, "vertex_mangaka", {

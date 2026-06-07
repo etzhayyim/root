@@ -1,14 +1,16 @@
 // Integration tests for the kotoba publish HANDLERS (the branchiest new code:
-// sig verify → KV check-and-set → IP attestation), with an in-memory KV mock.
-// No Durable Object (the browser-complete design uses no operated server-state
-// primitive — ADR-2605262130 / 2605312345; the root advances under KV CAS). No
-// browser, no network. Run via: node --experimental-strip-types --test scripts/*.test.mjs
+// sig verify → KV check-and-set → best-effort token-bucket rate limit → IP
+// attestation → stats), driven against the KV-backed handlers with an in-memory
+// KV. No Durable Object (ADR-2605262130 / 2605312345: no operated server-state
+// primitive). No browser, no network.
+// Run via: node --experimental-strip-types --test scripts/*.test.mjs
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
   handleBlockPut,
   handleBlockHas,
   handleRootGet,
+  handleStatsGet,
 } from "../src/kotoba-publish.ts";
 
 const B32 = "abcdefghijklmnopqrstuvwxyz234567";
@@ -29,7 +31,7 @@ const base32 = (bytes) => {
 };
 const hex = (b) => Array.from(b, (x) => x.toString(16).padStart(2, "0")).join("");
 
-// In-memory KV mock ------------------------------------------------------------
+// In-memory mocks --------------------------------------------------------------
 function makeKV() {
   const m = new Map();
   return {
@@ -70,6 +72,7 @@ test("handleBlockPut accepts a valid signed publish and advances the head", asyn
   assert.equal(r.status, 200);
   const j = await r.json();
   assert.equal(j.ok, true);
+  assert.equal(typeof j.rlTokens, "number");
   // root mirrored to KV for the GET path
   const rootResp = await handleRootGet(new URL("https://x/?graph=t"), env);
   assert.equal((await rootResp.json()).root, j.root);
@@ -89,11 +92,24 @@ test("handleBlockPut returns 409 on a stale prevRoot (no lost update)", async ()
   const kp = await genKey();
   const first = await handleBlockPut(putReq(await signedPublish(kp, null)), env);
   assert.equal(first.status, 200);
-  // publish again with a stale prevRoot → conflict (KV check-and-set)
+  // publish again with a stale prevRoot → conflict
   const stale = await signedPublish(kp, "bafyreistaleprev");
   const r = await handleBlockPut(putReq(stale), env);
   assert.equal(r.status, 409);
   assert.equal((await r.json()).currentRoot, (await first.clone().json()).root);
+});
+
+test("handleBlockPut rate-limits sustained advances (429 after burst)", async () => {
+  const env = makeEnv();
+  const kp = await genKey();
+  let prev = null;
+  let limited = 0;
+  for (let i = 0; i < 16; i++) {
+    const r = await handleBlockPut(putReq(await signedPublish(kp, prev)), env);
+    if (r.status === 200) prev = (await r.json()).root;
+    else if (r.status === 429) limited++;
+  }
+  assert.ok(limited >= 1, "expected at least one 429 after the burst");
 });
 
 test("handleBlockHas reports only the missing CIDs", async () => {
@@ -106,6 +122,16 @@ test("handleBlockHas reports only the missing CIDs", async () => {
   });
   const j = await (await handleBlockHas(req, env)).json();
   assert.deepEqual(j.missing.sort(), ["absent1", "absent2"]);
+});
+
+test("handleStatsGet reports advance + conflict counters", async () => {
+  const env = makeEnv();
+  const kp = await genKey();
+  await handleBlockPut(putReq(await signedPublish(kp, null)), env); // advance
+  await handleBlockPut(putReq(await signedPublish(kp, "bafyreistale")), env); // conflict
+  const s = await (await handleStatsGet(new URL("https://x/?graph=t"), env)).json();
+  assert.equal(s.advances, 1);
+  assert.equal(s.conflicts, 1);
 });
 
 test("IP is encrypted in the attestation when the oversight key is set", async () => {

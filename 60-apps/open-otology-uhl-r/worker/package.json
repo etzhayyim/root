@@ -7,17 +7,17 @@
   "type": "module",
   "main": "src/app.ts",
   "scripts": {
-    "build": "echo 'use etzhayyim build per 20-actors/magatama/CLAUDE.md'",
-    "deploy": "echo 'use etzhayyim deploy per 20-actors/magatama/CLAUDE.md'",
+    "build": "echo 'use etzhayyim build per 40-engine/kotoba/crates/kotoba-kotodama/CLAUDE.md'",
+    "deploy": "echo 'use etzhayyim deploy per 40-engine/kotoba/crates/kotoba-kotodama/CLAUDE.md'",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@etzhayyim/sdk": "workspace:*",
-    "@etzhayyim/magatama-host-sdk": "workspace:*"
+    "@etzhayyim/kotodama-host-sdk": "workspace:*"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20260531.1",
+    "@cloudflare/workers-types": "^4.20260606.1",
     "typescript": "^6.0.3",
     "vitest": "^4.1.7"
   }

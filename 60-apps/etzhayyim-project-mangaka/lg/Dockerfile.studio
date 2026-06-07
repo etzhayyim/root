@@ -2,7 +2,7 @@
 #
 # Runs `langgraph dev` for the cine pipeline (worldModel → encode) + auth_mint_api_key.
 # Skips heavy ML deps (torch, nvidia-cuda-*, sentence-transformers, transformers,
-# datasets) that pymagatama pulls — Studio's job is graph invocation + per-stage
+# datasets) that kotodama pulls — Studio's job is graph invocation + per-stage
 # preview, not training. Image stays ~400 MB instead of 8+ GB.
 #
 # Build (remote BuildKit, per 50-infra/CLAUDE.md):
@@ -29,7 +29,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /opt/lg
 
-# Direct runtime deps only — no pymagatama, no lg-mangaka editable install.
+# Direct runtime deps only — no kotodama, no lg-mangaka editable install.
 # langgraph-cli[inmem] gives us `langgraph dev` with the in-memory checkpointer.
 # Everything lg_mangaka/*.py imports (psycopg, httpx, langgraph, langchain-core)
 # is pulled by langgraph-cli or pinned here directly.
@@ -48,7 +48,7 @@ RUN pip install --no-cache-dir \
 COPY lg_mangaka/ /opt/lg/lg_mangaka/
 COPY langgraph.dev.json /opt/lg/langgraph.json
 
-# Studio variant patches the config: no pymagatama dependency, no postgres
+# Studio variant patches the config: no kotodama dependency, no postgres
 # checkpointer (in-memory only, ephemeral run history is fine for inspection).
 RUN python3 -c "import json; \
   c = json.load(open('/opt/lg/langgraph.json')); \

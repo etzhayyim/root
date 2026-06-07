@@ -3275,11 +3275,11 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: etzhayyim-apps-magatama-organizerrun
+  name: etzhayyim-apps-kotodama-organizerrun
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: etzhayyim-apps-magatama-organizerrun
-    etzhayyim.com/bpmn-process: magatama_organizer_run
+    app.kubernetes.io/name: etzhayyim-apps-kotodama-organizerrun
+    etzhayyim.com/bpmn-process: kotodama_organizer_run
 spec:
   schedule: "*/5 * * * *"
   concurrencyPolicy: Forbid
@@ -3302,7 +3302,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.magatama.organizerRun
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.kotodama.organizerRun
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1

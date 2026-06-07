@@ -4,7 +4,7 @@
  *
  * Pushes the source graphic novel (/Users/junkawasaki/github/260208-spirit-in-physics)
  * into mangaka.etzhayyim.com as Tier 2 domain records. The derive rules in
- * magatama.jsonld (chapter-published-social / page-published-social) then emit
+ * kotodama.jsonld (chapter-published-social / page-published-social) then emit
  * the Tier 1 app.bsky.feed.post automatically with recordWithMedia embed + facets.
  *
  * Stages (run any subset):
@@ -448,7 +448,7 @@ if (STAGE === "pages"      || STAGE === "all") await stagePages();
 console.log(`\n=== done ===`);
 console.log(`AT URI (work):    ${WORK_AT_URI}`);
 console.log(`Reader URL base:  ${READER_BASE}/{rkey}`);
-console.log(`\nOn deploy of updated magatama.jsonld, the derive rules will auto-emit`);
+console.log(`\nOn deploy of updated kotodama.jsonld, the derive rules will auto-emit`);
 console.log(`app.bsky.feed.post for each published chapter+page, with recordWithMedia`);
 console.log(`embed + facet#mention / #tag / #link — visible in yoro feed as a vertical`);
 console.log(`post thread suitable for smartphone reading.`);

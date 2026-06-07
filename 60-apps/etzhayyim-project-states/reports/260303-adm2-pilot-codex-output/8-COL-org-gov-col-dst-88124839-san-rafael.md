@@ -7,12 +7,12 @@
 - `60-apps/etzhayyim-project-states/90-docs/260303-org-gov-col-dst-88124839-san-rafael.md` (pilot note, date-stamped per Codex rules).
 
 **K8s Manifest Skeleton Names**
-- `App`: `metadata.name: org-gov-col-dst-88124839-san-rafael`, `metadata.namespace: magatama-runtime`, `spec.image: ghcr.io/etzhayyim/org-gov-col-dst-88124839-san-rafael:latest`, `spec.endpoint: https://<nanoid>.etzhayyim.com/api/grpc`.
+- `App`: `metadata.name: org-gov-col-dst-88124839-san-rafael`, `metadata.namespace: kotodama-runtime`, `spec.image: ghcr.io/etzhayyim/org-gov-col-dst-88124839-san-rafael:latest`, `spec.endpoint: https://<nanoid>.etzhayyim.com/api/grpc`.
 - `EdgeRoute` (HTTPRoute/GRPCRoute as required): `metadata.name: org-gov-col-dst-88124839-san-rafael`, `metadata.namespace: edge-router-performers`, routes to App service, ensure Connect gRPC-Web config.
 
 **Quality Gates Checklist**
 - ADM2 inputs synced: 1122 total, gap 1122 → first insert documented.
-- Namespace policy: App in `magatama-runtime`, Edge route in `edge-router-performers`; no default usage.
+- Namespace policy: App in `kotodama-runtime`, Edge route in `edge-router-performers`; no default usage.
 - Image + metadata name parity verified; GHCR host enforced.
 - Endpoint uses nanoid pattern at `etzhayyim.com` per convention.
 - Touch targets/layout: confirm Svelte front-end adheres to Apple HIG + four breakpoints if UI needed.

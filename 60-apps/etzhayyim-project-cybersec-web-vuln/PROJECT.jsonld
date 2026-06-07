@@ -3,7 +3,7 @@
   "@type": "Project",
   "name": "Cybersecurity Division Web Vulnerability Assessment Section (サイバーセキュリティ事業部ウェブ脆弱性診断課)",
   "status": "Integrated",
-  "identifier": "ai-gftd-project-cybersec-web-vuln",
+  "identifier": "etzhayyim-project-cybersec-web-vuln",
   "description": "Automated and manual web vulnerability assessments to ensure the security of web applications and infrastructure.",
   "hasPart": [
     {
@@ -38,13 +38,13 @@
           "@context": {
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
             "dct": "http://purl.org/dc/terms/",
-            "gftd": "https://gftd.ai/schemas/"
+            "etzhayyim": "https://etzhayyim.com/schemas/"
           },
-          "id": "https://gftd.ai/projects/ai-gftd-project-cybersec-web-vuln/strategy/vulnerability-assessment-strategy",
+          "id": "https://etzhayyim.com/projects/etzhayyim-project-cybersec-web-vuln/strategy/vulnerability-assessment-strategy",
           "type": "dodaf:StrategicPlan",
           "dct:title": "Web Vulnerability Assessment Strategy",
           "dct:description": "Strategic plan for continuous web vulnerability monitoring and rapid remediation response.",
-          "gftd:objectives": [
+          "etzhayyim:objectives": [
             {
               "name": "Continuous Monitoring Coverage",
               "description": "Ensure 100% of public-facing web assets are scanned weekly.",
@@ -56,7 +56,7 @@
               "priority": "High"
             }
           ],
-          "gftd:triggers": [
+          "etzhayyim:triggers": [
             {
               "condition": "Critical vulnerability detected",
               "action": "Trigger 'Emergency Remediation Task Force' activity."
@@ -70,30 +70,30 @@
           "@context": {
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
             "dct": "http://purl.org/dc/terms/",
-            "gftd": "https://gftd.ai/schemas/"
+            "etzhayyim": "https://etzhayyim.com/schemas/"
           },
-          "id": "https://gftd.ai/projects/ai-gftd-project-cybersec-web-vuln/activities/vulnerability-assessment",
+          "id": "https://etzhayyim.com/projects/etzhayyim-project-cybersec-web-vuln/activities/vulnerability-assessment",
           "type": "dodaf:OperationalActivity",
           "dct:title": "Web Vulnerability Assessment Process (OV-5b)",
           "dct:description": "Process for automated scanning and analysis of web vulnerabilities.",
-          "gftd:steps": [
+          "etzhayyim:steps": [
             {
               "activity": "Automated Scan Trigger",
-              "performer": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-10-3-vulnerability-mgmt",
+              "performer": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-apqc-10-3-vulnerability-mgmt",
               "action": "Initiate automated vulnerability scans on target systems.",
               "input": "Target URL/IP",
               "output": "Raw Scan Data"
             },
             {
               "activity": "Vulnerability Analysis",
-              "performer": "ai-gftd-performer-sys-gftd-actors-pba7d22f-psn-isco-2511-security-analyst",
+              "performer": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-psn-isco-2511-security-analyst",
               "action": "Analyze raw scan data to identify and prioritize vulnerabilities.",
               "input": "Raw Scan Data",
               "output": "Prioritized Vulnerability List"
             },
             {
               "activity": "Report Synthesis",
-              "performer": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-10-3-vulnerability-mgmt",
+              "performer": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-apqc-10-3-vulnerability-mgmt",
               "action": "Generate comprehensive security assessment reports.",
               "input": "Prioritized Vulnerability List",
               "output": "Vulnerability Assessment Report"
@@ -106,28 +106,28 @@
         "content": {
           "@context": {
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
-            "gftd": "https://gftd.ai/schemas/"
+            "etzhayyim": "https://etzhayyim.com/schemas/"
           },
           "@type": "dodaf:Capability",
           "name": "Web Vulnerability Assessment",
           "description": "Ability to perform comprehensive security assessments and vulnerability management for web applications.",
-          "gftd:actors": [
+          "etzhayyim:actors": [
             {
-              "@id": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-10-3-vulnerability-mgmt",
+              "@id": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-apqc-10-3-vulnerability-mgmt",
               "name": "Vulnerability Management Service",
               "type": "Service",
               "apqc": "10.3",
               "description": "Orchestrates automated scanning and report generation."
             },
             {
-              "@id": "ai-gftd-performer-sys-gftd-actors-pba7d22f-psn-isco-2511-security-analyst",
+              "@id": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-psn-isco-2511-security-analyst",
               "name": "Security Analyst",
               "type": "Person",
               "isco": "2511",
               "description": "Performs manual analysis and prioritization of vulnerabilities."
             }
           ],
-          "gftd:features": [
+          "etzhayyim:features": [
             "Automated Vulnerability Scanning",
             "Manual Penetration Testing Integration",
             "Security Compliance Reporting"
@@ -140,24 +140,24 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://gftd.ai/schemas/",
-              "capabilities": "gftd:capabilities",
-              "survivalIndicators": "gftd:survivalIndicators",
-              "scheduler": "gftd:scheduler",
-              "milestones": "gftd:milestones",
-              "blockers": "gftd:blockers",
+              "etzhayyim": "https://etzhayyim.com/schemas/",
+              "capabilities": "etzhayyim:capabilities",
+              "survivalIndicators": "etzhayyim:survivalIndicators",
+              "scheduler": "etzhayyim:scheduler",
+              "milestones": "etzhayyim:milestones",
+              "blockers": "etzhayyim:blockers",
               "dependsOn": {
-                "@id": "gftd:dependsOn",
+                "@id": "etzhayyim:dependsOn",
                 "@type": "@id"
               },
-              "ingestKey": "gftd:ingestKey",
-              "window": "gftd:window",
-              "valueUpdatedAt": "gftd:valueUpdatedAt"
+              "ingestKey": "etzhayyim:ingestKey",
+              "window": "etzhayyim:window",
+              "valueUpdatedAt": "etzhayyim:valueUpdatedAt"
             }
           ],
           "@type": "CreativeWork",
           "name": "Cybersecurity Division Web Vulnerability Assessment Section (サイバーセキュリティ事業部ウェブ脆弱性診断課) Scheduler",
-          "identifier": "ai-gftd-project-cybersec-web-vuln/scheduler",
+          "identifier": "etzhayyim-project-cybersec-web-vuln/scheduler",
           "description": "Project schedule (milestones) and blockers.",
           "dateCreated": "2026-02-15T04:25:26+00:00",
           "milestones": [],
@@ -171,12 +171,12 @@
           "@type": "CreativeWork",
           "name": "Cybersec Web Vuln UI/UX Design",
           "description": "Security scanner dashboard and vulnerability explorer for web applications.",
-          "gftd:designPrinciples": [
+          "etzhayyim:designPrinciples": [
             "Clear severity-based color coding",
             "Deep-dive vulnerability details",
             "iPad Sidecar/Multi-window for report drafting"
           ],
-          "gftd:uiComponents": [
+          "etzhayyim:uiComponents": [
             {
               "name": "Scan Management Center",
               "type": "Dashboard",
@@ -196,7 +196,7 @@
               ]
             }
           ],
-          "gftd:uxFlows": [
+          "etzhayyim:uxFlows": [
             {
               "name": "Vulnerability Assessment Flow",
               "steps": [

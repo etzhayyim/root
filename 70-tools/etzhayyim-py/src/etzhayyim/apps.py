@@ -106,12 +106,12 @@ def apps(ctx: click.Context, workspace_dir: str | None, pds: str | None, json_ou
 @click.option("--workspace-dir", default=None)
 @click.option("--json", "json_out", is_flag=True, default=False)
 def apps_list(workspace_dir: str | None, json_out: bool) -> None:
-    """List apps from local workspace magatama.jsonld files."""
+    """List apps from local workspace kotodama.jsonld files."""
     ws = _resolve_root(workspace_dir)
     apps_dir = ws / "60-apps"
     app_list = []
     if apps_dir.exists():
-        for jsonld in apps_dir.rglob("magatama.jsonld"):
+        for jsonld in apps_dir.rglob("kotodama.jsonld"):
             data = _read_jsonld(jsonld)
             if data.get("nanoid"):
                 app_list.append({
@@ -152,7 +152,7 @@ _RE_SOURCE_URL = re.compile(r"""(?:sourceUrl|caseDbUrl|legislationUrl)\s*:\s*["'
 
 
 def _discover_app_jsonld(ws: Path, nanoid: str) -> dict | None:
-    for p in ws.rglob("magatama.jsonld"):
+    for p in ws.rglob("kotodama.jsonld"):
         try:
             data = _read_jsonld(p)
         except Exception:

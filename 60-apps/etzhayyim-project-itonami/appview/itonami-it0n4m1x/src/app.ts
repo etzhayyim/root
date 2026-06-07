@@ -13,7 +13,7 @@ import {
   nsid,
   asAgentTool,
   withCapabilityTags,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 // ---------------------------------------------------------------------------
 // Helpers

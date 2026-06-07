@@ -1,7 +1,7 @@
 {
   "version": 1,
   "apps": {
-    "ai-gftd-wasm-passport-pp4rt01": {
+    "etzhayyim-wasm-passport-pp4rt01": {
       "nanoid": "pp4rt01",
       "app_version": "1.0.0",
       "last_deployed_at": "2026-04-04T03:23:05Z",

@@ -106,7 +106,7 @@ async def tool_load_panel_plan(
         return {"error": "panel_rkey required"}
 
     import asyncio
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     
     def _fetch():
         client = get_kotoba_client()
@@ -155,7 +155,7 @@ async def tool_resolve_assets(
         return {"error": "panel_plan missing"}
 
     import asyncio
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     client = get_kotoba_client()
 
     char_rkeys = list(panel_plan.get("characters") or [])
@@ -645,7 +645,7 @@ async def tool_attach_character_vrm(
         return {"error": f"B2 PUT failed: {exc!s}"}
 
     import asyncio
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     
     def _write_back():
         client = get_kotoba_client()
@@ -714,7 +714,7 @@ async def tool_persist_scene_3d(
         return {"scene_rkey": None, "status": "rendered"}
 
     import asyncio
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     
     scene_rkey = f"scene3d-{panel_rkey}-{int(time.time())}"
     vertex_id = f"at://{_APP_DID}/com.etzhayyim.mangaka.scene3d/{scene_rkey}"
@@ -757,7 +757,7 @@ async def tool_persist_scene_3d(
 # Hume image-head provides the `emotionAlignment` axis in compose_scene_3d's
 # vision critique (lg_mangaka.hume_emotion + ADR-2604300135). Every observation
 # is captured here so the dataset can later feed
-# `pymagatama.primitives.hume_image_head.train_image_centroid` for student-
+# `kotodama.primitives.hume_image_head.train_image_centroid` for student-
 # model centroid distillation. Target table is the existing
 # `vertex_vector_emotion_signal` registry (migration 20260427103000), so no
 # new DDL is needed.
@@ -798,7 +798,7 @@ async def tool_persist_hume_emotion_observation(
 
     
     import asyncio
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
 
     now_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     now_date = now_iso[:10]

@@ -109,10 +109,10 @@ ADR-2605192245 §5 で Steward duties に「biodiversity attestation」+「商�
 
 ### Step 4 — Open-source agronomy LLM cell
 
-magatama Pregel cells に新規 cell 追加:
+kotodama Pregel cells に新規 cell 追加:
 
 ```
-20-actors/magatama/cells/agronomy_advisor/
+40-engine/kotoba/crates/kotoba-kotodama/cells/agronomy_advisor/
   cell.py     — soil + climate + crop matching LLM advisor
                 (Claude Sonnet 4.6 / Murakumo Gemma fallback per ADR-2605192415)
   README.md

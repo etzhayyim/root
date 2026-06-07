@@ -8,7 +8,7 @@
 **/.npmrc
 **/.env
 **/.env.*
-20-actors/magatama
+40-engine/kotoba/crates/kotoba-kotodama
 50-infra
 60-apps
 70-tools

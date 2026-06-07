@@ -12,7 +12,7 @@ fully decentralized only after the PDS/AppView → kotoba migration.
 
 | Concern | Today (CF) | IPFS-able? | Notes |
 |---|---|---|---|
-| Static SPA shell (`index.html` + `_app/immutable/*` + assets) | CF Worker Assets (`magatama-yoro`, `assets.directory: ./static`) | **Yes** | adapter-cloudflare `fallback:'spa'` already emits a self-contained static SPA. |
+| Static SPA shell (`index.html` + `_app/immutable/*` + assets) | CF Worker Assets (`kotodama-yoro`, `assets.directory: ./static`) | **Yes** | adapter-cloudflare `fallback:'spa'` already emits a self-contained static SPA. |
 | SPA deep-link routing | Worker `not_found_handling: single-page-application` | **Yes**, via IPFS `_redirects` (`/* /index.html 200`) on a **subdomain/DNSLink** gateway | path-gateways (`/ipfs/<cid>/foo`) do **not** honor `_redirects`. |
 | Data / XRPC | `atproto.etzhayyim.com` (CF PDS + Hyperdrive + RisingWave) | **No (still CF)** | SPA calls it directly from the browser. Drop only after PDS/AppView → kotoba. |
 | Cross-origin access to PDS | same-site today | needs **CORS** change | PDS must allow the new IPFS origin (`https://<cid>.ipfs.dweb.link`, `ipfs://…`, or the DNSLink host). |

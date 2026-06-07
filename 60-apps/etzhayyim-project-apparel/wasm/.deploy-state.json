@@ -1,7 +1,7 @@
 {
   "version": 1,
   "apps": {
-    "ai-gftd-wasm-apparel-ap4rl01": {
+    "etzhayyim-wasm-apparel-ap4rl01": {
       "nanoid": "ap4rl01",
       "app_version": "1.0.0",
       "last_deployed_at": "2026-04-02T10:30:30Z",

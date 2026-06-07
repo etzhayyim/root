@@ -35,7 +35,7 @@ import {
   str,
   withCapabilityTags,
   type HostSDK,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 // Cross-actor invoke helpers deleted (ADR-0047 audit 2026-04-21).
 // The `invokeRemote` helper + `hostClient.invokeCall` primary path + fetch

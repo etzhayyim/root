@@ -36,7 +36,7 @@ W2 will add:
   as a separate operator path
 
 Normalized NDJSON consumable by
-``pymagatama.organism.sensors.gov.us_congress_gov_sensor.UsCongressGovSensor``:
+``kotodama.organism.sensors.gov.us_congress_gov_sensor.UsCongressGovSensor``:
 
   {"recordId": "BILLS-119hr1234",
    "sessionDateUtc": "2025-02-13T00:00:00Z",

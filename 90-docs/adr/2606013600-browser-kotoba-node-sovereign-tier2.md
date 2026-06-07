@@ -54,7 +54,7 @@ Two facts make this layering subtler than it looks:
   resolution stays live.
 - **The edge is not sovereign.** etzhayyim owns the *domain* (CF Registrar) and the
   DID doc is content-addressed + TLS-anchored + keyless (ADR-2606015400/15600), but
-  the CF Worker + KV currently run on a managed (gftd) Cloudflare account. Routing
+  the CF Worker + KV currently run on a managed (etzhayyim) Cloudflare account. Routing
   *canonical* state or *auth* through vendor infra would violate the Ownership
   invariant + the Murakumo-only consent boundary (ADR-2605215000).
 
@@ -121,7 +121,7 @@ kotoba/compiled updates; see `20-actors/oil-refining/MIGRATION-NOTES.md`).
 Implications:
 
 - **Sovereignty**: the trust path is content-addressing + did:web TLS + did:key
-  attestation. gftd edge and even etzhayyim's own Worker leave the trust path; the
+  attestation. etzhayyim edge and even etzhayyim's own Worker leave the trust path; the
   only thing to "host" is commodity IPFS pinning.
 - **Edge envelope**: ~790 KB gzip is well within the baien edge target
   (ADR-2605241900) for a resolver; it is the read engine, not an LLM.
@@ -145,7 +145,7 @@ engine ADR; this root ADR is the religious-corp-canonical record per ADR-2605170
   and manual no-TTL writes shadow canonical updates on vendor-managed edge (the exact
   coupling being unwound).
 - **Embed kqe-wasm inside the Worker (workerd runs wasm).** Viable and complementary
-  (edge convenience with no external node), but still gftd-managed compute; the
+  (edge convenience with no external node), but still etzhayyim-managed compute; the
   browser form is strictly more sovereign. Recorded as a future edge optimization.
 
 # References

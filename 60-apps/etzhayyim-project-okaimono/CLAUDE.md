@@ -23,7 +23,7 @@ D2C (Direct-to-Consumer) OEM 専用 EC。自社ブランド OEM 商品のみを 
 **権威ソース**:
 
 - `60-apps/etzhayyim-project-okaimono/proto/v1/shopping.proto`
-- `60-apps/etzhayyim-project-okaimono/appview/okaimono-shopping-mcp-component/magatama.jsonld`
+- `60-apps/etzhayyim-project-okaimono/appview/okaimono-shopping-mcp-component/kotodama.jsonld`
 
 AT Lexicon namespace: `com.etzhayyim.apps.okaimono.*`
 

@@ -24,7 +24,7 @@ RisingWave vertex_ses_anken + vertex_ses_jokyo (append-only)
 - NSID guard: only `com.etzhayyim.apps.ses.*` passes.
 - Forwards to `BPMN_DISPATCHER_URL` with `x-internal-trust` HMAC.
 
-**LangGraph** (`20-actors/magatama/py/src/pymagatama/ses/`):
+**LangGraph** (`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ses/`):
 - `state.py`: `SesIngestState` + `AnkenExtraction` Pydantic v2 models
 - `graph.py`: 6-node StateGraph skeleton (Phase 1 stubs)
 - Phase 2: `extractor.py`, `classifier.py`, `jokyo.py`, `persistence.py`, `server.py`
@@ -70,7 +70,7 @@ Forbidden: backward transitions (e.g. 稼働中 → 提案中). Skipped silently
 3. **No UPDATE on vertex_ses_jokyo** — jokyo is append-only; forbidden transitions skip silently
 4. **No float in lexicons** — AT Protocol has no float type; yen amounts are integer
 5. **No AT Repo emit** — ses data is non-federable, asyncpg INSERT only
-6. **No LLM model hardcode** — use `resolveModelId()` from `pymagatama.llm`
+6. **No LLM model hardcode** — use `resolveModelId()` from `kotodama.llm`
 7. **No backward jokyo transition** — use `is_forbidden_transition()` from `state.py`
 8. **No PDS createRecord for domain data** — asyncpg → RisingWave only
 

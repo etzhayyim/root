@@ -6,7 +6,7 @@
 #   * ADR-2605080600 (LangGraph Server + Granian L3 Runtime)
 #   * ADR-2605082100 (LangGraph Checkpointer Storage → RW PG :4566 schema lg_gov_checkpoint)
 #
-# Hosts gov-fractal-pregel graph (pymagatama.agents.gov_pregel).
+# Hosts gov-fractal-pregel graph (kotodama.agents.gov_pregel).
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -46,7 +46,7 @@ spec:
           imagePullPolicy: IfNotPresent
           command:
             - uvicorn
-            - pymagatama.langgraph_server_app:app
+            - kotodama.langgraph_server_app:app
             - --host
             - 0.0.0.0
             - --port

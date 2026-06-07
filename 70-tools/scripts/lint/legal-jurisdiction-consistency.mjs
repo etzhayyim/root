@@ -10,7 +10,7 @@
  *   (1) the in-node WASM intake gate  — Rust const ENABLED_JURISDICTIONS
  *       40-engine/legal-aid-wasm-guest/src/lib.rs
  *   (2) the LangGraph cell port        — Python `enabled = {...}`
- *       20-actors/magatama/cells/chigiri_legal_aid_clinic/ports.py
+ *       40-engine/kotoba/crates/kotoba-kotodama/cells/chigiri_legal_aid_clinic/ports.py
  *   (3) the kotoba KG routing-table    — jurisdictionPolicy records with
  *       enableState=="enabled"
  *       90-docs/baien/kg-deploy/2605302200-jurisdiction-policy-kg-segment.ndjson
@@ -29,7 +29,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const RUST = "40-engine/legal-aid-wasm-guest/src/lib.rs";
-const PORTS = "20-actors/magatama/cells/chigiri_legal_aid_clinic/ports.py";
+const PORTS = "40-engine/kotoba/crates/kotoba-kotodama/cells/chigiri_legal_aid_clinic/ports.py";
 const KG = "90-docs/baien/kg-deploy/2605302200-jurisdiction-policy-kg-segment.ndjson";
 
 const read = (p) => {

@@ -115,7 +115,7 @@ Zeebe deploy する既存規約)。
 `generic.audit.emit` (ADR-0056 primitive) を全 BPMN の終端に置き、
 OCEL event を `vertex_repo_commit` に残す。
 
-## 3. pyzeebe primitives (`20-actors/magatama/py/src/pymagatama/primitives/training_run.py`)
+## 3. pyzeebe primitives (`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/training_run.py`)
 
 5 task handler を追加し、`zeebe_worker_main.py` に register hook を加える。
 GPU が要る handler は **`mitama-training-pool` Helm release** (新設、ADR-0048
@@ -215,7 +215,7 @@ poll する形に変更する。
   - `train.sft.run` / `train.lora.run` / `train.distill.run` / `train.eval.run`
     は **RunPod Serverless client** に refactor: payload を `/v2/{endpoint}/run`
     に POST → status poll → 完了時に handler 側が `vertex_training_checkpoint` /
-    `vertex_training_eval` に直接 INSERT (RunPod handler が pymagatama を同梱
+    `vertex_training_eval` に直接 INSERT (RunPod handler が kotodama を同梱
     し KOTOBA_URL Secret を持つため、worker と同じ書き込み経路)
 - §3 GPU pod 用 helm 値 (`gpuEnabled` / `nvidia.com/gpu`) — **削除**。
   CPU pod は worker profile=training の薄い orchestrator として固定。GPU
@@ -228,7 +228,7 @@ poll する形に変更する。
 | 項目 | 値 |
 |---|---|
 | Endpoint id | `RUNPOD_TRAINING_ENDPOINT_ID` (Secret `training-runpod-creds`) |
-| Handler image | `ghcr.io/etzhayyim/pymagatama-runpod-trainer:{tag}` (`90-docs/adr/2605010000-runpod-6000ada-unified-pod.md` の image 系統に合流可能) |
+| Handler image | `ghcr.io/etzhayyim/kotodama-runpod-trainer:{tag}` (`90-docs/adr/2605010000-runpod-6000ada-unified-pod.md` の image 系統に合流可能) |
 | Handler entry | `runpod.serverless.start({"handler": handler})` — `handler(event)` が `event["input"]` (kind / runId / baseModel / datasetSnapshotId / hyperparams / teacherLabelArtifactRunId) を受けて training を実行 |
 | 重みアップロード | handler 内で B2 PUT (`B2_*` Secret 同じものを RunPod env に注入) |
 | RW write | handler 内で psycopg + Hyperdrive 経由で `vertex_training_checkpoint` INSERT (KOTOBA_URL を Secret から RunPod env に注入) |
@@ -263,16 +263,16 @@ etzhayyim training run --kind sft ...
 | GPU 種類変更 | endpoint template 切替 | node pool 再作成 |
 | Long-running job | TTL 24h、超過は Pod モードへ | 無制限 |
 | 既存運用知見 | RunPod 9z9l2nzwugnqyu (yoro-chat-gemma4) で実績あり | Vultr GPU pool は未経験 |
-| Lineage 整合性 | RunPod handler が同じ pymagatama image を持ち、同じ RW + B2 経路で書く → 一致 | 同上 (worker pod が直接書くだけ) |
+| Lineage 整合性 | RunPod handler が同じ kotodama image を持ち、同じ RW + B2 経路で書く → 一致 | 同上 (worker pod が直接書くだけ) |
 
 判定: **idle cost 0 と既存運用知見** が決定的。GPU 専有が必要になる将来案件
 (72h+ pretrain 等) は Pod モード or Vultr GPU pool の addendum で再評価する。
 
 ## Follow-up
 
-1. `ghcr.io/etzhayyim/pymagatama-runpod-trainer` image を別 Dockerfile で build
+1. `ghcr.io/etzhayyim/kotodama-runpod-trainer` image を別 Dockerfile で build
    (handler.py + runpod-python + transformers + peft + trl + accelerate +
-   torch CUDA wheel)。CPU pool image (`pymagatama:0.3.78+`) からは peft /
+   torch CUDA wheel)。CPU pool image (`kotodama:0.3.78+`) からは peft /
    accelerate を削除して image を軽くする
 2. Secret `training-runpod-creds` (`RUNPOD_API_KEY` + `RUNPOD_TRAINING_ENDPOINT_ID`)
    を `mitama-udf` namespace に provision (Keychain `etzhayyim.runpod` から)
@@ -312,8 +312,8 @@ etzhayyim training run --kind sft ...
 - §3 GPU image: `Dockerfile.runpod-trainer` (Serverless) を **削除**。
   `50-infra/runpod/vllm-gemma-image/Dockerfile` (ADR-2605010000) に
   training tooling layer を追加 (peft / trl / accelerate / lm_eval /
-  pymagatama を `/opt/venv-train` にインストール)
-- §3 GPU 起動: 新規 `start-train.sh` が `pymagatama.training_http_server` を
+  kotodama を `/opt/venv-train` にインストール)
+- §3 GPU 起動: 新規 `start-train.sh` が `kotodama.training_http_server` を
   :8003 で起動。base image の `/start.sh` wrapper が ComfyUI 後にこれも
   background-launch
 - §3 Helm values: `RUNPOD_API_KEY` / `RUNPOD_TRAINING_ENDPOINT_ID` env →
@@ -322,8 +322,8 @@ etzhayyim training run --kind sft ...
 - §3 image-domain LoRA training: ComfyUI workflow 経由 (path C native)。
   `kijai/ComfyUI-FluxTrainer` custom node を base image に同梱、pyzeebe
   primitive が ComfyUI :8188 `/prompt` に workflow JSON を POST
-- 削除: `pymagatama.runpod_trainer_handler` / `pymagatama.runpod_trainer_entry`
-  (Serverless 専用、Pod HTTP では `pymagatama.training_http_server` が直接
+- 削除: `kotodama.runpod_trainer_handler` / `kotodama.runpod_trainer_entry`
+  (Serverless 専用、Pod HTTP では `kotodama.training_http_server` が直接
   `runpod_handler` を呼ぶので不要)
 
 ## 統合 Pod のポート割当
@@ -353,7 +353,7 @@ etzhayyim training run --kind sft ...
    `HF_TOKEN`, `TRAINING_POD_AUTH_TOKEN`
 3. K8s Secret `training-pod-creds` (`TRAINING_POD_AUTH_TOKEN` のみ) を
    `mitama-udf` namespace に provision (既存 `training-runpod-creds` は退役)
-4. `pymagatama:0.3.80` image rebuild + helm upgrade
+4. `kotodama:0.3.80` image rebuild + helm upgrade
 5. ComfyUI custom node `ComfyUI-FluxTrainer` の動作確認 + image LoRA training
    primitive (`task_train_image_lora_run`) 追加 (Phase 2、本 PR では未着手)
 
@@ -362,7 +362,7 @@ etzhayyim training run --kind sft ...
 - `30-graph/graph-schema/migrations/20260502120000_v_training_text.ts`
 - `30-graph/graph-schema/migrations/20260502130000_seed_training_export_bpmn.ts`
 - `30-graph/graph-schema/migrations/20260502140000_update_training_export_bpmn_phase_d.ts`
-- `20-actors/magatama/py/src/pymagatama/primitives/training_export.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/training_export.py`
 - `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/training/trainingExport.bpmn`
 - `90-docs/adr/2604300135-hume-distillation-artifact-persistence.md`
 - `90-docs/adr/0056-bpmn-as-actor.md` (`90-docs/adr/2604231150-bpmn-as-actor.md`)

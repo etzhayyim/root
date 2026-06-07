@@ -1,4 +1,4 @@
-// TypeScript port of pymagatama.nv_compat.isaaclab.envs.mdp.actions
+// TypeScript port of kotodama.nv_compat.isaaclab.envs.mdp.actions
 // task-space wrappers (iter 64).
 //
 // DifferentialInverseKinematicsAction

@@ -37,7 +37,7 @@ import {
   MURAKUMO_DEFAULT_MODEL,
   nsid,
   parseLexiconInput,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 // ── Murakumo Gemma 4 E2B config ──
 
@@ -841,4 +841,4 @@ export default createWorkerExport((sdk) => {
 });
 
 /** Legacy alias for etzhayyim deploy entry generation. */
-export { createDefaultHostSDK as createComponentHostSDK } from "@etzhayyim/magatama-host-sdk";
+export { createDefaultHostSDK as createComponentHostSDK } from "@etzhayyim/kotodama-host-sdk";

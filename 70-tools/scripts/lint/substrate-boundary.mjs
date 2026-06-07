@@ -214,7 +214,33 @@ function isStorageRule(groupKind) {
   return groupKind.startsWith("storage substrate");
 }
 
+// ─── frozen legacy allowlist (ADR-2606071800) ────────────────────────────
+// Pre-guard legacy files that already import the storage substrate directly are
+// grandfathered: a STORAGE violation in a frozen file is a warning (tracked debt being
+// migrated to kotoba-kqe), not a hard failure — so unrelated edits to a legacy file are
+// not blocked. New files (not on the list) are still blocked, and the shrink-only ratchet
+// lives in substrate-remediation-audit.mjs (pre-push). The allowance covers storage rules
+// ONLY — payment + seam rules are never grandfathered.
+const FROZEN_ALLOWLIST_PATH = path.join(
+  process.cwd(),
+  "70-tools/scripts/lint/substrate-frozen-allowlist.json",
+);
+let frozenStorageFiles = new Set();
+try {
+  if (existsSync(FROZEN_ALLOWLIST_PATH)) {
+    const j = JSON.parse(readFileSync(FROZEN_ALLOWLIST_PATH, "utf8"));
+    frozenStorageFiles = new Set((j.files ?? []).map((f) => f.replace(/^\.\//, "")));
+  }
+} catch {
+  /* missing/corrupt allowlist → behave as before (no grandfathering) */
+}
+
+function isFrozenStorageLegacy(filePath) {
+  return frozenStorageFiles.has(filePath.replace(/^\.\//, ""));
+}
+
 const violations = [];
+const grandfatheredWarnings = [];
 
 for (const file of args) {
   if (!file) continue;
@@ -246,6 +272,11 @@ for (const file of args) {
         if (hasProjectionLineMarker(content, line)) continue;
         if (fileHasManifest === null) fileHasManifest = hasProjectionManifest(file);
         if (fileHasManifest) continue;
+        // ADR-2606071800: grandfather frozen legacy storage violators → warn, don't block.
+        if (isFrozenStorageLegacy(file)) {
+          grandfatheredWarnings.push({ file, line, hint: rule.hint });
+          continue;
+        }
       }
 
       violations.push({
@@ -281,6 +312,15 @@ if (violations.length > 0) {
   console.error("  Note: projection allowance covers storage rules only — payment");
   console.error("  and substrate-client seam rules are not projection-allowable.");
   process.exit(1);
+}
+
+if (grandfatheredWarnings.length > 0) {
+  console.warn(
+    `ℹ substrate-boundary: ${grandfatheredWarnings.length} staged frozen-legacy storage import(s) (ADR-2606071800 — tracked debt, not blocking):`,
+  );
+  for (const w of grandfatheredWarnings) {
+    console.warn(`    ${w.file}:${w.line}  (${w.hint}) — migrate to kotoba-kqe + remove from frozen allowlist`);
+  }
 }
 
 process.exit(0);

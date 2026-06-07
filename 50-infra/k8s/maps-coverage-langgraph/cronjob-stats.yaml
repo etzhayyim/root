@@ -41,7 +41,7 @@ spec:
               effect: NoSchedule
           containers:
             - name: refresh
-              image: ghcr.io/etzhayyim/pymagatama:ndl-oai-resident-0077fecc6a2-20260509110241-amd64
+              image: ghcr.io/etzhayyim/kotodama:ndl-oai-resident-0077fecc6a2-20260509110241-amd64
               imagePullPolicy: IfNotPresent
               env:
                 - name: RW_URL
@@ -68,7 +68,7 @@ spec:
 
                   from langgraph.graph import StateGraph, START, END
 
-                  from pymagatama.ingest.maps_collection import refresh_coverage_stats
+                  from kotodama.ingest.maps_collection import refresh_coverage_stats
 
                   ONLY_ZEROED = os.environ.get("ONLY_ZEROED", "0") == "1"
 

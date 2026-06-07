@@ -1,0 +1,133 @@
+;; government-relations-ontology.kotoba.edn
+;; 系図 (keizu) — government power-relations knowledge graph ontology (ADR-2606066000)
+;;
+;; Weaves government {procurement · money · statements · human-relationships ·
+;; committee/advisory-council composition} into ONE kotoba Datom relation-graph + social
+;; posts. The distinctive object vs the sibling accountability actors is the RELATION GRAPH
+;; of PUBLIC ROLES — who sits on which committee, who funds whom, who awarded whom, who said
+;; what — woven together, aggregate-first and edge-primary. An accountability/wayfinding
+;; MAP, never a target-list (watatsuna/watari/tsumugi invariant), and NON-adjudicating
+;; (danjo invariant): it records observed ties, never asserts a crime / 不正 / guilt.
+;;
+;; Siblings (no overlap): danjo (non-adjudicating discrepancy observations), kanae (fiscal
+;; render), tsumugi (power-entity 縁 generally / spirit-in-physics), tadori (on-chain crypto),
+;; ooyake (government structural atlas). keizu is the WHO-knows-WHOM + money + words weave.
+;;
+;; STRUCTURAL INVARIANTS live in THREE places each (this schema :db/allowed / enum +
+;; lexicon :const / :enum + Python ValueError). The closed vocab vectors below are the
+;; single source the structural-invariant test parses.
+
+{:ontology/id        "com.etzhayyim.keizu.government-relations"
+ :ontology/version   1
+ :ontology/title     "系図 (keizu) — government power-relations graph"
+ :ontology/adr       "2606066000"
+
+ ;; ── closed structural vocab (the invariants, as data) ───────────────────────
+ ;; G1 — a node exists ONLY by virtue of a PUBLIC role/seat/organ. :private-person ABSENT
+ ;;      (a committee member is a public SEAT, never a private individual; tsumugi G1, ooyake G6).
+ :ontology/node-scopes      [:public-office :public-org :public-committee :public-role]
+ ;; G2 — relation kinds are FACTUAL ties. NO verdict token (:corruption / :bribe / :guilt
+ ;;      / :collusion ABSENT — a legal characterization is unrepresentable; danjo G4).
+ :ontology/rel-kinds        [:committee-membership :appointment :advisory-role
+                             :co-membership :revolving-door :funding-tie
+                             :statement-attribution :procurement-award]
+ ;; G2 — money kinds are FACTUAL public flows. :bribe / :kickback ABSENT.
+ :ontology/money-kinds      [:procurement-award :subsidy :grant :political-donation :budget-outlay]
+ ;; G11 — every datom declares its sourcing honesty.
+ :ontology/sourcing-grades  [:representative :authoritative]
+ ;; G8 — at R0 a social post is dry-run ONLY. :published ABSENT (outward-gated; published
+ ;;      requires Council Lv6+ + operator + member signature).
+ :ontology/post-statuses    [:dry-run]
+
+ :schema
+ [;; ── :node/* — a PUBLIC role / seat / organ (G1: never a private person) ──────
+  {:db/ident :node/id          :db/valueType :db.type/string  :db/cardinality :db.cardinality/one :db/unique :db.unique/identity}
+  {:db/ident :node/scope       :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+   :db/allowed [:public-office :public-org :public-committee :public-role]
+   :db/doc "G1 — :private-person / :citizen / :individual are UNREPRESENTABLE. A node is a public seat/organ, not a person (accountability map, never a target-list)."}
+  {:db/ident :node/label       :db/valueType :db.type/string  :db/cardinality :db.cardinality/one}
+  {:db/ident :node/jurisdiction :db/valueType :db.type/string :db/cardinality :db.cardinality/one
+   :db/doc "ISO-3166 / supranational code (jp / us / eu / gb / oecd / un …)."}
+  {:db/ident :node/organ       :db/valueType :db.type/string  :db/cardinality :db.cardinality/one
+   :db/doc "the public body the role belongs to (ministry / agency / committee / party)."}
+  {:db/ident :node/sourcing    :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+   :db/allowed [:representative :authoritative]}
+  {:db/ident :node/sources     :db/valueType :db.type/string  :db/cardinality :db.cardinality/many
+   :db/doc "G3 — ≥1 public-source URL/CID for the node; relations need ≥2."}
+  ;; NOTE: there is deliberately NO :node/power-score / :node/influence / :node/rank.
+  ;; G4 — concentration is computed on READ from incident edges, never stored per-node
+  ;; (edge-primary, no score-of-soul; tsumugi G2 / spirit-ontology :en/ precedent).
+
+  ;; ── :committee/* — a committee / advisory council + its composition ──────────
+  {:db/ident :committee/id     :db/valueType :db.type/string  :db/cardinality :db.cardinality/one :db/unique :db.unique/identity}
+  {:db/ident :committee/label  :db/valueType :db.type/string  :db/cardinality :db.cardinality/one}
+  {:db/ident :committee/jurisdiction :db/valueType :db.type/string :db/cardinality :db.cardinality/one}
+  {:db/ident :committee/organ  :db/valueType :db.type/string  :db/cardinality :db.cardinality/one
+   :db/doc "the parent public body (ministry/agency) that convenes the committee."}
+  {:db/ident :committee/members :db/valueType :db.type/ref    :db/cardinality :db.cardinality/many
+   :db/doc "→ :node/id of each public seat on the committee (composition snapshot)."}
+  {:db/ident :committee/term-from :db/valueType :db.type/long :db/cardinality :db.cardinality/one
+   :db/doc "G10 — composition is as-of; a re-composition is a NEW snapshot, never an overwrite (非終末論)."}
+  {:db/ident :committee/sourcing :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+   :db/allowed [:representative :authoritative]}
+  {:db/ident :committee/sources :db/valueType :db.type/string :db/cardinality :db.cardinality/many}
+
+  ;; ── :rel/* — an OBSERVED tie between public roles (edge-primary, G2/G4) ───────
+  {:db/ident :rel/id           :db/valueType :db.type/string  :db/cardinality :db.cardinality/one :db/unique :db.unique/identity}
+  {:db/ident :rel/source       :db/valueType :db.type/ref     :db/cardinality :db.cardinality/one :db/doc "→ :node/id"}
+  {:db/ident :rel/target       :db/valueType :db.type/ref     :db/cardinality :db.cardinality/one :db/doc "→ :node/id"}
+  {:db/ident :rel/kind         :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+   :db/allowed [:committee-membership :appointment :advisory-role :co-membership
+                :revolving-door :funding-tie :statement-attribution :procurement-award]
+   :db/doc "G2 — :corruption / :bribe / :collusion / :guilt are UNREPRESENTABLE. A tie is a fact, never a verdict (danjo G4; legal characterization routes to chigiri)."}
+  {:db/ident :rel/weight       :db/valueType :db.type/double  :db/cardinality :db.cardinality/one
+   :db/doc "G4 — the SUBSTANCE of the relationship lives on the EDGE (count / amount-share / tenure), never as a per-node score."}
+  {:db/ident :rel/as-of        :db/valueType :db.type/long    :db/cardinality :db.cardinality/one
+   :db/doc "G10 — observed-at; the tie is append-only as-of history, no final state."}
+  {:db/ident :rel/non-adjudicating-notice :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one
+   :db/allowed [true] :db/doc "G2 — only true is valid (mirror of danjo discrepancyObservation)."}
+  {:db/ident :rel/sources      :db/valueType :db.type/string  :db/cardinality :db.cardinality/many
+   :db/doc "G3 — ≥2 public-source URLs/CIDs per relation; an unsourced tie is refused (ValueError)."}
+  {:db/ident :rel/sourcing     :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+   :db/allowed [:representative :authoritative]}
+
+  ;; ── :money/* — a FACTUAL public money flow (procurement/subsidy/donation) ─────
+  {:db/ident :money/id         :db/valueType :db.type/string  :db/cardinality :db.cardinality/one :db/unique :db.unique/identity}
+  {:db/ident :money/payer      :db/valueType :db.type/ref     :db/cardinality :db.cardinality/one :db/doc "→ :node/id (public authority / donor seat)"}
+  {:db/ident :money/payee      :db/valueType :db.type/ref     :db/cardinality :db.cardinality/one :db/doc "→ :node/id (recipient public org / awardee role)"}
+  {:db/ident :money/kind       :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+   :db/allowed [:procurement-award :subsidy :grant :political-donation :budget-outlay]
+   :db/doc "G2 — :bribe / :kickback / :slush are UNREPRESENTABLE; only disclosed public flow kinds."}
+  {:db/ident :money/amount     :db/valueType :db.type/double  :db/cardinality :db.cardinality/one}
+  {:db/ident :money/currency   :db/valueType :db.type/string  :db/cardinality :db.cardinality/one}
+  {:db/ident :money/as-of      :db/valueType :db.type/long    :db/cardinality :db.cardinality/one}
+  {:db/ident :money/sources    :db/valueType :db.type/string  :db/cardinality :db.cardinality/many
+   :db/doc "G3 — ≥2 public-source URLs/CIDs per money flow."}
+  {:db/ident :money/sourcing   :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+   :db/allowed [:representative :authoritative]}
+
+  ;; ── :statement/* — a PUBLIC statement attributed to a public role ────────────
+  {:db/ident :statement/id     :db/valueType :db.type/string  :db/cardinality :db.cardinality/one :db/unique :db.unique/identity}
+  {:db/ident :statement/speaker :db/valueType :db.type/ref    :db/cardinality :db.cardinality/one :db/doc "→ :node/id (public role)"}
+  {:db/ident :statement/topic  :db/valueType :db.type/string  :db/cardinality :db.cardinality/one}
+  {:db/ident :statement/venue  :db/valueType :db.type/string  :db/cardinality :db.cardinality/one :db/doc "国会会議録 session / committee hearing (public record)."}
+  {:db/ident :statement/as-of  :db/valueType :db.type/long    :db/cardinality :db.cardinality/one}
+  {:db/ident :statement/sources :db/valueType :db.type/string :db/cardinality :db.cardinality/many}
+  {:db/ident :statement/sourcing :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+   :db/allowed [:representative :authoritative]}
+
+  ;; ── :post/* — a DRY-RUN social post projection (member-signed, never server) ──
+  {:db/ident :post/id          :db/valueType :db.type/string  :db/cardinality :db.cardinality/one :db/unique :db.unique/identity}
+  {:db/ident :post/subject     :db/valueType :db.type/string  :db/cardinality :db.cardinality/one :db/doc "the aggregate finding the post narrates (committee/organ/jurisdiction)."}
+  {:db/ident :post/body        :db/valueType :db.type/string  :db/cardinality :db.cardinality/one}
+  {:db/ident :post/status      :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+   :db/allowed [:dry-run] :db/doc "G8 — :published is UNREPRESENTABLE at R0 (outward-gated; live posting = Council Lv6+ + operator + member sig)."}
+  {:db/ident :post/is-mirror   :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one
+   :db/allowed [true] :db/doc "G5 — every post opens with the mirror/accountability disclaimer; never speaks AS a government (ADR-2606042330)."}
+  {:db/ident :post/non-adjudicating-notice :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one
+   :db/allowed [true] :db/doc "G2 — only true is valid."}
+  {:db/ident :post/server-held-key :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one
+   :db/allowed [false] :db/doc "G7 / no-server-key — only false; the member signs, the server never does (ADR-2605231525)."}
+  {:db/ident :post/author      :db/valueType :db.type/string  :db/cardinality :db.cardinality/one :db/doc "SBT-bound member DID; required for any (gated) live post."}
+  {:db/ident :post/sources     :db/valueType :db.type/string  :db/cardinality :db.cardinality/many :db/doc "G3 — the post carries the same ≥2 public-source citations as the finding."}
+  {:db/ident :post/as-of       :db/valueType :db.type/long    :db/cardinality :db.cardinality/one}]}

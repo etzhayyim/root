@@ -189,7 +189,7 @@ substrate actor at `20-actors/iyashi/`, with DID
 - Provider 12-hr work cap + 12-hr recovery (G9, mirrors hagukumi
   G10).
 
-## §3. Cells (6 Pregel cells under `20-actors/magatama/cells/iyashi_*/`)
+## §3. Cells (6 Pregel cells under `40-engine/kotoba/crates/kotoba-kotodama/cells/iyashi_*/`)
 
 All R0 path-reserved; import-time `RuntimeError("iyashi R0 scaffold: activate via Council ADR + R1 ratification + encrypted-record framework Council-attested production-ready")` at W1 creation.
 
@@ -226,7 +226,7 @@ mandatory on L1 + L3).
 
 | Gate | Description |
 |---|---|
-| **G1** | Every clinical document (ingested OR produced) MUST pass `pymagatama.organism.sensors.charter_rider.scan()` §2(a)-(h). |
+| **G1** | Every clinical document (ingested OR produced) MUST pass `kotodama.organism.sensors.charter_rider.scan()` §2(a)-(h). |
 | **G2** | **Encrypted envelope MANDATORY** (ADR-2605181100) — clinicalEncounterAttestation + chronicCareContinuityRecord MUST carry `encryptedPayloadCid`; plaintext content fields rejected at schema layer (additionalProperties=false at R1). |
 | **G3** | **No video recording** (firmware-level enforcement; live telepresence permitted but frame-write-to-disk PROHIBITED in firmware). Mirrors hagukumi G2. |
 | **G4** | Per-encounter consent (default-deny); `clinicalEncounterAttestation.consentRecordCid` REQUIRED. |
@@ -291,7 +291,7 @@ mandatory on L1 + L3).
 6. `CLAUDE.md` Status table row 70 + Repo Layout entry.
 
 No code activation in R0. 6 cells path-reserved at
-`20-actors/magatama/cells/iyashi_*/` (created at R1 ratification).
+`40-engine/kotoba/crates/kotoba-kotodama/cells/iyashi_*/` (created at R1 ratification).
 
 # Consequences
 

@@ -164,7 +164,7 @@ PDS `com.etzhayyim.substrate.datasetPin` emit は dryRun (ADR-2605241500 §"add 
 | **W2** | `bigcode/the-stack-smol` [Apache subset filter] | ~10 GB | mixed (filter 必要) | pending operator confirm |
 | **W3** | `bigcode/commitpack-subset-cleaned` | 多 GB-TB | Apache 2.0 | pending operator confirm |
 | **W4** | `Tatsu-lab/CodeAlpaca-20k` (Tier C, G13 flag) | ~12 MB | NC | pending operator confirm |
-| **W5** | repo-internal LangGraph harvest (`20-actors/magatama/cells/` etc.) | ~数 MB | Apache (repo-own) | 別 runbook (generation step) |
+| **W5** | repo-internal LangGraph harvest (`40-engine/kotoba/crates/kotoba-kotodama/cells/` etc.) | ~数 MB | Apache (repo-own) | 別 runbook (generation step) |
 
 ### Tier A — Apache / MIT / BSD (commit & 配布 OK)
 
@@ -174,7 +174,7 @@ PDS `com.etzhayyim.substrate.datasetPin` emit は dryRun (ADR-2605241500 §"add 
 | `bigcode/commitpack-subset-cleaned` | Apache 2.0 | 100M+ (subset 採取) | commit msg → diff |
 | `lordx64/reasoning-distill-opus-4-7-max-sft` | Apache 2.0 | 7,823 | general reasoning (gemma-coder iter-01 precedent) |
 | `bigcode/the-stack-smol` [Apache subset filter] | mixed | filter 必要 | raw code for completion-style auxiliary |
-| repo-internal LangGraph harvest | Apache 2.0 (repo-own) | ~50-200 | `20-actors/magatama/cells/` / `70-tools/baien-distill/` / `50-infra/mst-projector/` から (prompt → cell.py) ペア抽出 |
+| repo-internal LangGraph harvest | Apache 2.0 (repo-own) | ~50-200 | `40-engine/kotoba/crates/kotoba-kotodama/cells/` / `70-tools/baien-distill/` / `50-infra/mst-projector/` から (prompt → cell.py) ペア抽出 |
 
 ### Tier B — CC-BY (attribution required, commit & 配布 OK with `attribution.txt`)
 

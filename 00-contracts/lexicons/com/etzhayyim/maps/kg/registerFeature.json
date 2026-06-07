@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.maps.kg.registerFeature",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Assert a placed geographic FEATURE into the kotoba Datom log (:feature/*). kotoba-native successor to the legacy maps vertex_spatial INSERT (RisingWave/Hyperdrive, ADR-2605262130 violation). The 51 legacy node labels collapse onto :feature/label. The owning H3 cell at each queryable resolution (:feature.cell/rN) is stamped server-side from the centroid (the AVET spatial index, ADR-2606064500 §2). Write is member/operator-DID-signed (no-server-key, ADR-2605231525) and outward-gated (G7). A feature is a placed thing, never a person (G9).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["featureId", "label", "sourcing"],
+          "properties": {
+            "featureId": { "type": "string", "description": ":feature/id — legacy vertex_id (at://...) reused verbatim where it exists, else \"feature.{label}.{slug}\"" },
+            "label": { "type": "string", "description": ":feature/label keyword without the colon, e.g. \"place\" \"road\" \"building\" \"admin-area\" \"port\" \"airport\" \"station\" \"legal-entity\" \"registry\"" },
+            "name": { "type": "string" },
+            "displayName": { "type": "string" },
+            "category": { "type": "string", "description": "free-text sub-type" },
+            "lat": { "type": "number", "description": "centroid latitude WGS84 — drives the H3 cell index" },
+            "lon": { "type": "number", "description": "centroid longitude WGS84" },
+            "heightM": { "type": "number", "description": "extrusion height (Building/Mountain) — KAMI add_extrude_layer" },
+            "levels": { "type": "integer", "description": "floor count; height fallback = levels x 3 m" },
+            "geometry": { "type": "unknown", "description": "GeoJSON geometry (Point|LineString|Polygon|Multi*)" },
+            "props": { "type": "unknown", "description": "remaining fields as a JSON bag (read-through only, never a query key)" },
+            "source": { "type": "string", "description": ":feature/source, e.g. \"osm\" \"gtfs-jp\" \"openflights\" \"gleif\" \"sentinel\"" },
+            "sourceDid": { "type": "string", "description": "path-based source DID (did:web:maps.etzhayyim.com:registry:...)" },
+            "sourcing": { "type": "string", "enum": ["authoritative", "representative", "synthesized"], "description": "G3 sourcing honesty — mandatory" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "featureId": { "type": "string" },
+            "cells": { "type": "unknown", "description": "the stamped owning H3 cells per resolution (:feature.cell/rN)" },
+            "txCid": { "type": "string", "description": "kotoba transaction CID (content-addressed Datom log; ADR-2605312345)" },
+            "datomCount": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -157,8 +157,8 @@ fear-amplification per G10).
 
 R1 smoke test (when cells created):
 ```bash
-cd 20-actors/magatama/py
-python -c "from magatama.cells.ossekai_arbitrage_observer import _r0_marker" 2>&1 | grep "R0 scaffold"
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
+python -c "from kotodama.cells.ossekai_arbitrage_observer import _r0_marker" 2>&1 | grep "R0 scaffold"
 ```
 
 R1 AT Proto smoke test (when cells created):

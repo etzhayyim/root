@@ -77,7 +77,7 @@ PII (スタッフ本名/連絡先), retake の人物評価コメントは Tier 3
 
 ## Reactive Pipeline (ComAtprotoSyncSubscribeRepos) `[DESIGN]`
 
-Write-Only Derived Architecture (handler は write のみ、social / cross-actor invoke は `magatama.jsonld` `derive` rule)。
+Write-Only Derived Architecture (handler は write のみ、social / cross-actor invoke は `kotodama.jsonld` `derive` rule)。
 
 | 入力 commit | derive rule | 出力 |
 |---|---|---|
@@ -182,7 +182,7 @@ retake comment は `#t={frame}f` fragment で frame pin。
 ├── CLAUDE.md
 ├── appview/
 │   └── etzhayyim-wasm-animeka-an1m3k4x/
-│       ├── magatama.jsonld          # triggers + derive rules + profile
+│       ├── kotodama.jsonld          # triggers + derive rules + profile
 │       ├── wrangler.jsonc
 │       ├── package.json
 │       ├── src/app.ts               # TS Native — Design E reactive pipeline

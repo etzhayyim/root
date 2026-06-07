@@ -26,22 +26,22 @@ from fastapi.testclient import TestClient
 # Make `lg_animeka` importable when pytest is invoked from this dir.
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-# ── stub pymagatama so the entire pipeline imports cleanly without
+# ── stub kotodama so the entire pipeline imports cleanly without
 #    real ComfyUI / PDS / psycopg dependencies.  Graph nodes that
 #    touch these stubs are never executed here; we only validate wiring.
-_pmg = types.ModuleType("pymagatama")
-sys.modules["pymagatama"] = _pmg
+_pmg = types.ModuleType("kotodama")
+sys.modules["kotodama"] = _pmg
 
-_pmg_p = types.ModuleType("pymagatama.primitives")
-sys.modules["pymagatama.primitives"] = _pmg_p
+_pmg_p = types.ModuleType("kotodama.primitives")
+sys.modules["kotodama.primitives"] = _pmg_p
 
-_pmg_si = types.ModuleType("pymagatama.primitives.shinshi_image")
+_pmg_si = types.ModuleType("kotodama.primitives.shinshi_image")
 for _n in (
     "_build_anime_workflow", "_comfy_render_png",
     "_upload_blob_to_pds", "_post_scene",
 ):
     setattr(_pmg_si, _n, lambda *a, **k: None)
-sys.modules["pymagatama.primitives.shinshi_image"] = _pmg_si
+sys.modules["kotodama.primitives.shinshi_image"] = _pmg_si
 
 # Stub psycopg so graph-level `import psycopg` doesn't raise.
 _psycopg = types.ModuleType("psycopg")

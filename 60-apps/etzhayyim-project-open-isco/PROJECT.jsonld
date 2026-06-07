@@ -37,7 +37,7 @@
   "etzhayyim:runtimeEvidence": {
     "checkedAt": "2026-04-30T05:18:18Z",
     "pattern": "LangServer-langgraph-udf",
-    "runtimeTarget": "20-actors/magatama/py/src/pymagatama/primitives/open_isco.py",
+    "runtimeTarget": "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/open_isco.py",
     "rwWriteEvidence": {
       "classifyWorkerVertexId": "at://did:web:open-isco.etzhayyim.com/com.etzhayyim.apps.openIsco.classification/d83d798409d6171438dfce53",
       "classificationEdgeId": "at://did:web:open-isco.etzhayyim.com/com.etzhayyim.apps.openIsco.classificationOccupation/7c55eeb29a235080f9319c43",
@@ -419,7 +419,7 @@
   "etzhayyim:runtimePattern": "LangServer-langgraph-udf",
   "etzhayyim:migration": {
     "status": "implemented",
-    "runtimeTarget": "20-actors/magatama/py/src/pymagatama/primitives/open_isco.py",
+    "runtimeTarget": "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/open_isco.py",
     "pattern": "LangServer-langgraph-udf",
     "coverage": {
       "bpmnProcesses": {

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Wave 84 — mica-license / judicial-review-gdpr / genocide-convention / paris-club / congressional-stock.
 
-All-string field schemas to avoid the pymagatama smoke-payload number-cast bug.
+All-string field schemas to avoid the kotodama smoke-payload number-cast bug.
 
 Bridges Wave 83:
 - mica-license ↔ stablecoinRun.flagReserveOpacity

@@ -136,7 +136,7 @@ async def _node_render_trace(state: _State) -> dict[str, Any]:
     if state.get("error") or not state.get("color_prompt"):
         return {}
     try:
-        from pymagatama.primitives.shinshi_image import (
+        from kotodama.primitives.shinshi_image import (
             _build_anime_workflow,
             _comfy_render_png,
             _upload_blob_to_pds,

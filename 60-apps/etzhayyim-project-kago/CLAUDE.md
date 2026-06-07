@@ -10,7 +10,7 @@ Uber-like ride-hailing platform (kago.etzhayyim.com). Integrated with maps.etzha
 
 ## KV Buckets
 
-| Bucket | Component | Store name in magatama.jsonld |
+| Bucket | Component | Store name in kotodama.jsonld |
 |---|---|---|
 | `kago-ride-state` | etzhayyim-wasm-kago-ride-y83jjx4l | `default` |
 

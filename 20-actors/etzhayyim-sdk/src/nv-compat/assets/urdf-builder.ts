@@ -1,4 +1,4 @@
-// TypeScript port of pymagatama.nv_compat.isaacsim.assets.urdf_builder
+// TypeScript port of kotodama.nv_compat.isaacsim.assets.urdf_builder
 //
 // URDF builder helpers — programmatically construct minimal URDFs from
 // joint specifications. Used by the Franka Panda + ANYmal C wrappers

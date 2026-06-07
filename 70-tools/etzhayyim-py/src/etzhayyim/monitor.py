@@ -159,7 +159,7 @@ def _discover_apps(scan_dir: str, nanoid_filter: str, name_filter: str) -> list[
     if not base.exists():
         base = Path(scan_dir)
 
-    for mpath in sorted(base.rglob("magatama.jsonld")):
+    for mpath in sorted(base.rglob("kotodama.jsonld")):
         try:
             data = json.loads(mpath.read_text())
         except Exception:
@@ -231,7 +231,7 @@ def _tier_score(val: int, t1: int, t2: int, t3: int) -> float:
 
 def _collection_namespace_candidates(app: DiscoveredApp) -> list[str]:
     candidates = [app.nanoid]
-    mpath = app.dir / "magatama.jsonld"
+    mpath = app.dir / "kotodama.jsonld"
     try:
         data = json.loads(mpath.read_text())
         for col in data.get("collections", []):
@@ -550,7 +550,7 @@ def _print_shinka_table(results: list[ShinkaStatus]) -> None:
 
 @monitor.command("shinka")
 @click.option("--dir", "scan_dir", default="60-apps", show_default=True,
-              help="Parent directory to scan for magatama.jsonld")
+              help="Parent directory to scan for kotodama.jsonld")
 @click.option("--filter", "name_filter", default="", help="Glob pattern for app names")
 @click.option("--nanoid", default="", help="Check a single app by nanoid")
 @click.option("--concurrency", default=16, show_default=True, help="Parallel workers")

@@ -21,7 +21,7 @@
   guarantees a defined output for every input combination.
 
   Phase C wiring (deferred):
-    * `pymagatama.langgraph_node_resolvers` does not yet dereference
+    * `kotodama.langgraph_node_resolvers` does not yet dereference
       `dmn:...` refs. Until the resolver gains a DMN evaluator, this file +
       its seed migration land the SSoT row in `vertex_dmn_model` so audit /
       governance / lineage tooling can read it. The actual routing decision

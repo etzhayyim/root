@@ -7,7 +7,7 @@ LSP server を Murakumo Mac mini fleet 上に launchd で常駐させ、fleet �
 
 - ADR-2605191346: etzhayyim/* deployment target は **Murakumo Mac-mini fleet のみ**
 - ADR-2605192415 §7.1: Tier 1 = launchd 常駐 (no commercial K8s)
-- 既存 `com.etzhayyim.magatama-cell-runner.plist` の convention を踏襲
+- 既存 `com.etzhayyim.kotodama-cell-runner.plist` の convention を踏襲
 
 ## 逆トポロジー順 (leaf → root, in-progress)
 
@@ -33,7 +33,7 @@ LSP server を Murakumo Mac mini fleet 上に launchd で常駐させ、fleet �
 
 ## Reference: existing convention
 
-- plist template: `50-infra/cluster/murakumo/cell-runner/com.etzhayyim.magatama-cell-runner.plist`
+- plist template: `50-infra/cluster/murakumo/cell-runner/com.etzhayyim.kotodama-cell-runner.plist`
 - fleet SSoT: `50-infra/murakumo/fleet.toml`
 - mesh substrate: `50-infra/cluster/murakumo/` (tailmesh, X25519 + XChaCha20-Poly1305)
 - launchd port allocation rule: cells `13000-14000`, phenotype `14000+`. **langserver 提案: `15500-15600`** (collision-free)
