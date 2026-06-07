@@ -297,3 +297,81 @@ def test_kaizen_review_record_carries_const_zero_invariants():
     assert r["reEngagementAfterOptOutCount"] == 0
     assert r["commercialIntelCrmSoftwarePenetrationPct"] == 0.0
     assert r["aggregateSharePctIntegerHundredths"] >= 5000   # ≥50.00% floor met
+
+
+# ── member_digest (G8) ────────────────────────────────────────────────────
+_ADV = [{"topic": "図書館サービス", "category": "civic"},
+        {"topic": "健康診断補助", "category": "health"}]
+
+
+def test_member_digest_encrypts_no_plaintext_g8():
+    out = agent.handle_member_digest({
+        "members": [{"did": "did:m:1", "sbtActive": True, "optedIn": True, "categories": ["civic"]}],
+        "advisories": _ADV, "now": 100})
+    assert len(out["digests"]) == 1
+    d = out["digests"][0]
+    assert d["envelope"]["envelopeRef"].startswith("com.etzhayyim.encrypted:")
+    assert "topics" in d["envelope"]["sealedFields"]   # only KEYS, never values
+    assert d["state"] == "draft"                        # operator-gated
+
+
+def test_member_digest_requires_active_sbt_and_optin():
+    out = agent.handle_member_digest({
+        "members": [
+            {"did": "did:m:2", "sbtActive": False, "optedIn": True},
+            {"did": "did:m:3", "sbtActive": True, "optedIn": False},
+        ], "advisories": _ADV, "now": 100})
+    assert out["digests"] == []                          # one inactive, one not opted-in (filtered)
+
+
+def test_member_digest_weekly_rate_limit():
+    out = agent.handle_member_digest({
+        "members": [{"did": "did:m:4", "sbtActive": True, "optedIn": True, "lastDigestAt": 96}],
+        "advisories": _ADV, "now": 100})                 # 4d < 7d
+    assert out["digests"] == []
+    assert any("period" in s["reason"] for s in out["skipped"])
+
+
+def test_member_digest_roster_cap_500():
+    members = [{"did": f"did:m:{i}", "sbtActive": True, "optedIn": True} for i in range(505)]
+    out = agent.handle_member_digest({"members": members, "advisories": _ADV, "now": 100})
+    assert out["rosterSize"] == agent.MEMBER_OPT_IN_CAP  # capped at 500
+    assert any("cap" in s["reason"] for s in out["skipped"])
+
+
+def test_member_digest_category_filter():
+    out = agent.handle_member_digest({
+        "members": [{"did": "did:m:5", "sbtActive": True, "optedIn": True, "categories": ["health"]}],
+        "advisories": _ADV, "now": 100})
+    assert out["digests"][0]["itemCount"] == 1           # only the health advisory
+
+
+# ── emergency_advisory (G10) ──────────────────────────────────────────────
+def test_emergency_refused_without_kazaori_attestation():
+    out = agent.handle_emergency_advisory({"attestation": {"valid": False}, "topic": "x"})
+    assert out["refused"] is True
+    assert "self-declare" in out["reason"]
+
+
+def test_emergency_posts_calm_advisory_with_attestation():
+    out = agent.handle_emergency_advisory({
+        "attestation": {"valid": True, "declarer": "kazaori"}, "topic": "避難所情報"})
+    assert out["refused"] is False
+    assert out["post"]["expedited"] is True
+    assert out["post"]["declarer"] == "kazaori"
+    assert out["post"]["state"] == "draft"              # operator-gated
+
+
+def test_emergency_refuses_panic_framing_g10():
+    out = agent.handle_emergency_advisory({
+        "attestation": {"valid": True, "declarer": "kazaori"},
+        "text": "panic now, catastrophe is here"})
+    assert out["refused"] is True
+    assert "G10" in out["reason"]
+
+
+def test_emergency_posts_with_operator():
+    out = agent.handle_emergency_advisory({
+        "attestation": {"valid": True, "declarer": "kazaori"}, "topic": "避難所情報",
+        "operatorRef": "op:emergency-1"})
+    assert out["post"]["state"] == "posted"
