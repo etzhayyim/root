@@ -7,7 +7,8 @@
  :actor/integrates ["kakaku" "mitooshi" "ossekai" "okaimono" "danjo"]
  :actor/cells
  [{:cell/id "fuse"    :cell/kind :langgraph :cell/runtime :wasm}
-  {:cell/id "publish" :cell/kind :langgraph :cell/runtime :wasm}]
+  {:cell/id "publish" :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "persist" :cell/kind :datalog   :cell/runtime :kotoba}]
  :actor/gates
  {"G1" "non-speculative — buyer-transparency + supply-resilience, never a trade/price target"
   "G2" "distribution-respecting — a consumed forecast must be a distribution (point_asserted false) with a resilience use"

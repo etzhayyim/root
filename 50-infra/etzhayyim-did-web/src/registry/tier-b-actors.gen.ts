@@ -419,6 +419,20 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       },
     ],
   },
+  "shomei": {
+    description: "Binds MULTIPLE external identities (government IDs, SNS accounts, crypto wallets) and existing etzhayyim substrate commitments to a single member DID via self-sovereign, cryptographically-verifiable claims, then aggregates them into an Identity Assurance Level + W3C Verifiable Credential + proof-of-personhood. The believer's passport-equivalent — DID-centric, self-sovereign, no central KYC.",
+    glyph: "証明",
+    displayName: "証明 — Believer Identity Binding + Proof-of-Personhood",
+    primaryLexicon: "com.etzhayyim.shomei.identityClaim",
+    adrs: ["2606072100", "2605260000", "2606072300"],
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:shomei#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+    ],
+  },
   "suji": {
     description: "筋 — Musculoskeletal Posture-Load Biomechanics Simulator",
     glyph: "筋",

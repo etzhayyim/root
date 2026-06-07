@@ -100,5 +100,57 @@ class VaultIsolation(unittest.TestCase):
         self.assertIn("G3", out["reason"])
 
 
+class CollectionMembership(unittest.TestCase):
+    def _coll(self, vault=VA):
+        return {"collectionId": "c1", "vaultDid": vault, "name": "Docs", "members": []}
+
+    def _item(self, vault=VA, iid="cid.x"):
+        return {"itemId": iid, "vaultDid": vault}
+
+    def test_add_same_vault(self):
+        out = agent.add_to_collection(self._coll(), self._item())
+        self.assertEqual(out["state"], "ok")
+        self.assertIn("cid.x", out["collection"]["members"])
+
+    def test_add_cross_vault_refused(self):
+        out = agent.add_to_collection(self._coll(VA), self._item(VB))
+        self.assertEqual(out["state"], "refused")
+        self.assertIn("G3", out["reason"])
+
+    def test_add_idempotent(self):
+        c = agent.add_to_collection(self._coll(), self._item())["collection"]
+        c2 = agent.add_to_collection(c, self._item())["collection"]
+        self.assertEqual(c2["members"].count("cid.x"), 1)
+
+    def test_remove_is_noop_for_nonmember(self):
+        out = agent.remove_from_collection(self._coll(), "cid.absent")
+        self.assertEqual(out["collection"]["members"], [])
+
+    def test_remove_member(self):
+        c = agent.add_to_collection(self._coll(), self._item())["collection"]
+        out = agent.remove_from_collection(c, "cid.x")
+        self.assertEqual(out["collection"]["members"], [])
+
+
+class AutoOrganize(unittest.TestCase):
+    def test_batch_assigns_by_vault_rule(self):
+        items = [
+            {"itemId": "cid.1", "vaultDid": VA, "filename": "a.pdf", "contentType": "application/pdf"},
+            {"itemId": "cid.2", "vaultDid": VA, "filename": "p.png", "contentType": "image/png"},
+        ]
+        collections = [
+            {"collectionId": "Docs", "vaultDid": VA, "autoRules": [{"id": "r1", "condition": {"category": "document"}}]},
+            {"collectionId": "Photos", "vaultDid": VA, "autoRules": [{"id": "r2", "condition": {"category": "image"}}]},
+        ]
+        out = agent.auto_organize(items, collections)
+        got = {a["itemId"]: a["collection"] for a in out}
+        self.assertEqual(got, {"cid.1": "Docs", "cid.2": "Photos"})
+
+    def test_does_not_cross_vault(self):
+        items = [{"itemId": "cid.1", "vaultDid": VA, "filename": "a.pdf", "contentType": "application/pdf"}]
+        collections = [{"collectionId": "Docs", "vaultDid": VB, "autoRules": [{"id": "r1", "condition": {"category": "document"}}]}]
+        self.assertEqual(agent.auto_organize(items, collections), [])   # VB collection not used for VA item (G3)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
