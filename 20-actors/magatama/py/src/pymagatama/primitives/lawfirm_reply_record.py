@@ -98,6 +98,7 @@ async def task_lawfirm_record_reply(
 
     # Idempotency: skip if graph_event_id already recorded
     if graph_event_id:
+        pass
     # R0: Multi-predicate query for idempotency check
     query_edn_idempotency = """
     [:find ?vid
@@ -109,7 +110,7 @@ async def task_lawfirm_record_reply(
     """
     existing_raw = get_kotoba_client().q(query_edn_idempotency, args=(f"graph:{graph_event_id}",))
     existing = [{"vertex_id": item[0]} for item in existing_raw]
-        if existing:
+    if existing:
             return {
                 "ok": True, "matched_lead_id": "",
                 "outreach_event_uri": existing[0]["vertex_id"],

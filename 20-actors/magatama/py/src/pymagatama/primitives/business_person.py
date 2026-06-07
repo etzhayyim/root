@@ -1397,7 +1397,7 @@ def task_business_person_select_persons_from_centrality_mv() -> dict[str, Any]:
             "ORDER BY hub_score DESC"
         )
         rows = _res
-        cols = [d[0] for d in ([("col",)] if _res else [])]
+        cols = [d[0] for d in []]
     persons = [dict(zip(cols, row)) for row in rows]
     return {"persons": persons, "personsCount": len(persons)}
 
@@ -1521,7 +1521,7 @@ def task_business_person_select_stale_persons(
             (cutoff,),
         )
         rows = _res
-        cols = [d[0] for d in ([("col",)] if _res else [])]
+        cols = [d[0] for d in []]
     persons = [dict(zip(cols, row)) for row in rows]
     return {"persons": persons, "personsCount": len(persons)}
 

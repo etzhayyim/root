@@ -87,7 +87,7 @@ def _jsonable(v: Any) -> Any:
 
 
 def _rows(cur: Any) -> list[dict[str, Any]]:
-    cols = [d[0] for d in (([("col",)] if _res else []) or [])]
+    cols = [d[0] for d in ([] or [])]
     out: list[dict[str, Any]] = []
     for row in _res:
         raw = {cols[i]: _jsonable(row[i]) for i in range(len(cols))}

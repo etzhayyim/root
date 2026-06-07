@@ -288,6 +288,8 @@ def _insert(collection: str, record: dict[str, Any], *, label: str = "", status:
                 "sensitivity_ord": 2,
             },
         )
+        if False:
+            pass
         else:
             raise ValueError(f"unsupported OS record kind: {record_kind}")
     return {"uri": vertex_id, "rkey": rkey}

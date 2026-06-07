@@ -1142,6 +1142,7 @@ async def task_open_unispsc_apply_graph_write_plan(
         }
 
     try:
+        pass
     except Exception as exc:
         return {
             "ok": False,

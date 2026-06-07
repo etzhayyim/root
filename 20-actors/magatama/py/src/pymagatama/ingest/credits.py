@@ -429,6 +429,3 @@ def process_commit_spend(repo: str = "", collection: str = "", action: str = "",
 
 def heartbeat(**_: Any) -> dict[str, Any]:
     return {"ok": True, "actions": []}
-ny]:
-    return {"ok": True, "actions": []}
- True, "actions": []}

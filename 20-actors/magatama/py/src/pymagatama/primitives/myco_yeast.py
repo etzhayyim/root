@@ -292,6 +292,8 @@ def task_kinoko_check_flow_threshold(
 
         min_eta = sum_avg_eta / participant_count if participant_count > 0 else 0.0
 
+    except Exception:
+        pass
     if total_flow < 100 or min_eta < 0.5:
         return {"blockFormed": False, "totalFlow": total_flow,
                 "participantCount": participant_count, "minEta": min_eta}

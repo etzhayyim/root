@@ -382,7 +382,3 @@ def register(worker: Any, *, timeout_ms: int = 60_000) -> None:
     }
     for task_type, handler in tasks.items():
         worker.task(task_type=task_type, single_value=False, timeout_ms=timeout_ms)(handler)
-tzhayyim.market.wellKnownMarket": task_market_well_known,
-    }
-    for task_type, handler in tasks.items():
-        worker.task(task_type=task_type, single_value=False, timeout_ms=timeout_ms)(handler)

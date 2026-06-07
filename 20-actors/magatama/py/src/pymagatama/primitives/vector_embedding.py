@@ -94,7 +94,7 @@ def _post_text(row: dict[str, Any]) -> str:
 
 
 def _row_dicts(cur: Any) -> list[dict[str, Any]]:
-    names = [d[0] for d in ([("col",)] if _res else [])] if ([("col",)] if _res else []) else []
+    names = [d[0] for d in []] if [] else []
     return [dict(zip(names, row)) for row in (_res or [])]
 
 

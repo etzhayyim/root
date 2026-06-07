@@ -258,14 +258,3 @@ def register(app: Any, timeout_ms: int = 60_000) -> None:
         )
 
     LOG.info("Registered tasks: lawfirm.intake.submit, lawfirm.matter.create")
-ester_did,
-        )
-
-    LOG.info("Registered tasks: lawfirm.intake.submit, lawfirm.matter.create")
-t, fee_structure=fee_structure,
-            fee_amount_minor=fee_amount_minor, currency=currency,
-            skip_pwc_clearance=skip_pwc_clearance,
-            requester_did=requester_did,
-        )
-
-    LOG.info("Registered tasks: lawfirm.intake.submit, lawfirm.matter.create")

@@ -725,28 +725,3 @@ def register(worker: Any, *, timeout_ms: int) -> None:
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_gov_irq_heartbeat_tick)
-imeout_ms=timeout_ms,
-    )(task_gov_irq_heartbeat_tick)
-    single_value=False,
-        timeout_ms=timeout_ms,
-    )(task_gov_irq_sync_wet_updates)
-    worker.task(
-        task_type="xrpc.com.etzhayyim.govIrq.shinka",
-        single_value=False,
-        timeout_ms=timeout_ms,
-    )(task_gov_irq_shinka)
-    worker.task(
-        task_type="xrpc.com.etzhayyim.govIrq.heartbeatTick",
-        single_value=False,
-        timeout_ms=timeout_ms,
-    )(task_gov_irq_heartbeat_tick)
-imeout_ms=timeout_ms,
-    )(task_gov_irq_heartbeat_tick)
-alue=False,
-        timeout_ms=timeout_ms,
-    )(task_gov_irq_heartbeat_tick)
-imeout_ms=timeout_ms,
-    )(task_gov_irq_heartbeat_tick)
-ask_gov_irq_heartbeat_tick)
-  )(task_gov_irq_heartbeat_tick)
-ask_gov_irq_heartbeat_tick)

@@ -47,7 +47,7 @@ def _fetch_dicts(sql: str, params: tuple = ()) -> list[dict[str, Any]]:
 
         client = get_kotoba_client()
         _res = client.q(sql, params)
-        columns = [desc[0] for desc in ([("col",)] if _res else []) or []]
+        columns = [desc[0] for desc in [] or []]
         return _rows_to_dicts(columns, list(_res))
 
 

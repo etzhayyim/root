@@ -77,7 +77,7 @@ def task_belief_influence_propagate(
     agents = []
     for row in agents_data:
         agents.append([row[0], row[1]])
-    
+
     # R0: Replicating ORDER BY agent_did in Python
     agents.sort(key=lambda x: x[0])
 
@@ -105,7 +105,7 @@ def task_belief_influence_propagate(
          [?e :edge_trust_weight/weight ?weight]
          [?e :edge_trust_weight/blocked false]
          [(> ?weight 0.0)]
-         [(contains? #{"{"}" ".join(f'"{d}"' for d in agent_dids)}{"}"} ?src_did)]
+         [(contains? #{{ { " ".join('"{}"'.format(d) for d in agent_dids) } }} ?src_did)]
         ]
     """
     trust_rows_data = client.q(query_edn_trust)

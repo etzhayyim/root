@@ -551,7 +551,7 @@ async def task_maps3d_link_actor(
                 "WHERE status = 'active' "
                 "LIMIT 200"
             )
-            cols = [d[0] for d in (([("col",)] if _res else []) or [])]
+            cols = [d[0] for d in ([] or [])]
             for row in (_res or []):
                 registry_rows.append(dict(zip(cols, row)))
     except Exception:

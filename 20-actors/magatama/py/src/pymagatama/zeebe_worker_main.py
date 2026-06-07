@@ -560,7 +560,7 @@ async def task_generic_db_select(sql: str = "", params: list | None = None,
             if True:
                 client = get_kotoba_client()
                 _res = client.q(psycopg_sql, tuple(bind))
-                col_names = [d[0] for d in ([("col",)] if _res else [])] if ([("col",)] if _res else []) else []
+                col_names = [d[0] for d in []] if [] else []
                 raw = _res or []
             import datetime
             from decimal import Decimal
@@ -632,7 +632,7 @@ async def task_generic_db_select(sql: str = "", params: list | None = None,
         if True:
             client = get_kotoba_client()
             _res = client.q(sql_text, tuple(bind_params))
-            col_names = [d[0] for d in ([("col",)] if _res else [])] if ([("col",)] if _res else []) else []
+            col_names = [d[0] for d in []] if [] else []
             raw = _res or []
 
         # LangServer serialises task output back to Zeebe via json.dumps, which
@@ -681,7 +681,7 @@ def _load_column_types(table: str) -> dict[str, str]:
                 "WHERE table_name = %s",
                 (table,),
             )
-            if ([("col",)] if _res else []):
+            if []:
                 rows = _res
     except Exception:
         rows = []
@@ -5255,7 +5255,7 @@ async def task_legal_corpus_search_document(
         if True:
             client = get_kotoba_client()
             _res = client.q(sql)
-            col_names = [d[0] for d in ([("col",)] if _res else [])] if ([("col",)] if _res else []) else []
+            col_names = [d[0] for d in []] if [] else []
             rows = _res or []
         import datetime
         from decimal import Decimal

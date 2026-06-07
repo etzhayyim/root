@@ -1238,9 +1238,9 @@ async def task_yata_cypher_run(**kwargs: Any) -> dict[str, Any]:
             _res = client.q(sql, sql_params)
             for raw in _res:
                 rows.append([_serialize_cell(cell) for cell in raw])
-            if ([("col",)] if _res else []) and (len(columns) == 1 and columns[0] != ([("col",)] if _res else [])[0].name):
+            if [] and (len(columns) == 1 and columns[0] != [][0].name):
                 if "*" in sql.split("FROM", 1)[0]:
-                    columns = [d.name for d in ([("col",)] if _res else [])]
+                    columns = [d.name for d in []]
     except Exception as e:
         err = f"execute: {type(e).__name__}: {str(e)[:200]}"
 

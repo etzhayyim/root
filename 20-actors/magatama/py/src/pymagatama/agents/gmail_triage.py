@@ -235,7 +235,7 @@ async def _node_claim(state: GmailTriageState) -> GmailTriageState:
     if True:
         client = get_kotoba_client()
         _res = client.q(sql, params)
-        cols = [d[0] for d in ([("col",)] if _res else [])]
+        cols = [d[0] for d in []]
         claimed = [dict(zip(cols, row)) for row in (_res or [])]
     return {**state, "claimed": claimed, "llmCalls": int(state.get("llmCalls") or 0)}
 
@@ -418,7 +418,7 @@ async def _node_t3_llm(state: GmailTriageState) -> GmailTriageState:
 async def _node_threat_synth(state: GmailTriageState) -> GmailTriageState:
     """LLM #2 — threat intelligence synthesis for confirmed spam rows.
 
-    Generates structured IOC JSON used as `([("col",)] if _res else [])`
+    Generates structured IOC JSON used as `event.description`
     so the yabai dashboard sees natural-language threat summary instead of
     a canned string. Only fires for spam classification (not trash/gray);
     capped at 3 calls per batch (cost guard).
@@ -558,7 +558,7 @@ async def _node_register_yabai(state: GmailTriageState) -> GmailTriageState:
             if not category:
                 continue
             email_id = str(row.get("email_id") or "")
-            evidence_id = f"ev-{email_id}-{cls}"
+            evidence_id = "ev-" + email_id + "-" + cls
             evidence_vid = f"at://{ACTOR_YABAI}/com.etzhayyim.apps.yabai.evidence/{evidence_id}"
             reasons_csv = ",".join(str(x) for x in (row.get("reasons") or []))[:480]
             _res = client.q(
@@ -571,7 +571,7 @@ async def _node_register_yabai(state: GmailTriageState) -> GmailTriageState:
                 "%s, %s, %s::date, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s"
                 ") ON CONFLICT (vertex_id) DO UPDATE SET "
                 "confidence = EXCLUDED.confidence, severity = EXCLUDED.severity, "
-                "summary = EXCLUDED.summary, description = ([("col",)] if _res else [])",
+                "summary = EXCLUDED.summary, description = EXCLUDED.description",
                 (
                     evidence_vid, None, today, 200, ACTOR_YABAI,
                     evidence_id, ACTOR_YABAI,

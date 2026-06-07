@@ -188,7 +188,7 @@ def task_projector_reflexion_load(
                 f"ORDER BY created_at DESC LIMIT {max(1, min(limit, 20))}",
                 (convoId,),
             )
-            cols = [d[0] for d in ([("col",)] if _res else [])] if ([("col",)] if _res else []) else []
+            cols = [d[0] for d in []] if [] else []
             for r in _res or []:
                 d = dict(zip(cols, r))
                 rows.append(

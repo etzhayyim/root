@@ -755,29 +755,3 @@ def register(worker: Any, *, timeout_ms: int) -> None:
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_gov_chl_heartbeat_tick)
-  timeout_ms=timeout_ms,
-    )(task_gov_chl_heartbeat_tick)
-ms,
-    )(task_gov_chl_heartbeat_tick)
-meout_ms=timeout_ms,
-    )(task_gov_chl_heartbeat_tick)
-ms,
-    )(task_gov_chl_heartbeat_tick)
-_tick)
-im.govChl.heartbeatTick",
-        single_value=False,
-        timeout_ms=timeout_ms,
-    )(task_gov_chl_heartbeat_tick)
-  timeout_ms=timeout_ms,
-    )(task_gov_chl_heartbeat_tick)
-ms,
-    )(task_gov_chl_heartbeat_tick)
-meout_ms=timeout_ms,
-    )(task_gov_chl_heartbeat_tick)
-ms,
-    )(task_gov_chl_heartbeat_tick)
-_tick)
-v_chl_heartbeat_tick)
-ms,
-    )(task_gov_chl_heartbeat_tick)
-_tick)

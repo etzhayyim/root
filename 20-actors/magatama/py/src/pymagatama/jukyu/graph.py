@@ -82,7 +82,7 @@ def _rows(sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
         if True:
             client = get_kotoba_client()
             _res = client.q(sql, params)
-            names = [desc[0] for desc in ([("col",)] if _res else []) or []]
+            names = [desc[0] for desc in [] or []]
             return [dict(zip(names, row, strict=False)) for row in (_res or [])]
     except Exception:
         return []
