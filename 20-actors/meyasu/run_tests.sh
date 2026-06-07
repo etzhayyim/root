@@ -10,6 +10,9 @@ rc=0
 echo "==> meyasu agent tests"
 ( cd "$ROOT/py" && python3 -m pytest -q test_agent.py ) || rc=1
 
+echo "==> meyasu cohort e2e (kakaku → mitooshi → meyasu)"
+( cd "$ROOT/py" && python3 -m pytest -q test_cohort_e2e.py ) || rc=1
+
 echo "==> meyasu viz builder tests"
 ( cd "$ROOT/viz" && python3 -m pytest -q test_build_viz.py ) || rc=1
 if [[ $rc -eq 0 ]]; then
