@@ -14327,6 +14327,24 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606073200-meyasu-unified-arbitrage-intel-orchestrator",
+      "type": "TechArticle",
+      "title": "ADR-2606073200: meyasu 目安 — unified arbitrage / supply-demand intel orchestrator + price-intel cohort maturation",
+      "status": "proposed",
+      "topic": "meyasu-unified-arbitrage-intel-orchestrator",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/meyasu"
+      ],
+      "related": [
+        "doc:2605091200",
+        "doc:2606051800",
+        "doc:2606012100",
+        "doc:2605264000"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
       "id": "doc:adr-2606073400-hokorobi-systemic-finance-risk-mirror",
       "type": "TechArticle",
       "title": "ADR-2606073400: hokorobi 綻び — systemic finance-risk observation mirror (gap D)",
