@@ -2,7 +2,7 @@
  * open-kyber rw-free — XrpcClient → Etzhayyim BRIDGE (ADR-2606037200 D1, R2 keystone).
  *
  * The ERP Worker (`etzhayyim-wasm-kyber-erp-kyb3rerp/src/app.ts`) runs on
- * `@etzhayyim/magatama-host-sdk`, whose `sdk.pds` is an AT-repo XrpcClient
+ * `@etzhayyim/kotodama-host-sdk`, whose `sdk.pds` is an AT-repo XrpcClient
  * (createRecord / getRecord / listRecords). The rw-free reference functions take the
  * `@etzhayyim/sdk` `Etzhayyim` read/write surface. This adapter bridges the two so the
  * worker can DELETE its `createKyselyDb(env.HYPERDRIVE)` read paths (prohibited under
@@ -19,7 +19,7 @@
 
 import type { Etzhayyim } from "@etzhayyim/sdk";
 
-/** Minimal AT-repo surface we consume from magatama-host-sdk's XrpcClient. */
+/** Minimal AT-repo surface we consume from kotodama-host-sdk's XrpcClient. */
 export interface XrpcRepoClient {
   createRecord<T = unknown>(collection: string, record: T, rkey?: string): Promise<{ uri: string; cid?: string }>;
   getRecord<T = unknown>(collection: string, rkey: string, repo?: string): Promise<{ uri: string; value: T } | null>;

@@ -1,10 +1,10 @@
 """charter.scan_sample — gate integration semantics.
 
-The scanner module itself (pymagatama.organism.sensors.charter_rider)
-lives in the magatama tree and is imported via three fallback paths:
+The scanner module itself (kotodama.organism.sensors.charter_rider)
+lives in the kotodama tree and is imported via three fallback paths:
 
-  1. installed `pymagatama` (production)
-  2. ETZ_PYMAGATAMA_SRC env override
+  1. installed `kotodama` (production)
+  2. ETZ_PYKOTODAMA_SRC env override
   3. monorepo auto-discovery via cwd ascent
 
 We exercise (2) here for determinism.
@@ -22,44 +22,44 @@ from e7m_dataset import charter
 
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
-PYMAGATAMA_SRC = REPO_ROOT / "20-actors" / "magatama" / "py" / "src"
+PYKOTODAMA_SRC = REPO_ROOT / "20-actors" / "kotodama" / "py" / "src"
 CHARTER_RIDER_PRESENT = (
-    PYMAGATAMA_SRC / "pymagatama" / "organism" / "sensors" / "charter_rider.py"
+    PYKOTODAMA_SRC / "kotodama" / "organism" / "sensors" / "charter_rider.py"
 ).is_file()
 
 
-def _drop_pymagatama_imports():
+def _drop_kotodama_imports():
     for k in list(sys.modules):
-        if k == "pymagatama" or k.startswith("pymagatama."):
+        if k == "kotodama" or k.startswith("kotodama."):
             del sys.modules[k]
 
 
-def _drop_pymagatama_from_path():
+def _drop_kotodama_from_path():
     for entry in list(sys.path):
-        if entry.endswith("20-actors/magatama/py/src"):
+        if entry.endswith("40-engine/kotoba/crates/kotoba-kotodama/py/src"):
             sys.path.remove(entry)
 
 
 @pytest.fixture
 def with_scanner(monkeypatch):
-    """Force the scanner to be importable via ETZ_PYMAGATAMA_SRC."""
+    """Force the scanner to be importable via ETZ_PYKOTODAMA_SRC."""
     if not CHARTER_RIDER_PRESENT:
-        pytest.skip("pymagatama charter_rider not present in this checkout")
-    _drop_pymagatama_imports()
-    _drop_pymagatama_from_path()
-    monkeypatch.setenv("ETZ_PYMAGATAMA_SRC", str(PYMAGATAMA_SRC))
+        pytest.skip("kotodama charter_rider not present in this checkout")
+    _drop_kotodama_imports()
+    _drop_kotodama_from_path()
+    monkeypatch.setenv("ETZ_PYKOTODAMA_SRC", str(PYKOTODAMA_SRC))
     monkeypatch.chdir(REPO_ROOT.parent)  # ensure auto-discover doesn't accidentally find it
     yield
-    _drop_pymagatama_imports()
-    _drop_pymagatama_from_path()
+    _drop_kotodama_imports()
+    _drop_kotodama_from_path()
 
 
 @pytest.fixture
 def without_scanner(monkeypatch, tmp_path):
     """Make the scanner unimportable."""
-    _drop_pymagatama_imports()
-    _drop_pymagatama_from_path()
-    monkeypatch.delenv("ETZ_PYMAGATAMA_SRC", raising=False)
+    _drop_kotodama_imports()
+    _drop_kotodama_from_path()
+    monkeypatch.delenv("ETZ_PYKOTODAMA_SRC", raising=False)
     monkeypatch.chdir(tmp_path)  # cwd is outside monorepo → auto-discovery fails
     yield
 

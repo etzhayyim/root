@@ -529,4 +529,41 @@
    :actor/created-at "2026-06-06"
    :actor/vm []
    :actor/service [{"id" "did:web:etzhayyim.com:actor:matsurigoto#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
-                   {"id" "did:web:etzhayyim.com:actor:matsurigoto#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}]}
+                   {"id" "did:web:etzhayyim.com:actor:matsurigoto#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "keizu"
+   :actor/did "did:web:etzhayyim.com:actor:keizu"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "系図"
+   :actor/display-name-ja "系図 — 政府 power-relations knowledge graph"
+   :actor/display-name-en "Keizu — Government Power-Relations Graph"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "世界の政府の人脈・お金・発言・委員会構成を一つの kotoba Datom 関係グラフに編むグローバル knowledge graph。公開情報からお金の流れ(調達・補助金・政治献金・予算執行)をすべて追い、審議会・委員会の構成メンバー(=公的な席)を分析し、調達・お金・発言・人間関係を一つの関係グラフに編んで集計所見を dry-run social post として narrate する。兄弟(danjo/kanae/tsumugi/tadori/ooyake)が埋めない明確な空白=公的役職の関係グラフ(誰がどの委員会に座り、誰が誰に資金を出し、誰が誰に発注し、誰が何を発言したか)。accountability/wayfinding の地図であって target-list ではない(G5)。非裁定(G2): 観測された関係と開示 share を記録するのみ、犯罪・不正・有罪を断定しない(法的性格付けは chigiri 経由 external counsel)。edge-primary(G4): 集中度は read 時に edge から計算、個人スコア不在。public-role-only(G1): node は公的な席/組織で私人は表現不能(no-doxxing)。出典必須(G3): 関係・資金フローごと ≥2 公開出典。no-server-key(G7)+ outward-gated(G8): social post は本人署名、live ingest/posting は Council Lv6+ + operator + 本人署名 gated、R0 は offline + dry-run。invariant 改正ゼロ。Per ADR-2606066000。"
+   :actor/primary-lexicon "com.etzhayyim.keizu.relationEdge"
+   :actor/primary-schema "00-contracts/schemas/government-relations-ontology.kotoba.edn"
+   :actor/adr ["2606066000"]
+   :actor/created-at "2026-06-06"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:keizu#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:keizu#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "shomei"
+   :actor/did "did:web:etzhayyim.com:actor:shomei"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "証明"
+   :actor/display-name-ja "証明 — 信者の本人証明 + proof-of-personhood"
+   :actor/display-name-en "Shomei — Believer Identity Binding + Proof-of-Personhood"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "信者のパスポート — ただし国家中心ではなく DID 中心。信者は既存の複数アイデンティティ(暗号ウォレット EIP-191/ERC-1271/BIP-322 · SNS OAuth-sub/署名gist/DNS-TXT · WebAuthn パスキー · Base L2 入会/Adherent SBT/AT 誓い · opt-in で Council ゲートの政府ID ローカル NFC 読取)を一つの DID に、本人署名 identityClaim として self-bind する。shomei(サーバ)は決して署名/承認しない(G1/G7)。各証明は kotoba-auth の正規 surface(eth/btc/cacao + Ed25519, 再実装しない)で VERIFY し、検証済み因子を Identity Assurance Level(IAL 0..4)+ W3C Verifiable Credential + proof-of-personhood に集計する。集計は本人性の ASSURANCE であって社会信用・人の価値スコアでは断じてない(G8)。PII は平文にしない(G3): 政府識別子は salt 付き blake2b ハッシュ + 必須 XChaCha20 暗号化 CID(ADR-2605181100)のみ。国家DBへは問い合わせない(G6/§0.4: 政府IDは手元カードの一方向NFC読取)。proof-of-personhood = IAL≥2 かつ ≥2 独立クラス = sybil-RESISTANCE(sybil-proof ではない)。gov-ID L2(IAL 4)は二重 Council ゲートで gov_auth(ADR-2605260000)へ handoff(ADR-2606072300)。R0 は offline membrane のみ、cells .solve() は raise。Per ADR-2606072100。"
+   :actor/primary-lexicon "com.etzhayyim.shomei.identityClaim"
+   :actor/adr ["2606072100"]
+   :actor/created-at "2026-06-07"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:shomei#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:shomei#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}]}

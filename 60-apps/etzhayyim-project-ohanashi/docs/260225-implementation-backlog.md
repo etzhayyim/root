@@ -4,7 +4,7 @@
 
 - 1 Issue = 1 目的に限定して小さく実装
 - `default` namespace への作成禁止
-- App system は `magatama-system`、アプリは `magatama-runtime`
+- App system は `kotodama-system`、アプリは `kotodama-runtime`
 - deploy は `mage deploy` を利用
 
 ## Epic A: Voice Core
@@ -85,7 +85,7 @@
 ### OHN-040 App deploy manifest 作成
 - Goal: `ohanashi-voice-orchestrator` の deploy manifest を定義
 - Acceptance:
-1. namespace は `magatama-runtime`
+1. namespace は `kotodama-runtime`
 2. image は `ghcr.io/etzhayyim/*`
 
 ### OHN-041 HTTPRoute 作成
@@ -98,7 +98,7 @@
 - Goal: 単一 writer 前提のデプロイ手順を文書化
 - Acceptance:
 1. `MAGE_ENFORCE_SINGLE_WRITER=1` を利用
-2. deploy 後に `kubectl get mga -n magatama-runtime` + health check 実施
+2. deploy 後に `kubectl get mga -n kotodama-runtime` + health check 実施
 
 ## 実装順（推奨）
 1. OHN-001

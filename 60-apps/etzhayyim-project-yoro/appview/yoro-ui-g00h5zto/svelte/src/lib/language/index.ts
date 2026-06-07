@@ -8,6 +8,8 @@ export {
 	getLanguageName,
 	getGamingLanguages,
 	getLanguagesByTier,
+	getLanguagesByBibleCoverage,
+	bibleCoverageToTier,
 	getRTLLanguages,
 	searchLanguages,
 } from './languages.js';
@@ -23,6 +25,7 @@ export { replacePathLang, extractPathLang } from './url.js';
 export type {
 	Language,
 	LanguageCode,
+	BibleCoverage,
 	DetectConfig,
 	LanguageSwitcherProps,
 } from './types.js';

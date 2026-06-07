@@ -62,7 +62,7 @@ ADR-2604261100 が Rego + DMN を一級化するのと並行して、subtractive
 |---|---|---|
 | 235 typed XRPC wrapper (browser) | **`@atproto/api` AtpAgent 直接呼び出し** | call site で `agent.com.atproto.repo.*` / `agent.app.bsky.*` / `agent.api.call('com.etzhayyim.apps.foo.bar', ...)` に書き換え |
 | `src/signal.ts` (Signal Protocol E2E) | **新パッケージ `10-protocol/signal/`** | パッケージ独立、wproto に依存しない |
-| `src/vault.ts` (secret bootstrap) | **新パッケージ `10-protocol/signal/` 配下 or `magatama-host-sdk`** | 評価して fast-follow ADR で確定 |
+| `src/vault.ts` (secret bootstrap) | **新パッケージ `10-protocol/signal/` 配下 or `kotodama-host-sdk`** | 評価して fast-follow ADR で確定 |
 | `src/client.ts` / `service.ts` (session bootstrap) | **削除** (AtpAgent.login で代替) | — |
 | stream consumers / W-extension types | **`@atproto/api` の types + Lexicon-generated types** | wproto 固有型は廃止 |
 | `server-wproto` | **削除** (SSR は ADR-0036 Worker-direct で不要) | — |
@@ -131,7 +131,7 @@ dead path 化は本 ADR 採択時点で発効 (新規 import 禁止)、`_archive
   二重 surface が残り Shannon η が低下。却下。
 - **Signal を wproto に残し wproto を signal-only に縮小**: 名前が誤誘導
   (W Protocol ≠ Signal)。新パッケージで意味的に正しい境界を引く。却下。
-- **Signal を `magatama-host-sdk` に吸収**: Signal は browser-side
+- **Signal を `kotodama-host-sdk` に吸収**: Signal は browser-side
   primitive、host capability ではない。却下。
 - **WIT を全 component で即時禁止**: T3 Container は wasmtime linking で
   WIT 必須、Rust contract-jco も jco 生成に WIT 必須。即時禁止は破壊的。

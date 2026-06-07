@@ -64,7 +64,7 @@ vertices link via `edge_agent_topo_concerns`.
 
 ### App pattern
 
-1. `magatama.jsonld` declares no extra triggers — topo state changes via the
+1. `kotodama.jsonld` declares no extra triggers — topo state changes via the
    normal `vertex_agent_topo_node` re-INSERT (record-log semantics).
 2. CF Worker `Agent.tick` queries `mv_agent_topo_ready` directly (pure SQL,
    bypasses LangGraph for selection). Writes `vertex_<app>_action` with

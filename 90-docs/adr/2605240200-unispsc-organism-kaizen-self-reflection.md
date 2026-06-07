@@ -69,7 +69,7 @@ Default tick: every 10 minutes. Configurable via env.
 
 A new cell type. Cron-trigger, no per-shard placement (one observer for
 the whole fleet, runs on `levi` per Murakumo membership/orchestration
-role). Module: `pymagatama.organism.kaizen_cell_main`.
+role). Module: `kotodama.organism.kaizen_cell_main`.
 
 Each tick:
 
@@ -156,7 +156,7 @@ The PR agent must NOT auto-merge. PR review is human-or-other-agent.
 ## Built-in rule registry
 
 Initial six rules ship with this ADR. Each lives in
-`pymagatama.organism.kaizen.rules` and registers via decorator:
+`kotodama.organism.kaizen.rules` and registers via decorator:
 
 | Rule ID | Category | Severity Triggers |
 |---|---|---|
@@ -263,6 +263,6 @@ target files + test plan — not raw metrics.
 - ADR-2605232345 — UNSPSC actor as ecosystem organism
 - ADR-2605240000 — UNSPSC organism fleet mass-deploy
 - ADR-2605240100 — UNSPSC organism post sink (NDJSON queue substrate bridge)
-- `20-actors/magatama/py/src/pymagatama/organism/kaizen.py`
-- `20-actors/magatama/py/src/pymagatama/organism/kaizen_cell_main.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/kaizen.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/kaizen_cell_main.py`
 - `50-infra/k8s/unispsc-organism-fleet/kaizen-observer/`

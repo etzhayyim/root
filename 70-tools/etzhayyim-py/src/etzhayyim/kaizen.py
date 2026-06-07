@@ -245,7 +245,7 @@ def collect_and_score_domain_apps(ws: Path) -> list[DomainAppReport]:
         except OSError:
             continue
 
-        nanoid, gov_unique = _check_governance(app_dir / "magatama.jsonld")
+        nanoid, gov_unique = _check_governance(app_dir / "kotodama.jsonld")
         report = _score_app(content, nanoid, project, dirname)
         report.governance_unique = gov_unique
         if gov_unique and "governance" in report.missing:
@@ -303,7 +303,7 @@ def _run_kaizen_agent(ws: Path, gaps: list[KaizenGap], apps: list[DomainAppRepor
         "CRITICAL RULES:",
         "- Do NOT create git worktrees. Work directly in the current directory.",
         "- Each app needs DOMAIN-SPECIFIC logic, not template copies.",
-        "- Read each app's CLAUDE.md, magatama.jsonld, and existing app.ts to understand its domain.",
+        "- Read each app's CLAUDE.md, kotodama.jsonld, and existing app.ts to understand its domain.",
         "- Design domain-specific Sql graph labels (not generic 'Record').",
         "- Design domain-specific collection kinds (not generic 'record').",
         "- Design domain-specific commands based on actual business operations.",
@@ -332,11 +332,11 @@ def _run_kaizen_agent(ws: Path, gaps: list[KaizenGap], apps: list[DomainAppRepor
     lines += [
         "\nProcess each app:",
         "1. Read projects/etzhayyim-project-{project}/CLAUDE.md for domain context",
-        "2. Read the app's magatama.jsonld for identity/collections",
+        "2. Read the app's kotodama.jsonld for identity/collections",
         "3. Read the app's src/app.ts current implementation",
         "4. Design domain-specific graph labels, collection kinds, commands",
         "5. Update src/app.ts with domain logic",
-        "6. Update magatama.jsonld governance with domain-specific RACI",
+        "6. Update kotodama.jsonld governance with domain-specific RACI",
         "7. Verify with: etzhayyim-py kaizen --apps --limit 5",
         "\n---",
         "Fix the worst 20 apps listed above. Do NOT create worktrees.",

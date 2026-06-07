@@ -33,7 +33,7 @@ superseded_by: []
 
 Origin question (from a GoDaddy ad link): *「DNS の空きを確認、予約を行う actor は設計されている?」*
 The honest answer at the time was **no** — domain handling was a manual Cloudflare-Registrar action
-(`etzhayyim.com`, ADR-2605222330) plus a Squarespace→CF *transfer* module in magatama; there was no
+(`etzhayyim.com`, ADR-2605222330) plus a Squarespace→CF *transfer* module in kotodama; there was no
 availability check and no acquisition actor between minting an actor DID and the name existing.
 
 This session designed and built that actor, **yadori (宿り)**, as the charter-clean inverse of a
@@ -92,7 +92,7 @@ RDAP bootstrap is a bounded `:representative` subset (unsupported TLD → `:unsu
 # Alternatives Considered
 
 Covered in the design ADR (2606038400 §Alternatives): a fiat registrar integration; folding into
-okaimono as a SKU; extending magatama `dns.py`; WHOIS port-43 scraping; server-held registrar
+okaimono as a SKU; extending kotodama `dns.py`; WHOIS port-43 scraping; server-held registrar
 credentials — all rejected for the reasons recorded there.
 
 # References

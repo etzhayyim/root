@@ -93,7 +93,7 @@ async def _node_generate(state: _State) -> dict[str, Any]:
     # Using the same SDXL workflow with lower steps for speed
     blob_cids: list[str] = []
     try:
-        from pymagatama.primitives.shinshi_image import (
+        from kotodama.primitives.shinshi_image import (
             _build_anime_workflow,
             _comfy_render_png,
             _upload_blob_to_pds,

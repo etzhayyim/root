@@ -226,6 +226,45 @@ def build_settlement_intent(gross_minor: int, maker_actor: str, operator_ref: st
     }
 
 
+def build_user_op(intent: dict, member_did: str) -> dict:
+    """Construct an UNSIGNED ERC-4337 userOp from a settlement intent (R1 live-rail wiring).
+    no-server-key invariant: the required signer is the MEMBER's smart account; okaimono holds
+    no key and signs nothing. The TitheRouter 10% split rides along unchanged (G7). This models
+    the userOp envelope, not a live bundler submission (that is operator-gated, G11)."""
+    return {
+        "rail": "erc4337-user-op",
+        "sender": member_did,
+        "grossMinor": intent["grossMinor"],
+        "titheMinor": intent["titheMinor"],
+        "makerPayoutMinor": intent["makerPayoutMinor"],
+        "titheRouter": intent["titheRouter"],
+        "requiredSigner": "member-smart-account",
+        "serverHeldKey": False,           # invariant — okaimono never holds a key
+        "signed": False,
+    }
+
+
+def submit_settlement(intent: dict, member_signature: dict,
+                      operator_ref: str | None = None) -> dict:
+    """Broadcast a USDC+Tithe settlement on the live rail. ONLY a member-origin signature
+    authorizes it (G15 no-server-key); a platform/server signature is refused outright. The
+    live bundler submit additionally needs an operator (G11): with a member signature but no
+    operator the userOp is :authorized-pending-operator (signed, not yet broadcast). The
+    TitheRouter 10% split is preserved (G7); a non-:intent state is refused (idempotency)."""
+    if intent.get("state") not in ("intent", None):
+        return {**intent, "refused": True,
+                "reason": f"settlement not in :intent state ({intent.get('state')})"}
+    if member_signature.get("origin") != "member":
+        return {**intent, "refused": True,
+                "reason": "only a member smart-account signature can authorize (G15 no-server-key)"}
+    user_op = build_user_op(intent, member_signature.get("memberDid", ""))
+    user_op["signed"] = True
+    user_op["signatureRef"] = member_signature.get("ref")
+    if not operator_ref:
+        return {**intent, "state": "authorized-pending-operator", "userOp": user_op}
+    return {**intent, "state": "submitted", "userOp": user_op, "operatorRef": operator_ref}
+
+
 def assign_fulfillment(item_class: str) -> str:
     """Route fulfillment to an etzhayyim logistics actor; never a gig courier (G8)."""
     return _FULFILLMENT.get(item_class, "wadachi")

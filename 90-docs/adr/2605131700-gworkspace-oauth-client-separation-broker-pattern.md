@@ -70,7 +70,7 @@ During Phase 0 operator-action 2026-05-13, the identity sign-in client JSON was 
 
 - `90-docs/260417-google-workspace-ingest-runbook.md` — Phase 0 ingest design
 - `_working/keiei/GWORKSPACE-INGEST-OPERATOR-HANDOFF.md` — current Phase 0 unblock state
-- `20-actors/magatama/py/src/pymagatama/ingest/gworkspace_lite.py:21-36` — 12 unified scopes
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/gworkspace_lite.py:21-36` — 12 unified scopes
 - `60-apps/etzhayyim-project-auth/worker/src-ts/index.ts:1242-1273` — auth.etzhayyim.com Google identity sign-in handler
 - `90-docs/adr/0022-auth-topology-consolidation.md` — Auth topology
 - `90-docs/adr/0023-auth-shannon-optimal-4-layer.md` — 4-layer auth

@@ -55,7 +55,7 @@ cd 60-apps/etzhayyim-project-repository/appview/etzhayyim-wasm-repository-r3p0s1
 etzhayyim deploy --smoke-url https://r3p0s1t0.etzhayyim.com/health
 ```
 
-Routes (per `magatama.jsonld`):
+Routes (per `kotodama.jsonld`):
 - `r3p0s1t0.etzhayyim.com/*` (nanoid direct)
 - `repository.etzhayyim.com/*` (vanity)
 

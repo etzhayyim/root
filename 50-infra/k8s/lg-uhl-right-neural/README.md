@@ -14,7 +14,7 @@ related:
 # lg-uhl-right-neural
 
 LangServer pod serving the `uhl_right_neural` 16-vertex Pregel
-(`pymagatama.projects.uhl_right_neural.pregel:app`) over the standard
+(`kotodama.projects.uhl_right_neural.pregel:app`) over the standard
 LangGraph CLI HTTP runtime.
 
 Authoritative per **ADR-2605181000** (project charter) and follows the
@@ -25,7 +25,7 @@ four-call-surface pattern in **ADR-2605180900**.
 | File | Role |
 |---|---|
 | `langgraph.json` | LangGraph CLI config — registers `uhl_pregel` graph |
-| `Dockerfile` | Image build (Python 3.11-slim + langgraph-cli + pymagatama) |
+| `Dockerfile` | Image build (Python 3.11-slim + langgraph-cli + kotodama) |
 | `deployment.yaml` | k8s ServiceAccount + Deployment + Service (2-container pod: server + checkpointer sidecar) |
 
 The Deployment is a **2-container pod** per ADR-2605171800: the
@@ -38,7 +38,7 @@ talks to the sidecar over `/run/etzhayyim/checkpointer.sock`. See
 ## Build
 
 ```bash
-# Repo root as build context (Dockerfile copies 20-actors/magatama/py).
+# Repo root as build context (Dockerfile copies 40-engine/kotoba/crates/kotoba-kotodama/py).
 docker build \
   -f 50-infra/k8s/lg-uhl-right-neural/Dockerfile \
   -t ghcr.io/etzhayyim/lg-uhl-right-neural:$(git rev-parse --short HEAD) \

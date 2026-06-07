@@ -150,11 +150,11 @@ LoRA adapter の負勾配として伝播する。これにより「人間の剪�
 | Layer | PR | Status | Notes |
 |---|---|---|---|
 | Lexicons (8 procedure + 1 record) | [#1366](https://github.com/etzhayyim/etzhayyim-root/pull/1366) | ✅ merged | `00-contracts/lexicons/ai/etzhayyim/bonsai/prune/` |
-| Python primitive (admissibility matrix + dataclass + auto-prune heuristic + Protocol) | [#1366](https://github.com/etzhayyim/etzhayyim-root/pull/1366) | ✅ merged | `pymagatama.primitives.bonsai_prune`, 21 pure tests |
+| Python primitive (admissibility matrix + dataclass + auto-prune heuristic + Protocol) | [#1366](https://github.com/etzhayyim/etzhayyim-root/pull/1366) | ✅ merged | `kotodama.primitives.bonsai_prune`, 21 pure tests |
 | TS MCP / XRPC handlers (synthetic) | [#1367](https://github.com/etzhayyim/etzhayyim-root/pull/1367) | ✅ merged | `bonsai-prune-handler.ts`, 26 pure tests, prefix-match dispatcher |
 | Gradient-flow paired emission (synthetic) | [#1368](https://github.com/etzhayyim/etzhayyim-root/pull/1368) | ✅ merged | ADR-2605092200 — branch/fruit/leaf emit, trunk/seed/flower null |
 | AT MST canonical write (handler) | [#1371](https://github.com/etzhayyim/etzhayyim-root/pull/1371) | ✅ merged | `_atRecordWriter` injection; flip `BONSAI_PRUNE_WRITE_PATH=canonical` |
-| Auto-prune R/PT24H sweeper | [#1371](https://github.com/etzhayyim/etzhayyim-root/pull/1371) | ✅ merged | `pymagatama.bonsai_auto_prune_main` + K8s CronJob (suspended by default) |
+| Auto-prune R/PT24H sweeper | [#1371](https://github.com/etzhayyim/etzhayyim-root/pull/1371) | ✅ merged | `kotodama.bonsai_auto_prune_main` + K8s CronJob (suspended by default) |
 | Real FP8 E4M3 encoding | — | ⏳ pending | gradient stub uses `fp8-uniform-stub` label |
 | DAO vote signature verification | — | ⏳ pending | handler trusts caller-supplied `daoVoteRef` for now |
 | LangGraph leaf-defoliate in-process toggle | — | ⏳ pending | — |

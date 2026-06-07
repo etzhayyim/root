@@ -15,7 +15,7 @@
 現状の混在点:
 
 - [`60-apps/etzhayyim-project-news/wasm/news-core-component/etzhayyim.json`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/etzhayyim-project-news/wasm/news-core-component/etzhayyim.json) で `news.etzhayyim.com` と `news-core.etzhayyim.com` を同一 worker に割り当て
-- [`60-apps/etzhayyim-project-news/wasm/news-core-component/magatama.toml`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/etzhayyim-project-news/wasm/news-core-component/magatama.toml) で `/api/...` と static 配信を同居
+- [`60-apps/etzhayyim-project-news/wasm/news-core-component/kotodama.toml`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/etzhayyim-project-news/wasm/news-core-component/kotodama.toml) で `/api/...` と static 配信を同居
 - [`60-apps/etzhayyim-project-news/wasm/news-core-component/svelte/src/lib/server/connect.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/etzhayyim-project-news/wasm/news-core-component/svelte/src/lib/server/connect.ts) と [`60-apps/etzhayyim-project-news/wasm/news-core-component/svelte/src/lib/connect.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/etzhayyim-project-news/wasm/news-core-component/svelte/src/lib/connect.ts) がどちらも相対パス `/xrpc/...` を前提
 - [`60-apps/etzhayyim-project-news/wasm/news-core-component/main.go`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/etzhayyim-project-news/wasm/news-core-component/main.go) が query/command に加えて生成・翻訳・品質評価・進化まで同一 app に保持
 
@@ -228,7 +228,7 @@ UI worker から backend worker への呼び出しは以下のいずれか。
 
 ### `news-backend-worker`
 
-- magatama app runtime
+- kotodama app runtime
 - routes:
   - `/xrpc/...`
   - `/jobs/...`
@@ -298,7 +298,7 @@ UI worker はデータ owner ではなく projection consumer。
   - `news-ui-worker` として独立
 - 現 `wasm/news-core-component/etzhayyim.json`:
   - UI worker 用と backend worker 用に分離
-- 現 `wasm/news-core-component/magatama.toml`:
+- 現 `wasm/news-core-component/kotodama.toml`:
   - backend worker 専用の route に縮小
 
 追加で必要なもの:

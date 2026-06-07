@@ -216,5 +216,5 @@ table; K7 may add data-feed updates via DAO vote.
   source-of-truth for "well-becoming-positive")
 - `30-graph/graph-schema/migrations/20260508165000_vertex_karma_wbt.ts` —
   the K1 ledger backing this economy
-- `20-actors/magatama/py/src/pymagatama/primitives/karma_wbt.py` —
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/karma_wbt.py` —
   K1 transfer / forfeitToCommons primitives that K6 builds on

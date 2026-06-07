@@ -116,10 +116,10 @@ zeebe-worker pod (mitama-udf VKE namespace)
   secretRef: keiei-llm-bearer (bearer key copied from keiei-llm namespace)
 
 defense actor (pydefense) in zeebe-worker
-  pymagatama.local_llm.LocalLlmConfig.from_env()
+  kotodama.local_llm.LocalLlmConfig.from_env()
     → chat_json_sync() → OpenAI-compat POST → LiteLLM :4000 → llama-server-e4b :8081
 
-keiei daemon (pymagatama.keiei)
+keiei daemon (kotodama.keiei)
   etzhayyim_LLM_URL = http://keiei-litellm.keiei-llm.svc.cluster.local:4000/v1/chat/completions
   model: gemma-4-E4B-it
 ```

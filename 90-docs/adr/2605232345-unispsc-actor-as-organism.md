@@ -9,9 +9,9 @@ last_verified: 2026-05-23
 priority: 6.5
 axis: architecture
 weight: 0.65
-priority_note: "Turns the 18,344 UNSPSC LangGraph actors from passive request-reply handlers (ADR-2605180900) into autonomous organisms with joucho 情緒 mood + InboxBuffer + Shinka post cadence, matching the TS heartbeat-cadence pattern in @etzhayyim/magatama-host-sdk. Scope: 1 reference organism (c10101500); mass-deploy gated on a separate hardware-capacity ADR."
+priority_note: "Turns the 18,344 UNSPSC LangGraph actors from passive request-reply handlers (ADR-2605180900) into autonomous organisms with joucho 情緒 mood + InboxBuffer + Shinka post cadence, matching the TS heartbeat-cadence pattern in @etzhayyim/kotodama-host-sdk. Scope: 1 reference organism (c10101500); mass-deploy gated on a separate hardware-capacity ADR."
 authoritative_for:
-  - Python port of joucho heartbeat-cadence (pymagatama.organism)
+  - Python port of joucho heartbeat-cadence (kotodama.organism)
   - UNSPSC actor → organism wrapping contract
   - one-organism-per-cell fleet placement convention
 depends_on:
@@ -34,15 +34,15 @@ superseded_by: []
 # Context
 
 ADR-2605171300 generated 18,344 per-commodity LangGraph StateGraphs at
-`pymagatama/langgraph_graphs/unispsc_agents/c{code}.py`. ADR-2605180900
+`kotodama/langgraph_graphs/unispsc_agents/c{code}.py`. ADR-2605180900
 wired them behind a langserver pod with four call surfaces (HTTP / Actor /
 XRPC / MCP). The result is a sharp asymmetry:
 
-- The TS-native app fleet (~198 apps on `@etzhayyim/magatama-host-sdk`) runs
+- The TS-native app fleet (~198 apps on `@etzhayyim/kotodama-host-sdk`) runs
   the **organism pattern**: joucho 情緒 5-axis mood × `InboxBuffer` ×
   `FollowerReward` × Shinka post cadence × Kyumei-Koji self-investigation,
   all driven by `resolveHeartbeatCadence()`
-  (`20-actors/magatama/sdk/magatama-host-sdk/src/heartbeat-cadence.ts`).
+  (`40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/heartbeat-cadence.ts`).
 - The Python LangGraph fleet is **stateless**. Each `c{code}.py` exposes
   a compiled `graph` that runs when invoked. There is no tick, no inbox,
   no Follow graph, no Shinka. The actors are listed on
@@ -66,7 +66,7 @@ the TS heartbeat-cadence shape as closely as the substrate allows.
 ## Module layout
 
 ```
-20-actors/magatama/py/src/pymagatama/organism/
+40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/
 ├── __init__.py         # public surface: JouchoScores, Mood, InboxBuffer,
 │                       # CadenceState, FollowerReward, HeartbeatCadence,
 │                       # ContentSource, determine_mood, resolve_heartbeat_cadence,
@@ -84,7 +84,7 @@ the TS heartbeat-cadence shape as closely as the substrate allows.
 ## Reference wrapper contract
 
 ```python
-from pymagatama.organism import UnispscOrganism
+from kotodama.organism import UnispscOrganism
 
 # Wrap any UNSPSC code into an organism.
 organism = UnispscOrganism.for_code(
@@ -164,7 +164,7 @@ trigger = "cron"           # heartbeat tick every 5 min
 cron = "*/5 * * * *"
 adr = ["2605232345", "2605171300", "2605180900"]
 unispsc_code = "10101500"
-module = "pymagatama.organism.cell_main"
+module = "kotodama.organism.cell_main"
 ```
 
 Node assignment: `dan` (already runs `UnispscAgentExecutorCell` shard-2
@@ -239,7 +239,7 @@ return a heartbeating actor is the natural next step.
 - ADR-2605171300 — Open-UNSPSC Generative Agent Fleet (18,344 agents)
 - ADR-2605180900 — UNSPSC + ISIC langserver, four call surfaces, Haiku-routed
 - ADR-2605192415 — Religious-corp daemon architecture (Murakumo cell catalog)
-- `20-actors/magatama/sdk/magatama-host-sdk/src/heartbeat-cadence.ts` — TS reference
-- `20-actors/magatama/py/src/pymagatama/organism/` — this ADR's deliverable
-- `20-actors/magatama/cells/unispsc_agent_executor/cell.py` — classify path
+- `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/heartbeat-cadence.ts` — TS reference
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/` — this ADR's deliverable
+- `40-engine/kotoba/crates/kotoba-kotodama/cells/unispsc_agent_executor/cell.py` — classify path
 - `50-infra/murakumo/fleet.toml` — placement

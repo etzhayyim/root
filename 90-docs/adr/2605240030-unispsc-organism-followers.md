@@ -51,7 +51,7 @@ Python binding lands.
 
 ## Interface
 
-`pymagatama.organism.followers.FollowerScoreProvider` (Protocol):
+`kotodama.organism.followers.FollowerScoreProvider` (Protocol):
 
 ```python
 class FollowerScoreProvider(Protocol):
@@ -59,7 +59,7 @@ class FollowerScoreProvider(Protocol):
 ```
 
 Where `FollowerCurrentScore` is the dataclass already defined in
-`pymagatama.organism.inbox` (did, wellness_score, dojo_score, rank,
+`kotodama.organism.inbox` (did, wellness_score, dojo_score, rank,
 latest_post_uri).
 
 ## Default stub
@@ -137,5 +137,5 @@ direct-PDS escape hatch.
 - ADR-2605232345 — UNSPSC actor as ecosystem organism (Wave 1)
 - ADR-2605240000 — UNSPSC organism fleet mass-deploy (Wave 2)
 - ADR-2605240015 — UNSPSC organism joucho personality (Phase 5)
-- `20-actors/magatama/py/src/pymagatama/organism/followers.py`
-- `20-actors/magatama/py/src/pymagatama/organism/inbox.py` (FollowerCurrentScore)
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/followers.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/inbox.py` (FollowerCurrentScore)

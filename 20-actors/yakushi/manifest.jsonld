@@ -465,7 +465,7 @@
     "2605231525"
   ],
   "dependencies": {
-    "runtime": "magatama-cell-runner (launchd) — gated import-time RuntimeError until R1+ Council attestation",
+    "runtime": "kotodama-cell-runner (launchd) — gated import-time RuntimeError until R1+ Council attestation",
     "actors": [
       "kuni-umi (robotics class ontology source — Hitogata / Mimi / Otete reused)",
       "tsukuru (silen-pharma-review pattern reuse from silen-force-review)",

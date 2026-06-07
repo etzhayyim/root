@@ -13,7 +13,7 @@ Auth: optional `LG_KENKYUSHA_API_KEY` env enforces `x-api-key` on all
 non-health endpoints. Cron path (x-cron=1) is allowed anonymously
 (tunnel-layer trust).
 
-The graph itself lives in ``pymagatama.kenkyusha.graph`` so the same code
+The graph itself lives in ``kotodama.kenkyusha.graph`` so the same code
 runs under (a) the LangGraph cron declared in langgraph.json and (b) the
 bpmn-dispatcher /runs invocation.
 """
@@ -28,7 +28,7 @@ from typing import Any
 import asyncpg
 from fastapi import FastAPI, Header, HTTPException
 
-from pymagatama.kenkyusha.graph import build_graph as _build_kenkyusha
+from kotodama.kenkyusha.graph import build_graph as _build_kenkyusha
 
 _log = logging.getLogger(__name__)
 
@@ -59,7 +59,7 @@ def _enforce_auth(
 
     Three accepted paths:
       1. ``exempt=True``                        — cron sidechannel
-      2. ``X-Magatama-Internal-Token`` matches  — MCP-adapter Worker proxy
+      2. ``X-Kotodama-Internal-Token`` matches  — MCP-adapter Worker proxy
                                                   (atproto.etzhayyim.com/mcp)
       3. ``x-api-key`` matches LG_KENKYUSHA_API_KEY — yoro / dispatcher
     """
@@ -96,12 +96,12 @@ async def _runs(
     body: dict[str, Any],
     x_api_key: str | None = Header(default=None, alias="x-api-key"),
     x_cron: str | None = Header(default=None, alias="x-cron"),
-    x_magatama_internal_token: str | None = Header(default=None, alias="X-Magatama-Internal-Token"),
+    x_kotodama_internal_token: str | None = Header(default=None, alias="X-Kotodama-Internal-Token"),
 ) -> dict[str, Any]:
     _enforce_auth(
         x_api_key,
         exempt=(x_cron == "1"),
-        internal_token=x_magatama_internal_token,
+        internal_token=x_kotodama_internal_token,
     )
     graph_id = body.get("graph") or body.get("assistant_id", "kenkyusha_research_loop")
     if graph_id not in GRAPHS:
@@ -170,9 +170,9 @@ async def _publish_frontier(
 async def _frontier_state(
     frontier_id: str,
     x_api_key: str | None = Header(default=None, alias="x-api-key"),
-    x_magatama_internal_token: str | None = Header(default=None, alias="X-Magatama-Internal-Token"),
+    x_kotodama_internal_token: str | None = Header(default=None, alias="X-Kotodama-Internal-Token"),
 ) -> dict[str, Any]:
-    _enforce_auth(x_api_key, internal_token=x_magatama_internal_token)
+    _enforce_auth(x_api_key, internal_token=x_kotodama_internal_token)
     try:
         conn = await asyncpg.connect(_DB_URL)
         try:
@@ -235,9 +235,9 @@ async def _list_frontiers(
     limit: int = 50,
     status: str | None = None,
     x_api_key: str | None = Header(default=None, alias="x-api-key"),
-    x_magatama_internal_token: str | None = Header(default=None, alias="X-Magatama-Internal-Token"),
+    x_kotodama_internal_token: str | None = Header(default=None, alias="X-Kotodama-Internal-Token"),
 ) -> dict[str, Any]:
-    _enforce_auth(x_api_key, internal_token=x_magatama_internal_token)
+    _enforce_auth(x_api_key, internal_token=x_kotodama_internal_token)
     # RisingWave rejects parameterised LIMIT ("expects an integer or expression
     # that can be evaluated to an integer after LIMIT, but found non-const
     # expression"). Inline the int literal — `limit` is already validated.
@@ -282,7 +282,7 @@ async def _list_frontiers(
 # so these routes are NSID-style aliases for /frontiers/* with input shape
 # matching 00-contracts/lexicons/com/etzhayyim/apps/kenkyusha/<method>.json.
 #
-# Auth: X-Magatama-Internal-Token from app-worker-proxy.ts is accepted in lieu
+# Auth: X-Kotodama-Internal-Token from app-worker-proxy.ts is accepted in lieu
 # of x-api-key (see _enforce_auth).
 
 _NSID_PUBLISH = "/xrpc/com.etzhayyim.apps.kenkyusha.publishFrontier"
@@ -294,12 +294,12 @@ _NSID_LIST    = "/xrpc/com.etzhayyim.apps.kenkyusha.listFrontiers"
 async def _xrpc_publish_frontier(
     body: dict[str, Any],
     x_api_key: str | None = Header(default=None, alias="x-api-key"),
-    x_magatama_internal_token: str | None = Header(default=None, alias="X-Magatama-Internal-Token"),
+    x_kotodama_internal_token: str | None = Header(default=None, alias="X-Kotodama-Internal-Token"),
 ) -> dict[str, Any]:
     return await _publish_frontier(
         body=body,
         x_api_key=x_api_key,
-        x_magatama_internal_token=x_magatama_internal_token,
+        x_kotodama_internal_token=x_kotodama_internal_token,
     )
 
 
@@ -307,7 +307,7 @@ async def _xrpc_publish_frontier(
 async def _xrpc_get_frontier(
     body: dict[str, Any],
     x_api_key: str | None = Header(default=None, alias="x-api-key"),
-    x_magatama_internal_token: str | None = Header(default=None, alias="X-Magatama-Internal-Token"),
+    x_kotodama_internal_token: str | None = Header(default=None, alias="X-Kotodama-Internal-Token"),
 ) -> dict[str, Any]:
     fid = str(body.get("frontier_id") or "").strip()
     if not fid:
@@ -315,7 +315,7 @@ async def _xrpc_get_frontier(
     return await _frontier_state(
         frontier_id=fid,
         x_api_key=x_api_key,
-        x_magatama_internal_token=x_magatama_internal_token,
+        x_kotodama_internal_token=x_kotodama_internal_token,
     )
 
 
@@ -323,7 +323,7 @@ async def _xrpc_get_frontier(
 async def _xrpc_list_frontiers(
     body: dict[str, Any],
     x_api_key: str | None = Header(default=None, alias="x-api-key"),
-    x_magatama_internal_token: str | None = Header(default=None, alias="X-Magatama-Internal-Token"),
+    x_kotodama_internal_token: str | None = Header(default=None, alias="X-Kotodama-Internal-Token"),
 ) -> dict[str, Any]:
     limit = int(body.get("limit") or 50)
     status_v = body.get("status")
@@ -332,5 +332,5 @@ async def _xrpc_list_frontiers(
         limit=limit,
         status=status,
         x_api_key=x_api_key,
-        x_magatama_internal_token=x_magatama_internal_token,
+        x_kotodama_internal_token=x_kotodama_internal_token,
     )

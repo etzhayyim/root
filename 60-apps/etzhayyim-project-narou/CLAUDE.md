@@ -58,7 +58,7 @@ Matrix protocol + BPMN2 で生成ワークフローを制御し、作品ごと�
 - **生成ワークフロー**: BPMN2 `narou-generation-pipeline` (per chapter)
 - **品質ゲート**: DMN `narou-quality-gating`
 - **自己進化**: 作品ごとに `narou_agent_persona_current` で persona を管理し、章生成後に style_vector / character_rules_json / world_rules_json を更新
-- **永続化**: magatama WIT bindings + Arrow schema (詳細スキーマは設計権威ソース §6)
+- **永続化**: kotodama WIT bindings + Arrow schema (詳細スキーマは設計権威ソース §6)
 - **Entity Graph**: `narou:Work / narou:Character / narou:World / narou:Chapter` ノードを `entity_nodes_current` に登録
 
 ## Matrix Commands

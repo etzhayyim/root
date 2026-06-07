@@ -14,7 +14,7 @@ W1 status (this commit): paths-reserved skeleton.
 - Tier ceiling check + `-nc-` enforcement: REAL
 - DatasetPin resolution: STUB (returns placeholder CIDs; W2 wires PDS lookup)
 - Charter Rider rescan: STUB (logs "would scan"; W2 wires
-  pymagatama.organism.sensors.charter_rider)
+  kotodama.organism.sensors.charter_rider)
 - Per-layer USD dispatch: STUB (logs dispatch plan; W2 wires kami-usd)
 - Determinism harness (G6): TBD W1.5
 
@@ -190,13 +190,13 @@ def _resolve_datasetpin(at_uri: str) -> str:
 
 def _try_import_charter() -> Any:
     """Lazy-import `e7m_dataset.charter` (which itself wraps
-    `pymagatama.organism.sensors.charter_rider`). Returns None when the
+    `kotodama.organism.sensors.charter_rider`). Returns None when the
     e7m-dataset package is not on PYTHONPATH (W1 paths-reserved
     deployments) — the scene-recipe scan then degrades to stub but the
     fetched-file scan at e7m-dataset `add` time still runs.
 
     Defensive: catches any exception during import, not just
-    ImportError, because `pymagatama` transitively imports langchain /
+    ImportError, because `kotodama` transitively imports langchain /
     pydantic which can SystemError on env-mismatch. We never want
     assemble-usd-scene to fail because of a transitive env issue —
     the operator can opt into strict mode via ETZ_E7M_SIM_STRICT_CHARTER=1.
@@ -334,7 +334,7 @@ def _charter_rider_rescan(
         scene_yaml_path, layers_for_scan, props_for_scan, temp_dir,
     )
 
-    # Real scan. Defensive: scan_sample lazily imports pymagatama which may
+    # Real scan. Defensive: scan_sample lazily imports kotodama which may
     # transitively pull broken deps (langchain → pydantic env mismatch).
     try:
         result: dict[str, Any] = charter_mod.scan_sample(

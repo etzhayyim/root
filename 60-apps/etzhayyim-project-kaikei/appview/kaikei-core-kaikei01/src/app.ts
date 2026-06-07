@@ -16,7 +16,7 @@ export default {
         actor: "did:web:kaikei.etzhayyim.com",
         nanoid: env.APP_NANOID ?? "kaikei01",
         execution: "edge-proxy+agentgateway-mcp+langserver",
-        businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/kaikei.py",
+        businessLogic: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/kaikei.py",
         bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/kaikei",
       });
     }

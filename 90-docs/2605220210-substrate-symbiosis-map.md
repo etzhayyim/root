@@ -55,7 +55,7 @@ flowchart LR
 
   subgraph Compute
     MURA["Murakumo Kubelet"]
-    MAGA["Magatama cells\n(Pregel)"]
+    MAGA["Kotodama cells\n(Pregel)"]
     LANCE["LanceDB / Tonbo"]
   end
 
@@ -96,11 +96,11 @@ Dashed arrows = governance / consensus flows that fire occasionally.
 | Base L2 (TitheRouter) → Public Fund | split 10% | USDC | per donation | TitheRouter contract |
 | XRPC → MST | API | record read/write | per request | XRPC standard |
 | XRPC → Signal | API | DM session establish | per session | XRPC + Signal X3DH |
-| NATS → Magatama | message | cell input event | per event | NATS subscription |
+| NATS → Kotodama | message | cell input event | per event | NATS subscription |
 | NATS → IPFS | tier | cold message storage | per retention policy | NATS JetStream S3 backend |
-| Magatama → LanceDB | write | embedding / column data | per cell tick | LanceDB client |
-| Magatama → NATS | publish | cell output event | per tick | NATS publish |
-| Murakumo → Magatama | schedule | cell placement | per fleet event | `fleet.toml` |
+| Kotodama → LanceDB | write | embedding / column data | per cell tick | LanceDB client |
+| Kotodama → NATS | publish | cell output event | per tick | NATS publish |
+| Murakumo → Kotodama | schedule | cell placement | per fleet event | `fleet.toml` |
 | SBT → geth-private | vote | 1 SBT = 1 vote tally | per governance ballot | constitutional invariant |
 
 ## Required vs optional flows
@@ -114,7 +114,7 @@ Dashed arrows = governance / consensus flows that fire occasionally.
 **Optional for Gen 0 but planned:**
 - Holochain peer-of-record cross-check (Gen 1+ rollout)
 - NATS S3 tiered storage (operational scale dependency)
-- Magatama → LanceDB (semantic retrieval — depends on cell catalog maturity)
+- Kotodama → LanceDB (semantic retrieval — depends on cell catalog maturity)
 
 ## Invariants
 

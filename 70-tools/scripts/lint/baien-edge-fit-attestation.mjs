@@ -34,9 +34,9 @@ const CEILINGS = {
 };
 
 const REGISTRY_FILES = [
-  "20-actors/magatama/sdk/magatama-host-sdk/src/llm-model-registry.ts",
-  "20-actors/magatama/sdk/magatama-host-sdk/src/llm-model-registry-multimodal.ts",
-  "20-actors/magatama/sdk/magatama-host-sdk/src/llm-model-registry-distilled.ts",
+  "40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts",
+  "40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry-multimodal.ts",
+  "40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry-distilled.ts",
 ];
 
 const ATTESTATION_FILE = "90-docs/baien/edge-fit-attestations.jsonl";

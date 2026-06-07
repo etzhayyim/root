@@ -23,7 +23,7 @@ superseded_by: []
 # Scope
 
 - **In**: CLI サブコマンド群、Kotoba/Datomic Python UDF server、migration (tables + MV)、CSV/JSONL 入力
-- **Out**: PDS magatama.jsonld derive rule の変更、frontend UI、Murakumo LLM judge 統合 (後続 iteration)
+- **Out**: PDS kotodama.jsonld derive rule の変更、frontend UI、Murakumo LLM judge 統合 (後続 iteration)
 
 # Architecture
 
@@ -54,7 +54,7 @@ Input (CSV/JSONL)
   │
   └─ Phase C: Fission (auto) ───────────────────────────┐
      posterior > 0.95 && judge_agreement                 │
-     → PDS magatama.jsonld derive rule                   │
+     → PDS kotodama.jsonld derive rule                   │
      → etzhayyim cohort fission (existing)                    │
   └──────────────────────────────────────────────────────┘
 ```

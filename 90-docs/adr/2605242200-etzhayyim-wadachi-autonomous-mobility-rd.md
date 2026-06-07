@@ -141,8 +141,8 @@ Wadachi inherits the same substrate boundary as kuni-umi (ADR-2605172000 + ADR-2
 | Actor | Intended relationship to wadachi |
 |---|---|
 | `kuni-umi` | **Parent producer.** kuni-umi produces / commissions the physical robots wadachi later drives. R1 requires kuni-umi at S1+; R2 requires S4. Wadachi does NOT produce robots. |
-| `magatama` | Pregel framework host (when cells land at R1+). Wadachi cells will follow the `20-actors/magatama/cells/README.md` pattern. |
-| `60-apps/etzhayyim-project-open-robo` | Giemon firmware (Otete arm, crawler). Wadachi calls `pymagatama.open_robo.fleet.dispatch()` for motion; firmware owns hard-RT control. |
+| `kotodama` | Pregel framework host (when cells land at R1+). Wadachi cells will follow the `40-engine/kotoba/crates/kotoba-kotodama/cells/README.md` pattern. |
+| `60-apps/etzhayyim-project-open-robo` | Giemon firmware (Otete arm, crawler). Wadachi calls `kotodama.open_robo.fleet.dispatch()` for motion; firmware owns hard-RT control. |
 | `60-apps/etzhayyim-project-open-ot` | IEC 61499 WASM PLC. Wadachi hands off safety-critical functions to certified parallel safety PLCs (IEC 61508 / 61511) — never implements SIL functions itself. |
 | `bgp-submit` (baien-graft 3D pipeline, ADR-2605202115) | Aerial drone overlap: bgp-submit already drives drone survey for dataset generation; R3.b extends survey autonomy to multi-site fleet, not replaces bgp-submit. |
 | `force-authorization` Solidity (ADR-2605192315) | G2 enforcement contract for any kinetic / surveillance-at-scale capability. |

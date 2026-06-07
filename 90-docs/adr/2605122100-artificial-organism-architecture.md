@@ -7,9 +7,9 @@ topic: artificial-organism
 authoritative: true
 last_verified: 2026-05-12
 authoritative_paths:
-  - 20-actors/magatama/py/src/pymagatama/malak/
-  - 20-actors/magatama/py/src/pymagatama/keiei/
-  - 20-actors/magatama/py/src/pymagatama/fleet/
+  - 40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/malak/
+  - 40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/keiei/
+  - 40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/fleet/
   - 50-infra/k8s/murakumo-kubelet/
   - 30-graph/graph-schema/sql_migrations/20260512180000_langprocessminer_schema.up.sql
 ---

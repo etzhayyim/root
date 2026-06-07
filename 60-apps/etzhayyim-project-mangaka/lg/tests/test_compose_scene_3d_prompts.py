@@ -3,7 +3,7 @@ Phase A Python source constants.
 
 Phase C blocker #1 closure: the 3 LLM nodes (`pose_characters`,
 `cinematography`, `critique_and_select`) advertise inlined `args.system` +
-`args.user_template` so `pymagatama.langgraph_node_resolvers.make_llm_node`
+`args.user_template` so `kotodama.langgraph_node_resolvers.make_llm_node`
 can consume them directly (no `prompt:`/`lex:` dereferencing needed).
 
 Until the resolver flips to the topology path at deployment, both sources

@@ -287,8 +287,8 @@ def llm_extra_headers() -> dict[str, str]:
     credits_did = (os.environ.get("INTEL_LLM_CREDITS_DID") or os.environ.get("CREDITS_DID") or "").strip()
     if credits_did:
         headers["x-credits-did"] = credits_did
-    if bool_env("INTEL_LLM_MAGATAMA_VERIFIED", False):
-        headers["x-magatama-verified"] = "true"
+    if bool_env("INTEL_LLM_KOTODAMA_VERIFIED", False):
+        headers["x-kotodama-verified"] = "true"
     return headers
 
 
@@ -406,7 +406,7 @@ def call_llm_json(system: str, user: str, *, max_tokens: int = 400) -> dict[str,
 class IntelStore:
     def __init__(self, dsn: str) -> None:
         self.dsn = dsn
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         self.client = get_kotoba_client()
 
     def create_run(self, scope: dict[str, Any], trigger_kind: str, dry_run: bool) -> dict[str, Any]:

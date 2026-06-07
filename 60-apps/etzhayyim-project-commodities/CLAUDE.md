@@ -10,7 +10,7 @@ All 25 commodity Apps are deployed and accessible via per-subdomain direct routi
 Browser/AI Agent
   └─ API → {nanoid}.etzhayyim.com → Cloudflare → Envoy Gateway
               ↓ HTTPRoute (per-App, hostname: {nanoid}.etzhayyim.com)
-           App Service (magatama-runtime:80, magatama-operator auto-created)
+           App Service (kotodama-runtime:80, kotodama-operator auto-created)
 ```
 
 No performers-gateway-provider intermediary. Each App has its own subdomain.
@@ -49,21 +49,21 @@ No performers-gateway-provider intermediary. Each App has its own subdomain.
 
 ## SDK & Build
 
-- **Runtime**: TS Native (`src/app.ts` + `@etzhayyim/magatama-host-sdk`)
+- **Runtime**: TS Native (`src/app.ts` + `@etzhayyim/kotodama-host-sdk`)
 - **KV**: `performer/rdbms.OpenStore("default")` → sql graph RDBMS backing table
-- **Executor**: `containerd-shim-magatama` (standard, NOT `containerd-shim-magatama-nats`)
+- **Executor**: `containerd-shim-kotodama` (standard, NOT `containerd-shim-kotodama-nats`)
 
 ## App Manifest Template
 
 ```yaml
-apiVersion: core.magatama-runtime.dev/v1alpha1
+apiVersion: core.kotodama-runtime.dev/v1alpha1
 kind: App
 metadata:
   name: etzhayyim-wasm-commodity-{symbol}-{nanoid}
-  namespace: magatama-runtime
+  namespace: kotodama-runtime
 spec:
   image: ghcr.io/etzhayyim/etzhayyim-wasm-commodity-{symbol}-{nanoid}:{tag}
-  executor: containerd-shim-magatama
+  executor: containerd-shim-kotodama
   replicas: 1
   imagePullSecrets:
     - name: ghcr-pull-secret

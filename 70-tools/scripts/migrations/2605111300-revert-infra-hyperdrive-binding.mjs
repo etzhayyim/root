@@ -17,7 +17,7 @@ const INFRA_WORKERS = [
   "50-infra/cloudflare/workers/graph",
   "50-infra/cloudflare/workers/chat",
   "50-infra/cloudflare/workers/signal",
-  "50-infra/cloudflare/workers/magatama",
+  "50-infra/cloudflare/workers/kotodama",
   "50-infra/cloudflare/workers/murakumo",
   "50-infra/cloudflare/workers/claim-consumer",
   "50-infra/cloudflare/workers/comfyui",

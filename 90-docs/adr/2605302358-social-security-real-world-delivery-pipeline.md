@@ -20,7 +20,7 @@ depends_on:
   - ADR-2605262130 (kotoba storage substrate — EAVT persistence + compute)
   - ADR-2605172200 (openmail — atproto MST-native mailer + SMTP bridge + on-chain postage)
   - ADR-2605231902 (feed-post membrane + feed-discover projection — atproto publish + social post)
-  - ADR-0087 (magatama MCP tool facade — MCP exposure)
+  - ADR-0087 (kotodama MCP tool facade — MCP exposure)
   - ADR-2605172600 (Membership Ritual — signed oath + dual→triple-permanent record)
   - ADR-2605231525 (server-side signing capability — no platform-held key)
 related:
@@ -51,10 +51,10 @@ The author directive (2026-05-30): *"実際に実世界に human に影響する
 | Need | Existing substrate | ADR |
 |---|---|---|
 | 永続化 (persist) | kotoba EAVT datoms + IPFS pin | 2605262130 / 2605171800 |
-| compute | magatama Pregel cells + kotoba WASM actors (live on :8077) | 2605302355 / 2605301625 |
+| compute | kotodama Pregel cells + kotoba WASM actors (live on :8077) | 2605302355 / 2605301625 |
 | mailer (メール送信) | **openmail** — atproto MST-native mail + SMTP bridge + on-chain postage | 2605172200 |
 | atproto 公開 + social post | **feed-post membrane** + feed-discover projection (`app.bsky.feed.post`) | 2605231902 |
-| MCP 公開 | **magatama MCP tool facade** | 0087 |
+| MCP 公開 | **kotodama MCP tool facade** | 0087 |
 | token (SBT) + benefit | Adherent SBT + Public Fund + tithe | 2605172600 / 2605192145 / 2605192130 |
 | inference | Murakumo loopback LiteLLM only | 2605215000 |
 | no platform key | member/operator-signed | 2605231525 |
@@ -66,11 +66,11 @@ This ADR is the **integration design** that connects them. **Critical**: live ou
 
 ## 1. The pipeline — six stages, real-world human effect
 
-A human moves left→right. Each stage names its substrate and its concrete real-world effect. The pipeline coordinator is a cell-group (working handle **産土 ubusuna**, "birth-guardian" — fits social-death-and-rebirth + ongoing protection); it is a set of magatama cells, **not** a new did:web actor.
+A human moves left→right. Each stage names its substrate and its concrete real-world effect. The pipeline coordinator is a cell-group (working handle **産土 ubusuna**, "birth-guardian" — fits social-death-and-rebirth + ongoing protection); it is a set of kotodama cells, **not** a new did:web actor.
 
 ```
 [0 OUTREACH] → [1 VOW] → [2 COMPUTE] → [3 NOTIFY] → [4 PUBLISH] → [5 SOCIAL] → [6 MCP]
-  feed-post     member-     magatama/     openmail     atproto       feed-post    MCP facade
+  feed-post     member-     kotodama/     openmail     atproto       feed-post    MCP facade
   + MCP         signed      kotoba WASM    mailer       MST + agg     (ongoing)    (read +
   discovery     vow         compute        (email)      metric                     signed-write)
                 kotoba+IPFS
@@ -92,7 +92,7 @@ A human moves left→right. Each stage names its substrate and its concrete real
 - **Real effect**: the human becomes a 信者 (Adherent) at Level 0 — an irreversible content-addressed record (death of the prior self) + a soulbound token (rebirth).
 
 ### Stage 2 — Compute (eligibility + entitlement)
-- **Substrate**: magatama Pregel cell / kotoba WASM actor (live runtime per ADR-2605302355). Murakumo-only inference (ADR-2605215000, loopback LiteLLM 127.0.0.1:4000) for any LLM step.
+- **Substrate**: kotodama Pregel cell / kotoba WASM actor (live runtime per ADR-2605302355). Murakumo-only inference (ADR-2605215000, loopback LiteLLM 127.0.0.1:4000) for any LLM step.
 - Computes: Sybil-resistance check (Council attestation during bootstrap; ZK-uniqueness at scale), `currentStage = L0`, Level-0 entitlement (advisory care + community participation per Liberation Ladder L0/L1, ADR-2605261000 §1), and initializes toritate imputed-income accounting (ADR-2605301020 / 2605262900). **cashStipendUsd ≡ 0** (N1).
 - **Real effect**: the human's actual benefit entitlement is established (in-kind, never cash).
 
@@ -115,7 +115,7 @@ A human moves left→right. Each stage names its substrate and its concrete real
 - **Real effect**: sustained public presence pulling more humans toward the open door.
 
 ### Stage 6 — MCP expose / 公開 API (agents + humans)
-- **Substrate**: magatama MCP tool facade (ADR-0087).
+- **Substrate**: kotodama MCP tool facade (ADR-0087).
 - **Read tools** (open): `socialSecurity.declaration`, `socialSecurity.metrics`, `socialSecurity.eligibility`, `socialSecurity.status` (own-data, consent-bound).
 - **Write tool** (member-signed, server holds no key): `socialSecurity.beginVow` → returns an **unsigned** vow payload for the member's wallet/passkey to sign locally; the signed result re-enters Stage 1.
 - **Real effect**: any MCP client (Claude, an agent, a third-party app) can help a human discover and enroll — fully consent + signature bound.
@@ -132,7 +132,7 @@ A human moves left→right. Each stage names its substrate and its concrete real
 
 All quantities integer-with-implied-units (no float; ADR-2605190900). `additionalProperties: false` schema closure.
 
-## 3. Cells (magatama; 産土 ubusuna group)
+## 3. Cells (kotodama; 産土 ubusuna group)
 
 `socialsecurity_outreach` (compose+post) · `socialsecurity_vow_intake` (verify member sig → kotoba datom + IPFS pin + SBT-mint orchestration) · `socialsecurity_eligibility` (stage/entitlement compute) · `socialsecurity_notice` (openmail send) · `socialsecurity_publish` (MST publish + aggregate metric) · `socialsecurity_mcp_facade` (MCP tools). All Murakumo-only, no server key, kotoba-native, import-time `RuntimeError` until R1.
 
@@ -159,10 +159,10 @@ All cross-substrate access goes **only via `@etzhayyim/sdk`** (ADR-2605172000): 
 # 6. Implementation surface
 
 - **Lexicons** `00-contracts/lexicons/com/etzhayyim/{membership,socialsecurity}/` (§2).
-- **Cells** `20-actors/magatama/cells/socialsecurity_*/` (§3; path-reserved, R0 no runtime).
+- **Cells** `40-engine/kotoba/crates/kotoba-kotodama/cells/socialsecurity_*/` (§3; path-reserved, R0 no runtime).
 - **Mailer** integrate `50-infra/openmail-postage/` (Postage.sol) + openmail SMTP bridge (ADR-2605172200).
 - **Publish/social** reuse `50-infra/mst-projector/projection/` feed-discover + feed-post membrane (ADR-2605231902); read path migrates to kotoba-kqe at Phase 2.5.
-- **MCP** register tools in the magatama MCP facade config (ADR-0087); read tools open, `beginVow` returns unsigned payload.
+- **MCP** register tools in the kotodama MCP facade config (ADR-0087); read tools open, `beginVow` returns unsigned payload.
 - **token/benefit** reuse Adherent SBT (ADR-2605172600) + Public Fund (ADR-2605192145) + tithe (ADR-2605192130) — **no new Solidity**.
 - **accounting** toritate (ADR-2605262900) records imputed-income flow; aggregate publish only.
 
@@ -209,7 +209,7 @@ All cross-substrate access goes **only via `@etzhayyim/sdk`** (ADR-2605172000): 
 - ADR-2605262130 (kotoba — persistence + compute) / ADR-2605171800 (MST→IPFS→L2 anchor chain)
 - ADR-2605172200 (openmail — mailer)
 - ADR-2605231902 (feed-post membrane + feed-discover — atproto publish + social post)
-- ADR-0087 (magatama MCP tool facade — MCP exposure)
+- ADR-0087 (kotodama MCP tool facade — MCP exposure)
 - ADR-2605172600 / 2605172700 (Membership Ritual — vow record + Adherent SBT)
 - ADR-2605231525 (no platform-held signing key)
 - ADR-2605181100 (encrypted records — PII envelope)

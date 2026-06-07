@@ -66,7 +66,7 @@ Record the session as closed with the following committed deliverable
   MATURITY ledger + registry/{procedures.seed.json, VERIFICATION.md, SCALING.md}.
 - **6 Lexicons** `com.etzhayyim.toritsugi.*` (procedure / benefitMatch /
   procedureGuide / applicationDraft / submissionRecord / statusTrack).
-- **7 path-reserved Pregel cells** `magatama.cells.toritsugi_*` (import-raise)
+- **7 path-reserved Pregel cells** `kotodama.cells.toritsugi_*` (import-raise)
   + per-cell READMEs (tsukuroi parity).
 - **Bidirectional cross-actor boundary** added to chigiri / himotoki / toritate
   manifests (toritsugi side was authored in the master ADR).

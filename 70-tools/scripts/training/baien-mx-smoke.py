@@ -35,8 +35,8 @@ import os
 import sys
 from pathlib import Path
 
-# Make the pymagatama src importable when running from a checkout.
-_SRC = Path(__file__).resolve().parents[2] / "20-actors" / "magatama" / "py" / "src"
+# Make the kotodama src importable when running from a checkout.
+_SRC = Path(__file__).resolve().parents[2] / "20-actors" / "kotodama" / "py" / "src"
 if str(_SRC) not in sys.path:
     sys.path.insert(0, str(_SRC))
 
@@ -152,7 +152,7 @@ def _train(args: argparse.Namespace) -> dict:
     """Heavy imports lazy so --dry-run stays fast."""
     import torch
 
-    from pymagatama.modules.baien_mx import (
+    from kotodama.modules.baien_mx import (
         BaienMXModel,
         BaienMXSample,
     )

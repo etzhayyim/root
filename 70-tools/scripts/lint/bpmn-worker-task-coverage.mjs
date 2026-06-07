@@ -8,7 +8,7 @@ const ROOT = process.cwd();
 const jsonMode = process.argv.includes("--json");
 
 const WORKER_ROOTS = [
-  "20-actors/magatama/py/src/pymagatama",
+  "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama",
   "50-infra/k8s",
   "50-infra/vultr",
   "60-apps",

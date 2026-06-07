@@ -135,4 +135,4 @@ All §1-5 deliverables complete:
 - ADR-2605192315 — Transparent Religious Force
 - ADR-2605192415 — Religious-Corp Daemon Architecture (Pregel cell catalog)
 - ADR-2605215400 — EVOLUTION_WITNESS_MIN canonical thresholds
-- `/20-actors/magatama/py/src/pymagatama/shinka_murakumo.py` — real impl
+- `/40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/shinka_murakumo.py` — real impl

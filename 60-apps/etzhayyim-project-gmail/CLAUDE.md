@@ -219,5 +219,5 @@ psql "$ROOT_URL" -c 'SELECT from_addr, subject FROM vertex_gmail_email ORDER BY 
 ## Related docs
 
 - Root Workspace ingest plan: `90-docs/260417-google-workspace-ingest-runbook.md` (gmail is Phase 1 reference impl)
-- OAuth token custody pattern: `60-apps/etzhayyim-project-auth/CLAUDE.md` §KEK envelope (ADR-0010 Stage 1) — the exact `envelopeEncrypt`/`envelopeDecrypt` helpers are duplicated here, could be extracted to `magatama-host-sdk` when a 2nd Workspace app lands
+- OAuth token custody pattern: `60-apps/etzhayyim-project-auth/CLAUDE.md` §KEK envelope (ADR-0010 Stage 1) — the exact `envelopeEncrypt`/`envelopeDecrypt` helpers are duplicated here, could be extracted to `kotodama-host-sdk` when a 2nd Workspace app lands
 - RisingWave schema SSoT: `30-graph/graph-schema/migrations/20260417130000_vertex_gmail_tables.ts` + `20260417140000_vertex_google_workspace_tables.ts` (broader workspace)

@@ -5,7 +5,7 @@
 ## Targets
 
 - Sales cockpit: `https://eigyo.etzhayyim.com/`
-- Magatama component: `wasm/etzhayyim-wasm-eigyo-e1gy0ai8`
+- Kotodama component: `wasm/etzhayyim-wasm-eigyo-e1gy0ai8`
 
 ## Domain Contracts (WIT)
 

@@ -1,5 +1,5 @@
 {
-  "name": "magatama-cfbr0w53",
+  "name": "kotodama-cfbr0w53",
   "main": "svelte/.svelte-kit/cloudflare/_worker.js",
   "compatibility_date": "2025-03-17",
   "compatibility_flags": [
@@ -26,7 +26,7 @@
     "APP_TEMPLATE": "",
     "APP_UI_TYPE": "appview",
     "APP_VERSION": "0.1.0",
-    "INTERFACES_REQUIRES": "[\"etzhayyim:collection/collection@1.0.0\",\"magatama:browser/automation@1.0.0\"]",
+    "INTERFACES_REQUIRES": "[\"etzhayyim:collection/collection@1.0.0\",\"kotodama:browser/automation@1.0.0\"]",
     "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message"
   },
   "rules": [

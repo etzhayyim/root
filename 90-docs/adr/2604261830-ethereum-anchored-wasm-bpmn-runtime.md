@@ -70,7 +70,7 @@ not store full BPMN XML, WASM binaries, browser traces, or memory payloads.
 
 ## Worker Primitive
 
-Add `generic.wasm.run` to `pymagatama.zeebe_worker_main`.
+Add `generic.wasm.run` to `kotodama.zeebe_worker_main`.
 
 Input:
 
@@ -154,7 +154,7 @@ Trade-offs:
 
 - `50-infra/vultr/geth-private/contracts/src/ActorRuntimeRegistry.sol`
 - `50-infra/vultr/geth-private/contracts/script/DeployActorRuntime.s.sol`
-- `20-actors/magatama/py/src/pymagatama/zeebe_worker_main.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/zeebe_worker_main.py`
   - task type: `generic.wasm.run`
 
 # Deployment
@@ -185,7 +185,7 @@ are created in `default`.
 |---|---|
 | Zeebe worker | `deployment/yoro-actor-zeebe-worker` |
 | MCP adapter | `deployment/yoro-mcp-adapter` |
-| Image | `ghcr.io/etzhayyim/pymagatama:yoro-actor-runtime-20260426-receipts` |
+| Image | `ghcr.io/etzhayyim/kotodama:yoro-actor-runtime-20260426-receipts` |
 | WASM runtime | `wasmtime 44.0.0` |
 | Receipt CLI | `cast 1.5.0` |
 | Registry RPC | `http://geth-private.geth-private.svc.cluster.local:8545` |

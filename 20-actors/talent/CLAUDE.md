@@ -1,5 +1,11 @@
 # talent — Global Talent Registry (PII Tier 3)
 
+> **kotoba-native (ADR-2606072600).** Canonical manifest is now `manifest.edn`; data model in
+> `kotoba/schema.edn`; logic + tests in `py/` (13 green). The four PII-Tier-3 rules are now
+> STRUCTURAL: self-sovereign write (caller = subject), Signal-E2E PII (plaintext refused),
+> k-anonymity cohort stats, GDPR Art 17 hard delete. Legacy `actor-manifest.jsonld` (RisingWave)
+> is DEPRECATED (`DEPRECATED-jsonld.md`). The compliance rules below are the design source.
+
 ISCO-08 scoped candidate/workforce registry. T1 MCP-Compose (Logical Actor). **ADR-0018 PII Tier 3**.
 
 ## CRITICAL Compliance Rules

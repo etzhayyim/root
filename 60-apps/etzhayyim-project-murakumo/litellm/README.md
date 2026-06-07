@@ -58,7 +58,7 @@ cd 60-apps/etzhayyim-project-murakumo/litellm
 
 ## Consumer change
 
-`20-actors/magatama/sdk/magatama-host-sdk/src/llm-model-registry.ts` should map:
+`40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts` should map:
 
 ```
 use-case=general     → tier0-general

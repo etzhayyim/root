@@ -124,17 +124,17 @@ def charter_rider_scan(dataset_cids: list[str]) -> tuple[bool, str]:
 
     Returns (passed: bool, scan_report_cid: str). Raises if any dataset fails.
 
-    R2.0: shells out to pymagatama if importable; otherwise WARN + assume PASS
+    R2.0: shells out to kotodama if importable; otherwise WARN + assume PASS
     (matches ADR-2605241500 ETZ_DATASET_CHARTER_STRICT=0 default).
     """
     logger.info("Charter Rider §2(a)-(h) scan over %d datasets", len(dataset_cids))
     try:
         from etzhayyim_organism.sensors.charter_rider import scan  # type: ignore
     except ImportError:
-        logger.warning("pymagatama not importable; scan SKIPPED (warn-only). Set ETZ_DATASET_CHARTER_STRICT=1 to fail-closed.")
+        logger.warning("kotodama not importable; scan SKIPPED (warn-only). Set ETZ_DATASET_CHARTER_STRICT=1 to fail-closed.")
         if os.environ.get("ETZ_DATASET_CHARTER_STRICT") == "1":
-            raise RuntimeError("Charter Rider scan required but pymagatama not importable (STRICT=1)")
-        return True, "scan-skipped-pymagatama-unavailable"
+            raise RuntimeError("Charter Rider scan required but kotodama not importable (STRICT=1)")
+        return True, "scan-skipped-kotodama-unavailable"
 
     # R2.0 stub: actual scan invocation lands at R2.1
     raise NotImplementedError("R2.1: invoke scan() per dataset, aggregate findings, pin report to IPFS, return CID")

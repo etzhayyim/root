@@ -2,7 +2,7 @@
 
 NSID: com.etzhayyim.animeka.autopilot
 
-Ports pymagatama.langgraph_graphs.animeka_autopilot to proper async
+Ports kotodama.langgraph_graphs.animeka_autopilot to proper async
 LangGraph nodes. Each cron fire:
   1. LLM generates a fresh scene description
   2. LLM → visual prompt → ComfyUI 512×512 storyboard sketch
@@ -104,7 +104,7 @@ async def _render(
 ) -> tuple[str, str]:
     """ComfyUI render → PDS blob upload. Returns (cid, error)."""
     try:
-        from pymagatama.primitives.shinshi_image import (
+        from kotodama.primitives.shinshi_image import (
             _comfy_render_png, _upload_blob_to_pds,
         )
         wf = _build_quality_workflow(prompt, negative, _CKPT, w, h, steps, cfg, sampler, scheduler)
@@ -335,7 +335,7 @@ async def _node_post(state: _State) -> dict[str, Any]:
         "embed": embed,
     }
     try:
-        from pymagatama.zeebe_worker_main import task_generic_pds_dispatch
+        from kotodama.zeebe_worker_main import task_generic_pds_dispatch
         import asyncio
         await asyncio.get_event_loop().run_in_executor(
             None,
@@ -354,7 +354,7 @@ async def _node_post(state: _State) -> dict[str, Any]:
                     f"{_PDS_BASE}/xrpc/com.atproto.repo.createRecord",
                     json={"repo": _REPO, "collection": "app.bsky.feed.post", "record": record},
                     headers={"Content-Type": "application/json",
-                             "x-magatama-verified": "true",
+                             "x-kotodama-verified": "true",
                              "x-etzhayyim-org-id": "anon"},
                 )
             if r.status_code < 400:

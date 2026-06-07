@@ -46,15 +46,15 @@ const app = new Hono<{ Bindings: Env }>();
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, Authorization, Accept, x-magatama-verified",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization, Accept, x-kotodama-verified",
   "Access-Control-Max-Age": "86400",
 };
 
 // ── Auth ──
 
 function validateApiKey(env: Env, request: Request): boolean {
-  const magatama = request.headers.get("x-magatama-verified");
-  if (magatama === "true") return true;
+  const kotodama = request.headers.get("x-kotodama-verified");
+  if (kotodama === "true") return true;
 
   const authHeader = request.headers.get("Authorization");
   const xApiKey = request.headers.get("x-api-key");

@@ -67,9 +67,9 @@ Phase 2 (post 1000-member or 12-month trigger per ADR-2605192300 §4) graduates 
 
 ## Pregel cells (Tier B per [ADR-2605192415](../../90-docs/adr/2605192415-etzhayyim-religious-corp-daemon-architecture.md))
 
-- [`20-actors/magatama/cells/charter_attestation_request/`](../../20-actors/magatama/cells/charter_attestation_request/) — MST listener → LLM analysis → Council dispatch
-- `20-actors/magatama/cells/charter_attestation_finalization/` — timer + appeal window
-- `20-actors/magatama/cells/charter_rehabilitation/` — teshuvah path
+- [`40-engine/kotoba/crates/kotoba-kotodama/cells/charter_attestation_request/`](../../40-engine/kotoba/crates/kotoba-kotodama/cells/charter_attestation_request/) — MST listener → LLM analysis → Council dispatch
+- `40-engine/kotoba/crates/kotoba-kotodama/cells/charter_attestation_finalization/` — timer + appeal window
+- `40-engine/kotoba/crates/kotoba-kotodama/cells/charter_rehabilitation/` — teshuvah path
 
 ## Lexicons
 

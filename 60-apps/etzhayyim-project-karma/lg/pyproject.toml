@@ -8,7 +8,7 @@ dependencies = [
     "langgraph>=0.2.50",
     "langchain-core>=0.3.0",
     "httpx>=0.27.0",
-    "pymagatama",
+    "kotodama",
     "pydantic>=2.7.0",
 ]
 

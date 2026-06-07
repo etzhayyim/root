@@ -57,7 +57,7 @@ disasters that come, and (b) the response that follows.
 
 ## 6 Pregel Cells (R0 path-reserved)
 
-All cells path-reserved under `20-actors/magatama/cells/kazaori_*/`.
+All cells path-reserved under `40-engine/kotoba/crates/kotoba-kotodama/cells/kazaori_*/`.
 Cell modules created at R1 ratification, import-time
 `RuntimeError("kazaori R0 scaffold: activate via Council ADR + R1 ratification + Sphere Standards baseline + ≥1 community-pilot tabletop drill")`.
 

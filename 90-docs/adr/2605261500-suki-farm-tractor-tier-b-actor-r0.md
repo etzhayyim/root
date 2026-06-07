@@ -77,7 +77,7 @@ religious-corp Tier-B actor **suki (鋤)** を以下で立ち上げる:
 ├── CLAUDE.md                     # Actor-local instructions
 └── manifest.jsonld               # DID + cell catalog + gate/non-goal arrays
 
-20-actors/magatama/cells/         # 9 Pregel cells (import-time RuntimeError R0)
+40-engine/kotoba/crates/kotoba-kotodama/cells/         # 9 Pregel cells (import-time RuntimeError R0)
 ├── suki_chassis_fabrication/
 ├── suki_powertrain_assembly/
 ├── suki_cab_assembly/

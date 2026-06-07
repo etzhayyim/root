@@ -79,6 +79,6 @@ CORS は `tia.etzhayyim.com`, `seeker.tia.etzhayyim.com`, `etzhayyim.com`, `etzh
 
 ## 8. Deployment Notes
 
-- WADM `Application` namespace は `magatama-runtime`。
+- WADM `Application` namespace は `kotodama-runtime`。
 - `HTTPRoute` は gateway namespace (`etzhayyim-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4`) を使用し、
-  backend service は `magatama-system` を参照。
+  backend service は `kotodama-system` を参照。

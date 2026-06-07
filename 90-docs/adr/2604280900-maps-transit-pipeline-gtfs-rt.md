@@ -133,7 +133,7 @@ All operator actions from Migration Checklist completed 2026-04-28T13:00–13:25
 
 Root cause: Kotoba/Datomic DML checkpoint buffering (~150s window). After `_mark_deployed_sync()` succeeds, the UPDATE is buffered and the row remains visible as `deployed_at IS NULL` on the next `_list_pending_defs_sync()` call. Without a guard, `WATCHER_INTERVAL_SEC=1` × ~150s window = ~150 duplicate Zeebe deploys per BPMN.
 
-Fix: `_deployed_in_flight: set[str]` local to `watcher_loop()`. After successful deploy, add `vertex_id` to set and skip on subsequent ticks. Deployed in pymagatama:0.2.54 (commit `f9222ab46e5`). Convention: `[[conventions]] bpmn-dispatcher-rw-redeploy-loop`.
+Fix: `_deployed_in_flight: set[str]` local to `watcher_loop()`. After successful deploy, add `vertex_id` to set and skip on subsequent ticks. Deployed in kotodama:0.2.54 (commit `f9222ab46e5`). Convention: `[[conventions]] bpmn-dispatcher-rw-redeploy-loop`.
 
 ### Blocking fix: B2 credentials
 

@@ -10,7 +10,7 @@ import {
 } from "../src/index.js";
 
 /**
- * In-memory mock of the magatama-host-sdk XrpcClient AT-repo surface, so we can drive the
+ * In-memory mock of the kotodama-host-sdk XrpcClient AT-repo surface, so we can drive the
  * real rw-free functions THROUGH the bridge and prove the worker wiring contract holds.
  */
 class MockXrpc implements XrpcRepoClient {

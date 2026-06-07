@@ -65,7 +65,7 @@ All 15 pre-commit hooks pass on the final tree state. One mid-commit fix was req
 | docs.json freshness | 676 entries in sync |
 | graph.jsonld freshness | 676 nodes in sync |
 | docs+graph schemas | valid |
-| magatama manifests | 42/42 valid |
+| kotodama manifests | 42/42 valid |
 
 ## D4 — Deferred items (each becomes its own R1+ ADR)
 

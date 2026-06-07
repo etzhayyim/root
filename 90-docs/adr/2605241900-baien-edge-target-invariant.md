@@ -18,7 +18,7 @@ depends_on:
   - adr-2605231600-baien-context-extension
   - adr-2605232500-baien-mx-move1-image-graft-self-training
 related:
-  - 20-actors/magatama/sdk/magatama-host-sdk/src/llm-model-registry.ts
+  - 40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts
   - 70-tools/baien-distill/
   - 70-tools/baien-mx-train/
 supersedes: []
@@ -55,7 +55,7 @@ variant before publication.
 ## Constitutional invariant (NOT amendable without same-level Council vote)
 
 A model artifact may be tagged `baien` AND `useCases: ["edge", "browser", "cpu"]`
-in the magatama `MODEL_REGISTRY` (and shipped to first-party endpoints
+in the kotodama `MODEL_REGISTRY` (and shipped to first-party endpoints
 that expect edge baien) **if and only if** it satisfies **all** of:
 
 1. **Trunk params ≤ 12 B** (amended 2026-05-23 per ADR-2605242000 §Conflict —

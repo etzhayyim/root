@@ -110,15 +110,11 @@ updates:
   # github.com/etzhayyimcojp/kami-engine-sdk); dependabot updates for the subrepo
   # flow through the upstream repo's own dependabot config, not here.
   - package-ecosystem: "npm"
-    directory: "/20-actors/magatama/mcp/unispsc-isic-mcp"
+    directory: "/40-engine/kotoba/crates/kotoba-kotodama/mcp/unispsc-isic-mcp"
     schedule:
       interval: "weekly"
   - package-ecosystem: "npm"
-    directory: "/20-actors/magatama/sdk/magatama-host-sdk"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/30-graph/graph-schema"
+    directory: "/40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk"
     schedule:
       interval: "weekly"
   - package-ecosystem: "npm"
@@ -403,39 +399,39 @@ updates:
     schedule:
       interval: "weekly"
   - package-ecosystem: "cargo"
-    directory: "/20-actors/magatama"
+    directory: "/40-engine/kotoba/crates/kotoba-kotodama"
     schedule:
       interval: "weekly"
   - package-ecosystem: "cargo"
-    directory: "/20-actors/magatama/config/magatama-config"
+    directory: "/40-engine/kotoba/crates/kotoba-kotodama/config/kotodama-config"
     schedule:
       interval: "weekly"
   - package-ecosystem: "cargo"
-    directory: "/20-actors/magatama/holochain/agent-actor-runtime"
+    directory: "/40-engine/kotoba/crates/kotoba-kotodama/holochain/agent-actor-runtime"
     schedule:
       interval: "weekly"
   - package-ecosystem: "cargo"
-    directory: "/20-actors/magatama/holochain/agent-actor-runtime/dnas/agent_actor_runtime/zomes/coordinator/actor_runtime"
+    directory: "/40-engine/kotoba/crates/kotoba-kotodama/holochain/agent-actor-runtime/dnas/agent_actor_runtime/zomes/coordinator/actor_runtime"
     schedule:
       interval: "weekly"
   - package-ecosystem: "cargo"
-    directory: "/20-actors/magatama/holochain/agent-actor-runtime/dnas/agent_actor_runtime/zomes/integrity/actor_runtime"
+    directory: "/40-engine/kotoba/crates/kotoba-kotodama/holochain/agent-actor-runtime/dnas/agent_actor_runtime/zomes/integrity/actor_runtime"
     schedule:
       interval: "weekly"
   - package-ecosystem: "cargo"
-    directory: "/20-actors/magatama/holochain/agent-actor-runtime/smoke/call-zome"
+    directory: "/40-engine/kotoba/crates/kotoba-kotodama/holochain/agent-actor-runtime/smoke/call-zome"
     schedule:
       interval: "weekly"
   - package-ecosystem: "cargo"
-    directory: "/20-actors/magatama/hosts/magatama-desktop-host"
+    directory: "/40-engine/kotoba/crates/kotoba-kotodama/hosts/kotodama-desktop-host"
     schedule:
       interval: "weekly"
   - package-ecosystem: "cargo"
-    directory: "/20-actors/magatama/hosts/magatama-kami-host"
+    directory: "/40-engine/kotoba/crates/kotoba-kotodama/hosts/kotodama-kami-host"
     schedule:
       interval: "weekly"
   - package-ecosystem: "cargo"
-    directory: "/20-actors/magatama/inference/magatama-inference"
+    directory: "/40-engine/kotoba/crates/kotoba-kotodama/inference/kotodama-inference"
     schedule:
       interval: "weekly"
   - package-ecosystem: "cargo"
@@ -691,11 +687,7 @@ updates:
     schedule:
       interval: "weekly"
   - package-ecosystem: "pip"
-    directory: "/20-actors/magatama/py"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "pip"
-    directory: "/30-graph/graph-schema"
+    directory: "/40-engine/kotoba/crates/kotoba-kotodama/py"
     schedule:
       interval: "weekly"
   - package-ecosystem: "pip"

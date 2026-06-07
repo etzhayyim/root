@@ -3,7 +3,7 @@
 **ADR**: ADR-2605263800 (R0 scaffold)
 **Status**: R0 schema skeletons. Full structural enforcement (const fields, vendor-terminal deny-list at lint, per-jurisdiction publication-redaction policy) lands at W1.
 
-**Owner**: religious-corp substrate (no single actor — written by `pymagatama.organism.sensors.corp.*` after passive-only fetch of officially-published bulk archives; consumed by ossekai / toritate / chigiri / manabi / baien-distill).
+**Owner**: religious-corp substrate (no single actor — written by `kotodama.organism.sensors.corp.*` after passive-only fetch of officially-published bulk archives; consumed by ossekai / toritate / chigiri / manabi / baien-distill).
 
 ## 5 Lexicons
 
@@ -39,7 +39,7 @@ Schemas at R0 are skeleton-level: known-value enums in place, required-field lis
 ## Related Files
 
 - `/90-docs/adr/2605263800-public-data-corporate-disclosure-ipfs-ingestion.md` — corpus ADR
-- `/20-actors/magatama/py/src/pymagatama/organism/sensors/corp/` — sensor Protocols
+- `/40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/sensors/corp/` — sensor Protocols
 - `/70-tools/e7m-dataset/src/e7m_dataset/fetchers/{sec_edgar,jp_edinet,uk_companies_house,gleif_lei}.py` — W1 fetcher stubs
 - `/70-tools/baien-moemoekyun-train/recipes/corp/` — corpus recipes
 - `../substrate/datasetPin.json` — cross-link target (`datasetPinAt` field on every corp lexicon)

@@ -50,7 +50,7 @@ function mockMembraneRule(nsid: string, overrides: Partial<MembraneRule> = {}): 
     nsid,
     schemaRef: { path: "00-contracts/lexicons/test/schema.json", contentHash: "a".repeat(64), version: "1.0.0" },
     policyRef: { path: "00-contracts/policies/test/policy.rego", contentHash: "b".repeat(64), version: "1.0.0" },
-    cellRef: { path: "20-actors/magatama/cells/test/", contentHash: "c".repeat(64), version: "abcdef0" },
+    cellRef: { path: "40-engine/kotoba/crates/kotoba-kotodama/cells/test/", contentHash: "c".repeat(64), version: "abcdef0" },
     quorumSize: 5,
     quorumThreshold: 3,
     escalationPolicy: "council",

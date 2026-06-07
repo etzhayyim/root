@@ -1,5 +1,5 @@
 // webmk.etzhayyim.com — Web Marketing Proposal Agent (thin edge facade).
-// Business logic: 20-actors/magatama/py/src/pymagatama/webmk_worker_main.py
+// Business logic: 40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/webmk_worker_main.py
 // LangGraph loop: research → competitors → strategy → copy → quality_gate → store
 // Delivery: Resend email + optional ads.etzhayyim.com createCampaign
 
@@ -23,7 +23,7 @@ export default {
         actor: "did:web:webmk.etzhayyim.com",
         nanoid: env.APP_NANOID ?? "wbmk0001",
         execution: "edge-bpmn+langgraph-langserver",
-        businessLogic: "20-actors/magatama/py/src/pymagatama/webmk_worker_main.py",
+        businessLogic: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/webmk_worker_main.py",
         bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/webmk",
         adr: "90-docs/adr/2605072000-langgraph-agent-loop-pattern.md",
         integrations: ["ads.etzhayyim.com", "resend"],

@@ -175,7 +175,7 @@ Returns error in R0; waits for R1 ADR activation.
 **Smoke test**: Verify all 9 cells import without exception:
 
 ```bash
-cd 20-actors/magatama
+cd 40-engine/kotoba/crates/kotoba-kotodama
 python -c "from cells.elv_intake_audit import ElvIntakeAuditCell; assert ElvIntakeAuditCell"
 python -c "from cells.elv_depollution import ElvDepollutionCell; assert ElvDepollutionCell"
 python -c "from cells.elv_battery_handling import ElvBatteryHandlingCell; assert ElvBatteryHandlingCell"

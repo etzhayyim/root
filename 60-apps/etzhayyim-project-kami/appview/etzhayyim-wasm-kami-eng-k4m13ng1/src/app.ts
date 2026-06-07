@@ -23,7 +23,7 @@ export default {
         actor: "did:web:eng-kami.etzhayyim.com",
         nanoid: env.APP_NANOID ?? "k4m13ng1",
         execution: "edge-proxy+agentgateway-mcp+langserver",
-        businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/kami_eng.py",
+        businessLogic: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/kami_eng.py",
         bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/kamiEng",
       });
     }

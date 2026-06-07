@@ -444,13 +444,13 @@ export async function agentInferV2(
 | Create `agent/consent.ts` | `50-infra/.../agent/consent.ts` | ~80 |
 | Create `agent/audit.ts` | `50-infra/.../agent/audit.ts` | ~40 |
 | Inject consent gate into agentInfer | `agent/infer.ts` | ~30 diff |
-| Risk tier config in magatama.jsonld | per-actor `riskTiers` field | schema only |
+| Risk tier config in kotodama.jsonld | per-actor `riskTiers` field | schema only |
 
 ### Phase 3: os-messaging Worker (η: 97% → 89.7% initially, 95% at scale)
 
 | Task | File | Lines |
 |---|---|---|
-| Scaffold `60-apps/etzhayyim-project-os-messaging/` | 3 files (magatama.jsonld, wrangler.jsonc, src/app.ts) | ~300 |
+| Scaffold `60-apps/etzhayyim-project-os-messaging/` | 3 files (kotodama.jsonld, wrangler.jsonc, src/app.ts) | ~300 |
 | Discord adapter | `src/app.ts` | ~60 |
 | Telegram adapter | `src/app.ts` | ~60 |
 | LINE adapter | `src/app.ts` | ~60 |

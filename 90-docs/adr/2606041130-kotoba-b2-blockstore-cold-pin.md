@@ -39,7 +39,7 @@ repo only** (flatfs on a single external volume). Empirical findings during the
 2026-06-04 durability review:
 
 - The local Kubo repo held **26,634 blocks / ~3.3 GB**; there was **no
-  replication** to any off-host tier (B2, `ipfs.gftd.ai`, `kotobase.gftd.ai` all
+  replication** to any off-host tier (B2, `ipfs.etzhayyim.com`, `kotobase.etzhayyim.com` all
   disabled — `KOTOBA_IPFS_PIN_ENDPOINT`/`KOTOBA_IPFS_PIN_JWT` unset, `peer_count=0`).
   A single disk loss = data loss.
 - Backing up only the **graph heads** is insufficient: `ipfs dag export` of every
@@ -70,11 +70,11 @@ block store, with disaster restore back into a live Kubo.
 - **Restore** (`restore.sh`): `git annex get --from b2` → `ipfs block put`
   (codec-aware) → multihash restored; kotoba re-fetches by the original CID.
 - **Init** (`init-store.sh`): `datalad create` + `git annex initremote b2 type=S3
-  host=s3.us-west-004.backblazeb2.com bucket=ai-gftd-datasets
+  host=s3.us-west-004.backblazeb2.com bucket=etzhayyim-datasets
   fileprefix=kotoba-blockstore/ datacenter=us-west-004 signature=v4
   encryption=none embedcreds=no`.
 - **Secrets**: B2 credentials are read at runtime from **1Password**
-  (`op://gftdcojp/gftd.b2/datasets`) into `AWS_ACCESS_KEY_ID`/`AWS_SECRET_ACCESS_KEY`
+  (`op://etzhayyim/etzhayyim.b2/datasets`) into `AWS_ACCESS_KEY_ID`/`AWS_SECRET_ACCESS_KEY`
   for the child process only. `embedcreds=no` — nothing is written to the repo,
   the dataset, or the git-annex config (CLAUDE.md "Do not commit secrets";
   consistent with the deps.toml B2 Stage-D credential inventory).
@@ -110,7 +110,7 @@ ADR-2605231525).
   primary path — flatfs is keyed by multihash and loses the CID codec, and it is
   not DataLad/git-annex tracked (no per-block provenance/dedup index). Kept as a
   documented faster alternative for bulk cold archive.
-- **kotobase / ipfs.gftd.ai remote-pin fanout** (`KOTOBA_IPFS_PIN_ENDPOINT`):
+- **kotobase / ipfs.etzhayyim.com remote-pin fanout** (`KOTOBA_IPFS_PIN_ENDPOINT`):
   complementary, not exclusive — a synchronous in-process path that needs a live
   pin endpoint + JWT. B2-pin is the out-of-band, operator-run durability floor;
   both can run together.

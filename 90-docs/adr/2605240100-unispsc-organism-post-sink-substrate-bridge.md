@@ -157,7 +157,7 @@ ADR defines.
 - Crash isolation: drainer crash → posts queue; organism crash → posts
   already on disk. Neither loses data.
 - TS drainer can reuse the existing `@etzhayyim/sdk` post path (same one
-  `magatama.AppBskyFeedPost` exposes on the TS app side).
+  `kotodama.AppBskyFeedPost` exposes on the TS app side).
 
 ## 負の効果 / コスト
 
@@ -206,5 +206,5 @@ the drainer can be written in TS using the existing SDK.
 - ADR-2605240000 — UNSPSC organism fleet mass-deploy (Wave 2)
 - ADR-2605171800 — MstCheckpointSaver IPC sidecar pattern
 - ADR-2605172100 — `@etzhayyim/sdk` substrate rules
-- `20-actors/magatama/py/src/pymagatama/checkpointer/mst_saver.py` — IPC reference
-- `20-actors/magatama/py/src/pymagatama/organism/post_sink.py` — this ADR's deliverable
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/checkpointer/mst_saver.py` — IPC reference
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/post_sink.py` — this ADR's deliverable

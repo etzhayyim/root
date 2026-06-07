@@ -16,7 +16,7 @@ export default {
         actor: "did:web:kouza.etzhayyim.com",
         nanoid: env.APP_NANOID ?? "k0uz401",
         execution: "edge-proxy+agentgateway-mcp+langserver",
-        businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/kouza.py",
+        businessLogic: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/kouza.py",
         bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/kouza",
         guardrail: "read-only; no payments, transfers, withdrawals, FX, or securities orders",
       });

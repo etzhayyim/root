@@ -17,12 +17,9 @@ import {
 } from './stores.js';
 import { setSession, clearSession } from '$lib/atproto-agent';
 import {
-	prfRegistrationExtension,
 	prfRegistrationEvalExtension,
-	prfEvalExtension,
 	accountPrfSalt,
 	extractPrfSecret,
-	credentialSupportsPrf,
 } from './prf.js';
 import {
 	enrollAccount,
@@ -32,6 +29,12 @@ import {
 } from './key-hierarchy.js';
 import { makePutWrap, makeGetWrap } from './account.js';
 import { registerSessionKey } from './session-key.js';
+import {
+	signInSameOrigin,
+	signUpSameOrigin,
+	handleFromDid,
+	type SameOriginAuthResult,
+} from './same-origin-auth.js';
 
 // In-memory holder for the WebAuthn PRF secret (S_prf, ADR-2606014000 L0).
 // Device-resident only — never persisted, never sent to the server. Consumed by
@@ -314,7 +317,7 @@ async function refreshSessionFromStored(stored: StoredSession): Promise<void> {
 }
 
 function updateUserFromDid(did: string): void {
-	const handle = did.replace('did:web:authn.etzhayyim.com:', '').replace(/:/g, '.');
+	const handle = handleFromDid(did);
 	clerkUser.set({
 		id: did,
 		firstName: null,
@@ -334,90 +337,35 @@ function updateUserFromDid(did: string): void {
 }
 
 /**
- * Sign in with Passkey (WebAuthn assertion).
+ * Apply a same-origin auth result: persist the session locally and flip the
+ * signed-in stores. No server-minted token — the session is the client-held
+ * did:key + (PRF path) an EdDSA PoP bearer. NSK-preserving.
+ */
+function applyAuthResult(result: SameOriginAuthResult): void {
+	const session: StoredSession = {
+		accessJwt: result.accessJwt,
+		refreshJwt: result.refreshJwt,
+		did: result.did,
+		handle: result.handle,
+		expiresAt: Date.now() + 2 * 3600 * 1000 - 60_000,
+	};
+	storeSession(session);
+	storeDid(result.did);
+	sessionToken.set(session.accessJwt);
+	isSignedIn.set(true);
+	syncAtprotoSession(session);
+	updateUserFromDid(session.did);
+}
+
+/**
+ * Sign in with Passkey — same-origin, kotoba-based (ADR-2606061800). No
+ * `authn.etzhayyim.com`, no `mcp.etzhayyim.com`, no server-held key. Throws on a
+ * real error so the UI can surface it; returns quietly on user cancellation.
  */
 export async function signIn(): Promise<void> {
-	if (typeof window === 'undefined' || !navigator.credentials) {
-		console.error('WebAuthn not supported');
-		return;
-	}
-
-	try {
-		// 1. Begin authentication — get challenge from server
-		const beginResp = await authRpc('/xrpc/com.etzhayyim.auth.passkeyBeginAuth');
-
-		// 2. Call WebAuthn API (empty allowCredentials enables discoverable/iCloud-synced keys)
-		const credential = await navigator.credentials.get({
-			publicKey: {
-				challenge: base64urlDecode(beginResp.challenge),
-				rpId: beginResp.rpId as string,
-				timeout: beginResp.timeout as number,
-				userVerification: beginResp.userVerification as UserVerificationRequirement,
-				allowCredentials: getStoredCredentialId()
-					? [{
-						type: 'public-key' as const,
-						id: base64urlDecode(getStoredCredentialId()!),
-					}]
-					: [],
-				// ADR-2606014000 L0: evaluate the passkey PRF so we can derive the
-				// account key hierarchy on-device. Authenticators without PRF ignore
-				// this and simply return no prf result (handled below).
-				extensions: prfEvalExtension(accountPrfSalt(beginResp.rpId as string)),
-			},
-		}) as PublicKeyCredential | null;
-
-		if (!credential) {
-			console.warn('Passkey authentication cancelled');
-			return;
-		}
-
-		// Best-effort: capture the PRF secret (S_prf) for the zero-access key
-		// hierarchy. Never throws into the auth flow; absence ⇒ server-assisted
-		// fallback. ARK unwrap + session-key use is wired in a follow-up once the
-		// wrapped-ARK store endpoint lands (ADR-2606014000 client follow-up).
-		try {
-			const prfSecret = extractPrfSecret(credential);
-			if (prfSecret) setPrfSecret(prfSecret);
-		} catch (e) {
-			console.warn('PRF capture skipped:', e);
-		}
-
-		const response = credential.response as AuthenticatorAssertionResponse;
-		const credentialId = base64urlEncode(credential.rawId);
-
-		// 3. Verify assertion server-side (crypto verification + session issuance)
-		const verifyResult = await authRpc('/xrpc/com.etzhayyim.auth.passkeyVerifyAuth', {
-			challenge: beginResp.challenge,
-			credentialId,
-			clientDataJson: base64urlEncode(response.clientDataJSON),
-			authenticatorData: base64urlEncode(response.authenticatorData),
-			signature: base64urlEncode(response.signature),
-		});
-
-		const sessionTokens = verifyResult.sessionTokens as Record<string, unknown>;
-		const session: StoredSession = {
-			accessJwt: sessionTokens.accessJwt as string,
-			refreshJwt: sessionTokens.refreshJwt as string,
-			did: verifyResult.did as string,
-			handle: sessionTokens.handle as string,
-			expiresAt: Date.now() + 2 * 3600 * 1000 - 60_000,
-		};
-		storeSession(session);
-		storeCredentialId(credentialId);
-		storeDid(verifyResult.did as string);
-		sessionToken.set(session.accessJwt);
-		isSignedIn.set(true);
-		syncAtprotoSession(session);
-		updateUserFromDid(session.did);
-
-		// ADR-2606014000 L0→L2: establish the passkey-rooted key hierarchy now
-		// that we have S_prf + an authenticated session. Best-effort and fully
-		// guarded — any failure leaves auth intact and falls back to
-		// server-assisted custody. recover → (first device) enroll.
-		void establishKeyHierarchy(session.did, credentialId, session.accessJwt);
-	} catch (error) {
-		console.error('Passkey sign in failed:', error);
-	}
+	const result = await signInSameOrigin();
+	if (!result) return; // user cancelled the WebAuthn prompt
+	applyAuthResult(result);
 }
 
 /**
@@ -508,98 +456,16 @@ export async function addDevicePasskey(accountDid: string, accessToken: string):
 }
 
 /**
- * Sign up with Passkey (WebAuthn registration).
+ * Sign up with Passkey — same-origin, kotoba-based (ADR-2606061800). Creates the
+ * passkey, derives the controller did:key on-device (PRF→Ed25519 primary, the
+ * credential's P-256 key as fallback), establishes the session locally, and
+ * best-effort publishes the handle to kotoba. No authn/mcp, no server key.
  */
 export async function signUp(): Promise<void> {
-	if (typeof window === 'undefined' || !navigator.credentials) {
-		console.error('WebAuthn not supported');
-		return;
-	}
-
-	try {
-		// Generate a temporary user ID for registration
-		const userId = crypto.randomUUID();
-		const userName = `user-${userId.slice(0, 8)}@etzhayyim.com`;
-
-		// 1. Begin registration — get challenge + options from server
-		const beginResp = await authRpc('/xrpc/com.etzhayyim.auth.passkeyBeginRegister', {
-			userId,
-			userName,
-		});
-
-		// 2. Call WebAuthn API
-		const credential = await navigator.credentials.create({
-			publicKey: {
-				challenge: base64urlDecode(beginResp.challenge),
-				rp: { id: beginResp.rp.id, name: beginResp.rp.name },
-				user: {
-					id: base64urlDecode(beginResp.user.id),
-					name: beginResp.user.name,
-					displayName: beginResp.user.displayName as string,
-				},
-				pubKeyCredParams: (beginResp.pubKeyCredParams as any[]).map((p: any) => ({
-					type: p.type as 'public-key',
-					alg: p.alg,
-				})),
-				timeout: beginResp.timeout as number,
-				authenticatorSelection: {
-					authenticatorAttachment: (beginResp.authenticatorSelection as any).authenticatorAttachment as AuthenticatorAttachment,
-					residentKey: (beginResp.authenticatorSelection as any).residentKey as ResidentKeyRequirement,
-					userVerification: (beginResp.authenticatorSelection as any).userVerification as UserVerificationRequirement,
-				},
-				attestation: beginResp.attestation as AttestationConveyancePreference,
-				// ADR-2606014000 L0: request the PRF extension so this credential can
-				// derive the account key hierarchy on later assertions.
-				extensions: prfRegistrationExtension(),
-			},
-		}) as PublicKeyCredential | null;
-
-		if (!credential) {
-			console.warn('Passkey registration cancelled');
-			return;
-		}
-		// Log PRF capability (does not block registration).
-		try {
-			if (credentialSupportsPrf(credential)) {
-				console.info('passkey: PRF supported — zero-access key hierarchy available');
-			}
-		} catch { /* ignore */ }
-
-		const response = credential.response as AuthenticatorAttestationResponse;
-		const credentialId = base64urlEncode(credential.rawId);
-
-		// 3. Verify registration with server
-		const verifyResult = await authRpc('/xrpc/com.etzhayyim.auth.passkeyVerifyRegister', {
-			challenge: beginResp.challenge,
-			clientDataJson: base64urlEncode(response.clientDataJSON),
-			attestationObject: base64urlEncode(response.attestationObject),
-			userId,
-		});
-
-		// 4. Issue session for the new user
-		const sessionResult = await authRpc('/xrpc/com.atproto.server.createSession', {
-			did: verifyResult.did,
-			handle: verifyResult.did.replace('did:web:authn.etzhayyim.com:', '').replace(/:/g, '.'),
-		});
-
-		const session: StoredSession = {
-			accessJwt: sessionResult.accessJwt as string,
-			refreshJwt: sessionResult.refreshJwt as string,
-			did: sessionResult.did as string,
-			handle: sessionResult.handle as string,
-			expiresAt: Date.now() + 2 * 3600 * 1000 - 60_000,
-		};
-		storeSession(session);
-		storeCredentialId(credentialId);
-		storeDid(verifyResult.did);
-		sessionToken.set(session.accessJwt);
-		isSignedIn.set(true);
-		syncAtprotoSession(session);
-		updateUserFromDid(session.did);
-		onboardingCompleted.set(false);
-	} catch (error) {
-		console.error('Passkey sign up failed:', error);
-	}
+	const result = await signUpSameOrigin();
+	if (!result) return; // user cancelled the WebAuthn prompt
+	applyAuthResult(result);
+	onboardingCompleted.set(false);
 }
 
 export async function signUpWithUsername(input: UsernameSignUpInput): Promise<void> {

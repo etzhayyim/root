@@ -10,6 +10,6 @@
 
 ## Status
 
-Phase 1: schema + lexicon + BPMN + pymagatama primitives + Helm pool 作成済 (2026-05-08)。
+Phase 1: schema + lexicon + BPMN + kotodama primitives + Helm pool 作成済 (2026-05-08)。
 
 migration 適用 + helm install + 初回 BPMN fire 検証は次のセッション。

@@ -9,9 +9,9 @@ last_verified: 2026-05-21
 priority: 6.0
 axis: architecture
 weight: 0.60
-priority_note: "HKUDS/CLI-Anything (任意 software → Click CLI + JSON + REPL + SKILL.md で agent 駆動可) と等価な scaffolding を etzhayyim 側に持ち込む。ただし出力先は CLI ではなく etzhayyim-native な 3-layer (Lexicon SSoT + magatama Pregel cell + MCP server)。すでに `unispsc-isic-mcp` (ADR-2605180900 Phase 8) で 1 件 hand-written 実装済み — その pattern を generator template として正典化し、~130 個ある 60-apps/ + 任意の外部 webservice を同 pattern で量産可能にする。命名: 神道の依代 (kami が宿る vessel) の語に従い、外部 software = kami、生成された 3-layer artifact = yorishiro と定義。"
+priority_note: "HKUDS/CLI-Anything (任意 software → Click CLI + JSON + REPL + SKILL.md で agent 駆動可) と等価な scaffolding を etzhayyim 側に持ち込む。ただし出力先は CLI ではなく etzhayyim-native な 3-layer (Lexicon SSoT + kotodama Pregel cell + MCP server)。すでに `unispsc-isic-mcp` (ADR-2605180900 Phase 8) で 1 件 hand-written 実装済み — その pattern を generator template として正典化し、~130 個ある 60-apps/ + 任意の外部 webservice を同 pattern で量産可能にする。命名: 神道の依代 (kami が宿る vessel) の語に従い、外部 software = kami、生成された 3-layer artifact = yorishiro と定義。"
 authoritative_for:
-  - external app / webservice の magatama actor 化の 3-layer 出力契約
+  - external app / webservice の kotodama actor 化の 3-layer 出力契約
   - yorishiro generator CLI 仕様 (etzhayyim-cli yorishiro <name> --from <source>)
   - Lexicon 拡張フィールド (x-yorishiro-external / x-charter-purpose) の意味論
   - Charter purpose enforcement の lefthook hook 拡張点
@@ -24,9 +24,9 @@ depends_on:
   - adr-2605172000-etzhayyim-rw-free-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
 related:
-  - 20-actors/magatama/mcp/unispsc-isic-mcp/
-  - 20-actors/magatama/cells/
-  - 20-actors/magatama/py/src/pymagatama/primitives/
+  - 40-engine/kotoba/crates/kotoba-kotodama/mcp/unispsc-isic-mcp/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/
+  - 40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/
   - 00-contracts/lexicons/ai/etzhayyim/
   - 70-tools/etzhayyim-cli/
   - 70-tools/charter-rider-applicator/
@@ -49,9 +49,9 @@ superseded_by: []
 
 これらは現状すべて **hand-written** で:
 
-1. app ごとに `src/app.ts` (CF Worker) または `pymagatama/primitives/*.py` (Pregel cell) を個別実装
+1. app ごとに `src/app.ts` (CF Worker) または `kotodama/primitives/*.py` (Pregel cell) を個別実装
 2. Lexicon contract (`00-contracts/lexicons/com/etzhayyim/apps/*/` または `ai/etzhayyim/*/`) を手書き
-3. MCP exposure は `20-actors/magatama/mcp/unispsc-isic-mcp/` (1 件のみ) を除き未整備
+3. MCP exposure は `40-engine/kotoba/crates/kotoba-kotodama/mcp/unispsc-isic-mcp/` (1 件のみ) を除き未整備
 
 この hand-written-per-app 流儀は Shannon 冗長度が高く、Charter compliance (ADR-2605192200 §2 の 8 prohibited categories) の per-app 確認も人手依存で drift する。
 
@@ -66,7 +66,7 @@ HKUDS が公開した CLI-Anything (https://github.com/HKUDS/CLI-Anything) は�
 
 ## 3. 命名: yorishiro (依代)
 
-`wrap` は単なる technical 用語で religious-corp の語彙系 (kami / magatama / yobel / tsukuru / kuni-umi 等) と非整合。
+`wrap` は単なる technical 用語で religious-corp の語彙系 (kami / kotodama / yobel / tsukuru / kuni-umi 等) と非整合。
 
 神道において **依代 (yorishiro)** とは「kami が宿るための vessel」で、典型的には鏡・剣・玉・木・人形などの物体。外部 software (HuggingFace API / Blender / arXiv) を kami と見立て、それを substrate 内で agent が駆動できる形 (Lexicon contract + Pregel cell + MCP tool) に整えた **vessel** こそが yorishiro である、という metaphor は:
 
@@ -78,13 +78,13 @@ HKUDS が公開した CLI-Anything (https://github.com/HKUDS/CLI-Anything) は�
 
 ## 4. 既存 1 件の実装パターン (reference impl)
 
-`20-actors/magatama/mcp/unispsc-isic-mcp/` (ADR-2605180900 Phase 8) は **UNSPSC + ISIC LangGraph Pregel agent fleets を 9 MCP tools として再露出する** server で、ちょうど本 ADR が量産したい 3-layer の hand-written 第 1 例である:
+`40-engine/kotoba/crates/kotoba-kotodama/mcp/unispsc-isic-mcp/` (ADR-2605180900 Phase 8) は **UNSPSC + ISIC LangGraph Pregel agent fleets を 9 MCP tools として再露出する** server で、ちょうど本 ADR が量産したい 3-layer の hand-written 第 1 例である:
 
 | Layer | 既存実装 (unispsc-isic-mcp) |
 |---|---|
 | Lexicon (SSoT) | `00-contracts/lexicons/com/etzhayyim/apps/{unispsc,isic}/*.json` (9 件) |
-| Actor (Pregel cell) | `pymagatama/primitives/open_unispsc.py` + `open_isic_*.py` (594 cells) + `20-actors/magatama/sdk/magatama-host-sdk/src/langserver-actor.ts` |
-| MCP server | `20-actors/magatama/mcp/unispsc-isic-mcp/src/cli.ts` (stdio + Streamable HTTP) |
+| Actor (Pregel cell) | `kotodama/primitives/open_unispsc.py` + `open_isic_*.py` (594 cells) + `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/langserver-actor.ts` |
+| MCP server | `40-engine/kotoba/crates/kotoba-kotodama/mcp/unispsc-isic-mcp/src/cli.ts` (stdio + Streamable HTTP) |
 
 本 ADR は **この 3-layer を generator template として正典化** する。
 
@@ -97,8 +97,8 @@ HKUDS が公開した CLI-Anything (https://github.com/HKUDS/CLI-Anything) は�
 | Layer | 出力先 | 役割 | SSoT 位置 |
 |---|---|---|---|
 | **L1 Lexicon** | `00-contracts/lexicons/ai/etzhayyim/yorishiro/<name>/<op>.json` | op ごとの input/output schema、Charter purpose、external 標識 | 唯一の contract SSoT |
-| **L2 Actor (Pregel cell)** | `20-actors/magatama/cells/yorishiro_<name>/cell.py` (Python, ADR-2605202200 cell runtime contract 準拠) または `20-actors/magatama/yorishiro/<name>/src/app.ts` (TS, magatama-host-sdk 準拠) | LangGraph Pregel cell / TS Worker として substrate に hosting | runtime binding |
-| **L3 MCP server** | `20-actors/magatama/mcp/yorishiro-<name>-mcp/` | stdio + Streamable HTTP 両 transport で agent (Claude Desktop / Codex / 他 etzhayyim actor) から callable | tool exposure |
+| **L2 Actor (Pregel cell)** | `40-engine/kotoba/crates/kotoba-kotodama/cells/yorishiro_<name>/cell.py` (Python, ADR-2605202200 cell runtime contract 準拠) または `40-engine/kotoba/crates/kotoba-kotodama/yorishiro/<name>/src/app.ts` (TS, kotodama-host-sdk 準拠) | LangGraph Pregel cell / TS Worker として substrate に hosting | runtime binding |
+| **L3 MCP server** | `40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-<name>-mcp/` | stdio + Streamable HTTP 両 transport で agent (Claude Desktop / Codex / 他 etzhayyim actor) から callable | tool exposure |
 | (補助) SKILL.md | `skills/etzhayyim-yorishiro-<name>/SKILL.md` | agent discovery (CLI-Anything format に準拠) | discovery |
 | (補助) CLI/REPL | `70-tools/etzhayyim-cli/yorishiro/<name>/` | 人間 fallback (`--json` + REPL、CLI-Anything と同形式) | human-facing |
 
@@ -128,7 +128,7 @@ L1 Lexicon JSON は通常の atproto Lexicon schema に加え、以下 **3 拡�
 
 | フィールド | 値域 | 意味論 |
 |---|---|---|
-| `x-yorishiro-external` | `true` (必須) | 外部 substrate 呼出を伴う op の標識。これが true の lexicon は `magatama.Send()` (WIT outbound-http) または `magatama.Invoke()` 経由でのみ実行可。直接 `fetch()` は lefthook hook で reject |
+| `x-yorishiro-external` | `true` (必須) | 外部 substrate 呼出を伴う op の標識。これが true の lexicon は `kotodama.Send()` (WIT outbound-http) または `kotodama.Invoke()` 経由でのみ実行可。直接 `fetch()` は lefthook hook で reject |
 | `x-yorishiro-kami` | string (FQDN / package name / binary name) | 宿る kami の identifier。`huggingface.co` / `org.libreoffice` / `bin:blender` 等 |
 | `x-yorishiro-transport` | `openapi-v3` / `source-repo` / `browser-only` / `binary-cli` | 入力 source mode (D4 参照) |
 | `x-charter-purpose` | `["donation"\|"kisha"\|"grant"\|"tithe"\|"escrow-refund"\|"internal-purchase"\|"internal-subscription"\|"internal-promo"]` の配列 | ADR-2605192115 で正典化された Charter purposes。**`subscription` / `purchase` / `tip` (external 用) は禁止値**。lefthook hook が違反値を含む lexicon を pre-commit で reject |
@@ -137,7 +137,7 @@ L1 Lexicon JSON は通常の atproto Lexicon schema に加え、以下 **3 拡�
 
 ## D3. 既存 generator infrastructure の再利用
 
-- L1 → L2 Python cell の typed I/O: 既存の `pymagatama/cell_registry` (cell runtime contract, ADR-2605202200) をそのまま再利用
+- L1 → L2 Python cell の typed I/O: 既存の `kotodama/cell_registry` (cell runtime contract, ADR-2605202200) をそのまま再利用
 - L1 → L2 TS Worker の typed I/O: 既存の `70-tools/scripts/contract/gen-lexicon-nsid-types.mjs` をそのまま再利用 (`parseLexiconInput()` + `LexiconOutput<...>`)
 - L1 → L3 MCP zod schema: 既存の `unispsc-isic-mcp` で使われている atproto Lexicon → zod 4 converter (`@etzhayyim/lexicon-to-zod`) を抽出して再利用
 - Murakumo fleet placement: `50-infra/cluster/murakumo/cell-runner/cells.toml` に新規 yorishiro cell を 1 行追記するだけで cell-runner が起動 (ADR-2605202100 + 2605202200)
@@ -204,7 +204,7 @@ yorishiro は外部 substrate へ書込/読込する op を内包するため、
 | **write 系 (営利目的)** (third-party 外部 SaaS への subscribe / purchase / tip) | ✗ | lexicon の `x-charter-purpose` validator が pre-commit で reject (ADR-2605192115 §4) |
 | **internal SBT↔SBT carveout** (e7m 信者間 etzhayyim 系 app) | ✓ | `x-charter-purpose: internal-*` を許可、ただし `x-yorishiro-external: false` (yorishiro ではなく通常の internal actor) |
 
-つまり yorishiro は **read 全般 + 非営利 write のみ**。SBT 内部 carveout は yorishiro の対象外で、通常の magatama actor として書く。
+つまり yorishiro は **read 全般 + 非営利 write のみ**。SBT 内部 carveout は yorishiro の対象外で、通常の kotodama actor として書く。
 
 ## D7. Phase / Milestone
 
@@ -227,7 +227,7 @@ yorishiro は外部 substrate へ書込/読込する op を内包するため、
 - **Shannon 冗長度の劇的削減**: 130+ apps の外部 API 叩き箇所を 1 generator + lexicon SSoT に集約。新規 vendor 統合の marginal cost が `etzhayyim yorishiro create <name> --from openapi-v3 --source <url> --purpose <list>` 1 line に圧縮
 - **Charter compliance の compile-time enforcement**: ADR-2605192200 §2 の 8 prohibited categories を lexicon validator + lefthook hook で pre-commit reject。人手 review 依存を排除
 - **MCP standard exposure**: 全 external integration が自動的に MCP server として露出 → Claude Desktop / Codex / 他 etzhayyim actor から uniform interface で callable
-- **religious-corp 語彙系統合**: yorishiro (依代) という命名で kami / magatama / yobel / tsukuru / kuni-umi に並ぶ第一級の概念として substrate に組み込まれる
+- **religious-corp 語彙系統合**: yorishiro (依代) という命名で kami / kotodama / yobel / tsukuru / kuni-umi に並ぶ第一級の概念として substrate に組み込まれる
 - **既存 infra 再利用**: 新規 codegen / runtime / fleet を作らず、ADR-2605202200 cell contract + 既存 codegen 6 個 + cell-runner を組み合わせるのみ
 
 ## Negative / Tradeoffs
@@ -270,7 +270,7 @@ yorishiro は外部 substrate へ書込/読込する op を内包するため、
 ## ALT-4: 命名を `wrap` / `bridge` / `adapter` のいずれかにする
 
 - メリット: industry-standard 用語、外部 contributor の理解が早い
-- デメリット: religious-corp 語彙系 (kami / magatama / yobel / tsukuru / kuni-umi) と非整合、八百万 ontology (ADR-2605192100 §1.10) の自然な extension 機会を失う
+- デメリット: religious-corp 語彙系 (kami / kotodama / yobel / tsukuru / kuni-umi) と非整合、八百万 ontology (ADR-2605192100 §1.10) の自然な extension 機会を失う
 - 棄却理由: religious-corp としてのアイデンティティを技術用語で薄める方向は ADR-2605192100 と整合しない。`yorishiro` を採用
 
 # References
@@ -279,9 +279,9 @@ yorishiro は外部 substrate へ書込/読込する op を内包するため、
 - ADR-2605192115 (SBT↔SBT internal carveout — `x-charter-purpose` 値域の正典)
 - ADR-2605192200 (IP-free release + Charter Rider v2.0 — §2 8 prohibited categories)
 - ADR-2605180900 (LangGraph Pregel fleet + MCP bridge — reference impl `unispsc-isic-mcp`)
-- ADR-2605202200 (magatama cell.py runtime contract — L2 Python cell の DI 契約)
+- ADR-2605202200 (kotodama cell.py runtime contract — L2 Python cell の DI 契約)
 - ADR-2605172000 (RW-free substrate architecture — yorishiro の state boundary 規律)
 - ADR-2605172100 (etzhayyim-sdk substrate client — L2 TS Worker の client SSoT)
 - HKUDS/CLI-Anything (外部参照 — generator 設計の inspiration、ただし出力 layer は etzhayyim-native に翻訳)
-- `20-actors/magatama/mcp/unispsc-isic-mcp/README.md` (1 件目の hand-written 3-layer 実装)
+- `40-engine/kotoba/crates/kotoba-kotodama/mcp/unispsc-isic-mcp/README.md` (1 件目の hand-written 3-layer 実装)
 - `00-contracts/lexicons/com/etzhayyim/apps/{unispsc,isic}/` (1 件目の hand-written L1 lexicons)

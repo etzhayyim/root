@@ -58,9 +58,9 @@ superseded_by: []
 
 ## 既存資産
 
-- ADR-2605171300 で承認済の magatama Pregel フレームワーク + LangGraph 18,343-agent fleet
+- ADR-2605171300 で承認済の kotodama Pregel フレームワーク + LangGraph 18,343-agent fleet
 - ADR-2605180900 の langserver アーキテクチャ (Haiku-routed bulk, lazy registry, four call surfaces)
-- `20-actors/magatama/py/src/pymagatama/` 配下の既存 actor 群 (`phenotype_agents`, `kenkyusha`, `eligibility` 等)
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/` 配下の既存 actor 群 (`phenotype_agents`, `kenkyusha`, `eligibility` 等)
 - ADR-2605172000 の RW-free substrate
 
 ## 最新治療エビデンス (2025-2026)
@@ -83,7 +83,7 @@ superseded_by: []
 **Code location**:
 
 ```
-20-actors/magatama/py/src/pymagatama/projects/uhl_right_neural/
+40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/projects/uhl_right_neural/
 ├── pregel.py                       # 16-vertex topology + superstep schedule
 ├── actors/                         # 15 LangGraph actors (V01-V16)
 ├── dmn/                            # V06 substrate classifier 4-way decision table
@@ -210,7 +210,7 @@ P0 が最初の deliverable。P3 はパートナーシップ取得が前提。
 
 - **CND 中心の neural-substrate 設計**は片側性 UHL の真の病因分布に整合し、両側性プロジェクトからの単純移植では得られない焦点
 - **V06 hinge architecture** により下流 vertex の差し替えが容易 (新治療法が現れれば V07-V11 に追加するだけ)
-- **既存 magatama Pregel + langserver 資産の再利用**で開発コスト最小化
+- **既存 kotodama Pregel + langserver 資産の再利用**で開発コスト最小化
 - **3 sibling ADRs (1040/1050/1060)** が institution layer の運用に十分な policy 凍結を提供
 
 ## 負の効果 / コスト

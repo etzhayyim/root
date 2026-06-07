@@ -71,10 +71,10 @@ forge script script/DeployReligiousCorp.s.sol:DeployReligiousCorp \
 
 ## Pregel cells
 
-- [`20-actors/magatama/cells/land_donation_processing/`](../../20-actors/magatama/cells/land_donation_processing/)
-- `20-actors/magatama/cells/land_stewardship_monitoring/`
-- `20-actors/magatama/cells/land_dispute_resolution/`
-- [`20-actors/magatama/cells/steward_succession/`](../../20-actors/magatama/cells/steward_succession/)
+- [`40-engine/kotoba/crates/kotoba-kotodama/cells/land_donation_processing/`](../../40-engine/kotoba/crates/kotoba-kotodama/cells/land_donation_processing/)
+- `40-engine/kotoba/crates/kotoba-kotodama/cells/land_stewardship_monitoring/`
+- `40-engine/kotoba/crates/kotoba-kotodama/cells/land_dispute_resolution/`
+- [`40-engine/kotoba/crates/kotoba-kotodama/cells/steward_succession/`](../../40-engine/kotoba/crates/kotoba-kotodama/cells/steward_succession/)
 
 ## Lexicons
 

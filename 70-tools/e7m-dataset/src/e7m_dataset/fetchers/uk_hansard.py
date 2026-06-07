@@ -26,7 +26,7 @@ Search response shape (debates endpoint):
   }
 
 Normalized into NDJSON consumable by
-``pymagatama.organism.sensors.gov.uk_hansard_sensor.UkHansardSensor``:
+``kotodama.organism.sensors.gov.uk_hansard_sensor.UkHansardSensor``:
 
   {"recordId": "ABC-DEF-GHI",
    "sessionDateUtc": "2026-05-20T00:00:00Z",

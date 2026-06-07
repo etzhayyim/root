@@ -24,7 +24,7 @@ array**:
   ]
 
 This fetcher normalizes that shape into NDJSON rows consumable by
-``pymagatama.organism.sensors.gov.worldbank_open_data_sensor.WorldBankOpenDataSensor``:
+``kotodama.organism.sensors.gov.worldbank_open_data_sensor.WorldBankOpenDataSensor``:
 
   {"indicatorCode": "NY.GDP.MKTP.CD",
    "indicatorTitle": "GDP (current US$)",

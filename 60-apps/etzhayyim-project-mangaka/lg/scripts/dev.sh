@@ -68,17 +68,17 @@ fi
 source "$VENV/bin/activate"
 
 # ── install deps (uv is ~10x faster than pip) ─────────────────────────────
-# pymagatama is a monorepo workspace dep — install editable from path first
-# (otherwise the registry lookup for "pymagatama" fails). Mirrors the prod
-# Dockerfile which COPYs it under /opt/pymagatama and installs editable.
-PYMAGATAMA_DIR="$LG_DIR/../../../20-actors/magatama/py"
+# kotodama is a monorepo workspace dep — install editable from path first
+# (otherwise the registry lookup for "kotodama" fails). Mirrors the prod
+# Dockerfile which COPYs it under /opt/kotodama and installs editable.
+PYKOTODAMA_DIR="$LG_DIR/../../../40-engine/kotoba/crates/kotoba-kotodama/py"
 if command -v uv >/dev/null 2>&1; then
   uv pip install --quiet --upgrade pip
-  uv pip install --quiet -e "$PYMAGATAMA_DIR"
+  uv pip install --quiet -e "$PYKOTODAMA_DIR"
   uv pip install --quiet -e ".[dev]"
 else
   pip install --quiet --upgrade pip
-  pip install --quiet -e "$PYMAGATAMA_DIR"
+  pip install --quiet -e "$PYKOTODAMA_DIR"
   pip install --quiet -e ".[dev]"
 fi
 

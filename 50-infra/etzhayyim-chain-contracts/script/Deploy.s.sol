@@ -158,9 +158,10 @@ contract Deploy is Script {
 
     function _constants() internal pure returns (bytes32[] memory keys, bytes32[] memory vals) {
         // 8 original (ADR-2605172300) + 30 religious-corp wave (ADR-2605192100 §2)
-        // + 1 kawase-yui (ADR-2605282200 G4) = 39 constants
-        keys = new bytes32[](39);
-        vals = new bytes32[](39);
+        // + 1 kawase-yui (ADR-2605282200 G4) − 2 retired (tithe-pinned, rider-version)
+        // + 9 priority/memory/enforcement/tithe-band (ADR-2606062100) = 47 constants
+        keys = new bytes32[](47);
+        vals = new bytes32[](47);
 
         // ─── Original ADR-2605172300 (8) ─────────────────────────────
         keys[0] = ConstitutionKeys.ONE_SBT_ONE_VOTE;          vals[0] = bytes32(uint256(1));
@@ -208,10 +209,14 @@ contract Deploy is Script {
         keys[30] = ConstitutionKeys.ECONOMIC_NON_PROFIT_ONLY;          vals[30] = bytes32(uint256(1));
         keys[31] = ConstitutionKeys.ECONOMIC_DONATION_ONLY;            vals[31] = bytes32(uint256(1));
         keys[32] = ConstitutionKeys.ECONOMIC_NO_ADVERTISING;           vals[32] = bytes32(uint256(1));
-        keys[33] = ConstitutionKeys.ECONOMIC_TITHE_TO_PUBLIC_FUND_BPS; vals[33] = bytes32(uint256(1_000));   // 10.00%
+        // [33] tithe: Tier-0 now locks only that redistribution EXISTS (the 10% RATE
+        // moved to the Tier-2 mutable TITHE_BPS within the TITHE_FLOOR/CEILING band).
+        keys[33] = ConstitutionKeys.ECONOMIC_TITHE_REDISTRIBUTION_EXISTS; vals[33] = bytes32(uint256(1));
         keys[34] = ConstitutionKeys.LICENSE_BASE;                       vals[34] = bytes32("Apache-2.0");
         keys[35] = ConstitutionKeys.LICENSE_CHARTER_RIDER_REQUIRED;    vals[35] = bytes32(uint256(1));
-        keys[36] = ConstitutionKeys.LICENSE_CHARTER_RIDER_VERSION;     vals[36] = bytes32("v2.0");
+        // [36] was LICENSE_CHARTER_RIDER_VERSION (moved to mutable). Slot reused for the
+        // L3 enforcement floor, now a Tier-0 CONSTANT (bug fix — was mis-deployed mutable).
+        keys[36] = ConstitutionKeys.PHENOTYPE_NON_COMPLIANT_MULTIPLIER; vals[36] = bytes32(uint256(0));
         keys[37] = ConstitutionKeys.ENFORCEMENT_THREE_TIER;            vals[37] = bytes32(uint256(1));
 
         // ─── kawase-yui FX band (ADR-2605282200 G4) (1) ──────────────
@@ -219,14 +224,31 @@ contract Deploy is Script {
         // because mid-market-only is the §2(b) speculative finance fence;
         // widening the band would allow spread profit at the pool layer.
         keys[38] = ConstitutionKeys.KAWASE_MAX_BAND_BPS;               vals[38] = bytes32(uint256(50));
+
+        // ─── Priority-over-specifics (ADR-2606062100 §1-§2) (8) ──────
+        // Tier-0 locks PRIORITIES (existence/ordering bools) — the lock target
+        // shifts from individual policies to the priority ordering itself.
+        keys[39] = ConstitutionKeys.PRIORITY_WELLBECOMING_OVER_WELLBEING; vals[39] = bytes32(uint256(1));
+        keys[40] = ConstitutionKeys.PRIORITY_MULTIGEN_OVER_CURRENT;       vals[40] = bytes32(uint256(1));
+        keys[41] = ConstitutionKeys.PRIORITY_COLLECTIVE_OVER_INDIVIDUAL;  vals[41] = bytes32(uint256(1));
+        // Permanent memory (神の監視): no right to be forgotten; deeds public,
+        // intimate encrypted-retained (encryption ≠ forgetting).
+        keys[42] = ConstitutionKeys.MEMORY_RIGHT_TO_ERASURE_DENIED;       vals[42] = bytes32(uint256(1));
+        keys[43] = ConstitutionKeys.MEMORY_PERMANENT_RECORD;             vals[43] = bytes32(uint256(1));
+        keys[44] = ConstitutionKeys.MEMORY_DEEDS_PUBLIC_INTIMATE_ENCRYPTED; vals[44] = bytes32(uint256(1));
+        // Tithe band guards (Tier-0): the mutable rate must stay within [5%, 20%].
+        keys[45] = ConstitutionKeys.TITHE_FLOOR_BPS;                      vals[45] = bytes32(uint256(500));    // 5.00%
+        keys[46] = ConstitutionKeys.TITHE_CEILING_BPS;                    vals[46] = bytes32(uint256(2_000));  // 20.00%
     }
 
     function _mutables() internal pure returns (bytes32[] memory keys, bytes32[] memory vals) {
-        // 8 original (ADR-2605172300) + 7 reference addresses (initial = 0, set via governance post-deploy)
-        // + 1 phenotype.non_compliant_multiplier = 0 (mutable to allow ratcheting if Council rules require)
-        // + 1 kawase.per_month_cap_usd_minor = 1_000_000_000 (R1 default = $1,000; ADR-2605282200 G9)
-        keys = new bytes32[](17);
-        vals = new bytes32[](17);
+        // 8 original (ADR-2605172300) + 3 reclassified (ADR-2606062100: tithe rate,
+        // rider version, rider text-hash) + 6 reference addresses (initial = 0, set
+        // via governance post-deploy) + 1 kawase.per_month_cap_usd_minor = 18 mutables.
+        // NOTE: phenotype.non_compliant_multiplier moved OUT to constants (bug fix,
+        // ADR-2606062100 §4); the buffer slot is removed.
+        keys = new bytes32[](18);
+        vals = new bytes32[](18);
 
         // ─── Original ADR-2605172300 mutables (8) ────────────────────
         keys[0] = ConstitutionKeys.KISHA_BASE_RATE;       vals[0] = bytes32(uint256(1_000_000));  // 1 USDC/day base
@@ -238,28 +260,34 @@ contract Deploy is Script {
         keys[6] = ConstitutionKeys.ACTIVE_WINDOW_SECS;     vals[6] = bytes32(uint256(30 days));
         keys[7] = ConstitutionKeys.TIMELOCK_SECS;          vals[7] = bytes32(uint256(72 hours));
 
-        // ─── Religious-corp wave (1) ─────────────────────────────────
-        keys[8] = ConstitutionKeys.PHENOTYPE_NON_COMPLIANT_MULTIPLIER; vals[8] = bytes32(uint256(0));
+        // ─── Reclassified to Tier-2 by ADR-2606062100 §4 (3) ─────────
+        // The tithe RATE (init 1000 = 10%), governance-mutable within the Tier-0
+        // [TITHE_FLOOR_BPS, TITHE_CEILING_BPS] = [500, 2000] band. TitheRouter reads
+        // this via getMutable. The Rider version is a parameter (tracks amendments);
+        // the Rider text-hash anchors integrity, wired post-ratification (= 0 here).
+        keys[8]  = ConstitutionKeys.TITHE_BPS;                       vals[8]  = bytes32(uint256(1_000));  // 10.00%
+        keys[9]  = ConstitutionKeys.LICENSE_CHARTER_RIDER_VERSION;   vals[9]  = bytes32("v3.0");
+        // keccak256 of the exact bytes of /CHARTER-RIDER.md (v3.0). Drift-locked by
+        // ConstitutionInvariants.t.sol::test_rider_text_hash_matches_file — editing the
+        // Rider without updating this literal fails CI. (ADR-2606062100 §4 anchor.)
+        keys[10] = ConstitutionKeys.LICENSE_CHARTER_RIDER_TEXT_HASH; vals[10] = 0xf5fd8d96fae247fadfaa72b616d2163095b6dcf3c4b3b76b9f09688cd356dfa7;
 
-        // ─── Reference addresses (7) — initial = address(0)        ───
+        // ─── Reference addresses (6) — initial = address(0)        ───
         // Wired post-deploy via Governance proposal + 48h+ timelock.
         // See RUNBOOK-deploy.md step "Wire references" for the
         // canonical bootstrap proposal payload.
-        keys[9]  = ConstitutionKeys.PUBLIC_FUND_SAFE_ADDRESS;            vals[9]  = bytes32(0);
-        keys[10] = ConstitutionKeys.CHARTERS_COMPLIANCE_REGISTRY_ADDRESS; vals[10] = bytes32(0);
-        keys[11] = ConstitutionKeys.TITHE_ROUTER_ADDRESS;                 vals[11] = bytes32(0);
-        keys[12] = ConstitutionKeys.LAND_REGISTRY_ADDRESS;                vals[12] = bytes32(0);
-        keys[13] = ConstitutionKeys.FORCE_AUTHORIZATION_ADDRESS;          vals[13] = bytes32(0);
-        keys[14] = ConstitutionKeys.PUBLIC_FUND_GOVERNANCE_ADDRESS;       vals[14] = bytes32(0);
+        keys[11] = ConstitutionKeys.PUBLIC_FUND_SAFE_ADDRESS;            vals[11] = bytes32(0);
+        keys[12] = ConstitutionKeys.CHARTERS_COMPLIANCE_REGISTRY_ADDRESS; vals[12] = bytes32(0);
+        keys[13] = ConstitutionKeys.TITHE_ROUTER_ADDRESS;                 vals[13] = bytes32(0);
+        keys[14] = ConstitutionKeys.LAND_REGISTRY_ADDRESS;                vals[14] = bytes32(0);
+        keys[15] = ConstitutionKeys.FORCE_AUTHORIZATION_ADDRESS;          vals[15] = bytes32(0);
+        keys[16] = ConstitutionKeys.PUBLIC_FUND_GOVERNANCE_ADDRESS;       vals[16] = bytes32(0);
 
         // ─── kawase-yui per-member monthly cap (ADR-2605282200 G9) ────
         // 1_000_000_000 = $1_000.00 USD-equivalent in USDC minor units
         // (6 decimals). R1 default; R2 raises to $5_000, R3 to $25_000.
         // KawaseYuiPool reads this at deposit time; reverts on cap breach.
-        keys[15] = ConstitutionKeys.KAWASE_PER_MONTH_CAP_USD_MINOR; vals[15] = bytes32(uint256(1_000_000_000));
-
-        // ─── Buffer slot for future religious-corp parameters ─────────
-        keys[16] = bytes32(0); vals[16] = bytes32(0);
+        keys[17] = ConstitutionKeys.KAWASE_PER_MONTH_CAP_USD_MINOR; vals[17] = bytes32(uint256(1_000_000_000));
     }
 
     function _emitInternal(Internal memory o) internal pure {

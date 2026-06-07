@@ -13,7 +13,7 @@ import {
   nowISO,
   withCapabilityTags,
   type HostSDK,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 const NS = "com.etzhayyim.apps.sharemouse";
 

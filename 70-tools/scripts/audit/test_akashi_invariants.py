@@ -77,7 +77,7 @@ _NEGATIVE_MALAK_IMPORTED = (
 _DRY_RUN_GOLDEN = (
     _REPO / "20-actors" / "akashi" / "fixtures" / "dry_run" / "summary.golden.json"
 )
-_CELLS = _REPO / "20-actors" / "magatama" / "cells"
+_CELLS = _REPO / "20-actors" / "kotodama" / "cells"
 
 _EXPECTED_LEXICONS = {
     "sourcePolicySnapshot",

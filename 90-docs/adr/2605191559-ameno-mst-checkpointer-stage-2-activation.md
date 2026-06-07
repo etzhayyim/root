@@ -8,7 +8,7 @@ authoritative: true
 last_verified: 2026-05-19
 depends_on:
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
-  - 2605191257-ameno-daemon-path-b-pymagatama-python
+  - 2605191257-ameno-daemon-path-b-kotodama-python
   - 2605191346-etzhayyim-vultr-free-murakumo-control-plane
 related:
   - adr-2605181100-mst-encrypted-records-signal-keywrap
@@ -28,8 +28,8 @@ Stage 1 = sidecar present, IPC socket + PVC mounted.
 **Stage 2 = Python actually dials the socket and routes every
 LangGraph checkpoint op through it.** That's this ADR.
 
-`pymagatama.checkpointer.MstCheckpointSaver` already exists(used by
-`pymagatama.projects.uhl_right_neural`、ADR-2605181000)so this is
+`kotodama.checkpointer.MstCheckpointSaver` already exists(used by
+`kotodama.projects.uhl_right_neural`、ADR-2605181000)so this is
 **zero new substrate code** — just teaching `projects.ameno.pregel`
 the same auto-attach trick.
 
@@ -46,7 +46,7 @@ def _maybe_mst_checkpointer() -> BaseCheckpointSaver | None:
     cell_did = os.environ.get(
         "MST_CHECKPOINT_CELL_DID", "did:web:ameno.etzhayyim.com"
     )
-    from pymagatama.checkpointer import MstCheckpointSaver
+    from kotodama.checkpointer import MstCheckpointSaver
     return MstCheckpointSaver(cell_did=cell_did, socket_path=socket_path)
 
 
@@ -89,7 +89,7 @@ per-cell XChaCha20-Poly1305 key before MST projection
 | mode | server pod env | active persistence |
 |---|---|---|
 | **K8s `lg-ameno`** | both vars set | **MstCheckpointSaver → sidecar → MST/IPFS/L2** |
-| **Path B native daemon** (laptop `python -m pymagatama.projects.ameno`) | vars unset | FileCheckpointer (local JSON) |
+| **Path B native daemon** (laptop `python -m kotodama.projects.ameno`) | vars unset | FileCheckpointer (local JSON) |
 | **Path A TS daemon** | n/a (TS doesn't reuse this) | TS FileCheckpointer (unchanged) |
 | **Browser appview** | n/a | LocalCheckpointer (localStorage, unchanged) |
 
@@ -108,7 +108,7 @@ sidecar env block — Stages 3-4 are the next gates:
 - **Stage 4 (L2 anchor)**: flip when `EtzhayyimAnchor` is deployed on
   Base sepolia and the `anchor-cron` CronJob is in place.
 
-Both are infrastructure-side changes; no further pymagatama edits
+Both are infrastructure-side changes; no further kotodama edits
 required.
 
 ## Consequences
@@ -135,10 +135,10 @@ required.
 1. **Continue using FileCheckpointer in the pod** — sidecar would be
    dead weight. Already paying for the container, may as well wire it.
 2. **Skip env auto-attach, force MstCheckpointSaver always** — breaks
-   the laptop dev path (`python -m pymagatama.projects.ameno`
+   the laptop dev path (`python -m kotodama.projects.ameno`
    immediately fails to dial a socket that isn't there).
 3. **Re-implement MstCheckpointSaver inside `projects.ameno`** —
-   `pymagatama.checkpointer` already does this; duplicating costs
+   `kotodama.checkpointer` already does this; duplicating costs
    maintenance.
 
 ## References
@@ -148,5 +148,5 @@ required.
 - ADR-2605181100 (MST encrypted records)
 - ADR-2605191257 (Path B Python port, Stage 1 sidecar)
 - ADR-2605191346 (etzhayyim Vultr-free)
-- `pymagatama.checkpointer.MstCheckpointSaver`(既存実装)
+- `kotodama.checkpointer.MstCheckpointSaver`(既存実装)
 - `@etzhayyim/sdk` checkpointer entrypoint(既存実装)

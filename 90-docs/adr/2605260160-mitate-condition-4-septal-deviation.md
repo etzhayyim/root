@@ -16,10 +16,10 @@ depends_on:
   - adr-2605260100-mitate-diagnostic-routing-charter
   - adr-2605260145-mitate-condition-3-chronic-sinusitis
 related:
-  - 20-actors/magatama/cells/mitate_rhinitis_triage/
-  - 20-actors/magatama/cells/mitate_nasal_endoscopy_acquire/
-  - 20-actors/magatama/cells/mitate_rhinomanometry/
-  - 20-actors/magatama/cells/mitate_ess_surgery_planner/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_rhinitis_triage/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_nasal_endoscopy_acquire/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_rhinomanometry/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_ess_surgery_planner/
 supersedes: []
 superseded_by: []
 ---

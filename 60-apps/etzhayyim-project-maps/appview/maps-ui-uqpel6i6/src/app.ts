@@ -17,8 +17,8 @@ import {
   genID, resolveModelId,
   nsid,
   parseLexiconInput,
-} from "@etzhayyim/magatama-host-sdk";
-import { sql } from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
+import { sql } from "@etzhayyim/kotodama-host-sdk";
 import { cellToBoundary, latLngToCell } from "h3-js";
 import { extractGeomFromRow, parseProps, type AnyRow, type GeoJsonGeom } from "./geometry";
 import { buildMapsSocialPost } from "./social-posts";
@@ -27,6 +27,7 @@ import { normalizeMapsVertexIdentity } from "./vertex-identity";
 import { projectToVertexSpatial, isMapsControlPlaneEntity } from "./vertex-spatial-projection";
 import { registerCollectionCommands, registerWriterEntities } from "./collection-commands";
 import { mirrorVertexWrite, shadowTileGeoJsonRead } from "./etzhayyim-mirror";
+import { queryByCells as kotobaQueryByCells, kotobaEndpoint } from "./kotoba-spatial";
 
 const cadenceState = createCadenceState();
 const inbox = createInboxBuffer();
@@ -1983,7 +1984,7 @@ async function dispatchSatelliteCollectionJob(sdk: HostSDK, phase: number): Prom
   const dateFrom = new Date(Date.now() - 14 * 24 * 3600 * 1000).toISOString().slice(0, 10);
   const stacSearchUrl = `${catalog.stacUrl}/search?collections=${catalog.collectionId}&bbox=${lngMin},${latMin},${lngMax},${latMax}&datetime=${dateFrom}/${dateTo}&limit=3&sortby=-datetime`;
   // Remote site:ingestGeoData → stac_search_json format → processStacSearchResult → satelliteScene geoRecord
-  (sdk as any).hostImports?.magatamaInvoke?.(
+  (sdk as any).hostImports?.kotodamaInvoke?.(
     "site.etzhayyim.com",
     "com.etzhayyim.apps.site.ingestGeoData",
     JSON.stringify({ url: stacSearchUrl, format: "stac_search_json", project: "maps", satellite, stacCollectionId: catalog.collectionId }),
@@ -3000,19 +3001,34 @@ async function cmdGetChunk(_sdk: HostSDK, payload: Uint8Array): Promise<unknown>
   const perLabelSum = labels.reduce((s, l) => s + limitFor(l), 0);
   const globalLimit = Math.min(perLabelSum * cells.length, 20_000);
   let allRows: AnyRow[] = [];
-  try {
-    allRows = await getDb()
-      .selectFrom("vertex_spatial")
-      .selectAll()
-      .where("label", "in", labels)
-      .where("lng", ">=", west)
-      .where("lng", "<=", east)
-      .where("lat", ">=", south)
-      .where("lat", "<=", north)
-      .limit(globalLimit)
-      .execute();
-  } catch {
-    allRows = [];
+  // kotoba-native read (ADR-2606064500 §2): when maps is wired to a kotoba endpoint, the
+  // read is an H3-cell AVET probe — O(cells), no bbox scan. Fail-open (§3): null → fall
+  // through to the legacy RisingWave path below, untouched, until R3 removes it.
+  let servedByKotoba = false;
+  if (kotobaEndpoint(_mapsEnv as Record<string, unknown>)) {
+    const kr = await kotobaQueryByCells(_mapsEnv as Record<string, unknown>, {
+      cells, lod, labels, limit: globalLimit,
+    });
+    // Only treat kotoba as authoritative when it actually returned features. A null (endpoint
+    // unset / error / un-stamped lod) AND an empty array both fall through to RisingWave, so a
+    // partially-populated kotoba never blanks the map during the transition (fail-open §3; B2).
+    if (kr && kr.length > 0) { allRows = kr; servedByKotoba = true; }
+  }
+  if (!servedByKotoba) {
+    try {
+      allRows = await getDb()
+        .selectFrom("vertex_spatial")
+        .selectAll()
+        .where("label", "in", labels)
+        .where("lng", ">=", west)
+        .where("lng", "<=", east)
+        .where("lat", ">=", south)
+        .where("lat", "<=", north)
+        .limit(globalLimit)
+        .execute();
+    } catch {
+      allRows = [];
+    }
   }
 
   // Route each row → owning H3 cell (via feature centroid). Drop rows whose
@@ -3071,7 +3087,8 @@ async function cmdGetChunk(_sdk: HostSDK, payload: Uint8Array): Promise<unknown>
     total++;
   }
 
-  return { chunks, lod, total };
+  // servedBy: which substrate answered this read (ADR-2606064500 §3 fail-open observability)
+  return { chunks, lod, total, servedBy: servedByKotoba ? "kotoba" : "risingwave" };
 }
 
 // ── getChunkModels: DB-driven science model instances for maps-walk.htm ──────
@@ -4524,7 +4541,7 @@ async function cmdCrawlFlightPrices(sdk: HostSDK, payload: Uint8Array): Promise<
     actorId: appId,
   });
 
-  (sdk as any).hostImports?.magatamaInvoke?.(
+  (sdk as any).hostImports?.kotodamaInvoke?.(
     "site.etzhayyim.com",
     "com.etzhayyim.apps.site.crawlPage",
     JSON.stringify({ url: sourceUrl, depth: 1, topics: "flight-price,aviation,booking" }),
@@ -5640,7 +5657,7 @@ async function cmdSeedSeismicFeed(sdk: HostSDK, payload: Uint8Array): Promise<Ui
     significant: "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_week.geojson",
   } as const;
   const feedUrl = feedMap[req.feed ?? "day"];
-  (sdk as any).hostImports?.magatamaInvoke?.(
+  (sdk as any).hostImports?.kotodamaInvoke?.(
     "site.etzhayyim.com",
     "com.etzhayyim.apps.site.ingestGeoData",
     JSON.stringify({ url: feedUrl, format: "usgs_geojson", project: "maps" }),
@@ -5671,7 +5688,7 @@ async function cmdSeedMunicipalities(sdk: HostSDK, payload: Uint8Array): Promise
     "} LIMIT 2000",
   ].join(" ");
   const url = `https://query.wikidata.org/sparql?format=json&query=${encodeURIComponent(sparql)}`;
-  (sdk as any).hostImports?.magatamaInvoke?.(
+  (sdk as any).hostImports?.kotodamaInvoke?.(
     "site.etzhayyim.com",
     "com.etzhayyim.apps.site.ingestGeoData",
     JSON.stringify({ url, format: "wikidata_sparql", project: "maps" }),
@@ -5695,7 +5712,7 @@ async function cmdSeedGtfsJp(sdk: HostSDK, _payload: Uint8Array): Promise<Uint8A
     "www.odakyu.jp",
     "developer.odpt.org",
   ];
-  (sdk as any).hostImports?.magatamaInvoke?.(
+  (sdk as any).hostImports?.kotodamaInvoke?.(
     "site.etzhayyim.com",
     "com.etzhayyim.apps.site.seedForProject",
     JSON.stringify({
@@ -5730,7 +5747,7 @@ async function cmdSeedWorldAdminAreas(sdk: HostSDK, payload: Uint8Array): Promis
     `} LIMIT ${limit}`,
   ].join(" ");
   const url = `https://query.wikidata.org/sparql?format=json&query=${encodeURIComponent(sparql)}`;
-  (sdk as any).hostImports?.magatamaInvoke?.(
+  (sdk as any).hostImports?.kotodamaInvoke?.(
     "site.etzhayyim.com",
     "com.etzhayyim.apps.site.ingestGeoData",
     JSON.stringify({ url, format: "wikidata_sparql", project: "maps" }),
@@ -5748,7 +5765,7 @@ async function cmdSeedWorldAdminAreas(sdk: HostSDK, payload: Uint8Array): Promis
  */
 async function cmdSeedAirports(sdk: HostSDK, _payload: Uint8Array): Promise<Uint8Array> {
   const url = "https://davidmegginson.github.io/ourairports-data/airports.csv";
-  (sdk as any).hostImports?.magatamaInvoke?.(
+  (sdk as any).hostImports?.kotodamaInvoke?.(
     "site.etzhayyim.com",
     "com.etzhayyim.apps.site.ingestGeoData",
     JSON.stringify({ url, format: "ourairports_csv", project: "maps" }),
@@ -5772,7 +5789,7 @@ async function cmdSeedAdsb(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Arra
   const lamax = req.lamax ?? 46.0;
   const lomax = req.lomax ?? 154.0;
   const url = `https://opensky-network.org/api/states/all?lamin=${lamin}&lomin=${lomin}&lamax=${lamax}&lomax=${lomax}`;
-  (sdk as any).hostImports?.magatamaInvoke?.(
+  (sdk as any).hostImports?.kotodamaInvoke?.(
     "site.etzhayyim.com",
     "com.etzhayyim.apps.site.ingestGeoData",
     JSON.stringify({ url, format: "opensky_json", project: "maps" }),
@@ -5785,7 +5802,7 @@ async function cmdSeedAdsb(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Arra
  * Seed world rivers from Wikidata SPARQL (Q4022 = river, ~15K with coordinates).
  */
 async function cmdSeedWorldRivers(sdk: HostSDK, _payload: Uint8Array): Promise<Uint8Array> {
-  (sdk as any).hostImports?.magatamaInvoke?.(
+  (sdk as any).hostImports?.kotodamaInvoke?.(
     "site.etzhayyim.com",
     "com.etzhayyim.apps.site.ingestGeoData",
     JSON.stringify({ url: "https://query.wikidata.org/sparql", format: "wikidata_sparql", project: "maps",
@@ -5800,7 +5817,7 @@ async function cmdSeedWorldRivers(sdk: HostSDK, _payload: Uint8Array): Promise<U
  * Seed world lakes from Wikidata SPARQL (Q23397 = lake, ~8K with coordinates).
  */
 async function cmdSeedWorldLakes(sdk: HostSDK, _payload: Uint8Array): Promise<Uint8Array> {
-  (sdk as any).hostImports?.magatamaInvoke?.(
+  (sdk as any).hostImports?.kotodamaInvoke?.(
     "site.etzhayyim.com",
     "com.etzhayyim.apps.site.ingestGeoData",
     JSON.stringify({ url: "https://query.wikidata.org/sparql", format: "wikidata_sparql", project: "maps",
@@ -5999,7 +6016,7 @@ async function cmdListCelestialObjects(_sdk: HostSDK, payload: Uint8Array): Prom
  * Seed world mountains from Wikidata SPARQL (Q8502 = mountain, ~20K with coordinates + elevation).
  */
 async function cmdSeedWorldMountains(sdk: HostSDK, _payload: Uint8Array): Promise<Uint8Array> {
-  (sdk as any).hostImports?.magatamaInvoke?.(
+  (sdk as any).hostImports?.kotodamaInvoke?.(
     "site.etzhayyim.com",
     "com.etzhayyim.apps.site.ingestGeoData",
     JSON.stringify({ url: "https://query.wikidata.org/sparql", format: "wikidata_sparql", project: "maps",
@@ -6014,7 +6031,7 @@ async function cmdSeedWorldMountains(sdk: HostSDK, _payload: Uint8Array): Promis
  * Seed world railway stations from Wikidata SPARQL (Q55488 = railway station, ~30K).
  */
 async function cmdSeedWorldStations(sdk: HostSDK, _payload: Uint8Array): Promise<Uint8Array> {
-  (sdk as any).hostImports?.magatamaInvoke?.(
+  (sdk as any).hostImports?.kotodamaInvoke?.(
     "site.etzhayyim.com",
     "com.etzhayyim.apps.site.ingestGeoData",
     JSON.stringify({ url: "https://query.wikidata.org/sparql", format: "wikidata_sparql", project: "maps",
@@ -6029,7 +6046,7 @@ async function cmdSeedWorldStations(sdk: HostSDK, _payload: Uint8Array): Promise
  * Seed world ports from Wikidata SPARQL (Q44782 = port, ~5K).
  */
 async function cmdSeedWorldPorts(sdk: HostSDK, _payload: Uint8Array): Promise<Uint8Array> {
-  (sdk as any).hostImports?.magatamaInvoke?.(
+  (sdk as any).hostImports?.kotodamaInvoke?.(
     "site.etzhayyim.com",
     "com.etzhayyim.apps.site.ingestGeoData",
     JSON.stringify({ url: "https://query.wikidata.org/sparql", format: "wikidata_sparql", project: "maps",
@@ -6792,7 +6809,7 @@ async function cmdSeedGlobalRegistries(sdk: HostSDK, payload: Uint8Array): Promi
   const req = decodeJson<Record<string, unknown>>(payload, {});
   const actions: unknown[] = [];
   // Wikidata SPARQL: companies with HQ coordinates + industry
-  (sdk as any).hostImports?.magatamaInvoke?.(
+  (sdk as any).hostImports?.kotodamaInvoke?.(
     "site.etzhayyim.com",
     "com.etzhayyim.apps.site.ingestGeoData",
     JSON.stringify({
@@ -6809,21 +6826,21 @@ async function cmdSeedGlobalRegistries(sdk: HostSDK, payload: Uint8Array): Promi
   );
   actions.push({ action: "wikidataCorporations", source: REGISTRY_SOURCE_DIDS.wikidata });
   // GLEIF LEI bulk download (CSV)
-  (sdk as any).hostImports?.magatamaInvoke?.(
+  (sdk as any).hostImports?.kotodamaInvoke?.(
     "site.etzhayyim.com",
     "com.etzhayyim.apps.site.ingestGeoData",
     JSON.stringify({ url: "https://lei-api.gleif.org/api/v1/lei-records?page[size]=100&page[number]=1", format: "gleif_json", project: "maps" }),
   );
   actions.push({ action: "gleifLei", source: REGISTRY_SOURCE_DIDS.gleif });
   // JP 法人番号 (NTA open data)
-  (sdk as any).hostImports?.magatamaInvoke?.(
+  (sdk as any).hostImports?.kotodamaInvoke?.(
     "site.etzhayyim.com",
     "com.etzhayyim.apps.site.ingestGeoData",
     JSON.stringify({ url: "https://www.houjin-bangou.nta.go.jp/download/zenken/", format: "jp_nta_csv", project: "maps" }),
   );
   actions.push({ action: "jpNtaCorporateNumber", source: REGISTRY_SOURCE_DIDS.jpNta });
   // OpenAddresses global addresses
-  (sdk as any).hostImports?.magatamaInvoke?.(
+  (sdk as any).hostImports?.kotodamaInvoke?.(
     "site.etzhayyim.com",
     "com.etzhayyim.apps.site.ingestGeoData",
     JSON.stringify({ url: "https://batch.openaddresses.io/api/data", format: "openaddresses_json", project: "maps" }),
@@ -7537,7 +7554,7 @@ async function cmdSearchSemanticNodes(sdk: HostSDK, payload: Uint8Array): Promis
 
 // ── SDK Bootstrap ──
 
-// ADR-0087 magatama MCP Tool Facade — opt-in `mcpRegistry: {}` flag mounts
+// ADR-0087 kotodama MCP Tool Facade — opt-in `mcpRegistry: {}` flag mounts
 // the per-actor `/mcp` Streamable-HTTP endpoint. No new dispatch path: every
 // `sdk.app.command()` already declared above with `asAgentTool(...)` is
 // auto-published to `tools/list` from the Kysely `vertex_mcp_tool_def` registry
@@ -7711,7 +7728,7 @@ const _innerExport = createWorkerExport((sdk) => {
         "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_week.geojson", // 重要 週次 (~5件)
       ];
       const feedUrl = feeds[collectionPhase % feeds.length];
-      (sdk as any).hostImports?.magatamaInvoke?.(
+      (sdk as any).hostImports?.kotodamaInvoke?.(
         "site.etzhayyim.com",
         "com.etzhayyim.apps.site.ingestGeoData",
         JSON.stringify({ url: feedUrl, format: "usgs_geojson", project: "maps" }),
@@ -7734,7 +7751,7 @@ const _innerExport = createWorkerExport((sdk) => {
       ];
       const tile = tiles[collectionPhase % tiles.length];
       const adsbUrl = `https://opensky-network.org/api/states/all?lamin=${tile.lamin}&lomin=${tile.lomin}&lamax=${tile.lamax}&lomax=${tile.lomax}`;
-      (sdk as any).hostImports?.magatamaInvoke?.(
+      (sdk as any).hostImports?.kotodamaInvoke?.(
         "site.etzhayyim.com",
         "com.etzhayyim.apps.site.ingestGeoData",
         JSON.stringify({ url: adsbUrl, format: "opensky_json", project: "maps" }),

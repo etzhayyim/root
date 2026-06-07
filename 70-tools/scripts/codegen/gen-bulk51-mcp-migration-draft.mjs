@@ -17,7 +17,7 @@
  *
  * Inputs:
  *   - 30-graph/.../sql_migrations/20260509150000_topology_bulk_51.up.sql
- *   - 20-actors/magatama/py/src/pymagatama/langgraph_graphs/<actor>.py
+ *   - 40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs/<actor>.py
  *
  * Outputs (under _working/transform-drafts/bulk51/):
  *   - <actor>.lexicon.<method>.draft.json
@@ -40,7 +40,7 @@ const BULK_SQL = path.join(
   REPO_ROOT,
   "30-graph/graph-schema/sql_migrations/20260509150000_topology_bulk_51.up.sql",
 );
-const PYBASE = path.join(REPO_ROOT, "20-actors/magatama/py/src/pymagatama/langgraph_graphs");
+const PYBASE = path.join(REPO_ROOT, "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs");
 const OUTBASE = path.join(REPO_ROOT, "_working/transform-drafts/bulk51");
 
 const SNAKE = /(?<!^)(?=[A-Z])/g;
@@ -59,28 +59,28 @@ const ALREADY_MIGRATED = new Set([
 // (<actor>.etzhayyim.com) so it's intentionally short. Method NSIDs include the
 // distinguishing prefix that was originally part of the assistant_id.
 const ACTOR_GROUPS = {
-  // pymagatama.primitives.aria_signal:task_aria_*  →  com.etzhayyim.apps.aria.*
+  // kotodama.primitives.aria_signal:task_aria_*  →  com.etzhayyim.apps.aria.*
   aria: {
     matches: /^aria_/,
     method_template: (assistantId) => assistantId.replace(/^aria_/, ""),
-    module: "pymagatama.primitives.aria_signal",
+    module: "kotodama.primitives.aria_signal",
     fn_template: "task_aria_{snake}",
   },
-  // pymagatama.primitives.shosha:task_shosha_*  →  com.etzhayyim.apps.shosha.*
+  // kotodama.primitives.shosha:task_shosha_*  →  com.etzhayyim.apps.shosha.*
   shosha: {
     matches: /^shosha_/,
     method_template: (assistantId) => assistantId.replace(/^shosha_/, ""),
-    module: "pymagatama.primitives.shosha",
+    module: "kotodama.primitives.shosha",
     fn_template: "task_shosha_{snake}",
   },
-  // pymagatama.primitives.isbn:task_isbn_*  →  com.etzhayyim.apps.isbn.*
+  // kotodama.primitives.isbn:task_isbn_*  →  com.etzhayyim.apps.isbn.*
   isbn: {
     matches: /^isbn_/,
     method_template: (assistantId) => assistantId.replace(/^isbn_/, ""),
-    module: "pymagatama.primitives.isbn",
+    module: "kotodama.primitives.isbn",
     fn_template: "task_isbn_{snake}",
   },
-  // pymagatama.primitives.wellbecoming_*  →  com.etzhayyim.apps.wellbecoming.*
+  // kotodama.primitives.wellbecoming_*  →  com.etzhayyim.apps.wellbecoming.*
   // (per-sub-module variation; resolver still finds it because module is set)
   wellbecoming: {
     matches: /^wellbecoming_/,
@@ -102,7 +102,7 @@ function refsFromBulk() {
   const txt = readFileSync(BULK_SQL, "utf8");
   // Extract assistant_id + node bindings.
   const assistRe = /VALUES\s*\(\s*'([a-z0-9_]+)'\s*,[^)]*?'topology'[^)]*?'(\{[^']+\})'/g;
-  const nodeRe = /VALUES\s*\(\s*'([a-z0-9_]+):([a-z0-9_]+)'\s*,[^)]*?'([a-z0-9_]+)'\s*,\s*'([a-z0-9_]+)'\s*,\s*'py_primitive'\s*,\s*'(pymagatama\.langgraph_graphs\.([a-z_]+)):([a-zA-Z_]+)'/g;
+  const nodeRe = /VALUES\s*\(\s*'([a-z0-9_]+):([a-z0-9_]+)'\s*,[^)]*?'([a-z0-9_]+)'\s*,\s*'([a-z0-9_]+)'\s*,\s*'py_primitive'\s*,\s*'(kotodama\.langgraph_graphs\.([a-z_]+)):([a-zA-Z_]+)'/g;
   const assistants = {};
   let m;
   while ((m = assistRe.exec(txt)) !== null) {
@@ -134,7 +134,7 @@ function analyzeNode(actor, fn) {
   const body = m[1];
 
   // Find `from <module> import task_<name>` inside function body.
-  const importRe = /from\s+(pymagatama\.[a-z0-9_.]+)\s+import\s+([a-zA-Z_]+(?:\s*,\s*[a-zA-Z_]+)*)/g;
+  const importRe = /from\s+(kotodama\.[a-z0-9_.]+)\s+import\s+([a-zA-Z_]+(?:\s*,\s*[a-zA-Z_]+)*)/g;
   const imports = [];
   let im;
   while ((im = importRe.exec(body)) !== null) {
@@ -183,8 +183,8 @@ function makeArtifacts(actor, byNode, assistantSpec) {
   const sortedTasks = Object.entries(taskCounts).sort((a, b) => b[1] - a[1]);
   const dominantImport = sortedTasks[0]?.[0];
 
-  // Default convention: module = pymagatama.{actor}_worker_main, fn = task_{snake}
-  const defaultModule = `pymagatama.${actor}_worker_main`;
+  // Default convention: module = kotodama.{actor}_worker_main, fn = task_{snake}
+  const defaultModule = `kotodama.${actor}_worker_main`;
   const defaultFnFor = (m) => `task_${camelToSnake(m)}`;
 
   // If dominant task is in a different module OR has unusual prefix, emit override.

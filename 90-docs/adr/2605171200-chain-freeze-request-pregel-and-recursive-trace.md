@@ -59,7 +59,7 @@ address_label_pursuit (multi-source label batch). What was still missing:
 
 ## 1. New Pregel: `chain_freeze_request_pursuit`
 
-Module: `20-actors/magatama/py/src/pymagatama/malak/langgraph/chain_freeze_request_pursuit.py`
+Module: `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/malak/langgraph/chain_freeze_request_pursuit.py`
 NSID: `com.etzhayyim.apps.malak.chainFreezeRequest`
 LangServer route: `POST /invoke/chainFreezeRequest`
 
@@ -224,7 +224,7 @@ criterion provides closure.
 
 # References
 
-- `20-actors/magatama/py/src/pymagatama/malak/langgraph/chain_freeze_request_pursuit.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/malak/langgraph/chain_freeze_request_pursuit.py`
 - `_working/malak/freeze-request-takahashi-20260515/` (Phase 0 packet outputs)
 - `_working/malak/freeze-request-takahashi-20260515-phase1live/` (Phase 1 live_write run)
 - `_working/malak/whale-recursive-20260516/` (8 unverified-contract recursive inspect)

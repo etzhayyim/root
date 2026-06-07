@@ -333,6 +333,32 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
     adrs: ["2605302300"],
   },
+  kyber: {
+    description:
+      "Kyber — open-kyber ERP as a content-addressed kotoba WASM actor. The ERP business logic (accounting GL / AP-AR / inventory / the kotoba-native productivity suite) compiled to a `kotoba-node` WASM component that the kotoba host / e7m-wasm-runner stores on IPFS (by CID) and runs, writing canonical ERP state straight into the kotoba Datom log via the `kqe` host import — no Cloudflare Worker, no XRPC→PDS hop. Multi-command dispatch over `run(ctx_cbor)`. R3 PoC (kyber-erp-core: createAccount / seedChartOfAccounts / createJournalEntry double-entry-validated + best-effort trial-balance/coverage reads); full 28-command port per WORKER-AS-WASM-ACTOR-MIGRATION.md. Per ADR-2606037200.",
+    glyph: "K",
+    displayName: "Kyber — open-kyber ERP (kotoba WASM actor)",
+    primarySchema: "00-contracts/schemas/erp-ontology.kotoba.edn",
+    // Content-addressed Rust WASM component (60-apps/etzhayyim-project-open-kyber/wasm/
+    // kyber-erp-core) — raw single-block CID (~119KB); a stateful multi-command ERP service,
+    // run on the kotoba host / donated mesh via e7m-wasm-runner (component → jco), NOT a
+    // per-actor server (ADR-2606014500). The deployed CF Worker (kyb3rerp) remains the live
+    // path until this actor is published + ratified.
+    wasmCid: "bafkreigdcmd54zval3z7xwmvmq5tgbsu6rpbxx4gtyhswxhvvfkaltaomi",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:kyber#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:kyber#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606037200"],
+  },
   kabuto: {
     description:
       "兜 — world public-company (listed-company) supply-chain knowledge graph. Datafies LISTED companies, their registered HQ address + public IR contact, the first-class SUPPLY edges (supplier → customer) that wire the global supply chain, and BPMN process templates into the kotoba Datom log; surfaces single-source / sector / jurisdiction CONCENTRATION routed to redundancy + accountability. Posts aggregate-first findings as atproto-compatible social posts; renders entirely in the in-browser kotoba-wasm node. A resilience + corporate-power-transparency map, NEVER a target-list (sibling of tsumugi / watatsuna / danjo; shares the org.corp.* id space). Per ADR-2606022000.",
@@ -354,6 +380,27 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
     adrs: ["2606022000"],
   },
+  sukashi: {
+    description:
+      "透かし — ad-tech supply-chain + delivery-infrastructure + fraud-network observatory. The ad-tech-supply-chain + fraud sibling of akashi 証 (which observes platform ad-LIBRARY disclosures and is constitutionally bounded away from ad-network/exchange + delivery-infra). Datafies the programmatic advertising ecosystem from the PUBLIC IAB web-standard files (ads.txt / app-ads.txt / sellers.json) into the kotoba Datom log: :adtech/* (advertiser/DSP/ad-exchange/SSP/ad-network/publisher/verification), first-class :adauth.edge/* authorization edges + the declared/confirmed two-sided handshake whose GAPS reveal unauthorized / spoofed inventory, :adcreative/* (who broadcasts what), first-class :addelivery.edge/* binding a creative to its serving infrastructure (:ip/:asn/WHOIS-org, REUSING tadori's ip-network + passive-dns ontologies — not re-modelling the network layer), and NON-ADJUDICATING :adfraud.signal/* routed to akashi-malak / kurashimori / tasuke / danjo. analyze.py is aggregate-first (authorization-handshake integrity, account-id-collision domain-spoof surface, delivery-infra concentration by ASN/registrar, shared-infra scam-ad-network clustering). A fraud-PROTECTION + ad-tech-TRANSPARENCY map, NEVER an ad network / buying / targeting / optimization / detection-evasion tool — the Charter 広告排除 invariant is SERVED, not violated (this is meta-observation OF advertising). NON-ADJUDICATING (G4): real firms carry no fraud signal; every fraud example is :synthesized on a CLEARLY-FICTIONAL entity. Per ADR-2606071600.",
+    glyph: "透かし",
+    displayName: "Sukashi — Ad-Tech Supply-Chain + Delivery-Infra + Fraud-Network Observatory",
+    primaryLexicon: "com.etzhayyim.sukashi",
+    primarySchema: "00-contracts/schemas/ad-supply-chain-ontology.kotoba.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:sukashi#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:sukashi#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606071600"],
+  },
   kanjo: {
     description:
       "勘定 — world public-company financial-disclosure (決算) knowledge graph. Registers LISTED companies' DISCLOSED balance-sheet / income-statement / cash-flow line items from PRIMARY disclosure ONLY (JP EDINET 有価証券報告書 + US SEC EDGAR 10-K/20-F + Companies House + EU OAM, all Tier-A per ADR-2605263800) into the kotoba Datom log as :fin.fact/*, normalized across JP-GAAP / US-GAAP / IFRS onto canonical concepts (honest where non-comparable — 経常利益 = JGAAP-only). The external public-company sibling of toritate 執帳 (internal accounting) and the financials face of kabuto 兜 (shares the org.corp.* id space). NON-ADJUDICATING + NO investment advice (NOT 投資助言業) + NO forecasting (no 業績予想) — records what the company disclosed + transparent ratios, never a rating / valuation / recommendation. 会社四季報 + all paid commercial terminals (Bloomberg / S&P CapIQ / Refinitiv / FactSet / Moody's / D&B / Pitchbook / Crunchbase) PROHIBITED per Charter Rider §2(e) anti-gatekeeping + §2(c): read the filing, never the terminal. Per ADR-2606032000.",
@@ -374,6 +421,27 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       },
     ],
     adrs: ["2606032000"],
+  },
+  kasa: {
+    description:
+      "嵩 — worldwide computing-capacity growth observatory. Datafies, from PUBLIC information only, the annual MAGNITUDE + GROWTH (年間増加量) of computing capacity across four domains — STORAGE (HDD+SSD exabytes shipped), MEMORY (DRAM+NAND market revenue), GPU/CPU (discrete-GPU + client-CPU units, datacenter-accelerator revenue) and COMPUTE/FLOPS (TOP500 aggregate Rmax, frontier-model training compute) — plus DATACENTER power capacity, into the kotoba Datom log as :compute.obs/*, then computes YoY + CAGR and coverage-honest domain aggregates (memory is a SUBSET of semiconductor, structurally never double-counted; TOP500 :petaflops never summed with raw :flops). Reads public headline figures + open datasets ONLY (WSTS/SIA semiconductor sales, TrendForce DRAM/NAND, IDC HDD/SSD, JPR GPU, TOP500 public list, Epoch AI CC-BY, Our World in Data CC-BY, company filings). The industry-aggregate sibling of kanjō 勘定 (per-company 決算) and the demand-side counterpart of the silicon actors (handotai / iwakura / fuigo); feeds measured actuals to mitooshi 見通し but NEVER forecasts itself (G4 — future projection is mitooshi's job). NON-ADJUDICATING + PLANNING-LENS not a targeting list (sizes the compute commons, never a country/company ranking or an export-control / weaponization list) + NO investment advice. Paid market-research full reports + subscription terminals (Gartner / IDC-report / Omdia / Bloomberg / S&P / Statista-Pro / Yole) PROHIBITED per Charter Rider §2(e) anti-gatekeeping + §2(c): read the press release, never the terminal. Per ADR-2606072000.",
+    glyph: "嵩",
+    displayName: "Kasa — Worldwide Computing-Capacity Growth Observatory",
+    primaryLexicon: "com.etzhayyim.kasa",
+    primarySchema: "00-contracts/schemas/compute-capacity-ontology.kotoba.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:kasa#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:kasa#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606072000"],
   },
   ooyake: {
     description:
@@ -618,6 +686,27 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       },
     ],
     adrs: ["2606062300"],
+  },
+  kawaraban: {
+    description:
+      "瓦版 — a NEWS MEDIUM, kotoba-wasm-native, on the Murakumo fleet. Two faces over one Datom log: (1) MIRROR — datafies the world's real news media (outlets · 面/sections · headlines · bylines · links) into the kotoba Datom log as an append-only as-of trail, matching the SURFACE (面) of actual news media (一面/政治/経済/国際/社会/文化/科学/スポーツ); each mirrored article is headline + canonical link + bounded fair-use excerpt + outlet (it LINKS OUT, never stores the body and never rules truth). (2) MEDIUM — the connective wire BETWEEN etzhayyim actors: each first-party actor's own Datom as-of events project into the matching 面 as :article/kind :actor-event, and every article carries :news.mention edges to the actors/entities it concerns, so the article × mention × 面 graph IS the actor-to-actor wire (danjo finds → kawaraban carries → kanae renders; a chokepoint story links watari + watatsuna + mitooshi in one 国際 面). The charter-clean inverse of a 'news app': a public-square mirror that NEVER advertises or paid-places (Charter-Rider §2; :paid-placement/:sponsored unrepresentable, G2), NEVER engagement-ranks (Charter §1.13), NEVER profiles a reader (G3 — no :reader entity, the 面 is identical for all), NEVER republishes full copyrighted text (G4, :full-text unrepresentable — link-out only), NEVER adjudicates truth (G1 — :verdict/:truth-rating unrepresentable; ake/danjo boundary), NEVER speaks AS an outlet or another actor (G9, ADR-2606042330), and authors no :original first-person claim (G11 — a medium, not a source). Sibling boundary: kataribe 語部 IS etzhayyim's own press (a primary voice); kawaraban MIRRORS the world's press and WIRES the actors together. 5 Pregel cells (coded state machines; .solve() raises at R0) + 6 lexicons + 46 tests green; :representative seed (7 outlets / 10 面 / 9 wires / 12 articles / 24 mentions). Live RSS/outlet ingest + live publish are Council Lv6+ + operator gated (G8). ZERO invariant amendments — STRENGTHENS no-server-key (ADR-2605231525), kotoba-canonical-state (ADR-2605312345), the feed-post membrane (ADR-2605231902), and the mirror invariant (ADR-2606042330). Per ADR-2606061900.",
+    glyph: "瓦版",
+    displayName: "Kawaraban — News Medium (real-media mirror + actor-to-actor wire)",
+    primaryLexicon: "com.etzhayyim.kawaraban.article",
+    primarySchema: "00-contracts/schemas/news-medium-ontology.kotoba.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:kawaraban#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:kawaraban#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606061900"],
   },
 } as const;
 

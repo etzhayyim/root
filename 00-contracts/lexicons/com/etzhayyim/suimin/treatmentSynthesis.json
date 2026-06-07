@@ -1,0 +1,81 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.suimin.treatmentSynthesis",
+  "description": "Population-level treatment-evidence landscape for one treatment modality of one sleep-disorder condition. Aggregates constituent evidenceRecords (G1 provenance preserved), carries an explicit overall GRADE (G2), a mandatory non-diagnostic disclaimer reference (G3, via suimin_disclaimer_gate), and a referral pointer (G4). NEVER individual-specific: no diagnosis, severity (AHI), device setting, surgical indication, or prescription (N1-N5). Per ADR-2606072800 §Decision 5 (suimin_treatment_synthesize).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "conditionSlug",
+          "treatmentSlug",
+          "treatmentDisplayName",
+          "overallEvidenceGrade",
+          "evidenceRecordUris",
+          "disclaimerTextUri",
+          "synthesizedAt",
+          "phase"
+        ],
+        "properties": {
+          "v": { "type": "integer", "minimum": 1, "maximum": 1 },
+          "conditionSlug": {
+            "type": "string",
+            "knownValues": ["sleep-apnea-obstructive", "sleep-apnea-central", "sleep-apnea-mixed"]
+          },
+          "treatmentSlug": { "type": "string", "maxLength": 100 },
+          "treatmentDisplayName": {
+            "type": "string",
+            "maxLength": 200,
+            "description": "Brand-neutral name (device class / INN only — G12), e.g., 'CPAP (持続陽圧呼吸療法)'."
+          },
+          "overallEvidenceGrade": {
+            "type": "string",
+            "knownValues": ["high", "moderate", "low", "very-low", "insufficient"],
+            "description": "GRADE summary across constituent evidence (G2). Mandatory."
+          },
+          "populationSummary": {
+            "type": "string",
+            "maxLength": 3000,
+            "description": "Population-level synthesis: what the evidence shows for the general condition population (efficacy on AHI / daytime sleepiness / cardiovascular outcomes / adherence). NOT a recommendation for any individual (G4)."
+          },
+          "considerations": {
+            "type": "string",
+            "maxLength": 2000,
+            "description": "Brand-neutral considerations (e.g., adherence challenges, candidacy generally discussed in guidelines). Framed as 'discuss with a sleep-medicine clinician', not a directive."
+          },
+          "evidenceRecordUris": {
+            "type": "array",
+            "minLength": 1,
+            "items": { "type": "string", "format": "at-uri" },
+            "description": "Back-references to constituent com.etzhayyim.suimin.evidenceRecord items (G1 provenance chain). At least one required — no claim without evidence."
+          },
+          "disclaimerTextUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "Reference to the active com.etzhayyim.suimin.disclaimerText (G3 invariant — set by suimin_disclaimer_gate, tamper-resistant)."
+          },
+          "referralPathwayUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "Optional pointer to com.etzhayyim.suimin.referralPathway (G4 — where to seek a clinician)."
+          },
+          "mdReviewWitnessDid": {
+            "type": "string",
+            "format": "did",
+            "description": "R2+ licensed sleep-medicine MD co-sign DID (G9 witness N>=2 for synthesis baseline)."
+          },
+          "synthesizedBy": { "type": "string", "format": "did", "description": "Automated synthesis output DID (deterministic)." },
+          "synthesizedAt": { "type": "string", "format": "datetime" },
+          "phase": {
+            "type": "string",
+            "knownValues": ["R1-corpus", "R2-individual-context", "R3-community"],
+            "description": "Phasing gate (ADR-2606072800 §Decision 7). R1 = corpus-level only (no PHI)."
+          }
+        }
+      }
+    }
+  }
+}
