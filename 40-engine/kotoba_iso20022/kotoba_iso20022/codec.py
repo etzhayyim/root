@@ -36,9 +36,11 @@ from .model import (
     CashBalance,
     CreditTransferTransaction,
     CustomerCreditTransferInitiation,
+    CustomerPaymentStatusReport,
     FIToFICustomerCreditTransfer,
     FIToFIPaymentStatusReport,
     GroupHeader,
+    OriginalPaymentStatus,
     Party,
     PaymentInstruction,
     PostalAddress,
@@ -68,10 +70,13 @@ __all__ = (
     "parse_camt053",
     "build_camt054",
     "parse_camt054",
+    "build_pain002",
+    "parse_pain002",
 )
 
 DEFAULT_VERSIONS: dict[str, str] = {
     "pain.001": "pain.001.001.09",
+    "pain.002": "pain.002.001.10",
     "pacs.008": "pacs.008.001.08",
     "pacs.002": "pacs.002.001.10",
     "camt.053": "camt.053.001.08",
@@ -683,4 +688,78 @@ def parse_camt054(xml: str, version: Optional[str] = None) -> BankToCustomerDebi
         )
     return BankToCustomerDebitCreditNotification(
         group_header=gh, notifications=tuple(notifications)
+    )
+
+
+# --------------------------------------------------------------------------
+# pain.002 — CustomerPaymentStatusReport (pain-side ack of pain.001)
+# --------------------------------------------------------------------------
+
+
+def _build_tx_status(parent: ET.Element, ns: str, sts: TransactionStatus) -> None:
+    ts = _sub(parent, ns, "TxInfAndSts")
+    _sub(ts, ns, "StsId", sts.status_id)
+    if sts.original_end_to_end_id:
+        _sub(ts, ns, "OrgnlEndToEndId", sts.original_end_to_end_id)
+    if sts.original_tx_id:
+        _sub(ts, ns, "OrgnlTxId", sts.original_tx_id)
+    _sub(ts, ns, "TxSts", sts.transaction_status)
+    if sts.status_reason_code or sts.additional_info:
+        rsn = _sub(ts, ns, "StsRsnInf")
+        if sts.status_reason_code:
+            _sub(_sub(rsn, ns, "Rsn"), ns, "Cd", sts.status_reason_code)
+        for info in sts.additional_info:
+            _sub(rsn, ns, "AddtlInf", info)
+
+
+def _parse_tx_status(ts: ET.Element, ns: str) -> TransactionStatus:
+    rsn = _find(ts, ns, "StsRsnInf")
+    return TransactionStatus(
+        status_id=_text(ts, ns, "StsId") or "",
+        original_end_to_end_id=_text(ts, ns, "OrgnlEndToEndId"),
+        original_tx_id=_text(ts, ns, "OrgnlTxId"),
+        transaction_status=_text(ts, ns, "TxSts") or "ACSP",  # type: ignore[arg-type]
+        status_reason_code=_text(ts, ns, "StsRsnInf/Rsn/Cd"),
+        additional_info=tuple(
+            a.text for a in (_findall(rsn, ns, "AddtlInf") if rsn is not None else []) if a.text
+        ),
+    )
+
+
+def build_pain002(msg: CustomerPaymentStatusReport, version: Optional[str] = None) -> str:
+    ns = urn_for(version or DEFAULT_VERSIONS["pain.002"])
+    doc, root = _root(ns, "CstmrPmtStsRpt")
+    _grphdr_min(root, ns, msg.group_header)
+    orig = _sub(root, ns, "OrgnlGrpInfAndSts")
+    _sub(orig, ns, "OrgnlMsgId", msg.original_message_id)
+    _sub(orig, ns, "OrgnlMsgNmId", msg.original_message_name_id)
+    for pmt in msg.payment_statuses:
+        pinf = _sub(root, ns, "OrgnlPmtInfAndSts")
+        _sub(pinf, ns, "OrgnlPmtInfId", pmt.original_payment_info_id)
+        for sts in pmt.statuses:
+            _build_tx_status(pinf, ns, sts)
+    return _serialize(doc)
+
+
+def parse_pain002(xml: str, version: Optional[str] = None) -> CustomerPaymentStatusReport:
+    ns = urn_for(version or DEFAULT_VERSIONS["pain.002"])
+    root = _root_or_raise(xml, ns, "CstmrPmtStsRpt")
+    gh = GroupHeader(
+        message_id=_text(root, ns, "GrpHdr/MsgId") or "",
+        creation_datetime=_text(root, ns, "GrpHdr/CreDtTm") or "",
+        number_of_txs=0,
+    )
+    payment_statuses = []
+    for pinf in _findall(root, ns, "OrgnlPmtInfAndSts"):
+        payment_statuses.append(
+            OriginalPaymentStatus(
+                original_payment_info_id=_text(pinf, ns, "OrgnlPmtInfId") or "",
+                statuses=tuple(_parse_tx_status(ts, ns) for ts in _findall(pinf, ns, "TxInfAndSts")),
+            )
+        )
+    return CustomerPaymentStatusReport(
+        group_header=gh,
+        original_message_id=_text(root, ns, "OrgnlGrpInfAndSts/OrgnlMsgId") or "",
+        original_message_name_id=_text(root, ns, "OrgnlGrpInfAndSts/OrgnlMsgNmId") or "",
+        payment_statuses=tuple(payment_statuses),
     )

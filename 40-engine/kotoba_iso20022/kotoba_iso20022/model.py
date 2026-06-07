@@ -54,6 +54,9 @@ __all__ = (
     "BankToCustomerStatement",
     "AccountNotification",
     "BankToCustomerDebitCreditNotification",
+    "BusinessApplicationHeader",
+    "OriginalPaymentStatus",
+    "CustomerPaymentStatusReport",
 )
 
 # ISO 20022 external code subsets actually used by the messages here.
@@ -283,3 +286,50 @@ class BankToCustomerDebitCreditNotification:
 
     group_header: GroupHeader
     notifications: tuple[AccountNotification, ...]
+
+
+# --------------------------------------------------------------------------
+# head.001 — Business Application Header (mandatory wrapper for CBPR+)
+# --------------------------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class BusinessApplicationHeader:
+    """head.001 — ``AppHdr``.
+
+    The BAH that SWIFT CBPR+ mandates around every business message: it
+    names the sending/receiving institutions, the message identity, and the
+    definition the payload conforms to. ``message_definition`` MUST match
+    the wrapped Document's message definition (a CBPR+ conformance rule the
+    envelope codec enforces).
+    """
+
+    from_bic: str  # Fr/FIId/FinInstnId/BICFI
+    to_bic: str  # To/FIId/FinInstnId/BICFI
+    business_message_id: str  # BizMsgIdr
+    message_definition: str  # MsgDefIdr, e.g. "pacs.008.001.08"
+    creation_datetime: str  # CreDt
+    business_service: Optional[str] = None  # BizSvc, e.g. "swift.cbprplus.02"
+
+
+# --------------------------------------------------------------------------
+# pain.002 — CustomerPaymentStatusReport (pain-side ack)
+# --------------------------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class OriginalPaymentStatus:
+    """``OrgnlPmtInfAndSts`` — statuses grouped by original PmtInfId."""
+
+    original_payment_info_id: str
+    statuses: tuple[TransactionStatus, ...] = ()
+
+
+@dataclass(frozen=True)
+class CustomerPaymentStatusReport:
+    """pain.002 — ``CstmrPmtStsRpt``."""
+
+    group_header: GroupHeader
+    original_message_id: str
+    original_message_name_id: str  # e.g. "pain.001.001.09"
+    payment_statuses: tuple[OriginalPaymentStatus, ...] = ()

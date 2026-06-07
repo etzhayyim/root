@@ -66,8 +66,32 @@ Version-parameterised; defaults follow widely-deployed CBPR+/SEPA versions.
 | **pacs.002** | FIToFIPaymentStatusReport | `pacs.002.001.10` | acceptance / rejection / pending ack |
 | **camt.053** | BankToCustomerStatement | `camt.053.001.08` | reconciliation (end-of-day account statement) |
 | **camt.054** | BankToCustomerDebitCreditNotification | `camt.054.001.08` | reconciliation (debit/credit notification) |
+| **pain.002** | CustomerPaymentStatusReport | `pain.002.001.10` | pain-side ack of a pain.001 |
+| **head.001** | BusinessApplicationHeader (BAH) | `head.001.001.02` | **mandatory CBPR+ wrapper** around every message |
 
 Pass `version=` to any `build_*` / `parse_*` to target a different release.
+
+### CBPR+ Business Application Header (head.001)
+
+A bare `Document` is **not** a valid CBPR+ message on the SWIFT network — it
+must be wrapped in a Business Application Header. This module builds the BAH
+and pairs it with its `Document` in an `<Envelope>`, enforcing the CBPR+
+rule that the header's `MsgDefIdr` must match the wrapped message:
+
+```python
+from kotoba_iso20022 import build_business_message, parse_business_message
+from kotoba_iso20022.model import BusinessApplicationHeader
+
+bah = BusinessApplicationHeader(
+    from_bic="DEUTDEFF", to_bic="NWBKGB2L",
+    business_message_id="BMID-2026-0608-1",
+    message_definition="pacs.008.001.08",   # MUST match the document
+    creation_datetime="2026-06-08T09:30:00Z",
+    business_service="swift.cbprplus.02",
+)
+envelope = build_business_message(bah, pacs008_xml)   # <Envelope><AppHdr/><Document/></Envelope>
+header, document_xml = parse_business_message(envelope)  # raises on MsgDefIdr mismatch
+```
 
 ### Reconciliation (camt → ingress loop-close)
 
@@ -124,10 +148,11 @@ same message is idempotent and a later `pacs.002` status lands on the
 kotoba_iso20022/
 ├── validate.py   # ISO 13616 IBAN / ISO 9362 BIC / ISO 4217 ccy / amount
 ├── model.py      # frozen-dataclass domain model (GrpHdr / CdtTrfTxInf / …)
-├── codec.py      # build + parse XML for pain.001 / pacs.008 / pacs.002 / camt.053 / camt.054
+├── codec.py      # build + parse XML for pain.001/002 / pacs.008/002 / camt.053/054
+├── bah.py        # head.001 BAH + CBPR+ business-message envelope (MsgDefIdr match)
 ├── datoms.py     # message → kotoba EAVT Datom ingress + reconciliation mapping
 └── __init__.py   # public surface
-tests/            # 48 tests (validators + round-trip + datom mapping + camt reconciliation)
+tests/            # 56 tests (validators + round-trip + datom mapping + camt + BAH/CBPR+)
 ```
 
 ## Tests
@@ -162,8 +187,8 @@ CH/BE); BIC vectors are real ISO 9362 codes.
   `com.etzhayyim.kawase.depositAttestation` for corridor reconciliation.
 - ISO 20022 XSD conformance harness (optional dev-time check against the
   official schema files; runtime stays schema-file-free).
-- `pain.002` customer payment-status report (the pain-side ack, sibling of
-  the pacs.002 already shipped).
+- ✅ `pain.002` customer payment-status report — **shipped**.
+- ✅ `head.001` Business Application Header + CBPR+ envelope — **shipped**.
 
 ## Related
 
