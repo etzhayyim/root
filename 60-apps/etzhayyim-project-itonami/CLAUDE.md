@@ -1,7 +1,7 @@
 # etzhayyim-project-itonami — Aircraft Engine Lifecycle Simulation
 
 航空機エンジンのライフサイクル全体（設計 → 調達 → 組立 → 試験 → デジタルツイン運用）を
-シミュレーションおよび記録する Magatama actor。UNSPSC（部品調達分類）と ISIC（サプライヤー産業分類）を統合する。
+シミュレーションおよび記録する Kotodama actor。UNSPSC（部品調達分類）と ISIC（サプライヤー産業分類）を統合する。
 
 ## Identity
 
@@ -106,15 +106,15 @@ EngineDesign
 - **cross-actor invoke パターン**:
   ```ts
   // UNSPSC commodity spec 取得
-  const spec = await magatama.Invoke("", "com.etzhayyim.apps.openUnispsc.commodity", { code: "25101504" });
+  const spec = await kotodama.Invoke("", "com.etzhayyim.apps.openUnispsc.commodity", { code: "25101504" });
   // ISIC supplier 分類
-  const isic = await magatama.Invoke("", "com.etzhayyim.openIsic.classifyEntity", { name: supplierName });
+  const isic = await kotodama.Invoke("", "com.etzhayyim.openIsic.classifyEntity", { name: supplierName });
   ```
 
 ## appview
 
 - **Worker**: `60-apps/etzhayyim-project-itonami/appview/itonami-it0n4m1x/src/app.ts`
-- **Magatama descriptor**: `60-apps/etzhayyim-project-itonami/appview/itonami-it0n4m1x/magatama.jsonld`
+- **Kotodama descriptor**: `60-apps/etzhayyim-project-itonami/appview/itonami-it0n4m1x/kotodama.jsonld`
 - **Svelte SPA**: `60-apps/etzhayyim-project-itonami/svelte/`
 
 ## Deploy

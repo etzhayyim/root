@@ -13,7 +13,7 @@
  * ║                 GLEIF L2 + CC-BY-SA 4.0 OpenCorporates open-data)     ║
  * ║                                                                       ║
  * ║  Why superseded (religious-corp substrate-fit):                       ║
- * ║    - CorpOwnershipSensor Protocol (pymagatama.organism.sensors.corp.* ║
+ * ║    - CorpOwnershipSensor Protocol (kotodama.organism.sensors.corp.* ║
  * ║      corp_ownership_sensor) consumes GLEIF L2 / EU UBO registers /    ║
  * ║      OpenCorporates open-data via IPFS-pinned subdataset              ║
  * ║    - com.etzhayyim.corp.ownershipEdge Lexicon record canonical        ║

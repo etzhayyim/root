@@ -86,7 +86,7 @@
           "charterRiderScan": {
             "type": "object",
             "required": ["passed", "at"],
-            "description": "Result of pymagatama.organism.sensors.charter_rider.scan() against a deterministic sample of the dataset. Required: pins with `passed = false` MUST NOT be emitted.",
+            "description": "Result of kotodama.organism.sensors.charter_rider.scan() against a deterministic sample of the dataset. Required: pins with `passed = false` MUST NOT be emitted.",
             "properties": {
               "passed": { "type": "boolean" },
               "at": { "type": "string", "format": "datetime" },

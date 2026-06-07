@@ -16,7 +16,7 @@ function walk(dir, out) {
     if (ent.name === ".git" || ent.name === "node_modules") continue;
     const full = path.join(dir, ent.name);
     if (ent.isDirectory()) walk(full, out);
-    else if (ent.isFile() && ent.name === "magatama.jsonld") out.push(full);
+    else if (ent.isFile() && ent.name === "kotodama.jsonld") out.push(full);
   }
 }
 
@@ -56,12 +56,12 @@ function genUniqueNanoid(seed, used) {
   throw new Error(`failed to generate nanoid for ${seed}`);
 }
 
-const magatamaFiles = [];
-walk(root, magatamaFiles);
+const kotodamaFiles = [];
+walk(root, kotodamaFiles);
 
 const idToFiles = new Map();
 const allUsed = new Set();
-for (const f of magatamaFiles) {
+for (const f of kotodamaFiles) {
   const j = readJSON(f);
   const id = getNanoid(j);
   if (typeof id !== "string") continue;
@@ -76,19 +76,19 @@ for (const [id, files] of idToFiles.entries()) {
   if (!TARGET_ID_SET.has(id)) continue;
   for (const f of files) {
     if (!TARGET_PATH_RE.test(f)) continue;
-    updates.push({ magatamaPath: f, oldId: id });
+    updates.push({ kotodamaPath: f, oldId: id });
   }
 }
 
 let changed = 0;
 for (const u of updates) {
-  const rel = path.relative(cwd, u.magatamaPath);
-  const dir = path.dirname(u.magatamaPath);
+  const rel = path.relative(cwd, u.kotodamaPath);
+  const dir = path.dirname(u.kotodamaPath);
   const appTs = path.join(dir, "src", "app.ts");
   const newId = genUniqueNanoid(rel, allUsed);
   allUsed.add(newId);
 
-  const j = readJSON(u.magatamaPath);
+  const j = readJSON(u.kotodamaPath);
   setNanoid(j, newId);
 
   let appSrc = fs.readFileSync(appTs, "utf8");
@@ -96,7 +96,7 @@ for (const u of updates) {
   const nextSrc = appSrc.replace(re, `$1${newId}$1`);
 
   if (write) {
-    fs.writeFileSync(u.magatamaPath, JSON.stringify(j, null, 2) + "\n");
+    fs.writeFileSync(u.kotodamaPath, JSON.stringify(j, null, 2) + "\n");
     fs.writeFileSync(appTs, nextSrc);
   }
 

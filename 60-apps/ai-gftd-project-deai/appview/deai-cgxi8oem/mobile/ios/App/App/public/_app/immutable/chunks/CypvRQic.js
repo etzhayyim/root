@@ -1,1 +1,0 @@
-import{f as y,j as u,a0 as _,a1 as o,h as t,C as g,Z as i,v as l,s as d,w as p,k as v}from"./CKDcms7C.js";function C(n,r){let s=null,f=t;var a;if(t){s=p;for(var e=v(document.head);e!==null&&(e.nodeType!==g||e.data!==n);)e=i(e);if(e===null)l(!1);else{var E=i(e);e.remove(),d(E)}}t||(a=document.head.appendChild(y()));try{u(()=>r(a),_|o)}finally{f&&(l(!0),d(s))}}export{C as h};

@@ -14,7 +14,7 @@ authoritative_for:
   - per-worker gate (a) execution status (the one canonical checklist)
   - acceptance criteria per pattern (BeliefStore / audit log / read-cache / primary store / worker_runtime+stub / ingest module)
 depends_on:
-  - adr-2605212100-magatama-worker-3-axis-tranche-f-closure
+  - adr-2605212100-kotodama-worker-3-axis-tranche-f-closure
   - adr-2605211757-dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com
   - adr-2605211913-vendor-refactor-and-git-rm-phase-4-5-runbook
 related:
@@ -34,7 +34,7 @@ superseded_by: []
 
 For each row:
 
-1. Identify the target file in `etzhayyim/root/20-actors/magatama/py/src/pymagatama/`.
+1. Identify the target file in `etzhayyim/root/40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/`.
 2. Apply the **Pattern** listed for the row (see §0 below for pattern recipes).
 3. Run the **Smoke** command in a tmp `$ORGANISM_SQLITE_DIR`; all assertions
    in the smoke must pass.
@@ -50,7 +50,7 @@ For each row:
 ## §0 Pattern recipes (one paragraph each)
 
 - **BeliefStore (organism)**: import `select_belief_store()` from
-  `pymagatama.primitives.active_inference_substrate`; replace every
+  `kotodama.primitives.active_inference_substrate`; replace every
   `cur.execute("INSERT INTO vertex_<actor>_<kind> ...", ...)` with
   `store.put_row("vertex_<actor>_<kind>", {...})` where `store =
   select_belief_store()` is cached at module top. Reads via
@@ -70,8 +70,8 @@ For each row:
   `_create_*` / `_list_*` / `_get_*` / `_update_*` / `_delete_*`; async
   task handlers wrap them via `asyncio.to_thread`. Smoke: full CRUD path
   + any JOIN query per worker.
-- **worker_runtime + degraded stub**: drop `from pymagatama.zeebe_worker_main
-  import ...` in favor of `from pymagatama.worker_runtime import watchdog,
+- **worker_runtime + degraded stub**: drop `from kotodama.zeebe_worker_main
+  import ...` in favor of `from kotodama.worker_runtime import watchdog,
   activation_monitor, task_sqlite_health_probe, make_degraded_ingest_stub`.
   Per-task: keep the same `worker.task(task_type=...)` registration but use
   the stub factory until the ingest module is also ported. Smoke: 1 health
@@ -88,9 +88,9 @@ tests use `tempfile.TemporaryDirectory()`.
 
 | # | Target file | Pattern | Source ref | Smoke | Done |
 |---|---|---|---|---|---|
-| P1 | `primitives/active_inference_substrate.py` | (Protocol + dataclasses + factory) | etzhayyim vendor has 590 lines; etzhayyim port removes `_DualWriteBeliefStore` class + RW import branches, defaults backend to `at-ipfs-local` | `from pymagatama.primitives.active_inference_substrate import BeliefStore, ObservationRecord, select_belief_store` (import-only) | [x] 2026-05-21 |
+| P1 | `primitives/active_inference_substrate.py` | (Protocol + dataclasses + factory) | etzhayyim vendor has 590 lines; etzhayyim port removes `_DualWriteBeliefStore` class + RW import branches, defaults backend to `at-ipfs-local` | `from kotodama.primitives.active_inference_substrate import BeliefStore, ObservationRecord, select_belief_store` (import-only) | [x] 2026-05-21 |
 | P2 | `primitives/at_ipfs_belief_store.py` | (concrete BeliefStore impl) | etzhayyim vendor has 430 lines; etzhayyim port = byte-identical copy (no RW imports in the file already) | seeded BeliefStore + put_observation/list_observations round-trip | [x] 2026-05-21 |
-| P3 | `worker_runtime.py` | (new file at pymagatama root) | ~200 lines: `watchdog`, `activation_monitor`, `task_sqlite_health_probe`, `make_degraded_ingest_stub` | health probe healthy + degraded + watchdog clean exit + activation_monitor clean exit with bogus URL | [x] 2026-05-21 |
+| P3 | `worker_runtime.py` | (new file at kotodama root) | ~200 lines: `watchdog`, `activation_monitor`, `task_sqlite_health_probe`, `make_degraded_ingest_stub` | health probe healthy + degraded + watchdog clean exit + activation_monitor clean exit with bogus URL | [x] 2026-05-21 |
 | P4 | `ingest/core.py` | (orchestration spine, 3 tables) | ~320 lines port from etzhayyim 569 lines (drops psql/_psql_exec fallback) | upsert_run + mark_run_finished + upsert_cursor + upsert_artifact round-trip | [x] 2026-05-21 (RW path disabled via `_psql_enabled() -> False`; vendor 4 helpers retained with non-psql fallback active) |
 
 ## §2 BeliefStore organism workers (8 — Wave D group)
@@ -177,7 +177,7 @@ audit, then check off.
 
 = **37 active port + 5 audit rows** = **42 rows** total. Gate (a) closes when
 all 42 boxes are ticked + the final commit lands in
-`etzhayyim/root/20-actors/magatama/py/src/pymagatama/`.
+`etzhayyim/root/40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/`.
 
 ## Recommended port order
 

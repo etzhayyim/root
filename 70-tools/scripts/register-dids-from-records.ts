@@ -11,7 +11,7 @@
 
 const PDS_URL = "https://atproto.etzhayyim.com";
 
-// ADR-0023 P4: etzhayyim_TOKEN Bearer replaces spoofable x-magatama-verified.
+// ADR-0023 P4: etzhayyim_TOKEN Bearer replaces spoofable x-kotodama-verified.
 const etzhayyim_TOKEN = process.env.etzhayyim_TOKEN;
 if (!etzhayyim_TOKEN) {
   throw new Error("etzhayyim_TOKEN env var required — run `export etzhayyim_TOKEN=$(etzhayyim auth token)` first");

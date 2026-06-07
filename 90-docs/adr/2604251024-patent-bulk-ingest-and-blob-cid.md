@@ -35,7 +35,7 @@ collected=3,799 / vertex_count=81 (`coverage_rate ≈ 0.000019`)。trademark は
   + `mv_open_patent_by_jurisdiction`
 - Manifest: `20-actors/patent/actor-manifest.jsonld` (489 行)、4 source entity
   (JPO/USPTO/EPO/WIPO) を `did:web:patent.etzhayyim.com:source:*` で記述済
-- Magatama: `60-apps/etzhayyim-project-patent/appview/etzhayyim-wasm-patent-p4t3nt01/magatama.jsonld`
+- Kotodama: `60-apps/etzhayyim-project-patent/appview/etzhayyim-wasm-patent-p4t3nt01/kotodama.jsonld`
   に `subscribeRepos` で 6 NSID 受信設定済
 - Blob CID 前例: PDS `blobs/{repo}/{sha256hex}` content-addressed R2 dedup
   (`pds-blob-content-addressing`)、`vertex_gyosei_source_blob` /

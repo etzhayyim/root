@@ -26,7 +26,7 @@ export default {
         actor: "did:web:natural-person.etzhayyim.com",
         nanoid: env.APP_NANOID ?? "np02priv9",
         execution: "edge-proxy+agentgateway-mcp+langserver",
-        businessLogic: "20-actors/magatama/py/src/pymagatama/ingest",
+        businessLogic: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest",
         bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/natural-person",
       });
     }

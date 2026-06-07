@@ -6,7 +6,7 @@ doc_type: adr
 topic: search-worker-internal-only
 authoritative: true
 last_verified: 2026-05-21
-phase_status: "Done 2026-05-21 — wrangler.toml workers_dev=false + routes 削除 + magatama.jsonld joinRule=invite"
+phase_status: "Done 2026-05-21 — wrangler.toml workers_dev=false + routes 削除 + kotodama.jsonld joinRule=invite"
 priority: 6.0
 axis: architecture
 weight: 0.70
@@ -32,7 +32,7 @@ amended_by: []
 
 # Context
 
-`magatama.jsonld` の `governance.classification` はすでに `"internal"` であったが、
+`kotodama.jsonld` の `governance.classification` はすでに `"internal"` であったが、
 `wrangler.toml` に `workers_dev = true` と `routes = [{ pattern = "search.etzhayyim.com/*" }]` が
 存在し、実際には外部から HTTP で直接到達可能な状態だった。
 
@@ -65,7 +65,7 @@ amended_by: []
   workers_dev: true → false
   routes: [{ pattern = "search.etzhayyim.com/*", zone_name = "etzhayyim.com" }] → 削除
 
-60-apps/etzhayyim-project-search/appview/search-mcp-component/magatama.jsonld
+60-apps/etzhayyim-project-search/appview/search-mcp-component/kotodama.jsonld
   space.joinRule: "public" → "invite"
 ```
 

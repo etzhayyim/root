@@ -76,8 +76,8 @@ script/
 
 ## Pregel cells
 
-- `20-actors/magatama/cells/force_authorization/` — proposal orchestration
-- `20-actors/magatama/cells/force_log_monitoring/` — daily compliance check (三条件 violation alerting)
+- `40-engine/kotoba/crates/kotoba-kotodama/cells/force_authorization/` — proposal orchestration
+- `40-engine/kotoba/crates/kotoba-kotodama/cells/force_log_monitoring/` — daily compliance check (三条件 violation alerting)
 
 ## Open-source R&D registry
 

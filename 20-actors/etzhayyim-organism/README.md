@@ -39,7 +39,7 @@ artefacts stays with humans.
 | 4 | Active Inference 能動推論 | 縁起 | `_observations/` cycle count + monotonicity + trajectory-stats |
 | 5 | Reproduction 生殖 | 八百万 propagation | FORK-BOOTSTRAP.md + SISTER-CORPS.md presence |
 | 6 | Symbiosis 共生 | Tree of Life branches | 7 substrate paths (did:web, MST, IPFS, L2, anchor cron, geth, Holochain) |
-| 7 | Diversity 多様性 | 八百万-kami | counts of magatama cells, apps, protocol packages, infra components |
+| 7 | Diversity 多様性 | 八百万-kami | counts of kotodama cells, apps, protocol packages, infra components |
 | 8 | Wellbecoming 動的軌跡 | 子・孫 priority | LANDS.md, MEMBERS.md, MGI artefacts, CLAUDE.md multi-gen affirmation |
 | 9 | Anti-fragility 反脆弱 | Reformed Just War | chaos charter + scenario count + transparent-force registry |
 | 10 | Sanctification 聖化 | Sola Scriptura → Rider | CHARTER-RIDER.md + NOTICE propagation + Rider applicator tool |

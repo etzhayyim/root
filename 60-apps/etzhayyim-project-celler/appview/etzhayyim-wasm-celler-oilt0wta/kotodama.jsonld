@@ -1,0 +1,142 @@
+{
+  "@context": "https://etzhayyim.com/ns/kotodama/v1",
+  "@id": "did:web:celler.etzhayyim.com",
+  "architecture": "design-e-reactive-pipeline",
+  "build": {
+    "guestLanguage": "go"
+  },
+  "component": {
+    "env": {
+      "FREESWITCH_URL": "",
+      "STUN_URL": "stun:stun.celler.etzhayyim.com:3478",
+      "TELNYX_API_KEY": "",
+      "TELNYX_MESSAGING_PROFILE_ID": "",
+      "TELNYX_SIP_CONNECTION_ID": "",
+      "TURN_URL": "turn:turn.celler.etzhayyim.com:3478"
+    },
+    "path": "/wasm/component.wasm"
+  },
+  "convoSystemPrompt": "You are Celler, an AI agent managing a DID-addressed encrypted telephone network. You help users make calls, manage their phone numbers, provision eSIMs, monitor mesh network health, and troubleshoot connectivity. You can initiate calls, look up DIDs, provide network status, and optimize call costs via Local Breakout routing — connecting international calls through local SIP trunks in each country to avoid expensive international rates (80-95% savings).",
+  "duties": [
+    "勤労の義務"
+  ],
+  "entities": [
+    {
+      "category": "gateway",
+      "did": "did:web:celler.etzhayyim.com:gw_starlink_primary",
+      "displayName": "Starlink Primary Gateway",
+      "slug": "gw_starlink_primary"
+    },
+    {
+      "category": "cell",
+      "did": "did:web:celler.etzhayyim.com:cell_default",
+      "displayName": "Default Cell",
+      "slug": "cell_default"
+    },
+    {
+      "category": "infrastructure",
+      "did": "did:web:celler.etzhayyim.com:sip_gateway",
+      "displayName": "SIP Gateway (FreeSWITCH)",
+      "slug": "sip_gateway"
+    }
+  ],
+  "governance": {
+    "classification": "internal",
+    "raci": "responsible"
+  },
+  "interfaces": {
+    "package": "etzhayyim:celler@1.0.0"
+  },
+  "kpi": [
+    "credits の獲得"
+  ],
+  "name": "celler",
+  "nanoid": "oilt0wta",
+  "performerType": "service",
+  "profile": {
+    "agentType": "autonomous",
+    "capabilities": [
+      "InitiateCall",
+      "ProvisionNumber",
+      "ProvisionEsim",
+      "RegisterDevice",
+      "RegisterGateway",
+      "GetTopology",
+      "TranscribeVoicemail",
+      "TranslateCall",
+      "NetworkHealth",
+      "CalculateCheapestRoute",
+      "ListRegionalTrunks",
+      "InitiateLocalBreakoutCall",
+      "ProvisionRegionalTrunk",
+      "EstimateCallCost"
+    ],
+    "description": "DID-addressed encrypted telephony over Starlink mesh. Telnyx SIP+eSIM, FreeSWITCH, Signal Protocol E2E.",
+    "displayName": "Celler",
+    "isBot": true,
+    "operator": "etzhayyim.com"
+  },
+  "project": "celler",
+  "routes": [
+    {
+      "host": "celler.etzhayyim.com",
+      "paths": [
+        "/"
+      ],
+      "tls": true
+    }
+  ],
+  "runtimeType": "worker",
+  "space": {
+    "channels": [
+      {
+        "description": "Network events and call activity",
+        "name": "celler-feed"
+      },
+      {
+        "description": "Mesh topology updates",
+        "name": "celler-mesh"
+      },
+      {
+        "description": "Network health alerts",
+        "name": "celler-alerts"
+      }
+    ],
+    "name": "Celler"
+  },
+  "stream": {
+    "exports": [
+      {
+        "RequireRole": "subscriber",
+        "RequireTrustLevel": "low",
+        "description": "Real-time call events stream",
+        "method": "stream-calls"
+      },
+      {
+        "RequireRole": "subscriber",
+        "RequireTrustLevel": "low",
+        "description": "Mesh topology change stream",
+        "method": "stream-mesh"
+      }
+    ]
+  },
+  "subDidCommand": "RegisterEntities",
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.post",
+        "app.bsky.feed.like",
+        "app.bsky.graph.follow",
+        "com.etzhayyim.apps.celler.device",
+        "com.etzhayyim.apps.celler.call",
+        "com.etzhayyim.apps.celler.gateway",
+        "com.etzhayyim.apps.celler.cell",
+        "com.etzhayyim.apps.celler.mesh_link",
+        "com.etzhayyim.apps.celler.phone_number",
+        "com.etzhayyim.apps.celler.esim_profile",
+        "com.etzhayyim.apps.celler.regional_trunk"
+      ]
+    }
+  },
+  "uiType": "iframe"
+}

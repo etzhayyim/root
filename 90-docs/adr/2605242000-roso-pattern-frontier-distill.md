@@ -22,7 +22,7 @@ related:
   - https://huggingface.co/prism-ml/Bonsai-8B-mlx-1bit (Bonsai reference impl)
   - https://huggingface.co/Zyphra/Zamba2-7B (Zamba2 base candidate)
   - https://huggingface.co/Qwen/Qwen3-8B (Qwen3 base, Bonsai-proven)
-  - 20-actors/magatama/sdk/magatama-host-sdk/src/llm-model-registry.ts
+  - 40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts
   - 70-tools/baien-distill/
 supersedes: []
 superseded_by: []
@@ -205,7 +205,7 @@ Publish a family:
 | `roso-reason-7b` | DeepSeek-R1-Distill-Qwen-7B 1-bit | reasoning-specialist | 1.5 GB |
 | `baien-server-*` carve-out | 14 B-32 B 1-bit (non-edge) | desktop / iPad Pro M | beyond ceiling |
 
-Router code in `magatama-host-sdk` picks the right sibling per
+Router code in `kotodama-host-sdk` picks the right sibling per
 use-case + per device-class (already supported via `USE_CASE_DEFAULTS`
 in `llm-model-registry.ts`).
 

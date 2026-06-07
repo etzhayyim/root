@@ -129,7 +129,7 @@ G("Security").Match(Eq{"country_code": cc}).
 
 ```go
 // Country DID が自分の coverage を投稿
-magatama.ATPost(countryDID, fmt.Sprintf(
+kotodama.ATPost(countryDID, fmt.Sprintf(
     "🇺🇸 US Securities Coverage: %d/%d ISINs with financials (%.1f%%)\n"+
     "Top: %s (%s) $%.0fB market cap\n"+
     "Gap: %d securities missing financial data",
@@ -139,7 +139,7 @@ magatama.ATPost(countryDID, fmt.Sprintf(
 ), nil)
 
 // Coverage record も WRecord で永続化
-magatama.DIDWrite(countryDID, "com.etzhayyim.isin.coverage_report", reportPayload)
+kotodama.DIDWrite(countryDID, "com.etzhayyim.isin.coverage_report", reportPayload)
 ```
 
 ### Murakumo LLM 連携
@@ -150,11 +150,11 @@ Heartbeat で Murakumo LLM を使用して:
 - Cross-country comparison レポート生成
 
 ```go
-summary, _ := magatama.LLMChat([]magatama.LLMMessage{
+summary, _ := kotodama.LLMChat([]kotodama.LLMMessage{
     {Role: "system", Content: "You are an ISIN securities coverage analyst."},
     {Role: "user", Content: fmt.Sprintf("Analyze coverage for %s: %d securities, %d with financials...", cc, total, filled)},
 })
-magatama.ATPost(countryDID, summary, nil)
+kotodama.ATPost(countryDID, summary, nil)
 ```
 
 ### Rate Limits (Social Evolution 標準)

@@ -45,7 +45,7 @@ as an Ollama tag, `google/gemma-4-E4B` as the training base. Every religious-cor
 actor that calls `resolveModel(...)` with no hint, and every `USE_CASE_DEFAULTS`
 entry for `heartbeat / shinka / react / general / simple / social / japanese /
 structured / convo`, resolves to that raw Gemma checkpoint
-(`20-actors/magatama/sdk/magatama-host-sdk/src/llm-model-registry.ts`).
+(`40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts`).
 
 Two problems follow from having no first-class name for our own default weight:
 
@@ -112,7 +112,7 @@ default unchanged. The two are siblings on different rungs:
 ## D2 — Registry wiring (SSoT)
 
 Single source of truth stays
-`20-actors/magatama/sdk/magatama-host-sdk/src/llm-model-registry.ts`. This ADR adds:
+`40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts`. This ADR adds:
 
 - `MODEL_REGISTRY["maxwell-1"]` — the Maxwell `ModelDef` (`available: false` at R0,
   see D5), `ollamaModel: "maxwell-1"`, `huggingfaceModel: "etzhayyim/maxwell-1-gemma4-e4b"`,
@@ -208,7 +208,7 @@ default routing is unchanged (D3) and this ADR is design-only.
 
 # References
 
-- `20-actors/magatama/sdk/magatama-host-sdk/src/llm-model-registry.ts` — SSoT registry
+- `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts` — SSoT registry
 - `90-docs/baien/maxwell-models.jsonl` — Maxwell provenance manifest (this ADR)
 - ADR-2605215000 — Murakumo-only inference (no commercial GPU rental)
 - ADR-2605250400 — gemma-coder-distill recipe (reused)

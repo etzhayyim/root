@@ -1,0 +1,67 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.suimin.referralPathway",
+  "description": "Referral routing to LOCAL sleep-medicine care — surfaces what KIND of facility to consult and (from a Council-ratified directory) which nearby facilities exist. Presentation only: NO appointment booking, NO telehealth scheduling, NO device sales (N6/N7, G4 referral-only). Per ADR-2606072800 §Decision 5 (suimin_referral_router).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["v", "conditionSlug", "recommendedFacilityKinds", "disclaimerTextUri", "generatedAt"],
+        "properties": {
+          "v": { "type": "integer", "minimum": 1, "maximum": 1 },
+          "conditionSlug": {
+            "type": "string",
+            "knownValues": ["sleep-apnea-obstructive", "sleep-apnea-central", "sleep-apnea-mixed"]
+          },
+          "recommendedFacilityKinds": {
+            "type": "array",
+            "minLength": 1,
+            "items": {
+              "type": "string",
+              "knownValues": [
+                "sleep-medicine-outpatient",
+                "accredited-sleep-testing-center",
+                "otolaryngology",
+                "respiratory-medicine",
+                "cardiology-comorbidity",
+                "pediatric-sleep",
+                "dental-oral-appliance",
+                "emergency"
+              ]
+            },
+            "description": "Kind(s) of facility/specialist to consult — guidance, not a directive."
+          },
+          "directoryEntries": {
+            "type": "array",
+            "items": { "type": "ref", "ref": "#facility" },
+            "description": "Optional nearby facilities from the Council-ratified referral directory (REFERRAL_DIRECTORY_REGISTRY_CID). Presentation only."
+          },
+          "urgency": {
+            "type": "string",
+            "knownValues": ["routine-consult", "prompt-consult", "emergency"],
+            "description": "G5: emergency for red-flag signals (routed via mitate emergency path)."
+          },
+          "disclaimerTextUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "Reference to active com.etzhayyim.suimin.disclaimerText (G3)."
+          },
+          "generatedAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    },
+    "facility": {
+      "type": "object",
+      "required": ["name", "facilityKind"],
+      "properties": {
+        "name": { "type": "string", "maxLength": 300 },
+        "facilityKind": { "type": "string", "maxLength": 100 },
+        "area": { "type": "string", "maxLength": 200, "description": "Coarse area (e.g., 市区町村) — no precise patient geolocation stored." },
+        "publicContact": { "type": "string", "maxLength": 300, "description": "Publicly listed contact (phone/URL). No booking handled by suimin." },
+        "accreditation": { "type": "string", "maxLength": 200, "description": "e.g., 日本睡眠学会認定 検査施設, if applicable." }
+      }
+    }
+  }
+}

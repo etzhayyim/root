@@ -2,10 +2,10 @@
   "$comment": "kenkyusha — LangGraph Server for AI research-frontier explorer. ADR-2605080600 / ADR-2605082100 / ADR-2605111200.",
   "dependencies": [
     "./",
-    "../../../20-actors/magatama/py"
+    "../../../40-engine/kotoba/crates/kotoba-kotodama/py"
   ],
   "graphs": {
-    "kenkyusha_research_loop": "pymagatama.kenkyusha.graph:build_graph"
+    "kenkyusha_research_loop": "kotodama.kenkyusha.graph:build_graph"
   },
   "env": ".env",
   "python_version": "3.11",

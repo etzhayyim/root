@@ -72,7 +72,7 @@ impl exports::etzhayyim::w::extension_meta::Guest for CrawlerControlExtension {
     }
 
     fn description() -> String {
-        "Crawler control extension facade for W Protocol and magatama host.".to_string()
+        "Crawler control extension facade for W Protocol and kotodama host.".to_string()
     }
 }
 

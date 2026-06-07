@@ -18,7 +18,7 @@ COPY 10-protocol/xrpc/                10-protocol/xrpc/
 COPY 10-protocol/lexicons-bundle/     10-protocol/lexicons-bundle/
 COPY 10-protocol/signal/              10-protocol/signal/
 COPY 00-contracts/                    00-contracts/
-COPY 20-actors/magatama/sdk/magatama-host-sdk/  20-actors/magatama/sdk/magatama-host-sdk/
+COPY 40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/  40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/
 COPY 50-infra/cloudflare/workers/atproto/  50-infra/cloudflare/workers/atproto/
 
 # pnpm install with workspace resolution.

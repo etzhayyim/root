@@ -1,8 +1,8 @@
 {
   "$comment": "LangGraph Server config — karute.etzhayyim.com. Authoritative per ADR-2605231100 (karute EMR Phase 1) + ADR-2605231900 (deployment topology). Graph: karute (31-pipeline StateGraph stub; mirrors actor-manifest.jsonld pipelines).",
-  "dependencies": ["../../../20-actors/magatama/py"],
+  "dependencies": ["../../../40-engine/kotoba/crates/kotoba-kotodama/py"],
   "graphs": {
-    "karute": "pymagatama.projects.karute.pregel:app"
+    "karute": "kotodama.projects.karute.pregel:app"
   },
   "env": ".env",
   "python_version": "3.11",

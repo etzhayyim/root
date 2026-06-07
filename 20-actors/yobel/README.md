@@ -26,7 +26,7 @@ Tier A (per-rite `YobelRiteAgent`) は code-generated per the
 [ADR-2605171300](../../90-docs/adr/2605171300-open-unispsc-generative-agent-fleet.md) pattern; not catalogued here.
 
 Tier C escalation は generic
-[`magatama/cells/council_deliberation/`](../magatama/cells/council_deliberation/) per
+[`kotodama/cells/council_deliberation/`](../kotodama/cells/council_deliberation/) per
 [ADR-2605192415](../../90-docs/adr/2605192415-etzhayyim-religious-corp-daemon-architecture.md)。
 `declareRite` は **必ず** Tier C を通過する (rite declaration = doctrinal act、Three-Tier Enforcement tier 3 同等 — ADR-2605192230)。
 

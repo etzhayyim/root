@@ -56,7 +56,7 @@ spec:
             - --workers
             - "1"
             - --access-log
-            - pymagatama.ses.server:app
+            - kotodama.ses.server:app
           env:
             # Kotoba/Datomic PG :4566 — vertex_ses_* writes + vertex_m365_sync_state cursor.
             - name: RW_URL

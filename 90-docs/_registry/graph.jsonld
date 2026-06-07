@@ -44,35 +44,6 @@
       "lastVerified": "2026-03-20"
     },
     {
-      "id": "doc:260319-kotodama-wit-dodaf-nist-coverage",
-      "type": "TechArticle",
-      "title": "App WIT — DoDAF v2 / NIST CSF 2.0 Coverage Map",
-      "status": "active",
-      "topic": "wit-coverage",
-      "authoritative": true,
-      "authoritativeFor": [
-        "kotodama wit package coverage and compliance mapping"
-      ],
-      "related": "doc:260320-kotodama-cloudflare-containers-evaluation",
-      "lastVerified": "2026-03-20"
-    },
-    {
-      "id": "doc:260320-kotodama-cloudflare-containers-evaluation",
-      "type": "Article",
-      "title": "Kotodama vs Cloudflare Containers Evaluation",
-      "status": "active",
-      "topic": "runtime-selection",
-      "authoritative": true,
-      "authoritativeFor": [
-        "kotodama runtime default vs container fallback"
-      ],
-      "related": [
-        "doc:260320-kotodama-cloudflare-containers-evaluation",
-        "doc:260320-kotodama-cloudflare-worker-rpc-optimization"
-      ],
-      "lastVerified": "2026-03-20"
-    },
-    {
       "id": "doc:260320-kotodama-cloudflare-containers-evaluation",
       "type": "Article",
       "title": "Kotodama vs Cloudflare Containers Evaluation",
@@ -101,42 +72,6 @@
       "related": [
         "doc:260320-kotodama-cloudflare-containers-evaluation",
         "doc:260320-kotodama-cloudflare-containers-evaluation"
-      ],
-      "lastVerified": "2026-03-20"
-    },
-    {
-      "id": "doc:260320-kotodama-cloudflare-worker-rpc-optimization",
-      "type": "TechArticle",
-      "title": "Kotodama Cloudflare Worker RPC Optimization",
-      "status": "active",
-      "topic": "worker-rpc-transport",
-      "authoritative": true,
-      "authoritativeFor": [
-        "worker internal transport selection between rpc and http service bindings"
-      ],
-      "related": [
-        "doc:260320-kotodama-cloudflare-containers-evaluation",
-        "doc:260320-kotodama-cloudflare-containers-evaluation"
-      ],
-      "lastVerified": "2026-03-20"
-    },
-    {
-      "id": "doc:260320-vault-zero-knowledge-design",
-      "type": "Article",
-      "title": "Vault Zero-Knowledge Design — 1Password-Style Key Hierarchy for All Principal Types",
-      "status": "active",
-      "topic": "vault-zero-knowledge-crypto",
-      "authoritative": true,
-      "authoritativeFor": [
-        "vault.etzhayyim.com zero knowledge key hierarchy and encryption design",
-        "vault principal types and key exchange patterns",
-        "vault WIT interface design (kotodama:secrets/vault)"
-      ],
-      "related": [
-        "doc:yoro-superapp-oembed-design",
-        "doc:260317-yata-secure-cas-design",
-        "doc:260315-atprotocol-signal-design",
-        "doc:260319-kotodama-wit-dodaf-nist-coverage"
       ],
       "lastVerified": "2026-03-20"
     },
@@ -269,25 +204,6 @@
         "doc:260323-yoro-human-credit-economy-design",
         "doc:260323-yoro-human-credit-economy-design",
         "doc:260323-yoro-human-credit-economy-design"
-      ],
-      "lastVerified": "2026-04-03"
-    },
-    {
-      "id": "doc:260403-inference-runtime-and-artifacts-consolidated",
-      "type": "Article",
-      "title": "Inference Runtime and Artifacts (Consolidated)",
-      "status": "active",
-      "topic": "inference-runtime-artifacts",
-      "authoritative": true,
-      "authoritativeFor": [
-        "inference runtime baseline across rust and wasm paths",
-        "hayate artifact schema and runtime compatibility baseline"
-      ],
-      "supersedes": [
-        "doc:260325-claude-native-lifecycle-management",
-        "doc:ingredient-safety-scoring",
-        "doc:260330-hayate-wasm-kotodama-design",
-        "doc:260330-hayate-artifact-schema-design"
       ],
       "lastVerified": "2026-04-03"
     },
@@ -680,15 +596,6 @@
       "id": "doc:2605191229-ameno-daemon-path-a-bun-langgraph",
       "type": "TechArticle",
       "title": "Ameno headless daemon (Path A) — Bun/Node + Hono + LangGraph + Ollama",
-      "status": "proposed",
-      "topic": "ameno-headless-daemon",
-      "authoritative": true,
-      "lastVerified": "2026-05-19"
-    },
-    {
-      "id": "doc:2605191257-ameno-daemon-path-b-kotodama-python",
-      "type": "TechArticle",
-      "title": "Ameno headless daemon (Path B) — kotodama Python port",
       "status": "proposed",
       "topic": "ameno-headless-daemon",
       "authoritative": true,
@@ -1183,16 +1090,6 @@
       "lastVerified": "2026-04-20"
     },
     {
-      "id": "doc:adr-0066-kotodama-organizer-shinka-shannon-bayes",
-      "type": "TechArticle",
-      "title": "ADR-0038: Kotodama Organizer — joucho Shinka × Shannon Optimization × Bayesian Evaluation",
-      "status": "accepted",
-      "topic": "kotodama-organizer",
-      "authoritative": true,
-      "related": "doc:adr-0034-agent-cron-goose-kotoba-direct",
-      "lastVerified": "2026-04-20"
-    },
-    {
       "id": "doc:adr-0075-yoro-engagement-wellbecoming",
       "type": "TechArticle",
       "title": "ADR-0030: YORO Engagement Algorithm — Shannon / Bayes / Graph / Topology / Joucho-emotion with well-becoming guardrails",
@@ -1222,30 +1119,6 @@
       "topic": "yoro-ads",
       "authoritative": true,
       "lastVerified": "2026-04-20"
-    },
-    {
-      "id": "doc:adr-0087-kotodama-mcp-tool-facade",
-      "type": "TechArticle",
-      "title": "kotodama per-actor MCP tool facade (Hono Streamable HTTP)",
-      "status": "proposed",
-      "topic": "mcp-tool-facade",
-      "authoritative": true,
-      "authoritativeFor": [
-        "per-actor-mcp-endpoint",
-        "llm-agent-tool-discovery",
-        "asagenttool-external-exposure"
-      ],
-      "related": [
-        "doc:90-docs/adr/0004-write-only-derived-architecture.md",
-        "doc:90-docs/adr/0005-shannon-redundancy-prohibition.md",
-        "doc:90-docs/adr/0022-auth-topology-consolidation.md",
-        "doc:90-docs/adr/0023-auth-shannon-optimal-4-layer.md",
-        "doc:90-docs/adr/0036-worker-direct-hyperdrive-persistence.md",
-        "doc:90-docs/260413-agent-loop-unification-path-analysis.md",
-        "doc:adr-2604261000-mcp-registry-via-kysely-schema"
-      ],
-      "amendedBy": "doc:adr-2604261000-mcp-registry-via-kysely-schema",
-      "lastVerified": "2026-04-25"
     },
     {
       "id": "doc:adr-0087-kotodama-mcp-tool-facade",
@@ -3967,8 +3840,8 @@
         "Runtime target matrix: native CPU (bitnet.cpp / llama.cpp), browser (WebGPU + WASM), embedded edge (mobile / Pi-class boards)"
       ],
       "related": [
-        "doc:20-actors/kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts",
-        "doc:20-actors/kotodama/py/src/kotodama/primitives/training_run.py",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/training_run.py",
         "doc:30-graph/graph-schema/migrations/20260508000000_vertex_training_lineage.ts"
       ],
       "lastVerified": "2026-05-09"
@@ -6363,28 +6236,6 @@
       "lastVerified": "2026-05-20"
     },
     {
-      "id": "doc:adr-2605202100-etzhayyim-kotodama-cell-runner-launchd",
-      "type": "TechArticle",
-      "title": "ADR-2605202100: kotodama-cell-runner launchd LaunchAgent — operationalising Tier 1 常駐稼働 on the Murakumo fleet",
-      "status": "proposed",
-      "topic": "kotodama-cell-runner-launchd",
-      "authoritative": true,
-      "authoritativeFor": [
-        "launchd plist template for kotodama-cell-runner",
-        "Per-host installer (`install.sh --node <tribe>`) + uninstaller",
-        "pyproject `[project.scripts]` kotodama-cell-runner entry",
-        "Per-node cell assignment readback contract (fleet.toml ↔ runner CLI)",
-        "常駐起動 OS-level boot path (launchd → uv → kotodama-cell-runner)"
-      ],
-      "related": [
-        "doc:50-infra/cluster/murakumo/cell-runner/",
-        "doc:50-infra/cluster/murakumo/litellm/",
-        "doc:50-infra/murakumo/fleet.toml",
-        "doc:20-actors/kotodama/py/src/kotodama/cell_runner_main.py"
-      ],
-      "lastVerified": "2026-05-20"
-    },
-    {
       "id": "doc:adr-2605202115-baien-graft-3d-augmented-dataset",
       "type": "TechArticle",
       "title": "ADR-2605202115: Baien graft 3D-augmented dataset (image, multi-view, caption)",
@@ -6421,8 +6272,8 @@
         "MST listener wiring (fleet.toml.listens_to → cell)"
       ],
       "related": [
-        "doc:20-actors/kotodama/cells/",
-        "doc:20-actors/kotodama/py/src/kotodama/cell_runner_main.py"
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/cell_runner_main.py"
       ],
       "lastVerified": "2026-05-20"
     },
@@ -6888,9 +6739,9 @@
         "Charter purpose enforcement の lefthook hook 拡張点"
       ],
       "related": [
-        "doc:20-actors/kotodama/mcp/unispsc-isic-mcp/",
-        "doc:20-actors/kotodama/cells/",
-        "doc:20-actors/kotodama/py/src/kotodama/primitives/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/mcp/unispsc-isic-mcp/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/",
         "doc:00-contracts/lexicons/ai/etzhayyim/",
         "doc:70-tools/etzhayyim-cli/",
         "doc:70-tools/charter-rider-applicator/",
@@ -7016,32 +6867,6 @@
         "doc:adr-0027-recruit-talent-public-feed-first",
         "doc:adr-0018-pii-tier3-cohort-first",
         "doc:adr-2605172400-etzhayyim-vendor-three-axis-split-rule"
-      ],
-      "lastVerified": "2026-05-21"
-    },
-    {
-      "id": "doc:adr-2605212100-kotodama-worker-3-axis-tranche-f-closure",
-      "type": "TechArticle",
-      "title": "ADR-2605212100: Tranche F closure — 70 kotodama worker_main 3-axis classification + Phase 3 prerequisites",
-      "status": "active",
-      "topic": "kotodama-worker-vendor-etzhayyim-boundary",
-      "authoritative": true,
-      "authoritativeFor": [
-        "kotodama worker classification under the 3-axis OR-test",
-        "Phase 3 prerequisites for any worker deployment-surface migration to etzhayyim",
-        "corrected helm chart ownership semantics (etzhayyim is RW-free, not a Vultr+Helm copy target)"
-      ],
-      "related": [
-        "doc:adr-2605181400-bpmn-extract-to-etzhayyim-root",
-        "doc:adr-2605152100-etzhayyim-github-org-boundary",
-        "doc:adr-2605211757-dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com",
-        "doc:adr-2605211913-vendor-refactor-and-git-rm-phase-4-5-runbook",
-        "doc:adr-2605211925-phase-6-archive-markers-runbook",
-        "doc:doc-2605211800-vendor-importer-survey-gate-d",
-        "doc:doc-2605211900-tranche-f-all-gates-closure-confirmation",
-        "doc:doc-2605211949-gate-a-execution-checklist",
-        "doc:doc-2605212020-session-post-mortem-2026-05-21",
-        "doc:doc-tranche-f-index"
       ],
       "lastVerified": "2026-05-21"
     },
@@ -7621,7 +7446,7 @@
       ],
       "related": [
         "doc:adr-2604271830-patent-expired-pharma-seiyaku-handoff",
-        "doc:20-actors/kotodama/mcp/open-seiyaku-mcp"
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/mcp/open-seiyaku-mcp"
       ],
       "lastVerified": "2026-05-23"
     },
@@ -7711,7 +7536,7 @@
       "related": [
         "doc:70-tools/seed-post/",
         "doc:00-contracts/policies/app/bsky/feed/",
-        "doc:20-actors/kotodama/cells/feed_post/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/feed_post/",
         "doc:50-infra/mst-projector/projection/",
         "doc:00-contracts/lexicons/com/etzhayyim/membrane/",
         "doc:00-contracts/lexicons/com/etzhayyim/projection/"
@@ -7744,7 +7569,7 @@
       "authoritative": true,
       "authoritativeFor": [
         "UNSPSC agent corpus health invariant (100% import + invoke clean)",
-        "6 kuni-umi phase cell.py implementations (canonical at 20-actors/kotodama/cells/*; 20-actors/kuni-umi/cells/* are symlinks)",
+        "6 kuni-umi phase cell.py implementations (canonical at 40-engine/kotoba/crates/kotoba-kotodama/cells/*; 20-actors/kuni-umi/cells/* are symlinks)",
         "KuniUmiApiCell HTTP gateway (naphtali:13030, lan-api, 6 lexicon endpoints + /xrpc/{nsid} + /api/invoke + /api/{short})",
         "mst-listener entry contract for kuni-umi cells (handle_mst_event + cron_fire wrappers)",
         "kotodama.transport.libp2p Python wrapper around etzhayyim-libp2p shell scripts",
@@ -7849,7 +7674,7 @@
         "doc:70-tools/baien-mx-train/                (skeleton — new with this ADR)",
         "doc:70-tools/baien-graft-pipeline/          (data generation)",
         "doc:70-tools/etzhayyim-cli/bench.go         (`e7m bench mx-train` subcommand)",
-        "doc:20-actors/kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts (Move 1 graft registration target)"
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts (Move 1 graft registration target)"
       ],
       "lastVerified": "2026-05-23"
     },
@@ -7992,7 +7817,7 @@
         "server-side variant naming carve-out"
       ],
       "related": [
-        "doc:20-actors/kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts",
         "doc:70-tools/baien-distill/",
         "doc:70-tools/baien-mx-train/"
       ],
@@ -8050,7 +7875,7 @@
         "doc:https://huggingface.co/prism-ml/Bonsai-8B-mlx-1bit (Bonsai reference impl)",
         "doc:https://huggingface.co/Zyphra/Zamba2-7B (Zamba2 base candidate)",
         "doc:https://huggingface.co/Qwen/Qwen3-8B (Qwen3 base, Bonsai-proven)",
-        "doc:20-actors/kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts",
         "doc:70-tools/baien-distill/"
       ],
       "lastVerified": "2026-05-23"
@@ -8178,7 +8003,7 @@
       "related": [
         "doc:50-infra/silicon/",
         "doc:20-actors/tsukuru/",
-        "doc:20-actors/kotodama/cells/silicon_*/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_*/",
         "doc:00-contracts/lexicons/com/etzhayyim/silicon/"
       ],
       "lastVerified": "2026-05-24"
@@ -8201,7 +8026,7 @@
         "doc:50-infra/silicon/iwakura/",
         "doc:50-infra/silicon/shared-ip/ternary-pe/",
         "doc:70-tools/silicon/iwakura-asm/",
-        "doc:20-actors/kotodama/cells/silicon_test/"
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_test/"
       ],
       "lastVerified": "2026-05-24"
     },
@@ -8245,14 +8070,14 @@
       ],
       "related": [
         "doc:50-infra/silicon/equipment/",
-        "doc:20-actors/kotodama/cells/silicon_litho/",
-        "doc:20-actors/kotodama/cells/silicon_deposition/",
-        "doc:20-actors/kotodama/cells/silicon_etch/",
-        "doc:20-actors/kotodama/cells/silicon_implant/",
-        "doc:20-actors/kotodama/cells/silicon_cmp/",
-        "doc:20-actors/kotodama/cells/silicon_metrology/",
-        "doc:20-actors/kotodama/cells/silicon_test/",
-        "doc:20-actors/kotodama/cells/silicon_packaging/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_litho/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_deposition/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_etch/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_implant/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_cmp/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_metrology/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_test/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_packaging/",
         "doc:00-contracts/lexicons/com/etzhayyim/silicon/fabEquipmentTelemetry.json",
         "doc:00-contracts/lexicons/com/etzhayyim/silicon/waferLotAttestation.json",
         "doc:20-actors/tsukuru/"
@@ -8277,7 +8102,7 @@
       "related": [
         "doc:20-actors/ameno/src/train.ts",
         "doc:70-tools/baien-distill/src/baien_distill/nodes/federated_aggregate.py",
-        "doc:20-actors/kotodama/cells/baien_federated_aggregator/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/baien_federated_aggregator/",
         "doc:00-contracts/lexicons/com/etzhayyim/baien/distributedTrainDelta.json"
       ],
       "lastVerified": "2026-05-24"
@@ -8388,7 +8213,7 @@
       ],
       "related": [
         "doc:20-actors/yakushi/",
-        "doc:20-actors/kotodama/cells/pharma_*/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_*/",
         "doc:00-contracts/lexicons/com/etzhayyim/pharma/",
         "doc:50-infra/murakumo/fleet.toml"
       ],
@@ -8411,9 +8236,9 @@
       ],
       "related": [
         "doc:20-actors/yakushi/",
-        "doc:20-actors/kotodama/cells/pharma_api_synthesis/",
-        "doc:20-actors/kotodama/cells/pharma_purification/",
-        "doc:20-actors/kotodama/cells/pharma_qc/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_api_synthesis/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_purification/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_qc/",
         "doc:00-contracts/lexicons/com/etzhayyim/pharma/apiSynthesisAttestation.json",
         "doc:00-contracts/lexicons/com/etzhayyim/pharma/purificationAttestation.json",
         "doc:00-contracts/lexicons/com/etzhayyim/pharma/qcAttestation.json"
@@ -8438,8 +8263,8 @@
       ],
       "related": [
         "doc:20-actors/yakushi/",
-        "doc:20-actors/kotodama/cells/pharma_sterile_fill_finish/",
-        "doc:20-actors/kotodama/cells/pharma_container/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_sterile_fill_finish/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_container/",
         "doc:00-contracts/lexicons/com/etzhayyim/pharma/fillFinishAttestation.json",
         "doc:00-contracts/lexicons/com/etzhayyim/pharma/lotAttestation.json"
       ],
@@ -8462,11 +8287,11 @@
       ],
       "related": [
         "doc:20-actors/yakushi/",
-        "doc:20-actors/kotodama/cells/pharma_raw_material/",
-        "doc:20-actors/kotodama/cells/pharma_packaging/",
-        "doc:20-actors/kotodama/cells/pharma_cold_chain/",
-        "doc:20-actors/kotodama/cells/pharma_post_market_surveillance/",
-        "doc:20-actors/kotodama/cells/pharma_adverse_event/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_raw_material/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_packaging/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_cold_chain/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_post_market_surveillance/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_adverse_event/",
         "doc:00-contracts/lexicons/com/etzhayyim/pharma/rawMaterialAttestation.json",
         "doc:00-contracts/lexicons/com/etzhayyim/pharma/silenPharmaReview.json",
         "doc:00-contracts/lexicons/com/etzhayyim/pharma/adverseEventReport.json"
@@ -8490,8 +8315,8 @@
       ],
       "related": [
         "doc:20-actors/yakushi/",
-        "doc:20-actors/kotodama/cells/pharma_tablet_manufacture/",
-        "doc:20-actors/kotodama/cells/pharma_topical_formulation/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_tablet_manufacture/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_topical_formulation/",
         "doc:00-contracts/lexicons/com/etzhayyim/pharma/"
       ],
       "lastVerified": "2026-05-25"
@@ -8513,7 +8338,7 @@
       ],
       "related": [
         "doc:20-actors/yakushi/",
-        "doc:20-actors/kotodama/cells/pharma_chiral_resolution/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_chiral_resolution/",
         "doc:00-contracts/lexicons/com/etzhayyim/pharma/"
       ],
       "lastVerified": "2026-05-25"
@@ -8551,7 +8376,7 @@
         "R0 → R1..R4 phase plan and gating"
       ],
       "related": [
-        "doc:20-actors/kotodama/py/src/kotodama/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/",
         "doc:50-infra/murakumo/fleet.toml",
         "doc:70-tools/baien-distill",
         "doc:30-graph/graph-schema/migrations/"
@@ -8850,7 +8675,7 @@
       ],
       "related": [
         "doc:20-actors/mitate/",
-        "doc:20-actors/kotodama/cells/mitate_*/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_*/",
         "doc:00-contracts/lexicons/com/etzhayyim/mitate/",
         "doc:50-infra/murakumo/fleet.toml"
       ],
@@ -8872,11 +8697,11 @@
         "yakushi Wave 1c cetirizine / loratadine / Wave 1c chlorpheniramine 経路との接続"
       ],
       "related": [
-        "doc:20-actors/kotodama/cells/mitate_rhinitis_intake/",
-        "doc:20-actors/kotodama/cells/mitate_rhinitis_triage/",
-        "doc:20-actors/kotodama/cells/mitate_allergy_ige_panel_order/",
-        "doc:20-actors/kotodama/cells/mitate_nasal_smear_eosinophil/",
-        "doc:20-actors/kotodama/cells/mitate_slit_cohort_tracker/"
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_rhinitis_intake/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_rhinitis_triage/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_allergy_ige_panel_order/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_nasal_smear_eosinophil/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_slit_cohort_tracker/"
       ],
       "lastVerified": "2026-05-25"
     },
@@ -8895,9 +8720,9 @@
         "PNN section (posterior nasal nerve section) surgical routing (R3 severe-refractory)"
       ],
       "related": [
-        "doc:20-actors/kotodama/cells/mitate_rhinitis_triage/",
-        "doc:20-actors/kotodama/cells/mitate_treatment_router/",
-        "doc:20-actors/kotodama/cells/mitate_outcome_qol_followup/"
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_rhinitis_triage/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_treatment_router/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_outcome_qol_followup/"
       ],
       "lastVerified": "2026-05-25"
     },
@@ -8918,10 +8743,10 @@
         "**mitate Wave 1 中 最も Rx + surgical routing 重い condition ― licensed MD-in-loop の最低 Case**"
       ],
       "related": [
-        "doc:20-actors/kotodama/cells/mitate_rhinitis_triage/",
-        "doc:20-actors/kotodama/cells/mitate_nasal_endoscopy_acquire/",
-        "doc:20-actors/kotodama/cells/mitate_paranasal_ct_route/",
-        "doc:20-actors/kotodama/cells/mitate_ess_surgery_planner/"
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_rhinitis_triage/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_nasal_endoscopy_acquire/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_paranasal_ct_route/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_ess_surgery_planner/"
       ],
       "lastVerified": "2026-05-25"
     },
@@ -8940,10 +8765,10 @@
         "軽症 = 点鼻 steroid / 中重症 = septoplasty + 下鼻甲介手術 routing (R3)"
       ],
       "related": [
-        "doc:20-actors/kotodama/cells/mitate_rhinitis_triage/",
-        "doc:20-actors/kotodama/cells/mitate_nasal_endoscopy_acquire/",
-        "doc:20-actors/kotodama/cells/mitate_rhinomanometry/",
-        "doc:20-actors/kotodama/cells/mitate_ess_surgery_planner/"
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_rhinitis_triage/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_nasal_endoscopy_acquire/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_rhinomanometry/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_ess_surgery_planner/"
       ],
       "lastVerified": "2026-05-25"
     },
@@ -8962,10 +8787,10 @@
         "**religious-corp 内 self-care substrate の最初の完結した closed-loop case (yakushi 製造 → adherent 使用 → mitate detection → 離脱 → yakushi label警告 強化)**"
       ],
       "related": [
-        "doc:20-actors/kotodama/cells/mitate_rhinitis_intake/",
-        "doc:20-actors/kotodama/cells/mitate_medication_history_audit/",
-        "doc:20-actors/kotodama/cells/mitate_treatment_router/",
-        "doc:20-actors/kotodama/cells/mitate_outcome_qol_followup/"
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_rhinitis_intake/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_medication_history_audit/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_treatment_router/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_outcome_qol_followup/"
       ],
       "lastVerified": "2026-05-25"
     },
@@ -8986,7 +8811,7 @@
       ],
       "related": [
         "doc:20-actors/mitate/",
-        "doc:20-actors/kotodama/cells/mitate_{rhinitis_intake,emergency_screen,medication_history_audit,rhinitis_triage}/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_{rhinitis_intake,emergency_screen,medication_history_audit,rhinitis_triage}/",
         "doc:60-apps/mitate-pwa/",
         "doc:50-infra/murakumo/fleet.toml"
       ],
@@ -9011,11 +8836,11 @@
       "related": [
         "doc:20-actors/yakushi/",
         "doc:20-actors/mitate/",
-        "doc:20-actors/kotodama/cells/pharma_adverse_event/",
-        "doc:20-actors/kotodama/cells/pharma_post_market_surveillance/",
-        "doc:20-actors/kotodama/cells/pharma_packaging/",
-        "doc:20-actors/kotodama/cells/mitate_outcome_qol_followup/",
-        "doc:20-actors/kotodama/cells/mitate_medication_history_audit/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_adverse_event/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_post_market_surveillance/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_packaging/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_outcome_qol_followup/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_medication_history_audit/",
         "doc:00-contracts/lexicons/com/etzhayyim/pharma/adverseEventReport.json"
       ],
       "lastVerified": "2026-05-25"
@@ -9039,7 +8864,7 @@
       "related": [
         "doc:20-actors/mitate/",
         "doc:20-actors/kuni-umi/",
-        "doc:20-actors/kotodama/cells/mitate_nasal_endoscopy_acquire/"
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_nasal_endoscopy_acquire/"
       ],
       "lastVerified": "2026-05-25"
     },
@@ -9335,7 +9160,7 @@
         "40-engine/kami-engine/kami-replicator",
         "40-engine/kami-engine/kami-app-amenominaka",
         "20-actors/etzhayyim-sdk/nv-compat",
-        "20-actors/kotodama/py/kotodama/nv_compat"
+        "40-engine/kotoba/crates/kotoba-kotodama/py/kotodama/nv_compat"
       ],
       "related": [
         "doc:adr-2605242000-roso-pattern-frontier-distill",
@@ -10765,10 +10590,10 @@
         "doc:00-contracts/lexicons/com/etzhayyim/mitate/diagnosticOrder.json",
         "doc:00-contracts/lexicons/com/etzhayyim/mitate/diagnosticConsentReceipt.json",
         "doc:00-contracts/lexicons/com/etzhayyim/iyashi/phlebotomyAttestation.json",
-        "doc:20-actors/kotodama/cells/mitate_diagnostic_consent_orchestrator/",
-        "doc:20-actors/kotodama/cells/mitate_diagnostic_order_general/",
-        "doc:20-actors/kotodama/cells/mitate_diagnostic_result_ingest/",
-        "doc:20-actors/kotodama/cells/iyashi_internal_phlebotomy/"
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_diagnostic_consent_orchestrator/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_diagnostic_order_general/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_diagnostic_result_ingest/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/iyashi_internal_phlebotomy/"
       ],
       "lastVerified": "2026-05-29"
     },
@@ -13027,22 +12852,6 @@
       "lastVerified": "2026-06-03"
     },
     {
-      "id": "doc:adr-2606032330-session-close-kotodama-kotoba-to-kotoba-datomic-edn",
-      "type": "TechArticle",
-      "title": "ADR-2606032330: Session close — kotodama Kotoba/Datomic → kotoba Datomic API/EDN refactor (substrate clients + LangGraph savers + sqlmesh view registry)",
-      "status": "active",
-      "topic": "session-close-kotodama-rw-to-kotoba",
-      "authoritative": false,
-      "related": [
-        "doc:adr-2605262130-kotoba-storage-substrate-unification",
-        "doc:adr-2605312345-kotoba-datom-first-class-canonical-state",
-        "doc:adr-2605231525-server-side-signing-capability",
-        "doc:adr-2606022150-kotoba-unified-ipld-dagcbor-prolly-datomic",
-        "doc:adr-2606031030-session-close-kotoba-canonical-substrate-and-browser-node"
-      ],
-      "lastVerified": "2026-06-03"
-    },
-    {
       "id": "doc:adr-2606032335-session-close-etzhayyim-to-etzhayyim-contract-rename-sweep-batch106-pause",
       "type": "TechArticle",
       "title": "ADR-2606032335: Session close - etzhayyim/kotoba-datomic rename sweep paused after contract path batch 106",
@@ -13292,7 +13101,7 @@
         "doc:2606032100"
       ],
       "supersedes": "doc:0025",
-      "lastVerified": "2026-06-06"
+      "lastVerified": "2026-06-07"
     },
     {
       "id": "doc:adr-2606038000-session-close-kotoba-os-loop-end",
@@ -14240,6 +14049,27 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606072200-shionome-cross-asset-capital-flow-observatory-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606072200: 潮目 (shionome) — cross-asset capital-flow observatory (ingest · intel · analyze · dry-run social, NO trading) R0 + autonomous kotoba loop",
+      "status": "accepted",
+      "topic": "shionome-cross-asset-capital-flow-observatory",
+      "authoritative": true,
+      "authoritativeFor": [
+        "shionome-cross-asset-capital-flow-observatory",
+        "capital-rotation-flow-graph",
+        "no-trade-non-advisory-market-observation"
+      ],
+      "related": [
+        "doc:adr-2605302300-kanae-government-fiscal-flow-visualization",
+        "doc:adr-2606032000-kanjo-company-financial-disclosure-graph",
+        "doc:adr-2606041827-watari-live-ship-aircraft-position-graph",
+        "doc:adr-2606022000-kabuto-supply-chain-knowledge-graph",
+        "doc:adr-2606066000-keizu-government-relations-graph-tier-b-actor-r0"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
       "id": "doc:adr-2606072200-yotei-kotoba-native-scheduling",
       "type": "TechArticle",
       "title": "ADR-2606072200: yotei — kotoba-native scheduling commons (Calendly inversion); remediation Phase A",
@@ -14278,6 +14108,87 @@
       "related": [
         "doc:2606072200",
         "doc:2606072400"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606072800-bible-translation-coverage-language-tiers",
+      "type": "TechArticle",
+      "title": "ADR-2606072800: Supported-language tiers = Bible-translation coverage (Sola Scriptura)",
+      "status": "accepted",
+      "topic": "bible-translation-coverage-language-tiers",
+      "authoritative": true,
+      "authoritativeFor": [
+        "language-registry-tiering",
+        "i18n-language-tier-strategy"
+      ],
+      "related": [
+        "doc:2605192100-etzhayyim-mission-charter",
+        "doc:2605263600-kataribe-press-publishing-translation-tier-b-actor-r0"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606072800-session-close-shionome-capital-flow-kotoba-wasm-fleet-cron",
+      "type": "TechArticle",
+      "title": "ADR-2606072800: Session close — 潮目 (shionome) cross-asset capital-flow observatory: R0 actor + kotoba-WASM component + Murakumo-fleet cron cells",
+      "status": "active",
+      "topic": "shionome-cross-asset-capital-flow-observatory",
+      "authoritative": false,
+      "related": [
+        "doc:90-docs/adr/2606065000-session-close-kawaraban-news-medium.md",
+        "doc:90-docs/adr/2606063000-session-close-ooyake-world-model-reconcile-loop.md"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606072800-suimin-sleep-disorder-evidence-research-charter",
+      "type": "TechArticle",
+      "title": "suimin (睡眠) sleep-disorder treatment-evidence research + synthesis actor — reliable-source-only (PubMed / Cochrane / ICSD-3 / ICD-11 / AASM) evidence landscape + referral-to-local-clinic; NON-diagnostic, NON-prescriptive; Wave 1 reference = 睡眠時無呼吸症候群 (OSA/CSA) treatment-method evidence synthesis",
+      "status": "proposed",
+      "topic": "suimin-sleep-evidence-charter",
+      "authoritative": true,
+      "authoritativeFor": [
+        "suimin actor identity (name, DID pattern, tier) — religious-corp first-party sleep-disorder treatment-EVIDENCE research + synthesis (not diagnosis, not treatment)",
+        "mitate sibling boundary (mitate = symptom-intake diagnostic routing; suimin = corpus-level treatment-evidence synthesis + referral; same patient-wellbeing context, no diagnostic overlap)",
+        "Source-whitelist invariant (G1) — PubMed/MeSH + Cochrane systematic reviews + ICSD-3 + ICD-11 + AASM clinical practice guidelines + GRADE-graded sources ONLY; every claim carries verifiable provenance",
+        "Charter Rider §2 clearance reasoning for first-party medical-evidence synthesis (§2(e) anti-gatekeeping pro-clearance + §2(c) anti-surveillance gate)",
+        "13 constitutional gates G1..G13 (non-negotiable)",
+        "10 non-goals N1..N10 (constitutional, not subject to incremental drift)",
+        "4-phase roadmap R0 → R3 with explicit Council-attestation gating + licensed sleep-medicine MD-in-loop activation (R2)",
+        "Wave 1 reference target = 睡眠時無呼吸症候群 (obstructive + central sleep apnea) treatment-method evidence landscape"
+      ],
+      "related": [
+        "doc:20-actors/suimin/",
+        "doc:20-actors/magatama/cells/suimin_*/",
+        "doc:00-contracts/lexicons/com/etzhayyim/suimin/",
+        "doc:50-infra/murakumo/fleet.toml"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606073000-robotics-remote-work-actor-roster-and-isco-coverage",
+      "type": "TechArticle",
+      "title": "ADR-2606073000: Robotics remote-work actor roster + ISCO coverage/GAP survey (tazuna as the on-site→remote substrate)",
+      "status": "proposed",
+      "topic": "robotics-remote-work-actor-survey",
+      "authoritative": true,
+      "authoritativeFor": [
+        "robotics remote-work (teleoperation) actor roster across the etzhayyim corpus",
+        "on-site→remote-work coverage/GAP map for physical-labour occupations",
+        "remote-work-value reframing of the labour-liberation roadmap"
+      ],
+      "related": [
+        "doc:ADR-2605301020 (Basic High Income — in-kind, cash≡0)",
+        "doc:ADR-2605215000 (Murakumo-only inference)",
+        "doc:ADR-2606042300 (todoke last-mile delivery)",
+        "doc:ADR-2606013400 (funadaiku zero-emission cargo-ship)",
+        "doc:ADR-2605252200 (watatsumi civilian submersible)",
+        "doc:ADR-2606012600 (watatsuna submarine-cable laying)",
+        "doc:ADR-2605250715 (tatekata construction)",
+        "doc:ADR-2605261215 (hodoki ELV disassembly)",
+        "doc:ADR-2606051500 (kamado carbon refining / refinery decommission)",
+        "doc:ADR-2605263100 (mizuho water + sanitation)"
       ],
       "lastVerified": "2026-06-07"
     },
@@ -15918,7 +15829,7 @@
         "doc:adr-2605202100-etzhayyim-kotodama-cell-runner-launchd",
         "doc:50-infra/cluster/murakumo/cell-runner/cells.toml",
         "doc:50-infra/cluster/murakumo/cell-runner/com.etzhayyim.kotodama-cell-runner.plist",
-        "doc:20-actors/kotodama/py/src/kotodama/cell_runner_main.py"
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/cell_runner_main.py"
       ],
       "lastVerified": "2026-05-21"
     },

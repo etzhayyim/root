@@ -1,14 +1,14 @@
 import re
 
 def refactor_maps():
-    path = "20-actors/magatama/py/src/pymagatama/ingest/maps_collection.py"
+    path = "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/maps_collection.py"
     with open(path, "r") as f:
         code = f.read()
 
     # 1. Imports
-    code = code.replace("from pymagatama.db_sync import sync_cursor\n", "")
-    if "from pymagatama.kotoba_datomic import get_kotoba_client" not in code:
-        code = code.replace("from typing import Any\n", "from typing import Any\nfrom pymagatama.kotoba_datomic import get_kotoba_client\n")
+    code = code.replace("from kotodama.db_sync import sync_cursor\n", "")
+    if "from kotodama.kotoba_datomic import get_kotoba_client" not in code:
+        code = code.replace("from typing import Any\n", "from typing import Any\nfrom kotodama.kotoba_datomic import get_kotoba_client\n")
     
     # 2. _execute
     old_execute = """def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:

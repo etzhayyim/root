@@ -55,7 +55,7 @@ forge script script/DeployReligiousCorp.s.sol:DeployReligiousCorp \
 
 ## Pregel cell
 
-[`20-actors/magatama/cells/tithe_routing/`](../../20-actors/magatama/cells/tithe_routing/) — MST listener on `com.etzhayyim.apps.payment.sent` records, validates `route()` was invoked correctly + alerts on SDK bypass.
+[`40-engine/kotoba/crates/kotoba-kotodama/cells/tithe_routing/`](../../40-engine/kotoba/crates/kotoba-kotodama/cells/tithe_routing/) — MST listener on `com.etzhayyim.apps.payment.sent` records, validates `route()` was invoked correctly + alerts on SDK bypass.
 
 ## Lexicon
 

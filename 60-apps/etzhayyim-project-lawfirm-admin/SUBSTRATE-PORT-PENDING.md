@@ -4,7 +4,7 @@
 
 ## Background
 
-11 files of `appview/lawfirm-admin-mcp-component/` (Svelte appview + worker + Magatama SDK wiring) were dropped during the 2026-05-21 batch migration because the etzhayyim implementation uses substrate primitives that are prohibited on the etzhayyim side.
+11 files of `appview/lawfirm-admin-mcp-component/` (Svelte appview + worker + Kotodama SDK wiring) were dropped during the 2026-05-21 batch migration because the etzhayyim implementation uses substrate primitives that are prohibited on the etzhayyim side.
 
 ## What's done (2026-05-24 substrate-port wave)
 
@@ -17,7 +17,7 @@
 2. `svelte/src/routes/xrpc/[...path]/+server.ts` — forwards to `mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message` → re-target to `mcp.etzhayyim.com` (same pattern as gov-mcp-component port).
 3. ~~Kysely / HyperDrive references.~~ **N/A — never present in this app.**
 4. ~~Lexicon namespace rename.~~ **DONE 2026-05-24** (NSID_PREFIX cutover in `src/app.ts`).
-5. Package name `@etzhayyim/magatama-*` → `@etzhayyim/magatama-*` (ADR-2605214000 atomic cutover — still pending).
+5. Package name `@etzhayyim/kotodama-*` → `@etzhayyim/kotodama-*` (ADR-2605214000 atomic cutover — still pending).
 
 ## Cross-links
 

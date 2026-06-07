@@ -25,7 +25,7 @@ on:
       - '.github/workflows/md-link-validation.yml'
   schedule:
     # Nightly at 03:47 UTC = ~12:47 JST. Off-minute :47 separates from
-    # magatama :41 / registry-schema :35 / docs-graph :29 / docs-registry :23 /
+    # kotodama :41 / registry-schema :35 / docs-graph :29 / docs-registry :23 /
     # deps-toml :17 (6-min spread × 6 axes including tracker).
     - cron: '47 3 * * *'
   workflow_dispatch:

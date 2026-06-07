@@ -11,7 +11,7 @@ Murakumo leader: `reuben` (firstborn / witness — Gen 49:3, "my might, the firs
 
 ## Steps
 
-1. `collectStateDiff` — read LangGraph checkpoint deltas via `pymagatama.checkpointer.MstCheckpointSaver` (ADR-2605191559); compute `(stateRootBefore, stateRootAfter, txDigest)` triple
+1. `collectStateDiff` — read LangGraph checkpoint deltas via `kotodama.checkpointer.MstCheckpointSaver` (ADR-2605191559); compute `(stateRootBefore, stateRootAfter, txDigest)` triple
 2. `signAndAppend` — sign triple with cell's rotating witness key; append to `auditLog` MST collection (`com.etzhayyim.apps.etzhayyim.yobel.auditEvent`)
 3. `tamperDetect` — verify previous super-step's signed triple is in the chain. Missing prior signature or hash chain break → tampering signal
 4. `anchorAuditBatch` — batched anchor via `AnchorBridge` (ADR-2605171800) every 100 audit events or 10 minutes (whichever first). MST → IPFS → Base L2 anchor tx in `AuditAnchorRegistry` contract

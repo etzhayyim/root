@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.7
 # Build:
 #   docker buildx build --platform linux/amd64 \
-#     --build-context py=../../../20-actors/magatama/py \
+#     --build-context py=../../../40-engine/kotoba/crates/kotoba-kotodama/py \
 #     --build-context worker=../worker/python \
 #     -t ghcr.io/etzhayyim/lg-open-jpn-mynumber:0.1.0-amd64 --push .
 
@@ -20,9 +20,9 @@ RUN pip install --no-cache-dir 'uv>=0.4'
 
 WORKDIR /app
 
-# Install pymagatama (editable)
-COPY --from=py . /opt/pymagatama
-RUN uv pip install --system --no-cache -e /opt/pymagatama
+# Install kotodama (editable)
+COPY --from=py . /opt/kotodama
+RUN uv pip install --system --no-cache -e /opt/kotodama
 
 # Copy the non-package worker file and inject into PYTHONPATH
 COPY --from=worker open_jpn_mynumber_worker.py /opt/open_jpn_mynumber_worker/open_jpn_mynumber_worker.py

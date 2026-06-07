@@ -61,7 +61,7 @@ visualize them, and persist them via the kotoba (Datomic-style) API":
 1. **The global fiscal INGEST substrate already exists and is
    W1-landed.** ADR-2605263900 ("Global open-government-data ingestion")
    pins worldwide fiscal sources to IPFS via
-   `pymagatama.organism.sensors.gov.*`, passive-only:
+   `kotodama.organism.sensors.gov.*`, passive-only:
    - **budget / spending** — `gov/budget/usa/usaspending-gov/`,
      `gov/budget/eu/financial-transparency/`, `gov/budget/jpn/yosan/`,
      `gov/budget/gbr/treasury/` (USAspending / EU FTS / 予算書 / HM
@@ -171,7 +171,7 @@ cross-reference graph (ADR-2605301600 + ADR-2605302245). It:
 
 ## §2 — Architecture (5 Pregel cells, R0 path-reserved)
 
-All cells path-reserved at R0 under `20-actors/magatama/cells/kanae_*/`;
+All cells path-reserved at R0 under `40-engine/kotoba/crates/kotoba-kotodama/cells/kanae_*/`;
 each is import-time `RuntimeError("kanae R0 scaffold: activate via
 Council ADR + R1 ratification")` at W1 creation.
 

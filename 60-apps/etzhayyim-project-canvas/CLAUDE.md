@@ -50,6 +50,6 @@
 ├── wit/canvas/package.wit           # Domain WIT capability
 └── wasm/etzhayyim-wasm-canvas-cnv5dr4w/
     ├── src/app.ts                   # TS Native — Design E reactive pipeline
-    ├── magatama.jsonld
+    ├── kotodama.jsonld
     └── wit/world.wit                # Component WIT (contract + capability export)
 ```

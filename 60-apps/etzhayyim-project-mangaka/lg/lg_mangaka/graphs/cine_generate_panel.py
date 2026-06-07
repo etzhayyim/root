@@ -50,7 +50,7 @@ import secrets
 import asyncio
 from typing import Annotated, Any, Dict, TypedDict
 
-from pymagatama.kotoba_datomic import get_kotoba_client
+from kotodama.kotoba_datomic import get_kotoba_client
 from langgraph.graph import END, START, StateGraph
 from langgraph.types import RetryPolicy, Send
 

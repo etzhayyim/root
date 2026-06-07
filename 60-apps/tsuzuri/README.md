@@ -66,7 +66,7 @@ PDF をドラッグ&ドロップ、または「開く」。すべてブラウザ
 - **Canonical DID**: `did:web:etzhayyim.com:actor:tsuzuri`
   - SSoT: `00-contracts/schemas/actor-profile-seed.kotoba.edn`（kind `:infra` / tier `app`）
   - フォールバック: `50-infra/etzhayyim-did-web/src/registry/infra-actors.ts`
-  - manifest: `magatama.jsonld`（`uiType: ameno` / `runtimeType: browser-local`）
+  - manifest: `kotodama.jsonld`（`uiType: ameno` / `runtimeType: browser-local`）
 - **正直なスコープ**: tsuzuri は DOM アプリで**単一 WASM コンポーネントではない**ため、ameno の
   `wasm-actor-loader`（`EtzhayyimWasmComponent` + CID 検証ロード）の対象ではない。service type は
   `EtzhayyimBrowserLocalApp`。実行モデル（端末内 WASM/JS）が ameno の browser-local に一致する、
@@ -113,7 +113,7 @@ npm run vendor   # = node scripts/fetch-vendor.mjs  (≈50MB を public/vendor/ 
 | **日本語テキスト追記**（fontkit + JP TTF subset 埋め込み, Type0/CIDFontType2 検証済） | ✅ |
 | OCR（表示 + txt DL） | ✅ MVP |
 | **vendor化**（importmap切替 + fetch-vendor + CSP lockdown） | ✅ |
-| **did:web actor 登録**（seed + INFRA_ACTORS + magatama.jsonld） | ✅ |
+| **did:web actor 登録**（seed + INFRA_ACTORS + kotodama.jsonld） | ✅ |
 | **OCR 透明テキストレイヤー埋め込み**（検索可能PDF化） | ⏳ |
 | 注釈（ハイライト/図形/手書き）・墨消し redaction | ⏳ |
 | フォーム（AcroForm）入出力 | ⏳ |

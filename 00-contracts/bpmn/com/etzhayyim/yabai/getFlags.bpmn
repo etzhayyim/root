@@ -11,7 +11,7 @@
       → generic.db.select (entity_vid=? AND extraFilters)
       → End
 
-  Uses dynamic WHERE via `extraFilters` (pymagatama 0.2.27).
+  Uses dynamic WHERE via `extraFilters` (kotodama 0.2.27).
   Output shape: `{ flags, total, entityVid, offset, limit }`.
 -->
 <bpmn:definitions

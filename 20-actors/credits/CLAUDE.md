@@ -85,7 +85,7 @@ Credits は yoro.etzhayyim.com の human participation 課金システム。Earn
 | MCP invoke (per 1KB request payload) | ¥0.1 |
 | MCP invoke (per 1KB response payload) | ¥0.1 |
 
-**MCP invoke** action は host-sdk `dispatchMcp` (`20-actors/magatama/sdk/magatama-host-sdk/src/mcp-server.ts`) の `tools/call` 経路から `SpendCredits({user_id, action: "mcp_invoke", amount, metadata: {tool_nsid, actor_did}})` で発火 (ADR-2604271400)。10% public fund 再分配は既存 `SpendCredits` allocation 経路で自動継承され、新規分配ロジックは導入しない。
+**MCP invoke** action は host-sdk `dispatchMcp` (`40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/mcp-server.ts`) の `tools/call` 経路から `SpendCredits({user_id, action: "mcp_invoke", amount, metadata: {tool_nsid, actor_did}})` で発火 (ADR-2604271400)。10% public fund 再分配は既存 `SpendCredits` allocation 経路で自動継承され、新規分配ロジックは導入しない。
 
 ## Anti-Fraud
 
@@ -129,7 +129,7 @@ Browser session end → RewardFromCompute
 Inference complete  → SpendCredits({action:"inference", ...})
 ```
 
-### magatama-host-sdk `/mcp` → credits-mcp (ADR-2604271400)
+### kotodama-host-sdk `/mcp` → credits-mcp (ADR-2604271400)
 
 ```txt
 tools/call pre  → CheckSpendAllowed({action:"mcp_invoke", payloadBytes})

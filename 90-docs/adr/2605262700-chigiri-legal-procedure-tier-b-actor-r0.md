@@ -113,7 +113,7 @@ Constraints (constitutional, not adjustable):
   MST + IPFS + Base L2 via @etzhayyim/sdk. No projection backend.
 - **Charter Rider §2(a)-(h)** must run on every legal document
   ingested or produced. The existing
-  `pymagatama.organism.sensors.charter_rider.scan()` is the canonical
+  `kotodama.organism.sensors.charter_rider.scan()` is the canonical
   scanner; chigiri reuses it (G1).
 - **Liberation Ladder L0..L6** (ADR-2605261000) — steward labor
   classification flows through chigiri's EmploymentComplianceCell; the
@@ -263,7 +263,7 @@ substrate actor at `20-actors/chigiri/`, with DID
   state and emits attestations on transitions (companion to
   Liberation Ladder's `stageAdvanceAttestation`).
 
-## §3. Cells (12 Pregel cells under `20-actors/magatama/cells/chigiri_*/`)
+## §3. Cells (12 Pregel cells under `40-engine/kotoba/crates/kotoba-kotodama/cells/chigiri_*/`)
 
 All cells import-time `RuntimeError("chigiri R0 scaffold: activate via Council ADR + R1 ratification + R2-specific gates")` at R0.
 
@@ -304,7 +304,7 @@ All 9 records require schema-level field validation. R0 = scaffold + skeleton sc
 
 | Gate | Description |
 |---|---|
-| **G1** | Every legal document (ingested OR produced) MUST pass `pymagatama.organism.sensors.charter_rider.scan()` §2(a)-(h). Fail = block, no Lexicon emit, no procedural advancement. |
+| **G1** | Every legal document (ingested OR produced) MUST pass `kotodama.organism.sensors.charter_rider.scan()` §2(a)-(h). Fail = block, no Lexicon emit, no procedural advancement. |
 | **G2** | Every procedure MUST emit `com.etzhayyim.chigiri.*` Lexicon record with kotoba-datomic attestation lineage (kotoba block CID + Council attestation signatures); missing record = procedure invisible. |
 | **G3** | Internal procedure MUST NOT require state-issued personal ID (DID + SBT only); external interface (counsel KYC, vendor contract) MAY require state ID at the boundary. |
 | **G4** | Charter Rider amendment MUST be Council Lv6+ ≥4/7. |
@@ -391,7 +391,7 @@ session (2026-05-26).
 
 1. This ADR (`90-docs/adr/2605262700-chigiri-legal-procedure-tier-b-actor-r0.md`);
 2. Actor scaffold (`20-actors/chigiri/manifest.jsonld` + `README.md` + `CLAUDE.md`);
-3. 12 Pregel cell directory stubs (`20-actors/magatama/cells/chigiri_*/README.md`);
+3. 12 Pregel cell directory stubs (`40-engine/kotoba/crates/kotoba-kotodama/cells/chigiri_*/README.md`);
 4. 9 Lexicon JSON skeleton schemas under `00-contracts/lexicons/com/etzhayyim/chigiri/`;
 5. Companion ADR-2605262800 (legal corpus ingestion);
 6. `deps.toml` [[adrs]] + [[modules]] entries;

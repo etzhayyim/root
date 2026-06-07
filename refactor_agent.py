@@ -3,11 +3,11 @@ import glob
 import re
 
 def refactor_agent_economy():
-    path = "20-actors/magatama/py/src/pymagatama/primitives/agent_economy.py"
+    path = "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/agent_economy.py"
     with open(path, "r") as f:
         code = f.read()
 
-    code = code.replace("from pymagatama.db_sync import sync_cursor", "from pymagatama.kotoba_datomic import get_kotoba_client")
+    code = code.replace("from kotodama.db_sync import sync_cursor", "from kotodama.kotoba_datomic import get_kotoba_client")
 
     old_insert = """def _insert(table: str, row: dict[str, Any], *, dry_run: bool = False) -> None:
     if dry_run:

@@ -12,7 +12,7 @@ self-submit-default ceiling, ADR-2605312030 §4):
 
   1. The 7 R0 cell stubs raise at import time until R1.
   2. The manifest pins 15 gates G1..G15 + 6 lexiconNamespaces matching disk,
-     and 7 cells whose module paths match the on-disk magatama.cells dirs.
+     and 7 cells whose module paths match the on-disk kotodama.cells dirs.
   3. No `type: number` (float) anywhere in the lexicons (Lexicon v1,
      ADR-2605190900).
   4. G8 non-fabrication + G14: `procedure` requires legalBasis + provenance +
@@ -48,7 +48,7 @@ _SUBMISSION = _LEX / "submissionRecord.json"
 _STATUS = _LEX / "statusTrack.json"
 _MANIFEST = _REPO / "20-actors" / "toritsugi" / "manifest.jsonld"
 _SEED = _REPO / "20-actors" / "toritsugi" / "registry" / "procedures.seed.json"
-_CELLS = _REPO / "20-actors" / "magatama" / "cells"
+_CELLS = _REPO / "20-actors" / "kotodama" / "cells"
 
 _CELL_NAMES = [
     "toritsugi_procedure_registry",
@@ -110,7 +110,7 @@ def test_manifest_gates_namespaces_cells():
     assert len(cells) == 7, "7 cells"
     for c in cells:
         mod = c["module"]
-        assert mod.startswith("magatama.cells.toritsugi_"), mod
+        assert mod.startswith("kotodama.cells.toritsugi_"), mod
         dir_name = mod.split(".")[-1]
         assert (_CELLS / dir_name / "cell.py").exists(), f"no disk cell for {mod}"
 

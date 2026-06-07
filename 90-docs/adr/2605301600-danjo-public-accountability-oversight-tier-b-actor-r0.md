@@ -35,7 +35,7 @@ notes: |
   すべて kotoba に ingest して、不正や違反がないかを特定する actor は設計されている?".
   Audit (Explore agent) found PARTIAL: the ingestion substrate exists and is W1-landed
   (ADR-2605263900 — JP 国会会議録 / 予算書 / 政府調達 / e-Stat / data.go.jp pinned to IPFS,
-  written by pymagatama.organism.sensors.gov.*), and three actors consume parts of it
+  written by kotodama.organism.sensors.gov.*), and three actors consume parts of it
   (toritate = anti-related-party for ITS OWN tithe-recipient vendors only; chigiri = cites
   state procedure as routing-around evidence; ossekai = aggregate transparency publication),
   but NO single actor was designed to cross-reference the WHOLE corpus to surface 不正 / 違反.
@@ -132,7 +132,7 @@ the open-government corpus (ADR-2605263900). It:
 1. **Ingests** the already-pinned JP corpus (国会会議録 / 予算書 /
    政府調達 / e-Stat) into **kotoba EAVT** as datoms — it does NOT
    re-fetch from government portals; it reads the IPFS-pinned
-   `com.etzhayyim.gov.dataset.*` records that `pymagatama.organism.
+   `com.etzhayyim.gov.dataset.*` records that `kotodama.organism.
    sensors.gov.*` already produced (G3 passive-only).
 2. **Cross-references** those datoms with each other and with the corp
    identity registry (`com.etzhayyim.corp.{leiReference,ownershipEdge}`,
@@ -147,7 +147,7 @@ the open-government corpus (ADR-2605263900). It:
 
 ## §2 — Architecture (6 Pregel cells, R0 path-reserved)
 
-All cells path-reserved at R0 under `20-actors/magatama/cells/danjo_*/`;
+All cells path-reserved at R0 under `40-engine/kotoba/crates/kotoba-kotodama/cells/danjo_*/`;
 each is import-time `RuntimeError("danjo R0 scaffold: activate via
 Council ADR + R1 ratification")` at W1 creation.
 

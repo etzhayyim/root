@@ -31,7 +31,7 @@ export function expandCollection(kind: string, appName?: string): string {
 /** WIT package + type → AT Protocol collection NSID.
  *
  * e.g. witToCollection("etzhayyim:handotai", "article") → "com.etzhayyim.apps.handotai.article"
- *      witToCollection("magatama:wproto", "record") → "com.etzhayyim.platform.wproto.record"
+ *      witToCollection("kotodama:wproto", "record") → "com.etzhayyim.platform.wproto.record"
  */
 export function witToCollection(witPkg: string, witType: string): string {
   const ns = witPkg.startsWith("etzhayyim:") ? "com.etzhayyim.apps" : "com.etzhayyim.platform";

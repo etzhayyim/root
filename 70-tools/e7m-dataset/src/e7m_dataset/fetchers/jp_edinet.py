@@ -31,7 +31,7 @@ The v2 documents.json endpoint returns per-day filing metadata:
   }
 
 This fetcher normalizes the per-day results into NDJSON consumable
-by ``pymagatama.organism.sensors.corp.jp_edinet_sensor.JpEdinetSensor``:
+by ``kotodama.organism.sensors.corp.jp_edinet_sensor.JpEdinetSensor``:
 
   {"entityLocalId": "E01777", "formTypeNative": "120",
    "filedAtUtc": "2025-06-22T22:00:00Z",  # JST → UTC

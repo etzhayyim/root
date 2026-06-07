@@ -289,7 +289,7 @@ def test_identifier_audit_empty(tmp_path):
 
 
 def test_identifier_audit_valid_nanoid(tmp_path):
-    (tmp_path / "magatama.jsonld").write_text(json.dumps({
+    (tmp_path / "kotodama.jsonld").write_text(json.dumps({
         "nanoid": "abc12345",
         "did": "did:plc:abc123",
         "name": "billing",
@@ -299,13 +299,13 @@ def test_identifier_audit_valid_nanoid(tmp_path):
 
 
 def test_identifier_audit_invalid_nanoid(tmp_path):
-    (tmp_path / "magatama.jsonld").write_text(json.dumps({"nanoid": "x"}))
+    (tmp_path / "kotodama.jsonld").write_text(json.dumps({"nanoid": "x"}))
     violations = run_audit(tmp_path)
     assert any(v.rule == "nanoid-format" for v in violations)
 
 
 def test_identifier_audit_invalid_did(tmp_path):
-    (tmp_path / "magatama.jsonld").write_text(json.dumps({
+    (tmp_path / "kotodama.jsonld").write_text(json.dumps({
         "nanoid": "abc12345",
         "did": "did:custom:xyz",
     }))
@@ -314,7 +314,7 @@ def test_identifier_audit_invalid_did(tmp_path):
 
 
 def test_identifier_audit_name_uppercase(tmp_path):
-    (tmp_path / "magatama.jsonld").write_text(json.dumps({
+    (tmp_path / "kotodama.jsonld").write_text(json.dumps({
         "nanoid": "abc12345",
         "name": "MyBilling",
     }))
@@ -462,7 +462,7 @@ def test_cli_apps_list_empty(tmp_path):
 def test_cli_apps_list_with_actor(tmp_path):
     app_dir = tmp_path / "60-apps" / "proj" / "appview" / "app"
     app_dir.mkdir(parents=True)
-    (app_dir / "magatama.jsonld").write_text(json.dumps({
+    (app_dir / "kotodama.jsonld").write_text(json.dumps({
         "nanoid": "abc12345",
         "name": "billing",
         "performerType": "actor",
@@ -708,7 +708,7 @@ def test_code_quality_run_json(tmp_path):
     result = runner.invoke(main, [
         "code-quality", "run", "--json",
         "--workspace-dir", str(tmp_path),
-        "--skip", "jscpd_clones,frontend_lint,dead_exports,magatama_lint",
+        "--skip", "jscpd_clones,frontend_lint,dead_exports,kotodama_lint",
     ])
     assert result.exit_code == 0
     data = json.loads(result.output)
@@ -726,7 +726,7 @@ def test_docs_gen_schema_help():
     runner = CliRunner()
     result = runner.invoke(main, ["docs-gen", "schema", "--help"])
     assert result.exit_code == 0
-    assert "schema.auto.md" in result.output or "magatama" in result.output
+    assert "schema.auto.md" in result.output or "kotodama" in result.output
 
 
 def test_migrate_manifest_no_etzhayyim_json_exits_nonzero(tmp_path):
@@ -737,7 +737,7 @@ def test_migrate_manifest_no_etzhayyim_json_exits_nonzero(tmp_path):
 
 
 def test_migrate_manifest_dry_run_basic(tmp_path):
-    """migrate-manifest run --dry-run prints magatama.jsonld to stdout."""
+    """migrate-manifest run --dry-run prints kotodama.jsonld to stdout."""
     etzhayyim_json = {
         "name": "test-app",
         "nanoid": "t3st4pp",
@@ -756,7 +756,7 @@ def test_migrate_manifest_dry_run_basic(tmp_path):
 
 
 def test_migrate_manifest_writes_jsonld(tmp_path):
-    """migrate-manifest run writes magatama.jsonld from etzhayyim.json."""
+    """migrate-manifest run writes kotodama.jsonld from etzhayyim.json."""
     etzhayyim_json = {
         "name": "my-actor",
         "nanoid": "my4ct0r",
@@ -769,7 +769,7 @@ def test_migrate_manifest_writes_jsonld(tmp_path):
         main, ["migrate-manifest", "run", "--dir", str(tmp_path)]
     )
     assert result.exit_code == 0
-    out_file = tmp_path / "magatama.jsonld"
+    out_file = tmp_path / "kotodama.jsonld"
     assert out_file.exists()
     data = json.loads(out_file.read_text())
     assert data["name"] == "my-actor"
@@ -779,9 +779,9 @@ def test_migrate_manifest_writes_jsonld(tmp_path):
 
 
 def test_migrate_manifest_skips_existing(tmp_path):
-    """migrate-manifest run skips component if magatama.jsonld already exists."""
+    """migrate-manifest run skips component if kotodama.jsonld already exists."""
     (tmp_path / "etzhayyim.json").write_text(json.dumps({"name": "a", "nanoid": "b"}))
-    (tmp_path / "magatama.jsonld").write_text("{}")
+    (tmp_path / "kotodama.jsonld").write_text("{}")
     runner = CliRunner()
     result = runner.invoke(
         main, ["migrate-manifest", "run", "--dir", str(tmp_path)]
@@ -801,14 +801,14 @@ def test_migrate_manifest_batch(tmp_path):
         main, ["migrate-manifest", "run", "--batch", "--dir", str(tmp_path)]
     )
     assert result.exit_code == 0
-    assert (tmp_path / "alpha" / "magatama.jsonld").exists()
-    assert (tmp_path / "beta" / "magatama.jsonld").exists()
+    assert (tmp_path / "alpha" / "kotodama.jsonld").exists()
+    assert (tmp_path / "beta" / "kotodama.jsonld").exists()
 
 
 def test_migrate_manifest_toml_ui(tmp_path):
-    """migrate-manifest run merges magatama.toml ui section."""
+    """migrate-manifest run merges kotodama.toml ui section."""
     (tmp_path / "etzhayyim.json").write_text(json.dumps({"name": "ui-app", "nanoid": "uiapp"}))
-    (tmp_path / "magatama.toml").write_text(
+    (tmp_path / "kotodama.toml").write_text(
         '[ui]\nmode = "custom"\naccent = "#ff0000"\n'
     )
     runner = CliRunner()
@@ -1200,7 +1200,7 @@ def test_kosei_suggest_tier():
     """_suggest_tier heuristics."""
     from etzhayyim.kosei import _suggest_tier
     assert _suggest_tier({"name": "pds-gateway", "dir": "50-infra/vultr/pds"}) == "T3"
-    assert _suggest_tier({"name": "magatama-actor", "dir": "20-actors/magatama"}) == "T1"
+    assert _suggest_tier({"name": "kotodama-actor", "dir": "40-engine/kotoba/crates/kotoba-kotodama"}) == "T1"
     assert _suggest_tier({"name": "shinshi-app", "dir": "60-apps/etzhayyim-project-shinshi"}) == "T2"
 
 
@@ -1210,7 +1210,7 @@ def test_kosei_set_and_list(tmp_path):
     data_dir = tmp_path / "80-data" / "kosei"
     ws = tmp_path
     (ws / "20-actors" / "myactor").mkdir(parents=True)
-    (ws / "20-actors" / "myactor" / "magatama.jsonld").write_text(
+    (ws / "20-actors" / "myactor" / "kotodama.jsonld").write_text(
         json.dumps({"nanoid": "abc12345", "name": "myactor", "did": "did:web:test"})
     )
     r = runner.invoke(main, ["kosei", "set", "abc12345",
@@ -1396,7 +1396,7 @@ def test_hinshitsu_actors_json(tmp_path):
     """hinshitsu actors --json with a synthetic actor."""
     actor_dir = tmp_path / "20-actors" / "myactor"
     actor_dir.mkdir(parents=True)
-    (actor_dir / "magatama.jsonld").write_text(json.dumps({
+    (actor_dir / "kotodama.jsonld").write_text(json.dumps({
         "nanoid": "abc12345",
         "name": "myactor",
         "did": "did:web:test",
@@ -1459,7 +1459,7 @@ def test_coverage_governance_json(tmp_path):
     """coverage governance --json produces valid JSON."""
     actor_dir = tmp_path / "20-actors" / "myactor"
     actor_dir.mkdir(parents=True)
-    (actor_dir / "magatama.jsonld").write_text(json.dumps({
+    (actor_dir / "kotodama.jsonld").write_text(json.dumps({
         "nanoid": "abc12345", "name": "myactor",
         "operator": "etzhayyim",
     }))
@@ -1925,7 +1925,7 @@ def test_kosei_stack_not_found(tmp_path):
 
 
 def test_kosei_stack_with_app(tmp_path):
-    """kosei stack with a real magatama.jsonld prints stack info."""
+    """kosei stack with a real kotodama.jsonld prints stack info."""
     import json as _json
     app_dir = tmp_path / "60-apps" / "etzhayyim-project-test" / "actors" / "test-actor"
     app_dir.mkdir(parents=True)
@@ -1937,7 +1937,7 @@ def test_kosei_stack_with_app(tmp_path):
         "subscribeRepos": {"collections": ["com.etzhayyim.test.item"]},
         "evolver": {"enabled": True},
     }
-    (app_dir / "magatama.jsonld").write_text(_json.dumps(manifest))
+    (app_dir / "kotodama.jsonld").write_text(_json.dumps(manifest))
     (tmp_path / ".git").mkdir()
     runner = CliRunner()
     result = runner.invoke(main, ["kosei", "stack", "test1234567",
@@ -1957,7 +1957,7 @@ def test_kosei_stack_json(tmp_path):
         "performerType": "software",
         "guestLanguage": "",
     }
-    (app_dir / "magatama.jsonld").write_text(_json.dumps(manifest))
+    (app_dir / "kotodama.jsonld").write_text(_json.dumps(manifest))
     (tmp_path / ".git").mkdir()
     runner = CliRunner()
     result = runner.invoke(main, ["kosei", "stack", "test9876543", "--json",
@@ -2290,7 +2290,7 @@ def test_deps_governance_wit_with_files(tmp_path):
     (src_dir / "app.ts").write_text(
         'sdk.app.command("com.etzhayyim.apps.test.run", async (ctx, body) => {});\n'
     )
-    (tmp_path / "magatama.jsonld").write_text(json.dumps({
+    (tmp_path / "kotodama.jsonld").write_text(json.dumps({
         "runtime": "worker",
         "governance": {"raci": "responsible", "classification": "internal"},
     }))
@@ -2369,7 +2369,7 @@ def test_docs_gen_schema_missing_dir(tmp_path):
     runner = CliRunner()
     result = runner.invoke(main, ["docs-gen", "schema", "--dir", str(tmp_path)])
     assert result.exit_code != 0
-    assert "magatama.jsonld" in result.output or "magatama.jsonld" in str(result.exception)
+    assert "kotodama.jsonld" in result.output or "kotodama.jsonld" in str(result.exception)
 
 
 def test_docs_gen_schema_json(tmp_path):
@@ -2381,7 +2381,7 @@ def test_docs_gen_schema_json(tmp_path):
         "performerType": "service",
     }
     import json as _json
-    (tmp_path / "magatama.jsonld").write_text(_json.dumps(manifest), encoding="utf-8")
+    (tmp_path / "kotodama.jsonld").write_text(_json.dumps(manifest), encoding="utf-8")
     runner = CliRunner()
     result = runner.invoke(main, ["docs-gen", "schema", "--dir", str(tmp_path)])
     assert result.exit_code == 0
@@ -2399,7 +2399,7 @@ def test_docs_gen_schema_md(tmp_path):
         "nanoid": "abc123",
     }
     import json as _json
-    (tmp_path / "magatama.jsonld").write_text(_json.dumps(manifest), encoding="utf-8")
+    (tmp_path / "kotodama.jsonld").write_text(_json.dumps(manifest), encoding="utf-8")
     runner = CliRunner()
     result = runner.invoke(main, ["docs-gen", "schema", "--dir", str(tmp_path), "--format", "md"])
     assert result.exit_code == 0
@@ -2410,7 +2410,7 @@ def test_docs_gen_schema_md(tmp_path):
 def test_docs_gen_schema_with_ts_labels(tmp_path):
     manifest = {"name": "app-with-labels", "nanoid": "xyz999"}
     import json as _json
-    (tmp_path / "magatama.jsonld").write_text(_json.dumps(manifest), encoding="utf-8")
+    (tmp_path / "kotodama.jsonld").write_text(_json.dumps(manifest), encoding="utf-8")
     src = tmp_path / "src"
     src.mkdir()
     (src / "app.ts").write_text('G("Transaction").Match().Query();\nG(\'Actor\').Get();', encoding="utf-8")
@@ -2425,7 +2425,7 @@ def test_docs_gen_schema_with_ts_labels(tmp_path):
 def test_docs_gen_schema_out_file(tmp_path):
     manifest = {"name": "out-test", "nanoid": "out999"}
     import json as _json
-    (tmp_path / "magatama.jsonld").write_text(_json.dumps(manifest), encoding="utf-8")
+    (tmp_path / "kotodama.jsonld").write_text(_json.dumps(manifest), encoding="utf-8")
     out = tmp_path / "schema.auto.md"
     runner = CliRunner()
     result = runner.invoke(main, [
@@ -2692,7 +2692,7 @@ def _make_app(tmp_path: Path, nanoid: str = "abc12345", name: str = "TestApp") -
     app_dir = tmp_path / "60-apps" / f"etzhayyim-project-{nanoid}" / "src"
     app_dir.mkdir(parents=True)
     meta_dir = app_dir.parent
-    (meta_dir / "magatama.jsonld").write_text(json.dumps({
+    (meta_dir / "kotodama.jsonld").write_text(json.dumps({
         "nanoid": nanoid,
         "@id": f"did:web:{nanoid}.etzhayyim.com",
         "profile": {"displayName": name},
@@ -2710,10 +2710,10 @@ def test_monitor_shinka_help():
     assert "--dir" in result.output or "--nanoid" in result.output
 
 
-def test_discover_apps_finds_magatama(tmp_path, monkeypatch):
+def test_discover_apps_finds_kotodama(tmp_path, monkeypatch):
     app_dir = tmp_path / "60-apps" / "my-app"
     app_dir.mkdir(parents=True)
-    (app_dir / "magatama.jsonld").write_text(json.dumps({
+    (app_dir / "kotodama.jsonld").write_text(json.dumps({
         "nanoid": "testnanoid",
         "@id": "did:web:testnanoid.etzhayyim.com",
         "profile": {"displayName": "Test"},
@@ -2727,7 +2727,7 @@ def test_discover_apps_nanoid_filter(tmp_path, monkeypatch):
     for nanoid in ["aaa11111", "bbb22222"]:
         d = tmp_path / nanoid
         d.mkdir()
-        (d / "magatama.jsonld").write_text(json.dumps({
+        (d / "kotodama.jsonld").write_text(json.dumps({
             "nanoid": nanoid, "profile": {"displayName": nanoid}
         }))
     monkeypatch.chdir(tmp_path)
@@ -2828,7 +2828,7 @@ def test_monitor_shinka_json_output(tmp_path, monkeypatch):
     monkeypatch.chdir(tmp_path)
     app_dir = tmp_path / "60-apps" / "myapp"
     app_dir.mkdir(parents=True)
-    (app_dir / "magatama.jsonld").write_text(json.dumps({
+    (app_dir / "kotodama.jsonld").write_text(json.dumps({
         "nanoid": "mynanoid1", "@id": "did:web:mynanoid1.etzhayyim.com",
         "profile": {"displayName": "MyApp"},
     }))

@@ -69,35 +69,35 @@
   "cells": [
     {
       "name": "charters_attestation",
-      "module": "magatama.cells.chigiri_charters_attestation",
+      "module": "kotodama.cells.chigiri_charters_attestation",
       "murakumoNode": "reuben",
       "phase": "continuous",
       "io": "finding → mediation OR enforcement routing"
     },
     {
       "name": "council_procedure",
-      "module": "magatama.cells.chigiri_council_procedure",
+      "module": "kotodama.cells.chigiri_council_procedure",
       "murakumoNode": "reuben",
       "phase": "event",
       "io": "proposal → Safe 5-of-7 multisig path"
     },
     {
       "name": "member_onboarding",
-      "module": "magatama.cells.chigiri_member_onboarding",
+      "module": "kotodama.cells.chigiri_member_onboarding",
       "murakumoNode": "simeon",
       "phase": "event",
       "io": "candidate DID + consent → Adherent SBT"
     },
     {
       "name": "member_offboarding",
-      "module": "magatama.cells.chigiri_member_offboarding",
+      "module": "kotodama.cells.chigiri_member_offboarding",
       "murakumoNode": "simeon",
       "phase": "event",
       "io": "DID → SBT revoke (voluntary OR excommunication)"
     },
     {
       "name": "covenant_ceremony",
-      "module": "magatama.cells.chigiri_covenant_ceremony",
+      "module": "kotodama.cells.chigiri_covenant_ceremony",
       "murakumoNode": "simeon+levi",
       "phase": "event",
       "io": "ceremony spec → covenantAttestation",
@@ -105,56 +105,56 @@
     },
     {
       "name": "inheritance",
-      "module": "magatama.cells.chigiri_inheritance",
+      "module": "kotodama.cells.chigiri_inheritance",
       "murakumoNode": "simeon",
       "phase": "event",
       "io": "decedent DID + heir DID → inheritanceChain"
     },
     {
       "name": "dispute_mediation",
-      "module": "magatama.cells.chigiri_dispute_mediation",
+      "module": "kotodama.cells.chigiri_dispute_mediation",
       "murakumoNode": "levi",
       "phase": "session",
       "io": "claim → mediation cycle (max 3 rounds before arbitration escalation)"
     },
     {
       "name": "ip_licensing",
-      "module": "magatama.cells.chigiri_ip_licensing",
+      "module": "kotodama.cells.chigiri_ip_licensing",
       "murakumoNode": "gad",
       "phase": "continuous",
       "io": "Rider scan finding → claim filing"
     },
     {
       "name": "tax_receipt",
-      "module": "magatama.cells.chigiri_tax_receipt",
+      "module": "kotodama.cells.chigiri_tax_receipt",
       "murakumoNode": "gad",
       "phase": "event",
       "io": "donation event → per-jurisdiction receipt routing"
     },
     {
       "name": "employment_compliance",
-      "module": "magatama.cells.chigiri_employment_compliance",
+      "module": "kotodama.cells.chigiri_employment_compliance",
       "murakumoNode": "gad",
       "phase": "continuous",
       "io": "steward registry → L-level classification (volunteer ≠ employee)"
     },
     {
       "name": "data_privacy",
-      "module": "magatama.cells.chigiri_data_privacy",
+      "module": "kotodama.cells.chigiri_data_privacy",
       "murakumoNode": "gad",
       "phase": "event",
       "io": "DSAR / breach → procedure routing (GDPR / CCPA / APPI / LGPD)"
     },
     {
       "name": "transparent_force_authorization",
-      "module": "magatama.cells.chigiri_transparent_force_authorization",
+      "module": "kotodama.cells.chigiri_transparent_force_authorization",
       "murakumoNode": "naphtali",
       "phase": "event",
       "io": "force request → 1 SBT = 1 vote attestation chain + IHL checklist (defensive only per G7)"
     },
     {
       "name": "legal_aid_clinic",
-      "module": "magatama.cells.chigiri_legal_aid_clinic",
+      "module": "kotodama.cells.chigiri_legal_aid_clinic",
       "murakumoNode": "judah",
       "phase": "session",
       "io": "adherent intake → conflict check → NON-advice triage (Murakumo) → jurisdiction-enabled check → Public-Fund counsel assignment → legalAidMatter (ADR-2605302200 G14/G15/G16)"
@@ -183,8 +183,8 @@
       "90-docs/baien/datasets/law/templates/",
       "90-docs/baien/datasets/law/commentary/"
     ],
-    "sensors": "pymagatama.organism.sensors.legal.{statute,case,treaty,procedure,template}_sensor",
-    "judicialPartyRedaction": "pymagatama.organism.sensors.legal.judicial_party_redactor (per-jurisdiction publication-redaction policy)",
+    "sensors": "kotodama.organism.sensors.legal.{statute,case,treaty,procedure,template}_sensor",
+    "judicialPartyRedaction": "kotodama.organism.sensors.legal.judicial_party_redactor (per-jurisdiction publication-redaction policy)",
     "inferencePath": "Murakumo only (ADR-2605215000) — judah LiteLLM 127.0.0.1:4000 → gemma4:e4b; NO vendor LLM API callout"
   },
   "constitutionalGates": {
@@ -230,7 +230,7 @@
     {
       "phase": "R0",
       "date": "2026-05-26",
-      "scope": "Scaffold only. 12 cells path-reserved (under 20-actors/magatama/cells/chigiri_*/, created in R1). 9 Lexicon schema skeletons under 00-contracts/lexicons/com/etzhayyim/chigiri/. manifest + README + CLAUDE.md.",
+      "scope": "Scaffold only. 12 cells path-reserved (under 40-engine/kotoba/crates/kotoba-kotodama/cells/chigiri_*/, created in R1). 9 Lexicon schema skeletons under 00-contracts/lexicons/com/etzhayyim/chigiri/. manifest + README + CLAUDE.md.",
       "murakumoFleet": "No deployment",
       "gate": "ADR-2605262700 (PROPOSED)"
     },

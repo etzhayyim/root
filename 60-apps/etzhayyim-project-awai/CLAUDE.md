@@ -6,7 +6,7 @@
 
 ## Overview
 
-Earth-scale 3D Gaussian Splatting viewer. WebP images → SfM → 3DGS training → PLY/splat/ksplat output → magatama WIT storage → Threlte (Three.js + Svelte) globe rendering.
+Earth-scale 3D Gaussian Splatting viewer. WebP images → SfM → 3DGS training → PLY/splat/ksplat output → kotodama WIT storage → Threlte (Three.js + Svelte) globe rendering.
 
 ## Architecture
 
@@ -18,7 +18,7 @@ Browser (awai.etzhayyim.com)
        App: awai-component (TS Native)
               ├─ performer/rdbms (ClickHouse RDBMS) → awai-splat-meta (splat/job/placement metadata)
               ├─ NATS Object Store  → awai-splat-data (PLY/splat/ksplat binary)
-              └─ magatama fileserver    → svelte/build bundled static assets
+              └─ kotodama fileserver    → svelte/build bundled static assets
 ```
 
 ## Component

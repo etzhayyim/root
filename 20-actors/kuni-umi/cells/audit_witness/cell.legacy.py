@@ -25,7 +25,7 @@ from typing import Any, Literal, TypedDict
 
 from langgraph.graph import START, END, StateGraph
 
-from pymagatama.cell_runtime import (
+from kotodama.cell_runtime import (
     CellDeps,
     default_state_from_event,
     default_thread_id_from_event,
@@ -70,7 +70,7 @@ class AuditWitnessState(TypedDict, total=False):
 def poll_witnesses(state: AuditWitnessState, deps: CellDeps) -> AuditWitnessState:
     """Fetch latest sensor blob CIDs from N >= 2 independent robots at the site."""
     raise NotImplementedError(
-        "Requires pymagatama.open_robo.fleet poll endpoint."
+        "Requires kotodama.open_robo.fleet poll endpoint."
     )
 
 

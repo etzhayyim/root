@@ -42,7 +42,7 @@ records the violation explicitly so the unwind is tracked.
 
 ### Five layers of failure observed
 
-1. **Stale build artifact.** `magatama-yoro` Worker was serving an `index.html` that
+1. **Stale build artifact.** `kotodama-yoro` Worker was serving an `index.html` that
    referenced asset hashes (`index-nYWuGNtL.js`, `index-9MNgVrHh.css`) that no
    longer existed in `static/assets/`. The Worker's
    `not_found_handling: "single-page-application"` fell back to serving
@@ -62,7 +62,7 @@ records the violation explicitly so the unwind is tracked.
    "HTTP 405"/"HTTP 501").
 
 4. **ADR-2605111200 fail-fast guard.** The `createKyselyDb()` helper in
-   `@etzhayyim/magatama-host-sdk` is configured to `throw new WorkerDBProhibitedError()`
+   `@etzhayyim/kotodama-host-sdk` is configured to `throw new WorkerDBProhibitedError()`
    whenever invoked from a CF Worker (caches + WorkerGlobalScope both defined).
    The intent is to force migration of all DB I/O through AgentGateway MCP →
    pod-side LangServer. But the production PDS (`etzhayyim-pds-2603241700`) and
@@ -85,10 +85,10 @@ records the violation explicitly so the unwind is tracked.
 
 | # | Component | Version |
 |---|---|---|
-| 1 | yoro bundle hashes patched + `static/assets/` rebuilt from `_svelte/` build | `magatama-yoro@057fa39a-12c3-4a60-9159-c985bf057e9d` |
+| 1 | yoro bundle hashes patched + `static/assets/` rebuilt from `_svelte/` build | `kotodama-yoro@057fa39a-12c3-4a60-9159-c985bf057e9d` |
 | 2 | bundle post-process: `googletagmanager.com` / `pagead2.googlesyndication.com` / `a.magsrv.com` → `127.0.0.1.invalid`; `G-FPSMTY14DJ` → `G-NOOP-DISA`; `ca-pub-8017914559680125` → `ca-pub-0000000000000000`; cookie banner text scrubbed | committed in `e67f86884` |
 | 3 | New Worker `etzhayyim-xrpc-proxy` (`50-infra/etzhayyim-xrpc-proxy/`) with custom-domain bindings for `atproto/bsky/authn/mcp.etzhayyim.com` and service bindings to the upstream `etzhayyim-pds-2603241700 / etzhayyim-appview / etzhayyim-auth / etzhayyim-agentgateway` Workers | `etzhayyim-xrpc-proxy@76483e4d-...` |
-| 4 | `@etzhayyim/magatama-host-sdk` `createKyselyDb` guard softened from `throw new WorkerDBProhibitedError()` to a warn-once `console.warn`. PDS + AppView re-bundled and re-deployed | `etzhayyim-pds-2603241700@e85d67fe-...` + `etzhayyim-appview@e73d3e88-...` |
+| 4 | `@etzhayyim/kotodama-host-sdk` `createKyselyDb` guard softened from `throw new WorkerDBProhibitedError()` to a warn-once `console.warn`. PDS + AppView re-bundled and re-deployed | `etzhayyim-pds-2603241700@e85d67fe-...` + `etzhayyim-appview@e73d3e88-...` |
 | 5 | `etzhayyim-did-web` worker: added `app.bsky.*`, `com.atproto.*`, `chat.bsky.*`, `com.etzhayyim.*` NSID prefixes; added GET → POST normalization (URL search params → JSON body) for `/xrpc/*` so the bundle's query NSIDs reach the POST-only upstream | `etzhayyim-did-web@cec99c52-4e61-4de5-b8f4-40d4cc9b5d51` |
 
 End-to-end result: home page Discover feed renders real posts; `/search?q=yoro`
@@ -162,7 +162,7 @@ exit criteria. The violations exist because:
 1. **Substrate boundary restored.** PDS + AppView feed / search / actor
    handlers route through AgentGateway MCP → LangServer pod (per
    ADR-2605111200). `createKyselyDb` guard restored to `throw`. Single grep of
-   `magatama-host-sdk` for `_cfWorkerGuardWarned` returns no matches.
+   `kotodama-host-sdk` for `_cfWorkerGuardWarned` returns no matches.
 2. **MST + IPFS + Base L2 substrate live.** `mst-projector` writes the canonical
    MST stream, `ipfs-pinner` pins the resulting blocks, `l2-anchor-contract`
    anchors the root CID. Kotoba/Datomic becomes a read-side projection only.

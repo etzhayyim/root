@@ -48,7 +48,7 @@ B2B factory-direct ordering platform for `tsukuru.etzhayyim.com`.
 
 設計: `90-docs/260326-okaimono-bto-oem-manufacturing-design.md`
 
-**Convo Integration**: `yoro.etzhayyim.com/profile/did:web:tsukr8u0.etzhayyim.com` → メッセージ → Murakumo LLM + MCP tool calling で製造プロジェクト実行。`convoSystemPrompt` (magatama.jsonld) でガイダンス。
+**Convo Integration**: `yoro.etzhayyim.com/profile/did:web:tsukr8u0.etzhayyim.com` → メッセージ → Murakumo LLM + MCP tool calling で製造プロジェクト実行。`convoSystemPrompt` (kotodama.jsonld) でガイダンス。
 
 ## Cross-Project Dependencies
 

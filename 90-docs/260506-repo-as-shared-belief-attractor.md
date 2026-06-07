@@ -60,7 +60,7 @@ q_i^{t+1}(s) = N[
 | SBGE 項 | 役割 | Repo 対応層 | 具体的実体 |
 |---|---|---|---|
 | **q_i(s,t)** | 主体 i の信念状態分布 | **L4 Kotoba/Datomic** | `vertex_*` / `edge_*` テーブル（actor DID ごと） |
-| **-η ∇F_i** | 観測→自由エネルギー最小化 | **L8 Python pods + L7 Zeebe** | `pymagatama/ingest/` — HF・govUsa・houbun・CC・RDAP |
+| **-η ∇F_i** | 観測→自由エネルギー最小化 | **L8 Python pods + L7 Zeebe** | `kotodama/ingest/` — HF・govUsa・houbun・CC・RDAP |
 | **P(o\|s)** | 観測証拠の尤度 | **L6 Kotoba/Datomic UDF** | `owl_rl_is_type` / `shacl_class` SQL UDF + T1 rules |
 | **λ Σ_j W_ij Φ** | 他者信念との相互作用・同調 | **L7 Zeebe BPMN + L2 AT Protocol** | `edge_follows` + firehose consumer + `generic.llm.chat` |
 | **W_ij** | 主体間の信頼・影響重み | **`edge_follows`** + `deps.toml [[heuristic_weights]]` | `edge_follows.weight`（AT Protocol social） + `heuristic_weights[].weight`（platform設計軸） |
@@ -84,8 +84,8 @@ repo/
 │
 ├── 10-protocol/      W_ij チャンネル  — AT Protocol XRPC = 主体間信念伝達プロトコル
 │
-├── 20-actors/        更新演算子 f(q^t)  — pymagatama = SBGE 各項の実行エンジン
-│   └── magatama/py/src/pymagatama/
+├── 20-actors/        更新演算子 f(q^t)  — kotodama = SBGE 各項の実行エンジン
+│   └── kotodama/py/src/kotodama/
 │       ├── ingest/             P(o_i^t | s) — 観測取得
 │       ├── primitives/         信念更新プリミティブ（SBGE の各項）
 │       └── zeebe_worker_main.py  更新写像 q^{t+1} = f(q^t) の実体

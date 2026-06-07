@@ -66,7 +66,7 @@
   "cells": [
     {
       "name": "case_intake",
-      "module": "magatama.cells.tadori_case_intake",
+      "module": "kotodama.cells.tadori_case_intake",
       "murakumoNode": "levi",
       "phase": "event",
       "io": "authorization (authorizationRef + authority signature) → validated caseMandate",
@@ -74,7 +74,7 @@
     },
     {
       "name": "tx_trace",
-      "module": "magatama.cells.tadori_tx_trace",
+      "module": "kotodama.cells.tadori_tx_trace",
       "murakumoNode": "levi",
       "phase": "event",
       "io": "case + target address → tx/addr/cluster datoms (delegates compute to malak wallet_deep_inspect_pursuit)",
@@ -83,7 +83,7 @@
     },
     {
       "name": "address_label",
-      "module": "magatama.cells.tadori_address_label",
+      "module": "kotodama.cells.tadori_address_label",
       "murakumoNode": "levi",
       "phase": "event",
       "io": "case + address list → label datoms (delegates compute to malak address_label_pursuit; external sources feature-flagged inputs only)",
@@ -92,7 +92,7 @@
     },
     {
       "name": "attribution_join",
-      "module": "magatama.cells.tadori_attribution_join",
+      "module": "kotodama.cells.tadori_attribution_join",
       "murakumoNode": "levi",
       "phase": "event",
       "io": "addr/cluster + ip-obs/dns-obs (ipaddress/yabai) → attributionFinding (kotoba-kqe VAET 2-hop); PII objects encrypted",
@@ -101,7 +101,7 @@
     },
     {
       "name": "transparent_force_log",
-      "module": "magatama.cells.tadori_transparent_force_log",
+      "module": "kotodama.cells.tadori_transparent_force_log",
       "murakumoNode": "levi",
       "phase": "event",
       "io": "case action → on-chain-anchored audit datom (Charter §1.12)",
@@ -109,7 +109,7 @@
     },
     {
       "name": "silen_tadori_review",
-      "module": "magatama.cells.tadori_silen_tadori_review",
+      "module": "kotodama.cells.tadori_silen_tadori_review",
       "murakumoNode": "levi",
       "phase": "quarterly",
       "io": "period → silenTadoriReview zero-counters (any nonzero ⇒ halt + chigiri.disputeMediation + Bonsai seed-tier prune)",
@@ -177,7 +177,7 @@
     {
       "phase": "R0 / T0",
       "date": "2026-05-30 / 2026-06-02",
-      "scope": "Scaffold plus Datomic API bridge. 6 cells path-reserved under 20-actors/magatama/cells/tadori_*/ (import-time RuntimeError). 4 Lexicon schema skeletons under 00-contracts/lexicons/com/etzhayyim/tadori/. Datomic threat-intel bridge under 20-actors/tadori/kotoba/ (schema.edn + JSONL seed + tx_edn generator + com.etzhayyim.apps.kotoba.datomic.transact deploy wrapper). No legacy data moved.",
+      "scope": "Scaffold plus Datomic API bridge. 6 cells path-reserved under 40-engine/kotoba/crates/kotoba-kotodama/cells/tadori_*/ (import-time RuntimeError). 4 Lexicon schema skeletons under 00-contracts/lexicons/com/etzhayyim/tadori/. Datomic threat-intel bridge under 20-actors/tadori/kotoba/ (schema.edn + JSONL seed + tx_edn generator + com.etzhayyim.apps.kotoba.datomic.transact deploy wrapper). No legacy data moved.",
       "murakumoFleet": "No deployment",
       "gate": "ADR-2605301400 (PROPOSED)"
     },
@@ -222,7 +222,7 @@
       "kotoba": "/90-docs/adr/2605262130-kotoba-storage-substrate-unification.md"
     },
     "crossActor": {
-      "malak": "/60-apps/etzhayyim-project-recap/lg/pymagatama/src/pymagatama/malak/ (compute sibling — pymagatama Pregel family, not a standalone actor dir; the wallet_deep_inspect_pursuit + address_label_pursuit Pregels are the ADR-2605152000 design; see also ADR-2605131600 / 2605172000)",
+      "malak": "/60-apps/etzhayyim-project-recap/lg/kotodama/src/kotodama/malak/ (compute sibling — kotodama Pregel family, not a standalone actor dir; the wallet_deep_inspect_pursuit + address_label_pursuit Pregels are the ADR-2605152000 design; see also ADR-2605131600 / 2605172000)",
       "ipaddress": "/20-actors/ipaddress/CLAUDE.md (1次 IP/WHOIS/GeoIP source — T2 migration target)",
       "yabai": "/20-actors/yabai/CLAUDE.md (risk + enforcement-routing sink — T3 migration target)"
     },

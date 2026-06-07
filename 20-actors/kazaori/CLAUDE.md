@@ -154,8 +154,8 @@ cycle.
 
 R1 smoke test (when cells created):
 ```bash
-cd 20-actors/magatama/py
-python -c "from magatama.cells.kazaori_emergency_declaration import _r0_marker" 2>&1 | grep "R0 scaffold"
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
+python -c "from kotodama.cells.kazaori_emergency_declaration import _r0_marker" 2>&1 | grep "R0 scaffold"
 ```
 
 ## Related Files

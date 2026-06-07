@@ -123,7 +123,7 @@ pub async fn register_model(client: &Client, endpoint: &str, model_id: &str, siz
 }
 
 /// Call an App command via XRPC.
-pub async fn magatama_app_call<Req: Serialize, Resp: DeserializeOwned>(
+pub async fn kotodama_app_call<Req: Serialize, Resp: DeserializeOwned>(
     client: &Client,
     command: &str,
     args: &Req,
@@ -141,19 +141,19 @@ pub async fn magatama_app_call<Req: Serialize, Resp: DeserializeOwned>(
         .json(args)
         .send()
         .await
-        .map_err(|e| format!("magatamaAppCall {}: {}", command, e))?;
+        .map_err(|e| format!("kotodamaAppCall {}: {}", command, e))?;
 
     let status = resp.status();
     let body = resp.text().await.map_err(|e| e.to_string())?;
 
     if status.as_u16() >= 400 {
-        return Err(format!("magatamaAppCall {} HTTP {}: {}", command, status, body));
+        return Err(format!("kotodamaAppCall {} HTTP {}: {}", command, status, body));
     }
 
     if body.trim().is_empty() {
         serde_json::from_str("{}").map_err(|e| e.to_string())
     } else {
-        serde_json::from_str(&body).map_err(|e| format!("magatamaAppCall {} decode: {}", command, e))
+        serde_json::from_str(&body).map_err(|e| format!("kotodamaAppCall {} decode: {}", command, e))
     }
 }
 

@@ -1,7 +1,7 @@
 # lg-karute — LangServer pod for the karute Pregel.
 #
 # Serves the 31-pipeline StateGraph defined at
-#   pymagatama.projects.karute.pregel:app
+#   kotodama.projects.karute.pregel:app
 # over the LangGraph CLI HTTP runtime (/invoke /batch /stream).
 #
 # Authoritative:
@@ -15,7 +15,7 @@
 #   ADR-2605180900 — langserver four-call-surface pattern
 #
 # Pre-requisites:
-#   - ghcr.io/etzhayyim/lg-karute image built with pymagatama.projects.karute
+#   - ghcr.io/etzhayyim/lg-karute image built with kotodama.projects.karute
 #   - ghcr.io/etzhayyim/etzhayyim-sdk-checkpointer image
 #   - Namespace `mitama-udf` exists (shared with other lg-* pods)
 #   - StorageClass with Retain reclaim policy is the cluster default,

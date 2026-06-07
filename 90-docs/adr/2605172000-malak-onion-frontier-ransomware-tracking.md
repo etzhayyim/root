@@ -71,9 +71,9 @@ frontier for passive actor tracking.
 
 6. Until a fresh image can be built, the live `langgraph-server` mounts a
    ConfigMap override for:
-   - `pymagatama/langgraph_graphs/onion_crawl_seeds.py`
-   - `pymagatama/primitives/onion_crawl.py`
-   - `pymagatama/langgraph_graphs/ransomware_actor_activity.py`
+   - `kotodama/langgraph_graphs/onion_crawl_seeds.py`
+   - `kotodama/primitives/onion_crawl.py`
+   - `kotodama/langgraph_graphs/ransomware_actor_activity.py`
 
    The Deployment includes a checksum annotation for the ConfigMap so future
    override changes roll the Pod automatically.
@@ -114,9 +114,9 @@ Verified on 2026-05-17:
 
 # References
 
-- `20-actors/magatama/py/src/pymagatama/primitives/onion_crawl.py`
-- `20-actors/magatama/py/src/pymagatama/langgraph_graphs/onion_crawl_seeds.py`
-- `20-actors/magatama/py/src/pymagatama/langgraph_graphs/ransomware_actor_activity.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/onion_crawl.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs/onion_crawl_seeds.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs/ransomware_actor_activity.py`
 - `50-infra/vultr/mitama-langgraph-pool/templates/langgraph-server.yaml`
 - `50-infra/vultr/mitama-langgraph-pool/templates/onion-crawl-seeds-override-configmap.yaml`
 - `60-apps/etzhayyim-project-browser/provider/darkweb-proxy/wrangler.jsonc`

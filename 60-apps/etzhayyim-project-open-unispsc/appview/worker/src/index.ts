@@ -2,10 +2,10 @@
 //
 // Mounts `/xrpc/com.etzhayyim.apps.unispsc.*` at unispsc.etzhayyim.com and
 // proxies each call to the in-cluster lg-open-unispsc langserver. The
-// XRPC handler library lives in @etzhayyim/magatama-host-sdk so the same
+// XRPC handler library lives in @etzhayyim/kotodama-host-sdk so the same
 // surface can be re-mounted from any other Worker.
 
-import { createLangserverXrpcHandler } from "@etzhayyim/magatama-host-sdk";
+import { createLangserverXrpcHandler } from "@etzhayyim/kotodama-host-sdk";
 
 export interface Env {
   /** Public-or-private base URL of the UNSPSC langserver. */

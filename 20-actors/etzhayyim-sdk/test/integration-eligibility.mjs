@@ -10,7 +10,7 @@
 //   3. Runs a governance vote (propose → vote → warp → queue → warp →
 //      execute) to register a cell EOA in Phenotype.
 //   4. Spawns `python -m scripts.run_eligibility_step` (lives in
-//      magatama/py/scripts/) which uses pymagatama.eligibility.web3_ports
+//      kotodama/py/scripts/) which uses kotodama.eligibility.web3_ports
 //      to scan the Attested events, compute the multiplier, sign EIP-191,
 //      and submit Phenotype.setMultiplier.
 //   5. Verifies Phenotype.getMultiplierBps reflects the new value, and
@@ -240,7 +240,7 @@ const pyArgs = [
   "--epoch", "1",
 ];
 const pyProc = spawnSync("uv", pyArgs, {
-  cwd: "../magatama/py",
+  cwd: "../kotodama/py",
   env: {...process.env, PYTHONPATH: "src"},
   stdio: ["ignore", "pipe", "inherit"],
   encoding: "utf-8",

@@ -172,7 +172,7 @@ are 1/1 Ready and stable for 30+ min. The remaining cell —
 `build_graph()` signature mismatch in `cells/charter_attestation_request/cell.py`.
 The fix landed in commit `0660207cf` (cell_host adapter introspects the cell
 signature, fills CellDeps fields, leaves unknowns None). Once the
-`pymagatama-image.yml` workflow rebuilds and pushes the new image, restart
+`kotodama-image.yml` workflow rebuilds and pushes the new image, restart
 the DaemonSet:
 
 ```bash

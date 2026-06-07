@@ -26,7 +26,7 @@ def patch(file_path):
         return {**state, "vertex_id": row["vertex_id"], "already_known": True}
     return {**state, "vertex_id": _vertex_id(state["source_id"], state["canonical_uri"]), "already_known": False}"""
     ingest_dedupe_new = """async def _ingest_dedupe(state: IngestState) -> IngestState:
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     client = get_kotoba_client()
     rows = client.q(
         "SELECT vertex_id FROM vertex_legal_corpus_document"
@@ -72,7 +72,7 @@ def patch(file_path):
     if state["already_known"]:
         return state
     try:
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         client = get_kotoba_client()
         client.insert_row("vertex_legal_corpus_document", {
             "vertex_id": state["vertex_id"],
@@ -111,7 +111,7 @@ def patch(file_path):
         return {**state, "error": "no body_text found"}
     return {**state, "body_text": row["body_text"]}"""
     embed_load_new = """async def _embed_load(state: EmbedState) -> EmbedState:
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     client = get_kotoba_client()
     rows = client.q(
         "SELECT vertex_id, body_text FROM vertex_legal_corpus_document"
@@ -148,7 +148,7 @@ def patch(file_path):
     if not state.get("embedding"):
         return {**state, "updated": False}
     try:
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         client = get_kotoba_client()
         client.q(
             \"\"\"
@@ -222,7 +222,7 @@ def patch(file_path):
          LIMIT {limit_i}
     \"\"\"
     try:
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         client = get_kotoba_client()
         rows = client.q(sql, (vec, vec))
     except Exception as exc:
@@ -245,7 +245,7 @@ def patch(file_path):
     if not state.get("body_text"):
         return {**state, "body_updated": False}
     try:
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         client = get_kotoba_client()
         client.q(
             "UPDATE vertex_legal_corpus_document SET body_text = %s WHERE vertex_id = %s",
@@ -274,7 +274,7 @@ def patch(file_path):
     text = state.get("body_text") or ""
     if not text:
         # Fall back to title for docs without CELLAR XHTML (still searchable by title)
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         client = get_kotoba_client()
         rows = client.q(
             "SELECT title FROM vertex_legal_corpus_document WHERE vertex_id = %s LIMIT 1",
@@ -312,7 +312,7 @@ def patch(file_path):
     if not state.get("embedding"):
         return {**state, "embed_updated": False}
     try:
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         client = get_kotoba_client()
         client.q(
             \"\"\"
@@ -340,7 +340,7 @@ def patch(file_path):
     secret = row["secret_ref"] if row else ""
     return {**state, "cursor": cursor, "secret_ref": secret}"""
     cl_load_cursor_new = """async def _cl_load_cursor(state: FetchCourtListenerState) -> FetchCourtListenerState:
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     client = get_kotoba_client()
     rows = client.q(
         "SELECT last_cursor, secret_ref FROM vertex_legal_corpus_source"
@@ -372,7 +372,7 @@ def patch(file_path):
     next_cur = state.get("next_cursor")
     if next_cur:
         try:
-            from pymagatama.kotoba_datomic import get_kotoba_client
+            from kotodama.kotoba_datomic import get_kotoba_client
             client = get_kotoba_client()
             client.q(
                 "UPDATE vertex_legal_corpus_source"
@@ -394,7 +394,7 @@ def patch(file_path):
     key = row["secret_ref"] if row else ""
     return {**state, "canlii_key": key}"""
     canlii_load_key_new = """async def _canlii_load_key(state: FetchCanLiiState) -> FetchCanLiiState:
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     client = get_kotoba_client()
     rows = client.q(
         "SELECT secret_ref FROM vertex_legal_corpus_source"

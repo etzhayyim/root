@@ -8,7 +8,7 @@ fire-and-forget BPMN audit shim.
 Replaces (when fully ported):
   - mitama-animeka-pool (animeka-zeebe-worker, 3 replicas)
   - 20+ animeka.* BPMN process_defs
-  - All animeka.* task handlers in pymagatama.zeebe_worker_main
+  - All animeka.* task handlers in kotodama.zeebe_worker_main
 
 Keeps:
   - CF Worker (animeka.etzhayyim.com) as XRPC entry — proxies to this server

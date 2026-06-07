@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  kotodama.organizerRun — scheduled Goose activity organizer.
+
+  The kotodama Cloudflare Worker still owns the dashboard and classification
+  implementation. This BPMN process moves the 5-minute cron/retry lifecycle to
+  Zeebe/PyZeebe by invoking `/api/organizer/run` and writing an audit record.
+
+  NSID: com.etzhayyim.apps.kotodama.organizerRun
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_kotodama_organizer_run"
+    targetNamespace="https://etzhayyim.ai/bpmn/kotodama"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="kotodama_organizer_run" name="kotodama organizerRun" isExecutable="true">
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.kotodama.organizerRun", "version": 1, "resultTimeoutMs": 90000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="every 5m">
+      <bpmn:outgoing>Flow_ToRun</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_5m">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT5M</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToRun" sourceRef="Start" targetRef="Task_Run"/>
+
+    <bpmn:serviceTask id="Task_Run" name="run organizer">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="kotodama.organizer.run"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=if organizerUrl = null then &quot;&quot; else string(organizerUrl)" target="organizerUrl"/>
+          <zeebe:input source="=true" target="flush"/>
+          <zeebe:output source="=ok" target="organizerOk"/>
+          <zeebe:output source="=runsTotal24h" target="organizerRunsTotal24h"/>
+          <zeebe:output source="=summary" target="organizerSummary"/>
+          <zeebe:output source="=fleetSaturation" target="organizerFleetSaturation"/>
+          <zeebe:output source="=auditUri" target="organizerAuditUri"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToRun</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Run" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

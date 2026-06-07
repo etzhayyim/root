@@ -15,7 +15,7 @@ V05191129-ameno-browser-tool-use-react
 V05191135-ameno-tier2-daemon-residency
 V05191206-ameno-long-term-memory-vault
 V05191229-ameno-daemon-path-a-bun-langgraph
-V05191257-ameno-daemon-path-b-pymagatama-python
+V05191257-ameno-daemon-path-b-kotodama-python
 V05191346-etzhayyim-vultr-free-murakumo-control-plane
 V05191407-ameno-browser-viewer-mode
 V05191524-ameno-multi-tab-swarm-broadcast
@@ -97,12 +97,12 @@ Logs:`tail -f ~/.ameno/daemon.stdout.log`
 
 ---
 
-## Layer 2 — Path B daemon(Python pymagatama)
+## Layer 2 — Path B daemon(Python kotodama)
 
 ```sh
-cd 20-actors/magatama/py
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
 uv sync
-python -m pymagatama.projects.ameno  # http://127.0.0.1:12481
+python -m kotodama.projects.ameno  # http://127.0.0.1:12481
 ```
 
 `/workerInfo` returns `kind: "path-b-python"`. svelte で Compute =
@@ -114,7 +114,7 @@ python -m pymagatama.projects.ameno  # http://127.0.0.1:12481
 **Linux 常駐化(systemd):**
 
 ```sh
-sudo cp 20-actors/magatama/py/src/pymagatama/projects/ameno/ameno-daemon.service \
+sudo cp 40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/projects/ameno/ameno-daemon.service \
         /etc/systemd/system/
 # User= / paths / ExecStart 編集
 sudo systemctl daemon-reload
@@ -169,7 +169,7 @@ kubectl -n etzhayyim-langserver rollout status deploy/lg-ameno
 ```
 
 Pod 内訳:
-- **server**(uvicorn + pymagatama):port 8080
+- **server**(uvicorn + kotodama):port 8080
 - **checkpointer sidecar**(`etzhayyim-sdk-checkpointer:main`):Unix
   socket `/run/etzhayyim/checkpointer.sock`
 

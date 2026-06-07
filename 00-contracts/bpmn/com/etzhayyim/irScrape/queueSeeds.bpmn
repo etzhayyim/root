@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   Timer-start BPMN — seeds IR company registry and queues scrape runs every 6 hours.
-  Task handler: irScrape.queueSeeds (pymagatama ir_scrape.py)
+  Task handler: irScrape.queueSeeds (kotodama ir_scrape.py)
   NSID: com.etzhayyim.apps.irScrape.queueSeeds
   vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/ir-scrape-queue-seeds-v1
 -->

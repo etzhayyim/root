@@ -9,7 +9,7 @@ Mac-mini fleet + custom Rust kubelet + launchd control plane. **No VKE, no Karma
 | Fleet definition (10 nodes × 15 cells) | `50-infra/murakumo/fleet.toml` |
 | Cluster runtime (Rust: node CLI, tailmesh, worker, daemon) | `50-infra/cluster/murakumo/` |
 | Custom kubelet (no K8s API server required) | `50-infra/k8s/murakumo-kubelet/` |
-| Cell runner (magatama-cell-runner launchd plist) | `50-infra/cluster/murakumo/cell-runner/` |
+| Cell runner (kotodama-cell-runner launchd plist) | `50-infra/cluster/murakumo/cell-runner/` |
 | LiteLLM gateway (launchd, 127.0.0.1:4000) | `50-infra/cluster/murakumo/litellm/` |
 | Cloudflare Worker (edge proxy) | `50-infra/cloudflare/workers/murakumo/` |
 | Multicluster placement contract (mesh, no Karmada) | `50-infra/multicluster/murakumo-mesh/` |
@@ -21,7 +21,7 @@ Mac-mini fleet + custom Rust kubelet + launchd control plane. **No VKE, no Karma
 ## Control plane
 
 - **No commercial K8s** (per ADR-2605191346). Replaced by:
-  - `launchd` on each Mac mini node (`com.etzhayyim.magatama-cell-runner.plist`)
+  - `launchd` on each Mac mini node (`com.etzhayyim.kotodama-cell-runner.plist`)
   - Swarm-style **leader election** (ADR-2605191603)
   - **Broadcast** + **heartbeat** protocols (ADRs 2605191524 / 2605191645)
   - Self-hosted **tailmesh** (X25519 + XChaCha20-Poly1305 — no Tailscale dependency); see `50-infra/cluster/murakumo/src/murakumo_mesh.rs`

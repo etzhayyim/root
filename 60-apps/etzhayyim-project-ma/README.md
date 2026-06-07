@@ -51,7 +51,7 @@ Pulumi 側のデプロイレイヤは `projects/*/wasm/*/wadm/*.wadm.yaml` と `
 - `wadm/ma-mcp.wadm.yaml`
 - `k8s/http-routes.yaml`
 - `wit/world.wit`
-- `magatama.toml` の `[component]` 設定
+- `kotodama.toml` の `[component]` 設定
 
 実行例:
 

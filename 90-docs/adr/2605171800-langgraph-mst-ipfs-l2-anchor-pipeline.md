@@ -9,7 +9,7 @@ last_verified: 2026-05-17
 priority: 7.0
 axis: architecture
 weight: 0.70
-priority_note: "Defines the durable-state and verifiability spine for the artificial organism ecosystem (magatama actors). Touches every cell-class actor in 20-actors/magatama. Active once first reference impl lands; this ADR is the contract."
+priority_note: "Defines the durable-state and verifiability spine for the artificial organism ecosystem (kotodama actors). Touches every cell-class actor in 40-engine/kotoba/crates/kotoba-kotodama. Active once first reference impl lands; this ADR is the contract."
 authoritative_for:
   - artificial organism checkpoint pipeline (Pregel → MstCheckpointSaver → MST → IPFS → L2)
   - LangGraph MstCheckpointSaver usage convention for organism cells (Python thin shim + TS sidecar via @etzhayyim/sdk)
@@ -33,7 +33,7 @@ superseded_by: []
 
 # Context
 
-`20-actors/magatama` hosts the Pregel framework that runs **artificial organism cells**: LangGraph-driven actor processes whose state evolves over BSP super-steps. The Bonsai Cultivar series (ADR-2605091300, ADR-2605092000, ADR-2605092100, ADR-2605092200) frames these cells as a living ecosystem — each cell has metabolism, lineage, fission, and a measurable phenotype.
+`40-engine/kotoba/crates/kotoba-kotodama` hosts the Pregel framework that runs **artificial organism cells**: LangGraph-driven actor processes whose state evolves over BSP super-steps. The Bonsai Cultivar series (ADR-2605091300, ADR-2605092000, ADR-2605092100, ADR-2605092200) frames these cells as a living ecosystem — each cell has metabolism, lineage, fission, and a measurable phenotype.
 
 For that metaphor to hold up in production, every cell's state must be:
 
@@ -84,7 +84,7 @@ An earlier draft of this ADR routed all checkpoints through `PostgresSaver` firs
 
 # Decision
 
-Adopt the following four-stage pipeline for every magatama organism cell that needs verifiable durable state. The pipeline is **append-only**: each stage adds artifacts; nothing is overwritten. Stages 1–2 are synchronous (Pregel hot path); Stages 3–4 are async.
+Adopt the following four-stage pipeline for every kotodama organism cell that needs verifiable durable state. The pipeline is **append-only**: each stage adds artifacts; nothing is overwritten. Stages 1–2 are synchronous (Pregel hot path); Stages 3–4 are async.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
@@ -142,14 +142,14 @@ state(t)  ─msgpack─▶  Python saver call
 
 Postgres / Kotoba/Datomic / Kysely do not appear anywhere in this pipeline. Per ADR-2605172000, the substrate is exhausted by MST + IPFS + L2.
 
-## Stage 1 — LangGraph Pregel runtime + Python saver shim (host: `20-actors/magatama`)
+## Stage 1 — LangGraph Pregel runtime + Python saver shim (host: `40-engine/kotoba/crates/kotoba-kotodama`)
 
-Each cell is a LangGraph graph constructed with the magatama host SDK. Super-step boundaries are defined by LangGraph's normal `interrupt_after` / `interrupt_before` semantics and by the cell's BSP scheduler.
+Each cell is a LangGraph graph constructed with the kotodama host SDK. Super-step boundaries are defined by LangGraph's normal `interrupt_after` / `interrupt_before` semantics and by the cell's BSP scheduler.
 
 **Convention**: every cell graph builds with `checkpointer=MstCheckpointSaver(socket_path=..., cell_did=...)`. The saver is a thin (~50 LOC) `langgraph.checkpoint.base.BaseCheckpointSaver` subclass living at:
 
 ```
-20-actors/magatama/py/src/pymagatama/checkpointer/mst_saver.py
+40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/checkpointer/mst_saver.py
 ```
 
 It implements `put` / `get_tuple` / `list` / `put_writes` by:
@@ -173,7 +173,7 @@ Unix socket is preferred over TCP/HTTP for (a) zero-copy via SOCK_STREAM, (b) ho
 
 ## Stage 2 — `@etzhayyim/sdk` checkpointer sidecar (TypeScript)
 
-A long-lived Node.js process (one per magatama host) shipped as part of `20-actors/etzhayyim-sdk`. Source layout:
+A long-lived Node.js process (one per kotodama host) shipped as part of `20-actors/etzhayyim-sdk`. Source layout:
 
 ```
 20-actors/etzhayyim-sdk/src/checkpointer.ts   — sidecar entrypoint + IPC server + MST commit
@@ -183,9 +183,9 @@ Responsibilities, on each `op="put"` request:
 
 1. msgpack-decode the request body.
 2. **Project** the checkpoint payload to an atproto MST. Projection rules (deterministic; same payload → same CID, bit-for-bit):
-   - MST key namespace: `magatama.cell.{cell_did_suffix}/checkpoint/{checkpoint_id}`.
-   - Each top-level LangGraph state key becomes a record under `magatama.cell.{…}/state/{key}`.
-   - LangGraph channel writes (the per-step delta) go under `magatama.cell.{…}/channel/{step}/{channel}`.
+   - MST key namespace: `kotodama.cell.{cell_did_suffix}/checkpoint/{checkpoint_id}`.
+   - Each top-level LangGraph state key becomes a record under `kotodama.cell.{…}/state/{key}`.
+   - LangGraph channel writes (the per-step delta) go under `kotodama.cell.{…}/channel/{step}/{channel}`.
    - Records >`blob_inline_threshold` bytes (default 16 KiB) become **separate blobs**, referenced by CID in the MST record. Below threshold, inlined as record content.
 3. Build the MST with `@atproto/repo` and serialise to **CAR v1** with canonical block ordering.
 4. Compute the MST **root CID** and return it synchronously to the Python saver in the response.
@@ -335,7 +335,7 @@ No trust in our Postgres, our IPFS pinner, or our daemons is required. Only Base
 ## Repository layout (target — scaffolded alongside this ADR's revise)
 
 ```
-20-actors/magatama/py/src/pymagatama/
+40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/
   checkpointer/             # NEW — Python BaseCheckpointSaver shim
     __init__.py
     mst_saver.py            # MstCheckpointSaver (~50 LOC, IPC over Unix socket)
@@ -367,18 +367,18 @@ Note the absence of `50-infra/mst-projector/` — the projector daemon from the 
 - **atproto ecosystem compatibility.** Standard tooling (`@atproto/repo`, CAR readers, IPLD libs) reads organism state. Bridge to PDS publication is a future ADR away.
 - **Composable with Bonsai Cultivar metaphor** (ADR-2605091300). Cells have lineage (anchor chain), metabolism (rate of MST growth), and reproduction (fission = copy CAR + fork DID). All measurable from public artifacts.
 - **No supplier lock-in.** IPFS, Base, and atproto MST are all open standards / open-source. Anchor contract is 50 lines of permissive-license Solidity.
-- **Substrate compliance for free.** The saver is the only piece of LangGraph integration; once it's in place, every cell on every magatama host is automatically ADR-2605172000 / 2605172100 compliant. No leakage of `@atproto/api` or `viem` imports into Python or app code.
+- **Substrate compliance for free.** The saver is the only piece of LangGraph integration; once it's in place, every cell on every kotodama host is automatically ADR-2605172000 / 2605172100 compliant. No leakage of `@atproto/api` or `viem` imports into Python or app code.
 - **Failure isolation.** The Python saver's only synchronous dependency is the TS sidecar over Unix socket. MST/IPFS/L2 latencies are absorbed by the sidecar's queue; a slow IPFS pin or a stalled Base RPC does not slow the Pregel super-step beyond the local MST commit.
 - **Single-language substrate.** All MST + IPFS + viem code lives in TypeScript via `@etzhayyim/sdk`. Tests, type-checks, and security review concentrate in one place rather than being duplicated across Python and TS.
 
 ## 負の効果 / コスト
 
-- **Operational surface area: 1 new sidecar + 3 existing services**: `@etzhayyim/sdk` checkpointer sidecar (new), IPFS pinner (+ IPFS node), anchor cron, and the deployed Base contract. The sidecar is a long-lived Node.js process per magatama host — needs a systemd unit / k8s sidecar container, a healthcheck, and a restart policy. The previous draft's separate MST projector daemon is gone, so net process count is the same as the draft (4 → 4) but with one fewer IPC peer.
+- **Operational surface area: 1 new sidecar + 3 existing services**: `@etzhayyim/sdk` checkpointer sidecar (new), IPFS pinner (+ IPFS node), anchor cron, and the deployed Base contract. The sidecar is a long-lived Node.js process per kotodama host — needs a systemd unit / k8s sidecar container, a healthcheck, and a restart policy. The previous draft's separate MST projector daemon is gone, so net process count is the same as the draft (4 → 4) but with one fewer IPC peer.
 - **L2 anchor cost.** At 60s cadence per cell with batching, rough order-of-magnitude is $0.01–$0.10 per cell per day on Base (calldata-dominated). Cheap individually, but linear in cell count. For 10⁴ cells: ~$100–$1000/day. Mitigation: longer batch periods, IPFS-as-default + opt-in anchor per cohort, future move to a data-availability layer if scale demands it.
 - **Hot anchor key custody.** A wallet funded with Base ETH that signs anchor txs must be protected. Mitigation: HSM or threshold signature; rotation procedure in the DID document.
 - **Standalone MST cannot federate via PDS-relay.** Cells are not visible in atproto firehoses unless we add a publishing surface. Acceptable for v1 (verifiability ≠ federation); future ADR can add a PDS export.
 - **MST projection determinism is load-bearing.** A bug that changes block ordering or encoding silently breaks reproducibility. Mitigation: golden-CAR tests in CI, snapshot tests across `@atproto/repo` upgrades. With projection happening in one place (the TS sidecar), there's exactly one codepath to gate.
-- **Python ↔ TS IPC schema drift risk.** If `@etzhayyim/sdk` and `pymagatama.checkpointer` versions skew on the wire, the saver fails closed (`error: "unknown op"`). Mitigation: pin compatible versions in `deps.toml`; future CI gate runs both sides against a shared msgpack schema fixture.
+- **Python ↔ TS IPC schema drift risk.** If `@etzhayyim/sdk` and `kotodama.checkpointer` versions skew on the wire, the saver fails closed (`error: "unknown op"`). Mitigation: pin compatible versions in `deps.toml`; future CI gate runs both sides against a shared msgpack schema fixture.
 - **IPC adds ~hundreds of µs per super-step.** Unix socket round-trip + msgpack encode/decode. Negligible at expected cell rates (<10 Hz/cell) but measurable; budget appropriately for high-cadence cohorts.
 - **IPFS unpinning risk.** If both local and remote pin lapse, the CAR is unreachable, but the anchor on Base still claims its CID. Mitigation: pinning service redundancy + monitoring + Filecoin deal as cold tier (future).
 
@@ -397,9 +397,9 @@ Note the absence of `50-infra/mst-projector/` — the projector daemon from the 
 This ADR is the **contract**, accompanied by Phase-1 scaffolds. Rollout is staged:
 
 - [x] **Phase 0 — this ADR (revise).** Contract published with PostgresSaver dropped in favour of `MstCheckpointSaver`.
-- [ ] **Phase 1 — reference impl scaffolds (this revise).** Python `MstCheckpointSaver` shim in `20-actors/magatama/py/src/pymagatama/checkpointer/`, TS sidecar in `20-actors/etzhayyim-sdk/src/checkpointer.ts`. Both compile / lint clean; no end-to-end test yet.
+- [ ] **Phase 1 — reference impl scaffolds (this revise).** Python `MstCheckpointSaver` shim in `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/checkpointer/`, TS sidecar in `20-actors/etzhayyim-sdk/src/checkpointer.ts`. Both compile / lint clean; no end-to-end test yet.
 - [ ] **Phase 2 — wire end-to-end on Base sepolia.** Local kubo + sepolia anchor-cron + a single cell from `60-apps/organism-demo/`.
-- [ ] **Phase 3 — magatama host integration.** Host SDK passes `cell_did` into the saver constructor on every cell session start.
+- [ ] **Phase 3 — kotodama host integration.** Host SDK passes `cell_did` into the saver constructor on every cell session start.
 - [ ] **Phase 4 — Base mainnet deploy.** Deploy `CheckpointAnchor.sol` on Base mainnet. Address recorded in `deps.toml` under `[platform.l2_anchor]`. Wallet funded.
 - [ ] **Phase 5 — first production cell.** A real cell from an `60-apps/etzhayyim-project-open-*` project opts into the pipeline. Monitor cost + latency for one week.
 - [ ] **Phase 6 — IPFS infra scaffolded.** `50-infra/ipfs/` Kubo deployment (currently missing from layout in `CLAUDE.md`).
@@ -469,7 +469,7 @@ Permanent storage instead of pinning.
 
 Reimplement `@atproto/repo`'s MST, kubo client, and viem-equivalent L2 calldata builder in pure Python. `MstCheckpointSaver` becomes a one-process saver with no IPC.
 
-却下理由: violates ADR-2605172100 ("Substrate client imports | Only via `@etzhayyim/sdk`"), which exists precisely to avoid two parallel substrate stacks. The MST encoding is determinism-sensitive — divergence between Python and TS at the bit level silently breaks third-party verification. The TS ecosystem also has `@atproto/repo`, `viem`, and `kubo-rpc-client` as battle-tested upstream; Python equivalents either don't exist or are immature. The IPC hop is sub-millisecond on Unix socket — cheap compared to the IPFS pin and L2 anchor latencies that dominate the pipeline. Revisit only if (a) `@etzhayyim/sdk` itself migrates to a non-TS host language, or (b) magatama moves to a runtime where IPC has macro-cost (unlikely on Linux hosts).
+却下理由: violates ADR-2605172100 ("Substrate client imports | Only via `@etzhayyim/sdk`"), which exists precisely to avoid two parallel substrate stacks. The MST encoding is determinism-sensitive — divergence between Python and TS at the bit level silently breaks third-party verification. The TS ecosystem also has `@atproto/repo`, `viem`, and `kubo-rpc-client` as battle-tested upstream; Python equivalents either don't exist or are immature. The IPC hop is sub-millisecond on Unix socket — cheap compared to the IPFS pin and L2 anchor latencies that dominate the pipeline. Revisit only if (a) `@etzhayyim/sdk` itself migrates to a non-TS host language, or (b) kotodama moves to a runtime where IPC has macro-cost (unlikely on Linux hosts).
 
 ## K. Kotoba/Datomic as the saver
 

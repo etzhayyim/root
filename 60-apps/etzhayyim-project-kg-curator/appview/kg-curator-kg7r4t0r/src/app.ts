@@ -23,7 +23,7 @@ export default {
         actor: "did:web:kg-curator.etzhayyim.com",
         nanoid: env.APP_NANOID ?? "kg7r4t0r",
         execution: "edge-proxy+agentgateway-mcp+langserver",
-        businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/kg_curator.py",
+        businessLogic: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/kg_curator.py",
         bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/kgCurator",
       });
     }

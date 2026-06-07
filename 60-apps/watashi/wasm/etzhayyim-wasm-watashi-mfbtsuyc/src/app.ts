@@ -19,7 +19,7 @@ import {
   withCapabilityTags,
   type ComAtprotoSyncSubscribeReposCommit,
   type HostSDK,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 const NS = "com.etzhayyim.apps.watashi";
 

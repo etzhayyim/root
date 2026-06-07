@@ -2,7 +2,7 @@
 
 ## Goal
 - `vertex_other` / `mv_vertex_other_count` 依存を段階的に 0 にし、各 app を typed table + Kysely schema へ移行する。
-- `@etzhayyim/magatama-host-sdk` の `legacy-vertex-other` surface を最終的に削除する。
+- `@etzhayyim/kotodama-host-sdk` の `legacy-vertex-other` surface を最終的に削除する。
 
 ## Current Snapshot (2026-04-23)
 - `pnpm -s lint:no-vertex-other`: pass (literal table name 直接参照は 0)
@@ -10,7 +10,7 @@
 - `rg -l "legacy-vertex-other|LEGACY_VERTEX_OTHER|legacyVertex" ...`: **37 files**
 
 ## Scope
-- SDK: `20-actors/magatama/sdk/magatama-host-sdk/src/legacy-vertex-other.ts` と re-export。
+- SDK: `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/legacy-vertex-other.ts` と re-export。
 - App/API: `60-apps/*/src/app.ts` の fallback query (`LEGACY_VERTEX_OTHER_TABLE`)。
 - Infra/Engine: `40-engine/*`, `50-infra/*` の legacy table fallback。
 

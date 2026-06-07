@@ -6,7 +6,7 @@
 # without installing wrangler into the pnpm/node_modules symlink tree.
 #
 # BOUNDARY NOTE (CRITICAL): etzhayyim.com's CF edge (Worker + this ACTOR_KV namespace) is
-# currently operated on gftd's Cloudflare account (managed-host). etzhayyim owns the DOMAIN
+# currently operated on etzhayyim's Cloudflare account (managed-host). etzhayyim owns the DOMAIN
 # (CF Registrar) and the DID doc is content-addressed + TLS-anchored + keyless (vm:[]), and
 # the Worker serves a compiled INFRA_ACTORS fallback — so this is an EDGE CACHE promotion,
 # reversible via KV delete, NOT a canonical-state write. Canonical Datom state is a separate,
@@ -18,7 +18,7 @@
 #     [CLOUDFLARE_ACCOUNT_ID=<id>] bash scripts/put-actor-kv.sh <handle>
 #
 # TOKEN SCOPE (verified 2026-06-06): the token MUST carry "Workers KV Storage:Edit" on the
-# account that owns namespace d33de8e0… . The gftd 1Password CF tokens (gftd.cloudflare/API_TOKEN
+# account that owns namespace d33de8e0… . The etzhayyim 1Password CF tokens (etzhayyim.cloudflare/API_TOKEN
 # etc.) authenticate (accounts list OK) but LACK KV scope → PUT returns 401 code 10000. Mint a
 # KV-scoped token in the CF dashboard of that account first, or this exits 401. The kamado DID
 # already resolves via the compiled INFRA_ACTORS fallback, so this promotion is optional + reversible.

@@ -16,7 +16,7 @@ export default {
         actor: "did:web:real-estate.etzhayyim.com",
         nanoid: env.APP_NANOID ?? "r3alestate",
         execution: "edge-proxy+agentgateway-mcp+langserver",
-        businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/real_estate.py",
+        businessLogic: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/real_estate.py",
         bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/real-estate",
       });
     }

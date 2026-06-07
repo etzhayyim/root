@@ -22,7 +22,7 @@ surface after ADR-0076.
 ## Runtime Boundary
 
 - BPMN durable orchestration: SpiffWorkflow engine host (`vertex_spiff_*`).
-- Task handlers: `pymagatama.ingest.moneyforward_ops`.
+- Task handlers: `kotodama.ingest.moneyforward_ops`.
 - Legacy coexistence: `zeebe_worker_main.py` registers the same task types until
   Zeebe is fully retired.
 - Cognitive coordination: LangGraph remains for `kaisya-member-assistant` and

@@ -1,0 +1,104 @@
+{
+  "@context": "https://etzhayyim.com/ns/kotodama/v1",
+  "@id": "did:web:briefing.etzhayyim.com",
+  "component": {
+    "path": "component.wasm"
+  },
+  "convoSystemPrompt": "You are etzhayyim-wasm-briefing agent. Briefing — AI Agent for briefing intelligence and analytics. Respond helpfully in the users language.",
+  "deploy": {},
+  "duties": [
+    "勤労の義務"
+  ],
+  "governance": {
+    "raci": "responsible",
+    "classification": "internal",
+    "complianceFrameworks": [
+      "briefing-policy"
+    ]
+  },
+  "kpi": [
+    "credits の獲得"
+  ],
+  "name": "etzhayyim-wasm-briefing",
+  "nanoid": "w3olw1pf",
+  "performerType": "service",
+  "pool": {},
+  "profile": {
+    "agentType": "autonomous",
+    "capabilities": [
+      "edge-webrtc",
+      "edge-assets",
+      "bpmn-dispatch",
+      "webrtc-room",
+      "spatial-audio",
+      "screen-share",
+      "knp-signaling"
+    ],
+    "description": "Briefing — Live briefing platform with KAMI WebRTC spatial audio, C2ISR situational awareness",
+    "displayName": "Briefing",
+    "isBot": true,
+    "operator": "etzhayyim.com"
+  },
+  "project": "briefing",
+  "routes": [
+    {
+      "host": "briefing.etzhayyim.com",
+      "paths": [
+        "/"
+      ],
+      "tls": true
+    }
+  ],
+  "runtimeType": "worker",
+  "space": {
+    "channels": [
+      {
+        "default": true,
+        "description": "Briefing updates and notifications",
+        "kind": "public",
+        "name": "briefing-feed"
+      }
+    ],
+    "description": "Live briefing platform — KAMI WebRTC rooms, spatial audio, KNP signaling, C2ISR situational awareness",
+    "historyVisibility": "world-readable",
+    "joinRule": "public",
+    "name": "Briefing Hub"
+  },
+  "triggers": {
+    "http": {
+      "listen": "0.0.0.0:8080",
+      "routes": [
+        "/api/grpc/...",
+        "/health",
+        "/healthz",
+        "/readyz",
+        "/..."
+      ],
+      "spa": true,
+      "staticDir": "/wasm/svelte/dist"
+    },
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.like",
+        "app.bsky.feed.post",
+        "app.bsky.feed.repost",
+        "app.bsky.graph.follow",
+        "com.etzhayyim.apps.briefing.briefingEntity",
+        "com.etzhayyim.apps.briefing.briefingEvent",
+        "com.etzhayyim.apps.briefing.briefingReport",
+        "com.etzhayyim.apps.briefing.briefingRoom",
+        "com.etzhayyim.apps.briefing.briefingParticipant",
+        "com.etzhayyim.apps.briefing.briefingPosition",
+        "com.etzhayyim.apps.briefing.briefingData",
+        "com.etzhayyim.apps.briefing.briefingRecording",
+        "com.etzhayyim.apps.briefing.briefingTranscript"
+      ]
+    }
+  },
+  "ui": {},
+  "uiType": "appview",
+  "yata": {
+    "dataDir": "/data/yata",
+    "graphUri": "/data/graph"
+  }
+}

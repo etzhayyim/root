@@ -50,19 +50,19 @@ loop を形成 (religious-corp 内 self-care substrate の最初の完結した 
 
 | Cell | Murakumo node (proposed) | R-phase activate | Sub-ADR |
 |---|---|---|---|
-| [`mitate_rhinitis_intake`](../magatama/cells/mitate_rhinitis_intake/) | levi | R1 | 2605260100 (all conditions) |
-| [`mitate_rhinitis_triage`](../magatama/cells/mitate_rhinitis_triage/) | levi | R1 | 2605260100/115/130/145/160/175 |
-| [`mitate_medication_history_audit`](../magatama/cells/mitate_medication_history_audit/) | levi | R1 | 2605260175 |
-| [`mitate_emergency_screen`](../magatama/cells/mitate_emergency_screen/) | levi | R1 | 2605260100 (G5) |
-| [`mitate_allergy_ige_panel_order`](../magatama/cells/mitate_allergy_ige_panel_order/) | naphtali | R2 | 2605260115 |
-| [`mitate_nasal_smear_eosinophil`](../magatama/cells/mitate_nasal_smear_eosinophil/) | zebulun | R2 | 2605260115 + 130 |
-| [`mitate_nasal_endoscopy_acquire`](../magatama/cells/mitate_nasal_endoscopy_acquire/) | joseph | R2 | 2605260145 + 160 |
-| [`mitate_rhinomanometry`](../magatama/cells/mitate_rhinomanometry/) | joseph | R2 | 2605260160 |
-| [`mitate_paranasal_ct_route`](../magatama/cells/mitate_paranasal_ct_route/) | simeon | R2 | 2605260145 |
-| [`mitate_treatment_router`](../magatama/cells/mitate_treatment_router/) | levi | R2 | 2605260115/130/145/160/175 |
-| [`mitate_slit_cohort_tracker`](../magatama/cells/mitate_slit_cohort_tracker/) | levi | R3 | 2605260115 |
-| [`mitate_ess_surgery_planner`](../magatama/cells/mitate_ess_surgery_planner/) | levi | R3 | 2605260145 + 160 |
-| [`mitate_outcome_qol_followup`](../magatama/cells/mitate_outcome_qol_followup/) | levi | R2 | 2605260100/115/130/145/160/175 |
+| [`mitate_rhinitis_intake`](../kotodama/cells/mitate_rhinitis_intake/) | levi | R1 | 2605260100 (all conditions) |
+| [`mitate_rhinitis_triage`](../kotodama/cells/mitate_rhinitis_triage/) | levi | R1 | 2605260100/115/130/145/160/175 |
+| [`mitate_medication_history_audit`](../kotodama/cells/mitate_medication_history_audit/) | levi | R1 | 2605260175 |
+| [`mitate_emergency_screen`](../kotodama/cells/mitate_emergency_screen/) | levi | R1 | 2605260100 (G5) |
+| [`mitate_allergy_ige_panel_order`](../kotodama/cells/mitate_allergy_ige_panel_order/) | naphtali | R2 | 2605260115 |
+| [`mitate_nasal_smear_eosinophil`](../kotodama/cells/mitate_nasal_smear_eosinophil/) | zebulun | R2 | 2605260115 + 130 |
+| [`mitate_nasal_endoscopy_acquire`](../kotodama/cells/mitate_nasal_endoscopy_acquire/) | joseph | R2 | 2605260145 + 160 |
+| [`mitate_rhinomanometry`](../kotodama/cells/mitate_rhinomanometry/) | joseph | R2 | 2605260160 |
+| [`mitate_paranasal_ct_route`](../kotodama/cells/mitate_paranasal_ct_route/) | simeon | R2 | 2605260145 |
+| [`mitate_treatment_router`](../kotodama/cells/mitate_treatment_router/) | levi | R2 | 2605260115/130/145/160/175 |
+| [`mitate_slit_cohort_tracker`](../kotodama/cells/mitate_slit_cohort_tracker/) | levi | R3 | 2605260115 |
+| [`mitate_ess_surgery_planner`](../kotodama/cells/mitate_ess_surgery_planner/) | levi | R3 | 2605260145 + 160 |
+| [`mitate_outcome_qol_followup`](../kotodama/cells/mitate_outcome_qol_followup/) | levi | R2 | 2605260100/115/130/145/160/175 |
 
 All cells are **import-time RuntimeError gated** (silicon Wave 1 + yakushi pattern, ADR-2605260100 §Decision 3).
 Removal of the gate requires:
@@ -160,4 +160,4 @@ cross-actor lexicon は **新 namespace 増設なし** ― substrate boundary �
 - [ADR-2605201400](../../90-docs/adr/2605201400-etzhayyim-kuni-umi-planetary-infra-fleet.md) — robotics class ontology source
 - [ADR-2605192415](../../90-docs/adr/2605192415-etzhayyim-religious-corp-daemon-architecture.md) — 3-tier actor + Murakumo placement pattern
 - [`50-infra/murakumo/fleet.toml`](../../50-infra/murakumo/fleet.toml) — node ↔ cell placement
-- [`20-actors/magatama/cells/README.md`](../magatama/cells/README.md) — sibling cell catalog
+- [`40-engine/kotoba/crates/kotoba-kotodama/cells/README.md`](../kotodama/cells/README.md) — sibling cell catalog

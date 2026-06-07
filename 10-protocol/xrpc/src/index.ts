@@ -1,7 +1,7 @@
 // @etzhayyim/xrpc — Unified XRPC client for W Protocol / AT Protocol.
 //
 // Single Source of Truth for NSID utilities, transport, auth, and error handling.
-// Consumers: magatama-host-sdk (`xrpc-client.ts`, `app.ts`, `app-router.ts`),
+// Consumers: kotodama-host-sdk (`xrpc-client.ts`, `app.ts`, `app-router.ts`),
 // PDS worker (`helpers.ts`, `core.ts`, `auth.ts`, `register.ts`).
 //
 // Pruned 2026-04-23: proxy.ts / SessionAuth / PublicAuth / mintInternalAuthJWT /

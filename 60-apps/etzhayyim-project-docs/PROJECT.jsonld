@@ -1,205 +1,31 @@
 {
-  "@context": "https://schema.org/",
-  "@type": "Project",
-  "name": "Document Management Platform (etzhayyim-project-docs)",
-  "status": "In Progress",
-  "identifier": "etzhayyim-project-docs",
-  "description": "Notion-like document management system with real-time collaboration, AI assistance, and version control. Accessible at docs.etzhayyim.com.",
-  "hasPart": [
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "@id": "https://docs.etzhayyim.com",
+  "name": "etzhayyim-project-docs",
+  "description": "Google Docs v1 (structural) + Microsoft Graph Word (content) compatible document API over kotoba datomic (graph docs-v1). Fourth build vertical of the workspace-compat program (ADR-2606010500).",
+  "url": "https://docs.etzhayyim.com",
+  "applicationCategory": "Productivity",
+  "operatingSystem": "Kubernetes",
+  "author": { "@type": "Organization", "name": "etzhayyim", "url": "https://etzhayyim.com" },
+  "softwareVersion": "0.1.0",
+  "component": [
     {
-      "@type": "CreativeWork",
-      "name": "Strategy",
-      "url": "STRATEGY.jsonld"
+      "@type": "SoftwareApplication",
+      "name": "lg-docs",
+      "description": "LangGraph + FastAPI XRPC server exposing ai.etzhayyim.apps.docs.* over kotoba datomic, with a structural-body batchUpdate index engine.",
+      "applicationCategory": "Backend",
+      "programmingLanguage": "Python",
+      "runtimePlatform": "Vultr k8s LangServer pod (mitama-udf/lg-docs:8000)"
     },
     {
-      "@type": "CreativeWork",
-      "name": "Capabilities",
-      "url": "capabilities.jsonld"
-    },
-    {
-      "@type": "WebApplication",
-      "name": "docs.etzhayyim.com App",
-      "url": "app/"
-    },
-    {
-      "@type": "CreativeWork",
-      "name": "Operational Docs",
-      "url": "docs/"
+      "@type": "SoftwareApplication",
+      "name": "docs-compat",
+      "description": "Cloudflare Worker edge serving Google Docs v1 (structural /v1/documents) and Microsoft Graph Word (content /v1.0/me/drive/.../content) REST skins, translating to canonical XRPC.",
+      "applicationCategory": "Edge",
+      "programmingLanguage": "TypeScript",
+      "runtimePlatform": "Cloudflare Worker (docs.etzhayyim.com)"
     }
   ],
-  "tasks": [
-    {
-      "status": "completed",
-      "task": "Initialize docs app with SvelteKit frontend and Go performer actor."
-    },
-    {
-      "status": "completed",
-      "task": "Configure SpinKube runtime and scale-to-zero."
-    },
-    {
-      "status": "completed",
-      "task": "Set up DNS for docs.etzhayyim.com via Pulumi-managed Linode DomainRecord and Gateway."
-    },
-    {
-      "status": "in_progress",
-      "task": "Migrate from Supabase to SQLx direct PostgreSQL."
-    },
-    {
-      "status": "in_progress",
-      "task": "Consolidate docs project structure into etzhayyim-project-docs."
-    },
-    {
-      "status": "pending",
-      "task": "Deploy docs.etzhayyim.com to Kubernetes with GitOps."
-    }
-  ],
-  "performers": [
-    {
-      "@type": "Service",
-      "name": "Docs Actor",
-      "identifier": "etzhayyim-docs",
-      "description": "Go performer actor handling document lifecycle events via Connect gRPC."
-    },
-    {
-      "@type": "Service",
-      "name": "Docs Frontend",
-      "identifier": "etzhayyim-docs-frontend",
-      "description": "SvelteKit frontend with ConnectRPC client for document management UI."
-    }
-  ],
-  "rdfUnifiedDocuments": {
-    "@type": "Dataset",
-    "name": "Unified top-level RDF/JSON-LD documents",
-    "description": "Consolidated from project top-level *.jsonld files except PROJECT.jsonld.",
-    "documents": [
-      {
-        "fileName": "STRATEGY.jsonld",
-        "content": {
-          "@context": "https://schema.org/",
-          "@type": "CreativeWork",
-          "name": "Strategy for Document Management Platform",
-          "description": "Strategic roadmap for docs.etzhayyim.com, providing Notion-like document management with AI-assisted editing and real-time collaboration.",
-          "about": [
-            {
-              "@type": "Thing",
-              "name": "Phase 1: Foundation",
-              "description": "Migrate from Supabase to SQLx. Establish ConnectRPC schemas and performer actor integration."
-            },
-            {
-              "@type": "Thing",
-              "name": "Phase 2: Collaboration",
-              "description": "Implement Yjs CRDT-based real-time collaboration with GraphQL Subscriptions."
-            },
-            {
-              "@type": "Thing",
-              "name": "Phase 3: AI Assistance",
-              "description": "Integrate AI features for document generation, improvement, summarization, and translation via OpenRouter."
-            }
-          ],
-          "keywords": [
-            "Documents",
-            "Collaboration",
-            "AI",
-            "CRDT",
-            "Yjs",
-            "ConnectRPC",
-            "performer framework"
-          ]
-        }
-      },
-      {
-        "fileName": "capabilities.jsonld",
-        "content": {
-          "@context": "https://schema.org/",
-          "@type": "CreativeWork",
-          "name": "Capabilities for Document Management Platform",
-          "description": "Defines the capabilities of docs.etzhayyim.com, traced to activities and performers.",
-          "hasPart": [
-            {
-              "@type": "Capability",
-              "name": "Document Lifecycle Management",
-              "description": "Create, edit, version, and organize documents in a tree structure.",
-              "tracedTo": [
-                "Operational Activity: Manage Documents"
-              ]
-            },
-            {
-              "@type": "Capability",
-              "name": "Real-time Collaboration",
-              "description": "Concurrent multi-user editing via Yjs CRDT and GraphQL Subscriptions.",
-              "tracedTo": [
-                "Operational Activity: Collaborate on Documents"
-              ]
-            },
-            {
-              "@type": "Capability",
-              "name": "AI-Assisted Editing",
-              "description": "Generate, improve, summarize, and translate document content using LLM.",
-              "tracedTo": [
-                "Operational Activity: AI Assist"
-              ]
-            },
-            {
-              "@type": "Capability",
-              "name": "Comment System",
-              "description": "Text selection-based inline comments for document review.",
-              "tracedTo": [
-                "Operational Activity: Review Documents"
-              ]
-            }
-          ]
-        }
-      },
-      {
-        "fileName": "scheduler.jsonld",
-        "content": {
-          "@context": [
-            "https://schema.org/",
-            {
-              "etzhayyim": "https://etzhayyim.com/schemas/",
-              "capabilities": "etzhayyim:capabilities",
-              "survivalIndicators": "etzhayyim:survivalIndicators",
-              "scheduler": "etzhayyim:scheduler",
-              "milestones": "etzhayyim:milestones",
-              "blockers": "etzhayyim:blockers",
-              "dependsOn": {
-                "@id": "etzhayyim:dependsOn",
-                "@type": "@id"
-              },
-              "ingestKey": "etzhayyim:ingestKey",
-              "window": "etzhayyim:window",
-              "valueUpdatedAt": "etzhayyim:valueUpdatedAt"
-            }
-          ],
-          "@type": "CreativeWork",
-          "name": "Document Management Platform (etzhayyim-project-docs) Scheduler",
-          "identifier": "etzhayyim-project-docs/scheduler",
-          "description": "Project schedule (milestones) and blockers.",
-          "dateCreated": "2026-02-15T04:25:26+00:00",
-          "milestones": [
-            {
-              "@type": "CreativeWork",
-              "name": "Migrate from Supabase to SQLx direct PostgreSQL.",
-              "status": "Planned",
-              "dueDate": "2026-02-22"
-            },
-            {
-              "@type": "CreativeWork",
-              "name": "Consolidate docs project structure into etzhayyim-project-docs.",
-              "status": "Planned",
-              "dueDate": "2026-03-01"
-            },
-            {
-              "@type": "CreativeWork",
-              "name": "Deploy docs.etzhayyim.com to Kubernetes with GitOps.",
-              "status": "Planned",
-              "dueDate": "2026-03-08"
-            }
-          ],
-          "blockers": [],
-          "dateModified": "2026-02-15T14:05:52Z"
-        }
-      }
-    ]
-  }
+  "isBasedOn": "90-docs/adr/2606010500-workspace-compat-datomic-schema.md"
 }

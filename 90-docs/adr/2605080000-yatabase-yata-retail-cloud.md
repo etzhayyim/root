@@ -19,7 +19,7 @@ related:
   - adr-0044-kotoba-udf-language-strategy
   - adr-0048-kotoba-vultr-b2-primary
   - adr-0056-bpmn-as-actor
-  - adr-0087-magatama-mcp-tool-facade
+  - adr-0087-kotodama-mcp-tool-facade
   - adr-0095-simplified-3layer-identity-rw-vault
   - adr-2604282300
   - adr-2605010000
@@ -517,7 +517,7 @@ backend / billing / tenant 境界 / brand は分離しない**。
 | S9 | **`/rest/v1/{table}`** (PostgREST 互換) | auto-generated REST CRUD | 同 S1 | Hyperdrive + per-tenant role + SQL builder | **P3.8 (new)** |
 | S10 | **`/graphql/v1`** | GraphQL query/mutation/subscription | 同 S1 | `pg_graphql` 風 schema introspection (RW VIEW based) | **P3.8 (new)** |
 | S11 | **`/auth/v1/*`** (GoTrue 互換) | sign-up / token / OAuth callback | atproto OAuth canonical | atproto OAuth bridge → `sk_live_yata_*` mint | **P3.6 (new)** |
-| S12 | **`/functions/v1/{name}`** | Edge Function invoke | 同 S1 | magatama Invoke (L3/L7/L8) pass-through | **P3.9 (new)** |
+| S12 | **`/functions/v1/{name}`** | Edge Function invoke | 同 S1 | kotodama Invoke (L3/L7/L8) pass-through | **P3.9 (new)** |
 | S13 | **`/mcp`** (Streamable HTTP, JSON-RPC 2.0) | AI agent / external principal sole surface | atproto JWT or `sk_live_yata_*` | MCP facade → tool registry (RW L4) | **P3.5 (new)** |
 | S14 | **`studio.yatabase.etzhayyim.com`** | tenant operator UI | atproto OAuth (browser) | Svelte CSR + S1-S13 を fetch | **P3.10 (new)** |
 | S15 | `/health`, `/_app/meta` | edge probe | public | CF Worker | P0 ✅ |
@@ -868,7 +868,7 @@ shape を返すが、`access_token` は **ES256 atproto session JWT** (canonical
 ## D19. S12 — `/functions/v1/{name}` Edge Functions
 
 **Position**: 「supabase-js `functions.invoke('hello', { body })` が動く serverless
-endpoint。実体は **magatama Invoke pass-through**」。
+endpoint。実体は **kotodama Invoke pass-through**」。
 
 ### Forwarding
 
@@ -878,7 +878,7 @@ POST /functions/v1/{name} HTTP/1.1
   Content-Type: application/json
   { "body": ... }
 
-CF Worker → magatama.Invoke(targetDid, method, params)
+CF Worker → kotodama.Invoke(targetDid, method, params)
   ├─ name → `did:web:yatabase.etzhayyim.com:fn:{name}` に解決
   ├─ governance gate (`RequireApproval` / `WithBPMNTask` / etc.)
   ├─ L3 dispatcher (~30s/128MB) → response 即時
@@ -890,7 +890,7 @@ CF Worker → magatama.Invoke(targetDid, method, params)
 
 - 顧客 plan limit に従い `/functions/v1/admin/deploy` で zip 形式の TS
   source を upload
-- magatama `app.command()` 規約に準拠 (project actor composition)
+- kotodama `app.command()` 規約に準拠 (project actor composition)
 - **MVP は read-only invoke のみ** (顧客 function は `vertex_<label>` write
   禁止、graph state を変更したい場合は MCP S13 経由)
 
@@ -925,8 +925,8 @@ Accept: text/event-stream, application/json
 
 ### Tool surface (auto-generated from XRPC + L4 registry)
 
-`com.etzhayyim.apps.yata.*` lexicon の `func` 全件 + `magatama.jsonld profile.capabilities`
-が自動で MCP tool になる (root rule + ADR-0087 magatama MCP facade と同方式)。
+`com.etzhayyim.apps.yata.*` lexicon の `func` 全件 + `kotodama.jsonld profile.capabilities`
+が自動で MCP tool になる (root rule + ADR-0087 kotodama MCP facade と同方式)。
 
 | Tool category | tool name 例 | underlying XRPC |
 |---|---|---|
@@ -1029,7 +1029,7 @@ surface が先に入っていなくてはならない)。
 | **P4b: Bolt :7687 (S7) + Auth `/auth/v1/*` (S11)** | M3-M4 | yata-bolt server crate + Vultr K8s LB → bolt.yatabase.etzhayyim.com TLS 終端、cypher-shell smoke test、GoTrue 互換 shim、atproto OAuth bridge |
 | **P4c: Realtime `/realtime/v1/*` (S8)** | M4 | DO `RealtimeMux` + RW MV poller BPMN、supabase-js `realtime.channel().on('postgres_changes', ...)` smoke |
 | **P4d: PostgREST `/rest/v1/*` (S9) + GraphQL `/graphql/v1` (S10)** | M4-M5 | postgrest-client smoke、yata-graphql crate (RW schema introspection)、Apollo client smoke |
-| **P4e: Edge Functions `/functions/v1/*` (S12)** | M5 | magatama.Invoke pass-through、`/functions/v1/admin/deploy` で zip upload、5 example fn |
+| **P4e: Edge Functions `/functions/v1/*` (S12)** | M5 | kotodama.Invoke pass-through、`/functions/v1/admin/deploy` で zip upload、5 example fn |
 | **P4f: Studio UI `studio.yatabase.etzhayyim.com` (S14)** | M5 | Svelte CSR + 10 sidebar pane + atproto OAuth login |
 | (existing P5-P12 は M3-M9+ のまま、P4a-P4f を blocker としない) | — | — |
 
@@ -1050,7 +1050,7 @@ P11 (Bolt) は P4b で前倒し済 → Phase 11 は **Bolt v5 binary protocol Ph
 | `yata-rest` | PostgREST compatibility wire (server emit + client) | P3.8 |
 | `yata-graphql` | RW schema → GraphQL SDL + resolver | P3.8 |
 | `yata-auth` | GoTrue 互換 shim (server-only sub-crate) | P3.6 |
-| `yata-functions` | magatama.Invoke pass-through binding | P3.9 |
+| `yata-functions` | kotodama.Invoke pass-through binding | P3.9 |
 | `yata-mcp` | MCP server export (既存予定、ADR §D5 に既出) | P3.5 (前倒し) |
 | `yata-web` | wasm-bindgen target for Studio embedding | P3.10 |
 
@@ -1261,7 +1261,7 @@ yatabase の MV / SQL query で十分カバー。分離は粗利を稀釈する�
 - ADR-0044 Kotoba/Datomic UDF language strategy (graph reasoning impl 基盤)
 - ADR-0048 Kotoba/Datomic primary cutover Linode → Vultr+B2 (cost basis)
 - ADR-0056 BPMN-as-actor (billing rollup の実装パターン)
-- ADR-0087 magatama MCP tool facade (yata MCP server export の prior art)
+- ADR-0087 kotodama MCP tool facade (yata MCP server export の prior art)
 - ADR-0095 3-Layer Identity + RW canonical columns (`org_did` / `actor_did` / `at_did` schema)
 - ADR-2604282300 CF Worker = edge layer + Zeebe + RW UDF (yatabase / obj edge worker の責務分離)
 - ADR-2605010000 RunPod 6000 Ada unified pod (LLM 原価基準)

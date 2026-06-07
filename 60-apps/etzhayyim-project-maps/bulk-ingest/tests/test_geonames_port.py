@@ -1,9 +1,9 @@
-"""Tests for the geonames_dumper.py pymagatama.substrate port.
+"""Tests for the geonames_dumper.py kotodama.substrate port.
 
 Verifies the pure converter (`_geonames_row_to_feature`) produces a record
 shape that matches `com.etzhayyim.maps.feature` lexicon expectations. Does
 not require network access; the substrate primitive itself is tested
-separately in 20-actors/magatama/py/tests/test_substrate.py.
+separately in 40-engine/kotoba/crates/kotoba-kotodama/py/tests/test_substrate.py.
 
 Run with: pytest 60-apps/etzhayyim-project-maps/bulk-ingest/tests/
 """

@@ -15,7 +15,7 @@ related:
   - adr-2604240946-yoro-autonomous-actor-hybrid-loop
   - adr-2604250836-langgraph-as-zeebe-servicetask
   - adr-0056-bpmn-as-actor
-  - adr-0087-magatama-mcp-tool-facade
+  - adr-0087-kotodama-mcp-tool-facade
   - adr-2604231811-atproto-extension-service-layers
   - adr-2604241038-yoro-pds-ideal-topology
   - adr-0061-murakumo-platform-auth-unification

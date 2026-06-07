@@ -74,7 +74,7 @@
 {:else if !hostConfig || !summary || !guestAPI}
 	<main class="shell">
 		<section class="hero panel">
-			<p class="eyebrow">Magatama Desktop</p>
+			<p class="eyebrow">Kotodama Desktop</p>
 			<h1>Loading disk cleaner preview</h1>
 		</section>
 	</main>
@@ -82,7 +82,7 @@
 	<main class="shell">
 		<section class="hero panel">
 			<div>
-				<p class="eyebrow">Magatama Desktop WASM</p>
+				<p class="eyebrow">Kotodama Desktop WASM</p>
 				<h1>{hostConfig.app_name}</h1>
 				<p class="lede">
 					The pure Rust desktop host is serving this UI locally and exposing the desktop-wasm guest ABI as HTTP endpoints.

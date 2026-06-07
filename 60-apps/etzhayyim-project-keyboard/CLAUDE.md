@@ -102,7 +102,7 @@ CTO options: switch (+¥0〜¥5,000), keycap material (+¥0〜¥3,000), frame co
 | `configuration` | Preferences (private) | user-specific CTO 構成 |
 | `ergonomicProfile` | Preferences (private) | 身体情報 (PII) |
 
-Derive rules: `magatama.jsonld` `"derive"` section。設計: `90-docs/260407-write-only-derived-architecture-design.md`
+Derive rules: `kotodama.jsonld` `"derive"` section。設計: `90-docs/260407-write-only-derived-architecture-design.md`
 
 ## Component
 

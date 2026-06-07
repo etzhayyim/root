@@ -66,7 +66,7 @@ pnpm test         # vitest — 19 files, 88 tests
 | | File | What |
 |---|---|---|
 | Money | `money.ts` | exact decimal: sum/sub/mul/div, `mulMoney`/`divMoneyBy` |
-| Worker bridge | `xrpc-bridge.ts` | adapt magatama-host-sdk `XrpcClient` → `Etzhayyim` (R2 keystone) |
+| Worker bridge | `xrpc-bridge.ts` | adapt kotodama-host-sdk `XrpcClient` → `Etzhayyim` (R2 keystone) |
 | Shared helpers | `_shared.ts` | idempotent create + full-scan list |
 
 ## Industry packs (ISIC, D3)

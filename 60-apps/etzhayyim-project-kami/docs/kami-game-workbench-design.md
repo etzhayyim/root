@@ -26,9 +26,9 @@ KAMI Workbench (kami.etzhayyim.com)
   └─ Publish Pipeline ← games.etzhayyim.com へ投稿
 ```
 
-### Actor Model (magatama:actor WIT)
+### Actor Model (kotodama:actor WIT)
 
-全ゲームエンティティは `magatama:actor/virtual-actor@1.0.0` 上の Actor。
+全ゲームエンティティは `kotodama:actor/virtual-actor@1.0.0` 上の Actor。
 
 | Actor 種別 | 説明 | WIT interface |
 |---|---|---|
@@ -183,11 +183,11 @@ icon = "⛩️"
 ```go
 // KAMI → assethub.etzhayyim.com cross-actor 呼び出し
 app.Command("", "browse-assets", cmdBrowseAssets,
-    magatama.AsAgentTool("Browse game assets from AssetHub"),
-    magatama.WithCapabilityTags("asset", "game-creation"),
+    kotodama.AsAgentTool("Browse game assets from AssetHub"),
+    kotodama.WithCapabilityTags("asset", "game-creation"),
 )
 
-func cmdBrowseAssets(ctx *magatama.AppContext, body []byte) ([]byte, error) {
+func cmdBrowseAssets(ctx *kotodama.AppContext, body []byte) ([]byte, error) {
     var args struct {
         Query    string `json:"query"`
         Type     string `json:"asset_type"` // 3d_model, audio, image, texture, animation, live2d
@@ -197,7 +197,7 @@ func cmdBrowseAssets(ctx *magatama.AppContext, body []byte) ([]byte, error) {
     json.Unmarshal(body, &args)
 
     // cross-actor: assethub の SearchAssets tool を呼ぶ
-    result, err := magatama.Invoke("", "SearchAssets", body)
+    result, err := kotodama.Invoke("", "SearchAssets", body)
     if err != nil { return nil, err }
     return result, nil
 }
@@ -233,7 +233,7 @@ AssetRef {
 ### kami-workbench Commands
 
 ```go
-var app = magatama.NewApp(magatama.AppDef{
+var app = kotodama.NewApp(kotodama.AppDef{
     ID:          "k4m1w0rk",
     Name:        "kami-workbench",
     Description: "Interactive game creation workbench",
@@ -242,54 +242,54 @@ var app = magatama.NewApp(magatama.AppDef{
 func init() {
     // Island CRUD
     app.Command("", "create-island", cmdCreateIsland,
-        magatama.AsAgentTool("Create new game island"),
-        magatama.WithCapabilityTags("game", "creation"),
+        kotodama.AsAgentTool("Create new game island"),
+        kotodama.WithCapabilityTags("game", "creation"),
     )
     app.Command("", "update-island", cmdUpdateIsland,
-        magatama.AsAgentTool("Update island metadata/scene"),
-        magatama.WithCapabilityTags("game", "creation"),
+        kotodama.AsAgentTool("Update island metadata/scene"),
+        kotodama.WithCapabilityTags("game", "creation"),
     )
     app.Command("", "list-islands", cmdListIslands,
-        magatama.AsAgentTool("List user's islands"),
-        magatama.WithCapabilityTags("game", "discovery"),
+        kotodama.AsAgentTool("List user's islands"),
+        kotodama.WithCapabilityTags("game", "discovery"),
     )
 
     // Scene editing
     app.Command("", "save-scene", cmdSaveScene,
-        magatama.AsAgentTool("Save island scene tree to CAS"),
-        magatama.WithCapabilityTags("game", "scene"),
+        kotodama.AsAgentTool("Save island scene tree to CAS"),
+        kotodama.WithCapabilityTags("game", "scene"),
     )
     app.Command("", "save-script", cmdSaveScript,
-        magatama.AsAgentTool("Save GDScript to CAS"),
-        magatama.WithCapabilityTags("game", "script"),
+        kotodama.AsAgentTool("Save GDScript to CAS"),
+        kotodama.WithCapabilityTags("game", "script"),
     )
 
     // Asset integration
     app.Command("", "browse-assets", cmdBrowseAssets,
-        magatama.AsAgentTool("Browse game assets from AssetHub"),
-        magatama.WithCapabilityTags("asset", "game-creation"),
+        kotodama.AsAgentTool("Browse game assets from AssetHub"),
+        kotodama.WithCapabilityTags("asset", "game-creation"),
     )
     app.Command("", "attach-asset", cmdAttachAsset,
-        magatama.AsAgentTool("Attach AssetHub asset to island scene"),
-        magatama.WithCapabilityTags("asset", "scene"),
+        kotodama.AsAgentTool("Attach AssetHub asset to island scene"),
+        kotodama.WithCapabilityTags("asset", "scene"),
     )
 
     // Build & Publish
     app.Command("", "build-export", cmdBuildExport,
-        magatama.AsAgentTool("Build Godot Web Export for island"),
-        magatama.WithCapabilityTags("game", "build"),
+        kotodama.AsAgentTool("Build Godot Web Export for island"),
+        kotodama.WithCapabilityTags("game", "build"),
     )
     app.Command("", "publish-island", cmdPublishIsland,
-        magatama.AsAgentTool("Publish island to games.etzhayyim.com"),
-        magatama.WithCapabilityTags("game", "publishing"),
+        kotodama.AsAgentTool("Publish island to games.etzhayyim.com"),
+        kotodama.WithCapabilityTags("game", "publishing"),
     )
     app.Command("", "test-island", cmdTestIsland,
-        magatama.AsAgentTool("Launch test session for island"),
-        magatama.WithCapabilityTags("game", "testing"),
+        kotodama.AsAgentTool("Launch test session for island"),
+        kotodama.WithCapabilityTags("game", "testing"),
     )
 
     // W Protocol
-    magatama.HandleWCommit(handleWCommit)
+    kotodama.HandleWCommit(handleWCommit)
     app.Handle("", method, handler, opts...)(handleConversationTask)
     app.Serve()
 }
@@ -412,7 +412,7 @@ kami-world (k4m1w0ld)
 - 各 Island は独立した DO instance (W Protocol Event Stream で状態管理)
 - Hub Island は常時起動。他の Island は DO hibernation で sleep to $0
 - Island 間移動は Portal → kami-world matchmaker → 新 DO instance に接続
-- `magatama:cloudflare/durable-object-websocket` で低遅延リアルタイム通信
+- `kotodama:cloudflare/durable-object-websocket` で低遅延リアルタイム通信
 
 ### Godot Addons (games.etzhayyim.com 既存 + KAMI 追加)
 
@@ -454,7 +454,7 @@ kami-world (k4m1w0ld)
 4. games.etzhayyim.com 上で
    → Island カタログに表示
    → Player が Portal から直接 join
-   → Leaderboard / Achievements 自動連携 (magatama:game WIT)
+   → Leaderboard / Achievements 自動連携 (kotodama:game WIT)
 ```
 
 ## WIT Extension (KAMI Domain)
@@ -532,11 +532,11 @@ interface asset-bridge {
 |---|---|---|---|---|
 | Engine | Custom Java | Unreal | Luau/Custom | **Godot (OSS)** |
 | Script | Java mods | Verse | Luau | **GDScript + Visual Script** |
-| Actor model | なし | なし | 簡易 | **magatama:actor WIT (full)** |
+| Actor model | なし | なし | 簡易 | **kotodama:actor WIT (full)** |
 | Asset market | なし | Store | Creator Store | **assethub.etzhayyim.com (open)** |
 | Identity | Microsoft | Epic | Roblox | **AT Protocol DID** |
 | Messaging | In-game | In-game | In-game | **W Protocol (E2E encrypted)** |
-| Monetization | Marketplace | V-Bucks | Robux | **magatama:game/economy (Gems)** |
+| Monetization | Marketplace | V-Bucks | Robux | **kotodama:game/economy (Gems)** |
 | AI NPC | なし | なし | 簡易 | **murakumo LLM + Actor** |
 | Persistence | Server files | Epic cloud | Roblox cloud | **W Protocol Event Stream + MDAG CAS + B2** |
 | Cost model | Server hosting | Epic pays | Roblox takes 75% | **Sleep to $0 (DO hibernation)** |

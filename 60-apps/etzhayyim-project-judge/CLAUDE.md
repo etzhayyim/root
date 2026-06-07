@@ -1,19 +1,19 @@
-# ai-gftd-project-judge — 裁判官 Registry
+# etzhayyim-project-judge — 裁判官 Registry
 
 > **T1 Logical Actor**: Manifest-driven (`20-actors/judge/actor-manifest.jsonld`). Worker 不要 (PDS Shared Executor / ActorExecutorDO で pipeline 実行).
 
-`judge.gftd.ai` — 200K judges & magistrates グローバルレジストリ。CEPEJ + ABA + 最高裁人事 + national judicial councils。saiban (court) と hanrei (case-law) を bridge。
+`judge.etzhayyim.com` — 200K judges & magistrates グローバルレジストリ。CEPEJ + ABA + 最高裁人事 + national judicial councils。saiban (court) と hanrei (case-law) を bridge。
 
 ## App Identity
 
 | Key | Value |
 |---|---|
 | **nanoid** | `jdg3wrld` |
-| **domain** | `judge.gftd.ai` |
-| **DID** | `did:web:judge.gftd.ai` |
+| **domain** | `judge.etzhayyim.com` |
+| **DID** | `did:web:judge.etzhayyim.com` |
 | **Tier** | T1 (logical actor, no Worker) |
 | **Manifest** | `20-actors/judge/actor-manifest.jsonld` |
-| **Lexicons** | `00-contracts/lexicons/ai/gftd/apps/judge/` |
+| **Lexicons** | `00-contracts/lexicons/ai/etzhayyim/apps/judge/` |
 
 ## Coverage
 
@@ -24,17 +24,17 @@
 
 | NSID | Type | Description |
 |---|---|---|
-| `ai.gftd.apps.judge.registerJudge` | procedure | 裁判官プロファイル登録 (jurisdiction + court + appointment + specializations) |
-| `ai.gftd.apps.judge.listJudges` | query | jurisdiction + courtLevel + activeOnly フィルタ |
-| `ai.gftd.apps.judge.getJudge` | query | DID 単体取得 (full profile) |
+| `ai.etzhayyim.apps.judge.registerJudge` | procedure | 裁判官プロファイル登録 (jurisdiction + court + appointment + specializations) |
+| `ai.etzhayyim.apps.judge.listJudges` | query | jurisdiction + courtLevel + activeOnly フィルタ |
+| `ai.etzhayyim.apps.judge.getJudge` | query | DID 単体取得 (full profile) |
 
 ## cross-actor
 
 | Connected actor | Direction | 用途 |
 |---|---|---|
-| `saiban.gftd.ai` | bidirectional | court ↔ judge assignment |
-| `hanrei.gftd.ai` | judge → hanrei | opinion authoring |
-| `lawfirm.gftd.ai` | judge ← lawfirm | recusal / conflict of interest check |
+| `saiban.etzhayyim.com` | bidirectional | court ↔ judge assignment |
+| `hanrei.etzhayyim.com` | judge → hanrei | opinion authoring |
+| `lawfirm.etzhayyim.com` | judge ← lawfirm | recusal / conflict of interest check |
 
 ## Governance (per actor-manifest)
 

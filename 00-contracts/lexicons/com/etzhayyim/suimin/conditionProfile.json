@@ -1,0 +1,55 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.suimin.conditionProfile",
+  "description": "Sleep-disorder condition profile anchored to international classifications (ICSD-3 + ICD-11) — classification reference ONLY, never a diagnostic instrument (N1/N5). Wave 1 = obstructive + central sleep apnea. Carries the stable slug, coded references, and a brand-neutral lay description with a mandatory disclaimer. Per ADR-2606072800 §Decision 1/6.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["v", "conditionSlug", "displayNameJa", "displayNameEn", "disclaimerTextUri", "publishedAt"],
+        "properties": {
+          "v": { "type": "integer", "minimum": 1, "maximum": 1 },
+          "conditionSlug": {
+            "type": "string",
+            "knownValues": ["sleep-apnea-obstructive", "sleep-apnea-central", "sleep-apnea-mixed"]
+          },
+          "displayNameJa": { "type": "string", "maxLength": 200, "description": "e.g., 閉塞性睡眠時無呼吸 (OSA)." },
+          "displayNameEn": { "type": "string", "maxLength": 200 },
+          "icsd3Code": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "ICSD-3 classification reference (anchor only — sourceClass icsd-3, classification-only grade)."
+          },
+          "icd11Code": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "WHO ICD-11 code (anchor only). Per ICD-11 MMS: 7A41 = obstructive sleep apnoea, 7A40 = central sleep apnoeas."
+          },
+          "layDescription": {
+            "type": "string",
+            "maxLength": 3000,
+            "description": "Brand-neutral lay description of the condition (what it is, why it matters). NOT a self-diagnosis checklist (N1). Diagnosis is by PSG/OCST + clinician only."
+          },
+          "redFlagNote": {
+            "type": "string",
+            "maxLength": 1000,
+            "description": "G5 red-flag guidance text (e.g., 重度日中傾眠での運転 / 心不全合併 → 速やかに受診)."
+          },
+          "treatmentSlugs": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Stable treatment-modality slugs associated with this condition (synthesis targets), e.g., cpap / oral-appliance-mad / positional-therapy / weight-loss-lifestyle / upper-airway-surgery / hypoglossal-nerve-stimulation / adaptive-servo-ventilation."
+          },
+          "disclaimerTextUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "Reference to active com.etzhayyim.suimin.disclaimerText (G3)."
+          },
+          "publishedAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

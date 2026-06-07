@@ -127,9 +127,9 @@ LLM が誤って fission を発火しないよう gate を schema 制約とし�
 }
 ```
 
-# Registration in `magatama-host-sdk`
+# Registration in `kotodama-host-sdk`
 
-`20-actors/magatama/sdk/magatama-host-sdk/src/llm-tools.ts` (新規予定) に上記 4 tool spec をハードコード or `00-contracts/lexicons/com/etzhayyim/cohort/*.json` から自動生成。
+`40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-tools.ts` (新規予定) に上記 4 tool spec をハードコード or `00-contracts/lexicons/com/etzhayyim/cohort/*.json` から自動生成。
 
 ```typescript
 // 推奨実装パターン
@@ -178,6 +178,6 @@ await llmCall({
 - `00-contracts/lexicons/com/etzhayyim/cohort/emitEvidence.json`
 - `00-contracts/lexicons/com/etzhayyim/cohort/fission.json`
 - `00-contracts/lexicons/com/etzhayyim/cohort/listCohorts.json`
-- `20-actors/magatama/sdk/magatama-host-sdk/src/llm.ts`
-- `20-actors/magatama/sdk/magatama-host-sdk/src/cohort.ts`
+- `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm.ts`
+- `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/cohort.ts`
 - `90-docs/adr/0026-agent-only-reverse-identity-topology.md`

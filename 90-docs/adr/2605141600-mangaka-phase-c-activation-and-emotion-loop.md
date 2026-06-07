@@ -11,7 +11,7 @@ authoritative_for:
   - in-cluster MCP NSID override pattern (MCP_NSID_OVERRIDE_* env)
   - Hume image-head persist → distil → consume loop for emotionAlignment scoring
   - per-node `_emotion` attachment for ai-image + panel nodes in the Genko document graph
-  - pymagatama resolver enhancements (make_llm_vision_node, DMN condition router)
+  - kotodama resolver enhancements (make_llm_vision_node, DMN condition router)
 priority: 8.5
 axis: orchestration
 weight: 0.85
@@ -44,10 +44,10 @@ items that this ADR closes:
 | # | Blocker | Closing artefact |
 |---|---|---|
 | 1   | LLM prompt inlining (text)                                 | `compose_scene_3d.topology.yaml` inlines all three LLM `args.system` / `args.user_template` blocks; `tests/test_compose_scene_3d_prompts.py` guards drift against the Python source constants. |
-| 1b  | Vision LLM resolver (multimodal critic node)               | `pymagatama.langgraph_node_resolvers.make_llm_vision_node` + `pymagatama.llm.call_tier_vision_json` resolve `kind="llm_vision"` against B2 blob fetch + OpenAI-compatible vision endpoint; `blob_fetcher` callback keeps pymagatama storage-agnostic. |
+| 1b  | Vision LLM resolver (multimodal critic node)               | `kotodama.langgraph_node_resolvers.make_llm_vision_node` + `kotodama.llm.call_tier_vision_json` resolve `kind="llm_vision"` against B2 blob fetch + OpenAI-compatible vision endpoint; `blob_fetcher` callback keeps kotodama storage-agnostic. |
 | 2   | Cinematography + critique post-processor MCP tools         | `com.etzhayyim.mangaka.tools.validateCameraPlan` and `.aggregateCritique` in `lg_mangaka.tools`, with topology nodes between the LLM stages and the downstream simulate / refinement edges. Phase A in-tree path re-uses the same tools (single SSoT). |
 | 3   | DMN refinement policy seed                                 | `00-contracts/dmn/com/etzhayyim/policies/mangaka/composeScene3dRefinement.dmn` + alembic seed into `vertex_dmn_model`. Drift between the DMN rules table and the Phase A Python predicate guarded by `tests/test_compose_scene_3d_refinement_dmn.py`. |
-| 3b  | DMN evaluator in `_compile_topology`                       | `pymagatama.langgraph_node_resolvers.make_dmn_condition_router` + `_resolve_dmn_ref` + the FEEL-lite `_eval_dmn_input_entry` (supports `-`, `< N`, `<= N`, `> N`, `>= N`, `== N`, bare literals, and named-input refs like `< maxIter`). |
+| 3b  | DMN evaluator in `_compile_topology`                       | `kotodama.langgraph_node_resolvers.make_dmn_condition_router` + `_resolve_dmn_ref` + the FEEL-lite `_eval_dmn_input_entry` (supports `-`, `< N`, `<= N`, `> N`, `>= N`, `== N`, bare literals, and named-input refs like `< maxIter`). |
 | 4   | MCP tool serving endpoint                                  | `lg_mangaka.server` exposes `POST /xrpc/com.etzhayyim.mcp.message` (JSON-RPC tools/call envelope) on top of the existing `/xrpc/{nsid}` direct route. In-cluster Pregel short-circuits via the new `MCP_NSID_OVERRIDE_<prefix>` env pattern in the resolver. |
 
 Beyond the Phase C closure, the same session wired an end-to-end
@@ -83,7 +83,7 @@ endpoint for `com.etzhayyim.mangaka.tools.*`. Two routes converge on
 The in-cluster Pregel short-circuits the external trip through
 `mangaka.etzhayyim.com` via the new
 `MCP_NSID_OVERRIDE_<key>=<base_url>` env var pattern in
-`pymagatama.langgraph_node_resolvers._resolve_mcp_nsid`. `<key>` is the
+`kotodama.langgraph_node_resolvers._resolve_mcp_nsid`. `<key>` is the
 NSID prefix with dots replaced by underscores; segment-boundary match
 prevents substring collisions; longest-prefix wins on conflict.
 `lg-mangaka-pool` Helm values emit
@@ -108,7 +108,7 @@ kept as negative training examples (`selected: false`).
 
 1. `fetch_observations(rw_url, *, limit, since)` — async psycopg query.
 2. `parse_observation_row(raw_json_str)` — rebinds the persisted shape
-   so `pymagatama.primitives.hume_image_head.train_image_centroid`
+   so `kotodama.primitives.hume_image_head.train_image_centroid`
    reads teacher distribution under `labels.primary` /
    `labels.topEmotions` and keeps author intent under `labels.author`.
 3. `run_distillation(observations, *, min_rows=10)` — calls
@@ -122,7 +122,7 @@ via `MANGAKA_HUME_STUDENT_MODEL=<path>` env on the lg-mangaka pod;
 bare model dict and the `{model, metrics}` wrapper. The
 `lg_mangaka.hume_emotion.score_emotion_alignment(..., model=<dict>)`
 entry point flows the dict down to
-`pymagatama.primitives.hume_image_head.predict_image_emotion`, so
+`kotodama.primitives.hume_image_head.predict_image_emotion`, so
 both `compose_scene_3d` (for the `emotionAlignment` axis) and
 `score_emotion` (for per-node attachment) automatically pick up the
 distilled centroid when present — heuristic fallback otherwise.
@@ -173,7 +173,7 @@ of the response).
 * Phase C topology flip is a single alembic revision now, not a
   multi-step manual procedure. Phase A behaviour is preserved as the
   rollback target.
-* `pymagatama.langgraph_node_resolvers` gains two new node kinds
+* `kotodama.langgraph_node_resolvers` gains two new node kinds
   (`llm_vision`, dispatched via `make_llm_vision_node`) and one new
   conditional-edge scheme (`condition_ref: dmn:<key>@<version>`,
   dispatched via `make_dmn_condition_router`). Both are additive —

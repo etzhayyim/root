@@ -1,5 +1,5 @@
 // contentengine.etzhayyim.com — Personalized Content Engine (thin edge facade).
-// Business logic: 20-actors/magatama/py/src/pymagatama/contentengine_worker_main.py
+// Business logic: 40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/contentengine_worker_main.py
 // LangGraph loop: load_cohort_profile → match_sources → draft_content → rank_variants → quality_gate → store_content
 // Cohort-first personalization — no individual PII (ADR-0018).
 
@@ -23,7 +23,7 @@ export default {
         actor: "did:web:contentengine.etzhayyim.com",
         nanoid: env.APP_NANOID ?? "cten0001",
         execution: "edge-bpmn+langgraph-langserver",
-        businessLogic: "20-actors/magatama/py/src/pymagatama/contentengine_worker_main.py",
+        businessLogic: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/contentengine_worker_main.py",
         bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/contentengine",
         adr: "90-docs/adr/2605072000-langgraph-agent-loop-pattern.md",
         integrations: ["ads.etzhayyim.com", "news.etzhayyim.com", "narou.etzhayyim.com"],

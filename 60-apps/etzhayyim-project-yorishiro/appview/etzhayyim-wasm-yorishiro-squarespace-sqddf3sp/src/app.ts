@@ -2,7 +2,7 @@ import {
   createWorkerExport,
   nowISO,
   type HostSDK,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 // ADR-2605111200 Phase 2 migration (2026-05-11): CF Worker は edge-only。
 // Domain writes/reads は bpmn-dispatcher → LangGraph/LangGraph/pod 経由で dispatch する。
@@ -11,7 +11,7 @@ import {
 const NSID = {
   // Reactive input — sqExporter follows cfRegistrar の transferRequest commits.
   transferRequest: "com.etzhayyim.dns.transferRequest",
-  // ADR-2605111200 procedure NSIDs (server-side handlers in pymagatama).
+  // ADR-2605111200 procedure NSIDs (server-side handlers in kotodama).
   putTransferStep: "com.etzhayyim.dns.putTransferStep",
   getTransferRequest: "com.etzhayyim.dns.getTransferRequest",
   putTransferOutcome: "com.etzhayyim.dns.putTransferOutcome",

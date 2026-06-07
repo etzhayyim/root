@@ -67,7 +67,7 @@ model family described in this ADR.
   training を素直に回せる。`bf16` baseline + `fp8` activation cast の両方が
   smoke 完走済み（後段 §Status）。
 - inference は別 pod (6000 Ada) を経由し、`https://llm.etzhayyim.com/v1/chat/completions`
-  に向ける。training pod の HTTP server (`pymagatama.training_http_server`)
+  に向ける。training pod の HTTP server (`kotodama.training_http_server`)
   は inference を受け持たない。
 - Default base = `google/gemma-4-E4B` (4B 活性 / MoE、128k context、bf16)。
 
@@ -524,7 +524,7 @@ production fix should add a non-`urllib` HTTP client or a small in-cluster proxy
 for `training-zeebe-worker`, then retry the same run through XRPC.
 - 2026-05-09 client-side fix landed (diagnostic, not yet retried end-to-end):
   `_pod_submit_and_wait` in
-  `20-actors/magatama/py/src/pymagatama/primitives/training_run.py` was
+  `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/training_run.py` was
   switched from `urllib.request` to `httpx.Client` and now sends
   `User-Agent: curl/8.7.1` + `Accept: application/json` on both
   `POST /train/run` and `GET /train/status/{id}`. Hypothesis: the RunPod
@@ -544,20 +544,20 @@ for `training-zeebe-worker`, then retry the same run through XRPC.
   not collapsed.
 - 2026-05-09 default training base model updated to **`google/gemma-4-E4B`**
   (HF base, non-instruct). Code wiring:
-  - `20-actors/magatama/sdk/magatama-host-sdk/src/llm-model-registry.ts`
+  - `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts`
     adds a `gemma-4-e4b-base` entry with `huggingfaceModel:
     "google/gemma-4-E4B"` plus a `training-base` use-case default and
     exports a new `TRAINING_DEFAULT_BASE_MODEL` constant.
-  - `20-actors/magatama/sdk/magatama-host-sdk/src/llm-model-types.ts`
+  - `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-types.ts`
     grows a `huggingfaceModel?: string` field and a `"training-base"`
     `UseCaseName` so the SSoT carries HF IDs explicitly.
-  - `20-actors/magatama/py/src/pymagatama/primitives/training_run.py`
+  - `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/training_run.py`
     reads `TRAINING_DEFAULT_BASE_MODEL` env (default `google/gemma-4-E4B`)
     and uses it as fallback when `runpod_handler` receives a payload
     without `baseModel` / `studentBaseModel`. The pre-2026-05-09 6000-Ada
     port-8003 default for `TRAINING_POD_BASE_URL` is retired in favour of
     requiring callers to set the H100 pod URL via Secret.
-  - `20-actors/magatama/py/src/pymagatama/training_http_server.py`
+  - `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/training_http_server.py`
     docstring rewritten to declare H100 pod as training-only and 6000 Ada
     as inference-only.
   Existing checkpoints on `gemma-3-4b-it` / `gemma-3-27b-it` remain
@@ -577,15 +577,15 @@ for `training-zeebe-worker`, then retry the same run through XRPC.
   `deps.toml [invariants.gpu_pricing.runpod_h100_nvl]`.
 - 2026-05-09 default training base model updated to **`google/gemma-4-E4B`**
   (HF base, non-instruct). Code wiring:
-  - `20-actors/magatama/sdk/magatama-host-sdk/src/llm-model-registry.ts`
+  - `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts`
     adds a `gemma-4-e4b-base` entry with `huggingfaceModel:
     "google/gemma-4-E4B"`, a `training-base` use-case default, and the
     new `TRAINING_DEFAULT_BASE_MODEL` constant.
-  - `20-actors/magatama/sdk/magatama-host-sdk/src/llm-model-types.ts`
+  - `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-types.ts`
     grows a `huggingfaceModel?: string` field and `"training-base"`
     (plus `"edge"` / `"browser"` / `"cpu"` for the Baien sibling, ADR
     2605092350) so the SSoT carries HF IDs explicitly.
-  - `20-actors/magatama/py/src/pymagatama/primitives/training_run.py`
+  - `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/training_run.py`
     reads `TRAINING_DEFAULT_BASE_MODEL` env (default `google/gemma-4-E4B`)
     and falls back to it when `runpod_handler` receives a payload
     without `baseModel` / `studentBaseModel`. The pre-2026-05-09 6000-Ada
@@ -594,7 +594,7 @@ for `training-zeebe-worker`, then retry the same run through XRPC.
     kinds (`baien-lora`, `baien-multimodal-graft`) reuse the same
     `runpod_handler` path with a sibling `_BAIEN_DEFAULT_TRUNK_MODEL`
     fallback.
-  - `20-actors/magatama/py/src/pymagatama/training_http_server.py`
+  - `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/training_http_server.py`
     docstring rewritten to declare H100 pod as training-only and 6000 Ada
     as inference-only.
   Existing checkpoints on `gemma-3-4b-it` / `gemma-3-27b-it` remain

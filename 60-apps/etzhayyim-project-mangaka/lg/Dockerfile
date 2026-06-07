@@ -5,7 +5,7 @@
 # Build:
 #   cd 60-apps/etzhayyim-project-mangaka/lg
 #   docker buildx build --platform linux/amd64 \
-#     --build-context py=../../../20-actors/magatama/py \
+#     --build-context py=../../../40-engine/kotoba/crates/kotoba-kotodama/py \
 #     --build-context kami=../../../40-engine/kami-engine \
 #     -t ghcr.io/etzhayyimcojp/lg-mangaka:0.1.0-amd64 \
 #     --push .
@@ -14,7 +14,7 @@
 #   1. kami-wheel-builder — compiles the `kami_mangaka_scene` PyO3 wheel
 #      via maturin (P11 of ADR-2605141200). Lives in its own stage so the
 #      Rust toolchain (~2 GB) is dropped from the runtime image.
-#   2. runtime — slim Python 3.11 + pymagatama + lg_mangaka + the
+#   2. runtime — slim Python 3.11 + kotodama + lg_mangaka + the
 #      kami_mangaka_scene wheel installed from stage 1.
 
 # ── Stage 1: maturin wheel build ─────────────────────────────────────────
@@ -59,9 +59,9 @@ RUN pip install --no-cache-dir 'uv>=0.4'
 
 WORKDIR /app
 
-# pymagatama (editable, mounted via --build-context py=...)
-COPY --from=py . /opt/pymagatama
-RUN uv pip install --system --no-cache -e /opt/pymagatama
+# kotodama (editable, mounted via --build-context py=...)
+COPY --from=py . /opt/kotodama
+RUN uv pip install --system --no-cache -e /opt/kotodama
 
 # kami-mangaka-scene wheel (P11). When --build-context kami=... is not
 # supplied or the wheel build is skipped, the runtime gracefully falls

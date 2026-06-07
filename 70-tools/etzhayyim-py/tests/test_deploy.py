@@ -50,7 +50,7 @@ def _minimal_cfg() -> dict:
 def _write_minimal_app(tmp_path: Path, cfg: dict | None = None) -> None:
     if cfg is None:
         cfg = _minimal_cfg()
-    (tmp_path / "magatama.jsonld").write_text(json.dumps(cfg))
+    (tmp_path / "kotodama.jsonld").write_text(json.dumps(cfg))
     (tmp_path / "src").mkdir(exist_ok=True)
     (tmp_path / "src" / "app.ts").write_text('export default createWorkerExport(() => {});\n')
 
@@ -113,27 +113,27 @@ def test_validate_no_pds_hardcode_raises(tmp_path):
         _validate_no_pds_hardcode(tmp_path)
 
 
-def test_validate_governance_import_skips_no_magatama(tmp_path):
+def test_validate_governance_import_skips_no_kotodama(tmp_path):
     _validate_governance_import(tmp_path)  # no exception
 
 
 def test_validate_governance_import_skips_no_wit(tmp_path):
-    (tmp_path / "magatama.jsonld").write_text("{}")
+    (tmp_path / "kotodama.jsonld").write_text("{}")
     _validate_governance_import(tmp_path)  # no exception
 
 
 def test_validate_governance_import_passes_with_include(tmp_path):
-    (tmp_path / "magatama.jsonld").write_text("{}")
+    (tmp_path / "kotodama.jsonld").write_text("{}")
     (tmp_path / "wit").mkdir()
     (tmp_path / "wit" / "world.wit").write_text(
-        "include magatama:runtime/magatama-component@1.0.0;\n"
+        "include kotodama:runtime/kotodama-component@1.0.0;\n"
     )
     _validate_governance_import(tmp_path)  # no exception
 
 
 def test_validate_governance_import_raises_missing(tmp_path):
     import click
-    (tmp_path / "magatama.jsonld").write_text("{}")
+    (tmp_path / "kotodama.jsonld").write_text("{}")
     (tmp_path / "wit").mkdir()
     (tmp_path / "wit" / "world.wit").write_text("world my-world {}\n")
     with pytest.raises(click.ClickException, match="governance guard"):
@@ -183,7 +183,7 @@ def test_generate_wrangler_jsonc_basic(tmp_path):
     _write_minimal_app(tmp_path, cfg)
     output = generate_wrangler_jsonc(cfg, tmp_path, git_root=None)
     data = json.loads(output)
-    assert data["name"] == "magatama-tst12345"
+    assert data["name"] == "kotodama-tst12345"
     assert data["main"] == "src/app.ts"
     assert any("tst12345.etzhayyim.com/*" in r["pattern"] for r in data["routes"])
 
@@ -268,16 +268,16 @@ def test_actor_handle_from_cfg_dir_slug(tmp_path):
 
 # ── CLI integration ────────────────────────────────────────────────────────────
 
-def test_cli_build_missing_magatama(tmp_path):
+def test_cli_build_missing_kotodama(tmp_path):
     runner = CliRunner()
     result = runner.invoke(main, ["build", "--dir", str(tmp_path)])
     assert result.exit_code != 0
-    assert "magatama.jsonld" in result.output
+    assert "kotodama.jsonld" in result.output
 
 
 def test_cli_build_missing_app_ts(tmp_path):
     cfg = _minimal_cfg()
-    (tmp_path / "magatama.jsonld").write_text(json.dumps(cfg))
+    (tmp_path / "kotodama.jsonld").write_text(json.dumps(cfg))
     runner = CliRunner()
     result = runner.invoke(main, ["build", "--dir", str(tmp_path)])
     assert result.exit_code != 0
@@ -298,11 +298,11 @@ def test_cli_build_no_svelte_no_score(tmp_path):
     assert mock_build.called
 
 
-def test_cli_deploy_missing_magatama(tmp_path):
+def test_cli_deploy_missing_kotodama(tmp_path):
     runner = CliRunner()
     result = runner.invoke(main, ["deploy", "--dir", str(tmp_path)])
     assert result.exit_code != 0
-    assert "magatama.jsonld" in result.output
+    assert "kotodama.jsonld" in result.output
 
 
 def test_cli_deploy_generates_wrangler_and_calls_wrangler(tmp_path):
@@ -320,7 +320,7 @@ def test_cli_deploy_generates_wrangler_and_calls_wrangler(tmp_path):
     wrangler_path = tmp_path / "wrangler.jsonc"
     assert wrangler_path.exists(), f"wrangler.jsonc not created; output: {result.output}"
     data = json.loads(wrangler_path.read_text())
-    assert data["name"] == "magatama-tst12345"
+    assert data["name"] == "kotodama-tst12345"
 
 
 def test_cli_deploy_stub_stub_commands_in_cli():
@@ -328,4 +328,4 @@ def test_cli_deploy_stub_stub_commands_in_cli():
     runner = CliRunner()
     result = runner.invoke(main, ["build", "--help"])
     assert result.exit_code == 0
-    assert "magatama Worker" in result.output or "build" in result.output.lower()
+    assert "kotodama Worker" in result.output or "build" in result.output.lower()

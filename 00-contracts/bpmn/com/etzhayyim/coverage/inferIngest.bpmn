@@ -19,7 +19,7 @@
   bulkInsert primitive collapses N round-trips into one and removes the
   per-row connection churn.
 
-  DEPLOY GATE: this BPMN requires `pymagatama` image newer than
+  DEPLOY GATE: this BPMN requires `kotodama` image newer than
   open-lei-zeebe-20260426112309 (the version that registers
   `generic.db.bulkInsert`). Do not run `sync-bpmn-actors.py` `apply` on
   this file until the helm chart is rolled forward, otherwise the

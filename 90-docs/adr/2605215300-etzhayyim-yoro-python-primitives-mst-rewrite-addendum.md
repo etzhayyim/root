@@ -102,7 +102,7 @@ VENDOR-ONLY (intentionally not ported): row #13 `_fetch_diet_speech_rows` (vendo
 
 **Test coverage**: 313 yoro tests pass (45 M3 + 54 M4 + 56 M5 + 53 M6 + 53 M7 + 49 legacy + 9 product).
 
-**Step 8 cutover unblocked** from yoro side. See `20-actors/magatama/py/YORO-PYTHON-MIGRATION-NOTES.md` for the 40-row per-function table.
+**Step 8 cutover unblocked** from yoro side. See `40-engine/kotoba/crates/kotoba-kotodama/py/YORO-PYTHON-MIGRATION-NOTES.md` for the 40-row per-function table.
 
 **Open** (M8+ post-deploy follow-ups):
 - mst-projector snapshot integration for `count_products_by_status` (currently client-side max 500 scan)
@@ -127,5 +127,5 @@ VENDOR-ONLY (intentionally not ported): row #13 `_fetch_diet_speech_rows` (vendo
 - ADR-2605171900 — yoro migration to etzhayyim
 - ADR-2605172000 — RW-free substrate requirement
 - ADR-2605171800 — MST/IPFS/L2 pipeline architecture
-- `20-actors/magatama/py/YORO-PYTHON-MIGRATION-NOTES.md` — detailed per-function status table
+- `40-engine/kotoba/crates/kotoba-kotodama/py/YORO-PYTHON-MIGRATION-NOTES.md` — detailed per-function status table
 - `20-actors/etzhayyim-sdk/` — SDK integration points for MST, IPFS, L2 write-path
