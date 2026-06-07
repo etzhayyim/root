@@ -21738,6 +21738,50 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606071600-sukashi-ad-tech-supply-chain-fraud-network-observatory-r0.md",
+      "id": "adr-2606071600",
+      "title": "ADR-2606071600: 透かし (sukashi) — Ad-Tech Supply-Chain + Delivery-Infra + Fraud-Network Observatory Tier-B Actor R0",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "sukashi-ad-tech-supply-chain-fraud-network",
+      "authoritative": true,
+      "authoritative_for": [
+        "sukashi actor charter (R0)",
+        "ad-tech supply-chain + fraud-network knowledge-graph constitutional gates G1..G13",
+        "ad-supply-chain-ontology.kotoba.edn vocabulary"
+      ],
+      "related": [
+        "adr-2606022300-akashi-public-ad-disclosure-kotoba-actor-r0",
+        "adr-2606031600-ipaddress-yabai-kotoba-eavt-refactor-active-collection",
+        "adr-2605301400-tadori-onchain-tx-tracing-actor",
+        "adr-2605312500-kurashimori-consumer-protection-concierge",
+        "adr-2606060900-tasuke-cybercrime-victim-support-membrane",
+        "adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "adr-2606022000-kabuto-public-company-intel-supply-chain",
+        "adr-2606013600-kotoba-wasm-browser-node"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606022300 (akashi — ad-library disclosure sibling + the malakEvidenceCandidate bridge sukashi hands fraud evidence to)",
+        "ADR-2606031600 (ipaddress/yabai — the ip-network + passive-dns-cti ontologies sukashi reuses for delivery infra)",
+        "ADR-2605301400 (tadori — authorized IP/ASN/WHOIS/passive-DNS substrate)",
+        "ADR-2605312500 (kurashimori — consumer-protection routing target)",
+        "ADR-2606060900 (tasuke — cybercrime-victim-support routing target)",
+        "ADR-2605301600 (danjo — non-adjudicating public-accountability boundary + routing target)",
+        "ADR-2605262130 (kotoba storage substrate)",
+        "ADR-2605312345 (kotoba Datom log = first-class canonical state)",
+        "ADR-2606013600 (kotoba-wasm browser node — the render target)",
+        "ADR-2606013800 (actor-profile SSoT + dynamic did.json — the registration path)",
+        "ADR-2605231525 (no-server-key signing capability boundary)",
+        "ADR-2605215000 (Murakumo-only inference)",
+        "ADR-2605192100 (Charter — 広告排除 invariant this actor must preserve)"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
