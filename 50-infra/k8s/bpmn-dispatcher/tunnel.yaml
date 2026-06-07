@@ -68,7 +68,7 @@ data:
     # no longer routes directly to lg-yatabase. cloudflared on this VKE cannot
     # dial the lg-yatabase pod network namespace (i/o timeout regardless of
     # FQDN / svc IP / pod IP / hostPort / hostNetwork). bpmn-dispatcher can,
-    # so the yatabase NSIDs fall through to the catch-all and pymagatama's
+    # so the yatabase NSIDs fall through to the catch-all and kotodama's
     # dispatcher proxies them to lg-yatabase via `_proxy_to_lg_yatabase`.
     ingress:
       - hostname: ses-api.etzhayyim.com

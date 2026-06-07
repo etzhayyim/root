@@ -102,7 +102,7 @@ async def _step_write_back(state: _State) -> dict[str, Any]:
     now_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     now_date = now_iso[:10]
     sess_count, msg_count = 0, 0
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     import asyncio
     client = get_kotoba_client()
     for plan in plans:

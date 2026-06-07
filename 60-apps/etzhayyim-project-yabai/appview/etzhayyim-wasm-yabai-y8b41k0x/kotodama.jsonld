@@ -1,0 +1,160 @@
+{
+  "@context": "https://etzhayyim.com/ns/kotodama/v1",
+  "@id": "did:web:yabai.etzhayyim.com",
+  "component": {
+    "path": "/wasm/component.wasm"
+  },
+  "convoSystemPrompt": "You are the YABAI risk intelligence agent. You score entity risk (AML, sanctions, anti-social forces), manage IP access filtering (WAF deny/challenge/monitor lists), integrate KYC evidence from ekyc.etzhayyim.com, and provide cyber threat intelligence. You can evaluate entities, explain risk scores, ingest IP and evidence data, sync WAF lists, and process KYC verification results. Respond helpfully in the user's language.",
+  "deploy": {},
+  "duties": [
+    "勤労の義務"
+  ],
+  "governance": {
+    "classification": "internal",
+    "complianceFrameworks": [
+      "Act on Prevention of Transfer of Criminal Proceeds (Japan)",
+      "FATF Recommendations",
+      "NIST CSF 2.0"
+    ],
+    "raci": "responsible"
+  },
+  "interfaces": {
+    "provides": [
+      "etzhayyim:yabai-risk/risk-assessment@1.0.0",
+      "etzhayyim:yabai-risk/network-intel@1.0.0",
+      "etzhayyim:yabai-risk/vuln-intel@1.0.0",
+      "etzhayyim:yabai-risk/threat-intel@1.0.0",
+      "etzhayyim:yabai-risk/exchange-intel@1.0.0",
+      "etzhayyim:yabai-risk/infra-intel@1.0.0",
+      "etzhayyim:yabai-risk/access-audit@1.0.0",
+      "etzhayyim:yabai-risk/cf-logpush-consumer@1.0.0",
+      "etzhayyim:yabai-risk/cf-metrics-ingest@1.0.0"
+    ],
+    "requires": []
+  },
+  "kpi": [
+    "credits の獲得"
+  ],
+  "name": "etzhayyim-wasm-yabai",
+  "nanoid": "y8b41k0x",
+  "performerType": "service",
+  "profile": {
+    "agentType": "autonomous",
+    "avatar": "YABAI",
+    "capabilities": [
+      "evaluate_entity",
+      "get_risk",
+      "explain_score",
+      "ingest_ip",
+      "get_ip_risk",
+      "report_rate_abuse",
+      "sync_waf_lists",
+      "ingest_kyc_evidence",
+      "ingest_evidence"
+    ],
+    "category": "compliance",
+    "country": "jpn",
+    "description": "AML/sanctions/anti-social forces risk scoring, IP access filtering, KYC evidence integration, cyber threat intelligence",
+    "displayName": "YABAI Risk Intelligence",
+    "isBot": true,
+    "operator": "etzhayyim.co.jp"
+  },
+  "project": "yabai",
+  "routes": [
+    {
+      "host": "yabai.etzhayyim.com",
+      "paths": [
+        "/"
+      ],
+      "tls": true
+    },
+    {
+      "host": "y8b41k0x.etzhayyim.com",
+      "paths": [
+        "/"
+      ],
+      "tls": true
+    }
+  ],
+  "runtimeType": "worker",
+  "space": {
+    "channels": [
+      {
+        "default": true,
+        "description": "Entity risk events and updates",
+        "kind": "public",
+        "name": "yabai-feed"
+      },
+      {
+        "description": "Risk threshold alerts",
+        "kind": "public",
+        "name": "yabai-alerts"
+      },
+      {
+        "description": "Audit trail and compliance log",
+        "kind": "public",
+        "name": "yabai-audit"
+      },
+      {
+        "description": "Self-evolution cycle reports",
+        "kind": "public",
+        "name": "yabai-evolution"
+      }
+    ],
+    "description": "AML/sanctions/anti-social forces risk scoring and monitoring",
+    "historyVisibility": "shared",
+    "joinRule": "invite",
+    "name": "YABAI Risk Intelligence"
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.post",
+        "app.bsky.feed.like",
+        "app.bsky.feed.repost",
+        "app.bsky.graph.follow",
+        "com.etzhayyim.apps.yabai.score",
+        "com.etzhayyim.apps.yabai.entity",
+        "com.etzhayyim.apps.yabai.alert",
+        "com.etzhayyim.apps.yabai.enforcement",
+        "com.etzhayyim.apps.yabai.ipRisk",
+        "com.etzhayyim.apps.yabai.whoisRecord",
+        "com.etzhayyim.apps.yabai.dnsRecord",
+        "com.etzhayyim.apps.yabai.asnInfo",
+        "com.etzhayyim.apps.yabai.geoipEnrichment",
+        "com.etzhayyim.apps.yabai.cveEntry",
+        "com.etzhayyim.apps.yabai.mitreTechnique",
+        "com.etzhayyim.apps.yabai.exploitObservation",
+        "com.etzhayyim.apps.yabai.tlsCertificate",
+        "com.etzhayyim.apps.yabai.tlsAnomaly",
+        "com.etzhayyim.apps.yabai.malwareSample",
+        "com.etzhayyim.apps.yabai.iocIndicator",
+        "com.etzhayyim.apps.yabai.phishingUrl",
+        "com.etzhayyim.apps.yabai.stixBundle",
+        "com.etzhayyim.apps.yabai.bgpEvent",
+        "com.etzhayyim.apps.yabai.abuseReport",
+        "com.etzhayyim.apps.yabai.hostingProvider",
+        "com.etzhayyim.apps.yabai.ipHostingHistory",
+        "com.etzhayyim.apps.yabai.ipLocationHistory",
+        "com.etzhayyim.apps.yabai.emailAddress",
+        "com.etzhayyim.apps.yabai.phishingSite",
+        "com.etzhayyim.apps.yabai.intelAccessLog",
+        "com.etzhayyim.apps.yabai.intelSession",
+        "com.etzhayyim.apps.yabai.intelDevice",
+        "com.etzhayyim.apps.yabai.cfRequestLog",
+        "com.etzhayyim.apps.yabai.cfFirewallEvent",
+        "com.etzhayyim.apps.yabai.cfBotScore",
+        "com.etzhayyim.apps.yabai.cfTrafficPattern",
+        "com.etzhayyim.apps.yabai.cfDeviceCluster",
+        "com.etzhayyim.apps.ipaddress.ipAddress",
+        "com.etzhayyim.apps.ipaddress.ipAnalysis",
+        "com.etzhayyim.apps.ipaddress.geolocation",
+        "com.etzhayyim.apps.ipaddress.whoisSnapshot",
+        "com.etzhayyim.apps.ekyc.kycEvidence",
+        "com.etzhayyim.apps.ekyc.verificationResult",
+        "com.etzhayyim.claim.stakedAttestation"
+      ]
+    }
+  },
+  "uiType": "yoro"
+}

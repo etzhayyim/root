@@ -249,7 +249,7 @@ Keynote/PowerPoint 互換:
 ├── CLAUDE.md
 ├── wit/pptx/package.wit                         # 5 WIT interfaces (25 functions)
 └── wasm/etzhayyim-wasm-pptx-t53br1o0/
-    ├── magatama.jsonld                          # Agent profile, triggers, routes
+    ├── kotodama.jsonld                          # Agent profile, triggers, routes
     ├── wrangler.jsonc                           # Workers Assets + PDS binding
     ├── src/
     │   └── app.ts                               # Backend: 23 XRPC commands + /editor /embed routes

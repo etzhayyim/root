@@ -1,6 +1,6 @@
 // roukisho.etzhayyim.com — 労働基準監督署 (Labor Standards Inspection Office) registry
 // TS Native Worker: 4 XRPC (listOffices / getOffice / recordCommunication / listCommunications)
-// Directory seed is static (entities[] in magatama.jsonld mirror). Graph reads via Kysely pending.
+// Directory seed is static (entities[] in kotodama.jsonld mirror). Graph reads via Kysely pending.
 
 import {
   asAgentTool,
@@ -12,7 +12,7 @@ import {
   str,
   withCapabilityTags,
   type HostSDK,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 let appId = "";
 

@@ -657,7 +657,7 @@ def deps_governance_wit(component_dir: str, fmt: str) -> None:
     comp = Path(component_dir).resolve()
     wit_file = comp / "wit" / "world.wit"
     app_ts = comp / "src" / "app.ts"
-    manifest = comp / "magatama.jsonld"
+    manifest = comp / "kotodama.jsonld"
 
     findings: list[str] = []
     world: dict = {"imports": [], "exports": [], "includes": []}
@@ -693,15 +693,15 @@ def deps_governance_wit(component_dir: str, fmt: str) -> None:
         try:
             mf = json.loads(manifest.read_text())
         except json.JSONDecodeError:
-            findings.append("magatama.jsonld is not valid JSON")
+            findings.append("kotodama.jsonld is not valid JSON")
 
     gov = mf.get("governance", {})
     raci = gov.get("raci", "")
     classification = gov.get("classification", "")
     if not raci:
-        findings.append("governance.raci missing in magatama.jsonld")
+        findings.append("governance.raci missing in kotodama.jsonld")
     if not classification:
-        findings.append("governance.classification missing in magatama.jsonld")
+        findings.append("governance.classification missing in kotodama.jsonld")
 
     wit_ok = wit_file.exists()
     app_ok = app_ts.exists()

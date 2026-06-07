@@ -7,7 +7,7 @@ topic: organism-actors
 authoritative: true
 last_verified: 2026-05-13
 authoritative_paths:
-  - 20-actors/magatama/py/src/pymagatama/mcp_dispatch.py
+  - 40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/mcp_dispatch.py
   - 50-infra/prod/main.tf
   - 50-infra/vultr/cloudflared/bpmn-dispatcher-tunnel.yaml
   - 50-infra/vultr/mitama-udf-pool/values.yaml
@@ -77,19 +77,19 @@ except for legacy compatibility checks.
 
 ### Image
 
-`ghcr.io/etzhayyim/pymagatama:phase-h2-20260513192230-amd64@sha256:592ca26c2bfee942e1ccdeccfdeb7c383a4b870f44c585db199443c2c09ef2bb`
+`ghcr.io/etzhayyim/kotodama:phase-h2-20260513192230-amd64@sha256:592ca26c2bfee942e1ccdeccfdeb7c383a4b870f44c585db199443c2c09ef2bb`
 
 ## Crash Postmortem (deployment blocker)
 
 During rollout, both Phase H and H2 pods crashed with:
 
 ```
-File ".../site-packages/pymagatama/dispatcher_main.py", line 56, in <module>
+File ".../site-packages/kotodama/dispatcher_main.py", line 56, in <module>
     from pyzeebe import ZeebeClient, create_insecure_channel
 ModuleNotFoundError: No module named 'pyzeebe'
 ```
 
-**Root cause**: A manually-applied ConfigMap `bpmn-dispatcher-patch` (not in Helm chart) was mounted at `/usr/local/lib/python3.11/site-packages/pymagatama/dispatcher_main.py`, overlaying the installed file with an old version that still had `from pyzeebe import...` at line 56. The Phase H image did not install pyzeebe (removed from `pyproject.toml` in `1ca30f3c290`), so the stale import crashed.
+**Root cause**: A manually-applied ConfigMap `bpmn-dispatcher-patch` (not in Helm chart) was mounted at `/usr/local/lib/python3.11/site-packages/kotodama/dispatcher_main.py`, overlaying the installed file with an old version that still had `from pyzeebe import...` at line 56. The Phase H image did not install pyzeebe (removed from `pyproject.toml` in `1ca30f3c290`), so the stale import crashed.
 
 Debug pods on the same node succeeded because they had no volumeMount and saw the clean installed file.
 
@@ -108,7 +108,7 @@ kubectl delete configmap bpmn-dispatcher-patch -n mitama-udf
 
 ```
 kubectl exec -n mitama-udf bpmn-dispatcher-7d9b446bbf-zhpwv -- python3 -c "
-from pymagatama.mcp_dispatch import build_default_handlers
+from kotodama.mcp_dispatch import build_default_handlers
 h = build_default_handlers()
 proxies = [k for k in h if any(k.startswith(f'com.etzhayyim.apps.{a}.') for a in ['saikin', 'ki', 'koke'])]
 print('Total:', len(h), 'Proxies:', len(proxies))

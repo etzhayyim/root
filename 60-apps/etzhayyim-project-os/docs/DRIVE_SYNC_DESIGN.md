@@ -28,9 +28,9 @@ etzhayyim OS への drive 統合機能。Google Drive/Dropbox 風のローカル
 
 | Performer | Type | Location | Description |
 |---|---|---|---|
-| `drive-sync-component` | App component | `magatama-system` ns | MCP API 提供 (TinyGo WebAssembly) |
+| `drive-sync-component` | App component | `kotodama-system` ns | MCP API 提供 (TinyGo WebAssembly) |
 | `os-drive-sync` | Tauri backend | Desktop (Rust) | ローカルファイル監視・同期エンジン |
-| `project-hub-integration` | MCP component | `magatama-system` ns | git repository メタデータ管理 |
+| `project-hub-integration` | MCP component | `kotodama-system` ns | git repository メタデータ管理 |
 
 ## System Architecture
 

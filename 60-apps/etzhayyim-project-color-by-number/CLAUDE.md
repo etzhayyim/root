@@ -7,7 +7,7 @@
 
 | Component | nanoid | 役割 |
 |---|---|---|
-| `etzhayyim-wasm-color-by-number-cbn8gf7x` | `cbn8gf7x` | Magatama ランタイム WASM — AT + Signal + SQL 統合 |
+| `etzhayyim-wasm-color-by-number-cbn8gf7x` | `cbn8gf7x` | Kotodama ランタイム WASM — AT + Signal + SQL 統合 |
 
 ## Architecture
 
@@ -16,12 +16,12 @@ Client (Widget API)
   ↓ XRPC / AT Protocol
 etzhayyim.coloring.v1.ColoringCommandService / ColoringQueryService
   ↓ performer.Runtime (ATCommandEnvelope)
-WASM component (magatama runtime)
+WASM component (kotodama runtime)
   ├── AT Protocol   — com.etzhayyim.command.coloring.paint / create → performer methods
   ├── Signal Protocol — group Sender Key session per canvas (E2E canvas events)
   └── SQL Protocol — yata graph (:Cell)-[:ADJACENT]->(:Cell) → color suggestion
 
-Storage: magatama WIT (LanceQuerySQL / LanceUpsertOne / KvGet / KvPut)
+Storage: kotodama WIT (LanceQuerySQL / LanceUpsertOne / KvGet / KvPut)
   ├── cbn_canvases_current   — canvas メタデータ
   ├── cbn_cells_current      — セル状態 (色番号 / 塗色 / 誰が塗ったか)
   └── cbn_signal_sessions_current — Signal group session per canvas
@@ -64,7 +64,7 @@ Storage: magatama WIT (LanceQuerySQL / LanceUpsertOne / KvGet / KvPut)
 - `(:Cell)-[:ADJACENT]->(:Cell)` エッジ (上下左右 4 方向)
 - `get_canvas_graph`: 隣接セルの塗色頻度を集計し候補色を返す
 
-## Magatama Variables (magatama.jsonld component.env)
+## Kotodama Variables (kotodama.jsonld component.env)
 
 | Variable (SPIN_VARIABLE_ prefix) | 説明 |
 |---|---|

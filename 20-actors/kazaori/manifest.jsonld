@@ -75,21 +75,21 @@
   "cells": [
     {
       "name": "emergency_declaration",
-      "module": "magatama.cells.kazaori_emergency_declaration",
+      "module": "kotodama.cells.kazaori_emergency_declaration",
       "murakumoNode": "naphtali",
       "phase": "event",
       "io": "Council Lv6+ ≥4/7 declaration → emergencyDeclarationAttestation; handles lifting state-transition"
     },
     {
       "name": "damage_assessment",
-      "module": "magatama.cells.kazaori_damage_assessment",
+      "module": "kotodama.cells.kazaori_damage_assessment",
       "murakumoNode": "naphtali",
       "phase": "continuous (during active emergency)",
       "io": "cross-actor data fusion → damageAssessmentReport"
     },
     {
       "name": "emergency_water_supply",
-      "module": "magatama.cells.kazaori_emergency_water_supply",
+      "module": "kotodama.cells.kazaori_emergency_water_supply",
       "murakumoNode": "naphtali",
       "phase": "continuous (during active emergency)",
       "io": "needs prediction → mizuho G5 carve-out + emergencySupplyDispatch",
@@ -97,7 +97,7 @@
     },
     {
       "name": "emergency_food_supply",
-      "module": "magatama.cells.kazaori_emergency_food_supply",
+      "module": "kotodama.cells.kazaori_emergency_food_supply",
       "murakumoNode": "naphtali",
       "phase": "continuous (during active emergency)",
       "io": "needs prediction → mitsuho reserve release + emergencySupplyDispatch",
@@ -105,14 +105,14 @@
     },
     {
       "name": "mass_evacuation",
-      "module": "magatama.cells.kazaori_mass_evacuation",
+      "module": "kotodama.cells.kazaori_mass_evacuation",
       "murakumoNode": "naphtali",
       "phase": "continuous (during active emergency)",
       "io": "opt-in self-check-in → evacuationCheckIn + safe-site registry routing"
     },
     {
       "name": "medical_surge",
-      "module": "magatama.cells.kazaori_medical_surge",
+      "module": "kotodama.cells.kazaori_medical_surge",
       "murakumoNode": "naphtali",
       "phase": "continuous (during active emergency)",
       "io": "clinical capacity overflow → iyashi clinic-overflow protocols + temporary triage site authorization",

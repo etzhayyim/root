@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# install.sh — install magatama-cell-runner as a launchd LaunchAgent on a
+# install.sh — install kotodama-cell-runner as a launchd LaunchAgent on a
 #             Murakumo Mac mini.
 #
 # Per ADR-2605192415 §7.1 (Religious-Corp Daemon Architecture — Tier 1
 # launchd 常駐), each Mac mini in the etzhayyim Murakumo fleet runs the
-# magatama-cell-runner CLI which reads 50-infra/murakumo/fleet.toml to
+# kotodama-cell-runner CLI which reads 50-infra/murakumo/fleet.toml to
 # decide which cells to host. The runner is a thin supervisor — actual
-# cell.py code lives under 20-actors/magatama/cells/<cell_name>/.
+# cell.py code lives under 40-engine/kotoba/crates/kotoba-kotodama/cells/<cell_name>/.
 #
 # Run ONCE per Mac mini, then the runner stays alive across reboots via
 # launchd's RunAtLoad + KeepAlive.
@@ -14,7 +14,7 @@
 # Prereqs:
 #   - macOS 14+
 #   - homebrew or system `uv` installed (`brew install uv` if not yet)
-#   - pymagatama venv ready (`uv sync` in 20-actors/magatama/py)
+#   - kotodama venv ready (`uv sync` in 40-engine/kotoba/crates/kotoba-kotodama/py)
 #   - 12-tribe SSH access set up (this script runs locally on the mac mini)
 #
 # Usage:
@@ -25,14 +25,14 @@
 #     ./install.sh --node simeon --repo-path /Users/simeon/etzhayyim-root
 #
 # Status / logs / stop (after install):
-#   launchctl list | grep magatama-cell-runner
-#   tail -f ~/.etzhayyim/log/magatama-cell-runner.{stdout,stderr}.log
+#   launchctl list | grep kotodama-cell-runner
+#   tail -f ~/.etzhayyim/log/kotodama-cell-runner.{stdout,stderr}.log
 #   ./uninstall.sh
 
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-PLIST_SRC="$SCRIPT_DIR/com.etzhayyim.magatama-cell-runner.plist"
+PLIST_SRC="$SCRIPT_DIR/com.etzhayyim.kotodama-cell-runner.plist"
 
 NODE_NAME=""
 REPO_PATH=""
@@ -82,8 +82,8 @@ if [[ -z "$REPO_PATH" ]]; then
   REPO_PATH="$(cd "$SCRIPT_DIR/../../../.." && pwd)"
 fi
 
-if [[ ! -f "$REPO_PATH/20-actors/magatama/py/pyproject.toml" ]]; then
-  echo "ERROR: pymagatama project not found at $REPO_PATH/20-actors/magatama/py" >&2
+if [[ ! -f "$REPO_PATH/40-engine/kotoba/crates/kotoba-kotodama/py/pyproject.toml" ]]; then
+  echo "ERROR: kotodama project not found at $REPO_PATH/40-engine/kotoba/crates/kotoba-kotodama/py" >&2
   echo "       pass --repo-path <PATH> if your checkout is elsewhere" >&2
   exit 2
 fi
@@ -97,9 +97,9 @@ fi
 
 USERNAME="$(id -un)"
 LAUNCHAGENT_DIR="$HOME/Library/LaunchAgents"
-INSTALLED_PLIST="$LAUNCHAGENT_DIR/com.etzhayyim.magatama-cell-runner.plist"
+INSTALLED_PLIST="$LAUNCHAGENT_DIR/com.etzhayyim.kotodama-cell-runner.plist"
 LOG_DIR="$HOME/.etzhayyim/log"
-SERVICE_LABEL="com.etzhayyim.magatama-cell-runner"
+SERVICE_LABEL="com.etzhayyim.kotodama-cell-runner"
 
 # --- Pre-flight health check ------------------------------------------------
 
@@ -115,12 +115,12 @@ echo "  plist src:  $PLIST_SRC"
 echo "  installed:  $INSTALLED_PLIST"
 echo "  log dir:    $LOG_DIR"
 
-step "ensuring pymagatama venv is synced (uv sync)"
-(cd "$REPO_PATH/20-actors/magatama/py" && "$UV_PATH" sync --quiet)
-ok "pymagatama venv ready"
+step "ensuring kotodama venv is synced (uv sync)"
+(cd "$REPO_PATH/40-engine/kotoba/crates/kotoba-kotodama/py" && "$UV_PATH" sync --quiet)
+ok "kotodama venv ready"
 
 step "running --health for $NODE_NAME (config readback)"
-(cd "$REPO_PATH/20-actors/magatama/py" && "$UV_PATH" run magatama-cell-runner --node "$NODE_NAME" --health)
+(cd "$REPO_PATH/40-engine/kotoba/crates/kotoba-kotodama/py" && "$UV_PATH" run kotodama-cell-runner --node "$NODE_NAME" --health)
 ok "health probe ok"
 
 # --- Materialise plist -----------------------------------------------------
@@ -178,15 +178,15 @@ if launchctl list "$SERVICE_LABEL" | grep -q PID; then
   ok "$SERVICE_LABEL is running"
 else
   echo "WARN: service not yet showing PID — check logs:" >&2
-  echo "  tail -f $LOG_DIR/magatama-cell-runner.stderr.log" >&2
+  echo "  tail -f $LOG_DIR/kotodama-cell-runner.stderr.log" >&2
 fi
 
 echo ""
 echo "Install complete."
 echo ""
 echo "Useful commands:"
-echo "  status:    launchctl list | grep magatama-cell-runner"
-echo "  stdout:    tail -f $LOG_DIR/magatama-cell-runner.stdout.log"
-echo "  stderr:    tail -f $LOG_DIR/magatama-cell-runner.stderr.log"
+echo "  status:    launchctl list | grep kotodama-cell-runner"
+echo "  stdout:    tail -f $LOG_DIR/kotodama-cell-runner.stdout.log"
+echo "  stderr:    tail -f $LOG_DIR/kotodama-cell-runner.stderr.log"
 echo "  reload:    launchctl unload $INSTALLED_PLIST && launchctl load $INSTALLED_PLIST"
 echo "  uninstall: $SCRIPT_DIR/uninstall.sh"

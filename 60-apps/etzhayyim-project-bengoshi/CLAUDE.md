@@ -1,19 +1,19 @@
-# ai-gftd-project-bengoshi — 弁護士 Registry
+# etzhayyim-project-bengoshi — 弁護士 Registry
 
 > **T1 Logical Actor**: Manifest-driven (`20-actors/bengoshi/actor-manifest.jsonld`). Worker 不要.
 
-`bengoshi.gftd.ai` — 2.5M licensed lawyers グローバルレジストリ。IBA + ABA + 日弁連 + national bar associations。lawfirm (案件管理) と saiban (litigation) を bridge。ISCO-2611 HAR gate enforced。
+`bengoshi.etzhayyim.com` — 2.5M licensed lawyers グローバルレジストリ。IBA + ABA + 日弁連 + national bar associations。lawfirm (案件管理) と saiban (litigation) を bridge。ISCO-2611 HAR gate enforced。
 
 ## App Identity
 
 | Key | Value |
 |---|---|
 | **nanoid** | `bng5h2x0` |
-| **domain** | `bengoshi.gftd.ai` |
-| **DID** | `did:web:bengoshi.gftd.ai` |
+| **domain** | `bengoshi.etzhayyim.com` |
+| **DID** | `did:web:bengoshi.etzhayyim.com` |
 | **Tier** | T1 (logical actor, no Worker) |
 | **Manifest** | `20-actors/bengoshi/actor-manifest.jsonld` |
-| **Lexicons** | `00-contracts/lexicons/ai/gftd/apps/bengoshi/` |
+| **Lexicons** | `00-contracts/lexicons/ai/etzhayyim/apps/bengoshi/` |
 
 ## Coverage
 
@@ -24,18 +24,18 @@
 
 | NSID | Type | Description |
 |---|---|---|
-| `ai.gftd.apps.bengoshi.registerLawyer` | procedure | 弁護士登録 (bar admission + specializations + lawfirm 所属) |
-| `ai.gftd.apps.bengoshi.searchLawyers` | query | jurisdiction + specialization + bar association フィルタ (exact match) |
-| `ai.gftd.apps.bengoshi.recordDisciplinary` | procedure | 懲戒記録 (bar association DID 署名必須) |
+| `ai.etzhayyim.apps.bengoshi.registerLawyer` | procedure | 弁護士登録 (bar admission + specializations + lawfirm 所属) |
+| `ai.etzhayyim.apps.bengoshi.searchLawyers` | query | jurisdiction + specialization + bar association フィルタ (exact match) |
+| `ai.etzhayyim.apps.bengoshi.recordDisciplinary` | procedure | 懲戒記録 (bar association DID 署名必須) |
 
 ## cross-actor
 
 | Connected actor | Direction | 用途 |
 |---|---|---|
-| `lawfirm.gftd.ai` | bidirectional | matter ↔ leadLawyerDid 結合 |
-| `saiban.gftd.ai` | bidirectional | jiken の代理人記録 |
-| `adr.gftd.ai` | bengoshi → adr | arbitrator/representation |
-| `legal-aid.gftd.ai` | bengoshi ← legal-aid | panel attorney pool |
+| `lawfirm.etzhayyim.com` | bidirectional | matter ↔ leadLawyerDid 結合 |
+| `saiban.etzhayyim.com` | bidirectional | jiken の代理人記録 |
+| `adr.etzhayyim.com` | bengoshi → adr | arbitrator/representation |
+| `legal-aid.etzhayyim.com` | bengoshi ← legal-aid | panel attorney pool |
 
 ## Governance (per actor-manifest)
 

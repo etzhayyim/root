@@ -100,7 +100,7 @@ for i in $(seq 1 $NUM_WRITES); do
   T0=$(python3 -c "import time; print(int(time.time()*1000))")
 
   RESULT=$(curl -s -X POST "$WRITE_URL/xrpc/com.etzhayyim.yata.mergeRecordWal" \
-    -H 'Content-Type: application/json' -H 'X-Magatama-Verified: true' \
+    -H 'Content-Type: application/json' -H 'X-Kotodama-Verified: true' \
     -d "{\"label\":\"LtNode\",\"pk_key\":\"rkey\",\"pk_value\":\"lt_$i\",\"props\":{\"idx\":$i,\"batch\":\"ci\",\"text\":\"record $i\",\"collection\":\"com.etzhayyim.apps.loadtest\",\"repo\":\"did:web:loadtest.etzhayyim.com\"}}")
 
   T1=$(python3 -c "import time; print(int(time.time()*1000))")
@@ -146,7 +146,7 @@ for i in $(seq 1 $NUM_READS); do
   if [ $((i % 2)) -eq 0 ]; then URL="$READ0_URL"; else URL="$READ1_URL"; fi
   T0=$(python3 -c "import time; print(int(time.time()*1000))")
   curl -s -X POST "$URL/xrpc/com.etzhayyim.yata.cypher" \
-    -H 'Content-Type: application/json' -H 'X-Magatama-Verified: true' \
+    -H 'Content-Type: application/json' -H 'X-Kotodama-Verified: true' \
     -d '{"statement":"MATCH (r:LtNode) WHERE r.batch = '"'"'ci'"'"' RETURN count(r) AS cnt LIMIT 1"}' > /dev/null
   T1=$(python3 -c "import time; print(int(time.time()*1000))")
   COUNT_LATENCIES="$COUNT_LATENCIES $((T1 - T0))"
@@ -173,7 +173,7 @@ for i in $(seq 1 $NUM_READS); do
   if [ $((i % 2)) -eq 0 ]; then URL="$READ0_URL"; else URL="$READ1_URL"; fi
   T0=$(python3 -c "import time; print(int(time.time()*1000))")
   curl -s -X POST "$URL/xrpc/com.etzhayyim.yata.cypher" \
-    -H 'Content-Type: application/json' -H 'X-Magatama-Verified: true' \
+    -H 'Content-Type: application/json' -H 'X-Kotodama-Verified: true' \
     -d "{\"statement\":\"MATCH (r:LtNode) WHERE r.rkey = 'lt_$RK' RETURN r.text AS text LIMIT 1\"}" > /dev/null
   T1=$(python3 -c "import time; print(int(time.time()*1000))")
   POINT_LATENCIES="$POINT_LATENCIES $((T1 - T0))"
@@ -196,7 +196,7 @@ echo "--- Phase 4: Edge Create + 2-Hop Traversal ---"
 # Create Company nodes
 for i in $(seq 1 5); do
   curl -s -X POST "$WRITE_URL/xrpc/com.etzhayyim.yata.mergeRecordWal" \
-    -H 'Content-Type: application/json' -H 'X-Magatama-Verified: true' \
+    -H 'Content-Type: application/json' -H 'X-Kotodama-Verified: true' \
     -d "{\"label\":\"LtCompany\",\"pk_key\":\"rkey\",\"pk_value\":\"co_$i\",\"props\":{\"name\":\"Company $i\"}}" > /dev/null
 done
 
@@ -205,7 +205,7 @@ EDGE_COUNT=0
 for i in $(seq 1 100); do
   CO=$((i % 5 + 1))
   RES=$(curl -s -X POST "$WRITE_URL/xrpc/com.etzhayyim.yata.cypher" \
-    -H 'Content-Type: application/json' -H 'X-Magatama-Verified: true' \
+    -H 'Content-Type: application/json' -H 'X-Kotodama-Verified: true' \
     -d "{\"statement\":\"MATCH (p:LtNode),(c:LtCompany) WHERE p.rkey = 'lt_$i' AND c.rkey = 'co_$CO' CREATE (p)-[:WORKS_AT]->(c)\"}")
   EDGE_COUNT=$((EDGE_COUNT + 1))
 done
@@ -214,7 +214,7 @@ done
 for i in $(seq 1 49); do
   NXT=$((i + 1))
   curl -s -X POST "$WRITE_URL/xrpc/com.etzhayyim.yata.cypher" \
-    -H 'Content-Type: application/json' -H 'X-Magatama-Verified: true' \
+    -H 'Content-Type: application/json' -H 'X-Kotodama-Verified: true' \
     -d "{\"statement\":\"MATCH (a:LtNode),(b:LtNode) WHERE a.rkey = 'lt_$i' AND b.rkey = 'lt_$NXT' CREATE (a)-[:KNOWS]->(b)\"}" > /dev/null
 done
 EDGE_COUNT=$((EDGE_COUNT + 49))
@@ -229,7 +229,7 @@ for i in $(seq 1 $TWOHOP_READS); do
   RK=$((RANDOM % 49 + 1))
   T0=$(python3 -c "import time; print(int(time.time()*1000))")
   curl -s -X POST "$WRITE_URL/xrpc/com.etzhayyim.yata.cypher" \
-    -H 'Content-Type: application/json' -H 'X-Magatama-Verified: true' \
+    -H 'Content-Type: application/json' -H 'X-Kotodama-Verified: true' \
     -d "{\"statement\":\"MATCH (a:LtNode)-[:KNOWS]->(b:LtNode)-[:WORKS_AT]->(c:LtCompany) WHERE a.rkey = 'lt_$RK' RETURN b.rkey AS person, c.name AS company LIMIT 5\"}" > /dev/null
   T1=$(python3 -c "import time; print(int(time.time()*1000))")
   TWOHOP_LATENCIES="$TWOHOP_LATENCIES $((T1 - T0))"
@@ -299,7 +299,7 @@ echo "  WAL catch-up: $CATCH_ENTRIES entries applied to read-1"
 
 # Verify data on read-1 after cold start
 VERIFY=$(curl -s -X POST "$READ1_URL/xrpc/com.etzhayyim.yata.cypher" \
-  -H 'Content-Type: application/json' -H 'X-Magatama-Verified: true' \
+  -H 'Content-Type: application/json' -H 'X-Kotodama-Verified: true' \
   -d '{"statement":"MATCH (r:LtNode) RETURN count(r) AS cnt LIMIT 1"}')
 VERIFY_CNT=$(echo "$VERIFY" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['rows'][0][0] if d.get('rows') else 0)" 2>/dev/null || echo "0")
 echo "  read-1 after cold start: $VERIFY_CNT LtNode vertices"
@@ -318,7 +318,7 @@ for i in $(seq 1 $MIXED_N); do
   # Read
   RK=$((RANDOM % NUM_WRITES + 1))
   curl -s -X POST "$READ0_URL/xrpc/com.etzhayyim.yata.cypher" \
-    -H 'Content-Type: application/json' -H 'X-Magatama-Verified: true' \
+    -H 'Content-Type: application/json' -H 'X-Kotodama-Verified: true' \
     -d "{\"statement\":\"MATCH (r:LtNode) WHERE r.rkey = 'lt_$RK' RETURN r.text AS text LIMIT 1\"}" > /dev/null
   MIXED_OPS=$((MIXED_OPS + 1))
 
@@ -326,7 +326,7 @@ for i in $(seq 1 $MIXED_N); do
   if [ $((i % 3)) -eq 0 ]; then
     WI=$((NUM_WRITES + i))
     curl -s -X POST "$WRITE_URL/xrpc/com.etzhayyim.yata.mergeRecordWal" \
-      -H 'Content-Type: application/json' -H 'X-Magatama-Verified: true' \
+      -H 'Content-Type: application/json' -H 'X-Kotodama-Verified: true' \
       -d "{\"label\":\"LtNode\",\"pk_key\":\"rkey\",\"pk_value\":\"lt_$WI\",\"props\":{\"idx\":$WI,\"batch\":\"mixed\"}}" > /dev/null
     MIXED_OPS=$((MIXED_OPS + 1))
   fi

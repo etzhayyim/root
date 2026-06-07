@@ -343,11 +343,11 @@ crawl) uses CPU-based K8s Job batch embedding + faiss IVF+PQ codebook for the
 
 4 parallel K8s Jobs (`embed-wet-f0..f3`), each pinned to a hash-shard:
 `int(md5(vertex_id), 16) % 4 == shard`. Each job runs
-`pymagatama.primitives.vector_embedding.embed_texts_768` (BAAI/bge-m3, 768d,
+`kotodama.primitives.vector_embedding.embed_texts_768` (BAAI/bge-m3, 768d,
 max 2048 chars input) with `OMP_NUM_THREADS=2` matching the 2-CPU limit.
 Throughput: ~5.74 s/text CPU-bound. Total wall-clock: ~7–8 h for full corpus.
 
-Image: `ghcr.io/etzhayyim/pymagatama:0.3.22-202605010216-amd64` (built
+Image: `ghcr.io/etzhayyim/kotodama:0.3.22-202605010216-amd64` (built
 2026-05-01, includes `faiss-cpu>=1.8.0` and `site_ivf_pq.py`). The original
 image built at 00:39 UTC predated the `site_ivf_pq.py` commit (00:42 UTC) and
 lacked faiss; a `--no-cache` rebuild was required.

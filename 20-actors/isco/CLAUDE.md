@@ -34,7 +34,7 @@ did:web:isco.etzhayyim.com:occupation:{code}
 | WIT | パス | 内容 |
 |---|---|---|
 | `etzhayyim:isco-workforce-coordinator` | `wasm/*/wit/world.wit` | coordinator world (contract + capability export) |
-| `magatama:isco-workforce-flow@1.0.0` | `wit/isco-workforce-flow/package.wit` | workforce-mobility, workforce-compensation, workforce-skills |
+| `kotodama:isco-workforce-flow@1.0.0` | `wit/isco-workforce-flow/package.wit` | workforce-mobility, workforce-compensation, workforce-skills |
 
 ## Commands
 
@@ -60,7 +60,7 @@ Evolution team (mk/po/bm/qa/eng) は coordinator 内の path-based DID として
 
 ## Workforce Flow WIT (Resource Flow)
 
-`magatama:isco-workforce-flow@1.0.0` — ISCO 固有の資源フロー。
+`kotodama:isco-workforce-flow@1.0.0` — ISCO 固有の資源フロー。
 
 | Interface | Resource Class | 用途 |
 |---|---|---|

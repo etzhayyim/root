@@ -49,7 +49,7 @@ agent-rewritten.
   - Collisions: 128 app↔ai mirrored files byte-identical after transform →
     de-duplicated; 1 differing `murakumo/README.md` kept the app-origin copy.
   - **Excluded by design**: the protected Step-8-cutover paths
-    `20-actors/magatama/py/` (609) + `50-infra/cluster/murakumo/` (4) per
+    `40-engine/kotoba/crates/kotoba-kotodama/py/` (609) + `50-infra/cluster/murakumo/` (4) per
     ADR-2605214000 §3 / ADR-2605215000 §4 (atomic rename
     post-legal-registration); historical docs (1,136 `.md`, incl. all ADRs, as
     as-of record); Android Java packages `…/java/com/etzhayyim/` (5, separate JVM
@@ -81,7 +81,7 @@ agent-rewritten.
 
 # Consequences
 
-- **Partial-rename state (tracked)**: the excluded `magatama/py` + `murakumo`
+- **Partial-rename state (tracked)**: the excluded `kotodama/py` + `murakumo`
   paths still reference old NSIDs/paths that moved; per ADR-2605214000 /
   ADR-2605215000 these reconcile in the atomic post-legal-registration cutover.
   Watch for runtime NSID-resolution misses in those actors until then.

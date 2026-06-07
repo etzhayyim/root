@@ -42,8 +42,8 @@ local artifacts.
 # Files
 
 - BPMN: `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/ingest/siteCommonCrawlDelta.bpmn`
-- Worker entrypoint: `20-actors/magatama/py/src/pymagatama/site_common_crawl_worker_main.py`
-- Task handlers: `20-actors/magatama/py/src/pymagatama/ingest/site_common_crawl.py`
+- Worker entrypoint: `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/site_common_crawl_worker_main.py`
+- Task handlers: `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/site_common_crawl.py`
 - Seed migration: `30-graph/graph-schema/migrations/20260426233000_seed_site_common_crawl_bpmn.ts`
 - Helm: `50-infra/vultr/mitama-udf-pool/templates/site-common-crawl-worker.yaml`
   and `templates/cronjob-site-common-crawl.yaml`

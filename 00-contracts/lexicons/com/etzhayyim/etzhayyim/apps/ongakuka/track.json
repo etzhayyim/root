@@ -24,7 +24,7 @@
           "blobKey": { "type": "string", "description": "SHA-256 hex of final mixed master (B2 content-addressed)" },
           "mimeType": { "type": "string", "description": "audio/wav | audio/flac | audio/mpeg" },
           "projectId": { "type": "string", "description": "convoId scoping all actor work (ADR project-actor-composition)" },
-          "modelId": { "type": "string", "description": "magatama:inference/audio model id (e.g. diffrhythm-1.2-ja)" },
+          "modelId": { "type": "string", "description": "kotodama:inference/audio model id (e.g. diffrhythm-1.2-ja)" },
           "seed": { "type": "integer" },
           "createdAt": { "type": "string", "format": "datetime" }
         }

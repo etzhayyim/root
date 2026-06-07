@@ -4,7 +4,7 @@
  * gen-host-client-from-lexicon.mjs — Lexicon JSON → host-client.ts
  *
  * Sister script to gen-service-from-lexicon.mjs. Scans com.etzhayyim.host.* lexicons
- * and emits a typed in-process host capability client for magatama-host-sdk.
+ * and emits a typed in-process host capability client for kotodama-host-sdk.
  *
  * F-Plan (Lexicon SSoT) Phase 1: replaces WIT-defined host imports with Lexicon-defined
  * host capabilities. Generated client calls a user-provided HostDispatcher (BindingTransport
@@ -21,7 +21,7 @@ import { scanLexicons, jsonSchemaToTs, hasProperties, filterXrpcLexicons } from 
 
 const ROOT = process.cwd();
 const LEXICON_DIR = path.join(ROOT, "00-contracts/lexicons/com/etzhayyim/host");
-const OUT_DIR = path.join(ROOT, "20-actors/magatama/sdk/magatama-host-sdk/src/generated");
+const OUT_DIR = path.join(ROOT, "40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/generated");
 const OUT_FILE = path.join(OUT_DIR, "host-client.ts");
 
 const args = process.argv.slice(2);

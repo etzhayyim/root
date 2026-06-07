@@ -80,7 +80,7 @@ in kotoba Datomic state.
 
 Each cutover is dual-write/dual-read → verify set-equality → drop legacy (one R-cycle shadow).
 
-## Cells (6; R0 path-reserved under `20-actors/magatama/cells/tadori_*/`)
+## Cells (6; R0 path-reserved under `40-engine/kotoba/crates/kotoba-kotodama/cells/tadori_*/`)
 
 | Cell | Purpose | Key gate |
 |---|---|---|

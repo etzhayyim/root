@@ -12,7 +12,7 @@ import {
   type HostSDK,
   nsid,
   parseLexiconInput,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 // Module-level refs (set inside createWorkerExport callback)
 let _env: Record<string, unknown> = {};

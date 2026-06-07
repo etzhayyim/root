@@ -128,7 +128,7 @@ Calico mesh.
    mangaka NSIDs now go **direct to `lg-mangaka` pod**, bypassing
    bpmn-dispatcher entirely. Side effect: bpmn-dispatcher's
    `LG_MANGAKA_PROXY_NSIDS` allowlist is no longer in the request path for
-   mangaka — pymagatama image churn (CI overwrites our allowlist edits)
+   mangaka — kotodama image churn (CI overwrites our allowlist edits)
    no longer breaks mangaka XRPC.
 
 5. **Cluster-side actions** taken to stabilise:
@@ -152,7 +152,7 @@ Calico mesh.
   ticks), it's a build error.
 - Pod-side / client-side share `StateGraph` idiom — engineers can move
   between layers without context switch.
-- mangaka XRPC chain stable across pymagatama CI churn — dispatcher
+- mangaka XRPC chain stable across kotodama CI churn — dispatcher
   allowlist no longer matters for mangaka.
 
 **Negative**:

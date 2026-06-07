@@ -37,7 +37,7 @@ fn hash_partition(label: &str, n: usize) -> usize {
 fn cypher(url: &str, stmt: &str) -> Result<serde_json::Value, String> {
     let resp = client()
         .post(&format!("{url}/xrpc/com.etzhayyim.yata.cypher"))
-        .header("X-Magatama-Verified", "true")
+        .header("X-Kotodama-Verified", "true")
         .json(&serde_json::json!({ "statement": stmt, "appId": "" }))
         .send()
         .map_err(|e| format!("{url}: {e}"))?;
@@ -52,7 +52,7 @@ fn cypher(url: &str, stmt: &str) -> Result<serde_json::Value, String> {
 fn merge_record(url: &str, label: &str, rkey: &str, props: &serde_json::Value) -> Result<(), String> {
     let resp = client()
         .post(&format!("{url}/xrpc/com.etzhayyim.yata.mergeRecord"))
-        .header("X-Magatama-Verified", "true")
+        .header("X-Kotodama-Verified", "true")
         .json(&serde_json::json!({
             "label": label,
             "pk_key": "rkey",
@@ -70,7 +70,7 @@ fn merge_record(url: &str, label: &str, rkey: &str, props: &serde_json::Value) -
 fn trigger_compaction(url: &str) -> bool {
     client()
         .post(&format!("{url}/xrpc/com.etzhayyim.yata.compact"))
-        .header("X-Magatama-Verified", "true")
+        .header("X-Kotodama-Verified", "true")
         .json(&serde_json::json!({}))
         .send()
         .map(|r| r.status().is_success())

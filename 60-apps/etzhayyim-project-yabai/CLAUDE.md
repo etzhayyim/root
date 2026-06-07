@@ -20,7 +20,7 @@ AML/sanctions/anti-social forces risk scoring + IP access filtering。
 ## Reactive Runtime (Design D 準拠)
 
 - **Input**: `subscribe-repos.handle-repo-commit` (`handleComAtprotoSyncSubscribeReposCommit`) で `com.etzhayyim.apps.yabai.*` + `com.etzhayyim.apps.ipaddress.*` commit を受けて即時処理
-- **Follow-based input**: `magatama.Follow("n7w1p4d0")` で ipaddress.etzhayyim.com を Follow → `ip_address`/`ip_analysis`/`geolocation`/`whois_snapshot` を自動受信
+- **Follow-based input**: `kotodama.Follow("n7w1p4d0")` で ipaddress.etzhayyim.com を Follow → `ip_address`/`ip_analysis`/`geolocation`/`whois_snapshot` を自動受信
 - **Processing**: yabai commit → reactive publish。ipaddress commit → auto IP ingest + risk evaluation
 - **Output (stream)**: `serve.handle-stream("stream-alerts")` を subscriber role + trust level で配信
 - **Output (social)**: `postRiskAnalysis()` でリスクスコアリング結果を entity の path-based DID (`ip:*`/`person:*`/`org:*`) に `AppBskyFeedPost` で投稿
@@ -179,7 +179,7 @@ IntelSession -[:FROM_IP]-> YabaiEntity (IPAddress)
 | File | Purpose |
 |---|---|
 | `wasm/etzhayyim-wasm-yabai-y8b41k0x/src/app.ts` | Single-file business logic |
-| `wasm/etzhayyim-wasm-yabai-y8b41k0x/magatama.jsonld` | Runtime config, space, triggers |
+| `wasm/etzhayyim-wasm-yabai-y8b41k0x/kotodama.jsonld` | Runtime config, space, triggers |
 | `wasm/etzhayyim-wasm-yabai-y8b41k0x/wit/world.wit` | WIT capability export |
 | `wit/yabai-risk/package.wit` | Domain WIT interfaces (risk-assessment, network-intel, vuln-intel, threat-intel, exchange-intel) |
 | `content/` | Entity/evidence/risk JSON-LD archive (461 entities) |

@@ -55,7 +55,7 @@ atproto.etzhayyim.com  ← PDS + Entryway (OAuth AS)
   **binding が comment-out 中**:
 
 ```jsonc
-// { "binding": "APPVIEW_SERVICE", "service": "magatama-yoro" }
+// { "binding": "APPVIEW_SERVICE", "service": "kotodama-yoro" }
 // disabled — circular dep with yoro PDS_SERVICE binding causes
 // Subrequest depth limit. PDS handles app.bsky.* locally.
 ```
@@ -343,7 +343,7 @@ async function pipethroughAppView(nsid: string, ctx: PdsDispatchCtx): Promise<Re
 }
 ```
 
-`magatama-yoro` binding は削除。
+`kotodama-yoro` binding は削除。
 
 ## A5. DID Document に `#bsky_appview` 追加 (MEDIUM)
 

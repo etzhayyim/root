@@ -50,7 +50,7 @@ yoro.etzhayyim.com FAB tap
 
 | Layer | Tech | Path |
 |---|---|---|
-| **Host** | Hono (`@etzhayyim/magatama-host-sdk`) | `src/app.ts` — XRPC + `/embed` route |
+| **Host** | Hono (`@etzhayyim/kotodama-host-sdk`) | `src/app.ts` — XRPC + `/embed` route |
 | **Client** | Svelte 5 + Vite 6 + Tailwind | `svelte/` — CSR SPA |
 | **Layout** | `SuperAppLayout` (mobile-first 600px) | 5-tab SuperApp shell |
 | **Design** | `@etzhayyim/design-system` | UIKit components |

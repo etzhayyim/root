@@ -100,7 +100,7 @@ function updateOuterPackage(dir) {
   };
   for (const key of ["dependencies", "devDependencies"]) {
     if (!pkg[key]) continue;
-    for (const dep of ["hono", "@hono/node-server", "@etzhayyim/magatama-host-sdk", "kysely", "pg"]) delete pkg[key][dep];
+    for (const dep of ["hono", "@hono/node-server", "@etzhayyim/kotodama-host-sdk", "kysely", "pg"]) delete pkg[key][dep];
     if (Object.keys(pkg[key]).length === 0) delete pkg[key];
   }
   return JSON.stringify(pkg) !== before ? writeJson(file, pkg) : false;

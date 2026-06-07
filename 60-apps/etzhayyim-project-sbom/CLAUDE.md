@@ -60,5 +60,5 @@ SbomArtifact -[:BUILT_FOR]-> App (yata)
 | File | Purpose |
 |---|---|
 | `wasm/etzhayyim-wasm-sbom-sb0m001x/src/app.ts` | Single-file business logic |
-| `wasm/etzhayyim-wasm-sbom-sb0m001x/magatama.jsonld` | Runtime config |
+| `wasm/etzhayyim-wasm-sbom-sb0m001x/kotodama.jsonld` | Runtime config |
 | `wit/sbom/package.wit` | Domain WIT (component-registry, vuln-match, patch-management) |

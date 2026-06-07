@@ -70,7 +70,7 @@ etzhayyim symbol-graph --format json
     }
   },
   "go_exports": {
-    "20-actors/magatama/magatama-guest-go": {
+    "40-engine/kotoba/crates/kotoba-kotodama/kotodama-guest-go": {
       "types": ["App", "HandleFunc", "ServeFunc"],
       "functions": ["NewApp", "Invoke", "Serve"]
     }

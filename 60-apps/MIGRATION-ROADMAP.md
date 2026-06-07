@@ -36,7 +36,7 @@ Apps querying `vertex_org`, `edge_org_supply`:
 
 Apps querying `vertex_actor`, `vertex_post`, `vertex_profile`:
 
-- **Assessment**: Most are framework-level (magatama-host-sdk). Mass refactor needed.
+- **Assessment**: Most are framework-level (kotodama-host-sdk). Mass refactor needed.
 - **Scope**: 50+ apps found. Potential for parallel batch refactor.
 
 ### Category E: Legacy etzhayyim Projects
@@ -66,7 +66,7 @@ their RW queries to kotoba adapters (similar to P9 pattern).
 
 ### P11 (Medium priority — framework cleanup)
 
-- **Scope**: magatama-host-sdk + 50+ inherited apps (batch refactor)
+- **Scope**: kotodama-host-sdk + 50+ inherited apps (batch refactor)
 - **Effort**: Architecture review + codegen tool (~8 hours)
 - **Gate**: Framework-level (no G-gates)
 - **Target**: Phase 2.5 (post-Phase 2 full LDA)

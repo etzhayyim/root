@@ -40,7 +40,7 @@ focused build time)
 | 50 | ~22 min | Schema validation 4th axis (tracker) | main | NEW validator (190 lines); 32 baseline violations documented |
 | 51 | ~21 min | 32 baseline cleaned + axis 4 promoted | main | 18 .md files fixed; 3-retry commit dance |
 | 52 | ~17 min | Closure ADR-2605271200 + 5 patterns named | main | Pattern A-E canonical names |
-| 53 | ~22 min | 5th axis magatama (38 → 0 in single cycle) | main | NEW validator (160 lines); 5 schema enums + 13 data fixes |
+| 53 | ~22 min | 5th axis kotodama (38 → 0 in single cycle) | main | NEW validator (160 lines); 5 schema enums + 13 data fixes |
 | 54 | ~9 min | CLAUDE.md row #71 🟢 + new row #79 | main | Cycle 47 promise fulfilled |
 | 55 | ~14 min | 5-axis matrix operator runbook (340 lines) | main | Operator daily checklist + failure mode recipes |
 | 56 | ~18 min | 21 unit tests for cycle 49/50/53 generators | main | Test coverage gap closed for new scripts |
@@ -58,7 +58,7 @@ Pattern A (3-layer enforcement: generator + lefthook + CI workflow):
 | 48 | 2 — docs.json freshness | ~13 min | Pattern reused; pre-existing generator |
 | 49 | 3 — graph.jsonld freshness | ~14 min | Pattern reused; full new generator |
 | 50→51 | 4 — Schema validation | ~22+21 min | Pattern reused; tracker→PR-gate (Pattern B introduced) |
-| 53 | 5 — magatama manifest validation | ~22 min | **Pattern fully internalized**; single-cycle tracker→PR-gate compression |
+| 53 | 5 — kotodama manifest validation | ~22 min | **Pattern fully internalized**; single-cycle tracker→PR-gate compression |
 
 **5.4× speedup** from cycle 27-30's 75 min → cycle 48's 13 min. The
 pattern is now a ~15-minute template.
@@ -106,7 +106,7 @@ script-driven.
 | `docs-registry-freshness` | 03:23 | +6 min |
 | `docs-graph-jsonld-freshness` | 03:29 | +6 min |
 | `registry-schema-validation` | 03:35 | +6 min |
-| `magatama-manifest-validation` | 03:41 | +6 min |
+| `kotodama-manifest-validation` | 03:41 | +6 min |
 
 Why off-minute (not on-the-hour): avoids ISP bandwidth saturation
 peaks AND distributes GHA runner load.
@@ -166,7 +166,7 @@ fail BEFORE live-data drift, cleaner reviewer signal.
 | 48-hookup | `regen-registry.py` | 10 (cycle 57) | `docs-registry-freshness.yml` (cycle 57) |
 | 49 | `regen-graph-jsonld.py` | 8 (cycle 56) | `docs-graph-jsonld-freshness.yml` (cycle 57) |
 | 50 | `validate-registry-schemas.py` | 6 (cycle 56) | `registry-schema-validation.yml` (cycle 57) |
-| 53 | `validate-magatama-manifests.py` | 7 (cycle 56) | `magatama-manifest-validation.yml` (cycle 57) |
+| 53 | `validate-kotodama-manifests.py` | 7 (cycle 56) | `kotodama-manifest-validation.yml` (cycle 57) |
 | **Total** | **5 scripts** | **48 tests (1 cond-skip)** | **5/5 CI-gated** |
 
 ## 5-axis matrix final state
@@ -177,7 +177,7 @@ fail BEFORE live-data drift, cleaner reviewer signal.
 | 2 | `.md` front-matter | `docs.json` | `regen-registry.py --check` | 48 | 03:23 |
 | 3 | `docs.json` | `graph.jsonld` | `regen-graph-jsonld.py --check` | 49 | 03:29 |
 | 4 | both sidecars | `schemas/{docs,graph}.schema.json` | `validate-registry-schemas.py` | 50→51 | 03:35 |
-| 5 | `magatama.jsonld` | `magatama.schema.json` | `validate-magatama-manifests.py` | 53 | 03:41 |
+| 5 | `kotodama.jsonld` | `kotodama.schema.json` | `validate-kotodama-manifests.py` | 53 | 03:41 |
 
 All 5 PR-gates. Baseline = 0 violations across the matrix.
 
@@ -188,7 +188,7 @@ deps.toml:    592/607 resolve / 15 accepted-reserved / 0 bare drift     EXIT 0
 docs.json:    in sync (659 entries)                                       EXIT 0
 graph.jsonld: in sync (659 nodes / 565 with relations)                    EXIT 0
 schema:       0 docs.json + 0 graph.jsonld errors                         EXIT 0
-magatama:     42/42 valid                                                 EXIT 0
+kotodama:     42/42 valid                                                 EXIT 0
 48 unit tests across 5 scripts                                            ALL PASS
 9 e7m verify constitutional invariants                                    9/9 ✓
 ```
@@ -221,7 +221,7 @@ magatama:     42/42 valid                                                 EXIT 0
    `missing_count` → `drift_count` in cycle 46 but the GHA workflow
    still referenced old key. Caught + fixed in cycle 48 — but it
    could have silently broken nightly runs for days.
-4. **Voxelforge structural outlier** (cycle 53): one magatama.jsonld
+4. **Voxelforge structural outlier** (cycle 53): one kotodama.jsonld
    used non-canonical structure (string routes, missing nanoid).
    Required ad-hoc Python fix outside the batch script.
 
@@ -239,12 +239,12 @@ magatama:     42/42 valid                                                 EXIT 0
 - **2 closure ADRs** (2605271100 + 2605271200)
 - **1 operator runbook** (registry-matrix-cycles-55)
 - **1 retrospective doc** (this file, cycle 58)
-- **2 new generators**: regen-graph-jsonld.py (171 lines), validate-registry-schemas.py (190 lines), validate-magatama-manifests.py (160 lines)
+- **2 new generators**: regen-graph-jsonld.py (171 lines), validate-registry-schemas.py (190 lines), validate-kotodama-manifests.py (160 lines)
 - **48 unit tests** across 5 test files
 - **5 GHA workflows** added or updated
 - **5 lefthook hooks** added
-- **3 schemas rewritten** (docs / graph / magatama)
-- **38 baseline data violations cleaned** (32 docs cycle 51 + 13 magatama cycle 53; some overlap)
+- **3 schemas rewritten** (docs / graph / kotodama)
+- **38 baseline data violations cleaned** (32 docs cycle 51 + 13 kotodama cycle 53; some overlap)
 - **15 path markers** ((reserved) × 11 + (deferred-rename) × 4)
 - **2 new CLAUDE.md rows** (#71 update + #79 new)
 

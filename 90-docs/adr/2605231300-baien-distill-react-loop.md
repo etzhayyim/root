@@ -334,7 +334,7 @@ decide() →
 appends a JSONL line to `90-docs/baien/distilled-models.jsonl`. A separate
 codegen `70-tools/scripts/llm-registry/gen-distilled-entries.mjs` reads
 that manifest and emits
-`20-actors/magatama/sdk/magatama-host-sdk/src/llm-model-registry-distilled.ts`
+`40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry-distilled.ts`
 (an auto-generated TS module imported and merged into `MODEL_REGISTRY`).
 
 Rationale for two-phase ship (Python manifest → TS codegen) rather than

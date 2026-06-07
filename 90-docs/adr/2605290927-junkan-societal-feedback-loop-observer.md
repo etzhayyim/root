@@ -274,7 +274,7 @@ Representative Datalog queries (run as kotoba-kqe arrangements):
 
 ## Cells (R0 path-reserved)
 
-Eight Pregel cells under `20-actors/magatama/cells/junkan_*/`, witness-pair
+Eight Pregel cells under `40-engine/kotoba/crates/kotoba-kotodama/cells/junkan_*/`, witness-pair
 pattern on a Murakumo node (import-time `RuntimeError` until R1 activation):
 
 `junkan_ingest` · `junkan_stock_estimator` · `junkan_flow_inference` ·
@@ -305,7 +305,7 @@ Five Lexicons under `com.etzhayyim.junkan.*` (R0 skeletons; full schema at R1):
 - **R0** — landed this session: charter ADR + actor scaffold + 5 Lexicon
   skeletons + 8 fleet cell paths reserved + deps.toml `[[adrs]]`/`[[modules]]` +
   adr/README index. **Plus the pure-stdlib R1-preparatory analysis core**
-  (`20-actors/magatama/py/src/pymagatama/organism/junkan/`:
+  (`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/junkan/`:
   `datom`/`stocks`/`flows`/`loops`/`leverage`/`graph`) — `DatomStore` with
   EAVT/AVET + `as-of`/`history`, lagged sign-aware correlation flow inference,
   loop-polarity regime read-off (好循環/悪循環/neutral/transitioning), Meadows
@@ -384,7 +384,7 @@ no outward channel** — G4 holds by absence of any dispatch path):
 - `20-actors/junkan/` actor scaffold (CLAUDE.md / README.md / manifest.jsonld /
   NOTICE) + 5 Lexicon skeletons under `com.etzhayyim.junkan.*` (commit
   `d2b0f2d60`, "bundle: junkan R0").
-- `pymagatama.organism.junkan` analysis core (commit `d2b0f2d60`):
+- `kotodama.organism.junkan` analysis core (commit `d2b0f2d60`):
   - `datom.py` — Datomic-isomorphic append-only `DatomStore` (EAVT entity /
     AVET `find` / VAET `referencing` / `as_of` / `history`; no retraction API, G9).
     Reference impl; canonical production binding = kotoba-kqe.
@@ -420,7 +420,7 @@ throughout.
 
 **Deferred to R1 (Council-gated)**: kotoba-kqe datom binding (replace the
 in-memory `DatomStore`); real `DatasetSensor` adapters for live passive Tier-A
-pins; the 8 fleet Pregel cells under `20-actors/magatama/cells/junkan_*/`
+pins; the 8 fleet Pregel cells under `40-engine/kotoba/crates/kotoba-kotodama/cells/junkan_*/`
 (currently path-reserved, import-time `RuntimeError`); Charter Rider §2 real
 scan in `wellbecoming_frame`; Murakumo-only LLM-assisted loop-naming.
 

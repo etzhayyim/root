@@ -44,7 +44,7 @@ ADR-2604282300 が暗黙に許容していた T3 Worker の直接 DB write/read 
 
 - 禁止対象: 全 CF Worker から `env.HYPERDRIVE` 経由の PostgreSQL 接続。
 - 撤去対象: 全 `wrangler.jsonc` の `"hyperdrive"` binding。
-- 廃止対象: `@etzhayyim/magatama-host-sdk` の `createKyselyDb()` / `setKyselyHyperdrive()` の "Worker 内 DB connection 生成" 機能。型エクスポートは残し、関数は throw 化する。
+- 廃止対象: `@etzhayyim/kotodama-host-sdk` の `createKyselyDb()` / `setKyselyHyperdrive()` の "Worker 内 DB connection 生成" 機能。型エクスポートは残し、関数は throw 化する。
 - 移行先: bpmn-dispatcher → LangGraph Server (`/runs`) / SpiffWorkflow BPMN worker / 既存 K8s pod (`zeebe-worker`, `claim-consumer-actor`, 等)。
 
 # Executive Summary
@@ -81,7 +81,7 @@ binding 自体を `wrangler.jsonc` から削除する。
 
 ## 2. SDK 側で fail-fast
 
-`@etzhayyim/magatama-host-sdk/src/kysely.ts`:
+`@etzhayyim/kotodama-host-sdk/src/kysely.ts`:
 
 ```ts
 export class WorkerDBProhibitedError extends Error {
@@ -134,7 +134,7 @@ T3 Worker 内で `createKyselyDb()` を呼ぶことは禁止。
 |---|---|---|
 | **Phase 1 (本 ADR 同時)** | (a) SDK `createKyselyDb` throw 化、(b) 全 wrangler.jsonc から `hyperdrive` binding 削除、(c) 新 ADR commit | **immediate** |
 | **Phase 2** | 91 ファイルの handler 実体を bpmn-dispatcher → LangGraph/Spiff/pod 経由に書き換え。`migrations` テーブルでファイル単位 tracking。 | 別 PR (per-actor) |
-| **Phase 3** | `magatama-host-sdk` から `createKyselyDb` 関数本体と Hyperdrive dialect コード自体を削除 (全 callsite が移行済になったら) | 後続 PR |
+| **Phase 3** | `kotodama-host-sdk` から `createKyselyDb` 関数本体と Hyperdrive dialect コード自体を削除 (全 callsite が移行済になったら) | 後続 PR |
 
 Phase 1 後、未移行 Worker は handler 内 `createKyselyDb` 呼び出し時に **runtime で throw する**。これは意図的な fail-fast。型/コンパイルは通る (`env.HYPERDRIVE` が undefined になるだけ) ので deploy 自体は通る。
 
@@ -184,7 +184,7 @@ Per `60-apps/etzhayyim-project-<actor>/appview/.../src/app.ts`:
 - ADR-2605080600 (LangGraph Server + Granian L3 Runtime) — migration target
 - ADR-2605081200 (SpiffWorkflow BPMN engine replacement) — BPMN-native migration target
 - ADR-0002 (Kotoba/Datomic single persistence) — unchanged
-- `20-actors/magatama/sdk/magatama-host-sdk/src/kysely.ts` — throw 化
+- `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/kysely.ts` — throw 化
 - `50-infra/k8s/{shigotoba-jobs-actor,claim-consumer-actor,medical-coverage-ingester,intel-dependency-worker,lg-yatabase}/` — 既存 pod-side RW connection precedent
 
 # Operational Prerequisites (2026-05-11 / yatabase BMC cut-over learnings)

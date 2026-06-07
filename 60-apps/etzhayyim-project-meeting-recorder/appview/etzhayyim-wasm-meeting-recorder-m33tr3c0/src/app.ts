@@ -28,7 +28,7 @@ import {
   parseLexiconInput,
   sql,
   type HostSDK,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 import { verifySignature, parseDidKey, formatDidKey } from "@atproto/crypto";
 
 const APP_NANOID = "m33tr3c0";

@@ -9,7 +9,7 @@ that must agree for Phase C activation of compose_character_vrm:
      (decision_key + version + structured rules_json + embedded dmn_xml)
   3. Topology YAML `compose_character_vrm.topology.yaml` `condition_ref`
   4. The real DMN evaluator at
-     `pymagatama.langgraph_node_resolvers.make_dmn_condition_router` —
+     `kotodama.langgraph_node_resolvers.make_dmn_condition_router` —
      when the resolver is importable in the test env, we drive it
      against the seeded rules to assert end-to-end parity.
 
@@ -26,7 +26,7 @@ The behavioural section locks the three routing paths:
 
 Pure-CPU, offline — no DB. The DMN evaluator is exercised directly
 against parsed `rules_json` via the FIRST hit-policy oracle below;
-when `pymagatama` is importable, the real `_eval_dmn_rule` runs too.
+when `kotodama` is importable, the real `_eval_dmn_rule` runs too.
 """
 
 from __future__ import annotations
@@ -216,7 +216,7 @@ def _evaluate_dmn_first(rules: list[dict], state: dict) -> str:
     """Tiny FIRST-hit evaluator. Mirrors langgraph_node_resolvers
     semantics for the operators this DMN uses (`true` / `false` / `< N` /
     `-`). Kept here as an in-test oracle so the test is meaningful even
-    when pymagatama isn't importable in the venv."""
+    when kotodama isn't importable in the venv."""
     inputs_meta = [{"name": "valid"}, {"name": "iteration"}]
     for rule in rules:
         match = True
@@ -278,16 +278,16 @@ def test_oracle_evaluator_matches_expected(migration_sql: str, valid: bool, iter
 
 @pytest.mark.parametrize("valid,iteration,expected", _CASES)
 def test_real_resolver_matches_expected(valid: bool, iteration: int, expected: str) -> None:
-    """When `pymagatama.langgraph_node_resolvers` is importable, drive
+    """When `kotodama.langgraph_node_resolvers` is importable, drive
     the real `_eval_dmn_rule` evaluator over the seeded rules. This is
     the canonical Phase C correctness check — it exercises the same
     code the LangGraph runtime calls."""
     try:
-        from pymagatama.langgraph_node_resolvers import (
+        from kotodama.langgraph_node_resolvers import (
             _eval_dmn_rule,
         )
     except Exception:
-        pytest.skip("pymagatama not importable in this environment")
+        pytest.skip("kotodama not importable in this environment")
 
     # Parse the migration's rules_json once and feed each rule into the
     # real evaluator. The first rule that matches wins (FIRST hit).

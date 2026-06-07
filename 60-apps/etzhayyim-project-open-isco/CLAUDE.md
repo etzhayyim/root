@@ -5,8 +5,8 @@ ISCO-08 occupation classification runtime.
 ## Active Runtime
 
 - Orchestration: BPMN / LangServer under `00-contracts/bpmn/com/etzhayyim/open-isco`
-- Worker implementation: `20-actors/magatama/py/src/pymagatama/primitives/open_isco.py`
-- SQL helpers: `20-actors/magatama/py/src/pymagatama/handlers/open_isco.py`
+- Worker implementation: `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/open_isco.py`
+- SQL helpers: `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/handlers/open_isco.py`
 - Runtime pattern: LangServer + LangGraph + UDF
 
 Standalone component execution is retired for open-isco. The legacy appview package has been archived under `_archive/retired-cf-workers/adr-2604282300/60-apps/etzhayyim-project-open-isco/appview/etzhayyim-legacy-isco-workforce-coordinator-wfc8k3n1`; new writes go through the LangServer/UDF runtime.
@@ -72,7 +72,7 @@ com.etzhayyim.apps.openIsco.classificationVertexId
 ## Local Checks
 
 ```bash
-cd 20-actors/magatama/py
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
 pytest -q tests/test_open_isic_apqc_primitives.py
 
 cd ../../..

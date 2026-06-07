@@ -77,7 +77,7 @@ curl -sS https://authn.etzhayyim.com/.well-known/jwks.json | jq '.keys | length'
 
 ```bash
 cd 50-infra/cloudflare/workers/appview
-pnpm install   # workspace deps (@etzhayyim/graph-schema, @etzhayyim/magatama-host-sdk, kysely, pg)
+pnpm install   # workspace deps (@etzhayyim/graph-schema, @etzhayyim/kotodama-host-sdk, kysely, pg)
 wrangler deploy
 ```
 

@@ -1,7 +1,7 @@
 {
   "version": 1,
   "apps": {
-    "ai-gftd-wasm-oshi-v1b3s0h1": {
+    "etzhayyim-wasm-oshi-v1b3s0h1": {
       "nanoid": "v1b3s0h1",
       "app_version": "1.0.0",
       "last_deployed_at": "2026-04-04T03:19:22Z",

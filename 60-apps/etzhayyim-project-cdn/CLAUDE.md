@@ -35,7 +35,7 @@ Cloudflare R2 (bucket: etzhayyim-graph, key: cdn/{key})
 
 RLS: `org_id`, `user_id`, `actor_id` 必須。
 
-## B2 Configuration (magatama variables)
+## B2 Configuration (kotodama variables)
 
 | Variable | 説明 |
 |---|---|

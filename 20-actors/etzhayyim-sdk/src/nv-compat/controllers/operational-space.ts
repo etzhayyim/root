@@ -1,4 +1,4 @@
-// TypeScript port of pymagatama.nv_compat.isaaclab.controllers.operational_space
+// TypeScript port of kotodama.nv_compat.isaaclab.controllers.operational_space
 //
 // OperationalSpaceController — task-space torque control. Sibling of
 // iter 72 DifferentialIKController:

@@ -20,7 +20,7 @@ import {
   type ComAtprotoSyncSubscribeReposCommit,
   type HostSDK,
   hostSecretsGet,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 const getDb = () => createKyselyDb();
 

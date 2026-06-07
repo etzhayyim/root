@@ -11,7 +11,7 @@ import {
   str,
   createKyselyDb,
   genID,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 let appId = "";
 

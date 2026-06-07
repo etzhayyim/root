@@ -1234,7 +1234,7 @@ Comparison to Schema F (split):
 - `KEYS_DB` lookup key を `did:etzhayyim` に変更
 - CLI `etzhayyim authn signin` が `did:etzhayyim` を `~/.etzhayyim/auth.json` に保存
 - CLI `etzhayyim agent-token` が `iss=did:etzhayyim` で JWT mint
-- `x-magatama-verified` header 完全廃止
+- `x-kotodama-verified` header 完全廃止
 
 ## Phase 5: OAuth / Email Authentication Integration
 

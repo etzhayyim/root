@@ -26,7 +26,7 @@ fn client() -> reqwest::blocking::Client {
 fn cypher(query: &str) -> serde_json::Value {
     let resp = client()
         .post(&format!("{P0_URL}/xrpc/com.etzhayyim.yata.cypher"))
-        .header("X-Magatama-Verified", "true")
+        .header("X-Kotodama-Verified", "true")
         .json(&serde_json::json!({ "statement": query, "appId": "" }))
         .send()
         .unwrap();
@@ -39,7 +39,7 @@ fn cypher(query: &str) -> serde_json::Value {
 fn cypher_mutate(query: &str) {
     let resp = client()
         .post(&format!("{P0_URL}/xrpc/com.etzhayyim.yata.cypher"))
-        .header("X-Magatama-Verified", "true")
+        .header("X-Kotodama-Verified", "true")
         .json(&serde_json::json!({ "statement": query, "appId": "" }))
         .send()
         .unwrap();

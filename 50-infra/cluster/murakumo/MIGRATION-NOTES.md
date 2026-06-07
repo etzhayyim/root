@@ -30,7 +30,7 @@ Authoritative ADR: **ADR-2605214000** §3.
 | `src/main.rs` | 84 | `etzhayyim_MURAKUMO_VERBOSE` env var check | `ETZHAYYIM_MURAKUMO_VERBOSE` | env var read (found via dry-run) |
 | `src/install.rs` | 12 | help text `HTTP/3 direct to murakumo.etzhayyim.com CF Worker` | `murakumo.etzhayyim.com` | help text |
 | `src/install.rs` | 39 | log `Registering with murakumo.etzhayyim.com/join...` | `murakumo.etzhayyim.com/join` | log message |
-| `src/install.rs` | 176 | `https://cdn.etzhayyim.com/bin/magatama-inference/latest/{}` | `https://cdn.etzhayyim.com/bin/magatama-inference/latest/{}` | binary download URL |
+| `src/install.rs` | 176 | `https://cdn.etzhayyim.com/bin/kotodama-inference/latest/{}` | `https://cdn.etzhayyim.com/bin/kotodama-inference/latest/{}` | binary download URL |
 | `src/install.rs` | 222, 259, 263 | launchd label `com.etzhayyim.murakumo` + plist filename | `com.etzhayyim.murakumo` | launchd label (found via dry-run) |
 | `src/install.rs` | 233–235 | `~/.etzhayyim/daemon.log` paths in plist | `~/.etzhayyim/daemon.log` | log path (found via dry-run) |
 | `src/install.rs` | 238–240 | `etzhayyim_MURAKUMO` + `etzhayyim_PROVIDER_MODE` plist env keys | `ETZHAYYIM_MURAKUMO` + `ETZHAYYIM_PROVIDER_MODE` | plist env vars (found via dry-run) |
@@ -68,7 +68,7 @@ Authoritative ADR: **ADR-2605214000** §3.
 5. Run smoke test:
    - `etzhayyim-murakumo health` → control plane reachable
    - `etzhayyim-murakumo murakumo-mesh dns dan.mesh.etzhayyim.com` → resolves
-   - Cell-runner picks up new env vars (verify with `launchctl print user/$(id -u)/com.etzhayyim.magatama-cell-runner`)
+   - Cell-runner picks up new env vars (verify with `launchctl print user/$(id -u)/com.etzhayyim.kotodama-cell-runner`)
 6. Deploy to remaining 9 nodes.
 7. Decommission old `etzhayyim-murakumo` binary + `~/.etzhayyim/` config dirs across the fleet (one-time `rm -rf` per node after smoke test passes).
 8. Merge PR.

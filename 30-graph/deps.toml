@@ -530,13 +530,13 @@ publication graph records.
 
 Do not reintroduce committed `pdcolor-event-log.csv` or
 `pdcolor-process-summary.json` snapshots. Export on demand from the Python actor
-image via `python -m pymagatama.pd_color_process_mining csv|summary`.
+image via `python -m kotodama.pd_color_process_mining csv|summary`.
 """
 impact = "process mining, PM4Py/Celonis export, PD color graph analytics"
 references = [
   "30-graph/graph-schema/migrations/20260429161000_pd_color_process_mining_views.ts",
   "30-graph/graph-schema/src/database.ts",
-  "20-actors/magatama/py/src/pymagatama/pd_color_process_mining.py",
+  "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/pd_color_process_mining.py",
   "60-apps/etzhayyim-project-public-domain-colorization/process-mining/README.md",
 ]
 
@@ -609,7 +609,7 @@ and tx rows into existing `vertex_blockchain_actor` with `props.kind` =
 """
 impact = "blockchain domain coverage, ingest cursor semantics, BigQuery seed planning, VKE cleanup"
 related_files = [
-  "20-actors/magatama/py/src/pymagatama/ingest/blockchain.py",
+  "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/blockchain.py",
   "90-docs/adr/2604251935-blockchain-vke-head-ingest.md",
 ]
 
@@ -662,8 +662,8 @@ related_files = [
   "30-graph/graph-schema/alembic/current_versions/r_20260509230000_global_product_ingest_evidence.py",
   "30-graph/graph-schema/alembic/current_versions/r_20260509233000_global_product_ingest_resident.py",
   "30-graph/graph-schema/sql_migrations/20260509230000_global_product_ingest_evidence.up.sql",
-  "20-actors/magatama/py/src/pymagatama/langgraph_graphs/global_product_enrich_one.py",
-  "20-actors/magatama/py/src/pymagatama/langgraph_graphs/global_product_ingest_resident.py",
+  "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs/global_product_enrich_one.py",
+  "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs/global_product_ingest_resident.py",
   "50-infra/vultr/mitama-langgraph-pool/templates/global-product-ingest-resident.yaml",
 ]
 
@@ -729,7 +729,7 @@ Yoro live root/facade pair:
 impact = "view_actor_unified root_did projection, vector embedding source keys, AppView actor HNSW search"
 related_files = [
   "30-graph/graph-schema/scripts/migrate-rw-erc725-root.mjs",
-  "20-actors/magatama/py/src/pymagatama/primitives/vector_embedding.py",
+  "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/vector_embedding.py",
   "50-infra/cloudflare/workers/appview/src/appview/search.ts",
   "90-docs/adr/0074-ethereum-identity-bridge-cacao-webauthn.md",
   "90-docs/adr/2604262100-erc725-erc8004-k8s-ipfs-agent-runtime.md",
@@ -756,7 +756,7 @@ source_table = "vertex_vector_embedding_source"
 embedding_table = "vertex_vector_embedding_768"
 actor_source_uri_prefix = "actor:did:erc725:etzhayyim:260425:"
 legacy_actor_source_uri_prefixes_excluded = ["actor:did:web:", "actor:did:plc:"]
-worker_image = "ghcr.io/etzhayyim/pymagatama:yoro-vector-embedding-20260427-search768d-amd64"
+worker_image = "ghcr.io/etzhayyim/kotodama:yoro-vector-embedding-20260427-search768d-amd64"
 appview_version = "3f5dd746-87e0-4da1-9a88-e5f91ec2a009"
 adr = "90-docs/adr/2604270015-vector-embedding-backfill-zeebe-worker.md"
 
@@ -1730,7 +1730,7 @@ tables = [
   "vertex_graph_consume_tick",
   "vertex_handotai_record",
   "vertex_kenkyusha_record",
-  "vertex_magatama_record",
+  "vertex_kotodama_record",
   "vertex_murakumo_record",
   "vertex_organizer_record",
   "vertex_os_agent",

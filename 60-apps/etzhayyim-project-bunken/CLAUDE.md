@@ -101,7 +101,7 @@ Common Crawl CDX API → 書誌 URL 発見 (NDL/LOC/WorldCat/CiNii/VIAF/DOI/ARK)
 | File | Role |
 |---|---|
 | `wasm/etzhayyim-wasm-bunken-bk7n2d8x/src/app.ts` | App Worker |
-| `wasm/etzhayyim-wasm-bunken-bk7n2d8x/magatama.jsonld` | App config (nanoid: bk7n2d8x) |
+| `wasm/etzhayyim-wasm-bunken-bk7n2d8x/kotodama.jsonld` | App config (nanoid: bk7n2d8x) |
 | `wasm/etzhayyim-wasm-bunken-bk7n2d8x/wit/world.wit` | WIT capability contract |
 
 ## Historical Propagation Integration

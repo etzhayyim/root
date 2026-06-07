@@ -22,7 +22,7 @@ ADR-2605072000 business model ⑤ of 5.
 - DID: `did:web:contentengine.etzhayyim.com`
 - Nanoid: `cten0001`
 - CF Worker: `60-apps/etzhayyim-project-contentengine/appview/contentengine-cten0001/`
-- Python worker: `20-actors/magatama/py/src/pymagatama/contentengine_worker_main.py`
+- Python worker: `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/contentengine_worker_main.py`
 - BPMN: `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/contentengine/`
 
 ## Flow
@@ -73,7 +73,7 @@ CONTENT_QUALITY_THRESHOLD  min score to pass (default 0.65)
 ## Start worker
 
 ```bash
-cd 20-actors/magatama/py
-python -m pymagatama.contentengine_worker_main
-# or: magatama-contentengine-worker
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
+python -m kotodama.contentengine_worker_main
+# or: kotodama-contentengine-worker
 ```

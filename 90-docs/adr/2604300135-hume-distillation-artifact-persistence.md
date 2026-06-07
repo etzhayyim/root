@@ -51,8 +51,8 @@ Persist Hume distillation artifacts using a two-store layout:
 The current persistence implementation is:
 
 - `60-apps/etzhayyim-project-hume/scripts/persist_hume_artifacts.py`
-- `20-actors/magatama/py/src/pymagatama/primitives/ipfs_ingest.py`
-- `20-actors/magatama/py/src/pymagatama/ingest/core.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/ipfs_ingest.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/core.py`
 
 For the first media run, the persistence manifest is:
 

@@ -36,7 +36,7 @@ fn client() -> reqwest::blocking::Client {
 fn cypher(url: &str, query: &str) -> serde_json::Value {
     let resp = client()
         .post(&format!("{url}/xrpc/com.etzhayyim.yata.cypher"))
-        .header("X-Magatama-Verified", "true")
+        .header("X-Kotodama-Verified", "true")
         .json(&serde_json::json!({ "statement": query, "appId": "" }))
         .send()
         .unwrap();
@@ -52,7 +52,7 @@ fn merge_record(url: &str, label: &str, rkey: &str, props: serde_json::Value) {
     );
     let resp = client()
         .post(&format!("{url}/xrpc/com.etzhayyim.yata.cypher"))
-        .header("X-Magatama-Verified", "true")
+        .header("X-Kotodama-Verified", "true")
         .json(&serde_json::json!({
             "cypher": cypher_str,
             "appId": "",
@@ -66,7 +66,7 @@ fn merge_record(url: &str, label: &str, rkey: &str, props: serde_json::Value) {
 fn trigger_compaction(url: &str) -> bool {
     let resp = client()
         .post(&format!("{url}/xrpc/com.etzhayyim.yata.compact"))
-        .header("X-Magatama-Verified", "true")
+        .header("X-Kotodama-Verified", "true")
         .json(&serde_json::json!({}))
         .send()
         .unwrap();
@@ -132,7 +132,7 @@ fn t04_cold_restart_page_in() {
     //   docker compose -f docker-compose.test.yml restart yata
     //   sleep 3
     //   curl -X POST http://localhost:8081/xrpc/com.etzhayyim.yata.cypher \
-    //     -H 'X-Magatama-Verified: true' \
+    //     -H 'X-Kotodama-Verified: true' \
     //     -H 'Content-Type: application/json' \
     //     -d '{"cypher":"MATCH (n:SnapshotTest) RETURN count(n) AS cnt","appId":""}'
     //
@@ -207,7 +207,7 @@ fn t07_merge_record_api() {
     // Test the dedicated mergeRecord XRPC endpoint
     let resp = client()
         .post(&format!("{P0_URL}/xrpc/com.etzhayyim.yata.mergeRecord"))
-        .header("X-Magatama-Verified", "true")
+        .header("X-Kotodama-Verified", "true")
         .json(&serde_json::json!({
             "label": "MergeTest",
             "pk_key": "rkey",

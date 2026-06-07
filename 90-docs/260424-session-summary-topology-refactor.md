@@ -103,7 +103,7 @@ just the log of what happened and where to find the pieces.
 
 5 Workers (`appview/{profile,feed,search}`, `chat`, `signal`) migrated
 off hand-rolled `Kysely+PostgresDialect+pg.Pool` to
-`createKyselyDb(env.HYPERDRIVE)` from `@etzhayyim/magatama-host-sdk`
+`createKyselyDb(env.HYPERDRIVE)` from `@etzhayyim/kotodama-host-sdk`
 (HyperdriveDialect + single `pg.Client`). Fixes the ADR-0007 CI lint
 gate and removes the CF 1101 risk from idle-Pool-client errors.
 Refresh of `90-docs/rules/waituntil-requires-catch-baseline.txt`

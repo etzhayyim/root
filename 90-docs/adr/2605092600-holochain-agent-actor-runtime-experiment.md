@@ -19,7 +19,7 @@ depends_on:
   - adr-2605082200-langgraph-single-task-and-row-driven-runtime
   - adr-2604262100-erc725-erc8004-k8s-ipfs-agent-runtime
 related:
-  - adr-0087-magatama-mcp-tool-facade
+  - adr-0087-kotodama-mcp-tool-facade
   - adr-0002-persistence-kotoba-only
 supersedes: []
 superseded_by: []
@@ -111,7 +111,7 @@ Implemented contract and scaffolding:
   `etzhayyim agent-runtime holochain-plan`.
 - `50-infra/holochain/agent-runtime-experiment/holochain-agent-runtime.yaml`
   provides the experimental conductor StatefulSet projection source.
-- `20-actors/magatama/holochain/agent-actor-runtime/` provides hApp/DNA
+- `40-engine/kotoba/crates/kotoba-kotodama/holochain/agent-actor-runtime/` provides hApp/DNA
   manifest scaffolding and working HDK/HDI zomes.
 
 The zome artifact image is built on Vultr VKE remote BuildKit, not on local
@@ -167,7 +167,7 @@ VKE runtime smoke, 2026-05-09:
 Proof: `90-docs/proof/holochain-langgraph-agent-runtime-smoke-20260509.json`.
 
 Follow-up `call_zome` implementation was started by adding a SweetConductor
-smoke binary under `20-actors/magatama/holochain/agent-actor-runtime/smoke/`.
+smoke binary under `40-engine/kotoba/crates/kotoba-kotodama/holochain/agent-actor-runtime/smoke/`.
 That step pulled the full Holochain conductor/test harness dependency graph
 and materially increased compile/deploy weight. The attempt confirmed that
 `call_zome` is feasible, but its cost is not justified for the current

@@ -261,10 +261,10 @@ ADR-0095 RLS 列 (`actor_did` / `org_did` / `at_did` / `created_at`) を全 vert
 
 ```
 60-apps/etzhayyim-project-manimani/
-├─ magatama.jsonld          T3 dispatcher actor + AI Agent profile
+├─ kotodama.jsonld          T3 dispatcher actor + AI Agent profile
 ├─ wrangler.jsonc           manimani.etzhayyim.com/* + HYPERDRIVE binding (Phase B read shortcut 用)
 │                           PDS_SERVICE / AUTHN_SERVICE service binding
-├─ package.json             @etzhayyim/magatama-host-sdk dep
+├─ package.json             @etzhayyim/kotodama-host-sdk dep
 ├─ tsconfig.json
 ├─ CLAUDE.md                project rules + forbidden patterns
 └─ src/
@@ -277,7 +277,7 @@ CF Worker 責務 = Hono + Auth middleware (PDS `/_internal/resolve-auth`) + XRPC
 ### Chain Worker (LangGraph Server, K8s)
 
 ```
-20-actors/magatama/py/src/pymagatama/manimani/
+40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/manimani/
 ├─ __init__.py
 ├─ state.py              ManimaniState + IngestInput + Artifact + ProjectClassification (Pydantic v2)
 ├─ graph.py              7-node StateGraph(ManimaniState)
@@ -289,7 +289,7 @@ CF Worker 責務 = Hono + Auth middleware (PDS `/_internal/resolve-auth`) + XRPC
 
 Helm release: `50-infra/vultr/mitama-manimani-pool/` (`mitama-shosha-pool` / `mitama-voxelforge-pool` 同形 isolation pattern)。`manimani-langgraph` Deployment (Granian :8000) + ClusterIP `manimani-langgraph.mitama-udf.svc.cluster.local:8000`。
 
-LLM inference は `pymagatama.llm.call_tier` 経由:
+LLM inference は `kotodama.llm.call_tier` 経由:
 - `tier=fast` (classifier 用、cost 重視)
 - `tier=balanced` (knowledge / task processor)
 - ハードコード model 名禁止 (`resolveModelId()` SSoT)

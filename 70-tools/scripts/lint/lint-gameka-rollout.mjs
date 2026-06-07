@@ -27,7 +27,7 @@
  *      (gameka has no Worker).
  *
  *   5. zeebe-worker registers all 4 gameka task types.
- *      `20-actors/magatama/py/src/pymagatama/zeebe_worker_main.py`
+ *      `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/zeebe_worker_main.py`
  *      must declare:
  *        - com.etzhayyim.agent.gameka.studio
  *        - gameka.codegen.renderKamiApp
@@ -150,7 +150,7 @@ if (ROUTING) {
 // ─── 5. zeebe-worker registrations ──────────────────────────────────────
 
 section("zeebe-worker task registrations");
-const ZBW = read("20-actors/magatama/py/src/pymagatama/zeebe_worker_main.py");
+const ZBW = read("40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/zeebe_worker_main.py");
 if (ZBW) {
   const TASKS = [
     "com.etzhayyim.agent.gameka.studio",

@@ -1,9 +1,9 @@
 {
-  "name": "magatama-n7w1p4d0",
+  "name": "kotodama-n7w1p4d0",
   "main": "src/app.ts",
   "compatibility_date": "2025-03-17",
   "compatibility_flags": ["nodejs_compat", "nodejs_als"],
-  "alias": { "@etzhayyim/magatama-host-sdk": "/Users/junkawasaki/etzhayyimcojp/etzhayyim-apps-etzhayyimcojp/20-actors/magatama/sdk/magatama-host-sdk/src/index.ts" },
+  "alias": { "@etzhayyim/kotodama-host-sdk": "/Users/junkawasaki/etzhayyimcojp/etzhayyim-apps-etzhayyimcojp/40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/index.ts" },
   "vars": {
     "APP_CAPABILITIES": "[\"analyze_ip\",\"lookup_ip\",\"collect_rir_delegations\",\"collect_whois\",\"collect_geoip\",\"collect_scan\",\"ingest_scan_result\",\"get_scan_results\",\"get_asn\",\"list_asns\",\"seed_asns\",\"get_prefix\",\"list_prefixes\",\"reverse_dns\",\"get_ip_reputation\",\"get_rir_stats\",\"register_entity_profiles\"]",
     "APP_DESCRIPTION": "IP/ASN/WHOIS/GeoIP/PTR/scan intelligence. 1st-source RIR collection. Scan job orchestration for CF Container and Linode. Feeds yabcom.etzhayyim.ai risk engine.",

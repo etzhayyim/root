@@ -36,7 +36,7 @@ discipline boundaries are structural:
 
 ## Architecture
 
-6 Pregel cells, each path-reserved at R0 under `20-actors/magatama/cells/toritate_*/`:
+6 Pregel cells, each path-reserved at R0 under `40-engine/kotoba/crates/kotoba-kotodama/cells/toritate_*/`:
 
 ```
 tithe_accounting ────────────┐
@@ -168,8 +168,8 @@ exist). Lexicon schema validation (R1) will run via lefthook
 R1 smoke test (when cells are created):
 
 ```bash
-cd 20-actors/magatama/py
-python -c "from magatama.cells.toritate_transaction_ledger import _r0_marker" 2>&1 | grep "R0 scaffold"
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
+python -c "from kotodama.cells.toritate_transaction_ledger import _r0_marker" 2>&1 | grep "R0 scaffold"
 # ... similar for all 6 toritate_* cells
 ```
 

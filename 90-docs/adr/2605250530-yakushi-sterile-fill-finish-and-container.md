@@ -22,8 +22,8 @@ depends_on:
   - adr-2605181100-mst-encrypted-records-signal-keywrap
 related:
   - 20-actors/yakushi/
-  - 20-actors/magatama/cells/pharma_sterile_fill_finish/
-  - 20-actors/magatama/cells/pharma_container/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_sterile_fill_finish/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_container/
   - 00-contracts/lexicons/com/etzhayyim/pharma/fillFinishAttestation.json
   - 00-contracts/lexicons/com/etzhayyim/pharma/lotAttestation.json
 supersedes: []

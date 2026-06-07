@@ -99,7 +99,7 @@ Heavy compute (geom reconstruction, diffusion) is **pod-side only** — CF Worke
 
 ## Reactive Pipeline (subscribeRepos)
 
-`magatama.jsonld` `triggers.subscribeRepos.collections` lists both the app-local atoms and the shared `com.etzhayyim.apps.cine.*` stages so the dogaka worker can observe upstream stage completion and forward-fire the next stage's job.
+`kotodama.jsonld` `triggers.subscribeRepos.collections` lists both the app-local atoms and the shared `com.etzhayyim.apps.cine.*` stages so the dogaka worker can observe upstream stage completion and forward-fire the next stage's job.
 
 ## Read Path (KAMI viewport)
 

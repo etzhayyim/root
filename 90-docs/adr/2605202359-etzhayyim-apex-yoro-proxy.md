@@ -31,7 +31,7 @@ superseded_by: []
 
 `etzhayyim.com` は Cloudflare Registrar で 2026-05-15 に取得し、did:web 解決のため `50-infra/etzhayyim-did-web/` の CF Worker を `etzhayyim.com/.well-known/did.json` に bind 済 (ADR-2605171800 系)。DNS は `AAAA @ 100::` proxied プレースホルダ。`https://etzhayyim.com/` (apex) は origin 未設定で **HTTP 522 (origin connection timeout)** を返していた。
 
-専用 landing page を起こす時間が無い一方、yoro (`60-apps/etzhayyim-project-yoro/`、worker 名 `magatama-yoro`、`https://yoro.etzhayyim.com/`) は AI Agent-First Social Platform として既に稼働中。暫定として apex を yoro 内容で埋める。
+専用 landing page を起こす時間が無い一方、yoro (`60-apps/etzhayyim-project-yoro/`、worker 名 `kotodama-yoro`、`https://yoro.etzhayyim.com/`) は AI Agent-First Social Platform として既に稼働中。暫定として apex を yoro 内容で埋める。
 
 ### 試行と結果
 
@@ -51,10 +51,10 @@ Service Binding は edge を経由せず CF 内部で Worker 同士を直結す�
 
 - `wrangler.toml`:
   - `routes` pattern を `etzhayyim.com/.well-known/did.json` から `etzhayyim.com/*` + `www.etzhayyim.com/*` (catch-all 2 つ) に拡張
-  - 新 `[[services]] binding = "YORO", service = "magatama-yoro"`
+  - 新 `[[services]] binding = "YORO", service = "kotodama-yoro"`
 - `src/worker.ts`:
   - `/.well-known/did.json` パスは従来通り local 配信 (DID document, did+json mime, HSTS など完全同一)
-  - 他全パス: `env.YORO.fetch(buildUpstreamRequest(request))` で `magatama-yoro` Worker を直接呼ぶ
+  - 他全パス: `env.YORO.fetch(buildUpstreamRequest(request))` で `kotodama-yoro` Worker を直接呼ぶ
   - レスポンスヘッダー処理:
     - 上流の `set-cookie`, `content-security-policy`, `alt-svc`, `strict-transport-security` を strip
     - 自前の `strict-transport-security: max-age=31536000; includeSubDomains` を付与
@@ -95,7 +95,7 @@ Service Binding は edge を経由せず CF 内部で Worker 同士を直結す�
 ## Open questions
 - 専用 landing の design / 言語 / コピー → 別 ADR
 - DID document を yoro と統合配信する意味 (FedCM や VC presentation 等) → 別 ADR
-- 本 proxy を `magatama-yoro` 以外の Worker (例: 将来の etzhayyim 専用 SvelteKit) に向け直す migration 経路 → 別 ADR
+- 本 proxy を `kotodama-yoro` 以外の Worker (例: 将来の etzhayyim 専用 SvelteKit) に向け直す migration 経路 → 別 ADR
 - analytics / observability (cf-ray のみで足りるか、Datadog or Sentry など追加か) → 別 ADR
 
 # Alternatives Considered
@@ -120,7 +120,7 @@ Service Binding は edge を経由せず CF 内部で Worker 同士を直結す�
 
 - ADR-2605170900: This repo as canonical home for religious-corp open ADRs
 - ADR-2605171800: did:web Worker original design + MST listener
-- PR-#79: `etzhayyim-did-web: reverse-proxy apex to magatama-yoro via service binding`
+- PR-#79: `etzhayyim-did-web: reverse-proxy apex to kotodama-yoro via service binding`
 - Cloudflare Service Bindings: https://developers.cloudflare.com/workers/runtime-apis/bindings/service-bindings/
 - Diagnostic evidence (2026-05-20):
   - Before: `HTTP/2 522` at `https://etzhayyim.com/`

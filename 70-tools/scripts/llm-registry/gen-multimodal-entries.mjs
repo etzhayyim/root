@@ -5,7 +5,7 @@
 //
 // Sibling of gen-distilled-entries.mjs — same two-phase ship pattern.
 //
-// Output: `20-actors/magatama/sdk/magatama-host-sdk/src/llm-model-registry-multimodal.ts`
+// Output: `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry-multimodal.ts`
 //
 // One-time wiring (done by reviewer):
 //   - in `llm-model-registry.ts`, import + spread:
@@ -29,7 +29,7 @@ const REPO_ROOT = join(__dirname, "..", "..", "..");
 const MANIFEST = join(REPO_ROOT, "90-docs", "baien", "multimodal-models.jsonl");
 const OUT = join(
   REPO_ROOT,
-  "20-actors", "magatama", "sdk", "magatama-host-sdk", "src",
+  "20-actors", "kotodama", "sdk", "kotodama-host-sdk", "src",
   "llm-model-registry-multimodal.ts",
 );
 

@@ -370,7 +370,7 @@ graph: vertex_claim_stake.state = upheld|slashed
 ```
 
 書き込みは ADR-0036 (Worker-direct Hyperdrive) に従い `vertex_claim_stake` /
-`edge_claim_*` を Worker から Kysely で直書き。social broadcast は magatama.jsonld
+`edge_claim_*` を Worker から Kysely で直書き。social broadcast は kotodama.jsonld
 の `derive` で `app.bsky.feed.post` を auto-emit (Write-Only Derived, ADR-0004)。
 
 ## 6. Why this is the shortest path

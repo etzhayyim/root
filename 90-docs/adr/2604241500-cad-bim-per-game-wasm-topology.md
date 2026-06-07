@@ -13,14 +13,14 @@ authoritative_for:
 related:
   - adr-0036-worker-direct-hyperdrive-persistence
   - adr-0002-graph-storage-appview
-  - 260320-magatama-cloudflare-containers-evaluation
+  - 260320-kotodama-cloudflare-containers-evaluation
 supersedes: []
 superseded_by: []
 ---
 
 # Context
 
-`60-apps/etzhayyim-project-cad/260320-cad-magatamaapp-design.md` (2026-03-20) が
+`60-apps/etzhayyim-project-cad/260320-cad-kotodamaapp-design.md` (2026-03-20) が
 CAD app を **Container runtime + Threlte viewer** 前提で設計している。
 
 一方で 2026-04 に `60-apps/CLAUDE.md` が CRITICAL ルールとして
@@ -94,7 +94,7 @@ Off-path:  cad-job.etzhayyim.com / bim-job.etzhayyim.com (CF Container, standard
 | Primary handle | `cad.etzhayyim.com` | `bim.etzhayyim.com` |
 | Primary DID | `did:web:cad.etzhayyim.com` → `did:plc:cad` (Phase 5) | `did:web:bim.etzhayyim.com` → `did:plc:bim` |
 | Nanoid | `cd4dview` (既存) | `b1m3d1tr` (新規) |
-| Runtime | `worker` (TS Native + `@etzhayyim/magatama-host-sdk`) | `worker` |
+| Runtime | `worker` (TS Native + `@etzhayyim/kotodama-host-sdk`) | `worker` |
 | Lexicon root | `com.etzhayyim.apps.cad.*` | `com.etzhayyim.apps.bim.*` |
 | Persistence | Hyperdrive direct (ADR-0036) on `vertex_cad_*` | Hyperdrive direct on `vertex_bim_*` |
 | Blob storage (ADR-0048) | B2 (Backblaze B2) SHA-256 content-addressed (`etzhayyim-cad/cad/{blobs,meshes,exports}/{sha}`) | B2 同上 (`etzhayyim-bim/bim/{blobs,meshes,exports}/{sha}`) |
@@ -168,7 +168,7 @@ Off-path:  cad-job.etzhayyim.com / bim-job.etzhayyim.com (CF Container, standard
 
 | 項目 | 状態 |
 |---|---|
-| 260320-cad-magatamaapp-design.md | Container 前提 → 本 ADR で **per-game WASM DEFAULT に修正**、container は job service に降格 |
+| 260320-cad-kotodamaapp-design.md | Container 前提 → 本 ADR で **per-game WASM DEFAULT に修正**、container は job service に降格 |
 | `kami-cad` crate | 既存。変更なし (BREP + feature tree + assembly) |
 | `kami-bim` crate | **新規作成** (本 ADR で着地) |
 | `kami-app-cad` | **新規作成** (Phase 1 は Sky のみ scaffold、BREP scene adapter は続 PR) |
@@ -205,7 +205,7 @@ viewer UX (cold start ゼロ) を優先。
 
 - `60-apps/CLAUDE.md` §Per-Game WASM Pattern (CRITICAL, 2026-04)
 - `40-engine/kami-engine/ARCHITECTURE.md`
-- `60-apps/etzhayyim-project-cad/260320-cad-magatamaapp-design.md`
+- `60-apps/etzhayyim-project-cad/260320-cad-kotodamaapp-design.md`
 - ADR-0036 (Worker-direct Hyperdrive)
 - ADR-0002 (Graph storage / AppView)
 - IFC 4.3 schema: https://standards.buildingsmart.org/IFC/RELEASE/IFC4_3/

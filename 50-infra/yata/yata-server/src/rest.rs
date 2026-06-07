@@ -2,7 +2,7 @@
 //!
 //! XRPC-only: `/xrpc/com.etzhayyim.yata.cypher` (unified read+write).
 //! Design E: yata-native JWT auth + SecurityScope lazy compile from policy vertices.
-//! Auth: X-Magatama-Verified: true (internal bypass) or Authorization: Bearer {ES256 JWT}.
+//! Auth: X-Kotodama-Verified: true (internal bypass) or Authorization: Bearer {ES256 JWT}.
 
 use axum::{
     Json, Router,
@@ -127,7 +127,7 @@ pub async fn serve<G: GraphQueryExecutor + Clone>(state: YataRestState<G>, port:
 /// Authentication result from authorize().
 /// Design E: yata-native JWT verification with 3 auth levels.
 enum AuthResult {
-    /// Workers RPC internal (X-Magatama-Verified: true) — bypass all security filtering.
+    /// Workers RPC internal (X-Kotodama-Verified: true) — bypass all security filtering.
     Internal,
     /// JWT verified — DID extracted for SecurityScope compilation.
     Authenticated { did: String },
@@ -138,7 +138,7 @@ enum AuthResult {
 /// Authorize request. Design E: yata-native JWT + graph-based security.
 ///
 /// Priority:
-/// 1. X-Magatama-Verified: true → Internal (bypass, Workers RPC trust)
+/// 1. X-Kotodama-Verified: true → Internal (bypass, Workers RPC trust)
 /// 2. Authorization: Bearer {jwt} → JWT verify → Authenticated { did }
 /// 3. No auth → Public
 fn authorize<G: GraphQueryExecutor>(headers: &HeaderMap, state: &YataRestState<G>) -> Result<AuthResult, StatusCode> {
@@ -173,7 +173,7 @@ fn authorize<G: GraphQueryExecutor>(headers: &HeaderMap, state: &YataRestState<G
 
 fn is_internal_verified(headers: &HeaderMap) -> bool {
     let verified = headers
-        .get("X-Magatama-Verified")
+        .get("X-Kotodama-Verified")
         .and_then(|v| v.to_str().ok())
         .map(|v| v == "true")
         .unwrap_or(false);
@@ -625,7 +625,7 @@ async fn repair_handler<G: GraphQueryExecutor>(
     }
 }
 
-// ── TieredGraphEngine GraphQueryExecutor impl (standalone yata-server, no magatama-engine) ──
+// ── TieredGraphEngine GraphQueryExecutor impl (standalone yata-server, no kotodama-engine) ──
 
 impl GraphQueryExecutor for yata_engine::TieredGraphEngine {
     fn query(
@@ -776,7 +776,7 @@ mod tests {
                     .method("POST")
                     .uri("/xrpc/com.etzhayyim.yata.cypherBatch")
                     .header("Content-Type", "application/json")
-                    .header("X-Magatama-Verified", "true")
+                    .header("X-Kotodama-Verified", "true")
                     .body(Body::from(serde_json::to_string(&body).unwrap()))
                     .unwrap(),
             )

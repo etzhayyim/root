@@ -540,7 +540,7 @@ async def _upload_audio_blob(path: Path) -> str:
         r = await c.post(
             f"{_PDS_BASE}/xrpc/com.atproto.repo.uploadBlob",
             content=path.read_bytes(),
-            headers={"Content-Type": "audio/wav", "x-magatama-verified": "true", "x-etzhayyim-org-id": "anon"},
+            headers={"Content-Type": "audio/wav", "x-kotodama-verified": "true", "x-etzhayyim-org-id": "anon"},
         )
         r.raise_for_status()
         return r.json()["blob"]["ref"]["$link"]
@@ -699,7 +699,7 @@ async def _ss2_gen_audio(state: AudioState) -> dict[str, Any]:
                     content=mp4_bytes,
                     headers={
                         "content-type": "video/mp4",
-                        "x-magatama-verified": "true",
+                        "x-kotodama-verified": "true",
                         "x-etzhayyim-org-id": "anon",
                     },
                 )

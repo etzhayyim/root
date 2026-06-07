@@ -71,14 +71,14 @@
   "cells": [
     {
       "name": "primary_care_encounter",
-      "module": "magatama.cells.iyashi_primary_care_encounter",
+      "module": "kotodama.cells.iyashi_primary_care_encounter",
       "murakumoNode": "levi",
       "phase": "session",
       "io": "patientDid + consentCid → clinicalEncounterAttestation (encrypted)"
     },
     {
       "name": "chronic_care_followup",
-      "module": "magatama.cells.iyashi_chronic_care_followup",
+      "module": "kotodama.cells.iyashi_chronic_care_followup",
       "murakumoNode": "levi",
       "phase": "longitudinal",
       "io": "chronicConditionState → chronicCareContinuityRecord (encrypted; cross-link with hagukumi)",
@@ -86,14 +86,14 @@
     },
     {
       "name": "vaccination_administration",
-      "module": "magatama.cells.iyashi_vaccination_administration",
+      "module": "kotodama.cells.iyashi_vaccination_administration",
       "murakumoNode": "levi",
       "phase": "event",
       "io": "patientDid + vaccineId + consentCid → vaccinationAttestation"
     },
     {
       "name": "acute_first_line",
-      "module": "magatama.cells.iyashi_acute_first_line",
+      "module": "kotodama.cells.iyashi_acute_first_line",
       "murakumoNode": "levi",
       "phase": "session",
       "io": "symptom triage → encounter OR mitate emergency referral",
@@ -101,14 +101,14 @@
     },
     {
       "name": "provider_lifecycle",
-      "module": "magatama.cells.iyashi_provider_lifecycle",
+      "module": "kotodama.cells.iyashi_provider_lifecycle",
       "murakumoNode": "reuben",
       "phase": "event",
       "io": "candidate provider DID → providerAttestation (Council ≥3 + medical-license-cite-CID)"
     },
     {
       "name": "clinic_facility",
-      "module": "magatama.cells.iyashi_clinic_facility",
+      "module": "kotodama.cells.iyashi_clinic_facility",
       "murakumoNode": "reuben",
       "phase": "annual (event)",
       "io": "facility audit → clinicFacilityAttestation"

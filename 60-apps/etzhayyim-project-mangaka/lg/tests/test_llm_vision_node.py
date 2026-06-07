@@ -1,5 +1,5 @@
-"""P10.1b — `pymagatama.langgraph_node_resolvers.make_llm_vision_node`
-+ `pymagatama.llm.call_tier_vision_json` smoke tests.
+"""P10.1b — `kotodama.langgraph_node_resolvers.make_llm_vision_node`
++ `kotodama.llm.call_tier_vision_json` smoke tests.
 
 Mocks the OpenAI vision endpoint with `monkeypatch` so the suite stays
 network-free. The mangaka topology binds this node with a `blob_fetcher`
@@ -24,11 +24,11 @@ def _run(coro):
     return asyncio.run(coro)
 
 
-# ── pymagatama.llm.call_tier_vision_json ──────────────────────────────────
+# ── kotodama.llm.call_tier_vision_json ──────────────────────────────────
 
 
 def test_vision_json_rejects_unknown_tier():
-    from pymagatama import llm as _llm
+    from kotodama import llm as _llm
 
     out = _llm.call_tier_vision_json(
         "tier-that-does-not-exist",
@@ -39,7 +39,7 @@ def test_vision_json_rejects_unknown_tier():
 
 
 def test_vision_json_rejects_when_api_key_missing(monkeypatch):
-    from pymagatama import llm as _llm
+    from kotodama import llm as _llm
 
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     out = _llm.call_tier_vision_json(
@@ -50,7 +50,7 @@ def test_vision_json_rejects_when_api_key_missing(monkeypatch):
 
 
 def test_vision_json_rejects_empty_image_list(monkeypatch):
-    from pymagatama import llm as _llm
+    from kotodama import llm as _llm
 
     monkeypatch.setenv("OPENAI_API_KEY", "sk-test")
     out = _llm.call_tier_vision_json("vision", "system", "user", [])
@@ -61,7 +61,7 @@ def test_vision_json_rejects_empty_image_list(monkeypatch):
 def test_vision_json_filters_blank_image_entries(monkeypatch):
     """Empty / whitespace strings in `images_b64` are dropped. When nothing
     survives, the dispatcher returns a structured error envelope."""
-    from pymagatama import llm as _llm
+    from kotodama import llm as _llm
 
     monkeypatch.setenv("OPENAI_API_KEY", "sk-test")
     out = _llm.call_tier_vision_json("vision", "system", "user", ["", "   "])
@@ -75,8 +75,8 @@ def test_vision_json_filters_blank_image_entries(monkeypatch):
 def test_vision_node_dispatches_with_blob_fetcher(monkeypatch):
     """Exercises the full path: image_keys path resolve → blob_fetcher →
     base64 encode → call_tier_vision_json."""
-    from pymagatama import langgraph_node_resolvers as resolvers
-    from pymagatama import llm as _llm
+    from kotodama import langgraph_node_resolvers as resolvers
+    from kotodama import llm as _llm
 
     fetched: list[str] = []
 
@@ -136,8 +136,8 @@ def test_vision_node_dispatches_with_blob_fetcher(monkeypatch):
 def test_vision_node_skips_missing_blob(monkeypatch):
     """Fetcher returning None means the blob isn't available; the node
     must drop it and continue with the remaining images."""
-    from pymagatama import langgraph_node_resolvers as resolvers
-    from pymagatama import llm as _llm
+    from kotodama import langgraph_node_resolvers as resolvers
+    from kotodama import llm as _llm
 
     async def fake_fetcher(key: str):
         return None if key.endswith("bbb") else b"\x89PNG"
@@ -167,14 +167,14 @@ def test_vision_node_skips_missing_blob(monkeypatch):
 
 
 def test_vision_node_requires_result_key():
-    from pymagatama import langgraph_node_resolvers as resolvers
+    from kotodama import langgraph_node_resolvers as resolvers
 
     with pytest.raises(ValueError, match="result_key"):
         resolvers.make_llm_vision_node("vision", {"image_keys": ["x"]})
 
 
 def test_vision_node_requires_fetcher_when_image_keys_set():
-    from pymagatama import langgraph_node_resolvers as resolvers
+    from kotodama import langgraph_node_resolvers as resolvers
 
     with pytest.raises(ValueError, match="blob_fetcher"):
         resolvers.make_llm_vision_node(
@@ -190,7 +190,7 @@ def test_vision_node_requires_fetcher_when_image_keys_set():
 def test_resolve_node_dispatches_llm_vision_kind(monkeypatch):
     """The dispatcher recognises kind='llm_vision' and routes to the
     new resolver."""
-    from pymagatama import langgraph_node_resolvers as resolvers
+    from kotodama import langgraph_node_resolvers as resolvers
 
     async def fetcher(_):
         return b""

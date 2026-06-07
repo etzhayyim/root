@@ -36,10 +36,10 @@ related:
   - 00-contracts/lexicons/com/etzhayyim/mitate/diagnosticOrder.json
   - 00-contracts/lexicons/com/etzhayyim/mitate/diagnosticConsentReceipt.json
   - 00-contracts/lexicons/com/etzhayyim/iyashi/phlebotomyAttestation.json
-  - 20-actors/magatama/cells/mitate_diagnostic_consent_orchestrator/   # (reserved) R1+
-  - 20-actors/magatama/cells/mitate_diagnostic_order_general/          # (reserved) R2+
-  - 20-actors/magatama/cells/mitate_diagnostic_result_ingest/          # (reserved) R2+
-  - 20-actors/magatama/cells/iyashi_internal_phlebotomy/               # (reserved) iyashi R2+
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_diagnostic_consent_orchestrator/   # (reserved) R1+
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_diagnostic_order_general/          # (reserved) R2+
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_diagnostic_result_ingest/          # (reserved) R2+
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/iyashi_internal_phlebotomy/               # (reserved) iyashi R2+
 supersedes: []
 superseded_by: []
 ---
@@ -191,7 +191,7 @@ Required fields:
 | `mitate_diagnostic_consent_orchestrator` | R1 (advisory) | import-time `RuntimeError("not active until ADR-2605281950 R1 ratified")` |
 | `mitate_diagnostic_order_general` | R2 | import-time RuntimeError until R2; **supersedes** `mitate_allergy_ige_panel_order` semantically — the IgE-panel orderType is one specialization of the general order routing; R2 ADR landing will migrate the IgE cell's call sites to the general cell |
 | `mitate_diagnostic_result_ingest` | R2 | import-time RuntimeError until R2 |
-| `iyashi_internal_phlebotomy` | iyashi R2 | import-time RuntimeError until iyashi R2; placed under `20-actors/magatama/cells/iyashi_internal_phlebotomy/` |
+| `iyashi_internal_phlebotomy` | iyashi R2 | import-time RuntimeError until iyashi R2; placed under `40-engine/kotoba/crates/kotoba-kotodama/cells/iyashi_internal_phlebotomy/` |
 
 ## D5 — Constitutional gates layered on top of mitate G1..G14 (THIS ADR; non-negotiable)
 
@@ -331,7 +331,7 @@ Single-session arc from gap question ("アレルギー検査、血液検査の a
 | diagnosticOrder lexicon extension (+16 orderType / +18 conditionContext / +orderRoutingTarget) | `00-contracts/lexicons/com/etzhayyim/mitate/diagnosticOrder.json` |
 | diagnosticConsentReceipt lexicon (NEW) | `00-contracts/lexicons/com/etzhayyim/mitate/diagnosticConsentReceipt.json` |
 | phlebotomyAttestation lexicon (NEW) | `00-contracts/lexicons/com/etzhayyim/iyashi/phlebotomyAttestation.json` |
-| 4 cell paths reserved via `(reserved)` markers | `20-actors/magatama/cells/{mitate_diagnostic_consent_orchestrator, mitate_diagnostic_order_general, mitate_diagnostic_result_ingest, iyashi_internal_phlebotomy}` |
+| 4 cell paths reserved via `(reserved)` markers | `40-engine/kotoba/crates/kotoba-kotodama/cells/{mitate_diagnostic_consent_orchestrator, mitate_diagnostic_order_general, mitate_diagnostic_result_ingest, iyashi_internal_phlebotomy}` |
 | deps.toml `[[adrs]]` + 6 `[[modules]]` | `deps.toml` |
 | mitate/iyashi lexicon README index bumps (8→9, 6→7) | `00-contracts/lexicons/com/etzhayyim/{mitate,iyashi}/README.md` |
 
@@ -348,7 +348,7 @@ Single-session arc from gap question ("アレルギー検査、血液検査の a
 | docs.json freshness | 669 entries in sync |
 | graph.jsonld freshness | 669 nodes in sync |
 | docs+graph schemas | valid |
-| magatama manifests | 42/42 valid |
+| kotodama manifests | 42/42 valid |
 
 **Deferred to subsequent ADRs** (each becomes its own R1+ ADR with Council attestation gate):
 

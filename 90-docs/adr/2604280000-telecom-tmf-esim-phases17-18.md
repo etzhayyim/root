@@ -62,7 +62,7 @@ Graph schema (`20260427220000_vertex_telecom_tmf.ts`): 8 vertex tables + 3 edge 
 PII discipline: `partyName`/`partyContact`/`partyTaxId`/`billingAddress` described as sha256: hashed
 in lexicon; timer-start `R/P1M` for `issueCustomerBill`.
 
-pyzeebe primitive: `pymagatama.primitives.telecom_tmf` (8 task handlers).
+pyzeebe primitive: `kotodama.primitives.telecom_tmf` (8 task handlers).
 
 ### Phase 18 — eSIM/eUICC Lifecycle (GSMA SGP.22)
 
@@ -83,7 +83,7 @@ Graph schema (`20260427230000_vertex_telecom_esim.ts`): 6 vertex tables + 2 edge
 PII discipline: EID stored as `sha256:` hashed (device-bound quasi-PII); ICCID stored as
 `sha256:` hashed. `sensitivity_ord=2`. No full PII in the graph layer.
 
-pyzeebe primitive: `pymagatama.primitives.telecom_esim` — `_hash()` helper enforces
+pyzeebe primitive: `kotodama.primitives.telecom_esim` — `_hash()` helper enforces
 `sha256:` prefix before any persistence; accepts pre-hashed values transparently.
 
 ---

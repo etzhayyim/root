@@ -37,7 +37,7 @@ superseded_by: []
 
 # Context
 
-Currently, the organism ecosystem's perception (as defined in `pymagatama.organism.sensors.*` via ADR-2605262400) is strictly **text-only**. The base protocol assumes observations are strings (`text: str`). As a result, rich sensory inputs like vision (images), audio, and continuous numeric timeseries cannot flow into the organism's joucho (情緒) calculation or influence its heartbeat cadence.
+Currently, the organism ecosystem's perception (as defined in `kotodama.organism.sensors.*` via ADR-2605262400) is strictly **text-only**. The base protocol assumes observations are strings (`text: str`). As a result, rich sensory inputs like vision (images), audio, and continuous numeric timeseries cannot flow into the organism's joucho (情緒) calculation or influence its heartbeat cadence.
 
 Simultaneously, the robotics-sim substrate (ADR-2605262500) introduced a `vision_pii_filter` for handling street-level imagery, and ADR-2605262400 established a clear `internal_only` handling mechanism for Tier-C data. We need to connect these capabilities directly to the organism heartbeat.
 

@@ -249,7 +249,7 @@ blockchain.reorg.reconcile
 Worker modules:
 
 ```text
-20-actors/magatama/py/src/pymagatama/ingest/blockchain/
+40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/blockchain/
   core.py       # Zeebe envelope, cursor, reorg utilities
   bitcoin.py    # Bitcoin Core RPC/ZMQ client
   ethereum.py   # execution/beacon RPC client

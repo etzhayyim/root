@@ -56,11 +56,11 @@ Record findings; ship a design ADR + a feasibility PoC; defer implementation.
 
 2. **Login**: `authn.etzhayyim.com/sign-in` is **passkey-only** (no username/password field;
    usernameless/discoverable; platform authenticator + conditional-mediation available) — but
-   currently **502** at `ai.gftd.auth.passkeyBeginAuth`.
+   currently **502** at `ai.etzhayyim.auth.passkeyBeginAuth`.
 
 3. **MCP**: `mcp.etzhayyim.com` is **502** — `Service binding fetch failed (MCP →
-   mcp.gftd.ai): this worker has been deleted via a force-delete`. The `etzhayyim-xrpc-proxy`
-   Worker binds `MCP` → service `ai-gftd-agentgateway` (force-deleted). kotoba-server itself
+   mcp.etzhayyim.com): this worker has been deleted via a force-delete`. The `etzhayyim-xrpc-proxy`
+   Worker binds `MCP` → service `etzhayyim-agentgateway` (force-deleted). kotoba-server itself
    **does** implement MCP (`crates/kotoba-server/src/mcp.rs`: `POST /mcp`, JSON-RPC 2.0,
    `protocolVersion 2024-11-05`, 18 tools, `tools/call` Bearer-gated) — the logic is not in
    the Worker. Same dead router breaks both MCP and passkey login.
@@ -92,7 +92,7 @@ Record findings; ship a design ADR + a feasibility PoC; defer implementation.
   Worker dependency is removable for the transport tier of publicly-reachable nodes.
 - **Not done** (honest): Phase 1 (WebRTC-direct in `kotoba-net` proper — submodule edit, needs
   go-ahead); Phase 2 protocol parity (bitswap/gossip wire in js-libp2p); Phase 3 MCP-over-libp2p;
-  the operational hotfix (repoint `xrpc-proxy` `MCP` binding `ai-gftd-agentgateway` → live kotoba
+  the operational hotfix (repoint `xrpc-proxy` `MCP` binding `etzhayyim-agentgateway` → live kotoba
   `/mcp`, which also fixes passkey 502); and committing the artifacts (all currently untracked).
 - NAT-bound nodes still need a `circuit-relay-v2` (itself a server) — "fully Worker-free"
   holds only for publicly UDP-reachable nodes.
@@ -111,4 +111,4 @@ Record findings; ship a design ADR + a feasibility PoC; defer implementation.
 - ADR-2605262130 (kotoba storage substrate unification)
 - ADR-2605231525 (no-server-key religious-corp architecture — CACAO auth alignment)
 - `70-tools/kotoba-webrtc-poc/` (Phase 0+2 PoC, README with reproduction steps)
-- `50-infra/etzhayyim-xrpc-proxy/wrangler.toml` (dead `MCP` → `ai-gftd-agentgateway` binding)
+- `50-infra/etzhayyim-xrpc-proxy/wrangler.toml` (dead `MCP` → `etzhayyim-agentgateway` binding)

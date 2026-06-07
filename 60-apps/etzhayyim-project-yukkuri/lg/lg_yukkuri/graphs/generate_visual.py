@@ -55,7 +55,7 @@ class _State(TypedDict, total=False):
 
 async def _fetch_scenes(video_id: str) -> list[dict]:
     import asyncio
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     client = get_kotoba_client()
     raw_rows = await asyncio.to_thread(client.select_where, "vertex_yukkuri_scene", "video_id", video_id, limit=20)
     raw_rows.sort(key=lambda r: int(r.get("scene_index") or 0))
@@ -129,7 +129,7 @@ async def _node_insert(state: _State) -> dict[str, Any]:
     created_at = datetime.now(tz=timezone.utc).isoformat()
     try:
         import asyncio
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         client = get_kotoba_client()
         for asset in state["visual_assets"]:
             asset_id = f"asset-img-{video_id}-{asset['scene_index']}-{secrets.token_hex(3)}"

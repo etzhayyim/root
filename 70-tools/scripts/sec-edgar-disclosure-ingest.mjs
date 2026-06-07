@@ -19,7 +19,7 @@
  * ║    - Passive-only invariant per ADR-2605262400 §7 (no full live API   ║
  * ║      enumeration; uses SEC quarterly-index bulk archive only)         ║
  * ║    - CorpRegistrySensor / CorpDisclosureSensor / CorpFilingEventSensor║
- * ║      Protocols (pymagatama.organism.sensors.corp.*) consume the       ║
+ * ║      Protocols (kotodama.organism.sensors.corp.*) consume the       ║
  * ║      pinned subdataset, not direct API output                         ║
  * ║    - Charter Rider §2(e)+§2(c) vendor-commercial-terminal deny-list   ║
  * ║      enforced at recipe lint (Bloomberg Terminal / Refinitiv / FactSet║

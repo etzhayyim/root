@@ -53,7 +53,7 @@ Fleet (proxy unchanged)
 
 ### 2. Legacy compat (narrow window, Sunset header)
 
-- `x-magatama-verified: true` (Worker service binding 内部呼出) → `internal` として許可。
+- `x-kotodama-verified: true` (Worker service binding 内部呼出) → `internal` として許可。
   これは platform 他と同じ 3 段階の 1 つに合わせる。
 - `env.MURAKUMO_API_KEY` (emergency break-glass) → 残す。値は `sk_live_*` 形式であり、
   verifyApiKey と同じ流れを通る。未設定時のハードコード fallback は **廃止**。
@@ -127,7 +127,7 @@ scope 大、credits ledger 本番稼働の状態確認に依存。hook 点のみ
 
 ## Exceptions
 
-- `x-magatama-verified` 経路 (Worker service binding) は引き続き許可。
+- `x-kotodama-verified` 経路 (Worker service binding) は引き続き許可。
   これは CF 内部 binding を通った service 間呼出 marker で、ADR 0022 の
   `internal` level と整合する。
 

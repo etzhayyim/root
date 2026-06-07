@@ -3,7 +3,7 @@
  * toritsugi-procedure-gates lint — enforce ADR-2605312030 §4 (G1..G15).
  *
  * Pre-commit gate for the 取次 (toritsugi) citizen-facing government-procedure
- * concierge (`com.etzhayyim.toritsugi.*` + `magatama.cells.toritsugi_*`).
+ * concierge (`com.etzhayyim.toritsugi.*` + `kotodama.cells.toritsugi_*`).
  * toritsugi is an R0 scaffold whose constitutional ceiling — 行政書士法/UPL
  * boundary (G5), verified-procedure-only submission (G14), member-self-submission
  * default (G15), PII-encrypted (G6), non-fabrication (G8) — MUST be machine
@@ -64,7 +64,7 @@ const ALL_LEXICONS = [
   `${LEX_DIR}/procedureGuide.json`,
 ];
 
-const SUBMIT_CELL = "20-actors/magatama/cells/toritsugi_submit/cell.py";
+const SUBMIT_CELL = "40-engine/kotoba/crates/kotoba-kotodama/cells/toritsugi_submit/cell.py";
 
 const FORBIDDEN_INLINE = ["content", "plaintext", "rawForm", "piiInline"];
 const PII_RECORDS = {
