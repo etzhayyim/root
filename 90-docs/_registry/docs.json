@@ -21771,6 +21771,240 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606071100-yoro-browser-only-kotoba-reads-and-profile-fix-e2e.md",
+      "id": "adr-2606071100-yoro-browser-only-kotoba-reads-and-profile-fix-e2e",
+      "title": "ADR-2606071100: yoro browser-only kotoba reads (no RisingWave), profile-500 fix, and the langgraph+browser-use+Murakumo e2e harness",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "yoro-browser-only-kotoba-reads",
+      "authoritative": true,
+      "authoritative_for": [
+        "yoro-home-feed-read-path",
+        "kotoba-browser-only-reads",
+        "browser-only-e2e-verification"
+      ],
+      "related": [
+        "2606013800",
+        "2606014600"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605262130",
+        "2605312345",
+        "2605215000"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606071400-omise-kotoba-native-storefront-commons-shopify-layer.md",
+      "id": "adr-2606071400-omise-kotoba-native-storefront-commons",
+      "title": "ADR-2606071400: omise お店 — kotoba-native storefront commons (Shopify-layer for internal sellers); promote scaffold → implementation",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "omise-storefront-commons",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/omise"
+      ],
+      "related": [
+        "2605231525"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606012100",
+        "2605302000",
+        "2605262130",
+        "2605181100"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606071500-ainori-pooled-mobility-commons-uber-inversion-r0.md",
+      "id": "adr-2606071500-ainori-pooled-mobility-commons",
+      "title": "ADR-2606071500: ainori 相乗り — pooled passenger-mobility commons (Uber charter-clean inversion), R0",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "ainori-mobility-commons",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/ainori"
+      ],
+      "related": [
+        "2606032130"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606042300",
+        "2605242000",
+        "2606042100",
+        "2605262130"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606071600-shukubo-pilgrim-lodging-commons-airbnb-hotels-inversion-r0.md",
+      "id": "adr-2606071600-shukubo-pilgrim-lodging-commons",
+      "title": "ADR-2606071600: shukubo 宿坊 — pilgrim-lodging commons (Airbnb/Hotels charter-clean inversion), R0",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "shukubo-lodging-commons",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/shukubo"
+      ],
+      "related": [
+        "2606042300"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606012100",
+        "2605302000",
+        "2605181100",
+        "2605262130"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606071800-legacy-risingwave-kysely-to-kotoba-kqe-remediation-wave.md",
+      "id": "adr-2606071800-substrate-remediation-wave",
+      "title": "ADR-2606071800: legacy RisingWave/Hyperdrive/Kysely → kotoba-kqe read-path remediation wave",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "substrate-remediation-wave",
+      "authoritative": true,
+      "authoritative_for": [
+        "90-docs/_registry/substrate-remediation-inventory.txt"
+      ],
+      "related": [
+        "2606071400",
+        "2606012100"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605172000",
+        "2605262130",
+        "2605312345",
+        "2605191648"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606072000-business-manager-kotoba-native-internal-erp-phase-a.md",
+      "id": "adr-2606072000-business-manager-kotoba-native-erp",
+      "title": "ADR-2606072000: business-manager — kotoba-native internal ERP (Salesforce/SAP inversion); remediation Phase A",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "business-manager-kotoba-native",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/business-manager"
+      ],
+      "related": [
+        "2605262900"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606071800",
+        "2606071400",
+        "2605262130"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606072200-yotei-kotoba-native-scheduling-commons-phase-a.md",
+      "id": "adr-2606072200-yotei-kotoba-native-scheduling",
+      "title": "ADR-2606072200: yotei — kotoba-native scheduling commons (Calendly inversion); remediation Phase A",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "yotei-kotoba-native",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/yotei"
+      ],
+      "related": [
+        "2605181100"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606071800",
+        "2606072000",
+        "2605262130"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606072400-organizer-kotoba-native-file-commons-phase-a.md",
+      "id": "adr-2606072400-organizer-kotoba-native-file-commons",
+      "title": "ADR-2606072400: organizer — kotoba-native auto-organize file commons (Google Drive inversion); remediation Phase A",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "organizer-kotoba-native",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/organizer"
+      ],
+      "related": [
+        "2606072200"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606071800",
+        "2606072000",
+        "2605181100"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606072600-talent-kotoba-native-cohort-first-registry-phase-a.md",
+      "id": "adr-2606072600-talent-kotoba-native-registry",
+      "title": "ADR-2606072600: talent — kotoba-native cohort-first talent registry (Indeed/LinkedIn-Recruiter inversion); remediation Phase A",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "talent-kotoba-native",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/talent"
+      ],
+      "related": [
+        "2606072200",
+        "2606072400"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606071800",
+        "2606072000",
+        "2605181100"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

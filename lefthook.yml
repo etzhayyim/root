@@ -609,6 +609,15 @@ pre-push:
   parallel: false  # SDK build must finish before cyber-drill build reads its dist/
 
   commands:
+    substrate-remediation-audit:
+      # ADR-2606071800 shrink-only ratchet for the legacy RisingWave/Hyperdrive/
+      # Kysely read path. Full-tree scan (too heavy for per-commit; runs on push).
+      # FAILS if a storage-boundary violation appears that is NOT on the frozen
+      # allowlist (substrate-frozen-allowlist.json) — i.e. new debt or a regression.
+      # Legacy debt is grandfathered; the list may only shrink. The pre-commit
+      # `substrate-boundary` hook still blocks new storage imports in staged files.
+      run: node 70-tools/scripts/lint/substrate-remediation-audit.mjs --audit
+
     kami-engine-sdk-build:
       # `svelte-package -i src/lib` produces dist/ that downstream apps
       # consume via `link:` or `workspace:*`. ~1.6s on M1.
