@@ -3016,14 +3016,6 @@
   },
   "actors": [
     {
-      "handle": "coherence-compat",
-      "components": [
-        "kotoba",
-        "kotodama-wasm",
-        "datomic-client"
-      ]
-    },
-    {
       "handle": "8th_wall-compat",
       "components": [
         "kotoba",
@@ -4529,6 +4521,14 @@
     },
     {
       "handle": "cohere-compat",
+      "components": [
+        "kotoba",
+        "kotodama-wasm",
+        "datomic-client"
+      ]
+    },
+    {
+      "handle": "coherence-compat",
       "components": [
         "kotoba",
         "kotodama-wasm",

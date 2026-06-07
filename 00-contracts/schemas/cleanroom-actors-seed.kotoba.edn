@@ -17,19 +17,6 @@
 
  :seed
  [
-  {:actor/handle "coherence-compat"
-   :actor/did "did:web:etzhayyim.com:actor:coherence-compat"
-   :actor/kind :compat
-   :actor/status :landed
-   :actor/performer-type :service
-   :actor/ui-type :iframe
-   :actor/description "Clean-room, API-compatible gaming backend / metaverse actor (coherence); runs browser-local on IPFS + kotoba-WASM."
-   :actor/primary-schema "coherence.kotoba"
-   :actor/wasm-cid "bafkreicpxsgehvpoe6z5aif4n5tuhyh76cvngj7yrm4vicg2zgim4ijh3a"
-   :actor/adr ["260607" "2606014500" "2606013800"]
-   :actor/created-at "2026-06-07"
-   :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:coherence-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreicpxsgehvpoe6z5aif4n5tuhyh76cvngj7yrm4vicg2zgim4ijh3a" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:coherence-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreicpxsgehvpoe6z5aif4n5tuhyh76cvngj7yrm4vicg2zgim4ijh3a" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:coherence-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreicpxsgehvpoe6z5aif4n5tuhyh76cvngj7yrm4vicg2zgim4ijh3a" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:coherence-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreicpxsgehvpoe6z5aif4n5tuhyh76cvngj7yrm4vicg2zgim4ijh3a" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "8th_wall-compat"
    :actor/did "did:web:etzhayyim.com:actor:8th_wall-compat"
    :actor/kind :compat
@@ -2487,6 +2474,19 @@
    :actor/created-at "2026-06-07"
    :actor/vm []
    :actor/service [{"id" "did:web:etzhayyim.com:actor:cohere-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreibptp2bopkm6yxamjyrvk2kxdqjmsm54pfjrlzaokvbnhwdcgiq2y" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:cohere-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreibptp2bopkm6yxamjyrvk2kxdqjmsm54pfjrlzaokvbnhwdcgiq2y" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:cohere-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreibptp2bopkm6yxamjyrvk2kxdqjmsm54pfjrlzaokvbnhwdcgiq2y" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:cohere-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreibptp2bopkm6yxamjyrvk2kxdqjmsm54pfjrlzaokvbnhwdcgiq2y" "x-runtime" "kotoba-wasm"}]}
+  {:actor/handle "coherence-compat"
+   :actor/did "did:web:etzhayyim.com:actor:coherence-compat"
+   :actor/kind :compat
+   :actor/status :landed
+   :actor/performer-type :service
+   :actor/ui-type :iframe
+   :actor/description "Clean-room, API-compatible gaming backend / metaverse actor (coherence); runs browser-local on IPFS + kotoba-WASM."
+   :actor/primary-schema "coherence.kotoba"
+   :actor/wasm-cid "bafkreifwl7wvnaluktm5raldlarklp43kjsh3vukt2k6jpiyprv64igywq"
+   :actor/adr ["260607" "2606014500" "2606013800"]
+   :actor/created-at "2026-06-07"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:coherence-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreifwl7wvnaluktm5raldlarklp43kjsh3vukt2k6jpiyprv64igywq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:coherence-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreifwl7wvnaluktm5raldlarklp43kjsh3vukt2k6jpiyprv64igywq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:coherence-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreifwl7wvnaluktm5raldlarklp43kjsh3vukt2k6jpiyprv64igywq" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:coherence-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreifwl7wvnaluktm5raldlarklp43kjsh3vukt2k6jpiyprv64igywq" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "coinbase-compat"
    :actor/did "did:web:etzhayyim.com:actor:coinbase-compat"
    :actor/kind :compat

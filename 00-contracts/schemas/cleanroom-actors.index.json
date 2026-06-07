@@ -15,23 +15,6 @@
   },
   "actors": [
     {
-      "handle": "coherence-compat",
-      "did": "did:web:etzhayyim.com:actor:coherence-compat",
-      "wasmCid": "bafkreicpxsgehvpoe6z5aif4n5tuhyh76cvngj7yrm4vicg2zgim4ijh3a",
-      "kind": "compat",
-      "tier": "L3",
-      "title": "coherence clean-room actor",
-      "category": "gaming_backend",
-      "capabilities": [
-        "api",
-        "supplychain",
-        "socialpost",
-        "mcp"
-      ],
-      "exec": "browser-local|donated-mesh",
-      "runtime": "kotoba-wasm"
-    },
-    {
       "handle": "8th_wall-compat",
       "did": "did:web:etzhayyim.com:actor:8th_wall-compat",
       "wasmCid": "bafkreicxstlvo7c3yexbd3ovxwsxgth4yhl66txrklnxzg7c3xrqu6ctmi",
@@ -3235,6 +3218,23 @@
       "tier": "L3",
       "title": "cohere clean-room actor",
       "category": "ai_ml",
+      "capabilities": [
+        "api",
+        "supplychain",
+        "socialpost",
+        "mcp"
+      ],
+      "exec": "browser-local|donated-mesh",
+      "runtime": "kotoba-wasm"
+    },
+    {
+      "handle": "coherence-compat",
+      "did": "did:web:etzhayyim.com:actor:coherence-compat",
+      "wasmCid": "bafkreifwl7wvnaluktm5raldlarklp43kjsh3vukt2k6jpiyprv64igywq",
+      "kind": "compat",
+      "tier": "L3",
+      "title": "coherence clean-room actor",
+      "category": "gaming_backend",
       "capabilities": [
         "api",
         "supplychain",

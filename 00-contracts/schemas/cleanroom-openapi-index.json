@@ -10,23 +10,6 @@
   "l4SpecsAvailable": 80,
   "apis": [
     {
-      "handle": "coherence-compat",
-      "did": "did:web:etzhayyim.com:actor:coherence-compat",
-      "tier": "L3",
-      "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreicpxsgehvpoe6z5aif4n5tuhyh76cvngj7yrm4vicg2zgim4ijh3a",
-      "health": "/healthz",
-      "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
-      },
-      "openapi": null
-    },
-    {
       "handle": "8th_wall-compat",
       "did": "did:web:etzhayyim.com:actor:8th_wall-compat",
       "tier": "L3",
@@ -3229,6 +3212,23 @@
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreibptp2bopkm6yxamjyrvk2kxdqjmsm54pfjrlzaokvbnhwdcgiq2y",
+      "health": "/healthz",
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
+      "openapi": null
+    },
+    {
+      "handle": "coherence-compat",
+      "did": "did:web:etzhayyim.com:actor:coherence-compat",
+      "tier": "L3",
+      "basePath": "/v1",
+      "endpointCount": 30,
+      "ipfs": "ipfs://bafkreifwl7wvnaluktm5raldlarklp43kjsh3vukt2k6jpiyprv64igywq",
       "health": "/healthz",
       "features": {
         "pagination": false,

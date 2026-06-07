@@ -9,14 +9,6 @@
   "count": 1000,
   "feeds": [
     {
-      "handle": "coherence-compat",
-      "did": "did:web:etzhayyim.com:actor:coherence-compat",
-      "lexicon": "app.bsky.feed.post",
-      "source": "coherence.* Datom events",
-      "mode": "dry-run",
-      "gate": "G8"
-    },
-    {
       "handle": "8th_wall-compat",
       "did": "did:web:etzhayyim.com:actor:8th_wall-compat",
       "lexicon": "app.bsky.feed.post",
@@ -1525,6 +1517,14 @@
       "did": "did:web:etzhayyim.com:actor:cohere-compat",
       "lexicon": "app.bsky.feed.post",
       "source": "cohere.* Datom events",
+      "mode": "dry-run",
+      "gate": "G8"
+    },
+    {
+      "handle": "coherence-compat",
+      "did": "did:web:etzhayyim.com:actor:coherence-compat",
+      "lexicon": "app.bsky.feed.post",
+      "source": "coherence.* Datom events",
       "mode": "dry-run",
       "gate": "G8"
     },

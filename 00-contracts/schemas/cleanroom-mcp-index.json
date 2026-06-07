@@ -10,15 +10,6 @@
   "totalTools": 30040,
   "servers": [
     {
-      "handle": "coherence-compat",
-      "did": "did:web:etzhayyim.com:actor:coherence-compat",
-      "tier": "L3",
-      "endpoint": "ipfs://bafkreicpxsgehvpoe6z5aif4n5tuhyh76cvngj7yrm4vicg2zgim4ijh3a",
-      "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
-      "manifest": "20-actors/ coherence-compat/manifest.json#/capabilities/mcp"
-    },
-    {
       "handle": "8th_wall-compat",
       "did": "did:web:etzhayyim.com:actor:8th_wall-compat",
       "tier": "L3",
@@ -1718,6 +1709,15 @@
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cohere-compat/manifest.json#/capabilities/mcp"
+    },
+    {
+      "handle": "coherence-compat",
+      "did": "did:web:etzhayyim.com:actor:coherence-compat",
+      "tier": "L3",
+      "endpoint": "ipfs://bafkreifwl7wvnaluktm5raldlarklp43kjsh3vukt2k6jpiyprv64igywq",
+      "transport": "ipfs+kotoba-wasm",
+      "toolCount": 30,
+      "manifest": "20-actors/coherence-compat/manifest.json#/capabilities/mcp"
     },
     {
       "handle": "coinbase-compat",
