@@ -60,6 +60,12 @@ const ok = (c, m) => { assert.ok(c, m); passed++; };
   // healthz
   const [hs, hb] = a.request("GET", "/healthz");
   ok(hs === 200 && hb.status === "ok", "healthz ok");
+
+  // socialpost: Datom writes emit dry-run app.bsky.feed.post events, G8-gated
+  const feed = a.socialFeed();
+  ok(feed.length > 0, "socialpost feed populated by Datom writes");
+  ok(feed.every((p) => p.mode === "dry-run" && p.gate === "G8"), "all posts dry-run + G8-gated");
+  ok(feed.every((p) => p["$type"] === "app.bsky.feed.post" && p.via === a.did), "posts well-shaped");
 }
 
 // ── L3 actor: aadhaar — generic CRUD still works ────────────────────────────

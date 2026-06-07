@@ -42,7 +42,29 @@ export class KotobaActor {
       this.byPlural[p] = e;
       this.store[e] = [];
     }
+    this.feed = [];               // dry-run socialpost events (the `socialpost` cap)
+    this.did = manifest.did;
+    const sp = manifest.capabilities?.socialpost || {};
+    this.socialLexicon = sp.lexicon || "app.bsky.feed.post";
+    this.socialGate = sp.gate || "G8";
   }
+
+  // socialpost capability: a Datom write emits an app.bsky.feed.post-shaped
+  // event. ALWAYS dry-run / G8-gated — never leaves the page, never posts
+  // outward (outward posting is gated, ADR 260607 + G8).
+  _emit(op, entity, rec) {
+    this.feed.push({
+      "$type": this.socialLexicon,
+      text: `${this.handle}: ${op} ${entity} ${rec.id}`,
+      createdAt: rec.updatedAt || rec.createdAt,
+      via: this.did,
+      subject: { entity, id: rec.id },
+      mode: "dry-run",
+      gate: this.socialGate,
+    });
+    return rec;
+  }
+  socialFeed() { return this.feed.slice(); }
 
   _now() {
     // monotonic, deterministic-ish ISO stamp (no wall clock dependency)
@@ -66,6 +88,7 @@ export class KotobaActor {
     const ts = this._now();
     const rec = { id: this._id(entity), ...body, createdAt: ts, updatedAt: ts };
     this.store[entity].push(rec);
+    this._emit("created", entity, rec);
     return [201, rec];
   }
 
