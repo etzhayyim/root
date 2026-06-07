@@ -20385,9 +20385,11 @@
         "2605262130",
         "2605312345",
         "2605181100",
-        "0025"
+        "0025",
+        "2606014500",
+        "2606015400"
       ],
-      "last_verified": "2026-06-06",
+      "last_verified": "2026-06-07",
       "amends": [],
       "amended_by": []
     },
@@ -22085,6 +22087,29 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606072800-bible-translation-coverage-language-tiers.md",
+      "id": "adr-2606072800-bible-translation-coverage-language-tiers",
+      "title": "ADR-2606072800: Supported-language tiers = Bible-translation coverage (Sola Scriptura)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "bible-translation-coverage-language-tiers",
+      "authoritative": true,
+      "authoritative_for": [
+        "language-registry-tiering",
+        "i18n-language-tier-strategy"
+      ],
+      "related": [
+        "2605192100-etzhayyim-mission-charter",
+        "2605263600-kataribe-press-publishing-translation-tier-b-actor-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606072800-session-close-shionome-capital-flow-kotoba-wasm-fleet-cron.md",
       "id": "adr-2606072800-session-close-shionome-capital-flow-kotoba-wasm-fleet-cron",
       "title": "ADR-2606072800: Session close — 潮目 (shionome) cross-asset capital-flow observatory: R0 actor + kotoba-WASM component + Murakumo-fleet cron cells",
@@ -22107,6 +22132,86 @@
       ],
       "last_verified": "2026-06-07",
       "authoritative_for": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606072800-suimin-sleep-disorder-evidence-research-charter.md",
+      "id": "adr-2606072800-suimin-sleep-disorder-evidence-research-charter",
+      "title": "suimin (睡眠) sleep-disorder treatment-evidence research + synthesis actor — reliable-source-only (PubMed / Cochrane / ICSD-3 / ICD-11 / AASM) evidence landscape + referral-to-local-clinic; NON-diagnostic, NON-prescriptive; Wave 1 reference = 睡眠時無呼吸症候群 (OSA/CSA) treatment-method evidence synthesis",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "suimin-sleep-evidence-charter",
+      "authoritative": true,
+      "authoritative_for": [
+        "suimin actor identity (name, DID pattern, tier) — religious-corp first-party sleep-disorder treatment-EVIDENCE research + synthesis (not diagnosis, not treatment)",
+        "mitate sibling boundary (mitate = symptom-intake diagnostic routing; suimin = corpus-level treatment-evidence synthesis + referral; same patient-wellbeing context, no diagnostic overlap)",
+        "Source-whitelist invariant (G1) — PubMed/MeSH + Cochrane systematic reviews + ICSD-3 + ICD-11 + AASM clinical practice guidelines + GRADE-graded sources ONLY; every claim carries verifiable provenance",
+        "Charter Rider §2 clearance reasoning for first-party medical-evidence synthesis (§2(e) anti-gatekeeping pro-clearance + §2(c) anti-surveillance gate)",
+        "13 constitutional gates G1..G13 (non-negotiable)",
+        "10 non-goals N1..N10 (constitutional, not subject to incremental drift)",
+        "4-phase roadmap R0 → R3 with explicit Council-attestation gating + licensed sleep-medicine MD-in-loop activation (R2)",
+        "Wave 1 reference target = 睡眠時無呼吸症候群 (obstructive + central sleep apnea) treatment-method evidence landscape"
+      ],
+      "related": [
+        "20-actors/suimin/",
+        "20-actors/magatama/cells/suimin_*/",
+        "00-contracts/lexicons/com/etzhayyim/suimin/",
+        "50-infra/murakumo/fleet.toml"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192230-etzhayyim-three-tier-enforcement-implementation",
+        "adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605231525-no-server-key-religious-corp-architecture",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605260100-mitate-diagnostic-routing-charter"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606073000-robotics-remote-work-actor-roster-and-isco-coverage.md",
+      "id": "adr-2606073000-robotics-remote-work-actor-roster-and-isco-coverage",
+      "title": "ADR-2606073000: Robotics remote-work actor roster + ISCO coverage/GAP survey (tazuna as the on-site→remote substrate)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "robotics-remote-work-actor-survey",
+      "authoritative": true,
+      "authoritative_for": [
+        "robotics remote-work (teleoperation) actor roster across the etzhayyim corpus",
+        "on-site→remote-work coverage/GAP map for physical-labour occupations",
+        "remote-work-value reframing of the labour-liberation roadmap"
+      ],
+      "related": [
+        "ADR-2605301020 (Basic High Income — in-kind, cash≡0)",
+        "ADR-2605215000 (Murakumo-only inference)",
+        "ADR-2606042300 (todoke last-mile delivery)",
+        "ADR-2606013400 (funadaiku zero-emission cargo-ship)",
+        "ADR-2605252200 (watatsumi civilian submersible)",
+        "ADR-2606012600 (watatsuna submarine-cable laying)",
+        "ADR-2605250715 (tatekata construction)",
+        "ADR-2605261215 (hodoki ELV disassembly)",
+        "ADR-2606051500 (kamado carbon refining / refinery decommission)",
+        "ADR-2605263100 (mizuho water + sanitation)"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606042100 (tazuna — remote-robotics fleet operation + teleoperation + LfD)",
+        "ADR-2606032100 (Labor-Liberation Robotics-Actor Wave — canonical ISIC/ISCO/UNSPSC LPS ranking)",
+        "ADR-2606032130 (Displacement Dividend — G2 coupling gate)",
+        "ADR-2605261000 (Labor Liberation Ladder — L0..L6)",
+        "ADR-2605192100 (Mission Charter — 構造的労働解放, N1 mining/weapons exclusion)"
+      ],
+      "last_verified": "2026-06-07",
       "amends": [],
       "amended_by": []
     },
