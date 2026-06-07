@@ -223,7 +223,11 @@ def build():
     if os.path.exists(_built):
         for a in json.load(open(_built)).get("actors", []):
             if a.get("wasmCid"):
-                BUILT_CIDS[a["handle"]] = a["wasmCid"]
+                # normalize the key the same way the DID-safe handle is derived
+                # below (lower + strip non [a-z0-9_-]) so unicode/caps handles
+                # like amadeus_altéa / inDrive / ironSource match.
+                k = re.sub(r"[^a-z0-9_-]", "", a["handle"].strip().lower())
+                BUILT_CIDS[k] = a["wasmCid"]
     for actor in actor_dirs:
         platform = actor[:-len("-compat")].strip()
         adir = os.path.join(ACTORS_DIR, actor)
