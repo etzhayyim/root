@@ -401,6 +401,27 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
     adrs: ["2606032000"],
   },
+  kasa: {
+    description:
+      "嵩 — worldwide computing-capacity growth observatory. Datafies, from PUBLIC information only, the annual MAGNITUDE + GROWTH (年間増加量) of computing capacity across four domains — STORAGE (HDD+SSD exabytes shipped), MEMORY (DRAM+NAND market revenue), GPU/CPU (discrete-GPU + client-CPU units, datacenter-accelerator revenue) and COMPUTE/FLOPS (TOP500 aggregate Rmax, frontier-model training compute) — plus DATACENTER power capacity, into the kotoba Datom log as :compute.obs/*, then computes YoY + CAGR and coverage-honest domain aggregates (memory is a SUBSET of semiconductor, structurally never double-counted; TOP500 :petaflops never summed with raw :flops). Reads public headline figures + open datasets ONLY (WSTS/SIA semiconductor sales, TrendForce DRAM/NAND, IDC HDD/SSD, JPR GPU, TOP500 public list, Epoch AI CC-BY, Our World in Data CC-BY, company filings). The industry-aggregate sibling of kanjō 勘定 (per-company 決算) and the demand-side counterpart of the silicon actors (handotai / iwakura / fuigo); feeds measured actuals to mitooshi 見通し but NEVER forecasts itself (G4 — future projection is mitooshi's job). NON-ADJUDICATING + PLANNING-LENS not a targeting list (sizes the compute commons, never a country/company ranking or an export-control / weaponization list) + NO investment advice. Paid market-research full reports + subscription terminals (Gartner / IDC-report / Omdia / Bloomberg / S&P / Statista-Pro / Yole) PROHIBITED per Charter Rider §2(e) anti-gatekeeping + §2(c): read the press release, never the terminal. Per ADR-2606072000.",
+    glyph: "嵩",
+    displayName: "Kasa — Worldwide Computing-Capacity Growth Observatory",
+    primaryLexicon: "com.etzhayyim.kasa",
+    primarySchema: "00-contracts/schemas/compute-capacity-ontology.kotoba.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:kasa#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:kasa#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606072000"],
+  },
   ooyake: {
     description:
       "公 — World Government Atlas. kotoba-Datomic structural atlas of every government unit on Earth (supranational → country → 都道府県 → 市区町村 → 省 → 庁 → 局 → 課 → 窓口) with 住所 / 窓口 / 書式 / 手続き / BPMN. The read-side SSoT danjo / kanae / tsumugi / toritsugi / himotoki consume for the who/where/how of public administration. An OBSERVATIONAL MIRROR + civic wayfinding map — the per-unit atlas DID (did:web:etzhayyim.com:gov:<iso3>:...) mirrors a real public body, NEVER claims to BE the government, is NEVER an official channel, and is NEVER a target-list (G3/G10). Read-only: catalogs, never files (→ toritsugi) and never audits (→ danjo). Per ADR-2606021600.",
