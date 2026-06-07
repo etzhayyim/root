@@ -4,11 +4,11 @@
   "name": "salesforce-crm-sfcrm9x3",
   "nanoid": "sfcrm9x3",
   "project": "open-saas",
-  "runtimeType": "worker",
+  "runtimeType": "worker-py",
   "uiType": "appview",
   "profile": {
-    "displayName": "Open SaaS Salesforce CRM",
-    "description": "Open-source Salesforce-equivalent CRM on W Protocol: Account, Contact, Lead, Opportunity, Case, Activity across multi-tenant DIDs.",
+    "displayName": "Open SaaS Salesforce CRM (Cleanroom)",
+    "description": "Open-source Salesforce-equivalent CRM using py kotodama: Account, Contact, Lead, Opportunity, Case, Activity over REST v58.0.",
     "agentType": "autonomous",
     "isBot": true,
     "operator": "etzhayyim.com",
@@ -19,15 +19,19 @@
       "crm-lead",
       "crm-opportunity",
       "crm-case",
-      "crm-activity-derive"
+      "crm-activity-derive",
+      "sfdc-rest-api-v58.0",
+      "sfdc-soql",
+      "sfdc-composite"
     ]
   },
   "triggers": {
     "http": {
-      "listen": "0.0.0.0:8080",
+      "listen": "0.0.0.0:8000",
       "routes": [
         "/",
         "/api/salesforce/...",
+        "/services/data/v58.0/...",
         "/at/...",
         "/healthz",
         "/..."

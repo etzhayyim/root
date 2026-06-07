@@ -10201,3 +10201,4 @@ adr = "2606071300"
 kind = "github-actions-workflow"
 status = "shipped"
 description = "Automatically squash and merge Dependabot pull requests once all CI status checks successfully pass."
+\n[[adrs]]\nid = "2606081500"\ntitle = "Kotoba ERP and Salesforce CRM Prototype in PyWasm"\nstatus = "accepted"\nstatus_note = "Implements SAP (FI/MM/SD) and Salesforce (CRM) domain models in PyWasm with true KQE Read/Write API integration and KSE event orchestration."\npath = "90-docs/adr/2606081500-kotoba-erp-crm-prototype-pywasm.md"\nadr = ["2606081500", "2605262130", "2605312345"]\n\n[[modules]]\npath = "60-apps/kotoba-erp"\nadr = "2606081500"\nkind = "app"\nstatus = "shipped"\ndescription = "SAP-scale ERP and Salesforce CRM prototype on Kotoba PyWasm."\n

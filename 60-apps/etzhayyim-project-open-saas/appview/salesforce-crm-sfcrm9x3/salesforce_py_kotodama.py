@@ -218,3 +218,92 @@ async def query_soql(q: str):
         return {"totalSize": len(records), "done": True, "records": records}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/services/data/v58.0/composite/")
+async def composite_api(request: Request):
+    """
+    Salesforce Composite API endpoint.
+    Executes a series of REST API requests in a single call.
+    """
+    body = await request.json()
+    composite_requests = body.get("compositeRequest", [])
+    
+    if not composite_requests:
+        raise HTTPException(status_code=400, detail="Missing compositeRequest array")
+        
+    responses = []
+    
+    # Process sequentially for the PoC (handling reference IDs like @{ref.id} is complex,
+    # so this is a simplified batch executor for independent requests).
+    for req in composite_requests:
+        method = req.get("method", "").upper()
+        url = req.get("url", "")
+        ref_id = req.get("referenceId")
+        req_body = req.get("body", {})
+        
+        # Route parsing
+        # Example url: /services/data/v58.0/sobjects/Account
+        url_parts = [p for p in url.split("/") if p]
+        
+        res_body = {}
+        http_status = 400
+        
+        try:
+            if "sobjects" in url_parts:
+                idx = url_parts.index("sobjects")
+                if len(url_parts) > idx + 1:
+                    sobject_name = url_parts[idx + 1]
+                    
+                    if method == "POST" and len(url_parts) == idx + 2:
+                        # Create
+                        new_id = str(uuid.uuid4())[:18]
+                        entity = to_kotoba_entity(sobject_name, new_id, req_body)
+                        kotoba_datomic.transact(GRAPH_ID, [entity])
+                        res_body = {"id": new_id, "success": True, "errors": []}
+                        http_status = 201
+                        
+                    elif len(url_parts) == idx + 3:
+                        record_id = url_parts[idx + 2]
+                        if method == "PATCH":
+                            # Update
+                            entity = to_kotoba_entity(sobject_name, record_id, req_body)
+                            kotoba_datomic.transact(GRAPH_ID, [entity])
+                            res_body = {} # SFDC returns empty 204 on success
+                            http_status = 204
+                            
+                        elif method == "DELETE":
+                            # Delete
+                            namespace = SOBJECT_MAPPING.get(sobject_name)
+                            if namespace:
+                                q_str = f"[:find ?e :in $ ?id :where [?e :{namespace}/id ?id]]"
+                                q_res = kotoba_datomic.q(GRAPH_ID, q_str, [record_id])
+                                if q_res:
+                                    kotoba_datomic.transact(GRAPH_ID, [[:db.fn/retractEntity, q_res[0][0]]])
+                                    http_status = 204
+                                else:
+                                    http_status = 404
+                                    res_body = [{"errorCode": "NOT_FOUND", "message": "Record not found"}]
+                                    
+                        elif method == "GET":
+                            # Read
+                            # Note: To fully support this without code duplication, we should extract the logic from get_sobject.
+                            # For this iteration, returning a stub indicating it needs routing.
+                            http_status = 501
+                            res_body = [{"errorCode": "NOT_IMPLEMENTED", "message": "GET in composite not fully wired in PoC"}]
+            
+            else:
+                 http_status = 404
+                 res_body = [{"errorCode": "NOT_FOUND", "message": f"URL {url} not found in PoC router"}]
+                 
+        except Exception as e:
+            http_status = 500
+            res_body = [{"errorCode": "INTERNAL_ERROR", "message": str(e)}]
+            
+        responses.append({
+            "body": res_body,
+            "httpHeaders": {},
+            "httpStatusCode": http_status,
+            "referenceId": ref_id
+        })
+        
+    return {"compositeResponse": responses}
