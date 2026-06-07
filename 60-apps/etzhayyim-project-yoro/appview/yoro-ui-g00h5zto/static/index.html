@@ -3,81 +3,174 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="/_app/immutable/entry/start.-cibuOjc.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/B__48ydk.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/DXngp8pY.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/CcJUTQ7g.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/QfCjSEoM.js" rel="modulepreload">
-		<link href="/_app/immutable/entry/app.CKcTqyIg.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/Dp1pzeXC.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/CHNAME5a.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/B0gMMwIJ.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/C4b2UCol.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/xC2C8d09.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/Bzak7iHL.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/C0hwdeFv.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/CiVqzLnV.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/CXavUAxi.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/DgXp0yUt.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/BtnZgBpW.js" rel="modulepreload">
-		<link href="/_app/immutable/nodes/0.LWmpizyO.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/BOQQW0di.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/DSwvKCMg.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/D15DCUzj.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/ufce9ehw.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/xU21anpD.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/fXQ5Z7ih.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/BCeDbJxI.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/gRaYULnG.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/Cghn8PVY.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/DDKWQZ_a.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/CZrs70Km.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/Dqe9Mw0Z.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/2r71wujt.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/Dr-4WwPr.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/wEqe1fFW.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/nIohRs45.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/I7XUPLlr.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/8FLxQhw3.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/DjR4jhiJ.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/BLSVkCYZ.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/DC3og4R6.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/UsZ2MKlJ.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/DCcz-bZZ.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/DvQB2ozn.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/ButsM4hC.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/QJ1jDGP7.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/CjUCpU6P.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/DIXorvTI.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/B3LOHeOS.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/-jH1cHxe.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/BtzpTASy.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/DLjGZSS9.js" rel="modulepreload">
+
+    <!-- First-paint: warm the kotoba browser-node so the feed renders LOCALLY
+         (kotoba Datom log) instead of falling through to the slow AppView.
+         1) Register the module Service Worker as early as possible (during head
+            parse, before any bundle/onMount) so it controls this navigation
+            sooner. Idempotent with the +layout.svelte registration (which also
+            rebinds the passkey identity). Best-effort; never blocks the app. -->
+    <script>
+      (function () {
+        try {
+          if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("/kotoba-sw.js", {
+              type: "module",
+              scope: "/",
+            });
+          }
+        } catch (e) {
+          /* best-effort — registration also retried in +layout.svelte */
+        }
+      })();
+    </script>
+    <!-- 2) Prefetch the 2.1MB kotoba WASM binary into the HTTP cache so the SW's
+            boot fetch is warm. (modulepreload would NOT help — the SW has its
+            own module graph — but the HTTP cache is shared, so as=fetch does.) -->
+    <link
+      rel="preload"
+      href="/kotoba/kotoba_wasm_bg.wasm"
+      as="fetch"
+      type="application/wasm"
+      crossorigin="anonymous"
+    />
+
+    <link href="/_app/immutable/entry/start.0TxkxQat.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/BvNREFF7.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/C5-eYWG4.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/DRWyRRn2.js" rel="modulepreload">
+		<link href="/_app/immutable/entry/app.Bf07UC7Z.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/kNaey6uv.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/xihTtKlq.js" rel="modulepreload">
+		<link href="/_app/immutable/nodes/0.C44ehbHJ.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/DYFFuSmP.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/0grcZY_U.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/C8RJekvf.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/DlHxrgya.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/Egj33qjo.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/Ycho-pl6.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/BuH5QSoJ.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/CptfOr6e.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/zHj-nGAp.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/BRA6Wd4G.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/DzMhVqlL.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/0zP2tld4.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/C9IYHoR6.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/C5rxFwTz.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/Cbut7Pd_.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/C6hYWP8S.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/CF1eeUEO.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/DxvCjhHs.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/B_AiT299.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/CCW9qAOU.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/DildguEr.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/CXkR4vzm.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/8ftrawYs.js" rel="modulepreload">
 		
-		<link href="/_app/immutable/assets/Tooltip.BFx0lEyr.css" rel="stylesheet">
-		<link href="/_app/immutable/assets/messaging-client.DJvZCYsh.css" rel="stylesheet">
-		<link href="/_app/immutable/assets/BrainrotMascot.DTet-aEo.css" rel="stylesheet">
-		<link href="/_app/immutable/assets/AchievementToast.BGbtckIJ.css" rel="stylesheet">
-		<link href="/_app/immutable/assets/0.dFel-3AH.css" rel="stylesheet">
+		<link href="/_app/immutable/assets/dist.C4IWH7d8.css" rel="stylesheet">
+		<link href="/_app/immutable/assets/superapp.C6nNGRZP.css" rel="stylesheet">
+		<link href="/_app/immutable/assets/BrainrotMascot.BpHZbCj_.css" rel="stylesheet">
+		<link href="/_app/immutable/assets/gamification.B5yuC4qy.css" rel="stylesheet">
+		<link href="/_app/immutable/assets/0.C7wlXnEz.css" rel="stylesheet">
   </head>
   <body data-sveltekit-preload-data="hover">
     <div style="display: contents">
 			<script>
 				{
-					__sveltekit_1czibyx = {
+					__sveltekit_1hgd0b7 = {
 						base: ""
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("/_app/immutable/entry/start.-cibuOjc.js"),
-						import("/_app/immutable/entry/app.CKcTqyIg.js")
+						import("/_app/immutable/entry/start.0TxkxQat.js"),
+						import("/_app/immutable/entry/app.Bf07UC7Z.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element);
 					});
 				}
 			</script>
 		</div>
+
+    <!-- 3) Boot skeleton: paints a placeholder feed during HTML parse (before
+            SvelteKit hydration + WASM hydration) so the screen is never blank.
+            Self-removing as soon as the app paints real content, with an 8s hard
+            fallback so it can NEVER stay stuck over the app. JS-only removal,
+            no app-code coupling, no CSP dependency (none is set). -->
+    <div id="kboot" aria-hidden="true">
+      <div class="kb-card"><div class="kb-av"></div><div class="kb-lines"><div class="kb-l kb-w70"></div><div class="kb-l kb-w40"></div></div></div>
+      <div class="kb-card"><div class="kb-av"></div><div class="kb-lines"><div class="kb-l kb-w60"></div><div class="kb-l kb-w50"></div></div></div>
+      <div class="kb-card"><div class="kb-av"></div><div class="kb-lines"><div class="kb-l kb-w80"></div><div class="kb-l kb-w30"></div></div></div>
+      <div class="kb-card"><div class="kb-av"></div><div class="kb-lines"><div class="kb-l kb-w50"></div><div class="kb-l kb-w60"></div></div></div>
+    </div>
+    <style>
+      #kboot {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        padding: 4.5rem 1rem 1rem;
+        max-width: 600px;
+        margin-inline: auto;
+        background: var(--gv2-bg-primary, #0a0a0a);
+        transition: opacity 0.2s ease;
+        pointer-events: none;
+      }
+      #kboot .kb-card {
+        display: flex;
+        gap: 0.75rem;
+        padding: 0.9rem 0.2rem;
+        border-bottom: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+      }
+      #kboot .kb-av {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        flex: none;
+        background: color-mix(in srgb, currentColor 14%, transparent);
+      }
+      #kboot .kb-lines { flex: 1; display: flex; flex-direction: column; gap: 0.55rem; padding-top: 0.35rem; }
+      #kboot .kb-l { height: 0.7rem; border-radius: 0.35rem; background: color-mix(in srgb, currentColor 12%, transparent); }
+      #kboot .kb-w30 { width: 30%; } #kboot .kb-w40 { width: 40%; } #kboot .kb-w50 { width: 50%; }
+      #kboot .kb-w60 { width: 60%; } #kboot .kb-w70 { width: 70%; } #kboot .kb-w80 { width: 80%; }
+      #kboot .kb-card, #kboot .kb-av, #kboot .kb-l { animation: kb-pulse 1.3s ease-in-out infinite; }
+      @keyframes kb-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
+    </style>
+    <script>
+      (function () {
+        var k = document.getElementById("kboot");
+        if (!k) return;
+        var removed = false;
+        var drop = function () {
+          if (removed || !k) return;
+          removed = true;
+          k.style.opacity = "0";
+          setTimeout(function () {
+            if (k && k.parentNode) k.parentNode.removeChild(k);
+          }, 220);
+        };
+        // Remove the moment the app paints any real (non-skeleton) element.
+        try {
+          var obs = new MutationObserver(function (muts) {
+            for (var i = 0; i < muts.length; i++) {
+              var added = muts[i].addedNodes;
+              for (var j = 0; j < added.length; j++) {
+                var n = added[j];
+                if (n.nodeType === 1 && n.id !== "kboot") {
+                  obs.disconnect();
+                  drop();
+                  return;
+                }
+              }
+            }
+          });
+          obs.observe(document.body, { childList: true, subtree: true });
+        } catch (e) {
+          /* MutationObserver unsupported — rely on the timeout below */
+        }
+        // Hard fallback: never let the skeleton stay stuck over the app.
+        setTimeout(drop, 8000);
+      })();
+    </script>
   </body>
 </html>

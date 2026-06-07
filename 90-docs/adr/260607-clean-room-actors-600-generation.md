@@ -210,3 +210,30 @@ fidelity (per-API field/enum/contract accuracy) is gated on the Autonomous
 Reverse-Engineering Loop, and an L4 label should mean more than mechanical
 feature presence. The per-domain cohort gives production coverage without
 overclaiming the tail.
+
+## 9. Corpus-level capability discovery (api / supplychain / socialpost / mcp)
+
+**Tool:** `70-tools/build_capability_indexes.py`.
+
+So the four per-actor capability surfaces are not just declared but
+**discoverable + consumable corpus-wide**, four registries are generated under
+`00-contracts/schemas/` (built from the per-actor manifests + domain models):
+
+*   `cleanroom-mcp-index.json` — an **MCP server registry**: one entry per actor
+    (`ipfs+kotoba-wasm` endpoint + tool count). **1,000 MCP servers, 30,040
+    tools** total; full tool JSON-Schemas live in each actor's manifest.
+*   `cleanroom-openapi-index.json` — an **OpenAPI registry**: one REST API per
+    actor (basePath `/v1` + endpoint count + ipfs ref + feature flags).
+    **1,000 APIs, 30,040 endpoints.**
+*   `cleanroom-supplychain-index.json` — an aggregate **CycloneDX SBOM index**
+    (component → actors), per ADR-2606036000.
+*   `cleanroom-socialpost-index.json` — a **Datom-event feed registry** (per-actor
+    lexicon `app.bsky.feed.post`, G8-gated).
+
+For the **L4 production cohort (80 actors)** a full **OpenAPI 3.1 spec** is
+emitted per actor (`20-actors/<platform>-compat/openapi.json`): paths for every
+CRUD op (list with `limit`/`starting_after`/`expand`, create/get/patch/delete),
+`components.schemas` per entity + per-entity `*Create` bodies, and the actor's
+`did` / `wasm-cid` / runtime as `x-` extensions. The `servers[].url` is the
+`ipfs://<cid>` of the browser-local kotoba-wasm component — the spec resolves to
+the same content-addressed artifact that serves it. 80 / 80 specs written.

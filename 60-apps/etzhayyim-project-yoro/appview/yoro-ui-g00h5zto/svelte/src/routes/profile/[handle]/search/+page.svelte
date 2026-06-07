@@ -91,11 +91,11 @@
 		</div>
 	{:else}
 		<div class="flex-1 overflow-y-auto scrollbar-none divide-y divide-gv2-border/20">
-			{#each posts as p, i (p.uri || p.rkey)}
+			{#each posts as p, i (p.uri || p.uri.split('/').pop())}
 				<button
 					type="button"
 					class="flex w-full gap-2.5 px-4 py-3 text-left touch-manipulation active:bg-gv2-bg-hover/40"
-					onclick={() => goto(`/profile/${encodeURIComponent(p.author.handle)}/post/${encodeURIComponent(p.rkey)}`)}
+					onclick={() => goto(`/profile/${encodeURIComponent(p.author.handle)}/post/${encodeURIComponent(p.uri.split('/').pop() || '')}`)}
 					in:fade={staggerFade(i, { duration: 150 })}
 				>
 					<Avatar src={p.author.avatar || undefined} fallback={(p.author.displayName || p.author.handle || '?').slice(0, 2).toUpperCase()} size="sm" class="!h-9 !w-9 flex-shrink-0" />
@@ -105,7 +105,7 @@
 							<span class="flex-shrink-0 text-[14px] text-gv2-text-muted">&middot; {timeAgo(p.indexedAt)}</span>
 						</div>
 						<div class="mt-1 text-[15px] leading-[1.5] text-gv2-text-primary">
-							<RichText text={p.text} facets={p.facets} />
+							<RichText text={(p.record as any)?.text ?? ''} facets={(p.record as any)?.facets ?? []} />
 						</div>
 					</div>
 				</button>

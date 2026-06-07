@@ -13101,7 +13101,7 @@
         "doc:2606032100"
       ],
       "supersedes": "doc:0025",
-      "lastVerified": "2026-06-06"
+      "lastVerified": "2026-06-07"
     },
     {
       "id": "doc:adr-2606038000-session-close-kotoba-os-loop-end",
@@ -14007,6 +14007,30 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606071600",
+      "type": "TechArticle",
+      "title": "ADR-2606071600: 透かし (sukashi) — Ad-Tech Supply-Chain + Delivery-Infra + Fraud-Network Observatory Tier-B Actor R0",
+      "status": "proposed",
+      "topic": "sukashi-ad-tech-supply-chain-fraud-network",
+      "authoritative": true,
+      "authoritativeFor": [
+        "sukashi actor charter (R0)",
+        "ad-tech supply-chain + fraud-network knowledge-graph constitutional gates G1..G13",
+        "ad-supply-chain-ontology.kotoba.edn vocabulary"
+      ],
+      "related": [
+        "doc:adr-2606022300-akashi-public-ad-disclosure-kotoba-actor-r0",
+        "doc:adr-2606031600-ipaddress-yabai-kotoba-eavt-refactor-active-collection",
+        "doc:adr-2605301400-tadori-onchain-tx-tracing-actor",
+        "doc:adr-2605312500-kurashimori-consumer-protection-concierge",
+        "doc:adr-2606060900-tasuke-cybercrime-victim-support-membrane",
+        "doc:adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "doc:adr-2606022000-kabuto-public-company-intel-supply-chain",
+        "doc:adr-2606013600-kotoba-wasm-browser-node"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
       "id": "doc:adr-2606071600-shukubo-pilgrim-lodging-commons",
       "type": "TechArticle",
       "title": "ADR-2606071600: shukubo 宿坊 — pilgrim-lodging commons (Airbnb/Hotels charter-clean inversion), R0",
@@ -14080,6 +14104,45 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606072000-kosatsu-crime-sanctions-competing-claim-observatory-r0",
+      "type": "TechArticle",
+      "title": "kosatsu 高札 — crime/sanctions competing-claim observatory (Tier-B actor R0; designation-as-attributed-event over the kotoba Datom log; the politically-neutral, asserter-relative inverse of a sanctions-screening product)",
+      "status": "proposed-pending-council-ratification",
+      "topic": "kosatsu-crime-sanctions-competing-claim",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kosatsu actor scope (crime/sanctions designations mirrored into the kotoba Datom log as append-only attributed events + a computed competing-claim/divergence view; design-only)",
+        "the mirror-not-adjudicator invariant (etzhayyim authors no designation; :authority/kind has no self token; :designation/asserted-notice const true)",
+        "the asserter-mandatory invariant (no asserter-less 'global truth' designation; :designation/asserter required)",
+        "the no-verdict invariant (:designation/measure is an authority instrument; criminal/guilty/terrorist/enemy unrepresentable)",
+        "the event-log/as-of invariant (:designation/status :listed|:delisted; a delisting is a new datom with :lifted-at, never an overwrite; 非終末論)",
+        "the edge-primary / no-score invariant (no :subject/risk-score/:guilt/:threat-level; divergence computed on read)",
+        "the political-stance-explicit divergence model (per-subject {contested|unanimous|single-asserter} + coverage-split; silence is reported, never inferred as dissent)"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606072100-shomei-believer-identity-binding-proof-of-personhood-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606072100: 証明 (shomei) — believer self-sovereign identity binding + proof-of-personhood R0",
+      "status": "accepted",
+      "topic": "shomei-believer-identity-binding",
+      "authoritative": true,
+      "authoritativeFor": [
+        "shomei-believer-identity-binding-actor",
+        "multi-identity-to-did-binding-and-verification",
+        "proof-of-personhood-credential"
+      ],
+      "related": [
+        "doc:adr-2606072300-l5-gov-auth-mynumber-webauthn-r1-shomei-integration",
+        "doc:adr-2605172700-etzhayyim-membership-layering",
+        "doc:adr-2605302000-warifu-open-zero-fee-card",
+        "doc:adr-2605263400-musubi-covenant-ceremony",
+        "doc:adr-2605302130-himotoki-active-disclosure-request-filer"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
       "id": "doc:adr-2606072200-shionome-cross-asset-capital-flow-observatory-r0",
       "type": "TechArticle",
       "title": "ADR-2606072200: 潮目 (shionome) — cross-asset capital-flow observatory (ingest · intel · analyze · dry-run social, NO trading) R0 + autonomous kotoba loop",
@@ -14111,6 +14174,23 @@
         "20-actors/yotei"
       ],
       "related": "doc:2605181100",
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606072300-l5-gov-auth-mynumber-webauthn-r1-shomei-integration",
+      "type": "TechArticle",
+      "title": "ADR-2606072300: L5 gov auth R1 — MyNumber + WebAuthn activation design + shomei integration",
+      "status": "proposed",
+      "topic": "l5-gov-auth-r1-activation",
+      "authoritative": true,
+      "authoritativeFor": [
+        "l5-gov-auth-r1-activation-design",
+        "gov-auth-shomei-gov-factor-integration"
+      ],
+      "related": [
+        "doc:adr-2605172700-etzhayyim-membership-layering",
+        "doc:adr-2605262130-kotoba-storage-substrate-unification"
+      ],
       "lastVerified": "2026-06-07"
     },
     {
@@ -14198,6 +14278,38 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606072800-tsubasa-flight-discovery-commons",
+      "type": "TechArticle",
+      "title": "ADR-2606072800: tsubasa 翼 — flight-route/fare discovery commons (Skyscanner inversion), R0+R1",
+      "status": "proposed",
+      "topic": "tsubasa-flight-commons",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/tsubasa"
+      ],
+      "related": "doc:2606041827",
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606073000-coverage-gaps-catalog-and-inochi-biosphere-mirror",
+      "type": "TechArticle",
+      "title": "ADR-2606073000: World-coverage gap catalog + inochi 命 biosphere KG mirror",
+      "status": "accepted",
+      "topic": "coverage-gaps-and-inochi",
+      "authoritative": true,
+      "authoritativeFor": [
+        "world-coverage gap catalog (what etzhayyim does not yet observe/produce)",
+        "inochi 命 actor (living-world / 生命圏 KG mirror)",
+        "biosphere-ontology"
+      ],
+      "related": [
+        "doc:2606011800",
+        "doc:2606042330",
+        "doc:2606014500"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
       "id": "doc:adr-2606073000-robotics-remote-work-actor-roster-and-isco-coverage",
       "type": "TechArticle",
       "title": "ADR-2606073000: Robotics remote-work actor roster + ISCO coverage/GAP survey (tazuna as the on-site→remote substrate)",
@@ -14224,6 +14336,15 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606073000-session-close-app-coverage-wave",
+      "type": "TechArticle",
+      "title": "ADR-2606073000: Session close — app-coverage charter-clean inversion wave + substrate-remediation ratchet",
+      "status": "active",
+      "topic": "session-close-app-coverage-wave",
+      "authoritative": false,
+      "lastVerified": "2026-06-07"
+    },
+    {
       "id": "doc:adr-2606073100-abaki-anti-monopoly-intelligence-membrane-r0",
       "type": "TechArticle",
       "title": "ADR-2606073100: 暴 abaki — Anti-Monopoly & Chokepoint Intelligence Membrane (Tier-B R0)",
@@ -14232,6 +14353,95 @@
       "authoritative": true,
       "authoritativeFor": [
         "abaki Anti-Monopoly Membrane design"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606073200-asobi-freed-time-play-expression-mirror",
+      "type": "TechArticle",
+      "title": "ADR-2606073200: asobi 遊び — freed-time play & cultural-expression KG mirror (gap C)",
+      "status": "accepted",
+      "topic": "asobi-freed-time-mirror",
+      "authoritative": true,
+      "authoritativeFor": [
+        "asobi 遊び actor (freed-time / play & cultural-expression KG mirror)",
+        "asobi-ontology"
+      ],
+      "related": [
+        "doc:2606011800",
+        "doc:2606014500",
+        "doc:2605261045"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606073200-meyasu-unified-arbitrage-intel-orchestrator",
+      "type": "TechArticle",
+      "title": "ADR-2606073200: meyasu 目安 — unified arbitrage / supply-demand intel orchestrator + price-intel cohort maturation",
+      "status": "proposed",
+      "topic": "meyasu-unified-arbitrage-intel-orchestrator",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/meyasu"
+      ],
+      "related": [
+        "doc:2605091200",
+        "doc:2606051800",
+        "doc:2606012100",
+        "doc:2605264000"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606073400-hokorobi-systemic-finance-risk-mirror",
+      "type": "TechArticle",
+      "title": "ADR-2606073400: hokorobi 綻び — systemic finance-risk observation mirror (gap D)",
+      "status": "accepted",
+      "topic": "hokorobi-finance-risk-mirror",
+      "authoritative": true,
+      "authoritativeFor": [
+        "hokorobi 綻び actor (systemic finance-risk observation mirror)",
+        "finrisk-ontology"
+      ],
+      "related": [
+        "doc:2606011800",
+        "doc:2606051800",
+        "doc:2606014500"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606073600-hoshimori-orbital-stewardship-mirror",
+      "type": "TechArticle",
+      "title": "ADR-2606073600: hoshimori 星守 — off-Earth orbital stewardship mirror (gap B)",
+      "status": "accepted",
+      "topic": "hoshimori-orbital-mirror",
+      "authoritative": true,
+      "authoritativeFor": [
+        "hoshimori 星守 actor (off-Earth orbital stewardship mirror)",
+        "orbit-ontology"
+      ],
+      "related": [
+        "doc:2606011800",
+        "doc:2606014500"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606073800-tsugite-peoples-continuity-mirror",
+      "type": "TechArticle",
+      "title": "ADR-2606073800: tsugite 継ぎ手 — world peoples-continuity mirror (gap E, catalog complete)",
+      "status": "accepted",
+      "topic": "tsugite-peoples-continuity-mirror",
+      "authoritative": true,
+      "authoritativeFor": [
+        "tsugite 継ぎ手 actor (world peoples-continuity mirror)",
+        "peoples-ontology"
+      ],
+      "related": [
+        "doc:2606011800",
+        "doc:2606014500",
+        "doc:2605261045"
       ],
       "lastVerified": "2026-06-07"
     },

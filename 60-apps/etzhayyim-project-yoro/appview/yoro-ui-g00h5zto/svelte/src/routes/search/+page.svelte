@@ -440,8 +440,8 @@
 			<div class="py-12 text-center text-[14px] text-gv2-text-muted">No people found for "{query}"</div>
 		{:else if activeTab === 'posts'}
 			<div class="divide-y divide-gv2-border/20">
-				{#each posts as post, i (post.uri || post.rkey)}
-					<button type="button" class="flex w-full gap-3 px-4 py-3 text-left touch-manipulation active:bg-gv2-bg-hover/40" onclick={() => goto(`/profile/${encodeURIComponent(post.author.handle)}/post/${encodeURIComponent(post.rkey)}`)} in:fade={staggerFade(i, { duration: 150 })}>
+				{#each posts as post, i (post.uri || post.uri.split('/').pop())}
+					<button type="button" class="flex w-full gap-3 px-4 py-3 text-left touch-manipulation active:bg-gv2-bg-hover/40" onclick={() => goto(`/profile/${encodeURIComponent(post.author.handle)}/post/${encodeURIComponent(post.uri.split('/').pop() || '')}`)} in:fade={staggerFade(i, { duration: 150 })}>
 						<Avatar src={post.author.avatar || undefined} fallback={(post.author.displayName || post.author.handle).slice(0, 2).toUpperCase()} size="sm" class="!h-10 !w-10 flex-shrink-0" />
 						<div class="min-w-0 flex-1">
 							<div class="flex items-center gap-1.5 text-[14px]">
@@ -449,7 +449,7 @@
 								<span class="truncate text-gv2-text-muted">@{post.author.handle}</span>
 								<span class="flex-shrink-0 text-gv2-text-muted">&middot; {timeAgo(post.indexedAt)}</span>
 							</div>
-							<div class="mt-0.5 text-[15px] leading-snug text-gv2-text-primary"><RichText text={post.text} facets={post.facets} /></div>
+							<div class="mt-0.5 text-[15px] leading-snug text-gv2-text-primary"><RichText text={(post.record as any)?.text ?? ''} facets={(post.record as any)?.facets ?? []} /></div>
 						</div>
 					</button>
 				{/each}

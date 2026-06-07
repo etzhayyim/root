@@ -258,7 +258,7 @@
 								<span class="text-[13px] text-gv2-text-muted">· {timeAgo(post.indexedAt)}</span>
 							</div>
 							<div class="mt-0.5 text-[14px] text-gv2-text-primary line-clamp-3">
-								<RichText text={post.text ?? ''} facets={post.facets ?? []} />
+								<RichText text={(post.record as any)?.text ?? ''} facets={(post.record as any)?.facets ?? []} />
 							</div>
 						</div>
 					</button>
