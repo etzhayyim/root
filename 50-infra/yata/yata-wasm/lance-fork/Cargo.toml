@@ -152,7 +152,7 @@ rustc_version = "0.4"
 serde = { version = "^1" }
 serde_json = { version = "1" }
 shellexpand = "3.1"
-snafu = "0.8"
+snafu = "0.9"
 tantivy = { version = "0.22.0", features = ["stopwords"] }
 lindera = { version = "0.38.1" }
 lindera-tantivy = { version = "0.38.1" }
