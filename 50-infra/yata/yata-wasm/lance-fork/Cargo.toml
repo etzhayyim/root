@@ -153,7 +153,7 @@ serde = { version = "^1" }
 serde_json = { version = "1" }
 shellexpand = "3.1"
 snafu = "0.8"
-tantivy = { version = "0.22.0", features = ["stopwords"] }
+tantivy = { version = "0.25.0", features = ["stopwords"] }
 lindera = { version = "0.38.1" }
 lindera-tantivy = { version = "0.38.1" }
 tempfile = "3"
