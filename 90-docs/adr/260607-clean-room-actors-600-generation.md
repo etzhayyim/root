@@ -330,16 +330,20 @@ component**, not just the source-bundle stand-in.
     `wasm-rs` crate, with the actor's handle + entity list embedded so each
     module's bytes — and raw CID — are actor-specific), validates it, computes
     its raw CIDv1, and records every build in
-    `00-contracts/schemas/cleanroom-built-actors.json`. `--l4` builds the exact
-    tier-L4 cohort: **all 156 L4 actors are built** (~2.1 KB each, all valid
+    `00-contracts/schemas/cleanroom-built-actors.json`. `--l4` builds the tier-L4
+    cohort; `--all` (resume-aware, `--limit N` for bounded batches) builds the
+    whole corpus: **all 1,000 actors are built** (~2.1 KB each, all valid
     `bafkrei`).
 *   `register_cleanroom_actors.py` prefers a built CID when present and tags each
     actor `wasmProvenance ∈ {built-rust-raw, source-bundle}` in the manifest +
-    index; `verify_cleanroom_system.py` skips the source-bundle freshness check
-    for built actors.
+    index (key-normalized so unicode/caps handles like amadeus_altéa / inDrive /
+    ironSource match); `verify_cleanroom_system.py` skips the source-bundle
+    freshness check for built actors.
 
-So all **156 L4 actors** resolve (via the did:web publisher) to a DID document
-whose `EtzhayyimWasmComponent` `ipfs://<cid>` is the CID of a real, validated,
-browser-local WASM artifact (`wasmProvenance: built-rust-raw`); the 844 L3 actors
-keep the `source-bundle` stand-in. Remaining: build the L3 tail + IPFS-pin the
-components (operator step, needs a daemon) so the CIDs are fetch-resolvable.
+**100%-built milestone:** all **1,000 / 1,000 actors** now resolve (via the
+did:web publisher) to a DID document whose `EtzhayyimWasmComponent`
+`ipfs://<cid>` is the CID of a real, validated, browser-local WASM artifact
+(`wasmProvenance: built-rust-raw` for every actor). Remaining: IPFS-pin the
+components (operator step, needs a daemon) so the CIDs are fetch-resolvable, and
+per-actor entity-specific Rust logic (the build currently embeds actor identity
+over a shared store surface).

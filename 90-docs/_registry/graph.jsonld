@@ -14446,6 +14446,18 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606074000-apps-maturity-enhancement",
+      "type": "TechArticle",
+      "title": "ADR-2606074000: Apps Store Appview Testing Baseline and Maturity Enhancement",
+      "status": "approved",
+      "topic": "testing-maturity",
+      "authoritative": true,
+      "authoritativeFor": [
+        "60-apps"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
       "id": "doc:adr-2606081500-kotoba-erp-crm-prototype-pywasm",
       "type": "TechArticle",
       "title": "ADR-2606081500: Kotoba ERP and Salesforce CRM Prototype in PyWasm",
