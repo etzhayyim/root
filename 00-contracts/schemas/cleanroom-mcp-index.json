@@ -363,7 +363,7 @@
     {
       "handle": "anthropic-compat",
       "did": "did:web:etzhayyim.com:actor:anthropic-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreicx4q2mg4gwxchjh2kitjgkkuzboegmujzwqilujtu4so3uoojl7u",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 35,
@@ -8877,7 +8877,7 @@
     {
       "handle": "zendesk-compat",
       "did": "did:web:etzhayyim.com:actor:zendesk-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreicptv7vdfbh3pskbh2rrdij3pptqu3up4gw6m7qj4qnatylacwll4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,

@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 995,
-    "L5": 5
+    "L4": 993,
+    "L5": 7
   },
   "actors": [
     {
@@ -722,7 +722,7 @@
       "wasmCid": "bafkreicx4q2mg4gwxchjh2kitjgkkuzboegmujzwqilujtu4so3uoojl7u",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "anthropic clean-room actor",
       "category": "ai_ml",
       "capabilities": [
@@ -17750,7 +17750,7 @@
       "wasmCid": "bafkreicptv7vdfbh3pskbh2rrdij3pptqu3up4gw6m7qj4qnatylacwll4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "zendesk clean-room actor",
       "category": "cx_survey",
       "capabilities": [

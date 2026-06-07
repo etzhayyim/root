@@ -11,8 +11,32 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreicptv7vdfbh3pskbh2rrdij3pptqu3up4gw6m7qj4qnatylacwll4",
   "schema": "schema/zendesk.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://developer.zendesk.com/api-reference",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "Ticket"
+    ],
+    "enums": {
+      "Ticket": {
+        "priority": [
+          "urgent",
+          "high",
+          "normal",
+          "low"
+        ],
+        "status": [
+          "new",
+          "open",
+          "pending",
+          "hold",
+          "solved",
+          "closed"
+        ]
+      }
+    }
+  },
   "entities": [
     "Ticket",
     "Survey",

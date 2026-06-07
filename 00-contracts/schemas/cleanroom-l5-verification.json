@@ -4,8 +4,48 @@
   "adr": ["260607"],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 5,
+  "count": 7,
   "actors": [
+    {
+      "handle": "anthropic-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://platform.claude.com/docs/en/api",
+      "resources": [
+        {
+          "entity": "Message",
+          "source": "https://platform.claude.com/docs/en/api/messages",
+          "verifiedFields": ["modelId", "role", "content", "inputTokens", "outputTokens"],
+          "fieldStatus": "all generated fields confirmed (modelId=model, inputTokens=usage.input_tokens, outputTokens=usage.output_tokens)",
+          "discoveredEnums": {
+            "role": ["user", "assistant"],
+            "stop_reason": ["end_turn", "max_tokens", "stop_sequence", "tool_use", "pause_turn", "refusal"]
+          },
+          "gaps": ["id", "stop_reason", "stop_sequence", "type"]
+        }
+      ],
+      "note": "Message reconciled against the official Anthropic API docs; Model/Conversation/Tool/ToolUse/Batch/File pending."
+    },
+    {
+      "handle": "zendesk-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://developer.zendesk.com/api-reference",
+      "resources": [
+        {
+          "entity": "Ticket",
+          "source": "https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/",
+          "verifiedFields": ["subject", "requesterId", "priority", "status"],
+          "fieldStatus": "all generated fields confirmed (requesterId = real requester_id)",
+          "discoveredEnums": {
+            "priority": ["urgent", "high", "normal", "low"],
+            "status": ["new", "open", "pending", "hold", "solved", "closed"]
+          },
+          "gaps": ["description", "assignee_id", "group_id", "tags", "custom_status_id"]
+        }
+      ],
+      "note": "Ticket reconciled against the official Zendesk API docs; Survey/Response/Account/Conversation/Contact pending. (Note: zendesk uses the cx_survey category model, whose Ticket archetype matches the real Zendesk Ticket.)"
+    },
     {
       "handle": "shopify-compat",
       "verifiedAt": "2026-06-08",

@@ -7,7 +7,7 @@
   ],
   "count": 1000,
   "totalEndpoints": 30040,
-  "l4SpecsAvailable": 995,
+  "l4SpecsAvailable": 993,
   "apis": [
     {
       "handle": "8th_wall-compat",
@@ -675,7 +675,7 @@
     {
       "handle": "anthropic-compat",
       "did": "did:web:etzhayyim.com:actor:anthropic-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 35,
       "ipfs": "ipfs://bafkreicx4q2mg4gwxchjh2kitjgkkuzboegmujzwqilujtu4so3uoojl7u",
@@ -687,7 +687,7 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "openapi": "20-actors/anthropic-compat/openapi.json"
+      "openapi": null
     },
     {
       "handle": "aphis_usda-compat",
@@ -16757,7 +16757,7 @@
     {
       "handle": "zendesk-compat",
       "did": "did:web:etzhayyim.com:actor:zendesk-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreicptv7vdfbh3pskbh2rrdij3pptqu3up4gw6m7qj4qnatylacwll4",
@@ -16769,7 +16769,7 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "openapi": "20-actors/zendesk-compat/openapi.json"
+      "openapi": null
     },
     {
       "handle": "zendesksell-compat",
