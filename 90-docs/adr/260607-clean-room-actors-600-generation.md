@@ -237,3 +237,28 @@ CRUD op (list with `limit`/`starting_after`/`expand`, create/get/patch/delete),
 `did` / `wasm-cid` / runtime as `x-` extensions. The `servers[].url` is the
 `ipfs://<cid>` of the browser-local kotoba-wasm component — the spec resolves to
 the same content-addressed artifact that serves it. 80 / 80 specs written.
+
+## 10. Browser-local runtime (actors run in-browser today)
+
+**App:** `60-apps/cleanroom-browser-runtime/`.
+
+The corpus now *runs* — browser-local, no server, no network — fulfilling the
+"one Worker, many WASM actors" model (ADR-2606014500). `kotoba-runtime.mjs` is
+the **JavaScript reference implementation** of the contract each actor's
+content-addressed `EtzhayyimWasmComponent` (`ipfs://<wasm-cid>`) compiles to:
+
+*   an in-memory **kotoba Datom store** (entity → records),
+*   the actor's **REST `api`** surface — CRUD + cursor pagination
+    (`limit`/`starting_after`/`has_more`) + filtering + relationship expansion
+    (`?expand=`), driven entirely by the actor's `manifest.json`,
+*   the actor's **MCP `mcp`** surface (`listTools()` / `callTool(name, args)`).
+
+`index.html` loads `cleanroom-actors.index.json` + a chosen actor's manifest,
+instantiates the runtime, and lets any of the 1,000 actors execute live
+in-browser (CRUD against the Datom store, MCP tool calls). `runtime.test.mjs`
+passes **16 assertions** over a real L4 manifest (`stripe-compat`) and an L3
+manifest (`aadhaar-compat`): CRUD, pagination, filtering, expansion, MCP
+dispatch, `/healthz`.
+
+The compiled WASM component is the production drop-in for the *same* contract;
+this JS runtime is both the executable spec and a today-working browser path.
