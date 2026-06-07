@@ -34,6 +34,7 @@
     "@sveltejs/adapter-cloudflare": "^7.2.8",
     "@sveltejs/kit": "^2.60.1",
     "@sveltejs/vite-plugin-svelte": "^7.1.2",
+    "@tailwindcss/postcss": "^4.3.0",
     "@vitest/coverage-v8": "^4.1.4",
     "autoprefixer": "^10.5.0",
     "bpmn-js": "^18.16.1",

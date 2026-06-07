@@ -294,13 +294,6 @@ function getStoredDid(): string | null {
 		return null;
 	}
 }
-function getStoredCredentialId(): string | null {
-	try {
-		return localStorage?.getItem(CREDENTIAL_STORAGE_KEY) ?? null;
-	} catch {
-		return null;
-	}
-}
 
 function base64urlEncode(buffer: ArrayBuffer): string {
 	const bytes = new Uint8Array(buffer);
@@ -330,16 +323,12 @@ export async function signInWithPasskeyCacao(
 		return { status: 'error', reason: 'WebAuthn unavailable in this environment.' };
 	}
 	const challenge = crypto.getRandomValues(new Uint8Array(32));
-	const storedCredId = getStoredCredentialId();
 	const credential = (await navigator.credentials.get({
 		publicKey: {
 			challenge,
 			rpId: APEX_RP_ID,
 			timeout: 60_000,
 			userVerification: 'preferred',
-			allowCredentials: storedCredId
-				? [{ type: 'public-key', id: base64urlDecodeToBytes(storedCredId) }]
-				: [],
 			extensions: prfEvalExtension(accountPrfSalt(APEX_RP_ID)),
 		},
 	})) as PublicKeyCredential | null;
@@ -370,16 +359,6 @@ export async function signInWithPasskeyCacao(
 		...overrides,
 	};
 	return establishCacaoSession(prfSecret, getStoredDid(), credentialId, deps);
-}
-
-function base64urlDecodeToBytes(s: string): ArrayBuffer {
-	s = s.replace(/-/g, '+').replace(/_/g, '/');
-	while (s.length % 4) s += '=';
-	const binary = atob(s);
-	const out = new Uint8Array(binary.length);
-	for (let i = 0; i < binary.length; i++) out[i] = binary.charCodeAt(i);
-	// Return a concrete ArrayBuffer (a valid WebAuthn BufferSource for `id`).
-	return out.buffer.slice(out.byteOffset, out.byteOffset + out.byteLength);
 }
 
 /** Re-derive a session key from a known ARK (used in tests + recovery paths). */
