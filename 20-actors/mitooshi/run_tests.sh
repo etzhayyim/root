@@ -21,6 +21,7 @@ SUITES=(
   "methods/test_synthesize.py"
   "methods/test_horizon.py"
   "cells/test_state_machines.py"
+  "viz/test_build_forecast_viz.py"
   "test_learning_loop.py"
   "test_continual_learning.py"
 )
