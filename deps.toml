@@ -6657,7 +6657,7 @@ non_goals_immutable_r0_r7 = [
 phased_rollout_r0_r7 = [
   "Phase 0 (THIS ADR) = subrepo import + adr/README.md row + CLAUDE.md Status row 62 + Layout entry + deps.toml entries; zero code change under 40-engine/kotoba/",
   "Phase 1 = kotoba-store + kotoba-core + Charter Rider applied + SDK block_store shim shadow mode 30d ≥99.9% byte-equality vs ipfs-pinner",
-  "Phase 2 = kotoba-kqe 4-index arrangement + kotoba-graph Commit DAG + second L1 projection; tonbo retire window 30d",
+  "Phase 2 = kotoba-kqe 4-index arrangement + kotoba-graph Commit DAG + second L1 projection; tonbo retire window closed and 50-infra/tonbo pruned on 2026-06-07",
   "Phase 3 = kotoba-kse replaces NATS bridges + kotoba-net libp2p + kotoba-dht",
   "Phase 4 = kotoba-store-web browser IndexedDB (baien edge-target ≤200 MB heap)",
   "Phase 5 = kotoba-auth + kotoba-crypto + kotoba-signal + kotoba-ingest with bit-identical wire-format gate D6",
@@ -6670,7 +6670,6 @@ existing_cold_backups_no_deletion_authorized_by_this_adr = [
   "50-infra/nats-jetstream-kv-resp/ (Phase 3 cold backup)",
   "50-infra/nats-jetstream-objectstore-s3/ (Phase 3 cold backup)",
   "50-infra/nats-tiered-storage/ (Phase 3 cold backup)",
-  "50-infra/tonbo/ (Phase 2 retire window)",
   "50-infra/etzhayyim-xrpc-proxy/ (Phase 6 cold backup)",
 ]
 
@@ -10201,4 +10200,17 @@ adr = "2606071300"
 kind = "github-actions-workflow"
 status = "shipped"
 description = "Automatically squash and merge Dependabot pull requests once all CI status checks successfully pass."
-\n[[adrs]]\nid = "2606081500"\ntitle = "Kotoba ERP and Salesforce CRM Prototype in PyWasm"\nstatus = "accepted"\nstatus_note = "Implements SAP (FI/MM/SD) and Salesforce (CRM) domain models in PyWasm with true KQE Read/Write API integration and KSE event orchestration."\npath = "90-docs/adr/2606081500-kotoba-erp-crm-prototype-pywasm.md"\nadr = ["2606081500", "2605262130", "2605312345"]\n\n[[modules]]\npath = "60-apps/kotoba-erp"\nadr = "2606081500"\nkind = "app"\nstatus = "shipped"\ndescription = "SAP-scale ERP and Salesforce CRM prototype on Kotoba PyWasm."\n
+[[adrs]]
+id = "2606081500"
+title = "Kotoba ERP and Salesforce CRM Prototype in PyWasm"
+status = "accepted"
+status_note = "Implements SAP (FI/MM/SD) and Salesforce (CRM) domain models in PyWasm with true KQE Read/Write API integration and KSE event orchestration."
+path = "90-docs/adr/2606081500-kotoba-erp-crm-prototype-pywasm.md"
+adr = ["2606081500", "2605262130", "2605312345"]
+
+[[modules]]
+path = "60-apps/kotoba-erp"
+adr = "2606081500"
+kind = "app"
+status = "shipped"
+description = "SAP-scale ERP and Salesforce CRM prototype on Kotoba PyWasm."

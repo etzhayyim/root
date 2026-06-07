@@ -143,7 +143,7 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 | kataribe 語部 | press + publishing + translation | 🟡 R0 | 2605263600 | 05-26 |
 | kokoro 心 | mental health support (NOT clinical psych) | 🟡 R0 | 2605263700 | 05-26 |
 | shidemori 死出守 | memorial + cemetery (FINAL gap-closure) | 🟡 R0 | 2605263800 | 05-26 |
-| ossekai 御節介 | info-arbitrage + Wellbecoming-nudge (AT Proto) | 🟡 R0 | 2605264000 | 05-26 |
+| ossekai 御節介 | info-arbitrage + Wellbecoming-nudge (AT Proto) | 🟢 R2 | 2605264000 | 05-26 |
 | tsukuroi 繕い | authorized vuln-remediation patch-proposer (akuma sibling; propose-only) | 🟡 R0 | 2605291500 | 05-29 |
 | danjo 弾正 | public-accountability oversight — ingests JP 国会会議録/予算書/政府調達 into kotoba EAVT, emits non-adjudicating discrepancy observations (censor's eye, no sword) | 🟡 R0 | 2605301600 | 05-30 |
 | tadori 辿 | authorized on-chain tx tracing + actor attribution (kotoba-EAVT-native; malak/ipaddress/yabai → kotoba migration) | 🟡 R0 | 2605301400 | 05-30 |
@@ -155,7 +155,7 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 | kurashimori 暮らし守 | citizen consumer-protection CONCIERGE (国民生活センター相当) — クーリングオフ/返金/エスカレーション; default self-submit; UPL + no-取立 | 🟡 R0 | 2605312500 | 05-31 |
 | haraedo 祓戸 | global bulky-waste (粗大ゴミ) disposal — two-sided citizen intake + operator logistics (cluster/配車/route/facility); worldwide facility registry; no-gig | 🟡 R0 | 2606010200 | 05-31 |
 | kizashi 兆 | non-invasive multimodal body-scan / sign-sensing instrument layer (kizashi senses → mitate diagnoses → iyashi treats); non-diagnostic, medical-device boundary, anti-pseudoscience | 🟡 R0 | 2605312700 | 05-31 |
-| tsumugi 紡ぎ | Engi Knowledge Graph intel weaver — Spirit-in-Physics over public power-entities + their 縁 to surface 取-concentration routed to release; power-only, edge-primary karma. **+ diachronic historical-influence weave** (ADR-2606061500): past humanity as latent influence nodes (YHWH/Jesus/Buddha as influence, never truth-claim/voice), mirror-only + non-eschatological + edge-primary + temporal-DAG; 79-node/125-縁 seed (11/11 eras, 17/17 streams), coverage tool + G7-gated Wikidata-P737/Pantheon live ingest; 25 tests green | 🟡 R0 | 2606011800 / 2606061500 | 06-07 |
+| tsumugi 紡ぎ | Engi Knowledge Graph intel weaver — Spirit-in-Physics over public power-entities + their 縁 to surface 取-concentration routed to release; power-only, edge-primary karma. **+ diachronic historical-influence weave** (ADR-2606061500): past humanity as latent influence nodes (YHWH/Jesus/Buddha as influence, never truth-claim/voice), mirror-only + non-eschatological + edge-primary + temporal-DAG; 79-node/125-縁 seed (11/11 eras, 17/17 streams), coverage tool + G7-gated Wikidata-P737/Pantheon live ingest; 25 tests green | 🟢 R2 | 2606011800 / 2606061500 | 06-07 |
 | okaimono 御買物 | charter-clean inversion of Amazon — provisioning commons in 3 rings (commons-first / internal SBT↔SBT economy / external data-only catalog); member-principal checkout, never the buyer | 🟢 R0+R1+R2+R3 | 2606012100 | 06-01 |
 | watatsuna 綿津綱 | world submarine-cable KG — cable systems/stations/segments/faults into kotoba; surfaces chokepoint SPOF routed to redundancy+repair (resilience map, never target-list); 敷設 robotics plan | 🟡 R0+R1+R2 | 2606012600 | 06-01 |
 | funadaiku 船大工 | zero-emission autonomous CARGO-SHIP building — grand-block shipyard + ShipHydro GNC; wind/solar/H₂-fuel-cell/battery powertrain (no fossil); Nagi 凪 class; voyage + autonomous-voyage sims | 🟡 R0 | 2606013400 | 06-01 |
@@ -176,7 +176,7 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 | kamado 竈 | closed-loop carbon refining + fossil-refinery decommission/transition + observation — fossil-virgin-crude structurally unrepresentable; net≤0 only via closed-loop feedstock; supersedes legacy oil-refining | 🟡 R0 | 2606051500 | 06-05 |
 | mitooshi 見通し | probabilistic forecasting observatory + leak-free fact→error→weight→learn loop on the append-only Datom log; distribution-only, non-speculative (never trades); skill-honest scoring; baien-federated | 🟡 R0 | 2606051800 | 06-05 |
 | ake 朱 | community-edit membrane — Wikipedia collaborative-correction stance, charter-fitted; member-signed proposals appended to Datom log; Murakumo ORES-analogue routes (auto/vote/Council), never decides; permissioned not anonymous | 🟡 R0 | 2606052100 | 06-05 |
-| fuchi 扶持 | mission-aligned maintainer sustenance allocator — charter-clean inverse of a VC fund; in-kind sustenance + commons-asset access (cash≡0, no equity/ROI/exit); tenure-weighted shares; live legs gated | 🟡 R0+R1 | 2606052300 | 06-05 |
+| fuchi 扶持 | mission-aligned maintainer sustenance allocator — charter-clean inverse of a VC fund; in-kind sustenance + commons-asset access (cash≡0, no equity/ROI/exit); tenure-weighted shares; live legs gated | 🟢 R2 | 2606052300 | 06-05 |
 | tasuke 助 | free cybercrime-victim-support membrane — walks a JP online-crime victim 相談→回復, generates ready-to-use 被害届/組戻し依頼/復旧手順; all free, member-authored/submitted, no paid counsel | 🟡 R0 | 2606060900 | 06-05 |
 | kawaraban 瓦版 | news MEDIUM — kotoba-wasm mirror of real news media (面 sections, headline + link-out, never the body/verdict) + actor-to-actor wire (each actor's Datom events → 面 + co-mention graph); no ads/personalization/surveillance | 🟡 R0 | 2606061900 | 06-06 |
 | omise 御店 | seller-side storefront commons — Shopify-layer for SBT-gated internal sellers; listings feed okaimono Ring 1; ZERO commission/subscription, USDC+TitheRouter via warifu, member-signed; kotoba-native (promotes legacy JSON-LD scaffold) | 🟢 R0+R1 | 2606071400 | 06-07 |
@@ -218,13 +218,13 @@ etzhayyim/root/
 │                        #   kotoba (storage substrate engine — git submodule of
 │                        #   github.com/etzhayyim/kotoba; 17 crates Apache-2.0;
 │                        #   subsumes ipfs-pinner / nats-jetstream-* / mst-projector
-│                        #   / lancedb-wasm / tonbo / etzhayyim-xrpc-proxy /
+│                        #   / lancedb-wasm / etzhayyim-xrpc-proxy /
 │                        #   libsignal wrappers; kotoba-llm local-inference
 │                        #   constitutionally disabled per ADR-2605215000 +
 │                        #   Charter Rider §2(i); ADR-2605262130 Phase 0)
 ├── 50-infra/            # SEEDED: geth-private, holochain, ipfs, blockscout,
 │                        #   k8s/atproto-pds, k8s/murakumo-kubelet (migrated 2026-05-17),
-│                        #   lancedb-wasm, yata, tonbo,
+│                        #   lancedb-wasm, yata,
 │                        #   nats-tiered-storage, nats-jetstream-{objectstore-s3, kv-resp},
 │                        #   sveltejs-adapter-wasm, spin-tinygo-flight
 │                        # SUBSTRATE (ADR-2605171800 + 2605172100 + 2605172200):

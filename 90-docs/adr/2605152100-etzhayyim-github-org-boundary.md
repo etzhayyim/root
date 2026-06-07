@@ -41,7 +41,7 @@ superseded_by: []
 現状 `github.com/etzhayyim` org には:
 
 - 完全 open 名乗りの repo (Apache 2.0): `etzhayyim-project-open-{lexicon,bpmn,isic,jpn-gov,banking}`, `etzhayyim-project-public-{global,malak}`
-- 中間的 open infrastructure: `wproto`, `at-client`, `signal-client`, `kotodama-go`, `etzhayyim-cli`, `kami-engine-sdk`, `effect-cypher`, `lancedb-wasm`, `yata`, `watashi`, `tonbo`, `nats-tiered-storage`, `nats-jetstream-{objectstore-s3,kv-resp}`, `sveltejs-adapter-wasm`, `spin-tinygo-flight`, `cdn`, `resources`
+- 中間的 open infrastructure: `wproto`, `at-client`, `signal-client`, `kotodama-go`, `etzhayyim-cli`, `kami-engine-sdk`, `effect-cypher`, `lancedb-wasm`, `yata`, `watashi`, `nats-tiered-storage`, `nats-jetstream-{objectstore-s3,kv-resp}`, `sveltejs-adapter-wasm`, `spin-tinygo-flight`, `cdn`, `resources`
 - vendor-internal (proprietary): `etzhayyim-root` (mono-repo), `_working/etzhayyim-revenue/*`, `etzhayyim-performer-*`, business app projects (`lawfirm`, `vault`, `kaisya`, `microsoft`, `accounts`, `finance`, `billing`, `bengoshi`, `bunken`)
 
 混在の問題:
