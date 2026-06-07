@@ -25,7 +25,7 @@ with at least:
 PII-sensitivity: TRUE by default — Sonar TXT records routinely contain
 user email artifacts (e.g. ACME / SPF / DKIM contacts that bleed
 operator contact info into TXT). The redacted view (via
-``pymagatama.organism.sensors.pii_filter.redact_text``) is what the
+``kotodama.organism.sensors.pii_filter.redact_text``) is what the
 sensor + corpus assembler MUST consume; original bytes stay in the
 annex.
 

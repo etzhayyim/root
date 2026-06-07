@@ -74,7 +74,7 @@ These three questions are blockers for activation, not for ADR / scaffold ratifi
 
 ## 1. Cell location and shape
 
-- Path: `20-actors/magatama/cells/religious_marriage/`
+- Path: `40-engine/kotoba/crates/kotoba-kotodama/cells/religious_marriage/`
 - Files: `cell.py` (LangGraph Pregel graph) + `__init__.py`.
 - Tier: B (Per-Domain) per `cells/README.md` taxonomy.
 - Murakumo node (leader): `manasseh` (religious-corp tribe-name convention — to be assigned in `50-infra/murakumo/fleet.toml` if cell is activated; sibling of `ephraim` since both are member-relational cells).
@@ -196,4 +196,4 @@ This cell's gate is **strictly more demanding** than P1's: it requires both a Co
 - ADR-2605192300 (Council 5-of-7 Safe attestation procedure)
 - ADR-2605172600 (membership ritual — default vows text reference)
 - `COUNCIL-BOOTSTRAP-RFP.md` (Council Seat 2-5 RFP — activation gate depends on this completing)
-- `20-actors/magatama/cells/member_registry/cell.py` (P1 gate pattern)
+- `40-engine/kotoba/crates/kotoba-kotodama/cells/member_registry/cell.py` (P1 gate pattern)

@@ -133,16 +133,16 @@ def test_check_governance_no_file(tmp_path):
 
 def test_check_governance_default_gov(tmp_path):
     cfg = {"nanoid": "abc123", "governance": {"raci": "responsible", "classification": "internal", "complianceFrameworks": []}}
-    (tmp_path / "magatama.jsonld").write_text(json.dumps(cfg))
-    nanoid, gov_unique = _check_governance(tmp_path / "magatama.jsonld")
+    (tmp_path / "kotodama.jsonld").write_text(json.dumps(cfg))
+    nanoid, gov_unique = _check_governance(tmp_path / "kotodama.jsonld")
     assert nanoid == "abc123"
     # default governance is not unique
 
 
 def test_check_governance_unique_gov(tmp_path):
     cfg = {"nanoid": "abc123", "governance": {"roles": [{"role": "operator", "did": "did:plc:xxx"}]}}
-    (tmp_path / "magatama.jsonld").write_text(json.dumps(cfg))
-    nanoid, gov_unique = _check_governance(tmp_path / "magatama.jsonld")
+    (tmp_path / "kotodama.jsonld").write_text(json.dumps(cfg))
+    nanoid, gov_unique = _check_governance(tmp_path / "kotodama.jsonld")
     assert nanoid == "abc123"
     assert gov_unique is True
 
@@ -161,7 +161,7 @@ def test_collect_single_app(tmp_path):
     (app_dir / "src" / "app.ts").write_text(
         'MATCH (n:Invoice) RETURN n\ncom.etzhayyim.apps.billing.invoice\nfunction cmdProcessPayment() {}\n'
     )
-    (app_dir / "magatama.jsonld").write_text(json.dumps({
+    (app_dir / "kotodama.jsonld").write_text(json.dumps({
         "nanoid": "abc12345",
         "governance": {"roles": [{"role": "operator", "did": "did:web:x"}]}
     }))

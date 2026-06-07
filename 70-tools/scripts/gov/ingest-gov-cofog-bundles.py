@@ -58,11 +58,11 @@ def extract_jurisdiction(bundle_name: str) -> str:
     return "un"
 
 
-def extract_name(bundle_name: str, magatama_data: dict[str, Any]) -> str:
-    if 'profile' in magatama_data and 'displayName' in magatama_data['profile']:
-        return magatama_data['profile']['displayName']
-    if 'name' in magatama_data:
-        return magatama_data['name']
+def extract_name(bundle_name: str, kotodama_data: dict[str, Any]) -> str:
+    if 'profile' in kotodama_data and 'displayName' in kotodama_data['profile']:
+        return kotodama_data['profile']['displayName']
+    if 'name' in kotodama_data:
+        return kotodama_data['name']
     suffix = bundle_name
     if suffix.startswith('etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-'):
         suffix = suffix[len('etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-'):]
@@ -98,20 +98,20 @@ def emit_agency_record(
 
 
 def process_bundle(bundle_dir: Path, created_at: str) -> dict[str, Any] | None:
-    magatama_path = bundle_dir / 'magatama.jsonld'
-    if not magatama_path.exists():
+    kotodama_path = bundle_dir / 'kotodama.jsonld'
+    if not kotodama_path.exists():
         return None
 
     try:
-        with open(magatama_path, 'r') as f:
-            magatama_data = json.load(f)
+        with open(kotodama_path, 'r') as f:
+            kotodama_data = json.load(f)
     except (json.JSONDecodeError, IOError):
         return None
 
     bundle_name = bundle_dir.name
     cofog = extract_cofog_code(bundle_name)
     jurisdiction = extract_jurisdiction(bundle_name)
-    name = extract_name(bundle_name, magatama_data)
+    name = extract_name(bundle_name, kotodama_data)
 
     record = emit_agency_record(name, jurisdiction, cofog, created_at)
     return record

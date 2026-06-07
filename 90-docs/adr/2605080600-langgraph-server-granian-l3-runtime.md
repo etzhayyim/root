@@ -300,7 +300,7 @@ Zeebe timer のコードベース上の BPMN XML は削除せず `status = "cron
 ### pyzeebe からの migration path
 
 ```text
-Phase 1: Kotoba/DatomicCheckpointSaver + Kotoba/DatomicStore 実装 (pymagatama 内)
+Phase 1: Kotoba/DatomicCheckpointSaver + Kotoba/DatomicStore 実装 (kotodama 内)
 Phase 2: LangGraph Server + Granian の Helm chart 作成
          (mitama-udf-pool パターンを踏襲)
 Phase 3: bpmn-dispatcher routing: Zeebe gRPC → /runs HTTP
@@ -336,7 +336,7 @@ Migration: `30-graph/graph-schema/migrations/20260508996000_route_shosha_agent_l
 Smoke verification:
 
 ```bash
-python -m pymagatama.shosha_langgraph_smoke
+python -m kotodama.shosha_langgraph_smoke
 ```
 
 The smoke checks `/bindings` for `routingTarget='langgraph'`, then dispatches

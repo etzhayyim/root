@@ -9,7 +9,7 @@
  * SOURCE OF TRUTH: the ops app surface is 8 methods over 2 collections
  * (`processRun`, `automation`) — see
  * 60-apps/etzhayyim-project-ops/appview/ops-mcp-component/src/app.ts +
- * magatama.jsonld subscribeRepos. PROJECT.jsonld scopes ops to "credits/revenue
+ * kotodama.jsonld subscribeRepos. PROJECT.jsonld scopes ops to "credits/revenue
  * tracking + campaign ROI", so the automation definition is confidential.
  *
  * SPLIT:

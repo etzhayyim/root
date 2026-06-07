@@ -9,13 +9,13 @@ last_verified: 2026-05-27
 priority: 5.5
 axis: tooling
 weight: 0.40
-priority_note: "Closure amendment extending ADR-2605271100 (cycle 47 ADR-2605262500 closure). Cycles 48-51 built the 4-axis registry enforcement matrix that mechanically protects the doc system rules in 90-docs/CLAUDE.md. Each axis follows the same 3-layer pattern (generator+lint / lefthook hook / GitHub Actions workflow) established by cycles 27-30. All 4 axes are now PR-gates with 0 baseline violations across the matrix. Documents the substrate, the 5 reusable patterns extracted from the journey, and the magatama-schema axis-5 deferred follow-on."
+priority_note: "Closure amendment extending ADR-2605271100 (cycle 47 ADR-2605262500 closure). Cycles 48-51 built the 4-axis registry enforcement matrix that mechanically protects the doc system rules in 90-docs/CLAUDE.md. Each axis follows the same 3-layer pattern (generator+lint / lefthook hook / GitHub Actions workflow) established by cycles 27-30. All 4 axes are now PR-gates with 0 baseline violations across the matrix. Documents the substrate, the 5 reusable patterns extracted from the journey, and the kotodama-schema axis-5 deferred follow-on."
 authoritative_for:
   - registry enforcement 4-axis matrix as of cycles 48-51 (2026-05-27)
   - (reserved) / (deferred-rename) marker convention adoption (cycle 46)
   - 4-axis cron deconfliction (:17 / :23 / :29 / :35 spread)
   - 5 reusable patterns from cycles 27-51 journey
-  - magatama-schema axis-5 deferred status + 38-violation survey
+  - kotodama-schema axis-5 deferred status + 38-violation survey
 depends_on:
   - adr-2605271100-adr-2605262500-closure-and-verifier-marker-convention
   - adr-2605262500-robotics-world-data-ingestion-and-usd-pipeline
@@ -145,19 +145,19 @@ adopt:
 - CI installs unconditionally via `pip install`.
 - Operator-friendly without sacrificing CI strictness.
 
-### 5. Magatama-schema axis-5 deferred
+### 5. Kotodama-schema axis-5 deferred
 
-Cycle 52 (this ADR) surveyed `90-docs/_registry/schemas/magatama.schema.json`
-+ the 65 `magatama.jsonld` files across `60-apps/*` (42 in the
+Cycle 52 (this ADR) surveyed `90-docs/_registry/schemas/kotodama.schema.json`
++ the 65 `kotodama.jsonld` files across `60-apps/*` (42 in the
 non-worktree path). **38 of 42 manifests fail validation**:
 
 | Error class | Count | Root cause |
 |---|---|---|
 | `uiType: 'yoro'` not in enum | 26 | Schema enum missing `yoro` (description says it's a legacy value auto-mapped to appview, but enum is too narrow) |
 | `performerType` missing (required) | 7 | Real data bugs — apps missing required field |
-| `@context` const mismatch | 6 | 5 apps use `/ld/magatama/v1`; 1 uses `/magatama/v1` (no infix); schema's const requires `/ns/magatama/v1` |
+| `@context` const mismatch | 6 | 5 apps use `/ld/kotodama/v1`; 1 uses `/kotodama/v1` (no infix); schema's const requires `/ns/kotodama/v1` |
 | `profile.category: 'infrastructure'/'knowledge'/'security'/'image-generation'` | 9 | Schema enum is overly religious-corp specific (government/international/religious/ngo/sport/academic); real data uses business-domain categories |
-| `runtimeType: 'logical' / 'pymagatama-zeebe'` | 4 | Schema enum missing 2 real values |
+| `runtimeType: 'logical' / 'kotodama-zeebe'` | 4 | Schema enum missing 2 real values |
 | `profile.agentType: 'advisory'` | 2 | Schema enum missing `advisory` |
 | `profile.isBot: false` | 2 | Schema has `const: true` but 2 PWAs are not bots |
 
@@ -185,7 +185,7 @@ ratification.
 ### Negative
 - 4 nightly cron jobs + 4 PR-gate workflows + 4 lefthook hooks add
   total ~1.5s pre-commit overhead and ~5 min nightly CI minutes
-- magatama-schema (axis-5) is identified as available substrate but
+- kotodama-schema (axis-5) is identified as available substrate but
   deferred — risk of growing data drift before axis-5 lands
 - Process learning from cycle 51 (3-retry commit dance) documents the
   trailing-whitespace + end-of-file hook interaction with regen output
@@ -193,7 +193,7 @@ ratification.
 ### Deferred (post-cycle-51 candidate list)
 
 1. **CLAUDE.md row #71 update** (🟡 → 🟢 ADR-2605271100 + 2605271200 references)
-2. **Axis-5 magatama-schema** (38-violation survey above → 30-45 min cycle)
+2. **Axis-5 kotodama-schema** (38-violation survey above → 30-45 min cycle)
 3. **PR #287 GitHub Actions live exercise** (passive; next PR triggers)
 4. **Real-network PDS resolve smoke** (needs `pds.etzhayyim.com` access)
 5. **Tier-B actor follow-on** (user direction)
@@ -210,7 +210,7 @@ enforcement matrix) that any ADR can use — its scope is bigger than
 ADR-2605262500's closure. A separate ADR captures the broader scope
 without rewriting history.
 
-### Why not promote magatama-schema axis to PR-gate this cycle?
+### Why not promote kotodama-schema axis to PR-gate this cycle?
 
 **Chose**: defer to a future cycle.
 

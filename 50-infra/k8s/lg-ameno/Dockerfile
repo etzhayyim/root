@@ -1,10 +1,10 @@
 # lg-ameno — Container image for the Path-B ameno headless daemon.
 #
-# Wraps pymagatama.projects.ameno (Python LangGraph + FastAPI) so the
+# Wraps kotodama.projects.ameno (Python LangGraph + FastAPI) so the
 # same StateGraph the svelte browser appview and TS daemon run can also
 # deploy as a K3s pod on the Murakumo Mac-mini fleet.
 #
-# Build context: repo root (so the COPY can reach 20-actors/magatama/py).
+# Build context: repo root (so the COPY can reach 40-engine/kotoba/crates/kotoba-kotodama/py).
 #
 #   docker build -f 50-infra/k8s/lg-ameno/Dockerfile \
 #     -t ghcr.io/etzhayyim/lg-ameno:$(git rev-parse --short HEAD) .
@@ -25,7 +25,7 @@ WORKDIR /app
 
 # Minimal runtime deps. uvicorn is what server.py drives; the rest are
 # transitive but worth pinning at the layer boundary so cache stays
-# stable across pymagatama edits.
+# stable across kotodama edits.
 RUN apt-get update \
  && apt-get install -y --no-install-recommends ca-certificates \
  && rm -rf /var/lib/apt/lists/* \
@@ -38,9 +38,9 @@ RUN apt-get update \
       "langchain-core>=0.3,<1" \
       "pydantic>=2.7,<3"
 
-# Copy the pymagatama package (project source layout).
-COPY 20-actors/magatama/py /opt/pymagatama
-RUN pip install --no-cache-dir --no-deps -e /opt/pymagatama
+# Copy the kotodama package (project source layout).
+COPY 40-engine/kotoba/crates/kotoba-kotodama/py /opt/kotodama
+RUN pip install --no-cache-dir --no-deps -e /opt/kotodama
 
 # Default home — overridable via env at pod boundary so the volume mount
 # can route this to a PVC.
@@ -57,7 +57,7 @@ EXPOSE 8080
 # pod-spec securityContext (runAsUser=65532, fsGroup=65532) stays uniform.
 USER 65532:65532
 
-# Equivalent to `python -m pymagatama.projects.ameno` but without the
+# Equivalent to `python -m kotodama.projects.ameno` but without the
 # `-m` indirection so signal handling routes cleanly to uvicorn.
-ENTRYPOINT ["uvicorn", "pymagatama.projects.ameno.server:app", \
+ENTRYPOINT ["uvicorn", "kotodama.projects.ameno.server:app", \
             "--host", "0.0.0.0", "--port", "8080", "--log-level", "info"]

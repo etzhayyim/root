@@ -11,7 +11,7 @@
           "type": "object",
           "properties": {
             "authorization": { "type": "string", "description": "Bearer token or raw JWT" },
-            "xMagatamaVerified": { "type": "boolean", "description": "Internal service binding flag" },
+            "xKotodamaVerified": { "type": "boolean", "description": "Internal service binding flag" },
             "xetzhayyimOrgId": { "type": "string", "description": "Org ID for internal requests" }
           }
         }

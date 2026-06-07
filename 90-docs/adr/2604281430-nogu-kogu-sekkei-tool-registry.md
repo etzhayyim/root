@@ -106,7 +106,7 @@ ERC725 root identity (ADR-0074) must be provisioned via `POST /internal/provisio
 
 - **dailyPulse BPMNs** (timer-start R/P1D) activate automatically in Zeebe. First fires expected at next midnight UTC after deploy.
 - **XRPC calls** to `com.etzhayyim.apps.{nogu,kogu,sekkei}.*` route via `dispatcher.etzhayyim.com:8080/xrpc/{nsid}` per ADR-0056.
-- **Writes** go directly to Kotoba/Datomic via `generic.db.insert` primitives in pymagatama.
+- **Writes** go directly to Kotoba/Datomic via `generic.db.insert` primitives in kotodama.
 - **`write_table_allowlist`** in `vertex_bpmn_lexicon_binding` is NULL (unrestricted) for all 9 bindings — tighten per-table when domain writes are stabilized.
 - **ERC725** not yet provisioned — DID doc serves `did:web:{name}.etzhayyim.com` AT facade only. Upgrade path: call `provision-root-identity` + update deps.toml `erc725_root_pending = false` + add `erc725_did`.
 

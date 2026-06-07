@@ -17,11 +17,11 @@ migration target:did:web:etzhayyim.com
 ## Architecture
 
 - **Runtime**: TS Native edge proxy (`worker/src/app.ts` → `wrangler.jsonc`)
-- **Business logic**: `20-actors/magatama/py/src/pymagatama/kms/handlers.py` (L7 pod)
+- **Business logic**: `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/kms/handlers.py` (L7 pod)
 - **Signing key**: ES256 EC P-256, injected as K8s secret `KMS_SIGNING_KEY_PEM`
 - **Dev mode**: unsigned HS256 JWT (when `KMS_SIGNING_KEY_PEM` is absent)
 - **Storage**: RisingWave `vertex_kms_access_policy`
-- **Migration**: `20-actors/magatama/py/src/pymagatama/kms/migrations/0001_init.sql`
+- **Migration**: `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/kms/migrations/0001_init.sql`
 
 ## XRPC Methods (5)
 

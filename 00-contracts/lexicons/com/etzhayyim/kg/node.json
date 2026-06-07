@@ -14,7 +14,7 @@
             "type": "string",
             "format": "uri",
             "maxLength": 1024,
-            "description": "Stable identifier for the node. Examples: at-uri (at://did:plc:.../com.etzhayyim.kg.node/<rkey>), did (did:web:etzhayyim.com), urn (urn:adr:2605190900), http(s) URL, or app-defined token (e.g. 'adr:2605190900', 'module:20-actors/magatama')."
+            "description": "Stable identifier for the node. Examples: at-uri (at://did:plc:.../com.etzhayyim.kg.node/<rkey>), did (did:web:etzhayyim.com), urn (urn:adr:2605190900), http(s) URL, or app-defined token (e.g. 'adr:2605190900', 'module:40-engine/kotoba/crates/kotoba-kotodama')."
           },
           "nodeType": {
             "type": "string",

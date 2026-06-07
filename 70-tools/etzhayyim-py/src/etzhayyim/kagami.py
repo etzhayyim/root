@@ -1,6 +1,6 @@
 """kagami (鏡) — Mirror/diff analysis between workspace state and deployed state.
 
-Compares local magatama.jsonld definitions against the live PDS registry.
+Compares local kotodama.jsonld definitions against the live PDS registry.
 Shows drift between local and deployed actors.
 """
 
@@ -43,7 +43,7 @@ def _load_local_actors(ws: Path) -> dict[str, dict]:
     if not projects_dir.exists():
         return {}
     actors = {}
-    for jsonld in projects_dir.rglob("magatama.jsonld"):
+    for jsonld in projects_dir.rglob("kotodama.jsonld"):
         data = _read_jsonld(jsonld)
         nanoid = data.get("nanoid", "")
         if nanoid:

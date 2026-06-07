@@ -63,7 +63,7 @@ class _State(TypedDict, total=False):
 # Super-step 1: load all panels
 async def _step_load_panels(state: _State) -> dict[str, Any]:
     work_rkey = state.get("work_rkey") or _DEFAULT_WORK
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     import asyncio
     client = get_kotoba_client()
     try:
@@ -197,7 +197,7 @@ async def _step_write_back(state: _State) -> dict[str, Any]:
     metrics = state.get("metrics") or {}
     env_metrics = state.get("env_metrics") or {}
 
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     import asyncio
     client = get_kotoba_client()
     written = {"character": 0, "environment": 0}

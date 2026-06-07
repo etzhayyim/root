@@ -15,7 +15,7 @@ export default {
         actor: "did:web:shiharai.etzhayyim.com",
         nanoid: env.APP_NANOID ?? "sh1h4r41",
         execution: "edge-proxy+agentgateway-mcp+langserver",
-        businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/shiharai.py",
+        businessLogic: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/shiharai.py",
         bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/shiharai",
       });
     }

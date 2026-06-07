@@ -25,4 +25,4 @@ The endpoint accepts the adherent's OWN description and returns intake status â€
 - **substrate-boundary**: substrate access via `@etzhayyim/sdk` only.
 
 Lexicon: `com.etzhayyim.chigiri.legalAidMatter`. Cell:
-`20-actors/magatama/cells/chigiri_legal_aid_clinic/`.
+`40-engine/kotoba/crates/kotoba-kotodama/cells/chigiri_legal_aid_clinic/`.

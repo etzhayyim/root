@@ -49,7 +49,7 @@ R2 gated (return 503 `MitateR2GatedLexicon`):
 
 ```
 60-apps/mitate-pwa/
-├── magatama.jsonld           # app metadata + constitutional gates registry
+├── kotodama.jsonld           # app metadata + constitutional gates registry
 ├── wrangler.jsonc            # CF Worker config; routes mitate.etzhayyim.com/*
 ├── package.json              # typecheck + vitest
 ├── tsconfig.json

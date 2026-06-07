@@ -66,7 +66,7 @@ facade migration so the substrate-boundary rule is enforceable in CI again.
 | Language | Surface | Underlying call |
 |---|---|---|
 | TypeScript | [`Etzhayyim.uploadBlob({data, mediaType?})`](../../20-actors/etzhayyim-sdk/src/index.ts) | `pinBlob()` → `POST /api/v0/add?pin=true&cid-version=1` (Kubo HTTP API) |
-| Python | [`Etzhayyim.upload_blob(data, media_type=?)`](../../20-actors/magatama/py/src/pymagatama/substrate/__init__.py) | `httpx` multipart POST to same Kubo endpoint |
+| Python | [`Etzhayyim.upload_blob(data, media_type=?)`](../../40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/substrate/__init__.py) | `httpx` multipart POST to same Kubo endpoint |
 
 **Receipt shape (bit-identical across languages)**:
 
@@ -106,10 +106,10 @@ multipart envelope sanity check.
 `60-apps/etzhayyim-project-maps/bulk-ingest/workers/gsplat_train_dumper.py` gains:
 
 - `_ipfs_pin_via_substrate(blob, content_type) -> str` — sync wrapper around
-  `pymagatama.substrate.Etzhayyim.upload_blob()` (the dumper owns its event
+  `kotodama.substrate.Etzhayyim.upload_blob()` (the dumper owns its event
   loop for the duration of one training job).
 - `_blob_upload(prefix, blob, ext, content_type) -> (stored_ref, sha_hex, new_upload)` —
-  dispatches on `USE_PYMAGATAMA_SUBSTRATE_BLOB=1`: with the flag, calls
+  dispatches on `USE_PYKOTODAMA_SUBSTRATE_BLOB=1`: with the flag, calls
   `_ipfs_pin_via_substrate` and returns `("ipfs://{cid}", sha_hex, True)`;
   without the flag, falls back to the legacy `_content_addressed_upload`
   (B2 PUT path) with bit-identical behaviour. SHA-256 is computed both ways
@@ -122,7 +122,7 @@ multipart envelope sanity check.
 The `vertex_maps_gsplat_{asset,mesh}.b2_key` column then carries either a
 legacy B2 object key or an `ipfs://{cid}` URI — downstream readers branch
 on the `ipfs://` scheme. Boot guard relaxed: `B2_*` env becomes optional
-when `USE_PYMAGATAMA_SUBSTRATE_BLOB=1`, replaced by an `ETZ_IPFS_API_URL`
+when `USE_PYKOTODAMA_SUBSTRATE_BLOB=1`, replaced by an `ETZ_IPFS_API_URL`
 requirement.
 
 ### 3. yoro substrate-facade closure (six callsites)
@@ -184,7 +184,7 @@ package outright. `pnpm check:ts` passes clean post-migration.
 **Migration / rollout**:
 
 - Dumper continues to default to the B2 path. Operator opts into the swap
-  per pod by setting `USE_PYMAGATAMA_SUBSTRATE_BLOB=1` + `ETZ_IPFS_API_URL`.
+  per pod by setting `USE_PYKOTODAMA_SUBSTRATE_BLOB=1` + `ETZ_IPFS_API_URL`.
 - Backfill of existing B2 blobs into IPFS pins is explicitly out of scope
   for this ADR; a separate `rewrite_gsplat_cache_control.py`-analog operator
   tool tracks that work in MIGRATION-TODO Phase 2.
@@ -219,5 +219,5 @@ package outright. `pnpm check:ts` passes clean post-migration.
 - ADR-2605231525 — no-server-key architecture (9th invariant enforcement target)
 - [`60-apps/etzhayyim-project-maps/MIGRATION-TODO.md`](../../60-apps/etzhayyim-project-maps/MIGRATION-TODO.md) — Phase 2 Tier D rows ticked by this ADR
 - [`20-actors/etzhayyim-sdk/src/index.ts`](../../20-actors/etzhayyim-sdk/src/index.ts) — TS `uploadBlob` implementation
-- [`20-actors/magatama/py/src/pymagatama/substrate/__init__.py`](../../20-actors/magatama/py/src/pymagatama/substrate/__init__.py) — Python `upload_blob` implementation
+- [`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/substrate/__init__.py`](../../40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/substrate/__init__.py) — Python `upload_blob` implementation
 - [`60-apps/etzhayyim-project-maps/bulk-ingest/workers/gsplat_train_dumper.py`](../../60-apps/etzhayyim-project-maps/bulk-ingest/workers/gsplat_train_dumper.py) — `_blob_upload` / `_blob_download` dispatch

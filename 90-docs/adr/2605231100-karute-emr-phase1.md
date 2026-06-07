@@ -142,7 +142,7 @@ All three axes resolve to etzhayyim → `etzhayyim/root` is the correct home.
 ## Rollout
 
 1. **This commit** — Actor manifest + 7 inner-type lexicons + 13 XRPC lexicons + ADR + Svelte SuperApp UI scaffold.
-2. **Next: SDK seam + Phase 1 pipelines** — `@etzhayyim/sdk` `encryptedWrite` / `encryptedRead` need karute-specific tightenings (recipient role enforcement, public-meta projector). Pipeline implementation lives in `20-actors/magatama/cells/` (Pregel cells), not the actor manifest itself.
+2. **Next: SDK seam + Phase 1 pipelines** — `@etzhayyim/sdk` `encryptedWrite` / `encryptedRead` need karute-specific tightenings (recipient role enforcement, public-meta projector). Pipeline implementation lives in `40-engine/kotoba/crates/kotoba-kotodama/cells/` (Pregel cells), not the actor manifest itself.
 3. **Then: lefthook `karute-phi-plaintext-guard`** — diff-grep that blocks any plaintext PHI write.
 4. **Phase 2** — pharmacy dispense flow, consent-capability ADR + iryo billing bridge, SOAP-assist on-device LLM, patient portal (read-only).
 5. **Phase 3** — 在宅医療 (home care) episode, telehealth video, second-opinion marketplace.

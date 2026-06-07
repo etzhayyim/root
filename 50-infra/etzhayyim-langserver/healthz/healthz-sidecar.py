@@ -2,7 +2,7 @@
 """healthz-sidecar — minimal HTTP liveness responder for an LSP daemon.
 
 Spawned in the background by ``run-langserver.sh``. Each LSP gets one sidecar
-on ``<lsp_port> + 100`` (the 15600-15699 range, mirroring the magatama cell
+on ``<lsp_port> + 100`` (the 15600-15699 range, mirroring the kotodama cell
 healthz allocation convention).
 
 Probes performed on each ``GET /healthz``:

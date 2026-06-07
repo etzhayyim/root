@@ -19,7 +19,7 @@
 - MCP protocol: JSON-RPC 2.0 over `/api/grpc`
 - messaging endpoint: `https://{nanoid}.etzhayyim.com/api/messages/send`
 - agent manifest endpoint: `/.well-known/agent.json`
-- KV store: magatama key-value store `default`
+- KV store: kotodama key-value store `default`
   - seed key: `division:default`
   - message key prefix: `messages:*`
 
@@ -27,7 +27,7 @@
 
 - `main.go`
 - `go.mod` / `go.sum`
-- `magatama.toml`
+- `kotodama.toml`
 - `wit/world.wit`
 - `deploy config`
 - `<slug>.jsonld`
@@ -41,4 +41,4 @@
 ## Notes
 
 - `/api/mcp` path is not exposed; MCP is served via `/api/grpc` to match endpoint convention.
-- `deploy config` namespace is `magatama-runtime` (no `default` namespace usage).
+- `deploy config` namespace is `kotodama-runtime` (no `default` namespace usage).

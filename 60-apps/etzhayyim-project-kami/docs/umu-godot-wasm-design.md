@@ -28,5 +28,5 @@ WIT 前提に寄せ、単一の wasm コンポーネントで配信できる構�
 
 ## 参考
 
-- `60-apps/etzhayyim-project-games` の既存ルート（`k8s/http-routes.yaml` / `magatama.toml` / `wadm`) を合わせる
+- `60-apps/etzhayyim-project-games` の既存ルート（`k8s/http-routes.yaml` / `kotodama.toml` / `wadm`) を合わせる
 - wasm deploy standards の名前空間/ルールに準拠

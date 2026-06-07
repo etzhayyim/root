@@ -22,7 +22,7 @@ ADR-2605072000 business model ③ of 5.
 - DID: `did:web:outreach.etzhayyim.com`
 - Nanoid: `otch0001`
 - CF Worker: `60-apps/etzhayyim-project-outreach/appview/outreach-otch0001/`
-- Python worker: `20-actors/magatama/py/src/pymagatama/outreach_worker_main.py`
+- Python worker: `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/outreach_worker_main.py`
 - BPMN: `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/outreach/`
 
 ## Flow
@@ -73,7 +73,7 @@ ADS_XRPC_URL        ads.etzhayyim.com base (default https://adsm4d5c.etzhayyim.c
 ## Start worker
 
 ```bash
-cd 20-actors/magatama/py
-python -m pymagatama.outreach_worker_main
-# or: magatama-outreach-worker
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
+python -m kotodama.outreach_worker_main
+# or: kotodama-outreach-worker
 ```

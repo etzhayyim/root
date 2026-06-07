@@ -23,14 +23,14 @@ lifecycle, XRPC invocation, Shannon analysis, coverage, kaizen, projector, etc.
 
 The platform's execution layer has fully converged on Python:
 - All production LangGraph apps are Python (animeka, terminal-agent, kiyo, …).
-- `pymagatama` (`20-actors/magatama/py/`) provides asyncpg, LangGraph, NATS,
+- `kotodama` (`40-engine/kotoba/crates/kotoba-kotodama/py/`) provides asyncpg, LangGraph, NATS,
   FastAPI, Granian, httpx — a complete Python SDK.
 - ADR-2605080600 standardised LangGraph Server + Granian as the L3 runtime.
 - Zero LangGraph TypeScript apps are in production.
 
 Maintaining a Go CLI that wraps a Python execution layer creates an impedance
 mismatch: Go must shell-out or make HTTP calls for anything that touches
-LangGraph, pymagatama, or NATS. Agentic commands (`actors shinka`,
+LangGraph, kotodama, or NATS. Agentic commands (`actors shinka`,
 `coverage actors heal`, `kaizen --fix`) cannot be expressed cleanly in Go
 without duplicating or proxying Python logic.
 
@@ -81,7 +81,7 @@ hardcoded strings.
 5. `deploy` / `build` — heavier; port after lighter commands stabilise. ✓
 6. `actors shinka` — parallel async httpx to Murakumo/Ollama + applyWrites. ✓
 7. `kaizen --fix` — builds a codex prompt and pipes to `codex exec -`. ✓
-8. `coverage actors heal` — parallel ThreadPoolExecutor + LLM healing of magatama.jsonld. ✓
+8. `coverage actors heal` — parallel ThreadPoolExecutor + LLM healing of kotodama.jsonld. ✓
 9. `authn signin` — OAuth2 Auth Code + PKCE; localhost callback server; writes `~/.etzhayyim/auth.json`. ✓
 10. `dns-sync` — CF API mutations. ✓
 11. `database migrate` — Kotoba/Datomic migration runner. ✓
@@ -116,7 +116,7 @@ hardcoded strings.
 - `murakumo models declare` — read fleet-models.json declared placement. ✓
 - `process-mining scan/bottlenecks/flow` — PDS handler static analysis for performance bottlenecks. ✓
 - `performance-test run/report` — concurrent HTTP load test + latency report. ✓
-- `set-profiles run` — parallel AT Protocol profile sync from magatama.jsonld. ✓
+- `set-profiles run` — parallel AT Protocol profile sync from kotodama.jsonld. ✓
 - `deps graph` — layer DAG visualization from `deps.toml [app_layer.*]` + `[infra_layer.*]`; tree/mermaid/json formats. ✓
 - `kosei stack <nanoid>` — deep tech-stack profile: CF bindings, features (WebGPU/ONNX/FIDO2/MCP/BPMN/Evolver), npm/Cargo deps. ✓
 - `murakumo eval` — Hayate V6 evaluation benchmark subprocess (eval_v6_bench.py); dry-run support. ✓
@@ -136,14 +136,14 @@ hardcoded strings.
 - `vault create/add/ls/audit/device-key/run` — zero-knowledge vault ops: AES-KW key wrap (client-side), AES-256-GCM content encrypt; `run` injects secrets as env vars. ✓
 - `vault share/unshare` — X25519-ECIES key wrap (HKDF-SHA256 + AES-KW) for sharing vault access across DIDs via signal prekey bundle. ✓
 - `docs validate` — docs registry validation: registry shape, file existence, YAML front matter, graph.jsonld consistency. ✓
-- `code-quality run` — unified quality scorer: cargo-machete, cargo-duplicates, go-vet, go-mod-tidy, jscpd, magatama-lint, frontend-lint, perf-test, sql-injection/full-scan, dead-exports; JSON + text output; `--skip` filter. ✓
+- `code-quality run` — unified quality scorer: cargo-machete, cargo-duplicates, go-vet, go-mod-tidy, jscpd, kotodama-lint, frontend-lint, perf-test, sql-injection/full-scan, dead-exports; JSON + text output; `--skip` filter. ✓
 - `murakumo fleet-plan` — Hayate V5 fleet plan generator (hayate_v5_split.py fleet); target-slots/dim/groups/mamba-per-group/top-m/batch-size/lr/data-source/lancedb-uri; `--dry-run`. ✓
 - `actors migrate-to-plc` — upgraded from stub to real XRPC `com.etzhayyim.plc.migrateActor`; `--offline` mock mode; `--apply` gate. ✓
 - `coverage world/infer/hospitality` — Go-only stubs (require Kotoba/Datomic direct via pgxpool); `--help` prints available options. ✓
-- `deps governance-wit` — WIT + governance compliance static analysis: wit/world.wit import count, src/app.ts command/handle count, magatama.jsonld governance fields; score + verdict; `--format json`. ✓
+- `deps governance-wit` — WIT + governance compliance static analysis: wit/world.wit import count, src/app.ts command/handle count, kotodama.jsonld governance fields; score + verdict; `--format json`. ✓
 - `identity migrate-paths` — legacy-nanoid → did:etzhayyim path migration: reads `[[legacy_nanoids]]` from deps.toml, computes SHA-256-based path DID, submits via XRPC `com.etzhayyim.identity.submitOp`; `--apply` gate; `--json`. ✓
-- `migrate-manifest run` — pure file transformation (etzhayyim.json → magatama.jsonld); reads routes/runtime/build/deploy fields from etzhayyim.json; optionally parses `magatama.toml` (sections: component, component.env, component.compose, triggers.http, triggers.w_commit, ui, ui.ssr_routes, game, space, [[space.channels]], evolver, pool, [[extensions]], interfaces); `--batch` scans subdirs; `--dry-run` prints to stdout; zero DB dependencies. ✓
-- `docs-gen schema` — factual schema auto-generation: reads `magatama.jsonld` (app/nanoid/DID/collections/performerType), `wrangler.jsonc` (service bindings via `"binding":` regex), `src/*.ts` (G("Label") graph patterns); `--all` scans all `60-apps/etzhayyim-project-*/wasm/*/`; `--format json|md`; `--out` file sink; fully portable local file analysis. ✓
+- `migrate-manifest run` — pure file transformation (etzhayyim.json → kotodama.jsonld); reads routes/runtime/build/deploy fields from etzhayyim.json; optionally parses `kotodama.toml` (sections: component, component.env, component.compose, triggers.http, triggers.w_commit, ui, ui.ssr_routes, game, space, [[space.channels]], evolver, pool, [[extensions]], interfaces); `--batch` scans subdirs; `--dry-run` prints to stdout; zero DB dependencies. ✓
+- `docs-gen schema` — factual schema auto-generation: reads `kotodama.jsonld` (app/nanoid/DID/collections/performerType), `wrangler.jsonc` (service bindings via `"binding":` regex), `src/*.ts` (G("Label") graph patterns); `--all` scans all `60-apps/etzhayyim-project-*/wasm/*/`; `--format json|md`; `--out` file sink; fully portable local file analysis. ✓
 - `deps score` — HTTP-based: fetches `deps.etzhayyim.com/api/deps/graph`, extracts link coverage summary (totalLinks/resolvedLinks/linkCoverageRate/isolatedCount/workerDeployCoverage/governanceCoverage/wprotoIntegrationScore); `--format text|json`; `--timeout-sec`. ✓
 - `deps audit` — HTTP-based: optionally POSTs to `/api/hooks/component` (manual_refresh), waits `--wait-sec`, then runs `deps score`; `--full-audit/--no-full-audit`; `--format text|json`. ✓
 - `coverage-test` alias — top-level alias registered in cli.py: `etzhayyim coverage-test` = `etzhayyim coverage` group (mirrors Go's `coverage-test = coverage test` alias). ✓
@@ -155,7 +155,7 @@ hardcoded strings.
 - `dodaf seed` — reads `tv1_standards.parquet` via DuckDB CLI; POSTs each row to `com.atproto.repo.createRecord` as `com.etzhayyim.dodaf.tv1Standard` via `urllib.request`; `etzhayyim_TOKEN` auth; `--dry-run` prints without hitting PDS; `--pds` override. ✓
 - `domain-ingest local` — upgraded from stub: resolves `70-tools/scripts/ingest-domain-data.ts` from git root, runs `npx tsx <script> [--domain] [--limit] [--dry-run] [--skip-llm]`; exits nonzero when script or `npx` missing. ✓
 - `domain-ingest common-crawl` — new subcommand: resolves `60-apps/etzhayyim-project-common-crawl/scripts/phase5_inject.py`, runs via `sys.executable`; `--source intel|graph`, `--batch-size`, `--dry-run`, `--pds` (injects `PDS_URL` env). ✓
-- `monitor shinka` — full port replacing XRPC stub: discovers apps via `magatama.jsonld` rglob; reads `src/app.ts` for `resolveHeartbeatCadence`/`createInboxBuffer`/`createCadenceState`/`shouldDrill`/`shouldValidate`/`shouldAnalyze`/`shouldEngage`/`heartbeatCount %`; parallel analysis via `ThreadPoolExecutor`; optional live `POST /_heartbeat` test; optional `--hyoka` domain scoring overlay (in-memory, KG nodes approximate to 0 without DB); optional `--store` to `80-data/hyoka/` NDJSON→Parquet via DuckDB CLI; `--gate` regression check on `avg_hyoka_score`/`top10_avg`/`low_count`; `--json` output via `dataclasses.asdict`; sub-DID freshness via `com.atproto.repo.listRecords` XRPC probe; `--nanoid` single-app filter; `--freshness-hours` threshold. ✓
+- `monitor shinka` — full port replacing XRPC stub: discovers apps via `kotodama.jsonld` rglob; reads `src/app.ts` for `resolveHeartbeatCadence`/`createInboxBuffer`/`createCadenceState`/`shouldDrill`/`shouldValidate`/`shouldAnalyze`/`shouldEngage`/`heartbeatCount %`; parallel analysis via `ThreadPoolExecutor`; optional live `POST /_heartbeat` test; optional `--hyoka` domain scoring overlay (in-memory, KG nodes approximate to 0 without DB); optional `--store` to `80-data/hyoka/` NDJSON→Parquet via DuckDB CLI; `--gate` regression check on `avg_hyoka_score`/`top10_avg`/`low_count`; `--json` output via `dataclasses.asdict`; sub-DID freshness via `com.atproto.repo.listRecords` XRPC probe; `--nanoid` single-app filter; `--freshness-hours` threshold. ✓
 - `agent-runtime render` — delegates to `70-tools/scripts/contract/render-agent-runtime-public.py --cluster <cluster> <manifests...>`; fallback assembles minimal JSON when script absent; `--out` file sink. ✓
 - `agent-runtime publish` — render + optional IPFS upload (`--no-dry-run` raises ClickException directing to Go binary for HMAC signing); outputs SHA256 + bytes + schema + kind. ✓
 - `agent-runtime register` — dry-run builds ERC-8004 registration payload (SHA256 metadata hash, keccak root DID hash from args or `--registration` JSON); `--no-dry-run` raises ClickException (EVM signing requires Go). ✓
@@ -202,7 +202,7 @@ Scored 4.87 vs Python 8.49 on a 9-axis weighted evaluation:
 | Axis | Weight | Go→TS | Go→Py |
 |---|---|---|---|
 | Runtime homogeneity | 0.20 | 2 | 10 |
-| SDK coverage (pymagatama) | 0.18 | 1 | 10 |
+| SDK coverage (kotodama) | 0.18 | 1 | 10 |
 | LangGraph ecosystem fit | 0.15 | 3 | 10 |
 | Existing agent patterns | 0.12 | 1 | 10 |
 | Toolchain (uv/hatch) | 0.10 | 5 | 9 |
@@ -212,7 +212,7 @@ Scored 4.87 vs Python 8.49 on a 9-axis weighted evaluation:
 | Build time | 0.02 | 6 | 8 |
 | **Weighted total** | | **4.87** | **8.49** |
 
-TypeScript has no pymagatama equivalent and no production LangGraph deployment
+TypeScript has no kotodama equivalent and no production LangGraph deployment
 in this repo. The gap is decisive.
 
 ## Consequences

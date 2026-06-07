@@ -1,7 +1,7 @@
 import {
   asAgentTool, createKyselyDb, createWorkerExport, withCapabilityTags,
   type HostSDK, nowISO, str, genID, nsid,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 import puppeteer, { type Browser, type Page } from "@cloudflare/puppeteer";
 
 const ACTOR_NAME = "cloudflare-browser-render";

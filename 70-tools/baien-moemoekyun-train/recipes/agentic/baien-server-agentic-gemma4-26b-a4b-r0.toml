@@ -45,7 +45,7 @@ experts gain salience and routing stays healthy (§5).
 [seed_block]
 weight = 1.0
 seed_path = "70-tools/agentic-qlora-evox2/seed/agentic-r0-corpus.jsonl"
-description = "32 Gemma-chat tool-use traces = 12 hand-authored (single-call / multi-step / self-correction / clarify / structured-JSON / kotoba-query / decline) + 20 harvested from the repo's real tool surface (harvest_traces.py over world.wit + magatama Invoke: kqe/kse/auth/llm/evm/chain + contact.search). Apache 2.0, Charter-clean, deterministic. Optional --mode teacher enriches via the Murakumo own-node Ollama gemma (192.168.1.17:11434), never a vendor API."
+description = "32 Gemma-chat tool-use traces = 12 hand-authored (single-call / multi-step / self-correction / clarify / structured-JSON / kotoba-query / decline) + 20 harvested from the repo's real tool surface (harvest_traces.py over world.wit + kotodama Invoke: kqe/kse/auth/llm/evm/chain + contact.search). Apache 2.0, Charter-clean, deterministic. Optional --mode teacher enriches via the Murakumo own-node Ollama gemma (192.168.1.17:11434), never a vendor API."
 
 # ───── open agentic / function-calling sources (W1 — fill CIDs after Charter scan) ─────
 # Each [[source]] below is a PLACEHOLDER: pin the dataset, run charter_rider.scan(),
@@ -62,10 +62,10 @@ weight        = 0.0
 note          = "open function-calling SFT; ADMIT ONLY after charter_rider.scan() passes + license confirmed Tier-A"
 
 [[source]]
-subdataset    = "in-repo/langgraph-cell-traces"    # harvested from magatama cells + aria + kanae Invoke() calls
+subdataset    = "in-repo/langgraph-cell-traces"    # harvested from kotodama cells + aria + kanae Invoke() calls
 ipfs_dag_cid  = "TBD-build-harvester"
 shard_glob    = "**/*.jsonl"
 tier          = "A"
 license       = "Apache-2.0"
 weight        = 0.0
-note          = "highest-value on-distribution signal: (state, tool_call, tool_result) tuples from 20-actors/magatama/cells/* → Gemma-chat turns. Needs a harvester (ADR §4 item 2)."
+note          = "highest-value on-distribution signal: (state, tool_call, tool_result) tuples from 40-engine/kotoba/crates/kotoba-kotodama/cells/* → Gemma-chat turns. Needs a harvester (ADR §4 item 2)."

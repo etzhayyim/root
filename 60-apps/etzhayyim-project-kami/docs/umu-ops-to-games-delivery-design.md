@@ -17,8 +17,8 @@
 
 ## 依存ルール
 
-- WADM `Application` namespace は `magatama-runtime`（`default` 禁止）
-- App system 資源は `magatama-system`
+- WADM `Application` namespace は `kotodama-runtime`（`default` 禁止）
+- App system 資源は `kotodama-system`
 - HTTPRoute は `etzhayyim-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4`
 - 画像 push は `ghcr.io/etzhayyim/*`
 - deploy は `mage Deploy` を利用
@@ -90,7 +90,7 @@ OPS 連携は次の logical contract として扱う（段階導入）。
   - カタログ登録: `PROJECT.jsonld`（または同等メタ管理）
 - 配信後:
   - `WADM_MANIFEST=60-apps/etzhayyim-project-games/wasm/games-7m8oocsn/wadm/games-static.wadm.yaml mage Deploy`
-  - `kubectl get mga -n magatama-runtime` と `/_app/version.json` の疎通確認
+  - `kubectl get mga -n kotodama-runtime` と `/_app/version.json` の疎通確認
 - 状態遷移:
   - `ready-for-release` -> `published`
 

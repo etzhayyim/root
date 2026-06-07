@@ -24,7 +24,7 @@ distributed as ``.zip``; the first JSON file inside is the
 concatenated LEI L1 payload).
 
 Output NDJSON row shape (consumed by
-``pymagatama.organism.sensors.corp.lei_sensor.GleifLeiSensor``):
+``kotodama.organism.sensors.corp.lei_sensor.GleifLeiSensor``):
 
     {"lei": "20-char", "legalName": "...", "jurisdictionIso3": "USA",
      "registrationStatus": "ISSUED",

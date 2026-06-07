@@ -40,7 +40,7 @@ superseded_by: []
 Modal (modal.com) is the de-facto Python decorator-API for "submit a function, get GPU inference back." Internal religious-corp app authors (yoro, watashi, baien-distill orchestrator, KaizenObserver downstream, future PWAs) already know that API. Today they have two unergonomic choices:
 
 1. Call LiteLLM gateway by hand-rolled `httpx.post("http://192.168.1.17:4000/v1/chat/completions", ...)`. Every app re-invents env-var wiring, Charter Rider §2 scanning, error handling, streaming, fallback-on-unreachable.
-2. Drop into `pymagatama` cell-runner. That is the production path for cells but is heavy for one-shot inference from a notebook or PWA backend.
+2. Drop into `kotodama` cell-runner. That is the production path for cells but is heavy for one-shot inference from a notebook or PWA backend.
 
 **The constitutional constraint (CRITICAL)** — ADR-2605215000 §2(i)(1) makes the Murakumo fleet (LiteLLM gateway on judah :4000 + EVO-X2 LAN 192.168.1.70 + per-node Ollama gemma3:4b fallback) the **sole inference SSoT** for religious-corp paths. RunPod, Bedrock direct, Vertex direct, Anthropic-direct-from-vendor-key, and any commercial GPU rental are **prohibited at the inference path** (ADR-2605262200 §2(i)(2) carves out training rental only and explicitly preserves the inference invariant unchanged). A drop-in `modal`-shaped facade that secretly calls Modal Labs would violate this — so the facade must route **only** to Murakumo endpoints declared in `50-infra/murakumo/fleet.toml`.
 
@@ -170,7 +170,7 @@ R1 promotes this to a real `com.etzhayyim.murakumo.invocation` Lexicon record po
 - **N4**: NEVER hide a `FleetUnreachable` by silently substituting another vendor. R0+ surface failures with the attempted endpoint chain.
 - **N5**: NO `gpu.A100()` / `gpu.H100()` silently delivers NVIDIA — they all route to ROCm EVO-X2 with a logged warning. This is honesty, not bait-and-switch.
 - **N6**: NEVER bypass Charter Rider §2 scan once R1 flips it from advisory to enforce. The scan is a constitutional invariant per Charter Rider §2 and ADR-2605192200.
-- **N7**: NEVER make `kotoba_murakumo` depend on `pymagatama` (and vice versa). Both are siblings consuming the same fleet.toml.
+- **N7**: NEVER make `kotoba_murakumo` depend on `kotodama` (and vice versa). Both are siblings consuming the same fleet.toml.
 - **N8**: NEVER write to `kotoba-kse` Vault from R0 client paths. Vault binding lands R1 after `kotoba-store` Python bindings stabilize.
 
 ### Pyproject + dependencies
@@ -250,7 +250,7 @@ filesystem-collocation.
 ## Alternatives Considered
 
 1. **No facade; require apps to call LiteLLM via raw HTTP**. Status quo. Rejected: high drift, missing Charter scan, no observability uniformity.
-2. **Extend `pymagatama` cell-runner to host a Modal-compat surface**. Rejected: cells are k3s DaemonSets per ADR-2605232100, not per-call dispatchers. The two surfaces solve different problems.
+2. **Extend `kotodama` cell-runner to host a Modal-compat surface**. Rejected: cells are k3s DaemonSets per ADR-2605232100, not per-call dispatchers. The two surfaces solve different problems.
 3. **Build a non-Modal-shaped Python SDK**. Considered. Rejected because the user explicitly chose "Modal-compat" and because forcing a new mental model on internal authors who already know Modal raises adoption cost for no constitutional benefit.
 4. **Wrap a hosted Modal Labs deployment behind a proxy**. Categorically rejected per ADR-2605215000 (Murakumo-only invariant) and ADR-2605262200 §2(i)(2) (carve-out is train-only). Would require Council Lv7+ unanimity to amend, which is not requested.
 5. **Skip Charter scan at R0**. Rejected: even an advisory stub locks the API shape in, so R1 is a one-line flip from `advisory` to `enforce`. Adding the hook later is a breaking change.

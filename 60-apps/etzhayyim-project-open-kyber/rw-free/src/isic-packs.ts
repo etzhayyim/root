@@ -9,7 +9,7 @@
  * SSoT in `industry-packs/isic-packs.kotoba.edn`. This module carries the COMPACT
  * resolution descriptors (id / section / scope / division) needed to map a code to its
  * packs, plus the section-range table mirroring open-isic `sectionForDivision`
- * (60-apps/ai-gftd-project-open-isic/rw-free/src/types.ts). Resolution is a PURE function;
+ * (60-apps/etzhayyim-project-open-isic/rw-free/src/types.ts). Resolution is a PURE function;
  * the persisted activation (:erp.tenant/active-packs) is written by the tenant module.
  *
  * Composition rule (ADR-2606037200 D3): the SECTION pack always applies; the most-specific

@@ -44,7 +44,7 @@ silicon/
    holders is permitted.
 
 4. **Pregel cell pairing**: each equipment directory has a sibling
-   `silicon_<step>` Pregel cell under `20-actors/magatama/cells/` that
+   `silicon_<step>` Pregel cell under `40-engine/kotoba/crates/kotoba-kotodama/cells/` that
    orchestrates the equipment via XRPC + libp2p telemetry stream.
 
 5. **Religious-corp ownership invariant**: all RTL / CAD / mechanical /

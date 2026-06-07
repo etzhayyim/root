@@ -7,7 +7,7 @@
 ## 参照する上位ルール
 - `60-apps/CLAUDE.md` の方針（namespace / App / MCP / Connect）
 
-- `20-actors/magatama/CLAUDE.md` の runtime 運用
+- `40-engine/kotoba/crates/kotoba-kotodama/CLAUDE.md` の runtime 運用
 
 ## business-manager 固有メモ
 - 実行中ランタイム: `businessManagerRuntime` + `businessManagerAdapter`
@@ -23,4 +23,4 @@
 ## 開発メモ
 - `RuntimeConfig` の設定は既定値のみ利用し、未使用設定の放置を避ける。
 - `default` namespace は使用しない。
-- コンポーネントの namespace は `magatama-runtime` 固定。
+- コンポーネントの namespace は `kotodama-runtime` 固定。

@@ -5,7 +5,7 @@
   "main": "src/app.ts",
   "type": "module",
   "dependencies": {
-    "@etzhayyim/magatama-host-sdk": "workspace:*",
+    "@etzhayyim/kotodama-host-sdk": "workspace:*",
     "@etzhayyim/xrpc": "workspace:*"
   }
 }

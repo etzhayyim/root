@@ -3,7 +3,7 @@ import os
 import re
 
 def refactor_all():
-    files = glob.glob("20-actors/magatama/py/src/pymagatama/**/*.py", recursive=True)
+    files = glob.glob("40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/**/*.py", recursive=True)
     count = 0
     for path in files:
         with open(path, "r") as f:
@@ -12,17 +12,17 @@ def refactor_all():
         original_code = code
 
         # Replace imports
-        code = code.replace("from pymagatama.db_sync import sync_cursor\n", "")
-        code = code.replace("from pymagatama.db_sync import sync_cursor as _sync_cursor\n", "")
+        code = code.replace("from kotodama.db_sync import sync_cursor\n", "")
+        code = code.replace("from kotodama.db_sync import sync_cursor as _sync_cursor\n", "")
         
         # We might have inline imports
-        code = code.replace("from pymagatama.db_sync import sync_cursor", "")
+        code = code.replace("from kotodama.db_sync import sync_cursor", "")
 
         # Only proceed if we still have sync_cursor usage to fix
         if "with sync_cursor() as cur:" in code or "with _sync_cursor() as cur:" in code:
-            if "from pymagatama.kotoba_datomic import get_kotoba_client" not in code:
+            if "from kotodama.kotoba_datomic import get_kotoba_client" not in code:
                 # Add import right after the docstring or at the top
-                code = "from pymagatama.kotoba_datomic import get_kotoba_client\n" + code
+                code = "from kotodama.kotoba_datomic import get_kotoba_client\n" + code
 
             # Replace with client instantiation and if True block to maintain indentation
             code = code.replace("with sync_cursor() as cur:", "client = get_kotoba_client()\n        if True:")

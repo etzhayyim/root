@@ -228,7 +228,7 @@ async function onCohortEvidenceCommit(commit, sdk) {
 
 1. `mv_cohort_identity_posterior` read smoke test
 2. `vertex_repo_record` cohort columns / `vertex_cohort_actor` / MV の runtime wiring 継続
-3. `segment_hash` parser util を `20-actors/magatama/sdk/magatama-host-sdk/src/cohort.ts` に新規追加
+3. `segment_hash` parser util を `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/cohort.ts` に新規追加
 4. Path F `scheduler` に `cohortKReevaluate` task を登録 (MV `mv_cohort_k_drift` polling)
 5. `onCommit` handler 実装 → apqc projector OCEL event emit
 
@@ -240,7 +240,7 @@ async function onCohortEvidenceCommit(commit, sdk) {
 |---|---|
 | `30-graph/graph-schema/migrations/0052_vertex_repo_record_cohort_columns.ts` | ALTER `vertex_repo_record` ADD 7 cohort columns (DDL only, O(1)) |
 | `30-graph/graph-schema/CLAUDE.md` | Migration History に 0035 追記 |
-| `20-actors/magatama/sdk/magatama-host-sdk/src/cohort.ts` | 新規: `parseSegmentHash()` / `apqcL1DidFromSegment()` / `deriveCohortEventType()` (OCEL type derivation) |
+| `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/cohort.ts` | 新規: `parseSegmentHash()` / `apqcL1DidFromSegment()` / `deriveCohortEventType()` (OCEL type derivation) |
 | `deps.toml` | +3 cohort (en × role: marketing/talent/auditor) |
 
 ## Cohort Total N=46
@@ -300,7 +300,7 @@ await createSchedule(env, {
 
 ## 次 iteration TODO
 
-1. `20-actors/magatama/sdk/magatama-host-sdk/src/cohort.test.ts` — parser + event type derivation の unit test
+1. `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/cohort.test.ts` — parser + event type derivation の unit test
 2. migration `0053`: `vertex_cohort_actor` table 新設 (segment_hash / k_anonymity / fission_enabled / derived_from / status / genesis_at)
 3. scheduler.ts に `kind=cohortKReevaluate` dispatch 分岐追加
 4. `onCommit` handler 実装 (evidence commit → apqcEvent emit)
@@ -312,7 +312,7 @@ await createSchedule(env, {
 
 | File | 変更 |
 |---|---|
-| `20-actors/magatama/sdk/magatama-host-sdk/test/cohort.test.ts` | 新規: parseSegmentHash / apqcL1DidFromSegment / deriveCohortEventType の 14 test cases (k-drift precedence, fission gating, industry overlay 含む) |
+| `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/test/cohort.test.ts` | 新規: parseSegmentHash / apqcL1DidFromSegment / deriveCohortEventType の 14 test cases (k-drift precedence, fission gating, industry overlay 含む) |
 | `30-graph/graph-schema/migrations/0053_vertex_cohort_actor.ts` | 新規 table: cohort_did PK + 10 columns + 2 indexes |
 | `30-graph/graph-schema/src/database.ts` | `VertexCohortActorRow` + Database entry |
 | `30-graph/graph-schema/CLAUDE.md` | Migration History に 0036 追記 |
@@ -417,8 +417,8 @@ scheduler.ts は generic に保ち、cohort-specific policy は `cohort-watchdog
 | File | 変更 |
 |---|---|
 | `50-infra/cloudflare/workers/atproto/src/app.ts` `scheduled()` | cohort watchdog tick 追加 (`runCohortWatchdogTick` as waitUntil)。既存 6 cron job に並列で動作、OCEL analytics emit |
-| `20-actors/magatama/sdk/magatama-host-sdk/src/cohort.ts` | `CohortSegment` に `seniority: string \| null` 追加、parser が `seniority=` key を拾う |
-| `20-actors/magatama/sdk/magatama-host-sdk/test/cohort.test.ts` | +1 test case (seniority overlay) |
+| `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/cohort.ts` | `CohortSegment` に `seniority: string \| null` 追加、parser が `seniority=` key を拾う |
+| `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/test/cohort.test.ts` | +1 test case (seniority overlay) |
 | `deps.toml` | +3 cohort (seniority: junior/mid/senior on L1=8 IT) |
 
 ## Cohort Total N=54
@@ -948,7 +948,7 @@ etzhayyim cohort fission --cohort did:plc:... --posterior 0.97 --judge=true \
 2. onCommit dispatcher に cohort.evidence 分岐を追加 (handlers/feed.ts or handlers/infra.ts の commit hook)
 3. `forwardOcelToApqc` の引数 `kProxy → numericPayload` rename + OcelEventType 毎の意味付け doc
 4. `com.etzhayyim.cohort.fission` lexicon を seed.json 同様にリファイン (既存) — rkey scheme 確認
-5. Murakumo agent に `cohort.seed` を tool 登録 (`20-actors/magatama/sdk/magatama-host-sdk/src/llm-tools.ts` 等)
+5. Murakumo agent に `cohort.seed` を tool 登録 (`40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-tools.ts` 等)
 
 # Iteration 18 — 2026-04-15
 
@@ -2852,7 +2852,7 @@ list → gap → seed → evidence → fission → snapshot diff → repeat
 
 ## 次 iteration TODO
 
-1. `20-actors/magatama/sdk/magatama-host-sdk/src/llm-tools-cohort.ts` 実装 (この spec を code 化)
+1. `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-tools-cohort.ts` 実装 (この spec を code 化)
 2. fission シミュレーション (staging)
 3. Slack webhook for CRITICAL OCEL
 4. ADR-0026 を `etzhayyim dodaf tv1` registry に登録
@@ -2864,8 +2864,8 @@ list → gap → seed → evidence → fission → snapshot diff → repeat
 
 | File | 変更 |
 |---|---|
-| `20-actors/magatama/sdk/magatama-host-sdk/src/llm-tools-cohort.ts` | 新規実装 — `cohortToolSpecs` (4 OpenAI tool spec) + `cohortToolDispatch` (name → NSID + buildBody) + `cohortToolNsid` helper |
-| `20-actors/magatama/sdk/magatama-host-sdk/test/llm-tools-cohort.test.ts` | 新規 unit test 9 cases (4 spec gate + 4 dispatch + 1 helper) |
+| `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-tools-cohort.ts` | 新規実装 — `cohortToolSpecs` (4 OpenAI tool spec) + `cohortToolDispatch` (name → NSID + buildBody) + `cohortToolNsid` helper |
+| `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/test/llm-tools-cohort.test.ts` | 新規 unit test 9 cases (4 spec gate + 4 dispatch + 1 helper) |
 
 ## LLM Tool 安全 Schema (実装)
 
@@ -2879,7 +2879,7 @@ list → gap → seed → evidence → fission → snapshot diff → repeat
 ## Bootstrap Loop が runnable に
 
 ```typescript
-import { cohortToolSpecs, cohortToolDispatch } from '@etzhayyim/magatama-host-sdk/llm-tools-cohort';
+import { cohortToolSpecs, cohortToolDispatch } from '@etzhayyim/kotodama-host-sdk/llm-tools-cohort';
 
 await llm.agentReact({
   task: 'Grow cohort fleet to 1000 by filling locale=zh gap',
@@ -2921,7 +2921,7 @@ await llm.agentReact({
 
 | File | 変更 |
 |---|---|
-| `20-actors/magatama/sdk/magatama-host-sdk/src/index.ts` | cohort utilities + LLM tool registry を `@etzhayyim/magatama-host-sdk` の public API surface に export — `parseSegmentHash`/`apqcL1DidFromSegment`/`deriveCohortEventType` + `cohortToolSpecs`/`cohortToolDispatch`/`cohortToolNsid` |
+| `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/index.ts` | cohort utilities + LLM tool registry を `@etzhayyim/kotodama-host-sdk` の public API surface に export — `parseSegmentHash`/`apqcL1DidFromSegment`/`deriveCohortEventType` + `cohortToolSpecs`/`cohortToolDispatch`/`cohortToolNsid` |
 
 ## Public API
 
@@ -2935,7 +2935,7 @@ import {
   cohortToolSpecs,
   cohortToolDispatch,
   cohortToolNsid,
-} from '@etzhayyim/magatama-host-sdk';
+} from '@etzhayyim/kotodama-host-sdk';
 ```
 
 これにより全 app が ADR-0026 cohort lifecycle を host-sdk import 1 行で利用可能。
@@ -2944,7 +2944,7 @@ import {
 
 | 場所 | export |
 |---|---|
-| `@etzhayyim/magatama-host-sdk` (TS package) | cohort/llm-tools-cohort utilities (本 iter) |
+| `@etzhayyim/kotodama-host-sdk` (TS package) | cohort/llm-tools-cohort utilities (本 iter) |
 | root CLAUDE.md Key Conventions | ADR-0026/0028 行 |
 | deps.toml [[critical_rules]] | R1-R10 |
 | deps.toml [[conventions]] | sources 14 file |
@@ -2968,14 +2968,14 @@ import {
 
 | File | 変更 |
 |---|---|
-| `20-actors/magatama/sdk/magatama-host-sdk/src/llm-tools-cohort.ts` | `createCohortToolHandler({ pdsBaseUrl, bearerToken, fetchImpl? })` 追加 — `(name, args) => Promise<unknown\|null>` 返却。`agentReact({ toolHandler })` に直接渡せる |
-| `20-actors/magatama/sdk/magatama-host-sdk/test/llm-tools-cohort.test.ts` | +4 test (handler unknown-tool / POST / GET / error fallback) |
-| `20-actors/magatama/sdk/magatama-host-sdk/src/index.ts` | `createCohortToolHandler` を public export に追加 |
+| `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-tools-cohort.ts` | `createCohortToolHandler({ pdsBaseUrl, bearerToken, fetchImpl? })` 追加 — `(name, args) => Promise<unknown\|null>` 返却。`agentReact({ toolHandler })` に直接渡せる |
+| `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/test/llm-tools-cohort.test.ts` | +4 test (handler unknown-tool / POST / GET / error fallback) |
+| `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/index.ts` | `createCohortToolHandler` を public export に追加 |
 
 ## Integration Pattern (1-liner)
 
 ```typescript
-import { agentReact, cohortToolSpecs, createCohortToolHandler } from '@etzhayyim/magatama-host-sdk';
+import { agentReact, cohortToolSpecs, createCohortToolHandler } from '@etzhayyim/kotodama-host-sdk';
 
 const cohortHandler = createCohortToolHandler({
   pdsBaseUrl: 'https://atproto.etzhayyim.com',

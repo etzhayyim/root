@@ -10,6 +10,9 @@ rc=0
 echo "==> kakaku agent tests"
 ( cd "$ROOT/py" && python3 -m pytest -q test_agent.py ) || rc=1
 
+echo "==> kakaku offer-ingest tests"
+( cd "$ROOT/py" && python3 -m pytest -q test_ingest.py ) || rc=1
+
 echo "==> kakaku viz builder tests"
 ( cd "$ROOT/viz" && python3 -m pytest -q test_build_viz.py ) || rc=1
 

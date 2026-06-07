@@ -1,0 +1,53 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.suimin.silenSuiminReview",
+  "description": "Council baseline attestation for suimin (mirror of com.etzhayyim.mitate.silenMitateReview). Witness invariant N>=3 Council Lv6+ DIDs (+ optional licensed sleep-medicine MD). Gates removal of the import-time RuntimeError on suimin_* cells per scope. Per ADR-2606072800 §Decision 3 G9 / §Decision 5/6.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["v", "scope", "verdict", "witnessDids", "attestationTxHash", "reviewedAt"],
+        "properties": {
+          "v": { "type": "integer", "minimum": 1, "maximum": 1 },
+          "scope": {
+            "type": "string",
+            "knownValues": [
+              "master-charter-baseline",
+              "source-whitelist-baseline",
+              "grade-rubric-baseline",
+              "per-treatment-synthesis-baseline",
+              "disclaimer-baseline",
+              "referral-directory-baseline",
+              "source-integrity-baseline",
+              "red-flag-escalation-baseline",
+              "bias-audit-quarterly",
+              "phr-encryption-baseline",
+              "licensed-sleep-md-registry-baseline"
+            ],
+            "description": "Which baseline this review ratifies. Each cell checks the scope(s) it depends on before lifting its gate."
+          },
+          "verdict": { "type": "string", "knownValues": ["approve", "reject", "revise"] },
+          "witnessDids": {
+            "type": "array",
+            "minLength": 3,
+            "items": { "type": "string", "format": "did" },
+            "description": "N>=3 Council Lv6+ DIDs (G9). A licensed sleep-medicine MD DID may be added (R1 evidence-review / R2 in-loop, G8)."
+          },
+          "licensedSleepMdDid": {
+            "type": "string",
+            "format": "did",
+            "description": "Optional licensed sleep-medicine MD attesting the clinical baseline (G8)."
+          },
+          "attestationTxHash": {
+            "type": "string",
+            "description": "Council Lv6+ >=3 multisig tx hash (becomes COUNCIL_CHARTER_ATTESTATION_TX_HASH for the gated cells)."
+          },
+          "rationale": { "type": "string", "maxLength": 5000 },
+          "reviewedAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

@@ -242,7 +242,7 @@ def update_profile_via_pds(session: requests.Session, did: str, display_name: st
     }
     headers = {
         "Content-Type": "application/json",
-        "x-magatama-verified": "true",
+        "x-kotodama-verified": "true",
         "X-Active-DID": SITE_APP_DID,
     }
     resp = session.post(

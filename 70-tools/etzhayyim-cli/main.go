@@ -1,4 +1,4 @@
-// etzhayyim — magatama build/deploy CLI (Cloudflare Containers)
+// etzhayyim — kotodama build/deploy CLI (Cloudflare Containers)
 package main
 
 import (
@@ -50,16 +50,16 @@ func main() {
 }
 
 func printUsage() {
-	fmt.Printf(`etzhayyim %s — magatama component build/deploy CLI (Cloudflare Containers)
+	fmt.Printf(`etzhayyim %s — kotodama component build/deploy CLI (Cloudflare Containers)
 
 USAGE:
   etzhayyim <command> [flags]
 
 COMMANDS:
-  build              Build TinyGo WASM component → wasm-tools componentize (magatama WIT)
+  build              Build TinyGo WASM component → wasm-tools componentize (kotodama WIT)
                      --extension: build as W Protocol extension (world: etzhayyim:w/w-extension)
-  build-server       Build magatama-server binary + Docker image (zigbuild cross-compile)
-  deploy             Cloudflare Container deploy from source dir (magatama.toml + etzhayyim.json → wrangler deploy + smoke test)
+  build-server       Build kotodama-server binary + Docker image (zigbuild cross-compile)
+  deploy             Cloudflare Container deploy from source dir (kotodama.toml + etzhayyim.json → wrangler deploy + smoke test)
   plugin        Manage build tools (wasm-tools, tinygo adapters)
   bench         Dispatch baien benches (micro / core4 / distill / rope-extend / list) — see 'etzhayyim bench help'
   baien         Ad-hoc baien inference (prompt) — see 'etzhayyim baien help'

@@ -49,7 +49,7 @@ def _dir_mtime(d: Path) -> float:
 
 
 def scan_cells(repo: Path) -> list[Candidate]:
-    cells = repo / "20-actors" / "magatama" / "cells"
+    cells = repo / "20-actors" / "kotodama" / "cells"
     out: list[Candidate] = []
     if not cells.is_dir():
         return out

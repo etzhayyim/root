@@ -3,7 +3,7 @@
 // External (substrate-crossing) yorishiro ops carry an x-charter-purpose array
 // whose values are restricted to non-profit categories. Internal SBT↔SBT
 // carveout values exist but are not the concern of yorishiro — the internal
-// carveout flows stay as ordinary magatama actors.
+// carveout flows stay as ordinary kotodama actors.
 
 export const VALID_EXTERNAL_PURPOSES = [
   "donation",

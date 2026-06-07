@@ -15,7 +15,7 @@ authoritative_for:
   - vertex_projector_blocker / edge_projector_project_dep schema 定義
   - vertex_project_props 拡張列 (progress_permille / lifecycle_state / lg_thread_id / target_date)
   - mv_projector_project_status MV 定義
-  - pymagatama/projector/ LangGraph + Pregel 実装
+  - kotodama/projector/ LangGraph + Pregel 実装
   - com/etzhayyim/projector/ Lexicon 定義
   - GRAPHS["projector_lifecycle"] の pregel pod 登録
   - Claude Agent が projector tools を使うべきタイミングの契約
@@ -66,10 +66,10 @@ Claude Agent (MCP client)
   ├─ projector.get_status     ─── READ → mv_projector_project_status
   └─ projector.list_projects  ─── READ → mv_projector_project_status
 
-                   LangGraph projector_lifecycle (pymagatama/projector/graph.py)
+                   LangGraph projector_lifecycle (kotodama/projector/graph.py)
                      load_project → check_health → transition → END
 
-                   Pregel BSP blocker_pregel (pymagatama/projector/blocker_pregel.py)
+                   Pregel BSP blocker_pregel (kotodama/projector/blocker_pregel.py)
                      Superstep 1: blocked signal を edge_projector_project_dep で伝播
                      Superstep 2: unblocked signal を逆伝播 (max_hop=2)
 
@@ -346,8 +346,8 @@ blocker が解消されたら**即時**呼ぶ。
 - ADR-2605131800 (pregel triage pipeline — pregel pod を拡張)
 - ADR-2605082000 (LangGraph graph definition as data)
 - ADR-2605080600 (LangGraph Server + Granian L3 Runtime)
-- `20-actors/magatama/py/src/pymagatama/projector/graph.py`
-- `20-actors/magatama/py/src/pymagatama/projector/blocker_pregel.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/projector/graph.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/projector/blocker_pregel.py`
 - `60-apps/etzhayyim-project-pregel/lg/lg_pregel/server.py` (`GRAPHS["projector_lifecycle"]`)
 - `50-infra/cloudflare/workers/atproto/src/mcp-adapter.ts` (BUILTIN_TOOLS `projector.*`)
 - `00-contracts/lexicons/com/etzhayyim/projector/`

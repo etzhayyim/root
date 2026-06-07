@@ -144,7 +144,7 @@ def _git_log(repo: Path, n: int = 50) -> list[dict[str, Any]]:
 
 
 def _cells(repo: Path) -> list[Entity]:
-    cells_dir = repo / "20-actors" / "magatama" / "cells"
+    cells_dir = repo / "20-actors" / "kotodama" / "cells"
     if not cells_dir.is_dir():
         return []
     entities: list[Entity] = []

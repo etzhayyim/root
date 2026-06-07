@@ -187,7 +187,7 @@ All four cell modules raise `RuntimeError("manabi cert_prep R0 scaffold: ...")` 
 ├── package.json                # apache-2.0 + charter rider notice
 ├── tsconfig.json
 ├── wrangler.jsonc              # CF Worker + assets binding
-├── magatama.jsonld             # actor manifest fragment
+├── kotodama.jsonld             # actor manifest fragment
 ├── src/
 │   └── app.ts                  # thin dispatcher (R0-R1 mostly static; R2+ routes substrate proxy)
 ├── public/

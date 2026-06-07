@@ -14,7 +14,7 @@
 
 ## Why open-salesforce won
 1. **PII topology matched APPI/GDPR out of the box.** Tier-1 AT records carry `emailHash` / `phoneHash` only; raw PII lives in per-tenant Tier-3 Preferences with `com.etzhayyim.consent.*` + Art-17 cascade purge. Legal signed off in 3 weeks (vs. 9-month Sales Cloud residency review).
-2. **Own LLM at the seat level.** Each seat DID (`did:web:acme.opensaas.etzhayyim.com:seat:ae-03`) invokes Murakumo directly via Agent-to-Agent (`magatama.Invoke`). No Einstein add-on line item.
+2. **Own LLM at the seat level.** Each seat DID (`did:web:acme.opensaas.etzhayyim.com:seat:ae-03`) invokes Murakumo directly via Agent-to-Agent (`kotodama.Invoke`). No Einstein add-on line item.
 3. **Activity log is federation-grade, not screenshot-grade.** `com.etzhayyim.apps.opensaas.salesforce.activity` is derived from opportunity.stage / case.status / conversion commits; every activity row is cryptographically tied to the commit that caused it, so audit trail is content-addressed, not "trust the CRM".
 4. **Price.** ¥3.6M / year flat for unlimited seats on the tenant's own Worker + RisingWave.
 

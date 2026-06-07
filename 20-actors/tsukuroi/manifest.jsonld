@@ -61,7 +61,7 @@
   "cells": [
     {
       "name": "finding_intake",
-      "module": "magatama.cells.tsukuroi_finding_intake",
+      "module": "kotodama.cells.tsukuroi_finding_intake",
       "murakumoNode": "levi",
       "phase": "event",
       "io": "akuma VulnFinding (findingCid) + active mandate → intake",
@@ -69,7 +69,7 @@
     },
     {
       "name": "patch_synthesis",
-      "module": "magatama.cells.tsukuroi_patch_synthesis",
+      "module": "kotodama.cells.tsukuroi_patch_synthesis",
       "murakumoNode": "levi",
       "phase": "event",
       "io": "finding → candidate defensive diff (Murakumo-only LLM)",
@@ -77,7 +77,7 @@
     },
     {
       "name": "charter_rider_scan",
-      "module": "magatama.cells.tsukuroi_charter_rider_scan",
+      "module": "kotodama.cells.tsukuroi_charter_rider_scan",
       "murakumoNode": "levi",
       "phase": "event",
       "io": "candidate diff → §2(a)..(h) + offensive/PoC scan PASS/BLOCK",
@@ -85,7 +85,7 @@
     },
     {
       "name": "patch_validation",
-      "module": "magatama.cells.tsukuroi_patch_validation",
+      "module": "kotodama.cells.tsukuroi_patch_validation",
       "murakumoNode": "levi",
       "phase": "event",
       "io": "patch → sandbox build/test (tsukuroi-validate; never live target)",
@@ -93,7 +93,7 @@
     },
     {
       "name": "pr_submission",
-      "module": "magatama.cells.tsukuroi_pr_submission",
+      "module": "kotodama.cells.tsukuroi_pr_submission",
       "murakumoNode": "levi",
       "phase": "event",
       "io": "validated patch → fork-and-PR via owner-delegated expiring credential (PROPOSE-ONLY)",
@@ -101,7 +101,7 @@
     },
     {
       "name": "closure_verification",
-      "module": "magatama.cells.tsukuroi_closure_verification",
+      "module": "kotodama.cells.tsukuroi_closure_verification",
       "murakumoNode": "levi",
       "phase": "event",
       "io": "owner-merge signal → akuma re-probe request → closureAttestation",
@@ -110,7 +110,7 @@
     },
     {
       "name": "silen_tsukuroi_review",
-      "module": "magatama.cells.tsukuroi_silen_tsukuroi_review",
+      "module": "kotodama.cells.tsukuroi_silen_tsukuroi_review",
       "murakumoNode": "levi",
       "phase": "quarterly",
       "io": "period → silenTsukuroiReview zero-counters (any nonzero ⇒ halt + chigiri.disputeMediation)",
@@ -169,7 +169,7 @@
     {
       "phase": "R0",
       "date": "2026-05-29",
-      "scope": "Scaffold only. 7 cells path-reserved under 20-actors/magatama/cells/tsukuroi_*/ (import-time RuntimeError). 5 Lexicon schema skeletons under 00-contracts/lexicons/com/etzhayyim/tsukuroi/. manifest + CLAUDE.md. deps.toml [[adrs]] + [[modules]] registration.",
+      "scope": "Scaffold only. 7 cells path-reserved under 40-engine/kotoba/crates/kotoba-kotodama/cells/tsukuroi_*/ (import-time RuntimeError). 5 Lexicon schema skeletons under 00-contracts/lexicons/com/etzhayyim/tsukuroi/. manifest + CLAUDE.md. deps.toml [[adrs]] + [[modules]] registration.",
       "murakumoFleet": "No deployment",
       "gate": "ADR-2605291500 (PROPOSED)"
     },

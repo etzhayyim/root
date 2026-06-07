@@ -17,7 +17,7 @@ from .shannon import _resolve_root
 def _discover_actors(ws: Path) -> list[dict]:
     actors = []
     base = ws / "20-actors"
-    iterator = base.rglob("magatama.jsonld") if base.exists() else ws.rglob("magatama.jsonld")
+    iterator = base.rglob("kotodama.jsonld") if base.exists() else ws.rglob("kotodama.jsonld")
     for p in iterator:
         try:
             data = json.loads(p.read_text(errors="replace"))
@@ -41,7 +41,7 @@ def _score_actor(actor: dict) -> tuple[int, list[str]]:
     issues = []
     score = 100
     p = Path(actor["dir"])
-    for req in ["magatama.jsonld", "src/app.ts", "wrangler.jsonc"]:
+    for req in ["kotodama.jsonld", "src/app.ts", "wrangler.jsonc"]:
         if not (p / req).exists():
             issues.append(f"missing:{req}")
             score -= 20
@@ -93,7 +93,7 @@ def _fix_suggestions(issues: list[str]) -> list[str]:
             suggestions.append(f"Create {fname}")
         elif issue.startswith("missing_field:"):
             fname = issue[len("missing_field:"):]
-            suggestions.append(f"Add '{fname}' field to magatama.jsonld")
+            suggestions.append(f"Add '{fname}' field to kotodama.jsonld")
         elif issue == "nsid_placeholder":
             suggestions.append('Replace "nsid" placeholder with proper NSID (com.etzhayyim.apps.<actor>.<method>)')
         elif issue == "hardcoded_model":

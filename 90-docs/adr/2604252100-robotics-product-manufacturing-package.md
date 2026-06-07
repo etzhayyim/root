@@ -13,7 +13,7 @@ authoritative_for:
 related:
   - adr-2604241500-cad-bim-per-game-wasm-topology
   - adr-0056-bpmn-as-actor
-  - adr-0087-magatama-mcp-tool-facade
+  - adr-0087-kotodama-mcp-tool-facade
   - adr-2604250836-langgraph-as-zeebe-servicetask
   - robotics-manufacture-vehicle-product-package
 supersedes: []
@@ -22,7 +22,7 @@ superseded_by: []
 
 # Context
 
-Tsukuru / KAMI / Magatama の robotics surface は、robot arm、drone、
+Tsukuru / KAMI / Kotodama の robotics surface は、robot arm、drone、
 AGV / AMR、自動運転車両の mission planning、dry-run simulation、
 approval、telemetry、audit を BPMN / MCP / PyZeebe / KAMI Engine SDK
 で統合し始めている。

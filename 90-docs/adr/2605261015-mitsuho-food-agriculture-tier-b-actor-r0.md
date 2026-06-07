@@ -34,7 +34,7 @@ depends_on:
 
 ADR-2605261000 (Liberation Ladder) gates Stage L2 (Sustenance Tier) on mitsuho R2 maturity for minimum-food guarantee (≥4,500 kJ/day staple per adherent). Without a food actor, the constitution's labor-liberation mission cannot deliver subsistence at L2, and the entire ladder is blocked at L1 (Witness Tier).
 
-Existing magatama cells `agri_autonomous_cultivation`, `eco_reforestation_swarm`, etc. live under `20-actors/magatama/cells/` but have no parent actor coordinating domain governance (BPMN agricultural workflows, seed sovereignty, soil regeneration metrics, food-distribution scheduling, Charter Rider §2(c) food-quality compliance). kuni-umi (ADR-2605201400) covers planetary infrastructure but food production is out of scope.
+Existing kotodama cells `agri_autonomous_cultivation`, `eco_reforestation_swarm`, etc. live under `40-engine/kotoba/crates/kotoba-kotodama/cells/` but have no parent actor coordinating domain governance (BPMN agricultural workflows, seed sovereignty, soil regeneration metrics, food-distribution scheduling, Charter Rider §2(c) food-quality compliance). kuni-umi (ADR-2605201400) covers planetary infrastructure but food production is out of scope.
 
 ## Proposal
 
@@ -156,7 +156,7 @@ R0–R1: kuni-umi Giemon + Otete + Mimi + Sora. R2+: new Tsumugi (紡ぎ) class 
 - L2 Sustenance Tier of Liberation Ladder unblocks once mitsuho R2 deploys.
 - Multi-generational food sovereignty (seed sovereignty + soil regeneration) constitutional.
 - 14 gates × 10 non-goals defined *before* capability lands — same disciplined R0 pattern as wadachi/yakushi/tatekata.
-- Existing magatama cells (`agri_autonomous_cultivation` etc.) gain a parent actor for domain governance.
+- Existing kotodama cells (`agri_autonomous_cultivation` etc.) gain a parent actor for domain governance.
 
 **Negative / risks**:
 - Yield risk in R1 (single season, single crop = brittle to weather/pest); mitigation = R1 scope intentionally small, R2 mandates rotation

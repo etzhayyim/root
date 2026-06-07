@@ -1,7 +1,7 @@
-20-actors/magatama/sdk/magatama-host-sdk/src/capabilities/m365.ts:catch-no-err-param:const body = await res.text().catch(() => "");
-20-actors/magatama/sdk/magatama-host-sdk/src/capabilities/m365.ts:catch-no-err-param:const detail = await res.text().catch(() => "");
-20-actors/magatama/sdk/magatama-host-sdk/src/capabilities/m365.ts:catch-no-err-param:const text = await res.text().catch(() => "");
-20-actors/magatama/sdk/magatama-host-sdk/src/credits-meter.ts:catch-no-err-param:const text = await res.text().catch(() => "");
+40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/capabilities/m365.ts:catch-no-err-param:const body = await res.text().catch(() => "");
+40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/capabilities/m365.ts:catch-no-err-param:const detail = await res.text().catch(() => "");
+40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/capabilities/m365.ts:catch-no-err-param:const text = await res.text().catch(() => "");
+40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/credits-meter.ts:catch-no-err-param:const text = await res.text().catch(() => "");
 30-graph/graph-schema/scripts/verify-gov-ago-coverage.mjs:catch-no-err-param:await client.end().catch(() => {});
 30-graph/graph-schema/scripts/verify-gov-fetch-coverage.mjs:catch-no-err-param:await client.end().catch(() => {});
 30-graph/graph-schema/scripts/verify-gov-zaf-coverage.mjs:catch-no-err-param:await client.end().catch(() => {});
@@ -34,9 +34,9 @@
 50-infra/cloudflare/workers/comfyui/src/index.ts:catch-no-err-param:const view = await fetch(`${env.UPSTREAM_URL}/view?${qs.toString()}`, { signal: AbortSignal.timeout(30_000) }).catch(() => null);
 50-infra/cloudflare/workers/graph/worker.ts:empty-catch-block:try { await pgClient.query(`DELETE FROM vertex_profile_fragment WHERE repo = $1`, [repo]); } catch {}
 50-infra/cloudflare/workers/graph/worker.ts:empty-catch-block:} catch {}
-50-infra/cloudflare/workers/magatama/src/dashboard-html.ts:empty-catch-block:if(es){try{es.close()}catch(_){}}
-50-infra/cloudflare/workers/magatama/src/dashboard-html.ts:empty-catch-block:}catch(_){}
-50-infra/cloudflare/workers/magatama/src/worker.ts:catch-no-err-param:const raw = await c.req.json().catch(() => ({})) as any;
+50-infra/cloudflare/workers/kotodama/src/dashboard-html.ts:empty-catch-block:if(es){try{es.close()}catch(_){}}
+50-infra/cloudflare/workers/kotodama/src/dashboard-html.ts:empty-catch-block:}catch(_){}
+50-infra/cloudflare/workers/kotodama/src/worker.ts:catch-no-err-param:const raw = await c.req.json().catch(() => ({})) as any;
 50-infra/vultr/meeting-recorder/container/adapters/teams/index.ts:catch-no-err-param:const res = await fetch(`${SIDECAR}/media/${opts.sessionId}`, { signal }).catch(() => null);
 50-infra/vultr/meeting-recorder/container/adapters/teams/index.ts:catch-no-err-param:pollMedia(opts, poller.signal).catch(() => { /* handled via health */ });
 50-infra/vultr/meeting-recorder/container/adapters/teams/index.ts:catch-no-err-param:}).catch(() => { /* noop */ });

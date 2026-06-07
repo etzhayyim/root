@@ -515,3 +515,102 @@ def handle_kaizen_observer(state: dict) -> dict:
     }
     return {**state, "review": review, "proposals": proposals,
             "halt": halt, "throttleMentionCapFactor": throttle_factor}
+
+
+# =========================================================================== #
+# R2/R3 — member_digest (G8) + emergency_advisory (G10) — final two cells
+# =========================================================================== #
+
+# ≤500 opt-in roster cap; one digest per 7-day week per member.
+MEMBER_OPT_IN_CAP = 500
+DIGEST_PERIOD_DAYS = 7
+# G10 — fear / panic vocabulary an emergency advisory must NOT amplify.
+_PANIC_WORDS = ("panic", "doom", "catastrophe", "flee", "終わりだ", "パニック", "絶望")
+
+
+def seal_encrypted(fields: dict, recipient_did: str) -> dict:
+    """G8 — wrap fields into an com.etzhayyim.encrypted.* envelope ref. Returns ONLY an opaque
+    ref + recipient + the sealed field KEYS — never the plaintext values. Plaintext is sealed
+    client-side (XChaCha20-Poly1305, Signal-wrapped, DID-bound; ADR-2605181100); this models
+    the contract that no cleartext PII crosses the ossekai boundary."""
+    keysig = "+".join(sorted(fields.keys()))
+    ref = f"com.etzhayyim.encrypted:{abs(hash(keysig)) & 0xFFFFFFFF:08x}"
+    return {"envelopeRef": ref, "recipientDid": recipient_did, "sealedFields": sorted(fields.keys())}
+
+
+def handle_member_digest(state: dict) -> dict:
+    """Weekly opt-in digest to active Adherent-SBT members. Each delivery is an ENCRYPTED
+    envelope (G8 — no plaintext PII leaves the boundary); the roster is capped at 500 (G7);
+    a member gets at most one digest per 7-day week; advisories are filtered to the member's
+    subscribed categories. Broadcast operator-gated (no-server-key): without `operatorRef`
+    the digests are :draft and nothing is sent."""
+    members = list(state.get("members", []))
+    advisories = state.get("advisories", [])
+    now = int(state.get("now", 0))
+    operator_ref = state.get("operatorRef")
+
+    opted_in = [m for m in members if m.get("optedIn")]
+    over_cap = opted_in[MEMBER_OPT_IN_CAP:]
+    roster = opted_in[:MEMBER_OPT_IN_CAP]
+
+    digests: list = []
+    skipped: list = [{"memberDid": m.get("did"), "reason": f"opt-in roster cap {MEMBER_OPT_IN_CAP} exceeded (G7)"}
+                     for m in over_cap]
+    for m in roster:
+        if not m.get("sbtActive"):
+            skipped.append({"memberDid": m.get("did"), "reason": "not an active Adherent SBT holder (§3)"})
+            continue
+        last = m.get("lastDigestAt")
+        if last is not None and (now - int(last)) < DIGEST_PERIOD_DAYS:
+            skipped.append({"memberDid": m.get("did"), "reason": f"within {DIGEST_PERIOD_DAYS}d digest period"})
+            continue
+        cats = set(m.get("categories", []))
+        items = [a for a in advisories if not cats or a.get("category") in cats or a.get("category") is None]
+        if not items:
+            skipped.append({"memberDid": m.get("did"), "reason": "no advisory in subscribed categories"})
+            continue
+        envelope = seal_encrypted({"topics": [a.get("topic") for a in items]}, m.get("did"))
+        digests.append({
+            "recipientDid": m.get("did"),
+            "envelope": envelope,            # G8 — opaque ref, no plaintext
+            "itemCount": len(items),
+            "signedDid": OSSEKAI_DID,        # G9
+            "state": "sent" if operator_ref else "draft",
+        })
+    return {**state, "digests": digests, "skipped": skipped, "rosterSize": len(roster),
+            "broadcast": bool(operator_ref)}
+
+
+def no_panic_framing(text: str) -> bool:
+    """G10 — True iff an emergency advisory carries no fear/panic amplification."""
+    low = text.lower()
+    return not any(w in low for w in _PANIC_WORDS) and framing_audit(text)
+
+
+def handle_emergency_advisory(state: dict) -> dict:
+    """Expedited advisory triggered ONLY by a valid kazaori emergencyDeclarationAttestation.
+    ossekai cannot self-declare an emergency — without a valid attestation it refuses. The
+    expedited path bypasses normal cadence but keeps every gate: G10 no-fear (panic framing
+    refused), G1 Charter-Rider-clean, aggregate shape (G4), signed DID (G9). Broadcast
+    operator-gated (no-server-key)."""
+    att = state.get("attestation", {})
+    if not att.get("valid"):
+        return {"refused": True, "reason": "no valid kazaori emergencyDeclarationAttestation — "
+                "ossekai cannot self-declare an emergency", "post": None}
+    topic = state.get("topic", "緊急のお知らせ")
+    text = state.get("text") or (
+        f"【お知らせ】{topic}。落ち着いて、安全と必要な手順をご確認ください。"
+        "周りの方とも共有してください。")
+    if not no_panic_framing(text):
+        return {"refused": True, "reason": "fear/panic framing refused (G10)", "post": None}
+    if not charter_rider_clean(text):
+        return {"refused": True, "reason": "Charter-Rider refusal (G1)", "post": None}
+    operator_ref = state.get("operatorRef")
+    post = {
+        "text": text, "shape": "aggregate", "lexicon": "app.bsky.feed.post",
+        "signedDid": OSSEKAI_DID,            # G9
+        "expedited": True,
+        "declarer": att.get("declarer"),     # kazaori cross-actor provenance
+        "state": "posted" if operator_ref else "draft",
+    }
+    return {**state, "post": post, "refused": False, "broadcast": bool(operator_ref)}

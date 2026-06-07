@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Create minimal appview stub dirs for countries in static-profile-data
-that lack an appview dir. Only magatama.jsonld is created — src/app.ts
+that lack an appview dir. Only kotodama.jsonld is created — src/app.ts
 and wrangler.jsonc remain absent, so `etzhayyim deploy` will fail until those
-are added. The stub is enough for `enrich-magatama-profiles.py` to work.
+are added. The stub is enough for `enrich-kotodama-profiles.py` to work.
 """
 import json, os, glob
 from pathlib import Path
@@ -25,7 +25,7 @@ def existing_isos() -> set:
 def make_stub(iso: str, display_name: str) -> dict:
     nanoid = nanoid_for(iso)
     return {
-        "@context": "https://etzhayyim.com/ns/magatama/v1",
+        "@context": "https://etzhayyim.com/ns/kotodama/v1",
         "@id": f"did:web:{iso}.state.etzhayyim.com",
         "convoSystemPrompt": f"You are the {display_name} AI Agent. You represent government organizations as path-based DIDs. Respond professionally.",
         "governance": {"raci": "responsible", "classification": "public", "complianceFrameworks": []},
@@ -71,11 +71,11 @@ def main():
         dir_name = f"etzhayyim-wasm-states-{iso}-{nanoid_for(iso)}"
         dir_path = APPVIEW / dir_name
         dir_path.mkdir(parents=True, exist_ok=True)
-        (dir_path / "magatama.jsonld").write_text(
+        (dir_path / "kotodama.jsonld").write_text(
             json.dumps(make_stub(iso, name), indent=2, ensure_ascii=False) + "\n"
         )
         created.append(iso)
-    print(f"created {len(created)} stub magatama.jsonld files")
+    print(f"created {len(created)} stub kotodama.jsonld files")
     print(' '.join(created[:20]), '...' if len(created) > 20 else '')
 
 if __name__ == "__main__":

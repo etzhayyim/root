@@ -1,6 +1,6 @@
 ---
 id: adr-2606011200-session-close-kotoba-edn-world-info-ingestion-substrate
-title: "ADR-2606011200: Session close — magatama organism kotoba-EDN world-info ingestion substrate (10-iteration maturity loop)"
+title: "ADR-2606011200: Session close — kotodama organism kotoba-EDN world-info ingestion substrate (10-iteration maturity loop)"
 status: active
 doc_type: adr
 topic: kotoba-edn-ingestion
@@ -9,7 +9,7 @@ last_verified: 2026-06-01
 priority: 5.0
 axis: architecture
 weight: 0.50
-priority_note: "Documentation-only session-close ADR. Records the implementation + test build-out of the world-info → kotoba datomic-EDN ingestion path in the magatama organism Python layer: legal-corpus sensor family completion (5/5) + the junkan EDN wire-format read/write + the EavtSink ingest pipeline with constitutional gates (tier-C carve-out G4/R9 + Charter Rider §2 content scan G1)."
+priority_note: "Documentation-only session-close ADR. Records the implementation + test build-out of the world-info → kotoba datomic-EDN ingestion path in the kotodama organism Python layer: legal-corpus sensor family completion (5/5) + the junkan EDN wire-format read/write + the EavtSink ingest pipeline with constitutional gates (tier-C carve-out G4/R9 + Charter Rider §2 content scan G1)."
 authoritative_for:
   - session-close record for the 2026-06-01 kotoba-EDN ingestion maturity loop
 depends_on:
@@ -26,7 +26,7 @@ supersedes: []
 superseded_by: []
 ---
 
-# ADR-2606011200: Session close — magatama organism kotoba-EDN world-info ingestion substrate (10-iteration maturity loop)
+# ADR-2606011200: Session close — kotodama organism kotoba-EDN world-info ingestion substrate (10-iteration maturity loop)
 
 **Status**: active (documentation-only session-close record)
 **Date**: 2026-06-01
@@ -52,8 +52,8 @@ Council-gated fleet activation — see Consequences).
 
 # Decision
 
-Build the world-info → kotoba-EDN ingestion path end-to-end in the magatama organism Python
-layer (`20-actors/magatama/py`), against the reference `junkan.DatomStore` EAVT model whose
+Build the world-info → kotoba-EDN ingestion path end-to-end in the kotodama organism Python
+layer (`40-engine/kotoba/crates/kotoba-kotodama/py`), against the reference `junkan.DatomStore` EAVT model whose
 canonical production binding is `kotoba-kqe` (ADR-2605262130 + ADR-2605312345). Scope held to
 **pure / offline / test-only** code (no network, no inference, no fleet) consistent with the
 junkan analysis-only discipline; the live `kotoba-kqe` transact binding and the organism-tick
@@ -118,7 +118,7 @@ Deliverables, by loop iteration:
 Branch `feat/social-security-for-humanity`. **253 tests pass / 0 fail** across the session's
 areas (junkan EDN read/write + sink + tier-gate + content-gate, the 5 legal sensor families,
 the corp/gov W1 sensor suite, organism sensors W1–W4, sensor integration, kaizen). The repo's
-broader magatama suite has 22 pre-existing collection errors in unrelated `zeebe_worker` /
+broader kotodama suite has 22 pre-existing collection errors in unrelated `zeebe_worker` /
 NSID-validation test modules — untouched by and orthogonal to this session.
 
 Session deliverable footprint (this ADR's commit): 2 new engine modules (`junkan/edn.py`,

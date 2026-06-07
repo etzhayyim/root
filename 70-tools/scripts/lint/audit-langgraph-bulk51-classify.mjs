@@ -3,11 +3,11 @@
  * Audit bulk-51 py_primitive node refs and classify each by what kind it
  * COULD become under ADR-2605082000 §2 (mcp_tool / sql_udf / py_ext_udf / llm).
  *
- * For each `pymagatama.langgraph_graphs.<actor>:<fn>` reference, read the
+ * For each `kotodama.langgraph_graphs.<actor>:<fn>` reference, read the
  * corresponding Python file and classify the function body:
  *
- *   llm        — calls call_tier_json / anthropic / openai / pymagatama.llm
- *   mcp_tool   — calls a `task_*` from `pymagatama.<X>_worker_main` (already
+ *   llm        — calls call_tier_json / anthropic / openai / kotodama.llm
+ *   mcp_tool   — calls a `task_*` from `kotodama.<X>_worker_main` (already
  *                a thin wrapper, lift directly to the actor's MCP NSID)
  *   sql_udf    — single SELECT / INSERT, candidate for SQL UDF
  *   identity   — constant return, candidate for com.etzhayyim.tools.const.echo
@@ -26,10 +26,10 @@ const BULK_SQL = path.join(
   REPO_ROOT,
   "30-graph/graph-schema/sql_migrations/20260509150000_topology_bulk_51.up.sql",
 );
-const PYBASE = path.join(REPO_ROOT, "20-actors/magatama/py/src/pymagatama/langgraph_graphs");
+const PYBASE = path.join(REPO_ROOT, "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs");
 
 const LLM_PATTERNS = [
-  /\bcall_tier_json\b/, /\banthropic\b/i, /\bopenai\b/i, /pymagatama\.llm\b/,
+  /\bcall_tier_json\b/, /\banthropic\b/i, /\bopenai\b/i, /kotodama\.llm\b/,
   /AsyncAnthropic\b/, /AsyncOpenAI\b/,
 ];
 const LLM_TASK_RE = /\btask_generic_llm_chat\b/;
@@ -52,7 +52,7 @@ function refsFromSql() {
     throw new Error(`bulk-51 SQL not found at ${BULK_SQL}`);
   }
   const txt = readFileSync(BULK_SQL, "utf8");
-  const re = /'(pymagatama\.langgraph_graphs\.([a-z_]+)):([a-zA-Z_]+)'/g;
+  const re = /'(kotodama\.langgraph_graphs\.([a-z_]+)):([a-zA-Z_]+)'/g;
   const out = [];
   let m;
   while ((m = re.exec(txt)) !== null) {

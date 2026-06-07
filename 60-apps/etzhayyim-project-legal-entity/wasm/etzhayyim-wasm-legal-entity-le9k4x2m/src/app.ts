@@ -40,7 +40,7 @@ export default {
         actor: ACTOR_DID,
         nanoid: env.APP_NANOID ?? "le9k4x2m",
         execution: "edge-proxy+agentgateway-mcp+langserver",
-        businessLogic: "20-actors/magatama/py/src/pymagatama/zeebe_worker_main.py legalEntity.* task handlers",
+        businessLogic: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/zeebe_worker_main.py legalEntity.* task handlers",
         bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/legal-entity",
       });
     }

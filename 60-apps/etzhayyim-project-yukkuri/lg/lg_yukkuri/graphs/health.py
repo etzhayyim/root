@@ -10,7 +10,7 @@ import logging
 import os
 import time
 from typing import Any
-from pymagatama.kotoba_datomic import get_kotoba_client, TypedDict
+from kotodama.kotoba_datomic import get_kotoba_client, TypedDict
 
 from langgraph.graph import END, START, StateGraph
 from langgraph.types import RetryPolicy

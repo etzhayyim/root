@@ -94,7 +94,7 @@ KaizenProposal NDJSON → proposal_to_pr_draft pure fn → KaizenPrAgent (gh aut
 | 20 | Committed without running pytest (5/26 fail) | Re-fixed by orchestrator iter 21-22 across 3 commits |
 | 22 | Agent declared "pydantic env broken" and refused work; pytest actually ran fine | Manual fix by orchestrator + 32/32 pass |
 | 23 | Committed literal-LF instead of `"\n"` string → published code didn't import | Manual sed fix + retry pytest |
-| 25 | Workspace pinned to wrong dir (iter 24 sticky) then context overflow (1.06M > 1.05M token) from repo root | Launched from `magatama/py` to fit context |
+| 25 | Workspace pinned to wrong dir (iter 24 sticky) then context overflow (1.06M > 1.05M token) from repo root | Launched from `kotodama/py` to fit context |
 | 26 | Task tracker JSON corruption → agent crashed but files + commit had landed pre-crash | No recovery needed |
 
 **Successful agent patterns:**

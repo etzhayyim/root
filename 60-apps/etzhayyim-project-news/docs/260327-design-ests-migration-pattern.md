@@ -37,7 +37,7 @@
 - query 系移植: 完了
 - reactive ingest 移植: 完了
 - heartbeat/article generation 移植: 完了
-- deploy runtime の完全切替 (`magatama.jsonld` build/runtime): 未完（次段）
+- deploy runtime の完全切替 (`kotodama.jsonld` build/runtime): 未完（次段）
 
 ## Build/Deploy/Debug Standard Flow
 

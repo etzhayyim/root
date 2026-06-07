@@ -1,13 +1,13 @@
 """LangGraph OSS FastAPI server — lg-legal-entity.
 
-16 tasks from pymagatama.primitives.legal_entity:
+16 tasks from kotodama.primitives.legal_entity:
   - gleif: fetchPages (async), registerDids (sync → asyncio.to_thread)
   - edgar: collectUsa, ingestSecDisclosure
   - registry: collectJpn/Gbr/Fra/Nor/Dnk/Fin/Est/Cze/Nzl/Che/Nld/Isr
 
 Build:
   docker buildx build --platform linux/amd64 \\
-    --build-context py=../../../20-actors/magatama/py \\
+    --build-context py=../../../40-engine/kotoba/crates/kotoba-kotodama/py \\
     -t ghcr.io/etzhayyim/lg-legal-entity:0.1.0-amd64 --push .
 """
 
@@ -26,7 +26,7 @@ from fastapi.responses import JSONResponse
 from langgraph.graph import END, START, StateGraph
 from typing_extensions import TypedDict
 
-from pymagatama.primitives.legal_entity import (
+from kotodama.primitives.legal_entity import (
     _make_registry_task,
     task_edgar_collect_usa,
     task_edgar_ingest_sec_disclosure,

@@ -9,7 +9,7 @@ last_verified: 2026-05-19
 depends_on:
   - 2605191000-ameno-browser-pregel-reflection
   - 2605191229-ameno-daemon-path-a-bun-langgraph
-  - 2605191257-ameno-daemon-path-b-pymagatama-python
+  - 2605191257-ameno-daemon-path-b-kotodama-python
   - 2605191135-ameno-tier2-daemon-residency
 related:
 V05190824-ameno-mediapipe-llm-browser-runtime

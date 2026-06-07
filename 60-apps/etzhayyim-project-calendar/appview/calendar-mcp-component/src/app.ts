@@ -27,7 +27,7 @@ export default {
         actor: "did:web:calendar.etzhayyim.com",
         nanoid: env.APP_NANOID ?? "calendar-mcp",
         execution: "edge-proxy+agentgateway-mcp+langserver",
-        businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/calendar.py",
+        businessLogic: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/calendar.py",
         bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/calendar",
       });
     }

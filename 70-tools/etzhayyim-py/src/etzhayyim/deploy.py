@@ -1,4 +1,4 @@
-"""etzhayyim build / deploy — magatama Worker build + Cloudflare deploy (Python port).
+"""etzhayyim build / deploy — kotodama Worker build + Cloudflare deploy (Python port).
 
 Core logic ported from 70-tools/etzhayyim/etzhayyim/build.go and deploy.go.
 Shells out to pnpm and wrangler the same way the Go binary does.
@@ -88,14 +88,14 @@ def _run_cmd(cwd: Path, *args: str) -> None:
     raise click.ClickException(f"command failed: {' '.join(args)}: {last_err}")
 
 
-def _read_magatama_jsonld(comp_dir: Path) -> dict:
-    p = comp_dir / "magatama.jsonld"
+def _read_kotodama_jsonld(comp_dir: Path) -> dict:
+    p = comp_dir / "kotodama.jsonld"
     if not p.exists():
-        raise click.ClickException(f"magatama.jsonld required in {comp_dir}")
+        raise click.ClickException(f"kotodama.jsonld required in {comp_dir}")
     try:
         return json.loads(p.read_text())
     except json.JSONDecodeError as e:
-        raise click.ClickException(f"magatama.jsonld parse error: {e}")
+        raise click.ClickException(f"kotodama.jsonld parse error: {e}")
 
 
 def _app_id(cfg: dict) -> str:
@@ -140,18 +140,18 @@ def _validate_no_pds_hardcode(comp_dir: Path) -> None:
 
 
 def _validate_governance_import(comp_dir: Path) -> None:
-    if not (comp_dir / "magatama.jsonld").exists():
+    if not (comp_dir / "kotodama.jsonld").exists():
         return
     world_path = comp_dir / "wit" / "world.wit"
     if not world_path.exists():
         return
     world = world_path.read_text(errors="replace")
-    if ("import magatama:agent/governance@1.0.0;" in world or
-            "include magatama:runtime/magatama-component@1.0.0;" in world):
+    if ("import kotodama:agent/governance@1.0.0;" in world or
+            "include kotodama:runtime/kotodama-component@1.0.0;" in world):
         return
     raise click.ClickException(
-        f"magatama governance guard: {world_path} must import `magatama:agent/governance@1.0.0` "
-        "or include `magatama:runtime/magatama-component@1.0.0`"
+        f"kotodama governance guard: {world_path} must import `kotodama:agent/governance@1.0.0` "
+        "or include `kotodama:runtime/kotodama-component@1.0.0`"
     )
 
 
@@ -159,12 +159,12 @@ def _validate_profile(cfg: dict) -> None:
     profile = cfg.get("profile")
     if profile is None:
         raise click.ClickException(
-            "profile block is required in magatama.jsonld (add profile.displayName and profile.description)"
+            "profile block is required in kotodama.jsonld (add profile.displayName and profile.description)"
         )
     if not profile.get("displayName"):
-        raise click.ClickException("profile.displayName is required in magatama.jsonld")
+        raise click.ClickException("profile.displayName is required in kotodama.jsonld")
     if not profile.get("description"):
-        raise click.ClickException("profile.description is required in magatama.jsonld")
+        raise click.ClickException("profile.description is required in kotodama.jsonld")
 
 
 def _validate_required(cfg: dict) -> None:
@@ -182,7 +182,7 @@ def _validate_required(cfg: dict) -> None:
         errors.append("triggers.subscribeRepos.collections is required (reactive pipeline needs at least one collection)")
     if errors:
         raise click.ClickException(
-            "magatama.jsonld missing required blocks:\n  - " + "\n  - ".join(errors)
+            "kotodama.jsonld missing required blocks:\n  - " + "\n  - ".join(errors)
         )
 
 
@@ -216,7 +216,7 @@ def _extract_wit_imports(comp_dir: Path) -> list[str]:
 def _find_host_sdk_path(git_root: Path | None) -> str:
     if git_root is None:
         return ""
-    candidate = git_root / "20-actors" / "magatama" / "sdk" / "magatama-host-sdk" / "src" / "index.ts"
+    candidate = git_root / "20-actors" / "kotodama" / "sdk" / "kotodama-host-sdk" / "src" / "index.ts"
     return str(candidate) if candidate.exists() else ""
 
 
@@ -266,8 +266,8 @@ def generate_wrangler_jsonc(cfg: dict, comp_dir: Path, git_root: Path | None = N
     # Browser binding
     wit_imports = _extract_wit_imports(comp_dir)
     if cfg.get("needsBrowser"):
-        wit_imports.append("magatama:browser/automation@1.0.0")
-    needs_browser = "magatama:browser/automation@1.0.0" in wit_imports
+        wit_imports.append("kotodama:browser/automation@1.0.0")
+    needs_browser = "kotodama:browser/automation@1.0.0" in wit_imports
 
     # Assets block
     assets_block = ""
@@ -365,7 +365,7 @@ def generate_wrangler_jsonc(cfg: dict, comp_dir: Path, git_root: Path | None = N
         git_root = _find_git_root(comp_dir)
     host_sdk = _find_host_sdk_path(git_root)
     if host_sdk and git_root:
-        aliases: dict[str, str] = {"@etzhayyim/magatama-host-sdk": host_sdk}
+        aliases: dict[str, str] = {"@etzhayyim/kotodama-host-sdk": host_sdk}
         if pg := _find_pg_alias(git_root):
             aliases["pg"] = pg
         aliases.update(_find_xrpc_alias(git_root))
@@ -374,7 +374,7 @@ def generate_wrangler_jsonc(cfg: dict, comp_dir: Path, git_root: Path | None = N
 
     return (
         "{\n"
-        f'  "name": "magatama-{app_id}",\n'
+        f'  "name": "kotodama-{app_id}",\n'
         f'  "main": "src/app.ts",\n'
         f'  "compatibility_date": "2025-03-17",\n'
         f'  "compatibility_flags": ["nodejs_compat", "nodejs_als"],{alias_block}{assets_block}{vars_block}\n'
@@ -509,9 +509,9 @@ def _run_build(comp_dir: Path, *, no_svelte: bool, no_check: bool,
               help="Minimum allowed deps score (0 disables)")
 def build(comp_dir: str, no_svelte: bool, no_check: bool,
           deps_score: bool, deps_score_url: str, deps_score_min: float) -> None:
-    """Build a magatama Worker (pnpm + svelte + deps score)."""
+    """Build a kotodama Worker (pnpm + svelte + deps score)."""
     path = Path(comp_dir).resolve()
-    cfg = _read_magatama_jsonld(path)
+    cfg = _read_kotodama_jsonld(path)
     _validate_no_cors(path)
     _validate_no_pds_hardcode(path)
     _validate_governance_import(path)
@@ -542,12 +542,12 @@ def build(comp_dir: str, no_svelte: bool, no_check: bool,
 def deploy(comp_dir: str, no_svelte: bool, no_check: bool, no_build: bool,
            prune_cdn_immutable: bool, deps_score: bool, deps_score_url: str,
            deps_score_min: float, no_announce: bool) -> None:
-    """Deploy a magatama Worker to Cloudflare via wrangler."""
+    """Deploy a kotodama Worker to Cloudflare via wrangler."""
     path = Path(comp_dir).resolve()
-    cfg = _read_magatama_jsonld(path)
+    cfg = _read_kotodama_jsonld(path)
     app_id = _app_id(cfg)
     if not app_id:
-        raise click.ClickException("nanoid required in magatama.jsonld")
+        raise click.ClickException("nanoid required in kotodama.jsonld")
 
     _validate_no_cors(path)
     _validate_no_pds_hardcode(path)
@@ -576,7 +576,7 @@ def deploy(comp_dir: str, no_svelte: bool, no_check: bool, no_build: bool,
     # wrangler deploy
     _run_cmd(path, "npx", "wrangler", "deploy")
 
-    click.echo(f"==> deployed magatama-{app_id}", err=True)
+    click.echo(f"==> deployed kotodama-{app_id}", err=True)
     click.echo(f"  https://{app_id}.etzhayyim.com/health", err=True)
 
     # Post-deploy announce

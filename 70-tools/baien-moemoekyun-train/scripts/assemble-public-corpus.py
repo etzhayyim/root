@@ -495,7 +495,7 @@ class CorpusAssemblyError(RuntimeError):
 def _direct_load(module_name: str, file_path: Path):
     """Load a Python file as a standalone module.
 
-    Avoids triggering ``pymagatama/__init__.py`` (which imports
+    Avoids triggering ``kotodama/__init__.py`` (which imports
     langchain → pydantic; on systems with a broken pydantic-core
     pinning this poisons the import). The Charter scanner + PII filter
     are pure stdlib + regex; they don't need the rest of the package.
@@ -510,21 +510,21 @@ def _direct_load(module_name: str, file_path: Path):
     return mod
 
 
-def _find_pymagatama_src() -> Path | None:
-    """Locate the in-tree pymagatama source. Strategies:
+def _find_kotodama_src() -> Path | None:
+    """Locate the in-tree kotodama source. Strategies:
 
-    1. ``ETZ_PYMAGATAMA_SRC`` env var (highest priority).
-    2. Walk up from this file looking for ``20-actors/magatama/py/src/``.
+    1. ``ETZ_PYKOTODAMA_SRC`` env var (highest priority).
+    2. Walk up from this file looking for ``40-engine/kotoba/crates/kotoba-kotodama/py/src/``.
     """
-    env = os.environ.get("ETZ_PYMAGATAMA_SRC")
+    env = os.environ.get("ETZ_PYKOTODAMA_SRC")
     if env:
         p = Path(env)
-        if (p / "pymagatama/organism/sensors/charter_rider.py").exists():
+        if (p / "kotodama/organism/sensors/charter_rider.py").exists():
             return p
     here = Path(__file__).resolve()
     for parent in here.parents:
-        candidate = parent / "20-actors/magatama/py/src"
-        if (candidate / "pymagatama/organism/sensors/charter_rider.py").exists():
+        candidate = parent / "40-engine/kotoba/crates/kotoba-kotodama/py/src"
+        if (candidate / "kotodama/organism/sensors/charter_rider.py").exists():
             return candidate
     return None
 
@@ -543,8 +543,8 @@ def _try_import_charter_scanner():
         if mod is None:
             raise CorpusAssemblyError(
                 "Charter Rider scanner could not be loaded via "
-                "e7m_dataset.charter._load_scanner. Install pymagatama "
-                "or set ETZ_PYMAGATAMA_SRC."
+                "e7m_dataset.charter._load_scanner. Install kotodama "
+                "or set ETZ_PYKOTODAMA_SRC."
             )
         return mod.scan
     except ImportError:
@@ -553,16 +553,16 @@ def _try_import_charter_scanner():
     # Legacy fallback — preserved so the standalone script keeps
     # working from any checkout that pre-dates the e7m_dataset.charter
     # canonical wrapper.
-    src = _find_pymagatama_src()
+    src = _find_kotodama_src()
     if src is None:
         raise CorpusAssemblyError(
-            "Could not locate pymagatama source. Set ETZ_PYMAGATAMA_SRC "
+            "Could not locate kotodama source. Set ETZ_PYKOTODAMA_SRC "
             "or run from inside the etzhayyim-root tree, or install "
             "e7m_dataset (which exposes the canonical wrapper)."
         )
     mod = _direct_load(
         "_corpus_assembler_charter_rider",
-        src / "pymagatama/organism/sensors/charter_rider.py",
+        src / "kotodama/organism/sensors/charter_rider.py",
     )
     return mod.scan
 
@@ -585,21 +585,21 @@ def _try_import_pii_filter():
     # Legacy fallback path — preserved so the standalone script keeps
     # working from any checkout that pre-dates the e7m_dataset.pii
     # canonical wrapper. Same direct-load semantics as the wrapper.
-    src = _find_pymagatama_src()
+    src = _find_kotodama_src()
     if src is None:
         raise CorpusAssemblyError(
-            "Could not locate pymagatama source. Set ETZ_PYMAGATAMA_SRC "
+            "Could not locate kotodama source. Set ETZ_PYKOTODAMA_SRC "
             "or run from inside the etzhayyim-root tree, or install "
             "e7m_dataset (which exposes the canonical wrapper)."
         )
     base_mod = _direct_load(
-        "_corpus_assembler_pymagatama_base",
-        src / "pymagatama/organism/sensors/base.py",
+        "_corpus_assembler_kotodama_base",
+        src / "kotodama/organism/sensors/base.py",
     )
-    src_text = (src / "pymagatama/organism/sensors/pii_filter.py").read_text(encoding="utf-8")
+    src_text = (src / "kotodama/organism/sensors/pii_filter.py").read_text(encoding="utf-8")
     src_text = src_text.replace(
         "from .base import PiiFilterPolicy",
-        "from _corpus_assembler_pymagatama_base import PiiFilterPolicy",
+        "from _corpus_assembler_kotodama_base import PiiFilterPolicy",
     )
     import importlib.util
     spec = importlib.util.spec_from_loader(
@@ -607,7 +607,7 @@ def _try_import_pii_filter():
     )
     mod = importlib.util.module_from_spec(spec)  # type: ignore[arg-type]
     sys.modules["_corpus_assembler_pii_filter"] = mod
-    exec(compile(src_text, str(src / "pymagatama/organism/sensors/pii_filter.py"), "exec"), mod.__dict__)
+    exec(compile(src_text, str(src / "kotodama/organism/sensors/pii_filter.py"), "exec"), mod.__dict__)
     return mod.redact_payload
 
 

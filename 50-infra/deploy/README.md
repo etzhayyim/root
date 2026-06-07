@@ -32,7 +32,7 @@ Source of truth: `50-infra/murakumo/fleet.toml`
 
 | Component        | Nodes      | launchd type    | Label |
 |------------------|------------|-----------------|-------|
-| cell-runner      | all 10     | LaunchAgent     | `com.etzhayyim.magatama-cell-runner` |
+| cell-runner      | all 10     | LaunchAgent     | `com.etzhayyim.kotodama-cell-runner` |
 | mst-projector    | simeon only| LaunchDaemon    | `com.etzhayyim.mst-projector` |
 | LiteLLM gateway  | judah      | LaunchDaemon    | `com.etzhayyim.litellm-gateway` |
 
@@ -180,7 +180,7 @@ On each Mac mini, ongoing service logs:
 
 ```bash
 # cell-runner
-tail -f ~/.etzhayyim/log/magatama-cell-runner.stderr.log
+tail -f ~/.etzhayyim/log/kotodama-cell-runner.stderr.log
 
 # mst-projector (simeon)
 sudo tail -f /var/log/etzhayyim/mst-projector.err.log

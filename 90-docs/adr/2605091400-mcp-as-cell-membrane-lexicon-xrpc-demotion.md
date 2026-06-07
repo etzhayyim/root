@@ -7,12 +7,12 @@ topic: mcp-membrane-lexicon-demotion
 authoritative: true
 last_verified: 2026-05-15
 implementation_notes: |
-  - media-gamers first impl (2026-05-13): capability_worker=a7m8oocs, 4 tools in vertex_capability, NSID alias in app.ts, profile.tools[] in magatama.jsonld
+  - media-gamers first impl (2026-05-13): capability_worker=a7m8oocs, 4 tools in vertex_capability, NSID alias in app.ts, profile.tools[] in kotodama.jsonld
   - malak.surveillance dual-wire impl (2026-05-15): 4 chains in `00-contracts/lexicons/com/etzhayyim/apps/malak/` simultaneously power (a) MCP tools at mcp.etzhayyim.com/mcp and (b) internal XRPC at dispatcher.etzhayyim.com/xrpc/com.etzhayyim.apps.malak.*. Same lexicon JSON, two wires. SvelteKit `/mcp` route + `bpmn-dispatcher` both derive routing/validation from the lexicon.
 authoritative_for:
   - MCP as sole external API surface (external = cell membrane)
   - Lexicon = dual-wire contract SSoT (drives MCP tool schema AND internal XRPC contract)
-  - magatama MCP facade as SSoT for outward capability
+  - kotodama MCP facade as SSoT for outward capability
   - MCP tool names use Lexicon NSID (verbatim, no translation)
   - Internal XRPC remains active for cytoplasmic (cohort-internal) wire
 priority: 9.4
@@ -21,7 +21,7 @@ weight: 0.94
 priority_note: "CRITICAL — external surface = MCP only; lexicon JSON drives both MCP and internal XRPC wires."
 depends_on:
   - adr-2605091300-bonsai-cultivar-layer-above-myco-yeast
-  - adr-0087-magatama-mcp-tool-facade
+  - adr-0087-kotodama-mcp-tool-facade
   - adr-2604231828-appview-domain-separation-bsky-etzhayyim-ai
   - adr-2605131600-malak-orchestration-langgraph-pregel-langserve
 related:
@@ -93,10 +93,10 @@ XRPC + lexicon は、cohort 内 (cytoplasm) の細胞間通信としては
 
 ## B. MCP = 公開 SSoT
 
-- `magatama MCP facade` (ADR-0087) を **唯一の外向き API surface** とする
+- `kotodama MCP facade` (ADR-0087) を **唯一の外向き API surface** とする
 - 全 external integration (human client, partner org, external AI agent) は
   MCP server-to-server で接続
-- agent code は MCP client SDK のみ知る。XRPC は magatama facade 内部と
+- agent code は MCP client SDK のみ知る。XRPC は kotodama facade 内部と
   PDS 内部だけが触れる
 
 ## C. Lexicon の役割再定義 (2026-05-15 改訂: dual-wire SSoT)
@@ -274,7 +274,7 @@ by network RTT plus pod/database latency. Therefore:
 > **MCP = sole external API; XRPC = internal cytoplasmic wire;
 > Lexicon JSON = dual-wire contract SSoT.**
 >
-> - External-facing tools MUST be exposed via magatama MCP facade (`mcp.etzhayyim.com/mcp`).
+> - External-facing tools MUST be exposed via kotodama MCP facade (`mcp.etzhayyim.com/mcp`).
 > - Direct XRPC exposure to external principals is prohibited.
 > - Internal XRPC remains active for cytoplasmic (cohort-internal) wire.
 >   `x-internal-trust`-gated callers (CF Worker edge BFF, K8s pods, operator CLI)
@@ -332,7 +332,7 @@ Worker 内部の `media_gamers` ルーティングロジックに届く。
 **First implementation**: `media-gamers` (nanoid `a7m8oocs`, 2026-05-13)
 - `vertex_capability` に 4 tool 登録: `health`, `ingestCharts`, `generateGuide`, `autopilot`
 - `capability_worker = 'a7m8oocs'` (DNS-safe)
-- `magatama.jsonld` `profile.tools[]` に 4 エントリ追加
+- `kotodama.jsonld` `profile.tools[]` に 4 エントリ追加
 - `app.ts` に `NSID_PREFIX_ALIAS` alias handler 追加
 
 # Known Issue: atproto.etzhayyim.com MCP router 522 (2026-05-13)
@@ -397,16 +397,16 @@ both wires from one lexicon JSON each:
 - Lexicon (SSoT): `00-contracts/lexicons/com/etzhayyim/apps/malak/bitnestExitPursuit.json`
 - MCP wire: `50-infra/cloudflare/workers/atproto/svelte/src/routes/mcp/+server.ts`
   (`MALAK_TOOLS` 静的 list + `tools/call` → dispatcher proxy)
-- XRPC wire: `20-actors/magatama/py/src/pymagatama/dispatcher_main.py`
+- XRPC wire: `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/dispatcher_main.py`
   (`MALAK_LANGSERVER_PROXY_NSIDS` + `_proxy_to_lg_pod` to
   `malak-langserver.mitama-udf.svc.cluster.local:8765`)
 - Pod handler (both wires terminate here):
-  `20-actors/magatama/py/src/pymagatama/malak/langgraph/server.py`
+  `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/malak/langgraph/server.py`
   (`/xrpc/{nsid}` alias + `/invoke/{chain_name}` LangServe)
 
 # References
 
-- ADR-0087 magatama MCP tool facade
+- ADR-0087 kotodama MCP tool facade
 - ADR-2604282300 CF Worker edge layer
 - ADR-2605111200 CF Worker = edge-only (no RW connection)
 - ADR-2605131600 malak orchestration LangGraph Pregel LangServe

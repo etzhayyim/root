@@ -80,13 +80,13 @@
     "verificationGate": "G14 — all seed entries ship verificationStatus=unverified-seed; NO live submission until maintainer-verified (public procedure) / council-verified (代行) within freshnessWindowDays."
   },
   "cells": [
-    {"name": "procedure_registry", "module": "magatama.cells.toritsugi_procedure_registry", "murakumoNode": "reuben", "phase": "continuous", "io": "maintain + resolve the coded procedure catalog (窓口/所管/様式/必要書類/手数料/法定処理期間/根拠法令/channel); enforce G14 verification status"},
-    {"name": "eligibility_match", "module": "magatama.cells.toritsugi_eligibility_match", "murakumoNode": "reuben", "phase": "event", "io": "consenting member's life-event/profile (OWN data) → benefitMatch (proactive 'you may be eligible for X' — the LINE-like notify; never a third party)"},
-    {"name": "intake", "module": "magatama.cells.toritsugi_intake", "murakumoNode": "reuben", "phase": "event", "io": "member consent + DID/SBT binding + need/life-event → procedureGuide session"},
-    {"name": "guide", "module": "magatama.cells.toritsugi_guide", "murakumoNode": "gad", "phase": "event", "io": "pull chigiri procedure template + resolved procedure → step-by-step 案内 + 必要書類 checklist (UPL boundary G5)"},
-    {"name": "draft", "module": "magatama.cells.toritsugi_draft", "murakumoNode": "gad", "phase": "event", "io": "assist filling the 様式/フォーム → applicationDraft artifact (member reviews + owns; assist, NOT 作成代理)"},
-    {"name": "submit", "module": "magatama.cells.toritsugi_submit", "murakumoNode": "naphtali", "phase": "event", "io": "THE ONLY active-outbound cell — default hands the draft back for member self-submission; 代行 submission ONLY under G14+G15+R3 → submissionRecord"},
-    {"name": "status_track", "module": "magatama.cells.toritsugi_status_track", "murakumoNode": "naphtali", "phase": "continuous", "io": "処理状況 / 法定処理期間 clock + follow-up + 結果 intake (ENCRYPTED PII, G6); refusal → lawful appeal route via chigiri"}
+    {"name": "procedure_registry", "module": "kotodama.cells.toritsugi_procedure_registry", "murakumoNode": "reuben", "phase": "continuous", "io": "maintain + resolve the coded procedure catalog (窓口/所管/様式/必要書類/手数料/法定処理期間/根拠法令/channel); enforce G14 verification status"},
+    {"name": "eligibility_match", "module": "kotodama.cells.toritsugi_eligibility_match", "murakumoNode": "reuben", "phase": "event", "io": "consenting member's life-event/profile (OWN data) → benefitMatch (proactive 'you may be eligible for X' — the LINE-like notify; never a third party)"},
+    {"name": "intake", "module": "kotodama.cells.toritsugi_intake", "murakumoNode": "reuben", "phase": "event", "io": "member consent + DID/SBT binding + need/life-event → procedureGuide session"},
+    {"name": "guide", "module": "kotodama.cells.toritsugi_guide", "murakumoNode": "gad", "phase": "event", "io": "pull chigiri procedure template + resolved procedure → step-by-step 案内 + 必要書類 checklist (UPL boundary G5)"},
+    {"name": "draft", "module": "kotodama.cells.toritsugi_draft", "murakumoNode": "gad", "phase": "event", "io": "assist filling the 様式/フォーム → applicationDraft artifact (member reviews + owns; assist, NOT 作成代理)"},
+    {"name": "submit", "module": "kotodama.cells.toritsugi_submit", "murakumoNode": "naphtali", "phase": "event", "io": "THE ONLY active-outbound cell — default hands the draft back for member self-submission; 代行 submission ONLY under G14+G15+R3 → submissionRecord"},
+    {"name": "status_track", "module": "kotodama.cells.toritsugi_status_track", "murakumoNode": "naphtali", "phase": "continuous", "io": "処理状況 / 法定処理期間 clock + follow-up + 結果 intake (ENCRYPTED PII, G6); refusal → lawful appeal route via chigiri"}
   ],
   "lexiconNamespaces": [
     "com.etzhayyim.toritsugi.procedure",

@@ -102,8 +102,8 @@ describe("W1 phase — no LLM call yet and no commercial LLM endpoints anywhere"
     expect(ts).toContain("/xrpc/");
   });
 
-  it("magatama.jsonld declares r0ScaffoldNoLlm: true", () => {
-    const mag = JSON.parse(readFileSync(join(PWA_ROOT, "magatama.jsonld"), "utf-8"));
+  it("kotodama.jsonld declares r0ScaffoldNoLlm: true", () => {
+    const mag = JSON.parse(readFileSync(join(PWA_ROOT, "kotodama.jsonld"), "utf-8"));
     expect(mag.r0ScaffoldNoLlm).toBe(true);
   });
 });

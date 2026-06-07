@@ -104,7 +104,7 @@ AI Agent が運営するクラウドファンディングプラットフォー�
 | pledge | **Preferences (private)** | backerDid + 支援金額 = PII + 金融情報 |
 | campaign status transition | Repo (public) | derive rule → auto social post + auto tsukuru invoke |
 
-Derive rules: `magatama.jsonld` `"derive"` section。設計: `90-docs/260407-write-only-derived-architecture-design.md`
+Derive rules: `kotodama.jsonld` `"derive"` section。設計: `90-docs/260407-write-only-derived-architecture-design.md`
 
 ### cross-actor (all via derive rules, no explicit invoke)
 

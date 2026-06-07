@@ -36,12 +36,12 @@ spec:
             - name: ghcr-creds
           containers:
             - name: fulltext
-              image: ghcr.io/etzhayyim/pymagatama:0.3.96-20260508104813-amd64
+              image: ghcr.io/etzhayyim/kotodama:0.3.96-20260508104813-amd64
               imagePullPolicy: IfNotPresent
               command: ["python", "-c"]
               args:
                 - |
-                  from pymagatama.langgraph_graphs.copyright_fulltext import build_graph
+                  from kotodama.langgraph_graphs.copyright_fulltext import build_graph
                   g = build_graph()
                   r = g.invoke({"batchSize": 50})
                   print("worksQueried:", r.get("worksQueried"))

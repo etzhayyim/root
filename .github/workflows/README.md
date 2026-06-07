@@ -65,9 +65,9 @@ Watches PRs for Bootstrap Council Seat 2-5 nomination updates per ADR-2605192300
 
 Open-OT (`60-apps/etzhayyim-project-open-ot/`) Gate C deployment validation per the open-ot ADR series.
 
-## pymagatama-image.yml
+## kotodama-image.yml
 
-Builds the `pymagatama` container image when changes land under `20-actors/magatama/py/`.
+Builds the `kotodama` container image when changes land under `40-engine/kotoba/crates/kotoba-kotodama/py/`.
 
 ## yorishiro-audit.yml
 

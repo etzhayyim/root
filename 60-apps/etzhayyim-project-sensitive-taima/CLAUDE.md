@@ -1,11 +1,11 @@
-# ai-gftd-project-sensitive-taima
+# etzhayyim-project-sensitive-taima
 
 ## Identity
 
 | Key | Value |
 |---|---|
 | nanoid | `tm01prv0` |
-| DID | `did:web:sensitive-taima.gftd.ai` |
+| DID | `did:web:sensitive-taima.etzhayyim.com` |
 | performerType | `service` |
 | sensitivity | `restricted` |
 | domain | 大麻政策 intelligence — 日本における合法化推進のための立法・研究・世論・国際比較データ収集・分析 |
@@ -14,36 +14,36 @@
 
 natural-person と同一の **hidden DID** パターン。T0 existence-hidden。consent grant + clearance=restricted のみアクセス可。
 
-### Data Collections (ai.gftd.apps.sensitive_taima.*)
+### Data Collections (ai.etzhayyim.apps.sensitive_taima.*)
 
 | Collection | 説明 | Path-based DID |
 |---|---|---|
-| `legislation` | 各国大麻関連法令 (現行法・改正案・施行日・管轄) | `did:web:sensitive-taima.gftd.ai:{country_alpha3}` |
+| `legislation` | 各国大麻関連法令 (現行法・改正案・施行日・管轄) | `did:web:sensitive-taima.etzhayyim.com:{country_alpha3}` |
 | `court_decision` | 判例・行政判断 (日本 + 国際) | — |
 | `research_paper` | 医学・薬学・社会学研究論文メタデータ + 要約 | — |
 | `clinical_trial` | 臨床試験データ (ClinicalTrials.gov / JAPIC 等) | — |
 | `medical_evidence` | 医療用大麻エビデンス (適応症・効果・副作用) | — |
-| `economic_impact` | 経済効果分析 (税収・雇用・市場規模) | `did:web:sensitive-taima.gftd.ai:{country_alpha3}:economic` |
+| `economic_impact` | 経済効果分析 (税収・雇用・市場規模) | `did:web:sensitive-taima.etzhayyim.com:{country_alpha3}:economic` |
 | `public_opinion` | 世論調査・メディア分析 | — |
 | `policy_proposal` | 政策提言ドラフト (法改正案・規制案) | — |
 | `international_comparison` | 国際比較レポート (合法化前後の犯罪率・健康指標・経済指標) | — |
-| `stakeholder` | 関係者・団体マッピング (議員・研究者・患者団体・産業団体) | `did:web:sensitive-taima.gftd.ai:stakeholder:{id}` |
+| `stakeholder` | 関係者・団体マッピング (議員・研究者・患者団体・産業団体) | `did:web:sensitive-taima.etzhayyim.com:stakeholder:{id}` |
 | `timeline_event` | 政策タイムライン (法改正・国際動向・世論変化イベント) | — |
 | `risk_assessment` | リスク評価 (社会的影響・健康リスク・法的リスク) | — |
 
 ### Multi-DID Structure
 
 ```
-did:web:sensitive-taima.gftd.ai                    ← primary (coordinator)
-did:web:sensitive-taima.gftd.ai:jpn                ← 日本法令・判例
-did:web:sensitive-taima.gftd.ai:usa                ← 米国 (連邦 + 州別)
-did:web:sensitive-taima.gftd.ai:can                ← カナダ (2018 合法化)
-did:web:sensitive-taima.gftd.ai:deu                ← ドイツ (2024 合法化)
-did:web:sensitive-taima.gftd.ai:tha                ← タイ (2022 非犯罪化)
-did:web:sensitive-taima.gftd.ai:ury                ← ウルグアイ (2013 合法化)
-did:web:sensitive-taima.gftd.ai:nld                ← オランダ (tolerance policy)
-did:web:sensitive-taima.gftd.ai:stakeholder:{id}   ← 個別関係者
-did:web:sensitive-taima.gftd.ai:{country}:economic ← 国別経済効果
+did:web:sensitive-taima.etzhayyim.com                    ← primary (coordinator)
+did:web:sensitive-taima.etzhayyim.com:jpn                ← 日本法令・判例
+did:web:sensitive-taima.etzhayyim.com:usa                ← 米国 (連邦 + 州別)
+did:web:sensitive-taima.etzhayyim.com:can                ← カナダ (2018 合法化)
+did:web:sensitive-taima.etzhayyim.com:deu                ← ドイツ (2024 合法化)
+did:web:sensitive-taima.etzhayyim.com:tha                ← タイ (2022 非犯罪化)
+did:web:sensitive-taima.etzhayyim.com:ury                ← ウルグアイ (2013 合法化)
+did:web:sensitive-taima.etzhayyim.com:nld                ← オランダ (tolerance policy)
+did:web:sensitive-taima.etzhayyim.com:stakeholder:{id}   ← 個別関係者
+did:web:sensitive-taima.etzhayyim.com:{country}:economic ← 国別経済効果
 ```
 
 ### Follow-Based Data Acquisition (2次ソース)
@@ -52,11 +52,11 @@ did:web:sensitive-taima.gftd.ai:{country}:economic ← 国別経済効果
 
 | Upstream | Follow 目的 |
 |---|---|
-| `states.gftd.ai` | 各国大麻関連法令の変更検知 |
-| `treaty.gftd.ai` | 国際条約 (1961 麻薬単一条約等) の動向 |
-| `handotai.gftd.ai` | RSS crawl パターン参照 (技術的手法) |
-| `legal-entity.gftd.ai` | 関連企業・団体の法人情報 |
-| `natural-person.gftd.ai` | 人口統計 × 政策効果の相関分析 |
+| `states.etzhayyim.com` | 各国大麻関連法令の変更検知 |
+| `treaty.etzhayyim.com` | 国際条約 (1961 麻薬単一条約等) の動向 |
+| `handotai.etzhayyim.com` | RSS crawl パターン参照 (技術的手法) |
+| `legal-entity.etzhayyim.com` | 関連企業・団体の法人情報 |
+| `natural-person.etzhayyim.com` | 人口統計 × 政策効果の相関分析 |
 
 ### CRITICAL: Realistic Legalization Path (6 Phases)
 
@@ -111,8 +111,8 @@ did:web:sensitive-taima.gftd.ai:{country}:economic ← 国別経済効果
 ### Authority Chain Integration
 
 - authority kind: `sovereign` (大麻取締法 = 日本国法)
-- completer.gftd.ai が Rule 変更を検知 → compliance 再評価
-- treaty.gftd.ai: 1961 Single Convention on Narcotic Drugs、1988 Convention、2020 UN rescheduling 追跡
+- completer.etzhayyim.com が Rule 変更を検知 → compliance 再評価
+- treaty.etzhayyim.com: 1961 Single Convention on Narcotic Drugs、1988 Convention、2020 UN rescheduling 追跡
 
 ### Social Evolution (Post-Driven)
 
@@ -135,7 +135,7 @@ performerType=service → growth(30%) + engagement(25%) 重視。restricted で�
 ## Build
 
 ```bash
-cd 60-apps/ai-gftd-project-sensitive-taima/wasm/ai-gftd-wasm-sensitive-taima-tm01prv0
-gftd build
-gftd deploy
+cd 60-apps/etzhayyim-project-sensitive-taima/wasm/etzhayyim-wasm-sensitive-taima-tm01prv0
+etzhayyim build
+etzhayyim deploy
 ```

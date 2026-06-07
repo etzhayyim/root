@@ -626,7 +626,7 @@ def replay_facilities_from_b2(client) -> int:
 
 def replay_facilities_from_b2_locked(client) -> int:
     try:
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
     except ImportError:
         pass
     

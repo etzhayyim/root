@@ -29,8 +29,8 @@ toml_files = [
     "70-tools/maps-osm-ingest/Cargo.toml",
     "30-graph/deps.toml",
     "90-docs/deps.toml",
-    "60-apps/etzhayyim-project-patent/magatama.toml",
-    "60-apps/etzhayyim-project-ma/magatama.toml",
+    "60-apps/etzhayyim-project-patent/kotodama.toml",
+    "60-apps/etzhayyim-project-ma/kotodama.toml",
     "60-apps/etzhayyim-project-common-crawl/deps.toml",
     "deps.toml"
 ]

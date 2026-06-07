@@ -30,7 +30,7 @@ We are adopting **Pyright (strict basic type-checking)** and **Pydantic (runtime
 1. **Dependency Management**: Every `pyproject.toml` (27 in total) has been updated to include `pydantic>=2.7.0` in the main dependencies and `pyright>=1.1.300` in the `dev` dependencies.
 2. **Global Pyright Configuration**: A root `pyrightconfig.json` has been introduced. It dynamically includes all valid Python source directories while aggressively ignoring non-Python assets (`node_modules`, `dist`, `.venv`, etc.) to prevent workspace enumeration timeouts.
 3. **Pre-Push Hook**: A `pyright-check` step (`uvx pyright`) has been added to `lefthook.yml` under the `pre-push` stage. This prevents code with type violations from being pushed to the remote repository.
-4. **Codebase Hardening**: Over 3,000 type errors were resolved across critical components, particularly in `20-actors/magatama/py/src/pymagatama`. This involved:
+4. **Codebase Hardening**: Over 3,000 type errors were resolved across critical components, particularly in `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama`. This involved:
    - Replacing ambiguous `dict.get()` patterns with explicit `isinstance` checks or typed cast defaults.
    - Refactoring database layer types (e.g., `db_sync.py` and `db_alchemy.py`) to correctly type return rows and cursor arguments.
    - Implementing `# type: ignore` locally for dynamic or untypable external modules (like `alembic.context`).

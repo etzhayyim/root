@@ -59,7 +59,7 @@ class VerifyUnispscContractsTest(unittest.TestCase):
             proto_path.parent.mkdir(parents=True, exist_ok=True)
             proto_path.write_text(proto_text, encoding="utf-8")
 
-        manifest_path = self.okaimono_root / "appview/okaimono-shopping-mcp-component/magatama.jsonld"
+        manifest_path = self.okaimono_root / "appview/okaimono-shopping-mcp-component/kotodama.jsonld"
         manifest_path.parent.mkdir(parents=True, exist_ok=True)
         manifest_path.write_text(json.dumps({
             "profile": {
@@ -127,7 +127,7 @@ class VerifyUnispscContractsTest(unittest.TestCase):
         self.assertFalse(result["checks"]["proto:okaimono:patterns"])
 
     def test_fails_when_manifest_capability_is_missing(self) -> None:
-        manifest_path = self.okaimono_root / "appview/okaimono-shopping-mcp-component/magatama.jsonld"
+        manifest_path = self.okaimono_root / "appview/okaimono-shopping-mcp-component/kotodama.jsonld"
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         manifest["profile"]["capabilities"].remove("unispsc-catalog-import")
         manifest_path.write_text(json.dumps(manifest), encoding="utf-8")

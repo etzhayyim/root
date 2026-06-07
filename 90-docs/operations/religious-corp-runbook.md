@@ -76,7 +76,7 @@ All nodes must be reachable and on macOS 14+ before proceeding.
 
 `deploy-fleet.sh` SSHes into each node, runs `git pull`, then runs
 `50-infra/cluster/murakumo/cell-runner/install.sh --node <tribe>`.
-The installer materialises `~/Library/LaunchAgents/com.etzhayyim.magatama-cell-runner.plist`
+The installer materialises `~/Library/LaunchAgents/com.etzhayyim.kotodama-cell-runner.plist`
 and loads the LaunchAgent.
 
 ### Step 3 — deploy mst-projector (simeon only)
@@ -110,7 +110,7 @@ cd ~/etzhayyim-root
 # Each node has cell-runner LaunchAgent active?
 for node in naphtali simeon judah zebulun levi joseph issachar dan; do
     echo -n "$node: "
-    ssh "$node@${node}nomac-mini.local" 'launchctl list | grep com.etzhayyim.magatama-cell-runner'
+    ssh "$node@${node}nomac-mini.local" 'launchctl list | grep com.etzhayyim.kotodama-cell-runner'
 done
 
 # mst-projector /healthz on simeon?
@@ -130,7 +130,7 @@ Watch logs for 1 hour:
 
 ```bash
 # levi runs the most cells — watch its runner log
-ssh levi@levinomac-mini.local 'tail -F ~/.etzhayyim/log/magatama-cell-runner.stdout.log'
+ssh levi@levinomac-mini.local 'tail -F ~/.etzhayyim/log/kotodama-cell-runner.stdout.log'
 ```
 
 If no errors → bring-up complete.
@@ -140,15 +140,15 @@ If no errors → bring-up complete.
 ### Cell-runner status (any node)
 
 ```bash
-ssh <node>@<node>nomac-mini.local 'launchctl list com.etzhayyim.magatama-cell-runner'
+ssh <node>@<node>nomac-mini.local 'launchctl list com.etzhayyim.kotodama-cell-runner'
 ```
 
 ### Cell-runner logs (any node)
 
 ```bash
 # LaunchAgent writes to ~/.etzhayyim/log/ on each node
-ssh <node>@<node>nomac-mini.local 'tail -F ~/.etzhayyim/log/magatama-cell-runner.stdout.log'
-ssh <node>@<node>nomac-mini.local 'tail -F ~/.etzhayyim/log/magatama-cell-runner.stderr.log'
+ssh <node>@<node>nomac-mini.local 'tail -F ~/.etzhayyim/log/kotodama-cell-runner.stdout.log'
+ssh <node>@<node>nomac-mini.local 'tail -F ~/.etzhayyim/log/kotodama-cell-runner.stderr.log'
 ```
 
 ### Cell healthz endpoints (per node)
@@ -207,7 +207,7 @@ ssh dan@dannomac-mini.local 'curl -fs http://192.168.1.70:4000/v1/models \
 ### Reload a cell-runner (any node)
 
 ```bash
-PLIST="$HOME/Library/LaunchAgents/com.etzhayyim.magatama-cell-runner.plist"
+PLIST="$HOME/Library/LaunchAgents/com.etzhayyim.kotodama-cell-runner.plist"
 ssh <node>@<node>nomac-mini.local "launchctl unload $PLIST && launchctl load $PLIST"
 ```
 
@@ -242,7 +242,7 @@ If a post-cutover deploy fails on a node:
 ```bash
 # Stop cell-runner on the failed node
 ssh <node>@<node>nomac-mini.local \
-    "launchctl unload ~/Library/LaunchAgents/com.etzhayyim.magatama-cell-runner.plist"
+    "launchctl unload ~/Library/LaunchAgents/com.etzhayyim.kotodama-cell-runner.plist"
 
 # Revert repo to pre-Step-8 commit on that node
 ssh <node>@<node>nomac-mini.local 'cd ~/etzhayyim-root && git checkout <pre-step8-tag>'
@@ -382,7 +382,7 @@ echo "=== Cell-runner (LaunchAgent) ==="
 for node in "${NODES[@]}"; do
     status=$(ssh -o ConnectTimeout=3 -o BatchMode=yes \
         "$node@${node}nomac-mini.local" \
-        'launchctl list com.etzhayyim.magatama-cell-runner 2>/dev/null | head -1' 2>/dev/null \
+        'launchctl list com.etzhayyim.kotodama-cell-runner 2>/dev/null | head -1' 2>/dev/null \
         || echo "UNREACHABLE")
     printf "  %-10s %s\n" "$node" "$status"
 done
@@ -416,8 +416,8 @@ Expected healthy output (example):
 
 ```
 === Cell-runner (LaunchAgent) ===
-  naphtali   0 = 0 com.etzhayyim.magatama-cell-runner
-  simeon     0 = 0 com.etzhayyim.magatama-cell-runner
+  naphtali   0 = 0 com.etzhayyim.kotodama-cell-runner
+  simeon     0 = 0 com.etzhayyim.kotodama-cell-runner
   ...
 === mst-projector (simeon :8765) ===
   mst-proj   collections=12 seq=1823456
@@ -437,7 +437,7 @@ Short version:
 1. Legal registration complete (master gate — ADR-2605191346)
 2. Council Lv6+ supermajority signed off on atomic PR
 3. Branch from main: `git checkout -b step8-religious-corp-cutover-YYYY-MM-DD`
-4. Apply 4 commits in order: cluster runtime → pymagatama → shinka → yoro
+4. Apply 4 commits in order: cluster runtime → kotodama → shinka → yoro
 5. `cargo check` + `pytest` each commit
 6. Deploy to `dan` canary, 24h soak
 7. Roll out to remaining 9 nodes via `deploy-fleet.sh --tribes <remaining>`
@@ -465,4 +465,4 @@ Short version:
 - `50-infra/cluster/murakumo/litellm/install.sh` — LiteLLM gateway installer (judah)
 - `50-infra/cluster/murakumo/STEP8-INTEGRATED-RUNBOOK.md` — Step 8 full cutover procedure
 - `20-actors/AUDIT-RUNPOD-RW-2026-05-21.md` — RunPod/commercial-GPU audit record
-- `20-actors/magatama/py/{SHINKA,YORO-PYTHON,PYMAGATAMA}-MIGRATION-NOTES.md` — migration notes
+- `40-engine/kotoba/crates/kotoba-kotodama/py/{SHINKA,YORO-PYTHON,PYKOTODAMA}-MIGRATION-NOTES.md` — migration notes

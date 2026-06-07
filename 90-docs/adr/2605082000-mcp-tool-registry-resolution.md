@@ -20,7 +20,7 @@ depends_on:
   - adr-2605082200-langgraph-single-task-and-row-driven-runtime
   - adr-2604261000-mcp-registry-via-kysely-schema
 related:
-  - adr-0087-magatama-mcp-tool-facade
+  - adr-0087-kotodama-mcp-tool-facade
 supersedes: []
 superseded_by: []
 ---
@@ -158,7 +158,7 @@ Hermetic tests in `tests/test_langgraph_node_resolvers_pure.py`:
 
 - ADR-2605082200: Row-driven LangGraph runtime (parent)
 - ADR-2604261000: MCP tool registry as Kysely schema (`vertex_mcp_tool_def`)
-- ADR-0087: magatama MCP tool facade
-- Implementation: `pymagatama/langgraph_node_resolvers.py:make_mcp_tool_node`
+- ADR-0087: kotodama MCP tool facade
+- Implementation: `kotodama/langgraph_node_resolvers.py:make_mcp_tool_node`
 - Migration `r_20260509170000_topology_saikin_cycle_v2_mcp` exercises the
   full path (saikin's MCP tool calls resolve via this scheme).

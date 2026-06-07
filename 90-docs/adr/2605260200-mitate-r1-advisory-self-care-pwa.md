@@ -24,7 +24,7 @@ depends_on:
   - adr-2605231525-no-server-key-religious-corp-architecture
 related:
   - 20-actors/mitate/                                       # R0 scaffold (this transitions to R1 active)
-  - 20-actors/magatama/cells/mitate_{rhinitis_intake,emergency_screen,medication_history_audit,rhinitis_triage}/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_{rhinitis_intake,emergency_screen,medication_history_audit,rhinitis_triage}/
   - 60-apps/mitate-pwa/                                     # this ADR creates this tree
   - 50-infra/murakumo/fleet.toml                            # cell placement (levi node, R1 active entries)
 supersedes: []
@@ -95,7 +95,7 @@ Total: **8 + 5 = 13 attestation records** required before R1 deploy. Sequencing:
 
 New app under `60-apps/mitate-pwa/`:
 
-- **Runtime**: T3 TS Native (Cloudflare Worker + Hono + @etzhayyim/magatama-host-sdk + esbuild) per magatama default
+- **Runtime**: T3 TS Native (Cloudflare Worker + Hono + @etzhayyim/kotodama-host-sdk + esbuild) per kotodama default
 - **Authentication**: Adherent SBT + passkey ES256 (G1); 30-day rotating pseudonym DID derived at intake time
 - **Substrate**: `@etzhayyim/sdk` only (G14); all patient-data writes go to AT MST with `com.etzhayyim.encrypted.*` envelope wrapping
 - **Inference**: Murakumo LiteLLM gateway at 127.0.0.1:4000 → gemma4:e4b medical distill variant (G12 + G13)
@@ -112,7 +112,7 @@ App structure:
 
 ```
 60-apps/mitate-pwa/
-├── magatama.jsonld              # APP_NANOID, embedUrl disabled
+├── kotodama.jsonld              # APP_NANOID, embedUrl disabled
 ├── src/app.ts                   # createWorkerExport — intake form + triage display + emergency-escalation overlay
 ├── svelte/                      # patient-facing UI (Svelte + tailwind)
 │   ├── routes/

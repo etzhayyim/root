@@ -51,7 +51,7 @@ Charter Rider §2-compliant; no etzhayyim lineage.
 
 All cells are path-reserved at R0; the cell modules are created in W1
 (post-Bootstrap-Council ratification) under
-`20-actors/magatama/cells/chigiri_*/` and will be import-time
+`40-engine/kotoba/crates/kotoba-kotodama/cells/chigiri_*/` and will be import-time
 `RuntimeError("chigiri R0 scaffold: activate via Council ADR + R1 ratification")` at scaffold time.
 
 | Cell | Murakumo node | Phase | I/O |
@@ -101,7 +101,7 @@ chigiri consumes the global legal corpus ingested under ADR-2605262800:
 - procedures (`90-docs/baien/datasets/law/procedures/<body>/`)
 - templates (`90-docs/baien/datasets/law/templates/<corpus>/`)
 
-Sensors: `pymagatama.organism.sensors.legal.*` (W1+ activation).
+Sensors: `kotodama.organism.sensors.legal.*` (W1+ activation).
 
 ## Cross-actor relationships
 
@@ -143,7 +143,7 @@ skeleton only — required-field validation lands at W1 ratification.
 - `/90-docs/adr/2605262700-chigiri-legal-procedure-tier-b-actor-r0.md`
 - `/90-docs/adr/2605262800-public-data-legal-corpus-ipfs-ingestion.md`
 - `/70-tools/baien-moemoekyun-train/recipes/legal/` (training corpus recipes)
-- `/20-actors/magatama/py/src/pymagatama/organism/sensors/legal/` (sensor stubs)
+- `/40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/sensors/legal/` (sensor stubs)
 - `/CHARTER-RIDER.md` §2 — 8 prohibited categories
 - `/COUNCIL.md` — Bootstrap Council roster + RFP
 - `/MEMBERS.md` — 信者 roster

@@ -1,8 +1,8 @@
 // commoncrawl.etzhayyim.com — CF Worker XRPC facade (L3 Dispatcher, ADR-2604251830).
-// Entity extraction logic lives in pymagatama/primitives/common_crawl.py
+// Entity extraction logic lives in kotodama/primitives/common_crawl.py
 // (LangServer task type: commonCrawl.entities.extract, timeout 600s).
 // Hourly autonomous runs via extractEntities.bpmn R/PT1H timer-start (ADR-0056).
-import { createWorkerExport, decodeJson, nsid, type HostSDK } from "@etzhayyim/magatama-host-sdk";
+import { createWorkerExport, decodeJson, nsid, type HostSDK } from "@etzhayyim/kotodama-host-sdk";
 
 const VALID_DOMAINS = ["kuruma", "media_anime", "media_gamers", "handotai"] as const;
 type Domain = typeof VALID_DOMAINS[number];

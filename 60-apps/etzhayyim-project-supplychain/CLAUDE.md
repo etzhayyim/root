@@ -100,11 +100,11 @@ Auth: `LG_SUPPLYCHAIN_API_KEY` env var. Unset = unauthenticated access allowed (
 Helm release: `lg-supplychain-pool` in namespace `mitama-udf`
 Chart: `50-infra/vultr/lg-supplychain-pool/`
 Image: `ghcr.io/etzhayyim/lg-supplychain:0.1.0-amd64`
-Dockerfile: `20-actors/magatama/py/Dockerfile.supplychain`
+Dockerfile: `40-engine/kotoba/crates/kotoba-kotodama/py/Dockerfile.supplychain`
 
 Build:
 ```bash
-cd 20-actors/magatama/py
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
 docker buildx build \
   -f Dockerfile.supplychain \
   -t ghcr.io/etzhayyim/lg-supplychain:0.1.0-amd64 \

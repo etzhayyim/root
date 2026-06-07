@@ -204,7 +204,7 @@ Phase ごとに deploy + 観測ウィンドウを設け、各 phase で rollback
   バケット命名規約 `etzhayyim-{actor}`)
 - `[[conventions]] blob-storage-b2-only` (deps.toml)
 - `[[migrations]] blob-storage-r2-to-b2-code` (deps.toml)
-- `20-actors/magatama/sdk/magatama-host-sdk/src/b2.ts` (S3 SigV4 helper)
+- `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/b2.ts` (S3 SigV4 helper)
 - `50-infra/cloudflare/workers/atproto/src/core.ts:3289-3309` (uploadBlob
   / uploadBlobDedup 現状実装)
 - AT Protocol blob spec: https://atproto.com/specs/repository#blobs

@@ -1,13 +1,13 @@
 /**
- * Generate WIT dependency graph data from the magatama runtime WIT interfaces,
+ * Generate WIT dependency graph data from the kotodama runtime WIT interfaces,
  * project-level component WIT worlds, and cross-domain dependency/RBAC/capability
  * declarations for ISCO / ISIC / APQC / Tsukuru classification systems.
  *
  * Outputs: src/lib/data/wit-graph.json
  *
  * Data model:
- *   - runtime world (magatama-component): the central wasmtime linker contract
- *   - packages: WIT package namespaces (magatama:core, magatama:auth, etc.)
+ *   - runtime world (kotodama-component): the central wasmtime linker contract
+ *   - packages: WIT package namespaces (kotodama:core, kotodama:auth, etc.)
  *   - interfaces: individual WIT interfaces within packages
  *   - host implementations: Rust host crates that back each interface
  *   - project components: WASM apps that include the runtime world
@@ -25,12 +25,12 @@ const SOURCE_ROOT = findRepositoryRoot(CURRENT_DIR);
 const OUTPUT_PATH = path.join(CURRENT_DIR, '..', 'src', 'lib', 'data', 'wit-graph.json');
 
 // Core WIT paths
-const MAGATAMA_WIT_DIR = path.join(SOURCE_ROOT, 'packages', 'rust', 'magatama', 'wit');
-const MAGATAMA_WORLD_WIT = path.join(MAGATAMA_WIT_DIR, 'world.wit');
-const MAGATAMA_DEPS_DIR = path.join(MAGATAMA_WIT_DIR, 'deps');
+const KOTODAMA_WIT_DIR = path.join(SOURCE_ROOT, 'packages', 'rust', 'kotodama', 'wit');
+const KOTODAMA_WORLD_WIT = path.join(KOTODAMA_WIT_DIR, 'world.wit');
+const KOTODAMA_DEPS_DIR = path.join(KOTODAMA_WIT_DIR, 'deps');
 const WASM_WORLD_DIR = path.join(SOURCE_ROOT, 'packages', 'wasm', 'world');
 const PROJECTS_ROOT = path.join(SOURCE_ROOT, 'projects');
-const HOST_SRC_DIR = path.join(SOURCE_ROOT, 'packages', 'rust', 'magatama', 'magatama-engine', 'src', 'host');
+const HOST_SRC_DIR = path.join(SOURCE_ROOT, 'packages', 'rust', 'kotodama', 'kotodama-engine', 'src', 'host');
 
 // Domain targets: include every projects/*/wasm directory as a scored domain.
 const DOMAIN_PROJECTS = discoverDomainProjects(PROJECTS_ROOT);
@@ -46,7 +46,7 @@ const DOMAIN_META = {
 	states: { label: 'States', witPkg: 'etzhayyim:states*', description: 'Government/state domain', color: '#0ea5e9' },
 	cpc: { label: 'CPC', witPkg: 'etzhayyim:cpc*', description: 'Central Product Classification domain', color: '#22c55e' },
 	unispsc: { label: 'UniSPSC', witPkg: 'etzhayyim:unispsc*', description: 'UniSPSC taxonomy/classification domain', color: '#fb7185' },
-	governance: { label: 'Governance', witPkg: 'magatama:agent/governance', description: 'RACI, RBAC, policy-gate, capability governance', color: '#ec4899' },
+	governance: { label: 'Governance', witPkg: 'kotodama:agent/governance', description: 'RACI, RBAC, policy-gate, capability governance', color: '#ec4899' },
 };
 
 const DOMAIN_COLOR_POOL = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4', '#ec4899', '#84cc16', '#14b8a6', '#f97316', '#eab308', '#a855f7'];
@@ -130,21 +130,21 @@ function main() {
 		},
 	};
 
-	// 1. Parse the core magatama-component world
-	const worldData = parseWorldWit(MAGATAMA_WORLD_WIT);
+	// 1. Parse the core kotodama-component world
+	const worldData = parseWorldWit(KOTODAMA_WORLD_WIT);
 	graph.runtimeWorld = {
-		id: 'magatama:runtime@1.0.0/magatama-component',
+		id: 'kotodama:runtime@1.0.0/kotodama-component',
 		package: worldData.packageName,
-		name: 'magatama-component',
+		name: 'kotodama-component',
 		imports: worldData.imports.map(normalizeRef),
 		exports: worldData.exports.map(normalizeRef),
 	};
 
 	// 2. Parse all WIT dep packages
-	if (fs.existsSync(MAGATAMA_DEPS_DIR)) {
-		for (const dir of fs.readdirSync(MAGATAMA_DEPS_DIR, { withFileTypes: true })) {
+	if (fs.existsSync(KOTODAMA_DEPS_DIR)) {
+		for (const dir of fs.readdirSync(KOTODAMA_DEPS_DIR, { withFileTypes: true })) {
 			if (!dir.isDirectory()) continue;
-			const pkgDir = path.join(MAGATAMA_DEPS_DIR, dir.name);
+			const pkgDir = path.join(KOTODAMA_DEPS_DIR, dir.name);
 			const witFiles = collectWitFiles(pkgDir);
 			for (const witFile of witFiles) {
 				const parsed = parseWitFile(witFile);
@@ -185,7 +185,7 @@ function main() {
 	// 3. Parse WASI standard packages from deps
 	const wasiPackages = ['cli', 'clocks', 'filesystem', 'http', 'io', 'random', 'sockets'];
 	for (const wasiPkg of wasiPackages) {
-		const wasiDir = path.join(MAGATAMA_DEPS_DIR, wasiPkg);
+		const wasiDir = path.join(KOTODAMA_DEPS_DIR, wasiPkg);
 		if (!fs.existsSync(wasiDir)) continue;
 		const witFiles = collectWitFiles(wasiDir);
 		for (const witFile of witFiles) {
@@ -232,7 +232,7 @@ function main() {
 				.map(m => m[1]);
 			graph.hostImpls.push({
 				name: hostName,
-				file: `packages/rust/magatama/magatama-engine/src/host/${file}`,
+				file: `packages/rust/kotodama/kotodama-engine/src/host/${file}`,
 				traits: hostTraits,
 			});
 		}
@@ -391,7 +391,7 @@ function buildDomainGraph(graph) {
 		for (const comp of fs.readdirSync(wasmRoot, { withFileTypes: true })) {
 			if (!comp.isDirectory()) continue;
 			if (fs.existsSync(path.join(wasmRoot, comp.name, 'main.go')) ||
-				fs.existsSync(path.join(wasmRoot, comp.name, 'magatama.toml'))) {
+				fs.existsSync(path.join(wasmRoot, comp.name, 'kotodama.toml'))) {
 				count++;
 			}
 		}
@@ -574,7 +574,7 @@ function extractCapabilities(content, domainId, componentId) {
 	for (const block of extractCommandBlocks(content)) {
 		const cmdName = extractCommandName(block);
 		if (!cmdName) continue;
-		const toolMatch = block.match(/magatama\.AsAgentTool\(\s*"([^"]+)"\s*\)/s);
+		const toolMatch = block.match(/kotodama\.AsAgentTool\(\s*"([^"]+)"\s*\)/s);
 		if (toolMatch) {
 			caps.push({
 				domain: domainId,
@@ -587,7 +587,7 @@ function extractCapabilities(content, domainId, componentId) {
 			});
 		}
 
-		const tagMatch = block.match(/magatama\.WithCapabilityTags\(([\s\S]*?)\)/s);
+		const tagMatch = block.match(/kotodama\.WithCapabilityTags\(([\s\S]*?)\)/s);
 		if (!tagMatch) continue;
 		const tags = [...tagMatch[1].matchAll(/"([^"]+)"/g)].map(t => t[1]);
 		const existing = caps.find(c => c.name === cmdName && c.componentId === componentId);
@@ -699,7 +699,7 @@ function scanGovernanceLinks(graph) {
 					source: domain,
 					target: 'governance',
 					kind: 'governance',
-					interfaceRef: 'magatama:agent/governance@1.0.0',
+					interfaceRef: 'kotodama:agent/governance@1.0.0',
 					component: comp.name,
 					description: `${comp.name} declares governance metadata via Command() options`,
 				});
@@ -738,7 +738,7 @@ function scanGovernanceLinks(graph) {
 					source: domain,
 					target: 'governance',
 					kind: 'governance',
-					interfaceRef: inferredRefs[0] || 'magatama:agent/governance@1.0.0',
+					interfaceRef: inferredRefs[0] || 'kotodama:agent/governance@1.0.0',
 					component: component.componentId,
 					description: `${component.componentId} references governance interfaces via WIT imports/requires`,
 				});
@@ -927,12 +927,12 @@ function extractCommandName(block) {
 function extractGovernanceRelations(block) {
 	const relations = [];
 	const patterns = [
-		{ relation: 'responsible', regex: /magatama\.Responsible\(\s*[\w.]+,\s*"([^"]+)"\s*\)/g },
-		{ relation: 'accountable', regex: /magatama\.Accountable\(\s*[\w.]+,\s*"([^"]+)"\s*\)/g },
-		{ relation: 'consulted', regex: /magatama\.Consulted\(\s*[\w.]+,\s*"([^"]+)"\s*\)/g },
-		{ relation: 'informed', regex: /magatama\.Informed\(\s*[\w.]+,\s*"([^"]+)"\s*\)/g },
-		{ relation: 'bpmn', regex: /magatama\.WithBPMNTask\(\s*"([^"]+)"\s*\)/g },
-		{ relation: 'ocel', regex: /magatama\.WithOCELEvent\(\s*"([^"]+)"\s*\)/g },
+		{ relation: 'responsible', regex: /kotodama\.Responsible\(\s*[\w.]+,\s*"([^"]+)"\s*\)/g },
+		{ relation: 'accountable', regex: /kotodama\.Accountable\(\s*[\w.]+,\s*"([^"]+)"\s*\)/g },
+		{ relation: 'consulted', regex: /kotodama\.Consulted\(\s*[\w.]+,\s*"([^"]+)"\s*\)/g },
+		{ relation: 'informed', regex: /kotodama\.Informed\(\s*[\w.]+,\s*"([^"]+)"\s*\)/g },
+		{ relation: 'bpmn', regex: /kotodama\.WithBPMNTask\(\s*"([^"]+)"\s*\)/g },
+		{ relation: 'ocel', regex: /kotodama\.WithOCELEvent\(\s*"([^"]+)"\s*\)/g },
 	];
 
 	for (const { relation, regex } of patterns) {
@@ -942,7 +942,7 @@ function extractGovernanceRelations(block) {
 		}
 	}
 
-	const approvalRegex = /magatama\.RequireApproval\(\s*magatama\.(\w+),\s*(\d+)\s*,\s*"([^"]+)"/gs;
+	const approvalRegex = /kotodama\.RequireApproval\(\s*kotodama\.(\w+),\s*(\d+)\s*,\s*"([^"]+)"/gs;
 	let approvalMatch;
 	while ((approvalMatch = approvalRegex.exec(block))) {
 		relations.push({
@@ -980,10 +980,10 @@ function scanProjectComponents(graph) {
 			if (!comp.isDirectory()) continue;
 			const componentDir = path.join(wasmRoot, comp.name);
 			const mainGo = path.join(wasmRoot, comp.name, 'main.go');
-			const magatamaTOML = path.join(wasmRoot, comp.name, 'magatama.toml');
+			const kotodamaTOML = path.join(wasmRoot, comp.name, 'kotodama.toml');
 			const isCatalogProvider = comp.name.startsWith('wit-provider-');
 
-			if (!fs.existsSync(mainGo) && !fs.existsSync(magatamaTOML) && !isCatalogProvider) continue;
+			if (!fs.existsSync(mainGo) && !fs.existsSync(kotodamaTOML) && !isCatalogProvider) continue;
 
 			components.push(comp.name);
 			projectCount++;
@@ -998,15 +998,15 @@ function scanProjectComponents(graph) {
 				catalogExportSets.push(collectCatalogExports(path.join(wasmRoot, comp.name, 'wit')));
 			}
 			catalogExportSets.push(collectCatalogExports(path.join(wasmRoot, comp.name, 'wit-provider')));
-			const interfaces = fs.existsSync(magatamaTOML)
-				? parseMagatamaInterfaces(magatamaTOML)
+			const interfaces = fs.existsSync(kotodamaTOML)
+				? parseKotodamaInterfaces(kotodamaTOML)
 				: { packageName: null, provides: [], requires: [] };
 			const deployMeta = readDeployMetadata(componentDir, comp.name);
 			const wprotoMeta = assessWProtoIntegration({
 				componentDir,
 				componentId: comp.name,
 				mainGoPath: mainGo,
-				magatamaTOMLPath: magatamaTOML,
+				kotodamaTOMLPath: kotodamaTOML,
 				worldImports: worldData.imports.map(normalizeRef),
 				worldExports: worldData.exports.map(normalizeRef),
 				interfaces,
@@ -1125,21 +1125,21 @@ function readDeployMetadata(componentDir, componentId) {
 	}
 }
 
-function assessWProtoIntegration({ mainGoPath, magatamaTOMLPath, worldImports, worldExports, interfaces }) {
+function assessWProtoIntegration({ mainGoPath, kotodamaTOMLPath, worldImports, worldExports, interfaces }) {
 	const mainGo = fs.existsSync(mainGoPath) ? fs.readFileSync(mainGoPath, 'utf8') : '';
-	const magatamaToml = fs.existsSync(magatamaTOMLPath) ? fs.readFileSync(magatamaTOMLPath, 'utf8') : '';
+	const kotodamaToml = fs.existsSync(kotodamaTOMLPath) ? fs.readFileSync(kotodamaTOMLPath, 'utf8') : '';
 	const interfaceCount = (interfaces?.provides?.length ?? 0) + (interfaces?.requires?.length ?? 0);
-	const hasWProtoWorld = [...worldImports, ...worldExports].some(ref => ref.startsWith('magatama:wproto/'));
+	const hasWProtoWorld = [...worldImports, ...worldExports].some(ref => ref.startsWith('kotodama:wproto/'));
 	const features = [
 		{ key: 'runtime-wit', weight: 15, ok: hasWProtoWorld },
-		{ key: 'w-commit-trigger', weight: 15, ok: /\[triggers\.w_commit\]/.test(magatamaToml) },
-		{ key: 'transport', weight: 15, ok: /magatama\.(WSend|WCreateChannel|WCreateDM)\(/.test(mainGo) },
-		{ key: 'direct-conversation', weight: 10, ok: /magatama\.(StartConversation|Say)\(/.test(mainGo) },
-		{ key: 'conversation', weight: 20, ok: /magatama\.(StartConversation|Say|CapabilityDiscover)\(/.test(mainGo) },
-		{ key: 'identity-capability', weight: 10, ok: /magatama\.(IdentityRegister|IdentityResolve|CapabilityDeclare|CapabilityDiscover)\(/.test(mainGo) },
-		{ key: 'space-config', weight: 10, ok: /\[space\]|\[\[space\.channels\]\]/.test(magatamaToml) },
+		{ key: 'w-commit-trigger', weight: 15, ok: /\[triggers\.w_commit\]/.test(kotodamaToml) },
+		{ key: 'transport', weight: 15, ok: /kotodama\.(WSend|WCreateChannel|WCreateDM)\(/.test(mainGo) },
+		{ key: 'direct-conversation', weight: 10, ok: /kotodama\.(StartConversation|Say)\(/.test(mainGo) },
+		{ key: 'conversation', weight: 20, ok: /kotodama\.(StartConversation|Say|CapabilityDiscover)\(/.test(mainGo) },
+		{ key: 'identity-capability', weight: 10, ok: /kotodama\.(IdentityRegister|IdentityResolve|CapabilityDeclare|CapabilityDiscover)\(/.test(mainGo) },
+		{ key: 'space-config', weight: 10, ok: /\[space\]|\[\[space\.channels\]\]/.test(kotodamaToml) },
 		{ key: 'app-interfaces', weight: 10, ok: interfaceCount > 0 },
-		{ key: 'extensions', weight: 5, ok: /\[\[extensions\]\]|\[w_protocol\]/.test(magatamaToml) },
+		{ key: 'extensions', weight: 5, ok: /\[\[extensions\]\]|\[w_protocol\]/.test(kotodamaToml) },
 	];
 	const score = features.reduce((sum, feature) => sum + (feature.ok ? feature.weight : 0), 0);
 	return {
@@ -1403,19 +1403,19 @@ function isHostProvidedImport(ref, runtimeImportSet) {
 	// Linker-strict mode: only the canonical runtime packages are treated as
 	// host-provided. Project-local etzhayyim:* refs must resolve through explicit
 	// exports/providers so unresolved edges surface as real gaps.
-	return ref.startsWith('wasi:') || ref.startsWith('magatama:');
+	return ref.startsWith('wasi:') || ref.startsWith('kotodama:');
 }
 
 function isHostProvidedRequire(req, ref) {
-	if (req?.package?.startsWith('magatama:')) return true;
+	if (req?.package?.startsWith('kotodama:')) return true;
 	if (req?.package === 'etzhayyim:governance@0.1.0') return true;
-	return (ref ?? '').startsWith('magatama:agent@1.0.0/governance');
+	return (ref ?? '').startsWith('kotodama:agent@1.0.0/governance');
 }
 
 function makeHostProvider(ref) {
 	return {
 		project: '__runtime__',
-		componentId: 'magatama-linker-host',
+		componentId: 'kotodama-linker-host',
 		ref,
 	};
 }
@@ -1714,7 +1714,7 @@ function buildScorecard(graph) {
 		.slice(0, 20);
 
 	return {
-		method: 'overall = 70%*link_blend + 10%*dodaf_v2 + 10%*nist_csf_v2 + 10%*app_wit_definition; link_blend = 50%*build_linker + 20%*runtime_linker + 30%*app_mesh; compatibility aliases: app_mesh_score = app-to-app provider/export coverage, runtime_host_score = wasi/magatama host coverage; badge penalty = 60%*isolation + 40%*unadapted deficits',
+		method: 'overall = 70%*link_blend + 10%*dodaf_v2 + 10%*nist_csf_v2 + 10%*app_wit_definition; link_blend = 50%*build_linker + 20%*runtime_linker + 30%*app_mesh; compatibility aliases: app_mesh_score = app-to-app provider/export coverage, runtime_host_score = wasi/kotodama host coverage; badge penalty = 60%*isolation + 40%*unadapted deficits',
 		overallScore: Number(overallScore.toFixed(1)),
 		workerRegisteredAppCount: registeredApps.length,
 		workerDeployedAppCount: workerDeployedApps.length,
@@ -1869,7 +1869,7 @@ function cap01(v) {
 }
 
 function isRuntimeHostRef(ref) {
-	return typeof ref === 'string' && (ref.startsWith('wasi:') || ref.startsWith('magatama:'));
+	return typeof ref === 'string' && (ref.startsWith('wasi:') || ref.startsWith('kotodama:'));
 }
 
 function makeLink(component, kind, ref, providers, extra) {
@@ -1957,8 +1957,8 @@ function normalizeRef(raw) {
 		.trim();
 
 	const legacyAliasMap = new Map([
-		['etzhayyim:workflow/workflow@0.1.0', 'magatama:workflow/workflow@1.0.0'],
-		['etzhayyim:activity/activity@0.1.0', 'magatama:workflow/activity@1.0.0'],
+		['etzhayyim:workflow/workflow@0.1.0', 'kotodama:workflow/workflow@1.0.0'],
+		['etzhayyim:activity/activity@0.1.0', 'kotodama:workflow/activity@1.0.0'],
 		['etzhayyim:crawler@0.1.0/crawl-query', 'etzhayyim:crawler@0.1.0/crawler'],
 		['etzhayyim:india/district-registry@0.1.0', 'etzhayyim:states-country@0.1.0/organization-directory'],
 		['etzhayyim:india/passport-seva@0.1.0', 'etzhayyim:states-country@0.1.0/organization-directory'],
@@ -1973,7 +1973,7 @@ function normalizeRef(raw) {
 	return legacyAliasMap.get(ref) ?? ref;
 }
 
-function parseMagatamaInterfaces(filePath) {
+function parseKotodamaInterfaces(filePath) {
 	let raw = '';
 	try {
 		raw = fs.readFileSync(filePath, 'utf8');
