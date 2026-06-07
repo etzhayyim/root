@@ -19,6 +19,7 @@ SUITES=(
   "methods/test_promote.py"
   "methods/test_clearpath.py"
   "methods/test_synthesize.py"
+  "methods/test_social.py"
   "methods/test_horizon.py"
   "cells/test_state_machines.py"
   "viz/test_build_forecast_viz.py"
