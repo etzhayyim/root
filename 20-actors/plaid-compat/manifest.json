@@ -11,8 +11,25 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigp6z5bg47rjd6gkrn7varia7mipfztw2qfqod5v4kjrl3tmddp7i",
   "schema": "schema/plaid.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://plaid.com/docs/api",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "Account"
+    ],
+    "enums": {
+      "Account": {
+        "type": [
+          "depository",
+          "credit",
+          "investment",
+          "loan",
+          "other"
+        ]
+      }
+    }
+  },
   "entities": [
     "Item",
     "Account",

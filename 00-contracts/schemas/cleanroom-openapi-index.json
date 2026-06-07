@@ -7,7 +7,7 @@
   ],
   "count": 1000,
   "totalEndpoints": 30040,
-  "l4SpecsAvailable": 997,
+  "l4SpecsAvailable": 995,
   "apis": [
     {
       "handle": "8th_wall-compat",
@@ -11946,7 +11946,7 @@
     {
       "handle": "plaid-compat",
       "did": "did:web:etzhayyim.com:actor:plaid-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreigp6z5bg47rjd6gkrn7varia7mipfztw2qfqod5v4kjrl3tmddp7i",
@@ -11958,7 +11958,7 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "openapi": "20-actors/plaid-compat/openapi.json"
+      "openapi": null
     },
     {
       "handle": "planet_api-compat",
@@ -13765,7 +13765,7 @@
     {
       "handle": "shopify-compat",
       "did": "did:web:etzhayyim.com:actor:shopify-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 35,
       "ipfs": "ipfs://bafkreifyjnssgr2mdxm6edev4yuafhtfffw3ue5ju2jtko5o6f6lymc6pm",
@@ -13777,7 +13777,7 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "openapi": "20-actors/shopify-compat/openapi.json"
+      "openapi": null
     },
     {
       "handle": "sic_codes-compat",

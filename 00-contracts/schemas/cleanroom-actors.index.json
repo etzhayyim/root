@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 997,
-    "L5": 3
+    "L4": 995,
+    "L5": 5
   },
   "actors": [
     {
@@ -12656,7 +12656,7 @@
       "wasmCid": "bafkreigp6z5bg47rjd6gkrn7varia7mipfztw2qfqod5v4kjrl3tmddp7i",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "plaid clean-room actor",
       "category": "fintech_web3",
       "capabilities": [
@@ -14582,7 +14582,7 @@
       "wasmCid": "bafkreifyjnssgr2mdxm6edev4yuafhtfffw3ue5ju2jtko5o6f6lymc6pm",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "shopify clean-room actor",
       "category": "ecommerce",
       "capabilities": [

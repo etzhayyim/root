@@ -6330,7 +6330,7 @@
     {
       "handle": "plaid-compat",
       "did": "did:web:etzhayyim.com:actor:plaid-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreigp6z5bg47rjd6gkrn7varia7mipfztw2qfqod5v4kjrl3tmddp7i",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -7293,7 +7293,7 @@
     {
       "handle": "shopify-compat",
       "did": "did:web:etzhayyim.com:actor:shopify-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreifyjnssgr2mdxm6edev4yuafhtfffw3ue5ju2jtko5o6f6lymc6pm",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 35,

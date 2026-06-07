@@ -4,8 +4,42 @@
   "adr": ["260607"],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 3,
+  "count": 5,
   "actors": [
+    {
+      "handle": "shopify-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://shopify.dev/docs/api/admin-rest",
+      "resources": [
+        {
+          "entity": "Product",
+          "source": "https://shopify.dev/docs/api/admin-rest/latest/resources/product",
+          "verifiedFields": ["title", "vendor", "productType", "status"],
+          "fieldStatus": "all generated fields confirmed (productType = real product_type)",
+          "discoveredEnums": {"status": ["active", "archived", "draft"]},
+          "gaps": ["handle", "tags", "published_at", "options", "images"]
+        }
+      ],
+      "note": "Product reconciled against the official Shopify Admin REST docs; Variant/Order/Customer/Collection/Fulfillment/DiscountCode pending."
+    },
+    {
+      "handle": "plaid-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://plaid.com/docs/api",
+      "resources": [
+        {
+          "entity": "Account",
+          "source": "https://plaid.com/docs/api/accounts/",
+          "verifiedFields": ["name", "type", "subtype", "currentBalance"],
+          "fieldStatus": "all generated fields confirmed (id = real account_id; currentBalance = real balances.current)",
+          "discoveredEnums": {"type": ["depository", "credit", "investment", "loan", "other"]},
+          "gaps": ["mask", "official_name", "balances.available", "balances.iso_currency_code"]
+        }
+      ],
+      "note": "Account reconciled against the official Plaid docs; Item/Transaction/Institution/Identity/Liability pending."
+    },
     {
       "handle": "github-compat",
       "verifiedAt": "2026-06-08",
