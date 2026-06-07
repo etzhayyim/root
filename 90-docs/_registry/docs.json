@@ -22044,6 +22044,41 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606072100-shomei-believer-identity-binding-proof-of-personhood-r0.md",
+      "id": "adr-2606072100-shomei-believer-identity-binding-proof-of-personhood-r0",
+      "title": "ADR-2606072100: 証明 (shomei) — believer self-sovereign identity binding + proof-of-personhood R0",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "shomei-believer-identity-binding",
+      "authoritative": true,
+      "authoritative_for": [
+        "shomei-believer-identity-binding-actor",
+        "multi-identity-to-did-binding-and-verification",
+        "proof-of-personhood-credential"
+      ],
+      "related": [
+        "adr-2606072300-l5-gov-auth-mynumber-webauthn-r1-shomei-integration",
+        "adr-2605172700-etzhayyim-membership-layering",
+        "adr-2605302000-warifu-open-zero-fee-card",
+        "adr-2605263400-musubi-covenant-ceremony",
+        "adr-2605302130-himotoki-active-disclosure-request-filer"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605260000-l5-gov-auth-mynumber-webauthn",
+        "adr-2605231525-server-side-signing-capability-boundary",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605181100-etzhayyim-confidential-records-encryption",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605172600-etzhayyim-membership-ritual"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606072200-shionome-cross-asset-capital-flow-observatory-r0.md",
       "id": "adr-2606072200-shionome-cross-asset-capital-flow-observatory-r0",
       "title": "ADR-2606072200: 潮目 (shionome) — cross-asset capital-flow observatory (ingest · intel · analyze · dry-run social, NO trading) R0 + autonomous kotoba loop",
@@ -22099,6 +22134,35 @@
         "2606071800",
         "2606072000",
         "2605262130"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606072300-l5-gov-auth-mynumber-webauthn-r1-shomei-integration.md",
+      "id": "adr-2606072300-l5-gov-auth-mynumber-webauthn-r1-shomei-integration",
+      "title": "ADR-2606072300: L5 gov auth R1 — MyNumber + WebAuthn activation design + shomei integration",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "l5-gov-auth-r1-activation",
+      "authoritative": true,
+      "authoritative_for": [
+        "l5-gov-auth-r1-activation-design",
+        "gov-auth-shomei-gov-factor-integration"
+      ],
+      "related": [
+        "adr-2605172700-etzhayyim-membership-layering",
+        "adr-2605262130-kotoba-storage-substrate-unification"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605260000-l5-gov-auth-mynumber-webauthn",
+        "adr-2606072100-shomei-believer-identity-binding-proof-of-personhood-r0",
+        "adr-2605181100-etzhayyim-confidential-records-encryption",
+        "adr-2605231525-server-side-signing-capability-boundary",
+        "adr-2605250100-l5-routing-around-member-registry-cell"
       ],
       "last_verified": "2026-06-07",
       "amends": [],

@@ -10126,6 +10126,14 @@ status_note = "Answers 「いまの actor で uber, flight scanner, airbnb, hote
 path = "90-docs/adr/2606073000-session-close-app-coverage-charter-clean-inversion-wave.md"
 adr = ["2606073000", "2606071400", "2606071500", "2606071600", "2606071800", "2606072000", "2606072200", "2606072400", "2606072600", "2606072800", "2606012100", "2605262130", "2605312345", "2605231525", "2605215000", "2605181100"]
 
+[[adrs]]
+id = "2606072100"
+title = "shomei believer identity binding + proof-of-personhood R0"
+status = "accepted"
+status_note = "Adds shomei as a DID-centric believer identity binding and proof-of-personhood actor: subject-signed identity claims, kotoba-auth routed proof verification, IAL 0..4 aggregation, VC emission, revocation, and gov_auth handoff for Council-gated government ID factors. Identity assurance is explicitly not social credit."
+path = "90-docs/adr/2606072100-shomei-believer-identity-binding-proof-of-personhood-r0.md"
+adr = ["2606072100", "2606072300", "2605260000", "2605181100", "2605231525", "2605215000"]
+
 # ─── Donation policy (machine-readable SSoT, ADR-2606012100) ─────────────────
 # Public declaration: https://etzhayyim.com/donate + /.well-known/donation.json
 [donation]
