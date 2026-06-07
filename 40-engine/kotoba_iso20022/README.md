@@ -209,7 +209,7 @@ kotoba_iso20022/
 ├── bridge.py       # message → com.etzhayyim.iso20022.ingressAttestation records
 ├── helpers.py      # new_uetr() + auto NbOfTxs/CtrlSum group-header builders
 └── __init__.py     # public surface
-tests/              # 207 tests · 95% branch / 98% line · mypy --strict clean
+tests/              # 217 tests · 97% branch / 99% line · mypy --strict clean
 ```
 
 ## Construction helpers
@@ -238,6 +238,10 @@ PYTHONPATH=. coverage run -m pytest tests/ -q && coverage report
 PYTHONPATH=. mypy kotoba_iso20022 --strict
 # → Success: no issues found
 ```
+
+CI enforces all of the above on every PR via
+`.github/workflows/kotoba-iso20022-ci.yml` (pytest on Python 3.11–3.13 +
+`mypy --strict` + `coverage --fail-under=90` + Lexicon validation).
 
 IBAN test vectors are the published ISO 13616 registry examples (DE/GB/FR/
 CH/BE); BIC vectors are real ISO 9362 codes. See `CHANGELOG.md` for the

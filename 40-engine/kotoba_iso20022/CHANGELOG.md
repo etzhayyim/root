@@ -43,9 +43,12 @@ built purely from the open published standard (no proprietary SWIFT SDK).
 
 ### Quality
 - Dependency-free (stdlib only), Python ≥ 3.11
-- 207 tests, 95% branch / 98% line coverage
+- 217 tests, 97% branch / 99% line coverage
 - Passes `mypy --strict` clean (all 9 modules)
 - Full SWIFT IBAN-registry country-length set (ISO 13616); breadth
   round-trip + cross-currency (incl. 0- and 3-fraction-digit) tests
+- CI gate `.github/workflows/kotoba-iso20022-ci.yml`: pytest (Python
+  3.11–3.13) + `mypy --strict` + `coverage --fail-under=90` + Lexicon
+  validation, on push/PR/nightly
 - Charter-clean: format library only — no network, no chain, no money
   movement, no Travel-Rule KYC
