@@ -2,45 +2,32 @@
 	/**
 	 * Resource Flow tab — ADR-0035 reverse-topology actor money-flow visualization.
 	 *
-	 * For any actor DID, query edge_etzhayyim_fiscal_flow + edge_etzhayyim_ownership and
-	 * render: incoming flows (受け取り) / outgoing flows (支払) / UBO chain (実質的支配者).
+	 * For any actor DID, render incoming flows (受け取り) / outgoing flows (支払) /
+	 * UBO chain (実質的支配者) read from the kotoba Datom log.
 	 *
-	 * Data path: graphSql → atproto.etzhayyim.com/xrpc/com.etzhayyim.kagami.graph.query
-	 * → Hyperdrive → RisingWave (ADR-0002 / ADR-0035 §schema).
+	 * Data path (kagami-free, ADR-2605262130 / 2605312345): getResourceFlow →
+	 * `com.etzhayyim.yoro.fiscal.getResourceFlow` → kotoba-sw.js assembles the view
+	 * ENTIRELY in the browser from `:yoro.fiscal/*` + `:yoro.ownership/*` datoms in
+	 * the in-page kotoba Datom log (the first-class canonical state). The deprecated
+	 * kagami SQL path (`$lib/graph-sql` → RisingWave) has been pruned.
+	 *
+	 * AS-OF (point-in-time / 過去の記録): the Datom log is append-only, so a past
+	 * fact is never overwritten. The as-of control filters to facts observed at or
+	 * before the selected day — real time-travel over the canonical log. (This is
+	 * the observed-dimension as-of carried on each datom; the transaction-time
+	 * basis-t-CID as-of — `com.etzhayyim.apps.kotoba.datomic.asOf` — swaps in at the
+	 * SW layer once the wasm node exposes an as-of root, with no UI change.)
 	 *
 	 * Empty state shows ADR-0035 explanation so non-fiscal actors still get
-	 * meaningful context (this is intentional — every actor can theoretically
-	 * appear in fiscal_flow once data ingest catches up).
+	 * meaningful context (every actor can appear in the fiscal log once ingest
+	 * catches up; today the published blocks carry no `:yoro.fiscal/*` datoms yet).
 	 */
-	import { graphSql, sqlString } from '$lib/graph-sql';
+	import { getResourceFlow, type FlowRow, type OwnershipRow } from '$lib/kotoba/fiscal';
 
 	interface Props {
 		did?: string;
 	}
 	const { did }: Props = $props();
-
-	interface FlowRow {
-		from_did: string;
-		to_did: string;
-		stage: string;
-		fiscal_year: number | null;
-		amount_jpy: number | null;
-		basis: string | null;
-		program_code: string | null;
-		source_record_uri: string | null;
-		source_url: string | null;
-		observed_at: string | null;
-	}
-
-	interface OwnershipRow {
-		parent_did: string;
-		child_did: string;
-		ownership_pct: number | null;
-		voting_pct: number | null;
-		evidence_kind: string | null;
-		evidence_url: string | null;
-		observed_at: string | null;
-	}
 
 	let incoming = $state<FlowRow[]>([]);
 	let outgoing = $state<FlowRow[]>([]);
@@ -52,58 +39,51 @@
 	let loaded = $state(false);
 	let error = $state<string | null>(null);
 
+	// AS-OF point-in-time. null = current (latest known). 'YYYY-MM-DD' = as-of that day.
+	let asOf = $state<string | null>(null);
+	// Monotonic token guards against out-of-order responses when asOf changes rapidly.
+	let loadToken = 0;
+
 	async function load() {
-		if (loaded || loading || !did) return;
+		if (!did) return;
+		const token = ++loadToken;
 		loading = true;
 		error = null;
 		try {
-			const didLit = sqlString(did);
-			const flowCols = `from_did, to_did, stage, fiscal_year, amount_jpy, basis, program_code, source_record_uri, source_url, observed_at`;
-			const [inRows, outRows, uboParentRows, uboChildRows] = await Promise.all([
-				graphSql<FlowRow>(
-					`SELECT ${flowCols} FROM edge_etzhayyim_fiscal_flow
-					 WHERE to_did = ${didLit}
-					 ORDER BY fiscal_year DESC NULLS LAST, observed_at DESC NULLS LAST
-					 LIMIT 50`,
-				),
-				graphSql<FlowRow>(
-					`SELECT ${flowCols} FROM edge_etzhayyim_fiscal_flow
-					 WHERE from_did = ${didLit}
-					 ORDER BY fiscal_year DESC NULLS LAST, observed_at DESC NULLS LAST
-					 LIMIT 50`,
-				),
-				graphSql<OwnershipRow>(
-					`SELECT parent_did, child_did, ownership_pct, voting_pct, evidence_kind, evidence_url, observed_at
-					 FROM edge_etzhayyim_ownership
-					 WHERE child_did = ${didLit}
-					 ORDER BY ownership_pct DESC NULLS LAST, observed_at DESC NULLS LAST
-					 LIMIT 30`,
-				),
-				graphSql<OwnershipRow>(
-					`SELECT parent_did, child_did, ownership_pct, voting_pct, evidence_kind, evidence_url, observed_at
-					 FROM edge_etzhayyim_ownership
-					 WHERE parent_did = ${didLit}
-					 ORDER BY ownership_pct DESC NULLS LAST, observed_at DESC NULLS LAST
-					 LIMIT 30`,
-				),
-			]);
-			// BIGINT comes back as string from kagami XRPC; coerce.
-			const num = (v: any): number => (v == null ? 0 : Number(v));
-			incoming = inRows.map((r) => ({ ...r, amount_jpy: num(r.amount_jpy) }));
-			outgoing = outRows.map((r) => ({ ...r, amount_jpy: num(r.amount_jpy) }));
-			uboParents = uboParentRows.map((r) => ({ ...r, ownership_pct: num(r.ownership_pct), voting_pct: num(r.voting_pct) }));
-			uboChildren = uboChildRows.map((r) => ({ ...r, ownership_pct: num(r.ownership_pct), voting_pct: num(r.voting_pct) }));
-			totalIn = incoming.reduce((s, r) => s + (r.amount_jpy ?? 0), 0);
-			totalOut = outgoing.reduce((s, r) => s + (r.amount_jpy ?? 0), 0);
+			const flow = await getResourceFlow(did, asOf);
+			if (token !== loadToken) return; // a newer as-of request superseded this one
+			incoming = flow.incoming;
+			outgoing = flow.outgoing;
+			uboParents = flow.uboParents;
+			uboChildren = flow.uboChildren;
+			totalIn = flow.totalIn;
+			totalOut = flow.totalOut;
 		} catch (e: any) {
+			if (token !== loadToken) return;
 			error = String(e?.message ?? e);
 		} finally {
-			loading = false;
-			loaded = true;
+			if (token === loadToken) {
+				loading = false;
+				loaded = true;
+			}
 		}
 	}
 
-	$effect(() => { void load(); });
+	// Re-run whenever the actor or the as-of point changes.
+	$effect(() => {
+		void did;
+		void asOf;
+		void load();
+	});
+
+	const today = new Date().toISOString().slice(0, 10);
+
+	function setAsOf(v: string) {
+		asOf = v || null;
+	}
+	function clearAsOf() {
+		asOf = null;
+	}
 
 	function formatJpy(n: number | null): string {
 		if (n == null) return '—';
@@ -126,6 +106,38 @@
 </script>
 
 <div class="flex flex-col gap-4">
+	{#if did}
+		<!-- AS-OF time-travel control (observed_at fact-time over the kotoba log) -->
+		<div class="flex flex-wrap items-center gap-2 rounded-2xl border border-gv2-border/30 bg-gv2-bg-hover/20 px-3 py-2">
+			<span class="text-[11px] font-semibold uppercase tracking-wide text-gv2-text-muted">As-of 時点</span>
+			<input
+				type="date"
+				max={today}
+				value={asOf ?? ''}
+				oninput={(e) => setAsOf((e.currentTarget as HTMLInputElement).value)}
+				class="rounded-lg border border-gv2-border/40 bg-gv2-bg-primary/60 px-2 py-1 text-[12px] text-gv2-text-primary"
+				aria-label="As-of 日付を選択"
+			/>
+			{#if asOf}
+				<button
+					type="button"
+					onclick={clearAsOf}
+					class="rounded-lg border border-gv2-border/40 bg-gv2-bg-primary/40 px-2 py-1 text-[11px] text-gv2-text-muted hover:text-gv2-text-primary"
+				>
+					⟲ 現在に戻す
+				</button>
+				<span class="text-[11px] text-amber-300">
+					🕐 {asOf} 時点で記録されていた資金フロー
+				</span>
+			{:else}
+				<span class="text-[11px] text-gv2-text-muted">現在(最新の記録)</span>
+			{/if}
+			{#if loading && loaded}
+				<span class="text-[11px] text-gv2-text-muted">…更新中</span>
+			{/if}
+		</div>
+	{/if}
+
 	{#if !did}
 		<div class="rounded-2xl bg-gv2-bg-hover/30 px-4 py-6 text-center text-[13px] text-gv2-text-muted">
 			DID 不明 — Resource Flow を表示できません
@@ -145,9 +157,13 @@
 			<div class="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500/10 text-[28px]">💴</div>
 			<p class="mb-1 text-[15px] font-bold text-gv2-text-primary">Resource Flow データなし</p>
 			<p class="text-[12px] text-gv2-text-muted leading-relaxed">
-				このアクターには公開資金フロー (税金 / 契約 / 補助金 / UBO) が紐付いていません。
+				{#if asOf}
+					{asOf} 時点では、このアクターに公開資金フロー (税金 / 契約 / 補助金 / UBO) が記録されていません。
+				{:else}
+					このアクターには公開資金フロー (税金 / 契約 / 補助金 / UBO) が紐付いていません。
+				{/if}
 			</p>
-			<p class="mt-2 text-[11px] text-gv2-text-muted">ADR-0035 reverse-topology 配線が ingest 済みになると自動表示されます。</p>
+			<p class="mt-2 text-[11px] text-gv2-text-muted">kotoba Datom log に `:yoro.fiscal/*` が ingest 済みになると自動表示されます。</p>
 		</div>
 	{:else}
 		<!-- Summary -->
@@ -248,7 +264,8 @@
 		{/if}
 
 		<p class="text-center text-[10px] text-gv2-text-muted">
-			出典: ADR-0035 reverse-topology / `edge_etzhayyim_fiscal_flow` + `edge_etzhayyim_ownership`
+			出典: ADR-0035 reverse-topology / kotoba Datom log `:yoro.fiscal/*` + `:yoro.ownership/*`
+			{#if asOf}· as-of {asOf} (observed){/if}
 		</p>
 	{/if}
 </div>
