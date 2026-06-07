@@ -64,7 +64,7 @@ approx = "0.5.1"
 arrow = { version = "54.1", optional = false, features = ["prettyprint"] }
 arrow-arith = "54.1"
 arrow-array = "54.1"
-arrow-buffer = "54.1"
+arrow-buffer = "58.3"
 arrow-cast = "54.1"
 arrow-data = "58.3"
 arrow-ipc = { version = "54.1", features = ["zstd"] }

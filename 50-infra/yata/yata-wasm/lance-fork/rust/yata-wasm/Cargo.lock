@@ -1112,7 +1112,7 @@ name = "lance-arrow"
 version = "0.27.1"
 dependencies = [
  "arrow-array",
- "arrow-buffer 54.3.1",
+ "arrow-buffer 58.3.0",
  "arrow-cast",
  "arrow-data 58.3.0",
  "arrow-schema 58.3.0",
@@ -1129,7 +1129,7 @@ name = "lance-core"
 version = "0.27.1"
 dependencies = [
  "arrow-array",
- "arrow-buffer 54.3.1",
+ "arrow-buffer 58.3.0",
  "arrow-schema 58.3.0",
  "async-trait",
  "byteorder",
@@ -1166,7 +1166,7 @@ dependencies = [
  "arrow",
  "arrow-arith",
  "arrow-array",
- "arrow-buffer 54.3.1",
+ "arrow-buffer 58.3.0",
  "arrow-cast",
  "arrow-data 58.3.0",
  "arrow-schema 58.3.0",
@@ -1203,7 +1203,7 @@ version = "0.27.1"
 dependencies = [
  "arrow-arith",
  "arrow-array",
- "arrow-buffer 54.3.1",
+ "arrow-buffer 58.3.0",
  "arrow-data 58.3.0",
  "arrow-schema 58.3.0",
  "arrow-select",
@@ -1238,7 +1238,7 @@ dependencies = [
  "arrow",
  "arrow-arith",
  "arrow-array",
- "arrow-buffer 54.3.1",
+ "arrow-buffer 58.3.0",
  "arrow-cast",
  "arrow-data 58.3.0",
  "arrow-schema 58.3.0",
@@ -1274,7 +1274,7 @@ version = "0.27.1"
 dependencies = [
  "arrow",
  "arrow-array",
- "arrow-buffer 54.3.1",
+ "arrow-buffer 58.3.0",
  "arrow-ipc",
  "arrow-schema 58.3.0",
  "async-trait",
