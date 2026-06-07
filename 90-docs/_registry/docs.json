@@ -22041,6 +22041,32 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606072800-session-close-shionome-capital-flow-kotoba-wasm-fleet-cron.md",
+      "id": "adr-2606072800-session-close-shionome-capital-flow-kotoba-wasm-fleet-cron",
+      "title": "ADR-2606072800: Session close — 潮目 (shionome) cross-asset capital-flow observatory: R0 actor + kotoba-WASM component + Murakumo-fleet cron cells",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "shionome-cross-asset-capital-flow-observatory",
+      "authoritative": false,
+      "related": [
+        "90-docs/adr/2606065000-session-close-kawaraban-news-medium.md",
+        "90-docs/adr/2606063000-session-close-ooyake-world-model-reconcile-loop.md"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606072200-shionome-cross-asset-capital-flow-observatory-r0",
+        "adr-2606071000-intel-osint-actor-cohort-r1-and-fleet-readiness",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605231525-server-side-signing-capability-boundary",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state"
+      ],
+      "last_verified": "2026-06-07",
+      "authoritative_for": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

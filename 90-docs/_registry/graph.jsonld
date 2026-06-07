@@ -14083,6 +14083,19 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606072800-session-close-shionome-capital-flow-kotoba-wasm-fleet-cron",
+      "type": "TechArticle",
+      "title": "ADR-2606072800: Session close — 潮目 (shionome) cross-asset capital-flow observatory: R0 actor + kotoba-WASM component + Murakumo-fleet cron cells",
+      "status": "active",
+      "topic": "shionome-cross-asset-capital-flow-observatory",
+      "authoritative": false,
+      "related": [
+        "doc:90-docs/adr/2606065000-session-close-kawaraban-news-medium.md",
+        "doc:90-docs/adr/2606063000-session-close-ooyake-world-model-reconcile-loop.md"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

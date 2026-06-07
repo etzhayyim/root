@@ -101,6 +101,33 @@ over its own substrate, with **no live external I/O**. Per ADR-2606071000, that 
 goal — "deploy-ready", with the single remaining step being a **human gate flip** (G7/G8) to enable
 live market-data ingest + live external posting.
 
+### kotoba-WASM component + Murakumo-fleet cron cells (deploy-readiness)
+
+The autorun loop above is the off-fleet self-driving demonstrator. Its **production form** is two
+concrete kotoba-WASM artifacts, both empirically built/verified off-fleet:
+
+1. **Standalone WASI component** (`20-actors/shionome/wasm/`) — `app.py` + `wit/world.wit` built
+   with **componentize-py** into `shionome-actor.wasm` (18.5 MB, WASI Preview 2),
+   `wasm-tools validate` clean, **jco-transpiled and executed under node** (`node verify.mjs` →
+   `regime=risk-on`, `no_trade=true`). CID
+   `bafybeigk6whellozcybop4btzcrdtybd5yejjrax7tczxhapfsyya64hka` (dag-pb → T2 donated-mesh, bundles
+   CPython). The `.wasm` + `transpiled/` are gitignored, reproducible from source via `build.sh`.
+
+2. **5 Murakumo-fleet cron cells** (`20-actors/magatama/cells/shionome_*`) — `kotoba_langgraph`
+   Pregel cells ("Resident in Kotoba WASM", the ossekai precedent), each shipping a
+   `cells.toml.fragment` with `trigger = { kind = "cron", … }` on a real fleet node: `ingest`
+   (issachar `5 * * * *`), `flow_graph` (issachar `10 * * * *`), `rotation_weave` (dan
+   `15 * * * *`), `regime_observer` (dan `20 * * * *`), `social_post` (naphtali `0 9 * * *`).
+   Registered in `50-infra/murakumo/fleet.toml` (node↔cell) + discovered by `cell_runner_main.py`
+   (added the `shionome_*` fragment glob). Pure logic in `shionome_core.py` (no `kotoba_langgraph`
+   dependency), tested off-fleet (**14/14** in `test_shionome_cells.py`).
+
+The cells run as **k3s DaemonSet Pods** via the Ansible playbook
+`60-apps/etzhayyim-project-murakumo/ansible/k8s-gpu-cluster.yml`. The actual `ansible … deploy`
+onto the physical Mac-mini fleet is the **operator** step — an agent cannot execute it
+(ADR-2606071000). Cron cells fire the analyze→dry-run cycle over substrate-resident data; live
+market-data ingest + live external posting remain G8-gated.
+
 ## Consequences
 
 - **Positive**: a new, distinct cross-asset capital-rotation lens for the commons; a hard,
