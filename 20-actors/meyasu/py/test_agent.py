@@ -96,3 +96,42 @@ def test_publish_posts_with_operator():
     out = agent.handle_publish({"cards": cards, "operatorRef": "op:1"})
     assert out["posts"][0]["state"] == "posted"
     assert out["broadcast"] is True
+
+
+# ── persist (kotoba Datoms, no-server-key) ────────────────────────────────
+def test_persist_emits_card_datoms():
+    cards = agent.handle_fuse({"items": [_item()]})["cards"]
+    out = agent.handle_persist({"cards": cards, "observedAt": "2026-06-07T00:00:00Z"})
+    assert out["datomCount"] > 0
+    kinds = {d[1] for d in out["datoms"]}
+    assert ":meyasu.card/product" in kinds
+    assert ":meyasu.card/intent" in kinds
+
+
+def test_persist_writes_forecast_as_band_not_point_g1():
+    cards = agent.handle_fuse({"items": [_item(mean=0.5, now=0.1)]})["cards"]
+    out = agent.handle_persist({"cards": cards, "observedAt": "t"})
+    attrs = {d[1] for d in out["datoms"]}
+    assert ":meyasu.card/forecast-band-lo" in attrs
+    assert ":meyasu.card/forecast-band-hi" in attrs
+    # there is NO point-value attribute — a band, never a point (G1/G2)
+    assert not any("forecast-point" in a or a == ":meyasu.card/forecast-mean" for a in attrs)
+
+
+def test_persist_no_server_key_tx_only_without_operator():
+    cards = agent.handle_fuse({"items": [_item()]})["cards"]
+    out = agent.handle_persist({"cards": cards})
+    assert out["writeState"] == "tx-only"          # no-server-key: returned, not written
+
+
+def test_persist_commits_with_operator():
+    cards = agent.handle_fuse({"items": [_item()]})["cards"]
+    out = agent.handle_persist({"cards": cards, "operatorRef": "op:1"})
+    assert out["writeState"] == "committed"
+
+
+def test_card_to_datoms_uses_observed_at_in_id():
+    card = agent.handle_fuse({"items": [_item()]})["cards"][0]
+    datoms = agent.card_to_datoms(card, "2026-06-07T12:00:00Z")
+    eid = datoms[0][0]
+    assert "2026-06-07T12:00:00Z" in eid and eid.startswith("meyasu.card.")
