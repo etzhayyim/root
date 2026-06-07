@@ -6,6 +6,7 @@
   "title": "ejustice_eu clean-room actor",
   "description": "Clean-room, API-compatible public safety / law / justice actor (ejustice_eu); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreibo6i4ux2u64obyqedbxytkqrm2mgrgwvratjxy3ffmo5wtyyf6he",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreibo6i4ux2u64obyqedbxytkqrm2mgrgwvratjxy3ffmo5wtyyf6he",

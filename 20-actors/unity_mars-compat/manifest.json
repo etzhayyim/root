@@ -6,6 +6,7 @@
   "title": "unity_mars clean-room actor",
   "description": "Clean-room, API-compatible spatial computing / XR actor (unity_mars); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreidfrf76egscmpwo2diw4agpblvyhtoel6fiipmlajycyl3wgiotra",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreidfrf76egscmpwo2diw4agpblvyhtoel6fiipmlajycyl3wgiotra",

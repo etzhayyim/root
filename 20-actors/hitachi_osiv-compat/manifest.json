@@ -6,6 +6,7 @@
   "title": "hitachi_osiv clean-room actor",
   "description": "Clean-room, API-compatible mainframe / legacy substrate actor (hitachi_osiv); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreigzjmc5e2ihv2sff6mkxure3ccm73mjothixht4w3s4etzixlursa",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigzjmc5e2ihv2sff6mkxure3ccm73mjothixht4w3s4etzixlursa",

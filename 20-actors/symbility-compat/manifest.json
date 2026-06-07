@@ -6,6 +6,7 @@
   "title": "symbility clean-room actor",
   "description": "Clean-room, API-compatible core banking / InsurTech actor (symbility); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreiew5xsruznyet3brjbmyna3dw5ptlqu4loc6uihpy52yceklxbvhe",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiew5xsruznyet3brjbmyna3dw5ptlqu4loc6uihpy52yceklxbvhe",

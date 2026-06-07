@@ -6,6 +6,7 @@
   "title": "hologram clean-room actor",
   "description": "Clean-room, API-compatible IoT / edge actor (hologram); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreigkg3m6r6hylwhpnblv4y7zm7aih24xvfkpdwcahdm5wlcrzfdcgq",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigkg3m6r6hylwhpnblv4y7zm7aih24xvfkpdwcahdm5wlcrzfdcgq",

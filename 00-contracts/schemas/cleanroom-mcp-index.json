@@ -364,7 +364,7 @@
       "handle": "anthropic-compat",
       "did": "did:web:etzhayyim.com:actor:anthropic-compat",
       "tier": "L4",
-      "endpoint": "ipfs://bafkreigpozmdpm3eyd5lzwmeka4tci35tx2asvednynu7k2i3r3vcjwrjq",
+      "endpoint": "ipfs://bafkreicx4q2mg4gwxchjh2kitjgkkuzboegmujzwqilujtu4so3uoojl7u",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 35,
       "manifest": "20-actors/anthropic-compat/manifest.json#/capabilities/mcp"
@@ -670,7 +670,7 @@
       "handle": "aws-compat",
       "did": "did:web:etzhayyim.com:actor:aws-compat",
       "tier": "L4",
-      "endpoint": "ipfs://bafkreig2hjn2bko6o7hq5yzkkrj2spc5y3oomqu5opcmh5r6h4e3l2lsp4",
+      "endpoint": "ipfs://bafkreicyte24pkmg6ddppxfcmlolh623fpmqdkudh4ztguekafv4p4dd3y",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 35,
       "manifest": "20-actors/aws-compat/manifest.json#/capabilities/mcp"
@@ -3370,7 +3370,7 @@
       "handle": "github-compat",
       "did": "did:web:etzhayyim.com:actor:github-compat",
       "tier": "L4",
-      "endpoint": "ipfs://bafkreien7omi6yrqetuvnlswf7mrmtpmh4aocgsgf2hi3ftjgib752oc74",
+      "endpoint": "ipfs://bafkreiazcxsk43tdp5ac4y2rkb6rdgo3gjqwa4sdsu4ry7uxlflcocucgu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 35,
       "manifest": "20-actors/github-compat/manifest.json#/capabilities/mcp"
@@ -5971,7 +5971,7 @@
       "handle": "openai-compat",
       "did": "did:web:etzhayyim.com:actor:openai-compat",
       "tier": "L4",
-      "endpoint": "ipfs://bafkreifs2zgftnhfhdxcs4rz3kvwiy2njpwcsxoonjsuzn4iqod2rncx7e",
+      "endpoint": "ipfs://bafkreihbgc6ybuatnm44w6zzs2xmwb35hqe5dakdztcbq7be72l3gsqylu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 35,
       "manifest": "20-actors/openai-compat/manifest.json#/capabilities/mcp"
@@ -6331,7 +6331,7 @@
       "handle": "plaid-compat",
       "did": "did:web:etzhayyim.com:actor:plaid-compat",
       "tier": "L4",
-      "endpoint": "ipfs://bafkreif2wzbofk3ichhs7pjej5ynfihsmosi22ysc7keit7yekz3ehslty",
+      "endpoint": "ipfs://bafkreigp6z5bg47rjd6gkrn7varia7mipfztw2qfqod5v4kjrl3tmddp7i",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/plaid-compat/manifest.json#/capabilities/mcp"
@@ -7042,7 +7042,7 @@
       "handle": "salesforce-compat",
       "did": "did:web:etzhayyim.com:actor:salesforce-compat",
       "tier": "L4",
-      "endpoint": "ipfs://bafkreidp55apqegdi3t3zceexx2isrsbbmvxuxhv662ahslvqshcpjm74q",
+      "endpoint": "ipfs://bafkreibdx5qgaxqdbmvr6ldhkfin74yxndkjkyfhhb4zsmvdy3pfylfxbu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 35,
       "manifest": "20-actors/salesforce-compat/manifest.json#/capabilities/mcp"
@@ -7294,7 +7294,7 @@
       "handle": "shopify-compat",
       "did": "did:web:etzhayyim.com:actor:shopify-compat",
       "tier": "L4",
-      "endpoint": "ipfs://bafkreigavk24k74i73jk6mycrpb7bkgk5ysoef5she7bbyou2n47lo6bzm",
+      "endpoint": "ipfs://bafkreifyjnssgr2mdxm6edev4yuafhtfffw3ue5ju2jtko5o6f6lymc6pm",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 35,
       "manifest": "20-actors/shopify-compat/manifest.json#/capabilities/mcp"
@@ -7402,7 +7402,7 @@
       "handle": "slack-compat",
       "did": "did:web:etzhayyim.com:actor:slack-compat",
       "tier": "L4",
-      "endpoint": "ipfs://bafkreicvvgj7vy4v3e6rmkauqglmtgszkw44yuquqnsayn2ttlpw5di2y4",
+      "endpoint": "ipfs://bafkreid3fejyarucykw3zz6psitd3s2uqscxwp4z54nbkkpxluderdwzhy",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/slack-compat/manifest.json#/capabilities/mcp"
@@ -7636,7 +7636,7 @@
       "handle": "stripe-compat",
       "did": "did:web:etzhayyim.com:actor:stripe-compat",
       "tier": "L4",
-      "endpoint": "ipfs://bafkreibsgp32yx4rwko6qhwxlmw2f5wdnlzlup2tsuxyyqqa47uaexuovu",
+      "endpoint": "ipfs://bafkreidjpmhiynl4mazx2x4wuhozj2l5ez4ndk7ifdwec42am6ir5hpuaa",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 40,
       "manifest": "20-actors/stripe-compat/manifest.json#/capabilities/mcp"
@@ -8131,7 +8131,7 @@
       "handle": "twilio-compat",
       "did": "did:web:etzhayyim.com:actor:twilio-compat",
       "tier": "L4",
-      "endpoint": "ipfs://bafkreih3dziv5yarja24qh3r5x32h7bsbydmkicagna2azew6glygil6rm",
+      "endpoint": "ipfs://bafkreibaqzz7l3fflbzupta7h6ced4hvu2dbb33whck3nxbsihhskpexw4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/twilio-compat/manifest.json#/capabilities/mcp"

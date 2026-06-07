@@ -6,6 +6,7 @@
   "title": "cerner clean-room actor",
   "description": "Clean-room, API-compatible EHR / clinical records actor (cerner); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreiezrxmhxboscs5yuncltz3fmzuxpwmgaqpnychnltmn7ytkl6qjqq",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiezrxmhxboscs5yuncltz3fmzuxpwmgaqpnychnltmn7ytkl6qjqq",

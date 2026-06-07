@@ -6,6 +6,7 @@
   "title": "tae_technologies clean-room actor",
   "description": "Clean-room, API-compatible fusion / plasma energy actor (tae_technologies); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreihms2crfnbo4gymtt7te5cqbvepmiwormcudlw4f6bd6uqcfm3zca",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihms2crfnbo4gymtt7te5cqbvepmiwormcudlw4f6bd6uqcfm3zca",

@@ -6,6 +6,7 @@
   "title": "autoware clean-room actor",
   "description": "Clean-room, API-compatible mobility / auto / EV actor (autoware); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreibkt32jjxd4vbgdpiv3zhbr7vo2ut3wrq65nldzxqmp33ye6xa674",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreibkt32jjxd4vbgdpiv3zhbr7vo2ut3wrq65nldzxqmp33ye6xa674",

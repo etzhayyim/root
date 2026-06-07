@@ -6,6 +6,7 @@
   "title": "epic-systems clean-room actor",
   "description": "Clean-room, API-compatible EHR / clinical records actor (epic-systems); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreifcp2n57jornyogbjvfu76whalmvd335deuzf7wvknxgk3pbeiczi",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreifcp2n57jornyogbjvfu76whalmvd335deuzf7wvknxgk3pbeiczi",

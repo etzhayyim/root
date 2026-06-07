@@ -6,6 +6,7 @@
   "title": "sita_onair clean-room actor",
   "description": "Clean-room, API-compatible travel / aviation / hospitality actor (sita_onair); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreihczxmaswmr7ieiye52rvgyrydktti44e2ktw32kbzmrk6s5znpca",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihczxmaswmr7ieiye52rvgyrydktti44e2ktw32kbzmrk6s5znpca",

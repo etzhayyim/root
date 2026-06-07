@@ -6,6 +6,7 @@
   "title": "digilocker clean-room actor",
   "description": "Clean-room, API-compatible digital public infrastructure actor (digilocker); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreice2ztm65o4vl5kug43jk32dog5rq5aas75ctnssauaroncgubxxe",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreice2ztm65o4vl5kug43jk32dog5rq5aas75ctnssauaroncgubxxe",

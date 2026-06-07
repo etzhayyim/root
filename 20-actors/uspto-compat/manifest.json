@@ -6,6 +6,7 @@
   "title": "uspto clean-room actor",
   "description": "Clean-room, API-compatible public health / environment / IP actor (uspto); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreidjdxirjicd73dd5hqub2blfwfbl6rvdqoqrxmehxvrbj4b6j45ti",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreidjdxirjicd73dd5hqub2blfwfbl6rvdqoqrxmehxvrbj4b6j45ti",

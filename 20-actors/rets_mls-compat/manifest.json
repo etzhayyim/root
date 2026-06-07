@@ -6,6 +6,7 @@
   "title": "rets_mls clean-room actor",
   "description": "Clean-room, API-compatible real estate / MLS / PropTech actor (rets_mls); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreigxcg7hoo46c7cuvtwfpipfmzf76muppfljjty245j6l3n2utbzca",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigxcg7hoo46c7cuvtwfpipfmzf76muppfljjty245j6l3n2utbzca",

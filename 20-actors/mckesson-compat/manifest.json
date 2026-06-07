@@ -6,6 +6,7 @@
   "title": "mckesson clean-room actor",
   "description": "Clean-room, API-compatible pharmacy benefit / Rx network actor (mckesson); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreidc5he2r6mtyeb4psg56zqy4ehs565jn4e6j5hnwodvs7ntuw46fu",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreidc5he2r6mtyeb4psg56zqy4ehs565jn4e6j5hnwodvs7ntuw46fu",

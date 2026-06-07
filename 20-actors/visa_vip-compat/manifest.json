@@ -6,6 +6,7 @@
   "title": "visa_vip clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (visa_vip); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreihadawwuryyavqvcaksfdd2buk72tqlc3arlr5xbqj7n6phawwhzq",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihadawwuryyavqvcaksfdd2buk72tqlc3arlr5xbqj7n6phawwhzq",

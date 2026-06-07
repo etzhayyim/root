@@ -6,6 +6,7 @@
   "title": "metagraph clean-room actor",
   "description": "Clean-room, API-compatible marketing technology actor (metagraph); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreihf3qqqhjoyiccbmjcwvk26l76wsfchyjj5rlneu4s3exedjpnmcy",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihf3qqqhjoyiccbmjcwvk26l76wsfchyjj5rlneu4s3exedjpnmcy",

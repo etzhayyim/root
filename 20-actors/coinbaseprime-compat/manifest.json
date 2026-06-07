@@ -6,6 +6,7 @@
   "title": "coinbaseprime clean-room actor",
   "description": "Clean-room, API-compatible fintech / web3 actor (coinbaseprime); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreigdkkz5hbwx5cwlzhvgcxe4uczevmor7l53i2dryt7pfp4ft362ry",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigdkkz5hbwx5cwlzhvgcxe4uczevmor7l53i2dryt7pfp4ft362ry",

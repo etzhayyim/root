@@ -6,6 +6,7 @@
   "title": "clearstream clean-room actor",
   "description": "Clean-room, API-compatible core banking / InsurTech actor (clearstream); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreibsope3yl2eihz32e5d6zycqctahmly4nsubuvyi4nd5hcl4qmsmm",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreibsope3yl2eihz32e5d6zycqctahmly4nsubuvyi4nd5hcl4qmsmm",

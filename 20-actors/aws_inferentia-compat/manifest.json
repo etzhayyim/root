@@ -6,6 +6,7 @@
   "title": "aws_inferentia clean-room actor",
   "description": "Clean-room, API-compatible AI/ML infrastructure / chips actor (aws_inferentia); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreihxtoq4kwoj7lyjuhq4qy2p267bns2venx2ulhe4iezju6bkfdizi",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihxtoq4kwoj7lyjuhq4qy2p267bns2venx2ulhe4iezju6bkfdizi",

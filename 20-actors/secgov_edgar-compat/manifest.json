@@ -6,6 +6,7 @@
   "title": "secgov_edgar clean-room actor",
   "description": "Clean-room, API-compatible US federal / sovereign API actor (secgov_edgar); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreifl5oi7khzchu2nudv6blpgzqrxuwhasksh6iu326x3zy4sdkt3gy",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreifl5oi7khzchu2nudv6blpgzqrxuwhasksh6iu326x3zy4sdkt3gy",

@@ -6,6 +6,7 @@
   "title": "bluefin_robotics clean-room actor",
   "description": "Clean-room, API-compatible space / ocean / earth physics actor (bluefin_robotics); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreidvawyoprp6prl44z3gnghsaaji75l63xmmlukspkagp2asmezab4",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreidvawyoprp6prl44z3gnghsaaji75l63xmmlukspkagp2asmezab4",

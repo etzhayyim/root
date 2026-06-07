@@ -6,6 +6,7 @@
   "title": "yoti clean-room actor",
   "description": "Clean-room, API-compatible digital public infrastructure actor (yoti); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreib5vqdixxmunauxlfba2354tvzdcwqz34tlbdtqyt6ihebfuyq5d4",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreib5vqdixxmunauxlfba2354tvzdcwqz34tlbdtqyt6ihebfuyq5d4",

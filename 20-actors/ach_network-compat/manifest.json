@@ -6,6 +6,7 @@
   "title": "ach_network clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (ach_network); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreiau5uwdeeerihebqhr34omxgrfnf5vajxaflwrahwm37ja7dbnbgm",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiau5uwdeeerihebqhr34omxgrfnf5vajxaflwrahwm37ja7dbnbgm",

@@ -6,6 +6,7 @@
   "title": "autogpt_forge clean-room actor",
   "description": "Clean-room, API-compatible AI agent protocol actor (autogpt_forge); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreihylutrpwarcra3fm2qeiugs6tdbirw7qdbagy7roksyk7ti6mbum",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihylutrpwarcra3fm2qeiugs6tdbirw7qdbagy7roksyk7ti6mbum",

@@ -6,6 +6,7 @@
   "title": "smpp_gw clean-room actor",
   "description": "Clean-room, API-compatible telecom / satellite actor (smpp_gw); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreifhr5shqtdzxarvf2hqc52xdkjapm6e5ffpomu245hxl3vu2khx3u",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreifhr5shqtdzxarvf2hqc52xdkjapm6e5ffpomu245hxl3vu2khx3u",

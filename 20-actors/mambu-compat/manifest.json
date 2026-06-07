@@ -6,6 +6,7 @@
   "title": "mambu clean-room actor",
   "description": "Clean-room, API-compatible core banking / InsurTech actor (mambu); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreiawrm7zk6sawecorrffayiuhdooiezbi6rlemya7xd27tdudlhvza",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiawrm7zk6sawecorrffayiuhdooiezbi6rlemya7xd27tdudlhvza",

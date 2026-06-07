@@ -6,6 +6,7 @@
   "title": "starlink clean-room actor",
   "description": "Clean-room, API-compatible telecom / satellite actor (starlink); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreibzwirmuz7tkw66aywx4krkyuslyylk2vmc4dlfbxcue44xtgswkm",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreibzwirmuz7tkw66aywx4krkyuslyylk2vmc4dlfbxcue44xtgswkm",

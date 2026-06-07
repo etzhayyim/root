@@ -6,6 +6,7 @@
   "title": "rent_manager clean-room actor",
   "description": "Clean-room, API-compatible real estate / MLS / PropTech actor (rent_manager); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreigdwqzexnxwl3jsmnn6c6komtq4cz4jskzkh3jnamprpaeigdqjey",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigdwqzexnxwl3jsmnn6c6komtq4cz4jskzkh3jnamprpaeigdqjey",

@@ -6,6 +6,7 @@
   "title": "qkd_bb84 clean-room actor",
   "description": "Clean-room, API-compatible quantum key distribution actor (qkd_bb84); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreie4fcosvuuuvnujvju5r6nslvvumk7vukw4qzmyjnlx6fzghvlfbq",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreie4fcosvuuuvnujvju5r6nslvvumk7vukw4qzmyjnlx6fzghvlfbq",

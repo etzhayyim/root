@@ -6,6 +6,7 @@
   "title": "gsma_opengateway clean-room actor",
   "description": "Clean-room, API-compatible telecom / satellite actor (gsma_opengateway); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreifkcwtsxpw2vgrehlpfvrpz3xfl4xajmhn7kq2pudmvauh2sgambe",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreifkcwtsxpw2vgrehlpfvrpz3xfl4xajmhn7kq2pudmvauh2sgambe",

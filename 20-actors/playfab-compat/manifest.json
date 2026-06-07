@@ -6,6 +6,7 @@
   "title": "playfab clean-room actor",
   "description": "Clean-room, API-compatible gaming backend / metaverse actor (playfab); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreiefagox2ugbuf3o7d6taqxxfsgf5ccqkaev5vjmltiyyb2rtztzcy",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiefagox2ugbuf3o7d6taqxxfsgf5ccqkaev5vjmltiyyb2rtztzcy",

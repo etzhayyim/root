@@ -6,6 +6,7 @@
   "title": "thegraph clean-room actor",
   "description": "Clean-room, API-compatible web3 / blockchain RPC actor (thegraph); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreigsotps5vddjef4zrnlvncvj63ze2vrjhqcg6rxryah3pgq7orode",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigsotps5vddjef4zrnlvncvj63ze2vrjhqcg6rxryah3pgq7orode",

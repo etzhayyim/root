@@ -6,6 +6,7 @@
   "title": "spire_global clean-room actor",
   "description": "Clean-room, API-compatible space / ocean / earth physics actor (spire_global); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreihklhfurojh7rx3zzner2yfm7fdllmv5aqqexq5lbw6sxjmh5czre",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihklhfurojh7rx3zzner2yfm7fdllmv5aqqexq5lbw6sxjmh5czre",

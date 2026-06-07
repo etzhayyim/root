@@ -6,6 +6,7 @@
   "title": "terraform clean-room actor",
   "description": "Clean-room, API-compatible DevSecOps / serverless actor (terraform); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreigvijcklhne5d5mu3pbfumbdnazy7nutaev6vglobs2rk26albtuy",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigvijcklhne5d5mu3pbfumbdnazy7nutaev6vglobs2rk26albtuy",

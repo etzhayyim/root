@@ -6,6 +6,7 @@
   "title": "drone_deploy clean-room actor",
   "description": "Clean-room, API-compatible drone swarm / aerial robotics actor (drone_deploy); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreiaiewgit2upbsm3uf5h56yfshtiv7zu4nx32e7peyjalzjin34nqq",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiaiewgit2upbsm3uf5h56yfshtiv7zu4nx32e7peyjalzjin34nqq",

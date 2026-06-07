@@ -6,6 +6,7 @@
   "title": "sepa_ct clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (sepa_ct); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreidrq5n4ebf5ie67duic4ydspn572i53kivuzx7jhmbnhnji47r5ym",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreidrq5n4ebf5ie67duic4ydspn572i53kivuzx7jhmbnhnji47r5ym",

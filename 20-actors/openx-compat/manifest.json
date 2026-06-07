@@ -6,6 +6,7 @@
   "title": "openx clean-room actor",
   "description": "Clean-room, API-compatible marketing technology actor (openx); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreialmcfpapbbbb32lu67ofwr2qwkqwodwi2ok2lv24jph7k5fjzbk4",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreialmcfpapbbbb32lu67ofwr2qwkqwodwi2ok2lv24jph7k5fjzbk4",

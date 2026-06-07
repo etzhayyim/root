@@ -6,6 +6,7 @@
   "title": "sonardyne clean-room actor",
   "description": "Clean-room, API-compatible space / ocean / earth physics actor (sonardyne); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreib2nu4gd2tzwbtccqsqvhdwekswelscf3hhzgi54wbvq3je6f2s54",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreib2nu4gd2tzwbtccqsqvhdwekswelscf3hhzgi54wbvq3je6f2s54",

@@ -6,6 +6,7 @@
   "title": "siteminder clean-room actor",
   "description": "Clean-room, API-compatible travel / aviation / hospitality actor (siteminder); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreidvvj32klb22hmixh7scjakymdeokyklsyykd5wifoumwxfzfxnli",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreidvvj32klb22hmixh7scjakymdeokyklsyykd5wifoumwxfzfxnli",

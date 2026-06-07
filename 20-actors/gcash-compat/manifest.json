@@ -6,6 +6,7 @@
   "title": "gcash clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (gcash); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreidwvlfdugoabobwasylmnecynrr3l5jarzuv6w6gadknfcramre4e",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreidwvlfdugoabobwasylmnecynrr3l5jarzuv6w6gadknfcramre4e",

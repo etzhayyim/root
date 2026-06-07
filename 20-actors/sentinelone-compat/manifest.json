@@ -6,6 +6,7 @@
   "title": "sentinelone clean-room actor",
   "description": "Clean-room, API-compatible security / IAM actor (sentinelone); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreigwjsjb2cq55zdw36y3hrwlcoz5vbxothsjwxoqx6vqmar36k6kye",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigwjsjb2cq55zdw36y3hrwlcoz5vbxothsjwxoqx6vqmar36k6kye",

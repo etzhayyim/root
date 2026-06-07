@@ -6,6 +6,7 @@
   "title": "mammoth_biosciences clean-room actor",
   "description": "Clean-room, API-compatible synthetic biology / DNA actor (mammoth_biosciences); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreidw44mdiexencss7sdxrph2x5dq75hdzhxgqjakvszjfqi3pu7sb4",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreidw44mdiexencss7sdxrph2x5dq75hdzhxgqjakvszjfqi3pu7sb4",

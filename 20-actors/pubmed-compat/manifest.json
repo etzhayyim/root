@@ -6,6 +6,7 @@
   "title": "pubmed clean-room actor",
   "description": "Clean-room, API-compatible meta-knowledge / scientific publishing actor (pubmed); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreiekvhijbnr5varkzvd2nd4jotpfihszdqldgzxhpxkwxm2kvvkcqe",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiekvhijbnr5varkzvd2nd4jotpfihszdqldgzxhpxkwxm2kvvkcqe",

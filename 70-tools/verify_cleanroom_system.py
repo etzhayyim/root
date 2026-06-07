@@ -95,8 +95,11 @@ def main():
         for c in ("api", "supplychain", "socialpost", "mcp"):
             if c not in caps:
                 errors.append(f"{actor}: missing capability {c}")
-        # CID freshness (warn only — sibling schema churn is expected)
-        if os.path.exists(sp) and os.path.exists(mp):
+        # CID freshness (warn only — sibling schema churn is expected). Skip
+        # actors whose CID is an actually-built WASM component (provenance
+        # built-rust-raw): that CID is the artifact's, not the source bundle's.
+        if (os.path.exists(sp) and os.path.exists(mp)
+                and m.get("wasmProvenance") != "built-rust-raw"):
             fresh = reg.cid_v1_raw(reg.program_bundle(adir, platform))
             if fresh != cid:
                 stale += 1

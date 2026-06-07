@@ -6,6 +6,7 @@
   "title": "signal_api clean-room actor",
   "description": "Clean-room, API-compatible communications / social actor (signal_api); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreicffxlvume5hnm6exjcjuhp7t4al6fnvim4mzhg2ic2ugfgke2s54",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreicffxlvume5hnm6exjcjuhp7t4al6fnvim4mzhg2ic2ugfgke2s54",

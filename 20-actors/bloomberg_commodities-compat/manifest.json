@@ -6,6 +6,7 @@
   "title": "bloomberg_commodities clean-room actor",
   "description": "Clean-room, API-compatible energy commodities actor (bloomberg_commodities); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreicnixmnhs7wpwrtywuwmaih7ocnzjuk2ly5l5w7vycpe2jjq7ecna",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreicnixmnhs7wpwrtywuwmaih7ocnzjuk2ly5l5w7vycpe2jjq7ecna",

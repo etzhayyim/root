@@ -6,6 +6,7 @@
   "title": "bamboohr clean-room actor",
   "description": "Clean-room, API-compatible HR technology actor (bamboohr); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreihqy7t7ctyzoh4fpvsbeq4ynn7ey7lxcun6dfmv5gy2ena4mkpktm",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihqy7t7ctyzoh4fpvsbeq4ynn7ey7lxcun6dfmv5gy2ena4mkpktm",

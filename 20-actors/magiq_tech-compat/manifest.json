@@ -6,6 +6,7 @@
   "title": "magiq_tech clean-room actor",
   "description": "Clean-room, API-compatible quantum key distribution actor (magiq_tech); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreicsmknptcwokpnapy456fzayowhdasirqeb2auqj22yygad744xjy",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreicsmknptcwokpnapy456fzayowhdasirqeb2auqj22yygad744xjy",

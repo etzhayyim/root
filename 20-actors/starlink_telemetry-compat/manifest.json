@@ -6,6 +6,7 @@
   "title": "starlink_telemetry clean-room actor",
   "description": "Clean-room, API-compatible space / ocean / earth physics actor (starlink_telemetry); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreid2g5f4nfajjrmg5bggb2sga3eqo5pzmy2rsaud6ggu2cunmyffyy",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreid2g5f4nfajjrmg5bggb2sga3eqo5pzmy2rsaud6ggu2cunmyffyy",

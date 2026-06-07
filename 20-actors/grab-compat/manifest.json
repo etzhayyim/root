@@ -6,6 +6,7 @@
   "title": "grab clean-room actor",
   "description": "Clean-room, API-compatible regional super-app actor (grab); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreictoqihq7lxolhl2jrnrw7zjv5tvsqgnivvio6oxuhqwih4pfwi5u",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreictoqihq7lxolhl2jrnrw7zjv5tvsqgnivvio6oxuhqwih4pfwi5u",

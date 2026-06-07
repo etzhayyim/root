@@ -6,6 +6,7 @@
   "title": "relativity clean-room actor",
   "description": "Clean-room, API-compatible vertical SaaS actor (relativity); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreifqivcukidg23dmy65426fxncndywgqzp42ilznqxsqfaimwiylpy",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreifqivcukidg23dmy65426fxncndywgqzp42ilznqxsqfaimwiylpy",

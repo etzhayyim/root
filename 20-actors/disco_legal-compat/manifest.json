@@ -6,6 +6,7 @@
   "title": "disco_legal clean-room actor",
   "description": "Clean-room, API-compatible legal / eDiscovery actor (disco_legal); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreiadmaxudckfr65zoqjtcgfm565tiw6kvbi6j35c2vef5g2flz2deq",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiadmaxudckfr65zoqjtcgfm565tiw6kvbi6j35c2vef5g2flz2deq",

@@ -6,6 +6,7 @@
   "title": "express_scripts clean-room actor",
   "description": "Clean-room, API-compatible pharmacy benefit / Rx network actor (express_scripts); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreie52mqi7yvpjqk527hg7s3t7ksia74t26opf5ar37xfs5lys5cute",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreie52mqi7yvpjqk527hg7s3t7ksia74t26opf5ar37xfs5lys5cute",

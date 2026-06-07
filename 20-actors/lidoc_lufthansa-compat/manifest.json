@@ -6,6 +6,7 @@
   "title": "lidoc_lufthansa clean-room actor",
   "description": "Clean-room, API-compatible travel / aviation / hospitality actor (lidoc_lufthansa); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreifkvjh63kur77diaxigj54hzblk3d7lomtn3xanjz72ufec2jkgyi",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreifkvjh63kur77diaxigj54hzblk3d7lomtn3xanjz72ufec2jkgyi",

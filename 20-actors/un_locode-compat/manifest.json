@@ -6,6 +6,7 @@
   "title": "un_locode clean-room actor",
   "description": "Clean-room, API-compatible physical benchmarks / classifications actor (un_locode); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreihoeuazzdacj5lf4glcszcfmmaudbyf26ui4s4j5miayp23syhmn4",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihoeuazzdacj5lf4glcszcfmmaudbyf26ui4s4j5miayp23syhmn4",

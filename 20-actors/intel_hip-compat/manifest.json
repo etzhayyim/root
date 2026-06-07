@@ -6,6 +6,7 @@
   "title": "intel_hip clean-room actor",
   "description": "Clean-room, API-compatible AI/ML infrastructure / chips actor (intel_hip); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreigbqenenwd2pjgqlchxclmksvck6emmsn6pijrhc653kmu5hqlwba",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigbqenenwd2pjgqlchxclmksvck6emmsn6pijrhc653kmu5hqlwba",

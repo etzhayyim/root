@@ -6,6 +6,7 @@
   "title": "costar clean-room actor",
   "description": "Clean-room, API-compatible vertical SaaS actor (costar); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreiehymfer7l74eugkbfcayk2ciyybioi3tmzh2oruraoerjlwdh3ve",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiehymfer7l74eugkbfcayk2ciyybioi3tmzh2oruraoerjlwdh3ve",

@@ -6,6 +6,7 @@
   "title": "zap_energy clean-room actor",
   "description": "Clean-room, API-compatible fusion / plasma energy actor (zap_energy); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreibtszlajq47zdyzaywrd4i7nryq65wb6wfqdpidbs3pgu5zkvsk3a",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreibtszlajq47zdyzaywrd4i7nryq65wb6wfqdpidbs3pgu5zkvsk3a",

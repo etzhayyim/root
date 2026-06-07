@@ -6,6 +6,7 @@
   "title": "cmic clean-room actor",
   "description": "Clean-room, API-compatible AEC / GovTech actor (cmic); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreid2f3vdu2ygfys3tb6zmldywgclszeefhx2c4v4l2xt2zqncpla74",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreid2f3vdu2ygfys3tb6zmldywgclszeefhx2c4v4l2xt2zqncpla74",

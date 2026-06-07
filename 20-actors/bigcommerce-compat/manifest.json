@@ -6,6 +6,7 @@
   "title": "bigcommerce clean-room actor",
   "description": "Clean-room, API-compatible e-commerce storefront actor (bigcommerce); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreibioo7o3qxmtve2rdiljmfw5bgm2wrt323dmffctgxhtyhuxd2rum",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreibioo7o3qxmtve2rdiljmfw5bgm2wrt323dmffctgxhtyhuxd2rum",

@@ -6,6 +6,7 @@
   "title": "weatherford clean-room actor",
   "description": "Clean-room, API-compatible energy commodities actor (weatherford); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreie2ymy36o2nfcc3ralxfletlr7tc2y66r6jljpkgvmhrj5jvupkcm",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreie2ymy36o2nfcc3ralxfletlr7tc2y66r6jljpkgvmhrj5jvupkcm",

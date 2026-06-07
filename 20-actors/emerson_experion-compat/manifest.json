@@ -6,6 +6,7 @@
   "title": "emerson_experion clean-room actor",
   "description": "Clean-room, API-compatible industrial SCADA actor (emerson_experion); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreiedrbv3fd6otofo7u7xazuxm5tjmpf43hu5rda64evrkswkmwd2nq",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiedrbv3fd6otofo7u7xazuxm5tjmpf43hu5rda64evrkswkmwd2nq",

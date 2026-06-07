@@ -6,6 +6,7 @@
   "title": "braze clean-room actor",
   "description": "Clean-room, API-compatible marketing technology actor (braze); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreia55rowuh6fgspobrzuzti5e5wuxzsmdwavomlqxajgioiyca533i",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreia55rowuh6fgspobrzuzti5e5wuxzsmdwavomlqxajgioiyca533i",

@@ -6,6 +6,7 @@
   "title": "singpass clean-room actor",
   "description": "Clean-room, API-compatible digital public infrastructure actor (singpass); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreidfhwwswznehnykb3p25wlucbhxvqtsq7dw2q6vxlccqolitlotk4",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreidfhwwswznehnykb3p25wlucbhxvqtsq7dw2q6vxlccqolitlotk4",

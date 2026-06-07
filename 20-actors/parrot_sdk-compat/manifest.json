@@ -6,6 +6,7 @@
   "title": "parrot_sdk clean-room actor",
   "description": "Clean-room, API-compatible drone swarm / aerial robotics actor (parrot_sdk); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreig5ehkib3p3j3vvaca5v67lkludv4wlvrfthnjlcyrfo3qakkxtj4",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreig5ehkib3p3j3vvaca5v67lkludv4wlvrfthnjlcyrfo3qakkxtj4",

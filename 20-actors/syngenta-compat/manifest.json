@@ -6,6 +6,7 @@
   "title": "syngenta clean-room actor",
   "description": "Clean-room, API-compatible AgriTech / food actor (syngenta); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreihkc3kgb4u2bhbcpqihxsdr4uujxc2h3odeqne45v3tfrbsv3k4rm",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihkc3kgb4u2bhbcpqihxsdr4uujxc2h3odeqne45v3tfrbsv3k4rm",

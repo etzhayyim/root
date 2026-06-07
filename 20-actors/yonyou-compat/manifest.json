@@ -6,6 +6,7 @@
   "title": "yonyou clean-room actor",
   "description": "Clean-room, API-compatible CRM / sales-pipeline actor (yonyou); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreiazphdfhpuyruznzjras3lttbam3hxxxnhxl3hjtnlmmiyfbnszye",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiazphdfhpuyruznzjras3lttbam3hxxxnhxl3hjtnlmmiyfbnszye",

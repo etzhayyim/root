@@ -6,6 +6,7 @@
   "title": "fix_fast_protocol clean-room actor",
   "description": "Clean-room, API-compatible deep logistics / supply chain actor (fix_fast_protocol); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreibxvzyjfs3jz4vb6esgtu7dj2k4bpwkyznwn6tvpuyscizxmxmvsu",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreibxvzyjfs3jz4vb6esgtu7dj2k4bpwkyznwn6tvpuyscizxmxmvsu",

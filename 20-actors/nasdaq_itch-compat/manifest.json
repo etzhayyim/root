@@ -6,6 +6,7 @@
   "title": "nasdaq_itch clean-room actor",
   "description": "Clean-room, API-compatible financial market data / trading actor (nasdaq_itch); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreid5tmgwhuwedsmtwuab7moug2asjpi2gdrx4kyz3afcmg6atwniwu",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreid5tmgwhuwedsmtwuab7moug2asjpi2gdrx4kyz3afcmg6atwniwu",

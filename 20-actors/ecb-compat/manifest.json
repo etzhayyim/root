@@ -6,6 +6,7 @@
   "title": "ecb clean-room actor",
   "description": "Clean-room, API-compatible intl org / central bank data actor (ecb); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreiglvltq5sgg7wjyvhnp567ifqtvkaofl5urlidrwp5gth4fuxjdh4",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiglvltq5sgg7wjyvhnp567ifqtvkaofl5urlidrwp5gth4fuxjdh4",

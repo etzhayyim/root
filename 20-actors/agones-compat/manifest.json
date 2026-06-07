@@ -6,6 +6,7 @@
   "title": "agones clean-room actor",
   "description": "Clean-room, API-compatible gaming backend / metaverse actor (agones); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreiablxsmimji6iooc43e6nxte2eijyq3ozhgyj3ri7e4aqgdaqyvey",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiablxsmimji6iooc43e6nxte2eijyq3ozhgyj3ri7e4aqgdaqyvey",

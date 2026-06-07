@@ -6,6 +6,7 @@
   "title": "fao_stat clean-room actor",
   "description": "Clean-room, API-compatible AgriTech / food actor (fao_stat); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreiak3gffqfzllxhjycnz3kdx5t5hi4r35dqo6y4tr72ewi47adpcxa",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiak3gffqfzllxhjycnz3kdx5t5hi4r35dqo6y4tr72ewi47adpcxa",

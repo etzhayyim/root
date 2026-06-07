@@ -6,6 +6,7 @@
   "title": "censys clean-room actor",
   "description": "Clean-room, API-compatible cyber threat intelligence actor (censys); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreigltv7vy64xxdm7o5ocam7yb54rtqfinrjlrmi2mjmkoustaxhllm",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigltv7vy64xxdm7o5ocam7yb54rtqfinrjlrmi2mjmkoustaxhllm",

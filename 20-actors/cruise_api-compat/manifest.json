@@ -6,6 +6,7 @@
   "title": "cruise_api clean-room actor",
   "description": "Clean-room, API-compatible mobility / auto / EV actor (cruise_api); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreih2cjbidgh7qi6vpztcttv5yfn5ft4oeigv3mfg6l3tachua4hpjy",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreih2cjbidgh7qi6vpztcttv5yfn5ft4oeigv3mfg6l3tachua4hpjy",

@@ -6,6 +6,7 @@
   "title": "sf-commerce clean-room actor",
   "description": "Clean-room, API-compatible e-commerce storefront actor (sf-commerce); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreichp7dmlajx4wwwjvy4hxgrtj65eg77syj4cbvoaamtgabfe3fzpq",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreichp7dmlajx4wwwjvy4hxgrtj65eg77syj4cbvoaamtgabfe3fzpq",

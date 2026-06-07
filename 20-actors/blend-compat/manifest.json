@@ -6,6 +6,7 @@
   "title": "blend clean-room actor",
   "description": "Clean-room, API-compatible core banking / InsurTech actor (blend); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreifzrhwdki6z7yaip5suark6we3fyzv6eiuzgiumy4b3hhxnmokhnq",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreifzrhwdki6z7yaip5suark6we3fyzv6eiuzgiumy4b3hhxnmokhnq",

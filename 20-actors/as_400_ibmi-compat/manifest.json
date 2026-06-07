@@ -6,6 +6,7 @@
   "title": "as_400_ibmi clean-room actor",
   "description": "Clean-room, API-compatible mainframe / legacy substrate actor (as_400_ibmi); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreia64lnneakre5gjel6xctzim6t3ypxykoe55ahxzbourcgomvx5we",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreia64lnneakre5gjel6xctzim6t3ypxykoe55ahxzbourcgomvx5we",

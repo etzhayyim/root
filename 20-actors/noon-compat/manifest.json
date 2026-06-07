@@ -6,6 +6,7 @@
   "title": "noon clean-room actor",
   "description": "Clean-room, API-compatible e-commerce storefront actor (noon); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreicnycbt37fhj4urz32ns5ibpfl4mofzv6uufvy7fsuay62iw3jn54",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreicnycbt37fhj4urz32ns5ibpfl4mofzv6uufvy7fsuay62iw3jn54",

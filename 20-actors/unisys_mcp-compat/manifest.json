@@ -6,6 +6,7 @@
   "title": "unisys_mcp clean-room actor",
   "description": "Clean-room, API-compatible mainframe / legacy substrate actor (unisys_mcp); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreieq7vyegfx4zlw6tbbcjccugblnx5sbbq2uv4ciazs67cepxdl4fi",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreieq7vyegfx4zlw6tbbcjccugblnx5sbbq2uv4ciazs67cepxdl4fi",

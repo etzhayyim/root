@@ -6,6 +6,7 @@
   "title": "securiti clean-room actor",
   "description": "Clean-room, API-compatible RegTech / privacy actor (securiti); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreibxmsjkmxfjyl744dfmd3ivvd2tk3sxbjtyr2hpgxd7tcebr3ayva",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreibxmsjkmxfjyl744dfmd3ivvd2tk3sxbjtyr2hpgxd7tcebr3ayva",

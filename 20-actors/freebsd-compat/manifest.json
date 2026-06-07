@@ -6,6 +6,7 @@
   "title": "freebsd clean-room actor",
   "description": "Clean-room, API-compatible OS / kernel interface actor (freebsd); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreih27pxip7xejvmow5s65ibk3quzjqjl4bb4dhdvh6vdzi5qopg7zi",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreih27pxip7xejvmow5s65ibk3quzjqjl4bb4dhdvh6vdzi5qopg7zi",

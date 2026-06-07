@@ -6,6 +6,7 @@
   "title": "amadeus_airlines clean-room actor",
   "description": "Clean-room, API-compatible travel / aviation / hospitality actor (amadeus_airlines); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreifstfnaa2klsb7rmn6ukwf52oeev3lb434knqv4opqktpxf34wn3y",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreifstfnaa2klsb7rmn6ukwf52oeev3lb434knqv4opqktpxf34wn3y",

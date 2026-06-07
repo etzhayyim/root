@@ -6,6 +6,7 @@
   "title": "cvent clean-room actor",
   "description": "Clean-room, API-compatible events / NPO / creator actor (cvent); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreifajei2hdafr2i6tsginm4eplhoe7lpe2a5ifbsdn3w6kmn7dl7k4",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreifajei2hdafr2i6tsginm4eplhoe7lpe2a5ifbsdn3w6kmn7dl7k4",

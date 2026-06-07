@@ -6,6 +6,7 @@
   "title": "comarch clean-room actor",
   "description": "Clean-room, API-compatible telecom / satellite actor (comarch); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreibagwbrm6mjzngfoolca5do6x6kbrclwbkhgfpstzt463jzegcate",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreibagwbrm6mjzngfoolca5do6x6kbrclwbkhgfpstzt463jzegcate",

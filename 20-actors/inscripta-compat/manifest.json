@@ -6,6 +6,7 @@
   "title": "inscripta clean-room actor",
   "description": "Clean-room, API-compatible synthetic biology / DNA actor (inscripta); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreiet3dsvqepoly6wscoyxjopm7ouwpoqfl2ptbk55wxjv6hfco2lxi",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiet3dsvqepoly6wscoyxjopm7ouwpoqfl2ptbk55wxjv6hfco2lxi",

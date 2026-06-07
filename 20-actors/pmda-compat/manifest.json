@@ -6,6 +6,7 @@
   "title": "pmda clean-room actor",
   "description": "Clean-room, API-compatible Japan / APAC e-government actor (pmda); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreif6utxzicz6k5nnlcxfvmo72bubqnkwtdwzmjq3t3gdysh33i7i2m",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreif6utxzicz6k5nnlcxfvmo72bubqnkwtdwzmjq3t3gdysh33i7i2m",

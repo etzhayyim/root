@@ -6,6 +6,7 @@
   "title": "trustly clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (trustly); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreiaposrtz6yrqor7qb7tyxcekkpjj3wo76w6pyjpwkrdbzchxuf6fm",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiaposrtz6yrqor7qb7tyxcekkpjj3wo76w6pyjpwkrdbzchxuf6fm",

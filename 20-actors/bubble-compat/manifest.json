@@ -6,6 +6,7 @@
   "title": "bubble clean-room actor",
   "description": "Clean-room, API-compatible low-code / iPaaS actor (bubble); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreih22fcj274mth2ewuuvaawf74r2s7g3tl3shzomorc6njuoebjggy",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreih22fcj274mth2ewuuvaawf74r2s7g3tl3shzomorc6njuoebjggy",

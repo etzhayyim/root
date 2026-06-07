@@ -6,6 +6,7 @@
   "title": "protein_data_bank clean-room actor",
   "description": "Clean-room, API-compatible materials / bio / chemical actor (protein_data_bank); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreidhre6orrx76523skeemsro3tzwzsgnmnbnnyi5khyvbulw4365ny",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreidhre6orrx76523skeemsro3tzwzsgnmnbnnyi5khyvbulw4365ny",

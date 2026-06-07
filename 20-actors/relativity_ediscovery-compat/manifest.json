@@ -6,6 +6,7 @@
   "title": "relativity_ediscovery clean-room actor",
   "description": "Clean-room, API-compatible legal / eDiscovery actor (relativity_ediscovery); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreifltlmbwzwkxd2qo6d6v3252hi5epa7crylvn2yte7jkgqdke2oje",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreifltlmbwzwkxd2qo6d6v3252hi5epa7crylvn2yte7jkgqdke2oje",

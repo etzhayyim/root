@@ -6,6 +6,7 @@
   "title": "caiso clean-room actor",
   "description": "Clean-room, API-compatible energy / smart grid actor (caiso); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreiehaywdfjg4btdvtx2lpzwhkfucgkv7s3dkll5anqr2xmtoo26rsi",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiehaywdfjg4btdvtx2lpzwhkfucgkv7s3dkll5anqr2xmtoo26rsi",

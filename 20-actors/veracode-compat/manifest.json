@@ -6,6 +6,7 @@
   "title": "veracode clean-room actor",
   "description": "Clean-room, API-compatible developer tools / APM actor (veracode); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreia5pf42aevghaivp22qhtzyct26sbsie4kqnjxkidhtkihyvr7rje",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreia5pf42aevghaivp22qhtzyct26sbsie4kqnjxkidhtkihyvr7rje",

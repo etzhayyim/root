@@ -6,6 +6,7 @@
   "title": "entsoe clean-room actor",
   "description": "Clean-room, API-compatible energy / smart grid actor (entsoe); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreihffrxdnsclocun6ztcissuhrcjphvcxd6hydut2tyyb7entgc5uy",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihffrxdnsclocun6ztcissuhrcjphvcxd6hydut2tyyb7entgc5uy",

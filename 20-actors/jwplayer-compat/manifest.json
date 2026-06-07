@@ -6,6 +6,7 @@
   "title": "jwplayer clean-room actor",
   "description": "Clean-room, API-compatible media / video / CMS actor (jwplayer); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreicesu4azyj7kdrnlh6ozd7jipk66mpfarjbbk2obu2s5jw7cybhym",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreicesu4azyj7kdrnlh6ozd7jipk66mpfarjbbk2obu2s5jw7cybhym",

@@ -6,6 +6,7 @@
   "title": "curemd clean-room actor",
   "description": "Clean-room, API-compatible EHR / clinical records actor (curemd); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreifhzixdo2vfsj2uwswbfmt6zychkykgj25qsh3vqqucnwslvgzfdu",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreifhzixdo2vfsj2uwswbfmt6zychkykgj25qsh3vqqucnwslvgzfdu",

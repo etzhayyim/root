@@ -6,6 +6,7 @@
   "title": "waymo clean-room actor",
   "description": "Clean-room, API-compatible mobility / auto / EV actor (waymo); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreibu3ck3n6zq7ru3axpvtna57ie4h4alxgzzjm77dgphqf4jye6fru",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreibu3ck3n6zq7ru3axpvtna57ie4h4alxgzzjm77dgphqf4jye6fru",

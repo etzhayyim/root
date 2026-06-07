@@ -6,6 +6,7 @@
   "title": "dns_root_zone clean-room actor",
   "description": "Clean-room, API-compatible deep internet / core routing actor (dns_root_zone); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreic3weqqp2tl67zeljroj77bs3vk52vkhidgnhywtjluf44zakbpea",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreic3weqqp2tl67zeljroj77bs3vk52vkhidgnhywtjluf44zakbpea",

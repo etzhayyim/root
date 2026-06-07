@@ -6,6 +6,7 @@
   "title": "deliveroo clean-room actor",
   "description": "Clean-room, API-compatible delivery / local logistics actor (deliveroo); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreihrhgtnax7iblncvactvtqonpb2fa6vov3ef5hjoyxgnqffx2wv4q",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihrhgtnax7iblncvactvtqonpb2fa6vov3ef5hjoyxgnqffx2wv4q",

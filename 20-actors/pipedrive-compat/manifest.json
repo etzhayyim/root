@@ -6,6 +6,7 @@
   "title": "pipedrive clean-room actor",
   "description": "Clean-room, API-compatible CRM / sales-pipeline actor (pipedrive); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreid23k2dnbzxgwebstzm23uorvzun3qlmakrlqluzbw3h3w4ttfjne",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreid23k2dnbzxgwebstzm23uorvzun3qlmakrlqluzbw3h3w4ttfjne",

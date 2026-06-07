@@ -6,6 +6,7 @@
   "title": "mitre_attck clean-room actor",
   "description": "Clean-room, API-compatible cyber threat intelligence actor (mitre_attck); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreicbmvtrcutuddmjthi2ivaeshp5dasot2ksaccuiyphvnaorlokfy",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreicbmvtrcutuddmjthi2ivaeshp5dasot2ksaccuiyphvnaorlokfy",

@@ -6,6 +6,7 @@
   "title": "sansan clean-room actor",
   "description": "Clean-room, API-compatible CRM / sales-pipeline actor (sansan); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreige622x4gsiny6ggnqm2iz4yi6cjq75h7ykm53hxfoqnd7s6nef6q",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreige622x4gsiny6ggnqm2iz4yi6cjq75h7ykm53hxfoqnd7s6nef6q",

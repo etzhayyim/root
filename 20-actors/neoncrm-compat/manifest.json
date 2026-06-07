@@ -6,6 +6,7 @@
   "title": "neoncrm clean-room actor",
   "description": "Clean-room, API-compatible events / NPO / creator actor (neoncrm); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreidxbyfknkqmfkqkdgilkqs44dotb6bxqep2g2ttaapz2wrzr64wb4",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreidxbyfknkqmfkqkdgilkqs44dotb6bxqep2g2ttaapz2wrzr64wb4",

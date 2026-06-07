@@ -6,6 +6,7 @@
   "title": "flutterwave clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (flutterwave); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreibybcqn7p33bxja7r4tbthl6a5q3jrfnd3oevra44ngnhlijsnq6e",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreibybcqn7p33bxja7r4tbthl6a5q3jrfnd3oevra44ngnhlijsnq6e",

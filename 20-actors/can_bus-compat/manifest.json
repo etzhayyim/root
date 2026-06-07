@@ -6,6 +6,7 @@
   "title": "can_bus clean-room actor",
   "description": "Clean-room, API-compatible mobility / auto / EV actor (can_bus); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreigqgclb7lymnm723pjswho2ghsohijaxi6qxtvfacpzpxtb6zwqqq",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigqgclb7lymnm723pjswho2ghsohijaxi6qxtvfacpzpxtb6zwqqq",

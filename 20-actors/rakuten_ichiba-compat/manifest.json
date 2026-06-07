@@ -6,6 +6,7 @@
   "title": "rakuten_ichiba clean-room actor",
   "description": "Clean-room, API-compatible e-commerce storefront actor (rakuten_ichiba); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreiebekxkpksdmrjzpd2bbukjog5e5jj5lfm475ctc6xszdczi33wai",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiebekxkpksdmrjzpd2bbukjog5e5jj5lfm475ctc6xszdczi33wai",

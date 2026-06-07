@@ -6,6 +6,7 @@
   "title": "gtfs clean-room actor",
   "description": "Clean-room, API-compatible transit / smart cities actor (gtfs); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreiam2fuqblogvxkfkc2artuw7ylofdah7ucjj5zv7ynxoqleojhvc4",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiam2fuqblogvxkfkc2artuw7ylofdah7ucjj5zv7ynxoqleojhvc4",

@@ -6,6 +6,7 @@
   "title": "qnx clean-room actor",
   "description": "Clean-room, API-compatible OS / kernel interface actor (qnx); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreih62t4xckbbjhuhwgccprmkvw4zujdc7hiztndmmsm7g6xfdwwvhi",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreih62t4xckbbjhuhwgccprmkvw4zujdc7hiztndmmsm7g6xfdwwvhi",

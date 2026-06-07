@@ -6,6 +6,7 @@
   "title": "kajabi clean-room actor",
   "description": "Clean-room, API-compatible events / NPO / creator actor (kajabi); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreieu6trzfp5a5qkjo4vcbufud6oigpffwpubccwqn4kyvf4zqbmtg4",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreieu6trzfp5a5qkjo4vcbufud6oigpffwpubccwqn4kyvf4zqbmtg4",

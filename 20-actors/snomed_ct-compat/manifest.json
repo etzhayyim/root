@@ -6,6 +6,7 @@
   "title": "snomed_ct clean-room actor",
   "description": "Clean-room, API-compatible healthcare HL7-FHIR / bioinformatics actor (snomed_ct); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreiajtbhvi222y6uxpb6mbwhbzkwjb6dxf2zimyarftt7dew47sjjbm",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiajtbhvi222y6uxpb6mbwhbzkwjb6dxf2zimyarftt7dew47sjjbm",

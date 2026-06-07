@@ -6,6 +6,7 @@
   "title": "baker_hughes_jewel clean-room actor",
   "description": "Clean-room, API-compatible energy commodities actor (baker_hughes_jewel); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreidppbgobgmoqvarpdvfiagyqlo4syujleetk4vb2en6d4olqd6jzq",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreidppbgobgmoqvarpdvfiagyqlo4syujleetk4vb2en6d4olqd6jzq",

@@ -6,6 +6,7 @@
   "title": "cas_registry clean-room actor",
   "description": "Clean-room, API-compatible materials / bio / chemical actor (cas_registry); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreihdv7w4g6cyo5opdpgbci5ubmgs5ekdpj4ww43iel5b2jchgfhfbu",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihdv7w4g6cyo5opdpgbci5ubmgs5ekdpj4ww43iel5b2jchgfhfbu",

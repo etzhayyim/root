@@ -6,6 +6,7 @@
   "title": "powerbi clean-room actor",
   "description": "Clean-room, API-compatible data / analytics actor (powerbi); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreibnxjbtg3e4mjtjphaq3piv7rfite2tu4ibqpi5vsjuewbz5p55qe",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreibnxjbtg3e4mjtjphaq3piv7rfite2tu4ibqpi5vsjuewbz5p55qe",

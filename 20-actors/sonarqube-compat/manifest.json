@@ -6,6 +6,7 @@
   "title": "sonarqube clean-room actor",
   "description": "Clean-room, API-compatible developer tools / APM actor (sonarqube); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreib63be7ujvzoll4i3fhkchr3jqvmfbeau6t6qjgigl3fgtoybftza",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreib63be7ujvzoll4i3fhkchr3jqvmfbeau6t6qjgigl3fgtoybftza",

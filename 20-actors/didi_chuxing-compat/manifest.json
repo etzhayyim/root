@@ -6,6 +6,7 @@
   "title": "didi_chuxing clean-room actor",
   "description": "Clean-room, API-compatible ride-hailing / micro-mobility actor (didi_chuxing); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreiar3m6tz2kifid2vjgqiwarce3zz4osufum7x6amdwm25wv7whm7y",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiar3m6tz2kifid2vjgqiwarce3zz4osufum7x6amdwm25wv7whm7y",

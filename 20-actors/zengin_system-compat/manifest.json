@@ -6,6 +6,7 @@
   "title": "zengin_system clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (zengin_system); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreigpjbnheagjaa4by4bgogmo4fsg4d4cjjuyuwenvomh5dhuchex4a",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigpjbnheagjaa4by4bgogmo4fsg4d4cjjuyuwenvomh5dhuchex4a",

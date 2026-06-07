@@ -6,6 +6,7 @@
   "title": "vercel clean-room actor",
   "description": "Clean-room, API-compatible cloud infrastructure (IaaS) actor (vercel); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreib3gstqtvuevrtowd3tudcd5w3titwja2w56d2rvh6fbgdcjwfpfa",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreib3gstqtvuevrtowd3tudcd5w3titwja2w56d2rvh6fbgdcjwfpfa",

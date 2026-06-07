@@ -6,6 +6,7 @@
   "title": "lever clean-room actor",
   "description": "Clean-room, API-compatible HR technology actor (lever); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreib7rpkntis2bm3a2joa5fkehis2sklvm4fxdb64lwdp32uqiy36hq",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreib7rpkntis2bm3a2joa5fkehis2sklvm4fxdb64lwdp32uqiy36hq",

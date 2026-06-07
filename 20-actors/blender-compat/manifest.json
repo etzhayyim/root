@@ -6,6 +6,7 @@
   "title": "blender clean-room actor",
   "description": "Clean-room, API-compatible design / creative tooling actor (blender); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreieeukuexfvalqpiqh4rrfyiwbwzgq5uu33tdkg4nzfiuqdeyc4qpe",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreieeukuexfvalqpiqh4rrfyiwbwzgq5uu33tdkg4nzfiuqdeyc4qpe",

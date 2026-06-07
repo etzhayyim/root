@@ -6,6 +6,7 @@
   "title": "huggingface clean-room actor",
   "description": "Clean-room, API-compatible AI / ML inference actor (huggingface); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreigabcdkbxisujiutmn7mu44aj4uspx7vih224bz5p5wngrurb6hqe",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigabcdkbxisujiutmn7mu44aj4uspx7vih224bz5p5wngrurb6hqe",

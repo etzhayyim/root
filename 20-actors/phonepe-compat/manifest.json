@@ -6,6 +6,7 @@
   "title": "phonepe clean-room actor",
   "description": "Clean-room, API-compatible regional super-app actor (phonepe); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreibh5crcgfif5fjt77bkkfogrwr7fcvsrbvagbdohddcuzkvmbhj4q",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreibh5crcgfif5fjt77bkkfogrwr7fcvsrbvagbdohddcuzkvmbhj4q",

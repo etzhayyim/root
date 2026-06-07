@@ -6,6 +6,7 @@
   "title": "eia_gov clean-room actor",
   "description": "Clean-room, API-compatible energy / smart grid actor (eia_gov); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreib7yz7hejkrtzwwsh5yv4n2enb2ul3s4ihdxglbnp6wmvtdmgs2k4",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreib7yz7hejkrtzwwsh5yv4n2enb2ul3s4ihdxglbnp6wmvtdmgs2k4",

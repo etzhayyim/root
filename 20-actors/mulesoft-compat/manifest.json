@@ -6,6 +6,7 @@
   "title": "mulesoft clean-room actor",
   "description": "Clean-room, API-compatible low-code / iPaaS actor (mulesoft); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreib3n32i2ll6hsmgelb4xiugi2z7uqfiuwoonlnwntmkfibsq6v3zu",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreib3n32i2ll6hsmgelb4xiugi2z7uqfiuwoonlnwntmkfibsq6v3zu",

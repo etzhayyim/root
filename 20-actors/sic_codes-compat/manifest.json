@@ -6,6 +6,7 @@
   "title": "sic_codes clean-room actor",
   "description": "Clean-room, API-compatible physical benchmarks / classifications actor (sic_codes); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreicx5xkdfxfzjdaawig37ztqssyypyvcq2j2thqvmizwygnunswew4",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreicx5xkdfxfzjdaawig37ztqssyypyvcq2j2thqvmizwygnunswew4",

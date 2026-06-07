@@ -6,6 +6,7 @@
   "title": "modbus_tcp clean-room actor",
   "description": "Clean-room, API-compatible energy / smart grid actor (modbus_tcp); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreifrnb6qlwbeg75uionnxrfahdhrxc4xe6dwjw66ugay53256cbkou",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreifrnb6qlwbeg75uionnxrfahdhrxc4xe6dwjw66ugay53256cbkou",

@@ -6,6 +6,7 @@
   "title": "duckcreek_policy clean-room actor",
   "description": "Clean-room, API-compatible core banking / InsurTech actor (duckcreek_policy); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreigiktee6ke4k2gfnwhm27mpiej3hwmextkj5xtoxtglxy753uqe4a",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigiktee6ke4k2gfnwhm27mpiej3hwmextkj5xtoxtglxy753uqe4a",

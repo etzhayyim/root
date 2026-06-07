@@ -1,0 +1,195 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "built-wasm-actors",
+  "tier": "browser-local (raw single-block CIDv1)",
+  "tooling": {
+    "rustc": "stable wasm32-unknown-unknown",
+    "validator": "wasm-tools"
+  },
+  "adr": [
+    "260607",
+    "2606014500",
+    "2606014600"
+  ],
+  "count": 10,
+  "actors": [
+    {
+      "handle": "anthropic-compat",
+      "platform": "anthropic",
+      "bytes": 2123,
+      "wasmCid": "bafkreicx4q2mg4gwxchjh2kitjgkkuzboegmujzwqilujtu4so3uoojl7u",
+      "rawSingleBlock": true,
+      "valid": true,
+      "tier": "browser-local",
+      "entities": [
+        "Model",
+        "Message",
+        "Conversation",
+        "Tool",
+        "ToolUse",
+        "Batch",
+        "File"
+      ]
+    },
+    {
+      "handle": "aws-compat",
+      "platform": "aws",
+      "bytes": 2117,
+      "wasmCid": "bafkreicyte24pkmg6ddppxfcmlolh623fpmqdkudh4ztguekafv4p4dd3y",
+      "rawSingleBlock": true,
+      "valid": true,
+      "tier": "browser-local",
+      "entities": [
+        "Ec2Instance",
+        "S3Bucket",
+        "S3Object",
+        "LambdaFunction",
+        "DynamoTable",
+        "IamRole",
+        "RdsInstance"
+      ]
+    },
+    {
+      "handle": "github-compat",
+      "platform": "github",
+      "bytes": 2120,
+      "wasmCid": "bafkreiazcxsk43tdp5ac4y2rkb6rdgo3gjqwa4sdsu4ry7uxlflcocucgu",
+      "rawSingleBlock": true,
+      "valid": true,
+      "tier": "browser-local",
+      "entities": [
+        "Repository",
+        "Issue",
+        "PullRequest",
+        "Commit",
+        "Workflow",
+        "WorkflowRun",
+        "Release"
+      ]
+    },
+    {
+      "handle": "openai-compat",
+      "platform": "openai",
+      "bytes": 2120,
+      "wasmCid": "bafkreihbgc6ybuatnm44w6zzs2xmwb35hqe5dakdztcbq7be72l3gsqylu",
+      "rawSingleBlock": true,
+      "valid": true,
+      "tier": "browser-local",
+      "entities": [
+        "Model",
+        "ChatCompletion",
+        "Embedding",
+        "FineTuningJob",
+        "File",
+        "Assistant",
+        "Thread"
+      ]
+    },
+    {
+      "handle": "plaid-compat",
+      "platform": "plaid",
+      "bytes": 2119,
+      "wasmCid": "bafkreigp6z5bg47rjd6gkrn7varia7mipfztw2qfqod5v4kjrl3tmddp7i",
+      "rawSingleBlock": true,
+      "valid": true,
+      "tier": "browser-local",
+      "entities": [
+        "Item",
+        "Account",
+        "Transaction",
+        "Institution",
+        "Identity",
+        "Liability"
+      ]
+    },
+    {
+      "handle": "salesforce-compat",
+      "platform": "salesforce",
+      "bytes": 2124,
+      "wasmCid": "bafkreibdx5qgaxqdbmvr6ldhkfin74yxndkjkyfhhb4zsmvdy3pfylfxbu",
+      "rawSingleBlock": true,
+      "valid": true,
+      "tier": "browser-local",
+      "entities": [
+        "Account",
+        "Contact",
+        "Lead",
+        "Opportunity",
+        "Case",
+        "Campaign",
+        "Task"
+      ]
+    },
+    {
+      "handle": "shopify-compat",
+      "platform": "shopify",
+      "bytes": 2121,
+      "wasmCid": "bafkreifyjnssgr2mdxm6edev4yuafhtfffw3ue5ju2jtko5o6f6lymc6pm",
+      "rawSingleBlock": true,
+      "valid": true,
+      "tier": "browser-local",
+      "entities": [
+        "Product",
+        "Variant",
+        "Order",
+        "Customer",
+        "Collection",
+        "Fulfillment",
+        "DiscountCode"
+      ]
+    },
+    {
+      "handle": "slack-compat",
+      "platform": "slack",
+      "bytes": 2119,
+      "wasmCid": "bafkreid3fejyarucykw3zz6psitd3s2uqscxwp4z54nbkkpxluderdwzhy",
+      "rawSingleBlock": true,
+      "valid": true,
+      "tier": "browser-local",
+      "entities": [
+        "Channel",
+        "Message",
+        "User",
+        "Conversation",
+        "File",
+        "Reaction"
+      ]
+    },
+    {
+      "handle": "stripe-compat",
+      "platform": "stripe",
+      "bytes": 2120,
+      "wasmCid": "bafkreidjpmhiynl4mazx2x4wuhozj2l5ez4ndk7ifdwec42am6ir5hpuaa",
+      "rawSingleBlock": true,
+      "valid": true,
+      "tier": "browser-local",
+      "entities": [
+        "Customer",
+        "PaymentIntent",
+        "Charge",
+        "Refund",
+        "Invoice",
+        "Subscription",
+        "Product",
+        "Price"
+      ]
+    },
+    {
+      "handle": "twilio-compat",
+      "platform": "twilio",
+      "bytes": 2120,
+      "wasmCid": "bafkreibaqzz7l3fflbzupta7h6ced4hvu2dbb33whck3nxbsihhskpexw4",
+      "rawSingleBlock": true,
+      "valid": true,
+      "tier": "browser-local",
+      "entities": [
+        "Message",
+        "Call",
+        "PhoneNumber",
+        "Verification",
+        "Recording",
+        "Conference"
+      ]
+    }
+  ]
+}

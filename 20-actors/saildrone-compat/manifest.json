@@ -6,6 +6,7 @@
   "title": "saildrone clean-room actor",
   "description": "Clean-room, API-compatible space / ocean / earth physics actor (saildrone); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreigk637vmc2er6rzh6h2ccd7tchhb3l3tiprjodezu6kh5rkuy3s7y",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigk637vmc2er6rzh6h2ccd7tchhb3l3tiprjodezu6kh5rkuy3s7y",

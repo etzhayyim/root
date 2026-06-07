@@ -6,6 +6,7 @@
   "title": "postman clean-room actor",
   "description": "Clean-room, API-compatible developer tools / APM actor (postman); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreifcczvnvd7bknhgojfdzej6pw6cybw2mbg7wxningtzsxdc5h7fge",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreifcczvnvd7bknhgojfdzej6pw6cybw2mbg7wxningtzsxdc5h7fge",

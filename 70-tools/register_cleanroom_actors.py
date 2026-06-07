@@ -216,6 +216,14 @@ def build():
     seed_entries = []
     index = []
     bad_cid = []
+    # CIDs of actually-built WASM components (gen_rust_actor.py), keyed by handle.
+    global BUILT_CIDS
+    BUILT_CIDS = {}
+    _built = os.path.join(ROOT, "00-contracts", "schemas", "cleanroom-built-actors.json")
+    if os.path.exists(_built):
+        for a in json.load(open(_built)).get("actors", []):
+            if a.get("wasmCid"):
+                BUILT_CIDS[a["handle"]] = a["wasmCid"]
     for actor in actor_dirs:
         platform = actor[:-len("-compat")].strip()
         adir = os.path.join(ACTORS_DIR, actor)
@@ -227,13 +235,20 @@ def build():
         blurb = CATEGORY_BLURB.get(catkey, "clean-room API")
         ns = re.sub(r"[^a-z0-9_]", "_", platform.lower()) or "actor"
 
-        cid = cid_v1_raw(program_bundle(adir, platform))
-        if not RAW_CID_RE.match(cid):
-            bad_cid.append((actor, cid))
-
         # DID-safe handle: strip the sibling " coherence" leading-space typo and
         # any char outside [a-z0-9_-] so the did:web path component is valid.
         handle = re.sub(r"[^a-z0-9_-]", "", actor.strip().lower()) or "actor"
+
+        # Prefer the CID of an ACTUALLY-BUILT WASM component (gen_rust_actor.py /
+        # cleanroom-built-actors.json) over the source-bundle stand-in.
+        if handle in BUILT_CIDS:
+            cid = BUILT_CIDS[handle]
+            wasm_provenance = "built-rust-raw"
+        else:
+            cid = cid_v1_raw(program_bundle(adir, platform))
+            wasm_provenance = "source-bundle"
+        if not RAW_CID_RE.match(cid):
+            bad_cid.append((actor, cid))
         did = f"{DID_BASE}:{handle}"
         entities = list(model.keys())
         routes = rest_routes(model)
@@ -268,6 +283,7 @@ def build():
             "description": f"Clean-room, API-compatible {blurb} actor ({platform}); "
                            f"runs browser-local on IPFS + kotoba-WASM.",
             "wasmCid": cid,
+            "wasmProvenance": wasm_provenance,
             "runtime": "kotoba-wasm",
             "exec": "browser-local|donated-mesh",
             "ipfs": f"ipfs://{cid}",
@@ -330,6 +346,7 @@ def build():
         })
         index.append({
             "handle": handle, "did": did, "wasmCid": cid, "kind": "compat",
+            "wasmProvenance": wasm_provenance,
             "tier": tier, "title": manifest["title"], "category": catkey,
             "capabilities": ["api", "supplychain", "socialpost", "mcp"],
             "exec": "browser-local|donated-mesh", "runtime": "kotoba-wasm",

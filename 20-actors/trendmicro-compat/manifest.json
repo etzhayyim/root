@@ -6,6 +6,7 @@
   "title": "trendmicro clean-room actor",
   "description": "Clean-room, API-compatible security / IAM actor (trendmicro); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreiemdnq6i3ksqjbxpqzpcajnpvwdyifzvqyzmp4wpq7takihhndz2y",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiemdnq6i3ksqjbxpqzpcajnpvwdyifzvqyzmp4wpq7takihhndz2y",

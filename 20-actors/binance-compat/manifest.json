@@ -6,6 +6,7 @@
   "title": "binance clean-room actor",
   "description": "Clean-room, API-compatible fintech / web3 actor (binance); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreiei6t7s4dg6piki7p6egvfv5auhh7qzrbjtzr6b6m2slo5ir3ugh4",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiei6t7s4dg6piki7p6egvfv5auhh7qzrbjtzr6b6m2slo5ir3ugh4",

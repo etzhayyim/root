@@ -6,6 +6,7 @@
   "title": "box clean-room actor",
   "description": "Clean-room, API-compatible office / productivity suite actor (box); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreig3hjyzbpmqhkb6zyfqbcnlbljg76mcaukuw3fzipecgrb7xlzvue",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreig3hjyzbpmqhkb6zyfqbcnlbljg76mcaukuw3fzipecgrb7xlzvue",

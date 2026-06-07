@@ -6,6 +6,7 @@
   "title": "edinet clean-room actor",
   "description": "Clean-room, API-compatible Japan / APAC e-government actor (edinet); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreicpihzgdtv3mhhjdn5gn6hitpl53g3gyp2ku5z5y2dcvqkfymwfju",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreicpihzgdtv3mhhjdn5gn6hitpl53g3gyp2ku5z5y2dcvqkfymwfju",

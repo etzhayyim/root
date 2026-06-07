@@ -6,6 +6,7 @@
   "title": "niantic_lightship clean-room actor",
   "description": "Clean-room, API-compatible spatial computing / XR actor (niantic_lightship); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreifdikjggvv6yznuzr3nleofkuib5v3ba36rjjqx735564jwy55tfi",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreifdikjggvv6yznuzr3nleofkuib5v3ba36rjjqx735564jwy55tfi",

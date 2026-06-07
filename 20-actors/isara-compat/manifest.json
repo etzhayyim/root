@@ -6,6 +6,7 @@
   "title": "isara clean-room actor",
   "description": "Clean-room, API-compatible quantum key distribution actor (isara); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreia5qwxl4uljnhkpvcgmlxearsctre4i22njkfv2n52lidqscq5ulq",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreia5qwxl4uljnhkpvcgmlxearsctre4i22njkfv2n52lidqscq5ulq",

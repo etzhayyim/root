@@ -6,6 +6,7 @@
   "title": "glide clean-room actor",
   "description": "Clean-room, API-compatible low-code / iPaaS actor (glide); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreieqg3wflgizr6p54jfgxp6j63vtlpjmjbkjsri4pp4bhbfxje55hm",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreieqg3wflgizr6p54jfgxp6j63vtlpjmjbkjsri4pp4bhbfxje55hm",

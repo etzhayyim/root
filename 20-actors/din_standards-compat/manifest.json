@@ -6,6 +6,7 @@
   "title": "din_standards clean-room actor",
   "description": "Clean-room, API-compatible materials / bio / chemical actor (din_standards); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreias4gnaclkhpgibhdywsuajzajqnn56hddkwcvew3bjowc6gq2whe",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreias4gnaclkhpgibhdywsuajzajqnn56hddkwcvew3bjowc6gq2whe",

@@ -5,10 +5,11 @@
   "kind": "compat",
   "title": "stripe clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (stripe); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibsgp32yx4rwko6qhwxlmw2f5wdnlzlup2tsuxyyqqa47uaexuovu",
+  "wasmCid": "bafkreidjpmhiynl4mazx2x4wuhozj2l5ez4ndk7ifdwec42am6ir5hpuaa",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibsgp32yx4rwko6qhwxlmw2f5wdnlzlup2tsuxyyqqa47uaexuovu",
+  "ipfs": "ipfs://bafkreidjpmhiynl4mazx2x4wuhozj2l5ez4ndk7ifdwec42am6ir5hpuaa",
   "schema": "schema/stripe.kotoba",
   "tier": "L4",
   "entities": [

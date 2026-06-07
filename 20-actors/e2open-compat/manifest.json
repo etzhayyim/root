@@ -6,6 +6,7 @@
   "title": "e2open clean-room actor",
   "description": "Clean-room, API-compatible enterprise commerce / spend actor (e2open); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreihni5vsq5ff4pjs3whqwgu5an42yizm5enwzomkov34dxgiokq72e",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihni5vsq5ff4pjs3whqwgu5an42yizm5enwzomkov34dxgiokq72e",

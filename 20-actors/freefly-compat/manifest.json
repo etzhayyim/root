@@ -6,6 +6,7 @@
   "title": "freefly clean-room actor",
   "description": "Clean-room, API-compatible drone swarm / aerial robotics actor (freefly); runs browser-local on IPFS + kotoba-WASM.",
   "wasmCid": "bafkreihccavy4niodjoqeeo6uhtb6hqjofnwsdwv3hz5s53zgh433sis2q",
+  "wasmProvenance": "source-bundle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihccavy4niodjoqeeo6uhtb6hqjofnwsdwv3hz5s53zgh433sis2q",
