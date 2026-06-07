@@ -85,13 +85,16 @@ Naming a *required experiential stage* raises three real tensions that the decis
 
 国家はこの経験を授けも禁じもできない (§0.1 not-state-granted / §1.12 routing-around)。その源泉と権威は宗教にあり、国家規制に由来しない。**宗教は国家を超越する。**
 
-### §1.17.2 段階性 (A Required Religious Stage)
+### §1.17.2 回心・入信の構成要件 (A Constitutive Requirement of Conversion and Membership)
 
-自他非分離の直接体験は、**宗教的段階 (religious stage) として要請される**。これは administrative な前提ではなく、悔い改め・バプテスマ・得度 (§1.16.3) と同じ register の通過儀礼的契機 (rite-of-passage moment) である:
+自他非分離の直接体験は、回心・入信における **省略不能な構成要件 (constitutive requirement)** であり、**宗教的段階として要請される**。これは administrative な前提ではなく、悔い改め・バプテスマ・得度 (§1.16.3) と同じ register の通過儀礼的契機 (rite-of-passage moment) であり、信者性 (adherent-hood) の真正さ (authenticity) を成立させる経験的中核である:
 
-1. **回心の経験的核として** — §1.16.3 の「社会的死と再生」は、自他非分離の直接体験において経験的に enact される。
-2. **昇段の前提として** — Liberation Ladder (ADR-2605261000) を L0/L1 を超えて昇るにあたり、当該の直接体験(およびその継続的な深化・統合)が霊的成熟の指標として前提される。
-3. **見性・神秘体験の系譜に連なるものとして** — 仏教の見性、apophatic union、Hesychasm 等、自他境界の溶解を構造化された宗教的段階として扱う伝統に連なる。
+1. **回心そのものの核として (constitutive of 回心 itself)** — §1.16.3 の「社会的死と再生」は概念的同意では完成せず、自他非分離の直接体験において経験的に enact されてはじめて真正となる。回心は教理の受諾ではなく、この体験を経た自己の再構成である。
+2. **入信の前提として (presupposed for 信者性)** — 真正な信者 (adherent) であることは、この直接体験へと開かれ、それを誠実に志向・追求し、得た体験を共同体的に統合し続けることを前提とする。§1.16.3a の三重永続誓約は、まさにこの**体験の道への永続的コミットメント**として理解される(§1.17.5 と整合: 誓約が Level 0 を開き、体験はその誓約が誠実に向かう telos であって、受給の事前 gate ではない)。
+3. **昇段の前提として (gating advancement)** — Liberation Ladder (ADR-2605261000) を L0/L1 を超えて昇るにあたり、当該の直接体験(およびその継続的な深化・統合)が霊的成熟の指標として前提される。
+4. **見性・神秘体験の系譜に連なるものとして** — 仏教の見性、apophatic union、Hesychasm 等、自他境界の溶解を構造化された宗教的段階として扱う伝統に連なる。
+
+体験の「達成」は metric 化・点数化されず (§1.15 / §1.17.7)、その真正さは自己申告・共同体的承認・霊的同伴の register に委ねられる。すなわち体験は **要請されるが計量されない** — 強制(§1.17.5)でも、ノルマでも、受給の関門でもない。
 
 ### §1.17.3 手段非依存の不変条項 (Means-Agnostic Invariant — CONSTITUTIONAL)
 
@@ -115,19 +118,19 @@ Naming a *required experiential stage* raises three real tensions that the decis
 
 §1.17 は ADR-2605302357 §1.16.8 を **改定せず、強化する**:
 
-1. **便益を人質にしない (benefits-not-hostage).** §1.17.2 の「段階」は **霊的成熟・昇段** を gate するのであって、**信者 Level 0 の社会保障 entry (§1.16.3a の三重永続誓約)** を gate しない。直接体験をまだ得ていない者も、誓約により Level 0 の社会保障を受ける。「体験しなければ受給できない」構造を etzhayyim は作らない。
+1. **便益を人質にしない (benefits-not-hostage).** §1.17.2 で体験は回心・入信の構成要件だが、それは **体験の道への誓約 (§1.16.3a)** をもって入信が成立するという意味であり、**体験の「達成」を社会保障受給の事前 gate にする**という意味ではない。信者 Level 0 の社会保障 entry は誓約により開き、直接体験をまだ得ていない者も受給する。gate されるのは **霊的成熟・昇段**(§1.17.2(3))のみ。「体験しなければ受給できない / 餓える」構造を etzhayyim は決して作らない。
 2. **自発性 (voluntariness).** 自他非分離の体験は強制も急かしもされない。それは恩寵的・自発的に到来するものであり、ノルマではない。手段(とりわけ entheogenic 手段)の選択は完全に本人の自由意志による。
 3. **離脱権 (right of exit).** §1.16.8 のとおり、いつでも離脱でき、penalty はない。
 4. **脆弱性への配慮.** 未成年、判断能力に懸念のある者、精神医学的禁忌を持つ者に対し、entheogenic 手段は推奨も誘導もされない (§1.17.4(3))。
 
 ### §1.17.6 公開導線とガイド (Public Guidance Surface — recommend-and-guide at/before entry)
 
-回心は経験的核 (§1.17.1) を持つため、新規 onboarding の導線は、誓約 (§1.16.3a) の **前または同時に**、この経験的核を **commend し pastorally guide** する。ただし §1.17.4 を厳格に守る:
+回心は経験的核 (§1.17.1) を持つため、新規 onboarding の導線は、誓約 (§1.16.3a) の **前または同時に**、この経験的核を **積極的に推奨 (actively recommend) し pastorally guide** する。これは任意の付記ではなく、回心の中心として前面に置かれる。ただし §1.17.4 を厳格に守る:
 
-1. **profile / onboarding 導線**(例: `etzhayyim.com/profile/<did>`, maps.etzhayyim.com の新規登録前)は、自他非分離・変性意識の直接体験を回心の核として **紹介・推奨**し、§1.17.3 の **合法的・手段非依存な道** を第一に案内する。
-2. entheogenic 手段への言及は、**閲覧者の管轄の適法性を前提**にし、§1.17.4(2)(3) のとおり how-to・斡旋を欠き、禁忌警告と「適法な supervised setting が存在する地域がある」事実の提示に限る。地理的・法的文脈に応じた表示の出し分け(合法管轄でのみ entheogenic 情報を表示)を実装 SHOULD とする。
+1. **profile / onboarding 導線**(例: `etzhayyim.com/profile/<did>`, maps.etzhayyim.com の新規登録前)は、自他非分離・変性意識の直接体験を **回心の核として強く推奨 (strongly recommend)** し、これへ向かうことを新規登録の **前に** 勧める。§1.17.3 の手段非依存に従い、合法的な道(観想・断食・沈黙・坐禅・自然での孤独 等)と、合法管轄での監督下 entheogenic practice とを、**いずれも有効な道として併せて推奨**する(特定の一手段だけを唯一の道として mandate はしない)。
+2. **合法管轄での entheogenic / retreat への積極的ガイド**: 閲覧者の管轄でそれが適法な場合、etzhayyim は **適法・監督下の supervised setting を求めることを積極的に推奨し、公開 retreat ディレクトリ(例: retreat.guru)等への参照を提示する**(§4 実装節)。ただし §1.17.4(2)(3) を厳守: how-to・調達・斡旋・仲介・手数料受領を欠き、禁忌警告(MAOI×SSRI/SNRI 等・心疾患・精神病性/双極性の既往)を必ず併記する。**違法管轄の閲覧者には entheogenic 情報を表示せず**、合法的 contemplative / 巡礼 / 沈黙リトリートの推奨に切り替える(geo/法務 gating は実装 MUST)。
 3. ガイドは pastoral(司牧的)であって medical でも legal でもない。専門的判断は本人と適法な専門家に委ねる。
-4. この導線は §1.16.8 の「人質化禁止」を侵さない案内に徹する(「体験は回心の核として*要請される宗教的段階*である」とは言えるが、「体験しなければ社会保障を与えない」とは言わない)。
+4. 推奨は §1.16.8 の「人質化禁止」を侵さない(「体験は回心の核として*要請される宗教的段階*であり強く推奨する」とは言えるが、「体験(または特定手段)を経なければ社会保障を与えない」とは決して言わない — §1.17.5)。
 
 ### §1.17.7 非終末論・漸近的 (Non-Eschatological — §1.15 / N8 維持)
 
@@ -165,7 +168,7 @@ ADR-2605192100 §2 の constitutional-constants 表に以下を追加する:
 - **Constitution.sol**: §2 の constants を追加。legality-floor 2 件は immutable 区分。
 - **Membership Ritual (ADR-2605172600 / 2605172700)**: 誓約文 (悔い改め・バプテスマ・得度) に「自他非分離の直接体験」を回心の経験的核として明記。誓約自体は §1.17.5(1) のとおり体験の達成を benefit 条件にしない。
 - **Onboarding 導線 (yoro / maps.etzhayyim.com)**: §1.17.6 のとおり、新規登録前に経験的核を commend + 手段非依存の合法的道を案内する pastoral surface。**entheogenic 情報は閲覧者管轄の適法性で gating**(geo/法務文脈ベースの conditional render)し、how-to・斡旋を一切含めない。実装は別 ADR / PR で UI を確定(本 ADR は doctrine のみ)。
-- **第三者 retreat ディレクトリの参照 (resource pointer, NOT endorsement)**: 合法的な supervised setting を探す手がかりとして、第三者の公開 retreat ディレクトリ(例: `https://retreat.guru/`)を参照リンクとして surface してよい。ただし §1.17.3/.4 の制約を厳守する: (i) **手段の一例**として、観想・断食・沈黙・坐禅・自然での孤独 等の合法的 contemplative リソースと**並置**し、ayahuasca 等の特定 entheogen を単独で「推奨」しない(means-agnostic); (ii) entheogen を含むディレクトリ検索(例: `retreat.guru?query=ayahuasca` 相当)への誘導は **閲覧者管轄でそれが適法な場合に限り** 表示(geo-gating); 違法管轄では合法的 retreat / 巡礼 / 沈黙リトリートの参照に切り替える; (iii) etzhayyim は予約・仲介・斡旋・手数料受領を行わない pointer に徹し、禁忌警告(§1.17.4(3))を併記する; (iv) 第三者サイトの内容・適法性・安全性は etzhayyim が保証しない旨を明示。
+- **第三者 retreat ディレクトリの積極推奨 (active recommendation, lawful-jurisdiction-gated)**: §1.17.6(2) のとおり、閲覧者管轄で適法な場合、適法・監督下の supervised setting を求めることを **積極的に推奨**し、第三者の公開 retreat ディレクトリ(例: `https://retreat.guru/`、ayahuasca 検索 `retreat.guru/search?query=ayahuasca` 相当を含む)を **推奨リンクとして提示**する。ただし §1.17.3/.4 を厳守する: (i) means-agnostic — 観想・断食・沈黙・坐禅・自然での孤独 等の合法的 contemplative リソースを**併せて推奨**し続け、entheogenic retreat を**唯一の道として mandate しない**(合法管轄では有効な一つの道として積極推奨してよいが、それのみを必須化はしない); (ii) entheogen を含むディレクトリ検索への推奨表示は **閲覧者管轄でそれが適法な場合に限る**(geo/法務 gating は MUST); 違法管轄では合法的 retreat / 巡礼 / 沈黙リトリートの推奨に切り替える; (iii) etzhayyim は予約・仲介・斡旋・調達・手数料受領を行わず推奨リンク提示に徹し、禁忌警告(§1.17.4(3))を併記する; (iv) 第三者サイトの内容・適法性・安全性は etzhayyim が保証しない旨を明示。
 - **CLAUDE.md / deps.toml**: ratify 後に Identity § + Status 表 + `[[adrs]]` に追記。
 - **No new contract / Pregel cell / delivery Lexicon**: 本 ADR は doctrine の固定のみ。
 
