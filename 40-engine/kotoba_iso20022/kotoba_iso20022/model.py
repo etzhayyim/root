@@ -26,7 +26,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from decimal import Decimal
-from typing import Literal, Optional
+from typing import Literal
 
 __all__ = (
     "PostalAddress",
@@ -76,7 +76,7 @@ EntryStatus = Literal["BOOK", "PDNG", "INFO"]
 class PostalAddress:
     """``PstlAdr`` — minimal structured address."""
 
-    country: Optional[str] = None  # ISO 3166-1 alpha-2
+    country: str | None = None  # ISO 3166-1 alpha-2
     address_lines: tuple[str, ...] = ()
 
 
@@ -85,18 +85,18 @@ class Party:
     """``Dbtr`` / ``Cdtr`` / ``InitgPty`` — an identified party."""
 
     name: str
-    postal_address: Optional[PostalAddress] = None
+    postal_address: PostalAddress | None = None
     # ``Id`` — org BIC/LEI or private id; kept opaque at this layer.
-    identifier: Optional[str] = None
+    identifier: str | None = None
 
 
 @dataclass(frozen=True)
 class Account:
     """``DbtrAcct`` / ``CdtrAcct`` — IBAN-or-other account identification."""
 
-    iban: Optional[str] = None
-    other_id: Optional[str] = None
-    currency: Optional[str] = None  # ISO 4217
+    iban: str | None = None
+    other_id: str | None = None
+    currency: str | None = None  # ISO 4217
 
     def __post_init__(self) -> None:
         if not self.iban and not self.other_id:
@@ -107,9 +107,9 @@ class Account:
 class Agent:
     """``DbtrAgt`` / ``CdtrAgt`` — a financial institution (``FinInstnId``)."""
 
-    bicfi: Optional[str] = None  # ISO 9362 BIC
-    name: Optional[str] = None
-    clearing_member_id: Optional[str] = None  # ClrSysMmbId/MmbId
+    bicfi: str | None = None  # ISO 9362 BIC
+    name: str | None = None
+    clearing_member_id: str | None = None  # ClrSysMmbId/MmbId
 
     def __post_init__(self) -> None:
         if not self.bicfi and not self.clearing_member_id:
@@ -143,20 +143,20 @@ class CreditTransferTransaction:
     """
 
     end_to_end_id: str
-    instruction_id: Optional[str] = None
-    tx_id: Optional[str] = None          # pacs.008 TxId
-    uetr: Optional[str] = None           # UUIDv4 end-to-end reference
-    instructed_amount: Optional[Amount] = None      # pain.001 InstdAmt
-    interbank_amount: Optional[Amount] = None        # pacs.008 IntrBkSttlmAmt
-    interbank_settlement_date: Optional[str] = None  # IntrBkSttlmDt (ISO date)
-    charge_bearer: Optional[ChargeBearer] = None
-    debtor: Optional[Party] = None
-    debtor_account: Optional[Account] = None
-    debtor_agent: Optional[Agent] = None
-    creditor_agent: Optional[Agent] = None
-    creditor: Optional[Party] = None
-    creditor_account: Optional[Account] = None
-    remittance_info: Optional[RemittanceInfo] = None
+    instruction_id: str | None = None
+    tx_id: str | None = None          # pacs.008 TxId
+    uetr: str | None = None           # UUIDv4 end-to-end reference
+    instructed_amount: Amount | None = None      # pain.001 InstdAmt
+    interbank_amount: Amount | None = None        # pacs.008 IntrBkSttlmAmt
+    interbank_settlement_date: str | None = None  # IntrBkSttlmDt (ISO date)
+    charge_bearer: ChargeBearer | None = None
+    debtor: Party | None = None
+    debtor_account: Account | None = None
+    debtor_agent: Agent | None = None
+    creditor_agent: Agent | None = None
+    creditor: Party | None = None
+    creditor_account: Account | None = None
+    remittance_info: RemittanceInfo | None = None
 
 
 @dataclass(frozen=True)
@@ -166,9 +166,9 @@ class GroupHeader:
     message_id: str
     creation_datetime: str  # ISO 8601 (CreDtTm)
     number_of_txs: int
-    control_sum: Optional[Decimal] = None
-    initiating_party: Optional[Party] = None        # pain.001 InitgPty
-    settlement_method: Optional[SettlementMethod] = None  # pacs.008 SttlmInf
+    control_sum: Decimal | None = None
+    initiating_party: Party | None = None        # pain.001 InitgPty
+    settlement_method: SettlementMethod | None = None  # pacs.008 SttlmInf
 
 
 @dataclass(frozen=True)
@@ -205,11 +205,11 @@ class TransactionStatus:
     """``TxInfAndSts`` — one transaction's status inside pacs.002."""
 
     status_id: str
-    original_end_to_end_id: Optional[str] = None
-    original_tx_id: Optional[str] = None
-    original_uetr: Optional[str] = None
+    original_end_to_end_id: str | None = None
+    original_tx_id: str | None = None
+    original_uetr: str | None = None
     transaction_status: TxStatusCode = "ACSP"
-    status_reason_code: Optional[str] = None  # StsRsnInf/Rsn/Cd
+    status_reason_code: str | None = None  # StsRsnInf/Rsn/Cd
     additional_info: tuple[str, ...] = ()
 
 
@@ -245,12 +245,12 @@ class StatementEntry:
     amount: Amount
     credit_debit: CreditDebitCode  # CdtDbtInd
     status: EntryStatus  # Sts (BOOK / PDNG / INFO)
-    booking_date: Optional[str] = None  # BookgDt/Dt
-    value_date: Optional[str] = None  # ValDt/Dt
-    account_servicer_reference: Optional[str] = None  # AcctSvcrRef
-    bank_transaction_code: Optional[str] = None  # BkTxCd/Domn/Cd (kept opaque)
-    end_to_end_id: Optional[str] = None  # NtryDtls/TxDtls/Refs/EndToEndId
-    remittance_info: Optional[RemittanceInfo] = None
+    booking_date: str | None = None  # BookgDt/Dt
+    value_date: str | None = None  # ValDt/Dt
+    account_servicer_reference: str | None = None  # AcctSvcrRef
+    bank_transaction_code: str | None = None  # BkTxCd/Domn/Cd (kept opaque)
+    end_to_end_id: str | None = None  # NtryDtls/TxDtls/Refs/EndToEndId
+    remittance_info: RemittanceInfo | None = None
 
 
 @dataclass(frozen=True)
@@ -311,7 +311,7 @@ class BusinessApplicationHeader:
     business_message_id: str  # BizMsgIdr
     message_definition: str  # MsgDefIdr, e.g. "pacs.008.001.08"
     creation_datetime: str  # CreDt
-    business_service: Optional[str] = None  # BizSvc, e.g. "swift.cbprplus.02"
+    business_service: str | None = None  # BizSvc, e.g. "swift.cbprplus.02"
 
 
 # --------------------------------------------------------------------------
@@ -352,13 +352,13 @@ class PaymentReturnTransaction:
     """
 
     returned_interbank_amount: Amount  # RtrdIntrBkSttlmAmt
-    return_id: Optional[str] = None  # RtrId
-    original_end_to_end_id: Optional[str] = None
-    original_tx_id: Optional[str] = None
-    original_uetr: Optional[str] = None
-    original_interbank_amount: Optional[Amount] = None  # OrgnlIntrBkSttlmAmt
-    interbank_settlement_date: Optional[str] = None
-    return_reason_code: Optional[str] = None  # RtrRsnInf/Rsn/Cd
+    return_id: str | None = None  # RtrId
+    original_end_to_end_id: str | None = None
+    original_tx_id: str | None = None
+    original_uetr: str | None = None
+    original_interbank_amount: Amount | None = None  # OrgnlIntrBkSttlmAmt
+    interbank_settlement_date: str | None = None
+    return_reason_code: str | None = None  # RtrRsnInf/Rsn/Cd
     additional_info: tuple[str, ...] = ()
 
 
@@ -368,5 +368,5 @@ class PaymentReturn:
 
     group_header: GroupHeader
     transactions: tuple[PaymentReturnTransaction, ...]
-    original_message_id: Optional[str] = None  # OrgnlGrpInf/OrgnlMsgId
-    original_message_name_id: Optional[str] = None  # e.g. "pacs.008.001.08"
+    original_message_id: str | None = None  # OrgnlGrpInf/OrgnlMsgId
+    original_message_name_id: str | None = None  # e.g. "pacs.008.001.08"

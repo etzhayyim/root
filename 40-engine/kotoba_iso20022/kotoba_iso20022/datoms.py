@@ -21,7 +21,6 @@ the actual transact under G2/G13.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Union
 
 from .model import (
     BankToCustomerDebitCreditNotification,
@@ -49,14 +48,14 @@ def tx_entity_of(tx: CreditTransferTransaction) -> str:
     ref = tx.uetr or tx.tx_id or tx.end_to_end_id
     return f"{NS}/tx:{ref}"
 
-AnyMessage = Union[
-    CustomerCreditTransferInitiation,
-    FIToFICustomerCreditTransfer,
-    FIToFIPaymentStatusReport,
-    BankToCustomerStatement,
-    BankToCustomerDebitCreditNotification,
-    PaymentReturn,
-]
+AnyMessage = (
+    CustomerCreditTransferInitiation
+    | FIToFICustomerCreditTransfer
+    | FIToFIPaymentStatusReport
+    | BankToCustomerStatement
+    | BankToCustomerDebitCreditNotification
+    | PaymentReturn
+)
 
 
 @dataclass(frozen=True)
@@ -135,7 +134,10 @@ def to_datoms(msg: AnyMessage) -> list[Datom]:
         out.append(Datom(msg_entity, f"{NS}.msg/definition", "pacs.002"))
         out.append(Datom(msg_entity, f"{NS}.msg/originalMessageId", msg.original_message_id))
         for sts in msg.statuses:
-            ref = sts.original_uetr or sts.original_tx_id or sts.original_end_to_end_id or sts.status_id
+            ref = (
+                sts.original_uetr or sts.original_tx_id
+                or sts.original_end_to_end_id or sts.status_id
+            )
             ent = f"{NS}/tx:{ref}"
             out.append(Datom(ent, f"{NS}.tx/status", sts.transaction_status))
             if sts.status_reason_code:
@@ -159,8 +161,9 @@ def to_datoms(msg: AnyMessage) -> list[Datom]:
             ent = f"{NS}/tx:{oref}"
             # the return lands on the SAME entity as the original transfer
             out.append(Datom(ent, f"{NS}.tx/status", "RTND"))
-            out.append(Datom(ent, f"{NS}.tx/returnedAmount", str(rtx.returned_interbank_amount.value)))
-            out.append(Datom(ent, f"{NS}.tx/returnedCurrency", rtx.returned_interbank_amount.currency))
+            ramt = rtx.returned_interbank_amount
+            out.append(Datom(ent, f"{NS}.tx/returnedAmount", str(ramt.value)))
+            out.append(Datom(ent, f"{NS}.tx/returnedCurrency", ramt.currency))
             if rtx.return_reason_code:
                 out.append(Datom(ent, f"{NS}.tx/returnReason", rtx.return_reason_code))
     else:  # pragma: no cover - exhaustive by construction

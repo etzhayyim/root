@@ -9,8 +9,8 @@ Also a UETR generator so callers don't have to wire UUIDv4 themselves.
 from __future__ import annotations
 
 import uuid
+from collections.abc import Sequence
 from decimal import Decimal
-from typing import Sequence
 
 from .model import CreditTransferTransaction, GroupHeader, Party, SettlementMethod
 

@@ -21,6 +21,17 @@ packages = ["kotoba_iso20022"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "B", "UP", "SIM", "I", "C4", "PIE", "RET"]
+
+[tool.ruff.lint.per-file-ignores]
+# test fixtures favour wide, aligned literal rows
+"tests/*" = ["E501"]
+
 [tool.coverage.run]
 source = ["kotoba_iso20022"]
 branch = true

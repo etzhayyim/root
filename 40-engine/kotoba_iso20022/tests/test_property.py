@@ -19,13 +19,12 @@ from kotoba_iso20022 import (
     build_camt054,
     build_pacs008,
     build_pain001,
+    pacs008_group_header,
+    pain001_group_header,
     parse_camt054,
     parse_pacs008,
     parse_pain001,
-    pacs008_group_header,
-    pain001_group_header,
 )
-from kotoba_iso20022.validate import iban_check_digits
 from kotoba_iso20022.model import (
     Account,
     AccountNotification,
@@ -41,6 +40,7 @@ from kotoba_iso20022.model import (
     RemittanceInfo,
     StatementEntry,
 )
+from kotoba_iso20022.validate import iban_check_digits
 
 _CCYS = [("EUR", 2), ("USD", 2), ("JPY", 0), ("GBP", 2)]
 _BICS = ["DEUTDEFF", "NWBKGB2L", "BOFAUS3N", "BNPAFRPP", "CHASUS33", "DEUTDEFF500"]
@@ -55,7 +55,8 @@ def _iban(rng: random.Random) -> str:
 
 def _uetr(rng: random.Random) -> str:
     h = "0123456789abcdef"
-    p = lambda n: "".join(rng.choice(h) for _ in range(n))
+    def p(n: int) -> str:
+        return "".join(rng.choice(h) for _ in range(n))
     return f"{p(8)}-{p(4)}-4{p(3)}-{rng.choice('89ab')}{p(3)}-{p(12)}"
 
 

@@ -20,7 +20,6 @@ from __future__ import annotations
 
 import re
 import xml.etree.ElementTree as ET
-from typing import Optional
 
 from .codec import Iso20022CodecError, urn_for
 from .model import BusinessApplicationHeader
@@ -44,14 +43,14 @@ def _q(ns: str, tag: str) -> str:
     return f"{{{ns}}}{tag}"
 
 
-def _sub(parent: ET.Element, ns: str, tag: str, text: Optional[str] = None) -> ET.Element:
+def _sub(parent: ET.Element, ns: str, tag: str, text: str | None = None) -> ET.Element:
     el = ET.SubElement(parent, _q(ns, tag))
     if text is not None:
         el.text = text
     return el
 
 
-def _text(parent: Optional[ET.Element], ns: str, path: str) -> Optional[str]:
+def _text(parent: ET.Element | None, ns: str, path: str) -> str | None:
     if parent is None:
         return None
     el = parent.find("/".join(_q(ns, t) for t in path.split("/")))
@@ -68,7 +67,7 @@ def _indent_block(xml: str, prefix: str = "  ") -> str:
     return "\n".join(prefix + line for line in xml.splitlines())
 
 
-def build_bah(bah: BusinessApplicationHeader, version: Optional[str] = None) -> str:
+def build_bah(bah: BusinessApplicationHeader, version: str | None = None) -> str:
     """Serialize a standalone ``AppHdr`` (head.001)."""
     ns = urn_for(version or DEFAULT_BAH_VERSION)
     ET.register_namespace("", ns)
@@ -108,7 +107,7 @@ def _parse_apphdr_element(root: ET.Element, ns: str) -> BusinessApplicationHeade
     )
 
 
-def parse_bah(xml: str, version: Optional[str] = None) -> BusinessApplicationHeader:
+def parse_bah(xml: str, version: str | None = None) -> BusinessApplicationHeader:
     """Parse a standalone ``AppHdr`` (head.001)."""
     ns = urn_for(version or DEFAULT_BAH_VERSION)
     try:
@@ -139,7 +138,7 @@ def build_business_message(
     bah: BusinessApplicationHeader,
     document_xml: str,
     *,
-    version: Optional[str] = None,
+    version: str | None = None,
     enforce_msgdef_match: bool = True,
 ) -> str:
     """Pair an ``AppHdr`` with a business ``Document`` into one envelope.
@@ -168,7 +167,7 @@ def build_business_message(
 def parse_business_message(
     xml: str,
     *,
-    version: Optional[str] = None,
+    version: str | None = None,
     enforce_msgdef_match: bool = True,
 ) -> tuple[BusinessApplicationHeader, str]:
     """Split an envelope back into (header, document_xml).

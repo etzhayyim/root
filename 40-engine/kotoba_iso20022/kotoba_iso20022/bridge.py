@@ -18,8 +18,6 @@ move money (kawase G2/G13 stay with the gated ingress cell).
 
 from __future__ import annotations
 
-from typing import Optional, Union
-
 from .datoms import tx_entity_of
 from .model import (
     BankToCustomerDebitCreditNotification,
@@ -33,12 +31,12 @@ from .model import (
 __all__ = ("ingress_attestations", "RECORD_TYPE", "LEXICON_VERSION", "ValueBearingMessage")
 
 # The message kinds that carry a settlement value-event (vs. a status report).
-ValueBearingMessage = Union[
-    CustomerCreditTransferInitiation,
-    FIToFICustomerCreditTransfer,
-    BankToCustomerStatement,
-    BankToCustomerDebitCreditNotification,
-]
+ValueBearingMessage = (
+    CustomerCreditTransferInitiation
+    | FIToFICustomerCreditTransfer
+    | BankToCustomerStatement
+    | BankToCustomerDebitCreditNotification
+)
 Record = dict[str, object]
 
 RECORD_TYPE = "com.etzhayyim.iso20022.ingressAttestation"
@@ -63,10 +61,10 @@ def _base_record(
     currency: str,
     reported_by: str,
     ingested_at: str,
-    uetr: Optional[str] = None,
-    cbpr_conformant: Optional[bool] = None,
-    linked_deposit_cid: Optional[str] = None,
-    datom_count: Optional[int] = None,
+    uetr: str | None = None,
+    cbpr_conformant: bool | None = None,
+    linked_deposit_cid: str | None = None,
+    datom_count: int | None = None,
 ) -> Record:
     rec: Record = {
         "$type": RECORD_TYPE,
@@ -99,9 +97,9 @@ def _from_transaction(
     reported_by: str,
     ingested_at: str,
     include_party_names: bool,
-    cbpr_conformant: Optional[bool],
-    linked_deposit_cid: Optional[str],
-) -> Optional[Record]:
+    cbpr_conformant: bool | None,
+    linked_deposit_cid: str | None,
+) -> Record | None:
     amt = tx.interbank_amount or tx.instructed_amount
     if amt is None:
         return None
@@ -137,9 +135,9 @@ def _from_entry(
     message_id: str,
     reported_by: str,
     ingested_at: str,
-    cbpr_conformant: Optional[bool],
-    linked_deposit_cid: Optional[str],
-) -> Optional[Record]:
+    cbpr_conformant: bool | None,
+    linked_deposit_cid: str | None,
+) -> Record | None:
     ref = entry.end_to_end_id or entry.account_servicer_reference
     if ref is None:
         return None
@@ -164,10 +162,10 @@ def ingress_attestations(
     msg: ValueBearingMessage,
     *,
     ingested_at: str,
-    message_definition: Optional[str] = None,
+    message_definition: str | None = None,
     include_party_names: bool = False,
-    cbpr_conformant: Optional[bool] = None,
-    linked_deposit_cid: Optional[str] = None,
+    cbpr_conformant: bool | None = None,
+    linked_deposit_cid: str | None = None,
 ) -> list[Record]:
     """Map a value-bearing ISO 20022 message to ``ingressAttestation`` records.
 

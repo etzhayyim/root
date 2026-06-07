@@ -50,8 +50,9 @@ built purely from the open published standard (no proprietary SWIFT SDK).
   round-trip + cross-currency (incl. 0- and 3-fraction-digit) tests
 - Property-based serialization-idempotence fuzz (seeded, 750+ generated
   messages: build(parse(build(m)))==build(m)) + golden wire-bytes regression lock
-- CI gate `.github/workflows/kotoba-iso20022-ci.yml`: pytest (Python
-  3.11–3.13) + `mypy --strict` + `coverage --fail-under=90` + Lexicon
-  validation, on push/PR/nightly
+- CI gate `.github/workflows/kotoba-iso20022-ci.yml`: ruff lint + pytest
+  (Python 3.11–3.13) + `mypy --strict` + `coverage --fail-under=90` +
+  Lexicon validation, on push/PR/nightly
+- ruff-clean (E/F/W/B/UP/SIM/I/C4/PIE/RET); PEP 604 unions throughout
 - Charter-clean: format library only — no network, no chain, no money
   movement, no Travel-Rule KYC

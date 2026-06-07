@@ -23,7 +23,6 @@ from __future__ import annotations
 
 import xml.etree.ElementTree as ET
 from decimal import Decimal
-from typing import Optional
 
 from .model import (
     Account,
@@ -109,14 +108,14 @@ def _q(ns: str, tag: str) -> str:
     return f"{{{ns}}}{tag}"
 
 
-def _sub(parent: ET.Element, ns: str, tag: str, text: Optional[str] = None) -> ET.Element:
+def _sub(parent: ET.Element, ns: str, tag: str, text: str | None = None) -> ET.Element:
     el = ET.SubElement(parent, _q(ns, tag))
     if text is not None:
         el.text = text
     return el
 
 
-def _find(parent: ET.Element, ns: str, path: str) -> Optional[ET.Element]:
+def _find(parent: ET.Element, ns: str, path: str) -> ET.Element | None:
     return parent.find("/".join(_q(ns, t) for t in path.split("/")))
 
 
@@ -124,7 +123,7 @@ def _findall(parent: ET.Element, ns: str, tag: str) -> list[ET.Element]:
     return parent.findall(_q(ns, tag))
 
 
-def _text(parent: Optional[ET.Element], ns: str, path: str) -> Optional[str]:
+def _text(parent: ET.Element | None, ns: str, path: str) -> str | None:
     if parent is None:
         return None
     el = _find(parent, ns, path)
@@ -224,7 +223,7 @@ def _build_remittance(parent: ET.Element, ns: str, rmt: RemittanceInfo) -> None:
 # --------------------------------------------------------------------------
 
 
-def _parse_amount(el: Optional[ET.Element]) -> Optional[Amount]:
+def _parse_amount(el: ET.Element | None) -> Amount | None:
     if el is None or el.text is None:
         return None
     ccy = el.get("Ccy")
@@ -233,21 +232,23 @@ def _parse_amount(el: Optional[ET.Element]) -> Optional[Amount]:
     return Amount(value=Decimal(el.text), currency=validate_currency(ccy, require_active=False))
 
 
-def _parse_party(el: Optional[ET.Element], ns: str) -> Optional[Party]:
+def _parse_party(el: ET.Element | None, ns: str) -> Party | None:
     if el is None:
         return None
     name = _text(el, ns, "Nm") or ""
     country = _text(el, ns, "PstlAdr/Ctry")
     adr_el = _find(el, ns, "PstlAdr")
     lines = tuple(
-        l.text for l in (_findall(adr_el, ns, "AdrLine") if adr_el is not None else []) if l.text
+        ln.text
+        for ln in (_findall(adr_el, ns, "AdrLine") if adr_el is not None else [])
+        if ln.text
     )
     postal = PostalAddress(country=country, address_lines=lines) if (country or lines) else None
     identifier = _text(el, ns, "Id/OrgId/Othr/Id")
     return Party(name=name, postal_address=postal, identifier=identifier)
 
 
-def _parse_account(el: Optional[ET.Element], ns: str) -> Optional[Account]:
+def _parse_account(el: ET.Element | None, ns: str) -> Account | None:
     if el is None:
         return None
     iban = _text(el, ns, "Id/IBAN")
@@ -256,7 +257,7 @@ def _parse_account(el: Optional[ET.Element], ns: str) -> Optional[Account]:
     return Account(iban=iban, other_id=other, currency=ccy)
 
 
-def _parse_agent(el: Optional[ET.Element], ns: str) -> Optional[Agent]:
+def _parse_agent(el: ET.Element | None, ns: str) -> Agent | None:
     if el is None:
         return None
     return Agent(
@@ -266,7 +267,14 @@ def _parse_agent(el: Optional[ET.Element], ns: str) -> Optional[Agent]:
     )
 
 
-def _parse_remittance(el: Optional[ET.Element], ns: str) -> Optional[RemittanceInfo]:
+def _addtl_info(rsn: ET.Element | None, ns: str) -> tuple[str, ...]:
+    """Collect ``AddtlInf`` text lines under a status/return reason element."""
+    if rsn is None:
+        return ()
+    return tuple(a.text for a in _findall(rsn, ns, "AddtlInf") if a.text)
+
+
+def _parse_remittance(el: ET.Element | None, ns: str) -> RemittanceInfo | None:
     if el is None:
         return None
     return RemittanceInfo(
@@ -306,7 +314,7 @@ def _root_or_raise(xml: str, ns: str, container_tag: str) -> ET.Element:
 # --------------------------------------------------------------------------
 
 
-def build_pain001(msg: CustomerCreditTransferInitiation, version: Optional[str] = None) -> str:
+def build_pain001(msg: CustomerCreditTransferInitiation, version: str | None = None) -> str:
     msgdef = version or DEFAULT_VERSIONS["pain.001"]
     ns = urn_for(msgdef)
     doc, root = _root(ns, "CstmrCdtTrfInitn")
@@ -343,7 +351,7 @@ def build_pain001(msg: CustomerCreditTransferInitiation, version: Optional[str] 
     return _serialize(doc)
 
 
-def parse_pain001(xml: str, version: Optional[str] = None) -> CustomerCreditTransferInitiation:
+def parse_pain001(xml: str, version: str | None = None) -> CustomerCreditTransferInitiation:
     ns = urn_for(version or DEFAULT_VERSIONS["pain.001"])
     root = _root_or_raise(xml, ns, "CstmrCdtTrfInitn")
     gh = _parse_group_header(root, ns)
@@ -387,7 +395,7 @@ def parse_pain001(xml: str, version: Optional[str] = None) -> CustomerCreditTran
 # --------------------------------------------------------------------------
 
 
-def build_pacs008(msg: FIToFICustomerCreditTransfer, version: Optional[str] = None) -> str:
+def build_pacs008(msg: FIToFICustomerCreditTransfer, version: str | None = None) -> str:
     ns = urn_for(version or DEFAULT_VERSIONS["pacs.008"])
     doc, root = _root(ns, "FIToFICstmrCdtTrf")
     _build_group_header(root, ns, msg.group_header, is_pacs=True)
@@ -426,7 +434,7 @@ def build_pacs008(msg: FIToFICustomerCreditTransfer, version: Optional[str] = No
     return _serialize(doc)
 
 
-def parse_pacs008(xml: str, version: Optional[str] = None) -> FIToFICustomerCreditTransfer:
+def parse_pacs008(xml: str, version: str | None = None) -> FIToFICustomerCreditTransfer:
     ns = urn_for(version or DEFAULT_VERSIONS["pacs.008"])
     root = _root_or_raise(xml, ns, "FIToFICstmrCdtTrf")
     gh = _parse_group_header(root, ns)
@@ -459,7 +467,7 @@ def parse_pacs008(xml: str, version: Optional[str] = None) -> FIToFICustomerCred
 # --------------------------------------------------------------------------
 
 
-def build_pacs002(msg: FIToFIPaymentStatusReport, version: Optional[str] = None) -> str:
+def build_pacs002(msg: FIToFIPaymentStatusReport, version: str | None = None) -> str:
     ns = urn_for(version or DEFAULT_VERSIONS["pacs.002"])
     doc, root = _root(ns, "FIToFIPmtStsRpt")
     grp = _sub(root, ns, "GrpHdr")
@@ -488,7 +496,7 @@ def build_pacs002(msg: FIToFIPaymentStatusReport, version: Optional[str] = None)
     return _serialize(doc)
 
 
-def parse_pacs002(xml: str, version: Optional[str] = None) -> FIToFIPaymentStatusReport:
+def parse_pacs002(xml: str, version: str | None = None) -> FIToFIPaymentStatusReport:
     ns = urn_for(version or DEFAULT_VERSIONS["pacs.002"])
     root = _root_or_raise(xml, ns, "FIToFIPmtStsRpt")
     grp = _find(root, ns, "GrpHdr")
@@ -508,9 +516,7 @@ def parse_pacs002(xml: str, version: Optional[str] = None) -> FIToFIPaymentStatu
                 original_uetr=_text(ts, ns, "OrgnlUETR"),
                 transaction_status=_text(ts, ns, "TxSts") or "ACSP",  # type: ignore[arg-type]
                 status_reason_code=_text(ts, ns, "StsRsnInf/Rsn/Cd"),
-                additional_info=tuple(
-                    a.text for a in (_findall(rsn, ns, "AddtlInf") if rsn is not None else []) if a.text
-                ),
+                additional_info=_addtl_info(rsn, ns),
             )
         )
     return FIToFIPaymentStatusReport(
@@ -595,7 +601,9 @@ def _parse_entry(el: ET.Element, ns: str) -> StatementEntry:
         account_servicer_reference=_text(el, ns, "AcctSvcrRef"),
         bank_transaction_code=_text(el, ns, "BkTxCd/Domn/Cd"),
         end_to_end_id=_text(txd, ns, "Refs/EndToEndId") if txd is not None else None,
-        remittance_info=_parse_remittance(_find(txd, ns, "RmtInf"), ns) if txd is not None else None,
+        remittance_info=(
+            _parse_remittance(_find(txd, ns, "RmtInf"), ns) if txd is not None else None
+        ),
     )
 
 
@@ -610,7 +618,7 @@ def _grphdr_min(parent: ET.Element, ns: str, gh: GroupHeader) -> None:
 # --------------------------------------------------------------------------
 
 
-def build_camt053(msg: BankToCustomerStatement, version: Optional[str] = None) -> str:
+def build_camt053(msg: BankToCustomerStatement, version: str | None = None) -> str:
     ns = urn_for(version or DEFAULT_VERSIONS["camt.053"])
     doc, root = _root(ns, "BkToCstmrStmt")
     _grphdr_min(root, ns, msg.group_header)
@@ -626,7 +634,7 @@ def build_camt053(msg: BankToCustomerStatement, version: Optional[str] = None) -
     return _serialize(doc)
 
 
-def parse_camt053(xml: str, version: Optional[str] = None) -> BankToCustomerStatement:
+def parse_camt053(xml: str, version: str | None = None) -> BankToCustomerStatement:
     ns = urn_for(version or DEFAULT_VERSIONS["camt.053"])
     root = _root_or_raise(xml, ns, "BkToCstmrStmt")
     gh = GroupHeader(
@@ -656,7 +664,7 @@ def parse_camt053(xml: str, version: Optional[str] = None) -> BankToCustomerStat
 # --------------------------------------------------------------------------
 
 
-def build_camt054(msg: BankToCustomerDebitCreditNotification, version: Optional[str] = None) -> str:
+def build_camt054(msg: BankToCustomerDebitCreditNotification, version: str | None = None) -> str:
     ns = urn_for(version or DEFAULT_VERSIONS["camt.054"])
     doc, root = _root(ns, "BkToCstmrDbtCdtNtfctn")
     _grphdr_min(root, ns, msg.group_header)
@@ -670,7 +678,7 @@ def build_camt054(msg: BankToCustomerDebitCreditNotification, version: Optional[
     return _serialize(doc)
 
 
-def parse_camt054(xml: str, version: Optional[str] = None) -> BankToCustomerDebitCreditNotification:
+def parse_camt054(xml: str, version: str | None = None) -> BankToCustomerDebitCreditNotification:
     ns = urn_for(version or DEFAULT_VERSIONS["camt.054"])
     root = _root_or_raise(xml, ns, "BkToCstmrDbtCdtNtfctn")
     gh = GroupHeader(
@@ -731,7 +739,7 @@ def _parse_tx_status(ts: ET.Element, ns: str) -> TransactionStatus:
     )
 
 
-def build_pain002(msg: CustomerPaymentStatusReport, version: Optional[str] = None) -> str:
+def build_pain002(msg: CustomerPaymentStatusReport, version: str | None = None) -> str:
     ns = urn_for(version or DEFAULT_VERSIONS["pain.002"])
     doc, root = _root(ns, "CstmrPmtStsRpt")
     _grphdr_min(root, ns, msg.group_header)
@@ -746,7 +754,7 @@ def build_pain002(msg: CustomerPaymentStatusReport, version: Optional[str] = Non
     return _serialize(doc)
 
 
-def parse_pain002(xml: str, version: Optional[str] = None) -> CustomerPaymentStatusReport:
+def parse_pain002(xml: str, version: str | None = None) -> CustomerPaymentStatusReport:
     ns = urn_for(version or DEFAULT_VERSIONS["pain.002"])
     root = _root_or_raise(xml, ns, "CstmrPmtStsRpt")
     gh = GroupHeader(
@@ -759,7 +767,9 @@ def parse_pain002(xml: str, version: Optional[str] = None) -> CustomerPaymentSta
         payment_statuses.append(
             OriginalPaymentStatus(
                 original_payment_info_id=_text(pinf, ns, "OrgnlPmtInfId") or "",
-                statuses=tuple(_parse_tx_status(ts, ns) for ts in _findall(pinf, ns, "TxInfAndSts")),
+                statuses=tuple(
+                    _parse_tx_status(ts, ns) for ts in _findall(pinf, ns, "TxInfAndSts")
+                ),
             )
         )
     return CustomerPaymentStatusReport(
@@ -775,7 +785,7 @@ def parse_pain002(xml: str, version: Optional[str] = None) -> CustomerPaymentSta
 # --------------------------------------------------------------------------
 
 
-def build_pacs004(msg: PaymentReturn, version: Optional[str] = None) -> str:
+def build_pacs004(msg: PaymentReturn, version: str | None = None) -> str:
     ns = urn_for(version or DEFAULT_VERSIONS["pacs.004"])
     doc, root = _root(ns, "PmtRtr")
     _build_group_header(root, ns, msg.group_header, is_pacs=True)
@@ -809,12 +819,12 @@ def build_pacs004(msg: PaymentReturn, version: Optional[str] = None) -> str:
     return _serialize(doc)
 
 
-def parse_pacs004(xml: str, version: Optional[str] = None) -> PaymentReturn:
+def parse_pacs004(xml: str, version: str | None = None) -> PaymentReturn:
     ns = urn_for(version or DEFAULT_VERSIONS["pacs.004"])
     root = _root_or_raise(xml, ns, "PmtRtr")
     gh = _parse_group_header(root, ns)
-    orig_msg_id: Optional[str] = None
-    orig_msg_nm: Optional[str] = None
+    orig_msg_id: str | None = None
+    orig_msg_nm: str | None = None
     txs = []
     for txinf in _findall(root, ns, "TxInf"):
         if orig_msg_id is None:
@@ -834,9 +844,7 @@ def parse_pacs004(xml: str, version: Optional[str] = None) -> PaymentReturn:
                 original_interbank_amount=_parse_amount(_find(txinf, ns, "OrgnlIntrBkSttlmAmt")),
                 interbank_settlement_date=_text(txinf, ns, "IntrBkSttlmDt"),
                 return_reason_code=_text(txinf, ns, "RtrRsnInf/Rsn/Cd"),
-                additional_info=tuple(
-                    a.text for a in (_findall(rsn, ns, "AddtlInf") if rsn is not None else []) if a.text
-                ),
+                additional_info=_addtl_info(rsn, ns),
             )
         )
     return PaymentReturn(

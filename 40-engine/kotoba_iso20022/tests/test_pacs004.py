@@ -11,7 +11,6 @@ from kotoba_iso20022 import (
     DEFAULT_VERSIONS,
     Iso20022CodecError,
     build_pacs004,
-    build_pacs008,
     parse_pacs004,
     to_datoms,
     urn_for,

@@ -31,7 +31,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from decimal import Decimal
-from typing import Literal, Optional
+from typing import Literal
 
 from .model import (
     Agent,
@@ -83,7 +83,7 @@ class CbprConformanceError(ValueError):
         )
 
 
-def _agent_issues(agent: Optional[Agent], where: str) -> list[ConformanceIssue]:
+def _agent_issues(agent: Agent | None, where: str) -> list[ConformanceIssue]:
     out: list[ConformanceIssue] = []
     if agent is None or not agent.bicfi:
         out.append(ConformanceIssue("CBPR-006", "error", where, "Agent BICFI required"))
@@ -172,7 +172,7 @@ def check_cbpr_pacs008(msg: FIToFICustomerCreditTransfer) -> list[ConformanceIss
 
 
 def check_cbpr_bah(
-    bah: BusinessApplicationHeader, msg_definition: Optional[str] = None
+    bah: BusinessApplicationHeader, msg_definition: str | None = None
 ) -> list[ConformanceIssue]:
     """Return CBPR+ findings for a Business Application Header."""
     out: list[ConformanceIssue] = []

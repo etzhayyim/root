@@ -13,7 +13,6 @@ from kotoba_iso20022 import (
     check_cbpr_pacs008,
     validate_uetr,
 )
-from kotoba_iso20022.validate import InvalidUetr, is_uetr
 from kotoba_iso20022.model import (
     Agent,
     Amount,
@@ -23,21 +22,22 @@ from kotoba_iso20022.model import (
     GroupHeader,
     Party,
 )
+from kotoba_iso20022.validate import InvalidUetr, is_uetr
 
 GOOD_UETR = "dced6a36-9e4b-4e2a-8b9f-2f3a4b5c6d7e"
 
 
 def _good_tx(**over) -> CreditTransferTransaction:
-    base = dict(
-        end_to_end_id="E2E-1",
-        uetr=GOOD_UETR,
-        interbank_amount=Amount(Decimal("1000.00"), "EUR"),
-        charge_bearer="SHAR",
-        debtor=Party("Alice Cohen"),
-        debtor_agent=Agent(bicfi="DEUTDEFF"),
-        creditor=Party("Bob Levi"),
-        creditor_agent=Agent(bicfi="NWBKGB2L"),
-    )
+    base = {
+        "end_to_end_id": "E2E-1",
+        "uetr": GOOD_UETR,
+        "interbank_amount": Amount(Decimal("1000.00"), "EUR"),
+        "charge_bearer": "SHAR",
+        "debtor": Party("Alice Cohen"),
+        "debtor_agent": Agent(bicfi="DEUTDEFF"),
+        "creditor": Party("Bob Levi"),
+        "creditor_agent": Agent(bicfi="NWBKGB2L"),
+    }
     base.update(over)
     return CreditTransferTransaction(**base)
 

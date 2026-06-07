@@ -8,7 +8,6 @@ from decimal import Decimal
 import pytest
 
 from kotoba_iso20022 import (
-    DEFAULT_VERSIONS,
     Iso20022CodecError,
     build_bah,
     build_business_message,
@@ -67,7 +66,8 @@ class TestBah:
         assert root.tag == f"{{{urn_for(DEFAULT_BAH_VERSION)}}}AppHdr"
 
     def test_invalid_bic_rejected(self) -> None:
-        with pytest.raises(Exception):
+        from kotoba_iso20022.validate import InvalidBic
+        with pytest.raises(InvalidBic):
             build_bah(_bah().__class__(
                 from_bic="BAD", to_bic="NWBKGB2L", business_message_id="x",
                 message_definition="pacs.008.001.08", creation_datetime="2026-06-08T09:30:00Z",

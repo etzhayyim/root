@@ -5,11 +5,12 @@ name: kotoba-iso20022-ci
 # gates with PR-level enforcement (Pattern A "3-layer enforcement",
 # ADR-2605271200): committer-local hooks + this CI gate.
 #
-# Four lanes, all required:
-#   1. tests          — full pytest suite (stdlib-only runtime)
-#   2. typing         — mypy --strict (the package is strict-clean)
-#   3. coverage       — branch coverage with a --fail-under floor
-#   4. lexicon        — validate-lexicons.py on the ingressAttestation schema
+# Five lanes, all required:
+#   1. lint           — ruff (E/F/W/B/UP/SIM/I/C4/PIE/RET, the package + tests)
+#   2. tests          — full pytest suite (stdlib-only runtime)
+#   3. typing         — mypy --strict (the package is strict-clean)
+#   4. coverage       — branch coverage with a --fail-under floor
+#   5. lexicon        — validate-lexicons.py on the ingressAttestation schema
 #
 # The runtime stays dependency-free; pytest/mypy/coverage are dev-only.
 
@@ -51,7 +52,9 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install dev tooling
-        run: python -m pip install --quiet pytest coverage mypy
+        run: python -m pip install --quiet pytest coverage mypy ruff
+      - name: Lint (ruff)
+        run: python -m ruff check kotoba_iso20022 tests
       - name: Tests
         env:
           PYTEST_DISABLE_PLUGIN_AUTOLOAD: '1'

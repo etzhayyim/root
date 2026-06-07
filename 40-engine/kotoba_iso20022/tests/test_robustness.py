@@ -10,9 +10,8 @@ from decimal import Decimal
 
 import pytest
 
-from kotoba_iso20022 import build_pacs008, parse_pacs008, pacs008_group_header
+from kotoba_iso20022 import build_pacs008, pacs008_group_header, parse_pacs008
 from kotoba_iso20022.model import (
-    Account,
     Agent,
     Amount,
     CreditTransferTransaction,
@@ -25,7 +24,6 @@ from kotoba_iso20022.validate import (
     validate_amount,
     validate_iban,
 )
-
 
 # --------------------------------------------------------------------------
 # Full ISO 13616 registry: a valid IBAN can be constructed + validated for
