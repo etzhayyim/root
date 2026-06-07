@@ -91,7 +91,7 @@
     "@noble/curves": "^1.6.0",
     "@noble/hashes": "^1.5.0",
     "multiformats": "^14.0.0",
-    "viem": "^2.21.0"
+    "viem": "^2.52.2"
   },
   "optionalDependencies": {
     "@signalapp/libsignal-client": "^0.94.4"
