@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "cvent clean-room actor",
   "description": "Clean-room, API-compatible events / NPO / creator actor (cvent); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicgcp3v7teofoxlth5b542toe6i3byk2fw25rhxi4dxssaqbrqyqy",
+  "wasmCid": "bafkreifajei2hdafr2i6tsginm4eplhoe7lpe2a5ifbsdn3w6kmn7dl7k4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicgcp3v7teofoxlth5b542toe6i3byk2fw25rhxi4dxssaqbrqyqy",
+  "ipfs": "ipfs://bafkreifajei2hdafr2i6tsginm4eplhoe7lpe2a5ifbsdn3w6kmn7dl7k4",
   "schema": "schema/cvent.kotoba",
+  "tier": "L3",
   "entities": [
     "Event",
     "Ticket",
@@ -181,6 +182,13 @@
           "op": "delete Membership"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

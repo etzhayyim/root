@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "who clean-room actor",
   "description": "Clean-room, API-compatible intl org / central bank data actor (who); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiezwgbkl3wy4wemqxlca3injd4akpsce4ynuf735rdzx7eokwdpmy",
+  "wasmCid": "bafkreicqsrxrgaxcbfg2bqfppgxqmarpi25b7r6cp5xmnksgma4rjen5nm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiezwgbkl3wy4wemqxlca3injd4akpsce4ynuf735rdzx7eokwdpmy",
+  "ipfs": "ipfs://bafkreicqsrxrgaxcbfg2bqfppgxqmarpi25b7r6cp5xmnksgma4rjen5nm",
   "schema": "schema/who.kotoba",
+  "tier": "L3",
   "entities": [
     "Indicator",
     "Observation",
@@ -181,6 +182,13 @@
           "op": "delete ExchangeRate"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

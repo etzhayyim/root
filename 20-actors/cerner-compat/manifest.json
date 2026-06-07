@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "cerner clean-room actor",
   "description": "Clean-room, API-compatible EHR / clinical records actor (cerner); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiddo3zhzolpzuhtdrtrwwnshcjiy6ufrg7pzwyrbaeivtsgxlaxwi",
+  "wasmCid": "bafkreiezrxmhxboscs5yuncltz3fmzuxpwmgaqpnychnltmn7ytkl6qjqq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiddo3zhzolpzuhtdrtrwwnshcjiy6ufrg7pzwyrbaeivtsgxlaxwi",
+  "ipfs": "ipfs://bafkreiezrxmhxboscs5yuncltz3fmzuxpwmgaqpnychnltmn7ytkl6qjqq",
   "schema": "schema/cerner.kotoba",
+  "tier": "L3",
   "entities": [
     "Patient",
     "Encounter",
@@ -181,6 +182,13 @@
           "op": "delete Appointment"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "renaissance_fusion clean-room actor",
   "description": "Clean-room, API-compatible fusion / plasma energy actor (renaissance_fusion); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreif7ce4xaxffj7tsd3ifdzwfeqhqsbcbcbmk4gw7qs6qd5ivqdthsq",
+  "wasmCid": "bafkreieog6e7pudd5mhhadjbmrhtslvd5vuwpui7cs3xmhh4wbx2wyilb4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreif7ce4xaxffj7tsd3ifdzwfeqhqsbcbcbmk4gw7qs6qd5ivqdthsq",
+  "ipfs": "ipfs://bafkreieog6e7pudd5mhhadjbmrhtslvd5vuwpui7cs3xmhh4wbx2wyilb4",
   "schema": "schema/renaissance_fusion.kotoba",
+  "tier": "L3",
   "entities": [
     "Shot",
     "Diagnostic",
@@ -181,6 +182,13 @@
           "op": "delete Sample"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

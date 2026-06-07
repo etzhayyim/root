@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "zoho_crm clean-room actor",
   "description": "Clean-room, API-compatible CRM / sales-pipeline actor (zoho_crm); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibkb3xise73mou3ovbypzi72jugczyo7trinlvmxabbidoyijvmlu",
+  "wasmCid": "bafkreibr7j4ucovggldtngklqz7rmwfsfiftn5uyl5abm2ayic2uqoez6m",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibkb3xise73mou3ovbypzi72jugczyo7trinlvmxabbidoyijvmlu",
+  "ipfs": "ipfs://bafkreibr7j4ucovggldtngklqz7rmwfsfiftn5uyl5abm2ayic2uqoez6m",
   "schema": "schema/zoho_crm.kotoba",
+  "tier": "L3",
   "entities": [
     "Account",
     "Contact",
@@ -181,6 +182,13 @@
           "op": "delete Pipeline"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

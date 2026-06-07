@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "bolt clean-room actor",
   "description": "Clean-room, API-compatible ride-hailing / micro-mobility actor (bolt); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreih5x6mqcnt6kzs5unbboxdzj4cx6ewadygvgxh3kdpax4nnblev4m",
+  "wasmCid": "bafkreihpcwhweewmgsw42wrwgwg7kn5pavlon5zbnljxz2bo7r6e6r3qkm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreih5x6mqcnt6kzs5unbboxdzj4cx6ewadygvgxh3kdpax4nnblev4m",
+  "ipfs": "ipfs://bafkreihpcwhweewmgsw42wrwgwg7kn5pavlon5zbnljxz2bo7r6e6r3qkm",
   "schema": "schema/bolt.kotoba",
+  "tier": "L3",
   "entities": [
     "Driver",
     "Rider",
@@ -181,6 +182,13 @@
           "op": "delete Rating"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

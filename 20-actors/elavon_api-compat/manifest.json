@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "elavon_api clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (elavon_api); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiei45tzwcxp4uxsemo5xrojmv27z44wahiq6qeqxihztzv63uwjum",
+  "wasmCid": "bafkreigmxcsas6yvvxhh32brytvpljdvszbynmn7irqu6u6kpn3zuawasq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiei45tzwcxp4uxsemo5xrojmv27z44wahiq6qeqxihztzv63uwjum",
+  "ipfs": "ipfs://bafkreigmxcsas6yvvxhh32brytvpljdvszbynmn7irqu6u6kpn3zuawasq",
   "schema": "schema/elavon_api.kotoba",
+  "tier": "L3",
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -181,6 +182,13 @@
           "op": "delete PaymentMethod"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

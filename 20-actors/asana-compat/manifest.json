@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "asana clean-room actor",
   "description": "Clean-room, API-compatible office / productivity suite actor (asana); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihgqpqojooc5t6psuk25dkrjz5asec46zypvokmeozg5wwqhamxru",
+  "wasmCid": "bafkreicrkpwpjqmot6qskrceslb3yodpk23isyuonap3amxa2twf6773rm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihgqpqojooc5t6psuk25dkrjz5asec46zypvokmeozg5wwqhamxru",
+  "ipfs": "ipfs://bafkreicrkpwpjqmot6qskrceslb3yodpk23isyuonap3amxa2twf6773rm",
   "schema": "schema/asana.kotoba",
+  "tier": "L3",
   "entities": [
     "Workspace",
     "Document",
@@ -181,6 +182,13 @@
           "op": "delete User"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

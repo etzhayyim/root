@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "eu_customs_emcs clean-room actor",
   "description": "Clean-room, API-compatible customs / trade / logistics actor (eu_customs_emcs); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicvevb5mbrtnmubvlyx2cdvcvs2p6ubrfn2en7csviei652rpnmqm",
+  "wasmCid": "bafkreicasaj7bqisg6ysxfjvec4gh4vmunnuk6mgqzmxqpkbm5j7jkcmle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicvevb5mbrtnmubvlyx2cdvcvs2p6ubrfn2en7csviei652rpnmqm",
+  "ipfs": "ipfs://bafkreicasaj7bqisg6ysxfjvec4gh4vmunnuk6mgqzmxqpkbm5j7jkcmle",
   "schema": "schema/eu_customs_emcs.kotoba",
+  "tier": "L3",
   "entities": [
     "Declaration",
     "Shipment",
@@ -181,6 +182,13 @@
           "op": "delete Party"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

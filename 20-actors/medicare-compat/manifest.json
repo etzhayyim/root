@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "medicare clean-room actor",
   "description": "Clean-room, API-compatible US federal / sovereign API actor (medicare); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreienkr2tjpr46sybbxlsc6jbenjxvab6ajcjau37kcvgvsd7sgkf2q",
+  "wasmCid": "bafkreigzrmqez4ulxffyg6j6p3egqh5tnr4uo2hdj2fsf2o6ztdjkxhdsq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreienkr2tjpr46sybbxlsc6jbenjxvab6ajcjau37kcvgvsd7sgkf2q",
+  "ipfs": "ipfs://bafkreigzrmqez4ulxffyg6j6p3egqh5tnr4uo2hdj2fsf2o6ztdjkxhdsq",
   "schema": "schema/medicare.kotoba",
+  "tier": "L3",
   "entities": [
     "Filing",
     "Entity",
@@ -181,6 +182,13 @@
           "op": "delete Notice"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

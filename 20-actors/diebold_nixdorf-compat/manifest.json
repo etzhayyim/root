@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "diebold_nixdorf clean-room actor",
   "description": "Clean-room, API-compatible e-commerce storefront actor (diebold_nixdorf); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiauvocnqhmgomzs6im73dfwmw7ctluoeqboxu7p55fhq4swxx7nsa",
+  "wasmCid": "bafkreihcbc3tw6liuxjtocjs2uumsn74i7ooceernbwj3l4mlzhdzi4ufi",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiauvocnqhmgomzs6im73dfwmw7ctluoeqboxu7p55fhq4swxx7nsa",
+  "ipfs": "ipfs://bafkreihcbc3tw6liuxjtocjs2uumsn74i7ooceernbwj3l4mlzhdzi4ufi",
   "schema": "schema/diebold_nixdorf.kotoba",
+  "tier": "L3",
   "entities": [
     "Product",
     "Variant",
@@ -181,6 +182,13 @@
           "op": "delete Collection"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

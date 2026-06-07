@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "naver clean-room actor",
   "description": "Clean-room, API-compatible delivery / local logistics actor (naver); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifhlvwcxf5hmhzxe6yteo6sni23ell6qbtp6xafkwlo7c6q77bqoe",
+  "wasmCid": "bafkreihmdmnqpqvsmccv772dju2sf4hjiwiuen4lg3d4ckcw7tmnnwyfx4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifhlvwcxf5hmhzxe6yteo6sni23ell6qbtp6xafkwlo7c6q77bqoe",
+  "ipfs": "ipfs://bafkreihmdmnqpqvsmccv772dju2sf4hjiwiuen4lg3d4ckcw7tmnnwyfx4",
   "schema": "schema/naver.kotoba",
+  "tier": "L3",
   "entities": [
     "Order",
     "Courier",
@@ -181,6 +182,13 @@
           "op": "delete Tracking"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

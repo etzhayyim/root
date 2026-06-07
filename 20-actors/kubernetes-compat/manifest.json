@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "kubernetes clean-room actor",
   "description": "Clean-room, API-compatible DevOps / CI-CD actor (kubernetes); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigd6bmaqvcbchfywbgumlvsvpjrasle3z2c3efn3i7kooiaihitla",
+  "wasmCid": "bafkreifub3w6zchj3znss2wo52i6e2xm6qnpdnkuqdw3mlfal6ehg2ja2m",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigd6bmaqvcbchfywbgumlvsvpjrasle3z2c3efn3i7kooiaihitla",
+  "ipfs": "ipfs://bafkreifub3w6zchj3znss2wo52i6e2xm6qnpdnkuqdw3mlfal6ehg2ja2m",
   "schema": "schema/kubernetes.kotoba",
+  "tier": "L3",
   "entities": [
     "Repository",
     "Pipeline",
@@ -181,6 +182,13 @@
           "op": "delete Webhook"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

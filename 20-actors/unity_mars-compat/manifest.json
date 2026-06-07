@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "unity_mars clean-room actor",
   "description": "Clean-room, API-compatible spatial computing / XR actor (unity_mars); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifok7gejtuz4znzkk5m5as74pxojpj2aahkgn75tfikyf4xtifava",
+  "wasmCid": "bafkreidfrf76egscmpwo2diw4agpblvyhtoel6fiipmlajycyl3wgiotra",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifok7gejtuz4znzkk5m5as74pxojpj2aahkgn75tfikyf4xtifava",
+  "ipfs": "ipfs://bafkreidfrf76egscmpwo2diw4agpblvyhtoel6fiipmlajycyl3wgiotra",
   "schema": "schema/unity_mars.kotoba",
+  "tier": "L3",
   "entities": [
     "Anchor",
     "Scene",
@@ -181,6 +182,13 @@
           "op": "delete Device"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

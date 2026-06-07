@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "hubspot clean-room actor",
   "description": "Clean-room, API-compatible CRM / sales-pipeline actor (hubspot); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreih75d7qxxfhhqqdcrvr45fwn3irezx6bdp43yqd6lhkgwftnfpocq",
+  "wasmCid": "bafkreibwzomgxe5dpvfmpupqjey4jldcbkev24y6wfiky3sgpw7y6b7bti",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreih75d7qxxfhhqqdcrvr45fwn3irezx6bdp43yqd6lhkgwftnfpocq",
+  "ipfs": "ipfs://bafkreibwzomgxe5dpvfmpupqjey4jldcbkev24y6wfiky3sgpw7y6b7bti",
   "schema": "schema/hubspot.kotoba",
+  "tier": "L3",
   "entities": [
     "Account",
     "Contact",
@@ -181,6 +182,13 @@
           "op": "delete Pipeline"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

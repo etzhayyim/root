@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "recordedfuture clean-room actor",
   "description": "Clean-room, API-compatible cyber threat intelligence actor (recordedfuture); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidqoueoawvbtwrehh4376wvzhpao6bqyo77cbsjgqqahd2rih6kaa",
+  "wasmCid": "bafkreigvm4ddest7cgiosp3isul34kmmqviovkt2pjmmktd4dz6hvzowxi",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidqoueoawvbtwrehh4376wvzhpao6bqyo77cbsjgqqahd2rih6kaa",
+  "ipfs": "ipfs://bafkreigvm4ddest7cgiosp3isul34kmmqviovkt2pjmmktd4dz6hvzowxi",
   "schema": "schema/recordedfuture.kotoba",
+  "tier": "L3",
   "entities": [
     "Indicator",
     "Vulnerability",
@@ -181,6 +182,13 @@
           "op": "delete Technique"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

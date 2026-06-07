@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "munich_re_api clean-room actor",
   "description": "Clean-room, API-compatible core banking / InsurTech actor (munich_re_api); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidslpk2b5i7skvzlcvdiunnstevgsat3a4a33253hwuo5j6w6pbza",
+  "wasmCid": "bafkreiexbitgkvp43pg7qlmsp5tianur7lxbys6szxfiop557m4zsvd6he",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidslpk2b5i7skvzlcvdiunnstevgsat3a4a33253hwuo5j6w6pbza",
+  "ipfs": "ipfs://bafkreiexbitgkvp43pg7qlmsp5tianur7lxbys6szxfiop557m4zsvd6he",
   "schema": "schema/munich_re_api.kotoba",
+  "tier": "L3",
   "entities": [
     "Account",
     "Loan",
@@ -181,6 +182,13 @@
           "op": "delete Customer"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "sel4 clean-room actor",
   "description": "Clean-room, API-compatible OS / kernel interface actor (sel4); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreick4injbojf7jkjzu2kbofvb7rgo5w5psgwspx62bhadi6irk7aga",
+  "wasmCid": "bafkreibvthleusamcr7oyby7fy3guovpck3ou5ddshzibshctmhmfqt57m",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreick4injbojf7jkjzu2kbofvb7rgo5w5psgwspx62bhadi6irk7aga",
+  "ipfs": "ipfs://bafkreibvthleusamcr7oyby7fy3guovpck3ou5ddshzibshctmhmfqt57m",
   "schema": "schema/sel4.kotoba",
+  "tier": "L3",
   "entities": [
     "Process",
     "Thread",
@@ -181,6 +182,13 @@
           "op": "delete Signal"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

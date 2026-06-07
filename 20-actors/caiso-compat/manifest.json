@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "caiso clean-room actor",
   "description": "Clean-room, API-compatible energy / smart grid actor (caiso); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreianiei6nsnrsupbgkgvcqhfvhczw7hblvcktamcu5itpciq54knva",
+  "wasmCid": "bafkreia7z2yrrotbmvilvrpa422l2cyhbuwzgkwymwixiifz62c6c23qju",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreianiei6nsnrsupbgkgvcqhfvhczw7hblvcktamcu5itpciq54knva",
+  "ipfs": "ipfs://bafkreia7z2yrrotbmvilvrpa422l2cyhbuwzgkwymwixiifz62c6c23qju",
   "schema": "schema/caiso.kotoba",
+  "tier": "L3",
   "entities": [
     "Meter",
     "Reading",
@@ -181,6 +182,13 @@
           "op": "delete Tag"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

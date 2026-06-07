@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "cosco_api clean-room actor",
   "description": "Clean-room, API-compatible deep logistics / supply chain actor (cosco_api); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiczn5p42yurtznpoar2sbmhdo2jcko4krl7ul5qfhs5sj36m6gzg4",
+  "wasmCid": "bafkreia7hslpr2su4pqkxnogtelcozyjd3rqvjokqkdjsuoue6skkuiwpm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiczn5p42yurtznpoar2sbmhdo2jcko4krl7ul5qfhs5sj36m6gzg4",
+  "ipfs": "ipfs://bafkreia7hslpr2su4pqkxnogtelcozyjd3rqvjokqkdjsuoue6skkuiwpm",
   "schema": "schema/cosco_api.kotoba",
+  "tier": "L3",
   "entities": [
     "TradeItem",
     "Event",
@@ -181,6 +182,13 @@
           "op": "delete Shipment"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

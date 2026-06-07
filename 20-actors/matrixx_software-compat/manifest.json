@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "matrixx_software clean-room actor",
   "description": "Clean-room, API-compatible telecom / satellite actor (matrixx_software); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifsouopnka3sfrt2gxtczdpbqm53cndnpzkilgzeehqmfcksixg3i",
+  "wasmCid": "bafkreiht7yoe2elepnzhc66o62nk63wlyfvrnaeffjiwluyzr2whcweh5a",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifsouopnka3sfrt2gxtczdpbqm53cndnpzkilgzeehqmfcksixg3i",
+  "ipfs": "ipfs://bafkreiht7yoe2elepnzhc66o62nk63wlyfvrnaeffjiwluyzr2whcweh5a",
   "schema": "schema/matrixx_software.kotoba",
+  "tier": "L3",
   "entities": [
     "Subscriber",
     "Session",
@@ -181,6 +182,13 @@
           "op": "delete UsageRecord"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "discord clean-room actor",
   "description": "Clean-room, API-compatible communications / social actor (discord); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibz4kbvaysaifp2wtc5mmr4u2l5krvuvshdpts6t4fpymzvpo2xjm",
+  "wasmCid": "bafkreicsyesy6bc3bhqq6gdgx3d26qicrjjy5wxucj7wtg2yzrqqtt74hu",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibz4kbvaysaifp2wtc5mmr4u2l5krvuvshdpts6t4fpymzvpo2xjm",
+  "ipfs": "ipfs://bafkreicsyesy6bc3bhqq6gdgx3d26qicrjjy5wxucj7wtg2yzrqqtt74hu",
   "schema": "schema/discord.kotoba",
+  "tier": "L3",
   "entities": [
     "Channel",
     "Message",
@@ -181,6 +182,13 @@
           "op": "delete Webhook"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

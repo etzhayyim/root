@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "idnow clean-room actor",
   "description": "Clean-room, API-compatible digital public infrastructure actor (idnow); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicbhnn32dvbiqin6qlpdbe23uq2wb7kehhbecvopl2buwq27q3oiy",
+  "wasmCid": "bafkreihg6a6bicmzcb5ak37jyuwrchspnnn7udf7ln4cnmbdllpfppjsv4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicbhnn32dvbiqin6qlpdbe23uq2wb7kehhbecvopl2buwq27q3oiy",
+  "ipfs": "ipfs://bafkreihg6a6bicmzcb5ak37jyuwrchspnnn7udf7ln4cnmbdllpfppjsv4",
   "schema": "schema/idnow.kotoba",
+  "tier": "L3",
   "entities": [
     "Identity",
     "Credential",
@@ -181,6 +182,13 @@
           "op": "delete VerificationRequest"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

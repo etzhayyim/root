@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "nakama clean-room actor",
   "description": "Clean-room, API-compatible gaming backend / metaverse actor (nakama); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibrzxlsi6pikgba63pkvwp6motpyzjubio2bgqqi2luydv5qm6lz4",
+  "wasmCid": "bafkreieb4pfx5lg5dolsqx5katobums6g4laqefieman542jfdvd3qc4wi",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibrzxlsi6pikgba63pkvwp6motpyzjubio2bgqqi2luydv5qm6lz4",
+  "ipfs": "ipfs://bafkreieb4pfx5lg5dolsqx5katobums6g4laqefieman542jfdvd3qc4wi",
   "schema": "schema/nakama.kotoba",
+  "tier": "L3",
   "entities": [
     "Player",
     "Session",
@@ -181,6 +182,13 @@
           "op": "delete Achievement"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

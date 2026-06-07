@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "alchemy clean-room actor",
   "description": "Clean-room, API-compatible web3 / blockchain RPC actor (alchemy); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidttcygsmrsm7iqmit4nosb2nqejw66j7ryqg4gx5eoaiglllmxva",
+  "wasmCid": "bafkreifu7yfa46743fy3ls7mas6qjwxgq3sniyccvr4avfzpwnzkaizmau",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidttcygsmrsm7iqmit4nosb2nqejw66j7ryqg4gx5eoaiglllmxva",
+  "ipfs": "ipfs://bafkreifu7yfa46743fy3ls7mas6qjwxgq3sniyccvr4avfzpwnzkaizmau",
   "schema": "schema/alchemy.kotoba",
+  "tier": "L4",
   "entities": [
     "Block",
     "Transaction",
@@ -181,6 +182,13 @@
           "op": "delete Token"
         }
       ],
+      "features": {
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
+      },
       "health": "/healthz"
     },
     "supplychain": {

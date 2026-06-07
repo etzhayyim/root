@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "comarch clean-room actor",
   "description": "Clean-room, API-compatible telecom / satellite actor (comarch); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihwpn2px4l4w5dqgzoxxjn7hys3e7nliku52jfexqbrtldos4jwny",
+  "wasmCid": "bafkreibagwbrm6mjzngfoolca5do6x6kbrclwbkhgfpstzt463jzegcate",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihwpn2px4l4w5dqgzoxxjn7hys3e7nliku52jfexqbrtldos4jwny",
+  "ipfs": "ipfs://bafkreibagwbrm6mjzngfoolca5do6x6kbrclwbkhgfpstzt463jzegcate",
   "schema": "schema/comarch.kotoba",
+  "tier": "L3",
   "entities": [
     "Subscriber",
     "Session",
@@ -181,6 +182,13 @@
           "op": "delete UsageRecord"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

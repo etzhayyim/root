@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "zoom clean-room actor",
   "description": "Clean-room, API-compatible communications / social actor (zoom); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreih6glnu6i3cygfbtz26oes3mhnsipjeno6dmyglv4nou5dwkw4afe",
+  "wasmCid": "bafkreig5b6pg2cpcmxn55k2v4wl4gpuyem7zjqr23rz72pubxyaomnms64",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreih6glnu6i3cygfbtz26oes3mhnsipjeno6dmyglv4nou5dwkw4afe",
+  "ipfs": "ipfs://bafkreig5b6pg2cpcmxn55k2v4wl4gpuyem7zjqr23rz72pubxyaomnms64",
   "schema": "schema/zoom.kotoba",
+  "tier": "L3",
   "entities": [
     "Channel",
     "Message",
@@ -181,6 +182,13 @@
           "op": "delete Webhook"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

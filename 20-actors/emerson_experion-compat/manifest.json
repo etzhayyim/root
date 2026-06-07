@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "emerson_experion clean-room actor",
   "description": "Clean-room, API-compatible industrial SCADA actor (emerson_experion); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreic2nh5iduzlm44cbviepq5gqhxicn2dzlwirz53jddwavmgpthjey",
+  "wasmCid": "bafkreiedrbv3fd6otofo7u7xazuxm5tjmpf43hu5rda64evrkswkmwd2nq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreic2nh5iduzlm44cbviepq5gqhxicn2dzlwirz53jddwavmgpthjey",
+  "ipfs": "ipfs://bafkreiedrbv3fd6otofo7u7xazuxm5tjmpf43hu5rda64evrkswkmwd2nq",
   "schema": "schema/emerson_experion.kotoba",
+  "tier": "L3",
   "entities": [
     "Tag",
     "Device",
@@ -181,6 +182,13 @@
           "op": "delete Batch"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

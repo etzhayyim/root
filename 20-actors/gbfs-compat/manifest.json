@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "gbfs clean-room actor",
   "description": "Clean-room, API-compatible transit / smart cities actor (gbfs); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreia2uuavsq3oisp37lciholqquh53pedsnmp7y7y62gpj53w3jhfg4",
+  "wasmCid": "bafkreic6243r3qhhughavxuivct35rdbdgisyle3nxlvfdmyc5ee25bsce",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreia2uuavsq3oisp37lciholqquh53pedsnmp7y7y62gpj53w3jhfg4",
+  "ipfs": "ipfs://bafkreic6243r3qhhughavxuivct35rdbdgisyle3nxlvfdmyc5ee25bsce",
   "schema": "schema/gbfs.kotoba",
+  "tier": "L3",
   "entities": [
     "Stop",
     "Route",
@@ -181,6 +182,13 @@
           "op": "delete Fare"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

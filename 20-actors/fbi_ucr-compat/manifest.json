@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "fbi_ucr clean-room actor",
   "description": "Clean-room, API-compatible public safety / law / justice actor (fbi_ucr); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicyhwdruh7gsyyq344li4zzgsmvbtc2o7v3jbes3ki5bjgz6po4wm",
+  "wasmCid": "bafkreibpbmkdsnh3biziqipwat4kgdwimhcuvgzuj2q6zkqy3esgkjjysm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicyhwdruh7gsyyq344li4zzgsmvbtc2o7v3jbes3ki5bjgz6po4wm",
+  "ipfs": "ipfs://bafkreibpbmkdsnh3biziqipwat4kgdwimhcuvgzuj2q6zkqy3esgkjjysm",
   "schema": "schema/fbi_ucr.kotoba",
+  "tier": "L3",
   "entities": [
     "Case",
     "Party",
@@ -181,6 +182,13 @@
           "op": "delete Sanction"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

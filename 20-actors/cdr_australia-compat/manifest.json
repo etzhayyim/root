@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "cdr_australia clean-room actor",
   "description": "Clean-room, API-compatible Japan / APAC e-government actor (cdr_australia); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicg5ncgdt3x2xqipjlwvdmetasaqkmk5ira7fkz4m6shohiw4k3yi",
+  "wasmCid": "bafkreienwgexlwsagrg6sl3g7gffcwbg7ddygz3mz6lpbcgkjywd6d5nay",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicg5ncgdt3x2xqipjlwvdmetasaqkmk5ira7fkz4m6shohiw4k3yi",
+  "ipfs": "ipfs://bafkreienwgexlwsagrg6sl3g7gffcwbg7ddygz3mz6lpbcgkjywd6d5nay",
   "schema": "schema/cdr_australia.kotoba",
+  "tier": "L3",
   "entities": [
     "Filing",
     "Corporation",
@@ -181,6 +182,13 @@
           "op": "delete Dataset"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

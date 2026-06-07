@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "fujitsu_msp clean-room actor",
   "description": "Clean-room, API-compatible mainframe / legacy substrate actor (fujitsu_msp); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiedfp4mhe3wbwpgzt7xitm536cjlil25hnjmtx3pncmlnkexa7yce",
+  "wasmCid": "bafkreibewykgmwn3kblvsgy6d3aeinqisq7yse4ic4lxd5t4v66yfb73pm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiedfp4mhe3wbwpgzt7xitm536cjlil25hnjmtx3pncmlnkexa7yce",
+  "ipfs": "ipfs://bafkreibewykgmwn3kblvsgy6d3aeinqisq7yse4ic4lxd5t4v66yfb73pm",
   "schema": "schema/fujitsu_msp.kotoba",
+  "tier": "L3",
   "entities": [
     "Job",
     "Dataset",
@@ -181,6 +182,13 @@
           "op": "delete Queue"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

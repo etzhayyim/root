@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "abb_robotics clean-room actor",
   "description": "Clean-room, API-compatible manufacturing / PLM / robotics actor (abb_robotics); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihlc52dnzqnwvshmzdy3qe543dtqvtpcwyx5lzv4ilysnerqsl2ra",
+  "wasmCid": "bafkreiajctr7jkuovxfi3hzboznf5bcyzpxzku3hrnii5ubiyu3z32jnwi",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihlc52dnzqnwvshmzdy3qe543dtqvtpcwyx5lzv4ilysnerqsl2ra",
+  "ipfs": "ipfs://bafkreiajctr7jkuovxfi3hzboznf5bcyzpxzku3hrnii5ubiyu3z32jnwi",
   "schema": "schema/abb_robotics.kotoba",
+  "tier": "L3",
   "entities": [
     "Part",
     "BOM",
@@ -181,6 +182,13 @@
           "op": "delete Program"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

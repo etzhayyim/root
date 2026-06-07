@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "figma clean-room actor",
   "description": "Clean-room, API-compatible design / creative tooling actor (figma); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiejggh3w7mhxzivgrjabiut7wjjtjqgtnzqvbu2f3lhnr2od7kcka",
+  "wasmCid": "bafkreicds5nze7y27tsn3cr3dnfbdcml2mk3atondxrfl3mn5l7guoagwa",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiejggh3w7mhxzivgrjabiut7wjjtjqgtnzqvbu2f3lhnr2od7kcka",
+  "ipfs": "ipfs://bafkreicds5nze7y27tsn3cr3dnfbdcml2mk3atondxrfl3mn5l7guoagwa",
   "schema": "schema/figma.kotoba",
+  "tier": "L4",
   "entities": [
     "Project",
     "File",
@@ -181,6 +182,13 @@
           "op": "delete Export"
         }
       ],
+      "features": {
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
+      },
       "health": "/healthz"
     },
     "supplychain": {

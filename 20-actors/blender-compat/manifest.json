@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "blender clean-room actor",
   "description": "Clean-room, API-compatible design / creative tooling actor (blender); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiecoucm75roq2uojccm5rh2743wynftljwiii6b4qdm2ic4xizrpi",
+  "wasmCid": "bafkreieeukuexfvalqpiqh4rrfyiwbwzgq5uu33tdkg4nzfiuqdeyc4qpe",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiecoucm75roq2uojccm5rh2743wynftljwiii6b4qdm2ic4xizrpi",
+  "ipfs": "ipfs://bafkreieeukuexfvalqpiqh4rrfyiwbwzgq5uu33tdkg4nzfiuqdeyc4qpe",
   "schema": "schema/blender.kotoba",
+  "tier": "L3",
   "entities": [
     "Project",
     "File",
@@ -181,6 +182,13 @@
           "op": "delete Export"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

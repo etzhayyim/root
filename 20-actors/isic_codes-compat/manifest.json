@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "isic_codes clean-room actor",
   "description": "Clean-room, API-compatible physical benchmarks / classifications actor (isic_codes); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigqjkacwd3davrye47fnkm437j562uol6kh2xuf5w7htmp6bdxo3a",
+  "wasmCid": "bafkreigt4gqwycpgiwc4ohxvzo6i3mp3zut7q23npaoaexfrlomjaddxwy",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigqjkacwd3davrye47fnkm437j562uol6kh2xuf5w7htmp6bdxo3a",
+  "ipfs": "ipfs://bafkreigt4gqwycpgiwc4ohxvzo6i3mp3zut7q23npaoaexfrlomjaddxwy",
   "schema": "schema/isic_codes.kotoba",
+  "tier": "L3",
   "entities": [
     "Code",
     "Unit",
@@ -181,6 +182,13 @@
           "op": "delete Epoch"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

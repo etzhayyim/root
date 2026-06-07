@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "outsystems clean-room actor",
   "description": "Clean-room, API-compatible low-code / iPaaS actor (outsystems); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigfeqw3ejl3rxcmazkljxxgd7plcy2d5jjwourx4oh2fgtfgo7jre",
+  "wasmCid": "bafkreih5k2g2qrfccbcuww3ffpwc5xpwvtk3kiuyxiozygesk7fxji7izq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigfeqw3ejl3rxcmazkljxxgd7plcy2d5jjwourx4oh2fgtfgo7jre",
+  "ipfs": "ipfs://bafkreih5k2g2qrfccbcuww3ffpwc5xpwvtk3kiuyxiozygesk7fxji7izq",
   "schema": "schema/outsystems.kotoba",
+  "tier": "L3",
   "entities": [
     "Flow",
     "Step",
@@ -181,6 +182,13 @@
           "op": "delete Webhook"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "amadeus_altéa clean-room actor",
   "description": "Clean-room, API-compatible travel / aviation / hospitality actor (amadeus_altéa); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiatg3ktzghz27abeipynfp77o7jko6ebxgool7eaf2qkokodoownm",
+  "wasmCid": "bafkreigga56ubja73zdgyawwmnyqvjxeoqswbaf6digf7bfid4bghtnr6e",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiatg3ktzghz27abeipynfp77o7jko6ebxgool7eaf2qkokodoownm",
+  "ipfs": "ipfs://bafkreigga56ubja73zdgyawwmnyqvjxeoqswbaf6digf7bfid4bghtnr6e",
   "schema": "schema/amadeus_altéa.kotoba",
+  "tier": "L3",
   "entities": [
     "Flight",
     "Booking",
@@ -181,6 +182,13 @@
           "op": "delete Fare"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

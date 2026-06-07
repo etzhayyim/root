@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "parrot_sdk clean-room actor",
   "description": "Clean-room, API-compatible drone swarm / aerial robotics actor (parrot_sdk); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifh4xvgxh3hbjm7jzodtlqbnzgmojjwvxdh5yg7pzcofxpgjyb4dy",
+  "wasmCid": "bafkreig5ehkib3p3j3vvaca5v67lkludv4wlvrfthnjlcyrfo3qakkxtj4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifh4xvgxh3hbjm7jzodtlqbnzgmojjwvxdh5yg7pzcofxpgjyb4dy",
+  "ipfs": "ipfs://bafkreig5ehkib3p3j3vvaca5v67lkludv4wlvrfthnjlcyrfo3qakkxtj4",
   "schema": "schema/parrot_sdk.kotoba",
+  "tier": "L3",
   "entities": [
     "Drone",
     "Mission",
@@ -181,6 +182,13 @@
           "op": "delete Swarm"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

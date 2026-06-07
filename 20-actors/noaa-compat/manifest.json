@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "noaa clean-room actor",
   "description": "Clean-room, API-compatible US federal / sovereign API actor (noaa); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiez23qfax3kupraetfcyopmr7rzzwyogvadqhvrqqpkbqgvni4ms4",
+  "wasmCid": "bafkreib35i7gjtzacv5xmp325kpey7nhvdvslgvwdoubvcxvpklbebdcd4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiez23qfax3kupraetfcyopmr7rzzwyogvadqhvrqqpkbqgvni4ms4",
+  "ipfs": "ipfs://bafkreib35i7gjtzacv5xmp325kpey7nhvdvslgvwdoubvcxvpklbebdcd4",
   "schema": "schema/noaa.kotoba",
+  "tier": "L3",
   "entities": [
     "Filing",
     "Entity",
@@ -181,6 +182,13 @@
           "op": "delete Notice"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

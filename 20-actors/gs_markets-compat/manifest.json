@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "gs_markets clean-room actor",
   "description": "Clean-room, API-compatible core banking / InsurTech actor (gs_markets); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicmpgkbsgg5ucasqjagj343n7o5ft4xqpvgvfixyl635zo2rha7t4",
+  "wasmCid": "bafkreiclyqruuo6bs5ngtoezjtrsnmntzelgjm25hacbsre5crhoccjasu",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicmpgkbsgg5ucasqjagj343n7o5ft4xqpvgvfixyl635zo2rha7t4",
+  "ipfs": "ipfs://bafkreiclyqruuo6bs5ngtoezjtrsnmntzelgjm25hacbsre5crhoccjasu",
   "schema": "schema/gs_markets.kotoba",
+  "tier": "L3",
   "entities": [
     "Account",
     "Loan",
@@ -181,6 +182,13 @@
           "op": "delete Customer"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

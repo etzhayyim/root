@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "helium clean-room actor",
   "description": "Clean-room, API-compatible IoT / edge actor (helium); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifagkpmz2m4szihlitg7rh54djikfrwld37wwtiefguoelx5npfmi",
+  "wasmCid": "bafkreia7j63ctcq6tdsjekyuels2hgcyrhi3ygoknogo6yj2m7pcjkcp7i",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifagkpmz2m4szihlitg7rh54djikfrwld37wwtiefguoelx5npfmi",
+  "ipfs": "ipfs://bafkreia7j63ctcq6tdsjekyuels2hgcyrhi3ygoknogo6yj2m7pcjkcp7i",
   "schema": "schema/helium.kotoba",
+  "tier": "L3",
   "entities": [
     "Device",
     "Telemetry",
@@ -181,6 +182,13 @@
           "op": "delete Alert"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

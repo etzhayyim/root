@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "neuralink_api clean-room actor",
   "description": "Clean-room, API-compatible brain-computer interface / neurotech actor (neuralink_api); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreieacn74tayg4g7u4qtvqsdypvwbjiinrncrswnfzj46ewdlukbbsy",
+  "wasmCid": "bafkreicxrq6pugihnzpiqbirazsuw5my2r5arhmdghbhkibf2i24rn7psu",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreieacn74tayg4g7u4qtvqsdypvwbjiinrncrswnfzj46ewdlukbbsy",
+  "ipfs": "ipfs://bafkreicxrq6pugihnzpiqbirazsuw5my2r5arhmdghbhkibf2i24rn7psu",
   "schema": "schema/neuralink_api.kotoba",
+  "tier": "L3",
   "entities": [
     "Device",
     "Session",
@@ -181,6 +182,13 @@
           "op": "delete Calibration"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

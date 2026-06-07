@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "opec_data clean-room actor",
   "description": "Clean-room, API-compatible energy commodities actor (opec_data); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiaxbwf35vmpbx7teuo3rmdiabaztyfsjz536r34rzgf33ud3nh24q",
+  "wasmCid": "bafkreiflwotb55kfovhyadfnzw7zlllw3y5ozvo76aoa2mdddxhb3xgo3a",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiaxbwf35vmpbx7teuo3rmdiabaztyfsjz536r34rzgf33ud3nh24q",
+  "ipfs": "ipfs://bafkreiflwotb55kfovhyadfnzw7zlllw3y5ozvo76aoa2mdddxhb3xgo3a",
   "schema": "schema/opec_data.kotoba",
+  "tier": "L3",
   "entities": [
     "Commodity",
     "Price",
@@ -181,6 +182,13 @@
           "op": "delete Forecast"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

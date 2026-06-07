@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "blueprism clean-room actor",
   "description": "Clean-room, API-compatible RPA / process automation actor (blueprism); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibvsc4yycfj25tvy3vj5i3tayt24fl3yuppxhzsfgqbnk2axy2pxm",
+  "wasmCid": "bafkreigt77lczjdp5ggim55dnngpjd77czvie4goe66ixcmduz6jma3lwy",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibvsc4yycfj25tvy3vj5i3tayt24fl3yuppxhzsfgqbnk2axy2pxm",
+  "ipfs": "ipfs://bafkreigt77lczjdp5ggim55dnngpjd77czvie4goe66ixcmduz6jma3lwy",
   "schema": "schema/blueprism.kotoba",
+  "tier": "L3",
   "entities": [
     "Bot",
     "Process",
@@ -181,6 +182,13 @@
           "op": "delete ProcessMining"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

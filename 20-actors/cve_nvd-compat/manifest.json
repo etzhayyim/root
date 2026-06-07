@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "cve_nvd clean-room actor",
   "description": "Clean-room, API-compatible cyber threat intelligence actor (cve_nvd); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicvpwe5yvv3pffxxhno6mltanexslopleshg5tznx2ht3n4jwqtf4",
+  "wasmCid": "bafkreig73tnpohrv6eqdvxzzsplk47l4xjt7h4hl2dubhvhkceeja4zafa",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicvpwe5yvv3pffxxhno6mltanexslopleshg5tznx2ht3n4jwqtf4",
+  "ipfs": "ipfs://bafkreig73tnpohrv6eqdvxzzsplk47l4xjt7h4hl2dubhvhkceeja4zafa",
   "schema": "schema/cve_nvd.kotoba",
+  "tier": "L3",
   "entities": [
     "Indicator",
     "Vulnerability",
@@ -181,6 +182,13 @@
           "op": "delete Technique"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "uk_customs_chief clean-room actor",
   "description": "Clean-room, API-compatible customs / trade / logistics actor (uk_customs_chief); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreif7cpbwql6gxfirblvhgozkm7rdtqf5oix5av7ojbluvxcds5uu2i",
+  "wasmCid": "bafkreiaxnyst3grm5xtepti5dazzvzyza77k4gw3p4dcujylctptjvl5yq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreif7cpbwql6gxfirblvhgozkm7rdtqf5oix5av7ojbluvxcds5uu2i",
+  "ipfs": "ipfs://bafkreiaxnyst3grm5xtepti5dazzvzyza77k4gw3p4dcujylctptjvl5yq",
   "schema": "schema/uk_customs_chief.kotoba",
+  "tier": "L3",
   "entities": [
     "Declaration",
     "Shipment",
@@ -181,6 +182,13 @@
           "op": "delete Party"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

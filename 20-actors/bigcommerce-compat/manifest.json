@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "bigcommerce clean-room actor",
   "description": "Clean-room, API-compatible e-commerce storefront actor (bigcommerce); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidlcajqfff5etmr56ojir5gfyy74kblm5q3zorcq3fdq2enseqx64",
+  "wasmCid": "bafkreibioo7o3qxmtve2rdiljmfw5bgm2wrt323dmffctgxhtyhuxd2rum",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidlcajqfff5etmr56ojir5gfyy74kblm5q3zorcq3fdq2enseqx64",
+  "ipfs": "ipfs://bafkreibioo7o3qxmtve2rdiljmfw5bgm2wrt323dmffctgxhtyhuxd2rum",
   "schema": "schema/bigcommerce.kotoba",
+  "tier": "L3",
   "entities": [
     "Product",
     "Variant",
@@ -181,6 +182,13 @@
           "op": "delete Collection"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

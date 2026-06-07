@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "uipath clean-room actor",
   "description": "Clean-room, API-compatible RPA / process automation actor (uipath); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidudde77s2gi7qnku2nixizikgfeavxu7xoebeurjnam7j7473yni",
+  "wasmCid": "bafkreibv766sz2phzpclhbyjfkijdest65d53viyhsw3hjj7pf7osxtb3q",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidudde77s2gi7qnku2nixizikgfeavxu7xoebeurjnam7j7473yni",
+  "ipfs": "ipfs://bafkreibv766sz2phzpclhbyjfkijdest65d53viyhsw3hjj7pf7osxtb3q",
   "schema": "schema/uipath.kotoba",
+  "tier": "L4",
   "entities": [
     "Bot",
     "Process",
@@ -181,6 +182,13 @@
           "op": "delete ProcessMining"
         }
       ],
+      "features": {
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
+      },
       "health": "/healthz"
     },
     "supplychain": {

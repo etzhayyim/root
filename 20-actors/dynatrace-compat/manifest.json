@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "dynatrace clean-room actor",
   "description": "Clean-room, API-compatible developer tools / APM actor (dynatrace); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiakbebg57nae62h4ifd3rnt67yplielh45znuoctm6ptwmg4gevlm",
+  "wasmCid": "bafkreifsnlwxjgoglogll7u5mowpjgga3kqbniyfw2k3abi2jw34femhni",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiakbebg57nae62h4ifd3rnt67yplielh45znuoctm6ptwmg4gevlm",
+  "ipfs": "ipfs://bafkreifsnlwxjgoglogll7u5mowpjgga3kqbniyfw2k3abi2jw34femhni",
   "schema": "schema/dynatrace.kotoba",
+  "tier": "L3",
   "entities": [
     "Service",
     "Error",
@@ -181,6 +182,13 @@
           "op": "delete Incident"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "veracode clean-room actor",
   "description": "Clean-room, API-compatible developer tools / APM actor (veracode); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifpla7ay5euyz3tf5ekrv3zlkswmptgwcvwwechhj73rofioh4vxm",
+  "wasmCid": "bafkreia5pf42aevghaivp22qhtzyct26sbsie4kqnjxkidhtkihyvr7rje",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifpla7ay5euyz3tf5ekrv3zlkswmptgwcvwwechhj73rofioh4vxm",
+  "ipfs": "ipfs://bafkreia5pf42aevghaivp22qhtzyct26sbsie4kqnjxkidhtkihyvr7rje",
   "schema": "schema/veracode.kotoba",
+  "tier": "L3",
   "entities": [
     "Service",
     "Error",
@@ -181,6 +182,13 @@
           "op": "delete Incident"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

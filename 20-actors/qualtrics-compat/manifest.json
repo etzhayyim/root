@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "qualtrics clean-room actor",
   "description": "Clean-room, API-compatible customer experience / survey actor (qualtrics); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigc43lq5qzufa5mqrtcayqd4mb5ldfcmokjji6r2a2ue5ilt3oue4",
+  "wasmCid": "bafkreidtrm2th34gacnycmnurdlv7r3mzdnoc4j3ricemqn3ncmiacjh5i",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigc43lq5qzufa5mqrtcayqd4mb5ldfcmokjji6r2a2ue5ilt3oue4",
+  "ipfs": "ipfs://bafkreidtrm2th34gacnycmnurdlv7r3mzdnoc4j3ricemqn3ncmiacjh5i",
   "schema": "schema/qualtrics.kotoba",
+  "tier": "L3",
   "entities": [
     "Ticket",
     "Survey",
@@ -181,6 +182,13 @@
           "op": "delete Contact"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

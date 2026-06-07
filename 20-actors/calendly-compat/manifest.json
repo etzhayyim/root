@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "calendly clean-room actor",
   "description": "Clean-room, API-compatible office / productivity suite actor (calendly); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiajguwhu2sgrlh3ygx2xze6y3uqugtmll4j2fettqw3dt3u3q26cm",
+  "wasmCid": "bafkreihidkbpdd4tf7r754gkkb3hjva7g7fld2fiy3elv2hquaxee6qxay",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiajguwhu2sgrlh3ygx2xze6y3uqugtmll4j2fettqw3dt3u3q26cm",
+  "ipfs": "ipfs://bafkreihidkbpdd4tf7r754gkkb3hjva7g7fld2fiy3elv2hquaxee6qxay",
   "schema": "schema/calendly.kotoba",
+  "tier": "L3",
   "entities": [
     "Workspace",
     "Document",
@@ -181,6 +182,13 @@
           "op": "delete User"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

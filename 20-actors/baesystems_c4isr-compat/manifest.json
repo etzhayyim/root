@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "baesystems_c4isr clean-room actor",
   "description": "Clean-room, API-compatible public safety / law / justice actor (baesystems_c4isr); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidigmue4rzss6rq4ftq7o6idmoqh5fjtrrdzblqkyc67xfgbkeu3y",
+  "wasmCid": "bafkreigedm6gpptddzykj2bdlmrpddy3te6ds2awkep7xxm26uj2vmuyy4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidigmue4rzss6rq4ftq7o6idmoqh5fjtrrdzblqkyc67xfgbkeu3y",
+  "ipfs": "ipfs://bafkreigedm6gpptddzykj2bdlmrpddy3te6ds2awkep7xxm26uj2vmuyy4",
   "schema": "schema/baesystems_c4isr.kotoba",
+  "tier": "L3",
   "entities": [
     "Case",
     "Party",
@@ -181,6 +182,13 @@
           "op": "delete Sanction"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

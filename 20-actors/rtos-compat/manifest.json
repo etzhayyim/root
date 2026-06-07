@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "rtos clean-room actor",
   "description": "Clean-room, API-compatible OS / kernel interface actor (rtos); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiasac243bkbmzr6g2cs43r4ka2sqxorqhqplsrx5mxc3x3stk6vgi",
+  "wasmCid": "bafkreiesatzwzt5q3yzsxjwph724dh3pn5eqen3ywwmhyzhsvywo7gwm3q",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiasac243bkbmzr6g2cs43r4ka2sqxorqhqplsrx5mxc3x3stk6vgi",
+  "ipfs": "ipfs://bafkreiesatzwzt5q3yzsxjwph724dh3pn5eqen3ywwmhyzhsvywo7gwm3q",
   "schema": "schema/rtos.kotoba",
+  "tier": "L3",
   "entities": [
     "Process",
     "Thread",
@@ -181,6 +182,13 @@
           "op": "delete Signal"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

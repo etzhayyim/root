@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "hcss clean-room actor",
   "description": "Clean-room, API-compatible AEC / GovTech actor (hcss); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibxzc7oaeuah7z2mrymzdzy3qo5jtedtsx4finjkb5gnuotylamrm",
+  "wasmCid": "bafkreidql3l5eolqplw5ontlnue55gdub7gf3ageapafeo5nu77dq77o6i",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibxzc7oaeuah7z2mrymzdzy3qo5jtedtsx4finjkb5gnuotylamrm",
+  "ipfs": "ipfs://bafkreidql3l5eolqplw5ontlnue55gdub7gf3ageapafeo5nu77dq77o6i",
   "schema": "schema/hcss.kotoba",
+  "tier": "L3",
   "entities": [
     "Project",
     "Permit",
@@ -181,6 +182,13 @@
           "op": "delete ServiceRequest"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

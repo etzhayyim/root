@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "bluefin_robotics clean-room actor",
   "description": "Clean-room, API-compatible space / ocean / earth physics actor (bluefin_robotics); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidhtvotry6gmvsiyors6irzcurdjqwx7pf46l2455b3hujt37aide",
+  "wasmCid": "bafkreidvawyoprp6prl44z3gnghsaaji75l63xmmlukspkagp2asmezab4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidhtvotry6gmvsiyors6irzcurdjqwx7pf46l2455b3hujt37aide",
+  "ipfs": "ipfs://bafkreidvawyoprp6prl44z3gnghsaaji75l63xmmlukspkagp2asmezab4",
   "schema": "schema/bluefin_robotics.kotoba",
+  "tier": "L3",
   "entities": [
     "Object",
     "Position",
@@ -181,6 +182,13 @@
           "op": "delete Station"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

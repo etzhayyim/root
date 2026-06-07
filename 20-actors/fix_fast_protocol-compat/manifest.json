@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "fix_fast_protocol clean-room actor",
   "description": "Clean-room, API-compatible deep logistics / supply chain actor (fix_fast_protocol); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiaumyl7j257k2lvfwlhcehob4podgcpl26pfrosch3yy7vq2d7uhu",
+  "wasmCid": "bafkreibxvzyjfs3jz4vb6esgtu7dj2k4bpwkyznwn6tvpuyscizxmxmvsu",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiaumyl7j257k2lvfwlhcehob4podgcpl26pfrosch3yy7vq2d7uhu",
+  "ipfs": "ipfs://bafkreibxvzyjfs3jz4vb6esgtu7dj2k4bpwkyznwn6tvpuyscizxmxmvsu",
   "schema": "schema/fix_fast_protocol.kotoba",
+  "tier": "L3",
   "entities": [
     "TradeItem",
     "Event",
@@ -181,6 +182,13 @@
           "op": "delete Shipment"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

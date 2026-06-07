@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "l3harris_net clean-room actor",
   "description": "Clean-room, API-compatible public safety / law / justice actor (l3harris_net); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiazjmi26sszvzw6ftx2kcxesqmqx2p4fngvhvqib5ajk6nxeofq6m",
+  "wasmCid": "bafkreibxiaj636zpo6es7vnygwghboyxm3pu2jvwoek5vbaznqnmo2m35u",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiazjmi26sszvzw6ftx2kcxesqmqx2p4fngvhvqib5ajk6nxeofq6m",
+  "ipfs": "ipfs://bafkreibxiaj636zpo6es7vnygwghboyxm3pu2jvwoek5vbaznqnmo2m35u",
   "schema": "schema/l3harris_net.kotoba",
+  "tier": "L3",
   "entities": [
     "Case",
     "Party",
@@ -181,6 +182,13 @@
           "op": "delete Sanction"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

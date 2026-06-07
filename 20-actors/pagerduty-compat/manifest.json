@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "pagerduty clean-room actor",
   "description": "Clean-room, API-compatible developer tools / APM actor (pagerduty); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreic3xpdm5kuztrrogkzsoqiofqlqdolawsmexw3ehg6do5fhyc52ii",
+  "wasmCid": "bafkreiehgojnaanxqi7t25rywmxzof5rsxq64crgxhnzl73kvv7rxj5aze",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreic3xpdm5kuztrrogkzsoqiofqlqdolawsmexw3ehg6do5fhyc52ii",
+  "ipfs": "ipfs://bafkreiehgojnaanxqi7t25rywmxzof5rsxq64crgxhnzl73kvv7rxj5aze",
   "schema": "schema/pagerduty.kotoba",
+  "tier": "L3",
   "entities": [
     "Service",
     "Error",
@@ -181,6 +182,13 @@
           "op": "delete Incident"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

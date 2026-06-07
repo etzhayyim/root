@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "zte_cbss clean-room actor",
   "description": "Clean-room, API-compatible telecom / satellite actor (zte_cbss); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifkhd57i327exphh54kmc5pysxdkoemmgy57vqftjbvoxy6ivc2rq",
+  "wasmCid": "bafkreigm3h3ur64omq4m7lm47aynu7sm7eagsgpcijybim2i7w47ugzrvu",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifkhd57i327exphh54kmc5pysxdkoemmgy57vqftjbvoxy6ivc2rq",
+  "ipfs": "ipfs://bafkreigm3h3ur64omq4m7lm47aynu7sm7eagsgpcijybim2i7w47ugzrvu",
   "schema": "schema/zte_cbss.kotoba",
+  "tier": "L3",
   "entities": [
     "Subscriber",
     "Session",
@@ -181,6 +182,13 @@
           "op": "delete UsageRecord"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

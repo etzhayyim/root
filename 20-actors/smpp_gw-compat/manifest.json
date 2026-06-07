@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "smpp_gw clean-room actor",
   "description": "Clean-room, API-compatible telecom / satellite actor (smpp_gw); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiexpsb6kbqjblyeidhehlcrwtkec5p3v52ugfejqglbc4qyuigvzi",
+  "wasmCid": "bafkreifhr5shqtdzxarvf2hqc52xdkjapm6e5ffpomu245hxl3vu2khx3u",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiexpsb6kbqjblyeidhehlcrwtkec5p3v52ugfejqglbc4qyuigvzi",
+  "ipfs": "ipfs://bafkreifhr5shqtdzxarvf2hqc52xdkjapm6e5ffpomu245hxl3vu2khx3u",
   "schema": "schema/smpp_gw.kotoba",
+  "tier": "L3",
   "entities": [
     "Subscriber",
     "Session",
@@ -181,6 +182,13 @@
           "op": "delete UsageRecord"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

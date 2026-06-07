@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "shippo clean-room actor",
   "description": "Clean-room, API-compatible headless commerce / logistics actor (shippo); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreib4n24bomdoe7ntpov5tqbsbndnendfjzssrky6ulflspgtr5jbm4",
+  "wasmCid": "bafkreid4ev6u77bwggucjgtvkvkosywn767q4blxkkz7fwbhploniwc64q",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreib4n24bomdoe7ntpov5tqbsbndnendfjzssrky6ulflspgtr5jbm4",
+  "ipfs": "ipfs://bafkreid4ev6u77bwggucjgtvkvkosywn767q4blxkkz7fwbhploniwc64q",
   "schema": "schema/shippo.kotoba",
+  "tier": "L3",
   "entities": [
     "ContentEntry",
     "Product",
@@ -181,6 +182,13 @@
           "op": "delete Order"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

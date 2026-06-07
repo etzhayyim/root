@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "corelogic_hazard clean-room actor",
   "description": "Clean-room, API-compatible core banking / InsurTech actor (corelogic_hazard); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreia3tcynpowv7dwmfqt3sltqwhkudo4sqicuyekos7fo56mgahqqce",
+  "wasmCid": "bafkreigtflhnoqbycrr5gsaflr5michnohqysavmi3jnhcln24yblc7pyq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreia3tcynpowv7dwmfqt3sltqwhkudo4sqicuyekos7fo56mgahqqce",
+  "ipfs": "ipfs://bafkreigtflhnoqbycrr5gsaflr5michnohqysavmi3jnhcln24yblc7pyq",
   "schema": "schema/corelogic_hazard.kotoba",
+  "tier": "L3",
   "entities": [
     "Account",
     "Loan",
@@ -181,6 +182,13 @@
           "op": "delete Customer"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

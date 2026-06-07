@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "crypta_labs clean-room actor",
   "description": "Clean-room, API-compatible quantum key distribution actor (crypta_labs); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreie5sy7npp3kwuu47m6aj4msmylhwzrtozp6uuhd5qxy24iecblo3q",
+  "wasmCid": "bafkreif37tk34mia4rgf77dzhyzzpcq2jvpiki3gy2xcbgcgnl4r2dlzt4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreie5sy7npp3kwuu47m6aj4msmylhwzrtozp6uuhd5qxy24iecblo3q",
+  "ipfs": "ipfs://bafkreif37tk34mia4rgf77dzhyzzpcq2jvpiki3gy2xcbgcgnl4r2dlzt4",
   "schema": "schema/crypta_labs.kotoba",
+  "tier": "L3",
   "entities": [
     "KeySession",
     "Node",
@@ -181,6 +182,13 @@
           "op": "delete Alarm"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

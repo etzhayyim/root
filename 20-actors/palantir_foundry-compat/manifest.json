@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "palantir_foundry clean-room actor",
   "description": "Clean-room, API-compatible public safety / law / justice actor (palantir_foundry); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidtjxeu7kbkexxaapmewgn256g24kxiitlpqx6if4sjfxo5jqttme",
+  "wasmCid": "bafkreiaspk4v2abzw452exxgglzdh6p3tk4rn6mjm77q3gzysegwkyevsu",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidtjxeu7kbkexxaapmewgn256g24kxiitlpqx6if4sjfxo5jqttme",
+  "ipfs": "ipfs://bafkreiaspk4v2abzw452exxgglzdh6p3tk4rn6mjm77q3gzysegwkyevsu",
   "schema": "schema/palantir_foundry.kotoba",
+  "tier": "L3",
   "entities": [
     "Case",
     "Party",
@@ -181,6 +182,13 @@
           "op": "delete Sanction"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "apple_visionos clean-room actor",
   "description": "Clean-room, API-compatible spatial computing / XR actor (apple_visionos); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidxjclnbs37fdnhkwns6dwjacgstn2cjnsxvey5qe4xsq3wbeuqsa",
+  "wasmCid": "bafkreidefhvzswhbqkicewbx5f6spl5eakcrbabxklxhufgiqqdyteaj5a",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidxjclnbs37fdnhkwns6dwjacgstn2cjnsxvey5qe4xsq3wbeuqsa",
+  "ipfs": "ipfs://bafkreidefhvzswhbqkicewbx5f6spl5eakcrbabxklxhufgiqqdyteaj5a",
   "schema": "schema/apple_visionos.kotoba",
+  "tier": "L3",
   "entities": [
     "Anchor",
     "Scene",
@@ -181,6 +182,13 @@
           "op": "delete Device"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

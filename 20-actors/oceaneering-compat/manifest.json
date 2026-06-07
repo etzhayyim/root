@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "oceaneering clean-room actor",
   "description": "Clean-room, API-compatible space / ocean / earth physics actor (oceaneering); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicwpw6xybec6xifw6hdyexahmdpk47fsogpyy5f2idtxznopeu3bq",
+  "wasmCid": "bafkreigunotfpshb2e2nmyhed3q5wsyalp63yhvk7ugco7yeio3ftlfm34",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicwpw6xybec6xifw6hdyexahmdpk47fsogpyy5f2idtxznopeu3bq",
+  "ipfs": "ipfs://bafkreigunotfpshb2e2nmyhed3q5wsyalp63yhvk7ugco7yeio3ftlfm34",
   "schema": "schema/oceaneering.kotoba",
+  "tier": "L3",
   "entities": [
     "Object",
     "Position",
@@ -181,6 +182,13 @@
           "op": "delete Station"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

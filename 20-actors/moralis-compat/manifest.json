@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "moralis clean-room actor",
   "description": "Clean-room, API-compatible web3 / blockchain RPC actor (moralis); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibydzmfg2rjn7xibsrzt4a7mv4wqvvg57bssgohgmfcse7tb43rpu",
+  "wasmCid": "bafkreiabiqbtoixommz2ar7tojghgsw5grm4dshyhrfnlf5jlten5af24q",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibydzmfg2rjn7xibsrzt4a7mv4wqvvg57bssgohgmfcse7tb43rpu",
+  "ipfs": "ipfs://bafkreiabiqbtoixommz2ar7tojghgsw5grm4dshyhrfnlf5jlten5af24q",
   "schema": "schema/moralis.kotoba",
+  "tier": "L3",
   "entities": [
     "Block",
     "Transaction",
@@ -181,6 +182,13 @@
           "op": "delete Token"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

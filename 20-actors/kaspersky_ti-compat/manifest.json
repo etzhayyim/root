@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "kaspersky_ti clean-room actor",
   "description": "Clean-room, API-compatible cyber threat intelligence actor (kaspersky_ti); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreia4a5fwga67nhbhkq5bi5b7uv4kgizalzc6firpuqplf6cpb5ehbe",
+  "wasmCid": "bafkreigvcvnsszl2zociavqblya2o7zztkmou3xceked3cewbqeekp46bq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreia4a5fwga67nhbhkq5bi5b7uv4kgizalzc6firpuqplf6cpb5ehbe",
+  "ipfs": "ipfs://bafkreigvcvnsszl2zociavqblya2o7zztkmou3xceked3cewbqeekp46bq",
   "schema": "schema/kaspersky_ti.kotoba",
+  "tier": "L3",
   "entities": [
     "Indicator",
     "Vulnerability",
@@ -181,6 +182,13 @@
           "op": "delete Technique"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

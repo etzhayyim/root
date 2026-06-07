@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "cma clean-room actor",
   "description": "Clean-room, API-compatible open banking / financial regulation actor (cma); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibvkqaezkaa7rcazgnsx6dzjpjhz653uu2beyyuvlfaoofmbyxu5e",
+  "wasmCid": "bafkreign5fb75t4emksenlpevdss3j72uqi4aa5itmdpjgx7bvnvkzunwu",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibvkqaezkaa7rcazgnsx6dzjpjhz653uu2beyyuvlfaoofmbyxu5e",
+  "ipfs": "ipfs://bafkreign5fb75t4emksenlpevdss3j72uqi4aa5itmdpjgx7bvnvkzunwu",
   "schema": "schema/cma.kotoba",
+  "tier": "L3",
   "entities": [
     "Account",
     "Consent",
@@ -181,6 +182,13 @@
           "op": "delete Filing"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

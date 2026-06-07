@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "px4_autopilot clean-room actor",
   "description": "Clean-room, API-compatible drone swarm / aerial robotics actor (px4_autopilot); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihggcjitrg6qpkuhze2h5rz7w4zfdfirski2kvdhtfkrwx6m6prim",
+  "wasmCid": "bafkreidkqozulupmhgta7o4a7qjv63lqjdvoy7tb4ernm2wzwinszjnrlu",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihggcjitrg6qpkuhze2h5rz7w4zfdfirski2kvdhtfkrwx6m6prim",
+  "ipfs": "ipfs://bafkreidkqozulupmhgta7o4a7qjv63lqjdvoy7tb4ernm2wzwinszjnrlu",
   "schema": "schema/px4_autopilot.kotoba",
+  "tier": "L4",
   "entities": [
     "Drone",
     "Mission",
@@ -181,6 +182,13 @@
           "op": "delete Swarm"
         }
       ],
+      "features": {
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
+      },
       "health": "/healthz"
     },
     "supplychain": {

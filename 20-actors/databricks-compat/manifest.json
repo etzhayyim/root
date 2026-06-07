@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "databricks clean-room actor",
   "description": "Clean-room, API-compatible data / analytics actor (databricks); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreif6hcnublzxo7h76kbcjwquegethxh5okiharxswph5ur4qkuncoq",
+  "wasmCid": "bafkreie7j3mfiox3m4u5hjtbwwibastxcigmmz3e4c2gza26i2rezwh43a",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreif6hcnublzxo7h76kbcjwquegethxh5okiharxswph5ur4qkuncoq",
+  "ipfs": "ipfs://bafkreie7j3mfiox3m4u5hjtbwwibastxcigmmz3e4c2gza26i2rezwh43a",
   "schema": "schema/databricks.kotoba",
+  "tier": "L3",
   "entities": [
     "Dataset",
     "Query",
@@ -181,6 +182,13 @@
           "op": "delete Metric"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

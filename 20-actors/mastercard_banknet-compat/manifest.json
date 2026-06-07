@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "mastercard_banknet clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (mastercard_banknet); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigd5cd6jpvtcxx5y7ziztxcmtwkzjccvdoqtpe5ylkujnvv5j4afu",
+  "wasmCid": "bafkreiernrwgartbsuhsmusjo7xbqy6sm2aigs7r7ozrjmzpq27w3gyrmm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigd5cd6jpvtcxx5y7ziztxcmtwkzjccvdoqtpe5ylkujnvv5j4afu",
+  "ipfs": "ipfs://bafkreiernrwgartbsuhsmusjo7xbqy6sm2aigs7r7ozrjmzpq27w3gyrmm",
   "schema": "schema/mastercard_banknet.kotoba",
+  "tier": "L3",
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -181,6 +182,13 @@
           "op": "delete PaymentMethod"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

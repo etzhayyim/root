@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "opc_ua clean-room actor",
   "description": "Clean-room, API-compatible energy / smart grid actor (opc_ua); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicboviuicmdtke6tvvir446rwif23mfl3brgmcdsd7caig3ftuvt4",
+  "wasmCid": "bafkreibdkxiapis2z2l6ahjum3vryh37n2jdxhxotnyy6q2rfmnpv4brhq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicboviuicmdtke6tvvir446rwif23mfl3brgmcdsd7caig3ftuvt4",
+  "ipfs": "ipfs://bafkreibdkxiapis2z2l6ahjum3vryh37n2jdxhxotnyy6q2rfmnpv4brhq",
   "schema": "schema/opc_ua.kotoba",
+  "tier": "L4",
   "entities": [
     "Meter",
     "Reading",
@@ -181,6 +182,13 @@
           "op": "delete Tag"
         }
       ],
+      "features": {
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
+      },
       "health": "/healthz"
     },
     "supplychain": {

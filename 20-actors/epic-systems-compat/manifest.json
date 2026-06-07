@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "epic-systems clean-room actor",
   "description": "Clean-room, API-compatible EHR / clinical records actor (epic-systems); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifnbvnd7u6t2mjzbskdcrra6bazmf7ouriedheq7rl3xsydp2hrau",
+  "wasmCid": "bafkreifcp2n57jornyogbjvfu76whalmvd335deuzf7wvknxgk3pbeiczi",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifnbvnd7u6t2mjzbskdcrra6bazmf7ouriedheq7rl3xsydp2hrau",
+  "ipfs": "ipfs://bafkreifcp2n57jornyogbjvfu76whalmvd335deuzf7wvknxgk3pbeiczi",
   "schema": "schema/epic-systems.kotoba",
+  "tier": "L4",
   "entities": [
     "Patient",
     "Encounter",
@@ -181,6 +182,13 @@
           "op": "delete Appointment"
         }
       ],
+      "features": {
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
+      },
       "health": "/healthz"
     },
     "supplychain": {

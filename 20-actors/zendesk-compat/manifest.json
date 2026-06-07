@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "zendesk clean-room actor",
   "description": "Clean-room, API-compatible customer experience / survey actor (zendesk); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidt4hnlxa6bgkrsukxregdtkeun7ztjayojwueaexa63sy3njhbqy",
+  "wasmCid": "bafkreienvwa3lslplyrqasyk7fhareyybhl6qw7owetyu4gmh7xb2egi5i",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidt4hnlxa6bgkrsukxregdtkeun7ztjayojwueaexa63sy3njhbqy",
+  "ipfs": "ipfs://bafkreienvwa3lslplyrqasyk7fhareyybhl6qw7owetyu4gmh7xb2egi5i",
   "schema": "schema/zendesk.kotoba",
+  "tier": "L4",
   "entities": [
     "Ticket",
     "Survey",
@@ -181,6 +182,13 @@
           "op": "delete Contact"
         }
       ],
+      "features": {
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
+      },
       "health": "/healthz"
     },
     "supplychain": {

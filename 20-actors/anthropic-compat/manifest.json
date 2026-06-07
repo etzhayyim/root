@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "anthropic clean-room actor",
   "description": "Clean-room, API-compatible AI / ML inference actor (anthropic); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihml3zthsu5gxhhbek52fuhue3vru7ft45iozm4qkkuvcs2cjfbke",
+  "wasmCid": "bafkreigpozmdpm3eyd5lzwmeka4tci35tx2asvednynu7k2i3r3vcjwrjq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihml3zthsu5gxhhbek52fuhue3vru7ft45iozm4qkkuvcs2cjfbke",
+  "ipfs": "ipfs://bafkreigpozmdpm3eyd5lzwmeka4tci35tx2asvednynu7k2i3r3vcjwrjq",
   "schema": "schema/anthropic.kotoba",
+  "tier": "L4",
   "entities": [
     "Model",
     "Message",
@@ -207,6 +208,13 @@
           "op": "delete File"
         }
       ],
+      "features": {
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
+      },
       "health": "/healthz"
     },
     "supplychain": {

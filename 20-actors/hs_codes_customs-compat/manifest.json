@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "hs_codes_customs clean-room actor",
   "description": "Clean-room, API-compatible physical benchmarks / classifications actor (hs_codes_customs); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicn47bkhcsp6qmdyzbypsgqux72pl465omvxa5wxxug3ypwd2cy2m",
+  "wasmCid": "bafkreifburcqmhmy2nq3pypqpnsw5jjsmqqxxoo5z6or7m7imfgqihv62y",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicn47bkhcsp6qmdyzbypsgqux72pl465omvxa5wxxug3ypwd2cy2m",
+  "ipfs": "ipfs://bafkreifburcqmhmy2nq3pypqpnsw5jjsmqqxxoo5z6or7m7imfgqihv62y",
   "schema": "schema/hs_codes_customs.kotoba",
+  "tier": "L4",
   "entities": [
     "Code",
     "Unit",
@@ -181,6 +182,13 @@
           "op": "delete Epoch"
         }
       ],
+      "features": {
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
+      },
       "health": "/healthz"
     },
     "supplychain": {

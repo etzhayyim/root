@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "iso_claimsearch clean-room actor",
   "description": "Clean-room, API-compatible core banking / InsurTech actor (iso_claimsearch); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreid4hpfqvrowptphfasf27tdjxqwessduovtordojq7em26lst7d5e",
+  "wasmCid": "bafkreicbmk6f54pr7nlu3vs4mhpdedvetc3xcvmj7ostrcfztzsbixc7e4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreid4hpfqvrowptphfasf27tdjxqwessduovtordojq7em26lst7d5e",
+  "ipfs": "ipfs://bafkreicbmk6f54pr7nlu3vs4mhpdedvetc3xcvmj7ostrcfztzsbixc7e4",
   "schema": "schema/iso_claimsearch.kotoba",
+  "tier": "L3",
   "entities": [
     "Account",
     "Loan",
@@ -181,6 +182,13 @@
           "op": "delete Customer"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

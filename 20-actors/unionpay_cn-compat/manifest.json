@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "unionpay_cn clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (unionpay_cn); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiappqaub3l7ixmpgc7v2po3gsxs64lfdgs5soqaentqnyoa3qcory",
+  "wasmCid": "bafkreigf7tal3y34uka6bwylpwnrfpmqt2272zg7ju7rg7bhfkpgzgn4ou",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiappqaub3l7ixmpgc7v2po3gsxs64lfdgs5soqaentqnyoa3qcory",
+  "ipfs": "ipfs://bafkreigf7tal3y34uka6bwylpwnrfpmqt2272zg7ju7rg7bhfkpgzgn4ou",
   "schema": "schema/unionpay_cn.kotoba",
+  "tier": "L3",
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -181,6 +182,13 @@
           "op": "delete PaymentMethod"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

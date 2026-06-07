@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "vimeo clean-room actor",
   "description": "Clean-room, API-compatible media / video / CMS actor (vimeo); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreif27psho6ezpvddl7ovmc5iqz2l3snmndz72nkueq6qxathuhbqpq",
+  "wasmCid": "bafkreierkdr24u3zkpsb23h3nvuhll6mzz5lgyfy5kizqi36etdqpqgev4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreif27psho6ezpvddl7ovmc5iqz2l3snmndz72nkueq6qxathuhbqpq",
+  "ipfs": "ipfs://bafkreierkdr24u3zkpsb23h3nvuhll6mzz5lgyfy5kizqi36etdqpqgev4",
   "schema": "schema/vimeo.kotoba",
+  "tier": "L3",
   "entities": [
     "Asset",
     "Rendition",
@@ -181,6 +182,13 @@
           "op": "delete Experiment"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

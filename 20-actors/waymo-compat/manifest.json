@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "waymo clean-room actor",
   "description": "Clean-room, API-compatible mobility / auto / EV actor (waymo); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibwg7x7hbacnu4ds3dvkep3kiy5pkhn357fp4jolz2wi5t35sm2jy",
+  "wasmCid": "bafkreibu3ck3n6zq7ru3axpvtna57ie4h4alxgzzjm77dgphqf4jye6fru",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibwg7x7hbacnu4ds3dvkep3kiy5pkhn357fp4jolz2wi5t35sm2jy",
+  "ipfs": "ipfs://bafkreibu3ck3n6zq7ru3axpvtna57ie4h4alxgzzjm77dgphqf4jye6fru",
   "schema": "schema/waymo.kotoba",
+  "tier": "L3",
   "entities": [
     "Vehicle",
     "Signal",
@@ -181,6 +182,13 @@
           "op": "delete Command"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "glide clean-room actor",
   "description": "Clean-room, API-compatible low-code / iPaaS actor (glide); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreieo4grlvhacdxg6fnryma5n3aupclrgcgiwywhaq4y443u77zkeca",
+  "wasmCid": "bafkreieqg3wflgizr6p54jfgxp6j63vtlpjmjbkjsri4pp4bhbfxje55hm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreieo4grlvhacdxg6fnryma5n3aupclrgcgiwywhaq4y443u77zkeca",
+  "ipfs": "ipfs://bafkreieqg3wflgizr6p54jfgxp6j63vtlpjmjbkjsri4pp4bhbfxje55hm",
   "schema": "schema/glide.kotoba",
+  "tier": "L3",
   "entities": [
     "Flow",
     "Step",
@@ -181,6 +182,13 @@
           "op": "delete Webhook"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

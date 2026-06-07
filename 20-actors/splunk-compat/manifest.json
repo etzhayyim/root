@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "splunk clean-room actor",
   "description": "Clean-room, API-compatible developer tools / APM actor (splunk); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidgp56vasroolopjcdu2pgaqqd7m3kw5o4kqyane4ixfri6mxfvnm",
+  "wasmCid": "bafkreifbpjbfvzmcpcmqs7gk5hz5lv6qscoufgnicy3dxe3o6ghwdmwnxm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidgp56vasroolopjcdu2pgaqqd7m3kw5o4kqyane4ixfri6mxfvnm",
+  "ipfs": "ipfs://bafkreifbpjbfvzmcpcmqs7gk5hz5lv6qscoufgnicy3dxe3o6ghwdmwnxm",
   "schema": "schema/splunk.kotoba",
+  "tier": "L3",
   "entities": [
     "Service",
     "Error",
@@ -181,6 +182,13 @@
           "op": "delete Incident"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

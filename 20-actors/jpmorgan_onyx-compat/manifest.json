@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "jpmorgan_onyx clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (jpmorgan_onyx); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidqa3rcrvd3eajeg52ujbofeagkd6g2mbxfg5wat2dleyiymwtghe",
+  "wasmCid": "bafkreihqtdxoki7hsfttlqmfq3kvzm2gy62uftfxbvda46zavk5xxzjgye",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidqa3rcrvd3eajeg52ujbofeagkd6g2mbxfg5wat2dleyiymwtghe",
+  "ipfs": "ipfs://bafkreihqtdxoki7hsfttlqmfq3kvzm2gy62uftfxbvda46zavk5xxzjgye",
   "schema": "schema/jpmorgan_onyx.kotoba",
+  "tier": "L3",
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -181,6 +182,13 @@
           "op": "delete PaymentMethod"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

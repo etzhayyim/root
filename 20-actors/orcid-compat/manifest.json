@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "orcid clean-room actor",
   "description": "Clean-room, API-compatible meta-knowledge / scientific publishing actor (orcid); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreif5yuhjbv35udzpyhxi2p7xnj4hziwxsgx4cq4whwdt724sbz6bfe",
+  "wasmCid": "bafkreiafhxea5py5nmdpeu6wokl7fje3zwltvohw3af3276no7hdcc4crq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreif5yuhjbv35udzpyhxi2p7xnj4hziwxsgx4cq4whwdt724sbz6bfe",
+  "ipfs": "ipfs://bafkreiafhxea5py5nmdpeu6wokl7fje3zwltvohw3af3276no7hdcc4crq",
   "schema": "schema/orcid.kotoba",
+  "tier": "L3",
   "entities": [
     "Work",
     "Author",
@@ -181,6 +182,13 @@
           "op": "delete Subject"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

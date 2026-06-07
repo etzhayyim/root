@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "eurostat clean-room actor",
   "description": "Clean-room, API-compatible UK / EU e-government actor (eurostat); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreie22qmzd2hwtfskblvlkzr6ilinc6ebqh5yeo444m7jfvacx7jc5m",
+  "wasmCid": "bafkreicw44rmzeghae5wso4npmclprhsk4vx2wttpd5xsuales7ctzihha",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreie22qmzd2hwtfskblvlkzr6ilinc6ebqh5yeo444m7jfvacx7jc5m",
+  "ipfs": "ipfs://bafkreicw44rmzeghae5wso4npmclprhsk4vx2wttpd5xsuales7ctzihha",
   "schema": "schema/eurostat.kotoba",
+  "tier": "L3",
   "entities": [
     "Filing",
     "Citizen",
@@ -181,6 +182,13 @@
           "op": "delete Identity"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

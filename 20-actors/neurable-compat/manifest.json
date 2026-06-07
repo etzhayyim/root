@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "neurable clean-room actor",
   "description": "Clean-room, API-compatible brain-computer interface / neurotech actor (neurable); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreic7setplsntg47hrcngukf7rjoo25sv73r763ednb2b7okqwqqa7e",
+  "wasmCid": "bafkreib6ty3akp6j3le7weur2mzygz5kkqizzkgzywfrrthydmyandhppq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreic7setplsntg47hrcngukf7rjoo25sv73r763ednb2b7okqwqqa7e",
+  "ipfs": "ipfs://bafkreib6ty3akp6j3le7weur2mzygz5kkqizzkgzywfrrthydmyandhppq",
   "schema": "schema/neurable.kotoba",
+  "tier": "L3",
   "entities": [
     "Device",
     "Session",
@@ -181,6 +182,13 @@
           "op": "delete Calibration"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

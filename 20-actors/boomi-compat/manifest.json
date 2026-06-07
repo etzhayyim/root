@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "boomi clean-room actor",
   "description": "Clean-room, API-compatible low-code / iPaaS actor (boomi); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibcoh5h4iz3zwrzfhhivyfh4iwqq26miojbkepc25v2bhlq5izucy",
+  "wasmCid": "bafkreielxbei4rhtsgybyvwzenu7skhtw46c3qk5kztw43cica7fok6tu4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibcoh5h4iz3zwrzfhhivyfh4iwqq26miojbkepc25v2bhlq5izucy",
+  "ipfs": "ipfs://bafkreielxbei4rhtsgybyvwzenu7skhtw46c3qk5kztw43cica7fok6tu4",
   "schema": "schema/boomi.kotoba",
+  "tier": "L3",
   "entities": [
     "Flow",
     "Step",
@@ -181,6 +182,13 @@
           "op": "delete Webhook"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "eventbrite clean-room actor",
   "description": "Clean-room, API-compatible events / NPO / creator actor (eventbrite); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifdlxtarur3bohejnnzrk7dy42zg5ajfoak67i2hbvg7xp6itjin4",
+  "wasmCid": "bafkreibsxhxgpauwhs2jyicw6solgimumw43vat4rdh5dubqtlq2g5x7mu",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifdlxtarur3bohejnnzrk7dy42zg5ajfoak67i2hbvg7xp6itjin4",
+  "ipfs": "ipfs://bafkreibsxhxgpauwhs2jyicw6solgimumw43vat4rdh5dubqtlq2g5x7mu",
   "schema": "schema/eventbrite.kotoba",
+  "tier": "L4",
   "entities": [
     "Event",
     "Ticket",
@@ -181,6 +182,13 @@
           "op": "delete Membership"
         }
       ],
+      "features": {
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
+      },
       "health": "/healthz"
     },
     "supplychain": {

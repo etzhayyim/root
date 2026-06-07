@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "manhattan_pos clean-room actor",
   "description": "Clean-room, API-compatible e-commerce storefront actor (manhattan_pos); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreie4rya6xhguhloiww3orftaeoajhym5ztr4inirx7v725po22mn7m",
+  "wasmCid": "bafkreifoyrhxg5ilqjbqmpi2mz2mu7jqejg26h5ao6zenbnwmprbmm7izy",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreie4rya6xhguhloiww3orftaeoajhym5ztr4inirx7v725po22mn7m",
+  "ipfs": "ipfs://bafkreifoyrhxg5ilqjbqmpi2mz2mu7jqejg26h5ao6zenbnwmprbmm7izy",
   "schema": "schema/manhattan_pos.kotoba",
+  "tier": "L3",
   "entities": [
     "Product",
     "Variant",
@@ -181,6 +182,13 @@
           "op": "delete Collection"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

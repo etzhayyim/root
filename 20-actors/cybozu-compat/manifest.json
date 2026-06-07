@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "cybozu clean-room actor",
   "description": "Clean-room, API-compatible CRM / sales-pipeline actor (cybozu); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreieo7moczwx7jv4d4jovcbhckisiprxa6gmmgmxphyyaopgp2tect4",
+  "wasmCid": "bafkreibdalgqc5t26j7xyzfte6cnsfqcoexuxrkrw5cokoeibafy42ffxi",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreieo7moczwx7jv4d4jovcbhckisiprxa6gmmgmxphyyaopgp2tect4",
+  "ipfs": "ipfs://bafkreibdalgqc5t26j7xyzfte6cnsfqcoexuxrkrw5cokoeibafy42ffxi",
   "schema": "schema/cybozu.kotoba",
+  "tier": "L3",
   "entities": [
     "Account",
     "Contact",
@@ -181,6 +182,13 @@
           "op": "delete Pipeline"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

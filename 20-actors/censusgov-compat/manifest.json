@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "censusgov clean-room actor",
   "description": "Clean-room, API-compatible US federal / sovereign API actor (censusgov); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreid5drh27pjsnjiwird6u7gmbbjquqh4wy6bkilkod32dlclibfdeu",
+  "wasmCid": "bafkreifm2v7dkfdzt46nhgan7zdib5tylotrh3wkspulgivvmoidz76nhq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreid5drh27pjsnjiwird6u7gmbbjquqh4wy6bkilkod32dlclibfdeu",
+  "ipfs": "ipfs://bafkreifm2v7dkfdzt46nhgan7zdib5tylotrh3wkspulgivvmoidz76nhq",
   "schema": "schema/censusgov.kotoba",
+  "tier": "L3",
   "entities": [
     "Filing",
     "Entity",
@@ -181,6 +182,13 @@
           "op": "delete Notice"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

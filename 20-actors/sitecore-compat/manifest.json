@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "sitecore clean-room actor",
   "description": "Clean-room, API-compatible media / video / CMS actor (sitecore); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihmcrube52ccs4uxevuw7l6tjlhcxenlhsfpxluqrv23dyi4x6a3y",
+  "wasmCid": "bafkreibam6dnd2dnbex3vplf72uzldniokwgdig7wjvsskamwyadk5m5cy",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihmcrube52ccs4uxevuw7l6tjlhcxenlhsfpxluqrv23dyi4x6a3y",
+  "ipfs": "ipfs://bafkreibam6dnd2dnbex3vplf72uzldniokwgdig7wjvsskamwyadk5m5cy",
   "schema": "schema/sitecore.kotoba",
+  "tier": "L3",
   "entities": [
     "Asset",
     "Rendition",
@@ -181,6 +182,13 @@
           "op": "delete Experiment"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

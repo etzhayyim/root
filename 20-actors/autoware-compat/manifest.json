@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "autoware clean-room actor",
   "description": "Clean-room, API-compatible mobility / auto / EV actor (autoware); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreig4acrfblnlap2m75j5e2n3outnvt5tssfwrqwkdpxjuyjmnnbx44",
+  "wasmCid": "bafkreibkt32jjxd4vbgdpiv3zhbr7vo2ut3wrq65nldzxqmp33ye6xa674",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreig4acrfblnlap2m75j5e2n3outnvt5tssfwrqwkdpxjuyjmnnbx44",
+  "ipfs": "ipfs://bafkreibkt32jjxd4vbgdpiv3zhbr7vo2ut3wrq65nldzxqmp33ye6xa674",
   "schema": "schema/autoware.kotoba",
+  "tier": "L3",
   "entities": [
     "Vehicle",
     "Signal",
@@ -181,6 +182,13 @@
           "op": "delete Command"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

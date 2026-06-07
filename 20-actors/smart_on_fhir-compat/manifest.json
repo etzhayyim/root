@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "smart_on_fhir clean-room actor",
   "description": "Clean-room, API-compatible healthcare HL7-FHIR / bioinformatics actor (smart_on_fhir); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreietmtkllxce2342v3zcqscwfkm5unjeg3k6vu7pibnfyd6fkyuaje",
+  "wasmCid": "bafkreifjyqpmfntktdueokx7mod22c3dyziu7ivdnlh2vajzvf2em5lg6m",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreietmtkllxce2342v3zcqscwfkm5unjeg3k6vu7pibnfyd6fkyuaje",
+  "ipfs": "ipfs://bafkreifjyqpmfntktdueokx7mod22c3dyziu7ivdnlh2vajzvf2em5lg6m",
   "schema": "schema/smart_on_fhir.kotoba",
+  "tier": "L3",
   "entities": [
     "Patient",
     "Observation",
@@ -181,6 +182,13 @@
           "op": "delete Specimen"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

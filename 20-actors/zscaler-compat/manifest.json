@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "zscaler clean-room actor",
   "description": "Clean-room, API-compatible security / IAM actor (zscaler); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreif3pb47zshu3taqnaokostzwdowhxjxuh4re2sfhe6hpcvkg4fdve",
+  "wasmCid": "bafkreie7lc5vjqfzlv6y2cjjss4r25txgddjgtfnwjph7onclcfi6wp2ki",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreif3pb47zshu3taqnaokostzwdowhxjxuh4re2sfhe6hpcvkg4fdve",
+  "ipfs": "ipfs://bafkreie7lc5vjqfzlv6y2cjjss4r25txgddjgtfnwjph7onclcfi6wp2ki",
   "schema": "schema/zscaler.kotoba",
+  "tier": "L3",
   "entities": [
     "Identity",
     "Policy",
@@ -181,6 +182,13 @@
           "op": "delete Session"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

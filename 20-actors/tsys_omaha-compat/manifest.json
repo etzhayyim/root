@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "tsys_omaha clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (tsys_omaha); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidv6nlk7p7j7kkxuovmx55ynolsht7cgsnkl7tryeqyfpeoxnpwgq",
+  "wasmCid": "bafkreiawklfhrub3t24vqch3bq6kyo6wesxlzx2sklwwiaia6x4y2ok3xq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidv6nlk7p7j7kkxuovmx55ynolsht7cgsnkl7tryeqyfpeoxnpwgq",
+  "ipfs": "ipfs://bafkreiawklfhrub3t24vqch3bq6kyo6wesxlzx2sklwwiaia6x4y2ok3xq",
   "schema": "schema/tsys_omaha.kotoba",
+  "tier": "L3",
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -181,6 +182,13 @@
           "op": "delete PaymentMethod"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

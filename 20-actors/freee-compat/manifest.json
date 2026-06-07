@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "freee clean-room actor",
   "description": "Clean-room, API-compatible CRM / sales-pipeline actor (freee); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidl7f7uyihlmjydtwbjuwetjrbrrvglbwixepdg6z33j7akaqcsmq",
+  "wasmCid": "bafkreidr24vm7tx4rrext7ejsh3ent6lskjhs5nmp3rf3kkcbrrl576fae",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidl7f7uyihlmjydtwbjuwetjrbrrvglbwixepdg6z33j7akaqcsmq",
+  "ipfs": "ipfs://bafkreidr24vm7tx4rrext7ejsh3ent6lskjhs5nmp3rf3kkcbrrl576fae",
   "schema": "schema/freee.kotoba",
+  "tier": "L3",
   "entities": [
     "Account",
     "Contact",
@@ -181,6 +182,13 @@
           "op": "delete Pipeline"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

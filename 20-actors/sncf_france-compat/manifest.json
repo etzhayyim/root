@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "sncf_france clean-room actor",
   "description": "Clean-room, API-compatible transit / smart cities actor (sncf_france); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidz3swb4q4ol7ivfnhj6eazesd5dhyrai5risvjkdded3p67cgi5e",
+  "wasmCid": "bafkreiehqxyi3r2c42vyy6k4fgeox6mdemfqpgdwnjbiwvt5los5okjr7a",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidz3swb4q4ol7ivfnhj6eazesd5dhyrai5risvjkdded3p67cgi5e",
+  "ipfs": "ipfs://bafkreiehqxyi3r2c42vyy6k4fgeox6mdemfqpgdwnjbiwvt5los5okjr7a",
   "schema": "schema/sncf_france.kotoba",
+  "tier": "L3",
   "entities": [
     "Stop",
     "Route",
@@ -181,6 +182,13 @@
           "op": "delete Fare"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

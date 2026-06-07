@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "docusign clean-room actor",
   "description": "Clean-room, API-compatible office / productivity suite actor (docusign); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreie5hwenhavuuw3dyvug4vb47rqsj6itilqoa7jwo2ob3nptmzqljm",
+  "wasmCid": "bafkreifgafv5qfs4ucdq64xwectv7crtcnbnes7j3q6nltkskclwggutni",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreie5hwenhavuuw3dyvug4vb47rqsj6itilqoa7jwo2ob3nptmzqljm",
+  "ipfs": "ipfs://bafkreifgafv5qfs4ucdq64xwectv7crtcnbnes7j3q6nltkskclwggutni",
   "schema": "schema/docusign.kotoba",
+  "tier": "L3",
   "entities": [
     "Workspace",
     "Document",
@@ -181,6 +182,13 @@
           "op": "delete User"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "usdot clean-room actor",
   "description": "Clean-room, API-compatible customs / trade / logistics actor (usdot); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibuy7ijzjm37t6hh6lbtxbheph2cc6lm6i5eaaz232qzrpmobooqa",
+  "wasmCid": "bafkreiehukhpgcqbnvrt5sxgrdh3w2yhz5z3rmjs6aldfsmy36efu6ycle",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibuy7ijzjm37t6hh6lbtxbheph2cc6lm6i5eaaz232qzrpmobooqa",
+  "ipfs": "ipfs://bafkreiehukhpgcqbnvrt5sxgrdh3w2yhz5z3rmjs6aldfsmy36efu6ycle",
   "schema": "schema/usdot.kotoba",
+  "tier": "L3",
   "entities": [
     "Declaration",
     "Shipment",
@@ -181,6 +182,13 @@
           "op": "delete Party"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "mightynetworks clean-room actor",
   "description": "Clean-room, API-compatible events / NPO / creator actor (mightynetworks); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigi4azfsim6ca2hj63clhopwulgsqlqizgtjxkloc6lvbxpgs5bzu",
+  "wasmCid": "bafkreifoyzlzf2eecj6ajcg6k6pzxpetocvpvmnsjs76gxlbwy3wcaiqvi",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigi4azfsim6ca2hj63clhopwulgsqlqizgtjxkloc6lvbxpgs5bzu",
+  "ipfs": "ipfs://bafkreifoyzlzf2eecj6ajcg6k6pzxpetocvpvmnsjs76gxlbwy3wcaiqvi",
   "schema": "schema/mightynetworks.kotoba",
+  "tier": "L3",
   "entities": [
     "Event",
     "Ticket",
@@ -181,6 +182,13 @@
           "op": "delete Membership"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

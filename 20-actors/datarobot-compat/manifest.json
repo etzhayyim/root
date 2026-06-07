@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "datarobot clean-room actor",
   "description": "Clean-room, API-compatible AI / ML inference actor (datarobot); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiftnjjo6rg7lxg7ir3uz6dho3gzet22dlzaa3a2cau4qesjb3dbry",
+  "wasmCid": "bafkreifnakn77tlx2euuuo2cawatpgrrhy5ogritpgk7zfvn5kr7dnlkta",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiftnjjo6rg7lxg7ir3uz6dho3gzet22dlzaa3a2cau4qesjb3dbry",
+  "ipfs": "ipfs://bafkreifnakn77tlx2euuuo2cawatpgrrhy5ogritpgk7zfvn5kr7dnlkta",
   "schema": "schema/datarobot.kotoba",
+  "tier": "L3",
   "entities": [
     "Model",
     "Completion",
@@ -181,6 +182,13 @@
           "op": "delete File"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

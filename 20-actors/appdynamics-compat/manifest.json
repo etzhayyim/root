@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "appdynamics clean-room actor",
   "description": "Clean-room, API-compatible developer tools / APM actor (appdynamics); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifjb2wtcbcwvcipjuo4d6z4vkohrh5aj5zcv55wdacnf2yjdoe5ri",
+  "wasmCid": "bafkreiedsp4lw74swm5n7nhqrbsc54dlrd32k6uhr4dkkrjjqmit2ns5ai",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifjb2wtcbcwvcipjuo4d6z4vkohrh5aj5zcv55wdacnf2yjdoe5ri",
+  "ipfs": "ipfs://bafkreiedsp4lw74swm5n7nhqrbsc54dlrd32k6uhr4dkkrjjqmit2ns5ai",
   "schema": "schema/appdynamics.kotoba",
+  "tier": "L3",
   "entities": [
     "Service",
     "Error",
@@ -181,6 +182,13 @@
           "op": "delete Incident"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "lockheed_tap clean-room actor",
   "description": "Clean-room, API-compatible public safety / law / justice actor (lockheed_tap); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreia3weoqflng76so5foxsct7smjhdwhf3mdbmy5y7he3m7nktugrrq",
+  "wasmCid": "bafkreiekojk2vjv5u3au2nj6dbarj4p7v4o6oy6p6gwdbcjsrcghav5cvq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreia3weoqflng76so5foxsct7smjhdwhf3mdbmy5y7he3m7nktugrrq",
+  "ipfs": "ipfs://bafkreiekojk2vjv5u3au2nj6dbarj4p7v4o6oy6p6gwdbcjsrcghav5cvq",
   "schema": "schema/lockheed_tap.kotoba",
+  "tier": "L3",
   "entities": [
     "Case",
     "Party",
@@ -181,6 +182,13 @@
           "op": "delete Sanction"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

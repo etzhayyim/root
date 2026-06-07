@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "nymex clean-room actor",
   "description": "Clean-room, API-compatible energy commodities actor (nymex); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibp7o23v4kua6fkx3ivraikyj3gqpjoqxgbsjvtlmrntntiso5i5a",
+  "wasmCid": "bafkreidu2rg6h3oobzkixusw2nurtw7zkvbakftaorz54nw3laadmexgeu",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibp7o23v4kua6fkx3ivraikyj3gqpjoqxgbsjvtlmrntntiso5i5a",
+  "ipfs": "ipfs://bafkreidu2rg6h3oobzkixusw2nurtw7zkvbakftaorz54nw3laadmexgeu",
   "schema": "schema/nymex.kotoba",
+  "tier": "L3",
   "entities": [
     "Commodity",
     "Price",
@@ -181,6 +182,13 @@
           "op": "delete Forecast"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "irena clean-room actor",
   "description": "Clean-room, API-compatible energy / smart grid actor (irena); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidgz5v4s6sj3dst57nnjbsltppt5elqqhth4agcakp6dqlgp4vrzu",
+  "wasmCid": "bafkreiet4rybhwxdh2lp4yq7but4hz5o2o5pvtsauxpwwmekmwqzlknoha",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidgz5v4s6sj3dst57nnjbsltppt5elqqhth4agcakp6dqlgp4vrzu",
+  "ipfs": "ipfs://bafkreiet4rybhwxdh2lp4yq7but4hz5o2o5pvtsauxpwwmekmwqzlknoha",
   "schema": "schema/irena.kotoba",
+  "tier": "L3",
   "entities": [
     "Meter",
     "Reading",
@@ -181,6 +182,13 @@
           "op": "delete Tag"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

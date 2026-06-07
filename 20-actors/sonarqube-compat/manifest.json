@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "sonarqube clean-room actor",
   "description": "Clean-room, API-compatible developer tools / APM actor (sonarqube); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihhsa66v3eweotubrnbne356lnsmzpc2fhbvsoesq23ihjxpqglwa",
+  "wasmCid": "bafkreib63be7ujvzoll4i3fhkchr3jqvmfbeau6t6qjgigl3fgtoybftza",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihhsa66v3eweotubrnbne356lnsmzpc2fhbvsoesq23ihjxpqglwa",
+  "ipfs": "ipfs://bafkreib63be7ujvzoll4i3fhkchr3jqvmfbeau6t6qjgigl3fgtoybftza",
   "schema": "schema/sonarqube.kotoba",
+  "tier": "L3",
   "entities": [
     "Service",
     "Error",
@@ -181,6 +182,13 @@
           "op": "delete Incident"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

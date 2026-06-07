@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "ejustice_eu clean-room actor",
   "description": "Clean-room, API-compatible public safety / law / justice actor (ejustice_eu); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigpmld2xeubudn34kaai4cscujsoje3q2zvajpiugr6el6gzn6et4",
+  "wasmCid": "bafkreibo6i4ux2u64obyqedbxytkqrm2mgrgwvratjxy3ffmo5wtyyf6he",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigpmld2xeubudn34kaai4cscujsoje3q2zvajpiugr6el6gzn6et4",
+  "ipfs": "ipfs://bafkreibo6i4ux2u64obyqedbxytkqrm2mgrgwvratjxy3ffmo5wtyyf6he",
   "schema": "schema/ejustice_eu.kotoba",
+  "tier": "L3",
   "entities": [
     "Case",
     "Party",
@@ -181,6 +182,13 @@
           "op": "delete Sanction"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

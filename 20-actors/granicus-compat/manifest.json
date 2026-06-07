@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "granicus clean-room actor",
   "description": "Clean-room, API-compatible AEC / GovTech actor (granicus); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreia6wuiamwp2l63bmsh525zkzlq4vvvdgl3jiricut5san3ycvpoiq",
+  "wasmCid": "bafkreia4rvskyqjmgrgy2lhqlf3yoe4bjbpq3x4eljxwsjvacfuqfoioqy",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreia6wuiamwp2l63bmsh525zkzlq4vvvdgl3jiricut5san3ycvpoiq",
+  "ipfs": "ipfs://bafkreia4rvskyqjmgrgy2lhqlf3yoe4bjbpq3x4eljxwsjvacfuqfoioqy",
   "schema": "schema/granicus.kotoba",
+  "tier": "L3",
   "entities": [
     "Project",
     "Permit",
@@ -181,6 +182,13 @@
           "op": "delete ServiceRequest"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

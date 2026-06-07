@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "sketch clean-room actor",
   "description": "Clean-room, API-compatible design / creative tooling actor (sketch); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiginkv23b32krozr4fbxprdqbjt7776er37wzpgjsmumlrj2ifedm",
+  "wasmCid": "bafkreidhiyimzvz2ihpcztgt7rjatxuvbeeyq4tx4wtupmzz6pudz3ooyu",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiginkv23b32krozr4fbxprdqbjt7776er37wzpgjsmumlrj2ifedm",
+  "ipfs": "ipfs://bafkreidhiyimzvz2ihpcztgt7rjatxuvbeeyq4tx4wtupmzz6pudz3ooyu",
   "schema": "schema/sketch.kotoba",
+  "tier": "L3",
   "entities": [
     "Project",
     "File",
@@ -181,6 +182,13 @@
           "op": "delete Export"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "doi_system clean-room actor",
   "description": "Clean-room, API-compatible meta-knowledge / scientific publishing actor (doi_system); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiehpe626bcmb7fkrrt4fwlibwarpsksxev7nfzwlqqnpoks2c2kru",
+  "wasmCid": "bafkreicqoc7duznt3nlsz2toeyll47akp5v3vee254hyz5vprj4xdrjloa",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiehpe626bcmb7fkrrt4fwlibwarpsksxev7nfzwlqqnpoks2c2kru",
+  "ipfs": "ipfs://bafkreicqoc7duznt3nlsz2toeyll47akp5v3vee254hyz5vprj4xdrjloa",
   "schema": "schema/doi_system.kotoba",
+  "tier": "L3",
   "entities": [
     "Work",
     "Author",
@@ -181,6 +182,13 @@
           "op": "delete Subject"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

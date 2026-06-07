@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "forgerock clean-room actor",
   "description": "Clean-room, API-compatible security / IAM actor (forgerock); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreia2p5z2nrgy25o4xwfjjdfz6n662mfxccdleo4xop5itop3y57pie",
+  "wasmCid": "bafkreibpk2ey4zqj3oq3xvijp7xza24fj4rgpfjffyfvhtb4oyuocxntjq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreia2p5z2nrgy25o4xwfjjdfz6n662mfxccdleo4xop5itop3y57pie",
+  "ipfs": "ipfs://bafkreibpk2ey4zqj3oq3xvijp7xza24fj4rgpfjffyfvhtb4oyuocxntjq",
   "schema": "schema/forgerock.kotoba",
+  "tier": "L3",
   "entities": [
     "Identity",
     "Policy",
@@ -181,6 +182,13 @@
           "op": "delete Session"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

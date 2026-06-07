@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "inDrive clean-room actor",
   "description": "Clean-room, API-compatible ride-hailing / micro-mobility actor (inDrive); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreie6bw2gj6ocs3ztpc3zrm4md6kxfx2hl57cjpi2dlbmadu55z3juu",
+  "wasmCid": "bafkreibbkvt5kf4ajoqj3d5pb2fcwjzcw3tx3xoda2x4yzvmvmc4kl6xda",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreie6bw2gj6ocs3ztpc3zrm4md6kxfx2hl57cjpi2dlbmadu55z3juu",
+  "ipfs": "ipfs://bafkreibbkvt5kf4ajoqj3d5pb2fcwjzcw3tx3xoda2x4yzvmvmc4kl6xda",
   "schema": "schema/inDrive.kotoba",
+  "tier": "L3",
   "entities": [
     "Driver",
     "Rider",
@@ -181,6 +182,13 @@
           "op": "delete Rating"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

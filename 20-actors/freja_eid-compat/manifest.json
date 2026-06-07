@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "freja_eid clean-room actor",
   "description": "Clean-room, API-compatible digital public infrastructure actor (freja_eid); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihprqbnidev4p2ccittdwf5bmovf56k26wbmtwgfo67ed2cickdhi",
+  "wasmCid": "bafkreib3mpjghf7f476lakdmjz2abl5vawvpx7ps6xen2zyo42jwugt5na",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihprqbnidev4p2ccittdwf5bmovf56k26wbmtwgfo67ed2cickdhi",
+  "ipfs": "ipfs://bafkreib3mpjghf7f476lakdmjz2abl5vawvpx7ps6xen2zyo42jwugt5na",
   "schema": "schema/freja_eid.kotoba",
+  "tier": "L3",
   "entities": [
     "Identity",
     "Credential",
@@ -181,6 +182,13 @@
           "op": "delete VerificationRequest"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

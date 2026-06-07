@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "duckcreek_policy clean-room actor",
   "description": "Clean-room, API-compatible core banking / InsurTech actor (duckcreek_policy); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreianfzzragldqhwygwnswumpax7jyfirjvbb2kpvrzhczhghylevie",
+  "wasmCid": "bafkreigiktee6ke4k2gfnwhm27mpiej3hwmextkj5xtoxtglxy753uqe4a",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreianfzzragldqhwygwnswumpax7jyfirjvbb2kpvrzhczhghylevie",
+  "ipfs": "ipfs://bafkreigiktee6ke4k2gfnwhm27mpiej3hwmextkj5xtoxtglxy753uqe4a",
   "schema": "schema/duckcreek_policy.kotoba",
+  "tier": "L3",
   "entities": [
     "Account",
     "Loan",
@@ -181,6 +182,13 @@
           "op": "delete Customer"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

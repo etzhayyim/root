@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "cabify clean-room actor",
   "description": "Clean-room, API-compatible ride-hailing / micro-mobility actor (cabify); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidoatou2tc6bvifvp5yogjysynq5l7qt5wmhtl3zki56yltkfprtm",
+  "wasmCid": "bafkreiaazyxa4r7sfmug7ita3uriewrcv2nmvp2nyad3dswr47zp4pogme",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidoatou2tc6bvifvp5yogjysynq5l7qt5wmhtl3zki56yltkfprtm",
+  "ipfs": "ipfs://bafkreiaazyxa4r7sfmug7ita3uriewrcv2nmvp2nyad3dswr47zp4pogme",
   "schema": "schema/cabify.kotoba",
+  "tier": "L3",
   "entities": [
     "Driver",
     "Rider",
@@ -181,6 +182,13 @@
           "op": "delete Rating"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

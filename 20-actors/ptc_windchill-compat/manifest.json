@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "ptc_windchill clean-room actor",
   "description": "Clean-room, API-compatible manufacturing / PLM / robotics actor (ptc_windchill); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigk5iywf66hzptqq6qryf4k6n45ktsfyszofxibvuqku3gtlyuuqe",
+  "wasmCid": "bafkreigbfwwgcqzpniserztgf3k2os7sfx7s3uo4i2kwl3kqnpvufktnry",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigk5iywf66hzptqq6qryf4k6n45ktsfyszofxibvuqku3gtlyuuqe",
+  "ipfs": "ipfs://bafkreigbfwwgcqzpniserztgf3k2os7sfx7s3uo4i2kwl3kqnpvufktnry",
   "schema": "schema/ptc_windchill.kotoba",
+  "tier": "L3",
   "entities": [
     "Part",
     "BOM",
@@ -181,6 +182,13 @@
           "op": "delete Program"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

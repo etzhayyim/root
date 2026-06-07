@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "woodmac_data clean-room actor",
   "description": "Clean-room, API-compatible energy commodities actor (woodmac_data); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigqml4omewtev2u4lnkcni5mlqce3lbq4qv5zdeguudmb6uk52fxu",
+  "wasmCid": "bafkreibm4gxlxoftrxnqpbangsh3whielmnuglb2dr7ib5bv6ts6itrbju",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigqml4omewtev2u4lnkcni5mlqce3lbq4qv5zdeguudmb6uk52fxu",
+  "ipfs": "ipfs://bafkreibm4gxlxoftrxnqpbangsh3whielmnuglb2dr7ib5bv6ts6itrbju",
   "schema": "schema/woodmac_data.kotoba",
+  "tier": "L3",
   "entities": [
     "Commodity",
     "Price",
@@ -181,6 +182,13 @@
           "op": "delete Forecast"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

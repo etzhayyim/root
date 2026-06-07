@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "m365 clean-room actor",
   "description": "Clean-room, API-compatible office / productivity suite actor (m365); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiaw6e25ruy4l65d4quhnhfsyggbcq3342gn5zuggt4lhkeeiss4n4",
+  "wasmCid": "bafkreihvalvngln6pyj7ac3ogtfqazt6g3orxppvlsu5stbpsh3b7jcqwu",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiaw6e25ruy4l65d4quhnhfsyggbcq3342gn5zuggt4lhkeeiss4n4",
+  "ipfs": "ipfs://bafkreihvalvngln6pyj7ac3ogtfqazt6g3orxppvlsu5stbpsh3b7jcqwu",
   "schema": "schema/m365.kotoba",
+  "tier": "L3",
   "entities": [
     "Workspace",
     "Document",
@@ -181,6 +182,13 @@
           "op": "delete User"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

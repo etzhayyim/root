@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "pulumi clean-room actor",
   "description": "Clean-room, API-compatible DevSecOps / serverless actor (pulumi); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihvmp5tz6tlxyfebqcl5irrmbib46gcfvgzevgu5filmvsf5fzkbe",
+  "wasmCid": "bafkreibaez5iijklw4tt4seezrtxu537hqtidjtf4utgwcm574pp5md4sy",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihvmp5tz6tlxyfebqcl5irrmbib46gcfvgzevgu5filmvsf5fzkbe",
+  "ipfs": "ipfs://bafkreibaez5iijklw4tt4seezrtxu537hqtidjtf4utgwcm574pp5md4sy",
   "schema": "schema/pulumi.kotoba",
+  "tier": "L3",
   "entities": [
     "Service",
     "Deployment",
@@ -181,6 +182,13 @@
           "op": "delete Function"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

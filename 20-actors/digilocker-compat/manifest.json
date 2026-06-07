@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "digilocker clean-room actor",
   "description": "Clean-room, API-compatible digital public infrastructure actor (digilocker); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidtxbc6r3xb33embxdetkszzbw56sczih423aytlqlbauntemshvm",
+  "wasmCid": "bafkreice2ztm65o4vl5kug43jk32dog5rq5aas75ctnssauaroncgubxxe",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidtxbc6r3xb33embxdetkszzbw56sczih423aytlqlbauntemshvm",
+  "ipfs": "ipfs://bafkreice2ztm65o4vl5kug43jk32dog5rq5aas75ctnssauaroncgubxxe",
   "schema": "schema/digilocker.kotoba",
+  "tier": "L3",
   "entities": [
     "Identity",
     "Credential",
@@ -181,6 +182,13 @@
           "op": "delete VerificationRequest"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

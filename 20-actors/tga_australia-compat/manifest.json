@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "tga_australia clean-room actor",
   "description": "Clean-room, API-compatible Japan / APAC e-government actor (tga_australia); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicfebaeqvwhcn76t5vts5c7qir7kh4oojgdtiu33w57stph2wj5mm",
+  "wasmCid": "bafkreibx3aauwezhgxiiegcwsrk5wq55bd2soiya3j44m64linhomlnaba",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicfebaeqvwhcn76t5vts5c7qir7kh4oojgdtiu33w57stph2wj5mm",
+  "ipfs": "ipfs://bafkreibx3aauwezhgxiiegcwsrk5wq55bd2soiya3j44m64linhomlnaba",
   "schema": "schema/tga_australia.kotoba",
+  "tier": "L3",
   "entities": [
     "Filing",
     "Corporation",
@@ -181,6 +182,13 @@
           "op": "delete Dataset"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

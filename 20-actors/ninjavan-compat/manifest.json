@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "ninjavan clean-room actor",
   "description": "Clean-room, API-compatible delivery / local logistics actor (ninjavan); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidqlsvtgvcnuqqmnjlrasxq5kukwm6ocnsek6nako5fa37arj7bey",
+  "wasmCid": "bafkreieq6wckkvdh3imxa7otqpginars5isuxdfdpamuyepdjzmhfy6azm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidqlsvtgvcnuqqmnjlrasxq5kukwm6ocnsek6nako5fa37arj7bey",
+  "ipfs": "ipfs://bafkreieq6wckkvdh3imxa7otqpginars5isuxdfdpamuyepdjzmhfy6azm",
   "schema": "schema/ninjavan.kotoba",
+  "tier": "L3",
   "entities": [
     "Order",
     "Courier",
@@ -181,6 +182,13 @@
           "op": "delete Tracking"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

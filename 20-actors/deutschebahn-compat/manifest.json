@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "deutschebahn clean-room actor",
   "description": "Clean-room, API-compatible transit / smart cities actor (deutschebahn); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreievjzl3bbphhzho6h72eg4hyk7yygjionel4qbr2pmk7oje7lnlzm",
+  "wasmCid": "bafkreifc53yhafuovqxdakf5lysz33gbzwwkvjeiov3rnbku5oxl3k54bu",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreievjzl3bbphhzho6h72eg4hyk7yygjionel4qbr2pmk7oje7lnlzm",
+  "ipfs": "ipfs://bafkreifc53yhafuovqxdakf5lysz33gbzwwkvjeiov3rnbku5oxl3k54bu",
   "schema": "schema/deutschebahn.kotoba",
+  "tier": "L3",
   "entities": [
     "Stop",
     "Route",
@@ -181,6 +182,13 @@
           "op": "delete Fare"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

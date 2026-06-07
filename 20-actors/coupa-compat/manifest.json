@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "coupa clean-room actor",
   "description": "Clean-room, API-compatible enterprise commerce / spend actor (coupa); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibhza4mdovj2zfjohry5crmbcp3dic7xkwky6bxfmesvc3t6hdtji",
+  "wasmCid": "bafkreidh4xfowqxit3jp33aefrl7uzk7i4gxqs5jwf7lwj7qblgz4vtmcm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibhza4mdovj2zfjohry5crmbcp3dic7xkwky6bxfmesvc3t6hdtji",
+  "ipfs": "ipfs://bafkreidh4xfowqxit3jp33aefrl7uzk7i4gxqs5jwf7lwj7qblgz4vtmcm",
   "schema": "schema/coupa.kotoba",
+  "tier": "L4",
   "entities": [
     "Catalog",
     "Product",
@@ -181,6 +182,13 @@
           "op": "delete Invoice"
         }
       ],
+      "features": {
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
+      },
       "health": "/healthz"
     },
     "supplychain": {

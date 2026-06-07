@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "alpaca clean-room actor",
   "description": "Clean-room, API-compatible fintech / web3 actor (alpaca); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifru6p4qig5dm3lv5sx7sojdxi4y2nluobfyyypkp4ovfgzfn5qpu",
+  "wasmCid": "bafkreiavg4ybecirxgafofqq2qa34if54auzajerkhqjojzsogclzp5r6m",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifru6p4qig5dm3lv5sx7sojdxi4y2nluobfyyypkp4ovfgzfn5qpu",
+  "ipfs": "ipfs://bafkreiavg4ybecirxgafofqq2qa34if54auzajerkhqjojzsogclzp5r6m",
   "schema": "schema/alpaca.kotoba",
+  "tier": "L3",
   "entities": [
     "Account",
     "Card",
@@ -181,6 +182,13 @@
           "op": "delete Ledger"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

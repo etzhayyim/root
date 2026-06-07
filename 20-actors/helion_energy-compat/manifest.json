@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "helion_energy clean-room actor",
   "description": "Clean-room, API-compatible fusion / plasma energy actor (helion_energy); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibtyzm4t7prpy6cvdpgtqlrcknyznbhtpafz4qgh6upgjadm4u3c4",
+  "wasmCid": "bafkreiesxuhsoa53uv7hpj6gnocpxfs6zjiwjkrbvjcfs4axbkpehar6um",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibtyzm4t7prpy6cvdpgtqlrcknyznbhtpafz4qgh6upgjadm4u3c4",
+  "ipfs": "ipfs://bafkreiesxuhsoa53uv7hpj6gnocpxfs6zjiwjkrbvjcfs4axbkpehar6um",
   "schema": "schema/helion_energy.kotoba",
+  "tier": "L3",
   "entities": [
     "Shot",
     "Diagnostic",
@@ -181,6 +182,13 @@
           "op": "delete Sample"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "mygovid clean-room actor",
   "description": "Clean-room, API-compatible Japan / APAC e-government actor (mygovid); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreia57jnnxcne6wb7iy5tyqgvaui47s5gk2z2yure6diioxumx6j6uq",
+  "wasmCid": "bafkreieosjbuwnrc6tkqykhjfek5u226fv743bxv2mctr5qmdo5xwpvg2y",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreia57jnnxcne6wb7iy5tyqgvaui47s5gk2z2yure6diioxumx6j6uq",
+  "ipfs": "ipfs://bafkreieosjbuwnrc6tkqykhjfek5u226fv743bxv2mctr5qmdo5xwpvg2y",
   "schema": "schema/mygovid.kotoba",
+  "tier": "L3",
   "entities": [
     "Filing",
     "Corporation",
@@ -181,6 +182,13 @@
           "op": "delete Dataset"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

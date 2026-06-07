@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "firstdata_network clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (firstdata_network); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigbk3pev25ad6ck4t6wwhsd2ufioand6s6kwz5hvoj3yhat7cuxvq",
+  "wasmCid": "bafkreiei7736zrwtl2wsttql5vg47e2ichdid7y4i37mrmya7nlvxpy4qe",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigbk3pev25ad6ck4t6wwhsd2ufioand6s6kwz5hvoj3yhat7cuxvq",
+  "ipfs": "ipfs://bafkreiei7736zrwtl2wsttql5vg47e2ichdid7y4i37mrmya7nlvxpy4qe",
   "schema": "schema/firstdata_network.kotoba",
+  "tier": "L3",
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -181,6 +182,13 @@
           "op": "delete PaymentMethod"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

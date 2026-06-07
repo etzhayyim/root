@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "woocommerce clean-room actor",
   "description": "Clean-room, API-compatible e-commerce storefront actor (woocommerce); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibgr2rxsxtcqw7ss4elofysnqi2y6icgaevbwttooj3ogfa24buye",
+  "wasmCid": "bafkreiffa3gcw3hh4km2nmgw7jqod44lzuy7q3ujfz3rkhpacsosxhhi4q",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibgr2rxsxtcqw7ss4elofysnqi2y6icgaevbwttooj3ogfa24buye",
+  "ipfs": "ipfs://bafkreiffa3gcw3hh4km2nmgw7jqod44lzuy7q3ujfz3rkhpacsosxhhi4q",
   "schema": "schema/woocommerce.kotoba",
+  "tier": "L3",
   "entities": [
     "Product",
     "Variant",
@@ -181,6 +182,13 @@
           "op": "delete Collection"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

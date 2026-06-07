@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "aphis_usda clean-room actor",
   "description": "Clean-room, API-compatible AgriTech / food actor (aphis_usda); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidi53p6fh2rji4fbfnqdxw43vdxvggwmiabvgm2zbna47xcp2d6h4",
+  "wasmCid": "bafkreibiswzz6yttrvkk5ssfy27zhjbt3c62u3qn73hw5zwebxzcvux6ay",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidi53p6fh2rji4fbfnqdxw43vdxvggwmiabvgm2zbna47xcp2d6h4",
+  "ipfs": "ipfs://bafkreibiswzz6yttrvkk5ssfy27zhjbt3c62u3qn73hw5zwebxzcvux6ay",
   "schema": "schema/aphis_usda.kotoba",
+  "tier": "L3",
   "entities": [
     "Field",
     "Operation",
@@ -181,6 +182,13 @@
           "op": "delete Imagery"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

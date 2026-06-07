@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "euroclear clean-room actor",
   "description": "Clean-room, API-compatible core banking / InsurTech actor (euroclear); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidtcpm6enxfhli6krj3xrzngv5za5v3efub37ot2zfu5oem7c6d5q",
+  "wasmCid": "bafkreibozoywzozpz4645h3kp7h5r7rb4rfxjnnx25nukaafxkndkjvay4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidtcpm6enxfhli6krj3xrzngv5za5v3efub37ot2zfu5oem7c6d5q",
+  "ipfs": "ipfs://bafkreibozoywzozpz4645h3kp7h5r7rb4rfxjnnx25nukaafxkndkjvay4",
   "schema": "schema/euroclear.kotoba",
+  "tier": "L3",
   "entities": [
     "Account",
     "Loan",
@@ -181,6 +182,13 @@
           "op": "delete Customer"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

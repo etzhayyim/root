@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "nokia_vonage clean-room actor",
   "description": "Clean-room, API-compatible telecom / satellite actor (nokia_vonage); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreieu67xjwjkjany675ne5vzdskycwlhcxk4dz4ysb7zrm6ghn2qze4",
+  "wasmCid": "bafkreic6h2ptjf2ecmbzguunrot7hzmarrucg2byrzys5jaxda3h2krlua",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreieu67xjwjkjany675ne5vzdskycwlhcxk4dz4ysb7zrm6ghn2qze4",
+  "ipfs": "ipfs://bafkreic6h2ptjf2ecmbzguunrot7hzmarrucg2byrzys5jaxda3h2krlua",
   "schema": "schema/nokia_vonage.kotoba",
+  "tier": "L3",
   "entities": [
     "Subscriber",
     "Session",
@@ -181,6 +182,13 @@
           "op": "delete UsageRecord"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "ovo_indonesia clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (ovo_indonesia); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifogwuhnxoorpa2qqunbsmvubpsb3flj7hrmwuhnkhmlnxmp7sm7u",
+  "wasmCid": "bafkreieincmuh4orcuecn23zfzjpulb2wrs5mqhcbubxl4sogwk2oibnmu",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifogwuhnxoorpa2qqunbsmvubpsb3flj7hrmwuhnkhmlnxmp7sm7u",
+  "ipfs": "ipfs://bafkreieincmuh4orcuecn23zfzjpulb2wrs5mqhcbubxl4sogwk2oibnmu",
   "schema": "schema/ovo_indonesia.kotoba",
+  "tier": "L3",
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -181,6 +182,13 @@
           "op": "delete PaymentMethod"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

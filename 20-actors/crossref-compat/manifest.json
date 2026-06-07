@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "crossref clean-room actor",
   "description": "Clean-room, API-compatible meta-knowledge / scientific publishing actor (crossref); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigm5fflm3heub2gnk524jymxldvjm6glwqnnf6deupq2ax6jw72n4",
+  "wasmCid": "bafkreibl6taterqijwtl6nzaw67hupbigoy4mkhiipdtj5oio5blxjud34",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigm5fflm3heub2gnk524jymxldvjm6glwqnnf6deupq2ax6jw72n4",
+  "ipfs": "ipfs://bafkreibl6taterqijwtl6nzaw67hupbigoy4mkhiipdtj5oio5blxjud34",
   "schema": "schema/crossref.kotoba",
+  "tier": "L4",
   "entities": [
     "Work",
     "Author",
@@ -181,6 +182,13 @@
           "op": "delete Subject"
         }
       ],
+      "features": {
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
+      },
       "health": "/healthz"
     },
     "supplychain": {

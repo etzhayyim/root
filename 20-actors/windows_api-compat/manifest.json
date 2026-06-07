@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "windows_api clean-room actor",
   "description": "Clean-room, API-compatible OS / kernel interface actor (windows_api); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibvuvvgudbqieoxiuvj7erspdnkomz2q2n5i2ccaa3vs7domsp3lm",
+  "wasmCid": "bafkreic6o2v624e42vzgfxttvbp5t4olljwotrveb7w6c2xchg6s563o2m",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibvuvvgudbqieoxiuvj7erspdnkomz2q2n5i2ccaa3vs7domsp3lm",
+  "ipfs": "ipfs://bafkreic6o2v624e42vzgfxttvbp5t4olljwotrveb7w6c2xchg6s563o2m",
   "schema": "schema/windows_api.kotoba",
+  "tier": "L3",
   "entities": [
     "Process",
     "Thread",
@@ -181,6 +182,13 @@
           "op": "delete Signal"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

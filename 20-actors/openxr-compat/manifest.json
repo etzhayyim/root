@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "openxr clean-room actor",
   "description": "Clean-room, API-compatible spatial computing / XR actor (openxr); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiffzymkvio3aaeoiqtnmvv3zxoeb5hyvk2vi6rxhsz7x3kuysshtq",
+  "wasmCid": "bafkreieemhkgffuaybilyogrm67q3nltrronbb6otfnkrgedbciwolfnru",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiffzymkvio3aaeoiqtnmvv3zxoeb5hyvk2vi6rxhsz7x3kuysshtq",
+  "ipfs": "ipfs://bafkreieemhkgffuaybilyogrm67q3nltrronbb6otfnkrgedbciwolfnru",
   "schema": "schema/openxr.kotoba",
+  "tier": "L4",
   "entities": [
     "Anchor",
     "Scene",
@@ -181,6 +182,13 @@
           "op": "delete Device"
         }
       ],
+      "features": {
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
+      },
       "health": "/healthz"
     },
     "supplychain": {

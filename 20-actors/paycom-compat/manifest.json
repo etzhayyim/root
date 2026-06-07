@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "paycom clean-room actor",
   "description": "Clean-room, API-compatible HR technology actor (paycom); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreig7d6oykjglyotsoobkawbuipaqeditxolzspzfbja53c7oki43vy",
+  "wasmCid": "bafkreigwkzpykj2a4w46pn4ytzmoa2kkn5j4zvhdbzd2sl6l2jip7eatia",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreig7d6oykjglyotsoobkawbuipaqeditxolzspzfbja53c7oki43vy",
+  "ipfs": "ipfs://bafkreigwkzpykj2a4w46pn4ytzmoa2kkn5j4zvhdbzd2sl6l2jip7eatia",
   "schema": "schema/paycom.kotoba",
+  "tier": "L3",
   "entities": [
     "Employee",
     "Candidate",
@@ -181,6 +182,13 @@
           "op": "delete Review"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "solidworks clean-room actor",
   "description": "Clean-room, API-compatible manufacturing / PLM / robotics actor (solidworks); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicvy23a3k2rhvfrmchrjlafrmm7qlxjuebd5z53eotx2ue7rprj6e",
+  "wasmCid": "bafkreigpbymskymgq5zuqziobsfsveh7vyhh757eeikh3ldjwyelycndsm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicvy23a3k2rhvfrmchrjlafrmm7qlxjuebd5z53eotx2ue7rprj6e",
+  "ipfs": "ipfs://bafkreigpbymskymgq5zuqziobsfsveh7vyhh757eeikh3ldjwyelycndsm",
   "schema": "schema/solidworks.kotoba",
+  "tier": "L3",
   "entities": [
     "Part",
     "BOM",
@@ -181,6 +182,13 @@
           "op": "delete Program"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

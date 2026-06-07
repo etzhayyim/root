@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "weatherford clean-room actor",
   "description": "Clean-room, API-compatible energy commodities actor (weatherford); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifrdcvgjvg4gul4mrlagbyphyvxx7mlswnifuhdst43absldbslju",
+  "wasmCid": "bafkreie2ymy36o2nfcc3ralxfletlr7tc2y66r6jljpkgvmhrj5jvupkcm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifrdcvgjvg4gul4mrlagbyphyvxx7mlswnifuhdst43absldbslju",
+  "ipfs": "ipfs://bafkreie2ymy36o2nfcc3ralxfletlr7tc2y66r6jljpkgvmhrj5jvupkcm",
   "schema": "schema/weatherford.kotoba",
+  "tier": "L3",
   "entities": [
     "Commodity",
     "Price",
@@ -181,6 +182,13 @@
           "op": "delete Forecast"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

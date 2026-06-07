@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "everlaw clean-room actor",
   "description": "Clean-room, API-compatible RegTech / privacy actor (everlaw); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihft6r7wamuiyjxhy3nyexh6z7psrninpoq2qgai44ggskj4q2rpu",
+  "wasmCid": "bafkreiggq5ofdxciylwfhsznoszqyx7fa72bzdd6sib2ebnzyhh4f3kztq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihft6r7wamuiyjxhy3nyexh6z7psrninpoq2qgai44ggskj4q2rpu",
+  "ipfs": "ipfs://bafkreiggq5ofdxciylwfhsznoszqyx7fa72bzdd6sib2ebnzyhh4f3kztq",
   "schema": "schema/everlaw.kotoba",
+  "tier": "L3",
   "entities": [
     "DataSubject",
     "ConsentRecord",
@@ -181,6 +182,13 @@
           "op": "delete Assessment"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

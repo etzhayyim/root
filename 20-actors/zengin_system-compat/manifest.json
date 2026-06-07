@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "zengin_system clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (zengin_system); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigtul5rktgm6vwgt7hftcyrol7kwjgou73zeulkctq5omyzmoyeve",
+  "wasmCid": "bafkreigpjbnheagjaa4by4bgogmo4fsg4d4cjjuyuwenvomh5dhuchex4a",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigtul5rktgm6vwgt7hftcyrol7kwjgou73zeulkctq5omyzmoyeve",
+  "ipfs": "ipfs://bafkreigpjbnheagjaa4by4bgogmo4fsg4d4cjjuyuwenvomh5dhuchex4a",
   "schema": "schema/zengin_system.kotoba",
+  "tier": "L3",
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -181,6 +182,13 @@
           "op": "delete PaymentMethod"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

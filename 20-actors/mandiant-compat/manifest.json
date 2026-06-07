@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "mandiant clean-room actor",
   "description": "Clean-room, API-compatible cyber threat intelligence actor (mandiant); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidwdbjdr4t7hbkwhvsjqknuukdhzvcenthwjpt5pquqxf4gieaqoa",
+  "wasmCid": "bafkreidplz4zqyiwpwdb2ucoxtu4o5trhjza7igmni6affsitrvtqpfrma",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidwdbjdr4t7hbkwhvsjqknuukdhzvcenthwjpt5pquqxf4gieaqoa",
+  "ipfs": "ipfs://bafkreidplz4zqyiwpwdb2ucoxtu4o5trhjza7igmni6affsitrvtqpfrma",
   "schema": "schema/mandiant.kotoba",
+  "tier": "L3",
   "entities": [
     "Indicator",
     "Vulnerability",
@@ -181,6 +182,13 @@
           "op": "delete Technique"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

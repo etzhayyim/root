@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "galileo clean-room actor",
   "description": "Clean-room, API-compatible fintech / web3 actor (galileo); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiboldoyblfeijktft2pp5lflrh5ni6bfoosomfmhixfjozk7r6hre",
+  "wasmCid": "bafkreiacvsscj6mcph2an5py4oft6chqbfy3dguuhg2igncmc6i37qost4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiboldoyblfeijktft2pp5lflrh5ni6bfoosomfmhixfjozk7r6hre",
+  "ipfs": "ipfs://bafkreiacvsscj6mcph2an5py4oft6chqbfy3dguuhg2igncmc6i37qost4",
   "schema": "schema/galileo.kotoba",
+  "tier": "L3",
   "entities": [
     "Account",
     "Card",
@@ -181,6 +182,13 @@
           "op": "delete Ledger"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "lme_metals clean-room actor",
   "description": "Clean-room, API-compatible energy commodities actor (lme_metals); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihk6unuefigxgl5fct5cjx65sgpki6hmehlp4uuw7dxktqpanwdmq",
+  "wasmCid": "bafkreid37f7ywogwiqt7qgzcsbocbml5glgkptxn52zthrfkwlovrmlqfq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihk6unuefigxgl5fct5cjx65sgpki6hmehlp4uuw7dxktqpanwdmq",
+  "ipfs": "ipfs://bafkreid37f7ywogwiqt7qgzcsbocbml5glgkptxn52zthrfkwlovrmlqfq",
   "schema": "schema/lme_metals.kotoba",
+  "tier": "L3",
   "entities": [
     "Commodity",
     "Price",
@@ -181,6 +182,13 @@
           "op": "delete Forecast"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

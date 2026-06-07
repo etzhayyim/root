@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "fao_stat clean-room actor",
   "description": "Clean-room, API-compatible AgriTech / food actor (fao_stat); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiahpvkrirnvem6mhhmlzgfac6z57df5mdq7677izvqi62q4lwhxm4",
+  "wasmCid": "bafkreiak3gffqfzllxhjycnz3kdx5t5hi4r35dqo6y4tr72ewi47adpcxa",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiahpvkrirnvem6mhhmlzgfac6z57df5mdq7677izvqi62q4lwhxm4",
+  "ipfs": "ipfs://bafkreiak3gffqfzllxhjycnz3kdx5t5hi4r35dqo6y4tr72ewi47adpcxa",
   "schema": "schema/fao_stat.kotoba",
+  "tier": "L3",
   "entities": [
     "Field",
     "Operation",
@@ -181,6 +182,13 @@
           "op": "delete Imagery"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

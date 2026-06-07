@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "doordash clean-room actor",
   "description": "Clean-room, API-compatible delivery / local logistics actor (doordash); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibk7n4s7cvvhscj3cjtsuxmspdckd7kuz3errunxenlvprqay4kv4",
+  "wasmCid": "bafkreicpzdhmo5re6gug4irwzym743v35mp5fw6sa7acd5x2hghxxsdg6u",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibk7n4s7cvvhscj3cjtsuxmspdckd7kuz3errunxenlvprqay4kv4",
+  "ipfs": "ipfs://bafkreicpzdhmo5re6gug4irwzym743v35mp5fw6sa7acd5x2hghxxsdg6u",
   "schema": "schema/doordash.kotoba",
+  "tier": "L4",
   "entities": [
     "Order",
     "Courier",
@@ -181,6 +182,13 @@
           "op": "delete Tracking"
         }
       ],
+      "features": {
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
+      },
       "health": "/healthz"
     },
     "supplychain": {

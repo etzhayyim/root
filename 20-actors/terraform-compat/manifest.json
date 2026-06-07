@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "terraform clean-room actor",
   "description": "Clean-room, API-compatible DevSecOps / serverless actor (terraform); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifnmdaprr5bd2r3enpgq7qqgvuwndikeyzuqjvlnbkjo5siu47ihu",
+  "wasmCid": "bafkreigvijcklhne5d5mu3pbfumbdnazy7nutaev6vglobs2rk26albtuy",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifnmdaprr5bd2r3enpgq7qqgvuwndikeyzuqjvlnbkjo5siu47ihu",
+  "ipfs": "ipfs://bafkreigvijcklhne5d5mu3pbfumbdnazy7nutaev6vglobs2rk26albtuy",
   "schema": "schema/terraform.kotoba",
+  "tier": "L3",
   "entities": [
     "Service",
     "Deployment",
@@ -181,6 +182,13 @@
           "op": "delete Function"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

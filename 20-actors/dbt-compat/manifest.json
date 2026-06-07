@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "dbt clean-room actor",
   "description": "Clean-room, API-compatible modern data stack actor (dbt); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiblnvf6wxzln3feyo2vnihkhmu2bh6t45kh7elpslr6aqbvjthgqm",
+  "wasmCid": "bafkreic6waknx6bc4vl4tcxnbhoa27zgjgiip2lh4opa6xiiyr2zosrjie",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiblnvf6wxzln3feyo2vnihkhmu2bh6t45kh7elpslr6aqbvjthgqm",
+  "ipfs": "ipfs://bafkreic6waknx6bc4vl4tcxnbhoa27zgjgiip2lh4opa6xiiyr2zosrjie",
   "schema": "schema/dbt.kotoba",
+  "tier": "L3",
   "entities": [
     "Connector",
     "Sync",
@@ -181,6 +182,13 @@
           "op": "delete Test"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

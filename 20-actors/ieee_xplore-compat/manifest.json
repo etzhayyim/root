@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "ieee_xplore clean-room actor",
   "description": "Clean-room, API-compatible meta-knowledge / scientific publishing actor (ieee_xplore); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigt4mhuyetjtyxjfjam2gyybhvf2anaudspiukg5smitdgfahsdj4",
+  "wasmCid": "bafkreicsfgag552bvqtbxsrgwkkadmuggxiggman5fbqunipx7lr7h7qmu",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigt4mhuyetjtyxjfjam2gyybhvf2anaudspiukg5smitdgfahsdj4",
+  "ipfs": "ipfs://bafkreicsfgag552bvqtbxsrgwkkadmuggxiggman5fbqunipx7lr7h7qmu",
   "schema": "schema/ieee_xplore.kotoba",
+  "tier": "L3",
   "entities": [
     "Work",
     "Author",
@@ -181,6 +182,13 @@
           "op": "delete Subject"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "oneweb clean-room actor",
   "description": "Clean-room, API-compatible telecom / satellite actor (oneweb); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiftapy5d5rruvviv2rlxoxpop6cm3n4vvkbgccct3dziq5652rf6u",
+  "wasmCid": "bafkreiapd7byd5pjmbkfmysfm5oeapjnypw5k25j6ydo676g6onryg7eje",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiftapy5d5rruvviv2rlxoxpop6cm3n4vvkbgccct3dziq5652rf6u",
+  "ipfs": "ipfs://bafkreiapd7byd5pjmbkfmysfm5oeapjnypw5k25j6ydo676g6onryg7eje",
   "schema": "schema/oneweb.kotoba",
+  "tier": "L3",
   "entities": [
     "Subscriber",
     "Session",
@@ -181,6 +182,13 @@
           "op": "delete UsageRecord"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

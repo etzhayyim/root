@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "liquid_robotics clean-room actor",
   "description": "Clean-room, API-compatible space / ocean / earth physics actor (liquid_robotics); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiawadfyfzuvbiueitzllllxxnpsu7eq6pig3uvxssckbo7rffqwsy",
+  "wasmCid": "bafkreieo3nnfb2pevup3m5ruoqg4abq5hxztorctka7c363vsyssrmb4ja",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiawadfyfzuvbiueitzllllxxnpsu7eq6pig3uvxssckbo7rffqwsy",
+  "ipfs": "ipfs://bafkreieo3nnfb2pevup3m5ruoqg4abq5hxztorctka7c363vsyssrmb4ja",
   "schema": "schema/liquid_robotics.kotoba",
+  "tier": "L3",
   "entities": [
     "Object",
     "Position",
@@ -181,6 +182,13 @@
           "op": "delete Station"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

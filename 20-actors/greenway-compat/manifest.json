@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "greenway clean-room actor",
   "description": "Clean-room, API-compatible EHR / clinical records actor (greenway); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigxhanyplm3u2t2l5lliigfvqmkr3euhov4cat6xzmyhq6xbs3tsm",
+  "wasmCid": "bafkreifrxq66dpsk3eteqsjcaitobq2qv46dfkhvmw54usj5miajyypjse",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigxhanyplm3u2t2l5lliigfvqmkr3euhov4cat6xzmyhq6xbs3tsm",
+  "ipfs": "ipfs://bafkreifrxq66dpsk3eteqsjcaitobq2qv46dfkhvmw54usj5miajyypjse",
   "schema": "schema/greenway.kotoba",
+  "tier": "L3",
   "entities": [
     "Patient",
     "Encounter",
@@ -181,6 +182,13 @@
           "op": "delete Appointment"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

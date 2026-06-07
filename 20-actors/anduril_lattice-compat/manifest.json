@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "anduril_lattice clean-room actor",
   "description": "Clean-room, API-compatible public safety / law / justice actor (anduril_lattice); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiej4tvwygxgzojs6gxmks3t6f2ttricecczotwb542x2r246676ji",
+  "wasmCid": "bafkreihzpczf57rpgq7h6jdgqjqwzldn2jlikuuu23lar4jcymjb5sivdi",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiej4tvwygxgzojs6gxmks3t6f2ttricecczotwb542x2r246676ji",
+  "ipfs": "ipfs://bafkreihzpczf57rpgq7h6jdgqjqwzldn2jlikuuu23lar4jcymjb5sivdi",
   "schema": "schema/anduril_lattice.kotoba",
+  "tier": "L3",
   "entities": [
     "Case",
     "Party",
@@ -181,6 +182,13 @@
           "op": "delete Sanction"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

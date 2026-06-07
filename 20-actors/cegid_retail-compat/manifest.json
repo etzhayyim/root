@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "cegid_retail clean-room actor",
   "description": "Clean-room, API-compatible e-commerce storefront actor (cegid_retail); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidkjvv6mf4w2mfapezxok55xusuxmt2adzzb7yd2pl3jozlho3bm4",
+  "wasmCid": "bafkreiedzodrr2rzgtnb77vdipeg5kuhx333kzcyrgsahr7jbyuq64zoay",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidkjvv6mf4w2mfapezxok55xusuxmt2adzzb7yd2pl3jozlho3bm4",
+  "ipfs": "ipfs://bafkreiedzodrr2rzgtnb77vdipeg5kuhx333kzcyrgsahr7jbyuq64zoay",
   "schema": "schema/cegid_retail.kotoba",
+  "tier": "L3",
   "entities": [
     "Product",
     "Variant",
@@ -181,6 +182,13 @@
           "op": "delete Collection"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "skydio clean-room actor",
   "description": "Clean-room, API-compatible drone swarm / aerial robotics actor (skydio); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidqtwmqoi4gusirhf7bmmzcuuxx3jaubm752izw5jodmvdrydddiy",
+  "wasmCid": "bafkreiajjlgz72usfo65dld47ceeprfdrezn66sxxftkzazbp5gpz3dj3i",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidqtwmqoi4gusirhf7bmmzcuuxx3jaubm752izw5jodmvdrydddiy",
+  "ipfs": "ipfs://bafkreiajjlgz72usfo65dld47ceeprfdrezn66sxxftkzazbp5gpz3dj3i",
   "schema": "schema/skydio.kotoba",
+  "tier": "L3",
   "entities": [
     "Drone",
     "Mission",
@@ -181,6 +182,13 @@
           "op": "delete Swarm"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

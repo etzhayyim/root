@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "playfab clean-room actor",
   "description": "Clean-room, API-compatible gaming backend / metaverse actor (playfab); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiajq6mijozuvxrg5cv2laarfr5gino4lq3mcysjdhq7x4fn2xvftq",
+  "wasmCid": "bafkreiefagox2ugbuf3o7d6taqxxfsgf5ccqkaev5vjmltiyyb2rtztzcy",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiajq6mijozuvxrg5cv2laarfr5gino4lq3mcysjdhq7x4fn2xvftq",
+  "ipfs": "ipfs://bafkreiefagox2ugbuf3o7d6taqxxfsgf5ccqkaev5vjmltiyyb2rtztzcy",
   "schema": "schema/playfab.kotoba",
+  "tier": "L4",
   "entities": [
     "Player",
     "Session",
@@ -181,6 +182,13 @@
           "op": "delete Achievement"
         }
       ],
+      "features": {
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
+      },
       "health": "/healthz"
     },
     "supplychain": {

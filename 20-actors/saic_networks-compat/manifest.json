@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "saic_networks clean-room actor",
   "description": "Clean-room, API-compatible public safety / law / justice actor (saic_networks); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreib27bsamhox4qrviieovny54ji6qhj5skz4gaevvsem66vci5c67i",
+  "wasmCid": "bafkreiao2dvvgh2njmgnwex2myz4aclqopmexiuj5ne5tdx5bdcsqciqhq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreib27bsamhox4qrviieovny54ji6qhj5skz4gaevvsem66vci5c67i",
+  "ipfs": "ipfs://bafkreiao2dvvgh2njmgnwex2myz4aclqopmexiuj5ne5tdx5bdcsqciqhq",
   "schema": "schema/saic_networks.kotoba",
+  "tier": "L3",
   "entities": [
     "Case",
     "Party",
@@ -181,6 +182,13 @@
           "op": "delete Sanction"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

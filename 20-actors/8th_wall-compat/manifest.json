@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "8th_wall clean-room actor",
   "description": "Clean-room, API-compatible spatial computing / XR actor (8th_wall); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreianp3z76q3prxmd6lyrsarbowyiioo5ebpb3o62okfbzexey4iz7u",
+  "wasmCid": "bafkreicxstlvo7c3yexbd3ovxwsxgth4yhl66txrklnxzg7c3xrqu6ctmi",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreianp3z76q3prxmd6lyrsarbowyiioo5ebpb3o62okfbzexey4iz7u",
+  "ipfs": "ipfs://bafkreicxstlvo7c3yexbd3ovxwsxgth4yhl66txrklnxzg7c3xrqu6ctmi",
   "schema": "schema/8th_wall.kotoba",
+  "tier": "L3",
   "entities": [
     "Anchor",
     "Scene",
@@ -181,6 +182,13 @@
           "op": "delete Device"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "signal_api clean-room actor",
   "description": "Clean-room, API-compatible communications / social actor (signal_api); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicyx2rpc26zfsmmngvkvpagkems4i22w567ql7ii6vjzfrhn7kjsu",
+  "wasmCid": "bafkreicffxlvume5hnm6exjcjuhp7t4al6fnvim4mzhg2ic2ugfgke2s54",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicyx2rpc26zfsmmngvkvpagkems4i22w567ql7ii6vjzfrhn7kjsu",
+  "ipfs": "ipfs://bafkreicffxlvume5hnm6exjcjuhp7t4al6fnvim4mzhg2ic2ugfgke2s54",
   "schema": "schema/signal_api.kotoba",
+  "tier": "L3",
   "entities": [
     "Channel",
     "Message",
@@ -181,6 +182,13 @@
           "op": "delete Webhook"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

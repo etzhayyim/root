@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "pmda clean-room actor",
   "description": "Clean-room, API-compatible Japan / APAC e-government actor (pmda); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifcmzrysip4j2afvma5bbg6xhdjy7f4mvnourat6okcx7xh4a45hm",
+  "wasmCid": "bafkreif6utxzicz6k5nnlcxfvmo72bubqnkwtdwzmjq3t3gdysh33i7i2m",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifcmzrysip4j2afvma5bbg6xhdjy7f4mvnourat6okcx7xh4a45hm",
+  "ipfs": "ipfs://bafkreif6utxzicz6k5nnlcxfvmo72bubqnkwtdwzmjq3t3gdysh33i7i2m",
   "schema": "schema/pmda.kotoba",
+  "tier": "L3",
   "entities": [
     "Filing",
     "Corporation",
@@ -181,6 +182,13 @@
           "op": "delete Dataset"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "mavlink_drones clean-room actor",
   "description": "Clean-room, API-compatible mobility / auto / EV actor (mavlink_drones); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigkkhhofayvvchedjlwh4rb2ezj3n3dc5mhoiafib3pfplirxaryu",
+  "wasmCid": "bafkreiagbhkt5whd5ib3lqbewivjmqao2suzigzfxgbatlbppt27riwtfi",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigkkhhofayvvchedjlwh4rb2ezj3n3dc5mhoiafib3pfplirxaryu",
+  "ipfs": "ipfs://bafkreiagbhkt5whd5ib3lqbewivjmqao2suzigzfxgbatlbppt27riwtfi",
   "schema": "schema/mavlink_drones.kotoba",
+  "tier": "L3",
   "entities": [
     "Vehicle",
     "Signal",
@@ -181,6 +182,13 @@
           "op": "delete Command"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "monday clean-room actor",
   "description": "Clean-room, API-compatible office / productivity suite actor (monday); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidfpea5eptd2yt3zd4iz4ot3tw42lm6ubdowko2mcpybai4ls2ddy",
+  "wasmCid": "bafkreic7s3kur2hrh6nfbbgxk76523ciuehovwyofru7bwx3rzddsqix2a",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidfpea5eptd2yt3zd4iz4ot3tw42lm6ubdowko2mcpybai4ls2ddy",
+  "ipfs": "ipfs://bafkreic7s3kur2hrh6nfbbgxk76523ciuehovwyofru7bwx3rzddsqix2a",
   "schema": "schema/monday.kotoba",
+  "tier": "L3",
   "entities": [
     "Workspace",
     "Document",
@@ -181,6 +182,13 @@
           "op": "delete User"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

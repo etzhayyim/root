@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "boku clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (boku); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifpduqrbpgzly74yvimvzbvao6g66euvqf25c7odjcybzdllval6e",
+  "wasmCid": "bafkreib3hkjmzsp6j4ieypn5hvtzaogl6iul6u6ouidduueulvosewyi6y",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifpduqrbpgzly74yvimvzbvao6g66euvqf25c7odjcybzdllval6e",
+  "ipfs": "ipfs://bafkreib3hkjmzsp6j4ieypn5hvtzaogl6iul6u6ouidduueulvosewyi6y",
   "schema": "schema/boku.kotoba",
+  "tier": "L3",
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -181,6 +182,13 @@
           "op": "delete PaymentMethod"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

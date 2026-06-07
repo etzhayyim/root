@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "fdic clean-room actor",
   "description": "Clean-room, API-compatible open banking / financial regulation actor (fdic); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiabluvzr3ltdhqkaxzusph2nic7hiwus43bk4sx25yjgcyqdhga7a",
+  "wasmCid": "bafkreihorfem6ptw5oobe7uwexd4ikvv7oidwiw4htx7tdt6iojmc5mxxu",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiabluvzr3ltdhqkaxzusph2nic7hiwus43bk4sx25yjgcyqdhga7a",
+  "ipfs": "ipfs://bafkreihorfem6ptw5oobe7uwexd4ikvv7oidwiw4htx7tdt6iojmc5mxxu",
   "schema": "schema/fdic.kotoba",
+  "tier": "L3",
   "entities": [
     "Account",
     "Consent",
@@ -181,6 +182,13 @@
           "op": "delete Filing"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

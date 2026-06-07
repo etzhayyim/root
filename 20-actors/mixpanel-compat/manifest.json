@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "mixpanel clean-room actor",
   "description": "Clean-room, API-compatible marketing technology actor (mixpanel); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreia6t56d6jokqa3atoul3f7q4t22y5jzdrj3v2zosxawsoetz7wqwa",
+  "wasmCid": "bafkreifmsvya3oucsqk6bealbzsaihevmmihomdrwjsip4mwfiyn3cgiai",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreia6t56d6jokqa3atoul3f7q4t22y5jzdrj3v2zosxawsoetz7wqwa",
+  "ipfs": "ipfs://bafkreifmsvya3oucsqk6bealbzsaihevmmihomdrwjsip4mwfiyn3cgiai",
   "schema": "schema/mixpanel.kotoba",
+  "tier": "L3",
   "entities": [
     "Campaign",
     "Audience",
@@ -181,6 +182,13 @@
           "op": "delete Funnel"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

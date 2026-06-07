@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "argus_media clean-room actor",
   "description": "Clean-room, API-compatible energy commodities actor (argus_media); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreia3dspztpftxd5vmfq5drwvz43taa2rkeupiy7dpbxbss6ht4utuq",
+  "wasmCid": "bafkreihubin7wig3iizc4nwoi2jesvzthlsndqxxrz5g7umhhfxc5g5pm4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreia3dspztpftxd5vmfq5drwvz43taa2rkeupiy7dpbxbss6ht4utuq",
+  "ipfs": "ipfs://bafkreihubin7wig3iizc4nwoi2jesvzthlsndqxxrz5g7umhhfxc5g5pm4",
   "schema": "schema/argus_media.kotoba",
+  "tier": "L3",
   "entities": [
     "Commodity",
     "Price",
@@ -181,6 +182,13 @@
           "op": "delete Forecast"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

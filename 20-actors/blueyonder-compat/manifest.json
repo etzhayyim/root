@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "blueyonder clean-room actor",
   "description": "Clean-room, API-compatible enterprise commerce / spend actor (blueyonder); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiceltr4q7gvko2wzf5zwr4gnxus4kf2gzjlkjimr5s26etie3hvye",
+  "wasmCid": "bafkreibpp7jt2prx34ejy7sgm42m4ha3kisl67bcqvhdvdeem3l4ef6sum",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiceltr4q7gvko2wzf5zwr4gnxus4kf2gzjlkjimr5s26etie3hvye",
+  "ipfs": "ipfs://bafkreibpp7jt2prx34ejy7sgm42m4ha3kisl67bcqvhdvdeem3l4ef6sum",
   "schema": "schema/blueyonder.kotoba",
+  "tier": "L3",
   "entities": [
     "Catalog",
     "Product",
@@ -181,6 +182,13 @@
           "op": "delete Invoice"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

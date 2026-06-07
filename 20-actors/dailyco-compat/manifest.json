@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "dailyco clean-room actor",
   "description": "Clean-room, API-compatible communications / social actor (dailyco); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidrgmz5ldum2x4ujvpjbdq5yzagfmgtqu5yx4anb2a2cirh4rbmrq",
+  "wasmCid": "bafkreibqob54ziomqr65tp6svaxvreqrh36evyokhgrkhm72fwev7vhecu",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidrgmz5ldum2x4ujvpjbdq5yzagfmgtqu5yx4anb2a2cirh4rbmrq",
+  "ipfs": "ipfs://bafkreibqob54ziomqr65tp6svaxvreqrh36evyokhgrkhm72fwev7vhecu",
   "schema": "schema/dailyco.kotoba",
+  "tier": "L3",
   "entities": [
     "Channel",
     "Message",
@@ -181,6 +182,13 @@
           "op": "delete Webhook"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

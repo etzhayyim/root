@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "ss7_sigtran clean-room actor",
   "description": "Clean-room, API-compatible telecom / satellite actor (ss7_sigtran); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihvw2bevtdqswfhrz5v72owx65qujy6wfm6gunn4vh4ogyys2hxge",
+  "wasmCid": "bafkreieysaxjb32bmtwt6mmf4tdbgk53om7lfjv4mpptcv724sna7elray",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihvw2bevtdqswfhrz5v72owx65qujy6wfm6gunn4vh4ogyys2hxge",
+  "ipfs": "ipfs://bafkreieysaxjb32bmtwt6mmf4tdbgk53om7lfjv4mpptcv724sna7elray",
   "schema": "schema/ss7_sigtran.kotoba",
+  "tier": "L3",
   "entities": [
     "Subscriber",
     "Session",
@@ -181,6 +182,13 @@
           "op": "delete UsageRecord"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

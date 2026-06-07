@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "celonis clean-room actor",
   "description": "Clean-room, API-compatible RPA / process automation actor (celonis); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreif3n5jsylmlqzmvhupzh3boc3mbdnwcks7hdnasdjsln636o6vnx4",
+  "wasmCid": "bafkreifw3wl5msy6tlyobka64i4njxuvlub2wbptu4soosnlnfkyqi3g7q",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreif3n5jsylmlqzmvhupzh3boc3mbdnwcks7hdnasdjsln636o6vnx4",
+  "ipfs": "ipfs://bafkreifw3wl5msy6tlyobka64i4njxuvlub2wbptu4soosnlnfkyqi3g7q",
   "schema": "schema/celonis.kotoba",
+  "tier": "L3",
   "entities": [
     "Bot",
     "Process",
@@ -181,6 +182,13 @@
           "op": "delete ProcessMining"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

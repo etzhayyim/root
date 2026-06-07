@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "ncbi clean-room actor",
   "description": "Clean-room, API-compatible healthcare HL7-FHIR / bioinformatics actor (ncbi); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreieo33ltcxff7vbnzr2qd72yrtsqg65fhens3oq5ukzwmvrfgele2u",
+  "wasmCid": "bafkreigbik2rq3kwwyl37yg7vnyr4gysfmgukyhxxolodvfzoehhipnyji",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreieo33ltcxff7vbnzr2qd72yrtsqg65fhens3oq5ukzwmvrfgele2u",
+  "ipfs": "ipfs://bafkreigbik2rq3kwwyl37yg7vnyr4gysfmgukyhxxolodvfzoehhipnyji",
   "schema": "schema/ncbi.kotoba",
+  "tier": "L3",
   "entities": [
     "Patient",
     "Observation",
@@ -181,6 +182,13 @@
           "op": "delete Specimen"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

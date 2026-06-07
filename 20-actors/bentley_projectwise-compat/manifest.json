@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "bentley_projectwise clean-room actor",
   "description": "Clean-room, API-compatible AEC / GovTech actor (bentley_projectwise); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiak6zsaneflv5sjrgplgb3qqg77dthuaxggnz6w2w4gk2alkttxpe",
+  "wasmCid": "bafkreid6xf5w5obwevhg4gf6gf472kosqxzndh5x6wgqy6sslesgfm3qcm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiak6zsaneflv5sjrgplgb3qqg77dthuaxggnz6w2w4gk2alkttxpe",
+  "ipfs": "ipfs://bafkreid6xf5w5obwevhg4gf6gf472kosqxzndh5x6wgqy6sslesgfm3qcm",
   "schema": "schema/bentley_projectwise.kotoba",
+  "tier": "L3",
   "entities": [
     "Project",
     "Permit",
@@ -181,6 +182,13 @@
           "op": "delete ServiceRequest"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

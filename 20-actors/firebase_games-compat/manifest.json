@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "firebase_games clean-room actor",
   "description": "Clean-room, API-compatible gaming backend / metaverse actor (firebase_games); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreia377anbwf6dwxkf4ekbqzoxtsxlbigbh7symraaq7d7fjkxpqxfa",
+  "wasmCid": "bafkreia3gpbuilnnonqxui2ybuayy2ubbdfmmpsmv3c3zd3xrebhx2ktdm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreia377anbwf6dwxkf4ekbqzoxtsxlbigbh7symraaq7d7fjkxpqxfa",
+  "ipfs": "ipfs://bafkreia3gpbuilnnonqxui2ybuayy2ubbdfmmpsmv3c3zd3xrebhx2ktdm",
   "schema": "schema/firebase_games.kotoba",
+  "tier": "L3",
   "entities": [
     "Player",
     "Session",
@@ -181,6 +182,13 @@
           "op": "delete Achievement"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

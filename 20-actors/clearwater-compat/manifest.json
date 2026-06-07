@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "clearwater clean-room actor",
   "description": "Clean-room, API-compatible core banking / InsurTech actor (clearwater); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreif6ydxgo67wjgcdt23j7pul4dymad4vdr4budunvf7hk65a5bjgu4",
+  "wasmCid": "bafkreibblpagk4jcxssq6czanlqwm3eaby3bgow5lhynhctpi7nejtcivq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreif6ydxgo67wjgcdt23j7pul4dymad4vdr4budunvf7hk65a5bjgu4",
+  "ipfs": "ipfs://bafkreibblpagk4jcxssq6czanlqwm3eaby3bgow5lhynhctpi7nejtcivq",
   "schema": "schema/clearwater.kotoba",
+  "tier": "L3",
   "entities": [
     "Account",
     "Loan",
@@ -181,6 +182,13 @@
           "op": "delete Customer"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

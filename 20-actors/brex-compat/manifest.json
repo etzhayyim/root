@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "brex clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (brex); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibav2ew7iqjlnuoy3j5xyez7nnbahy5i6jpcngcit4ncyaugui3wy",
+  "wasmCid": "bafkreigkhlevcuomnomzv4x66ky6gnvj5qwcqao6uqhlqqhh37gz7h5l54",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibav2ew7iqjlnuoy3j5xyez7nnbahy5i6jpcngcit4ncyaugui3wy",
+  "ipfs": "ipfs://bafkreigkhlevcuomnomzv4x66ky6gnvj5qwcqao6uqhlqqhh37gz7h5l54",
   "schema": "schema/brex.kotoba",
+  "tier": "L3",
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -181,6 +182,13 @@
           "op": "delete PaymentMethod"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

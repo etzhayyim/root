@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "saphybris clean-room actor",
   "description": "Clean-room, API-compatible enterprise commerce / spend actor (saphybris); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreig2aywtb4fkcpvvebjnj7xbnqdgty4wlc7a4sxhcxhanzxldvdx6u",
+  "wasmCid": "bafkreiatvtl5dcznhy75474v5cd3aqwccdxdwyxoehiqcpt5jlw6pcwfg4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreig2aywtb4fkcpvvebjnj7xbnqdgty4wlc7a4sxhcxhanzxldvdx6u",
+  "ipfs": "ipfs://bafkreiatvtl5dcznhy75474v5cd3aqwccdxdwyxoehiqcpt5jlw6pcwfg4",
   "schema": "schema/saphybris.kotoba",
+  "tier": "L3",
   "entities": [
     "Catalog",
     "Product",
@@ -181,6 +182,13 @@
           "op": "delete Invoice"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

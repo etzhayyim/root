@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "csg_international clean-room actor",
   "description": "Clean-room, API-compatible telecom / satellite actor (csg_international); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiflnrmct4cbqsk2pknn4hp226iv2vl7asy4nb6zfgyg3lyis5cu34",
+  "wasmCid": "bafkreiar4lzfykcympuxfdwbhh6nq7kiulwxvqnwvx2pkvoc2tvqfccery",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiflnrmct4cbqsk2pknn4hp226iv2vl7asy4nb6zfgyg3lyis5cu34",
+  "ipfs": "ipfs://bafkreiar4lzfykcympuxfdwbhh6nq7kiulwxvqnwvx2pkvoc2tvqfccery",
   "schema": "schema/csg_international.kotoba",
+  "tier": "L3",
   "entities": [
     "Subscriber",
     "Session",
@@ -181,6 +182,13 @@
           "op": "delete UsageRecord"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

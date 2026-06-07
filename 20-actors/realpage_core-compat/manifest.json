@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "realpage_core clean-room actor",
   "description": "Clean-room, API-compatible real estate / MLS / PropTech actor (realpage_core); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibcvijl5rkgykc5tbd42zmvdtaywpwdzmcnchu5aaovmloywwvcs4",
+  "wasmCid": "bafkreihrzm6enykbt6gh2p3x5o7fxaclar4taady4i4ve3a7ksvvgapzte",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibcvijl5rkgykc5tbd42zmvdtaywpwdzmcnchu5aaovmloywwvcs4",
+  "ipfs": "ipfs://bafkreihrzm6enykbt6gh2p3x5o7fxaclar4taady4i4ve3a7ksvvgapzte",
   "schema": "schema/realpage_core.kotoba",
+  "tier": "L3",
   "entities": [
     "Listing",
     "Property",
@@ -181,6 +182,13 @@
           "op": "delete Tenant"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "metagpt clean-room actor",
   "description": "Clean-room, API-compatible AI agent protocol actor (metagpt); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigwr3nocl2v2bevo7dztjbeg22mg2r2czjb4eutjqa52gghkkcswe",
+  "wasmCid": "bafkreifwvlkcmsw6bzvyxmw4dnlc6xmsf5d5no5wz6txr6x3sragkbbexy",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigwr3nocl2v2bevo7dztjbeg22mg2r2czjb4eutjqa52gghkkcswe",
+  "ipfs": "ipfs://bafkreifwvlkcmsw6bzvyxmw4dnlc6xmsf5d5no5wz6txr6x3sragkbbexy",
   "schema": "schema/metagpt.kotoba",
+  "tier": "L3",
   "entities": [
     "Agent",
     "Task",
@@ -181,6 +182,13 @@
           "op": "delete Plan"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

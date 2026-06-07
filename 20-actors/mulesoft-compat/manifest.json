@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "mulesoft clean-room actor",
   "description": "Clean-room, API-compatible low-code / iPaaS actor (mulesoft); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibpbxjzueg3qhaqruiij3uu4tnd2uczirtmlru4rlladpxj2i6cde",
+  "wasmCid": "bafkreib3n32i2ll6hsmgelb4xiugi2z7uqfiuwoonlnwntmkfibsq6v3zu",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibpbxjzueg3qhaqruiij3uu4tnd2uczirtmlru4rlladpxj2i6cde",
+  "ipfs": "ipfs://bafkreib3n32i2ll6hsmgelb4xiugi2z7uqfiuwoonlnwntmkfibsq6v3zu",
   "schema": "schema/mulesoft.kotoba",
+  "tier": "L3",
   "entities": [
     "Flow",
     "Step",
@@ -181,6 +182,13 @@
           "op": "delete Webhook"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

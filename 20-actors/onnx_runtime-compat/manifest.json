@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "onnx_runtime clean-room actor",
   "description": "Clean-room, API-compatible AI/ML infrastructure / chips actor (onnx_runtime); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiaarayg3jkfutwdrdkwcb3zzaavwfltdfd4cpjolp2v3u5heweewm",
+  "wasmCid": "bafkreigmlap3os2hngyy7xmmvq7ibx4npwk5mjkcynmt4dpvzci26uhfti",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiaarayg3jkfutwdrdkwcb3zzaavwfltdfd4cpjolp2v3u5heweewm",
+  "ipfs": "ipfs://bafkreigmlap3os2hngyy7xmmvq7ibx4npwk5mjkcynmt4dpvzci26uhfti",
   "schema": "schema/onnx_runtime.kotoba",
+  "tier": "L3",
   "entities": [
     "Device",
     "Kernel",
@@ -181,6 +182,13 @@
           "op": "delete Utilization"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

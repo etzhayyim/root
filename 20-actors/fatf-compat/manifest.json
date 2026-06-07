@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "fatf clean-room actor",
   "description": "Clean-room, API-compatible open banking / financial regulation actor (fatf); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreieyxc3ua4fn2ymjuxx4dettpbu75ubztls2m6tlakreh6dpkzyivy",
+  "wasmCid": "bafkreihlcgme7qdwdb3byijy24yv3szmqbwr4aiw33yv7wfws3kgd5aovu",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreieyxc3ua4fn2ymjuxx4dettpbu75ubztls2m6tlakreh6dpkzyivy",
+  "ipfs": "ipfs://bafkreihlcgme7qdwdb3byijy24yv3szmqbwr4aiw33yv7wfws3kgd5aovu",
   "schema": "schema/fatf.kotoba",
+  "tier": "L3",
   "entities": [
     "Account",
     "Consent",
@@ -181,6 +182,13 @@
           "op": "delete Filing"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

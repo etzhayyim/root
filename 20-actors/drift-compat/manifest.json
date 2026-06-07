@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "drift clean-room actor",
   "description": "Clean-room, API-compatible customer experience / survey actor (drift); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreib5mxogqpeggjuhua53nnkbtgszufx7sol5fbpggcovxl7hpqa4xu",
+  "wasmCid": "bafkreih26x5elnyjorunvjgnrp72kogfoo44ddxlqf3ar3adowb6mvwifm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreib5mxogqpeggjuhua53nnkbtgszufx7sol5fbpggcovxl7hpqa4xu",
+  "ipfs": "ipfs://bafkreih26x5elnyjorunvjgnrp72kogfoo44ddxlqf3ar3adowb6mvwifm",
   "schema": "schema/drift.kotoba",
+  "tier": "L3",
   "entities": [
     "Ticket",
     "Survey",
@@ -181,6 +182,13 @@
           "op": "delete Contact"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "acorrd_standards clean-room actor",
   "description": "Clean-room, API-compatible core banking / InsurTech actor (acorrd_standards); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibv7kmte7hhtwnatcppozqdt72bti7k2bubfnsul3caejwhkag2ha",
+  "wasmCid": "bafkreihgt3qgqidrfq5c5x5mecz7nud33tfhbztfr54n4rpqnynch22c3q",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibv7kmte7hhtwnatcppozqdt72bti7k2bubfnsul3caejwhkag2ha",
+  "ipfs": "ipfs://bafkreihgt3qgqidrfq5c5x5mecz7nud33tfhbztfr54n4rpqnynch22c3q",
   "schema": "schema/acorrd_standards.kotoba",
+  "tier": "L3",
   "entities": [
     "Account",
     "Loan",
@@ -181,6 +182,13 @@
           "op": "delete Customer"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

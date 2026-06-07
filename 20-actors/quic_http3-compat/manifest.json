@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "quic_http3 clean-room actor",
   "description": "Clean-room, API-compatible deep internet / core routing actor (quic_http3); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihv2kvmyfwe4hobderbcy6aexn2pex5ehrop7utrh73ehfmzvw27u",
+  "wasmCid": "bafkreiaqleybxtsyhcttj7pfltpcssx43xel6xwo6z45bakzgabpybzbiq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihv2kvmyfwe4hobderbcy6aexn2pex5ehrop7utrh73ehfmzvw27u",
+  "ipfs": "ipfs://bafkreiaqleybxtsyhcttj7pfltpcssx43xel6xwo6z45bakzgabpybzbiq",
   "schema": "schema/quic_http3.kotoba",
+  "tier": "L3",
   "entities": [
     "Prefix",
     "Route",
@@ -181,6 +182,13 @@
           "op": "delete Tunnel"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

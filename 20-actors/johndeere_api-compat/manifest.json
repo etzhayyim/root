@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "johndeere_api clean-room actor",
   "description": "Clean-room, API-compatible AgriTech / food actor (johndeere_api); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreih2qltcwiqn4almgpoi5y64ny6nak2qf5ek4aedpy64agzj3xqkfa",
+  "wasmCid": "bafkreifkolwkg27vyjbf7xorztbgxxyljhopb6zafu2rhdi3uaqsxen6ve",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreih2qltcwiqn4almgpoi5y64ny6nak2qf5ek4aedpy64agzj3xqkfa",
+  "ipfs": "ipfs://bafkreifkolwkg27vyjbf7xorztbgxxyljhopb6zafu2rhdi3uaqsxen6ve",
   "schema": "schema/johndeere_api.kotoba",
+  "tier": "L4",
   "entities": [
     "Field",
     "Operation",
@@ -181,6 +182,13 @@
           "op": "delete Imagery"
         }
       ],
+      "features": {
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
+      },
       "health": "/healthz"
     },
     "supplychain": {

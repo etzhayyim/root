@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "omron_sysmac clean-room actor",
   "description": "Clean-room, API-compatible industrial SCADA actor (omron_sysmac); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreierqssece7ae2ujgpu2gnb2oaxk4xaiz7kr3sfdugytluvz4suekq",
+  "wasmCid": "bafkreia5pn5eajifwcbod3oaihlf3ixkhejac5wiyokr4bnenr7ymgjh4y",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreierqssece7ae2ujgpu2gnb2oaxk4xaiz7kr3sfdugytluvz4suekq",
+  "ipfs": "ipfs://bafkreia5pn5eajifwcbod3oaihlf3ixkhejac5wiyokr4bnenr7ymgjh4y",
   "schema": "schema/omron_sysmac.kotoba",
+  "tier": "L3",
   "entities": [
     "Tag",
     "Device",
@@ -181,6 +182,13 @@
           "op": "delete Batch"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

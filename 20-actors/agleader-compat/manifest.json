@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "agleader clean-room actor",
   "description": "Clean-room, API-compatible AgriTech / food actor (agleader); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihopxmddlfmvymds57wgqecavhp37ncsffihmboaio7ivlupph6k4",
+  "wasmCid": "bafkreiaoezwuum4kjjvgifpqojanshc3nr7nxcclpans3pbd5qc4tjdcyq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihopxmddlfmvymds57wgqecavhp37ncsffihmboaio7ivlupph6k4",
+  "ipfs": "ipfs://bafkreiaoezwuum4kjjvgifpqojanshc3nr7nxcclpans3pbd5qc4tjdcyq",
   "schema": "schema/agleader.kotoba",
+  "tier": "L3",
   "entities": [
     "Field",
     "Operation",
@@ -181,6 +182,13 @@
           "op": "delete Imagery"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

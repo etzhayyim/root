@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "rets_mls clean-room actor",
   "description": "Clean-room, API-compatible real estate / MLS / PropTech actor (rets_mls); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihmngwrmetcmrzmy7h3xvrvf4wjphxs4yt6yprgrn2dv66actnfdy",
+  "wasmCid": "bafkreigxcg7hoo46c7cuvtwfpipfmzf76muppfljjty245j6l3n2utbzca",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihmngwrmetcmrzmy7h3xvrvf4wjphxs4yt6yprgrn2dv66actnfdy",
+  "ipfs": "ipfs://bafkreigxcg7hoo46c7cuvtwfpipfmzf76muppfljjty245j6l3n2utbzca",
   "schema": "schema/rets_mls.kotoba",
+  "tier": "L3",
   "entities": [
     "Listing",
     "Property",
@@ -181,6 +182,13 @@
           "op": "delete Tenant"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

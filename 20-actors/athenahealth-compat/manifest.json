@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "athenahealth clean-room actor",
   "description": "Clean-room, API-compatible EHR / clinical records actor (athenahealth); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibdshlrocpoyj2xflx42bz2sekrk7i2o34l3p36o43mymd45dab7y",
+  "wasmCid": "bafkreihypu4vfpew76ovixs7mnnekudt3hfezg3mkzryuttddhnahmuche",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibdshlrocpoyj2xflx42bz2sekrk7i2o34l3p36o43mymd45dab7y",
+  "ipfs": "ipfs://bafkreihypu4vfpew76ovixs7mnnekudt3hfezg3mkzryuttddhnahmuche",
   "schema": "schema/athenahealth.kotoba",
+  "tier": "L3",
   "entities": [
     "Patient",
     "Encounter",
@@ -181,6 +182,13 @@
           "op": "delete Appointment"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

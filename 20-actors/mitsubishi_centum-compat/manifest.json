@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "mitsubishi_centum clean-room actor",
   "description": "Clean-room, API-compatible industrial SCADA actor (mitsubishi_centum); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreid4lblaz4pccjo3bdktsbueis53gkwxflezkp65nvbnrk5adl4d7i",
+  "wasmCid": "bafkreicnrs74zjxdcxufhfhg2x33rpojkpvf7p5lvkxjw3aijxhefohxam",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreid4lblaz4pccjo3bdktsbueis53gkwxflezkp65nvbnrk5adl4d7i",
+  "ipfs": "ipfs://bafkreicnrs74zjxdcxufhfhg2x33rpojkpvf7p5lvkxjw3aijxhefohxam",
   "schema": "schema/mitsubishi_centum.kotoba",
+  "tier": "L3",
   "entities": [
     "Tag",
     "Device",
@@ -181,6 +182,13 @@
           "op": "delete Batch"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "telegram_api clean-room actor",
   "description": "Clean-room, API-compatible communications / social actor (telegram_api); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigsa4bftk6yq7h3s6b2thbh2b4dr5isn6e27xozrkbac5iacpce4q",
+  "wasmCid": "bafkreifmyyh5wb7wk5rxypncujztiqwa6x53hys5dv6l7n4snwuuzudetm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigsa4bftk6yq7h3s6b2thbh2b4dr5isn6e27xozrkbac5iacpce4q",
+  "ipfs": "ipfs://bafkreifmyyh5wb7wk5rxypncujztiqwa6x53hys5dv6l7n4snwuuzudetm",
   "schema": "schema/telegram_api.kotoba",
+  "tier": "L3",
   "entities": [
     "Channel",
     "Message",
@@ -181,6 +182,13 @@
           "op": "delete Webhook"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "airbus_analytx clean-room actor",
   "description": "Clean-room, API-compatible travel / aviation / hospitality actor (airbus_analytx); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigrewlvq67ek4dtnptgxzainrugddc2okwmnk2iun7nn4xdu55g34",
+  "wasmCid": "bafkreibq3ngwa3dn3wqk3ey7ybeiupmskfdgm57tgxhcdjdakyrqh3syxi",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigrewlvq67ek4dtnptgxzainrugddc2okwmnk2iun7nn4xdu55g34",
+  "ipfs": "ipfs://bafkreibq3ngwa3dn3wqk3ey7ybeiupmskfdgm57tgxhcdjdakyrqh3syxi",
   "schema": "schema/airbus_analytx.kotoba",
+  "tier": "L3",
   "entities": [
     "Flight",
     "Booking",
@@ -181,6 +182,13 @@
           "op": "delete Fare"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

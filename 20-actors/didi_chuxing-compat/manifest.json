@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "didi_chuxing clean-room actor",
   "description": "Clean-room, API-compatible ride-hailing / micro-mobility actor (didi_chuxing); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiatgxsvd6uw2c2ifs7cgb4hj3c5v6eqcqj36no7a3vkya6sc5wmcu",
+  "wasmCid": "bafkreiar3m6tz2kifid2vjgqiwarce3zz4osufum7x6amdwm25wv7whm7y",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiatgxsvd6uw2c2ifs7cgb4hj3c5v6eqcqj36no7a3vkya6sc5wmcu",
+  "ipfs": "ipfs://bafkreiar3m6tz2kifid2vjgqiwarce3zz4osufum7x6amdwm25wv7whm7y",
   "schema": "schema/didi_chuxing.kotoba",
+  "tier": "L4",
   "entities": [
     "Driver",
     "Rider",
@@ -181,6 +182,13 @@
           "op": "delete Rating"
         }
       ],
+      "features": {
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
+      },
       "health": "/healthz"
     },
     "supplychain": {

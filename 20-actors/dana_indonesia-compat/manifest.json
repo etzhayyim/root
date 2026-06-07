@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "dana_indonesia clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (dana_indonesia); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidygmtunhiqwyeuofzppjskskhazxswob2di6qdax6xejxcapqwle",
+  "wasmCid": "bafkreie4g3l3x6revxxotawpu2tlqnmdzbcj2bu4kdvab2dd7hlrvd2s2m",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidygmtunhiqwyeuofzppjskskhazxswob2di6qdax6xejxcapqwle",
+  "ipfs": "ipfs://bafkreie4g3l3x6revxxotawpu2tlqnmdzbcj2bu4kdvab2dd7hlrvd2s2m",
   "schema": "schema/dana_indonesia.kotoba",
+  "tier": "L3",
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -181,6 +182,13 @@
           "op": "delete PaymentMethod"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

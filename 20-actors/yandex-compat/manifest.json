@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "yandex clean-room actor",
   "description": "Clean-room, API-compatible delivery / local logistics actor (yandex); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreic7xqzwxypjnundy7ksp5z6biaqdswgxr4tosggznjhqlobkyar54",
+  "wasmCid": "bafkreiemmjveguppqd7ndnlzmo5kzn24k7ujtf6emwieaoolseruqj6cdy",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreic7xqzwxypjnundy7ksp5z6biaqdswgxr4tosggznjhqlobkyar54",
+  "ipfs": "ipfs://bafkreiemmjveguppqd7ndnlzmo5kzn24k7ujtf6emwieaoolseruqj6cdy",
   "schema": "schema/yandex.kotoba",
+  "tier": "L3",
   "entities": [
     "Order",
     "Courier",
@@ -181,6 +182,13 @@
           "op": "delete Tracking"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

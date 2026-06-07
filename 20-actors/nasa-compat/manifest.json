@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "nasa clean-room actor",
   "description": "Clean-room, API-compatible US federal / sovereign API actor (nasa); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigyjev7msa3jvzwuewjsahvy6chrpnk355bf3hcbh5q5l5xi4lgiu",
+  "wasmCid": "bafkreicqas66s7gr36liuqkqptivmdxkxecda3hapcpfka4hh24lfsmmhe",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigyjev7msa3jvzwuewjsahvy6chrpnk355bf3hcbh5q5l5xi4lgiu",
+  "ipfs": "ipfs://bafkreicqas66s7gr36liuqkqptivmdxkxecda3hapcpfka4hh24lfsmmhe",
   "schema": "schema/nasa.kotoba",
+  "tier": "L3",
   "entities": [
     "Filing",
     "Entity",
@@ -181,6 +182,13 @@
           "op": "delete Notice"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

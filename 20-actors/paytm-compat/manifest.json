@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "paytm clean-room actor",
   "description": "Clean-room, API-compatible regional super-app actor (paytm); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigjhihomgrbw625y4p5cvrfp2uhjszm3736zmlmgq45f3sbhivkui",
+  "wasmCid": "bafkreid6h7h5sjnuvossyrvr47ybgmfwspuqt3ycnkyqeuzqsvvpp7yq7q",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigjhihomgrbw625y4p5cvrfp2uhjszm3736zmlmgq45f3sbhivkui",
+  "ipfs": "ipfs://bafkreid6h7h5sjnuvossyrvr47ybgmfwspuqt3ycnkyqeuzqsvvpp7yq7q",
   "schema": "schema/paytm.kotoba",
+  "tier": "L3",
   "entities": [
     "User",
     "Wallet",
@@ -181,6 +182,13 @@
           "op": "delete Payment"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

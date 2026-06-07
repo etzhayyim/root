@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "hike_messenger clean-room actor",
   "description": "Clean-room, API-compatible communications / social actor (hike_messenger); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigc6uviu73ezrl5cxrgel6dgkfqbntq756kghmsyn2qq3mkz2mtay",
+  "wasmCid": "bafkreifwqlc3xh4vopysoyhnaephgg6kdqcmzvxanfz66k6cwupab2t4hq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigc6uviu73ezrl5cxrgel6dgkfqbntq756kghmsyn2qq3mkz2mtay",
+  "ipfs": "ipfs://bafkreifwqlc3xh4vopysoyhnaephgg6kdqcmzvxanfz66k6cwupab2t4hq",
   "schema": "schema/hike_messenger.kotoba",
+  "tier": "L3",
   "entities": [
     "Channel",
     "Message",
@@ -181,6 +182,13 @@
           "op": "delete Webhook"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "swiggy clean-room actor",
   "description": "Clean-room, API-compatible delivery / local logistics actor (swiggy); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidvxeljqfo62ft65yq376tnx33kd46x4a75ls37ay7scunoxhhlpq",
+  "wasmCid": "bafkreidank6hnnt37bhjpvqzbhankovi2dtatf5ogd3d4kmn7ymn64iquq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidvxeljqfo62ft65yq376tnx33kd46x4a75ls37ay7scunoxhhlpq",
+  "ipfs": "ipfs://bafkreidank6hnnt37bhjpvqzbhankovi2dtatf5ogd3d4kmn7ymn64iquq",
   "schema": "schema/swiggy.kotoba",
+  "tier": "L3",
   "entities": [
     "Order",
     "Courier",
@@ -181,6 +182,13 @@
           "op": "delete Tracking"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

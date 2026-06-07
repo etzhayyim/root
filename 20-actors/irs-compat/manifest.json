@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "irs clean-room actor",
   "description": "Clean-room, API-compatible US federal / sovereign API actor (irs); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiciq2m2onvvzkigsksrf246mre6qoznrnwjjkzrs46sjf4d7twtly",
+  "wasmCid": "bafkreiad6w3dtditcndga5aiyvtz7f6yrhlffzl5pavrcgj2zgmsrwhgvy",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiciq2m2onvvzkigsksrf246mre6qoznrnwjjkzrs46sjf4d7twtly",
+  "ipfs": "ipfs://bafkreiad6w3dtditcndga5aiyvtz7f6yrhlffzl5pavrcgj2zgmsrwhgvy",
   "schema": "schema/irs.kotoba",
+  "tier": "L4",
   "entities": [
     "Filing",
     "Entity",
@@ -181,6 +182,13 @@
           "op": "delete Notice"
         }
       ],
+      "features": {
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
+      },
       "health": "/healthz"
     },
     "supplychain": {

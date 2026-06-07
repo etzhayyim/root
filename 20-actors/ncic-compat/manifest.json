@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "ncic clean-room actor",
   "description": "Clean-room, API-compatible public safety / law / justice actor (ncic); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibmfy7scdbtmmkwz5lvigs3cj4xx5jn5flalsmlgyoaffqslpsv3q",
+  "wasmCid": "bafkreiedavpwfhqelmyyssyyqtedyzmw6wrjwozn64jffambqqcs7wwgsi",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibmfy7scdbtmmkwz5lvigs3cj4xx5jn5flalsmlgyoaffqslpsv3q",
+  "ipfs": "ipfs://bafkreiedavpwfhqelmyyssyyqtedyzmw6wrjwozn64jffambqqcs7wwgsi",
   "schema": "schema/ncic.kotoba",
+  "tier": "L3",
   "entities": [
     "Case",
     "Party",
@@ -181,6 +182,13 @@
           "op": "delete Sanction"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

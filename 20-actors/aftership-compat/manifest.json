@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "aftership clean-room actor",
   "description": "Clean-room, API-compatible headless commerce / logistics actor (aftership); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreih2rbokf2q3zmxplrgjbd6nrkzitp7gcirhojgcjx47ozly5t4nci",
+  "wasmCid": "bafkreib34lmdvplzoxwrnsiuleui4mtu7awlqxniz47265v54w2omcceau",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreih2rbokf2q3zmxplrgjbd6nrkzitp7gcirhojgcjx47ozly5t4nci",
+  "ipfs": "ipfs://bafkreib34lmdvplzoxwrnsiuleui4mtu7awlqxniz47265v54w2omcceau",
   "schema": "schema/aftership.kotoba",
+  "tier": "L3",
   "entities": [
     "ContentEntry",
     "Product",
@@ -181,6 +182,13 @@
           "op": "delete Order"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

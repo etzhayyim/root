@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "riscv_isa clean-room actor",
   "description": "Clean-room, API-compatible hardware ISA / quantum actor (riscv_isa); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreieo32bf7wjnre4qerpzqsrlktvl6cucuv6nc7nxxcoqsqwva7hji4",
+  "wasmCid": "bafkreiexbeny527ekeg2lsvnrmipqpjellnl53yb46vgx6mbrsksn25thm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreieo32bf7wjnre4qerpzqsrlktvl6cucuv6nc7nxxcoqsqwva7hji4",
+  "ipfs": "ipfs://bafkreiexbeny527ekeg2lsvnrmipqpjellnl53yb46vgx6mbrsksn25thm",
   "schema": "schema/riscv_isa.kotoba",
+  "tier": "L4",
   "entities": [
     "Register",
     "Instruction",
@@ -181,6 +182,13 @@
           "op": "delete Job"
         }
       ],
+      "features": {
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
+      },
       "health": "/healthz"
     },
     "supplychain": {

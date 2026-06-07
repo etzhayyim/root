@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "qnx clean-room actor",
   "description": "Clean-room, API-compatible OS / kernel interface actor (qnx); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreierdbm5lydcchqylfah6wx757k2tj5j5z3eaqfwrr5uzwir5hj7ey",
+  "wasmCid": "bafkreih62t4xckbbjhuhwgccprmkvw4zujdc7hiztndmmsm7g6xfdwwvhi",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreierdbm5lydcchqylfah6wx757k2tj5j5z3eaqfwrr5uzwir5hj7ey",
+  "ipfs": "ipfs://bafkreih62t4xckbbjhuhwgccprmkvw4zujdc7hiztndmmsm7g6xfdwwvhi",
   "schema": "schema/qnx.kotoba",
+  "tier": "L3",
   "entities": [
     "Process",
     "Thread",
@@ -181,6 +182,13 @@
           "op": "delete Signal"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

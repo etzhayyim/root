@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "starlink clean-room actor",
   "description": "Clean-room, API-compatible telecom / satellite actor (starlink); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihhlbhq2co2j6h2bzvuc5ga56cmfhmrvqpbrkuqbr4t3fwc3vwvbq",
+  "wasmCid": "bafkreibzwirmuz7tkw66aywx4krkyuslyylk2vmc4dlfbxcue44xtgswkm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihhlbhq2co2j6h2bzvuc5ga56cmfhmrvqpbrkuqbr4t3fwc3vwvbq",
+  "ipfs": "ipfs://bafkreibzwirmuz7tkw66aywx4krkyuslyylk2vmc4dlfbxcue44xtgswkm",
   "schema": "schema/starlink.kotoba",
+  "tier": "L4",
   "entities": [
     "Subscriber",
     "Session",
@@ -181,6 +182,13 @@
           "op": "delete UsageRecord"
         }
       ],
+      "features": {
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
+      },
       "health": "/healthz"
     },
     "supplychain": {

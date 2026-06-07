@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "mpls clean-room actor",
   "description": "Clean-room, API-compatible deep internet / core routing actor (mpls); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifjjynxhldtkdnn67iiw32q2abedz7i2fyssknosz3pepf36vbdna",
+  "wasmCid": "bafkreign25djzloaj4wa74wo35vzqvkbsos3dn4n2cbmeaqxyczs2zsv7q",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifjjynxhldtkdnn67iiw32q2abedz7i2fyssknosz3pepf36vbdna",
+  "ipfs": "ipfs://bafkreign25djzloaj4wa74wo35vzqvkbsos3dn4n2cbmeaqxyczs2zsv7q",
   "schema": "schema/mpls.kotoba",
+  "tier": "L3",
   "entities": [
     "Prefix",
     "Route",
@@ -181,6 +182,13 @@
           "op": "delete Tunnel"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

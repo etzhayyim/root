@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "iter_data clean-room actor",
   "description": "Clean-room, API-compatible fusion / plasma energy actor (iter_data); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihv7c7rvppim2nrn5lp5y6zqvjfzz226qsoqucr3dj6i754pnf2rq",
+  "wasmCid": "bafkreiglw65nfopxxll6gerzkzug5layptet67ajjkktyxonk2yfjxfqie",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihv7c7rvppim2nrn5lp5y6zqvjfzz226qsoqucr3dj6i754pnf2rq",
+  "ipfs": "ipfs://bafkreiglw65nfopxxll6gerzkzug5layptet67ajjkktyxonk2yfjxfqie",
   "schema": "schema/iter_data.kotoba",
+  "tier": "L4",
   "entities": [
     "Shot",
     "Diagnostic",
@@ -181,6 +182,13 @@
           "op": "delete Sample"
         }
       ],
+      "features": {
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
+      },
       "health": "/healthz"
     },
     "supplychain": {

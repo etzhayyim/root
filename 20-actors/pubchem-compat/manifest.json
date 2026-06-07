@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "pubchem clean-room actor",
   "description": "Clean-room, API-compatible meta-knowledge / scientific publishing actor (pubchem); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiceag7r7w3xbj6yqh5v74vmgqqo7qw5x3fthp4ahzxubehp6p7cyq",
+  "wasmCid": "bafkreibdoyw22rbzzsk3h4j6535q42f5p76f27quts6azyzhpk7zykvvwa",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiceag7r7w3xbj6yqh5v74vmgqqo7qw5x3fthp4ahzxubehp6p7cyq",
+  "ipfs": "ipfs://bafkreibdoyw22rbzzsk3h4j6535q42f5p76f27quts6azyzhpk7zykvvwa",
   "schema": "schema/pubchem.kotoba",
+  "tier": "L3",
   "entities": [
     "Work",
     "Author",
@@ -181,6 +182,13 @@
           "op": "delete Subject"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

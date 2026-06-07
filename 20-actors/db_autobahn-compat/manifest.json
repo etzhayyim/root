@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "db_autobahn clean-room actor",
   "description": "Clean-room, API-compatible core banking / InsurTech actor (db_autobahn); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidhzgc66dzrqkmsffezw4j5jiya4d7s5rfr5lxmqio7njzs3c25bi",
+  "wasmCid": "bafkreihdohzyifkoixkaiprtbzywyoon53743qwsjaqbeytzh2tw4nupcm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidhzgc66dzrqkmsffezw4j5jiya4d7s5rfr5lxmqio7njzs3c25bi",
+  "ipfs": "ipfs://bafkreihdohzyifkoixkaiprtbzywyoon53743qwsjaqbeytzh2tw4nupcm",
   "schema": "schema/db_autobahn.kotoba",
+  "tier": "L3",
   "entities": [
     "Account",
     "Loan",
@@ -181,6 +182,13 @@
           "op": "delete Customer"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "kong clean-room actor",
   "description": "Clean-room, API-compatible DevSecOps / serverless actor (kong); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiejdl4h7fmcnb624q5dfxn4kvhnha2u455efatcczzwhtvxxe2cq4",
+  "wasmCid": "bafkreibsiggz6h2u3d36r66zakr5cobdwnyvzfwu5fnviay7w5a2noki2a",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiejdl4h7fmcnb624q5dfxn4kvhnha2u455efatcczzwhtvxxe2cq4",
+  "ipfs": "ipfs://bafkreibsiggz6h2u3d36r66zakr5cobdwnyvzfwu5fnviay7w5a2noki2a",
   "schema": "schema/kong.kotoba",
+  "tier": "L3",
   "entities": [
     "Service",
     "Deployment",
@@ -181,6 +182,13 @@
           "op": "delete Function"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

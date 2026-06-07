@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "noaa_goes clean-room actor",
   "description": "Clean-room, API-compatible space / ocean / earth physics actor (noaa_goes); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiad3eeif2ycr5j7pwfpoozgxwpnittma4lk5xnwk2quxbqomrcjbq",
+  "wasmCid": "bafkreiacbsx7kpttgquhde2rmmxohyvvb2ne5gkvndf5adzbf3d6pwt7hu",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiad3eeif2ycr5j7pwfpoozgxwpnittma4lk5xnwk2quxbqomrcjbq",
+  "ipfs": "ipfs://bafkreiacbsx7kpttgquhde2rmmxohyvvb2ne5gkvndf5adzbf3d6pwt7hu",
   "schema": "schema/noaa_goes.kotoba",
+  "tier": "L3",
   "entities": [
     "Object",
     "Position",
@@ -181,6 +182,13 @@
           "op": "delete Station"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

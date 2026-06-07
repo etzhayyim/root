@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "spatial_os clean-room actor",
   "description": "Clean-room, API-compatible gaming backend / metaverse actor (spatial_os); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidwsf5qha26j4h4dephwbaluycpnwki7u3czmuv2tdq74maxkjks4",
+  "wasmCid": "bafkreihwg72ljspgftbpvccbf7n2or3mrnljwioc6m6otl73anztv2q5em",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidwsf5qha26j4h4dephwbaluycpnwki7u3czmuv2tdq74maxkjks4",
+  "ipfs": "ipfs://bafkreihwg72ljspgftbpvccbf7n2or3mrnljwioc6m6otl73anztv2q5em",
   "schema": "schema/spatial_os.kotoba",
+  "tier": "L3",
   "entities": [
     "Player",
     "Session",
@@ -181,6 +182,13 @@
           "op": "delete Achievement"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

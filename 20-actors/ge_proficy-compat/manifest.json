@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "ge_proficy clean-room actor",
   "description": "Clean-room, API-compatible industrial SCADA actor (ge_proficy); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifjjny3rvxyuhg5235eofiulro4uzsuu2edjaspzhs2mcxm4xe7jy",
+  "wasmCid": "bafkreia5fumvm6blfqh6tly66qnkyvhxpsc3jntmok7z627c6yvgcmntoq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifjjny3rvxyuhg5235eofiulro4uzsuu2edjaspzhs2mcxm4xe7jy",
+  "ipfs": "ipfs://bafkreia5fumvm6blfqh6tly66qnkyvhxpsc3jntmok7z627c6yvgcmntoq",
   "schema": "schema/ge_proficy.kotoba",
+  "tier": "L3",
   "entities": [
     "Tag",
     "Device",
@@ -181,6 +182,13 @@
           "op": "delete Batch"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

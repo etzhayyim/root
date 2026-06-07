@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "fmcg_traceability clean-room actor",
   "description": "Clean-room, API-compatible AgriTech / food actor (fmcg_traceability); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiddbsfjsxsirclt3pbmptdr6cchelprpembrqfiveunh36ttrfi5e",
+  "wasmCid": "bafkreifonw6beuou5kob2qirrcr22rgcjbllg75zfmkm6pxefuhxneqldm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiddbsfjsxsirclt3pbmptdr6cchelprpembrqfiveunh36ttrfi5e",
+  "ipfs": "ipfs://bafkreifonw6beuou5kob2qirrcr22rgcjbllg75zfmkm6pxefuhxneqldm",
   "schema": "schema/fmcg_traceability.kotoba",
+  "tier": "L3",
   "entities": [
     "Field",
     "Operation",
@@ -181,6 +182,13 @@
           "op": "delete Imagery"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

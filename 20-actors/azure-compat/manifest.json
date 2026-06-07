@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "azure clean-room actor",
   "description": "Clean-room, API-compatible cloud infrastructure (IaaS) actor (azure); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreietnmjmnonmw45yrtgjrosnslkrdwple3du4hgpoyqlwyntqe7vra",
+  "wasmCid": "bafkreifb6pbaxy3kdn535vhxaaps7vbi5nmqbekek7r7fpvkvvljtaaaem",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreietnmjmnonmw45yrtgjrosnslkrdwple3du4hgpoyqlwyntqe7vra",
+  "ipfs": "ipfs://bafkreifb6pbaxy3kdn535vhxaaps7vbi5nmqbekek7r7fpvkvvljtaaaem",
   "schema": "schema/azure.kotoba",
+  "tier": "L3",
   "entities": [
     "Project",
     "ComputeInstance",
@@ -181,6 +182,13 @@
           "op": "delete IamRole"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

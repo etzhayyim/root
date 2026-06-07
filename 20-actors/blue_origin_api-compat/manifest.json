@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "blue_origin_api clean-room actor",
   "description": "Clean-room, API-compatible space / ocean / earth physics actor (blue_origin_api); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreif4kj4djixdynskgb4ghm7hixardngn54omjga4q5zrhs4ovc3nti",
+  "wasmCid": "bafkreiapnj2p7p3qxxxcczgffgcqapzrlfxyetcwgua76oukhf6reyvaya",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreif4kj4djixdynskgb4ghm7hixardngn54omjga4q5zrhs4ovc3nti",
+  "ipfs": "ipfs://bafkreiapnj2p7p3qxxxcczgffgcqapzrlfxyetcwgua76oukhf6reyvaya",
   "schema": "schema/blue_origin_api.kotoba",
+  "tier": "L3",
   "entities": [
     "Object",
     "Position",
@@ -181,6 +182,13 @@
           "op": "delete Station"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

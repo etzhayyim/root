@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "din_standards clean-room actor",
   "description": "Clean-room, API-compatible materials / bio / chemical actor (din_standards); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibtliolkjrlo2zeda6eyf6cwvlf32a7zxm52wuhbderddr7s6unsu",
+  "wasmCid": "bafkreias4gnaclkhpgibhdywsuajzajqnn56hddkwcvew3bjowc6gq2whe",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibtliolkjrlo2zeda6eyf6cwvlf32a7zxm52wuhbderddr7s6unsu",
+  "ipfs": "ipfs://bafkreias4gnaclkhpgibhdywsuajzajqnn56hddkwcvew3bjowc6gq2whe",
   "schema": "schema/din_standards.kotoba",
+  "tier": "L3",
   "entities": [
     "Substance",
     "Compound",
@@ -181,6 +182,13 @@
           "op": "delete Property"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

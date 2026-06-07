@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "notion clean-room actor",
   "description": "Clean-room, API-compatible office / productivity suite actor (notion); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibmocg2vhlxp2udla7nouhvod55azv2bztc3twtnxjkb23heeaoh4",
+  "wasmCid": "bafkreifgwb7ztnvzzefyau323uma3qjfduraaxogv2jvknspt5hrvmgy4u",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibmocg2vhlxp2udla7nouhvod55azv2bztc3twtnxjkb23heeaoh4",
+  "ipfs": "ipfs://bafkreifgwb7ztnvzzefyau323uma3qjfduraaxogv2jvknspt5hrvmgy4u",
   "schema": "schema/notion.kotoba",
+  "tier": "L4",
   "entities": [
     "Workspace",
     "Document",
@@ -181,6 +182,13 @@
           "op": "delete User"
         }
       ],
+      "features": {
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
+      },
       "health": "/healthz"
     },
     "supplychain": {

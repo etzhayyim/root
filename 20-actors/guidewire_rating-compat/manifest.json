@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "guidewire_rating clean-room actor",
   "description": "Clean-room, API-compatible core banking / InsurTech actor (guidewire_rating); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibcp6d5r25uw3ib27ytsi6t6vikjc7mgpxwfj7jkn2mqmphwykymy",
+  "wasmCid": "bafkreic5zxvz4yenlsjsjjhyj5lrkfsjqm73vznxdx3qiwhx4lx2mvprku",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibcp6d5r25uw3ib27ytsi6t6vikjc7mgpxwfj7jkn2mqmphwykymy",
+  "ipfs": "ipfs://bafkreic5zxvz4yenlsjsjjhyj5lrkfsjqm73vznxdx3qiwhx4lx2mvprku",
   "schema": "schema/guidewire_rating.kotoba",
+  "tier": "L3",
   "entities": [
     "Account",
     "Loan",
@@ -181,6 +182,13 @@
           "op": "delete Customer"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

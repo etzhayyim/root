@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "bitbucket clean-room actor",
   "description": "Clean-room, API-compatible DevOps / CI-CD actor (bitbucket); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiexaolg4c376skr2ijdxm4cdfhr7qzft4gq5sdyuwgliiz2h762wi",
+  "wasmCid": "bafkreihymxql73cbqs3ofnsl6mi4yxranpntartn63uu5fzxvd57opmfhq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiexaolg4c376skr2ijdxm4cdfhr7qzft4gq5sdyuwgliiz2h762wi",
+  "ipfs": "ipfs://bafkreihymxql73cbqs3ofnsl6mi4yxranpntartn63uu5fzxvd57opmfhq",
   "schema": "schema/bitbucket.kotoba",
+  "tier": "L3",
   "entities": [
     "Repository",
     "Pipeline",
@@ -181,6 +182,13 @@
           "op": "delete Webhook"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "iers_earth_rotation clean-room actor",
   "description": "Clean-room, API-compatible physical benchmarks / classifications actor (iers_earth_rotation); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicuk4zxxop7zxpyia2uq72cbldsyk6s6evnrgbseg2vrgmgrvwqke",
+  "wasmCid": "bafkreidxcqq7zid5wgmy64sxpwk63vthoi4c4cr5v7ocztgrhwi54jfcfe",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicuk4zxxop7zxpyia2uq72cbldsyk6s6evnrgbseg2vrgmgrvwqke",
+  "ipfs": "ipfs://bafkreidxcqq7zid5wgmy64sxpwk63vthoi4c4cr5v7ocztgrhwi54jfcfe",
   "schema": "schema/iers_earth_rotation.kotoba",
+  "tier": "L3",
   "entities": [
     "Code",
     "Unit",
@@ -181,6 +182,13 @@
           "op": "delete Epoch"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

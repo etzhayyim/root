@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "materials_project clean-room actor",
   "description": "Clean-room, API-compatible materials / bio / chemical actor (materials_project); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidsx6676uecouwgvycmb24xk33k52tg5o7pixtwbf4j7wwlemtcma",
+  "wasmCid": "bafkreibvy4zw5xqkk5kj2cihh66jhr2wttkko2dfczpwgnmewhj7hhsopi",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidsx6676uecouwgvycmb24xk33k52tg5o7pixtwbf4j7wwlemtcma",
+  "ipfs": "ipfs://bafkreibvy4zw5xqkk5kj2cihh66jhr2wttkko2dfczpwgnmewhj7hhsopi",
   "schema": "schema/materials_project.kotoba",
+  "tier": "L3",
   "entities": [
     "Substance",
     "Compound",
@@ -181,6 +182,13 @@
           "op": "delete Property"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

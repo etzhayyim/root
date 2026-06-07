@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "occ clean-room actor",
   "description": "Clean-room, API-compatible financial market data / trading actor (occ); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreig4gsmzcx7k4vngzfp4vsuoj4ykuky7gomuxyx4cb7zalxliqqkue",
+  "wasmCid": "bafkreihyoh7kyfe3sfjn5qnrsrrtmvzzkd4hdytkpmb62hqy74ll5a2ley",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreig4gsmzcx7k4vngzfp4vsuoj4ykuky7gomuxyx4cb7zalxliqqkue",
+  "ipfs": "ipfs://bafkreihyoh7kyfe3sfjn5qnrsrrtmvzzkd4hdytkpmb62hqy74ll5a2ley",
   "schema": "schema/occ.kotoba",
+  "tier": "L3",
   "entities": [
     "Instrument",
     "Quote",
@@ -181,6 +182,13 @@
           "op": "delete Position"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

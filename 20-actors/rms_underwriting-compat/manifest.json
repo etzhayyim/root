@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "rms_underwriting clean-room actor",
   "description": "Clean-room, API-compatible core banking / InsurTech actor (rms_underwriting); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreih5ayz2rbvupjdhfv2vvy4kgmaouz6lwx3kw6atmvmny6d6bs3hrm",
+  "wasmCid": "bafkreibc4xujvketwgq5rtttsc3ktzk2lift5odgflam5tzc4r7vxqiblm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreih5ayz2rbvupjdhfv2vvy4kgmaouz6lwx3kw6atmvmny6d6bs3hrm",
+  "ipfs": "ipfs://bafkreibc4xujvketwgq5rtttsc3ktzk2lift5odgflam5tzc4r7vxqiblm",
   "schema": "schema/rms_underwriting.kotoba",
+  "tier": "L3",
   "entities": [
     "Account",
     "Loan",
@@ -181,6 +182,13 @@
           "op": "delete Customer"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

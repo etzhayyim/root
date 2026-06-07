@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "freefly clean-room actor",
   "description": "Clean-room, API-compatible drone swarm / aerial robotics actor (freefly); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihcymotdmxwrgy6byiv2dz5asf64ovqifulfrh4siulikm3y3zc7m",
+  "wasmCid": "bafkreihccavy4niodjoqeeo6uhtb6hqjofnwsdwv3hz5s53zgh433sis2q",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihcymotdmxwrgy6byiv2dz5asf64ovqifulfrh4siulikm3y3zc7m",
+  "ipfs": "ipfs://bafkreihccavy4niodjoqeeo6uhtb6hqjofnwsdwv3hz5s53zgh433sis2q",
   "schema": "schema/freefly.kotoba",
+  "tier": "L3",
   "entities": [
     "Drone",
     "Mission",
@@ -181,6 +182,13 @@
           "op": "delete Swarm"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

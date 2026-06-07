@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "zozo clean-room actor",
   "description": "Clean-room, API-compatible e-commerce storefront actor (zozo); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihnt66y7sda4zdpbo7fv6kbc5huoqfuwbfjpy2m3kp6wxap5sej3u",
+  "wasmCid": "bafkreiepuqtpoziajs4cqc57zdfegdf7uhssw4qqbqxiftmqmgyogqidam",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihnt66y7sda4zdpbo7fv6kbc5huoqfuwbfjpy2m3kp6wxap5sej3u",
+  "ipfs": "ipfs://bafkreiepuqtpoziajs4cqc57zdfegdf7uhssw4qqbqxiftmqmgyogqidam",
   "schema": "schema/zozo.kotoba",
+  "tier": "L3",
   "entities": [
     "Product",
     "Variant",
@@ -181,6 +182,13 @@
           "op": "delete Collection"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

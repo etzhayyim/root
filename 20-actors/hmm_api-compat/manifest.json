@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "hmm_api clean-room actor",
   "description": "Clean-room, API-compatible deep logistics / supply chain actor (hmm_api); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidcbw76axfxfhecgoxri24irc67t7hbceepz3g6pya57w5pail46e",
+  "wasmCid": "bafkreibqsk3qdcascaerpcvt2nebjunbn3shuxr66syhoydwm7phskyoou",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidcbw76axfxfhecgoxri24irc67t7hbceepz3g6pya57w5pail46e",
+  "ipfs": "ipfs://bafkreibqsk3qdcascaerpcvt2nebjunbn3shuxr66syhoydwm7phskyoou",
   "schema": "schema/hmm_api.kotoba",
+  "tier": "L3",
   "entities": [
     "TradeItem",
     "Event",
@@ -181,6 +182,13 @@
           "op": "delete Shipment"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

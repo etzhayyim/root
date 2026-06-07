@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "boschiot clean-room actor",
   "description": "Clean-room, API-compatible IoT / edge actor (boschiot); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigq6r5pthoh63py2dtrrx4lwe6kb45rgmxbbi4i4jm263eis2zbpq",
+  "wasmCid": "bafkreigotrwtor54s3unqzjnf5gzjapzk7cdlnacw5y2w4hdshcb5icbwa",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigq6r5pthoh63py2dtrrx4lwe6kb45rgmxbbi4i4jm263eis2zbpq",
+  "ipfs": "ipfs://bafkreigotrwtor54s3unqzjnf5gzjapzk7cdlnacw5y2w4hdshcb5icbwa",
   "schema": "schema/boschiot.kotoba",
+  "tier": "L3",
   "entities": [
     "Device",
     "Telemetry",
@@ -181,6 +182,13 @@
           "op": "delete Alert"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

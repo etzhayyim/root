@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "itsme_norway clean-room actor",
   "description": "Clean-room, API-compatible digital public infrastructure actor (itsme_norway); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibcpecfgjecm3xvewexrulsrobaxorhpx2xlwkbhegc56qkhluzuy",
+  "wasmCid": "bafkreibvq7bpctohc7fb3ngpwo4yofl3ghkqjo66yk675ky6kuoyx3fdmy",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibcpecfgjecm3xvewexrulsrobaxorhpx2xlwkbhegc56qkhluzuy",
+  "ipfs": "ipfs://bafkreibvq7bpctohc7fb3ngpwo4yofl3ghkqjo66yk675ky6kuoyx3fdmy",
   "schema": "schema/itsme_norway.kotoba",
+  "tier": "L3",
   "entities": [
     "Identity",
     "Credential",
@@ -181,6 +182,13 @@
           "op": "delete VerificationRequest"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

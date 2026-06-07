@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "servicenow clean-room actor",
   "description": "Clean-room, API-compatible vertical SaaS actor (servicenow); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidzhgqd4mbv5jasemytytg726hfxwer4lzidorvblusrvynncsqdy",
+  "wasmCid": "bafkreigewyytzr7jyfl75i4yoy2yo7br2y56gwzm6aqauyq4vp2wcr5spy",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidzhgqd4mbv5jasemytytg726hfxwer4lzidorvblusrvynncsqdy",
+  "ipfs": "ipfs://bafkreigewyytzr7jyfl75i4yoy2yo7br2y56gwzm6aqauyq4vp2wcr5spy",
   "schema": "schema/servicenow.kotoba",
+  "tier": "L4",
   "entities": [
     "Record",
     "Matter",
@@ -181,6 +182,13 @@
           "op": "delete Document"
         }
       ],
+      "features": {
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
+      },
       "health": "/healthz"
     },
     "supplychain": {

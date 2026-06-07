@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "heroku clean-room actor",
   "description": "Clean-room, API-compatible cloud infrastructure (IaaS) actor (heroku); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiaqobuq65yhyi5w5knil4ovcj2zghnaml3k4i3cw5gptn2p2ukjdy",
+  "wasmCid": "bafkreih5ui2ugzaqyaktdqakwflhpizqtoq7jbro2e6qymwqn4ldosp6fe",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiaqobuq65yhyi5w5knil4ovcj2zghnaml3k4i3cw5gptn2p2ukjdy",
+  "ipfs": "ipfs://bafkreih5ui2ugzaqyaktdqakwflhpizqtoq7jbro2e6qymwqn4ldosp6fe",
   "schema": "schema/heroku.kotoba",
+  "tier": "L3",
   "entities": [
     "Project",
     "ComputeInstance",
@@ -181,6 +182,13 @@
           "op": "delete IamRole"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

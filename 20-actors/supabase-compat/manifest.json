@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "supabase clean-room actor",
   "description": "Clean-room, API-compatible DevSecOps / serverless actor (supabase); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigtfeosofykae3clt6fkyzfocwufd3zrcmppoag647omuk6uaqz5a",
+  "wasmCid": "bafkreifir4efs4gv3ovtctp6iiizjxrukh7gdlh6w7lzwcfmz37v5scaoy",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigtfeosofykae3clt6fkyzfocwufd3zrcmppoag647omuk6uaqz5a",
+  "ipfs": "ipfs://bafkreifir4efs4gv3ovtctp6iiizjxrukh7gdlh6w7lzwcfmz37v5scaoy",
   "schema": "schema/supabase.kotoba",
+  "tier": "L4",
   "entities": [
     "Service",
     "Deployment",
@@ -181,6 +182,13 @@
           "op": "delete Function"
         }
       ],
+      "features": {
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
+      },
       "health": "/healthz"
     },
     "supplychain": {

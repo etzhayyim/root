@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "mindmaze clean-room actor",
   "description": "Clean-room, API-compatible brain-computer interface / neurotech actor (mindmaze); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicc6ta5juvji73bd2i4ihuegkt54iqmygvuxqkjnmb5usfzta3jqe",
+  "wasmCid": "bafkreifqph522zlkttbrbwqfpt5cmstdyrwbz64eunkzcam6j3u65jwxd4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicc6ta5juvji73bd2i4ihuegkt54iqmygvuxqkjnmb5usfzta3jqe",
+  "ipfs": "ipfs://bafkreifqph522zlkttbrbwqfpt5cmstdyrwbz64eunkzcam6j3u65jwxd4",
   "schema": "schema/mindmaze.kotoba",
+  "tier": "L3",
   "entities": [
     "Device",
     "Session",
@@ -181,6 +182,13 @@
           "op": "delete Calibration"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

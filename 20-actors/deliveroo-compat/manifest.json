@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "deliveroo clean-room actor",
   "description": "Clean-room, API-compatible delivery / local logistics actor (deliveroo); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicptgu6hxzmaiggxhzbpk2pmuizbnnwl6xthvhwfwljsx6y4sfn4q",
+  "wasmCid": "bafkreihrhgtnax7iblncvactvtqonpb2fa6vov3ef5hjoyxgnqffx2wv4q",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicptgu6hxzmaiggxhzbpk2pmuizbnnwl6xthvhwfwljsx6y4sfn4q",
+  "ipfs": "ipfs://bafkreihrhgtnax7iblncvactvtqonpb2fa6vov3ef5hjoyxgnqffx2wv4q",
   "schema": "schema/deliveroo.kotoba",
+  "tier": "L3",
   "entities": [
     "Order",
     "Courier",
@@ -181,6 +182,13 @@
           "op": "delete Tracking"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "cloudflare clean-room actor",
   "description": "Clean-room, API-compatible cloud infrastructure (IaaS) actor (cloudflare); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreieclyqmft2medwvt26h3b7atmxfw6aloppo5ctrsvdx3bcqkjfoui",
+  "wasmCid": "bafkreickfgxib2bi4a3eiy3j3llw3jxprn27igfrfzaltjlqjuhvh4hmu4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreieclyqmft2medwvt26h3b7atmxfw6aloppo5ctrsvdx3bcqkjfoui",
+  "ipfs": "ipfs://bafkreickfgxib2bi4a3eiy3j3llw3jxprn27igfrfzaltjlqjuhvh4hmu4",
   "schema": "schema/cloudflare.kotoba",
+  "tier": "L3",
   "entities": [
     "Project",
     "ComputeInstance",
@@ -181,6 +182,13 @@
           "op": "delete IamRole"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

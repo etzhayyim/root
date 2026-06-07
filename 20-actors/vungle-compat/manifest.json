@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "vungle clean-room actor",
   "description": "Clean-room, API-compatible marketing technology actor (vungle); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibr24riziapec24dnduhaivh5rxnk7nkcwuxguaje3mwp4m3ht2ta",
+  "wasmCid": "bafkreihtggvilykkpsmzmkz3rbeka2cfaew663ys6hnu33ynzmnd5aupha",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibr24riziapec24dnduhaivh5rxnk7nkcwuxguaje3mwp4m3ht2ta",
+  "ipfs": "ipfs://bafkreihtggvilykkpsmzmkz3rbeka2cfaew663ys6hnu33ynzmnd5aupha",
   "schema": "schema/vungle.kotoba",
+  "tier": "L3",
   "entities": [
     "Campaign",
     "Audience",
@@ -181,6 +182,13 @@
           "op": "delete Funnel"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "wonderware clean-room actor",
   "description": "Clean-room, API-compatible industrial SCADA actor (wonderware); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihk7gsg5hcvcny7w3jfmzohdutxy4njuowetmqhipqpmtaikcw55m",
+  "wasmCid": "bafkreifq7esum6imfp3vubsaw3trai724vssu2hzgnnyggkywkm544yz6q",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihk7gsg5hcvcny7w3jfmzohdutxy4njuowetmqhipqpmtaikcw55m",
+  "ipfs": "ipfs://bafkreifq7esum6imfp3vubsaw3trai724vssu2hzgnnyggkywkm544yz6q",
   "schema": "schema/wonderware.kotoba",
+  "tier": "L3",
   "entities": [
     "Tag",
     "Device",
@@ -181,6 +182,13 @@
           "op": "delete Batch"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

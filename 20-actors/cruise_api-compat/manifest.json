@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "cruise_api clean-room actor",
   "description": "Clean-room, API-compatible mobility / auto / EV actor (cruise_api); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiflprmj4htbop3wo77rfdy4za44wojycjyjrpweicsb5tmaddtori",
+  "wasmCid": "bafkreih2cjbidgh7qi6vpztcttv5yfn5ft4oeigv3mfg6l3tachua4hpjy",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiflprmj4htbop3wo77rfdy4za44wojycjyjrpweicsb5tmaddtori",
+  "ipfs": "ipfs://bafkreih2cjbidgh7qi6vpztcttv5yfn5ft4oeigv3mfg6l3tachua4hpjy",
   "schema": "schema/cruise_api.kotoba",
+  "tier": "L3",
   "entities": [
     "Vehicle",
     "Signal",
@@ -181,6 +182,13 @@
           "op": "delete Command"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "bcel_pay clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (bcel_pay); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidzgrxhe64ehyhmejhidbfmm7pn6gqwdjzr67lc25zduywetddyeq",
+  "wasmCid": "bafkreiadp2mktb7v6krlzqw2t2ua4ifqogqhkgg5iu75tkn647p6z64r3u",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidzgrxhe64ehyhmejhidbfmm7pn6gqwdjzr67lc25zduywetddyeq",
+  "ipfs": "ipfs://bafkreiadp2mktb7v6krlzqw2t2ua4ifqogqhkgg5iu75tkn647p6z64r3u",
   "schema": "schema/bcel_pay.kotoba",
+  "tier": "L3",
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -181,6 +182,13 @@
           "op": "delete PaymentMethod"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

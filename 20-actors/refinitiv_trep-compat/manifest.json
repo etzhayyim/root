@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "refinitiv_trep clean-room actor",
   "description": "Clean-room, API-compatible financial market data / trading actor (refinitiv_trep); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreif6r7qoderoyihxtqhtre4vrshfncgcxt77xsnqdwlyr7ht73hl2i",
+  "wasmCid": "bafkreiasu7ldmod2ncqi3tiqn4m3dsgcmctifwxzoaylvy2cn3ii4p75te",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreif6r7qoderoyihxtqhtre4vrshfncgcxt77xsnqdwlyr7ht73hl2i",
+  "ipfs": "ipfs://bafkreiasu7ldmod2ncqi3tiqn4m3dsgcmctifwxzoaylvy2cn3ii4p75te",
   "schema": "schema/refinitiv_trep.kotoba",
+  "tier": "L3",
   "entities": [
     "Instrument",
     "Quote",
@@ -181,6 +182,13 @@
           "op": "delete Position"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

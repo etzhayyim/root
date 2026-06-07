@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "niantic_lightship clean-room actor",
   "description": "Clean-room, API-compatible spatial computing / XR actor (niantic_lightship); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreianeri7hdkz6fmy7d3xbcwcgwesxflhakcjdpxyt5zv5j33puzugi",
+  "wasmCid": "bafkreifdikjggvv6yznuzr3nleofkuib5v3ba36rjjqx735564jwy55tfi",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreianeri7hdkz6fmy7d3xbcwcgwesxflhakcjdpxyt5zv5j33puzugi",
+  "ipfs": "ipfs://bafkreifdikjggvv6yznuzr3nleofkuib5v3ba36rjjqx735564jwy55tfi",
   "schema": "schema/niantic_lightship.kotoba",
+  "tier": "L3",
   "entities": [
     "Anchor",
     "Scene",
@@ -181,6 +182,13 @@
           "op": "delete Device"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

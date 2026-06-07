@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "finra clean-room actor",
   "description": "Clean-room, API-compatible open banking / financial regulation actor (finra); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiguv3vjouducttdcru6qeccbwc4ok2khk2m7j73rvdw6jqy2q5xie",
+  "wasmCid": "bafkreifacffnv2ljtjvohruh5belyx3noc6hsrpfk65sdpvf2ce2cgt76y",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiguv3vjouducttdcru6qeccbwc4ok2khk2m7j73rvdw6jqy2q5xie",
+  "ipfs": "ipfs://bafkreifacffnv2ljtjvohruh5belyx3noc6hsrpfk65sdpvf2ce2cgt76y",
   "schema": "schema/finra.kotoba",
+  "tier": "L3",
   "entities": [
     "Account",
     "Consent",
@@ -181,6 +182,13 @@
           "op": "delete Filing"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

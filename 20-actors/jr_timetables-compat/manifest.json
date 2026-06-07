@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "jr_timetables clean-room actor",
   "description": "Clean-room, API-compatible transit / smart cities actor (jr_timetables); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreieajvva2hmyvqucg4n7f4z6rui3dudm7rf6n5gg6trtooanbj2daa",
+  "wasmCid": "bafkreifi2p723qlxxg4mr4y5yzlm3sw7shwmj7odzvf2g5tvtfszljayy4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreieajvva2hmyvqucg4n7f4z6rui3dudm7rf6n5gg6trtooanbj2daa",
+  "ipfs": "ipfs://bafkreifi2p723qlxxg4mr4y5yzlm3sw7shwmj7odzvf2g5tvtfszljayy4",
   "schema": "schema/jr_timetables.kotoba",
+  "tier": "L3",
   "entities": [
     "Stop",
     "Route",
@@ -181,6 +182,13 @@
           "op": "delete Fare"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

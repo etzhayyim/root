@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "mailchimp clean-room actor",
   "description": "Clean-room, API-compatible marketing technology actor (mailchimp); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibrpmyink4627xuv7c5hnmu6vhnivfrupziiknuajayvy7r5qqlym",
+  "wasmCid": "bafkreifnooohy5ngrfqpc4sqc3t2ukvakhv3okre72czd2v3rmlcqttjl4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibrpmyink4627xuv7c5hnmu6vhnivfrupziiknuajayvy7r5qqlym",
+  "ipfs": "ipfs://bafkreifnooohy5ngrfqpc4sqc3t2ukvakhv3okre72czd2v3rmlcqttjl4",
   "schema": "schema/mailchimp.kotoba",
+  "tier": "L4",
   "entities": [
     "Campaign",
     "Audience",
@@ -181,6 +182,13 @@
           "op": "delete Funnel"
         }
       ],
+      "features": {
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
+      },
       "health": "/healthz"
     },
     "supplychain": {

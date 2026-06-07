@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "edifact_tty clean-room actor",
   "description": "Clean-room, API-compatible travel / aviation / hospitality actor (edifact_tty); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicy2c3t7g5hlntdr2vzqv4wnmb4aevmme6calnmrg3rpfvi5h524e",
+  "wasmCid": "bafkreicvtxxiirxodapayds7buiuap6vd55nmhpxw7bvutwtrurc4zljmu",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicy2c3t7g5hlntdr2vzqv4wnmb4aevmme6calnmrg3rpfvi5h524e",
+  "ipfs": "ipfs://bafkreicvtxxiirxodapayds7buiuap6vd55nmhpxw7bvutwtrurc4zljmu",
   "schema": "schema/edifact_tty.kotoba",
+  "tier": "L3",
   "entities": [
     "Flight",
     "Booking",
@@ -181,6 +182,13 @@
           "op": "delete Fare"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

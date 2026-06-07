@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "builder_mt clean-room actor",
   "description": "Clean-room, API-compatible AEC / GovTech actor (builder_mt); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibjigd63ctffjbhfzwj4os5kbwiq63h7sgcd7wfvrcovdz4aembqy",
+  "wasmCid": "bafkreiegyftvxnqlrg62ape7srugcgxwyv5mrvautgbodlq66gm5gzukue",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibjigd63ctffjbhfzwj4os5kbwiq63h7sgcd7wfvrcovdz4aembqy",
+  "ipfs": "ipfs://bafkreiegyftvxnqlrg62ape7srugcgxwyv5mrvautgbodlq66gm5gzukue",
   "schema": "schema/builder_mt.kotoba",
+  "tier": "L3",
   "entities": [
     "Project",
     "Permit",
@@ -181,6 +182,13 @@
           "op": "delete ServiceRequest"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

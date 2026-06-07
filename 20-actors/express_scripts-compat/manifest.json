@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "express_scripts clean-room actor",
   "description": "Clean-room, API-compatible pharmacy benefit / Rx network actor (express_scripts); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifbfzn7mnnpqu62vtqm523q3wfgmm5mkg2nsopjnzwut7kkrlv2xq",
+  "wasmCid": "bafkreie52mqi7yvpjqk527hg7s3t7ksia74t26opf5ar37xfs5lys5cute",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifbfzn7mnnpqu62vtqm523q3wfgmm5mkg2nsopjnzwut7kkrlv2xq",
+  "ipfs": "ipfs://bafkreie52mqi7yvpjqk527hg7s3t7ksia74t26opf5ar37xfs5lys5cute",
   "schema": "schema/express_scripts.kotoba",
+  "tier": "L4",
   "entities": [
     "Prescription",
     "Claim",
@@ -181,6 +182,13 @@
           "op": "delete PriorAuth"
         }
       ],
+      "features": {
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
+      },
       "health": "/healthz"
     },
     "supplychain": {

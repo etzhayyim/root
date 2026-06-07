@@ -239,6 +239,25 @@ def build():
         routes = rest_routes(model)
         tools = mcp_tools(model)
 
+        # Tier detection: an actor is L4 once promote_l4.py has given it the
+        # production surface (pagination + filtering + strict validation) and a
+        # contract test; otherwise L3 (the deepened CRUD baseline).
+        main_src = ""
+        mp = os.path.join(adir, "src", "main.py")
+        if os.path.exists(mp):
+            main_src = open(mp, encoding="utf-8").read()
+        tdir = os.path.join(adir, "tests")
+        has_tests = os.path.isdir(tdir) and any(
+            f.startswith("test_") and f.endswith(".py") for f in os.listdir(tdir))
+        api_features = {
+            "pagination": "_paginate(" in main_src,
+            "filtering": "_apply_filters(" in main_src,
+            "relationExpansion": "_expand(" in main_src,
+            "strictValidation": "_reject_unknown(" in main_src,
+            "contractTest": has_tests,
+        }
+        tier = "L4" if (all(api_features.values())) else "L3"
+
         # ---- per-actor manifest.json (4 capabilities on one WASM component) --
         manifest = {
             "schemaVersion": "1.0",
@@ -253,6 +272,7 @@ def build():
             "exec": "browser-local|donated-mesh",
             "ipfs": f"ipfs://{cid}",
             "schema": f"schema/{platform}.kotoba",
+            "tier": tier,
             "entities": entities,
             "adr": ["260607", "2606014500", "2606013800", "2606036000"],
             "capabilities": {
@@ -261,6 +281,7 @@ def build():
                     "runtime": "kotoba-wasm",
                     "endpointCount": len(routes),
                     "routes": routes,
+                    "features": api_features,
                     "health": "/healthz",
                 },
                 "supplychain": {
@@ -309,7 +330,7 @@ def build():
         })
         index.append({
             "handle": handle, "did": did, "wasmCid": cid, "kind": "compat",
-            "title": manifest["title"], "category": catkey,
+            "tier": tier, "title": manifest["title"], "category": catkey,
             "capabilities": ["api", "supplychain", "socialpost", "mcp"],
             "exec": "browser-local|donated-mesh", "runtime": "kotoba-wasm",
         })
@@ -381,6 +402,9 @@ def _edn_str(s):
 
 def _write_index_json(index):
     path = os.path.join(ROOT, "00-contracts", "schemas", "cleanroom-actors.index.json")
+    tier_counts = {}
+    for a in index:
+        tier_counts[a.get("tier", "L3")] = tier_counts.get(a.get("tier", "L3"), 0) + 1
     doc = {
         "schemaVersion": "1.0",
         "graph": "actors-v1",
@@ -388,6 +412,7 @@ def _write_index_json(index):
         "runtime": "kotoba-wasm",
         "exec": "browser-local|donated-mesh",
         "count": len(index),
+        "tierCounts": tier_counts,
         "actors": index,
     }
     with open(path, "w") as f:

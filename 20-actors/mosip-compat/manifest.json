@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "mosip clean-room actor",
   "description": "Clean-room, API-compatible digital public infrastructure actor (mosip); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiabmucghj63rurf3yk7i3wv7dixbn5boncmqa6p5w64ju6xzzgghq",
+  "wasmCid": "bafkreihkir4o44rpohb64zjorot5c46v4izg23vyi4nioz3icpxxq7zway",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiabmucghj63rurf3yk7i3wv7dixbn5boncmqa6p5w64ju6xzzgghq",
+  "ipfs": "ipfs://bafkreihkir4o44rpohb64zjorot5c46v4izg23vyi4nioz3icpxxq7zway",
   "schema": "schema/mosip.kotoba",
+  "tier": "L3",
   "entities": [
     "Identity",
     "Credential",
@@ -181,6 +182,13 @@
           "op": "delete VerificationRequest"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

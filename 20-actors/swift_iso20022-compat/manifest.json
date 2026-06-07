@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "swift_iso20022 clean-room actor",
   "description": "Clean-room, API-compatible open banking / financial regulation actor (swift_iso20022); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreia4b4idazovrkbbdtxttgad4anp3rpdyw2l2nuvkfcr3dxjjsdbpe",
+  "wasmCid": "bafkreibcl22qohp7352dwjbk34ee4ptihyvihejomne3czngptle67sypu",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreia4b4idazovrkbbdtxttgad4anp3rpdyw2l2nuvkfcr3dxjjsdbpe",
+  "ipfs": "ipfs://bafkreibcl22qohp7352dwjbk34ee4ptihyvihejomne3czngptle67sypu",
   "schema": "schema/swift_iso20022.kotoba",
+  "tier": "L3",
   "entities": [
     "Account",
     "Consent",
@@ -181,6 +182,13 @@
           "op": "delete Filing"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

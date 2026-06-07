@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "checkout clean-room actor",
   "description": "Clean-room, API-compatible fintech / web3 actor (checkout); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicedsvprub77ciu53u6l2lnfpckkqhixtnjznuo5xm2mj62feag5a",
+  "wasmCid": "bafkreiaukfnu54tamol5etdrb5nzvl46foemmmkcb6wlaavu4uzgjpa254",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicedsvprub77ciu53u6l2lnfpckkqhixtnjznuo5xm2mj62feag5a",
+  "ipfs": "ipfs://bafkreiaukfnu54tamol5etdrb5nzvl46foemmmkcb6wlaavu4uzgjpa254",
   "schema": "schema/checkout.kotoba",
+  "tier": "L3",
   "entities": [
     "Account",
     "Card",
@@ -181,6 +182,13 @@
           "op": "delete Ledger"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

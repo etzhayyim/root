@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "dingtalk clean-room actor",
   "description": "Clean-room, API-compatible communications / social actor (dingtalk); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihlm3aeg6hedckeuas6bzx3rhgeuko2a4gezpjgluu62h6l22pnqm",
+  "wasmCid": "bafkreihogmijieqjqxux46gjsyi4ra6pebymk2rtu6n4psp5czbtngpude",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihlm3aeg6hedckeuas6bzx3rhgeuko2a4gezpjgluu62h6l22pnqm",
+  "ipfs": "ipfs://bafkreihogmijieqjqxux46gjsyi4ra6pebymk2rtu6n4psp5czbtngpude",
   "schema": "schema/dingtalk.kotoba",
+  "tier": "L3",
   "entities": [
     "Channel",
     "Message",
@@ -181,6 +182,13 @@
           "op": "delete Webhook"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

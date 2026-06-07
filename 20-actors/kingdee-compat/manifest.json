@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "kingdee clean-room actor",
   "description": "Clean-room, API-compatible CRM / sales-pipeline actor (kingdee); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreic5vqew2n62atzwgvu4zrht4xocfgdrvsudk33rgyxk3aoekvppne",
+  "wasmCid": "bafkreiekz3pvc47cwtrr3ryajoebpjps6tv6rejkejtb6aczbxvq5geshi",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreic5vqew2n62atzwgvu4zrht4xocfgdrvsudk33rgyxk3aoekvppne",
+  "ipfs": "ipfs://bafkreiekz3pvc47cwtrr3ryajoebpjps6tv6rejkejtb6aczbxvq5geshi",
   "schema": "schema/kingdee.kotoba",
+  "tier": "L3",
   "entities": [
     "Account",
     "Contact",
@@ -181,6 +182,13 @@
           "op": "delete Pipeline"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

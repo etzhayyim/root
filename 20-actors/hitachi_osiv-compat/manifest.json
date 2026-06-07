@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "hitachi_osiv clean-room actor",
   "description": "Clean-room, API-compatible mainframe / legacy substrate actor (hitachi_osiv); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihxdqigp4nnltcqjfe6rh5f7qifxkb77yfhm6lz3sxkfujnxkulrq",
+  "wasmCid": "bafkreigzjmc5e2ihv2sff6mkxure3ccm73mjothixht4w3s4etzixlursa",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihxdqigp4nnltcqjfe6rh5f7qifxkb77yfhm6lz3sxkfujnxkulrq",
+  "ipfs": "ipfs://bafkreigzjmc5e2ihv2sff6mkxure3ccm73mjothixht4w3s4etzixlursa",
   "schema": "schema/hitachi_osiv.kotoba",
+  "tier": "L3",
   "entities": [
     "Job",
     "Dataset",
@@ -181,6 +182,13 @@
           "op": "delete Queue"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

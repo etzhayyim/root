@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "tuyasmart clean-room actor",
   "description": "Clean-room, API-compatible IoT / edge actor (tuyasmart); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiagxtfkt57jarnlml4ylcikfbtnlbrjvdb4nud5e2bja3cwmchymu",
+  "wasmCid": "bafkreiehhorflbprly634afqiwfvjiewrycwsmrnpukqnmypwteckv6r7y",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiagxtfkt57jarnlml4ylcikfbtnlbrjvdb4nud5e2bja3cwmchymu",
+  "ipfs": "ipfs://bafkreiehhorflbprly634afqiwfvjiewrycwsmrnpukqnmypwteckv6r7y",
   "schema": "schema/tuyasmart.kotoba",
+  "tier": "L3",
   "entities": [
     "Device",
     "Telemetry",
@@ -181,6 +182,13 @@
           "op": "delete Alert"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

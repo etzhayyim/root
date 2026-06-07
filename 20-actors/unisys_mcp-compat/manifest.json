@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "unisys_mcp clean-room actor",
   "description": "Clean-room, API-compatible mainframe / legacy substrate actor (unisys_mcp); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibahouvb6ariwxypexwnjs4mj4kvqkfigobdxas24zlvozvircjaq",
+  "wasmCid": "bafkreieq7vyegfx4zlw6tbbcjccugblnx5sbbq2uv4ciazs67cepxdl4fi",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibahouvb6ariwxypexwnjs4mj4kvqkfigobdxas24zlvozvircjaq",
+  "ipfs": "ipfs://bafkreieq7vyegfx4zlw6tbbcjccugblnx5sbbq2uv4ciazs67cepxdl4fi",
   "schema": "schema/unisys_mcp.kotoba",
+  "tier": "L3",
   "entities": [
     "Job",
     "Dataset",
@@ -181,6 +182,13 @@
           "op": "delete Queue"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

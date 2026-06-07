@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "lever clean-room actor",
   "description": "Clean-room, API-compatible HR technology actor (lever); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreie33xrejw63pneblszc5jaede4ompkzfvyj6a365xngqtjgufi4cu",
+  "wasmCid": "bafkreib7rpkntis2bm3a2joa5fkehis2sklvm4fxdb64lwdp32uqiy36hq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreie33xrejw63pneblszc5jaede4ompkzfvyj6a365xngqtjgufi4cu",
+  "ipfs": "ipfs://bafkreib7rpkntis2bm3a2joa5fkehis2sklvm4fxdb64lwdp32uqiy36hq",
   "schema": "schema/lever.kotoba",
+  "tier": "L3",
   "entities": [
     "Employee",
     "Candidate",
@@ -181,6 +182,13 @@
           "op": "delete Review"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

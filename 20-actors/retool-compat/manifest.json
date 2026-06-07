@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "retool clean-room actor",
   "description": "Clean-room, API-compatible low-code / iPaaS actor (retool); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidk23wjwrqy6dgf6nbvstefnytguipkp4gyd4hp5337ntepcr5rjy",
+  "wasmCid": "bafkreiade4ye4oswre7rw7b3owokurj4fmqusd24vo7n2ywytte7jwqb74",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidk23wjwrqy6dgf6nbvstefnytguipkp4gyd4hp5337ntepcr5rjy",
+  "ipfs": "ipfs://bafkreiade4ye4oswre7rw7b3owokurj4fmqusd24vo7n2ywytte7jwqb74",
   "schema": "schema/retool.kotoba",
+  "tier": "L3",
   "entities": [
     "Flow",
     "Step",
@@ -181,6 +182,13 @@
           "op": "delete Webhook"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

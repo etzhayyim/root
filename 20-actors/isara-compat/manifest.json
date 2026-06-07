@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "isara clean-room actor",
   "description": "Clean-room, API-compatible quantum key distribution actor (isara); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreic43kbtbzfa6bu5w6lj3xtri3hurbf75mv67gdpst4yt5rzroe3su",
+  "wasmCid": "bafkreia5qwxl4uljnhkpvcgmlxearsctre4i22njkfv2n52lidqscq5ulq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreic43kbtbzfa6bu5w6lj3xtri3hurbf75mv67gdpst4yt5rzroe3su",
+  "ipfs": "ipfs://bafkreia5qwxl4uljnhkpvcgmlxearsctre4i22njkfv2n52lidqscq5ulq",
   "schema": "schema/isara.kotoba",
+  "tier": "L3",
   "entities": [
     "KeySession",
     "Node",
@@ -181,6 +182,13 @@
           "op": "delete Alarm"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

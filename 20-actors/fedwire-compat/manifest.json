@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "fedwire clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (fedwire); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreia5f5oy2lqh6yehpfjcespcwyzepyiit3natol3vgye55cx6n7txa",
+  "wasmCid": "bafkreihgg54m5y2o5ub7cjbqjqu4vnfrog76hqzcykwisd3ipfkmauxw6e",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreia5f5oy2lqh6yehpfjcespcwyzepyiit3natol3vgye55cx6n7txa",
+  "ipfs": "ipfs://bafkreihgg54m5y2o5ub7cjbqjqu4vnfrog76hqzcykwisd3ipfkmauxw6e",
   "schema": "schema/fedwire.kotoba",
+  "tier": "L3",
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -181,6 +182,13 @@
           "op": "delete PaymentMethod"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

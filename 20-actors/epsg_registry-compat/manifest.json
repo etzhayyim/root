@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "epsg_registry clean-room actor",
   "description": "Clean-room, API-compatible physical benchmarks / classifications actor (epsg_registry); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicovsep76rwal55jdg4jjnlkbkrme6gfr4twspyrsi54vioefb2q4",
+  "wasmCid": "bafkreie3oke2bgtaaepdoonv5ilz4jj5jv2e5qsgmmsblkh3qsf7ktjkwa",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicovsep76rwal55jdg4jjnlkbkrme6gfr4twspyrsi54vioefb2q4",
+  "ipfs": "ipfs://bafkreie3oke2bgtaaepdoonv5ilz4jj5jv2e5qsgmmsblkh3qsf7ktjkwa",
   "schema": "schema/epsg_registry.kotoba",
+  "tier": "L3",
   "entities": [
     "Code",
     "Unit",
@@ -181,6 +182,13 @@
           "op": "delete Epoch"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

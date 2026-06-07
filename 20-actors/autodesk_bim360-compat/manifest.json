@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "autodesk_bim360 clean-room actor",
   "description": "Clean-room, API-compatible AEC / GovTech actor (autodesk_bim360); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibie4s5mde3tbbidx3gboxnc3hyhyby65snwdahd4aupkgo67avkq",
+  "wasmCid": "bafkreieoq7qw2t4chobcsp3zmsj7gf3nw2mqei2gwxcoqotf367ctnhbli",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibie4s5mde3tbbidx3gboxnc3hyhyby65snwdahd4aupkgo67avkq",
+  "ipfs": "ipfs://bafkreieoq7qw2t4chobcsp3zmsj7gf3nw2mqei2gwxcoqotf367ctnhbli",
   "schema": "schema/autodesk_bim360.kotoba",
+  "tier": "L3",
   "entities": [
     "Project",
     "Permit",
@@ -181,6 +182,13 @@
           "op": "delete ServiceRequest"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

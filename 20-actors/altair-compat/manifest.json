@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "altair clean-room actor",
   "description": "Clean-room, API-compatible AEC / GovTech actor (altair); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibdldq6zrwio4m7xxgncse4kgveafwmbu6vyddjh2rkyuogpepl4a",
+  "wasmCid": "bafkreifr4sui6dca5zv24stdgbhs5lnvaxn7d43isqnacljfqj5nlsmusy",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibdldq6zrwio4m7xxgncse4kgveafwmbu6vyddjh2rkyuogpepl4a",
+  "ipfs": "ipfs://bafkreifr4sui6dca5zv24stdgbhs5lnvaxn7d43isqnacljfqj5nlsmusy",
   "schema": "schema/altair.kotoba",
+  "tier": "L3",
   "entities": [
     "Project",
     "Permit",
@@ -181,6 +182,13 @@
           "op": "delete ServiceRequest"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

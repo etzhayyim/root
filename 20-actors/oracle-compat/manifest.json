@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "oracle clean-room actor",
   "description": "Clean-room, API-compatible ERP / finance ledger actor (oracle); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreia5qqyxr2n252eq74nyjv6i24lpdncq7ilkjbq7uhqpsy6qvssgim",
+  "wasmCid": "bafkreiblk2ij4cqcg5oxqhbebalkdtm4auwrjgk4olihz2qmsoj5q5ps3y",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreia5qqyxr2n252eq74nyjv6i24lpdncq7ilkjbq7uhqpsy6qvssgim",
+  "ipfs": "ipfs://bafkreiblk2ij4cqcg5oxqhbebalkdtm4auwrjgk4olihz2qmsoj5q5ps3y",
   "schema": "schema/oracle.kotoba",
+  "tier": "L3",
   "entities": [
     "GLAccount",
     "JournalEntry",
@@ -181,6 +182,13 @@
           "op": "delete CostCenter"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

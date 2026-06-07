@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "starlink_telemetry clean-room actor",
   "description": "Clean-room, API-compatible space / ocean / earth physics actor (starlink_telemetry); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiaidt2qk4gswo7bicinj4mn2ri2ayvzxqthpwhy5o2c3tkic3tfte",
+  "wasmCid": "bafkreid2g5f4nfajjrmg5bggb2sga3eqo5pzmy2rsaud6ggu2cunmyffyy",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiaidt2qk4gswo7bicinj4mn2ri2ayvzxqthpwhy5o2c3tkic3tfte",
+  "ipfs": "ipfs://bafkreid2g5f4nfajjrmg5bggb2sga3eqo5pzmy2rsaud6ggu2cunmyffyy",
   "schema": "schema/starlink_telemetry.kotoba",
+  "tier": "L3",
   "entities": [
     "Object",
     "Position",
@@ -181,6 +182,13 @@
           "op": "delete Station"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

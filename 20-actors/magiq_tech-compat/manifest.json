@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "magiq_tech clean-room actor",
   "description": "Clean-room, API-compatible quantum key distribution actor (magiq_tech); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicgegz7tkmhfzwdc5bvm33ygl6yujwozhrgf7li64t6wrqtw4v5si",
+  "wasmCid": "bafkreicsmknptcwokpnapy456fzayowhdasirqeb2auqj22yygad744xjy",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicgegz7tkmhfzwdc5bvm33ygl6yujwozhrgf7li64t6wrqtw4v5si",
+  "ipfs": "ipfs://bafkreicsmknptcwokpnapy456fzayowhdasirqeb2auqj22yygad744xjy",
   "schema": "schema/magiq_tech.kotoba",
+  "tier": "L3",
   "entities": [
     "KeySession",
     "Node",
@@ -181,6 +182,13 @@
           "op": "delete Alarm"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "dropbox clean-room actor",
   "description": "Clean-room, API-compatible office / productivity suite actor (dropbox); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreid6nncog5adz6ikvytho6rtgggz6r5x363fwp7n4ztmzl36fcohre",
+  "wasmCid": "bafkreiagzfn4fkxznff3c6sw5uwf2vxdoxe5pl56gijkwcqsxlotky5vm4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreid6nncog5adz6ikvytho6rtgggz6r5x363fwp7n4ztmzl36fcohre",
+  "ipfs": "ipfs://bafkreiagzfn4fkxznff3c6sw5uwf2vxdoxe5pl56gijkwcqsxlotky5vm4",
   "schema": "schema/dropbox.kotoba",
+  "tier": "L3",
   "entities": [
     "Workspace",
     "Document",
@@ -181,6 +182,13 @@
           "op": "delete User"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

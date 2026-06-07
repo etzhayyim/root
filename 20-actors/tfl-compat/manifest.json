@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "tfl clean-room actor",
   "description": "Clean-room, API-compatible UK / EU e-government actor (tfl); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreif4jcqedlfpldbvop22iqjb7hbh7yth7in4lgtzybg4lxqndaxwjq",
+  "wasmCid": "bafkreicok3wksp73papap44i4igngya4rf53h724i7ubqsxdnbilimtsea",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreif4jcqedlfpldbvop22iqjb7hbh7yth7in4lgtzybg4lxqndaxwjq",
+  "ipfs": "ipfs://bafkreicok3wksp73papap44i4igngya4rf53h724i7ubqsxdnbilimtsea",
   "schema": "schema/tfl.kotoba",
+  "tier": "L3",
   "entities": [
     "Filing",
     "Citizen",
@@ -181,6 +182,13 @@
           "op": "delete Identity"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

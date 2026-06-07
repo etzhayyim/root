@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "bgp_rpki clean-room actor",
   "description": "Clean-room, API-compatible deep internet / core routing actor (bgp_rpki); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihewslegemkgm4i2jjuyvgdhbqy6n4ahbzcayiy66tcczum4bmjeu",
+  "wasmCid": "bafkreighoxk6jp7hkqfrzu4pkgij6wpn6udxcjbrxnicre2drteh5nrtii",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihewslegemkgm4i2jjuyvgdhbqy6n4ahbzcayiy66tcczum4bmjeu",
+  "ipfs": "ipfs://bafkreighoxk6jp7hkqfrzu4pkgij6wpn6udxcjbrxnicre2drteh5nrtii",
   "schema": "schema/bgp_rpki.kotoba",
+  "tier": "L3",
   "entities": [
     "Prefix",
     "Route",
@@ -181,6 +182,13 @@
           "op": "delete Tunnel"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

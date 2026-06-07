@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "rocket_lab clean-room actor",
   "description": "Clean-room, API-compatible space / ocean / earth physics actor (rocket_lab); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidemso7mdmpisq7uqtbyqjrbudjiyhpb66bqqmi5hyt2mlty27x3u",
+  "wasmCid": "bafkreiclnbytpinzx2bszjtcqvvvyl2w2odsslhdkv6g5d5r5upgwxehw4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidemso7mdmpisq7uqtbyqjrbudjiyhpb66bqqmi5hyt2mlty27x3u",
+  "ipfs": "ipfs://bafkreiclnbytpinzx2bszjtcqvvvyl2w2odsslhdkv6g5d5r5upgwxehw4",
   "schema": "schema/rocket_lab.kotoba",
+  "tier": "L3",
   "entities": [
     "Object",
     "Position",
@@ -181,6 +182,13 @@
           "op": "delete Station"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "post_quantum clean-room actor",
   "description": "Clean-room, API-compatible quantum key distribution actor (post_quantum); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifp6posapuhzxeez62apjfe4nigyyq22vudysptsef237djmcs35e",
+  "wasmCid": "bafkreih36exvub2z4pahvkn3dwtqap6bymb2gvxodekcwxktmnlz4lxgie",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifp6posapuhzxeez62apjfe4nigyyq22vudysptsef237djmcs35e",
+  "ipfs": "ipfs://bafkreih36exvub2z4pahvkn3dwtqap6bymb2gvxodekcwxktmnlz4lxgie",
   "schema": "schema/post_quantum.kotoba",
+  "tier": "L3",
   "entities": [
     "KeySession",
     "Node",
@@ -181,6 +182,13 @@
           "op": "delete Alarm"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

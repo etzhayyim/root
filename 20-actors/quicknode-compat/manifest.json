@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "quicknode clean-room actor",
   "description": "Clean-room, API-compatible web3 / blockchain RPC actor (quicknode); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidchy22g7nwcqcar46dmquw3vqij3mujvulycag3evdw4hxkdlnra",
+  "wasmCid": "bafkreigoo66iuznlwlevulwz42b46lfvpas6vwkkvuvxktovdvyjx2vvti",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidchy22g7nwcqcar46dmquw3vqij3mujvulycag3evdw4hxkdlnra",
+  "ipfs": "ipfs://bafkreigoo66iuznlwlevulwz42b46lfvpas6vwkkvuvxktovdvyjx2vvti",
   "schema": "schema/quicknode.kotoba",
+  "tier": "L3",
   "entities": [
     "Block",
     "Transaction",
@@ -181,6 +182,13 @@
           "op": "delete Token"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

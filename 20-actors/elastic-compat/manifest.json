@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "elastic clean-room actor",
   "description": "Clean-room, API-compatible developer tools / APM actor (elastic); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiebq5ljfma54fex7cjommfpdgaywphehxbawqwsmgobxfemwcpgba",
+  "wasmCid": "bafkreihjjmwl3gp7n42w7q53yvmffu5afnwvnqrwqtrkucv4w3jhcy4q5i",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiebq5ljfma54fex7cjommfpdgaywphehxbawqwsmgobxfemwcpgba",
+  "ipfs": "ipfs://bafkreihjjmwl3gp7n42w7q53yvmffu5afnwvnqrwqtrkucv4w3jhcy4q5i",
   "schema": "schema/elastic.kotoba",
+  "tier": "L3",
   "entities": [
     "Service",
     "Error",
@@ -181,6 +182,13 @@
           "op": "delete Incident"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

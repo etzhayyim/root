@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "censys clean-room actor",
   "description": "Clean-room, API-compatible cyber threat intelligence actor (censys); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihtjj2qcfghedd547iceubos2du6zeyv7mkepv2wbx5ljm4omapbi",
+  "wasmCid": "bafkreigltv7vy64xxdm7o5ocam7yb54rtqfinrjlrmi2mjmkoustaxhllm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihtjj2qcfghedd547iceubos2du6zeyv7mkepv2wbx5ljm4omapbi",
+  "ipfs": "ipfs://bafkreigltv7vy64xxdm7o5ocam7yb54rtqfinrjlrmi2mjmkoustaxhllm",
   "schema": "schema/censys.kotoba",
+  "tier": "L3",
   "entities": [
     "Indicator",
     "Vulnerability",
@@ -181,6 +182,13 @@
           "op": "delete Technique"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

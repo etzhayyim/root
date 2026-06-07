@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "cohere clean-room actor",
   "description": "Clean-room, API-compatible AI / ML inference actor (cohere); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibjfoasvd6z2dfvocepemhhk4cb55escmtfloq36ol4k3capu5qrm",
+  "wasmCid": "bafkreibptp2bopkm6yxamjyrvk2kxdqjmsm54pfjrlzaokvbnhwdcgiq2y",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibjfoasvd6z2dfvocepemhhk4cb55escmtfloq36ol4k3capu5qrm",
+  "ipfs": "ipfs://bafkreibptp2bopkm6yxamjyrvk2kxdqjmsm54pfjrlzaokvbnhwdcgiq2y",
   "schema": "schema/cohere.kotoba",
+  "tier": "L3",
   "entities": [
     "Model",
     "Completion",
@@ -181,6 +182,13 @@
           "op": "delete File"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

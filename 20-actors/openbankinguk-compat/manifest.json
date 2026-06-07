@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "openbankinguk clean-room actor",
   "description": "Clean-room, API-compatible open banking / financial regulation actor (openbankinguk); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibvijglfexskvtmjaiq3qbo3urqalygojdxqlxchva7iwwexzujsi",
+  "wasmCid": "bafkreiayy532unx7rr44bpdqvm6v3hkrlavaciwiscmhhkfr4jwgatx3au",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibvijglfexskvtmjaiq3qbo3urqalygojdxqlxchva7iwwexzujsi",
+  "ipfs": "ipfs://bafkreiayy532unx7rr44bpdqvm6v3hkrlavaciwiscmhhkfr4jwgatx3au",
   "schema": "schema/openbankinguk.kotoba",
+  "tier": "L4",
   "entities": [
     "Account",
     "Consent",
@@ -181,6 +182,13 @@
           "op": "delete Filing"
         }
       ],
+      "features": {
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
+      },
       "health": "/healthz"
     },
     "supplychain": {

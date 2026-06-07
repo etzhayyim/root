@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "sabre_airlines clean-room actor",
   "description": "Clean-room, API-compatible travel / aviation / hospitality actor (sabre_airlines); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihge7rmvghneo42lhpaavfsae3qx7b5vxzfpe7n5b4sjoesibkram",
+  "wasmCid": "bafkreif6fa6o75jecklupyrr7o4trqpnviv5nz6orty3xafd6pccgvu7z4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihge7rmvghneo42lhpaavfsae3qx7b5vxzfpe7n5b4sjoesibkram",
+  "ipfs": "ipfs://bafkreif6fa6o75jecklupyrr7o4trqpnviv5nz6orty3xafd6pccgvu7z4",
   "schema": "schema/sabre_airlines.kotoba",
+  "tier": "L3",
   "entities": [
     "Flight",
     "Booking",
@@ -181,6 +182,13 @@
           "op": "delete Fare"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

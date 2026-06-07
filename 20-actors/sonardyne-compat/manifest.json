@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "sonardyne clean-room actor",
   "description": "Clean-room, API-compatible space / ocean / earth physics actor (sonardyne); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihwrkhjoo5kf2ralqbjttq6lx7ripbvx2t4lmd6tz5q3x5g4gnrki",
+  "wasmCid": "bafkreib2nu4gd2tzwbtccqsqvhdwekswelscf3hhzgi54wbvq3je6f2s54",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihwrkhjoo5kf2ralqbjttq6lx7ripbvx2t4lmd6tz5q3x5g4gnrki",
+  "ipfs": "ipfs://bafkreib2nu4gd2tzwbtccqsqvhdwekswelscf3hhzgi54wbvq3je6f2s54",
   "schema": "schema/sonardyne.kotoba",
+  "tier": "L3",
   "entities": [
     "Object",
     "Position",
@@ -181,6 +182,13 @@
           "op": "delete Station"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

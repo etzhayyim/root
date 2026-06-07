@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "ideal_sweden clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (ideal_sweden); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiby24uadz2ljhsapk6wgqqlbwc45r32aylxslppu6zgeiyhvbufxm",
+  "wasmCid": "bafkreibhiea7g3m743mrgvb4jgsyzcndpr6njmyj42726yjgmx5rjkncsm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiby24uadz2ljhsapk6wgqqlbwc45r32aylxslppu6zgeiyhvbufxm",
+  "ipfs": "ipfs://bafkreibhiea7g3m743mrgvb4jgsyzcndpr6njmyj42726yjgmx5rjkncsm",
   "schema": "schema/ideal_sweden.kotoba",
+  "tier": "L3",
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -181,6 +182,13 @@
           "op": "delete PaymentMethod"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

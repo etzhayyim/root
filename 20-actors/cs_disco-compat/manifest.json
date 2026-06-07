@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "cs_disco clean-room actor",
   "description": "Clean-room, API-compatible legal / eDiscovery actor (cs_disco); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiclydzrcxy2a3x557rdhq3ibe4f3xjwsnq63frisy76rjtkwzgwlm",
+  "wasmCid": "bafkreigy6fq4v74afwdt3vvpgimv3bvizltdyb2b5irxk2apchwodd2hn4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiclydzrcxy2a3x557rdhq3ibe4f3xjwsnq63frisy76rjtkwzgwlm",
+  "ipfs": "ipfs://bafkreigy6fq4v74afwdt3vvpgimv3bvizltdyb2b5irxk2apchwodd2hn4",
   "schema": "schema/cs_disco.kotoba",
+  "tier": "L3",
   "entities": [
     "Matter",
     "Document",
@@ -181,6 +182,13 @@
           "op": "delete LegalHold"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

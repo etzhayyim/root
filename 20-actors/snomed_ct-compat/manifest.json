@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "snomed_ct clean-room actor",
   "description": "Clean-room, API-compatible healthcare HL7-FHIR / bioinformatics actor (snomed_ct); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifvatieruqmubju6ygjyewcoqd4hz6ddtlutdnwoh6y5ufcctasvy",
+  "wasmCid": "bafkreiajtbhvi222y6uxpb6mbwhbzkwjb6dxf2zimyarftt7dew47sjjbm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifvatieruqmubju6ygjyewcoqd4hz6ddtlutdnwoh6y5ufcctasvy",
+  "ipfs": "ipfs://bafkreiajtbhvi222y6uxpb6mbwhbzkwjb6dxf2zimyarftt7dew47sjjbm",
   "schema": "schema/snomed_ct.kotoba",
+  "tier": "L3",
   "entities": [
     "Patient",
     "Observation",
@@ -181,6 +182,13 @@
           "op": "delete Specimen"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

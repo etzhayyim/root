@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "netsuite clean-room actor",
   "description": "Clean-room, API-compatible ERP / finance ledger actor (netsuite); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiey5ygbd57xtsm7xnbjlemv2ckbdbvnfdzchzzig3qwfvjkeb4p2e",
+  "wasmCid": "bafkreihhkzqoonmryoakalzz3q77cxgwzp42bbnri2pbuhtolmvrjo4mi4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiey5ygbd57xtsm7xnbjlemv2ckbdbvnfdzchzzig3qwfvjkeb4p2e",
+  "ipfs": "ipfs://bafkreihhkzqoonmryoakalzz3q77cxgwzp42bbnri2pbuhtolmvrjo4mi4",
   "schema": "schema/netsuite.kotoba",
+  "tier": "L3",
   "entities": [
     "GLAccount",
     "JournalEntry",
@@ -181,6 +182,13 @@
           "op": "delete CostCenter"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

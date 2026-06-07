@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "firebase clean-room actor",
   "description": "Clean-room, API-compatible DevSecOps / serverless actor (firebase); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreif3ltklagvdguwcvo57im3z3upsiq7grzk5fnsgi2ojl2g7xyxgoa",
+  "wasmCid": "bafkreiefv7qvro5mqfxlhhfhagccdin4i2kuytxp7umvblxdvjbjm3mcha",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreif3ltklagvdguwcvo57im3z3upsiq7grzk5fnsgi2ojl2g7xyxgoa",
+  "ipfs": "ipfs://bafkreiefv7qvro5mqfxlhhfhagccdin4i2kuytxp7umvblxdvjbjm3mcha",
   "schema": "schema/firebase.kotoba",
+  "tier": "L3",
   "entities": [
     "Service",
     "Deployment",
@@ -181,6 +182,13 @@
           "op": "delete Function"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

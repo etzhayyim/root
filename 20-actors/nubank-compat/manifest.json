@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "nubank clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (nubank); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihhwu62mptbacdvgzpa5rsfnwziab2w7mamjrh4ti57hvkvhninfm",
+  "wasmCid": "bafkreicnbampbhx4gropxy6uobxpezqfnff5z6o4mgngbrtgfw4k4gyq4e",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihhwu62mptbacdvgzpa5rsfnwziab2w7mamjrh4ti57hvkvhninfm",
+  "ipfs": "ipfs://bafkreicnbampbhx4gropxy6uobxpezqfnff5z6o4mgngbrtgfw4k4gyq4e",
   "schema": "schema/nubank.kotoba",
+  "tier": "L3",
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -181,6 +182,13 @@
           "op": "delete PaymentMethod"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

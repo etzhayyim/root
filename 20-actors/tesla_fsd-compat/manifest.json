@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "tesla_fsd clean-room actor",
   "description": "Clean-room, API-compatible mobility / auto / EV actor (tesla_fsd); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreif4ridfbrnsqdhdnt5kjidwmswdv6ftbzvngcmp53hgbmi5t6pzb4",
+  "wasmCid": "bafkreiagxbc2ljz47b23xyux2gt7dlsmm4bx7q5l3skht6cfshoee44rxe",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreif4ridfbrnsqdhdnt5kjidwmswdv6ftbzvngcmp53hgbmi5t6pzb4",
+  "ipfs": "ipfs://bafkreiagxbc2ljz47b23xyux2gt7dlsmm4bx7q5l3skht6cfshoee44rxe",
   "schema": "schema/tesla_fsd.kotoba",
+  "tier": "L3",
   "entities": [
     "Vehicle",
     "Signal",
@@ -181,6 +182,13 @@
           "op": "delete Command"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

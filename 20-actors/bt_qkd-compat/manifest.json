@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "bt_qkd clean-room actor",
   "description": "Clean-room, API-compatible quantum key distribution actor (bt_qkd); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiet5zsoewycxmfs3lg77b7ul4iiwhqlqpwhs2te4fjk2hctlupvw4",
+  "wasmCid": "bafkreic4unaqr33z4tntbd2scd7njctzqhe4hwubvto75n6vpmwupkjrja",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiet5zsoewycxmfs3lg77b7ul4iiwhqlqpwhs2te4fjk2hctlupvw4",
+  "ipfs": "ipfs://bafkreic4unaqr33z4tntbd2scd7njctzqhe4hwubvto75n6vpmwupkjrja",
   "schema": "schema/bt_qkd.kotoba",
+  "tier": "L3",
   "entities": [
     "KeySession",
     "Node",
@@ -181,6 +182,13 @@
           "op": "delete Alarm"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

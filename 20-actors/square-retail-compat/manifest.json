@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "square-retail clean-room actor",
   "description": "Clean-room, API-compatible e-commerce storefront actor (square-retail); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifufkwlwtwdjz3mqljuerxmu5c76rmjq2ifkic5okb4p3xedor2vq",
+  "wasmCid": "bafkreibdu4z5l5favxr6ded46jwnmm5sthniel5d6zrbshbbqje3iqokja",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifufkwlwtwdjz3mqljuerxmu5c76rmjq2ifkic5okb4p3xedor2vq",
+  "ipfs": "ipfs://bafkreibdu4z5l5favxr6ded46jwnmm5sthniel5d6zrbshbbqje3iqokja",
   "schema": "schema/square-retail.kotoba",
+  "tier": "L3",
   "entities": [
     "Product",
     "Variant",
@@ -181,6 +182,13 @@
           "op": "delete Collection"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

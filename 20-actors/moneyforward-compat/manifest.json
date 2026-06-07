@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "moneyforward clean-room actor",
   "description": "Clean-room, API-compatible CRM / sales-pipeline actor (moneyforward); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiexqzidgsowlu3rlpjzd32sipokr4x7jqbjlwrksgewb2w6iaz5ji",
+  "wasmCid": "bafkreighehicbx5r2xtoao5ojsaof7vrji7g43egt3w4cqv5okzopu4hue",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiexqzidgsowlu3rlpjzd32sipokr4x7jqbjlwrksgewb2w6iaz5ji",
+  "ipfs": "ipfs://bafkreighehicbx5r2xtoao5ojsaof7vrji7g43egt3w4cqv5okzopu4hue",
   "schema": "schema/moneyforward.kotoba",
+  "tier": "L3",
   "entities": [
     "Account",
     "Contact",
@@ -181,6 +182,13 @@
           "op": "delete Pipeline"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "drone_deploy clean-room actor",
   "description": "Clean-room, API-compatible drone swarm / aerial robotics actor (drone_deploy); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibkl6gutvtcfs4yr4sb3dht7esj5ii7nmszbn226rgywj5fupu3zq",
+  "wasmCid": "bafkreiaiewgit2upbsm3uf5h56yfshtiv7zu4nx32e7peyjalzjin34nqq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibkl6gutvtcfs4yr4sb3dht7esj5ii7nmszbn226rgywj5fupu3zq",
+  "ipfs": "ipfs://bafkreiaiewgit2upbsm3uf5h56yfshtiv7zu4nx32e7peyjalzjin34nqq",
   "schema": "schema/drone_deploy.kotoba",
+  "tier": "L3",
   "entities": [
     "Drone",
     "Mission",
@@ -181,6 +182,13 @@
           "op": "delete Swarm"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

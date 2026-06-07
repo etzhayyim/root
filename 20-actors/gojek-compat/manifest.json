@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "gojek clean-room actor",
   "description": "Clean-room, API-compatible regional super-app actor (gojek); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiezkidrqwdozml2o36ilb732bomwguyhgyi6xqifusaixcdydgzh4",
+  "wasmCid": "bafkreignguq52akj7q4cddzm5l37n57l4otxg2xbff3czgo6behs3hjjm4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiezkidrqwdozml2o36ilb732bomwguyhgyi6xqifusaixcdydgzh4",
+  "ipfs": "ipfs://bafkreignguq52akj7q4cddzm5l37n57l4otxg2xbff3czgo6behs3hjjm4",
   "schema": "schema/gojek.kotoba",
+  "tier": "L3",
   "entities": [
     "User",
     "Wallet",
@@ -181,6 +182,13 @@
           "op": "delete Payment"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

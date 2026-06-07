@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "fipa_acl clean-room actor",
   "description": "Clean-room, API-compatible AI agent protocol actor (fipa_acl); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidpz5llyaaz6hjgw57tpwskj47mc7dy6n6ciqdgzbhnyakrl7a2ru",
+  "wasmCid": "bafkreia4k2opm6adhx6ywhgcvaglrjnc4cxmoyytaohs5fsqbikwcknbwq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidpz5llyaaz6hjgw57tpwskj47mc7dy6n6ciqdgzbhnyakrl7a2ru",
+  "ipfs": "ipfs://bafkreia4k2opm6adhx6ywhgcvaglrjnc4cxmoyytaohs5fsqbikwcknbwq",
   "schema": "schema/fipa_acl.kotoba",
+  "tier": "L3",
   "entities": [
     "Agent",
     "Task",
@@ -181,6 +182,13 @@
           "op": "delete Plan"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

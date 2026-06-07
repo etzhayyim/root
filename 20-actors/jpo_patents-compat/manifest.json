@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "jpo_patents clean-room actor",
   "description": "Clean-room, API-compatible public health / environment / IP actor (jpo_patents); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreig3q7pc663ie3qugr3pwe55d6depnm4whhoc36z63osiq5tgyhnea",
+  "wasmCid": "bafkreid6q7pcqw74arhkewgfkj5vasdd4hqzzpdkcuxqvxizx355232wly",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreig3q7pc663ie3qugr3pwe55d6depnm4whhoc36z63osiq5tgyhnea",
+  "ipfs": "ipfs://bafkreid6q7pcqw74arhkewgfkj5vasdd4hqzzpdkcuxqvxizx355232wly",
   "schema": "schema/jpo_patents.kotoba",
+  "tier": "L3",
   "entities": [
     "Application",
     "Grant",
@@ -181,6 +182,13 @@
           "op": "delete Trial"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

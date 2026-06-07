@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "costar clean-room actor",
   "description": "Clean-room, API-compatible vertical SaaS actor (costar); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibn22cvcjsui5mnedpueledvswqnmq7r2dshshmyee6leynclhdd4",
+  "wasmCid": "bafkreiehymfer7l74eugkbfcayk2ciyybioi3tmzh2oruraoerjlwdh3ve",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibn22cvcjsui5mnedpueledvswqnmq7r2dshshmyee6leynclhdd4",
+  "ipfs": "ipfs://bafkreiehymfer7l74eugkbfcayk2ciyybioi3tmzh2oruraoerjlwdh3ve",
   "schema": "schema/costar.kotoba",
+  "tier": "L3",
   "entities": [
     "Record",
     "Matter",
@@ -181,6 +182,13 @@
           "op": "delete Document"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

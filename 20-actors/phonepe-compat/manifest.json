@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "phonepe clean-room actor",
   "description": "Clean-room, API-compatible regional super-app actor (phonepe); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreieuaqv5cad4hxcjl4gy2t3zp3wlmlycqdzkvo6ewodppzqjocsesy",
+  "wasmCid": "bafkreibh5crcgfif5fjt77bkkfogrwr7fcvsrbvagbdohddcuzkvmbhj4q",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreieuaqv5cad4hxcjl4gy2t3zp3wlmlycqdzkvo6ewodppzqjocsesy",
+  "ipfs": "ipfs://bafkreibh5crcgfif5fjt77bkkfogrwr7fcvsrbvagbdohddcuzkvmbhj4q",
   "schema": "schema/phonepe.kotoba",
+  "tier": "L3",
   "entities": [
     "User",
     "Wallet",
@@ -181,6 +182,13 @@
           "op": "delete Payment"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

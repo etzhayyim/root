@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "powerbi clean-room actor",
   "description": "Clean-room, API-compatible data / analytics actor (powerbi); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiedoeyctr55agm4urnxvhxblln5k3xov7rme7sa7s34pxfufghaz4",
+  "wasmCid": "bafkreibnxjbtg3e4mjtjphaq3piv7rfite2tu4ibqpi5vsjuewbz5p55qe",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiedoeyctr55agm4urnxvhxblln5k3xov7rme7sa7s34pxfufghaz4",
+  "ipfs": "ipfs://bafkreibnxjbtg3e4mjtjphaq3piv7rfite2tu4ibqpi5vsjuewbz5p55qe",
   "schema": "schema/powerbi.kotoba",
+  "tier": "L3",
   "entities": [
     "Dataset",
     "Query",
@@ -181,6 +182,13 @@
           "op": "delete Metric"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

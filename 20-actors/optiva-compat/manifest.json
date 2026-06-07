@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "optiva clean-room actor",
   "description": "Clean-room, API-compatible telecom / satellite actor (optiva); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreice5ohbago5vxlzzio7w7wio4gkvkmir7uw5d3ub2n5dd3lu5yu7i",
+  "wasmCid": "bafkreig2ilrnzrhovdmleyzbfzmc4wpbidg7jvpjih2igccgei2y6c2bni",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreice5ohbago5vxlzzio7w7wio4gkvkmir7uw5d3ub2n5dd3lu5yu7i",
+  "ipfs": "ipfs://bafkreig2ilrnzrhovdmleyzbfzmc4wpbidg7jvpjih2igccgei2y6c2bni",
   "schema": "schema/optiva.kotoba",
+  "tier": "L3",
   "entities": [
     "Subscriber",
     "Session",
@@ -181,6 +182,13 @@
           "op": "delete UsageRecord"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

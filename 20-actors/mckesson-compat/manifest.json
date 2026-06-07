@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "mckesson clean-room actor",
   "description": "Clean-room, API-compatible pharmacy benefit / Rx network actor (mckesson); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreia6wah7n6xgoudrg36ar2iu4haif4wegxex7qsytkozl5ehojtc34",
+  "wasmCid": "bafkreidc5he2r6mtyeb4psg56zqy4ehs565jn4e6j5hnwodvs7ntuw46fu",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreia6wah7n6xgoudrg36ar2iu4haif4wegxex7qsytkozl5ehojtc34",
+  "ipfs": "ipfs://bafkreidc5he2r6mtyeb4psg56zqy4ehs565jn4e6j5hnwodvs7ntuw46fu",
   "schema": "schema/mckesson.kotoba",
+  "tier": "L3",
   "entities": [
     "Prescription",
     "Claim",
@@ -181,6 +182,13 @@
           "op": "delete PriorAuth"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

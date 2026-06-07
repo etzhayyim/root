@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "monzo clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (monzo); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiefh3qsctowcbzd27xyuvw2wsbzakgo36f3kxsgztr5pumpqwsbju",
+  "wasmCid": "bafkreibxqlhddt7qkrla2wok2duezwmjk46heu2xcubngnwpdka6yob2ou",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiefh3qsctowcbzd27xyuvw2wsbzakgo36f3kxsgztr5pumpqwsbju",
+  "ipfs": "ipfs://bafkreibxqlhddt7qkrla2wok2duezwmjk46heu2xcubngnwpdka6yob2ou",
   "schema": "schema/monzo.kotoba",
+  "tier": "L3",
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -181,6 +182,13 @@
           "op": "delete PaymentMethod"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

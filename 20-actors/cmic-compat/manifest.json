@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "cmic clean-room actor",
   "description": "Clean-room, API-compatible AEC / GovTech actor (cmic); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiawg5hh4moojzr27m67psbtmslln45f2fam6vtcozgvivnirhkdgu",
+  "wasmCid": "bafkreid2f3vdu2ygfys3tb6zmldywgclszeefhx2c4v4l2xt2zqncpla74",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiawg5hh4moojzr27m67psbtmslln45f2fam6vtcozgvivnirhkdgu",
+  "ipfs": "ipfs://bafkreid2f3vdu2ygfys3tb6zmldywgclszeefhx2c4v4l2xt2zqncpla74",
   "schema": "schema/cmic.kotoba",
+  "tier": "L3",
   "entities": [
     "Project",
     "Permit",
@@ -181,6 +182,13 @@
           "op": "delete ServiceRequest"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "grab clean-room actor",
   "description": "Clean-room, API-compatible regional super-app actor (grab); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreih2gjroy6bhlavyc6zptdmpy3hf4zuwu2owxfcp2wngmpgmhrye5m",
+  "wasmCid": "bafkreictoqihq7lxolhl2jrnrw7zjv5tvsqgnivvio6oxuhqwih4pfwi5u",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreih2gjroy6bhlavyc6zptdmpy3hf4zuwu2owxfcp2wngmpgmhrye5m",
+  "ipfs": "ipfs://bafkreictoqihq7lxolhl2jrnrw7zjv5tvsqgnivvio6oxuhqwih4pfwi5u",
   "schema": "schema/grab.kotoba",
+  "tier": "L4",
   "entities": [
     "User",
     "Wallet",
@@ -181,6 +182,13 @@
           "op": "delete Payment"
         }
       ],
+      "features": {
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "bacs_uk clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (bacs_uk); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidrpvnuwbvs33drztu5ei7ko72v5eoxonmgxbr255xewssvha56di",
+  "wasmCid": "bafkreigozv6nqtgjjyvjj3dwnv6qfj7ohouk4wdqvp7rkhvfajx5cclzai",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidrpvnuwbvs33drztu5ei7ko72v5eoxonmgxbr255xewssvha56di",
+  "ipfs": "ipfs://bafkreigozv6nqtgjjyvjj3dwnv6qfj7ohouk4wdqvp7rkhvfajx5cclzai",
   "schema": "schema/bacs_uk.kotoba",
+  "tier": "L3",
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -181,6 +182,13 @@
           "op": "delete PaymentMethod"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

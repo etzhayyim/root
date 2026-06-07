@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "yotpo clean-room actor",
   "description": "Clean-room, API-compatible customer experience / survey actor (yotpo); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidkainx2s24uedxjiapdq2vpmkpmt46nzsrndxsqwvvegevy5l5m4",
+  "wasmCid": "bafkreifnshrnqz443vcua6fspvfvuo2gunyv3ch3tsjxrrrjivk3ezpyzy",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidkainx2s24uedxjiapdq2vpmkpmt46nzsrndxsqwvvegevy5l5m4",
+  "ipfs": "ipfs://bafkreifnshrnqz443vcua6fspvfvuo2gunyv3ch3tsjxrrrjivk3ezpyzy",
   "schema": "schema/yotpo.kotoba",
+  "tier": "L3",
   "entities": [
     "Ticket",
     "Survey",
@@ -181,6 +182,13 @@
           "op": "delete Contact"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

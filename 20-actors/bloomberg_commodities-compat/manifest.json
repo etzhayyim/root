@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "bloomberg_commodities clean-room actor",
   "description": "Clean-room, API-compatible energy commodities actor (bloomberg_commodities); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreia6j4zqn6vlguvm7dfgwpc5hxsg3ocfpwu3cmemimhovwegzgtguy",
+  "wasmCid": "bafkreicnixmnhs7wpwrtywuwmaih7ocnzjuk2ly5l5w7vycpe2jjq7ecna",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreia6j4zqn6vlguvm7dfgwpc5hxsg3ocfpwu3cmemimhovwegzgtguy",
+  "ipfs": "ipfs://bafkreicnixmnhs7wpwrtywuwmaih7ocnzjuk2ly5l5w7vycpe2jjq7ecna",
   "schema": "schema/bloomberg_commodities.kotoba",
+  "tier": "L3",
   "entities": [
     "Commodity",
     "Price",
@@ -181,6 +182,13 @@
           "op": "delete Forecast"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

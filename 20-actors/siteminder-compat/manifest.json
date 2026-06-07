@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "siteminder clean-room actor",
   "description": "Clean-room, API-compatible travel / aviation / hospitality actor (siteminder); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreieqd7phdovpy2lq2b4irk7k6pbabswya4k7edbw2i266mabjbavg4",
+  "wasmCid": "bafkreidvvj32klb22hmixh7scjakymdeokyklsyykd5wifoumwxfzfxnli",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreieqd7phdovpy2lq2b4irk7k6pbabswya4k7edbw2i266mabjbavg4",
+  "ipfs": "ipfs://bafkreidvvj32klb22hmixh7scjakymdeokyklsyykd5wifoumwxfzfxnli",
   "schema": "schema/siteminder.kotoba",
+  "tier": "L3",
   "entities": [
     "Flight",
     "Booking",
@@ -181,6 +182,13 @@
           "op": "delete Fare"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

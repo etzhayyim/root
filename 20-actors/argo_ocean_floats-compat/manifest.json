@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "argo_ocean_floats clean-room actor",
   "description": "Clean-room, API-compatible space / ocean / earth physics actor (argo_ocean_floats); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihkfdd6pus5gldfqo4bep6uvo6an4tfiqp5qrnhmdsr26rxpb42l4",
+  "wasmCid": "bafkreicx4kf2ezenab7msfiufdoamcwkwln5xijjfrjqnpqgu6sy5ctljy",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihkfdd6pus5gldfqo4bep6uvo6an4tfiqp5qrnhmdsr26rxpb42l4",
+  "ipfs": "ipfs://bafkreicx4kf2ezenab7msfiufdoamcwkwln5xijjfrjqnpqgu6sy5ctljy",
   "schema": "schema/argo_ocean_floats.kotoba",
+  "tier": "L3",
   "entities": [
     "Object",
     "Position",
@@ -181,6 +182,13 @@
           "op": "delete Station"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

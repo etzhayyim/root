@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "blacksky clean-room actor",
   "description": "Clean-room, API-compatible space / ocean / earth physics actor (blacksky); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreies5624t2uunhinzvpql2ozskxl2aid4onrrik3ggplamqkfacv5a",
+  "wasmCid": "bafkreibhh37f5x6sl5khnq4cr53fcc4d7nezewusn36wyvc2t3w2grkhqm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreies5624t2uunhinzvpql2ozskxl2aid4onrrik3ggplamqkfacv5a",
+  "ipfs": "ipfs://bafkreibhh37f5x6sl5khnq4cr53fcc4d7nezewusn36wyvc2t3w2grkhqm",
   "schema": "schema/blacksky.kotoba",
+  "tier": "L3",
   "entities": [
     "Object",
     "Position",
@@ -181,6 +182,13 @@
           "op": "delete Station"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

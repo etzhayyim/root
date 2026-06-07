@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "entsoe clean-room actor",
   "description": "Clean-room, API-compatible energy / smart grid actor (entsoe); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicbecimfwchlpl73navn3ohitue2u2eupy5dtkdfw7otvpelrdacu",
+  "wasmCid": "bafkreihffrxdnsclocun6ztcissuhrcjphvcxd6hydut2tyyb7entgc5uy",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicbecimfwchlpl73navn3ohitue2u2eupy5dtkdfw7otvpelrdacu",
+  "ipfs": "ipfs://bafkreihffrxdnsclocun6ztcissuhrcjphvcxd6hydut2tyyb7entgc5uy",
   "schema": "schema/entsoe.kotoba",
+  "tier": "L3",
   "entities": [
     "Meter",
     "Reading",
@@ -181,6 +182,13 @@
           "op": "delete Tag"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

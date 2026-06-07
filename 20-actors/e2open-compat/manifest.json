@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "e2open clean-room actor",
   "description": "Clean-room, API-compatible enterprise commerce / spend actor (e2open); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibf2ufru6ptds2aykzpcsgwubfgszlytnpnafyapvdnosxlwt7l7a",
+  "wasmCid": "bafkreihni5vsq5ff4pjs3whqwgu5an42yizm5enwzomkov34dxgiokq72e",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibf2ufru6ptds2aykzpcsgwubfgszlytnpnafyapvdnosxlwt7l7a",
+  "ipfs": "ipfs://bafkreihni5vsq5ff4pjs3whqwgu5an42yizm5enwzomkov34dxgiokq72e",
   "schema": "schema/e2open.kotoba",
+  "tier": "L3",
   "entities": [
     "Catalog",
     "Product",
@@ -181,6 +182,13 @@
           "op": "delete Invoice"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

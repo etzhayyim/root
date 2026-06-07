@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "google-workspace clean-room actor",
   "description": "Clean-room, API-compatible office / productivity suite actor (google-workspace); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibrljerzyzfcn4jn7a7zrutehdqirjvhg4ccqiauaf5u53jc2377u",
+  "wasmCid": "bafkreihgfp6fx6tvuv6gvsbrgvhaxqymtnfnshxvcj77flwdm3b62kimwy",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibrljerzyzfcn4jn7a7zrutehdqirjvhg4ccqiauaf5u53jc2377u",
+  "ipfs": "ipfs://bafkreihgfp6fx6tvuv6gvsbrgvhaxqymtnfnshxvcj77flwdm3b62kimwy",
   "schema": "schema/google-workspace.kotoba",
+  "tier": "L3",
   "entities": [
     "Workspace",
     "Document",
@@ -181,6 +182,13 @@
           "op": "delete User"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

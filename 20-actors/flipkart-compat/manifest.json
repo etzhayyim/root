@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "flipkart clean-room actor",
   "description": "Clean-room, API-compatible regional super-app actor (flipkart); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifyc7u36t7u3aurbtnlco5ampkdn2s5qfnspxz5gy4watliflj52y",
+  "wasmCid": "bafkreieek4hqzsscoa7pnsnvuhvbiswjq6iw34btui35eu7syfmwqytgzu",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifyc7u36t7u3aurbtnlco5ampkdn2s5qfnspxz5gy4watliflj52y",
+  "ipfs": "ipfs://bafkreieek4hqzsscoa7pnsnvuhvbiswjq6iw34btui35eu7syfmwqytgzu",
   "schema": "schema/flipkart.kotoba",
+  "tier": "L3",
   "entities": [
     "User",
     "Wallet",
@@ -181,6 +182,13 @@
           "op": "delete Payment"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

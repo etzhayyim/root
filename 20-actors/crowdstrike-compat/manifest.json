@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "crowdstrike clean-room actor",
   "description": "Clean-room, API-compatible security / IAM actor (crowdstrike); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifntfhuyt52rgrtfg6yq23vqbzvg7z2qarpa3qzxu3kzqc6z2cbn4",
+  "wasmCid": "bafkreigb5ki5opgpmx3w34da5gvsjglgueq3sdb5kvpi2w5d5l7bkdlre4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifntfhuyt52rgrtfg6yq23vqbzvg7z2qarpa3qzxu3kzqc6z2cbn4",
+  "ipfs": "ipfs://bafkreigb5ki5opgpmx3w34da5gvsjglgueq3sdb5kvpi2w5d5l7bkdlre4",
   "schema": "schema/crowdstrike.kotoba",
+  "tier": "L4",
   "entities": [
     "Identity",
     "Policy",
@@ -181,6 +182,13 @@
           "op": "delete Session"
         }
       ],
+      "features": {
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
+      },
       "health": "/healthz"
     },
     "supplychain": {

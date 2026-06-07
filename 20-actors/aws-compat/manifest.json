@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "aws clean-room actor",
   "description": "Clean-room, API-compatible cloud infrastructure (IaaS) actor (aws); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreib7bglo4gnhogpszeu5vbrbmjwuhjql2w2p46d5r22spq4qcdp46q",
+  "wasmCid": "bafkreig2hjn2bko6o7hq5yzkkrj2spc5y3oomqu5opcmh5r6h4e3l2lsp4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreib7bglo4gnhogpszeu5vbrbmjwuhjql2w2p46d5r22spq4qcdp46q",
+  "ipfs": "ipfs://bafkreig2hjn2bko6o7hq5yzkkrj2spc5y3oomqu5opcmh5r6h4e3l2lsp4",
   "schema": "schema/aws.kotoba",
+  "tier": "L4",
   "entities": [
     "Ec2Instance",
     "S3Bucket",
@@ -207,6 +208,13 @@
           "op": "delete RdsInstance"
         }
       ],
+      "features": {
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
+      },
       "health": "/healthz"
     },
     "supplychain": {

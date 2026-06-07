@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "photon_engine clean-room actor",
   "description": "Clean-room, API-compatible gaming backend / metaverse actor (photon_engine); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiaciwgqgkypmvbp2vtahl2xpffjt5mfo476q5lsaf37wuu6gbwd5e",
+  "wasmCid": "bafkreic5y6mqafevftsxrzpmctjh44jpsobxfszrvsfp63qy24tlxktmha",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiaciwgqgkypmvbp2vtahl2xpffjt5mfo476q5lsaf37wuu6gbwd5e",
+  "ipfs": "ipfs://bafkreic5y6mqafevftsxrzpmctjh44jpsobxfszrvsfp63qy24tlxktmha",
   "schema": "schema/photon_engine.kotoba",
+  "tier": "L3",
   "entities": [
     "Player",
     "Session",
@@ -181,6 +182,13 @@
           "op": "delete Achievement"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

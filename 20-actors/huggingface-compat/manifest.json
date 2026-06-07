@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "huggingface clean-room actor",
   "description": "Clean-room, API-compatible AI / ML inference actor (huggingface); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigfj5o5xpfadutv233ijtmaxelkz6vjrx47jyoeu525bwepdv23ky",
+  "wasmCid": "bafkreigabcdkbxisujiutmn7mu44aj4uspx7vih224bz5p5wngrurb6hqe",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigfj5o5xpfadutv233ijtmaxelkz6vjrx47jyoeu525bwepdv23ky",
+  "ipfs": "ipfs://bafkreigabcdkbxisujiutmn7mu44aj4uspx7vih224bz5p5wngrurb6hqe",
   "schema": "schema/huggingface.kotoba",
+  "tier": "L3",
   "entities": [
     "Model",
     "Completion",
@@ -181,6 +182,13 @@
           "op": "delete File"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

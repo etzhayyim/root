@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "redis clean-room actor",
   "description": "Clean-room, API-compatible data / analytics actor (redis); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiaczqzwca6cpk2gg7er7wkh4ntejgzd6qv4uajs3im5foikwotwra",
+  "wasmCid": "bafkreiapsmzaq2ygm577hrt3mg4dd27virbrgdpw3mipqzkkhpz2liplz4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiaczqzwca6cpk2gg7er7wkh4ntejgzd6qv4uajs3im5foikwotwra",
+  "ipfs": "ipfs://bafkreiapsmzaq2ygm577hrt3mg4dd27virbrgdpw3mipqzkkhpz2liplz4",
   "schema": "schema/redis.kotoba",
+  "tier": "L3",
   "entities": [
     "Dataset",
     "Query",
@@ -181,6 +182,13 @@
           "op": "delete Metric"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

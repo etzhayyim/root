@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "autogpt_forge clean-room actor",
   "description": "Clean-room, API-compatible AI agent protocol actor (autogpt_forge); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreierpayyse6h2ars2jb4v6fyaz7hok2lt3aztlfua5xmkygazmig74",
+  "wasmCid": "bafkreihylutrpwarcra3fm2qeiugs6tdbirw7qdbagy7roksyk7ti6mbum",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreierpayyse6h2ars2jb4v6fyaz7hok2lt3aztlfua5xmkygazmig74",
+  "ipfs": "ipfs://bafkreihylutrpwarcra3fm2qeiugs6tdbirw7qdbagy7roksyk7ti6mbum",
   "schema": "schema/autogpt_forge.kotoba",
+  "tier": "L3",
   "entities": [
     "Agent",
     "Task",
@@ -181,6 +182,13 @@
           "op": "delete Plan"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

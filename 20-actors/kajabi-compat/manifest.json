@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "kajabi clean-room actor",
   "description": "Clean-room, API-compatible events / NPO / creator actor (kajabi); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifndvvtswhy7dej4scdbolzrfyscstvshf472wt7aegw6kdgngeyi",
+  "wasmCid": "bafkreieu6trzfp5a5qkjo4vcbufud6oigpffwpubccwqn4kyvf4zqbmtg4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifndvvtswhy7dej4scdbolzrfyscstvshf472wt7aegw6kdgngeyi",
+  "ipfs": "ipfs://bafkreieu6trzfp5a5qkjo4vcbufud6oigpffwpubccwqn4kyvf4zqbmtg4",
   "schema": "schema/kajabi.kotoba",
+  "tier": "L3",
   "entities": [
     "Event",
     "Ticket",
@@ -181,6 +182,13 @@
           "op": "delete Membership"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

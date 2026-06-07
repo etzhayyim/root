@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "galileo_gds clean-room actor",
   "description": "Clean-room, API-compatible travel / aviation / hospitality actor (galileo_gds); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreid7owkudjzmd2vva5v4wvbinn7kel26okudrneipis5i4alohzsdm",
+  "wasmCid": "bafkreihe6h56o4blunay2i2nrxcimlv6hhl3kdwxvhb7db7ixi6tpuvxky",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreid7owkudjzmd2vva5v4wvbinn7kel26okudrneipis5i4alohzsdm",
+  "ipfs": "ipfs://bafkreihe6h56o4blunay2i2nrxcimlv6hhl3kdwxvhb7db7ixi6tpuvxky",
   "schema": "schema/galileo_gds.kotoba",
+  "tier": "L3",
   "entities": [
     "Flight",
     "Booking",
@@ -181,6 +182,13 @@
           "op": "delete Fare"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

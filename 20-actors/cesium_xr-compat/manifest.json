@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "cesium_xr clean-room actor",
   "description": "Clean-room, API-compatible spatial computing / XR actor (cesium_xr); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidcoq4nghbnmw6aijz6drhsuyzjwnbsojoyfm6ns7artj7ftdywui",
+  "wasmCid": "bafkreid3rbpygm2odnpufg3k64oq53rssabfsvlbdhbqyqjhei35h534sm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidcoq4nghbnmw6aijz6drhsuyzjwnbsojoyfm6ns7artj7ftdywui",
+  "ipfs": "ipfs://bafkreid3rbpygm2odnpufg3k64oq53rssabfsvlbdhbqyqjhei35h534sm",
   "schema": "schema/cesium_xr.kotoba",
+  "tier": "L3",
   "entities": [
     "Anchor",
     "Scene",
@@ -181,6 +182,13 @@
           "op": "delete Device"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

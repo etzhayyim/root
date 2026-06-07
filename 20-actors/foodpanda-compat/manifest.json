@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "foodpanda clean-room actor",
   "description": "Clean-room, API-compatible delivery / local logistics actor (foodpanda); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiequgdpuivbdxym4gu2dssdbu3o7j4wde6fb64n5dfzidhl4hujse",
+  "wasmCid": "bafkreibqnimn67cskftu367khfhnidnvwu62p6amueoy3vdsefquqeklfq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiequgdpuivbdxym4gu2dssdbu3o7j4wde6fb64n5dfzidhl4hujse",
+  "ipfs": "ipfs://bafkreibqnimn67cskftu367khfhnidnvwu62p6amueoy3vdsefquqeklfq",
   "schema": "schema/foodpanda.kotoba",
+  "tier": "L3",
   "entities": [
     "Order",
     "Courier",
@@ -181,6 +182,13 @@
           "op": "delete Tracking"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

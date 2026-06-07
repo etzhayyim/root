@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "unity_ads clean-room actor",
   "description": "Clean-room, API-compatible marketing technology actor (unity_ads); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiev6zbeltwokl36d2gzb2tqxgsxm63cht2o32el2ofpcj2v52f67q",
+  "wasmCid": "bafkreigkolcxn5h2ppsxvkspxyx2swc3png6wlbs26jpfa64mxizavkoby",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiev6zbeltwokl36d2gzb2tqxgsxm63cht2o32el2ofpcj2v52f67q",
+  "ipfs": "ipfs://bafkreigkolcxn5h2ppsxvkspxyx2swc3png6wlbs26jpfa64mxizavkoby",
   "schema": "schema/unity_ads.kotoba",
+  "tier": "L3",
   "entities": [
     "Campaign",
     "Audience",
@@ -181,6 +182,13 @@
           "op": "delete Funnel"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

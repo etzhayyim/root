@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "trimble_ag clean-room actor",
   "description": "Clean-room, API-compatible AgriTech / food actor (trimble_ag); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiatnyxynfyl7j2io3hccdsigmoj4zlvhgvs32ipbgmd3dwdwses5m",
+  "wasmCid": "bafkreiazdkv3s7a6sp4i63hcnseux5ksktakppxsvjia5p2nbny35utpou",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiatnyxynfyl7j2io3hccdsigmoj4zlvhgvs32ipbgmd3dwdwses5m",
+  "ipfs": "ipfs://bafkreiazdkv3s7a6sp4i63hcnseux5ksktakppxsvjia5p2nbny35utpou",
   "schema": "schema/trimble_ag.kotoba",
+  "tier": "L3",
   "entities": [
     "Field",
     "Operation",
@@ -181,6 +182,13 @@
           "op": "delete Imagery"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

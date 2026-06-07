@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "marvel_fusion clean-room actor",
   "description": "Clean-room, API-compatible fusion / plasma energy actor (marvel_fusion); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibphxm2pakqvp2wn5lgmyiqzkn7u7xx4ejbeyhh3mgmlbcpinvqum",
+  "wasmCid": "bafkreibkopzdnp6dwcxy44ihtpu65f3kygokj36ff4hfodec4zd5gnex3a",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibphxm2pakqvp2wn5lgmyiqzkn7u7xx4ejbeyhh3mgmlbcpinvqum",
+  "ipfs": "ipfs://bafkreibkopzdnp6dwcxy44ihtpu65f3kygokj36ff4hfodec4zd5gnex3a",
   "schema": "schema/marvel_fusion.kotoba",
+  "tier": "L3",
   "entities": [
     "Shot",
     "Diagnostic",
@@ -181,6 +182,13 @@
           "op": "delete Sample"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

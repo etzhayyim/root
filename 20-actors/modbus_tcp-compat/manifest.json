@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "modbus_tcp clean-room actor",
   "description": "Clean-room, API-compatible energy / smart grid actor (modbus_tcp); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreih3nm65qtcn4zy7lhxfxvhfflz7djpdh3vt3yahwefv6cafrmovwy",
+  "wasmCid": "bafkreifrnb6qlwbeg75uionnxrfahdhrxc4xe6dwjw66ugay53256cbkou",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreih3nm65qtcn4zy7lhxfxvhfflz7djpdh3vt3yahwefv6cafrmovwy",
+  "ipfs": "ipfs://bafkreifrnb6qlwbeg75uionnxrfahdhrxc4xe6dwjw66ugay53256cbkou",
   "schema": "schema/modbus_tcp.kotoba",
+  "tier": "L3",
   "entities": [
     "Meter",
     "Reading",
@@ -181,6 +182,13 @@
           "op": "delete Tag"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

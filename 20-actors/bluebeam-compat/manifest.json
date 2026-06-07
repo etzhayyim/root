@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "bluebeam clean-room actor",
   "description": "Clean-room, API-compatible AEC / GovTech actor (bluebeam); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiab5wgeptuulnr4jt5x4bjcezc2st3hcf3qblhexhcl2m67msb3r4",
+  "wasmCid": "bafkreib3qkzscoajh5khhe4xcljnztlx7lnkna34uyrjr4g5ug6zsiz6oa",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiab5wgeptuulnr4jt5x4bjcezc2st3hcf3qblhexhcl2m67msb3r4",
+  "ipfs": "ipfs://bafkreib3qkzscoajh5khhe4xcljnztlx7lnkna34uyrjr4g5ug6zsiz6oa",
   "schema": "schema/bluebeam.kotoba",
+  "tier": "L3",
   "entities": [
     "Project",
     "Permit",
@@ -181,6 +182,13 @@
           "op": "delete ServiceRequest"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

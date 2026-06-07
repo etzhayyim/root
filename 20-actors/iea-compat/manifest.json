@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "iea clean-room actor",
   "description": "Clean-room, API-compatible energy / smart grid actor (iea); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigg25miuks5pdsnwkceutpsk63tdux7jjtl7yo76geqmbewi222j4",
+  "wasmCid": "bafkreigaifegtyvko65huxyi7jrlgrnz3ph2ss6f373wmxgoilwfqwmoh4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigg25miuks5pdsnwkceutpsk63tdux7jjtl7yo76geqmbewi222j4",
+  "ipfs": "ipfs://bafkreigaifegtyvko65huxyi7jrlgrnz3ph2ss6f373wmxgoilwfqwmoh4",
   "schema": "schema/iea.kotoba",
+  "tier": "L3",
   "entities": [
     "Meter",
     "Reading",
@@ -181,6 +182,13 @@
           "op": "delete Tag"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "flashpoint clean-room actor",
   "description": "Clean-room, API-compatible cyber threat intelligence actor (flashpoint); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibqxwiluo2acjin7ndcsnshmv6qgbaksbk6qyb73ofkxfoflvssxy",
+  "wasmCid": "bafkreiaikgcglwdxkkv2ocwvn6usegqd6uxulniu7sdrjlq3pyugqopkte",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibqxwiluo2acjin7ndcsnshmv6qgbaksbk6qyb73ofkxfoflvssxy",
+  "ipfs": "ipfs://bafkreiaikgcglwdxkkv2ocwvn6usegqd6uxulniu7sdrjlq3pyugqopkte",
   "schema": "schema/flashpoint.kotoba",
+  "tier": "L3",
   "entities": [
     "Indicator",
     "Vulnerability",
@@ -181,6 +182,13 @@
           "op": "delete Technique"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

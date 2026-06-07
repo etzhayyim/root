@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "pjm_interconnection clean-room actor",
   "description": "Clean-room, API-compatible energy / smart grid actor (pjm_interconnection); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihvvseytrejwh27c7brta523klzg7qctfce3ukzbsqlqj7wfjf47i",
+  "wasmCid": "bafkreigpdhhkackkp73ruyf26yj5q4uwxukvkraw6vdhzif4mxfjmxdmde",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihvvseytrejwh27c7brta523klzg7qctfce3ukzbsqlqj7wfjf47i",
+  "ipfs": "ipfs://bafkreigpdhhkackkp73ruyf26yj5q4uwxukvkraw6vdhzif4mxfjmxdmde",
   "schema": "schema/pjm_interconnection.kotoba",
+  "tier": "L3",
   "entities": [
     "Meter",
     "Reading",
@@ -181,6 +182,13 @@
           "op": "delete Tag"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

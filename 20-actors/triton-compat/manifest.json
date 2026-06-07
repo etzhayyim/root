@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "triton clean-room actor",
   "description": "Clean-room, API-compatible AI/ML infrastructure / chips actor (triton); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifjzuvvrtzdqczwn6vylwuitadae2y746e6kvsih46gj26rzdplz4",
+  "wasmCid": "bafkreib6orzdeih4n3m2d7nb4sttnhwksu6q5c2dgu2bxfzfehsbwv4mjm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifjzuvvrtzdqczwn6vylwuitadae2y746e6kvsih46gj26rzdplz4",
+  "ipfs": "ipfs://bafkreib6orzdeih4n3m2d7nb4sttnhwksu6q5c2dgu2bxfzfehsbwv4mjm",
   "schema": "schema/triton.kotoba",
+  "tier": "L3",
   "entities": [
     "Device",
     "Kernel",
@@ -181,6 +182,13 @@
           "op": "delete Utilization"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

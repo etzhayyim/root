@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "digitalocean clean-room actor",
   "description": "Clean-room, API-compatible cloud infrastructure (IaaS) actor (digitalocean); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiawtta3qjzgjahdxljysgbclqsydbahulbtxr25leajk2clxxzxz4",
+  "wasmCid": "bafkreidkhjx7qd5tgthmmwonrc277vloyjwvylknzwi2brexivxq2i6xuq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiawtta3qjzgjahdxljysgbclqsydbahulbtxr25leajk2clxxzxz4",
+  "ipfs": "ipfs://bafkreidkhjx7qd5tgthmmwonrc277vloyjwvylknzwi2brexivxq2i6xuq",
   "schema": "schema/digitalocean.kotoba",
+  "tier": "L3",
   "entities": [
     "Project",
     "ComputeInstance",
@@ -181,6 +182,13 @@
           "op": "delete IamRole"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "nemetschek clean-room actor",
   "description": "Clean-room, API-compatible AEC / GovTech actor (nemetschek); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreic4p6tlqalyckfwthn4ptoqeva3khvsjx3mwyyv2l2qxiz7les3dm",
+  "wasmCid": "bafkreicbsjpmxoobcy3xbblajxwfnudyo4d6m6hgg23uxrsqnhmd3vmxpa",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreic4p6tlqalyckfwthn4ptoqeva3khvsjx3mwyyv2l2qxiz7les3dm",
+  "ipfs": "ipfs://bafkreicbsjpmxoobcy3xbblajxwfnudyo4d6m6hgg23uxrsqnhmd3vmxpa",
   "schema": "schema/nemetschek.kotoba",
+  "tier": "L3",
   "entities": [
     "Project",
     "Permit",
@@ -181,6 +182,13 @@
           "op": "delete ServiceRequest"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

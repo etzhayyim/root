@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "razorpay clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (razorpay); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreih4iv4yjosrfi2bus65sjyfuvpprrrsewljnoxz33b5tnmswgr5j4",
+  "wasmCid": "bafkreidrblr4eq4vjzuldzkeaqhifxuex2adhu7ajry74wwtipsqhix434",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreih4iv4yjosrfi2bus65sjyfuvpprrrsewljnoxz33b5tnmswgr5j4",
+  "ipfs": "ipfs://bafkreidrblr4eq4vjzuldzkeaqhifxuex2adhu7ajry74wwtipsqhix434",
   "schema": "schema/razorpay.kotoba",
+  "tier": "L3",
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -181,6 +182,13 @@
           "op": "delete PaymentMethod"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

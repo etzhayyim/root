@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "rhino clean-room actor",
   "description": "Clean-room, API-compatible design / creative tooling actor (rhino); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifroj44mrodkxnn5hg4mi5jkapyntooyy6ymxo7twlz737ka23b2m",
+  "wasmCid": "bafkreiaxwuofauwu72co2si6uindzvtvh3pim35fvci3p7dqfq4ji4kfua",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifroj44mrodkxnn5hg4mi5jkapyntooyy6ymxo7twlz737ka23b2m",
+  "ipfs": "ipfs://bafkreiaxwuofauwu72co2si6uindzvtvh3pim35fvci3p7dqfq4ji4kfua",
   "schema": "schema/rhino.kotoba",
+  "tier": "L3",
   "entities": [
     "Project",
     "File",
@@ -181,6 +182,13 @@
           "op": "delete Export"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

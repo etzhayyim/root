@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "thegraph clean-room actor",
   "description": "Clean-room, API-compatible web3 / blockchain RPC actor (thegraph); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreic7bpl6dwylvaw7lbsqsiuami7cezikp7alh6i7hgrocveou5sefi",
+  "wasmCid": "bafkreigsotps5vddjef4zrnlvncvj63ze2vrjhqcg6rxryah3pgq7orode",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreic7bpl6dwylvaw7lbsqsiuami7cezikp7alh6i7hgrocveou5sefi",
+  "ipfs": "ipfs://bafkreigsotps5vddjef4zrnlvncvj63ze2vrjhqcg6rxryah3pgq7orode",
   "schema": "schema/thegraph.kotoba",
+  "tier": "L3",
   "entities": [
     "Block",
     "Transaction",
@@ -181,6 +182,13 @@
           "op": "delete Token"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "mammoth_biosciences clean-room actor",
   "description": "Clean-room, API-compatible synthetic biology / DNA actor (mammoth_biosciences); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibw7sqc6vasm7tt5s2xlg4tz7abacq4qn6q6ommpyxxkkh3kdqe2m",
+  "wasmCid": "bafkreidw44mdiexencss7sdxrph2x5dq75hdzhxgqjakvszjfqi3pu7sb4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibw7sqc6vasm7tt5s2xlg4tz7abacq4qn6q6ommpyxxkkh3kdqe2m",
+  "ipfs": "ipfs://bafkreidw44mdiexencss7sdxrph2x5dq75hdzhxgqjakvszjfqi3pu7sb4",
   "schema": "schema/mammoth_biosciences.kotoba",
+  "tier": "L3",
   "entities": [
     "Strain",
     "Construct",
@@ -181,6 +182,13 @@
           "op": "delete Workflow"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

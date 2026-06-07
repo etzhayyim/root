@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "box clean-room actor",
   "description": "Clean-room, API-compatible office / productivity suite actor (box); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiggdgnkyrpeiofhjr4br2ybmckbztar5exhypnwrdhfg2zjw7ms44",
+  "wasmCid": "bafkreig3hjyzbpmqhkb6zyfqbcnlbljg76mcaukuw3fzipecgrb7xlzvue",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiggdgnkyrpeiofhjr4br2ybmckbztar5exhypnwrdhfg2zjw7ms44",
+  "ipfs": "ipfs://bafkreig3hjyzbpmqhkb6zyfqbcnlbljg76mcaukuw3fzipecgrb7xlzvue",
   "schema": "schema/box.kotoba",
+  "tier": "L3",
   "entities": [
     "Workspace",
     "Document",
@@ -181,6 +182,13 @@
           "op": "delete User"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

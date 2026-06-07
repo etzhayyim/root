@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "uspto clean-room actor",
   "description": "Clean-room, API-compatible public health / environment / IP actor (uspto); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihtz2skqgox3pcmhjwsmz6r5jta7dmwydm4dqkbzjoimwndwcqzty",
+  "wasmCid": "bafkreidjdxirjicd73dd5hqub2blfwfbl6rvdqoqrxmehxvrbj4b6j45ti",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihtz2skqgox3pcmhjwsmz6r5jta7dmwydm4dqkbzjoimwndwcqzty",
+  "ipfs": "ipfs://bafkreidjdxirjicd73dd5hqub2blfwfbl6rvdqoqrxmehxvrbj4b6j45ti",
   "schema": "schema/uspto.kotoba",
+  "tier": "L3",
   "entities": [
     "Application",
     "Grant",
@@ -181,6 +182,13 @@
           "op": "delete Trial"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

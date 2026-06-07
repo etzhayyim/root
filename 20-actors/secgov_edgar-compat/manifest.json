@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "secgov_edgar clean-room actor",
   "description": "Clean-room, API-compatible US federal / sovereign API actor (secgov_edgar); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreieslyamlppfb6ie6dtjsfbydlg62pnx5ackx4hi6k4zb3akq6exo4",
+  "wasmCid": "bafkreifl5oi7khzchu2nudv6blpgzqrxuwhasksh6iu326x3zy4sdkt3gy",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreieslyamlppfb6ie6dtjsfbydlg62pnx5ackx4hi6k4zb3akq6exo4",
+  "ipfs": "ipfs://bafkreifl5oi7khzchu2nudv6blpgzqrxuwhasksh6iu326x3zy4sdkt3gy",
   "schema": "schema/secgov_edgar.kotoba",
+  "tier": "L3",
   "entities": [
     "Filing",
     "Entity",
@@ -181,6 +182,13 @@
           "op": "delete Notice"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

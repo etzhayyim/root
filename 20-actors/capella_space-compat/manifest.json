@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "capella_space clean-room actor",
   "description": "Clean-room, API-compatible space / ocean / earth physics actor (capella_space); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibhzxje63blmejtjuzyszlpo3zjwqaipgcgvehgqertonz5z6j5ie",
+  "wasmCid": "bafkreid3a7tlfmbujclu3wopojrmhhaxwtl7vg5r7er6jqye2njypgv6tm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibhzxje63blmejtjuzyszlpo3zjwqaipgcgvehgqertonz5z6j5ie",
+  "ipfs": "ipfs://bafkreid3a7tlfmbujclu3wopojrmhhaxwtl7vg5r7er6jqye2njypgv6tm",
   "schema": "schema/capella_space.kotoba",
+  "tier": "L3",
   "entities": [
     "Object",
     "Position",
@@ -181,6 +182,13 @@
           "op": "delete Station"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

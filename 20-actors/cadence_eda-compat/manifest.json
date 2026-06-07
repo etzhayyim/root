@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "cadence_eda clean-room actor",
   "description": "Clean-room, API-compatible hardware ISA / quantum actor (cadence_eda); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiej2byclp4phqxx2msnclnwxjzfgxagnbwcs7cbikmf6nb6sq3o2u",
+  "wasmCid": "bafkreibrlgmnskepecqhvw5diyjiwla6ho2liycn6zyw6efhkmuxh3zwzm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiej2byclp4phqxx2msnclnwxjzfgxagnbwcs7cbikmf6nb6sq3o2u",
+  "ipfs": "ipfs://bafkreibrlgmnskepecqhvw5diyjiwla6ho2liycn6zyw6efhkmuxh3zwzm",
   "schema": "schema/cadence_eda.kotoba",
+  "tier": "L3",
   "entities": [
     "Register",
     "Instruction",
@@ -181,6 +182,13 @@
           "op": "delete Job"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

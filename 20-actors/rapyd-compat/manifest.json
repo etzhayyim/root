@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "rapyd clean-room actor",
   "description": "Clean-room, API-compatible fintech / web3 actor (rapyd); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigw6h2v4cprgazwgatkusyhm2uivanx6l74vizeajtp5hj5vjb53u",
+  "wasmCid": "bafkreiebe35vzj4hvclzywev3g4w6bpyomxlsf5nnwrjuepm5xkn6a3mse",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigw6h2v4cprgazwgatkusyhm2uivanx6l74vizeajtp5hj5vjb53u",
+  "ipfs": "ipfs://bafkreiebe35vzj4hvclzywev3g4w6bpyomxlsf5nnwrjuepm5xkn6a3mse",
   "schema": "schema/rapyd.kotoba",
+  "tier": "L3",
   "entities": [
     "Account",
     "Card",
@@ -181,6 +182,13 @@
           "op": "delete Ledger"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "roblox clean-room actor",
   "description": "Clean-room, API-compatible vertical SaaS actor (roblox); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihawgj4ifmcw2jfg3oxeq37to2u7lqrwkqtb2m5oytopluefyjkte",
+  "wasmCid": "bafkreibqd7gefg2qi5lqw65zz47oilnebjrr6whveqdr3adv6cw3ga2c3e",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihawgj4ifmcw2jfg3oxeq37to2u7lqrwkqtb2m5oytopluefyjkte",
+  "ipfs": "ipfs://bafkreibqd7gefg2qi5lqw65zz47oilnebjrr6whveqdr3adv6cw3ga2c3e",
   "schema": "schema/roblox.kotoba",
+  "tier": "L3",
   "entities": [
     "Record",
     "Matter",
@@ -181,6 +182,13 @@
           "op": "delete Document"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

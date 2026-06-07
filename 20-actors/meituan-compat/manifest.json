@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "meituan clean-room actor",
   "description": "Clean-room, API-compatible e-commerce storefront actor (meituan); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreia5fdqjy5c7wuep5exjiv7gdaushvpl572s3hhuou2utboztdax3y",
+  "wasmCid": "bafkreigaw7zt4xos4fac4irh55g7npazpufwyntu2yni4egay3rxoxut4e",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreia5fdqjy5c7wuep5exjiv7gdaushvpl572s3hhuou2utboztdax3y",
+  "ipfs": "ipfs://bafkreigaw7zt4xos4fac4irh55g7npazpufwyntu2yni4egay3rxoxut4e",
   "schema": "schema/meituan.kotoba",
+  "tier": "L3",
   "entities": [
     "Product",
     "Variant",
@@ -181,6 +182,13 @@
           "op": "delete Collection"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

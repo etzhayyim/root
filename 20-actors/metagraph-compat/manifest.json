@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "metagraph clean-room actor",
   "description": "Clean-room, API-compatible marketing technology actor (metagraph); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiezmtyx5ovzhn2y7su7tswctkgnpgljwfazt6ih4jo5mywcvcxdku",
+  "wasmCid": "bafkreihf3qqqhjoyiccbmjcwvk26l76wsfchyjj5rlneu4s3exedjpnmcy",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiezmtyx5ovzhn2y7su7tswctkgnpgljwfazt6ih4jo5mywcvcxdku",
+  "ipfs": "ipfs://bafkreihf3qqqhjoyiccbmjcwvk26l76wsfchyjj5rlneu4s3exedjpnmcy",
   "schema": "schema/metagraph.kotoba",
+  "tier": "L3",
   "entities": [
     "Campaign",
     "Audience",
@@ -181,6 +182,13 @@
           "op": "delete Funnel"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

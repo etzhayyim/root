@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "ihs_markit_energy clean-room actor",
   "description": "Clean-room, API-compatible energy commodities actor (ihs_markit_energy); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiadm5x6dac7q4nokzsclfgxutt4elbamy7tdd3iishrpbu2hxa6di",
+  "wasmCid": "bafkreibrgoiej7nzvncu2zsmba34y35cx3gztivs4m5dhjejsrslan6wn4",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiadm5x6dac7q4nokzsclfgxutt4elbamy7tdd3iishrpbu2hxa6di",
+  "ipfs": "ipfs://bafkreibrgoiej7nzvncu2zsmba34y35cx3gztivs4m5dhjejsrslan6wn4",
   "schema": "schema/ihs_markit_energy.kotoba",
+  "tier": "L3",
   "entities": [
     "Commodity",
     "Price",
@@ -181,6 +182,13 @@
           "op": "delete Forecast"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

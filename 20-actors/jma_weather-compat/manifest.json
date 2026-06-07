@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "jma_weather clean-room actor",
   "description": "Clean-room, API-compatible Japan / APAC e-government actor (jma_weather); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibrepkymyp5j6frr4ulj3blnonlwtx7y3lrkvynuvi2ou4hvsx5eq",
+  "wasmCid": "bafkreiagjdh5cmktidq5f2dz4s4cgnc3sakdt6to5rz2dkn3xkiorciyrm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibrepkymyp5j6frr4ulj3blnonlwtx7y3lrkvynuvi2ou4hvsx5eq",
+  "ipfs": "ipfs://bafkreiagjdh5cmktidq5f2dz4s4cgnc3sakdt6to5rz2dkn3xkiorciyrm",
   "schema": "schema/jma_weather.kotoba",
+  "tier": "L3",
   "entities": [
     "Filing",
     "Corporation",
@@ -181,6 +182,13 @@
           "op": "delete Dataset"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "intercom clean-room actor",
   "description": "Clean-room, API-compatible customer experience / survey actor (intercom); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidltxrndnxynl6lbnsztyhaqduycgrvhsxnpcbtppjf5b7x6i2tme",
+  "wasmCid": "bafkreic7zbra4k6xlfnfwtox5l43upgoesjmt5znhlikkg2fxzhrnngzly",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidltxrndnxynl6lbnsztyhaqduycgrvhsxnpcbtppjf5b7x6i2tme",
+  "ipfs": "ipfs://bafkreic7zbra4k6xlfnfwtox5l43upgoesjmt5znhlikkg2fxzhrnngzly",
   "schema": "schema/intercom.kotoba",
+  "tier": "L3",
   "entities": [
     "Ticket",
     "Survey",
@@ -181,6 +182,13 @@
           "op": "delete Contact"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "apigee clean-room actor",
   "description": "Clean-room, API-compatible DevSecOps / serverless actor (apigee); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicy7vkbxlhm4pgtejbogzo4wmkjq6mq46gxqbxcg4zdhqubr3dw4y",
+  "wasmCid": "bafkreib7sw7pg3sh43n7pw7ru4vgeudhpdtgjtw4ebq2odonbfzrww3rxy",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicy7vkbxlhm4pgtejbogzo4wmkjq6mq46gxqbxcg4zdhqubr3dw4y",
+  "ipfs": "ipfs://bafkreib7sw7pg3sh43n7pw7ru4vgeudhpdtgjtw4ebq2odonbfzrww3rxy",
   "schema": "schema/apigee.kotoba",
+  "tier": "L3",
   "entities": [
     "Service",
     "Deployment",
@@ -181,6 +182,13 @@
           "op": "delete Function"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

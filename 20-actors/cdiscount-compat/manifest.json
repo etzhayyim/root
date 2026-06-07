@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "cdiscount clean-room actor",
   "description": "Clean-room, API-compatible e-commerce storefront actor (cdiscount); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreick52w5izdbckg5g5kr63pjqu7tvpczkj7h76zh4etzg735m75ye4",
+  "wasmCid": "bafkreifoir472lvp3z5lwqnbkmm4r2i2g77k7v55zfijngo2meopqtn5hm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreick52w5izdbckg5g5kr63pjqu7tvpczkj7h76zh4etzg735m75ye4",
+  "ipfs": "ipfs://bafkreifoir472lvp3z5lwqnbkmm4r2i2g77k7v55zfijngo2meopqtn5hm",
   "schema": "schema/cdiscount.kotoba",
+  "tier": "L3",
   "entities": [
     "Product",
     "Variant",
@@ -181,6 +182,13 @@
           "op": "delete Collection"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

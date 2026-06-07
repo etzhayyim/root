@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "asimov clean-room actor",
   "description": "Clean-room, API-compatible synthetic biology / DNA actor (asimov); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidooi6u3f4ewf3umph24wpc5jhnc6jdddz6sbduyfxzievggnt7da",
+  "wasmCid": "bafkreifwgd5di7kgahuy6ltil6ksu7fxqx33p37bj7kwo2jyhzqtx2wktm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidooi6u3f4ewf3umph24wpc5jhnc6jdddz6sbduyfxzievggnt7da",
+  "ipfs": "ipfs://bafkreifwgd5di7kgahuy6ltil6ksu7fxqx33p37bj7kwo2jyhzqtx2wktm",
   "schema": "schema/asimov.kotoba",
+  "tier": "L3",
   "entities": [
     "Strain",
     "Construct",
@@ -181,6 +182,13 @@
           "op": "delete Workflow"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {

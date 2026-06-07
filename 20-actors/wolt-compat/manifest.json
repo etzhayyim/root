@@ -5,11 +5,12 @@
   "kind": "compat",
   "title": "wolt clean-room actor",
   "description": "Clean-room, API-compatible delivery / local logistics actor (wolt); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibo73bqyszn56wfaaxizpk7etdwb7uygvorfl4k46l2wub4evyxky",
+  "wasmCid": "bafkreifrot3jl4kmyevgubmw7baiczwo7inevlmokwbtieqsvnto6f7gxm",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibo73bqyszn56wfaaxizpk7etdwb7uygvorfl4k46l2wub4evyxky",
+  "ipfs": "ipfs://bafkreifrot3jl4kmyevgubmw7baiczwo7inevlmokwbtieqsvnto6f7gxm",
   "schema": "schema/wolt.kotoba",
+  "tier": "L3",
   "entities": [
     "Order",
     "Courier",
@@ -181,6 +182,13 @@
           "op": "delete Tracking"
         }
       ],
+      "features": {
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
+        "contractTest": false
+      },
       "health": "/healthz"
     },
     "supplychain": {
