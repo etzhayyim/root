@@ -21,7 +21,7 @@
 ## R0.x — maturity loop (agent-reachable; no gate flip)
 
 Coverage growth (each is a `/loop` increment):
-- [ ] seed → 60+ real ad-tech entities (add CTV/DOOH SSPs, mobile networks, retail-media networks)
+- [x] seed → 60+ real ad-tech entities (add CTV/DOOH SSPs, mobile networks, retail-media networks) — 69 entities across all 10 roles (DSP/exchange/SSP/network/publisher/verification/data-broker/ad-server/cmp/advertiser); real firms :representative, no fraud signal; test_seed_coverage_breadth
 - [ ] seed → 25+ real public ads.txt/sellers.json authorization edges (real publishers' public files)
 - [x] add `:adauth.edge/app` (app-ads.txt / CTV) coverage + a parser test — ingest `--source appads --app <bundle>`; seed CTV publisher + a legit + a FICTIONAL spoof app-ads.txt edge; test_app_ads_txt_carries_bundle + test_ads_txt_parser + test_whois_bridge_drops_personal_pii
 - [ ] seed → 12+ illustrative fraud archetypes (cloaking, typosquat-delivery, malvertising-redirect, sellers-json-mismatch) — all `:synthesized` on fictional entities

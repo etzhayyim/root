@@ -41,6 +41,18 @@ class TestSeedIntegrity(unittest.TestCase):
         self.assertGreaterEqual(len(auth), 6)
         self.assertGreaterEqual(len(fraud), 4)
 
+    def test_seed_coverage_breadth(self):
+        # Maturity: ≥60 real ad-tech entities spanning the full role taxonomy.
+        adtech, _, _, _, _ = _graph()
+        self.assertGreaterEqual(len(adtech), 60)
+        roles = {a.get(":adtech/role") for a in adtech.values()}
+        for r in (":dsp", ":ad-exchange", ":ssp", ":ad-network", ":publisher",
+                  ":verification", ":data-broker", ":ad-server", ":cmp", ":advertiser"):
+            self.assertIn(r, roles, f"role {r} should be represented in the seed")
+        # the vast majority must be real (:representative/:authoritative); fictional ones are few
+        synth = [a for a in adtech.values() if a.get(":adtech/sourcing") == ":synthesized"]
+        self.assertLess(len(synth), len(adtech) // 5, "fictional entities must stay a small minority")
+
     def test_every_node_and_edge_has_sourcing(self):
         adtech, auth, creatives, delivery, fraud = _graph()
         for bucket, key in [(adtech.values(), ":adtech/sourcing"),

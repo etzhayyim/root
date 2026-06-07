@@ -45,6 +45,52 @@
  {:adtech/id "adtech.verification.ias" :adtech/name "Integral Ad Science (IAS)" :adtech/role :verification :adtech/domain "integralads.com" :adtech/country "US" :adtech/sourcing :representative}
  {:adtech/id "adtech.verification.human" :adtech/name "HUMAN Security (White Ops)" :adtech/role :verification :adtech/domain "humansecurity.com" :adtech/country "US" :adtech/sourcing :representative}
  {:adtech/id "adtech.standards.iab-tech-lab" :adtech/name "IAB Tech Lab (ads.txt / sellers.json steward)" :adtech/role :verification :adtech/domain "iabtechlab.com" :adtech/country "US" :adtech/sourcing :authoritative}
+ {:adtech/id "adtech.verification.moat" :adtech/name "Oracle Moat (archived)" :adtech/role :verification :adtech/domain "moat.com" :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.verification.comscore" :adtech/name "Comscore" :adtech/role :verification :adtech/domain "comscore.com" :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.verification.nielsen" :adtech/name "Nielsen" :adtech/role :verification :adtech/domain "nielsen.com" :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.verification.pixalate" :adtech/name "Pixalate" :adtech/role :verification :adtech/domain "pixalate.com" :adtech/country "US" :adtech/sourcing :representative}
+
+ ;; ═══════════════════════ AD-TECH ENTITIES — more demand side (maturity loop coverage) ═══════════════════════
+ {:adtech/id "adtech.dsp.adobe-advertising" :adtech/name "Adobe Advertising" :adtech/role :dsp :adtech/domain "adobe.com" :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.dsp.yahoo-dsp" :adtech/name "Yahoo DSP" :adtech/role :dsp :adtech/domain "yahoo.com" :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.dsp.stackadapt" :adtech/name "StackAdapt" :adtech/role :dsp :adtech/domain "stackadapt.com" :adtech/country "CA" :adtech/sourcing :representative}
+ {:adtech/id "adtech.dsp.viant" :adtech/name "Viant" :adtech/role :dsp :adtech/domain "viantinc.com" :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.dsp.zeta-global" :adtech/name "Zeta Global" :adtech/role :dsp :adtech/domain "zetaglobal.com" :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.dsp.quantcast" :adtech/name "Quantcast" :adtech/role :dsp :adtech/domain "quantcast.com" :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.dsp.nextroll" :adtech/name "NextRoll (AdRoll)" :adtech/role :dsp :adtech/domain "nextroll.com" :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.dsp.basis" :adtech/name "Basis Technologies (Centro)" :adtech/role :dsp :adtech/domain "basis.net" :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.dsp.simpli-fi" :adtech/name "Simpli.fi" :adtech/role :dsp :adtech/domain "simpli.fi" :adtech/country "US" :adtech/sourcing :representative}
+
+ ;; ═══════════════════════ AD-TECH ENTITIES — more supply side (SSP / exchange / network) ═══════════════════════
+ {:adtech/id "adtech.ssp.sovrn" :adtech/name "Sovrn" :adtech/role :ssp :adtech/domain "sovrn.com" :adtech/seller-type :intermediary :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.ssp.gumgum" :adtech/name "GumGum" :adtech/role :ssp :adtech/domain "gumgum.com" :adtech/seller-type :intermediary :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.ssp.yieldmo" :adtech/name "Yieldmo" :adtech/role :ssp :adtech/domain "yieldmo.com" :adtech/seller-type :intermediary :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.ssp.equativ" :adtech/name "Equativ (Smart AdServer)" :adtech/role :ssp :adtech/domain "equativ.com" :adtech/seller-type :both :adtech/country "FR" :adtech/sourcing :representative}
+ {:adtech/id "adtech.ad-network.nexxen" :adtech/name "Nexxen (Tremor/Unruly)" :adtech/role :ad-network :adtech/domain "nexxen.com" :adtech/seller-type :both :adtech/country "IL" :adtech/sourcing :representative}
+ {:adtech/id "adtech.ssp.teads" :adtech/name "Teads" :adtech/role :ssp :adtech/domain "teads.tv" :adtech/seller-type :both :adtech/country "FR" :adtech/sourcing :representative}
+ {:adtech/id "adtech.ssp.kargo" :adtech/name "Kargo" :adtech/role :ssp :adtech/domain "kargo.com" :adtech/seller-type :intermediary :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.ssp.connatix" :adtech/name "Connatix" :adtech/role :ssp :adtech/domain "connatix.com" :adtech/seller-type :intermediary :adtech/country "US" :adtech/sourcing :representative}
+
+ ;; ═══════════════════════ AD-TECH ENTITIES — mobile / CTV / retail-media networks ═══════════════════════
+ {:adtech/id "adtech.ad-network.unity-ads" :adtech/name "Unity Ads (ironSource)" :adtech/role :ad-network :adtech/domain "unity.com" :adtech/seller-type :both :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.ad-network.liftoff" :adtech/name "Liftoff (Vungle)" :adtech/role :ad-network :adtech/domain "liftoff.io" :adtech/seller-type :both :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.ad-network.digital-turbine" :adtech/name "Digital Turbine (AdColony/Fyber)" :adtech/role :ad-network :adtech/domain "digitalturbine.com" :adtech/seller-type :both :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.ad-network.applovin" :adtech/name "AppLovin" :adtech/role :ad-network :adtech/domain "applovin.com" :adtech/seller-type :both :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.ad-exchange.freewheel" :adtech/name "FreeWheel (Comcast)" :adtech/role :ad-exchange :adtech/domain "freewheel.com" :adtech/seller-type :both :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.ssp.roku-oneview" :adtech/name "Roku Advertising (OneView)" :adtech/role :ssp :adtech/domain "roku.com" :adtech/seller-type :both :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.ssp.samsung-ads" :adtech/name "Samsung Ads" :adtech/role :ssp :adtech/domain "samsung.com" :adtech/seller-type :both :adtech/country "KR" :adtech/sourcing :representative}
+ {:adtech/id "adtech.ad-network.walmart-connect" :adtech/name "Walmart Connect" :adtech/role :ad-network :adtech/domain "walmart.com" :adtech/seller-type :publisher :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.ad-network.instacart-ads" :adtech/name "Instacart Ads" :adtech/role :ad-network :adtech/domain "instacart.com" :adtech/seller-type :publisher :adtech/country "US" :adtech/sourcing :representative}
+
+ ;; ═══════════════════════ AD-TECH ENTITIES — ad servers / data brokers / CMPs ═══════════════════════
+ {:adtech/id "adtech.ad-server.google-ad-manager" :adtech/name "Google Ad Manager (GAM)" :adtech/role :ad-server :adtech/domain "google.com" :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.ad-server.kevel" :adtech/name "Kevel" :adtech/role :ad-server :adtech/domain "kevel.com" :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.data-broker.liveramp" :adtech/name "LiveRamp" :adtech/role :data-broker :adtech/domain "liveramp.com" :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.data-broker.lotame" :adtech/name "Lotame" :adtech/role :data-broker :adtech/domain "lotame.com" :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.data-broker.acxiom" :adtech/name "Acxiom" :adtech/role :data-broker :adtech/domain "acxiom.com" :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.cmp.sourcepoint" :adtech/name "Sourcepoint" :adtech/role :cmp :adtech/domain "sourcepoint.com" :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.cmp.didomi" :adtech/name "Didomi" :adtech/role :cmp :adtech/domain "didomi.io" :adtech/country "FR" :adtech/sourcing :representative}
+ {:adtech/id "adtech.cmp.onetrust" :adtech/name "OneTrust" :adtech/role :cmp :adtech/domain "onetrust.com" :adtech/country "US" :adtech/sourcing :representative}
 
  ;; ═══════════════════════ PUBLISHERS (ads.txt holders) — illustrative real-shaped ═══════════════════════
  {:adtech/id "adtech.publisher.example-news" :adtech/name "Example News (illustrative publisher)" :adtech/role :publisher :adtech/domain "example-news.example" :adtech/category :media :adtech/sourcing :representative}
