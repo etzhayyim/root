@@ -210,7 +210,7 @@ kotoba_iso20022/
 ├── bridge.py       # message → com.etzhayyim.iso20022.ingressAttestation records
 ├── helpers.py      # new_uetr() + auto NbOfTxs/CtrlSum group-header builders
 └── __init__.py     # public surface
-tests/              # 224 tests · 97% branch / 99% line · mypy --strict clean
+tests/              # 231 tests · 97% branch / 99% line · mypy --strict clean
 ```
 
 ## Construction helpers
