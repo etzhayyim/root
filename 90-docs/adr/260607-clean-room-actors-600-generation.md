@@ -262,3 +262,15 @@ dispatch, `/healthz`.
 
 The compiled WASM component is the production drop-in for the *same* contract;
 this JS runtime is both the executable spec and a today-working browser path.
+
+## 11. socialpost capability operational (dry-run, G8-gated)
+
+The `socialpost` surface is now executable, not just declared. In the runtime,
+every Datom write emits an `app.bsky.feed.post`-shaped event
+(`{$type, text, createdAt, via:<did>, subject:{entity,id}, mode:"dry-run",
+gate:"G8"}`) — **always dry-run, G8-gated; nothing ever posts outward**.
+`gen-socialpost-samples.mjs` runs the L4 cohort and materializes
+`00-contracts/schemas/cleanroom-socialpost-samples.json` (80 actors, 488 sample
+posts). `runtime.test.mjs` asserts the post shape + universal dry-run/G8 gating
+(19 assertions total). Outward posting remains gated pending Council/G8 — the
+capability produces content in-page only.
