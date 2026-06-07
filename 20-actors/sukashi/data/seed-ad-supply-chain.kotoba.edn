@@ -1,0 +1,101 @@
+;; sukashi 透かし — seed graph of the AD-TECH SUPPLY CHAIN + delivery infra + fraud networks
+;; ADR-2606071600 · vocabulary: ad-supply-chain-ontology.kotoba.edn (00-contracts/schemas/)
+;;
+;; SCOPE: a bounded illustrative slice of the programmatic advertising ecosystem as a kotoba EAVT
+;;   knowledge graph — the AD-TECH entities (DSP/exchange/SSP/ad-network/publisher/verification),
+;;   the first-class AUTHORIZATION edges from the PUBLIC ads.txt / sellers.json web-standard files,
+;;   ad CREATIVES (who broadcasts what), the DELIVERY edges binding a creative to its serving
+;;   infrastructure (IP/ASN/WHOIS-org, reusing ip-network + passive-dns ontologies), and FRAUD
+;;   SIGNALS. The lens is FRAUD PROTECTION + ad-tech TRANSPARENCY. NOT a target-list, NOT an ad
+;;   network (sukashi G2). sukashi does NOT adjudicate (G4) — signals are routed, never verdicts.
+;;
+;; SOURCING (G5): real ad-tech firms + their genuinely-public ads.txt/sellers.json facts are
+;;   :authoritative/:representative and carry NO fraud signal (non-adjudication; we do not impute
+;;   wrongdoing to real companies). Every FRAUD example is attached to a CLEARLY-FICTIONAL entity
+;;   (obviously-fake names + RFC-2606 .example / .test domains + RFC-5737 documentation IP ranges
+;;   192.0.2.0/24, 198.51.100.0/24, 203.0.113.0/24) and is :synthesized. Delivery infra for
+;;   illustrative cases uses documentation ranges so no real host is implicated. Absence of an
+;;   entity = "not yet ingested", never "legitimate" or "does not exist". Full-web ads.txt /
+;;   sellers.json / WHOIS crawl is G7 Council+operator gated.
+
+[;; ═══════════════════════ AD-TECH ENTITIES — demand side (DSP / agency) ═══════════════════════
+ {:adtech/id "org.corp.us.thetradedesk" :adtech/name "The Trade Desk" :adtech/role :dsp :adtech/domain "thetradedesk.com" :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.dsp.google-dv360" :adtech/name "Google Display & Video 360" :adtech/role :dsp :adtech/domain "google.com" :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.dsp.amazon-dsp" :adtech/name "Amazon DSP" :adtech/role :dsp :adtech/domain "amazon-adsystem.com" :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.dsp.criteo" :adtech/name "Criteo" :adtech/role :dsp :adtech/domain "criteo.com" :adtech/country "FR" :adtech/sourcing :representative}
+ {:adtech/id "adtech.dsp.mediamath" :adtech/name "MediaMath (archived)" :adtech/role :dsp :adtech/domain "mediamath.com" :adtech/country "US" :adtech/sourcing :representative}
+
+ ;; ═══════════════════════ AD-TECH ENTITIES — exchanges / SSP (supply side) ═══════════════════════
+ {:adtech/id "adtech.ad-exchange.google-adx" :adtech/name "Google AdX (Authorized Buyers)" :adtech/role :ad-exchange :adtech/domain "google.com" :adtech/seller-type :both :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.ssp.magnite" :adtech/name "Magnite" :adtech/role :ssp :adtech/domain "magnite.com" :adtech/seller-type :intermediary :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.ssp.pubmatic" :adtech/name "PubMatic" :adtech/role :ssp :adtech/domain "pubmatic.com" :adtech/seller-type :intermediary :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.ad-exchange.index-exchange" :adtech/name "Index Exchange" :adtech/role :ad-exchange :adtech/domain "indexexchange.com" :adtech/seller-type :intermediary :adtech/country "CA" :adtech/sourcing :representative}
+ {:adtech/id "adtech.ad-exchange.openx" :adtech/name "OpenX" :adtech/role :ad-exchange :adtech/domain "openx.com" :adtech/seller-type :both :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.ssp.sharethrough" :adtech/name "Sharethrough" :adtech/role :ssp :adtech/domain "sharethrough.com" :adtech/seller-type :intermediary :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.ssp.triplelift" :adtech/name "TripleLift" :adtech/role :ssp :adtech/domain "triplelift.com" :adtech/seller-type :intermediary :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.ssp.smaato" :adtech/name "Smaato" :adtech/role :ssp :adtech/domain "smaato.com" :adtech/seller-type :intermediary :adtech/country "DE" :adtech/sourcing :representative}
+ {:adtech/id "adtech.ad-network.taboola" :adtech/name "Taboola" :adtech/role :ad-network :adtech/domain "taboola.com" :adtech/seller-type :both :adtech/country "IL" :adtech/sourcing :representative}
+ {:adtech/id "adtech.ad-network.outbrain" :adtech/name "Outbrain" :adtech/role :ad-network :adtech/domain "outbrain.com" :adtech/seller-type :both :adtech/country "IL" :adtech/sourcing :representative}
+ {:adtech/id "adtech.ad-exchange.xandr" :adtech/name "Microsoft Xandr (AppNexus)" :adtech/role :ad-exchange :adtech/domain "appnexus.com" :adtech/seller-type :both :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.ad-network.verve" :adtech/name "Verve Group" :adtech/role :ad-network :adtech/domain "verve.com" :adtech/seller-type :intermediary :adtech/country "DE" :adtech/sourcing :representative}
+ {:adtech/id "adtech.ad-network.inmobi" :adtech/name "InMobi" :adtech/role :ad-network :adtech/domain "inmobi.com" :adtech/seller-type :both :adtech/country "IN" :adtech/sourcing :representative}
+
+ ;; ═══════════════════════ AD-TECH ENTITIES — verification / standards ═══════════════════════
+ {:adtech/id "adtech.verification.doubleverify" :adtech/name "DoubleVerify" :adtech/role :verification :adtech/domain "doubleverify.com" :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.verification.ias" :adtech/name "Integral Ad Science (IAS)" :adtech/role :verification :adtech/domain "integralads.com" :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.verification.human" :adtech/name "HUMAN Security (White Ops)" :adtech/role :verification :adtech/domain "humansecurity.com" :adtech/country "US" :adtech/sourcing :representative}
+ {:adtech/id "adtech.standards.iab-tech-lab" :adtech/name "IAB Tech Lab (ads.txt / sellers.json steward)" :adtech/role :verification :adtech/domain "iabtechlab.com" :adtech/country "US" :adtech/sourcing :authoritative}
+
+ ;; ═══════════════════════ PUBLISHERS (ads.txt holders) — illustrative real-shaped ═══════════════════════
+ {:adtech/id "adtech.publisher.example-news" :adtech/name "Example News (illustrative publisher)" :adtech/role :publisher :adtech/domain "example-news.example" :adtech/category :media :adtech/sourcing :representative}
+ {:adtech/id "adtech.publisher.example-weather" :adtech/name "Example Weather (illustrative publisher)" :adtech/role :publisher :adtech/domain "example-weather.example" :adtech/category :media :adtech/sourcing :representative}
+
+ ;; ═══════════════════════ ADVERTISERS — legit (no fraud signal) ═══════════════════════
+ {:adtech/id "org.corp.us.consumer-brand-co" :adtech/name "Consumer Brand Co (illustrative advertiser)" :adtech/role :advertiser :adtech/domain "consumerbrand.example" :adtech/category :ecommerce :adtech/sourcing :representative}
+
+ ;; ═══════════════════════ FICTIONAL fraud entities (ALL :synthesized; carry the fraud examples) ═══════════════════════
+ {:adtech/id "adtech.ssp.fly-by-night" :adtech/name "Fly-By-Night SSP (FICTIONAL — illustrative unauthorized reseller)" :adtech/role :ssp :adtech/domain "flybynight-ssp.test" :adtech/seller-type :intermediary :adtech/sourcing :synthesized}
+ {:adtech/id "adtech.publisher.spoofed-news" :adtech/name "Spoofed News (FICTIONAL — illustrative domain-spoof publisher)" :adtech/role :publisher :adtech/domain "example-news.test" :adtech/category :media :adtech/sourcing :synthesized}
+ {:adtech/id "adtech.advertiser.fastcoin-profits" :adtech/name "FastCoin Profits (FICTIONAL — illustrative scam advertiser)" :adtech/role :advertiser :adtech/domain "fastcoin-profits.test" :adtech/category :crypto :adtech/sourcing :synthesized}
+ {:adtech/id "adtech.advertiser.miracle-keto" :adtech/name "Miracle Keto (FICTIONAL — illustrative scam advertiser)" :adtech/role :advertiser :adtech/domain "miracle-keto.test" :adtech/category :health-supplement :adtech/sourcing :synthesized}
+ {:adtech/id "adtech.advertiser.celeb-wealth" :adtech/name "Celeb Wealth System (FICTIONAL — illustrative deepfake-endorsement scam)" :adtech/role :advertiser :adtech/domain "celeb-wealth.test" :adtech/category :finance :adtech/sourcing :synthesized}
+
+ ;; ═══════════════════════ AUTHORIZATION EDGES (ads.txt / sellers.json handshake) ═══════════════════════
+ ;; Legit publisher authorizes major sellers — declared in ads.txt AND confirmed in sellers.json.
+ {:adauth.edge/id "adauth.example-news.example->google-adx:pub-1001:direct" :adauth.edge/publisher "adtech.publisher.example-news" :adauth.edge/seller "adtech.ad-exchange.google-adx" :adauth.edge/account-id "pub-1001" :adauth.edge/relationship :direct :adauth.edge/cert-authority "f08c47fec0942fa0" :adauth.edge/declared true :adauth.edge/confirmed true :adauth.edge/sourcing :authoritative}
+ {:adauth.edge/id "adauth.example-news.example->magnite:pub-1001:direct" :adauth.edge/publisher "adtech.publisher.example-news" :adauth.edge/seller "adtech.ssp.magnite" :adauth.edge/account-id "magnite-7782" :adauth.edge/relationship :direct :adauth.edge/declared true :adauth.edge/confirmed true :adauth.edge/sourcing :authoritative}
+ {:adauth.edge/id "adauth.example-news.example->pubmatic:pub-1001:reseller" :adauth.edge/publisher "adtech.publisher.example-news" :adauth.edge/seller "adtech.ssp.pubmatic" :adauth.edge/account-id "pm-55621" :adauth.edge/relationship :reseller :adauth.edge/declared true :adauth.edge/confirmed true :adauth.edge/sourcing :authoritative}
+ {:adauth.edge/id "adauth.example-weather.example->google-adx:pub-2002:direct" :adauth.edge/publisher "adtech.publisher.example-weather" :adauth.edge/seller "adtech.ad-exchange.google-adx" :adauth.edge/account-id "pub-2002" :adauth.edge/relationship :direct :adauth.edge/declared true :adauth.edge/confirmed true :adauth.edge/sourcing :authoritative}
+ {:adauth.edge/id "adauth.example-weather.example->index-exchange:pub-2002:reseller" :adauth.edge/publisher "adtech.publisher.example-weather" :adauth.edge/seller "adtech.ad-exchange.index-exchange" :adauth.edge/account-id "idx-3310" :adauth.edge/relationship :reseller :adauth.edge/declared true :adauth.edge/confirmed true :adauth.edge/sourcing :authoritative}
+ {:adauth.edge/id "adauth.example-weather.example->taboola:pub-2002:direct" :adauth.edge/publisher "adtech.publisher.example-weather" :adauth.edge/seller "adtech.ad-network.taboola" :adauth.edge/account-id "tb-9001" :adauth.edge/relationship :direct :adauth.edge/declared true :adauth.edge/confirmed true :adauth.edge/sourcing :authoritative}
+
+ ;; UNAUTHORIZED RESELLER surface: the legit publisher's ads.txt declares Fly-By-Night SSP,
+ ;; but Fly-By-Night's sellers.json does NOT confirm the account (declared && !confirmed).
+ {:adauth.edge/id "adauth.example-news.example->fly-by-night:unknown:reseller" :adauth.edge/publisher "adtech.publisher.example-news" :adauth.edge/seller "adtech.ssp.fly-by-night" :adauth.edge/account-id "fbn-0000" :adauth.edge/relationship :reseller :adauth.edge/declared true :adauth.edge/confirmed false :adauth.edge/sourcing :authoritative}
+ ;; DOMAIN-SPOOF surface: a spoofed-news domain (example-news.test) claims the SAME account-id
+ ;; (pub-1001) as the legit example-news.example — impersonating the publisher to Google AdX.
+ {:adauth.edge/id "adauth.example-news.test->google-adx:pub-1001:direct" :adauth.edge/publisher "adtech.publisher.spoofed-news" :adauth.edge/seller "adtech.ad-exchange.google-adx" :adauth.edge/account-id "pub-1001" :adauth.edge/relationship :direct :adauth.edge/declared true :adauth.edge/confirmed false :adauth.edge/sourcing :synthesized}
+
+ ;; ═══════════════════════ AD CREATIVES (who broadcasts what) ═══════════════════════
+ {:adcreative/id "adc.legit-0001" :adcreative/advertiser "org.corp.us.consumer-brand-co" :adcreative/headline "Spring sale — 20% off household essentials" :adcreative/landing-domain "consumerbrand.example" :adcreative/media-kind :image :adcreative/lang "en" :adcreative/category :ecommerce :adcreative/served-via "adtech.ad-exchange.google-adx" :adcreative/first-seen "2026-05-20T00:00:00Z" :adcreative/last-seen "2026-06-05T00:00:00Z" :adcreative/sourcing :representative}
+ {:adcreative/id "adc.scam-crypto-01" :adcreative/advertiser "adtech.advertiser.fastcoin-profits" :adcreative/headline "Turn $250 into $18,000 in 30 days with AI crypto trading (FICTIONAL example)" :adcreative/landing-domain "fastcoin-profits.test" :adcreative/media-kind :video :adcreative/lang "en" :adcreative/category :crypto :adcreative/served-via "adtech.ssp.fly-by-night" :adcreative/first-seen "2026-05-28T00:00:00Z" :adcreative/last-seen "2026-06-06T00:00:00Z" :adcreative/sourcing :synthesized}
+ {:adcreative/id "adc.scam-keto-01" :adcreative/advertiser "adtech.advertiser.miracle-keto" :adcreative/headline "Lose 15kg in 2 weeks — doctors hate this trick (FICTIONAL example)" :adcreative/landing-domain "miracle-keto.test" :adcreative/media-kind :native :adcreative/lang "en" :adcreative/category :health-supplement :adcreative/served-via "adtech.ssp.fly-by-night" :adcreative/first-seen "2026-05-30T00:00:00Z" :adcreative/last-seen "2026-06-06T00:00:00Z" :adcreative/sourcing :synthesized}
+ {:adcreative/id "adc.scam-deepfake-01" :adcreative/advertiser "adtech.advertiser.celeb-wealth" :adcreative/headline "[Celebrity] reveals secret wealth platform (FICTIONAL deepfake-endorsement example)" :adcreative/landing-domain "celeb-wealth.test" :adcreative/media-kind :video :adcreative/lang "en" :adcreative/category :finance :adcreative/served-via "adtech.ssp.fly-by-night" :adcreative/first-seen "2026-06-01T00:00:00Z" :adcreative/last-seen "2026-06-06T00:00:00Z" :adcreative/sourcing :synthesized}
+
+ ;; ═══════════════════════ DELIVERY EDGES (creative → serving infra) ═══════════════════════
+ ;; Legit creative served from a major CDN/ASN (illustrative; documentation IP range).
+ {:addelivery.edge/id "deliv.adc.legit-0001->ip.192.0.2.10" :addelivery.edge/creative "adc.legit-0001" :addelivery.edge/landing-domain "consumerbrand.example" :addelivery.edge/ip "ip.192.0.2.10" :addelivery.edge/asn "asn.64500" :addelivery.edge/whois-org "Example CDN Inc" :addelivery.edge/registrar "Example Registrar LLC" :addelivery.edge/observed-at "2026-06-05T00:00:00Z" :addelivery.edge/sourcing :representative}
+ ;; The three scam creatives all resolve to the SAME hosting ASN + registrar + WHOIS-org =
+ ;; shared-fraud-infra (a candidate scam-ad network). Documentation IP ranges; FICTIONAL infra.
+ {:addelivery.edge/id "deliv.adc.scam-crypto-01->ip.203.0.113.7" :addelivery.edge/creative "adc.scam-crypto-01" :addelivery.edge/landing-domain "fastcoin-profits.test" :addelivery.edge/ip "ip.203.0.113.7" :addelivery.edge/asn "asn.64666" :addelivery.edge/whois-org "BulletproofHost-Example" :addelivery.edge/registrar "CheapDomains-Example" :addelivery.edge/observed-at "2026-06-06T00:00:00Z" :addelivery.edge/sourcing :synthesized}
+ {:addelivery.edge/id "deliv.adc.scam-keto-01->ip.203.0.113.8" :addelivery.edge/creative "adc.scam-keto-01" :addelivery.edge/landing-domain "miracle-keto.test" :addelivery.edge/ip "ip.203.0.113.8" :addelivery.edge/asn "asn.64666" :addelivery.edge/whois-org "BulletproofHost-Example" :addelivery.edge/registrar "CheapDomains-Example" :addelivery.edge/observed-at "2026-06-06T00:00:00Z" :addelivery.edge/sourcing :synthesized}
+ {:addelivery.edge/id "deliv.adc.scam-deepfake-01->ip.203.0.113.9" :addelivery.edge/creative "adc.scam-deepfake-01" :addelivery.edge/landing-domain "celeb-wealth.test" :addelivery.edge/ip "ip.203.0.113.9" :addelivery.edge/asn "asn.64666" :addelivery.edge/whois-org "BulletproofHost-Example" :addelivery.edge/registrar "CheapDomains-Example" :addelivery.edge/observed-at "2026-06-06T00:00:00Z" :addelivery.edge/sourcing :synthesized}
+
+ ;; ═══════════════════════ FRAUD SIGNALS (evidence-bearing, NON-ADJUDICATING, routed) ═══════════════════════
+ {:adfraud.signal/id "fraud.unauth.example-news->fly-by-night" :adfraud.signal/subject "adauth.example-news.example->fly-by-night:unknown:reseller" :adfraud.signal/kind :unauthorized-reseller :adfraud.signal/confidence 0.82 :adfraud.signal/evidence-cid "bafy-evidence-adstxt-sellersjson-diff-001" :adfraud.signal/routed-to :akashi-malak :adfraud.signal/non-adjudicating true :adfraud.signal/observed-at "2026-06-06T00:00:00Z" :adfraud.signal/sourcing :synthesized}
+ {:adfraud.signal/id "fraud.spoof.example-news.test->google-adx" :adfraud.signal/subject "adauth.example-news.test->google-adx:pub-1001:direct" :adfraud.signal/kind :domain-spoof :adfraud.signal/confidence 0.9 :adfraud.signal/evidence-cid "bafy-evidence-accountid-collision-001" :adfraud.signal/routed-to :akashi-malak :adfraud.signal/non-adjudicating true :adfraud.signal/observed-at "2026-06-06T00:00:00Z" :adfraud.signal/sourcing :synthesized}
+ {:adfraud.signal/id "fraud.scam-finance.fastcoin-profits" :adfraud.signal/subject "adc.scam-crypto-01" :adfraud.signal/kind :scam-finance :adfraud.signal/confidence 0.88 :adfraud.signal/evidence-cid "bafy-evidence-landing-phishing-001" :adfraud.signal/routed-to :tasuke :adfraud.signal/non-adjudicating true :adfraud.signal/observed-at "2026-06-06T00:00:00Z" :adfraud.signal/sourcing :synthesized}
+ {:adfraud.signal/id "fraud.counterfeit-health.miracle-keto" :adfraud.signal/subject "adc.scam-keto-01" :adfraud.signal/kind :counterfeit-goods :adfraud.signal/confidence 0.71 :adfraud.signal/evidence-cid "bafy-evidence-claims-001" :adfraud.signal/routed-to :kurashimori :adfraud.signal/non-adjudicating true :adfraud.signal/observed-at "2026-06-06T00:00:00Z" :adfraud.signal/sourcing :synthesized}
+ {:adfraud.signal/id "fraud.fake-endorsement.celeb-wealth" :adfraud.signal/subject "adc.scam-deepfake-01" :adfraud.signal/kind :fake-endorsement :adfraud.signal/confidence 0.86 :adfraud.signal/evidence-cid "bafy-evidence-deepfake-encrypted-001" :adfraud.signal/routed-to :tasuke :adfraud.signal/non-adjudicating true :adfraud.signal/observed-at "2026-06-06T00:00:00Z" :adfraud.signal/sourcing :synthesized}
+ {:adfraud.signal/id "fraud.shared-infra.bulletproofhost-example" :adfraud.signal/subject "adtech.ssp.fly-by-night" :adfraud.signal/kind :shared-fraud-infra :adfraud.signal/confidence 0.79 :adfraud.signal/evidence-cid "bafy-evidence-asn64666-cooccurrence-001" :adfraud.signal/routed-to :danjo :adfraud.signal/non-adjudicating true :adfraud.signal/observed-at "2026-06-06T00:00:00Z" :adfraud.signal/sourcing :synthesized}
+]
