@@ -243,3 +243,57 @@ def test_publisher_refuses_domain_advisory_without_citation():
     out = agent.handle_aggregate_publisher({"advisories": bad})
     assert out["posts"] == []
     assert any("UPL" in s["reason"] for s in out["skipped"])
+
+
+# ── kaizen_observer (G4/G5/G14) — self-reflection / deploy-autonomy ────────
+def test_kaizen_healthy_quarter_no_halt_no_throttle():
+    out = agent.handle_kaizen_observer({"metrics": {
+        "aggregatePosts": 80, "targetedDispatches": 20, "deliveries": 100,
+        "reEngagementAfterOptOut": 0, "commercialCrmPenetrationPct": 0.0,
+        "unsubscribeCount": 1, "framingAuditFailures": 0}})
+    assert out["halt"] is False
+    assert out["throttleMentionCapFactor"] == 1.0
+    assert out["review"]["aggregateSharePctIntegerHundredths"] == 8000  # 80.00%
+
+
+def test_kaizen_re_engagement_is_critical_halt():
+    out = agent.handle_kaizen_observer({"metrics": {
+        "aggregatePosts": 90, "targetedDispatches": 10, "deliveries": 100,
+        "reEngagementAfterOptOut": 1}})
+    assert out["halt"] is True                       # G14 const 0 breached
+    assert any(p["rule"] == "R12" and p["severity"] == "critical" for p in out["proposals"])
+    assert any("disputeMediation" in p["action"] for p in out["proposals"])
+
+
+def test_kaizen_commercial_crm_is_critical_halt():
+    out = agent.handle_kaizen_observer({"metrics": {
+        "aggregatePosts": 90, "targetedDispatches": 10, "deliveries": 100,
+        "commercialCrmPenetrationPct": 3.0}})
+    assert out["halt"] is True                       # G5 const 0 breached
+    assert any(p["rule"] == "R13" for p in out["proposals"])
+
+
+def test_kaizen_low_aggregate_share_halves_mention_cap():
+    out = agent.handle_kaizen_observer({"metrics": {
+        "aggregatePosts": 30, "targetedDispatches": 70, "deliveries": 100}})  # 30% < 50%
+    assert out["halt"] is False
+    assert out["throttleMentionCapFactor"] == 0.5    # structural throttle (G4/G14)
+    assert any(p["rule"] == "R14" for p in out["proposals"])
+
+
+def test_kaizen_unsubscribe_and_framing_spikes_warn():
+    out = agent.handle_kaizen_observer({"metrics": {
+        "aggregatePosts": 90, "targetedDispatches": 10, "deliveries": 100,
+        "unsubscribeCount": 10, "framingAuditFailures": 5}})
+    rules = {p["rule"] for p in out["proposals"]}
+    assert "R15" in rules and "R16" in rules
+    assert out["halt"] is False                       # warns, does not halt
+
+
+def test_kaizen_review_record_carries_const_zero_invariants():
+    out = agent.handle_kaizen_observer({"metrics": {
+        "aggregatePosts": 60, "targetedDispatches": 40, "deliveries": 100}})
+    r = out["review"]
+    assert r["reEngagementAfterOptOutCount"] == 0
+    assert r["commercialIntelCrmSoftwarePenetrationPct"] == 0.0
+    assert r["aggregateSharePctIntegerHundredths"] >= 5000   # ≥50.00% floor met

@@ -428,3 +428,90 @@ def handle_mention_dispatcher(state: dict) -> dict:
         })
     return {**state, "dispatches": dispatches, "rejected": rejected,
             "campaignRefused": False, "broadcast": bool(operator_ref)}
+
+
+# =========================================================================== #
+# R3 — kaizen_observer (G4/G5/G14) — quarterly self-reflection / deploy-autonomy
+# =========================================================================== #
+# The governance layer that makes ossekai self-correcting. It computes the
+# silenOssekaiReview record and decides routine self-throttles WITHOUT a human in
+# the loop; only CRITICAL invariant breaches escalate (halt + chigiri mediation).
+
+# G4/G14 — aggregate publication must be ≥50% of all touches by volume.
+AGGREGATE_SHARE_FLOOR = 50.0
+# Spike thresholds for the soft KaizenProposal rules (R12..R17).
+UNSUBSCRIBE_RATE_WARN = 0.05      # >5% unsubscribe/delivery → propose framing review
+FRAMING_FAILURE_WARN = 0.02      # >2% framing-audit failures → propose prompt review
+
+
+def _aggregate_share_pct(aggregate: int, targeted: int) -> float:
+    total = aggregate + targeted
+    return 100.0 if total == 0 else round(100.0 * aggregate / total, 2)
+
+
+def handle_kaizen_observer(state: dict) -> dict:
+    """Quarterly audit + self-correction. Reads `metrics` for the quarter and returns a
+    silenOssekaiReview record plus a decision:
+
+      - reEngagementAfterOptOut > 0  → CRITICAL: halt + chigiri.disputeMediation (G14 const 0)
+      - commercialCrmPenetrationPct > 0 → CRITICAL: halt (G5 const 0)
+      - aggregateSharePct < 50       → throttle: next-quarter mention cap × 0.5 (G4/G14)
+      - unsubscribe-rate / framing-failure spikes → soft KaizenProposals (R12..R17)
+
+    Pure function; emits proposals + a structural throttle factor the dispatcher consults."""
+    m = state.get("metrics", {})
+    aggregate = int(m.get("aggregatePosts", 0))
+    targeted = int(m.get("targetedDispatches", 0))
+    re_engage = int(m.get("reEngagementAfterOptOut", 0))
+    crm_pct = float(m.get("commercialCrmPenetrationPct", 0.0))
+    deliveries = int(m.get("deliveries", 0)) or 1
+    unsubscribes = int(m.get("unsubscribeCount", 0))
+    framing_failures = int(m.get("framingAuditFailures", 0))
+
+    share = _aggregate_share_pct(aggregate, targeted)
+    proposals: list = []
+
+    # CRITICAL invariants (G14 / G5) — const 0; any breach halts the actor.
+    critical = []
+    if re_engage > 0:
+        critical.append("reEngagementAfterOptOut > 0 (G14 const 0)")
+        proposals.append({"rule": "R12", "severity": "critical",
+                          "finding": f"{re_engage} post-opt-out re-engagement(s)",
+                          "action": "halt + chigiri.disputeMediation"})
+    if crm_pct > 0.0:
+        critical.append("commercialCrmPenetrationPct > 0 (G5 const 0)")
+        proposals.append({"rule": "R13", "severity": "critical",
+                          "finding": f"commercial CRM penetration {crm_pct}%",
+                          "action": "halt + purge commercial-CRM dependency"})
+
+    # Structural throttle (G4/G14) — aggregate-share floor.
+    throttle_factor = 1.0
+    if share < AGGREGATE_SHARE_FLOOR:
+        throttle_factor = 0.5
+        proposals.append({"rule": "R14", "severity": "structural",
+                          "finding": f"aggregate-share {share}% < {AGGREGATE_SHARE_FLOOR}%",
+                          "action": "next-quarter mention_dispatcher cap × 0.5 until recovery"})
+
+    # Soft proposals (R15..R17) — spikes that warrant review, not a halt.
+    unsub_rate = unsubscribes / deliveries
+    if unsub_rate > UNSUBSCRIBE_RATE_WARN:
+        proposals.append({"rule": "R15", "severity": "warn",
+                          "finding": f"unsubscribe rate {round(unsub_rate, 4)} > {UNSUBSCRIBE_RATE_WARN}",
+                          "action": "review advisory framing + cadence"})
+    framing_rate = framing_failures / deliveries
+    if framing_rate > FRAMING_FAILURE_WARN:
+        proposals.append({"rule": "R16", "severity": "warn",
+                          "finding": f"framing-audit failure rate {round(framing_rate, 4)} > {FRAMING_FAILURE_WARN}",
+                          "action": "review intel_analyzer framing prompts (G10)"})
+
+    halt = bool(critical)
+    review = {
+        "aggregateSharePctIntegerHundredths": int(round(share * 100)),  # schema min 5000
+        "reEngagementAfterOptOutCount": re_engage,                       # schema const 0
+        "commercialIntelCrmSoftwarePenetrationPct": crm_pct,            # schema const 0
+        "halt": halt,
+        "throttleMentionCapFactor": throttle_factor,
+        "criticalFindings": critical,
+    }
+    return {**state, "review": review, "proposals": proposals,
+            "halt": halt, "throttleMentionCapFactor": throttle_factor}
