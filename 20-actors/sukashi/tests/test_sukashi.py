@@ -41,6 +41,19 @@ class TestSeedIntegrity(unittest.TestCase):
         self.assertGreaterEqual(len(auth), 6)
         self.assertGreaterEqual(len(fraud), 4)
 
+    def test_listed_org_crosslinks_to_org_corp_space(self):
+        # Cross-actor integration: listed ad-tech firms link to the shared org.corp.* id
+        # space (kabuto/tsumugi). Every :adtech/listed-org must point into org.corp.* and
+        # only ever sit on a real (non-fictional) firm.
+        adtech, _, _, _, _ = _graph()
+        links = [(e[":adtech/id"], e[":adtech/listed-org"])
+                 for e in adtech.values() if ":adtech/listed-org" in e]
+        self.assertGreaterEqual(len(links), 12)
+        for aid, org in links:
+            self.assertTrue(org.startswith("org.corp."), f"{aid} listed-org must be org.corp.*")
+            self.assertNotEqual(adtech[aid].get(":adtech/sourcing"), ":synthesized",
+                                f"{aid}: only real firms carry a listed-org cross-link")
+
     def test_seed_coverage_breadth(self):
         # Maturity: ≥60 real ad-tech entities spanning the full role taxonomy.
         adtech, _, _, _, _ = _graph()
