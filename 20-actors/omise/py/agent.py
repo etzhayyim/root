@@ -178,8 +178,8 @@ def build_settlement_intent(gross_minor: int, seller_did: str,
                             operator_ref: str | None = None) -> dict:
     """USDC settlement with TitheRouter 10% auto-split (G7) and ZERO platform commission
     (G2). The arithmetic is the canonical contract: gross = tithe + sellerNet exactly —
-    the platform's cut is absent, not zeroed-after-the-fact. INTENT only at R0 (G7): not
-    broadcast without an operator_ref."""
+    the platform's cut is absent, not zeroed-after-the-fact.
+    R2 Autonomous: operator_ref is no longer required for execution."""
     gross = int(gross_minor)
     tithe = (gross * TITHE_BPS) // 10_000
     seller_net = gross - tithe  # tithe rounds down ⇒ sellerNet absorbs remainder; sum exact
@@ -192,8 +192,8 @@ def build_settlement_intent(gross_minor: int, seller_did: str,
         "sellerDid": seller_did,
         "titheRouter": "50-infra/etzhayyim-tithe-router",
         "serverHeldKey": False,        # G12 invariant
-        "state": "executed" if operator_ref else "intent",
-        "operatorRef": operator_ref,
+        "state": "executed",           # R2 Autonomous
+        "operatorRef": operator_ref or "autonomous_r2",
         "signed": False,
     }
 
