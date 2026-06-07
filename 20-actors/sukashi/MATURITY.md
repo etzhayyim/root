@@ -31,7 +31,7 @@ Analysis depth:
 - [ ] add `:adsupply/reseller-depth` (longest reseller chain) to analyze.py + report + test
 - [x] add an authorization-graph "follow/depends" centrality (seller betweenness) metric — `:adsupply/seller-betweenness` ∝ C(fan-in,2) = publisher-pairs a seller bridges; report section + derived datoms; test_seller_betweenness_centrality
 - [x] add a fraud-cluster confidence-aggregation (multi-signal corroboration) metric — distinct fraud-KINDS per cluster weights network-rank (`:adfraud/cluster-corroboration`); test_cluster_multi_signal_corroboration
-- [ ] add per-registrar / per-WHOIS-org fraud co-occurrence ranking to the derived datoms
+- [x] add per-registrar / per-WHOIS-org fraud co-occurrence ranking to the derived datoms — `:adsupply/registrar-cooccurrence` + `:adsupply/whois-cooccurrence` (fraud-flagged creatives sharing one registrar / registrant ORG, public WHOIS org-only G9); report section + derived datoms; test_registrar_and_whois_cooccurrence_ranking
 
 Integration / readiness:
 - [x] wire `cell:sukashi.fraud-bridge` shape to akashi's `malakEvidenceCandidate` (fixture round-trip, ≥2 source CIDs) — methods/fraud_bridge.py maps :akashi-malak-routed signals → akashi records (candidate-only, non-adjudicating, sourceCids = evidence + method-note); TestAkashiMalakBridge validates against akashi's real lexicon

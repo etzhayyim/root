@@ -107,6 +107,7 @@ def analyze(adtech, auth, creatives, delivery, fraud):
     whois_load = defaultdict(float)
     asn_members = defaultdict(set)           # asn -> {creatives}
     registrar_members = defaultdict(set)
+    whois_members = defaultdict(set)         # whois-org -> {creatives}
     for d in delivery:
         cre = d.get(':addelivery.edge/creative')
         w = creative_fraud.get(cre, 0.0)
@@ -123,10 +124,16 @@ def analyze(adtech, auth, creatives, delivery, fraud):
                 registrar_members[reg].add(cre)
         if org:
             whois_load[org] += w
+            if cre:
+                whois_members[org].add(cre)
     infra_rank = sorted(((a, round(v, 2), len(asn_members[a])) for a, v in asn_load.items() if v > 0),
                         key=lambda r: -r[1])
     registrar_rank = sorted(((r, round(v, 2), len(registrar_members[r])) for r, v in registrar_load.items() if v > 0),
                             key=lambda r: -r[1])
+    # WHOIS-org co-occurrence: # fraud-flagged creatives sharing one registrant ORGANISATION
+    # (public WHOIS, org-only per G9) — a fraud-cluster co-occurrence key complementing ASN/registrar.
+    whois_rank = sorted(((o, round(v, 2), len(whois_members[o])) for o, v in whois_load.items() if v > 0),
+                        key=lambda r: -r[1])
 
     # ── fraud clusters: creatives sharing serving infra (ASN ∧ registrar ∧ whois-org) ──
     # AND carrying ≥1 fraud signal = a candidate scam-ad NETWORK. Aggregate-first; the
@@ -196,6 +203,7 @@ def analyze(adtech, auth, creatives, delivery, fraud):
         reseller_edges=reseller_edges,
         infra_rank=infra_rank,
         registrar_rank=registrar_rank,
+        whois_rank=whois_rank,
         clusters=clusters,
         category_rank=category_rank,
         fraud_kind_count=dict(fraud_kind_count),
@@ -283,6 +291,16 @@ def render_report(adtech, auth, creatives, delivery, fraud, a):
     for reg, load, n in a['registrar_rank']:
         P(f"| {reg} | {load} | {n} |")
     if not a['registrar_rank']:
+        P("| (none in seed) | | |")
+    P("")
+    P("WHOIS registrant-organisation concentration (public WHOIS, ORG-only per G9 — a "
+      "fraud-cluster co-occurrence key; one registrant org behind many scam creatives):")
+    P("")
+    P("| registrant org (WHOIS) | Σ fraud-weighted delivery | scam creatives |")
+    P("|---|---:|---:|")
+    for org, load, n in a['whois_rank']:
+        P(f"| {org} | {load} | {n} |")
+    if not a['whois_rank']:
         P("| (none in seed) | | |")
     P("")
 
@@ -400,6 +418,12 @@ def render_datoms(a):
     for asn, load, n in a['infra_rank']:
         P(f' {{:adsupply/asn {edn_str(asn)} :adsupply/infra-concentration {load} '
           f':adsupply/scam-creatives {n} :adsupply/derived true}}')
+    for reg, load, n in a['registrar_rank']:
+        P(f' {{:adsupply/registrar {edn_str(reg)} :adsupply/registrar-fraud-load {load} '
+          f':adsupply/registrar-cooccurrence {n} :adsupply/derived true}}')
+    for org, load, n in a['whois_rank']:
+        P(f' {{:adsupply/whois-org {edn_str(org)} :adsupply/whois-fraud-load {load} '
+          f':adsupply/whois-cooccurrence {n} :adsupply/derived true}}')
     for c in a['clusters']:
         P(f' {{:adfraud/cluster {edn_str(str(c["asn"]) + "|" + str(c["registrar"]))} '
           f':adfraud/cluster-asn {edn_str(c["asn"])} :adfraud/cluster-registrar {edn_str(c["registrar"])} '

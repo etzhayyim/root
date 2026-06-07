@@ -145,6 +145,17 @@ class TestAnalyzer(unittest.TestCase):
         self.assertEqual(b, fan * (fan - 1) // 2)
         self.assertEqual(self.a["seller_betweenness"][0][0], "adtech.ad-exchange.google-adx")
 
+    def test_registrar_and_whois_cooccurrence_ranking(self):
+        # The 3 scam creatives share registrar CheapDomains-Example AND whois-org
+        # BulletproofHost-Example → each is a co-occurrence key with 3 members.
+        reg = {r: n for r, _, n in self.a["registrar_rank"]}
+        who = {o: n for o, _, n in self.a["whois_rank"]}
+        self.assertEqual(reg.get("CheapDomains-Example"), 3)
+        self.assertEqual(who.get("BulletproofHost-Example"), 3)
+        # whois ranking is fraud-weighted descending
+        loads = [load for _, load, _ in self.a["whois_rank"]]
+        self.assertEqual(loads, sorted(loads, reverse=True))
+
     def test_category_load_surfaces_high_risk_verticals(self):
         cats = {str(c).lstrip(":") for c, _ in self.a["category_rank"]}
         self.assertTrue({"crypto", "finance", "health-supplement"} & cats)
