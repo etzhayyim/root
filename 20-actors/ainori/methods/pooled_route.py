@@ -31,6 +31,13 @@ from last_mile import (  # type: ignore  # noqa: E402  (todoke route core — re
     plan_last_mile,
 )
 
+# Reuse ainori's own cost-share (no-surge, no-margin) — compose, don't duplicate.
+_AINORI_PY = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "py"))
+if _AINORI_PY not in sys.path:
+    sys.path.insert(0, _AINORI_PY)
+
+from agent import cost_share  # type: ignore  # noqa: E402  (ainori no-surge cost-share)
+
 
 def sequence_stops(stops: list) -> tuple[list, float]:
     """Order a list of Stops (stops[0] pinned as origin) and return (order_of_ids, length_m).
@@ -56,3 +63,22 @@ def pooled_route(carrier_origin: tuple, rider_points: list) -> dict:
         stops.append(Stop(int(p["id"]), float(p["x"]), float(p["y"]), p.get("zone", "arterial")))
     order, length = sequence_stops(stops)
     return {"order": order, "lengthM": length, "occupancy": len(rider_points)}
+
+
+def plan_pooled_trip(carrier_origin: tuple, rider_points: list, fuel_wear_minor: int) -> dict:
+    """End-to-end pooled trip: sequence the stops with the reused todoke core, then split the
+    REAL fuel/wear cost flat across the pooled riders with ainori's no-surge cost_share (composed,
+    not duplicated). Returns the route + per-rider share + total collected.
+
+    Honest cost-share property (G1/G2): totalCollected = share × occupancy NEVER exceeds the real
+    fuel_wear (integer division rounds the per-rider share DOWN, so the carrier absorbs any
+    remainder — the platform/carrier never profits)."""
+    route = pooled_route(carrier_origin, rider_points)
+    occ = route["occupancy"]
+    share = cost_share(fuel_wear_minor, occ)
+    return {
+        **route,
+        "fuelWearMinor": int(fuel_wear_minor),
+        "costSharePerRiderMinor": share,
+        "totalCollectedMinor": share * occ,   # ≤ fuelWearMinor by construction (no profit)
+    }

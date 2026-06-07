@@ -127,3 +127,31 @@ def confirm_booking(booking: dict, signature: dict, confirmed_bookings: list) ->
         return {**booking, "refused": True,
                 "reason": "slot was taken before confirm — overlap refused (G4)"}
     return {**booking, "state": "confirmed", "status": "confirmed", "confirmedSig": signature.get("ref")}
+
+
+# --------------------------------------------------------------------------- #
+# cancel / reschedule (legacy /cancel /reschedule commands)
+# --------------------------------------------------------------------------- #
+def cancel_booking(booking: dict) -> dict:
+    """Cancel a booking. A cancelled booking no longer blocks availability (is_free counts only
+    :confirmed), so the slot is immediately re-bookable. Append-only state transition (G3)."""
+    return {**booking, "state": "cancelled", "status": "cancelled"}
+
+
+def reschedule_booking(booking: dict, new_start_epoch_min: int, new_duration_min: int,
+                       confirmed_bookings: list, signature: dict) -> dict:
+    """Move a confirmed booking to a new slot. Member-signed (G5). The new slot is re-checked for
+    no-double-book (G4), EXCLUDING this booking's own current slot from the conflict set (moving a
+    booking must not collide with itself). Refuses a non-confirmed booking or an occupied slot."""
+    if booking.get("status") != "confirmed":
+        return {**booking, "refused": True, "reason": "only a confirmed booking can be rescheduled"}
+    if signature.get("origin") != "member":
+        return {**booking, "refused": True,
+                "reason": "only a member passkey/wallet signature reschedules (G5 no-server-key)"}
+    others = [b for b in confirmed_bookings if b.get("bookingId") != booking.get("bookingId")]
+    if not is_free(booking["calendarDid"], int(new_start_epoch_min), int(new_duration_min), others):
+        return {**booking, "refused": True,
+                "reason": "target slot overlaps another confirmed booking (G4 no-double-book)"}
+    return {**booking, "startEpochMin": int(new_start_epoch_min),
+            "durationMin": int(new_duration_min), "status": "confirmed", "rescheduled": True,
+            "confirmedSig": signature.get("ref")}
