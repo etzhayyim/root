@@ -136,6 +136,15 @@ class TestAnalyzer(unittest.TestCase):
         self.assertTrue(self.a["infra_rank"])
         self.assertEqual(self.a["infra_rank"][0][0], "asn.64666")
 
+    def test_seller_betweenness_centrality(self):
+        # google-adx is authorized by 3 publishers (example-news, example-weather, spoofed-news)
+        # → betweenness = C(3,2) = 3, the highest in the seed; betweenness == C(fan,2).
+        btw = {s: (fan, b) for s, fan, b in self.a["seller_betweenness"]}
+        self.assertIn("adtech.ad-exchange.google-adx", btw)
+        fan, b = btw["adtech.ad-exchange.google-adx"]
+        self.assertEqual(b, fan * (fan - 1) // 2)
+        self.assertEqual(self.a["seller_betweenness"][0][0], "adtech.ad-exchange.google-adx")
+
     def test_category_load_surfaces_high_risk_verticals(self):
         cats = {str(c).lstrip(":") for c, _ in self.a["category_rank"]}
         self.assertTrue({"crypto", "finance", "health-supplement"} & cats)

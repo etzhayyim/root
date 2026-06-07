@@ -151,6 +151,7 @@
  :derived-attributes
  [{:db/ident :adsupply/seller-fan-out      :db/doc "# distinct publishers that authorize a given seller (ads.txt) — high = a systemic seller many sites depend on (transparency signal, never a target, G2)"}
   {:db/ident :adsupply/publisher-seller-count :db/doc "# distinct sellers a publisher authorizes — sprawl raises the spoofing surface"}
+  {:db/ident :adsupply/seller-betweenness   :db/doc "betweenness centrality of a seller in the publisher↔seller authorization graph ∝ C(fan-in,2) = # publisher-pairs it bridges — where supply-chain dependency structurally concentrates (transparency signal, NEVER a target, G2)"}
   {:db/ident :adsupply/unconfirmed-rate    :db/doc "fraction of a seller's declared (ads.txt) edges NOT confirmed in its sellers.json — the unauthorized/spoofed-inventory surface; the headline supply-chain integrity signal"}
   {:db/ident :adsupply/reseller-depth      :db/doc "longest :reseller chain reaching a publisher's inventory — depth obscures who actually monetizes the impression (opacity signal routed to transparency)"}
   {:db/ident :adsupply/infra-concentration :db/doc "Σ fraud-weighted creative delivery per ASN / IP / registrar — where scam advertising concentrates onto one hosting network (routed to takedown-referral, NEVER a target-list, G2)"}
