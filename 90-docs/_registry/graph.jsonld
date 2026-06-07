@@ -13981,6 +13981,19 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606072200-yotei-kotoba-native-scheduling",
+      "type": "TechArticle",
+      "title": "ADR-2606072200: yotei — kotoba-native scheduling commons (Calendly inversion); remediation Phase A",
+      "status": "proposed",
+      "topic": "yotei-kotoba-native",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/yotei"
+      ],
+      "related": "doc:2605181100",
+      "lastVerified": "2026-06-07"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
