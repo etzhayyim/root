@@ -75,7 +75,7 @@ wasm/
 ### State Persistence
 
 - `managerState` struct holds all data in memory
-- Persisted via magatama WIT bindings (SQL graph)
+- Persisted via kotodama WIT bindings (SQL graph)
 - KV bucket: `projection-manager`
 
 ### Auth Context

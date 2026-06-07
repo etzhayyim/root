@@ -67,56 +67,56 @@
   "cells": [
     {
       "name": "tithe_accounting",
-      "module": "magatama.cells.toritate_tithe_accounting",
+      "module": "kotodama.cells.toritate_tithe_accounting",
       "murakumoNode": "gad",
       "phase": "continuous",
       "io": "TitheRouter tx → income summary entry"
     },
     {
       "name": "public_fund_accounting",
-      "module": "magatama.cells.toritate_public_fund_accounting",
+      "module": "kotodama.cells.toritate_public_fund_accounting",
       "murakumoNode": "gad",
       "phase": "continuous",
       "io": "Public Fund Safe disbursement → grant summary entry"
     },
     {
       "name": "council_compensation",
-      "module": "magatama.cells.toritate_council_compensation",
+      "module": "kotodama.cells.toritate_council_compensation",
       "murakumoNode": "gad",
       "phase": "continuous",
       "io": "Council Safe tx → operational expense summary (typically zero)"
     },
     {
       "name": "steward_subsistence_accounting",
-      "module": "magatama.cells.toritate_steward_subsistence_accounting",
+      "module": "kotodama.cells.toritate_steward_subsistence_accounting",
       "murakumoNode": "gad",
       "phase": "continuous",
       "io": "chigiri.stewardLaborAttestation → L0..L6 subsistence flow summary"
     },
     {
       "name": "transaction_ledger",
-      "module": "magatama.cells.toritate_transaction_ledger",
+      "module": "kotodama.cells.toritate_transaction_ledger",
       "murakumoNode": "reuben",
       "phase": "continuous",
       "io": "raw on-chain Base L2 tx parsing + categorization"
     },
     {
       "name": "annual_audit_report",
-      "module": "magatama.cells.toritate_annual_audit_report",
+      "module": "kotodama.cells.toritate_annual_audit_report",
       "murakumoNode": "reuben",
       "phase": "annual (event)",
       "io": "aggregate cells (1-5) → annual transparency report + Council ≥3 attestation chain"
     },
     {
       "name": "imputed_income_compute",
-      "module": "magatama.cells.toritate_imputed_income_compute",
+      "module": "kotodama.cells.toritate_imputed_income_compute",
       "murakumoNode": "gad",
       "phase": "continuous",
       "io": "encrypted per-adherent in-kind consumption → imputed income (FLOW) → metricReport.basicHighIncome (ADR-2605301020; valuation/ tables)"
     },
     {
       "name": "commons_asset_value",
-      "module": "magatama.cells.toritate_commons_asset_value",
+      "module": "kotodama.cells.toritate_commons_asset_value",
       "murakumoNode": "gad",
       "phase": "continuous",
       "io": "SBT-bound non-alienable commons-asset access (STOCK) → metricReport.basicHighIncome (ADR-2605301020 §2)"

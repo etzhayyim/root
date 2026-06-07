@@ -25,7 +25,7 @@ ADR-2605111200 defines the read path as:
 
 > CF Worker → bpmn-dispatcher → pod SELECT → JSON response
 
-The BPMN dispatcher is a deprecated execution path (ADR-2604282300, CLAUDE.md infra layer rules). The `maps-read-langserver` K8s pod (`pymagatama.worker_api`, port 8081) already handles these NSIDs directly:
+The BPMN dispatcher is a deprecated execution path (ADR-2604282300, CLAUDE.md infra layer rules). The `maps-read-langserver` K8s pod (`kotodama.worker_api`, port 8081) already handles these NSIDs directly:
 
 - `com.etzhayyim.apps.maps.getDashboard`
 - `com.etzhayyim.apps.maps.listLiveAircraft`
@@ -48,7 +48,7 @@ A `cloudflare/cloudflared` sidecar container runs in the `maps-read-langserver` 
 
 ### Auth boundary
 
-The pod (`pymagatama.worker_api`) has no application-layer auth. Trust boundary is the CF Tunnel: only requests that originate from CF Workers (or other CF-authenticated callers) can reach the tunnel endpoint. The data served (aircraft positions, satellite passes, world-monitor intel snapshots) is non-sensitive read-only intelligence — the same data exposed publicly via the XRPC query surface anyway.
+The pod (`kotodama.worker_api`) has no application-layer auth. Trust boundary is the CF Tunnel: only requests that originate from CF Workers (or other CF-authenticated callers) can reach the tunnel endpoint. The data served (aircraft positions, satellite passes, world-monitor intel snapshots) is non-sensitive read-only intelligence — the same data exposed publicly via the XRPC query surface anyway.
 
 No changes to `worker_api.py`. No CF Access Service Token required for phase-1 (can be added later as an operator step without code changes).
 

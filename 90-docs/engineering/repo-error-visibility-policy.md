@@ -36,7 +36,7 @@ superseded_by: []
 
 - `50-infra/cloudflare/workers/**` (PDS, auth, vault, routing-gateway 等すべて)
 - `60-apps/**/appview/**` + `60-apps/**/worker/**`
-- `10-protocol/wproto/**` / `10-protocol/xrpc/**` / `20-actors/magatama/sdk/**`
+- `10-protocol/wproto/**` / `10-protocol/xrpc/**` / `40-engine/kotoba/crates/kotoba-kotodama/sdk/**`
 - `70-tools/etzhayyim/**` (CLI: エラーは stderr に JSON で原文表示し exit code 非 0)
 - 公開 XRPC エンドポイント全般
 - Browser frontend (`*/svelte/src/**`): fetch 応答の error/message を UI に表示する

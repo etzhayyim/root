@@ -7,7 +7,7 @@ import {
   nowISO,
   genID,
   nsid,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 // CHARTER-VIOLATION §substrate (centralized DB forbidden): migrate to AT MST + IPFS + Base L2 anchor
 
 // ────────────────────────────────────────────────────────────────────────────
@@ -28,7 +28,7 @@ import {
 //   SS_GRAPH_TOKEN_KEK     : AES-256 KEK (KEK pool = gmail と共有)
 //
 // Write-Only Derived: handler は AT Repo 書き込みのみ。social/tool/通知は
-//   magatama.jsonld の derive rule で PDS commit pipeline が自動導出。
+//   kotodama.jsonld の derive rule で PDS commit pipeline が自動導出。
 // ────────────────────────────────────────────────────────────────────────────
 
 const ACTOR_DID = "did:web:cowork-graph.etzhayyim.com";
@@ -278,7 +278,7 @@ async function rwQuery<T>(db: RwDb, sql: string, params: unknown[] = []): Promis
   return (result.rows ?? []) as T[];
 }
 
-// ── MagatamaApp ──────────────────────────────────────────────────────────────
+// ── KotodamaApp ──────────────────────────────────────────────────────────────
 
 export default createWorkerExport((sdk: HostSDK) => {
   const env = sdk.env as unknown as Env;

@@ -91,7 +91,7 @@ async def _step_load_doc(state: _State) -> dict[str, Any]:
 
     vertex_id = f"at://{_APP_DID}/{_NSID}/{doc_id}"
     try:
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         import asyncio
         client = get_kotoba_client()
         rows = await asyncio.to_thread(

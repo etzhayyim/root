@@ -280,7 +280,7 @@ def _wellbecoming_scan(work: dict[str, Any], modality: str) -> dict[str, Any]:
                        1920s exotic travelogue + pre-1955 advertising
     R3+ baien-distill specialist auto-score
 
-    TODO R1.1: integrate with pymagatama.organism.sensors.charter_rider
+    TODO R1.1: integrate with kotodama.organism.sensors.charter_rider
     """
     return {
         "verdict": "admit",  # placeholder; R1.1 implements full scan

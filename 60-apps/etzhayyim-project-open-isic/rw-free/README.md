@@ -50,7 +50,7 @@ rw-free/
 
 ## SDK usage map (ADR-2605172000 § "Per-app-pattern migration guide")
 
-Old (RW-backed `appview/` / `pymagatama` handlers):
+Old (RW-backed `appview/` / `kotodama` handlers):
 
 ```typescript
 const rows = await kysely
@@ -149,4 +149,4 @@ pnpm test
 - [`20-actors/etzhayyim-sdk/`](../../../20-actors/etzhayyim-sdk/) — the substrate-purity SDK
 - [`50-infra/mst-projector/`](../../../50-infra/mst-projector/) — Stage 3 of the trust-less verification chain
 - [ADR-2605172000](../../../90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) — substrate rules
-- [`20-actors/magatama/py/src/pymagatama/primitives/open_isic_*.py`](../../../20-actors/magatama/py/src/pymagatama/primitives/) — 428 classification primitives (LangServer runtime; complementary to this taxonomy publisher)
+- [`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/open_isic_*.py`](../../../40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/) — 428 classification primitives (LangServer runtime; complementary to this taxonomy publisher)

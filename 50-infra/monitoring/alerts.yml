@@ -8,7 +8,7 @@ groups:
           severity: critical
         annotations:
           summary: "Cell-runner down on {{ $labels.instance }}"
-          description: "magatama-cell-runner has been unreachable on {{ $labels.instance }} for >=2m"
+          description: "kotodama-cell-runner has been unreachable on {{ $labels.instance }} for >=2m"
 
       - alert: MstProjectorDown
         expr: up{job="mst-projector"} == 0

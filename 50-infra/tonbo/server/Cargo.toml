@@ -14,7 +14,7 @@ path = "src/main.rs"
 [dependencies]
 arrow = { version = "58", features = ["ipc"] }
 arrow-flight = { version = "53", features = ["flight-sql-experimental"] }
-arrow-ipc = "54"
+arrow-ipc = "58"
 arrow-json = "58"
 arrow-schema = "58"
 async-trait = "0.1"
@@ -25,7 +25,7 @@ chrono = "0.4"
 dashmap = "6"
 datafusion = "42"
 futures = "0.3"
-lance = "0.20"
+lance = "0.23"
 lance-index = "0.23"
 lance-linalg = "0.20"
 lance-table = "0.20"

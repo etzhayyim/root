@@ -500,7 +500,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   family as `harai` / `credits`. No rw-free built.
 - **keiei** (Bucket D → V) — axes: **Infra (k8s-resident C-suite orchestration
   LSP + leader election) + Custody (internal CxO audit ledger)**. C-suite role
-  LSP (経営): an AI CxO management daemon (`pymagatama.keiei` / `KeieiServer`,
+  LSP (経営): an AI CxO management daemon (`kotodama.keiei` / `KeieiServer`,
   `did:web:keiei.etzhayyim.com`, ADR-2605101200) — multi-replica k8s deployment with
   single-writer Lease leader-election, an append-only `CXO-LEDGER.md` decision
   audit, and JSON-RPC dispatch to C-suite roles. Internal management

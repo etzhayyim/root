@@ -154,11 +154,11 @@ e7m actor deploy .
 **Smoke test**: Verify that all 5 cells import without exception:
 ```bash
 cd 20-actors/tatekata
-python -c "from magatama.cells.foundation_excavation import FoundationExcavationCell; assert FoundationExcavationCell"
-python -c "from magatama.cells.structural_assembly import StructuralAssemblyCell; assert StructuralAssemblyCell"
-python -c "from magatama.cells.mep_installation import MepInstallationCell; assert MepInstallationCell"
-python -c "from magatama.cells.finishing_handoff import FinishingHandoffCell; assert FinishingHandoffCell"
-python -c "from magatama.cells.commissioning import CommissioningCell; assert CommissioningCell"
+python -c "from kotodama.cells.foundation_excavation import FoundationExcavationCell; assert FoundationExcavationCell"
+python -c "from kotodama.cells.structural_assembly import StructuralAssemblyCell; assert StructuralAssemblyCell"
+python -c "from kotodama.cells.mep_installation import MepInstallationCell; assert MepInstallationCell"
+python -c "from kotodama.cells.finishing_handoff import FinishingHandoffCell; assert FinishingHandoffCell"
+python -c "from kotodama.cells.commissioning import CommissioningCell; assert CommissioningCell"
 ```
 
 All should pass import; `.solve()` calls should raise `RuntimeError("tatekata R0 scaffold...")`.

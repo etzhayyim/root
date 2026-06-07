@@ -96,7 +96,7 @@ if (violations > 0) {
   console.error(`no-external-purchase-purpose: ${violations} violation(s) across ${files.length} file(s).`);
   console.error("  Per ADR-2605211900 D2: external yorishiro lexicons must declare a non-profit");
   console.error("  Charter purpose (donation / kisha / grant / tithe / escrow-refund). SBT↔SBT");
-  console.error("  internal-* carveouts belong on ordinary magatama actors, not yorishiri.");
+  console.error("  internal-* carveouts belong on ordinary kotodama actors, not yorishiri.");
   process.exit(1);
 }
 

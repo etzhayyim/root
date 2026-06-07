@@ -9,7 +9,7 @@ import {
   withCapabilityTags,
   type B2Env,
   type HostSDK,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 
 let primaryRegistered = false;

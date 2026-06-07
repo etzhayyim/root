@@ -26,7 +26,7 @@ _TIER_HINTS: dict[str, list[str]] = {
     "flower": ["test_", "_test", ".spec.", ".test."],
     "leaf":   [".md", ".txt", ".yaml", ".yml", ".toml"],
     "branch": [".ts", ".py", ".go"],
-    "trunk":  ["magatama.jsonld", "wrangler.jsonc", "pyproject.toml"],
+    "trunk":  ["kotodama.jsonld", "wrangler.jsonc", "pyproject.toml"],
     "seed":   ["deps.toml", "CLAUDE.md"],
 }
 

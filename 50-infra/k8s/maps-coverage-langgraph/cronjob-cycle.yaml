@@ -2,7 +2,7 @@
 # maps-coverage-ticker (LangGraph edition)
 #
 # Replaces the bpmn-dispatcher curl ticker with an in-pod LangGraph StateGraph
-# that calls pymagatama.ingest.maps_collection primitives directly against
+# that calls kotodama.ingest.maps_collection primitives directly against
 # Kotoba/Datomic. See 50-infra/k8s/maps-coverage-langgraph/README.md.
 #
 # Graph (Pregel super-step):
@@ -43,7 +43,7 @@ spec:
               effect: NoSchedule
           containers:
             - name: cycle
-              image: ghcr.io/etzhayyim/pymagatama:ndl-oai-resident-0077fecc6a2-20260509110241-amd64
+              image: ghcr.io/etzhayyim/kotodama:ndl-oai-resident-0077fecc6a2-20260509110241-amd64
               imagePullPolicy: IfNotPresent
               env:
                 - name: RW_URL
@@ -75,7 +75,7 @@ spec:
                   from langgraph.graph import StateGraph, START, END
                   from langgraph.types import Send
 
-                  from pymagatama.ingest.maps_collection import (
+                  from kotodama.ingest.maps_collection import (
                       advance_coverage,
                       refresh_coverage_stats,
                   )

@@ -4,7 +4,7 @@
 // (domain.provision, domain.checkAllPending, seo.auditAllSites, query helpers).
 // Page serving at edge via Hyperdrive SELECT on vertex_webya_page.html_content.
 
-import { createKyselyDb } from "@etzhayyim/magatama-host-sdk";
+import { createKyselyDb } from "@etzhayyim/kotodama-host-sdk";
 
 interface SecretBinding { get(): Promise<string>; }
 interface HyperdriveBinding { connectionString: string; }
@@ -33,7 +33,7 @@ export default {
         nanoid: env.APP_NANOID ?? "w3bya001",
         execution: "edge-bpmn+langgraph-granian",
         bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/webya",
-        langgraph: "20-actors/magatama/py/src/pymagatama/langgraph_graphs/webya_site_generation.py",
+        langgraph: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs/webya_site_generation.py",
         methods: [
           "createSite", "reviseSite",
           "provisionDomain",

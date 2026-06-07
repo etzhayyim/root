@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "record",
-      "description": "Tier 2 domain record for a manga chapter. Carries the facet/embed source fields consumed by the derive rule `chapter-published-social` in magatama.jsonld to auto-emit an app.bsky.feed.post with recordWithMedia embed + richtext facets (character mentions, volume/arc tags, reader deep-link). charactersAppearing[] items are expanded to did:web:mangaka.etzhayyim.com:character:{slug} mention facets; volumeId/arcIds[] become #tag facets; readerUri becomes a #link facet; coverCid + self strongRef become the recordWithMedia embed.",
+      "description": "Tier 2 domain record for a manga chapter. Carries the facet/embed source fields consumed by the derive rule `chapter-published-social` in kotodama.jsonld to auto-emit an app.bsky.feed.post with recordWithMedia embed + richtext facets (character mentions, volume/arc tags, reader deep-link). charactersAppearing[] items are expanded to did:web:mangaka.etzhayyim.com:character:{slug} mention facets; volumeId/arcIds[] become #tag facets; readerUri becomes a #link facet; coverCid + self strongRef become the recordWithMedia embed.",
       "key": "any",
       "record": {
         "type": "object",

@@ -60,12 +60,12 @@ bypassed), and **G7** (`:representative`).
 
 ## Promotion to live KV / kotoba (operator-gated, G8)
 
-### Substrate boundary (CRITICAL — why the canonical write is NOT gftd)
+### Substrate boundary (CRITICAL — why the canonical write is NOT etzhayyim)
 
 The kotoba **engine** is etzhayyim's own open-source (`github.com/etzhayyim/kotoba`,
-`40-engine/kotoba`). `kotobase.net` is **gftd's commercial hosted deployment** of that engine
+`40-engine/kotoba`). `kotobase.net` is **etzhayyim's commercial hosted deployment** of that engine
 (`did:web:kotobase.net`; verified live 2026-06-05, `/health` ok), and its `kg.ingest` requires a
-**gftd-AUTHN JWT** from `authn.gftd.ai`. Routing etzhayyim's **canonical religious-corp state**
+**etzhayyim-AUTHN JWT** from `authn.etzhayyim.com`. Routing etzhayyim's **canonical religious-corp state**
 through a vendor's auth service would violate the **Ownership invariant** (意思決定権・payoff =
 etzhayyim only — a revocable vendor JWT must not gate canonical state) and the **Murakumo-only
 consent-capability boundary** (religious-corp functions do not route through vendor commercial
@@ -74,7 +74,7 @@ paths, ADR-2605215000). So:
 - **CANONICAL write = etzhayyim's OWN kotoba endpoint + etzhayyim DID-bound auth** (member/operator
   signature, no-server-key). State stays content-addressed (CID commit-DAG) + Base L2 anchored, so
   it is verifiable from any IPFS gateway and re-hostable anywhere.
-- **gftd kotobase = OPTIONAL availability MIRROR only** (a content-addressed copy; gftd can host but
+- **etzhayyim kotobase = OPTIONAL availability MIRROR only** (a content-addressed copy; etzhayyim can host but
   cannot alter/own the data — `datomic.transact` is operator-only there, CIDs immutable). A
   commodity vendor (Pinata-class), never the canonical auth root.
 
@@ -88,11 +88,11 @@ paths, ADR-2605215000). So:
    (refused with a G8 message if either is unset — there is NO hardcoded vendor default). Live
    legacy *read* from a RisingWave dump is the separate `ingest.py --live` path
    (refused unless `KAMADO_OPERATOR_GATE=1`).
-   OPTIONAL mirror (copy only): `KOTOBA_JWT=<gftd-jwt> python3 …/ingest.py --mirror-gftd`.
+   OPTIONAL mirror (copy only): `KOTOBA_JWT=<etzhayyim-jwt> python3 …/ingest.py --mirror-etzhayyim`.
 2. **Actor-profile identity** → point the Worker's tier-2 at **etzhayyim's own kotoba**
    (`KOTOBA_ENDPOINT`), then let resolution self-serve. **CF KV is NOT a required step** — see below.
    `node 50-infra/etzhayyim-did-web/scripts/publish-actor-records.mjs --actor kamado --ingest-kotoba`
-   (point `--ingest-kotoba` at etzhayyim's own kotoba, not gftd). The publisher's internal
+   (point `--ingest-kotoba` at etzhayyim's own kotoba, not etzhayyim). The publisher's internal
    `com.etzhayyim.apps.kotobase.*` nsid is the etzhayyim self-host contract.
 
 ### Why KV is NOT needed (verified 2026-06-06, against `worker.ts:711` `resolveActorRecordTiered`)
@@ -103,14 +103,14 @@ not a source of truth. Both KV and `KOTOBA_ENDPOINT` are optional — if the `AC
 absent the resolver falls straight through to kotoba → compiled and `/actor/<h>/did.json` stays live.
 So the **sovereign 2-tier is sufficient**: canonical = etzhayyim's own kotoba (content-addressed +
 Base L2 anchored) → fallback = compiled `INFRA_ACTORS` (etzhayyim repo). KV is a CF-edge accelerator
-on gftd-managed infra, never canonical.
+on etzhayyim-managed infra, never canonical.
 
 Manually pre-seeding KV (`scripts/put-actor-kv.sh`) is therefore **unnecessary and mildly
 anti-pattern**: its PUT writes a **permanent, no-TTL** entry that would *shadow* future kotoba/compiled
 updates until hand-deleted — the opposite of the 300 s ephemeral cache the resolver itself maintains.
 The script is retained only for the documented general KV-promotion case (ADR-2606013800); it is **not
 part of the kamado/oil-refining migration** and requires a `Workers KV Storage:Edit`-scoped CF token
-(the gftd 1Password CF tokens authenticate but lack that scope, so PUT returns 401 code 10000 anyway).
+(the etzhayyim 1Password CF tokens authenticate but lack that scope, so PUT returns 401 code 10000 anyway).
 
 Until tier-2 kotoba is wired, the apex Worker serves kamado from the compiled `INFRA_ACTORS`
 fallback (tier-3), so `/actor/kamado/did.json` resolves today.

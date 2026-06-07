@@ -8,7 +8,7 @@
  * SPLIT:
  *   PUBLIC (plaintext AT records) — job catalog: schedule metadata (name, cron,
  *   status, target method+url, owner/org DIDs). Frontable open scheduling meta.
- *   Anchored by magatama.jsonld subscribeRepos collection
+ *   Anchored by kotodama.jsonld subscribeRepos collection
  *   `com.etzhayyim.apps.scheduler.job`.
  *   SENSITIVE / CUI (kotoba E2E, com.etzhayyim.encrypted.record) — per-execution
  *   run records (outcome + output/error body + timing): may carry confidential
@@ -27,7 +27,7 @@
  * integers; cron is a string; no money fields.
  */
 
-// Plaintext public collection (matches magatama.jsonld subscribeRepos).
+// Plaintext public collection (matches kotodama.jsonld subscribeRepos).
 export const JOB_COLLECTION = "com.etzhayyim.apps.scheduler.job";
 // E2E inner-type NSID (body shape inside the encrypted envelope).
 export const JOB_RUN_INNER_TYPE = "com.etzhayyim.apps.scheduler.jobRun";

@@ -9,7 +9,7 @@ last_verified: 2026-06-01
 priority: 5.0
 axis: architecture
 weight: 0.5
-priority_note: "Classifies the kami-engine workspace + e7m-sim scenes into three layers — TS/Svelte UI SDK (kami-engine-sdk), reusable Rust robotics engine (control/sensor/physics, incl. kami-autodrive), and etzhayyim repo-specific apps+scenes — and lays out the staged separation that is the prerequisite for managing the reusable layer(s) as git submodules. KEY FINDING: code coupling is minimal (the generic engine crates compile-time-include ONLY generic fixtures cartpole/double_pendulum/arm3; the lone kami-genesis↔hikari reference is a doc comment, not an include); the real work is relocating repo-specific apps + scenes out of the reusable engine and deciding where the generic fixtures (shared by Rust + magatama Python) live. Robotics control (LQR/IK/controllers/Jacobian/trajectory in kami-genesis) + sensor sim (kami-sensor-sim) are the Rust reusable layer, NOT the TS kami-engine-sdk."
+priority_note: "Classifies the kami-engine workspace + e7m-sim scenes into three layers — TS/Svelte UI SDK (kami-engine-sdk), reusable Rust robotics engine (control/sensor/physics, incl. kami-autodrive), and etzhayyim repo-specific apps+scenes — and lays out the staged separation that is the prerequisite for managing the reusable layer(s) as git submodules. KEY FINDING: code coupling is minimal (the generic engine crates compile-time-include ONLY generic fixtures cartpole/double_pendulum/arm3; the lone kami-genesis↔hikari reference is a doc comment, not an include); the real work is relocating repo-specific apps + scenes out of the reusable engine and deciding where the generic fixtures (shared by Rust + kotodama Python) live. Robotics control (LQR/IK/controllers/Jacobian/trajectory in kami-genesis) + sensor sim (kami-sensor-sim) are the Rust reusable layer, NOT the TS kami-engine-sdk."
 authoritative_for:
   - kami-engine reusable-vs-repo-specific layer classification
   - staged submodule-separation plan (kami-engine-sdk + reusable robotics engine)
@@ -53,7 +53,7 @@ An impact investigation of `40-engine/kami-engine` (93 `kami-*` dirs) and
   (kami-app-giemon / -giemon-factory) consumes them via path deps to
   kami-genesis + kami-articulated.
 - **Scenes split cleanly** into generic fixtures vs repo-specific; the scenes
-  dir is a *shared hub* consumed by kami-engine (Rust, compile-time), magatama
+  dir is a *shared hub* consumed by kami-engine (Rust, compile-time), kotodama
   (Python nv_compat, runtime), and 70-tools tooling (assemble-usd / mapillary /
   sbom) + referenced by ~19 docs.
 
@@ -86,20 +86,20 @@ Robotics control + sensor are **L2**, distinct from the **L1** TS SDK.
    `90-docs/baien/datasets` DataLad superdataset).
 2. **Generic-fixtures home. ✅ DONE (option b, 2026-06-01).** cartpole/
    double_pendulum/arm3/giemon_arm6 were shared by L2 (Rust compile-time) and
-   magatama (Python runtime) via an out-of-workspace `../../../../70-tools/`
+   kotodama (Python runtime) via an out-of-workspace `../../../../70-tools/`
    escape — the concrete blocker for stage 4. **Owner picked option (b)**: the
    4 generic fixtures were `git mv`'d into `40-engine/kami-engine/fixtures/` as
    the single SoT (history preserved). All 15 compile-time `include_str!` (across
    kami-genesis, kami-shugyo, kami-cartpole-wasm, kami-app-giemon{,-factory}) +
    the one runtime CWD-relative CSV read in `kami-genesis/tests/g5_scorecard.rs`
-   now resolve in-workspace (`../../fixtures/` / `../fixtures/`); magatama's
+   now resolve in-workspace (`../../fixtures/` / `../fixtures/`); kotodama's
    resolvers gained a shared `_fixture.load_fixture` helper that probes
    `kami-engine/fixtures/` first with the legacy `70-tools/e7m-sim/scenes/` path
    as fallback. `_schema` + the ~16 repo-specific (L3) scenes stay in
    `70-tools/e7m-sim/scenes/`. **L2 is now self-contained** (zero out-of-workspace
    fixture escapes), unblocking stage 4. Verified: every touched crate builds +
    tests green (kami-genesis 94 / kami-shugyo / kami-cartpole-wasm / kami-app-giemon
-   4 / kami-app-giemon-factory; g5_scorecard 3); magatama resolver finds all 4.
+   4 / kami-app-giemon-factory; g5_scorecard 3); kotodama resolver finds all 4.
    Pre-existing workspace failures (kami-map/kami-web wgpu API drift; kami-game
    island_gen) are unrelated, stash-confirmed on origin/main.
 3. **L3 extraction. ✅ DONE (4 robotics-actor apps, 2026-06-01).** Owner scoped
@@ -131,7 +131,7 @@ Robotics control + sensor are **L2**, distinct from the **L1** TS SDK.
    LICENSE + CHARTER-RIDER.md + README to the kami-engine repo per convention
    (NOTICE already present). **External dependents unaffected by path**: the
    `../../../../40-engine/kami-engine/kami-X` path-deps in
-   `magatama-kami-host` + `watashi-host` (×2) resolve unchanged once the
+   `kotodama-kami-host` + `watashi-host` (×2) resolve unchanged once the
    submodule is checked out. CI: the 3 workflows that read kami-engine internals
    (kami-engine-sdk build, monorepo-health, deps-toml-paths) switched their
    stage-1/2 targeted sdk-init to `--init --recursive 40-engine/kami-engine`.
@@ -173,7 +173,7 @@ All 4 staged migrations landed (PRs #655 / #662 / #663 / #666). Follow-on work:
 
 - Reusable robotics engine (L2) and UI SDK (L1) become independently versioned
   submodules; etzhayyim-specific apps/scenes (L3) stay in the monorepo.
-- Honest scope: stages 2–4 have real cross-consumer blast radius (Rust + magatama
+- Honest scope: stages 2–4 have real cross-consumer blast radius (Rust + kotodama
   Python + 70-tools tooling + docs all reference the scene hub) and require new
   remotes (`etzhayyim/kami-engine`) — multi-PR, partially irreversible. Stage 1
   is independently shippable now.
@@ -184,7 +184,7 @@ All 4 staged migrations landed (PRs #655 / #662 / #663 / #666). Follow-on work:
 
 - Inline everything (status quo) — rejected: blocks independent reuse/versioning.
 - Move the whole scene hub into kami-engine — rejected as the default: breaks
-  magatama + e7m-sim tooling + docs (kept as option 2b, owner decision).
+  kotodama + e7m-sim tooling + docs (kept as option 2b, owner decision).
 - Treat kami-engine-sdk as the robotics SDK — rejected: it is a TS/Svelte UI SDK
   with no Rust; robotics control/sensor are separate Rust crates (L2).
 

@@ -16,19 +16,19 @@ SYSTEM_PROMPT = """You are a UNSPSC commodity component generator for the App pl
 Given a UNSPSC commodity code, name, segment, family, class, and nanoid, generate 4 files:
 1. wit/package.wit — commodity-specific WIT interface with domain-appropriate doc comments
 2. wit/world.wit — WIT world with contract import + capability export
-3. magatama.jsonld — component configuration
-4. main.go — TinyGo implementation using magatama-go SDK
+3. kotodama.jsonld — component configuration
+4. main.go — TinyGo implementation using kotodama-go SDK
 
 CRITICAL rules for main.go:
-- Use `magatama.NewApp(magatama.AppDef{...})` pattern
+- Use `kotodama.NewApp(kotodama.AppDef{...})` pattern
 - Use `app.Command(name, handler, ...options)` for command registration
-- Use `magatama.HandleWCommit(handleWCommit)` and `app.Serve()` in init()
-- Use `magatama.Q("")` for DDL, `magatama.Q("table")` for queries
-- Use `magatama.G("Label")` for Cypher graph operations
-- Use `magatama.WSend()` for W Protocol publishing
+- Use `kotodama.HandleWCommit(handleWCommit)` and `app.Serve()` in init()
+- Use `kotodama.Q("")` for DDL, `kotodama.Q("table")` for queries
+- Use `kotodama.G("Label")` for Cypher graph operations
+- Use `kotodama.WSend()` for W Protocol publishing
 - Include RLS columns: org_id, user_id, actor_id in all tables
 - Schema tables: unispsc_specs, unispsc_procurements, unispsc_suppliers, unispsc_standards, unispsc_risks
-- Import: `magatama "github.com/etzhayyim/root/20-actors/magatama-go"`
+- Import: `kotodama "github.com/etzhayyim/root/40-engine/kotoba/crates/kotoba-kotodama-go"`
 - Commands: get-spec, search-variants, get-concordance, evaluate-supplier, generate-rfp, record-procurement, get-standards, assess-risk, get-contract-info
 - func main() {} must be empty"""
 
@@ -76,7 +76,7 @@ def build_user_prompt(info, main_go):
 - Class: {class_code}
 - nanoid: {info['nanoid']}
 
-Output a JSON object with keys: package_wit, world_wit, magatama_jsonld, main_go"""
+Output a JSON object with keys: package_wit, world_wit, kotodama_jsonld, main_go"""
 
 
 def build_training_example(wasm_dir, dirname):
@@ -89,9 +89,9 @@ def build_training_example(wasm_dir, dirname):
     main_go = read_file(os.path.join(base, "main.go"))
     package_wit = read_file(os.path.join(base, "wit", "package.wit"))
     world_wit = read_file(os.path.join(base, "wit", "world.wit"))
-    magatama_jsonld = read_file(os.path.join(base, "magatama.jsonld"))
+    kotodama_jsonld = read_file(os.path.join(base, "kotodama.jsonld"))
 
-    if not all([main_go, package_wit, world_wit, magatama_jsonld]):
+    if not all([main_go, package_wit, world_wit, kotodama_jsonld]):
         return None
 
     user_prompt = build_user_prompt(info, main_go)
@@ -99,7 +99,7 @@ def build_training_example(wasm_dir, dirname):
     response = json.dumps({
         "package_wit": package_wit,
         "world_wit": world_wit,
-        "magatama_jsonld": magatama_jsonld,
+        "kotodama_jsonld": kotodama_jsonld,
         "main_go": main_go,
     }, ensure_ascii=False)
 
@@ -116,7 +116,7 @@ def load_generated_examples(gen_dir):
     """Load validated generated components from a distillation output directory.
 
     Each subdirectory is named by commodity code and contains:
-    main.go, package.wit, world.wit, magatama.jsonld
+    main.go, package.wit, world.wit, kotodama.jsonld
     """
     examples = []
     if not os.path.isdir(gen_dir):
@@ -130,9 +130,9 @@ def load_generated_examples(gen_dir):
         main_go = read_file(os.path.join(base, "main.go"))
         package_wit = read_file(os.path.join(base, "package.wit"))
         world_wit = read_file(os.path.join(base, "world.wit"))
-        magatama_jsonld = read_file(os.path.join(base, "magatama.jsonld"))
+        kotodama_jsonld = read_file(os.path.join(base, "kotodama.jsonld"))
 
-        if not all([main_go, package_wit, world_wit, magatama_jsonld]):
+        if not all([main_go, package_wit, world_wit, kotodama_jsonld]):
             continue
 
         # Extract info from main.go const block
@@ -142,7 +142,7 @@ def load_generated_examples(gen_dir):
         response = json.dumps({
             "package_wit": package_wit,
             "world_wit": world_wit,
-            "magatama_jsonld": magatama_jsonld,
+            "kotodama_jsonld": kotodama_jsonld,
             "main_go": main_go,
         }, ensure_ascii=False)
 

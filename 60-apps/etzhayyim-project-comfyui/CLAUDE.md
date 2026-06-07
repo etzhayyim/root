@@ -30,7 +30,7 @@ Client (OpenAI SDK / curl / CLI)
 - `sk_live_*` (HYPERDRIVE `vertex_api_key`, scope=`comfyui:generate`) — API consumers
 - `COMFYUI_API_KEY` (break-glass, ADR-0023) — emergency
 - `mkc_*` HMAC ephemeral (`COMFYUI_CHAT_SECRET`) — browser preview UI (anonymous, 1h TTL)
-- `x-magatama-verified` (internal) — dispatcher-side trust
+- `x-kotodama-verified` (internal) — dispatcher-side trust
 
 ## Current state (2026-04-22)
 
@@ -64,7 +64,7 @@ LiteLLM proxy does not forward `/v1/images/edits` (v1.52 pass-through gap). img2
 ## Phase roadmap
 
 ### Phase 1 — Scaffold ✅ (2026-04-22)
-- `60-apps/etzhayyim-project-comfyui/` dir with CLAUDE.md, PROJECT.jsonld, magatama.jsonld, deps.toml
+- `60-apps/etzhayyim-project-comfyui/` dir with CLAUDE.md, PROJECT.jsonld, kotodama.jsonld, deps.toml
 - Root `deps.toml` `[[projects]]` + `[[legacy_nanoids]]` entries
 - No Worker, no DNS, no tunnel. Identity fixed: `did:web:comfyui.etzhayyim.com` / `c0mfyu1x`.
 
@@ -101,7 +101,7 @@ Lexicon JSONs go in `00-contracts/lexicons/com/etzhayyim/apps/comfyui/<method>.j
 - **ComfyUI** (github.com/comfyanonymous/ComfyUI) — workflow-graph inference engine
 - **Animagine XL 4.0** (cagliostrolab/animagine-xl-4.0, ~6.5GB safetensors) — default checkpoint
 - **CF Tunnel** (`cloudflared`) — MacBook Air ↔ `comfyui.etzhayyim.com` connectivity (Phase 3)
-- **@etzhayyim/xrpc**, **@etzhayyim/magatama-host-sdk** — when Worker is added (Phase 2)
+- **@etzhayyim/xrpc**, **@etzhayyim/kotodama-host-sdk** — when Worker is added (Phase 2)
 
 ## Relationship to other projects
 

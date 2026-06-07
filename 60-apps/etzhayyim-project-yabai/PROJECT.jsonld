@@ -28,7 +28,7 @@
       "description": "Single Worker: risk scoring, entity management, graph contagion, enforcement decisions, self-evolution.",
       "applicationCategory": "Backend",
       "programmingLanguage": "TinyGo",
-      "runtimePlatform": "MagatamaWorker"
+      "runtimePlatform": "KotodamaWorker"
     }
   ]
 }

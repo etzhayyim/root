@@ -43,7 +43,7 @@
 
 ### Handler (inbound)
 
-`magatama.ComAtprotoSyncSubscribeRepos()` で `com.etzhayyim.convo.message` の create を受信。SQL graph indexing (Message node + REPLY_TO edges) のみ app が実行。KV/AT Record/Signal は host が自動管理。
+`kotodama.ComAtprotoSyncSubscribeRepos()` で `com.etzhayyim.convo.message` の create を受信。SQL graph indexing (Message node + REPLY_TO edges) のみ app が実行。KV/AT Record/Signal は host が自動管理。
 
 ## Frontend (CRITICAL)
 
@@ -350,12 +350,12 @@ E2E verified: 19 NSIDs (chat.bsky.convo 4 + com.etzhayyim.convo 10 + feed/social
 
 | 層 | 実装 | Status |
 |---|---|---|
-| **Lexicon JSON** | `magatama:consent@1.0.0` — `request-consent`, `resolve-consent`, `revoke-consent`, `check-consent`, `list-grants` | |
+| **Lexicon JSON** | `kotodama:consent@1.0.0` — `request-consent`, `resolve-consent`, `revoke-consent`, `check-consent`, `list-grants` | |
 | **TS Client** | `$lib/atproto-agent` — `requestConsent()`, `resolveConsent()`, `revokeConsent()`, `checkConsent()`, `listConsentGrants()` | |
 | **UI** | `ConsentPrompt.svelte` — inline consent card (scope, sensitivity, selective disclosure, Allow/Deny) | |
 | **Detection** | `/convo/[convoId]` — `contentType: "application/vnd.etzhayyim.consent.request"` メッセージを自動検出 | |
 
-- evidence: `_archive/00-contracts/wit/wit/deps/magatama-consent/package.wit` (archived 2026-04-12), `$lib/w/ConsentPrompt.svelte`, `routes/convo/[convoId]/+page.svelte`
+- evidence: `_archive/00-contracts/wit/wit/deps/kotodama-consent/package.wit` (archived 2026-04-12), `$lib/w/ConsentPrompt.svelte`, `routes/convo/[convoId]/+page.svelte`
 
 ### XRPC E2E Coverage
 
@@ -516,13 +516,13 @@ Actor カード: Avatar + displayName + DID + description + sensitivity badge + 
 | Step | 処理 |
 |---|---|
 | 1. Tool Discovery | `ActorCapability` graph query + `/_app/meta` fallback |
-| 2. System Prompt | `convoSystemPrompt` (magatama.jsonld) or default + tools list |
+| 2. System Prompt | `convoSystemPrompt` (kotodama.jsonld) or default + tools list |
 | 3. LLM Call | Murakumo `qwen3-vl-8b` with `tools` + `tool_choice: auto` |
 | 4. Tool Execution | DISPATCHER → app Worker XRPC → result |
 | 5. Tool Result | `contentType: application/vnd.etzhayyim.mcp.tool-result` メッセージ |
 | 6. Summary | Second LLM call with tool results → final reply |
 
-**convoSystemPrompt**: `magatama.jsonld` の `profile.convoSystemPrompt` が優先。未設定時は `displayName` + `description` から自動生成。
+**convoSystemPrompt**: `kotodama.jsonld` の `profile.convoSystemPrompt` が優先。未設定時は `displayName` + `description` から自動生成。
 
 - evidence: `pds-handlers-etzhayyim.ts` — MCP tool discovery + tool_calls execution + summary loop
 
@@ -821,15 +821,15 @@ PM reply: "半導体サプライチェーンの調査完了。以下の DID を�
 **Discovery 4 層 fallback:**
 1. canonical `mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message` (compat: `mcp.etzhayyim.com/mcp`) に `tools/list` POST (JSON-RPC 2.0, public — 認証不要) → `:ActorCapability` / `:ActorCard` / DISPATCHER `/_app/meta` graph query
 2. `actor.tools` prop (SSR `+page.server.ts` が `/_app/meta` をサーバーサイドで fetch → `data.appTools` → `actorData.tools` で渡す。CORS 不要)
-3. `{nanoid}.etzhayyim.com/_app/meta` 直接 fetch (CORS header `Access-Control-Allow-Origin: *` が `magatama-host-sdk` に追加済み。user Worker 再デプロイ後に動作)
+3. `{nanoid}.etzhayyim.com/_app/meta` 直接 fetch (CORS header `Access-Control-Allow-Origin: *` が `kotodama-host-sdk` に追加済み。user Worker 再デプロイ後に動作)
 4. PDS `getProfile` response の `service.capabilities` (capabilities prop fallback)
 
-**CORS fix:** `20-actors/magatama/sdk/magatama-host-sdk/src/index.ts` の `/_app/meta` レスポンスに `Access-Control-Allow-Origin: *` を追加。全 user Worker 再デプロイで反映。再デプロイ前は Layer 2 (SSR server-side fetch) が primary fallback として機能。
+**CORS fix:** `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/index.ts` の `/_app/meta` レスポンスに `Access-Control-Allow-Origin: *` を追加。全 user Worker 再デプロイで反映。再デプロイ前は Layer 2 (SSR server-side fetch) が primary fallback として機能。
 
 **MCP Auth policy:** Read-only methods (`tools/list`, `resources/list`, `initialize`, `ping`) は public (認証不要)。Mutation methods (`tools/call`) は AT Protocol session JWT or ES256 Service Auth 必須。evidence: `50-infra/cloudflare/workers/atproto/src/app.ts` (`isMcpReadOnly`)
 
 **Capabilities pipeline:**
-- `magatama.jsonld` `profile.capabilities` → `etzhayyim deploy` → `__APP_CAPABILITIES_JSON__` → entry.ts `/_app/meta` に `capabilities`/`tools` 出力 (+ CORS header)
+- `kotodama.jsonld` `profile.capabilities` → `etzhayyim deploy` → `__APP_CAPABILITIES_JSON__` → entry.ts `/_app/meta` に `capabilities`/`tools` 出力 (+ CORS header)
 - `etzhayyim deploy` → `registerProfileToYata` → PDS `com.atproto.admin.registerApp` → `capabilities_json` を `:App` graph node に MERGE
 - PDS `getProfile` SQL → `m.capabilities_json` → `service.capabilities` に parse して返却
 - SSR `+page.server.ts` → `getAppMetaTools(appHost)` → `/_app/meta` server-side fetch (CORS 不要) → `data.appTools`
@@ -986,7 +986,7 @@ bundle exec fastlane android device
 - `bpmn-js`, `dmn-js`, `@bpmn-io/*` must be in `vite.config.ts` `build.rollupOptions.external` (dynamic imports that can't be bundled)
 - Status bar overlap fix: `Header.svelte` uses `padding-top: env(safe-area-inset-top)` + `height: calc(var(--gv2-header-height, 56px) + env(safe-area-inset-top))` — requires `viewport-fit=cover` in `app.html` (already set)
 
-## magatama.jsonld
+## kotodama.jsonld
 
 ```toml
 [triggers.w_commit]

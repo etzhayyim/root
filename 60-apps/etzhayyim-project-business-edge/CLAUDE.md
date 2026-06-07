@@ -2,7 +2,7 @@
 
 開発者向けエッジコンピューティングプラットフォーム。`business-edge.etzhayyim.com`
 
-magatama の全プリミティブ（KV, Graph, CDN, PubSub, Lock, Secrets, VirtualActor）をテナント分離で外部提供する管理プレーン App。
+kotodama の全プリミティブ（KV, Graph, CDN, PubSub, Lock, Secrets, VirtualActor）をテナント分離で外部提供する管理プレーン App。
 
 ## App Identity
 
@@ -16,7 +16,7 @@ magatama の全プリミティブ（KV, Graph, CDN, PubSub, Lock, Secrets, Virtu
 ## Architecture: Control Plane / Data Plane
 
 - **Control Plane**: この App (`business-edge.etzhayyim.com`) — テナント管理、デプロイ、メタリング
-- **Data Plane**: `edge-runtime` (magatama-server multi-tenant Deployment) — テナント WASM 実行
+- **Data Plane**: `edge-runtime` (kotodama-server multi-tenant Deployment) — テナント WASM 実行
 
 ## XRPC Services
 
@@ -71,7 +71,7 @@ magatama の全プリミティブ（KV, Graph, CDN, PubSub, Lock, Secrets, Virtu
 
 1. `DeployComponent(wasm_bytes, name, routes, env)` via XRPC
 2. WASM binary validation (Component Model magic bytes)
-3. `magatama.CdnUpload("edge/components/{org_id}/{component_id}/{version}.wasm")` → B2
+3. `kotodama.CdnUpload("edge/components/{org_id}/{component_id}/{version}.wasm")` → B2
 4. Lance `edge_components` + `edge_component_versions` write
 5. Graph `MERGE (t)-[:OWNS]->(c)-[:DEPLOYED_VERSION]->(v)`
 6. AT Record `com.etzhayyim.edge.component.deploy` publish

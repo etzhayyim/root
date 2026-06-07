@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org",
   "@type": "Project",
-  "name": "ai-gftd-project-loading-robot",
+  "name": "etzhayyim-project-loading-robot",
   "description": "Image-analysis-driven loading robot design and operations project for cargo, pallet, truck, container, and dock workflows.",
   "category": "manufacturing-logistics-robotics",
   "capabilities": [
@@ -25,7 +25,7 @@
     },
     {
       "@type": "SoftwareApplication",
-      "name": "pymagatama-loading-robot-primitives",
+      "name": "kotodama-loading-robot-primitives",
       "deliveryMethod": "LangServer-worker",
       "description": "LangServer primitive tasks for loadingRobot.vision.analyze, loadingRobot.plan.load, loadingRobot.robot.design, and loadingRobot.mission.plan."
     },
@@ -37,8 +37,8 @@
     }
   ],
   "workflows": [
-    "etzhayyim-root/00-contracts/bpmn/ai/gftd/loading-robot/analyzeAndDesignLoadingRobot.bpmn",
-    "etzhayyim-root/00-contracts/bpmn/ai/gftd/loading-robot/executeLoadingMission.bpmn"
+    "etzhayyim-root/00-contracts/bpmn/ai/etzhayyim/loading-robot/analyzeAndDesignLoadingRobot.bpmn",
+    "etzhayyim-root/00-contracts/bpmn/ai/etzhayyim/loading-robot/executeLoadingMission.bpmn"
   ],
   "safety": {
     "defaultApprovalRequired": true,

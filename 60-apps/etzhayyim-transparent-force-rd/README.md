@@ -71,5 +71,5 @@ None — all projects come through 1 SBT = 1 vote proposal flow. This README its
 - [ADR-2605192315](../../90-docs/adr/2605192315-etzhayyim-transparent-force-rd.md) — Transparent Religious Force ADR
 - [ADR-2605192100 §1.12.B](../../90-docs/adr/2605192100-etzhayyim-mission-charter.md) — Mission Charter
 - [`50-infra/etzhayyim-force-authorization/`](../../50-infra/etzhayyim-force-authorization/) — Solidity authorization contract
-- `20-actors/magatama/cells/force_authorization/` — governance Pregel cell
-- `20-actors/magatama/cells/force_log_monitoring/` — daily compliance check
+- `40-engine/kotoba/crates/kotoba-kotodama/cells/force_authorization/` — governance Pregel cell
+- `40-engine/kotoba/crates/kotoba-kotodama/cells/force_log_monitoring/` — daily compliance check

@@ -122,7 +122,7 @@ SET g.actorDid = "did:web:k3rn5la4.etzhayyim.com", g.toolName = "news.summarize"
 | `resources/list` | Actor graph | Active Actor nodes |
 | `resources/read` | Actor graph | Single Actor by DID |
 
-## Runtime (`@etzhayyim/magatama-host-sdk`)
+## Runtime (`@etzhayyim/kotodama-host-sdk`)
 
 ### createCapabilityWorker()
 
@@ -165,7 +165,7 @@ PDS cron (`*/5 * * * *`):
 ```bash
 # Run all phases
 curl -X POST atproto.etzhayyim.com/xrpc/com.etzhayyim.actor.migrateBatch \
-  -H 'X-Magatama-Verified: true' \
+  -H 'X-Kotodama-Verified: true' \
   -d '{"phase":"all","batchLimit":500}'
 ```
 
@@ -234,7 +234,7 @@ etzhayyim actors shinka --filter handotai --limit 1    # 特定 actor
 | `infra/.../mcp-adapter.ts` | MCP gateway (Tool graph + ToolGrant auth) |
 | `infra/.../pds-migrate-logical.ts` | Bulk migration (3 phases) |
 | `infra/.../pds-app.ts` | Heartbeat cron (Actor label batch + autoMigrate) |
-| `20-actors/magatama/sdk/magatama-host-sdk/src/index.ts` | `createCapabilityWorker()` |
+| `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/index.ts` | `createCapabilityWorker()` |
 | `70-tools/etzhayyim/actors_shinka.go` | `etzhayyim actors shinka` — Ollama agentic domain knowledge |
 
 ## Deleted

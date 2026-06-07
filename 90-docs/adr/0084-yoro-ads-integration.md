@@ -212,7 +212,7 @@ score = 0.5 · (viewer follows advertiser)
 
 | Path | 役割 |
 |---|---|
-| `magatama.jsonld` | DID `did:web:ads.etzhayyim.com`, nanoid `adsm4d5c`, performerType `service`, profile, governance |
+| `kotodama.jsonld` | DID `did:web:ads.etzhayyim.com`, nanoid `adsm4d5c`, performerType `service`, profile, governance |
 | `src/app.ts` | 3 XRPC command (`createCampaign` / `postSponsored` / `listCampaigns`) |
 | `wrangler.jsonc` | Stub (`etzhayyim deploy` で regenerate) |
 | `CLAUDE.md` | project runbook + deploy flow |

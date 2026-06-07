@@ -21,7 +21,7 @@ ADR-2605072000 business model ④ of 5.
 - DID: `did:web:compintel.etzhayyim.com`
 - Nanoid: `cpti0001`
 - CF Worker: `60-apps/etzhayyim-project-compintel/appview/compintel-cpti0001/`
-- Python worker: `20-actors/magatama/py/src/pymagatama/compintel_worker_main.py`
+- Python worker: `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/compintel_worker_main.py`
 - BPMN: `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/compintel/`
 
 ## Flow
@@ -73,7 +73,7 @@ ADS_XRPC_URL         ads.etzhayyim.com base (default https://adsm4d5c.etzhayyim.
 ## Start worker
 
 ```bash
-cd 20-actors/magatama/py
-python -m pymagatama.compintel_worker_main
-# or: magatama-compintel-worker
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
+python -m kotodama.compintel_worker_main
+# or: kotodama-compintel-worker
 ```

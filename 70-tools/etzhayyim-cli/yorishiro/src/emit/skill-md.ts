@@ -58,7 +58,7 @@ the kami could not be reached at all.`;
 
   return `---
 name: etzhayyim-yorishiro-${args.name}
-description: Drive the ${args.name} yorishiro (kami: ${args.kami}) via MCP tools, XRPC, or in-process magatama actor calls.
+description: Drive the ${args.name} yorishiro (kami: ${args.kami}) via MCP tools, XRPC, or in-process kotodama actor calls.
 charter_purposes: ${JSON.stringify(args.purposes)}
 transport: ${args.transport}
 adr: 2605211900
@@ -70,9 +70,9 @@ adr: 2605211900
 it through the etzhayyim substrate. The same op surface is exposed three
 ways:
 
-1. **Lexicon** at \`00-contracts/lexicons/ai/etzhayyim/yorishiro/${args.name}/*.json\` (XRPC + magatama-host-sdk consumers)
-2. **Pregel cell** at \`20-actors/magatama/cells/yorishiro_${args.name}/cell.py\` (in-cluster Murakumo runtime)
-3. **MCP server** at \`20-actors/magatama/mcp/yorishiro-${args.name}-mcp/\` (stdio + Streamable HTTP)
+1. **Lexicon** at \`00-contracts/lexicons/ai/etzhayyim/yorishiro/${args.name}/*.json\` (XRPC + kotodama-host-sdk consumers)
+2. **Pregel cell** at \`40-engine/kotoba/crates/kotoba-kotodama/cells/yorishiro_${args.name}/cell.py\` (in-cluster Murakumo runtime)
+3. **MCP server** at \`40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-${args.name}-mcp/\` (stdio + Streamable HTTP)
 
 ## Tools
 

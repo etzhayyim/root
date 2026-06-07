@@ -6,7 +6,7 @@
 #
 # One domain per tick:
 #   START -> expand -> END
-#   expand calls pymagatama.ingest.domain_expansion.expand_one_domain()
+#   expand calls kotodama.ingest.domain_expansion.expand_one_domain()
 #   which: gap query RW → context fetch → LLM classify → PDS writes
 #
 # Schedule: every 15 minutes.
@@ -47,7 +47,7 @@ spec:
             - name: ghcr-creds
           containers:
             - name: expand
-              image: ghcr.io/etzhayyim/pymagatama:domain-expansion-abe4017bac0-20260514080645-amd64
+              image: ghcr.io/etzhayyim/kotodama:domain-expansion-abe4017bac0-20260514080645-amd64
               imagePullPolicy: IfNotPresent
               env:
                 - name: RW_URL
@@ -82,7 +82,7 @@ spec:
 
                   from langgraph.graph import StateGraph, START, END
 
-                  from pymagatama.ingest.domain_expansion import expand_one_domain
+                  from kotodama.ingest.domain_expansion import expand_one_domain
 
 
                   class ExpandState(TypedDict, total=False):

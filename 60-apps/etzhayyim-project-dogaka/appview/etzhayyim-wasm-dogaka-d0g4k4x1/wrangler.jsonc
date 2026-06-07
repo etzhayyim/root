@@ -1,11 +1,11 @@
 // no-server-key: read-only — pending Stage A-E member-signed-writes refactor per ADR-2605231525
 {
-  "name": "magatama-d0g4k4x1",
+  "name": "kotodama-d0g4k4x1",
   "main": "src/app.ts",
   "compatibility_date": "2025-03-17",
   "compatibility_flags": ["nodejs_compat", "nodejs_als"],
   "alias": {
-    "@etzhayyim/magatama-host-sdk": "/Users/junkawasaki/etzhayyim/etzhayyim-apps-etzhayyim/20-actors/magatama/sdk/magatama-host-sdk/src/index.ts",
+    "@etzhayyim/kotodama-host-sdk": "/Users/junkawasaki/etzhayyim/etzhayyim-apps-etzhayyim/40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/index.ts",
     "@etzhayyim/xrpc/transport": "/Users/junkawasaki/etzhayyim/etzhayyim-apps-etzhayyim/10-protocol/xrpc/src/transport.ts",
     "@etzhayyim/xrpc/auth": "/Users/junkawasaki/etzhayyim/etzhayyim-apps-etzhayyim/10-protocol/xrpc/src/auth.ts",
     "@etzhayyim/xrpc/error": "/Users/junkawasaki/etzhayyim/etzhayyim-apps-etzhayyim/10-protocol/xrpc/src/error.ts",

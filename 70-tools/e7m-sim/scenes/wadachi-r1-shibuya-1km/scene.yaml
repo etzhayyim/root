@@ -2,7 +2,7 @@
 #
 # ADR-2605262500 §9 first testbed. World-data composition from
 # Tier-A datasetPin CIDs (SRTM + Sentinel-2 + Overture). Loaded by
-# pymagatama.sim.World (paths-reserved per ADR-2605261800 R1.1) and
+# kotodama.sim.World (paths-reserved per ADR-2605261800 R1.1) and
 # assembled into USD by 70-tools/e7m-sim/scripts/assemble-usd-scene.py.
 
 adr: ADR-2605262500

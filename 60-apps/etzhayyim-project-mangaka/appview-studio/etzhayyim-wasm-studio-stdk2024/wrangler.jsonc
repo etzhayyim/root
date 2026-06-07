@@ -1,5 +1,5 @@
 {
-  "name": "magatama-stdk2024",
+  "name": "kotodama-stdk2024",
   "main": "src/app.ts",
   "compatibility_date": "2025-03-17",
   "compatibility_flags": ["nodejs_compat", "nodejs_als"],

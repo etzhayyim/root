@@ -1,17 +1,17 @@
 """Charter Rider §2 scan gate.
 
-Calls `pymagatama.organism.sensors.charter_rider.scan()` (canonical
+Calls `kotodama.organism.sensors.charter_rider.scan()` (canonical
 scanner per ADR-2605192200 / CLAUDE.md baien tooling index). Three
 import strategies are tried in order:
 
-  1. Standard `pymagatama.organism.sensors.charter_rider` — works when
-     pymagatama is installed in the venv (production).
-  2. `ETZ_PYMAGATAMA_SRC` env var (path to `20-actors/magatama/py/src`)
+  1. Standard `kotodama.organism.sensors.charter_rider` — works when
+     kotodama is installed in the venv (production).
+  2. `ETZ_PYKOTODAMA_SRC` env var (path to `40-engine/kotoba/crates/kotoba-kotodama/py/src`)
      — operator-controlled override.
   3. Repo-root auto-discovery — finds the monorepo by walking up from
-     the CLI's cwd and prepends `20-actors/magatama/py/src` to
+     the CLI's cwd and prepends `40-engine/kotoba/crates/kotoba-kotodama/py/src` to
      `sys.path`. Works when run from inside the monorepo without
-     installing the heavy pymagatama deps (arrow-udf, langgraph, etc.).
+     installing the heavy kotodama deps (arrow-udf, langgraph, etc.).
 
 If all three fail and `ETZ_DATASET_CHARTER_STRICT=1`, raises. Otherwise
 returns a warn-only result with `passed=True` and a "scanner-unavailable"
@@ -31,7 +31,7 @@ from typing import Iterable
 
 
 STRICT_ENV = "ETZ_DATASET_CHARTER_STRICT"
-SRC_OVERRIDE_ENV = "ETZ_PYMAGATAMA_SRC"
+SRC_OVERRIDE_ENV = "ETZ_PYKOTODAMA_SRC"
 
 
 class CharterViolation(RuntimeError):
@@ -40,11 +40,11 @@ class CharterViolation(RuntimeError):
 
 def _try_repo_root_inject() -> bool:
     """Walk up from cwd looking for the monorepo root marker, prepend
-    `20-actors/magatama/py/src` to sys.path. Returns True on success."""
+    `40-engine/kotoba/crates/kotoba-kotodama/py/src` to sys.path. Returns True on success."""
     here = Path.cwd().resolve()
     for p in [here, *here.parents]:
-        cand = p / "20-actors" / "magatama" / "py" / "src"
-        if cand.is_dir() and (cand / "pymagatama" / "organism" / "sensors" / "charter_rider.py").is_file():
+        cand = p / "20-actors" / "kotodama" / "py" / "src"
+        if cand.is_dir() and (cand / "kotodama" / "organism" / "sensors" / "charter_rider.py").is_file():
             if str(cand) not in sys.path:
                 sys.path.insert(0, str(cand))
             return True
@@ -54,10 +54,10 @@ def _try_repo_root_inject() -> bool:
 def _direct_load_charter_rider(charter_rider_path: Path) -> ModuleType | None:
     """Load charter_rider.py as a standalone module.
 
-    Avoids triggering ``pymagatama/__init__.py`` (which imports
+    Avoids triggering ``kotodama/__init__.py`` (which imports
     langchain → pydantic; on machines with a broken pydantic-core
     pinning that init poisons the import). The Charter scanner is pure
-    stdlib + regex; it does not need the rest of the pymagatama
+    stdlib + regex; it does not need the rest of the kotodama
     package to function.
     """
     import importlib.util
@@ -83,15 +83,15 @@ def _find_charter_rider_path() -> Path | None:
     override = os.environ.get(SRC_OVERRIDE_ENV)
     if override:
         ov = Path(override).resolve()
-        candidate = ov / "pymagatama" / "organism" / "sensors" / "charter_rider.py"
+        candidate = ov / "kotodama" / "organism" / "sensors" / "charter_rider.py"
         if candidate.is_file():
             return candidate
     here = Path.cwd().resolve()
     for p in [here, *here.parents]:
         candidate = (
             p
-            / "20-actors" / "magatama" / "py" / "src"
-            / "pymagatama" / "organism" / "sensors" / "charter_rider.py"
+            / "20-actors" / "kotodama" / "py" / "src"
+            / "kotodama" / "organism" / "sensors" / "charter_rider.py"
         )
         if candidate.is_file():
             return candidate
@@ -102,16 +102,16 @@ def _load_scanner() -> ModuleType | None:
     """Return the charter_rider module or None.
 
     Strategy ordering:
-      1. Direct file-load from the in-tree source (skips pymagatama
+      1. Direct file-load from the in-tree source (skips kotodama
          package __init__, robust to unrelated langchain/pydantic
          pinning issues).
-      2. Standard ``pymagatama.organism.sensors.charter_rider`` import
-         — works in production where pymagatama is installed cleanly.
-      3. ETZ_PYMAGATAMA_SRC sys.path prepend + standard import.
+      2. Standard ``kotodama.organism.sensors.charter_rider`` import
+         — works in production where kotodama is installed cleanly.
+      3. ETZ_PYKOTODAMA_SRC sys.path prepend + standard import.
       4. Repo-root auto-discovery sys.path prepend + standard import.
     """
     # Strategy 1: direct file-load. Try this FIRST so we never touch
-    # the broken pymagatama package init when the scanner is enough.
+    # the broken kotodama package init when the scanner is enough.
     charter_path = _find_charter_rider_path()
     if charter_path is not None:
         mod = _direct_load_charter_rider(charter_path)
@@ -120,7 +120,7 @@ def _load_scanner() -> ModuleType | None:
 
     # Strategy 2: standard package import.
     try:
-        from pymagatama.organism.sensors import charter_rider  # type: ignore
+        from kotodama.organism.sensors import charter_rider  # type: ignore
         return charter_rider
     except ImportError:
         pass
@@ -129,11 +129,11 @@ def _load_scanner() -> ModuleType | None:
     override = os.environ.get(SRC_OVERRIDE_ENV)
     if override:
         ov = Path(override).resolve()
-        if (ov / "pymagatama" / "organism" / "sensors" / "charter_rider.py").is_file():
+        if (ov / "kotodama" / "organism" / "sensors" / "charter_rider.py").is_file():
             if str(ov) not in sys.path:
                 sys.path.insert(0, str(ov))
             try:
-                from pymagatama.organism.sensors import charter_rider  # type: ignore
+                from kotodama.organism.sensors import charter_rider  # type: ignore
                 return charter_rider
             except ImportError:
                 pass
@@ -141,7 +141,7 @@ def _load_scanner() -> ModuleType | None:
     # Strategy 4: repo-root walk-up + standard package import.
     if _try_repo_root_inject():
         try:
-            from pymagatama.organism.sensors import charter_rider  # type: ignore
+            from kotodama.organism.sensors import charter_rider  # type: ignore
             return charter_rider
         except ImportError:
             return None
@@ -161,14 +161,14 @@ def scan_sample(sample_paths: Iterable[Path], *, kind: str, sample_rows: int = 2
     if scanner is None:
         if strict:
             raise ImportError(
-                "Charter Rider scanner unavailable (pymagatama.organism.sensors.charter_rider "
+                "Charter Rider scanner unavailable (kotodama.organism.sensors.charter_rider "
                 "could not be imported); ETZ_DATASET_CHARTER_STRICT=1 forces fail-closed."
             )
         return {
             "passed": True,
             "at": now,
             "sampledRows": 0,
-            "note": "scanner-unavailable — warn-only; install pymagatama, set ETZ_PYMAGATAMA_SRC, or run from inside the monorepo to enable",
+            "note": "scanner-unavailable — warn-only; install kotodama, set ETZ_PYKOTODAMA_SRC, or run from inside the monorepo to enable",
         }
 
     findings = scanner.scan(

@@ -4,7 +4,7 @@ import re
 
 def refactor_runpod():
     # Target files based on grep
-    files = glob.glob("20-actors/magatama/py/src/pymagatama/**/*.py", recursive=True)
+    files = glob.glob("40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/**/*.py", recursive=True)
     count = 0
     for path in files:
         with open(path, "r") as f:

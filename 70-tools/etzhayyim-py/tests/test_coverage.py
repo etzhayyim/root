@@ -46,7 +46,7 @@ def test_scan_actors_empty(tmp_path):
 def test_scan_actors_single(tmp_path):
     app_dir = tmp_path / "60-apps" / "proj" / "appview" / "app"
     app_dir.mkdir(parents=True)
-    (app_dir / "magatama.jsonld").write_text(json.dumps({
+    (app_dir / "kotodama.jsonld").write_text(json.dumps({
         "nanoid": "abc123",
         "did": "did:web:example.com",
         "name": "billing",
@@ -61,7 +61,7 @@ def test_scan_actors_single(tmp_path):
 def test_scan_actors_missing_required(tmp_path):
     app_dir = tmp_path / "60-apps" / "proj" / "appview" / "app"
     app_dir.mkdir(parents=True)
-    (app_dir / "magatama.jsonld").write_text(json.dumps({"nanoid": "abc"}))
+    (app_dir / "kotodama.jsonld").write_text(json.dumps({"nanoid": "abc"}))
     actors = _scan_actors(tmp_path)
     assert len(actors) == 1
     assert "did" in actors[0]["missing"]
@@ -71,7 +71,7 @@ def test_scan_actors_missing_required(tmp_path):
 def test_scan_actors_score_range(tmp_path):
     app_dir = tmp_path / "60-apps" / "proj" / "appview" / "app"
     app_dir.mkdir(parents=True)
-    (app_dir / "magatama.jsonld").write_text(json.dumps({
+    (app_dir / "kotodama.jsonld").write_text(json.dumps({
         "nanoid": "abc",
         "did": "did:web:x",
         "name": "x",
@@ -139,7 +139,7 @@ def test_cli_coverage_actors_text(tmp_path):
 def test_cli_coverage_actors_with_actors(tmp_path):
     app_dir = tmp_path / "60-apps" / "proj" / "appview" / "app"
     app_dir.mkdir(parents=True)
-    (app_dir / "magatama.jsonld").write_text(json.dumps({
+    (app_dir / "kotodama.jsonld").write_text(json.dumps({
         "nanoid": "abc123",
         "did": "did:web:x",
         "name": "x",
@@ -155,7 +155,7 @@ def test_cli_coverage_actors_with_actors(tmp_path):
 def test_cli_coverage_actors_missing_only(tmp_path):
     app_dir = tmp_path / "60-apps" / "proj" / "appview" / "app"
     app_dir.mkdir(parents=True)
-    (app_dir / "magatama.jsonld").write_text(json.dumps({"nanoid": "abc"}))
+    (app_dir / "kotodama.jsonld").write_text(json.dumps({"nanoid": "abc"}))
     runner = CliRunner()
     result = runner.invoke(main, ["coverage", "actors", "--json", "--missing-only",
                                    "--workspace-dir", str(tmp_path)])
@@ -196,7 +196,7 @@ def test_cli_coverage_test_runs_pytest(tmp_path):
 # ── heal unit tests ────────────────────────────────────────────────────────────
 
 def test_build_heal_prompt_mentions_missing():
-    actor = {"nanoid": "abc123", "name": "billing", "path": "60-apps/proj/app/magatama.jsonld",
+    actor = {"nanoid": "abc123", "name": "billing", "path": "60-apps/proj/app/kotodama.jsonld",
               "missing": ["did", "performerType"]}
     prompt = _build_heal_prompt(actor)
     assert "did" in prompt
@@ -205,17 +205,17 @@ def test_build_heal_prompt_mentions_missing():
 
 
 def test_heal_one_no_missing(tmp_path):
-    actor = {"nanoid": "abc", "name": "billing", "path": "magatama.jsonld", "missing": []}
+    actor = {"nanoid": "abc", "name": "billing", "path": "kotodama.jsonld", "missing": []}
     result = _heal_one(actor, tmp_path, lambda p: '{"x": 1}', dry_run=True)
     assert result["fixed_fields"] == []
     assert result["error"] == ""
 
 
 def test_heal_one_dry_run_no_write(tmp_path):
-    jsonld_path = tmp_path / "magatama.jsonld"
+    jsonld_path = tmp_path / "kotodama.jsonld"
     jsonld_path.write_text(json.dumps({"nanoid": "abc123", "name": "billing"}))
     actor = {"nanoid": "abc123", "name": "billing",
-             "path": "magatama.jsonld", "missing": ["performerType"]}
+             "path": "kotodama.jsonld", "missing": ["performerType"]}
 
     def mock_llm(prompt: str) -> str:
         return '{"performerType": "actor"}'
@@ -228,10 +228,10 @@ def test_heal_one_dry_run_no_write(tmp_path):
 
 
 def test_heal_one_writes_back(tmp_path):
-    jsonld_path = tmp_path / "magatama.jsonld"
+    jsonld_path = tmp_path / "kotodama.jsonld"
     jsonld_path.write_text(json.dumps({"nanoid": "abc123", "name": "billing"}))
     actor = {"nanoid": "abc123", "name": "billing",
-             "path": "magatama.jsonld", "missing": ["performerType"]}
+             "path": "kotodama.jsonld", "missing": ["performerType"]}
 
     def mock_llm(prompt: str) -> str:
         return '{"performerType": "actor"}'
@@ -283,7 +283,7 @@ def test_run_heal_concurrent(tmp_path):
 def test_cli_coverage_heal_no_missing(tmp_path):
     app_dir = tmp_path / "60-apps" / "proj" / "app"
     app_dir.mkdir(parents=True)
-    (app_dir / "magatama.jsonld").write_text(json.dumps({
+    (app_dir / "kotodama.jsonld").write_text(json.dumps({
         "nanoid": "abc123", "did": "did:plc:x", "name": "billing", "performerType": "actor",
     }))
     runner = CliRunner()
@@ -295,7 +295,7 @@ def test_cli_coverage_heal_no_missing(tmp_path):
 def test_cli_coverage_heal_dry_run(tmp_path):
     app_dir = tmp_path / "60-apps" / "proj" / "app"
     app_dir.mkdir(parents=True)
-    jsonld = app_dir / "magatama.jsonld"
+    jsonld = app_dir / "kotodama.jsonld"
     jsonld.write_text(json.dumps({"nanoid": "abc123", "name": "billing"}))
 
     runner = CliRunner()
@@ -313,7 +313,7 @@ def test_cli_coverage_heal_dry_run(tmp_path):
 def test_cli_coverage_heal_json_output(tmp_path):
     app_dir = tmp_path / "60-apps" / "proj" / "app"
     app_dir.mkdir(parents=True)
-    (app_dir / "magatama.jsonld").write_text(json.dumps({"nanoid": "abc123", "name": "billing"}))
+    (app_dir / "kotodama.jsonld").write_text(json.dumps({"nanoid": "abc123", "name": "billing"}))
 
     runner = CliRunner()
     with patch("etzhayyim.coverage._call_llm_sync", return_value='{"performerType": "actor", "did": "did:plc:x"}'):

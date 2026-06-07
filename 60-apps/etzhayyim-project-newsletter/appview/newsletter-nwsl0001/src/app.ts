@@ -1,5 +1,5 @@
 // newsletter.etzhayyim.com — Newsletter Factory (thin edge facade).
-// Business logic: 20-actors/magatama/py/src/pymagatama/newsletter_worker_main.py
+// Business logic: 40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/newsletter_worker_main.py
 // LangGraph loop: ingest → filter → rank → draft → edit → personalize → store
 // Delivery: Resend batch send (weekly cron via LangServer, on-demand via sendCampaign)
 // Integration: news.etzhayyim.com + narou.etzhayyim.com (input), ads.etzhayyim.com (sponsor slot)
@@ -24,7 +24,7 @@ export default {
         actor: "did:web:newsletter.etzhayyim.com",
         nanoid: env.APP_NANOID ?? "nwsl0001",
         execution: "edge-bpmn+langgraph-langserver",
-        businessLogic: "20-actors/magatama/py/src/pymagatama/newsletter_worker_main.py",
+        businessLogic: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/newsletter_worker_main.py",
         bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/newsletter",
         schedule: "0 0 * * 2 (Asia/Tokyo — every Tuesday 9:00)",
         integrations: ["news.etzhayyim.com", "narou.etzhayyim.com", "ads.etzhayyim.com", "resend"],

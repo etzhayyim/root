@@ -168,7 +168,7 @@ Create `kataribe` (語部) as a Tier-B religious-corp press + publishing
 - Council Lv6+ ≥3 attestation;
 - IPFS pin (G9 replicationMin: 2).
 
-## §3. Cells (6 Pregel cells under `20-actors/magatama/cells/kataribe_*/`)
+## §3. Cells (6 Pregel cells under `40-engine/kotoba/crates/kotoba-kotodama/cells/kataribe_*/`)
 
 All R0 path-reserved; import-time `RuntimeError("kataribe R0 scaffold: activate via Council ADR + R1 ratification + ≥3 community chronicler baseline attestations + cross-doctrinal advisory")` at W1 creation.
 
@@ -199,7 +199,7 @@ baseline attestations + cross-doctrinal advisory on Council
 
 | Gate | Description |
 |---|---|
-| **G1** | Every publication MUST pass `pymagatama.organism.sensors.charter_rider.scan()` §2(a)-(h). |
+| **G1** | Every publication MUST pass `kotodama.organism.sensors.charter_rider.scan()` §2(a)-(h). |
 | **G2** | Every record MUST emit `com.etzhayyim.kataribe.*` Lexicon with kotoba-datomic attestation lineage. |
 | **G3** | **NO ad-supported revenue** — Charter §1.13 anti-addictive UX + §1.15 non-eschatological; ad-supported creates engagement-optimization incentive incompatible with both. |
 | **G4** | **NO clickbait / apocalyptic framing** — Charter §1.15 non-eschatological invariant; `communityChronicleAttestation.toneAttestation` enum DELIBERATELY excludes apocalyptic/clickbait/engagement-optimized; `nonEschatologicalAttested` const true structural. |

@@ -99,13 +99,13 @@ hash := cohortHash(CohortDimensions{
 })
 // hash = "c7f3a9b2c020" → did:web:anima.etzhayyim.com:c7f3a9b2c020
 
-did, _ := magatama.DIDCreate(hash, map[string]any{
+did, _ := kotodama.DIDCreate(hash, map[string]any{
     "displayName": "Shiba Inu / 柴犬 — Adult Male, Tokyo, Pet",
     "description": "[AI Agent — unofficial] Statistical cohort: domestic shiba-inu, male adult, Tokyo, pet, sterilized+vaccinated+microchipped",
 })
 
 // コホートデータ書き込み
-magatama.WRecord("cohortAnimal", map[string]any{
+kotodama.WRecord("cohortAnimal", map[string]any{
     "cohort_hash":          hash,
     "did":                  "did:web:anima.etzhayyim.com:" + hash,
     "species_slug":         "canis-lupus-familiaris",
@@ -126,7 +126,7 @@ magatama.WRecord("cohortAnimal", map[string]any{
 })
 
 // Phase 2: 個体リンク (microchip → cohort)
-magatama.WRecord("individualLinkage", map[string]any{
+kotodama.WRecord("individualLinkage", map[string]any{
     "id":            "hachi-001",
     "cohort_hash":   hash,
     "name_ja":       "ハチ",
@@ -141,26 +141,26 @@ magatama.WRecord("individualLinkage", map[string]any{
 })
 
 // コホート DID として投稿
-magatama.ATPost(did, "Tokyo 柴犬 adult male cohort: 42,000 registered in 2025", nil)
+kotodama.ATPost(did, "Tokyo 柴犬 adult male cohort: 42,000 registered in 2025", nil)
 ```
 
 **その他 DID の例:**
 
 ```go
 // 生物種 DID
-speciesDID, _ := magatama.DIDCreate("species:ailuropoda-melanoleuca", map[string]any{
+speciesDID, _ := kotodama.DIDCreate("species:ailuropoda-melanoleuca", map[string]any{
     "displayName": "ジャイアントパンダ / Giant Panda",
     "description": "Ailuropoda melanoleuca — endangered bear species native to central China",
 })
 
 // シェルター DID
-shelterDID, _ := magatama.DIDCreate("shelter:ueno-zoo", map[string]any{
+shelterDID, _ := kotodama.DIDCreate("shelter:ueno-zoo", map[string]any{
     "displayName": "恩賜上野動物園 / Ueno Zoological Gardens",
     "description": "Japan's oldest zoo — Tokyo, established 1882",
 })
 
 // 保全プログラム DID
-consDID, _ := magatama.DIDCreate("conservation:ibis-reintroduction", map[string]any{
+consDID, _ := kotodama.DIDCreate("conservation:ibis-reintroduction", map[string]any{
     "displayName": "トキ野生復帰プログラム / Crested Ibis Reintroduction",
     "description": "Nipponia nippon reintroduction program — Sado Island, Niigata",
 })
@@ -287,7 +287,7 @@ consDID, _ := magatama.DIDCreate("conservation:ibis-reintroduction", map[string]
 ## Contract
 
 - **contract-category**: `treaty` (CITES) + `statute` (動物愛護管理法)
-- **依存**: `magatama:contract/agreement@1.0.0`、`etzhayyim:legal-entity/entity@1.0.0` (org linkage)、`etzhayyim:isic-section-a/agriculture@1.0.0` (agriculture sector)
+- **依存**: `kotodama:contract/agreement@1.0.0`、`etzhayyim:legal-entity/entity@1.0.0` (org linkage)、`etzhayyim:isic-section-a/agriculture@1.0.0` (agriculture sector)
 
 ## Build & Deploy
 

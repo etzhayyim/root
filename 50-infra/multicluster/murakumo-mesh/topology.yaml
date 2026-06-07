@@ -13,7 +13,7 @@ metadata:
     - "2605191645"  # heartbeat
 spec:
   controlPlane:
-    implementation: launchd + magatama-cell-runner + tailmesh
+    implementation: launchd + kotodama-cell-runner + tailmesh
     mode: peer-to-peer
     hubCluster: null            # no hub — explicitly null
     memberClusters: null        # no member/hub split — all peers

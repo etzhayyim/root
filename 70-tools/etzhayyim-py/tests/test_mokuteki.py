@@ -122,7 +122,7 @@ def test_scan_app_meta_empty(tmp_path):
 def test_scan_app_meta_single_app(tmp_path):
     app_dir = tmp_path / "60-apps" / "myapp"
     app_dir.mkdir(parents=True)
-    (app_dir / "magatama.jsonld").write_text(json.dumps({
+    (app_dir / "kotodama.jsonld").write_text(json.dumps({
         "nanoid": "app123",
         "did": "did:plc:abc",
         "displayName": "My App",
@@ -142,7 +142,7 @@ def test_scan_app_meta_single_app(tmp_path):
 def test_scan_app_meta_no_nanoid_skipped(tmp_path):
     app_dir = tmp_path / "60-apps" / "myapp"
     app_dir.mkdir(parents=True)
-    (app_dir / "magatama.jsonld").write_text(json.dumps({
+    (app_dir / "kotodama.jsonld").write_text(json.dumps({
         "displayName": "No Nanoid App",
     }))
     result = _scan_app_meta(tmp_path)
@@ -152,7 +152,7 @@ def test_scan_app_meta_no_nanoid_skipped(tmp_path):
 def test_scan_app_meta_invalid_json_skipped(tmp_path):
     app_dir = tmp_path / "60-apps" / "myapp"
     app_dir.mkdir(parents=True)
-    (app_dir / "magatama.jsonld").write_text("{not valid json")
+    (app_dir / "kotodama.jsonld").write_text("{not valid json")
     result = _scan_app_meta(tmp_path)
     assert result == {}
 
@@ -185,7 +185,7 @@ def test_eval_layer_a_empty_workspace(tmp_path):
 def test_eval_layer_a_with_app(tmp_path):
     app_dir = tmp_path / "60-apps" / "app1"
     app_dir.mkdir(parents=True)
-    (app_dir / "magatama.jsonld").write_text(json.dumps({
+    (app_dir / "kotodama.jsonld").write_text(json.dumps({
         "nanoid": "app1",
         "did": "did:plc:x",
         "displayName": "App 1",
@@ -208,7 +208,7 @@ def test_eval_layer_d_empty_workspace(tmp_path):
 def test_eval_layer_d_with_attested_app(tmp_path):
     app_dir = tmp_path / "60-apps" / "app1"
     app_dir.mkdir(parents=True)
-    (app_dir / "magatama.jsonld").write_text(json.dumps({
+    (app_dir / "kotodama.jsonld").write_text(json.dumps({
         "nanoid": "app1",
         "did": "did:plc:x",
         "displayName": "App 1",

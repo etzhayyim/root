@@ -2,7 +2,7 @@
 #
 # Multi-replica k8s deploy of the C-suite role LSP. Same KeieiServer
 # dispatcher as the local stdio / Unix-socket transport, fronted by a
-# FastAPI HTTP transport (pymagatama.keiei.http_server:app) served by
+# FastAPI HTTP transport (kotodama.keiei.http_server:app) served by
 # granian per ADR-2605080600.
 #
 # Build (remote BuildKit, linux/amd64):
@@ -10,7 +10,7 @@
 #   docker buildx build \
 #     --builder etzhayyim-vke \
 #     --platform linux/amd64 \
-#     --build-context py=../../../20-actors/magatama/py \
+#     --build-context py=../../../40-engine/kotoba/crates/kotoba-kotodama/py \
 #     --cache-from type=registry,ref=ghcr.io/etzhayyim/build-cache:keiei-lsp \
 #     --cache-to   type=registry,ref=ghcr.io/etzhayyim/build-cache:keiei-lsp,mode=max \
 #     -t ghcr.io/etzhayyim/keiei-lsp:0.2.0-amd64 \
@@ -32,9 +32,9 @@ RUN pip install --no-cache-dir 'uv>=0.4'
 
 WORKDIR /app
 
-# pymagatama (mounted via --build-context py=../../../20-actors/magatama/py)
-COPY --from=py . /opt/pymagatama
-RUN uv pip install --system --no-cache -e /opt/pymagatama
+# kotodama (mounted via --build-context py=../../../40-engine/kotoba/crates/kotoba-kotodama/py)
+COPY --from=py . /opt/kotodama
+RUN uv pip install --system --no-cache -e /opt/kotodama
 
 # keiei HTTP transport runtime deps. Kept narrow on purpose — the
 # JSON-RPC dispatcher itself has zero external deps; only the FastAPI
@@ -58,7 +58,7 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
 
 CMD ["granian", \
      "--interface", "asgi", \
-     "pymagatama.keiei.http_server:app", \
+     "kotodama.keiei.http_server:app", \
      "--host", "0.0.0.0", \
      "--port", "8000", \
      "--workers", "1", \

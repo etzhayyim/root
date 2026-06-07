@@ -16,7 +16,7 @@
 **Outline**:
 1. What "audit log" means in Sales Cloud (rows in `FieldHistory` + Setup Audit Trail) and why a DBA with write access breaks both.
 2. W Protocol commit = Merkle DAG + signed by the seat DID's key. Immutable by construction.
-3. How the `derive` rule in `magatama.jsonld` emits `com.etzhayyim.apps.opensaas.salesforce.activity` with `source=derived-stage-change`, and the commit CID is embedded. Link to a live record: `at://demo.opensaas.etzhayyim.com/com.etzhayyim.apps.opensaas.salesforce.activity/act-example`.
+3. How the `derive` rule in `kotodama.jsonld` emits `com.etzhayyim.apps.opensaas.salesforce.activity` with `source=derived-stage-change`, and the commit CID is embedded. Link to a live record: `at://demo.opensaas.etzhayyim.com/com.etzhayyim.apps.opensaas.salesforce.activity/act-example`.
 4. Regulator demo: export 7y of activity as OCEL 2.0 → Parquet on Iceberg, verifiable offline.
 5. "Things Einstein forecasts can't explain and we can" — 3 worked examples.
 
@@ -26,7 +26,7 @@
 **Objection it answers**: Q4 "own-LLM plan" → Einstein GPT is a line item; Murakumo is a capability.
 **Outline**:
 1. Why "CRM AI" is the wrong frame (org-wide model, opaque prompt policy). Right frame: seat DID = agent DID, the seat invokes the model.
-2. `magatama.Invoke(did, method, params)` from inside an XRPC handler scoped to the seat DID. Code snippet, ≤30 lines.
+2. `kotodama.Invoke(did, method, params)` from inside an XRPC handler scoped to the seat DID. Code snippet, ≤30 lines.
 3. Prompt privacy: Murakumo is a tenant-configurable fleet (`did:web:murakumo.etzhayyim.com:fleet:<tier>`). Swappable to OpenAI / Anthropic / in-house via one `ConfigPut`.
 4. Worked flow: "Summarise this opportunity" in the CRM UI → LLM pulls `opportunity` + linked `activity` rows via `listPipeline` + `G().match(...)` → returns markdown. 2-min screen capture.
 5. Cost model — per-invocation vs. per-seat-per-month Einstein GPT. Calculator link (Pillar 5).

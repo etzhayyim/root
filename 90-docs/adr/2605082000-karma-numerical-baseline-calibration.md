@@ -254,7 +254,7 @@ mode for edge cases.
   references this ADR)
 - ADR-2605081700 — rank system (rank thresholds reference karma
   signature aggregates from these numbers)
-- `20-actors/magatama/py/src/pymagatama/primitives/karma.py` —
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/karma.py` —
   `_amplify`, `_signed_weight` implementations (must match this ADR)
 - `90-docs/proof/Karma.lean` — `amplify` definition (Lean form
   matches Python)

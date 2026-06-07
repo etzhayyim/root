@@ -8,7 +8,7 @@ authoritative: true
 last_verified: 2026-05-19
 depends_on:
   - 2605191407-ameno-browser-viewer-mode
-  - 2605191257-ameno-daemon-path-b-pymagatama-python
+  - 2605191257-ameno-daemon-path-b-kotodama-python
   - 2605191229-ameno-daemon-path-a-bun-langgraph
 related:
 V05191135-ameno-tier2-daemon-residency

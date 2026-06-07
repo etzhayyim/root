@@ -63,7 +63,7 @@ ADR fixes that gap and pins a CLI bug for follow-up.
 | Claude Code session | `sk_live_*` from `~/.etzhayyim/auth.json` or `etzhayyim.auth/api_key` Keychain | ~1 y (server-configured) | Human passkey ceremony |
 | CI job | `etzhayyim_TOKEN` env (sk_live_*) | matched to scoped need | Manual rotation |
 | Heartbeat / cron pod | ES256 Service Auth JWT minted from app DID | 60 s scoped | per-invocation via `getServiceAuth` |
-| Internal binding | `x-magatama-verified: true` HMAC | per-request | n/a (service binding) |
+| Internal binding | `x-kotodama-verified: true` HMAC | per-request | n/a (service binding) |
 
 `com.etzhayyim.auth.createApiKey` accepts **only** a fresh authn.etzhayyim.com session
 (passkey-bound cookies) — **not** Clerk `oat_*`, **not** Clerk `id_token`,

@@ -3,7 +3,7 @@
   "@type": "SoftwareApplication",
   "@id": "https://mailer.etzhayyim.com",
   "name": "etzhayyim-project-mailer",
-  "description": "Etzhayyim Mailer - AI-powered email client with multi-provider integration, alias addresses, and template management",
+  "description": "ETZHAYYIM Mailer - AI-powered email client with multi-provider integration, alias addresses, and template management",
   "url": "https://mailer.etzhayyim.com",
   "applicationCategory": "Productivity",
   "operatingSystem": "Kubernetes",

@@ -8,7 +8,7 @@
  *
  * AXIS NOTE (ADR-2605172400): axis-clean public open-data — no PII custody (only
  * public company/filing data + analyst DIDs), no settlement, no fulfillment
- * liability. etzhayyim front. Capabilities mirror magatama.jsonld:
+ * liability. etzhayyim front. Capabilities mirror kotodama.jsonld:
  * listCompanies / getCompany / searchCompanies / listFilings / getFiling /
  * listEarnings / submitAnalysis / listAlerts(→listAnalyses).
  *

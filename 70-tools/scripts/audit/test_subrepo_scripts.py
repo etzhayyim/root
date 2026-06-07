@@ -43,7 +43,7 @@ SYMLINK_HEALTH_PERF_BUDGET_S = 2.0
 #   1. 50-infra/yata/yata-wasm/lance-fork → etzhayyimcojp/lancedb-wasm (404)
 #   2. 60-apps/etzhayyim-project-har/.../svelte → etzhayyim/etzhayyim-har (404)
 #   3. 60-apps/etzhayyim-project-watashi → etzhayyim/watashi (404)
-#   4. 60-apps/ai-gftd-project-resources/...-i2zikw31 → gftdcojp/...-i2zikw31 (404)
+#   4. 60-apps/etzhayyim-project-resources/...-i2zikw31 → etzhayyim/...-i2zikw31 (404)
 #   5. 60-apps/etzhayyim-project-intel → etzhayyim/etzhayyim-intel (404)
 #   6. 60-apps/etzhayyim-project-os → etzhayyim/etzhayyim-project-os (404)
 #   7. 60-apps/etzhayyim-project-news → etzhayyimcojp/etzhayyim-apps-media (404)

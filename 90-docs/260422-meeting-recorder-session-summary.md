@@ -138,7 +138,7 @@ Container (`tsx src/server.ts` on :50052) + fake services (fake mint + fake PDS 
       mock/index.ts              synthetic emitter (RECORDER_ENABLE_MOCK=1)
 
 60-apps/etzhayyim-project-meeting-recorder/appview/etzhayyim-wasm-meeting-recorder-m33tr3c0/
-  magatama.jsonld                actor profile + MCP facade flag
+  kotodama.jsonld                actor profile + MCP facade flag
   wrangler.jsonc                 CF bindings + PDS_DID + DID_*_RESOLVER vars
   package.json                   @atproto/crypto@0.4.5
   src/app.ts                     5 XRPC handlers + /_internal/mint-pds-bearer + consent verify
@@ -218,7 +218,7 @@ Expected: 6 chunks on disk + 9 AT records via fake PDS + sha256 integrity.
 
 - ADR-0050 — meeting-recorder multi-provider actor (authoritative)
 - ADR-0048 — Kotoba/Datomic Vultr + B2 primary (egress-free storage)
-- ADR-0042 — magatama MCP Tool Facade (per-actor MCP endpoint)
+- ADR-0042 — kotodama MCP Tool Facade (per-actor MCP endpoint)
 - ADR-0036 — Worker-direct Hyperdrive Persistence
 - ADR-0029 — did:etzhayyim Method Specification
 - ADR-0022 — Auth 2-token model (ServiceAuth `lxm` scoping SSoT)

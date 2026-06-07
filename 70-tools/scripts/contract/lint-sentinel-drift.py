@@ -12,7 +12,7 @@ Asserts that the four artefacts defining the maps Sentinel pipeline stay in sync
   B  zeebe:taskDefinition type attributes extracted from each BPMN
 
   C  Primitive task types registered in
-     20-actors/magatama/py/src/pymagatama/primitives/maps_sentinel.py
+     40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/maps_sentinel.py
 
   D  Lexicon NSID JSON files
      (00-contracts/lexicons/com/etzhayyim/apps/maps/satellite{Ingest,Analyze}.json)
@@ -51,10 +51,10 @@ LEXICON_DIR = REPO_ROOT / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "a
 PRIMITIVE_PATH = (
     REPO_ROOT
     / "20-actors"
-    / "magatama"
+    / "kotodama"
     / "py"
     / "src"
-    / "pymagatama"
+    / "kotodama"
     / "primitives"
     / "maps_sentinel.py"
 )

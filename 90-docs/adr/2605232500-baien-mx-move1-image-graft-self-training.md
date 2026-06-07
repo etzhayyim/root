@@ -23,7 +23,7 @@ related:
   - 70-tools/baien-mx-train/                (skeleton — new with this ADR)
   - 70-tools/baien-graft-pipeline/          (data generation)
   - 70-tools/etzhayyim-cli/bench.go         (`e7m bench mx-train` subcommand)
-  - 20-actors/magatama/sdk/magatama-host-sdk/src/llm-model-registry.ts (Move 1 graft registration target)
+  - 40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts (Move 1 graft registration target)
 supersedes: []
 superseded_by: []
 ---

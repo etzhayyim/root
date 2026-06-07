@@ -40,16 +40,16 @@ Hierarchy is edge-only (`graphar.edge_hasParent`). Records do not nest.
 | `com.etzhayyim.apps.seibutsu.getProfile` | query | DID → taxon + traits + lineage chain |
 | `com.etzhayyim.apps.seibutsu.renderProfile` | query | DID → engine-ready TaxonomicProfile JSON |
 
-## Magatama capabilities
+## Kotodama capabilities
 
-- `magatama:bio/taxonomy` — Linnaean traversal, Wikidata/GBIF sync
-- `magatama:bio/traits` — taxonomy → procedural traits derive
-- `magatama:bio/identify` — image → species (Murakumo fleet inference)
+- `kotodama:bio/taxonomy` — Linnaean traversal, Wikidata/GBIF sync
+- `kotodama:bio/traits` — taxonomy → procedural traits derive
+- `kotodama:bio/identify` — image → species (Murakumo fleet inference)
 - Host imports: `kagami` (graph), `app.bsky.feed.post` (sighting broadcast — derive rule)
 
 ## Write-Only Derived rules
 
-handler は `taxon` / `traits` / `observation` の `writePublic()` のみ。`magatama.jsonld` の `derive` で:
+handler は `taxon` / `traits` / `observation` の `writePublic()` のみ。`kotodama.jsonld` の `derive` で:
 
 | trigger | derives |
 |---|---|
@@ -133,7 +133,7 @@ etzhayyim identifier-audit --deps deps.toml | grep seibutsu
 ```
 
 After `--apply`, deps.toml `did = "did:plc:pending"` is rewritten to the
-24-char base32 identifier returned from `plc.etzhayyim.com`, and `magatama.jsonld`
+24-char base32 identifier returned from `plc.etzhayyim.com`, and `kotodama.jsonld`
 `@id` should be updated to match (and `seed.ts` `ROOT_DID` env).
 
 ### 4. kami-vegetation bridge

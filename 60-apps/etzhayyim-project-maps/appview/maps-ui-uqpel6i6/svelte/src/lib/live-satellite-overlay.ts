@@ -24,7 +24,7 @@ export type SatelliteClickHandler = (s: LiveSatellite) => void;
 
 const EMPTY_FC = { type: 'FeatureCollection' as const, features: [] };
 
-// Bootstrap observer name → (lat, lon). Mirror of pymagatama
+// Bootstrap observer name → (lat, lon). Mirror of kotodama
 // satellite_live._BOOTSTRAP_OBSERVERS. When promoted to real H3 res-5,
 // both ends switch in lockstep.
 const OBSERVER_LATLON: Record<string, [number, number]> = {

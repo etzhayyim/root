@@ -315,6 +315,46 @@ def test_arrange_delivery_prefers_no_gig():
     assert d2["mode"] == "retailer-shipping" and d2["gig"] is False
 
 
+# ── R1 live USDC + TitheRouter settlement broadcast (G7/G11/G15) ───────────
+def test_build_user_op_no_server_key():
+    intent = agent.build_settlement_intent(10_000_000, "mitsuho")
+    op = agent.build_user_op(intent, "did:web:etzhayyim.com:member:abc")
+    assert op["rail"] == "erc4337-user-op"
+    assert op["serverHeldKey"] is False           # invariant
+    assert op["requiredSigner"] == "member-smart-account"
+    assert op["titheMinor"] == 1_000_000          # 10% TitheRouter preserved (G7)
+    assert op["grossMinor"] == op["titheMinor"] + op["makerPayoutMinor"]  # exact split
+
+
+def test_submit_refuses_server_signature_g15():
+    intent = agent.build_settlement_intent(10_000_000, "mitsuho")
+    out = agent.submit_settlement(intent, {"origin": "server", "ref": "x"})
+    assert out.get("refused") is True
+    assert "no-server-key" in out["reason"]
+
+
+def test_submit_member_signed_pending_operator_g11():
+    intent = agent.build_settlement_intent(10_000_000, "mitsuho")
+    out = agent.submit_settlement(intent, {"origin": "member", "ref": "sig:1",
+                                           "memberDid": "did:m:1"})
+    assert out["state"] == "authorized-pending-operator"   # signed but live submit gated (G11)
+    assert out["userOp"]["signed"] is True
+
+
+def test_submit_member_signed_with_operator_broadcasts():
+    intent = agent.build_settlement_intent(10_000_000, "mitsuho")
+    out = agent.submit_settlement(intent, {"origin": "member", "ref": "sig:1",
+                                           "memberDid": "did:m:1"}, operator_ref="op:1")
+    assert out["state"] == "submitted"
+    assert out["userOp"]["signatureRef"] == "sig:1"
+
+
+def test_submit_refuses_non_intent_state():
+    intent = agent.build_settlement_intent(10_000_000, "mitsuho", operator_ref="op:1")  # executed
+    out = agent.submit_settlement(intent, {"origin": "member", "ref": "s"})
+    assert out.get("refused") is True
+
+
 if __name__ == "__main__":
     import sys
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]

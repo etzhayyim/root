@@ -19,7 +19,7 @@ depends_on:
   - adr-2605172000-etzhayyim-rw-free-substrate
   - adr-2605211200-etzhayyim-active-inference-organism-on-murakumo
   # adr-2605211653 (per-actor SQLite PVC deployment surface) was drafted but not retained on disk; its content lives inline in §0 + §3.1 of this runbook
-  - adr-2605212100-magatama-worker-3-axis-tranche-f-closure
+  - adr-2605212100-kotodama-worker-3-axis-tranche-f-closure
 related:
   - adr-2605152100-etzhayyim-github-org-boundary
   - adr-2605172400-etzhayyim-vendor-three-axis-split-rule
@@ -40,7 +40,7 @@ migration. As of 2026-05-21:
 
 | Gate | State |
 |------|-------|
-| (a) per-worker RW-free re-impl for 29 etzhayyim-classified workers | 🟡 **pattern established, execution OPEN** — 6 patterns catalogued (BeliefStore / audit log / read-cache / primary store / worker_runtime / ingest module) with prototypes that were not retained in `etzhayyim/root/20-actors/magatama/py/src/pymagatama/`. Per-actor wave below is gated on landing the per-worker ports before each wave's target switches |
+| (a) per-worker RW-free re-impl for 29 etzhayyim-classified workers | 🟡 **pattern established, execution OPEN** — 6 patterns catalogued (BeliefStore / audit log / read-cache / primary store / worker_runtime / ingest module) with prototypes that were not retained in `etzhayyim/root/40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/`. Per-actor wave below is gated on landing the per-worker ports before each wave's target switches |
 | (b) DNS cutover ``*.etzhayyim.com`` → ``*.etzhayyim.com`` | 🟢 **this ADR** |
 | (c) etzhayyim deployment surface | 🟡 documented inline in §0 + §3.1 (Mac mini fleet via ``50-infra/k8s/murakumo-kubelet`` + per-actor SQLite PVC under ``$ORGANISM_SQLITE_DIR``); a standalone ADR was drafted but not retained on disk |
 | (d) vendor-side worker importer survey clean | 🟢 unblocked — separate work item |

@@ -35,7 +35,7 @@ superseded_by: []
 `https://etzhayyim.com/` rendered a fully black page. The zone is a Cloudflare
 Worker (`etzhayyim-did-web`) that proxies `yoro.etzhayyim.com` — the yoro
 AppView, a Svelte 5 SPA (`+layout.ts` `ssr=false`, `csr=true`). Served via the
-`magatama-yoro` Worker's Assets binding (`assets.directory: ./static`,
+`kotodama-yoro` Worker's Assets binding (`assets.directory: ./static`,
 `not_found_handling: single-page-application`).
 
 Empirical diagnosis (live browser + curl):

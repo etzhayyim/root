@@ -20,7 +20,7 @@ superseded_by: []
 
 # Context
 
-`yoro.etzhayyim.com` is served by the `magatama-yoro` Cloudflare Worker with
+`yoro.etzhayyim.com` is served by the `kotodama-yoro` Cloudflare Worker with
 Workers Assets. A first implementation put Japan geo blocking inside the
 Worker request handler. That caused legitimate operator access to receive
 `403 Forbidden` when Cloudflare observed the request over an IPv6 address

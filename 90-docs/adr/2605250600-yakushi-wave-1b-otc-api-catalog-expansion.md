@@ -20,8 +20,8 @@ depends_on:
   - adr-2605250545-yakushi-pharma-supply-chain-and-robotics
 related:
   - 20-actors/yakushi/
-  - 20-actors/magatama/cells/pharma_tablet_manufacture/
-  - 20-actors/magatama/cells/pharma_topical_formulation/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_tablet_manufacture/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_topical_formulation/
   - 00-contracts/lexicons/com/etzhayyim/pharma/
 supersedes: []
 superseded_by: []

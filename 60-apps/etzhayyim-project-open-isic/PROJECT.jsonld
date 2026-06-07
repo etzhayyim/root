@@ -29,7 +29,7 @@
     "status": "implemented",
     "checkedAt": "2026-04-30T05:18:18Z",
     "pattern": "LangServer-langgraph-udf",
-    "runtimeTarget": "20-actors/magatama/py/src/pymagatama/primitives/open_isic.py",
+    "runtimeTarget": "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/open_isic.py",
     "bpmnProcesses": 4,
     "LangServerTasks": 4,
     "udfHelpers": 2,

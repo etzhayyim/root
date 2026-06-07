@@ -9,7 +9,7 @@ implementation landed.
 
 - `KOTOBA_URL` or `DATABASE_URL` is available to the operator.
 - SpiffWorkflow engine host is deployed and `/readyz` returns ready.
-- `pymagatama` image includes `pymagatama.spiff_moneyforward_worker`.
+- `kotodama` image includes `kotodama.spiff_moneyforward_worker`.
 - MoneyForward exports for the dual-run period are stored in encrypted vault/B2
   and referenced by CID.
 

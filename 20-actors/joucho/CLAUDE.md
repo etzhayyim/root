@@ -68,7 +68,7 @@ joucho_score (0-100) = Σ (axis_weight × axis_score)
 
 - Domain: `etzhayyim:joucho@1.0.0` (`wit/joucho/package.wit`)
 - Export: `etzhayyim:joucho/scoring@1.0.0`
-- Import: `magatama:div/health`, `magatama:div/recreation`, `magatama:contract/agreement`
+- Import: `kotodama:div/health`, `kotodama:div/recreation`, `kotodama:contract/agreement`
 
 ## Follow Graph (2 次ソース)
 

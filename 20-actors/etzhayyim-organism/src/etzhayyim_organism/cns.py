@@ -7,7 +7,7 @@ The CNS:
   4. Asks the emitter to persist a new cycle file.
 
 LangGraph is overkill for a 5-node DAG; this stays in plain Python until
-multi-node fan-out is needed (then promote to a magatama cell colony).
+multi-node fan-out is needed (then promote to a kotodama cell colony).
 """
 
 from __future__ import annotations

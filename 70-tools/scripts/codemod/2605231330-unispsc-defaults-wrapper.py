@@ -34,7 +34,7 @@ Defaults are inferred from the TypedDict annotation:
 
 Usage::
 
-    cd 20-actors/magatama/py
+    cd 40-engine/kotoba/crates/kotoba-kotodama/py
     uv run python ../../../70-tools/scripts/codemod/2605231330-unispsc-defaults-wrapper.py --dry-run
     uv run python ../../../70-tools/scripts/codemod/2605231330-unispsc-defaults-wrapper.py
 """
@@ -50,8 +50,8 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 AGENTS_DIR = (
-    REPO_ROOT / "20-actors" / "magatama" / "py" / "src"
-    / "pymagatama" / "langgraph_graphs" / "unispsc_agents"
+    REPO_ROOT / "20-actors" / "kotodama" / "py" / "src"
+    / "kotodama" / "langgraph_graphs" / "unispsc_agents"
 )
 
 MARKER = "# codemod-2605231330-defaults-wrapper"

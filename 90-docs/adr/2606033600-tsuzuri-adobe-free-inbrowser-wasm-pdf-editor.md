@@ -92,7 +92,7 @@ pako / pdf.js+worker / tesseract.js + wasm core + eng/jpn lang data + JP font, �
 
 Canonical DID = `did:web:etzhayyim.com:actor:tsuzuri`。
 `00-contracts/schemas/actor-profile-seed.kotoba.edn`（正本, kind `:infra` / tier `app`）+
-`50-infra/etzhayyim-did-web/src/registry/infra-actors.ts`（フォールバック）+ `magatama.jsonld`
+`50-infra/etzhayyim-did-web/src/registry/infra-actors.ts`（フォールバック）+ `kotodama.jsonld`
 （`uiType: ameno` / `runtimeType: logical` / `agentType: reactive`）に登録。
 
 **正直なスコープ（CRITICAL）**: tsuzuri は DOM アプリで**単一 WASM コンポーネントではない**ため、
@@ -136,7 +136,7 @@ componentize 系 actor とは別カテゴリ。service type は `EtzhayyimBrowse
 # References
 
 - アプリ: `60-apps/tsuzuri/`（`public/index.html`, `public/tsuzuri.js`, `scripts/fetch-vendor.mjs`,
-  `magatama.jsonld`, `README.md`, `CLAUDE.md`, `NOTICE`）
+  `kotodama.jsonld`, `README.md`, `CLAUDE.md`, `NOTICE`）
 - 登録: `00-contracts/schemas/actor-profile-seed.kotoba.edn` / `50-infra/etzhayyim-did-web/src/registry/infra-actors.ts`
 - PR #873（main merge commit `765edc66e5`）
 - ADR-2606014500（One Worker, many WASM actors / ameno browser-local 実行モデル）

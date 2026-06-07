@@ -20,7 +20,7 @@ related:
   - adr-2605080000-distributed-cognitive-actor-system
   - adr-2605072000-langgraph-agent-loop-pattern
   - adr-2605080600-langgraph-server-granian-l3-runtime
-  - adr-0087-magatama-mcp-tool-facade
+  - adr-0087-kotodama-mcp-tool-facade
   - adr-0056-bpmn-as-actor
   - adr-2605082100-langgraph-checkpointer-storage
   - adr-2605082200-pyzeebe-handler-thin-dispatcher-contract
@@ -52,7 +52,7 @@ node function も Python module として repo に commit されている。
 - BPMN は data-driven、MCP tool は registry-driven なのに、両者を結ぶ
   LangGraph だけが code-driven という非対称が残っていた
 
-ADR-0056 (BPMN-as-actor) と ADR-0087 (Magatama MCP Tool Facade) と
+ADR-0056 (BPMN-as-actor) と ADR-0087 (Kotodama MCP Tool Facade) と
 同じ design pattern を LangGraph にも適用する。
 
 ## Decision
@@ -164,7 +164,7 @@ LangGraph def には参照だけが残る。
 ### 4. Graph compiler: runtime build (existing)
 
 L3 actor runtime (LangGraph Server, ADR-2605080600) は既に
-`pymagatama/langgraph_loader.py` で compiler を持つ:
+`kotodama/langgraph_loader.py` で compiler を持つ:
 
 1. `vertex_langgraph_deployment WHERE status='active'` から (assistant_id, version, kind, factory_path, spec) を取得
 2. kind='topology' の場合 `vertex_langgraph_assistant_node` rows を取得
@@ -449,7 +449,7 @@ total ~10-12 migrations + 1 primitive 追加 + state schema docs。
 - ADR-2605080000: Distributed Cognitive Actor System (L2 LangGraph 制約)
 - ADR-2605072000: LangGraph Agent Loop Pattern (intra-job graph 使用条件)
 - ADR-2605080600: LangGraph Server + Granian L3 Runtime (compiler 実行環境)
-- ADR-0087: Magatama MCP Tool Facade (`vertex_mcp_tool_def` registry)
+- ADR-0087: Kotodama MCP Tool Facade (`vertex_mcp_tool_def` registry)
 - ADR-0056: BPMN-as-actor (data-as-code precedent)
 - ADR-2605082100: LangGraph Checkpointer Storage (補完)
 - ADR-2605082200: PyZeebe Handler Thin Dispatcher Contract (補完)

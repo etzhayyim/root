@@ -242,7 +242,7 @@ concurrent kami-genesis loop on the same branch):
 
 | # | Increment | Commit |
 |---|---|---|
-| 1 | 6 `magatama.cells.kizashi_*` cell stubs physically present (`cell.py` import-raises `RuntimeError` per phase gate) + per-dir READMEs; all 6 verified to raise | `9a4275261` |
+| 1 | 6 `kotodama.cells.kizashi_*` cell stubs physically present (`cell.py` import-raises `RuntimeError` per phase gate) + per-dir READMEs; all 6 verified to raise | `9a4275261` |
 | 2 | `registry/VERIFICATION.md` — G10 modality-ledger tiers + an **empirically verified** cross-actor handoff snapshot (mitate `emergencyEscalation.intakeUri` ✅ / kokoro `acuteCrisisEscalationLog.detectionSourceCid` ✅ / iyashi pull ✅ / mitate `diagnosticOrder` has no source field = G3 by design); honest gap tracked (no generic mitate referral-intake lexicon yet) | `ac84be02a` |
 | 3 | `lexicons/.../R1-ENFORCEMENT.md` — exact per-lexicon `additionalProperties:false` + finalized `required[]` + the G3 forbidden-field denylist + a runnable drift-check (DRIFT-CHECK PASS) | `a44968a05` |
 | 4 | `registry/SCALING.md` — honest scaling design: compute is never the bottleneck; the four real ceilings are encrypted-envelope / licensed-MD / 薬機法-clearance / L5-operators; G8 self-referencing means no population datastore to scale | `9dacabbd4` |

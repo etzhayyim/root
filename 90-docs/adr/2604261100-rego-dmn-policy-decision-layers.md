@@ -25,7 +25,7 @@ superseded_by: []
 
 - **Schema** = Lexicon (`00-contracts/lexicons/com/etzhayyim/**/*.json`, ~2206 app + 37 host)
 - **Behavior** = BPMN (`etzhayyim-root/00-contracts/bpmn/`) + ADR-0056 BPMN-as-actor
-- **Topology** = `magatama.jsonld` / `deps.toml` / `wrangler.jsonc`
+- **Topology** = `kotodama.jsonld` / `deps.toml` / `wrangler.jsonc`
 - **Capability (T3 Container 限定)** = WIT (terminal、ADR-2604261110 で retire)
 
 未カバーの直交軸:
@@ -57,7 +57,7 @@ Rego は repo 未導入。
 | どう動くか (multi-step process) | flow | **BPMN** |
 | 誰が呼べるか | gate | **Rego** ← 新設 |
 | どう分類するか / 何を選ぶか | decision | **DMN** ← 一級化 |
-| 何があるか (binding / actor / route) | topology | `magatama.jsonld` / `deps.toml` |
+| 何があるか (binding / actor / route) | topology | `kotodama.jsonld` / `deps.toml` |
 
 ## Rego — AuthZ SSoT
 
@@ -91,7 +91,7 @@ Rego は repo 未導入。
   classifier を DMN 1.5 XML に書き出す方針。
 - **Decision 命名**: `com/etzhayyim/<project>/<decision>.dmn` (Lexicon と同階層)。
 - **Evaluator**: Zeebe deploy 時は Zeebe DMN engine、CF Worker in-process は
-  軽量 JS evaluator (候補: `dmn-eval-js`) を `magatama-host-sdk` に追加。
+  軽量 JS evaluator (候補: `dmn-eval-js`) を `kotodama-host-sdk` に追加。
 - **BPMN 連携**: BPMN `businessRuleTask` の `decisionRef` が DMN id と
   1:1 対応。
 - **対象 (initial)**: yabai classifier、Authority-Chain 1次/2次判定、

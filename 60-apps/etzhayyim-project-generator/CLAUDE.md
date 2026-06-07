@@ -37,7 +37,7 @@ Source of truth: `60-apps/etzhayyim-project-generator/wit/generator/package.wit`
 
 ## OpenRouter Integration
 
-Text generation routes through the cluster-internal `openrouter-provider` at `http://openrouter-provider.magatama-system.svc.cluster.local:21090/v1`.
+Text generation routes through the cluster-internal `openrouter-provider` at `http://openrouter-provider.kotodama-system.svc.cluster.local:21090/v1`.
 
 Image/video generation calls OpenRouter multimodal endpoints directly via `wasi:http/outgoing-handler` with the API key from `wasi:config/store`.
 
@@ -45,7 +45,7 @@ Image/video generation calls OpenRouter multimodal endpoints directly via `wasi:
 
 - Location: `60-apps/etzhayyim-project-generator/provider/openrouter/`
 - Exports: `etzhayyim:openrouter/chat@0.1.0`
-- Namespace: `magatama-runtime`
+- Namespace: `kotodama-runtime`
 
 ### Default Models
 
