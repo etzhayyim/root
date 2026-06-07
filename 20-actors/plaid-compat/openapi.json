@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreigp6z5bg47rjd6gkrn7varia7mipfztw2qfqod5v4kjrl3tmddp7i",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -1197,7 +1197,14 @@
             "type": "string"
           },
           "type": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "depository",
+              "credit",
+              "investment",
+              "loan",
+              "other"
+            ]
           },
           "subtype": {
             "type": "string"
@@ -1225,7 +1232,14 @@
             "type": "string"
           },
           "type": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "depository",
+              "credit",
+              "investment",
+              "loan",
+              "other"
+            ]
           },
           "subtype": {
             "type": "string"

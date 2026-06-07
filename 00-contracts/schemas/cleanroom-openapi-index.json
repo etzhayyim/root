@@ -7,7 +7,7 @@
   ],
   "count": 1000,
   "totalEndpoints": 30040,
-  "l4SpecsAvailable": 993,
+  "l4SpecsAvailable": 1000,
   "apis": [
     {
       "handle": "8th_wall-compat",
@@ -687,7 +687,7 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/anthropic-compat/openapi.json"
     },
     {
       "handle": "aphis_usda-compat",
@@ -6365,7 +6365,7 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/github-compat/openapi.json"
     },
     {
       "handle": "gitlab-compat",
@@ -11958,7 +11958,7 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/plaid-compat/openapi.json"
     },
     {
       "handle": "planet_api-compat",
@@ -13777,7 +13777,7 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/shopify-compat/openapi.json"
     },
     {
       "handle": "sic_codes-compat",
@@ -14423,7 +14423,7 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/stripe-compat/openapi.json"
     },
     {
       "handle": "subcom_telemetry-compat",
@@ -15358,7 +15358,7 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/twilio-compat/openapi.json"
     },
     {
       "handle": "twist_bioscience-compat",
@@ -16769,7 +16769,7 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/zendesk-compat/openapi.json"
     },
     {
       "handle": "zendesksell-compat",

@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreibaqzz7l3fflbzupta7h6ced4hvu2dbb33whck3nxbsihhskpexw4",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -1156,10 +1156,30 @@
             "type": "string"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "queued",
+              "sending",
+              "sent",
+              "failed",
+              "delivered",
+              "undelivered",
+              "receiving",
+              "received",
+              "accepted",
+              "scheduled",
+              "read",
+              "canceled"
+            ]
           },
           "direction": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "inbound",
+              "outbound-api",
+              "outbound-call",
+              "outbound-reply"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1184,10 +1204,30 @@
             "type": "string"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "queued",
+              "sending",
+              "sent",
+              "failed",
+              "delivered",
+              "undelivered",
+              "receiving",
+              "received",
+              "accepted",
+              "scheduled",
+              "read",
+              "canceled"
+            ]
           },
           "direction": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "inbound",
+              "outbound-api",
+              "outbound-call",
+              "outbound-reply"
+            ]
           }
         },
         "required": [
