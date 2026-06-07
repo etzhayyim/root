@@ -1,0 +1,62 @@
+;; biosphere-ontology — the living-world (生命圏) vocabulary for inochi 命
+;; ADR-2606073000 · sibling of engi-organism-ontology (ADR-2606011000) and
+;; spirit-ontology (ADR-2606011500), specialised to the BIOSPHERE.
+;;
+;; PURPOSE: weave species / ecosystems / biomes and their 縁 (trophic, habitat,
+;; pollination, dependency) AND the anthropogenic/natural PRESSURES borne by the
+;; living world, into the kotoba Datom log. The lens is ECOLOGICAL 取-concentration
+;; (custody-debt = extinction/degradation pressure accumulated OVER the living world),
+;; routed to RESTORATION (release), never to exploitation.
+;;
+;; CONSTITUTIONAL INVERSION (G1, read first): inochi is a RESTORATION map, NEVER a
+;; target-list. It carries NO precise occurrence coordinates of at-risk taxa (poaching
+;; / overfishing hazard); spatial readouts are biome/realm-aggregate only. The 取-holder
+;; is the PRESSURE; the bearer is the living world; the routing is restoration.
+;;
+;; EDGE-PRIMARY (N1): ecological 取 lives ONLY on edges (:en/grasping-load). A node's
+;; restoration-priority = the INTEGRAL of its incident inbound pressure-edges, computed
+;; on READ — never a stored per-organism score. There is no :biosphere/score-of-species.
+
+{:schema/id "biosphere-ontology"
+ :schema/version "0.1.0"
+ :schema/adr "2606073000"
+
+ ;; ── nodes ──────────────────────────────────────────────────────────────────
+ :node/attrs
+ [{:attr :organism/id        :doc "stable id, e.g. bio.species.loxodonta-cyclotis / bio.eco.amazon"}
+  {:attr :organism/kind       :doc ":species | :ecosystem | :biome | :pressure"}
+  {:attr :organism/label      :doc "common/display label"}
+  {:attr :organism/sourcing   :doc ":authoritative (IUCN/GBIF/IPCC primary) | :representative (bounded public seed)"}
+
+  ;; species facet
+  {:attr :taxon/scientific    :doc "binomial, e.g. \"Loxodonta cyclotis\""}
+  {:attr :taxon/kingdom       :doc ":animalia | :plantae | :fungi | :chromista | :bacteria"}
+  {:attr :taxon/rank          :doc ":species | :genus | :family"}
+  {:attr :taxon/iucn          :doc "IUCN Red List category — :LC :NT :VU :EN :CR :EW :EX :DD (DISCLOSED, not adjudicated)"}
+  {:attr :taxon/keystone?     :doc "true if a recognised keystone/foundation taxon"}
+
+  ;; ecosystem / biome facet
+  {:attr :eco/realm           :doc ":terrestrial | :marine | :freshwater"}
+  {:attr :eco/biome           :doc ":tropical-forest | :boreal-forest | :coral-reef | :mangrove | :tundra | :grassland | :wetland | :pelagic"}
+
+  ;; pressure facet (the 取-holder; often cross-links to a tsumugi/danjo power node)
+  {:attr :pressure/kind       :doc ":habitat-loss | :overharvest | :climate-forcing | :pollution | :invasive | :wildlife-trade"}
+  {:attr :pressure/links      :doc "optional org id in tsumugi power-graph (accountability cross-link); aggregate-first"}]
+
+ ;; ── edges (縁) ───────────────────────────────────────────────────────────────
+ :edge/attrs
+ [{:attr :en/from            :doc "source organism id"}
+  {:attr :en/to              :doc "target organism id"}
+  {:attr :en/kind            :doc ":pressures | :habitat-of | :depends-on | :keystone-of | :predates | :pollinates | :migrates-through"}
+  {:attr :en/grasping-load   :doc "0..1 — the ecological custody-debt this 縁 imposes on :en/to (severity of pressure / criticality of dependency). karma lives HERE (N1)."}
+  {:attr :en/sourcing        :doc ":authoritative | :representative"}]
+
+ ;; ── derived (transient, computed on READ — NEVER stored; N1/G2) ──────────────
+ :derived/attrs
+ [{:attr :bond/restoration-priority :doc "node integral of incident inbound :pressures loads — the restoration surface"}
+  {:attr :bond/dependency-fragility :doc "node integral of incident :depends-on / :keystone-of loads — cascade risk"}
+  {:attr :bond/is-transient        :doc "const true — derived readout, not a stored datom"}]
+
+ ;; ── IUCN category → representative threat weight (DISCLOSED scale, not a verdict) ──
+ :iucn/weight
+ {:EX 1.0 :EW 1.0 :CR 0.9 :EN 0.7 :VU 0.5 :NT 0.3 :LC 0.1 :DD 0.4}}

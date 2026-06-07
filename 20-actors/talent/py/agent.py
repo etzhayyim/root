@@ -115,3 +115,53 @@ def forget_self(caller_did: str, subject_did: str, store: list) -> dict:
     h = subject_hash(subject_did)
     kept = [p for p in store if p.get("subjectDidHash") != h]
     return {"state": "forgotten", "store": kept, "hardDeleted": len(store) - len(kept)}
+
+
+# --------------------------------------------------------------------------- #
+# enrichment attach (G1 self-sovereign, G3 signal-e2e) — public-consent sources only
+# --------------------------------------------------------------------------- #
+# Non-identifying fields a public source may contribute (skills/links/credentials).
+_ENRICHABLE_FIELDS = ("skills", "links", "credentials", "publications")
+
+
+def attach_enrichment(caller_did: str, subject_did: str, profile: dict,
+                      source: str, fields: dict) -> dict:
+    """Attach public-consent enrichment (OrcID / GitHub public / public credential registry) to
+    the subject's OWN profile. Refuses unless caller == subject (G1) and the source is allowed
+    (G1). Only non-identifying fields may be enriched; any identifying field must still be
+    Signal-E2E ciphertext (G3). Provenance is recorded per source."""
+    if caller_did != subject_did:
+        return {"state": "refused", "reason": "enrichment attaches to the subject's OWN profile only (G1)"}
+    if source not in ALLOWED_ENRICHMENT:
+        return {"state": "refused", "reason": f"enrichment source {source!r} not in public-consent allowlist (G1)"}
+    for f in IDENTIFYING_FIELDS:
+        if f in fields and not is_encrypted(fields[f]):
+            return {"state": "refused", "reason": f"enrichment cannot add plaintext identifying field {f!r} (G3)"}
+    merged = dict(profile)
+    for f in _ENRICHABLE_FIELDS:
+        if f in fields:
+            existing = list(merged.get(f, []))
+            for v in fields[f]:
+                if v not in existing:
+                    existing.append(v)
+            merged[f] = existing
+    provenance = list(merged.get("enrichmentProvenance", []))
+    provenance.append(source)
+    merged["enrichmentProvenance"] = provenance
+    return {"state": "enriched", "profile": merged}
+
+
+# --------------------------------------------------------------------------- #
+# listOccupations (G2) — only cohorts at/above k are even listed
+# --------------------------------------------------------------------------- #
+def list_occupations(profiles: list, k: int = K_ANONYMITY) -> list:
+    """Public listing of ISCO×country cohorts. A cohort below k is NOT listed at all (stronger
+    than suppressing the count — its existence is not disclosed, G2). Returns sorted
+    {isco, country, count} for cohorts meeting k."""
+    counts: dict[tuple, int] = {}
+    for p in profiles:
+        key = (p.get("isco"), p.get("country"))
+        counts[key] = counts.get(key, 0) + 1
+    out = [{"isco": isco, "country": country, "count": n}
+           for (isco, country), n in counts.items() if n >= k]
+    return sorted(out, key=lambda c: (c["isco"], c["country"]))

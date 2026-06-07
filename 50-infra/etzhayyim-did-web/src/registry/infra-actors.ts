@@ -380,6 +380,27 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
     adrs: ["2606022000"],
   },
+  sukashi: {
+    description:
+      "透かし — ad-tech supply-chain + delivery-infrastructure + fraud-network observatory. The ad-tech-supply-chain + fraud sibling of akashi 証 (which observes platform ad-LIBRARY disclosures and is constitutionally bounded away from ad-network/exchange + delivery-infra). Datafies the programmatic advertising ecosystem from the PUBLIC IAB web-standard files (ads.txt / app-ads.txt / sellers.json) into the kotoba Datom log: :adtech/* (advertiser/DSP/ad-exchange/SSP/ad-network/publisher/verification), first-class :adauth.edge/* authorization edges + the declared/confirmed two-sided handshake whose GAPS reveal unauthorized / spoofed inventory, :adcreative/* (who broadcasts what), first-class :addelivery.edge/* binding a creative to its serving infrastructure (:ip/:asn/WHOIS-org, REUSING tadori's ip-network + passive-dns ontologies — not re-modelling the network layer), and NON-ADJUDICATING :adfraud.signal/* routed to akashi-malak / kurashimori / tasuke / danjo. analyze.py is aggregate-first (authorization-handshake integrity, account-id-collision domain-spoof surface, delivery-infra concentration by ASN/registrar, shared-infra scam-ad-network clustering). A fraud-PROTECTION + ad-tech-TRANSPARENCY map, NEVER an ad network / buying / targeting / optimization / detection-evasion tool — the Charter 広告排除 invariant is SERVED, not violated (this is meta-observation OF advertising). NON-ADJUDICATING (G4): real firms carry no fraud signal; every fraud example is :synthesized on a CLEARLY-FICTIONAL entity. Per ADR-2606071600.",
+    glyph: "透かし",
+    displayName: "Sukashi — Ad-Tech Supply-Chain + Delivery-Infra + Fraud-Network Observatory",
+    primaryLexicon: "com.etzhayyim.sukashi",
+    primarySchema: "00-contracts/schemas/ad-supply-chain-ontology.kotoba.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:sukashi#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:sukashi#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606071600"],
+  },
   kanjo: {
     description:
       "勘定 — world public-company financial-disclosure (決算) knowledge graph. Registers LISTED companies' DISCLOSED balance-sheet / income-statement / cash-flow line items from PRIMARY disclosure ONLY (JP EDINET 有価証券報告書 + US SEC EDGAR 10-K/20-F + Companies House + EU OAM, all Tier-A per ADR-2605263800) into the kotoba Datom log as :fin.fact/*, normalized across JP-GAAP / US-GAAP / IFRS onto canonical concepts (honest where non-comparable — 経常利益 = JGAAP-only). The external public-company sibling of toritate 執帳 (internal accounting) and the financials face of kabuto 兜 (shares the org.corp.* id space). NON-ADJUDICATING + NO investment advice (NOT 投資助言業) + NO forecasting (no 業績予想) — records what the company disclosed + transparent ratios, never a rating / valuation / recommendation. 会社四季報 + all paid commercial terminals (Bloomberg / S&P CapIQ / Refinitiv / FactSet / Moody's / D&B / Pitchbook / Crunchbase) PROHIBITED per Charter Rider §2(e) anti-gatekeeping + §2(c): read the filing, never the terminal. Per ADR-2606032000.",
@@ -400,6 +421,27 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       },
     ],
     adrs: ["2606032000"],
+  },
+  kasa: {
+    description:
+      "嵩 — worldwide computing-capacity growth observatory. Datafies, from PUBLIC information only, the annual MAGNITUDE + GROWTH (年間増加量) of computing capacity across four domains — STORAGE (HDD+SSD exabytes shipped), MEMORY (DRAM+NAND market revenue), GPU/CPU (discrete-GPU + client-CPU units, datacenter-accelerator revenue) and COMPUTE/FLOPS (TOP500 aggregate Rmax, frontier-model training compute) — plus DATACENTER power capacity, into the kotoba Datom log as :compute.obs/*, then computes YoY + CAGR and coverage-honest domain aggregates (memory is a SUBSET of semiconductor, structurally never double-counted; TOP500 :petaflops never summed with raw :flops). Reads public headline figures + open datasets ONLY (WSTS/SIA semiconductor sales, TrendForce DRAM/NAND, IDC HDD/SSD, JPR GPU, TOP500 public list, Epoch AI CC-BY, Our World in Data CC-BY, company filings). The industry-aggregate sibling of kanjō 勘定 (per-company 決算) and the demand-side counterpart of the silicon actors (handotai / iwakura / fuigo); feeds measured actuals to mitooshi 見通し but NEVER forecasts itself (G4 — future projection is mitooshi's job). NON-ADJUDICATING + PLANNING-LENS not a targeting list (sizes the compute commons, never a country/company ranking or an export-control / weaponization list) + NO investment advice. Paid market-research full reports + subscription terminals (Gartner / IDC-report / Omdia / Bloomberg / S&P / Statista-Pro / Yole) PROHIBITED per Charter Rider §2(e) anti-gatekeeping + §2(c): read the press release, never the terminal. Per ADR-2606072000.",
+    glyph: "嵩",
+    displayName: "Kasa — Worldwide Computing-Capacity Growth Observatory",
+    primaryLexicon: "com.etzhayyim.kasa",
+    primarySchema: "00-contracts/schemas/compute-capacity-ontology.kotoba.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:kasa#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:kasa#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606072000"],
   },
   ooyake: {
     description:

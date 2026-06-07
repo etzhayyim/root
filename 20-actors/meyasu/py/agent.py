@@ -155,3 +155,50 @@ def handle_publish(state: dict) -> dict:
                              "reason": "notable spread + tightening forecast → resilience review"})
     return {**state, "posts": posts, "handoffs": handoffs, "broadcast": bool(operator_ref),
             "aggregateSharePct": 100 if posts else 0}
+
+
+# --------------------------------------------------------------------------- #
+# persist — fused card → kotoba Datoms (operator-gated write, no-server-key)
+# --------------------------------------------------------------------------- #
+def card_to_datoms(card: dict, observed_at: str) -> list:
+    """Flatten a fused card into kotoba Datoms ([eid, attr, value]) over the meyasu schema.
+    A forecast is written as a BAND (forecast-band-lo/hi), NEVER a point (G1/G2). Pure."""
+    pid = card.get("productId", "unknown")
+    eid = f"meyasu.card.{pid}.{observed_at}"
+    band = card.get("forecastBand")
+    datoms = [
+        [eid, ":meyasu.card/id", eid],
+        [eid, ":meyasu.card/product", pid],
+        [eid, ":meyasu.card/price-spread", int(card.get("priceSpread") or 0)],
+        [eid, ":meyasu.card/spread-fraction", float(card.get("spreadFraction") or 0.0)],
+        [eid, ":meyasu.card/notable-spread", bool(card.get("notableSpread"))],
+        [eid, ":meyasu.card/supply-demand-now", float(card.get("supplyDemandNow") or 0.0)],
+        [eid, ":meyasu.card/reading", f":{card.get('reading', 'balanced')}"],
+        [eid, ":meyasu.card/trajectory", f":{card.get('trajectory', 'unknown')}"],
+        [eid, ":meyasu.card/attention", bool(card.get("attention"))],
+        [eid, ":meyasu.card/route-to", card.get("routeTo", BUYER_PLANNER)],
+        [eid, ":meyasu.card/intent", card.get("intent", "buyer-transparency+supply-resilience")],
+        [eid, ":meyasu.card/observed-at", observed_at],
+    ]
+    if band:
+        datoms.append([eid, ":meyasu.card/forecast-band-lo", float(band[0])])
+        datoms.append([eid, ":meyasu.card/forecast-band-hi", float(band[1])])
+    return datoms
+
+
+def handle_persist(state: dict) -> dict:
+    """Build the kotoba Datom transaction for the fused cards. no-server-key: the tx is
+    RETURNED, not written, unless an `operatorRef` is present (G6/G11 outward-gated). The
+    G1 invariant holds in the datoms — a forecast is a band, never a point assertion."""
+    observed_at = state.get("observedAt", "1970-01-01T00:00:00Z")
+    datoms: list = []
+    for card in state.get("cards", []):
+        datoms.extend(card_to_datoms(card, observed_at))
+    operator_ref = state.get("operatorRef")
+    return {
+        **state,
+        "datoms": datoms,
+        "datomCount": len(datoms),
+        "writeState": "committed" if operator_ref else "tx-only",   # no-server-key
+        "operatorRef": operator_ref,
+    }

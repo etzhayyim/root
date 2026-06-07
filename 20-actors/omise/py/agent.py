@@ -198,17 +198,29 @@ def build_settlement_intent(gross_minor: int, seller_did: str,
     }
 
 
+def available_inventory(listing: Listing, open_orders: list | None = None) -> int:
+    """On-hand inventory minus the quantity reserved by still-active orders for this listing.
+    An order reserves its qty from placement until it is cancelled (a cancelled order releases
+    the units). This is the honest available count (G5) and the basis of the no-oversell guard."""
+    reserved = 0
+    for o in (open_orders or []):
+        if o.get("listingId") == listing["listingId"] and o.get("state") != "cancelled":
+            reserved += int(o.get("qty", 0))
+    return int(listing.get("inventory", 0)) - reserved
+
+
 def place_order(buyer_did: str, listing: Listing, qty: int, consent_ref: str,
-                sbt_registry: dict) -> dict:
+                sbt_registry: dict, open_orders: list | None = None) -> dict:
     """Ring-1 order entry. Requires buyer consent (G1) + an active buyer SBT (G3 SBT↔SBT),
     computes a zero-commission settlement intent (G2/G7) and a non-gig fulfilment (G8).
-    Refused orders carry the reason and never reach :settle-intent."""
+    Refuses if the requested qty exceeds AVAILABLE inventory (on-hand minus units already
+    reserved by other active orders — no-oversell, G5). Refused orders never reach :settle-intent."""
     if not consent_ref:
         return {"state": "refused", "reason": "missing DID-signed consent (G1)", "ring": "internal"}
     if not sbt_registry.get(buyer_did, False):
         return {"state": "refused", "reason": "buyer is not an active Adherent SBT holder (§3/G3)", "ring": "internal"}
-    if int(qty) > int(listing.get("inventory", 0)):
-        return {"state": "refused", "reason": "insufficient inventory (honest count, G5)", "ring": "internal"}
+    if int(qty) > available_inventory(listing, open_orders):
+        return {"state": "refused", "reason": "insufficient available inventory — no oversell (honest count, G5)", "ring": "internal"}
     gross = int(listing["priceMinor"]) * int(qty)
     settlement = build_settlement_intent(gross, listing["sellerDid"])
     return {
@@ -247,3 +259,24 @@ def advance_order(order: dict) -> dict:
         return order
     i = ORDER_STATES.index(st)
     return {**order, "state": ORDER_STATES[min(i + 1, len(ORDER_STATES) - 1)]}
+
+
+def cancel_order(order: dict) -> dict:
+    """Cancel an order, releasing its inventory reservation. A delivered/in-use order cannot be
+    cancelled (the goods already moved). Cancellation is itself append-only state (G7)."""
+    if order.get("state") in ("delivered", "in-use"):
+        return {**order, "refused": True, "reason": "cannot cancel an order already delivered"}
+    return {**order, "state": "cancelled"}
+
+
+def build_fulfilment(order: dict, region: str = "jp") -> dict:
+    """Hand an order to an etzhayyim logistics actor (todoke/…); never a gig courier (G8). The
+    handoff carries no server key (proof is on-device at delivery, G12-aligned with todoke)."""
+    return {
+        "orderId": order.get("orderId"),
+        "fulfilmentActor": order.get("fulfilmentActor", "todoke"),
+        "region": region,
+        "gig": False,            # G8: no gig labour on the etzhayyim leg
+        "serverSigned": False,   # G12: proof-of-delivery is member/recipient-signed, not server
+        "state": "handed-off",
+    }

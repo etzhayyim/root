@@ -104,5 +104,42 @@ class HardDelete(unittest.TestCase):
         self.assertEqual(out["state"], "refused")
 
 
+class Enrichment(unittest.TestCase):
+    def _prof(self):
+        return {"isco": "2512", "country": "JP", "skills": ["python"]}
+
+    def test_self_enrich_merges_skills(self):
+        out = agent.attach_enrichment(ALICE, ALICE, self._prof(), "github-public", {"skills": ["rust", "python"]})
+        self.assertEqual(out["state"], "enriched")
+        self.assertEqual(sorted(out["profile"]["skills"]), ["python", "rust"])  # deduped union
+        self.assertEqual(out["profile"]["enrichmentProvenance"], ["github-public"])
+
+    def test_third_party_enrich_refused(self):
+        out = agent.attach_enrichment(BOB, ALICE, self._prof(), "orcid", {"skills": ["x"]})
+        self.assertEqual(out["state"], "refused")
+        self.assertIn("G1", out["reason"])
+
+    def test_prohibited_source_refused(self):
+        out = agent.attach_enrichment(ALICE, ALICE, self._prof(), "linkedin", {"skills": ["x"]})
+        self.assertEqual(out["state"], "refused")
+
+    def test_plaintext_pii_enrichment_refused(self):
+        out = agent.attach_enrichment(ALICE, ALICE, self._prof(), "orcid", {"email": "a@b.com"})
+        self.assertEqual(out["state"], "refused")
+        self.assertIn("G3", out["reason"])
+
+
+class ListOccupations(unittest.TestCase):
+    def test_below_k_cohort_not_listed(self):
+        profiles = [{"isco": "2512", "country": "JP", "skills": []} for _ in range(3)]  # k=5
+        self.assertEqual(agent.list_occupations(profiles), [])   # not even disclosed (G2)
+
+    def test_at_or_above_k_listed(self):
+        profiles = ([{"isco": "2512", "country": "JP"} for _ in range(5)] +
+                    [{"isco": "2512", "country": "US"} for _ in range(2)])  # US below k
+        out = agent.list_occupations(profiles)
+        self.assertEqual(out, [{"isco": "2512", "country": "JP", "count": 5}])  # only JP
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

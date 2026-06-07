@@ -21897,6 +21897,50 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606071600-sukashi-ad-tech-supply-chain-fraud-network-observatory-r0.md",
+      "id": "adr-2606071600",
+      "title": "ADR-2606071600: 透かし (sukashi) — Ad-Tech Supply-Chain + Delivery-Infra + Fraud-Network Observatory Tier-B Actor R0",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "sukashi-ad-tech-supply-chain-fraud-network",
+      "authoritative": true,
+      "authoritative_for": [
+        "sukashi actor charter (R0)",
+        "ad-tech supply-chain + fraud-network knowledge-graph constitutional gates G1..G13",
+        "ad-supply-chain-ontology.kotoba.edn vocabulary"
+      ],
+      "related": [
+        "adr-2606022300-akashi-public-ad-disclosure-kotoba-actor-r0",
+        "adr-2606031600-ipaddress-yabai-kotoba-eavt-refactor-active-collection",
+        "adr-2605301400-tadori-onchain-tx-tracing-actor",
+        "adr-2605312500-kurashimori-consumer-protection-concierge",
+        "adr-2606060900-tasuke-cybercrime-victim-support-membrane",
+        "adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "adr-2606022000-kabuto-public-company-intel-supply-chain",
+        "adr-2606013600-kotoba-wasm-browser-node"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606022300 (akashi — ad-library disclosure sibling + the malakEvidenceCandidate bridge sukashi hands fraud evidence to)",
+        "ADR-2606031600 (ipaddress/yabai — the ip-network + passive-dns-cti ontologies sukashi reuses for delivery infra)",
+        "ADR-2605301400 (tadori — authorized IP/ASN/WHOIS/passive-DNS substrate)",
+        "ADR-2605312500 (kurashimori — consumer-protection routing target)",
+        "ADR-2606060900 (tasuke — cybercrime-victim-support routing target)",
+        "ADR-2605301600 (danjo — non-adjudicating public-accountability boundary + routing target)",
+        "ADR-2605262130 (kotoba storage substrate)",
+        "ADR-2605312345 (kotoba Datom log = first-class canonical state)",
+        "ADR-2606013600 (kotoba-wasm browser node — the render target)",
+        "ADR-2606013800 (actor-profile SSoT + dynamic did.json — the registration path)",
+        "ADR-2605231525 (no-server-key signing capability boundary)",
+        "ADR-2605215000 (Murakumo-only inference)",
+        "ADR-2605192100 (Charter — 広告排除 invariant this actor must preserve)"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606071600-shukubo-pilgrim-lodging-commons-airbnb-hotels-inversion-r0.md",
       "id": "adr-2606071600-shukubo-pilgrim-lodging-commons",
       "title": "ADR-2606071600: shukubo 宿坊 — pilgrim-lodging commons (Airbnb/Hotels charter-clean inversion), R0",
@@ -21975,6 +22019,110 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606072000-kasa-world-computing-capacity-growth-statistics-observatory-r0.md",
+      "id": "adr-2606072000-kasa-world-computing-capacity-growth-statistics-observatory-r0",
+      "title": "ADR-2606072000: kasa 嵩 — Worldwide Computing-Capacity Growth Statistics Observatory (Tier-B Actor R0)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kasa-computing-capacity-growth-observatory",
+      "authoritative": true,
+      "authoritative_for": [
+        "computing-capacity-growth-observatory-actor",
+        "compute-capacity-eavt-vocabulary",
+        "public-compute-source-admissibility-map"
+      ],
+      "related": [
+        "2606013800",
+        "2606013600",
+        "2605242500"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606032000",
+        "2606022000",
+        "2606051800",
+        "2605263800",
+        "2605262130",
+        "2605312345",
+        "2605215000"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606072000-kosatsu-crime-sanctions-competing-claim-observatory-r0.md",
+      "id": "adr-2606072000-kosatsu-crime-sanctions-competing-claim-observatory-r0",
+      "title": "kosatsu 高札 — crime/sanctions competing-claim observatory (Tier-B actor R0; designation-as-attributed-event over the kotoba Datom log; the politically-neutral, asserter-relative inverse of a sanctions-screening product)",
+      "status": "proposed-pending-council-ratification",
+      "doc_type": "adr",
+      "topic": "kosatsu-crime-sanctions-competing-claim",
+      "authoritative": true,
+      "authoritative_for": [
+        "kosatsu actor scope (crime/sanctions designations mirrored into the kotoba Datom log as append-only attributed events + a computed competing-claim/divergence view; design-only)",
+        "the mirror-not-adjudicator invariant (etzhayyim authors no designation; :authority/kind has no self token; :designation/asserted-notice const true)",
+        "the asserter-mandatory invariant (no asserter-less 'global truth' designation; :designation/asserter required)",
+        "the no-verdict invariant (:designation/measure is an authority instrument; criminal/guilty/terrorist/enemy unrepresentable)",
+        "the event-log/as-of invariant (:designation/status :listed|:delisted; a delisting is a new datom with :lifted-at, never an overwrite; 非終末論)",
+        "the edge-primary / no-score invariant (no :subject/risk-score/:guilt/:threat-level; divergence computed on read)",
+        "the political-stance-explicit divergence model (per-subject {contested|unanimous|single-asserter} + coverage-split; silence is reported, never inferred as dissent)"
+      ],
+      "depends_on": [
+        "adr-2605301400-tadori-onchain-tracing-actor-and-kotoba-eavt-migration",
+        "adr-2605301600-danjo-public-accountability-oversight",
+        "adr-2606066000-keizu-government-relations-graph-tier-b-actor-r0",
+        "adr-2606011800-tsumugi-engi-knowledge-graph",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605231525-server-side-signing-capability-boundary",
+        "adr-2605181100-etzhayyim-encrypted-records",
+        "adr-2606042330-entity-as-actor-society-scale-social-mirror"
+      ],
+      "last_verified": "2026-06-07",
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606072100-shomei-believer-identity-binding-proof-of-personhood-r0.md",
+      "id": "adr-2606072100-shomei-believer-identity-binding-proof-of-personhood-r0",
+      "title": "ADR-2606072100: 証明 (shomei) — believer self-sovereign identity binding + proof-of-personhood R0",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "shomei-believer-identity-binding",
+      "authoritative": true,
+      "authoritative_for": [
+        "shomei-believer-identity-binding-actor",
+        "multi-identity-to-did-binding-and-verification",
+        "proof-of-personhood-credential"
+      ],
+      "related": [
+        "adr-2606072300-l5-gov-auth-mynumber-webauthn-r1-shomei-integration",
+        "adr-2605172700-etzhayyim-membership-layering",
+        "adr-2605302000-warifu-open-zero-fee-card",
+        "adr-2605263400-musubi-covenant-ceremony",
+        "adr-2605302130-himotoki-active-disclosure-request-filer"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605260000-l5-gov-auth-mynumber-webauthn",
+        "adr-2605231525-server-side-signing-capability-boundary",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605181100-etzhayyim-confidential-records-encryption",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605172600-etzhayyim-membership-ritual"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606072200-shionome-cross-asset-capital-flow-observatory-r0.md",
       "id": "adr-2606072200-shionome-cross-asset-capital-flow-observatory-r0",
       "title": "ADR-2606072200: 潮目 (shionome) — cross-asset capital-flow observatory (ingest · intel · analyze · dry-run social, NO trading) R0 + autonomous kotoba loop",
@@ -22030,6 +22178,35 @@
         "2606071800",
         "2606072000",
         "2605262130"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606072300-l5-gov-auth-mynumber-webauthn-r1-shomei-integration.md",
+      "id": "adr-2606072300-l5-gov-auth-mynumber-webauthn-r1-shomei-integration",
+      "title": "ADR-2606072300: L5 gov auth R1 — MyNumber + WebAuthn activation design + shomei integration",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "l5-gov-auth-r1-activation",
+      "authoritative": true,
+      "authoritative_for": [
+        "l5-gov-auth-r1-activation-design",
+        "gov-auth-shomei-gov-factor-integration"
+      ],
+      "related": [
+        "adr-2605172700-etzhayyim-membership-layering",
+        "adr-2605262130-kotoba-storage-substrate-unification"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605260000-l5-gov-auth-mynumber-webauthn",
+        "adr-2606072100-shomei-believer-identity-binding-proof-of-personhood-r0",
+        "adr-2605181100-etzhayyim-confidential-records-encryption",
+        "adr-2605231525-server-side-signing-capability-boundary",
+        "adr-2605250100-l5-routing-around-member-registry-cell"
       ],
       "last_verified": "2026-06-07",
       "amends": [],
@@ -22178,6 +22355,65 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606072800-tsubasa-flight-discovery-commons-skyscanner-inversion-r0.md",
+      "id": "adr-2606072800-tsubasa-flight-discovery-commons",
+      "title": "ADR-2606072800: tsubasa 翼 — flight-route/fare discovery commons (Skyscanner inversion), R0+R1",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "tsubasa-flight-commons",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/tsubasa"
+      ],
+      "related": [
+        "2606041827"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606012100",
+        "2606071600",
+        "2605262130"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606073000-coverage-gaps-catalog-and-inochi-biosphere-mirror.md",
+      "id": "adr-2606073000-coverage-gaps-catalog-and-inochi-biosphere-mirror",
+      "title": "ADR-2606073000: World-coverage gap catalog + inochi 命 biosphere KG mirror",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "coverage-gaps-and-inochi",
+      "authoritative": true,
+      "authoritative_for": [
+        "world-coverage gap catalog (what etzhayyim does not yet observe/produce)",
+        "inochi 命 actor (living-world / 生命圏 KG mirror)",
+        "biosphere-ontology"
+      ],
+      "related": [
+        "2606011800",
+        "2606042330",
+        "2606014500"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606011000",
+        "2606011500",
+        "2605081300",
+        "2605301600",
+        "2605302300",
+        "2606066000",
+        "2605312345",
+        "2605215000"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606073000-robotics-remote-work-actor-roster-and-isco-coverage.md",
       "id": "adr-2606073000-robotics-remote-work-actor-roster-and-isco-coverage",
       "title": "ADR-2606073000: Robotics remote-work actor roster + ISCO coverage/GAP survey (tazuna as the on-site→remote substrate)",
@@ -22210,6 +22446,196 @@
         "ADR-2606032130 (Displacement Dividend — G2 coupling gate)",
         "ADR-2605261000 (Labor Liberation Ladder — L0..L6)",
         "ADR-2605192100 (Mission Charter — 構造的労働解放, N1 mining/weapons exclusion)"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606073000-session-close-app-coverage-charter-clean-inversion-wave.md",
+      "id": "adr-2606073000-session-close-app-coverage-wave",
+      "title": "ADR-2606073000: Session close — app-coverage charter-clean inversion wave + substrate-remediation ratchet",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-app-coverage-wave",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606071400",
+        "2606071500",
+        "2606071600",
+        "2606071800",
+        "2606072000",
+        "2606072200",
+        "2606072400",
+        "2606072600",
+        "2606072800"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606073200-asobi-freed-time-play-expression-mirror.md",
+      "id": "adr-2606073200-asobi-freed-time-play-expression-mirror",
+      "title": "ADR-2606073200: asobi 遊び — freed-time play & cultural-expression KG mirror (gap C)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "asobi-freed-time-mirror",
+      "authoritative": true,
+      "authoritative_for": [
+        "asobi 遊び actor (freed-time / play & cultural-expression KG mirror)",
+        "asobi-ontology"
+      ],
+      "related": [
+        "2606011800",
+        "2606014500",
+        "2605261045"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606073000",
+        "2606011000",
+        "2605081300",
+        "2606061900",
+        "2605301600",
+        "2605312345",
+        "2605215000"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606073200-meyasu-unified-arbitrage-intel-orchestrator.md",
+      "id": "adr-2606073200-meyasu-unified-arbitrage-intel-orchestrator",
+      "title": "ADR-2606073200: meyasu 目安 — unified arbitrage / supply-demand intel orchestrator + price-intel cohort maturation",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "meyasu-unified-arbitrage-intel-orchestrator",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/meyasu"
+      ],
+      "related": [
+        "2605091200",
+        "2606051800",
+        "2606012100",
+        "2605264000"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605091200",
+        "2606051800",
+        "2606012100",
+        "2605264000",
+        "2606071800",
+        "2605262130",
+        "2605312345",
+        "2605215000"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606073400-hokorobi-systemic-finance-risk-mirror.md",
+      "id": "adr-2606073400-hokorobi-systemic-finance-risk-mirror",
+      "title": "ADR-2606073400: hokorobi 綻び — systemic finance-risk observation mirror (gap D)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "hokorobi-finance-risk-mirror",
+      "authoritative": true,
+      "authoritative_for": [
+        "hokorobi 綻び actor (systemic finance-risk observation mirror)",
+        "finrisk-ontology"
+      ],
+      "related": [
+        "2606011800",
+        "2606051800",
+        "2606014500"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606073000",
+        "2606073200",
+        "2606032000",
+        "2605302300",
+        "2606022000",
+        "2605301600",
+        "2605312345",
+        "2605215000"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606073600-hoshimori-orbital-stewardship-mirror.md",
+      "id": "adr-2606073600-hoshimori-orbital-stewardship-mirror",
+      "title": "ADR-2606073600: hoshimori 星守 — off-Earth orbital stewardship mirror (gap B)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "hoshimori-orbital-mirror",
+      "authoritative": true,
+      "authoritative_for": [
+        "hoshimori 星守 actor (off-Earth orbital stewardship mirror)",
+        "orbit-ontology"
+      ],
+      "related": [
+        "2606011800",
+        "2606014500"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606073000",
+        "2606073200",
+        "2606073400",
+        "2605192330",
+        "2606041827",
+        "2606012600",
+        "2605312345",
+        "2605215000"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606073800-tsugite-peoples-continuity-mirror.md",
+      "id": "adr-2606073800-tsugite-peoples-continuity-mirror",
+      "title": "ADR-2606073800: tsugite 継ぎ手 — world peoples-continuity mirror (gap E, catalog complete)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "tsugite-peoples-continuity-mirror",
+      "authoritative": true,
+      "authoritative_for": [
+        "tsugite 継ぎ手 actor (world peoples-continuity mirror)",
+        "peoples-ontology"
+      ],
+      "related": [
+        "2606011800",
+        "2606014500",
+        "2605261045"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606073000",
+        "2606073200",
+        "2606073400",
+        "2606073600",
+        "2605181100",
+        "2605302130",
+        "2605312345",
+        "2605215000"
       ],
       "last_verified": "2026-06-07",
       "amends": [],

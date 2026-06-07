@@ -9625,6 +9625,14 @@ path = "90-docs/adr/2606022000-kabuto-public-company-intel-supply-chain-tier-b-a
 adr = ["2606022000", "2606011800", "2606012600", "2605301600", "2605262130", "2605312345", "2606013600", "2606013800", "2605215000"]
 
 [[adrs]]
+id = "2606071600"
+title = "sukashi (透かし) — Ad-Tech Supply-Chain + Delivery-Infra + Fraud-Network Observatory Tier-B Actor R0"
+status = "proposed"
+status_note = "Tier-B actor sukashi 透かし (watermark / hold-to-the-light → authenticity verification; 'see through' deceptive advertising) — the ad-tech-supply-chain + fraud sibling of akashi 証 (which observes platform ad-LIBRARY disclosures and is constitutionally bounded away from ad-network/exchange + delivery-infra + ad-tech supply chain per its G9). Datafies the programmatic advertising ecosystem from the PUBLIC IAB web-standard files (ads.txt/app-ads.txt/sellers.json) into the kotoba Datom log: :adtech/* (advertiser/DSP/ad-exchange/SSP/ad-network/publisher/verification), first-class :adauth.edge/* (publisher→seller authorization + the declared/confirmed two-sided handshake whose GAPS = unauthorized/spoofed inventory), :adcreative/* (who broadcasts what), first-class :addelivery.edge/* (creative→serving infra: :ip/:asn/WHOIS-org, REUSING tadori's ip-network + passive-dns ontologies ADR-2606031600, not re-modelling the network layer), and NON-ADJUDICATING :adfraud.signal/* routed to akashi-malak/kurashimori/tasuke/danjo. analyze.py is aggregate-first: authorization-handshake integrity (unconfirmed-rate), account-id collision (domain-spoof surface), delivery-infra concentration (ASN/registrar), shared-infra scam-ad-network clustering, category load, routing tally. ingest.py = real ads.txt/sellers.json/WHOIS parsers (offline default, G7-gated live; WHOIS org-only G9). transact.py = kotoba datomic.transact save-path (dry-run default, no-server-key). viz = self-contained browser-native force-graph. 6 com.etzhayyim.sukashi.* lexicons (confidenceBp basis-points, no floats). CONSTITUTIONAL: a fraud-PROTECTION + ad-tech-TRANSPARENCY observatory, NEVER an ad network/buying/targeting/optimization/detection-evasion tool — the Charter 広告排除 invariant is SERVED not violated (verified by the no-advertising pre-commit gate passing). G4 non-adjudication is structural: real firms carry NO fraud signal; every fraud example is :synthesized on a CLEARLY-FICTIONAL entity (.test/.example + RFC-5737 doc IP ranges). After a 10-iteration self-paced maturity loop (deploy-readiness, no gate flip) the seed stands at 74 ad-tech entities / 28 ads.txt-sellers.json authorization edges / 9 creatives / 4 delivery edges / 12 fraud signals (full 11-kind taxonomy) / 18 org.corp.* cross-links, with 31 invariant+analyzer tests green; analyzer adds multi-signal fraud corroboration, seller betweenness centrality, registrar/WHOIS-org co-occurrence; ingest adds app-ads.txt/CTV; fraud_bridge.py emits akashi malakEvidenceCandidate records (candidate-only, validated vs akashi's real lexicon); transact deploy-readiness asserted. Full-web ads.txt/sellers.json/WHOIS crawl + live kotoba write/atproto post/malak handoff are R1 G7/G11 Council+operator gated. Maturity loop tracked in 20-actors/sukashi/MATURITY.md (remaining R0.x: reseller-depth, Murakumo-narration note, viz cluster highlight)."
+path = "90-docs/adr/2606071600-sukashi-ad-tech-supply-chain-fraud-network-observatory-r0.md"
+adr = ["2606071600", "2606022300", "2606031600", "2605301400", "2605312500", "2606060900", "2605301600", "2606022000", "2605262130", "2605312345", "2606013600", "2606013800", "2605231525", "2605215000", "2605192100"]
+
+[[adrs]]
 id = "2606022800"
 title = "openmail outbound — per-member self-signed DKIM (no platform signing key)"
 status = "proposed"
@@ -10118,6 +10126,22 @@ status_note = "Answers the founder directive 「ISIC のすべての産業に対
 path = "90-docs/adr/2606037200-open-kyber-kotoba-datomic-erp-isic-industry-packs-productivity-suite.md"
 adr = ["2606037200", "0025", "2605262130", "2605312345", "2605181100", "2606014500", "2606015400", "2606032000", "2606012100", "2606032100", "2605215000", "2605231525", "2605192200"]
 
+[[adrs]]
+id = "2606073000"
+title = "Session close — app-coverage charter-clean inversion wave + substrate-remediation ratchet"
+status = "active"
+status_note = "Answers 「いまの actor で uber, flight scanner, airbnb, hotels, google, sales force, office 365, shopofy などと同等の app の設計、実装 coverage は?」 + the follow-up 「成熟度、coverage を高めて」 (self-paced /loop, 12 iterations). All eight named apps now have charter-clean inversions: uber→ainori, flight-scanner→tsubasa, airbnb/hotels→shukubo, shopify→omise, salesforce/SAP→business-manager, calendly→yotei, drive→organizer, indeed→talent. Prohibited terms are structurally unrepresentable, substrate-boundary ratchet is seeded, and Phase B tracks frozen legacy paths toward kotoba-kqe."
+path = "90-docs/adr/2606073000-session-close-app-coverage-charter-clean-inversion-wave.md"
+adr = ["2606073000", "2606071400", "2606071500", "2606071600", "2606071800", "2606072000", "2606072200", "2606072400", "2606072600", "2606072800", "2606012100", "2605262130", "2605312345", "2605231525", "2605215000", "2605181100"]
+
+[[adrs]]
+id = "2606072100"
+title = "shomei believer identity binding + proof-of-personhood R0"
+status = "accepted"
+status_note = "Adds shomei as a DID-centric believer identity binding and proof-of-personhood actor: subject-signed identity claims, kotoba-auth routed proof verification, IAL 0..4 aggregation, VC emission, revocation, and gov_auth handoff for Council-gated government ID factors. Identity assurance is explicitly not social credit."
+path = "90-docs/adr/2606072100-shomei-believer-identity-binding-proof-of-personhood-r0.md"
+adr = ["2606072100", "2606072300", "2605260000", "2605181100", "2605231525", "2605215000"]
+
 # ─── Donation policy (machine-readable SSoT, ADR-2606012100) ─────────────────
 # Public declaration: https://etzhayyim.com/donate + /.well-known/donation.json
 [donation]
@@ -10171,6 +10195,29 @@ reference_impl = "50-infra/etzhayyim-moyai-credit"
 supersedes = "legacy RisingWave credits economy (bpmn/com/etzhayyim/credits/*, ameno vertex_credits_af_event)"
 status = "accepted — landed on main 2026-06-06 (PR #1184, merge 62e4c2c); R0/R1 reference impl, 46 tests green; live mint/burn + external enrollment Council Lv6+ + operator gated"
 
+# ─── kasa (嵩) worldwide computing-capacity growth observatory — Tier-B R0 (ADR-2606072000) ────
+[[adrs]]
+id = "2606072000"
+title = "嵩 (kasa) — worldwide computing-capacity growth statistics observatory (storage · memory · GPU/CPU · FLOPS · datacenter)"
+status = "proposed"
+status_note = "Answers 「年間のコンピューターのストレージサイズ・メモリサイズ・GPU・CPU などのコンピューティング能力の全世界での増加量を、統計・公開情報から推測する actor は設計されているか?」. Was: no — kanjō reads ONE company's 決算, kabuto holds the supply graph, handotai tracks semiconductor news, and mitooshi 見通し forecasts but had no measured-actuals feeder for compute. kasa is the demand-side, industry-aggregate observatory the roster lacked: reads PUBLIC info only (WSTS/SIA, TrendForce, IDC, JPR, TOP500, Epoch AI CC-BY, OWID CC-BY) into the kotoba Datom log as :compute.obs/* across four founder-named domains — STORAGE (HDD+SSD exabytes), MEMORY (DRAM+NAND revenue), GPU/CPU (units + DC-accel $), COMPUTE/FLOPS (TOP500 + frontier training) — plus DATACENTER power, then computes the annual increase (年間増加量) YoY + CAGR + coverage-honest domain aggregates. Industry-aggregate sibling of kanjō 勘定; demand-side counterpart of the silicon actors (handotai/iwakura/fuigo); feeds mitooshi 見通し but NEVER forecasts itself (G4 — load-bearing boundary). 13 gates: G1 public-sources-only (paid Gartner/IDC-report/Omdia/Bloomberg/S&P/Statista-Pro terminals PROHIBITED per Charter Rider §2(e)+§2(c), encoded in sources.py::admissible) · G2 non-adjudicating (no country/company ranking) · G4 no-forecast · G5 sourcing-honest (:representative/:estimated-with-method/:synthesized) · G9 planning-lens-not-targeting-list · G12 coverage-honest aggregates (memory ⊂ semiconductor → distinct domain keys → never double-counted; :petaflops never summed with raw :flops). LANDED R0: ontology compute-capacity-ontology.kotoba.edn + 4 lex com.etzhayyim.kasa.* (path-reserved) + 3 cells (sources/ingest/analyze) + :representative/:estimated seed (8 sources / 11 series / 52 obs, 2020–2024); 23 tests green (run_tests.sh); DID registered (INFRA_ACTORS.kasa). ZERO invariant amendments. Live full open-dataset parse Council Lv6+ + operator gated (G7); no :authoritative rows yet."
+path = "90-docs/adr/2606072000-kasa-world-computing-capacity-growth-statistics-observatory-r0.md"
+adr = ["2606072000", "2606032000", "2606022000", "2606051800", "2605263800", "2605262130", "2605312345", "2605215000", "2606013800", "2606013600", "2605242500", "2605192100", "2605192200"]
+
+[[modules]]
+path = "20-actors/kasa"
+adr = "2606072000"
+kind = "tier-b-actor"
+status = "r0-design-only"
+description = "嵩 (kasa) — worldwide computing-capacity growth observatory. kotoba-native datafication of the annual increase in storage/memory/GPU·CPU/FLOPS/datacenter capacity from public info; YoY+CAGR + coverage-honest aggregates; non-adjudicating, planning-lens, no-forecast (feeds mitooshi). Manifest + CLAUDE.md + 3 cells + seed + 23 tests."
+
+[[modules]]
+path = "00-contracts/schemas/compute-capacity-ontology.kotoba.edn"
+adr = "2606072000"
+kind = "kotoba-eavt-schema"
+status = "shipped"
+description = "EAVT vocabulary for worldwide computing-capacity: :compute.series/:compute.obs/:compute.source/:compute.growth/:compute.agg. Memory is a subset of semiconductor in a distinct domain key (no double-count); aggregation keyed on domain×metric×unit×scale."
+
 # ─── Deprecate yata and enable Dependabot auto-merge ────────────────
 
 [[adrs]]
@@ -10186,3 +10233,21 @@ adr = "2606071300"
 kind = "github-actions-workflow"
 status = "shipped"
 description = "Automatically squash and merge Dependabot pull requests once all CI status checks successfully pass."
+
+
+# ─── meyasu (目安) unified arbitrage / supply-demand intel orchestrator R1 (ADR-2606073200) ──
+
+[[adrs]]
+id = "2606073200"
+title = "meyasu (目安) — unified arbitrage / supply-demand intel orchestrator (統合 arbitrage actor); fuses kakaku spread/supply-demand + mitooshi forecast distribution + ossekai aggregate-first publication into one public-good buyer-transparency + supply-resilience surface"
+status = "proposed"
+status_note = "The 統合 arbitrage アクター named in the price-intel gap audit. did:web:meyasu.etzhayyim.com (20-actors/meyasu/), a THIN ORCHESTRATOR (a 目安 = yardstick, NOT a trade) that computes no price or forecast math itself but FUSES three siblings: kakaku 価格 (cross-merchant/region price SPREAD + present supply/demand index, ADR-2605091200) + mitooshi 見通し (forecast DISTRIBUTION of that index, ADR-2606051800) + ossekai 御節介 (aggregate-first publication discipline, ADR-2605264000). 3 cells over one kotoba Datom graph: fuse (handle_fuse — per-product {kakaku, mitooshi} -> unified arbitrage-intel card: spread, supply/demand now, forecast BAND, trajectory tightening/easing/stable, attention flag, planner route; a point-asserted or speculative forecast is REFUSED, G2) + publish (handle_publish — cards -> aggregate-first post + planner handoff for attention cards; broadcast operator-gated, default :draft) + persist (handle_persist + card_to_datoms — flatten cards into kotoba Datoms over kotoba/schema.edn :meyasu.card/* :meyasu.post/*; tx RETURNED not written without operatorRef, no-server-key; forecast persisted as :forecast-band-lo/hi, never a point). 6 gates: G1 non-speculative (intent buyer-transparency+supply-resilience; emits no trade/price target; :trade/:speculation are NOT representable in the card intent — speculation structurally unrepresentable, Charter §1.3 + yobel) + G2 distribution-respecting (consumed forecast MUST be a distribution point_asserted false with a resilience use; point/speculative refused per-item) + G3 aggregate-first (published intel anonymized aggregate) + G4 non-adjudicating (attention cards routed to a planner okaimono buyers / danjo resilience; meyasu states, planner decides) + G5 Murakumo-only inference (kotoba llm host binding) + G6 no-server-key (publication + persist operator-gated). Lexicons com.etzhayyim.apps.meyasu.{card,post}. Self-driving kotoba/deploy.sh (blocking test gate) + path-scoped .github/workflows/meyasu-test.yml. Cohort END-TO-END test (test_cohort_e2e.py) proves kakaku -> mitooshi -> meyasu composes leak-free across actor boundaries. COMPANION work same session/PR: kakaku offer-ingest extraction pipeline (JSON-LD -> selector -> meta -> Murakumo; live fetch G11-gated) + mitooshi quantile (pinball-scored) forecaster + okaimono live USDC + TitheRouter settlement broadcast (member-signed, no-server-key) + ossekai 8/8 cells complete + onion -> kotoba-kqe migration (ADR-2606071800; removes last createKyselyDb/Hyperdrive read-path violation) + onion BPMN crawl worker re-homed as a py-kotodama primitive running in a kotoba-wasm component (Datom-native, operator-gated Tor fetch). Deciders: Jun Kawasaki. Depends on ADR-2605091200 + 2606051800 + 2606012100 + 2605264000 + 2606071800 + 2605262130 + 2605312345 + 2605215000."
+path = "90-docs/adr/2606073200-meyasu-unified-arbitrage-intel-orchestrator.md"
+
+[[modules]]
+path = "20-actors/meyasu"
+kind = "tier-b-unified-arbitrage-supply-demand-intel-orchestrator-actor"
+version = "0.1.0-r1"
+status = "R1-fuse-publish-persist-cells-tested-kotoba-schema-and-lexicons-landed"
+description = "meyasu (目安 — a yardstick/guide, NOT a trade) unified arbitrage / supply-demand intel orchestrator. A thin orchestrator that fuses kakaku price-spread + supply/demand index + mitooshi forecast distribution into one per-product arbitrage-intel card, publishes it aggregate-first, and persists it as kotoba Datoms. Computes NO price/forecast math itself (single source of truth stays in the source actors). 3 cells (fuse/publish/persist) + py/agent.py handlers + py/test_agent.py (15) + py/test_cohort_e2e.py (cohort kakaku->mitooshi->meyasu, 3) + viz dashboard (build_viz_data.py + _template.htm + test, 5) + kotoba/schema.edn (:meyasu.card/* :meyasu.post/*) + lex/{card,post}.edn + kotoba/deploy.sh (test-gated) + manifest.edn + CLAUDE.md. Charter-clean: G1 non-speculative (speculation structurally unrepresentable — a forecast is a BAND not a point; :trade not an enum member), G2 distribution-respecting, G3 aggregate-first, G4 non-adjudicating planner-routing, G5 Murakumo-only, G6 no-server-key (publish + persist operator-gated, default :draft / tx-only)."
+adr = ["2606073200", "2605091200", "2606051800", "2606012100", "2605264000", "2606071800", "2605262130", "2605312345", "2605215000"]

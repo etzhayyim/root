@@ -1,0 +1,61 @@
+{
+  "@context": {
+    "@vocab": "https://etzhayyim.com/ns/actor#",
+    "id": "@id",
+    "type": "@type"
+  },
+  "id": "actor:asobi",
+  "type": "Actor",
+  "name": "asobi",
+  "glyph": "遊び",
+  "purpose": "Freed-time / play & cultural-expression (遊び) KG mirror — weaves cultural works / events / venues / practices + the enclosures that gate them into the kotoba Datom log; surfaces participation-openness vs enclosure routed to OPENING, never an engagement ranking.",
+  "status": "R0-design-only",
+  "tier": "B",
+  "adr": "2606073200",
+  "dependsOnAdr": ["2606073000", "2606011000", "2605081300", "2606061900", "2605301600", "2605312345", "2605215000", "2605241500"],
+  "schema": ["00-contracts/schemas/asobi-ontology.kotoba.edn"],
+  "substrate": {
+    "state": "kotoba Datom log (ADR-2605312345) — methods/datom_emit.py emits canonical EAVT",
+    "largeAssets": "DataLad → IPFS (80-data/asobi) — NO git-lfs",
+    "inference": "Murakumo-only (ADR-2605215000)",
+    "runtime": "kotoba pywasm actor (componentize-py) — pure-stdlib methods, no numpy"
+  },
+  "integrates": ["actor:inochi", "actor:tsumugi", "actor:kawaraban", "actor:kataribe", "actor:manabi"],
+  "lineage": "freed-time-telos sibling of the KG-mirror lineage (inochi/tsumugi/danjo/kanae/keizu); play/expression scope; the telos of labor liberation (Charter mission)",
+  "cells": [
+    {
+      "id": "cell:asobi.analyze",
+      "method": "methods/analyze.py",
+      "input": "data/seed-asobi-graph.kotoba.edn",
+      "output": ["out/participation-report.md"],
+      "pipeline": "load-edn → edge-primary integral (Σ incident opening-load × disclosed access weight) → participation-openness + enclosure-load + enclosure-concentration, aggregate-first",
+      "doc": "edge-primary participation/enclosure; access map, never an engagement ranking"
+    },
+    {
+      "id": "cell:asobi.datom-emit",
+      "method": "methods/datom_emit.py",
+      "input": "data/seed-asobi-graph.kotoba.edn",
+      "output": ["out/asobi-datoms.kotoba.edn"],
+      "pipeline": "ground EAVT datoms [e a v tx :add] (durable) + derived readouts flagged :bond/is-transient (computed on read, N1/G2)",
+      "doc": "kotoba Datom-log projection — first-class canonical state (ADR-2605312345)"
+    },
+    {
+      "id": "cell:asobi.coverage",
+      "method": "methods/coverage_report.py",
+      "input": "data/seed-asobi-graph.kotoba.edn",
+      "output": ["out/coverage-report.md"],
+      "pipeline": "access + medium + domain + venue + enclosure → gap map",
+      "doc": "honest coverage (all-culture ~0 by design); names thin/missing buckets per wave (G5)"
+    }
+  ],
+  "gates": {
+    "G1": "PARTICIPATION / ACCESS map, NEVER an engagement / attention / popularity ranking — no retention metric, no recommend-for-time, no per-work popularity score; the 取-holder is the enclosure, the bearer is the play, the routing is opening",
+    "G2": "edge-primary (N1) — 取 lives only on :en/access-load; node openness is the integral computed on read; no :asobi/popularity-of-work",
+    "G3": "non-adjudicating (N3) — access categories are DISCLOSED facts, never asobi verdicts",
+    "G4": "public venue — open-source + on-chain + 1 SBT = 1 vote; never a private/covert registry",
+    "G5": "sourcing honesty — every record :authoritative | :representative; no fabricated coverage",
+    "G6": "Murakumo-only narration (ADR-2605215000)",
+    "G7": "outward-gated — live ingest (public event/license catalogs) requires Council + operator DID; R0 = analyzer + schema + seed only",
+    "G8": "no addictive design (Wellbecoming §1.13) — surfacing spectacle/retention design is unrepresentable"
+  }
+}
