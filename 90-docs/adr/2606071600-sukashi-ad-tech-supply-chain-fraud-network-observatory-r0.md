@@ -169,13 +169,26 @@ complements akashi (fraud evidence → akashi's malak bridge).
   protection, verified by the repo's `no-advertising` pre-commit gate passing on the whole actor.
 
 **Costs / honest R0 caveats.**
-- R0 ships a bounded **30-entity / 8-auth-edge / 4-creative / 4-delivery / 6-fraud** illustrative
-  seed — not exhaustive coverage. Real firms + genuinely-public ads.txt/sellers.json facts are
-  `:authoritative`/`:representative`; **every fraud example is `:synthesized` on a CLEARLY-FICTIONAL
-  entity** (`.test`/`.example` + RFC-5737 doc IP ranges) so no real entity is implicated.
+- R0 ships a bounded illustrative seed — not exhaustive coverage. After the post-R0 maturity loop
+  (10 iterations, see `MATURITY.md`) it stands at **74 ad-tech entities / 28 ads.txt-sellers.json
+  authorization edges / 9 creatives / 4 delivery edges / 12 fraud signals (full 11-kind taxonomy) /
+  18 `org.corp.*` cross-links**, **31 tests green**. Real firms + genuinely-public ads.txt/sellers.json
+  facts are `:authoritative`/`:representative` and carry NO fraud signal; **every fraud example is
+  `:synthesized` on a CLEARLY-FICTIONAL entity** (`.test`/`.example` + RFC-5737 doc IP ranges) so no
+  real entity is implicated.
 - Live full-web ads.txt/sellers.json/WHOIS crawl is the **R1** goal and is **G7** Council + operator
   gated; live kotoba write, live atproto post, and live akashi malak handoff are gated too.
 - Confidence scores are bounded estimates, never findings of guilt.
+
+**Post-R0 maturity loop (landed, agent-reachable — no gate flip).** A self-paced `/loop` advanced
+deploy-readiness across 10 iterations, each test-pinned: (1) multi-signal fraud corroboration
+(`:adfraud/cluster-corroboration`); (2) transact deploy-readiness assertions; (3) app-ads.txt / CTV
+coverage (`:adauth.edge/app`); (4) the akashi `malakEvidenceCandidate` fraud-bridge (`fraud_bridge.py`,
+candidate-only, validated vs akashi's real lexicon); (5) seller betweenness centrality
+(`:adsupply/seller-betweenness`); (6) registrar / WHOIS-org fraud co-occurrence ranking; (7) seed →
+69+ real ad-tech entities (full role taxonomy); (8) authorization graph → 28 edges; (9) full 11-kind
+fraud archetype taxonomy (12 signals); (10) 18 listed-firm `org.corp.*` cross-links. Remaining R0.x:
+reseller-depth, a Murakumo-narration design note, and a viz fraud-cluster highlight.
 
 **R1 triggers.** Council attestation + operator gate flip unblocks: full-web public-file crawl →
 `data/live/` (G8 gitignored), live RDAP/WHOIS + passive-DNS join via tadori, live kotoba write, live
