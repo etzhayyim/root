@@ -188,6 +188,8 @@ def create_issue(request):
     err = _require(data, ['number', 'title'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in ['open', 'closed']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['open', 'closed']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("github_iss")}
     rec["repoId"] = data.get('repoId')
     rec["number"] = _as_int(data.get('number'))
@@ -228,6 +230,8 @@ def update_issue(request, eid):
     err = _reject_unknown(data, ['repoId', 'number', 'title', 'state', 'authorId'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in ['open', 'closed']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['open', 'closed']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):

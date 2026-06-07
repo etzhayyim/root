@@ -121,6 +121,10 @@ def create_message(request):
     err = _require(data, ['fromNumber', 'toNumber'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['queued', 'sending', 'sent', 'failed', 'delivered', 'undelivered', 'receiving', 'received', 'accepted', 'scheduled', 'read', 'canceled']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['queued', 'sending', 'sent', 'failed', 'delivered', 'undelivered', 'receiving', 'received', 'accepted', 'scheduled', 'read', 'canceled']), "type": "invalid_request_error"}}, 400
+    if data.get('direction') and data['direction'] not in ['inbound', 'outbound-api', 'outbound-call', 'outbound-reply']:
+        return {"error": {"message": "invalid direction; allowed: " + ", ".join(['inbound', 'outbound-api', 'outbound-call', 'outbound-reply']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("twilio_mes")}
     rec["fromNumber"] = data.get('fromNumber')
     rec["toNumber"] = data.get('toNumber')
@@ -161,6 +165,10 @@ def update_message(request, eid):
     err = _reject_unknown(data, ['fromNumber', 'toNumber', 'body', 'status', 'direction'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['queued', 'sending', 'sent', 'failed', 'delivered', 'undelivered', 'receiving', 'received', 'accepted', 'scheduled', 'read', 'canceled']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['queued', 'sending', 'sent', 'failed', 'delivered', 'undelivered', 'receiving', 'received', 'accepted', 'scheduled', 'read', 'canceled']), "type": "invalid_request_error"}}, 400
+    if data.get('direction') and data['direction'] not in ['inbound', 'outbound-api', 'outbound-call', 'outbound-reply']:
+        return {"error": {"message": "invalid direction; allowed: " + ", ".join(['inbound', 'outbound-api', 'outbound-call', 'outbound-reply']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):

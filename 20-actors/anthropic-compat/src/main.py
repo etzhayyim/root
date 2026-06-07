@@ -187,6 +187,8 @@ def create_message(request):
     err = _require(data, ['role', 'content'])
     if err:
         return err, 400
+    if data.get('role') and data['role'] not in ['user', 'assistant']:
+        return {"error": {"message": "invalid role; allowed: " + ", ".join(['user', 'assistant']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("anthropi_mes")}
     rec["modelId"] = data.get('modelId')
     rec["role"] = data.get('role')
@@ -228,6 +230,8 @@ def update_message(request, eid):
     err = _reject_unknown(data, ['modelId', 'role', 'content', 'inputTokens', 'outputTokens'])
     if err:
         return err, 400
+    if data.get('role') and data['role'] not in ['user', 'assistant']:
+        return {"error": {"message": "invalid role; allowed: " + ", ".join(['user', 'assistant']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):

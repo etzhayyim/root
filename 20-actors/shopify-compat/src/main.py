@@ -121,6 +121,8 @@ def create_product(request):
     err = _require(data, ['title', 'vendor'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['active', 'archived', 'draft']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['active', 'archived', 'draft']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("shopify_pro")}
     rec["title"] = data.get('title')
     rec["vendor"] = data.get('vendor')
@@ -160,6 +162,8 @@ def update_product(request, eid):
     err = _reject_unknown(data, ['title', 'vendor', 'productType', 'status'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['active', 'archived', 'draft']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['active', 'archived', 'draft']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):

@@ -188,6 +188,8 @@ def create_payment_intent(request):
     err = _require(data, ['customer', 'amount'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['requires_payment_method', 'requires_confirmation', 'requires_action', 'processing', 'requires_capture', 'canceled', 'succeeded']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['requires_payment_method', 'requires_confirmation', 'requires_action', 'processing', 'requires_capture', 'canceled', 'succeeded']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("stripe_pay")}
     rec["customer"] = data.get('customer')
     rec["amount"] = _as_int(data.get('amount'))
@@ -228,6 +230,8 @@ def update_payment_intent(request, eid):
     err = _reject_unknown(data, ['customer', 'amount', 'currency', 'status', 'description'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['requires_payment_method', 'requires_confirmation', 'requires_action', 'processing', 'requires_capture', 'canceled', 'succeeded']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['requires_payment_method', 'requires_confirmation', 'requires_action', 'processing', 'requires_capture', 'canceled', 'succeeded']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):

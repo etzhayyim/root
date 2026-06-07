@@ -122,7 +122,8 @@ def _ref_entity(field, model):
     return cand if cand in model else None
 
 
-def main_py_l4(platform, ns, model):
+def main_py_l4(platform, ns, model, enums=None):
+    enums = enums or {}            # {EntityName: {field: [allowed values]}}
     out = []
     A = out.append
     A('"""')
@@ -239,6 +240,13 @@ def main_py_l4(platform, ns, model):
         required = deepen._required_fields(fields)
         allowed = list(fields.keys())
         refs = {f: _ref_entity(f, model) for f in fields if _ref_entity(f, model)}
+        ent_enums = {f: v for f, v in (enums.get(ent) or {}).items() if f in fields}
+
+        def _emit_enum_checks():
+            for f, vals in ent_enums.items():
+                A(f"    if data.get({f!r}) and data[{f!r}] not in {list(vals)!r}:")
+                A(f'        return {{"error": {{"message": "invalid {f}; allowed: " + '
+                  f'", ".join({list(vals)!r}), "type": "invalid_request_error"}}}}, 400')
         # CREATE
         A("")
         A(f'@app.route("{route}", methods=["POST"])')
@@ -250,6 +258,7 @@ def main_py_l4(platform, ns, model):
         if required:
             A(f"    err = _require(data, {required!r})")
             A("    if err:\n        return err, 400")
+        _emit_enum_checks()
         A(f'    rec = {{"id": new_id("{prefix}")}}')
         for fname, ftype in fields.items():
             A(f'    rec["{fname}"] = {_coerce_expr(ftype, f"data.get({fname!r})")}')
@@ -291,6 +300,7 @@ def main_py_l4(platform, ns, model):
         A("    data = request.json or request.form or {}")
         A(f"    err = _reject_unknown(data, {allowed!r})")
         A("    if err:\n        return err, 400")
+        _emit_enum_checks()
         A("    rec = rows[0]")
         A("    for k, v in data.items():")
         A('        if k not in ("id", "createdAt"):')
@@ -321,10 +331,15 @@ def main_py_l4(platform, ns, model):
     return "\n".join(out) + "\n"
 
 
-def contract_test(platform, ns, model):
+def contract_test(platform, ns, model, enums=None):
     """Runnable stdlib-unittest contract test (no WASM runtime needed)."""
+    enums = enums or {}
     entities = list(model.keys())
     plurals = {ent: _pluralize(ent).lower() for ent in entities}
+    # only enum fields that are actually modeled get enforced (a discovered enum
+    # on an un-modeled real field, e.g. anthropic stop_reason, stays a gap)
+    enum_fields = sorted({f for ent, em in enums.items()
+                          for f in em if ent in model and f in model[ent]})
     t = []
     A = t.append
     A('"""')
@@ -391,6 +406,13 @@ def contract_test(platform, ns, model):
     A("    def test_no_proprietary_imports(self):")
     A("        for bad in (\"requests\", \"openai\", \"stripe\", \"boto3\"):")
     A('            self.assertNotIn("import " + bad, self.src)')
+    if enum_fields:
+        A("")
+        A("    def test_verified_enums_enforced(self):")
+        A('        """L5: discovered enums from official docs are enforced."""')
+        A(f"        for field in {enum_fields!r}:")
+        A('            self.assertIn(f"invalid {field}; allowed:", self.src,')
+        A('                          f"verified enum for {field} not enforced")')
     A("")
     A("")
     A('if __name__ == "__main__":')
@@ -405,24 +427,45 @@ def _classname(platform):
     return name
 
 
+def _load_l5_enums():
+    """handle -> {EntityName: {field: [allowed]}} from the L5 verification ledger."""
+    path = os.path.join(ROOT, "00-contracts", "schemas", "cleanroom-l5-verification.json")
+    out = {}
+    if os.path.exists(path):
+        import json
+        for a in json.load(open(path)).get("actors", []):
+            em = {}
+            for r in a.get("resources", []):
+                if r.get("discoveredEnums"):
+                    em[r["entity"]] = dict(r["discoveredEnums"])
+            if em:
+                out[a["handle"]] = em
+    return out
+
+
 def promote(cohort=None):
     cohort = cohort or L4_COHORT
+    l5_enums = _load_l5_enums()
     done = []
+    cats = deepen.parse_platform_categories()
     for platform in cohort:
         adir = os.path.join(ACTORS_DIR, f"{platform}-compat")
         if not os.path.isdir(adir):
             continue
         model = deepen.PLATFORM_OVERRIDES.get(platform) or deepen.CATEGORY_MODELS.get(
-            deepen.parse_platform_categories().get(platform))
+            cats.get(platform))
         if not model:
             continue
         ns = re.sub(r"[^a-z0-9_]", "_", platform.lower())
+        # enforce verified enums (L5 actors); keyed by the DID-safe handle.
+        handle = re.sub(r"[^a-z0-9_-]", "", f"{platform}-compat".strip().lower())
+        enums = l5_enums.get(handle, {})
         with open(os.path.join(adir, "src", "main.py"), "w") as f:
-            f.write(main_py_l4(platform, ns, model))
+            f.write(main_py_l4(platform, ns, model, enums))
         tdir = os.path.join(adir, "tests")
         os.makedirs(tdir, exist_ok=True)
         with open(os.path.join(tdir, f"test_{re.sub(r'[^a-z0-9]', '_', platform.lower())}_contract.py"), "w") as f:
-            f.write(contract_test(platform, ns, model))
+            f.write(contract_test(platform, ns, model, enums))
         done.append(platform)
     print(f"Promoted {len(done)} actors to L4: {', '.join(done)}")
     return done

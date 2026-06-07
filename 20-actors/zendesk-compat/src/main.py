@@ -121,6 +121,10 @@ def create_ticket(request):
     err = _require(data, ['subject', 'priority'])
     if err:
         return err, 400
+    if data.get('priority') and data['priority'] not in ['urgent', 'high', 'normal', 'low']:
+        return {"error": {"message": "invalid priority; allowed: " + ", ".join(['urgent', 'high', 'normal', 'low']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['new', 'open', 'pending', 'hold', 'solved', 'closed']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['new', 'open', 'pending', 'hold', 'solved', 'closed']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("zendesk_tic")}
     rec["subject"] = data.get('subject')
     rec["requesterId"] = data.get('requesterId')
@@ -160,6 +164,10 @@ def update_ticket(request, eid):
     err = _reject_unknown(data, ['subject', 'requesterId', 'priority', 'status'])
     if err:
         return err, 400
+    if data.get('priority') and data['priority'] not in ['urgent', 'high', 'normal', 'low']:
+        return {"error": {"message": "invalid priority; allowed: " + ", ".join(['urgent', 'high', 'normal', 'low']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['new', 'open', 'pending', 'hold', 'solved', 'closed']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['new', 'open', 'pending', 'hold', 'solved', 'closed']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
