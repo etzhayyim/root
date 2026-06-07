@@ -155,7 +155,7 @@ shellexpand = "3.1"
 snafu = "0.8"
 tantivy = { version = "0.22.0", features = ["stopwords"] }
 lindera = { version = "0.38.1" }
-lindera-tantivy = { version = "0.38.1" }
+lindera-tantivy = { version = "0.41.0" }
 tempfile = "3"
 test-log = { version = "0.2.15" }
 tokio = { version = "1.52", features = [
