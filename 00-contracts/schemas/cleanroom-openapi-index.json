@@ -7016,7 +7016,7 @@
     {
       "handle": "hl7_fhir-compat",
       "did": "did:web:etzhayyim.com:actor:hl7_fhir-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreihdwergcwkl2t262im3pgegqonrbdv2t3m2uw7x3ykcco4zuoqqiq",
@@ -13969,7 +13969,7 @@
     {
       "handle": "slack-compat",
       "did": "did:web:etzhayyim.com:actor:slack-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreid3fejyarucykw3zz6psitd3s2uqscxwp4z54nbkkpxluderdwzhy",

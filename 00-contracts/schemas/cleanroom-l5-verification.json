@@ -4,8 +4,42 @@
   "adr": ["260607"],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 9,
+  "count": 11,
   "actors": [
+    {
+      "handle": "slack-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://docs.slack.dev/reference",
+      "resources": [
+        {
+          "entity": "Channel",
+          "source": "https://docs.slack.dev/reference/methods/conversations.info",
+          "verifiedFields": ["name", "isPrivate", "topic", "memberCount"],
+          "fieldStatus": "name/is_private/topic confirmed; memberCount=num_members (conditional, with include_num_members)",
+          "discoveredEnums": {},
+          "gaps": ["is_archived", "is_im", "creator", "created", "purpose"]
+        }
+      ],
+      "note": "Channel (conversation) reconciled against the official Slack API docs; Message/User/Conversation/File/Reaction pending."
+    },
+    {
+      "handle": "hl7_fhir-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://hl7.org/fhir",
+      "resources": [
+        {
+          "entity": "Patient",
+          "source": "https://hl7.org/fhir/patient.html",
+          "verifiedFields": ["identifier", "givenName", "familyName", "birthDate"],
+          "fieldStatus": "identifier/birthDate confirmed; givenName/familyName = HumanName.given/.family; gender exists on the real resource but is not modeled here",
+          "discoveredEnums": {},
+          "gaps": ["gender (real enum male|female|other|unknown — not modeled, so documented not enforced)", "active", "telecom", "address", "maritalStatus"]
+        }
+      ],
+      "note": "Patient reconciled against the official HL7 FHIR spec; Observation/Condition/DiagnosticReport/Sequence/Specimen pending."
+    },
     {
       "handle": "discord-compat",
       "verifiedAt": "2026-06-08",

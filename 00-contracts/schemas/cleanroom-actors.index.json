@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 991,
-    "L5": 9
+    "L4": 989,
+    "L5": 11
   },
   "actors": [
     {
@@ -7436,7 +7436,7 @@
       "wasmCid": "bafkreihdwergcwkl2t262im3pgegqonrbdv2t3m2uw7x3ykcco4zuoqqiq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "hl7_fhir clean-room actor",
       "category": "healthcare_fhir_bio",
       "capabilities": [
@@ -14798,7 +14798,7 @@
       "wasmCid": "bafkreid3fejyarucykw3zz6psitd3s2uqscxwp4z54nbkkpxluderdwzhy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "slack clean-room actor",
       "category": "comms_social",
       "capabilities": [

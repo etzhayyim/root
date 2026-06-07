@@ -3720,7 +3720,7 @@
     {
       "handle": "hl7_fhir-compat",
       "did": "did:web:etzhayyim.com:actor:hl7_fhir-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreihdwergcwkl2t262im3pgegqonrbdv2t3m2uw7x3ykcco4zuoqqiq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -7401,7 +7401,7 @@
     {
       "handle": "slack-compat",
       "did": "did:web:etzhayyim.com:actor:slack-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreid3fejyarucykw3zz6psitd3s2uqscxwp4z54nbkkpxluderdwzhy",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
