@@ -200,7 +200,7 @@ etzhayyim/root/
 │                        # wproto, at-client, signal-client,
 │                        # kotoba-datomic (Holochain-iso composition spec, ADR-2605231400)
 ├── 20-actors/           # kotodama (Pregel framework + host SDK + unispsc_agents/ 18,345 LangGraph agents per ADR-2605171300),
-│                        #   kotodama-go, kami-engine-sdk, effect-cypher, etzhayyim-bpmn-sdk,
+│                        #   kotodama-go, kami-engine-sdk, etzhayyim-bpmn-sdk,
 │                        #   etzhayyim-sdk (RW-free substrate, ADR-2605172000+2605172100)
 │                        #   kuni-umi      planetary-infra producer    (ADR-2605201400)
 │                        # Tier-B religious-corp actors (30): each has ADR + manifest + cells + lex.
