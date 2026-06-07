@@ -1,6 +1,6 @@
 ---
 id: adr-2605152100-auth-unified-topology
-title: "Auth Unified Topology — auth.etzhayyim.com canonical, 4-layer minimum, x-magatama-verified retirement"
+title: "Auth Unified Topology — auth.etzhayyim.com canonical, 4-layer minimum, x-kotodama-verified retirement"
 status: active
 doc_type: adr
 topic: auth-topology
@@ -10,7 +10,7 @@ authoritative_for:
   - auth canonical domain (auth.etzhayyim.com)
   - worker split (auth = AuthN, authz = AuthZ)
   - oauth-as physical location (PDS)
-  - x-magatama-verified cutover date
+  - x-kotodama-verified cutover date
   - did issuance canonical path (ERC725)
   - nsid namespace ownership
 related:
@@ -36,7 +36,7 @@ ADR-0022 / 0023 / 0024 で認証設計を段階的に整理してきたが、3 �
 | 1 | `authn.etzhayyim.com` vs `auth.etzhayyim.com` | 0024 実装は authn だが 2605131700 / CLI コードは auth |
 | 2 | OAuth AS の物理位置 | `atproto.etzhayyim.com/oauth/authorize` が live、`authn.etzhayyim.com/oauth/authorize` は 404 |
 | 3 | DID 発行責務 | authn Worker / plc.etzhayyim.com / ERC725 の 3 経路が並存 |
-| 4 | `x-magatama-verified` 退役日未定 | "zero-traffic 1 sprint 後" の条件が消化されず進まない |
+| 4 | `x-kotodama-verified` 退役日未定 | "zero-traffic 1 sprint 後" の条件が消化されず進まない |
 
 本 ADR はこの 4 点を確定し、0022/0023/0024 を supersede する。
 
@@ -133,7 +133,7 @@ pending として記録する (本 ADR の scope 外)。
   レスポンスを返す**。301 redirect ではなく同一 Worker が両 route を持つことで解決。
 - 既存 DB レコードの書き換えは不要。`/users/:id/did.json` ハンドラを auth Worker に追加するだけ。
 
-## 5. `x-magatama-verified` Retirement
+## 5. `x-kotodama-verified` Retirement
 
 **カットオーバー日: 2026-07-01 (固定)**
 
@@ -141,7 +141,7 @@ pending として記録する (本 ADR の scope 外)。
 |---|---|---|
 | 残 ~10 Worker の ES256 移行 | 2026-06-15 | per-Worker checklist (ADR-0023 P4) |
 | `[auth][deprecated]` ゼロ確認 | 2026-06-22 | CF tail log 1 week zero |
-| PDS `verify.ts` x-magatama-verified branch 削除 | 2026-07-01 | deploy + smoke test |
+| PDS `verify.ts` x-kotodama-verified branch 削除 | 2026-07-01 | deploy + smoke test |
 | murakumo / comfyui / browser-host inbound 削除 | 2026-07-01 | 同 PR |
 
 HMAC gate (ADR-0022 Amendment A2) は 2026-07-01 まで security 担保として維持し、
@@ -175,16 +175,16 @@ HMAC gate (ADR-0022 Amendment A2) は 2026-07-01 まで security 担保として
 [ ] authz Worker: com.etzhayyim.auth.linkEmail* / linkOAuth* → com.etzhayyim.authz.* (Lexicon JSON + handler)
 
 # Phase 3 callsite migration (2026-05-15 完了)
-[x] auth Worker getServiceAuth: _SVC_AUTH_ISS_ALLOWLIST (6 entries) + Option B HMAC gate (magatama のみ)
+[x] auth Worker getServiceAuth: _SVC_AUTH_ISS_ALLOWLIST (6 entries) + Option B HMAC gate (kotodama のみ)
 [x] auth Worker: /svc/browser-host/did.json — did:web:authn.etzhayyim.com:svc:browser-host DID document
 [x] etzhayyim-email-relay: AUTH_RPC binding + getServiceAuthJwt + dual-header (pdsXrpc/pdsXrpcAs/pdsSqlQuery)
 [x] etzhayyim-plc-directory: AUTH_RPC binding + getServiceAuthJwt + dual-header in emitFirehose
 [x] etzhayyim-browser-host: AUTH_RPC binding + getServiceAuthJwt + dual-header + wrangler main → worker.ts
 
-# x-magatama-verified 退役 (2026-06-15 / 2026-07-01)
-[ ] 残 ~5 Worker (shinshi/news/mangaka/public-malak/llm): x-magatama-verified → ES256 JWT (期限 2026-06-15)
-[ ] CF tail log 確認: [auth][deprecated] channel=x-magatama-verified が 1 week zero (2026-06-22)
-[ ] PDS verify.ts + murakumo + comfyui: x-magatama-verified branch 削除 (2026-07-01)
+# x-kotodama-verified 退役 (2026-06-15 / 2026-07-01)
+[ ] 残 ~5 Worker (shinshi/news/mangaka/public-malak/llm): x-kotodama-verified → ES256 JWT (期限 2026-06-15)
+[ ] CF tail log 確認: [auth][deprecated] channel=x-kotodama-verified が 1 week zero (2026-06-22)
+[ ] PDS verify.ts + murakumo + comfyui: x-kotodama-verified branch 削除 (2026-07-01)
 
 # CLI (別 ADR 待ち — DPoP 実装完了後)
 [x] deps.toml [[migrations]] に "cli-dpop-etzhayyim-authn-signin" を pending で記録 (本 ADR の scope 外)
@@ -201,7 +201,7 @@ HMAC gate (ADR-0022 Amendment A2) は 2026-07-01 まで security 担保として
 - `auth.etzhayyim.com` 1 ドメインで "認証" を想起できる。内外のドキュメント・CLI 出力が一致
 - OAuth AS = PDS の現実と設計書が一致 → "authn.etzhayyim.com/oauth/authorize が 404" バグが設計レベルで解消
 - ADR 3 本 → 1 本 (本 ADR) に集約。残 ADR は直交テーマのみ
-- `x-magatama-verified` の終端日確定 → security entropy が 0.34 → 0.90+ に収束
+- `x-kotodama-verified` の終端日確定 → security entropy が 0.34 → 0.90+ に収束
 
 **Negative / Migration cost**
 - wrangler.jsonc の routes 変更 (1 file, ~10 lines)
@@ -213,7 +213,7 @@ HMAC gate (ADR-0022 Amendment A2) は 2026-07-01 まで security 担保として
 
 - `60-apps/etzhayyim-project-auth/worker/wrangler.jsonc` — auth Worker routes
 - `60-apps/etzhayyim-project-auth/worker-authz/src-ts/index.ts:2671-2674` — legacy NSID alias
-- `50-infra/cloudflare/workers/atproto/src/auth/verify.ts` — x-magatama-verified branch
+- `50-infra/cloudflare/workers/atproto/src/auth/verify.ts` — x-kotodama-verified branch
 - `70-tools/etzhayyim/etzhayyim/auth.go` — CLI OAuth URL (stale)
 - ADR-0010 — DID rotation key custody (L0 Worker trust root)
 - ADR-0074 / ADR-0095 — ERC725 root identity (L1 canonical DID)

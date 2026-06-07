@@ -2,6 +2,6 @@
   "name": "etzhayyim-wasm-shinka-sh1nk4ev",
   "private": true,
   "dependencies": {
-    "@etzhayyim/magatama-host-sdk": "workspace:*"
+    "@etzhayyim/kotodama-host-sdk": "workspace:*"
   }
 }

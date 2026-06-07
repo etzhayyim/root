@@ -2,7 +2,7 @@
 // - Kysely + HyperDrive Postgres writes replaced by @etzhayyim/sdk MST PUT (ADR-2605172000).
 // - Lexicon `com.etzhayyim.apps.gov.*` → `com.etzhayyim.gov.*`.
 // - ACTOR_DID `did:web:gov.etzhayyim.com` → `did:web:etzhayyim.com:gov`.
-// - Package import `@etzhayyim/magatama-host-sdk` PRESERVED — atomic cutover to `@etzhayyim/magatama-host-sdk`
+// - Package import `@etzhayyim/kotodama-host-sdk` PRESERVED — atomic cutover to `@etzhayyim/kotodama-host-sdk`
 //   deferred to ADR-2605214000 wave.
 
 import {
@@ -14,7 +14,7 @@ import {
   parseLexiconInput,
   withCapabilityTags,
   type HostSDK,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 import type { Database } from "@etzhayyim/graph-schema";
 import { Etzhayyim } from "@etzhayyim/sdk";
 

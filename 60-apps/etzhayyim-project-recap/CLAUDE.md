@@ -89,7 +89,7 @@ etzhayyim deploy
 # LangGraph server image
 cd 60-apps/etzhayyim-project-recap/lg
 docker buildx build --platform linux/amd64 \
-  --build-context py=../../../20-actors/magatama/py \
+  --build-context py=../../../40-engine/kotoba/crates/kotoba-kotodama/py \
   -t ghcr.io/etzhayyim/lg-recap:0.1.0-amd64 --push .
 
 # Helm deploy (mitama-udf namespace, Vultr VKE)

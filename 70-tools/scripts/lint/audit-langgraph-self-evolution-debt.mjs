@@ -123,7 +123,7 @@ function countInFileAware(text, supersededSet, latestKind, fileOrder, fileIdx) {
   const reNodeKey = /VALUES\s*\(\s*'([^':]+):([^']+)'\s*,\s*[0-9]+\s*,\s*[0-9]+\s*,\s*'([^']+)'\s*,\s*'([^']+)'\s*,\s*'(mcp_tool|sql_udf|py_ext_udf|llm|py_primitive|rust_udf)'/i;
   for (const line of text.split("\n")) {
     const isAssistantInsert = /INSERT INTO\s+vertex_langgraph_assistant\b/i.test(line)
-      || /'(topology|py_factory)'\s*,\s*(NULL|'pymagatama)/.test(line);
+      || /'(topology|py_factory)'\s*,\s*(NULL|'kotodama)/.test(line);
     const isNodeInsert = /INSERT INTO\s+vertex_langgraph_assistant_node\b/i.test(line)
       || /'(mcp_tool|sql_udf|py_ext_udf|llm|py_primitive|rust_udf)'/.test(line);
 
@@ -191,7 +191,7 @@ function countInFile(text, supersededSet) {
   const ASSIST_ID_RE = /VALUES\s*\(\s*'[^']*'\s*,\s*[0-9]+\s*,\s*[0-9]+\s*,\s*(?:[0-9]+\s*,\s*)?\s*'([^']+)'/i;
   for (const line of text.split("\n")) {
     const isAssistantInsert = /INSERT INTO\s+vertex_langgraph_assistant\b/i.test(line)
-      || /'(topology|py_factory)'\s*,\s*(NULL|'pymagatama)/.test(line);
+      || /'(topology|py_factory)'\s*,\s*(NULL|'kotodama)/.test(line);
     const isNodeInsert = /INSERT INTO\s+vertex_langgraph_assistant_node\b/i.test(line)
       || /'(mcp_tool|sql_udf|py_ext_udf|llm|py_primitive|rust_udf)'/.test(line);
 

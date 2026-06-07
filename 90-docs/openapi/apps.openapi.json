@@ -155071,10 +155071,10 @@
         }
       }
     },
-    "/xrpc/com.etzhayyim.apps.magatama.cronTick": {
+    "/xrpc/com.etzhayyim.apps.kotodama.cronTick": {
       "post": {
         "summary": "LangServer-driven cron tick — runs Shinka Organizer: classifies actor activity (hot/normal/stale/silent), writes R2 plan, upserts vertex_actor_shinka_state (ADR-0056).",
-        "operationId": "com.etzhayyim.apps.magatama.cronTick",
+        "operationId": "com.etzhayyim.apps.kotodama.cronTick",
         "responses": {
           "200": {
             "description": "OK",
@@ -156586,7 +156586,7 @@
     },
     "/xrpc/com.etzhayyim.apps.lifehack.agentLoop": {
       "post": {
-        "summary": "Path F unified agent chat for lifehack. Composes a system prompt from active topics + top tips + recent posts, calls pymagatama.llm.call_tier, and returns a Japanese-friendly response.",
+        "summary": "Path F unified agent chat for lifehack. Composes a system prompt from active topics + top tips + recent posts, calls kotodama.llm.call_tier, and returns a Japanese-friendly response.",
         "operationId": "com.etzhayyim.apps.lifehack.agentLoop",
         "requestBody": {
           "required": true,
@@ -211232,7 +211232,7 @@
     },
     "/xrpc/com.etzhayyim.apps.flightOffer.fetchFromSource": {
       "post": {
-        "summary": "Fetch + persist offers from a specific source registered in vertex_flight_offer_source. Adapter is resolved at runtime via pymagatama.ingest.flight_offer._SOURCE_ADAPTERS keyed by source_id. Falls back to stub if credentials are missing or source is in 'planned' status.",
+        "summary": "Fetch + persist offers from a specific source registered in vertex_flight_offer_source. Adapter is resolved at runtime via kotodama.ingest.flight_offer._SOURCE_ADAPTERS keyed by source_id. Falls back to stub if credentials are missing or source is in 'planned' status.",
         "operationId": "com.etzhayyim.apps.flightOffer.fetchFromSource",
         "requestBody": {
           "required": true,
@@ -281964,7 +281964,7 @@
           },
           "modelId": {
             "type": "string",
-            "description": "magatama:inference/audio model id (e.g. diffrhythm-1.2-ja)"
+            "description": "kotodama:inference/audio model id (e.g. diffrhythm-1.2-ja)"
           },
           "seed": {
             "type": "integer"

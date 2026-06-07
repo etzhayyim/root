@@ -104,8 +104,8 @@ The AppView actor HNSW path likewise filters `source_uri` to
 
 The Python implementation lives in:
 
-- `20-actors/magatama/py/src/pymagatama/primitives/vector_embedding.py`
-- `20-actors/magatama/py/src/pymagatama/vector_embedding_worker_main.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/vector_embedding.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/vector_embedding_worker_main.py`
 - `50-infra/multicluster/murakumo-vke/yoro-actors/vector-embedding-worker.yaml`
 
 The module lazy-loads `sentence-transformers` only when the task runs. Local
@@ -137,7 +137,7 @@ Default model settings:
 Verified on 2026-04-27:
 
 - worker image:
-  `ghcr.io/etzhayyim/pymagatama:yoro-vector-embedding-20260427-search768d-amd64`
+  `ghcr.io/etzhayyim/kotodama:yoro-vector-embedding-20260427-search768d-amd64`
 - AppView version:
   `3f5dd746-87e0-4da1-9a88-e5f91ec2a009`
 - yoro actor root:
@@ -160,5 +160,5 @@ Verified on 2026-04-27:
 # References
 
 - `60-apps/etzhayyim-project-vector-embedding/README.md`
-- `20-actors/magatama/py/src/pymagatama/primitives/vector_embedding.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/vector_embedding.py`
 - Kotoba/Datomic vector indexes: https://docs.kotoba.com/processing/vector-indexes

@@ -399,9 +399,9 @@ def actors_jokyo(pds: str | None, actor_filter: str, single_nanoid: str, limit: 
     pds_url = (pds or resolve_pds()).rstrip("/")
     ws = _resolve_root(workspace_dir)
 
-    # Discover actors from workspace magatama.jsonld files
+    # Discover actors from workspace kotodama.jsonld files
     discovered = []
-    for p in ws.rglob("magatama.jsonld"):
+    for p in ws.rglob("kotodama.jsonld"):
         try:
             data = json.loads(p.read_text(errors="replace"))
         except (OSError, json.JSONDecodeError):

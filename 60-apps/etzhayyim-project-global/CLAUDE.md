@@ -45,7 +45,7 @@ Three sub-applications documented:
 
 - `PROJECT.jsonld` — canonical identity (schema.org/Project)
 - `MCP_TOOLS.md` — MCP tool surface
-- `magatama.jsonld` — magatama actor manifest
+- `kotodama.jsonld` — kotodama actor manifest
 - `OWNERS` — ownership metadata
 - ADR-2605264300 (kami-engine-sdk three.js-free cutover) §2 — confirms this app's Threlte deps are KEEP not dead
 - `60-apps/etzhayyim-project-cad/CLAUDE.md` — sibling Threlte-viewer pattern

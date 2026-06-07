@@ -65,35 +65,35 @@
   "cells": [
     {
       "name": "potable_water_supply",
-      "module": "magatama.cells.mizuho_potable_water_supply",
+      "module": "kotodama.cells.mizuho_potable_water_supply",
       "murakumoNode": "dan",
       "phase": "continuous",
       "io": "water source state + distribution → waterQualityAttestation"
     },
     {
       "name": "wastewater_treatment",
-      "module": "magatama.cells.mizuho_wastewater_treatment",
+      "module": "kotodama.cells.mizuho_wastewater_treatment",
       "murakumoNode": "dan",
       "phase": "continuous",
       "io": "discharge measurement → wastewaterDischargeAttestation"
     },
     {
       "name": "stormwater_management",
-      "module": "magatama.cells.mizuho_stormwater_management",
+      "module": "kotodama.cells.mizuho_stormwater_management",
       "murakumoNode": "dan",
       "phase": "event (rainfall)",
       "io": "catchment state → stormwater capture record (sub of waterQualityAttestation)"
     },
     {
       "name": "greywater_recycling",
-      "module": "magatama.cells.mizuho_greywater_recycling",
+      "module": "kotodama.cells.mizuho_greywater_recycling",
       "murakumoNode": "dan",
       "phase": "continuous",
       "io": "greywater capture + treatment → waterQualityAttestation (reuse-grade)"
     },
     {
       "name": "irrigation_supply",
-      "module": "magatama.cells.mizuho_irrigation_supply",
+      "module": "kotodama.cells.mizuho_irrigation_supply",
       "murakumoNode": "dan",
       "phase": "continuous",
       "io": "irrigation water dispatch → mitsuho.irrigationDeliveryReceipt cross-actor",
@@ -101,7 +101,7 @@
     },
     {
       "name": "clinical_grade_water_supply",
-      "module": "magatama.cells.mizuho_clinical_grade_water_supply",
+      "module": "kotodama.cells.mizuho_clinical_grade_water_supply",
       "murakumoNode": "dan",
       "phase": "continuous",
       "io": "clinical-grade water dispatch → iyashi + hagukumi + yakushi cross-actor delivery receipts",

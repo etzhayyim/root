@@ -13,7 +13,7 @@ import {
   createInboxBuffer,
   genID,
   nsid,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 type AnyRow = Record<string, unknown>;
 type KyselyDb = ReturnType<typeof createKyselyDb>;
@@ -163,7 +163,7 @@ async function cmdCreateJiken(sdk: HostSDK, payload: Uint8Array): Promise<unknow
   }).execute();
   // Cross-actor: notify hanrei to link case law
   if (title) {
-    sdk.pds.dispatch({ type: "magatama.invoke", payload: {
+    sdk.pds.dispatch({ type: "kotodama.invoke", payload: {
       did: "did:web:hanrei.etzhayyim.com",
       method: "com.etzhayyim.hanrei.searchCases",
       params: JSON.stringify({ query: title, caseType }),
@@ -172,7 +172,7 @@ async function cmdCreateJiken(sdk: HostSDK, payload: Uint8Array): Promise<unknow
   // Cross-actor: notify lawfirm if linked
   const lawfirmCaseId = str(req.lawfirmCaseId);
   if (lawfirmCaseId) {
-    sdk.pds.dispatch({ type: "magatama.invoke", payload: {
+    sdk.pds.dispatch({ type: "kotodama.invoke", payload: {
       did: "did:web:lawfirm.etzhayyim.com",
       method: "com.etzhayyim.apps.lawfirm.notifyLinkedCase",
       params: JSON.stringify({ jikenId: id, lawfirmCaseId }),
@@ -304,7 +304,7 @@ async function cmdScheduleTrialEvent(sdk: HostSDK, payload: Uint8Array): Promise
   }).execute();
   // Cross-actor: notify lawfirm of trial event
   if (jikenId) {
-    sdk.pds.dispatch({ type: "magatama.invoke", payload: {
+    sdk.pds.dispatch({ type: "kotodama.invoke", payload: {
       did: "did:web:lawfirm.etzhayyim.com",
       method: "com.etzhayyim.apps.lawfirm.notifyTrialEvent",
       params: JSON.stringify({ jikenId, eventType, scheduledAt }),

@@ -62,7 +62,7 @@
 ## Contract
 
 - **contract-category**: `service-agreement`
-- **依存**: `magatama:contract/agreement@1.0.0`, `etzhayyim:anima/breed@1.0.0`
+- **依存**: `kotodama:contract/agreement@1.0.0`, `etzhayyim:anima/breed@1.0.0`
 
 ## Build & Deploy
 

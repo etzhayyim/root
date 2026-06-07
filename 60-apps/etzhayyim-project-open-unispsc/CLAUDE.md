@@ -66,10 +66,10 @@ UNSPSC hierarchy は単一の `commodity_code` lookup ではなく、4 つの bu
 
 Implementation:
 
-- Primitive handlers: `20-actors/magatama/py/src/pymagatama/primitives/open_unispsc.py`
-- Pregel graph: `20-actors/magatama/py/src/pymagatama/langgraph_graphs/open_unispsc_pregel.py`
-- Item-specific LangGraph + LangChain design graph: `20-actors/magatama/py/src/pymagatama/langgraph_graphs/open_unispsc_item.py`
-- MCP dispatch registration: `pymagatama.mcp_dispatch` actor `openUnispsc`
+- Primitive handlers: `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/open_unispsc.py`
+- Pregel graph: `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs/open_unispsc_pregel.py`
+- Item-specific LangGraph + LangChain design graph: `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs/open_unispsc_item.py`
+- MCP dispatch registration: `kotodama.mcp_dispatch` actor `openUnispsc`
 - MCP registry seed: `30-graph/graph-schema/sql_migrations/20260514010000_seed_open_unispsc_hierarchy_mcp.up.sql`
 - Lexicons: `00-contracts/lexicons/com/etzhayyim/apps/openUnispsc/{segment,family,class,commodity,designItem,itemGetSpec,itemScreenSupplier,itemPlanProcurement,itemFlagCompliance,syncCatalogItem,planCatalogPurchase,syncAllCommodityDids,importSegmentCatalog,supplier,procurement,flagArmsCommodity,flagDualUseCommodity,applyGraphWritePlan,runItemWorkflow,coverageSnapshot}.json`
 
@@ -134,7 +134,7 @@ workflow response. It returns `workflowStatus` (`ready`, `manual-review`, or
 Verification gate:
 
 ```bash
-cd 20-actors/magatama/py
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
 uv run python scripts/verify_open_unispsc_mcp.py --pretty --report-path artifacts/open-unispsc-mcp-verifier.json
 ```
 
@@ -193,11 +193,11 @@ Existing BPMN reference set:
 package etzhayyim:unispsc-seg-{NN};
 
 world component {
-    include magatama:runtime/magatama-component@1.0.0;
-    import magatama:contract/agreement@1.0.0;
-    import magatama:div/information@1.0.0;
-    import magatama:div/documents@1.0.0;
-    import magatama:div/materiel@1.0.0;
+    include kotodama:runtime/kotodama-component@1.0.0;
+    import kotodama:contract/agreement@1.0.0;
+    import kotodama:div/information@1.0.0;
+    import kotodama:div/documents@1.0.0;
+    import kotodama:div/materiel@1.0.0;
     import etzhayyim:isic-resource-flow/labor@1.0.0;
     import etzhayyim:isic-resource-flow/materials@1.0.0;
     import etzhayyim:isic-resource-flow/capital@1.0.0;
@@ -245,7 +245,7 @@ Segment APP の capability tags で commodity を discoverable にする:
 
 ```go
 // 外部 APP が commodity を検索
-magatama.Invoke("", "get-spec", `{"commodity_code":"43211501"}`)
+kotodama.Invoke("", "get-spec", `{"commodity_code":"43211501"}`)
 // → segment 43 APP に routing → commodity entity lookup → spec 返却
 ```
 
@@ -278,8 +278,8 @@ okaimono (ok4imn1o) が全 51 UNSPSC segment を Follow → commodity 登録 com
 
 | Governance WIT | UNSPSC 適用 |
 |---|---|
-| `magatama:governance/raci` | 調達承認の RACI 宣言 |
-| `magatama:governance/rbac` | 調達データアクセス制御 |
+| `kotodama:governance/raci` | 調達承認の RACI 宣言 |
+| `kotodama:governance/rbac` | 調達データアクセス制御 |
 | `governance.data-classification` | 調達データの sensitivity |
 | `governance.standards-profile` | 製品品質規格 (ISO, IEC, JIS) の採用状況 |
 | `governance.supply-chain` | サプライヤーリスク評価 |

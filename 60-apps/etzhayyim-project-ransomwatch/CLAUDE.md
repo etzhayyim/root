@@ -12,7 +12,7 @@ publishes a sanitized ad-transparency feed).
 Per vendor `etzhayyim/etzhayyim-root` deps.toml
 `tranche-f-post-freeze-7-actors-audit-2026-05-21`: 3-axis OR-test all
 clean (TLP:WHITE public OSINT, no victim PII, no commerce) → confirmed
-etzhayyim MOVE TARGET. The vendor `magatama.jsonld` already declared
+etzhayyim MOVE TARGET. The vendor `kotodama.jsonld` already declared
 `profile.operator = "etzhayyim"`, so the move just formalizes the
 existing intent.
 

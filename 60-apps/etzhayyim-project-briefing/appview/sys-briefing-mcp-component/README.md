@@ -18,4 +18,4 @@
 
 ## Persistence
 
-- `magatama WIT` の `briefing_jobs` Arrow table に永続化
+- `kotodama WIT` の `briefing_jobs` Arrow table に永続化

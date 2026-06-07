@@ -89,7 +89,7 @@ async function countSubstratePorts(root: string): Promise<number> {
 }
 
 async function countCells(root: string): Promise<number> {
-  const cellsDir = path.join(root, '20-actors', 'magatama', 'cells');
+  const cellsDir = path.join(root, '20-actors', 'kotodama', 'cells');
   const govPatterns = ['member_registry', 'religious_marriage', 'religious_corp_taxation'];
 
   try {
@@ -101,7 +101,7 @@ async function countCells(root: string): Promise<number> {
 }
 
 async function countActivatedCells(root: string): Promise<number> {
-  const cellsDir = path.join(root, '20-actors', 'magatama', 'cells');
+  const cellsDir = path.join(root, '20-actors', 'kotodama', 'cells');
   const cellMapping: Record<string, string> = {
     'member_registry': 'COUNCIL_ATTESTATION_TX_HASH',
     'religious_marriage': 'COUNCIL_ATTESTATION_TX_HASH',

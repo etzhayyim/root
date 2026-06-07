@@ -269,7 +269,7 @@ URI が永続 ID。Phase 2 で ERC725 anchor token を `anchorTokenId` field 追
 
 ### 8. T1 Social Derive 規約
 
-`magatama.jsonld` の `derive` rule で host-sdk derive executor が自動発火。
+`kotodama.jsonld` の `derive` rule で host-sdk derive executor が自動発火。
 handler は **explicit `postFeed()` を書かない** (ADR-0004 / ADR-0036 不変条件)。
 
 | Domain write | T1 Social derive | author DID | PII 除去 |
@@ -288,7 +288,7 @@ handler は **explicit `postFeed()` を書かない** (ADR-0004 / ADR-0036 不�
 
 | Phase | Scope | 期限目安 | 状態 |
 |---|---|---|---|
-| **Phase 1** | Schema + Lexicon + BPMN + pymagatama primitives + Helm pool。Certificate = AT Record JSON。社内テスト | 1-2 週間 | ✅ 2026-05-08 完了 (ファイル) / migration apply pending |
+| **Phase 1** | Schema + Lexicon + BPMN + kotodama primitives + Helm pool。Certificate = AT Record JSON。社内テスト | 1-2 週間 | ✅ 2026-05-08 完了 (ファイル) / migration apply pending |
 | **Phase 2a** | Conversational LangGraph agent (kotodama persona、`com.etzhayyim.otakiage.agentChat`) | 1 週間 | ✅ 2026-05-08 完了 (ファイル) |
 | **Phase 2b1** | ERC725 anchor — state tracking + queue + sweep stub (`anchorCertificate` + `certificateAnchorSweep`) | 1 週間 | ✅ 2026-05-08 完了 (ファイル) |
 | **Phase 2b2** | ERC725 anchor — 実 on-chain submission (ethers/viem、Base L2) | 2-3 週間 | 未着手 |
@@ -299,7 +299,7 @@ handler は **explicit `postFeed()` を書かない** (ADR-0004 / ADR-0036 不�
 
 ADR-2605072000 (LangGraph Agent Loop Pattern) と ADR-2605080200 (Pydantic L6) に従い、対話 entry-point を追加。
 
-**Graph design** (`pymagatama.agents.otakiage_agent`、graph_id = `otakiage.agent.chat.v1`):
+**Graph design** (`kotodama.agents.otakiage_agent`、graph_id = `otakiage.agent.chat.v1`):
 
 ```
 START → load_history (DB) → parse_intent (LLM #1)

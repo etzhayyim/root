@@ -100,7 +100,7 @@ alembic/versions/
 ## File Location
 
 ```
-20-actors/magatama/py/
+40-engine/kotoba/crates/kotoba-kotodama/py/
   alembic.ini
   alembic/
     env.py         # Kotoba/Datomic-compatible: no txn, table guard
@@ -127,8 +127,8 @@ alembic/versions/
 
 ## References
 
-- `20-actors/magatama/py/alembic/env.py`
-- `20-actors/magatama/py/alembic.ini`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/alembic/env.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/alembic.ini`
 - ADR-2605080300: SQLAlchemy Core Usage Contract
 - ADR-2605080500: SQLMesh MV Management
 - ADR-2605080700: graph-schema Live Kotoba/Datomic Baseline
@@ -143,7 +143,7 @@ alembic/versions/
 ### Context
 
 The LoRA adapter lifecycle (train → register → serve → retire) is entirely
-Python-driven: `runLora` BPMN task → pymagatama primitive → B2 upload →
+Python-driven: `runLora` BPMN task → kotodama primitive → B2 upload →
 `vertex_lora_adapter` row INSERT. The schema evolution of this table is
 therefore most naturally co-located with the Python ML pipeline, not the
 TypeScript graph-schema migrations.
@@ -160,7 +160,7 @@ required before any Python worker can write these columns.
 and `_sqlmesh.*` scopes.
 
 **Rationale for narrow exception** (not a blanket `vertex_*` allowance):
-- `vertex_lora_*` tables are exclusively written by pymagatama Python workers
+- `vertex_lora_*` tables are exclusively written by kotodama Python workers
 - No TypeScript CF Worker writes to `vertex_lora_adapter` directly
 - The ML serving lifecycle (ONNX export / safetensors packaging / B2 upload)
   is a Python concern end-to-end
@@ -196,5 +196,5 @@ chain as the active production migration graph. ADR-2605080700 establishes
 graph-schema Alembic revisions to `30-graph/graph-schema/alembic/current_versions/`.
 
 This does not relax the Python-worker Alembic scope in
-`20-actors/magatama/py`. It only defines the graph-schema package's own
+`40-engine/kotoba/crates/kotoba-kotodama/py`. It only defines the graph-schema package's own
 baseline and future DDL path.

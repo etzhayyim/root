@@ -1,6 +1,6 @@
 ---
 id: adr-2605202200-etzhayyim-cell-runtime-contract
-title: "ADR-2605202200: magatama cell.py runtime contract — build_graph + CellDeps + state_from_event + thread_id_from_event + healthz; cell-runner subprocess spawn implementation"
+title: "ADR-2605202200: kotodama cell.py runtime contract — build_graph + CellDeps + state_from_event + thread_id_from_event + healthz; cell-runner subprocess spawn implementation"
 status: proposed
 doc_type: adr
 topic: cell-runtime-contract
@@ -19,18 +19,18 @@ authoritative_for:
   - MST listener wiring (fleet.toml.listens_to → cell)
 depends_on:
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
-  - adr-2605202100-etzhayyim-magatama-cell-runner-launchd
+  - adr-2605202100-etzhayyim-kotodama-cell-runner-launchd
   - 2605191559-ameno-mst-checkpointer-stage-2-activation
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
   - 2605191603-ameno-swarm-leader-election
 related:
-  - 20-actors/magatama/cells/
-  - 20-actors/magatama/py/src/pymagatama/cell_runner_main.py
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/
+  - 40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/cell_runner_main.py
 supersedes: []
 superseded_by: []
 ---
 
-# ADR-2605202200: magatama cell.py runtime contract
+# ADR-2605202200: kotodama cell.py runtime contract
 
 **Status**: proposed
 **Date**: 2026-05-20
@@ -38,7 +38,7 @@ superseded_by: []
 
 # Context
 
-ADR-2605202100 で launchd plist + installer + `magatama-cell-runner` CLI を ship したが、`cell_runner_main.start_cell` は logging-only scaffold で:
+ADR-2605202100 で launchd plist + installer + `kotodama-cell-runner` CLI を ship したが、`cell_runner_main.start_cell` は logging-only scaffold で:
 
 - cell.py を import しない
 - subprocess を spawn しない
@@ -85,10 +85,10 @@ Optional (cell-specific extension hooks):
 
 ## 2. CellDeps dependency injection shape
 
-新規 module `20-actors/magatama/py/src/pymagatama/cell_runtime.py` を導入し、次の dataclass を定義:
+新規 module `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/cell_runtime.py` を導入し、次の dataclass を定義:
 
 ```python
-# pymagatama/cell_runtime.py
+# kotodama/cell_runtime.py
 from dataclasses import dataclass, field
 from typing import Any, Optional
 
@@ -157,7 +157,7 @@ MST event record shape (per `@etzhayyim/sdk` MST subscription):
 `cell_runtime.py` に default 実装を提供し、cell は override only when needed:
 
 ```python
-# pymagatama/cell_runtime.py (continued)
+# kotodama/cell_runtime.py (continued)
 
 def default_state_from_event(event_record: dict, nsid: str) -> dict:
     """Default: pass through event_record['value'] + audit fields."""
@@ -183,7 +183,7 @@ def start_cell(node_name: str, cell_name: str, cell_config: dict, log_dir: Path)
     """Spawn cell as a managed subprocess and return the Popen handle.
 
     Subprocess command:
-        uv run python -m pymagatama.cell_host \
+        uv run python -m kotodama.cell_host \
             --cell <cell_name> \
             --node <node_name> \
             --healthz-port <port> \
@@ -191,14 +191,14 @@ def start_cell(node_name: str, cell_name: str, cell_config: dict, log_dir: Path)
             --trigger <trigger_type>
 
     Each subprocess:
-      - Imports the cell module from 20-actors/magatama/cells/<cell_name>/cell.py
+      - Imports the cell module from 40-engine/kotoba/crates/kotoba-kotodama/cells/<cell_name>/cell.py
       - Builds CellDeps + invokes cell.build_graph(deps)
       - Starts MST listener if trigger == "mst-listener"
       - Starts cron scheduler if trigger == "cron"
       - Exposes /healthz HTTP on cell_config['healthz_port']
       - Listens for SIGTERM → drains in-flight invocations → exits 0
     """
-    # ... (implementation in pymagatama/cell_runner_main.py — this ADR is spec)
+    # ... (implementation in kotodama/cell_runner_main.py — this ADR is spec)
 ```
 
 `cell_host` (new) is a thin per-cell sub-process module: import target cell, build CellDeps, run the chosen trigger loop (MST listener / cron / synchronous API), serve healthz on configured port.
@@ -246,7 +246,7 @@ cell with `trigger = "mst-listener"` in fleet.toml:
 
 ```python
 # inside cell_host subprocess
-from pymagatama.listener import MstListener
+from kotodama.listener import MstListener
 
 listener = MstListener(
     nsids=cell_config["listens_to"],          # from fleet.toml
@@ -265,7 +265,7 @@ def invoke_cell(graph, event_record, cell_name):
 listener.run()  # blocks; signal-handler interrupts via SIGTERM
 ```
 
-`MstListener` itself is a separate small module (not in this ADR — see ADR-2605171800 §Stage 1 listener spec) — for now the contract on this side is: cell-runner has a working `pymagatama.listener.MstListener` that subscribes to PDS subscribeRepos for the given NSIDs and calls `on_event` for matches.
+`MstListener` itself is a separate small module (not in this ADR — see ADR-2605171800 §Stage 1 listener spec) — for now the contract on this side is: cell-runner has a working `kotodama.listener.MstListener` that subscribes to PDS subscribeRepos for the given NSIDs and calls `on_event` for matches.
 
 ## 8. cron + synchronous-API triggers
 
@@ -287,19 +287,19 @@ For `trigger = "synchronous API"` (only `EthicsContentClassifierCell` currently)
 
 本 ADR landing と同時に:
 
-- `20-actors/magatama/py/src/pymagatama/cell_runtime.py` (新規) — `CellDeps`, `default_state_from_event`, `default_thread_id_from_event`
-- `20-actors/magatama/py/src/pymagatama/cell_host.py` (新規) — per-cell subprocess entrypoint
-- `20-actors/magatama/py/src/pymagatama/cell_runner_main.py` — `start_cell` 拡張で subprocess spawn を実装
-- `20-actors/magatama/py/src/pymagatama/listener.py` (scaffold if not exists) — `MstListener` thin stub
-- `20-actors/magatama/cells/<6 kuni-umi cells>/cell.py` (新規) — contract に従う stub 実装
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/cell_runtime.py` (新規) — `CellDeps`, `default_state_from_event`, `default_thread_id_from_event`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/cell_host.py` (新規) — per-cell subprocess entrypoint
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/cell_runner_main.py` — `start_cell` 拡張で subprocess spawn を実装
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/listener.py` (scaffold if not exists) — `MstListener` thin stub
+- `40-engine/kotoba/crates/kotoba-kotodama/cells/<6 kuni-umi cells>/cell.py` (新規) — contract に従う stub 実装
 
-`pymagatama.listener.MstListener` は本 ADR 範囲では subscribeRepos integration は scaffold; 完全実装は ADR-2605171800 §Stage 1 listener spec 別 PR。
+`kotodama.listener.MstListener` は本 ADR 範囲では subscribeRepos integration は scaffold; 完全実装は ADR-2605171800 §Stage 1 listener spec 別 PR。
 
 # Consequences
 
 ## 正の効果
 
-- `cell_runner.start_cell` が実装される → `magatama-cell-runner` が launchd で起動した時 cell が **actually** 動く path が成立 (依然 MstListener が scaffold だが、その上の subprocess spawn + healthz + 既存 5 cell 起動は完成)
+- `cell_runner.start_cell` が実装される → `kotodama-cell-runner` が launchd で起動した時 cell が **actually** 動く path が成立 (依然 MstListener が scaffold だが、その上の subprocess spawn + healthz + 既存 5 cell 起動は完成)
 - 新規 cell 作成 cost が単一 contract に従う 1 ファイルで済む — 18,000 UNSPSC agent fleet pattern (ADR-2605171300) と整合
 - Dependency injection が `CellDeps` に集約 → testing が容易 (mock deps)
 - thread_id contract が deterministic で idempotency 保証 → MST event 重複処理対策
@@ -346,7 +346,7 @@ For `trigger = "synchronous API"` (only `EthicsContentClassifierCell` currently)
 
 # Open Questions
 
-1. **cell-host CLI module 命名** — `pymagatama.cell_host` vs `pymagatama.runtime.cell_host`。Decision (本 ADR): top-level `pymagatama.cell_host` (consistency with `cell_runner_main`)
+1. **cell-host CLI module 命名** — `kotodama.cell_host` vs `kotodama.runtime.cell_host`。Decision (本 ADR): top-level `kotodama.cell_host` (consistency with `cell_runner_main`)
 2. **CellDeps への new field 追加 policy** — 新規 dependency (e.g., NATS client for swarm broadcast) を追加する時 frozen dataclass の immutability を維持。Decision: 新規 field は本 ADR の `[Open Question 2 amendment]` で個別追加、dataclass version bump で track
 3. **healthz aggregation node-level port** — fleet.toml `[monitoring]` で default `:12999` を pin するか per-node config 可能にするか。Decision (本 ADR): default `:12999`、`[cells.defaults]` overridable
 4. **swarm_role determination timing** — ADR-2605191603 swarm leader election と cell-host startup の interaction。Decision (本 ADR): cell-host が起動時 swarm broadcast に join、`swarm_role` は eventual consistency (起動直後は `unknown` で healthz reflect)
@@ -359,6 +359,6 @@ For `trigger = "synchronous API"` (only `EthicsContentClassifierCell` currently)
 - ADR-2605171800 §Stage 1 (MstListener spec) — `MstListener` 完全実装の依存 spec
 - ADR-2605191559 (MstCheckpointSaver) — CellDeps.checkpointer 経由
 - ADR-2605191603 (Swarm leader election) — healthz の `swarm_role` field
-- `20-actors/magatama/cells/charter_attestation_request/cell.py` — convention reference
-- `20-actors/magatama/cells/tithe_routing/cell.py` — convention reference
-- `20-actors/magatama/py/src/pymagatama/cell_runner_main.py` — `start_cell` 実装対象
+- `40-engine/kotoba/crates/kotoba-kotodama/cells/charter_attestation_request/cell.py` — convention reference
+- `40-engine/kotoba/crates/kotoba-kotodama/cells/tithe_routing/cell.py` — convention reference
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/cell_runner_main.py` — `start_cell` 実装対象

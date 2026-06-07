@@ -12,7 +12,7 @@
 import {
   createKyselyDb,
   createWorkerExport,
-} from '@etzhayyim/magatama-host-sdk';
+} from '@etzhayyim/kotodama-host-sdk';
 import type { Database } from '@etzhayyim/graph-schema';
 
 interface Env {

@@ -8,7 +8,7 @@
 |---|---|
 | **AT bot DID** | `did:web:saiban.etzhayyim.com` |
 | **nanoid** | `sb4n0j1c` |
-| **Runtime** | **TS Native** (`src/app.ts` + `@etzhayyim/magatama-host-sdk`) |
+| **Runtime** | **TS Native** (`src/app.ts` + `@etzhayyim/kotodama-host-sdk`) |
 | **Data store** | W Protocol Event Stream |
 | **UI mode** | `appview` (yoro) |
 

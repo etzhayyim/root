@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "com.etzhayyim.corp.ownershipEdge",
-  "description": "UBO / parent-subsidiary / control-relationship / officer ownership edge. R0 skeleton per ADR-2605263800 §3 (CorpOwnershipSensor). Authored by `pymagatama.organism.sensors.corp.corp_ownership_sensor` after passive-only fetch of: GLEIF L2 (Tier-A CC0), EU per-member-state UBO registers (Tier-A per-state license, honoring CJEU C-37/20 + C-601/20 access constraints), US FinCEN BOI (Tier-A when public; W4 re-evaluate), or OpenCorporates open-data fork (Tier-B CC-BY-SA — `-tierB-` infix propagates per ADR-2605263800 G4). The `pctHeld` field is integer basis points 0..10000 for shareholder / UBO edges; NULL for officer + control-edge (no percentage). `asOf` is the published-record observation date.",
+  "description": "UBO / parent-subsidiary / control-relationship / officer ownership edge. R0 skeleton per ADR-2605263800 §3 (CorpOwnershipSensor). Authored by `kotodama.organism.sensors.corp.corp_ownership_sensor` after passive-only fetch of: GLEIF L2 (Tier-A CC0), EU per-member-state UBO registers (Tier-A per-state license, honoring CJEU C-37/20 + C-601/20 access constraints), US FinCEN BOI (Tier-A when public; W4 re-evaluate), or OpenCorporates open-data fork (Tier-B CC-BY-SA — `-tierB-` infix propagates per ADR-2605263800 G4). The `pctHeld` field is integer basis points 0..10000 for shareholder / UBO edges; NULL for officer + control-edge (no percentage). `asOf` is the published-record observation date.",
   "defs": {
     "main": {
       "type": "record",

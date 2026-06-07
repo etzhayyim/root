@@ -542,10 +542,10 @@ async fn execute_llm_inference(
         _ => {
             if model == "hayate-v4" || model == "etzhayyim/hayate-v4" {
                 run_hayate_v4_inference(&prompt, &temperature, &max_tokens)
-            } else if has_magatama_inference() {
-                run_magatama_inference(&model, &prompt, &temperature, &max_tokens)
+            } else if has_kotodama_inference() {
+                run_kotodama_inference(&model, &prompt, &temperature, &max_tokens)
             } else {
-                Err("magatama-inference is required; python/mlx fallback has been removed".to_string())
+                Err("kotodama-inference is required; python/mlx fallback has been removed".to_string())
             }
         }
     };
@@ -700,16 +700,16 @@ fn run_hayate_v4_inference(prompt: &str, temperature: &str, max_tokens: &str) ->
     Ok((String::from_utf8_lossy(&output.stdout).trim().to_string(), gpu_time_ms))
 }
 
-fn run_magatama_inference(model: &str, prompt: &str, temperature: &str, max_tokens: &str) -> Result<(String, i64), String> {
+fn run_kotodama_inference(model: &str, prompt: &str, temperature: &str, max_tokens: &str) -> Result<(String, i64), String> {
     let start = Instant::now();
-    let output = StdCommand::new("magatama-inference")
+    let output = StdCommand::new("kotodama-inference")
         .args(["--model", model, "--prompt", prompt, "--temperature", temperature, "--max-tokens", max_tokens])
         .output()
-        .map_err(|e| format!("magatama-inference failed: {}", e))?;
+        .map_err(|e| format!("kotodama-inference failed: {}", e))?;
 
     let gpu_time_ms = start.elapsed().as_millis() as i64;
     if !output.status.success() {
-        return Err(format!("magatama-inference exit: {}", output.status));
+        return Err(format!("kotodama-inference exit: {}", output.status));
     }
 
     // Parse SSE output
@@ -725,7 +725,7 @@ fn run_magatama_inference(model: &str, prompt: &str, temperature: &str, max_toke
         }
     }
 
-    logf(&format!("magatama-inference completed: model={} elapsed={}ms output_len={}", model, gpu_time_ms, result.len()));
+    logf(&format!("kotodama-inference completed: model={} elapsed={}ms output_len={}", model, gpu_time_ms, result.len()));
     Ok((result, gpu_time_ms))
 }
 
@@ -1323,7 +1323,7 @@ async fn distill_poll_and_execute(ctx: &Arc<Mutex<DaemonCtx>>) {
         (guard.cfg.worker_id.clone(), guard.client.clone(), guard.cfg.clone())
     };
 
-    let claim_resp: Result<serde_json::Value, _> = magatama_app_call(
+    let claim_resp: Result<serde_json::Value, _> = kotodama_app_call(
         &client,
         "claim-distill-task",
         &serde_json::json!({ "worker_id": worker_id }),
@@ -1356,7 +1356,7 @@ async fn distill_poll_and_execute(ctx: &Arc<Mutex<DaemonCtx>>) {
     // Parse params and execute (simplified: just log and complete)
     let output = serde_json::json!({ "status": "completed", "task_id": task_id }).to_string();
 
-    let _: Result<serde_json::Value, _> = magatama_app_call(
+    let _: Result<serde_json::Value, _> = kotodama_app_call(
         &client,
         "complete-distill-task",
         &serde_json::json!({

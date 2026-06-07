@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "record",
-      "description": "Tier 2 domain record for an anime work (series). Carries the facet/embed source fields consumed by the derive rule `work-published-social` in magatama.jsonld to auto-emit an app.bsky.feed.post. Each work gets a path-based DID `did:web:animeka.etzhayyim.com:work:{slug}` that becomes the social post author.",
+      "description": "Tier 2 domain record for an anime work (series). Carries the facet/embed source fields consumed by the derive rule `work-published-social` in kotodama.jsonld to auto-emit an app.bsky.feed.post. Each work gets a path-based DID `did:web:animeka.etzhayyim.com:work:{slug}` that becomes the social post author.",
       "key": "any",
       "record": {
         "type": "object",

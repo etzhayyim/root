@@ -85,7 +85,7 @@ async def _step_write_back(state: _State) -> dict[str, Any]:
         }, "error": None}
 
     import asyncio
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     work_rkey = state.get("work_rkey") or "gh-work-ghost-hacker"
     now_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     now_date = now_iso[:10]

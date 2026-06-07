@@ -5,7 +5,7 @@
 #   docker buildx build \
 #     --builder etzhayyim-vke \
 #     --platform linux/amd64 \
-#     --build-context py=../../../20-actors/magatama/py \
+#     --build-context py=../../../40-engine/kotoba/crates/kotoba-kotodama/py \
 #     --cache-from type=registry,ref=ghcr.io/etzhayyim/build-cache:lg-pregel \
 #     --cache-to   type=registry,ref=ghcr.io/etzhayyim/build-cache:lg-pregel,mode=max \
 #     -t ghcr.io/etzhayyim/lg-pregel:0.0.1-amd64 \
@@ -28,9 +28,9 @@ RUN pip install --no-cache-dir 'uv>=0.4'
 
 WORKDIR /app
 
-# pymagatama (editable, mounted via --build-context py=...)
-COPY --from=py . /opt/pymagatama
-RUN uv pip install --system --no-cache -e /opt/pymagatama
+# kotodama (editable, mounted via --build-context py=...)
+COPY --from=py . /opt/kotodama
+RUN uv pip install --system --no-cache -e /opt/kotodama
 
 # lg-pregel own deps
 COPY pyproject.toml /app/pyproject.toml

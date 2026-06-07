@@ -103,15 +103,15 @@ e7m-dataset verify HF/hf-internal-testing-fixtures_image_utils [--verbose]
 ## Charter Rider scanner
 
 The §2(a)..(h) gate is implemented in
-`pymagatama.organism.sensors.charter_rider` (heuristic regex scanner,
+`kotodama.organism.sensors.charter_rider` (heuristic regex scanner,
 ADR-2605192200 / ADR-2605241500 §D7).
 
 Three import strategies, tried in order:
 
-1. **Production**: `pip install pymagatama` into the venv.
-2. **Operator override**: set `ETZ_PYMAGATAMA_SRC=/path/to/magatama/py/src`.
+1. **Production**: `pip install kotodama` into the venv.
+2. **Operator override**: set `ETZ_PYKOTODAMA_SRC=/path/to/kotodama/py/src`.
 3. **Auto-discovery** (default for in-repo invocation): the wrapper walks
-   up from cwd, finds `20-actors/magatama/py/src/pymagatama/organism/sensors/charter_rider.py`,
+   up from cwd, finds `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/sensors/charter_rider.py`,
    and prepends to `sys.path`.
 
 ```sh

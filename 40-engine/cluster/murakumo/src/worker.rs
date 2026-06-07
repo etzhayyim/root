@@ -190,9 +190,9 @@ pub fn native_worker_user_agent() -> String {
     )
 }
 
-/// Check if magatama-inference binary is available.
-pub fn has_magatama_inference() -> bool {
-    which::which("magatama-inference").is_ok()
+/// Check if kotodama-inference binary is available.
+pub fn has_kotodama_inference() -> bool {
+    which::which("kotodama-inference").is_ok()
 }
 
 /// Check if a model is a vision-language model.

@@ -8,7 +8,7 @@ declare global {
 	namespace App {
 		interface Platform {
 			env: {
-				MAGATAMA: DurableObjectNamespace;
+				KOTODAMA: DurableObjectNamespace;
 				ASSETS: Fetcher;
 				YATA_R2: R2Bucket;
 				CDN_R2: R2Bucket;

@@ -11,7 +11,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 // NOTE: host SDK import paths resolve in Worker runtime; here typed loosely for CLI run.
-// import type { etzhayyimSdk } from "@etzhayyim/magatama-host-sdk";
+// import type { etzhayyimSdk } from "@etzhayyim/kotodama-host-sdk";
 type etzhayyimSdk = {
   did: { create: (path: string, doc: unknown) => Promise<{ did: string }>; list: () => Promise<string[]> };
   pds: { dispatch: (req: unknown) => Promise<unknown> };

@@ -2,7 +2,7 @@
 # lg-uhl-right-neural — LangServer pod for the uhl_right_neural Pregel.
 #
 # Serves the 16-vertex StateGraph defined at
-#   pymagatama.projects.uhl_right_neural.pregel:app
+#   kotodama.projects.uhl_right_neural.pregel:app
 # over the standard LangGraph CLI HTTP runtime (/invoke /batch /stream).
 #
 # Authoritative:
@@ -12,7 +12,7 @@
 #
 # Pre-requisites:
 #   - ghcr.io/etzhayyim/lg-uhl-right-neural image built with the
-#     pymagatama.projects.uhl_right_neural package
+#     kotodama.projects.uhl_right_neural package
 #   - ghcr.io/etzhayyim/etzhayyim-sdk-checkpointer image (TS sidecar)
 #   - langgraph.json present in the image at the working dir
 #   - no DATABASE_URL needed — V16 institution registry is in-package YAML

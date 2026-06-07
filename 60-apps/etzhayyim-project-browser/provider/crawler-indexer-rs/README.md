@@ -9,4 +9,4 @@ Responsibilities:
 - provide in-process search for command/query facade tests
 
 This crate is the domain core. A later component wrapper can expose it through
-magatama host or a dedicated query facade.
+kotodama host or a dedicated query facade.

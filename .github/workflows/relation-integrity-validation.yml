@@ -24,7 +24,7 @@ on:
       - '.github/workflows/relation-integrity-validation.yml'
   schedule:
     # Nightly at 03:53 UTC = ~12:53 JST. Off-minute :53 separates from
-    # md-link :47 / magatama :41 / registry-schema :35 / docs-graph :29 /
+    # md-link :47 / kotodama :41 / registry-schema :35 / docs-graph :29 /
     # docs-registry :23 / deps-toml :17 (6-min spread × 7 axes).
     - cron: '53 3 * * *'
   workflow_dispatch:

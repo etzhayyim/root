@@ -67,5 +67,5 @@
 ## Guardrails
 
 - `main.go` は即削除しない。移植完了まで fallback として維持。
-- `magatama.jsonld` の runtime/build 切替は、Phase 2 完了後に行う。
+- `kotodama.jsonld` の runtime/build 切替は、Phase 2 完了後に行う。
 - DB schema/record key (`news_article`, `article_id`) は互換維持。

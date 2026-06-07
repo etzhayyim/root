@@ -17,7 +17,7 @@
 
 ## docs app 構成
 
-- docs UI + API は `docs-performers-r5ycqp6x` の単一 Magatama app (`magatama.toml`) で管理。
+- docs UI + API は `docs-performers-r5ycqp6x` の単一 Kotodama app (`kotodama.toml`) で管理。
 - docs MCP component は `docs-performers-r5ycqp6x/components/docs-mcp-component` 配下に配置。
 - ルーティング:
   - `/api/...` -> `docs-performers-r5ycqp6x`

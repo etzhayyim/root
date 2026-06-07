@@ -15,7 +15,7 @@
  * verbatim from the upstream worker.
  *
  * Substrate hard rules enforced:
- *   - NO @atproto/api / viem / kysely / @etzhayyim/magatama-host-sdk direct imports
+ *   - NO @atproto/api / viem / kysely / @etzhayyim/kotodama-host-sdk direct imports
  *   - NO HYPERDRIVE binding
  *   - All durable state goes through @etzhayyim/sdk
  */
@@ -108,7 +108,7 @@ const _JWKS_URL = "https://authn.etzhayyim.com/.well-known/jwks.json";
 const _JWKS_TTL_MS = 3_600_000;
 let _jwksCache: { keys: JsonWebKey[]; fetchedAt: number } | null = null;
 const _SVC_JWT_ISS_ALLOWLIST = new Set([
-  "did:web:magatama.etzhayyim.com",
+  "did:web:kotodama.etzhayyim.com",
 ]);
 const _SVC_JWT_AUD = "did:web:murakumo.etzhayyim.com";
 

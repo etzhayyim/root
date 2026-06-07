@@ -25,7 +25,7 @@
 
 ## Pillar 2 — "Seat = agent, not a license."
 
-**Canonical sentence**: The seat DID *is* the AI agent identity; `magatama.Invoke` runs under it with provenance, not under a shared platform API key, so per-seat LLM is an intrinsic capability — not a ¥6,000/seat/month add-on.
+**Canonical sentence**: The seat DID *is* the AI agent identity; `kotodama.Invoke` runs under it with provenance, not under a shared platform API key, so per-seat LLM is an intrinsic capability — not a ¥6,000/seat/month add-on.
 
 **Proof anchor**: Pillar 2 deep-dive `/docs/per-seat-llm-murakumo` + 2-min demo video of the opportunity "Summarise" action. Landing CTA link: **See how per-seat LLM works**.
 
@@ -37,7 +37,7 @@
 
 **30-word support**: Seat `did:web:<tenant>.opensaas.etzhayyim.com:seat:<role>-<nn>` invokes Murakumo (or your own LLM) directly. Every invocation emits an `activity(kind=note, source=derived-convo)` with `actorDid=<seat>`. Swap fleets with one `ConfigPut`.
 
-**100-word support**: Einstein GPT is a line item because Salesforce's data model has no way to attribute an LLM invocation to the individual seat that triggered it — so they bill at the tenant plan tier. In open-salesforce, every XRPC call carries the seat DID, `magatama.Invoke` carries it forward to Murakumo (or any HTTP-invocable fleet you bind), and the fleet's response is tied back to the calling seat in the `activity` record with a signed convo URI. Provenance, cost attribution, and audit are the same object. Swapping Murakumo for Azure OpenAI, Anthropic, or your in-house GPU is `ConfigPut fleet=<didOrUrl>`.
+**100-word support**: Einstein GPT is a line item because Salesforce's data model has no way to attribute an LLM invocation to the individual seat that triggered it — so they bill at the tenant plan tier. In open-salesforce, every XRPC call carries the seat DID, `kotodama.Invoke` carries it forward to Murakumo (or any HTTP-invocable fleet you bind), and the fleet's response is tied back to the calling seat in the `activity` record with a signed convo URI. Provenance, cost attribution, and audit are the same object. Swapping Murakumo for Azure OpenAI, Anthropic, or your in-house GPU is `ConfigPut fleet=<didOrUrl>`.
 
 **Forbidden claims**:
 - Don't claim we're "faster than Einstein" without current benchmarks.
@@ -56,7 +56,7 @@
 - ❌ "Single source of truth" (empty).
 - ❌ "Forensic-grade" (don't over-promise forensics).
 
-**30-word support**: Stage changes on `opportunity`, status changes on `case`, and `convertLead` atomic commits each auto-emit `activity` via `magatama.jsonld` derive rules. Every activity row's source commit is AT-URI-addressable.
+**30-word support**: Stage changes on `opportunity`, status changes on `case`, and `convertLead` atomic commits each auto-emit `activity` via `kotodama.jsonld` derive rules. Every activity row's source commit is AT-URI-addressable.
 
 **100-word support**: Salesforce `FieldHistory` is a row in a mutable table; a DBA with write access can rewrite it. W Protocol commits sign, chain, and content-address each write — so the `activity(kind=stage-change)` row that claims "VP Sales moved opp-4829 from negotiation to closed-won at 14:02" can be verified by fetching the source commit at `/at/<tenant>/com.etzhayyim.apps.opensaas.salesforce.opportunity/opp-4829` and comparing the signed commit CID. This is what "federation-grade audit" actually means — an auditor, a regulator, or a successor CRM can read the evidence without our CRM being online.
 

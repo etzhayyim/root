@@ -73,13 +73,13 @@ via Kubernetes Lease, etc.) tracked under Stage 6.
 Each Pod runs:
 
 ```
-python -m pymagatama.cell_runner_main \
+python -m kotodama.cell_runner_main \
   --node <leader_node_name> \
   --cell-only <CellName>
 ```
 
-The image (`ghcr.io/etzhayyim/pymagatama:main` by default) carries the full
-20-actors/magatama codebase. `cell_runner_main.py` is the per-cell entrypoint;
+The image (`ghcr.io/etzhayyim/kotodama:main` by default) carries the full
+40-engine/kotoba/crates/kotoba-kotodama codebase. `cell_runner_main.py` is the per-cell entrypoint;
 per ADR-2605232100 Stage 6 it will eventually be downgraded to a debug-only
 path with Kubernetes Lease replacing in-process swarm leader election.
 

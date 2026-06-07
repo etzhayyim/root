@@ -242,7 +242,7 @@ Dimensions (5):
 └── wasm/etzhayyim-wasm-kenkyusha-kk8r3n5v/
     ├── src/app.ts               ← T3 fallback (T1 で不足する場合のみ)
     ├── wit/world.wit            ← WIT contract (design-time)
-    ├── magatama.jsonld          ← legacy config (T3 用)
+    ├── kotodama.jsonld          ← legacy config (T3 用)
     ├── package.json
     └── wrangler.jsonc
 ```

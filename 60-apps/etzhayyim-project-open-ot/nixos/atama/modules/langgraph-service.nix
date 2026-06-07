@@ -28,7 +28,7 @@ in {
     pythonVersion = lib.mkOption {
       type = lib.types.enum [ "3.11" "3.12" ];
       default = "3.11";
-      description = "Python interpreter version. 3.11 matches `20-actors/magatama/py` baseline.";
+      description = "Python interpreter version. 3.11 matches `40-engine/kotoba/crates/kotoba-kotodama/py` baseline.";
     };
 
     granianWorkers = lib.mkOption {

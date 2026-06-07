@@ -7,8 +7,8 @@
 50-infra/etzhayyim-did-web/src/kotoba-publish.ts
 50-infra/etzhayyim-did-web/src/worker.ts
 50-infra/k8s/bpmn-dispatcher/configmap-mailer-direct-patch.yaml
-50-infra/k8s/bpmn-dispatcher/configmap-pymagatama-cache-fix.yaml
-50-infra/k8s/bpmn-dispatcher/configmap-pymagatama-sse-fix.yaml
+50-infra/k8s/bpmn-dispatcher/configmap-kotodama-cache-fix.yaml
+50-infra/k8s/bpmn-dispatcher/configmap-kotodama-sse-fix.yaml
 50-infra/k8s/bpmn-engine-host/engine.py
 50-infra/k8s/bpmn-engine-host/tests/smoke.py
 50-infra/k8s/gleif-lei-s3-ingester/kotoba_datomic.py

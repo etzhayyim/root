@@ -18,7 +18,7 @@ honest framing: できていないことは「未」と明記する。
 | 2 | manifest.jsonld + README + CLAUDE.md | ✅ | init |
 | 3 | participationTarget registry seed (JP 5件, unverified-seed) | ✅ | init |
 | 4 | **registry の worldwide(多管轄)横展開** | ✅ | **iter-worldwide (2026-06-02)** |
-| 5 | cell scaffold (`magatama.cells.moushibumi_*`, import時 RuntimeError) | 未 | — |
+| 5 | cell scaffold (`kotodama.cells.moushibumi_*`, import時 RuntimeError) | 未 | — |
 | 6 | cell ↔ manifest 整合 invariants test | 未 | — |
 | 7 | 憲法ゲート機械検証 node guard | 未 | — |
 | 8 | seed の根拠法令・provenance 精査 + verification ワークフロー | 一部(iter-worldwide で出典付与) | — |
@@ -79,7 +79,7 @@ DID 登録後の作業で、現 R0 では実行しない。
 
 - 2026-06-02: lexicon ↔ worldwide seed reconciliation — `00-contracts/lexicons/com/etzhayyim/moushibumi/participationTarget.json` を EXTENDED（additive のみ、R0 permissive、`additionalProperties:false` なし／required 不変／既存 field 削除・改名なし）: `channelKind.knownValues` に `citizen-initiative` 追加（petition/public-comment/election-info/citizen-initiative の4種で seed 全件カバー）、`channelType.knownValues` に `web-form-or-postal-or-phone` / `web-portal-via-mp` / `web-portal-with-signature-collection` 追加、`jurisdiction` maxLength 8→16（eu-wide/intl-un 等）、`organ` 300→400、`legalBasis` 300→600 に拡張（多管轄 legal basis 文字列を収容）。description に UPL / 政治的中立(G3) / informational-only / zero-compensation・non-partisan(G9) / citizen-initiative は wayfinding-only の憲法境界を明記。seed 全14件が props 存在・maxLength・knownValues に conform することを確認。validators green: `lexicon-primary-types.mjs` OK(17 files) / `nsid-lexicon-exists.mjs` OK。`lexicon-const-name-collision-check.mjs` は当 file と無関係の既存 collision（`com.etzhayyim.apps.ipaddress.analyzeIp`）で fail — 当 file を stash した状態でも同一に fail するため当変更が原因ではない（unrelated、修正せず honest report）。
 
-**2026-06-02 R1 participation-window core (gate closed)**: `magatama.cells.moushibumi_status_track/window.py` 純コア — 募集ウィンドウの開閉判定(open_date+window_days or 明示 close_date の2入力モード、inclusive/exclusive 暦)。G5(is_legal_opinion)+ G9(renders_advice / 公選法中立)を常に False でコード担保。**敵対的検証が pre-open バグを捕捉**(as_of<open_date で is_open=True 誤報)→ `not_yet_open` 追加 + is_open を [open,close] 範囲に修正 + 回帰テスト4件追加。`test_window.py` green。cell.py ゲート閉維持。
+**2026-06-02 R1 participation-window core (gate closed)**: `kotodama.cells.moushibumi_status_track/window.py` 純コア — 募集ウィンドウの開閉判定(open_date+window_days or 明示 close_date の2入力モード、inclusive/exclusive 暦)。G5(is_legal_opinion)+ G9(renders_advice / 公選法中立)を常に False でコード担保。**敵対的検証が pre-open バグを捕捉**(as_of<open_date で is_open=True 誤報)→ `not_yet_open` 追加 + is_open を [open,close] 範囲に修正 + 回帰テスト4件追加。`test_window.py` green。cell.py ゲート閉維持。
 
 **2026-06-02 R1 opportunity resolver (gate closed)**: `moushibumi_opportunity_match/opportunity_resolver.py` — 管轄(+任意 channelKind petition/public-comment/citizen-initiative/election-info)→ 参加チャネルの純 registry クエリ(confidence→title→organ 決定論ソート=partisan/relevance スコア無し G3、未知管轄→空)。is_legal_opinion AND renders_advice を常に False、record に politicallyNeutral=True・officialSourcesOnly=True・isEligibilityDetermination=False を assert。`test_opportunity_resolver.py` green(全体 163 passed)。cell.py ゲート閉維持。注: ワークフローの構造化出力返却は失敗したがファイルは健全で、手動レビューにより sound 確認。moushibumi は window+opportunity の2コア体制。
 

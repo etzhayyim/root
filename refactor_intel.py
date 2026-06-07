@@ -21,7 +21,7 @@ def patch(file_path):
         return psycopg.connect(self.dsn, autocommit=True, prepare_threshold=None)"""
     new_init = """    def __init__(self, dsn: str) -> None:
         self.dsn = dsn
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         self.client = get_kotoba_client()"""
     content = content.replace(old_init, new_init)
 

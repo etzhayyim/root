@@ -41,7 +41,7 @@ Run P0 public blockchain ingest in the `blockchain` namespace on Vultr VKE:
   execution PVC and 200Gi consensus PVC, both
   `vultr-block-storage-hdd-retain`.
 - `Deployment/blockchain-ingest-worker`: Python Zeebe worker image
-  `ghcr.io/etzhayyim/pymagatama:20260425-blockchain-ingest-rw-fallback-v2`.
+  `ghcr.io/etzhayyim/kotodama:20260425-blockchain-ingest-rw-fallback-v2`.
 - `CronJob/blockchain-bitcoin-head-ingest` and
   `CronJob/blockchain-ethereum-head-ingest`: run every 10 minutes with
   `concurrencyPolicy: Forbid`.
@@ -118,6 +118,6 @@ switch to a faster bootstrap path.
 # References
 
 - `50-infra/vultr/blockchain-node/manifests/`
-- `20-actors/magatama/py/src/pymagatama/ingest/blockchain.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/blockchain.py`
 - `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/ingest/blockchainBitcoinHeadDelta.bpmn`
 - `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/ingest/blockchainEthereumHeadDelta.bpmn`

@@ -1,6 +1,6 @@
 # open-ot.etzhayyim.com — WASM-native PLC + Distributed Logic Controller (OSS)
 
-**Status**: spec / research only (2026-05-15). No runtime artefacts yet (no `magatama.jsonld`, no `src/`, no `wrangler.jsonc`). Apache-2.0.
+**Status**: spec / research only (2026-05-15). No runtime artefacts yet (no `kotodama.jsonld`, no `src/`, no `wrangler.jsonc`). Apache-2.0.
 
 Reference implementation for **WASM-based industrial PLC and DLC** in non-safety-rated control: process monitoring, energy management, building automation, water / wastewater non-SIL, lab and agricultural automation.
 

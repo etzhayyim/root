@@ -238,7 +238,7 @@ GROUP BY
 `MurakumoEscrow.settleJob()` が settle されるたびに、BPMN ハンドラ or pyzeebe が使用した `modelId` を `vertex_contribution_usage` に INSERT する。
 
 ```python
-# 20-actors/magatama/py/src/pymagatama/primitives/contribution_usage.py
+# 40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/contribution_usage.py
 async def emit_contribution_usage(
     db, source_hash: str, consumer_did: str,
     usage_type: str, gcc_value_wei: str

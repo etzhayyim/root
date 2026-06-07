@@ -73,12 +73,12 @@ Clones now require `git submodule update --init --recursive 40-engine/kami-engin
   scenes) stay in-repo. `etzhayyim/kami-engine` is a live public reusable repo.
 - The engine workspace builds green on native; the two CI baseline reds are
   green; no app-crate duplication remains.
-- **External dependents verified** (PR #699): `magatama-kami-host` +
+- **External dependents verified** (PR #699): `kotodama-kami-host` +
   `watashi-host` build green against the submodule — their
   `../../../../40-engine/kami-engine/kami-X` path-deps resolve through it (all
   6 needed crates present at `8e60f9a`). One *unrelated* blocker was fixed in
   passing: `png` 0.18 changed `output_buffer_size()` to `Option<usize>`, which
-  broke `decode_png()` in magatama-kami-host (pure dependency drift, not the
+  broke `decode_png()` in kotodama-kami-host (pure dependency drift, not the
   separation). The separation's "external dependents unaffected" claim is now
   proven, not just asserted.
 

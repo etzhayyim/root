@@ -20,7 +20,7 @@ The inspection AI being **iwakura-native** is the key architectural
 choice: defect classification is a vision task that fits baien's
 edge invariant (small model, real-time inference). This means
 `silicon_metrology` Pregel cell calls iwakura via the regular
-`magatama.AgentChat` path with a vision-only model registry entry.
+`kotodama.AgentChat` path with a vision-only model registry entry.
 
 ## Pregel cell
 

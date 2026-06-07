@@ -1,7 +1,7 @@
 # @etzhayyim/yorishiro
 
 依代 (yorishiro) generator — wrap an external app or webservice into an
-etzhayyim **3-layer actor** (Lexicon SSoT + magatama Pregel cell + MCP
+etzhayyim **3-layer actor** (Lexicon SSoT + kotodama Pregel cell + MCP
 server) so that an agent can drive it through the substrate.
 
 Per **ADR-2605211900**. Phase 1 ships the generator skeleton + OpenAPI v3
@@ -23,11 +23,11 @@ For a yorishiro named `<name>` with N operations, the generator writes:
     ├── <op2>.json
     └── ...
 
-20-actors/magatama/cells/yorishiro_<name>/
+40-engine/kotoba/crates/kotoba-kotodama/cells/yorishiro_<name>/
     ├── cell.py           # Pregel cell.py (ADR-2605202200 runtime contract)
     └── README.md
 
-20-actors/magatama/mcp/yorishiro-<name>-mcp/
+40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-<name>-mcp/
     ├── package.json
     ├── tsconfig.json
     ├── README.md
@@ -173,12 +173,12 @@ Per ADR-2605211900 §Constitutional invariants:
 - A yorishiro `x-charter-purpose` **must not** include `subscription`,
   `purchase`, or `tip` for external write-side ops — see ADR-2605192115
   §4. The internal SBT↔SBT carveout is **not** the concern of
-  yorishiro; internal carveout apps stay as ordinary magatama actors.
+  yorishiro; internal carveout apps stay as ordinary kotodama actors.
 
 ## See also
 
 - ADR-2605211900 (full architecture, this generator's authoritative spec)
-- ADR-2605202200 (magatama cell.py runtime contract — what L2 must export)
+- ADR-2605202200 (kotodama cell.py runtime contract — what L2 must export)
 - ADR-2605180900 (LangGraph Pregel + MCP bridge, hand-written reference impl)
-- `20-actors/magatama/mcp/unispsc-isic-mcp/` (the first hand-written 3-layer)
+- `40-engine/kotoba/crates/kotoba-kotodama/mcp/unispsc-isic-mcp/` (the first hand-written 3-layer)
 - HKUDS/CLI-Anything (external inspiration, output-layer translated to etzhayyim)

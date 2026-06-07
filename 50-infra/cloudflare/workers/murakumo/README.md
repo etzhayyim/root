@@ -8,7 +8,7 @@ This worker MUST use `@etzhayyim/sdk` as the only durable-state client. Prohibit
 
 - `@atproto/api` (use `@etzhayyim/sdk` PDS verbs)
 - `viem` (use `@etzhayyim/sdk` L2 verbs)
-- `kysely`, `@etzhayyim/magatama-host-sdk`, anything `kotoba` / `hyperdrive` flavored
+- `kysely`, `@etzhayyim/kotodama-host-sdk`, anything `kotoba` / `hyperdrive` flavored
 
 No HYPERDRIVE binding in `wrangler.jsonc`.
 

@@ -103,7 +103,7 @@ async def _persist(state: _State) -> dict[str, Any]:
     now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
 
     import asyncio
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     try:
         def _write():
             client = get_kotoba_client()

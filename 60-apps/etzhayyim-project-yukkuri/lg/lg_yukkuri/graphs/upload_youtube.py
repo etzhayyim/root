@@ -91,7 +91,7 @@ class _State(TypedDict, total=False):
 
 async def _fetch_video_and_subtitles(video_id: str) -> tuple[dict, list[dict]]:
     import asyncio
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     client = get_kotoba_client()
     raw_video = await asyncio.to_thread(client.select_where, "vertex_yukkuri_video", "video_id", video_id, limit=1)
     if not raw_video:
@@ -308,7 +308,7 @@ async def _node_persist(state: _State) -> dict[str, Any]:
     captions = state.get("captions_uploaded") or []
     try:
         import asyncio
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         client = get_kotoba_client()
         
         # advance video status

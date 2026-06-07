@@ -37,7 +37,7 @@ const ROOT = process.cwd();
 const LEXICON_ROOT = path.join(ROOT, "00-contracts/lexicons/com/etzhayyim/apps");
 const OUT_DIR = path.join(
 	ROOT,
-	"20-actors/magatama/sdk/magatama-host-sdk/src/generated/tool-manifest",
+	"40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/generated/tool-manifest",
 );
 
 const args = process.argv.slice(2);

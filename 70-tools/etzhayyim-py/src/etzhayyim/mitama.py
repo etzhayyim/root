@@ -1,6 +1,6 @@
 """mitama — Actor manifest management (register, list, inspect, shinka).
 
-Registers magatama.jsonld to the graph via PDS Shared Executor.
+Registers kotodama.jsonld to the graph via PDS Shared Executor.
 """
 
 from __future__ import annotations
@@ -28,7 +28,7 @@ def _auth_headers() -> dict:
 
 
 @click.group("mitama", invoke_without_command=True)
-@click.option("--dir", "app_dir", default=None, help="App dir with magatama.jsonld")
+@click.option("--dir", "app_dir", default=None, help="App dir with kotodama.jsonld")
 @click.option("--pds", default=None)
 @click.option("--json", "json_out", is_flag=True, default=False)
 @click.pass_context
@@ -43,9 +43,9 @@ def mitama(ctx: click.Context, app_dir: str | None, pds: str | None, json_out: b
 
 
 def _do_register(app_dir: Path, pds: str | None, json_out: bool) -> None:
-    jsonld_path = app_dir / "magatama.jsonld"
+    jsonld_path = app_dir / "kotodama.jsonld"
     if not jsonld_path.exists():
-        raise click.ClickException(f"magatama.jsonld not found in {app_dir}")
+        raise click.ClickException(f"kotodama.jsonld not found in {app_dir}")
     data = _read_jsonld(jsonld_path)
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
@@ -64,7 +64,7 @@ def _do_register(app_dir: Path, pds: str | None, json_out: bool) -> None:
 
 
 @mitama.command("register")
-@click.option("--dir", "app_dir", default=".", help="App dir with magatama.jsonld")
+@click.option("--dir", "app_dir", default=".", help="App dir with kotodama.jsonld")
 @click.option("--pds", default=None)
 @click.option("--json", "json_out", is_flag=True, default=False)
 def mitama_register(app_dir: str, pds: str | None, json_out: bool) -> None:

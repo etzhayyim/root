@@ -21,7 +21,7 @@ depends_on:
   - adr-2605250600-yakushi-wave-1b-otc-api-catalog-expansion
 related:
   - 20-actors/yakushi/
-  - 20-actors/magatama/cells/pharma_chiral_resolution/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_chiral_resolution/
   - 00-contracts/lexicons/com/etzhayyim/pharma/
 supersedes: []
 superseded_by: []
@@ -361,8 +361,8 @@ Lexicon extensions: `apiInn` knownValues +7, `purificationAttestation` scheme +3
 2. Actor update (`20-actors/yakushi/manifest.jsonld`) — add Wave 1c APIs + cells
 3. Lexicon extensions (com.etzhayyim.pharma.* files)
 4. New Pregel cell scaffolds:
-   - `20-actors/magatama/cells/pharma_chiral_resolution/cell.py` (RuntimeError gated)
-   - `20-actors/magatama/cells/pharma_liquid_formulation/cell.py` (RuntimeError gated)
+   - `40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_chiral_resolution/cell.py` (RuntimeError gated)
+   - `40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_liquid_formulation/cell.py` (RuntimeError gated)
 5. deps.toml updates (`[[adrs]]`, `[[modules]]`)
 6. `90-docs/adr/README.md` index entry
 7. `CLAUDE.md` Status table row 42

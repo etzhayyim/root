@@ -101,8 +101,8 @@ GeoJSON properties:
 ## 7. デプロイ・ルーティング方針（必須制約反映）
 - `default` namespace への作成は禁止。
 - 配置:
-  - App platform/system: `magatama-system`
-  - WADM app resources: `magatama-runtime`
+  - App platform/system: `kotodama-system`
+  - WADM app resources: `kotodama-runtime`
   - HTTPRoute: `etzhayyim-performers-org-etzhayyim`
 - 既存運用と合わせ、`mage Deploy` でデプロイ。
 - 画像配布は `ghcr.io/etzhayyim/*` のみ。

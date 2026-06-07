@@ -1,4 +1,4 @@
-# ai-gftd-project-good-vibes-tuner
+# etzhayyim-project-good-vibes-tuner
 
 `good-vibes-tuner` は、ユーザーが「今どんな vibes で集中したいか」を選び、
 表示情報・通知密度・提案スタイルを調整する capability の設計コンセプトです。
@@ -34,7 +34,7 @@
 - 次回の preset 推薦に反映（軽量なオンライン学習）
 
 ## UI エントリポイント
-- `gftdcojp-www-nkupwzos` の左上に `⚙️ Tuning` メニューを追加
+- `etzhayyim-www-nkupwzos` の左上に `⚙️ Tuning` メニューを追加
 - 展開時に:
   - Focus vibe selector
   - Tune option toggles

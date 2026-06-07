@@ -205,7 +205,7 @@ A seed shipped pre-verified, missing a citation, lacking the boundary caveat, or
 regressing jurisdiction coverage fails CI. (Run network-free; the seed's
 langsmith-incompatible environment is avoided with
 `PYTEST_DISABLE_PLUGIN_AUTOLOAD=1`.) The G14 live-reliance refusal itself lives
-in `magatama/py/.../musubi_recognition_resolver/cell.py` (R0: import-raise).
+in `kotodama/py/.../musubi_recognition_resolver/cell.py` (R0: import-raise).
 
 ## Current seed status (2026-06-02)
 

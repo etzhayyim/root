@@ -1,0 +1,27 @@
+{
+  "@context": "https://etzhayyim.com/ns/kotodama/v1",
+  "@id": "did:web:vin.etzhayyim.com",
+  "name": "etzhayyim-wasm-vin",
+  "nanoid": "v1n0g10b",
+  "performerType": "service",
+  "profile": {
+    "agentType": "autonomous",
+    "capabilities": ["bpmn-dispatch","vin-decode","plate-lookup","production-flow","shipment-analytics","cohort-registration"],
+    "description": "Global VIN / vehicle registration intelligence",
+    "displayName": "VIN / Vehicle Registration Intelligence",
+    "isBot": true,
+    "operator": "etzhayyim.com"
+  },
+  "project": "vin",
+  "runtimeType": "worker",
+  "uiType": "yoro",
+  "build": {
+    "framework": "ts-thin-edge",
+    "edge": "60-apps/etzhayyim-project-vin/appview/etzhayyim-wasm-vin-v1n0g10b/src/app.ts",
+    "businessLogic": "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/vin.py",
+    "bpmn": "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/vin"
+  },
+  "interfaces": {"provides":["etzhayyim:vin/vehicle-registry@1.0.0","etzhayyim:vin/plate-resolver@1.0.0","etzhayyim:vin/production-flow@1.0.0"],"requires":[]},
+  "routes": [{"host":"vin.etzhayyim.com","paths":["/"],"tls":true},{"host":"v1n0g10b.etzhayyim.com","paths":["/"],"tls":true}],
+  "triggers": {"subscribeRepos":{"collections":["app.bsky.feed.post","com.etzhayyim.apps.vin.vehicle","com.etzhayyim.apps.vin.manufacturer","com.etzhayyim.apps.vin.shipmentVolume"]}}
+}

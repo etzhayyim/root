@@ -2300,7 +2300,7 @@
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605152100", "predicate": "filePath", "object": "90-docs/adr/2605152100-auth-unified-topology.md"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605152100", "predicate": "docType", "object": "adr"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605152100", "predicate": "status", "object": "active"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605152100", "predicate": "title", "object": "Auth Unified Topology — auth.etzhayyim.com canonical, 4-layer minimum, x-magatama-verified retirement"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605152100", "predicate": "title", "object": "Auth Unified Topology — auth.etzhayyim.com canonical, 4-layer minimum, x-kotodama-verified retirement"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605152100", "predicate": "ingestRun", "object": "ingest:12501b5:2026-05-28T08:30:34Z"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605152100", "predicate": "topic", "object": "auth-topology"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605152100", "predicate": "authoritative", "object": "true"}
@@ -3321,12 +3321,12 @@
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605202030", "predicate": "dependsOn", "object": "adr:2605192100"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605202030", "predicate": "relatedTo", "object": "adr:2605192230"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605202100", "predicate": "hasCid", "object": "bafybeibbbz327cecxb2cskpxaf6buqabjuv7yrsn3iofvlwomxvzi5avea"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605202100", "predicate": "filePath", "object": "90-docs/adr/2605202100-etzhayyim-magatama-cell-runner-launchd.md"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605202100", "predicate": "filePath", "object": "90-docs/adr/2605202100-etzhayyim-kotodama-cell-runner-launchd.md"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605202100", "predicate": "docType", "object": "adr"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605202100", "predicate": "status", "object": "proposed"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605202100", "predicate": "title", "object": "ADR-2605202100: magatama-cell-runner launchd LaunchAgent — operationalising Tier 1 常駐稼働 on the Murakumo fleet"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605202100", "predicate": "title", "object": "ADR-2605202100: kotodama-cell-runner launchd LaunchAgent — operationalising Tier 1 常駐稼働 on the Murakumo fleet"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605202100", "predicate": "ingestRun", "object": "ingest:12501b5:2026-05-28T08:30:34Z"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605202100", "predicate": "topic", "object": "magatama-cell-runner-launchd"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605202100", "predicate": "topic", "object": "kotodama-cell-runner-launchd"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605202100", "predicate": "authoritative", "object": "true"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605202100", "predicate": "lastVerified", "object": "2026-05-20"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605202100", "predicate": "dependsOn", "object": "adr:2605182312"}
@@ -3354,7 +3354,7 @@
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605202200", "predicate": "filePath", "object": "90-docs/adr/2605202200-etzhayyim-cell-runtime-contract.md"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605202200", "predicate": "docType", "object": "adr"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605202200", "predicate": "status", "object": "proposed"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605202200", "predicate": "title", "object": "ADR-2605202200: magatama cell.py runtime contract — build_graph + CellDeps + state_from_event + thread_id_from_event + healthz; cell-runner subprocess spawn implementation"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605202200", "predicate": "title", "object": "ADR-2605202200: kotodama cell.py runtime contract — build_graph + CellDeps + state_from_event + thread_id_from_event + healthz; cell-runner subprocess spawn implementation"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605202200", "predicate": "ingestRun", "object": "ingest:12501b5:2026-05-28T08:30:34Z"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605202200", "predicate": "topic", "object": "cell-runtime-contract"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605202200", "predicate": "authoritative", "object": "true"}
@@ -3871,12 +3871,12 @@
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212100", "predicate": "relatedTo", "object": "adr:2605190000"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212100", "predicate": "relatedTo", "object": "adr:2605172400"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212100", "predicate": "hasCid", "object": "bafybeibdcjoxftvmz54xgymmova7rhtjk2j2jpfbffrtmxplailmjeai5y"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212100", "predicate": "filePath", "object": "90-docs/adr/2605212100-magatama-worker-3-axis-tranche-f-closure.md"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212100", "predicate": "filePath", "object": "90-docs/adr/2605212100-kotodama-worker-3-axis-tranche-f-closure.md"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212100", "predicate": "docType", "object": "adr"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212100", "predicate": "status", "object": "active"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212100", "predicate": "title", "object": "ADR-2605212100: Tranche F closure — 70 magatama worker_main 3-axis classification + Phase 3 prerequisites"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212100", "predicate": "title", "object": "ADR-2605212100: Tranche F closure — 70 kotodama worker_main 3-axis classification + Phase 3 prerequisites"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212100", "predicate": "ingestRun", "object": "ingest:12501b5:2026-05-28T08:30:34Z"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212100", "predicate": "topic", "object": "magatama-worker-vendor-etzhayyim-boundary"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212100", "predicate": "topic", "object": "kotodama-worker-vendor-etzhayyim-boundary"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212100", "predicate": "authoritative", "object": "true"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212100", "predicate": "lastVerified", "object": "2026-05-21"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212100", "predicate": "dependsOn", "object": "adr:2605172400"}

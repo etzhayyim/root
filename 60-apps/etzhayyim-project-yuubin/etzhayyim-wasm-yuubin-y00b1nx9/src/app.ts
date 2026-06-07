@@ -32,7 +32,7 @@ import {
   str,
   withCapabilityTags,
   type HostSDK,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 import { unzipSync, zipSync, strFromU8, strToU8 } from "./fflate.mjs";
 import puppeteer from "@cloudflare/puppeteer";
 import { cdnHead, cdnRead, cdnWrite } from "./cdn-b2";

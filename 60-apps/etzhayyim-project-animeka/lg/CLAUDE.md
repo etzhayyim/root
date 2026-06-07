@@ -22,7 +22,7 @@ LangGraph Server gives us:
 ```
 lg/
 ├── langgraph.json                       # graph manifest (26 graphs)
-├── pyproject.toml                       # langgraph + pymagatama
+├── pyproject.toml                       # langgraph + kotodama
 ├── Dockerfile                           # OSS, no licensed base
 ├── .gitignore
 ├── lg_animeka/
@@ -61,7 +61,7 @@ lg/
 
 ## Conventions
 
-- Reuses `pymagatama` (editable install) for shared helpers (`_post_scene`,
+- Reuses `kotodama` (editable install) for shared helpers (`_post_scene`,
   `_upload_blob_to_pds`, etc.) — no fork.
 - Same RW checkpointer schema (`lg_checkpoints*` tables) as lg-shinshi —
   thread_ids are namespaced (`xrpc:{nsid_tail}:...`).

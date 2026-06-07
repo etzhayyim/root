@@ -19,7 +19,7 @@ from .shannon import _resolve_root
 
 # ── required structure rules ───────────────────────────────────────────────────
 
-_REQUIRED_FILES = ["magatama.jsonld", "src/app.ts", "wrangler.jsonc"]
+_REQUIRED_FILES = ["kotodama.jsonld", "src/app.ts", "wrangler.jsonc"]
 _RE_NANOID = re.compile(r'^[A-Za-z0-9_-]{8,12}$')
 _RE_APP_DIR = re.compile(r'^etzhayyim-wasm-.+-[A-Za-z0-9]{8}$')
 _RE_PROJECT_DIR = re.compile(r'^etzhayyim-project-.+$')
@@ -153,7 +153,7 @@ def scan_kosei(ws: Path) -> KoseiReport:
 
     results: list[KoseiAppResult] = []
     if projects_dir.exists():
-        for jsonld in projects_dir.rglob("magatama.jsonld"):
+        for jsonld in projects_dir.rglob("kotodama.jsonld"):
             app_dir = jsonld.parent
             results.append(_check_app(app_dir, ws))
 
@@ -268,7 +268,7 @@ def _save_kosei_config(data_dir: Path, cfg: dict) -> None:
 
 def _discover_apps_meta(ws: Path) -> list[dict]:
     apps = []
-    for p in ws.rglob("magatama.jsonld"):
+    for p in ws.rglob("kotodama.jsonld"):
         try:
             data = json.loads(p.read_text(errors="replace"))
         except Exception:
@@ -292,7 +292,7 @@ def _suggest_tier(meta: dict) -> str:
     infra_kws = ("infra", "gateway", "auth", "pds", "graph", "router", "proxy", "platform")
     if any(k in name for k in infra_kws) or pt == "system" or "50-infra" in meta.get("dir", ""):
         return "T3"
-    if "20-actors" in meta.get("dir", "") or "magatama" in name or pt == "actor":
+    if "20-actors" in meta.get("dir", "") or "kotodama" in name or pt == "actor":
         return "T1"
     return "T2"
 
@@ -885,7 +885,7 @@ def kosei_sbom(nanoid: str, json_out: bool, workspace_dir: str | None, data_dir:
             pass
 
     wit_imports: list[str] = []
-    jsonld_path = app_dir / "magatama.jsonld"
+    jsonld_path = app_dir / "kotodama.jsonld"
     if jsonld_path.exists():
         try:
             jdata = json.loads(jsonld_path.read_text(errors="replace"))
@@ -986,8 +986,8 @@ def _scan_app_stack(app_dir: Path) -> dict:
         except Exception:
             pass
 
-    # magatama.jsonld
-    jsonld = app_dir / "magatama.jsonld"
+    # kotodama.jsonld
+    jsonld = app_dir / "kotodama.jsonld"
     if jsonld.exists():
         try:
             jd = json.loads(jsonld.read_text(errors="replace"))

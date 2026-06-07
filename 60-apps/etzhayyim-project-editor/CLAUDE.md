@@ -15,7 +15,7 @@ Browser (CodeMirror 6 + Sandpack iframe preview)
   │
   │ XRPC /xrpc/com.etzhayyim.apps.editor.*
   ▼
-editor Worker (createWorkerExport + @etzhayyim/magatama-host-sdk)
+editor Worker (createWorkerExport + @etzhayyim/kotodama-host-sdk)
   ├─ createProject  → ComAtprotoRepoCreateRecord(collection: "project")
   ├─ listProjects   → G("EditorProject").Match({ownerDid}).Return(...)
   ├─ writeFile      → uploadBlob (SHA-256 content-addressed → R2)
@@ -69,7 +69,7 @@ curl https://editor.etzhayyim.com/health
 
 ## Roadmap
 
-- **P0a (this scaffold)**: backend XRPC API + lexicons + magatama.jsonld
+- **P0a (this scaffold)**: backend XRPC API + lexicons + kotodama.jsonld
 - **P0b**: frontend (CodeMirror 6 + Sandpack), Hono static serve
 - **P1**: multi-user wRPC stream collab (`handleStream("file-updates", ...)`)
 - **P2**: LLM inline diff patch (Cursor 風)

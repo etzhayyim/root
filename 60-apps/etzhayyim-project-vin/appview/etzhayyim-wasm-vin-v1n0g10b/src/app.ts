@@ -25,7 +25,7 @@ export default {
         actor: "did:web:vin.etzhayyim.com",
         nanoid: env.APP_NANOID ?? "v1n0g10b",
         execution: "edge-proxy+agentgateway-mcp+langserver",
-        businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/vin.py",
+        businessLogic: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/vin.py",
         bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/vin",
       });
     }

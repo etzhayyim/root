@@ -10,8 +10,8 @@
 |---|---|---|
 | **Data plane** | `kami-bridge` (Rust) | OS input capture/injection (CGEvent/Win32) |
 | **Transport** | `kami-knp` (Rust) | Encrypted UDP (ChaCha20-Poly1305, X25519) |
-| **Control plane** | WASM MagatamaApp | Peer discovery, screen config, DID auth |
-| **UI** | `kami-ui-gpu` + `magatama-kami-host` | wgpu screen layout config (Nintendo-style) |
+| **Control plane** | WASM KotodamaApp | Peer discovery, screen config, DID auth |
+| **UI** | `kami-ui-gpu` + `kotodama-kami-host` | wgpu screen layout config (Nintendo-style) |
 
 ### KNP Channel Assignment
 
@@ -90,7 +90,7 @@ native/watashi-host/     Rust binary (macOS + Windows + Linux)
   src/edge.rs               Screen edge detection + cursor transition
   src/net.rs                KNP wrapper (BridgeEvent ↔ wire)
   src/ui.rs                 KAMI config UI (screen layout)
-wasm/                       MagatamaApp coordination (peer registry, pairing, downloads)
+wasm/                       KotodamaApp coordination (peer registry, pairing, downloads)
 ```
 
 ## Build
@@ -115,4 +115,4 @@ cargo build --release --target x86_64-unknown-linux-gnu
 - `kami-bridge`: OS input bridge (`packages/engine/kami-engine/kami-bridge/`)
 - `kami-knp`: Network protocol (`packages/engine/kami-engine/kami-knp/`)
 - `mdns-sd`: mDNS-SD peer discovery (RFC 6763)
-- `magatama-kami-host`: wgpu desktop host (`packages/runtime/magatama/magatama-kami-host/`)
+- `kotodama-kami-host`: wgpu desktop host (`packages/runtime/kotodama/kotodama-kami-host/`)

@@ -49,7 +49,7 @@ ADR-2604261110 (wproto/wreactive/WIT retire) と ADR-2604251801 (cron 3
   RW, and 70-tools/scripts catalogs
 
 旧 framing (`Design A〜E reactive pipeline`, `wRPC stream-native`,
-`MagatamaApp single-file = actor 実体`, `TS Native + Lexicon Contract`)
+`KotodamaApp single-file = actor 実体`, `TS Native + Lexicon Contract`)
 は wproto retire と BPMN-as-actor の浸透で**前提が崩れている**。
 Shannon η の観点で各 layer の責務が overlap し、「actor が CF Worker と
 BPMN process と RW vertex_repo_record の 3 箇所に二重定義される」drift
@@ -106,7 +106,7 @@ CF Worker は **edge / routing / dispatcher** の 3 sublayer のみ。
 - L3 Dispatcher Worker は state を持たない (KV / Hyperdrive cache のみ)
 - actor の capability / tool / MCP endpoint 一覧は **L4 registry table を読む** (`_app/meta` JSON は registry の cache view、authoritative ではない)
 - 30s / 128MB を超える work は **L7 / L8 にデリゲート**
-- 既存の "MagatamaApp single-file" actor (`60-apps/.../wasm/.../src/app.ts`) は **L3 Dispatcher の subset として扱う** (forward-only; 既存挙動維持、新規 actor は L7/L8 を優先)
+- 既存の "KotodamaApp single-file" actor (`60-apps/.../wasm/.../src/app.ts`) は **L3 Dispatcher の subset として扱う** (forward-only; 既存挙動維持、新規 actor は L7/L8 を優先)
 
 ## Registry SSoT (L4) スキーマ
 
@@ -124,7 +124,7 @@ CF Worker は **edge / routing / dispatcher** の 3 sublayer のみ。
 ## L7 Zeebe BPMN orchestration
 
 - **常駐**: Zeebe broker (Vultr k8s `mitama-udf-pool` namespace)
-- **常駐 job worker**: `pymagatama` dispatcher (F5 watcher) + per-primitive
+- **常駐 job worker**: `kotodama` dispatcher (F5 watcher) + per-primitive
   pyzeebe worker (`generic.db.*`, `generic.pds.*`, `agent.chat`, `llm.*`,
   `udf.*`)
 - **cron 第 1 レイヤー**: BPMN timer-start (`R/PT*` or cron 表記)
@@ -181,7 +181,7 @@ CF Worker は **edge / routing / dispatcher** の 3 sublayer のみ。
 | `Design E` (wRPC stream reactive + 3-Tier Write) | **半廃止** | 3-Tier Write 部分のみ存続 (ADR-0036)。"wRPC stream reactive pipeline" 部分は wproto archive で死語化 (ADR-2604261110) |
 | `wRPC` / `wproto stream` / `WprotoConvoSendMessage` | 死語 | (transport 不要、L2 XRPC 単独) |
 | `handleComAtprotoSyncSubscribeReposCommit` を全 actor の reactive entry とする原則 | 限定 | social commit (`app.bsky.*`) のみ。domain は L3 dispatcher direct |
-| `MagatamaApp single-file = actor 実体` framing | **scope 縮小** | L3 dispatcher の subset。新規 actor 実体は L4 registry 登録 + L7/L8 backend |
+| `KotodamaApp single-file = actor 実体` framing | **scope 縮小** | L3 dispatcher の subset。新規 actor 実体は L4 registry 登録 + L7/L8 backend |
 | `TS Native + Lexicon Contract = SSoT` framing | **scope 縮小** | L3 dispatcher の build pattern。actor SSoT は L4 |
 
 ## Amends
@@ -218,7 +218,7 @@ L4 registry + L7/L8 backend で書き、徐々に L3 へ縮退させる。
 1. **L4 schema migration**: `actor_registry` / `mcp_registry` / `tool_registry` の `30-graph/graph-schema/migrations/` 追加
 2. **registry generator**: 既存の `_app/meta` / `actor-manifest.jsonld` / `process_def` を読んで L4 へ INSERT する one-shot bootstrap script
 3. **L2 routing-gateway 改修**: NSID 解決時に L4 registry を読むよう変更 (現行は static map)
-4. **L3 dispatcher SDK**: `@etzhayyim/magatama-host-sdk` に `tool_registry` lookup helper を追加
+4. **L3 dispatcher SDK**: `@etzhayyim/kotodama-host-sdk` に `tool_registry` lookup helper を追加
 5. **doc rewrite**: `60-apps/CLAUDE.md` §239-324 を本 ADR への pointer に縮約
 6. **convention pruning**: `deps.toml [[conventions]]` の `Design E 3-Tier Write` を `3-Tier Write (ADR-0036)` にリネーム、`Inter-App Communication (W Protocol over wRPC)` 系を削除
 

@@ -4,7 +4,7 @@ import {
   parseLexiconInput,
   type HostSDK,
   type LexiconOutput,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 const APP_EMBED_URL = "https://d94d27cb.etzhayyim.com/?embed=1";
 

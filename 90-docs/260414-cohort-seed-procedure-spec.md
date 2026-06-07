@@ -49,7 +49,7 @@ superseded_by: []
 ## 2. segment_hash 導出
 
 ```typescript
-import { parseSegmentHash } from '@etzhayyim/magatama-host-sdk/cohort';
+import { parseSegmentHash } from '@etzhayyim/kotodama-host-sdk/cohort';
 
 async function deriveSegmentHash(segmentJsonld: string): Promise<string> {
   // 1. canonicalize JSON-LD (URDNA2015 相当。当面は sorted-key JSON で代用)
@@ -154,6 +154,6 @@ await forwardOcelToApqc({
 # References
 
 - `00-contracts/lexicons/com/etzhayyim/cohort/seed.json`
-- `20-actors/magatama/sdk/magatama-host-sdk/src/cohort.ts`
+- `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/cohort.ts`
 - `50-infra/cloudflare/workers/atproto/src/agent/cohort-watchdog.ts`
 - `90-docs/adr/0026-agent-only-reverse-identity-topology.md`

@@ -8,8 +8,8 @@ Output: 90-docs/baien/moemoekyun-r1.4-langgraph-harvest.jsonl
 Then operator runs `e7m-dataset add local://...` to pin + register CID in datasets.jsonl.
 
 Sources scanned:
-  - 20-actors/magatama/cells/**/cell.py
-  - 20-actors/magatama/py/src/pymagatama/**/cells/*.py
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/**/cell.py
+  - 40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/**/cells/*.py
   - 70-tools/baien-distill/src/baien_distill/nodes/*.py
   - 50-infra/mst-projector/projection/**/*.py
   - 70-tools/baien-moemoekyun-train/scripts/rental-orchestrator.py (this self-ref ok)
@@ -39,9 +39,9 @@ REPO_ROOT = Path(__file__).parent.parent.parent.parent.resolve()
 
 SOURCE_PATTERNS = [
     # LangGraph Pregel cells
-    "20-actors/magatama/cells/**/*.py",
-    "20-actors/magatama/py/src/pymagatama/**/cells/*.py",
-    "20-actors/magatama/py/src/pymagatama/**/nodes/*.py",
+    "40-engine/kotoba/crates/kotoba-kotodama/cells/**/*.py",
+    "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/**/cells/*.py",
+    "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/**/nodes/*.py",
     # ReAct distill nodes
     "70-tools/baien-distill/src/baien_distill/nodes/*.py",
     "70-tools/baien-distill/src/baien_distill/graph/*.py",
@@ -50,7 +50,7 @@ SOURCE_PATTERNS = [
     "50-infra/mst-projector/py/src/**/*.py",
     "50-infra/mst-projector/projection/**/*.py",
     # Kaizen observer
-    "20-actors/magatama/py/src/pymagatama/organism/kaizen/*.py",
+    "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/kaizen/*.py",
 ]
 
 
@@ -138,7 +138,7 @@ def charter_rider_scan_line(line: str) -> tuple[bool, str | None]:
     """Inline single-line Charter Rider §2(a)-(h) hint scanner.
 
     Returns (passed, reason_if_fail). Conservative: flag obvious red-flag tokens.
-    Real scan via pymagatama deferred (importable on EVO/fleet but not here).
+    Real scan via kotodama deferred (importable on EVO/fleet but not here).
     """
     redflags = {
         "weapon": "§2(a) weapons",

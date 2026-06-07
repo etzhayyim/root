@@ -8,7 +8,7 @@
 // SUBSTRATE (ADR-2606037200 D1 + ADR-2605262130 + ADR-2605312345): canonical state is the
 // kotoba Datom log. RisingWave / Kysely / Hyperdrive are PROHIBITED in the religious-corp ERP
 // path. Every read/write routes through the tested, kotoba-Datomic rw-free functions
-// (@etzhayyim/open-kyber-rw-free) via `createXrpcBridge`, which adapts the magatama-host-sdk
+// (@etzhayyim/open-kyber-rw-free) via `createXrpcBridge`, which adapts the kotodama-host-sdk
 // AT-repo XrpcClient (createRecord / getRecord / listRecords → PDS → Datom log) to the
 // `Etzhayyim` read/write surface. This SUPERSEDES the ADR-0036 "domain writes via Kysely"
 // rule for this app (the runbook is 60-apps/etzhayyim-project-open-kyber/R2-WORKER-WIRING.md).
@@ -30,7 +30,7 @@ import {
   withCapabilityTags,
   type ComAtprotoSyncSubscribeReposCommit,
   type HostSDK,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 import type { Etzhayyim } from "@etzhayyim/sdk";
 import {
   createXrpcBridge,
@@ -76,7 +76,7 @@ let actorDID = "";
 const APQC_PROJECTOR_DID = "did:web:kyber-projector.etzhayyim.com";
 const APQC_PROJECTOR_NANOID = "kyb3proj";
 
-// Department DIDs (multi-DID per app; pre-registered via magatama.jsonld entities).
+// Department DIDs (multi-DID per app; pre-registered via kotodama.jsonld entities).
 // Carried as the acting DID on the bridge so each record is tagged with its writer dept.
 const DEPT = {
   accounting: "did:web:kyber.etzhayyim.com:dept:accounting",
@@ -663,7 +663,7 @@ async function cmdReportUsageToStripe(sdk: HostSDK, body: Uint8Array) {
 // ───────────────────────────── Management / Integration (5) ─────────────────────────────
 
 function cmdRegisterDepartments(_sdk: HostSDK, _body: Uint8Array) {
-  // Department DIDs are pre-registered via magatama.jsonld entities; this returns the roster.
+  // Department DIDs are pre-registered via kotodama.jsonld entities; this returns the roster.
   const entries = Object.entries(DEPT).map(([role, did]) => ({ role, did }));
   return { ok: true, departments: entries };
 }

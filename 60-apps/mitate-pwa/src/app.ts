@@ -21,7 +21,7 @@ interface SecretBinding { get(): Promise<string>; }
 interface Env {
   // Phase gate — R0 = "locked"; R1 = "active-attestations-CID-here" after Council ratification
   MITATE_R1_PHASE_GATE?: string;
-  // App metadata (auto-injected by e7m actor deploy from magatama.jsonld)
+  // App metadata (auto-injected by e7m actor deploy from kotodama.jsonld)
   APP_NANOID?: string;
   APP_DISPLAY_NAME?: string;
   // Religious-corp SDK proxy endpoint (substrate boundary G14)

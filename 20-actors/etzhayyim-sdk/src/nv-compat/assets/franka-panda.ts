@@ -1,4 +1,4 @@
-// TypeScript port of pymagatama.nv_compat.isaacsim.assets.franka_panda
+// TypeScript port of kotodama.nv_compat.isaacsim.assets.franka_panda
 //
 // Franka Emika Panda asset wrapper — 7-DoF arm + 2-finger gripper (9 DoF).
 //

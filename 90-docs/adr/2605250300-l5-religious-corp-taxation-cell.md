@@ -82,7 +82,7 @@ Three reasons:
 
 ## 1. Cell location and shape
 
-- Path: `20-actors/magatama/cells/religious_corp_taxation/`
+- Path: `40-engine/kotoba/crates/kotoba-kotodama/cells/religious_corp_taxation/`
 - Files: `cell.py` + `__init__.py`.
 - Tier: B (Per-Domain).
 - Murakumo node (leader): `gad` (religious-corp tribe-name; sibling of `zebulun` since both are Economic-domain — `zebulun` runs `tithe_routing` + `treasury_rebalance` + `public_fund_grant`).
@@ -205,5 +205,5 @@ The third gate (legal counsel opinion) is unique to this cell. P1 needed no coun
 - ADR-2605192300 (Council 5-of-7 Safe attestation)
 - ADR-2605242330 §3.5 (L5 layer constitutional position)
 - CLAUDE.md Identity § (任意団体 status declaration)
-- `20-actors/magatama/cells/tithe_routing/` (existing economic cell)
-- `20-actors/magatama/cells/treasury_rebalance/` (existing economic cell)
+- `40-engine/kotoba/crates/kotoba-kotodama/cells/tithe_routing/` (existing economic cell)
+- `40-engine/kotoba/crates/kotoba-kotodama/cells/treasury_rebalance/` (existing economic cell)

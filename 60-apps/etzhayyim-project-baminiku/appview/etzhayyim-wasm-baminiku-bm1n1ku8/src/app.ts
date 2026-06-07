@@ -27,7 +27,7 @@ export default {
         actor: "did:web:baminiku.etzhayyim.com",
         nanoid: env.APP_NANOID ?? "bm1n1ku8",
         execution: "edge-proxy+agentgateway-mcp+langserver",
-        businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/baminiku.py",
+        businessLogic: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/baminiku.py",
         bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/baminiku",
         engine: "etzhayyim:kami@1.0.0",
       });

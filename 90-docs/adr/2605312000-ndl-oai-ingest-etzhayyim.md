@@ -51,7 +51,7 @@ land the migration now; the RW→kotoba-datomic persistence refactor is performe
 Add NDL as an etzhayyim open-data ingest worker, **slice 1 = OAI-PMH metadata
 only**, following the houbun / site_common_crawl pattern.
 
-- `20-actors/magatama/py/src/pymagatama/ingest/ndl.py` — fetch + parse, 7 Zeebe
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/ndl.py` — fetch + parse, 7 Zeebe
   tasks (createRun / oai.plan / acquireCursor / oai.fetchWindow /
   verifyVisibility / advanceCursor / completeRun). The parse logic was
   **re-grounded against the real feed** (the vendor adapter's set/PID assumptions
@@ -67,7 +67,7 @@ only**, following the houbun / site_common_crawl pattern.
     metadata). Synthesising a manifest from the bib id is explicitly avoided.
   - Domain table = `vertex_ndl_bib_item` (bib-level metadata; collection
     `com.etzhayyim.apps.ndl.bibItem`).
-- `20-actors/magatama/py/src/pymagatama/ndl_worker_main.py` — dedicated Zeebe
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ndl_worker_main.py` — dedicated Zeebe
   worker registration.
 - `test_ndl_worker.py` — offline test whose fixtures are **real NDL records**
   captured 2026-05-31 (so the test is not circular); green with **no network and

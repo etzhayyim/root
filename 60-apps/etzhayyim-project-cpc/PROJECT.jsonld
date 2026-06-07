@@ -31,10 +31,10 @@
     "etzhayyim:cpc-9@1.0.0"
   ],
   "etzhayyim:witImports": [
-    "magatama:contract/agreement@1.0.0",
-    "magatama:contract/registry@1.0.0",
-    "magatama:governance/raci@1.0.0",
-    "magatama:governance/rbac@1.0.0",
+    "kotodama:contract/agreement@1.0.0",
+    "kotodama:contract/registry@1.0.0",
+    "kotodama:governance/raci@1.0.0",
+    "kotodama:governance/rbac@1.0.0",
     "etzhayyim:isic-resource-flow/products@1.0.0",
     "etzhayyim:isic-resource-flow/materials@1.0.0"
   ],

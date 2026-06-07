@@ -96,7 +96,7 @@ ISO 2108 International Standard Book Number registry。世界中の書籍を DID
 
 ## Bulk Ingest Pipeline (BPMN-as-actor, ADR-0056, 2026-05-05)
 
-**Status**: ✅ Live — schema deployed, 5 ingest sources running as **pure autonomous timer-start BPMN** in pymagatama 0.3.36. **CF Worker は使用しない** (ADR-2604282300 K8s-internal routing 準拠)。XRPC 公開エンドポイントなし。
+**Status**: ✅ Live — schema deployed, 5 ingest sources running as **pure autonomous timer-start BPMN** in kotodama 0.3.36. **CF Worker は使用しない** (ADR-2604282300 K8s-internal routing 準拠)。XRPC 公開エンドポイントなし。
 
 ### Sources (autonomous timer-start, no XRPC entry)
 
@@ -131,14 +131,14 @@ mv_isbn_book_by_jurisdiction  jurisdiction × copyright_status → book_count
 # Aozora 200 冊を即時 ingest (本文込み)
 kubectl exec -n mitama-udf deploy/langserver-worker -- python -c "
 import asyncio
-from pymagatama.primitives.isbn import task_isbn_aozora_ingest
+from kotodama.primitives.isbn import task_isbn_aozora_ingest
 print(asyncio.run(task_isbn_aozora_ingest(fulltext=True, limit=200)))
 "
 
 # HathiTrust hathifile (URL を Secret/env で注入)
 kubectl exec -n mitama-udf deploy/langserver-worker -- python -c "
 import asyncio
-from pymagatama.primitives.isbn import task_isbn_hathitrust_ingest
+from kotodama.primitives.isbn import task_isbn_hathitrust_ingest
 print(asyncio.run(task_isbn_hathitrust_ingest(
     hathifileUrl='https://www.hathitrust.org/files/hathifiles/hathi_full_YYYYMMDD.txt.gz',
     publicDomainOnly=True)))
@@ -170,5 +170,5 @@ Aozora, Gutenberg, and Internet Archive works without a published ISBN are mappe
 - `30-graph/graph-schema/migrations/20260505110000_isbn_bpmn_v2_no_cf_worker.ts` — **v2 redesign**: drop XRPC bindings, drop refreshDaily, all 5 ingests timer-start
 - `00-contracts/lexicons/com/etzhayyim/apps/isbn/{book,lookup,list,coverage}.json` — 4 lexicons (1 record + 3 read query, schema documentation only — no live endpoint)
 - `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/isbn/*.bpmn` — 5 timer-start BPMN definitions
-- `20-actors/magatama/py/src/pymagatama/primitives/isbn.py` — 5 LangServer task handlers + chapter chunking + B2 sigv4
-- `20-actors/magatama/py/src/pymagatama/zeebe_worker_main.py` — `_isbn_register(worker)` wired after patent register
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/isbn.py` — 5 LangServer task handlers + chapter chunking + B2 sigv4
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/zeebe_worker_main.py` — `_isbn_register(worker)` wired after patent register

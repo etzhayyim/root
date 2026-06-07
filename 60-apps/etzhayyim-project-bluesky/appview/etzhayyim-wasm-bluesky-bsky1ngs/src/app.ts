@@ -2,7 +2,7 @@
 //
 // Business logic moved to:
 //   - BPMN: etzhayyim-root/00-contracts/bpmn/com/etzhayyim/bluesky/{ingestActor,refreshStalest}.bpmn
-//   - Python LangServer: pymagatama.ingest.bluesky
+//   - Python LangServer: kotodama.ingest.bluesky
 //
 // This Worker now only exposes health/meta and preserves the legacy manual
 // XRPC endpoint by forwarding to dispatcher.etzhayyim.com.
@@ -35,7 +35,7 @@ export default {
         appview: env.BLUESKY_APPVIEW ?? "https://public.api.bsky.app",
         ingestEnabled: env.INGEST_ENABLED === "1",
         execution: "edge-proxy+agentgateway-mcp+langserver",
-        businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/bluesky.py",
+        businessLogic: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/bluesky.py",
         bpmn: [
           "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/bluesky/ingestActor.bpmn",
           "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/bluesky/refreshStalest.bpmn",

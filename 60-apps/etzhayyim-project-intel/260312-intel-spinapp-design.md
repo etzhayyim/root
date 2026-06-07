@@ -253,7 +253,7 @@ command service は public には作らない。
 
 - project: `60-apps/etzhayyim-project-intel`
 - app dir: `60-apps/etzhayyim-project-intel/wasm/etzhayyim-wasm-intel-<nanoid>`
-- namespace: `magatama-runtime`
+- namespace: `kotodama-runtime`
 - image: `ghcr.io/etzhayyim/*`
 
 最低限の routes:
@@ -266,7 +266,7 @@ command service は public には作らない。
 ## Milestones
 
 1. design: taxonomy / data model / transport contract
-2. scaffold: App folder, `magatama.toml`, `deploy config`, health route
+2. scaffold: App folder, `kotodama.toml`, `deploy config`, health route
 3. contract: WIT + proto + query service stub
 4. storage: Flight SQL schema + projection updater
 5. ingest: `web-crawler`, `manual-report`, `api-ingest` の 3 connector

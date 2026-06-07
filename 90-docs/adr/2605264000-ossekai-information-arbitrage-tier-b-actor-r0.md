@@ -260,7 +260,7 @@ feed generator + `@mention` to AT Proto handles.
 - Campaign-scale dispatch (>50 unique non-member handles) requires
   Council Lv6+ ≥4 (one additional attestation).
 
-## §3. Cells (8 Pregel cells under `20-actors/magatama/cells/ossekai_*/`)
+## §3. Cells (8 Pregel cells under `40-engine/kotoba/crates/kotoba-kotodama/cells/ossekai_*/`)
 
 All R0 path-reserved; import-time
 `RuntimeError("ossekai R0 scaffold: activate via Council ADR + R1 ratification + e7m-dataset Tier-A foundations available + legal-foundations-r1 recipe ratified + chigiri R1 active for UPL boundary + iyashi R1 active for medical boundary")`
@@ -303,7 +303,7 @@ brings the practical total to 9 once written.)
 
 | Gate | Description |
 |---|---|
-| **G1** | Every advisory MUST pass `pymagatama.organism.sensors.charter_rider.scan()` §2(a)-(h) on input AND output. |
+| **G1** | Every advisory MUST pass `kotodama.organism.sensors.charter_rider.scan()` §2(a)-(h) on input AND output. |
 | **G2** | Every record MUST emit `com.etzhayyim.ossekai.*` Lexicon with kotoba-datomic attestation lineage. |
 | **G3** | **PASSIVE-ONLY** collection — no live DNS / port-probe / traceroute / WHOIS / RDAP / DoH / handle-enumeration against third parties; only pre-published public archives + voluntarily-published AT Proto activity (per ADR-2605262400). |
 | **G4** | **Aggregate-first publication** — anonymized AT Proto `app.bsky.feed.post` is the DEFAULT mode; targeted @mention is the secondary mode; the default order MUST NOT be inverted at runtime. |

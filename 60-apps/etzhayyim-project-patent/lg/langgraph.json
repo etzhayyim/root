@@ -1,6 +1,6 @@
 {
   "$comment": "LangGraph Server config — patent.etzhayyim.com. Graphs: blob_convert (every 5 min), ingest_uspto_weekly (weekly).",
-  "dependencies": ["./lg_patent", "../../../20-actors/magatama/py"],
+  "dependencies": ["./lg_patent", "../../../40-engine/kotoba/crates/kotoba-kotodama/py"],
   "graphs": {
     "health":               "./lg_patent/graphs/health.py:GRAPH",
     "blob_convert":         "./lg_patent/graphs/blob_convert.py:GRAPH",

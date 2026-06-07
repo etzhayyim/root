@@ -243,7 +243,7 @@ if(!navigator.gpu){setGpuStatus("WebGPU not supported","err");gpuEnabled=false;$
 var adapter=await navigator.gpu.requestAdapter();
 if(!adapter){setGpuStatus("no GPU adapter","err");gpuEnabled=false;$("gpuToggle").classList.remove("on");return}
 
-// Load magatama-inference WASM
+// Load kotodama-inference WASM
 var wasmBytes=await fetch("/gpu/inference.wasm").then(function(r){return r.arrayBuffer()});
 var mod=await import("/gpu/inference.js");
 await mod.default(wasmBytes);

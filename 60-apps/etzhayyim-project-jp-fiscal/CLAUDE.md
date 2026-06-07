@@ -7,7 +7,7 @@ Japanese government fiscal data ingest actor (ADR-0035).
 ```
 External public sources (e-GOV / MOF / 総務省 / 会計検査院 / NTA / EDINET / 法務局)
     │
-    │ HTTPS fetch (robots.txt + 1.5s rate limit, magatama:net/fetch)
+    │ HTTPS fetch (robots.txt + 1.5s rate limit, kotodama:net/fetch)
     ▼
 etzhayyim-wasm-jpfiscal-jpf15c4l  (TS Native, single Worker)
     ├─ cron */15 * * * *  → scheduler routes per source

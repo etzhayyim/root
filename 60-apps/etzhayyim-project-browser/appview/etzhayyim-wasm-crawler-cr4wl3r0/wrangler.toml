@@ -1,4 +1,4 @@
-name = "magatama-www-crawler"
+name = "kotodama-www-crawler"
 main = "src/app.ts"
 compatibility_date = "2026-03-19"
 compatibility_flags = ["nodejs_compat"]
@@ -21,7 +21,7 @@ SPIN_VARIABLE_PERFORMER_ID = "cr4wl3r0"
 
 [[services]]
 binding = "PDS_SERVICE"
-service = "magatama-pds"
+service = "kotodama-pds"
 
 [[secrets_store_secrets]]
 binding = "SS_OPENROUTER_API_KEY"
@@ -34,14 +34,14 @@ bucket_name = "etzhayyim-graph"
 
 [durable_objects]
 bindings = [
-  { name = "MAGATAMA", class_name = "MagatamaContainer" }
+  { name = "KOTODAMA", class_name = "KotodamaContainer" }
 ]
 
 [[migrations]]
 tag = "v1"
-new_classes = ["MagatamaContainer"]
+new_classes = ["KotodamaContainer"]
 
 [[migrations]]
 tag = "v2"
-renamed_classes = [{from = "MagatamaContainer", to = "MagatamaContainerLegacy"}]
-new_sqlite_classes = ["MagatamaContainer"]
+renamed_classes = [{from = "KotodamaContainer", to = "KotodamaContainerLegacy"}]
+new_sqlite_classes = ["KotodamaContainer"]

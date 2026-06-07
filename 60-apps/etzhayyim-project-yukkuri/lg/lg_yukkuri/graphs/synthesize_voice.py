@@ -54,7 +54,7 @@ class _State(TypedDict, total=False):
 
 async def _fetch_lines(video_id: str) -> list[dict]:
     import asyncio
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     client = get_kotoba_client()
     raw_rows = await asyncio.to_thread(client.select_where, "vertex_yukkuri_line", "video_id", video_id, limit=500)
     filtered = [r for r in raw_rows if not r.get("voice_blob_key")]
@@ -125,7 +125,7 @@ async def _node_update_lines(state: _State) -> dict[str, Any]:
     video_id = state.get("video_id") or ""
     try:
         import asyncio
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         client = get_kotoba_client()
         for asset in assets:
             raw_lines = await asyncio.to_thread(client.select_where, "vertex_yukkuri_line", "line_id", asset["line_id"])

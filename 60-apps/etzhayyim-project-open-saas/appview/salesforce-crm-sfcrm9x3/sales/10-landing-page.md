@@ -30,7 +30,7 @@ Run `etzhayyim opensaas attest --tenant <your-did> --region JPN` (or EUR) → si
 - **Micro-copy**: "If the attestation ever shows a region outside your Order Form, we owe you a credit."
 
 ### Claim C: LLM is a seat capability, not an add-on SKU
-The seat DID (`did:web:<tenant>.opensaas.etzhayyim.com:seat:<role>-<nn>`) is itself the agent identity. `magatama.Invoke(murakumoFleetDid, ...)` runs under that identity. Swap Murakumo for your own LLM (Azure OpenAI, Anthropic, in-house GPU) with one `ConfigPut`.
+The seat DID (`did:web:<tenant>.opensaas.etzhayyim.com:seat:<role>-<nn>`) is itself the agent identity. `kotodama.Invoke(murakumoFleetDid, ...)` runs under that identity. Swap Murakumo for your own LLM (Azure OpenAI, Anthropic, in-house GPU) with one `ConfigPut`.
 
 - **Proof link**: Pillar 2 deep-dive `/docs/per-seat-llm-murakumo`
 - **Micro-copy**: "Your Einstein GPT line item is ¥6,000 / seat / month. Our LLM line item is ¥0."
@@ -53,7 +53,7 @@ Tight, honest inventory. No "we're better at everything" bravado.
 
 **Supported on day 1**: Account, Contact, Lead, Opportunity, Case, Activity, User/seat, pipeline reports, field history, basic email integration (SMTP), webhook-based integration to SAP / HubSpot / BI tools, WebAuthn auth.
 
-**Replaced, not ported**: Salesforce Flow → `derive` rule in `magatama.jsonld` (JSONLD, not a designer GUI yet — on roadmap Q3); reports → `listPipeline` + tenant-scoped SQL on RisingWave MV; AppExchange → capability workers registered per tenant DID.
+**Replaced, not ported**: Salesforce Flow → `derive` rule in `kotodama.jsonld` (JSONLD, not a designer GUI yet — on roadmap Q3); reports → `listPipeline` + tenant-scoped SQL on RisingWave MV; AppExchange → capability workers registered per tenant DID.
 
 **Out of scope (today, honestly)**: Apex custom code, Visualforce UI, Lightning App Builder, Sales Cloud Einstein forecasting. If your org relies on these, we'll say so on the discovery call.
 
@@ -83,7 +83,7 @@ Tight, honest inventory. No "we're better at everything" bravado.
 ## Section 6 — Proof (load-bearing footer)
 
 - Link to the lexicon repo: `https://github.com/etzhayyim/open-saas/tree/main/00-contracts/lexicons/com/etzhayyim/apps/opensaas/salesforce`.
-- Link to the Cloudflare Worker source and `magatama.jsonld`.
+- Link to the Cloudflare Worker source and `kotodama.jsonld`.
 - Link to the atproto.etzhayyim.com public firehose — anyone can verify our own dogfooding (we run open-salesforce internally).
 - Link to the `listPipeline` spec JSON.
 - Sub-processor list, uptime history, most recent incident post-mortem.

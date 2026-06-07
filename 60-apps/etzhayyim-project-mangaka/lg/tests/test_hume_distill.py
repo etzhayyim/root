@@ -2,7 +2,7 @@
 
 Covers the persist → train end-to-end loop with synthetic observation
 rows so no RW / B2 / OpenAI access is required. The trained centroid is
-piped back into `pymagatama.primitives.hume_image_head.predict_image_emotion`
+piped back into `kotodama.primitives.hume_image_head.predict_image_emotion`
 so an end-to-end "trained model is loadable" assertion lands.
 """
 
@@ -183,7 +183,7 @@ def test_run_distillation_produces_visual_centroid_v1_model():
     centroid_names = set(model["emotionCentroids"])
     assert {"joy", "anxiety", "calm"} <= centroid_names
     # Each centroid is a 6-feature dict over hume_image_head.FEATURE_KEYS.
-    from pymagatama.primitives.hume_image_head import FEATURE_KEYS
+    from kotodama.primitives.hume_image_head import FEATURE_KEYS
     for name, centroid in model["emotionCentroids"].items():
         assert set(centroid) == set(FEATURE_KEYS), f"{name} centroid missing keys"
     # Priors normalise to 1 across primary names seen.
@@ -219,7 +219,7 @@ def test_trained_model_is_loadable_by_predict_image_emotion():
     run_distillation feeds back into hume_image_head.predict_image_emotion
     via the `model=` arg, so future panel scoring uses the distilled
     centroid instead of the stdlib heuristic fallback."""
-    from pymagatama.primitives.hume_image_head import predict_image_emotion
+    from kotodama.primitives.hume_image_head import predict_image_emotion
 
     observations = _synthetic_corpus(15)
     model = run_distillation(observations, min_rows=10)["model"]

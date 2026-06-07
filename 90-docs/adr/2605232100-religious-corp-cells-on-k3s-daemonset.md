@@ -53,7 +53,7 @@ launchd's process-group model cannot express these requirements cleanly:
 
 Parallel evidence: `50-infra/k8s/etzhayyim-organism/` has been running the CNS daemon as a Pod on orbstack k8s for 24+ hours without incident, and `50-infra/k8s/lg-open-unispsc/deployment.yaml` already specifies a complete Deployment manifest for the 18,342 UNSPSC agent XRPC façade (currently unapplied because it carries an ADR-2605172000 violation — see §Decision item 3).
 
-Additional constraint discovered 2026-05-23: the lg-open-unispsc manifest references `secretKeyRef: mitama-udf-pool-rw / KOTOBA_URL` for both `KOTOBA_URL` and `DATABASE_URL` env vars, plus `RW_SYNC_POOL=1`. This is a direct violation of ADR-2605172000 (RW-free substrate). Inspection of `pymagatama/langgraph_server_app.py` shows the RW dependency is confined to the `/readyz` DB probe (line 670-687); the XRPC façade itself, the UNSPSC graph registry, and the invoke pipeline never touch Kotoba/Datomic. The contamination is therefore probe-only and removable without functional regression.
+Additional constraint discovered 2026-05-23: the lg-open-unispsc manifest references `secretKeyRef: mitama-udf-pool-rw / KOTOBA_URL` for both `KOTOBA_URL` and `DATABASE_URL` env vars, plus `RW_SYNC_POOL=1`. This is a direct violation of ADR-2605172000 (RW-free substrate). Inspection of `kotodama/langgraph_server_app.py` shows the RW dependency is confined to the `/readyz` DB probe (line 670-687); the XRPC façade itself, the UNSPSC graph registry, and the invoke pipeline never touch Kotoba/Datomic. The contamination is therefore probe-only and removable without functional regression.
 
 ## Decision
 
@@ -154,4 +154,4 @@ The first ADR draft (2026-05-23 morning) cited `bring-up.sh` as the Stage 3 path
 - `60-apps/etzhayyim-project-murakumo/ansible/roles/lima_k3s_gpu/` — k3s role (tools / preflight / bootstrap / deploy_llama_vulkan)
 - `50-infra/k8s/lima-k3s/bring-up.sh` — **local 3-VM smoke test only**, not the fleet bootstrapper (clarified in Stage 3 above)
 - `20-actors/etzhayyim-sdk/src/checkpointer.ts` — MstCheckpointSaver sidecar (Pod sidecar target)
-- `20-actors/magatama/py/src/pymagatama/cell_runner_main.py` — legacy launchd entrypoint (downgraded to debug-only post-Stage 6)
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/cell_runner_main.py` — legacy launchd entrypoint (downgraded to debug-only post-Stage 6)

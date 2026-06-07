@@ -65,7 +65,7 @@ import (
 \t"strings"
 \t"time"
 
-\tmagatama "github.com/etzhayyim/root/20-actors/magatama-go"
+\tkotodama "github.com/etzhayyim/root/40-engine/kotoba/crates/kotoba-kotodama-go"
 )
 
 const (
@@ -130,57 +130,57 @@ var seedSlot = slotInfo{
 }
 
 func init() {
-\tapp := magatama.NewApp(magatama.AppDef{
+\tapp := kotodama.NewApp(kotodama.AppDef{
 \t\tID:          componentNanoID,
 \t\tName:        componentName,
 \t\tDescription: serviceDesc,
-\t\tAgent: &magatama.AgentConfig{
-\t\t\tModel:        magatama.DefaultMurakumoModel,
+\t\tAgent: &kotodama.AgentConfig{
+\t\t\tModel:        kotodama.DefaultMurakumoModel,
 \t\t\tSystemPrompt: ${toGoString(buildSystemPrompt(slot))},
 \t\t},
 \t})
 \tapp.Command("get_slot_info", handleGetSlotInfo,
-\t\tmagatama.AsAgentTool("Get ISIC market-cap slot metadata"),
-\t\tmagatama.WithCapabilityTags("public-company", "market-cap-slot", "isic-${slot.section.toLowerCase()}", "rank-${pad2(slot.rank)}", "${slot.status}"),
+\t\tkotodama.AsAgentTool("Get ISIC market-cap slot metadata"),
+\t\tkotodama.WithCapabilityTags("public-company", "market-cap-slot", "isic-${slot.section.toLowerCase()}", "rank-${pad2(slot.rank)}", "${slot.status}"),
 \t)
 \tapp.Command("get_company_info", handleGetCompanyInfo,
-\t\tmagatama.AsAgentTool("Get company metadata for this ISIC market-cap slot"),
-\t\tmagatama.WithCapabilityTags("public-company", "company-profile", "isic-${slot.section.toLowerCase()}", "${slot.status}"),
+\t\tkotodama.AsAgentTool("Get company metadata for this ISIC market-cap slot"),
+\t\tkotodama.WithCapabilityTags("public-company", "company-profile", "isic-${slot.section.toLowerCase()}", "${slot.status}"),
 \t)
 \tapp.Command("get_growth_brief", handleGetGrowthBrief,
-\t\tmagatama.AsAgentTool("Get evolution brief for this ISIC market-cap actor"),
-\t\tmagatama.WithCapabilityTags("public-company", "growth-brief", "isic-${slot.section.toLowerCase()}", "${slot.status}"),
+\t\tkotodama.AsAgentTool("Get evolution brief for this ISIC market-cap actor"),
+\t\tkotodama.WithCapabilityTags("public-company", "growth-brief", "isic-${slot.section.toLowerCase()}", "${slot.status}"),
 \t)
 \tapp.Command("get_public_profile", handleGetPublicProfile,
-\t\tmagatama.AsAgentTool("Get the public profile and published facts for this actor"),
-\t\tmagatama.WithCapabilityTags("public-company", "public-profile", "isic-${slot.section.toLowerCase()}", "${slot.status}"),
+\t\tkotodama.AsAgentTool("Get the public profile and published facts for this actor"),
+\t\tkotodama.WithCapabilityTags("public-company", "public-profile", "isic-${slot.section.toLowerCase()}", "${slot.status}"),
 \t)
 \tapp.Command("list_public_facts", handleListPublicFacts,
-\t\tmagatama.AsAgentTool("List published facts accumulated by this actor"),
-\t\tmagatama.WithCapabilityTags("public-company", "public-facts", "isic-${slot.section.toLowerCase()}", "${slot.status}"),
+\t\tkotodama.AsAgentTool("List published facts accumulated by this actor"),
+\t\tkotodama.WithCapabilityTags("public-company", "public-facts", "isic-${slot.section.toLowerCase()}", "${slot.status}"),
 \t)
 \tapp.Command("upsert_public_fact", handleUpsertPublicFact,
-\t\tmagatama.AsAgentTool("Publish or update a public fact for this actor"),
-\t\tmagatama.WithCapabilityTags("public-company", "public-facts", "publisher", "isic-${slot.section.toLowerCase()}", "${slot.status}"),
+\t\tkotodama.AsAgentTool("Publish or update a public fact for this actor"),
+\t\tkotodama.WithCapabilityTags("public-company", "public-facts", "publisher", "isic-${slot.section.toLowerCase()}", "${slot.status}"),
 \t)
 \tapp.Command("list_messages", handleListMessages,
-\t\tmagatama.AsAgentTool("List accumulated public conversation messages for this actor"),
-\t\tmagatama.WithCapabilityTags("public-company", "conversation", "message-log", "isic-${slot.section.toLowerCase()}", "${slot.status}"),
+\t\tkotodama.AsAgentTool("List accumulated public conversation messages for this actor"),
+\t\tkotodama.WithCapabilityTags("public-company", "conversation", "message-log", "isic-${slot.section.toLowerCase()}", "${slot.status}"),
 \t)
 \tapp.Command("receive_message", handleReceiveMessage,
-\t\tmagatama.AsAgentTool("Receive and store a message for this actor"),
-\t\tmagatama.WithCapabilityTags("public-company", "conversation", "inbox", "isic-${slot.section.toLowerCase()}", "${slot.status}"),
+\t\tkotodama.AsAgentTool("Receive and store a message for this actor"),
+\t\tkotodama.WithCapabilityTags("public-company", "conversation", "inbox", "isic-${slot.section.toLowerCase()}", "${slot.status}"),
 \t)
 \tapp.Command("send_message", handleSendMessage,
-\t\tmagatama.AsAgentTool("Send a message from this actor to another actor"),
-\t\tmagatama.WithCapabilityTags("public-company", "conversation", "outbox", "isic-${slot.section.toLowerCase()}", "${slot.status}"),
+\t\tkotodama.AsAgentTool("Send a message from this actor to another actor"),
+\t\tkotodama.WithCapabilityTags("public-company", "conversation", "outbox", "isic-${slot.section.toLowerCase()}", "${slot.status}"),
 \t)
 \tapp.Command("start_conversation", handleStartConversation,
-\t\tmagatama.AsAgentTool("Start a W Protocol conversation with other actors"),
-\t\tmagatama.WithCapabilityTags("public-company", "conversation", "session", "isic-${slot.section.toLowerCase()}", "${slot.status}"),
+\t\tkotodama.AsAgentTool("Start a W Protocol conversation with other actors"),
+\t\tkotodama.WithCapabilityTags("public-company", "conversation", "session", "isic-${slot.section.toLowerCase()}", "${slot.status}"),
 \t)
 \tapp.HandleConversationMessage(handleConversationMessage)
-\tapp.OnDailyEvolution(func(_ *magatama.AppContext) map[string]float64 {
+\tapp.OnDailyEvolution(func(_ *kotodama.AppContext) map[string]float64 {
 \t\tensureSeedProfile()
 \t\tif seedSlot.Status == "implemented" {
 \t\t\treturn map[string]float64{"implemented": 1, "market_cap_usd": seedSlot.MarketCapUSD}
@@ -192,12 +192,12 @@ func init() {
 
 func main() {}
 
-func handleGetSlotInfo(_ *magatama.AppContext, _ []byte) ([]byte, error) {
+func handleGetSlotInfo(_ *kotodama.AppContext, _ []byte) ([]byte, error) {
 \tensureSeedProfile()
 \treturn mustJSON(seedSlot)
 }
 
-func handleGetCompanyInfo(_ *magatama.AppContext, _ []byte) ([]byte, error) {
+func handleGetCompanyInfo(_ *kotodama.AppContext, _ []byte) ([]byte, error) {
 \tensureSeedProfile()
 \tif seedSlot.Status != "implemented" {
 \t\treturn nil, fmt.Errorf("slot %s-%02d is not implemented yet", seedSlot.Section, seedSlot.Rank)
@@ -214,7 +214,7 @@ func handleGetCompanyInfo(_ *magatama.AppContext, _ []byte) ([]byte, error) {
 \t})
 }
 
-func handleGetGrowthBrief(_ *magatama.AppContext, _ []byte) ([]byte, error) {
+func handleGetGrowthBrief(_ *kotodama.AppContext, _ []byte) ([]byte, error) {
 \tensureSeedProfile()
 \tpayload := map[string]any{
 \t\t"section": seedSlot.Section,
@@ -240,7 +240,7 @@ func handleGetGrowthBrief(_ *magatama.AppContext, _ []byte) ([]byte, error) {
 \treturn mustJSON(payload)
 }
 
-func handleGetPublicProfile(_ *magatama.AppContext, _ []byte) ([]byte, error) {
+func handleGetPublicProfile(_ *kotodama.AppContext, _ []byte) ([]byte, error) {
 \tensureSeedProfile()
 \tfacts, err := loadPublicFacts(100)
 \tif err != nil {
@@ -262,7 +262,7 @@ func handleGetPublicProfile(_ *magatama.AppContext, _ []byte) ([]byte, error) {
 \t})
 }
 
-func handleListPublicFacts(_ *magatama.AppContext, payload []byte) ([]byte, error) {
+func handleListPublicFacts(_ *kotodama.AppContext, payload []byte) ([]byte, error) {
 \tensureSeedProfile()
 \targs, err := decodeArgs(payload)
 \tif err != nil {
@@ -279,7 +279,7 @@ func handleListPublicFacts(_ *magatama.AppContext, payload []byte) ([]byte, erro
 \treturn mustJSON(map[string]any{"facts": facts, "total": len(facts)})
 }
 
-func handleUpsertPublicFact(_ *magatama.AppContext, payload []byte) ([]byte, error) {
+func handleUpsertPublicFact(_ *kotodama.AppContext, payload []byte) ([]byte, error) {
 \tensureSeedProfile()
 \targs, err := decodeArgs(payload)
 \tif err != nil {
@@ -307,7 +307,7 @@ func handleUpsertPublicFact(_ *magatama.AppContext, payload []byte) ([]byte, err
 \treturn mustJSON(map[string]any{"status": "ok", "key": key, "visibility": visibility})
 }
 
-func handleListMessages(_ *magatama.AppContext, payload []byte) ([]byte, error) {
+func handleListMessages(_ *kotodama.AppContext, payload []byte) ([]byte, error) {
 \tensureSeedProfile()
 \targs, err := decodeArgs(payload)
 \tif err != nil {
@@ -325,7 +325,7 @@ func handleListMessages(_ *magatama.AppContext, payload []byte) ([]byte, error) 
 \treturn mustJSON(map[string]any{"messages": messages, "total": len(messages)})
 }
 
-func handleReceiveMessage(ctx *magatama.AppContext, payload []byte) ([]byte, error) {
+func handleReceiveMessage(ctx *kotodama.AppContext, payload []byte) ([]byte, error) {
 \tensureSeedProfile()
 \targs, err := decodeArgs(payload)
 \tif err != nil {
@@ -363,7 +363,7 @@ func handleReceiveMessage(ctx *magatama.AppContext, payload []byte) ([]byte, err
 \treturn mustJSON(map[string]any{"status": "received", "message_id": rec.MessageID})
 }
 
-func handleSendMessage(ctx *magatama.AppContext, payload []byte) ([]byte, error) {
+func handleSendMessage(ctx *kotodama.AppContext, payload []byte) ([]byte, error) {
 \tensureSeedProfile()
 \targs, err := decodeArgs(payload)
 \tif err != nil {
@@ -389,13 +389,13 @@ func handleSendMessage(ctx *magatama.AppContext, payload []byte) ([]byte, error)
 \t\tif topic == "" {
 \t\t\ttopic = componentName + " outbound"
 \t\t}
-\t\tsession, err := magatama.StartConversation(topic, []string{toActorID})
+\t\tsession, err := kotodama.StartConversation(topic, []string{toActorID})
 \t\tif err != nil {
 \t\t\treturn nil, err
 \t\t}
 \t\tsessionID = session.SessionID
 \t}
-\tsent, err := magatama.Say(sessionID, content)
+\tsent, err := kotodama.Say(sessionID, content)
 \tif err != nil {
 \t\treturn nil, err
 \t}
@@ -424,7 +424,7 @@ func handleSendMessage(ctx *magatama.AppContext, payload []byte) ([]byte, error)
 \t})
 }
 
-func handleStartConversation(ctx *magatama.AppContext, payload []byte) ([]byte, error) {
+func handleStartConversation(ctx *kotodama.AppContext, payload []byte) ([]byte, error) {
 \tensureSeedProfile()
 \targs, err := decodeArgs(payload)
 \tif err != nil {
@@ -438,13 +438,13 @@ func handleStartConversation(ctx *magatama.AppContext, payload []byte) ([]byte, 
 \tif topic == "" {
 \t\ttopic = componentName + " conversation"
 \t}
-\tsession, err := magatama.StartConversation(topic, participants)
+\tsession, err := kotodama.StartConversation(topic, participants)
 \tif err != nil {
 \t\treturn nil, err
 \t}
 \topening := strings.TrimSpace(stringArg(args, "opening_content"))
 \tif opening != "" {
-\t\tsent, err := magatama.Say(session.SessionID, opening)
+\t\tsent, err := kotodama.Say(session.SessionID, opening)
 \t\tif err != nil {
 \t\t\treturn nil, err
 \t\t}
@@ -469,7 +469,7 @@ func handleStartConversation(ctx *magatama.AppContext, payload []byte) ([]byte, 
 \t})
 }
 
-func handleConversationMessage(ctx *magatama.AppContext, msg magatama.ConversationMessage) error {
+func handleConversationMessage(ctx *kotodama.AppContext, msg kotodama.ConversationMessage) error {
 \tensureSeedProfile()
 \tinbound := messageRecord{
 \t\tMessageID:      msg.MessageID,
@@ -495,11 +495,11 @@ func handleConversationMessage(ctx *magatama.AppContext, msg magatama.Conversati
 \tif reply == "" {
 \t\treturn nil
 \t}
-\tvar sent *magatama.ConversationMessage
+\tvar sent *kotodama.ConversationMessage
 \tif msg.MessageID != "" {
-\t\tsent, err = magatama.Reply(msg.SessionID, reply, msg.MessageID)
+\t\tsent, err = kotodama.Reply(msg.SessionID, reply, msg.MessageID)
 \t} else {
-\t\tsent, err = magatama.Say(msg.SessionID, reply)
+\t\tsent, err = kotodama.Say(msg.SessionID, reply)
 \t}
 \tif err != nil {
 \t\treturn err
@@ -519,20 +519,20 @@ func handleConversationMessage(ctx *magatama.AppContext, msg magatama.Conversati
 \t})
 }
 
-func generateConversationReply(msg magatama.ConversationMessage) (string, error) {
+func generateConversationReply(msg kotodama.ConversationMessage) (string, error) {
 \tfacts, _ := loadPublicFacts(8)
-\tmessages := []magatama.Message{
-\t\t{Role: magatama.RoleSystem, Content: buildConversationSystemPrompt(facts)},
-\t\t{Role: magatama.RoleUser, Content: strings.TrimSpace(msg.Content)},
+\tmessages := []kotodama.Message{
+\t\t{Role: kotodama.RoleSystem, Content: buildConversationSystemPrompt(facts)},
+\t\t{Role: kotodama.RoleUser, Content: strings.TrimSpace(msg.Content)},
 \t}
-\topts := magatama.ChatOptions{ScrubPII: true}
+\topts := kotodama.ChatOptions{ScrubPII: true}
 \tif msg.SessionID != "" {
 \t\topts.ContextID = &msg.SessionID
 \t}
 \tif model := strings.TrimSpace(${toGoString(slot.status === 'implemented' ? 'openrouter/auto' : '')}); model != "" {
 \t\topts.Model = &model
 \t}
-\tresp, errMsg := magatama.AgentConverse(messages, opts)
+\tresp, errMsg := kotodama.AgentConverse(messages, opts)
 \tif errMsg != "" {
 \t\treturn "", fmt.Errorf("conversation agent: %s", errMsg)
 \t}
@@ -553,7 +553,7 @@ func buildConversationSystemPrompt(facts []publicFact) string {
 
 func ensureSeedProfile() {
 \tnow := nowRFC3339()
-\t_ = magatama.SqlExec(
+\t_ = kotodama.SqlExec(
 \t\t"MERGE (n:PublicCompanyActorProfile {'app_id': $app_id}) SET n.component_nanoid = $component_nanoid, n.component_name = $component_name, n.description = $description, n.section = $section, n.section_name = $section_name, n.rank = $rank, n.status = $status, n.coverage_target = $coverage_target, n.market_cap_usd = $market_cap_usd, n.ticker = $ticker, n.company_name = $company_name, n.exchange_mic = $exchange_mic, n.isic_code = $isic_code, n.sector = $sector, n.industry = $industry, n.source_path = $source_path, n.protocol = 'wproto', n.updated_at = $updated_at, n.created_at = coalesce(n.created_at, $created_at), n.org_id = 'public', n.user_id = 'public', n.actor_id = ''",
 \t\tmap[string]any{
 \t\t\t"app_id":          componentNanoID,
@@ -580,7 +580,7 @@ func ensureSeedProfile() {
 }
 
 func upsertPublicFact(key, valueJSON, visibility, source string) error {
-\treturn magatama.SqlExec(
+\treturn kotodama.SqlExec(
 \t\t"MERGE (n:PublicCompanyActorFact {'app_id': $app_id, key: $key}) SET n.value_json = $value_json, n.visibility = $visibility, n.source = $source, n.updated_at = $updated_at, n.created_at = coalesce(n.created_at, $created_at), n.org_id = 'public', n.user_id = 'public', n.actor_id = ''",
 \t\tmap[string]any{
 \t\t\t"app_id":     componentNanoID,
@@ -595,7 +595,7 @@ func upsertPublicFact(key, valueJSON, visibility, source string) error {
 }
 
 func loadPublicFacts(limit int) ([]publicFact, error) {
-\trows, err := magatama.SqlQueryMap(
+\trows, err := kotodama.SqlQueryMap(
 \t\tfmt.Sprintf("MATCH (n:PublicCompanyActorFact {'app_id': $app_id}) RETURN n.key AS key, n.value_json AS value_json, n.visibility AS visibility, n.source AS source, n.updated_at AS updated_at ORDER BY n.updated_at DESC LIMIT %d", limit),
 \t\tmap[string]any{"app_id": componentNanoID},
 \t)
@@ -616,7 +616,7 @@ func loadPublicFacts(limit int) ([]publicFact, error) {
 }
 
 func storeMessage(rec messageRecord) error {
-\treturn magatama.SqlExec(
+\treturn kotodama.SqlExec(
 \t\t"MERGE (n:PublicCompanyActorMessage {'app_id': $app_id, 'message_id': $message_id}) SET n.session_id = $session_id, n.direction = $direction, n.from_actor_id = $from_actor_id, n.to_actor_id = $to_actor_id, n.subject = $subject, n.content = $content, n.visibility = $visibility, n.created_at = $created_at, n.origin_org_id = $origin_org_id, n.origin_user_id = $origin_user_id, n.origin_actor_id = $origin_actor_id, n.org_id = 'public', n.user_id = 'public', n.actor_id = ''",
 \t\tmap[string]any{
 \t\t\t"app_id":          componentNanoID,
@@ -644,7 +644,7 @@ func loadMessages(sessionID string, limit int) ([]messageRecord, error) {
 \t\twhere = "WHERE n.session_id = $session_id"
 \t\tparams["session_id"] = sessionID
 \t}
-\trows, err := magatama.SqlQueryMap(fmt.Sprintf(query, where), params)
+\trows, err := kotodama.SqlQueryMap(fmt.Sprintf(query, where), params)
 \tif err != nil {
 \t\treturn nil, err
 \t}
@@ -669,7 +669,7 @@ func loadMessages(sessionID string, limit int) ([]messageRecord, error) {
 }
 
 func countMessages() (int, error) {
-\trows, err := magatama.SqlQueryMap(
+\trows, err := kotodama.SqlQueryMap(
 \t\t"MATCH (n:PublicCompanyActorMessage {'app_id': $app_id}) RETURN count(n) AS cnt",
 \t\tmap[string]any{"app_id": componentNanoID},
 \t)
@@ -817,13 +817,13 @@ go 1.23.0
 
 toolchain go1.23.6
 
-require github.com/etzhayyim/root/20-actors/magatama-go v0.0.0
+require github.com/etzhayyim/root/40-engine/kotoba/crates/kotoba-kotodama-go v0.0.0
 
-replace github.com/etzhayyim/root/20-actors/magatama-go => ../../../../packages/rust/magatama/magatama-go
+replace github.com/etzhayyim/root/40-engine/kotoba/crates/kotoba-kotodama-go => ../../../../packages/rust/kotodama/kotodama-go
 `;
 }
 
-function magatamaToml() {
+function kotodamaToml() {
   return `# generated market-cap slot app
 
 [component]
@@ -865,8 +865,8 @@ async function main() {
         dirName: dirName(section, rank),
         appName: `Public Company ISIC ${section} Top ${pad2(rank)}`,
         description: entry
-          ? `Magatama app for ISIC ${section} rank ${pad2(rank)} by market cap: ${entry.name}`
-          : `Magatama app placeholder for ISIC ${section} rank ${pad2(rank)} by market cap`,
+          ? `Kotodama app for ISIC ${section} rank ${pad2(rank)} by market cap: ${entry.name}`
+          : `Kotodama app placeholder for ISIC ${section} rank ${pad2(rank)} by market cap`,
         status: entry ? 'implemented' : 'planned',
         ticker: entry?.ticker ?? null,
         companyName: entry?.name ?? null,
@@ -882,7 +882,7 @@ async function main() {
       await fs.mkdir(outDir, { recursive: true });
       await fs.writeFile(path.join(outDir, 'main.go'), mainGo(slot), 'utf8');
       await fs.writeFile(path.join(outDir, 'go.mod'), goMod(section, rank), 'utf8');
-      await fs.writeFile(path.join(outDir, 'magatama.toml'), magatamaToml(), 'utf8');
+      await fs.writeFile(path.join(outDir, 'kotodama.toml'), kotodamaToml(), 'utf8');
       await fs.rm(path.join(outDir, 'spin.toml'), { force: true });
 
       manifest.push({

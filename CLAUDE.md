@@ -63,6 +63,7 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 | **Donation-funded operation + compute-node donation** | etzhayyim.com /donate + /.well-known/donation.json; in-kind COMPUTE donation (ameno/e7m/kotoba node classes); non-titheable, uncompensated | 🟡 R0 | 2606012100 | 06-01 |
 | **moyai 舫い — inference reciprocity reward** | non-monetary, non-transferable, decaying reciprocity credit for commons-inference (入会権); ADR-2606012100 G4 carve-out scoped to commons-draw-rights; BHI firewall (subsistence floor unconditional); cash≡0, no governance/benefit weight | 🟢 R0+R1 | 2606062100 | 06-06 |
 | **Displacement Dividend + robotics-actor wave** | OSS-robotics frees a worker → Public Fund pays tenure-weighted in-kind income (cash≡0); G2 coupling gate (no live displacement w/o funded cohort); sanae/hataori/kiyome | 🟡 R0 | 2606032130 / 2606032100 | 06-03 |
+| **Robotics remote-work actor survey** | remote-work lens over the corpus: tazuna = on-site→remote teleop substrate + ~18–25 robotics bodies (all R0) + ISCO coverage/GAP map (façade-clean/sewer/伐採 = high-remote-value GAPs; mining N1-excluded); defers LPS ranking to 2606032100 | 🟡 R0 | 2606073000 | 06-07 |
 | Spirit-in-Physics kotoba datafication | 霊性 data of self/humanity/world into datomic kotoba (Jung assay → emotion → RBF → spectral embed → tensegrity); edge-primary :spirit.bond/*, no score-of-soul; Wellbecoming = as-of history | 🟡 R0 | 2606011500 | 06-01 |
 | **kotoba hybrid web search** | Google-shaped datom-native search over Common Crawl: BM25 + PageRank + RRF fusion (no external engine/vector DB); operator-gated, not a public ad index | 🟢 | 2606012300 | 06-01 |
 | **Actor profile + dynamic did.json** | actor-profile SSoT EDN backs did.json + getProfile; apex Worker issues did.json dynamically (3-tier fail-open KV→kotoba→fallback); canonical `did:web:etzhayyim.com:actor:<h>` | 🟢 | 2606013800 | 06-01 |
@@ -184,6 +185,9 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 | suji 筋 | musculoskeletal posture-load biomechanics simulator — sagittal bone chain (kami-genesis PlanarChain) + static inverse dynamics → joint moment + cervical load (validated vs Hansraj) + Hill %MVC + Rohmert dose; laptop-posture strain; non-diagnostic, simulation-only | 🟡 R0 | 2606061900 | 06-06 |
 | keizu 系図 | government power-relations KG — weaves 調達/お金/発言/人間関係/委員会構成 into one kotoba Datom graph + dry-run social posts; 5th accountability sibling (danjo/kanae/tsumugi/tadori/ooyake); map-not-target, non-adjudicating, edge-primary, no-doxxing | 🟡 R0 | 2606066000 | 06-06 |
 | kosatsu 高札 | crime/sanctions COMPETING-CLAIM observatory — every designation (OFAC/EU/UN/UK-OFSI/JP-MOF/Interpol/counter-sanction) is an append-only ATTRIBUTED event (asserter + as-of :listed/:delisted) into kotoba Datom; computed divergence {contested/unanimous/single-asserter}+coverage-split makes "crime varies by political stance" a neutral fact; etzhayyim authors no designation, no verdict, no per-subject score; SoS bridge → tadori/keizu/tsumugi/kanae; map-not-target, non-adjudicating, edge-primary; 79 tests | 🟡 R0 | 2606072000 | 06-07 |
+| kasa 嵩 | worldwide computing-capacity growth observatory — public-info-only datafication of the annual increase (年間増加量) in STORAGE (HDD+SSD exabytes) / MEMORY (DRAM+NAND) / GPU·CPU (units + DC-accel $) / COMPUTE·FLOPS (TOP500 + frontier training) + datacenter power into kotoba `:compute.obs/*`, with YoY+CAGR + coverage-honest aggregates (memory ⊄ semiconductor, no double-count); industry-aggregate sibling of kanjō, demand-side counterpart of the silicon actors; feeds mitooshi but NEVER forecasts (G4); non-adjudicating + planning-lens not a targeting list; paid terminals prohibited (Rider §2(e)+§2(c)); 23 tests | 🟢 R0 | 2606072000 | 06-07 |
+| shionome 潮目 | cross-asset capital-flow observatory — ingests public market data (equities/bonds/commodities/FX/crypto/real-estate) into a kotoba Datom flow-graph; net flow per bucket + rotation pairs (どこからどこへ) + inflow HHI + risk-on/off regime + dry-run social; **トレードはしない** (no buy/sell signal/target/position — structurally unrepresentable), observational-mirror, edge-primary, no-doxxing; **autonomous heartbeat loop persists content-addressed Datom tx to the append-only kotoba log** (live ingest/post G8-gated); 153 tests green | 🟡 R0 | 2606072200 | 06-07 |
+| suimin 睡眠 | sleep-disorder treatment-EVIDENCE research + synthesis (sibling of mitate diagnosis-routing) — does NOT diagnose/treat; synthesizes population-level treatment landscapes from reliable sources ONLY (G1 whitelist: PubMed/Cochrane/AASM/ICSD-3/ICD-11 + verifiable provenance) with explicit GRADE grading (G2) + mandatory non-diagnostic disclaimer (G3) + referral-to-local-clinic (G4, no booking); Wave 1 = 睡眠時無呼吸症候群 (CPAP/oral-appliance/positional/weight/surgery/HNS); Murakumo-only, no-PHI-in-R0/R1 | 🟡 R0 | 2606072800 | 06-07 |
 
 > **Note**: ADR ids `2605263400` and `2605263500` each label two distinct ADRs (parallel-agent race in the source); filename + actor name disambiguate. Tracked for a future ADR-id reconciliation.
 
@@ -196,8 +200,8 @@ etzhayyim/root/
 ├── 10-protocol/         # atproto, xrpc, lexicons-bundle, signal, did-etzhayyim,
 │                        # wproto, at-client, signal-client,
 │                        # kotoba-datomic (Holochain-iso composition spec, ADR-2605231400)
-├── 20-actors/           # magatama (Pregel framework + host SDK + unispsc_agents/ 18,345 LangGraph agents per ADR-2605171300),
-│                        #   magatama-go, kami-engine-sdk, effect-cypher, etzhayyim-bpmn-sdk,
+├── 20-actors/           # kotodama (Pregel framework + host SDK + unispsc_agents/ 18,345 LangGraph agents per ADR-2605171300),
+│                        #   kotodama-go, kami-engine-sdk, effect-cypher, etzhayyim-bpmn-sdk,
 │                        #   etzhayyim-sdk (RW-free substrate, ADR-2605172000+2605172100)
 │                        #   kuni-umi      planetary-infra producer    (ADR-2605201400)
 │                        # Tier-B religious-corp actors (30): each has ADR + manifest + cells + lex.
@@ -355,7 +359,7 @@ push only the branch's committed HEAD. Report the final categorized outcome.
 - Do not include the Book of Revelation (黙示録/啓示の書) or eschatological content as religious doctrine. Per ADR-2605192100 §1.15, etzhayyim is non-eschatological.
 - Do not commit secrets. Private DID key lives in macOS Keychain (`service=etzhayyim, account=DID_PRIVATE_KEY_ED25519`) + 1Password mirror.
 - Do not introduce RunPod / Vertex AI direct / OpenAI direct (without Murakumo proxy) / Anthropic-direct from vendor key / Linode GPU / AWS Bedrock direct / any commercial GPU rental into religious-corp inference paths. ADR-2605215000 makes Murakumo fleet (LiteLLM 127.0.0.1:4000 + EVO-X2 LAN 192.168.1.70 + per-node Ollama gemma3:4b) the sole inference SSoT. Vendor (`etzhayyim.com`) keeps its commercial GPU pool for paid SaaS workloads; religious-corp callers must not invoke vendor RunPod paths (consent capability boundary).
-- Do not rename `etzhayyim-*` identifiers in `50-infra/cluster/murakumo/` or `20-actors/magatama/py/` outside the Step 8 cutover wave. Per ADR-2605214000 §3 + ADR-2605215000 §4, the renames are itemised in `MIGRATION-NOTES.md` files and must execute as one atomic PR after legal registration (repo-root CLAUDE.md §Status row 8). Partial rename breaks runtime (env vars + config dir + DNS suffix are interdependent).
+- Do not rename `etzhayyim-*` identifiers in `50-infra/cluster/murakumo/` or `40-engine/kotoba/crates/kotoba-kotodama/py/` outside the Step 8 cutover wave. Per ADR-2605214000 §3 + ADR-2605215000 §4, the renames are itemised in `MIGRATION-NOTES.md` files and must execute as one atomic PR after legal registration (repo-root CLAUDE.md §Status row 8). Partial rename breaks runtime (env vars + config dir + DNS suffix are interdependent).
 
 ## Baien tooling index (2026-05-23 wave)
 
@@ -423,7 +427,7 @@ Apps that need fiat / paid features call an external backend via XRPC consent-ca
 - `/MEMBERS.md` — 信者 roster
 - `50-infra/murakumo/fleet.toml` — religious-corp cell placement (10 nodes × 15 cells)
 - `20-actors/etzhayyim-sdk/README.md` — SDK API surface + hard rules
-- `20-actors/magatama/cells/README.md` — religious-corp Pregel cell catalog
+- `40-engine/kotoba/crates/kotoba-kotodama/cells/README.md` — religious-corp Pregel cell catalog
 - `90-docs/adr/2605262130-kotoba-storage-substrate-unification.md` — canonical storage substrate engine (kotoba); supersedes kotoba-datomic composition + projection layers; no RisingWave
 - `90-docs/adr/2605312345-kotoba-datom-first-class-canonical-state.md` — kotoba Datom log = first-class canonical state; IPFS = block backend, MST = ingress/interop wire, Base L2 = trust anchor (clarifies 2605262130 layering)
 - `40-engine/kotoba/README.md` — kotoba upstream README (17 crates)

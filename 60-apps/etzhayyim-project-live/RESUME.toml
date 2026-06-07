@@ -20,7 +20,7 @@ adr = "adr-0092-every-vertex-as-actor"
 project = "etzhayyim-project-live"
 domain = "live.etzhayyim.com"
 
-summary = """live.etzhayyim.com を per-Worker (magatama-l1ve9pq4) DO 中心の構成から
+summary = """live.etzhayyim.com を per-Worker (kotodama-l1ve9pq4) DO 中心の構成から
 L4 actor-resolver + dispatcher.etzhayyim.com BPMN-as-actor 構成に段階移行する。
 Phase A → D2a 完了 (2026-04-29、260428-comfyui-internal-trust ブランチ
 + 260429-misaki-lora-wiring ブランチに分散後 cherry-pick で統合)。"""
@@ -107,7 +107,7 @@ size = "small"
 
 [[migrations.next_phases]]
 id = "D3"
-title = "live worker (magatama-l1ve9pq4) 廃止"
+title = "live worker (kotodama-l1ve9pq4) 廃止"
 note = "RisingWave changefeed → WebSocket bridge を経由する純 L4 構成へ。最大規模。"
 size = "large"
 
@@ -158,7 +158,7 @@ migrations = [
   "30-graph/graph-schema/migrations/20260429040000_seed_live_tweak_track_bpmn.ts",
 ]
 runtime = [
-  "20-actors/magatama/py/src/pymagatama/handlers/live.py",
+  "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/handlers/live.py",
   "60-apps/etzhayyim-project-live/CLAUDE.md",
   "60-apps/etzhayyim-project-live/static/index.html",
   "60-apps/etzhayyim-project-live/static/live-v1/kami_app_live.js",

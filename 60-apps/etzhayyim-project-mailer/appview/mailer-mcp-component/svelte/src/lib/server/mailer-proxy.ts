@@ -1,13 +1,13 @@
 const ACTOR = 'did:web:mailer.etzhayyim.com';
 const APP = 'mailer';
 const DEFAULT_DISPATCHER_URL = 'https://dispatcher.etzhayyim.com';
-const DISPATCHER_FALLBACK_URLS = [
-  'http://66.42.104.29.sslip.io',
-  'http://66.42.104.29',
-  'http://149.28.89.211:8080',
-  'http://45.77.121.69:8080',
-];
-const NSID_PREFIX = 'com.etzhayyim.apps.mailer.';
+// Dispatcher is reached only via the public `dispatcher.etzhayyim.com` host (CF Tunnel
+// → bpmn-dispatcher). The old plaintext dev IPs (66.42.104.29.sslip.io etc.) are
+// dead and were passing their bare "error code: 520" back to the client whenever
+// the primary returned a transient CF error — so the fallback list is empty.
+// Override the primary via the `DISPATCHER_URL` secret if ever needed.
+const DISPATCHER_FALLBACK_URLS: string[] = [];
+const NSID_PREFIX = 'ai.etzhayyim.apps.mailer.';
 const PDS_ORIGIN = 'https://atproto.etzhayyim.com';
 
 type SecretBinding = { get(): Promise<string> };
@@ -27,8 +27,8 @@ export function metaResponse(platform: PlatformLike | undefined): Response {
     actor: ACTOR,
     nanoid: platform?.env?.APP_NANOID ?? 'a8wwtz73',
     execution: 'edge-assets+xrpc-proxy+bpmn+langserver',
-    businessLogic: '20-actors/magatama/py/src/pymagatama/ingest/mailer.py',
-    bpmn: 'etzhayyim-root/00-contracts/bpmn/com/etzhayyim/mailer',
+    businessLogic: '40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/mailer.py',
+    bpmn: 'etzhayyim-root/00-contracts/bpmn/ai/etzhayyim/mailer',
   });
 }
 
@@ -65,10 +65,10 @@ export async function proxyXrpc(
 }
 
 async function directMailerRead(nsid: string, url: URL): Promise<Response | null> {
-  if (nsid === 'com.etzhayyim.apps.mailer.health') {
+  if (nsid === 'ai.etzhayyim.apps.mailer.health') {
     return json({ ok: true, app: 'mailer', ts: new Date().toISOString() });
   }
-  if (nsid === 'com.etzhayyim.apps.mailer.listBindings') {
+  if (nsid === 'ai.etzhayyim.apps.mailer.listBindings') {
     return json({ items: [], count: 0 });
   }
   return null;
@@ -144,7 +144,9 @@ async function proxyToDispatcher(env: Env, nsid: string, body: Record<string, un
 function isCloudflareOriginError(status: number, text: string): boolean {
   return (
     (status === 403 && text.includes('error code: 1003')) ||
-    (status >= 500 && status < 600 && text.toLowerCase().includes('cloudflare'))
+    (status >= 500 &&
+      status < 600 &&
+      (text.toLowerCase().includes('cloudflare') || /error code:\s*\d+/i.test(text)))
   );
 }
 

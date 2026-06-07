@@ -36,7 +36,7 @@ Spatial Intelligence + Digital Twin Platform (maps.etzhayyim.com). Graph-first a
 |---|---|
 | **nanoid (UI)** | `uqpel6i6` |
 | **AT bot DID** | `did:web:maps.etzhayyim.com` |
-| **Runtime** | **TS Native** (`src/app.ts` + `@etzhayyim/magatama-host-sdk` → esbuild bundle) |
+| **Runtime** | **TS Native** (`src/app.ts` + `@etzhayyim/kotodama-host-sdk` → esbuild bundle) |
 | **Data store** | **RisingWave via Hyperdrive** — Write: `sdk.pds.dispatch({ type: "com.atproto.repo.createRecord", ... })` → PDS commit pipeline → graph Worker → Hyperdrive RisingWave, Read: `createKyselyDb(env.HYPERDRIVE).selectFrom(...)` → Hyperdrive RisingWave |
 | **UI mode** | `iframe` (SvelteKit-Primary, MapLibre + KAMI engine) |
 
@@ -254,7 +254,7 @@ register + list × 7 types: `spot`, `river`, `lake`, `coastline`, `mountain`, `m
 
 ```
 maps.etzhayyim.com / uqpel6i6.etzhayyim.com
-  → Single Worker (magatama-uqpel6i6, src/app.ts)
+  → Single Worker (kotodama-uqpel6i6, src/app.ts)
     ├─ /_app/meta     → host-sdk auto route
     ├─ static assets  → Workers Assets (svelte/build/)
     ├─ / , /?embed=1  → Hono router (Svelte CSR, MapLibre + KAMI)
@@ -267,7 +267,7 @@ maps.etzhayyim.com / uqpel6i6.etzhayyim.com
 
 ```
 v1m9k2q8.etzhayyim.com
-  → dispatcher → account-level Worker (magatama-v1m9k2q8)
+  → dispatcher → account-level Worker (kotodama-v1m9k2q8)
     ├─ /_heartbeat    → runHeartbeat()
     ├─ /_commit       → handleComAtprotoSyncSubscribeReposCommit()
     ├─ /health        → {"status":"ok"}
@@ -351,7 +351,7 @@ sentinelAnalyze.bpmn  (xrpc POST com.etzhayyim.apps.maps.sentinelAnalyze)
 | `00-contracts/lexicons/com/etzhayyim/apps/maps/sentinelAnalyze.json` | XRPC procedure schema |
 | `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/maps/sentinelIngest.bpmn` | Timer-start BPMN |
 | `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/maps/sentinelAnalyze.bpmn` | XRPC-triggered BPMN |
-| `20-actors/magatama/py/src/pymagatama/primitives/maps_sentinel.py` | LangServer primitives (STAC + RunPod + LangChain) |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/maps_sentinel.py` | LangServer primitives (STAC + RunPod + LangChain) |
 | `30-graph/graph-schema/migrations/20260427210000_seed_maps_sentinel_bpmn_actors.ts` | BPMN registry seed |
 | `50-infra/vultr/mitama-udf-pool/{templates/zeebe-worker.yaml,values.yaml}` | env wiring (RUNPOD / Copernicus secrets) |
 
@@ -391,7 +391,7 @@ etzhayyim deploy
 - 980 Multi-DIDs: 11 layer coordinators, 48 JP regions, 195 sovereign countries, 50 ports, 40 airports, 14 vertical zones, 34 natural zones
 - **12 Overpass entity types** (spot×3 + building + road + station + port + evCharger + parking + busStop + river + mountain)
 - **14 processGeoRecord handlers**: seismicEvent, municipality, gtfsStop, gtfsRoute, satelliteScene, adminArea2, airport, port, road, river, mountain, building, place, aircraft
-- **11 derive.social rules** in magatama.jsonld
+- **11 derive.social rules** in kotodama.jsonld
 - Web crawl NER pipeline: site.wet → Murakumo NER → webCrawlGeoEntity → **proper graph node write + social**
 - **56 geo crawl target domains** (JP GIS/Transport/Hazard/Municipal/Airport/Port + Global GIS/Transport/Hazard/Satellite)
 - p10-tables alignment: all 58 maps labels mapped to `vertex_spatial` (no consumer drops)

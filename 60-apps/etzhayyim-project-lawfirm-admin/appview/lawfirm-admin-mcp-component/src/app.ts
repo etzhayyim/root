@@ -1,7 +1,7 @@
 // SUBSTRATE-PORT (ADR-2605212100 follow-up, 2026-05-24):
 // - ACTOR_DID, NSID_PREFIX, dispatcher default URL retargeted from etzhayyim.com to etzhayyim.com.
 // - Thin-edge proxy — no Kysely / HyperDrive usage to remove. Business logic lives on the dispatcher side.
-// - Package import `@etzhayyim/magatama-host-sdk` not used here (this file is a vanilla Worker handler).
+// - Package import `@etzhayyim/kotodama-host-sdk` not used here (this file is a vanilla Worker handler).
 //
 // lawfirm-admin.etzhayyim.com — Legal Administration Platform
 // Thin-edge dispatcher: business logic in AgentGateway MCP + pod-side LangServer.

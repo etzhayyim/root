@@ -21,14 +21,14 @@ depends_on:
   - adr-0061
 related:
   - 50-infra/silicon/equipment/
-  - 20-actors/magatama/cells/silicon_litho/
-  - 20-actors/magatama/cells/silicon_deposition/
-  - 20-actors/magatama/cells/silicon_etch/
-  - 20-actors/magatama/cells/silicon_implant/
-  - 20-actors/magatama/cells/silicon_cmp/
-  - 20-actors/magatama/cells/silicon_metrology/
-  - 20-actors/magatama/cells/silicon_test/
-  - 20-actors/magatama/cells/silicon_packaging/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_litho/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_deposition/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_etch/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_implant/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_cmp/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_metrology/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_test/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_packaging/
   - 00-contracts/lexicons/com/etzhayyim/silicon/fabEquipmentTelemetry.json
   - 00-contracts/lexicons/com/etzhayyim/silicon/waferLotAttestation.json
   - 20-actors/tsukuru/                            # existing orchestration substrate
@@ -213,7 +213,7 @@ fleet.toml update は **Council 承認 + 新規 node 物理調達 が必要 → 
 Pregel cell skeleton:
 
 ```
-20-actors/magatama/cells/silicon_litho/
+40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_litho/
 ├── __init__.py
 ├── cell.py             # SiliconProcessCell subclass, super_step stub
 └── README.md

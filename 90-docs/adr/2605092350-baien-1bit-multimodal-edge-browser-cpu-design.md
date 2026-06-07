@@ -17,8 +17,8 @@ depends_on:
   - adr-2605092000-ecosystem-as-model-unified-multimodal-fp8-vector-substrate
   - adr-2605070700-rw-native-model-training-weight-lineage        # vertex_training_* lineage shared with Oka
 related:
-  - 20-actors/magatama/sdk/magatama-host-sdk/src/llm-model-registry.ts
-  - 20-actors/magatama/py/src/pymagatama/primitives/training_run.py
+  - 40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts
+  - 40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/training_run.py
   - 30-graph/graph-schema/migrations/20260508000000_vertex_training_lineage.ts
 supersedes: []
 superseded_by: []
@@ -148,7 +148,7 @@ Recorded fields stay identical to Oka (`base_model`, `base_model_revision`,
 
 | Target | Binary path | Quantization | Notes |
 |---|---|---|---|
-| Server CPU pod | `bitnet.cpp` (Microsoft, MIT) | i2_s | Slot into `pymagatama.primitives.chat` as a CPU fallback when the 6000 Ada inference pod is rate-limited or unreachable. |
+| Server CPU pod | `bitnet.cpp` (Microsoft, MIT) | i2_s | Slot into `kotodama.primitives.chat` as a CPU fallback when the 6000 Ada inference pod is rate-limited or unreachable. |
 | Apple Silicon (laptop) | `bitnet.cpp` ARM NEON kernel | i2_s | Same blob; auto-detect at load. |
 | Browser (WebGPU) | `transformers.js` + custom WebGPU shader | i2_s ⇒ packed-int8 dequant in shader | Shipped as static asset on `baien.etzhayyim.com`. |
 | Browser (WASM) | `wasm-bitnet` (vendored, fallback) | i2_s | For browsers without WebGPU or with mobile GPU memory caps. |
@@ -163,7 +163,7 @@ edge" and the registry returns Baien rather than a server-bound model.
 - **Lineage SSoT**: `vertex_training_run` / `vertex_training_checkpoint`
   in Kotoba/Datomic (no schema change).
 - **Model alias SSoT**: `MODEL_REGISTRY["baien-bitnet-1.58bit-base"]` in
-  `20-actors/magatama/sdk/magatama-host-sdk/src/llm-model-registry.ts`.
+  `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts`.
   Carries `huggingfaceModel = "microsoft/bitnet-b1.58-2B-4T-bf16"` so
   trainers hit HF directly with no separate config.
 - **Use-cases**: `UseCaseName` is extended with `"edge"`, `"browser"`,
@@ -201,7 +201,7 @@ that.
 The two are **complementary**. The cell-membrane metaphor (ADR
 2605091400) treats Oka as the cytoplasm-side rich model and Baien as the
 membrane-side cheap-and-everywhere model — most external interactions
-hit Baien first; only difficult work escalates to Oka via the magatama
+hit Baien first; only difficult work escalates to Oka via the kotodama
 MCP facade.
 
 # Rationale
@@ -362,5 +362,5 @@ MCP facade.
 - `90-docs/adr/2605092345-runpod-l40s-fp8-multimodal-model-design.md` (Oka).
 - `90-docs/adr/2605091300-bonsai-cultivar-layer-above-myco-yeast.md` (cell metaphor).
 - `90-docs/adr/2605070700-rw-native-model-training-weight-lineage.md` (lineage).
-- `20-actors/magatama/sdk/magatama-host-sdk/src/llm-model-registry.ts` (registry SSoT).
+- `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts` (registry SSoT).
 - `deps.toml [invariants.gpu_pricing.runpod_h100_nvl]` (training cost).

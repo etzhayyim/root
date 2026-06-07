@@ -16,7 +16,7 @@ Verified with `70-tools/kotoba-e2e` against live etzhayyim.com:
 | Post thread (`/profile/<id>/post/<rkey>`) | `ssr` | ❌ no — same (`+page.server.ts`, `ssr=true`) |
 
 `+page.svelte loadProfile()` *does* contain a client `fetch('/xrpc/app.bsky.actor.getProfile')`
-— but only inside the `did:web:` (app-agent) branch. For `did:gftd:` / human DIDs it
+— but only inside the `did:web:` (app-agent) branch. For `did:etzhayyim:` / human DIDs it
 relies on the SSR-provided `data.og.did` and fetches nothing client-side. Hence the
 observed 0 client XRPC.
 
@@ -29,7 +29,7 @@ SSR-from-RisingWave path can be removed and these pages can render browser-side
 
 ## Required change (NOT a one-line `ssr=false`)
 
-Flipping `export const ssr = false` alone would BREAK `did:gftd:`/human profiles —
+Flipping `export const ssr = false` alone would BREAK `did:etzhayyim:`/human profiles —
 they currently get their data from SSR `data.og`, and the client path fetches
 nothing for them. The change is:
 
@@ -71,7 +71,7 @@ A seeded feed-author profile → `csr-sw` + rendered; a random actor → SW `not
   profiles (non-seeded actors) will show browser-only `notFound` — the accepted
   bounded-data tradeoff, but a visible behaviour change.
 - The `+page.svelte` data loading has several DID branches (did:web agent vs
-  did:gftd/human vs gov fields); each must be re-pointed at the client `getProfile`
+  did:etzhayyim/human vs gov fields); each must be re-pointed at the client `getProfile`
   so none silently render blank. This is the real work — verify each branch.
 - Roll out behind a verify-and-revert loop: deploy → `kotoba-e2e` against a seeded
   profile + a random actor → revert (one-line `ssr=true`) if data_path ≠ csr-sw or
@@ -89,7 +89,7 @@ data browser-side. Built + deployed (Version 56acbe71) + verified with kotoba-e2
 
 → **Reverted** (`getProfile` restored, Version 9096789c). Lessons:
 1. `loadProfile()` did NOT issue an observable client `getProfile` even with empty
-   `data.og` — its multi-branch logic (did:web vs did:gftd vs human) does not cleanly
+   `data.og` — its multi-branch logic (did:web vs did:etzhayyim vs human) does not cleanly
    fall back to a client read when SSR data is absent. The real de-SSR must REWORK
    `loadProfile()` so every branch fetches `getProfile` client-side, not just drop the
    server fetch.

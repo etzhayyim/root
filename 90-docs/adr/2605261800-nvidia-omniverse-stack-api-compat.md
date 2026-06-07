@@ -21,7 +21,7 @@ authoritative_for:
   - 40-engine/kami-engine/kami-replicator
   - 40-engine/kami-engine/kami-app-amenominaka
   - 20-actors/etzhayyim-sdk/nv-compat
-  - 20-actors/magatama/py/pymagatama/nv_compat
+  - 40-engine/kotoba/crates/kotoba-kotodama/py/kotodama/nv_compat
 depends_on:
   - adr-2605261600-robotics-simulation-substrate-r0
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
@@ -131,7 +131,7 @@ ADR-2605241900 baien edge-target invariant に従い、**iPhone 12+ / Android 4G
 
 ## D5. API mirror 形式 (drop-in import alias)
 
-**Python** (pymagatama / e7m-sim 利用者):
+**Python** (kotodama / e7m-sim 利用者):
 
 ```python
 # 既存 Omniverse Python script
@@ -142,11 +142,11 @@ from isaacsim.core.api import World
 from isaaclab.envs import ManagerBasedRLEnv
 
 # nv-compat 利用版 (import 経路差し替えのみ、本文同一)
-import pymagatama.nv_compat.omni.usd as omni_usd
-import pymagatama.nv_compat.omni.kit.app as kit_app
-import pymagatama.nv_compat.omni.replicator.core as rep
-from pymagatama.nv_compat.isaacsim.core.api import World
-from pymagatama.nv_compat.isaaclab.envs import ManagerBasedRLEnv
+import kotodama.nv_compat.omni.usd as omni_usd
+import kotodama.nv_compat.omni.kit.app as kit_app
+import kotodama.nv_compat.omni.replicator.core as rep
+from kotodama.nv_compat.isaacsim.core.api import World
+from kotodama.nv_compat.isaaclab.envs import ManagerBasedRLEnv
 ```
 
 **TypeScript** (etzhayyim-sdk 利用者):
@@ -195,7 +195,7 @@ nv-compat package の頭で明記する (N7)。
     ├── drive-sim.ts
     └── omni-cloud.ts
 
-20-actors/magatama/py/src/pymagatama/
+40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/
 ├── sim/                                   # canonical Python API
 └── nv_compat/                             # NVIDIA Python API mirror
     ├── omni/{usd, kit/app, replicator/core, nucleus}.py
@@ -273,7 +273,7 @@ backend が swap されても **D5 で定めた drop-in import alias は変わ�
 
 ```python
 # upstream Genesis でも、KAMI-native fallback でも、import 経路は同一
-from pymagatama.nv_compat.isaacsim.core.api import World, Articulation
+from kotodama.nv_compat.isaacsim.core.api import World, Articulation
 ```
 
 これは Google v. Oracle (2021) の API fair use を religious-corp 側で完全担保する設計。
@@ -397,7 +397,7 @@ test)** が landed。これは **R1.1 (kami-genesis rigid + Cartpole gym) 着地
 ahead-of-schedule deliverable** と解釈し、D7 phase 表は変更しない (R1.1+ の
 kami-genesis bind / Isaac Sim 同 task reward curve ±10% gate は依然未達)。
 
-`20-actors/magatama/py/src/pymagatama/nv_compat` (Python-side facade) は
+`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/nv_compat` (Python-side facade) は
 ADR-2605261800 commit 時の Cartpole PoC 6 facade module (R1.1 Phase B) で
 止まっており、TS-side の advanced surface は **未 mirror**。Python ↔ TS parity
 は R1.2+ で kami-genesis bind が両側で同時に動いた時点で揃える。
@@ -493,7 +493,7 @@ adr  = "ADR-2605261800"
 path = "20-actors/etzhayyim-sdk/src/nv-compat"
 adr  = "ADR-2605261800"
 [[modules]]
-path = "20-actors/magatama/py/src/pymagatama/nv_compat"
+path = "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/nv_compat"
 adr  = "ADR-2605261800"
 ```
 

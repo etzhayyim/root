@@ -174,7 +174,7 @@ them at the TypeScript level.
 - `60-apps/etzhayyim-chat-shell/src/app.ts` — `/lg/*` proxy route
 - `60-apps/etzhayyim-chat-shell/svelte/src/lib/ChatPanel.svelte` — `useStream` call site
 - `60-apps/etzhayyim-chat-shell/svelte/src/lib/api.ts` — `createLangGraphClient()`
-- `20-actors/magatama/py/src/pymagatama/chat_server.py` — LG Server protocol routes
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/chat_server.py` — LG Server protocol routes
 - `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/routes/api/pregel/[...path]/+server.ts`
 - `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/lg-client.ts`
 - `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/w/ConvoHome.svelte`

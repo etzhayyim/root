@@ -9,12 +9,12 @@ last_verified: 2026-05-19
 priority: 8.5
 axis: architecture
 weight: 0.85
-priority_note: "religious-corp の全 governance / enforcement / stewardship 活動を支える Pregel cell 群を、既存 Murakumo Mac-mini fleet (Tier 1) + ameno-daemon (Tier 2) + browser (Tier 3) infrastructure 上に integrate する master 設計 ADR。15 本以上の religious-corp 固有 cell を catalog し、Per-Adherent PhenotypeAgent (ADR-2605171300 code-gen) + Per-Domain cell + Per-Decision Council cell の 3 階層 actor hierarchy を確立。常駐化は launchd / systemd + magatama CLI 経由、実行は MstCheckpointSaver + AnchorBridge pipeline (ADR-2605171800) 上で永続化される。"
+priority_note: "religious-corp の全 governance / enforcement / stewardship 活動を支える Pregel cell 群を、既存 Murakumo Mac-mini fleet (Tier 1) + ameno-daemon (Tier 2) + browser (Tier 3) infrastructure 上に integrate する master 設計 ADR。15 本以上の religious-corp 固有 cell を catalog し、Per-Adherent PhenotypeAgent (ADR-2605171300 code-gen) + Per-Domain cell + Per-Decision Council cell の 3 階層 actor hierarchy を確立。常駐化は launchd / systemd + kotodama CLI 経由、実行は MstCheckpointSaver + AnchorBridge pipeline (ADR-2605171800) 上で永続化される。"
 authoritative_for:
   - religious-corp Pregel cell catalog (15+ cells)
   - 3 階層 actor hierarchy (Per-Adherent / Per-Domain / Per-Decision)
   - cell residency strategy (Tier 0-3 mapping)
-  - cell deployment + 常駐化 procedure (launchd / systemd / magatama CLI)
+  - cell deployment + 常駐化 procedure (launchd / systemd / kotodama CLI)
   - inter-cell coordination (swarm leader election + swarm broadcast)
   - cell rotation key + governance integration
 depends_on:
@@ -28,7 +28,7 @@ depends_on:
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
   - 2605171300
   - 2605191229-ameno-daemon-path-a-bun-langgraph
-  - 2605191257-ameno-daemon-path-b-pymagatama-python
+  - 2605191257-ameno-daemon-path-b-kotodama-python
   - 2605191346-etzhayyim-vultr-free-murakumo-control-plane
   - 2605191559-ameno-mst-checkpointer-stage-2-activation
   - 2605191603-ameno-swarm-leader-election
@@ -177,20 +177,20 @@ ADR-2605182312 で確立した 10-node Mac mini fleet (`naphtali / simeon / juda
 | **benjamin** | Force + Ethics leader | ForceAuthorization / ForceLogMonitoring / EthicsContentClassifier |
 | **asher** | Replica + failover (any cell) | dynamic |
 
-各 node 上で `magatama-cell-runner` daemon (Python) が常駐し、対応 cell を実行する。Failure 時は他 node が swarm leader election (ADR-2605191603) で leader を引き取る。
+各 node 上で `kotodama-cell-runner` daemon (Python) が常駐し、対応 cell を実行する。Failure 時は他 node が swarm leader election (ADR-2605191603) で leader を引き取る。
 
 ## 5. Cell 実装パターン
 
 各 cell は LangGraph StateGraph として実装。共通 template:
 
 ```python
-# 20-actors/magatama/cells/{cell_name}/cell.py
+# 40-engine/kotoba/crates/kotoba-kotodama/cells/{cell_name}/cell.py
 from langgraph.graph import StateGraph, START, END
 from langgraph.checkpoint.base import BaseCheckpointSaver
 from typing import TypedDict, Literal
 
-from pymagatama.checkpointer import MstCheckpointSaver  # ADR-2605191559
-from pymagatama.eligibility.web3_ports import GethPrivatePort, BaseL2Port
+from kotodama.checkpointer import MstCheckpointSaver  # ADR-2605191559
+from kotodama.eligibility.web3_ports import GethPrivatePort, BaseL2Port
 
 class CellState(TypedDict):
     # cell-specific input/output state
@@ -223,7 +223,7 @@ State は `MstCheckpointSaver` (ADR-2605191559) で永続化 → MST → IPFS �
 cell が `etzhayyim-mst-listener` daemon に subscribe し、特定 Lexicon の new record を trigger として cell を invoke。
 
 ```python
-# 20-actors/magatama/listener/mst_listener.py
+# 40-engine/kotoba/crates/kotoba-kotodama/listener/mst_listener.py
 class MstListener:
     def subscribe(self, lexicon_id: str, cell_invoker: Callable):
         # MST commit stream を tail し、lexicon_id に match する record を cell_invoker に push
@@ -247,13 +247,13 @@ systemd timer / launchd schedule で periodic invocation:
 - EthicsContentClassifierCell (UI 側で content 投稿前 pre-check)
 - CharterAttestationRequestCell (任意第三者からの request)
 
-magatama-langserver (既存 pattern, k8s/lg-uhl-right-neural と同) が HTTP endpoint を expose。
+kotodama-langserver (既存 pattern, k8s/lg-uhl-right-neural と同) が HTTP endpoint を expose。
 
 ## 7. 常駐化 (Daemonization)
 
 ### 7.1 Murakumo Fleet (Tier 1) — launchd
 
-各 Mac mini node に `~/Library/LaunchAgents/com.etzhayyim.magatama-cell-runner.plist` を配置:
+各 Mac mini node に `~/Library/LaunchAgents/com.etzhayyim.kotodama-cell-runner.plist` を配置:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -261,28 +261,28 @@ magatama-langserver (既存 pattern, k8s/lg-uhl-right-neural と同) が HTTP en
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>com.etzhayyim.magatama-cell-runner</string>
+    <string>com.etzhayyim.kotodama-cell-runner</string>
     <key>ProgramArguments</key>
     <array>
         <string>/usr/local/bin/uv</string>
         <string>run</string>
         <string>--directory</string>
-        <string>/opt/etzhayyim/magatama</string>
-        <string>magatama-cell-runner</string>
+        <string>/opt/etzhayyim/kotodama</string>
+        <string>kotodama-cell-runner</string>
         <string>--node</string>
         <string>naphtali</string>  <!-- per-node -->
     </array>
     <key>RunAtLoad</key><true/>
     <key>KeepAlive</key><true/>
     <key>StandardOutPath</key>
-    <string>/var/log/etzhayyim/magatama-cell-runner.log</string>
+    <string>/var/log/etzhayyim/kotodama-cell-runner.log</string>
     <key>StandardErrorPath</key>
-    <string>/var/log/etzhayyim/magatama-cell-runner.err</string>
+    <string>/var/log/etzhayyim/kotodama-cell-runner.err</string>
 </dict>
 </plist>
 ```
 
-`magatama-cell-runner` は `--node <name>` で node-specific cell の subset を起動。fleet config (`50-infra/murakumo/fleet.toml`) で node ↔ cells mapping を定義。
+`kotodama-cell-runner` は `--node <name>` で node-specific cell の subset を起動。fleet config (`50-infra/murakumo/fleet.toml`) で node ↔ cells mapping を定義。
 
 ### 7.2 Host Daemon (Tier 2) — launchd / systemd
 
@@ -307,26 +307,26 @@ ameno-daemon (ADR-2605191229) との統合により、browser から:
 
 service worker による persistent residency + tab swarm broadcast (ADR-2605191524) で multi-tab coordination。
 
-## 8. magatama CLI for Cell Management
+## 8. kotodama CLI for Cell Management
 
 ```bash
 # cell catalog list
-magatama cell list
+kotodama cell list
 
 # cell deployment to specific node
-magatama cell deploy --cell CharterAttestationRequestCell --node naphtali
+kotodama cell deploy --cell CharterAttestationRequestCell --node naphtali
 
 # cell health check
-magatama cell health --cell-all
+kotodama cell health --cell-all
 
 # cell logs streaming
-magatama cell logs --cell LandDonationProcessingCell --tail
+kotodama cell logs --cell LandDonationProcessingCell --tail
 
 # cell state inspection (current checkpoint)
-magatama cell state --cell EligibilityCell --thread-id <id>
+kotodama cell state --cell EligibilityCell --thread-id <id>
 
 # cell rotation key (quarterly)
-magatama cell rotate-key --cell-all --council-sigs <sig1>,<sig2>,<sig3>
+kotodama cell rotate-key --cell-all --council-sigs <sig1>,<sig2>,<sig3>
 ```
 
 `70-tools/etzhayyim-cli/` 配下に integrated。既存 etzhayyim-cli (Go scaffold) を拡張。
@@ -338,7 +338,7 @@ magatama cell rotate-key --cell-all --council-sigs <sig1>,<sig2>,<sig3>
 ```
 quarterly:
   1. Council Lv6+ ≥3 が 新 cell-key (Ed25519) を生成 + multisig sign
-  2. magatama cell rotate-key --cell-all --council-sigs ...
+  2. kotodama cell rotate-key --cell-all --council-sigs ...
   3. 全 cell が同時に new key で sign 開始
   4. 旧 key は 30 日 grace period 後 invalidate
   5. rotation record は `com.etzhayyim.apps.etzhayyim.cell-key-rotation` で永続化
@@ -350,7 +350,7 @@ quarterly:
 
 | Step | Component | Effort | Test |
 |---|---|---|---|
-| **S0** | Murakumo fleet readiness check (10 node WoL + ssh access) | 0.5 day | `magatama-cell-runner --health` on all 10 |
+| **S0** | Murakumo fleet readiness check (10 node WoL + ssh access) | 0.5 day | `kotodama-cell-runner --health` on all 10 |
 | **S1** | scaffolding (`50-infra/etzhayyim-charters-compliance/` etc.) | 0.5 day | tree -L 3 |
 | **S2** | ChartersComplianceRegistry.sol deploy (Base L2 testnet) | 0.5 day | forge test 100% + 1 attestation e2e |
 | **S3** | CharterAttestationRequestCell deploy on naphtali | 0.5 day | MST listener triggers → Council 3-of-5 → tx |
@@ -461,7 +461,7 @@ Pro: simple。Con: ADR-2605172000 RW-free 違反 + ADR-2605191346 commercial K8s
 - ADR-2605191524 multi-tab swarm broadcast (cell coordination)
 - ADR-2605182312 Murakumo 10-node fleet (Mac mini 12 tribes)
 
-- 20-actors/magatama/ (Pregel framework host)
-- 20-actors/magatama/cells/ (本 ADR で religious-corp cells 配置)
+- 40-engine/kotoba/crates/kotoba-kotodama/ (Pregel framework host)
+- 40-engine/kotoba/crates/kotoba-kotodama/cells/ (本 ADR で religious-corp cells 配置)
 - 50-infra/murakumo/ (fleet config)
-- 70-tools/etzhayyim-cli/ (magatama CLI 統合)
+- 70-tools/etzhayyim-cli/ (kotodama CLI 統合)
