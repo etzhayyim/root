@@ -10163,6 +10163,29 @@ reference_impl = "50-infra/etzhayyim-moyai-credit"
 supersedes = "legacy RisingWave credits economy (bpmn/com/etzhayyim/credits/*, ameno vertex_credits_af_event)"
 status = "accepted — landed on main 2026-06-06 (PR #1184, merge 62e4c2c); R0/R1 reference impl, 46 tests green; live mint/burn + external enrollment Council Lv6+ + operator gated"
 
+# ─── kasa (嵩) worldwide computing-capacity growth observatory — Tier-B R0 (ADR-2606072000) ────
+[[adrs]]
+id = "2606072000"
+title = "嵩 (kasa) — worldwide computing-capacity growth statistics observatory (storage · memory · GPU/CPU · FLOPS · datacenter)"
+status = "proposed"
+status_note = "Answers 「年間のコンピューターのストレージサイズ・メモリサイズ・GPU・CPU などのコンピューティング能力の全世界での増加量を、統計・公開情報から推測する actor は設計されているか?」. Was: no — kanjō reads ONE company's 決算, kabuto holds the supply graph, handotai tracks semiconductor news, and mitooshi 見通し forecasts but had no measured-actuals feeder for compute. kasa is the demand-side, industry-aggregate observatory the roster lacked: reads PUBLIC info only (WSTS/SIA, TrendForce, IDC, JPR, TOP500, Epoch AI CC-BY, OWID CC-BY) into the kotoba Datom log as :compute.obs/* across four founder-named domains — STORAGE (HDD+SSD exabytes), MEMORY (DRAM+NAND revenue), GPU/CPU (units + DC-accel $), COMPUTE/FLOPS (TOP500 + frontier training) — plus DATACENTER power, then computes the annual increase (年間増加量) YoY + CAGR + coverage-honest domain aggregates. Industry-aggregate sibling of kanjō 勘定; demand-side counterpart of the silicon actors (handotai/iwakura/fuigo); feeds mitooshi 見通し but NEVER forecasts itself (G4 — load-bearing boundary). 13 gates: G1 public-sources-only (paid Gartner/IDC-report/Omdia/Bloomberg/S&P/Statista-Pro terminals PROHIBITED per Charter Rider §2(e)+§2(c), encoded in sources.py::admissible) · G2 non-adjudicating (no country/company ranking) · G4 no-forecast · G5 sourcing-honest (:representative/:estimated-with-method/:synthesized) · G9 planning-lens-not-targeting-list · G12 coverage-honest aggregates (memory ⊂ semiconductor → distinct domain keys → never double-counted; :petaflops never summed with raw :flops). LANDED R0: ontology compute-capacity-ontology.kotoba.edn + 4 lex com.etzhayyim.kasa.* (path-reserved) + 3 cells (sources/ingest/analyze) + :representative/:estimated seed (8 sources / 11 series / 52 obs, 2020–2024); 23 tests green (run_tests.sh); DID registered (INFRA_ACTORS.kasa). ZERO invariant amendments. Live full open-dataset parse Council Lv6+ + operator gated (G7); no :authoritative rows yet."
+path = "90-docs/adr/2606072000-kasa-world-computing-capacity-growth-statistics-observatory-r0.md"
+adr = ["2606072000", "2606032000", "2606022000", "2606051800", "2605263800", "2605262130", "2605312345", "2605215000", "2606013800", "2606013600", "2605242500", "2605192100", "2605192200"]
+
+[[modules]]
+path = "20-actors/kasa"
+adr = "2606072000"
+kind = "tier-b-actor"
+status = "r0-design-only"
+description = "嵩 (kasa) — worldwide computing-capacity growth observatory. kotoba-native datafication of the annual increase in storage/memory/GPU·CPU/FLOPS/datacenter capacity from public info; YoY+CAGR + coverage-honest aggregates; non-adjudicating, planning-lens, no-forecast (feeds mitooshi). Manifest + CLAUDE.md + 3 cells + seed + 23 tests."
+
+[[modules]]
+path = "00-contracts/schemas/compute-capacity-ontology.kotoba.edn"
+adr = "2606072000"
+kind = "kotoba-eavt-schema"
+status = "shipped"
+description = "EAVT vocabulary for worldwide computing-capacity: :compute.series/:compute.obs/:compute.source/:compute.growth/:compute.agg. Memory is a subset of semiconductor in a distinct domain key (no double-count); aggregation keyed on domain×metric×unit×scale."
+
 # ─── Deprecate yata and enable Dependabot auto-merge ────────────────
 
 [[adrs]]
