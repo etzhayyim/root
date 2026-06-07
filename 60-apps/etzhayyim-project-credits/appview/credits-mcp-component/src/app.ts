@@ -8,7 +8,7 @@ const NSID_PREFIX = "com.etzhayyim.apps.credits.";
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
     const url = new URL(req.url);
-    if (url.pathname === "/health" || url.pathname === "/_app/meta") return json({ ok: true, actor: "did:web:credits.etzhayyim.com", nanoid: env.APP_NANOID ?? "a5ce95af", execution: "edge-proxy+agentgateway-mcp+langserver", businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/credits.py", bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/credits" });
+    if (url.pathname === "/health" || url.pathname === "/_app/meta") return json({ ok: true, actor: "did:web:credits.etzhayyim.com", nanoid: env.APP_NANOID ?? "a5ce95af", execution: "edge-proxy+agentgateway-mcp+langserver", businessLogic: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/credits.py", bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/credits" });
     const nsid = url.pathname.startsWith("/xrpc/") ? url.pathname.slice("/xrpc/".length) : "";
     if (nsid.startsWith(NSID_PREFIX) && (req.method === "POST" || req.method === "GET")) {
       const body = await bodyWithQuery(req, url);

@@ -616,7 +616,7 @@ def update_pds_profiles(conn, dry_run=False):
         }
         headers = {
             "Content-Type": "application/json",
-            "x-magatama-verified": "true",
+            "x-kotodama-verified": "true",
             "X-Active-DID": SITE_APP_DID,
         }
 

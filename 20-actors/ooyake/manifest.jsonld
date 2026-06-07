@@ -73,13 +73,13 @@
     "verificationGate": "G5/G12 — no downstream action (toritsugi G14) on :unverified-seed/:representative; must be maintainer-verified (→ :authoritative) within the freshness window."
   },
   "cells": [
-    {"name": "unit_registry", "module": "magatama.cells.ooyake_unit_registry", "murakumoNode": "reuben", "phase": "continuous", "io": "maintain + resolve the :gov.unit/* administrative tree; enforce sourcing + verification-status"},
-    {"name": "reconcile", "module": "magatama.cells.ooyake_reconcile", "murakumoNode": "reuben", "phase": "event", "io": "reconcile units vs Wikidata QID / 行政機関コード / 全国地方公共団体コード / ISO-3166-2 / GeoNames (read-only ingest, G4)"},
-    {"name": "address_ingest", "module": "magatama.cells.ooyake_address_ingest", "murakumoNode": "gad", "phase": "event", "io": "ingest 住所 / hours / 窓口 from official sources → :gov.address/* + :gov.window/*"},
-    {"name": "procedure_link", "module": "magatama.cells.ooyake_procedure_link", "murakumoNode": "gad", "phase": "event", "io": "link :gov.procedure/* ↔ toritsugi registry + chigiri templates + :gov.bpmn/*"},
-    {"name": "atlas_serve", "module": "magatama.cells.ooyake_atlas_serve", "murakumoNode": "naphtali", "phase": "continuous", "io": "THE ONLY outward cell — serve per-unit civic-atlas profile + READ-ONLY XRPC (getUnit/resolvePath/findService/searchUnits); never mutates a gov record (G9)"},
-    {"name": "freshness", "module": "magatama.cells.ooyake_freshness", "murakumoNode": "naphtali", "phase": "continuous", "io": "re-verify within freshness window; flag :stale (G12)"},
-    {"name": "world_model", "module": "magatama.cells.ooyake_world_model", "murakumoNode": "reuben", "phase": "event", "io": "cross-actor world-model reconcile — join :gov.unit/* (structure) to tsumugi :organism/* (karma) over the shared :gov.unit/organism id-space; classify each POWER-BEARING unit confirmed/derived/dangling/proposed (local 窓口/ward/division excluded by construction, G1/G10) → out/world-model.kotoba.edn (read-side proposal, G9; live write-back Council+operator gated)"}
+    {"name": "unit_registry", "module": "kotodama.cells.ooyake_unit_registry", "murakumoNode": "reuben", "phase": "continuous", "io": "maintain + resolve the :gov.unit/* administrative tree; enforce sourcing + verification-status"},
+    {"name": "reconcile", "module": "kotodama.cells.ooyake_reconcile", "murakumoNode": "reuben", "phase": "event", "io": "reconcile units vs Wikidata QID / 行政機関コード / 全国地方公共団体コード / ISO-3166-2 / GeoNames (read-only ingest, G4)"},
+    {"name": "address_ingest", "module": "kotodama.cells.ooyake_address_ingest", "murakumoNode": "gad", "phase": "event", "io": "ingest 住所 / hours / 窓口 from official sources → :gov.address/* + :gov.window/*"},
+    {"name": "procedure_link", "module": "kotodama.cells.ooyake_procedure_link", "murakumoNode": "gad", "phase": "event", "io": "link :gov.procedure/* ↔ toritsugi registry + chigiri templates + :gov.bpmn/*"},
+    {"name": "atlas_serve", "module": "kotodama.cells.ooyake_atlas_serve", "murakumoNode": "naphtali", "phase": "continuous", "io": "THE ONLY outward cell — serve per-unit civic-atlas profile + READ-ONLY XRPC (getUnit/resolvePath/findService/searchUnits); never mutates a gov record (G9)"},
+    {"name": "freshness", "module": "kotodama.cells.ooyake_freshness", "murakumoNode": "naphtali", "phase": "continuous", "io": "re-verify within freshness window; flag :stale (G12)"},
+    {"name": "world_model", "module": "kotodama.cells.ooyake_world_model", "murakumoNode": "reuben", "phase": "event", "io": "cross-actor world-model reconcile — join :gov.unit/* (structure) to tsumugi :organism/* (karma) over the shared :gov.unit/organism id-space; classify each POWER-BEARING unit confirmed/derived/dangling/proposed (local 窓口/ward/division excluded by construction, G1/G10) → out/world-model.kotoba.edn (read-side proposal, G9; live write-back Council+operator gated)"}
   ],
   "lexiconNamespaces": [
     "com.etzhayyim.ooyake.govUnit",

@@ -280,7 +280,7 @@ spec:
 #       zeebe_job_events_total{action="completed"}) > 0
 #
 # Until Prometheus operator lands, the in-process activation monitor in
-# pymagatama.zeebe_worker_main._activation_monitor logs WARN/ERROR on
+# kotodama.zeebe_worker_main._activation_monitor logs WARN/ERROR on
 # stale activation counters at 60s cadence — sufficient for this pilot.
 #
 # apiVersion: monitoring.coreos.com/v1

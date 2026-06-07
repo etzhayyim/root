@@ -13,7 +13,7 @@ import {
   type HostSDK,
   nsid,
   parseLexiconInput,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 const APP_NANOID = "nwscr001";
 const cadenceState = createCadenceState();

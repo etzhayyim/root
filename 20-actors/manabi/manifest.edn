@@ -49,4 +49,4 @@
  :actor/legacy
  {:manifest    "manifest.jsonld"
   :cells-python ["cells/literacy" "cells/numeracy" "cells/civics_charter" "cells/vocational" "cells/lifelong_inquiry" "cells/cert_prep"]
-  :note "Python cell deprecation synchronized with magatama atomic rename wave (ADR-2605214000 §3) after legal registration."}}
+  :note "Python cell deprecation synchronized with kotodama atomic rename wave (ADR-2605214000 §3) after legal registration."}}

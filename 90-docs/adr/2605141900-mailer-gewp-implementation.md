@@ -12,7 +12,7 @@ weight: 0.70
 priority_note: "mailer.etzhayyim.com (did:web:mailer.etzhayyim.com) を GEWP v1.0 Core Conformant + ext:atproto + ext:pregel にする実装 ADR (Phase 1-3 完了)"
 authoritative_for:
   - mailer.etzhayyim.com の GEWP 送受信実装
-  - pymagatama.gewp モジュール API
+  - kotodama.gewp モジュール API
   - vertex_mailer_inbound_email / vertex_mailer_outbound_email の GEWP 列定義
   - Resend API を経由した GEWP 3-layer 送信方式
   - email-relay Worker の MIME 解析・attachment_json graph worker projection
@@ -40,9 +40,9 @@ related:
 [送信側 agent / human]
   │
   ▼
-send_gewp_message() / send_email()  (pymagatama.ingest.mailer)
+send_gewp_message() / send_email()  (kotodama.ingest.mailer)
   │
-  ├─ pymagatama.gewp.compose_resend_payload()
+  ├─ kotodama.gewp.compose_resend_payload()
   │    Layer 1: attachment  application/vnd.gewp+json  (canonical)
   │    Layer 2: <!-- GEWP:{base64url} --> in HTML body  (fallback)
   │    Layer 3: X-GEWP-* headers                        (hint)
@@ -72,7 +72,7 @@ Resend は raw MIME を直接制御できないため、以下の代替手段で
 
 ---
 
-## 新規モジュール: `pymagatama.gewp`
+## 新規モジュール: `kotodama.gewp`
 
 | 関数 / クラス | 役割 |
 |---|---|
@@ -154,7 +154,7 @@ GEWP 送信の専用関数。`gewp_thread_id` / `gewp_step` / `gewp_payload` を
 | email-relay Worker MIME 解析 | `50-infra/cloudflare/workers/email-relay/worker.ts` | `extractGewpAndHtml()` — Layer 1 attachment + Layer 2 HTML comment + HTML body 抽出。`attachmentJson` / `gewpLayer` / `bodyHtml` を PDS レコードに追加 (Phase 3 で `gewpPayloadJson` → `attachmentJson` にリネーム済) |
 | attachment_json 列 | `20260514110000_vertex_mailer_attachment_json.up.sql` + alembic `20260514_0004` | `vertex_mailer_inbound_email.attachment_json VARCHAR` 追加 |
 | GEWP pending MV | `20260514100000_mv_mailer_gewp_pending.up.sql` | `mv_mailer_gewp_pending` — `gewp_thread_id IS NOT NULL AND gewp_step IS NOT NULL` でフィルタ |
-| pregel GEWP bridge | `pymagatama/pregel/graph.py` | `check_gewp` + `dispatch_gewp` ノード、`_route_after_parse()` ルーター。`parse_email → check_gewp → [GEWP: dispatch_gewp → END / human: classify_intent → ...]` |
+| pregel GEWP bridge | `kotodama/pregel/graph.py` | `check_gewp` + `dispatch_gewp` ノード、`_route_after_parse()` ルーター。`parse_email → check_gewp → [GEWP: dispatch_gewp → END / human: classify_intent → ...]` |
 
 ## Phase 3 完了 (2026-05-14)
 
@@ -212,9 +212,9 @@ cloudflared origin pod が `NotReady` node 上に残ったことによる ingres
 
 - ADR-2605141800 (GEWP v1.0 open standard)
 - ADR-2605131800 (pregel triage LangGraph)
-- `20-actors/magatama/py/src/pymagatama/gewp.py`
-- `20-actors/magatama/py/src/pymagatama/ingest/mailer.py`
-- `20-actors/magatama/py/alembic/versions/20260514_0003_gewp_mailer_columns.py`
-- `20-actors/magatama/py/alembic/versions/20260514_0005_mv_pregel_step_pending.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/gewp.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/mailer.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/alembic/versions/20260514_0003_gewp_mailer_columns.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/alembic/versions/20260514_0005_mv_pregel_step_pending.py`
 - `30-graph/graph-schema/sql_migrations/20260514090000_gewp_mailer_columns.up.sql`
 - `30-graph/graph-schema/sql_migrations/20260514160000_mv_pregel_step_pending.up.sql`

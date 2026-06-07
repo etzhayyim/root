@@ -1,6 +1,6 @@
 <script lang="ts">
   /**
-   * Firm space — practice-area channels mirrored from magatama.jsonld `space.convos`.
+   * Firm space — practice-area channels mirrored from kotodama.jsonld `space.convos`.
    * Each channel card links to yoro.etzhayyim.com where the actual feed renders; lawfirm
    * surfaces only the index + deep-link so we don't duplicate AT Protocol transport.
    */
@@ -34,7 +34,7 @@
 </div>
 
 <p class="text-xs text-neutral-500 mb-4">
-  Practice-area channels declared in <span class="font-mono">magatama.jsonld</span> <code>space.convos</code>.
+  Practice-area channels declared in <span class="font-mono">kotodama.jsonld</span> <code>space.convos</code>.
   Posts are AT records (<code>app.bsky.feed.post</code>) authored by the firm DID and federated to followers.
   The <strong>external</strong> channel is private (invite-only, matter-scoped).
 </p>

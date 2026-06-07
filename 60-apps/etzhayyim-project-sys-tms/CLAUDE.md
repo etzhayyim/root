@@ -73,5 +73,5 @@ world component {
 
 TMS App is called via XRPC (HTTP/2) from other Apps:
 ```
-http://tms-magatama.magatama-runtime:80/xrpc/etzhayyim.tms.v1.TmsService/<Method>
+http://tms-kotodama.kotodama-runtime:80/xrpc/etzhayyim.tms.v1.TmsService/<Method>
 ```

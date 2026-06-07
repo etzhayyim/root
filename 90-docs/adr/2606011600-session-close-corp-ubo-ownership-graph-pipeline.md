@@ -59,7 +59,7 @@ ingest are NOT in scope (R2-gated).
 
 Implement the corp UBO ownership-graph pipeline as **pure, deterministic,
 network-free, unit-tested Python transforms** under
-`20-actors/magatama/py/src/pymagatama/organism/sensors/corp/`, faithful to
+`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/sensors/corp/`, faithful to
 the existing Lexicons (no invented fields/values), with caller-supplied
 provenance (no platform-held identity). Six PRs:
 
@@ -186,4 +186,4 @@ registration (#654). Two follow-through notes:
 - ADR-2605312345 — kotoba Datom log = first-class canonical state (EAVT ingest target)
 - PRs: #309, #312, #564, #649, #650, #652 (**all merged to `main` 2026-06-01**) + #654 (this ADR's first cut)
 - Lexicons: `00-contracts/lexicons/com/etzhayyim/corp/{ownershipEdge,leiReference}.json`, `com/etzhayyim/danjo/crossReferenceLink.json`
-- Tests: `20-actors/magatama/py/tests/sensors/test_{w1_corp_gov_sensors,corp_ownership_edge_datom,ownership_crossref,gleif_rr_normalize,lei_reference_datom,corp_ubo_pipeline_e2e}.py`
+- Tests: `40-engine/kotoba/crates/kotoba-kotodama/py/tests/sensors/test_{w1_corp_gov_sensors,corp_ownership_edge_datom,ownership_crossref,gleif_rr_normalize,lei_reference_datom,corp_ubo_pipeline_e2e}.py`

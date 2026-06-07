@@ -62,7 +62,7 @@ Goal: prove LLM isn't a platform add-on; it's a seat capability.
 
 Steps:
 1. Open an opportunity ("Niigata Seiki FY26 Q3 Expansion"). Click the "Summarise" button in the opportunity toolbar.
-2. DevTools: show the XRPC call goes to a handler that invokes `magatama.Invoke(murakumoFleetDid, "summariseOpportunity", { uri, windowDays: 90 })`. The caller identity in the invoke is the seat DID `did:web:democo.opensaas.etzhayyim.com:seat:ae-01`, not a shared API key.
+2. DevTools: show the XRPC call goes to a handler that invokes `kotodama.Invoke(murakumoFleetDid, "summariseOpportunity", { uri, windowDays: 90 })`. The caller identity in the invoke is the seat DID `did:web:democo.opensaas.etzhayyim.com:seat:ae-01`, not a shared API key.
 3. LLM returns a 4-paragraph summary pulled from `opportunity` + its linked `activity` + the account's 3 most recent `case` records.
 4. Toggle: switch `ConfigPut fleet=did:web:murakumo.etzhayyim.com:fleet:m4`. Rerun. Different model, same call. Show the audit log entry: `activity(kind=note, source=derived-convo)` with `actorDid=<seat>`, `convoUri=<murakumo-invocation>`.
 5. Pointer to Pillar 2 URL for the deeper read.

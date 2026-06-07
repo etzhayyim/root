@@ -43,11 +43,11 @@ from pathlib import Path
 # code lands. Once R1 scaffolds the trees, the hook starts guarding them.
 _GUARDED_ROOTS = [
     Path("20-actors/kawase-yui"),
-    Path("20-actors/magatama/cells/kawase_pool_match"),
-    Path("20-actors/magatama/cells/kawase_fx_oracle_watcher"),
-    Path("20-actors/magatama/cells/kawase_rebalance_proposer"),
-    Path("20-actors/magatama/cells/kawase_jurisdiction_compliance"),
-    Path("20-actors/magatama/cells/kawase_silen_review"),
+    Path("40-engine/kotoba/crates/kotoba-kotodama/cells/kawase_pool_match"),
+    Path("40-engine/kotoba/crates/kotoba-kotodama/cells/kawase_fx_oracle_watcher"),
+    Path("40-engine/kotoba/crates/kotoba-kotodama/cells/kawase_rebalance_proposer"),
+    Path("40-engine/kotoba/crates/kotoba-kotodama/cells/kawase_jurisdiction_compliance"),
+    Path("40-engine/kotoba/crates/kotoba-kotodama/cells/kawase_silen_review"),
     Path("50-infra/etzhayyim-kawase-pool"),
     # Python facade — relocated per ADR-2605282300 from inside the
     # kotoba subrepo to a sibling location (same pattern as

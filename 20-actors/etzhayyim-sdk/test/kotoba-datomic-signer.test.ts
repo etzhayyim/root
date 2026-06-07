@@ -2,7 +2,7 @@
  * Tests for the kotoba-datomic production Ed25519 signer + verifier.
  *
  * Includes a cross-language interop assertion: a signature produced by
- * the Python `pymagatama.kotoba-datomic.make_ed25519_signer` over the same
+ * the Python `kotodama.kotoba-datomic.make_ed25519_signer` over the same
  * canonical bytes must verify here under the same public key. We can't
  * call Python from vitest, but we can pin a known (seed, canonical,
  * expected-signature) triple — generated from Python — and assert TS
@@ -35,7 +35,7 @@ function mockRule(nsid = "test.example.foo"): MembraneRule {
     nsid,
     schemaRef: { path: "00-contracts/lexicons/test/schema.json", contentHash: "a".repeat(64), version: "1.0.0" },
     policyRef: { path: "00-contracts/policies/test/policy.rego", contentHash: "b".repeat(64), version: "1.0.0" },
-    cellRef: { path: "20-actors/magatama/cells/test/", contentHash: "c".repeat(64), version: "abcdef0" },
+    cellRef: { path: "40-engine/kotoba/crates/kotoba-kotodama/cells/test/", contentHash: "c".repeat(64), version: "abcdef0" },
     quorumSize: 5,
     quorumThreshold: 3,
     escalationPolicy: "council",

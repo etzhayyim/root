@@ -1,7 +1,7 @@
 """Microgrid `:loop:freq-droop` as a real LangGraph `StateGraph` (#3b).
 
 Same loop as `microgrid_pregel`, but built on the actual LangGraph SDK
-(`langgraph>=0.2`, matches `20-actors/magatama/py` convention). Cells are
+(`langgraph>=0.2`, matches `40-engine/kotoba/crates/kotoba-kotodama/py` convention). Cells are
 loaded via the shared `cell_loader.CellLoader`; LangGraph supplies the
 graph runtime, parallel fan-out / fan-in, and the checkpointer.
 

@@ -12,8 +12,8 @@
 in three operated k8s configmaps:
 
 - `50-infra/k8s/bpmn-dispatcher/configmap-mailer-direct-patch.yaml`
-- `50-infra/k8s/bpmn-dispatcher/configmap-pymagatama-cache-fix.yaml`
-- `50-infra/k8s/bpmn-dispatcher/configmap-pymagatama-sse-fix.yaml`
+- `50-infra/k8s/bpmn-dispatcher/configmap-kotodama-cache-fix.yaml`
+- `50-infra/k8s/bpmn-dispatcher/configmap-kotodama-sse-fix.yaml`
 
 These configmaps embed the dispatcher's Python source, which reads
 `os.environ.get("DISPATCHER_INTERNAL_SECRET", "")` and, in **strict mode**, HMAC-signs
@@ -78,7 +78,7 @@ JWKS** and checks `aud`/issuer.
    **in parallel** during cutover (no downtime).
 3. **Worker**: send `CF-Access-Client-Id` / `CF-Access-Client-Secret` (service token)
    instead of / alongside the HMAC header.
-4. **Verify** end-to-end (mailer + pymagatama cache + sse paths).
+4. **Verify** end-to-end (mailer + kotodama cache + sse paths).
 5. **Cut**: remove HMAC signing on the Worker; set pod strict mode = Access-JWT-only.
 6. **Delete** `DISPATCHER_INTERNAL_SECRET` from the three configmaps + env/Secret. The
    `e7m verify` `no_server_key` check goes green (string gone); update the ADR-2605231525
@@ -96,8 +96,8 @@ JWKS** and checks `aud`/issuer.
   from the kotoba upstream pattern). If it is a public Service today, that must change
   first (Option 2 step) regardless of which auth option is chosen.
 - **Scope**: this touches 3 live configmaps + the dispatcher pod auth middleware + the
-  calling Worker, across the mailer and pymagatama (cache/sse) paths — i.e. live
-  magatama traffic. Sequenced + gated like Stages A–D.
+  calling Worker, across the mailer and kotodama (cache/sse) paths — i.e. live
+  kotodama traffic. Sequenced + gated like Stages A–D.
 
 ## Implementation status
 
@@ -116,7 +116,7 @@ JWKS** and checks `aud`/issuer.
 - ⏳ **Operator-gated wiring (NOT done — needs cluster + CF Access access):**
   1. Add `pyjwt[crypto]` to the dispatcher image (it currently imports only `hmac`).
   2. In the dispatcher's strict-mode auth block (embedded in
-     `configmap-pymagatama-*.yaml` + `configmap-mailer-direct-patch.yaml`), replace
+     `configmap-kotodama-*.yaml` + `configmap-mailer-direct-patch.yaml`), replace
      the `hmac.compare_digest(provided, INTERNAL_SECRET)` check with a call to
      `authorize_request(request.headers, mode=AUTH_MODE, access_team_domain=…,
      access_aud=…, get_jwks=<cached JWKS fetch>, internal_secret=INTERNAL_SECRET)`.

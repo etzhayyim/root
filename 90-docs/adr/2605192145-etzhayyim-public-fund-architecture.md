@@ -42,7 +42,7 @@ Public Fund は etzhayyim の religious mission (ADR-2605192100 §1.5 知財無�
 設計判断のポイント:
 
 1. **Public Fund Safe の権限境界** — 誰が出金を承認するか
-2. **grant 評議の機械化** — 18,345 agent fleet (ADR-2605171300) と magatama Pregel framework (ADR-2605171800) を活用して、人間判断負荷を最小化する
+2. **grant 評議の機械化** — 18,345 agent fleet (ADR-2605171300) と kotodama Pregel framework (ADR-2605171800) を活用して、人間判断負荷を最小化する
 3. **disbursement 方法** — 単発送金 / 期限つき stream / milestone-based escrow のどれをサポートするか
 4. **mission 整合性の判定** — Charter Compliance Rider (ADR-2605192200) との接続
 
@@ -133,7 +133,7 @@ contract PublicFundGovernance {
 
 ## 3. PublicFundGrantCell (Pregel)
 
-magatama Pregel framework (ADR-2605171800) 上で動作する評議補助 cell。**人間の評議者を置換するのではなく補助する** 位置付け。
+kotodama Pregel framework (ADR-2605171800) 上で動作する評議補助 cell。**人間の評議者を置換するのではなく補助する** 位置付け。
 
 ```
 input:  com.etzhayyim.apps.public-fund.proposal record (新規)
@@ -265,7 +265,7 @@ Rebalance proposal も `propose()` 経由 (mission axis = `treasury.rebalance`)�
 │   └── script/Deploy.s.sol
 └── test/
 
-20-actors/magatama/cells/
+40-engine/kotoba/crates/kotoba-kotodama/cells/
 └── public_fund_grant_cell/
     ├── cell.py
     ├── nodes.py

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# deploy-fleet.sh — fleet-wide installer for magatama-cell-runner.
+# deploy-fleet.sh — fleet-wide installer for kotodama-cell-runner.
 #
 # Per ADR-2605202100 + ADR-2605202200. Iterates the 12-tribe list (default:
 # all currently-deployed tribes per 50-infra/murakumo/fleet.toml status),
@@ -90,7 +90,7 @@ if $DRY_RUN; then
     echo "[dry-run] would: ssh ${tribe}@${tribe}nomac-mini.local"
     echo "[dry-run]   cd $REPO_PATH && git pull"
     echo "[dry-run]   ./50-infra/cluster/murakumo/cell-runner/install.sh --node $tribe"
-    echo "[dry-run]   launchctl list | grep magatama-cell-runner"
+    echo "[dry-run]   launchctl list | grep kotodama-cell-runner"
   done
   exit 0
 fi
@@ -138,7 +138,7 @@ echo "[$TRIBE] running install.sh --node $TRIBE"
 "$INSTALL" --node "$TRIBE" --repo-path "$REPO_PATH"
 
 echo "[$TRIBE] post-install verify"
-launchctl list | grep magatama-cell-runner || echo "[$TRIBE] WARN: service not in launchctl list"
+launchctl list | grep kotodama-cell-runner || echo "[$TRIBE] WARN: service not in launchctl list"
 REMOTE
 )
 
@@ -172,7 +172,7 @@ if [ "${#FAILED_TRIBES[@]}" -gt 0 ]; then
   echo ""
   warn "Some tribes failed. To inspect a tribe manually:"
   echo "    ssh ${FAILED_TRIBES[0]}@${FAILED_TRIBES[0]}nomac-mini.local"
-  echo "    tail -f ~/.etzhayyim/log/magatama-cell-runner.stderr.log"
+  echo "    tail -f ~/.etzhayyim/log/kotodama-cell-runner.stderr.log"
   exit 1
 fi
 
@@ -182,5 +182,5 @@ echo ""
 echo "Aggregate status check:"
 for tribe in "${SUCCESS_TRIBES[@]}"; do
   HOST="${tribe}nomac-mini.local"
-  echo "  ssh $tribe@$HOST 'launchctl list | grep magatama-cell-runner'"
+  echo "  ssh $tribe@$HOST 'launchctl list | grep kotodama-cell-runner'"
 done

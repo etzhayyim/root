@@ -31,7 +31,7 @@ depends_on:
   - adr-2605242715-silicon-mask-supply-chain
 related:
   - 20-actors/yakushi/                              # this ADR creates this tree
-  - 20-actors/magatama/cells/pharma_*/              # this ADR creates the 8 pharma Pregel cells
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_*/              # this ADR creates the 8 pharma Pregel cells
   - 00-contracts/lexicons/com/etzhayyim/pharma/     # this ADR creates the 8 pharma Lexicons
   - 50-infra/murakumo/fleet.toml                    # cell placement (Phase R1+ post-Council)
 supersedes: []

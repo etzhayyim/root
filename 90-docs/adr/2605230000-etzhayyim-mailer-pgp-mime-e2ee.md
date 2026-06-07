@@ -11,9 +11,9 @@ axis: security
 weight: 0.70
 priority_note: ""
 authoritative_for:
-  - pymagatama.primitives.pgp
-  - pymagatama.gewp.compose_pgp_mime_raw
-  - pymagatama.ingest.mailer (PGP send path)
+  - kotodama.primitives.pgp
+  - kotodama.gewp.compose_pgp_mime_raw
+  - kotodama.ingest.mailer (PGP send path)
   - vertex_mailer_pgp_key (DB table)
 depends_on:
   - adr-2605080300-sqlalchemy-core-usage-contract  # SQLAlchemy / Alembic migrations

@@ -70,42 +70,42 @@
   "cells": [
     {
       "name": "diet_statement_index",
-      "module": "magatama.cells.danjo_diet_statement_index",
+      "module": "kotodama.cells.danjo_diet_statement_index",
       "murakumoNode": "reuben",
       "phase": "continuous",
       "io": "gov.dataset.parliamentRecord (JP 国会会議録) → kotoba EAVT datoms (member ↔ statement ↔ topic ↔ session ↔ date)"
     },
     {
       "name": "procurement_graph",
-      "module": "magatama.cells.danjo_procurement_graph",
+      "module": "kotodama.cells.danjo_procurement_graph",
       "murakumoNode": "reuben",
       "phase": "continuous",
       "io": "gov.dataset.procurementRecord (JP 政府調達) → datoms (authority ↔ award ↔ awardeeLei ↔ amount ↔ date)"
     },
     {
       "name": "budget_ledger",
-      "module": "magatama.cells.danjo_budget_ledger",
+      "module": "kotodama.cells.danjo_budget_ledger",
       "murakumoNode": "reuben",
       "phase": "continuous",
       "io": "gov.dataset.budgetRecord (JP 予算書) → datoms (appropriation ↔ outlay ↔ recipientLei ↔ program)"
     },
     {
       "name": "crossref_engine",
-      "module": "magatama.cells.danjo_crossref_engine",
+      "module": "kotodama.cells.danjo_crossref_engine",
       "murakumoNode": "gad",
       "phase": "continuous",
       "io": "join indices + corp.ownershipEdge (UBO) + corp.leiReference → crossReferenceLink edges + candidate discrepancyObservation"
     },
     {
       "name": "statement_consistency",
-      "module": "magatama.cells.danjo_statement_consistency",
+      "module": "kotodama.cells.danjo_statement_consistency",
       "murakumoNode": "gad",
       "phase": "continuous",
       "io": "cross-ref Diet statements vs budget/procurement reality → discrepancyObservation (statement-vs-record divergence)"
     },
     {
       "name": "oversight_report",
-      "module": "magatama.cells.danjo_oversight_report",
+      "module": "kotodama.cells.danjo_oversight_report",
       "murakumoNode": "naphtali",
       "phase": "periodic (event)",
       "io": "aggregate observations → oversightReport + Council Lv6+ ≥3 attestation chain"

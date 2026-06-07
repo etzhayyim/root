@@ -31,7 +31,7 @@ Each news source is a **writer entity** with its own AT Protocol bot DID. Articl
 
 - Writer entities are registered via `IdentityRegister()` at init with discoverable `crawl` tool
 - Custom sources added via `source_add` command get dynamic DIDs: `did:web:handotai.etzhayyim.com:writer:{source_id}`
-- `magatama.jsonld` `entities[]` section declares all built-in writers
+- `kotodama.jsonld` `entities[]` section declares all built-in writers
 
 ## W Protocol Event Stream Data Flow
 
@@ -52,7 +52,7 @@ Read path:
 Request → CF Single Worker
   ├─ /_worker/health, /_worker/metrics  → instant edge response
   ├─ /uploads/*                          → CDN_R2 (immutable)
-  ├─ /api/*, /health                     → MagatamaContainer DO (WASM)
+  ├─ /api/*, /health                     → KotodamaContainer DO (WASM)
   │   ├─ seed_articles      → WRecord("articles", payload)
   │   ├─ list_articles      → G("Articles").Match(Eq{...}).Return("*").Query()
   │   ├─ search_articles    → G("Articles").Match(Like{...}).Return("*").Query()
@@ -81,13 +81,13 @@ Request → CF Single Worker
 | `client.geo.country_iso_code` | HTTP SC | `request.cf.country` |
 | `user_agent.original` | HTTP SC | `User-Agent` header |
 | `http.server.request.duration` | HTTP SC | ms |
-| `magatama.route.status` | Custom | `api` / `static` / `ssr` |
-| `magatama.app_id` | Custom | app name |
+| `kotodama.route.status` | Custom | `api` / `static` / `ssr` |
+| `kotodama.app_id` | Custom | app name |
 
 **Storage**: `{app}/otel-logs/{hour}/{ts}.ndjson` in B2 (`etzhayyim-graph` bucket)
 **Worker metrics**: `/_worker/metrics` (OTEL-compatible JSON with histograms)
-**Backend telemetry**: `magatama:observability/telemetry@1.0.0` WIT (counter/gauge/histogram)
-**Backend access-log**: `magatama:observability/access-log@1.0.0` WIT (auto-captured)
+**Backend telemetry**: `kotodama:observability/telemetry@1.0.0` WIT (counter/gauge/histogram)
+**Backend access-log**: `kotodama:observability/access-log@1.0.0` WIT (auto-captured)
 **Trace propagation**: UI Worker → backend Worker via `traceparent` header
 
 ## Data Model (W Protocol Event Stream)

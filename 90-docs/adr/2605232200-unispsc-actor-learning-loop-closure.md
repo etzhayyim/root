@@ -134,7 +134,7 @@ The 4th invocation's `log_tail` cascade through all prior shortcut events — th
 - ADR-2605231525 — no-server-key architecture (Stage E future direction)
 - ADR-2605211200 — RW-free belief store substrate port (AtIpfsLocalBeliefStore)
 - ADR-2605192100 — etzhayyim mission charter ("人類の構造的労働解放" → learning is necessary)
-- `20-actors/magatama/py/src/pymagatama/unispsc_capabilities/wrapper.py` — `_compute_prior_consensus`
-- `20-actors/magatama/py/src/pymagatama/unispsc_capabilities/pds_publish.py` — publish callback (substrate persistence)
-- `20-actors/magatama/py/src/pymagatama/langgraph_graphs/unispsc_agents/c10101500.py` — reference impl for `prior_shortcut`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/unispsc_capabilities/wrapper.py` — `_compute_prior_consensus`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/unispsc_capabilities/pds_publish.py` — publish callback (substrate persistence)
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs/unispsc_agents/c10101500.py` — reference impl for `prior_shortcut`
 - `50-infra/k8s/lg-open-unispsc/deployment.yaml` — Pod env (ETZ_UNISPSC_CAPABILITY_WRAP=1)

@@ -44,7 +44,7 @@ TS=$(date -u +%Y%m%d-%H%M%S)
   -d 50-infra/k8s/bpmn-engine-host \
   -t "ghcr.io/etzhayyim/bpmn-engine-host:${TS}"
 
-# open-lei-mcp (build context = REPO ROOT — vendors pymagatama spiff_worker)
+# open-lei-mcp (build context = REPO ROOT — vendors kotodama spiff_worker)
 70-tools/scripts/buildkit/remote-build.sh \
   -f 50-infra/k8s/open-lei-mcp/Dockerfile \
   -d . \

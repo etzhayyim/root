@@ -41,7 +41,7 @@ spec:
         - name: ghcr-pull
       containers:
         - name: server
-          image: ghcr.io/etzhayyim/pymagatama:jukyu-mcp-query-1127e93592e-20260515170344-amd64
+          image: ghcr.io/etzhayyim/kotodama:jukyu-mcp-query-1127e93592e-20260515170344-amd64
           imagePullPolicy: IfNotPresent
           command:
             - granian
@@ -54,7 +54,7 @@ spec:
             - --workers
             - "1"
             - --access-log
-            - pymagatama.jukyu.server:app
+            - kotodama.jukyu.server:app
           env:
             - name: RW_URL
               valueFrom:

@@ -1,7 +1,7 @@
 {
   "version": 1,
   "apps": {
-    "ai-gftd-wasm-bankruptcy-b4nkrpt0": {
+    "etzhayyim-wasm-bankruptcy-b4nkrpt0": {
       "nanoid": "b4nkrpt0",
       "app_version": "1.0.0",
       "last_deployed_at": "2026-04-02T11:38:42Z",

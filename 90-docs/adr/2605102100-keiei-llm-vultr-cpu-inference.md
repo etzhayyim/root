@@ -94,9 +94,9 @@ macOS launchd com.etzhayyim.keiei  (PID alive, KeepAlive=true)
        ├─ security find-generic-password -s etzhayyim.keiei -a LLM_BEARER → etzhayyim_LLM_API_KEY
        ├─ export etzhayyim_LLM_URL=https://gemma-e2b.etzhayyim.com/v1/chat/completions
        ├─ export KEIEI_LLM_MODEL=gemma-4-E2B-it
-       └─ exec python3 -m pymagatama.keiei --socket ~/Library/Caches/keiei.sock
+       └─ exec python3 -m kotodama.keiei --socket ~/Library/Caches/keiei.sock
             ↓
-        pymagatama.keiei.graph._llm.call_llm()    (lazy import, only when gate allows)
+        kotodama.keiei.graph._llm.call_llm()    (lazy import, only when gate allows)
             ↓ HTTPS POST (Authorization: Bearer)
         gemma-e2b.etzhayyim.com
             ↓ QUIC tunnel (cloudflared-keiei-llm × 2 replicas)

@@ -46,7 +46,7 @@ holds **no merge/deploy authority and no platform master key**.
 Valid iff both signatures verify, in window, not revoked, and `finding_cid`
 resolves to an active akuma finding on the same owner+target.
 
-## Cells (7; R0 path-reserved under `20-actors/magatama/cells/tsukuroi_*/`)
+## Cells (7; R0 path-reserved under `40-engine/kotoba/crates/kotoba-kotodama/cells/tsukuroi_*/`)
 
 | Cell | Purpose | Key gate |
 |---|---|---|
@@ -86,7 +86,7 @@ akuma.finding (VulnFinding)
 ## Topology (kotoba-native)
 
 - **Edge**: SvelteKit CF Worker proxy `tsukuroi.etzhayyim.com` (edge only)
-- **Runtime**: K8s `tsukuroi-langserver`; external surface = magatama MCP facade only
+- **Runtime**: K8s `tsukuroi-langserver`; external surface = kotodama MCP facade only
 - **Synthesis+validation**: egress-restricted `tsukuroi-validate` namespace;
   egress only to the owner-attested git submission endpoint (fork remote),
   never to the live target

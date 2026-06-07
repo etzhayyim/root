@@ -35,7 +35,7 @@ In `etzhayyim-wasm-kyber-erp-kyb3rerp/package.json`:
 
 ```jsonc
 "dependencies": {
-  "@etzhayyim/magatama-host-sdk": "workspace:*",
+  "@etzhayyim/kotodama-host-sdk": "workspace:*",
   "@etzhayyim/open-kyber-rw-free": "workspace:*",
   "@etzhayyim/sdk": "workspace:*"        // for the encrypted employee envelope
 }
@@ -62,7 +62,7 @@ function bridgeFor(sdk: HostSDK, did: string) {
 
 `createKyselyDb` and `HYPERDRIVE` should have **zero remaining references** when done
 (`grep -n 'createKyselyDb\|HYPERDRIVE' src/app.ts` → empty). Remove the `createKyselyDb`
-import from the `@etzhayyim/magatama-host-sdk` import block.
+import from the `@etzhayyim/kotodama-host-sdk` import block.
 
 ## Step 2 — replace each cmd* handler body with an rw-free call
 
@@ -94,7 +94,7 @@ from a Kysely query that "returns empty envelopes" to a real kqe-over-Datom-log 
 | `listRiskIssues` | `listRiskIssues(e, b)` | |
 | `dashboard` / `getApqcCoverage` | `erpCoverage(e)` | kqe replacement for the RisingWave MV; `apqcL1Active` feeds kyb3proj |
 
-Handler shape (per the magatama F2 pattern):
+Handler shape (per the kotodama F2 pattern):
 
 ```ts
 sdk.app.command(nsid("com.etzhayyim.apps.kyber.createInvoice"), async (_c, b) => {
@@ -110,7 +110,7 @@ asset / governance) so the writer DID matches the department, as today.
 ## Step 3 — add the NEW commands (suite + tenant + ISIC packs)
 
 These have no legacy handler. Add lexicons under
-`00-contracts/lexicons/com/etzhayyim/apps/kyber/` (procedure/query per the magatama
+`00-contracts/lexicons/com/etzhayyim/apps/kyber/` (procedure/query per the kotodama
 "new app command" steps), regenerate `lexicon-nsid-types.ts`, then wire:
 
 | New command | rw-free function |

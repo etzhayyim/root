@@ -70,7 +70,7 @@
   "cells": [
     {
       "name": "memorial_nft_mint",
-      "module": "magatama.cells.shidemori_memorial_nft_mint",
+      "module": "kotodama.cells.shidemori_memorial_nft_mint",
       "murakumoNode": "zebulun",
       "phase": "event",
       "io": "musubi.funeral_ceremony complete → memorialNftAttestation + on-chain mint",
@@ -78,7 +78,7 @@
     },
     {
       "name": "cemetery_land_registry",
-      "module": "magatama.cells.shidemori_cemetery_land_registry",
+      "module": "kotodama.cells.shidemori_cemetery_land_registry",
       "murakumoNode": "zebulun",
       "phase": "event",
       "io": "new cemetery site → cemeteryLandAttestation (waqf-inalienability)",
@@ -86,7 +86,7 @@
     },
     {
       "name": "chinkon_annual_remembrance",
-      "module": "magatama.cells.shidemori_chinkon_annual_remembrance",
+      "module": "kotodama.cells.shidemori_chinkon_annual_remembrance",
       "murakumoNode": "zebulun",
       "phase": "annual",
       "io": "annual cycle → chinkonRemembranceAttestation",
@@ -94,7 +94,7 @@
     },
     {
       "name": "inheritance_handoff",
-      "module": "magatama.cells.shidemori_inheritance_handoff",
+      "module": "kotodama.cells.shidemori_inheritance_handoff",
       "murakumoNode": "zebulun",
       "phase": "event",
       "io": "musubi funeral + Adherent SBT burn → chigiri.inheritanceChain cross-emit (G13 MANDATORY)",
@@ -102,7 +102,7 @@
     },
     {
       "name": "external_mortuary_engagement",
-      "module": "magatama.cells.shidemori_external_mortuary_engagement",
+      "module": "kotodama.cells.shidemori_external_mortuary_engagement",
       "murakumoNode": "zebulun",
       "phase": "event",
       "io": "state-compliance need → Public Fund Council Lv6+ ≥4/7 + externalMortuaryEngagement record",
@@ -110,7 +110,7 @@
     },
     {
       "name": "silen_shidemori_review",
-      "module": "magatama.cells.shidemori_silen_shidemori_review",
+      "module": "kotodama.cells.shidemori_silen_shidemori_review",
       "murakumoNode": "zebulun",
       "phase": "quarterly",
       "io": "Council Wellbecoming + multi-doctrinal + Land Trust + Charter §1.15 + §2(d) audit"

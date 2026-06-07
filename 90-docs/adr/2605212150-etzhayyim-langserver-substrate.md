@@ -80,7 +80,7 @@ etc.). The module provides:
 - **One LSP family per mini** (placement table below), chosen to avoid
   co-locating heavy LSPs with the existing PDS (simeon), LiteLLM gateway
   (judah), or heavy cron cells (levi).
-- **launchd-only supervision**, mirroring `com.etzhayyim.magatama-cell-runner.plist`
+- **launchd-only supervision**, mirroring `com.etzhayyim.kotodama-cell-runner.plist`
   conventions: `KeepAlive` on non-zero exit + network state, `ThrottleInterval`
   15s anti-flap, `ProcessType` Background, `Nice` 5.
 - **socat fork mode** for transport: one LSP process spawned per client
@@ -131,7 +131,7 @@ Three signals to existing sinks; no new commercial vendor:
 
 ### E. Cell-runner integration
 
-`20-actors/magatama/py/src/pymagatama/primitives/langserver_client.py`
+`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/langserver_client.py`
 provides an asyncio-based LSP JSON-RPC client (stdlib only, no third-party
 deps), exposing `initialize / shutdown / hover / definition / references /
 rename`. The reference cell `LangserverHealthMonitoringCell` (registered
@@ -217,7 +217,7 @@ shim) is **dry-run-default**. `launchctl load` is gated on:
 
 Rejected. Container orchestration is forbidden per ADR-2605191346 (no
 commercial K8s control plane). Standalone container runtimes (orbstack /
-lima) exist but launchd already supervises the existing magatama
+lima) exist but launchd already supervises the existing kotodama
 cell-runner — adding a parallel control plane buys nothing.
 
 ### B. Run all LSPs on a single "tool box" mini
@@ -266,6 +266,6 @@ browser editor (e.g., Theia, code-server) is requested.
 - `50-infra/etzhayyim-langserver/README.md` — 9-layer status table
 - `50-infra/etzhayyim-langserver/{hosts,transports,mesh,obs}.toml` — per-layer SSoTs
 - `50-infra/etzhayyim-langserver/scripts/lsp-fleet.json` — generated registry
-- `20-actors/magatama/py/src/pymagatama/primitives/langserver_{client,murakumo}.py` — cell-side library + ref cell
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/langserver_{client,murakumo}.py` — cell-side library + ref cell
 - `50-infra/cluster/murakumo/cell-runner/cells.toml` — `LangserverHealthMonitoringCell` entry
 - `deps.toml` `[platform.langserver.*]` — six sub-tables mirroring per-layer SSoTs

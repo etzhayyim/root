@@ -76,7 +76,7 @@ outlook_triage (5 min cron)
 | K8s | `50-infra/k8s/pregel/deployment.yaml` (namespace: mitama-udf) |
 | memory limit | 2Gi (1Gi が OOMKill — LangGraph + asyncpg の同時ロードで倍増) |
 | secret | `lg-pregel-secrets` (K8s Secret、旧: `lg-pegel-secrets` → 手動再作成要) |
-| Python package | `pymagatama.pregel` (`20-actors/magatama/py/src/pymagatama/pregel/`) |
+| Python package | `kotodama.pregel` (`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/pregel/`) |
 | langgraph.json | `60-apps/etzhayyim-project-pregel/lg/langgraph.json` |
 
 ### LangGraph StateGraph (5 node)
@@ -179,8 +179,8 @@ MV:
 - ADR-2605080000 (Distributed Cognitive Actor System)
 - ADR-2605111200 (CF Worker Edge-Only — no RW connection)
 - ADR-0032 (Gmail Direct Ingest + Yabai Classifier)
-- `20-actors/magatama/py/src/pymagatama/pregel/graph.py`
-- `20-actors/magatama/py/src/pymagatama/agents/outlook_triage.py`
-- `20-actors/magatama/py/src/pymagatama/primitives/email_route.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/pregel/graph.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/agents/outlook_triage.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/email_route.py`
 - `60-apps/etzhayyim-project-pregel/lg/`
 - `50-infra/k8s/pregel/deployment.yaml`

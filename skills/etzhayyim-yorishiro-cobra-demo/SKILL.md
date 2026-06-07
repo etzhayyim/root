@@ -1,6 +1,6 @@
 ---
 name: etzhayyim-yorishiro-cobra-demo
-description: Drive the cobra-demo yorishiro (kami: bin:cobra-demo) via MCP tools, XRPC, or in-process magatama actor calls.
+description: Drive the cobra-demo yorishiro (kami: bin:cobra-demo) via MCP tools, XRPC, or in-process kotodama actor calls.
 charter_purposes: ["grant"]
 transport: binary-cli
 adr: 2605211900
@@ -12,9 +12,9 @@ adr: 2605211900
 it through the etzhayyim substrate. The same op surface is exposed three
 ways:
 
-1. **Lexicon** at `00-contracts/lexicons/ai/etzhayyim/yorishiro/cobra-demo/*.json` (XRPC + magatama-host-sdk consumers)
-2. **Pregel cell** at `20-actors/magatama/cells/yorishiro_cobra-demo/cell.py` (in-cluster Murakumo runtime)
-3. **MCP server** at `20-actors/magatama/mcp/yorishiro-cobra-demo-mcp/` (stdio + Streamable HTTP)
+1. **Lexicon** at `00-contracts/lexicons/ai/etzhayyim/yorishiro/cobra-demo/*.json` (XRPC + kotodama-host-sdk consumers)
+2. **Pregel cell** at `40-engine/kotoba/crates/kotoba-kotodama/cells/yorishiro_cobra-demo/cell.py` (in-cluster Murakumo runtime)
+3. **MCP server** at `40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-cobra-demo-mcp/` (stdio + Streamable HTTP)
 
 ## Tools
 

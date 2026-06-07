@@ -46,7 +46,7 @@ on:
   # once. After the first merge, `--ref` dispatch against feature
   # branches works as documented. Normalized the trigger value from
   # `workflow_dispatch: {}` to `workflow_dispatch:` to match the
-  # convention used by sibling workflows (e.g., pymagatama-image.yml);
+  # convention used by sibling workflows (e.g., kotodama-image.yml);
   # the two forms are equivalent at the YAML layer but the no-`{}`
   # form is the GitHub Actions docs-default.
   workflow_dispatch:

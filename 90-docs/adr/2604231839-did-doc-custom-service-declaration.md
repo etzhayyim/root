@@ -147,7 +147,7 @@ Single commit、additive only、既存 client への影響なし。
 
 ## I1. `host-web-router.ts` (per-actor Worker, 主経路)
 
-`20-actors/magatama/sdk/magatama-host-sdk/src/host-web-router.ts:106-133` の
+`40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/host-web-router.ts:106-133` の
 `/.well-known/did.json` handler を拡張:
 
 ```ts
@@ -329,7 +329,7 @@ curl -s https://atproto.etzhayyim.com/.well-known/did.json | jq '.service[].type
 
 ## 実装 citations (本 ADR 実装時に touch する)
 
-- `20-actors/magatama/sdk/magatama-host-sdk/src/host-web-router.ts:106-133` — per-actor DID Doc
+- `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/host-web-router.ts:106-133` — per-actor DID Doc
 - `50-infra/cloudflare/workers/atproto/src/app.ts:667-719` — atproto Worker DID Doc
 - `50-infra/cloudflare/workers/atproto/src/repo/keystore.ts:140-150` — DID Doc persist to graph
 - `50-infra/cloudflare/workers/atproto/src/handlers/plc/index.ts:210-220` — did:plc DID Doc

@@ -3,7 +3,7 @@
  * mirror (ADR-2605192200 §2(a)..(h), ADR-2605242630 §6 scanner-fail).
  *
  * Mirror of the Python canonical scanner at
- * `20-actors/magatama/cells/feed_post/cell.py` (`_python_rego_mirror` +
+ * `40-engine/kotoba/crates/kotoba-kotodama/cells/feed_post/cell.py` (`_python_rego_mirror` +
  * `_JA_PROHIBITED_PATTERNS`). The TS port covers five categories:
  *
  *   - 2a  — autonomous weapons / kinetic strike vocabulary

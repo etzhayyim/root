@@ -41,7 +41,7 @@ from typing import Any
 from uuid import uuid4
 
 from lxml import etree
-from pymagatama.kotoba_datomic import KotobaDatomicClient
+from kotodama.kotoba_datomic import KotobaDatomicClient
 from SpiffWorkflow.bpmn.parser.BpmnParser import BpmnParser
 from SpiffWorkflow.bpmn.serializer.default import BpmnTaskSpecConverter
 from SpiffWorkflow.bpmn.serializer.workflow import (

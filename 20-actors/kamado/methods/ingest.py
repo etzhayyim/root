@@ -26,14 +26,14 @@ stdlib only. Usage:
     python3 ingest.py --export data/ingest/legacy-oil-refining-export.sample.json [--out OUTDIR]
     # CANONICAL write — etzhayyim's OWN kotoba, DID-bound auth (no vendor auth root):
     KOTOBA_ENDPOINT=<etzhayyim-node> KOTOBA_AUTH=<did-bound-bearer> python3 ingest.py --push
-    # OPTIONAL gftd pinning mirror (content-addressed COPY only, NOT canonical):
-    KOTOBA_JWT=<gftd-jwt> python3 ingest.py --mirror-gftd
+    # OPTIONAL etzhayyim pinning mirror (content-addressed COPY only, NOT canonical):
+    KOTOBA_JWT=<etzhayyim-jwt> python3 ingest.py --mirror-etzhayyim
     python3 ingest.py --live          # refused unless KAMADO_OPERATOR_GATE=1 (G8)
 
 SUBSTRATE BOUNDARY: the canonical write goes to etzhayyim's own kotoba (the engine is
 etzhayyim's open-source, github.com/etzhayyim/kotoba), authenticated by an etzhayyim
 DID-bound token — religious-corp canonical state is NOT gated by a vendor auth service
-(Ownership invariant + Murakumo-only consent boundary). gftd kotobase
+(Ownership invariant + Murakumo-only consent boundary). etzhayyim kotobase
 (did:web:kotobase.net) is an OPTIONAL availability mirror only. kg.ingest is a TENANT
 write (sub == tenant_did); datomic.transact is operator-only.
 """
@@ -59,14 +59,14 @@ import analyze  # reuse the EDN reader + classify for dedup-vs-seed
 # hardcoded vendor default.
 CANONICAL_NSID = "com.etzhayyim.apps.kotobase.kg.ingest_batch"
 
-# OPTIONAL pinning MIRROR = gftd kotobase (did:web:kotobase.net, runs etzhayyim/kotoba
+# OPTIONAL pinning MIRROR = etzhayyim kotobase (did:web:kotobase.net, runs etzhayyim/kotoba
 # unmodified; verified live 2026-06-05). Because state is content-addressed (CID
 # commit-DAG) + Base L2 anchored, a mirror can only host a COPY — it cannot alter or
-# own the data (datomic.transact is operator-only there; CIDs are immutable). gftd is
+# own the data (datomic.transact is operator-only there; CIDs are immutable). etzhayyim is
 # therefore a commodity availability vendor (Pinata-class), NEVER the canonical auth
-# root. It is opt-in ONLY via --mirror-gftd with a gftd-AUTHN JWT.
-GFTD_MIRROR_ENDPOINT = "https://kotobase.net"
-GFTD_MIRROR_NSID = "ai.gftd.apps.kotobase.kg.ingest_batch"
+# root. It is opt-in ONLY via --mirror-etzhayyim with a etzhayyim-AUTHN JWT.
+ETZHAYYIM_MIRROR_ENDPOINT = "https://kotobase.net"
+ETZHAYYIM_MIRROR_NSID = "ai.etzhayyim.apps.kotobase.kg.ingest_batch"
 
 # G4: fields that would tie a refinery to a natural person — refused on sight.
 PERSON_FIELDS = ("owner_person", "ceo", "person", "individual", "operator_person", "crew")
@@ -161,7 +161,7 @@ def dedup_vs_seed(migrated, seed_dict, idkey):
 
 # ── kotoba kg.ingest_batch (mirrors publish-actor-records.mjs recordToKgEntity) ──
 def _entity(eid, etype, label, row, relations):
-    # live kg.ingest contract (ai.gftd.apps.kotobase): {id, type?, label_*, claims?, relations?}
+    # live kg.ingest contract (ai.etzhayyim.apps.kotobase): {id, type?, label_*, claims?, relations?}
     claims = [{"pred": k.lstrip(":"), "value": str(v)}
               for k, v in row.items() if v not in (None, "", 0) or k.endswith("throughput-bpd")]
     return {"id": eid, "type": etype, "label_en": label, "claims": claims, "relations": relations}
@@ -185,7 +185,7 @@ def push_batch(batch, auth, endpoint, nsid):
     """POST kg.ingest_batch to a kotoba endpoint (G8 — Bearer token = operator attestation).
 
     Endpoint/nsid/auth are all explicit: the CANONICAL path supplies etzhayyim's own
-    endpoint + DID-bound token; the gftd MIRROR path supplies kotobase.net + a gftd JWT.
+    endpoint + DID-bound token; the etzhayyim MIRROR path supplies kotobase.net + a etzhayyim JWT.
     Uses stdlib urllib (no third-party deps). Returns (status, body). kg.ingest is a TENANT
     write (sub == tenant_did); datomic.transact is operator-only and not used here.
     """
@@ -265,24 +265,24 @@ def main(argv):
                 "kamado G8 (canonical write): --push targets etzhayyim's OWN kotoba — NOT a "
                 "vendor. Set KOTOBA_ENDPOINT=<etzhayyim kotoba node> and KOTOBA_AUTH=<etzhayyim "
                 "DID-bound bearer / member-sig> then re-run. (Ownership invariant: religious-corp "
-                "canonical state is not gated by a vendor auth service. For an OPTIONAL gftd "
-                "pinning mirror — copy only, never canonical — use --mirror-gftd with KOTOBA_JWT.)")
+                "canonical state is not gated by a vendor auth service. For an OPTIONAL etzhayyim "
+                "pinning mirror — copy only, never canonical — use --mirror-etzhayyim with KOTOBA_JWT.)")
         status, body = push_batch(batch, auth, endpoint, nsid)
         print(f"  → POST {endpoint.rstrip('/')}/xrpc/{nsid}  [{status}]  (CANONICAL — etzhayyim)")
         print(f"    {body[:400]}")
         return 0 if 200 <= status < 300 else 1
 
-    if "--mirror-gftd" in argv:
-        # OPTIONAL mirror: a content-addressed COPY on gftd kotobase. NOT the canonical home.
+    if "--mirror-etzhayyim" in argv:
+        # OPTIONAL mirror: a content-addressed COPY on etzhayyim kotobase. NOT the canonical home.
         jwt = os.environ.get("KOTOBA_JWT")
         if not jwt:
-            sys.exit(f"kamado: --mirror-gftd pins a COPY to the gftd kotobase mirror "
-                     f"({GFTD_MIRROR_ENDPOINT}) — a commodity availability vendor, NEVER the "
-                     f"canonical auth root. Needs a gftd-AUTHN JWT: set KOTOBA_JWT=<bearer>. "
+            sys.exit(f"kamado: --mirror-etzhayyim pins a COPY to the etzhayyim kotobase mirror "
+                     f"({ETZHAYYIM_MIRROR_ENDPOINT}) — a commodity availability vendor, NEVER the "
+                     f"canonical auth root. Needs a etzhayyim-AUTHN JWT: set KOTOBA_JWT=<bearer>. "
                      f"The CANONICAL write is --push to etzhayyim's own kotoba.")
-        print("  NOTE: gftd kotobase is a pinning MIRROR (content-addressed copy), not canonical.")
-        status, body = push_batch(batch, jwt, GFTD_MIRROR_ENDPOINT, GFTD_MIRROR_NSID)
-        print(f"  → POST {GFTD_MIRROR_ENDPOINT}/xrpc/{GFTD_MIRROR_NSID}  [{status}]  (MIRROR — gftd)")
+        print("  NOTE: etzhayyim kotobase is a pinning MIRROR (content-addressed copy), not canonical.")
+        status, body = push_batch(batch, jwt, ETZHAYYIM_MIRROR_ENDPOINT, ETZHAYYIM_MIRROR_NSID)
+        print(f"  → POST {ETZHAYYIM_MIRROR_ENDPOINT}/xrpc/{ETZHAYYIM_MIRROR_NSID}  [{status}]  (MIRROR — etzhayyim)")
         print(f"    {body[:400]}")
         return 0 if 200 <= status < 300 else 1
 
@@ -292,8 +292,8 @@ def main(argv):
     print("    actor-profile identity (etzhayyim CF KV — own infra):")
     print("      node ../../50-infra/etzhayyim-did-web/scripts/publish-actor-records.mjs "
           "--actor kamado --put-kv --ingest-kotoba")
-    print("    OPTIONAL gftd pinning mirror (copy only, NOT canonical):")
-    print(f"      KOTOBA_JWT=<gftd-jwt> python3 ingest.py --mirror-gftd")
+    print("    OPTIONAL etzhayyim pinning mirror (copy only, NOT canonical):")
+    print(f"      KOTOBA_JWT=<etzhayyim-jwt> python3 ingest.py --mirror-etzhayyim")
     return 0
 
 

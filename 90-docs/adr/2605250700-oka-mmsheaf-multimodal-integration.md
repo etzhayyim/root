@@ -28,7 +28,7 @@ depends_on:
   - adr-2605242600-baien-federated-train-via-ameno-webgpu                                              # baien federated training via ameno WebGPU (R0 scaffold)
   - adr-2605250400-gemma-coder-distill-rocm                                              # gemma-coder-distill precedent (EVO-X2 ROCm peft+trl)
 related:
-  - 20-actors/magatama/py/src/pymagatama/                       # pymagatama Pregel host (mmsheaf module sibling target)
+  - 40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/                       # kotodama Pregel host (mmsheaf module sibling target)
   - 50-infra/murakumo/fleet.toml                                # Murakumo cell placement (mmsheaf_diffusion_aggregator → levi)
   - 70-tools/baien-distill                                      # BitNet 1.58 ternary distill toolchain (V3 edge tier target)
   - 30-graph/graph-schema/migrations/                           # vertex_training_* lineage schema (kind = mmsheaf-{v3-edge, v4-server})
@@ -148,8 +148,8 @@ Output records emit a lexicon attestation `com.etzhayyim.mmsheaf.diffusionRoundR
 | Layer | Path | R0 status |
 |---|---|---|
 | ADR | `90-docs/adr/2605250700-oka-mmsheaf-multimodal-integration.md` | this file |
-| Library | `20-actors/magatama/py/src/pymagatama/mmsheaf/` (`__init__.py` + `stalk.py` + `restriction.py` + `laplacian.py` + `diffusion.py` + `variants.py`) | declared, code lands in R1 |
-| Pregel cell | `20-actors/magatama/cells/mmsheaf_diffusion_aggregator/` (Murakumo placement: `levi`, alongside membrane verdict per ADR-2605231902) | declared, code lands in R1; import-time `RuntimeError` gate (silicon Wave 1 pattern) |
+| Library | `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/mmsheaf/` (`__init__.py` + `stalk.py` + `restriction.py` + `laplacian.py` + `diffusion.py` + `variants.py`) | declared, code lands in R1 |
+| Pregel cell | `40-engine/kotoba/crates/kotoba-kotodama/cells/mmsheaf_diffusion_aggregator/` (Murakumo placement: `levi`, alongside membrane verdict per ADR-2605231902) | declared, code lands in R1; import-time `RuntimeError` gate (silicon Wave 1 pattern) |
 | BitNet distill node | `70-tools/baien-distill/nodes/mmsheaf_v3_ternary.py` | declared, code lands in R3 |
 | Lexicon | `00-contracts/lexicons/com/etzhayyim/mmsheaf/diffusionRoundReceipt.json` | namespace reserved here; schema lands in R1 |
 | Bench | `70-tools/scripts/bench/mmsheaf-microbench/` (synthetic 2-modality complementary-signal replication) | declared, code lands in R1 |
@@ -161,7 +161,7 @@ Murakumo fleet impact (R3+): one new cell on `levi`. No new node added (contrast
 | Phase | Scope | Gate to next phase |
 |---|---|---|
 | **R0** (this ADR) | scaffold declared, no executable code; deps.toml + adr/README registry parity; library/cell paths reserved | ADR accepted; deps.toml + adr/README updated |
-| **R1** | implement V1/V2/V3/V4 in pymagatama.mmsheaf; synthetic bench replication on EVO-X2 ROCm (2-modality complementary signal, n=1000) | Sheaf models > GCN baseline by ≥ +10% absolute on synthetic bench |
+| **R1** | implement V1/V2/V3/V4 in kotodama.mmsheaf; synthetic bench replication on EVO-X2 ROCm (2-modality complementary signal, n=1000) | Sheaf models > GCN baseline by ≥ +10% absolute on synthetic bench |
 | **R2** | Ele-Fashion replication; release lexicon `diffusionRoundReceipt` schema; emit first attestation | MMSheafV4 ≥ 85.5% ± 1.0 on Ele-Fashion |
 | **R3** | Production deploy on kotoba-datomic `feed-discover` projection; libp2p distribution of V3 weights to edge nodes; baien-distill V3 ternary node | First production attestation on MST; V3 ternary checkpoint ≤ 2GB @ 4k ctx |
 | **R4** | baien-federated R2+ integration (member-device WebGPU LoRA on V3 restriction maps) — separate ADR | Out of scope here |

@@ -32,7 +32,7 @@ depends_on:
   - adr-2605250500-yakushi-pharmaceutical-rd-charter
 related:
   - 20-actors/mitate/                                # this ADR creates this tree
-  - 20-actors/magatama/cells/mitate_*/               # this ADR creates the 13 mitate Pregel cells
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_*/               # this ADR creates the 13 mitate Pregel cells
   - 00-contracts/lexicons/com/etzhayyim/mitate/      # this ADR creates the 8 mitate Lexicons
   - 50-infra/murakumo/fleet.toml                     # cell placement (Phase R2+ post-Council)
 supersedes: []

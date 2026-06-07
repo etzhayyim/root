@@ -212,7 +212,7 @@ All NEW blocks (projectors + fusion + optional LoRA) are BitNet
 NOT train fp16 and quantize post-hoc — that path costs us the
 1.58-bit advantage. Implementation: vendor the BitLinear / ternary
 QAT module from `microsoft/BitNet`'s training scripts, register it
-under `pymagatama.modules.bitnet_qat`, and use it for every new
+under `kotodama.modules.bitnet_qat`, and use it for every new
 parameter introduced by Baien-MX.
 
 # Comparison to the LLaVA-graft path
@@ -274,9 +274,9 @@ this order:
 1. **Migration** — `30-graph/graph-schema/migrations/<ts>_v_training_multimodal_sample.ts`
    defines the materialized view and a snapshot helper.
 2. **BitNet QAT module** — vendor / wrap the ternary BitLinear and
-   put it under `20-actors/magatama/py/src/pymagatama/modules/bitnet_qat.py`
+   put it under `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/modules/bitnet_qat.py`
    with explicit unit tests on shape and quant correctness.
-3. **Architecture** — `pymagatama/modules/baien_mx.py` builds:
+3. **Architecture** — `kotodama/modules/baien_mx.py` builds:
    `BaienMXProjectorTriple`, `BaienMXProjectorVec768`,
    `BaienMXProjectorVec4096FP8`, `BaienMXProjector3dBlob`,
    `BaienMXFusionBlock`, and a top-level `BaienMXModel(trunk_path,

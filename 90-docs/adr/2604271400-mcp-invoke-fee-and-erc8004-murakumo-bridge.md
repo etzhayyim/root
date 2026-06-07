@@ -14,7 +14,7 @@ related:
   - adr-2604262100-erc725-erc8004-k8s-ipfs-agent-runtime
   - adr-2604262145-erc8004-protocol-root-atproto-profile
   - adr-0061-murakumo-platform-auth-unification
-  - adr-0087-magatama-mcp-tool-facade
+  - adr-0087-kotodama-mcp-tool-facade
 supersedes: []
 superseded_by: []
 ---
@@ -31,7 +31,7 @@ superseded_by: []
    `DM` のみで、MCP 経由 (`/mcp` Streamable HTTP, ADR-0087) や
    `mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message` 経由の tool 呼び出しは
    metering されていない。host-sdk
-   (`20-actors/magatama/sdk/magatama-host-sdk/src/mcp-server.ts`) の
+   (`40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/mcp-server.ts`) の
    `tools/call` は `app.handleXRPC()` または BPMN dispatcher に
    delegate するだけで credits ledger を経由しない。
 
@@ -73,7 +73,7 @@ destination_id?, metadata: { tool_nsid, actor_did } }`。
 
 ## D2. host-sdk MCP dispatch に metering hook を追加
 
-`20-actors/magatama/sdk/magatama-host-sdk/src/mcp-server.ts` の
+`40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/mcp-server.ts` の
 `dispatchMcp()` に metering hook を 1 箇所だけ追加する。
 
 ```ts
@@ -216,9 +216,9 @@ off-chain reader が `agentByOperator[did]` を引いた上で
 - `90-docs/adr/2604262100-erc725-erc8004-k8s-ipfs-agent-runtime.md`
 - `90-docs/adr/2604262145-erc8004-protocol-root-atproto-profile.md`
 - `90-docs/adr/0061-murakumo-platform-auth-unification.md`
-- `90-docs/adr/0087-magatama-mcp-tool-facade.md`
+- `90-docs/adr/0087-kotodama-mcp-tool-facade.md`
 - `20-actors/credits/CLAUDE.md`
-- `20-actors/magatama/sdk/magatama-host-sdk/src/mcp-server.ts`
+- `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/mcp-server.ts`
 - `50-infra/vultr/geth-private/contracts/ADDRESSES.md`
 - `50-infra/vultr/geth-private/contracts/src/MurakumoRegistry.sol`
 - `50-infra/vultr/geth-private/contracts/src/etzhayyimAgentRegistry.sol`

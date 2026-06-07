@@ -61,7 +61,7 @@ defines the canonical usage contract.
 ### Rule 1: PyZeebe job I/O uses `ZeebeJobInput` / `ZeebeJobOutput`
 
 ```python
-from pymagatama.primitives.pydantic_job import ZeebeJobInput, ZeebeJobOutput
+from kotodama.primitives.pydantic_job import ZeebeJobInput, ZeebeJobOutput
 
 class GrowthProposalInput(ZeebeJobInput):
     actor_did: str
@@ -93,7 +93,7 @@ without error, preserving forward compatibility as the process model evolves.
 ### Rule 2: LangGraph state uses `BaseModelState`
 
 ```python
-from pymagatama.primitives.pydantic_job import BaseModelState
+from kotodama.primitives.pydantic_job import BaseModelState
 
 class ProposeState(BaseModelState):
     actor_did: str = ""
@@ -110,7 +110,7 @@ graph = StateGraph(ProposeState)
 ### Rule 3: Anthropic tool_use / json-mode output uses `AnthropicStructuredOutput`
 
 ```python
-from pymagatama.primitives.pydantic_job import AnthropicStructuredOutput
+from kotodama.primitives.pydantic_job import AnthropicStructuredOutput
 
 class EtaScoreResult(AnthropicStructuredOutput):
     eta: float
@@ -136,7 +136,7 @@ class WorkerSettings(BaseSettings):
     rw_port: int = 4566
     zeebe_address: str = "zeebe:26500"
 
-    model_config = {"env_prefix": "MAGATAMA_"}
+    model_config = {"env_prefix": "KOTODAMA_"}
 
 settings = WorkerSettings()
 ```
@@ -149,7 +149,7 @@ settings = WorkerSettings()
 ## File Location
 
 ```
-20-actors/magatama/py/src/pymagatama/primitives/pydantic_job.py
+40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/pydantic_job.py
 ```
 
 Classes exported:
@@ -192,5 +192,5 @@ Classes exported:
 - ADR-2605080000: Distributed Cognitive Actor System (L6 layer definition)
 - ADR-2605072000: LangGraph Agent Loop Pattern (LangGraph state usage)
 - ADR-2605071200: Myco-Yeast Artificial Organism (PyZeebe worker registry)
-- `20-actors/magatama/py/src/pymagatama/primitives/pydantic_job.py`
-- `20-actors/magatama/py/pyproject.toml` (`pydantic>=2.7.0`, `pydantic-settings>=2.3.0`)
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/pydantic_job.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/pyproject.toml` (`pydantic>=2.7.0`, `pydantic-settings>=2.3.0`)

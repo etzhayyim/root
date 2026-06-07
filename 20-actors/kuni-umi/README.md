@@ -31,7 +31,7 @@ Tier A (per-site `KuniUmiSiteAgent`) is code-generated per the
 not catalogued in this directory.
 
 Tier C escalation uses the generic
-[`magatama/cells/council_deliberation/`](../magatama/cells/council_deliberation/) per
+[`kotodama/cells/council_deliberation/`](../kotodama/cells/council_deliberation/) per
 [ADR-2605192415](../../90-docs/adr/2605192415-etzhayyim-religious-corp-daemon-architecture.md).
 
 ## Lexicon namespace

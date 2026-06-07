@@ -18,4 +18,4 @@
 - `DeleteFile`
 - `SearchFiles`
 
-このコンポーネントは Drive UI と file metadata/blob API の両方を `magatama WIT` で扱います。
+このコンポーネントは Drive UI と file metadata/blob API の両方を `kotodama WIT` で扱います。

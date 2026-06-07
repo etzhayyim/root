@@ -67,7 +67,7 @@ User の方針 (2026-04-30):
 > **pod なし (2026-05-17 現在)**: RTX 6000 Ada Secure SUPPLY_CONSTRAINT 全 DC。Secure cloud 復旧後に新 pod ID が払い出される。`runpod-podid-update-checklist` に従って zeebe-worker / shinshi / training Helm values の URL を更新すること。Volume `om0lfbfmvg` (US-WA-1) は存在するがモデル未ダウンロード。
 
 **禁止 (新規コードに対する不変条件)**:
-- pymagatama / agent loop / projector / BPMN handler から `murakumo.etzhayyim.com` / `murakumo-serve.etzhayyim.com` / `magatama-llm8cf4ai` / `LLM_SERVICE` service binding に対する LLM call を新規追加する
+- kotodama / agent loop / projector / BPMN handler から `murakumo.etzhayyim.com` / `murakumo-serve.etzhayyim.com` / `kotodama-llm8cf4ai` / `LLM_SERVICE` service binding に対する LLM call を新規追加する
 - RunPod が cold / 障害状態の時に Murakumo を automatic fallback として呼ぶ (silent fail で degraded response を返すか、明示的に `503 ServiceUnavailable` を返すこと)
 - LLM 用の new env var (`MURAKUMO_*`, `LLM_FALLBACK_*`) を default true で配るか、Worker secret に投入する
 - `MURAKUMO_DEFAULT_MODEL` を「Murakumo の default」と読む実装。これは命名が legacy で残るが意味は **「LLM SSoT (= RunPod) の default model alias」** に再定義 (rename は future kaizen)
@@ -132,7 +132,7 @@ Pod <NEW_ID> (RTX 6000 Ada 48 GB, US-WA-1, comfyui-etzhayyim, $0.77/hr)  ← 未
      8 alias all → openai/google/gemma-4-26B-A4B-it on 127.0.0.1:8000
        gemma-4-26b-a4b-it / gemma4-27b / gemma4-runpod
        gemma-4-e4b-it / gemma-4-e2b-it / gemma3:27b
-       tier0-general / tier0-structured (pymagatama llm.py 互換)
+       tier0-general / tier0-structured (kotodama llm.py 互換)
 ```
 
 **VRAM budget (48 GB 上限)**:
@@ -149,7 +149,7 @@ Pod <NEW_ID> (RTX 6000 Ada 48 GB, US-WA-1, comfyui-etzhayyim, $0.77/hr)  ← 未
 animeka.etzhayyim.com (thin CF Worker b7b7f6b2)
   → dispatcher.etzhayyim.com/xrpc/com.etzhayyim.animeka.* (HTTPS via CF)
     → bpmn-dispatcher (mitama-udf VKE) → Zeebe broker
-      → zeebe-worker pod (pymagatama:0.3.11-amd64)
+      → zeebe-worker pod (kotodama:0.3.11-amd64)
         → generic.llm.chat / generic.llm.json handler
           → LLM_CHAT_COMPLETIONS_URL = https://<NEW_ID>-4000.proxy.runpod.net/v1/chat/completions  ← DOWN
             → LiteLLM :4000 → vLLM :8000 → gemma-4-26B-A4B-it
@@ -235,7 +235,7 @@ security add-generic-password -s "etzhayyim.runpod" -a "SSH_PUBKEY" -w "$(cat ~/
 
 1. **`vllm-cuda12x-compat`** (priority 7.0, 訂正): `pip install vllm==0.19.1` 後に `--force-reinstall torch` を **してはいけない**。vLLM wheel の `_C.abi3.so` が同梱 torch (2.10.0+cu128) の CXX11 ABI に依存しており、別 torch で上書きすると `undefined symbol _ZN3c106ivalue14ConstantString6create...` ImportError で起動不能。flashinfer は `--no-deps` で torch 上書き防止。
 
-2. **`runpod-proxy-browser-ua-required`** (priority 8.0, NEW): `*.proxy.runpod.net` は CF 経由で配信され default Python urllib UA を 403 block する。Python caller は browser UA (Chrome/129) 必須。`pymagatama/llm.py` は対応済。CF Worker `comfyui.etzhayyim.com` / `llm.etzhayyim.com` 経由なら UA 制約なし (CF→CF egress)。
+2. **`runpod-proxy-browser-ua-required`** (priority 8.0, NEW): `*.proxy.runpod.net` は CF 経由で配信され default Python urllib UA を 403 block する。Python caller は browser UA (Chrome/129) 必須。`kotodama/llm.py` は対応済。CF Worker `comfyui.etzhayyim.com` / `llm.etzhayyim.com` 経由なら UA 制約なし (CF→CF egress)。
 
 3. **`runpod-podid-update-checklist`** (priority 6.0, NEW): pod 再作成時に sed 一括更新する箇所:
    - `50-infra/cloudflare/workers/comfyui/wrangler.jsonc` `UPSTREAM_URL` → `wrangler deploy`

@@ -159,7 +159,7 @@ the controller.
 
 Account publish does NOT write to a central kotoba node: writes there are
 intentionally operator-local (`kotoba.etzhayyim.com` is read-only by design,
-ADR-2606013200; `kotoba.gftd.ai` is being pruned). Instead the account record is a
+ADR-2606013200; `kotoba.etzhayyim.com` is being pruned). Instead the account record is a
 **member-signed, content-addressed block** published to the apex
 `com.etzhayyim.apps.kotoba.block.put` (main's `kotoba-publish`: verifies the
 member Ed25519 sig over the root CID, then **IPFS-pins the block via

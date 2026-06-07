@@ -106,7 +106,7 @@ etzhayyim xrpc com.etzhayyim.actor.migrate -d '{"manifestPath":"20-actors/m365-i
 
 Requires prior:
 1. Migration `20260417190000_vertex_m365_sync_state.ts` applied
-2. Host WIT `etzhayyim-host:m365/m365@1.0.0` implemented in `50-infra/.../magatama-host/src/capabilities/m365.ts`
+2. Host WIT `etzhayyim-host:m365/m365@1.0.0` implemented in `50-infra/.../kotodama-host/src/capabilities/m365.ts`
 3. Secret `M365_CLIENT_SECRET` in CF Secrets Store (binding on executor worker)
 
 ## Operational History (2026-04-17)

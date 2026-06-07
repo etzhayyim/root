@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   sbom.etzhayyim.com — recall (Phase D blast-radius query).
-  Single task: pymagatama runs the supplier-scoped JOIN over
+  Single task: kotodama runs the supplier-scoped JOIN over
   vertex_sbom_component × vertex_sbom_artifact + vuln_match counts,
   returns the affected artifact list. Audit emit closes the trace.
 -->

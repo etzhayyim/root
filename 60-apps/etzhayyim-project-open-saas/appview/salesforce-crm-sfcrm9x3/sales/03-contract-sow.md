@@ -32,7 +32,7 @@ Template is splittable into three instruments so procurement / legal can route i
 
 **7. Uptime.** 99.5% monthly for `https://salesforce.opensaas.etzhayyim.com/`. Service credit: 5% of monthly fee per 1% miss, capped at 50%. Scheduled maintenance windows (Sun 02:00–04:00 local) excluded.
 
-**8. LLM use.** If Customer enables per-seat LLM, invocation targets the Murakumo fleet DID configured in the Order Form. Provider does not retain Customer prompt content. Customer may substitute its own LLM endpoint via `magatama.Invoke` at any time.
+**8. LLM use.** If Customer enables per-seat LLM, invocation targets the Murakumo fleet DID configured in the Order Form. Provider does not retain Customer prompt content. Customer may substitute its own LLM endpoint via `kotodama.Invoke` at any time.
 
 **9. Limitation of liability.** Capped at 12 months of Platform Fee (not one-time services).
 

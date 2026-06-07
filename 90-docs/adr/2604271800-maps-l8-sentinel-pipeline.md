@@ -101,11 +101,11 @@ Start (XRPC POST com.etzhayyim.apps.maps.sentinelAnalyze)
 - LangChain orchestration: prompt → COG URL retrieval → RunPod invoke
   → structured JSON parse → confidence calibration. Pure Python, no
   Kotoba/Datomic UDF needed (per ADR-0044: external IO + LLM + heavy lib =
-  Python External / pymagatama, not SQL UDF).
+  Python External / kotodama, not SQL UDF).
 
 ### 3. pyzeebe primitives
 
-`20-actors/magatama/py/src/pymagatama/primitives/maps_sentinel.py`:
+`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/maps_sentinel.py`:
 
 | task type | purpose |
 |---|---|
@@ -129,7 +129,7 @@ hardcoded):
   Copernicus auth; Sentinel-2 via Element84 needs no auth)
 
 LangChain + Sentinel SDK Python deps land in the existing
-`pymagatama` image — incremental ~30 MB (`langchain-core` + `pystac` +
+`kotodama` image — incremental ~30 MB (`langchain-core` + `pystac` +
 `shapely`). No new image, no new Deployment, no new HPA.
 
 ### 5. Lexicon contract
@@ -187,10 +187,10 @@ cluster footprint is back inside RW license caps.
 |---|---|
 | `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/maps/sentinelIngest.bpmn` | ✅ committed, seeded to `vertex_bpmn_process_def` |
 | `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/maps/sentinelAnalyze.bpmn` | ✅ committed, seeded to `vertex_bpmn_process_def` |
-| `20-actors/magatama/py/src/pymagatama/primitives/maps_sentinel.py` | ✅ `maps.sentinel.stac.search` + `maps.sentinel.runpod.analyze` |
-| `20-actors/magatama/py/tests/test_maps_sentinel_primitives.py` | ✅ 36/36 passing |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/maps_sentinel.py` | ✅ `maps.sentinel.stac.search` + `maps.sentinel.runpod.analyze` |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/tests/test_maps_sentinel_primitives.py` | ✅ 36/36 passing |
 | `70-tools/scripts/contract/lint-sentinel-drift.py` | ✅ 5-check CI guard |
-| `ghcr.io/etzhayyim/pymagatama:0.2.37` | ✅ built + pushed linux/amd64 |
+| `ghcr.io/etzhayyim/kotodama:0.2.37` | ✅ built + pushed linux/amd64 |
 | `zeebe-worker` (mitama-udf) | ✅ rolled to 0.2.37, polling `maps.sentinel.*` |
 | PR #1151 | ✅ `safe-deploy-and-fix-settler-ws` → `main` |
 

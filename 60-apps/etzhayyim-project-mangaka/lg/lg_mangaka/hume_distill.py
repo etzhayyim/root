@@ -1,7 +1,7 @@
 """Hume emotion centroid distillation runner — consumes the corpus
 persisted by `tool_persist_hume_emotion_observation` into
 `vertex_vector_emotion_signal` and produces a student model JSON via
-`pymagatama.primitives.hume_image_head.train_image_centroid`.
+`kotodama.primitives.hume_image_head.train_image_centroid`.
 
 Closes the loop from P4's persistence work (commit a2ec0f278bc — the
 `humeObservation.v1` rows) to the trained student model the
@@ -39,7 +39,7 @@ import os
 import time
 from typing import Any
 
-from pymagatama.primitives.hume_image_head import train_image_centroid
+from kotodama.primitives.hume_image_head import train_image_centroid
 
 _log = logging.getLogger(__name__)
 
@@ -121,7 +121,7 @@ async def fetch_observations(
     if not url:
         raise RuntimeError("RW_URL not configured")
 
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     import asyncio
 
     client = get_kotoba_client()

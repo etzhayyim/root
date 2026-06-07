@@ -20,7 +20,7 @@ related:
   - adr-2605080000-distributed-cognitive-actor-system
   - adr-2605082000-langgraph-graph-definition-as-data
   - adr-2605082100-langgraph-checkpointer-storage
-  - adr-0087-magatama-mcp-tool-facade
+  - adr-0087-kotodama-mcp-tool-facade
   - adr-0056-bpmn-as-actor
   - adr-2605081200-spiffworkflow-bpmn-engine-replacement
 supersedes: []
@@ -182,6 +182,6 @@ shadow run / canary
 - ADR-2605080000: Distributed Cognitive Actor System (L4 / L6 制約の出所)
 - ADR-2605082000: LangGraph Graph Definition as Data (合成側の data 化)
 - ADR-2605082100: LangGraph Checkpointer Storage (補完)
-- ADR-0087: Magatama MCP Tool Facade (`vertex_mcp_tool_def`)
+- ADR-0087: Kotodama MCP Tool Facade (`vertex_mcp_tool_def`)
 - ADR-0056: BPMN-as-actor (BPMN data 化の precedent)
 - ADR-2605081200: SpiffWorkflow BPMN Engine Replacement (BPMN engine 実装)

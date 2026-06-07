@@ -1,5 +1,5 @@
 {
-  "name": "magatama-nwscr001",
+  "name": "kotodama-nwscr001",
   "version": "1.0.0",
   "description": "etzhayyim News — RSS ingestion + multilingual translation (news.etzhayyim.com)",
   "main": "src/app.ts",
@@ -11,6 +11,6 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "@etzhayyim/magatama-host-sdk": "workspace:*"
+    "@etzhayyim/kotodama-host-sdk": "workspace:*"
   }
 }

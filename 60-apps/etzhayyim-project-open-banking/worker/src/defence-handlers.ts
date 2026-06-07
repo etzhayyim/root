@@ -13,7 +13,7 @@
 // All handlers write a single row to vertex_open_defence_event via Hyperdrive,
 // then return { ok: true, vertexId, severity } as JSON. PDS routing should
 // prefer this Worker over the legacy BPMN binding (see migration doc).
-import { createKyselyDb } from "@etzhayyim/magatama-host-sdk";
+import { createKyselyDb } from "@etzhayyim/kotodama-host-sdk";
 
 export interface DefenceEnv {
   HYPERDRIVE: { connectionString: string };

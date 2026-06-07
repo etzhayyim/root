@@ -12,7 +12,7 @@ import {
   type HostSDK, resolveHeartbeatCadence, createCadenceState, createInboxBuffer, genID, decodeJson,
   nsid,
   parseLexiconInput,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 const cadenceState = createCadenceState();
 const inbox = createInboxBuffer();

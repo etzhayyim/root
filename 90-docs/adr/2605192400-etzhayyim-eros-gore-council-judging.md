@@ -63,7 +63,7 @@ Layer 3: Precedent Registry (`com.etzhayyim.apps.etzhayyim.eros-gore-precedent`)
 
 ### Layer 1 — LLM pre-classification
 
-magatama Pregel cell `EthicsContentClassifierCell` が input content を以下の 5 段階に分類:
+kotodama Pregel cell `EthicsContentClassifierCell` が input content を以下の 5 段階に分類:
 
 | Tier | 名称 | 説明 | Default action |
 |---|---|---|---|
@@ -145,7 +145,7 @@ LLM cell が使用する rubric:
 ## 3. EthicsContentClassifierCell (Pregel)
 
 ```python
-# 20-actors/magatama/cells/ethics_content_classifier/cell.py
+# 40-engine/kotoba/crates/kotoba-kotodama/cells/ethics_content_classifier/cell.py
 from langgraph.graph import StateGraph
 
 class EthicsContentClassifierState(TypedDict):

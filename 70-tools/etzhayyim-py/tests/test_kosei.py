@@ -15,7 +15,7 @@ from etzhayyim.kosei import scan_kosei, _check_app
 def _make_full_app(base: Path) -> Path:
     """Create a fully compliant app at base/."""
     base.mkdir(parents=True, exist_ok=True)
-    (base / "magatama.jsonld").write_text(json.dumps({"nanoid": "abc12345"}))
+    (base / "kotodama.jsonld").write_text(json.dumps({"nanoid": "abc12345"}))
     (base / "src").mkdir(exist_ok=True)
     (base / "src" / "app.ts").write_text("// app\nexport default {};\n")
     (base / "wrangler.jsonc").write_text('{"name": "test"}\n')
@@ -27,7 +27,7 @@ def _make_full_app(base: Path) -> Path:
 def test_check_app_missing_all(tmp_path):
     app = tmp_path / "myapp"
     app.mkdir()
-    (app / "magatama.jsonld").write_text("{}")
+    (app / "kotodama.jsonld").write_text("{}")
     r = _check_app(app, tmp_path)
     assert "src/app.ts" in r.missing_files
     assert "wrangler.jsonc" in r.missing_files
@@ -45,7 +45,7 @@ def test_check_app_full_compliance(tmp_path):
 def test_check_app_nsid_placeholder(tmp_path):
     app = tmp_path / "myapp"
     app.mkdir()
-    (app / "magatama.jsonld").write_text("{}")
+    (app / "kotodama.jsonld").write_text("{}")
     (app / "src").mkdir()
     (app / "src" / "app.ts").write_text('const nsid = "nsid";\n')
     (app / "wrangler.jsonc").write_text("{}")
@@ -56,7 +56,7 @@ def test_check_app_nsid_placeholder(tmp_path):
 def test_check_app_model_hardcode(tmp_path):
     app = tmp_path / "myapp"
     app.mkdir()
-    (app / "magatama.jsonld").write_text("{}")
+    (app / "kotodama.jsonld").write_text("{}")
     (app / "src").mkdir()
     (app / "src" / "app.ts").write_text('const model = "claude-3-opus-20240229";\n')
     (app / "wrangler.jsonc").write_text("{}")

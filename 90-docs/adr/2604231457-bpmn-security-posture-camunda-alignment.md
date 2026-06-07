@@ -46,7 +46,7 @@ upgrades (Zeebe 8.7 ships a breaking exporter change).
 
 ## 1. Dispatcher auth: shared-secret header, two modes
 
-`etzhayyim-dispatcher` (pymagatama ≥ 0.2.28) gates `/xrpc/*` on a new
+`etzhayyim-dispatcher` (kotodama ≥ 0.2.28) gates `/xrpc/*` on a new
 `DISPATCHER_AUTH_MODE` env var:
 
 | Mode | Behaviour |
@@ -172,7 +172,7 @@ caller.
 
 | Step | Action | Gate | Status |
 |---|---|---|---|
-| 1 | Merge pymagatama 0.2.28 with `AUTH_MODE=off` default | CI green | done (PR #1108, 2026-04-23) |
+| 1 | Merge kotodama 0.2.28 with `AUTH_MODE=off` default | CI green | done (PR #1108, 2026-04-23) |
 | 2 | `helm upgrade` dispatcher + mitama-udf workers | `/health` 200, `/bindings` non-empty | done (Version 55, 2026-04-23). All 3 deploys on `sha256:ed35265…d9dee`, dispatcher `/health` 200, direct `http://dispatcher.etzhayyim.com:8080/xrpc/...` → 200 with Zeebe data. |
 | 3 | PDS pipethrough sends `x-internal-trust: ${DISPATCHER_INTERNAL_SECRET}` from Secrets Store | PDS Worker deploy ok + end-to-end smoke (atproto → dispatcher → 200) | **partial, blocked** — code deployed (PDS Version `0820a358…`) and CF Secrets Store `dispatcher_internal_secret` created, but CF Workers `fetch("http://dispatcher.etzhayyim.com:8080/...")` returns 5xx from inside the CF fabric. External fetch works. Pipethrough silently falls through to the legacy handler. Every migrated yabai NSID is currently served by fallback, not by the dispatcher. |
 | 3.1 | **Blocker fix — dispatcher origin reachability from CF Workers** | Some CF-Worker-callable HTTPS origin resolves to the `bpmn-dispatcher` service | not started. Options: (a) CF Tunnel (`cloudflared` sidecar in `mitama-udf` namespace — recommended, matches murakumo-serve pattern); (b) CF Spectrum (Enterprise); (c) TLS terminate at Vultr LB :443 + orange-cloud `dispatcher.etzhayyim.com`. |
@@ -190,7 +190,7 @@ independently.
 - **Dispatcher reachability from CF Workers is broken.** `http://dispatcher.etzhayyim.com:8080` resolves to the Vultr node IP directly (unproxied) but CF Workers `fetch` to it returns 5xx, so `pipethroughBpmnDispatcher` takes its `>= 500 → null` branch and the caller lands in the 404 "unknown method" fallback of `dispatchXRPC`. Pre-existing — PR #1101 that added the pipethrough code was merged but the PDS Worker was never successfully redeployed after it; this ADR's deploy is the first time the code ran in production.
 - **Dispatcher health is fine.** Direct external curl against the Vultr LB returns 200 with real Zeebe-routed data. The issue is purely the CF-Worker → Vultr-LB path.
 - **`generic.db.select` columns/orderBy allow-list is live.** Every BPMN binding audited on merge passes the regex; `SUM(*)`, `(select 1)`, `name; DROP`, quoted / commented expressions all reject. Failure returns a structured `{error, rows: [], rowCount: 0}` payload so Zeebe does not retry-loop.
-- **Context shim shipped.** `pymagatama/context.py` lets `handlers/__init__.py` import `contracts` and `houbun` handlers without crashing the UDF pool. Those two handlers fail at invocation instead (NotImplementedError), which is the desired failure mode until the real Context is wired.
+- **Context shim shipped.** `kotodama/context.py` lets `handlers/__init__.py` import `contracts` and `houbun` handlers without crashing the UDF pool. Those two handlers fail at invocation instead (NotImplementedError), which is the desired failure mode until the real Context is wired.
 
 # Non-goals (explicit)
 

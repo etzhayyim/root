@@ -53,7 +53,7 @@ async def _node_list(state: _ListState) -> dict[str, Any]:
     where_sql = " AND ".join(where)
     try:
         import asyncio
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         def _fetch():
             client = get_kotoba_client()
             res = client.select_where("vertex_mangaka", "kind", "document", columns=["rkey", "name", "vertex_id", "created_at", "props"])

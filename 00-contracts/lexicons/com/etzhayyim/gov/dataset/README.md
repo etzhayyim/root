@@ -8,7 +8,7 @@
 - `com.etzhayyim.gov.{agency,consult,...}` — **state-side organizational catalog** (who/what the state is)
 - `com.etzhayyim.gov.dataset.*` — **state-published data corpora** (what the state has published)
 
-**Owner**: religious-corp substrate (no single actor — written by `pymagatama.organism.sensors.gov.*` after passive-only fetch of officially-published bulk archives; consumed by ossekai / toritate / chigiri / manabi / baien-distill).
+**Owner**: religious-corp substrate (no single actor — written by `kotodama.organism.sensors.gov.*` after passive-only fetch of officially-published bulk archives; consumed by ossekai / toritate / chigiri / manabi / baien-distill).
 
 ## 5 Lexicons
 
@@ -46,7 +46,7 @@ Schemas at R0 are skeleton-level: known-value enums in place, required-field lis
 ## Related Files
 
 - `/90-docs/adr/2605263900-public-data-open-government-ipfs-ingestion.md` — corpus ADR
-- `/20-actors/magatama/py/src/pymagatama/organism/sensors/gov/` — sensor Protocols
+- `/40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/sensors/gov/` — sensor Protocols
 - `/70-tools/e7m-dataset/src/e7m_dataset/fetchers/{us_data_gov,uk_data_gov_uk,jp_data_go_jp,us_congress_gov,uk_hansard,jp_kokkai_kaigiroku,eu_eurostat,worldbank_open_data}.py` — W1 fetcher stubs
 - `/70-tools/baien-moemoekyun-train/recipes/gov/` — corpus recipes
 - `../../substrate/datasetPin.json` — cross-link target (`datasetPinAt` field on every gov.dataset lexicon)

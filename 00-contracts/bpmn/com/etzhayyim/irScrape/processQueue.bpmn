@@ -2,7 +2,7 @@
 <!--
   Timer-start BPMN — picks queued IR scraper runs, fetches company IR pages,
   extracts press releases, writes vertex_ir_pressrelease.
-  Task handler: irScrape.processQueue (pymagatama ir_scrape.py)
+  Task handler: irScrape.processQueue (kotodama ir_scrape.py)
   NSID: com.etzhayyim.apps.irScrape.processQueue
   vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/ir-scrape-process-queue-v1
 -->

@@ -63,5 +63,5 @@ e7m-dataset:creative-pd/
 - `/90-docs/adr/2605265000-creative-pd-substrate-for-baien-training-r0.md` — Master ADR
 - `/70-tools/baien-moemoekyun-train/recipes/creative/` — Recipe templates (R1 writes)
 - `/70-tools/baien-moemoekyun-train/scripts/assemble-creative-pd-corpus.py` — Cold-path corpus assembler (R1 writes)
-- `/20-actors/magatama/py/src/pymagatama/organism/sensors/creative/` — Sensor scaffold (R1 writes)
+- `/40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/sensors/creative/` — Sensor scaffold (R1 writes)
 - `/CHARTER-RIDER.md` §2(d) + §2(e) — G5 + G7 sources

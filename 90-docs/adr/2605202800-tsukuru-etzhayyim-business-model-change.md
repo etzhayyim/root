@@ -47,7 +47,7 @@ implementation:
   virtual cards for factory disbursement, cross-actor invoke
   `did:web:stripe.etzhayyim.com cancelCard`
 - **Runtime**: `runtime = "k8s-langserver"` with bpmn-dispatcher +
-  pymagatama.worker_api on Vultr VKE
+  kotodama.worker_api on Vultr VKE
 - **Identity**: `did:web:tsukuru.etzhayyim.com` controller + path-based DIDs
   for industry sections (ISIC A-U) + manufacturer registry path DIDs
 - **Storage**: `graph = "kotoba"` (vertex_tsukuru_*)
@@ -80,7 +80,7 @@ Land:
 - This ADR (proposed status)
 - `etzhayyim-root/60-apps/etzhayyim-project-tsukuru/` scaffold:
   - CLAUDE.md (sed-transformed from vendor)
-  - PROJECT.jsonld, OWNERS, magatama.toml
+  - PROJECT.jsonld, OWNERS, kotodama.toml
   - scripts/register-isic-industry-actors.mjs
   - appview/tsukuru-tsukr8u0/{package.json, vitest.config.ts}
   - appview/tsukuru-tsukr8u0/src/README.md — Phase 2 placeholder
@@ -125,7 +125,7 @@ Read path:
 Current vendor:
 ```ts
 payment: { method: "stripe_issuing", stripeCardId: "isc_xyz" }
-await magatama.Invoke("did:web:stripe.etzhayyim.com", "cancelCard", { cardId });
+await kotodama.Invoke("did:web:stripe.etzhayyim.com", "cancelCard", { cardId });
 ```
 
 Etzhayyim:

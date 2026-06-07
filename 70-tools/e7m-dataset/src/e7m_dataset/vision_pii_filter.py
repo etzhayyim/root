@@ -1,7 +1,7 @@
 """Vision PII filter — face / license-plate / child detection + blur.
 
 Per ADR-2605262500 §5 + G2: extends the structured-PII filter
-(`pymagatama/organism/sensors/pii_filter.py`) into the vision domain.
+(`kotodama/organism/sensors/pii_filter.py`) into the vision domain.
 Required at Mapillary fetch time (`fetchers/mapillary.py`); also
 applicable to any future image-bearing Tier-C source.
 
@@ -26,12 +26,12 @@ Architecture is fail-closed by default:
     rejected even if requested.
 
 This module lives at `e7m_dataset.vision_pii_filter` (not at
-`pymagatama.organism.sensors.pii_filter_vision`) so that
-`fetchers/mapillary.py` can import it without dragging pymagatama's
+`kotodama.organism.sensors.pii_filter_vision`) so that
+`fetchers/mapillary.py` can import it without dragging kotodama's
 heavy / env-fragile dependency chain (langchain → pydantic).
-A future pymagatama-side wrapper can re-export it once the env
+A future kotodama-side wrapper can re-export it once the env
 stabilises (ADR-2605262500 deps.toml originally placed it at the
-pymagatama path; this is the W3 implementation location).
+kotodama path; this is the W3 implementation location).
 
 Backends (deferred to W3.1 real-model installation):
 

@@ -71,7 +71,7 @@ script/
 
 ## Pregel cell
 
-`20-actors/magatama/cells/public_fund_grant/` — LLM-assisted evaluation of proposals:
+`40-engine/kotoba/crates/kotoba-kotodama/cells/public_fund_grant/` — LLM-assisted evaluation of proposals:
 - Mission axis match
 - Rider compliance check
 - Amount reasonableness vs Treasury NAV

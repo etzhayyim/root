@@ -105,7 +105,7 @@ Output:
 - Target: 1000 records
 - Current: ~421 (3 scripts × 140 = 420 baseline) → 56%
 
-**L5 Cell Activation**: Count cells matching `{member_registry,religious_marriage,religious_corp_taxation}` under `20-actors/magatama/cells/`.
+**L5 Cell Activation**: Count cells matching `{member_registry,religious_marriage,religious_corp_taxation}` under `40-engine/kotoba/crates/kotoba-kotodama/cells/`.
 - Target: 3 cells (activated after Council supermajority)
 - Current: 0 (all import-time RuntimeError) → 0%
 - **Activation gate**: ADR-2605250100 + ADR-2605250200 + ADR-2605250300 + Council attestation per ADR-2605192300

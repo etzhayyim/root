@@ -75,7 +75,7 @@ religious-corp Tier-B actor **igata (鋳型)** を以下で立ち上げる:
 ├── CLAUDE.md                     # Actor-local instructions
 └── manifest.jsonld               # DID + cell catalog + gate/non-goal arrays
 
-20-actors/magatama/cells/         # 8 Pregel cells (import-time RuntimeError R0)
+40-engine/kotoba/crates/kotoba-kotodama/cells/         # 8 Pregel cells (import-time RuntimeError R0)
 ├── igata_alloy_melt/
 ├── igata_die_preparation/
 ├── igata_shot_injection/

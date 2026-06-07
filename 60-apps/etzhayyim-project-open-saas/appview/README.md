@@ -15,7 +15,7 @@ Salesforce 相当の OSS CRM appview (M2.5)。
 - Route: `https://salesforce.opensaas.etzhayyim.com/`
 - Tenancy: `did:web:<slug>.opensaas.etzhayyim.com` per tenant, seat DID = `did:web:<slug>.opensaas.etzhayyim.com:seat:<role>-<nn>`
 - PII split (ADR-0018): emailHash / phoneHash を Tier 1 AT Record、raw PII は Tier 3 Preferences
-- Write-Only Derived (η=100%): opportunity.stage / case.status / lead→converted の変化で `activity` を `magatama.jsonld` derive rule が自動生成
+- Write-Only Derived (η=100%): opportunity.stage / case.status / lead→converted の変化で `activity` を `kotodama.jsonld` derive rule が自動生成
 
 API:
 

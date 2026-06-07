@@ -56,5 +56,5 @@ COFOG portal + **Well-Becoming Kyu/Dan rank system**. Constituent 成長の過�
 
 ## Runtime
 
-- Magatama app component: `wasm/society6-ui-s6c9m2q1/`
+- Kotodama app component: `wasm/society6-ui-s6c9m2q1/`
 - W Protocol: `[space] society6-feed` channel for rank promotions

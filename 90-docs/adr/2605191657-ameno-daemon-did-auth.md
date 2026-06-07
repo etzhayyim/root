@@ -9,7 +9,7 @@ last_verified: 2026-05-19
 depends_on:
   - 2605191407-ameno-browser-viewer-mode
   - 2605191229-ameno-daemon-path-a-bun-langgraph
-  - 2605191257-ameno-daemon-path-b-pymagatama-python
+  - 2605191257-ameno-daemon-path-b-kotodama-python
 related:
 V05191135-ameno-tier2-daemon-residency
 ---
@@ -92,7 +92,7 @@ primitive.
 
 ### Daemon side (Python Path B)
 
-- `pymagatama/projects/ameno/did_auth.py` mirrors the TS module.
+- `kotodama/projects/ameno/did_auth.py` mirrors the TS module.
 - Pure-Python base58btc decode, `cryptography.Ed25519PublicKey` for
   verify (lazy-imported so hosts without `cryptography` installed
   fail loudly only when DID auth is actually used).

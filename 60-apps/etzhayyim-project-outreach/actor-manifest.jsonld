@@ -1,5 +1,5 @@
 {
-  "@context": "https://magatama.etzhayyim.com/ns/actor-manifest/v1",
+  "@context": "https://kotodama.etzhayyim.com/ns/actor-manifest/v1",
   "@type": "ActorManifest",
   "did": "did:web:outreach.etzhayyim.com",
   "nanoid": "otch0001",

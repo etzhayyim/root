@@ -17,7 +17,7 @@
 | 3 | 6 Lexicons (`com.etzhayyim.toritsugi.*`) | ✅ | init |
 | 4 | procedure registry seed (6件, unverified-seed) | ✅ | init |
 | 5 | registry 更新 (root CLAUDE.md / adr README / deps.toml) | ✅ | init |
-| 6 | **7 cell scaffold** (`magatama.cells.toritsugi_*`, import時 RuntimeError) | ✅ | **iter-1** |
+| 6 | **7 cell scaffold** (`kotodama.cells.toritsugi_*`, import時 RuntimeError) | ✅ | **iter-1** |
 | 7 | cell ↔ manifest 整合 invariants test (`70-tools/scripts/audit/test_toritsugi_invariants.py`) | ✅ | **iter-2** |
 | 8 | 憲法ゲート G1–G15 を機械検証する node guard (`70-tools/scripts/lint/toritsugi-procedure-gates.mjs`) | ✅ | **iter-5** |
 | 9 | chigiri / himotoki / toritate manifest への toritsugi cross-actor boundary 追記 | ✅ | **iter-3** |
@@ -32,7 +32,7 @@
 ## イテレーション記録
 
 ### iter-1 (2026-05-31)
-**上げた項目: #6 — 7 cell scaffold。** `20-actors/magatama/cells/toritsugi_*/cell.py` を
+**上げた項目: #6 — 7 cell scaffold。** `40-engine/kotoba/crates/kotoba-kotodama/cells/toritsugi_*/cell.py` を
 tsukuroi/himotoki パターンに合わせて7本作成(procedure_registry / eligibility_match /
 intake は reuben、guide / draft は gad、submit / status_track は naphtali)。各 cell は
 R1 activation gate の定数(全て `None`)により **import時に `RuntimeError("toritsugi R0
@@ -93,7 +93,7 @@ toritsugi G5/N13)。検証: 4 manifest 全て JSON valid、各相手 manifest �
 再生成で上書きされる。よって #11 はコミット可能な対象が無く **不可(node-local)** と記録し、
 チェックリストを更新。ライブノードへの反映は別途 `kg.ingest_batch` の運用作業(本 loop の
 スコープ外)。
-**上げた項目: #13 — 7 cell dir の README.md(tsukuroi parity)。** `20-actors/magatama/cells/
+**上げた項目: #13 — 7 cell dir の README.md(tsukuroi parity)。** `40-engine/kotoba/crates/kotoba-kotodama/cells/
 toritsugi_*/README.md` を tsukuroi 形式で7本作成(1行サマリ + Actor/Murakumo node/Gates/
 Output Lexicon/Ceiling)。各 README は対応 cell.py の docstring と憲法ゲートを反映:
 procedure_registry=G8/G14・eligibility_match=G3/G5/G12・intake=G3/G4・guide=G5/G8・draft=G5/G6/G8・
@@ -263,7 +263,7 @@ R0 ceiling(import-RuntimeError・no dispatch・PII平文禁止)を破らずに�
 
 - 2026-06-02 long-tail worldwide deepening: merged 32 long-tail entries into `registry/procedures.seed.json` (34 → 66) across 4 buckets — EU-REST (SE/NL/ES/PL/IT/IE/CH/DK), ASIA-REST (CN/TW/HK/TH/ID/PH/VN/MY), AMERICAS-REST (AR/CL/CO/PE), MEA-OCEANIA (AE/SA/IL/ZA/NG/KE/EG/NZ): resident/address & population registration, national-ID/civil-status, social-security identifiers, voter registration, passport, income-tax filing. Distinct jurisdictions 13 → 41. Every new entry ships verificationStatus=unverified-seed + https provenance + language code + 行政書士法 / UPL boundary caveat; medium-confidence/in-flux entries flagged UNVERIFIED-for-live-use; requiredDocuments left as resolve-at-guide-time (not fabricated). Invariants test `70-tools/scripts/audit/test_toritsugi_registry_seed.py` distinct-jurisdiction threshold raised 5 → 12; all 7 tests green.
 
-**2026-06-02 R1 filing-deadline core (gate closed)**: `magatama.cells.toritsugi_status_track/deadline.py` 純コア — 法定届出期限の決定論計算(window は verified/member-confirmed INPUT、暦/営業日 counting)。行政書士法/UPL + G5 を docstring/コードで担保、is_legal_opinion 常に False。敵対的検証の指摘を反映: 統合テストの概念混同(`statutoryProcessingDays`=当局処理時間 ≠ 届出 window)を修正し member-confirmed INPUT へ、bool-as-int 拒否を追加。`test_deadline.py` green。cell.py ゲート閉維持。
+**2026-06-02 R1 filing-deadline core (gate closed)**: `kotodama.cells.toritsugi_status_track/deadline.py` 純コア — 法定届出期限の決定論計算(window は verified/member-confirmed INPUT、暦/営業日 counting)。行政書士法/UPL + G5 を docstring/コードで担保、is_legal_opinion 常に False。敵対的検証の指摘を反映: 統合テストの概念混同(`statutoryProcessingDays`=当局処理時間 ≠ 届出 window)を修正し member-confirmed INPUT へ、bool-as-int 拒否を追加。`test_deadline.py` green。cell.py ゲート閉維持。
 
 **2026-06-05 coverage深化 + 陳腐化テスト reconciliation (loop iter)**: (1) **カバレッジ向上** — 旅券(passport)申請を「国民ID/戸籍系 1件のみ」だった 26 法域へ第2手続きとして追加 (`registry/procedures.seed.json` 66 → 92 entries; 単一手続き法域 27 → 1[nzl は既存])。旅券は全世界で比較可能な普遍手続き; 公式当局ドメインを確信できるもののみ採用し、**手数料・statutoryProcessingDays・条文番号は捏造せず null/省略**(G8; notes に DRIFT WARNING + guide-time resolve)、requiredDocuments は普遍 honest セット + 「resolve at guide time / not fabricated here」。全件 verificationStatus=unverified-seed(G14) + https provenance + UPL/行政書士法 境界注記。distinct jurisdictions 41 維持。sibling invariants suite `test_toritsugi_registry_seed.py` **7/7 green**。 (2) **成熟度向上(red test 解消)** — `test_toritsugi_invariants.py::test_seed_all_unverified_and_cited` は HEAD 時点で既に赤(2026-06-02 worldwide 化で `.go.jp`固定 + legalBasis 全件必須が陳腐化、非 .go.jp 60 件で fail)。MATURITY 記載の責任分担(worldwide データ不変条件は sibling suite が担う)に従い**外科的に scope**: 全件には普遍チェック(unverified-seed/https/provenance非空)、厳格な `.go.jp`公式ドメイン + legalBasis 必須は **JP backbone 行に限定**(worldwide 行で公式ドメイン heuristic は canada.ca/government.nl/borger.dk 等を誤判定し、国別条文の捏造は G8 違反のため)。loosen ではなく scope。両 suite **17/17 green**。
 

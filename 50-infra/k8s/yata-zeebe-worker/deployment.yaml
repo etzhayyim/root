@@ -23,9 +23,9 @@ spec:
         - name: ghcr-creds
       containers:
         - name: worker
-          image: "ghcr.io/etzhayyim/pymagatama:yata-profile-468c6cbc0906-amd64"
+          image: "ghcr.io/etzhayyim/kotodama:yata-profile-468c6cbc0906-amd64"
           imagePullPolicy: IfNotPresent
-          command: ["python", "-m", "pymagatama.zeebe_worker_main"]
+          command: ["python", "-m", "kotodama.zeebe_worker_main"]
           env:
             - name: ZEEBE_WORKER_PROFILE
               value: "yata"

@@ -29,7 +29,7 @@ on:
     paths:
       - '00-contracts/lexicons/com/etzhayyim/kawase/**'
       - '20-actors/kawase-yui/**'
-      - '20-actors/magatama/cells/kawase_**/**'
+      - '40-engine/kotoba/crates/kotoba-kotodama/cells/kawase_**/**'
       - '40-engine/kotoba_kawase/**'
       - '50-infra/etzhayyim-kawase-pool/**'
       - '70-tools/scripts/lint/verify_no_commercial_remittance.py'
@@ -40,7 +40,7 @@ on:
     paths:
       - '00-contracts/lexicons/com/etzhayyim/kawase/**'
       - '20-actors/kawase-yui/**'
-      - '20-actors/magatama/cells/kawase_**/**'
+      - '40-engine/kotoba/crates/kotoba-kotodama/cells/kawase_**/**'
       - '40-engine/kotoba_kawase/**'
       - '50-infra/etzhayyim-kawase-pool/**'
       - '70-tools/scripts/lint/verify_no_commercial_remittance.py'
@@ -160,7 +160,7 @@ jobs:
           for cell in kawase_pool_match kawase_fx_oracle_watcher kawase_rebalance_proposer kawase_jurisdiction_compliance kawase_silen_review; do
             output=$(python3 -c "
           import sys
-          sys.path.insert(0, '20-actors/magatama/cells/$cell')
+          sys.path.insert(0, '40-engine/kotoba/crates/kotoba-kotodama/cells/$cell')
           try:
               import cell
               print('FAIL: $cell.cell imported without raising')

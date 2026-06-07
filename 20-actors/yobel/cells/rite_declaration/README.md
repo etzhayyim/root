@@ -17,7 +17,7 @@ Input lexicon: `com.etzhayyim.apps.etzhayyim.yobel.declareRite`.
    - §2(a) military — `scope` text scan + DMN; rite scoped to military debt forgiveness needs additional disclosure under transparent-force-rd (ADR-2605192315)
 4. `councilRatificationGate` — DMN [`council-ratification-threshold.md`](../../dmn/council-ratification-threshold.md) → derive `requiredLv6PlusCount` / `requiredLv9ChairCount` / `requiredQuorumPct` / `additionalGates`. Emit governance proposal MST record. Wait for Council deliberation (Tier C escalation per [ADR-2605192415](../../../../90-docs/adr/2605192415-etzhayyim-religious-corp-daemon-architecture.md))
 5. `landSovereigntyCoordination` (only if `riteType = yobel_50yr`) — coordinate with [`LandRegistry`](../../../../50-infra/) per ADR-2605192245 to identify which land tenure records would auto-revert under Lev 25:23 ("the land shall not be sold in perpetuity")
-6. `anchorRite` — on Council ratification success, write `rite` MST record with `status=active`. Anchor via `pymagatama.anchor.AnchorBridge` (MST → IPFS → Base L2 batched anchor, ADR-2605171800)
+6. `anchorRite` — on Council ratification success, write `rite` MST record with `status=active`. Anchor via `kotodama.anchor.AnchorBridge` (MST → IPFS → Base L2 batched anchor, ADR-2605171800)
 
 ## Encryption
 

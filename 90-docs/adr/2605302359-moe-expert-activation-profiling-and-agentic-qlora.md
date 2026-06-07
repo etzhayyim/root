@@ -195,7 +195,7 @@ Apache/MIT/CC-BY + Charter §2(a)-(h) scanned), combining:
 1. **Open agentic corpora** (license + Charter scanned): function-calling /
    tool-use / ReAct SFT sets (e.g. Glaive-function-calling, xLAM/APIGen,
    ToolACE-class — admit only Charter-clean, openly-licensed shards).
-2. **In-repo harvested traces**: instrument the magatama LangGraph cells +
+2. **In-repo harvested traces**: instrument the kotodama LangGraph cells +
    `aria` + the kanae actor's `Invoke(did, method, params)` calls →
    `(state, tool_call, tool_result, next)` tuples → Gemma chat-template
    tool-call turns. This is the highest-value, on-distribution signal.

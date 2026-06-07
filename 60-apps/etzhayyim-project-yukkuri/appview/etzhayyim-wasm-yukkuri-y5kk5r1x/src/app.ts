@@ -8,7 +8,7 @@ import {
   nsid,
   withCapabilityTags,
   type HostSDK,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 /** AT Protocol TID generator (base32 s32 charset, 13 chars). */
 const S32 = "234567abcdefghijklmnopqrstuvwxyz";

@@ -57,7 +57,7 @@ async def _node_insert(state: _State) -> dict[str, Any]:
     title = f"ゆっくり実況: {topic[:48]}"
     try:
         import asyncio
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         client = get_kotoba_client()
         await asyncio.to_thread(client.insert_row, "vertex_yukkuri_video", {
             "vertex_id": vertex_id,

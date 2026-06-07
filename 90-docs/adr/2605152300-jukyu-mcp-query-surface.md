@@ -21,7 +21,7 @@ This ADR documents the implementation of four new XRPC MCP query endpoints and t
 
 ## Decision
 
-### 1. Four new XRPC endpoints in `pymagatama.jukyu.server`
+### 1. Four new XRPC endpoints in `kotodama.jukyu.server`
 
 | NSID | Source MV | Key filters | Max rows |
 |---|---|---|---|
@@ -78,7 +78,7 @@ POST jukyu.etzhayyim.com/xrpc/com.etzhayyim.apps.jukyu.queryBalance
 
 ## Deployed image tags
 
-- `lg-jukyu`: `ghcr.io/etzhayyim/pymagatama:jukyu-mcp-query-1127e93592e-20260515170344-amd64`
+- `lg-jukyu`: `ghcr.io/etzhayyim/kotodama:jukyu-mcp-query-1127e93592e-20260515170344-amd64`
 - `bpmn-dispatcher`: rebuilt same session with lg-jukyu routing additions
 
 ## Consequences
@@ -90,7 +90,7 @@ POST jukyu.etzhayyim.com/xrpc/com.etzhayyim.apps.jukyu.queryBalance
 
 ## Files changed
 
-- `20-actors/magatama/py/src/pymagatama/jukyu/server.py` — 4 new XRPC endpoints
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/jukyu/server.py` — 4 new XRPC endpoints
 - `60-apps/etzhayyim-project-jukyu/appview/jukyu-ui-jukyu001/src/app.ts` — UTIL_PATHS routing
-- `20-actors/magatama/py/src/pymagatama/dispatcher_main.py` — lg-jukyu proxy constants + routing
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/dispatcher_main.py` — lg-jukyu proxy constants + routing
 - `50-infra/k8s/lg-jukyu/deployment.yaml` — updated image tag

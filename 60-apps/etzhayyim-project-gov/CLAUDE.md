@@ -40,4 +40,4 @@
 
 - Domain: `etzhayyim:gov@1.0.0` (`wit/gov/package.wit`)
 - Export: `etzhayyim:gov/public-service@1.0.0`
-- Import: `magatama:div/health`, `magatama:div/social-protection`, `magatama:div/education`, `magatama:contract/agreement`
+- Import: `kotodama:div/health`, `kotodama:div/social-protection`, `kotodama:div/education`, `kotodama:contract/agreement`

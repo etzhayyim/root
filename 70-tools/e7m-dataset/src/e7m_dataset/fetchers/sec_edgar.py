@@ -30,7 +30,7 @@ master.idx format (after ~11 header lines):
   ...
 
 Normalized into NDJSON rows consumable by
-``pymagatama.organism.sensors.corp.sec_edgar_sensor.SecEdgarSensor``:
+``kotodama.organism.sensors.corp.sec_edgar_sensor.SecEdgarSensor``:
 
   {"entityLocalId": "0000320193",        # zero-padded to 10 digits
    "formTypeNative": "10-K",

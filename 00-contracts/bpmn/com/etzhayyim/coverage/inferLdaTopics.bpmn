@@ -9,7 +9,7 @@
 
   Per ADR-0044: Gibbs sampling is heavy Python (numpy/scipy) → Python
   External UDF with io_threads=100. Called via generic.llm.json which
-  bridges to the pymagatama LDA module.
+  bridges to the kotodama LDA module.
 
   Pipeline:
     1. generic.db.select  — read converged model watermark (latest model_slug)

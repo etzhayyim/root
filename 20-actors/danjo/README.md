@@ -44,7 +44,7 @@ moushibumi's neutral public-comment support (ADR-2605312400).
   IPFS-pinned `gov.dataset.*` corpus. NO live portal scraping, NO
   per-query API hits, NO non-public sources, NO whistleblower intake
   (Charter Rider §2(c) covert-ops avoidance). danjo does **not** re-fetch
-  from government portals — `pymagatama.organism.sensors.gov.*` already
+  from government portals — `kotodama.organism.sensors.gov.*` already
   did that, passively, upstream.
 - **Source-provenance mandatory** (G5) — every observation cites ≥2
   upstream `gov.dataset.*` record CIDs. No inference-only allegation.
@@ -58,7 +58,7 @@ moushibumi's neutral public-comment support (ADR-2605312400).
 
 ## 6 Pregel Cells (R0 path-reserved)
 
-All cells path-reserved under `20-actors/magatama/cells/danjo_*/`. Cell
+All cells path-reserved under `40-engine/kotoba/crates/kotoba-kotodama/cells/danjo_*/`. Cell
 modules created at R1 ratification, import-time
 `RuntimeError("danjo R0 scaffold: activate via Council ADR + R1 ratification")`.
 
