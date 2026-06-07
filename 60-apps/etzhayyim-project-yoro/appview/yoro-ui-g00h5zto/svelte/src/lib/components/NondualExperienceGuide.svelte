@@ -25,13 +25,34 @@
 	}
 	const { onContinue }: Props = $props();
 
-	// §1.17.4 lawful-jurisdiction allowlist (ISO-3166-1 alpha-2). ADVISORY and
-	// operator-tunable: these are jurisdictions with a reasonably recognized LAWFUL
-	// supervised pathway for entheogenic / ayahuasca practice. Default (incl. JP, US,
-	// and any unresolved country) = NOT on the list → entheogen/retreat guidance hidden,
-	// only lawful contemplative paths shown. Legality is jurisdiction- and time-dependent;
-	// the seeker must still verify locally (disclaimer below).
-	const ENTHEOGEN_LAWFUL_CC = new Set(['BR', 'PE', 'EC', 'CO', 'CR', 'NL', 'JM']);
+	// §1.17.4 lawful-jurisdiction allowlist (ISO-3166-1 alpha-2). ADVISORY,
+	// operator-tunable, and pending Council / legal review (ADR-2606071009 Open Q2):
+	// jurisdictions with a reasonably recognized LAWFUL supervised pathway for
+	// entheogenic / ayahuasca practice. The gate decides only whether we SURFACE a
+	// recommendation to seek a lawful supervised setting — so we err toward EXCLUSION.
+	//
+	//   BR Brazil        — ayahuasca religious use legal (CONAD)
+	//   PE Peru          — ayahuasca recognized cultural heritage
+	//   EC Ecuador       — ayahuasca traditional/legal
+	//   CO Colombia      — yagé/ayahuasca traditional use
+	//   BO Bolivia       — ayahuasca traditional use protected
+	//   CR Costa Rica    — supervised ayahuasca retreats operate lawfully
+	//   NL Netherlands   — psilocybin truffles legal
+	//   JM Jamaica       — psilocybin legal
+	//   CH Switzerland   — limited legal psychedelic-assisted therapy (special authorization)
+	//   AU Australia     — authorized-psychiatrist MDMA/psilocybin prescription (2023+)
+	//   CA Canada        — Section 56 exemptions / Special Access Program (narrow but lawful)
+	//
+	// Considered but EXCLUDED (fail toward legal contemplative paths only):
+	//   US — lawful only sub-nationally (OR/CO); federally illegal → too broad at country granularity
+	//   PT — decriminalized possession ≠ lawful supervised setting
+	//   MX, ES — legally grey / tolerated, not a clear lawful supervised pathway
+	//   JP and all unresolved countries — default-excluded (fail-closed)
+	//
+	// Legality is jurisdiction- and time-dependent; the seeker must still verify locally.
+	const ENTHEOGEN_LAWFUL_CC = new Set([
+		'BR', 'PE', 'EC', 'CO', 'BO', 'CR', 'NL', 'JM', 'CH', 'AU', 'CA',
+	]);
 
 	let country = $state<string | null>(null);
 	let geoResolved = $state(false);
