@@ -177,9 +177,28 @@
           "fieldStatus": "all generated fields confirmed (authorId = real user/Simple User; body also present)",
           "discoveredEnums": {"state": ["open", "closed"]},
           "gaps": ["body", "state_reason", "labels", "assignees", "milestone"]
+        },
+        {
+          "entity": "PullRequest",
+          "source": "https://docs.github.com/en/rest/pulls/pulls",
+          "verifiedFields": ["number", "title", "state", "headRef", "baseRef"],
+          "fieldStatus": "all generated fields confirmed (headRef=head.ref, baseRef=base.ref)",
+          "discoveredEnums": {"state": ["open", "closed"]},
+          "gaps": ["merged", "draft", "merge_commit_sha", "user", "body"]
+        },
+        {
+          "entity": "WorkflowRun",
+          "source": "https://docs.github.com/en/rest/actions/workflow-runs",
+          "verifiedFields": ["status", "conclusion", "commitSha"],
+          "fieldStatus": "all generated fields confirmed (commitSha = real head_sha)",
+          "discoveredEnums": {
+            "status": ["completed", "action_required", "cancelled", "failure", "neutral", "skipped", "stale", "success", "timed_out", "in_progress", "queued", "requested", "waiting", "pending"],
+            "conclusion": ["success", "failure", "neutral", "cancelled", "skipped", "timed_out", "action_required", "stale"]
+          },
+          "gaps": ["run_number", "event", "workflow_id", "actor", "html_url"]
         }
       ],
-      "note": "Repository + Issue reconciled against the official GitHub REST docs; PullRequest/Commit/Workflow/Release pending."
+      "note": "Repository + Issue + PullRequest + WorkflowRun reconciled against the official GitHub REST docs (4/7 resources); Commit/Workflow/Release pending. Enforced enums: issue.state, pullRequest.state, workflowRun.status, workflowRun.conclusion."
     },
     {
       "handle": "twilio-compat",

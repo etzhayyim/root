@@ -17,13 +17,49 @@
     "verifiedAt": "2026-06-08",
     "resources": [
       "Repository",
-      "Issue"
+      "Issue",
+      "PullRequest",
+      "WorkflowRun"
     ],
     "enums": {
       "Issue": {
         "state": [
           "open",
           "closed"
+        ]
+      },
+      "PullRequest": {
+        "state": [
+          "open",
+          "closed"
+        ]
+      },
+      "WorkflowRun": {
+        "status": [
+          "completed",
+          "action_required",
+          "cancelled",
+          "failure",
+          "neutral",
+          "skipped",
+          "stale",
+          "success",
+          "timed_out",
+          "in_progress",
+          "queued",
+          "requested",
+          "waiting",
+          "pending"
+        ],
+        "conclusion": [
+          "success",
+          "failure",
+          "neutral",
+          "cancelled",
+          "skipped",
+          "timed_out",
+          "action_required",
+          "stale"
         ]
       }
     }

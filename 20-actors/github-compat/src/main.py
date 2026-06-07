@@ -259,6 +259,8 @@ def create_pull_request(request):
     err = _require(data, ['number', 'title'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in ['open', 'closed']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['open', 'closed']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("github_pul")}
     rec["repoId"] = data.get('repoId')
     rec["number"] = _as_int(data.get('number'))
@@ -300,6 +302,8 @@ def update_pull_request(request, eid):
     err = _reject_unknown(data, ['repoId', 'number', 'title', 'state', 'headRef', 'baseRef'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in ['open', 'closed']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['open', 'closed']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -458,6 +462,10 @@ def create_workflow_run(request):
     err = _require(data, ['status', 'conclusion'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['completed', 'action_required', 'cancelled', 'failure', 'neutral', 'skipped', 'stale', 'success', 'timed_out', 'in_progress', 'queued', 'requested', 'waiting', 'pending']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['completed', 'action_required', 'cancelled', 'failure', 'neutral', 'skipped', 'stale', 'success', 'timed_out', 'in_progress', 'queued', 'requested', 'waiting', 'pending']), "type": "invalid_request_error"}}, 400
+    if data.get('conclusion') and data['conclusion'] not in ['success', 'failure', 'neutral', 'cancelled', 'skipped', 'timed_out', 'action_required', 'stale']:
+        return {"error": {"message": "invalid conclusion; allowed: " + ", ".join(['success', 'failure', 'neutral', 'cancelled', 'skipped', 'timed_out', 'action_required', 'stale']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("github_wor")}
     rec["workflowId"] = data.get('workflowId')
     rec["status"] = data.get('status')
@@ -498,6 +506,10 @@ def update_workflow_run(request, eid):
     err = _reject_unknown(data, ['workflowId', 'status', 'conclusion', 'commitSha'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['completed', 'action_required', 'cancelled', 'failure', 'neutral', 'skipped', 'stale', 'success', 'timed_out', 'in_progress', 'queued', 'requested', 'waiting', 'pending']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['completed', 'action_required', 'cancelled', 'failure', 'neutral', 'skipped', 'stale', 'success', 'timed_out', 'in_progress', 'queued', 'requested', 'waiting', 'pending']), "type": "invalid_request_error"}}, 400
+    if data.get('conclusion') and data['conclusion'] not in ['success', 'failure', 'neutral', 'cancelled', 'skipped', 'timed_out', 'action_required', 'stale']:
+        return {"error": {"message": "invalid conclusion; allowed: " + ", ".join(['success', 'failure', 'neutral', 'cancelled', 'skipped', 'timed_out', 'action_required', 'stale']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):

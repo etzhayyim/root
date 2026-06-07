@@ -1459,7 +1459,11 @@
             "type": "string"
           },
           "state": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "open",
+              "closed"
+            ]
           },
           "headRef": {
             "type": "string"
@@ -1490,7 +1494,11 @@
             "type": "string"
           },
           "state": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "open",
+              "closed"
+            ]
           },
           "headRef": {
             "type": "string"
@@ -1606,10 +1614,36 @@
             "type": "string"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "completed",
+              "action_required",
+              "cancelled",
+              "failure",
+              "neutral",
+              "skipped",
+              "stale",
+              "success",
+              "timed_out",
+              "in_progress",
+              "queued",
+              "requested",
+              "waiting",
+              "pending"
+            ]
           },
           "conclusion": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "success",
+              "failure",
+              "neutral",
+              "cancelled",
+              "skipped",
+              "timed_out",
+              "action_required",
+              "stale"
+            ]
           },
           "commitSha": {
             "type": "string"
@@ -1631,10 +1665,36 @@
             "type": "string"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "completed",
+              "action_required",
+              "cancelled",
+              "failure",
+              "neutral",
+              "skipped",
+              "stale",
+              "success",
+              "timed_out",
+              "in_progress",
+              "queued",
+              "requested",
+              "waiting",
+              "pending"
+            ]
           },
           "conclusion": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "success",
+              "failure",
+              "neutral",
+              "cancelled",
+              "skipped",
+              "timed_out",
+              "action_required",
+              "stale"
+            ]
           },
           "commitSha": {
             "type": "string"
