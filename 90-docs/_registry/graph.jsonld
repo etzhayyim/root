@@ -13952,6 +13952,23 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606071238-session-close-nondual-experience-conversion-charter-1-17",
+      "type": "TechArticle",
+      "title": "ADR-2606071238: Session close — Charter §1.17 自他非分離の直接体験 (doctrine) + §1.17.6 guidance UI (yoro deployed live, maps built+pending)",
+      "status": "active",
+      "topic": "session-close-nondual-experience-conversion",
+      "authoritative": true,
+      "authoritativeFor": [
+        "session-close record for the Charter §1.17 non-dual-experience wave (2026-06-07)"
+      ],
+      "related": [
+        "doc:adr-2606071009-nondual-direct-experience-conversion-core",
+        "doc:adr-2605302357-etzhayyim-social-security-for-humanity",
+        "doc:adr-2605192100-etzhayyim-mission-charter"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
       "id": "doc:adr-2606071400-omise-kotoba-native-storefront-commons",
       "type": "TechArticle",
       "title": "ADR-2606071400: omise お店 — kotoba-native storefront commons (Shopify-layer for internal sellers); promote scaffold → implementation",
