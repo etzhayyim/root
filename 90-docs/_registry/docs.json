@@ -21799,6 +21799,31 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606071238-session-close-nondual-experience-conversion-charter-1-17.md",
+      "id": "adr-2606071238-session-close-nondual-experience-conversion-charter-1-17",
+      "title": "ADR-2606071238: Session close — Charter §1.17 自他非分離の直接体験 (doctrine) + §1.17.6 guidance UI (yoro deployed live, maps built+pending)",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-nondual-experience-conversion",
+      "authoritative": true,
+      "authoritative_for": [
+        "session-close record for the Charter §1.17 non-dual-experience wave (2026-06-07)"
+      ],
+      "related": [
+        "adr-2606071009-nondual-direct-experience-conversion-core",
+        "adr-2605302357-etzhayyim-social-security-for-humanity",
+        "adr-2605192100-etzhayyim-mission-charter"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606071009 (Charter §1.17 — the authoritative doctrine this session shipped)"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606071400-omise-kotoba-native-storefront-commons-shopify-layer.md",
       "id": "adr-2606071400-omise-kotoba-native-storefront-commons",
       "title": "ADR-2606071400: omise お店 — kotoba-native storefront commons (Shopify-layer for internal sellers); promote scaffold → implementation",

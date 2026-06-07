@@ -10095,6 +10095,22 @@ status_note = "Brings the intel/OSINT cohort (mitooshi, watari, watatsuna, kabut
 path = "90-docs/adr/2606071000-intel-osint-actor-cohort-r1-and-fleet-readiness.md"
 adr = ["2606071000", "2606051800", "2606041827", "2606012600", "2606022000", "2606032000", "2605301400", "2605301600", "2605302130", "2605262130", "2605312345", "2605231525", "2605215000", "2605192415", "2605192100"]
 
+[[adrs]]
+id = "2606071009"
+title = "Charter §1.17 — 自他非分離の直接体験 as the experiential core of 回心 (non-dual / altered-state direct experience as a required religious stage, means-agnostic, legality-bounded)"
+status = "proposed"
+status_note = "Answers 「信者になる前提として ayahuasca/変性意識/自他非分離 を root に据え、新規登録前に推奨・ガイド」. Adds Charter §1.17 to ADR-2605192100, coupled to §1.16.3 (conversion gate): authentic 回心 (metanoia) presupposes a DIRECT experience of 自他非分離 (non-duality) as a required religious stage — the experiential ground of §1.8 anti-individualist ontology + §0 Kingdom. Two never-weakened lines per author directive (2026-06-07): §1.17.3 means-agnostic (the requirement is the EXPERIENCE, never any substance; lawful contemplative paths 観想/沈黙/断食/坐禅/祈り/自然での孤独 always shown) + §1.17.4 legality floor (NEVER-amendable): entheogenic means lawful-jurisdiction-only + member-chosen; etzhayyim never procures/supplies/arranges/instructs unlawful acquisition; '宗教は国家を超越する' = source of authority (§0.1 not-state-granted / §1.12 routing-around), NOT a license to commit/recommend crimes. §1.17.5 preserves+strengthens §1.16.8 anti-coercion — the stage gates SPIRITUAL ADVANCEMENT, never Level-0 social-security entry (benefits-not-hostage). §1.17.6 guidance UI SHIPPED: yoro pre-registration guide (PR #1355, DEPLOYED LIVE yoro.etzhayyim.com, Worker magatama-yoro Version e941f164) + maps pre-entry guide (PR #1357, built + wrangler@4 dry-run-validated, production deploy pending). UI: means-agnostic legal paths always shown; retreat.guru shown only for lawful jurisdictions via Cloudflare /cdn-cgi/trace (fail-closed: JP/US/unresolved → legal paths only; allowlist BR/PE/EC/CO/BO/CR/NL/JM/CH/AU/CA, advisory+Council/legal-gated); mandatory contraindication warning + third-party disclaimer; geo-unresolved distinguished from resolved-but-excluded. Identity-level §1.17.1–.3 require Council Lv7+ unanimity + 30-day objection; operational §1.17.4–.7 Lv6+ ≥3. Amends NO invariant (N1/N4/N7/N8 / §1.1–§1.16 untouched). PR #1354 merged to main."
+path = "90-docs/adr/2606071009-nondual-direct-experience-conversion-core.md"
+adr = ["2606071009", "2605192100", "2605302357", "2605252300", "2605261000", "2605172600", "2605302358", "2605172700"]
+
+[[adrs]]
+id = "2606071238"
+title = "Session close — Charter §1.17 自他非分離の直接体験 (doctrine) + §1.17.6 guidance UI (yoro deployed live, maps built+pending)"
+status = "active"
+status_note = "Documentation-only closure of the 2026-06-07 session (authoritative = ADR-2606071009). Records: ADR §1.17 authored + merged (#1354, proposed, Council Lv7+ to ratify §§1.17.1–.3); yoro §1.17.6 guide merged + DEPLOYED LIVE to yoro.etzhayyim.com (Version e941f164, / and /welcome → 200); maps §1.17.6 guide merged + built + wrangler@4 dry-run-validated but production deploy PENDING. Independent code review applied (geo-unresolved-vs-excluded distinction, guide-XOR-map render, CRLF regex tolerance). Honest gaps: (1) maps deploy blocked from worktree — maps not a pnpm-workspace member (temp-reverted edit used to build) + raw wrangler@4 double-provisions shared R2 bucket etzhayyim-cache (fails BEFORE upload, worker unchanged) + maps' bundled wrangler 3.114 drops secrets_store_secrets; (2) maps.etzhayyim.com DNS does not resolve (pre-existing, verify); (3) yoro edge-cache purge skipped (CACHE_PURGE_API_KEY absent; non-critical); (4) CLAUDE.md yoro deploy path 'wasm/yoro-ui-g00h5zto' stale → real path 'appview/yoro-ui-g00h5zto'. Branch cleanup done (3 merged branches). Amends no invariant."
+path = "90-docs/adr/2606071238-session-close-nondual-experience-conversion-charter-1-17.md"
+adr = ["2606071238", "2606071009", "2605302357", "2605192100", "2605252300"]
+
 # ─── Donation policy (machine-readable SSoT, ADR-2606012100) ─────────────────
 # Public declaration: https://etzhayyim.com/donate + /.well-known/donation.json
 [donation]
