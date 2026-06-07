@@ -65,3 +65,12 @@ namespace tier_mobility {
     }
 
 }
+
+    // Auto-injected Cognitive Schema
+    entity CognitiveRecord {
+        id: string @unique
+        originalPayload: string
+        aiStatus: string
+        aiInsights: json
+        computedAt: datetime
+    }
