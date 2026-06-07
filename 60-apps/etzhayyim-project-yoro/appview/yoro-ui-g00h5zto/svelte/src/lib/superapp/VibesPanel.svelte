@@ -224,17 +224,21 @@
 						/>
 					</div>
 					<div class="min-w-0 flex-1">
-						<button type="button" class="group flex items-baseline gap-1 text-[15px] leading-tight text-left outline-none" onclick={(e) => { e.stopPropagation(); playTap(); goto(`/profile/${encodeURIComponent(post.author.handle || post.author.did)}`); }}>
-							<span class="truncate font-bold text-gv2-text-primary group-hover:underline group-active:text-gv2-text-secondary">{post.author.displayName || post.author.handle}</span>
-							<span class="min-w-0 truncate text-[14px] text-gv2-text-muted">@{post.author.handle}</span>
-							<span class="flex-shrink-0 text-[14px] text-gv2-text-muted">·</span>
-							<span class="flex-shrink-0 text-[14px] text-gv2-text-muted hover:underline" onclick={(e) => { e.stopPropagation(); playTap(); goto(`/profile/${encodeURIComponent(post.author.handle)}/post/${encodeURIComponent(post.uri.split('/').pop() || '')}`); }}>{timeAgo(post.indexedAt)}</span>
-						</button>
-						{#if ((post.record as any)?.text ?? post.text) as postText}
-							<div class="mt-1 text-[15px] leading-[1.5] text-gv2-text-primary whitespace-pre-wrap break-words">
-								<RichText text={postText} facets={(post.record as any)?.facets ?? post.facets ?? []} />
+						<div class="flex items-baseline gap-1 text-[15px] leading-tight">
+							<!-- svelte-ignore a11y_click_events_have_key_events -->
+							<!-- svelte-ignore a11y_no_static_element_interactions -->
+							<div class="group flex items-baseline gap-1 min-w-0 cursor-pointer" onclick={(e) => { e.stopPropagation(); playTap(); goto(`/profile/${encodeURIComponent(post.author.handle || post.author.did)}`); }}>
+								<span class="truncate font-bold text-gv2-text-primary group-hover:underline group-active:text-gv2-text-secondary">{post.author.displayName || post.author.handle}</span>
+								<span class="min-w-0 truncate text-[14px] text-gv2-text-muted">@{post.author.handle}</span>
 							</div>
-						{/if}
+							<span class="flex-shrink-0 text-[14px] text-gv2-text-muted">·</span>
+							<!-- svelte-ignore a11y_click_events_have_key_events -->
+							<!-- svelte-ignore a11y_no_static_element_interactions -->
+							<span class="flex-shrink-0 text-[14px] text-gv2-text-muted hover:underline cursor-pointer" onclick={(e) => { e.stopPropagation(); playTap(); goto(`/profile/${encodeURIComponent(post.author.handle)}/post/${encodeURIComponent(post.uri.split('/').pop() || '')}`); }}>{timeAgo(post.indexedAt)}</span>
+						</div>
+							<div class="mt-1 text-[15px] leading-[1.5] text-gv2-text-primary whitespace-pre-wrap break-words">
+								<RichText text={(post.record as any)?.text ?? post.text ?? ''} facets={(post.record as any)?.facets ?? post.facets ?? []} />
+							</div>
 						{#if postEmbed}
 							<div class="mt-2">
 								<PostEmbed embed={postEmbed} />
