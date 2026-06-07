@@ -31,6 +31,46 @@ SOBJECT_MAPPING = {
     "Case": "case",
 }
 
+# Mock schema for Describe API
+MOCK_DESCRIBE_SCHEMA = {
+    "Account": [
+        {"name": "Id", "type": "id", "updateable": False, "createable": False},
+        {"name": "Name", "type": "string", "updateable": True, "createable": True},
+        {"name": "Type", "type": "picklist", "updateable": True, "createable": True},
+        {"name": "Industry", "type": "picklist", "updateable": True, "createable": True},
+    ],
+    "Contact": [
+        {"name": "Id", "type": "id", "updateable": False, "createable": False},
+        {"name": "AccountId", "type": "reference", "updateable": True, "createable": True, "referenceTo": ["Account"]},
+        {"name": "FirstName", "type": "string", "updateable": True, "createable": True},
+        {"name": "LastName", "type": "string", "updateable": True, "createable": True},
+        {"name": "Email", "type": "email", "updateable": True, "createable": True},
+    ],
+    "Lead": [
+        {"name": "Id", "type": "id", "updateable": False, "createable": False},
+        {"name": "FirstName", "type": "string", "updateable": True, "createable": True},
+        {"name": "LastName", "type": "string", "updateable": True, "createable": True},
+        {"name": "Company", "type": "string", "updateable": True, "createable": True},
+        {"name": "Status", "type": "picklist", "updateable": True, "createable": True},
+    ],
+    "Opportunity": [
+        {"name": "Id", "type": "id", "updateable": False, "createable": False},
+        {"name": "AccountId", "type": "reference", "updateable": True, "createable": True, "referenceTo": ["Account"]},
+        {"name": "Name", "type": "string", "updateable": True, "createable": True},
+        {"name": "StageName", "type": "picklist", "updateable": True, "createable": True},
+        {"name": "Amount", "type": "currency", "updateable": True, "createable": True},
+        {"name": "CloseDate", "type": "date", "updateable": True, "createable": True},
+    ],
+    "Case": [
+        {"name": "Id", "type": "id", "updateable": False, "createable": False},
+        {"name": "AccountId", "type": "reference", "updateable": True, "createable": True, "referenceTo": ["Account"]},
+        {"name": "ContactId", "type": "reference", "updateable": True, "createable": True, "referenceTo": ["Contact"]},
+        {"name": "Subject", "type": "string", "updateable": True, "createable": True},
+        {"name": "Status", "type": "picklist", "updateable": True, "createable": True},
+        {"name": "Priority", "type": "picklist", "updateable": True, "createable": True},
+    ],
+}
+
 def to_kotoba_entity(sobject_name: str, sobject_id: str, data: dict):
     """Maps Salesforce JSON payloads to Kotoba Datomic entities based on cleanroom schema."""
     namespace = SOBJECT_MAPPING.get(sobject_name)

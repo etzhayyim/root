@@ -5,7 +5,6 @@ sys.path.insert(0, os.path.dirname(__file__))
 
 from typing import TypedDict, List
 from kotoba_langgraph import _cbor as cbor2
-import wit_world
 from kotoba_langgraph import StateGraph, START, END
 
 from src.use_cases.post_journal import (
@@ -65,33 +64,37 @@ builder.add_edge("reject", END)
 
 compiled = builder.compile()
 
-class WitWorld(wit_world.WitWorld):
-    def run(self, ctx_cbor: bytes) -> bytes:
-        """
-        Entrypoint called by the kotoba-runtime.
-        We handle the CBOR decoding manually here since we want to pass it as ctx_payload.
-        """
-        try:
-            payload = cbor2.loads(ctx_cbor)
-            if not isinstance(payload, dict):
+try:
+    import wit_world
+    class WitWorld(wit_world.WitWorld):
+        def run(self, ctx_cbor: bytes) -> bytes:
+            """
+            Entrypoint called by the kotoba-runtime.
+            We handle the CBOR decoding manually here since we want to pass it as ctx_payload.
+            """
+            try:
+                payload = cbor2.loads(ctx_cbor)
+                if not isinstance(payload, dict):
+                    payload = {}
+            except Exception:
                 payload = {}
-        except Exception:
-            payload = {}
 
-        initial_state = {
-            "ctx_payload": payload,
-            "validation_errors": []
-        }
+            initial_state = {
+                "ctx_payload": payload,
+                "validation_errors": []
+            }
 
-        # Invoke the compiled graph
-        result_state = compiled.invoke(initial_state)
+            # Invoke the compiled graph
+            result_state = compiled.invoke(initial_state)
 
-        # We only want to return specific parts of the state to the caller
-        output = {
-            "status": result_state.get("status", "UNKNOWN"),
-            "errors": result_state.get("validation_errors", [])
-        }
-        if result_state.get("journal_entry"):
-            output["entry_id"] = result_state["journal_entry"].entry_id
+            # We only want to return specific parts of the state to the caller
+            output = {
+                "status": result_state.get("status", "UNKNOWN"),
+                "errors": result_state.get("validation_errors", [])
+            }
+            if result_state.get("journal_entry"):
+                output["entry_id"] = result_state["journal_entry"].entry_id
 
-        return bytes(cbor2.dumps(output))
+            return bytes(cbor2.dumps(output))
+except ImportError:
+    pass
