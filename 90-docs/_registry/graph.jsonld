@@ -14062,6 +14062,19 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606072800-tsubasa-flight-discovery-commons",
+      "type": "TechArticle",
+      "title": "ADR-2606072800: tsubasa 翼 — flight-route/fare discovery commons (Skyscanner inversion), R0+R1",
+      "status": "proposed",
+      "topic": "tsubasa-flight-commons",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/tsubasa"
+      ],
+      "related": "doc:2606041827",
+      "lastVerified": "2026-06-07"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

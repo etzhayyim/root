@@ -22005,6 +22005,31 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606072800-tsubasa-flight-discovery-commons-skyscanner-inversion-r0.md",
+      "id": "adr-2606072800-tsubasa-flight-discovery-commons",
+      "title": "ADR-2606072800: tsubasa 翼 — flight-route/fare discovery commons (Skyscanner inversion), R0+R1",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "tsubasa-flight-commons",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/tsubasa"
+      ],
+      "related": [
+        "2606041827"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606012100",
+        "2606071600",
+        "2605262130"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
