@@ -160,9 +160,17 @@
           "fieldStatus": "all generated fields confirmed (id = real account_id; currentBalance = real balances.current)",
           "discoveredEnums": {"type": ["depository", "credit", "investment", "loan", "other"]},
           "gaps": ["mask", "official_name", "balances.available", "balances.iso_currency_code"]
+        },
+        {
+          "entity": "Transaction",
+          "source": "https://plaid.com/docs/api/products/transactions/",
+          "verifiedFields": ["accountId", "amount", "currency", "category", "date"],
+          "fieldStatus": "all generated fields confirmed (accountId=account_id, currency=iso_currency_code)",
+          "discoveredEnums": {},
+          "gaps": ["category is a free taxonomy list (not a fixed enum)", "merchant_name", "pending", "payment_channel"]
         }
       ],
-      "note": "Account reconciled against the official Plaid docs; Item/Transaction/Institution/Identity/Liability pending."
+      "note": "Account + Transaction reconciled against the official Plaid docs; Item/Institution/Identity/Liability pending."
     },
     {
       "handle": "github-compat",
@@ -283,9 +291,28 @@
           "fieldStatus": "customer/status confirmed; currentPeriodEnd maps to the real current_period_end (now per subscription-item)",
           "discoveredEnums": {"status": ["incomplete", "incomplete_expired", "trialing", "active", "past_due", "canceled", "unpaid", "paused"]},
           "gaps": ["items", "cancel_at_period_end", "latest_invoice", "default_payment_method"]
+        },
+        {
+          "entity": "Product",
+          "source": "https://docs.stripe.com/api/products/object",
+          "verifiedFields": ["name", "description", "active"],
+          "fieldStatus": "all generated fields confirmed",
+          "discoveredEnums": {},
+          "gaps": ["default_price", "images", "metadata", "tax_code"]
+        },
+        {
+          "entity": "Refund",
+          "source": "https://docs.stripe.com/api/refunds/object",
+          "verifiedFields": ["charge", "amount", "reason", "status"],
+          "fieldStatus": "all generated fields confirmed",
+          "discoveredEnums": {
+            "status": ["pending", "requires_action", "succeeded", "failed", "canceled"],
+            "reason": ["duplicate", "fraudulent", "requested_by_customer", "expired_uncaptured_charge"]
+          },
+          "gaps": ["payment_intent", "receipt_number", "metadata"]
         }
       ],
-      "note": "Customer + PaymentIntent + Charge + Invoice + Subscription reconciled against official docs (5/8 resources); Refund/Product/Price pending. Enforceable enums: PaymentIntent.status, Invoice.status, Subscription.status."
+      "note": "Customer + PaymentIntent + Charge + Invoice + Subscription + Product + Refund reconciled against official docs (7/8 resources); Price pending. Enforceable enums: PaymentIntent.status, Invoice.status, Subscription.status, Refund.status, Refund.reason."
     }
   ]
 }

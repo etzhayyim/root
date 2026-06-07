@@ -20,7 +20,9 @@
       "PaymentIntent",
       "Charge",
       "Invoice",
-      "Subscription"
+      "Subscription",
+      "Product",
+      "Refund"
     ],
     "enums": {
       "PaymentIntent": {
@@ -53,6 +55,21 @@
           "canceled",
           "unpaid",
           "paused"
+        ]
+      },
+      "Refund": {
+        "status": [
+          "pending",
+          "requires_action",
+          "succeeded",
+          "failed",
+          "canceled"
+        ],
+        "reason": [
+          "duplicate",
+          "fraudulent",
+          "requested_by_customer",
+          "expired_uncaptured_charge"
         ]
       }
     }

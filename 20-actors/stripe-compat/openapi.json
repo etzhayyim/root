@@ -1706,10 +1706,23 @@
             "type": "integer"
           },
           "reason": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "duplicate",
+              "fraudulent",
+              "requested_by_customer",
+              "expired_uncaptured_charge"
+            ]
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "pending",
+              "requires_action",
+              "succeeded",
+              "failed",
+              "canceled"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1731,10 +1744,23 @@
             "type": "integer"
           },
           "reason": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "duplicate",
+              "fraudulent",
+              "requested_by_customer",
+              "expired_uncaptured_charge"
+            ]
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "pending",
+              "requires_action",
+              "succeeded",
+              "failed",
+              "canceled"
+            ]
           }
         },
         "required": [

@@ -16,7 +16,8 @@
     "source": "https://plaid.com/docs/api",
     "verifiedAt": "2026-06-08",
     "resources": [
-      "Account"
+      "Account",
+      "Transaction"
     ],
     "enums": {
       "Account": {

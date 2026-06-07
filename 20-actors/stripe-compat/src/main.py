@@ -326,6 +326,10 @@ def create_refund(request):
     err = _require(data, ['charge', 'amount'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['pending', 'requires_action', 'succeeded', 'failed', 'canceled']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['pending', 'requires_action', 'succeeded', 'failed', 'canceled']), "type": "invalid_request_error"}}, 400
+    if data.get('reason') and data['reason'] not in ['duplicate', 'fraudulent', 'requested_by_customer', 'expired_uncaptured_charge']:
+        return {"error": {"message": "invalid reason; allowed: " + ", ".join(['duplicate', 'fraudulent', 'requested_by_customer', 'expired_uncaptured_charge']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("stripe_ref")}
     rec["charge"] = data.get('charge')
     rec["amount"] = _as_int(data.get('amount'))
@@ -365,6 +369,10 @@ def update_refund(request, eid):
     err = _reject_unknown(data, ['charge', 'amount', 'reason', 'status'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['pending', 'requires_action', 'succeeded', 'failed', 'canceled']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['pending', 'requires_action', 'succeeded', 'failed', 'canceled']), "type": "invalid_request_error"}}, 400
+    if data.get('reason') and data['reason'] not in ['duplicate', 'fraudulent', 'requested_by_customer', 'expired_uncaptured_charge']:
+        return {"error": {"message": "invalid reason; allowed: " + ", ".join(['duplicate', 'fraudulent', 'requested_by_customer', 'expired_uncaptured_charge']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
