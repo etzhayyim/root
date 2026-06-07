@@ -20,11 +20,18 @@
 
 	let feedItems = $state<FeedItem[]>([]);
 	let loading = $state(true);
+	let loadingMore = $state(false);
+	let feedCursor = $state('');
+	let hasMore = $state(false);
 	let feedTab = $state('discover');
 	let likedItems = $state<Set<string>>(new Set());
 	let repostedItems = $state<Set<string>>(new Set());
 	let savedFeeds = $state<FeedGeneratorView[]>([]);
 	let activeFeedUri = $state('');
+	let sentinelEl: HTMLDivElement | undefined;
+	let observer: IntersectionObserver | undefined;
+
+	const PAGE_SIZE = 50;
 
 	const defaultTabs = [
 		{ id: 'discover', label: 'Discover' },
@@ -46,25 +53,54 @@
 		return date.toLocaleDateString('ja-JP', { month: 'short', day: 'numeric' });
 	}
 
-	async function loadFeed(tab: string) {
-		loading = true;
+	function dedupeFeedItems(items: FeedItem[]): FeedItem[] {
+		const seen = new Set<string>();
+		const out: FeedItem[] = [];
+		for (const item of items) {
+			const uri = String((item as any)?.post?.uri ?? '');
+			if (uri && seen.has(uri)) continue;
+			if (uri) seen.add(uri);
+			out.push(item);
+		}
+		return out;
+	}
+
+	async function loadFeed(tab: string, append = false) {
+		if (append) {
+			if (loadingMore || !hasMore || !feedCursor) return;
+			loadingMore = true;
+		} else {
+			loading = true;
+			feedCursor = '';
+			hasMore = false;
+			feedItems = [];
+		}
 		try {
 			let result: any;
+			const cursor = append ? feedCursor : undefined;
 			if (tab === 'discover') {
-				result = await getDiscoverFeed({ limit: 50, light: true });
+				result = await getDiscoverFeed({ limit: PAGE_SIZE, cursor, light: true });
 			} else if (tab === 'following') {
-				result = await getTimeline({ limit: 50, light: true });
+				result = await getTimeline({ limit: PAGE_SIZE, cursor, light: true });
 			} else {
 				// Custom feed URI
-				result = await getFeed(tab, { limit: 50 });
+				result = await getFeed(tab, { limit: PAGE_SIZE, cursor });
 			}
-			feedItems = Array.isArray(result) ? result : (result?.feed ?? []);
+			const nextItems = Array.isArray(result) ? result : (result?.feed ?? []);
+			feedItems = append ? dedupeFeedItems([...feedItems, ...nextItems]) : nextItems;
+			feedCursor = Array.isArray(result) ? '' : (result?.cursor ?? '');
+			hasMore = !!feedCursor;
 		} catch (e) {
 			console.warn('loadFeed failed', e);
-			feedItems = [];
+			if (!append) feedItems = [];
 		} finally {
-			loading = false;
+			if (append) loadingMore = false;
+			else loading = false;
 		}
+	}
+
+	function loadMoreFeed() {
+		void loadFeed(feedTab, true);
 	}
 
 	async function handleLike(post: PostView) {
@@ -102,10 +138,23 @@
 	});
 
 	onMount(async () => {
+		observer = new IntersectionObserver((entries) => {
+			if (entries[0]?.isIntersecting) loadMoreFeed();
+		}, { rootMargin: '600px 0px', threshold: 0.01 });
+
 		try {
 			const feeds = await getSuggestedFeeds({ limit: 10 });
 			savedFeeds = Array.isArray(feeds) ? feeds : (feeds as any)?.feeds ?? [];
 		} catch { /* optional */ }
+
+		return () => observer?.disconnect();
+	});
+
+	$effect(() => {
+		if (sentinelEl && observer) {
+			observer.observe(sentinelEl);
+			return () => observer?.unobserve(sentinelEl);
+		}
 	});
 </script>
 
@@ -219,6 +268,20 @@
 					</div>
 				</div>
 			{/each}
+			<div bind:this={sentinelEl} class="flex min-h-16 items-center justify-center py-4">
+				{#if loadingMore}
+					<div class="flex items-center gap-2 text-[13px] text-gv2-text-muted">
+						<div class="h-4 w-4 animate-spin rounded-full border-2 border-gv2-border border-t-[var(--gv2-accent,#1185FE)]"></div>
+						<span>Loading more</span>
+					</div>
+				{:else if hasMore}
+					<button
+						type="button"
+						class="rounded-full border border-gv2-border/60 px-4 py-2 text-[13px] font-semibold text-gv2-text-muted transition-colors active:bg-gv2-bg-hover"
+						onclick={loadMoreFeed}
+					>Load more</button>
+				{/if}
+			</div>
 		</div>
 	{/if}
 </div>

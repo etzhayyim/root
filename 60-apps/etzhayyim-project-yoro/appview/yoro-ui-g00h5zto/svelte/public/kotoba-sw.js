@@ -739,6 +739,7 @@ self.addEventListener("fetch", (event) => {
         try {
           await ensureReady();
           const limit = Math.max(1, Math.min(100, parseInt(url.searchParams.get("limit") || "50", 10) || 50));
+          const offset = Math.max(0, parseInt(url.searchParams.get("cursor") || "0", 10) || 0);
 
           if (PROFILE_NSIDS.has(nsid)) {
             const actor = url.searchParams.get("actor") || url.searchParams.get("handle") || "";
@@ -765,11 +766,12 @@ self.addEventListener("fetch", (event) => {
             const actor = url.searchParams.get("actor") || "";
             views = views.filter((v) => actorMatches(v, actor));
           }
-          const feed = views.slice(0, limit).map((v) => ({ post: v }));
+          const page = views.slice(offset, offset + limit);
+          const feed = page.map((v) => ({ post: v }));
           // Empty local set → defer to network (don't shadow a live server with []).
           if (feed.length === 0) return fetch(event.request);
           return jsonResponse(
-            { feed, cursor: "" },
+            { feed, cursor: offset + feed.length < views.length ? String(offset + feed.length) : "" },
             FEED_AUTHOR_NSIDS.has(nsid) ? "local-wasm-authorfeed" : "local-wasm-feed",
           );
         } catch {
