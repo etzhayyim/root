@@ -48,9 +48,38 @@
   IMF-IIF / EIA / LBMA / on-chain explorers / US Census), each with a `mapsTo` shionome datom type,
   all `unverified-seed` (G8 — no live ingest until Council Lv6+ + operator verifies).
 
-## Deploy-readiness (per ADR-2606071000 cohort framing)
+## kotoba-WASM + Murakumo-fleet cron (deploy-readiness)
 
-shionome is **deploy-ready**: suite green + the autonomous pipeline materializes a persisted,
-content-addressed Datom artifact over the kotoba log. The only remaining step to live operation is
-a **human gate flip** (Council Lv6+ + operator + member signature) to enable live market-data
-ingest and live external posting — outward I/O is gated by constitutional design (G7/G8).
+Two concrete runtime artifacts make "kotoba wasm として自律稼働 + fleet cron" real, both
+**empirically built/verified off-fleet**; the only remaining step to *live* operation is a human
+operator gate-flip (G7/G8 — Council Lv6+ + operator + member signature):
+
+1. **Standalone kotoba-WASM component** (`wasm/`) — `app.py` + `wit/world.wit` built with
+   **componentize-py** into `shionome-actor.wasm` (18.5 MB, WASI Preview 2), `wasm-tools
+   validate` clean, **jco-transpiled and executed under node** (`node verify.mjs` → regime=risk-on,
+   `no_trade=true`). CID `bafybeigk6whellozcybop4btzcrdtybd5yejjrax7tczxhapfsyya64hka`
+   (dag-pb, T2 donated-mesh). The `.wasm` is gitignored (reproducible from source via `build.sh`).
+
+2. **5 Murakumo-fleet cron cells** (`20-actors/magatama/cells/shionome_*`) — `kotoba_langgraph`
+   Pregel cells ("Resident in Kotoba WASM", the ossekai pattern), each shipping a
+   `cells.toml.fragment` with a `trigger = { kind = "cron", … }` on a real fleet node:
+
+   | cell | node | cron | port |
+   |---|---|---|---|
+   | shionome_ingest | issachar | `5 * * * *` | 14010 |
+   | shionome_flow_graph | issachar | `10 * * * *` | 14011 |
+   | shionome_rotation_weave | dan | `15 * * * *` | 14012 |
+   | shionome_regime_observer | dan | `20 * * * *` | 14013 |
+   | shionome_social_post | naphtali | `0 9 * * *` | 14014 |
+
+   Registered in `50-infra/murakumo/fleet.toml` (node↔cell placement) + discovered by
+   `cell_runner_main.py` (`shionome_*` fragment glob). Pure cell logic lives in
+   `shionome_core.py` (no `kotoba_langgraph` dep) and is tested off-fleet: **14/14** in
+   `test_shionome_cells.py`. The cells run as **k3s DaemonSet Pods** via the Ansible playbook
+   `60-apps/etzhayyim-project-murakumo/ansible/k8s-gpu-cluster.yml` — the actual `ansible … deploy`
+   onto the physical Mac-mini fleet is the **operator** step (an agent cannot execute it; cron
+   cells fire the analyze→dry-run cycle, while live market-data ingest + live external posting stay
+   G8-gated).
+
+The append-only Python autonomous loop (`methods/autorun.py`) remains the off-fleet self-driving
+demonstrator over a local kotoba Datom-log file; the fleet cron cells are its production form.

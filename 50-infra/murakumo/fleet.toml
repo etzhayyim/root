@@ -69,6 +69,7 @@ cells = [
   "CharterAttestationFinalizationCell",
   "CharterRehabilitationCell",
   "SiteSurveyCell",  # kuni-umi Phase 1 (ADR-2605201400)
+  "shionome_social_post",  # 潮目 dry-run capital-flow post (cron 0 9 * * *) (ADR-2606072200)
 ]
 replicas_of = []
 
@@ -157,6 +158,8 @@ cells = [
   "ossekai_consent_registry",
   "ossekai_kaizen_observer",
   "ossekai_emergency_advisory",
+  "shionome_ingest",       # 潮目 capital-flow intake (cron 5 * * * *) (ADR-2606072200)
+  "shionome_flow_graph",   # 潮目 net-flow index (cron 10 * * * *) (ADR-2606072200)
 ]
 shard_index = 1
 total_shards = 3
@@ -172,6 +175,8 @@ cells = [
   "DecommissionCell",  # kuni-umi end-of-life (ADR-2605201400)
   "UnispscAgentExecutorCell",  # unispsc segments 45-60 (~5204 agents)
   "UnispscOrganismFleetCell",  # 5204 organisms, segments 45-60 (ADR-2605240000) — subsumes UnispscOrganismC10101500Cell
+  "shionome_rotation_weave",    # 潮目 rotation pairs + regime (cron 15 * * * *) (ADR-2606072200)
+  "shionome_regime_observer",   # 潮目 cross-asset regime (cron 20 * * * *) (ADR-2606072200)
 ]
 shard_index = 2
 total_shards = 3

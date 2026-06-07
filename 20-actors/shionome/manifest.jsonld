@@ -40,10 +40,10 @@
     "tsumugi/keizu — power-entity / government relations; shionome is markets (disjoint), shares the mirror-not-target + edge-primary discipline."
   ],
   "cells": [
-    { "name": "ingest", "module": "magatama.cells.shionome_ingest", "murakumoNode": "reuben", "phase": "continuous", "io": "public market-data records (exchange / fund-flow / central-bank / on-chain / index) → validated :bucket/:flow/:snap datoms (no-trade screened)" },
-    { "name": "flow_graph", "module": "magatama.cells.shionome_flow_graph", "murakumoNode": "reuben", "phase": "continuous", "io": "validated flows → per-bucket inflow/outflow net-flow index (capital-movement kinds only)" },
-    { "name": "rotation_weave", "module": "magatama.cells.shionome_rotation_weave", "murakumoNode": "gad", "phase": "continuous", "io": "flow edges → aggregate edge-primary metrics (net flow / rotation pairs / inflow HHI / by-asset-class / by-region)" },
-    { "name": "regime_observer", "module": "magatama.cells.shionome_regime_observer", "murakumoNode": "gad", "phase": "periodic", "io": "net flow + risk tags → FACTUAL cross-asset regime descriptor (risk-on/off/mixed); descriptive, never advice" },
+    { "name": "ingest", "module": "magatama.cells.shionome_ingest", "murakumoNode": "issachar", "phase": "continuous", "io": "public market-data records (exchange / fund-flow / central-bank / on-chain / index) → validated :bucket/:flow/:snap datoms (no-trade screened)" },
+    { "name": "flow_graph", "module": "magatama.cells.shionome_flow_graph", "murakumoNode": "issachar", "phase": "continuous", "io": "validated flows → per-bucket inflow/outflow net-flow index (capital-movement kinds only)" },
+    { "name": "rotation_weave", "module": "magatama.cells.shionome_rotation_weave", "murakumoNode": "dan", "phase": "continuous", "io": "flow edges → aggregate edge-primary metrics (net flow / rotation pairs / inflow HHI / by-asset-class / by-region)" },
+    { "name": "regime_observer", "module": "magatama.cells.shionome_regime_observer", "murakumoNode": "dan", "phase": "periodic", "io": "net flow + risk tags → FACTUAL cross-asset regime descriptor (risk-on/off/mixed); descriptive, never advice" },
     { "name": "social_post", "module": "magatama.cells.shionome_social_post", "murakumoNode": "naphtali", "phase": "periodic (event)", "io": "aggregate finding → dry-run networkPost (member-signed, mirror disclaimer, no-trade body scan, ≥2 sources); live post Council Lv6+ + operator gated" }
   ],
   "lexiconNamespaces": [

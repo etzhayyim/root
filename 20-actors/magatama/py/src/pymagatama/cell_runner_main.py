@@ -130,7 +130,7 @@ def load_cell_registry(path: Path | None = None) -> dict:
     # ships a cells.toml.fragment alongside its cell.py; merge them here
     # so the generator output is self-contained.
     base_cells = list(registry.get("cell", []))
-    fragment_paths = sorted(CELLS_DIR.glob("yorishiro_*/cells.toml.fragment")) + sorted(CELLS_DIR.glob("ossekai_*/cells.toml.fragment"))
+    fragment_paths = sorted(CELLS_DIR.glob("yorishiro_*/cells.toml.fragment")) + sorted(CELLS_DIR.glob("ossekai_*/cells.toml.fragment")) + sorted(CELLS_DIR.glob("shionome_*/cells.toml.fragment"))
     yorishiro_count = 0
     for frag in fragment_paths:
         try:
