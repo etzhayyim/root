@@ -193,14 +193,14 @@ with the production features §6 flagged as the L4 gap:
 the production surface (`_paginate` / `_apply_filters` / `_reject_unknown` /
 `has_more`).
 
-**Broadened to one reference implementation per domain** (`promote_l4.py
---per-category`): the L4 cohort now spans **all ~70 wave categories** — the 10
-curated-override marquees plus a recognizable representative per domain
+**Broadened to up to two reference implementations per domain** (`promote_l4.py
+--per-category 2`): the L4 cohort spans **all ~70 wave categories** — the 10
+curated-override marquees plus up to two recognizable representatives per domain
 (salesforce, sap, aws, openai, stripe, github, hl7_fhir, bgp_routing, ros_robotics,
-iter_data, …). Every domain therefore has a production-tier reference actor.
+iter_data, …). Every domain has ≥ 1 production-tier reference actor.
 
-**Results:** distribution is now **L3 920 (92.0%) / L4 80 (8.0%)**; the L4
-cohort runs ≈ 31–41 endpoints, 7–10 entities, 510–650 LOC; **80 / 80 contract
+**Results:** distribution is now **L3 844 (84.4%) / L4 156 (15.6%)**; the L4
+cohort runs ≈ 31–41 endpoints, 7–10 entities, 510–650 LOC; **156 / 156 contract
 test suites pass** (8 assertions each). The corpus is still 100% ≥ L3.
 
 **Full-corpus L4.** Auto-generated pagination/validation/tests legitimately meet
