@@ -77,6 +77,17 @@ class TestSeedIntegrity(unittest.TestCase):
                 self.assertIn(key, r, f"missing {key} on {r}")
                 self.assertIn(r[key], (":authoritative", ":representative", ":synthesized"))
 
+    def test_fraud_archetype_coverage(self):
+        # Maturity: ≥12 fraud signals spanning the FULL 11-kind taxonomy, all :synthesized.
+        _, _, _, _, fraud = _graph()
+        self.assertGreaterEqual(len(fraud), 12)
+        kinds = {f.get(":adfraud.signal/kind") for f in fraud}
+        expected = {":unauthorized-reseller", ":domain-spoof", ":sellers-json-mismatch",
+                    ":scam-finance", ":fake-endorsement", ":phishing-landing",
+                    ":malvertising-redirect", ":counterfeit-goods", ":cloaking",
+                    ":typosquat-delivery", ":shared-fraud-infra"}
+        self.assertEqual(kinds, expected, "every fraud kind in the taxonomy must have an example")
+
     def test_g4_every_fraud_signal_is_non_adjudicating_and_routed(self):
         _, _, _, _, fraud = _graph()
         for f in fraud:
