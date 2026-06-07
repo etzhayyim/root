@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible cloud infrastructure (IaaS) actor (azure); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:azure-compat",
-    "x-wasm-cid": "bafkreics26bkjtf6v23gfi57ipkt3uhvojrvmsdptirhq2wtu4vpcqpi3a",
+    "x-wasm-cid": "bafkreic6xbl23s62d7uh4zuvvj4msplmyxklrpbfo67d6uuurisw5f2hfy",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreics26bkjtf6v23gfi57ipkt3uhvojrvmsdptirhq2wtu4vpcqpi3a",
+      "url": "ipfs://bafkreic6xbl23s62d7uh4zuvvj4msplmyxklrpbfo67d6uuurisw5f2hfy",
       "description": "browser-local kotoba-wasm component"
     }
   ],

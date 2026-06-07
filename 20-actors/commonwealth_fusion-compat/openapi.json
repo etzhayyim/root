@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible fusion / plasma energy actor (commonwealth_fusion); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:commonwealth_fusion-compat",
-    "x-wasm-cid": "bafkreib4joxx7mdjc2sf6woqlidepqzoixjffibxb4aro3muzmxcmfqwvu",
+    "x-wasm-cid": "bafkreihspaywcvk4k6ifwehb2gpapd5qgc2rfamrdlm2nzcd4grlwkmmfm",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreib4joxx7mdjc2sf6woqlidepqzoixjffibxb4aro3muzmxcmfqwvu",
+      "url": "ipfs://bafkreihspaywcvk4k6ifwehb2gpapd5qgc2rfamrdlm2nzcd4grlwkmmfm",
       "description": "browser-local kotoba-wasm component"
     }
   ],

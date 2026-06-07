@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible payments / money movement actor (ach_network); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:ach_network-compat",
-    "x-wasm-cid": "bafkreiau5uwdeeerihebqhr34omxgrfnf5vajxaflwrahwm37ja7dbnbgm",
+    "x-wasm-cid": "bafkreictt65xpa2dz466wwuo7ckfwyuour37ubgvclgjrcxyi4sesy4to4",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreiau5uwdeeerihebqhr34omxgrfnf5vajxaflwrahwm37ja7dbnbgm",
+      "url": "ipfs://bafkreictt65xpa2dz466wwuo7ckfwyuour37ubgvclgjrcxyi4sesy4to4",
       "description": "browser-local kotoba-wasm component"
     }
   ],

@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible security / IAM actor (cyberark); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:cyberark-compat",
-    "x-wasm-cid": "bafkreicpag7fuhxgz3yya3zehpy4o2cp7shuqo36cvyocuem5gyt7f67r4",
+    "x-wasm-cid": "bafkreiaf6ad6dqxthzjprqx43c3qdarebyu63nfolti5wtzbsa45wyrx2u",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreicpag7fuhxgz3yya3zehpy4o2cp7shuqo36cvyocuem5gyt7f67r4",
+      "url": "ipfs://bafkreiaf6ad6dqxthzjprqx43c3qdarebyu63nfolti5wtzbsa45wyrx2u",
       "description": "browser-local kotoba-wasm component"
     }
   ],

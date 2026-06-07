@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible AI/ML infrastructure / chips actor (amd_rocm); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:amd_rocm-compat",
-    "x-wasm-cid": "bafkreibxsb5xafiv3jid35xiyd4sn6ps37i546s6apmhj4xzksb3mdiqsm",
+    "x-wasm-cid": "bafkreiaxvamyo4dlsiqv56bdonsmnhw2dhvwdrl2s2jc46iroqgac3t4de",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreibxsb5xafiv3jid35xiyd4sn6ps37i546s6apmhj4xzksb3mdiqsm",
+      "url": "ipfs://bafkreiaxvamyo4dlsiqv56bdonsmnhw2dhvwdrl2s2jc46iroqgac3t4de",
       "description": "browser-local kotoba-wasm component"
     }
   ],

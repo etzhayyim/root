@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible CRM / sales-pipeline actor (careem); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:careem-compat",
-    "x-wasm-cid": "bafkreig5ja4xgcjq6h2aj3zc3h3txrchtnn5h46wpbdc42os2gkfujxsze",
+    "x-wasm-cid": "bafkreielzbeaojdefm5dex6twhbjgstqmqh2zygvq54mksz4amkkavxmz4",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreig5ja4xgcjq6h2aj3zc3h3txrchtnn5h46wpbdc42os2gkfujxsze",
+      "url": "ipfs://bafkreielzbeaojdefm5dex6twhbjgstqmqh2zygvq54mksz4amkkavxmz4",
       "description": "browser-local kotoba-wasm component"
     }
   ],

@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible transit / smart cities actor (amtrak); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:amtrak-compat",
-    "x-wasm-cid": "bafkreihyuvuf35yw7mv26lq62rxgmyqjswrklsoj4272r2ie65jmb66ibu",
+    "x-wasm-cid": "bafkreiazwgws6klyftzpcscdu4t52qfhdizqnrbxy5cglroneykgnqq4ce",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreihyuvuf35yw7mv26lq62rxgmyqjswrklsoj4272r2ie65jmb66ibu",
+      "url": "ipfs://bafkreiazwgws6klyftzpcscdu4t52qfhdizqnrbxy5cglroneykgnqq4ce",
       "description": "browser-local kotoba-wasm component"
     }
   ],

@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible design / creative tooling actor (adobe); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:adobe-compat",
-    "x-wasm-cid": "bafkreicr4axfkstjie3jbzzg6nqhteotjg5ffvw7wynwxmdjdxvh6hz3jq",
+    "x-wasm-cid": "bafkreiajybevfw7dpgxkliw4jjppwm5dyssmlzntdbj5wyahcag2flm2ti",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreicr4axfkstjie3jbzzg6nqhteotjg5ffvw7wynwxmdjdxvh6hz3jq",
+      "url": "ipfs://bafkreiajybevfw7dpgxkliw4jjppwm5dyssmlzntdbj5wyahcag2flm2ti",
       "description": "browser-local kotoba-wasm component"
     }
   ],

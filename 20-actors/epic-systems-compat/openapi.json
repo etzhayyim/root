@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible EHR / clinical records actor (epic-systems); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:epic-systems-compat",
-    "x-wasm-cid": "bafkreifcp2n57jornyogbjvfu76whalmvd335deuzf7wvknxgk3pbeiczi",
+    "x-wasm-cid": "bafkreihdnlxjilmfrwlxvc7nia43dva7jg44aynso4ujdampuc4macwitq",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreifcp2n57jornyogbjvfu76whalmvd335deuzf7wvknxgk3pbeiczi",
+      "url": "ipfs://bafkreihdnlxjilmfrwlxvc7nia43dva7jg44aynso4ujdampuc4macwitq",
       "description": "browser-local kotoba-wasm component"
     }
   ],

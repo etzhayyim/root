@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible ride-hailing / micro-mobility actor (bird_scooters); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:bird_scooters-compat",
-    "x-wasm-cid": "bafkreihtotia4v5h5wemjp7xh53ih5lmgafnocm5o5uwipni5mjxacflsq",
+    "x-wasm-cid": "bafkreigbaq7qyjlktn7pqzulylqrrrbroi7wpnn5y3xob2zsjhonzzlndq",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreihtotia4v5h5wemjp7xh53ih5lmgafnocm5o5uwipni5mjxacflsq",
+      "url": "ipfs://bafkreigbaq7qyjlktn7pqzulylqrrrbroi7wpnn5y3xob2zsjhonzzlndq",
       "description": "browser-local kotoba-wasm component"
     }
   ],

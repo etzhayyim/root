@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible travel / aviation / hospitality actor (amadeus_gds); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:amadeus_gds-compat",
-    "x-wasm-cid": "bafkreidl3cmblnjtclclblbxcubcjiwdrpb2srs6bqmpe7efltt666m6o4",
+    "x-wasm-cid": "bafkreiej4expxwqucaq4mwjzupnr2hz6kmgdvklwot2jkbneziymoimxne",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreidl3cmblnjtclclblbxcubcjiwdrpb2srs6bqmpe7efltt666m6o4",
+      "url": "ipfs://bafkreiej4expxwqucaq4mwjzupnr2hz6kmgdvklwot2jkbneziymoimxne",
       "description": "browser-local kotoba-wasm component"
     }
   ],

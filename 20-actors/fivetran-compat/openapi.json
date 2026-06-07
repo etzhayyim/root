@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible modern data stack actor (fivetran); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:fivetran-compat",
-    "x-wasm-cid": "bafkreidlb33a7ek5cat6xsqx2n5hj4lfmrbktjphp3ckikuhqpfn27b3zq",
+    "x-wasm-cid": "bafkreicvv2mzupc2owx3o5gzjflybspxabcnemacnatxjrk52x6iopexci",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreidlb33a7ek5cat6xsqx2n5hj4lfmrbktjphp3ckikuhqpfn27b3zq",
+      "url": "ipfs://bafkreicvv2mzupc2owx3o5gzjflybspxabcnemacnatxjrk52x6iopexci",
       "description": "browser-local kotoba-wasm component"
     }
   ],

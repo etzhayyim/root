@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreib7jtfqhnzk5tpzglldwz2jiuce5jsd7rl7yafj5ar7l3lixto5eq",
   "schema": "schema/first_light_fusion.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Shot",
     "Diagnostic",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

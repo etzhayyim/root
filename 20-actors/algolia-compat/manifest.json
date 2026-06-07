@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigiitzaomidocd3udgm4st4cw3je6wy35fb66ab55itf3oej2lxue",
   "schema": "schema/algolia.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "ContentEntry",
     "Product",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

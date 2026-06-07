@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible OS / kernel interface actor (posix); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:posix-compat",
-    "x-wasm-cid": "bafkreibdgcakuazwodo7k5j4xo2mwtctuorgu37onkul4wmodsppfy7bue",
+    "x-wasm-cid": "bafkreigrqkfxe3dtlfqn7kcojwmxfi3273rjpbwtczdwxetp6dl5y3jrzu",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreibdgcakuazwodo7k5j4xo2mwtctuorgu37onkul4wmodsppfy7bue",
+      "url": "ipfs://bafkreigrqkfxe3dtlfqn7kcojwmxfi3273rjpbwtczdwxetp6dl5y3jrzu",
       "description": "browser-local kotoba-wasm component"
     }
   ],

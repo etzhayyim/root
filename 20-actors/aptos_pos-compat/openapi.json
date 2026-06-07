@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible e-commerce storefront actor (aptos_pos); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:aptos_pos-compat",
-    "x-wasm-cid": "bafkreifp3ovkhd2okcvbh6jnks5zt5gasyymvhdyxkkuqfw5tjczzfo7pm",
+    "x-wasm-cid": "bafkreichlt4vuxcg2u2ex2ajwmh2tiglzliborc6tmipoxo5pjxa22n4za",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreifp3ovkhd2okcvbh6jnks5zt5gasyymvhdyxkkuqfw5tjczzfo7pm",
+      "url": "ipfs://bafkreichlt4vuxcg2u2ex2ajwmh2tiglzliborc6tmipoxo5pjxa22n4za",
       "description": "browser-local kotoba-wasm component"
     }
   ],

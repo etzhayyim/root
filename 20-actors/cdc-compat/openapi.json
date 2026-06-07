@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible public health / environment / IP actor (cdc); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:cdc-compat",
-    "x-wasm-cid": "bafkreibhey3cp7izvpoaebfcj6eixwlmkg3722qpsjnaww4nmxj72sel5m",
+    "x-wasm-cid": "bafkreidabo2yo64726dgsq5mhxayslis2khuo5saexieqelwajqaimbyqu",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreibhey3cp7izvpoaebfcj6eixwlmkg3722qpsjnaww4nmxj72sel5m",
+      "url": "ipfs://bafkreidabo2yo64726dgsq5mhxayslis2khuo5saexieqelwajqaimbyqu",
       "description": "browser-local kotoba-wasm component"
     }
   ],

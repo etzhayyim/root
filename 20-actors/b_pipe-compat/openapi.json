@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible financial market data / trading actor (b_pipe); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:b_pipe-compat",
-    "x-wasm-cid": "bafkreiafcbktw4vcf4rbjcbgqmcvojcnhf2s4v7tcoqdpmqny4egtketde",
+    "x-wasm-cid": "bafkreigv7dskfmulgwddo7qgrhfyypa2hzii6xvxelz7z7hkx6tpxtjfpa",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreiafcbktw4vcf4rbjcbgqmcvojcnhf2s4v7tcoqdpmqny4egtketde",
+      "url": "ipfs://bafkreigv7dskfmulgwddo7qgrhfyypa2hzii6xvxelz7z7hkx6tpxtjfpa",
       "description": "browser-local kotoba-wasm component"
     }
   ],

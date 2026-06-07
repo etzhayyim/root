@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiev3bpjl2ikqt4dnonvlnwomw5zr7dqyad4tjf2ej6wj5ducsz6gu",
   "schema": "schema/baesystems_c4isr.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Case",
     "Party",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible industrial SCADA actor (abb_800xa); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:abb_800xa-compat",
-    "x-wasm-cid": "bafkreifsuaknbqjp2zhg6zitpqhicebmkcvknup2w2pmbbx5gw7u642bmy",
+    "x-wasm-cid": "bafkreiezhwly6iqlcnrldienyvu5zw5bad2c6vcqaezwnpykub3pyq6wey",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreifsuaknbqjp2zhg6zitpqhicebmkcvknup2w2pmbbx5gw7u642bmy",
+      "url": "ipfs://bafkreiezhwly6iqlcnrldienyvu5zw5bad2c6vcqaezwnpykub3pyq6wey",
       "description": "browser-local kotoba-wasm component"
     }
   ],

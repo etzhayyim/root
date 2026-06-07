@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigygg4zy3doe3kwzpr4aqcbnr2qhwgoxmzoozthakoida2dscs6ty",
   "schema": "schema/berkeley_lights.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Strain",
     "Construct",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

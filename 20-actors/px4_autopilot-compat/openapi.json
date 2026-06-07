@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible drone swarm / aerial robotics actor (px4_autopilot); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:px4_autopilot-compat",
-    "x-wasm-cid": "bafkreidkqozulupmhgta7o4a7qjv63lqjdvoy7tb4ernm2wzwinszjnrlu",
+    "x-wasm-cid": "bafkreibqshvnnxlyw6e2tlourqcvzqivxhg6pzn7iijphaq3qpqyrkomay",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreidkqozulupmhgta7o4a7qjv63lqjdvoy7tb4ernm2wzwinszjnrlu",
+      "url": "ipfs://bafkreibqshvnnxlyw6e2tlourqcvzqivxhg6pzn7iijphaq3qpqyrkomay",
       "description": "browser-local kotoba-wasm component"
     }
   ],

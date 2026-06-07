@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible media / video / CMS actor (cloudinary); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:cloudinary-compat",
-    "x-wasm-cid": "bafkreidbxivdh4pwhvk667bju2uefnch5tygb3ghabpu52hcy2ty4qgumu",
+    "x-wasm-cid": "bafkreiblh7jbme42xhs25z6rnl3kvimdrb7bp64qw7sgnmvzglrqsdva2e",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreidbxivdh4pwhvk667bju2uefnch5tygb3ghabpu52hcy2ty4qgumu",
+      "url": "ipfs://bafkreiblh7jbme42xhs25z6rnl3kvimdrb7bp64qw7sgnmvzglrqsdva2e",
       "description": "browser-local kotoba-wasm component"
     }
   ],

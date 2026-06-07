@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreidsmkoi4awmhlpn5o32dtdnshuxhhijf437lki76y4otrdenze76i",
   "schema": "schema/dns_root_zone.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Prefix",
     "Route",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

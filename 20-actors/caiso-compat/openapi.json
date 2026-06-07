@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible energy / smart grid actor (caiso); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:caiso-compat",
-    "x-wasm-cid": "bafkreiehaywdfjg4btdvtx2lpzwhkfucgkv7s3dkll5anqr2xmtoo26rsi",
+    "x-wasm-cid": "bafkreicnhg4ugo2vgamwr7ybius3v4mp4qylevbz2vosuoatigu64iylcu",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreiehaywdfjg4btdvtx2lpzwhkfucgkv7s3dkll5anqr2xmtoo26rsi",
+      "url": "ipfs://bafkreicnhg4ugo2vgamwr7ybius3v4mp4qylevbz2vosuoatigu64iylcu",
       "description": "browser-local kotoba-wasm component"
     }
   ],

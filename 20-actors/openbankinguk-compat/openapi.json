@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible open banking / financial regulation actor (openbankinguk); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:openbankinguk-compat",
-    "x-wasm-cid": "bafkreiayy532unx7rr44bpdqvm6v3hkrlavaciwiscmhhkfr4jwgatx3au",
+    "x-wasm-cid": "bafkreifmdyar45n6ci2ndqukbqphxpqk6fanbrnsswhagiazo6qpunfhvi",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreiayy532unx7rr44bpdqvm6v3hkrlavaciwiscmhhkfr4jwgatx3au",
+      "url": "ipfs://bafkreifmdyar45n6ci2ndqukbqphxpqk6fanbrnsswhagiazo6qpunfhvi",
       "description": "browser-local kotoba-wasm component"
     }
   ],

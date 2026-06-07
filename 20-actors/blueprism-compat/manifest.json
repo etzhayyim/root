@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreia7gjmv6bvw7y55y4yqh6p26js7blsybsqbjvqca5ttm5zctsdv3u",
   "schema": "schema/blueprism.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Bot",
     "Process",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

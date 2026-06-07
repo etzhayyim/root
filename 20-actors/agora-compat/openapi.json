@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible communications / social actor (agora); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:agora-compat",
-    "x-wasm-cid": "bafkreiadb3mp3p52rrczq3bxci7fygz27bvtjrvqooltg7tvpdcvtwtswm",
+    "x-wasm-cid": "bafkreibvbiukja5itbvidhuszi6izhgj34j4w5ese62oy7puthlktcpfge",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreiadb3mp3p52rrczq3bxci7fygz27bvtjrvqooltg7tvpdcvtwtswm",
+      "url": "ipfs://bafkreibvbiukja5itbvidhuszi6izhgj34j4w5ese62oy7puthlktcpfge",
       "description": "browser-local kotoba-wasm component"
     }
   ],

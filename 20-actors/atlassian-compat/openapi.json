@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible DevOps / CI-CD actor (atlassian); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:atlassian-compat",
-    "x-wasm-cid": "bafkreibbbzqidm2jrelc4uqilmqka2mbjdd6ffao5xskged4rfjpgwgdd4",
+    "x-wasm-cid": "bafkreidbe2at2yd53oqvisi36hpxfko3mxcgbg32di3zlmsccksdlm2dgi",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreibbbzqidm2jrelc4uqilmqka2mbjdd6ffao5xskged4rfjpgwgdd4",
+      "url": "ipfs://bafkreidbe2at2yd53oqvisi36hpxfko3mxcgbg32di3zlmsccksdlm2dgi",
       "description": "browser-local kotoba-wasm component"
     }
   ],

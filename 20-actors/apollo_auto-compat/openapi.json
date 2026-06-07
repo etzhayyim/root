@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible mobility / auto / EV actor (apollo_auto); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:apollo_auto-compat",
-    "x-wasm-cid": "bafkreidttlan4tvdijjglfqkyj5qgiku4mhhdklawtise7vri3zuyhud3y",
+    "x-wasm-cid": "bafkreigm4wjzuk2kwynrgmkzjtkfw6fbzsor2nrkdywms4swhrlo3f7rby",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreidttlan4tvdijjglfqkyj5qgiku4mhhdklawtise7vri3zuyhud3y",
+      "url": "ipfs://bafkreigm4wjzuk2kwynrgmkzjtkfw6fbzsor2nrkdywms4swhrlo3f7rby",
       "description": "browser-local kotoba-wasm component"
     }
   ],

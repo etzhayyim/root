@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigdbvvdn56hpt62sjgntjr6llwmx5tntdj5oyztlwzc47imb5adwq",
   "schema": "schema/cerillion.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Subscriber",
     "Session",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

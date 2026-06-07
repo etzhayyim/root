@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible marketing technology actor (applovin); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:applovin-compat",
-    "x-wasm-cid": "bafkreia4re4ke4e4bx75qmhamdzdy2mu3gnc4jfi7ntiw7af4eishvnlci",
+    "x-wasm-cid": "bafkreiepfp2erihrx6sdvqvjv7crtjm45zzudg2ec73dddngabh4knlbky",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreia4re4ke4e4bx75qmhamdzdy2mu3gnc4jfi7ntiw7af4eishvnlci",
+      "url": "ipfs://bafkreiepfp2erihrx6sdvqvjv7crtjm45zzudg2ec73dddngabh4knlbky",
       "description": "browser-local kotoba-wasm component"
     }
   ],

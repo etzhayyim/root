@@ -7,7 +7,7 @@
   ],
   "count": 1000,
   "totalEndpoints": 30040,
-  "l4SpecsAvailable": 156,
+  "l4SpecsAvailable": 233,
   "apis": [
     {
       "handle": "8th_wall-compat",
@@ -216,19 +216,19 @@
     {
       "handle": "adyen-compat",
       "did": "did:web:etzhayyim.com:actor:adyen-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreiflz4pkbigafgh2gugoafxwaoz3dsdqmx6w25zyv3qxrz3hxypdd4",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/adyen-compat/openapi.json"
     },
     {
       "handle": "aftership-compat",
@@ -267,19 +267,19 @@
     {
       "handle": "agones-compat",
       "did": "did:web:etzhayyim.com:actor:agones-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreihgcodvzmh5jwswtfin4xke4w6yxqabkmk2kdfdwnbeyvwsnra7le",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/agones-compat/openapi.json"
     },
     {
       "handle": "agora-compat",
@@ -386,19 +386,19 @@
     {
       "handle": "algolia-compat",
       "did": "did:web:etzhayyim.com:actor:algolia-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreigiitzaomidocd3udgm4st4cw3je6wy35fb66ab55itf3oej2lxue",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/algolia-compat/openapi.json"
     },
     {
       "handle": "alienvault-compat",
@@ -420,19 +420,19 @@
     {
       "handle": "alipay-compat",
       "did": "did:web:etzhayyim.com:actor:alipay-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreiedpe75nzibj3ls6bpzdylsfgpni6p4yjdwphnoolnda2vtihznl4",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/alipay-compat/openapi.json"
     },
     {
       "handle": "allscripts-compat",
@@ -471,36 +471,36 @@
     {
       "handle": "altair-compat",
       "did": "did:web:etzhayyim.com:actor:altair-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreibblbqn4cbep7jtmwgxyz43gvsqbcwhtwsuibqezd2aolc3msps5q",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/altair-compat/openapi.json"
     },
     {
       "handle": "amadeus_airlines-compat",
       "did": "did:web:etzhayyim.com:actor:amadeus_airlines-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreihvb7mkj74ijc2elwakgdpwy5ywqk5v42qiyeiwufyf23u6czlkx4",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/amadeus_airlines-compat/openapi.json"
     },
     {
       "handle": "amadeus_alta-compat",
@@ -692,19 +692,19 @@
     {
       "handle": "aphis_usda-compat",
       "did": "did:web:etzhayyim.com:actor:aphis_usda-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreidwemadkj2aopycnfnkokfpvn7xchsz7gmtt6hc4cdtos32vmbqre",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/aphis_usda-compat/openapi.json"
     },
     {
       "handle": "apigee-compat",
@@ -794,19 +794,19 @@
     {
       "handle": "apple_visionos-compat",
       "did": "did:web:etzhayyim.com:actor:apple_visionos-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreia7p47gqq5ciwpkopzk6taquoascdsaeiphoted4ochpgbff6z62q",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/apple_visionos-compat/openapi.json"
     },
     {
       "handle": "applovin-compat",
@@ -828,19 +828,19 @@
     {
       "handle": "appsflyer-compat",
       "did": "did:web:etzhayyim.com:actor:appsflyer-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreie27u35cdqx34hfju5kcmgh45derc7mhpb24vb4m5erjyswhxfwmi",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/appsflyer-compat/openapi.json"
     },
     {
       "handle": "aptos_pos-compat",
@@ -862,19 +862,19 @@
     {
       "handle": "argo_ocean_floats-compat",
       "did": "did:web:etzhayyim.com:actor:argo_ocean_floats-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreicdsj67iaxxlp7eodbyosqaiacvdq4fubfbfwoy2obgkfuldiuq5m",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/argo_ocean_floats-compat/openapi.json"
     },
     {
       "handle": "argus_media-compat",
@@ -981,19 +981,19 @@
     {
       "handle": "asana-compat",
       "did": "did:web:etzhayyim.com:actor:asana-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreifh3qbzbcy6a33d7gus5ffjtnwpj5hid64obcgwnkohumxse4zjmi",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/asana-compat/openapi.json"
     },
     {
       "handle": "asimov-compat",
@@ -1032,36 +1032,36 @@
     {
       "handle": "astm_codes-compat",
       "did": "did:web:etzhayyim.com:actor:astm_codes-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreicwra3t4z4udp5fzeuxfrqm2cleq3ppafs2tyev7qv66o52i7sfxe",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/astm_codes-compat/openapi.json"
     },
     {
       "handle": "athenahealth-compat",
       "did": "did:web:etzhayyim.com:actor:athenahealth-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreidyhu3tq3twxzlznejvx6wgm6z772deyzzqt2lfwnrdhbk45sy2xa",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/athenahealth-compat/openapi.json"
     },
     {
       "handle": "atlassian-compat",
@@ -1100,19 +1100,19 @@
     {
       "handle": "aurora_driver-compat",
       "did": "did:web:etzhayyim.com:actor:aurora_driver-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreigrcbrgkn2zg2deq23yvzwz7whhnchxzgvoiarcmb4355ni75dhvy",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/aurora_driver-compat/openapi.json"
     },
     {
       "handle": "auterion-compat",
@@ -1185,19 +1185,19 @@
     {
       "handle": "autogpt_forge-compat",
       "did": "did:web:etzhayyim.com:actor:autogpt_forge-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreics5zmb67ooenfyeo7ak75yocyiqvmewfqkco4p52ngk3iflqy75y",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/autogpt_forge-compat/openapi.json"
     },
     {
       "handle": "automationanywhere-compat",
@@ -1270,36 +1270,36 @@
     {
       "handle": "aws_braket-compat",
       "did": "did:web:etzhayyim.com:actor:aws_braket-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreicsmuzhtt4vm4zukpe3oqzyxhf3gfp5dtkmmnwjt4lvvs5qqktoxq",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/aws_braket-compat/openapi.json"
     },
     {
       "handle": "aws_inferentia-compat",
       "did": "did:web:etzhayyim.com:actor:aws_inferentia-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreidzml2vubsrfbknuxd7faxtwfjpedbb6svuzuusc6gcildjnpd5zu",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/aws_inferentia-compat/openapi.json"
     },
     {
       "handle": "azure-compat",
@@ -1372,19 +1372,19 @@
     {
       "handle": "baesystems_c4isr-compat",
       "did": "did:web:etzhayyim.com:actor:baesystems_c4isr-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreiev3bpjl2ikqt4dnonvlnwomw5zr7dqyad4tjf2ej6wj5ducsz6gu",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/baesystems_c4isr-compat/openapi.json"
     },
     {
       "handle": "bafin-compat",
@@ -1423,19 +1423,19 @@
     {
       "handle": "baker_hughes_jewel-compat",
       "did": "did:web:etzhayyim.com:actor:baker_hughes_jewel-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreifdhfjdzbv77uz3d7hpb7m3zos3fotshn24ubn3yshk7u7czk7yam",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/baker_hughes_jewel-compat/openapi.json"
     },
     {
       "handle": "bamboohr-compat",
@@ -1491,19 +1491,19 @@
     {
       "handle": "barclays_marl-compat",
       "did": "did:web:etzhayyim.com:actor:barclays_marl-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreig6dol4msquvvitihhs4fi2xixxdwof3iqtlvvr6xb5e3pmvlinb4",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/barclays_marl-compat/openapi.json"
     },
     {
       "handle": "bcel_pay-compat",
@@ -1576,19 +1576,19 @@
     {
       "handle": "berkeley_lights-compat",
       "did": "did:web:etzhayyim.com:actor:berkeley_lights-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreigygg4zy3doe3kwzpr4aqcbnr2qhwgoxmzoozthakoida2dscs6ty",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/berkeley_lights-compat/openapi.json"
     },
     {
       "handle": "bgp_routing-compat",
@@ -1627,53 +1627,53 @@
     {
       "handle": "bic_container_codes-compat",
       "did": "did:web:etzhayyim.com:actor:bic_container_codes-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreie77mhj2eeyik27fdyhqlda644ftqmysqqguqzkot6lhhelfqtvde",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/bic_container_codes-compat/openapi.json"
     },
     {
       "handle": "biconomy-compat",
       "did": "did:web:etzhayyim.com:actor:biconomy-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreigjpxhqwfzuc6a454xzfhpoil2xzm5vs4asis3ysjcvga64dgzxiq",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/biconomy-compat/openapi.json"
     },
     {
       "handle": "bigcommerce-compat",
       "did": "did:web:etzhayyim.com:actor:bigcommerce-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreihtbxjxoqzzurvhc4c3wq6ki76lpgwlkhtnvk7usbzifd3rhfjs7i",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/bigcommerce-compat/openapi.json"
     },
     {
       "handle": "bigid-compat",
@@ -1729,19 +1729,19 @@
     {
       "handle": "binance-compat",
       "did": "did:web:etzhayyim.com:actor:binance-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreiftr4klxcvyk5r3lqpybnvhwsnaxgtawvkpbylnep7mp6vrv22s7u",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/binance-compat/openapi.json"
     },
     {
       "handle": "bipm_utc-compat",
@@ -1797,19 +1797,19 @@
     {
       "handle": "bitbucket-compat",
       "did": "did:web:etzhayyim.com:actor:bitbucket-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreicglcgmrpnibv7viji54n5wiyxj5jbif4jd77okhxvvavqcmzlvyq",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/bitbucket-compat/openapi.json"
     },
     {
       "handle": "bizzabo-compat",
@@ -1831,19 +1831,19 @@
     {
       "handle": "blackboard-compat",
       "did": "did:web:etzhayyim.com:actor:blackboard-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreieyudia74pvpr27r7tz2oc4qgiveja4cnj3icl566uozvm7b6wq4i",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/blackboard-compat/openapi.json"
     },
     {
       "handle": "blacksky-compat",
@@ -1882,19 +1882,19 @@
     {
       "handle": "blender-compat",
       "did": "did:web:etzhayyim.com:actor:blender-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreifn3inopl2a3bfve4iyapbbnb7g52kht6k5l6gurrj2dnm4mk2lzi",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/blender-compat/openapi.json"
     },
     {
       "handle": "bloomberg_commodities-compat",
@@ -1984,36 +1984,36 @@
     {
       "handle": "blueprism-compat",
       "did": "did:web:etzhayyim.com:actor:blueprism-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreia7gjmv6bvw7y55y4yqh6p26js7blsybsqbjvqca5ttm5zctsdv3u",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/blueprism-compat/openapi.json"
     },
     {
       "handle": "blueyonder-compat",
       "did": "did:web:etzhayyim.com:actor:blueyonder-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreiag3myzbogkkjenpxes6g2lix6awtxo7uzip3h7mgzrlw4uwd2wba",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/blueyonder-compat/openapi.json"
     },
     {
       "handle": "bnymellon_api-compat",
@@ -2035,19 +2035,19 @@
     {
       "handle": "boe-compat",
       "did": "did:web:etzhayyim.com:actor:boe-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreibb3e5syu5agydbc7rgppywcn7vqtqks4tngy3fvj7uoj5hy26qou",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/boe-compat/openapi.json"
     },
     {
       "handle": "boeing_health-compat",
@@ -2120,19 +2120,19 @@
     {
       "handle": "bolt-compat",
       "did": "did:web:etzhayyim.com:actor:bolt-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreifqabxujn3p65k6ewgislywtd4ka2vzkn7nmx6jpq4ciapauch6ce",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/bolt-compat/openapi.json"
     },
     {
       "handle": "boomi-compat",
@@ -2222,19 +2222,19 @@
     {
       "handle": "brightcove-compat",
       "did": "did:web:etzhayyim.com:actor:brightcove-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreigiwst5rqtohdd4dwhezg4o2mxg6v2rxatzvnafvjf42q7wxd5xey",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/brightcove-compat/openapi.json"
     },
     {
       "handle": "bsi_standards-compat",
@@ -2273,19 +2273,19 @@
     {
       "handle": "bubble-compat",
       "did": "did:web:etzhayyim.com:actor:bubble-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreihwya4bgjhmngc7w4djymdg77tbr4iwv2e6tpgfj742v2owqeo4gq",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/bubble-compat/openapi.json"
     },
     {
       "handle": "builder_mt-compat",
@@ -2494,19 +2494,19 @@
     {
       "handle": "cardinal_health-compat",
       "did": "did:web:etzhayyim.com:actor:cardinal_health-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreidbcezpirat4bhgr35vud3vbnywos5okrswphrjkw4f6xguqt3bly",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/cardinal_health-compat/openapi.json"
     },
     {
       "handle": "careem-compat",
@@ -2613,19 +2613,19 @@
     {
       "handle": "cdr_australia-compat",
       "did": "did:web:etzhayyim.com:actor:cdr_australia-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreihxyaikudy6bogyod3g24vz24y5jsbg7c4jq4t5uv4oj4f2uo5vba",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/cdr_australia-compat/openapi.json"
     },
     {
       "handle": "cegid_retail-compat",
@@ -2681,36 +2681,36 @@
     {
       "handle": "censys-compat",
       "did": "did:web:etzhayyim.com:actor:censys-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreihjb46d3c5w5iithnpfhdaly2oyaft3wu54dsxw7ww3xegvo7ok4e",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/censys-compat/openapi.json"
     },
     {
       "handle": "cerillion-compat",
       "did": "did:web:etzhayyim.com:actor:cerillion-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreigdbvvdn56hpt62sjgntjr6llwmx5tntdj5oyztlwzc47imb5adwq",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/cerillion-compat/openapi.json"
     },
     {
       "handle": "cerner-compat",
@@ -3004,19 +3004,19 @@
     {
       "handle": "classy-compat",
       "did": "did:web:etzhayyim.com:actor:classy-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreid2g7i5tj24jsodorrpn4bi5njndwal6dnbpdxxvp275ob5j2xxjy",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/classy-compat/openapi.json"
     },
     {
       "handle": "clearstream-compat",
@@ -3106,19 +3106,19 @@
     {
       "handle": "cloudflare-compat",
       "did": "did:web:etzhayyim.com:actor:cloudflare-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreigu3r5x6vudgbpypd6r4jdv4qmffvr5ibjnptt37vm2w5v3hqftae",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/cloudflare-compat/openapi.json"
     },
     {
       "handle": "cloudinary-compat",
@@ -3140,19 +3140,19 @@
     {
       "handle": "cma-compat",
       "did": "did:web:etzhayyim.com:actor:cma-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreib7qdxa57j5a2cny4kt2htr2qvw2ciekhwd4jvka7i6rz5bz7xbqi",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/cma-compat/openapi.json"
     },
     {
       "handle": "cma_cgm_api-compat",
@@ -3174,19 +3174,19 @@
     {
       "handle": "cme_globex-compat",
       "did": "did:web:etzhayyim.com:actor:cme_globex-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreibxojhig7w3ggenxtx52f2qqouag7qt7vohvvnvgtealcaa3x7olm",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/cme_globex-compat/openapi.json"
     },
     {
       "handle": "cmic-compat",
@@ -3208,19 +3208,19 @@
     {
       "handle": "cohere-compat",
       "did": "did:web:etzhayyim.com:actor:cohere-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreicnovmwib4aqmkgxpkpjijjho6ehv4wswwanogsho4t6dvnpwtzka",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/cohere-compat/openapi.json"
     },
     {
       "handle": "coherence-compat",
@@ -3361,36 +3361,36 @@
     {
       "handle": "compliancequest-compat",
       "did": "did:web:etzhayyim.com:actor:compliancequest-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreidy3twdbufvqa47npbechoq26qgm5isbpghdzadmufyvxynaohjey",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/compliancequest-compat/openapi.json"
     },
     {
       "handle": "confluent-compat",
       "did": "did:web:etzhayyim.com:actor:confluent-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreihlqxetq4clfv3orcs6ikctqqnpkwayqcaxgw5qukxqqixecq743u",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/confluent-compat/openapi.json"
     },
     {
       "handle": "contentful-compat",
@@ -3565,19 +3565,19 @@
     {
       "handle": "cowin-compat",
       "did": "did:web:etzhayyim.com:actor:cowin-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreienuixbt2rwwxdrprpfmwma25ij3tajad5n737jwjy5ddrfcnam2e",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/cowin-compat/openapi.json"
     },
     {
       "handle": "crewai-compat",
@@ -3684,36 +3684,36 @@
     {
       "handle": "crypta_labs-compat",
       "did": "did:web:etzhayyim.com:actor:crypta_labs-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreiahisgxtcl26wxihgu6qovllulrxtlb33s6tptu77tuievm2an2w4",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/crypta_labs-compat/openapi.json"
     },
     {
       "handle": "cs_disco-compat",
       "did": "did:web:etzhayyim.com:actor:cs_disco-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreiepompyd2jq3nzncgs2sdj4fyz7rycpjrtwscitvh2dnnjbdanwge",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/cs_disco-compat/openapi.json"
     },
     {
       "handle": "csg_international-compat",
@@ -3837,19 +3837,19 @@
     {
       "handle": "cybozu-compat",
       "did": "did:web:etzhayyim.com:actor:cybozu-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreif4e4w2kp6ckvptkb4x2lht4yhsjzoviooqpmpqj4zazagiu6qdd4",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/cybozu-compat/openapi.json"
     },
     {
       "handle": "d_wave-compat",
@@ -3905,19 +3905,19 @@
     {
       "handle": "dassault_enovia-compat",
       "did": "did:web:etzhayyim.com:actor:dassault_enovia-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreiefllyxowtti64vqc6sbuxiwujdx6q5rqv6pi54ag5hvxsknnit4m",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/dassault_enovia-compat/openapi.json"
     },
     {
       "handle": "databricks-compat",
@@ -4024,70 +4024,70 @@
     {
       "handle": "ddbj-compat",
       "did": "did:web:etzhayyim.com:actor:ddbj-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreic4lloccrnzs46ymcbyuzo3ihi2bjyfvfki56qhq4hgj7ryrkvwii",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/ddbj-compat/openapi.json"
     },
     {
       "handle": "deel-compat",
       "did": "did:web:etzhayyim.com:actor:deel-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreifz2gnnrseeqbwoqosapn5pqnlscrvvvzjkokmt6vw3f5bktvrlza",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/deel-compat/openapi.json"
     },
     {
       "handle": "deliveroo-compat",
       "did": "did:web:etzhayyim.com:actor:deliveroo-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreie6mglmfnv7k26g5jtdfolip575xj7fapoiulf5frc5u3mrw2ufba",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/deliveroo-compat/openapi.json"
     },
     {
       "handle": "deutschebahn-compat",
       "did": "did:web:etzhayyim.com:actor:deutschebahn-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreiceeqpqyysvam7fz3ao6yxzbqepfmbgx3yfrpgjjjiqyyawhsiq3q",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/deutschebahn-compat/openapi.json"
     },
     {
       "handle": "dhs-compat",
@@ -4279,19 +4279,19 @@
     {
       "handle": "dji_onboard_sdk-compat",
       "did": "did:web:etzhayyim.com:actor:dji_onboard_sdk-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreicozgyzbfgald5w3rkzicl3nfuvqn6xkw6janhmjofwmklxmi5b34",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/dji_onboard_sdk-compat/openapi.json"
     },
     {
       "handle": "dlocal-compat",
@@ -4330,19 +4330,19 @@
     {
       "handle": "dns_root_zone-compat",
       "did": "did:web:etzhayyim.com:actor:dns_root_zone-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreidsmkoi4awmhlpn5o32dtdnshuxhhijf437lki76y4otrdenze76i",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/dns_root_zone-compat/openapi.json"
     },
     {
       "handle": "docker-compat",
@@ -4381,19 +4381,19 @@
     {
       "handle": "doi_system-compat",
       "did": "did:web:etzhayyim.com:actor:doi_system-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreihhvfvhxgih7aicd3kmeqhd43pxgsjcn7plkijy6na3t4x3vt6er4",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/doi_system-compat/openapi.json"
     },
     {
       "handle": "donorperfect-compat",
@@ -4619,19 +4619,19 @@
     {
       "handle": "dynatrace-compat",
       "did": "did:web:etzhayyim.com:actor:dynatrace-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreifuf3iwaxzathmrzzevzbzczgvlzl76wbealcc6libt7ikxvwb5ca",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/dynatrace-compat/openapi.json"
     },
     {
       "handle": "e2open-compat",
@@ -4653,19 +4653,19 @@
     {
       "handle": "e_residency-compat",
       "did": "did:web:etzhayyim.com:actor:e_residency-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreibwzydyeq6x3cdeuvyo6nx4o7cwsjwuxho4lugr27sits3smapa6u",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/e_residency-compat/openapi.json"
     },
     {
       "handle": "ebi-compat",
@@ -4823,36 +4823,36 @@
     {
       "handle": "eea_europe-compat",
       "did": "did:web:etzhayyim.com:actor:eea_europe-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreibmmj6zbnwjcicbnjl6kg72lujnkdtwqahaaxe6saatq3keqywiku",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/eea_europe-compat/openapi.json"
     },
     {
       "handle": "eia_gov-compat",
       "did": "did:web:etzhayyim.com:actor:eia_gov-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreibtuvi7wvub6dkcewoljtazip27uxe73zawdph6h4l6xm7d5rhybi",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/eia_gov-compat/openapi.json"
     },
     {
       "handle": "eidas-compat",
@@ -4976,36 +4976,36 @@
     {
       "handle": "emerson_experion-compat",
       "did": "did:web:etzhayyim.com:actor:emerson_experion-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreib36projgqaltt6puu3q4ojo4dub3uf6s4zgiprazb5ixg5wqj5su",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/emerson_experion-compat/openapi.json"
     },
     {
       "handle": "emotiv-compat",
       "did": "did:web:etzhayyim.com:actor:emotiv-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreihwveyfdy4pqmo4oqabonukr74upuyphy6abuxjvi4jglllvzpuy4",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/emotiv-compat/openapi.json"
     },
     {
       "handle": "encompass-compat",
@@ -5027,19 +5027,19 @@
     {
       "handle": "entrata-compat",
       "did": "did:web:etzhayyim.com:actor:entrata-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreiaerkstm2zoamawb7i5cergkvisw4pukvgifoifi2nyybjtsbzrbm",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/entrata-compat/openapi.json"
     },
     {
       "handle": "entsoe-compat",
@@ -5180,19 +5180,19 @@
     {
       "handle": "epsg_registry-compat",
       "did": "did:web:etzhayyim.com:actor:epsg_registry-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreiadzmi4cbwpqn7gfvosin25j363v7utwd5xovfnpgk2eewc6dnyea",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/epsg_registry-compat/openapi.json"
     },
     {
       "handle": "ercot-compat",
@@ -5248,19 +5248,19 @@
     {
       "handle": "eu_customs_emcs-compat",
       "did": "did:web:etzhayyim.com:actor:eu_customs_emcs-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreidj3sjwuhud4gxqu6nyeuug6oeyacvxwtcutehne4kepdhzq5r7om",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/eu_customs_emcs-compat/openapi.json"
     },
     {
       "handle": "euroclear-compat",
@@ -5537,19 +5537,19 @@
     {
       "handle": "fda-compat",
       "did": "did:web:etzhayyim.com:actor:fda-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreihmwvyxjxmkycdtxfsacm5hn7bxeqicmxfjqlk3j3jm6cbp2gm47u",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/fda-compat/openapi.json"
     },
     {
       "handle": "fdic-compat",
@@ -5673,19 +5673,19 @@
     {
       "handle": "firebase-compat",
       "did": "did:web:etzhayyim.com:actor:firebase-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreig2vsxllq4yr3juofv6rau54qu34lkhi3n6iyot62ddtdbl36qlgi",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/firebase-compat/openapi.json"
     },
     {
       "handle": "firebase_games-compat",
@@ -5707,19 +5707,19 @@
     {
       "handle": "first_light_fusion-compat",
       "did": "did:web:etzhayyim.com:actor:first_light_fusion-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreib7jtfqhnzk5tpzglldwz2jiuce5jsd7rl7yafj5ar7l3lixto5eq",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/first_light_fusion-compat/openapi.json"
     },
     {
       "handle": "firstdata_network-compat",
@@ -5979,19 +5979,19 @@
     {
       "handle": "forgerock-compat",
       "did": "did:web:etzhayyim.com:actor:forgerock-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreieo3bagqapiaczbkeyeuyjco74uurvrbynuq4acuipffyklwin2xy",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/forgerock-compat/openapi.json"
     },
     {
       "handle": "fortinet-compat",
@@ -6013,19 +6013,19 @@
     {
       "handle": "freebsd-compat",
       "did": "did:web:etzhayyim.com:actor:freebsd-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreiedsvvpe3f5z3cqqdvg7nqbbef3h7u35nbk425iizfcdwh7pbb2fm",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/freebsd-compat/openapi.json"
     },
     {
       "handle": "freee-compat",
@@ -6081,19 +6081,19 @@
     {
       "handle": "freshworks-compat",
       "did": "did:web:etzhayyim.com:actor:freshworks-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreifpro6wpjbvrtfrlxykedjic222jwgjlxec3kquedww5wltanpkay",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/freshworks-compat/openapi.json"
     },
     {
       "handle": "fsa_japan-compat",
@@ -6132,19 +6132,19 @@
     {
       "handle": "fujitsu_msp-compat",
       "did": "did:web:etzhayyim.com:actor:fujitsu_msp-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreifsgn32qx4indn6ahvcbekpw2odrs2bkxa3gv44oas7f7opirdmmy",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/fujitsu_msp-compat/openapi.json"
     },
     {
       "handle": "gainsight-compat",
@@ -6319,19 +6319,19 @@
     {
       "handle": "gepredix-compat",
       "did": "did:web:etzhayyim.com:actor:gepredix-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreievrtlzx7nkqme4ptn7ru7b5kqgddpsg4wj2l4a55dvxwpknjn5di",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/gepredix-compat/openapi.json"
     },
     {
       "handle": "ginkgo_bioworks-compat",
@@ -6472,19 +6472,19 @@
     {
       "handle": "gojek-compat",
       "did": "did:web:etzhayyim.com:actor:gojek-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreig4k4graqmqxhipccbn7nmv7yq5dzgorfz5xqggldlgdr3ldpp3ue",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/gojek-compat/openapi.json"
     },
     {
       "handle": "gong-compat",
@@ -9022,19 +9022,19 @@
     {
       "handle": "looker-compat",
       "did": "did:web:etzhayyim.com:actor:looker-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreif234wvyhsqlsq265u44ui6pavbmeth7znl7xg7ffe2d24pwp776i",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/looker-compat/openapi.json"
     },
     {
       "handle": "losant-compat",
@@ -10552,19 +10552,19 @@
     {
       "handle": "netsuite-compat",
       "did": "did:web:etzhayyim.com:actor:netsuite-compat",
-      "tier": "L3",
+      "tier": "L4",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreihmvim7zujhunb52sembyradbfuuiem35qkgoo5lhondyj2agv2qq",
       "health": "/healthz",
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
-      "openapi": null
+      "openapi": "20-actors/netsuite-compat/openapi.json"
     },
     {
       "handle": "neurable-compat",

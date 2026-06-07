@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible intl org / central bank data actor (bis); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:bis-compat",
-    "x-wasm-cid": "bafkreihplh7s2fz4d35q7eobclzfe6jx74mlxbc3yhkfppvkdrifud7kj4",
+    "x-wasm-cid": "bafkreigczgtb4b7htcjsuaypcnnqj7ktigv2jqtkhl6jtwxhc3ilys4q54",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreihplh7s2fz4d35q7eobclzfe6jx74mlxbc3yhkfppvkdrifud7kj4",
+      "url": "ipfs://bafkreigczgtb4b7htcjsuaypcnnqj7ktigv2jqtkhl6jtwxhc3ilys4q54",
       "description": "browser-local kotoba-wasm component"
     }
   ],

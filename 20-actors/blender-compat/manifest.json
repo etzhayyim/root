@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreifn3inopl2a3bfve4iyapbbnb7g52kht6k5l6gurrj2dnm4mk2lzi",
   "schema": "schema/blender.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Project",
     "File",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

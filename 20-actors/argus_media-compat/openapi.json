@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible energy commodities actor (argus_media); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:argus_media-compat",
-    "x-wasm-cid": "bafkreictuhe5rcziwtkapnvfhehei255ftv7l47vyu7r4uxlz3v6hlofp4",
+    "x-wasm-cid": "bafkreici6x6ixg46evwhaexkokudqxkxgijjyhbzekhrc6ue6dblskvkky",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreictuhe5rcziwtkapnvfhehei255ftv7l47vyu7r4uxlz3v6hlofp4",
+      "url": "ipfs://bafkreici6x6ixg46evwhaexkokudqxkxgijjyhbzekhrc6ue6dblskvkky",
       "description": "browser-local kotoba-wasm component"
     }
   ],

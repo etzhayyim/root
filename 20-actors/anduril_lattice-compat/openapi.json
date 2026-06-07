@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible public safety / law / justice actor (anduril_lattice); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:anduril_lattice-compat",
-    "x-wasm-cid": "bafkreiamt7bqlc3ti7opcw7ffx7mxhxp4xy46n2nkpxeugbiapjg2iklbq",
+    "x-wasm-cid": "bafkreibsmsak6ajjeesqggh3y2ou2al6cnjlgygmyzxapffnadi7ylqujy",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreiamt7bqlc3ti7opcw7ffx7mxhxp4xy46n2nkpxeugbiapjg2iklbq",
+      "url": "ipfs://bafkreibsmsak6ajjeesqggh3y2ou2al6cnjlgygmyzxapffnadi7ylqujy",
       "description": "browser-local kotoba-wasm component"
     }
   ],

@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiftr4klxcvyk5r3lqpybnvhwsnaxgtawvkpbylnep7mp6vrv22s7u",
   "schema": "schema/binance.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Account",
     "Card",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

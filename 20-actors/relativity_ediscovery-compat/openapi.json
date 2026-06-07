@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible legal / eDiscovery actor (relativity_ediscovery); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:relativity_ediscovery-compat",
-    "x-wasm-cid": "bafkreifltlmbwzwkxd2qo6d6v3252hi5epa7crylvn2yte7jkgqdke2oje",
+    "x-wasm-cid": "bafkreiby26rjyk3qbubo3nsxbbpvgc7xzulglajei5idjppkv7wh7yi42i",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreifltlmbwzwkxd2qo6d6v3252hi5epa7crylvn2yte7jkgqdke2oje",
+      "url": "ipfs://bafkreiby26rjyk3qbubo3nsxbbpvgc7xzulglajei5idjppkv7wh7yi42i",
       "description": "browser-local kotoba-wasm component"
     }
   ],

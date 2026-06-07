@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible real estate / MLS / PropTech actor (buildium); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:buildium-compat",
-    "x-wasm-cid": "bafkreia6qrt7nzb63dmq5op7f2ngao7rbp4v5smqtplvbsh2dfqwopxjqq",
+    "x-wasm-cid": "bafkreiaav22zrg2f5i44b27fnn5mjoczvlzla6wpkpghhorqjtg5uh7ryi",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreia6qrt7nzb63dmq5op7f2ngao7rbp4v5smqtplvbsh2dfqwopxjqq",
+      "url": "ipfs://bafkreiaav22zrg2f5i44b27fnn5mjoczvlzla6wpkpghhorqjtg5uh7ryi",
       "description": "browser-local kotoba-wasm component"
     }
   ],

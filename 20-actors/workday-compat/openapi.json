@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible HR technology actor (workday); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:workday-compat",
-    "x-wasm-cid": "bafkreihdxzrnzzgbq3vfobrmvuqpdep23ofnatu5n35gjsvhwmtrqovdoa",
+    "x-wasm-cid": "bafkreihoxqlhbb7vvoo6d7k4youk4yd2jne2uheptawmubga7lbjfgdzie",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreihdxzrnzzgbq3vfobrmvuqpdep23ofnatu5n35gjsvhwmtrqovdoa",
+      "url": "ipfs://bafkreihoxqlhbb7vvoo6d7k4youk4yd2jne2uheptawmubga7lbjfgdzie",
       "description": "browser-local kotoba-wasm component"
     }
   ],

@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible IoT / edge actor (boschiot); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:boschiot-compat",
-    "x-wasm-cid": "bafkreig74fkwnunhrqqbjud4n5hj4dni6ogbung4lgbyzkmh3rim5m6e6y",
+    "x-wasm-cid": "bafkreidm47qwpnjsc4cdxum2quhjjyycrlkjx4gs3wq24pfdsghvkqgcdu",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreig74fkwnunhrqqbjud4n5hj4dni6ogbung4lgbyzkmh3rim5m6e6y",
+      "url": "ipfs://bafkreidm47qwpnjsc4cdxum2quhjjyycrlkjx4gs3wq24pfdsghvkqgcdu",
       "description": "browser-local kotoba-wasm component"
     }
   ],

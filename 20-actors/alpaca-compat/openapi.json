@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible fintech / web3 actor (alpaca); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:alpaca-compat",
-    "x-wasm-cid": "bafkreigj2pcofpjpgmxyshlr2z5o65gtx4exzcc4n4lkej66kohbdpbytm",
+    "x-wasm-cid": "bafkreiatpwy7xvusilnghito4rv5ln6nuu7yuttvokoarzo6k2cb56pymq",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreigj2pcofpjpgmxyshlr2z5o65gtx4exzcc4n4lkej66kohbdpbytm",
+      "url": "ipfs://bafkreiatpwy7xvusilnghito4rv5ln6nuu7yuttvokoarzo6k2cb56pymq",
       "description": "browser-local kotoba-wasm component"
     }
   ],

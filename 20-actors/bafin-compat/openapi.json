@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible UK / EU e-government actor (bafin); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:bafin-compat",
-    "x-wasm-cid": "bafkreihe7dltbmg62as4y2u24tp5zh3pql7srds3zv7dijehvtybhudmmu",
+    "x-wasm-cid": "bafkreid7okniytmmhh2t2j3nt5grocmaz3hytxlkkgfpnaszhgcnbwev3u",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreihe7dltbmg62as4y2u24tp5zh3pql7srds3zv7dijehvtybhudmmu",
+      "url": "ipfs://bafkreid7okniytmmhh2t2j3nt5grocmaz3hytxlkkgfpnaszhgcnbwev3u",
       "description": "browser-local kotoba-wasm component"
     }
   ],

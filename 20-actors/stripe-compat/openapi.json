@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible payments / money movement actor (stripe); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:stripe-compat",
-    "x-wasm-cid": "bafkreibsgp32yx4rwko6qhwxlmw2f5wdnlzlup2tsuxyyqqa47uaexuovu",
+    "x-wasm-cid": "bafkreidjpmhiynl4mazx2x4wuhozj2l5ez4ndk7ifdwec42am6ir5hpuaa",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreibsgp32yx4rwko6qhwxlmw2f5wdnlzlup2tsuxyyqqa47uaexuovu",
+      "url": "ipfs://bafkreidjpmhiynl4mazx2x4wuhozj2l5ez4ndk7ifdwec42am6ir5hpuaa",
       "description": "browser-local kotoba-wasm component"
     }
   ],

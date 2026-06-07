@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible headless commerce / logistics actor (aftership); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:aftership-compat",
-    "x-wasm-cid": "bafkreibwwps4akcbu3ab4zl3lg3nh3s2axem4vff5z6mwriggrrluu5veu",
+    "x-wasm-cid": "bafkreie4jlvgs7ovpmqiifqh2ewgnru55iaznfghihtr4gsiiqmeatnkim",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreibwwps4akcbu3ab4zl3lg3nh3s2axem4vff5z6mwriggrrluu5veu",
+      "url": "ipfs://bafkreie4jlvgs7ovpmqiifqh2ewgnru55iaznfghihtr4gsiiqmeatnkim",
       "description": "browser-local kotoba-wasm component"
     }
   ],

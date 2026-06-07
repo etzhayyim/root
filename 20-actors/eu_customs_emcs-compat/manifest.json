@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreidj3sjwuhud4gxqu6nyeuug6oeyacvxwtcutehne4kepdhzq5r7om",
   "schema": "schema/eu_customs_emcs.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Declaration",
     "Shipment",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

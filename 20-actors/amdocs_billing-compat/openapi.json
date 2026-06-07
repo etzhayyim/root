@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible telecom / satellite actor (amdocs_billing); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:amdocs_billing-compat",
-    "x-wasm-cid": "bafkreifolvls6osjlbgmea7dpqept2tqm36vu5mxn4jkngvewcv2ksgsey",
+    "x-wasm-cid": "bafkreigkw6lqmyf4s4d5rhurqgrhnt32r6viziiqqsb766oy3tnollybya",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreifolvls6osjlbgmea7dpqept2tqm36vu5mxn4jkngvewcv2ksgsey",
+      "url": "ipfs://bafkreigkw6lqmyf4s4d5rhurqgrhnt32r6viziiqqsb766oy3tnollybya",
       "description": "browser-local kotoba-wasm component"
     }
   ],

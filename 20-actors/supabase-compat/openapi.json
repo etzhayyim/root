@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible DevSecOps / serverless actor (supabase); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:supabase-compat",
-    "x-wasm-cid": "bafkreifir4efs4gv3ovtctp6iiizjxrukh7gdlh6w7lzwcfmz37v5scaoy",
+    "x-wasm-cid": "bafkreia3wgn4oqn54bsastmganksmxsgx2z4l7257cqp35xhpotcn7ykt4",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreifir4efs4gv3ovtctp6iiizjxrukh7gdlh6w7lzwcfmz37v5scaoy",
+      "url": "ipfs://bafkreia3wgn4oqn54bsastmganksmxsgx2z4l7257cqp35xhpotcn7ykt4",
       "description": "browser-local kotoba-wasm component"
     }
   ],

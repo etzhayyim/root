@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible public safety / law / justice actor (interpol); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:interpol-compat",
-    "x-wasm-cid": "bafkreias4p42vihtkmpz63mymj5dtltckffltgnlynwru5gccqxhvdsviq",
+    "x-wasm-cid": "bafkreigorwv3jvck756vzz3g33czmuprtl3zlzkohy3tt5oyl67d2rfy2q",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreias4p42vihtkmpz63mymj5dtltckffltgnlynwru5gccqxhvdsviq",
+      "url": "ipfs://bafkreigorwv3jvck756vzz3g33czmuprtl3zlzkohy3tt5oyl67d2rfy2q",
       "description": "browser-local kotoba-wasm component"
     }
   ],

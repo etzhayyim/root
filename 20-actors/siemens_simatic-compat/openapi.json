@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible industrial SCADA actor (siemens_simatic); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:siemens_simatic-compat",
-    "x-wasm-cid": "bafkreicrsnkgwzzmaoggz62o2w25cggtcnhqlcb7hm6xvljxidu7uxaqkm",
+    "x-wasm-cid": "bafkreicvo26vkozjxdpkwk6r7r5r5cd7pcauzwzl257v7lxhnaycos2tka",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreicrsnkgwzzmaoggz62o2w25cggtcnhqlcb7hm6xvljxidu7uxaqkm",
+      "url": "ipfs://bafkreicvo26vkozjxdpkwk6r7r5r5cd7pcauzwzl257v7lxhnaycos2tka",
       "description": "browser-local kotoba-wasm component"
     }
   ],

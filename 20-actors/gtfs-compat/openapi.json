@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible transit / smart cities actor (gtfs); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:gtfs-compat",
-    "x-wasm-cid": "bafkreiam2fuqblogvxkfkc2artuw7ylofdah7ucjj5zv7ynxoqleojhvc4",
+    "x-wasm-cid": "bafkreicbtb2hg3f6as7ivd2dejektvt4bwx7qpre3oi2bvzr6tt57jbyii",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreiam2fuqblogvxkfkc2artuw7ylofdah7ucjj5zv7ynxoqleojhvc4",
+      "url": "ipfs://bafkreicbtb2hg3f6as7ivd2dejektvt4bwx7qpre3oi2bvzr6tt57jbyii",
       "description": "browser-local kotoba-wasm component"
     }
   ],

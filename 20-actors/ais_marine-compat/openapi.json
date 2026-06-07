@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible space / ocean / earth physics actor (ais_marine); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:ais_marine-compat",
-    "x-wasm-cid": "bafkreidsxvhwbfpuozkzgc53vox3hi7lqavdw546ozk6iub5elwokqlp5q",
+    "x-wasm-cid": "bafkreiaurouzqkvzc2wdnrwbm3xtcds6za42vpgnmtrdpejan7n7ekctfi",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreidsxvhwbfpuozkzgc53vox3hi7lqavdw546ozk6iub5elwokqlp5q",
+      "url": "ipfs://bafkreiaurouzqkvzc2wdnrwbm3xtcds6za42vpgnmtrdpejan7n7ekctfi",
       "description": "browser-local kotoba-wasm component"
     }
   ],

@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreig2vsxllq4yr3juofv6rau54qu34lkhi3n6iyot62ddtdbl36qlgi",
   "schema": "schema/firebase.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Service",
     "Deployment",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

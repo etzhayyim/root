@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihmwvyxjxmkycdtxfsacm5hn7bxeqicmxfjqlk3j3jm6cbp2gm47u",
   "schema": "schema/fda.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Filing",
     "Entity",
@@ -184,11 +184,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

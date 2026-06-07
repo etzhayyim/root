@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible AgriTech / food actor (johndeere_api); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:johndeere_api-compat",
-    "x-wasm-cid": "bafkreifkolwkg27vyjbf7xorztbgxxyljhopb6zafu2rhdi3uaqsxen6ve",
+    "x-wasm-cid": "bafkreich6npsd5jrlxtkqr2leyvu7mdons7zbrkk3ousak7wpm55zmliri",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreifkolwkg27vyjbf7xorztbgxxyljhopb6zafu2rhdi3uaqsxen6ve",
+      "url": "ipfs://bafkreich6npsd5jrlxtkqr2leyvu7mdons7zbrkk3ousak7wpm55zmliri",
       "description": "browser-local kotoba-wasm component"
     }
   ],

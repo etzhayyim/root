@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible mainframe / legacy substrate actor (as_400_ibmi); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:as_400_ibmi-compat",
-    "x-wasm-cid": "bafkreia64lnneakre5gjel6xctzim6t3ypxykoe55ahxzbourcgomvx5we",
+    "x-wasm-cid": "bafkreigsr6fqepbaqnx2gfh6rzhy5fnilszx6ndwhx427ws4crrbo4vhti",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreia64lnneakre5gjel6xctzim6t3ypxykoe55ahxzbourcgomvx5we",
+      "url": "ipfs://bafkreigsr6fqepbaqnx2gfh6rzhy5fnilszx6ndwhx427ws4crrbo4vhti",
       "description": "browser-local kotoba-wasm component"
     }
   ],

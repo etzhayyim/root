@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible DevSecOps / serverless actor (apigee); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:apigee-compat",
-    "x-wasm-cid": "bafkreibwo7qrzw7wh2eoh2sf4tqqyzgrobhfd2342idbejttk4ioiisllm",
+    "x-wasm-cid": "bafkreicq3f2ixi42o3trwcwctmthd7i7cawc4bdgqxro4z2zm2qqbi4mku",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreibwo7qrzw7wh2eoh2sf4tqqyzgrobhfd2342idbejttk4ioiisllm",
+      "url": "ipfs://bafkreicq3f2ixi42o3trwcwctmthd7i7cawc4bdgqxro4z2zm2qqbi4mku",
       "description": "browser-local kotoba-wasm component"
     }
   ],

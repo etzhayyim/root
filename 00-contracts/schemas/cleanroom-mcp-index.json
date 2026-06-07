@@ -120,7 +120,7 @@
     {
       "handle": "adyen-compat",
       "did": "did:web:etzhayyim.com:actor:adyen-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreiflz4pkbigafgh2gugoafxwaoz3dsdqmx6w25zyv3qxrz3hxypdd4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -147,7 +147,7 @@
     {
       "handle": "agones-compat",
       "did": "did:web:etzhayyim.com:actor:agones-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreihgcodvzmh5jwswtfin4xke4w6yxqabkmk2kdfdwnbeyvwsnra7le",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -210,7 +210,7 @@
     {
       "handle": "algolia-compat",
       "did": "did:web:etzhayyim.com:actor:algolia-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreigiitzaomidocd3udgm4st4cw3je6wy35fb66ab55itf3oej2lxue",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -228,7 +228,7 @@
     {
       "handle": "alipay-compat",
       "did": "did:web:etzhayyim.com:actor:alipay-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreiedpe75nzibj3ls6bpzdylsfgpni6p4yjdwphnoolnda2vtihznl4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -255,7 +255,7 @@
     {
       "handle": "altair-compat",
       "did": "did:web:etzhayyim.com:actor:altair-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreibblbqn4cbep7jtmwgxyz43gvsqbcwhtwsuibqezd2aolc3msps5q",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -264,7 +264,7 @@
     {
       "handle": "amadeus_airlines-compat",
       "did": "did:web:etzhayyim.com:actor:amadeus_airlines-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreihvb7mkj74ijc2elwakgdpwy5ywqk5v42qiyeiwufyf23u6czlkx4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -372,7 +372,7 @@
     {
       "handle": "aphis_usda-compat",
       "did": "did:web:etzhayyim.com:actor:aphis_usda-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreidwemadkj2aopycnfnkokfpvn7xchsz7gmtt6hc4cdtos32vmbqre",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -426,7 +426,7 @@
     {
       "handle": "apple_visionos-compat",
       "did": "did:web:etzhayyim.com:actor:apple_visionos-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreia7p47gqq5ciwpkopzk6taquoascdsaeiphoted4ochpgbff6z62q",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -444,7 +444,7 @@
     {
       "handle": "appsflyer-compat",
       "did": "did:web:etzhayyim.com:actor:appsflyer-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreie27u35cdqx34hfju5kcmgh45derc7mhpb24vb4m5erjyswhxfwmi",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -462,7 +462,7 @@
     {
       "handle": "argo_ocean_floats-compat",
       "did": "did:web:etzhayyim.com:actor:argo_ocean_floats-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreicdsj67iaxxlp7eodbyosqaiacvdq4fubfbfwoy2obgkfuldiuq5m",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -525,7 +525,7 @@
     {
       "handle": "asana-compat",
       "did": "did:web:etzhayyim.com:actor:asana-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreifh3qbzbcy6a33d7gus5ffjtnwpj5hid64obcgwnkohumxse4zjmi",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -552,7 +552,7 @@
     {
       "handle": "astm_codes-compat",
       "did": "did:web:etzhayyim.com:actor:astm_codes-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreicwra3t4z4udp5fzeuxfrqm2cleq3ppafs2tyev7qv66o52i7sfxe",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -561,7 +561,7 @@
     {
       "handle": "athenahealth-compat",
       "did": "did:web:etzhayyim.com:actor:athenahealth-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreidyhu3tq3twxzlznejvx6wgm6z772deyzzqt2lfwnrdhbk45sy2xa",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -588,7 +588,7 @@
     {
       "handle": "aurora_driver-compat",
       "did": "did:web:etzhayyim.com:actor:aurora_driver-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreigrcbrgkn2zg2deq23yvzwz7whhnchxzgvoiarcmb4355ni75dhvy",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -633,7 +633,7 @@
     {
       "handle": "autogpt_forge-compat",
       "did": "did:web:etzhayyim.com:actor:autogpt_forge-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreics5zmb67ooenfyeo7ak75yocyiqvmewfqkco4p52ngk3iflqy75y",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -678,7 +678,7 @@
     {
       "handle": "aws_braket-compat",
       "did": "did:web:etzhayyim.com:actor:aws_braket-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreicsmuzhtt4vm4zukpe3oqzyxhf3gfp5dtkmmnwjt4lvvs5qqktoxq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -687,7 +687,7 @@
     {
       "handle": "aws_inferentia-compat",
       "did": "did:web:etzhayyim.com:actor:aws_inferentia-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreidzml2vubsrfbknuxd7faxtwfjpedbb6svuzuusc6gcildjnpd5zu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -732,7 +732,7 @@
     {
       "handle": "baesystems_c4isr-compat",
       "did": "did:web:etzhayyim.com:actor:baesystems_c4isr-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreiev3bpjl2ikqt4dnonvlnwomw5zr7dqyad4tjf2ej6wj5ducsz6gu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -759,7 +759,7 @@
     {
       "handle": "baker_hughes_jewel-compat",
       "did": "did:web:etzhayyim.com:actor:baker_hughes_jewel-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreifdhfjdzbv77uz3d7hpb7m3zos3fotshn24ubn3yshk7u7czk7yam",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -795,7 +795,7 @@
     {
       "handle": "barclays_marl-compat",
       "did": "did:web:etzhayyim.com:actor:barclays_marl-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreig6dol4msquvvitihhs4fi2xixxdwof3iqtlvvr6xb5e3pmvlinb4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -840,7 +840,7 @@
     {
       "handle": "berkeley_lights-compat",
       "did": "did:web:etzhayyim.com:actor:berkeley_lights-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreigygg4zy3doe3kwzpr4aqcbnr2qhwgoxmzoozthakoida2dscs6ty",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -867,7 +867,7 @@
     {
       "handle": "bic_container_codes-compat",
       "did": "did:web:etzhayyim.com:actor:bic_container_codes-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreie77mhj2eeyik27fdyhqlda644ftqmysqqguqzkot6lhhelfqtvde",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -876,7 +876,7 @@
     {
       "handle": "biconomy-compat",
       "did": "did:web:etzhayyim.com:actor:biconomy-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreigjpxhqwfzuc6a454xzfhpoil2xzm5vs4asis3ysjcvga64dgzxiq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -885,7 +885,7 @@
     {
       "handle": "bigcommerce-compat",
       "did": "did:web:etzhayyim.com:actor:bigcommerce-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreihtbxjxoqzzurvhc4c3wq6ki76lpgwlkhtnvk7usbzifd3rhfjs7i",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -921,7 +921,7 @@
     {
       "handle": "binance-compat",
       "did": "did:web:etzhayyim.com:actor:binance-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreiftr4klxcvyk5r3lqpybnvhwsnaxgtawvkpbylnep7mp6vrv22s7u",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -957,7 +957,7 @@
     {
       "handle": "bitbucket-compat",
       "did": "did:web:etzhayyim.com:actor:bitbucket-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreicglcgmrpnibv7viji54n5wiyxj5jbif4jd77okhxvvavqcmzlvyq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -975,7 +975,7 @@
     {
       "handle": "blackboard-compat",
       "did": "did:web:etzhayyim.com:actor:blackboard-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreieyudia74pvpr27r7tz2oc4qgiveja4cnj3icl566uozvm7b6wq4i",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -1002,7 +1002,7 @@
     {
       "handle": "blender-compat",
       "did": "did:web:etzhayyim.com:actor:blender-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreifn3inopl2a3bfve4iyapbbnb7g52kht6k5l6gurrj2dnm4mk2lzi",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -1056,7 +1056,7 @@
     {
       "handle": "blueprism-compat",
       "did": "did:web:etzhayyim.com:actor:blueprism-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreia7gjmv6bvw7y55y4yqh6p26js7blsybsqbjvqca5ttm5zctsdv3u",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -1065,7 +1065,7 @@
     {
       "handle": "blueyonder-compat",
       "did": "did:web:etzhayyim.com:actor:blueyonder-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreiag3myzbogkkjenpxes6g2lix6awtxo7uzip3h7mgzrlw4uwd2wba",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -1083,7 +1083,7 @@
     {
       "handle": "boe-compat",
       "did": "did:web:etzhayyim.com:actor:boe-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreibb3e5syu5agydbc7rgppywcn7vqtqks4tngy3fvj7uoj5hy26qou",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -1128,7 +1128,7 @@
     {
       "handle": "bolt-compat",
       "did": "did:web:etzhayyim.com:actor:bolt-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreifqabxujn3p65k6ewgislywtd4ka2vzkn7nmx6jpq4ciapauch6ce",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -1182,7 +1182,7 @@
     {
       "handle": "brightcove-compat",
       "did": "did:web:etzhayyim.com:actor:brightcove-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreigiwst5rqtohdd4dwhezg4o2mxg6v2rxatzvnafvjf42q7wxd5xey",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -1209,7 +1209,7 @@
     {
       "handle": "bubble-compat",
       "did": "did:web:etzhayyim.com:actor:bubble-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreihwya4bgjhmngc7w4djymdg77tbr4iwv2e6tpgfj742v2owqeo4gq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -1326,7 +1326,7 @@
     {
       "handle": "cardinal_health-compat",
       "did": "did:web:etzhayyim.com:actor:cardinal_health-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreidbcezpirat4bhgr35vud3vbnywos5okrswphrjkw4f6xguqt3bly",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -1389,7 +1389,7 @@
     {
       "handle": "cdr_australia-compat",
       "did": "did:web:etzhayyim.com:actor:cdr_australia-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreihxyaikudy6bogyod3g24vz24y5jsbg7c4jq4t5uv4oj4f2uo5vba",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -1425,7 +1425,7 @@
     {
       "handle": "censys-compat",
       "did": "did:web:etzhayyim.com:actor:censys-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreihjb46d3c5w5iithnpfhdaly2oyaft3wu54dsxw7ww3xegvo7ok4e",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -1434,7 +1434,7 @@
     {
       "handle": "cerillion-compat",
       "did": "did:web:etzhayyim.com:actor:cerillion-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreigdbvvdn56hpt62sjgntjr6llwmx5tntdj5oyztlwzc47imb5adwq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -1596,7 +1596,7 @@
     {
       "handle": "classy-compat",
       "did": "did:web:etzhayyim.com:actor:classy-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreid2g7i5tj24jsodorrpn4bi5njndwal6dnbpdxxvp275ob5j2xxjy",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -1650,7 +1650,7 @@
     {
       "handle": "cloudflare-compat",
       "did": "did:web:etzhayyim.com:actor:cloudflare-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreigu3r5x6vudgbpypd6r4jdv4qmffvr5ibjnptt37vm2w5v3hqftae",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -1668,7 +1668,7 @@
     {
       "handle": "cma-compat",
       "did": "did:web:etzhayyim.com:actor:cma-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreib7qdxa57j5a2cny4kt2htr2qvw2ciekhwd4jvka7i6rz5bz7xbqi",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -1686,7 +1686,7 @@
     {
       "handle": "cme_globex-compat",
       "did": "did:web:etzhayyim.com:actor:cme_globex-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreibxojhig7w3ggenxtx52f2qqouag7qt7vohvvnvgtealcaa3x7olm",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -1704,7 +1704,7 @@
     {
       "handle": "cohere-compat",
       "did": "did:web:etzhayyim.com:actor:cohere-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreicnovmwib4aqmkgxpkpjijjho6ehv4wswwanogsho4t6dvnpwtzka",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -1785,7 +1785,7 @@
     {
       "handle": "compliancequest-compat",
       "did": "did:web:etzhayyim.com:actor:compliancequest-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreidy3twdbufvqa47npbechoq26qgm5isbpghdzadmufyvxynaohjey",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -1794,7 +1794,7 @@
     {
       "handle": "confluent-compat",
       "did": "did:web:etzhayyim.com:actor:confluent-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreihlqxetq4clfv3orcs6ikctqqnpkwayqcaxgw5qukxqqixecq743u",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -1893,7 +1893,7 @@
     {
       "handle": "cowin-compat",
       "did": "did:web:etzhayyim.com:actor:cowin-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreienuixbt2rwwxdrprpfmwma25ij3tajad5n737jwjy5ddrfcnam2e",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -1956,7 +1956,7 @@
     {
       "handle": "crypta_labs-compat",
       "did": "did:web:etzhayyim.com:actor:crypta_labs-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreiahisgxtcl26wxihgu6qovllulrxtlb33s6tptu77tuievm2an2w4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -1965,7 +1965,7 @@
     {
       "handle": "cs_disco-compat",
       "did": "did:web:etzhayyim.com:actor:cs_disco-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreiepompyd2jq3nzncgs2sdj4fyz7rycpjrtwscitvh2dnnjbdanwge",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -2037,7 +2037,7 @@
     {
       "handle": "cybozu-compat",
       "did": "did:web:etzhayyim.com:actor:cybozu-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreif4e4w2kp6ckvptkb4x2lht4yhsjzoviooqpmpqj4zazagiu6qdd4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -2073,7 +2073,7 @@
     {
       "handle": "dassault_enovia-compat",
       "did": "did:web:etzhayyim.com:actor:dassault_enovia-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreiefllyxowtti64vqc6sbuxiwujdx6q5rqv6pi54ag5hvxsknnit4m",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -2136,7 +2136,7 @@
     {
       "handle": "ddbj-compat",
       "did": "did:web:etzhayyim.com:actor:ddbj-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreic4lloccrnzs46ymcbyuzo3ihi2bjyfvfki56qhq4hgj7ryrkvwii",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -2145,7 +2145,7 @@
     {
       "handle": "deel-compat",
       "did": "did:web:etzhayyim.com:actor:deel-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreifz2gnnrseeqbwoqosapn5pqnlscrvvvzjkokmt6vw3f5bktvrlza",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -2154,7 +2154,7 @@
     {
       "handle": "deliveroo-compat",
       "did": "did:web:etzhayyim.com:actor:deliveroo-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreie6mglmfnv7k26g5jtdfolip575xj7fapoiulf5frc5u3mrw2ufba",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -2163,7 +2163,7 @@
     {
       "handle": "deutschebahn-compat",
       "did": "did:web:etzhayyim.com:actor:deutschebahn-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreiceeqpqyysvam7fz3ao6yxzbqepfmbgx3yfrpgjjjiqyyawhsiq3q",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -2271,7 +2271,7 @@
     {
       "handle": "dji_onboard_sdk-compat",
       "did": "did:web:etzhayyim.com:actor:dji_onboard_sdk-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreicozgyzbfgald5w3rkzicl3nfuvqn6xkw6janhmjofwmklxmi5b34",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -2298,7 +2298,7 @@
     {
       "handle": "dns_root_zone-compat",
       "did": "did:web:etzhayyim.com:actor:dns_root_zone-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreidsmkoi4awmhlpn5o32dtdnshuxhhijf437lki76y4otrdenze76i",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -2325,7 +2325,7 @@
     {
       "handle": "doi_system-compat",
       "did": "did:web:etzhayyim.com:actor:doi_system-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreihhvfvhxgih7aicd3kmeqhd43pxgsjcn7plkijy6na3t4x3vt6er4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -2451,7 +2451,7 @@
     {
       "handle": "dynatrace-compat",
       "did": "did:web:etzhayyim.com:actor:dynatrace-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreifuf3iwaxzathmrzzevzbzczgvlzl76wbealcc6libt7ikxvwb5ca",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -2469,7 +2469,7 @@
     {
       "handle": "e_residency-compat",
       "did": "did:web:etzhayyim.com:actor:e_residency-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreibwzydyeq6x3cdeuvyo6nx4o7cwsjwuxho4lugr27sits3smapa6u",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -2559,7 +2559,7 @@
     {
       "handle": "eea_europe-compat",
       "did": "did:web:etzhayyim.com:actor:eea_europe-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreibmmj6zbnwjcicbnjl6kg72lujnkdtwqahaaxe6saatq3keqywiku",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -2568,7 +2568,7 @@
     {
       "handle": "eia_gov-compat",
       "did": "did:web:etzhayyim.com:actor:eia_gov-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreibtuvi7wvub6dkcewoljtazip27uxe73zawdph6h4l6xm7d5rhybi",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -2640,7 +2640,7 @@
     {
       "handle": "emerson_experion-compat",
       "did": "did:web:etzhayyim.com:actor:emerson_experion-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreib36projgqaltt6puu3q4ojo4dub3uf6s4zgiprazb5ixg5wqj5su",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -2649,7 +2649,7 @@
     {
       "handle": "emotiv-compat",
       "did": "did:web:etzhayyim.com:actor:emotiv-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreihwveyfdy4pqmo4oqabonukr74upuyphy6abuxjvi4jglllvzpuy4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -2667,7 +2667,7 @@
     {
       "handle": "entrata-compat",
       "did": "did:web:etzhayyim.com:actor:entrata-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreiaerkstm2zoamawb7i5cergkvisw4pukvgifoifi2nyybjtsbzrbm",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -2748,7 +2748,7 @@
     {
       "handle": "epsg_registry-compat",
       "did": "did:web:etzhayyim.com:actor:epsg_registry-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreiadzmi4cbwpqn7gfvosin25j363v7utwd5xovfnpgk2eewc6dnyea",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -2784,7 +2784,7 @@
     {
       "handle": "eu_customs_emcs-compat",
       "did": "did:web:etzhayyim.com:actor:eu_customs_emcs-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreidj3sjwuhud4gxqu6nyeuug6oeyacvxwtcutehne4kepdhzq5r7om",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -2937,7 +2937,7 @@
     {
       "handle": "fda-compat",
       "did": "did:web:etzhayyim.com:actor:fda-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreihmwvyxjxmkycdtxfsacm5hn7bxeqicmxfjqlk3j3jm6cbp2gm47u",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -3009,7 +3009,7 @@
     {
       "handle": "firebase-compat",
       "did": "did:web:etzhayyim.com:actor:firebase-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreig2vsxllq4yr3juofv6rau54qu34lkhi3n6iyot62ddtdbl36qlgi",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -3027,7 +3027,7 @@
     {
       "handle": "first_light_fusion-compat",
       "did": "did:web:etzhayyim.com:actor:first_light_fusion-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreib7jtfqhnzk5tpzglldwz2jiuce5jsd7rl7yafj5ar7l3lixto5eq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -3171,7 +3171,7 @@
     {
       "handle": "forgerock-compat",
       "did": "did:web:etzhayyim.com:actor:forgerock-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreieo3bagqapiaczbkeyeuyjco74uurvrbynuq4acuipffyklwin2xy",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -3189,7 +3189,7 @@
     {
       "handle": "freebsd-compat",
       "did": "did:web:etzhayyim.com:actor:freebsd-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreiedsvvpe3f5z3cqqdvg7nqbbef3h7u35nbk425iizfcdwh7pbb2fm",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -3225,7 +3225,7 @@
     {
       "handle": "freshworks-compat",
       "did": "did:web:etzhayyim.com:actor:freshworks-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreifpro6wpjbvrtfrlxykedjic222jwgjlxec3kquedww5wltanpkay",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -3252,7 +3252,7 @@
     {
       "handle": "fujitsu_msp-compat",
       "did": "did:web:etzhayyim.com:actor:fujitsu_msp-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreifsgn32qx4indn6ahvcbekpw2odrs2bkxa3gv44oas7f7opirdmmy",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -3351,7 +3351,7 @@
     {
       "handle": "gepredix-compat",
       "did": "did:web:etzhayyim.com:actor:gepredix-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreievrtlzx7nkqme4ptn7ru7b5kqgddpsg4wj2l4a55dvxwpknjn5di",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -3432,7 +3432,7 @@
     {
       "handle": "gojek-compat",
       "did": "did:web:etzhayyim.com:actor:gojek-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreig4k4graqmqxhipccbn7nmv7yq5dzgorfz5xqggldlgdr3ldpp3ue",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -4782,7 +4782,7 @@
     {
       "handle": "looker-compat",
       "did": "did:web:etzhayyim.com:actor:looker-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreif234wvyhsqlsq265u44ui6pavbmeth7znl7xg7ffe2d24pwp776i",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -5592,7 +5592,7 @@
     {
       "handle": "netsuite-compat",
       "did": "did:web:etzhayyim.com:actor:netsuite-compat",
-      "tier": "L3",
+      "tier": "L4",
       "endpoint": "ipfs://bafkreihmvim7zujhunb52sembyradbfuuiem35qkgoo5lhondyj2agv2qq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,

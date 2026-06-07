@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible RPA / process automation actor (automationanywhere); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:automationanywhere-compat",
-    "x-wasm-cid": "bafkreigmzwamenrev36umq34jbpx5j2xgyac6ueiba6qqzzi5tkio7la24",
+    "x-wasm-cid": "bafkreidlmutowplwabwh5tukuffqa3wfdef4pq3cwobpeg7xfct53jampa",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreigmzwamenrev36umq34jbpx5j2xgyac6ueiba6qqzzi5tkio7la24",
+      "url": "ipfs://bafkreidlmutowplwabwh5tukuffqa3wfdef4pq3cwobpeg7xfct53jampa",
       "description": "browser-local kotoba-wasm component"
     }
   ],

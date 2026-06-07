@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible Japan / APAC e-government actor (ato_australia); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:ato_australia-compat",
-    "x-wasm-cid": "bafkreicrxa6a5c34z5kxyvzesh423h4o5eg7pa2fwl2drqxcwwoxbznvtm",
+    "x-wasm-cid": "bafkreibbg6chhskg3agwfnrimypuwsfw5jh3jy42guhxmcbicgpupcgt2e",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreicrxa6a5c34z5kxyvzesh423h4o5eg7pa2fwl2drqxcwwoxbznvtm",
+      "url": "ipfs://bafkreibbg6chhskg3agwfnrimypuwsfw5jh3jy42guhxmcbicgpupcgt2e",
       "description": "browser-local kotoba-wasm component"
     }
   ],

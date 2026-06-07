@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible physical benchmarks / classifications actor (bipm_utc); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:bipm_utc-compat",
-    "x-wasm-cid": "bafkreihdh3bnsd27437ho46usxhpu543wlbmyuz3odk6d6ddmyqf35efiq",
+    "x-wasm-cid": "bafkreiezn4zde5bub6k4bgulusb2yfoyh7v7ymgyahuyj7onmfjcdberii",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreihdh3bnsd27437ho46usxhpu543wlbmyuz3odk6d6ddmyqf35efiq",
+      "url": "ipfs://bafkreiezn4zde5bub6k4bgulusb2yfoyh7v7ymgyahuyj7onmfjcdberii",
       "description": "browser-local kotoba-wasm component"
     }
   ],

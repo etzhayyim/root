@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible OS / kernel interface actor (android_aosp); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:android_aosp-compat",
-    "x-wasm-cid": "bafkreig2phztydb236xlta2ioaiq5yujyoc5ci7bb2tpesodj64hnjeu5e",
+    "x-wasm-cid": "bafkreidxrq7ihwf6lmte5x2gykekyktauuqbxlacwvlmmplhf76ifoybbi",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreig2phztydb236xlta2ioaiq5yujyoc5ci7bb2tpesodj64hnjeu5e",
+      "url": "ipfs://bafkreidxrq7ihwf6lmte5x2gykekyktauuqbxlacwvlmmplhf76ifoybbi",
       "description": "browser-local kotoba-wasm component"
     }
   ],

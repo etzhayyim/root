@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible materials / bio / chemical actor (cas_registry); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:cas_registry-compat",
-    "x-wasm-cid": "bafkreihdv7w4g6cyo5opdpgbci5ubmgs5ekdpj4ww43iel5b2jchgfhfbu",
+    "x-wasm-cid": "bafkreibs7zwzmxj65ij2rn6lwwqng5lmqjq6kmr3vzvqiqshsagapemsd4",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreihdv7w4g6cyo5opdpgbci5ubmgs5ekdpj4ww43iel5b2jchgfhfbu",
+      "url": "ipfs://bafkreibs7zwzmxj65ij2rn6lwwqng5lmqjq6kmr3vzvqiqshsagapemsd4",
       "description": "browser-local kotoba-wasm component"
     }
   ],

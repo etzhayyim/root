@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible RPA / process automation actor (uipath); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:uipath-compat",
-    "x-wasm-cid": "bafkreibv766sz2phzpclhbyjfkijdest65d53viyhsw3hjj7pf7osxtb3q",
+    "x-wasm-cid": "bafkreiheecmbmi4mgonm7d2ykhue653wyo55lpzpjeaykhyv4c723i2yky",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreibv766sz2phzpclhbyjfkijdest65d53viyhsw3hjj7pf7osxtb3q",
+      "url": "ipfs://bafkreiheecmbmi4mgonm7d2ykhue653wyo55lpzpjeaykhyv4c723i2yky",
       "description": "browser-local kotoba-wasm component"
     }
   ],
