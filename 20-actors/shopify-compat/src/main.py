@@ -461,6 +461,8 @@ def create_fulfillment(request):
     err = _require(data, ['status', 'trackingNumber'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['pending', 'open', 'success', 'cancelled', 'error', 'failure']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['pending', 'open', 'success', 'cancelled', 'error', 'failure']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("shopify_ful")}
     rec["orderId"] = data.get('orderId')
     rec["status"] = data.get('status')
@@ -500,6 +502,8 @@ def update_fulfillment(request, eid):
     err = _reject_unknown(data, ['orderId', 'status', 'trackingNumber'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['pending', 'open', 'success', 'cancelled', 'error', 'failure']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['pending', 'open', 'success', 'cancelled', 'error', 'failure']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):

@@ -1608,7 +1608,15 @@
             "type": "string"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "pending",
+              "open",
+              "success",
+              "cancelled",
+              "error",
+              "failure"
+            ]
           },
           "trackingNumber": {
             "type": "string"
@@ -1630,7 +1638,15 @@
             "type": "string"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "pending",
+              "open",
+              "success",
+              "cancelled",
+              "error",
+              "failure"
+            ]
           },
           "trackingNumber": {
             "type": "string"

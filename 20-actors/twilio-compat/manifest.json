@@ -17,7 +17,8 @@
     "verifiedAt": "2026-06-08",
     "resources": [
       "Message",
-      "Call"
+      "Call",
+      "Verification"
     ],
     "enums": {
       "Message": {
@@ -52,6 +53,26 @@
           "busy",
           "failed",
           "no-answer"
+        ]
+      },
+      "Verification": {
+        "channel": [
+          "sms",
+          "call",
+          "email",
+          "whatsapp",
+          "sna",
+          "auto",
+          "rcs"
+        ],
+        "status": [
+          "pending",
+          "approved",
+          "canceled",
+          "max_attempts_reached",
+          "deleted",
+          "failed",
+          "expired"
         ]
       }
     }

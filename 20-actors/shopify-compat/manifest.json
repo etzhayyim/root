@@ -17,7 +17,8 @@
     "verifiedAt": "2026-06-08",
     "resources": [
       "Product",
-      "Order"
+      "Order",
+      "Fulfillment"
     ],
     "enums": {
       "Product": {
@@ -36,6 +37,16 @@
           "partially_refunded",
           "refunded",
           "voided"
+        ]
+      },
+      "Fulfillment": {
+        "status": [
+          "pending",
+          "open",
+          "success",
+          "cancelled",
+          "error",
+          "failure"
         ]
       }
     }

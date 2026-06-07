@@ -331,6 +331,10 @@ def create_verification(request):
     err = _require(data, ['toNumber', 'channel'])
     if err:
         return err, 400
+    if data.get('channel') and data['channel'] not in ['sms', 'call', 'email', 'whatsapp', 'sna', 'auto', 'rcs']:
+        return {"error": {"message": "invalid channel; allowed: " + ", ".join(['sms', 'call', 'email', 'whatsapp', 'sna', 'auto', 'rcs']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['pending', 'approved', 'canceled', 'max_attempts_reached', 'deleted', 'failed', 'expired']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['pending', 'approved', 'canceled', 'max_attempts_reached', 'deleted', 'failed', 'expired']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("twilio_ver")}
     rec["toNumber"] = data.get('toNumber')
     rec["channel"] = data.get('channel')
@@ -369,6 +373,10 @@ def update_verification(request, eid):
     err = _reject_unknown(data, ['toNumber', 'channel', 'status'])
     if err:
         return err, 400
+    if data.get('channel') and data['channel'] not in ['sms', 'call', 'email', 'whatsapp', 'sna', 'auto', 'rcs']:
+        return {"error": {"message": "invalid channel; allowed: " + ", ".join(['sms', 'call', 'email', 'whatsapp', 'sna', 'auto', 'rcs']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['pending', 'approved', 'canceled', 'max_attempts_reached', 'deleted', 'failed', 'expired']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['pending', 'approved', 'canceled', 'max_attempts_reached', 'deleted', 'failed', 'expired']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):

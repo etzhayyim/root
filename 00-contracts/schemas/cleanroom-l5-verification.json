@@ -143,9 +143,17 @@
           "fieldStatus": "all generated fields confirmed (customerId via customer object, totalPrice=total_price, financialStatus=financial_status)",
           "discoveredEnums": {"financialStatus": ["pending", "authorized", "partially_paid", "paid", "partially_refunded", "refunded", "voided"]},
           "gaps": ["fulfillment_status", "line_items", "email", "order_number"]
+        },
+        {
+          "entity": "Fulfillment",
+          "source": "https://shopify.dev/docs/api/admin-rest/latest/resources/fulfillment",
+          "verifiedFields": ["orderId", "status", "trackingNumber"],
+          "fieldStatus": "all generated fields confirmed (orderId=order_id, trackingNumber=tracking_number)",
+          "discoveredEnums": {"status": ["pending", "open", "success", "cancelled", "error", "failure"]},
+          "gaps": ["tracking_company", "tracking_urls", "line_items", "shipment_status"]
         }
       ],
-      "note": "Product + Order reconciled against the official Shopify Admin REST docs; Variant/Customer/Collection/Fulfillment/DiscountCode pending. Enforced enums: product.status, order.financialStatus."
+      "note": "Product + Order + Fulfillment reconciled against the official Shopify Admin REST docs (3/8); Variant/Customer/Collection/DiscountCode pending. Enforced enums: product.status, order.financialStatus, fulfillment.status."
     },
     {
       "handle": "plaid-compat",
@@ -256,9 +264,20 @@
           "fieldStatus": "all generated fields confirmed (fromNumber=from, toNumber=to, durationSec=duration in seconds)",
           "discoveredEnums": {"status": ["queued", "ringing", "in-progress", "canceled", "completed", "busy", "failed", "no-answer"]},
           "gaps": ["price", "direction", "answered_by", "start_time", "end_time"]
+        },
+        {
+          "entity": "Verification",
+          "source": "https://www.twilio.com/docs/verify/api/verification",
+          "verifiedFields": ["toNumber", "channel", "status"],
+          "fieldStatus": "all generated fields confirmed (toNumber=to)",
+          "discoveredEnums": {
+            "channel": ["sms", "call", "email", "whatsapp", "sna", "auto", "rcs"],
+            "status": ["pending", "approved", "canceled", "max_attempts_reached", "deleted", "failed", "expired"]
+          },
+          "gaps": ["valid", "amount", "payee", "send_code_attempts"]
         }
       ],
-      "note": "Message + Call reconciled against the official Twilio docs; PhoneNumber/Verification/Recording/Conference pending. Enforced enums: message.status, message.direction, call.status."
+      "note": "Message + Call + Verification reconciled against the official Twilio docs (3/6); PhoneNumber/Recording/Conference pending. Enforced enums: message.status, message.direction, call.status, verification.channel, verification.status."
     },
     {
       "handle": "stripe-compat",
