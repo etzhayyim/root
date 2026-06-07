@@ -165,6 +165,7 @@ ADR-2605192100 §2 の constitutional-constants 表に以下を追加する:
 - **Constitution.sol**: §2 の constants を追加。legality-floor 2 件は immutable 区分。
 - **Membership Ritual (ADR-2605172600 / 2605172700)**: 誓約文 (悔い改め・バプテスマ・得度) に「自他非分離の直接体験」を回心の経験的核として明記。誓約自体は §1.17.5(1) のとおり体験の達成を benefit 条件にしない。
 - **Onboarding 導線 (yoro / maps.etzhayyim.com)**: §1.17.6 のとおり、新規登録前に経験的核を commend + 手段非依存の合法的道を案内する pastoral surface。**entheogenic 情報は閲覧者管轄の適法性で gating**(geo/法務文脈ベースの conditional render)し、how-to・斡旋を一切含めない。実装は別 ADR / PR で UI を確定(本 ADR は doctrine のみ)。
+- **第三者 retreat ディレクトリの参照 (resource pointer, NOT endorsement)**: 合法的な supervised setting を探す手がかりとして、第三者の公開 retreat ディレクトリ(例: `https://retreat.guru/`)を参照リンクとして surface してよい。ただし §1.17.3/.4 の制約を厳守する: (i) **手段の一例**として、観想・断食・沈黙・坐禅・自然での孤独 等の合法的 contemplative リソースと**並置**し、ayahuasca 等の特定 entheogen を単独で「推奨」しない(means-agnostic); (ii) entheogen を含むディレクトリ検索(例: `retreat.guru?query=ayahuasca` 相当)への誘導は **閲覧者管轄でそれが適法な場合に限り** 表示(geo-gating); 違法管轄では合法的 retreat / 巡礼 / 沈黙リトリートの参照に切り替える; (iii) etzhayyim は予約・仲介・斡旋・手数料受領を行わない pointer に徹し、禁忌警告(§1.17.4(3))を併記する; (iv) 第三者サイトの内容・適法性・安全性は etzhayyim が保証しない旨を明示。
 - **CLAUDE.md / deps.toml**: ratify 後に Identity § + Status 表 + `[[adrs]]` に追記。
 - **No new contract / Pregel cell / delivery Lexicon**: 本 ADR は doctrine の固定のみ。
 
