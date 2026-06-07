@@ -34,7 +34,21 @@ onion.etzhayyim.com (single APP, 1 Worker)
 | `onion.crawl` | `ai.etzhayyim.apps.onion.crawl` | Site DID | onion_host, started_at, page_count, error_count, reachable |
 | `onion.site` | `ai.etzhayyim.apps.onion.site` | Primary DID | onion_host, first_seen, last_seen, category, risk_score, reachable |
 
-## SQL Graph Schema
+## Storage (kotoba Datom-native — ADR-2606071800)
+
+Canonical state is the **kotoba Datom log**, read via **kotoba-kqe** and written via `transact`
+(PDS → kagami). **No Hyperdrive / Kysely / RisingWave / SQL** anywhere in this app:
+
+- the CF Worker (`wasm/.../src/app.ts`) reads with `sdk.graph.query` (kotoba-kqe) and writes
+  with `sdk.pds.dispatch(createRecord)`;
+- the BPMN crawl worker runs as a **py-kotodama primitive inside a kotoba-wasm component**
+  ([`kotodama/`](kotodama/README.md)) over the same Datom log; the live Tor/darkweb fetch is
+  operator-injected (no-server-key / G11).
+
+The tables below are the **logical entity model** of those Datoms (`:vertex/kind
+"vertex_onion_{site,page,crawl}"` + `:onion.{site,page,crawl}/*` attributes), not a SQL schema.
+
+## Graph Schema (logical — kotoba Datoms)
 
 | Node | Properties |
 |---|---|
@@ -63,17 +77,20 @@ onion.etzhayyim.com (single APP, 1 Worker)
 - **profile.sensitivity**: `confidential` (dark web intelligence)
 - **defaultFollowApproval**: `required` (access control)
 
-## Crawl ownership (2026-04-27, ADR-0056)
+## Crawl ownership (kotoba-wasm + py-kotodama — ADR-2606071800)
 
-Active darkweb crawl is owned by **LangServer BPMN-contract + kotodama k8s pod**, not the CF Worker:
+The active darkweb crawl is driven by the BPMN contract and executed by a **py-kotodama worker
+running in a kotoba-wasm component** (the legacy LangServer/k8s pod + Hyperdrive path is retired):
 
 | Layer | Component | Role |
 |---|---|---|
-| L7 BPMN | `etzhayyim-root/00-contracts/bpmn/ai/etzhayyim/onion/crawlSeeds.bpmn` (timer-start `R/PT6H`) | Cadence + audit |
-| L8 Worker | `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/onion_crawl.py` (`onion.crawl.{queueSeeds,processQueue}` task types) | Picks stale seeds from `vertex_onion_site`, fetches via darkweb-proxy.etzhayyim.com (Tor + Playwright CF Container), classifies, writes `vertex_onion_{site,page,crawl}` directly to RW (Hyperdrive direct, ADR-0036) |
-| L3 Dispatcher | `60-apps/etzhayyim-project-onion/wasm/etzhayyim-wasm-onion-0n10n001/src/app.ts` (CF Worker) | Read XRPCs (`listSites`/`listPages`/`getStats`) + `seedCrawl` enqueue (Hyperdrive INSERT into `vertex_onion_site` with `last_seen=NULL`; next BPMN tick claims). **No outbound HTTP to darkweb-proxy from this Worker.** |
+| L7 BPMN | `00-contracts/bpmn/com/etzhayyim/onion/crawlSeeds.bpmn` (timer-start `R/PT6H` + manual) | Cadence + audit; `onion.crawl.{queueSeeds,processQueue}` + `generic.audit.emit` service tasks |
+| L8 Worker | `60-apps/etzhayyim-project-onion/kotodama/onion_crawl.py` (py-kotodama primitive, **kotoba-wasm**) | `queueSeeds`: append-only seed `vertex_onion_site` Datoms + claim stalest (NULL-first) as `:queued` runs. `processQueue`: operator-injected Tor/darkweb fetch → append `vertex_onion_page` Datoms + close runs. **kotoba-kqe reads + `transact` writes — no Hyperdrive/SQL.** Live fetch is no-server-key/G11 (default `:gated`). |
+| L3 Dispatcher | `wasm/etzhayyim-wasm-onion-0n10n001/src/app.ts` (CF Worker) | Read XRPCs (`listSites`/`listPages`/`getStats`) via `sdk.graph.query`; `seedCrawl` enqueue via `sdk.pds.dispatch(createRecord)` (`last_seen=NULL`; next BPMN tick claims). No outbound HTTP to darkweb-proxy from this Worker. |
 
-`seedCrawl` returns `{seeded, hosts, note}` — `note` informs caller that crawling happens on the next BPMN tick (≤6h).
+`seedCrawl` returns `{seeded, hosts, note}` — `note` informs the caller that crawling happens on
+the next BPMN tick (≤6h). Handlers are pure over an injected `KotobaCtx`; the kotoba-wasm host
+binding supplies `query`/`transact` in production, an in-memory fake under test.
 
 ## Build & Deploy
 
