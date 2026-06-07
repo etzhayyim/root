@@ -13968,6 +13968,19 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606072000-business-manager-kotoba-native-erp",
+      "type": "TechArticle",
+      "title": "ADR-2606072000: business-manager — kotoba-native internal ERP (Salesforce/SAP inversion); remediation Phase A",
+      "status": "proposed",
+      "topic": "business-manager-kotoba-native",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/business-manager"
+      ],
+      "related": "doc:2605262900",
+      "lastVerified": "2026-06-07"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

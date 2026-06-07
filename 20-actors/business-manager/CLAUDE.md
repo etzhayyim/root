@@ -1,5 +1,10 @@
 # 20-actors/business-manager
 
+> **kotoba-native (ADR-2606072000).** Canonical manifest is now `manifest.edn`; data model in
+> `kotoba/schema.edn`; logic + tests in `py/` (15 green). Internal-only, append-only double-entry
+> on the kotoba Datom log, audited by `toritate`. The legacy `actor-manifest.jsonld` (RisingWave/
+> Cypher) is DEPRECATED (`DEPRECATED-jsonld.md`). The T1 MCP-Compose description below is historical.
+
 **T1 MCP-Compose Actor。** Corporate ERP intelligence (GL/AP/AR, HR, procurement, budget)。日本会計年度 (4月始まり)。
 
 → nanoid / domain: `deps.toml [[mitama_actors]]`
