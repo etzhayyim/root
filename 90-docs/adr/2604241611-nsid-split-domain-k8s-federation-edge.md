@@ -15,7 +15,7 @@ related:
   - adr-0056-bpmn-as-actor
   - adr-0081-worker-direct-hyperdrive-persistence
   - adr-0041
-  - adr-0048-risingwave-vultr-b2-primary
+  - adr-0048-kotoba-vultr-b2-primary
 supersedes: []
 superseded_by: []
 ---
@@ -35,7 +35,7 @@ NSID prefix をデプロイ面 (CF edge / K8s Vultr) の判定キーに昇格さ
 **対象外**:
 - AT Protocol federation NSID (`com.atproto.*` / `app.bsky.*` / `chat.bsky.convo.*`) は edge 維持 (ADR-2604231828 unchanged)
 - Vault / Signal / Chat / PLC / Relay は該当 NSID prefix が `com.etzhayyim.apps.*` ではないため Rule 1 で自然に edge 側
-- RisingWave / Hyperdrive 配線は ADR-0048 のまま (変更なし)
+- Kotoba/Datomic / Hyperdrive 配線は ADR-0048 のまま (変更なし)
 - `sdk.pds.dispatch` で federation に乗る write は ADR-0081 のまま
 
 # Executive Summary
@@ -68,7 +68,7 @@ NSID prefix をデプロイ面 (CF edge / K8s Vultr) の判定キーに昇格さ
 | **Edge** | `com.etzhayyim.signal.*` | CF Signal worker | Key directory — Service Auth verify hot path |
 | **Edge** | `com.etzhayyim.vault.*` | CF Vault worker | Zero-knowledge 前提, ciphertext のみ server 保持 (root rule) |
 | **Edge** | `com.etzhayyim.plc.*` / `com.etzhayyim.identity.*` | CF PLC directory / PDS local | DID resolution, edge cache が η 支配 |
-| **K8s** | `com.etzhayyim.apps.*` | K8s bpmn-dispatcher (`dispatcher.etzhayyim.com`) | Domain state, RisingWave 近接, BPMN evaluator |
+| **K8s** | `com.etzhayyim.apps.*` | K8s bpmn-dispatcher (`dispatcher.etzhayyim.com`) | Domain state, Kotoba/Datomic 近接, BPMN evaluator |
 
 `com.etzhayyim.apps.*` の default fallback は `local` (actor-slug Worker) から `pipethrough:bpmn` に flip する。
 
@@ -199,7 +199,7 @@ B, C, E は [Rationale § η math](#η-math-redundant-path-count-analytical-esti
 - ADR-0056 bpmn-as-actor (K8s domain actor の実装基盤)
 - ADR-0081 worker-direct-hyperdrive-persistence (domain write の現行 invariant)
 - ADR-0041 pds-commit-content-addressed-pk (federation 経路の race 対策)
-- ADR-0048 risingwave-vultr-b2-primary (K8s state plane の現在地)
+- ADR-0048 kotoba-vultr-b2-primary (K8s state plane の現在地)
 - `50-infra/cloudflare/workers/atproto/src/routing-table.ts:67-202` (NSID_ROUTING_TABLE 実装)
 - `50-infra/vultr/mitama-udf-pool/values.yaml` (dispatcher 配線)
 - `50-infra/vultr/cloudflared/` (CF Tunnel config)

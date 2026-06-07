@@ -152,8 +152,8 @@ TAKAHASHI_YABAI_ANCHORS: Tuple[str, ...] = (
 | State | Behavior |
 |---|---|
 | `live_write=False` (default) | Pure dry-run. RW writes log-only. State.edges_written carries staged edge descriptors with `live="false"` |
-| `live_write=True` + `RW_URL` set | psycopg INSERTs to `vertex_malak_pursuit_target` (priority=7, status=queued) + `edge_malak_target_extends` (relation=`links_to_<case>_case`). Edges flipped to `live="true"` after write |
-| `live_write=True` + `RW_URL` not set | Warning logged; edges remain staged but not INSERTed |
+| `live_write=True` + `KOTOBA_URL` set | psycopg INSERTs to `vertex_malak_pursuit_target` (priority=7, status=queued) + `edge_malak_target_extends` (relation=`links_to_<case>_case`). Edges flipped to `live="true"` after write |
+| `live_write=True` + `KOTOBA_URL` not set | Warning logged; edges remain staged but not INSERTed |
 
 Phase 1 RW writes are gated by PHASE-1-LAUNCH-READINESS.md G1+G2 GREEN per
 ADR-2605131500. For the Takahashi case this gate was bypassed for the

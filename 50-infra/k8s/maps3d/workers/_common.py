@@ -1,4 +1,4 @@
-"""Shared LangServer + RisingWave plumbing for maps3d workers."""
+"""Shared LangServer + Kotoba/Datomic plumbing for maps3d workers."""
 
 from __future__ import annotations
 
@@ -92,9 +92,9 @@ def _safe_kwargs(kwargs: dict[str, Any]) -> dict[str, Any]:
 
 
 def rw_dsn() -> str:
-    dsn = os.environ.get("RW_DSN")
+    dsn = os.environ.get("KOTOBA_URL")
     if not dsn:
-        raise RuntimeError("RW_DSN env not set")
+        raise RuntimeError("KOTOBA_URL env not set")
     return dsn
 
 

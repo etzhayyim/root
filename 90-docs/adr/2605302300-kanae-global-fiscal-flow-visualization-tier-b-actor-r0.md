@@ -9,7 +9,7 @@ last_verified: 2026-05-30
 priority: 8.0
 axis: actor-architecture
 weight: 0.80
-priority_note: "Names a new Tier-B actor (kanae 鼎) as the kotoba-EAVT-native fiscal-flow ASSEMBLY + Murakumo-LLM NARRATIVE + kami-engine WASM VISUALIZATION organ over the already-pinned open-government corpus (ADR-2605263900) and the danjo cross-reference graph (ADR-2605301600 + extension ADR-2605302245). Answers the 2026-05-30 audit: 全世界の政府の資金の流れを ingest → LLM 分析 → 可視化 → kotoba 永続化 する actor は設計されているか? Verdict was NO — the ingest substrate is global and W1-landed, danjo cross-references it but is JP-first AND visualization is an explicit danjo non-goal. kanae is the missing visualization+narrative lens. SAME constitutional discipline as danjo: NON-adjudicating (G4 UPL-equivalent), Murakumo-only inference (G7), aggregate-first (G10), Transparent Religious Force (G11), no commercial gov-intel terminals (G8), kotoba-native (G2, no RisingWave). The name 鼎 (kanae, the ritual bronze tripod cauldron) evokes 鼎の軽重を問う — to weigh the worthiness of those who govern by making the public fiscal record legible; the three legs = the three upstream data substrates (domestic budget / domestic procurement / inter-governmental transfer) it stands on. kanae weighs the public record openly; it renders no verdict."
+priority_note: "Names a new Tier-B actor (kanae 鼎) as the kotoba-EAVT-native fiscal-flow ASSEMBLY + Murakumo-LLM NARRATIVE + kami-engine WASM VISUALIZATION organ over the already-pinned open-government corpus (ADR-2605263900) and the danjo cross-reference graph (ADR-2605301600 + extension ADR-2605302245). Answers the 2026-05-30 audit: 全世界の政府の資金の流れを ingest → LLM 分析 → 可視化 → kotoba 永続化 する actor は設計されているか? Verdict was NO — the ingest substrate is global and W1-landed, danjo cross-references it but is JP-first AND visualization is an explicit danjo non-goal. kanae is the missing visualization+narrative lens. SAME constitutional discipline as danjo: NON-adjudicating (G4 UPL-equivalent), Murakumo-only inference (G7), aggregate-first (G10), Transparent Religious Force (G11), no commercial gov-intel terminals (G8), kotoba-native (G2, no Kotoba/Datomic). The name 鼎 (kanae, the ritual bronze tripod cauldron) evokes 鼎の軽重を問う — to weigh the worthiness of those who govern by making the public fiscal record legible; the three legs = the three upstream data substrates (domestic budget / domestic procurement / inter-governmental transfer) it stands on. kanae weighs the public record openly; it renders no verdict."
 authoritative_for:
   - new Tier-B actor `kanae` (global government fiscal-flow visualization + narrative)
   - kotoba-kqe EAVT datom schema for fund-flow-edge / flow-narrative / visualization-manifest
@@ -89,9 +89,9 @@ visualize them, and persist them via the kotoba (Datomic-style) API":
 
 4. **The persistence target must be kotoba, not a parallel store.** Per
    ADR-2605262130 the canonical substrate is kotoba (content-addressed
-   Datalog; EAVT/AEVT/AVET/VAET arrangements via kotoba-kqe; RisingWave /
+   Datalog; EAVT/AEVT/AVET/VAET arrangements via kotoba-kqe; Kotoba/Datomic /
    Postgres / Lance prohibited as primary store or read backend). The
-   `maps` actor's RisingWave backend is therefore NOT a usable template
+   `maps` actor's Kotoba/Datomic backend is therefore NOT a usable template
    for fiscal-flow persistence; kanae must build its flow graph as kotoba
    datoms, exactly as danjo (ADR-2605301600) and tadori (ADR-2605301400)
    do.
@@ -185,7 +185,7 @@ Council ADR + R1 ratification")` at W1 creation.
 
 Cells communicate via `com.etzhayyim.kanae.*` lexicon records on MST;
 the fund-flow graph lives in kotoba QuadStore (EAVT) per ADR-2605262130.
-No RisingWave, no projection layer. Murakumo node assignment mirrors
+No Kotoba/Datomic, no projection layer. Murakumo node assignment mirrors
 danjo (reuben ingest / gad analysis / naphtali publish).
 
 ## §3 — Lexicons (`com.etzhayyim.kanae.*`)
@@ -204,7 +204,7 @@ gate set, inherited verbatim in spirit; G14–G15 are
 visualization-specific.
 
 - **G1** Charter Rider §2(a)–(h) scan on every published narrative + manifest + artifact.
-- **G2** kotoba attestation lineage on every record; the flow graph lives in kotoba EAVT — **RisingWave / Postgres / Lance / DuckDB / SQLite PROHIBITED** as primary store or read backend (ADR-2605262130). The `maps` RisingWave backend is NOT a template.
+- **G2** kotoba attestation lineage on every record; the flow graph lives in kotoba EAVT — **Kotoba/Datomic / Postgres / Lance / DuckDB / SQLite PROHIBITED** as primary store or read backend (ADR-2605262130). The `maps` Kotoba/Datomic backend is NOT a template.
 - **G3** **Passive-only / upstream-only** — kanae reads ONLY the pre-published, IPFS-pinned `gov.dataset.*` corpus and the danjo datoms. NO live portal scraping, NO per-query API, NO non-public sources, NO whistleblower intake (§2(c)).
 - **G4** **NON-adjudicating** (UPL-equivalent) — every `flowNarrative` carries `nonAdjudicatingNotice=true` and states FACTUAL descriptions only. kanae MUST NOT assert that a crime / 不正 / violation occurred. The `flowClass` enum carries no verdict token. Legal characterization routes to external counsel via chigiri + Public Fund (Council Lv6+).
 - **G5** **Source-provenance mandatory** — every `fundFlowEdge` and `flowNarrative` cites ≥2 upstream `gov.dataset.*` / danjo record CIDs. No inference-only flow; no narrative without primary-public-record citation.
@@ -233,7 +233,7 @@ visualization-specific.
 - **N10** NOT a replacement for the state's own audit organs (会計検査院 / GAO / ECA) — kanae routes-around by independent transparency, not by claiming official audit authority.
 - **N11** NOT a defamation vector — G4 non-adjudication + G5 provenance + G10 aggregate-first structurally prevent unsubstantiated allegation.
 - **N12** NOT a vendor-LLM inference path (Murakumo-only per G7).
-- **N13** NOT a substrate-engine or projection-layer replacement (kotoba per ADR-2605262130 remains canonical; no RisingWave like `maps`).
+- **N13** NOT a substrate-engine or projection-layer replacement (kotoba per ADR-2605262130 remains canonical; no Kotoba/Datomic like `maps`).
 - **N14** NOT a third-party-BI / Palantir-class fusion dashboard (G14; render is kami-engine WASM, reproducible from public datoms).
 
 ## §6 — Cross-actor boundaries
@@ -248,7 +248,7 @@ visualization-specific.
 | **ossekai** (ADR-2605264000) | → | kanae aggregate visualizations feed ossekai §1.12 aggregate-anonymized publication. |
 | **kataribe** (語部, press) | → | kanae visualization artifacts are citable primary-source graphics for press / publishing. |
 | **toritate** (ADR-2605262900) | ∥ | Disjoint domain: toritate visualizes the religious-corp's OWN on-chain books; kanae visualizes the STATE's published fiscal flows. |
-| **maps** (geospatial) | ∥ | Sibling visualization actor, disjoint domain (geo vs fiscal) and disjoint backend (maps = RisingWave; kanae = kotoba EAVT per G2/N13). |
+| **maps** (geospatial) | ∥ | Sibling visualization actor, disjoint domain (geo vs fiscal) and disjoint backend (maps = Kotoba/Datomic; kanae = kotoba EAVT per G2/N13). |
 
 ## §7 — Roadmap
 
@@ -309,7 +309,7 @@ danjo R1.
   persist) are now covered end-to-end by a clean
   corpus → danjo → kanae pipeline.
 - kotoba-native by construction (EAVT `fundFlowEdge` datoms), consistent
-  with ADR-2605262130; explicitly NOT RisingWave (unlike `maps`), so the
+  with ADR-2605262130; explicitly NOT Kotoba/Datomic (unlike `maps`), so the
   "datomic kotoba api で永続化" requirement is met structurally.
 - Clean actor boundary: danjo finds (non-adjudicating cross-reference),
   kanae renders (narrative + visualization). Neither absorbs the other's
@@ -345,8 +345,8 @@ danjo R1.
    non-adjudication identity and overload one actor. A clean
    engine/renderer boundary is better — this is the (1)+(2) split the
    user chose (danjo extension = ADR-2605302245; kanae = this ADR).
-2. **Reuse the `maps` actor (MapLibre + RisingWave) for fiscal flows.**
-   Rejected: `maps` persists to RisingWave, prohibited as primary store
+2. **Reuse the `maps` actor (MapLibre + Kotoba/Datomic) for fiscal flows.**
+   Rejected: `maps` persists to Kotoba/Datomic, prohibited as primary store
    by ADR-2605262130 (G2/N13). Fiscal-flow persistence must be kotoba
    EAVT — the user explicitly asked for "datomic kotoba api で永続化".
    kami-engine WASM render over kotoba datoms satisfies both the render
@@ -368,7 +368,7 @@ danjo R1.
 - `/90-docs/adr/2605302245-danjo-global-fiscal-flow-extension.md` — danjo global fund-flow extension (sibling direction (1); upstream)
 - `/90-docs/adr/2605301600-danjo-public-accountability-oversight-tier-b-actor-r0.md` — danjo (cross-reference engine; primary upstream)
 - `/90-docs/adr/2605263900-public-data-open-government-ipfs-ingestion.md` — global open-government corpus (fiscal-flow input)
-- `/90-docs/adr/2605262130-kotoba-storage-substrate-unification.md` — kotoba substrate (EAVT, no RisingWave)
+- `/90-docs/adr/2605262130-kotoba-storage-substrate-unification.md` — kotoba substrate (EAVT, no Kotoba/Datomic)
 - `/90-docs/adr/2605261800-nvidia-omniverse-compat-kami-engine.md` — kami-engine (WASM render substrate, G14)
 - `/90-docs/adr/2605192100-etzhayyim-mission-charter.md` — §1.12 Transparent Religious Force + §2(c) covert-ops avoidance + §2(e) anti-gatekeeping
 - `/90-docs/adr/2605192200-etzhayyim-ip-free-release-charter-rider.md` — Charter Rider §2(c)/(e)

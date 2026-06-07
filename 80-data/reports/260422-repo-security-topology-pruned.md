@@ -39,7 +39,7 @@ Evidence:
 - [`70-tools/etzhayyim/etzhayyim/murakumo_fleet.go`](/Users/junkawasaki/etzhayyim/etzhayyim-root/70-tools/etzhayyim/etzhayyim/murakumo_fleet.go:31)
   - hardcodes fleet SSH password `fleetSSHPass`
 - [`70-tools/scripts/bulk-stream-ingest.mjs`](/Users/junkawasaki/etzhayyim/etzhayyim-root/70-tools/scripts/bulk-stream-ingest.mjs:29)
-  - hardcodes a password-bearing RisingWave DSN
+  - hardcodes a password-bearing Kotoba/Datomic DSN
 - [`70-tools/scripts/yabai-baseline-ingest.mjs`](/Users/junkawasaki/etzhayyim/etzhayyim-root/70-tools/scripts/yabai-baseline-ingest.mjs:16)
   - keeps the same DSN as default fallback
 

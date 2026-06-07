@@ -41,7 +41,7 @@ superseded_by: []
 
 ## Context
 
-The etzhayyim platform already covers IT-side cognitive actors (LangGraph + RisingWave + atproto cohort). It does not yet have an Operational Technology (OT) story — the controllers, sensors, and actuators that physically run factories, grids, water plants, building HVAC, and process plants. The incumbent OT stacks are vertically integrated and proprietary: Yokogawa CENTUM VP, Honeywell Experion PKS, Siemens SIMATIC PCS 7, ABB Ability System 800xA, Emerson DeltaV. Open alternatives exist but are fragmented (OpenPLC, Beremiz, Eclipse 4diac), and none ship a production WASM runtime path.
+The etzhayyim platform already covers IT-side cognitive actors (LangGraph + Kotoba/Datomic + atproto cohort). It does not yet have an Operational Technology (OT) story — the controllers, sensors, and actuators that physically run factories, grids, water plants, building HVAC, and process plants. The incumbent OT stacks are vertically integrated and proprietary: Yokogawa CENTUM VP, Honeywell Experion PKS, Siemens SIMATIC PCS 7, ABB Ability System 800xA, Emerson DeltaV. Open alternatives exist but are fragmented (OpenPLC, Beremiz, Eclipse 4diac), and none ship a production WASM runtime path.
 
 Three industry shifts make a WASM-native OT stack worth designing now:
 
@@ -68,7 +68,7 @@ Three tiers, each with a fixed OS and runtime pick:
 Detail:
 
 - **Field device — WAMR AOT on Zephyr LTS**. ~85–150 KB code, AOT artefacts loaded by a small runtime, MISRA-C-aligned, vendor-supported by Intel / Sony / Renesas / Siemens. Scan-cycle target: 1 ms with ≤ 100 µs jitter, achieved by SCHED_FIFO Zephyr thread, pre-faulted linear memory, no GC, no `memory.grow` at runtime. Zenoh-Pico for substrate I/O.
-- **Edge controller — NixOS or Talos with PREEMPT_RT**. Hosts the LangGraph Pregel orchestrator (CPython 3.11+ / Granian per ADR-2605080600), the RisingWave-backed checkpointer (per ADR-2605082100), Wasmtime for tier-2 cells that fit on the gateway, and the OPC UA FX ↔ Zenoh bridge. Achieves ~30–150 µs cyclictest-class jitter at 1 kHz with isolcpus, irqaffinity, full_nohz, mlockall. **NixOS is preferred for greenfield** (declarative IaC, snapshot/rollback, etzhayyim Nix culture); **Talos is preferred where the edge already runs as a K8s node** (LangServer pod portability). QNX, VxWorks, FreeRTOS hosts are rejected — they cannot run CPython, so LangGraph cannot live there.
+- **Edge controller — NixOS or Talos with PREEMPT_RT**. Hosts the LangGraph Pregel orchestrator (CPython 3.11+ / Granian per ADR-2605080600), the Kotoba/Datomic-backed checkpointer (per ADR-2605082100), Wasmtime for tier-2 cells that fit on the gateway, and the OPC UA FX ↔ Zenoh bridge. Achieves ~30–150 µs cyclictest-class jitter at 1 kHz with isolcpus, irqaffinity, full_nohz, mlockall. **NixOS is preferred for greenfield** (declarative IaC, snapshot/rollback, etzhayyim Nix culture); **Talos is preferred where the edge already runs as a K8s node** (LangServer pod portability). QNX, VxWorks, FreeRTOS hosts are rejected — they cannot run CPython, so LangGraph cannot live there.
 - **Hard-RT escape hatch** — for sub-10 µs servo / motion loops, control logic remains in qualified host C / RT-Linux; WASM is **not** placed in the hard-RT path. Xenomai / EVL co-kernel optional for vendors who need it. LangGraph never runs in the hard-RT path.
 
 GC proposal modules and Component-Model dynamic linking are **disallowed in the control-data path** until WCET tooling matures (~2027 estimated). They are allowed in the configuration / engineering / HMI tier.
@@ -110,7 +110,7 @@ Each multi-cell control loop is a LangGraph graph; each WASM cell is a Pregel no
 | Super-step barrier | TSN `802.1Qbv` gate event when present; software barrier on the Pregel scheduler otherwise |
 | LangGraph node | one cell DID (`did:web:open-ot.etzhayyim.com:cell:*`) bound to a pinned `.aot` artefact |
 | LangGraph graph | one loop DID (`:loop:*`); graph-as-data per ADR-2605082000 |
-| Checkpointer | RisingWave checkpointer per ADR-2605082100 — each super-step persists `(loop_did, step_id, cell_state[], in_flight_msgs[])` |
+| Checkpointer | Kotoba/Datomic checkpointer per ADR-2605082100 — each super-step persists `(loop_did, step_id, cell_state[], in_flight_msgs[])` |
 | Single-task / row-driven | per ADR-2605082200 — one signal change → one row in `vertex_open_ot_signal_change` → one task → one super-step on the affected loop |
 | Resume from checkpoint | plant restart loads the last persisted super-step; cells resume with the same inputs and ECC state they had pre-failure |
 | Operator intervention | `setpointChange` / `modeChange` injected as a typed event into the next super-step; appears in checkpoint history as part of the audit trail |
@@ -126,7 +126,7 @@ Aligns with platform invariants:
 
 - Each device, cell, and signal point gets a path-based DID (`did:web:open-ot.etzhayyim.com:{device|cell|signal|loop}:{id}`).
 - Configuration, version pins, capability grants, and audit are atproto records under `com.etzhayyim.apps.openOt.*` NSIDs.
-- Telemetry is **not** atproto records — it is Zenoh stream + RisingWave continuous ingest (per ADR-2605111200, RW writes happen inside K8s pods via XRPC `recordTelemetryBatch`, not from the edge device directly; a tunnel pod aggregates).
+- Telemetry is **not** atproto records — it is Zenoh stream + Kotoba/Datomic continuous ingest (per ADR-2605111200, RW writes happen inside K8s pods via XRPC `recordTelemetryBatch`, not from the edge device directly; a tunnel pod aggregates).
 - Control writes (setpoint changes, mode changes) go XRPC → bpmn-dispatcher → AgentGateway MCP → LangServer pod → Zenoh publish → device cell. The control-plane round trip is human / agent latency, not control-loop latency.
 
 ## Scope at MVP
@@ -171,7 +171,7 @@ Initial NSIDs to be defined in `60-apps/etzhayyim-project-open-ot/SPEC.md`:
 - **Container-based OT (ABB Ability Edgenuity, Schneider EcoStruxure direction).** Rejected as primary: containers do not give the WCET, footprint, or sandbox properties needed on Cortex-M-class controllers. Containers remain valid for the edge-gateway tier and may share the host with Wasmtime.
 - **wasm3 interpreter as the canonical embedded runtime.** Rejected: 5–15× slower than WAMR AOT, project maintenance has slowed since 2023. Retained as a fallback for <100 KB flash MCUs.
 - **IEC 61499 / 4diac FORTE as the primary FB framework, replacing Rust FB API.** Rejected: FORTE → WASM is prototype-stage and unmaintained outside fortiss. Compromise: adopt **IEC 61499 semantics** (FBType, ECC, event+data) via a etzhayyim-owned Rust FB API, with 4diac IDE as the graphical engineering surface. This captures the standard's distribution model without taking on FORTE's runtime debt.
-- **Holochain-style per-device source chain for telemetry.** Rejected by ADR-2605092600 outcome; LangGraph + RisingWave is the production memory plane.
+- **Holochain-style per-device source chain for telemetry.** Rejected by ADR-2605092600 outcome; LangGraph + Kotoba/Datomic is the production memory plane.
 
 ## Resolved decisions (2026-05-15 follow-up)
 

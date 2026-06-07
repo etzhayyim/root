@@ -11,7 +11,7 @@ Expose medical ingest as an **MCP control plane**, not as an MCP-owned ingest
 runtime.
 
 MCP tools create, inspect, pause, resume, and diagnose Kubernetes Jobs/CronJobs
-and read coverage from RisingWave. The actual ingest work remains in Kubernetes
+and read coverage from Kotoba/Datomic. The actual ingest work remains in Kubernetes
 Jobs/CronJobs today and can later move behind Zeebe without changing agent-facing
 tool names.
 
@@ -20,7 +20,7 @@ Agent / app
   -> MCP tools/call
     -> medical-coverage-mcp
       -> Kubernetes API: CronJob/Job/log/status/patch
-      -> RisingWave: coverage, target config, cursor/run records
+      -> Kotoba/Datomic: coverage, target config, cursor/run records
         -> medical-coverage-ingester Job
           -> PubMed / ClinicalTrials.gov / facility CSV
           -> vertex_repo_record
@@ -39,7 +39,7 @@ Agent / app
 
 Initial runtime:
 
-- Namespace: `risingwave`
+- Namespace: `kotoba`
 - Existing CronJob: `medical-coverage-ingester`
 - Existing image: `ghcr.io/etzhayyim/medical-coverage-ingester:latest`
 - Existing DB sink: `vertex_repo_record`
@@ -51,7 +51,7 @@ MCP server runtime:
 - Service: `medical-coverage-mcp`
 - Optional public facade: Cloudflare Worker or atproto MCP registry endpoint
 - ServiceAccount: `medical-coverage-mcp`
-- RBAC scope: only `risingwave` namespace, only this CronJob/Job label set
+- RBAC scope: only `kotoba` namespace, only this CronJob/Job label set
 
 ## Tool Surface
 
@@ -116,7 +116,7 @@ Output:
 {
   "ok": true,
   "jobName": "medical-coverage-ingester-manual-20260425-081500",
-  "namespace": "risingwave",
+  "namespace": "kotoba",
   "statusUrlHint": "medical.ingest.status"
 }
 ```
@@ -163,7 +163,7 @@ Output:
     {
       "name": "medical-coverage-ingester-manual-...",
       "phase": "Succeeded",
-      "node": "risingwave-pool-32gb-...",
+      "node": "kotoba-pool-32gb-...",
       "reason": null
     }
   ]

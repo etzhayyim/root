@@ -15,13 +15,13 @@ Pyzeebe task types:
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import datetime as _dt
 import hashlib
 import time
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
 
 
 YATA_DID = "did:web:yatabase.etzhayyim.com"
@@ -61,8 +61,10 @@ async def task_yata_database_provision(**kwargs: Any) -> dict[str, Any]:
     today = _today()
     vertex_id = f"at://did:web:yatabase.etzhayyim.com/com.etzhayyim.apps.yata.database/{db_name}"
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             """
             INSERT INTO vertex_yata_database (
                 vertex_id, _seq, created_date, sensitivity_ord, owner_did,
@@ -104,8 +106,10 @@ async def task_yata_storage_put(**kwargs: Any) -> dict[str, Any]:
     object_id = _object_id(bucket, key, etag)
     now = _now_ts()
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             """
             INSERT INTO vertex_yata_blob (
                 vertex_id, _seq, created_date, sensitivity_ord, owner_did,
@@ -151,8 +155,9 @@ async def task_yata_storage_put(**kwargs: Any) -> dict[str, Any]:
 async def task_yata_storage_get(**kwargs: Any) -> dict[str, Any]:
     bucket = kwargs["bucket"]
     key = kwargs["key"]
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             """
             SELECT vertex_id, size_bytes, content_type, etag, storage_provider, storage_path
             FROM vertex_yata_blob
@@ -162,7 +167,7 @@ async def task_yata_storage_get(**kwargs: Any) -> dict[str, Any]:
             """,
             (bucket, key),
         )
-        row = cur.fetchone()
+        row = (_res[0] if _res else None)
     if not row:
         raise ValueError("object-not-found")
     object_id, size_bytes, content_type, etag, provider, storage_path = row
@@ -180,8 +185,9 @@ async def task_yata_storage_delete(**kwargs: Any) -> dict[str, Any]:
     bucket = kwargs["bucket"]
     key = kwargs["key"]
     now = _now_ts()
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             """
             UPDATE vertex_yata_blob
             SET status = 'deleted', is_delete_marker = true, last_accessed_at = %s
@@ -244,9 +250,10 @@ def _ensure_tenant_schema(org_did: str) -> str:
     schema = _tenant_schema(org_did)
     if schema in _PROVISIONED_SCHEMAS:
         return schema
-    with sync_cursor() as cur:
-        cur.execute(f'CREATE SCHEMA IF NOT EXISTS "{schema}"')
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(f'CREATE SCHEMA IF NOT EXISTS "{schema}"')
+        _res = client.q(
             f'CREATE TABLE IF NOT EXISTS "{schema}".vertex_demo ('
             f"  vertex_id varchar PRIMARY KEY,"
             f"  name varchar,"
@@ -256,7 +263,7 @@ def _ensure_tenant_schema(org_did: str) -> str:
         # Idempotent INSERT — RW does not support ON CONFLICT but
         # vertex_id PK swallows duplicates with implicit upsert (per
         # ADR-0036 invariant; same INSERT no-ops on existing PK).
-        cur.execute(
+        _res = client.q(
             f'INSERT INTO "{schema}".vertex_demo (vertex_id, name, created_at) VALUES (%s, %s, %s)',
             (
                 f"at://{org_did}/com.etzhayyim.apps.yata.demo/welcome",
@@ -407,8 +414,9 @@ def _ensure_vertex_table(schema: str, label: str, columns: list[str]) -> str:
     # Always add a `_created_at` audit column if customer didn't supply one.
     if "created_at" not in columns:
         col_ddl.append('"_created_at" varchar')
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             f'CREATE TABLE IF NOT EXISTS "{schema}".{table_name} (' + ", ".join(col_ddl) + ")",
         )
     _PROVISIONED_SCHEMAS.add(cache_key)
@@ -426,8 +434,9 @@ def _ensure_edge_table(schema: str, edge_type: str) -> str:
     cache_key = f"{schema}.{table_name}"
     if cache_key in _PROVISIONED_SCHEMAS:
         return table_name
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             f'CREATE TABLE IF NOT EXISTS "{schema}".{table_name} ('
             f"  from_id varchar,"
             f"  to_id varchar,"
@@ -985,14 +994,15 @@ async def task_yata_cypher_run(**kwargs: Any) -> dict[str, Any]:
                     "error": f"provision-edge: {type(e).__name__}: {str(e)[:200]}",
                 }
         try:
-            with sync_cursor() as cur:
-                cur.execute(f"SET statement_timeout = '20s'")
+            if True:
+                client = get_kotoba_client()
+                _res = client.q(f"SET statement_timeout = '20s'")
                 if sql.startswith("__TWO_STEP__\n"):
                     parts = sql[len("__TWO_STEP__\n"):].split("\n--\n", 1)
                     select_sql, insert_sql = parts[0], parts[1]
                     a_pk, b_pk, edge_ts = sql_params
-                    cur.execute(select_sql, [a_pk, b_pk])
-                    found = cur.fetchone()
+                    _res = client.q(select_sql, [a_pk, b_pk])
+                    found = (_res[0] if _res else None)
                     if not found:
                         return {
                             "ok": False, "rowCount": 0, "columnsJson": "[]", "rowsJson": "[]",
@@ -1001,9 +1011,9 @@ async def task_yata_cypher_run(**kwargs: Any) -> dict[str, Any]:
                             "error": "edge create: one or both vertices not found (RW eventual consistency may need a few seconds after CREATE)",
                         }
                     a_vertex_id, b_vertex_id = found[0], found[1]
-                    cur.execute(insert_sql, [a_vertex_id, b_vertex_id, edge_ts])
+                    _res = client.q(insert_sql, [a_vertex_id, b_vertex_id, edge_ts])
                 else:
-                    cur.execute(sql, sql_params)
+                    _res = client.q(sql, sql_params)
         except Exception as e:
             return {
                 "ok": False, "rowCount": 0, "columnsJson": "[]", "rowsJson": "[]",
@@ -1029,10 +1039,11 @@ async def task_yata_cypher_run(**kwargs: Any) -> dict[str, Any]:
             }
         rows: list[list[Any]] = []
         try:
-            with sync_cursor() as cur:
-                cur.execute(f"SET statement_timeout = '20s'")
-                cur.execute(sql, sql_params)
-                for raw in cur.fetchall():
+            if True:
+                client = get_kotoba_client()
+                _res = client.q(f"SET statement_timeout = '20s'")
+                _res = client.q(sql, sql_params)
+                for raw in _res:
                     rows.append([_serialize_cell(c) for c in raw])
         except Exception as e:
             return {
@@ -1075,9 +1086,10 @@ async def task_yata_cypher_run(**kwargs: Any) -> dict[str, Any]:
                     "error": f"provision-vertex: {type(e).__name__}: {str(e)[:200]}",
                 }
         try:
-            with sync_cursor() as cur:
-                cur.execute(f"SET statement_timeout = '20s'")
-                cur.execute(sql, sql_params)
+            if True:
+                client = get_kotoba_client()
+                _res = client.q(f"SET statement_timeout = '20s'")
+                _res = client.q(sql, sql_params)
         except Exception as e:
             return {
                 "ok": False,
@@ -1121,9 +1133,10 @@ async def task_yata_cypher_run(**kwargs: Any) -> dict[str, Any]:
                 "error": f"translate: {e}",
             }
         try:
-            with sync_cursor() as cur:
-                cur.execute(f"SET statement_timeout = '20s'")
-                cur.execute(sql, sql_params)
+            if True:
+                client = get_kotoba_client()
+                _res = client.q(f"SET statement_timeout = '20s'")
+                _res = client.q(sql, sql_params)
                 # RisingWave UPDATE often returns rowcount=0 even on success
                 # (deferred materialization); treat any non-error response as
                 # 1 logical update. Real row count is verifiable via a follow-up
@@ -1175,10 +1188,11 @@ async def task_yata_cypher_run(**kwargs: Any) -> dict[str, Any]:
                 "error": f"translate: {e}",
             }
         try:
-            with sync_cursor() as cur:
-                cur.execute(f"SET statement_timeout = '20s'")
-                cur.execute(sql, sql_params)
-                deleted = cur.rowcount if cur.rowcount and cur.rowcount > 0 else 0
+            if True:
+                client = get_kotoba_client()
+                _res = client.q(f"SET statement_timeout = '20s'")
+                _res = client.q(sql, sql_params)
+                deleted = (len(_res) if isinstance(_res, list) else 1) if (len(_res) if isinstance(_res, list) else 1) and (len(_res) if isinstance(_res, list) else 1) > 0 else 0
         except Exception as e:
             return {
                 "ok": False,
@@ -1218,14 +1232,15 @@ async def task_yata_cypher_run(**kwargs: Any) -> dict[str, Any]:
     rows: list[list[Any]] = []
     err: str | None = None
     try:
-        with sync_cursor() as cur:
-            cur.execute(f"SET statement_timeout = '20s'")
-            cur.execute(sql, sql_params)
-            for raw in cur.fetchall():
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(f"SET statement_timeout = '20s'")
+            _res = client.q(sql, sql_params)
+            for raw in _res:
                 rows.append([_serialize_cell(cell) for cell in raw])
-            if cur.description and (len(columns) == 1 and columns[0] != cur.description[0].name):
+            if ([("col",)] if _res else []) and (len(columns) == 1 and columns[0] != ([("col",)] if _res else [])[0].name):
                 if "*" in sql.split("FROM", 1)[0]:
-                    columns = [d.name for d in cur.description]
+                    columns = [d.name for d in ([("col",)] if _res else [])]
     except Exception as e:
         err = f"execute: {type(e).__name__}: {str(e)[:200]}"
 
@@ -1281,8 +1296,10 @@ async def task_yata_storage_metering_rollup(**kwargs: Any) -> dict[str, Any]:
     events_emitted = 0
     total_bytes_hour = 0
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             """
             SELECT org_did, bucket_name, storage_tier, bytes_stored
             FROM mv_yata_storage_by_org
@@ -1290,7 +1307,7 @@ async def task_yata_storage_metering_rollup(**kwargs: Any) -> dict[str, Any]:
             LIMIT 10000
             """
         )
-        rows = cur.fetchall()
+        rows = _res
         for org_did, bucket_name, storage_tier, bytes_stored in rows:
             bytes_hour = int(bytes_stored or 0)
             if bytes_hour <= 0:
@@ -1298,7 +1315,7 @@ async def task_yata_storage_metering_rollup(**kwargs: Any) -> dict[str, Any]:
             gb_hour = bytes_hour / (1024 ** 3)
             billed = round(STORAGE_GB_HOUR_PRICE_JPY_MICRO * gb_hour)
             vertex_id = _event_id(str(org_did), "storage_gb_hour", str(ts_ms), str(bucket_name), str(storage_tier))
-            cur.execute(
+            _res = client.q(
                 """
                 INSERT INTO vertex_billing_event (
                     vertex_id, _seq, created_date, sensitivity_ord, owner_did,
@@ -1334,8 +1351,10 @@ async def task_yata_storage_embedding_drain(**kwargs: Any) -> dict[str, Any]:
     failed = 0
     now = _now_ts()
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             """
             SELECT blob_id
             FROM mv_yata_blob_embedding_queue
@@ -1343,10 +1362,10 @@ async def task_yata_storage_embedding_drain(**kwargs: Any) -> dict[str, Any]:
             """,
             (batch_size,),
         )
-        blob_ids = [r[0] for r in cur.fetchall()]
+        blob_ids = [r[0] for r in _res]
         for blob_id in blob_ids:
             try:
-                cur.execute(
+                _res = client.q(
                     """
                     UPDATE vertex_yata_blob
                     SET embedding_status = 'inflight', last_accessed_at = %s
@@ -1368,8 +1387,10 @@ async def task_yata_storage_tier_migrate(**kwargs: Any) -> dict[str, Any]:
     warm_to_cold = 0
     bytes_migrated = 0
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             """
             SELECT b.vertex_id, b.storage_tier, b.size_bytes
             FROM vertex_yata_blob b
@@ -1386,10 +1407,10 @@ async def task_yata_storage_tier_migrate(**kwargs: Any) -> dict[str, Any]:
             """,
             (batch_size,),
         )
-        rows = cur.fetchall()
+        rows = _res
         for blob_id, tier, size_bytes in rows:
             next_tier = "warm" if tier == "hot" else "cold"
-            cur.execute(
+            _res = client.q(
                 """
                 UPDATE vertex_yata_blob
                 SET storage_tier = %s, last_accessed_at = %s
@@ -1411,8 +1432,10 @@ async def task_yata_storage_multipart_reap(**kwargs: Any) -> dict[str, Any]:
     aborted = 0
     bytes_freed = 0
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             """
             SELECT vertex_id, total_bytes
             FROM vertex_yata_multipart
@@ -1421,9 +1444,9 @@ async def task_yata_storage_multipart_reap(**kwargs: Any) -> dict[str, Any]:
             """,
             (now,),
         )
-        rows = cur.fetchall()
+        rows = _res
         for vertex_id, total_bytes in rows:
-            cur.execute(
+            _res = client.q(
                 """
                 UPDATE vertex_yata_multipart
                 SET status = 'aborted'
@@ -1471,8 +1494,9 @@ async def task_yata_storage_multipart_init(
     expires_at = _dt.datetime.now(tz=_dt.UTC).replace(microsecond=0)
     expires_at += _dt.timedelta(hours=24)
     vid = "at://did:web:yatabase.etzhayyim.com/com.etzhayyim.apps.yata.multipart/" + upload_id
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             """
             INSERT INTO vertex_yata_multipart (
               vertex_id, _seq, created_date, sensitivity_ord, owner_did,
@@ -1512,13 +1536,14 @@ async def task_yata_storage_multipart_part(
     # Compute etag without holding the bytes longer than necessary.
     digest = hashlib.sha256(data.encode()).hexdigest()
     size = (len(data) // 4) * 3  # base64 → byte estimate
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             "SELECT parts_json, total_bytes FROM vertex_yata_multipart "
             "WHERE upload_id = %s AND status = 'active' LIMIT 1",
             (uploadId,),
         )
-        row = cur.fetchone()
+        row = (_res[0] if _res else None)
         if not row:
             return {"ok": False, "error": "uploadId not active"}
         # parts_json is small JSON; manipulate via Python.
@@ -1530,7 +1555,7 @@ async def task_yata_storage_multipart_part(
         parts = [p for p in parts if p.get("partNumber") != partNumber]
         parts.append({"partNumber": partNumber, "etag": digest, "sizeBytes": size, "data": data})
         parts.sort(key=lambda p: p.get("partNumber") or 0)
-        cur.execute(
+        _res = client.q(
             "UPDATE vertex_yata_multipart "
             "SET parts_json = %s, parts_received = parts_received + 1, total_bytes = %s "
             "WHERE upload_id = %s",
@@ -1553,19 +1578,20 @@ async def task_yata_storage_multipart_complete(
     """
     if not uploadId:
         return {"ok": False, "error": "uploadId required"}
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             "SELECT bucket_name, object_key, org_did, content_type, total_bytes "
             "FROM vertex_yata_multipart WHERE upload_id = %s AND status = 'active' LIMIT 1",
             (uploadId,),
         )
-        row = cur.fetchone()
+        row = (_res[0] if _res else None)
         if not row:
             return {"ok": False, "error": "uploadId not active"}
         bucket_name, object_key, upload_org, content_type, total_bytes = row
         agg_etag = hashlib.sha256(uploadId.encode()).hexdigest()
         blob_id = _object_id(bucket_name, object_key, agg_etag)
-        cur.execute(
+        _res = client.q(
             "UPDATE vertex_yata_multipart SET status = 'completed' WHERE upload_id = %s",
             (uploadId,),
         )
@@ -1587,8 +1613,9 @@ async def task_yata_storage_multipart_abort(
 ) -> dict[str, Any]:
     if not uploadId:
         return {"ok": False, "error": "uploadId required"}
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             "UPDATE vertex_yata_multipart SET status = 'aborted' "
             "WHERE upload_id = %s AND status = 'active'",
             (uploadId,),
@@ -1610,7 +1637,8 @@ async def task_yata_storage_list_objects(
     if not bucketName:
         return {"ok": False, "error": "bucketName required"}
     safe = min(max(int(limit or 100), 1), 1000)
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         sql = (
             "SELECT vertex_id, object_key, version_id, size_bytes, etag, "
             "content_type, storage_tier, created_at "
@@ -1626,8 +1654,8 @@ async def task_yata_storage_list_objects(
             sql += "AND object_key > %s "
             params.append(cursor)
         sql += f"ORDER BY object_key ASC LIMIT {safe + 1}"
-        cur.execute(sql, tuple(params))
-        rows = cur.fetchall()
+        _res = client.q(sql, tuple(params))
+        rows = _res
     has_more = len(rows) > safe
     rows = rows[:safe]
 

@@ -62,7 +62,7 @@ planning → approved → executing → completed
 - Pregel Send fan-out: 各ドメインエージェントへ並列ディスパッチ
 - 合流: `mission_sync` ノードで状態集約
 
-### RisingWave スキーマ
+### Kotoba/Datomic スキーマ
 
 ```
 vertex_defense_mission       — ミッションノード (classificationLevel, domain[], state)

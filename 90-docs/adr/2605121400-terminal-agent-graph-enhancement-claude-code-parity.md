@@ -283,7 +283,7 @@ Fetches any HTTP/HTTPS URL and returns readable content:
 `scripts/bench.py` — in-process LangGraph benchmark:
 - `--agentic`: 9 benches, tool-call compliance, 86% ceiling for top models
 - `--swe`: 4 SWE-bench style tasks (code comprehension, bug hunt, write+verify, multi-file)
-- `--rw-export`: persist to RisingWave (schema: `schema_bench.sql`)
+- `--rw-export`: persist to Kotoba/Datomic (schema: `schema_bench.sql`)
 - `--json`: machine-readable output
 
 `scripts/compare_models.py` — multi-model comparison: runs `bench.py --json` for

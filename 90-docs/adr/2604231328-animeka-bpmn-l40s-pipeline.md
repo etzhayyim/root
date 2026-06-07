@@ -55,7 +55,7 @@ ADR-0056; animeka's compute backend remains ADR-0050 Pattern 1.
 | Compute — image / video / audio | `comfyui.etzhayyim.com` CF Worker → **RunPod Serverless Endpoint** (`v9si0sflsm0gh0`, `runpod/worker-comfyui:latest`, RTX 4090 EUR-IS-1, scale-to-zero) attached to Network Volume `43k3uq9ldn` with Animagine XL cached; Pod Pattern 1 retained as hot-replay fallback | ADR-0050 Pattern 1 + 2026-04-23/24 addenda below |
 | Compute — LLM | 3-tier: fast=Murakumo / mid=L40S Qwen 2.5 7B / deep=Claude Sonnet 4.5 | ADR-0050 §3 |
 | Orchestration | Zeebe 8.6 LTS on mitama-udf K8s + bpmn-dispatcher | ADR-0056 |
-| Storage | Hyperdrive + Kysely → RisingWave `vertex_animeka_*` | ADR-0081 |
+| Storage | Hyperdrive + Kysely → Kotoba/Datomic `vertex_animeka_*` | ADR-0081 |
 | Social derive | `magatama.jsonld` `derive` rule (handler = single domain write, social fires via derive) | ADR-0004 |
 | Stage handoff | `magatama.jsonld` `derive` rule emits XRPC invoke of the next stage's NSID at commit time | this ADR |
 | Auth | Zeebe worker Secret holds `COMFYUI_API_KEY` (sk_live_*, scope `comfyui:generate`) + `ANTHROPIC_API_KEY` + `MURAKUMO_URL` | ADR-0022 / ADR-0023 |
@@ -257,7 +257,7 @@ Two subtle landmines were addressed in the same commit:
   and emitted its audit row. Stripped the three keys from all 13
   animeka BPMNs and re-seeded via the dispatcher F5 watcher
   (`UPDATE vertex_bpmn_process_def SET "xml"=…, deployed_at=NULL`).
-  Note: `xml` is a RisingWave reserved keyword — quoted identifier
+  Note: `xml` is a Kotoba/Datomic reserved keyword — quoted identifier
   required in the UPDATE statement.
 
 **End-to-end verified 2026-04-24T06:39Z**:

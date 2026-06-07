@@ -72,7 +72,7 @@ async def dispatch(job: Job) -> dict:
 **禁止** (CI hook で機械検査する):
 
 - handler 内で LLM SDK を直接 import / 呼び出し
-- handler 内で RisingWave / PDS / Hyperdrive に直接 SQL
+- handler 内で Kotoba/Datomic / PDS / Hyperdrive に直接 SQL
 - handler 内で外部 HTTP (MCP transport 以外)
 - handler 内で business 条件分岐 (BPMN gateway / Rego / DMN に押し出す)
 - handler 内での state hydration (state は MCP tool 側で読む)

@@ -41,9 +41,9 @@ Time: 2026-04-16 16:01 JST
 
 Evidence:
 
-- `50-infra/linode/risingwave-iceberg/kubeconfig.yaml:12-17`
+- `50-infra/linode/kotoba-iceberg/kubeconfig.yaml:12-17`
   - tracked kubeconfig contains a live-style bearer token for `lke589404-admin`
-- `git ls-files 50-infra/linode/risingwave-iceberg/kubeconfig.yaml`
+- `git ls-files 50-infra/linode/kotoba-iceberg/kubeconfig.yaml`
   - file is committed, not local-only
 
 Why it survives pruning:

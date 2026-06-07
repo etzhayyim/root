@@ -1,6 +1,7 @@
 """Handotai semiconductor-news XRPC primitives for BPMN/LangServer."""
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import datetime as _dt
 import decimal as _decimal
@@ -10,7 +11,6 @@ import uuid
 from typing import Any
 
 from pymagatama import llm
-from pymagatama.db_sync import sync_cursor
 
 
 APP_DID = "did:web:handotai.etzhayyim.com"
@@ -87,9 +87,9 @@ def _jsonable(v: Any) -> Any:
 
 
 def _rows(cur: Any) -> list[dict[str, Any]]:
-    cols = [d[0] for d in (cur.description or [])]
+    cols = [d[0] for d in (([("col",)] if _res else []) or [])]
     out: list[dict[str, Any]] = []
-    for row in cur.fetchall():
+    for row in _res:
         raw = {cols[i]: _jsonable(row[i]) for i in range(len(cols))}
         value_json = raw.get("value_json")
         if isinstance(value_json, str) and value_json:
@@ -145,8 +145,9 @@ def _write_social_post(record: dict[str, Any], *, did: str) -> dict[str, str]:
         "createdAt": now,
     }
     uri = f"at://{did}/app.bsky.feed.post/{rkey}"
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             """
             INSERT INTO vertex_repo_record
               (uri,cid,collection,rkey,repo,value_json,indexed_at,ts_ms,created_at,actor_did,org_did)
@@ -172,7 +173,8 @@ def _write(name: str, record: dict[str, Any], *, did: str = APP_DID) -> dict[str
     collection = _collection(name)
     vertex_id = f"at://{did}/{collection}/{rkey}"
     value_json = json.dumps({"$type": collection, **record}, ensure_ascii=False, separators=(",", ":"), default=str)
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         common_values = (
             vertex_id,
             rkey,
@@ -191,7 +193,7 @@ def _write(name: str, record: dict[str, Any], *, did: str = APP_DID) -> dict[str
             2,
         )
         if name == "source":
-            cur.execute(
+            _res = client.q(
                 """
                 INSERT INTO vertex_handotai_source
                   (vertex_id,record_key,label,status,value_json,indexed_at,created_at,updated_at,org_id,user_id,actor_id,actor_did,org_did,owner_did,sensitivity_ord,
@@ -207,7 +209,7 @@ def _write(name: str, record: dict[str, Any], *, did: str = APP_DID) -> dict[str
             )
         elif name == "article":
             source_id = _source_id_for(record)
-            cur.execute(
+            _res = client.q(
                 """
                 INSERT INTO vertex_handotai_article
                   (vertex_id,record_key,label,status,value_json,indexed_at,created_at,updated_at,org_id,user_id,actor_id,actor_did,org_did,owner_did,sensitivity_ord,
@@ -250,7 +252,7 @@ def _write(name: str, record: dict[str, Any], *, did: str = APP_DID) -> dict[str
                 ),
             )
             if source_id:
-                cur.execute(
+                _res = client.q(
                     """
                     INSERT INTO edge_handotai_source_article (edge_id,from_vertex_id,to_vertex_id,source_id,article_id,relation,created_at)
                     VALUES (%s,%s,%s,%s,%s,'published',%s)
@@ -261,7 +263,7 @@ def _write(name: str, record: dict[str, Any], *, did: str = APP_DID) -> dict[str
             for entity in _json_list(record.get("entities")):
                 entity_key = str(entity).strip()
                 if entity_key:
-                    cur.execute(
+                    _res = client.q(
                         """
                         INSERT INTO edge_handotai_article_entity (edge_id,from_vertex_id,to_vertex_id,article_id,entity_key,relation,created_at)
                         VALUES (%s,%s,%s,%s,%s,'mentions',%s)
@@ -270,7 +272,7 @@ def _write(name: str, record: dict[str, Any], *, did: str = APP_DID) -> dict[str
                         (_edge_id("article_entity", vertex_id, entity_key), vertex_id, f"handotai:entity:{entity_key}", _str(record.get("articleId")) or rkey, entity_key, now),
                     )
         elif name == "digest":
-            cur.execute(
+            _res = client.q(
                 """
                 INSERT INTO vertex_handotai_digest
                   (vertex_id,record_key,label,status,value_json,indexed_at,created_at,updated_at,org_id,user_id,actor_id,actor_did,org_did,owner_did,sensitivity_ord,
@@ -284,7 +286,7 @@ def _write(name: str, record: dict[str, Any], *, did: str = APP_DID) -> dict[str
                 (*common_values, _str(record.get("date") or record.get("digestDate")) or now[:10], int(_num(record.get("totalArticles") or record.get("articleCount"), 0)), _str(record.get("summary") or record.get("summaryJa")), _str(record.get("keyTopics")), _str(record.get("summaryJa")), _str(record.get("generatedAt")) or now),
             )
         elif name == "collectionJob":
-            cur.execute(
+            _res = client.q(
                 """
                 INSERT INTO vertex_handotai_collection_job
                   (vertex_id,record_key,label,status,value_json,indexed_at,created_at,updated_at,org_id,user_id,actor_id,actor_did,org_did,owner_did,sensitivity_ord,
@@ -298,7 +300,7 @@ def _write(name: str, record: dict[str, Any], *, did: str = APP_DID) -> dict[str
                 (*common_values, _str(record.get("jobId")) or rkey, _str(record.get("requestedAt")) or now, _str(record.get("startedAt")) or None, _str(record.get("finishedAt")) or None, int(_num(record.get("sources"), 0)), int(_num(record.get("articles"), 0))),
             )
         elif name == "report":
-            cur.execute(
+            _res = client.q(
                 """
                 INSERT INTO vertex_handotai_report
                   (vertex_id,record_key,label,status,value_json,indexed_at,created_at,updated_at,org_id,user_id,actor_id,actor_did,org_did,owner_did,sensitivity_ord,
@@ -312,7 +314,7 @@ def _write(name: str, record: dict[str, Any], *, did: str = APP_DID) -> dict[str
                 (*common_values, _str(record.get("reportId")) or rkey, _str(record.get("reportType")) or "weekly", _str(record.get("entity")), _str(record.get("period")), int(_num(record.get("totalArticles"), 0)), _str(record.get("reportJa")), _str(record.get("generatedAt")) or now),
             )
         elif name == "alert":
-            cur.execute(
+            _res = client.q(
                 """
                 INSERT INTO vertex_handotai_alert
                   (vertex_id,record_key,label,status,value_json,indexed_at,created_at,updated_at,org_id,user_id,actor_id,actor_did,org_did,owner_did,sensitivity_ord,
@@ -326,7 +328,7 @@ def _write(name: str, record: dict[str, Any], *, did: str = APP_DID) -> dict[str
                 (*common_values, _str(record.get("alertId")) or rkey, _str(record.get("name")) or rkey, json.dumps(_json_list(record.get("filterCategories")), ensure_ascii=False, separators=(",", ":")), json.dumps(_json_list(record.get("filterEntities")), ensure_ascii=False, separators=(",", ":")), json.dumps(_json_list(record.get("filterKeywords")), ensure_ascii=False, separators=(",", ":")), int(_num(record.get("filterImportanceMin"), 0)), _str(record.get("notifyChannel")), _str(record.get("notifyEmail")), _str(record.get("tier")) or "free", bool(_num(record.get("enabled"), 1))),
             )
         elif name == "subscription":
-            cur.execute(
+            _res = client.q(
                 """
                 INSERT INTO vertex_handotai_subscription
                   (vertex_id,record_key,label,status,value_json,indexed_at,created_at,updated_at,org_id,user_id,actor_id,actor_did,org_did,owner_did,sensitivity_ord,
@@ -342,7 +344,7 @@ def _write(name: str, record: dict[str, Any], *, did: str = APP_DID) -> dict[str
             for entity in _json_list(record.get("trackedEntities")):
                 entity_key = str(entity).strip()
                 if entity_key:
-                    cur.execute(
+                    _res = client.q(
                         """
                         INSERT INTO edge_handotai_subscription_entity (edge_id,from_vertex_id,to_vertex_id,sub_id,entity_key,relation,created_at)
                         VALUES (%s,%s,%s,%s,%s,'tracks',%s)
@@ -351,7 +353,7 @@ def _write(name: str, record: dict[str, Any], *, did: str = APP_DID) -> dict[str
                         (_edge_id("subscription_entity", vertex_id, entity_key), vertex_id, f"handotai:entity:{entity_key}", _str(record.get("subId")) or rkey, entity_key, now),
                     )
         elif name == "semiEntity":
-            cur.execute(
+            _res = client.q(
                 """
                 INSERT INTO vertex_handotai_semi_entity
                   (vertex_id,record_key,label,status,value_json,indexed_at,created_at,updated_at,org_id,user_id,actor_id,actor_did,org_did,owner_did,sensitivity_ord,
@@ -371,8 +373,9 @@ def _list(name: str, match: dict[str, Any] | None = None, limit: int = 50, offse
     table = WRITE_TABLES.get(name)
     if not table:
         return []
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             f"SELECT * FROM {table} ORDER BY indexed_at DESC LIMIT %s OFFSET %s",
             (max(1, min(limit, 500)), max(0, offset)),
         )

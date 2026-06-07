@@ -27,8 +27,8 @@ amends: []
 
 # ADR-2605120600: Terminal Agent HITL — LangGraph inmem + Yoro Inbox
 
-**Status**: accepted  
-**Date**: 2026-05-12  
+**Status**: accepted
+**Date**: 2026-05-12
 **Deciders**: Jun Kawasaki
 
 ## Context

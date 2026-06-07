@@ -43,6 +43,7 @@ Env:
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import asyncio
 import json
@@ -54,7 +55,6 @@ from typing import Any
 
 from aiohttp import web
 
-from pymagatama.db_sync import sync_cursor
 
 LOG = logging.getLogger("dispatcher")
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s")
@@ -300,12 +300,13 @@ def _lookup_binding_sync(nsid: str) -> dict[str, Any] | None:
         "WHERE nsid = %s AND status = 'active' "
         "LIMIT 1"
     )
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         try:
-            cur.execute(select_with_url, (nsid,))
+            _res = client.q(select_with_url, (nsid,))
         except Exception:  # pragma: no cover — column-not-yet-created path
-            cur.execute(select_legacy, (nsid,))
-        row = cur.fetchone()
+            _res = client.q(select_legacy, (nsid,))
+        row = (_res[0] if _res else None)
     if not row:
         return None
     timeout_raw = row[2]
@@ -358,11 +359,12 @@ async def list_bindings(_request: web.Request) -> web.Response:
             "WHERE status = 'active' "
             "ORDER BY nsid"
         )
-        with sync_cursor() as cur:
+        if True:
+            client = get_kotoba_client()
             try:
-                cur.execute(select_with_url)
+                _res = client.q(select_with_url)
             except Exception:  # pragma: no cover
-                cur.execute(select_legacy)
+                _res = client.q(select_legacy)
             return [
                 {
                     "nsid": r[0],
@@ -372,7 +374,7 @@ async def list_bindings(_request: web.Request) -> web.Response:
                     "routingTarget": r[4] or "zeebe",
                     "langgraphUrl": r[5] if len(r) > 5 else None,
                 }
-                for r in (cur.fetchall() or [])
+                for r in (_res or [])
             ]
     rows = await asyncio.to_thread(_all)
     now = time.monotonic()
@@ -711,8 +713,9 @@ def _list_public_malak_ads_sync(params: dict[str, Any]) -> dict[str, Any]:
         filters.append("last_seen_at < %s")
         sql_params.append(str(params["cursor"]))
     where = ("WHERE " + " AND ".join(filters)) if filters else ""
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             f"""
             {_public_malak_creative_select_sql()}
             {where}
@@ -721,7 +724,7 @@ def _list_public_malak_ads_sync(params: dict[str, Any]) -> dict[str, Any]:
             """,
             tuple(sql_params),
         )
-        rows = cur.fetchall() or []
+        rows = _res or []
     views = [_public_malak_creative_view(row) for row in rows[:limit]]
     next_cursor = str(rows[limit][27]) if len(rows) > limit and rows[limit][27] else None
     return {"ads": views, "total": len(views), "cursor": next_cursor}
@@ -753,8 +756,9 @@ def _list_public_malak_analyses_sync(params: dict[str, Any]) -> dict[str, Any]:
         filters.append("analyzed_at < %s")
         sql_params.append(str(params["cursor"]))
     where = ("WHERE " + " AND ".join(filters)) if filters else ""
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             f"""
             {_public_malak_analysis_select_sql()}
             {where}
@@ -763,7 +767,7 @@ def _list_public_malak_analyses_sync(params: dict[str, Any]) -> dict[str, Any]:
             """,
             tuple(sql_params),
         )
-        rows = cur.fetchall() or []
+        rows = _res or []
     views = [_public_malak_analysis_view(row) for row in rows[:limit]]
     next_cursor = str(rows[limit][13]) if len(rows) > limit and rows[limit][13] else None
     return {"analyses": views, "total": len(views), "cursor": next_cursor}
@@ -785,8 +789,9 @@ def _get_public_malak_analysis_sync(params: dict[str, Any]) -> dict[str, Any]:
         sql_params = (creative_vertex_id, analysis_kind)
     else:
         return {"error": "vertexId or creativeVertexId+analysisKind required"}
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             f"""
             {_public_malak_analysis_select_sql()}
             WHERE {where}
@@ -795,7 +800,7 @@ def _get_public_malak_analysis_sync(params: dict[str, Any]) -> dict[str, Any]:
             """,
             sql_params,
         )
-        row = cur.fetchone()
+        row = (_res[0] if _res else None)
     if not row:
         return {"error": "AnalysisNotFound"}
     return {"analysis": _public_malak_analysis_view(row)}
@@ -813,8 +818,9 @@ def _get_public_malak_creative_sync(params: dict[str, Any]) -> dict[str, Any]:
         sql_params = (platform, platform_ad_id)
     else:
         return {"error": "vertexId or platform+platformAdId required"}
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             f"""
             {_public_malak_creative_select_sql()}
             WHERE {where}
@@ -822,7 +828,7 @@ def _get_public_malak_creative_sync(params: dict[str, Any]) -> dict[str, Any]:
             """,
             sql_params,
         )
-        row = cur.fetchone()
+        row = (_res[0] if _res else None)
     if not row:
         return {"error": "CreativeNotFound"}
     return {"creative": _public_malak_creative_view(row)}
@@ -840,8 +846,9 @@ def _get_public_malak_advertiser_sync(params: dict[str, Any]) -> dict[str, Any]:
         sql_params = (platform, platform_advertiser_id)
     else:
         return {"error": "vertexId or platform+platformAdvertiserId required"}
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             f"""
             SELECT vertex_id, platform, platform_advertiser_id, name,
                    verified_name, legal_name, page_url, page_category, country,
@@ -853,7 +860,7 @@ def _get_public_malak_advertiser_sync(params: dict[str, Any]) -> dict[str, Any]:
             """,
             sql_params,
         )
-        row = cur.fetchone()
+        row = (_res[0] if _res else None)
     if not row:
         return {"error": "AdvertiserNotFound"}
     return {"advertiser": _public_malak_advertiser_view(row)}
@@ -892,8 +899,9 @@ def _list_public_malak_snapshots_sync(params: dict[str, Any]) -> dict[str, Any]:
         filters.append("scraped_at < %s")
         sql_params.append(str(params["cursor"]))
     where = ("WHERE " + " AND ".join(filters)) if filters else ""
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             f"""
             SELECT vertex_id, creative_vertex_id, platform, platform_ad_id,
                    scraper, scraper_run_id, scraped_at, source_url, http_status,
@@ -908,7 +916,7 @@ def _list_public_malak_snapshots_sync(params: dict[str, Any]) -> dict[str, Any]:
             """,
             tuple(sql_params),
         )
-        rows = cur.fetchall() or []
+        rows = _res or []
     views = [_public_malak_snapshot_view(row) for row in rows[:limit]]
     next_cursor = str(rows[limit][6]) if len(rows) > limit and rows[limit][6] else None
     return {"snapshots": views, "cursor": next_cursor}
@@ -928,8 +936,9 @@ def _list_public_malak_scraper_runs_sync(params: dict[str, Any]) -> dict[str, An
         filters.append("started_at < %s")
         sql_params.append(str(params["cursor"]))
     where = ("WHERE " + " AND ".join(filters)) if filters else ""
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             f"""
             SELECT vertex_id, platform, query_kind, query_value, country,
                    started_at, finished_at, status, ads_seen, ads_new,
@@ -943,7 +952,7 @@ def _list_public_malak_scraper_runs_sync(params: dict[str, Any]) -> dict[str, An
             """,
             tuple(sql_params),
         )
-        rows = cur.fetchall() or []
+        rows = _res or []
     views = [_public_malak_scraper_run_view(row) for row in rows[:limit]]
     next_cursor = str(rows[limit][5]) if len(rows) > limit and rows[limit][5] else None
     return {"runs": views, "cursor": next_cursor}
@@ -969,8 +978,9 @@ def _list_public_malak_campaign_clusters_sync(params: dict[str, Any]) -> dict[st
         filters.append("last_seen_at < %s")
         sql_params.append(str(params["cursor"]))
     where = ("WHERE " + " AND ".join(filters)) if filters else ""
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             f"""
             SELECT vertex_id, campaign_key, platform_scope, advertiser_vertex_id,
                    advertiser_name, landing_domain, claim_token, sample_headline,
@@ -983,7 +993,7 @@ def _list_public_malak_campaign_clusters_sync(params: dict[str, Any]) -> dict[st
             """,
             tuple(sql_params),
         )
-        rows = cur.fetchall() or []
+        rows = _res or []
     views = [_public_malak_campaign_view(row) for row in rows[:limit]]
     next_cursor = str(rows[limit][12]) if len(rows) > limit and rows[limit][12] else None
     return {"clusters": views, "cursor": next_cursor}
@@ -1002,8 +1012,9 @@ def _get_public_malak_campaign_cluster_sync(params: dict[str, Any]) -> dict[str,
     else:
         where = "campaign_key = %s"
         sql_params = (campaign_key,)
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             f"""
             SELECT vertex_id, campaign_key, platform_scope, advertiser_vertex_id,
                    advertiser_name, landing_domain, claim_token, sample_headline,
@@ -1015,11 +1026,11 @@ def _get_public_malak_campaign_cluster_sync(params: dict[str, Any]) -> dict[str,
             """,
             sql_params,
         )
-        rows = cur.fetchall() or []
+        rows = _res or []
         if not rows:
             return {"error": "CampaignClusterNotFound"}
         cluster = _public_malak_campaign_view(rows[0])
-        cur.execute(
+        _res = client.q(
             f"""
             SELECT c.vertex_id, c.platform, c.platform_ad_id, c.advertiser_name,
                    c.headline, c.body_text, c.landing_url, c.last_seen_at,
@@ -1032,8 +1043,8 @@ def _get_public_malak_campaign_cluster_sync(params: dict[str, Any]) -> dict[str,
             """,
             (cluster["vertexId"],),
         )
-        creative_rows = cur.fetchall() or []
-        cur.execute(
+        creative_rows = _res or []
+        _res = client.q(
             f"""
             SELECT a.vertex_id, a.creative_vertex_id, a.platform, a.platform_ad_id,
                    a.analysis_kind, a.model_id, a.status, a.summary,
@@ -1047,7 +1058,7 @@ def _get_public_malak_campaign_cluster_sync(params: dict[str, Any]) -> dict[str,
             """,
             (cluster["vertexId"],),
         )
-        analysis_rows = cur.fetchall() or []
+        analysis_rows = _res or []
     return {
         "cluster": cluster,
         "creatives": [_public_malak_cluster_creative_view(row) for row in creative_rows],

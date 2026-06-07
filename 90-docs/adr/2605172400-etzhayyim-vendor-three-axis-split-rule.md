@@ -191,7 +191,7 @@ TypeScript paths) keeps existing references valid through the transition.
 # Verification
 
 - Each Tranche F move PR must cite this ADR + the 3-axis judgment in its commit message
-- Lefthook pre-commit hook to flag etzhayyim-side files with `risingwave|kysely|pg|stripe|paypal` imports (RW-free + on-chain-only enforcement from ADR-2605172000 + 2605172100)
+- Lefthook pre-commit hook to flag etzhayyim-side files with `kotoba|kysely|pg|stripe|paypal` imports (RW-free + on-chain-only enforcement from ADR-2605172000 + 2605172100)
 - Quarterly review of borderline list at 2026-08-17 / 2026-11-17 / 2027-02-17
 
 # Closure (added 2026-05-19, mechanical phases complete)

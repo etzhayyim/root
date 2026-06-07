@@ -1,11 +1,11 @@
 [geth_private]
 status            = "active"
 provider          = "vultr"
-cluster_id        = "a61d513b-f9b7-4121-abb9-b53732aa5ec4"  # shared with risingwave
-cluster_label     = "etzhayyim-risingwave-lax"
+cluster_id        = "a61d513b-f9b7-4121-abb9-b53732aa5ec4"  # shared with kotoba
+cluster_label     = "etzhayyim-kotoba-lax"
 region            = "lax"
 namespace         = "geth-private"
-node_pool         = "risingwave-pool-32gb"                  # shared with risingwave (geth req 100m CPU / 256Mi)
+node_pool         = "kotoba-pool-32gb"                  # shared with kotoba (geth req 100m CPU / 256Mi)
 storage_pvc_gb    = 50
 public_url        = "https://geth.etzhayyim.com"
 public_path       = "CF Worker geth-rpc-proxy → Cloudflare Tunnel (cloudflared-geth-rpc Deployment, geth-private ns, tunnel ID 69cf11d5-001f-494c-abce-4a1422ac47d8) → geth-private:8545 (in-cluster). Cutover 2026-05-07."

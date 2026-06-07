@@ -55,7 +55,7 @@ bpmn-dispatcher  (K8s ClusterIP)
           ↓ NSID routing
 mamoru-langgraph pod  (mitama-udf namespace, Granian ASGI)
           ↓
-RisingWave  (vertex_mamoru_{scan,incident,occurrence})
+Kotoba/Datomic  (vertex_mamoru_{scan,incident,occurrence})
           ↓
 Slack webhook  (mamoru-notify K8s Secret)
 ```
@@ -161,5 +161,5 @@ client-side routing for `/scan` and `/incident/[id]`.
 
 - Direct LLM calls from the CF Worker
 - `createKyselyDb` / `env.HYPERDRIVE` INSERT in the CF Worker
-- Storing raw token values in RisingWave or logs (only SHA-256 hash)
+- Storing raw token values in Kotoba/Datomic or logs (only SHA-256 hash)
 - `com.atproto.repo.createRecord` for mamoru domain records

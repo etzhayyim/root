@@ -9,8 +9,8 @@ Turn the current operator-driven law ingest into a durable Zeebe workflow.
 
 Current state:
 
-- `70-tools/scripts/houbun_live_ingest.py` can write directly to RisingWave.
-- RisingWave has partial `houbun` data: JP statutes/articles, UN treaty metadata,
+- `70-tools/scripts/houbun_live_ingest.py` can write directly to Kotoba/Datomic.
+- Kotoba/Datomic has partial `houbun` data: JP statutes/articles, UN treaty metadata,
   and constitution/social-contract metadata.
 - `hanrei` cron currently creates collection jobs, but it does not own the
   authoritative `vertex_houbun_*` write path.
@@ -43,7 +43,7 @@ Python Deployment: houbun-ingest-worker
         +-- future municipal ordinance sources
         |
         v
-RisingWave:
+Kotoba/Datomic:
   vertex_houbun_statute
   vertex_houbun_article
   edge_houbun_statute_article
@@ -107,7 +107,7 @@ inside Python. The worker dispatches by `source_id`.
 | Zeebe task type | Input | Output | Notes |
 |---|---|---|---|
 | `houbun.createRun` | `run_id, source_id, mode, input_json` | `run_vertex_id` | Inserts `vertex_ingest_run`. |
-| `houbun.healthGate` | `rw_url, source_id` | `rw_ok` | Blocks bulk writes if RisingWave is unhealthy. |
+| `houbun.healthGate` | `rw_url, source_id` | `rw_ok` | Blocks bulk writes if Kotoba/Datomic is unhealthy. |
 | `houbun.planShards` | `source_id, mode, range, limit` | `shards[]` | Creates deterministic shard list. |
 | `houbun.acquireCursor` | `source_id, shard_key, run_id` | `cursor_value` | Lock with TTL. |
 | `houbun.fetchSource` | `source_id, shard_key, cursor_value` | `artifact_uri, source_count` | Raw payload goes to B2 or local artifact row. |
@@ -191,7 +191,7 @@ The source-neutral skeleton should look like:
       <bpmn:outgoing>flow_health_gate</bpmn:outgoing>
     </bpmn:serviceTask>
 
-    <bpmn:serviceTask id="health_gate" name="RisingWave health gate">
+    <bpmn:serviceTask id="health_gate" name="Kotoba/Datomic health gate">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="houbun.healthGate" retries="3" />
       </bpmn:extensionElements>
@@ -388,11 +388,11 @@ spec:
           env:
             - name: ZEEBE_GATEWAY
               value: zeebe-gateway.mitama-udf.svc:26500
-            - name: RW_URL
+            - name: KOTOBA_URL
               valueFrom:
                 secretKeyRef:
                   name: mitama-udf-pool-rw
-                  key: RW_URL
+                  key: KOTOBA_URL
             - name: HOUBUN_ARTIFACT_BUCKET
               value: etzhayyim-nats
             - name: HOUBUN_ARTIFACT_PREFIX

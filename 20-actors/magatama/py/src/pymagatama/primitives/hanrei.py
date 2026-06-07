@@ -20,6 +20,7 @@ Table: vertex_hanrei_collection_job / vertex_hanrei_case_record / vertex_hanrei_
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import hashlib
 import json
@@ -27,7 +28,6 @@ import time
 import uuid
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
 
 
 _OWNER_DID = "did:web:hanrei.etzhayyim.com"
@@ -141,8 +141,9 @@ def task_hanrei_register_court_profiles() -> dict:
     for court in _JP_COURTS:
         vid = _court_vid(court["courtId"])
         try:
-            with sync_cursor() as cur:
-                cur.execute(
+            if True:
+                client = get_kotoba_client()
+                _res = client.q(
                     "INSERT INTO vertex_hanrei_court "
                     "(vertex_id, court_id, name, court_did, search_url, "
                     "actor_did, org_did, created_at) "
@@ -156,8 +157,9 @@ def task_hanrei_register_court_profiles() -> dict:
     for source in _JP_SOURCES:
         vid = _court_vid(f"source:{source['sourceId']}")
         try:
-            with sync_cursor() as cur:
-                cur.execute(
+            if True:
+                client = get_kotoba_client()
+                _res = client.q(
                     "INSERT INTO vertex_hanrei_court "
                     "(vertex_id, court_id, name, court_did, search_url, "
                     "actor_did, org_did, created_at) "
@@ -209,8 +211,9 @@ def task_hanrei_register_jurisdictions(
         vid = _jurisdiction_vid(iso3)
         did = f"{_OWNER_DID}:jurisdiction:{iso3}"
         try:
-            with sync_cursor() as cur:
-                cur.execute(
+            if True:
+                client = get_kotoba_client()
+                _res = client.q(
                     "INSERT INTO vertex_hanrei_jurisdiction "
                     "(vertex_id, iso3, jurisdiction_did, actor_did, org_did, created_at) "
                     "VALUES (%s, %s, %s, %s, %s, %s)",
@@ -254,8 +257,9 @@ def task_hanrei_collect_cases(
             vid = _job_vid(job_id)
             url = f"{c['searchUrl']}?page={page}"
             try:
-                with sync_cursor() as cur:
-                    cur.execute(
+                if True:
+                    client = get_kotoba_client()
+                    _res = client.q(
                         "INSERT INTO vertex_hanrei_collection_job "
                         "(vertex_id, job_id, job_type, court_id, target_url, page, "
                         "status, actor_did, org_did, created_at) "
@@ -285,8 +289,9 @@ def task_hanrei_collect_case_detail(
     vid = _job_vid(job_id)
     now = _utc_now()
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 "INSERT INTO vertex_hanrei_collection_job "
                 "(vertex_id, job_id, job_type, court_id, target_url, "
                 "status, actor_did, org_did, created_at) "
@@ -320,8 +325,9 @@ def task_hanrei_collect_cases_batch(
         job_id = _new_job_id()
         vid = _job_vid(job_id)
         try:
-            with sync_cursor() as cur:
-                cur.execute(
+            if True:
+                client = get_kotoba_client()
+                _res = client.q(
                     "INSERT INTO vertex_hanrei_collection_job "
                     "(vertex_id, job_id, job_type, court_id, target_url, "
                     "status, actor_did, org_did, created_at) "
@@ -354,8 +360,9 @@ def task_hanrei_collect_gazette(
         if endDate:
             target_url += f"&to={endDate}"
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 "INSERT INTO vertex_hanrei_collection_job "
                 "(vertex_id, job_id, job_type, source_id, target_url, "
                 "start_date, end_date, status, actor_did, org_did, created_at) "
@@ -390,8 +397,9 @@ def task_hanrei_collect_legislation(
     else:
         target_url = f"{base_url}lawlists/1"
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 "INSERT INTO vertex_hanrei_collection_job "
                 "(vertex_id, job_id, job_type, source_id, target_url, "
                 "law_id, status, actor_did, org_did, created_at) "
@@ -426,8 +434,9 @@ def task_hanrei_collect_egov_laws(
         job_id = _new_job_id()
         vid = _job_vid(job_id)
         try:
-            with sync_cursor() as cur:
-                cur.execute(
+            if True:
+                client = get_kotoba_client()
+                _res = client.q(
                     "INSERT INTO vertex_hanrei_collection_job "
                     "(vertex_id, job_id, job_type, source_id, target_url, "
                     "category_id, category_name, status, actor_did, org_did, created_at) "
@@ -459,8 +468,9 @@ def task_hanrei_collect_wikidata_courts(
         job_id = _new_job_id()
         vid = _job_vid(job_id)
         try:
-            with sync_cursor() as cur:
-                cur.execute(
+            if True:
+                client = get_kotoba_client()
+                _res = client.q(
                     "INSERT INTO vertex_hanrei_collection_job "
                     "(vertex_id, job_id, job_type, source_id, target_url, "
                     "query_id, sparql, status, actor_did, org_did, created_at) "
@@ -489,13 +499,14 @@ def task_hanrei_collect_jurisdiction_cases(
     if not target_url:
         # Attempt lookup from vertex_hanrei_jurisdiction
         try:
-            with sync_cursor() as cur:
-                cur.execute(
+            if True:
+                client = get_kotoba_client()
+                _res = client.q(
                     "SELECT case_db_url FROM vertex_hanrei_jurisdiction "
                     "WHERE iso3 = %s LIMIT 1",
                     (iso3,),
                 )
-                row = cur.fetchone()
+                row = (_res[0] if _res else None)
                 if row and row[0]:
                     target_url = row[0]
         except Exception:  # noqa: BLE001
@@ -506,8 +517,9 @@ def task_hanrei_collect_jurisdiction_cases(
     vid = _job_vid(job_id)
     now = _utc_now()
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 "INSERT INTO vertex_hanrei_collection_job "
                 "(vertex_id, job_id, job_type, iso3, target_url, "
                 "status, actor_did, org_did, created_at) "
@@ -535,13 +547,14 @@ def task_hanrei_collect_jurisdiction_legislation(
     target_url = str(legislationUrl or "").strip()
     if not target_url:
         try:
-            with sync_cursor() as cur:
-                cur.execute(
+            if True:
+                client = get_kotoba_client()
+                _res = client.q(
                     "SELECT legislation_url FROM vertex_hanrei_jurisdiction "
                     "WHERE iso3 = %s LIMIT 1",
                     (iso3,),
                 )
-                row = cur.fetchone()
+                row = (_res[0] if _res else None)
                 if row and row[0]:
                     target_url = row[0]
         except Exception:  # noqa: BLE001
@@ -552,8 +565,9 @@ def task_hanrei_collect_jurisdiction_legislation(
     vid = _job_vid(job_id)
     now = _utc_now()
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 "INSERT INTO vertex_hanrei_collection_job "
                 "(vertex_id, job_id, job_type, iso3, target_url, "
                 "status, actor_did, org_did, created_at) "
@@ -581,13 +595,14 @@ def task_hanrei_collect_jurisdiction_gazette(
     target_url = str(gazetteUrl or "").strip()
     if not target_url:
         try:
-            with sync_cursor() as cur:
-                cur.execute(
+            if True:
+                client = get_kotoba_client()
+                _res = client.q(
                     "SELECT gazette_url FROM vertex_hanrei_jurisdiction "
                     "WHERE iso3 = %s LIMIT 1",
                     (iso3,),
                 )
-                row = cur.fetchone()
+                row = (_res[0] if _res else None)
                 if row and row[0]:
                     target_url = row[0]
         except Exception:  # noqa: BLE001
@@ -598,8 +613,9 @@ def task_hanrei_collect_jurisdiction_gazette(
     vid = _job_vid(job_id)
     now = _utc_now()
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 "INSERT INTO vertex_hanrei_collection_job "
                 "(vertex_id, job_id, job_type, iso3, target_url, "
                 "status, actor_did, org_did, created_at) "
@@ -630,8 +646,9 @@ def task_hanrei_seed_cases(
             seeded.append({"rkey": case["rkey"], "title": case["title"], "dryRun": True})
             continue
         try:
-            with sync_cursor() as cur:
-                cur.execute(
+            if True:
+                client = get_kotoba_client()
+                _res = client.q(
                     "INSERT INTO vertex_hanrei_case_record "
                     "(vertex_id, rkey, title, case_number, court_id, decision_date, "
                     "summary, iso3, status, actor_did, org_did, created_at) "

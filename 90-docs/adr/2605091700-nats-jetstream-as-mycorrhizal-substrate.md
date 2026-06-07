@@ -38,7 +38,7 @@ superseded_by: []
 
 ## Context
 
-Platform 全体で RisingWave への INSERT を直接打つ writer (PDS Worker / Mitama
+Platform 全体で Kotoba/Datomic への INSERT を直接打つ writer (PDS Worker / Mitama
 actor / SpiffWorkflow worker / LangGraph node / OSM bulk ingester) が多数
 存在し、以下の構造的問題を抱える:
 
@@ -133,7 +133,7 @@ Production cluster: 1 replica (Vultr block storage account quota)
 HA (3-node cluster) は Vultr block storage quota が増えた時点で復活。
 1-replica 状態は本格 production 前の **soak phase** とみなす。
 
-## RisingWave Integration (verified 2026-05-09)
+## Kotoba/Datomic Integration (verified 2026-05-09)
 
 RW v2.8.x has **native NATS JetStream source** (`src/connector/src/source/nats/`).
 End-to-end pattern (CREATE TABLE form, verified working):

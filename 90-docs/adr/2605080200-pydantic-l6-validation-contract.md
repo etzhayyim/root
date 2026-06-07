@@ -40,7 +40,7 @@ superseded_by: []
 ## Context
 
 ADR-2605080000 defines the 6-Layer Distributed Cognitive Actor System. L6 is the
-compute/execution layer — PyZeebe workers, RisingWave External Python UDF handlers,
+compute/execution layer — PyZeebe workers, Kotoba/Datomic External Python UDF handlers,
 LangGraph subgraphs, and Anthropic tool-use parsers all live here.
 
 Until now, L6 code used ad-hoc `dict.get()` access on job variables and LLM

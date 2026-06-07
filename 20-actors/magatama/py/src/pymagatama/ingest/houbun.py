@@ -7,6 +7,7 @@ after read-after-write verification.
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import asyncio
 import hashlib
@@ -40,21 +41,21 @@ def sync_cursor():
     os.makedirs(db_dir, exist_ok=True)
     db_path = os.path.join(db_dir, "ingest_houbun.db")
     with sqlite3.connect(db_path) as conn:
-        conn.execute('PRAGMA journal_mode=WAL;')
-        conn.execute('''CREATE TABLE IF NOT EXISTS vertex_houbun_statute (
+        _res = client.q('PRAGMA journal_mode=WAL;')
+        _res = client.q('''CREATE TABLE IF NOT EXISTS vertex_houbun_statute (
             vertex_id TEXT PRIMARY KEY, created_date TEXT, sensitivity_ord INTEGER, owner_did TEXT,
             rkey TEXT, repo TEXT, jurisdiction TEXT, statute_id TEXT, title TEXT, title_native TEXT,
             statute_type TEXT, enacted_date TEXT, effective_date TEXT, repealed_date TEXT, source TEXT,
             source_url TEXT, license TEXT, language TEXT, article_count INTEGER, last_verified TEXT,
             created_at TEXT, org_id TEXT, user_id TEXT, actor_id TEXT
         )''')
-        conn.execute('''CREATE TABLE IF NOT EXISTS vertex_houbun_article (
+        _res = client.q('''CREATE TABLE IF NOT EXISTS vertex_houbun_article (
             vertex_id TEXT PRIMARY KEY, created_date TEXT, sensitivity_ord INTEGER, owner_did TEXT,
             rkey TEXT, repo TEXT, statute_ref TEXT, article_no TEXT, section TEXT, title TEXT,
             text TEXT, language TEXT, article_did TEXT, blake3_hash TEXT, amended_at TEXT,
             source_url TEXT, created_at TEXT, org_id TEXT, user_id TEXT, actor_id TEXT
         )''')
-        conn.execute('''CREATE TABLE IF NOT EXISTS edge_houbun_statute_article (
+        _res = client.q('''CREATE TABLE IF NOT EXISTS edge_houbun_statute_article (
             edge_id TEXT PRIMARY KEY, src_vid TEXT, dst_vid TEXT, created_date TEXT,
             sensitivity_ord INTEGER, owner_did TEXT, article_no TEXT, order_key INTEGER,
             created_at TEXT, org_id TEXT, user_id TEXT, actor_id TEXT
@@ -287,12 +288,12 @@ def _insert_ignore(cur: Any, table: str, id_col: str, values: dict[str, Any]) ->
     clean = {k: v for k, v in values.items() if v is not None}
     cols = list(clean)
     placeholders = ", ".join(["?"] * len(cols))
-    cur.execute(
+    _res = client.q(
         f"INSERT OR IGNORE INTO {table} ({', '.join(cols)}) "
         f"VALUES ({placeholders})",
         (*[clean[c] for c in cols],),
     )
-    return int(cur.rowcount or 0)
+    return int((len(_res) if isinstance(_res, list) else 1) or 0)
 
 
 def _flush_rw() -> None:
@@ -390,7 +391,8 @@ def _write_payload_usa(payload: dict[str, Any]) -> dict[str, int]:
     source_url = str(payload.get("source_url") or f"https://www.ecfr.gov/current/{law_id}")
     article_inserted = 0
     edge_inserted = 0
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         statute_inserted = _insert_ignore(
             cur,
             "vertex_houbun_statute",
@@ -422,7 +424,7 @@ def _write_payload_usa(payload: dict[str, Any]) -> dict[str, int]:
                 "actor_id": "sys.houbun",
             },
         )
-        cur.execute(
+        _res = client.q(
             """
             UPDATE vertex_houbun_statute
                SET title = ?,
@@ -503,7 +505,8 @@ def _write_payload(payload: dict[str, Any]) -> dict[str, int]:
     source_url = str(payload.get("source_url") or f"https://laws.e-gov.go.jp/law/{law_id}")
     article_inserted = 0
     edge_inserted = 0
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         statute_inserted = _insert_ignore(
             cur,
             "vertex_houbun_statute",
@@ -535,7 +538,7 @@ def _write_payload(payload: dict[str, Any]) -> dict[str, int]:
                 "actor_id": "sys.houbun",
             },
         )
-        cur.execute(
+        _res = client.q(
             """
             UPDATE vertex_houbun_statute
                SET title = ?,
@@ -611,11 +614,12 @@ def _write_payload(payload: dict[str, Any]) -> dict[str, int]:
 def _verify_visibility(law_id: str, statute_vertex_id: str, article_count: int) -> dict[str, int | bool]:
     if not statute_vertex_id and law_id:
         statute_vertex_id = f"at://{JPN_PATH_DID}/com.etzhayyim.apps.houbun.statute/{law_id}"
-    with sync_cursor() as cur:
-        cur.execute("SELECT count(*) FROM vertex_houbun_statute WHERE vertex_id = ?", (statute_vertex_id,))
-        statute_count = int((cur.fetchone() or [0])[0] or 0)
-        cur.execute("SELECT count(*) FROM vertex_houbun_article WHERE statute_ref = ?", (statute_vertex_id,))
-        visible_articles = int((cur.fetchone() or [0])[0] or 0)
+    if True:
+        client = get_kotoba_client()
+        _res = client.q("SELECT count(*) FROM vertex_houbun_statute WHERE vertex_id = ?", (statute_vertex_id,))
+        statute_count = int(((_res[0] if _res else None) or [0])[0] or 0)
+        _res = client.q("SELECT count(*) FROM vertex_houbun_article WHERE statute_ref = ?", (statute_vertex_id,))
+        visible_articles = int(((_res[0] if _res else None) or [0])[0] or 0)
     expected_articles = max(0, int(article_count or 0))
     verified = statute_count == 1 and visible_articles >= expected_articles
     return {
@@ -1063,7 +1067,8 @@ def _write_payload_chn(payload: dict[str, Any]) -> dict[str, int]:
     source_url = str(payload.get("source_url") or f"{NPC_FDB_BASE}/flfg/detail?id={law_id}")
     article_inserted = 0
     edge_inserted = 0
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         statute_inserted = _insert_ignore(
             cur,
             "vertex_houbun_statute",
@@ -1095,7 +1100,7 @@ def _write_payload_chn(payload: dict[str, Any]) -> dict[str, int]:
                 "actor_id": "sys.houbun",
             },
         )
-        cur.execute(
+        _res = client.q(
             """
             UPDATE vertex_houbun_statute
                SET title = ?,

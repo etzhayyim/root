@@ -17,6 +17,7 @@ Pyzeebe task types registered via register():
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import asyncio
 import datetime as _dt
@@ -28,7 +29,6 @@ import uuid
 from typing import Any, TypedDict
 
 from pymagatama import llm
-from pymagatama.db_sync import sync_cursor
 from pymagatama.primitives import langgraph_registry
 
 LOG = logging.getLogger("wellbecoming.agent")
@@ -78,9 +78,10 @@ def _insert_repo_record(
     record = {"$type": collection, "text": text, "createdAt": _now_iso(), **extra}
     now = _now_iso()
     value_json = json.dumps(record, ensure_ascii=False)
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         if collection == COLLECTION_REPORT:
-            cur.execute(
+            _res = client.q(
                 """INSERT INTO vertex_wellbecoming_proactive_message
                    (vertex_id,record_key,text,caller_did,bottleneck_axis,avg_separation_delta,
                     value_json,indexed_at,created_at,updated_at,actor_did,org_did,owner_did,sensitivity_ord)
@@ -107,7 +108,7 @@ def _insert_repo_record(
                 ),
             )
         elif collection == COLLECTION_ALERT:
-            cur.execute(
+            _res = client.q(
                 """INSERT INTO vertex_wellbecoming_floor_alert
                    (vertex_id,record_key,text,violation_count,violation_ids_json,
                     value_json,indexed_at,created_at,updated_at,actor_did,org_did,owner_did,sensitivity_ord)
@@ -207,8 +208,9 @@ def _load_profile_node(state: _WBState) -> _WBState:
     floor_risk = False
 
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 """SELECT bottleneck_axis, avg_separation_delta, at_risk,
                           avg_spirit, avg_wellbecoming, avg_feeling, avg_buffer
                    FROM vertex_actor_wellbecoming_profile
@@ -216,7 +218,7 @@ def _load_profile_node(state: _WBState) -> _WBState:
                    LIMIT 1""",
                 (actor_did, caller_did),
             )
-            row = cur.fetchone()
+            row = (_res[0] if _res else None)
         if row:
             bottleneck = row[0] or ""
             avg_sep    = float(row[1] or 0.0)
@@ -337,8 +339,9 @@ def _emit_event_node(state: _WBState) -> _WBState:
     score_total  = score_spirit * 0.7 * 0.7 * 0.7  # conservative estimate
 
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 """INSERT INTO vertex_wellbecoming_event
                    (vertex_id, case_id, agent_did, activity, layer_trigger,
                     floor_violated, response_length, response_preview,
@@ -477,8 +480,9 @@ def task_wellbecoming_bottleneck_detect(batch_size: int = 100) -> dict[str, Any]
     at_risk_count = 0
 
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 f"""SELECT caller_did, avg_spirit, avg_wellbecoming,
                            avg_feeling, avg_buffer, avg_total,
                            avg_separation_delta, floor_violations, event_count
@@ -486,7 +490,7 @@ def task_wellbecoming_bottleneck_detect(batch_size: int = 100) -> dict[str, Any]
                     WHERE event_count > 0
                     LIMIT {int(batch_size)}"""
             )
-            rows = cur.fetchall()
+            rows = _res
     except Exception as e:
         LOG.warning("bottleneck detect query failed: %s", e)
         return {"updated": 0, "at_risk_count": 0}
@@ -517,13 +521,14 @@ def task_wellbecoming_bottleneck_detect(batch_size: int = 100) -> dict[str, Any]
         vertex_id = f"wb-profile:{caller_did}"
 
         try:
-            with sync_cursor() as cur:
+            if True:
+                client = get_kotoba_client()
                 # RisingWave: no ON CONFLICT, use delete-then-insert pattern
-                cur.execute(
+                _res = client.q(
                     "DELETE FROM vertex_actor_wellbecoming_profile WHERE vertex_id = %s",
                     (vertex_id,),
                 )
-                cur.execute(
+                _res = client.q(
                     """INSERT INTO vertex_actor_wellbecoming_profile
                        (vertex_id, actor_did, caller_did,
                         avg_spirit, avg_wellbecoming, avg_feeling, avg_buffer,
@@ -563,8 +568,9 @@ def task_wellbecoming_proactive_connect(batch_size: int = 10) -> dict[str, Any]:
     sent = 0
 
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 f"""SELECT caller_did, avg_separation_delta, bottleneck_axis
                     FROM vertex_actor_wellbecoming_profile
                     WHERE at_risk = true
@@ -573,7 +579,7 @@ def task_wellbecoming_proactive_connect(batch_size: int = 10) -> dict[str, Any]:
                     ORDER BY avg_separation_delta ASC
                     LIMIT {int(batch_size)}"""
             )
-            rows = cur.fetchall()
+            rows = _res
     except Exception as e:
         LOG.warning("proactive connect query failed: %s", e)
         return {"sent": 0}
@@ -612,8 +618,9 @@ def task_wellbecoming_proactive_connect(batch_size: int = 10) -> dict[str, Any]:
                  "avgSeparationDelta": float(avg_sep or 0)},
             )
             # Update last_proactive_at
-            with sync_cursor() as cur:
-                cur.execute(
+            if True:
+                client = get_kotoba_client()
+                _res = client.q(
                     """UPDATE vertex_actor_wellbecoming_profile
                        SET last_proactive_at = %s,
                            proactive_count   = proactive_count + 1
@@ -635,14 +642,15 @@ def task_wellbecoming_floor_check(window_minutes: int = 30) -> dict[str, Any]:
     BPMN: wellbecoming/floorViolationAlert.bpmn → Task_Check.
     """
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 f"""SELECT COUNT(*), array_agg(vertex_id)
                     FROM vertex_wellbecoming_event
                     WHERE floor_violated = true
                       AND created_at > NOW() - INTERVAL '{int(window_minutes)} minutes'"""
             )
-            row = cur.fetchone()
+            row = (_res[0] if _res else None)
         count = int(row[0] or 0) if row else 0
         ids   = list(row[1] or []) if row else []
     except Exception as e:
@@ -706,15 +714,16 @@ async def task_wellbecoming_minimax_sweep(
     errors: list[str] = []
 
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 f"""SELECT caller_did, avg_separation_delta, bottleneck_axis
                     FROM vertex_actor_wellbecoming_profile
                     WHERE at_risk = true
                     ORDER BY avg_separation_delta ASC
                     LIMIT {int(batch_size)}"""
             )
-            rows = cur.fetchall()
+            rows = _res
     except Exception as e:
         LOG.warning("minimax sweep query failed: %s", e)
         return {"swept": 0, "errors": [str(e)]}

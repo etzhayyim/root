@@ -119,7 +119,7 @@ offline, unit-tested `methods/` core:
   live fleet requires a funded tenure-weighted cohort (ADR-2606032130).
 - **G6 murakumo-only / N6** (ADR-2605215000) · **G7 no-server-key** (ADR-2605231525) · **G8
   outward-gated** (live tapeout / mask set / measurement / laser / actuation = Council Lv6+ + operator;
-  Class-3B/4 near humans Lv7+) · **G9 kotoba-EAVT canonical state** (ADR-2605312345, no RisingWave) ·
+  Class-3B/4 near humans Lv7+) · **G9 kotoba-EAVT canonical state** (ADR-2605312345, no Kotoba/Datomic) ·
   **G10 sourcing-honesty** (`:representative`; sims are arithmetic/DSP, no measured silicon) · **G11
   sbom-provenance** (a fabricated die carries a CycloneDX SBOM into kotoba at tapeout; the `wasm-sbom`
   / `giemon` part-graph precedent).

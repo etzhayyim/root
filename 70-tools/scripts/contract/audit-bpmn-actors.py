@@ -27,7 +27,7 @@ Exit code 0 if any of F1/F4/F5 is non-empty (drift that the operator
 should act on); warnings only for F2/F3.
 
 Env:
-  RW_URL    postgresql://… ;  default from Keychain etzhayyim.rw/ROOT_URL
+  KOTOBA_URL    postgresql://… ;  default from Keychain etzhayyim.rw/ROOT_URL
 
 Usage:
     70-tools/scripts/contract/audit-bpmn-actors.py
@@ -76,7 +76,7 @@ CANONICAL_BIND_VID_RE = re.compile(
 
 
 def rw_url() -> str:
-    if url := os.environ.get("RW_URL"):
+    if url := os.environ.get("KOTOBA_URL"):
         return url
     try:
         out = subprocess.check_output(
@@ -87,7 +87,7 @@ def rw_url() -> str:
             return out
     except subprocess.CalledProcessError:
         pass
-    raise SystemExit("RW_URL not in env and not in Keychain (etzhayyim.rw/ROOT_URL)")
+    raise SystemExit("KOTOBA_URL not in env and not in Keychain (etzhayyim.rw/ROOT_URL)")
 
 
 def query(sql: str) -> list[list[str]]:

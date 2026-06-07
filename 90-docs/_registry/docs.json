@@ -337,7 +337,7 @@
       "topic": "unified-access-control",
       "authoritative": true,
       "authoritative_for": [
-        "read and write access control across PDS, kagami, RisingWave, AT Protocol",
+        "read and write access control across PDS, kagami, Kotoba/Datomic, AT Protocol",
         "RBAC/RACI/consent/clearance enforcement architecture",
         "Signal encryption integration with access control",
         "GraphAr schema security columns"
@@ -384,7 +384,7 @@
       "related": [
         "260324-isin-coverage-social-evolution",
         "f-plan-lexicon-as-contract",
-        "doc-260414-risingwave-premium-32gb-scale-up"
+        "doc-260414-kotoba-premium-32gb-scale-up"
       ],
       "last_verified": "2026-04-15",
       "supersedes": [],
@@ -502,7 +502,7 @@
       "related": [
         "adr-0049-legal-corpus-global-ingest",
         "adr-0056-bpmn-as-actor",
-        "adr-0048-risingwave-vultr-b2-primary"
+        "adr-0048-kotoba-vultr-b2-primary"
       ],
       "last_verified": "2026-04-27",
       "authoritative_for": [],
@@ -561,7 +561,7 @@
       "authoritative": true,
       "related": [
         "adr-2605010000",
-        "90-docs/adr/0048-risingwave-vultr-b2-primary.md",
+        "90-docs/adr/0048-kotoba-vultr-b2-primary.md",
         "adr-2604292130",
         "50-infra/vultr/cloudflared/blockscout-tunnel.yaml"
       ],
@@ -1582,7 +1582,7 @@
         "Action tier (alert / pause / rotate-key / rollback / escalate)"
       ],
       "related": [
-        "90-docs/adr/0034-agent-cron-goose-risingwave-direct.md",
+        "90-docs/adr/0034-agent-cron-goose-kotoba-direct.md",
         "90-docs/adr/0026-agent-only-reverse-identity-topology.md",
         "90-docs/adr/0036-worker-direct-hyperdrive-persistence.md",
         "90-docs/adr/0022-auth-topology-consolidation.md",
@@ -1653,7 +1653,7 @@
       "topic": "magatama-organizer",
       "authoritative": true,
       "related": [
-        "adr-0034-agent-cron-goose-risingwave-direct"
+        "adr-0034-agent-cron-goose-kotoba-direct"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -1971,7 +1971,7 @@
     {
       "path": "90-docs/adr/2604240946-yoro-autonomous-actor-hybrid-loop.md",
       "id": "adr-2604240946-yoro-autonomous-actor-hybrid-loop",
-      "title": "ADR: yoro.etzhayyim.com 自律 actor — time-domain 分離 hybrid loop (T1 MCP-Compose + BPMN-as-actor + RisingWave UDF)",
+      "title": "ADR: yoro.etzhayyim.com 自律 actor — time-domain 分離 hybrid loop (T1 MCP-Compose + BPMN-as-actor + Kotoba/Datomic UDF)",
       "status": "active",
       "doc_type": "adr",
       "topic": "yoro-autonomous-actor",
@@ -1986,7 +1986,7 @@
       ],
       "related": [
         "adr-0038-actor-as-data-bpmn-dmn-form-mcp-faas",
-        "adr-0044-risingwave-udf-language-strategy",
+        "adr-0044-kotoba-udf-language-strategy",
         "adr-0046",
         "adr-0049-python-udf-shared-pool-runtime",
         "adr-0056-bpmn-as-actor",
@@ -2063,8 +2063,8 @@
     },
     {
       "path": "90-docs/adr/2604241342-risingwave-out-of-band-migration-pattern.md",
-      "id": "adr-2604241342-risingwave-out-of-band-migration-pattern",
-      "title": "RisingWave out-of-band migration pattern (apply-pending.sh as the happy path)",
+      "id": "adr-2604241342-kotoba-out-of-band-migration-pattern",
+      "title": "Kotoba/Datomic out-of-band migration pattern (apply-pending.sh as the happy path)",
       "status": "active",
       "doc_type": "adr",
       "topic": "graph-schema-ops",
@@ -2125,7 +2125,7 @@
         "adr-0056-bpmn-as-actor",
         "adr-0081-worker-direct-hyperdrive-persistence",
         "adr-0041",
-        "adr-0048-risingwave-vultr-b2-primary"
+        "adr-0048-kotoba-vultr-b2-primary"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -2152,7 +2152,7 @@
         "adr-0036-shannon-cleanup-did-actor-topology",
         "adr-0081-worker-direct-hyperdrive-persistence",
         "adr-0049-python-udf-shared-pool-runtime",
-        "adr-0044-risingwave-udf-language-strategy",
+        "adr-0044-kotoba-udf-language-strategy",
         "adr-0059-tool-runtime-selection-python-udf-default",
         "adr-0046",
         "adr-0092-every-vertex-as-actor",
@@ -2212,14 +2212,14 @@
         "rw-s3-keepalive-for-b2"
       ],
       "related": [
-        "adr-0048-risingwave-vultr-b2-primary",
+        "adr-0048-kotoba-vultr-b2-primary",
         "adr-0049-shared-udf-pool",
         "adr-2604231349-timestamp-numbering-policy"
       ],
       "supersedes": [],
       "superseded_by": [],
       "amends": [
-        "adr-0048-risingwave-vultr-b2-primary"
+        "adr-0048-kotoba-vultr-b2-primary"
       ],
       "last_verified": "2026-04-25",
       "amended_by": []
@@ -2240,7 +2240,7 @@
       ],
       "related": [
         "adr-0056-bpmn-as-actor",
-        "adr-0048-risingwave-vultr-b2-primary",
+        "adr-0048-kotoba-vultr-b2-primary",
         "adr-0081-worker-direct-hyperdrive-persistence",
         "adr-0085-non-federable-nsid-firehose-gate"
       ],
@@ -2355,7 +2355,7 @@
       "authoritative_for": [
         "etzhayyim PDS commit storage shape",
         "prohibited use of @atproto/repo MST path",
-        "ON CONFLICT / transaction restrictions on RisingWave writes"
+        "ON CONFLICT / transaction restrictions on Kotoba/Datomic writes"
       ],
       "related": [
         "adr-0014-self-hosted-did-plc",
@@ -2380,7 +2380,7 @@
       "authoritative_for": [],
       "related": [
         "adr-0043-cdn-r2-to-b2-bandwidth-alliance",
-        "adr-0048-risingwave-vultr-b2-primary",
+        "adr-0048-kotoba-vultr-b2-primary",
         "adr-2604241500-cad-bim-per-game-wasm-topology"
       ],
       "supersedes": [],
@@ -2460,7 +2460,7 @@
         "adr-2604251758-murakumo-yoro-actor-worker-fleet",
         "adr-2604250836-langgraph-as-zeebe-servicetask",
         "adr-0056-bpmn-as-actor",
-        "adr-0048-risingwave-vultr-b2-primary",
+        "adr-0048-kotoba-vultr-b2-primary",
         "adr-0061-murakumo-platform-auth-unification"
       ],
       "supersedes": [],
@@ -2472,7 +2472,7 @@
     {
       "path": "90-docs/adr/2604251830-shannon-optimal-layered-architecture.md",
       "id": "adr-2604251830-shannon-optimal-layered-architecture",
-      "title": "ADR: Shannon-optimal layered architecture — Cloudflare = edge/routing/dispatcher only、actor/MCP/tool 実体は RisingWave registry SSoT、常駐処理は Zeebe BPMN worker + Vultr k8s Python pod worker",
+      "title": "ADR: Shannon-optimal layered architecture — Cloudflare = edge/routing/dispatcher only、actor/MCP/tool 実体は Kotoba/Datomic registry SSoT、常駐処理は Zeebe BPMN worker + Vultr k8s Python pod worker",
       "status": "active",
       "doc_type": "adr",
       "topic": "platform-architecture",
@@ -2485,9 +2485,9 @@
       ],
       "related": [
         "adr-0036-shannon-cleanup-did-actor-topology",
-        "adr-0044-risingwave-udf-language-strategy",
+        "adr-0044-kotoba-udf-language-strategy",
         "adr-0046",
-        "adr-0048-risingwave-vultr-b2-primary",
+        "adr-0048-kotoba-vultr-b2-primary",
         "adr-0056-bpmn-as-actor",
         "adr-2604240946-yoro-autonomous-actor-hybrid-loop",
         "adr-2604250836-langgraph-as-zeebe-servicetask",
@@ -2518,8 +2518,8 @@
       ],
       "related": [
         "blockchain-node-vultr-b2-zeebe-ingest-design-260425",
-        "90-docs/adr/0048-risingwave-vultr-b2-primary.md",
-        "90-docs/adr/0094-risingwave-stable-three-node-topology.md"
+        "90-docs/adr/0048-kotoba-vultr-b2-primary.md",
+        "90-docs/adr/0094-kotoba-stable-three-node-topology.md"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -2647,7 +2647,7 @@
         "90-docs/260425-ingest-orchestration-zeebe-python-k8s-mcp-design.md",
         "adr-2604271200",
         "60-apps/etzhayyim-project-ma/magatama.toml",
-        "90-docs/adr/0094-risingwave-stable-three-node-topology.md",
+        "90-docs/adr/0094-kotoba-stable-three-node-topology.md",
         "30-graph/graph-schema/migrations/20260416134500_fund_graph_spine_and_coverage.ts"
       ],
       "supersedes": [],
@@ -2716,21 +2716,21 @@
     },
     {
       "path": "90-docs/adr/2604261900-risingwave-ddl-backfill-path-topology.md",
-      "id": "adr-2604261900-risingwave-ddl-backfill-path-topology",
-      "title": "RisingWave DDL Backfill and Hot Path Topology",
+      "id": "adr-2604261900-kotoba-ddl-backfill-path-topology",
+      "title": "Kotoba/Datomic DDL Backfill and Hot Path Topology",
       "status": "active",
       "doc_type": "adr",
       "topic": "infrastructure",
       "authoritative": true,
       "authoritative_for": [
-        "risingwave-write-path-topology",
-        "risingwave-ddl-queue-topology",
-        "risingwave-backfill-path-topology",
-        "risingwave-flush-policy"
+        "kotoba-write-path-topology",
+        "kotoba-ddl-queue-topology",
+        "kotoba-backfill-path-topology",
+        "kotoba-flush-policy"
       ],
       "related": [
-        "adr-0094-risingwave-stable-three-node-topology",
-        "adr-2604241342-risingwave-out-of-band-migration-pattern"
+        "adr-0094-kotoba-stable-three-node-topology",
+        "adr-2604241342-kotoba-out-of-band-migration-pattern"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -2752,7 +2752,7 @@
         "IPFS pin policy alignment with PDS uploadBlob"
       ],
       "related": [
-        "adr-0048-risingwave-vultr-b2-primary",
+        "adr-0048-kotoba-vultr-b2-primary",
         "adr-2604251400-pds-uploadblob-r2-to-b2-migration",
         "adr-2604251935-blockchain-vke-head-ingest",
         "adr-0029-did-etzhayyim-method-specification",
@@ -2879,27 +2879,27 @@
     },
     {
       "path": "90-docs/adr/2604262359-risingwave-multimodal-vector-search-topology.md",
-      "id": "adr-2604262359-risingwave-multimodal-vector-search-topology",
-      "title": "RisingWave Multimodal Vector Search Topology",
+      "id": "adr-2604262359-kotoba-multimodal-vector-search-topology",
+      "title": "Kotoba/Datomic Multimodal Vector Search Topology",
       "status": "active",
       "doc_type": "adr",
       "topic": "search",
       "authoritative": true,
       "authoritative_for": [
         "yoro-search-vector-topology",
-        "risingwave-multimodal-search-topology",
+        "kotoba-multimodal-search-topology",
         "actor-post-media-search-embedding-model",
         "2b-10b-vector-search-query-shape",
         "sensor-modality-embedding-roadmap"
       ],
       "related": [
-        "adr-0002-persistence-risingwave-only",
+        "adr-0002-persistence-kotoba-only",
         "adr-0074-ethereum-identity-bridge-cacao-webauthn",
         "adr-0028-cohort-mv-sharding",
-        "adr-0044-risingwave-udf-language-strategy",
+        "adr-0044-kotoba-udf-language-strategy",
         "adr-0081-worker-direct-hyperdrive-persistence",
-        "adr-0094-risingwave-stable-three-node-topology",
-        "adr-2604261900-risingwave-ddl-backfill-path-topology",
+        "adr-0094-kotoba-stable-three-node-topology",
+        "adr-2604261900-kotoba-ddl-backfill-path-topology",
         "adr-2604270015-vector-embedding-backfill-zeebe-worker"
       ],
       "supersedes": [],
@@ -2922,10 +2922,10 @@
         "vector-embedding-zeebe-worker-contract"
       ],
       "related": [
-        "adr-2604262359-risingwave-multimodal-vector-search-topology",
+        "adr-2604262359-kotoba-multimodal-vector-search-topology",
         "adr-0074-ethereum-identity-bridge-cacao-webauthn",
         "adr-2604262100-erc725-erc8004-k8s-ipfs-agent-runtime",
-        "adr-2604261900-risingwave-ddl-backfill-path-topology",
+        "adr-2604261900-kotoba-ddl-backfill-path-topology",
         "adr-2604262000-edge-thin-app-runtime-k8s-zeebe-registry"
       ],
       "supersedes": [],
@@ -3051,7 +3051,7 @@
         "adr-2604271600-projector-l7-langgraph-integration",
         "adr-2604251830-shannon-optimal-layered-architecture",
         "adr-0036-worker-direct-hyperdrive-persistence",
-        "adr-0044-risingwave-udf-language-strategy",
+        "adr-0044-kotoba-udf-language-strategy",
         "adr-2604240946-yoro-autonomous-actor-hybrid-loop"
       ],
       "last_verified": "2026-04-28",
@@ -3159,8 +3159,8 @@
       "related": [
         "adr-0036-worker-direct-hyperdrive-persistence",
         "adr-0056-bpmn-as-actor",
-        "adr-2604241342-risingwave-out-of-band-migration-pattern",
-        "adr-0048-risingwave-vultr-b2-primary"
+        "adr-2604241342-kotoba-out-of-band-migration-pattern",
+        "adr-0048-kotoba-vultr-b2-primary"
       ],
       "last_verified": "2026-04-28",
       "supersedes": [],
@@ -3203,7 +3203,7 @@
         "kogu actor (工具・設備・測定器ライフサイクル)",
         "sekkei actor (設計図・技術文書・BOMライフサイクル)",
         "BPMN flows for nogu/kogu/sekkei",
-        "RisingWave schema for vertex_nogu_* / vertex_kogu_* / vertex_sekkei_*"
+        "Kotoba/Datomic schema for vertex_nogu_* / vertex_kogu_* / vertex_sekkei_*"
       ],
       "related": [
         "adr-0056-bpmn-as-actor",
@@ -3235,7 +3235,7 @@
         "open-smartphone-bom actor (BOM統合・オープンスコア・代替調達)",
         "open-smartphone-patent actor (SEPランドスケープ・特許プール・失効ゲート)",
         "BPMN flows for all 7 domains (27 BPMN processes)",
-        "RisingWave schema: 19 tables + 2 MVs",
+        "Kotoba/Datomic schema: 19 tables + 2 MVs",
         "Lexicon contracts: 26 JSON files"
       ],
       "related": [
@@ -3264,7 +3264,7 @@
       "authoritative_for": [
         "open-sales actor (Lead管理・Opportunity・Pipeline・Forecast)",
         "BPMN flows: 8 flows (createLead / qualifyLead / updateOpportunity / logActivity / generateQuote / closeDeal / fetchPipelineDelta / computeForecast)",
-        "RisingWave schema: 7 tables + 3 MVs",
+        "Kotoba/Datomic schema: 7 tables + 3 MVs",
         "Lexicon contracts: 8 JSON files"
       ],
       "related": [
@@ -3288,7 +3288,7 @@
       "authoritative_for": [
         "open-adnetwork actor (Publisher収益化・Advertiser Campaign・Impression/Click/Conversion)",
         "BPMN flows: 8 flows (registerPublisher / registerAdvertiser / createCampaign / recordAdUnit / recordImpression / recordConversion / computePublisherRpm / fetchAuctionMarketDelta)",
-        "RisingWave schema: 8 tables + 3 MVs",
+        "Kotoba/Datomic schema: 8 tables + 3 MVs",
         "Lexicon contracts: 8 JSON files"
       ],
       "related": [
@@ -3340,7 +3340,7 @@
         "pod-side-langserver-runtime",
         "k8s-runtime-scope",
         "python-worker-pod-fastapi-granian-surface",
-        "risingwave-udf-business-logic-scope",
+        "kotoba-udf-business-logic-scope",
         "cf-worker-sse-pass-through",
         "generic-pds-dispatch-k8s-internal-routing",
         "maps-worker-thin-edge-boundary"
@@ -3348,7 +3348,7 @@
       "related": [
         "adr-2604262000-edge-thin-app-runtime-k8s-zeebe-registry",
         "adr-0056-bpmn-as-actor",
-        "adr-0044-risingwave-udf-language-strategy",
+        "adr-0044-kotoba-udf-language-strategy",
         "adr-2604261000-mcp-registry-via-kysely-schema",
         "adr-2604251801-cron-three-layer-consolidation",
         "adr-2604251830-shannon-optimal-layered-architecture",
@@ -3504,7 +3504,7 @@
     {
       "path": "90-docs/adr/2604300135-hume-distillation-artifact-persistence.md",
       "id": "adr-2604300135-hume-distillation-artifact-persistence",
-      "title": "Hume Distillation Artifact Persistence to IPFS and RisingWave",
+      "title": "Hume Distillation Artifact Persistence to IPFS and Kotoba/Datomic",
       "status": "active",
       "doc_type": "adr",
       "topic": "hume-distillation",
@@ -3516,8 +3516,8 @@
       ],
       "related": [
         "adr-2604261936-ipfs-self-hosted-vultr-b2",
-        "adr-2604261900-risingwave-ddl-backfill-path-topology",
-        "adr-2604262359-risingwave-multimodal-vector-search-topology"
+        "adr-2604261900-kotoba-ddl-backfill-path-topology",
+        "adr-2604262359-kotoba-multimodal-vector-search-topology"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -3706,13 +3706,13 @@
       "related": [
         "adr-0017-maritime-energy-cluster-topology",
         "adr-0036-worker-direct-hyperdrive-persistence",
-        "adr-0044-risingwave-udf-language-strategy",
-        "adr-0048-risingwave-vultr-b2-primary",
+        "adr-0044-kotoba-udf-language-strategy",
+        "adr-0048-kotoba-vultr-b2-primary",
         "adr-0056-bpmn-as-actor",
         "adr-2604251830-shannon-optimal-layered-architecture",
         "adr-2604280900-maps-transit-pipeline-gtfs-rt",
         "adr-2604282300",
-        "adr-2604241342-risingwave-out-of-band-migration-pattern"
+        "adr-2604241342-kotoba-out-of-band-migration-pattern"
       ],
       "last_verified": "2026-05-01",
       "supersedes": [],
@@ -3817,7 +3817,7 @@
     {
       "path": "90-docs/adr/2605070700-rw-native-model-training-weight-lineage.md",
       "id": "adr-2605070700-rw-native-model-training-weight-lineage",
-      "title": "RisingWave-native Model Training + Weight Lineage (SFT / LoRA / Distill)",
+      "title": "Kotoba/Datomic-native Model Training + Weight Lineage (SFT / LoRA / Distill)",
       "status": "proposed",
       "doc_type": "adr",
       "topic": "model-training-weight-lineage",
@@ -3836,7 +3836,7 @@
         "adr-2604292130",
         "adr-2605010000",
         "adr-2604282100",
-        "adr-0044-risingwave-udf-language-strategy"
+        "adr-0044-kotoba-udf-language-strategy"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -3906,7 +3906,7 @@
         "adr-2605061200-agi-active-inference-artificial-organism-architecture",
         "adr-2605061300-real-world-effect-channel-boundary",
         "adr-2605011200-graph-expand-bpmn-llm-edge-inference",
-        "adr-2604261900-risingwave-ddl-backfill-path-topology"
+        "adr-2604261900-kotoba-ddl-backfill-path-topology"
       ],
       "last_verified": "2026-05-07",
       "amends": [],
@@ -4032,7 +4032,7 @@
     {
       "path": "90-docs/adr/2605072300-open-source-cloud-business-model.md",
       "id": "adr-2605072300-open-source-cloud-business-model",
-      "title": "ADR-2605072300: Open-Source Core + Cloud SaaS Business Model (RisingWave Pattern)",
+      "title": "ADR-2605072300: Open-Source Core + Cloud SaaS Business Model (Kotoba/Datomic Pattern)",
       "status": "active",
       "doc_type": "adr",
       "topic": "open-source-cloud-business-model",
@@ -4065,12 +4065,12 @@
       "authoritative": true,
       "authoritative_for": [
         "distributed cognitive actor system overall architecture",
-        "layer assignment: CF Edge (L1) / LangGraph (L2) / K8s+Zeebe Virtual Actor Runtime (L3) / MCP Capability (L4) / RisingWave Memory (L5) / PyZeebe+RW-Ext-UDF+WASM+Mojo Compute (L6)",
+        "layer assignment: CF Edge (L1) / LangGraph (L2) / K8s+Zeebe Virtual Actor Runtime (L3) / MCP Capability (L4) / Kotoba/Datomic Memory (L5) / PyZeebe+RW-Ext-UDF+WASM+Mojo Compute (L6)",
         "actor taxonomy: Runtime Actor / Virtual Actor / Stream Actor",
-        "state model: Hot (pod) / Warm (RisingWave MV) / Cold (S3/R2/Postgres)",
+        "state model: Hot (pod) / Warm (Kotoba/Datomic MV) / Cold (S3/R2/Postgres)",
         "PyZeebe layer assignment: L6 Compute (not L3)",
-        "RisingWave External Python UDF layer assignment: L6 Compute (Arrow Flight RPC, not L5)",
-        "RisingWave SQL UDF / Embedded Rust UDF layer assignment: L5 (internal execution)",
+        "Kotoba/Datomic External Python UDF layer assignment: L6 Compute (Arrow Flight RPC, not L5)",
+        "Kotoba/Datomic SQL UDF / Embedded Rust UDF layer assignment: L5 (internal execution)",
         "WASM and Mojo role as enzymatic compute layer (L6)",
         "LangGraph scope constraint (coordination only, L2)",
         "MCP scope constraint (tool protocol, not actor protocol, L4)"
@@ -4095,7 +4095,7 @@
         "adr-2604282300",
         "adr-2604251830-shannon-optimal-layered-architecture",
         "adr-0056-bpmn-as-actor",
-        "adr-0044-risingwave-udf-language-strategy"
+        "adr-0044-kotoba-udf-language-strategy"
       ],
       "last_verified": "2026-05-07",
       "amends": []
@@ -4117,10 +4117,10 @@
         "io-yatabase-supabase-neo4j-baas-surface"
       ],
       "related": [
-        "adr-0002-graph-storage-risingwave",
+        "adr-0002-graph-storage-kotoba",
         "adr-0036-worker-direct-hyperdrive-persistence",
-        "adr-0044-risingwave-udf-language-strategy",
-        "adr-0048-risingwave-vultr-b2-primary",
+        "adr-0044-kotoba-udf-language-strategy",
+        "adr-0048-kotoba-vultr-b2-primary",
         "adr-0056-bpmn-as-actor",
         "adr-0087-magatama-mcp-tool-facade",
         "adr-0095-simplified-3layer-identity-rw-vault",
@@ -4242,18 +4242,18 @@
       "authoritative": true,
       "authoritative_for": [
         "Alembic usage scope (Python-owned tables only)",
-        "Alembic env.py for RisingWave (no transaction wrapping)",
+        "Alembic env.py for Kotoba/Datomic (no transaction wrapping)",
         "Table name guard blocking vertex_* / edge_* / mv_* in Alembic migrations"
       ],
       "related": [
         "adr-2605080500-sqlmesh-mv-management",
-        "adr-2605080700-graph-schema-live-risingwave-baseline"
+        "adr-2605080700-graph-schema-live-kotoba-baseline"
       ],
       "supersedes": [],
       "superseded_by": [],
       "amends": [],
       "amended_by": [
-        "adr-2605080700-graph-schema-live-risingwave-baseline"
+        "adr-2605080700-graph-schema-live-kotoba-baseline"
       ],
       "depends_on": [
         "adr-2605080300-sqlalchemy-core-usage-contract"
@@ -4269,14 +4269,14 @@
       "topic": "sqlmesh-mv-management",
       "authoritative": true,
       "authoritative_for": [
-        "SQLMesh project structure for RisingWave MV definitions",
+        "SQLMesh project structure for Kotoba/Datomic MV definitions",
         "MV SQL source of truth (sqlmesh/models/*.sql)",
         "Migration path from Kysely TypeScript MV to SQLMesh",
         "SQLMesh state schema (_sqlmesh) separation from vertex_*/edge_*/mv_*"
       ],
       "related": [
         "adr-2605080400-alembic-scope-contract",
-        "adr-2605080700-graph-schema-live-risingwave-baseline"
+        "adr-2605080700-graph-schema-live-kotoba-baseline"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -4304,7 +4304,7 @@
         "Murakumo Mac mini fleet as L8 Somatic Inference Layer",
         "Granian as ASGI server for LangGraph Server",
         "Redis role: transient dispatch queue only (not a database)",
-        "RisingWave custom BaseCheckpointSaver + BaseStore (sole DB principle)",
+        "Kotoba/Datomic custom BaseCheckpointSaver + BaseStore (sole DB principle)",
         "bpmn-dispatcher routing target: /runs API",
         "timer-start BPMN replacement: K8s CronJob → POST /runs",
         "pyzeebe migration path to LangGraph nodes",
@@ -4332,8 +4332,8 @@
     },
     {
       "path": "90-docs/adr/2605080700-graph-schema-live-risingwave-baseline.md",
-      "id": "adr-2605080700-graph-schema-live-risingwave-baseline",
-      "title": "ADR-2605080700: graph-schema Live RisingWave Baseline",
+      "id": "adr-2605080700-graph-schema-live-kotoba-baseline",
+      "title": "ADR-2605080700: graph-schema Live Kotoba/Datomic Baseline",
       "status": "active",
       "doc_type": "adr",
       "topic": "graph-schema-live-baseline",
@@ -4460,7 +4460,7 @@
     {
       "path": "90-docs/adr/2605081200-spiffworkflow-bpmn-engine-replacement.md",
       "id": "adr-2605081200-spiffworkflow-bpmn-engine-replacement",
-      "title": "SpiffWorkflow を Zeebe 後継 BPMN engine とする (RisingWave-native, code-as-data)",
+      "title": "SpiffWorkflow を Zeebe 後継 BPMN engine とする (Kotoba/Datomic-native, code-as-data)",
       "status": "active",
       "doc_type": "adr",
       "topic": "workflow-engine",
@@ -4477,8 +4477,8 @@
         "adr-2604282300",
         "90-docs/adr/0056-bpmn-as-actor.md",
         "90-docs/adr/0036-worker-direct-hyperdrive-persistence.md",
-        "90-docs/adr/0094-risingwave-stable-three-node-topology.md",
-        "90-docs/260424-bsky-compat-risingwave-split.md"
+        "90-docs/adr/0094-kotoba-stable-three-node-topology.md",
+        "90-docs/260424-bsky-compat-kotoba-split.md"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -4564,12 +4564,12 @@
       "authoritative": true,
       "authoritative_for": [
         "osm-ingest-tuning",
-        "risingwave-compute-resources",
+        "kotoba-compute-resources",
         "k8s-utilization-score"
       ],
       "related": [
-        "90-docs/adr/0048-risingwave-vultr-b2-primary.md",
-        "90-docs/adr/0094-risingwave-stable-three-node-topology.md"
+        "90-docs/adr/0048-kotoba-vultr-b2-primary.md",
+        "90-docs/adr/0094-kotoba-stable-three-node-topology.md"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -4717,7 +4717,7 @@
         "adr-2605081300-karma-hegemon-edge-primary-spirit-in-physic",
         "adr-2605081400-karma-self-growing-organism-ecosystem",
         "adr-0056-bpmn-as-actor",
-        "adr-2604241342-risingwave-out-of-band-migration-pattern"
+        "adr-2604241342-kotoba-out-of-band-migration-pattern"
       ],
       "last_verified": "2026-05-08",
       "amends": [],
@@ -4781,7 +4781,7 @@
       "topic": "langgraph-graph-definition-as-data",
       "authoritative": true,
       "authoritative_for": [
-        "LangGraph graph topology storage location (RisingWave `vertex_langgraph_graph_def`)",
+        "LangGraph graph topology storage location (Kotoba/Datomic `vertex_langgraph_graph_def`)",
         "LangGraph node contract (MCP tool invocation only, no inline Python logic)",
         "graph compiler responsibility (def → StateGraph build at runtime)",
         "conditional edge SSoT (Rego/DMN ref, not Python lambda)",
@@ -5218,7 +5218,7 @@
         "modality encoder set (text/code/image/audio/bpmn/struct/graph/action)"
       ],
       "related": [
-        "adr-0044-risingwave-udf-language-strategy",
+        "adr-0044-kotoba-udf-language-strategy",
         "adr-2605092100-lora-per-cell-moe-expert-cohort-fission",
         "adr-2605092300-fp8-train-inference-colocation"
       ],
@@ -5336,7 +5336,7 @@
       "authoritative_for": [
         "RunPod H100 NVL training pod assignment (training-only, separate from inference)",
         "Default training base model = google/gemma-4-E4B",
-        "RisingWave vertex/dataset input contract for multimodal training",
+        "Kotoba/Datomic vertex/dataset input contract for multimodal training",
         "modality encoder and embedding-model coverage",
         "deployment split between vLLM inference (6000 Ada), H100 trainer, embedding workers, and RW lineage"
       ],
@@ -5356,7 +5356,7 @@
         "adr-2605092000-ecosystem-as-model-unified-multimodal-fp8-vector-substrate",
         "adr-2605092200-continuous-metabolic-training",
         "adr-2605092300-fp8-train-inference-colocation",
-        "adr-2604262359-risingwave-multimodal-vector-search-topology"
+        "adr-2604262359-kotoba-multimodal-vector-search-topology"
       ],
       "last_verified": "2026-05-09",
       "amends": [],
@@ -5464,11 +5464,11 @@
       "authoritative_for": [
         "runtimeKind=holochain experimental contract",
         "Holochain placement as L3 virtual actor runtime experiment",
-        "Holochain source-chain/DHT boundary vs RisingWave projection SSoT"
+        "Holochain source-chain/DHT boundary vs Kotoba/Datomic projection SSoT"
       ],
       "related": [
         "adr-0087-magatama-mcp-tool-facade",
-        "adr-0002-persistence-risingwave-only"
+        "adr-0002-persistence-kotoba-only"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -5484,14 +5484,14 @@
     {
       "path": "90-docs/adr/2605092700-bigquery-public-data-ingest-cost-topology.md",
       "id": "adr-2605092700-bigquery-public-data-ingest-cost-topology",
-      "title": "BigQuery Public Data Ingest Cost + RisingWave Graph Topology",
+      "title": "BigQuery Public Data Ingest Cost + Kotoba/Datomic Graph Topology",
       "status": "proposed",
       "doc_type": "adr",
-      "topic": "bigquery-public-data-risingwave-ingest",
+      "topic": "bigquery-public-data-kotoba-ingest",
       "authoritative": true,
       "authoritative_for": [
         "bigquery-public-data-ingest-cost-model",
-        "public-dataset-risingwave-vertex-edge-mv-topology",
+        "public-dataset-kotoba-vertex-edge-mv-topology",
         "llm-training-public-data-source-policy"
       ],
       "related": [
@@ -5511,13 +5511,13 @@
     {
       "path": "90-docs/adr/2605092700-rw-capability-storage-authority.md",
       "id": "adr-2605092700-rw-capability-storage-authority",
-      "title": "RisingWave Capability Storage and Authority Boundary",
+      "title": "Kotoba/Datomic Capability Storage and Authority Boundary",
       "status": "accepted",
       "doc_type": "adr",
       "topic": "rw-capability-storage-authority",
       "authoritative": true,
       "authoritative_for": [
-        "RisingWave capability storage target design",
+        "Kotoba/Datomic capability storage target design",
         "DID-bound authority evaluation over RW writes and reads",
         "Tahoe-like read/write/verify capability mapping for etzhayyim storage",
         "auth.etzhayyim.com / DID / ERC725 alignment for capability checks"
@@ -5534,7 +5534,7 @@
       "superseded_by": [],
       "depends_on": [
         "adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion",
-        "adr-2605080700-graph-schema-live-risingwave-baseline",
+        "adr-2605080700-graph-schema-live-kotoba-baseline",
         "adr-2604231800-atproto-permission-spec-integration"
       ],
       "last_verified": "2026-05-09",
@@ -5561,7 +5561,7 @@
         "90-docs/260409-kami-engineering-sdk-design.md",
         "adr-0036-worker-direct-hyperdrive-persistence",
         "adr-2604251830-shannon-optimal-layered-architecture",
-        "adr-2605080700-graph-schema-live-risingwave-baseline"
+        "adr-2605080700-graph-schema-live-kotoba-baseline"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -5611,14 +5611,14 @@
     {
       "path": "90-docs/adr/2605101000-baien-mx-multimodal-expansion-from-rw.md",
       "id": "adr-2605101000-baien-mx-multimodal-expansion-from-rw",
-      "title": "Baien-MX: trunk-surgery multimodal expansion from RisingWave-native modalities",
+      "title": "Baien-MX: trunk-surgery multimodal expansion from Kotoba/Datomic-native modalities",
       "status": "proposed",
       "doc_type": "adr",
       "topic": "edge-multimodal-model-1bit",
       "authoritative": true,
       "authoritative_for": [
         "Baien-MX architecture (per-modality 1.58-bit branches + new cross-modal layers)",
-        "Training data sourced exclusively from existing RisingWave vertex/views",
+        "Training data sourced exclusively from existing Kotoba/Datomic vertex/views",
         "Per-modality weight separation in vertex_training_checkpoint"
       ],
       "related": [
@@ -5633,7 +5633,7 @@
       "depends_on": [
         "adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design",
         "adr-2605070700-rw-native-model-training-weight-lineage",
-        "adr-2604262359-risingwave-multimodal-vector-search-topology"
+        "adr-2604262359-kotoba-multimodal-vector-search-topology"
       ],
       "last_verified": "2026-05-10",
       "amends": [],
@@ -5801,14 +5801,14 @@
       "topic": "vultr-a40-2node-consolidation",
       "authoritative": true,
       "authoritative_for": [
-        "Vultr VKE node-pool topology after RisingWave + ComfyUI + keiei-llm consolidation",
+        "Vultr VKE node-pool topology after Kotoba/Datomic + ComfyUI + keiei-llm consolidation",
         "per-node placement of GPU consumers under 2-slice constraint (3 consumers / 2 GPUs)",
         "dual-container GPU-sharing pattern for keiei-llm E2B+E4B",
         "migration phases + rollback"
       ],
       "related": [
-        "adr-0094-risingwave-stable-three-node-topology",
-        "adr-0048-risingwave-vultr-b2-primary",
+        "adr-0094-kotoba-stable-three-node-topology",
+        "adr-0048-kotoba-vultr-b2-primary",
         "adr-2604231328-animeka-bpmn-l40s-pipeline",
         "adr-2605101200-ai-cxo-roles-lsp-resident",
         "adr-2605102100-keiei-llm-vultr-cpu-inference"
@@ -5839,8 +5839,8 @@
         "adr-2605092000-ecosystem-as-model-unified-multimodal-fp8-vector-substrate",
         "adr-2605092200-continuous-metabolic-training",
         "adr-2605092300-fp8-train-inference-colocation",
-        "adr-0094-risingwave-stable-three-node-topology",
-        "adr-0048-risingwave-vultr-b2-primary"
+        "adr-0094-kotoba-stable-three-node-topology",
+        "adr-0048-kotoba-vultr-b2-primary"
       ],
       "last_verified": "2026-05-11",
       "supersedes": [],
@@ -5870,7 +5870,7 @@
     {
       "path": "90-docs/adr/2605111200-cf-worker-edge-only-no-rw-connection.md",
       "id": "adr-2605111200-cf-worker-edge-only-no-rw-connection",
-      "title": "CF Worker = Edge-Only; RisingWave 接続は K8s Pod / Granian Server のみ",
+      "title": "CF Worker = Edge-Only; Kotoba/Datomic 接続は K8s Pod / Granian Server のみ",
       "status": "active",
       "doc_type": "adr",
       "topic": "cf-worker-edge-only-rw-pod-only",
@@ -5883,7 +5883,7 @@
         "createKyselyDb-deprecation"
       ],
       "related": [
-        "adr-0002-persistence-risingwave-only",
+        "adr-0002-persistence-kotoba-only",
         "adr-2604282300",
         "adr-2605080600-langgraph-server-granian-l3-runtime",
         "adr-2605081200-spiffworkflow-bpmn-engine-replacement",
@@ -5918,7 +5918,7 @@
       "related": [
         "adr-2605111200-cf-worker-edge-only-no-rw-connection",
         "adr-0014-self-hosted-did-plc",
-        "adr-0094-risingwave-stable-three-node-topology",
+        "adr-0094-kotoba-stable-three-node-topology",
         "adr-2605080600-langgraph-server-granian-l3-runtime",
         "adr-2604282300"
       ],
@@ -5969,7 +5969,7 @@
         "OpenRouter API key storage (1Password etzhayyim vault)",
         "terminal-agent agentic benchmark suite (etzhayyim code bench --agentic --swe)",
         "Model selection by workload (interactive / batch / long-context / code-correctness)",
-        "RisingWave bench result schema (vertex_bench_run / vertex_bench_result)"
+        "Kotoba/Datomic bench result schema (vertex_bench_run / vertex_bench_result)"
       ],
       "related": [
         "adr-2605010000",
@@ -6450,7 +6450,7 @@
         "pymagatama resolver enhancements (make_llm_vision_node, DMN condition router)"
       ],
       "related": [
-        "adr-0044-risingwave-udf-language-strategy",
+        "adr-0044-kotoba-udf-language-strategy",
         "adr-2605131600-malak-orchestration-langgraph-pregel-langserve"
       ],
       "supersedes": [],
@@ -7063,10 +7063,10 @@
       "topic": "etzhayyim-rw-free-substrate",
       "authoritative": true,
       "authoritative_for": [
-        "hard rule: open religious-corp apps MUST NOT depend on RisingWave or any centralized DB",
+        "hard rule: open religious-corp apps MUST NOT depend on Kotoba/Datomic or any centralized DB",
         "primary substrate: AT Protocol MST + IPFS + Base L2",
         "SDK pattern: PDS write + IPFS pin + L2 batch anchor as one operation",
-        "per-app-pattern migration guide off RisingWave"
+        "per-app-pattern migration guide off Kotoba/Datomic"
       ],
       "related": [],
       "supersedes": [],
@@ -7090,7 +7090,7 @@
       "authoritative_for": [
         "malak ransomware actor tracking from onion crawl metadata",
         "onion crawl frontier expansion policy",
-        "RisingWave-compatible publish pattern for ransomware_actor_activity"
+        "Kotoba/Datomic-compatible publish pattern for ransomware_actor_activity"
       ],
       "related": [
         "adr-2605131600-malak-orchestration-langgraph-pregel-langserve",
@@ -7358,15 +7358,15 @@
     {
       "path": "90-docs/adr/2605173100-gitguardian-incident-response.md",
       "id": "adr-2605173100-gitguardian-incident-response",
-      "title": "ADR-2605173100: GitGuardian RisingWave credential-leak incident response — full remediation 2026-05-17",
+      "title": "ADR-2605173100: GitGuardian Kotoba/Datomic credential-leak incident response — full remediation 2026-05-17",
       "status": "active",
       "doc_type": "adr",
       "topic": "gitguardian-incident-response",
       "authoritative": true,
       "authoritative_for": [
         "GitGuardian 2026-05-17 incident response narrative",
-        "RisingWave network exposure decision (ClusterIP, no public LB)",
-        "RisingWave root user authentication enforcement",
+        "Kotoba/Datomic network exposure decision (ClusterIP, no public LB)",
+        "Kotoba/Datomic root user authentication enforcement",
         "CF Tunnel + Hyperdrive private-origin pattern for upstream DBs",
         "1Password custody for the rotated RW root password",
         "lefthook secret-scan hook regex",
@@ -7725,7 +7725,7 @@
         "adr-2605180000-lawfirm-product-focus-bmc-lean",
         "adr-2605130000-projector-mcp-project-management",
         "adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion",
-        "adr-0048-risingwave-vultr-b2-primary"
+        "adr-0048-kotoba-vultr-b2-primary"
       ],
       "supersedes": [],
       "superseded_by": [
@@ -7849,7 +7849,7 @@
         "backblaze-b2-billing-critical"
       ],
       "related": [
-        "90-docs/adr/0048-risingwave-vultr-b2-primary.md",
+        "90-docs/adr/0048-kotoba-vultr-b2-primary.md",
         "adr-2605181400-bpmn-extract-to-etzhayyim-root",
         "_working/etzhayyim-revenue/DECISION-LOG.md",
         "_working/etzhayyim-revenue/stream-a-activation-runbook.md"
@@ -8333,7 +8333,7 @@
       ],
       "related": [
         "adr-0018-pii-tier3-cohort-first",
-        "adr-0048-risingwave-vultr-b2-primary",
+        "adr-0048-kotoba-vultr-b2-primary",
         "adr-0095-simplified-3layer-identity-rw-vault"
       ],
       "supersedes": [],
@@ -8386,7 +8386,7 @@
       "authoritative": true,
       "authoritative_for": [
         "Prometheus alert rule SSoT (PrometheusRule CRDs)",
-        "RisingWave operational alert thresholds",
+        "Kotoba/Datomic operational alert thresholds",
         "defense cluster security alert thresholds",
         "NIST CSF 2.0 DETECT function implementation"
       ],
@@ -8397,7 +8397,7 @@
       "superseded_by": [],
       "depends_on": [
         "adr-2605200000-nist-csf-respond-irp",
-        "adr-0048-risingwave-vultr-b2-primary",
+        "adr-0048-kotoba-vultr-b2-primary",
         "adr-2605190100-defense-cluster-topology"
       ],
       "last_verified": "2026-05-20",
@@ -8456,7 +8456,7 @@
       "superseded_by": [],
       "depends_on": [
         "adr-2605200000-nist-csf-respond-irp",
-        "adr-0048-risingwave-vultr-b2-primary",
+        "adr-0048-kotoba-vultr-b2-primary",
         "adr-2605111200-cf-worker-edge-only-no-rw-connection"
       ],
       "last_verified": "2026-05-20",
@@ -8474,7 +8474,7 @@
       "authoritative_for": [
         "defense ISR track ingest and sensor fusion",
         "defIsr lexicon NSID namespace",
-        "mv_defense_fused_cop RisingWave streaming MV",
+        "mv_defense_fused_cop Kotoba/Datomic streaming MV",
         "vertex_defense_track / edge_defense_track_fusion schema",
         "COP (Common Operating Picture) latency contract (<5s)"
       ],
@@ -8487,7 +8487,7 @@
       "depends_on": [
         "adr-2605190100-defense-cluster-topology",
         "adr-2605200100-defense-mission-orchestration-lattice",
-        "adr-0048-risingwave-vultr-b2-primary",
+        "adr-0048-kotoba-vultr-b2-primary",
         "adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion"
       ],
       "last_verified": "2026-05-20",
@@ -9029,7 +9029,7 @@
       "related": [
         "adr-2605091300-bonsai-cultivar-layer-above-myco-yeast",
         "adr-2605091600-plasmid-graft-horizontal-tool-acquisition",
-        "adr-2604262359-risingwave-multimodal-vector-search-topology",
+        "adr-2604262359-kotoba-multimodal-vector-search-topology",
         "adr-2605192100-etzhayyim-mission-charter",
         "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
       ],
@@ -9207,14 +9207,14 @@
     {
       "path": "90-docs/adr/2605202500-temporal-not-adopted-langgraph-rw-durable.md",
       "id": "adr-2605202500-temporal-not-adopted-langgraph-rw-durable",
-      "title": "ADR-2605202500: Temporal 不採用 — LangGraph + RisingWave Durable Job 継続",
+      "title": "ADR-2605202500: Temporal 不採用 — LangGraph + Kotoba/Datomic Durable Job 継続",
       "status": "active",
       "doc_type": "adr",
       "topic": "temporal-not-adopted-langgraph-rw-durable",
       "authoritative": true,
       "authoritative_for": [
         "Temporal workflow engine 不採用の根拠",
-        "LangGraph Server + RisingWave を durable job 基盤として継続する決定",
+        "LangGraph Server + Kotoba/Datomic を durable job 基盤として継続する決定",
         "常駐化・Durable Job の現行設計の正典記述",
         "Temporal 検討を再開する条件 (例外)"
       ],
@@ -9243,7 +9243,7 @@
       "authoritative_for": [
         "tsukuru B2B factory-direct ordering on etzhayyim substrate",
         "Stripe Issuing → ERC-4337 + USDC payment migration plan",
-        "RisingWave Hyperdrive → PDS XRPC + IPFS storage migration plan",
+        "Kotoba/Datomic Hyperdrive → PDS XRPC + IPFS storage migration plan",
         "460+ factory DID migration plan (etzhayyim → etzhayyim)"
       ],
       "related": [
@@ -11138,7 +11138,7 @@
       "authoritative": false,
       "authoritative_for": [],
       "related": [
-        "adr-2604241342-risingwave-out-of-band-migration-pattern",
+        "adr-2604241342-kotoba-out-of-band-migration-pattern",
         "2605171300"
       ],
       "supersedes": [],
@@ -13784,7 +13784,7 @@
     {
       "path": "90-docs/adr/2605262130-kotoba-storage-substrate-unification.md",
       "id": "adr-2605262130-kotoba-storage-substrate-unification",
-      "title": "ADR-2605262130: Kotoba as Canonical Storage Substrate — supersedes kotoba-datomic composition + projection layers; no RisingWave",
+      "title": "ADR-2605262130: Kotoba as Canonical Storage Substrate — supersedes kotoba-datomic composition + projection layers; no Kotoba/Datomic",
       "status": "proposed",
       "doc_type": "adr",
       "topic": "storage-substrate",
@@ -13792,7 +13792,7 @@
       "authoritative_for": [
         "canonical storage substrate engine (kotoba)",
         "removal of kotoba-datomic composition spec from authoritative design surface",
-        "removal of RisingWave / Lance / Iroh as projection backends"
+        "removal of Kotoba/Datomic / Lance / Iroh as projection backends"
       ],
       "related": [
         "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
@@ -16516,18 +16516,18 @@
     {
       "path": "90-docs/adr/2605291100-manimani-kotoba-native-reconciliation-gmail-pc-ingest.md",
       "id": "adr-2605291100-manimani-kotoba-native-reconciliation-gmail-pc-ingest",
-      "title": "ADR-2605291100: manimani — kotoba-native personal knowledge router (Gmail + PC ingest), reconciling RisingWave/Anthropic-direct/RunPod",
+      "title": "ADR-2605291100: manimani — kotoba-native personal knowledge router (Gmail + PC ingest), reconciling Kotoba/Datomic/Anthropic-direct/RunPod",
       "status": "proposed",
       "doc_type": "adr",
       "topic": "manimani-kotoba-native-reconciliation",
       "authoritative": true,
       "authoritative_for": [
-        "manimani.etzhayyim.com の substrate 配置 (kotoba EAVT datoms; RisingWave 廃止)",
+        "manimani.etzhayyim.com の substrate 配置 (kotoba EAVT datoms; Kotoba/Datomic 廃止)",
         "manimani inference 経路 (Murakumo LiteLLM gateway のみ; Anthropic-direct / RunPod 廃止)",
         "manimani runtime (kotoba StateGraph; pymagatama LangGraph Server + Granian pool 廃止)",
         "Gmail 全アーカイブ ingest 経路 (kotoba-ingest gmail.rs OAuth2 → RFC2822 → E2E encrypt → QuadStore)",
         "広範囲 PC ファイル ingest 経路 (kotoba-kse Vault chunking → BlobManifest CID → intake datom)",
-        "manimani datom schema (vertex_manimani_* RisingWave テーブルの EAVT predicate 置換)"
+        "manimani datom schema (vertex_manimani_* Kotoba/Datomic テーブルの EAVT predicate 置換)"
       ],
       "related": [
         "adr-2605120000-ses-anken-jokyo-ingest-langgraph",
@@ -16737,7 +16737,7 @@
     {
       "path": "90-docs/adr/2605301400-tadori-onchain-tracing-actor-and-kotoba-eavt-migration.md",
       "id": "adr-2605301400-tadori-onchain-tracing-actor-and-kotoba-eavt-migration",
-      "title": "ADR-2605301400: 辿 (tadori) — authorized on-chain transaction-tracing + actor-attribution Tier-B actor, kotoba-EAVT-native; migrates malak pursuit + ipaddress + yabai off yata SQL / RisingWave",
+      "title": "ADR-2605301400: 辿 (tadori) — authorized on-chain transaction-tracing + actor-attribution Tier-B actor, kotoba-EAVT-native; migrates malak pursuit + ipaddress + yabai off yata SQL / Kotoba/Datomic",
       "status": "proposed",
       "doc_type": "adr",
       "topic": "tadori-onchain-tracing-actor",
@@ -16745,7 +16745,7 @@
       "authoritative_for": [
         "new Tier-B actor `tadori` (authorized on-chain tx tracing + actor attribution)",
         "kotoba-kqe EAVT datom schema for tx / address / cluster / label / case / ip-observation / dns-observation / attribution / risk",
-        "migration of malak `wallet_deep_inspect_pursuit` + `address_label_pursuit` Pregel output off filesystem/RisingWave onto kotoba QuadStore",
+        "migration of malak `wallet_deep_inspect_pursuit` + `address_label_pursuit` Pregel output off filesystem/Kotoba/Datomic onto kotoba QuadStore",
         "migration of ipaddress.etzhayyim.com SQL graph off yata Workers RPC onto kotoba-kqe",
         "migration of yabai.etzhayyim.com SQL graph (CTI / DNS / IP-history / access-audit) off yata Workers RPC onto kotoba-kqe"
       ],
@@ -17665,7 +17665,7 @@
         "giemon part-ledger EDN schema (parts.edn) + sbom_gen.py generator",
         "giemon SBOM → kotoba EAVT ingest contract (kg.ingest_batch, kg/claim/part/*)",
         "cross-robot fleet part graph (kabitori + giemon-otete) in kotoba",
-        "legacy RisingWave SBOM → kotoba bridge (cyclonedx_to_kotoba.py) + column mapping",
+        "legacy Kotoba/Datomic SBOM → kotoba bridge (cyclonedx_to_kotoba.py) + column mapping",
         "purl-keyed SBOM↔CVE vuln-match materialization (VulnMatch entities)",
         "giemon Svelte surfaces (/giemon, /giemon.htm, /fleet) in etzhayyim-project-isekai"
       ],
@@ -19420,7 +19420,7 @@
     {
       "path": "90-docs/adr/2606021730-latent-entity-kotoba-datomic-refactor.md",
       "id": "adr-2606021730-latent-entity-kotoba-datomic-refactor",
-      "title": "ADR-2606021730: Latent Entity Statistical Resolution — RisingWave to kotoba-EAVT Refactor",
+      "title": "ADR-2606021730: Latent Entity Statistical Resolution — Kotoba/Datomic to kotoba-EAVT Refactor",
       "status": "proposed",
       "doc_type": "adr",
       "topic": "latent-entity-kotoba-refactor",
@@ -19435,7 +19435,7 @@
         "/60-apps/etzhayyim-project-coverage/MIGRATION-TODO.md (charter-violation evidence)"
       ],
       "supersedes": [
-        "/90-docs/260430-natural-person-latent-entity-backend-design.md (RisingWave design, 2026-04-30)"
+        "/90-docs/260430-natural-person-latent-entity-backend-design.md (Kotoba/Datomic design, 2026-04-30)"
       ],
       "superseded_by": [],
       "depends_on": [
@@ -19968,8 +19968,8 @@
     },
     {
       "path": "90-docs/adr/2606032330-session-close-magatama-risingwave-to-kotoba-datomic-edn.md",
-      "id": "adr-2606032330-session-close-magatama-risingwave-to-kotoba-datomic-edn",
-      "title": "ADR-2606032330: Session close — magatama RisingWave → kotoba Datomic API/EDN refactor (substrate clients + LangGraph savers + sqlmesh view registry)",
+      "id": "adr-2606032330-session-close-magatama-kotoba-to-kotoba-datomic-edn",
+      "title": "ADR-2606032330: Session close — magatama Kotoba/Datomic → kotoba Datomic API/EDN refactor (substrate clients + LangGraph savers + sqlmesh view registry)",
       "status": "active",
       "doc_type": "adr",
       "topic": "session-close-magatama-rw-to-kotoba",
@@ -22008,7 +22008,7 @@
       "authoritative": false,
       "related": [
         "90-docs/260425-ingest-orchestration-zeebe-python-k8s-mcp-design.md",
-        "90-docs/adr/0048-risingwave-vultr-b2-primary.md",
+        "90-docs/adr/0048-kotoba-vultr-b2-primary.md",
         "90-docs/adr/0056-bpmn-as-actor.md",
         "50-infra/vultr/geth-private/"
       ],
@@ -22151,7 +22151,7 @@
     {
       "path": "90-docs/260414-cohort-identity-posterior-mv-draft.md",
       "id": "cohort-identity-posterior-mv-draft-260414",
-      "title": "Cohort Identity Posterior MV — RisingWave DDL Draft (ADR-0026 Iter 2)",
+      "title": "Cohort Identity Posterior MV — Kotoba/Datomic DDL Draft (ADR-0026 Iter 2)",
       "status": "active",
       "doc_type": "how-to",
       "topic": "cohort-evaluation",
@@ -22247,7 +22247,7 @@
     {
       "path": "90-docs/260416-coverage-infer-statistical-entity-resolution.md",
       "id": "coverage-infer-statistical-entity-resolution-260416",
-      "title": "etzhayyim coverage infer — Statistical Entity Resolution via RisingWave Python UDF",
+      "title": "etzhayyim coverage infer — Statistical Entity Resolution via Kotoba/Datomic Python UDF",
       "status": "active",
       "doc_type": "how-to",
       "topic": "cohort-evaluation",
@@ -22341,14 +22341,14 @@
     },
     {
       "path": "90-docs/260414-risingwave-premium-32gb-scale-up.md",
-      "id": "doc-260414-risingwave-premium-32gb-scale-up",
-      "title": "RisingWave Premium 32GB Scale-Up — Runbook & Post-Mortem",
+      "id": "doc-260414-kotoba-premium-32gb-scale-up",
+      "title": "Kotoba/Datomic Premium 32GB Scale-Up — Runbook & Post-Mortem",
       "status": "active",
       "doc_type": "how-to",
       "topic": "infrastructure",
       "authoritative": true,
       "related": [
-        "adr-0020-risingwave-premium-single-node",
+        "adr-0020-kotoba-premium-single-node",
         "30-graph/graph-schema/migrations/0025_world_coverage_live_mv.ts"
       ],
       "last_verified": "2026-04-14",
@@ -22464,7 +22464,7 @@
       "related": [
         "adr-2604241038-yoro-pds-ideal-topology",
         "adr-2604241121-repo-commit-stays-on-pds",
-        "adr-2604241342-risingwave-out-of-band-migration-pattern",
+        "adr-2604241342-kotoba-out-of-band-migration-pattern",
         "doc-260424-ephemeral-runbook-convention"
       ],
       "last_verified": "2026-04-24",
@@ -22503,7 +22503,7 @@
     {
       "path": "90-docs/260427-state-worker-retirement-session-summary.md",
       "id": "doc-260427-state-worker-retirement-session-summary",
-      "title": "Session summary: state CF Worker retirement via Zeebe/k8s/RisingWave gates",
+      "title": "Session summary: state CF Worker retirement via Zeebe/k8s/Kotoba/Datomic gates",
       "status": "active",
       "doc_type": "reference",
       "topic": "state-worker-retirement",
@@ -22511,7 +22511,7 @@
       "related": [
         "adr-2604262000-edge-thin-app-runtime-k8s-zeebe-registry",
         "adr-2604261000-mcp-registry-via-kysely-schema",
-        "adr-2604261900-risingwave-ddl-backfill-path-topology",
+        "adr-2604261900-kotoba-ddl-backfill-path-topology",
         "doc-260426-site-common-crawl-zeebe-python-worker-design"
       ],
       "last_verified": "2026-04-27",
@@ -22536,7 +22536,7 @@
       ],
       "related": [
         "adr-2604231328-animeka-bpmn-l40s-pipeline",
-        "adr-0094-risingwave-stable-three-node-topology"
+        "adr-0094-kotoba-stable-three-node-topology"
       ],
       "last_verified": "2026-04-29",
       "supersedes": [],
@@ -23237,7 +23237,7 @@
     {
       "path": "90-docs/irp/dr-drill-log.md",
       "id": "dr-drill-log",
-      "title": "DR Drill Log — RisingWave Meta Snapshot Restore",
+      "title": "DR Drill Log — Kotoba/Datomic Meta Snapshot Restore",
       "status": "active",
       "doc_type": "reference",
       "topic": "disaster-recovery",
@@ -23357,15 +23357,15 @@
     },
     {
       "path": "90-docs/260416-jun-etzhayyim-group-data-ingest-risingwave-vertex-edge-design.md",
-      "id": "jun-etzhayyim-group-data-ingest-risingwave-vertex-edge-design-260416",
-      "title": "jun@etzhayyim.com 全量取り込み設計 — RisingWave / Vertex / Edge",
+      "id": "jun-etzhayyim-group-data-ingest-kotoba-vertex-edge-design-260416",
+      "title": "jun@etzhayyim.com 全量取り込み設計 — Kotoba/Datomic / Vertex / Edge",
       "status": "active",
       "doc_type": "explanation",
       "topic": "personal-workspace-ingest",
       "authoritative": true,
       "authoritative_for": [
         "jun@etzhayyim.com の非 Microsoft 系データ取り込み設計",
-        "RisingWave 上の Vertex / Edge モデル",
+        "Kotoba/Datomic 上の Vertex / Edge モデル",
         "full backfill + incremental sync + cursor 運用"
       ],
       "related": [
@@ -23385,16 +23385,16 @@
       "title": "kagami P10v2: GraphAr-Native Typed Columnar Schema",
       "status": "active",
       "doc_type": "explanation",
-      "topic": "kagami-risingwave-graphar",
+      "topic": "kagami-kotoba-graphar",
       "authoritative": true,
       "authoritative_for": [
         "kagami P10v2 GraphAr-native schema design"
       ],
       "related": [
-        "kagami-risingwave-graphar-design"
+        "kagami-kotoba-graphar-design"
       ],
       "supersedes": [
-        "kagami-risingwave-graphar-design"
+        "kagami-kotoba-graphar-design"
       ],
       "superseded_by": [],
       "last_verified": "2026-04-13",
@@ -23960,7 +23960,7 @@
       "related": [
         "adr-2605011500-maps-aismarine-pipeline",
         "adr-0036-worker-direct-hyperdrive-persistence",
-        "adr-0048-risingwave-vultr-b2-primary",
+        "adr-0048-kotoba-vultr-b2-primary",
         "adr-0056-bpmn-as-actor",
         "adr-2604282300"
       ],

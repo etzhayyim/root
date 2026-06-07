@@ -38,6 +38,7 @@ Auth model (Phase 1):
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import asyncio
 import hashlib
@@ -52,7 +53,6 @@ from typing import Any
 
 from aiohttp import web
 
-from pymagatama.db_sync import sync_cursor
 from pymagatama.primitives import chat as chat_mod
 
 LOG = logging.getLogger("chat_server")
@@ -241,9 +241,10 @@ async def xrpc_agent_loop(request: web.Request) -> web.Response:
 
 async def xrpc_coverage(request: web.Request) -> web.Response:
     def _q(sql: str) -> int:
-        with sync_cursor() as cur:
-            cur.execute(sql)
-            row = cur.fetchone()
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(sql)
+            row = (_res[0] if _res else None)
             return int(row[0]) if row else 0
     return web.json_response({
         "asOf": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
@@ -271,14 +272,16 @@ async def xrpc_list_conversations(request: web.Request) -> web.Response:
     if status != "all":
         sql += "AND status = %s "
         sql += f"ORDER BY last_message_at DESC LIMIT {int(limit)}"
-        with sync_cursor() as cur:
-            cur.execute(sql, (owner_did, status))
-            rows = list(cur.fetchall())
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(sql, (owner_did, status))
+            rows = list(_res)
     else:
         sql += f"ORDER BY last_message_at DESC LIMIT {int(limit)}"
-        with sync_cursor() as cur:
-            cur.execute(sql, (owner_did,))
-            rows = list(cur.fetchall())
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(sql, (owner_did,))
+            rows = list(_res)
     return web.json_response({
         "conversations": [
             {
@@ -302,17 +305,19 @@ async def xrpc_get_conversation(request: web.Request) -> web.Response:
     include_invocations = request.query.get(
         "includeToolInvocations", "true").lower() == "true"
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             "SELECT title, agent_did, model_hint, message_count, last_message_at "
             "FROM vertex_chat_conversation WHERE conv_id = %s AND owner_did = %s LIMIT 1",
             (conv_id, owner_did),
         )
-        head = cur.fetchone()
+        head = (_res[0] if _res else None)
         if not head:
             return web.json_response({"error": "NotFound", "convId": conv_id}, status=404)
 
-        cur.execute(
+        _res = client.q(
             "SELECT msg_id, role, content, ts_ms, model_used, total_tokens, "
             "       tool_calls_json, tool_call_id "
             "FROM vertex_chat_message "
@@ -320,18 +325,18 @@ async def xrpc_get_conversation(request: web.Request) -> web.Response:
             f"ORDER BY ts_ms ASC LIMIT {int(limit)}",
             (conv_id,),
         )
-        msg_rows = list(cur.fetchall())
+        msg_rows = list(_res)
 
         artifacts: list[dict[str, Any]] = []
         if include_artifacts:
-            cur.execute(
+            _res = client.q(
                 "SELECT artifact_id, kind, mime_type, byte_size, title, b2_key "
                 "FROM vertex_chat_artifact "
                 "WHERE conv_id = %s AND status = 'active' "
                 "ORDER BY ts_ms ASC LIMIT 200",
                 (conv_id,),
             )
-            for r in cur.fetchall():
+            for r in _res:
                 artifacts.append({
                     "artifactId": r[0], "kind": r[1], "mimeType": r[2],
                     "byteSize": int(r[3] or 0), "title": r[4] or "",
@@ -340,14 +345,14 @@ async def xrpc_get_conversation(request: web.Request) -> web.Response:
 
         invocations: list[dict[str, Any]] = []
         if include_invocations:
-            cur.execute(
+            _res = client.q(
                 "SELECT tool_name, msg_id, args_json, result_summary, duration_ms, status "
                 "FROM vertex_chat_tool_invocation "
                 "WHERE conv_id = %s "
                 "ORDER BY ts_ms ASC LIMIT 200",
                 (conv_id,),
             )
-            for r in cur.fetchall():
+            for r in _res:
                 invocations.append({
                     "toolName": r[0], "msgId": r[1], "argsJson": r[2] or "",
                     "resultSummary": r[3] or "", "durationMs": int(r[4] or 0),
@@ -387,13 +392,15 @@ async def xrpc_delete_conversation(request: web.Request) -> web.Response:
         return web.json_response({"ok": False, "error": "convId required"}, status=400)
     owner_did = _viewer_did(request)
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             "UPDATE vertex_chat_conversation SET status = 'deleted' "
             "WHERE conv_id = %s AND owner_did = %s",
             (conv_id, owner_did),
         )
-        cur.execute(
+        _res = client.q(
             "UPDATE vertex_chat_message SET status = 'deleted' "
             "WHERE conv_id = %s AND owner_did = %s",
             (conv_id, owner_did),
@@ -401,17 +408,17 @@ async def xrpc_delete_conversation(request: web.Request) -> web.Response:
         scheduled = 0
         if purge_now:
             new_expires = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(time.time() + 60))
-            cur.execute(
+            _res = client.q(
                 "UPDATE vertex_chat_artifact SET expires_at = %s "
                 "WHERE conv_id = %s AND owner_did = %s AND status = 'active'",
                 (new_expires, conv_id, owner_did),
             )
-            cur.execute(
+            _res = client.q(
                 "SELECT count(*) FROM vertex_chat_artifact "
                 "WHERE conv_id = %s AND owner_did = %s AND status = 'active'",
                 (conv_id, owner_did),
             )
-            row = cur.fetchone()
+            row = (_res[0] if _res else None)
             scheduled = int(row[0]) if row else 0
 
     return web.json_response({

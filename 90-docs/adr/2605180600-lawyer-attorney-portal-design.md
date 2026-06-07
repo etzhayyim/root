@@ -110,7 +110,7 @@ load_matter_context
   → finalize              (status=approved, write to vertex_lawyer_document_draft)
 ```
 
-LangGraph checkpointer: PostgreSQL (RisingWave 4566) via `AsyncPostgresSaver`. Thread ID = `draft:{draftId}`.
+LangGraph checkpointer: PostgreSQL (Kotoba/Datomic 4566) via `AsyncPostgresSaver`. Thread ID = `draft:{draftId}`.
 
 ## 5. UI Views (Svelte, 5 routes)
 
@@ -124,7 +124,7 @@ LangGraph checkpointer: PostgreSQL (RisingWave 4566) via `AsyncPostgresSaver`. T
 
 All routes are protected by AT Protocol session JWT. The Svelte app calls `/xrpc/com.etzhayyim.apps.lawyer.*` against the lawyer Worker BFF at `lawyer.etzhayyim.com`.
 
-## 6. Data Tables (RisingWave)
+## 6. Data Tables (Kotoba/Datomic)
 
 ### New tables (lawyer-specific)
 

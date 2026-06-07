@@ -43,7 +43,7 @@
 → `Downstream Distribution & Retail`
 → `Risk / Compliance / Coverage / Decision`
 
-ただし rollout は **reverse topological sort** で進める。  
+ただし rollout は **reverse topological sort** で進める。
 理由は、下流の観測面・意思決定面・coverage 面を先に定義すると、上流の収集対象と graph contract がぶれにくいから。
 
 ## Reverse Topological Rollout Order
@@ -158,7 +158,7 @@
 
 ### R1. Reference / Authority / Identity
 
-最後に依存の根を整備するのではなく、implementation 的には最初に最低限を seed する。  
+最後に依存の根を整備するのではなく、implementation 的には最初に最低限を seed する。
 ただし reverse topo の設計上は最下層のため `R1` と表記する。
 
 - 既存活用: `gov`, `legal-entity` 相当の法人系 graph, `maps`

@@ -24,7 +24,7 @@ depends_on:
   - adr-2604261100-rego-dmn-policy-decision-layers
   - adr-2604300135-hume-distillation-artifact-persistence
 related:
-  - adr-0044-risingwave-udf-language-strategy
+  - adr-0044-kotoba-udf-language-strategy
   - adr-2605131600-malak-orchestration-langgraph-pregel-langserve
 supersedes: []
 superseded_by: []

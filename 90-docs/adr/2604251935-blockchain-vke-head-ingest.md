@@ -12,8 +12,8 @@ authoritative_for:
   - blockchain-b2-cold-storage-boundary
 related:
   - blockchain-node-vultr-b2-zeebe-ingest-design-260425
-  - 90-docs/adr/0048-risingwave-vultr-b2-primary.md
-  - 90-docs/adr/0094-risingwave-stable-three-node-topology.md
+  - 90-docs/adr/0048-kotoba-vultr-b2-primary.md
+  - 90-docs/adr/0094-kotoba-stable-three-node-topology.md
 supersedes: []
 superseded_by: []
 ---
@@ -23,7 +23,7 @@ superseded_by: []
 We need local public-chain RPC sources for Bitcoin and Ethereum so downstream
 actors such as malak, intel, and yabai can ingest on-chain head deltas through
 the standard durable ingest path: Kubernetes Cron starts Zeebe, and Python
-workers perform acquisition and RisingWave writes.
+workers perform acquisition and Kotoba/Datomic writes.
 
 NVMe block storage is too expensive for the initial deployment. Backblaze B2 is
 cheap and durable, but object storage/FUSE is not acceptable for live Bitcoin
@@ -76,7 +76,7 @@ As of 2026-04-25 19:35 JST:
   sync is still at block 0.
 - Geth now advertises `45.76.77.26:30303` and has begun seeing peers, but has
   not yet advanced `eth.blockNumber`.
-- RisingWave DDL for `vertex_blockchain_block` and `vertex_blockchain_tx`
+- Kotoba/Datomic DDL for `vertex_blockchain_block` and `vertex_blockchain_tx`
   failed during RW scheduler instability. Until RW DDL is stable, worker writes
   deterministic rows into `vertex_blockchain_actor.props` with `kind=block|tx`.
 

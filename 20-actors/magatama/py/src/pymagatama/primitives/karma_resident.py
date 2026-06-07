@@ -29,6 +29,7 @@ Pyzeebe task types:
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import asyncio
 import datetime as _dt
@@ -40,7 +41,6 @@ import time
 import uuid
 from typing import Any, Optional, TypedDict
 
-from pymagatama.db_sync import sync_cursor
 
 LOG = logging.getLogger("karma.resident")
 
@@ -100,14 +100,16 @@ async def task_karma_organism_spawn(**kwargs: Any) -> dict[str, Any]:
     now_ts = _now_ts()
     now_ms = _now_ms()
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             "SELECT vertex_id, status FROM vertex_organism_runtime WHERE did = %s",
             (did,),
         )
-        existing = cur.fetchone()
+        existing = (_res[0] if _res else None)
         if existing:
-            cur.execute(
+            _res = client.q(
                 """
                 UPDATE vertex_organism_runtime
                 SET substrate = %s,
@@ -132,7 +134,7 @@ async def task_karma_organism_spawn(**kwargs: Any) -> dict[str, Any]:
                 ),
             )
         else:
-            cur.execute(
+            _res = client.q(
                 """
                 INSERT INTO vertex_organism_runtime (
                     vertex_id, _seq, created_date, sensitivity_ord, owner_did,
@@ -188,8 +190,10 @@ async def task_karma_organism_tick_batch(**kwargs: Any) -> dict[str, Any]:
     max_organisms = int(kwargs.get("maxOrganisms") or 50)
     max_neighbors = int(kwargs.get("maxNeighborsPerOrganism") or 50)
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             f"""
             SELECT did, substrate
             FROM vertex_organism_runtime
@@ -198,7 +202,7 @@ async def task_karma_organism_tick_batch(**kwargs: Any) -> dict[str, Any]:
             LIMIT {int(max_organisms)}
             """
         )
-        rows = cur.fetchall()
+        rows = _res
 
     ticked = 0
     observations = 0
@@ -244,9 +248,11 @@ async def task_karma_organism_tick(**kwargs: Any) -> dict[str, Any]:
     observations = 0
     new_edges_seen: list[str] = []
 
-    with sync_cursor() as cur:
+    if True:
+
+        client = get_kotoba_client()
         # Step 1: 1-hop neighbors not yet observed by this resident.
-        cur.execute(
+        _res = client.q(
             f"""
             SELECT edge_id, source_did_at_event, target_did_at_event,
                    axis, tier, direction, ts_ms
@@ -262,12 +268,12 @@ async def task_karma_organism_tick(**kwargs: Any) -> dict[str, Any]:
             """,
             (did, did, did),
         )
-        rows = cur.fetchall()
+        rows = _res
         observations = len(rows)
         new_edges_seen = [r[0] for r in rows]
 
         # Step 4: heartbeat update
-        cur.execute(
+        _res = client.q(
             """
             UPDATE vertex_organism_runtime
             SET heartbeat_at = %s,
@@ -311,8 +317,10 @@ async def task_karma_organism_checkpoint(**kwargs: Any) -> dict[str, Any]:
     now_ts = _now_ts()
     now_ms = _now_ms()
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             """
             INSERT INTO vertex_organism_checkpoint (
                 vertex_id, _seq, created_date, sensitivity_ord, owner_did,
@@ -362,13 +370,15 @@ async def task_karma_organism_resume(**kwargs: Any) -> dict[str, Any]:
     checkpoint_id = kwargs.get("checkpointId") or ""
     force = bool(kwargs.get("force", False))
 
-    with sync_cursor() as cur:
+    if True:
+
+        client = get_kotoba_client()
         # Verify organism exists
-        cur.execute(
+        _res = client.q(
             "SELECT status FROM vertex_organism_runtime WHERE did = %s",
             (did,),
         )
-        row = cur.fetchone()
+        row = (_res[0] if _res else None)
         if not row:
             return {
                 "did": did, "threadId": thread_id,
@@ -387,7 +397,7 @@ async def task_karma_organism_resume(**kwargs: Any) -> dict[str, Any]:
 
         # Load checkpoint
         if checkpoint_id:
-            cur.execute(
+            _res = client.q(
                 """
                 SELECT checkpoint_id, parent_checkpoint_id, langgraph_node,
                        state_byte_size, saved_at_ms
@@ -398,7 +408,7 @@ async def task_karma_organism_resume(**kwargs: Any) -> dict[str, Any]:
                 (did, thread_id, checkpoint_id),
             )
         else:
-            cur.execute(
+            _res = client.q(
                 """
                 SELECT checkpoint_id, parent_checkpoint_id, langgraph_node,
                        state_byte_size, saved_at_ms
@@ -409,7 +419,7 @@ async def task_karma_organism_resume(**kwargs: Any) -> dict[str, Any]:
                 """,
                 (did, thread_id),
             )
-        ck_row = cur.fetchone()
+        ck_row = (_res[0] if _res else None)
         if not ck_row:
             return {
                 "did": did, "threadId": thread_id,
@@ -421,7 +431,7 @@ async def task_karma_organism_resume(**kwargs: Any) -> dict[str, Any]:
         resumed_id, parent_id, langgraph_node, state_size, saved_at_ms = ck_row
 
         # Idempotently mark runtime as alive (clear any prior dissolved flag).
-        cur.execute(
+        _res = client.q(
             """
             UPDATE vertex_organism_runtime
             SET status = 'alive',
@@ -460,20 +470,22 @@ async def task_karma_organism_harvest(**kwargs: Any) -> dict[str, Any]:
     """
     now_ms = _now_ms()
 
-    with sync_cursor() as cur:
-        cur.execute("SELECT count(*) FROM vertex_organism_runtime WHERE status = 'alive'")
-        alive_count = int(cur.fetchone()[0])
+    if True:
 
-        cur.execute("SELECT count(*) FROM edge_karma_dependency")
-        edge_count = int(cur.fetchone()[0])
+        client = get_kotoba_client()
+        _res = client.q("SELECT count(*) FROM vertex_organism_runtime WHERE status = 'alive'")
+        alive_count = int((_res[0] if _res else None)[0])
 
-        cur.execute(
+        _res = client.q("SELECT count(*) FROM edge_karma_dependency")
+        edge_count = int((_res[0] if _res else None)[0])
+
+        _res = client.q(
             """
             SELECT count(*) FROM vertex_organism_cohort
             WHERE status = 'active'
             """
         )
-        active_cohorts = int(cur.fetchone()[0])
+        active_cohorts = int((_res[0] if _res else None)[0])
 
         density = edge_count / max(alive_count, 1)
 
@@ -491,7 +503,7 @@ async def task_karma_organism_harvest(**kwargs: Any) -> dict[str, Any]:
             today_iso = _dt.datetime.now(tz=_dt.UTC).date().isoformat()
             now_ts = _now_ts()
 
-            cur.execute(
+            _res = client.q(
                 """
                 INSERT INTO vertex_organism_cohort (
                     vertex_id, _seq, created_date, sensitivity_ord, owner_did,
@@ -546,8 +558,10 @@ async def task_karma_cohort_fission(**kwargs: Any) -> dict[str, Any]:
     now_ms = _now_ms()
     today_iso = _dt.datetime.now(tz=_dt.UTC).date().isoformat()
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             """
             SELECT cohort_did, generation, member_did_csv, fitness_score, posterior, status
             FROM vertex_organism_cohort
@@ -556,7 +570,7 @@ async def task_karma_cohort_fission(**kwargs: Any) -> dict[str, Any]:
             """,
             (cohort_id,),
         )
-        row = cur.fetchone()
+        row = (_res[0] if _res else None)
         if not row:
             return {
                 "parentCohortId": cohort_id, "childCohortIds": [], "childCohortDids": [],
@@ -603,7 +617,7 @@ async def task_karma_cohort_fission(**kwargs: Any) -> dict[str, Any]:
             ch_id = f"cohort-{hashlib.sha256(f'{cohort_id}|child{i}|{now_ms}'.encode()).hexdigest()[:24]}"
             ch_did = f"did:web:karma.etzhayyim.com:cohort:{ch_id[:16]}"
             ch_vertex = _cohort_vertex_id(ch_id)
-            cur.execute(
+            _res = client.q(
                 """
                 INSERT INTO vertex_organism_cohort (
                     vertex_id, _seq, created_date, sensitivity_ord, owner_did,
@@ -633,7 +647,7 @@ async def task_karma_cohort_fission(**kwargs: Any) -> dict[str, Any]:
             child_ids.append(ch_id)
             child_dids.append(ch_did)
 
-        cur.execute(
+        _res = client.q(
             """
             UPDATE vertex_organism_cohort
             SET status = 'fissioned',
@@ -659,8 +673,10 @@ async def task_karma_cohort_fission_scan(**kwargs: Any) -> dict[str, Any]:
     children_spawned = 0
     eligible_skipped = 0
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             f"""
             SELECT cohort_id
             FROM vertex_organism_cohort
@@ -671,7 +687,7 @@ async def task_karma_cohort_fission_scan(**kwargs: Any) -> dict[str, Any]:
             LIMIT 50
             """
         )
-        eligible = [r[0] for r in cur.fetchall()]
+        eligible = [r[0] for r in _res]
 
     for cohort_id in eligible:
         try:
@@ -699,8 +715,9 @@ async def task_karma_organism_dissolve_runtime(**kwargs: Any) -> dict[str, Any]:
     did = kwargs["did"]
     reason = kwargs.get("reason") or "voluntary"
     now_ts = _now_ts()
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             """
             UPDATE vertex_organism_runtime
             SET status = 'dissolved',

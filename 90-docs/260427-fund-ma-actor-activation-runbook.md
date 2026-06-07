@@ -13,7 +13,7 @@ client or app
   -> bpmn-dispatcher
   -> Zeebe process instance
   -> pymagatama.zeebe_worker_main
-  -> RisingWave graph rows / PDS / external tools
+  -> Kotoba/Datomic graph rows / PDS / external tools
 ```
 
 The fund and M&A contracts now have:
@@ -100,7 +100,7 @@ Business-person ingest now has a BPMN wrapper:
 `com.etzhayyim.apps.businessPerson.collectPublicRoles`. The wrapper dispatches
 public collection jobs to the business-person PDS app, prepares
 source-specific public registry requests, fetches the public `sourceUrl`,
-checks RisingWave health, normalizes public role rows, writes
+checks Kotoba/Datomic health, normalizes public role rows, writes
 `vertex_business_person`, and verifies graph visibility before MA matching
 uses the rows. The first extractor is
 `businessPerson.extractCorporateHpRoles`,
@@ -205,7 +205,7 @@ helm upgrade --install mitama-udf-pool \
 
 - Zeebe gateway reachable from the worker:
   `ZEEBE_GATEWAY=zeebe-gateway.mitama-udf.svc:26500`
-- RisingWave URL in `mitama-udf-pool-rw/RW_URL`
+- Kotoba/Datomic URL in `mitama-udf-pool-rw/KOTOBA_URL`
 - dispatcher strict auth secret when exposed through `dispatcher.etzhayyim.com`
 - `VULTR_SERVERLESS_KEY` or a working `RUNPOD_LLM_URL` for LLM-backed tasks
 - PDS service auth settings if BPMN tasks call `generic.pds.dispatch`

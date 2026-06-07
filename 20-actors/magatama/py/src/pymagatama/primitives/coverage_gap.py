@@ -12,6 +12,7 @@ psycopg3 LIMIT rule: always use LIMIT {int(n)} f-string, never LIMIT %s param.
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import hashlib
 import json
@@ -24,7 +25,6 @@ import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
 
 
 # ── helpers ──────────────────────────────────────────────────────────────────
@@ -78,8 +78,9 @@ def task_coverage_gap_scan(**kwargs: Any) -> dict[str, Any]:
     Falls back to a no-op defer row when the MV is empty or unavailable.
     """
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 # psycopg3 LIMIT rule: f-string literal, never %s
                 f"SELECT domain, authority_kind, recipe_kind, llm_tier, langgraph_id, "
                 f"world_total, regret "
@@ -88,7 +89,7 @@ def task_coverage_gap_scan(**kwargs: Any) -> dict[str, Any]:
                 f"ORDER BY regret DESC "
                 f"LIMIT {int(1)}"
             )
-            row = cur.fetchone()
+            row = (_res[0] if _res else None)
     except Exception as exc:  # noqa: BLE001
         return {
             "domain": "noop",
@@ -186,12 +187,13 @@ def _ingest_crypto_asset_freeze(world_total: int) -> dict[str, Any]:
 
     written = 0
     batch_size = 500
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for i in range(0, len(rows), batch_size):
             batch = rows[i : i + batch_size]
             placeholders = ",".join("(%s,%s,%s,%s,%s,%s,%s)" for _ in batch)
             flat = [v for row in batch for v in row]
-            cur.execute(
+            _res = client.q(
                 f"INSERT INTO vertex_crypto_asset_freeze_incident "
                 f"(vertex_id,incident_id,entity_name,sdn_type,authority,source,created_at) "
                 f"VALUES {placeholders}",
@@ -229,7 +231,8 @@ def _ingest_government_fund(world_total: int) -> dict[str, Any]:
 
     ts = _utc_now()
     written = 0
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         limit = int(min(len(items), world_total or 500))
         for item in items[:limit]:
             name = _as_str(item.get("name") or item.get("fund_name") or "", 512)
@@ -238,7 +241,7 @@ def _ingest_government_fund(world_total: int) -> dict[str, Any]:
             if not name:
                 continue
             vertex_id = _stable_id("gov-fund", name, country)
-            cur.execute(
+            _res = client.q(
                 "INSERT INTO vertex_fund "
                 "(vertex_id,fund_id,name,fund_kind,jurisdiction,aum_amount,source_url,source_license,created_date) "
                 "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)",
@@ -283,7 +286,8 @@ def _ingest_mutual_fund(world_total: int) -> dict[str, Any]:
     ts = _utc_now()
     written = 0
     limit = int(min(len(hits), world_total or 500))
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for hit in hits[:limit]:
             src = hit.get("_source") or {}
             raw_names = src.get("display_names") or []
@@ -294,7 +298,7 @@ def _ingest_mutual_fund(world_total: int) -> dict[str, Any]:
             if not name:
                 continue
             vertex_id = _stable_id("mutual-fund", name, file_date)
-            cur.execute(
+            _res = client.q(
                 "INSERT INTO vertex_fund "
                 "(vertex_id,fund_id,name,fund_kind,jurisdiction,source_url,source_license,created_date) "
                 "VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",
@@ -330,7 +334,8 @@ def _ingest_investor_fund(world_total: int) -> dict[str, Any]:
     ts = _utc_now()
     written = 0
     limit = int(min(len(hits), world_total or 500))
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for hit in hits[:limit]:
             src = hit.get("_source") or {}
             raw_names = src.get("display_names") or []
@@ -339,7 +344,7 @@ def _ingest_investor_fund(world_total: int) -> dict[str, Any]:
             if not name:
                 continue
             vertex_id = _stable_id("investor-fund", name)
-            cur.execute(
+            _res = client.q(
                 "INSERT INTO vertex_fund "
                 "(vertex_id,fund_id,name,fund_kind,jurisdiction,source_url,source_license,created_date) "
                 "VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",
@@ -373,10 +378,11 @@ def _ingest_pension_fund(world_total: int) -> dict[str, Any]:
     ]
     ts = _utc_now()
     written = 0
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for name, country, aum in top_funds:
             vertex_id = _stable_id("pension-fund", name, country)
-            cur.execute(
+            _res = client.q(
                 "INSERT INTO vertex_fund "
                 "(vertex_id,fund_id,name,fund_kind,jurisdiction,aum_amount,source_url,source_license,created_date) "
                 "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)",
@@ -412,7 +418,8 @@ def _ingest_private_fund(world_total: int) -> dict[str, Any]:
     ts = _utc_now()
     written = 0
     limit = int(min(len(hits), world_total or 500))
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for hit in hits[:limit]:
             src = hit.get("_source") or {}
             raw_names = src.get("display_names") or []
@@ -421,7 +428,7 @@ def _ingest_private_fund(world_total: int) -> dict[str, Any]:
             if not name:
                 continue
             vertex_id = _stable_id("private-fund", name)
-            cur.execute(
+            _res = client.q(
                 "INSERT INTO vertex_fund "
                 "(vertex_id,fund_id,name,fund_kind,jurisdiction,source_url,source_license,created_date) "
                 "VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",
@@ -448,12 +455,13 @@ def _ingest_rare_earth(world_total: int) -> dict[str, Any]:
         ("scandium", "Sc"), ("terbium", "Tb"), ("thulium", "Tm"),
         ("ytterbium", "Yb"), ("yttrium", "Y"),
     ]
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         # Table created via migration 20260501100000_vertex_fund_rare_earth.ts
         written = 0
         for name, symbol in minerals:
             vid = _stable_id("rare-earth", name)
-            cur.execute(
+            _res = client.q(
                 "INSERT INTO vertex_rare_earth_coverage "
                 "(vertex_id,mineral,symbol,source,created_at) "
                 "VALUES (%s,%s,%s,%s,%s)",
@@ -522,14 +530,15 @@ def _ingest_ofac_sdn(world_total: int) -> dict[str, Any]:
 
     written = 0
     batch_size = 500
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for i in range(0, len(rows), batch_size):
             batch = rows[i: i + batch_size]
             placeholders = ",".join(
                 "(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" for _ in batch
             )
             flat = [v for row in batch for v in row]
-            cur.execute(
+            _res = client.q(
                 f"INSERT INTO vertex_open_ofac_sanctions_sdn "
                 f"(vertex_id,sdn_id,sdn_program,list_type,blocking_tier,"
                 f"created_at,owner_did,sensitivity_ord,org_id,user_id,actor_id) "
@@ -638,9 +647,10 @@ def _ingest_bengoshi_lawyers(world_total: int) -> dict[str, Any]:
         return {"ok": True, "rowsWritten": 0, "error": "no bar associations"}
 
     written = 0
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for row in rows:
-            cur.execute(
+            _res = client.q(
                 "INSERT INTO vertex_lawyer "
                 "(vertex_id,label,name,did,bar_roll_no,state_bar,enrolled_at,"
                 "senior_advocate,specialty,jurisdiction,years_practice,"
@@ -706,9 +716,10 @@ def _ingest_adr_cases(world_total: int) -> dict[str, Any]:
         return {"ok": True, "rowsWritten": 0, "error": "no ADR institutions"}
 
     written = 0
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for row in rows:
-            cur.execute(
+            _res = client.q(
                 "INSERT INTO vertex_adr_case "
                 "(vertex_id,case_ref,institution,panel,seat,governing_law,"
                 "parties_enc,claim_amount_enc,currency,status,opened_at,award_at,"
@@ -762,12 +773,13 @@ def _ingest_npo(world_total: int) -> dict[str, Any]:
     ]
 
     written = 0
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for (display_name, jurisdiction, office_type, locality,
              languages, specialties, intake_url) in OFFICES:
             vertex_id = _stable_id("legal-aid-office", display_name, jurisdiction)
             office_did = f"did:web:npo.etzhayyim.com:office:{vertex_id[-12:]}"
-            cur.execute(
+            _res = client.q(
                 "INSERT INTO vertex_legal_aid_office "
                 "(vertex_id,office_did,display_name,jurisdiction,office_type,"
                 "address_locality,languages_csv,specialties_csv,intake_url,"
@@ -868,11 +880,12 @@ def _ingest_oil_company(world_total: int) -> dict[str, Any]:
         ("John Wood Group", "oilfield_services", "GBR", "none"),
     ]
     written = 0
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for name, company_type, hq_country, sanctions_status in COMPANIES:
             vid = _oil_vid("company", name, hq_country)
             company_did = f"did:web:oil-coverage.etzhayyim.com:co:{vid[-12:]}"
-            cur.execute(
+            _res = client.q(
                 "INSERT INTO vertex_oil_company "
                 "(vertex_id,did,repo,name,company_type,hq_country,sanctions_status,"
                 "status,collection,owner_did,actor_did,org_did,created_date) "
@@ -944,11 +957,12 @@ def _ingest_oil_refinery(world_total: int) -> dict[str, Any]:
         ("Warri Refinery NNPC", "NGA"),
     ]
     written = 0
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for name, hq_country in REFINERIES:
             vid = _oil_vid("refinery", name, hq_country)
             company_did = f"did:web:oil-coverage.etzhayyim.com:ref:{vid[-12:]}"
-            cur.execute(
+            _res = client.q(
                 "INSERT INTO vertex_oil_company "
                 "(vertex_id,did,repo,name,company_type,hq_country,sanctions_status,"
                 "status,collection,owner_did,actor_did,org_did,created_date) "
@@ -1037,10 +1051,11 @@ def _ingest_crude_grade(world_total: int) -> dict[str, Any]:
         ("Oriente", 24.0, 1.00, "https://www.ep.petro.ec"),
     ]
     written = 0
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for grade_code, api_gravity, sulfur_pct, benchmark_link in GRADES:
             vid = _oil_vid("grade", grade_code)
-            cur.execute(
+            _res = client.q(
                 "INSERT INTO vertex_crude_grade "
                 "(vertex_id,repo,grade_code,api_gravity,sulfur_pct,benchmark_link,"
                 "status,collection,owner_did,actor_did,org_did,created_date) "
@@ -1094,10 +1109,11 @@ def _ingest_pricing_benchmark(world_total: int) -> dict[str, Any]:
         ("Midland-WTI-Platts", "US Permian", "crude_oil", "S&P Global Platts"),
     ]
     written = 0
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for benchmark_code, region, commodity, publisher in BENCHMARKS:
             vid = _oil_vid("benchmark", benchmark_code)
-            cur.execute(
+            _res = client.q(
                 "INSERT INTO vertex_pricing_benchmark "
                 "(vertex_id,repo,benchmark_code,region,commodity,publisher,"
                 "status,collection,owner_did,actor_did,org_did,created_date) "
@@ -1192,10 +1208,11 @@ def _ingest_oil_basin(world_total: int) -> dict[str, Any]:
         ("INDUS", "Lower Indus Basin", "PAK", "deltaic"),
     ]
     written = 0
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for basin_code, basin_name, country_code, basin_type in BASINS:
             vid = _oil_vid("basin", basin_code, country_code)
-            cur.execute(
+            _res = client.q(
                 "INSERT INTO vertex_oil_basin "
                 "(vertex_id,repo,basin_code,basin_name,country_code,basin_type,"
                 "status,collection,owner_did,actor_did,org_did,created_date) "
@@ -1353,10 +1370,11 @@ def _ingest_oil_field(world_total: int) -> dict[str, Any]:
         ("CHICONTEPEC", "CHICONTEPEC", "tight_oil", "MEX"),
     ]
     written = 0
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for field_code, basin_code, field_type, country_code in FIELDS:
             vid = _oil_vid("field", field_code, country_code)
-            cur.execute(
+            _res = client.q(
                 "INSERT INTO vertex_oil_field "
                 "(vertex_id,repo,field_code,basin_code,field_type,country_code,"
                 "status,collection,owner_did,actor_did,org_did,created_date) "
@@ -1432,10 +1450,11 @@ def _ingest_oil_pipeline(world_total: int) -> dict[str, Any]:
         ("PETROAMAZONAS-PIPELINE", "crude_oil", 360000, 497.0),
     ]
     written = 0
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for pipeline_code, commodity, capacity_bpd, length_km in PIPELINES:
             vid = _oil_vid("pipeline", pipeline_code)
-            cur.execute(
+            _res = client.q(
                 "INSERT INTO vertex_oil_pipeline "
                 "(vertex_id,repo,pipeline_code,commodity,capacity_bpd,length_km,"
                 "status,collection,owner_did,actor_did,org_did,created_date) "
@@ -1513,10 +1532,11 @@ def _ingest_oil_terminal(world_total: int) -> dict[str, Any]:
         ("SANTOS-BRA", "storage_hub", "BRSSZ", 12000000),
     ]
     written = 0
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for terminal_code, terminal_type, locode, storage_capacity in TERMINALS:
             vid = _oil_vid("terminal", terminal_code)
-            cur.execute(
+            _res = client.q(
                 "INSERT INTO vertex_oil_terminal "
                 "(vertex_id,repo,terminal_code,terminal_type,locode,storage_capacity,"
                 "status,collection,owner_did,actor_did,org_did,created_date) "
@@ -1588,14 +1608,15 @@ def _ingest_oil_trade(world_total: int) -> dict[str, Any]:
         ("VEN", "CHN", "crude_oil", "Merey", "ICE-Brent", 200, "kbd", "Dated-Brent-discount"),
     ]
     written = 0
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for (exporter_cc, importer_cc, commodity, grade_code, benchmark_code,
              volume, unit, price_basis) in FLOWS:
             trade_id = f"{exporter_cc}-{importer_cc}-{grade_code}-{ts}"
             vid = _oil_vid("trade", trade_id)
             trader_did = f"did:web:oil-coverage.etzhayyim.com:country:{exporter_cc.lower()}"
             counterparty_did = f"did:web:oil-coverage.etzhayyim.com:country:{importer_cc.lower()}"
-            cur.execute(
+            _res = client.q(
                 "INSERT INTO vertex_oil_trade "
                 "(vertex_id,repo,trade_id,trader_did,counterparty_did,commodity,"
                 "grade_code,benchmark_code,country_code,volume,unit,price_basis,"
@@ -1669,10 +1690,11 @@ def _ingest_oil_tanker(world_total: int) -> dict[str, Any]:
         ("8321427", "445009000", "Yu Phyong 5", "Aframax", "PRK", 100000, _OIL_ACTOR, 1983, "sanctioned"),
     ]
     written = 0
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for (imo, mmsi, vessel_name, vessel_class, flag, dwt, op_did, built, sanctions) in TANKERS:
             vid = _oil_vid("tanker", imo, vessel_name)
-            cur.execute(
+            _res = client.q(
                 "INSERT INTO vertex_oil_tanker "
                 "(vertex_id,imo,mmsi,vessel_name,vessel_class,flag_country,dwt,"
                 "operator_did,built_year,sanctions_status,status,"
@@ -1745,11 +1767,12 @@ def _ingest_oil_cargo(world_total: int) -> dict[str, Any]:
         ("VLCC-016-IRAQ-SOUTH-KOREA", "crude_oil", "Basrah-Heavy", 2000, "Basrah", "Onsan", "2026-05-12/2026-05-22"),
     ]
     written = 0
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for (cargo_id, commodity, grade_code, quantity,
              load_port, discharge_port, laycan) in CARGOES:
             vid = _oil_vid("cargo", cargo_id)
-            cur.execute(
+            _res = client.q(
                 "INSERT INTO vertex_oil_cargo "
                 "(vertex_id,repo,cargo_id,commodity,grade_code,quantity,"
                 "load_port,discharge_port,laycan,status,collection,"
@@ -1796,12 +1819,14 @@ def _ingest_oil_cargo_edges(world_total: int) -> dict[str, Any]:
     loaded_written = 0
     discharged_written = 0
 
-    with sync_cursor() as cur:
+    if True:
+
+        client = get_kotoba_client()
         # Build terminal lookup
-        cur.execute(
+        _res = client.q(
             "SELECT vertex_id, terminal_code, locode FROM vertex_oil_terminal"
         )
-        terminal_rows = cur.fetchall()
+        terminal_rows = _res
 
         lookup: dict[str, str] = {}
         for t_vid, t_code, t_locode in terminal_rows:
@@ -1815,11 +1840,11 @@ def _ingest_oil_cargo_edges(world_total: int) -> dict[str, Any]:
                 lookup[first_word] = t_vid
 
         # Load cargo
-        cur.execute(
+        _res = client.q(
             "SELECT vertex_id, load_port, discharge_port, laycan, actor_did "
             "FROM vertex_oil_cargo"
         )
-        cargo_rows = cur.fetchall()
+        cargo_rows = _res
 
         for c_vid, load_port, discharge_port, laycan, actor_did in cargo_rows:
             loaded_at_val = (laycan or ts)[:10] if laycan else ts
@@ -1833,7 +1858,7 @@ def _ingest_oil_cargo_edges(world_total: int) -> dict[str, Any]:
                         eid = "oil-edge-loaded-" + hashlib.sha1(
                             f"{c_vid}|{t_vid}".encode()
                         ).hexdigest()[:20]
-                        cur.execute(
+                        _res = client.q(
                             "INSERT INTO edge_loaded_at "
                             "(edge_id,src_vid,dst_vid,created_date,"
                             "sensitivity_ord,owner_did,label,loaded_at) "
@@ -1852,7 +1877,7 @@ def _ingest_oil_cargo_edges(world_total: int) -> dict[str, Any]:
                         eid = "oil-edge-discharged-" + hashlib.sha1(
                             f"{c_vid}|{t_vid}".encode()
                         ).hexdigest()[:20]
-                        cur.execute(
+                        _res = client.q(
                             "INSERT INTO edge_discharged_at "
                             "(edge_id,src_vid,dst_vid,created_date,"
                             "sensitivity_ord,owner_did,label,discharged_at) "
@@ -1926,10 +1951,11 @@ def _ingest_oil_country_profile(world_total: int) -> dict[str, Any]:
         ("DK", "TRANSIT,PRODUCER", 0, 0),
     ]
     written = 0
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for country_code, role_flags, reserve_rank, production_rank in COUNTRIES:
             vid = _oil_vid("country", country_code)
-            cur.execute(
+            _res = client.q(
                 "INSERT INTO vertex_oil_country_profile "
                 "(vertex_id,repo,country_code,role_flags,reserve_rank,production_rank,"
                 "status,collection,owner_did,actor_did,org_did,created_date,sensitivity_ord) "
@@ -1950,19 +1976,20 @@ def _ingest_oil_field_basin_edges(world_total: int) -> dict[str, Any]:
     import hashlib
     ts = _utc_now()[:10]
     written = 0
-    with sync_cursor() as cur:
-        cur.execute("SELECT vertex_id, basin_code FROM vertex_oil_basin")
-        basin_map: dict[str, str] = {r[1]: r[0] for r in cur.fetchall() if r[1]}
+    if True:
+        client = get_kotoba_client()
+        _res = client.q("SELECT vertex_id, basin_code FROM vertex_oil_basin")
+        basin_map: dict[str, str] = {r[1]: r[0] for r in _res if r[1]}
 
-        cur.execute("SELECT vertex_id, basin_code FROM vertex_oil_field WHERE basin_code IS NOT NULL AND basin_code != ''")
-        field_rows = cur.fetchall()
+        _res = client.q("SELECT vertex_id, basin_code FROM vertex_oil_field WHERE basin_code IS NOT NULL AND basin_code != ''")
+        field_rows = _res
 
         for f_vid, basin_code in field_rows:
             b_vid = basin_map.get(basin_code)
             if not b_vid:
                 continue
             eid = "oil-edge-field-basin-" + hashlib.sha1(f"{f_vid}|{b_vid}".encode()).hexdigest()[:16]
-            cur.execute(
+            _res = client.q(
                 "INSERT INTO edge_located_at"
                 "(edge_id,src_vid,dst_vid,created_date,sensitivity_ord,owner_did,label) "
                 "VALUES (%s,%s,%s,%s,%s,%s,%s)",
@@ -1978,12 +2005,13 @@ def _ingest_oil_basin_country_edges(world_total: int) -> dict[str, Any]:
     import hashlib
     ts = _utc_now()[:10]
     written = 0
-    with sync_cursor() as cur:
-        cur.execute("SELECT vertex_id, country_code FROM vertex_oil_country_profile WHERE country_code IS NOT NULL")
-        country_map: dict[str, str] = {r[1]: r[0] for r in cur.fetchall()}
+    if True:
+        client = get_kotoba_client()
+        _res = client.q("SELECT vertex_id, country_code FROM vertex_oil_country_profile WHERE country_code IS NOT NULL")
+        country_map: dict[str, str] = {r[1]: r[0] for r in _res}
 
-        cur.execute("SELECT vertex_id, country_code FROM vertex_oil_basin WHERE country_code IS NOT NULL AND country_code != ''")
-        basin_rows = cur.fetchall()
+        _res = client.q("SELECT vertex_id, country_code FROM vertex_oil_basin WHERE country_code IS NOT NULL AND country_code != ''")
+        basin_rows = _res
 
         for b_vid, country_code in basin_rows:
             # basin country_code may be comma-separated multi-country
@@ -1993,7 +2021,7 @@ def _ingest_oil_basin_country_edges(world_total: int) -> dict[str, Any]:
                 if not c_vid:
                     continue
                 eid = "oil-edge-basin-country-" + hashlib.sha1(f"{b_vid}|{c_vid}".encode()).hexdigest()[:16]
-                cur.execute(
+                _res = client.q(
                     "INSERT INTO edge_located_at"
                     "(edge_id,src_vid,dst_vid,created_date,sensitivity_ord,owner_did,label) "
                     "VALUES (%s,%s,%s,%s,%s,%s,%s)",
@@ -2009,19 +2037,20 @@ def _ingest_oil_company_country_edges(world_total: int) -> dict[str, Any]:
     import hashlib
     ts = _utc_now()[:10]
     written = 0
-    with sync_cursor() as cur:
-        cur.execute("SELECT vertex_id, country_code FROM vertex_oil_country_profile WHERE country_code IS NOT NULL")
-        country_map: dict[str, str] = {r[1]: r[0] for r in cur.fetchall()}
+    if True:
+        client = get_kotoba_client()
+        _res = client.q("SELECT vertex_id, country_code FROM vertex_oil_country_profile WHERE country_code IS NOT NULL")
+        country_map: dict[str, str] = {r[1]: r[0] for r in _res}
 
-        cur.execute("SELECT vertex_id, hq_country FROM vertex_oil_company WHERE hq_country IS NOT NULL AND hq_country != ''")
-        company_rows = cur.fetchall()
+        _res = client.q("SELECT vertex_id, hq_country FROM vertex_oil_company WHERE hq_country IS NOT NULL AND hq_country != ''")
+        company_rows = _res
 
         for c_vid, hq_country in company_rows:
             cp_vid = country_map.get(hq_country.strip().upper())
             if not cp_vid:
                 continue
             eid = "oil-edge-co-country-" + hashlib.sha1(f"{c_vid}|{cp_vid}".encode()).hexdigest()[:16]
-            cur.execute(
+            _res = client.q(
                 "INSERT INTO edge_located_at"
                 "(edge_id,src_vid,dst_vid,created_date,sensitivity_ord,owner_did,label) "
                 "VALUES (%s,%s,%s,%s,%s,%s,%s)",
@@ -2046,13 +2075,15 @@ def _ingest_oil_sanctions_edges(world_total: int) -> dict[str, Any]:
     SANCTIONED_COUNTRY_CODES = {"IR", "RU", "VE", "SY", "KP", "BY", "CU", "MM", "SS", "YE"}
     OIL_SDN_PROGRAMS = {"IRAN", "RUSSIA", "VENEZUELA", "SDN", "SDGT", "NPWMD"}
 
-    with sync_cursor() as cur:
+    if True:
+
+        client = get_kotoba_client()
         # Load SDN entries that relate to oil/energy programs
-        cur.execute(
+        _res = client.q(
             "SELECT vertex_id, sdn_program, sdn_id FROM vertex_open_ofac_sanctions_sdn "
             "WHERE sdn_program IS NOT NULL LIMIT 5000"
         )
-        sdn_rows = cur.fetchall()
+        sdn_rows = _res
         if not sdn_rows:
             return {"ok": True, "rowsWritten": 0, "error": "no SDN rows (run sanctions ingest first)"}
 
@@ -2065,14 +2096,14 @@ def _ingest_oil_sanctions_edges(world_total: int) -> dict[str, Any]:
             return {"ok": True, "rowsWritten": 0, "error": "no oil-relevant SDN programs found"}
 
         # Link sanctioned countries → first matching SDN entry per program (via edge_located_at)
-        cur.execute("SELECT vertex_id, country_code FROM vertex_oil_country_profile")
-        for cp_vid, cc in cur.fetchall():
+        _res = client.q("SELECT vertex_id, country_code FROM vertex_oil_country_profile")
+        for cp_vid, cc in _res:
             if cc not in SANCTIONED_COUNTRY_CODES:
                 continue
             for s_vid, _prog in oil_sdn[:1]:
                 eid = "oil-sanction-country-" + hashlib.sha1(f"{cp_vid}|{s_vid}".encode()).hexdigest()[:16]
                 try:
-                    cur.execute(
+                    _res = client.q(
                         "INSERT INTO edge_located_at"
                         "(edge_id,src_vid,dst_vid,created_date,sensitivity_ord,owner_did,label) "
                         "VALUES (%s,%s,%s,%s,%s,%s,%s)",
@@ -2083,12 +2114,12 @@ def _ingest_oil_sanctions_edges(world_total: int) -> dict[str, Any]:
                     pass
 
         # Link oil companies with sanctions_status='sanctioned' → matching SDN
-        cur.execute("SELECT vertex_id, hq_country FROM vertex_oil_company WHERE sanctions_status = 'sanctioned'")
-        for co_vid, _hq in cur.fetchall():
+        _res = client.q("SELECT vertex_id, hq_country FROM vertex_oil_company WHERE sanctions_status = 'sanctioned'")
+        for co_vid, _hq in _res:
             for s_vid, _prog in oil_sdn[:1]:
                 eid = "oil-sanction-co-" + hashlib.sha1(f"{co_vid}|{s_vid}".encode()).hexdigest()[:16]
                 try:
-                    cur.execute(
+                    _res = client.q(
                         "INSERT INTO edge_located_at"
                         "(edge_id,src_vid,dst_vid,created_date,sensitivity_ord,owner_did,label) "
                         "VALUES (%s,%s,%s,%s,%s,%s,%s)",
@@ -2128,11 +2159,12 @@ def task_coverage_gap_infer(*, domain: str = "", llmTier: str = "structured", **
 
     # 1. Confirm recipe via SQL UDF
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 "SELECT classify_coverage_recipe(%s)", (str(domain),)
             )
-            row = cur.fetchone()
+            row = (_res[0] if _res else None)
             confirmed_kind = str(row[0] if row else "defer")
     except Exception as exc:  # noqa: BLE001
         confirmed_kind = "defer"
@@ -2174,8 +2206,9 @@ def task_coverage_gap_infer(*, domain: str = "", llmTier: str = "structured", **
     vertex_id = _stable_id(f"cov-infer-{domain}", entity_id)
 
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 "CREATE TABLE IF NOT EXISTS vertex_coverage_infer_entity ("
                 "  vertex_id   text PRIMARY KEY,"
                 "  domain      text,"
@@ -2187,7 +2220,7 @@ def task_coverage_gap_infer(*, domain: str = "", llmTier: str = "structured", **
                 "  created_at  timestamptz"
                 ")"
             )
-            cur.execute(
+            _res = client.q(
                 "INSERT INTO vertex_coverage_infer_entity "
                 "(vertex_id,domain,entity_id,name,category,source,description,created_at) "
                 "VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",
@@ -2274,9 +2307,10 @@ def task_coverage_gap_stats_sync(**kwargs: Any) -> dict[str, Any]:
     Uses UPSERT via delete-then-insert (RisingWave has no ON CONFLICT).
     """
     try:
-        with sync_cursor() as cur:
+        if True:
+            client = get_kotoba_client()
             # Read current live coverage for all recipe domains
-            cur.execute(
+            _res = client.q(
                 "SELECT r.domain, r.authority_kind, "
                 "  COALESCE(l.collected, 0)::bigint AS collected, "
                 "  COALESCE(l.world_total, r.world_total)::bigint AS world_total, "
@@ -2285,7 +2319,7 @@ def task_coverage_gap_stats_sync(**kwargs: Any) -> dict[str, Any]:
                 "LEFT JOIN mv_world_coverage_live l ON l.domain = r.domain "
                 "WHERE r.authority_kind = 'world'"
             )
-            rows = cur.fetchall()
+            rows = _res
     except Exception as exc:  # noqa: BLE001
         return {"ok": False, "rowsSynced": 0, "error": f"read: {exc}"}
 
@@ -2295,14 +2329,15 @@ def task_coverage_gap_stats_sync(**kwargs: Any) -> dict[str, Any]:
     ts = _utc_now()
     synced = 0
     try:
-        with sync_cursor() as cur:
+        if True:
+            client = get_kotoba_client()
             for domain, authority_kind, collected, world_total, coverage_rate in rows:
                 # RisingWave: no ON CONFLICT → delete-then-insert
-                cur.execute(
+                _res = client.q(
                     "DELETE FROM vertex_coverage_stats WHERE domain = %s AND authority_kind = %s",
                     (domain, authority_kind),
                 )
-                cur.execute(
+                _res = client.q(
                     "INSERT INTO vertex_coverage_stats "
                     "(domain,authority_kind,collected,world_total,coverage_rate,updated_at) "
                     "VALUES (%s,%s,%s,%s,%s,%s)",
@@ -2361,15 +2396,16 @@ def _ingest_natural_person(world_total: int) -> dict[str, Any]:
     runs_per_call = 4  # 4 × 50 = 200 Q-IDs checked
     if "qnum" not in _WD_CURSOR:
         try:
-            with sync_cursor() as cur:
+            if True:
+                client = get_kotoba_client()
                 # Seed cursor from max numeric Q-ID already in DB
-                cur.execute(
+                _res = client.q(
                     "SELECT source_record_id FROM vertex_natural_person "
                     "WHERE source_app = 'wikidata' "
                     "ORDER BY LENGTH(source_record_id) DESC, source_record_id DESC "
                     f"LIMIT {int(1)}"
                 )
-                row = cur.fetchone()
+                row = (_res[0] if _res else None)
                 if row and row[0] and row[0].startswith("Q"):
                     _WD_CURSOR["qnum"] = max(int(row[0][1:]), 999999)
                 else:
@@ -2390,20 +2426,21 @@ def _ingest_natural_person(world_total: int) -> dict[str, Any]:
 
     written = 0
     skipped = 0
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for qid, name in humans:
             vertex_id = (
                 f"at://did:web:natural-person.etzhayyim.com"
                 f"/com.etzhayyim.apps.naturalPerson.person/wd-{qid}"
             )
-            cur.execute(
+            _res = client.q(
                 f"SELECT 1 FROM vertex_natural_person WHERE vertex_id = %s LIMIT {int(1)}",
                 (vertex_id,),
             )
-            if cur.fetchone():
+            if (_res[0] if _res else None):
                 skipped += 1
                 continue
-            cur.execute(
+            _res = client.q(
                 "INSERT INTO vertex_natural_person "
                 "(vertex_id,name,country,gender,vital_status,birth_year,death_year,"
                 " role,source_app,source_record_id,enrichment_status,confidence,source_url) "
@@ -2441,14 +2478,15 @@ def _ingest_business_person_lei(world_total: int) -> dict[str, Any]:
     skipped = 0
 
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 f"SELECT vertex_id, org_name FROM vertex_business_person "
                 f"WHERE (registry_id IS NULL OR registry_id = '') "
                 f"AND org_name IS NOT NULL AND org_name != '' "
                 f"LIMIT {int(batch)}"
             )
-            bp_rows = cur.fetchall()
+            bp_rows = _res
     except Exception as exc:  # noqa: BLE001
         return {"ok": False, "rowsWritten": 0, "error": f"read bp: {exc}"}
 
@@ -2462,21 +2500,23 @@ def _ingest_business_person_lei(world_total: int) -> dict[str, Any]:
     if names:
         placeholders = ", ".join(["%s"] * len(names))
         try:
-            with sync_cursor() as cur:
-                cur.execute(
+            if True:
+                client = get_kotoba_client()
+                _res = client.q(
                     f"SELECT LOWER(legal_name), lei FROM vertex_open_lei_entity "
                     f"WHERE LOWER(legal_name) IN ({placeholders}) "
                     f"LIMIT {int(len(names) * 2)}",
                     names,
                 )
-                for lower_name, lei in (cur.fetchall() or []):
+                for lower_name, lei in (_res or []):
                     if lower_name not in local_matches:
                         local_matches[lower_name] = lei
         except Exception:  # noqa: BLE001
             pass  # local cache miss → fall through to API
 
     gleif_search = "https://api.gleif.org/api/v1/lei-records"
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for vertex_id, org_name in bp_rows:
             org_name = _as_str(org_name, 512).strip()
             if not org_name:
@@ -2526,7 +2566,7 @@ def _ingest_business_person_lei(world_total: int) -> dict[str, Any]:
                     continue
                 time.sleep(0.11)  # GLEIF: ≤10 req/s
 
-            cur.execute(
+            _res = client.q(
                 "UPDATE vertex_business_person "
                 "SET registry_id = %s, registry_type = %s "
                 "WHERE vertex_id = %s",
@@ -2550,14 +2590,15 @@ def _ingest_org_hierarchy(world_total: int) -> dict[str, Any]:
 
     # Read known LEIs from vertex_business_person (registry_type='lei')
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 f"SELECT vertex_id, registry_id FROM vertex_business_person "
                 f"WHERE registry_type = 'lei' "
                 f"AND registry_id IS NOT NULL AND registry_id != '' "
                 f"LIMIT {int(batch)}"
             )
-            bp_rows = cur.fetchall()
+            bp_rows = _res
     except Exception as exc:  # noqa: BLE001
         return {"ok": False, "rowsWritten": 0, "error": f"read bp: {exc}"}
 
@@ -2565,7 +2606,8 @@ def _ingest_org_hierarchy(world_total: int) -> dict[str, Any]:
         return {"ok": True, "rowsWritten": 0, "error": "no business_person rows with registry_type=lei"}
 
     written = 0
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for child_vid, child_lei in bp_rows:
             child_lei = str(child_lei or "").strip()
             if not child_lei:
@@ -2598,25 +2640,25 @@ def _ingest_org_hierarchy(world_total: int) -> dict[str, Any]:
                 continue
 
             # Resolve parent vertex_id
-            cur.execute(
+            _res = client.q(
                 f"SELECT vertex_id FROM vertex_business_person "
                 f"WHERE registry_id = %s AND registry_type = 'lei' LIMIT {int(1)}",
                 (parent_lei,),
             )
-            parent_row = cur.fetchone()
+            parent_row = (_res[0] if _res else None)
             if not parent_row:
                 continue
             parent_vid = parent_row[0]
             edge_id = _stable_id("dep-org", child_vid, parent_vid)
 
-            cur.execute(
+            _res = client.q(
                 f"SELECT 1 FROM edge_depends_on WHERE edge_id = %s LIMIT {int(1)}",
                 (edge_id,),
             )
-            if cur.fetchone():
+            if (_res[0] if _res else None):
                 continue
 
-            cur.execute(
+            _res = client.q(
                 "INSERT INTO edge_depends_on "
                 "(edge_id,src_vid,dst_vid,dep_type,slack_days) "
                 "VALUES (%s,%s,%s,%s,%s)",
@@ -2643,13 +2685,14 @@ def _ingest_follows_history(world_total: int) -> dict[str, Any]:
     ts = _utc_now()
 
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 f"SELECT did FROM vertex_actor "
                 f"WHERE did IS NOT NULL AND did != '' "
                 f"LIMIT {int(actor_limit)}"
             )
-            actor_rows = cur.fetchall()
+            actor_rows = _res
     except Exception as exc:  # noqa: BLE001
         return {"ok": False, "rowsWritten": 0, "error": f"read actors: {exc}"}
 
@@ -2657,7 +2700,8 @@ def _ingest_follows_history(world_total: int) -> dict[str, Any]:
         return {"ok": True, "rowsWritten": 0, "error": "no actor rows"}
 
     written = 0
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for (actor_did,) in actor_rows:
             actor_did = str(actor_did or "").strip()
             if not actor_did:
@@ -2687,13 +2731,13 @@ def _ingest_follows_history(world_total: int) -> dict[str, Any]:
                     dst_vid = follow_did
                     rkey = _as_str(follow.get("$type") or "", 64)
                     edge_id = _stable_id("follows", src_vid, dst_vid)
-                    cur.execute(
+                    _res = client.q(
                         f"SELECT 1 FROM edge_follows WHERE edge_id = %s LIMIT {int(1)}",
                         (edge_id,),
                     )
-                    if cur.fetchone():
+                    if (_res[0] if _res else None):
                         continue
-                    cur.execute(
+                    _res = client.q(
                         "INSERT INTO edge_follows "
                         "(edge_id,src_vid,dst_vid,rkey,repo,created_at) "
                         "VALUES (%s,%s,%s,%s,%s,%s)",

@@ -11,7 +11,7 @@ implementation (`BSVogler/k8s-murakumo-kubelet`) is non-commercial-licensed
 ## Why
 
 You already have a VKE / EKS / GKE cluster running CPU workloads
-(RisingWave, control plane, ingest workers, …). You need bursty GPU
+(Kotoba/Datomic, control plane, ingest workers, …). You need bursty GPU
 capacity for SDXL inference or LLM serving but don't want to:
 
 - pay for 24×7 dedicated GPU you don't fully use

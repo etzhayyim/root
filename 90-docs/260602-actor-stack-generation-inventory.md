@@ -14,7 +14,7 @@ related:
 # Actor Stack-Generation Inventory (2026-06-02)
 
 棚卸しの目的: どの `20-actors/*` actor が **現行 canonical 設計**（kotoba-EAVT-native
-+ `manifest.edn` + cells/lex + Murakumo-only）に乗っていて、どれが **旧 etzhayyim / RisingWave
++ `manifest.edn` + cells/lex + Murakumo-only）に乗っていて、どれが **旧 etzhayyim / Kotoba/Datomic
 世代** に取り残されているかを構造マーカーで機械判定する。
 
 ## 判定基準（構造シグナル）
@@ -25,7 +25,7 @@ related:
 | **Gen-2 (cells, pre-kotoba)** | `actor-manifest.jsonld` + `cells/`、`kotoba/` 無し | Pregel cell はあるが manifest が旧 JSON-LD、canonical state 未配線 |
 | **Gen-1 (legacy)** | `actor-manifest.jsonld` のみ（cells 無し） | スキャフォルド段階。R0 manifest のみ |
 
-> 注: `graph.query` / `graph.write` / `RisingWave` の grep は **負マーカー（"no RisingWave" の禁止注記）にも当たる**ため信頼できない。構造マーカー（`manifest.edn` + `kotoba/` の有無）が唯一の確実なシグナル。下表はそれで分類。
+> 注: `graph.query` / `graph.write` / `Kotoba/Datomic` の grep は **負マーカー（"no Kotoba/Datomic" の禁止注記）にも当たる**ため信頼できない。構造マーカー（`manifest.edn` + `kotoba/` の有無）が唯一の確実なシグナル。下表はそれで分類。
 
 ## Gen-3 — 現行 canonical 設計に統合済み（2 actors）
 

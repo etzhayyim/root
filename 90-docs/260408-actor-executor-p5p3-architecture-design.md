@@ -4,7 +4,7 @@
 **Status**: `[IMPLEMENTED]` `[PRODUCTION]`
 **Evidence**: `50-infra/cloudflare/workers/atproto/src/actor-executor-*.ts`, `50-infra/cloudflare/workers/atproto/src/bpmn-pipeline-compiler.ts`, `00-contracts/wit/deps/magatama-actor-executor/package.wit`
 **Deploy**: PDS Worker `etzhayyim-pds-2603241700` (atproto.etzhayyim.com)
-**Graph**: RisingWave `graphar.vertex_actor` (1,732 rows), `graphar.vertex_actor_manifest`
+**Graph**: Kotoba/Datomic `graphar.vertex_actor` (1,732 rows), `graphar.vertex_actor_manifest`
 
 ## Problem
 
@@ -173,7 +173,7 @@ Parquet snapshots: `80-data/shannon/snapshots/`
 | `snap-20260408-app-tier-classification.parquet` | 397 apps → T1/T2/T3 classification |
 | `snap-20260408-bpmn-actor-design.parquet` | JSON vs BPMN vs BPMN+AI design comparison |
 
-## Graph Persistence (RisingWave)
+## Graph Persistence (Kotoba/Datomic)
 
 **All actor data is graph-persistent.** Filesystem scaffold/code-less files deleted after completeness proof.
 

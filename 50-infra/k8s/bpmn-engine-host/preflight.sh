@@ -107,11 +107,11 @@ else
 fi
 echo
 
-# 7. RW_DSN reachable (operator should have it in keychain)
-if security find-generic-password -s "etzhayyim.risingwave" -a "RW_DSN" -w >/dev/null 2>&1; then
-  ok "RW_DSN found in macOS Keychain (etzhayyim.risingwave / RW_DSN)"
+# 7. KOTOBA_URL reachable (operator should have it in keychain)
+if security find-generic-password -s "etzhayyim.kotoba" -a "KOTOBA_URL" -w >/dev/null 2>&1; then
+  ok "KOTOBA_URL found in macOS Keychain (etzhayyim.kotoba / KOTOBA_URL)"
 else
-  warn "RW_DSN NOT in macOS Keychain — Step 3 secret provisioning will need a manual value"
+  warn "KOTOBA_URL NOT in macOS Keychain — Step 3 secret provisioning will need a manual value"
 fi
 echo
 

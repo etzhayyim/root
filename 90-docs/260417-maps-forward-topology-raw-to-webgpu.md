@@ -1,14 +1,14 @@
 # Maps Forward Topology: Raw Source → WebGPU 3D (No PNG Pyramid)
 
-**Status**: design  
-**Date**: 2026-04-17  
-**Context**: maps.etzhayyim.com は現在 OSM raster PNG tiles (`tile.openstreetmap.org/{z}/{x}/{y}.png`) を KAMI `upload_tile` で basemap として使用。ベクタ (`tileGeoJson`) と 3D 建物 (`addExtrudeLayer`) は RisingWave-native だが、**basemap 自体は XYZ pyramid pre-rendered raster** に依存している。  
+**Status**: design
+**Date**: 2026-04-17
+**Context**: maps.etzhayyim.com は現在 OSM raster PNG tiles (`tile.openstreetmap.org/{z}/{x}/{y}.png`) を KAMI `upload_tile` で basemap として使用。ベクタ (`tileGeoJson`) と 3D 建物 (`addExtrudeLayer`) は Kotoba/Datomic-native だが、**basemap 自体は XYZ pyramid pre-rendered raster** に依存している。
 **Goal**: OSM / Mapraly / Mapillary / Satellite の **raw 一次データ** から、**XYZ pyramid を介さず**、realtime に WebGPU で 3D レンダリングする forward topology を確立する。
 
 ## 用語
 
 - **逆トポロジー (inverse topology)**: XYZ tile pyramid (Web Mercator Z/X/Y)。上位ノード (low-z) は下位 (high-z) の集約で生成され、データが client に届くとき pyramid の leaf から root に向かって参照される「逆向き」の木構造。pre-rendering 前提。
-- **順トポロジー (forward topology, 本文書の設計)**: 一次ソース (OSM PBF / Mapillary JPEG / Sentinel-2 COG / RisingWave vertex) から、projection layer (streaming MV) を経て、`Chunk` という空間単位で client が直接参照する DAG。pre-rendering なし。
+- **順トポロジー (forward topology, 本文書の設計)**: 一次ソース (OSM PBF / Mapillary JPEG / Sentinel-2 COG / Kotoba/Datomic vertex) から、projection layer (streaming MV) を経て、`Chunk` という空間単位で client が直接参照する DAG。pre-rendering なし。
 
 ## 現状 (参考)
 
@@ -28,7 +28,7 @@ elevation-tiles-prod.s3 terrarium/{z}/{x}/{y}.png  ── DEM raster ───�
 2. **Mapillary 街路画像** は現状未使用 (raster なし、3D mesh もなし)。
 3. **衛星 COG** (Sentinel-2 / Landsat) も raw を直接 WebGPU に流していない。
 4. **DEM terrarium** は outside 3rd party (elevation-tiles-prod.s3.amazonaws.com)、制御外。
-5. **Pre-rendering コスト** が planet-scale で非現実的。RisingWave にあるのに PNG に焼き直すのはエントロピー冗長。
+5. **Pre-rendering コスト** が planet-scale で非現実的。Kotoba/Datomic にあるのに PNG に焼き直すのはエントロピー冗長。
 
 ## Forward Topology Design
 
@@ -42,7 +42,7 @@ elevation-tiles-prod.s3 terrarium/{z}/{x}/{y}.png  ── DEM raster ───�
 | Sentinel-2 / Landsat COG | `satellite_ingest` (STAC) | `vertex_satellite_scene` |
 | User post EXIF | `extract_post_location` | `vertex_spatial` (Place) |
 
-### Layer 1 — Projection (RisingWave streaming MV, 逆トポロジー外)
+### Layer 1 — Projection (Kotoba/Datomic streaming MV, 逆トポロジー外)
 
 **OSM way + node を polygon / line に集約する MV を追加する。XYZ pyramid は一切作らない。**
 
@@ -109,7 +109,7 @@ com.etzhayyim.apps.maps.subscribeChunks (wRPC stream)
 
 GeoJSON は human-readable だが density 低 (text + JSON overhead)。L4/L5 の巨大 chunk (建物数千) では FlatGeobuf か MVT (decode in KAMI WASM、既存 `decode_mvt_layer` を流用) を検討。
 
-**Phase 1**: GeoJSON のみ。L4 でも ~500 KB/chunk gzip で収まる想定。  
+**Phase 1**: GeoJSON のみ。L4 でも ~500 KB/chunk gzip で収まる想定。
 **Phase 2**: FlatGeobuf に switch (reader は kami-map に追加、~2 KLOC Rust)。
 
 ### Layer 5 — Client rendering (KAMI WebGPU)
@@ -171,7 +171,7 @@ OSM raster PNG pyramid を完全に捨てるには、低 zoom の「世界が見
 
 1. **[[migrations]] maps-h3-chunk-projection**: `vertex_spatial` + OSM MV に `h3_res{4,6,8,10}_cell` column を migration 追加、back-fill
 2. **[[migrations]] maps-forward-topology-xrpc**: `com.etzhayyim.apps.maps.getChunk` + `subscribeChunks` lexicon + handler
-3. **[[migrations]] maps-client-chunk-renderer**: Svelte 側に `visibleH3Cells` + chunk cache + stream subscriber。既存 `risingwave-overlay.ts` をリプレース
+3. **[[migrations]] maps-client-chunk-renderer**: Svelte 側に `visibleH3Cells` + chunk cache + stream subscriber。既存 `kotoba-overlay.ts` をリプレース
 4. **[[migrations]] maps-osm-basemap-coastline**: `mv_world_landmass_simplified` 生成 + L0 endpoint、OSM.org PNG 依存除去
 5. **[[migrations]] maps-satellite-cog-webgpu** (optional): COG decoder を kami-map に追加、低 zoom basemap に整合
 6. **[[migrations]] maps-mapillary-chunks** (optional): Mapillary imagery を H3 chunk に紐づけ、`asset:image` DID で CAS 参照

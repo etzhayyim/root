@@ -33,7 +33,7 @@ A `/loop` (dynamic, self-paced) was run to answer the founder question
 followed: *「これを kotoba datomic として coverage・成熟度を向上して、ISIC のすべての産業に
 それぞれ対応した erp に、mailer/drive/docs/sheets なども連携・統合」*.
 
-At the start, open-kyber was an APQC-aligned ERP whose deployed worker used a RisingWave
+At the start, open-kyber was an APQC-aligned ERP whose deployed worker used a Kotoba/Datomic
 projection read path (ADR-0025) — out of compliance with the canonical-state rule (kotoba
 Datom log, ADR-2605262130 + 2605312345) and with no ISIC tailoring and no functional suite.
 
@@ -109,4 +109,4 @@ all monorepo-side, with honest scoping of what is reference vs. live.
 - `60-apps/etzhayyim-project-open-kyber/rw-free/README.md` — module index
 - `60-apps/etzhayyim-project-open-kyber/R2-WORKER-WIRING.md` — worker migration runbook
 - `00-contracts/schemas/erp-ontology.kotoba.edn` v0.2.0 — canonical EAVT vocabulary
-- ADR-2605262130 / 2605312345 — kotoba Datom = canonical state (no RisingWave)
+- ADR-2605262130 / 2605312345 — kotoba Datom = canonical state (no Kotoba/Datomic)

@@ -2,7 +2,7 @@
 
 > **Superseded in part 2026-04-17**: the "hand-managed `schema.ts`" claim no longer holds.
 > Drizzle `schema.ts` was archived 2026-04-13 (`_archive/2026-04-13-non-kysely/`), and
-> `@etzhayyim/graph-schema/src/database.ts` is now **generated** from live RisingWave
+> `@etzhayyim/graph-schema/src/database.ts` is now **generated** from live Kotoba/Datomic
 > `information_schema` via `pnpm db:gen`, with `pnpm db:drift` as CI guard.
 > See `30-graph/graph-schema/CLAUDE.md` for the current workflow.
 
@@ -34,7 +34,7 @@ async function getActors(did: string) {
 // Flow:
 // 1. App sends Cypher string to Graph Worker
 // 2. graph-planner parses/plans/transpiles to SQL
-// 3. SQL executed on RisingWave
+// 3. SQL executed on Kotoba/Datomic
 // 4. Results returned as JSON objects (untyped)
 ```
 
@@ -59,7 +59,7 @@ async function getActors(sql: Sql, env: WorkerEnv, did: string) {
     .select(['vertex_id', 'name', 'display_name'])
     .limit(50)
     .execute();
-  
+
   return rows.map(r => ({ id: r.vertex_id, name: r.name }));
 }
 
@@ -67,14 +67,14 @@ async function getActors(sql: Sql, env: WorkerEnv, did: string) {
 // 1. App builds SQL via Kysely (type-safe at build-time)
 // 2. Kysely.PostgresDialect generates SQL string
 // 3. Hyperdrive RLS middleware + client.query(sql, params)
-// 4. RisingWave executes SQL
+// 4. Kotoba/Datomic executes SQL
 // 5. Results mapped to VertexActorRow type
 ```
 
 **Benefits:**
 - Full type safety (VertexActorRow | VertexOtherRow | etc)
 - Zero-cost abstraction (Kysely compiles to SQL, no transpiler)
-- SQL feature parity (RisingWave PG dialect fully supported)
+- SQL feature parity (Kotoba/Datomic PG dialect fully supported)
 - IDE autocomplete (db.selectFrom('table') → available columns known)
 
 ## Implementation Details
@@ -165,7 +165,7 @@ export default createWorkerExport((sdk) => {
 async function searchIntel(sdk: HostSDK, params: SearchParams) {
   const { did, query } = params;
   const db = createKyselyDb(sdk.sql, sdk.env.HYPERDRIVE);
-  
+
   // Type-safe query
   const results = await db
     .selectFrom('vertex_intel_analysis')
@@ -174,7 +174,7 @@ async function searchIntel(sdk: HostSDK, params: SearchParams) {
     .select(['vertex_id', 'title', 'content', 'created_at'])
     .limit(100)
     .execute();
-  
+
   // Results: VertexIntelAnalysisRow[] (fully typed)
   return { results, count: results.length };
 }
@@ -232,7 +232,7 @@ async function searchIntel(sdk: HostSDK, params: SearchParams) {
   - No more `/graph/cypher` endpoint
   - `createKyselyDb(env.HYPERDRIVE)` becomes sole path
 - [ ] Graph path: remove rawCypher.exec() (deprecated path cleanup)
-- [ ] Schema sync: remove yata ↔ RisingWave sync (ddl.ts removed)
+- [ ] Schema sync: remove yata ↔ Kotoba/Datomic sync (ddl.ts removed)
 
 ## Field Naming Conventions
 
@@ -329,5 +329,5 @@ const rows = await db.selectFrom('vertex_actor')
 | **Row type** | TypeScript type for a single row (VertexActorRow, VertexOtherRow, etc). Inferred from pgTable. |
 | **createKyselyDb** | SDK helper: instantiates Kysely client with Hyperdrive pool + RLS middleware. |
 | **Hyperdrive** | Cloudflare D1 Postgres proxy. Handles RLS + connection pooling. |
-| **RisingWave** | Streaming SQL database (PG-compatible). Execution layer. |
+| **Kotoba/Datomic** | Streaming SQL database (PG-compatible). Execution layer. |
 | **Graph Worker** | Cloudflare Worker that exposes `/xrpc/*` and relays queries to Hyperdrive. |

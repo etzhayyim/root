@@ -14,14 +14,14 @@ authoritative_for:
   - pod-side-langserver-runtime
   - k8s-runtime-scope
   - python-worker-pod-fastapi-granian-surface
-  - risingwave-udf-business-logic-scope
+  - kotoba-udf-business-logic-scope
   - cf-worker-sse-pass-through
   - generic-pds-dispatch-k8s-internal-routing
   - maps-worker-thin-edge-boundary
 related:
   - adr-2604262000-edge-thin-app-runtime-k8s-zeebe-registry
   - adr-0056-bpmn-as-actor
-  - adr-0044-risingwave-udf-language-strategy
+  - adr-0044-kotoba-udf-language-strategy
   - adr-2604261000-mcp-registry-via-kysely-schema
   - adr-2604251801-cron-three-layer-consolidation
   - adr-2604251830-shannon-optimal-layered-architecture
@@ -47,7 +47,7 @@ amended_by:
 1. Cloudflare に残すものを **SvelteKit edge proxy** に限定できるか?
 2. business logic / execution / DB I/O / LLM call を **K8s pod 側のみ**に閉じられるか?
 3. Pod 側の公開面を **AgentGateway MCP** と **LangServer (JSON-RPC/LSP style)** に統一できるか?
-4. RisingWave UDF はどの種の stateless logic に限るか?
+4. Kotoba/Datomic UDF はどの種の stateless logic に限るか?
 
 これらを一本の active ADR として確定する。
 
@@ -71,7 +71,7 @@ runtime placement の判断軸にしない。
 - Pod 側の actor 実装は **LangServer** (JSON-RPC 2.0 / LSP-style resident
   server) を標準形とする。LangGraph / Pregel / LangChain / domain Python
   handler は LangServer の method handler または internal runtime として扱う。
-- CF Worker から RisingWave / Hyperdrive / D1 domain table へ直接接続しない。
+- CF Worker から Kotoba/Datomic / Hyperdrive / D1 domain table へ直接接続しない。
   ADR-2605111200 の edge-only/no-RW-connection rule をこの ADR に取り込む。
 
 古い Zeebe/pyzeebe/SpiffWorkflow/T1/T2/T3 記述は migration source topology
@@ -100,7 +100,7 @@ business logic stays off the edge. The Zeebe-specific runtime below is amended:
 - Main business runtime: ADR-2605080600 LangGraph Server + Granian.
 - BPMN-native flows are compiled or wrapped into LangGraph/Pregel/LangChain;
   SpiffWorkflow is not a target runtime.
-- RisingWave UDF remains for row-wise/stateless SQL-adjacent logic.
+- Kotoba/Datomic UDF remains for row-wise/stateless SQL-adjacent logic.
 - Zeebe/pyzeebe/SpiffWorkflow are not targets for new work; references below
   describe migration source topology.
 
@@ -146,7 +146,7 @@ Browser / MCP client / AT Protocol client
                |
                v
 ┌──────────────────────────────────────────────┐
-│  RisingWave (L4 Graph DB + UDF engine)       │
+│  Kotoba/Datomic (L4 Graph DB + UDF engine)       │
 │  • SQL UDF: rule / regex / aggregate         │
 │  • Python External UDF: LLM / IO (io_threads)│
 │  • Rust Embedded UDF: hash / protobuf        │
@@ -163,7 +163,7 @@ Runtime placement は tier ではなく **edge proxy / pod execution** の二択
 | Placement | 許可される責務 | 禁止 |
 |---|---|---|
 | **Cloudflare SvelteKit edge proxy** | UI asset/SSR shell、auth/CORS、request shaping、MCP/XRPC facade、SSE pass-through、static/cacheable read-through | business rule、LLM/tool call、domain DB I/O、workflow state、actor-specific command implementation |
-| **K8s pod LangServer** | business logic、LLM/tool execution、RisingWave read/write、checkpoint、workflow/HITL、audit、stream generation | public unauthenticated exposure、Cloudflare binding 依存、edge-only cache mutation |
+| **K8s pod LangServer** | business logic、LLM/tool execution、Kotoba/Datomic read/write、checkpoint、workflow/HITL、audit、stream generation | public unauthenticated exposure、Cloudflare binding 依存、edge-only cache mutation |
 
 例外的に Cloudflare binding (Turnstile, Durable Object, KV/R2 object edge
 cache, OAuth callback glue など) が必要な場合でも、そこに business logic を置かない。
@@ -187,7 +187,7 @@ MCP tools/call or XRPC nsid
   → vertex_mcp_tool_def / vertex_actor_registry / policy gate
   → pod-local LangServer method
   → LangGraph / Pregel / LangChain / pymagatama handler
-  → RisingWave write + audit + status stream
+  → Kotoba/Datomic write + audit + status stream
 ```
 
 新規 actor の追加手順:
@@ -218,7 +218,7 @@ Zeebe/pyzeebe/SpiffWorkflow worker は historical migration source であり、
   cancellation, streaming partial result
 - AgentGateway MCP からの pod-local method dispatch
 - `pymagatama` / LangGraph / Pregel / LangChain module を import して domain logic 実行
-- RisingWave への domain read/write (`asyncpg` / psycopg3 / SQLAlchemy Core)
+- Kotoba/Datomic への domain read/write (`asyncpg` / psycopg3 / SQLAlchemy Core)
 - LLM/tool call と external API fetch
 - OCEL audit emit (`generic.audit.emit`)
 - Shinka heartbeat (`com.etzhayyim.shinka.tick`)
@@ -235,7 +235,7 @@ ASGI surface として持ち、その中に LangServer endpoint を置く。
 - AgentGateway MCP からの in-cluster control / async job adapter endpoint
 - RunPod / browser / batch worker からの pod-local callback receiver
 - long-running task の progress/read model bridge。ただし durable state は
-  RisingWave / LangGraph checkpoint / B2 に書く
+  Kotoba/Datomic / LangGraph checkpoint / B2 に書く
 
 起動形:
 
@@ -263,11 +263,11 @@ python worker pod:
 
 ---
 
-## RisingWave UDF の business logic 配置
+## Kotoba/Datomic UDF の business logic 配置
 
 ADR-0044 の language strategy を business logic 分類と対応させる:
 
-| Logic 種別 | RisingWave UDF 種別 | 例 |
+| Logic 種別 | Kotoba/Datomic UDF 種別 | 例 |
 |---|---|---|
 | 分類ルール / regex / keyword match | **SQL UDF** (plan-time inline) | yabai phishing classifier |
 | COUNT / SUM / GROUP BY aggregation | **SQL UDF** or streaming MV | mv_actor_social_stats |
@@ -277,9 +277,9 @@ ADR-0044 の language strategy を business logic 分類と対応させる:
 
 **CRITICAL**: Python External UDF の `io_threads` 省略時は serial (`io_threads=1`) になり 10× 遅い。IO-bound UDF は必ず `io_threads=50..200` を明示する (ADR-0044 §D3)。
 
-Pod-side LangServer と RisingWave UDF の使い分け:
+Pod-side LangServer と Kotoba/Datomic UDF の使い分け:
 
-- **UDF**: RisingWave MV の SELECT 時に同期実行。行単位 transform / classify。状態なし。
+- **UDF**: Kotoba/Datomic MV の SELECT 時に同期実行。行単位 transform / classify。状態なし。
 - **LangServer**: 複数ステップ / retry / pause / LLM multi-turn / 外部 API cursor が必要な処理。状態あり。
 
 ---
@@ -304,7 +304,7 @@ Pod-side LangServer と RisingWave UDF の使い分け:
 | 禁止 | 理由 |
 |---|---|
 | LLM call (direct `fetch` to murakumo / RunPod) | pod-side LangServer の責務 |
-| Kysely domain DB read/write (`vertex_...`) | pod-side LangServer / RisingWave UDF の責務 |
+| Kysely domain DB read/write (`vertex_...`) | pod-side LangServer / Kotoba/Datomic UDF の責務 |
 | BPMN / workflow engine direct call | AgentGateway / LangServer internal routing の責務 |
 | per-actor cron (`triggers.crons`) | K8s CronJob → AgentGateway/LangServer run に移行 |
 | Actor-specific business rule コード | `pymagatama` / LangGraph / Pregel / LangChain module の責務 |
@@ -326,7 +326,7 @@ CF Worker 全体の前提を次の通り更新する。
    その byte stream を維持するだけ。
 4. **Business logic は stream の中で実行しない。** CF Worker は token 生成、
    RAG retrieval、LangGraph node、workflow job polling を持たない。すべて
-   AgentGateway MCP + pod-side LangServer + RisingWave に置く。
+   AgentGateway MCP + pod-side LangServer + Kotoba/Datomic に置く。
 5. **SSE は per-actor Worker 作成理由ではない。** 単方向 server-push は
    AgentGateway / LangServer 経由で実現する。固定互換 URL や CF binding が必要な
    場合でも、Worker は adapter/proxy に限定する。
@@ -412,7 +412,7 @@ Cloudflare は既存 SvelteKit edge proxy の route 設定だけで公開
 
 - CF Worker 数が app 数に比例しない (300→500+ app でも Worker は bounded)
 - Business logic は pod-side LangServer / LangGraph / Pregel / LangChain で可視化 + retry + incident 管理
-- RisingWave UDF により edge/Python を経由しない行単位 classify が可能
+- Kotoba/Datomic UDF により edge/Python を経由しない行単位 classify が可能
 - Python worker は `pymagatama` として pip install 可能なモジュール群に収束
 - SvelteKit UI は main edge proxy だけで全 app に serve 可能
 - AgentGateway MCP が external protocol と pod execution の唯一の membrane になる
@@ -430,7 +430,7 @@ Cloudflare は既存 SvelteKit edge proxy の route 設定だけで公開
 
 - `90-docs/adr/2604262000-edge-thin-app-runtime-k8s-zeebe-registry.md` (superseded)
 - `90-docs/adr/0056-bpmn-as-actor.md` — historical BPMN actor source; new execution path uses LangGraph/Pregel/LangChain
-- `90-docs/adr/0044-risingwave-udf-language-strategy.md` — UDF language selection
+- `90-docs/adr/0044-kotoba-udf-language-strategy.md` — UDF language selection
 - `90-docs/adr/2604261000-mcp-registry-via-kysely-schema.md` — vertex_mcp_tool_def SSoT
 - `90-docs/adr/2604251801-cron-three-layer-consolidation.md` — cron consolidation, now K8s CronJob → LangServer run
 - `90-docs/adr/2604251830-shannon-optimal-layered-architecture.md` — L1–L8 layer taxonomy

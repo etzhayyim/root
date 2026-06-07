@@ -12,7 +12,7 @@ authoritative_for:
 related:
   - adr-2605011500-maps-aismarine-pipeline
   - adr-0036-worker-direct-hyperdrive-persistence
-  - adr-0048-risingwave-vultr-b2-primary
+  - adr-0048-kotoba-vultr-b2-primary
   - adr-0056-bpmn-as-actor
   - adr-2604282300
 ---
@@ -25,7 +25,7 @@ related:
 ## Purpose
 
 PR-A〜PR-E で実装した MarineTraffic 相当の AIS vessel-tracking pipeline を
-本番 (RisingWave + Vultr K8s + maps.etzhayyim.com CF Worker + kami-geo Svelte) に
+本番 (Kotoba/Datomic + Vultr K8s + maps.etzhayyim.com CF Worker + kami-geo Svelte) に
 順次投入し、`maps.etzhayyim.com` 上で vessel layer が live になるまでの operator 手順
 を固定する。
 
@@ -44,7 +44,7 @@ ADR-2605011500 が design SSoT。本 runbook は実行順とゲート条件の�
 ### Required secrets (operator local)
 
 ```bash
-# RisingWave + Hyperdrive (already provisioned)
+# Kotoba/Datomic + Hyperdrive (already provisioned)
 export DATABASE_URL='postgres://root@45.32.79.245:4566/dev?sslmode=disable'
 export etzhayyim_DATABASE_URL="$DATABASE_URL"
 export etzhayyim_TOKEN='sk_live_...'
@@ -72,7 +72,7 @@ kubectl get ns mitama-udf >/dev/null         # bpmn-dispatcher ClusterIP target
 
 ## Step-by-step bring-up
 
-### 1. Apply RisingWave schema (PR-A)
+### 1. Apply Kotoba/Datomic schema (PR-A)
 
 ```bash
 cd 30-graph/graph-schema
@@ -138,7 +138,7 @@ docker buildx build --platform linux/amd64 \
 
 # Roll out zeebe-worker
 helm -n mitama-udf upgrade zeebe-worker \
-  50-infra/vultr/risingwave/helm \
+  50-infra/vultr/kotoba/helm \
   --reuse-values \
   --set image.tag=$TAG --set image.fullRef=
 kubectl -n mitama-udf rollout status deploy/zeebe-worker --timeout=180s
@@ -227,7 +227,7 @@ Failure: `RuntimeError: AIS_STREAM_API_KEY is required` → step 6 secret not
 applied. `RuntimeError: AISMARINE_INTERNAL_SECRET is required` → step 6
 `bpmn-dispatcher-auth` mirror missing.
 
-### S2. Position rows landing in RisingWave
+### S2. Position rows landing in Kotoba/Datomic
 
 ```bash
 sleep 60
@@ -321,7 +321,7 @@ Full kill-switch: `kubectl -n maps-bulk-ingest scale deploy/bulk-ingest-aismarin
 
 - aisstream.io: free tier, no rate limit on receive (only on `BoundingBoxes`
   filter changes). Phase 1 is global no-filter.
-- RisingWave write rate: ~100–500 msg/s typical, bursts to ~2 K msg/s at
+- Kotoba/Datomic write rate: ~100–500 msg/s typical, bursts to ~2 K msg/s at
   port-arrival times (Singapore, Rotterdam). `SET dml_rate_limit = 5000`
   in primitive throttles before B2 SlowDown threshold (ADR-0048
   incident_2026_04_25).

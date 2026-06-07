@@ -92,7 +92,7 @@ isekai (`60-apps/etzhayyim-project-isekai/`) は Minecraft 風 voxel sandbox を
                                   END (RunCompleted)
 ```
 
-ノード間の State は Pydantic v2 (ADR-2605080200 準拠) で型付け。`thread_id = run_id = sha256(designId)`。中断・再開は `BaseCheckpointSaver` の RisingWave 実装 (`vertex_voxelforge_run.checkpoint_json`) を使用。
+ノード間の State は Pydantic v2 (ADR-2605080200 準拠) で型付け。`thread_id = run_id = sha256(designId)`。中断・再開は `BaseCheckpointSaver` の Kotoba/Datomic 実装 (`vertex_voxelforge_run.checkpoint_json`) を使用。
 
 ### 3D-aware backend (RunPod 6000 Ada unified pod)
 
@@ -117,7 +117,7 @@ ADR-2605010000 で確立した `vyp99t9px7h4dl` (RTX 6000 Ada, US-KS-2, Network 
 
 isekai の kami-voxel は `voxel_grid.json` 経由で chunk 化、Minecraft 互換出力 (`.litematic` / `.mcstructure`) は voxelforge の責務外 — 既存 OSS converter (`vox2lite` / `vox2mcs`) を user 側で叩く。voxelforge は **`.glb` + `.vox` を中立中間形式として B2 に置くだけ** で各 consumer が自分で取りに来る。
 
-### Schema (RisingWave Hyperdrive direct, ADR-0036)
+### Schema (Kotoba/Datomic Hyperdrive direct, ADR-0036)
 
 ```
 vertex_voxelforge_design (PK content-addressed: sha256(actor_did + ts_ms + prompt_hash))
@@ -185,7 +185,7 @@ mv_3d_blob_count_by_source
 | `did:pkh` 発行 (ADR-0095) | `actor_did` フィールドは ERC725 DID か legacy did:web 受理、wallet alias は `wallet_address` 列 |
 | RunPod pod URL を CF Worker secrets に直接設定 (drift する) | LangGraph Server 環境変数 (`RUNPOD_TRELLIS_URL` / `RUNPOD_COMFYUI_URL`) で集中管理。pod ID 変更時は ADR-2605010000 の `runpod-podid-update-checklist` を実行 |
 | 中間形式に独自バイナリ (`.etzhayyim-voxel`) を新設 | `.glb` + `.vox` (MagicaVoxel) で固定。kami-voxel 用 RLE は `voxel_grid.json` のみ追加 |
-| LangGraph state を Postgres / Redis に永続化 | RisingWave 直 (`vertex_voxelforge_run.checkpoint_json` + custom `BaseCheckpointSaver`) |
+| LangGraph state を Postgres / Redis に永続化 | Kotoba/Datomic 直 (`vertex_voxelforge_run.checkpoint_json` + custom `BaseCheckpointSaver`) |
 
 ## Consequences
 

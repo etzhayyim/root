@@ -253,7 +253,7 @@ records the concrete artifact state. It supersedes any earlier
 | Layer | Artifact | State |
 |---|---|---|
 | Authority key | Ed25519 keypair in macOS Keychain `etzhayyim.akuma`; fingerprint `46a0a86b9a8fd180`; public hex `726c7daa...0915` | sign+verify roundtrip OK |
-| RisingWave tables | `vertex_akuma_{scope,probe,finding,audit}` + 5 indexes on RW Vultr `45.32.79.245` | applied via psycopg2 phased per CLAUDE.md multi-head workaround; revision file `r_20260515150000_vertex_akuma_redteam_scope.py` in `alembic/current_versions/` |
+| Kotoba/Datomic tables | `vertex_akuma_{scope,probe,finding,audit}` + 5 indexes on RW Vultr `45.32.79.245` | applied via psycopg2 phased per CLAUDE.md multi-head workaround; revision file `r_20260515150000_vertex_akuma_redteam_scope.py` in `alembic/current_versions/` |
 | K8s namespace | `akuma-probe` with default-deny + DNS + langserver-callback NetworkPolicies + RBAC + ServiceAccount `probe-runner` | `kubectl apply -k 50-infra/k8s/akuma-langserver/` succeeded |
 | K8s reconciler | `scope-egress-reconciler` CronJob (`* * * * *`) targeting `akuma-probe-scope-allow` NetworkPolicy | applied; **Errors with ModuleNotFoundError** because `pymagatama:latest` predates `pymagatama.akuma` module |
 | K8s langserver | `akuma-langserver` Deployment + Service in `mitama-udf` ns | Running 1/1 |

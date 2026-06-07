@@ -33,7 +33,7 @@ ADR-2605172000 already declared "RW-free / no centralized DB" but did NOT explic
 
 Grep evidence(2026-05-19 時点)で残る Vultr 依存:
 
-- `50-infra/vultr/{geth-private, blockscout, ipfs, risingwave, zeebe}` — VKE manifests
+- `50-infra/vultr/{geth-private, blockscout, ipfs, kotoba, zeebe}` — VKE manifests
 - `ADR-2605172800-geth.md:50` — "K8s deployment can stay on Vultr under etzhayyim's governance contract"
 - `ADR-2605173100:134` — past `45.32.79.245` Vultr IP released, audit trail
 - `50-infra/k8s/atproto-pds/README.md:37` — references `50-infra/vultr/geth-private/manifests/` as cloudflared sidecar precedent

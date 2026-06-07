@@ -20,7 +20,7 @@ depends_on:
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
 related:
-  - adr-2604241342-risingwave-out-of-band-migration-pattern
+  - adr-2604241342-kotoba-out-of-band-migration-pattern
   - 2605171300
 supersedes: []
 superseded_by:
@@ -89,20 +89,20 @@ kotoba-datomic projection layer に求められる機能を 9 つに分解:
 
 ### Option A — Hummock fork (yata-slate 名で religious-corp 内製化)
 
-RisingWave の Hummock state store layer のみ fork し、religious-corp 専用 engine
+Kotoba/Datomic の Hummock state store layer のみ fork し、religious-corp 専用 engine
 (`yata-slate`) として最適化。SQL planner は DataFusion 流用、streaming engine は
 自前実装。Hummock の Pregel epoch semantics は保持。
 
-### Option B — RisingWave 全体 fork (yata-wave)
+### Option B — Kotoba/Datomic 全体 fork (yata-wave)
 
-RisingWave 全体を religious-corp 用に fork (`yata-wave`)、Charter Rider 適用、
+Kotoba/Datomic 全体を religious-corp 用に fork (`yata-wave`)、Charter Rider 適用、
 graph 対応を追加。Hummock + RW Compute + RW Meta + connector を継承し、religious-corp
 固有要件を上に追加する。
 
 ### Option C — SlateDB fork
 
 object-storage-native な独立 LSM である SlateDB (Apache 2.0、Slate Computing) を
-fork。RisingWave の代わりに自前 stream/SQL layer を構築。
+fork。Kotoba/Datomic の代わりに自前 stream/SQL layer を構築。
 
 **早期に却下**:
 
@@ -211,7 +211,7 @@ Lance を vector / columnar projection に併用する旧設計。本 ADR では
 
 ### Finding 1: Hummock の epoch model は LangGraph Pregel と内部 isomorphic
 
-RisingWave streaming barrier の epoch = Pregel super-step boundary。LangGraph
+Kotoba/Datomic streaming barrier の epoch = Pregel super-step boundary。LangGraph
 `BaseCheckpointSaver` の super-step もこれと 1:1 対応する。Hummock の per-key
 epoch versioning は per-vertex super-step history と構造一致 → **LangGraph
 checkpointer 実装は Hummock 上で薄い PgWire client** で済む。
@@ -238,7 +238,7 @@ religious-corp parallel-substrate 原則 (ADR-2605192100 §1.12) が要求する
 
 - データ実体: MST (atproto repo) + IPFS (CIDv1) + GraphAr (Parquet on S3) →
   すべて religious-corp 所有 bucket
-- 計算 engine (RisingWave) は **transient な計算層** で、いつでも他 engine に
+- 計算 engine (Kotoba/Datomic) は **transient な計算層** で、いつでも他 engine に
   乗り換え可能 (GraphAr / Parquet 標準 format なので DuckDB / GraphScope / Flink
   などへ移送なしで切替可)
 - Charter Rider は extension layer (~30-50K LOC) のみに適用、upstream RW 本体
@@ -294,7 +294,7 @@ constitutional principles に基づく最終判断は別途行う。
    明文化されていない。GraphAr による format ownership で十分とするか、engine
    ownership まで求めるかが open question。
 
-5. **upstream RW labs governance**: RisingWave Labs の license 政策変化リスクは
+5. **upstream RW labs governance**: Kotoba/Datomic Labs の license 政策変化リスクは
    2025-2026 時点では低い (core は Apache 2.0 維持) が、Materialize の BSL 転換例
    もあり 5 年スパンでは zero とは言えない。リスクヘッジを fork で取るか pin で
    取るかの判断保留。
@@ -417,11 +417,11 @@ No implementation in this ADR. The following follow-up tasks are decision-pendin
 - ADR-2605231400 (kotoba-datomic Holochain-iso substrate)
 - ADR-2605231500 (kotoba-datomic-projection — derived read paths)
 - ADR-2605171300 (magatama unispsc LangGraph agents — 18,345 cells)
-- ADR-2604241342 (RisingWave out-of-band migration pattern — historical RW usage record)
+- ADR-2604241342 (Kotoba/Datomic out-of-band migration pattern — historical RW usage record)
 
 External:
 
-- RisingWave (Apache 2.0): https://github.com/risingwavelabs/risingwave
+- Kotoba/Datomic (Apache 2.0): https://github.com/kotobalabs/kotoba
 - Apache GraphAr (Apache 2.0, Incubator): https://github.com/apache/incubator-graphar
 - SlateDB (Apache 2.0): https://github.com/slatedb/slatedb
 - GraphScope (Apache 2.0): https://github.com/alibaba/GraphScope

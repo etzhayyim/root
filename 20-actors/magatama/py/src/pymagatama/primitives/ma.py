@@ -1,4 +1,5 @@
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import hashlib
 import json
@@ -7,7 +8,6 @@ import urllib.request
 from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
 
 
 MA_DID = "did:web:ma.etzhayyim.com"
@@ -655,13 +655,13 @@ def _insert_ignore(cur: Any, table: str, pk_col: str, values: dict[str, Any]) ->
     cols = list(values)
     placeholders = ", ".join(["%s"] * len(cols))
     col_sql = ", ".join(cols)
-    cur.execute(
+    _res = client.q(
         f"INSERT INTO {table} ({col_sql}) "
         f"SELECT {placeholders} "
         f"WHERE NOT EXISTS (SELECT 1 FROM {table} WHERE {pk_col} = %s)",
         (*[values[col] for col in cols], values[pk_col]),
     )
-    return int(cur.rowcount or 0)
+    return int((len(_res) if isinstance(_res, list) else 1) or 0)
 
 
 def _update_by_pk(cur: Any, table: str, pk_col: str, values: dict[str, Any]) -> int:
@@ -673,19 +673,19 @@ def _update_by_pk(cur: Any, table: str, pk_col: str, values: dict[str, Any]) -> 
     if not clean_values:
         return 0
     set_sql = ", ".join(f"{k} = %s" for k in clean_values)
-    cur.execute(
+    _res = client.q(
         f"UPDATE {table} SET {set_sql} WHERE {pk_col} = %s",
         (*clean_values.values(), values[pk_col]),
     )
-    return int(cur.rowcount or 0)
+    return int((len(_res) if isinstance(_res, list) else 1) or 0)
 
 
 def _count_visible(cur: Any, table: str, pk_col: str, ids: list[str]) -> int:
     if not ids:
         return 0
     placeholders = ", ".join(["%s"] * len(ids))
-    cur.execute(f"SELECT COUNT(*) FROM {table} WHERE {pk_col} IN ({placeholders})", tuple(ids))
-    row = cur.fetchone()
+    _res = client.q(f"SELECT COUNT(*) FROM {table} WHERE {pk_col} IN ({placeholders})", tuple(ids))
+    row = (_res[0] if _res else None)
     return int(row[0] if row else 0)
 
 
@@ -703,7 +703,9 @@ def upsert_graph_rows(rows: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
     updated = 0
     visibility: dict[str, dict[str, int]] = {}
 
-    with sync_cursor() as cur:
+    if True:
+
+        client = get_kotoba_client()
         for table, items in rows.items():
             pk_col = table_pk[table]
             for item in items:

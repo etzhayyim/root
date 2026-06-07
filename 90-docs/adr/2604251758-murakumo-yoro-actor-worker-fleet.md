@@ -116,11 +116,11 @@ Required tools:
 
 | MCP tool | Backing primitive |
 |---|---|
-| `yoro.social.searchCandidatePosts` | RisingWave read / AppView query |
+| `yoro.social.searchCandidatePosts` | Kotoba/Datomic read / AppView query |
 | `yoro.social.draftPost` | `generic.langgraph.run` + Murakumo inference |
 | `yoro.social.dispatchPost` | `generic.pds.dispatch` |
 | `yoro.social.dispatchReaction` | `generic.pds.dispatch` |
-| `yoro.policy.read` | Worker-direct Hyperdrive / RisingWave read |
+| `yoro.policy.read` | Worker-direct Hyperdrive / Kotoba/Datomic read |
 | `yoro.policy.proposeUpdate` | BPMN policy process + audit gate |
 | `yoro.audit.emit` | `generic.audit.emit` |
 
@@ -135,7 +135,7 @@ The actor loop is split by time domain:
 
 | Time domain | Trigger | Worker |
 |---|---|---|
-| ms-s sensor | AppView / firehose / materialized view freshness | RisingWave + PDS Worker |
+| ms-s sensor | AppView / firehose / materialized view freshness | Kotoba/Datomic + PDS Worker |
 | seconds reactive | mention, follow, candidate like/repost | BPMN message-start + Zeebe worker |
 | minutes deliberative | scheduled post / reply planning | LangGraph ServiceTask |
 | hours policy | self-review, rate tuning, memory compaction | BPMN timer-start + quorum gate |
@@ -175,7 +175,7 @@ The loop stores state in three places:
 - Cron placement: `yoro-actors/yoro-social-post` is defined as a
   resource-minimal Kubernetes CronJob that runs every four hours and writes the
   same `vertex_repo_record` fallback used by `platformPulse`. It calls `FLUSH`
-  and allows a 600s deadline because RisingWave visibility can lag during
+  and allows a 600s deadline because Kotoba/Datomic visibility can lag during
   compaction or Hummock pressure. Live CronJob sanity check created
   `at://did:web:yoro.etzhayyim.com/app.bsky.feed.post/murakumo-cron-20260425102724-1`
   and it was read back through `com.atproto.repo.getRecord`.

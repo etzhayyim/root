@@ -140,7 +140,7 @@ state(t)  ─msgpack─▶  Python saver call
                      Tx mined → block hash → L1 calldata batch → L1 finality
 ```
 
-Postgres / RisingWave / Kysely do not appear anywhere in this pipeline. Per ADR-2605172000, the substrate is exhausted by MST + IPFS + L2.
+Postgres / Kotoba/Datomic / Kysely do not appear anywhere in this pipeline. Per ADR-2605172000, the substrate is exhausted by MST + IPFS + L2.
 
 ## Stage 1 — LangGraph Pregel runtime + Python saver shim (host: `20-actors/magatama`)
 
@@ -471,11 +471,11 @@ Reimplement `@atproto/repo`'s MST, kubo client, and viem-equivalent L2 calldata 
 
 却下理由: violates ADR-2605172100 ("Substrate client imports | Only via `@etzhayyim/sdk`"), which exists precisely to avoid two parallel substrate stacks. The MST encoding is determinism-sensitive — divergence between Python and TS at the bit level silently breaks third-party verification. The TS ecosystem also has `@atproto/repo`, `viem`, and `kubo-rpc-client` as battle-tested upstream; Python equivalents either don't exist or are immature. The IPC hop is sub-millisecond on Unix socket — cheap compared to the IPFS pin and L2 anchor latencies that dominate the pipeline. Revisit only if (a) `@etzhayyim/sdk` itself migrates to a non-TS host language, or (b) magatama moves to a runtime where IPC has macro-cost (unlikely on Linux hosts).
 
-## K. RisingWave as the saver
+## K. Kotoba/Datomic as the saver
 
-Use `langgraph-checkpoint-postgres` against a RisingWave Postgres-compatible endpoint, leveraging its streaming materialised views for downstream projection.
+Use `langgraph-checkpoint-postgres` against a Kotoba/Datomic Postgres-compatible endpoint, leveraging its streaming materialised views for downstream projection.
 
-却下理由: identical to (A) under ADR-2605172000; RisingWave is the specific exemplar of the prohibited category. If RW-grade streaming is needed for an upstream workflow, run RW upstream and call it via XRPC consent-capability; do not embed it on the open side.
+却下理由: identical to (A) under ADR-2605172000; Kotoba/Datomic is the specific exemplar of the prohibited category. If RW-grade streaming is needed for an upstream workflow, run RW upstream and call it via XRPC consent-capability; do not embed it on the open side.
 
 # References
 

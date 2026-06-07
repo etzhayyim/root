@@ -59,7 +59,7 @@ Public model aliases:
 - `gemma4:26b-a4b-it-q4_K_M`
 
 `llm.etzhayyim.com/xrpc/com.etzhayyim.apps.llm.answerWithKnowledge` is intentionally unsupported on this
-gateway and returns `unsupported_route`. RisingWave/BPMN knowledge workflows must use their own
+gateway and returns `unsupported_route`. Kotoba/Datomic/BPMN knowledge workflows must use their own
 actor route and must not be smuggled through the RunPod gateway.
 
 Murakumo remains a separate inference platform. Its public and internal surfaces are

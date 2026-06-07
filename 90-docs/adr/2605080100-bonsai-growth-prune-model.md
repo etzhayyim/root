@@ -67,7 +67,7 @@ Option 2 は成長速度がボトルネックになる。Option 1 は暴走リ�
 ### 成長フロー (Full-Auto)
 
 ```
-L5 RisingWave MV
+L5 Kotoba/Datomic MV
   Shannon η gap / coverage drift / error rate を集計
           │
           ▼ stream event: growth_signal
@@ -80,7 +80,7 @@ L6 Shinka Agent (PyZeebe worker)
           │
      ┌────┴──────────────────────────────┐
      ▼                                   ▼
-New Actor / Service               RisingWave DDL
+New Actor / Service               Kotoba/Datomic DDL
 ADR-0056: INSERT vertex_actor     rw-health-gate.sh → pass
 + BPMN deploy to Zeebe            CREATE TABLE / MV / External UDF
      │                                   │
@@ -136,7 +136,7 @@ etzhayyim prune <actor_did> --release
 ### Canopy View — 樹形の可視化
 
 ```sql
--- mv_canopy_shape (RisingWave Materialized View)
+-- mv_canopy_shape (Kotoba/Datomic Materialized View)
 SELECT
   ge.actor_did,
   ge.parent_did,
@@ -234,7 +234,7 @@ CREATE TABLE vertex_prune_intent (
 Shinka Agent (PyZeebe worker, L6) が2つのループを回す:
 
 **Growth loop** (既存):
-- RisingWave の `growth_signal` stream を consume
+- Kotoba/Datomic の `growth_signal` stream を consume
 - PoNF check → pass なら deploy
 
 **Prune loop** (新規):
@@ -276,4 +276,4 @@ Shinka Agent (PyZeebe worker, L6) が2つのループを回す:
 - ADR-2605071200: Myco-Yeast Artificial Organism (sporulation / houshi / PoNF / anastomosis gate)
 - ADR-0056: BPMN-as-actor (actor deploy pattern)
 - ADR-2604291800: Well-Becoming Spirit Objective Function (η scoring)
-- ADR-0044: RisingWave UDF Language Strategy (External UDF in growth loop)
+- ADR-0044: Kotoba/Datomic UDF Language Strategy (External UDF in growth loop)

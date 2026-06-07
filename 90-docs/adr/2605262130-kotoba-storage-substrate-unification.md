@@ -1,6 +1,6 @@
 ---
 id: adr-2605262130-kotoba-storage-substrate-unification
-title: "ADR-2605262130: Kotoba as Canonical Storage Substrate — supersedes kotoba-datomic composition + projection layers; no RisingWave"
+title: "ADR-2605262130: Kotoba as Canonical Storage Substrate — supersedes kotoba-datomic composition + projection layers; no Kotoba/Datomic"
 status: proposed
 doc_type: adr
 topic: storage-substrate
@@ -9,11 +9,11 @@ last_verified: 2026-05-26
 priority: 5.0
 axis: architecture
 weight: 0.70
-priority_note: "Substrate-engine charter. Pivots the religious-corp storage layer from a 'kotoba-datomic composition spec + projection escape-hatch (RW / Lance / Iroh)' framing to a single first-party Rust workspace (kotoba) that ships the actual primitives natively. Eliminates the projection layer entirely (kotoba-kqe arrangements read directly over content-addressed blocks). RisingWave is removed from religious-corp design surface (already prohibited as a primary store; now also prohibited as a projection backend)."
+priority_note: "Substrate-engine charter. Pivots the religious-corp storage layer from a 'kotoba-datomic composition spec + projection escape-hatch (RW / Lance / Iroh)' framing to a single first-party Rust workspace (kotoba) that ships the actual primitives natively. Eliminates the projection layer entirely (kotoba-kqe arrangements read directly over content-addressed blocks). Kotoba/Datomic is removed from religious-corp design surface (already prohibited as a primary store; now also prohibited as a projection backend)."
 authoritative_for:
   - "canonical storage substrate engine (kotoba)"
   - "removal of kotoba-datomic composition spec from authoritative design surface"
-  - "removal of RisingWave / Lance / Iroh as projection backends"
+  - "removal of Kotoba/Datomic / Lance / Iroh as projection backends"
 depends_on:
   - adr-2605172000-etzhayyim-rw-free-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
@@ -55,9 +55,9 @@ religious-corp `etzhayyim/root` carried two overlapping architectural ADRs that,
 
 1. **`kotoba-datomic` (ADR-2605231400)** named a **composition** of substrate primitives (Chain / DHT / Membrane / Witness / Projection / Cell / Identity, mapped layer-by-layer to Holochain isomorphism). At the time of that ADR, no first-party engine implemented the composition. The seven layers were assembled from a best-of-breed mix of `50-infra/ipfs-pinner/` + `50-infra/mst-projector/` + NATS bridges + `lancedb-wasm` + `tonbo` + `etzhayyim-xrpc-proxy` + scattered `@signalapp/libsignal-client` wrappers. The composition was real; the engine was not.
 
-2. **`kotoba-datomic-projection` (ADR-2605231500)** carved out **RisingWave / Lance / Iroh** as regenerable hot-path read backends, gated by three rules (deterministically rebuildable from MST+IPFS / never the sole write home / marked with `// kotoba-datomic-projection`). This was the "hot-path escape hatch" for the RW-free invariant (ADR-2605172000): apps needed range / spatial / aggregate reads, and the MST alone could not serve them efficiently, so a projection layer was allowed as a derived cache.
+2. **`kotoba-datomic-projection` (ADR-2605231500)** carved out **Kotoba/Datomic / Lance / Iroh** as regenerable hot-path read backends, gated by three rules (deterministically rebuildable from MST+IPFS / never the sole write home / marked with `// kotoba-datomic-projection`). This was the "hot-path escape hatch" for the RW-free invariant (ADR-2605172000): apps needed range / spatial / aggregate reads, and the MST alone could not serve them efficiently, so a projection layer was allowed as a derived cache.
 
-Both ADRs were honest about being placeholders. ADR-2605232300 was the explicit "engine options exploration" — a survey of Hummock fork / RW fork / GraphAr+MV no-fork that **deferred the decision pending Council multisig and benchmark data**. ADR-2605232400 closed a Tier-D blob primitive gap but left the substrate layer fragmented. ADR-2605101000 designed a BigQuery → RisingWave projection pattern for the open-data ingest, which inherited the same projection-layer assumption.
+Both ADRs were honest about being placeholders. ADR-2605232300 was the explicit "engine options exploration" — a survey of Hummock fork / RW fork / GraphAr+MV no-fork that **deferred the decision pending Council multisig and benchmark data**. ADR-2605232400 closed a Tier-D blob primitive gap but left the substrate layer fragmented. ADR-2605101000 designed a BigQuery → Kotoba/Datomic projection pattern for the open-data ingest, which inherited the same projection-layer assumption.
 
 ### kotoba ships the actual primitives natively
 
@@ -100,7 +100,7 @@ This ADR therefore does three things at once:
 
 1. Adopts **kotoba** as the canonical storage substrate engine (already imported as `git subrepo` at `40-engine/kotoba/`, upstream commit `128a89d0e`).
 2. Supersedes **five** prior ADRs (2605231400, 2605231500, 2605232300, 2605232400, 2605101000) whose framing the pivot retires.
-3. Strengthens the **no-RisingWave invariant** to also cover the projection backend slot: RisingWave / Postgres / Lance / DuckDB / SQLite are now prohibited as **read backends** as well as primary write stores. The only authorized hot-path read engine is `kotoba-kqe` arrangements over content-addressed blocks.
+3. Strengthens the **no-Kotoba/Datomic invariant** to also cover the projection backend slot: Kotoba/Datomic / Postgres / Lance / DuckDB / SQLite are now prohibited as **read backends** as well as primary write stores. The only authorized hot-path read engine is `kotoba-kqe` arrangements over content-addressed blocks.
 
 The single ADR (2605231902 — first L1 projection: `feed-discover` on `app.bsky.feed.post`) that was a **shipped** application (not just a spec) survives unchanged. It enters Phase 2.5 of this ADR's rollout, where the read-path projection migrates from RW to `kotoba-kqe` without altering the MST membrane logic or the `x-etzhayyim-substrate: mst-ipfs-l2` header semantics.
 
@@ -144,7 +144,7 @@ The XChaCha20-Poly1305 envelope + Signal-wrapped per-recipient keys + DID bindin
 
 ### D7. No projection layer — `kotoba-kqe` arrangements serve hot-path reads directly
 
-This is the structural change introduced by the pivot. Under the prior framing (ADR-2605231500), apps needing range / spatial / aggregate reads could derive a regenerable cache against RW / Lance / Iroh, gated by three rules. Under this ADR, **there is no projection layer**. All hot-path reads go through `kotoba-kqe` arrangements (EAVT / AEVT / AVET / VAET) directly over content-addressed blocks. The MST commits land in `kotoba-store`; `kotoba-kqe` indexes them natively; queries hit the four-index arrangement; results are deterministic from CID. No regenerable-cache marker comments. No "projection of projection" carve-outs. No RisingWave / Postgres / Lance / DuckDB / SQLite side stores. If a workload exceeds `kotoba-kqe` capability, the resolution path is upstream PR to kotoba (subject to N5), not a side store. The substrate-boundary linter rule that previously allowed `// kotoba-datomic-projection` markers is removed in Phase 5; existing markers in the surviving `feed-discover` app are removed at Phase 2.5 cutover.
+This is the structural change introduced by the pivot. Under the prior framing (ADR-2605231500), apps needing range / spatial / aggregate reads could derive a regenerable cache against RW / Lance / Iroh, gated by three rules. Under this ADR, **there is no projection layer**. All hot-path reads go through `kotoba-kqe` arrangements (EAVT / AEVT / AVET / VAET) directly over content-addressed blocks. The MST commits land in `kotoba-store`; `kotoba-kqe` indexes them natively; queries hit the four-index arrangement; results are deterministic from CID. No regenerable-cache marker comments. No "projection of projection" carve-outs. No Kotoba/Datomic / Postgres / Lance / DuckDB / SQLite side stores. If a workload exceeds `kotoba-kqe` capability, the resolution path is upstream PR to kotoba (subject to N5), not a side store. The substrate-boundary linter rule that previously allowed `// kotoba-datomic-projection` markers is removed in Phase 5; existing markers in the surviving `feed-discover` app are removed at Phase 2.5 cutover.
 
 ### D8. Witness quorum + attestation unchanged
 
@@ -177,7 +177,7 @@ The following table is the **heart** of this ADR. Every row is the canonical sub
 - ADR-2605231500 named the projection rules. This ADR **eliminates the projection layer** — `kotoba-kqe` arrangements serve hot-path reads directly over content-addressed blocks.
 - ADR-2605232300 surveyed engine options (Hummock fork / RW fork / GraphAr+MV no-fork). This ADR closes that exploration with a different answer: a first-party Rust workspace already exists in the `etzhayyim` org, and it is the chosen engine.
 - ADR-2605232400 named the Tier-D blob upload primitive (`Etzhayyim.uploadBlob`). This ADR preserves the SDK API surface unchanged; the substrate underneath moves from the existing TS+Python wrappers to `kotoba-store` (Phase 1). No app-visible diff.
-- ADR-2605101000 designed a BigQuery → RisingWave projection. This ADR retires that projection design; BigQuery ingest (if it survives at all) routes to `kotoba-kqe` directly, with the same MST-anchored receipts but no RW side store.
+- ADR-2605101000 designed a BigQuery → Kotoba/Datomic projection. This ADR retires that projection design; BigQuery ingest (if it survives at all) routes to `kotoba-kqe` directly, with the same MST-anchored receipts but no RW side store.
 - ADR-2605171800 named the Stage 3 / 4 / 5a / 5b pipeline. This ADR names the crates (`kotoba-graph` for projection + `kotoba-store` for pin + `kotoba-server` for anchor read).
 - ADR-2605181100 named the envelope wire format. This ADR names the crate (`kotoba-crypto` + `kotoba-signal`) that implements it bit-identically.
 - ADR-2605215000 named the Murakumo-only inference invariant. This ADR makes `kotoba-llm` a routing facade and leaves the invariant in force (D2).
@@ -320,7 +320,7 @@ Each clause of the Charter Compliance Rider v2.0 is restated and evaluated again
 
 **E. Adopt kotoba but preserve kotoba-datomic as the public-facing composition name.** Two names for one thing — "kotoba-datomic on the outside, kotoba on the inside". Rejected: maintaining two names for one thing is exactly the drift cost we're trying to eliminate. The mapping spec would have to be kept in sync with the engine, and any divergence would silently re-introduce the placeholder-vs-engine gap the pivot retires. Better to commit fully: kotoba is the substrate; kotoba-datomic SPEC.md is archived (Phase 0.5).
 
-## Appendix — kotoba-datomic / RisingWave retirement timeline
+## Appendix — kotoba-datomic / Kotoba/Datomic retirement timeline
 
 Each superseded ADR + what its content becomes under kotoba:
 
@@ -414,6 +414,6 @@ Step 1+2 are inside the kotoba subrepo's coordination scope (separate from `etzh
 - ADR-2605241900 (baien edge-target invariant) — Phase 4 kotoba-store-web budget constraint
 - ADR-2605242600 (baien federated training R0) — N7 federated training gate
 - `/CHARTER-RIDER.md` — license addendum canonical text (Charter Rider v2.0)
-- `CLAUDE.md` (repo root) — operating-entity boundary + substrate-boundary table + Status row 62 update (kotoba is canonical substrate; supersedes kotoba-datomic composition + projection layers; RisingWave removed from design surface)
+- `CLAUDE.md` (repo root) — operating-entity boundary + substrate-boundary table + Status row 62 update (kotoba is canonical substrate; supersedes kotoba-datomic composition + projection layers; Kotoba/Datomic removed from design surface)
 - `90-docs/adr/README.md` — ADR index row updates (kotoba row reframed; five superseded ADRs marked)
 - `deps.toml` — `[[adrs]]` superseded markers + `[[modules]]` entries

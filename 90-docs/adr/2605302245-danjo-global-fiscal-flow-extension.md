@@ -127,7 +127,7 @@ inter-governmental flows.
 | Output | `crossReferenceLink` + `discrepancyObservation` + budget/procurement/`intergov-fund-flow` datoms | `fundFlowEdge` + `flowNarrative` + `visualizationManifest` |
 | Inference | indexing + cross-reference (G7 Murakumo for any LLM step) | Murakumo-LLM narrative (G7) |
 | Rendering | NONE (textual publication only; visualization is a danjo non-goal) | kami-engine WASM (G14) |
-| Persistence | kotoba EAVT (G2, no RisingWave) | kotoba EAVT (G2, no RisingWave) |
+| Persistence | kotoba EAVT (G2, no Kotoba/Datomic) | kotoba EAVT (G2, no Kotoba/Datomic) |
 
 kanae reads danjo's fiscal datoms (read-only, G12 on both sides) and
 never writes back. danjo remains fully functional without kanae; kanae
@@ -179,6 +179,6 @@ danjo already reads.
 - `/90-docs/adr/2605301600-danjo-public-accountability-oversight-tier-b-actor-r0.md` — danjo master ADR (gates, cells, R3 gate)
 - `/90-docs/adr/2605302300-kanae-global-fiscal-flow-visualization-tier-b-actor-r0.md` — kanae visualization actor (downstream; direction (2))
 - `/90-docs/adr/2605263900-public-data-open-government-ipfs-ingestion.md` — global fiscal corpus (USAspending / EU FTS / IMF / WB / OECD / TED / SAM.gov)
-- `/90-docs/adr/2605262130-kotoba-storage-substrate-unification.md` — kotoba EAVT (no RisingWave)
+- `/90-docs/adr/2605262130-kotoba-storage-substrate-unification.md` — kotoba EAVT (no Kotoba/Datomic)
 - `/90-docs/adr/2605192100-etzhayyim-mission-charter.md` — §1.12 + §2(c) + §2(e)
 - `/20-actors/danjo/` — danjo manifest + README + CLAUDE.md

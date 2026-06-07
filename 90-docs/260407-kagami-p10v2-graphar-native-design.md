@@ -3,15 +3,15 @@ id: kagami-p10v2-graphar-native-design
 title: "kagami P10v2: GraphAr-Native Typed Columnar Schema"
 status: active
 doc_type: explanation
-topic: kagami-risingwave-graphar
+topic: kagami-kotoba-graphar
 authoritative: true
 last_verified: 2026-04-13
 authoritative_for:
   - kagami P10v2 GraphAr-native schema design
 related:
-  - kagami-risingwave-graphar-design
+  - kagami-kotoba-graphar-design
 supersedes:
-  - kagami-risingwave-graphar-design
+  - kagami-kotoba-graphar-design
 superseded_by: []
 ---
 
@@ -21,7 +21,7 @@ superseded_by: []
 
 P10v1 (P9 property decomposition legacy) から **P10v2 GraphAr-native typed columnar schema** に移行。
 
-P10v1 は P9 の「1 property = 1 vertex + val STRING」を GraphAr テーブル名で包んだだけだった。P10v2 は RisingWave + GraphAr の設計思想に native に合わせる。
+P10v1 は P9 の「1 property = 1 vertex + val STRING」を GraphAr テーブル名で包んだだけだった。P10v2 は Kotoba/Datomic + GraphAr の設計思想に native に合わせる。
 
 実装時の TypeScript/Cypher ルールは `90-docs/rules/ts-cypher-p10v2-query-rules.md` を参照。
 
@@ -39,7 +39,7 @@ P10v1 は P9 の「1 property = 1 vertex + val STRING」を GraphAr テーブル
 
 5 rows x 8 shared cols = 40 values. rkey,repo,_alive,_seq,ts x5 = 25 redundant.
 Shannon redundancy = 25/40 = 62.5%
-5 RisingWave INSERTs per Post.
+5 Kotoba/Datomic INSERTs per Post.
 Read: 5 rows scan + application merge.
 ```
 
@@ -52,9 +52,9 @@ Read: 5 rows scan + application merge.
                 reply_root:null, reply_parent:null,
                 _alive, _seq, ts, embedding:[...], embedding_norm, ivf_cluster_id}
 
-1 row x 15 cols = 15 values. NULL in RisingWave columnar = 0 bytes.
+1 row x 15 cols = 15 values. NULL in Kotoba/Datomic columnar = 0 bytes.
 Shannon redundancy = 0%
-1 RisingWave INSERT per Post.
+1 Kotoba/Datomic INSERT per Post.
 Read: 1 row fetch (zero merge).
 ```
 
@@ -78,9 +78,9 @@ GraphAr specification: "Each type of vertices (with the same label) constructs a
 
 P10v1 violated this by decomposing 1 AT record into N vertices (PostText, PostEmbed, etc.). P10v2 stores 1 AT record as 1 row with typed columns.
 
-### 2. RisingWave Columnar = Implicit Property Group
+### 2. Kotoba/Datomic Columnar = Implicit Property Group
 
-GraphAr uses **Property Groups** to split columns into separate files for selective I/O. RisingWave columnar storage provides the same benefit natively — only accessed columns are read from disk. No explicit Property Group management needed.
+GraphAr uses **Property Groups** to split columns into separate files for selective I/O. Kotoba/Datomic columnar storage provides the same benefit natively — only accessed columns are read from disk. No explicit Property Group management needed.
 
 ### 3. Relationship Records = Edges
 
@@ -105,7 +105,7 @@ GraphAr spec は edge 群に対して 4 種の隣接リストタイプを定義�
 | `unordered_by_source` | source vertex ID で partitioned (sort なし) | COO |
 | `unordered_by_dest` | dest vertex ID で partitioned (sort なし) | COO |
 
-P10v2 は RisingWave DDL で GraphAr adjacency list を native に表現する:
+P10v2 は Kotoba/Datomic DDL で GraphAr adjacency list を native に表現する:
 
 - **`DISTRIBUTED BY HASH(src_vid)`** = source vertex による partition (GraphAr partition key)
 - **`DUPLICATE KEY(src_vid, dst_vid)`** = source 内で dst_vid sorted (GraphAr ordered adjacency)
@@ -131,7 +131,7 @@ P10v2 は RisingWave DDL で GraphAr adjacency list を native に表現する:
 
 #### Reverse Adjacency (ordered_by_dest) の実現 — Materialized Views `[IMPLEMENTED 2026-04-08]`
 
-`ordered_by_dest` (CSC) が必要なクエリを **RisingWave Async Materialized View** で実現。イベントドリブンリフレッシュにより、write 完了後に即時反映。
+`ordered_by_dest` (CSC) が必要なクエリを **Kotoba/Datomic Async Materialized View** で実現。イベントドリブンリフレッシュにより、write 完了後に即時反映。
 
 **実装済み MV (12個)**:
 
@@ -152,7 +152,7 @@ P10v2 は RisingWave DDL で GraphAr adjacency list を native に表現する:
 
 **リフレッシュ戦略**: 定期更新ではなくイベントドリブン。Kagami Worker の write 完了後に `REFRESH MATERIALIZED VIEW` を fire-and-forget で発火。`TABLE_MV_DEPS` マップでテーブル→MV 依存関係を管理。
 
-**キャッシュ**: Cloudflare Cache API (60s TTL) で Cypher クエリ結果をキャッシュ。MV + Cache API の 2 層で、RisingWave への到達を最小化。
+**キャッシュ**: Cloudflare Cache API (60s TTL) で Cypher クエリ結果をキャッシュ。MV + Cache API の 2 層で、Kotoba/Datomic への到達を最小化。
 
 **Cypher パーサー拡張 (2026-04-08)**: `OPTIONAL MATCH` (LEFT JOIN)、`WITH` (CTE)、`UNION [ALL]` をサポート。37 テスト全パス。
 
@@ -174,7 +174,7 @@ MV1-4 は集約も JOIN もなく、`_by_dest` テーブルと同一データ。
 | Phase 2 | write 側の dual-write ロジック削除 (buildWritePlan の CSC INSERT 不要に) |
 | Phase 3 | `_by_dest` テーブル DROP |
 
-**理由**: RisingWave streaming MV は base table への INSERT を自動追跡 (< 100ms)。手動 dual-write は冗長。
+**理由**: Kotoba/Datomic streaming MV は base table への INSERT を自動追跡 (< 100ms)。手動 dual-write は冗長。
 
 追跡: `deps.toml [[migrations."csc-mv-consolidation"]]`
 
@@ -1031,7 +1031,7 @@ MATCH (p:Post) WHERE p.rkey = $rkey AND p.repo = $did
 RETURN p.text, p.embed, p.facets, p.langs, p.reply_root, p.reply_parent LIMIT 1
 -- → direct column access, no JSON.parse for text
 
--- Timeline (text only — RisingWave reads only text column from disk)
+-- Timeline (text only — Kotoba/Datomic reads only text column from disk)
 MATCH (p:Post) WHERE p.repo IN [$did1, $did2]
 RETURN p.rkey, p.repo, p.text, p.created_at LIMIT 50
 
@@ -1052,7 +1052,7 @@ MATCH (e:Likes) WHERE e.src_vid = $did AND e.dst_vid = $postRkey RETURN e.edge_i
 
 ## Zero-Downtime Migration: SWAP TABLE
 
-RisingWave の `ALTER TABLE SWAP` でスキーマ変更を atomic (~30ms) に適用。
+Kotoba/Datomic の `ALTER TABLE SWAP` でスキーマ変更を atomic (~30ms) に適用。
 
 ```sql
 -- 1. 新スキーマのテーブルを作成
@@ -1069,7 +1069,7 @@ ALTER TABLE graphar.vertex_actor SWAP WITH vertex_actor_v2;
 DROP TABLE graphar.vertex_actor_v2;
 ```
 
-**SWAP TABLE は RisingWave 3.3.8 で検証済み** (elapsed: 28ms)。
+**SWAP TABLE は Kotoba/Datomic 3.3.8 で検証済み** (elapsed: 28ms)。
 
 ### Iceberg External Catalog 評価 (rejected)
 
@@ -1079,7 +1079,7 @@ Iceberg の partition/schema evolution は metadata-only で理想的だが、�
 |---------|--------------|
 | Iceberg metadata chain (S3 GET × 2-3: metadata.json → manifest-list → manifest) | +60-120ms |
 | S3 data file read (Parquet, CN datacache 不使用) | +20-40ms per table |
-| Parquet decode (vs RisingWave native columnar) | +5-10ms |
+| Parquet decode (vs Kotoba/Datomic native columnar) | +5-10ms |
 | JOIN: 3 table × metadata chain | +180-360ms |
 
 | Pattern | Internal OLAP | Iceberg External (warm cache) | 劣化 |
@@ -1101,8 +1101,8 @@ Iceberg の partition/schema evolution は metadata-only で理想的だが、�
 | `50-infra/cloudflare/workers/atproto/src/pds-helpers.ts` | buildMergeProps → typed record builder |
 | `50-infra/cloudflare/workers/atproto/src/pds-handlers-feed.ts` | Cypher queries: PostText → Post.text |
 | `50-infra/cloudflare/workers/atproto/src/pds-handlers-repo.ts` | Write dispatch: typed columns |
-| RisingWave DDL | CREATE TABLE (this doc) |
-| RisingWave data | P10v1 → P10v2 ETL (INSERT INTO SELECT) |
+| Kotoba/Datomic DDL | CREATE TABLE (this doc) |
+| Kotoba/Datomic data | P10v1 → P10v2 ETL (INSERT INTO SELECT) |
 
 ## GraphAr Spec Alignment
 
@@ -1110,8 +1110,8 @@ Iceberg の partition/schema evolution は metadata-only で理想的だが、�
 |---|---|---|
 | 1 label = 1 table | `graphar.vertex_{label}` | native |
 | (src, edge, dst) = 1 edge table | `graphar.edge_{type}` | partial (src/dst label on column) |
-| Property Group (columnar I/O) | RisingWave columnar storage | implicit (engine-level) |
-| Chunk (fixed row count) | RisingWave PARTITION BY RANGE(timestamp_ms) | time-based |
+| Property Group (columnar I/O) | Kotoba/Datomic columnar storage | implicit (engine-level) |
+| Chunk (fixed row count) | Kotoba/Datomic PARTITION BY RANGE(timestamp_ms) | time-based |
 | Adjacency List Type | `ordered_by_source` (CSR) via DUPLICATE KEY + HASH(src_vid)。Reverse (CSC) は MPP JOIN | native (DDL-level) |
 | Typed properties | typed SQL columns | native |
 | val STRING blob | eliminated | eliminated |
@@ -1125,10 +1125,10 @@ Iceberg の partition/schema evolution は metadata-only で理想的だが、�
 | Layer | File | Role |
 |---|---|---|
 | **Schema definition** | `_archive/30-graph/kagami-live-260414/src/schema/p10.gen.ts` | Table/column/label/partition 宣言 |
-| **Column type map** | `P10_COLUMN_TYPES` (same file) | Column name → RisingWave SQL type |
+| **Column type map** | `P10_COLUMN_TYPES` (same file) | Column name → Kotoba/Datomic SQL type |
 | **DDL generation** | `generateVertexDDL()` / `generateEdgeDDL()` / `generateAllDDL()` | 宣言 → `CREATE TABLE IF NOT EXISTS` DDL |
 | **Schema validation** | `70-tools/70-tools/70-tools/scripts/schema-check-local.ts` | `val` 禁止、column type 存在チェック |
-| **Schema apply** | `70-tools/70-tools/70-tools/scripts/schema-apply.ts` | DDL を RisingWave に冪等適用 |
+| **Schema apply** | `70-tools/70-tools/70-tools/scripts/schema-apply.ts` | DDL を Kotoba/Datomic に冪等適用 |
 | **This doc** | DDL reference (人間向け) | `p10.gen.ts` と一致を維持 |
 
 ### Usage
@@ -1142,7 +1142,7 @@ npx tsx 70-tools/70-tools/70-tools/scripts/schema-check-local.ts
 # Generate DDL (dry-run)
 npx tsx 70-tools/70-tools/70-tools/scripts/schema-apply.ts --dry-run
 
-# Apply to RisingWave (idempotent)
+# Apply to Kotoba/Datomic (idempotent)
 npx tsx 70-tools/70-tools/70-tools/scripts/schema-apply.ts
 
 # Custom endpoint
@@ -1156,7 +1156,7 @@ KAGAMI_ENDPOINT=http://... KAGAMI_TOKEN=... npx tsx 70-tools/70-tools/70-tools/s
 3. `pds-core.ts`: `buildTypedVertex()` に label 分岐追加（typed column mapping）
 4. `schema-check-local.ts` パス確認
 5. `schema-apply.ts --dry-run` で DDL 確認
-6. `schema-apply.ts` で RisingWave 適用
+6. `schema-apply.ts` で Kotoba/Datomic 適用
 7. この doc の DDL section を更新
 
 **禁止**: 手書き DDL script、`val STRING` column、`p10.gen.ts` 外での table 定義

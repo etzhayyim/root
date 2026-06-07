@@ -16,7 +16,7 @@ import urllib.request
 from dataclasses import dataclass
 from typing import Any
 
-import psycopg2
+import psycopg2 # kotoba-datomic-projection: historical offline script
 
 
 OWNER_DID = "did:web:ingest.etzhayyim.com"
@@ -135,9 +135,9 @@ def card_license(info: dict[str, Any], fallback: str) -> str:
 
 
 def main() -> None:
-    rw_url = os.environ.get("RW_URL") or os.environ.get("DATABASE_URL")
+    rw_url = os.environ.get("KOTOBA_URL") or os.environ.get("DATABASE_URL")
     if not rw_url:
-        raise SystemExit("Set RW_URL or DATABASE_URL")
+        raise SystemExit("Set KOTOBA_URL or DATABASE_URL")
 
     def exec_retry(sql: str, params: tuple[Any, ...]) -> None:
         last: Exception | None = None

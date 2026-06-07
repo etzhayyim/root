@@ -202,8 +202,8 @@ cloudflared origin pod が `NotReady` node 上に残ったことによる ingres
 | `RESEND_API_KEY` 未注入 | `bpmn-dispatcher` pod に `RESEND_API_KEY` が設定されておらず `sendEmail` が全件 `"RESEND_API_KEY not configured"` で失敗していた |
 | 修正 1: k8s Secret 作成 | `kubectl create secret generic mailer-resend-creds -n mitama-udf --from-literal=RESEND_API_KEY=...` (Keychain `etzhayyim.resend/API_KEY` から取得) |
 | 修正 2: Deployment patch | `bpmn-dispatcher` に `secretKeyRef: {name: mailer-resend-creds, key: RESEND_API_KEY, optional: true}` を追加し rollout |
-| `vertex_mailer_outbound_email` schema 未適用 | `20260514090000_gewp_mailer_columns.up.sql` が live RisingWave に未適用のため `outboundRecordError: Column gewp_thread_id not found` が発生していた |
-| 修正 3: schema migration 手動適用 | `ALTER TABLE vertex_mailer_outbound_email ADD COLUMN IF NOT EXISTS gewp_thread_id VARCHAR` + `ADD COLUMN IF NOT EXISTS gewp_step BIGINT` を RisingWave に直接実行 |
+| `vertex_mailer_outbound_email` schema 未適用 | `20260514090000_gewp_mailer_columns.up.sql` が live Kotoba/Datomic に未適用のため `outboundRecordError: Column gewp_thread_id not found` が発生していた |
+| 修正 3: schema migration 手動適用 | `ALTER TABLE vertex_mailer_outbound_email ADD COLUMN IF NOT EXISTS gewp_thread_id VARCHAR` + `ADD COLUMN IF NOT EXISTS gewp_step BIGINT` を Kotoba/Datomic に直接実行 |
 | e2e 確認 | `sendEmail` → `messageId: cb014970-...` 配信成功、`outboundRecordError` 消滅 |
 
 ---

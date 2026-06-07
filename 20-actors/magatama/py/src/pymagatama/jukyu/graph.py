@@ -19,13 +19,13 @@ Score formula:
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import json
 import time
 import uuid
 from typing import Any, TypedDict
 
-from pymagatama.db_sync import sync_cursor
 
 # ─── Pregel constants ────────────────────────────────────────────────────────
 _MAX_ITER = 8
@@ -79,18 +79,20 @@ def _now_iso() -> str:
 
 def _rows(sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
     try:
-        with sync_cursor() as cur:
-            cur.execute(sql, params)
-            names = [desc[0] for desc in cur.description or []]
-            return [dict(zip(names, row, strict=False)) for row in (cur.fetchall() or [])]
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(sql, params)
+            names = [desc[0] for desc in ([("col",)] if _res else []) or []]
+            return [dict(zip(names, row, strict=False)) for row in (_res or [])]
     except Exception:
         return []
 
 
 def _exec(sql: str, params: tuple[Any, ...] = ()) -> bool:
     try:
-        with sync_cursor() as cur:
-            cur.execute(sql, params)
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(sql, params)
         return True
     except Exception:
         return False

@@ -23,7 +23,7 @@ superseded_by: []
 # Context
 
 The actor platform needs an actor-oriented runtime shape without replacing the
-existing Kubernetes / Zeebe / RisingWave / AT Protocol stack. The desired
+existing Kubernetes / Zeebe / Kotoba/Datomic / AT Protocol stack. The desired
 properties are close to Holochain's agent-centric model: each actor has an
 identity, an append-only action log, validation rules, and checkpoints that can
 be audited later. At the same time, the repo already has a private EVM chain
@@ -49,7 +49,7 @@ Actor runtime execution:
   Kubernetes / Zeebe / pyzeebe / LangGraph / WASI / browser pods
 
 Operational state:
-  RisingWave + B2/Arweave/IPFS payloads
+  Kotoba/Datomic + B2/Arweave/IPFS payloads
 
 Trust anchor:
   private EVM ActorRuntimeRegistry
@@ -123,7 +123,7 @@ ActorRuntimeRegistry.recordActorCheckpoint(...)
 
 This ADR imports the Holochain-like idea of actor-owned source chains and
 validation, but does not adopt Holochain's DHT/conductor runtime. Source-chain
-records live in RisingWave / AT Protocol records, and checkpoint roots are
+records live in Kotoba/Datomic / AT Protocol records, and checkpoint roots are
 anchored on EVM.
 
 AO/Arweave remains a compatible mirror layer: payloads, traces, or checkpoint

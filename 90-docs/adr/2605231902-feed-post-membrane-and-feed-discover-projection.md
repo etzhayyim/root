@@ -275,7 +275,7 @@ shape keeps the projection's canonical state in the projector DID's MST
 (which is itself kotoba-datomic-chain), so the projection sits one layer of
 indirection from the firehose and is replayable.
 
-### E. Use RisingWave for the projection (Bluesky-AppView pattern)
+### E. Use Kotoba/Datomic for the projection (Bluesky-AppView pattern)
 
 Status: deferred. The ADR-2605231500 §"Allowed substrates for
 projections" table explicitly lists RW as suitable for the

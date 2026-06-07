@@ -24,7 +24,7 @@
 import { writeFile, readFile } from "node:fs/promises";
 import { createRequire } from "node:module";
 
-const RW_CONN   = process.env.RW_CONN ?? "postgresql://root@127.0.0.1:14566/dev?sslmode=disable";
+const KOTOBA_URL   = process.env.KOTOBA_URL ?? "postgresql://root@127.0.0.1:14566/dev?sslmode=disable";
 const RECRUIT_DID = "did:web:recruit.etzhayyim.com";
 const COLLECTION  = "com.etzhayyim.apps.recruit.jobPosting";
 const NOW         = new Date().toISOString();
@@ -237,7 +237,7 @@ let _pool = null;
 async function pool() {
   if (_pool) return _pool;
   const pg = graphRequire("pg");
-  _pool = new pg.Pool({ connectionString: RW_CONN, max: 2, statement_timeout: 60_000 });
+  _pool = new pg.Pool({ connectionString: KOTOBA_URL, max: 2, statement_timeout: 60_000 });
   return _pool;
 }
 async function query(sql, vals = []) { const db = await pool(); return db.query(sql, vals); }

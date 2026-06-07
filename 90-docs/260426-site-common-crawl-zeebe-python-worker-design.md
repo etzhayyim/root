@@ -21,7 +21,7 @@ the write commit point stays in domain ingest.
 `ingest_site_common_crawl_delta` is the canonical BPMN process.
 
 1. `site.commonCrawl.createRun` records `vertex_ingest_run`.
-2. `rw.health.probe` gates heavy work on RisingWave health.
+2. `rw.health.probe` gates heavy work on Kotoba/Datomic health.
 3. `site.commonCrawl.plan` validates crawl id, domain filter, selected phases,
    and artifact directory.
 4. `site.commonCrawl.acquireCursor` locks one crawl/domain shard.

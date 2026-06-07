@@ -109,7 +109,7 @@ Full runbook + capability matrix:
     but has no live front to authenticate against.
 - "Fully Cloudflare-free" requires, beyond the frontend: (a) PDS / AppView /
   XRPC migration off `atproto.etzhayyim.com` (CF Worker + Hyperdrive +
-  RisingWave) onto kotoba (ADR-2605262130, in progress); (b) PDS **CORS** to
+  Kotoba/Datomic) onto kotoba (ADR-2605262130, in progress); (b) PDS **CORS** to
   allow the IPFS origin; (c) DNS move or `ipfs://`/IPNS; (d) bots-only
   SEO/OGP/sitemap renderer or prerender-in-CID. Until then the realistic state
   is **IPFS frontend + CF/kotoba backend** (a hybrid).

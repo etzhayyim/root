@@ -3,7 +3,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: medical-facility-raw-archiver
-  namespace: risingwave
+  namespace: mitama-udf
   labels:
     app.kubernetes.io/name: medical-facility-raw-archiver
     app.kubernetes.io/component: source-archiver
@@ -11,7 +11,7 @@ metadata:
 spec:
   schedule: "*/5 * * * *"
   timeZone: "Etc/UTC"
-  # 2026-04-30: hold during RisingWave no-license recovery. The raw B2 archiver
+  # 2026-04-30: hold during Kotoba/Datomic no-license recovery. The raw B2 archiver
   # runs every 5 minutes and was correlated with B2 SlowDown bursts while RW
   # compute had a cold disk cache.
   suspend: true

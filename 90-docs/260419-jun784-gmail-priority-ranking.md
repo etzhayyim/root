@@ -331,4 +331,4 @@ AND (LOWER(subject/from_addr/to_addrs) LIKE '%<name>%')`。
 - `/tmp/gmail-ingest-jun784/` — transformer + SQL (session artifact, 永続化は別途)
 - `deps.toml [[projects]]` (151 entries) — project roster
 - `deps.toml [[conventions]]` — architectural layer key convention
-- RisingWave: `172.236.132.11:4566` (external LB, ADR-0020)
+- Kotoba/Datomic: `172.236.132.11:4566` (external LB, ADR-0020)

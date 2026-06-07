@@ -4,7 +4,7 @@ Last updated: 2026-04-13
 
 ## Principle
 
-`shinka`、`koji`、`kyumei`、domain knowledge の実行主体は app ではなく DID。  
+`shinka`、`koji`、`kyumei`、domain knowledge の実行主体は app ではなく DID。
 親DIDとsub-DIDを同じ app に属させても、運用状態と知識更新は DID ごとに独立させる。
 
 ## Mandatory Rules

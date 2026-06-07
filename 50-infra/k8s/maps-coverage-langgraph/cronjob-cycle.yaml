@@ -3,7 +3,7 @@
 #
 # Replaces the bpmn-dispatcher curl ticker with an in-pod LangGraph StateGraph
 # that calls pymagatama.ingest.maps_collection primitives directly against
-# RisingWave. See 50-infra/k8s/maps-coverage-langgraph/README.md.
+# Kotoba/Datomic. See 50-infra/k8s/maps-coverage-langgraph/README.md.
 #
 # Graph (Pregel super-step):
 #   START -> advance -> (Send fan-out per picked job) -> aggregate -> refresh -> END

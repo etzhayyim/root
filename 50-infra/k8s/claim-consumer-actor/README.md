@@ -6,7 +6,7 @@ Cloudflare Workers.
 ## Tasks
 
 - `claim.unchallenged.sweep`
-  - scans expired pending claims without challenges from RisingWave
+  - scans expired pending claims without challenges from Kotoba/Datomic
   - re-scores expired claims with Murakumo
   - persists witness alarms to `vertex_yoro_monitor_attestation`
   - submits the unchallenged claim batch to authz via HMAC

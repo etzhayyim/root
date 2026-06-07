@@ -7,7 +7,7 @@ topic: magatama-organizer
 authoritative: true
 last_verified: 2026-04-20
 related:
-  - adr-0034-agent-cron-goose-risingwave-direct
+  - adr-0034-agent-cron-goose-kotoba-direct
 supersedes: []
 superseded_by: []
 ---
@@ -18,14 +18,14 @@ superseded_by: []
 |---|---|
 | Status | **Accepted** (implemented 2026-04-20) |
 | Supersedes | — |
-| Extends | ADR-0034 (agent-cron-goose-risingwave-direct) |
+| Extends | ADR-0034 (agent-cron-goose-kotoba-direct) |
 | Authors | jun + Claude Opus 4.7 |
-| Depends on | murakumo v4.1.0 (LiteLLM gateway), goose cron wrapper, RisingWave |
+| Depends on | murakumo v4.1.0 (LiteLLM gateway), goose cron wrapper, Kotoba/Datomic |
 
 ## Context
 
 The magatama platform (`magatama.etzhayyim.com`) surfaces goose agent activity from
-the Mac mini fleet. ADR-0034 wired goose runs into RisingWave via the
+the Mac mini fleet. ADR-0034 wired goose runs into Kotoba/Datomic via the
 `vertex_repo_commit` table with a deterministic cron wrapper. This left one
 question open: **how should the platform pace itself as more agents and
 recipes come online**?
@@ -280,7 +280,7 @@ No human intervention is required to reach steady state.
 
 ## References
 
-- ADR-0034 — agent-cron-goose-risingwave-direct
+- ADR-0034 — agent-cron-goose-kotoba-direct
 - `50-infra/cloudflare/workers/magatama/src/worker.ts` — implementation
 - `60-apps/etzhayyim-project-magatama/CLAUDE.md` — operator runbook
 - `60-apps/etzhayyim-project-murakumo/ansible/roles/goose/templates/goose-cron-wrapper.sh.j2` — wrapper source of truth

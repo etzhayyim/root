@@ -89,7 +89,7 @@ e-mokuteki.com の投資関連定款594件を調査した結果、この修飾�
 | `05-yoyo-legal-references.md` | 法令根拠・用例集（8ソース） |
 | `06-teams-message-draft.md` | 取締役会Teams通知記録（送信済 2026-05-11） |
 
-### RisingWave トラッキング
+### Kotoba/Datomic トラッキング
 
 ```sql
 -- メインレコード

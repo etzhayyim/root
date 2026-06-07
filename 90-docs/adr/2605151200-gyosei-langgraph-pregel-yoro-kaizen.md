@@ -29,7 +29,7 @@ The existing infrastructure relied on static BPMN task definitions (`xrpc.com.et
 1. **Fractal Pregel Orchestrator (`gov-fractal-pregel`)**
    - Implemented a Map-Reduce and Iterative BFS architecture using LangGraph's Send API.
    - Replaced legacy BPMN tasks with a unified `generic.langgraph.run` dispatcher targeting the LangGraph server.
-   - Allows dynamic, recursive discovery of sub-agencies and dependencies mapped back to RisingWave (`vertex_gov_org`, `govOrgSiteDep`).
+   - Allows dynamic, recursive discovery of sub-agencies and dependencies mapped back to Kotoba/Datomic (`vertex_gov_org`, `govOrgSiteDep`).
 
 2. **Conversational Intake & Internal Processing (`gyosei-procedure-pregel`)**
    - **Yoro Integration**: Designed an intake agent (`gyosei-intake-agent`) to process user messages/mentions from the `yoro.etzhayyim.com` social feed, identify intents, and draft procedures (`com.etzhayyim.apps.gyosei.startProcedure`, `submitDraft`).
@@ -51,8 +51,8 @@ The existing infrastructure relied on static BPMN task definitions (`xrpc.com.et
    - `20-actors/magatama/py/Dockerfile.lg` created as the canonical lightweight build target for both `ghcr.io/etzhayyim/lg-gov:latest` and `ghcr.io/etzhayyim/lg-gyosei:latest` (python:3.11-slim-bookworm, libpq5, uv install, uv stripped post-install).
    - `langgraph_server_app.py` `/health` alias added (stacked above `/healthz`) to satisfy Helm liveness/readiness probes which target `/health`.
    - `lg-gov-raw` and `lg-gyosei-raw` Helm deployments unparked: `replicas: 0 → 1`, `state: parked` label removed from helmfile.yaml.
-   - **Operator steps pending**: `docker buildx build --builder etzhayyim-vke` for both images → `helmfile sync -l pool=gov` → `helmfile sync -l pool=gyosei` → `alembic upgrade head` against prod RisingWave.
+   - **Operator steps pending**: `docker buildx build --builder etzhayyim-vke` for both images → `helmfile sync -l pool=gov` → `helmfile sync -l pool=gyosei` → `alembic upgrade head` against prod Kotoba/Datomic.
 
 ## Consequences
 - **Positive:** Massive reduction in BPMN boilerplate (840 files updated). Seamless end-to-end integration from policy discovery to citizen social interaction to procedure execution. Autonomous self-healing schemas reduce maintenance overhead.
-- **Negative/Risk:** High reliance on the LangGraph Checkpointer (`rw_vertex` mode) in RisingWave for state persistence across thousands of parallel procedure threads. Requires careful monitoring of K8s cluster resources.
+- **Negative/Risk:** High reliance on the LangGraph Checkpointer (`rw_vertex` mode) in Kotoba/Datomic for state persistence across thousands of parallel procedure threads. Requires careful monitoring of K8s cluster resources.

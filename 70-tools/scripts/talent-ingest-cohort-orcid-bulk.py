@@ -29,7 +29,7 @@ import argparse, json, os, re, sys, tarfile, time
 from collections import defaultdict
 from datetime import datetime, timezone
 
-RW_CONN   = os.environ.get("RW_CONN", "postgresql://root@127.0.0.1:14566/dev?sslmode=disable")
+KOTOBA_URL   = os.environ.get("KOTOBA_URL", "postgresql://root@127.0.0.1:14566/dev?sslmode=disable")
 DEFAULT_INPUT = "/Volumes/251220/orcid-2024/ORCID_2024_10_summaries.tar.gz"
 TALENT_DID = "did:web:talent.etzhayyim.com"
 SOURCE     = "orcid-bulk"
@@ -145,7 +145,7 @@ def insert_rows(rows, dry_run):
     if dry_run or not rows:
         return
     import psycopg2
-    conn = psycopg2.connect(RW_CONN)
+    conn = psycopg2.connect(KOTOBA_URL)
     cur  = conn.cursor()
     cols = ("vertex_id","rkey","repo","label","source","source_license","source_homepage",
             "isco_code","country","sex","time_period","size_thousands","unit","ingested_at")

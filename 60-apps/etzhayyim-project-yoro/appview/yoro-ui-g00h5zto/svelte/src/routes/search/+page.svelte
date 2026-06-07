@@ -24,7 +24,7 @@
 	// decommissioned (its etzhayyim-appview binding was force-deleted) — do NOT
 	// route reads there. app.bsky.actor.searchActors is aliased to
 	// com.etzhayyim.yoro.actor.searchActors by the apex Worker.
-	const BSKY_XRPC_BASE = '/xrpc';
+	const BSKY_XRPC_BASE = 'https://etzhayyim.com/xrpc';
 
 	let { data } = $props();
 

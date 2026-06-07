@@ -12,13 +12,13 @@ The current live graph already has the schema for `vertex_latent_entity`, `verte
 
 ## Entity Model
 
-| Layer | Meaning | RisingWave | Search |
+| Layer | Meaning | Kotoba/Datomic | Search |
 |---|---|---:|---:|---|
 | Cohort | Anonymous population bucket or aggregate | yes | only explicit public cohort actors |
 | Latent entity | Probable individual or unobservable entity | frontier only | no |
 | Individual actor | Fissioned DID/handle/key actor | yes | yes, if public |
 
-All-human latent entity scale can be tens of billions. The logical graph treats each latent entity as a vertex. Materialization into RisingWave must be cursor-based, resumable, and rate-limited; it must not run as a single unbounded bulk insert.
+All-human latent entity scale can be tens of billions. The logical graph treats each latent entity as a vertex. Materialization into Kotoba/Datomic must be cursor-based, resumable, and rate-limited; it must not run as a single unbounded bulk insert.
 
 ## Path Contract
 
@@ -158,7 +158,7 @@ inference updater
   evidence_count, existence_probability, viewpoint_consensus, posterior
 
 hot projector
-  upsert only frontier/fission-candidate rows to RisingWave
+  upsert only frontier/fission-candidate rows to Kotoba/Datomic
 ```
 
 ### LangGraph Service
@@ -192,7 +192,7 @@ LangGraph must not iterate the full all-human universe. It consumes a frontier q
 
 ## Storage Plan
 
-RisingWave:
+Kotoba/Datomic:
 
 ```text
 vertex_cohort_actor
@@ -225,7 +225,7 @@ status, sensitivity_ord, created_at, model_version
 
 ## Operational Guardrails
 
-- No unbounded full all-human latent entity load into RisingWave; use resumable cursors and bounded batches.
+- No unbounded full all-human latent entity load into Kotoba/Datomic; use resumable cursors and bounded batches.
 - No `NULL` classification treated as public.
 - No individual actor fission without cohort lineage.
 - No fission on LLM-only evidence; require independent graph posterior.

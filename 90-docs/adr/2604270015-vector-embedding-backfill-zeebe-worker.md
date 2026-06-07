@@ -11,10 +11,10 @@ authoritative_for:
   - bluesky-post-embedding-backfill
   - vector-embedding-zeebe-worker-contract
 related:
-  - adr-2604262359-risingwave-multimodal-vector-search-topology
+  - adr-2604262359-kotoba-multimodal-vector-search-topology
   - adr-0074-ethereum-identity-bridge-cacao-webauthn
   - adr-2604262100-erc725-erc8004-k8s-ipfs-agent-runtime
-  - adr-2604261900-risingwave-ddl-backfill-path-topology
+  - adr-2604261900-kotoba-ddl-backfill-path-topology
   - adr-2604262000-edge-thin-app-runtime-k8s-zeebe-registry
 supersedes: []
 superseded_by: []
@@ -22,7 +22,7 @@ superseded_by: []
 
 # Context
 
-`etzhayyim-project-vector-embedding` now has the RisingWave schema for Phase 1
+`etzhayyim-project-vector-embedding` now has the Kotoba/Datomic schema for Phase 1
 768-dimensional search embeddings:
 
 - `vertex_vector_embedding_source`
@@ -38,7 +38,7 @@ video, audio, and sensor adapters are introduced.
 # Decision
 
 Actor/profile and post embedding backfill is a Zeebe-orchestrated Python worker
-path, not a direct CronJob-to-RisingWave loop.
+path, not a direct CronJob-to-Kotoba/Datomic loop.
 
 The initial task contract is:
 
@@ -150,7 +150,7 @@ Verified on 2026-04-27:
 
 # Alternatives Considered
 
-- Direct SQL/UDF embedding in RisingWave. Rejected for corpus backfill because
+- Direct SQL/UDF embedding in Kotoba/Datomic. Rejected for corpus backfill because
   model inference and API calls should not run inside query execution.
 - One large Python script that scans all actors/posts. Rejected because retry,
   cursor state, and RW health gating belong in Zeebe.
@@ -161,4 +161,4 @@ Verified on 2026-04-27:
 
 - `60-apps/etzhayyim-project-vector-embedding/README.md`
 - `20-actors/magatama/py/src/pymagatama/primitives/vector_embedding.py`
-- RisingWave vector indexes: https://docs.risingwave.com/processing/vector-indexes
+- Kotoba/Datomic vector indexes: https://docs.kotoba.com/processing/vector-indexes

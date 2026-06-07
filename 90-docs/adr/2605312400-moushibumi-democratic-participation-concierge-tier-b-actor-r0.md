@@ -72,7 +72,7 @@ only**, never campaigning, endorsement, or vote solicitation.
 
 Create **申文 moushibumi** as a Tier-B actor at
 `did:web:moushibumi.etzhayyim.com` (`20-actors/moushibumi/`), kotoba-EAVT-native
-(ADR-2605262130; no RisingWave), Murakumo-only inference (ADR-2605215000),
+(ADR-2605262130; no Kotoba/Datomic), Murakumo-only inference (ADR-2605215000),
 atproto/MST-native for member-facing channels. It mirrors the toritsugi pattern
 (coded target registry + member-self-submission default + gated 代行).
 
@@ -195,7 +195,7 @@ a consenting member) · `participationSession` (member-facing guide session) ·
 - **`com.etzhayyim.encrypted.*` (ADR-2605181100)**: the only home for member PII
   + political-opinion content.
 - **kotoba EAVT (ADR-2605262130)**: target catalog + session/draft/submission
-  lifecycle datoms; no RisingWave.
+  lifecycle datoms; no Kotoba/Datomic.
 
 ## §8 Roadmap
 

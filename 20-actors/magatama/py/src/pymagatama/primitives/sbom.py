@@ -18,6 +18,7 @@ are nullable and only filled when present.
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import json
 import time
@@ -27,7 +28,6 @@ import urllib.request
 from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
 
 _APP_DID = "did:web:sb0m001x.etzhayyim.com"
 
@@ -220,10 +220,11 @@ async def task_sbom_register_artifact(**job_vars: Any) -> dict[str, Any]:
         )
 
     persisted_components = 0
-    with sync_cursor() as cur:
-        cur.execute(_INSERT_ARTIFACT, artifact_row)
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(_INSERT_ARTIFACT, artifact_row)
         if component_rows:
-            cur.executemany(_INSERT_COMPONENT, component_rows)
+            _res = client.q(_INSERT_COMPONENT, component_rows)
             persisted_components = len(component_rows)
 
     return {
@@ -287,9 +288,11 @@ async def task_sbom_run_vuln_match(**job_vars: Any) -> dict[str, Any]:
     severity_counts = {"critical": 0, "high": 0, "medium": 0, "low": 0, "unknown": 0}
     rows: list[tuple[Any, ...]] = []
 
-    with sync_cursor() as cur:
+    if True:
+
+        client = get_kotoba_client()
         # Pull this artifact's components.
-        cur.execute(
+        _res = client.q(
             """
             SELECT bom_ref, purl, cpe
               FROM vertex_sbom_component
@@ -297,7 +300,7 @@ async def task_sbom_run_vuln_match(**job_vars: Any) -> dict[str, Any]:
             """,
             (artifact_uri,),
         )
-        components = cur.fetchall()
+        components = _res
         if not components:
             return {
                 "ok": True,
@@ -316,7 +319,7 @@ async def task_sbom_run_vuln_match(**job_vars: Any) -> dict[str, Any]:
             bom_ref, purl, cpe = (c[0] or "", c[1] or "", c[2] or "")
             if not (purl or cpe):
                 continue
-            cur.execute(
+            _res = client.q(
                 """
                 SELECT cve_id, severity, cvss_score, source
                   FROM vertex_cve_entry
@@ -327,7 +330,7 @@ async def task_sbom_run_vuln_match(**job_vars: Any) -> dict[str, Any]:
                 """,
                 (purl, purl, cpe, cpe),
             )
-            for cve_row in cur.fetchall():
+            for cve_row in _res:
                 cve_id, sev, score, _src = (cve_row[0], cve_row[1] or "unknown",
                                             cve_row[2], cve_row[3] or "unknown")
                 via = "purl" if (purl and purl) else "cpe"
@@ -345,7 +348,7 @@ async def task_sbom_run_vuln_match(**job_vars: Any) -> dict[str, Any]:
                 severity_counts[bucket] += 1
 
         if rows:
-            cur.executemany(_INSERT_VULN_MATCH, rows)
+            _res = client.q(_INSERT_VULN_MATCH, rows)
 
     return {
         "ok": True,
@@ -381,8 +384,9 @@ async def task_sbom_recall(**job_vars: Any) -> dict[str, Any]:
 
     matches: list[dict[str, Any]] = []
     total = 0
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             """
             SELECT a.vertex_id, a.kind, a.vehicle_id, a.vehicle_revision,
                    a.source_uri, a.registered_at,
@@ -400,7 +404,7 @@ async def task_sbom_recall(**job_vars: Any) -> dict[str, Any]:
             """,
             (supplier, mpn, mpn, kind, kind, limit, offset),
         )
-        for row in cur.fetchall():
+        for row in _res:
             matches.append(
                 {
                     "artifactUri": row[0],
@@ -418,7 +422,7 @@ async def task_sbom_recall(**job_vars: Any) -> dict[str, Any]:
                 }
             )
 
-        cur.execute(
+        _res = client.q(
             """
             SELECT COUNT(*) FROM vertex_sbom_component c
               JOIN vertex_sbom_artifact a ON c.artifact_uri = a.artifact_uri
@@ -428,7 +432,7 @@ async def task_sbom_recall(**job_vars: Any) -> dict[str, Any]:
             """,
             (supplier, mpn, mpn, kind, kind),
         )
-        row = cur.fetchone()
+        row = (_res[0] if _res else None)
         total = int(row[0] if row and row[0] is not None else 0)
 
     return {
@@ -642,8 +646,9 @@ async def task_sbom_cve_ingest_osv(**job_vars: Any) -> dict[str, Any]:
         time.sleep(0.05)
 
     if rows:
-        with sync_cursor() as cur:
-            cur.executemany(_INSERT_CVE_ENTRY, rows)
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(_INSERT_CVE_ENTRY, rows)
 
     return {
         "ok": True,

@@ -37,7 +37,7 @@ maps-osm-ingest \
 |---|---|---|
 | `PBF_URL` | — | Mutually exclusive with `PBF_PATH` |
 | `PBF_PATH` | — | Local path |
-| `RISINGWAVE_URL` | — | Postgres URL (:4566) |
+| `KOTOBA_URL` | — | Postgres URL (:4566) |
 | `SOURCE_DID` | `did:web:maps.etzhayyim.com:planet` | |
 | `OWNER_DID` | = `SOURCE_DID` | |
 | `BATCH_SIZE` | 100000 | Rows per writer flush |

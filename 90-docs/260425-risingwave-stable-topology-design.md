@@ -1,39 +1,39 @@
-# 260425 RisingWave stable topology design
+# 260425 Kotoba/Datomic stable topology design
 
 Status: active
 
-ADR: `90-docs/adr/0094-risingwave-stable-three-node-topology.md`
-Infra SSoT: `50-infra/vultr/risingwave/deps.toml`
-Scaling contract: `50-infra/vultr/risingwave/scaling-contract.yaml`
+ADR: `90-docs/adr/0094-kotoba-stable-three-node-topology.md`
+Infra SSoT: `50-infra/vultr/kotoba/deps.toml`
+Scaling contract: `50-infra/vultr/kotoba/scaling-contract.yaml`
 
-Context: 2026-04-25 RW hang investigation found `FLUSH` and DML blocked by cluster recovery after Hummock failed to sync state to the B2/S3-compatible object store (`SlowDown`, `write part timeout`). A transient `risingwave-compute-1` Pending state also showed the current HPA/node-pool contract was underspecified.
+Context: 2026-04-25 RW hang investigation found `FLUSH` and DML blocked by cluster recovery after Hummock failed to sync state to the B2/S3-compatible object store (`SlowDown`, `write part timeout`). A transient `kotoba-compute-1` Pending state also showed the current HPA/node-pool contract was underspecified.
 
 ## Official constraints
 
-- RisingWave stores tables, materialized views, and streaming state in Hummock on object storage; compute nodes cache hot data locally, but durable state lives in object storage. Source: <https://docs.risingwave.com/store/overview>.
-- Kubernetes scale-out adds streaming nodes first, then RisingWave adaptive parallelism can use added CPU across nodes. Source: <https://docs.risingwave.com/deploy/k8s-cluster-scaling>.
-- RisingWave performance guidance generally prefers scaling up Compute Nodes
+- Kotoba/Datomic stores tables, materialized views, and streaming state in Hummock on object storage; compute nodes cache hot data locally, but durable state lives in object storage. Source: <https://docs.kotoba.com/store/overview>.
+- Kubernetes scale-out adds streaming nodes first, then Kotoba/Datomic adaptive parallelism can use added CPU across nodes. Source: <https://docs.kotoba.com/deploy/k8s-cluster-scaling>.
+- Kotoba/Datomic performance guidance generally prefers scaling up Compute Nodes
   before scaling them out, because more machines add network overhead and
-  resource fragmentation. Source: <https://docs.risingwave.com/performance/performance-best-practices>.
-- For clusters with many streaming jobs, RisingWave recommends bounding
+  resource fragmentation. Source: <https://docs.kotoba.com/performance/performance-best-practices>.
+- For clusters with many streaming jobs, Kotoba/Datomic recommends bounding
   parallelism and limiting streaming-job concurrency instead of letting all jobs
-  consume all available CPU. Source: <https://docs.risingwave.com/operate/manage-a-large-number-of-streaming-jobs>.
+  consume all available CPU. Source: <https://docs.kotoba.com/operate/manage-a-large-number-of-streaming-jobs>.
 - Production clusters should separate serving/batch work from streaming work;
   Helm supports this with `frontendComponent.embeddedServing: true`. Source:
-  <https://docs.risingwave.com/operate/dedicated-compute-node>.
-- Scale-in has recovery cost; the docs explicitly call out a delay to avoid heavy recovery from transient failures. Source: <https://docs.risingwave.com/deploy/k8s-cluster-scaling>.
-- Node-specific config is the supported way to mount `risingwave.toml`/component TOML in Kubernetes, with restart required for changes. Source: <https://docs.risingwave.com/deploy/node-specific-configurations>.
-- Elastic disk cache is the official mitigation for object-store-rate-limited environments: it reduces S3 access, speeds failure recovery, and smooths scaling. Source: <https://docs.risingwave.com/get-started/disk-cache>.
-- System catalogs expose `rw_recovery_info`, Hummock current/checkpoint version, compaction progress, and streaming parallelism for health gates. Source: <https://docs.risingwave.com/sql/system-catalogs/rw-catalog>.
+  <https://docs.kotoba.com/operate/dedicated-compute-node>.
+- Scale-in has recovery cost; the docs explicitly call out a delay to avoid heavy recovery from transient failures. Source: <https://docs.kotoba.com/deploy/k8s-cluster-scaling>.
+- Node-specific config is the supported way to mount `kotoba.toml`/component TOML in Kubernetes, with restart required for changes. Source: <https://docs.kotoba.com/deploy/node-specific-configurations>.
+- Elastic disk cache is the official mitigation for object-store-rate-limited environments: it reduces S3 access, speeds failure recovery, and smooths scaling. Source: <https://docs.kotoba.com/get-started/disk-cache>.
+- System catalogs expose `rw_recovery_info`, Hummock current/checkpoint version, compaction progress, and streaming parallelism for health gates. Source: <https://docs.kotoba.com/sql/system-catalogs/rw-catalog>.
 
 ## Current live facts
 
 - `rw_recovery_info`: `dev` and `pds_poc2` are `RUNNING`.
-- HPA scaled `risingwave-compute` back to 2 replicas; both compute pods are now `Running` on separate 32Gi nodes.
+- HPA scaled `kotoba-compute` back to 2 replicas; both compute pods are now `Running` on separate 32Gi nodes.
 - Node pool currently has 3 ready nodes.
 - `rw_streaming_parallelism` showed 2,383 streaming relations across tables, indexes, and MVs, with a large mix of `ADAPTIVE` and `FIXED(2)`.
 - `rw_hummock_compact_task_progress` had no active tasks at the sampled moment.
-- Foyer disk cache config is present in the live `risingwave-configuration` ConfigMap.
+- Foyer disk cache config is present in the live `kotoba-configuration` ConfigMap.
 - Cache storage has been moved out of restart-scoped `emptyDir`; this design now
   assumes persistent cache storage so compute restart does not force a full
   object-store refill.
@@ -44,8 +44,8 @@ Run one production RW cluster as a 3-node minimum topology:
 
 | Node role | Pods | Reason |
 | --- | --- | --- |
-| `rw-stream-a` | `risingwave-compute-0` | Streaming compute and warm Hummock cache. |
-| `rw-stream-b` | `risingwave-compute-1` | Second streaming failure domain; keeps one-node restart from taking the whole graph cold. |
+| `rw-stream-a` | `kotoba-compute-0` | Streaming compute and warm Hummock cache. |
+| `rw-stream-b` | `kotoba-compute-1` | Second streaming failure domain; keeps one-node restart from taking the whole graph cold. |
 | `rw-control` | `meta`, `frontend`, `compactor`, `metastore` | Control plane, serving entrypoint, compaction, and metadata persistence isolated from compute memory pressure. |
 
 Node pool contract:
@@ -68,7 +68,7 @@ Node pool contract:
 
 ## Write-plane topology
 
-RisingWave should not be used as the synchronous control database for high-churn orchestration state.
+Kotoba/Datomic should not be used as the synchronous control database for high-churn orchestration state.
 
 - Zeebe remains the runtime orchestrator.
 - RW stores graph/projection state and eventually consistent ingest metadata.
@@ -107,16 +107,16 @@ Gate rules:
   `DML is not permitted during cluster recovery`, `write part timeout`,
   `NoSuchUpload`, `RateLimited`, or `SlowDown`.
 - Do not run manual `FLUSH` during incidents. Treat it as a diagnostic with a short timeout, not a normal commit primitive.
-- Treat `50-infra/vultr/risingwave/scaling-contract.yaml` as the declarative
+- Treat `50-infra/vultr/kotoba/scaling-contract.yaml` as the declarative
   contract for node-pool min/max, HPA min/max, cache refill, and degraded-mode
   behavior.
 
 ## Manifest changes made
 
-- `50-infra/vultr/risingwave/helm/values.yaml`
+- `50-infra/vultr/kotoba/helm/values.yaml`
   - `computeComponent.replicas: 2`
   - required anti-affinity for compute pods by hostname
-- `50-infra/vultr/risingwave/hpa-compute.yaml`
+- `50-infra/vultr/kotoba/hpa-compute.yaml`
   - `minReplicas: 2`
 
 ## Next implementation steps

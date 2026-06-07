@@ -1,12 +1,12 @@
-# RisingWave Schema-Aware RAG Evaluation
+# Kotoba/Datomic Schema-Aware RAG Evaluation
 
 Date: 2026-04-29
 
-Scope: dense retrieval + RisingWave GraphAr schema-aware RAG + SQL/tool verifier + agent loop.
+Scope: dense retrieval + Kotoba/Datomic GraphAr schema-aware RAG + SQL/tool verifier + agent loop.
 
 ## Current Catalog Baseline
 
-The live schema source is `30-graph/graph-schema/src/database.ts`, generated from RisingWave `information_schema`. The evaluator parses that file and builds a local schema catalog without scanning the 10TB+ Hummock/object-store data plane.
+The live schema source is `30-graph/graph-schema/src/database.ts`, generated from Kotoba/Datomic `information_schema`. The evaluator parses that file and builds a local schema catalog without scanning the 10TB+ Hummock/object-store data plane.
 
 Run:
 

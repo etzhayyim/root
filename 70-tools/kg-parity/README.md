@@ -10,7 +10,7 @@ public-data analogue of the sovereign migration's Step-7 "RW diff = 0".
 - Pure `diff_snapshots` core + the etzhayyim SQLite reader are unit-tested
   (`python test_kg_parity.py` → green, no network).
 - The **RW side and kotoba side are not runnable from a dev session**: the RW
-  side needs `RW_URL` reachability; the kotoba side needs a live kotoba-server
+  side needs `KOTOBA_URL` reachability; the kotoba side needs a live kotoba-server
   (gated on **G1**, kotoba datomic activation). Both are guarded and fail loudly.
 - **Operator runs this once G1 lands**, where RW (and optionally kotoba) is
   reachable.
@@ -18,15 +18,15 @@ public-data analogue of the sovereign migration's Step-7 "RW diff = 0".
 ## Run (operator)
 
 ```bash
-# etzhayyim side = local SQLite ingest store (ingest_kg_open.db), RW side = RW_URL
-RW_URL='postgres://user:pass@rw-host:4566/dev' \
+# etzhayyim side = local SQLite ingest store (ingest_kg_open.db), RW side = KOTOBA_URL
+KOTOBA_URL='http://127.0.0.1:8077' \ # EXAMPLE
 ORGANISM_SQLITE_DIR=/var/lib/etzhayyim/organism \
 python parity_check.py \
   --sources wikidata,crossref,openstreetmap \
   --out report.json
 
 # once G1 is live, read the etzhayyim side from kotoba datomic instead:
-RW_URL='…' KOTOBA_XRPC_URL='http://kotoba.kotoba.svc.cluster.local:8080' \
+KOTOBA_URL='…' KOTOBA_XRPC_URL='http://kotoba.kotoba.svc.cluster.local:8080' \
 python parity_check.py --etz-backend kotoba --sources wikidata,crossref,openstreetmap
 ```
 

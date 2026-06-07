@@ -9,7 +9,7 @@ last_verified: 2026-04-27
 related:
   - adr-0049-legal-corpus-global-ingest
   - adr-0056-bpmn-as-actor
-  - adr-0048-risingwave-vultr-b2-primary
+  - adr-0048-kotoba-vultr-b2-primary
 ---
 
 # legal-corpus.etzhayyim.com Deploy Runbook (Phase A)
@@ -327,5 +327,5 @@ DATABASE_URL=... pnpm db:migrate down
 
 - ADR-0049 (本 actor の設計 ADR)
 - ADR-0056 (BPMN-as-actor 規約)
-- ADR-0048 (RisingWave Vultr / B2 primary — 物理 storage)
+- ADR-0048 (Kotoba/Datomic Vultr / B2 primary — 物理 storage)
 - `60-apps/etzhayyim-project-legal-corpus/CLAUDE.md` (actor の運用 rule)

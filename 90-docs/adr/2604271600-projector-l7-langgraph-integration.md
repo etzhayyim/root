@@ -78,7 +78,7 @@ matching the canonical 8-layer Shannon-optimal topology
 | **L3 Dispatcher** | `pds-handlers-etzhayyim.ts handleSendProjectMessage` | XRPC accept, viewer DID resolution, `sdk.zeebe.publishMessage(name="com.etzhayyim.apps.projector.sendProjectMessage", correlationKey=convoId, variables)`. Returns 202 + convoId. **No reasoning, no tool dispatch.** |
 | **L7 Orchestration** | Zeebe (Vultr k8s) | XOR command routing, sub-process call activities, retry, OCEL audit emission, guardrail boundary events. |
 | **L7 pyzeebe** | `pymagatama.primitives.projector.*` | LangGraph StateGraph entries: ReAct (`projector.agent.loop`), ToT (`projector.tot.expand`), Self-Consistency (`projector.sc.parallel`), Reflexion R/W (`projector.reflexion.{load,write}`), MCP discovery (`projector.tools.discover`), persist (`projector.persist.message`), command parser (`projector.command.parse`). |
-| **L4 Registry** | RisingWave PG | `vertex_bpmn_process_def` × 4 + `vertex_bpmn_lexicon_binding` × 4 (this ADR's seed migration). `vertex_projector_reflection` for episodic memory. `vertex_repo_record` for projector replies (graph-visible to existing yoro UI fetch path). |
+| **L4 Registry** | Kotoba/Datomic PG | `vertex_bpmn_process_def` × 4 + `vertex_bpmn_lexicon_binding` × 4 (this ADR's seed migration). `vertex_projector_reflection` for episodic memory. `vertex_repo_record` for projector replies (graph-visible to existing yoro UI fetch path). |
 | **L8 Tool Pods** | (Phase 3 only) site.etzhayyim.com pod | `pm.web_research` HTTP fetch — not in Phase 1+2. |
 
 ### BPMN process graph

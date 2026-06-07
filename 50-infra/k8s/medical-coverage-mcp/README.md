@@ -3,15 +3,15 @@
 Cluster-local MCP control plane for the medical coverage ingester.
 
 The MCP server does not ingest PubMed or facility rows directly. It exposes
-short control-plane tools that read RisingWave coverage and operate the existing
+short control-plane tools that read Kotoba/Datomic coverage and operate the existing
 `medical-coverage-ingester` Kubernetes CronJob/Jobs.
 
 The runtime shape is:
 
 - ingest: Kubernetes CronJob running a Python batch container
 - MCP: Kubernetes Deployment running a Python HTTP JSON-RPC control plane
-- data plane: RisingWave tables/materialized views
-- not currently used: Zeebe workers or RisingWave Python external UDFs
+- data plane: Kotoba/Datomic tables/materialized views
+- not currently used: Zeebe workers or Kotoba/Datomic Python external UDFs
 
 ## Tools
 
@@ -27,13 +27,13 @@ The runtime shape is:
 
 ## Runtime
 
-Namespace: `risingwave`
+Namespace: `kotoba`
 
 Required Secret:
 
 ```bash
-kubectl -n risingwave create secret generic medical-coverage-mcp-secrets \
-  --from-literal=RW_DSN='host=risingwave.risingwave.svc.cluster.local port=4566 dbname=dev user=root'
+kubectl -n kotoba create secret generic medical-coverage-mcp-secrets \
+  --from-literal=KOTOBA_URL='http://127.0.0.1:8077'
 ```
 
 Optional Secret keys:

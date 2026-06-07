@@ -69,8 +69,8 @@ are resolved:
 
 - `akuma-probe/scope-egress-reconciler`: image/module missing
   `pymagatama.akuma.scope_egress_reconciler`.
-- `mitama-udf/domain-expansion-ticker`: RisingWave gap query timeout.
-- `mitama-udf/maps-coverage-ticker`: RisingWave batch connection resets in
+- `mitama-udf/domain-expansion-ticker`: Kotoba/Datomic gap query timeout.
+- `mitama-udf/maps-coverage-ticker`: Kotoba/Datomic batch connection resets in
   `advance_coverage`.
 - `mitama-udf/legal-entity-langserver-worker`: pinned legal-entity profile
   image does not include `pymagatama.worker_api`; the legal-entity surface is

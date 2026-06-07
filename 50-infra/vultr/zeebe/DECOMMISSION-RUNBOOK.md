@@ -127,7 +127,7 @@ Run the Spiff acceptance smoke again:
 ```bash
 kubectl -n mitama-udf port-forward svc/bpmn-engine-host 8080:80 &
 PF_PID=$!
-RW_DSN="$RW_DSN_VALUE" BPMN_ENGINE_URL=http://localhost:8080 \
+KOTOBA_URL="$KOTOBA_URL_VALUE" BPMN_ENGINE_URL=http://localhost:8080 \
   python3 50-infra/k8s/bpmn-engine-host/tests/smoke.py \
   --process-id lawfirm_intake_funnel \
   --concurrency 100 \

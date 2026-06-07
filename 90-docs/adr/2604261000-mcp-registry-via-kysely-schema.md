@@ -246,7 +246,7 @@ migration 完了時に注入)。`mcpFacade` (codegen) と併用された場合�
 ADR-2604261000 当初の想定は **N=200 actor** scale だった。1M+ actor 前提で
 再評価すると、CF Worker 500/account 制限、K8s pod-per-actor の cost
 ($20M/月)、DO per-actor の long-tail cold latency 等の制約から、**actor =
-RisingWave row、compute = shared FaaS via Zeebe ServiceTask** が Shannon η
+Kotoba/Datomic row、compute = shared FaaS via Zeebe ServiceTask** が Shannon η
 0.864 で頭一つ抜ける (G4 評価)。これは ADR-0056 BPMN-as-actor + ADR-2604250836
 LangGraph as Zeebe ServiceTask と完全に同じ思想。
 
@@ -386,7 +386,7 @@ apply-pending.sh 経由で 1 migration ずつ apply する経路は ADR-26042413
 
 初版 `sync-mcp-registry.py` は per-row `psycopg2.connect()` を 1,738 回
 開いた → barrier storm で cluster recovery 入り。修正: 単一接続 + 100-row
-chunk 多値 INSERT (`apply_batch`)。RisingWave の write pattern は
+chunk 多値 INSERT (`apply_batch`)。Kotoba/Datomic の write pattern は
 fewer-larger-batches を好む。
 
 # Alternatives Considered

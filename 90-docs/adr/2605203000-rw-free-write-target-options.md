@@ -35,7 +35,7 @@ superseded_by: []
 # Context
 
 [ADR-2605172000](./2605172000-etzhayyim-rw-free-substrate.md) requires
-etzhayyim/root apps to be **RW-free** — no RisingWave / no Hyperdrive /
+etzhayyim/root apps to be **RW-free** — no Kotoba/Datomic / no Hyperdrive /
 no centralized off-chain DB. Apps under `etzhayyim/root/60-apps/` MUST
 write via PDS XRPC (`@etzhayyim/sdk e.write()`) + IPFS for blobs +
 Base L2 anchor for tamper-evidence.

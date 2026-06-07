@@ -163,7 +163,7 @@ PDS + yoro + AppView の境界を **Worker = 1 layer = 1 namespace** の原則�
       │  table)    │            │            │            │            │            │
       ▼            ▼            ▼            ▼            ▼            ▼            ▼
 ┌──────────────────────────────────────────────────────────────────────────────────────┐
-│               RisingWave (graph DB) + HYPERDRIVE binding                             │
+│               Kotoba/Datomic (graph DB) + HYPERDRIVE binding                             │
 │  vertex_* / edge_* / mv_*_stats                                                      │
 │  Write side: PDS (com.atproto.*) + actor Workers (com.etzhayyim.apps.*) direct INSERT      │
 │  Read side:  AppView / Chat / Actor-Query / Coverage read-only SELECT                │
@@ -443,7 +443,7 @@ reminder.
 ### β2 lesson (2026-04-24, appview initial rollout)
 
 Budget two deploys for any new Worker whose XRPC handlers query
-RisingWave directly — the first deploy will almost always expose a
+Kotoba/Datomic directly — the first deploy will almost always expose a
 PG-vs-RW parse-incompatibility that has to be fixed before the
 topology is actually live.
 
@@ -531,7 +531,7 @@ grep for this pattern before declaring the Phase green.
 # Non-Goals
 
 - Worker 数の最小化 (Shannon 最小 η を追求しない — responsibility 分離優先)
-- RisingWave graph schema 変更 (別 ADR、別 topology)
+- Kotoba/Datomic graph schema 変更 (別 ADR、別 topology)
 - etzhayyim CLI の `atproto.etzhayyim.com` 以外への直結化 (client simplification 優先)
 - DPoP nonce の RS 側以外への拡大 (ADR-2604240914 が locus)
 - Actor Worker の public route 化 (internal のまま、PDS pipethrough 維持)

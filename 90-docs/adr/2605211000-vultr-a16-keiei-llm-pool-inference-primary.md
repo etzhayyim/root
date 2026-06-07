@@ -32,7 +32,7 @@ notes: |
 
 ADR-2605010000 placed LLM inference (text generation) on a RunPod RTX 6000 Ada pod co-located with ComfyUI. As of 2026-05-17, RTX 6000 Ada Secure is SUPPLY_CONSTRAINT across all RunPod DCs (US-WA-1, TX-3, GA-1, OR-1, CA-1, EU-SE-1, EU-NL-1). The pod has been DOWN since then.
 
-Simultaneously, the etzhayyim SJC VKE cluster (`etzhayyim-risingwave-sjc-gpu`, cluster ID `31d5f7dc-bd15-4059-b9ee-9ead33cfc068`) was extended with a GPU node pool (`gpu-pool-a16-16vram`, SKU `vcg-a16-6c-64g-16vram`: 6 vCPU / 64 GB RAM / NVIDIA A16-16Q 16 GB VRAM). This cluster already runs RisingWave, mitama-udf, and other workloads; the GPU node is co-located for cost efficiency.
+Simultaneously, the etzhayyim SJC VKE cluster (`etzhayyim-kotoba-sjc-gpu`, cluster ID `31d5f7dc-bd15-4059-b9ee-9ead33cfc068`) was extended with a GPU node pool (`gpu-pool-a16-16vram`, SKU `vcg-a16-6c-64g-16vram`: 6 vCPU / 64 GB RAM / NVIDIA A16-16Q 16 GB VRAM). This cluster already runs Kotoba/Datomic, mitama-udf, and other workloads; the GPU node is co-located for cost efficiency.
 
 The `keiei-llm-pool` Helm chart (`50-infra/vultr/keiei-llm-pool/`) was already present as a CPU-mode deployment (ADR-2605102100-keiei-llm-vultr-cpu-inference). Phase 2 of that chart (`gpu.enabled: true`) was activated 2026-05-21, deploying Gemma 4 E2B + E4B as a dual-container pod on the A16-16Q node via llama.cpp `server-cuda`.
 
@@ -42,7 +42,7 @@ The `keiei-llm-pool` Helm chart (`50-infra/vultr/keiei-llm-pool/`) was already p
 
 This is a permanent architectural decision, not a contingency workaround. Reasons:
 
-1. **Cost efficiency**: The A16-16Q node runs 24/7 as part of the existing VKE cluster that already serves RisingWave + mitama-udf; the marginal cost of running llama.cpp on a pre-provisioned node is lower than a dedicated RunPod pod at $0.77/hr always-on.
+1. **Cost efficiency**: The A16-16Q node runs 24/7 as part of the existing VKE cluster that already serves Kotoba/Datomic + mitama-udf; the marginal cost of running llama.cpp on a pre-provisioned node is lower than a dedicated RunPod pod at $0.77/hr always-on.
 2. **Latency**: In-cluster inference eliminates the public internet hop from zeebe-worker pods to `*.proxy.runpod.net`. Observed throughput on E4B Q4_K_M: **32.9 tokens/sec**.
 3. **Operational simplicity**: No pod ID rotation, no browser UA workaround, no RunPod proxy dependency, no bearer secret duplication across RunPod + Vultr credentials.
 4. **Separation of concerns**: RunPod specialized GPU (48 GB VRAM) fits ComfyUI SDXL + WAN; A16-16Q (16 GB) fits Gemma 4 E4B Q4_K_M (~5 GiB) + E2B Q4_K_M (~3 GiB) with no VRAM pressure.
@@ -50,7 +50,7 @@ This is a permanent architectural decision, not a contingency workaround. Reason
 ## Deployed topology
 
 ```
-etzhayyim-risingwave-sjc-gpu (VKE, SJC)
+etzhayyim-kotoba-sjc-gpu (VKE, SJC)
 └─ namespace: keiei-llm
    ├─ Pod: keiei-llm-gpu  (app=keiei-llm-gpu)
    │   Node: vcg-a16-6c-64g-16vram (gpu-pool-a16-16vram)
@@ -92,7 +92,7 @@ Values SSoT: `50-infra/vultr/keiei-llm-pool/values.yaml`
 
 ```bash
 # Deploy / upgrade
-KUBECONFIG=~/.kube/etzhayyim-risingwave-sjc-gpu \
+KUBECONFIG=~/.kube/etzhayyim-kotoba-sjc-gpu \
   helm upgrade --install keiei-llm-pool ./50-infra/vultr/keiei-llm-pool \
     -n keiei-llm --create-namespace
 
@@ -127,7 +127,7 @@ keiei daemon (pymagatama.keiei)
 **Required one-time operator step** (cross-namespace secret copy):
 
 ```bash
-BEARER=$(kubectl --kubeconfig ~/.kube/etzhayyim-risingwave-sjc-gpu \
+BEARER=$(kubectl --kubeconfig ~/.kube/etzhayyim-kotoba-sjc-gpu \
   get secret keiei-llm-auth -n keiei-llm -o jsonpath='{.data.bearer}' | base64 -d)
 kubectl create secret generic keiei-llm-bearer -n mitama-udf \
   --from-literal=bearer="$BEARER" --dry-run=client -o yaml | kubectl apply -f -
@@ -172,11 +172,11 @@ RunPod (ADR-2605010000) serves **ComfyUI image generation only** once Secure sup
 
 | Component | Notes |
 |---|---|
-| A16-16Q node pool | Part of `etzhayyim-risingwave-sjc-gpu` VKE; marginal cost vs. already-provisioned node |
+| A16-16Q node pool | Part of `etzhayyim-kotoba-sjc-gpu` VKE; marginal cost vs. already-provisioned node |
 | RunPod Volume `om0lfbfmvg` (250 GB, US-WA-1) | $17.50/mo — retained for ComfyUI model weights |
 | RunPod pod | $0/hr (no active pod; Secure SUPPLY_CONSTRAINT) |
 | **LLM inference cost delta** | **$0 additional** vs. RunPod path at $554/mo → **$554/mo saving** while pod is absent |
 
 # Critical conventions (added)
 
-`vultr-a16-keiei-llm-in-cluster` (deps.toml [[conventions]]): All K8s workloads in the `etzhayyim-risingwave-sjc-gpu` cluster MUST reach LLM via `http://keiei-litellm.keiei-llm.svc.cluster.local:4000`. Public hostname (`gemma.etzhayyim.com` via CF Tunnel) is for operator access only, not for pod-to-pod calls. Cross-namespace callers MUST copy the bearer secret locally (see operator step above).
+`vultr-a16-keiei-llm-in-cluster` (deps.toml [[conventions]]): All K8s workloads in the `etzhayyim-kotoba-sjc-gpu` cluster MUST reach LLM via `http://keiei-litellm.keiei-llm.svc.cluster.local:4000`. Public hostname (`gemma.etzhayyim.com` via CF Tunnel) is for operator access only, not for pod-to-pod calls. Cross-namespace callers MUST copy the bearer secret locally (see operator step above).

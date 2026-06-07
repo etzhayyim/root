@@ -11,10 +11,10 @@ axis: architecture
 weight: 0.80
 priority_note: "Defines the hard architectural boundary that justifies the etzhayyim/etzhayyim org split. Without this constraint, the split is just license labeling. With it, etzhayyim is genuinely decentralized and verifiable from outside any single operator."
 authoritative_for:
-  - hard rule: open religious-corp apps MUST NOT depend on RisingWave or any centralized DB
+  - hard rule: open religious-corp apps MUST NOT depend on Kotoba/Datomic or any centralized DB
   - primary substrate: AT Protocol MST + IPFS + Base L2
   - SDK pattern: PDS write + IPFS pin + L2 batch anchor as one operation
-  - per-app-pattern migration guide off RisingWave
+  - per-app-pattern migration guide off Kotoba/Datomic
 depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
@@ -33,7 +33,7 @@ superseded_by: []
 
 ADR-2605152100 split the GitHub org along principal/upstream lines (etzhayyim = open religious-corp activities; upstream business stays elsewhere). The criterion was originally "open vs proprietary" — a license/branding distinction.
 
-That criterion is **too soft**. An "open" app that internally requires a centralized RisingWave cluster (operated by one party, behind one set of credentials) is structurally indistinguishable from a proprietary app — the only difference is the README license header. External contributors, peer cells, and auditors still have to trust the RW operator to honor the open framing.
+That criterion is **too soft**. An "open" app that internally requires a centralized Kotoba/Datomic cluster (operated by one party, behind one set of credentials) is structurally indistinguishable from a proprietary app — the only difference is the README license header. External contributors, peer cells, and auditors still have to trust the RW operator to honor the open framing.
 
 A stronger criterion: **etzhayyim/root apps MUST be verifiable and operable without depending on any centralized off-chain database**. They run on AT Protocol MST + IPFS + Base L2 as the primary substrate. The same data, the same compute, the same verification are reachable from any client with internet access, no privileged operator credentials.
 
@@ -43,7 +43,7 @@ ADR-2605171800 already established the LangGraph Pregel → PostgresSaver → MS
 
 # Decision
 
-**Hard rule**: every app under `etzhayyim/root/60-apps/` and every actor under `etzhayyim/root/20-actors/` (excluding the SDK itself) MUST NOT depend on RisingWave, Postgres, or any other centralized off-chain database for durable state.
+**Hard rule**: every app under `etzhayyim/root/60-apps/` and every actor under `etzhayyim/root/20-actors/` (excluding the SDK itself) MUST NOT depend on Kotoba/Datomic, Postgres, or any other centralized off-chain database for durable state.
 
 ## Primary substrate (5 layers)
 
@@ -156,7 +156,7 @@ The open app remains operational without the upstream backend — paid features 
 3. **Substrate infra** (parallel): `50-infra/{mst-projector, ipfs-pinner, l2-anchor-contract, anchor-cron}` per ADR-2605171800 Stages 3-5.
 4. **SDK v0.1.0 release**: based on reference impl learnings, freeze the API surface.
 5. **App migration sweep**: refactor remaining open-* / public-* / yoro / atproto / ameno one at a time. Each PR is one app.
-6. **Audit pass**: grep for any `risingwave`, `kysely`, `postgres`, `RW`, `vertex_`, `mv_` imports/refs in etzhayyim/root. CI hook to fail PR if any new ones land.
+6. **Audit pass**: grep for any `kotoba`, `kysely`, `postgres`, `RW`, `vertex_`, `mv_` imports/refs in etzhayyim/root. CI hook to fail PR if any new ones land.
 
 # Alternatives Considered
 

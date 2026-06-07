@@ -7,13 +7,13 @@ topic: vultr-a40-2node-consolidation
 authoritative: true
 last_verified: 2026-05-11
 authoritative_for:
-  - Vultr VKE node-pool topology after RisingWave + ComfyUI + keiei-llm consolidation
+  - Vultr VKE node-pool topology after Kotoba/Datomic + ComfyUI + keiei-llm consolidation
   - per-node placement of GPU consumers under 2-slice constraint (3 consumers / 2 GPUs)
   - dual-container GPU-sharing pattern for keiei-llm E2B+E4B
   - migration phases + rollback
 related:
-  - adr-0094-risingwave-stable-three-node-topology
-  - adr-0048-risingwave-vultr-b2-primary
+  - adr-0094-kotoba-stable-three-node-topology
+  - adr-0048-kotoba-vultr-b2-primary
   - adr-2604231328-animeka-bpmn-l40s-pipeline
   - adr-2605101200-ai-cxo-roles-lsp-resident
   - adr-2605102100-keiei-llm-vultr-cpu-inference
@@ -55,14 +55,14 @@ The Phase 1–5 plan in §7 + the chart code in `50-infra/vultr/keiei-llm-pool/`
 
 Replace the current split estate
 
-- 2 × `vhf-16c-58gb` (RisingWave + Mitama / cohort / langgraph + keiei-llm CPU)
+- 2 × `vhf-16c-58gb` (Kotoba/Datomic + Mitama / cohort / langgraph + keiei-llm CPU)
 - 1 × RunPod RTX 6000 Ada ($0.77/hr, 24×7) for ComfyUI
 
 with a single Vultr VKE node pool
 
 - **2 × `vcg-a40-8c-40g-16vram`** (each = 8 vCPU / 40 GiB RAM / NVIDIA A40 1/3 slice = 16 GB VRAM, $0.575/hr from Vultr UI 2026-05-11)
 
-co-locating RisingWave compute, ComfyUI SDXL inference, and the
+co-locating Kotoba/Datomic compute, ComfyUI SDXL inference, and the
 keiei-llm Phase-1 GPU pods on the same pool. The 3rd GPU consumer
 (keiei-llm has E2B + E4B = 2 models, plus ComfyUI = 3 total) is
 absorbed by **co-locating E2B + E4B as two containers in a single pod
@@ -151,11 +151,11 @@ operational surface and unlocks 24×7 ComfyUI + E4B GPU inference.
 2. **RW compute anti-affinity preserved.** The 2 RW compute pods MUST
    land on different nodes (existing
    `app.kubernetes.io/component=compute` hostname anti-affinity in
-   `50-infra/vultr/risingwave/values.yaml`). With this 2-node pool,
+   `50-infra/vultr/kotoba/values.yaml`). With this 2-node pool,
    anti-affinity is satisfied iff each compute pod claims its own
    node. Surviving 1-node failure operates in **single-compute-pod
    degraded mode** until the pool is restored to 2 nodes.
-3. **No RW DDL during the migration.** ADR-0094 RisingWave Smooth
+3. **No RW DDL during the migration.** ADR-0094 Kotoba/Datomic Smooth
    Scaling Gate. Heavy DDL / scale-down / bulk ingest forbidden
    between Phase 1 (RW restored on new pool) and Phase 5 (old pool
    drained). Pre-flight `rw-health-gate.sh` MUST report healthy at
@@ -263,7 +263,7 @@ Detailed step-by-step in
 Each phase has its own rollback (RUNBOOK §Rollback). Aggregate worst
 case: re-create the 2 × `vhf-16c-58gb` pool, restore RW from the most
 recent `rw-meta-backup` CronJob snapshot
-(`b2://etzhayyim-nats/.../risingwave/state/backup/{id}.snapshot`),
+(`b2://etzhayyim-nats/.../kotoba/state/backup/{id}.snapshot`),
 re-spin the RunPod `comfyui-etzhayyim-unified` pod from the existing
 template, point `comfyui.etzhayyim.com` Worker `UPSTREAM_URL` back to
 RunPod. Recovery window: ~45 min if hourly meta snapshot is current,
@@ -271,10 +271,10 @@ longer if Hummock SST replay is needed.
 
 ## 10. Cross-references
 
-- ADR-0094 — RisingWave smooth scaling gate
+- ADR-0094 — Kotoba/Datomic smooth scaling gate
 - ADR-0048 — RW Vultr + B2 cutover (storage layer unaffected)
 - ADR-2604231328 — RunPod ComfyUI (this ADR amends the §Why RunPod table)
 - ADR-2605102100 — keiei-llm CPU inference (this ADR completes its §6 Phase 4)
-- 50-infra/vultr/risingwave/scaling-contract.yaml — pre-flight gate
+- 50-infra/vultr/kotoba/scaling-contract.yaml — pre-flight gate
 - 50-infra/vultr/keiei-llm-pool/MIGRATION-RUNBOOK-A40-2NODE.md — operator playbook
 - 50-infra/vultr/keiei-llm-pool/values.yaml — `.Values.gpu.enabled` toggle

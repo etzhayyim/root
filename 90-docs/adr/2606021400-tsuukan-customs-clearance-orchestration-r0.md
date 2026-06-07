@@ -121,7 +121,7 @@ landed-cost to `okaimono.etzhayyim.com`.
 
 **Substrate binding (constitutional).** Canonical state = **kotoba Datom log (EAVT
 Datalog)** only. Declaration / duty / release / dispute / tariff-schedule-version records
-are Datoms; reads via `kotoba-kqe` arrangements. **No RisingWave / Postgres / Kysely /
+are Datoms; reads via `kotoba-kqe` arrangements. **No Kotoba/Datomic / Postgres / Kysely /
 SQLite / DuckDB / Lance** as canonical or cache. Any agentic reasoning (e.g.,
 classification-dispute triage) uses **Murakumo fleet only** (LiteLLM 127.0.0.1:4000 /
 EVO-X2 LAN / per-node Ollama) — never RunPod / OpenAI-direct / Vertex / Bedrock / any

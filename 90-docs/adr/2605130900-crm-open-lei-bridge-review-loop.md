@@ -24,7 +24,7 @@ related:
 
 Salesforce / HubSpot alternatives in this repo are graph-native CRM surfaces:
 `open-sales`, `lawfirm`, and the HubSpot ingest facade. They already store lead,
-tenant, and company rows in RisingWave, but external legal-entity grounding was
+tenant, and company rows in Kotoba/Datomic, but external legal-entity grounding was
 not consistently represented.
 
 Open LEI data exists in `vertex_open_lei_entity`; the missing layer was a

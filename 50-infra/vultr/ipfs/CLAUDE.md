@@ -42,7 +42,7 @@ CF Worker proxy lives separately at
 Pre-reqs:
 
 1. **B2 prefix** `s3://etzhayyim-nats/ipfs/blocks/` (no new bucket needed —
-   the existing `etzhayyim-nats` bucket is shared with RisingWave Hummock per
+   the existing `etzhayyim-nats` bucket is shared with Kotoba/Datomic Hummock per
    ADR-0048 and isolated by prefix). The Keychain entry `etzhayyim.b2`
    (ACCESS_KEY_ID + SECRET_ACCESS_KEY) is already scoped to this `bucketId`
    with `writeFiles` / `deleteFiles` / `readFiles` capabilities — verify with:
@@ -137,7 +137,7 @@ curl -sS -X POST 'https://ipfs.etzhayyim.com/api/v0/pin/add' \
 - **B2 rate limits**: ADR-0048 incident notes apply here too. If
   `mv_kaikei_*` or other RW MVs are mid-checkpoint storming B2, expect
   Kubo `s3.datastore.put` latency to spike. The rw-health-gate
-  (`70-tools/scripts/ingest/rw-health-gate.sh`) covers RisingWave only —
+  (`70-tools/scripts/ingest/rw-health-gate.sh`) covers Kotoba/Datomic only —
   there's no equivalent gate for Kubo today. Phase 2 work.
 - **CSAM / abuse**: serving public CIDs is a content-moderation
   responsibility. Phase 1 inherits Cloudflare's
@@ -164,7 +164,7 @@ kubectl -n ipfs rollout restart sts/kubo
 
 For now this is documented but not exercised — Phase 2 will land a
 `50-infra/vultr/ipfs/scripts/restore-drill.sh` mirroring
-`50-infra/vultr/risingwave/helm/dr-restore-drill.sh`.
+`50-infra/vultr/kotoba/helm/dr-restore-drill.sh`.
 
 ## Cross-project hooks
 
@@ -186,7 +186,7 @@ For now this is documented but not exercised — Phase 2 will land a
 | Item | Monthly |
 |---|---|
 | Vultr LoadBalancer (TCP) | $10 |
-| Pod resources (shared on `risingwave-pool-32gb`) | $0 incremental |
+| Pod resources (shared on `kotoba-pool-32gb`) | $0 incremental |
 | PVC 5 Gi `vultr-block-storage-hdd-retain` | $0.50 |
 | B2 storage (assume 100 GB Phase 1) | $0.50 |
 | B2 egress to CF (Bandwidth Alliance) | $0 |
@@ -232,7 +232,7 @@ security add-generic-password -U \
 
 This is used by both `capture_gyosei_sources_to_b2.py` and `ipfs_ingest.py` (LangServer worker).
 
-### 3. Run the RisingWave migration
+### 3. Run the Kotoba/Datomic migration
 
 ```bash
 cd 30-graph/graph-schema

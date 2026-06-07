@@ -186,7 +186,7 @@ Pairing: each yakushi review of `label-warning-update-naphazoline` MUST have a p
 
 Daily aggregation cadence at yakushi side (cron: `0 8 * * *`). mitate emits as patients self-report (event-driven, not batched).
 
-Back-pressure: if yakushi aggregation lags > 48 hours, mitate `outcome_qol_followup` queues feed locally (G14 — local queue, never on RisingWave) and retries with exponential backoff. After 7 days unacked, mitate escalates via licensed MD on-call channel.
+Back-pressure: if yakushi aggregation lags > 48 hours, mitate `outcome_qol_followup` queues feed locally (G14 — local queue, never on Kotoba/Datomic) and retries with exponential backoff. After 7 days unacked, mitate escalates via licensed MD on-call channel.
 
 ### Decision 6 — Bootstrap path
 

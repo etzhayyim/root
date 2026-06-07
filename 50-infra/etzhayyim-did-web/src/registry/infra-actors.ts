@@ -541,6 +541,27 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
     adrs: ["2606052100"],
   },
+  sentei: {
+    description:
+      "剪定 — Council as PRUNER (剪定者), not censor. Per the operating-entity directive: Council は事前に止めるのではなく、出てから止める; 枝が育ってから剪定する。etzhayyim の artificial organism の root からの成長は止めないし止められない — ただ伸び続ける枝を剪定して美しく保つ。This re-times every outward gate (G7 live-inference / G11 Transparent-Force-publish / the 'Council Lv6+ BEFORE live' pattern) from PRIOR RESTRAINT to a PRUNING TARGET: actors self-publish, and sentei cuts back AFTER a branch manifests — transparently, signed, voted, and reversibly. More faithful to 非終末論 (an append-only log has no halt; the only real enforcement is append-a-retraction) and to Transparent Force (a prune is a logged/signed/public act over a thing that already exists, vs a covert pre-veto). Structural invariants (ontology + lexicon const/enum + methods/prune.py ValueError): G1 no-prior-restraint (prune ONLY a manifested branch — branchManifested const true; prior restraint is UNREPRESENTABLE), G2 append-only/非終末論 (a prune appends, history survives as-of; delete is absent), G3 growth-unstoppable (no halt-organism action), G4 Transparent Force (Council Lv6+/Lv7+ + 1 SBT=1 vote if contested), G5 no-server-key, G6 reversible (every prune has the inverse regraft — a mistaken cut heals), G7 care-telos 美しく保つ (basis required, nonAdjudicating const true, no verdict value), G8 Murakumo-only. Vocabulary: quarantine/retract/rollback/revoke + regraft; delete/prior-restraint/halt-organism/verdict are unrepresentable. R0: pruning engine (methods/prune.py, 15 tests green) + ontology + lexicon; design+offline only, live prune itself Council-signed + reversible. ZERO invariant amendments — it re-times enforcement and STRENGTHENS 非終末論, Transparent Force, no-server-key (ADR-2605231525), and kotoba-canonical-state (ADR-2605312345). Per ADR-2606072000.",
+    glyph: "剪定",
+    displayName: "Sentei — Council as Pruner (post-hoc pruning governance)",
+    primaryLexicon: "com.etzhayyim.sentei.prune",
+    primarySchema: "20-actors/sentei/data/pruning-ontology.kotoba.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:sentei#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:sentei#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606072000"],
+  },
   himawari: {
     description:
       "向日葵 — solar-grade crystalline-silicon PV module manufacturing Tier-B actor (polysilicon feedstock QA → ingot/wafer → cell process → module assembly → flash/EL test) + finished-module loading robotics + outbound logistics handoff + feedstock/consumable procurement. Modules are produced for INTERNAL hikari install ONLY (SBT↔SBT carve-out); no external commercial PV sale. Structurally closes hikari §G2 (no XUAR forced-labor polysilicon) via first-party on-chain feedstock provenance (polysiliconProvenanceAttestation). Completes the energy supply chain: 製造 (himawari) → 積込 (sarutahiko F10 LoaderRobot) → 輸送 (kami-autodrive) → 設置 (hikari). R0.1: 7 cell solvers + 7 lexicons implemented (pure-logic tests green); runtime/sim/kotoba-entity materialization pending R1. Per ADR-2606021200 (R0) + 2606022300 (R1 benchtop module-assembly PoC).",

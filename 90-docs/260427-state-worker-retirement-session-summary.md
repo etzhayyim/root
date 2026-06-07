@@ -1,6 +1,6 @@
 ---
 id: doc-260427-state-worker-retirement-session-summary
-title: "Session summary: state CF Worker retirement via Zeebe/k8s/RisingWave gates"
+title: "Session summary: state CF Worker retirement via Zeebe/k8s/Kotoba/Datomic gates"
 status: active
 doc_type: reference
 topic: state-worker-retirement
@@ -9,7 +9,7 @@ last_verified: 2026-04-27
 related:
   - adr-2604262000-edge-thin-app-runtime-k8s-zeebe-registry
   - adr-2604261000-mcp-registry-via-kysely-schema
-  - adr-2604261900-risingwave-ddl-backfill-path-topology
+  - adr-2604261900-kotoba-ddl-backfill-path-topology
   - doc-260426-site-common-crawl-zeebe-python-worker-design
 ---
 
@@ -18,7 +18,7 @@ related:
 Session record for the first country-state Cloudflare Worker retirements under
 ADR-2604262000. The goal was to prove that app actors can leave per-country
 Cloudflare Workers and run through MCP registry, BPMN/Zeebe, Kubernetes Python
-workers, RisingWave, and B2 evidence instead.
+workers, Kotoba/Datomic, and B2 evidence instead.
 
 # Completed
 
@@ -72,7 +72,7 @@ govSources: 3/3
 orgSeeds: agency=11 ministry=33 state=9
 ```
 
-# RisingWave Index Fix
+# Kotoba/Datomic Index Fix
 
 `vertex_page` lookups initially timed out because the table had no visible
 index and point lookups were scanning a ~985M-row table. The ZAF gate now relies
@@ -93,7 +93,7 @@ The background DDL completed. `EXPLAIN` now plans ZAF page lookups against
 `idx_vertex_page_vertex_id_cover`, not `vertex_page`.
 
 Operational note: the backfill hit Backblaze B2 `SlowDown`/temporary read
-errors during compaction, but RisingWave retried and completed. Future large
+errors during compaction, but Kotoba/Datomic retried and completed. Future large
 indexes must use narrow covering shapes and background DDL, and should be
 monitored through `SHOW JOBS`, `SHOW INDEXES`, and `EXPLAIN`.
 
@@ -143,7 +143,7 @@ Cuando, and Cubango.
 
 AGO deletion sequence:
 
-1. applied the AGO BPMN/MCP registry migration to RisingWave;
+1. applied the AGO BPMN/MCP registry migration to Kotoba/Datomic;
 2. registered the Python Zeebe worker surface through `gov_ago`;
 3. ingested page/WET/WAT/gyotaku evidence for the three official pages;
 4. ran `pnpm --dir 30-graph/graph-schema verify:gov-ago`;

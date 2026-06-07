@@ -57,7 +57,7 @@ spec:
             - --log-level
             - info
           env:
-            # RisingWave PG :4566 (root role) — checkpointer + vertex writes.
+            # Kotoba/Datomic PG :4566 (root role) — checkpointer + vertex writes.
             - name: RW_URL
               valueFrom:
                 secretKeyRef:

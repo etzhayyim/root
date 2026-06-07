@@ -23,6 +23,7 @@ domain-fact write path.
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import asyncio
 import hashlib
@@ -117,8 +118,8 @@ def sync_cursor():
     os.makedirs(db_dir, exist_ok=True)
     db_path = os.path.join(db_dir, "ingest_ndl.db")
     with sqlite3.connect(db_path) as conn:
-        conn.execute("PRAGMA journal_mode=WAL;")
-        conn.execute(
+        _res = client.q("PRAGMA journal_mode=WAL;")
+        _res = client.q(
             """CREATE TABLE IF NOT EXISTS vertex_ndl_bib_item (
                 vertex_id TEXT PRIMARY KEY, created_date TEXT, sensitivity_ord INTEGER, owner_did TEXT,
                 ndl_id TEXT, provider_id TEXT, title TEXT, creator TEXT, publisher TEXT, issued TEXT,
@@ -127,7 +128,7 @@ def sync_cursor():
                 status TEXT, discovered_at TEXT, updated_at TEXT, actor_did TEXT, org_did TEXT
             )"""
         )
-        conn.execute(
+        _res = client.q(
             """CREATE TABLE IF NOT EXISTS vertex_ndl_oai_checkpoint (
                 vertex_id TEXT PRIMARY KEY, created_date TEXT, sensitivity_ord INTEGER, owner_did TEXT,
                 provider_id TEXT, set_group TEXT, metadata_prefix TEXT, window_start TEXT, window_end TEXT,
@@ -151,7 +152,7 @@ def _persist_items(cur: Any, items: list[dict[str, Any]], now: str) -> int:
         ndl_id = item["ndl_id"]
         vid = f"at://{ONLINE_PATH_DID}/com.etzhayyim.apps.ndl.bibItem/{ndl_id}"
         try:
-            cur.execute(
+            _res = client.q(
                 """INSERT OR REPLACE INTO vertex_ndl_bib_item (
                     vertex_id, created_date, sensitivity_ord, owner_did,
                     ndl_id, provider_id, title, creator, publisher, issued,
@@ -320,12 +321,12 @@ def _checkpoint_vid(provider_id: str, set_group: str, window_start: str, window_
 
 
 def _read_checkpoint(cur: Any, vid: str) -> dict[str, Any] | None:
-    cur.execute(
+    _res = client.q(
         "SELECT resumption_token, pages_seen, records_seen, items_inserted, status "
         "FROM vertex_ndl_oai_checkpoint WHERE vertex_id = ?",
         (vid,),
     )
-    row = cur.fetchone()
+    row = (_res[0] if _res else None)
     if not row:
         return None
     return {
@@ -353,7 +354,7 @@ def _write_checkpoint(
     status: str,
     error: str = "",
 ) -> None:
-    cur.execute(
+    _res = client.q(
         """INSERT OR REPLACE INTO vertex_ndl_oai_checkpoint (
             vertex_id, created_date, sensitivity_ord, owner_did,
             provider_id, set_group, metadata_prefix, window_start, window_end,
@@ -396,7 +397,8 @@ def _plan_windows(
 ) -> list[dict[str, Any]]:
     windows = _month_windows(start_year, start_month)
     shards: list[dict[str, Any]] = []
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for win_start, win_end in windows:
             vid = _checkpoint_vid(SOURCE_ID, set_group, win_start, win_end)
             cp = _read_checkpoint(cur, vid)
@@ -471,7 +473,8 @@ def _fetch_window_blocking(
     max_pages: int,
 ) -> dict[str, Any]:
     vid = _checkpoint_vid(SOURCE_ID, set_group, window_start, window_end)
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         cp = _read_checkpoint(cur, vid) or {
             "resumption_token": "",
             "pages_seen": 0,
@@ -593,10 +596,11 @@ async def task_ndl_oai_fetch_window(
 
 def _verify_blocking(set_group: str, window_start: str, window_end: str) -> dict[str, Any]:
     vid = _checkpoint_vid(SOURCE_ID, set_group, window_start, window_end)
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         cp = _read_checkpoint(cur, vid)
-        cur.execute("SELECT count(*) FROM vertex_ndl_bib_item WHERE provider_id = ?", (SOURCE_ID,))
-        item_total = int((cur.fetchone() or [0])[0] or 0)
+        _res = client.q("SELECT count(*) FROM vertex_ndl_bib_item WHERE provider_id = ?", (SOURCE_ID,))
+        item_total = int(((_res[0] if _res else None) or [0])[0] or 0)
     verified = bool(cp and cp["status"] == "completed")
     return {
         "ok": True,

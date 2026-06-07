@@ -40,9 +40,9 @@ The saved item id is `did:etzhayyim:gameitem:pokemon-pokopia:chigo-berry`.
 
 Introduce a first-class research provenance graph for game knowledge curation.
 The graph is append-only for observations and claims, while derived item/domain
-rows may be overwritten by the existing RisingWave primary-key behavior.
+rows may be overwritten by the existing Kotoba/Datomic primary-key behavior.
 
-DDL is not applied by this ADR. RisingWave DDL must go through the normal DDL
+DDL is not applied by this ADR. Kotoba/Datomic DDL must go through the normal DDL
 queue / health gate path.
 
 ## Vertex Design
@@ -256,7 +256,7 @@ Key fields:
 
 ## Index Design
 
-Use RisingWave secondary indexes only after health gate approval.
+Use Kotoba/Datomic secondary indexes only after health gate approval.
 
 Recommended indexes:
 
@@ -368,7 +368,7 @@ The 2026-05-09 run saved:
 
 ## Implementation (2026-05-16)
 
-Three migrations applied to RisingWave:
+Three migrations applied to Kotoba/Datomic:
 
 1. **`202605150100_pokopia_ditto_doll_ja_knowledge`** — Japanese-language
    domain-knowledge document + chunk + alias/token rows for メタモン人形 (Ditto

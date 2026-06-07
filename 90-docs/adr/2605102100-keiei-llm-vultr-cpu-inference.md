@@ -165,7 +165,7 @@ macOS launchd com.etzhayyim.keiei  (PID alive, KeepAlive=true)
 - Cloudflare Tunnel: free tier; 2 cloudflared replicas at 50m CPU /
   64Mi RAM each.
 - **Marginal monthly cost: ~$1** (PVC). Pod fits in the existing
-  `vhf-16c-58gb × 2` nodepool headroom (RisingWave compute uses
+  `vhf-16c-58gb × 2` nodepool headroom (Kotoba/Datomic compute uses
   ~24 GiB/pod; ~10 GiB/node remains free).
 
 ## 8. Anti-goals (explicit)

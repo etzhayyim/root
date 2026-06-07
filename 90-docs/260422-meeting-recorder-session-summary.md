@@ -26,7 +26,7 @@ etzhayyim Japan の AI agent が user 代理で Microsoft Teams / Google Meet / 
 - **Media-plane** = Vultr VKE LAX node pool `meeting-recorder` (vhf-4c-16gb × 2, $192/mo)
 - **Storage** = Backblaze B2 `etzhayyim-recordings/meeting-recorder/{sessionDid}/{seq}.{opus|webm}` (ADR-0048 Bandwidth Ally egress-free)
 - **Transcription** = Murakumo MLX `whisper-large-v3` (sovereignty 完全、provider 内蔵 caption 非使用)
-- **Graph** = Worker-direct Hyperdrive → RisingWave (ADR-0036)
+- **Graph** = Worker-direct Hyperdrive → Kotoba/Datomic (ADR-0036)
 
 ### Consent gate — 6 defense layers
 
@@ -217,7 +217,7 @@ Expected: 6 chunks on disk + 9 AT records via fake PDS + sha256 integrity.
 ## References
 
 - ADR-0050 — meeting-recorder multi-provider actor (authoritative)
-- ADR-0048 — RisingWave Vultr + B2 primary (egress-free storage)
+- ADR-0048 — Kotoba/Datomic Vultr + B2 primary (egress-free storage)
 - ADR-0042 — magatama MCP Tool Facade (per-actor MCP endpoint)
 - ADR-0036 — Worker-direct Hyperdrive Persistence
 - ADR-0029 — did:etzhayyim Method Specification

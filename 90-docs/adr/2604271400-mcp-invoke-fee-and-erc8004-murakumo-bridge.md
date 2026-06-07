@@ -46,7 +46,7 @@ superseded_by: []
    ERC-8004 経由で agent discovery した caller は Murakumo node の
    stake / SLA reputation を verify できない。
 
-ADR-2604261000 で MCP registry は L4 RisingWave SSoT 化された (Kysely
+ADR-2604261000 で MCP registry は L4 Kotoba/Datomic SSoT 化された (Kysely
 SELECT, 60s cache)。ADR-0087 で per-actor `/mcp` facade が確立された。
 ADR-2604262100 で ERC-8004 agent registry contract が deploy された
 (`openRegistration=false`, `nextTokenId=1`)。残るのは **fee plumbing**

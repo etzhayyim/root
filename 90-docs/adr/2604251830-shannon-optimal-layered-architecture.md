@@ -1,6 +1,6 @@
 ---
 id: adr-2604251830-shannon-optimal-layered-architecture
-title: "ADR: Shannon-optimal layered architecture — Cloudflare = edge/routing/dispatcher only、actor/MCP/tool 実体は RisingWave registry SSoT、常駐処理は Zeebe BPMN worker + Vultr k8s Python pod worker"
+title: "ADR: Shannon-optimal layered architecture — Cloudflare = edge/routing/dispatcher only、actor/MCP/tool 実体は Kotoba/Datomic registry SSoT、常駐処理は Zeebe BPMN worker + Vultr k8s Python pod worker"
 status: active
 doc_type: adr
 topic: platform-architecture
@@ -13,9 +13,9 @@ authoritative_for:
   - cron-implementation-layer
 related:
   - adr-0036-shannon-cleanup-did-actor-topology
-  - adr-0044-risingwave-udf-language-strategy
+  - adr-0044-kotoba-udf-language-strategy
   - adr-0046
-  - adr-0048-risingwave-vultr-b2-primary
+  - adr-0048-kotoba-vultr-b2-primary
   - adr-0056-bpmn-as-actor
   - adr-2604240946-yoro-autonomous-actor-hybrid-loop
   - adr-2604250836-langgraph-as-zeebe-servicetask
@@ -37,7 +37,7 @@ ADR-2604261110 (wproto/wreactive/WIT retire) と ADR-2604251801 (cron 3
 - **Cloudflare**: PDS gateway (atproto.etzhayyim.com), AppView (bsky.etzhayyim.com),
   routing-gateway, 189 actor Worker
 - **Backblaze B2**: object storage, RW Hummock backing store (ADR-0048)
-- **RisingWave (Vultr)**: streaming SQL + materialized views, Hummock
+- **Kotoba/Datomic (Vultr)**: streaming SQL + materialized views, Hummock
   on B2 (ADR-0048)
 - **RW External Python UDF**: in-stream compute (ADR-0044)
 - **Zeebe (Vultr k8s)**: BPMN orchestration, pyzeebe job workers
@@ -68,9 +68,9 @@ BPMN process と RW vertex_repo_record の 3 箇所に二重定義される」dr
 | **L1 Edge** | Cloudflare (Pages / DNS / Workers AI / Vectorize) | TLS termination, HTTP/3, CDN, geographic routing, edge inference (任意) | actor / MCP / tool 実体定義 |
 | **L2 Routing** | Cloudflare Worker (`atproto.etzhayyim.com` PDS gateway, `bsky.etzhayyim.com` AppView) | AT Protocol XRPC entry, OAuth + DPoP verify, Service Auth ES256 JWT verify, NSID → backend lookup (RW registry), pipethrough | business logic, actor state, long-running job |
 | **L3 Dispatcher** | Cloudflare Worker (per-app `{nanoid}.etzhayyim.com`) | XRPC → backend translator: PDS write / Hyperdrive direct write (ADR-0036) / Zeebe message-start / k8s pod RPC / MCP invoke | actor の "実体" を保持しない (実体は RW registry が SSoT)。30s/128MB を超える work |
-| **L4 Registry SSoT** | RisingWave PostgreSQL (Vultr) via Hyperdrive | `actor_registry` / `mcp_registry` / `tool_registry` / `process_def` / `vertex_bpmn_lexicon_binding` テーブル。actor の DID, capability tags, runtime tier, backend URL, MCP tool list, BPMN binding を持つ唯一の SSoT | 個別 worker の `_app/meta` JSON や repo 内 `actor-manifest.jsonld` を SSoT として扱う (それらは registry の generator/cache に降格) |
-| **L5 Storage** | B2 (objects, blobs) + RisingWave Hummock (streaming SQL state) | content-addressed blob (`blobs/{repo}/{sha256hex}`)、MV state、RW snapshot | 別 object store (R2 active write は廃止、ADR-0048) |
-| **L6 In-Stream Compute** | RisingWave External Python UDF + Embedded Rust WASM + SQL UDF | per-row enrichment / classifier / hash / ML feature。UDF strategy = ADR-0044 | 高並列 burst web fetch (CF Worker `Promise.all(50..100)` 維持)、長時間 job |
+| **L4 Registry SSoT** | Kotoba/Datomic PostgreSQL (Vultr) via Hyperdrive | `actor_registry` / `mcp_registry` / `tool_registry` / `process_def` / `vertex_bpmn_lexicon_binding` テーブル。actor の DID, capability tags, runtime tier, backend URL, MCP tool list, BPMN binding を持つ唯一の SSoT | 個別 worker の `_app/meta` JSON や repo 内 `actor-manifest.jsonld` を SSoT として扱う (それらは registry の generator/cache に降格) |
+| **L5 Storage** | B2 (objects, blobs) + Kotoba/Datomic Hummock (streaming SQL state) | content-addressed blob (`blobs/{repo}/{sha256hex}`)、MV state、RW snapshot | 別 object store (R2 active write は廃止、ADR-0048) |
+| **L6 In-Stream Compute** | Kotoba/Datomic External Python UDF + Embedded Rust WASM + SQL UDF | per-row enrichment / classifier / hash / ML feature。UDF strategy = ADR-0044 | 高並列 burst web fetch (CF Worker `Promise.all(50..100)` 維持)、長時間 job |
 | **L7 Orchestration** | Zeebe (Vultr k8s) + pyzeebe job workers | BPMN-as-actor (1 process = 1 NSID)、R/PT timer、multi-step business workflow、long-running orchestration、cron 第 1 レイヤー (ADR-2604251801) | XRPC entry にしない (entry は L2 PDS gateway)。primitive 実装の重複 (primitive は pyzeebe job worker に集約) |
 | **L8 Tool Execution** | Vultr k8s Python pods (CronJob + Deployment) | heavy compute (pandas / RDKit / ML inference)、headless browser (Playwright)、長時間 batch ingest、cron 第 2 レイヤー (ADR-2604251801) | BPMN orchestration を pod 内で再実装する (それは L7 の責務) |
 
@@ -131,7 +131,7 @@ CF Worker は **edge / routing / dispatcher** の 3 sublayer のみ。
 - **trigger**: L3 dispatcher が `zeebe message-start` を発行、または
   L1/L2 の subscribeRepos commit が L7 message broker に流れる
 - **out-of-band migration**: ADR-2604241342 の `apply-pending.sh`
-  pattern を維持 (RisingWave migration は kysely 自動 latest 不可)
+  pattern を維持 (Kotoba/Datomic migration は kysely 自動 latest 不可)
 
 ## L8 Vultr k8s Python pod tool execution
 
@@ -242,9 +242,9 @@ L4 registry + L7/L8 backend で書き、徐々に L3 へ縮退させる。
 # References
 
 - ADR-0036 Worker-direct Hyperdrive Persistence (amended by this ADR — scope narrowed to L3)
-- ADR-0044 RisingWave UDF Language Strategy (L6)
+- ADR-0044 Kotoba/Datomic UDF Language Strategy (L6)
 - ADR-0046 Triple-Witness Monitoring
-- ADR-0048 RisingWave + Vultr + B2 primary (L5)
+- ADR-0048 Kotoba/Datomic + Vultr + B2 primary (L5)
 - ADR-0056 BPMN-as-actor (L7)
 - ADR-2604240946 yoro autonomous BPMN R/PT4H cadence (L7 reference)
 - ADR-2604250836 LangGraph as Zeebe ServiceTask (L7 inference primitive)

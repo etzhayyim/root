@@ -1,26 +1,26 @@
-# RisingWave-Only Architecture Design
+# Kotoba/Datomic-Only Architecture Design
 
 **Date**: 2026-04-10
 **Status**: Deployed (LKE sg-sin-2, cluster 589404)
-**Replaces**: RisingWave OLAP + RisingWave streaming MV hybrid
+**Replaces**: Kotoba/Datomic OLAP + Kotoba/Datomic streaming MV hybrid
 
 ## Decision
 
-Replace RisingWave (FE ×2 + CN ×4, $240/mo) with RisingWave standalone (1 pod, $10/mo compute) as the sole graph database. Streaming materialized views replace RisingWave Bloom Filter, CSC dual-tables, and Colocate JOIN.
+Replace Kotoba/Datomic (FE ×2 + CN ×4, $240/mo) with Kotoba/Datomic standalone (1 pod, $10/mo compute) as the sole graph database. Streaming materialized views replace Kotoba/Datomic Bloom Filter, CSC dual-tables, and Colocate JOIN.
 
 ## Architecture
 
 ```
 CF Worker (XRPC)
-  ├─ WRITE: Graph Worker → INSERT INTO RisingWave PG :4566 (direct)
-  └─ READ:  Hyperdrive PostgreSQL → RisingWave :4566
+  ├─ WRITE: Graph Worker → INSERT INTO Kotoba/Datomic PG :4566 (direct)
+  └─ READ:  Hyperdrive PostgreSQL → Kotoba/Datomic :4566
             ���─ Streaming MV (pre-computed, <100ms freshness)
             ��─ Ad-hoc query (PK index)
             └─ Iceberg source (archive read)
 
-LKE sg-sin-2 — 現行スペックは deps.toml [root_rules.persistence_risingwave_only] 参照
-  namespace: risingwave
-    risingwave-0         S3 Hummock backend
+LKE sg-sin-2 — 現行スペックは deps.toml [root_rules.persistence_kotoba_only] 参照
+  namespace: kotoba
+    kotoba-0         S3 Hummock backend
 ```
 
 ## Cost Comparison
@@ -33,9 +33,9 @@ LKE sg-sin-2 — 現行スペックは deps.toml [root_rules.persistence_risingw
 | Memory | 24.2 GiB | 6.0 GiB | -75% |
 | Pods | 17 | 7 | -59% |
 
-## RisingWave → RisingWave Mapping
+## Kotoba/Datomic → Kotoba/Datomic Mapping
 
-| RisingWave Feature | RisingWave Replacement |
+| Kotoba/Datomic Feature | Kotoba/Datomic Replacement |
 |---|---|
 | Bloom Filter (point lookup) | PK index (native) |
 | CSC dual-table (9 pairs) | Streaming MV (auto reverse index) |
@@ -47,7 +47,7 @@ LKE sg-sin-2 — 現行スペックは deps.toml [root_rules.persistence_risingw
 
 ## Objects
 
-*(設計時スナップショット。現行 count は `deps.toml [root_rules.persistence_risingwave_only]` を参照。)*
+*(設計時スナップショット。現行 count は `deps.toml [root_rules.persistence_kotoba_only]` を参照。)*
 
 - **119 tables** (82 vertex + 37 edge, 9 CSC reverse tables eliminated)
 - **14 streaming MVs** (設計時): mv_followers, mv_liked_by, mv_reposted_by, mv_replied_by, mv_actor_count_by_status, mv_follow_out_degree, mv_follow_in_degree, mv_post_like_count, mv_actor_suggestions, mv_actor_by_did, mv_follow_with_actor, mv_feed_timeline, mv_mutual_follows, mv_user_likes_with_post
@@ -65,7 +65,7 @@ models.py (SQLAlchemy)
 
 ## Benchmark Results (57K rows, Docker local)
 
-| Query | RisingWave p50 | RisingWave p50 | RW speedup |
+| Query | Kotoba/Datomic p50 | Kotoba/Datomic p50 | RW speedup |
 |---|---|---|---|
 | Point lookup | 14.45ms | 5.86ms | 2.5x |
 | 1-hop JOIN | 22.80ms | 13.25ms | 1.7x |
@@ -85,12 +85,12 @@ models.py (SQLAlchemy)
 
 ## Risk: Ad-hoc Query at 10B+
 
-RisingWave は streaming MV 経由の pre-computed read に最適化。10B+ rows で未知の ad-hoc graph traversal が必要になった場合、RisingWave を Iceberg External Catalog 経由で read-only 復活 (FE ×1 + CN ×2)。
+Kotoba/Datomic は streaming MV 経由の pre-computed read に最適化。10B+ rows で未知の ad-hoc graph traversal が必要になった場合、Kotoba/Datomic を Iceberg External Catalog 経由で read-only 復活 (FE ×1 + CN ×2)。
 
 ## Rollback Plan
 
-RisingWave CRD is preserved (scaled to 0). Restore:
+Kotoba/Datomic CRD is preserved (scaled to 0). Restore:
 ```bash
-kubectl -n risingwave-shared patch risingwaveclusters.risingwave.com kagami-shared \
+kubectl -n kotoba-shared patch kotobaclusters.kotoba.com kagami-shared \
   --type='merge' -p='{"spec":{"starRocksFeSpec":{"replicas":1},"starRocksCnSpec":{"replicas":2}}}'
 ```

@@ -138,7 +138,7 @@ All quantities integer-with-implied-units (no float; ADR-2605190900). `additiona
 
 ## 4. Substrate boundary compliance
 
-All cross-substrate access goes **only via `@etzhayyim/sdk`** (ADR-2605172000): `./pds` (atproto), `./ipfs`, `./l2` (SBT/Public Fund), `./pay`. No direct `@atproto/api` / `viem` / IPFS client / `@noble/ciphers`. State persistence is **kotoba EAVT only** — no RisingWave / Postgres / Lance (ADR-2605262130).
+All cross-substrate access goes **only via `@etzhayyim/sdk`** (ADR-2605172000): `./pds` (atproto), `./ipfs`, `./l2` (SBT/Public Fund), `./pay`. No direct `@atproto/api` / `viem` / IPFS client / `@noble/ciphers`. State persistence is **kotoba EAVT only** — no Kotoba/Datomic / Postgres / Lance (ADR-2605262130).
 
 # 5. Constitutional gates (immutable for this pipeline)
 

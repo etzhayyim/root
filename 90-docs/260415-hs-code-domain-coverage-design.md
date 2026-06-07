@@ -12,7 +12,7 @@ last_verified: 2026-04-15
 related:
   - 260324-isin-coverage-social-evolution
   - f-plan-lexicon-as-contract
-  - doc-260414-risingwave-premium-32gb-scale-up
+  - doc-260414-kotoba-premium-32gb-scale-up
 ---
 
 # HS Code Domain Coverage Design

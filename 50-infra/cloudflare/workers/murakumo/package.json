@@ -10,7 +10,7 @@
     "build": "tsc",
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
-    "lint:rw-free": "! grep -rEn \"from ['\\\"](\\.+/)*(risingwave|hyperdrive|kysely|@etzhayyim/magatama-host-sdk|@atproto/api|viem)\" src/ || (echo 'substrate boundary violation' >&2 && false)"
+    "lint:rw-free": "! grep -rEn \"from ['\\\"](\\.+/)*(kotoba|hyperdrive|kysely|@etzhayyim/magatama-host-sdk|@atproto/api|viem)\" src/ || (echo 'substrate boundary violation' >&2 && false)"
   },
   "dependencies": {
     "@etzhayyim/sdk": "file:../../../../20-actors/etzhayyim-sdk",

@@ -14,7 +14,7 @@ related:
   - adr-2604271600-projector-l7-langgraph-integration
   - adr-2604251830-shannon-optimal-layered-architecture
   - adr-0036-worker-direct-hyperdrive-persistence
-  - adr-0044-risingwave-udf-language-strategy
+  - adr-0044-kotoba-udf-language-strategy
   - adr-2604240946-yoro-autonomous-actor-hybrid-loop
 ---
 
@@ -27,7 +27,7 @@ related:
 - **Supersedes**: maps `satellite_*` command stubs (declared 2026-04-17, never wired)
 - **Relates to**: ADR-0056 (BPMN-as-actor), ADR-2604271600 (projector L7 LangChain),
   ADR-2604251830 (Shannon-Optimal 8-Layer), ADR-0036 (Worker-direct Hyperdrive),
-  ADR-0044 (RisingWave UDF language strategy), ADR-2604240946 (yoro RunPod fallback)
+  ADR-0044 (Kotoba/Datomic UDF language strategy), ADR-2604240946 (yoro RunPod fallback)
 
 ## Context
 
@@ -100,7 +100,7 @@ Start (XRPC POST com.etzhayyim.apps.maps.sentinelAnalyze)
   in a follow-up.
 - LangChain orchestration: prompt → COG URL retrieval → RunPod invoke
   → structured JSON parse → confidence calibration. Pure Python, no
-  RisingWave UDF needed (per ADR-0044: external IO + LLM + heavy lib =
+  Kotoba/Datomic UDF needed (per ADR-0044: external IO + LLM + heavy lib =
   Python External / pymagatama, not SQL UDF).
 
 ### 3. pyzeebe primitives
@@ -145,8 +145,8 @@ LangChain + Sentinel SDK Python deps land in the existing
 
 Phase 1: writes use `vertex_repo_record` with collection
 `com.etzhayyim.apps.maps.satelliteScene` and `…satelliteAnalysis`. Avoids a
-RisingWave DDL during the recovery-sensitive Vultr+B2 cluster window
-(see CLAUDE.md "RisingWave Smooth Scaling Gate").
+Kotoba/Datomic DDL during the recovery-sensitive Vultr+B2 cluster window
+(see CLAUDE.md "Kotoba/Datomic Smooth Scaling Gate").
 
 Phase 2 (separate ADR + migration): typed `vertex_satellite_scene`
 (stac_id, platform, sensor, datetime, cloud_cover, bbox_geom, cog_url,
@@ -176,7 +176,7 @@ cluster footprint is back inside RW license caps.
   External (pyzeebe), not SQL UDF.
 - ADR-2604261000 MCP tool registry: ✓ lexicons drop into
   `vertex_mcp_tool_def` via `sync-mcp-registry.py` automatically.
-- RisingWave Smooth Scaling Gate: ✓ Phase 1 introduces zero DDL.
+- Kotoba/Datomic Smooth Scaling Gate: ✓ Phase 1 introduces zero DDL.
 - LLM Coding Guardrail (NSID placeholder): ✓ canonical NSIDs throughout.
 
 ## Implementation Status — 2026-04-28 (shipped)
@@ -201,7 +201,7 @@ change required; the `generic.db.insert` task type is already wired.
 ### ✅ Phase 2 DDL pre-staged
 
 `30-graph/graph-schema/migrations/20260427220000_vertex_satellite_typed_tables.ts`
-applied to live Vultr RisingWave after `rw-health-gate.sh` cleared:
+applied to live Vultr Kotoba/Datomic after `rw-health-gate.sh` cleared:
 - `vertex_satellite_scene` — 17 cols + 3 indexes (repo / platform / date_time)
 - `vertex_satellite_analysis` — 17 cols + 3 indexes (repo / scene_uri / analysis_type)
 
