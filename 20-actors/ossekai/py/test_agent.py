@@ -97,3 +97,99 @@ def test_composed_advisory_is_clean():
     post = agent.compose_advisory({"topic": "クーリングオフ"})
     assert post["clean"] is True
     assert post["wellbecomingPositive"] is True
+
+
+# ── consent_registry (G15) ────────────────────────────────────────────────
+def test_consent_block_overrides_contactable():
+    out = agent.handle_consent_registry({"now": 100, "events": [
+        {"handle": "alice", "kind": "consent", "at": 10, "expiry": 1000},
+        {"handle": "alice", "kind": "block", "at": 20},
+    ]})
+    a = out["consentState"]["alice"]
+    assert a["blocked"] is True
+    assert a["contactable"] is False           # G15: block wins over consent
+
+
+def test_consent_validity_window():
+    out = agent.handle_consent_registry({"now": 500, "events": [
+        {"handle": "bob", "kind": "consent", "at": 400, "expiry": 600},   # valid (within 365d, >now)
+        {"handle": "carol", "kind": "consent", "at": 10, "expiry": 100},  # expired by now=500
+    ]})
+    assert out["consentState"]["bob"]["consentValid"] is True
+    assert out["consentState"]["carol"]["consentValid"] is False
+
+
+def test_consent_revoke_clears():
+    out = agent.handle_consent_registry({"now": 100, "events": [
+        {"handle": "dave", "kind": "consent", "at": 10, "expiry": 1000},
+        {"handle": "dave", "kind": "revoke", "at": 20},
+    ]})
+    assert out["consentState"]["dave"]["consentValid"] is False
+
+
+def test_consent_expiry_clamped_to_365d():
+    out = agent.handle_consent_registry({"now": 0, "events": [
+        {"handle": "eve", "kind": "consent", "at": 0, "expiry": 10_000},  # > 365d
+    ]})
+    assert out["consentState"]["eve"]["consentExpiry"] == agent.CONSENT_MAX_DAYS
+
+
+# ── mention_dispatcher (G13/G15/G7) ───────────────────────────────────────
+_ATT_OK = {"councilLevel": 6, "signers": 3, "ref": "att:cid-123"}
+
+
+def test_dispatcher_refuses_without_council_attestation():
+    out = agent.handle_mention_dispatcher({"handles": ["a"], "attestation": {},
+                                           "memberImpactAttestationCid": "mi:1"})
+    assert out["campaignRefused"] is True
+    assert out["dispatches"] == []
+
+
+def test_dispatcher_large_campaign_needs_four_signers():
+    handles = [f"h{i}" for i in range(51)]      # > 50 → needs ≥4
+    out = agent.handle_mention_dispatcher({"handles": handles, "attestation": _ATT_OK,
+                                           "memberImpactAttestationCid": "mi:1"})
+    assert out["campaignRefused"] is True       # only 3 signers
+
+
+def test_dispatcher_rejects_blocked_before_composition_g15():
+    cs = agent.handle_consent_registry({"now": 100, "events": [
+        {"handle": "blk", "kind": "block", "at": 1}]})["consentState"]
+    out = agent.handle_mention_dispatcher({
+        "handles": ["blk"], "attestation": _ATT_OK,
+        "memberImpactAttestationCid": "mi:1", "consentState": cs, "now": 100})
+    assert out["dispatches"] == []
+    assert "G15" in out["rejected"][0]["reason"]
+
+
+def test_dispatcher_needs_consent_or_member_impact():
+    out = agent.handle_mention_dispatcher({
+        "handles": ["nocon"], "attestation": _ATT_OK, "consentState": {}, "now": 100})
+    assert out["dispatches"] == []              # no member-impact, no consent
+    assert "G13" in out["rejected"][0]["reason"]
+
+
+def test_dispatcher_rate_budget_g7():
+    out = agent.handle_mention_dispatcher({
+        "handles": ["recent"], "attestation": _ATT_OK, "memberImpactAttestationCid": "mi:1",
+        "consentState": {}, "lastMentionAt": {"recent": 80}, "now": 100})  # 20d < 90d
+    assert out["dispatches"] == []
+    assert "G7" in out["rejected"][0]["reason"]
+
+
+def test_dispatcher_allows_with_member_impact_default_draft():
+    out = agent.handle_mention_dispatcher({
+        "handles": ["ok"], "attestation": _ATT_OK, "memberImpactAttestationCid": "mi:1",
+        "consentState": {}, "now": 100, "topic": "クーリングオフ"})
+    assert len(out["dispatches"]) == 1
+    d = out["dispatches"][0]
+    assert d["state"] == "draft"               # operator-gated broadcast
+    assert d["shape"] == "targeted"            # secondary path, not aggregate
+    assert d["signedDid"] == agent.OSSEKAI_DID  # G9
+
+
+def test_dispatcher_posts_with_operator():
+    out = agent.handle_mention_dispatcher({
+        "handles": ["ok"], "attestation": _ATT_OK, "memberImpactAttestationCid": "mi:1",
+        "consentState": {}, "now": 100, "operatorRef": "op:1"})
+    assert out["dispatches"][0]["state"] == "posted"
