@@ -11,8 +11,15 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreicbc3knliwhrzn27r2uzcmaglgms4ppow3gzx5csprfgx4msls7dy",
   "schema": "schema/discord.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://docs.discord.com/developers",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "Channel"
+    ],
+    "enums": {}
+  },
   "entities": [
     "Channel",
     "Message",

@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreicbtb2hg3f6as7ivd2dejektvt4bwx7qpre3oi2bvzr6tt57jbyii",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {

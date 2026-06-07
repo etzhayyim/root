@@ -11,8 +11,16 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreicbtb2hg3f6as7ivd2dejektvt4bwx7qpre3oi2bvzr6tt57jbyii",
   "schema": "schema/gtfs.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://gtfs.org/documentation/schedule/reference/",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "Stop",
+      "Route"
+    ],
+    "enums": {}
+  },
   "entities": [
     "Stop",
     "Route",

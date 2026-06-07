@@ -4245,7 +4245,7 @@
     {
       "handle": "discord-compat",
       "did": "did:web:etzhayyim.com:actor:discord-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreicbc3knliwhrzn27r2uzcmaglgms4ppow3gzx5csprfgx4msls7dy",
@@ -6744,7 +6744,7 @@
     {
       "handle": "gtfs-compat",
       "did": "did:web:etzhayyim.com:actor:gtfs-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreicbtb2hg3f6as7ivd2dejektvt4bwx7qpre3oi2bvzr6tt57jbyii",

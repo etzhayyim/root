@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 993,
-    "L5": 7
+    "L4": 991,
+    "L5": 9
   },
   "actors": [
     {
@@ -4502,7 +4502,7 @@
       "wasmCid": "bafkreicbc3knliwhrzn27r2uzcmaglgms4ppow3gzx5csprfgx4msls7dy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "discord clean-room actor",
       "category": "comms_social",
       "capabilities": [
@@ -7148,7 +7148,7 @@
       "wasmCid": "bafkreicbtb2hg3f6as7ivd2dejektvt4bwx7qpre3oi2bvzr6tt57jbyii",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "gtfs clean-room actor",
       "category": "transit_smart_cities",
       "capabilities": [
