@@ -212,9 +212,25 @@
             "conclusion": ["success", "failure", "neutral", "cancelled", "skipped", "timed_out", "action_required", "stale"]
           },
           "gaps": ["run_number", "event", "workflow_id", "actor", "html_url"]
+        },
+        {
+          "entity": "Release",
+          "source": "https://docs.github.com/en/rest/releases/releases",
+          "verifiedFields": ["repoId", "tag", "name", "draft"],
+          "fieldStatus": "all generated fields confirmed (tag=tag_name; draft is a real boolean; repoId is the relation)",
+          "discoveredEnums": {},
+          "gaps": ["prerelease", "body", "published_at", "assets"]
+        },
+        {
+          "entity": "Commit",
+          "source": "https://docs.github.com/en/rest/commits/commits",
+          "verifiedFields": ["repoId", "sha", "message", "authorId"],
+          "fieldStatus": "all generated fields confirmed (message=commit.message, authorId=author/Simple User)",
+          "discoveredEnums": {},
+          "gaps": ["committer", "parents", "html_url", "stats"]
         }
       ],
-      "note": "Repository + Issue + PullRequest + WorkflowRun reconciled against the official GitHub REST docs (4/7 resources); Commit/Workflow/Release pending. Enforced enums: issue.state, pullRequest.state, workflowRun.status, workflowRun.conclusion."
+      "note": "Repository + Issue + PullRequest + WorkflowRun + Release + Commit reconciled against the official GitHub REST docs (6/7 resources); Workflow pending. Enforced enums: issue.state, pullRequest.state, workflowRun.status, workflowRun.conclusion."
     },
     {
       "handle": "twilio-compat",

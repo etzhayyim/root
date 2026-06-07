@@ -19,7 +19,9 @@
       "Repository",
       "Issue",
       "PullRequest",
-      "WorkflowRun"
+      "WorkflowRun",
+      "Release",
+      "Commit"
     ],
     "enums": {
       "Issue": {
