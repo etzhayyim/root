@@ -274,3 +274,27 @@ gate:"G8"}`) — **always dry-run, G8-gated; nothing ever posts outward**.
 posts). `runtime.test.mjs` asserts the post shape + universal dry-run/G8 gating
 (19 assertions total). Outward posting remains gated pending Council/G8 — the
 capability produces content in-page only.
+
+## 12. Real WASM component (componentize-py) — production proof
+
+The literal "kotoba-wasm" path is proven, not just the JS reference. Under
+`60-apps/cleanroom-browser-runtime/wasm/` a clean-room actor compiles to an
+actual **WebAssembly Component** for the WIT world `etzhayyim:cleanroom/actor`
+(`handle-request` / `list-tools` / `call-tool` / `healthz`, JSON in/out):
+
+*   `app.py` — a self-contained Python guest (in-memory kotoba Datom store +
+    CRUD + cursor pagination + filtering + `?expand=` + MCP dispatch) with **no
+    host imports**, contract-parity with `kotoba-runtime.mjs`.
+*   `build.sh` — reproducible `componentize-py` build + `wasm-tools validate`.
+
+**Verified this build:** `componentize-py 0.23.0` → `stripe-compat.actor.wasm`
+built successfully; `wasm-tools validate` → **VALID component** (exports the
+`actor` world + the WASI-0.2 runtime imports componentize-py injects);
+18,518,811 bytes, sha256 `994d06ab…c018` (`build-record.json`).
+
+The binary (~18 MB, bundles CPython) is gitignored as a build artifact. It is
+**multi-block** → its IPFS CID is **dag-pb** → `x-exec: donated-mesh`
+(ADR-2606014600), not the raw single-block `bafkrei` browser-local tier; a
+compact Rust/AssemblyScript actor build is the follow-up for the browser-local
+tier. Pinning to IPFS (operator step) yields the dag-pb CID that replaces the
+source-bundle stand-in in `:actor/wasm-cid`.
