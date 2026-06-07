@@ -93,6 +93,32 @@ def test_ho_record_carries_kyufu_and_totals():
     assert ho[6] == str(rez.patient_pay_yen)  # 一部負担金
 
 
+def test_receden_carries_futan_kubun_from_kohi():
+    enc = _enc()
+    enc.kohi = [{"hobetsu": "54", "futanWari": 0.2}]
+    rez = compute(enc, M)
+    k = _karte()
+    k.insurance.kohi = ["54136015"]
+    rows = build_receden(Institution("1", "13"), k, rez,
+                         shinryo_year=2026, shinryo_month=6)
+    si = [r for r in rows if r[0] == "SI"][0]
+    assert si[2] == "2"                       # 負担区分 保険+第1公費
+    assert any(r[0] == "KO" for r in rows)     # 公費 KO record present
+
+
+def test_receden_optional_ty_co_sj_records():
+    rez = compute(_enc(), M)
+    rows = build_receden(
+        Institution("1", "13"), _karte(), rez,
+        shinryo_year=2026, shinryo_month=6,
+        tokki=["26区ア"], comments=[{"shikibetsu": "60", "code": "830000001",
+                                     "text": "前回より継続"}],
+        shojo_shoki=["経過は安定"],
+    )
+    ids = [r[0] for r in rows]
+    assert "TY" in ids and "CO" in ids and "SJ" in ids
+
+
 if __name__ == "__main__":
     import sys
     import pytest

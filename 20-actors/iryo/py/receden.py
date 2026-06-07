@@ -90,6 +90,9 @@ def build_receden(
     nyuin: bool = False,
     rezept_no: int = 1,
     phi: Optional[Callable[[Karte], dict]] = None,
+    tokki: Optional[list[str]] = None,        # 特記事項コード (TY)
+    comments: Optional[list[dict]] = None,    # [{"shikibetsu","code","text"}] (CO)
+    shojo_shoki: Optional[list[str]] = None,  # 症状詳記 (SJ) — operator-supplied, may be PHI
 ) -> list[list[str]]:
     """Build the レセ電 record stream (list of CSV rows) for one レセプト.
 
@@ -118,8 +121,12 @@ def build_receden(
         name, _sex_code(karte.patient.sex), birth,
     ])
 
+    # TY — 特記事項 (任意; 高額療養費区分 等)
+    if tokki:
+        rows.append(["TY"] + list(tokki))
+
     # HO — 保険者
-    kyufu = int(round((1.0 - karte.insurance.futan_wari) * 10))  # 給付割合 (10割中)
+    kyufu = int(round((1.0 - rez.futan_wari) * 10))  # 給付割合 (10割中)
     rows.append([
         "HO", karte.insurance.hokensha_bango, phi_data.get("hihokensha", ""),
         str(kyufu), str(jitsunissu), str(rez.total_ten), str(rez.patient_pay_yen),
@@ -140,17 +147,26 @@ def build_receden(
             "01" if d.is_main else "", d.icd10,
         ])
 
-    # SI / IY / TO — 算定明細 (負担区分 "1" = 保険単独, 代表)
+    # SI / IY / TO — 算定明細 (負担区分は line から; 保険単独=1 / 保険+公費=2,3 …)
     for line in rez.lines:
+        fk = getattr(line, "futan_kubun", "1")
         if line.kind == "act":
-            rows.append(["SI", line.shikibetsu, "1", line.code,
+            rows.append(["SI", line.shikibetsu, fk, line.code,
                          str(line.count), str(line.unit_ten), str(line.count)])
         elif line.kind == "drug":
-            rows.append(["IY", line.shikibetsu, "1", line.code,
+            rows.append(["IY", line.shikibetsu, fk, line.code,
                          "", str(line.unit_ten), str(line.count)])
         elif line.kind == "material":
-            rows.append(["TO", line.shikibetsu, "1", line.code,
+            rows.append(["TO", line.shikibetsu, fk, line.code,
                          "", str(line.ten), str(line.count)])
+
+    # CO — コメント (コメントコード + 文字データ; 区分つき)
+    for c in (comments or []):
+        rows.append(["CO", c.get("shikibetsu", ""), c.get("code", ""), c.get("text", "")])
+
+    # SJ — 症状詳記 (operator-supplied free text; may be PHI → operator's responsibility)
+    for i, sj in enumerate(shojo_shoki or [], start=1):
+        rows.append(["SJ", f"{i:02d}", sj])
 
     return rows
 

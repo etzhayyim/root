@@ -38,33 +38,26 @@ import math
 from dataclasses import dataclass, field
 from typing import Optional
 
+import insurance
+from kogaku import kogaku_limit  # re-export (full 70歳未満+以上 全区分)
 from masters import Masters
 
-# 診療識別 (レセ電 2桁) → レセプト点数欄 区分名
+# 診療識別 (レセ電 2桁) → レセプト点数欄 区分名 (全区分)
 SHIKIBETSU_KUBUN = {
-    "11": "初診", "12": "再診",
-    "13": "医学管理", "14": "在宅",
+    "11": "初診", "12": "再診", "13": "医学管理", "14": "在宅",
     "21": "投薬", "22": "投薬", "23": "投薬", "24": "投薬",
-    "25": "投薬", "26": "投薬", "27": "投薬",
+    "25": "投薬", "26": "投薬", "27": "投薬", "28": "投薬",
     "31": "注射", "32": "注射", "33": "注射",
     "40": "処置", "50": "手術", "54": "麻酔",
-    "60": "検査", "70": "画像診断", "80": "その他",
+    "60": "検査", "64": "病理", "70": "画像診断",
+    "80": "その他", "90": "入院",
 }
 
-# レセプト点数欄での区分表示順。
+# レセプト点数欄での区分表示順 (全区分)。
 KUBUN_ORDER = [
     "初診", "再診", "医学管理", "在宅", "投薬", "注射",
-    "処置", "手術", "麻酔", "検査", "画像診断", "その他",
+    "処置", "手術", "麻酔", "検査", "病理", "画像診断", "その他", "入院",
 ]
-
-# 高額療養費 70歳未満 区分 → (定額部分, 適用倍率基準額, 逓増率)。逓増率0なら定額。
-KOGAKU_70MIMAN = {
-    "ア": (252_600, 842_000, 0.01),
-    "イ": (167_400, 558_000, 0.01),
-    "ウ": (80_100, 267_000, 0.01),
-    "エ": (57_600, None, 0.0),
-    "オ": (35_400, None, 0.0),
-}
 
 
 # --------------------------------------------------------------------------- #
@@ -84,18 +77,6 @@ def yakka_to_ten(price_yen: float) -> int:
 def round_ichibu_futan(yen: float) -> int:
     """一部負担金 端数処理: 10円未満四捨五入 (5円以上切上)."""
     return int((int(round(yen)) + 5) // 10 * 10)
-
-
-def kogaku_limit(total_iryohi_yen: int, kubun: str) -> Optional[int]:
-    """70歳未満の月額自己負担限度額(円). 未知区分は None (高額療養費適用なし)."""
-    spec = KOGAKU_70MIMAN.get(kubun)
-    if spec is None:
-        return None
-    base, threshold, rate = spec
-    if threshold is None or rate == 0.0:
-        return int(base)
-    excess = max(0, total_iryohi_yen - threshold)
-    return int(base + math.floor(excess * rate))
 
 
 # --------------------------------------------------------------------------- #
@@ -132,12 +113,31 @@ class MaterialLine:
 
 @dataclass
 class Encounter:
-    """レセプト1件分の算定対象 (1患者・1医療機関・1ヶ月相当)."""
-    futan_wari: float = 0.3                  # 負担割合 0.3 / 0.2 / 0.1 / 0.0
-    kogaku_kubun: Optional[str] = None       # 高額療養費 所得区分 (ア〜オ) or None
+    """レセプト1件分の算定対象 (1患者・1医療機関・1ヶ月相当).
+
+    外来/入院, 年齢区分・公費・高額療養費 全区分, 食事療養 をカバーする。
+    futan_wari を None にすると age から法定割合を導出する。
+    """
+    futan_wari: Optional[float] = 0.3        # None → age から導出
+    kogaku_kubun: Optional[str] = None       # 高額療養費 所得区分 (ア〜オ / 現役3 等)
+    age: Optional[int] = None                # 年齢 (負担割合・高額療養費体系の判定)
+    gen_eki: bool = False                    # 現役並み所得 (高齢)
+    ittei_ijo: bool = False                  # 後期高齢 一定以上所得 (2割)
+    nyuin: bool = False                      # 入院レセプト (高額療養費=世帯, 外来加算なし)
+    kohi: list[dict] = field(default_factory=list)  # [{hobetsu, fushaBango, futanWari}]
+    shokuji_meals: int = 0                   # 入院時食事療養の食数
+    shokuji_tanka_yen: int = 490             # 食事療養標準負担額 (円/食, 一般)
     acts: list[ActLine] = field(default_factory=list)
     prescriptions: list[Prescription] = field(default_factory=list)
     materials: list[MaterialLine] = field(default_factory=list)
+
+    def resolved_futan_wari(self) -> float:
+        if self.futan_wari is not None:
+            return self.futan_wari
+        if self.age is not None:
+            return insurance.futan_wari(self.age, gen_eki=self.gen_eki,
+                                        ittei_ijo=self.ittei_ijo)
+        return 0.3
 
 
 # --------------------------------------------------------------------------- #
@@ -153,6 +153,7 @@ class ComputedLine:
     unit_ten: int      # 1回/1単位あたり点数
     count: int         # 回数 / 日数
     ten: int           # この明細の合計点数 (unit_ten * count)
+    futan_kubun: str = "1"   # レセ電 負担区分 (保険単独=1 / 保険+公費=2,3 …)
 
 
 @dataclass
@@ -166,7 +167,11 @@ class RezeptResult:
     kogaku_kubun: Optional[str]
     kogaku_limit_yen: Optional[int]
     kogaku_applied: bool
-    patient_pay_yen: int       # 実際の窓口負担 (高額療養費 適用後)
+    patient_pay_yen: int       # 医療費の窓口負担 (高額療養費 適用後)
+    nyuin: bool = False
+    shokuji_futan_yen: int = 0      # 入院時食事療養 標準負担額 (患者)
+    total_futan_yen: int = 0        # 窓口総額 (医療 + 食事)
+    futan_kubun: str = "1"          # レセ電 負担区分
 
     def to_dict(self) -> dict:
         return {
@@ -180,6 +185,10 @@ class RezeptResult:
             "kogakuLimitYen": self.kogaku_limit_yen,
             "kogakuApplied": self.kogaku_applied,
             "patientPayYen": self.patient_pay_yen,
+            "nyuin": self.nyuin,
+            "shokujiFutanYen": self.shokuji_futan_yen,
+            "totalFutanYen": self.total_futan_yen,
+            "futanKubun": self.futan_kubun,
         }
 
 
@@ -202,8 +211,9 @@ def compute_drug_ten(rx: Prescription, m: Masters) -> int:
 
 
 def compute(enc: Encounter, m: Masters) -> RezeptResult:
-    """Encounter → RezeptResult (全点数・一部負担金・高額療養費)."""
+    """Encounter → RezeptResult (全点数・年齢区分・公費・一部負担金・高額療養費・食事療養)."""
     lines: list[ComputedLine] = []
+    fk = insurance.futan_kubun(len(enc.kohi))   # レセ電 負担区分
 
     # 1) 診療行為
     for a in enc.acts:
@@ -211,7 +221,7 @@ def compute(enc: Encounter, m: Masters) -> RezeptResult:
         lines.append(ComputedLine(
             kind="act", shikibetsu=item.shikibetsu, kubun=_kubun_of(item.shikibetsu),
             code=item.code, name=item.name, unit_ten=item.ten,
-            count=a.count, ten=item.ten * a.count,
+            count=a.count, ten=item.ten * a.count, futan_kubun=fk,
         ))
 
     # 2) 薬剤料 (投薬)
@@ -223,7 +233,7 @@ def compute(enc: Encounter, m: Masters) -> RezeptResult:
         lines.append(ComputedLine(
             kind="drug", shikibetsu=rx.shikibetsu, kubun=_kubun_of(rx.shikibetsu),
             code=rx.drugs[0].code if rx.drugs else "", name=label,
-            unit_ten=unit_ten, count=max(1, rx.days), ten=ten,
+            unit_ten=unit_ten, count=max(1, rx.days), ten=ten, futan_kubun=fk,
         ))
 
     # 3) 特定器材料 (特定器材も薬価同様 五捨五超 で点数換算)
@@ -233,6 +243,7 @@ def compute(enc: Encounter, m: Masters) -> RezeptResult:
         lines.append(ComputedLine(
             kind="material", shikibetsu=mat.shikibetsu, kubun=_kubun_of(mat.shikibetsu),
             code=item.code, name=item.name, unit_ten=ten, count=1, ten=ten,
+            futan_kubun=fk,
         ))
 
     # 区分集計
@@ -241,16 +252,31 @@ def compute(enc: Encounter, m: Masters) -> RezeptResult:
         kubun_totals[l.kubun] = kubun_totals.get(l.kubun, 0) + l.ten
     total_ten = sum(l.ten for l in lines)
 
-    # 円換算 + 一部負担金
+    # 円換算 + 一部負担金 (負担割合は age から導出可)
+    wari = enc.resolved_futan_wari()
     total_iryohi_yen = total_ten * m.tensu_tanka_yen
-    ichibu = round_ichibu_futan(total_iryohi_yen * enc.futan_wari)
+    ichibu = round_ichibu_futan(total_iryohi_yen * wari)
 
-    # 高額療養費
-    limit = kogaku_limit(total_iryohi_yen, enc.kogaku_kubun) if enc.kogaku_kubun else None
+    # 高額療養費 (70歳未満 ア〜オ / 70歳以上 現役・一般・低所得; 外来は個人上限)
+    limit = (kogaku_limit(total_iryohi_yen, enc.kogaku_kubun,
+                          age=enc.age, gairai_only=not enc.nyuin)
+             if enc.kogaku_kubun else None)
     applied = limit is not None and ichibu > limit
     patient_pay = limit if applied else ichibu
 
-    # 区分順に並べた集計を出力 (空区分は省く)
+    # 公費負担: 公費が患者負担を肩代わりする場合 (生活保護等 futanWari 0) → 患者負担を圧縮
+    for k in enc.kohi:
+        kf = float(k.get("futanWari", 0.0))
+        kohi_cap = round_ichibu_futan(total_iryohi_yen * kf)
+        patient_pay = min(patient_pay, kohi_cap)
+        gendo = k.get("jikoFutanGendo")
+        if gendo is not None:
+            patient_pay = min(patient_pay, int(gendo))
+
+    # 入院時食事療養 標準負担額 (高額療養費の対象外, 別建て)
+    shokuji = enc.shokuji_meals * enc.shokuji_tanka_yen if enc.nyuin else 0
+    total_futan = int(patient_pay) + shokuji
+
     ordered = {k: kubun_totals[k] for k in KUBUN_ORDER if k in kubun_totals}
 
     return RezeptResult(
@@ -258,10 +284,14 @@ def compute(enc: Encounter, m: Masters) -> RezeptResult:
         kubun_totals=ordered,
         total_ten=total_ten,
         total_iryohi_yen=total_iryohi_yen,
-        futan_wari=enc.futan_wari,
+        futan_wari=wari,
         ichibu_futan_yen=ichibu,
         kogaku_kubun=enc.kogaku_kubun,
         kogaku_limit_yen=limit,
         kogaku_applied=applied,
         patient_pay_yen=int(patient_pay),
+        nyuin=enc.nyuin,
+        shokuji_futan_yen=shokuji,
+        total_futan_yen=total_futan,
+        futan_kubun=fk,
     )

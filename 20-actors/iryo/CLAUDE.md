@@ -45,6 +45,24 @@ charter-clean:
 
 3 Pregel cells (`rezept` / `receden` / `validate`), all pure-stdlib + pywasm-ready.
 
+## 全件対応 (すべての診療行為・薬剤・特定器材・病名)
+
+The official 厚労省/支払基金 master is tens of thousands of copyrighted rows, so iryo does
+NOT embed it — it **ingests** it (`master_loader.py`), making every code resolvable:
+
+- `load_normalized(dir)` — iryo-defined normalized CSV (shinryo/iyaku/tokutei/shobyo/
+  shushokugo/comment), fully tested.
+- `load_mhlw_*(path, ColMap)` — raw 厚労省 基本マスター CSV, column positions given by an
+  overridable `ColMap` (defaults documented as approximate; verify against the current
+  記録条件仕様 before production).
+- `Masters.merge()` — seed + official master compose (official overrides seed).
+
+**診療区分カバレッジ (全カテゴリ)**: 初診/再診/医学管理/在宅/投薬(内服・屯服・外用)/
+注射(皮下・静注・点滴)/処置/手術/麻酔/検査/病理/画像診断/その他/入院。年齢区分
+(乳幼児/成人/前期高齢/後期高齢)からの負担割合導出、公費負担医療(生活保護/難病/自立支援 …)の
+重ね合わせ + 負担区分、高額療養費 全区分(70歳未満 ア〜オ / 70歳以上 現役並み・一般・低所得、
+外来個人/世帯上限)、入院時食事療養 標準負担額。レセ電は IR/RE/TY/HO/KO/SY/SI/IY/TO/CO/SJ。
+
 ## 計算ルール (exact, tested — see py/test_rezept.py)
 
 - **1点 = 10円** (master-driven `tensu_tanka_yen`)
@@ -93,7 +111,7 @@ engine never hard-codes a tariff (G4). The bundled `py/seed_masters.json` is a
 
 ```bash
 cd 20-actors/iryo
-./run_tests.sh           # 28 tests green (rezept / karte PHI / receden / e2e)
+./run_tests.sh           # 51 tests green (rezept/kogaku/insurance/master_loader/coverage/karte/receden/e2e)
 python3 py/demo.py       # 診療録 → レセプト → レセ電 → FHIR end-to-end
 ```
 

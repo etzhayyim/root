@@ -10,6 +10,18 @@ rc=0
 echo "==> iryo レセプト点数計算 engine tests"
 ( cd "$ROOT/py" && python3 -m pytest -q test_rezept.py ) || rc=1
 
+echo "==> iryo 高額療養費 全区分 tests"
+( cd "$ROOT/py" && python3 -m pytest -q test_kogaku.py ) || rc=1
+
+echo "==> iryo 保険・年齢区分・負担区分 tests"
+( cd "$ROOT/py" && python3 -m pytest -q test_insurance.py ) || rc=1
+
+echo "==> iryo マスタ取り込み (全件対応) tests"
+( cd "$ROOT/py" && python3 -m pytest -q test_master_loader.py ) || rc=1
+
+echo "==> iryo 全診療区分カバレッジ (入院/公費/食事) tests"
+( cd "$ROOT/py" && python3 -m pytest -q test_coverage.py ) || rc=1
+
 echo "==> iryo 電子カルテ PHI gate tests"
 ( cd "$ROOT/py" && python3 -m pytest -q test_karte.py ) || rc=1
 

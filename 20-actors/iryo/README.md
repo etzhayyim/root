@@ -35,6 +35,37 @@ karute 電子カルテ (暗号化 PHI)  ──encounter(codes only)──▶  ir
 同梱の `py/seed_masters.json` は **検証用 representative seed** — 本番の保険医療機関は
 厚労省 / 社会保険診療報酬支払基金 配布の公式マスタを読み込む。
 
+## 全件対応 (すべての診療行為・薬剤・特定器材・病名)
+
+公式マスタは数万件規模の著作権物のため埋め込まず、**全件を読み込めるローダ**で対応する
+(`master_loader.py`)。落とし込めばエンジンは全コードを処理する:
+
+```python
+from master_loader import masters_with_official
+# 正規化CSV (code,name,ten,shikibetsu / code,name,yakka,unit / code,name,icd10 …)
+m = masters_with_official("/path/to/master_dir", fmt="normalized")
+# または 厚労省 基本マスター CSV (列位置は ColMap で指定; fmt="mhlw")
+```
+
+| マスタ | 正規化CSV | 公式取り込み |
+|---|---|---|
+| 診療行為 (~9千) | `shinryo.csv` | `load_mhlw_shinryo` (ColMap) |
+| 医薬品/薬価 (~2万) | `iyaku.csv` | `load_mhlw_priced` |
+| 特定器材 (~千) | `tokutei.csv` | `load_mhlw_priced` |
+| 傷病名 (~2.8万) | `shobyo.csv` | `load_mhlw_shobyo` |
+| 修飾語 | `shushokugo.csv` | — |
+| コメント | `comment.csv` | — |
+
+`Masters.merge()` で seed + 公式マスタを合成 (公式が seed を上書き)。
+
+## 診療区分カバレッジ (全カテゴリ)
+
+初診・再診・医学管理・**在宅**・投薬(内服/屯服/外用)・**注射(皮下/静注/点滴)**・処置・
+**手術**・**麻酔**・検査・**病理**・画像診断・その他・**入院**。年齢区分(乳幼児/成人/前期高齢/
+後期高齢)からの負担割合導出、**公費負担医療**(生活保護/難病/自立支援 …)の重ね合わせ +
+負担区分コード、**高額療養費 全区分**(70歳未満 ア〜オ / 70歳以上 現役並み・一般・低所得、
+外来個人上限/世帯上限)、**入院時食事療養** 標準負担額に対応。
+
 ## 走らせる
 
 ```bash
@@ -48,15 +79,18 @@ python3 py/demo.py       # 診療録 → レセプト → レセ電 → FHIR を
 ```
 iryo/
 ├── py/
-│   ├── masters.py        診療行為/医薬品/特定器材/傷病名 マスタ loader
+│   ├── masters.py        診療行為/医薬品/特定器材/傷病名/修飾語/コメント マスタ + merge
+│   ├── master_loader.py  公式/正規化マスタ ingestion (全件対応の鍵)
 │   ├── seed_masters.json representative master seed (検証用; 非公式)
+│   ├── insurance.py      年齢区分/負担割合/公費/負担区分/給付割合
+│   ├── kogaku.py         高額療養費 全区分 (70歳未満 ア〜オ + 70歳以上 現役/一般/低所得)
 │   ├── karte.py          電子カルテ data model + 構造的 PHI ゲート (PhiLeak)
-│   ├── rezept.py         レセプト点数計算 engine (区分集計/一部負担金/高額療養費)
-│   ├── receden.py        レセ電(レセプト電算) record generator + 和暦変換
+│   ├── rezept.py         レセプト点数計算 engine (区分集計/入院/食事/一部負担金/高額療養費)
+│   ├── receden.py        レセ電(レセプト電算) record generator (IR/RE/TY/HO/KO/SY/SI/IY/TO/CO/SJ) + 和暦変換
 │   ├── fhir.py           FHIR R4 Claim/Coverage/Condition export
 │   ├── agent.py          cell handlers (rezept / receden / validate / export_fhir)
 │   ├── demo.py           end-to-end CLI demo
-│   └── test_*.py         pytest suite (28 tests)
+│   └── test_*.py         pytest suite (51 tests)
 ├── kotoba/schema.edn     :iryo.rezept/* + :iryo.line/* + :iryo.shobyo/* EAVT schema
 ├── lex/                  encounter / rezept lexicons (EDN)
 ├── cells/                rezept / receden / validate cell defs (langgraph, wasm)

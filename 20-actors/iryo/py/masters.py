@@ -55,6 +55,19 @@ class ShobyoItem:
     icd10: str
 
 
+@dataclass(frozen=True)
+class ShushokugoItem:
+    code: str
+    name: str
+
+
+@dataclass(frozen=True)
+class CommentItem:
+    code: str
+    pattern: str
+    name: str
+
+
 class MasterError(KeyError):
     """Raised when a code is not present in the loaded master."""
 
@@ -80,6 +93,14 @@ class Masters:
         self._shobyo = {
             k: ShobyoItem(k, v["name"], v.get("icd10", ""))
             for k, v in raw.get("shobyo", {}).items()
+        }
+        self._shushokugo = {
+            k: ShushokugoItem(k, v["name"])
+            for k, v in raw.get("shushokugo", {}).items()
+        }
+        self._comment = {
+            k: CommentItem(k, v.get("pattern", ""), v.get("name", ""))
+            for k, v in raw.get("comment", {}).items()
         }
 
     # -- constructors ------------------------------------------------------ #
@@ -117,15 +138,43 @@ class Masters:
         except KeyError:
             raise MasterError(f"傷病名コード not in master: {code}")
 
+    def shushokugo(self, code: str) -> ShushokugoItem:
+        try:
+            return self._shushokugo[code]
+        except KeyError:
+            raise MasterError(f"修飾語コード not in master: {code}")
+
+    def comment(self, code: str) -> CommentItem:
+        try:
+            return self._comment[code]
+        except KeyError:
+            raise MasterError(f"コメントコード not in master: {code}")
+
     def has_shinryo(self, code: str) -> bool:
         return code in self._shinryo
 
+    def counts(self) -> dict:
+        return {
+            "shinryo": len(self._shinryo), "iyaku": len(self._iyaku),
+            "tokutei": len(self._tokutei), "shobyo": len(self._shobyo),
+            "shushokugo": len(self._shushokugo), "comment": len(self._comment),
+        }
+
+    def merge(self, other: "Masters") -> "Masters":
+        """Return a new Masters with `other` overlaid on `self` (official master over seed)."""
+        merged = Masters.__new__(Masters)
+        merged.version = f"{self.version}+{other.version}"
+        merged.tensu_tanka_yen = other.tensu_tanka_yen or self.tensu_tanka_yen
+        merged._shinryo = {**self._shinryo, **other._shinryo}
+        merged._iyaku = {**self._iyaku, **other._iyaku}
+        merged._tokutei = {**self._tokutei, **other._tokutei}
+        merged._shobyo = {**self._shobyo, **other._shobyo}
+        merged._shushokugo = {**self._shushokugo, **other._shushokugo}
+        merged._comment = {**self._comment, **other._comment}
+        return merged
+
     def __repr__(self) -> str:  # pragma: no cover - debug aid
-        return (
-            f"Masters(version={self.version!r}, shinryo={len(self._shinryo)}, "
-            f"iyaku={len(self._iyaku)}, tokutei={len(self._tokutei)}, "
-            f"shobyo={len(self._shobyo)})"
-        )
+        return f"Masters(version={self.version!r}, {self.counts()})"
 
 
 # A module-level default for convenience / tests.

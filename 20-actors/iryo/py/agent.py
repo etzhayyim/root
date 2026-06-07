@@ -47,9 +47,17 @@ INTENT = "member-principal-claim-substrate; non-adjudicating"
 # input decoding (plain dict → dataclasses, so cells can be driven from JSON)
 # --------------------------------------------------------------------------- #
 def _encounter_from(d: dict) -> Encounter:
+    fw = d.get("futanWari", 0.3)
     return Encounter(
-        futan_wari=float(d.get("futanWari", 0.3)),
+        futan_wari=(None if fw is None else float(fw)),
         kogaku_kubun=d.get("kogakuKubun"),
+        age=d.get("age"),
+        gen_eki=bool(d.get("genEki", False)),
+        ittei_ijo=bool(d.get("itteiIjo", False)),
+        nyuin=bool(d.get("nyuin", False)),
+        kohi=d.get("kohi", []),
+        shokuji_meals=int(d.get("shokujiMeals", 0)),
+        shokuji_tanka_yen=int(d.get("shokujiTankaYen", 490)),
         acts=[ActLine(a["code"], int(a.get("count", 1))) for a in d.get("acts", [])],
         prescriptions=[
             Prescription(
@@ -133,6 +141,10 @@ def handle_receden(state: dict) -> dict:
         shinryo_year=int(state.get("shinryoYear", 2026)),
         shinryo_month=int(state.get("shinryoMonth", 6)),
         jitsunissu=int(state.get("jitsunissu", 1)),
+        nyuin=bool(state.get("encounter", {}).get("nyuin", False)),
+        tokki=state.get("tokki"),
+        comments=state.get("comments"),
+        shojo_shoki=state.get("shojoShoki"),
     )
     return {
         "records": rows,
