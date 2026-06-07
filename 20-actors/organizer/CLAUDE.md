@@ -1,5 +1,11 @@
 # etzhayyim-project-organizer — organizer.etzhayyim.com
 
+> **kotoba-native (ADR-2606072400).** Canonical manifest is now `manifest.edn`; data model in
+> `kotoba/schema.edn`; logic + tests in `py/` (14 green). Free auto-organize file commons:
+> content-addressed dedup (Blake3), per-vault isolation, encrypted blobs, member-signed, and
+> **no content mining**. Legacy `actor-manifest.jsonld` (RisingWave) is DEPRECATED
+> (`DEPRECATED-jsonld.md`); subscription-discovery pipeline retained as a follow-up. Below is historical.
+
 **Upload → AI Auto-Organize** — アップロードすれば AI が自動で整理。フォルダ手動整理不要。
 
 ## Architecture

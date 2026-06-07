@@ -903,6 +903,18 @@
       "lastVerified": "2026-05-25"
     },
     {
+      "id": "doc:2606071300",
+      "type": "TechArticle",
+      "title": "Deprecate yata and lancedb-wasm in favor of kotoba, enable Dependabot auto-merge",
+      "status": "accepted",
+      "topic": "infrastructure-management",
+      "authoritative": true,
+      "authoritativeFor": [
+        ".github/workflows/dependabot-auto-merge.yml"
+      ],
+      "related": "doc:2605262130"
+    },
+    {
       "id": "doc:ADR-2605291700",
       "type": "TechArticle",
       "title": "baien-moemoekyun plateau analysis (cycles 17-114) + Best-of-N as the deployable score-lift path",
@@ -13930,6 +13942,151 @@
         "doc:adr-2605302358-social-security-real-world-delivery-pipeline",
         "doc:adr-2605172700-membership-layering-shinto-adherent",
         "doc:adr-2605192100-etzhayyim-mission-charter"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606071100-yoro-browser-only-kotoba-reads-and-profile-fix-e2e",
+      "type": "TechArticle",
+      "title": "ADR-2606071100: yoro browser-only kotoba reads (no RisingWave), profile-500 fix, and the langgraph+browser-use+Murakumo e2e harness",
+      "status": "accepted",
+      "topic": "yoro-browser-only-kotoba-reads",
+      "authoritative": true,
+      "authoritativeFor": [
+        "yoro-home-feed-read-path",
+        "kotoba-browser-only-reads",
+        "browser-only-e2e-verification"
+      ],
+      "related": [
+        "doc:2606013800",
+        "doc:2606014600"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606071238-session-close-nondual-experience-conversion-charter-1-17",
+      "type": "TechArticle",
+      "title": "ADR-2606071238: Session close — Charter §1.17 自他非分離の直接体験 (doctrine) + §1.17.6 guidance UI (yoro deployed live, maps built+pending)",
+      "status": "active",
+      "topic": "session-close-nondual-experience-conversion",
+      "authoritative": true,
+      "authoritativeFor": [
+        "session-close record for the Charter §1.17 non-dual-experience wave (2026-06-07)"
+      ],
+      "related": [
+        "doc:adr-2606071009-nondual-direct-experience-conversion-core",
+        "doc:adr-2605302357-etzhayyim-social-security-for-humanity",
+        "doc:adr-2605192100-etzhayyim-mission-charter"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606071400-omise-kotoba-native-storefront-commons",
+      "type": "TechArticle",
+      "title": "ADR-2606071400: omise お店 — kotoba-native storefront commons (Shopify-layer for internal sellers); promote scaffold → implementation",
+      "status": "proposed",
+      "topic": "omise-storefront-commons",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/omise"
+      ],
+      "related": "doc:2605231525",
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606071500-ainori-pooled-mobility-commons",
+      "type": "TechArticle",
+      "title": "ADR-2606071500: ainori 相乗り — pooled passenger-mobility commons (Uber charter-clean inversion), R0",
+      "status": "proposed",
+      "topic": "ainori-mobility-commons",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/ainori"
+      ],
+      "related": "doc:2606032130",
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606071600-shukubo-pilgrim-lodging-commons",
+      "type": "TechArticle",
+      "title": "ADR-2606071600: shukubo 宿坊 — pilgrim-lodging commons (Airbnb/Hotels charter-clean inversion), R0",
+      "status": "proposed",
+      "topic": "shukubo-lodging-commons",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/shukubo"
+      ],
+      "related": "doc:2606042300",
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606071800-substrate-remediation-wave",
+      "type": "TechArticle",
+      "title": "ADR-2606071800: legacy RisingWave/Hyperdrive/Kysely → kotoba-kqe read-path remediation wave",
+      "status": "proposed",
+      "topic": "substrate-remediation-wave",
+      "authoritative": true,
+      "authoritativeFor": [
+        "90-docs/_registry/substrate-remediation-inventory.txt"
+      ],
+      "related": [
+        "doc:2606071400",
+        "doc:2606012100"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606072000-business-manager-kotoba-native-erp",
+      "type": "TechArticle",
+      "title": "ADR-2606072000: business-manager — kotoba-native internal ERP (Salesforce/SAP inversion); remediation Phase A",
+      "status": "proposed",
+      "topic": "business-manager-kotoba-native",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/business-manager"
+      ],
+      "related": "doc:2605262900",
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606072200-yotei-kotoba-native-scheduling",
+      "type": "TechArticle",
+      "title": "ADR-2606072200: yotei — kotoba-native scheduling commons (Calendly inversion); remediation Phase A",
+      "status": "proposed",
+      "topic": "yotei-kotoba-native",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/yotei"
+      ],
+      "related": "doc:2605181100",
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606072400-organizer-kotoba-native-file-commons",
+      "type": "TechArticle",
+      "title": "ADR-2606072400: organizer — kotoba-native auto-organize file commons (Google Drive inversion); remediation Phase A",
+      "status": "proposed",
+      "topic": "organizer-kotoba-native",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/organizer"
+      ],
+      "related": "doc:2606072200",
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606072600-talent-kotoba-native-registry",
+      "type": "TechArticle",
+      "title": "ADR-2606072600: talent — kotoba-native cohort-first talent registry (Indeed/LinkedIn-Recruiter inversion); remediation Phase A",
+      "status": "proposed",
+      "topic": "talent-kotoba-native",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/talent"
+      ],
+      "related": [
+        "doc:2606072200",
+        "doc:2606072400"
       ],
       "lastVerified": "2026-06-07"
     },

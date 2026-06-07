@@ -4610,7 +4610,7 @@ Deletion batches and corresponding etzhayyim/root SoT paths:
 | 2 | signal-client / at-client / wproto | 10-protocol/{signal-client,at-client,wproto}/ |
 | 3 | etzhayyim-project-public-malak / resources / etzhayyim-project-public-global | 60-apps/etzhayyim-project-public-malak/, 00-contracts/resources/, 60-apps/etzhayyim-project-public-global/ (last one **fetched first**, see below) |
 | 4 | etzhayyim-project-open-lexicon / open-bpmn / open-isic / open-jpn-gov | 00-contracts/lexicons/com/etzhayyim/ + 00-contracts/bpmn/com/etzhayyim/ + 60-apps/etzhayyim-project-open-{isic,jpn-gov}/ |
-| 5 | kotodama-go / watashi / yata / etzhayyim-bpmn-sdk / kami-engine-sdk | 20-actors/{kotodama-go,kami-engine-sdk,etzhayyim-bpmn-sdk}/, 60-apps/watashi/, 50-infra/yata/ |
+| 5 | kotodama-go / watashi / etzhayyim-bpmn-sdk / kami-engine-sdk | 20-actors/{kotodama-go,kami-engine-sdk,etzhayyim-bpmn-sdk}/, 60-apps/watashi/ |
 | 6 | cdn / nats-tiered-storage / nats-jetstream-objectstore-s3 | 70-tools/cdn/, 50-infra/{nats-tiered-storage,nats-jetstream-objectstore-s3}/ |
 
 ## public-global reconciliation (commit 690135d3)
@@ -6670,7 +6670,6 @@ existing_cold_backups_no_deletion_authorized_by_this_adr = [
   "50-infra/nats-jetstream-kv-resp/ (Phase 3 cold backup)",
   "50-infra/nats-jetstream-objectstore-s3/ (Phase 3 cold backup)",
   "50-infra/nats-tiered-storage/ (Phase 3 cold backup)",
-  "50-infra/lancedb-wasm/ (Phase 4 cold backup)",
   "50-infra/tonbo/ (Phase 2 retire window)",
   "50-infra/etzhayyim-xrpc-proxy/ (Phase 6 cold backup)",
 ]
@@ -10147,3 +10146,19 @@ lexicons = ["com.etzhayyim.moyai.contributionAttestation", "com.etzhayyim.moyai.
 reference_impl = "50-infra/etzhayyim-moyai-credit"
 supersedes = "legacy RisingWave credits economy (bpmn/com/etzhayyim/credits/*, ameno vertex_credits_af_event)"
 status = "accepted — landed on main 2026-06-06 (PR #1184, merge 62e4c2c); R0/R1 reference impl, 46 tests green; live mint/burn + external enrollment Council Lv6+ + operator gated"
+
+# ─── Deprecate yata and enable Dependabot auto-merge ────────────────
+
+[[adrs]]
+id = "2606071300"
+title = "Deprecate yata and lancedb-wasm in favor of kotoba, enable Dependabot auto-merge"
+status = "accepted"
+status_note = "Removes the legacy 50-infra/yata and 50-infra/lancedb-wasm repositories to reduce technical debt in favor of kotoba. Closes associated dependabot PRs and enables auto-merge for fully-green dependabot updates."
+path = "90-docs/adr/2606071300-deprecate-yata-and-enable-dependabot-automerge.md"
+
+[[modules]]
+path = ".github/workflows/dependabot-auto-merge.yml"
+adr = "2606071300"
+kind = "github-actions-workflow"
+status = "shipped"
+description = "Automatically squash and merge Dependabot pull requests once all CI status checks successfully pass."
