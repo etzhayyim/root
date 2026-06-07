@@ -21,7 +21,7 @@ depends_on:
   - adr-2605010000
   - adr-2605082000-langgraph-graph-definition-as-data
 related:
-  - adr-0044-risingwave-udf-language-strategy
+  - adr-0044-kotoba-udf-language-strategy
   - adr-2605092100-lora-per-cell-moe-expert-cohort-fission
   - adr-2605092300-fp8-train-inference-colocation
 supersedes:
@@ -44,7 +44,7 @@ FP8 vector 空間** に統合し、graph row 自体がモデル状態である�
 - D = 4096 (trunk shared model) / 1024 (per-cell adapter projection)
 - dtype: **E4M3** (forward / inference / 永続保存), **E5M2** (gradient / backward)
 - storage: 1 byte per dim + per-row FP32 scale, BYTEA in RW
-- index: HNSW (RisingWave / pgvector); 距離計算は dequant→BF16
+- index: HNSW (Kotoba/Datomic / pgvector); 距離計算は dequant→BF16
 
 ## B. Schema (中核)
 

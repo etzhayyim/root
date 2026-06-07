@@ -68,7 +68,7 @@ etzhayyim Mission Charter (ADR-2605192100) は **構造的労働解放** を最�
 | **Operating entity** | etzhayyim (vendor 関与なし、3-axis split 全 clean) |
 | **License** | Apache-2.0 + Charter Compliance Rider v2.0 |
 | **DID** | `did:web:yobel.etzhayyim.com` (primary) |
-| **Substrate** | AT MST + IPFS + Base L2 (RW-free — vendor の RisingWave は使わない) |
+| **Substrate** | AT MST + IPFS + Base L2 (RW-free — vendor の Kotoba/Datomic は使わない) |
 | **Settlement** | USDC on Base L2 via ERC725 Smart Wallet。fiat / Stripe / 銀行決済 禁止 |
 | **NSID (current)** | `com.etzhayyim.apps.etzhayyim.yobel.*` (kuniUmi precedent と整合) |
 | **NSID (canonical, future)** | `org.etzhayyim.yobel.*` (post-org-rename cutover) |
@@ -180,7 +180,7 @@ vendor (etzhayyim Japan) は **意思決定権なし**。本 actor の出力 (re
 
 **Neutral**
 - deps.toml `[[projects]]` 追加 (登記後の cutover で vendor:deps.toml entry は archive)
-- 実装 scaffolding (`magatama.jsonld` / `src/app.ts`) は本 PR 後の follow-up
+- 実装 scaffolding (`kotodama.jsonld` / `src/app.ts`) は本 PR 後の follow-up
 - vendor 側 (`vendor:60-apps/etzhayyim-project-yobel/CLAUDE.md`) は marker stub として残置、cross-reference 用
 
 # Alternatives Considered

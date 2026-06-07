@@ -54,7 +54,7 @@ spec:
         - name: ghcr-pull
       containers:
         - name: server
-          image: ghcr.io/etzhayyim/pymagatama:main
+          image: ghcr.io/etzhayyim/kotodama:main
           imagePullPolicy: Always
           command:
             - granian
@@ -66,10 +66,10 @@ spec:
             - "8080"
             - "--workers"
             - "1"
-            - pymagatama.langgraph_server_app:app
+            - kotodama.langgraph_server_app:app
           env:
             # Substrate marker — kotoba-datomic composition per ADR-2605231400.
-            # No RisingWave / Postgres / Hyperdrive secrets are referenced from
+            # No Kotoba/Datomic / Postgres / Hyperdrive secrets are referenced from
             # this Pod (RW-free per ADR-2605172000, decontaminated by
             # ADR-2605232100). The legacy `mitama-udf-pool-rw` secretRef was
             # removed in the same change.
@@ -84,7 +84,7 @@ spec:
               value: "/run/etzhayyim/checkpointer.sock"
             # Stage D (ADR-2605232100) — UNSPSC actor capability wrapping.
             # Turns on the perceive → inner-graph → record loop in
-            # pymagatama.xrpc.unispsc.invoke_agent. Belief-store SQLite
+            # kotodama.xrpc.unispsc.invoke_agent. Belief-store SQLite
             # files land in /tmp (writable emptyDir, ephemeral until the
             # MstCheckpointSaver sidecar replaces it with substrate-anchored
             # persistence).
@@ -141,7 +141,7 @@ spec:
             failureThreshold: 3
           readinessProbe:
             # /healthz returns graph registry counts only (db_loaded / static_filled)
-            # and never touches RisingWave. The unispsc XRPC façade serves
+            # and never touches Kotoba/Datomic. The unispsc XRPC façade serves
             # listAgents / invokeAgent / classify from the in-memory _GRAPH_REGISTRY,
             # so registry-ready is the correct readiness signal.
             #

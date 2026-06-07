@@ -67,7 +67,7 @@ function isDidAllowed(did: string): boolean {
 
 ### Path B (Python daemon)
 
-同形:`pymagatama/projects/ameno/did_auth.py` で `_load_allowlist()`
+同形:`kotodama/projects/ameno/did_auth.py` で `_load_allowlist()`
 + `is_did_allowed()`。
 
 ### Browser (viewer-mode.ts)

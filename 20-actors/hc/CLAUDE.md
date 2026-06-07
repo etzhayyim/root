@@ -19,7 +19,7 @@ Browser (SuperApp Mobile-First)
               ├─ HCCommandService — compatibility ingress for shifts/tasks/bookings/compliance
               ├─ HCQueryService — browse, list, stats
               ├─ actor.SendRoomEvent() → Matrix MessagingService (全通知)
-              └─ magatama WIT → SQL graph (Arrow schema)
+              └─ kotodama WIT → SQL graph (Arrow schema)
 ```
 
 ## Event Stream Services

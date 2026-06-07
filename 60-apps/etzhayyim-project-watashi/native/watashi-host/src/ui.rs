@@ -1,10 +1,10 @@
 //! KAMI-powered GUI for Watashi — live mDNS peer discovery + server status.
 //!
-//! Nintendo-style wgpu UI via magatama-kami-host.
+//! Nintendo-style wgpu UI via kotodama-kami-host.
 
 use crate::discovery::{Discovery, DiscoveredPeer};
 use anyhow::Result;
-use magatama_kami_host::{Color, KamiFrameModel, KamiHostConfig, KamiScene, MeterNode, PanelNode, Rect, TextNode};
+use kotodama_kami_host::{Color, KamiFrameModel, KamiHostConfig, KamiScene, MeterNode, PanelNode, Rect, TextNode};
 use std::sync::{Arc, Mutex};
 
 /// Nintendo-style color palette.
@@ -167,7 +167,7 @@ fn build_scene(
 
 /// Run the Watashi GUI window with live mDNS discovery updates.
 pub fn run_ui_with_discovery(mdns: Discovery, port: u16, local_screens: usize) -> Result<()> {
-    use magatama_kami_host::runtime::RenderState;
+    use kotodama_kami_host::runtime::RenderState;
     use winit::dpi::PhysicalSize;
     use winit::event::{Event, WindowEvent, ElementState, KeyEvent};
     use winit::event_loop::EventLoop;

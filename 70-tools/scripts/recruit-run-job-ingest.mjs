@@ -12,7 +12,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { spawn } from "node:child_process";
 import { createRequire } from "node:module";
 
-const RW_CONN = process.env.RW_CONN ?? "postgresql://root@127.0.0.1:14566/dev?sslmode=disable";
+const KOTOBA_URL = process.env.KOTOBA_URL ?? "postgresql://root@127.0.0.1:14566/dev?sslmode=disable";
 const args = process.argv.slice(2);
 const hasFlag = (key) => args.includes(`--${key}`);
 const getArg = (key, fallback) => {
@@ -44,7 +44,7 @@ function run(command, commandArgs, options = {}) {
 
 async function pgClient() {
   const pg = graphRequire("pg");
-  const client = new pg.Client({ connectionString: RW_CONN, statement_timeout: 30_000 });
+  const client = new pg.Client({ connectionString: KOTOBA_URL, statement_timeout: 30_000 });
   await client.connect();
   return client;
 }
@@ -133,7 +133,7 @@ async function main() {
     await assertDbReady();
     if (!skipMigrate) {
       await run("pnpm", ["--filter", "@etzhayyim/graph-schema", "run", "db:migrate"], {
-        env: { ...process.env, DATABASE_URL: process.env.DATABASE_URL ?? RW_CONN },
+        env: { ...process.env, DATABASE_URL: process.env.DATABASE_URL ?? KOTOBA_URL },
       });
     }
   }

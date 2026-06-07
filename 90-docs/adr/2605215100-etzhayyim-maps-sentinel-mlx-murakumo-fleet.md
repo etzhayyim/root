@@ -9,7 +9,7 @@ last_verified: 2026-05-21
 priority: 6.5
 axis: infrastructure
 weight: 0.55
-priority_note: "Concrete REIMPLEMENT successor for maps_sentinel.py — closes the heaviest open pymagatama migration target"
+priority_note: "Concrete REIMPLEMENT successor for maps_sentinel.py — closes the heaviest open kotodama migration target"
 authoritative_for:
   - "Sentinel-1 SAR + Sentinel-2 multispectral analysis on etzhayyim fleet"
   - "Tiered GPU/MLX placement for satellite imagery workloads"
@@ -37,7 +37,7 @@ superseded_by: []
 
 ## The vendor implementation
 
-The vendor `pymagatama` module at `20-actors/magatama/py/src/pymagatama/primitives/maps_sentinel.py` provides two LangServer task types over Sentinel satellite imagery:
+The vendor `kotodama` module at `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/maps_sentinel.py` provides two LangServer task types over Sentinel satellite imagery:
 
 | Task type | What it does |
 |---|---|
@@ -151,7 +151,7 @@ If EVO-X2 is unreachable at analysis time:
 
 ### P5 — STAC search (T-1 — not a GPU tier)
 
-The STAC search task (`maps.sentinel.stac.search` → `task_maps_sentinel_stac_search`) uses no GPU. The vendor implementation's HTTP logic and AOI handling are substrate-neutral and can be ported directly to `maps_sentinel_murakumo.py` without changes to the HTTP logic. The only change is replacing `sync_cursor()` DB writes (RisingWave) with AT MST record writes via the etzhayyim substrate (AT Protocol MST + IPFS + Base L2 per ADR-2605172000). STAC search runs on the receiving Mac mini node (CPU-only, no tier assignment).
+The STAC search task (`maps.sentinel.stac.search` → `task_maps_sentinel_stac_search`) uses no GPU. The vendor implementation's HTTP logic and AOI handling are substrate-neutral and can be ported directly to `maps_sentinel_murakumo.py` without changes to the HTTP logic. The only change is replacing `sync_cursor()` DB writes (Kotoba/Datomic) with AT MST record writes via the etzhayyim substrate (AT Protocol MST + IPFS + Base L2 per ADR-2605172000). STAC search runs on the receiving Mac mini node (CPU-only, no tier assignment).
 
 ## §3 Lexicon wire-shape stability
 
@@ -184,7 +184,7 @@ The vendor constants `COLLECTION_SCENE = "com.etzhayyim.apps.maps.satelliteScene
 The new implementation file is:
 
 ```
-20-actors/magatama/py/src/pymagatama/primitives/maps_sentinel_murakumo.py
+40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/maps_sentinel_murakumo.py
 ```
 
 It does **not** modify or replace the vendor file `maps_sentinel.py`. The vendor file remains operative for `etzhayyim.com` paid SaaS callers. The murakumo variant is a parallel new file that registers different task type names on the LangServer worker:
@@ -201,20 +201,20 @@ The `maps.sentinel.murakumo.analyze` task type is registered alongside `maps.sen
 | **M2** | T1: Qwen3-VL-8B-Instruct-4bit dispatch to EVO-X2 via LiteLLM gateway; verify ROCm gfx1151 inference path with a test SAR tile; implement T1 fallback (gemma3:4b local degraded path); wire `changeDetection` and `landUse` to T0 + T1 for initial output | M1 + 30d |
 | **M3** | T2 + T3: Florence-2-base via `mlx_lm` on M4 nodes for land-cover segmentation; SegFormer-b2 ONNX fallback for SAR flood mask; numpy + `torch.mps` differential ops for change detection; `sarFlood` analysis type fully operational end-to-end | M2 + 45d |
 | **M4** | T4 heavy SAR (research spike): InSAR coherence via custom ComfyUI workflow on EVO-X2; OpenSAR-Ship distilled Q4 candidate evaluation on gfx1151; oil-spill segmentation. Slip allowed — block on gfx1151 ROCm coverage for large models. Report back as ADR amendment. | M3 + 60d (slip allowed) |
-| **M5** | Retire `maps.sentinel.runpod.analyze` for religious-corp callers: `LandStewardshipMonitoringCell` and `AuditWitnessCell` wired to `maps.sentinel.murakumo.analyze`; import guard added to `maps_sentinel.py` per ADR-2605215000 §2.2; `PYMAGATAMA-MIGRATION-NOTES.md` maps_sentinel row marked complete | Tied to Step 8 legal registration cutover |
+| **M5** | Retire `maps.sentinel.runpod.analyze` for religious-corp callers: `LandStewardshipMonitoringCell` and `AuditWitnessCell` wired to `maps.sentinel.murakumo.analyze`; import guard added to `maps_sentinel.py` per ADR-2605215000 §2.2; `PYKOTODAMA-MIGRATION-NOTES.md` maps_sentinel row marked complete | Tied to Step 8 legal registration cutover |
 
 ## §5 Status amendments
 
 This ADR **extends** (does not supersede) ADR-2605215000:
 
-- **ADR-2605215000 §3 REIMPLEMENT item** for `maps_sentinel.py` is now made concrete by this ADR. The companion `PYMAGATAMA-MIGRATION-NOTES.md` maps_sentinel row should be updated to reference ADR-2605215100 as the design authority for the murakumo variant.
+- **ADR-2605215000 §3 REIMPLEMENT item** for `maps_sentinel.py` is now made concrete by this ADR. The companion `PYKOTODAMA-MIGRATION-NOTES.md` maps_sentinel row should be updated to reference ADR-2605215100 as the design authority for the murakumo variant.
 - This ADR does not change the RunPod prohibition (established by ADR-2605215000 §1), the substrate boundary (ADR-2605172000), or the EVO-X2 placement contract (ADR-2605202345). It sharpens the implementation plan for one specific REIMPLEMENT target.
 
 ---
 
 # Consequences
 
-1. **REIMPLEMENT closure for the heaviest pymagatama target**: `maps_sentinel.py` was the most structurally complex RunPod coupling in the pymagatama codebase — it has custom polling logic, a model registry, and a LangChain stage pipeline. This ADR closes the design gap; M1–M3 execution closes the engineering gap. The Step 8 cutover sub-list now has a concrete implementation path.
+1. **REIMPLEMENT closure for the heaviest kotodama target**: `maps_sentinel.py` was the most structurally complex RunPod coupling in the kotodama codebase — it has custom polling logic, a model registry, and a LangChain stage pipeline. This ADR closes the design gap; M1–M3 execution closes the engineering gap. The Step 8 cutover sub-list now has a concrete implementation path.
 
 2. **Vendor wire shape preserved for interop**: The `com.etzhayyim.apps.maps.sentinelAnalyze` lexicon required fields are byte-identical between vendor and religious-corp variants. A BPMN process using `sceneUri` + `analysisType` inputs and `analysisUri` + `confidence` outputs works against both backends. Description text is the only lexicon field changed (PORT-adapted pattern from ADR-2605214000 §2).
 
@@ -265,9 +265,9 @@ Proposal: Serve only Sentinel-2 optical analyses (changeDetection, landUse) and 
 - **related**:
   - ADR-2605201400 — kuni-umi planetary infra fleet (SiteSurveyCell, AuditWitnessCell use SAR analysis)
   - ADR-2605192245 — etzhayyim global land sovereignty (land trust monitoring use case for Sentinel analysis)
-  - ADR-2605172000 — RW-free substrate (AT MST + IPFS + Base L2 replaces RisingWave for scene/analysis record writes)
-- **Implementation target**: `20-actors/magatama/py/src/pymagatama/primitives/maps_sentinel_murakumo.py` (new file; do not modify vendor `maps_sentinel.py`)
-- **Step 8 cutover sub-list**: `20-actors/magatama/py/PYMAGATAMA-MIGRATION-NOTES.md` (sister document; maps_sentinel row)
+  - ADR-2605172000 — RW-free substrate (AT MST + IPFS + Base L2 replaces Kotoba/Datomic for scene/analysis record writes)
+- **Implementation target**: `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/maps_sentinel_murakumo.py` (new file; do not modify vendor `maps_sentinel.py`)
+- **Step 8 cutover sub-list**: `40-engine/kotoba/crates/kotoba-kotodama/py/PYKOTODAMA-MIGRATION-NOTES.md` (sister document; maps_sentinel row)
 - **Lexicons**: `00-contracts/lexicons/com/etzhayyim/apps/maps/sentinelAnalyze.json`, `sentinelIngest.json` (wire contract; description-only PORT-adapted per ADR-2605214000 §2)
 - **Adjacent lexicons**: `00-contracts/lexicons/com/etzhayyim/apps/maps3d/README.md` (PORT verdict patterns used as reference for lexicon adaptation)
 - **Fleet config**: `50-infra/murakumo/fleet.toml` — node capabilities, EVO-X2 inference_backends endpoints, per-node Ollama fallback

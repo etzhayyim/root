@@ -1,4 +1,4 @@
-// TypeScript port of pymagatama.nv_compat.isaaclab.controllers.differential_ik
+// TypeScript port of kotodama.nv_compat.isaaclab.controllers.differential_ik
 //
 // DifferentialIKController — Jacobian-based inverse kinematics for arm
 // reaching. Maps a 6-DOF task-space command (pose or position) onto a

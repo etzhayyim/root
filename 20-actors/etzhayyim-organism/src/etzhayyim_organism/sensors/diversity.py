@@ -12,7 +12,7 @@ from .common import AxisReading, count_glob
 
 
 def read(repo: Path) -> AxisReading:
-    cells = count_glob(repo, "20-actors/magatama/cells/*/")
+    cells = count_glob(repo, "40-engine/kotoba/crates/kotoba-kotodama/cells/*/")
     apps = count_glob(repo, "60-apps/*/")
     proto = count_glob(repo, "10-protocol/*/")
     infra = count_glob(repo, "50-infra/*/")
@@ -20,9 +20,9 @@ def read(repo: Path) -> AxisReading:
     score = 0
     ev: list[str] = []
     if cells >= 10:
-        score += 3; ev.append(f"{cells} magatama cells (八百万 variation)")
+        score += 3; ev.append(f"{cells} kotodama cells (八百万 variation)")
     elif cells >= 5:
-        score += 2; ev.append(f"{cells} magatama cells")
+        score += 2; ev.append(f"{cells} kotodama cells")
     if apps >= 10:
         score += 3; ev.append(f"{apps} apps")
     elif apps >= 1:

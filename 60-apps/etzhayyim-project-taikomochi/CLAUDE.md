@@ -57,7 +57,7 @@
 |------|------|
 | Type | **Native Go Provider** (goroutine, net/http, WebSocket 必須) |
 | WIT namespace | `etzhayyim:taikomochi` |
-| Deploy target | `magatama-runtime` namespace |
+| Deploy target | `kotodama-runtime` namespace |
 | Image registry | `ghcr.io/etzhayyim/taikomochi-twitch-agent` |
 
 ## Key Design Decisions

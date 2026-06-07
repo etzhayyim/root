@@ -26,7 +26,7 @@
   - `com.etzhayyim.apps.drive.fileMove`
   - `com.etzhayyim.apps.drive.fileStatusUpdate`
   - `com.etzhayyim.apps.drive.fileLocationUpdate`
-  - Ref: `60-apps/etzhayyim-project-drive/appview/drive-app-component/magatama.jsonld` lines 58-64
+  - Ref: `60-apps/etzhayyim-project-drive/appview/drive-app-component/kotodama.jsonld` lines 58-64
 
 - Calendar collections (used in app code):
   - `com.etzhayyim.apps.calendar.event`
@@ -40,7 +40,7 @@
   - `com.etzhayyim.apps.docs.docsEntity`
   - `com.etzhayyim.apps.docs.docsEvent`
   - `com.etzhayyim.apps.docs.docsReport`
-  - Ref: `60-apps/etzhayyim-project-docs/appview/docs-performers-r5ycqp6x/magatama.jsonld` lines 78-80
+  - Ref: `60-apps/etzhayyim-project-docs/appview/docs-performers-r5ycqp6x/kotodama.jsonld` lines 78-80
 
 - PPTX collections:
   - `com.etzhayyim.apps.pptx.presentation`
@@ -49,13 +49,13 @@
   - `com.etzhayyim.apps.pptx.textRun`
   - `com.etzhayyim.apps.pptx.image`
   - `com.etzhayyim.apps.pptx.slideTemplate`
-  - Ref: `60-apps/etzhayyim-project-pptx/appview/etzhayyim-wasm-pptx-t53br1o0/magatama.jsonld` lines 70-75
+  - Ref: `60-apps/etzhayyim-project-pptx/appview/etzhayyim-wasm-pptx-t53br1o0/kotodama.jsonld` lines 70-75
 
 - Sheets collections (Excel相当):
   - `com.etzhayyim.apps.sheets.sheetsEntity`
   - `com.etzhayyim.apps.sheets.sheetsEvent`
   - `com.etzhayyim.apps.sheets.sheetsReport`
-  - Ref: `60-apps/etzhayyim-project-sheets/appview/sheets-mcp-component/magatama.jsonld` lines 78-80
+  - Ref: `60-apps/etzhayyim-project-sheets/appview/sheets-mcp-component/kotodama.jsonld` lines 78-80
 
 - XLSX actor collections:
   - `com.etzhayyim.apps.xlsx.workbook`

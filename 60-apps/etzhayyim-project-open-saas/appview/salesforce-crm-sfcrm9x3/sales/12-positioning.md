@@ -27,7 +27,7 @@ JP:
 
 Positioning without honest trade-offs is brochure copy. We give up:
 
-- **No Apex / no Lightning App Builder / no Visualforce**. Custom logic lives in `magatama.jsonld` derive rules (JSONLD) or WIT capability workers — a different extensibility model, not a richer one. Teams with ≥5 Apex classes or ≥20 Flows will feel this.
+- **No Apex / no Lightning App Builder / no Visualforce**. Custom logic lives in `kotodama.jsonld` derive rules (JSONLD) or WIT capability workers — a different extensibility model, not a richer one. Teams with ≥5 Apex classes or ≥20 Flows will feel this.
 - **No AppExchange marketplace depth**. We have capability workers registered per tenant DID, but not a catalog with thousands of pre-built apps.
 - **Einstein forecasting is not replicated 1:1**. Forecasting via Murakumo fine-tune is roadmap, not today.
 - **Salesforce-native reports / dashboards are replaced with `listPipeline` + tenant-scoped SQL**. Power-report-users who live in Report Builder will need to re-learn.

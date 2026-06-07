@@ -71,7 +71,7 @@ AT Protocol Lexicon は float 未対応のため整数化:
 - 各ドメインノードが状態遷移バリデーションを実行
 - テレメトリは `vertex_defense_platform` に INSERT (record-log)
 
-### RisingWave スキーマ
+### Kotoba/Datomic スキーマ
 
 ```
 vertex_defense_platform      — プラットフォームノード (domain, state, 固定点テレメトリ)
@@ -81,6 +81,6 @@ edge_defense_mission_platform — ミッション ↔ プラットフォーム�
 ## Consequences
 
 - フリートリアルタイム追跡が可能になる
-- テレメトリ更新頻度は RisingWave DML rate limit による制約を受ける (`SET dml_rate_limit` 必須)
+- テレメトリ更新頻度は Kotoba/Datomic DML rate limit による制約を受ける (`SET dml_rate_limit` 必須)
 - classification ≥ 2 必須; T2 airgap 配備前は T0 SaaS で模擬テレメトリのみ
 - 全テレメトリフィールドは整数型のみ (AT Protocol float 禁止規則準拠)

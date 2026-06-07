@@ -73,7 +73,7 @@
 | **llm** | `env.AI` (Workers AI) | `agent.chat` | LLM inference (Qwen/Gemma/Claude), SSE streaming, credit gate |
 | **site** | `HEADLESS_BROWSER` (Puppeteer) | `browser.fetch` | Headless Chromium, HTML→Markdown, WET/WAT/WebP, Common Crawl |
 | **auth** | `AUTH_RPC` service binding, KV | (PDS infra) | WebAuthn/FIDO2, DPoP, ES256 JWT, SMS OTP, Passkey |
-| **kagami** | `KAGAMI_RPC` service binding | `graph.query`, `graph.write` | RisingWave Cypher→SQL, Hyperdrive, S3 shared_data |
+| **kagami** | `KAGAMI_RPC` service binding | `graph.query`, `graph.write` | Kotoba/Datomic Cypher→SQL, Hyperdrive, S3 shared_data |
 | **pds** | B2, service bindings, Secrets | (host) | AT Protocol commit pipeline, identity, governance |
 | **stripe** | Stripe API + Webhooks | — | Payment, card issuing, billing |
 | **livecam** | Murakumo fleet (CoreML) | — | YOLO detection, BoT-SORT tracking, cohort hash |
@@ -106,7 +106,7 @@ actor-manifest.jsonld                   src/app.ts (Worker)
 │        method}     │                 │ → detection result      │
 │                    │                  │                         │
 │ fn: "graph.query"  │ ──── MCP ────→  │ kagami (Graph Worker)   │
-│ args: {cypher}     │   primitive      │ RisingWave Hyperdrive    │
+│ args: {cypher}     │   primitive      │ Kotoba/Datomic Hyperdrive    │
 │                    │                  │ → rows                  │
 └────────────────────┘                  └─────────────────────────┘
 ```
@@ -201,7 +201,7 @@ CF binding / crypto / real-time protocol が必須な app:
 | llm | env.AI binding, SSE streaming, credit gate |
 | site | HEADLESS_BROWSER, frontier queue, WET/WAT |
 | auth | Rust Worker, P-256 ECDSA, KV credentials |
-| kagami | RisingWave Hyperdrive, S3 shared_data |
+| kagami | Kotoba/Datomic Hyperdrive, S3 shared_data |
 | pds | B2, service bindings, AT Protocol host |
 | stripe | Stripe API + Webhooks, PCI-DSS |
 | livecam | Murakumo CoreML fleet, per-detection DID |

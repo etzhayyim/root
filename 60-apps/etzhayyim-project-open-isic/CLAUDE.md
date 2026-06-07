@@ -5,8 +5,8 @@ Industrial classification runtime for UN ISIC Rev.4.
 ## Active Runtime
 
 - Orchestration: Pure LangGraph (`open_isic_classify_entity` and `open_isic_hierarchical_classify`) replacing BPMN for entity classification.
-- Worker implementation: Explicit 428 class-level Python primitives (`20-actors/magatama/py/src/pymagatama/primitives/open_isic_{4digit}.py`) + core `open_isic.py`.
-- SQL helpers: `20-actors/magatama/py/src/pymagatama/handlers/open_isic.py`
+- Worker implementation: Explicit 428 class-level Python primitives (`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/open_isic_{4digit}.py`) + core `open_isic.py`.
+- SQL helpers: `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/handlers/open_isic.py`
 - Static taxonomy: `data/classes/{4digit}.json`
 - Runtime pattern: LangServer + LangGraph (Pregel) + Explicit MCP Tools
 
@@ -33,7 +33,7 @@ Other non-classification tasks (e.g., `recordConcordance`) remain as generic too
 
 ## LangServer Tasks
 
-`pymagatama.primitives.open_isic` and its 428 explicit class extensions own deterministic validation and graph writes:
+`kotodama.primitives.open_isic` and its 428 explicit class extensions own deterministic validation and graph writes:
 
 | Task | Responsibility |
 |---|---|
@@ -53,7 +53,7 @@ LangGraph is used as a checkpointable deterministic guard. The hot-path decision
 
 ## UDF Helpers
 
-`pymagatama.handlers.open_isic` exposes:
+`kotodama.handlers.open_isic` exposes:
 
 ```text
 com.etzhayyim.apps.openIsic.verificationForConfidence
@@ -84,7 +84,7 @@ Primary graph writes:
 ## Local Checks
 
 ```bash
-cd 20-actors/magatama/py
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
 pytest -q tests/test_open_isic_apqc_primitives.py
 
 cd ../../..

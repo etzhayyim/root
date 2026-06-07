@@ -54,7 +54,7 @@ Frontend は XRPC-Web で `PublicFundService` のみを呼び出す。
 
 ## 5. Deployment Model
 
-- App namespace: `magatama-runtime`
+- App namespace: `kotodama-runtime`
 - HTTPRoute namespace: `edge-router-performers` (default namespace は不使用)
 - Gateway namespace: `edge-gateway-system`
 - 公開ホスト: `pb.etzhayyim.com`

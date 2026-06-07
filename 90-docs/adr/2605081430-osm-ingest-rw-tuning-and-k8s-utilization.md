@@ -8,11 +8,11 @@ authoritative: true
 last_verified: 2026-05-08
 authoritative_for:
   - osm-ingest-tuning
-  - risingwave-compute-resources
+  - kotoba-compute-resources
   - k8s-utilization-score
 related:
-  - 90-docs/adr/0048-risingwave-vultr-b2-primary.md
-  - 90-docs/adr/0094-risingwave-stable-three-node-topology.md
+  - 90-docs/adr/0048-kotoba-vultr-b2-primary.md
+  - 90-docs/adr/0094-kotoba-stable-three-node-topology.md
 supersedes: []
 superseded_by: []
 ---
@@ -28,7 +28,7 @@ Run 2 stopped at 3h to characterize the bottleneck. Three Andorra benches
 (2026-05-08, 491k nodes / 26k ways / 761 rels / 587k way-edges) characterized
 optimal config.
 
-The 2-node `risingwave-pool-58gb` (vhf-16c-58gb × 2 = 32 vCPU / 116 GiB) is
+The 2-node `kotoba-pool-58gb` (vhf-16c-58gb × 2 = 32 vCPU / 116 GiB) is
 shared by RW (compute / meta / frontend / compactor / metastore), Zeebe broker,
 ~10 pyzeebe worker pools, Mitama actors (shinshi / kobo / kabi / hakkou / etc.),
 BPMN dispatcher, and ad-hoc ingest. After Foyer disable (ADR-0048 incident
@@ -62,7 +62,7 @@ Bench observation: both compute pods hit 99% CPU at the 1250m limit during
 single-pod Andorra ingest. Each node has 16 vCPU; 14+ vCPU sat idle. CPU was
 the proximate bottleneck, not memory or B2.
 
-Change: `kubectl patch sts risingwave-compute` (helm conflicted with prior
+Change: `kubectl patch sts kotoba-compute` (helm conflicted with prior
 `kubectl-patch` field manager; out-of-band patch is canonical here).
 
 ```
@@ -79,7 +79,7 @@ restart of compute pods interrupts in-flight ingests; OSM ingest's
 content-addressed PK + cursor enables idempotent restart, so blast radius is
 < 1 ingest job.
 
-`computeComponent.resources.limits.cpu` in `50-infra/vultr/risingwave/helm/values.yaml`
+`computeComponent.resources.limits.cpu` in `50-infra/vultr/kotoba/helm/values.yaml`
 should be updated to `6000m` to align with deployed state (drift cleanup).
 
 ### D3. distributed_dml=true global (with sunset)
@@ -142,7 +142,7 @@ Phase 3 (later): 4× vhf-16c-58gb (64 vCPU / 232 GiB)   $1280/mo +1 compute pod
 ```
 
 Anti-affinity (`requiredDuringSchedulingIgnoredDuringExecution` on
-`risingwavelabs.com/component=compute`) means 1 compute pod per node max.
+`kotobalabs.com/component=compute`) means 1 compute pod per node max.
 With each new node = 1 new compute pod = ~+33% throughput (Phase 1→2) or
 ~+25% (Phase 2→3, diminishing).
 
@@ -220,7 +220,7 @@ the same vertex_id. Compactor is essential, not optional, for sustained
 ingest under this access pattern.
 
 **Change**:
-- `kubectl scale deploy risingwave-compactor --replicas=3` (was 1)
+- `kubectl scale deploy kotoba-compactor --replicas=3` (was 1)
 - limits: cpu 500m → 2000m, memory 4Gi → 8Gi
 - requests: cpu 100m, memory 512Mi (kept low so 3 replicas can pack into
   existing 2-node memory budget)
@@ -277,7 +277,7 @@ After D7 cascade investigation, root cause analysis from RW source
 exact license accounting formula:
 
 ```rust
-// 1 RWU (RisingWave Unit) = 1 CPU core + 4 GiB memory.
+// 1 RWU (Kotoba/Datomic Unit) = 1 CPU core + 4 GiB memory.
 memory_limit = (rwu_limit + 1) * 4 GiB - 1
 ```
 
@@ -287,7 +287,7 @@ Our cluster carried the public **`rw-default-all-4-core`** evaluation key
 
 ```
 sub: "rw-default-all-4-core"
-iss: "prod.risingwave.com"
+iss: "prod.kotoba.com"
 tier: "all"
 cpu_core_limit: 4
 exp: ~year 2200 (effectively perpetual)
@@ -324,7 +324,7 @@ Implementation:
 -- in metastore PostgreSQL (not RW frontend; RW system_param is rw_admin-only via ALTER SYSTEM)
 UPDATE system_parameter SET value = '' WHERE name = 'license_key';
 -- restart meta pod to reload
-kubectl -n risingwave delete pod risingwave-meta-0
+kubectl -n kotoba delete pod kotoba-meta-0
 ```
 
 Post-removal log signature changes from:
@@ -487,9 +487,9 @@ Top 3 remaining bottlenecks (priority order):
 
 ## References
 
-- ADR-0044: RisingWave UDF language strategy
-- ADR-0048: RisingWave Vultr B2 primary cutover
-- ADR-0094: RisingWave stable three-node topology
+- ADR-0044: Kotoba/Datomic UDF language strategy
+- ADR-0048: Kotoba/Datomic Vultr B2 primary cutover
+- ADR-0094: Kotoba/Datomic stable three-node topology
 - `src/common/src/session_config/mod.rs` (RW upstream, gh CLI fetch 2026-05-08)
 - `src/frontend/src/scheduler/distributed/stage.rs` (RW upstream)
 - `30-graph/graph-schema/migrations/20260508210000_osm_ingest_bench_findings.ts`

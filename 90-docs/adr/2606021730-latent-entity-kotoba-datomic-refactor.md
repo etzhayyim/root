@@ -1,6 +1,6 @@
 ---
 id: adr-2606021730-latent-entity-kotoba-datomic-refactor
-title: "ADR-2606021730: Latent Entity Statistical Resolution — RisingWave to kotoba-EAVT Refactor"
+title: "ADR-2606021730: Latent Entity Statistical Resolution — Kotoba/Datomic to kotoba-EAVT Refactor"
 status: proposed
 doc_type: adr
 topic: latent-entity-kotoba-refactor
@@ -23,11 +23,11 @@ related:
   - /30-graph/graph-schema/migrations/20260428360000_vertex_lda_inference.ts (legacy RW stack)
   - /60-apps/etzhayyim-project-coverage/MIGRATION-TODO.md (charter-violation evidence)
 supersedes:
-  - /90-docs/260430-natural-person-latent-entity-backend-design.md (RisingWave design, 2026-04-30)
+  - /90-docs/260430-natural-person-latent-entity-backend-design.md (Kotoba/Datomic design, 2026-04-30)
 superseded_by: []
 ---
 
-# ADR-2606021730: Latent Entity Statistical Resolution — RisingWave to kotoba-EAVT Refactor
+# ADR-2606021730: Latent Entity Statistical Resolution — Kotoba/Datomic to kotoba-EAVT Refactor
 
 **Status**: proposed
 **Date**: 2026-06-02 JST
@@ -37,9 +37,9 @@ superseded_by: []
 
 ### The Current Substrate Violation
 
-The latent-entity / LDA statistical entity-resolution stack exists **only in RisingWave and Postgres**:
+The latent-entity / LDA statistical entity-resolution stack exists **only in Kotoba/Datomic and Postgres**:
 
-- **RisingWave schema**: `30-graph/graph-schema/migrations/20260428360000_vertex_lda_inference.ts` (Kysely)
+- **Kotoba/Datomic schema**: `30-graph/graph-schema/migrations/20260428360000_vertex_lda_inference.ts` (Kysely)
   - 5 vertex tables: `vertex_latent_entity`, `vertex_lda_topic`, `vertex_cohort_actor`, `vertex_natural_person_latent_materialization_cursor`, `vertex_ocel_event`
   - 9 edge tables: `edge_entity_evidence`, `edge_topic_entity_binding`, `edge_entity_cohort_link`, etc.
   - 4 materialized views (LDA φ/θ projections)
@@ -50,7 +50,7 @@ The latent-entity / LDA statistical entity-resolution stack exists **only in Ris
 Per ADR-2605262130 (kotoba storage substrate) and ADR-2605312345 (kotoba Datom log as first-class canonical state):
 
 1. **Canonical state must live in kotoba's Datom log** (content-addressed EAVT, Datalog-isomorphic)
-2. **RisingWave/Postgres/Kysely are prohibited** as state containers (only as projection layers post-Phase-2.5)
+2. **Kotoba/Datomic/Postgres/Kysely are prohibited** as state containers (only as projection layers post-Phase-2.5)
 3. **Latent entity existence is NEVER a stored per-soul truth-score**, violating edge-primary (G2) and N1 (no per-soul rank)
 4. **No server-key minting** of fission DIDs (violates ADR-2605231525 § server-signing boundary)
 
@@ -72,7 +72,7 @@ As of 2026-06-02:
 
 Ratify the new vocabulary extending engi-organism-ontology (ADR-2606011000):
 
-| RisingWave | kotoba-EAVT |
+| Kotoba/Datomic | kotoba-EAVT |
 |---|---|
 | `vertex_latent_entity` (5-attr) | `:latent/*` entity (6 attrs: organism / existence / evidence-count / viewpoint-consensus / method-version / frontier) |
 | `edge_entity_evidence` + RW UDF gmm/cosine | `:en/kind :evidence` + `:en/evidence-weight` + `:en/evidence-kind` (8 viewpoints: lexical, behavioral, network, semantic, temporal, geographic, economic, signal) |

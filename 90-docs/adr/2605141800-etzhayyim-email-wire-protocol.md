@@ -366,5 +366,5 @@ BEC Tier-2 環境では subject / body が暗号化される:
 - ADR-2605080000 (Distributed Cognitive Actor System)
 - ADR-2605091400 (MCP as Cell Membrane)
 - `00-contracts/schemas/etzhayyim-email-wire-protocol.schema.json`
-- `20-actors/magatama/py/src/pymagatama/pregel/`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/pregel/`
 - `60-apps/etzhayyim-project-pregel/`

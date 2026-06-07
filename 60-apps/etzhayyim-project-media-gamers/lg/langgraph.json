@@ -1,6 +1,6 @@
 {
   "$comment": "LangGraph Server config — media-gamers.etzhayyim.com actor.",
-  "dependencies": ["./lg_media_gamers", "../../../20-actors/magatama/py"],
+  "dependencies": ["./lg_media_gamers", "../../../40-engine/kotoba/crates/kotoba-kotodama/py"],
   "graphs": {
     "health":             "./lg_media_gamers/graphs/health.py:GRAPH",
     "ingest_charts":      "./lg_media_gamers/graphs/ingest_charts.py:GRAPH",

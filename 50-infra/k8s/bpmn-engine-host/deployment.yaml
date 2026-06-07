@@ -61,7 +61,7 @@ spec:
               value: "0.2"
             - name: BPMN_ENGINE_READYZ_DB_TIMEOUT_S
               value: "2.0"
-            - name: RW_DSN
+            - name: KOTOBA_URL
               valueFrom:
                 secretKeyRef:
                   name: mitama-udf-pool-rw

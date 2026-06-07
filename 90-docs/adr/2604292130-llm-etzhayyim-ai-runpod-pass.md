@@ -23,7 +23,7 @@ superseded_by: []
 `llm.etzhayyim.com` had accumulated two conflicting meanings:
 
 - public OpenAI-compatible LLM endpoint for higher-quality Gemma4 generation
-- legacy / XRPC LLM actor path that could proxy into `magatama-llm8cf4ai` and the Murakumo LiteLLM fleet
+- legacy / XRPC LLM actor path that could proxy into `kotodama-llm8cf4ai` and the Murakumo LiteLLM fleet
 
 This caused ambiguous routing. In particular, `gemma4-runpod` was advertised at the edge while
 `murakumo-serve.etzhayyim.com` did not have the same model registered in its LiteLLM database.
@@ -39,7 +39,7 @@ It must not depend on or proxy to:
 
 - `murakumo-serve.etzhayyim.com`
 - `murakumo.etzhayyim.com`
-- `magatama-llm8cf4ai`
+- `kotodama-llm8cf4ai`
 - `LLM_SERVICE` service binding
 
 The only active public inference path for `llm.etzhayyim.com/v1/*` is:
@@ -59,7 +59,7 @@ Public model aliases:
 - `gemma4:26b-a4b-it-q4_K_M`
 
 `llm.etzhayyim.com/xrpc/com.etzhayyim.apps.llm.answerWithKnowledge` is intentionally unsupported on this
-gateway and returns `unsupported_route`. RisingWave/BPMN knowledge workflows must use their own
+gateway and returns `unsupported_route`. Kotoba/Datomic/BPMN knowledge workflows must use their own
 actor route and must not be smuggled through the RunPod gateway.
 
 Murakumo remains a separate inference platform. Its public and internal surfaces are
@@ -71,20 +71,20 @@ Murakumo remains a separate inference platform. Its public and internal surfaces
 - RunPod cold starts and queue delay are part of the `llm.etzhayyim.com` SLO. Callers must use longer
   timeouts for non-streaming requests, or stream where possible.
 - Schema-aware RAG can target `gemma4-runpod` without depending on Murakumo model registration.
-- Any XRPC workflow previously expecting `llm.etzhayyim.com` to proxy into `magatama-llm8cf4ai` must be
+- Any XRPC workflow previously expecting `llm.etzhayyim.com` to proxy into `kotodama-llm8cf4ai` must be
   moved to a dedicated actor hostname or Worker binding.
 
 Verified 2026-04-29:
 
 ```bash
 curl https://llm.etzhayyim.com/_app/meta
-curl -H 'x-magatama-verified: true' https://llm.etzhayyim.com/v1/models
+curl -H 'x-kotodama-verified: true' https://llm.etzhayyim.com/v1/models
 pnpm --dir 30-graph/graph-schema rag:llm -- \
   --query "legal corpus documents for JP jurisdiction" \
   --model gemma4-runpod \
   --top-k 5 \
   --max-tokens 80 \
-  --magatama-verified
+  --kotodama-verified
 ```
 
 The RAG run returned HTTP 200 from `llm.etzhayyim.com`, model
@@ -95,7 +95,7 @@ The RAG run returned HTTP 200 from `llm.etzhayyim.com`, model
 - **Keep `llm.etzhayyim.com` on Murakumo LiteLLM and add RunPod as a LiteLLM DB model**:
   rejected for this hostname because it keeps public RunPod quality path coupled to Murakumo fleet
   health, LiteLLM DB migrations, and Murakumo tunnel routing.
-- **Route `llm.etzhayyim.com` to `magatama-llm8cf4ai` and let that Worker choose backends**:
+- **Route `llm.etzhayyim.com` to `kotodama-llm8cf4ai` and let that Worker choose backends**:
   rejected because it preserves the ambiguous XRPC + OpenAI surface and allows accidental fallback
   into Murakumo.
 - **Expose only `runpod.etzhayyim.com` and retire `llm.etzhayyim.com`**:

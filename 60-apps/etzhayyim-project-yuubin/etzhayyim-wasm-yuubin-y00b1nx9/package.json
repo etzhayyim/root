@@ -1,5 +1,5 @@
 {
-  "name": "magatama-y00b1nx9",
+  "name": "kotodama-y00b1nx9",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@cloudflare/puppeteer": "^0.0.14",
-    "@etzhayyim/magatama-host-sdk": "workspace:*",
+    "@etzhayyim/kotodama-host-sdk": "workspace:*",
     "aws4fetch": "^1.0.20",
     "fflate": "^0.8.2"
   }

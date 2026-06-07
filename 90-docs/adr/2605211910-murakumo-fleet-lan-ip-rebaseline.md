@@ -117,7 +117,7 @@ the runtime impact is concentrated on LiteLLM-routed inference.
 ## Consequences
 
 - `fleet.toml` now carries the LAN IP ground truth used by
-  `magatama-cell-runner` under `com.etzhayyim.magatama-cell-runner.plist`
+  `kotodama-cell-runner` under `com.etzhayyim.kotodama-cell-runner.plist`
   and by any future on-host tooling that needs deterministic
   node-to-IP mapping without mDNS round-trips.
 - LiteLLM `simple-shuffle` regains 7 live LAN backends on jacob,

@@ -13,7 +13,7 @@
 import { createHash, randomUUID } from "node:crypto";
 import { execSync } from "node:child_process";
 
-export const RW_CONN = process.env.RISINGWAVE_URL
+export const KOTOBA_URL = process.env.KOTOBA_URL
   ?? "REDACTED_USE_DATABASE_URL_ENV?sslmode=disable";
 export const COLLECTOR_DID = "did:web:bigquery.etzhayyim.com";
 export const BQ_API = "https://bigquery.googleapis.com/bigquery/v2";
@@ -153,7 +153,7 @@ export async function getRwPool() {
     "/Users/junkawasaki/github/etzhayyim-root/30-graph/graph-schema/node_modules/pg/lib/index.js"
   );
   _pgPool = new pg.Pool({
-    connectionString: RW_CONN,
+    connectionString: KOTOBA_URL,
     max: 4,
     idleTimeoutMillis: 0,           // never reap idle (RW can be silent for >30s during BQ wait)
     connectionTimeoutMillis: 30_000,
@@ -190,7 +190,7 @@ export async function rwQuery(sql, params) {
   while (true) {
     const pg = await getPg();
     const client = new pg.Client({
-      connectionString: RW_CONN,
+      connectionString: KOTOBA_URL,
       keepAlive: true,
       keepAliveInitialDelayMillis: 5000,
       statement_timeout: 0,
@@ -260,7 +260,7 @@ export async function rwBatchInsert({ table, columns, rows, chunkSize = 100, sle
   const fresh = async () => {
     if (client) { try { await client.end(); } catch { /* ignore */ } }
     client = new pg.Client({
-      connectionString: RW_CONN,
+      connectionString: KOTOBA_URL,
       keepAlive: true,
       keepAliveInitialDelayMillis: 5000,
       statement_timeout: 0,

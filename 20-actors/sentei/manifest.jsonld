@@ -1,0 +1,50 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://etzhayyim.com/ns/actor-manifest"
+  ],
+  "@type": "ActorManifest",
+  "id": "did:web:etzhayyim.com:actor:sentei",
+  "name": "sentei",
+  "displayName": "剪定 — Council as Pruner (post-hoc pruning governance)",
+  "displayNameJa": "剪定",
+  "displayNameEn": "Sentei",
+  "description": "Council as PRUNER (剪定者), not censor. The organism grows from its root unstoppably; branches manifest on the append-only Datom log; sentei prunes the overgrown / charter-violating ones AFTER they manifest, to keep the organism beautiful (美しく保つ). Re-times every outward gate (G7/G11/'Council Lv6+ BEFORE live') from prior restraint to a pruning target: actors self-publish; sentei cuts back afterward — transparently, signed, voted, and reversibly (regraft heals a mistaken cut; the pruned branch's history is never deleted — 非終末論). More faithful than prior restraint to non-eschatology (append-only has no halt; the only real enforcement is append-a-retraction) and Transparent Force (a prune is a logged/signed/public act over a thing that already exists). ZERO invariant amendments. Per ADR-2606072000.",
+  "descriptionJa": "Council を事前検閲ではなく剪定者として定義。root からの organism の成長は止めない/止められない — manifest した枝を事後に剪定して美しく保つ。全 outward gate を prior restraint から事後剪定に re-time(actor は自己 publish、sentei が後で剪定 — 透明・署名・投票・可逆)。非終末論・Transparent Force により prior restraint より忠実。invariant 改正ゼロ。Per ADR-2606072000。",
+  "adr": {
+    "master": "etzhayyim:adr:2606072000",
+    "akeSibling": "etzhayyim:adr:2606052100",
+    "noServerKey": "etzhayyim:adr:2605231525",
+    "datomCanonical": "etzhayyim:adr:2605312345",
+    "transparentForce": "etzhayyim:adr:2605192100",
+    "r0": "etzhayyim:adr:2606072000",
+    "r1": "reserved"
+  },
+  "tier": "Tier-B",
+  "glyph": "剪定",
+  "performerType": "system",
+  "uiType": "appview",
+  "primaryLexicon": "com.etzhayyim.sentei.prune",
+  "primarySchema": "20-actors/sentei/data/pruning-ontology.kotoba.edn",
+  "scope": {
+    "phase": "R0 — governance ADR (post-hoc pruning) + ontology (pruning-ontology.kotoba.edn) + lexicon (com.etzhayyim.sentei.prune) + pruning engine (methods/prune.py: 4 actions quarantine/retract/rollback/revoke + regraft inverse; G1 manifested-only guard; G2 append-only apply_log fold + as-of; G4 Council Lv6/Lv7 floor + contested 1 SBT=1 vote; G5 no-server-key; G7 verdict-token scan) + 15 tests green (methods/test_prune.py). Registered in INFRA_ACTORS + actor-profile seed → did:web:etzhayyim.com:actor:sentei. Design + offline only; live prune execution is itself Council-signed + reversible.",
+    "scopeBoundary": "Post-hoc, append-only, reversible pruning of MANIFESTED branches to keep the organism within the Charter (design-only)",
+    "exclusions": [
+      "deletion — a prune appends, never deletes (N1, G2)",
+      "prior restraint — a prune of an unmanifested branch is structurally impossible (N2, G1)",
+      "adjudication of guilt — no verdict field; care, not punishment (N3, G7)",
+      "halting organism growth — no such power exists (N4, G3)",
+      "server-signed prune — Council/member-signed only (N5, G5)"
+    ]
+  },
+  "gates": {
+    "G1": "no-prior-restraint — prune ONLY a manifested branch (branchManifested const true)",
+    "G2": "append-only / 非終末論 — a prune appends; history survives, as-of-recoverable",
+    "G3": "growth-unstoppable — no halt-organism action",
+    "G4": "Transparent Force — on-chain + Council Lv6+/Lv7+ + 1 SBT=1 vote if contested",
+    "G5": "no-server-key — Council/member-signed (serverHeldKey const false)",
+    "G6": "reversible — every prune has the inverse regraft",
+    "G7": "care-telos 美しく保つ — basis required, nonAdjudicating const true, no verdict value",
+    "G8": "Murakumo-only — overgrowth classification via Murakumo; model flags, Council decides"
+  }
+}

@@ -103,7 +103,7 @@ network に永続する。
 | `Direction` | Harm / Help / Witness |
 | `Organism` | 一時 coherent pattern (kind tag なし、symmetric) |
 | `Edge` | karma の primary carrier (content-addressed) |
-| `Location` | 5 永続層 (RisingWave / ATRepo / IPFSSelf / IPFSExt / Blockchain) |
+| `Location` | 5 永続層 (Kotoba/Datomic / ATRepo / IPFSSelf / IPFSExt / Blockchain) |
 
 ### N-公理 (Spirit-in-Physic)
 

@@ -4,14 +4,14 @@ Status: active audit note
 
 ## Summary
 
-- RisingWave live connection: `45.32.79.245:4566/dev`.
+- Kotoba/Datomic live connection: `45.32.79.245:4566/dev`.
 - Keychain item `etzhayyim.vultr / RW_LB_IP` was stale and has been updated to `45.32.79.245`.
-- Kysely schema was regenerated from live RisingWave and `pnpm --dir 30-graph/graph-schema run db:drift` now reports zero drift.
+- Kysely schema was regenerated from live Kotoba/Datomic and `pnpm --dir 30-graph/graph-schema run db:drift` now reports zero drift.
 - Lexicon generated artifacts were regenerated from `00-contracts/lexicons`.
 - BPMN coverage gate passes for all 16 covered processes.
-- RisingWave topology docs now point to ADR-0094: 3-node floor, 2 compute pod floor, no hot-path `FLUSH`.
+- Kotoba/Datomic topology docs now point to ADR-0094: 3-node floor, 2 compute pod floor, no hot-path `FLUSH`.
 
-## Live RisingWave Counts
+## Live Kotoba/Datomic Counts
 
 From `information_schema.tables` on `dev`:
 
@@ -57,7 +57,7 @@ schema. Current audit numbers:
 | Registry entries missing from live schema | 35 |
 
 The 35 registry entries missing from live schema are relations declared by
-migration but not present in the current live RisingWave schema. They are
+migration but not present in the current live Kotoba/Datomic schema. They are
 tracked as `declared_pending`, not as unexpected stale rows.
 
 This is not a Kysely drift issue. It is a policy registry audit gap. Until the

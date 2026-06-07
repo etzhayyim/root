@@ -14,7 +14,7 @@ authoritative_for:
   - navigation between Tranche F closure artifacts
 depends_on: []
 related:
-  - adr-2605212100-magatama-worker-3-axis-tranche-f-closure
+  - adr-2605212100-kotodama-worker-3-axis-tranche-f-closure
   - adr-2605211757-dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com
   - adr-2605211913-vendor-refactor-and-git-rm-phase-4-5-runbook
   - adr-2605211925-phase-6-archive-markers-runbook
@@ -102,7 +102,7 @@ A new operator can read the whole closure dossier in under an hour.
 The runbooks live here; the executions live elsewhere:
 
 1. **Per-worker RW-free Python ports** — to be committed to
-   `etzhayyim/root/20-actors/magatama/py/src/pymagatama/` (this repo). The
+   `etzhayyim/root/40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/` (this repo). The
    2026-05-21 session prototyped + reverted these; the gate (a) checklist
    provides the row-by-row acceptance criteria for the next attempt.
 2. **DNS cutover Wave A → D** — Cloudflare zone + Mac mini fleet (live infra,

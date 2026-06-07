@@ -10,16 +10,16 @@ News media platform (`news.etzhayyim.com`)。**wRPC stream-native reactive pipel
 
 | 項目            | 値                                                                                    |
 | --------------- | ------------------------------------------------------------------------------------- |
-| Language        | TypeScript (`@etzhayyim/magatama-host-sdk` host, TS Native migration)                      |
+| Language        | TypeScript (`@etzhayyim/kotodama-host-sdk` host, TS Native migration)                      |
 | Build           | `etzhayyim deploy` (app.ts が直接 wrangler entrypoint)。`src/app.ts` は legacy 経路        |
 | UI mode         | `appview` (Protocol Canvas card)                                                      |
 | Architecture    | **wRPC stream-native reactive** (Design E)                                            |
-| Host            | `@etzhayyim/magatama-host-sdk` (WIT host + write buffer)                                   |
+| Host            | `@etzhayyim/kotodama-host-sdk` (WIT host + write buffer)                                   |
 | Input           | `subscribe-repos.handle-repo-commit` — Follow 先 upstream からの AT commit (reactive) |
 | Output (stream) | `serve.handle-stream("stream-articles")` — wRPC stream to subscribers                 |
 | Output (social) | `ATPost(writerDID, text, opts)` — 1 call = record + post                              |
 | Read            | `G()` (SQL) for card/digest                                                           |
-| Config          | `wasm/news-core-component/magatama.jsonld` + `wasm/news-core-component/src/*.ts`      |
+| Config          | `wasm/news-core-component/kotodama.jsonld` + `wasm/news-core-component/src/*.ts`      |
 
 ## Reactive Pipeline (Design E)
 
@@ -68,8 +68,8 @@ sdk.app.onCommit(async (commit) => {
 
 ```go
 app.HandleStream("", "stream-articles", streamArticles,
-    magatama.RequireCallerRole("subscriber"),
-    magatama.RequireTrustLevel("low"),
+    kotodama.RequireCallerRole("subscriber"),
+    kotodama.RequireTrustLevel("low"),
 )
 ```
 
@@ -146,7 +146,7 @@ did:web:news.etzhayyim.com:writer:{source-id}
 
 ```go
 // Follow upstream RSS worker — no redeploy needed
-magatama.Follow("rss-tech-nanoid")
+kotodama.Follow("rss-tech-nanoid")
 // → handleComAtprotoSyncSubscribeReposCommit receives article commits reactively
 ```
 

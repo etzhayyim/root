@@ -16,7 +16,7 @@ Graphs:
   fetch_worldlii_graph    — WorldLii OAI-PMH → parallel ingest fan-out
   fetch_canlii_graph      — CanLII API → parallel ingest fan-out
 
-CRITICAL (RisingWave vector quirk):
+CRITICAL (Kotoba/Datomic vector quirk):
   psycopg3 rejects ::vector(1024) as a prepared-statement parameter.
   All cosine-search and embedding-update queries inline the vector literal
   as a string: `'[x0,x1,...]'::vector(1024)`.
@@ -86,9 +86,9 @@ async def _embed_text(text: str) -> list[float]:
 
 
 def _vec_literal(embedding: list[float]) -> str:
-    """Format float list as an inline RisingWave vector literal.
+    """Format float list as an inline Kotoba/Datomic vector literal.
 
-    RisingWave psycopg3 rejects ::vector(1024) in parameterized statements;
+    Kotoba/Datomic psycopg3 rejects ::vector(1024) in parameterized statements;
     the literal must be inlined directly in the SQL string.
     """
     return "[" + ",".join(f"{x:.8f}" for x in embedding) + "]"
@@ -122,7 +122,7 @@ class IngestState(TypedDict):
 
 
 async def _ingest_dedupe(state: IngestState) -> IngestState:
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     client = get_kotoba_client()
     rows = client.q(
         "SELECT vertex_id FROM vertex_legal_corpus_document"
@@ -139,7 +139,7 @@ async def _ingest_insert(state: IngestState) -> IngestState:
     if state["already_known"]:
         return state
     try:
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         client = get_kotoba_client()
         client.insert_row("vertex_legal_corpus_document", {
             "vertex_id": state["vertex_id"],
@@ -208,7 +208,7 @@ class EmbedState(TypedDict):
 
 
 async def _embed_load(state: EmbedState) -> EmbedState:
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     client = get_kotoba_client()
     rows = client.q(
         "SELECT vertex_id, body_text FROM vertex_legal_corpus_document"
@@ -232,7 +232,7 @@ async def _embed_write(state: EmbedState) -> EmbedState:
     if not state.get("embedding"):
         return {**state, "updated": False}
     try:
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         client = get_kotoba_client()
         client.q(
             """
@@ -265,7 +265,7 @@ def build_embed_document_graph() -> Any:
 # ─────────────────────────────────────────────────────────────
 # 3. SearchDocument graph
 #    Replaces: searchDocument.bpmn + legal.corpus.searchDocument handler
-#    CRITICAL: vec literal inlined to avoid RisingWave psycopg3 rejection
+#    CRITICAL: vec literal inlined to avoid Kotoba/Datomic psycopg3 rejection
 # ─────────────────────────────────────────────────────────────
 
 class SearchState(TypedDict):
@@ -316,7 +316,7 @@ async def _search_run(state: SearchState) -> SearchState:
          LIMIT {limit_i}
     """
     try:
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         client = get_kotoba_client()
         rows = client.q(sql, (vec, vec))
     except Exception as exc:
@@ -382,7 +382,7 @@ async def _fae_write_body(state: FetchAndEmbedState) -> FetchAndEmbedState:
     if not state.get("body_text"):
         return {**state, "body_updated": False}
     try:
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         client = get_kotoba_client()
         client.q(
             "UPDATE vertex_legal_corpus_document SET body_text = %s WHERE vertex_id = %s",
@@ -397,7 +397,7 @@ async def _fae_encode(state: FetchAndEmbedState) -> FetchAndEmbedState:
     text = state.get("body_text") or ""
     if not text:
         # Fall back to title for docs without CELLAR XHTML (still searchable by title)
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         client = get_kotoba_client()
         rows = client.q(
             "SELECT title FROM vertex_legal_corpus_document WHERE vertex_id = %s LIMIT 1",
@@ -415,7 +415,7 @@ async def _fae_write_embed(state: FetchAndEmbedState) -> FetchAndEmbedState:
     if not state.get("embedding"):
         return {**state, "embed_updated": False}
     try:
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         client = get_kotoba_client()
         client.q(
             """
@@ -667,7 +667,7 @@ class FetchCourtListenerState(TypedDict):
 
 
 async def _cl_load_cursor(state: FetchCourtListenerState) -> FetchCourtListenerState:
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     client = get_kotoba_client()
     rows = client.q(
         "SELECT last_cursor, secret_ref FROM vertex_legal_corpus_source"
@@ -729,7 +729,7 @@ async def _cl_advance_cursor(state: FetchCourtListenerState) -> FetchCourtListen
     next_cur = state.get("next_cursor")
     if next_cur:
         try:
-            from pymagatama.kotoba_datomic import get_kotoba_client
+            from kotodama.kotoba_datomic import get_kotoba_client
             client = get_kotoba_client()
             client.q(
                 "UPDATE vertex_legal_corpus_source"
@@ -943,7 +943,7 @@ class FetchCanLiiState(TypedDict):
 
 
 async def _canlii_load_key(state: FetchCanLiiState) -> FetchCanLiiState:
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     client = get_kotoba_client()
     rows = client.q(
         "SELECT secret_ref FROM vertex_legal_corpus_source"

@@ -2,7 +2,7 @@
 #
 # Shannon-optimal pipeline (2026-04-15, v3 S3-connector SWAP):
 #   WAT (gz) → Rust cc-phase3 (rayon) → Parquet (ZSTD) → S3 (kagami-graphar/cc-parquet-v2/)
-#   → RisingWave s3 connector → ALTER TABLE SWAP (no TRUNCATE, no downtime)
+#   → Kotoba/Datomic s3 connector → ALTER TABLE SWAP (no TRUNCATE, no downtime)
 #
 #   Page DID  = URL directory path (did:web:site.etzhayyim.com:{domain-slug}:{path-seg}:…)
 #   Domain DID = did:web:site.etzhayyim.com:{domain-slug} (self-owned actor)
@@ -35,12 +35,12 @@ kind = "app"
 maturity = "beta"
 workspace = "standalone"
 execution_profiles = ["build", "test"]
-description = "Common Crawl WAT → Parquet → RisingWave plain Hummock ingest (vertex_page, edge_links_to, edge_links_to_domain)"
+description = "Common Crawl WAT → Parquet → Kotoba/Datomic plain Hummock ingest (vertex_page, edge_links_to, edge_links_to_domain)"
 language = "rust"
 
 depends_on = [
   "graph-schema-py",      # Schema SSoT (models.py)
-  "risingwave-iceberg",   # Target DB infra module (current path uses plain Hummock tables)
+  "kotoba-iceberg",   # Target DB infra module (current path uses plain Hummock tables)
   "linode-storage",       # S3 (Linode Objects sg-sin-1, bucket kagami-graphar)
 ]
 
@@ -53,7 +53,7 @@ provides = [
 ]
 
 [invariants]
-target_db = "risingwave://kagami.etzhayyim.com:4566"
+target_db = "kotoba://kagami.etzhayyim.com:4566"
 schema_source = "../../30-graph/graph-schema-py/graphar_schema/models.py"
 cc_dataset = "common-crawl/CC-MAIN-*"
 crawl_id = "CC-MAIN-2026-12"
@@ -85,7 +85,7 @@ description = "Domain extraction from URL stream (standalone utility)"
 
 # ── Phase 4: Intelligence enrichment ──────────────────────
 
-[files."scripts/phase4_intel_risingwave.py"]
+[files."scripts/phase4_intel_kotoba.py"]
 role = "intel-enrichment"
 flags = ["editable"]
 description = "yabai/threat scoring → vertex_page.intel fields"
@@ -118,10 +118,10 @@ description = "ARCHIVED: WET → SQL. Replaced by rust/cc-phase3 --format parque
 archived_on = "2026-04-11"
 archived_reason = "Shannon: SQL intermediate eliminated."
 
-[files."scripts/archive/phase3b_ingest_risingwave.py"]
+[files."scripts/archive/phase3b_ingest_kotoba.py"]
 role = "cc-ingester"
 flags = ["deprecated"]
-description = "ARCHIVED: SQL → RisingWave INSERT. Replaced by S3 file_scan() from Parquet"
+description = "ARCHIVED: SQL → Kotoba/Datomic INSERT. Replaced by S3 file_scan() from Parquet"
 archived_on = "2026-04-11"
 archived_reason = "Shannon: PG wire INSERT too slow (RTT bottleneck). file_scan(parquet, s3) is native bulk load."
 
@@ -130,7 +130,7 @@ archived_reason = "Shannon: PG wire INSERT too slow (RTT bottleneck). file_scan(
 [files."scripts/phase3g_copy_ingest.py"]
 role = "cc-ingester"
 flags = ["editable"]
-description = "ACTIVE: Local parquet → RisingWave plain Hummock tables via psycopg2 execute_values (path-j-cc-hummock). vertex_domain populate_domains() sets did = owner_did = did:web:site.etzhayyim.com:{slug} (self-owned domain actor, 2026-04-14)."
+description = "ACTIVE: Local parquet → Kotoba/Datomic plain Hummock tables via psycopg2 execute_values (path-j-cc-hummock). vertex_domain populate_domains() sets did = owner_did = did:web:site.etzhayyim.com:{slug} (self-owned domain actor, 2026-04-14)."
 
 # ── Phase 3h: parquet-to-parquet transform (2026-04-14) ──
 #
@@ -173,7 +173,7 @@ description = "ACTIVE (2026-04-15): Upload all parquet to S3 cc-parquet-v2/. pag
 #   4. ALTER TABLE vertex_page SWAP WITH vertex_page_new (atomic, no downtime)
 #   5. DROP TABLE *_new (old data, after verification)
 #
-# No TRUNCATE. No data loss during ingest. RisingWave 2.8.1 SWAP WITH supported.
+# No TRUNCATE. No data loss during ingest. Kotoba/Datomic 2.8.1 SWAP WITH supported.
 
 [files."scripts/phase3k_s3_connector_swap.sql"]
 role = "cc-s3-connector"
@@ -190,7 +190,7 @@ description = "Archive directory for superseded Common Crawl pipeline scripts"
 [files."scripts/archive/phase3c_hyperdrive_ingest.py"]
 role = "cc-ingester"
 flags = ["deprecated"]
-description = "ARCHIVED: Parquet → RisingWave via Hyperdrive XRPC"
+description = "ARCHIVED: Parquet → Kotoba/Datomic via Hyperdrive XRPC"
 archived_on = "2026-04-13"
 archived_reason = "Superseded by phase3g/path-j-hummock after Hyperdrive timeout and iceberg sink stall."
 
@@ -218,14 +218,14 @@ archived_reason = "Superseded by phase3g/path-j-hummock. Streaming staging path 
 # ── WASM app ──────────────────────────────────────────────
 
 [files."wasm/etzhayyim-wasm-common-crawl-cc26m4x1"]
-role = "magatama-app"
+role = "kotodama-app"
 kind = "package"
 toolchain = "pnpm"
 maturity = "beta"
 workspace = "member"
 execution_profiles = ["build", "test"]
 flags = ["editable"]
-description = "Common Crawl appview (Magatama TS native + WIT contract)"
+description = "Common Crawl appview (Kotodama TS native + WIT contract)"
 
 [files."wasm/etzhayyim-wasm-common-crawl-cc26m4x1/package.json"]
 role = "package-config"
@@ -233,7 +233,7 @@ kind = "package"
 toolchain = "pnpm"
 workspace = "member"
 flags = ["editable"]
-description = "JS package manifest for the Common Crawl Magatama app"
+description = "JS package manifest for the Common Crawl Kotodama app"
 
 [files."CLAUDE.md"]
 role = "doc"

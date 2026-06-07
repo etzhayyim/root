@@ -1,6 +1,6 @@
 // SVG path generators — per kind, hand-tuned. Imperfection is the aesthetic.
 
-export function magatamaPath(cx: number, cy: number, r: number): string {
+export function kotodamaPath(cx: number, cy: number, r: number): string {
   // 勾玉 — comma-shaped jewel. Hand-tuned cubic Bézier so each seed
   // reads as "alive" rather than generic comma. Slight asymmetry baked in.
   const k = r * 0.55;

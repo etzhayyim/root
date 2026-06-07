@@ -329,5 +329,5 @@ yoro Discover タブ
   → [次ステップ or [END] → L9 成長集計]
 ```
 
-各 UserTask 完了後に自動で yoro 可視化する derive rule を magatama.jsonld に追加することで
+各 UserTask 完了後に自動で yoro 可視化する derive rule を kotodama.jsonld に追加することで
 **「フォームを送信するだけで yoro に実績が積まれる」** 状態を実現する。

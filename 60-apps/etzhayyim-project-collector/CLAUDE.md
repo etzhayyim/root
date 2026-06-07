@@ -48,7 +48,7 @@ INSERT INTO vertex_ip_address (vertex_id, created_date, ...) VALUES (...);
 ### Kysely パターン (app.ts)
 
 ```typescript
-import { createKyselyDb } from "@etzhayyim/magatama-host-sdk";
+import { createKyselyDb } from "@etzhayyim/kotodama-host-sdk";
 
 // Read — dashboard counts
 const db = createKyselyDb();

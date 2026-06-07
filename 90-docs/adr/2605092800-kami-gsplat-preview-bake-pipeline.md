@@ -17,7 +17,7 @@ related:
   - 90-docs/260409-kami-engineering-sdk-design.md
   - adr-0036-worker-direct-hyperdrive-persistence
   - adr-2604251830-shannon-optimal-layered-architecture
-  - adr-2605080700-graph-schema-live-risingwave-baseline
+  - adr-2605080700-graph-schema-live-kotoba-baseline
 supersedes: []
 superseded_by: []
 ---
@@ -31,7 +31,7 @@ static mesh を採用する (260416-maps-kami-street-asset-pipeline-design 維�
 
 # Scope
 
-- 3DGS アセット (PLY / .splat compact 形式) の RisingWave 永続化
+- 3DGS アセット (PLY / .splat compact 形式) の Kotoba/Datomic 永続化
 - 3DGS アセットの browser 直接プレビュー (kami-engine WASM, wgpu)
 - 3DGS → mesh GLB の bake 起動 XRPC
 - kami-engine-sdk への splat 取得・WASM 投入 helper の追加
@@ -75,7 +75,7 @@ ARCHITECTURE 上の所有関係:
 
 `kami-render::splat_pipeline` の自己完結化 / GPU sort 移行は別 ADR で扱う。
 
-## D3. Persistence (RisingWave / ADR-0036)
+## D3. Persistence (Kotoba/Datomic / ADR-0036)
 
 新規テーブル:
 
@@ -366,7 +366,7 @@ CREATE MATERIALIZED VIEW mv_maps_gsplat_job_latest AS
   ORDER BY job_id, ts DESC;
 ```
 
-RisingWave は MV body を ALTER できないので DROP+CREATE。idempotent。
+Kotoba/Datomic は MV body を ALTER できないので DROP+CREATE。idempotent。
 
 ### XRPC
 

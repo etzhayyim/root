@@ -3,7 +3,7 @@
   "@type": "Project",
   "name": "Cybersecurity Division ERP Section (サイバーセキュリティ事業部ERP課)",
   "status": "Integrated - Hybrid Monetization Mode",
-  "identifier": "ai-gftd-project-cybersec-erp",
+  "identifier": "etzhayyim-project-cybersec-erp",
   "description": "Integration and management of ERP systems for cybersecurity operations, focusing on resource planning and security compliance with a hybrid revenue model (AI + Ads + Fees).",
   "hasPart": [
     {
@@ -29,7 +29,7 @@
     {
       "@type": "Project",
       "name": "Autonomous Sales Integration",
-      "url": "/projects/ai-gftd-project-auto-sales-erp/PROJECT.jsonld",
+      "url": "/projects/etzhayyim-project-auto-sales-erp/PROJECT.jsonld",
       "description": "Integration with the autonomous sales engine for ERP market expansion."
     }
   ],
@@ -44,13 +44,13 @@
           "@context": {
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
             "dct": "http://purl.org/dc/terms/",
-            "gftd": "https://gftd.ai/schemas/"
+            "etzhayyim": "https://etzhayyim.com/schemas/"
           },
-          "id": "https://gftd.ai/projects/ai-gftd-project-cybersec-erp/strategy/erp-optimization",
+          "id": "https://etzhayyim.com/projects/etzhayyim-project-cybersec-erp/strategy/erp-optimization",
           "type": "dodaf:StrategicPlan",
           "dct:title": "ERP Optimization Strategy",
           "dct:description": "Strategic plan to optimize enterprise resource planning and ensure security compliance across the cybersecurity division.",
-          "gftd:objectives": [
+          "etzhayyim:objectives": [
             {
               "name": "Unified Resource Monitoring",
               "description": "Implement a real-time dashboard for tracking all divisional resources.",
@@ -72,7 +72,7 @@
               "priority": "High"
             }
           ],
-          "gftd:monetization": {
+          "etzhayyim:monetization": {
             "type": "HybridModel",
             "pillars": [
               {
@@ -89,7 +89,7 @@
               }
             ]
           },
-          "gftd:target_sectors": [
+          "etzhayyim:target_sectors": [
             {
               "type": "ISIC_COFOG_Top25",
               "priority": "C29 Automotive, C28 Robotics",
@@ -122,7 +122,7 @@
               ]
             }
           ],
-          "gftd:triggers": [
+          "etzhayyim:triggers": [
             {
               "condition": "Resource utilization > 90%",
               "action": "Trigger 'Resource Reallocation Analysis' activity."
@@ -136,51 +136,51 @@
           "@context": {
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
             "dct": "http://purl.org/dc/terms/",
-            "gftd": "https://gftd.ai/schemas/"
+            "etzhayyim": "https://etzhayyim.com/schemas/"
           },
-          "id": "https://gftd.ai/projects/ai-gftd-project-cybersec-erp/activities/erp-operations",
+          "id": "https://etzhayyim.com/projects/etzhayyim-project-cybersec-erp/activities/erp-operations",
           "type": "dodaf:OperationalActivity",
           "dct:title": "Cybersecurity ERP Operational Process (OV-5b)",
           "dct:description": "Management of ERP resources and security compliance for cybersecurity operations.",
-          "gftd:steps": [
+          "etzhayyim:steps": [
             {
               "activity": "Resource Planning Ingestion",
-              "performer": "ai-gftd-performer-sys-gftd-actors-pba7d22f-psn-isco-1219-erp-manager",
+              "performer": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-psn-isco-1219-erp-manager",
               "action": "Ingest project resource requirements and budget allocations.",
               "input": "Project Resource Requests",
               "output": "Resource Plan"
             },
             {
               "activity": "Security Compliance Audit",
-              "performer": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-12-1-erp-mgmt",
+              "performer": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-apqc-12-1-erp-mgmt",
               "action": "Verify if resource allocations meet security compliance standards.",
               "input": "Resource Plan",
               "output": "Audit Report"
             },
             {
               "activity": "Billing Synthesis",
-              "performer": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-12-1-erp-mgmt",
+              "performer": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-apqc-12-1-erp-mgmt",
               "action": "Generate billing and cost allocation reports based on usage.",
               "input": "Resource Usage Data",
               "output": "Billing Invoice"
             },
             {
               "activity": "Platform Monetization Governance",
-              "performer": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-12-1-erp-mgmt",
+              "performer": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-apqc-12-1-erp-mgmt",
               "action": "Orchestrate AI credit consumption, ad delivery, and transaction fee settlement.",
               "input": "System Usage Logs, Procurement Events",
               "output": "Revenue Report, Ad Impressions, Settlement Status"
             },
             {
               "activity": "COFOG Compliance & G2B Settlement",
-              "performer": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-12-1-erp-mgmt",
+              "performer": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-apqc-12-1-erp-mgmt",
               "action": "Execute administrative workflows for public sector procurement and automated G2B fee collection.",
               "input": "Public Procurement Tenders, Administrative Rules",
               "output": "Compliance Certificates, Settlement Records"
             },
             {
               "activity": "Supply Chain Risk Metering (ISIC C29/C28)",
-              "performer": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-kyber-sc-visibility",
+              "performer": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-kyber-sc-visibility",
               "action": "Analyze multi-tier Japanese manufacturing supply chains to identify monetization triggers (e.g., matching shortages with ads).",
               "input": "Inventory Data, Tier-2 Supplier Status",
               "output": "Risk Score, Targeted Ad Triggers"
@@ -193,34 +193,34 @@
         "content": {
           "@context": {
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
-            "gftd": "https://gftd.ai/schemas/"
+            "etzhayyim": "https://etzhayyim.com/schemas/"
           },
           "@type": "dodaf:Capability",
           "name": "Cybersecurity ERP Management",
           "description": "Ability to manage enterprise resources and security compliance within the cybersecurity division.",
-          "gftd:actors": [
+          "etzhayyim:actors": [
             {
-              "@id": "ai-gftd-performer-sys-gftd-actors-pba7d22f-psn-isco-1219-erp-manager",
+              "@id": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-psn-isco-1219-erp-manager",
               "name": "ERP Manager",
               "type": "Person",
               "isco": "1219",
               "description": "Manages enterprise resource planning and budget allocation."
             },
             {
-              "@id": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-12-1-erp-mgmt",
+              "@id": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-apqc-12-1-erp-mgmt",
               "name": "ERP Management Service",
               "type": "Service",
               "apqc": "12.1",
               "description": "Automated service for ERP oversight and compliance auditing."
             },
             {
-              "@id": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-12-1-monetization-gateway",
+              "@id": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-apqc-12-1-monetization-gateway",
               "name": "Monetization Gateway Service",
               "type": "Service",
               "description": "Manages AI credit balances, ad relevance matching, and transaction fee settlement for the hybrid model."
             }
           ],
-          "gftd:features": [
+          "etzhayyim:features": [
             "Resource Planning Ingestion",
             "Security Compliance Auditing",
             "Automated Billing Synthesis",
@@ -234,24 +234,24 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://gftd.ai/schemas/",
-              "capabilities": "gftd:capabilities",
-              "survivalIndicators": "gftd:survivalIndicators",
-              "scheduler": "gftd:scheduler",
-              "milestones": "gftd:milestones",
-              "blockers": "gftd:blockers",
+              "etzhayyim": "https://etzhayyim.com/schemas/",
+              "capabilities": "etzhayyim:capabilities",
+              "survivalIndicators": "etzhayyim:survivalIndicators",
+              "scheduler": "etzhayyim:scheduler",
+              "milestones": "etzhayyim:milestones",
+              "blockers": "etzhayyim:blockers",
               "dependsOn": {
-                "@id": "gftd:dependsOn",
+                "@id": "etzhayyim:dependsOn",
                 "@type": "@id"
               },
-              "ingestKey": "gftd:ingestKey",
-              "window": "gftd:window",
-              "valueUpdatedAt": "gftd:valueUpdatedAt"
+              "ingestKey": "etzhayyim:ingestKey",
+              "window": "etzhayyim:window",
+              "valueUpdatedAt": "etzhayyim:valueUpdatedAt"
             }
           ],
           "@type": "CreativeWork",
           "name": "Cybersecurity Division ERP Section (サイバーセキュリティ事業部ERP課) Scheduler",
-          "identifier": "ai-gftd-project-cybersec-erp/scheduler",
+          "identifier": "etzhayyim-project-cybersec-erp/scheduler",
           "description": "Project schedule (milestones) and blockers.",
           "dateCreated": "2026-02-15T04:25:26+00:00",
           "milestones": [],
@@ -265,13 +265,13 @@
           "@type": "CreativeWork",
           "name": "Cybersec ERP UI/UX Design",
           "description": "iPad-first dashboard design for ERP management within the Cybersecurity Division.",
-          "gftd:designPrinciples": [
+          "etzhayyim:designPrinciples": [
             "Apple Human Interface Guidelines compliance",
             "iPad-optimized layout (Multi-window support)",
             "High-contrast security indicators",
             "Real-time resource monitoring visualizations"
           ],
-          "gftd:uiComponents": [
+          "etzhayyim:uiComponents": [
             {
               "name": "Resource Overview Dashboard",
               "type": "Dashboard",
@@ -291,7 +291,7 @@
               ]
             }
           ],
-          "gftd:uxFlows": [
+          "etzhayyim:uxFlows": [
             {
               "name": "Resource Planning Flow",
               "steps": [

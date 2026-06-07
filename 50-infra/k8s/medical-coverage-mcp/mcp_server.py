@@ -14,7 +14,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from typing import Any
 
 
-NAMESPACE = os.environ.get("NAMESPACE", "risingwave")
+NAMESPACE = os.environ.get("NAMESPACE", "mitama-udf")
 CRONJOB_NAME = os.environ.get("CRONJOB_NAME", "medical-coverage-ingester")
 APP_LABEL = os.environ.get("APP_LABEL", "medical-coverage-ingester")
 MCP_AUTH_TOKEN = os.environ.get("MCP_AUTH_TOKEN", "")
@@ -39,7 +39,7 @@ READ_ONLY_TOOLS = {
 TOOLS: list[dict[str, Any]] = [
     {
         "name": "medical.coverage.get",
-        "description": "Read medical domain coverage from RisingWave.",
+        "description": "Read medical domain coverage from Kotoba/Datomic.",
         "inputSchema": {
             "type": "object",
             "properties": {
@@ -112,7 +112,7 @@ TOOLS: list[dict[str, Any]] = [
     },
     {
         "name": "medical.ingest.reconcile",
-        "description": "Check live Kubernetes and RisingWave state for the medical ingester.",
+        "description": "Check live Kubernetes and Kotoba/Datomic state for the medical ingester.",
         "inputSchema": {"type": "object", "properties": {}},
     },
     {
@@ -168,18 +168,6 @@ def load_k8s() -> tuple[Any, Any]:
     return client.BatchV1Api(), client.CoreV1Api()
 
 
-def rw_rows(sql: str, args: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
-    if not RW_DSN:
-        raise RuntimeError("RW_DSN is not configured")
-    import psycopg
-    from psycopg.rows import dict_row
-
-    with psycopg.connect(RW_DSN, row_factory=dict_row) as conn:
-        with conn.cursor() as cur:
-            cur.execute(sql, args)
-            return list(cur.fetchall() or [])
-
-
 def selected_collections(args: dict[str, Any]) -> list[str]:
     requested = args.get("targets")
     names = requested if isinstance(requested, list) else list(TARGETS)
@@ -196,31 +184,28 @@ def selected_collections(args: dict[str, Any]) -> list[str]:
 
 def get_coverage(args: dict[str, Any]) -> dict[str, Any]:
     collections = selected_collections(args)
-    placeholders = ",".join(["%s"] * len(collections))
-    rows = rw_rows(
-        f"""
-        SELECT domain, app_host, collection, world_total, unit, sector,
-               did_count, record_count, collected, coverage_rate
-          FROM mv_world_collection_coverage_live
-         WHERE collection IN ({placeholders})
-         ORDER BY collection
-        """,
-        tuple(collections),
-    )
+    from kotoba_datomic import get_kotoba_client
+    client = get_kotoba_client()
+
+    rows = []
+    for col in collections:
+        found = client.select_where("mv_world_collection_coverage_live", "collection", col)
+        rows.extend(found)
+
     by_collection = {v[1]: k for k, v in TARGETS.items()}
     coverage = []
     for row in rows:
         coverage.append(
             {
-                "target": by_collection.get(row["collection"], row["collection"]),
-                "domain": row["domain"],
-                "collection": row["collection"],
-                "recordCount": row["record_count"],
-                "collected": row["collected"],
-                "worldTotal": row["world_total"],
-                "coverageRate": row["coverage_rate"],
-                "unit": row["unit"],
-                "sector": row["sector"],
+                "target": by_collection.get(row.get("collection", ""), row.get("collection", "")),
+                "domain": row.get("domain", ""),
+                "collection": row.get("collection", ""),
+                "recordCount": row.get("record_count", 0),
+                "collected": row.get("collected", 0),
+                "worldTotal": row.get("world_total", 0),
+                "coverageRate": row.get("coverage_rate", 0),
+                "unit": row.get("unit", ""),
+                "sector": row.get("sector", ""),
             }
         )
     return {"ok": True, "coverage": coverage}
@@ -228,16 +213,21 @@ def get_coverage(args: dict[str, Any]) -> dict[str, Any]:
 
 def list_targets(_: dict[str, Any]) -> dict[str, Any]:
     collections = sorted({v[1] for v in TARGETS.values()})
-    placeholders = ",".join(["%s"] * len(collections))
-    rows = rw_rows(
-        f"""
-        SELECT domain, app_host, collection, world_total, unit, sector
-          FROM dim_world_domain_collection
-         WHERE collection IN ({placeholders})
-         ORDER BY collection
-        """,
-        tuple(collections),
-    )
+    from kotoba_datomic import get_kotoba_client
+    client = get_kotoba_client()
+
+    rows = []
+    for col in collections:
+        found = client.select_where("dim_world_domain_collection", "collection", col)
+        rows.extend(found)
+
+    for row in rows:
+        row.setdefault("world_total", 0)
+        row.setdefault("unit", "")
+        row.setdefault("sector", "")
+        row.setdefault("domain", "")
+        row.setdefault("app_host", "")
+
     return {"ok": True, "targets": rows}
 
 
@@ -384,7 +374,7 @@ def logs(args: dict[str, Any]) -> dict[str, Any]:
 
 
 def redact(text: str) -> str:
-    patterns = ["RW_DSN", "NCBI_API_KEY", "FACILITY_CSV_URL", "MCP_AUTH_TOKEN"]
+    patterns = ["KOTOBA_URL", "NCBI_API_KEY", "FACILITY_CSV_URL", "MCP_AUTH_TOKEN"]
     redacted = text
     for key in patterns:
         redacted = re.sub(rf"({key}=)[^\s]+", rf"\1[redacted]", redacted)

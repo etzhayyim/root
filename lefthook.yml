@@ -139,7 +139,7 @@ pre-commit:
       # kawase-yui runtime source. Charter Rider §2(e) anti-gatekeeping +
       # §2(c) covert-ops avoidance. Build-time enforcement so violations
       # are caught BEFORE they reach the silenKawaseReview audit layer.
-      # Scans guarded roots only (kawase-yui actor + 5 magatama cells +
+      # Scans guarded roots only (kawase-yui actor + 5 kotodama cells +
       # kawase-pool contract + kotoba_kawase Python facade). Allow-listed
       # files: the lint script itself + the ADR-2605282200 document.
       glob: "*.{py,ts,tsx,js,mjs,cjs,rs,sol,go}"
@@ -149,12 +149,12 @@ pre-commit:
     sensor-no-active-probe:
       # Enforce ADR-2605262400 §7 + G8 (passive-only invariant). Scans
       # staged DatasetSensor sources under
-      # `20-actors/magatama/py/src/pymagatama/organism/sensors/` for
+      # `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/sensors/` for
       # forbidden network imports (socket / dnspython / aiodns / scapy /
       # nmap / paramiko) and for URL string literals targeting hosts
       # outside the religious-corp DID infrastructure allow-list.
       # Sensors MUST consume pre-captured public archives only.
-      glob: "20-actors/magatama/py/src/pymagatama/organism/sensors/*.py"
+      glob: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/sensors/*.py"
       run: node 70-tools/scripts/lint/sensor-no-active-probe.mjs {staged_files}
       stage_fixed: false
 
@@ -333,7 +333,7 @@ pre-commit:
       run: |
         # The canonical constitutional verify is the IN-REPO e7m (Python,
         # kotoba-premised: scans no-server-key + substrate-boundary etc. over
-        # the kotoba Datom substrate). Refactored off the stale `gftd`/PATH-`e7m`
+        # the kotoba Datom substrate). Refactored off the stale `etzhayyim`/PATH-`e7m`
         # binary (v0.2.0), which has NO `verify` subcommand and used to hard-fail
         # every commit with `unknown command: verify` (ADR-2606061500). We never
         # fall back to that binary; we run the repo source directly.
@@ -520,35 +520,35 @@ pre-commit:
       stage_fixed: false
 
 
-    magatama-manifest-validation:
-      # When any 60-apps/*/magatama.jsonld or the canonical
-      # magatama.schema.json changes, validate every manifest
+    kotodama-manifest-validation:
+      # When any 60-apps/*/kotodama.jsonld or the canonical
+      # kotodama.schema.json changes, validate every manifest
       # (ADR-2605271200 cycle 53; 5th registry axis after axes 1-4).
       # PR-gate from day 1 (baseline = 0 after cycle 53 fixed 5 schema
       # enums + 13 data bugs across 13 apps).
       glob:
-        - "60-apps/*/magatama.jsonld"
-        - "90-docs/_registry/schemas/magatama.schema.json"
+        - "60-apps/*/kotodama.jsonld"
+        - "90-docs/_registry/schemas/kotodama.schema.json"
       run: |
-        python3 70-tools/scripts/docs/validate-magatama-manifests.py \
-          > /tmp/magatama-validation.$$.txt 2>&1
+        python3 70-tools/scripts/docs/validate-kotodama-manifests.py \
+          > /tmp/kotodama-validation.$$.txt 2>&1
         rc=$?
         if [ $rc -eq 1 ]; then
-          echo "✘ magatama manifest validation failed:"
-          cat /tmp/magatama-validation.$$.txt
-          rm -f /tmp/magatama-validation.$$.txt
+          echo "✘ kotodama manifest validation failed:"
+          cat /tmp/kotodama-validation.$$.txt
+          rm -f /tmp/kotodama-validation.$$.txt
           echo ""
-          echo "  Fix the failing magatama.jsonld OR magatama.schema.json."
+          echo "  Fix the failing kotodama.jsonld OR kotodama.schema.json."
           echo "  Run locally:"
-          echo "    python3 70-tools/scripts/docs/validate-magatama-manifests.py"
+          echo "    python3 70-tools/scripts/docs/validate-kotodama-manifests.py"
           exit 1
         fi
-        if grep -q "jsonschema package not installed" /tmp/magatama-validation.$$.txt 2>/dev/null; then
-          echo "ℹ️ magatama-manifest-validation skipped — jsonschema not installed."
+        if grep -q "jsonschema package not installed" /tmp/kotodama-validation.$$.txt 2>/dev/null; then
+          echo "ℹ️ kotodama-manifest-validation skipped — jsonschema not installed."
           echo "  Install: python3 -m pip install --break-system-packages jsonschema"
           echo "  (CI runs the check unconditionally; ok to commit.)"
         fi
-        rm -f /tmp/magatama-validation.$$.txt
+        rm -f /tmp/kotodama-validation.$$.txt
       stage_fixed: false
 
 
@@ -609,12 +609,33 @@ pre-push:
   parallel: false  # SDK build must finish before cyber-drill build reads its dist/
 
   commands:
+    substrate-remediation-audit:
+      # ADR-2606071800 shrink-only ratchet for the legacy RisingWave/Hyperdrive/
+      # Kysely read path. Full-tree scan (too heavy for per-commit; runs on push).
+      # FAILS if a storage-boundary violation appears that is NOT on the frozen
+      # allowlist (substrate-frozen-allowlist.json) — i.e. new debt or a regression.
+      # Legacy debt is grandfathered; the list may only shrink. The pre-commit
+      # `substrate-boundary` hook still blocks new storage imports in staged files.
+      run: node 70-tools/scripts/lint/substrate-remediation-audit.mjs --audit
+
     kami-engine-sdk-build:
       # `svelte-package -i src/lib` produces dist/ that downstream apps
       # consume via `link:` or `workspace:*`. ~1.6s on M1.
       glob: "40-engine/kami-engine/kami-engine-sdk/**"
       run: |
-        cd 40-engine/kami-engine/kami-engine-sdk
+        SDK=40-engine/kami-engine/kami-engine-sdk
+        # Skip gracefully when build prerequisites are absent (e.g. the
+        # kami-engine submodule isn't populated, or `npm install` hasn't run
+        # — both true on a fresh Claude-Code-on-the-web container). The
+        # authoritative gate is .github/workflows/kami-engine-sdk.yml, which
+        # runs in a fully provisioned CI; this is only a local fast-path.
+        if [ ! -f "$SDK/package.json" ]; then
+          echo "  kami-engine-sdk-build (skip) submodule not populated — CI is authoritative"; exit 0
+        fi
+        if [ ! -d "$SDK/node_modules" ]; then
+          echo "  kami-engine-sdk-build (skip) node_modules absent (run npm install) — CI is authoritative"; exit 0
+        fi
+        cd "$SDK"
         if ! npm run build > /tmp/sdk-build.$$.log 2>&1; then
           echo "✘ SDK build failed"
           tail -20 /tmp/sdk-build.$$.log
@@ -629,7 +650,16 @@ pre-push:
       # by gating on PASSED count, not exit code.
       glob: "40-engine/kami-engine/kami-engine-sdk/**"
       run: |
-        cd 40-engine/kami-engine/kami-engine-sdk
+        SDK=40-engine/kami-engine/kami-engine-sdk
+        # Same prerequisite guard as kami-engine-sdk-build — skip when the
+        # submodule/deps are absent; CI workflow remains the authoritative gate.
+        if [ ! -f "$SDK/package.json" ]; then
+          echo "  kami-engine-sdk-vitest (skip) submodule not populated — CI is authoritative"; exit 0
+        fi
+        if [ ! -d "$SDK/node_modules" ]; then
+          echo "  kami-engine-sdk-vitest (skip) node_modules absent (run npm install) — CI is authoritative"; exit 0
+        fi
+        cd "$SDK"
         npm test > /tmp/sdk-test.$$.log 2>&1 || true
         PASSED=$(grep -oE "Tests +[0-9]+ passed" /tmp/sdk-test.$$.log | grep -oE "[0-9]+" | head -1)
         if [ "${PASSED:-0}" -lt 82 ]; then
@@ -648,9 +678,21 @@ pre-push:
       # path during the SSR build. ~2.3s on M1.
       glob: "60-apps/etzhayyim-project-cyber-drill/**"
       run: |
+        APP=60-apps/etzhayyim-project-cyber-drill/svelte
+        SDK=40-engine/kami-engine/kami-engine-sdk
+        # Skip gracefully when build prerequisites are absent — the cyber-drill
+        # SvelteKit build needs both the app's node_modules (pnpm install) and
+        # the kami-engine-sdk submodule populated. Neither exists on a fresh
+        # Claude-Code-on-the-web container; a new-branch push also fires this
+        # command regardless of glob (git gives lefthook an all-zeros remote
+        # SHA, so no diff range can be computed). The authoritative gate is the
+        # GitHub Actions workflow; this is only a local pre-push fast-path.
+        if [ ! -d "$APP/node_modules" ] || [ ! -f "$SDK/package.json" ]; then
+          echo "  cyber-drill-build (skip) build deps absent (node_modules/submodule) — CI is authoritative"; exit 0
+        fi
         # Make sure SDK dist/ is current; if the user only changed
         # cyber-drill files, the SDK build above didn't fire.
-        if [ ! -d 40-engine/kami-engine/kami-engine-sdk/dist/webvr ]; then
+        if [ ! -d "$SDK/dist/webvr" ]; then
           echo "  pre-building SDK dist/ (was stale)…"
           (cd 40-engine/kami-engine/kami-engine-sdk && npm run build > /dev/null 2>&1)
         fi

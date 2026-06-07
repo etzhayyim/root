@@ -146,8 +146,8 @@ sites.
 
 **Smoke test** (import-only; R0 cells deliberately fail import):
 ```bash
-cd 20-actors/magatama/py
-python -c "from magatama.cells.iyashi_primary_care_encounter import _r0_marker" 2>&1 | grep "R0 scaffold"
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
+python -c "from kotodama.cells.iyashi_primary_care_encounter import _r0_marker" 2>&1 | grep "R0 scaffold"
 # ... similar for all 6 iyashi_* cells
 ```
 

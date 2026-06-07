@@ -1,8 +1,8 @@
 /**
  * Minimal LLM model registry inlined for the CF Worker.
  *
- * Source: 20-actors/magatama/sdk/magatama-host-sdk/src/llm-model-registry.ts
- * (legacy upstream). Extracted here to drop the `@etzhayyim/magatama-host-sdk`
+ * Source: 40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts
+ * (legacy upstream). Extracted here to drop the `@etzhayyim/kotodama-host-sdk`
  * dependency per ADR-2605191358 (substrate boundary: no direct legacy SDK
  * imports from etzhayyim/* code). Only the data structures consumed by
  * buildOpenAiModelList() and remapModelForFleet() are kept.

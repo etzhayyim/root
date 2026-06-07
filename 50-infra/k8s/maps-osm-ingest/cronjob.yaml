@@ -51,7 +51,7 @@ spec:
                 - "--pbf-url"
                 - "https://planet.openstreetmap.org/pbf/planet-latest.osm.pbf"
                 - "--db"
-                - "$(RISINGWAVE_URL)"
+                - "$(KOTOBA_URL)"
                 - "--source-did"
                 - "did:web:maps.etzhayyim.com:planet"
                 - "--batch-size"
@@ -65,11 +65,11 @@ spec:
               env:
                 - name: RUST_LOG
                   value: "info,maps_osm_ingest=info,tokio_postgres=warn"
-                - name: RISINGWAVE_URL
+                - name: KOTOBA_URL
                   valueFrom:
                     secretKeyRef:
                       name: maps-osm-ingest-secrets
-                      key: RISINGWAVE_URL
+                      key: KOTOBA_URL
               resources:
                 requests:
                   cpu: "4"

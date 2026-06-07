@@ -212,7 +212,7 @@ substrate actor at `20-actors/kokoro/`, with DID
   pattern (toritate.externalAuditorEngagement-equivalent for
   mental health domain).
 
-## §3. Cells (6 Pregel cells under `20-actors/magatama/cells/kokoro_*/`)
+## §3. Cells (6 Pregel cells under `40-engine/kotoba/crates/kotoba-kotodama/cells/kokoro_*/`)
 
 All R0 path-reserved; import-time `RuntimeError("kokoro R0 scaffold: activate via Council ADR + R1 ratification + ≥3 counselor baseline attestations + encrypted-record framework production-deployed")` at W1 creation.
 
@@ -243,7 +243,7 @@ hagukumi R1 + iyashi R1 dependency).
 
 | Gate | Description |
 |---|---|
-| **G1** | Every kokoro document MUST pass `pymagatama.organism.sensors.charter_rider.scan()` §2(a)-(h). |
+| **G1** | Every kokoro document MUST pass `kotodama.organism.sensors.charter_rider.scan()` §2(a)-(h). |
 | **G2** | Every record MUST emit `com.etzhayyim.kokoro.*` Lexicon with kotoba-datomic attestation lineage. |
 | **G3** | **NOT clinical psychiatric entity** — NOT state-licensed; counselors are L5 vocation-flow community-witnessed-competent (musubi G3 pattern shared); `counselorAttestation.counselorClass` const "community-witnessed-competent" + DELIBERATELY excludes "state-licensed-psych" / "clinical-psychiatrist" / "ordained-pastoral-counselor". |
 | **G4** | **Encrypted envelope MANDATORY + NO video recording** — `peerSupportCircleAttestation` + `griefSupportAttestation` MUST carry `encryptedPayloadCid`; video frame-write-to-disk PROHIBITED (firmware-level mirrors hagukumi G2 + iyashi G3). |

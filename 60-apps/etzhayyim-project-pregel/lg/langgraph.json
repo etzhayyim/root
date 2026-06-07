@@ -2,13 +2,13 @@
   "$comment": "pregel — LangGraph Server for Outlook triage resident worker. ADR-2605080600 / ADR-2605111200.",
   "dependencies": [
     "./",
-    "../../../20-actors/magatama/py"
+    "../../../40-engine/kotoba/crates/kotoba-kotodama/py"
   ],
   "graphs": {
-    "outlook_triage": "pymagatama.agents.outlook_triage:outlook_triage_graph",
-    "pregel_triage": "pymagatama.pregel.graph:build_graph",
-    "projector_lifecycle": "pymagatama.projector.graph:build_lifecycle_graph",
-    "projector_driver": "pymagatama.projector.driver:build_driver_graph"
+    "outlook_triage": "kotodama.agents.outlook_triage:outlook_triage_graph",
+    "pregel_triage": "kotodama.pregel.graph:build_graph",
+    "projector_lifecycle": "kotodama.projector.graph:build_lifecycle_graph",
+    "projector_driver": "kotodama.projector.driver:build_driver_graph"
   },
   "env": ".env",
   "python_version": "3.11",

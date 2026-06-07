@@ -37,7 +37,7 @@ ADR-2604261830 already anchors WASM/BPMN/browser/LangGraph artifacts and
 execution receipts in `ActorRuntimeRegistry`. ADR-2604251830 defines the live
 runtime topology:
 
-- L4 RisingWave registry: `actor_registry`, `mcp_registry`, `tool_registry`,
+- L4 Kotoba/Datomic registry: `actor_registry`, `mcp_registry`, `tool_registry`,
   `process_def`, and BPMN bindings.
 - L7 Zeebe BPMN worker: orchestration and durable workflow scheduling.
 - L8 Vultr k8s Python pod worker: heavy tool execution, browser, ETL, ML, and
@@ -79,7 +79,7 @@ Runtime:
     -> MCP adapter Service when an agent exposes MCP
 
 Persistence:
-  RisingWave = operational registry/state
+  Kotoba/Datomic = operational registry/state
   IPFS/B2 = artifacts, manifests, receipts, traces, evidence
   EVM = hashes, CIDs, identity links, registration, receipts, checkpoints
   Zeebe = workflow instance state
@@ -124,7 +124,7 @@ must not be written to chain.
 
 `AgentIdentityRegistry.agentURI(tokenId)` points to an IPFS CID served through
 `https://ipfs.etzhayyim.com/ipfs/<cid>`. The registration file is canonical for public
-discovery; RisingWave remains canonical for internal dispatch. The protocol-root
+discovery; Kotoba/Datomic remains canonical for internal dispatch. The protocol-root
 envelope is defined by ADR-2604262145 as
 `https://etzhayyim.com/schemas/erc8004-agent-registration/v1.json`; the older
 flat `agent-runtime-registration/v1` shape remains a narrow runtime-oriented
@@ -245,7 +245,7 @@ The public runtime manifest is a redacted projection of the k8s workload:
     "kind": "Deployment",
     "name": "zeebe-worker"
   },
-  "image": "ghcr.io/etzhayyim/pymagatama@sha256:...",
+  "image": "ghcr.io/etzhayyim/kotodama@sha256:...",
   "ports": [
     { "name": "http", "public": false },
     {
@@ -275,7 +275,7 @@ Rules:
 - Public manifests must remove `env`, `secretKeyRef`, service-account tokens,
   private RPC URLs, and internal bearer values.
 - The public manifest CID is pinned through `ipfs.etzhayyim.com` and stored in both
-  RisingWave and the ERC-8004 `agentURI` document.
+  Kotoba/Datomic and the ERC-8004 `agentURI` document.
 
 ## Build And Deploy Flow
 
@@ -304,14 +304,14 @@ Rules:
    -> owner/controller = ERC725 root or linked smart account
    -> agentURI = ipfs://<registration-json-cid>
 
-8. Write L4 RisingWave registry rows
+8. Write L4 Kotoba/Datomic registry rows
    -> actor_registry / mcp_registry / tool_registry / process_def bindings
 
 9. Apply k8s manifest
    -> explicit namespace only
 
 10. Runtime executes jobs
-    -> write operational state to RisingWave/B2
+    -> write operational state to Kotoba/Datomic/B2
     -> write traces/evidence to IPFS
     -> record EVM execution receipt/checkpoint when policy requires
 ```
@@ -363,7 +363,7 @@ Updated 2026-04-27:
 - `etzhayyimRootIdentityRegistry` has the canonical `keccak256(utf8(rootDid))`
   registered for that root identity address, and the facade link points to
   that canonical root hash.
-- RisingWave projection sync is performed by
+- Kotoba/Datomic projection sync is performed by
   `30-graph/graph-schema/scripts/migrate-rw-erc725-root.mjs`. The projection
   must write `root_did_hash = keccak256(utf8(rootDid))` derived from the
   resolved identity address. A registry-returned root hash may be logged as
@@ -430,10 +430,10 @@ must preserve the redaction/render failure reason so CI and operators can see
 | k8s public manifest      | IPFS/B2                        |                                   yes | CID in agent registration JSON           |
 | k8s operational manifest | git + cluster API              |                                    no | hash/CID only if published               |
 | Container image          | GHCR                           | digest public/internal by repo policy | digest in IPFS JSON and EVM content hash |
-| BPMN XML                 | RisingWave + IPFS/B2           |                   yes if public actor | artifact hash/CID                        |
+| BPMN XML                 | Kotoba/Datomic + IPFS/B2           |                   yes if public actor | artifact hash/CID                        |
 | Zeebe instance state     | Zeebe volume/state             |                                    no | checkpoint or receipt hash only          |
-| Python worker output     | RisingWave + B2/IPFS           |                depends on sensitivity | outputHash / traceHash                   |
-| MCP tool list            | RisingWave + public agent JSON |                                   yes | registration hash/CID                    |
+| Python worker output     | Kotoba/Datomic + B2/IPFS           |                depends on sensitivity | outputHash / traceHash                   |
+| MCP tool list            | Kotoba/Datomic + public agent JSON |                                   yes | registration hash/CID                    |
 | OAuth/session data       | AuthN/AuthZ + D1/RW            |                                    no | salted hash/revocation root only         |
 | Execution receipts       | EVM + optional IPFS detail     |                  receipt tuple public | receipt hashes                           |
 | Actor checkpoints        | EVM + RW/IPFS evidence         |                           root public | checkpoint root/evidence hash            |
@@ -509,13 +509,13 @@ This ADR does not replace the Shannon 8-layer architecture. It publishes it.
 | ---------------------- | --------------------------------------------------------------- |
 | L2 PDS/AppView routing | OAuth/DPoP protected entry; no actor state                      |
 | L3 dispatcher          | optional MCP/runtime adapter; no authoritative actor definition |
-| L4 RisingWave registry | internal SSoT mirrored into ERC-8004/IPFS public docs           |
+| L4 Kotoba/Datomic registry | internal SSoT mirrored into ERC-8004/IPFS public docs           |
 | L5 B2/IPFS             | public artifact and evidence store                              |
 | L7 Zeebe               | runtime backend advertised as `bpmn-zeebe`                      |
 | L8 Python pod          | runtime backend advertised as `python-worker`                   |
 | Private EVM            | ERC725 root + ERC-8004 discovery + runtime receipts             |
 
-RisingWave remains the operational SSoT. ERC-8004 is the public/distributed
+Kotoba/Datomic remains the operational SSoT. ERC-8004 is the public/distributed
 discovery and trust projection.
 
 # Consequences
@@ -536,7 +536,7 @@ discovery and trust projection.
 ## Negative
 
 - Public registration is now a two-phase consistency problem:
-  RisingWave internal rows and ERC-8004/IPFS projection must be reconciled.
+  Kotoba/Datomic internal rows and ERC-8004/IPFS projection must be reconciled.
 - ERC725 and ERC-8004 add contract surface area and migration work.
 - Public k8s manifests need a redaction pipeline; accidental secret publication
   becomes a real release risk.
@@ -597,9 +597,9 @@ pointers only.
    public protocol registration design.
 5. In progress: extend deploy pipeline to register/update `ActorRuntimeRegistry`,
    ERC725 root keys, and ERC-8004 agent URI.
-6. Add RisingWave reconciliation tables:
+6. Add Kotoba/Datomic reconciliation tables:
    `agent_publication`, `agent_runtime_artifact`, `agent_runtime_receipt`.
-7. Add a reconciler that compares RisingWave rows, IPFS CIDs, and EVM events.
+7. Add a reconciler that compares Kotoba/Datomic rows, IPFS CIDs, and EVM events.
 8. In progress: publish the first runtime:
    `yoro.etzhayyim.com` Zeebe worker + MCP adapter in namespace `yoro-actors`.
 9. Publish the shared Python worker runtime in namespace `mitama-udf`.

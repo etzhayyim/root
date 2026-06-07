@@ -7,7 +7,7 @@ import {
   sql,
   withCapabilityTags,
   type HostSDK,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 import {
   findSeedPartner,
   listSeedPartners,

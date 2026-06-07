@@ -29,7 +29,7 @@ superseded_by: []
 前 ADR (ADR-2605190000) は object storage + graph DB のハイブリッド前提で BMC を組んでいたため supersede。価格 axis は ADR-2605080000 を ground-truth に minimax で再評価する。
 
 **Substrate** (確定):
-- RisingWave on Vultr VKE LAX (`vhf-8c-32gb`, $241/mo = ¥36,150/mo)
+- Kotoba/Datomic on Vultr VKE LAX (`vhf-8c-32gb`, $241/mo = ¥36,150/mo)
 - Backblaze B2 (storage $0.006/GB-month, BWA で egress $0)
 - Cloudflare Workers edge (~$5/mo Workers Paid)
 - Per-tenant RW database: `yata_<sha256(did)[:16]>` で論理分離
@@ -91,7 +91,7 @@ Pro tier の base price を $29 / $39 / $49 / $69 (≒ ¥4,350 / ¥5,850 / ¥7,3
 
 ### 2.1 Unit と cost
 
-**Unit**: GB-month of graph state (RisingWave SST on B2)
+**Unit**: GB-month of graph state (Kotoba/Datomic SST on B2)
 
 Cost breakdown:
 | Layer | Unit cost | Notes |
@@ -252,7 +252,7 @@ Cost breakdown:
 +---------------------+---------------------+-----------------------+---------------------+---------------------+
                       | Key Resources       |                       | Channels            |
                       +---------------------+                       +---------------------+
-                      | - RisingWave        |                       | - MCP marketplace   |
+                      | - Kotoba/Datomic        |                       | - MCP marketplace   |
                       |   cluster on Vultr  |                       |   (Cursor, Claude   |
                       | - B2 BWA            |                       |   Desktop)          |
                       |   partnership       |                       | - HN Algolia cron   |
@@ -401,7 +401,7 @@ Fixed cost ¥40,000/mo. Pro が 9 件で break-even (¥4,980 × 9 = ¥44,820 > �
 | Stardog | ✗ | ✓ | ✗ |
 | **yatabase** | **✓** | **✓** | **✓** |
 
-模倣難度: **Very High** — RisingWave 上に 3 wire を統一実装する必要。Neo4j は SPARQL を加えるのに RDF triple store を新規構築せねばならず、3-5 年プロジェクト。
+模倣難度: **Very High** — Kotoba/Datomic 上に 3 wire を統一実装する必要。Neo4j は SPARQL を加えるのに RDF triple store を新規構築せねばならず、3-5 年プロジェクト。
 
 ### 10.3 Moat 3: BWA $0 egress
 

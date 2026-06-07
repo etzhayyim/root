@@ -588,9 +588,9 @@ Use a different transport for the per-recipient routing.
 
 却下理由: atproto firehose / Jetstream already exists, already supports the use case, and the open religious-corp stack is already standardized on atproto (per ADR-2605172000). Inventing a new transport is gratuitous.
 
-## J. RW (RisingWave) for AppView inbox query
+## J. RW (Kotoba/Datomic) for AppView inbox query
 
-Use RisingWave streaming MVs to maintain inbox indexes.
+Use Kotoba/Datomic streaming MVs to maintain inbox indexes.
 
 却下理由: violates ADR-2605172000 (RW-free open substrate). AppView for openmail uses Postgres + atproto firehose subscriber. RW would be tempting (it's the right *technical* primitive for streaming materialized views), but it's exactly the kind of centralized-substrate coupling the RW-free ADR forbids in open apps.
 

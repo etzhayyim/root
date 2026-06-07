@@ -2,7 +2,7 @@
 
 > **Superseded in part 2026-04-17**: the "hand-managed `schema.ts`" claim no longer holds.
 > Drizzle `schema.ts` was archived 2026-04-13 (`_archive/2026-04-13-non-kysely/`), and
-> `@etzhayyim/graph-schema/src/database.ts` is now **generated** from live RisingWave
+> `@etzhayyim/graph-schema/src/database.ts` is now **generated** from live Kotoba/Datomic
 > `information_schema` via `pnpm db:gen`, with `pnpm db:drift` as CI guard.
 > See `30-graph/graph-schema/CLAUDE.md` for the current workflow.
 
@@ -11,7 +11,7 @@
 **Cypher string literals (G() builder, cypherQueryAsync) → Drizzle/Kysely type-safe queries.**
 
 - **Schema SSoT**: `@etzhayyim/graph-schema/schema.ts` (Drizzle ORM, hand-managed)
-- **Query builder**: `createKyselyDb()` from `@etzhayyim/magatama-host-sdk`
+- **Query builder**: `createKyselyDb()` from `@etzhayyim/kotodama-host-sdk`
 - **Type-safe row types**: exported from `@etzhayyim/graph-schema` (e.g., VertexActorRow, VertexOtherRow)
 - **Scope**: 40+ wasm app clients (intel, ipaddress, natural-person, site, yorishiro, etc)
 - **Migration**: Phase 1 (SDK + schema) complete 2026-04-11. Phase 2 (app clients) in-progress 2026-04-12.
@@ -22,7 +22,7 @@
 
 ```typescript
 // App code
-import { G } from "@etzhayyim/magatama-host-sdk";
+import { G } from "@etzhayyim/kotodama-host-sdk";
 
 async function getActors(did: string) {
   const cypher = `MATCH (a:Actor {did: $did}) RETURN a.vertex_id, a.name LIMIT 50`;
@@ -34,7 +34,7 @@ async function getActors(did: string) {
 // Flow:
 // 1. App sends Cypher string to Graph Worker
 // 2. graph-planner parses/plans/transpiles to SQL
-// 3. SQL executed on RisingWave
+// 3. SQL executed on Kotoba/Datomic
 // 4. Results returned as JSON objects (untyped)
 ```
 
@@ -48,7 +48,7 @@ async function getActors(did: string) {
 
 ```typescript
 // App code
-import { createKyselyDb } from "@etzhayyim/magatama-host-sdk";
+import { createKyselyDb } from "@etzhayyim/kotodama-host-sdk";
 import type { Database, VertexActorRow } from "@etzhayyim/graph-schema";
 
 async function getActors(sql: Sql, env: WorkerEnv, did: string) {
@@ -59,7 +59,7 @@ async function getActors(sql: Sql, env: WorkerEnv, did: string) {
     .select(['vertex_id', 'name', 'display_name'])
     .limit(50)
     .execute();
-  
+
   return rows.map(r => ({ id: r.vertex_id, name: r.name }));
 }
 
@@ -67,14 +67,14 @@ async function getActors(sql: Sql, env: WorkerEnv, did: string) {
 // 1. App builds SQL via Kysely (type-safe at build-time)
 // 2. Kysely.PostgresDialect generates SQL string
 // 3. Hyperdrive RLS middleware + client.query(sql, params)
-// 4. RisingWave executes SQL
+// 4. Kotoba/Datomic executes SQL
 // 5. Results mapped to VertexActorRow type
 ```
 
 **Benefits:**
 - Full type safety (VertexActorRow | VertexOtherRow | etc)
 - Zero-cost abstraction (Kysely compiles to SQL, no transpiler)
-- SQL feature parity (RisingWave PG dialect fully supported)
+- SQL feature parity (Kotoba/Datomic PG dialect fully supported)
 - IDE autocomplete (db.selectFrom('table') → available columns known)
 
 ## Implementation Details
@@ -165,7 +165,7 @@ export default createWorkerExport((sdk) => {
 async function searchIntel(sdk: HostSDK, params: SearchParams) {
   const { did, query } = params;
   const db = createKyselyDb(sdk.sql, sdk.env.HYPERDRIVE);
-  
+
   // Type-safe query
   const results = await db
     .selectFrom('vertex_intel_analysis')
@@ -174,7 +174,7 @@ async function searchIntel(sdk: HostSDK, params: SearchParams) {
     .select(['vertex_id', 'title', 'content', 'created_at'])
     .limit(100)
     .execute();
-  
+
   // Results: VertexIntelAnalysisRow[] (fully typed)
   return { results, count: results.length };
 }
@@ -192,7 +192,7 @@ async function searchIntel(sdk: HostSDK, params: SearchParams) {
 - [x] Drizzle schema.ts created (188 pgTable definitions)
 - [x] drizzle-kit integration (pnpm db:generate)
 - [x] Kysely database.ts + Database type
-- [x] magatama-host-sdk: createKyselyDb() export
+- [x] kotodama-host-sdk: createKyselyDb() export
 - [x] Type exports: @etzhayyim/graph-schema (Database, VertexActorRow, etc)
 - [x] Python schema archived (_archive/30-graph/graph-schema-py-260412)
 - [x] Documentation: CLAUDE.md + design doc
@@ -204,7 +204,7 @@ async function searchIntel(sdk: HostSDK, params: SearchParams) {
 - [ ] natural-person: db.selectFrom() full migration
 - [ ] site (webpage): db.selectFrom() full migration
 - [ ] yorishiro (all providers): db.selectFrom() full migration
-- [ ] magatama graph-builder.ts: Drizzle only (no Cypher fallback)
+- [ ] kotodama graph-builder.ts: Drizzle only (no Cypher fallback)
 - [ ] Type safety: all row types imported + used
 
 **Sub-tasks per app**:
@@ -221,7 +221,7 @@ async function searchIntel(sdk: HostSDK, params: SearchParams) {
 - [ ] 30-graph/graph-schema/src/*.gen.ts → delete
   - p10.gen.ts, ddl.gen.ts, naming.gen.ts, etc
   - Currently frozen artifacts (only Cypher transpiler uses)
-- [ ] 20-actors/magatama/sdk/magatama-host-sdk/src/cypher.ts → delete
+- [ ] 40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/cypher.ts → delete
   - G() builder, cypherQueryAsync
   - Replaced by createKyselyDb()
 - [ ] Integration tests: replace Cypher test cases with Kysely
@@ -232,7 +232,7 @@ async function searchIntel(sdk: HostSDK, params: SearchParams) {
   - No more `/graph/cypher` endpoint
   - `createKyselyDb(env.HYPERDRIVE)` becomes sole path
 - [ ] Graph path: remove rawCypher.exec() (deprecated path cleanup)
-- [ ] Schema sync: remove yata ↔ RisingWave sync (ddl.ts removed)
+- [ ] Schema sync: remove yata ↔ Kotoba/Datomic sync (ddl.ts removed)
 
 ## Field Naming Conventions
 
@@ -315,7 +315,7 @@ const rows = await db.selectFrom('vertex_actor')
 
 - `@etzhayyim/graph-schema/CLAUDE.md` — schema management + migration procedure
 - `@etzhayyim/graph-schema/drizzle.config.ts` — drizzle-kit configuration
-- `20-actors/magatama/CLAUDE.md` — SDK architecture + createKyselyDb()
+- `40-engine/kotoba/crates/kotoba-kotodama/CLAUDE.md` — SDK architecture + createKyselyDb()
 - `deps.toml [[migrations."drizzle-to-kysely"]]` — phase tracking
 - `deps.toml [[conventions."App Data Access: Drizzle ORM + Kysely"]]` — standards
 
@@ -329,5 +329,5 @@ const rows = await db.selectFrom('vertex_actor')
 | **Row type** | TypeScript type for a single row (VertexActorRow, VertexOtherRow, etc). Inferred from pgTable. |
 | **createKyselyDb** | SDK helper: instantiates Kysely client with Hyperdrive pool + RLS middleware. |
 | **Hyperdrive** | Cloudflare D1 Postgres proxy. Handles RLS + connection pooling. |
-| **RisingWave** | Streaming SQL database (PG-compatible). Execution layer. |
+| **Kotoba/Datomic** | Streaming SQL database (PG-compatible). Execution layer. |
 | **Graph Worker** | Cloudflare Worker that exposes `/xrpc/*` and relays queries to Hyperdrive. |

@@ -12,7 +12,7 @@ authoritative_for:
   - business-person-ma-inputs
   - lei-entity-resolution
 related:
-  - 60-apps/etzhayyim-project-ma/magatama.toml
+  - 60-apps/etzhayyim-project-ma/kotodama.toml
   - 90-docs/260427-fund-ma-actor-activation-runbook.md
   - adr-2604261200
   - 30-graph/graph-schema/migrations/20260427040000_seed_fund_ma_bpmn_actors.ts
@@ -39,15 +39,15 @@ different provenance, privacy, licensing, retry, and graph-write rules.
 # Decision
 
 The MA app owns orchestration and use of these streams, but not every source
-collector. `60-apps/etzhayyim-project-ma/magatama.toml` is the local integration
+collector. `60-apps/etzhayyim-project-ma/kotodama.toml` is the local integration
 manifest that records the wiring.
 
 The integration boundary is:
 
 - BPMN / Zeebe orchestrates durable ingest and deal workflows.
-- Python `pymagatama` workers run deterministic task handlers.
+- Python `kotodama` workers run deterministic task handlers.
 - PDS app records keep source and app-level records.
-- RisingWave graph tables provide queryable deal, fund, person, and legal
+- Kotoba/Datomic graph tables provide queryable deal, fund, person, and legal
   entity state.
 - `mailer.etzhayyim.com` is the only standard email path. Outbound mail uses Resend;
   inbound mail uses Cloudflare Email Routing for `*@etzhayyim.com`.

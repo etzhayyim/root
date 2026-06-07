@@ -214,7 +214,7 @@ Under `00-contracts/lexicons/com/etzhayyim/kawase/`:
 8. **`silenKawaseReview.json`** — quarterly Council audit (analog of silenIyashiReview etc.).
    Fields: reviewPeriodStart, reviewPeriodEnd, totalVolumeUsdEquivalentMinor, perCcyVolume[], matchedSharePctIntegerHundredths (target ≥80% R2+), reserveDisbursedSharePctIntegerHundredths, avgMatchWaitSeconds, outOfBandHaltCount (target 0; >0 = critical finding), commercialRemittanceSoftwarePenetrationPct (const 0 — G7 structural), spreadProfitMkoto (const 0 — G5 structural), nonAdherentParticipationCount (const 0 — G3 structural), jurisdictionsActivated[], councilAttestations (minLength 3, maxLength 7), reportPublishedAt, reportCid.
 
-### Pregel cells (5 at R0, paths reserved under `20-actors/magatama/cells/kawase_*/`)
+### Pregel cells (5 at R0, paths reserved under `40-engine/kotoba/crates/kotoba-kotodama/cells/kawase_*/`)
 
 1. **`kawase_pool_match`** — continuous bipartite matching across paired pools. mKOTO-billed per epoch tick via ADR-2605282100 L1 meter. Algorithm: greedy match by oldest-first within ±0.5% band; remainder goes to reserve buffer at locked rate. R0 path-reserved (`raise RuntimeError` on import per ADR-2605262400 R0 pattern).
 2. **`kawase_fx_oracle_watcher`** — Chainlink price-feed subscriber. Emits `fxRateAttestation` per oracle round; halts all matches if `withinBand=false`. Cross-actor escalation to chigiri.disputeMediation on >5min sustained out-of-band.
@@ -333,7 +333,7 @@ contract KawaseYuiPool {
 - **G10**: KYC = Adherent SBT, period. NO Travel Rule / FATF passport / state-issued ID. Charter §1.12 routing-around invariant.
 - **G11**: NO chargeback / NO fraud reversal — on-chain finality per ADR-2605172100 §"No chargebacks" + ADR-2605263500 wakai N9 inherited. Disputes route to chigiri.disputeMediation (cooperative-first per ADR-2605262700 G10), NOT to settlement reversal.
 - **G12**: Murakumo-only inference for ALL pool cells — pool_match / fx_oracle_watcher / rebalance_proposer / jurisdiction_compliance / silen_review. ADR-2605215000 fleet.toml allow-list applies.
-- **G13**: 100% kotoba content-addressed substrate per ADR-2605262130. NO RisingWave projection, NO off-chain primary ledger, NO commercial DB.
+- **G13**: 100% kotoba content-addressed substrate per ADR-2605262130. NO Kotoba/Datomic projection, NO off-chain primary ledger, NO commercial DB.
 - **G14**: Per-jurisdiction Council Lv7+ unanimity activation. NO send/receive pair activated without explicit `jurisdictionAttestation` Lexicon record signed by all 5 Council seats. R1 launch jurisdictions: US (Founder seat 1) + JP (Founder seat 1) — Council Lv7+ unanimity will gate EU activation pending Bootstrap Council Seats 2-5 (RFP open until 2026-06-19).
 
 ### 12 non-goals N1..N12
@@ -436,7 +436,7 @@ contract KawaseYuiPool {
 - ADR-2605192300 (Bootstrap Council — Lv6+ ≥3 / Lv6+ ≥4/7 / Lv7+ unanimity gates)
 - `00-contracts/lexicons/com/etzhayyim/kawase/` (8 Lexicons landed this commit)
 - `50-infra/etzhayyim-kawase-pool/` (R1 Solidity scaffold destination)
-- `20-actors/magatama/cells/kawase_*/` (5 Pregel cell paths reserved at R0)
+- `40-engine/kotoba/crates/kotoba-kotodama/cells/kawase_*/` (5 Pregel cell paths reserved at R0)
 - `20-actors/kawase-yui/` (Tier-B actor root, R1 scaffold destination)
 - Wise Group plc public 10-K filings (reference for topology decomposition; NOT integrated as vendor — Charter Rider §2(e))
 - Circle EURC on Base L2 — https://www.circle.com/en/eurc

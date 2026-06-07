@@ -35,7 +35,7 @@ async def _node_fetch_video(state: _State) -> dict[str, Any]:
         return {"error": "video_id required"}
     try:
         import asyncio
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         client = get_kotoba_client()
         raw_rows = await asyncio.to_thread(client.select_where, "vertex_yukkuri_video", "video_id", video_id, limit=1)
         if not raw_rows:
@@ -58,7 +58,7 @@ async def _node_fetch_scenes(state: _State) -> dict[str, Any]:
     video_id = state.get("video_id") or ""
     try:
         import asyncio
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         client = get_kotoba_client()
         raw_rows = await asyncio.to_thread(client.select_where, "vertex_yukkuri_scene", "video_id", video_id, limit=100)
         raw_rows.sort(key=lambda r: int(r.get("scene_index") or 0))
@@ -74,7 +74,7 @@ async def _node_fetch_lines(state: _State) -> dict[str, Any]:
     video_id = state.get("video_id") or ""
     try:
         import asyncio
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         client = get_kotoba_client()
         raw_rows = await asyncio.to_thread(client.select_where, "vertex_yukkuri_line", "video_id", video_id, limit=500)
         raw_rows.sort(key=lambda r: (int(r.get("scene_index") or 0), int(r.get("line_index") or 0)))
@@ -94,7 +94,7 @@ async def _node_fetch_assets(state: _State) -> dict[str, Any]:
     video_id = state.get("video_id") or ""
     try:
         import asyncio
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         client = get_kotoba_client()
         raw_rows = await asyncio.to_thread(client.select_where, "vertex_yukkuri_asset", "video_id", video_id, limit=200)
         raw_rows.sort(key=lambda r: str(r.get("created_at") or ""))

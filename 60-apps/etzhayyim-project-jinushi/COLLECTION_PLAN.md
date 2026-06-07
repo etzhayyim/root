@@ -59,7 +59,7 @@ API あり or structured open data あり。一部 scraping 必要。**14 ソー
 
 ## Phase 3: Browser Automation Required (2-4 weeks)
 
-Online portal あるが API なし。`magatama:browser/automation` WIT で headless Chromium。
+Online portal あるが API なし。`kotodama:browser/automation` WIT で headless Chromium。
 
 | # | Country | System | URL | Method | Data |
 |---|---|---|---|---|---|

@@ -287,8 +287,8 @@ def llm_extra_headers() -> dict[str, str]:
     credits_did = (os.environ.get("INTEL_LLM_CREDITS_DID") or os.environ.get("CREDITS_DID") or "").strip()
     if credits_did:
         headers["x-credits-did"] = credits_did
-    if bool_env("INTEL_LLM_MAGATAMA_VERIFIED", False):
-        headers["x-magatama-verified"] = "true"
+    if bool_env("INTEL_LLM_KOTODAMA_VERIFIED", False):
+        headers["x-kotodama-verified"] = "true"
     return headers
 
 
@@ -406,7 +406,7 @@ def call_llm_json(system: str, user: str, *, max_tokens: int = 400) -> dict[str,
 class IntelStore:
     def __init__(self, dsn: str) -> None:
         self.dsn = dsn
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         self.client = get_kotoba_client()
 
     def create_run(self, scope: dict[str, Any], trigger_kind: str, dry_run: bool) -> dict[str, Any]:
@@ -1022,7 +1022,7 @@ class IntelStore:
             where.append("predicate = %s")
             params.append(predicate)
         where_sql = f"WHERE {' AND '.join(where)}" if where else ""
-        # RisingWave rejects parameterized LIMIT/OFFSET ($N placeholders) —
+        # Kotoba/Datomic rejects parameterized LIMIT/OFFSET ($N placeholders) —
         # inline as integer literals (safe: values are clamped to ints above).
         query = f"""
             SELECT edge_id, src_vid, dst_vid, predicate, dependency_kind,
@@ -1858,7 +1858,7 @@ def run_pipeline(
 
 
 async def run_once_from_env() -> None:
-    store = IntelStore(os.environ["RW_DSN"])
+    store = IntelStore(os.environ["KOTOBA_URL"])
     scope = json.loads(os.environ.get("INTEL_SCOPE_JSON", "{}"))
     if bool_env("INTEL_TOPOLOGY_ANALYZE", False):
         result = run_topology_analysis_with_langgraph(
@@ -1939,7 +1939,7 @@ class LangServerWorker:
 
 async def run_langserver_worker() -> None:
     worker = LangServerWorker()
-    store = IntelStore(os.environ["RW_DSN"])
+    store = IntelStore(os.environ["KOTOBA_URL"])
 
     async def topology_daemon_loop() -> None:
         interval_sec = int_env("INTEL_TOPOLOGY_INTERVAL_SEC", 900, minimum=60)

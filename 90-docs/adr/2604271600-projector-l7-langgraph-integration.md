@@ -77,8 +77,8 @@ matching the canonical 8-layer Shannon-optimal topology
 |---|---|---|
 | **L3 Dispatcher** | `pds-handlers-etzhayyim.ts handleSendProjectMessage` | XRPC accept, viewer DID resolution, `sdk.zeebe.publishMessage(name="com.etzhayyim.apps.projector.sendProjectMessage", correlationKey=convoId, variables)`. Returns 202 + convoId. **No reasoning, no tool dispatch.** |
 | **L7 Orchestration** | Zeebe (Vultr k8s) | XOR command routing, sub-process call activities, retry, OCEL audit emission, guardrail boundary events. |
-| **L7 pyzeebe** | `pymagatama.primitives.projector.*` | LangGraph StateGraph entries: ReAct (`projector.agent.loop`), ToT (`projector.tot.expand`), Self-Consistency (`projector.sc.parallel`), Reflexion R/W (`projector.reflexion.{load,write}`), MCP discovery (`projector.tools.discover`), persist (`projector.persist.message`), command parser (`projector.command.parse`). |
-| **L4 Registry** | RisingWave PG | `vertex_bpmn_process_def` × 4 + `vertex_bpmn_lexicon_binding` × 4 (this ADR's seed migration). `vertex_projector_reflection` for episodic memory. `vertex_repo_record` for projector replies (graph-visible to existing yoro UI fetch path). |
+| **L7 pyzeebe** | `kotodama.primitives.projector.*` | LangGraph StateGraph entries: ReAct (`projector.agent.loop`), ToT (`projector.tot.expand`), Self-Consistency (`projector.sc.parallel`), Reflexion R/W (`projector.reflexion.{load,write}`), MCP discovery (`projector.tools.discover`), persist (`projector.persist.message`), command parser (`projector.command.parse`). |
+| **L4 Registry** | Kotoba/Datomic PG | `vertex_bpmn_process_def` × 4 + `vertex_bpmn_lexicon_binding` × 4 (this ADR's seed migration). `vertex_projector_reflection` for episodic memory. `vertex_repo_record` for projector replies (graph-visible to existing yoro UI fetch path). |
 | **L8 Tool Pods** | (Phase 3 only) site.etzhayyim.com pod | `pm.web_research` HTTP fetch — not in Phase 1+2. |
 
 ### BPMN process graph
@@ -131,7 +131,7 @@ StateGraph:
   CoT instruction (`<reasoning>…</reasoning>`), tool-call grammar
   (`[TOOL_CALL: name({json})]`), and final-answer grammar
   (`<answer>…</answer>`).
-- LLM transport = `pymagatama.llm.call_tier` (Vultr Serverless +
+- LLM transport = `kotodama.llm.call_tier` (Vultr Serverless +
   RunPod fallback per ADR-2604231328). LangChain `ChatOpenAI` is
   intentionally NOT used — adding `langchain-openai` would double
   the pyzeebe worker image. We compose with LangChain at the message-
@@ -177,7 +177,7 @@ the UI sees BPMN-produced replies with no client-side change.
 
 This is the same C-path workaround documented in ADR-2604240946:
 PDS XRPC writes from pyzeebe pods hit 401 (CF WAF strips
-`x-magatama-verified` on `com.atproto.repo.createRecord` writes from
+`x-kotodama-verified` on `com.atproto.repo.createRecord` writes from
 external IPs). Going direct to `vertex_repo_record` keeps the row
 graph-visible without minting a Service Auth JWT in pyzeebe (Phase 3
 will add the JWT path so projector replies federate into the AT
@@ -187,7 +187,7 @@ Protocol firehose).
 
 | Phase | Status | Scope |
 |---|---|---|
-| **Phase 1** | ✅ Scaffolded | 4 BPMN files, `pymagatama.primitives.projector` module with LangGraph ReAct, Reflexion, history loader, tool discovery, persist primitive. Migration `20260427160000_seed_projector_bpmn_actors.ts` registers `process_def` + `lexicon_binding`. Worker registration in `zeebe_worker_main.py`. |
+| **Phase 1** | ✅ Scaffolded | 4 BPMN files, `kotodama.primitives.projector` module with LangGraph ReAct, Reflexion, history loader, tool discovery, persist primitive. Migration `20260427160000_seed_projector_bpmn_actors.ts` registers `process_def` + `lexicon_binding`. Worker registration in `zeebe_worker_main.py`. |
 | **Phase 2** | ✅ Scaffolded | Tree-of-Thoughts (`projector.tot.expand`) and Self-Consistency (`projector.sc.parallel`) implementations, `treeOfThoughts.bpmn` + `selfConsistency.bpmn`, XOR routing in `sendProjectMessage.bpmn`. |
 | **Phase 3** | ✅ implemented (flag-gated, default off) | (a) CF Worker `handleSendProjectMessage` now branches on `env.PROJECTOR_USE_BPMN`: when `1`/`true`, it `waitUntil(fetch(dispatcher.etzhayyim.com/xrpc/com.etzhayyim.apps.projector.sendProjectMessage))` and returns `202 + {convoId, backend:"bpmn"}`. (b) yoro Worker exposes `GET /sse/projects/{convoId}` (90s server budget, auto-reconnect) — Server-Sent Events stream of new `vertex_repo_record` rows scoped to that convoId. (c) `/projects/[projectId]/+page.svelte` opens `EventSource` on `initProjectChat`, dedups by rkey, appends BPMN replies as they land. (d) `projector.persist.message` honours `PROJECTOR_PERSIST_VIA_PDS=1` to route the reply through `generic.pds.dispatch` (HMAC-mint Service Auth) so it federates; default = direct `vertex_repo_record` INSERT (graph-visible, non-federable). (e) `projector.auth.mint` task type exposes the existing `_mint_pds_service_auth(lxm)` helper to BPMN flows so PM tools can splice a Bearer for downstream `generic.http.fetch` / `generic.pds.dispatch` without 401. `/image` and `/think` slash commands stay on the deferred shim (BPMN-side reply text) — moving them to dedicated `imageGen.bpmn` / `deepReason.bpmn` sub-processes is deferred to Phase 5. |
 | **Phase 4** | pending | Delete the obsolete TS reasoning code from `pds-handlers-etzhayyim.ts` (≈ 1500 LoC), keep PDS-bound writes (`branchConvo`, `addReflection`, `newProjectConvo` metadata) in TS. CF Worker bundle size measurement target: −30%. |
@@ -293,8 +293,8 @@ Protocol firehose).
 | `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/projector/agentLoop.bpmn` | new |
 | `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/projector/treeOfThoughts.bpmn` | new |
 | `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/projector/selfConsistency.bpmn` | new |
-| `20-actors/magatama/py/src/pymagatama/primitives/projector.py` | new |
-| `20-actors/magatama/py/src/pymagatama/zeebe_worker_main.py` | edit (1 line: register projector) |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/projector.py` | new |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/zeebe_worker_main.py` | edit (1 line: register projector) |
 | `30-graph/graph-schema/migrations/20260427160000_seed_projector_bpmn_actors.ts` | new |
 | `60-apps/etzhayyim-project-projector/CLAUDE.md` | edit (L7 LangGraph Migration section) |
 | `90-docs/adr/2604271600-projector-l7-langgraph-integration.md` | new (this file) |
@@ -304,7 +304,7 @@ Protocol firehose).
 | Path | Type |
 |---|---|
 | `50-infra/cloudflare/workers/atproto/src/handlers/etzhayyim/index.ts` | edit (early-return BPMN delegate when `PROJECTOR_USE_BPMN=1`) |
-| `20-actors/magatama/py/src/pymagatama/primitives/projector.py` | edit (`PROJECTOR_PERSIST_VIA_PDS` branch in `task_projector_persist_message` + new `task_projector_auth_mint` task type) |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/projector.py` | edit (`PROJECTOR_PERSIST_VIA_PDS` branch in `task_projector_persist_message` + new `task_projector_auth_mint` task type) |
 | `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/src/app.ts` | edit (new `GET /sse/projects/:convoId` route, 90s budget, vertex_repo_record poll) |
 | `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/routes/projects/[projectId]/+page.svelte` | edit (`EventSource` consumer, dedup by rkey, auto-reconnect, `onDestroy` cleanup) |
 

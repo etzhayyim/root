@@ -11,7 +11,7 @@ autonomous authority plus receipted effects.
 
 ```text
 launchd / shell
-  -> pymagatama.agent_daemon_main
+  -> kotodama.agent_daemon_main
   -> local LLM HTTP endpoint
   -> agent_active_inference_tick BPMN when Zeebe mode is enabled
 ```
@@ -38,11 +38,11 @@ export LOCAL_LLM_MODEL=qwen3:14b
 Dry run calls the local LLM and logs the BPMN variables without starting Zeebe.
 
 ```bash
-cd 20-actors/magatama/py
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
 PYTHONPATH=src \
 AGENT_DAEMON_MODE=dry-run \
 AGENT_AUTONOMOUS_EFFECTS=0 \
-python3 -m pymagatama.agent_daemon_main --once
+python3 -m kotodama.agent_daemon_main --once
 ```
 
 ## Zeebe Mode
@@ -63,13 +63,13 @@ ops/local-agent/deploy-agent-bpmn.sh
 ```
 
 ```bash
-cd 20-actors/magatama/py
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
 PYTHONPATH=src \
 ZEEBE_GATEWAY=127.0.0.1:26500 \
 AGENT_DAEMON_MODE=zeebe \
 AGENT_TICK_INTERVAL_SEC=300 \
 AGENT_AUTONOMOUS_EFFECTS=0 \
-python3 -m pymagatama.agent_daemon_main
+python3 -m kotodama.agent_daemon_main
 ```
 
 If `ZEEBE_GATEWAY` is missing, the daemon falls back to dry-run.
@@ -89,13 +89,13 @@ channels/classes must provide `specificPredelegation: true`; otherwise the
 dispatch plan returns `specific_predelegation_required` and stays blocked.
 
 ```bash
-cd 20-actors/magatama/py
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
 PYTHONPATH=src \
 ZEEBE_GATEWAY=127.0.0.1:26500 \
 AGENT_DAEMON_MODE=zeebe \
 AGENT_AUTONOMOUS_EFFECTS=1 \
 AGENT_DEFAULT_POLICY_REF=policy://agent/autonomous-email-v1 \
-python3 -m pymagatama.agent_daemon_main
+python3 -m kotodama.agent_daemon_main
 ```
 
 The proposal object shape expected from the local LLM:
@@ -132,9 +132,9 @@ domain behind `mailer.sendEmail`.
 Smoke-test the planner without sending:
 
 ```bash
-cd 20-actors/magatama/py
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
 PYTHONPATH=src \
-python3 -m pymagatama.agent_email_smoke \
+python3 -m kotodama.agent_email_smoke \
   --agent-did did:web:kami-agent.etzhayyim.com \
   --to ops@example.com
 ```
@@ -166,10 +166,10 @@ The BPMN path also writes `vertex_agent_dispatch_ledger` keyed by
 ## macOS launchd
 
 Use `ops/local-agent/com.etzhayyim.agent-daemon.plist.example` as the template.
-The plist calls the `magatama-agent-daemon` console script directly and the
+The plist calls the `kotodama-agent-daemon` console script directly and the
 CLI loads `ops/local-agent/agent-daemon.env`.
 
-The dedicated local Zeebe worker uses the `magatama-agent-zeebe-worker` console
+The dedicated local Zeebe worker uses the `kotodama-agent-zeebe-worker` console
 script directly through the `ops/local-agent/com.etzhayyim.agent-zeebe-worker.plist.example`
 template. The shell scripts remain as compatibility wrappers, but launchd does
 not depend on them.
@@ -190,10 +190,10 @@ Live organism status:
 
 ```bash
 AGENT_DAEMON_ENV_FILE=ops/local-agent/agent-daemon.env \
-  20-actors/magatama/py/.venv/bin/magatama-agent-status
+  40-engine/kotoba/crates/kotoba-kotodama/py/.venv/bin/kotodama-agent-status
 ```
 
-The status command reads launchd state plus RisingWave homeostasis, outcome,
+The status command reads launchd state plus Kotoba/Datomic homeostasis, outcome,
 learning, real-world effect, and dispatch ledger rows. It reports the current
 organism state (`active`, `repairing`, `degraded`, `critical`, or `unknown`)
 and a bounded score for quick operator checks.
@@ -202,7 +202,7 @@ Read-only WebUI:
 
 ```bash
 AGENT_DAEMON_ENV_FILE=ops/local-agent/agent-daemon.env \
-  20-actors/magatama/py/.venv/bin/magatama-agent-status-web
+  40-engine/kotoba/crates/kotoba-kotodama/py/.venv/bin/kotodama-agent-status-web
 ```
 
 Open `http://127.0.0.1:8765`. The WebUI is intentionally read-only in this
@@ -216,7 +216,7 @@ ERC-8004 local registration draft:
 
 ```bash
 AGENT_DAEMON_ENV_FILE=ops/local-agent/agent-daemon.env \
-  20-actors/magatama/py/.venv/bin/magatama-agent-erc8004 \
+  40-engine/kotoba/crates/kotoba-kotodama/py/.venv/bin/kotodama-agent-erc8004 \
   --upsert-profile \
   --out 90-docs/proof/kami-agent-erc8004-registration.local.json
 ```
@@ -229,7 +229,7 @@ ERC-8004 IPFS publication and chain registration:
 
 ```bash
 AGENT_DAEMON_ENV_FILE=ops/local-agent/agent-daemon.env \
-  20-actors/magatama/py/.venv/bin/magatama-agent-erc8004 \
+  40-engine/kotoba/crates/kotoba-kotodama/py/.venv/bin/kotodama-agent-erc8004 \
   --agent-did did:web:kami-agent.etzhayyim.com \
   --out 90-docs/proof/kami-agent-erc8004-registration.local.json \
   --publish-ipfs \

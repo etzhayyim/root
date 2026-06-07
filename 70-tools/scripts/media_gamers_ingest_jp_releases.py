@@ -18,7 +18,7 @@ import re
 import time
 from typing import List, Tuple
 
-import psycopg2
+import psycopg2 # kotoba-datomic-projection: historical offline script
 from psycopg2.extras import execute_values
 import requests
 
@@ -154,7 +154,7 @@ def upsert_rows(conn, rows: List[Tuple]) -> int:
 
 def main() -> int:
   ap = argparse.ArgumentParser()
-  ap.add_argument("--rw-conn", default=os.getenv("RW_CONN", "REDACTED_USE_DATABASE_URL_ENV?sslmode=disable"))
+  ap.add_argument("--rw-conn", default=os.getenv("KOTOBA_URL", "REDACTED_USE_DATABASE_URL_ENV?sslmode=disable"))
   ap.add_argument("--page-size", type=int, default=400)
   ap.add_argument("--max-records", type=int, default=0, help="0 = all")
   ap.add_argument("--sleep-ms", type=int, default=250)

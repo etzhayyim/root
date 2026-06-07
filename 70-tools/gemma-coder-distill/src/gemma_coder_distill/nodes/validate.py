@@ -4,9 +4,9 @@ Per ADR-2605250400 §2: every example must pass the Charter Rider §2(a)-(h)
 scanner. Violations are dropped silently with a counter.
 
 The canonical scanner lives at:
-  pymagatama.organism.sensors.charter_rider.scan(text) -> ScanResult
+  kotodama.organism.sensors.charter_rider.scan(text) -> ScanResult
 
-If the scanner isn't importable (pymagatama not installed in this venv),
+If the scanner isn't importable (kotodama not installed in this venv),
 fall back to a coarse keyword filter and log the gap. This mirrors
 baien-distill's degradation path.
 """
@@ -46,12 +46,12 @@ def validate(state: DistillState) -> DistillState:
 
     scan = None
     try:
-        from pymagatama.organism.sensors.charter_rider import scan as _s  # type: ignore
+        from kotodama.organism.sensors.charter_rider import scan as _s  # type: ignore
         scan = _s
-        state["notes"].append("[validate] using pymagatama Charter Rider scanner")
+        state["notes"].append("[validate] using kotodama Charter Rider scanner")
     except Exception:
         state["notes"].append(
-            "[validate] WARN pymagatama unavailable — coarse keyword filter only"
+            "[validate] WARN kotodama unavailable — coarse keyword filter only"
         )
 
     kept: list[TrainExample] = []

@@ -67,7 +67,7 @@ the UNSPSC code itself. The mapping is:
 The function uses a SHA-256 hash of the code combined with a small
 per-segment bias table. Output is clamped to [0, 100] per axis.
 
-Lives in `pymagatama.organism.personality`. Exposes:
+Lives in `kotodama.organism.personality`. Exposes:
 
 ```python
 def joucho_personality_provider(actor_did: str) -> JouchoScores: ...
@@ -161,7 +161,7 @@ protocol class). The implementation is deferred to a Wave 3 ADR once the
 却下理由: the ecosystem framing breaks down — identical organisms.
 Layer 1 is cheap and the right shape; do it now.
 
-## B. Read joucho from RisingWave like the TS side
+## B. Read joucho from Kotoba/Datomic like the TS side
 
 却下理由: CHARTER-VIOLATION per existing TS code comment. Substrate
 rules prohibit centralized DB; Python side won't replicate the TS
@@ -176,5 +176,5 @@ organism should report the same mood across restarts.
 
 - ADR-2605232345 — UNSPSC actor as ecosystem organism (Wave 1)
 - ADR-2605240000 — UNSPSC organism fleet mass-deploy (Wave 2)
-- `20-actors/magatama/py/src/pymagatama/organism/personality.py`
-- `20-actors/magatama/py/src/pymagatama/organism/joucho.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/personality.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/joucho.py`

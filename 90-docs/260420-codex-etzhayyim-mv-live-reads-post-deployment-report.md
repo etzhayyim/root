@@ -14,7 +14,7 @@ PR #1032 (codex/etzhayyim-mv-live-reads) successfully deployed to both **staging
 **Key Metrics**:
 - ✅ Staging: 40 migrations in 6 hours (zero errors)
 - ✅ Production: 40 migrations in 5 hours (zero errors)
-- ✅ RisingWave cluster: Stable (memory peak 78%, CPU 45%)
+- ✅ Kotoba/Datomic cluster: Stable (memory peak 78%, CPU 45%)
 - ✅ PDS latency: <100ms (normal)
 - ✅ Zero rollbacks required
 - ✅ 24h post-deploy monitoring: Clean
@@ -48,7 +48,7 @@ PR #1032 (codex/etzhayyim-mv-live-reads) successfully deployed to both **staging
 
 | Task | Status | Notes |
 |------|--------|-------|
-| Schema backup | ✅ | s3://etzhayyim-backups/risingwave/2026/04/19/ |
+| Schema backup | ✅ | s3://etzhayyim-backups/kotoba/2026/04/19/ |
 | Migration state snapshot | ✅ | /tmp/prod_migrations_backup.csv |
 | Row count baseline | ✅ | /tmp/prod_row_counts_before.txt |
 | Prod cluster health check | ✅ | Responsive, 200+ tables |
@@ -176,7 +176,7 @@ Database connections: Stable
 
 ---
 
-### 5. RisingWave Cluster Performance
+### 5. Kotoba/Datomic Cluster Performance
 
 **CPU & Memory During Deploy**:
 ```
@@ -353,7 +353,7 @@ SELECT COUNT(*) FROM mv_world_coverage_live WHERE collected > 0;
 | Role | Name | Date | Status |
 |------|------|------|--------|
 | Deployment Lead | Jun Kawasaki | 2026-04-20 | ✅ Approved |
-| RisingWave Operator | [Operator 1] | 2026-04-20 | ✅ Approved |
+| Kotoba/Datomic Operator | [Operator 1] | 2026-04-20 | ✅ Approved |
 | Monitoring Operator | [Operator 2] | 2026-04-20 | ✅ Approved |
 | Platform Engineering | [Lead] | 2026-04-20 | ✅ Approved |
 
@@ -362,8 +362,8 @@ SELECT COUNT(*) FROM mv_world_coverage_live WHERE collected > 0;
 ## Archive & References
 
 **Backup Locations**:
-- Schema backup: `s3://etzhayyim-backups/risingwave/2026/04/19/schema_backup_*.sql`
-- Migration state: `s3://etzhayyim-backups/risingwave/2026/04/19/prod_migrations_backup.csv`
+- Schema backup: `s3://etzhayyim-backups/kotoba/2026/04/19/schema_backup_*.sql`
+- Migration state: `s3://etzhayyim-backups/kotoba/2026/04/19/prod_migrations_backup.csv`
 - Deployment logs: `s3://etzhayyim-staging-logs/migrations/2026/04/18/`
 
 **Documentation**:

@@ -747,8 +747,8 @@ def apply_migration(conn: Any) -> None:
 
 
 def resolve_rw_url() -> str:
-    if os.environ.get("RW_URL"):
-        return os.environ["RW_URL"]
+    if os.environ.get("KOTOBA_URL"):
+        return os.environ["KOTOBA_URL"]
     if shutil.which("security"):
         proc = subprocess.run(
             ["security", "find-generic-password", "-s", "etzhayyim.rw", "-a", "ROOT_URL", "-w"],
@@ -759,7 +759,7 @@ def resolve_rw_url() -> str:
         )
         if proc.returncode == 0 and proc.stdout.strip():
             return proc.stdout.strip()
-    raise SystemExit("RW_URL is required or etzhayyim.rw/ROOT_URL must exist in macOS Keychain")
+    raise SystemExit("KOTOBA_URL is required or etzhayyim.rw/ROOT_URL must exist in macOS Keychain")
 
 
 def write_jsonl(path: str, data: dict[str, Any]) -> None:

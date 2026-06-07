@@ -35,7 +35,7 @@ CKAN `package_search` response shape (paginated):
   }
 
 Normalized into NDJSON consumable by
-``pymagatama.organism.sensors.gov.us_data_gov_sensor.UsDataGovSensor``:
+``kotodama.organism.sensors.gov.us_data_gov_sensor.UsDataGovSensor``:
 
   {"datasetId": "noaa-cdo", "title": "Climate Data Online",
    "license": "us-pd",

@@ -2,8 +2,8 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-MANIFEST="$ROOT/20-actors/magatama/hosts/magatama-kami-host/Cargo.toml"
-GOLDEN_DIR="$ROOT/20-actors/magatama/hosts/magatama-kami-host/golden"
+MANIFEST="$ROOT/40-engine/kotoba/crates/kotoba-kotodama/hosts/kotodama-kami-host/Cargo.toml"
+GOLDEN_DIR="$ROOT/40-engine/kotoba/crates/kotoba-kotodama/hosts/kotodama-kami-host/golden"
 
 usage() {
   cat <<'EOF'
@@ -18,13 +18,13 @@ case "$cmd" in
   update)
     cargo run --manifest-path "$MANIFEST" -- \
       --update-golden "$GOLDEN_DIR" \
-      --artifact-dir /tmp/magatama-kami-golden-update
+      --artifact-dir /tmp/kotodama-kami-golden-update
     ;;
   verify)
     cargo run --manifest-path "$MANIFEST" -- \
       --verify-golden "$GOLDEN_DIR" \
       --min-uiux-score 85 \
-      --artifact-dir /tmp/magatama-kami-golden-verify
+      --artifact-dir /tmp/kotodama-kami-golden-verify
     ;;
   *)
     usage

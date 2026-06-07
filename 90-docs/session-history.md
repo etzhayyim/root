@@ -5,7 +5,7 @@
 
 ---
 
-## RisingWave primary cutover Linode → Vultr+B2 (2026-04-22, ADR-0048)
+## Kotoba/Datomic primary cutover Linode → Vultr+B2 (2026-04-22, ADR-0048)
 
 **Migration**: Linode LKE (sg-sin-2, $364/mo) → Vultr VKE LAX (`vhf-8c-32gb`, $241/mo, **$123/mo savings**).
 
@@ -16,11 +16,11 @@
 **Lessons**:
 - Per-row SQL migration via `psycopg2` was abandoned — projected 13h for `vertex_repo_record` alone, hit Linode upstream connection drops on tables >1M rows. B2 server-side copy is the canonical state-migration path.
 - Initial `vhp-8c-16gb-amd` (16 GB, $96/mo) caused 17 compute OOM-kills in 9h. Scaled to `vhf-8c-32gb` (32 GB, $192/mo) which matches Linode `g6-dedicated-16` RAM.
-- ~~B2 has no per-bucket rps quota → Linode's Foyer `recover_mode=Quiet` + `cache_refill` workarounds are now defense-in-depth, not load-bearing.~~ **RETRACTED 2026-04-25**: B2 *does* enforce a per-account request rate (observed ~12 SlowDown/sec = ~1700/2min during compute-0 cold-start refill). The Linode-era defense-in-depth blocks (`[storage.cache_refill]` with `data_refill_levels=0-6`, `insert_rate_limit_mb=450/50`, `statement_timeout_secs=120`) were **not ported** to `50-infra/vultr/risingwave/helm/values.yaml` during the ADR-0048 cutover. On 2026-04-25 a compute-0 OOMKill (patent-ingest bulk INSERT load) triggered a Foyer cold-start storm that tripped B2's quota and cascaded into a multi-hour Hummock `ObjectStore RateLimited` outage. Config ported from `50-infra/linode/risingwave-iceberg/helm/values-dedicated-32.yaml` 2026-04-25; see `50-infra/vultr/risingwave/deps.toml [risingwave_vultr.incident_2026_04_25]`. Bulk ingest paths must also `SET dml_rate_limit` (rows/sec per parallelism — official RW INSERT throttle, see `[[conventions]] rw-bulk-insert-throttle`).
+- ~~B2 has no per-bucket rps quota → Linode's Foyer `recover_mode=Quiet` + `cache_refill` workarounds are now defense-in-depth, not load-bearing.~~ **RETRACTED 2026-04-25**: B2 *does* enforce a per-account request rate (observed ~12 SlowDown/sec = ~1700/2min during compute-0 cold-start refill). The Linode-era defense-in-depth blocks (`[storage.cache_refill]` with `data_refill_levels=0-6`, `insert_rate_limit_mb=450/50`, `statement_timeout_secs=120`) were **not ported** to `50-infra/vultr/kotoba/helm/values.yaml` during the ADR-0048 cutover. On 2026-04-25 a compute-0 OOMKill (patent-ingest bulk INSERT load) triggered a Foyer cold-start storm that tripped B2's quota and cascaded into a multi-hour Hummock `ObjectStore RateLimited` outage. Config ported from `50-infra/linode/kotoba-iceberg/helm/values-dedicated-32.yaml` 2026-04-25; see `50-infra/vultr/kotoba/deps.toml [kotoba_vultr.incident_2026_04_25]`. Bulk ingest paths must also `SET dml_rate_limit` (rows/sec per parallelism — official RW INSERT throttle, see `[[conventions]] rw-bulk-insert-throttle`).
 
 **Decommissioned**: Linode LKE 589404 deleted, Vultr `vhp-8c-16gb-amd` pool deleted, `kagami-graphar` bucket deleted. `etzhayyim-iceberg` bucket purged (7.86 TiB / 174k objects) and deleted 2026-04-23 — **Linode Object Storage fully retired, B2 is the sole object storage provider**.
 
-See: `90-docs/adr/0048-risingwave-vultr-b2-primary.md`, `50-infra/vultr/risingwave/`, supersedes ADR-0020.
+See: `90-docs/adr/0048-kotoba-vultr-b2-primary.md`, `50-infra/vultr/kotoba/`, supersedes ADR-0020.
 
 ---
 
@@ -32,12 +32,12 @@ See: `90-docs/adr/0048-risingwave-vultr-b2-primary.md`, `50-infra/vultr/risingwa
 
 ### Root Cause
 
-`mv_vessel_with_lei` foreground DDL backfill (380M-row JOIN of vessel + legal_entity) blocked RisingWave streaming checkpoint barriers globally. The `vertex_signal_attention` streaming fragment was stuck at an older barrier epoch — INSERTs returned rowcount=1 but data never checkpointed. Emotion/market/influence recovered after ~9 min (checkpoint eventually caught up); attention did not (stuck for 20+ min beyond the checkpoint window).
+`mv_vessel_with_lei` foreground DDL backfill (380M-row JOIN of vessel + legal_entity) blocked Kotoba/Datomic streaming checkpoint barriers globally. The `vertex_signal_attention` streaming fragment was stuck at an older barrier epoch — INSERTs returned rowcount=1 but data never checkpointed. Emotion/market/influence recovered after ~9 min (checkpoint eventually caught up); attention did not (stuck for 20+ min beyond the checkpoint window).
 
 ### Fix
 
 1. Confirmed `mv_vessel_with_lei` DDL completed (`rw_ddl_progress` = 0 rows)
-2. Verified attention INSERTs were now accepted by RisingWave (test row visible in 3 min post-DDL)
+2. Verified attention INSERTs were now accepted by Kotoba/Datomic (test row visible in 3 min post-DDL)
 3. `DROP MATERIALIZED VIEW mv_signal_area_integral` → `DROP MATERIALIZED VIEW mv_signal_entropy` — reset all 6 UNION ALL streaming actors
 4. Recreated both MVs from migration `20260501970000_alter_signal_tables_generic_cols.ts` DDL — fresh actors started, attention branch immediately current
 
@@ -56,7 +56,7 @@ See: `90-docs/adr/0048-risingwave-vultr-b2-primary.md`, `50-infra/vultr/risingwa
 
 ---
 
-## Recent Completion: pymagatama 0.3.35 — whois RDAP + CC entity cursor fixes (2026-05-05)
+## Recent Completion: kotodama 0.3.35 — whois RDAP + CC entity cursor fixes (2026-05-05)
 
 **Status**: ✅ **COMPLETE — 0.3.35 deployed, vertex_whois_record populating, CC cursors advancing**
 
@@ -70,9 +70,9 @@ See: `90-docs/adr/0048-risingwave-vultr-b2-primary.md`, `50-infra/vultr/risingwa
 
 **Verified**: `_rdap_fetch("cloudflare.com")` → `registrar: "Cloudflare, Inc."`, nameservers, expiry dates, DNSSEC status all populated.
 
-### Fix 2: whois INSERT CURRENT_DATE in RisingWave prepared statement
+### Fix 2: whois INSERT CURRENT_DATE in Kotoba/Datomic prepared statement
 
-**Root cause**: `INSERT INTO vertex_whois_record ... VALUES (..., CURRENT_DATE)` fails after psycopg3 auto-promotes the query to a server-side prepared statement (after 5 executions). RisingWave error: `Failed to bind expression: CURRENT_DATE / Item not found: Invalid column: current_date`.
+**Root cause**: `INSERT INTO vertex_whois_record ... VALUES (..., CURRENT_DATE)` fails after psycopg3 auto-promotes the query to a server-side prepared statement (after 5 executions). Kotoba/Datomic error: `Failed to bind expression: CURRENT_DATE / Item not found: Invalid column: current_date`.
 
 **Fix**: Extract date in Python: `created_date = ts[:10]` and pass as `%s::date` parameter.
 
@@ -94,7 +94,7 @@ See: `90-docs/adr/0048-risingwave-vultr-b2-primary.md`, `50-infra/vultr/risingwa
 
 ### Deployment
 
-- **Image**: `ghcr.io/etzhayyim/pymagatama:0.3.35-202605050833-amd64` (built `docker buildx --platform linux/amd64 --no-cache --push`)
+- **Image**: `ghcr.io/etzhayyim/kotodama:0.3.35-202605050833-amd64` (built `docker buildx --platform linux/amd64 --no-cache --push`)
 - **Helm**: `mitama-udf-pool` revision 346, `50-infra/vultr/mitama-udf-pool/values.yaml` updated
 - **Hot-patch**: whois fix applied to running 0.3.34 pod via `kubectl exec | tee` while OrbStack was restarting — confirmed insert worked before 0.3.35 image was ready
 - **Verified**: `vertex_whois_record` 18+ rows, `vertex_cc_entity_cursor` cursors advancing for all 4 domains (kuruma, media_anime, media_gamers, handotai)
@@ -105,11 +105,11 @@ See: `90-docs/adr/0048-risingwave-vultr-b2-primary.md`, `50-infra/vultr/risingwa
 
 ## Recent Completion: OWL QL/EL/DL/RL + SHACL Reasoning Schema + owl_reasoner.py fixes (2026-05-01, ADR-0044)
 
-**Status**: ✅ **Schema live, BPMN deployed, owl_reasoner.py bugs fixed, pymagatama 0.3.26 running**
+**Status**: ✅ **Schema live, BPMN deployed, owl_reasoner.py bugs fixed, kotodama 0.3.26 running**
 
 **Scope**: 3-tier OWL/SHACL reasoning over the existing vertex_/edge_ graph.
 
-**Schema (19 objects in RisingWave)**:
+**Schema (19 objects in Kotoba/Datomic)**:
 - T-Box: `vertex_owl_class`, `vertex_owl_property`, `edge_owl_subclass`, `edge_owl_property_domain`, `edge_owl_property_range`, `edge_owl_property_chain`
 - A-Box derived: `vertex_owl_inferred`, `edge_owl_derivation`, `vertex_owl_benchmark`
 - SHACL: `vertex_shacl_shape`, `vertex_shacl_result`, `edge_shacl_violation`
@@ -128,7 +128,7 @@ See: `90-docs/adr/0048-risingwave-vultr-b2-primary.md`, `50-infra/vultr/risingwa
 - `_run_el_plus_plus` fallback changed from `except ImportError` → `except Exception` so Pellet/Java subprocess failure (JVM not in pod) correctly routes to `_run_el_naive`
 - First fire verified in pod: 26 axioms loaded (profile=etzhayyim_core_v1), 16 triples inferred, written to `vertex_owl_inferred`
 
-**Deployed**: `pymagatama:0.3.26-202605011151-amd64` (helm rev 321). R/PT1H timer correctly classifies on each fire.
+**Deployed**: `kotodama:0.3.26-202605011151-amd64` (helm rev 321). R/PT1H timer correctly classifies on each fire.
 
 **Migrations**: `20260501140000_vertex_owl_reasoner_schema` + `20260501160000_seed_owl_tbox_etzhayyim_ontology` applied out-of-band (ADR-2604241342).
 
@@ -146,7 +146,7 @@ See: `90-docs/adr/0048-risingwave-vultr-b2-primary.md`, `50-infra/vultr/risingwa
 
 **HuggingFace Hub push Phase D (commit dc707059974)**:
 - `trainingExport.bpmn` updated: after triple loop completes → `training.push.huggingface` → End
-- `task_training_push_huggingface()` in pymagatama 0.3.26: reads `vertex_training_shard` (status=done), downloads from B2, uploads to `etzhayyim/etzhayyim-corpus` on HF Hub via `huggingface_hub.HfApi`
+- `task_training_push_huggingface()` in kotodama 0.3.26: reads `vertex_training_shard` (status=done), downloads from B2, uploads to `etzhayyim/etzhayyim-corpus` on HF Hub via `huggingface_hub.HfApi`
 - K8s Secret `training-hf-creds` created (`HF_TOKEN` from 1Password `etzhayyim.hf/HF_TOKEN`, `HF_REPO_ID=etzhayyim/etzhayyim-corpus`)
 - Keychain `etzhayyim.huggingface/HF_TOKEN` saved
 - BPMN redeployed to Zeebe (key=2251799825707622) via F5 watcher
@@ -195,7 +195,7 @@ See: `90-docs/adr/0048-risingwave-vultr-b2-primary.md`, `50-infra/vultr/risingwa
 
 **Status**: ✅ **Live — zeebe-worker helm rev 153, all 3 task families registered and verified**
 
-**Root cause discovered**: psycopg3 v3 auto-promotes SQL to server-side Prepared Statements after 5 executions. RisingWave rejects `LIMIT $N` in prepared statements with `"expects an integer after LIMIT, found non-const expression"`. Three pymagatama primitives were silently failing on their 6th+ invocation.
+**Root cause discovered**: psycopg3 v3 auto-promotes SQL to server-side Prepared Statements after 5 executions. Kotoba/Datomic rejects `LIMIT $N` in prepared statements with `"expects an integer after LIMIT, found non-const expression"`. Three kotodama primitives were silently failing on their 6th+ invocation.
 
 **Fixes shipped (commit `91bfbf86435`)**:
 - `onion_crawl._claim_stale_seeds` — `LIMIT %s` → `LIMIT {int(limit)}`
@@ -204,12 +204,12 @@ See: `90-docs/adr/0048-risingwave-vultr-b2-primary.md`, `50-infra/vultr/risingwa
 
 **public-malak `crawlAds.bpmn` first-deploy (commit `ab4ac6a9adf`)**: Had BPMN 2.0 XSD ordering bug — `<timerEventDefinition>` appeared before `<outgoing>` inside `<startEvent>`. F5 watcher silently rejected it; BPMN was never deployed despite being in the repo. Fixed + added `Start_Manual` none-start event. Zeebe key=2251799818163684.
 
-**Image deployment lessons (codified in `[[conventions]] pymagatama-helm-image-deploy`)**:
+**Image deployment lessons (codified in `[[conventions]] kotodama-helm-image-deploy`)**:
 - Mac arm64 `docker build` → arm64 image → `exec format error` on amd64 VKE nodes
 - Use `docker buildx build --platform linux/amd64 --no-cache --push`
 - `image.fullRef` pinned by a prior `--set` survives `--reuse-values` and silently overrides `image.tag`; must `--set "image.fullRef="` to clear
 
-See: `deps.toml [[conventions]] rw-psycopg3-no-param-limit`, `[[conventions]] pymagatama-helm-image-deploy`, `[[migrations]] pymagatama-rw-limit-fix-20260428`.
+See: `deps.toml [[conventions]] rw-psycopg3-no-param-limit`, `[[conventions]] kotodama-helm-image-deploy`, `[[migrations]] kotodama-rw-limit-fix-20260428`.
 
 ---
 
@@ -230,13 +230,13 @@ See: `deps.toml [[conventions]] rw-psycopg3-no-param-limit`, `[[conventions]] py
   log + pre-written cleanup script + DRY_RUN-verified.
 - 4 baseline pre-existing CI failures → **2 cleared** in 2 days.
 - Out-of-band migration helper `30-graph/graph-schema/scripts/apply-pending.sh`
-  + ADR-2604241342 codifies 4 failure modes of `pnpm db:migrate latest` on RisingWave.
+  + ADR-2604241342 codifies 4 failure modes of `pnpm db:migrate latest` on Kotoba/Datomic.
 
 See: ADR-2604241038 (topology), ADR-2604241121, ADR-2604241342, `90-docs/260424-session-summary-topology-refactor.md`.
 
 ---
 
-## Recent Fix: yoro social BPMN flush guard + pymagatama 0.3.3 deploy (2026-04-30)
+## Recent Fix: yoro social BPMN flush guard + kotodama 0.3.3 deploy (2026-04-30)
 
 **Status**: ✅ **COMPLETE — platformPulse firing correctly, DB write verified**
 
@@ -244,7 +244,7 @@ See: ADR-2604241038 (topology), ADR-2604241121, ADR-2604241342, `90-docs/260424-
 
 **Fix (commit `826d768d23e`)**: `yoro_social.py` — 4 関数の `flush: bool = True` → `flush: bool = False`。version bump 0.3.2 → 0.3.3。
 
-**Deploy**: `pymagatama:0.3.3-202604301414-amd64` → `mitama-udf/zeebe-worker` helm rollout。
+**Deploy**: `kotodama:0.3.3-202604301414-amd64` → `mitama-udf/zeebe-worker` helm rollout。
 
 ---
 
@@ -348,12 +348,12 @@ See: `90-docs/adr/2604291800-well-becoming-formal-model.md`, `90-docs/adr/260429
 - Public appview serves `/artifacts/html/:cid` and `/artifacts/har/:cid` from S3 fallback with `x-artifact-store: s3`.
 - `listSnapshots` ordering fixed to `ORDER BY scraped_at DESC, vertex_id DESC`.
 - Helm test `public-malak-smoke` and hourly CronJob `public-malak-smoke-cron` validate write → RW snapshot → `listSnapshots` → public HTML/HAR routes.
-- Smoke logic moved from Helm inline Python into `pymagatama.public_malak_smoke`; chart calls `python -u -m pymagatama.public_malak_smoke`.
+- Smoke logic moved from Helm inline Python into `kotodama.public_malak_smoke`; chart calls `python -u -m kotodama.public_malak_smoke`.
 - Optional `PrometheusRule` template added but disabled until the cluster has `monitoring.coreos.com/PrometheusRule`.
 
 **Live verification**:
 - Helm revision `444`.
-- Image: `ghcr.io/etzhayyim/pymagatama:public-malak-smoke-module-e7580bb1bd08-20260507052544-amd64`.
+- Image: `ghcr.io/etzhayyim/kotodama:public-malak-smoke-module-e7580bb1bd08-20260507052544-amd64`.
 - `helm -n mitama-udf test mitama-udf-pool --timeout 1200s` succeeded.
 - CronJob-derived manual job succeeded with HTML/HAR `200`, `store=s3`, and `listSnapshots.status=200`.
 
@@ -363,14 +363,14 @@ See: `90-docs/260507-public-malak-smoke-runbook.md`.
 
 ## Repo Record Minimization Follow-Up (2026-05-07)
 
-`vertex_repo_record` is now treated as the RisingWave hot mirror for
+`vertex_repo_record` is now treated as the Kotoba/Datomic hot mirror for
 `app.bsky.feed.post` only. Non-post state is projected to typed graph tables:
 
 - `app.bsky.actor.profile` reads use `vertex_profile`.
 - follows use `edge_follows`.
 - cohort evidence writes/read MVs use `vertex_cohort_evidence`.
 - Yoro worker, collector, PDS tick, graph consumer, OS, gov, projector,
-  wellbecoming, magatama, murakumo, organizer, handotai, and related state use
+  wellbecoming, kotodama, murakumo, organizer, handotai, and related state use
   domain `vertex_*` tables.
 
 `30-graph/deps.toml` was updated for the live Tier C additions
@@ -385,7 +385,7 @@ PDS create guard: `com.atproto.repo.createRecord` now rejects non-post
 collections before repo write. `com.atproto.repo.applyWrites` rejects non-post
 create/update entries, while delete-only legacy cleanup remains available.
 
-Private graph write helper: `@etzhayyim/magatama-host-sdk` now exports
+Private graph write helper: `@etzhayyim/kotodama-host-sdk` now exports
 `writePrivate()`. App handlers can write non-social state directly to typed
 `vertex_*` / `edge_*` tables over Kysely, and the helper rejects repo-public
 tables such as `vertex_repo_record`.
@@ -430,7 +430,7 @@ first of five marketing business models: `webmk.etzhayyim.com`.
 - `generate_strategy`: full JSON strategy (channels, milestones, ROI estimate)
 - `generate_copy`: Markdown ad copy (hero headlines, SNS, email, Google Ads)
 - `quality_gate`: scores 0.0–1.0 on specificity/actionability/creativity/completeness, retries once if <0.7
-- `store_proposal`: INSERT into `vertex_webmk_proposal` (RisingWave)
+- `store_proposal`: INSERT into `vertex_webmk_proposal` (Kotoba/Datomic)
 
 **BPMN** (`etzhayyim-root/00-contracts/bpmn/com/etzhayyim/webmk/`):
 - `createProposal.bpmn`: RunAgentLoop → DeliverEmail → (optional) CreateAdCampaign
@@ -441,7 +441,7 @@ first of five marketing business models: `webmk.etzhayyim.com`.
 - `webmk.deliver_via_resend` — Resend transactional email (60s, 3 retries)
 - `webmk.create_ad_campaign` — XRPC to ads.etzhayyim.com createCampaign (30s, 2 retries)
 
-**RisingWave migration**: `30-graph/graph-schema/migrations/20260507800000_vertex_webmk_tables.ts`
+**Kotoba/Datomic migration**: `30-graph/graph-schema/migrations/20260507800000_vertex_webmk_tables.ts`
 - `vertex_webmk_client`, `vertex_webmk_proposal`, `edge_webmk_campaign_link`
 
 **Integration**: `ads.etzhayyim.com` optional campaign creation → `edge_webmk_campaign_link`.
@@ -480,13 +480,13 @@ Proposals non-federable (internal, sensitivity_ord=2).
 - `newsletter.send_via_resend` — Resend batch per-subscriber (120s, 3 retries)
 - `newsletter.create_sponsor_slot` — XRPC to ads.etzhayyim.com createCampaign (30s, 2 retries)
 
-**RisingWave migration**: `30-graph/graph-schema/migrations/20260507810000_vertex_newsletter_tables.ts`
+**Kotoba/Datomic migration**: `30-graph/graph-schema/migrations/20260507810000_vertex_newsletter_tables.ts`
 - `vertex_newsletter_subscriber` (sensitivity_ord=3, Tier 3 PII: email/name/cohortName)
 - `vertex_newsletter_campaign` (subjectLine, bodyHtml, qualityScore, recipientCount, sentAt)
 - `vertex_newsletter_engagement` (open/click events from Resend webhook, no PII)
 - `edge_newsletter_sent` (campaign → subscriber, resend_email_id)
 
-**subscribeRepos** (magatama.jsonld triggers):
+**subscribeRepos** (kotodama.jsonld triggers):
 - `com.etzhayyim.apps.news.article` — fresh articles from news.etzhayyim.com
 - `com.etzhayyim.narou.chapter` — chapters from narou.etzhayyim.com
 
@@ -510,16 +510,16 @@ Proposals non-federable (internal, sensitivity_ord=2).
 | `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/outreach/replyDetected.bpmn` | Reply correlation sub-flow |
 | `60-apps/etzhayyim-project-outreach/appview/outreach-otch0001/src/app.ts` | Thin edge CF Worker |
 | `60-apps/etzhayyim-project-outreach/appview/outreach-otch0001/wrangler.jsonc` | Routes |
-| `60-apps/etzhayyim-project-outreach/appview/outreach-otch0001/magatama.jsonld` | subscribeRepos config |
+| `60-apps/etzhayyim-project-outreach/appview/outreach-otch0001/kotodama.jsonld` | subscribeRepos config |
 | `60-apps/etzhayyim-project-outreach/CLAUDE.md` | Runbook |
 | `60-apps/etzhayyim-project-outreach/actor-manifest.jsonld` | Actor declaration |
 | `30-graph/graph-schema/migrations/20260507820000_vertex_outreach_tables.ts` | 5 tables |
-| `20-actors/magatama/py/src/pymagatama/outreach_worker_main.py` | Python Zeebe worker |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/outreach_worker_main.py` | Python Zeebe worker |
 
 ### Files updated
 
 - `deps.toml` — `[[mitama_actors]]` entry for outreach
-- `20-actors/magatama/py/pyproject.toml` — `magatama-outreach-worker` script
+- `40-engine/kotoba/crates/kotoba-kotodama/py/pyproject.toml` — `kotodama-outreach-worker` script
 - `90-docs/session-history.md` — this entry
 
 ### LangGraph nodes (intra-job, outreach.run_research_agent)
@@ -548,7 +548,7 @@ Start → CheckDnc → DncGateway:
     - replied=true → RepliedEnd
     - replied=false → FollowUp → CreateSponsorSlot → End
 
-### RisingWave tables
+### Kotoba/Datomic tables
 
 | Table | sensitivity_ord | Key columns |
 |---|---|---|
@@ -558,7 +558,7 @@ Start → CheckDnc → DncGateway:
 | `vertex_outreach_dnc` | 0 | email (UNIQUE), reason |
 | `edge_outreach_sent` | 3 | sequence_id, prospect_id, step_number, resend_email_id |
 
-### subscribeRepos triggers (magatama.jsonld)
+### subscribeRepos triggers (kotodama.jsonld)
 
 - `com.etzhayyim.apps.gmail.message` — reply detection from Gmail ingest
 - `com.etzhayyim.apps.m365Ingest.email` — reply detection from M365 ingest
@@ -586,7 +586,7 @@ Reply detection via existing gmail/m365Ingest actors — no new inbound infra.
 | `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/compintel/trackCompetitor.bpmn` | Initial deep research |
 | `60-apps/etzhayyim-project-compintel/appview/compintel-cpti0001/` | CF Worker |
 | `30-graph/graph-schema/migrations/20260507830000_vertex_compintel_tables.ts` | 4 tables |
-| `20-actors/magatama/py/src/pymagatama/compintel_worker_main.py` | Python Zeebe worker |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/compintel_worker_main.py` | Python Zeebe worker |
 
 ### LangGraph nodes (compintel.run_research_agent)
 
@@ -618,7 +618,7 @@ fetch_signals → analyze_pricing → analyze_product → analyze_hiring → sco
 | `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/contentengine/generateContent.bpmn` | Generate + sponsor flow |
 | `60-apps/etzhayyim-project-contentengine/appview/contentengine-cten0001/` | CF Worker |
 | `30-graph/graph-schema/migrations/20260507840000_vertex_contentengine_tables.ts` | 2 tables |
-| `20-actors/magatama/py/src/pymagatama/contentengine_worker_main.py` | Python Zeebe worker |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/contentengine_worker_main.py` | Python Zeebe worker |
 
 ### LangGraph nodes (contentengine.run_content_agent)
 

@@ -13,7 +13,7 @@ authoritative_for:
   - patent federable status (default non-federable)
 related:
   - adr-0056-bpmn-as-actor
-  - adr-0048-risingwave-vultr-b2-primary
+  - adr-0048-kotoba-vultr-b2-primary
   - adr-0081-worker-direct-hyperdrive-persistence
   - adr-0085-non-federable-nsid-firehose-gate
 supersedes: []
@@ -35,7 +35,7 @@ collected=3,799 / vertex_count=81 (`coverage_rate ≈ 0.000019`)。trademark は
   + `mv_open_patent_by_jurisdiction`
 - Manifest: `20-actors/patent/actor-manifest.jsonld` (489 行)、4 source entity
   (JPO/USPTO/EPO/WIPO) を `did:web:patent.etzhayyim.com:source:*` で記述済
-- Magatama: `60-apps/etzhayyim-project-patent/appview/etzhayyim-wasm-patent-p4t3nt01/magatama.jsonld`
+- Kotodama: `60-apps/etzhayyim-project-patent/appview/etzhayyim-wasm-patent-p4t3nt01/kotodama.jsonld`
   に `subscribeRepos` で 6 NSID 受信設定済
 - Blob CID 前例: PDS `blobs/{repo}/{sha256hex}` content-addressed R2 dedup
   (`pds-blob-content-addressing`)、`vertex_gyosei_source_blob` /
@@ -88,7 +88,7 @@ ADR-0056 BPMN-as-actor で ingest pipeline を実装。CID は multibase (`b` ba
 | Google Patents Public Dataset (BigQuery) | CC-BY (?) | 130M records | 検討中 | 法務確認後採用可能性 |
 
 **Phase 1 完了時の到達点**: USPTO granted ~8M (1976+) + citation ~120M を
-RisingWave に投入、世界 ~200M 中の **~4%** カバー (metadata = title / abstract /
+Kotoba/Datomic に投入、世界 ~200M 中の **~4%** カバー (metadata = title / abstract /
 inventor / assignee / IPC / CPC / filing / grant date / source_url)。EPO citation
 補完で `edge_patent_cites` の cross-jurisdiction 解像度が向上。**granted 2010+
 ~1M に対して PDF / webp / OCR text を全件 B2 永続化** (CID は graph に保持)。
@@ -265,7 +265,7 @@ per week)。保存・変換は B2 + Vultr で課金。
 |---|---|---|
 | USPTO PatentsView TSV | **$0** | CC0 public, no auth |
 | EPO OPS REST | **$0** | free tier 4GB/week (citation fill のみ) |
-| RisingWave 増分 (~10M vertex + 120M edge) | **$0** | 既存 Vultr cluster の空き容量で吸収 |
+| Kotoba/Datomic 増分 (~10M vertex + 120M edge) | **$0** | 既存 Vultr cluster の空き容量で吸収 |
 | B2 storage (PDF ~10TB) | ~$60/mo | 1M × ~10MB |
 | B2 storage (webp ~1TB) | ~$6/mo | webp -q 80 で ~10x 圧縮 |
 | B2 storage (OCR text ~50GB) | ~$0.30/mo | UTF-8 plain text |
@@ -293,7 +293,7 @@ Phase 2 (granted 全件 webp 化 ~7M 追加 + EPO/JP/CN/KR 全 dump、~100M pate
 ## Ingest Safety (added 2026-04-25 after smoke-test incident)
 
 Smoke test on 2026-04-25 ran Wikidata SPARQL → direct `psql` INSERT of ~4K
-rows. Part-way through the second batch, `risingwave-compute-0` was
+rows. Part-way through the second batch, `kotoba-compute-0` was
 OOMKilled; the cold-restart Foyer refill then tripped B2's per-account
 rps quota, producing a ~20-minute Hummock `ObjectStore RateLimited` storm
 that blocked all RW readers. Root cause was two-fold:
@@ -301,10 +301,10 @@ that blocked all RW readers. Root cause was two-fold:
 1. **Missing throttle config** — the Linode-era
    `[storage.cache_refill]` + `data_file_cache.insert_rate_limit_mb=450` +
    `meta_file_cache.insert_rate_limit_mb=50` + `statement_timeout_secs=120`
-   blocks from `50-infra/linode/risingwave-iceberg/helm/values-dedicated-32.yaml`
-   were **not ported** to `50-infra/vultr/risingwave/helm/values.yaml`
+   blocks from `50-infra/linode/kotoba-iceberg/helm/values-dedicated-32.yaml`
+   were **not ported** to `50-infra/vultr/kotoba/helm/values.yaml`
    during ADR-0048 Vultr cutover. Ported 2026-04-25; see
-   `50-infra/vultr/risingwave/deps.toml [risingwave_vultr.incident_2026_04_25]`
+   `50-infra/vultr/kotoba/deps.toml [kotoba_vultr.incident_2026_04_25]`
    and `[[migrations]] rw-foyer-insert-rate-limit-port-to-vultr-2026-04-25`
    in root `deps.toml`.
 2. **Ingest had no self-throttle** — bulk INSERT ran at wire speed with
@@ -332,7 +332,7 @@ task with a health-gate service task (new primitive
 `rw.health.probe`) that checks:
 
 1. `SELECT 1;` via `psql` with 5-second timeout (meta-plane)
-2. `risingwave-compute-0` pod age since last restart > 15 min (Foyer warm)
+2. `kotoba-compute-0` pod age since last restart > 15 min (Foyer warm)
 3. B2 `SlowDown` event rate in the last 60 s of compute logs < 10/min
 
 On any failure, the process pivots to **pre-fetch-only mode** — the
@@ -351,7 +351,7 @@ root `deps.toml`.
   で cron を遅らせる、Phase 2 で有料 tier 検討。
 - **USPTO TSV schema 変更**: PatentsView は時々 column 追加/rename — manifest
   version を `audit.emit` で記録、sentinel value で gate。
-- **RisingWave 増分 ~10M vertex + 120M edge** は既存 Vultr cluster の空き容量に
+- **Kotoba/Datomic 増分 ~10M vertex + 120M edge** は既存 Vultr cluster の空き容量に
   依存。OOM を踏むなら ingest pace を絞る (BPMN timer 週次 → 隔週次)、cluster
   scale-up は別 ADR で扱う。
 - **2010 未満 ~7M は metadata only**: 古い patent の PDF/webp は Phase 2 まで
@@ -375,7 +375,7 @@ root `deps.toml`.
 # References
 
 - ADR-0056 BPMN-as-actor (`90-docs/adr/0056-bpmn-as-actor.md`)
-- ADR-0048 RisingWave Vultr+B2 primary (`90-docs/adr/0048-risingwave-vultr-b2-primary.md`)
+- ADR-0048 Kotoba/Datomic Vultr+B2 primary (`90-docs/adr/0048-kotoba-vultr-b2-primary.md`)
 - ADR-0081 Worker-direct Hyperdrive persistence
 - ADR-0085 Non-federable NSID firehose gate
 - ADR-0029 did:etzhayyim method specification (CID 仕様)

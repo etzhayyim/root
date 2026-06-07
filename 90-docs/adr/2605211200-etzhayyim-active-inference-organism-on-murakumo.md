@@ -57,7 +57,7 @@ ADR-2605061200 chose **active inference + persistent world model + homeostasis +
 embodiment + self-maintenance** as the organism architecture. The organism is
 **live** since 2026-05-07 (deps.toml `myco-yeast-organism-bringup` status="live"):
 
-- Primitives (`20-actors/magatama/py/src/pymagatama/primitives/active_inference.py`
+- Primitives (`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/active_inference.py`
   1212 LoC + `rl_active_inference.py` 726 LoC) export
   `expected_free_energy`, `classify_real_world_effect`,
   `plan_real_world_dispatch`, `build_dispatch_receipt_observation`,
@@ -68,7 +68,7 @@ embodiment + self-maintenance** as the organism architecture. The organism is
   cadence (ki-cycle hourly, saikin-cycle every 20m, koke-cycle every 30m,
   newsletter\_send\_campaign 8-node + retry); `/assistants` registry has
   **61 active chains** (deps.toml line 27411).
-- State persists in RisingWave: `vertex_agent_observation`,
+- State persists in Kotoba/Datomic: `vertex_agent_observation`,
   `vertex_agent_belief_state`, `vertex_agent_prior_preference`,
   `vertex_agent_active_inference_tick`, `vertex_agent_action_proposal`,
   `vertex_agent_realworld_effect`, `vertex_agent_homeostasis_snapshot`,
@@ -90,7 +90,7 @@ etzhayyim/root yet.
 Three ADRs together rule out the current implementation surface from etzhayyim:
 
 - **ADR-2605172000 (RW-free substrate)**: etzhayyim apps may only persist to
-  AT MST + IPFS + Base L2. RisingWave is vendor-only.
+  AT MST + IPFS + Base L2. Kotoba/Datomic is vendor-only.
 - **ADR-2605172100 (payments on-chain only)**: USDC + ERC-4337 only. Fiat /
   Stripe / invoiced LLM API rentals stay vendor.
 - **ADR-2605172400 (3-axis OR-test)**: a project moves to etzhayyim only if
@@ -101,7 +101,7 @@ Applied to the organism as it stands today, the verdict is:
 | Axis | Current state | etzhayyim eligible? |
 |------|---------------|---------------------|
 | Liability | Organism makes autonomous decisions; failure damage absorbed by agent + DAO | ✅ clean |
-| Custody | belief state + observation + dispatch ledger sit in operator-controlled RisingWave | ❌ HIT — operator can be compelled to produce |
+| Custody | belief state + observation + dispatch ledger sit in operator-controlled Kotoba/Datomic | ❌ HIT — operator can be compelled to produce |
 | Settlement | LLM synthesis billed to RunPod / Anthropic on etzhayyim Japan invoice | ❌ HIT — fiat fiduciary |
 
 Two axes hit → without intervention the organism stays vendor.
@@ -236,7 +236,7 @@ This stays vendor because:
 The organism reaches this path only when (a) Path 1 model fails a quality
 gate (e.g. self-consistency disagreement above threshold), or (b) the
 specific node declares `synthesis_tier="heavy"`. Each Path 2 call goes
-through the magatama MCP facade at `mcp.etzhayyim.com` per ADR-2605091400 with an
+through the kotodama MCP facade at `mcp.etzhayyim.com` per ADR-2605091400 with an
 explicit **consent capability** scoped to that synthesis. The vendor never
 sees plaintext belief state or PII — only the prompt the organism chose to
 expose, gated by the organism's own ADR-2605061300 effect classifier.
@@ -273,9 +273,9 @@ After D1+D2+D3 the organism's 3-axis position becomes:
 1. Create Lexicons under `00-contracts/lexicons/com/etzhayyim/agent/` for the 12
    record types listed in D3b. Stays in vendor lexicon dir for now;
    alias to `ai.etzhayyim.agent.*` later.
-2. Add `pymagatama.primitives.active_inference_substrate` module exposing
+2. Add `kotodama.primitives.active_inference_substrate` module exposing
    `BeliefStore` protocol with two implementations:
-   - `RisingWaveBeliefStore` (existing path, default during Phase 1)
+   - `Kotoba/DatomicBeliefStore` (existing path, default during Phase 1)
    - `AtIpfsLocalBeliefStore` (new: SQLite hot + AT record canonical + IPFS
      large-blob; uses `sdk.pds.createRecord` + `pinning.etzhayyim.com` for IPFS)
 3. Switch primitive callers (`active_inference.py`, `agent_status_main.py`,
@@ -310,7 +310,7 @@ saikin-cycle / koke-cycle CronJobs complete successfully on murakumo.
 
 ## Phase 3 — Vendor decoupling
 
-1. Move `pymagatama.primitives.{active_inference,rl_active_inference,rl_policy,
+1. Move `kotodama.primitives.{active_inference,rl_active_inference,rl_policy,
    rl_preferences,rl_signal}` + the 7 organism worker modules from vendor
    monorepo to `etzhayyim/root/20-actors/`.
 2. Publish `@etzhayyim/organism-primitives` npm package (TS bindings) +
@@ -319,14 +319,14 @@ saikin-cycle / koke-cycle CronJobs complete successfully on murakumo.
    (lawfirm legal-reasoner / mailer triage / shosha decision narrator etc.)
    switch to **consent capability** invocation via `mcp.etzhayyim.com/mcp` →
    etzhayyim organism. This mirrors the open-core / vendor-binding pattern
-   already used for `@etzhayyim/sdk` / `magatama-go` / `kami-engine-sdk` per
+   already used for `@etzhayyim/sdk` / `kotodama-go` / `kami-engine-sdk` per
    ADR-2605172400 Wave 2.
 4. Drop `vertex_agent_*` tables after a 30-day archive grace period; archive
    parquet snapshot to Iceberg S3 for legal retention.
 5. NSID rename `com.etzhayyim.agent.*` → `ai.etzhayyim.agent.*` per Tranche F
    second-wave cutover.
 
-Verification: vendor monorepo `grep -r "from pymagatama.primitives.active_inference"`
+Verification: vendor monorepo `grep -r "from kotodama.primitives.active_inference"`
 returns zero matches; `etzhayyim/root` repository hosts the organism end-to-
 end; murakumo k8s pods read code from etzhayyim/root image registry.
 
@@ -383,12 +383,12 @@ end; murakumo k8s pods read code from etzhayyim/root image registry.
 - Phase 2 zero-RW-write assertion: `SELECT count(*) FROM
   vertex_agent_observation WHERE inserted_at > '<cutover>'` returns 0 after
   Phase 2 day 1
-- Phase 3 vendor decoupling: `grep -r "pymagatama.primitives.active_inference"
+- Phase 3 vendor decoupling: `grep -r "kotodama.primitives.active_inference"
   vendor-monorepo` returns 0 matches
 - 3-axis test re-run at each phase boundary; recorded in deps.toml
   `[[migrations]]` status updates
 - Lefthook pre-commit hook (existing from ADR-2605172400) continues to flag
-  any new `risingwave|kysely|pg|stripe|paypal` import in etzhayyim/root
+  any new `kotoba|kysely|pg|stripe|paypal` import in etzhayyim/root
   organism modules
 
 # Closure (2026-05-21)
@@ -409,7 +409,7 @@ below — none of which is executed by the PR stack).
 | #1347 | 2C.3 | consent capability lexicon (issueToken/verifyToken) + agent SDK caller |
 | #1348 | 2D.obs | TS path1Ratio / cacheHitRatio counter (10 vitest) |
 | #1349 | 2C.4 | MCP facade backend (issueToken/verifyToken handlers + 18 vitest) |
-| #1350 | 2D.obs.2 | pymagatama telemetry counter parity (89/89 pytest) |
+| #1350 | 2D.obs.2 | kotodama telemetry counter parity (89/89 pytest) |
 | #1351 | 2D.obs.3 | failure counter + Prometheus exposition + /_worker/metrics route |
 | #1352 | 2C.4.2 | revokeToken lexicon + D1 revocation list + audit log (8 new vitest) |
 | #1353 | 2D.obs.4 | Grafana dashboard + Prometheus scrape + 5 SLO alerts |

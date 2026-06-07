@@ -39,7 +39,7 @@ Add `cyber_operations.py` as a LangGraph agent for the `defCyber` PMESII domain.
   - `deny` → `high`
   - `destroy` → `critical`
 
-- **Human-required safety invariant** (`_HUMAN_REQUIRED_EFFECTS = {"destroy", "deny"}`):  
+- **Human-required safety invariant** (`_HUMAN_REQUIRED_EFFECTS = {"destroy", "deny"}`):
   If `autonomy_mode == "autonomous"` and `effect_type in _HUMAN_REQUIRED_EFFECTS`, force `autonomy_mode = "supervised"` and set `human_required = True`. This is a safety downgrade, not a fatal error — `state["error"]` is NOT set.
 
 - **`destroy` always forced `supervised`** — highest-lethality cyber effect; no autonomous path permitted.

@@ -91,7 +91,7 @@ reconstructible from MST+IPFS+L2 (that property is preserved, not the authority 
   log indexes/mirrors them; it does **not** become their write home.
 - **C2 — Encrypted wire format unchanged.** `com.etzhayyim.encrypted.*` (ADR-2605181100/181200)
   is the bit-identical envelope; Datoms carry ciphertext, never plaintext private records on MST.
-- **C3 — RW-free preserved.** No RisingWave / Postgres / Lance / DuckDB / SQLite as
+- **C3 — RW-free preserved.** No Kotoba/Datomic / Postgres / Lance / DuckDB / SQLite as
   projection, cache, or read backend (ADR-2605172000 + 2605262130 D7/N8).
 - **C4 — No-server-key preserved.** etzhayyim-operated infra holds no signing key; the
   Datom-log indexer is a read-only surface (ADR-2605231525). MST commits are member-signed.

@@ -1,0 +1,528 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://etzhayyim.com/schemas/kotodama.schema.json",
+  "title": "kotodama.jsonld",
+  "description": "App manifest — unified app identity, profile, build, deploy, and runtime config.",
+  "type": "object",
+  "required": [
+    "name",
+    "nanoid",
+    "performerType"
+  ],
+  "properties": {
+    "@context": {
+      "type": "string",
+      "const": "https://etzhayyim.com/ns/kotodama/v1"
+    },
+    "@id": {
+      "type": "string",
+      "description": "DID (e.g. did:web:vibes.etzhayyim.com)"
+    },
+    "performerType": {
+      "type": "string",
+      "enum": [
+        "service",
+        "system",
+        "person",
+        "organization"
+      ],
+      "description": "DM2 performer type. service=application service, system=infrastructure/platform, person=individual agent/role, organization=organizational entity."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "nanoid": {
+      "type": "string",
+      "minLength": 1
+    },
+    "profile": {
+      "$ref": "#/$defs/profile"
+    },
+    "project": {
+      "type": "string",
+      "description": "Subdomain override"
+    },
+    "runtimeType": {
+      "type": "string",
+      "enum": [
+        "worker",
+        "container",
+        "native",
+        "logical",
+        "kotodama-zeebe"
+      ],
+      "default": "worker",
+      "description": "Execution backend. worker=Cloudflare Worker / container=Docker / native=raw process / logical=app exists without runtime binding (e.g. doc-only or registry-only) / kotodama-zeebe=Python+Zeebe orchestration backend."
+    },
+    "uiType": {
+      "type": "string",
+      "description": "UI mode. appview (default) = own domain + optional SvelteKit UI. yoro = Yoro-rendered surface (open-yoro app SDK). 'none' = headless service variant. Legacy values (iframe, esm, full, fullapp, canvas, custom) are auto-mapped to appview by the runtime.",
+      "enum": [
+        "appview",
+        "webcomponent",
+        "game",
+        "headless",
+        "redirect",
+        "iframe",
+        "esm",
+        "canvas",
+        "custom",
+        "miniapp",
+        "full",
+        "fullapp",
+        "yoro",
+        "none",
+        "static",
+        "calm-static",
+        "ameno"
+      ],
+      "default": "appview"
+    },
+    "org": {
+      "type": "string",
+      "description": "org DID binding (did:web org tenant isolation)"
+    },
+    "component": {
+      "$ref": "#/$defs/component"
+    },
+    "triggers": {
+      "$ref": "#/$defs/triggers"
+    },
+    "ui": {
+      "$ref": "#/$defs/ui"
+    },
+    "space": {
+      "$ref": "#/$defs/space"
+    },
+    "game": {
+      "$ref": "#/$defs/game"
+    },
+    "evolver": {
+      "$ref": "#/$defs/evolver"
+    },
+    "interfaces": {
+      "$ref": "#/$defs/interfaces"
+    },
+    "extensions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/extension"
+      }
+    },
+    "build": {
+      "$ref": "#/$defs/build"
+    },
+    "deploy": {
+      "$ref": "#/$defs/deploy"
+    },
+    "routes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/route"
+      }
+    },
+    "version": {
+      "type": "string"
+    },
+    "template": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "evolvedAt": {
+      "type": "string"
+    },
+    "hooks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/hook"
+      }
+    },
+    "yata": {
+      "$ref": "#/$defs/yata"
+    },
+    "pool": {
+      "type": "object",
+      "properties": {
+        "size": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "static": {
+      "type": "object",
+      "properties": {
+        "prefix": {
+          "type": "string"
+        }
+      }
+    },
+    "subDidCommand": {
+      "type": "string",
+      "description": "Sub-DID auto-registration XRPC NSID"
+    }
+  },
+  "$defs": {
+    "profile": {
+      "type": "object",
+      "required": [
+        "displayName",
+        "description"
+      ],
+      "properties": {
+        "displayName": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "banner": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Free-form business-domain category. Common values include: government / international / religious / ngo / sport / academic / infrastructure / knowledge / security / image-generation. Schema is permissive on this field; future normalization requires governance review."
+        },
+        "country": {
+          "type": "string",
+          "pattern": "^[a-z]{3}$"
+        },
+        "jurisdiction": {
+          "type": "string"
+        },
+        "contract": {
+          "type": "string"
+        },
+        "isBot": {
+          "type": "boolean",
+          "description": "True for autonomous/agent apps; false for PWA / interactive user-facing surfaces."
+        },
+        "agentType": {
+          "type": "string",
+          "enum": [
+            "autonomous",
+            "semi-autonomous",
+            "reactive",
+            "advisory"
+          ],
+          "default": "autonomous",
+          "description": "advisory = read-only / recommendation-only agent that doesn't take autonomous actions on external state."
+        },
+        "capabilities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "protocols": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "operator": {
+          "type": "string"
+        },
+        "sourceCode": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "component": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "env": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "compose": {
+          "type": "object",
+          "properties": {
+            "signal": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "triggers": {
+      "type": "object",
+      "properties": {
+        "http": {
+          "type": "object",
+          "properties": {
+            "listen": {
+              "type": "string"
+            },
+            "routes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "staticDir": {
+              "type": "string"
+            },
+            "spa": {
+              "type": "boolean"
+            }
+          }
+        },
+        "wCommit": {
+          "type": "object",
+          "properties": {
+            "collections": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "ui": {
+      "type": "object",
+      "properties": {
+        "accent": {
+          "type": "string"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "ssrRoutes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "space": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "joinRule": {
+          "type": "string"
+        },
+        "historyVisibility": {
+          "type": "string"
+        },
+        "channels": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "default": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    },
+    "game": {
+      "type": "object",
+      "properties": {
+        "runtime": {
+          "type": "string"
+        },
+        "entry": {
+          "type": "string"
+        }
+      }
+    },
+    "evolver": {
+      "type": "object",
+      "properties": {
+        "murakumoEndpoint": {
+          "type": "string"
+        },
+        "murakumoModel": {
+          "type": "string"
+        },
+        "critiqueRounds": {
+          "type": "integer"
+        },
+        "fitnessDropThreshold": {
+          "type": "number"
+        },
+        "errorRateThreshold": {
+          "type": "number"
+        },
+        "observationWindowSecs": {
+          "type": "integer"
+        },
+        "dryRun": {
+          "type": "boolean"
+        }
+      }
+    },
+    "interfaces": {
+      "type": "object",
+      "properties": {
+        "package": {
+          "type": "string"
+        },
+        "provides": {
+          "type": "array"
+        },
+        "requires": {
+          "type": "array"
+        }
+      }
+    },
+    "extension": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "package": {
+          "type": "string"
+        },
+        "component": {
+          "type": "string"
+        },
+        "kinds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "build": {
+      "type": "object",
+      "properties": {
+        "guestLanguage": {
+          "type": "string"
+        },
+        "witWorld": {
+          "type": "string"
+        },
+        "wasiAdapterVersion": {
+          "type": "string"
+        }
+      }
+    },
+    "deploy": {
+      "type": "object",
+      "properties": {
+        "dockerfile": {
+          "type": "string"
+        },
+        "baseImage": {
+          "type": "string"
+        },
+        "healthCheck": {
+          "type": "string"
+        },
+        "sleepAfter": {
+          "type": "string"
+        },
+        "doStore": {
+          "type": "string"
+        }
+      }
+    },
+    "route": {
+      "type": "object",
+      "properties": {
+        "host": {
+          "type": "string"
+        },
+        "tls": {
+          "type": "boolean"
+        },
+        "paths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "hook": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "url": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "headers": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "authEnv": {
+          "type": "string"
+        },
+        "authScheme": {
+          "type": "string"
+        },
+        "timeoutSec": {
+          "type": "integer"
+        },
+        "disabled": {
+          "type": "boolean"
+        }
+      }
+    },
+    "yata": {
+      "type": "object",
+      "properties": {
+        "dataDir": {
+          "type": "string"
+        },
+        "graphUri": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

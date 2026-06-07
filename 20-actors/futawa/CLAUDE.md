@@ -128,7 +128,7 @@ futawa is the **build-side** companion of hodoki (EOL-side). Together they close
 **Smoke test**: Verify all 9 cells import without exception:
 
 ```bash
-cd 20-actors/magatama
+cd 40-engine/kotoba/crates/kotoba-kotodama
 python -c "from cells.moto_frame_welding import MotoFrameWeldingCell; assert MotoFrameWeldingCell"
 python -c "from cells.moto_engine_assembly import MotoEngineAssemblyCell; assert MotoEngineAssemblyCell"
 python -c "from cells.moto_drivetrain_assembly import MotoDrivetrainAssemblyCell; assert MotoDrivetrainAssemblyCell"

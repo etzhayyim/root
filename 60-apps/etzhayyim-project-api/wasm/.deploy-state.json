@@ -1,7 +1,7 @@
 {
   "version": 1,
   "apps": {
-    "ai-gftd-wasm-api-ap1sv01": {
+    "etzhayyim-wasm-api-ap1sv01": {
       "nanoid": "ap1sv01",
       "app_version": "1.0.0",
       "last_deployed_at": "2026-04-02T10:27:34Z",

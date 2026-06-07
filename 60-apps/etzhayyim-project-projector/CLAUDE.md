@@ -233,7 +233,7 @@ T1 MCP-Compose — handler logic は PDS (`pds-handlers-etzhayyim.ts`) に co-lo
 
 ### LangServer primitives
 
-`20-actors/magatama/py/src/pymagatama/primitives/projector.py` に 11 task type を実装:
+`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/projector.py` に 11 task type を実装:
 
 | Task type | 役割 | LangGraph |
 |---|---|---|
@@ -248,7 +248,7 @@ T1 MCP-Compose — handler logic は PDS (`pds-handlers-etzhayyim.ts`) に co-lo
 | `projector.sc.parallel` | **N path parallel + Counter majority vote** | asyncio.gather |
 | `projector.persist.message` | `vertex_projector_message` INSERT + `edge_projector_convo_message` | — |
 
-LLM transport は `pymagatama.llm.call_tier` (Vultr Serverless + RunPod fallback、ADR-2604231328)。LangChain `ChatOpenAI` は不採用 — `langchain-openai` を加えると worker image が倍増し、`langchain-core` (langgraph 0.2 経由で transitively 利用可能) のメッセージ envelope だけで設計が完結するため。
+LLM transport は `kotodama.llm.call_tier` (Vultr Serverless + RunPod fallback、ADR-2604231328)。LangChain `ChatOpenAI` は不採用 — `langchain-openai` を加えると worker image が倍増し、`langchain-core` (langgraph 0.2 経由で transitively 利用可能) のメッセージ envelope だけで設計が完結するため。
 
 ### Camunda 8.9 agentic-pattern alignment
 
@@ -297,7 +297,7 @@ LLM transport は `pymagatama.llm.call_tier` (Vultr Serverless + RunPod fallback
 
 - LangServer primitive 内から `com.atproto.repo.createRecord` を直叩き (ADR-2604240946 既知の 401)。Projector reply は `vertex_projector_message` 直接 INSERT、federation が必要な場合のみ Phase 3 Service Auth JWT mint を使う
 - `/explore` `/consistent` を CF Worker から並行実装 (BPMN seed 適用後は Phase 3 までは旧 TS が引き続き動くが、二重実装の改修禁止)
-- `langchain-openai` 依存追加 — `pymagatama.llm.call_tier` が canonical transport
+- `langchain-openai` 依存追加 — `kotodama.llm.call_tier` が canonical transport
 
 ## Conventions
 

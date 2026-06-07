@@ -3,7 +3,7 @@
 Pulls the persisted `vertex_vector_emotion_signal` Hume image-head
 corpus (see `tool_persist_hume_emotion_observation` in
 `lg_mangaka/tools.py`), trains a student centroid model via
-`pymagatama.primitives.hume_image_head.train_image_centroid`, and
+`kotodama.primitives.hume_image_head.train_image_centroid`, and
 writes the resulting model JSON.
 
 Usage

@@ -46,7 +46,7 @@ superseded_by: []
 
 ## Context
 
-2026-05-23 commit `9cd4fe73d` ("feat(unispsc): register 18,342 UNSPSC actors at etzhayyim.com") landed `20-actors/magatama/py/src/pymagatama/langgraph_graphs/unispsc_agents/c{code}.py` — one LangGraph `StateGraph` per UNSPSC commodity code, totalling 18,346 actor files. Each is a per-commodity workflow definition (e.g., the live-animal code carries health-check + transit-log + facility-routing logic). DIDs follow `did:web:c{code}.etzhayyim.com`.
+2026-05-23 commit `9cd4fe73d` ("feat(unispsc): register 18,342 UNSPSC actors at etzhayyim.com") landed `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs/unispsc_agents/c{code}.py` — one LangGraph `StateGraph` per UNSPSC commodity code, totalling 18,346 actor files. Each is a per-commodity workflow definition (e.g., the live-animal code carries health-check + transit-log + facility-routing logic). DIDs follow `did:web:c{code}.etzhayyim.com`.
 
 Earlier in the same session, ADR-2605231230 added `etzhayyim-esign` — a religious-corp-native document-signing actor — and Phase 0 (lexicon stubs + DID Worker deploy) landed in commit `060bc4d7a`. The motivating future work in that ADR's §"Future Work" was wiring esign into the religious-corp catalog actors (UNSPSC / ISCO / APQC).
 
@@ -63,7 +63,7 @@ This ADR specifies the canonical wiring between the 18,346 UNSPSC LangGraph acto
 - **No purchase** (§1.2 + ADR-2605192115): the only permissible commodity inflow purpose tags are `donation-in-kind` / `internal-allocation` / `surplus-routing` / `operational-supply`. `purchase` / `sale` / `subscription` MUST NOT be valid envelope purposes.
 - **No advertising** (§2(c) Charter Rider): UNSPSC actor notification posts MUST be factual; no promotional language, no price-discount, no call-to-action.
 - **10% tithe** (ADR-2605192130): every `donation-in-kind` envelope at `anchored` state triggers 1/10 of items routed to Public Fund inventory.
-- **Substrate boundary** (ADR-2605172000): no RisingWave / Postgres / Kysely in the agent path. All state on MST + IPFS + L2 anchor.
+- **Substrate boundary** (ADR-2605172000): no Kotoba/Datomic / Postgres / Kysely in the agent path. All state on MST + IPFS + L2 anchor.
 - **Charter Rider** (ADR-2605192200): template documents bundled with esign MUST NOT include for-profit or advertising templates.
 
 ### Existing actors / contracts that need wiring
@@ -193,7 +193,7 @@ The Phase 0 `com.etzhayyim.esign.*` lexicons gain optional fields. No required f
 
 ### 7. Pregel cell additions
 
-Three new cells to add to `20-actors/magatama/cells/`, registered in `50-infra/murakumo/fleet.toml`:
+Three new cells to add to `40-engine/kotoba/crates/kotoba-kotodama/cells/`, registered in `50-infra/murakumo/fleet.toml`:
 
 | Cell | Role |
 |---|---|
@@ -222,7 +222,7 @@ The complete mapping from agent execution loop step to business-model contract:
 | 13 | BPMN process integration | 00-contracts/bpmn/com/etzhayyim/apqc/ + Kyber BPMN projector | UNSPSC actor `signature_required` node fires BPMN signal `Signal:esign:{purpose}` | 2 |
 | 14 | Audit witness (high-stakes) | 20-actors/yobel/cells/audit_witness | manifest.auditWitnessRequired=true → 3-party witness cell invoked | 1 |
 | 15 | Council escalation | ADR-2605192300 + etzhayyim-charters-compliance Council Lv6+ ≥3 multisig | manifest.councilEscalationThreshold triggers multisig requirement | 3 |
-| 16 | KPI + organism feedback | etzhayyim-organism BeliefStore + magatama cell catalog | step 12 close pushes per-envelope facts to organism | 1 (basic) / 2 (full belief update) |
+| 16 | KPI + organism feedback | etzhayyim-organism BeliefStore + kotodama cell catalog | step 12 close pushes per-envelope facts to organism | 1 (basic) / 2 (full belief update) |
 
 ### 9. Phase plan (UNSPSC supply layer)
 
@@ -316,5 +316,5 @@ Rejected. 18,346 actors × 5 sub-gates = 91,730 code duplication points. The lib
 - ADR-2605231230 (etzhayyim-esign actor) — base esign actor that this ADR extends
 - `50-infra/etzhayyim-chain-contracts/src/AdherentRegistry.sol` — soulbound ERC-721 + ERC-5192 reference pattern
 - `20-actors/etzhayyim-sdk/src/` — SDK home for charter-compliance-gate
-- `20-actors/magatama/py/src/pymagatama/langgraph_graphs/unispsc_agents/c{code}.py` — 18,346 LangGraph actors registered 2026-05-23
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs/unispsc_agents/c{code}.py` — 18,346 LangGraph actors registered 2026-05-23
 - `50-infra/murakumo/fleet.toml` — Pregel cell placement for the three new cells

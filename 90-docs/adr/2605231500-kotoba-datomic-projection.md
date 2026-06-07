@@ -100,7 +100,7 @@ L1.
 
 | Substrate | Suitable for | Notes |
 |---|---|---|
-| RisingWave | range / aggregate / window / spatial queries | the canonical Bluesky-AppView analog; firehose → SQL materialized views |
+| Kotoba/Datomic | range / aggregate / window / spatial queries | the canonical Bluesky-AppView analog; firehose → SQL materialized views |
 | Lance (via `50-infra/yata/`) | mixed graph + vector queries | already in use for `yatabase`; reframe as projection |
 | Iroh docs | intra-cohort sync, cross-replica consistency | content-addressed, Bao-verifiable; good for projection between Murakumo nodes |
 | Postgres / SQLite | small-N apps, embedded reads | acceptable; document the rebuild step |
@@ -179,7 +179,7 @@ A projection MUST be rebuildable from `kotoba-datomic-chain + kotoba-datomic-dht
 from another projection. If projection B reads from projection A and forgets
 about MST, projection B is not kotoba-datomic-compliant — even if projection A is.
 
-Concretely: if a Murakumo cell consumes RisingWave (projection A) to populate
+Concretely: if a Murakumo cell consumes Kotoba/Datomic (projection A) to populate
 an in-memory cache (projection B), that cache must also have a documented path
 back to MST. The shortcut "rebuild B from A" is acceptable as long as the
 overall chain back to MST is documented.
@@ -237,7 +237,7 @@ overall chain back to MST is documented.
 ## Future Work
 
 - **Streaming projection ADR**: define the firehose → MV pattern formally
-  (atproto `com.atproto.sync.subscribeRepos` → projection update). RisingWave
+  (atproto `com.atproto.sync.subscribeRepos` → projection update). Kotoba/Datomic
   streaming MVs are the natural fit but the contract should be substrate-
   agnostic so Iroh / Postgres CDC also qualify.
 - **Cross-app projection ADR**: when projection B in app X reads from MST commits

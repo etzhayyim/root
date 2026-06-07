@@ -20,7 +20,7 @@ depends_on:
   - adr-2604261100-rego-dmn-policy-decision-layers
 related:
   - adr-0018-pii-tier3-cohort-first
-  - adr-0048-risingwave-vultr-b2-primary
+  - adr-0048-kotoba-vultr-b2-primary
   - adr-0095-simplified-3layer-identity-rw-vault
 supersedes: []
 superseded_by: []
@@ -45,7 +45,7 @@ IRP の詳細手順書は `90-docs/irp/` に別途置く。
 
 | Level | 名称 | 定義 | 例 |
 |---|---|---|---|
-| **P0** | Critical | データ平面完全停止 / PII 漏洩確定 / RisingWave データ損失 | vault 鍵素材漏洩、RW クラスタ全落ち |
+| **P0** | Critical | データ平面完全停止 / PII 漏洩確定 / Kotoba/Datomic データ損失 | vault 鍵素材漏洩、RW クラスタ全落ち |
 | **P1** | High | 主要機能停止 (read-only 縮退含む) / clearance 認可バイパス疑い | atproto PDS 停止、Rego policy 誤判定 |
 | **P2** | Medium | 部分機能劣化 / 潜在的セキュリティ影響 | 特定 actor MCP タイムアウト、B2 SlowDown 頻発 |
 | **P3** | Low | 軽微な劣化 / 予防的対応 | 証跡ログ遅延、clearance rejection 急増 (攻撃未遂) |

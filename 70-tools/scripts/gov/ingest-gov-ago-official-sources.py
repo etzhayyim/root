@@ -22,7 +22,7 @@ from typing import Any
 from urllib.parse import urlparse
 
 import boto3
-import psycopg2
+import psycopg2 # kotoba-datomic-projection: historical offline script
 
 
 OWNER_DID = "did:web:ago-state.etzhayyim.com"
@@ -353,7 +353,7 @@ def upsert_rows_with_retry(conn: Any, source: dict[str, str], assets: dict[str, 
 
 
 def main() -> None:
-    rw_url = os.environ.get("RW_URL") or os.environ.get("DATABASE_URL") or keychain("etzhayyim.rw", "ROOT_URL")
+    rw_url = os.environ.get("KOTOBA_URL") or os.environ.get("DATABASE_URL") or keychain("etzhayyim.rw", "ROOT_URL")
     key_id = os.environ.get("etzhayyim_B2_KEY_ID") or keychain("etzhayyim.b2", "APPLICATION_KEY_ID")
     app_key = os.environ.get("etzhayyim_B2_APP_KEY") or keychain("etzhayyim.b2", "APPLICATION_KEY")
     client = boto3.client(

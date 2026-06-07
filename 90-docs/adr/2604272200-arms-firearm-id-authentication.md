@@ -25,7 +25,7 @@ superseded_by: []
 
 **Date**: 2026-04-27
 **Status**: Active
-**Layer**: L3 CF Worker Dispatcher + L4 RisingWave registry
+**Layer**: L3 CF Worker Dispatcher + L4 Kotoba/Datomic registry
 **Actor DID**: `did:web:arms.etzhayyim.com`
 **Complies with**: ADR-0036 (Worker-direct Hyperdrive), ADR-0018 (Tier 3 PII), ADR-0004 (Write-only Derived)
 
@@ -36,7 +36,7 @@ Enable physical firearm ID authentication and immutable chain-of-custody trackin
 ## Scope
 
 - `arms.etzhayyim.com` CF Worker — 12 XRPC methods under `com.etzhayyim.apps.arms.*`
-- RisingWave schema: 5 vertex tables + 2 PII tables + 2 edge tables + 1 MV
+- Kotoba/Datomic schema: 5 vertex tables + 2 PII tables + 2 edge tables + 1 MV
 - Rego AuthZ policy: `00-contracts/policies/etzhayyim/xrpc/arms/`
 - Defence cluster integration: `vertex_open_defence_event`
 
@@ -137,7 +137,7 @@ Key rules:
 
 - Worker: `arms.etzhayyim.com` (CF Worker, `did:web:arms.etzhayyim.com`)
 - nanoid: `arms`
-- magatama.jsonld: `60-apps/etzhayyim-project-arms/worker/magatama.jsonld`
+- kotodama.jsonld: `60-apps/etzhayyim-project-arms/worker/kotodama.jsonld`
 - Migration: `30-graph/graph-schema/migrations/20260427*_arms_*.ts` (9 tables applied)
 - database.ts: regenerated 2026-04-27, 2,227 tables, zero drift
 
@@ -149,7 +149,7 @@ Key rules:
 
 - BPMN: `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/arms/expiredPermitScanner.bpmn`
 - Registry migration: `30-graph/graph-schema/migrations/20260428000000_seed_arms_expired_permit_scanner.ts`
-- RisingWave rows confirmed: `vertex_bpmn_process_def` + `vertex_bpmn_lexicon_binding`
+- Kotoba/Datomic rows confirmed: `vertex_bpmn_process_def` + `vertex_bpmn_lexicon_binding`
 - NSID: `com.etzhayyim.apps.arms.scanExpiredPermits` (timer-start + manual trigger)
 - Flow: `generic.db.select` (count active-expired) → `generic.db.insert` (PK-upsert `status='expired'`) → `generic.audit.emit`
 
@@ -165,4 +165,4 @@ Key rules:
 - ADR-0035 JPN Seizure cluster topology (pattern reference)
 - `00-contracts/policies/etzhayyim/xrpc/arms/` — Rego policy + data + tests
 - `60-apps/etzhayyim-project-arms/worker/src/app.ts` — Worker implementation
-- `30-graph/graph-schema/migrations/` — RisingWave DDL
+- `30-graph/graph-schema/migrations/` — Kotoba/Datomic DDL

@@ -13,7 +13,7 @@
  */
 import { createHash } from "node:crypto";
 
-const RW_CONN = process.env.RW_CONN ?? "postgresql://root@127.0.0.1:14566/dev?sslmode=disable";
+const KOTOBA_URL = process.env.KOTOBA_URL ?? "postgresql://root@127.0.0.1:14566/dev?sslmode=disable";
 const OWNER_DID = "did:web:recruit.etzhayyim.com";
 const EXTRACTOR_VERSION = "curpus2skill-v0.1.0";
 const SOURCE = "curpus2skill";
@@ -130,7 +130,7 @@ let _pool = null;
 async function pool() {
   if (_pool) return _pool;
   const { default: pg } = await import("/Users/junkawasaki/github/etzhayyim-root/30-graph/graph-schema/node_modules/pg/lib/index.js");
-  _pool = new pg.Pool({ connectionString: RW_CONN, max: 2, statement_timeout: 120000 });
+  _pool = new pg.Pool({ connectionString: KOTOBA_URL, max: 2, statement_timeout: 120000 });
   return _pool;
 }
 

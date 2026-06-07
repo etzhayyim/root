@@ -36,7 +36,7 @@
 {:schema/id      "isic-packs"
  :schema/version "0.1.0"
  :schema/adr     "2606037200"
- :schema/note    "21 ISIC Rev.4 section packs (A..U) + high-value division packs. Section→pack resolution mirrors open-isic sectionForDivision (60-apps/ai-gftd-project-open-isic/rw-free/src/types.ts). A tenant with no declared ISIC code falls back to the generic base (no pack)."
+ :schema/note    "21 ISIC Rev.4 section packs (A..U) + high-value division packs. Section→pack resolution mirrors open-isic sectionForDivision (60-apps/etzhayyim-project-open-isic/rw-free/src/types.ts). A tenant with no declared ISIC code falls back to the generic base (no pack)."
  :graph          {:name "kyber-erp-v1" :visibility :public}
 
  ;; ── section packs (21) ────────────────────────────────────────────────────

@@ -114,13 +114,13 @@ while IFS=, read -r raw_code raw_slug raw_name; do
   mkdir -p "$target_dir/wit"
 
   cp "$TEMPLATE_DIR/main.go" "$target_dir/main.go"
-  cp "$TEMPLATE_DIR/magatama.jsonld" "$target_dir/magatama.jsonld"
+  cp "$TEMPLATE_DIR/kotodama.jsonld" "$target_dir/kotodama.jsonld"
   cp "$TEMPLATE_DIR/go.mod" "$target_dir/go.mod"
   cp "$TEMPLATE_DIR/wit/world.wit" "$target_dir/wit/world.wit"
   cp "$TEMPLATE_DIR/wit/package.wit" "$target_dir/wit/package.wit"
 
   rewrite_file_common "$target_dir/main.go" "$code" "$name" "$slug" "$nanoid" "$short_name"
-  rewrite_file_common "$target_dir/magatama.jsonld" "$code" "$name" "$slug" "$nanoid" "$short_name"
+  rewrite_file_common "$target_dir/kotodama.jsonld" "$code" "$name" "$slug" "$nanoid" "$short_name"
   rewrite_file_common "$target_dir/go.mod" "$code" "$name" "$slug" "$nanoid" "$short_name"
   rewrite_file_common "$target_dir/wit/world.wit" "$code" "$name" "$slug" "$nanoid" "$short_name"
   rewrite_file_common "$target_dir/wit/package.wit" "$code" "$name" "$slug" "$nanoid" "$short_name"
@@ -139,8 +139,8 @@ while IFS=, read -r raw_code raw_slug raw_name; do
 
   sed \
     -e "s/\"avatar\": \"43\"/\"avatar\": \"${code}\"/" \
-    "$target_dir/magatama.jsonld" > "$target_dir/magatama.jsonld.tmp"
-  mv "$target_dir/magatama.jsonld.tmp" "$target_dir/magatama.jsonld"
+    "$target_dir/kotodama.jsonld" > "$target_dir/kotodama.jsonld.tmp"
+  mv "$target_dir/kotodama.jsonld.tmp" "$target_dir/kotodama.jsonld"
 
   created=$((created + 1))
 done < <(tail -n +2 "$CSV_FILE")

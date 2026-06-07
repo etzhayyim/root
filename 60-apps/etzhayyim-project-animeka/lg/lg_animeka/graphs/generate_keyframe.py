@@ -106,7 +106,7 @@ async def _node_render(state: _State) -> dict[str, Any]:
     base_prompt = state.get("visual_prompt") or "anime character in scenic environment"
     full_prompt = base_prompt + _ANIME_STYLE
     try:
-        from pymagatama.primitives.shinshi_image import (
+        from kotodama.primitives.shinshi_image import (
             _build_anime_workflow,
             _comfy_render_png,
             _upload_blob_to_pds,

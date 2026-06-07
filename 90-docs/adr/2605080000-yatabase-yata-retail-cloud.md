@@ -14,12 +14,12 @@ authoritative_for:
   - retail-cloud-tenant-isolation
   - io-yatabase-supabase-neo4j-baas-surface
 related:
-  - adr-0002-graph-storage-risingwave
+  - adr-0002-graph-storage-kotoba
   - adr-0036-worker-direct-hyperdrive-persistence
-  - adr-0044-risingwave-udf-language-strategy
-  - adr-0048-risingwave-vultr-b2-primary
+  - adr-0044-kotoba-udf-language-strategy
+  - adr-0048-kotoba-vultr-b2-primary
   - adr-0056-bpmn-as-actor
-  - adr-0087-magatama-mcp-tool-facade
+  - adr-0087-kotodama-mcp-tool-facade
   - adr-0095-simplified-3layer-identity-rw-vault
   - adr-2604282300
   - adr-2605010000
@@ -30,7 +30,7 @@ superseded_by: []
 
 # Goal
 
-etzhayyim platform の余剰能力 (B2 Bandwidth Alliance の実質ゼロ egress、RisingWave
+etzhayyim platform の余剰能力 (B2 Bandwidth Alliance の実質ゼロ egress、Kotoba/Datomic
 shared cluster の compute、self-host RunPod LLM) を **retail cloud product** と
 して外部顧客に再販する。3 つの製品 (yatabase / obj / yata) と 1 つの基盤
 (billing v2) を 1 本の ADR で確定する。原価優位 (B2 storage = $0.006/GB-month、
@@ -43,7 +43,7 @@ In:
 - 課金軸 5 種 (storage / egress / LLM / GPU / API request) の単価 list 価格
 - Plan 階層 6 種 (Free / Starter / Developer / Team / Business / Enterprise)
 - Sales discount 原資階層 (年契約 / multi-year / 学生 / startup / channel partner / volume / migration / floor)
-- 製品 1: **yatabase.etzhayyim.com** — RisingWave-backed graph database (PG / SPARQL / Cypher / MCP)
+- 製品 1: **yatabase.etzhayyim.com** — Kotoba/Datomic-backed graph database (PG / SPARQL / Cypher / MCP)
 - 製品 2: **obj.etzhayyim.com** — B2-backed S3-compatible object storage with auto-tiering / LLM tagging / vector embedding / Vault E2E
 - 製品 3: **yata** Rust crate — canonical client SDK for yatabase
 - 課金 metering schema (`vertex_billing_event` + 5 streaming MV)
@@ -288,7 +288,7 @@ List price (公開価格)              ¥4,980 (例: Developer)
 **CFO 承認**: 40-50%。
 **CEO 承認**: 50% 超 (敗戦処理 / 戦略 deal のみ)。
 
-## D7. Billing 軸 metering schema (RisingWave)
+## D7. Billing 軸 metering schema (Kotoba/Datomic)
 
 ```sql
 -- usage event (per request, per token, per byte)
@@ -517,7 +517,7 @@ backend / billing / tenant 境界 / brand は分離しない**。
 | S9 | **`/rest/v1/{table}`** (PostgREST 互換) | auto-generated REST CRUD | 同 S1 | Hyperdrive + per-tenant role + SQL builder | **P3.8 (new)** |
 | S10 | **`/graphql/v1`** | GraphQL query/mutation/subscription | 同 S1 | `pg_graphql` 風 schema introspection (RW VIEW based) | **P3.8 (new)** |
 | S11 | **`/auth/v1/*`** (GoTrue 互換) | sign-up / token / OAuth callback | atproto OAuth canonical | atproto OAuth bridge → `sk_live_yata_*` mint | **P3.6 (new)** |
-| S12 | **`/functions/v1/{name}`** | Edge Function invoke | 同 S1 | magatama Invoke (L3/L7/L8) pass-through | **P3.9 (new)** |
+| S12 | **`/functions/v1/{name}`** | Edge Function invoke | 同 S1 | kotodama Invoke (L3/L7/L8) pass-through | **P3.9 (new)** |
 | S13 | **`/mcp`** (Streamable HTTP, JSON-RPC 2.0) | AI agent / external principal sole surface | atproto JWT or `sk_live_yata_*` | MCP facade → tool registry (RW L4) | **P3.5 (new)** |
 | S14 | **`studio.yatabase.etzhayyim.com`** | tenant operator UI | atproto OAuth (browser) | Svelte CSR + S1-S13 を fetch | **P3.10 (new)** |
 | S15 | `/health`, `/_app/meta` | edge probe | public | CF Worker | P0 ✅ |
@@ -530,7 +530,7 @@ backend / billing / tenant 境界 / brand は分離しない**。
 | Cypher / Bolt / Realtime / REST / GraphQL は internal cytoplasmic XRPC を ecosystem ツール向けに wire 互換包装したもの。新 lexicon は導入しない | ADR-2605091400 + 本 ADR §D4 |
 | Domain write は Hyperdrive direct (ADR-0036)。`com.atproto.repo.createRecord` を `com.etzhayyim.apps.yata.*` で使わない | ADR-0036 + 60-apps/etzhayyim-project-yatabase/CLAUDE.md |
 | Tenant 境界は `yata_<sha256(did)[:16]>` per-org RW DB + per-org PG ROLE | 本 ADR §D8 |
-| RW OLTP 制約 (`ON CONFLICT` 不可、tx 不可、`UNIQUE` 不可、strict serializability 不可) は **全 surface で同様に開示**。PostgREST / GraphQL の wire response にも `Sql-Constraint-Mode: rw-eventual` ヘッダで明示 | 90-docs/260424-bsky-compat-risingwave-split.md |
+| RW OLTP 制約 (`ON CONFLICT` 不可、tx 不可、`UNIQUE` 不可、strict serializability 不可) は **全 surface で同様に開示**。PostgREST / GraphQL の wire response にも `Sql-Constraint-Mode: rw-eventual` ヘッダで明示 | 90-docs/260424-bsky-compat-kotoba-split.md |
 | Auth は **atproto OAuth が canonical**。GoTrue 互換 shim (S11) は token mint だけ担当、内部 JWT は ES256 atproto session | ADR-2604231821 + 本 ADR §D8 |
 | billing は既存 5 軸 (`storage_gb_hour` / `egress_gb` / `api_request` / `yata_query_cu_ms` / `yata_node_hour` / `yata_edge_hour`) に正規化。新 metric は導入しない | 本 ADR §D7 + §D22 |
 | Bolt (S7) は **CF Worker の外** (TCP long-lived は Worker 30s/128MB 不可)。Vultr VKE LAX L4 LB に直結 | ADR-2604282300 |
@@ -868,7 +868,7 @@ shape を返すが、`access_token` は **ES256 atproto session JWT** (canonical
 ## D19. S12 — `/functions/v1/{name}` Edge Functions
 
 **Position**: 「supabase-js `functions.invoke('hello', { body })` が動く serverless
-endpoint。実体は **magatama Invoke pass-through**」。
+endpoint。実体は **kotodama Invoke pass-through**」。
 
 ### Forwarding
 
@@ -878,7 +878,7 @@ POST /functions/v1/{name} HTTP/1.1
   Content-Type: application/json
   { "body": ... }
 
-CF Worker → magatama.Invoke(targetDid, method, params)
+CF Worker → kotodama.Invoke(targetDid, method, params)
   ├─ name → `did:web:yatabase.etzhayyim.com:fn:{name}` に解決
   ├─ governance gate (`RequireApproval` / `WithBPMNTask` / etc.)
   ├─ L3 dispatcher (~30s/128MB) → response 即時
@@ -890,7 +890,7 @@ CF Worker → magatama.Invoke(targetDid, method, params)
 
 - 顧客 plan limit に従い `/functions/v1/admin/deploy` で zip 形式の TS
   source を upload
-- magatama `app.command()` 規約に準拠 (project actor composition)
+- kotodama `app.command()` 規約に準拠 (project actor composition)
 - **MVP は read-only invoke のみ** (顧客 function は `vertex_<label>` write
   禁止、graph state を変更したい場合は MCP S13 経由)
 
@@ -925,8 +925,8 @@ Accept: text/event-stream, application/json
 
 ### Tool surface (auto-generated from XRPC + L4 registry)
 
-`com.etzhayyim.apps.yata.*` lexicon の `func` 全件 + `magatama.jsonld profile.capabilities`
-が自動で MCP tool になる (root rule + ADR-0087 magatama MCP facade と同方式)。
+`com.etzhayyim.apps.yata.*` lexicon の `func` 全件 + `kotodama.jsonld profile.capabilities`
+が自動で MCP tool になる (root rule + ADR-0087 kotodama MCP facade と同方式)。
 
 | Tool category | tool name 例 | underlying XRPC |
 |---|---|---|
@@ -1029,7 +1029,7 @@ surface が先に入っていなくてはならない)。
 | **P4b: Bolt :7687 (S7) + Auth `/auth/v1/*` (S11)** | M3-M4 | yata-bolt server crate + Vultr K8s LB → bolt.yatabase.etzhayyim.com TLS 終端、cypher-shell smoke test、GoTrue 互換 shim、atproto OAuth bridge |
 | **P4c: Realtime `/realtime/v1/*` (S8)** | M4 | DO `RealtimeMux` + RW MV poller BPMN、supabase-js `realtime.channel().on('postgres_changes', ...)` smoke |
 | **P4d: PostgREST `/rest/v1/*` (S9) + GraphQL `/graphql/v1` (S10)** | M4-M5 | postgrest-client smoke、yata-graphql crate (RW schema introspection)、Apollo client smoke |
-| **P4e: Edge Functions `/functions/v1/*` (S12)** | M5 | magatama.Invoke pass-through、`/functions/v1/admin/deploy` で zip upload、5 example fn |
+| **P4e: Edge Functions `/functions/v1/*` (S12)** | M5 | kotodama.Invoke pass-through、`/functions/v1/admin/deploy` で zip upload、5 example fn |
 | **P4f: Studio UI `studio.yatabase.etzhayyim.com` (S14)** | M5 | Svelte CSR + 10 sidebar pane + atproto OAuth login |
 | (existing P5-P12 は M3-M9+ のまま、P4a-P4f を blocker としない) | — | — |
 
@@ -1050,7 +1050,7 @@ P11 (Bolt) は P4b で前倒し済 → Phase 11 は **Bolt v5 binary protocol Ph
 | `yata-rest` | PostgREST compatibility wire (server emit + client) | P3.8 |
 | `yata-graphql` | RW schema → GraphQL SDL + resolver | P3.8 |
 | `yata-auth` | GoTrue 互換 shim (server-only sub-crate) | P3.6 |
-| `yata-functions` | magatama.Invoke pass-through binding | P3.9 |
+| `yata-functions` | kotodama.Invoke pass-through binding | P3.9 |
 | `yata-mcp` | MCP server export (既存予定、ADR §D5 に既出) | P3.5 (前倒し) |
 | `yata-web` | wasm-bindgen target for Studio embedding | P3.10 |
 
@@ -1256,19 +1256,19 @@ yatabase の MV / SQL query で十分カバー。分離は粗利を稀釈する�
 
 # References
 
-- ADR-0002 RisingWave-backed graph storage (P10v2 GraphAr-native columnar)
+- ADR-0002 Kotoba/Datomic-backed graph storage (P10v2 GraphAr-native columnar)
 - ADR-0036 Worker-direct Hyperdrive persistence (originator of `vertex_<actor>_<kind>` 規約)
-- ADR-0044 RisingWave UDF language strategy (graph reasoning impl 基盤)
-- ADR-0048 RisingWave primary cutover Linode → Vultr+B2 (cost basis)
+- ADR-0044 Kotoba/Datomic UDF language strategy (graph reasoning impl 基盤)
+- ADR-0048 Kotoba/Datomic primary cutover Linode → Vultr+B2 (cost basis)
 - ADR-0056 BPMN-as-actor (billing rollup の実装パターン)
-- ADR-0087 magatama MCP tool facade (yata MCP server export の prior art)
+- ADR-0087 kotodama MCP tool facade (yata MCP server export の prior art)
 - ADR-0095 3-Layer Identity + RW canonical columns (`org_did` / `actor_did` / `at_did` schema)
 - ADR-2604282300 CF Worker = edge layer + Zeebe + RW UDF (yatabase / obj edge worker の責務分離)
 - ADR-2605010000 RunPod 6000 Ada unified pod (LLM 原価基準)
 - ADR-2605011200 graph-expand BPMN LLM edge inference (graph reasoning bridge)
 - ADR-2605091400 MCP-as-cell-membrane / Lexicon+XRPC demotion (D12+ S13 `/mcp` を sole external surface に固定する根拠)
 - 30-graph/kagami-cypher-compiler/ (D13 S6 `/cypher` の openCypher → SQL/PGQ 変換器、in-tree 既存)
-- 90-docs/260424-bsky-compat-risingwave-split.md (RW OLTP 制約の権威ソース)
+- 90-docs/260424-bsky-compat-kotoba-split.md (RW OLTP 制約の権威ソース)
 
 # Appendix A. yata crate Cargo.toml workspace skeleton
 

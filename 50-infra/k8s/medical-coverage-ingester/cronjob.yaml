@@ -3,13 +3,13 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: medical-coverage-ingester
-  namespace: risingwave
+  namespace: mitama-udf
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: medical-coverage-ingester-rw-health
-  namespace: risingwave
+  namespace: mitama-udf
 rules:
   - apiGroups: [""]
     resources: ["pods"]
@@ -22,11 +22,11 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: medical-coverage-ingester-rw-health
-  namespace: risingwave
+  namespace: mitama-udf
 subjects:
   - kind: ServiceAccount
     name: medical-coverage-ingester
-    namespace: risingwave
+    namespace: mitama-udf
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -36,7 +36,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: medical-coverage-ingester
-  namespace: risingwave
+  namespace: mitama-udf
   labels:
     app.kubernetes.io/name: medical-coverage-ingester
     app.kubernetes.io/component: ingester
@@ -46,7 +46,7 @@ spec:
   # PubMed / ClinicalTrials.gov paging strictly single-writer per target.
   schedule: "*/10 * * * *"
   timeZone: "Etc/UTC"
-  # Health gates inside the ingester skip writes when RisingWave is recovering
+  # Health gates inside the ingester skip writes when Kotoba/Datomic is recovering
   # or compute pods are too young.
   suspend: true
   concurrencyPolicy: Forbid
@@ -71,11 +71,11 @@ spec:
               image: ghcr.io/etzhayyim/medical-coverage-ingester:latest
               imagePullPolicy: Always
               env:
-                - name: RW_DSN
+                - name: KOTOBA_URL
                   valueFrom:
                     secretKeyRef:
                       name: medical-coverage-ingester-secrets
-                      key: RW_DSN
+                      key: KOTOBA_URL
                 - name: AWS_ACCESS_KEY_ID
                   valueFrom:
                     secretKeyRef:

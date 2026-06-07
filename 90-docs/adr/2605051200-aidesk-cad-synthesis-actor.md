@@ -61,7 +61,7 @@ superseded_by: []
 | AT facade DID | `did:web:aidesk.etzhayyim.com` |
 | NSID prefix (商用) | `com.etzhayyim.apps.aidesk.*` |
 | NSID prefix (研究) | `com.etzhayyim.apps.aidesk.research.*` (Phase 2) |
-| AT Protocol layer | L3 Dispatcher (CF Worker) + L7 BPMN (pymagatama) |
+| AT Protocol layer | L3 Dispatcher (CF Worker) + L7 BPMN (kotodama) |
 | Tier | T2 inference/orchestration + T3 CF Worker facade |
 
 ### D2: 推論ホスティング (Phase 1)
@@ -74,8 +74,8 @@ superseded_by: []
 ```yaml
 # 50-infra/vultr/mitama-udf-pool/values.yaml への追記 (Phase 2)
 aideskWorker:
-  enabled: false   # Phase 1 = pymagatama 同居, Phase 2 = dedicated pod
-  image: ghcr.io/etzhayyim/pymagatama:{tag}
+  enabled: false   # Phase 1 = kotodama 同居, Phase 2 = dedicated pod
+  image: ghcr.io/etzhayyim/kotodama:{tag}
   resources:
     requests: { cpu: "4", memory: "12Gi" }
     limits:   { cpu: "8", memory: "16Gi" }
@@ -97,7 +97,7 @@ aideskWorker:
    - Zeebe publishMessage → trigger BPMN
       │
       ▼
- L7 Zeebe BPMN (T2 pymagatama worker, K8s-internal)
+ L7 Zeebe BPMN (T2 kotodama worker, K8s-internal)
    aidesk_synthesize_cad_from_image:
      1. generic.db.select  → fetch job + input blob from B2
      2. aidesk.cad.synthesize → Zero-To-CAD inference
@@ -122,7 +122,7 @@ generic.pds.dispatch (K8s-internal bpmn-dispatcher ClusterIP)
 ### D5: ライセンス強制ゲート
 
 ```python
-# pymagatama/primitives/aidesk.py
+# kotodama/primitives/aidesk.py
 COMMERCIAL_LICENSE_TIERS = {"apache2"}
 
 def _tsukuru_handoff_gate(artifact: dict) -> None:
@@ -166,7 +166,7 @@ Research NSID は tsukuru handler から **import 不可** (BPMN 依存なし、
 
 ---
 
-## RisingWave Schema
+## Kotoba/Datomic Schema
 
 ```sql
 -- Commercial artifacts (Apache 2.0 only, tsukuru-joinable)
@@ -294,12 +294,12 @@ CREATE TABLE vertex_aidesk_research_artifact (
 
 ---
 
-## pymagatama Primitives
+## kotodama Primitives
 
 ```python
-# 20-actors/magatama/py/src/pymagatama/primitives/aidesk.py
+# 40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/aidesk.py
 
-from pymagatama.primitives.core import rw_conn
+from kotodama.primitives.core import rw_conn
 import boto3, subprocess, tempfile, os, json
 
 ZERO_TO_CAD_MODEL = "ADSKAILab/Zero-To-CAD-Qwen3-VL-2B"
@@ -363,7 +363,7 @@ async def task_aidesk_tsukuru_handoff(variables: dict) -> dict:
 
 ```typescript
 // 60-apps/etzhayyim-project-aidesk/appview/aidesk-a1d3sk00/src/app.ts
-import { createWorkerExport, createKyselyDb } from "@etzhayyim/magatama-host-sdk";
+import { createWorkerExport, createKyselyDb } from "@etzhayyim/kotodama-host-sdk";
 import type { Database } from "@etzhayyim/graph-schema";
 
 export default createWorkerExport((sdk) => {
@@ -489,8 +489,8 @@ export default createWorkerExport((sdk) => {
 ```
 60-apps/etzhayyim-project-aidesk/
 ├── CLAUDE.md
-├── magatama.jsonld
-├── magatama.toml
+├── kotodama.jsonld
+├── kotodama.toml
 └── appview/
     └── aidesk-a1d3sk00/
         ├── package.json
@@ -510,7 +510,7 @@ export default createWorkerExport((sdk) => {
     ├── synthesizeCadFromImage.bpmn
     └── exportToTsukuru.bpmn
 
-20-actors/magatama/py/src/pymagatama/primitives/
+40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/
 └── aidesk.py
 
 30-graph/graph-schema/migrations/
@@ -536,7 +536,7 @@ export default createWorkerExport((sdk) => {
 - ADR-0036 (Worker-direct Hyperdrive)
 - ADR-0095 (3-Layer Identity — actor_did/org_did/at_did columns)
 - ADR-0074 (ERC725 Root Identity)
-- ADR-0044 (RisingWave UDF Language Strategy)
+- ADR-0044 (Kotoba/Datomic UDF Language Strategy)
 - `60-apps/etzhayyim-project-tsukuru/CLAUDE.md`
 - https://huggingface.co/ADSKAILab/Zero-To-CAD-Qwen3-VL-2B (arXiv:2604.24479)
 - https://huggingface.co/ADSKAILab (Make-A-Shape / WaLa — Non-Commercial)

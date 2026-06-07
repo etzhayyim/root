@@ -36,7 +36,7 @@ related:
 Actor (inference / render / deploy)
   │  usage emit  (vertex_contribution_usage)
   ▼
-RisingWave MV (mv_contribution_royalty_daily)
+Kotoba/Datomic MV (mv_contribution_royalty_daily)
   │  daily batch
   ▼
 Zeebe BPMN (contributionRoyaltyDistribute.bpmn  R/PT24H)
@@ -148,7 +148,7 @@ contract ContributionRoyaltyRegistry is Ownable2Step {
 
 ---
 
-### 2. グラフ層: RisingWave テーブル + MV
+### 2. グラフ層: Kotoba/Datomic テーブル + MV
 
 ```sql
 -- コントリビューションソース登録表 (オンチェーンの mirror + 追加メタデータ)
@@ -238,7 +238,7 @@ GROUP BY
 `MurakumoEscrow.settleJob()` が settle されるたびに、BPMN ハンドラ or pyzeebe が使用した `modelId` を `vertex_contribution_usage` に INSERT する。
 
 ```python
-# 20-actors/magatama/py/src/pymagatama/primitives/contribution_usage.py
+# 40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/contribution_usage.py
 async def emit_contribution_usage(
     db, source_hash: str, consumer_did: str,
     usage_type: str, gcc_value_wei: str
@@ -319,7 +319,7 @@ Safe (multisig) が `royalty_bps` を個別ソースごとに変更できる (au
 
 | Phase | 内容 | 前提 |
 |---|---|---|
-| **P1 (今日〜1 週)** | ContributionRoyaltyRegistry デプロイ + 初期 10K GCC 入金 + RisingWave 2 テーブル作成 | 既存 GCC + Safe |
+| **P1 (今日〜1 週)** | ContributionRoyaltyRegistry デプロイ + 初期 10K GCC 入金 + Kotoba/Datomic 2 テーブル作成 | 既存 GCC + Safe |
 | **P2 (1〜2 週)** | Murakumo 推論 usage emit (modelId → source_hash lookup) + BPMN distributionWorker | ADR-0056 BPMN |
 | **P3 (2〜3 週)** | `etzhayyim deploy` 依存解析 + `com.etzhayyim.authz.registerContributionSource` XRPC + pending claim 機能 | authz Worker |
 | **P4 (3〜4 週)** | yoro UI: `/credits` にコントリビューター残高 + claim ボタン | authz getActorTokenBalance |

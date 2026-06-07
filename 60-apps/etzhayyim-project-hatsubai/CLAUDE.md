@@ -1,21 +1,21 @@
-# ai-gftd-project-hatsubai — Console Publishing Pipeline (BPMN-as-actor)
+# etzhayyim-project-hatsubai — Console Publishing Pipeline (BPMN-as-actor)
 
-`hatsubai.gftd.ai` (発売 = "release / put on sale") — game-console
+`hatsubai.etzhayyim.com` (発売 = "release / put on sale") — game-console
 publishing actor covering **Nintendo Switch 2 / PlayStation 5 / Xbox
 Series X|S / Steam (PC)** under one set of XRPC + Lexicon contracts.
-**No CF Worker** — BPMN-as-actor (ADR-0056) running on `bpmn.gftd.ai`,
-mirroring `ai-gftd-project-gameka`.
+**No CF Worker** — BPMN-as-actor (ADR-0056) running on `bpmn.etzhayyim.com`,
+mirroring `etzhayyim-project-gameka`.
 
 ## Topology
 
 | 項目 | 値 |
 |---|---|
-| Layer (ADR-2604231811) | Actor Worker (Layer 10 GFTD ext.) |
-| Worker host | `bpmn.gftd.ai` (LangGraph/Pregel/LangChain + LangServer shim) — no dedicated CF Worker |
-| Primary DID | `did:web:hatsubai.gftd.ai` |
-| Sub-DID per platform release | `did:web:hatsubai.gftd.ai:platform:{nsw2,ps5,xbsx,steam}` |
-| Sub-DID per shipped title (P3) | `did:web:hatsubai.gftd.ai:title:{platform}-{slug}` |
-| NSID prefix | `ai.gftd.apps.hatsubai.*` |
+| Layer (ADR-2604231811) | Actor Worker (Layer 10 ETZHAYYIM ext.) |
+| Worker host | `bpmn.etzhayyim.com` (LangGraph/Pregel/LangChain + LangServer shim) — no dedicated CF Worker |
+| Primary DID | `did:web:hatsubai.etzhayyim.com` |
+| Sub-DID per platform release | `did:web:hatsubai.etzhayyim.com:platform:{nsw2,ps5,xbsx,steam}` |
+| Sub-DID per shipped title (P3) | `did:web:hatsubai.etzhayyim.com:title:{platform}-{slug}` |
+| NSID prefix | `ai.etzhayyim.apps.hatsubai.*` |
 | Persistence (ADR-0036) | domain → Worker-direct Hyperdrive (Kysely), social → `sdk.pds.dispatch` |
 | Ratings boards | CERO / ESRB / PEGI / IARC / GRAC / DJCTQ / SGRB / RARS |
 | Scope boundary | upstream of any **vendor portal automation** — we model state, not scrape Nintendo Developer Portal / DevNet / Partner Center / Steamworks |
@@ -57,23 +57,23 @@ submitToCert
 when `latest round result = pending` (one open submission per build).
 Operators manually `withdrawn` to unblock.
 
-## Lexicons (`00-contracts/lexicons/ai/gftd/apps/hatsubai/`)
+## Lexicons (`00-contracts/lexicons/ai/etzhayyim/apps/hatsubai/`)
 
 | NSID | type | Status |
 |---|---|---|
-| `ai.gftd.apps.hatsubai.platform`         | record    | ✅ |
-| `ai.gftd.apps.hatsubai.partnerAccount`   | record    | ✅ |
-| `ai.gftd.apps.hatsubai.devkit`           | record    | ✅ |
-| `ai.gftd.apps.hatsubai.sdkVersion`       | record    | ✅ |
-| `ai.gftd.apps.hatsubai.title`            | record    | ✅ |
-| `ai.gftd.apps.hatsubai.titleBuild`       | record    | ✅ |
-| `ai.gftd.apps.hatsubai.trcCheck`         | record    | ✅ |
-| `ai.gftd.apps.hatsubai.certSubmission`   | record    | ✅ |
-| `ai.gftd.apps.hatsubai.ageRating`        | record    | ✅ |
-| `ai.gftd.apps.hatsubai.storeListing`     | record    | ✅ |
-| `ai.gftd.apps.hatsubai.storeAsset`       | record    | ✅ |
-| `ai.gftd.apps.hatsubai.submitToCert`     | procedure | ✅ |
-| `ai.gftd.apps.hatsubai.publishToStore`   | procedure | ✅ |
+| `ai.etzhayyim.apps.hatsubai.platform`         | record    | ✅ |
+| `ai.etzhayyim.apps.hatsubai.partnerAccount`   | record    | ✅ |
+| `ai.etzhayyim.apps.hatsubai.devkit`           | record    | ✅ |
+| `ai.etzhayyim.apps.hatsubai.sdkVersion`       | record    | ✅ |
+| `ai.etzhayyim.apps.hatsubai.title`            | record    | ✅ |
+| `ai.etzhayyim.apps.hatsubai.titleBuild`       | record    | ✅ |
+| `ai.etzhayyim.apps.hatsubai.trcCheck`         | record    | ✅ |
+| `ai.etzhayyim.apps.hatsubai.certSubmission`   | record    | ✅ |
+| `ai.etzhayyim.apps.hatsubai.ageRating`        | record    | ✅ |
+| `ai.etzhayyim.apps.hatsubai.storeListing`     | record    | ✅ |
+| `ai.etzhayyim.apps.hatsubai.storeAsset`       | record    | ✅ |
+| `ai.etzhayyim.apps.hatsubai.submitToCert`     | procedure | ✅ |
+| `ai.etzhayyim.apps.hatsubai.publishToStore`   | procedure | ✅ |
 
 ## RisingWave schema
 
@@ -155,18 +155,18 @@ INSERT INTO vertex_hatsubai_platform
    cert_program_name, submission_portal_url, developer_portal_url,
    region_locked, actor_did, org_did, at_did, created_at)
 VALUES
-  ('at://did:web:hatsubai.gftd.ai/ai.gftd.apps.hatsubai.platform/nsw2',
-   0, 0, 'did:web:hatsubai.gftd.ai',
-   'nsw2', 'Nintendo Switch 2', 'did:web:legal.gftd.ai:lei:353800XXXXXXXXXXXXXX',
+  ('at://did:web:hatsubai.etzhayyim.com/ai.etzhayyim.apps.hatsubai.platform/nsw2',
+   0, 0, 'did:web:hatsubai.etzhayyim.com',
+   'nsw2', 'Nintendo Switch 2', 'did:web:legal.etzhayyim.com:lei:353800XXXXXXXXXXXXXX',
    'Lotcheck', 'https://developer.nintendo.com/', 'https://developer.nintendo.com/',
-   true, 'did:erc725:gftd:260425:hatsubai', 'did:erc725:gftd:260425:etzhayim',
+   true, 'did:erc725:etzhayyim:260425:hatsubai', 'did:erc725:etzhayyim:260425:etzhayim',
    NULL, '2026-05-10T16:00:00Z');
 SQL
 ```
 
 ## Prohibitions
 
-- Do **not** create a CF Worker for `hatsubai`. ADR-0056 BPMN-as-actor is the contract (`bpmn.gftd.ai` LangGraph/Pregel/LangChain).
+- Do **not** create a CF Worker for `hatsubai`. ADR-0056 BPMN-as-actor is the contract (`bpmn.etzhayyim.com` LangGraph/Pregel/LangChain).
 - Do **not** model platform-specific cert process as separate vertex tables. `platform_code` on every relevant vertex is the SSoT axis.
 - Do **not** add `price`/`revshare`/`rating_age` as floats — AT Lexicon forbids `number`. Always scale to integers (`price_minor`, `revshare_bps`, `rating_age_min`).
 - Do **not** write PII (reviewer names, certificate body text) into AT Records — keep them at `*_uri` references to vault-side blobs.

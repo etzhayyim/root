@@ -1,6 +1,6 @@
 ---
 id: coverage-infer-statistical-entity-resolution-260416
-title: "etzhayyim coverage infer — Statistical Entity Resolution via RisingWave Python UDF"
+title: "etzhayyim coverage infer — Statistical Entity Resolution via Kotoba/Datomic Python UDF"
 status: active
 doc_type: how-to
 topic: cohort-evaluation
@@ -18,12 +18,12 @@ superseded_by: []
 
 多様な統計データ (ILOSTAT, 国勢調査, 業界統計等) から潜在的な entity を発見し (Phase B: Latent Discovery)、既存の cohort/actor と照合して同定していく (Phase A: Entity Resolution) CLI コマンド `etzhayyim coverage infer` を設計・実装する。
 
-統計計算は **RisingWave Python UDF** (Arrow Flight protocol) で実行する。
+統計計算は **Kotoba/Datomic Python UDF** (Arrow Flight protocol) で実行する。
 
 # Scope
 
-- **In**: CLI サブコマンド群、RisingWave Python UDF server、migration (tables + MV)、CSV/JSONL 入力
-- **Out**: PDS magatama.jsonld derive rule の変更、frontend UI、Murakumo LLM judge 統合 (後続 iteration)
+- **In**: CLI サブコマンド群、Kotoba/Datomic Python UDF server、migration (tables + MV)、CSV/JSONL 入力
+- **Out**: PDS kotodama.jsonld derive rule の変更、frontend UI、Murakumo LLM judge 統合 (後続 iteration)
 
 # Architecture
 
@@ -54,7 +54,7 @@ Input (CSV/JSONL)
   │
   └─ Phase C: Fission (auto) ───────────────────────────┐
      posterior > 0.95 && judge_agreement                 │
-     → PDS magatama.jsonld derive rule                   │
+     → PDS kotodama.jsonld derive rule                   │
      → etzhayyim cohort fission (existing)                    │
   └──────────────────────────────────────────────────────┘
 ```
@@ -68,15 +68,15 @@ Input (CSV/JSONL)
 | `etzhayyim coverage infer inspect --did X` | 特定 cohort の evidence 分布 + signal_kind 内訳 | Read |
 | `etzhayyim coverage infer posterior` | mv_cohort_identity_posterior の streaming 状態 | Read |
 | `etzhayyim coverage infer kdrift` | mv_cohort_k_drift の k-anonymity ドリフト検出 | Read |
-| `etzhayyim coverage infer discover` | 統計データ → latent cluster 発見 (RisingWave UDF) | Write |
+| `etzhayyim coverage infer discover` | 統計データ → latent cluster 発見 (Kotoba/Datomic UDF) | Write |
 | `etzhayyim coverage infer match` | 発見 cluster ↔ 既存 entity マッチング | Write |
 | `etzhayyim coverage infer fission --dry-run` | fission 候補一覧 + 実行 | Write |
 
-## RisingWave Python UDF Server
+## Kotoba/Datomic Python UDF Server
 
-Arrow Flight protocol で RisingWave と通信する外部 Python UDF server。
+Arrow Flight protocol で Kotoba/Datomic と通信する外部 Python UDF server。
 
-**Location**: `30-graph/risingwave-udf/`
+**Location**: `30-graph/kotoba-udf/`
 
 **Functions**:
 
@@ -87,7 +87,7 @@ Arrow Flight protocol で RisingWave と通信する外部 Python UDF server。
 | `posterior_update` | `DOUBLE, DOUBLE` | `DOUBLE` | Bayesian posterior update |
 | `segment_hash` | `JSONB` | `VARCHAR` | Demographic vector hash for k-anonymity |
 
-**Deploy**: Dockerfile → Linode LKE (alongside RisingWave cluster)。Port 8815。
+**Deploy**: Dockerfile → Linode LKE (alongside Kotoba/Datomic cluster)。Port 8815。
 
 ## Tables & MVs (new)
 
@@ -110,31 +110,31 @@ Arrow Flight protocol で RisingWave と通信する外部 Python UDF server。
 
 ## UDF Server (Linode LKE)
 
-UDF server は `risingwave` namespace に Deployment + ClusterIP Service としてデプロイ。
-RisingWave から `risingwave-python-udf.risingwave.svc:8815` でアクセス可能。
+UDF server は `kotoba` namespace に Deployment + ClusterIP Service としてデプロイ。
+Kotoba/Datomic から `kotoba-python-udf.kotoba.svc:8815` でアクセス可能。
 
 ```bash
 # 1. Build + push + apply (all-in-one)
-cd 30-graph/risingwave-udf
+cd 30-graph/kotoba-udf
 ./deploy.sh
 
 # Or step-by-step:
 ./deploy.sh build     # docker build
-./deploy.sh push      # ghcr.io/etzhayyim/risingwave-python-udf:latest
+./deploy.sh push      # ghcr.io/etzhayyim/kotoba-python-udf:latest
 ./deploy.sh apply     # kubectl apply + rollout wait
 ```
 
-**K8s manifest**: `50-infra/linode/risingwave-iceberg/kustomize/base/python-udf.yaml`
+**K8s manifest**: `50-infra/linode/kotoba-iceberg/kustomize/base/python-udf.yaml`
 
 | Resource | Value |
 |---|---|
-| Image | `ghcr.io/etzhayyim/risingwave-python-udf:latest` |
-| Namespace | `risingwave` |
+| Image | `ghcr.io/etzhayyim/kotoba-python-udf:latest` |
+| Namespace | `kotoba` |
 | Port | 8815 (Arrow Flight) |
-| Node selector | `rw-role: compute` (co-locate with RisingWave) |
+| Node selector | `rw-role: compute` (co-locate with Kotoba/Datomic) |
 | CPU | 250m request / 2 limit |
 | Memory | 512Mi request / 2Gi limit |
-| Service DNS | `risingwave-python-udf.risingwave.svc:8815` |
+| Service DNS | `kotoba-python-udf.kotoba.svc:8815` |
 
 ## UDF Registration (after deploy)
 
@@ -149,26 +149,26 @@ Or manually:
 ```sql
 CREATE FUNCTION cosine_similarity(DOUBLE PRECISION[], DOUBLE PRECISION[])
   RETURNS DOUBLE PRECISION LANGUAGE python AS cosine_similarity
-  USING LINK 'risingwave-python-udf.risingwave.svc:8815';
+  USING LINK 'kotoba-python-udf.kotoba.svc:8815';
 
 CREATE FUNCTION posterior_update(DOUBLE PRECISION, DOUBLE PRECISION)
   RETURNS DOUBLE PRECISION LANGUAGE python AS posterior_update
-  USING LINK 'risingwave-python-udf.risingwave.svc:8815';
+  USING LINK 'kotoba-python-udf.kotoba.svc:8815';
 
 CREATE FUNCTION segment_hash(JSONB)
   RETURNS VARCHAR LANGUAGE python AS segment_hash
-  USING LINK 'risingwave-python-udf.risingwave.svc:8815';
+  USING LINK 'kotoba-python-udf.kotoba.svc:8815';
 
 CREATE FUNCTION gmm_fit(DOUBLE PRECISION[], INT)
   RETURNS JSONB LANGUAGE python AS gmm_fit
-  USING LINK 'risingwave-python-udf.risingwave.svc:8815';
+  USING LINK 'kotoba-python-udf.kotoba.svc:8815';
 ```
 
 ## Verification
 
 ```bash
 # 1. UDF server running
-kubectl get pods -n risingwave -l app=risingwave-python-udf
+kubectl get pods -n kotoba -l app=kotoba-python-udf
 
 # 2. UDF callable
 psql -h <rw-host> -p 4566 -U root -d dev -c \
@@ -183,9 +183,9 @@ etzhayyim coverage infer kdrift
 
 # Implementation Plan
 
-1. RisingWave UDF server (`30-graph/risingwave-udf/`) -- DONE
+1. Kotoba/Datomic UDF server (`30-graph/kotoba-udf/`) -- DONE
 2. K8s manifest (`50-infra/.../kustomize/base/python-udf.yaml`) -- DONE
-3. Deploy script (`30-graph/risingwave-udf/deploy.sh`) -- DONE
+3. Deploy script (`30-graph/kotoba-udf/deploy.sh`) -- DONE
 4. Migrations (`20260416120000_infer_tables.ts`, `20260416120100_infer_udf_functions.ts`) -- DONE
 5. Go CLI `coverage_infer.go` — all subcommands -- DONE
 6. main.go routing -- DONE

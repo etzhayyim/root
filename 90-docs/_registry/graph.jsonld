@@ -31,38 +31,38 @@
   },
   "@graph": [
     {
-      "id": "doc:260319-magatama-wit-dodaf-nist-coverage",
+      "id": "doc:260319-kotodama-wit-dodaf-nist-coverage",
       "type": "TechArticle",
       "title": "App WIT — DoDAF v2 / NIST CSF 2.0 Coverage Map",
       "status": "active",
       "topic": "wit-coverage",
       "authoritative": true,
       "authoritativeFor": [
-        "magatama wit package coverage and compliance mapping"
+        "kotodama wit package coverage and compliance mapping"
       ],
-      "related": "doc:260320-magatama-cloudflare-containers-evaluation",
+      "related": "doc:260320-kotodama-cloudflare-containers-evaluation",
       "lastVerified": "2026-03-20"
     },
     {
-      "id": "doc:260320-magatama-cloudflare-containers-evaluation",
+      "id": "doc:260320-kotodama-cloudflare-containers-evaluation",
       "type": "Article",
-      "title": "Magatama vs Cloudflare Containers Evaluation",
+      "title": "Kotodama vs Cloudflare Containers Evaluation",
       "status": "active",
       "topic": "runtime-selection",
       "authoritative": true,
       "authoritativeFor": [
-        "magatama runtime default vs container fallback"
+        "kotodama runtime default vs container fallback"
       ],
       "related": [
-        "doc:260320-magatama-cloudflare-containers-evaluation",
-        "doc:260320-magatama-cloudflare-worker-rpc-optimization"
+        "doc:260320-kotodama-cloudflare-containers-evaluation",
+        "doc:260320-kotodama-cloudflare-worker-rpc-optimization"
       ],
       "lastVerified": "2026-03-20"
     },
     {
-      "id": "doc:260320-magatama-cloudflare-worker-rpc-optimization",
+      "id": "doc:260320-kotodama-cloudflare-worker-rpc-optimization",
       "type": "TechArticle",
-      "title": "Magatama Cloudflare Worker RPC Optimization",
+      "title": "Kotodama Cloudflare Worker RPC Optimization",
       "status": "active",
       "topic": "worker-rpc-transport",
       "authoritative": true,
@@ -70,8 +70,8 @@
         "worker internal transport selection between rpc and http service bindings"
       ],
       "related": [
-        "doc:260320-magatama-cloudflare-containers-evaluation",
-        "doc:260320-magatama-cloudflare-containers-evaluation"
+        "doc:260320-kotodama-cloudflare-containers-evaluation",
+        "doc:260320-kotodama-cloudflare-containers-evaluation"
       ],
       "lastVerified": "2026-03-20"
     },
@@ -85,13 +85,13 @@
       "authoritativeFor": [
         "vault.etzhayyim.com zero knowledge key hierarchy and encryption design",
         "vault principal types and key exchange patterns",
-        "vault WIT interface design (magatama:secrets/vault)"
+        "vault WIT interface design (kotodama:secrets/vault)"
       ],
       "related": [
         "doc:yoro-superapp-oembed-design",
         "doc:260317-yata-secure-cas-design",
         "doc:260315-atprotocol-signal-design",
-        "doc:260319-magatama-wit-dodaf-nist-coverage"
+        "doc:260319-kotodama-wit-dodaf-nist-coverage"
       ],
       "lastVerified": "2026-03-20"
     },
@@ -109,7 +109,7 @@
       ],
       "related": [
         "doc:yoro-superapp-oembed-design",
-        "doc:260320-magatama-cloudflare-containers-evaluation"
+        "doc:260320-kotodama-cloudflare-containers-evaluation"
       ],
       "lastVerified": "2026-03-23"
     },
@@ -142,7 +142,7 @@
         "etzhayyim source-graph CLI"
       ],
       "related": [
-        "doc:260319-magatama-wit-dodaf-nist-coverage",
+        "doc:260319-kotodama-wit-dodaf-nist-coverage",
         "doc:260324-source-graph-hybrid-design",
         "doc:260323-yoro-human-credit-economy-design"
       ],
@@ -221,7 +221,7 @@
       "supersedes": [
         "doc:260325-claude-native-lifecycle-management",
         "doc:ingredient-safety-scoring",
-        "doc:260330-hayate-wasm-magatama-design",
+        "doc:260330-hayate-wasm-kotodama-design",
         "doc:260330-hayate-artifact-schema-design"
       ],
       "lastVerified": "2026-04-03"
@@ -289,7 +289,7 @@
       "topic": "unified-access-control",
       "authoritative": true,
       "authoritativeFor": [
-        "read and write access control across PDS, kagami, RisingWave, AT Protocol",
+        "read and write access control across PDS, kagami, Kotoba/Datomic, AT Protocol",
         "RBAC/RACI/consent/clearance enforcement architecture",
         "Signal encryption integration with access control",
         "GraphAr schema security columns"
@@ -324,7 +324,7 @@
       "related": [
         "doc:260324-isin-coverage-social-evolution",
         "doc:f-plan-lexicon-as-contract",
-        "doc:doc-260414-risingwave-premium-32gb-scale-up"
+        "doc:doc-260414-kotoba-premium-32gb-scale-up"
       ],
       "lastVerified": "2026-04-15"
     },
@@ -404,7 +404,7 @@
       "related": [
         "doc:adr-0049-legal-corpus-global-ingest",
         "doc:adr-0056-bpmn-as-actor",
-        "doc:adr-0048-risingwave-vultr-b2-primary"
+        "doc:adr-0048-kotoba-vultr-b2-primary"
       ],
       "lastVerified": "2026-04-27"
     },
@@ -444,7 +444,7 @@
       "authoritative": true,
       "related": [
         "doc:adr-2605010000",
-        "doc:90-docs/adr/0048-risingwave-vultr-b2-primary.md",
+        "doc:90-docs/adr/0048-kotoba-vultr-b2-primary.md",
         "doc:adr-2604292130",
         "doc:50-infra/vultr/cloudflared/blockscout-tunnel.yaml"
       ],
@@ -602,9 +602,9 @@
       "lastVerified": "2026-05-19"
     },
     {
-      "id": "doc:2605191257-ameno-daemon-path-b-pymagatama-python",
+      "id": "doc:2605191257-ameno-daemon-path-b-kotodama-python",
       "type": "TechArticle",
-      "title": "Ameno headless daemon (Path B) — pymagatama Python port",
+      "title": "Ameno headless daemon (Path B) — kotodama Python port",
       "status": "proposed",
       "topic": "ameno-headless-daemon",
       "authoritative": true,
@@ -903,6 +903,18 @@
       "lastVerified": "2026-05-25"
     },
     {
+      "id": "doc:2606071300",
+      "type": "TechArticle",
+      "title": "Deprecate yata and lancedb-wasm in favor of kotoba, enable Dependabot auto-merge",
+      "status": "accepted",
+      "topic": "infrastructure-management",
+      "authoritative": true,
+      "authoritativeFor": [
+        ".github/workflows/dependabot-auto-merge.yml"
+      ],
+      "related": "doc:2605262130"
+    },
+    {
       "id": "doc:ADR-2605291700",
       "type": "TechArticle",
       "title": "baien-moemoekyun plateau analysis (cycles 17-114) + Best-of-N as the deployable score-lift path",
@@ -1019,7 +1031,7 @@
         "Action tier (alert / pause / rotate-key / rollback / escalate)"
       ],
       "related": [
-        "doc:90-docs/adr/0034-agent-cron-goose-risingwave-direct.md",
+        "doc:90-docs/adr/0034-agent-cron-goose-kotoba-direct.md",
         "doc:90-docs/adr/0026-agent-only-reverse-identity-topology.md",
         "doc:90-docs/adr/0036-worker-direct-hyperdrive-persistence.md",
         "doc:90-docs/adr/0022-auth-topology-consolidation.md",
@@ -1068,13 +1080,13 @@
       "lastVerified": "2026-04-14"
     },
     {
-      "id": "doc:adr-0066-magatama-organizer-shinka-shannon-bayes",
+      "id": "doc:adr-0066-kotodama-organizer-shinka-shannon-bayes",
       "type": "TechArticle",
-      "title": "ADR-0038: Magatama Organizer — joucho Shinka × Shannon Optimization × Bayesian Evaluation",
+      "title": "ADR-0038: Kotodama Organizer — joucho Shinka × Shannon Optimization × Bayesian Evaluation",
       "status": "accepted",
-      "topic": "magatama-organizer",
+      "topic": "kotodama-organizer",
       "authoritative": true,
-      "related": "doc:adr-0034-agent-cron-goose-risingwave-direct",
+      "related": "doc:adr-0034-agent-cron-goose-kotoba-direct",
       "lastVerified": "2026-04-20"
     },
     {
@@ -1109,9 +1121,9 @@
       "lastVerified": "2026-04-20"
     },
     {
-      "id": "doc:adr-0087-magatama-mcp-tool-facade",
+      "id": "doc:adr-0087-kotodama-mcp-tool-facade",
       "type": "TechArticle",
-      "title": "magatama per-actor MCP tool facade (Hono Streamable HTTP)",
+      "title": "kotodama per-actor MCP tool facade (Hono Streamable HTTP)",
       "status": "proposed",
       "topic": "mcp-tool-facade",
       "authoritative": true,
@@ -1321,7 +1333,7 @@
     {
       "id": "doc:adr-2604240946-yoro-autonomous-actor-hybrid-loop",
       "type": "TechArticle",
-      "title": "ADR: yoro.etzhayyim.com 自律 actor — time-domain 分離 hybrid loop (T1 MCP-Compose + BPMN-as-actor + RisingWave UDF)",
+      "title": "ADR: yoro.etzhayyim.com 自律 actor — time-domain 分離 hybrid loop (T1 MCP-Compose + BPMN-as-actor + Kotoba/Datomic UDF)",
       "status": "active",
       "topic": "yoro-autonomous-actor",
       "authoritative": true,
@@ -1335,12 +1347,12 @@
       ],
       "related": [
         "doc:adr-0038-actor-as-data-bpmn-dmn-form-mcp-faas",
-        "doc:adr-0044-risingwave-udf-language-strategy",
+        "doc:adr-0044-kotoba-udf-language-strategy",
         "doc:adr-0046",
         "doc:adr-0049-python-udf-shared-pool-runtime",
         "doc:adr-0056-bpmn-as-actor",
         "doc:adr-0081-worker-direct-hyperdrive-persistence",
-        "doc:adr-0087-magatama-mcp-tool-facade",
+        "doc:adr-0087-kotodama-mcp-tool-facade",
         "doc:adr-0092-every-vertex-as-actor",
         "doc:adr-0026-agent-only-reverse-identity-topology",
         "doc:adr-2604231811-atproto-extension-service-layers",
@@ -1397,9 +1409,9 @@
       "lastVerified": "2026-04-24"
     },
     {
-      "id": "doc:adr-2604241342-risingwave-out-of-band-migration-pattern",
+      "id": "doc:adr-2604241342-kotoba-out-of-band-migration-pattern",
       "type": "TechArticle",
-      "title": "RisingWave out-of-band migration pattern (apply-pending.sh as the happy path)",
+      "title": "Kotoba/Datomic out-of-band migration pattern (apply-pending.sh as the happy path)",
       "status": "active",
       "topic": "graph-schema-ops",
       "authoritative": true,
@@ -1426,7 +1438,7 @@
       "related": [
         "doc:adr-0036-worker-direct-hyperdrive-persistence",
         "doc:adr-0002-graph-storage-appview",
-        "doc:260320-magatama-cloudflare-containers-evaluation"
+        "doc:260320-kotodama-cloudflare-containers-evaluation"
       ],
       "lastVerified": "2026-04-24"
     },
@@ -1447,7 +1459,7 @@
         "doc:adr-0056-bpmn-as-actor",
         "doc:adr-0081-worker-direct-hyperdrive-persistence",
         "doc:adr-0041",
-        "doc:adr-0048-risingwave-vultr-b2-primary"
+        "doc:adr-0048-kotoba-vultr-b2-primary"
       ],
       "lastVerified": "2026-04-24"
     },
@@ -1469,7 +1481,7 @@
         "doc:adr-0036-shannon-cleanup-did-actor-topology",
         "doc:adr-0081-worker-direct-hyperdrive-persistence",
         "doc:adr-0049-python-udf-shared-pool-runtime",
-        "doc:adr-0044-risingwave-udf-language-strategy",
+        "doc:adr-0044-kotoba-udf-language-strategy",
         "doc:adr-0059-tool-runtime-selection-python-udf-default",
         "doc:adr-0046",
         "doc:adr-0092-every-vertex-as-actor",
@@ -1519,11 +1531,11 @@
         "rw-s3-keepalive-for-b2"
       ],
       "related": [
-        "doc:adr-0048-risingwave-vultr-b2-primary",
+        "doc:adr-0048-kotoba-vultr-b2-primary",
         "doc:adr-0049-shared-udf-pool",
         "doc:adr-2604231349-timestamp-numbering-policy"
       ],
-      "amends": "doc:adr-0048-risingwave-vultr-b2-primary",
+      "amends": "doc:adr-0048-kotoba-vultr-b2-primary",
       "lastVerified": "2026-04-25"
     },
     {
@@ -1541,7 +1553,7 @@
       ],
       "related": [
         "doc:adr-0056-bpmn-as-actor",
-        "doc:adr-0048-risingwave-vultr-b2-primary",
+        "doc:adr-0048-kotoba-vultr-b2-primary",
         "doc:adr-0081-worker-direct-hyperdrive-persistence",
         "doc:adr-0085-non-federable-nsid-firehose-gate"
       ],
@@ -1631,7 +1643,7 @@
       "authoritativeFor": [
         "etzhayyim PDS commit storage shape",
         "prohibited use of @atproto/repo MST path",
-        "ON CONFLICT / transaction restrictions on RisingWave writes"
+        "ON CONFLICT / transaction restrictions on Kotoba/Datomic writes"
       ],
       "related": [
         "doc:adr-0014-self-hosted-did-plc",
@@ -1650,7 +1662,7 @@
       "authoritative": false,
       "related": [
         "doc:adr-0043-cdn-r2-to-b2-bandwidth-alliance",
-        "doc:adr-0048-risingwave-vultr-b2-primary",
+        "doc:adr-0048-kotoba-vultr-b2-primary",
         "doc:adr-2604241500-cad-bim-per-game-wasm-topology"
       ],
       "supersededBy": "doc:adr-0043-cdn-r2-to-b2-bandwidth-alliance",
@@ -1673,7 +1685,7 @@
         "doc:adr-2604240946-yoro-autonomous-actor-hybrid-loop",
         "doc:adr-2604250836-langgraph-as-zeebe-servicetask",
         "doc:adr-0056-bpmn-as-actor",
-        "doc:adr-0087-magatama-mcp-tool-facade",
+        "doc:adr-0087-kotodama-mcp-tool-facade",
         "doc:adr-2604231811-atproto-extension-service-layers",
         "doc:adr-2604241038-yoro-pds-ideal-topology",
         "doc:adr-0061-murakumo-platform-auth-unification"
@@ -1714,7 +1726,7 @@
         "doc:adr-2604251758-murakumo-yoro-actor-worker-fleet",
         "doc:adr-2604250836-langgraph-as-zeebe-servicetask",
         "doc:adr-0056-bpmn-as-actor",
-        "doc:adr-0048-risingwave-vultr-b2-primary",
+        "doc:adr-0048-kotoba-vultr-b2-primary",
         "doc:adr-0061-murakumo-platform-auth-unification"
       ],
       "lastVerified": "2026-04-27"
@@ -1722,7 +1734,7 @@
     {
       "id": "doc:adr-2604251830-shannon-optimal-layered-architecture",
       "type": "TechArticle",
-      "title": "ADR: Shannon-optimal layered architecture — Cloudflare = edge/routing/dispatcher only、actor/MCP/tool 実体は RisingWave registry SSoT、常駐処理は Zeebe BPMN worker + Vultr k8s Python pod worker",
+      "title": "ADR: Shannon-optimal layered architecture — Cloudflare = edge/routing/dispatcher only、actor/MCP/tool 実体は Kotoba/Datomic registry SSoT、常駐処理は Zeebe BPMN worker + Vultr k8s Python pod worker",
       "status": "active",
       "topic": "platform-architecture",
       "authoritative": true,
@@ -1734,9 +1746,9 @@
       ],
       "related": [
         "doc:adr-0036-shannon-cleanup-did-actor-topology",
-        "doc:adr-0044-risingwave-udf-language-strategy",
+        "doc:adr-0044-kotoba-udf-language-strategy",
         "doc:adr-0046",
-        "doc:adr-0048-risingwave-vultr-b2-primary",
+        "doc:adr-0048-kotoba-vultr-b2-primary",
         "doc:adr-0056-bpmn-as-actor",
         "doc:adr-2604240946-yoro-autonomous-actor-hybrid-loop",
         "doc:adr-2604250836-langgraph-as-zeebe-servicetask",
@@ -1761,8 +1773,8 @@
       ],
       "related": [
         "doc:blockchain-node-vultr-b2-zeebe-ingest-design-260425",
-        "doc:90-docs/adr/0048-risingwave-vultr-b2-primary.md",
-        "doc:90-docs/adr/0094-risingwave-stable-three-node-topology.md"
+        "doc:90-docs/adr/0048-kotoba-vultr-b2-primary.md",
+        "doc:90-docs/adr/0094-kotoba-stable-three-node-topology.md"
       ],
       "lastVerified": "2026-04-25"
     },
@@ -1781,7 +1793,7 @@
       "related": [
         "doc:adr-2604241500-cad-bim-per-game-wasm-topology",
         "doc:adr-0056-bpmn-as-actor",
-        "doc:adr-0087-magatama-mcp-tool-facade",
+        "doc:adr-0087-kotodama-mcp-tool-facade",
         "doc:adr-2604250836-langgraph-as-zeebe-servicetask",
         "doc:robotics-manufacture-vehicle-product-package"
       ],
@@ -1863,8 +1875,8 @@
       "related": [
         "doc:90-docs/260425-ingest-orchestration-zeebe-python-k8s-mcp-design.md",
         "doc:adr-2604271200",
-        "doc:60-apps/etzhayyim-project-ma/magatama.toml",
-        "doc:90-docs/adr/0094-risingwave-stable-three-node-topology.md",
+        "doc:60-apps/etzhayyim-project-ma/kotodama.toml",
+        "doc:90-docs/adr/0094-kotoba-stable-three-node-topology.md",
         "doc:30-graph/graph-schema/migrations/20260416134500_fund_graph_spine_and_coverage.ts"
       ],
       "lastVerified": "2026-04-26"
@@ -1917,21 +1929,21 @@
       "lastVerified": "2026-04-26"
     },
     {
-      "id": "doc:adr-2604261900-risingwave-ddl-backfill-path-topology",
+      "id": "doc:adr-2604261900-kotoba-ddl-backfill-path-topology",
       "type": "TechArticle",
-      "title": "RisingWave DDL Backfill and Hot Path Topology",
+      "title": "Kotoba/Datomic DDL Backfill and Hot Path Topology",
       "status": "active",
       "topic": "infrastructure",
       "authoritative": true,
       "authoritativeFor": [
-        "risingwave-write-path-topology",
-        "risingwave-ddl-queue-topology",
-        "risingwave-backfill-path-topology",
-        "risingwave-flush-policy"
+        "kotoba-write-path-topology",
+        "kotoba-ddl-queue-topology",
+        "kotoba-backfill-path-topology",
+        "kotoba-flush-policy"
       ],
       "related": [
-        "doc:adr-0094-risingwave-stable-three-node-topology",
-        "doc:adr-2604241342-risingwave-out-of-band-migration-pattern"
+        "doc:adr-0094-kotoba-stable-three-node-topology",
+        "doc:adr-2604241342-kotoba-out-of-band-migration-pattern"
       ],
       "lastVerified": "2026-04-26"
     },
@@ -1948,7 +1960,7 @@
         "IPFS pin policy alignment with PDS uploadBlob"
       ],
       "related": [
-        "doc:adr-0048-risingwave-vultr-b2-primary",
+        "doc:adr-0048-kotoba-vultr-b2-primary",
         "doc:adr-2604251400-pds-uploadblob-r2-to-b2-migration",
         "doc:adr-2604251935-blockchain-vke-head-ingest",
         "doc:adr-0029-did-etzhayyim-method-specification",
@@ -2040,27 +2052,27 @@
       "lastVerified": "2026-04-26"
     },
     {
-      "id": "doc:adr-2604262359-risingwave-multimodal-vector-search-topology",
+      "id": "doc:adr-2604262359-kotoba-multimodal-vector-search-topology",
       "type": "TechArticle",
-      "title": "RisingWave Multimodal Vector Search Topology",
+      "title": "Kotoba/Datomic Multimodal Vector Search Topology",
       "status": "active",
       "topic": "search",
       "authoritative": true,
       "authoritativeFor": [
         "yoro-search-vector-topology",
-        "risingwave-multimodal-search-topology",
+        "kotoba-multimodal-search-topology",
         "actor-post-media-search-embedding-model",
         "2b-10b-vector-search-query-shape",
         "sensor-modality-embedding-roadmap"
       ],
       "related": [
-        "doc:adr-0002-persistence-risingwave-only",
+        "doc:adr-0002-persistence-kotoba-only",
         "doc:adr-0074-ethereum-identity-bridge-cacao-webauthn",
         "doc:adr-0028-cohort-mv-sharding",
-        "doc:adr-0044-risingwave-udf-language-strategy",
+        "doc:adr-0044-kotoba-udf-language-strategy",
         "doc:adr-0081-worker-direct-hyperdrive-persistence",
-        "doc:adr-0094-risingwave-stable-three-node-topology",
-        "doc:adr-2604261900-risingwave-ddl-backfill-path-topology",
+        "doc:adr-0094-kotoba-stable-three-node-topology",
+        "doc:adr-2604261900-kotoba-ddl-backfill-path-topology",
         "doc:adr-2604270015-vector-embedding-backfill-zeebe-worker"
       ],
       "lastVerified": "2026-05-01"
@@ -2078,10 +2090,10 @@
         "vector-embedding-zeebe-worker-contract"
       ],
       "related": [
-        "doc:adr-2604262359-risingwave-multimodal-vector-search-topology",
+        "doc:adr-2604262359-kotoba-multimodal-vector-search-topology",
         "doc:adr-0074-ethereum-identity-bridge-cacao-webauthn",
         "doc:adr-2604262100-erc725-erc8004-k8s-ipfs-agent-runtime",
-        "doc:adr-2604261900-risingwave-ddl-backfill-path-topology",
+        "doc:adr-2604261900-kotoba-ddl-backfill-path-topology",
         "doc:adr-2604262000-edge-thin-app-runtime-k8s-zeebe-registry"
       ],
       "lastVerified": "2026-04-27"
@@ -2119,7 +2131,7 @@
         "lei-entity-resolution"
       ],
       "related": [
-        "doc:60-apps/etzhayyim-project-ma/magatama.toml",
+        "doc:60-apps/etzhayyim-project-ma/kotodama.toml",
         "doc:90-docs/260427-fund-ma-actor-activation-runbook.md",
         "doc:adr-2604261200",
         "doc:30-graph/graph-schema/migrations/20260427040000_seed_fund_ma_bpmn_actors.ts",
@@ -2143,7 +2155,7 @@
         "doc:adr-2604262100-erc725-erc8004-k8s-ipfs-agent-runtime",
         "doc:adr-2604262145-erc8004-protocol-root-atproto-profile",
         "doc:adr-0061-murakumo-platform-auth-unification",
-        "doc:adr-0087-magatama-mcp-tool-facade"
+        "doc:adr-0087-kotodama-mcp-tool-facade"
       ],
       "lastVerified": "2026-04-27"
     },
@@ -2182,7 +2194,7 @@
         "doc:adr-2604271600-projector-l7-langgraph-integration",
         "doc:adr-2604251830-shannon-optimal-layered-architecture",
         "doc:adr-0036-worker-direct-hyperdrive-persistence",
-        "doc:adr-0044-risingwave-udf-language-strategy",
+        "doc:adr-0044-kotoba-udf-language-strategy",
         "doc:adr-2604240946-yoro-autonomous-actor-hybrid-loop"
       ],
       "lastVerified": "2026-04-28"
@@ -2200,7 +2212,7 @@
         "expired-patent-worker-boundary"
       ],
       "related": [
-        "doc:60-apps/etzhayyim-project-patent/magatama.toml",
+        "doc:60-apps/etzhayyim-project-patent/kotodama.toml",
         "doc:60-apps/etzhayyim-project-patent/worker/python/patent_expiry_worker.py",
         "doc:70-tools/config/bpmn-coverage-manifest.json",
         "doc:30-graph/graph-schema/migrations/20260427075000_open_patent_expired_pharma_bpmn_worker.ts",
@@ -2270,8 +2282,8 @@
       "related": [
         "doc:adr-0036-worker-direct-hyperdrive-persistence",
         "doc:adr-0056-bpmn-as-actor",
-        "doc:adr-2604241342-risingwave-out-of-band-migration-pattern",
-        "doc:adr-0048-risingwave-vultr-b2-primary"
+        "doc:adr-2604241342-kotoba-out-of-band-migration-pattern",
+        "doc:adr-0048-kotoba-vultr-b2-primary"
       ],
       "lastVerified": "2026-04-28"
     },
@@ -2304,7 +2316,7 @@
         "kogu actor (工具・設備・測定器ライフサイクル)",
         "sekkei actor (設計図・技術文書・BOMライフサイクル)",
         "BPMN flows for nogu/kogu/sekkei",
-        "RisingWave schema for vertex_nogu_* / vertex_kogu_* / vertex_sekkei_*"
+        "Kotoba/Datomic schema for vertex_nogu_* / vertex_kogu_* / vertex_sekkei_*"
       ],
       "related": [
         "doc:adr-0056-bpmn-as-actor",
@@ -2331,7 +2343,7 @@
         "open-smartphone-bom actor (BOM統合・オープンスコア・代替調達)",
         "open-smartphone-patent actor (SEPランドスケープ・特許プール・失効ゲート)",
         "BPMN flows for all 7 domains (27 BPMN processes)",
-        "RisingWave schema: 19 tables + 2 MVs",
+        "Kotoba/Datomic schema: 19 tables + 2 MVs",
         "Lexicon contracts: 26 JSON files"
       ],
       "related": [
@@ -2355,7 +2367,7 @@
       "authoritativeFor": [
         "open-sales actor (Lead管理・Opportunity・Pipeline・Forecast)",
         "BPMN flows: 8 flows (createLead / qualifyLead / updateOpportunity / logActivity / generateQuote / closeDeal / fetchPipelineDelta / computeForecast)",
-        "RisingWave schema: 7 tables + 3 MVs",
+        "Kotoba/Datomic schema: 7 tables + 3 MVs",
         "Lexicon contracts: 8 JSON files"
       ],
       "related": [
@@ -2374,7 +2386,7 @@
       "authoritativeFor": [
         "open-adnetwork actor (Publisher収益化・Advertiser Campaign・Impression/Click/Conversion)",
         "BPMN flows: 8 flows (registerPublisher / registerAdvertiser / createCampaign / recordAdUnit / recordImpression / recordConversion / computePublisherRpm / fetchAuctionMarketDelta)",
-        "RisingWave schema: 8 tables + 3 MVs",
+        "Kotoba/Datomic schema: 8 tables + 3 MVs",
         "Lexicon contracts: 8 JSON files"
       ],
       "related": [
@@ -2416,7 +2428,7 @@
         "pod-side-langserver-runtime",
         "k8s-runtime-scope",
         "python-worker-pod-fastapi-granian-surface",
-        "risingwave-udf-business-logic-scope",
+        "kotoba-udf-business-logic-scope",
         "cf-worker-sse-pass-through",
         "generic-pds-dispatch-k8s-internal-routing",
         "maps-worker-thin-edge-boundary"
@@ -2424,7 +2436,7 @@
       "related": [
         "doc:adr-2604262000-edge-thin-app-runtime-k8s-zeebe-registry",
         "doc:adr-0056-bpmn-as-actor",
-        "doc:adr-0044-risingwave-udf-language-strategy",
+        "doc:adr-0044-kotoba-udf-language-strategy",
         "doc:adr-2604261000-mcp-registry-via-kysely-schema",
         "doc:adr-2604251801-cron-three-layer-consolidation",
         "doc:adr-2604251830-shannon-optimal-layered-architecture",
@@ -2540,7 +2552,7 @@
     {
       "id": "doc:adr-2604300135-hume-distillation-artifact-persistence",
       "type": "TechArticle",
-      "title": "Hume Distillation Artifact Persistence to IPFS and RisingWave",
+      "title": "Hume Distillation Artifact Persistence to IPFS and Kotoba/Datomic",
       "status": "active",
       "topic": "hume-distillation",
       "authoritative": true,
@@ -2551,8 +2563,8 @@
       ],
       "related": [
         "doc:adr-2604261936-ipfs-self-hosted-vultr-b2",
-        "doc:adr-2604261900-risingwave-ddl-backfill-path-topology",
-        "doc:adr-2604262359-risingwave-multimodal-vector-search-topology"
+        "doc:adr-2604261900-kotoba-ddl-backfill-path-topology",
+        "doc:adr-2604262359-kotoba-multimodal-vector-search-topology"
       ],
       "lastVerified": "2026-04-30"
     },
@@ -2690,13 +2702,13 @@
       "related": [
         "doc:adr-0017-maritime-energy-cluster-topology",
         "doc:adr-0036-worker-direct-hyperdrive-persistence",
-        "doc:adr-0044-risingwave-udf-language-strategy",
-        "doc:adr-0048-risingwave-vultr-b2-primary",
+        "doc:adr-0044-kotoba-udf-language-strategy",
+        "doc:adr-0048-kotoba-vultr-b2-primary",
         "doc:adr-0056-bpmn-as-actor",
         "doc:adr-2604251830-shannon-optimal-layered-architecture",
         "doc:adr-2604280900-maps-transit-pipeline-gtfs-rt",
         "doc:adr-2604282300",
-        "doc:adr-2604241342-risingwave-out-of-band-migration-pattern"
+        "doc:adr-2604241342-kotoba-out-of-band-migration-pattern"
       ],
       "lastVerified": "2026-05-01"
     },
@@ -2770,7 +2782,7 @@
     {
       "id": "doc:adr-2605070700-rw-native-model-training-weight-lineage",
       "type": "TechArticle",
-      "title": "RisingWave-native Model Training + Weight Lineage (SFT / LoRA / Distill)",
+      "title": "Kotoba/Datomic-native Model Training + Weight Lineage (SFT / LoRA / Distill)",
       "status": "proposed",
       "topic": "model-training-weight-lineage",
       "authoritative": true,
@@ -2788,7 +2800,7 @@
         "doc:adr-2604292130",
         "doc:adr-2605010000",
         "doc:adr-2604282100",
-        "doc:adr-0044-risingwave-udf-language-strategy"
+        "doc:adr-0044-kotoba-udf-language-strategy"
       ],
       "lastVerified": "2026-05-07"
     },
@@ -2930,7 +2942,7 @@
     {
       "id": "doc:adr-2605072300-open-source-cloud-business-model",
       "type": "TechArticle",
-      "title": "ADR-2605072300: Open-Source Core + Cloud SaaS Business Model (RisingWave Pattern)",
+      "title": "ADR-2605072300: Open-Source Core + Cloud SaaS Business Model (Kotoba/Datomic Pattern)",
       "status": "active",
       "topic": "open-source-cloud-business-model",
       "authoritative": true,
@@ -2957,12 +2969,12 @@
       "authoritative": true,
       "authoritativeFor": [
         "distributed cognitive actor system overall architecture",
-        "layer assignment: CF Edge (L1) / LangGraph (L2) / K8s+Zeebe Virtual Actor Runtime (L3) / MCP Capability (L4) / RisingWave Memory (L5) / PyZeebe+RW-Ext-UDF+WASM+Mojo Compute (L6)",
+        "layer assignment: CF Edge (L1) / LangGraph (L2) / K8s+Zeebe Virtual Actor Runtime (L3) / MCP Capability (L4) / Kotoba/Datomic Memory (L5) / PyZeebe+RW-Ext-UDF+WASM+Mojo Compute (L6)",
         "actor taxonomy: Runtime Actor / Virtual Actor / Stream Actor",
-        "state model: Hot (pod) / Warm (RisingWave MV) / Cold (S3/R2/Postgres)",
+        "state model: Hot (pod) / Warm (Kotoba/Datomic MV) / Cold (S3/R2/Postgres)",
         "PyZeebe layer assignment: L6 Compute (not L3)",
-        "RisingWave External Python UDF layer assignment: L6 Compute (Arrow Flight RPC, not L5)",
-        "RisingWave SQL UDF / Embedded Rust UDF layer assignment: L5 (internal execution)",
+        "Kotoba/Datomic External Python UDF layer assignment: L6 Compute (Arrow Flight RPC, not L5)",
+        "Kotoba/Datomic SQL UDF / Embedded Rust UDF layer assignment: L5 (internal execution)",
         "WASM and Mojo role as enzymatic compute layer (L6)",
         "LangGraph scope constraint (coordination only, L2)",
         "MCP scope constraint (tool protocol, not actor protocol, L4)"
@@ -2997,12 +3009,12 @@
         "io-yatabase-supabase-neo4j-baas-surface"
       ],
       "related": [
-        "doc:adr-0002-graph-storage-risingwave",
+        "doc:adr-0002-graph-storage-kotoba",
         "doc:adr-0036-worker-direct-hyperdrive-persistence",
-        "doc:adr-0044-risingwave-udf-language-strategy",
-        "doc:adr-0048-risingwave-vultr-b2-primary",
+        "doc:adr-0044-kotoba-udf-language-strategy",
+        "doc:adr-0048-kotoba-vultr-b2-primary",
         "doc:adr-0056-bpmn-as-actor",
-        "doc:adr-0087-magatama-mcp-tool-facade",
+        "doc:adr-0087-kotodama-mcp-tool-facade",
         "doc:adr-0095-simplified-3layer-identity-rw-vault",
         "doc:adr-2604282300",
         "doc:adr-2605010000",
@@ -3090,14 +3102,14 @@
       "authoritative": true,
       "authoritativeFor": [
         "Alembic usage scope (Python-owned tables only)",
-        "Alembic env.py for RisingWave (no transaction wrapping)",
+        "Alembic env.py for Kotoba/Datomic (no transaction wrapping)",
         "Table name guard blocking vertex_* / edge_* / mv_* in Alembic migrations"
       ],
       "related": [
         "doc:adr-2605080500-sqlmesh-mv-management",
-        "doc:adr-2605080700-graph-schema-live-risingwave-baseline"
+        "doc:adr-2605080700-graph-schema-live-kotoba-baseline"
       ],
-      "amendedBy": "doc:adr-2605080700-graph-schema-live-risingwave-baseline",
+      "amendedBy": "doc:adr-2605080700-graph-schema-live-kotoba-baseline",
       "lastVerified": "2026-05-07"
     },
     {
@@ -3108,14 +3120,14 @@
       "topic": "sqlmesh-mv-management",
       "authoritative": true,
       "authoritativeFor": [
-        "SQLMesh project structure for RisingWave MV definitions",
+        "SQLMesh project structure for Kotoba/Datomic MV definitions",
         "MV SQL source of truth (sqlmesh/models/*.sql)",
         "Migration path from Kysely TypeScript MV to SQLMesh",
         "SQLMesh state schema (_sqlmesh) separation from vertex_*/edge_*/mv_*"
       ],
       "related": [
         "doc:adr-2605080400-alembic-scope-contract",
-        "doc:adr-2605080700-graph-schema-live-risingwave-baseline"
+        "doc:adr-2605080700-graph-schema-live-kotoba-baseline"
       ],
       "lastVerified": "2026-05-07"
     },
@@ -3134,7 +3146,7 @@
         "Murakumo Mac mini fleet as L8 Somatic Inference Layer",
         "Granian as ASGI server for LangGraph Server",
         "Redis role: transient dispatch queue only (not a database)",
-        "RisingWave custom BaseCheckpointSaver + BaseStore (sole DB principle)",
+        "Kotoba/Datomic custom BaseCheckpointSaver + BaseStore (sole DB principle)",
         "bpmn-dispatcher routing target: /runs API",
         "timer-start BPMN replacement: K8s CronJob → POST /runs",
         "pyzeebe migration path to LangGraph nodes",
@@ -3148,9 +3160,9 @@
       "lastVerified": "2026-05-08"
     },
     {
-      "id": "doc:adr-2605080700-graph-schema-live-risingwave-baseline",
+      "id": "doc:adr-2605080700-graph-schema-live-kotoba-baseline",
       "type": "TechArticle",
-      "title": "ADR-2605080700: graph-schema Live RisingWave Baseline",
+      "title": "ADR-2605080700: graph-schema Live Kotoba/Datomic Baseline",
       "status": "active",
       "topic": "graph-schema-live-baseline",
       "authoritative": true,
@@ -3215,7 +3227,7 @@
     {
       "id": "doc:adr-2605081200-spiffworkflow-bpmn-engine-replacement",
       "type": "TechArticle",
-      "title": "SpiffWorkflow を Zeebe 後継 BPMN engine とする (RisingWave-native, code-as-data)",
+      "title": "SpiffWorkflow を Zeebe 後継 BPMN engine とする (Kotoba/Datomic-native, code-as-data)",
       "status": "active",
       "topic": "workflow-engine",
       "authoritative": true,
@@ -3231,8 +3243,8 @@
         "doc:adr-2604282300",
         "doc:90-docs/adr/0056-bpmn-as-actor.md",
         "doc:90-docs/adr/0036-worker-direct-hyperdrive-persistence.md",
-        "doc:90-docs/adr/0094-risingwave-stable-three-node-topology.md",
-        "doc:90-docs/260424-bsky-compat-risingwave-split.md"
+        "doc:90-docs/adr/0094-kotoba-stable-three-node-topology.md",
+        "doc:90-docs/260424-bsky-compat-kotoba-split.md"
       ],
       "lastVerified": "2026-05-09"
     },
@@ -3288,12 +3300,12 @@
       "authoritative": true,
       "authoritativeFor": [
         "osm-ingest-tuning",
-        "risingwave-compute-resources",
+        "kotoba-compute-resources",
         "k8s-utilization-score"
       ],
       "related": [
-        "doc:90-docs/adr/0048-risingwave-vultr-b2-primary.md",
-        "doc:90-docs/adr/0094-risingwave-stable-three-node-topology.md"
+        "doc:90-docs/adr/0048-kotoba-vultr-b2-primary.md",
+        "doc:90-docs/adr/0094-kotoba-stable-three-node-topology.md"
       ],
       "lastVerified": "2026-05-08"
     },
@@ -3423,7 +3435,7 @@
       "topic": "langgraph-graph-definition-as-data",
       "authoritative": true,
       "authoritativeFor": [
-        "LangGraph graph topology storage location (RisingWave `vertex_langgraph_graph_def`)",
+        "LangGraph graph topology storage location (Kotoba/Datomic `vertex_langgraph_graph_def`)",
         "LangGraph node contract (MCP tool invocation only, no inline Python logic)",
         "graph compiler responsibility (def → StateGraph build at runtime)",
         "conditional edge SSoT (Rego/DMN ref, not Python lambda)",
@@ -3433,7 +3445,7 @@
         "doc:adr-2605080000-distributed-cognitive-actor-system",
         "doc:adr-2605072000-langgraph-agent-loop-pattern",
         "doc:adr-2605080600-langgraph-server-granian-l3-runtime",
-        "doc:adr-0087-magatama-mcp-tool-facade",
+        "doc:adr-0087-kotodama-mcp-tool-facade",
         "doc:adr-0056-bpmn-as-actor",
         "doc:adr-2605082100-langgraph-checkpointer-storage",
         "doc:adr-2605082200-pyzeebe-handler-thin-dispatcher-contract"
@@ -3454,7 +3466,7 @@
         "tools/call default name = nsid",
         "In-process TTL cache (60s) for registry hits"
       ],
-      "related": "doc:adr-0087-magatama-mcp-tool-facade",
+      "related": "doc:adr-0087-kotodama-mcp-tool-facade",
       "lastVerified": "2026-05-08"
     },
     {
@@ -3534,7 +3546,7 @@
         "doc:adr-2605080000-distributed-cognitive-actor-system",
         "doc:adr-2605082000-langgraph-graph-definition-as-data",
         "doc:adr-2605082100-langgraph-checkpointer-storage",
-        "doc:adr-0087-magatama-mcp-tool-facade",
+        "doc:adr-0087-kotodama-mcp-tool-facade",
         "doc:adr-0056-bpmn-as-actor",
         "doc:adr-2605081200-spiffworkflow-bpmn-engine-replacement"
       ],
@@ -3602,7 +3614,7 @@
       "authoritativeFor": [
         "MCP as sole external API surface (external = cell membrane)",
         "Lexicon = dual-wire contract SSoT (drives MCP tool schema AND internal XRPC contract)",
-        "magatama MCP facade as SSoT for outward capability",
+        "kotodama MCP facade as SSoT for outward capability",
         "MCP tool names use Lexicon NSID (verbatim, no translation)",
         "Internal XRPC remains active for cytoplasmic (cohort-internal) wire"
       ],
@@ -3730,7 +3742,7 @@
         "modality encoder set (text/code/image/audio/bpmn/struct/graph/action)"
       ],
       "related": [
-        "doc:adr-0044-risingwave-udf-language-strategy",
+        "doc:adr-0044-kotoba-udf-language-strategy",
         "doc:adr-2605092100-lora-per-cell-moe-expert-cohort-fission",
         "doc:adr-2605092300-fp8-train-inference-colocation"
       ],
@@ -3800,7 +3812,7 @@
       "authoritativeFor": [
         "RunPod H100 NVL training pod assignment (training-only, separate from inference)",
         "Default training base model = google/gemma-4-E4B",
-        "RisingWave vertex/dataset input contract for multimodal training",
+        "Kotoba/Datomic vertex/dataset input contract for multimodal training",
         "modality encoder and embedding-model coverage",
         "deployment split between vLLM inference (6000 Ada), H100 trainer, embedding workers, and RW lineage"
       ],
@@ -3828,8 +3840,8 @@
         "Runtime target matrix: native CPU (bitnet.cpp / llama.cpp), browser (WebGPU + WASM), embedded edge (mobile / Pi-class boards)"
       ],
       "related": [
-        "doc:20-actors/magatama/sdk/magatama-host-sdk/src/llm-model-registry.ts",
-        "doc:20-actors/magatama/py/src/pymagatama/primitives/training_run.py",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/training_run.py",
         "doc:30-graph/graph-schema/migrations/20260508000000_vertex_training_lineage.ts"
       ],
       "lastVerified": "2026-05-09"
@@ -3847,7 +3859,7 @@
         "tool selection probability formula",
         "reward attribution on tool calls"
       ],
-      "related": "doc:adr-0087-magatama-mcp-tool-facade",
+      "related": "doc:adr-0087-kotodama-mcp-tool-facade",
       "lastVerified": "2026-05-09"
     },
     {
@@ -3879,24 +3891,24 @@
       "authoritativeFor": [
         "runtimeKind=holochain experimental contract",
         "Holochain placement as L3 virtual actor runtime experiment",
-        "Holochain source-chain/DHT boundary vs RisingWave projection SSoT"
+        "Holochain source-chain/DHT boundary vs Kotoba/Datomic projection SSoT"
       ],
       "related": [
-        "doc:adr-0087-magatama-mcp-tool-facade",
-        "doc:adr-0002-persistence-risingwave-only"
+        "doc:adr-0087-kotodama-mcp-tool-facade",
+        "doc:adr-0002-persistence-kotoba-only"
       ],
       "lastVerified": "2026-05-09"
     },
     {
       "id": "doc:adr-2605092700-bigquery-public-data-ingest-cost-topology",
       "type": "TechArticle",
-      "title": "BigQuery Public Data Ingest Cost + RisingWave Graph Topology",
+      "title": "BigQuery Public Data Ingest Cost + Kotoba/Datomic Graph Topology",
       "status": "proposed",
-      "topic": "bigquery-public-data-risingwave-ingest",
+      "topic": "bigquery-public-data-kotoba-ingest",
       "authoritative": true,
       "authoritativeFor": [
         "bigquery-public-data-ingest-cost-model",
-        "public-dataset-risingwave-vertex-edge-mv-topology",
+        "public-dataset-kotoba-vertex-edge-mv-topology",
         "llm-training-public-data-source-policy"
       ],
       "related": [
@@ -3912,12 +3924,12 @@
     {
       "id": "doc:adr-2605092700-rw-capability-storage-authority",
       "type": "TechArticle",
-      "title": "RisingWave Capability Storage and Authority Boundary",
+      "title": "Kotoba/Datomic Capability Storage and Authority Boundary",
       "status": "accepted",
       "topic": "rw-capability-storage-authority",
       "authoritative": true,
       "authoritativeFor": [
-        "RisingWave capability storage target design",
+        "Kotoba/Datomic capability storage target design",
         "DID-bound authority evaluation over RW writes and reads",
         "Tahoe-like read/write/verify capability mapping for etzhayyim storage",
         "auth.etzhayyim.com / DID / ERC725 alignment for capability checks"
@@ -3951,7 +3963,7 @@
         "doc:90-docs/260409-kami-engineering-sdk-design.md",
         "doc:adr-0036-worker-direct-hyperdrive-persistence",
         "doc:adr-2604251830-shannon-optimal-layered-architecture",
-        "doc:adr-2605080700-graph-schema-live-risingwave-baseline"
+        "doc:adr-2605080700-graph-schema-live-kotoba-baseline"
       ],
       "lastVerified": "2026-05-10"
     },
@@ -3986,13 +3998,13 @@
     {
       "id": "doc:adr-2605101000-baien-mx-multimodal-expansion-from-rw",
       "type": "TechArticle",
-      "title": "Baien-MX: trunk-surgery multimodal expansion from RisingWave-native modalities",
+      "title": "Baien-MX: trunk-surgery multimodal expansion from Kotoba/Datomic-native modalities",
       "status": "proposed",
       "topic": "edge-multimodal-model-1bit",
       "authoritative": true,
       "authoritativeFor": [
         "Baien-MX architecture (per-modality 1.58-bit branches + new cross-modal layers)",
-        "Training data sourced exclusively from existing RisingWave vertex/views",
+        "Training data sourced exclusively from existing Kotoba/Datomic vertex/views",
         "Per-modality weight separation in vertex_training_checkpoint"
       ],
       "related": [
@@ -4127,14 +4139,14 @@
       "topic": "vultr-a40-2node-consolidation",
       "authoritative": true,
       "authoritativeFor": [
-        "Vultr VKE node-pool topology after RisingWave + ComfyUI + keiei-llm consolidation",
+        "Vultr VKE node-pool topology after Kotoba/Datomic + ComfyUI + keiei-llm consolidation",
         "per-node placement of GPU consumers under 2-slice constraint (3 consumers / 2 GPUs)",
         "dual-container GPU-sharing pattern for keiei-llm E2B+E4B",
         "migration phases + rollback"
       ],
       "related": [
-        "doc:adr-0094-risingwave-stable-three-node-topology",
-        "doc:adr-0048-risingwave-vultr-b2-primary",
+        "doc:adr-0094-kotoba-stable-three-node-topology",
+        "doc:adr-0048-kotoba-vultr-b2-primary",
         "doc:adr-2604231328-animeka-bpmn-l40s-pipeline",
         "doc:adr-2605101200-ai-cxo-roles-lsp-resident",
         "doc:adr-2605102100-keiei-llm-vultr-cpu-inference"
@@ -4160,8 +4172,8 @@
         "doc:adr-2605092000-ecosystem-as-model-unified-multimodal-fp8-vector-substrate",
         "doc:adr-2605092200-continuous-metabolic-training",
         "doc:adr-2605092300-fp8-train-inference-colocation",
-        "doc:adr-0094-risingwave-stable-three-node-topology",
-        "doc:adr-0048-risingwave-vultr-b2-primary"
+        "doc:adr-0094-kotoba-stable-three-node-topology",
+        "doc:adr-0048-kotoba-vultr-b2-primary"
       ],
       "lastVerified": "2026-05-11"
     },
@@ -4181,7 +4193,7 @@
     {
       "id": "doc:adr-2605111200-cf-worker-edge-only-no-rw-connection",
       "type": "TechArticle",
-      "title": "CF Worker = Edge-Only; RisingWave 接続は K8s Pod / Granian Server のみ",
+      "title": "CF Worker = Edge-Only; Kotoba/Datomic 接続は K8s Pod / Granian Server のみ",
       "status": "active",
       "topic": "cf-worker-edge-only-rw-pod-only",
       "authoritative": true,
@@ -4193,7 +4205,7 @@
         "createKyselyDb-deprecation"
       ],
       "related": [
-        "doc:adr-0002-persistence-risingwave-only",
+        "doc:adr-0002-persistence-kotoba-only",
         "doc:adr-2604282300",
         "doc:adr-2605080600-langgraph-server-granian-l3-runtime",
         "doc:adr-2605081200-spiffworkflow-bpmn-engine-replacement",
@@ -4221,7 +4233,7 @@
       "related": [
         "doc:adr-2605111200-cf-worker-edge-only-no-rw-connection",
         "doc:adr-0014-self-hosted-did-plc",
-        "doc:adr-0094-risingwave-stable-three-node-topology",
+        "doc:adr-0094-kotoba-stable-three-node-topology",
         "doc:adr-2605080600-langgraph-server-granian-l3-runtime",
         "doc:adr-2604282300"
       ],
@@ -4262,7 +4274,7 @@
         "OpenRouter API key storage (1Password etzhayyim vault)",
         "terminal-agent agentic benchmark suite (etzhayyim code bench --agentic --swe)",
         "Model selection by workload (interactive / batch / long-context / code-correctness)",
-        "RisingWave bench result schema (vertex_bench_run / vertex_bench_result)"
+        "Kotoba/Datomic bench result schema (vertex_bench_run / vertex_bench_result)"
       ],
       "related": [
         "doc:adr-2605010000",
@@ -4380,7 +4392,7 @@
         "vertex_projector_blocker / edge_projector_project_dep schema 定義",
         "vertex_project_props 拡張列 (progress_permille / lifecycle_state / lg_thread_id / target_date)",
         "mv_projector_project_status MV 定義",
-        "pymagatama/projector/ LangGraph + Pregel 実装",
+        "kotodama/projector/ LangGraph + Pregel 実装",
         "com/etzhayyim/projector/ Lexicon 定義",
         "GRAPHS[\"projector_lifecycle\"] の pregel pod 登録",
         "Claude Agent が projector tools を使うべきタイミングの契約"
@@ -4586,10 +4598,10 @@
         "in-cluster MCP NSID override pattern (MCP_NSID_OVERRIDE_* env)",
         "Hume image-head persist → distil → consume loop for emotionAlignment scoring",
         "per-node `_emotion` attachment for ai-image + panel nodes in the Genko document graph",
-        "pymagatama resolver enhancements (make_llm_vision_node, DMN condition router)"
+        "kotodama resolver enhancements (make_llm_vision_node, DMN condition router)"
       ],
       "related": [
-        "doc:adr-0044-risingwave-udf-language-strategy",
+        "doc:adr-0044-kotoba-udf-language-strategy",
         "doc:adr-2605131600-malak-orchestration-langgraph-pregel-langserve"
       ],
       "lastVerified": "2026-05-14"
@@ -4647,7 +4659,7 @@
       "authoritative": true,
       "authoritativeFor": [
         "mailer.etzhayyim.com の GEWP 送受信実装",
-        "pymagatama.gewp モジュール API",
+        "kotodama.gewp モジュール API",
         "vertex_mailer_inbound_email / vertex_mailer_outbound_email の GEWP 列定義",
         "Resend API を経由した GEWP 3-layer 送信方式",
         "email-relay Worker の MIME 解析・attachment_json graph worker projection",
@@ -4837,7 +4849,7 @@
     {
       "id": "doc:adr-2605152100-auth-unified-topology",
       "type": "TechArticle",
-      "title": "Auth Unified Topology — auth.etzhayyim.com canonical, 4-layer minimum, x-magatama-verified retirement",
+      "title": "Auth Unified Topology — auth.etzhayyim.com canonical, 4-layer minimum, x-kotodama-verified retirement",
       "status": "active",
       "topic": "auth-topology",
       "authoritative": true,
@@ -4845,7 +4857,7 @@
         "auth canonical domain (auth.etzhayyim.com)",
         "worker split (auth = AuthN, authz = AuthZ)",
         "oauth-as physical location (PDS)",
-        "x-magatama-verified cutover date",
+        "x-kotodama-verified cutover date",
         "did issuance canonical path (ERC725)",
         "nsid namespace ownership"
       ],
@@ -4992,10 +5004,10 @@
       "topic": "etzhayyim-rw-free-substrate",
       "authoritative": true,
       "authoritativeFor": [
-        "hard rule: open religious-corp apps MUST NOT depend on RisingWave or any centralized DB",
+        "hard rule: open religious-corp apps MUST NOT depend on Kotoba/Datomic or any centralized DB",
         "primary substrate: AT Protocol MST + IPFS + Base L2",
         "SDK pattern: PDS write + IPFS pin + L2 batch anchor as one operation",
-        "per-app-pattern migration guide off RisingWave"
+        "per-app-pattern migration guide off Kotoba/Datomic"
       ],
       "lastVerified": "2026-05-17"
     },
@@ -5009,7 +5021,7 @@
       "authoritativeFor": [
         "malak ransomware actor tracking from onion crawl metadata",
         "onion crawl frontier expansion policy",
-        "RisingWave-compatible publish pattern for ransomware_actor_activity"
+        "Kotoba/Datomic-compatible publish pattern for ransomware_actor_activity"
       ],
       "related": [
         "doc:adr-2605131600-malak-orchestration-langgraph-pregel-langserve",
@@ -5102,7 +5114,7 @@
       "authoritativeFor": [
         "per-project etzhayyim / vendor boundary judgment rule",
         "Tranche F scope (next-wave etzhayyim migration candidates)",
-        "re-judgment of ADR-2605152100 borderline list (auth / agentgateway / bpmn / magatama / pregel / shinka / society6 / trust / vault / signal / kyber / yoro / sanctions / well-becoming / kami)"
+        "re-judgment of ADR-2605152100 borderline list (auth / agentgateway / bpmn / kotodama / pregel / shinka / society6 / trust / vault / signal / kyber / yoro / sanctions / well-becoming / kami)"
       ],
       "related": [
         "doc:adr-2605172200-openmail-atproto-mst-smtp-bridge",
@@ -5176,14 +5188,14 @@
     {
       "id": "doc:adr-2605173100-gitguardian-incident-response",
       "type": "TechArticle",
-      "title": "ADR-2605173100: GitGuardian RisingWave credential-leak incident response — full remediation 2026-05-17",
+      "title": "ADR-2605173100: GitGuardian Kotoba/Datomic credential-leak incident response — full remediation 2026-05-17",
       "status": "active",
       "topic": "gitguardian-incident-response",
       "authoritative": true,
       "authoritativeFor": [
         "GitGuardian 2026-05-17 incident response narrative",
-        "RisingWave network exposure decision (ClusterIP, no public LB)",
-        "RisingWave root user authentication enforcement",
+        "Kotoba/Datomic network exposure decision (ClusterIP, no public LB)",
+        "Kotoba/Datomic root user authentication enforcement",
         "CF Tunnel + Hyperdrive private-origin pattern for upstream DBs",
         "1Password custody for the rotated RW root password",
         "lefthook secret-scan hook regex",
@@ -5370,7 +5382,7 @@
       "authoritative": true,
       "authoritativeFor": [
         "lawfirm 4 NSID (requestConsult / createCase / translateToLang / translateFromLang) の dispatcher 実装",
-        "pymagatama.primitives.lawfirm_intake / lawfirm_translate モジュール設計",
+        "kotodama.primitives.lawfirm_intake / lawfirm_translate モジュール設計",
         "NRI booking form (/services/nri/book) の XRPC 接続",
         "lawyer portal 8 NSID (getDashboard / listAssignedMatters / listPendingGrants / acceptGrant / logWorkNote / submitDocumentDraft / approveDocumentDraft / rejectDocumentDraft) の dispatcher 実装",
         "Stripe billing webhook HMAC verification + Mode A/B handler",
@@ -5431,7 +5443,7 @@
         "doc:adr-2605180000-lawfirm-product-focus-bmc-lean",
         "doc:adr-2605130000-projector-mcp-project-management",
         "doc:adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion",
-        "doc:adr-0048-risingwave-vultr-b2-primary"
+        "doc:adr-0048-kotoba-vultr-b2-primary"
       ],
       "supersededBy": "doc:adr-2605210001-yatabase-minimax-pricing-bmc",
       "lastVerified": "2026-05-19"
@@ -5516,7 +5528,7 @@
         "backblaze-b2-billing-critical"
       ],
       "related": [
-        "doc:90-docs/adr/0048-risingwave-vultr-b2-primary.md",
+        "doc:90-docs/adr/0048-kotoba-vultr-b2-primary.md",
         "doc:adr-2605181400-bpmn-extract-to-etzhayyim-root",
         "doc:_working/etzhayyim-revenue/DECISION-LOG.md",
         "doc:_working/etzhayyim-revenue/stream-a-activation-runbook.md"
@@ -5781,7 +5793,7 @@
         "religious-corp Pregel cell catalog (15+ cells)",
         "3 階層 actor hierarchy (Per-Adherent / Per-Domain / Per-Decision)",
         "cell residency strategy (Tier 0-3 mapping)",
-        "cell deployment + 常駐化 procedure (launchd / systemd / magatama CLI)",
+        "cell deployment + 常駐化 procedure (launchd / systemd / kotodama CLI)",
         "inter-cell coordination (swarm leader election + swarm broadcast)",
         "cell rotation key + governance integration"
       ],
@@ -5803,7 +5815,7 @@
       ],
       "related": [
         "doc:adr-0018-pii-tier3-cohort-first",
-        "doc:adr-0048-risingwave-vultr-b2-primary",
+        "doc:adr-0048-kotoba-vultr-b2-primary",
         "doc:adr-0095-simplified-3layer-identity-rw-vault"
       ],
       "lastVerified": "2026-05-20"
@@ -5837,7 +5849,7 @@
       "authoritative": true,
       "authoritativeFor": [
         "Prometheus alert rule SSoT (PrometheusRule CRDs)",
-        "RisingWave operational alert thresholds",
+        "Kotoba/Datomic operational alert thresholds",
         "defense cluster security alert thresholds",
         "NIST CSF 2.0 DETECT function implementation"
       ],
@@ -5893,7 +5905,7 @@
       "authoritativeFor": [
         "defense ISR track ingest and sensor fusion",
         "defIsr lexicon NSID namespace",
-        "mv_defense_fused_cop RisingWave streaming MV",
+        "mv_defense_fused_cop Kotoba/Datomic streaming MV",
         "vertex_defense_track / edge_defense_track_fusion schema",
         "COP (Common Operating Picture) latency contract (<5s)"
       ],
@@ -6202,24 +6214,24 @@
       "lastVerified": "2026-05-20"
     },
     {
-      "id": "doc:adr-2605202100-etzhayyim-magatama-cell-runner-launchd",
+      "id": "doc:adr-2605202100-etzhayyim-kotodama-cell-runner-launchd",
       "type": "TechArticle",
-      "title": "ADR-2605202100: magatama-cell-runner launchd LaunchAgent — operationalising Tier 1 常駐稼働 on the Murakumo fleet",
+      "title": "ADR-2605202100: kotodama-cell-runner launchd LaunchAgent — operationalising Tier 1 常駐稼働 on the Murakumo fleet",
       "status": "proposed",
-      "topic": "magatama-cell-runner-launchd",
+      "topic": "kotodama-cell-runner-launchd",
       "authoritative": true,
       "authoritativeFor": [
-        "launchd plist template for magatama-cell-runner",
+        "launchd plist template for kotodama-cell-runner",
         "Per-host installer (`install.sh --node <tribe>`) + uninstaller",
-        "pyproject `[project.scripts]` magatama-cell-runner entry",
+        "pyproject `[project.scripts]` kotodama-cell-runner entry",
         "Per-node cell assignment readback contract (fleet.toml ↔ runner CLI)",
-        "常駐起動 OS-level boot path (launchd → uv → magatama-cell-runner)"
+        "常駐起動 OS-level boot path (launchd → uv → kotodama-cell-runner)"
       ],
       "related": [
         "doc:50-infra/cluster/murakumo/cell-runner/",
         "doc:50-infra/cluster/murakumo/litellm/",
         "doc:50-infra/murakumo/fleet.toml",
-        "doc:20-actors/magatama/py/src/pymagatama/cell_runner_main.py"
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/cell_runner_main.py"
       ],
       "lastVerified": "2026-05-20"
     },
@@ -6238,7 +6250,7 @@
       "related": [
         "doc:adr-2605091300-bonsai-cultivar-layer-above-myco-yeast",
         "doc:adr-2605091600-plasmid-graft-horizontal-tool-acquisition",
-        "doc:adr-2604262359-risingwave-multimodal-vector-search-topology",
+        "doc:adr-2604262359-kotoba-multimodal-vector-search-topology",
         "doc:adr-2605192100-etzhayyim-mission-charter",
         "doc:adr-2605192200-etzhayyim-ip-free-release-charter-rider"
       ],
@@ -6247,7 +6259,7 @@
     {
       "id": "doc:adr-2605202200-etzhayyim-cell-runtime-contract",
       "type": "TechArticle",
-      "title": "ADR-2605202200: magatama cell.py runtime contract — build_graph + CellDeps + state_from_event + thread_id_from_event + healthz; cell-runner subprocess spawn implementation",
+      "title": "ADR-2605202200: kotodama cell.py runtime contract — build_graph + CellDeps + state_from_event + thread_id_from_event + healthz; cell-runner subprocess spawn implementation",
       "status": "proposed",
       "topic": "cell-runtime-contract",
       "authoritative": true,
@@ -6260,8 +6272,8 @@
         "MST listener wiring (fleet.toml.listens_to → cell)"
       ],
       "related": [
-        "doc:20-actors/magatama/cells/",
-        "doc:20-actors/magatama/py/src/pymagatama/cell_runner_main.py"
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/cell_runner_main.py"
       ],
       "lastVerified": "2026-05-20"
     },
@@ -6347,13 +6359,13 @@
     {
       "id": "doc:adr-2605202500-temporal-not-adopted-langgraph-rw-durable",
       "type": "TechArticle",
-      "title": "ADR-2605202500: Temporal 不採用 — LangGraph + RisingWave Durable Job 継続",
+      "title": "ADR-2605202500: Temporal 不採用 — LangGraph + Kotoba/Datomic Durable Job 継続",
       "status": "active",
       "topic": "temporal-not-adopted-langgraph-rw-durable",
       "authoritative": true,
       "authoritativeFor": [
         "Temporal workflow engine 不採用の根拠",
-        "LangGraph Server + RisingWave を durable job 基盤として継続する決定",
+        "LangGraph Server + Kotoba/Datomic を durable job 基盤として継続する決定",
         "常駐化・Durable Job の現行設計の正典記述",
         "Temporal 検討を再開する条件 (例外)"
       ],
@@ -6369,7 +6381,7 @@
       "authoritativeFor": [
         "tsukuru B2B factory-direct ordering on etzhayyim substrate",
         "Stripe Issuing → ERC-4337 + USDC payment migration plan",
-        "RisingWave Hyperdrive → PDS XRPC + IPFS storage migration plan",
+        "Kotoba/Datomic Hyperdrive → PDS XRPC + IPFS storage migration plan",
         "460+ factory DID migration plan (etzhayyim → etzhayyim)"
       ],
       "related": [
@@ -6721,15 +6733,15 @@
       "topic": "yorishiro-external-actor-bridge",
       "authoritative": true,
       "authoritativeFor": [
-        "external app / webservice の magatama actor 化の 3-layer 出力契約",
+        "external app / webservice の kotodama actor 化の 3-layer 出力契約",
         "yorishiro generator CLI 仕様 (etzhayyim-cli yorishiro <name> --from <source>)",
         "Lexicon 拡張フィールド (x-yorishiro-external / x-charter-purpose) の意味論",
         "Charter purpose enforcement の lefthook hook 拡張点"
       ],
       "related": [
-        "doc:20-actors/magatama/mcp/unispsc-isic-mcp/",
-        "doc:20-actors/magatama/cells/",
-        "doc:20-actors/magatama/py/src/pymagatama/primitives/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/mcp/unispsc-isic-mcp/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/",
         "doc:00-contracts/lexicons/ai/etzhayyim/",
         "doc:70-tools/etzhayyim-cli/",
         "doc:70-tools/charter-rider-applicator/",
@@ -6746,7 +6758,7 @@
       "authoritative": true,
       "authoritativeFor": [
         "vendor-side refactor + deletion procedure for the 27 worker + 4 ingest + 4 primitive files",
-        "etzhayyim lg subtree deletion order (3 already-relocated subtrees + their pymagatama imports)",
+        "etzhayyim lg subtree deletion order (3 already-relocated subtrees + their kotodama imports)",
         "rollback procedure for partial vendor refactor failures",
         "verification protocol post-deletion (vendor build + downstream importer survey)"
       ],
@@ -6859,14 +6871,14 @@
       "lastVerified": "2026-05-21"
     },
     {
-      "id": "doc:adr-2605212100-magatama-worker-3-axis-tranche-f-closure",
+      "id": "doc:adr-2605212100-kotodama-worker-3-axis-tranche-f-closure",
       "type": "TechArticle",
-      "title": "ADR-2605212100: Tranche F closure — 70 magatama worker_main 3-axis classification + Phase 3 prerequisites",
+      "title": "ADR-2605212100: Tranche F closure — 70 kotodama worker_main 3-axis classification + Phase 3 prerequisites",
       "status": "active",
-      "topic": "magatama-worker-vendor-etzhayyim-boundary",
+      "topic": "kotodama-worker-vendor-etzhayyim-boundary",
       "authoritative": true,
       "authoritativeFor": [
-        "magatama worker classification under the 3-axis OR-test",
+        "kotodama worker classification under the 3-axis OR-test",
         "Phase 3 prerequisites for any worker deployment-surface migration to etzhayyim",
         "corrected helm chart ownership semantics (etzhayyim is RW-free, not a Vultr+Helm copy target)"
       ],
@@ -7044,11 +7056,11 @@
       "authoritativeFor": [
         "Inference substrate boundary for etzhayyim religious-corp",
         "RunPod prohibition for all religious-corp workloads",
-        "pymagatama RunPod coupling audit and Step 8 cutover scope"
+        "kotodama RunPod coupling audit and Step 8 cutover scope"
       ],
       "related": [
         "doc:adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
-        "doc:adr-2605202100-etzhayyim-magatama-cell-runner-launchd",
+        "doc:adr-2605202100-etzhayyim-kotodama-cell-runner-launchd",
         "doc:2605182312-local-bring-up-murakumo-gemma4"
       ],
       "lastVerified": "2026-05-21"
@@ -7224,9 +7236,9 @@
       "topic": "mailer-pgp-mime-e2ee",
       "authoritative": true,
       "authoritativeFor": [
-        "pymagatama.primitives.pgp",
-        "pymagatama.gewp.compose_pgp_mime_raw",
-        "pymagatama.ingest.mailer (PGP send path)",
+        "kotodama.primitives.pgp",
+        "kotodama.gewp.compose_pgp_mime_raw",
+        "kotodama.ingest.mailer (PGP send path)",
         "vertex_mailer_pgp_key (DB table)"
       ],
       "lastVerified": "2026-05-23"
@@ -7434,7 +7446,7 @@
       ],
       "related": [
         "doc:adr-2604271830-patent-expired-pharma-seiyaku-handoff",
-        "doc:20-actors/magatama/mcp/open-seiyaku-mcp"
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/mcp/open-seiyaku-mcp"
       ],
       "lastVerified": "2026-05-23"
     },
@@ -7524,7 +7536,7 @@
       "related": [
         "doc:70-tools/seed-post/",
         "doc:00-contracts/policies/app/bsky/feed/",
-        "doc:20-actors/magatama/cells/feed_post/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/feed_post/",
         "doc:50-infra/mst-projector/projection/",
         "doc:00-contracts/lexicons/com/etzhayyim/membrane/",
         "doc:00-contracts/lexicons/com/etzhayyim/projection/"
@@ -7557,12 +7569,12 @@
       "authoritative": true,
       "authoritativeFor": [
         "UNSPSC agent corpus health invariant (100% import + invoke clean)",
-        "6 kuni-umi phase cell.py implementations (canonical at 20-actors/magatama/cells/*; 20-actors/kuni-umi/cells/* are symlinks)",
+        "6 kuni-umi phase cell.py implementations (canonical at 40-engine/kotoba/crates/kotoba-kotodama/cells/*; 20-actors/kuni-umi/cells/* are symlinks)",
         "KuniUmiApiCell HTTP gateway (naphtali:13030, lan-api, 6 lexicon endpoints + /xrpc/{nsid} + /api/invoke + /api/{short})",
         "mst-listener entry contract for kuni-umi cells (handle_mst_event + cron_fire wrappers)",
-        "pymagatama.transport.libp2p Python wrapper around etzhayyim-libp2p shell scripts",
+        "kotodama.transport.libp2p Python wrapper around etzhayyim-libp2p shell scripts",
         "cell-runner KUBO_LIBP2P auto-expose hook for lan-api cells",
-        "pymagatama.adapters.open_utility 14 CIM stubs",
+        "kotodama.adapters.open_utility 14 CIM stubs",
         "SiteSurveyCell fan_out_specialists libp2p dial mode (UNISPSC_SHARD_<n>_PEER_ID env)",
         "tests/test_kuni_umi_e2e.py — 28-test E2E regression suite as the corpus invariant",
         "70-tools/etzhayyim-cli/kuni_umi.go — 6-subcommand human entry point",
@@ -7582,7 +7594,7 @@
       "topic": "kotoba-datomic-engine",
       "authoritative": false,
       "related": [
-        "doc:adr-2604241342-risingwave-out-of-band-migration-pattern",
+        "doc:adr-2604241342-kotoba-out-of-band-migration-pattern",
         "doc:2605171300"
       ],
       "supersededBy": "doc:adr-2605262130-kotoba-storage-substrate-unification",
@@ -7596,7 +7608,7 @@
       "topic": "unispsc-organism",
       "authoritative": true,
       "authoritativeFor": [
-        "Python port of joucho heartbeat-cadence (pymagatama.organism)",
+        "Python port of joucho heartbeat-cadence (kotodama.organism)",
         "UNSPSC actor → organism wrapping contract",
         "one-organism-per-cell fleet placement convention"
       ],
@@ -7662,7 +7674,7 @@
         "doc:70-tools/baien-mx-train/                (skeleton — new with this ADR)",
         "doc:70-tools/baien-graft-pipeline/          (data generation)",
         "doc:70-tools/etzhayyim-cli/bench.go         (`e7m bench mx-train` subcommand)",
-        "doc:20-actors/magatama/sdk/magatama-host-sdk/src/llm-model-registry.ts (Move 1 graft registration target)"
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts (Move 1 graft registration target)"
       ],
       "lastVerified": "2026-05-23"
     },
@@ -7805,7 +7817,7 @@
         "server-side variant naming carve-out"
       ],
       "related": [
-        "doc:20-actors/magatama/sdk/magatama-host-sdk/src/llm-model-registry.ts",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts",
         "doc:70-tools/baien-distill/",
         "doc:70-tools/baien-mx-train/"
       ],
@@ -7863,7 +7875,7 @@
         "doc:https://huggingface.co/prism-ml/Bonsai-8B-mlx-1bit (Bonsai reference impl)",
         "doc:https://huggingface.co/Zyphra/Zamba2-7B (Zamba2 base candidate)",
         "doc:https://huggingface.co/Qwen/Qwen3-8B (Qwen3 base, Bonsai-proven)",
-        "doc:20-actors/magatama/sdk/magatama-host-sdk/src/llm-model-registry.ts",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts",
         "doc:70-tools/baien-distill/"
       ],
       "lastVerified": "2026-05-23"
@@ -7991,7 +8003,7 @@
       "related": [
         "doc:50-infra/silicon/",
         "doc:20-actors/tsukuru/",
-        "doc:20-actors/magatama/cells/silicon_*/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_*/",
         "doc:00-contracts/lexicons/com/etzhayyim/silicon/"
       ],
       "lastVerified": "2026-05-24"
@@ -8014,7 +8026,7 @@
         "doc:50-infra/silicon/iwakura/",
         "doc:50-infra/silicon/shared-ip/ternary-pe/",
         "doc:70-tools/silicon/iwakura-asm/",
-        "doc:20-actors/magatama/cells/silicon_test/"
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_test/"
       ],
       "lastVerified": "2026-05-24"
     },
@@ -8058,14 +8070,14 @@
       ],
       "related": [
         "doc:50-infra/silicon/equipment/",
-        "doc:20-actors/magatama/cells/silicon_litho/",
-        "doc:20-actors/magatama/cells/silicon_deposition/",
-        "doc:20-actors/magatama/cells/silicon_etch/",
-        "doc:20-actors/magatama/cells/silicon_implant/",
-        "doc:20-actors/magatama/cells/silicon_cmp/",
-        "doc:20-actors/magatama/cells/silicon_metrology/",
-        "doc:20-actors/magatama/cells/silicon_test/",
-        "doc:20-actors/magatama/cells/silicon_packaging/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_litho/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_deposition/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_etch/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_implant/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_cmp/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_metrology/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_test/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_packaging/",
         "doc:00-contracts/lexicons/com/etzhayyim/silicon/fabEquipmentTelemetry.json",
         "doc:00-contracts/lexicons/com/etzhayyim/silicon/waferLotAttestation.json",
         "doc:20-actors/tsukuru/"
@@ -8090,7 +8102,7 @@
       "related": [
         "doc:20-actors/ameno/src/train.ts",
         "doc:70-tools/baien-distill/src/baien_distill/nodes/federated_aggregate.py",
-        "doc:20-actors/magatama/cells/baien_federated_aggregator/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/baien_federated_aggregator/",
         "doc:00-contracts/lexicons/com/etzhayyim/baien/distributedTrainDelta.json"
       ],
       "lastVerified": "2026-05-24"
@@ -8201,7 +8213,7 @@
       ],
       "related": [
         "doc:20-actors/yakushi/",
-        "doc:20-actors/magatama/cells/pharma_*/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_*/",
         "doc:00-contracts/lexicons/com/etzhayyim/pharma/",
         "doc:50-infra/murakumo/fleet.toml"
       ],
@@ -8224,9 +8236,9 @@
       ],
       "related": [
         "doc:20-actors/yakushi/",
-        "doc:20-actors/magatama/cells/pharma_api_synthesis/",
-        "doc:20-actors/magatama/cells/pharma_purification/",
-        "doc:20-actors/magatama/cells/pharma_qc/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_api_synthesis/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_purification/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_qc/",
         "doc:00-contracts/lexicons/com/etzhayyim/pharma/apiSynthesisAttestation.json",
         "doc:00-contracts/lexicons/com/etzhayyim/pharma/purificationAttestation.json",
         "doc:00-contracts/lexicons/com/etzhayyim/pharma/qcAttestation.json"
@@ -8251,8 +8263,8 @@
       ],
       "related": [
         "doc:20-actors/yakushi/",
-        "doc:20-actors/magatama/cells/pharma_sterile_fill_finish/",
-        "doc:20-actors/magatama/cells/pharma_container/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_sterile_fill_finish/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_container/",
         "doc:00-contracts/lexicons/com/etzhayyim/pharma/fillFinishAttestation.json",
         "doc:00-contracts/lexicons/com/etzhayyim/pharma/lotAttestation.json"
       ],
@@ -8275,11 +8287,11 @@
       ],
       "related": [
         "doc:20-actors/yakushi/",
-        "doc:20-actors/magatama/cells/pharma_raw_material/",
-        "doc:20-actors/magatama/cells/pharma_packaging/",
-        "doc:20-actors/magatama/cells/pharma_cold_chain/",
-        "doc:20-actors/magatama/cells/pharma_post_market_surveillance/",
-        "doc:20-actors/magatama/cells/pharma_adverse_event/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_raw_material/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_packaging/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_cold_chain/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_post_market_surveillance/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_adverse_event/",
         "doc:00-contracts/lexicons/com/etzhayyim/pharma/rawMaterialAttestation.json",
         "doc:00-contracts/lexicons/com/etzhayyim/pharma/silenPharmaReview.json",
         "doc:00-contracts/lexicons/com/etzhayyim/pharma/adverseEventReport.json"
@@ -8303,8 +8315,8 @@
       ],
       "related": [
         "doc:20-actors/yakushi/",
-        "doc:20-actors/magatama/cells/pharma_tablet_manufacture/",
-        "doc:20-actors/magatama/cells/pharma_topical_formulation/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_tablet_manufacture/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_topical_formulation/",
         "doc:00-contracts/lexicons/com/etzhayyim/pharma/"
       ],
       "lastVerified": "2026-05-25"
@@ -8326,7 +8338,7 @@
       ],
       "related": [
         "doc:20-actors/yakushi/",
-        "doc:20-actors/magatama/cells/pharma_chiral_resolution/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_chiral_resolution/",
         "doc:00-contracts/lexicons/com/etzhayyim/pharma/"
       ],
       "lastVerified": "2026-05-25"
@@ -8364,7 +8376,7 @@
         "R0 → R1..R4 phase plan and gating"
       ],
       "related": [
-        "doc:20-actors/magatama/py/src/pymagatama/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/",
         "doc:50-infra/murakumo/fleet.toml",
         "doc:70-tools/baien-distill",
         "doc:30-graph/graph-schema/migrations/"
@@ -8599,7 +8611,7 @@
       "authoritative": true,
       "authoritativeFor": [
         "etzhayyim.com apex Worker cookie-free contract",
-        "yoro magatama-yoro Worker deploy unblock procedure",
+        "yoro kotodama-yoro Worker deploy unblock procedure",
         "svelte/public/* → static/ build mirror discipline",
         "documentation of yoro SPA hydration RangeError root cause (not fixed in this ADR)"
       ],
@@ -8663,7 +8675,7 @@
       ],
       "related": [
         "doc:20-actors/mitate/",
-        "doc:20-actors/magatama/cells/mitate_*/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_*/",
         "doc:00-contracts/lexicons/com/etzhayyim/mitate/",
         "doc:50-infra/murakumo/fleet.toml"
       ],
@@ -8685,11 +8697,11 @@
         "yakushi Wave 1c cetirizine / loratadine / Wave 1c chlorpheniramine 経路との接続"
       ],
       "related": [
-        "doc:20-actors/magatama/cells/mitate_rhinitis_intake/",
-        "doc:20-actors/magatama/cells/mitate_rhinitis_triage/",
-        "doc:20-actors/magatama/cells/mitate_allergy_ige_panel_order/",
-        "doc:20-actors/magatama/cells/mitate_nasal_smear_eosinophil/",
-        "doc:20-actors/magatama/cells/mitate_slit_cohort_tracker/"
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_rhinitis_intake/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_rhinitis_triage/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_allergy_ige_panel_order/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_nasal_smear_eosinophil/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_slit_cohort_tracker/"
       ],
       "lastVerified": "2026-05-25"
     },
@@ -8708,9 +8720,9 @@
         "PNN section (posterior nasal nerve section) surgical routing (R3 severe-refractory)"
       ],
       "related": [
-        "doc:20-actors/magatama/cells/mitate_rhinitis_triage/",
-        "doc:20-actors/magatama/cells/mitate_treatment_router/",
-        "doc:20-actors/magatama/cells/mitate_outcome_qol_followup/"
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_rhinitis_triage/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_treatment_router/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_outcome_qol_followup/"
       ],
       "lastVerified": "2026-05-25"
     },
@@ -8731,10 +8743,10 @@
         "**mitate Wave 1 中 最も Rx + surgical routing 重い condition ― licensed MD-in-loop の最低 Case**"
       ],
       "related": [
-        "doc:20-actors/magatama/cells/mitate_rhinitis_triage/",
-        "doc:20-actors/magatama/cells/mitate_nasal_endoscopy_acquire/",
-        "doc:20-actors/magatama/cells/mitate_paranasal_ct_route/",
-        "doc:20-actors/magatama/cells/mitate_ess_surgery_planner/"
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_rhinitis_triage/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_nasal_endoscopy_acquire/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_paranasal_ct_route/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_ess_surgery_planner/"
       ],
       "lastVerified": "2026-05-25"
     },
@@ -8753,10 +8765,10 @@
         "軽症 = 点鼻 steroid / 中重症 = septoplasty + 下鼻甲介手術 routing (R3)"
       ],
       "related": [
-        "doc:20-actors/magatama/cells/mitate_rhinitis_triage/",
-        "doc:20-actors/magatama/cells/mitate_nasal_endoscopy_acquire/",
-        "doc:20-actors/magatama/cells/mitate_rhinomanometry/",
-        "doc:20-actors/magatama/cells/mitate_ess_surgery_planner/"
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_rhinitis_triage/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_nasal_endoscopy_acquire/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_rhinomanometry/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_ess_surgery_planner/"
       ],
       "lastVerified": "2026-05-25"
     },
@@ -8775,10 +8787,10 @@
         "**religious-corp 内 self-care substrate の最初の完結した closed-loop case (yakushi 製造 → adherent 使用 → mitate detection → 離脱 → yakushi label警告 強化)**"
       ],
       "related": [
-        "doc:20-actors/magatama/cells/mitate_rhinitis_intake/",
-        "doc:20-actors/magatama/cells/mitate_medication_history_audit/",
-        "doc:20-actors/magatama/cells/mitate_treatment_router/",
-        "doc:20-actors/magatama/cells/mitate_outcome_qol_followup/"
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_rhinitis_intake/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_medication_history_audit/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_treatment_router/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_outcome_qol_followup/"
       ],
       "lastVerified": "2026-05-25"
     },
@@ -8799,7 +8811,7 @@
       ],
       "related": [
         "doc:20-actors/mitate/",
-        "doc:20-actors/magatama/cells/mitate_{rhinitis_intake,emergency_screen,medication_history_audit,rhinitis_triage}/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_{rhinitis_intake,emergency_screen,medication_history_audit,rhinitis_triage}/",
         "doc:60-apps/mitate-pwa/",
         "doc:50-infra/murakumo/fleet.toml"
       ],
@@ -8824,11 +8836,11 @@
       "related": [
         "doc:20-actors/yakushi/",
         "doc:20-actors/mitate/",
-        "doc:20-actors/magatama/cells/pharma_adverse_event/",
-        "doc:20-actors/magatama/cells/pharma_post_market_surveillance/",
-        "doc:20-actors/magatama/cells/pharma_packaging/",
-        "doc:20-actors/magatama/cells/mitate_outcome_qol_followup/",
-        "doc:20-actors/magatama/cells/mitate_medication_history_audit/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_adverse_event/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_post_market_surveillance/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_packaging/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_outcome_qol_followup/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_medication_history_audit/",
         "doc:00-contracts/lexicons/com/etzhayyim/pharma/adverseEventReport.json"
       ],
       "lastVerified": "2026-05-25"
@@ -8852,7 +8864,7 @@
       "related": [
         "doc:20-actors/mitate/",
         "doc:20-actors/kuni-umi/",
-        "doc:20-actors/magatama/cells/mitate_nasal_endoscopy_acquire/"
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_nasal_endoscopy_acquire/"
       ],
       "lastVerified": "2026-05-25"
     },
@@ -9148,7 +9160,7 @@
         "40-engine/kami-engine/kami-replicator",
         "40-engine/kami-engine/kami-app-amenominaka",
         "20-actors/etzhayyim-sdk/nv-compat",
-        "20-actors/magatama/py/pymagatama/nv_compat"
+        "40-engine/kotoba/crates/kotoba-kotodama/py/kotodama/nv_compat"
       ],
       "related": [
         "doc:adr-2605242000-roso-pattern-frontier-distill",
@@ -9206,14 +9218,14 @@
     {
       "id": "doc:adr-2605262130-kotoba-storage-substrate-unification",
       "type": "TechArticle",
-      "title": "ADR-2605262130: Kotoba as Canonical Storage Substrate — supersedes kotoba-datomic composition + projection layers; no RisingWave",
+      "title": "ADR-2605262130: Kotoba as Canonical Storage Substrate — supersedes kotoba-datomic composition + projection layers; no Kotoba/Datomic",
       "status": "proposed",
       "topic": "storage-substrate",
       "authoritative": true,
       "authoritativeFor": [
         "canonical storage substrate engine (kotoba)",
         "removal of kotoba-datomic composition spec from authoritative design surface",
-        "removal of RisingWave / Lance / Iroh as projection backends"
+        "removal of Kotoba/Datomic / Lance / Iroh as projection backends"
       ],
       "related": [
         "doc:adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
@@ -9289,7 +9301,7 @@
         "separation of perception (hot path) vs training (cold path) data flows",
         "Tier-A vs Tier-C license ladder for organism-consumed datasets",
         "G13 fleet-internal carve-out applied to NC-licensed source data",
-        "DatasetSensor protocol for pymagatama.organism.sensors.*",
+        "DatasetSensor protocol for kotodama.organism.sensors.*",
         "passive-only constraint on organism network behavior (no active DNS/IP probing)",
         "new fetcher set in 70-tools/e7m-dataset/src/e7m_dataset/fetchers/ (RIR, GeoLite2, RIPE-RIS, Routeviews, IANA root, Rapid7 Sonar, OpenINTEL, CAIDA, CZDS, Common Crawl CDX)",
         "new subdataset taxonomy under 90-docs/baien/datasets/{geo,netreg,routing,dns,web}/",
@@ -9377,7 +9389,7 @@
       "authoritativeFor": [
         "global legal-corpus ingestion policy (statutes / cases / treaties / procedures / templates / commentary)",
         "`law/` bucket family under 90-docs/baien/datasets/law/<bucket>/<jurisdiction>/<rev>/",
-        "5 new sensor families under pymagatama.organism.sensors.legal.*",
+        "5 new sensor families under kotodama.organism.sensors.legal.*",
         "25+ fetchers under 70-tools/e7m-dataset/src/e7m_dataset/fetchers/legal/",
         "judicial-party redaction policy (jurisdiction-dependent)",
         "legal-template corpus separate from raw-law corpus (G6)",
@@ -9779,7 +9791,7 @@
       "authoritativeFor": [
         "public-data corporate-disclosure ingestion single SoT",
         "`corp/` bucket family taxonomy (registries / disclosures / lei / cross-juris)",
-        "`pymagatama.organism.sensors.corp.*` sensor family namespace",
+        "`kotodama.organism.sensors.corp.*` sensor family namespace",
         "corporate-disclosure license × tier × jurisdiction ladder",
         "Bloomberg/S&P/Refinitiv/FactSet/Moody's/D&B/Pitchbook/Crunchbase commercial terminal PROHIBITION (Charter Rider §2(e) + §2(c) substrate-boundary)",
         "corporate-disclosure PII redaction policy (per-jurisdiction publication-rule honoring; NO unilateral re-identification, NO de-anonymization)",
@@ -9823,7 +9835,7 @@
       "authoritativeFor": [
         "public-data open-government ingestion single SoT",
         "`gov/` bucket family taxonomy (open-data / parliament / budget / procurement / statistics)",
-        "`pymagatama.organism.sensors.gov.*` sensor family namespace",
+        "`kotodama.organism.sensors.gov.*` sensor family namespace",
         "open-government license × tier × jurisdiction ladder",
         "GovWin IQ / Bloomberg Government / Politico Pro / E&E News Pro / FiscalNote / CQ Roll Call Pro commercial gov-intelligence terminal PROHIBITION (Charter Rider §2(e) + §2(c))",
         "parliament / 議事録 publication-rule-honoring policy (NO unilateral re-identification, NO de-anonymization; chigiri.data_privacy DSAR routing)",
@@ -10448,7 +10460,7 @@
         "(reserved) / (deferred-rename) marker convention adoption (cycle 46)",
         "4-axis cron deconfliction (:17 / :23 / :29 / :35 spread)",
         "5 reusable patterns from cycles 27-51 journey",
-        "magatama-schema axis-5 deferred status + 38-violation survey"
+        "kotodama-schema axis-5 deferred status + 38-violation survey"
       ],
       "related": "doc:adr-2605170900-etzhayyim-root-adr-canonical-home",
       "lastVerified": "2026-05-27"
@@ -10578,10 +10590,10 @@
         "doc:00-contracts/lexicons/com/etzhayyim/mitate/diagnosticOrder.json",
         "doc:00-contracts/lexicons/com/etzhayyim/mitate/diagnosticConsentReceipt.json",
         "doc:00-contracts/lexicons/com/etzhayyim/iyashi/phlebotomyAttestation.json",
-        "doc:20-actors/magatama/cells/mitate_diagnostic_consent_orchestrator/",
-        "doc:20-actors/magatama/cells/mitate_diagnostic_order_general/",
-        "doc:20-actors/magatama/cells/mitate_diagnostic_result_ingest/",
-        "doc:20-actors/magatama/cells/iyashi_internal_phlebotomy/"
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_diagnostic_consent_orchestrator/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_diagnostic_order_general/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_diagnostic_result_ingest/",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/cells/iyashi_internal_phlebotomy/"
       ],
       "lastVerified": "2026-05-29"
     },
@@ -10714,17 +10726,17 @@
     {
       "id": "doc:adr-2605291100-manimani-kotoba-native-reconciliation-gmail-pc-ingest",
       "type": "TechArticle",
-      "title": "ADR-2605291100: manimani — kotoba-native personal knowledge router (Gmail + PC ingest), reconciling RisingWave/Anthropic-direct/RunPod",
+      "title": "ADR-2605291100: manimani — kotoba-native personal knowledge router (Gmail + PC ingest), reconciling Kotoba/Datomic/Anthropic-direct/RunPod",
       "status": "proposed",
       "topic": "manimani-kotoba-native-reconciliation",
       "authoritative": true,
       "authoritativeFor": [
-        "manimani.etzhayyim.com の substrate 配置 (kotoba EAVT datoms; RisingWave 廃止)",
+        "manimani.etzhayyim.com の substrate 配置 (kotoba EAVT datoms; Kotoba/Datomic 廃止)",
         "manimani inference 経路 (Murakumo LiteLLM gateway のみ; Anthropic-direct / RunPod 廃止)",
-        "manimani runtime (kotoba StateGraph; pymagatama LangGraph Server + Granian pool 廃止)",
+        "manimani runtime (kotoba StateGraph; kotodama LangGraph Server + Granian pool 廃止)",
         "Gmail 全アーカイブ ingest 経路 (kotoba-ingest gmail.rs OAuth2 → RFC2822 → E2E encrypt → QuadStore)",
         "広範囲 PC ファイル ingest 経路 (kotoba-kse Vault chunking → BlobManifest CID → intake datom)",
-        "manimani datom schema (vertex_manimani_* RisingWave テーブルの EAVT predicate 置換)"
+        "manimani datom schema (vertex_manimani_* Kotoba/Datomic テーブルの EAVT predicate 置換)"
       ],
       "related": [
         "doc:adr-2605120000-ses-anken-jokyo-ingest-langgraph",
@@ -10856,14 +10868,14 @@
     {
       "id": "doc:adr-2605301400-tadori-onchain-tracing-actor-and-kotoba-eavt-migration",
       "type": "TechArticle",
-      "title": "ADR-2605301400: 辿 (tadori) — authorized on-chain transaction-tracing + actor-attribution Tier-B actor, kotoba-EAVT-native; migrates malak pursuit + ipaddress + yabai off yata SQL / RisingWave",
+      "title": "ADR-2605301400: 辿 (tadori) — authorized on-chain transaction-tracing + actor-attribution Tier-B actor, kotoba-EAVT-native; migrates malak pursuit + ipaddress + yabai off yata SQL / Kotoba/Datomic",
       "status": "proposed",
       "topic": "tadori-onchain-tracing-actor",
       "authoritative": true,
       "authoritativeFor": [
         "new Tier-B actor `tadori` (authorized on-chain tx tracing + actor attribution)",
         "kotoba-kqe EAVT datom schema for tx / address / cluster / label / case / ip-observation / dns-observation / attribution / risk",
-        "migration of malak `wallet_deep_inspect_pursuit` + `address_label_pursuit` Pregel output off filesystem/RisingWave onto kotoba QuadStore",
+        "migration of malak `wallet_deep_inspect_pursuit` + `address_label_pursuit` Pregel output off filesystem/Kotoba/Datomic onto kotoba QuadStore",
         "migration of ipaddress.etzhayyim.com SQL graph off yata Workers RPC onto kotoba-kqe",
         "migration of yabai.etzhayyim.com SQL graph (CTI / DNS / IP-history / access-audit) off yata Workers RPC onto kotoba-kqe"
       ],
@@ -11409,7 +11421,7 @@
         "giemon part-ledger EDN schema (parts.edn) + sbom_gen.py generator",
         "giemon SBOM → kotoba EAVT ingest contract (kg.ingest_batch, kg/claim/part/*)",
         "cross-robot fleet part graph (kabitori + giemon-otete) in kotoba",
-        "legacy RisingWave SBOM → kotoba bridge (cyclonedx_to_kotoba.py) + column mapping",
+        "legacy Kotoba/Datomic SBOM → kotoba bridge (cyclonedx_to_kotoba.py) + column mapping",
         "purl-keyed SBOM↔CVE vuln-match materialization (VulnMatch entities)",
         "giemon Svelte surfaces (/giemon, /giemon.htm, /fleet) in etzhayyim-project-isekai"
       ],
@@ -11631,7 +11643,7 @@
     {
       "id": "doc:adr-2606011200-session-close-kotoba-edn-world-info-ingestion-substrate",
       "type": "TechArticle",
-      "title": "ADR-2606011200: Session close — magatama organism kotoba-EDN world-info ingestion substrate (10-iteration maturity loop)",
+      "title": "ADR-2606011200: Session close — kotodama organism kotoba-EDN world-info ingestion substrate (10-iteration maturity loop)",
       "status": "active",
       "topic": "kotoba-edn-ingestion",
       "authoritative": true,
@@ -12467,7 +12479,7 @@
     {
       "id": "doc:adr-2606021730-latent-entity-kotoba-datomic-refactor",
       "type": "TechArticle",
-      "title": "ADR-2606021730: Latent Entity Statistical Resolution — RisingWave to kotoba-EAVT Refactor",
+      "title": "ADR-2606021730: Latent Entity Statistical Resolution — Kotoba/Datomic to kotoba-EAVT Refactor",
       "status": "proposed",
       "topic": "latent-entity-kotoba-refactor",
       "authoritative": true,
@@ -12480,7 +12492,7 @@
         "doc:/30-graph/graph-schema/migrations/20260428360000_vertex_lda_inference.ts (legacy RW stack)",
         "doc:/60-apps/etzhayyim-project-coverage/MIGRATION-TODO.md (charter-violation evidence)"
       ],
-      "supersedes": "doc:/90-docs/260430-natural-person-latent-entity-backend-design.md (RisingWave design, 2026-04-30)",
+      "supersedes": "doc:/90-docs/260430-natural-person-latent-entity-backend-design.md (Kotoba/Datomic design, 2026-04-30)",
       "lastVerified": "2026-06-02"
     },
     {
@@ -12824,11 +12836,11 @@
       "lastVerified": "2026-06-03"
     },
     {
-      "id": "doc:adr-2606032330-session-close-magatama-risingwave-to-kotoba-datomic-edn",
+      "id": "doc:adr-2606032330-session-close-kotodama-kotoba-to-kotoba-datomic-edn",
       "type": "TechArticle",
-      "title": "ADR-2606032330: Session close — magatama RisingWave → kotoba Datomic API/EDN refactor (substrate clients + LangGraph savers + sqlmesh view registry)",
+      "title": "ADR-2606032330: Session close — kotodama Kotoba/Datomic → kotoba Datomic API/EDN refactor (substrate clients + LangGraph savers + sqlmesh view registry)",
       "status": "active",
-      "topic": "session-close-magatama-rw-to-kotoba",
+      "topic": "session-close-kotodama-rw-to-kotoba",
       "authoritative": false,
       "related": [
         "doc:adr-2605262130-kotoba-storage-substrate-unification",
@@ -13089,7 +13101,7 @@
         "doc:2606032100"
       ],
       "supersedes": "doc:0025",
-      "lastVerified": "2026-06-06"
+      "lastVerified": "2026-06-07"
     },
     {
       "id": "doc:adr-2606038000-session-close-kotoba-os-loop-end",
@@ -13913,6 +13925,88 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606071009-nondual-direct-experience-conversion-core",
+      "type": "TechArticle",
+      "title": "ADR-2606071009: Charter §1.17 — 自他非分離の直接体験 as the Experiential Core of 回心 (Non-Dual / Altered-State Direct Experience as a Required Religious Stage, Means-Agnostic, Legality-Bounded)",
+      "status": "proposed",
+      "topic": "nondual-direct-experience-conversion-core",
+      "authoritative": true,
+      "authoritativeFor": [
+        "the doctrine that authentic 回心 (§1.16.3 metanoia) presupposes a direct experiential realization of 自他非分離 (non-duality), not mere cognitive assent",
+        "自他非分離 / 変性意識 direct experience as a required religious stage on the path of conversion and Liberation-Ladder advancement",
+        "the means-agnostic invariant (the requirement is the EXPERIENCE; no specific substance, practice, or technique is mandated)",
+        "the legality-bounded admissibility of entheogenic means (lawful-jurisdiction-only, member-chosen, medical-screening + harm-reduction; no etzhayyim procurement/supply/arranging/instruction of unlawful acquisition)",
+        "the reconciliation of a required experiential stage with §1.16.8 (anti-coercion / right of exit / benefits-not-hostage)"
+      ],
+      "related": [
+        "doc:adr-2605302358-social-security-real-world-delivery-pipeline",
+        "doc:adr-2605172700-membership-layering-shinto-adherent",
+        "doc:adr-2605192100-etzhayyim-mission-charter"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606071100-yoro-browser-only-kotoba-reads-and-profile-fix-e2e",
+      "type": "TechArticle",
+      "title": "ADR-2606071100: yoro browser-only kotoba reads (no RisingWave), profile-500 fix, and the langgraph+browser-use+Murakumo e2e harness",
+      "status": "accepted",
+      "topic": "yoro-browser-only-kotoba-reads",
+      "authoritative": true,
+      "authoritativeFor": [
+        "yoro-home-feed-read-path",
+        "kotoba-browser-only-reads",
+        "browser-only-e2e-verification"
+      ],
+      "related": [
+        "doc:2606013800",
+        "doc:2606014600"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606071238-session-close-nondual-experience-conversion-charter-1-17",
+      "type": "TechArticle",
+      "title": "ADR-2606071238: Session close — Charter §1.17 自他非分離の直接体験 (doctrine) + §1.17.6 guidance UI (yoro deployed live, maps built+pending)",
+      "status": "active",
+      "topic": "session-close-nondual-experience-conversion",
+      "authoritative": true,
+      "authoritativeFor": [
+        "session-close record for the Charter §1.17 non-dual-experience wave (2026-06-07)"
+      ],
+      "related": [
+        "doc:adr-2606071009-nondual-direct-experience-conversion-core",
+        "doc:adr-2605302357-etzhayyim-social-security-for-humanity",
+        "doc:adr-2605192100-etzhayyim-mission-charter"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606071400-omise-kotoba-native-storefront-commons",
+      "type": "TechArticle",
+      "title": "ADR-2606071400: omise お店 — kotoba-native storefront commons (Shopify-layer for internal sellers); promote scaffold → implementation",
+      "status": "proposed",
+      "topic": "omise-storefront-commons",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/omise"
+      ],
+      "related": "doc:2605231525",
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606071500-ainori-pooled-mobility-commons",
+      "type": "TechArticle",
+      "title": "ADR-2606071500: ainori 相乗り — pooled passenger-mobility commons (Uber charter-clean inversion), R0",
+      "status": "proposed",
+      "topic": "ainori-mobility-commons",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/ainori"
+      ],
+      "related": "doc:2606032130",
+      "lastVerified": "2026-06-07"
+    },
+    {
       "id": "doc:adr-2606071600",
       "type": "TechArticle",
       "title": "ADR-2606071600: 透かし (sukashi) — Ad-Tech Supply-Chain + Delivery-Infra + Fraud-Network Observatory Tier-B Actor R0",
@@ -13933,6 +14027,379 @@
         "doc:adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
         "doc:adr-2606022000-kabuto-public-company-intel-supply-chain",
         "doc:adr-2606013600-kotoba-wasm-browser-node"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606071600-shukubo-pilgrim-lodging-commons",
+      "type": "TechArticle",
+      "title": "ADR-2606071600: shukubo 宿坊 — pilgrim-lodging commons (Airbnb/Hotels charter-clean inversion), R0",
+      "status": "proposed",
+      "topic": "shukubo-lodging-commons",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/shukubo"
+      ],
+      "related": "doc:2606042300",
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606071800-substrate-remediation-wave",
+      "type": "TechArticle",
+      "title": "ADR-2606071800: legacy RisingWave/Hyperdrive/Kysely → kotoba-kqe read-path remediation wave",
+      "status": "proposed",
+      "topic": "substrate-remediation-wave",
+      "authoritative": true,
+      "authoritativeFor": [
+        "90-docs/_registry/substrate-remediation-inventory.txt"
+      ],
+      "related": [
+        "doc:2606071400",
+        "doc:2606012100"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606072000-business-manager-kotoba-native-erp",
+      "type": "TechArticle",
+      "title": "ADR-2606072000: business-manager — kotoba-native internal ERP (Salesforce/SAP inversion); remediation Phase A",
+      "status": "proposed",
+      "topic": "business-manager-kotoba-native",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/business-manager"
+      ],
+      "related": "doc:2605262900",
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606072000-kasa-world-computing-capacity-growth-statistics-observatory-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606072000: kasa 嵩 — Worldwide Computing-Capacity Growth Statistics Observatory (Tier-B Actor R0)",
+      "status": "proposed",
+      "topic": "kasa-computing-capacity-growth-observatory",
+      "authoritative": true,
+      "authoritativeFor": [
+        "computing-capacity-growth-observatory-actor",
+        "compute-capacity-eavt-vocabulary",
+        "public-compute-source-admissibility-map"
+      ],
+      "related": [
+        "doc:2606013800",
+        "doc:2606013600",
+        "doc:2605242500"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606072000-kosatsu-crime-sanctions-competing-claim-observatory-r0",
+      "type": "TechArticle",
+      "title": "kosatsu 高札 — crime/sanctions competing-claim observatory (Tier-B actor R0; designation-as-attributed-event over the kotoba Datom log; the politically-neutral, asserter-relative inverse of a sanctions-screening product)",
+      "status": "proposed-pending-council-ratification",
+      "topic": "kosatsu-crime-sanctions-competing-claim",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kosatsu actor scope (crime/sanctions designations mirrored into the kotoba Datom log as append-only attributed events + a computed competing-claim/divergence view; design-only)",
+        "the mirror-not-adjudicator invariant (etzhayyim authors no designation; :authority/kind has no self token; :designation/asserted-notice const true)",
+        "the asserter-mandatory invariant (no asserter-less 'global truth' designation; :designation/asserter required)",
+        "the no-verdict invariant (:designation/measure is an authority instrument; criminal/guilty/terrorist/enemy unrepresentable)",
+        "the event-log/as-of invariant (:designation/status :listed|:delisted; a delisting is a new datom with :lifted-at, never an overwrite; 非終末論)",
+        "the edge-primary / no-score invariant (no :subject/risk-score/:guilt/:threat-level; divergence computed on read)",
+        "the political-stance-explicit divergence model (per-subject {contested|unanimous|single-asserter} + coverage-split; silence is reported, never inferred as dissent)"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606072100-shomei-believer-identity-binding-proof-of-personhood-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606072100: 証明 (shomei) — believer self-sovereign identity binding + proof-of-personhood R0",
+      "status": "accepted",
+      "topic": "shomei-believer-identity-binding",
+      "authoritative": true,
+      "authoritativeFor": [
+        "shomei-believer-identity-binding-actor",
+        "multi-identity-to-did-binding-and-verification",
+        "proof-of-personhood-credential"
+      ],
+      "related": [
+        "doc:adr-2606072300-l5-gov-auth-mynumber-webauthn-r1-shomei-integration",
+        "doc:adr-2605172700-etzhayyim-membership-layering",
+        "doc:adr-2605302000-warifu-open-zero-fee-card",
+        "doc:adr-2605263400-musubi-covenant-ceremony",
+        "doc:adr-2605302130-himotoki-active-disclosure-request-filer"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606072200-shionome-cross-asset-capital-flow-observatory-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606072200: 潮目 (shionome) — cross-asset capital-flow observatory (ingest · intel · analyze · dry-run social, NO trading) R0 + autonomous kotoba loop",
+      "status": "accepted",
+      "topic": "shionome-cross-asset-capital-flow-observatory",
+      "authoritative": true,
+      "authoritativeFor": [
+        "shionome-cross-asset-capital-flow-observatory",
+        "capital-rotation-flow-graph",
+        "no-trade-non-advisory-market-observation"
+      ],
+      "related": [
+        "doc:adr-2605302300-kanae-government-fiscal-flow-visualization",
+        "doc:adr-2606032000-kanjo-company-financial-disclosure-graph",
+        "doc:adr-2606041827-watari-live-ship-aircraft-position-graph",
+        "doc:adr-2606022000-kabuto-supply-chain-knowledge-graph",
+        "doc:adr-2606066000-keizu-government-relations-graph-tier-b-actor-r0"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606072200-yotei-kotoba-native-scheduling",
+      "type": "TechArticle",
+      "title": "ADR-2606072200: yotei — kotoba-native scheduling commons (Calendly inversion); remediation Phase A",
+      "status": "proposed",
+      "topic": "yotei-kotoba-native",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/yotei"
+      ],
+      "related": "doc:2605181100",
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606072300-l5-gov-auth-mynumber-webauthn-r1-shomei-integration",
+      "type": "TechArticle",
+      "title": "ADR-2606072300: L5 gov auth R1 — MyNumber + WebAuthn activation design + shomei integration",
+      "status": "proposed",
+      "topic": "l5-gov-auth-r1-activation",
+      "authoritative": true,
+      "authoritativeFor": [
+        "l5-gov-auth-r1-activation-design",
+        "gov-auth-shomei-gov-factor-integration"
+      ],
+      "related": [
+        "doc:adr-2605172700-etzhayyim-membership-layering",
+        "doc:adr-2605262130-kotoba-storage-substrate-unification"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606072400-organizer-kotoba-native-file-commons",
+      "type": "TechArticle",
+      "title": "ADR-2606072400: organizer — kotoba-native auto-organize file commons (Google Drive inversion); remediation Phase A",
+      "status": "proposed",
+      "topic": "organizer-kotoba-native",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/organizer"
+      ],
+      "related": "doc:2606072200",
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606072600-talent-kotoba-native-registry",
+      "type": "TechArticle",
+      "title": "ADR-2606072600: talent — kotoba-native cohort-first talent registry (Indeed/LinkedIn-Recruiter inversion); remediation Phase A",
+      "status": "proposed",
+      "topic": "talent-kotoba-native",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/talent"
+      ],
+      "related": [
+        "doc:2606072200",
+        "doc:2606072400"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606072800-bible-translation-coverage-language-tiers",
+      "type": "TechArticle",
+      "title": "ADR-2606072800: Supported-language tiers = Bible-translation coverage (Sola Scriptura)",
+      "status": "accepted",
+      "topic": "bible-translation-coverage-language-tiers",
+      "authoritative": true,
+      "authoritativeFor": [
+        "language-registry-tiering",
+        "i18n-language-tier-strategy"
+      ],
+      "related": [
+        "doc:2605192100-etzhayyim-mission-charter",
+        "doc:2605263600-kataribe-press-publishing-translation-tier-b-actor-r0"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606072800-session-close-shionome-capital-flow-kotoba-wasm-fleet-cron",
+      "type": "TechArticle",
+      "title": "ADR-2606072800: Session close — 潮目 (shionome) cross-asset capital-flow observatory: R0 actor + kotoba-WASM component + Murakumo-fleet cron cells",
+      "status": "active",
+      "topic": "shionome-cross-asset-capital-flow-observatory",
+      "authoritative": false,
+      "related": [
+        "doc:90-docs/adr/2606065000-session-close-kawaraban-news-medium.md",
+        "doc:90-docs/adr/2606063000-session-close-ooyake-world-model-reconcile-loop.md"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606072800-suimin-sleep-disorder-evidence-research-charter",
+      "type": "TechArticle",
+      "title": "suimin (睡眠) sleep-disorder treatment-evidence research + synthesis actor — reliable-source-only (PubMed / Cochrane / ICSD-3 / ICD-11 / AASM) evidence landscape + referral-to-local-clinic; NON-diagnostic, NON-prescriptive; Wave 1 reference = 睡眠時無呼吸症候群 (OSA/CSA) treatment-method evidence synthesis",
+      "status": "proposed",
+      "topic": "suimin-sleep-evidence-charter",
+      "authoritative": true,
+      "authoritativeFor": [
+        "suimin actor identity (name, DID pattern, tier) — religious-corp first-party sleep-disorder treatment-EVIDENCE research + synthesis (not diagnosis, not treatment)",
+        "mitate sibling boundary (mitate = symptom-intake diagnostic routing; suimin = corpus-level treatment-evidence synthesis + referral; same patient-wellbeing context, no diagnostic overlap)",
+        "Source-whitelist invariant (G1) — PubMed/MeSH + Cochrane systematic reviews + ICSD-3 + ICD-11 + AASM clinical practice guidelines + GRADE-graded sources ONLY; every claim carries verifiable provenance",
+        "Charter Rider §2 clearance reasoning for first-party medical-evidence synthesis (§2(e) anti-gatekeeping pro-clearance + §2(c) anti-surveillance gate)",
+        "13 constitutional gates G1..G13 (non-negotiable)",
+        "10 non-goals N1..N10 (constitutional, not subject to incremental drift)",
+        "4-phase roadmap R0 → R3 with explicit Council-attestation gating + licensed sleep-medicine MD-in-loop activation (R2)",
+        "Wave 1 reference target = 睡眠時無呼吸症候群 (obstructive + central sleep apnea) treatment-method evidence landscape"
+      ],
+      "related": [
+        "doc:20-actors/suimin/",
+        "doc:20-actors/magatama/cells/suimin_*/",
+        "doc:00-contracts/lexicons/com/etzhayyim/suimin/",
+        "doc:50-infra/murakumo/fleet.toml"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606072800-tsubasa-flight-discovery-commons",
+      "type": "TechArticle",
+      "title": "ADR-2606072800: tsubasa 翼 — flight-route/fare discovery commons (Skyscanner inversion), R0+R1",
+      "status": "proposed",
+      "topic": "tsubasa-flight-commons",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/tsubasa"
+      ],
+      "related": "doc:2606041827",
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606073000-coverage-gaps-catalog-and-inochi-biosphere-mirror",
+      "type": "TechArticle",
+      "title": "ADR-2606073000: World-coverage gap catalog + inochi 命 biosphere KG mirror",
+      "status": "accepted",
+      "topic": "coverage-gaps-and-inochi",
+      "authoritative": true,
+      "authoritativeFor": [
+        "world-coverage gap catalog (what etzhayyim does not yet observe/produce)",
+        "inochi 命 actor (living-world / 生命圏 KG mirror)",
+        "biosphere-ontology"
+      ],
+      "related": [
+        "doc:2606011800",
+        "doc:2606042330",
+        "doc:2606014500"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606073000-robotics-remote-work-actor-roster-and-isco-coverage",
+      "type": "TechArticle",
+      "title": "ADR-2606073000: Robotics remote-work actor roster + ISCO coverage/GAP survey (tazuna as the on-site→remote substrate)",
+      "status": "proposed",
+      "topic": "robotics-remote-work-actor-survey",
+      "authoritative": true,
+      "authoritativeFor": [
+        "robotics remote-work (teleoperation) actor roster across the etzhayyim corpus",
+        "on-site→remote-work coverage/GAP map for physical-labour occupations",
+        "remote-work-value reframing of the labour-liberation roadmap"
+      ],
+      "related": [
+        "doc:ADR-2605301020 (Basic High Income — in-kind, cash≡0)",
+        "doc:ADR-2605215000 (Murakumo-only inference)",
+        "doc:ADR-2606042300 (todoke last-mile delivery)",
+        "doc:ADR-2606013400 (funadaiku zero-emission cargo-ship)",
+        "doc:ADR-2605252200 (watatsumi civilian submersible)",
+        "doc:ADR-2606012600 (watatsuna submarine-cable laying)",
+        "doc:ADR-2605250715 (tatekata construction)",
+        "doc:ADR-2605261215 (hodoki ELV disassembly)",
+        "doc:ADR-2606051500 (kamado carbon refining / refinery decommission)",
+        "doc:ADR-2605263100 (mizuho water + sanitation)"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606073000-session-close-app-coverage-wave",
+      "type": "TechArticle",
+      "title": "ADR-2606073000: Session close — app-coverage charter-clean inversion wave + substrate-remediation ratchet",
+      "status": "active",
+      "topic": "session-close-app-coverage-wave",
+      "authoritative": false,
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606073200-asobi-freed-time-play-expression-mirror",
+      "type": "TechArticle",
+      "title": "ADR-2606073200: asobi 遊び — freed-time play & cultural-expression KG mirror (gap C)",
+      "status": "accepted",
+      "topic": "asobi-freed-time-mirror",
+      "authoritative": true,
+      "authoritativeFor": [
+        "asobi 遊び actor (freed-time / play & cultural-expression KG mirror)",
+        "asobi-ontology"
+      ],
+      "related": [
+        "doc:2606011800",
+        "doc:2606014500",
+        "doc:2605261045"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606073400-hokorobi-systemic-finance-risk-mirror",
+      "type": "TechArticle",
+      "title": "ADR-2606073400: hokorobi 綻び — systemic finance-risk observation mirror (gap D)",
+      "status": "accepted",
+      "topic": "hokorobi-finance-risk-mirror",
+      "authoritative": true,
+      "authoritativeFor": [
+        "hokorobi 綻び actor (systemic finance-risk observation mirror)",
+        "finrisk-ontology"
+      ],
+      "related": [
+        "doc:2606011800",
+        "doc:2606051800",
+        "doc:2606014500"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606073600-hoshimori-orbital-stewardship-mirror",
+      "type": "TechArticle",
+      "title": "ADR-2606073600: hoshimori 星守 — off-Earth orbital stewardship mirror (gap B)",
+      "status": "accepted",
+      "topic": "hoshimori-orbital-mirror",
+      "authoritative": true,
+      "authoritativeFor": [
+        "hoshimori 星守 actor (off-Earth orbital stewardship mirror)",
+        "orbit-ontology"
+      ],
+      "related": [
+        "doc:2606011800",
+        "doc:2606014500"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606073800-tsugite-peoples-continuity-mirror",
+      "type": "TechArticle",
+      "title": "ADR-2606073800: tsugite 継ぎ手 — world peoples-continuity mirror (gap E, catalog complete)",
+      "status": "accepted",
+      "topic": "tsugite-peoples-continuity-mirror",
+      "authoritative": true,
+      "authoritativeFor": [
+        "tsugite 継ぎ手 actor (world peoples-continuity mirror)",
+        "peoples-ontology"
+      ],
+      "related": [
+        "doc:2606011800",
+        "doc:2606014500",
+        "doc:2605261045"
       ],
       "lastVerified": "2026-06-07"
     },
@@ -14114,7 +14581,7 @@
       "authoritative": false,
       "related": [
         "doc:90-docs/260425-ingest-orchestration-zeebe-python-k8s-mcp-design.md",
-        "doc:90-docs/adr/0048-risingwave-vultr-b2-primary.md",
+        "doc:90-docs/adr/0048-kotoba-vultr-b2-primary.md",
         "doc:90-docs/adr/0056-bpmn-as-actor.md",
         "doc:50-infra/vultr/geth-private/"
       ],
@@ -14216,7 +14683,7 @@
     {
       "id": "doc:cohort-identity-posterior-mv-draft-260414",
       "type": "TechArticle",
-      "title": "Cohort Identity Posterior MV — RisingWave DDL Draft (ADR-0026 Iter 2)",
+      "title": "Cohort Identity Posterior MV — Kotoba/Datomic DDL Draft (ADR-0026 Iter 2)",
       "status": "active",
       "topic": "cohort-evaluation",
       "authoritative": false,
@@ -14280,7 +14747,7 @@
     {
       "id": "doc:coverage-infer-statistical-entity-resolution-260416",
       "type": "TechArticle",
-      "title": "etzhayyim coverage infer — Statistical Entity Resolution via RisingWave Python UDF",
+      "title": "etzhayyim coverage infer — Statistical Entity Resolution via Kotoba/Datomic Python UDF",
       "status": "active",
       "topic": "cohort-evaluation",
       "authoritative": true,
@@ -14351,14 +14818,14 @@
       "lastVerified": "2026-04-14"
     },
     {
-      "id": "doc:doc-260414-risingwave-premium-32gb-scale-up",
+      "id": "doc:doc-260414-kotoba-premium-32gb-scale-up",
       "type": "TechArticle",
-      "title": "RisingWave Premium 32GB Scale-Up — Runbook & Post-Mortem",
+      "title": "Kotoba/Datomic Premium 32GB Scale-Up — Runbook & Post-Mortem",
       "status": "active",
       "topic": "infrastructure",
       "authoritative": true,
       "related": [
-        "doc:adr-0020-risingwave-premium-single-node",
+        "doc:adr-0020-kotoba-premium-single-node",
         "doc:30-graph/graph-schema/migrations/0025_world_coverage_live_mv.ts"
       ],
       "lastVerified": "2026-04-14"
@@ -14448,7 +14915,7 @@
       "related": [
         "doc:adr-2604241038-yoro-pds-ideal-topology",
         "doc:adr-2604241121-repo-commit-stays-on-pds",
-        "doc:adr-2604241342-risingwave-out-of-band-migration-pattern",
+        "doc:adr-2604241342-kotoba-out-of-band-migration-pattern",
         "doc:doc-260424-ephemeral-runbook-convention"
       ],
       "lastVerified": "2026-04-24"
@@ -14477,14 +14944,14 @@
     {
       "id": "doc:doc-260427-state-worker-retirement-session-summary",
       "type": "TechArticle",
-      "title": "Session summary: state CF Worker retirement via Zeebe/k8s/RisingWave gates",
+      "title": "Session summary: state CF Worker retirement via Zeebe/k8s/Kotoba/Datomic gates",
       "status": "active",
       "topic": "state-worker-retirement",
       "authoritative": false,
       "related": [
         "doc:adr-2604262000-edge-thin-app-runtime-k8s-zeebe-registry",
         "doc:adr-2604261000-mcp-registry-via-kysely-schema",
-        "doc:adr-2604261900-risingwave-ddl-backfill-path-topology",
+        "doc:adr-2604261900-kotoba-ddl-backfill-path-topology",
         "doc:doc-260426-site-common-crawl-zeebe-python-worker-design"
       ],
       "lastVerified": "2026-04-27"
@@ -14503,7 +14970,7 @@
       ],
       "related": [
         "doc:adr-2604231328-animeka-bpmn-l40s-pipeline",
-        "doc:adr-0094-risingwave-stable-three-node-topology"
+        "doc:adr-0094-kotoba-stable-three-node-topology"
       ],
       "lastVerified": "2026-04-29"
     },
@@ -14598,7 +15065,7 @@
         "explanation of why governance docs say 'PATTERN ESTABLISHED, EXECUTION OPEN' for gate (a)"
       ],
       "related": [
-        "doc:adr-2605212100-magatama-worker-3-axis-tranche-f-closure",
+        "doc:adr-2605212100-kotodama-worker-3-axis-tranche-f-closure",
         "doc:doc-2605211800-vendor-importer-survey-gate-d",
         "doc:doc-2605211900-tranche-f-all-gates-closure-confirmation",
         "doc:doc-2605211949-gate-a-execution-checklist"
@@ -14971,7 +15438,7 @@
         "navigation between Tranche F closure artifacts"
       ],
       "related": [
-        "doc:adr-2605212100-magatama-worker-3-axis-tranche-f-closure",
+        "doc:adr-2605212100-kotodama-worker-3-axis-tranche-f-closure",
         "doc:adr-2605211757-dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com",
         "doc:adr-2605211913-vendor-refactor-and-git-rm-phase-4-5-runbook",
         "doc:adr-2605211925-phase-6-archive-markers-runbook",
@@ -15016,7 +15483,7 @@
     {
       "id": "doc:dr-drill-log",
       "type": "TechArticle",
-      "title": "DR Drill Log — RisingWave Meta Snapshot Restore",
+      "title": "DR Drill Log — Kotoba/Datomic Meta Snapshot Restore",
       "status": "active",
       "topic": "disaster-recovery",
       "authoritative": true,
@@ -15030,7 +15497,7 @@
       "topic": "lexicon-as-contract",
       "authoritative": true,
       "authoritativeFor": [
-        "magatama-host-sdk host capability surface の Single Source of Truth",
+        "kotodama-host-sdk host capability surface の Single Source of Truth",
         "host capability の codegen pipeline (lex-cli analog)",
         "WIT vs Lexicon JSON contract 戦略",
         "in-process host capability dispatch (BindingTransport pattern)",
@@ -15043,7 +15510,7 @@
         "doc:w-protocol-at-superset-architecture",
         "doc:did-path-lexicon-correspondence",
         "doc:wit-lexicon-typed-alignment",
-        "doc:adr-0087-magatama-mcp-tool-facade",
+        "doc:adr-0087-kotodama-mcp-tool-facade",
         "doc:adr-2604261000-mcp-registry-via-kysely-schema"
       ],
       "supersedes": "doc:wit-lexicon-typed-alignment",
@@ -15107,15 +15574,15 @@
       "lastVerified": "2026-03-27"
     },
     {
-      "id": "doc:jun-etzhayyim-group-data-ingest-risingwave-vertex-edge-design-260416",
+      "id": "doc:jun-etzhayyim-group-data-ingest-kotoba-vertex-edge-design-260416",
       "type": "Article",
-      "title": "jun@etzhayyim.com 全量取り込み設計 — RisingWave / Vertex / Edge",
+      "title": "jun@etzhayyim.com 全量取り込み設計 — Kotoba/Datomic / Vertex / Edge",
       "status": "active",
       "topic": "personal-workspace-ingest",
       "authoritative": true,
       "authoritativeFor": [
         "jun@etzhayyim.com の非 Microsoft 系データ取り込み設計",
-        "RisingWave 上の Vertex / Edge モデル",
+        "Kotoba/Datomic 上の Vertex / Edge モデル",
         "full backfill + incremental sync + cursor 運用"
       ],
       "related": [
@@ -15130,13 +15597,13 @@
       "type": "Article",
       "title": "kagami P10v2: GraphAr-Native Typed Columnar Schema",
       "status": "active",
-      "topic": "kagami-risingwave-graphar",
+      "topic": "kagami-kotoba-graphar",
       "authoritative": true,
       "authoritativeFor": [
         "kagami P10v2 GraphAr-native schema design"
       ],
-      "related": "doc:kagami-risingwave-graphar-design",
-      "supersedes": "doc:kagami-risingwave-graphar-design",
+      "related": "doc:kagami-kotoba-graphar-design",
+      "supersedes": "doc:kagami-kotoba-graphar-design",
       "lastVerified": "2026-04-13"
     },
     {
@@ -15554,7 +16021,7 @@
       "related": [
         "doc:adr-2605011500-maps-aismarine-pipeline",
         "doc:adr-0036-worker-direct-hyperdrive-persistence",
-        "doc:adr-0048-risingwave-vultr-b2-primary",
+        "doc:adr-0048-kotoba-vultr-b2-primary",
         "doc:adr-0056-bpmn-as-actor",
         "doc:adr-2604282300"
       ],
@@ -15570,10 +16037,10 @@
       "related": [
         "doc:adr-2605211900-etzhayyim-yorishiro-external-actor-bridge",
         "doc:adr-2605202200-etzhayyim-cell-runtime-contract",
-        "doc:adr-2605202100-etzhayyim-magatama-cell-runner-launchd",
+        "doc:adr-2605202100-etzhayyim-kotodama-cell-runner-launchd",
         "doc:50-infra/cluster/murakumo/cell-runner/cells.toml",
-        "doc:50-infra/cluster/murakumo/cell-runner/com.etzhayyim.magatama-cell-runner.plist",
-        "doc:20-actors/magatama/py/src/pymagatama/cell_runner_main.py"
+        "doc:50-infra/cluster/murakumo/cell-runner/com.etzhayyim.kotodama-cell-runner.plist",
+        "doc:40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/cell_runner_main.py"
       ],
       "lastVerified": "2026-05-21"
     },

@@ -17,7 +17,7 @@ Two BPMN processes + two pyzeebe primitives that turn the long-stubbed
 
 ## Pre-flight (gate, MUST PASS)
 
-### Gate 1 — RisingWave health
+### Gate 1 — Kotoba/Datomic health
 
 The migration is `INSERT N rows` only (no DDL), but it touches
 `vertex_bpmn_process_def` + `vertex_bpmn_lexicon_binding` which are

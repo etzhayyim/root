@@ -14,7 +14,7 @@ status_note: "MECHANICAL MIGRATION COMPLETE 2026-05-18 (27 PRs landed: 17 vendor
 authoritative_for:
   - per-project etzhayyim / vendor boundary judgment rule
   - Tranche F scope (next-wave etzhayyim migration candidates)
-  - re-judgment of ADR-2605152100 borderline list (auth / agentgateway / bpmn / magatama / pregel / shinka / society6 / trust / vault / signal / kyber / yoro / sanctions / well-becoming / kami)
+  - re-judgment of ADR-2605152100 borderline list (auth / agentgateway / bpmn / kotodama / pregel / shinka / society6 / trust / vault / signal / kyber / yoro / sanctions / well-becoming / kami)
 depends_on:
   - adr-2605152100-etzhayyim-github-org-boundary
   - adr-2605170900-etzhayyim-root-adr-canonical-home
@@ -45,7 +45,7 @@ way.
 
 After Tranches A-E + Wave 2 (open-* + public-* + protocol/SDK), ~15 borderline
 projects remain unresolved: auth / accounts / iam / agentgateway / bpmn /
-magatama / pregel / shinka / society6 / trust / well-becoming / vault / signal /
+kotodama / pregel / shinka / society6 / trust / well-becoming / vault / signal /
 kyber-apqc / yoro / sanctions / malak / kami.
 
 The intuitive split "aggressive autonomous AI + open-source + blockchain +
@@ -141,7 +141,7 @@ Applying the 3-axis rule to the post-Wave-2 borderline list:
 | auth / iam | DID method spec + OAuth flow lexicon | etzhayyim-auth Worker + D1 KEYS_DB (session, revocation) |
 | agentgateway | MCP facade spec + reference impl | mcp.etzhayyim.com running gateway (SLA, abuse, audit) |
 | bpmn | engine + open process_def (APQC etc.) | customer-specific process_def referencing PII |
-| magatama | `@etzhayyim/sdk` + `magatama-go` + `kami-engine-sdk` (done in Wave 2) | etzhayyim-cli wrapping vendor CF account |
+| kotodama | `@etzhayyim/sdk` + `kotodama-go` + `kami-engine-sdk` (done in Wave 2) | etzhayyim-cli wrapping vendor CF account |
 | shinka | abstract evolution operator | business-app shinka application |
 | C-group production tools | lexicon JSON | team-based production workflow with customer custody |
 
@@ -174,7 +174,7 @@ TypeScript paths) keeps existing references valid through the transition.
 - Religious-corp liability is structurally contained (任意団体 never absorbs
   operator-required duties)
 - Vendor side stays focused on revenue-bearing customer relationships
-- Open core / vendor binding pattern (already used for magatama / bpmn / cli)
+- Open core / vendor binding pattern (already used for kotodama / bpmn / cli)
   generalizes to auth / agentgateway / vault / signal
 
 **Negative**:
@@ -191,7 +191,7 @@ TypeScript paths) keeps existing references valid through the transition.
 # Verification
 
 - Each Tranche F move PR must cite this ADR + the 3-axis judgment in its commit message
-- Lefthook pre-commit hook to flag etzhayyim-side files with `risingwave|kysely|pg|stripe|paypal` imports (RW-free + on-chain-only enforcement from ADR-2605172000 + 2605172100)
+- Lefthook pre-commit hook to flag etzhayyim-side files with `kotoba|kysely|pg|stripe|paypal` imports (RW-free + on-chain-only enforcement from ADR-2605172000 + 2605172100)
 - Quarterly review of borderline list at 2026-08-17 / 2026-11-17 / 2027-02-17
 
 # Closure (added 2026-05-19, mechanical phases complete)

@@ -13,7 +13,7 @@
 //
 // Env:
 //   DISPATCHER_URL  (default https://dispatcher.etzhayyim.com)
-//   RW_URL          (default $(security find-generic-password -s etzhayyim.rw -a ROOT_URL -w))
+//   KOTOBA_URL          (default $(security find-generic-password -s etzhayyim.rw -a ROOT_URL -w))
 
 import { spawn, spawnSync } from "node:child_process";
 import { writeFileSync } from "node:fs";
@@ -38,7 +38,7 @@ function sh(cmd, args, opts = {}) {
 }
 
 function rwUrl() {
-  if (process.env.RW_URL) return process.env.RW_URL;
+  if (process.env.KOTOBA_URL) return process.env.KOTOBA_URL;
   const r = spawnSync("security", ["find-generic-password", "-s", "etzhayyim.rw", "-a", "ROOT_URL", "-w"]);
   return r.stdout.toString().trim();
 }

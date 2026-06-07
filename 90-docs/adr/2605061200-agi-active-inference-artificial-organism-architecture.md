@@ -201,7 +201,7 @@ memory, selection pressure, and explicit boundaries.
 
 ```text
 Substrate / soil
-  RisingWave, Git, IPFS, Ethereum, logs, object storage
+  Kotoba/Datomic, Git, IPFS, Ethereum, logs, object storage
 
 Energy / nutrients
   electricity, compute, storage, bandwidth, API quota, money
@@ -281,7 +281,7 @@ objective, production source, signing authority, or action gateway policy.
 
 ## 9. Use LangGraph for cognition and Zeebe for durable responsibility
 
-RisingWave + LangGraph + LLM + Ethereum is sufficient for a minimal cognitive
+Kotoba/Datomic + LangGraph + LLM + Ethereum is sufficient for a minimal cognitive
 PoC, but it is not the preferred full organism architecture once long-running
 processes, real-world effects, auditability, retries, and self-evolution are in
 scope.
@@ -290,14 +290,14 @@ Three accepted implementation patterns are:
 
 | Pattern | Components | Use | Limitation |
 |---|---|---|---|
-| Minimal cognitive loop | RisingWave + LangGraph + LLM + Ethereum | Single-organism PoC, proposal generation, local belief updates, chain commitments | Weak durable workflow, retry, compensation, and action audit |
-| Durable organism runtime | RisingWave + LangGraph + LLM + Zeebe + Ethereum | Resident agents, homeostasis, real-world effect gates, self-repair, phase control | More operational complexity |
-| Ecosystem substrate | RisingWave + Zeebe + LangGraph + LLM + Ethereum + IPFS + Git + separated repos | Multi-organism symbiosis, lineage, reputation, self-evolution, cultural-code evolution | Highest complexity; should be phased in |
+| Minimal cognitive loop | Kotoba/Datomic + LangGraph + LLM + Ethereum | Single-organism PoC, proposal generation, local belief updates, chain commitments | Weak durable workflow, retry, compensation, and action audit |
+| Durable organism runtime | Kotoba/Datomic + LangGraph + LLM + Zeebe + Ethereum | Resident agents, homeostasis, real-world effect gates, self-repair, phase control | More operational complexity |
+| Ecosystem substrate | Kotoba/Datomic + Zeebe + LangGraph + LLM + Ethereum + IPFS + Git + separated repos | Multi-organism symbiosis, lineage, reputation, self-evolution, cultural-code evolution | Highest complexity; should be phased in |
 
 Responsibility split:
 
 ```text
-RisingWave
+Kotoba/Datomic
   world model, event memory, belief state, viability telemetry
 
 LangGraph
@@ -337,7 +337,7 @@ Design mapping:
 | nexus | organism, ecosystem, project, repo, community |
 | subjective aim | prior preference plus Mokuteki / Well-Becoming gate |
 | creativity | evolution lab, mutation, simulation, selection |
-| durable memory | RisingWave, IPFS, Git, Ethereum |
+| durable memory | Kotoba/Datomic, IPFS, Git, Ethereum |
 
 This does not license unconstrained expansion. It requires stronger membranes:
 event provenance, policy gates, resource budgets, sandboxing, identity, and
@@ -407,7 +407,7 @@ lineage records.
 - **Same-repo direct self-modification**: rejected for production. It is
   acceptable only as a contained PoC branch/worktree pattern because the soma,
   germline, immune layer, and effector authority are not sufficiently separated.
-- **RisingWave + LangGraph + LLM + Ethereum only**: accepted for minimal
+- **Kotoba/Datomic + LangGraph + LLM + Ethereum only**: accepted for minimal
   cognitive PoC. Rejected as the full architecture for real-world effectful
   organisms because durable retries, timers, compensation, and audit workflows
   would otherwise be reimplemented ad hoc.

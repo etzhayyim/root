@@ -41,7 +41,7 @@ superseded_by: []
 現状 `github.com/etzhayyim` org には:
 
 - 完全 open 名乗りの repo (Apache 2.0): `etzhayyim-project-open-{lexicon,bpmn,isic,jpn-gov,banking}`, `etzhayyim-project-public-{global,malak}`
-- 中間的 open infrastructure: `wproto`, `at-client`, `signal-client`, `magatama-go`, `etzhayyim-cli`, `kami-engine-sdk`, `effect-cypher`, `lancedb-wasm`, `yata`, `watashi`, `tonbo`, `nats-tiered-storage`, `nats-jetstream-{objectstore-s3,kv-resp}`, `sveltejs-adapter-wasm`, `spin-tinygo-flight`, `cdn`, `resources`
+- 中間的 open infrastructure: `wproto`, `at-client`, `signal-client`, `kotodama-go`, `etzhayyim-cli`, `kami-engine-sdk`, `effect-cypher`, `lancedb-wasm`, `yata`, `watashi`, `tonbo`, `nats-tiered-storage`, `nats-jetstream-{objectstore-s3,kv-resp}`, `sveltejs-adapter-wasm`, `spin-tinygo-flight`, `cdn`, `resources`
 - vendor-internal (proprietary): `etzhayyim-root` (mono-repo), `_working/etzhayyim-revenue/*`, `etzhayyim-performer-*`, business app projects (`lawfirm`, `vault`, `kaisya`, `microsoft`, `accounts`, `finance`, `billing`, `bengoshi`, `bunken`)
 
 混在の問題:
@@ -72,7 +72,7 @@ GitHub org を **2 つに分離**し、etzhayyim 配下は **単一 monorepo `et
 etzhayyim/root/
 ├── 00-contracts/        # open lexicons / bpmn / dmn / Rego policies (open scope のみ)
 ├── 10-protocol/         # atproto, xrpc, lexicons-bundle, signal, did-etzhayyim
-├── 20-actors/           # magatama actor framework + Pregel-pattern host SDK
+├── 20-actors/           # kotodama actor framework + Pregel-pattern host SDK
 ├── 30-graph/            # open graph schemas + RW migrations
 ├── 50-infra/            # geth, holochain, ipfs, blockscout, etzhayyim-pds, k8s manifests
 ├── 60-apps/             # open-* (22), public-* (2), atproto, ameno, baien
@@ -93,7 +93,7 @@ etzhayyim/root/
 | **baien** (旧コードネーム bien / BitNet b1.58 1-bit multimodal) | `60-apps/etzhayyim-project-baien*`, `90-docs/baien/`, `90-docs/adr/2605092350-baien-*.md` |
 | **bpmn** | `etzhayyim-root/00-contracts/bpmn/`, `00-contracts/dmn/`, `60-apps/etzhayyim-project-open-bpmn` (旧 etzhayyim/etzhayyim-project-open-bpmn を取り込み) |
 | **lexicon** | `00-contracts/lexicons/`, `10-protocol/lexicons-bundle`, `10-protocol/xrpc`, `60-apps/etzhayyim-project-open-lexicon` |
-| **pregel** | `20-actors/magatama/` (actor framework + Pregel-pattern SDK), LangGraph bridge |
+| **pregel** | `40-engine/kotoba/crates/kotoba-kotodama/` (actor framework + Pregel-pattern SDK), LangGraph bridge |
 | **atproto** | `10-protocol/atproto`, `60-apps/etzhayyim-project-atproto`, `50-infra/k8s/atproto-pds` |
 | **ameno** | `60-apps/etzhayyim-project-ameno` (ブラウザ推論 platform, ADR 2605150600) |
 | **open data wrappers** | `60-apps/etzhayyim-project-open-{airplane, banking, cofog, denki, gas, isco, isic, jpn-gov, jpn-mynumber, kyber, network, ossekai, ot, patent, ports, power, rail, robo, saas, seiyaku, swift, unispsc, water}` (22 本) |
@@ -143,7 +143,7 @@ etzhayyim/root/
 4. [x] **ADR proposed → active 化** (本 commit)
 5. [ ] **`etzhayyim/root` scaffold seed**: LICENSE (Apache 2.0)、README.md (org boundary + monorepo layout 説明)、CLAUDE.md (本 ADR pointer)、deps.toml (open subset)、`.gitignore`、lefthook 設定の最小セット
 6. [ ] **content seed (filter-repo or rsync)**:
-   - 推奨: `git filter-repo --path 00-contracts/ --path 10-protocol/ --path 20-actors/magatama/ --path 30-graph/ --path 50-infra/{geth-private,holochain,ipfs,blockscout,k8s/atproto-pds}/ --path 60-apps/etzhayyim-project-{open-*,public-*,atproto,ameno,baien*}/ --path 90-docs/baien/ --path 90-docs/adr/{open-relevant ADRs}` で `etzhayyim/etzhayyim-root` から open scope を抽出 → `etzhayyim/root` に push
+   - 推奨: `git filter-repo --path 00-contracts/ --path 10-protocol/ --path 40-engine/kotoba/crates/kotoba-kotodama/ --path 30-graph/ --path 50-infra/{geth-private,holochain,ipfs,blockscout,k8s/atproto-pds}/ --path 60-apps/etzhayyim-project-{open-*,public-*,atproto,ameno,baien*}/ --path 90-docs/baien/ --path 90-docs/adr/{open-relevant ADRs}` で `etzhayyim/etzhayyim-root` から open scope を抽出 → `etzhayyim/root` に push
    - history 保持 (license attribution / blame trail / open-source compliance のため必須)
 7. [ ] **既存 etzhayyim 独立 repo の archive**: `etzhayyim-project-open-{lexicon,bpmn,isic,jpn-gov,banking}`, `etzhayyim-project-public-{global,malak}` 等を README に "moved to etzhayyim/root" pointer を付けて `gh repo archive`。削除はしない (issue/PR 番号と外部 link を温存)。
 8. [ ] **etzhayyim/etzhayyim-root 側 cleanup**: 移動した open scope ディレクトリを削除 + `[[migrations]]` テーブルに記録 + `directory_index` pointer を `etzhayyim/root` に書き換え

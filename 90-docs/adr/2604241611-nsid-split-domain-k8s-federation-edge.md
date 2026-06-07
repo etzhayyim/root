@@ -15,7 +15,7 @@ related:
   - adr-0056-bpmn-as-actor
   - adr-0081-worker-direct-hyperdrive-persistence
   - adr-0041
-  - adr-0048-risingwave-vultr-b2-primary
+  - adr-0048-kotoba-vultr-b2-primary
 supersedes: []
 superseded_by: []
 ---
@@ -35,7 +35,7 @@ NSID prefix をデプロイ面 (CF edge / K8s Vultr) の判定キーに昇格さ
 **対象外**:
 - AT Protocol federation NSID (`com.atproto.*` / `app.bsky.*` / `chat.bsky.convo.*`) は edge 維持 (ADR-2604231828 unchanged)
 - Vault / Signal / Chat / PLC / Relay は該当 NSID prefix が `com.etzhayyim.apps.*` ではないため Rule 1 で自然に edge 側
-- RisingWave / Hyperdrive 配線は ADR-0048 のまま (変更なし)
+- Kotoba/Datomic / Hyperdrive 配線は ADR-0048 のまま (変更なし)
 - `sdk.pds.dispatch` で federation に乗る write は ADR-0081 のまま
 
 # Executive Summary
@@ -50,7 +50,7 @@ NSID prefix をデプロイ面 (CF edge / K8s Vultr) の判定キーに昇格さ
 | `com.etzhayyim.apps.*` per-actor Worker | **0 個** | 0 個維持 |
 | BPMN bindings | 137 rows, 16 NSID が `NSID_EXACT_MATCH_TABLE` で dispatcher:8080 へ pipethrough | 全 `com.etzhayyim.apps.*` が default で dispatcher へ |
 | K8s XRPC ingress | CF Tunnel (cloudflared pod) → zeebe-gateway ClusterIP → aiohttp :8080 (HTTP, `noTLSVerify`) | cert-manager TLS termination |
-| Trust plane | 4 パターン混在 (`x-etzhayyim-authenticated-did` / `x-magatama-verified` / `x-internal-trust` / binding existence) | HMAC-SHA256 `x-etzhayyim-internal-trust` 1 本 (ADR-2604241038 Contract 3) |
+| Trust plane | 4 パターン混在 (`x-etzhayyim-authenticated-did` / `x-kotodama-verified` / `x-internal-trust` / binding existence) | HMAC-SHA256 `x-etzhayyim-internal-trust` 1 本 (ADR-2604241038 Contract 3) |
 
 したがって本 ADR は新規大規模 migration ではなく、**既存トラジェクトリの終端定義** である。
 
@@ -68,7 +68,7 @@ NSID prefix をデプロイ面 (CF edge / K8s Vultr) の判定キーに昇格さ
 | **Edge** | `com.etzhayyim.signal.*` | CF Signal worker | Key directory — Service Auth verify hot path |
 | **Edge** | `com.etzhayyim.vault.*` | CF Vault worker | Zero-knowledge 前提, ciphertext のみ server 保持 (root rule) |
 | **Edge** | `com.etzhayyim.plc.*` / `com.etzhayyim.identity.*` | CF PLC directory / PDS local | DID resolution, edge cache が η 支配 |
-| **K8s** | `com.etzhayyim.apps.*` | K8s bpmn-dispatcher (`dispatcher.etzhayyim.com`) | Domain state, RisingWave 近接, BPMN evaluator |
+| **K8s** | `com.etzhayyim.apps.*` | K8s bpmn-dispatcher (`dispatcher.etzhayyim.com`) | Domain state, Kotoba/Datomic 近接, BPMN evaluator |
 
 `com.etzhayyim.apps.*` の default fallback は `local` (actor-slug Worker) から `pipethrough:bpmn` に flip する。
 
@@ -101,7 +101,7 @@ Rule 1 の `com.etzhayyim.apps.*` → K8s に対する **唯一の例外** は *
 
 ## Rule 5 — Trust plane HMAC-SHA256 統一 (ADR-2604241038 Contract 3 依存)
 
-本 ADR は独立した trust plane 決定を持たず、ADR-2604241038 Contract 3 (Phase γ1–4) の完遂を implicit dependency とする。edge → K8s の全 pipethrough は `x-etzhayyim-internal-trust` HMAC-SHA256 header (`timestamp:method:path` 入力で署名) を K8s 側 ingress middleware で verify する。既存 `x-magatama-verified` / `x-etzhayyim-authenticated-did` (unsigned) / binding-existence 推論は廃止する。
+本 ADR は独立した trust plane 決定を持たず、ADR-2604241038 Contract 3 (Phase γ1–4) の完遂を implicit dependency とする。edge → K8s の全 pipethrough は `x-etzhayyim-internal-trust` HMAC-SHA256 header (`timestamp:method:path` 入力で署名) を K8s 側 ingress middleware で verify する。既存 `x-kotodama-verified` / `x-etzhayyim-authenticated-did` (unsigned) / binding-existence 推論は廃止する。
 
 # Rationale
 
@@ -152,7 +152,7 @@ C は edge-thin PDS + K8s actor core の「責務分離」止まりで、NSID pr
 
 ## Phase δ4 — Trust plane HMAC 統一 (ADR-2604241038 Contract 3 依存、並走可)
 
-- `x-magatama-verified` / `x-etzhayyim-authenticated-did` (unsigned) を全 handler から除去
+- `x-kotodama-verified` / `x-etzhayyim-authenticated-did` (unsigned) を全 handler から除去
 - `x-etzhayyim-internal-trust` HMAC-SHA256 を PDS dispatch.ts / bpmn-dispatcher / chat / signal で強制
 - K8s ingress middleware で verify 失敗時 401 を返す
 
@@ -199,7 +199,7 @@ B, C, E は [Rationale § η math](#η-math-redundant-path-count-analytical-esti
 - ADR-0056 bpmn-as-actor (K8s domain actor の実装基盤)
 - ADR-0081 worker-direct-hyperdrive-persistence (domain write の現行 invariant)
 - ADR-0041 pds-commit-content-addressed-pk (federation 経路の race 対策)
-- ADR-0048 risingwave-vultr-b2-primary (K8s state plane の現在地)
+- ADR-0048 kotoba-vultr-b2-primary (K8s state plane の現在地)
 - `50-infra/cloudflare/workers/atproto/src/routing-table.ts:67-202` (NSID_ROUTING_TABLE 実装)
 - `50-infra/vultr/mitama-udf-pool/values.yaml` (dispatcher 配線)
 - `50-infra/vultr/cloudflared/` (CF Tunnel config)

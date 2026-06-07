@@ -1327,7 +1327,7 @@ def test_charter_collect_skips_layers_without_parquet(assemble_mod, tmp_path):
 class _FakeCharterModule:
     """Stand-in for `e7m_dataset.charter` that the assemble script can import.
 
-    Replaces the real wrapper around `pymagatama.organism.sensors.charter_rider`
+    Replaces the real wrapper around `kotodama.organism.sensors.charter_rider`
     with a controllable function. Used by tests to verify the assemble
     plumbing actually wires Parquet sidecars into scan_sample and that a
     `passed=False` verdict propagates as a RuntimeError.

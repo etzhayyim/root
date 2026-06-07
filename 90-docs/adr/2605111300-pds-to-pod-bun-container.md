@@ -20,7 +20,7 @@ authoritative_for:
 related:
   - adr-2605111200-cf-worker-edge-only-no-rw-connection
   - adr-0014-self-hosted-did-plc
-  - adr-0094-risingwave-stable-three-node-topology
+  - adr-0094-kotoba-stable-three-node-topology
   - adr-2605080600-langgraph-server-granian-l3-runtime
   - adr-2604282300
 supersedes: []
@@ -31,7 +31,7 @@ amended_by: []
 
 # Context
 
-ADR-2605111200 が「CF Worker → RisingWave 接続を全面禁止」を定めたが、現在 `atproto.etzhayyim.com` を serve している **PDS Worker (`etzhayyim-pds-2603241700`, 38 ファイル / ~30k LOC) 自体が CF Worker** であり、commit log / record CRUD / DID document mirror / MCP registry など、Hyperdrive 経由で RisingWave に大量の write/read を発行している。
+ADR-2605111200 が「CF Worker → Kotoba/Datomic 接続を全面禁止」を定めたが、現在 `atproto.etzhayyim.com` を serve している **PDS Worker (`etzhayyim-pds-2603241700`, 38 ファイル / ~30k LOC) 自体が CF Worker** であり、commit log / record CRUD / DID document mirror / MCP registry など、Hyperdrive 経由で Kotoba/Datomic に大量の write/read を発行している。
 
 このため Phase 1 で `wrangler.jsonc` から hyperdrive binding を削除すると次回 `etzhayyim deploy` で本番が壊れる。一時 revert で凌いでいるが、ADR-2605111200 の不変条件を満たすには PDS 自体を K8s pod に移す必要がある。
 
@@ -76,7 +76,7 @@ Ingress 選択肢:
 └──────────┼───────────────────────────────────────────────────┘
            │
            ▼
-   RisingWave (Vultr LAX, 45.32.79.245:4566)
+   Kotoba/Datomic (Vultr LAX, 45.32.79.245:4566)
 ```
 
 ## Container build (Bun + Hono)
@@ -91,7 +91,7 @@ Ingress 選択肢:
 
 | CF Worker binding | Container 置換 | Env / Secret |
 |---|---|---|
-| `env.HYPERDRIVE` | `pg.Pool({ connectionString })` direct | `RISINGWAVE_URL` (k8s Secret) |
+| `env.HYPERDRIVE` | `pg.Pool({ connectionString })` direct | `KOTOBA_URL` (k8s Secret) |
 | `env.CACHE_R2` (R2 bucket) | S3 client → B2 endpoint | `B2_KEY_ID` / `B2_APPLICATION_KEY` / `B2_BUCKET` (k8s Secret) |
 | `env.AUTH_SERVICE` (Worker→Worker service binding) | HTTP fetch to `auth.etzhayyim.com` or k8s ClusterIP | `AUTH_SERVICE_URL` |
 | `env.GRAPH_QUERY_SERVICE` | 直接 pg query へ収束 (Worker hop 廃止) | n/a |
@@ -198,7 +198,7 @@ Expected canary gate before any production cutover:
   `com.atproto.server.describeServer`;
 - cloudflared sidecar has an active tunnel and routes public hostname traffic to
   `http://atproto-pds.atproto.svc.cluster.local:8787`;
-- pds container can reach RisingWave and required service substitutes.
+- pds container can reach Kotoba/Datomic and required service substitutes.
 
 # 2026-05-15 Internal Endpoint Activation Record
 
@@ -222,7 +222,7 @@ This handler is registered at line 520 of `app.ts` and is included in the
 `bun-canary` image rebuilt 2026-05-15. The CF Worker deployment of the same
 handler returns HTTP 500 (`HYPERDRIVE binding required`) because the CF Worker
 is edge-only (ADR-2605111200); the Bun pod has `HYPERDRIVE` via
-`RISINGWAVE_URL` and succeeds.
+`KOTOBA_URL` and succeeds.
 
 ## Secrets
 
@@ -252,7 +252,7 @@ episode ep-1776928323916-1 → status='announced'
 
 - ADR-2605111200 (CF Worker edge-only): 本 ADR の根拠
 - ADR-0014 (self-hosted did:plc): PLC directory 連携は HTTP fetch に置換
-- ADR-0094 (RisingWave 3-node topology): RW endpoint
+- ADR-0094 (Kotoba/Datomic 3-node topology): RW endpoint
 - ADR-2605080600 (LangGraph Server + Granian L3): app actor 経路、PDS とは独立
 - `bun.sh` runtime: AT Protocol PDS で実際に動作する Node API subset を持つ
 - `cloudflared` Helm chart pattern: `50-infra/vultr/geth-private/`

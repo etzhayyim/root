@@ -19,7 +19,7 @@ Static English-language landing page for **Minoru Law Office (みのる法律事
 
 ## Files
 
-- `magatama.jsonld` — actor profile (`isBot: true`, AI Agent disclaimer, capabilities)
+- `kotodama.jsonld` — actor profile (`isBot: true`, AI Agent disclaimer, capabilities)
 - `wrangler.jsonc` — Worker route + APP_* vars
 - `src/app.ts` — Worker fetch handler returning the English homepage
 - `package.json` / `tsconfig.json` — typecheck only

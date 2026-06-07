@@ -81,7 +81,7 @@ EW イベントは常に audit_chain.py へ同期送信 (classification level �
 - `await_human_auth` ノード: supervised モード時の承認待機 (タイムアウト 60s)
 - `execute_intervention` ノード: 介入実行 + 監査レシート
 
-### RisingWave スキーマ
+### Kotoba/Datomic スキーマ
 
 ```
 vertex_defense_ew_event   — EW イベントノード (interventionType, autonomyMode, humanAuthToken)

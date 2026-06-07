@@ -70,7 +70,7 @@ facilities.
 
 ## 6 Pregel Cells (R0 path-reserved)
 
-All cells path-reserved under `20-actors/magatama/cells/mizuho_*/`.
+All cells path-reserved under `40-engine/kotoba/crates/kotoba-kotodama/cells/mizuho_*/`.
 Cell modules created at R1 ratification, import-time
 `RuntimeError("mizuho R0 scaffold: activate via Council ADR + R1 ratification + water-source quality baseline established")`.
 

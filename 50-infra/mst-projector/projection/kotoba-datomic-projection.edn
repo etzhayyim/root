@@ -23,7 +23,7 @@ source_collections = ["app.bsky.feed.post"]
 # membrane sidecar emits an `com.etzhayyim.membrane.verdict` for one of
 # the indexed records, the projection updates the `verdict` field
 # (and drops the entry entirely on `reject`). See
-# `20-actors/magatama/cells/feed_post/`.
+# `40-engine/kotoba/crates/kotoba-kotodama/cells/feed_post/`.
 supplementary_collections = ["com.etzhayyim.membrane.verdict"]
 
 # Rebuild contract. The runbook must reproduce the projection from the

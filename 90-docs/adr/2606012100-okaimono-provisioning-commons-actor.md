@@ -116,7 +116,7 @@ invariant, ADR-2606011500); the trajectory is Wellbecoming, not a loyalty score 
 | G3 | no-ads / no-affiliate | product APIs are DATA-ONLY; affiliate tags stripped; zero commission; no sponsored ranking / paid placement (Charter Rider §2) |
 | G4 | Wellbecoming anti-addictive-design | commons-first ordering; no urgency / scarcity / FOMO / dark-patterns; optimize sufficiency + durability + multi-gen, never engagement |
 | G5 | Murakumo-only inference | semantic match / NL need parsing via KotobaLLM (127.0.0.1:4000); no external LLM (ADR-2605215000) |
-| G6 | kotoba-EAVT-native | catalog + need + basket + provision are kotoba Datoms; no RisingWave / SQL / Lance as canonical (ADR-2605262130 / 2605312345) |
+| G6 | kotoba-EAVT-native | catalog + need + basket + provision are kotoba Datoms; no Kotoba/Datomic / SQL / Lance as canonical (ADR-2605262130 / 2605312345) |
 | G7 | tithe + non-fiat | internal settlement USDC Base L2 + ERC-4337 + warifu only; TitheRouter 10% auto-split on every transaction; no Stripe/fiat |
 | G8 | labor-dignity + provenance | fulfillment via etzhayyim logistics actors, no gig exploitation; labor-provenance disclosed on external products |
 | G9 | PII encrypted envelope | need + provisioning history = 要配慮-adjacent → `com.etzhayyim.encrypted.*`, DID-bound (ADR-2605181100) |

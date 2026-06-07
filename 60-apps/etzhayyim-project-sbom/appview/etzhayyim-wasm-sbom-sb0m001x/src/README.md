@@ -11,7 +11,7 @@ Vendor source NOT carried over — wave-3 follow-up sub-PRs will port each comma
 
 ## Status
 
-- Scaffold (this PR): CLAUDE.md, magatama.jsonld, package.json, svelte/, wrangler.jsonc copied with sed
+- Scaffold (this PR): CLAUDE.md, kotodama.jsonld, package.json, svelte/, wrangler.jsonc copied with sed
 - Lexicons: 5 files migrated to `00-contracts/lexicons/com/etzhayyim/sbom/`
 - rw-free reference impl: deferred (Option B pattern follows etz #89 / #90)
 - sbom.etzhayyim.com deploy: NOT yet (operator stage)

@@ -232,7 +232,7 @@ isMirror=true`, `const serverHeldKey=false`, `personSubject` **unrepresentable**
   organization* mirrors as a `corp` entity.
 - **N4** NOT surveillance / pattern-of-life / target-list (G4).
 - **N5** NOT a new state store — state stays the kotoba Datom log (ADR-2605262130/2605312345); no
-  RisingWave/SQL.
+  Kotoba/Datomic/SQL.
 
 # Update — landed + LIVE (2026-06-06)
 
@@ -267,7 +267,7 @@ Status flipped **proposed → accepted**: the design shipped and is verified in 
   PDS (`atproto.etzhayyim.com`), which 405'd on GET → threw inside `Promise.all` → SvelteKit 500.
   Replaced with a guarded **relative `/xrpc/app.bsky.actor.getProfile`** fetch against the apex
   (`.catch(()=>null)` + a record-derived fallback object), so a miss degrades gracefully instead of
-  500-ing. `magatama-yoro` deployed (version `92d5aa2c`).
+  500-ing. `kotodama-yoro` deployed (version `92d5aa2c`).
 - A complementary `etzhayyim-xrpc-proxy` apex-routing change (`tryApexActorProfile`) is committed but
   **not deployed** — its deploy is blocked by a cross-account service binding
   (`etzhayyim-pds-2603241700`), and the yoro-side fix already resolves the 500, so it is redundant.

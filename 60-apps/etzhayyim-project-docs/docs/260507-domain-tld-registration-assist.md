@@ -12,8 +12,8 @@ verification.
 
 ## Architecture
 
-- Runtime: shared `pymagatama` LangServer worker.
-- Worker module: `pymagatama.primitives.domain`.
+- Runtime: shared `kotodama` LangServer worker.
+- Worker module: `kotodama.primitives.domain`.
 - BPMN contracts:
   - `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/domain/eligibilityCheck.bpmn`
   - `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/domain/registerAssist.bpmn`
@@ -66,7 +66,7 @@ counts only; Phase 2 should fetch policy URLs and diff stored excerpts.
 ## Operational Notes
 
 - No Kubernetes resource is introduced for Phase 1; the existing shared
-  `pymagatama.worker_api` imports and registers the domain primitives.
+  `kotodama.worker_api` imports and registers the domain primitives.
 - `pyproject.toml` version `0.3.71` marks the worker package change.
 - Registration assistance is not legal advice. The output must keep source
   URLs and policy excerpts visible so an operator can verify the registry and

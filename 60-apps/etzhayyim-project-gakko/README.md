@@ -1,6 +1,6 @@
 # etzhayyim-project-gakko
 
-magatama runtime 上で稼働する LMS (Learning Management System) です。以下を提供します。
+kotodama runtime 上で稼働する LMS (Learning Management System) です。以下を提供します。
 
 - コース管理 (`lms.course.*`)
 - 受講登録管理 (`lms.enrollment.*`)
@@ -9,7 +9,7 @@ magatama runtime 上で稼働する LMS (Learning Management System) です。�
 
 ## アーキテクチャ
 
-- 実行基盤: magatama runtime (`core.magatama-runtime.dev/v1alpha1` App)
+- 実行基盤: kotodama runtime (`core.kotodama-runtime.dev/v1alpha1` App)
 - API エントリ: `POST /xrpc`
 - ヘルスチェック: `/healthz`, `/readyz`
 - ルーティング: Gateway API `HTTPRoute` (`edge-router-performers` namespace)
@@ -34,4 +34,4 @@ kubectl apply -f 60-apps/etzhayyim-project-gakko/wasm/gakko-lms-mcp-component/k8
 
 ## コンテナイメージ
 
-- `ghcr.io/etzhayyim/gakko-lms-mcp-component:magatama-runtime-0.1.0`
+- `ghcr.io/etzhayyim/gakko-lms-mcp-component:kotodama-runtime-0.1.0`

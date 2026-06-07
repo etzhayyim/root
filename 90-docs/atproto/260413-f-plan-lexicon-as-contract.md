@@ -7,7 +7,7 @@ topic: lexicon-as-contract
 authoritative: true
 last_verified: 2026-04-25
 authoritative_for:
-  - magatama-host-sdk host capability surface の Single Source of Truth
+  - kotodama-host-sdk host capability surface の Single Source of Truth
   - host capability の codegen pipeline (lex-cli analog)
   - WIT vs Lexicon JSON contract 戦略
   - in-process host capability dispatch (BindingTransport pattern)
@@ -19,7 +19,7 @@ related:
   - w-protocol-at-superset-architecture
   - did-path-lexicon-correspondence
   - wit-lexicon-typed-alignment
-  - adr-0087-magatama-mcp-tool-facade
+  - adr-0087-kotodama-mcp-tool-facade
   - adr-2604261000-mcp-registry-via-kysely-schema
 supersedes:
   - wit-lexicon-typed-alignment
@@ -30,11 +30,11 @@ superseded_by: []
 
 ## Goal
 
-magatama-host-sdk の host capability surface (app に提供される ~100 個の host 関数) を **Lexicon JSON のみ** から派生する状態にする。WIT を contract layer から外し、混乱の源を消す。Shannon η = 1.0 (host capability の単一 SSoT)。
+kotodama-host-sdk の host capability surface (app に提供される ~100 個の host 関数) を **Lexicon JSON のみ** から派生する状態にする。WIT を contract layer から外し、混乱の源を消す。Shannon η = 1.0 (host capability の単一 SSoT)。
 
 ## Scope
 
-**対象**: TS Native (DEFAULT, T3) 経路。`src/app.ts` + `@etzhayyim/magatama-host-sdk` + esbuild → CF Worker。
+**対象**: TS Native (DEFAULT, T3) 経路。`src/app.ts` + `@etzhayyim/kotodama-host-sdk` + esbuild → CF Worker。
 
 **対象外**: T3 Container (wasmtime, ~2 components) 経路。Rust contract-jco generator (1 component)。これらは WIT を継続使用。
 
@@ -150,7 +150,7 @@ source count は 1 のまま保たれ、Shannon η=1.0 を維持できる。
 
   ↓ 派生
 
-20-actors/magatama/sdk/magatama-host-sdk/src/generated/host-client.ts
+40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/generated/host-client.ts
    │  - 37 typed capability functions
    │  - HOST_NSID frozen constants
    │  - HostDispatcher interface
@@ -160,7 +160,7 @@ source count は 1 のまま保たれ、Shannon η=1.0 を維持できる。
 
   ↓ runtime dispatch
 
-20-actors/magatama/sdk/magatama-host-sdk/src/host-dispatcher.ts
+40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/host-dispatcher.ts
    │  switch (nsid) {
    │    case HOST_NSID.secretsGet: ...   // → hostImports.secretsGet(input.key)
    │    case HOST_NSID.cypherQuery: ...  // → hostImports.graphExec(...)
@@ -169,7 +169,7 @@ source count は 1 のまま保たれ、Shannon η=1.0 を維持できる。
 
   ↓ in-process (BindingTransport pattern)
 
-20-actors/magatama/sdk/magatama-host-sdk/src/host-imports.ts
+40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/host-imports.ts
    - existing 1287-line implementation, untouched
 ```
 
@@ -233,7 +233,7 @@ source count は 1 のまま保たれ、Shannon η=1.0 を維持できる。
 - `CLAUDE.md` (root) の `LLM Coding Guardrails` から `wit/world.wit` 必須要件を削除
 - `CLAUDE.md` の `Key Conventions` "TS Native + WIT Contract" → "TS Native + Lexicon Contract"
 - `deps.toml` の `[[conventions]]` / `[directory_index.*]` / `[app_layer.*]` を更新
-- `20-actors/magatama/CLAUDE.md` に新セクション `## Host Capability Contract (Lexicon SSoT, F-Plan 2026-04-13)` 追加
+- `40-engine/kotoba/crates/kotoba-kotodama/CLAUDE.md` に新セクション `## Host Capability Contract (Lexicon SSoT, F-Plan 2026-04-13)` 追加
 
 ### Phase 3b: WIT archive
 
@@ -242,7 +242,7 @@ source count は 1 のまま保たれ、Shannon η=1.0 を維持できる。
 - **2 components retained in-tree** (legacy compat):
   - `60-apps/etzhayyim-project-cad/appview/etzhayyim-wasm-cad-cd4dview/wit/` (T3 Container, runtimeType: container)
   - `60-apps/etzhayyim-project-hoge/appview/etzhayyim-wasm-hoge-h0g3t3st/contract-jco/wit/` (Rust contract-jco generator)
-- `etzhayyim build` の `validateMagatamaGovernanceImport` は missing wit/ を silent skip (build.go:558-560)
+- `etzhayyim build` の `validateKotodamaGovernanceImport` は missing wit/ を silent skip (build.go:558-560)
 - **141/141 host-sdk tests pass**
 
 ### F2: App command contract (2026-04-13)
@@ -281,9 +281,9 @@ F1 (host capability) 統合に続き、F2 (app command surface) も Lexicon SSoT
 
 #### Legacy archive
 
-- `AssertCommandNSID` / `AssertQueryNSID` loose types → `_archive/20-actors/magatama/sdk/magatama-host-sdk-legacy-nsid-assert-260413/`
-- `@etzhayyim/magatama-host-contract` 12-line stub package → inlined into `magatama-host-sdk/src/types.ts`, archived to `_archive/00-contracts/magatama-host-contract-260413/`
-- `build.go` dead `validateWITVersion` path → softened to optional (only runs when `--wit-dir` / `MAGATAMA_WIT_DIR` is set)
+- `AssertCommandNSID` / `AssertQueryNSID` loose types → `_archive/40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk-legacy-nsid-assert-260413/`
+- `@etzhayyim/kotodama-host-contract` 12-line stub package → inlined into `kotodama-host-sdk/src/types.ts`, archived to `_archive/00-contracts/kotodama-host-contract-260413/`
+- `build.go` dead `validateWITVersion` path → softened to optional (only runs when `--wit-dir` / `KOTODAMA_WIT_DIR` is set)
 
 #### Final state
 
@@ -299,9 +299,9 @@ F1 (host capability) 統合に続き、F2 (app command surface) も Lexicon SSoT
 | Lexicon SSoT | `00-contracts/lexicons/com/etzhayyim/host/**/*.json` |
 | Codegen tool | `70-tools/scripts/contract/gen-host-client-from-lexicon.mjs` (444 lines, lex-cli analog) |
 | Bootstrap | `70-tools/scripts/contract/bootstrap-host-lexicons.mjs` (one-shot, idempotent) |
-| Generated typed client | `20-actors/magatama/sdk/magatama-host-sdk/src/generated/host-client.ts` |
-| In-process dispatcher | `20-actors/magatama/sdk/magatama-host-sdk/src/host-dispatcher.ts` |
-| Host implementation (legacy, unchanged) | `20-actors/magatama/sdk/magatama-host-sdk/src/host-imports.ts` |
+| Generated typed client | `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/generated/host-client.ts` |
+| In-process dispatcher | `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/host-dispatcher.ts` |
+| Host implementation (legacy, unchanged) | `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/host-imports.ts` |
 
 ### Adding a new host capability
 
@@ -343,7 +343,7 @@ T3 Container (wasmtime runtime) と Rust contract-jco generator は WIT を継�
 
 ### F1 (host capability surface)
 
-- 旧: WIT world.wit + TS host-imports.ts + magatama-host-sdk types = 3 sources
+- 旧: WIT world.wit + TS host-imports.ts + kotodama-host-sdk types = 3 sources
 - 新: Lexicon JSON のみ (TS は派生) = 1 source
 - 効率: η_F1 = 1/3 → **1.0**
 
@@ -381,8 +381,8 @@ T3 Container (wasmtime runtime) と Rust contract-jco generator は WIT を継�
 ## References
 
 - 旧設計 (superseded): `90-docs/atproto/260324-wit-lexicon-typed-alignment-design.md`
-- 権威 reference: `20-actors/magatama/CLAUDE.md` §Host Capability Contract (Lexicon SSoT, F-Plan 2026-04-13)
+- 権威 reference: `40-engine/kotoba/crates/kotoba-kotodama/CLAUDE.md` §Host Capability Contract (Lexicon SSoT, F-Plan 2026-04-13)
 - atproto codegen pattern: `bluesky-social/atproto/packages/api/package.json` `"codegen": "lex gen-api ..."`
 - Migration tracking: `deps.toml [[migrations]] §wit-contract-layer-removal`
 - Archive location: `_archive/wit-2026-04-13/` (3007 files)
-- Test coverage: `20-actors/magatama/sdk/magatama-host-sdk/test/host-dispatcher.test.ts` (10 tests, 141/141 全体合格)
+- Test coverage: `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/test/host-dispatcher.test.ts` (10 tests, 141/141 全体合格)

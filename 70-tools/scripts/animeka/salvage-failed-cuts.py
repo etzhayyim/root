@@ -11,7 +11,7 @@ the audit log. This script reads those audits, filters cuts that have
 at least N non-null CIDs and no prior PDS post, and reposts each as a
 "salvaged" 1-4-image embed.
 
-Auth: uses the legacy `x-magatama-verified: true` internal-trust
+Auth: uses the legacy `x-kotodama-verified: true` internal-trust
 header — the same path the BPMN worker takes (ADR-0023 break-glass).
 PDS verifies via env-toggled `PDS_LEGACY_INTERNAL_TRUST=1`.
 
@@ -35,7 +35,7 @@ import urllib.request
 from datetime import datetime, timezone
 
 PSQL_BIN = os.environ.get("PSQL", "/opt/homebrew/opt/libpq/bin/psql")
-RW_URL = os.environ.get("RW_URL", "REDACTED_USE_DATABASE_URL_ENV")
+KOTOBA_URL = os.environ.get("KOTOBA_URL", "REDACTED_USE_DATABASE_URL_ENV")
 PDS_URL = os.environ.get("PDS_URL", "https://atproto.etzhayyim.com")
 REPO = os.environ.get("ANIMEKA_REPO", "did:web:an1m3k4x.etzhayyim.com")
 COLLECTION = "app.bsky.feed.post"
@@ -50,7 +50,7 @@ def psql_rows(sql: str) -> list[list[str]]:
     """Run psql with tab-separated unaligned output, return list of column lists."""
     try:
         out = subprocess.check_output(
-            [PSQL_BIN, RW_URL, "-At", "-F", "\t", "-c", sql],
+            [PSQL_BIN, KOTOBA_URL, "-At", "-F", "\t", "-c", sql],
             text=True, stderr=subprocess.PIPE, timeout=30,
         )
     except subprocess.CalledProcessError as e:
@@ -161,7 +161,7 @@ def create_post(cut_id: str, embed: dict) -> tuple[int, str]:
         headers={
             "Content-Type": "application/json",
             "Accept": "application/json",
-            "x-magatama-verified": "true",
+            "x-kotodama-verified": "true",
             "User-Agent": UA,
         },
         method="POST",

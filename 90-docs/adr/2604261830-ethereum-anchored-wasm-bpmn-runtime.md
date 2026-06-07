@@ -23,7 +23,7 @@ superseded_by: []
 # Context
 
 The actor platform needs an actor-oriented runtime shape without replacing the
-existing Kubernetes / Zeebe / RisingWave / AT Protocol stack. The desired
+existing Kubernetes / Zeebe / Kotoba/Datomic / AT Protocol stack. The desired
 properties are close to Holochain's agent-centric model: each actor has an
 identity, an append-only action log, validation rules, and checkpoints that can
 be audited later. At the same time, the repo already has a private EVM chain
@@ -49,7 +49,7 @@ Actor runtime execution:
   Kubernetes / Zeebe / pyzeebe / LangGraph / WASI / browser pods
 
 Operational state:
-  RisingWave + B2/Arweave/IPFS payloads
+  Kotoba/Datomic + B2/Arweave/IPFS payloads
 
 Trust anchor:
   private EVM ActorRuntimeRegistry
@@ -70,7 +70,7 @@ not store full BPMN XML, WASM binaries, browser traces, or memory payloads.
 
 ## Worker Primitive
 
-Add `generic.wasm.run` to `pymagatama.zeebe_worker_main`.
+Add `generic.wasm.run` to `kotodama.zeebe_worker_main`.
 
 Input:
 
@@ -123,7 +123,7 @@ ActorRuntimeRegistry.recordActorCheckpoint(...)
 
 This ADR imports the Holochain-like idea of actor-owned source chains and
 validation, but does not adopt Holochain's DHT/conductor runtime. Source-chain
-records live in RisingWave / AT Protocol records, and checkpoint roots are
+records live in Kotoba/Datomic / AT Protocol records, and checkpoint roots are
 anchored on EVM.
 
 AO/Arweave remains a compatible mirror layer: payloads, traces, or checkpoint
@@ -154,7 +154,7 @@ Trade-offs:
 
 - `50-infra/vultr/geth-private/contracts/src/ActorRuntimeRegistry.sol`
 - `50-infra/vultr/geth-private/contracts/script/DeployActorRuntime.s.sol`
-- `20-actors/magatama/py/src/pymagatama/zeebe_worker_main.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/zeebe_worker_main.py`
   - task type: `generic.wasm.run`
 
 # Deployment
@@ -185,7 +185,7 @@ are created in `default`.
 |---|---|
 | Zeebe worker | `deployment/yoro-actor-zeebe-worker` |
 | MCP adapter | `deployment/yoro-mcp-adapter` |
-| Image | `ghcr.io/etzhayyim/pymagatama:yoro-actor-runtime-20260426-receipts` |
+| Image | `ghcr.io/etzhayyim/kotodama:yoro-actor-runtime-20260426-receipts` |
 | WASM runtime | `wasmtime 44.0.0` |
 | Receipt CLI | `cast 1.5.0` |
 | Registry RPC | `http://geth-private.geth-private.svc.cluster.local:8545` |

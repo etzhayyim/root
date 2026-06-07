@@ -210,8 +210,8 @@ e7m actor deploy .
 
 ```bash
 cd 20-actors/igata
-python -c "from magatama.cells.igata_alloy_melt import IgataAlloyMeltCell" 2>&1 | grep -q RuntimeError && echo "✓ R0 gate active"
-python -c "from magatama.cells.igata_die_preparation import IgataDiePreparationCell" 2>&1 | grep -q RuntimeError && echo "✓ R0 gate active"
+python -c "from kotodama.cells.igata_alloy_melt import IgataAlloyMeltCell" 2>&1 | grep -q RuntimeError && echo "✓ R0 gate active"
+python -c "from kotodama.cells.igata_die_preparation import IgataDiePreparationCell" 2>&1 | grep -q RuntimeError && echo "✓ R0 gate active"
 # ... 6 more
 ```
 

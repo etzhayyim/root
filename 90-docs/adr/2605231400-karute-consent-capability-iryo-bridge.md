@@ -9,7 +9,7 @@ last_verified: 2026-05-23
 priority: 6.8
 axis: architecture
 weight: 0.68
-priority_note: "Closes the substrate hop between etzhayyim (PHI custody, USDC self-pay) and vendor iryo.etzhayyim.com (RisingWave + Stripe + DPC/DRG insurance billing) without weakening the etzhayyim charter's three-axis-split rule. The same consent capability primitive serves data portability, second-opinion, research-de-identified, and emergency disclosure — i.e. every cross-actor PHI flow."
+priority_note: "Closes the substrate hop between etzhayyim (PHI custody, USDC self-pay) and vendor iryo.etzhayyim.com (Kotoba/Datomic + Stripe + DPC/DRG insurance billing) without weakening the etzhayyim charter's three-axis-split rule. The same consent capability primitive serves data portability, second-opinion, research-de-identified, and emergency disclosure — i.e. every cross-actor PHI flow."
 authoritative_for:
   - consent capability shape (`com.etzhayyim.consent.capability`)
   - cross-actor PHI delegation pattern under the etzhayyim charter
@@ -98,7 +98,7 @@ A patient grants `did:web:iryo.etzhayyim.com` an `insurance-billing` capability 
 4. Verifies the requested scope is within the capability scope and timestamp is within validity
 5. Issues a key-wrap request to the karute substrate (which the substrate honors because the capability is valid)
 6. Decrypts each in-scope record via `@etzhayyim/sdk.encryptedRead`
-7. Materializes the DPC/DRG claim into its own RisingWave (subject to standard JP保険 retention rules)
+7. Materializes the DPC/DRG claim into its own Kotoba/Datomic (subject to standard JP保険 retention rules)
 8. Forwards to 社保支払基金 / 国保連 via 既存 vendor channels
 9. Returns claim reference + initial status
 
@@ -137,7 +137,7 @@ The lexicon record `com.etzhayyim.consent.capability` is the canonical on-chain 
 
 ## What this ADR does NOT change
 
-- **Substrate boundary still holds.** etzhayyim apps do not write to RisingWave or Stripe directly — they call iryo via the bridge XRPC, which is a vendor-side actor.
+- **Substrate boundary still holds.** etzhayyim apps do not write to Kotoba/Datomic or Stripe directly — they call iryo via the bridge XRPC, which is a vendor-side actor.
 - **Charter §2 prohibitions still hold.** The capability's `purpose` enum deliberately excludes `purchase` / `subscription` / `tip` — those values remain prohibited (ADR-2605192115 + ADR-2605192130).
 - **Encryption envelope still holds.** Capabilities authorize key-wrap issuance for already-encrypted records; the records never decrypt server-side on etzhayyim's substrate.
 

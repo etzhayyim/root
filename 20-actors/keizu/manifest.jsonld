@@ -40,11 +40,11 @@
     "chigiri (ADR-2605262700) — legal characterization of any tie routes to external counsel; keizu never adjudicates (G2)"
   ],
   "cells": [
-    { "name": "ingest", "module": "magatama.cells.keizu_ingest", "murakumoNode": "reuben", "phase": "continuous", "io": "public-source records (官報/調達ポータル/政治資金収支報告書/Federal Register/USAspending/TED/OECD) → validated :node/:committee/:rel/:money/:statement datoms" },
-    { "name": "committee_graph", "module": "magatama.cells.keizu_committee_graph", "murakumoNode": "reuben", "phase": "continuous", "io": "committee rosters → :committee/* composition snapshots + :committee-membership / :co-membership edges" },
-    { "name": "money_graph", "module": "magatama.cells.keizu_money_graph", "murakumoNode": "gad", "phase": "continuous", "io": "procurement/subsidy/donation/outlay records → :money/* flows + per-payee concentration" },
-    { "name": "relation_weave", "module": "magatama.cells.keizu_relation_weave", "murakumoNode": "gad", "phase": "continuous", "io": "all datoms → aggregate edge-primary concentration (cross-organ / cross-committee / HHI / revolving-door)" },
-    { "name": "social_post", "module": "magatama.cells.keizu_social_post", "murakumoNode": "naphtali", "phase": "periodic (event)", "io": "aggregate finding → dry-run networkPost (member-signed, mirror disclaimer, ≥2 sources); live post Council Lv6+ + operator gated" }
+    { "name": "ingest", "module": "kotodama.cells.keizu_ingest", "murakumoNode": "reuben", "phase": "continuous", "io": "public-source records (官報/調達ポータル/政治資金収支報告書/Federal Register/USAspending/TED/OECD) → validated :node/:committee/:rel/:money/:statement datoms" },
+    { "name": "committee_graph", "module": "kotodama.cells.keizu_committee_graph", "murakumoNode": "reuben", "phase": "continuous", "io": "committee rosters → :committee/* composition snapshots + :committee-membership / :co-membership edges" },
+    { "name": "money_graph", "module": "kotodama.cells.keizu_money_graph", "murakumoNode": "gad", "phase": "continuous", "io": "procurement/subsidy/donation/outlay records → :money/* flows + per-payee concentration" },
+    { "name": "relation_weave", "module": "kotodama.cells.keizu_relation_weave", "murakumoNode": "gad", "phase": "continuous", "io": "all datoms → aggregate edge-primary concentration (cross-organ / cross-committee / HHI / revolving-door)" },
+    { "name": "social_post", "module": "kotodama.cells.keizu_social_post", "murakumoNode": "naphtali", "phase": "periodic (event)", "io": "aggregate finding → dry-run networkPost (member-signed, mirror disclaimer, ≥2 sources); live post Council Lv6+ + operator gated" }
   ],
   "lexiconNamespaces": [
     "com.etzhayyim.keizu.relationEdge",

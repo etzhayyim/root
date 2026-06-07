@@ -14,7 +14,7 @@ depends_on:
   - adr-2605061200-agi-active-inference-artificial-organism-architecture
   - adr-2605061300-real-world-effect-channel-boundary
   - adr-2605011200-graph-expand-bpmn-llm-edge-inference
-  - adr-2604261900-risingwave-ddl-backfill-path-topology
+  - adr-2604261900-kotoba-ddl-backfill-path-topology
 related:
   - adr-2604251830-shannon-optimal-layered-architecture
   - adr-0002-graph-storage
@@ -50,7 +50,7 @@ Introduce `graph-sos-intel` as a T1 MCP-composed actor.
 
 The actor owns graph/intel observations about relation topology, index coverage,
 materialized-view read models, and System-of-Systems drift. It does not execute
-heavy DDL directly. Heavy DDL remains behind the existing RisingWave DDL queue
+heavy DDL directly. Heavy DDL remains behind the existing Kotoba/Datomic DDL queue
 and background-DDL governance.
 
 ## Runtime Contract

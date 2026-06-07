@@ -69,14 +69,14 @@
     ]
   },
   "cells": [
-    { "name": "junkan_ingest", "module": "magatama.cells.junkan_ingest", "phase": "continuous (heartbeat)", "status": "R0 path-reserved (import-time RuntimeError until R1)" },
-    { "name": "junkan_stock_estimator", "module": "magatama.cells.junkan_stock_estimator", "phase": "per-tick", "status": "R0 path-reserved" },
-    { "name": "junkan_flow_inference", "module": "magatama.cells.junkan_flow_inference", "phase": "per-tick", "status": "R0 path-reserved" },
-    { "name": "junkan_cld_builder", "module": "magatama.cells.junkan_cld_builder", "phase": "joucho-cadence", "status": "R0 path-reserved" },
-    { "name": "junkan_loop_classifier", "module": "magatama.cells.junkan_loop_classifier", "phase": "joucho-cadence", "status": "R0 path-reserved" },
-    { "name": "junkan_leverage_finder", "module": "magatama.cells.junkan_leverage_finder", "phase": "periodic", "status": "R0 path-reserved" },
-    { "name": "junkan_finding_emitter", "module": "magatama.cells.junkan_finding_emitter", "phase": "event", "status": "R0 path-reserved — WRITE-ONLY datom + advisory; NO dispatch (G4)" },
-    { "name": "junkan_silen_review", "module": "magatama.cells.junkan_silen_review", "phase": "quarterly", "status": "R0 path-reserved" }
+    { "name": "junkan_ingest", "module": "kotodama.cells.junkan_ingest", "phase": "continuous (heartbeat)", "status": "R0 path-reserved (import-time RuntimeError until R1)" },
+    { "name": "junkan_stock_estimator", "module": "kotodama.cells.junkan_stock_estimator", "phase": "per-tick", "status": "R0 path-reserved" },
+    { "name": "junkan_flow_inference", "module": "kotodama.cells.junkan_flow_inference", "phase": "per-tick", "status": "R0 path-reserved" },
+    { "name": "junkan_cld_builder", "module": "kotodama.cells.junkan_cld_builder", "phase": "joucho-cadence", "status": "R0 path-reserved" },
+    { "name": "junkan_loop_classifier", "module": "kotodama.cells.junkan_loop_classifier", "phase": "joucho-cadence", "status": "R0 path-reserved" },
+    { "name": "junkan_leverage_finder", "module": "kotodama.cells.junkan_leverage_finder", "phase": "periodic", "status": "R0 path-reserved" },
+    { "name": "junkan_finding_emitter", "module": "kotodama.cells.junkan_finding_emitter", "phase": "event", "status": "R0 path-reserved — WRITE-ONLY datom + advisory; NO dispatch (G4)" },
+    { "name": "junkan_silen_review", "module": "kotodama.cells.junkan_silen_review", "phase": "quarterly", "status": "R0 path-reserved" }
   ],
   "lexicons": [
     "com.etzhayyim.junkan.societalStockObservation",

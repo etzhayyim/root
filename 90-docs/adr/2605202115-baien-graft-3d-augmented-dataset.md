@@ -21,7 +21,7 @@ depends_on:
 related:
   - adr-2605091300-bonsai-cultivar-layer-above-myco-yeast
   - adr-2605091600-plasmid-graft-horizontal-tool-acquisition
-  - adr-2604262359-risingwave-multimodal-vector-search-topology
+  - adr-2604262359-kotoba-multimodal-vector-search-topology
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
 supersedes: []
@@ -131,7 +131,7 @@ sample:
 ## D3. baien Move 1 統合
 
 - `vertex_training_dataset_snapshot` に `variant: "3d-augmented"` flag を追加し、既存 2D-only snapshot と並列保存
-- `pymagatama/primitives/training_run.py` の `_train_baien_graft_image()` (まだ未実装) は両 variant をサポート、`y_caption_3d_augmented` を text token target として使用
+- `kotodama/primitives/training_run.py` の `_train_baien_graft_image()` (まだ未実装) は両 variant をサポート、`y_caption_3d_augmented` を text token target として使用
 - 3D mesh は snapshot に格納せず (storage 節約)、`caption_3d_augmented` 文字列のみが学習 signal
 
 ## D4. Acceptance gate
@@ -246,7 +246,7 @@ Pixal3D が primary に昇格するかは、Phase 3b の 100-sample 品質比較
 - ADR-2605091400 — MCP as cell-membrane / Lexicon XRPC demotion
 - ADR-2605091300 — Cultivar layer
 - ADR-2605091600 — Plasmid graft / horizontal tool acquisition
-- ADR-2604262359 — RisingWave vector substrate (vertex_vector_embedding_768)
+- ADR-2604262359 — Kotoba/Datomic vector substrate (vertex_vector_embedding_768)
 
 ## External
 
@@ -298,7 +298,7 @@ Extrapolation (EVO-X2 単独 sequential):
 ## Open items (post-merge follow-up)
 
 - batch-001 (10 sample, 212 MB) を IPFS pin → CID を本 ADR の "Empirical grounding" に追記
-- `vertex_training_dataset_snapshot` への `variant: "3d-augmented"` flag 実装 (pymagatama 側、cross-repo)
-- `pymagatama/primitives/training_run.py::_train_baien_graft_image()` 実装 (Move 1 本体、H100 1 セッション)
+- `vertex_training_dataset_snapshot` への `variant: "3d-augmented"` flag 実装 (kotodama 側、cross-repo)
+- `kotodama/primitives/training_run.py::_train_baien_graft_image()` 実装 (Move 1 本体、H100 1 セッション)
 - 1k / 10k 規模 batch run と Murakumo fleet 並列化 (`fleet.toml` `[[inference_backends]]` 拡張)
 - Hunyuan3D paint model 採用判断 (RGB texture view で caption richness 向上 vs +6GB DL / +30s gen)

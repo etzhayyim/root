@@ -15,7 +15,7 @@ authoritative_for:
   - open-smartphone-bom actor (BOM統合・オープンスコア・代替調達)
   - open-smartphone-patent actor (SEPランドスケープ・特許プール・失効ゲート)
   - BPMN flows for all 7 domains (27 BPMN processes)
-  - RisingWave schema: 19 tables + 2 MVs
+  - Kotoba/Datomic schema: 19 tables + 2 MVs
   - Lexicon contracts: 26 JSON files
 related:
   - adr-0056-bpmn-as-actor
@@ -29,9 +29,9 @@ related:
 
 # ADR-2604281800 — open-smartphone 7-Layer Independent Actor Architecture
 
-**Status**: active  
-**Date**: 2026-04-28  
-**Authors**: Jun Kawasaki + Claude Code  
+**Status**: active
+**Date**: 2026-04-28
+**Authors**: Jun Kawasaki + Claude Code
 
 ## Context
 
@@ -121,7 +121,7 @@ related:
 | flagExpiryGate | R/P7D | db.select → audit |
 | recordLicensePool | XRPC | vertex_open_smartphone_patent_pool |
 
-### RisingWave schema — 19 tables + 2 MVs
+### Kotoba/Datomic schema — 19 tables + 2 MVs
 
 | Migration | Tables | MV |
 |---|---|---|

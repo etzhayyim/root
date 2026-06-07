@@ -35,7 +35,7 @@ notes: |
   すべて kotoba に ingest して、不正や違反がないかを特定する actor は設計されている?".
   Audit (Explore agent) found PARTIAL: the ingestion substrate exists and is W1-landed
   (ADR-2605263900 — JP 国会会議録 / 予算書 / 政府調達 / e-Stat / data.go.jp pinned to IPFS,
-  written by pymagatama.organism.sensors.gov.*), and three actors consume parts of it
+  written by kotodama.organism.sensors.gov.*), and three actors consume parts of it
   (toritate = anti-related-party for ITS OWN tithe-recipient vendors only; chigiri = cites
   state procedure as routing-around evidence; ossekai = aggregate transparency publication),
   but NO single actor was designed to cross-reference the WHOLE corpus to surface 不正 / 違反.
@@ -81,7 +81,7 @@ identify fraud / violations":
 3. **The ingestion target must be kotoba, not a parallel store.**
    Per ADR-2605262130 the canonical substrate is kotoba (content-
    addressed Datalog + Pregel; EAVT/AEVT/AVET/VAET arrangements via
-   kotoba-kqe; RisingWave / Postgres / Lance prohibited as primary
+   kotoba-kqe; Kotoba/Datomic / Postgres / Lance prohibited as primary
    store or read backend). Any "ingest into kotoba" actor must build its
    cross-reference graph as kotoba datoms, exactly as tadori
    (ADR-2605301400) does for on-chain tracing.
@@ -132,7 +132,7 @@ the open-government corpus (ADR-2605263900). It:
 1. **Ingests** the already-pinned JP corpus (国会会議録 / 予算書 /
    政府調達 / e-Stat) into **kotoba EAVT** as datoms — it does NOT
    re-fetch from government portals; it reads the IPFS-pinned
-   `com.etzhayyim.gov.dataset.*` records that `pymagatama.organism.
+   `com.etzhayyim.gov.dataset.*` records that `kotodama.organism.
    sensors.gov.*` already produced (G3 passive-only).
 2. **Cross-references** those datoms with each other and with the corp
    identity registry (`com.etzhayyim.corp.{leiReference,ownershipEdge}`,
@@ -147,7 +147,7 @@ the open-government corpus (ADR-2605263900). It:
 
 ## §2 — Architecture (6 Pregel cells, R0 path-reserved)
 
-All cells path-reserved at R0 under `20-actors/magatama/cells/danjo_*/`;
+All cells path-reserved at R0 under `40-engine/kotoba/crates/kotoba-kotodama/cells/danjo_*/`;
 each is import-time `RuntimeError("danjo R0 scaffold: activate via
 Council ADR + R1 ratification")` at W1 creation.
 
@@ -162,7 +162,7 @@ Council ADR + R1 ratification")` at W1 creation.
 
 Cells communicate via `com.etzhayyim.danjo.*` lexicon records on MST;
 the cross-reference graph lives in kotoba QuadStore (EAVT) per
-ADR-2605262130. No RisingWave, no projection layer.
+ADR-2605262130. No Kotoba/Datomic, no projection layer.
 
 ## §3 — Lexicons (`com.etzhayyim.danjo.*`)
 
@@ -368,7 +368,7 @@ ratification post Bootstrap Council Seats 2-5 RFP close (2026-06-19).
 # References
 
 - `/90-docs/adr/2605263900-public-data-open-government-ipfs-ingestion.md` — open-government corpus (primary input)
-- `/90-docs/adr/2605262130-kotoba-storage-substrate-unification.md` — kotoba substrate (EAVT, no RisingWave)
+- `/90-docs/adr/2605262130-kotoba-storage-substrate-unification.md` — kotoba substrate (EAVT, no Kotoba/Datomic)
 - `/90-docs/adr/2605192100-etzhayyim-mission-charter.md` — §1.12 Transparent Religious Force + §2(c) covert-ops avoidance
 - `/90-docs/adr/2605192200-etzhayyim-ip-free-release-charter-rider.md` — Charter Rider §2(c)/(e)
 - `/90-docs/adr/2605262900-toritate-accounting-audit-tier-b-actor-r0.md` — toritate (boundary sibling)

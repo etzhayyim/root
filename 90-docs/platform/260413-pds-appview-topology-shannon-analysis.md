@@ -259,7 +259,7 @@ atproto.etzhayyim.com (PDS — sole gateway)
   ├─ app.bsky.feed.like/follow → PDS direct (= createRecord)
   ├─ app.bsky.feed.getTimeline (read, layer=appview)
   │   → pipethroughAppView() → APPVIEW_SERVICE (service binding <1ms)
-  │     → yoro Worker handleAppViewRpc() → HYPERDRIVE → RisingWave
+  │     → yoro Worker handleAppViewRpc() → HYPERDRIVE → Kotoba/Datomic
   │   → 501? → PDS local handler fallback
   ├─ com.etzhayyim.convo.* → PDS direct (convo handler)
   ├─ com.etzhayyim.signal.* → PDS direct (signal handler)

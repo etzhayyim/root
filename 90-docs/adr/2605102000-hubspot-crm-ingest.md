@@ -24,7 +24,7 @@ related:
 
 ## Context
 
-CEO 河崎 directive 「hubspot のデータを全て risingwave に取り込んで」 (DECISION-LOG iter 123, 127).
+CEO 河崎 directive 「hubspot のデータを全て kotoba に取り込んで」 (DECISION-LOG iter 123, 127).
 Existing 1Password entry `op://Private/Hubspot` was Microsoft-SSO login only — no API
 token. No prior HubSpot ingest worker existed. Closest precedent (`open-sales` actor,
 ADR 2604281830) is a HubSpot-equivalent self-CRM, not an ingest pipeline.
@@ -62,14 +62,14 @@ Per `30-graph/graph-schema/CLAUDE.md` + root `CLAUDE.md` Record-log semantics:
 
 - All columns are `varchar` / `bigint` / `date` / `double precision` (no JSON, no float).
 - Promoted columns for high-frequency fields; raw fanout in `properties_json` (varchar).
-- Append-only PK re-INSERT = implicit upsert. **No `ON CONFLICT` (RisingWave parser rejects).**
+- Append-only PK re-INSERT = implicit upsert. **No `ON CONFLICT` (Kotoba/Datomic parser rejects).**
 - Hard-delete only (`_alive` soft-delete forbidden).
 - 4 RLS canonical columns (`actor_did`, `org_did`, `at_did`, `created_at`) per ADR-0095.
 - `sensitivity_ord = 3` (PII Tier 3) — HubSpot data contains contact PII.
 
 ## Auth + secret topology
 
-- HubSpot Legacy Private App `etzhayyim-risingwave-ingest`, App ID `39124460`, portal `42189574`.
+- HubSpot Legacy Private App `etzhayyim-kotoba-ingest`, App ID `39124460`, portal `42189574`.
 - 18 read scopes: `crm.objects.{contacts,companies,deals,owners,line_items,products,quotes,subscriptions,feedback_submissions}.read` + `crm.schemas.{contacts,companies,deals,line_items,quotes,subscriptions}.read` + `tickets` + `e-commerce` + `sales-email-read`.
 - Token stored in 3 locations:
   1. macOS Keychain (`etzhayyim.hubspot/HUBSPOT_PRIVATE_APP_TOKEN`)
@@ -96,7 +96,7 @@ Initial backfill: `syncAll {since: "1970-01-01T00:00:00Z", maxPagesPerType: 200}
 | L2 Routing | atproto.etzhayyim.com PDS XRPC entry |
 | L3 Dispatcher | `hubspot.etzhayyim.com` Worker (this ADR) |
 | L4 Registry | `vertex_capability` MCP tool definitions auto-registered on first hit |
-| L5 Storage | RisingWave Hummock (B2) `vertex_hubspot_*` |
+| L5 Storage | Kotoba/Datomic Hummock (B2) `vertex_hubspot_*` |
 | L7 Orchestration | Zeebe R/PT15M timer for `syncAll` cron |
 
 ## Pending
@@ -111,5 +111,5 @@ Initial backfill: `syncAll {since: "1970-01-01T00:00:00Z", maxPagesPerType: 200}
 - `30-graph/graph-schema/sql_migrations/20260510010000_vertex_hubspot.{up,down}.sql`
 - `30-graph/graph-schema/alembic/current_versions/r_20260510010000_vertex_hubspot.py`
 - `00-contracts/lexicons/com/etzhayyim/apps/hubspot/{syncObjectType,syncAll,listObjects,getSyncStatus}.json`
-- `60-apps/etzhayyim-project-hubspot-hb5p0t1n/appview/etzhayyim-wasm-hubspot-hb5p0t1n/{magatama.jsonld,wrangler.jsonc,package.json,tsconfig.json,src/app.ts}`
+- `60-apps/etzhayyim-project-hubspot-hb5p0t1n/appview/etzhayyim-wasm-hubspot-hb5p0t1n/{kotodama.jsonld,wrangler.jsonc,package.json,tsconfig.json,src/app.ts}`
 - `_working/etzhayyim-revenue/DECISION-LOG.md` iter 123, 127

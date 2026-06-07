@@ -4,7 +4,7 @@
   "metadata": {
     "annotations": {
       "deployment.kubernetes.io/revision": "6",
-      "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"agent-loop\",\"app.kubernetes.io/name\":\"malak-pursuit-loop\",\"app.kubernetes.io/part-of\":\"malak\"},\"name\":\"malak-pursuit-loop\",\"namespace\":\"murakumo-system\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/name\":\"malak-pursuit-loop\"}},\"strategy\":{\"type\":\"Recreate\"},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/component\":\"agent-loop\",\"app.kubernetes.io/name\":\"malak-pursuit-loop\",\"app.kubernetes.io/part-of\":\"malak\"}},\"spec\":{\"containers\":[{\"command\":[\"python\",\"-m\",\"pymagatama.malak.langgraph.pursuit_loop\",\"--case-id\",\"$(CASE_ID)\",\"--tick-interval\",\"$(TICK_INTERVAL)\"],\"env\":[{\"name\":\"CASE_ID\",\"valueFrom\":{\"configMapKeyRef\":{\"key\":\"CASE_ID\",\"name\":\"malak-pursuit-loop-config\"}}},{\"name\":\"TICK_INTERVAL\",\"valueFrom\":{\"configMapKeyRef\":{\"key\":\"TICK_INTERVAL\",\"name\":\"malak-pursuit-loop-config\"}}},{\"name\":\"etzhayyim_LLM_URL\",\"valueFrom\":{\"configMapKeyRef\":{\"key\":\"etzhayyim_LLM_URL\",\"name\":\"malak-pursuit-loop-config\"}}},{\"name\":\"etzhayyim_LLM_MODEL\",\"valueFrom\":{\"configMapKeyRef\":{\"key\":\"etzhayyim_LLM_MODEL\",\"name\":\"malak-pursuit-loop-config\"}}},{\"name\":\"PURSUIT_DISABLE_LLM\",\"valueFrom\":{\"configMapKeyRef\":{\"key\":\"PURSUIT_DISABLE_LLM\",\"name\":\"malak-pursuit-loop-config\"}}},{\"name\":\"RW_URL\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"RW_URL\",\"name\":\"malak-pursuit-loop-secrets\"}}},{\"name\":\"etzhayyim_LLM_API_KEY\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"etzhayyim_LLM_API_KEY\",\"name\":\"malak-pursuit-loop-secrets\"}}},{\"name\":\"PYTHONUNBUFFERED\",\"value\":\"1\"}],\"image\":\"ghcr.io/etzhayyim/malak-pursuit-loop:latest\",\"imagePullPolicy\":\"Always\",\"livenessProbe\":{\"exec\":{\"command\":[\"python\",\"-c\",\"import os,psycopg; c=psycopg.connect(os.environ['RW_URL'], connect_timeout=5); c.close()\"]},\"failureThreshold\":3,\"initialDelaySeconds\":60,\"periodSeconds\":120,\"timeoutSeconds\":15},\"name\":\"pursuit-loop\",\"resources\":{\"limits\":{\"cpu\":\"1000m\",\"memory\":\"512Mi\"},\"requests\":{\"cpu\":\"200m\",\"memory\":\"256Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsNonRoot\":true,\"runAsUser\":10001}}],\"imagePullSecrets\":[{\"name\":\"ghcr-creds\"}],\"restartPolicy\":\"Always\",\"terminationGracePeriodSeconds\":60}}}}\n",
+      "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"agent-loop\",\"app.kubernetes.io/name\":\"malak-pursuit-loop\",\"app.kubernetes.io/part-of\":\"malak\"},\"name\":\"malak-pursuit-loop\",\"namespace\":\"murakumo-system\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/name\":\"malak-pursuit-loop\"}},\"strategy\":{\"type\":\"Recreate\"},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/component\":\"agent-loop\",\"app.kubernetes.io/name\":\"malak-pursuit-loop\",\"app.kubernetes.io/part-of\":\"malak\"}},\"spec\":{\"containers\":[{\"command\":[\"python\",\"-m\",\"kotodama.malak.langgraph.pursuit_loop\",\"--case-id\",\"$(CASE_ID)\",\"--tick-interval\",\"$(TICK_INTERVAL)\"],\"env\":[{\"name\":\"CASE_ID\",\"valueFrom\":{\"configMapKeyRef\":{\"key\":\"CASE_ID\",\"name\":\"malak-pursuit-loop-config\"}}},{\"name\":\"TICK_INTERVAL\",\"valueFrom\":{\"configMapKeyRef\":{\"key\":\"TICK_INTERVAL\",\"name\":\"malak-pursuit-loop-config\"}}},{\"name\":\"etzhayyim_LLM_URL\",\"valueFrom\":{\"configMapKeyRef\":{\"key\":\"etzhayyim_LLM_URL\",\"name\":\"malak-pursuit-loop-config\"}}},{\"name\":\"etzhayyim_LLM_MODEL\",\"valueFrom\":{\"configMapKeyRef\":{\"key\":\"etzhayyim_LLM_MODEL\",\"name\":\"malak-pursuit-loop-config\"}}},{\"name\":\"PURSUIT_DISABLE_LLM\",\"valueFrom\":{\"configMapKeyRef\":{\"key\":\"PURSUIT_DISABLE_LLM\",\"name\":\"malak-pursuit-loop-config\"}}},{\"name\":\"KOTOBA_URL\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"KOTOBA_URL\",\"name\":\"malak-pursuit-loop-secrets\"}}},{\"name\":\"etzhayyim_LLM_API_KEY\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"etzhayyim_LLM_API_KEY\",\"name\":\"malak-pursuit-loop-secrets\"}}},{\"name\":\"PYTHONUNBUFFERED\",\"value\":\"1\"}],\"image\":\"ghcr.io/etzhayyim/malak-pursuit-loop:latest\",\"imagePullPolicy\":\"Always\",\"livenessProbe\":{\"exec\":{\"command\":[\"python\",\"-c\",\"import os,psycopg; c=psycopg.connect(os.environ['KOTOBA_URL'], connect_timeout=5); c.close()\"]},\"failureThreshold\":3,\"initialDelaySeconds\":60,\"periodSeconds\":120,\"timeoutSeconds\":15},\"name\":\"pursuit-loop\",\"resources\":{\"limits\":{\"cpu\":\"1000m\",\"memory\":\"512Mi\"},\"requests\":{\"cpu\":\"200m\",\"memory\":\"256Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsNonRoot\":true,\"runAsUser\":10001}}],\"imagePullSecrets\":[{\"name\":\"ghcr-creds\"}],\"restartPolicy\":\"Always\",\"terminationGracePeriodSeconds\":60}}}}\n",
       "meta.helm.sh/release-name": "murakumo-system-raw",
       "meta.helm.sh/release-namespace": "murakumo-system"
     },
@@ -47,7 +47,7 @@
             "command": [
               "python",
               "-m",
-              "pymagatama.malak.langgraph.pursuit_loop",
+              "kotodama.malak.langgraph.pursuit_loop",
               "--case-id",
               "$(CASE_ID)",
               "--tick-interval",
@@ -100,10 +100,10 @@
                 }
               },
               {
-                "name": "RW_URL",
+                "name": "KOTOBA_URL",
                 "valueFrom": {
                   "secretKeyRef": {
-                    "key": "RW_URL",
+                    "key": "KOTOBA_URL",
                     "name": "malak-pursuit-loop-secrets"
                   }
                 }
@@ -129,7 +129,7 @@
                 "command": [
                   "python",
                   "-c",
-                  "import os,psycopg; c=psycopg.connect(os.environ['RW_URL'], connect_timeout=5); c.close()"
+                  "import os,psycopg; c=psycopg.connect(os.environ['KOTOBA_URL'], connect_timeout=5); c.close()"
                 ]
               },
               "failureThreshold": 3,

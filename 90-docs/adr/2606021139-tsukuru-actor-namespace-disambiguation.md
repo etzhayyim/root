@@ -40,7 +40,7 @@ root `CLAUDE.md` 上でも別物として参照されている。
 
 | 何の tsukuru | 実体 | スタック | ADR | root CLAUDE.md |
 |---|---|---|---|---|
-| **(A) B2B factory-direct ordering** | `20-actors/tsukuru/`（460+ factory DID, BTO/OEM, CNT process） | 旧 etzhayyim / RisingWave / JSON-LD | 0061, 2605202800, 2605202900 | 未掲載 |
+| **(A) B2B factory-direct ordering** | `20-actors/tsukuru/`（460+ factory DID, BTO/OEM, CNT process） | 旧 etzhayyim / Kotoba/Datomic / JSON-LD | 0061, 2605202800, 2605202900 | 未掲載 |
 | **(B) silicon-fab orchestration** | `20-actors/silicon/cells/`（litho/etch/CMP… 8 工程）+ baien ternary ASIC | Pregel cells | 2605242500, 2605242545 | line 77 "tsukuru (fab)" ✅ |
 
 衝突の経緯: ADR-2605242500 が **「tsukuru.etzhayyim.com を一気通貫 orchestration の

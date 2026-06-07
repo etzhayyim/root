@@ -71,15 +71,15 @@
     "Tokike — hodoki inheritance (reuse); assembly bolt-down with reversed torque"
   ],
   "cells": [
-    {"name": "moto_frame_welding", "module": "magatama.cells.moto_frame_welding", "murakumoNode": "naphtali", "phase": "L1 — steel/Al tube + sheet frame welding + Tsugite robot witness"},
-    {"name": "moto_engine_assembly", "module": "magatama.cells.moto_engine_assembly", "murakumoNode": "joseph", "phase": "L2a — ≤250cc 4-stroke single OR ≤15kW electric motor assembly"},
-    {"name": "moto_drivetrain_assembly", "module": "magatama.cells.moto_drivetrain_assembly", "murakumoNode": "zebulun", "phase": "L2b — transmission + chain/belt drive"},
-    {"name": "moto_electrical_harness", "module": "magatama.cells.moto_electrical_harness", "murakumoNode": "simeon", "phase": "L3a — wiring harness + safety ECU (G8 NO GPS/connected-app/telematics built-in)"},
-    {"name": "moto_suspension_brake", "module": "magatama.cells.moto_suspension_brake", "murakumoNode": "dan", "phase": "L3b — fork + monoshock + G7 ABS-mandatory ≥125cc dual-channel + caliper/rotor"},
-    {"name": "moto_body_paint", "module": "magatama.cells.moto_body_paint", "murakumoNode": "simeon", "phase": "L4 — body panel + 2K acrylic urethane paint + G5 artwork Charter scan"},
-    {"name": "moto_final_assembly", "module": "magatama.cells.moto_final_assembly", "murakumoNode": "dan", "phase": "L5a — bolt-up + bilingual VIN + G12 IPFS parts catalog publication + G13 hodoki VIN pre-registration"},
-    {"name": "moto_test_dyno_road", "module": "magatama.cells.moto_test_dyno_road", "murakumoNode": "levi", "phase": "L5b — dynamometer + emissions + G6 sound ≤80 dB + ABS function test + road test"},
-    {"name": "moto_provenance_binder", "module": "magatama.cells.moto_provenance_binder", "murakumoNode": "judah", "phase": "terminal — kotoba-datomic anchoring (material lots → VIN + parts catalog + tests + hodoki pre-reg)"}
+    {"name": "moto_frame_welding", "module": "kotodama.cells.moto_frame_welding", "murakumoNode": "naphtali", "phase": "L1 — steel/Al tube + sheet frame welding + Tsugite robot witness"},
+    {"name": "moto_engine_assembly", "module": "kotodama.cells.moto_engine_assembly", "murakumoNode": "joseph", "phase": "L2a — ≤250cc 4-stroke single OR ≤15kW electric motor assembly"},
+    {"name": "moto_drivetrain_assembly", "module": "kotodama.cells.moto_drivetrain_assembly", "murakumoNode": "zebulun", "phase": "L2b — transmission + chain/belt drive"},
+    {"name": "moto_electrical_harness", "module": "kotodama.cells.moto_electrical_harness", "murakumoNode": "simeon", "phase": "L3a — wiring harness + safety ECU (G8 NO GPS/connected-app/telematics built-in)"},
+    {"name": "moto_suspension_brake", "module": "kotodama.cells.moto_suspension_brake", "murakumoNode": "dan", "phase": "L3b — fork + monoshock + G7 ABS-mandatory ≥125cc dual-channel + caliper/rotor"},
+    {"name": "moto_body_paint", "module": "kotodama.cells.moto_body_paint", "murakumoNode": "simeon", "phase": "L4 — body panel + 2K acrylic urethane paint + G5 artwork Charter scan"},
+    {"name": "moto_final_assembly", "module": "kotodama.cells.moto_final_assembly", "murakumoNode": "dan", "phase": "L5a — bolt-up + bilingual VIN + G12 IPFS parts catalog publication + G13 hodoki VIN pre-registration"},
+    {"name": "moto_test_dyno_road", "module": "kotodama.cells.moto_test_dyno_road", "murakumoNode": "levi", "phase": "L5b — dynamometer + emissions + G6 sound ≤80 dB + ABS function test + road test"},
+    {"name": "moto_provenance_binder", "module": "kotodama.cells.moto_provenance_binder", "murakumoNode": "judah", "phase": "terminal — kotoba-datomic anchoring (material lots → VIN + parts catalog + tests + hodoki pre-reg)"}
   ],
   "lexiconNamespaces": [
     "com.etzhayyim.futawa.frameAttestation",

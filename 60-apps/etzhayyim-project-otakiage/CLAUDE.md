@@ -8,7 +8,7 @@ ADR: `90-docs/adr/2605081700-otakiage-reuse-ritual-platform.md`
 
 T2 actor (ADR-0036 + ADR-0056 + ADR-2604282300)
 - Domain write = Hyperdrive 直接 (`createKyselyDb` / `psycopg3 sync_cursor`)
-- Business logic = pymagatama + LangServer BPMN-contract (no CF Worker for logic)
+- Business logic = kotodama + LangServer BPMN-contract (no CF Worker for logic)
 - CF Worker (Phase 2 で追加) = Svelte CSR + XRPC facade のみ
 
 ## Path-based DIDs (ADR-0019)
@@ -88,7 +88,7 @@ Lexicon files: `00-contracts/lexicons/com/etzhayyim/apps/otakiage/`
 
 `com.etzhayyim.otakiage.agentChat` — kotodama persona、3 LLM call の StateGraph。
 
-**Graph** `otakiage.agent.chat.v1` (`pymagatama/agents/otakiage_agent.py`):
+**Graph** `otakiage.agent.chat.v1` (`kotodama/agents/otakiage_agent.py`):
 
 ```
 START → load_history → parse_intent (LLM #1)
@@ -184,9 +184,9 @@ issueCertificate → (auto-queue, non-fatal)
 - gas 上限ガード: per-fire 20 cert × ~50K gas = ~1M gas、$5/fire (Base L2 想定)
 - 障害復旧: `failed` 状態は `anchorCertificate force=true` で再 queue
 
-## pymagatama primitives
+## kotodama primitives
 
-`20-actors/magatama/py/src/pymagatama/primitives/otakiage.py`:
+`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/otakiage.py`:
 
 | task_type | handler |
 |---|---|
@@ -201,7 +201,7 @@ issueCertificate → (auto-queue, non-fatal)
 | `otakiage.matsuri.seedNextMonth` | `task_otakiage_matsuri_seed_next_month` (cron 月初) |
 | `otakiage.social.composeAnnounce` | `task_otakiage_social_compose_announce` |
 
-Worker registration: `20-actors/magatama/py/src/pymagatama/zeebe_worker_main.py` `worker_profile in {"otakiage", ...}` branch.
+Worker registration: `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/zeebe_worker_main.py` `worker_profile in {"otakiage", ...}` branch.
 
 ## Helm Pool
 
@@ -272,7 +272,7 @@ helm install mitama-otakiage-pool 50-infra/vultr/mitama-otakiage-pool/ \
 # Manual 1-shot (worker pod 内)
 kubectl exec -n mitama-udf deploy/otakiage-langserver-worker -- python -c "
 import asyncio
-from pymagatama.primitives.otakiage import task_otakiage_reuse_find_candidates as f
+from kotodama.primitives.otakiage import task_otakiage_reuse_find_candidates as f
 print(asyncio.run(f(maxItems=10)))
 "
 ```

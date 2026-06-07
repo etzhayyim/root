@@ -12,11 +12,11 @@ weight: 0.80
 priority_note: "Operator runbook for the final two phases of ADR-2605152100 cutover (Phase 4 vendor business-app dep switch + Phase 5 vendor open-scope deletion). Pairs with ADR-2605211757 (DNS cutover) as the second operator-facing runbook of the Tranche F closure. Both runbooks are gated on the per-worker RW-free re-impl (Phase 3 gate (a)) actually landing in etzhayyim/root."
 authoritative_for:
   - vendor-side refactor + deletion procedure for the 27 worker + 4 ingest + 4 primitive files
-  - etzhayyim lg subtree deletion order (3 already-relocated subtrees + their pymagatama imports)
+  - etzhayyim lg subtree deletion order (3 already-relocated subtrees + their kotodama imports)
   - rollback procedure for partial vendor refactor failures
   - verification protocol post-deletion (vendor build + downstream importer survey)
 depends_on:
-  - adr-2605212100-magatama-worker-3-axis-tranche-f-closure
+  - adr-2605212100-kotodama-worker-3-axis-tranche-f-closure
   - adr-2605211757-dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com
 related:
   - adr-2605152100-etzhayyim-github-org-boundary
@@ -44,7 +44,7 @@ monorepo:
 2. etzhayyim/root scaffolding ✅
 3. Content copy ✅
 4. **Vendor business-app dependency switch** — point vendor business apps at
-   etzhayyim packages / submodules instead of local pymagatama paths
+   etzhayyim packages / submodules instead of local kotodama paths
 5. **Vendor open-scope deletion** — `git rm` the etzhayyim-classified worker
    / ingest / primitive files from the etzhayyim repo
 6. Archive markers — `[MOVED → github.com/etzhayyim/root]` description prefix
@@ -55,13 +55,13 @@ operationally distinct from Phase 4-5 but must precede the final `git rm` so
 external callers see 410 Gone rather than missing-source build failures).
 This ADR is the runbook for Phase 4-5.
 
-The current pymagatama vendor file count is:
+The current kotodama vendor file count is:
 
 | Path | Count |
 |------|-------|
-| `pymagatama/*.py` (workers + ad-hoc) | 111 |
-| `pymagatama/primitives/*.py` | 796 |
-| `pymagatama/ingest/*.py` | 60 |
+| `kotodama/*.py` (workers + ad-hoc) | 111 |
+| `kotodama/primitives/*.py` | 796 |
+| `kotodama/ingest/*.py` | 60 |
 
 Of these, the etzhayyim-classified scope per Tranche F closure (ADR-2605212100
 §1) is: **29 workers + 4 ingest modules + 4 substrate primitives** = ~37 files
@@ -70,7 +70,7 @@ plus their per-actor companion files (see deletion catalog below).
 # Decision
 
 Adopt the 4-step Phase 4-5 runbook below. The runbook is **per-target** —
-operators MAY run multiple lg subtrees in parallel, but the pymagatama deletion
+operators MAY run multiple lg subtrees in parallel, but the kotodama deletion
 step (Step 3) is a single atomic commit per safety.
 
 ## 0. Pre-flight
@@ -79,7 +79,7 @@ These conditions MUST hold before any Phase 4-5 step:
 
 1. **Phase 3 gate (a) closed**: the 29 per-worker Python ports + 4 ingest
    modules + 4 substrate primitives MUST exist on disk at
-   `etzhayyim/root/20-actors/magatama/py/src/pymagatama/` and pass their
+   `etzhayyim/root/40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/` and pass their
    smoke tests. As of 2026-05-21 evening this gate is OPEN — Phase 4-5
    execution is blocked until those files land.
 2. **DNS cutover at least to Wave C completed** (ADR-2605211757) — vendor 410
@@ -95,15 +95,15 @@ These conditions MUST hold before any Phase 4-5 step:
 
 ## 1. Phase 4 — vendor business-app dependency switch
 
-Vendor business apps that currently `from pymagatama.{X}` etzhayyim-scoped
+Vendor business apps that currently `from kotodama.{X}` etzhayyim-scoped
 modules MUST switch to a non-fragile source. Three options, in order of
 preference:
 
 | Option | Mechanism | When |
 |--------|-----------|------|
-| **A. Git submodule** | `git submodule add https://github.com/etzhayyim/root etzhayyim` in etzhayyim repo, then `from etzhayyim.20-actors.magatama.py.src.pymagatama.X` (or symlink for shorter paths) | Single-source-of-truth preserved; etzhayyim repo build sees etzhayyim source as a transitive checkout. Best for ongoing development |
-| **B. Python package** | Publish `pymagatama-substrate` (or split into `@etzhayyim/magatama-{substrate,workers,ingest}`) to a private index; vendor `pip install` it | Best for production stability. Requires CI for package builds. Defer to a separate ADR if/when this is chosen |
-| **C. Local copy** | Operator copies the etzhayyim files into a etzhayyim-side `_vendored/pymagatama/` directory and updates imports | Fastest. Highest drift risk. Use ONLY for files vendor needs to keep running through a transition window |
+| **A. Git submodule** | `git submodule add https://github.com/etzhayyim/root etzhayyim` in etzhayyim repo, then `from etzhayyim.20-actors.kotodama.py.src.kotodama.X` (or symlink for shorter paths) | Single-source-of-truth preserved; etzhayyim repo build sees etzhayyim source as a transitive checkout. Best for ongoing development |
+| **B. Python package** | Publish `kotodama-substrate` (or split into `@etzhayyim/kotodama-{substrate,workers,ingest}`) to a private index; vendor `pip install` it | Best for production stability. Requires CI for package builds. Defer to a separate ADR if/when this is chosen |
+| **C. Local copy** | Operator copies the etzhayyim files into a etzhayyim-side `_vendored/kotodama/` directory and updates imports | Fastest. Highest drift risk. Use ONLY for files vendor needs to keep running through a transition window |
 
 **Default for Phase 4**: Option A (git submodule). Operator commands:
 
@@ -117,8 +117,8 @@ git submodule update --init etzhayyim
 For vendor scripts that need a short import path:
 
 ```bash
-ln -s etzhayyim/20-actors/magatama/py/src/pymagatama 20-actors/magatama/py/src/pymagatama_etz
-# Then vendor imports `from pymagatama_etz.X` instead of `from pymagatama.X`
+ln -s etzhayyim/40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama 40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama_etz
+# Then vendor imports `from kotodama_etz.X` instead of `from kotodama.X`
 ```
 
 The only **mandatory** Phase 4 import switches are the 4 gate-(d) target files
@@ -126,18 +126,18 @@ The only **mandatory** Phase 4 import switches are the 4 gate-(d) target files
 
 | # | Vendor file | Current import | Phase 4 treatment | Status |
 |---|-------------|----------------|-------------------|--------|
-| 1 | `60-apps/etzhayyim-project-ki/lg/lg_organism/server.py` | `from pymagatama.{hakkou,kabi,ki,kinoko,kobo,koke,saikin}_worker_main` | Delete (relocated to etzhayyim) | Step 2.A below |
-| 2 | `60-apps/etzhayyim-project-legal-entity/lg/lg_legal_entity/server.py` | `from pymagatama.primitives.legal_entity` | Delete (relocated to etzhayyim) | Step 2.A below |
-| 3 | `60-apps/etzhayyim-project-curpus2skill/lg/lg_curpus2skill/server.py` | `from pymagatama.ingest.curpus2skill` | Delete (relocated to etzhayyim) | Step 2.A below |
-| 4 | `60-apps/etzhayyim-project-hume/scripts/persist_hume_artifacts.py` | `from pymagatama.ingest.core` | Already switched to local copy (`_local_ingest_core.py`) | ✅ done 2026-05-21 |
+| 1 | `60-apps/etzhayyim-project-ki/lg/lg_organism/server.py` | `from kotodama.{hakkou,kabi,ki,kinoko,kobo,koke,saikin}_worker_main` | Delete (relocated to etzhayyim) | Step 2.A below |
+| 2 | `60-apps/etzhayyim-project-legal-entity/lg/lg_legal_entity/server.py` | `from kotodama.primitives.legal_entity` | Delete (relocated to etzhayyim) | Step 2.A below |
+| 3 | `60-apps/etzhayyim-project-curpus2skill/lg/lg_curpus2skill/server.py` | `from kotodama.ingest.curpus2skill` | Delete (relocated to etzhayyim) | Step 2.A below |
+| 4 | `60-apps/etzhayyim-project-hume/scripts/persist_hume_artifacts.py` | `from kotodama.ingest.core` | Already switched to local copy (`_local_ingest_core.py`) | ✅ done 2026-05-21 |
 
 Audit for additional importers (run before Step 2):
 
 ```bash
 cd /Users/junkawasaki/github/etzhayyim-root
-grep -rln "from pymagatama" --include="*.py" \
+grep -rln "from kotodama" --include="*.py" \
   | grep -v _archive \
-  | grep -v "20-actors/magatama/py/src/pymagatama/" \
+  | grep -v "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/" \
   | grep -v "/tests/" \
   > /tmp/phase4-vendor-importers.txt
 # Compare with doc-2605211800 baseline (68 importers, 4 in-scope)
@@ -178,7 +178,7 @@ holds JP corporate-registry PII → vendor; otherwise etzhayyim).
 ### Step 2.B — Delete the 29 worker_main files
 
 ```bash
-cd /Users/junkawasaki/github/etzhayyim-root/20-actors/magatama/py/src/pymagatama
+cd /Users/junkawasaki/github/etzhayyim-root/40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama
 # 8 organism BeliefStore
 git rm hakkou_worker_main.py kabi_worker_main.py ki_worker_main.py \
        kinoko_worker_main.py kobo_worker_main.py koke_worker_main.py \
@@ -198,7 +198,7 @@ git rm tools_const_worker_main.py tools_http_worker_main.py \
 git commit -m "phase5(tranche-f): remove 29 etzhayyim-classified worker_main files
 
 Classified per ADR-2605212100 §1; RW-free ports landed in
-etzhayyim/root/20-actors/magatama/py/src/pymagatama/ (gate (a)).
+etzhayyim/root/40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ (gate (a)).
 
 Closes: gate (a) execution + final vendor-side trace of these workers
 
@@ -209,7 +209,7 @@ Authorized-By: <operator>
 ### Step 2.C — Delete the 4 ingest modules
 
 ```bash
-cd /Users/junkawasaki/github/etzhayyim-root/20-actors/magatama/py/src/pymagatama
+cd /Users/junkawasaki/github/etzhayyim-root/40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama
 git rm ingest/blockchain.py ingest/houbun.py ingest/curpus2skill.py \
        ingest/site_common_crawl.py ingest/core.py
 git commit -m "phase5(tranche-f): remove 4 etzhayyim ingest modules + ingest.core
@@ -227,10 +227,10 @@ Authorized-By: <operator>
 ### Step 2.D — Delete the 4 substrate primitives
 
 ```bash
-cd /Users/junkawasaki/github/etzhayyim-root/20-actors/magatama/py/src/pymagatama/primitives
+cd /Users/junkawasaki/github/etzhayyim-root/40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives
 git rm active_inference_substrate.py at_ipfs_belief_store.py \
        rw_belief_store.py legal_entity.py
-# worker_runtime.py was at pymagatama/ root, not primitives/, but is also etzhayyim:
+# worker_runtime.py was at kotodama/ root, not primitives/, but is also etzhayyim:
 git rm ../worker_runtime.py
 git commit -m "phase5(tranche-f): remove 4 etzhayyim substrate primitives
 
@@ -267,21 +267,21 @@ deleted_symbols=("hakkou_worker_main" "kabi_worker_main" "ki_worker_main"
                  "primitives.legal_entity"
                  "worker_runtime")
 for s in "${deleted_symbols[@]}"; do
-  hits=$(grep -rln "from pymagatama.${s}\|import pymagatama.${s}" \
+  hits=$(grep -rln "from kotodama.${s}\|import kotodama.${s}" \
          --include="*.py" 2>/dev/null \
          | grep -v _archive \
          | grep -v "/tests/" \
          | wc -l | tr -d ' ')
   if [ "$hits" -gt 0 ]; then
     echo "FAIL: ${s} still has $hits importers"
-    grep -rln "from pymagatama.${s}\|import pymagatama.${s}" \
+    grep -rln "from kotodama.${s}\|import kotodama.${s}" \
       --include="*.py" 2>/dev/null \
       | grep -v _archive | grep -v "/tests/"
   fi
 done
 
 # 2. Vendor Python build/lint passes:
-cd 20-actors/magatama/py && uv sync --dev && uv run pyright . | tail -5
+cd 40-engine/kotoba/crates/kotoba-kotodama/py && uv sync --dev && uv run pyright . | tail -5
 
 # 3. CI green on a representative branch:
 gh pr create --base main --title "phase5(tranche-f): finalize vendor open-scope deletion" \
@@ -305,7 +305,7 @@ Rollback differs by step:
 
 - **Step 2.A failure** (lg subtrees deletion): `git revert <commit>`. Vendor build
   resumes; etzhayyim copies remain unaffected. <5 min.
-- **Step 2.B-D failure** (pymagatama deletion): `git revert <commit>`. Vendor build
+- **Step 2.B-D failure** (kotodama deletion): `git revert <commit>`. Vendor build
   resumes. Etzhayyim copies are independent (they live in the other repo).
   However, after revert the operator MUST also revert any subsequent step's
   commit, otherwise the deletion-state drift between commits causes diff noise.
@@ -329,13 +329,13 @@ Rollback differs by step:
 **Negative / risks**
 
 - The runbook is gated on Phase 3 gate (a) per-worker re-impl actually
-  landing in `etzhayyim/root/20-actors/magatama/py/src/pymagatama/`. Without
+  landing in `etzhayyim/root/40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/`. Without
   that, Step 2.B-D `git rm` deletes the only copies of the workers —
   unrecoverable except via git history. Pre-flight gate (a) check MUST be
   enforced.
 - The "remove 5 truly-clean utility worker" step is straightforward but
   there's no downstream importer survey yet — operator should add a
-  pre-deletion grep for `from pymagatama.tools_(const|http|json|time|transform|audit)_worker_main`.
+  pre-deletion grep for `from kotodama.tools_(const|http|json|time|transform|audit)_worker_main`.
 - The substrate primitive deletion (Step 2.D) names `rw_belief_store.py`. This
   is RW-bound and conceptually vendor-only; **double-check before deleting**
   — it may need to stay on the vendor side for any remaining vendor agent

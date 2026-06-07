@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Path F unified agent chat for lifehack. Composes a system prompt from active topics + top tips + recent posts, calls pymagatama.llm.call_tier, and returns a Japanese-friendly response.",
+      "description": "Path F unified agent chat for lifehack. Composes a system prompt from active topics + top tips + recent posts, calls kotodama.llm.call_tier, and returns a Japanese-friendly response.",
       "input": {
         "encoding": "application/json",
         "schema": {

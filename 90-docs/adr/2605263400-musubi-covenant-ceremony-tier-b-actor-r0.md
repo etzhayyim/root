@@ -157,7 +157,7 @@ substrate actor at `20-actors/musubi/`, with DID
 - NO bride price / dowry (G7 + N7);
 - Multi-gen invariant: family ceremony participation honored;
 - ADR-2605250200 L5 religious_marriage cell is the Pregel-cell
-  implementation reference (already exists in 20-actors/magatama/cells/).
+  implementation reference (already exists in 40-engine/kotoba/crates/kotoba-kotodama/cells/).
 
 ### B. Naming ceremony (baptism-equivalent + Adherent SBT issuance)
 
@@ -204,7 +204,7 @@ substrate actor at `20-actors/musubi/`, with DID
 - Does NOT emit chigiri.covenantAttestation (no per-individual
   covenant); emits musubi.seasonalCeremonyCalendar entries instead.
 
-## §3. Cells (6 Pregel cells under `20-actors/magatama/cells/musubi_*/`)
+## §3. Cells (6 Pregel cells under `40-engine/kotoba/crates/kotoba-kotodama/cells/musubi_*/`)
 
 All R0 path-reserved; import-time `RuntimeError("musubi R0 scaffold: activate via Council ADR + R1 ratification + ≥3 officiant baseline attestations + community-witness registry initialized")` at W1 creation.
 
@@ -236,7 +236,7 @@ registry initialized.
 
 | Gate | Description |
 |---|---|
-| **G1** | Every ceremony document MUST pass `pymagatama.organism.sensors.charter_rider.scan()` §2(a)-(h). |
+| **G1** | Every ceremony document MUST pass `kotodama.organism.sensors.charter_rider.scan()` §2(a)-(h). |
 | **G2** | Every record MUST emit `com.etzhayyim.musubi.*` Lexicon with kotoba-datomic attestation lineage. |
 | **G3** | **NO clergy class** — Reformed 万人祭司 per Charter §1.7; officiants are L5 vocation-flow community-witnessed-competent; `officiantAttestation.officiantClass` enum DELIBERATELY excludes "clergy" / "ordained" / "priest" / "bishop" / "minister-with-ecclesiastical-authority". |
 | **G4** | **NO mandatory ritual attendance** — free conscience invariant; member opt-in only; non-participation NEVER grounds for membership consequences. |

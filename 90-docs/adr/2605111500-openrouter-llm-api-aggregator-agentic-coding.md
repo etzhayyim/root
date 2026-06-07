@@ -14,7 +14,7 @@ authoritative_for:
   - OpenRouter API key storage (1Password etzhayyim vault)
   - terminal-agent agentic benchmark suite (etzhayyim code bench --agentic --swe)
   - Model selection by workload (interactive / batch / long-context / code-correctness)
-  - RisingWave bench result schema (vertex_bench_run / vertex_bench_result)
+  - Kotoba/Datomic bench result schema (vertex_bench_run / vertex_bench_result)
 related:
   - adr-2605010000
   - adr-2605110227-gpu-cross-provider-pricing-research
@@ -218,7 +218,7 @@ benchmark with four suites:
 | (default) | latency + tools | import, echo, multi-turn, read_file, grep, throughput |
 | `--agentic` | agentic | bash canary, multi-tool chain, error recovery |
 | `--swe` | SWE-bench style | code comprehension, bug hunt, write+run+verify, multi-file synthesis |
-| `--rw-export` | persistence | inserts `vertex_bench_run` / `vertex_bench_result` / `edge_bench_run_has_result` into RisingWave |
+| `--rw-export` | persistence | inserts `vertex_bench_run` / `vertex_bench_result` / `edge_bench_run_has_result` into Kotoba/Datomic |
 
 CLI: `etzhayyim code bench --model <openrouter-id> --agentic --swe --runs 2`
 

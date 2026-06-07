@@ -89,7 +89,7 @@ def xrpc_call(nsid: str, body: dict, token: str) -> dict:
     url = f"{PDS_URL}/xrpc/{nsid}"
     headers = {
         "Content-Type": "application/json",
-        "x-magatama-verified": "true",
+        "x-kotodama-verified": "true",
         "X-Active-DID": SITE_APP_DID,
     }
     resp = requests.post(url, json=body, headers=headers, timeout=120)

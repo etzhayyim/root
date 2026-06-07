@@ -39,7 +39,7 @@ const STRIPE_SECRET = process.env.STRIPE_WEBHOOK_SECRET;
 const PROPAGATION_MAX = Number(process.env.PROPAGATION_MAX_S ?? "180") | 0;
 
 if (!STRIPE_SECRET) {
-  console.error("ERR: STRIPE_WEBHOOK_SECRET env required (must match wrangler secret on magatama-y4t4b4se)");
+  console.error("ERR: STRIPE_WEBHOOK_SECRET env required (must match wrangler secret on kotodama-y4t4b4se)");
   process.exit(2);
 }
 

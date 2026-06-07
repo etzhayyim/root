@@ -70,7 +70,7 @@ superseded_by: []
 ## Goal
 
 物の「不要になった」局面から「再生 (reuse) → 供養 (ritual)」までを単一の state machine と
-graph schema で扱い、各遷移を AT Protocol 公開記録 + RisingWave Hyperdrive 直接書込
+graph schema で扱い、各遷移を AT Protocol 公開記録 + Kotoba/Datomic Hyperdrive 直接書込
 (ADR-0036) で永続化する。
 
 ## Scope
@@ -124,8 +124,8 @@ Layer        | Component
 L1 Edge      | Cloudflare DNS / Pages / TLS
 L2 Routing   | atproto.etzhayyim.com (PDS gateway, social federation 経路)
 L3 Dispatcher| otakiage.etzhayyim.com CF Worker (Svelte CSR + XRPC facade のみ)
-L4 Registry  | RisingWave: vertex_otakiage_*, vertex_bpmn_process_def
-L5 Storage   | B2 (写真 blob, content-addressed) + RisingWave Hummock
+L4 Registry  | Kotoba/Datomic: vertex_otakiage_*, vertex_bpmn_process_def
+L5 Storage   | B2 (写真 blob, content-addressed) + Kotoba/Datomic Hummock
 L6 Compute   | RW SQL UDF (h3_neighbors_at_res, category_match_score)
 L7 Orchestr. | Zeebe + pyzeebe (mitama-otakiage-pool 専用 worker)
 L8 Tools     | (Phase 1 不要 — pure SQL + LLM only)
@@ -269,7 +269,7 @@ URI が永続 ID。Phase 2 で ERC725 anchor token を `anchorTokenId` field 追
 
 ### 8. T1 Social Derive 規約
 
-`magatama.jsonld` の `derive` rule で host-sdk derive executor が自動発火。
+`kotodama.jsonld` の `derive` rule で host-sdk derive executor が自動発火。
 handler は **explicit `postFeed()` を書かない** (ADR-0004 / ADR-0036 不変条件)。
 
 | Domain write | T1 Social derive | author DID | PII 除去 |
@@ -288,7 +288,7 @@ handler は **explicit `postFeed()` を書かない** (ADR-0004 / ADR-0036 不�
 
 | Phase | Scope | 期限目安 | 状態 |
 |---|---|---|---|
-| **Phase 1** | Schema + Lexicon + BPMN + pymagatama primitives + Helm pool。Certificate = AT Record JSON。社内テスト | 1-2 週間 | ✅ 2026-05-08 完了 (ファイル) / migration apply pending |
+| **Phase 1** | Schema + Lexicon + BPMN + kotodama primitives + Helm pool。Certificate = AT Record JSON。社内テスト | 1-2 週間 | ✅ 2026-05-08 完了 (ファイル) / migration apply pending |
 | **Phase 2a** | Conversational LangGraph agent (kotodama persona、`com.etzhayyim.otakiage.agentChat`) | 1 週間 | ✅ 2026-05-08 完了 (ファイル) |
 | **Phase 2b1** | ERC725 anchor — state tracking + queue + sweep stub (`anchorCertificate` + `certificateAnchorSweep`) | 1 週間 | ✅ 2026-05-08 完了 (ファイル) |
 | **Phase 2b2** | ERC725 anchor — 実 on-chain submission (ethers/viem、Base L2) | 2-3 週間 | 未着手 |
@@ -299,7 +299,7 @@ handler は **explicit `postFeed()` を書かない** (ADR-0004 / ADR-0036 不�
 
 ADR-2605072000 (LangGraph Agent Loop Pattern) と ADR-2605080200 (Pydantic L6) に従い、対話 entry-point を追加。
 
-**Graph design** (`pymagatama.agents.otakiage_agent`、graph_id = `otakiage.agent.chat.v1`):
+**Graph design** (`kotodama.agents.otakiage_agent`、graph_id = `otakiage.agent.chat.v1`):
 
 ```
 START → load_history (DB) → parse_intent (LLM #1)
@@ -454,6 +454,6 @@ issueCertificate → (auto-queue, non-fatal)
 - ADR-2604291800 (Well-Becoming Spirit) — Spirit healing axis 整合
 - ADR-2605080100 (Bonsai Growth & Prune) — sporulation / dormancy 概念の物への適用
 - ADR-0018 (PII Tier 3 + Cohort-First) — donor / recipient PII の T3 Preferences 配置
-- ADR-0095 (3-Layer Identity + RisingWave Canonical Columns) — `actor_did / org_did / at_did / created_at` 4 列規約
+- ADR-0095 (3-Layer Identity + Kotoba/Datomic Canonical Columns) — `actor_did / org_did / at_did / created_at` 4 列規約
 - root CLAUDE.md §Operating entity boundary — etzhayyim = sole principal
 - `60-apps/etzhayyim-project-fleamarket/` — 個人間売買 (有償) の責務分離先

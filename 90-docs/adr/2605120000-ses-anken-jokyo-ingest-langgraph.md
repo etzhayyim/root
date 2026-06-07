@@ -38,7 +38,7 @@ related:
 
 ## Goal
 
-SES（システムエンジニアリングサービス）の **案件** (クライアント・要件・単価・期間 等) と **状況** (提案中 / 選考中 / 契約 / 稼働中 / 終了 の遷移) を、メール本文や手動入力から自動抽出し、RisingWave graph に永続化する ingest pipeline を確立する。
+SES（システムエンジニアリングサービス）の **案件** (クライアント・要件・単価・期間 等) と **状況** (提案中 / 選考中 / 契約 / 稼働中 / 終了 の遷移) を、メール本文や手動入力から自動抽出し、Kotoba/Datomic graph に永続化する ingest pipeline を確立する。
 
 - 案件はメール（Outlook / Exchange ingest）または XRPC `ingestAnken` で投入できる
 - LLM が案件の構造データ（クライアント名・スキル要件・単価・期間・担当エンジニア候補）を抽出する
@@ -51,7 +51,7 @@ SES（システムエンジニアリングサービス）の **案件** (クラ�
 
 - T3 actor `ses.etzhayyim.com` の CF Worker edge facade 定義
 - LangGraph StateGraph 6 node (`parse_source` → `classify_anken` → `extract_details` → `update_jokyo` → `persist` → `emit_audit`)
-- RisingWave schema: 5 vertex + 2 edge + 2 MV
+- Kotoba/Datomic schema: 5 vertex + 2 edge + 2 MV
 - 6 NSID lexicon (`com.etzhayyim.apps.ses.*`)
 - 状況遷移モデルと forbidden 遷移の定義
 - Pydantic v2 state contract (ADR-2605080200 準拠)
@@ -209,7 +209,7 @@ class AnkenExtraction(BaseModel):
     rationale: str                          # ≤200 char
 ```
 
-### Schema (RisingWave、ADR-2605111200 準拠 — asyncpg INSERT のみ)
+### Schema (Kotoba/Datomic、ADR-2605111200 準拠 — asyncpg INSERT のみ)
 
 ```sql
 -- 案件
@@ -302,7 +302,7 @@ mv_ses_anken_active
 
 ```
 60-apps/etzhayyim-project-ses/
-├─ magatama.jsonld          T3 dispatcher actor
+├─ kotodama.jsonld          T3 dispatcher actor
 ├─ wrangler.jsonc           ses.etzhayyim.com/* + PDS_SERVICE / AUTHN_SERVICE binding (HYPERDRIVE なし)
 ├─ package.json
 ├─ tsconfig.json
@@ -315,7 +315,7 @@ mv_ses_anken_active
 ### LangGraph Server (K8s)
 
 ```
-20-actors/magatama/py/src/pymagatama/ses/
+40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ses/
 ├─ __init__.py
 ├─ state.py              SesIngestState + AnkenExtraction (Pydantic v2); source_kind includes 'email_cron'
 ├─ graph.py              6-node StateGraph(SesIngestState)
@@ -328,7 +328,7 @@ mv_ses_anken_active
 │                        + HTML strip + SES LangGraph ainvoke per message (Phase 3)
 │                        + delete-after-ingest: DELETE /users/{upn}/messages/{id}
 │                        on success path only; failure is warn-only (Phase 5)
-├─ cron_main.py          CronJob entrypoint: python -m pymagatama.ses.cron_main (Phase 3)
+├─ cron_main.py          CronJob entrypoint: python -m kotodama.ses.cron_main (Phase 3)
 └─ server.py             Granian-ready FastAPI + ingestAnken / updateJokyo endpoint
                          + POST /cron/outlook-pull (Phase 3 manual trigger)
                          + POST /mcp (JSON-RPC 2.0 — listAnken / getAnken / listJokyo, Phase 4)
@@ -357,7 +357,7 @@ mv_ses_anken_active
 
 Standalone K8s manifests: `50-infra/k8s/lg-ses/` (ServiceAccount + Deployment + Service + CronJob)
 ClusterIP: `lg-ses.mitama-udf.svc.cluster.local:8000`
-Image: `ghcr.io/etzhayyim/lg-ses:{version}-amd64` (Dockerfile: `20-actors/magatama/py/Dockerfile.ses`)
+Image: `ghcr.io/etzhayyim/lg-ses:{version}-amd64` (Dockerfile: `40-engine/kotoba/crates/kotoba-kotodama/py/Dockerfile.ses`)
 Helm release (legacy): `50-infra/vultr/mitama-ses-pool/` (superseded by standalone manifests)
 
 ### Forbidden patterns
@@ -405,7 +405,7 @@ intra-job で LLM call が ≥2 (classifier + extractor)、かつ `update_jokyo`
 | Phase 1 — Foundation | 5 vertex + 2 edge + 2 MV migration / 6 lexicon JSON / CF Worker scaffold / state.py + graph.py 骨組み | schema migration green | **done** |
 | Phase 2 — Live extraction | extractor.py + classifier.py + persistence.py 実装 + Helm `mitama-ses-pool` deploy | email ingest → 案件 1 件着地 | **done** |
 | Phase 3 — Outlook cron pull | outlook_pull.py + cron_main.py + ses-outlook-cron CronJob + image `ses-phase3-202605141100-amd64` | 2026-05-14 — helm upgrade revision 3 | **done** |
-| Phase 3B — checkpointer + confidence | RisingWaveCheckpointSaver 配線 (SES_CHECKPOINTER=on) + edge_ses_anken_engineer.confidence FLOAT + image `ses-phase3b-202605141400-amd64` | 2026-05-14 — helm upgrade revision 4 | **done** |
+| Phase 3B — checkpointer + confidence | Kotoba/DatomicCheckpointSaver 配線 (SES_CHECKPOINTER=on) + edge_ses_anken_engineer.confidence FLOAT + image `ses-phase3b-202605141400-amd64` | 2026-05-14 — helm upgrade revision 4 | **done** |
 | Phase B-2 — embedding skill match | vertex_ses_engineer_skill 新設 + engineer embedding 生成 + skill overlap similarity score → `confidence` 上書き | 任意実施 | pending |
 | **Phase 4 — AppView UI + /mcp endpoint** | server.py POST /mcp (listAnken/getAnken/listJokyo) + Svelte /anken + /anken/[id] + callSesMcpTool() + SES_MCP_URL | 2026-05-14 — code done; live requires tunnel infra | **done (pending tunnel)** |
 | **Phase 5 — delete-after-ingest + CronJob 常駐** | `_delete_message()` in outlook_pull.py (Mail.ReadWrite required) + `Dockerfile.ses` 新規 + deployment.yaml env var fix (M365_* → AZURE_*) + `suspend: false` + image `0.4.0-amd64` | 2026-05-19 — deployed, CronJob running | **done** |

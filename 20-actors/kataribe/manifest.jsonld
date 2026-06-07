@@ -65,14 +65,14 @@
   "cells": [
     {
       "name": "community_chronicle",
-      "module": "magatama.cells.kataribe_community_chronicle",
+      "module": "kotodama.cells.kataribe_community_chronicle",
       "murakumoNode": "issachar",
       "phase": "quarterly",
       "io": "community events + tone attestation → communityChronicleAttestation"
     },
     {
       "name": "doctrine_commentary",
-      "module": "magatama.cells.kataribe_doctrine_commentary",
+      "module": "kotodama.cells.kataribe_doctrine_commentary",
       "murakumoNode": "issachar",
       "phase": "event",
       "io": "commentary draft + cross-doctrinal review → doctrineCommentaryPublishing",
@@ -80,21 +80,21 @@
     },
     {
       "name": "translation",
-      "module": "magatama.cells.kataribe_translation",
+      "module": "kotodama.cells.kataribe_translation",
       "murakumoNode": "issachar",
       "phase": "continuous (need-driven)",
       "io": "source doc + community-need attestation + Murakumo translate → translationAttestation"
     },
     {
       "name": "external_press_relations",
-      "module": "magatama.cells.kataribe_external_press_relations",
+      "module": "kotodama.cells.kataribe_external_press_relations",
       "murakumoNode": "issachar",
       "phase": "event",
       "io": "external press request + consent-capability + Council Lv6+ ≥3 review → external response coordination"
     },
     {
       "name": "whistleblower_channel",
-      "module": "magatama.cells.kataribe_whistleblower_channel",
+      "module": "kotodama.cells.kataribe_whistleblower_channel",
       "murakumoNode": "issachar",
       "phase": "event (encrypted)",
       "io": "encrypted report → whistleblowerReport + chigiri.ipLicenseClaim cross-emit",
@@ -102,7 +102,7 @@
     },
     {
       "name": "annual_history_compendium",
-      "module": "magatama.cells.kataribe_annual_history_compendium",
+      "module": "kotodama.cells.kataribe_annual_history_compendium",
       "murakumoNode": "issachar",
       "phase": "annual (event)",
       "io": "aggregate community chronicles → compendium IPFS pin + Council ≥3 attestation"

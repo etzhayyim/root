@@ -191,7 +191,7 @@ Submit → vote (1 SBT = 1 vote, quorum 33%) → 72h timelock → execute.
 ## §5 — Post-deploy operations
 
 - [ ] AppView at religious-corp.etzhayyim.com / fund.etzhayyim.com / lands.etzhayyim.com pointed at mainnet addresses
-- [ ] magatama-cell-runner deployed to Murakumo fleet with mainnet addresses
+- [ ] kotodama-cell-runner deployed to Murakumo fleet with mainnet addresses
 - [ ] Founder mints first Adherent SBT (AdherentRegistry.join via SDK)
 - [ ] First test donation via SDK Etzhayyim.pay() → verify TitheRouter splits 90/10
 - [ ] First test Public Fund proposal submission

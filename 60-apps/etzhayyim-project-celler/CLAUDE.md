@@ -265,7 +265,7 @@ curl -X POST https://llm.etzhayyim.com/xrpc/com.etzhayyim.apps.llm.verify_celler
 ## Phased Implementation
 
 ### Phase 1: MVP — WebRTC Calls + Telnyx (8 weeks)
-- App + WIT + magatama.jsonld
+- App + WIT + kotodama.jsonld
 - Telnyx SIP trunk + 番号プロビジョニング API
 - FreeSWITCH on CF Container (SIP ↔ WebRTC)
 - Telnyx eSIM API 連携

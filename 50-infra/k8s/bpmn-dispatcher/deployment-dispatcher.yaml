@@ -16,11 +16,11 @@
 # are marked REPLACE_ME.
 #
 # Substrate-boundary NOTE (ADR-2605172100, etzhayyim CLAUDE.md):
-#   This Deployment inherits STRIPE_* + RW_URL env from pymagatama's
+#   This Deployment inherits STRIPE_* + RW_URL env from kotodama's
 #   lawfirm_billing / lawfirm_checkout / ingest.stripe modules, which
 #   are themselves pending substrate-purity cleanup in etzhayyim.
 #   Those env vars are preserved here for runtime compatibility; the
-#   correct long-term path is pymagatama Stripe extraction → drop the
+#   correct long-term path is kotodama Stripe extraction → drop the
 #   STRIPE_* + RW_URL block entirely. See README.md "Substrate boundary".
 apiVersion: apps/v1
 kind: Deployment
@@ -46,9 +46,9 @@ spec:
         - name: ghcr-pull
       containers:
         - name: dispatcher
-          image: REPLACE_ME_IMAGE_REF  # e.g. ghcr.io/etzhayyim/pymagatama:<tag>
+          image: REPLACE_ME_IMAGE_REF  # e.g. ghcr.io/etzhayyim/kotodama:<tag>
           imagePullPolicy: IfNotPresent
-          command: ["python", "-m", "pymagatama.dispatcher_main"]
+          command: ["python", "-m", "kotodama.dispatcher_main"]
           ports:
             - { name: http, containerPort: 8080 }
           env:
@@ -69,8 +69,8 @@ spec:
             - { name: RW_ALLOW_HEAVY_DDL, value: "0" }
             - { name: RW_ALLOW_FLUSH, value: "0" }
             - { name: RW_SYNC_POOL, value: "1" }
-            # SUBSTRATE-VIOLATION (inherited from pymagatama, ADR-2605172100):
-            # RisingWave URL — pymagatama.db_sync uses it for
+            # SUBSTRATE-VIOLATION (inherited from kotodama, ADR-2605172100):
+            # Kotoba/Datomic URL — kotodama.db_sync uses it for
             # vertex_bpmn_lexicon_binding lookup. Cleanup path:
             # migrate binding registry to AT MST records, drop RW_URL.
                 secretKeyRef:
@@ -110,9 +110,9 @@ spec:
                   name: lg-pregel-secrets
                   key: OPENROUTER_API_KEY
                   optional: true
-            # SUBSTRATE-VIOLATION (inherited from pymagatama lawfirm_billing/
+            # SUBSTRATE-VIOLATION (inherited from kotodama lawfirm_billing/
             # lawfirm_checkout, ADR-2605172100 §payment hard rule "MUST NOT
-            # integrate fiat payment processors"). Cleanup path: pymagatama
+            # integrate fiat payment processors"). Cleanup path: kotodama
             # Stripe extraction → drop the entire STRIPE_* block. Until
             # then, dispatcher pod inherits vendor-tier fiat capability.
             - name: STRIPE_US_API_KEY

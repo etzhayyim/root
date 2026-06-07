@@ -22,7 +22,7 @@
 # (`pod_pool: vke-render-pool`) — these are minutes-scale GPU jobs and
 # don't belong on the CF Worker edge or the LangGraph default pod.
 #
-# Schema reference: pymagatama.langgraph_loader._compile_topology.
+# Schema reference: kotodama.langgraph_loader._compile_topology.
 
 assistant_id: com.etzhayyim.mangaka.composeCharacterVrm
 version: 1

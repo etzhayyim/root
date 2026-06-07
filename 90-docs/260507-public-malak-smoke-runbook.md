@@ -3,7 +3,7 @@
 This runbook covers the Public Malak hourly smoke test in
 `mitama-udf/public-malak-smoke-cron`.
 
-The smoke writes one synthetic Telegram observation, waits for RisingWave
+The smoke writes one synthetic Telegram observation, waits for Kotoba/Datomic
 snapshot visibility, checks `listSnapshots` through the in-cluster dispatcher,
 and verifies public HTML/HAR artifact routes through `public-malak.etzhayyim.com`.
 
@@ -51,12 +51,12 @@ kubectl -n mitama-udf logs job/<job-name> --tail=200
 kubectl -n mitama-udf get secret public-malak-r2-creds
 ```
 
-If it fails waiting for `vertex_ads_snapshot`, check RisingWave visibility and
-RW_URL injection:
+If it fails waiting for `vertex_ads_snapshot`, check Kotoba/Datomic visibility and
+KOTOBA_URL injection:
 
 ```bash
-kubectl -n mitama-udf exec deploy/bpmn-dispatcher -- env | rg '^RW_URL='
-kubectl -n mitama-udf exec deploy/bpmn-dispatcher -- python -c 'import os, psycopg; print(psycopg.connect(os.environ["RW_URL"]).execute("select 1").fetchone())'
+kubectl -n mitama-udf exec deploy/bpmn-dispatcher -- env | rg '^KOTOBA_URL='
+kubectl -n mitama-udf exec deploy/bpmn-dispatcher -- python -c 'import os, psycopg; print(psycopg.connect(os.environ["KOTOBA_URL"]).execute("select 1").fetchone())'
 ```
 
 If `listSnapshots` fails, check dispatcher auth and direct XRPC:

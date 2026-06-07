@@ -78,7 +78,7 @@ def _run(command: list[str], cwd: Path) -> dict[str, Any]:
 def verify() -> dict[str, Any]:
     proto_okaimono = ROOT / "proto/v1/shopping.proto"
     proto_shopping = SHOPPING_ROOT / "proto/v1/shopping.proto"
-    manifest_path = ROOT / "appview/okaimono-shopping-mcp-component/magatama.jsonld"
+    manifest_path = ROOT / "appview/okaimono-shopping-mcp-component/kotodama.jsonld"
     readme_path = ROOT / "appview/okaimono-shopping-mcp-component/README.md"
     claude_path = ROOT / "CLAUDE.md"
     spec_path = ROOT / "okaimono-etzhayyim-ai-ec-operating-spec.md"

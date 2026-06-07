@@ -7,7 +7,7 @@
 //   - insertInto("vertex_yorishiroFlyio_orgDeleteJob")    → com.etzhayyim.apps.yorishiroFlyio.putOrgDeleteJob
 //   - second cancellationJob INSERT (status update)       → com.etzhayyim.apps.yorishiroFlyio.updateCancellationStatus
 // Each NSID needs a lexicon JSON in 00-contracts/lexicons/com/etzhayyim/apps/yorishiroFlyio/
-// + a server-side handler (pymagatama primitive or LangGraph node) + a vertex_bpmn_lexicon_binding row.
+// + a server-side handler (kotodama primitive or LangGraph node) + a vertex_bpmn_lexicon_binding row.
 // Reference migration: etzhayyim-wasm-yorishiro-squarespace-sqddf3sp/src/app.ts (2026-05-11).
 import {
   asAgentTool,
@@ -22,7 +22,7 @@ import {
   type HostSDK,
   nsid,
   parseLexiconInput,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 // ---------------------------------------------------------------------------
 // Yorishiro — Fly.io 解約 adapter

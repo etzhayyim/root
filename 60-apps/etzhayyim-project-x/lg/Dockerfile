@@ -5,7 +5,7 @@
 # Build:
 #   cd 60-apps/etzhayyim-project-x/lg
 #   docker buildx build --platform linux/amd64 \
-#     --build-context py=../../../20-actors/magatama/py \
+#     --build-context py=../../../40-engine/kotoba/crates/kotoba-kotodama/py \
 #     -t ghcr.io/etzhayyim/lg-x:0.1.0-amd64 \
 #     --push .
 
@@ -27,9 +27,9 @@ RUN pip install --no-cache-dir 'uv>=0.4'
 
 WORKDIR /app
 
-# pymagatama (editable, mounted via --build-context py=...)
-COPY --from=py . /opt/pymagatama
-RUN uv pip install --system --no-cache -e /opt/pymagatama
+# kotodama (editable, mounted via --build-context py=...)
+COPY --from=py . /opt/kotodama
+RUN uv pip install --system --no-cache -e /opt/kotodama
 
 # lg-x own deps
 COPY pyproject.toml /app/pyproject.toml

@@ -13,7 +13,7 @@ for `tools/call` stays inside `app.handleXRPC` →
 runtime enforcement. Both come from the same lexicon JSON.
 
 See: 90-docs/adr/2604261000-mcp-registry-via-kysely-schema.md
-     90-docs/adr/0087-magatama-mcp-tool-facade.md (amended D3)
+     90-docs/adr/0087-kotodama-mcp-tool-facade.md (amended D3)
      ADR-0056 — same `INSERT N rows` pattern as BPMN-as-actor
 
 Convention:
@@ -33,7 +33,7 @@ Behavior:
 Never deletes. Honors `enabled=false` on the row (won't flip back).
 
 Env:
-  RW_URL   postgresql://…  ;  default from Keychain etzhayyim.rw/ROOT_URL
+  KOTOBA_URL   postgresql://…  ;  default from Keychain etzhayyim.rw/ROOT_URL
 """
 
 from __future__ import annotations
@@ -59,14 +59,14 @@ TOOL_REPO_PREFIX = "at://did:web:{host}.etzhayyim.com/com.etzhayyim.mcp.toolDef"
 
 
 def rw_url() -> str:
-    if url := os.environ.get("RW_URL"):
+    if url := os.environ.get("KOTOBA_URL"):
         return url
     out = subprocess.check_output(
         ["security", "find-generic-password", "-s", "etzhayyim.rw", "-a", "ROOT_URL", "-w"],
         text=True,
     ).strip()
     if not out:
-        raise SystemExit("RW_URL not in env and not in Keychain (etzhayyim.rw/ROOT_URL)")
+        raise SystemExit("KOTOBA_URL not in env and not in Keychain (etzhayyim.rw/ROOT_URL)")
     return out
 
 

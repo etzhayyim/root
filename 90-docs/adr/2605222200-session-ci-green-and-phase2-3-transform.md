@@ -43,7 +43,7 @@ superseded_by: []
 Coming out of the religious-corp constitutional wave (ADRs 2605192100..2605192415, completed 2026-05-19/20) and the full etzhayyimcojp → etzhayyim file migration (commit `0b7a49773`, 2026-05-21), the repo entered the post-cutover stabilisation phase with three open fronts:
 
 1. **CI safety net weak.** `test` workflow at 6 / 31 jobs passing (19.4 %). 5 tsc job failures masking real type drift; ~25 vitest job failures across `rw-free` reference implementations whose interfaces had drifted from their test specs.
-2. **TRANSFORM backlog untouched.** Per `_working_p5_decisions.md`, ~170 files needed Charter-§2 cleanup: 6 direct `@atproto/api` imports (substrate boundary), 105 ad-tech grep-hits (§2(c)), 14 Stripe references (fiat), 41 RisingWave / Postgres references (state rule).
+2. **TRANSFORM backlog untouched.** Per `_working_p5_decisions.md`, ~170 files needed Charter-§2 cleanup: 6 direct `@atproto/api` imports (substrate boundary), 105 ad-tech grep-hits (§2(c)), 14 Stripe references (fiat), 41 Kotoba/Datomic / Postgres references (state rule).
 3. **Bootstrap Council 1 / 5.** RFP open through 2026-06-19 (28 days remaining). Discussions enabled but only one announcement (#257) and 0 applications.
 
 A single user-initiated session walked the repo from CI-broken-and-undocumented to CI-100 %-green-with-active-cleanup, dispatching haiku sub-agents in parallel batches for the bulk of the per-app investigation.

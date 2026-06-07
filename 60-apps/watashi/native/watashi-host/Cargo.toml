@@ -23,8 +23,8 @@ kami-input = { path = "../../../../packages/engine/kami-engine/kami-input" }
 kami-ui-gpu = { path = "../../../../packages/engine/kami-engine/kami-ui-gpu" }
 kami-text = { path = "../../../../packages/engine/kami-engine/kami-text" }
 
-# Magatama host
-magatama-kami-host = { path = "../../../../packages/runtime/magatama/magatama-kami-host" }
+# Kotodama host
+kotodama-kami-host = { path = "../../../../packages/runtime/kotodama/kotodama-kami-host" }
 
 # mDNS peer discovery
 mdns-sd = "0.11"

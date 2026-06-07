@@ -9,7 +9,7 @@ import {
   sql,
   withCapabilityTags,
   type HostSDK,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 const PRIMARY_DID = "did:web:bim.etzhayyim.com";
 const IMPORTER_DID = "did:web:bim.etzhayyim.com:actor:importer";

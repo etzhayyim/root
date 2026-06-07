@@ -63,7 +63,7 @@ the public dashboard response satisfies all of the following:
 - `counts.marketSignals > 0`
 
 The resident graph is represented by live read models and existing graph tables
-rather than new DDL in this phase. No RisingWave DDL is required for the
+rather than new DDL in this phase. No Kotoba/Datomic DDL is required for the
 accepted facade. Future Pregel/LangGraph workers may deepen scoring,
 classification, alert routing, and snapshot persistence, but they must preserve
 the same XRPC contract.
@@ -120,7 +120,7 @@ Also verified the four supporting XRPCs returned HTTP 200 from
 # References
 
 - `90-docs/maps-worldmonitor-parity.md`
-- `20-actors/magatama/py/src/pymagatama/worker_api.py`
-- `20-actors/magatama/py/src/pymagatama/dispatcher_main.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/worker_api.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/dispatcher_main.py`
 - `60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts`
 - `50-infra/vultr/mitama-udf-pool/values.yaml`

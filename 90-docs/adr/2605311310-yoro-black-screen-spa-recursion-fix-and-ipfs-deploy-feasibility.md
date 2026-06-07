@@ -35,7 +35,7 @@ superseded_by: []
 `https://etzhayyim.com/` rendered a fully black page. The zone is a Cloudflare
 Worker (`etzhayyim-did-web`) that proxies `yoro.etzhayyim.com` — the yoro
 AppView, a Svelte 5 SPA (`+layout.ts` `ssr=false`, `csr=true`). Served via the
-`magatama-yoro` Worker's Assets binding (`assets.directory: ./static`,
+`kotodama-yoro` Worker's Assets binding (`assets.directory: ./static`,
 `not_found_handling: single-page-application`).
 
 Empirical diagnosis (live browser + curl):
@@ -109,7 +109,7 @@ Full runbook + capability matrix:
     but has no live front to authenticate against.
 - "Fully Cloudflare-free" requires, beyond the frontend: (a) PDS / AppView /
   XRPC migration off `atproto.etzhayyim.com` (CF Worker + Hyperdrive +
-  RisingWave) onto kotoba (ADR-2605262130, in progress); (b) PDS **CORS** to
+  Kotoba/Datomic) onto kotoba (ADR-2605262130, in progress); (b) PDS **CORS** to
   allow the IPFS origin; (c) DNS move or `ipfs://`/IPNS; (d) bots-only
   SEO/OGP/sitemap renderer or prerender-in-CID. Until then the realistic state
   is **IPFS frontend + CF/kotoba backend** (a hybrid).

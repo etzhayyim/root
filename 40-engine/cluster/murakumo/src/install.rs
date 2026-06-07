@@ -76,9 +76,9 @@ pub async fn cmd_install(cfg: &mut NodeConfig) {
     cfg.gpu_vram_mb = vram_mb.to_string();
     let _ = cfg.save();
 
-    // 5. Install magatama-inference
-    logf("-> Installing magatama-inference engine...");
-    install_magatama_inference();
+    // 5. Install kotodama-inference
+    logf("-> Installing kotodama-inference engine...");
+    install_kotodama_inference();
 
     // 6. Sync models
     logf("-> Syncing models...");
@@ -169,30 +169,30 @@ fn install_binary() {
 
 use std::os::unix::fs::PermissionsExt;
 
-fn install_magatama_inference() {
+fn install_kotodama_inference() {
     let os = std::env::consts::OS;
     let arch = std::env::consts::ARCH;
-    let binary_name = format!("magatama-inference-{}-{}", os, arch);
-    let url = format!("https://cdn.etzhayyim.com/bin/magatama-inference/latest/{}", binary_name);
+    let binary_name = format!("kotodama-inference-{}-{}", os, arch);
+    let url = format!("https://cdn.etzhayyim.com/bin/kotodama-inference/latest/{}", binary_name);
 
     logf(&format!("  downloading {} from {}", binary_name, url));
-    let tmp_file = "/tmp/magatama-inference-download";
+    let tmp_file = "/tmp/kotodama-inference-download";
 
     let status = Command::new("curl")
         .args(["-fsSL", "-o", tmp_file, &url])
         .status();
 
     if status.is_err() || !status.unwrap().success() {
-        logf("  WARNING: failed to download magatama-inference");
+        logf("  WARNING: failed to download kotodama-inference");
         logf("  inference will use MLX fallback only");
         return;
     }
 
     run_cmd("chmod", &["+x", tmp_file]);
-    run_cmd("sudo", &["mv", tmp_file, "/usr/local/bin/magatama-inference"]);
-    logf("  installed magatama-inference to /usr/local/bin/magatama-inference");
+    run_cmd("sudo", &["mv", tmp_file, "/usr/local/bin/kotodama-inference"]);
+    logf("  installed kotodama-inference to /usr/local/bin/kotodama-inference");
 
-    if let Ok(out) = Command::new("/usr/local/bin/magatama-inference").arg("--probe").output() {
+    if let Ok(out) = Command::new("/usr/local/bin/kotodama-inference").arg("--probe").output() {
         logf(&format!("  verified: {}", String::from_utf8_lossy(&out.stdout).trim()));
     }
 }

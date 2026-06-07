@@ -1,6 +1,6 @@
 ---
 id: adr-2604240946-yoro-autonomous-actor-hybrid-loop
-title: "ADR: yoro.etzhayyim.com 自律 actor — time-domain 分離 hybrid loop (T1 MCP-Compose + BPMN-as-actor + RisingWave UDF)"
+title: "ADR: yoro.etzhayyim.com 自律 actor — time-domain 分離 hybrid loop (T1 MCP-Compose + BPMN-as-actor + Kotoba/Datomic UDF)"
 status: active
 doc_type: adr
 topic: yoro-autonomous-actor
@@ -15,12 +15,12 @@ authoritative_for:
   - Path F agent loop (260413) を legacy として位置付ける
 related:
   - adr-0038-actor-as-data-bpmn-dmn-form-mcp-faas
-  - adr-0044-risingwave-udf-language-strategy
+  - adr-0044-kotoba-udf-language-strategy
   - adr-0046
   - adr-0049-python-udf-shared-pool-runtime
   - adr-0056-bpmn-as-actor
   - adr-0081-worker-direct-hyperdrive-persistence
-  - adr-0087-magatama-mcp-tool-facade
+  - adr-0087-kotodama-mcp-tool-facade
   - adr-0092-every-vertex-as-actor
   - adr-0026-agent-only-reverse-identity-topology
   - adr-2604231811-atproto-extension-service-layers
@@ -62,10 +62,10 @@ actor (`did:web:yoro.etzhayyim.com`) である。現状は 2 層:
 
 | 時間軸 | 役割 | 実行先 | 実装 SSoT |
 |---|---|---|---|
-| **event ms** | sensor: AT commit → growth signal | RisingWave streaming MV + Python External UDF (shared pool) | ADR-0044 / ADR-0049 |
+| **event ms** | sensor: AT commit → growth signal | Kotoba/Datomic streaming MV + Python External UDF (shared pool) | ADR-0044 / ADR-0049 |
 | **inner loop s** | reactive act (like / follow) | T1 MCP-Compose pipeline (`20-actors/yoro/actor-manifest.jsonld`) が PDS Shared Executor 内で trigger され、`sdk.pds.dispatch` + `agent.chat` を短時間で発射。consent / audit は actor-manifest `governance` + `capabilities` 宣言から executor が適用 | ADR-0038 (actor-manifest = SSoT) |
 | **outer loop min** | deliberative plan (post / reply) | K8s Zeebe + pyzeebe + LangChain。BPMN process_def + lexicon binding 2 行 INSERT で actor 追加 | ADR-0056 / ADR-0038 |
-| **policy hour** | self-improve (policy update) | Murakumo MLX `magatama:inference/text` → `vertex_yoro_policy` write-back。ADR-0046 triple-witness 2-of-3 quorum gate と結合 | ADR-0046 |
+| **policy hour** | self-improve (policy update) | Murakumo MLX `kotodama:inference/text` → `vertex_yoro_policy` write-back。ADR-0046 triple-witness 2-of-3 quorum gate と結合 | ADR-0046 |
 | **act 層 (全層共通)** | AT Protocol 書き込み | `sdk.pds.dispatch({type:'app.bsky.*' \| 'com.atproto.*'})` / `createKyselyDb(env.HYPERDRIVE).insertInto('vertex_yoro_*')` | ADR-0081 |
 
 **Path F との関係 (CRITICAL, 2 レイヤ区別)**: Path F (`260413-agent-loop-unification-path-analysis.md`) は **2 つの別要素** を含み、扱いを分ける。
@@ -81,7 +81,7 @@ actor (`did:web:yoro.etzhayyim.com`) である。現状は 2 層:
 2. **LangChain は pyzeebe worker 内でのみ動く**。CF Worker 内 LangChain JS は廃止。long-running / persistent / tool-calling は Zeebe job worker に寄せる。T1 MCP-Compose pipeline 内の LLM 呼び出しは `agent.chat` primitive (Murakumo inference 短時間 call) に限定。
 3. **outer loop の trigger は BPMN**。cron / goose (ADR-0034) を yoro に新規導入しない。ADR-0056 の timer-start (`R/PT5M`) と message-start を使う。
 4. **inner loop の tool/capability SSoT は actor-manifest.jsonld**。`capabilities[]` と pipeline steps で consent gate / audit event が自動生成される (ADR-0038)。yoro の wasm/app.ts `asAgentTool()` は T3 fallback 用として残置するのみ、T1 executor は参照しない。
-5. **MCP canonical endpoint は `mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message`** (compat `/mcp`)。per-Worker `/mcp` facade は新規追加しない (ADR-0087 は magatama Worker family 向けであり、Layer 9 Client App の yoro.etzhayyim.com は適用外)。
+5. **MCP canonical endpoint は `mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message`** (compat `/mcp`)。per-Worker `/mcp` facade は新規追加しない (ADR-0087 は kotodama Worker family 向けであり、Layer 9 Client App の yoro.etzhayyim.com は適用外)。
 6. **自己監視は ADR-0046**。本 ADR では監視系を再発明せず、triple-witness monitor (yoro-liveness / yoro-shinka / yoro-integrity) の 2-of-3 quorum を policy hour 層の gate として使う。
 7. **Path F は entry と middleware で扱いを分ける**。
    - **Entry points 禁止**: Path F の top-level entry points (`pds.invoke` / `agent.chat` XRPC / `convo.send` / `projector.sendProjectMessage`) を T1 actor-manifest pipeline や新規 BPMN binding から新規参照しない。既存経路は retire されるまで凍結保守。
@@ -93,7 +93,7 @@ actor (`did:web:yoro.etzhayyim.com`) である。現状は 2 層:
 **(1) 自律登録・投稿・成長**
 - 登録 = `etzhayyim authn signin` で did:web:yoro 確立。成長 fission は ADR-0026 cohort posterior > 0.95 で path-child DID 発行。
 - 投稿 = BPMN `com.etzhayyim.yoro.autoplan` process_def が Murakumo で draft → actor-manifest `governance.classification` + `capabilities[]` で executor が consent gate → `sdk.pds.dispatch({type:'app.bsky.feed.post'})`。
-- 成長 = `udf_yoro_score` (RisingWave Python External, ADR-0049 shared pool) が `mv_yoro_growth_signal` を書き、Zeebe message-start でアクションを発火。
+- 成長 = `udf_yoro_score` (Kotoba/Datomic Python External, ADR-0049 shared pool) が `mv_yoro_growth_signal` を書き、Zeebe message-start でアクションを発火。
 
 **(2) 相互作用**
 - sensor = `vertex_repo_commit` を subscribe する MV が `mv_yoro_interaction_candidate` を populate。
@@ -175,13 +175,13 @@ P2 outer loop が live で確認済み。`platformPulse` BPMN (`etzhayyim-root/0
 
 ### C-path (PDS bypass) workaround
 
-P2 BPMN の Act 層は当初 ADR-0056 canonical の `generic.pds.dispatch({type:'app.bsky.feed.post'})` を使う設計だったが、pyzeebe Worker (Vultr 外部 IP) からの PDS `com.atproto.repo.createRecord` 呼び出しが `x-magatama-verified: true` 付きでも 401 AuthRequired を返す事象を発見 (CF WAF が外部 IP の write path で internal-trust header を strip している疑い)。短期回避として **C-path** = `generic.db.insert` で `vertex_repo_record` に直接 INSERT。Trade-off:
+P2 BPMN の Act 層は当初 ADR-0056 canonical の `generic.pds.dispatch({type:'app.bsky.feed.post'})` を使う設計だったが、pyzeebe Worker (Vultr 外部 IP) からの PDS `com.atproto.repo.createRecord` 呼び出しが `x-kotodama-verified: true` 付きでも 401 AuthRequired を返す事象を発見 (CF WAF が外部 IP の write path で internal-trust header を strip している疑い)。短期回避として **C-path** = `generic.db.insert` で `vertex_repo_record` に直接 INSERT。Trade-off:
 
-- ✅ Graph 可視 (RisingWave MV / AppView read 経路は不変)
+- ✅ Graph 可視 (Kotoba/Datomic MV / AppView read 経路は不変)
 - ❌ Federation 不可 (PDS commit log / firehose を経由しないため `did:web:yoro.etzhayyim.com` repo の MST commit が出ない)
 - ❌ 本来不変条件 1 (Act primitive = `sdk.pds.dispatch` + Worker-direct Hyperdrive **of own domain table**) の精神からは federation path で逸脱しているが、Worker-direct Hyperdrive の物理的同一書き込み経路 (Kysely insert into `vertex_repo_record`) を pyzeebe から共有しているため violation ではなく、pds commit pipeline の一時 bypass と整理する。
 
-正規 PDS path への復旧は pymagatama Bearer auth (`PDS_API_KEY` env) または ES256 Service Auth JWT mint を pyzeebe primitive に追加した時点で C-path を retire する (別 PR、ADR-0023 P4)。
+正規 PDS path への復旧は kotodama Bearer auth (`PDS_API_KEY` env) または ES256 Service Auth JWT mint を pyzeebe primitive に追加した時点で C-path を retire する (別 PR、ADR-0023 P4)。
 
 ### Inference backend
 
@@ -198,7 +198,7 @@ P2 BPMN の Act 層は当初 ADR-0056 canonical の `generic.pds.dispatch({type:
    は FEEL JSON assembly を廃止し、PyZeebe task
    `yoro.social.{platformPulse,respondToMention,respondToFollow}GraphFallback`
    を呼ぶ。**status: closed (2026-04-27)** — file は v2 形 (`exporterVersion="2.0"`)
-   で commit 済、handler 実装は `20-actors/magatama/py/src/pymagatama/primitives/yoro_social.py`。
+   で commit 済、handler 実装は `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/yoro_social.py`。
    live Zeebe での fire 観測は別途 (ops 課題)。
 3. ~~**Handle enrichment**~~ — CF commit detector remains a thin trigger. It may
    optionally enrich `authorHandle` / `followerHandle`. **status: closed
@@ -211,7 +211,7 @@ P2 BPMN の Act 層は当初 ADR-0056 canonical の `generic.pds.dispatch({type:
 - **T1 MCP-Compose actor** (`20-actors/yoro/actor-manifest.jsonld`): inner loop 専用。PDS Shared Executor / ActorExecutorDO が pipeline を解釈。`agent.chat` primitive 経由の短時間 LLM call のみ。LangChain JS は置かない。
 - **yoro wasm Worker** (`60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/`): Layer 9 Client App (SPA 配信 + bsky AppView pipethrough target) のみ。自律ループ側からは参照しない。
 - **pyzeebe worker** (`zeebe-worker` deployment): outer loop 専用。LangChain + Murakumo client。ADR-0056 の generic primitives (`generic.{db.select, db.insert, llm.chat, llm.json, http.fetch, pds.dispatch, audit.emit}` + `com.etzhayyim.shinka.tick`) に加え、Yoro social C-path は専用 primitive `yoro.social.*GraphFallback` が担当する。BPMN file は process orchestration、PyZeebe は serviceTask implementation の境界を守る。
-- **RisingWave**: sensor と policy の state store。Act 層ではない。UDF から XRPC を呼ぶ場合は pds.dispatch 相当の CF Worker gateway を経由する (直接 HTTP 書き込みは禁止)。
+- **Kotoba/Datomic**: sensor と policy の state store。Act 層ではない。UDF から XRPC を呼ぶ場合は pds.dispatch 相当の CF Worker gateway を経由する (直接 HTTP 書き込みは禁止)。
 - **BPMN file**: `20-actors/yoro/bpmn/autoplan.bpmn` を canonical に置く。`vertex_bpmn_process_def` に row を INSERT、F5 watcher (ADR-0056) が 30s 以内に Zeebe deploy。
 
 ## 禁止事項
@@ -244,11 +244,11 @@ ADR-0046 の 3 monitor actor が本 ADR の全層を観測する:
 
 - `90-docs/adr/0056-bpmn-as-actor.md`
 - `90-docs/adr/0038-actor-as-data-bpmn-dmn-form-mcp-faas.md`
-- `90-docs/adr/0044-risingwave-udf-language-strategy.md`
+- `90-docs/adr/0044-kotoba-udf-language-strategy.md`
 - `90-docs/adr/0049-python-udf-shared-pool-runtime.md`
 - `90-docs/adr/0081-worker-direct-hyperdrive-persistence.md`
 - `90-docs/adr/0046-yoro-triple-witness-autonomy-monitoring.md`
-- `90-docs/adr/0087-magatama-mcp-tool-facade.md`
+- `90-docs/adr/0087-kotodama-mcp-tool-facade.md`
 - `90-docs/adr/0092-every-vertex-as-actor.md`
 - `90-docs/adr/0026-agent-only-reverse-identity-topology.md`
 - `90-docs/adr/2604231811-atproto-extension-service-layers.md`

@@ -31,11 +31,11 @@ amended_by: []
 
 - **2026-04-26 17:17 JST** — proposed (this ADR drafted)
 - **2026-04-26 18:00 JST** — Phase 1 lexicons + contract + Worker module + migration written
-- **2026-04-26 18:30 JST** — graph migration `20260426180000_vertex_claim_stake` applied to RisingWave; `database.ts` regenerated (1830 tables, 29054 cols, 6 new claim entities)
+- **2026-04-26 18:30 JST** — graph migration `20260426180000_vertex_claim_stake` applied to Kotoba/Datomic; `database.ts` regenerated (1830 tables, 29054 cols, 6 new claim entities)
 - **2026-04-26 18:35 JST** — `ClaimStakeEscrow` deployed at `0x7C1d83E42Ac2860eA72Ae2A373e86F67726410A7` on chain 260425; 13/13 immutable + storage sanity reads matched spec
 - **2026-04-26 18:45 JST** — Path A end-to-end smoke (postClaim → 60s window → claimUnchallenged → Refunded) passed on live chain; GCC roundtrip 10 → 9 → 10 ✅
 - **2026-04-26 18:55 JST** — Path B end-to-end smoke (postClaim → challenge → arbiter-signed settle, claimWins=true → Upheld) passed; ECDSA recovery + 85/10/5 split + state machine 0→1→2→3 verified ✅
-- **2026-04-27 09:16 JST** — Phase 2-B live path active: `RegoArbiter` deployed, `claim-consumer` tails `DecisionRecorded`, `worker-authz` exposes HMAC-gated `record-rego-decision` / `auto-settle-claim`, Murakumo judge is bound through Secrets Store, rebuttals persist through service binding, and RisingWave stake state/outcome projection was backfilled + verified.
+- **2026-04-27 09:16 JST** — Phase 2-B live path active: `RegoArbiter` deployed, `claim-consumer` tails `DecisionRecorded`, `worker-authz` exposes HMAC-gated `record-rego-decision` / `auto-settle-claim`, Murakumo judge is bound through Secrets Store, rebuttals persist through service binding, and Kotoba/Datomic stake state/outcome projection was backfilled + verified.
 - **2026-04-26** — status promoted to **active**
 
 # Verification (live chain 260425)
@@ -72,7 +72,7 @@ Phase 2-B (Rego decision registry + auto-settler):
     MURAKUMO_URL=https://murakumo.etzhayyim.com/api/openai/v1/chat/completions
     MURAKUMO_MODEL=qwen3-30b-a3b
     ops endpoints (/tick,/judge,/settler) HMAC-gated when reachable
-  RisingWave:
+  Kotoba/Datomic:
     cursor:claim-consumer:chain-260425:default = 32700 active fail_count=0
     cursor:claim-consumer:rego-arbiter:default = 32700 active fail_count=0
     vertex_claim_stake state backfill:
@@ -370,7 +370,7 @@ graph: vertex_claim_stake.state = upheld|slashed
 ```
 
 書き込みは ADR-0036 (Worker-direct Hyperdrive) に従い `vertex_claim_stake` /
-`edge_claim_*` を Worker から Kysely で直書き。social broadcast は magatama.jsonld
+`edge_claim_*` を Worker から Kysely で直書き。social broadcast は kotodama.jsonld
 の `derive` で `app.bsky.feed.post` を auto-emit (Write-Only Derived, ADR-0004)。
 
 ## 6. Why this is the shortest path

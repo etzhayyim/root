@@ -60,13 +60,13 @@ SHARD_ROWS = int(os.environ.get("SHARD_ROWS", "10000"))
 FLUSH_INTERVAL_SEC = float(os.environ.get("FLUSH_INTERVAL_SEC", "60"))
 
 # kotoba-datomic-projection: legacy psycopg2 → vertex_spatial INSERT below is the
-# RW-projection write path. Set USE_PYMAGATAMA_SUBSTRATE=1 to enable the
-# parallel pymagatama.substrate writer (PDS createRecord into
+# RW-projection write path. Set USE_PYKOTODAMA_SUBSTRATE=1 to enable the
+# parallel kotodama.substrate writer (PDS createRecord into
 # com.etzhayyim.maps.feature, per kotoba-datomic Phase 1 Tier A migration in
 # 60-apps/etzhayyim-project-maps/MIGRATION-TODO.md). When both paths are on,
 # substrate write is the source of truth; RW INSERT is treated as a
 # projection seed.
-USE_PYMAGATAMA_SUBSTRATE = os.environ.get("USE_PYMAGATAMA_SUBSTRATE", "0") == "1"
+USE_PYKOTODAMA_SUBSTRATE = os.environ.get("USE_PYKOTODAMA_SUBSTRATE", "0") == "1"
 SUBSTRATE_DID = os.environ.get("SUBSTRATE_DID", "did:web:maps.etzhayyim.com")
 SUBSTRATE_COLLECTION = "com.etzhayyim.maps.feature"
 SUBSTRATE_H3_RES = int(os.environ.get("SUBSTRATE_H3_RES", "8"))  # ≈ neighborhood
@@ -207,7 +207,7 @@ def _geonames_row_to_feature(row: dict) -> tuple[str, dict]:
     `com.etzhayyim.maps.feature` record + rkey. Pure function.
 
     Per kotoba-datomic Phase 1 Tier A — bulk-ingest pods write feature records
-    to PDS via pymagatama.substrate.
+    to PDS via kotodama.substrate.
     """
     lng = float(row["lng"])
     lat = float(row["lat"])
@@ -235,7 +235,7 @@ def _geonames_row_to_feature(row: dict) -> tuple[str, dict]:
 
 
 def _h3_cell(lat: float, lng: float, resolution: int) -> str:
-    """Compute the H3 cell hex string. Lazy import — h3 is in pymagatama
+    """Compute the H3 cell hex string. Lazy import — h3 is in kotodama
     deps but not required for the legacy psycopg2 path."""
     try:
         import h3 as h3lib  # type: ignore[import-not-found]
@@ -252,15 +252,15 @@ def _h3_cell(lat: float, lng: float, resolution: int) -> str:
 
 async def _write_features_via_substrate(rows: list[dict], batch_size: int = SUBSTRATE_BATCH) -> int:
     """Async path: write geonames rows as `com.etzhayyim.maps.feature` records
-    via pymagatama.substrate.Etzhayyim.write."""
+    via kotodama.substrate.Etzhayyim.write."""
     if not rows:
         return 0
     try:
-        from pymagatama.substrate import Etzhayyim, WriteOpts
+        from kotodama.substrate import Etzhayyim, WriteOpts
     except ImportError:
         log.error(
-            "USE_PYMAGATAMA_SUBSTRATE=1 but pymagatama.substrate not importable. "
-            "Ensure the bulk-ingest image bundles 20-actors/magatama/py."
+            "USE_PYKOTODAMA_SUBSTRATE=1 but kotodama.substrate not importable. "
+            "Ensure the bulk-ingest image bundles 40-engine/kotoba/crates/kotoba-kotodama/py."
         )
         return 0
 
@@ -283,9 +283,9 @@ async def _write_features_via_substrate(rows: list[dict], batch_size: int = SUBS
 
 
 def _insert_rows_dispatch(rows: list[dict]) -> int:
-    """Pick the write path based on USE_PYMAGATAMA_SUBSTRATE. See module
+    """Pick the write path based on USE_PYKOTODAMA_SUBSTRATE. See module
     header `kotoba-datomic-projection` comment for the migration plan."""
-    if USE_PYMAGATAMA_SUBSTRATE:
+    if USE_PYKOTODAMA_SUBSTRATE:
         import asyncio
         return asyncio.run(_write_features_via_substrate(rows))
     return _insert_rows_into_substrate(rows)

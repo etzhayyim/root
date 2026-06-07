@@ -12,7 +12,7 @@ weight: 0.35
 priority_note: "Operationalizes ADR-2605172000 §cookie boundary on etzhayyim.com apex via Worker. Bundles three coupled fixes that landed together because they sequenced on the same CF Workers deploy."
 authoritative_for:
   - etzhayyim.com apex Worker cookie-free contract
-  - yoro magatama-yoro Worker deploy unblock procedure
+  - yoro kotodama-yoro Worker deploy unblock procedure
   - svelte/public/* → static/ build mirror discipline
   - documentation of yoro SPA hydration RangeError root cause (not fixed in this ADR)
 depends_on:
@@ -172,6 +172,6 @@ This ADR does not pick a fix. The recommendation is B (matches stated CLAUDE.md 
 - ADR-2605192100 — Mission Charter (substrate boundary)
 - `CHARTER-RIDER.md` §2(c) — no trackers
 - Commits: `2d9122656` (initial cookie-free apex + banner revival + svelte.config.js fallback: 'spa') / `757b77177` (ORT dedupe + sync-static rewrite + SvelteKit Worker)
-- Worker versions: did-web `66f30a50-60c4-44a7-aa8c-64b03e2f2af4`, magatama-yoro `b9856358-9420-489a-b86a-eb86667fcbfb`
+- Worker versions: did-web `66f30a50-60c4-44a7-aa8c-64b03e2f2af4`, kotodama-yoro `b9856358-9420-489a-b86a-eb86667fcbfb`
 - Browser smoke: `clear-site-data: "cookies"` / `permissions-policy: interest-cohort=(), browsing-topics=()` / `x-etzhayyim-no-cookie: 1` verified live on `etzhayyim.com`; SPA hydration RangeError verified in Chrome console on both `etzhayyim.com` and `yoro.etzhayyim.com` with deployed bundle.
 - Follow-up: Task #17 (SPA hydration triage finding, fix options A/B/C documented above).

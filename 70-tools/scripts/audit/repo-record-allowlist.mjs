@@ -6,7 +6,7 @@ import process from "node:process";
 const require = createRequire(import.meta.url);
 const pg = require(require.resolve("pg", { paths: ["30-graph/graph-schema"] }));
 
-const DATABASE_URL = process.env.DATABASE_URL ?? process.env.RW_URL ?? process.env.RW_CONN;
+const DATABASE_URL = process.env.DATABASE_URL ?? process.env.KOTOBA_URL ?? process.env.KOTOBA_URL;
 const ALLOWLIST = new Set(["app.bsky.feed.post"]);
 
 function usage(code = 0) {
@@ -57,7 +57,7 @@ for (let i = 2; i < process.argv.length; i += 1) {
 }
 
 if (!DATABASE_URL) {
-  console.error("Set DATABASE_URL, RW_URL, or RW_CONN.");
+  console.error("Set DATABASE_URL, KOTOBA_URL, or KOTOBA_URL.");
   process.exit(1);
 }
 

@@ -3,7 +3,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: medical-facility-b2-replayer-100
-  namespace: risingwave
+  namespace: mitama-udf
   labels:
     app.kubernetes.io/name: medical-facility-b2-replayer-100
     app.kubernetes.io/component: b2-replayer
@@ -45,11 +45,11 @@ spec:
                   value: "100"
                 - name: BATCH_SIZE
                   value: "20"
-                - name: RW_DSN
+                - name: KOTOBA_URL
                   valueFrom:
                     secretKeyRef:
                       name: medical-coverage-ingester-secrets
-                      key: RW_DSN
+                      key: KOTOBA_URL
                 - name: AWS_ACCESS_KEY_ID
                   valueFrom:
                     secretKeyRef:

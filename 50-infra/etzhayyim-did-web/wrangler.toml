@@ -30,15 +30,15 @@ zone_name = "etzhayyim.com"
 pattern = "www.etzhayyim.com/*"
 zone_name = "etzhayyim.com"
 
-# Service binding — direct Worker→Worker call to magatama-yoro avoids the
+# Service binding — direct Worker→Worker call to kotodama-yoro avoids the
 # CF Bot Management block that public-HTTP fetch hits inside the same zone.
 [[services]]
 binding = "YORO"
-service = "magatama-yoro"
+service = "kotodama-yoro"
 
 # Substrate-side XRPC adapter (rw-free reference impl). Per ADR-2605172000,
 # reads under SUBSTRATE_NSID_ALIASES (worker.ts) MUST resolve through this
-# adapter (MST/IPFS/L2) rather than the etzhayyim.com PDS+AppView+RisingWave chain.
+# adapter (MST/IPFS/L2) rather than the etzhayyim.com PDS+AppView+Kotoba/Datomic chain.
 # Deploy `60-apps/etzhayyim-project-yoro/xrpc-adapter` first; this binding will
 # resolve to the deployed Worker named `yoro-xrpc-adapter`.
 [[services]]
@@ -91,9 +91,28 @@ IPFS_GATEWAYS = ""
 XRPC_ATPROTO_UPSTREAM = "https://atproto.etzhayyim.com"
 XRPC_CHAT_UPSTREAM = "https://atproto.etzhayyim.com"
 XRPC_etzhayyim_UPSTREAM = "https://atproto.etzhayyim.com"
-# kotoba graph query/SPARQL/MV surface (com.etzhayyim.apps.kotoba.* / .kotobase.*)
-# → the kotoba node via its cloudflared tunnel. Read-only; CACAO passes through.
-XRPC_KOTOBA_UPSTREAM = "https://kotoba.etzhayyim.com"
+# kotoba graph query surface — INTENTIONALLY EMPTY: kotoba is browser-only
+# (IPFS blocks + kotoba-wasm in the page/SW), NOT a server. block.put/has/root are
+# handled locally by this Worker (KV, keyless); every other com.etzhayyim.apps.kotoba.*
+# NSID now returns 503 UpstreamNotConfigured instead of proxying to a kotoba server.
+# (The route entry is kept so these NSIDs do NOT fall through to the com.etzhayyim.*
+# atproto catch-all.) Build-time ingest tooling talks to the kotoba node directly,
+# not through the apex. Per the browser-only-kotoba directive + ADR-2605262130/2605312345.
+XRPC_KOTOBA_UPSTREAM = ""
+
+# Durable Objects are NOT used (browser-complete kotoba + IPFS + WASM design; no
+# operated server-state primitive — ADR-2605262130 / 2605312345). The
+# member-signed publish path advances the root under KV check-and-set. The v1
+# migration briefly created a KotobaRoot DO; v2 deletes it so the class + its
+# instances are removed from the deployed Worker (Cloudflare requires a delete
+# migration to drop a previously-created DO class).
+[[migrations]]
+tag = "v1"
+new_classes = ["KotobaRoot"]
+
+[[migrations]]
+tag = "v2"
+deleted_classes = ["KotobaRoot"]
 
 # Durable Object — single-threaded authoritative head for member-signed kotoba
 # publishing, giving TRUE atomic check-and-set on the published root (KV

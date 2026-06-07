@@ -1,6 +1,6 @@
 # Domain Ingest Runbook
 
-**Status**: active — 2026-04-23  
+**Status**: active — 2026-04-23
 **Design source-of-truth**: [ADR-0057](/Users/junkawasaki/github/etzhayyim-root/90-docs/adr/0057-common-crawl-domain-ingest-coverage-topology.md:1)
 
 ## Purpose
@@ -155,9 +155,9 @@ echo "${etzhayyim_DATABASE_URL:-${DATABASE_URL:-}}"
 
 切り分け:
 
-- `--no-reconcile` は通るが `--strict` が落ちる  
+- `--no-reconcile` は通るが `--strict` が落ちる
   `mv_domain_coverage_live` 参照または DB connectivity の問題
-- `--no-reconcile` も落ちる  
+- `--no-reconcile` も落ちる
   CLI / DSN / runtime の問題
 
 ## CI / scheduled health check

@@ -69,7 +69,7 @@ etzhayyim/root rather than leaving it vendor-side.
    a later option for hakken's OEM route.)
 
 3. **RW-free + on-chain.** Persistence is `@etzhayyim/sdk` `e.write()` → PDS XRPC createRecord
-   → MST + IPFS + Base L2 anchor. No RisingWave. Mirrors tsukuru rw-free (ADR-2605202800
+   → MST + IPFS + Base L2 anchor. No Kotoba/Datomic. Mirrors tsukuru rw-free (ADR-2605202800
    Phase 2). Vendor floats are integer-encoded (`weightG` = kg×1000, `ratingMilli` = rating×1000)
    per the AT-Lexicon no-float rule.
 
@@ -79,7 +79,7 @@ etzhayyim/root rather than leaving it vendor-side.
    etzhayyim/root is `com.etzhayyim.*` (consent / council / encrypted / esign), with
    `com.etzhayyim.*` otherwise reserved for launchd/system labels. `com.etzhayyim.*` was chosen
    here by explicit operator direction; if the org standardises record NSIDs on `com.etzhayyim.*`,
-   hakken should follow in a later sweep (lexicons + write-path collections + magatama
+   hakken should follow in a later sweep (lexicons + write-path collections + kotodama
    `nsidPrefixes`).
 
 ## Override
@@ -92,7 +92,7 @@ nor settlement counterparty; etzhayyim remains both for any hakken-originated sa
 
 ## Consequences
 
-- **Phase 1 (this commit):** scaffold (`PROJECT.jsonld`, `magatama.jsonld`, `OWNERS`,
+- **Phase 1 (this commit):** scaffold (`PROJECT.jsonld`, `kotodama.jsonld`, `OWNERS`,
   `CLAUDE.md`) + 4 lexicons (`ingestProduct`, `ingestSupplierCandidate`, `listProducts`,
   `listSupplierCandidates`) + `rw-free/` ingest reference (`types.ts`, `ingest.ts`). Vendor
   `hakken.etzhayyim.com` unchanged.
@@ -139,7 +139,7 @@ All migration PRs merged to `etzhayyim/root` main:
 - **#718 (merged)** — tsukuru converted to `com.etzhayyim.apps.tsukuru.*` (ADR-2606020000).
 
 **Code state:** the moved pipeline is **un-refactored by design** — it still references vendor
-`kotoba`/RisingWave/Stripe and `com.etzhayyim.*` NSIDs. Per operator direction the refactor
+`kotoba`/Kotoba/Datomic/Stripe and `com.etzhayyim.*` NSIDs. Per operator direction the refactor
 (RW → kotoba/PDS, Stripe tail → etzhayyim consent capability, `com.etzhayyim.*` → `com.etzhayyim.*`,
 wiring the pipeline to the rw-free ingest surface) happens **on the etzhayyim side** and is the
 remaining Phase 2/3 work. Vendor `hakken.etzhayyim.com` is unchanged (Phase 4 sunset still pending,

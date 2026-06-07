@@ -23,14 +23,14 @@
 ├── PROJECT.jsonld                              # schema.org (Apache-2.0)
 ├── README.md                                   # OSS public readme
 ├── etzhayyim-wasm-kyber-erp-kyb3rerp/            # ERP Worker (kyber.etzhayyim.com, nanoid kyb3rerp)
-│   ├── magatama.jsonld                         # AI-Agent profile + triggers
+│   ├── kotodama.jsonld                         # AI-Agent profile + triggers
 │   ├── wrangler.jsonc                          # CF Worker config
 │   ├── package.json
 │   ├── src/app.ts                              # single-file ERP business logic (24 XRPC commands)
 │   ├── svelte/                                 # Hono + Svelte read/write SPA
 │   └── e2e/                                    # Playwright visual tests
 └── etzhayyim-wasm-kyber-projector-kyb3proj/      # APQC/BPMN/OCEL projector (kyber-projector.etzhayyim.com)
-    ├── magatama.jsonld                         # 13 entities[] for path-based L1 DIDs
+    ├── kotodama.jsonld                         # 13 entities[] for path-based L1 DIDs
     ├── wrangler.jsonc
     ├── package.json
     └── src/app.ts                              # APQC_L1 + BPMN_CATALOG + 6 XRPC commands + onCommit
@@ -42,7 +42,7 @@
 |---|---|---|
 | **nanoid** | `kyb3rerp` | `kyb3proj` |
 | **AT bot DID** | `did:web:kyber.etzhayyim.com` | `did:web:kyber-projector.etzhayyim.com` |
-| **Runtime** | TS Native (`src/app.ts` + `@etzhayyim/magatama-host-sdk` → esbuild) | TS Native |
+| **Runtime** | TS Native (`src/app.ts` + `@etzhayyim/kotodama-host-sdk` → esbuild) | TS Native |
 | **Write path** | `sdk.pds.dispatch({ type: "com.atproto.repo.createRecord", ... })` | same + `com.etzhayyim.apps.apqc.apqcEvent` OCEL emit |
 | **Read path** | `createKyselyDb(env.HYPERDRIVE)` | Kysely + Hyperdrive |
 | **UI** | Hono + Svelte CSR | headless (XRPC only) |

@@ -13,7 +13,7 @@ priority_note: "Multi-phase business-model-change migration. Phase 1 (spec/lexic
 authoritative_for:
   - tsukuru B2B factory-direct ordering on etzhayyim substrate
   - Stripe Issuing → ERC-4337 + USDC payment migration plan
-  - RisingWave Hyperdrive → PDS XRPC + IPFS storage migration plan
+  - Kotoba/Datomic Hyperdrive → PDS XRPC + IPFS storage migration plan
   - 460+ factory DID migration plan (etzhayyim → etzhayyim)
 depends_on:
   - adr-2605172000-etzhayyim-rw-free-substrate
@@ -41,16 +41,16 @@ orders, EUV lithography + CNT manufacturing flows, supplier exchange
 package normalization, trade compliance + HS classification. Current
 implementation:
 
-- **Persistence**: `createKyselyDb()` (RisingWave Hyperdrive direct
+- **Persistence**: `createKyselyDb()` (Kotoba/Datomic Hyperdrive direct
   write, T2 Domain per ADR-0036)
 - **Payment**: `payment.method = "stripe_issuing"` — Stripe Issuing
   virtual cards for factory disbursement, cross-actor invoke
   `did:web:stripe.etzhayyim.com cancelCard`
 - **Runtime**: `runtime = "k8s-langserver"` with bpmn-dispatcher +
-  pymagatama.worker_api on Vultr VKE
+  kotodama.worker_api on Vultr VKE
 - **Identity**: `did:web:tsukuru.etzhayyim.com` controller + path-based DIDs
   for industry sections (ISIC A-U) + manufacturer registry path DIDs
-- **Storage**: `graph = "risingwave"` (vertex_tsukuru_*)
+- **Storage**: `graph = "kotoba"` (vertex_tsukuru_*)
 
 Per **ADR-2605172400** 3-axis OR-test, tsukuru as-is is structurally
 **vendor-bound** (all 3 axes hit): operator product liability + factory
@@ -80,7 +80,7 @@ Land:
 - This ADR (proposed status)
 - `etzhayyim-root/60-apps/etzhayyim-project-tsukuru/` scaffold:
   - CLAUDE.md (sed-transformed from vendor)
-  - PROJECT.jsonld, OWNERS, magatama.toml
+  - PROJECT.jsonld, OWNERS, kotodama.toml
   - scripts/register-isic-industry-actors.mjs
   - appview/tsukuru-tsukr8u0/{package.json, vitest.config.ts}
   - appview/tsukuru-tsukr8u0/src/README.md — Phase 2 placeholder
@@ -125,7 +125,7 @@ Read path:
 Current vendor:
 ```ts
 payment: { method: "stripe_issuing", stripeCardId: "isc_xyz" }
-await magatama.Invoke("did:web:stripe.etzhayyim.com", "cancelCard", { cardId });
+await kotodama.Invoke("did:web:stripe.etzhayyim.com", "cancelCard", { cardId });
 ```
 
 Etzhayyim:
@@ -201,7 +201,7 @@ proven:
 
 - Remaining < 20% factories that didn't migrate: courtesy sunset or
   legacy wrap-up
-- Vendor RisingWave `vertex_tsukuru_*` tables: keep as historical
+- Vendor Kotoba/Datomic `vertex_tsukuru_*` tables: keep as historical
   read-only mirror for 1 year (compliance / audit reference)
 - Lexicon dual-schema retire (vendor NSID `com.etzhayyim.apps.tsukuru.*`
   removal)

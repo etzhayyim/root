@@ -9,7 +9,7 @@
  *                                        → RisingWave (domain tier)
  */
 
-import { createWorkerExport } from "@etzhayyim/magatama-host-sdk";
+import { createWorkerExport } from "@etzhayyim/kotodama-host-sdk";
 import type { Context } from "hono";
 
 const SIP_BASE = "https://spirit-in-physics.com/api";

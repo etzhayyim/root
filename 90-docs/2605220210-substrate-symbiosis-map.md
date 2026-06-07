@@ -55,7 +55,7 @@ flowchart LR
 
   subgraph Compute
     MURA["Murakumo Kubelet"]
-    MAGA["Magatama cells\n(Pregel)"]
+    MAGA["Kotodama cells\n(Pregel)"]
     LANCE["LanceDB / Tonbo"]
   end
 
@@ -96,11 +96,11 @@ Dashed arrows = governance / consensus flows that fire occasionally.
 | Base L2 (TitheRouter) → Public Fund | split 10% | USDC | per donation | TitheRouter contract |
 | XRPC → MST | API | record read/write | per request | XRPC standard |
 | XRPC → Signal | API | DM session establish | per session | XRPC + Signal X3DH |
-| NATS → Magatama | message | cell input event | per event | NATS subscription |
+| NATS → Kotodama | message | cell input event | per event | NATS subscription |
 | NATS → IPFS | tier | cold message storage | per retention policy | NATS JetStream S3 backend |
-| Magatama → LanceDB | write | embedding / column data | per cell tick | LanceDB client |
-| Magatama → NATS | publish | cell output event | per tick | NATS publish |
-| Murakumo → Magatama | schedule | cell placement | per fleet event | `fleet.toml` |
+| Kotodama → LanceDB | write | embedding / column data | per cell tick | LanceDB client |
+| Kotodama → NATS | publish | cell output event | per tick | NATS publish |
+| Murakumo → Kotodama | schedule | cell placement | per fleet event | `fleet.toml` |
 | SBT → geth-private | vote | 1 SBT = 1 vote tally | per governance ballot | constitutional invariant |
 
 ## Required vs optional flows
@@ -114,12 +114,12 @@ Dashed arrows = governance / consensus flows that fire occasionally.
 **Optional for Gen 0 but planned:**
 - Holochain peer-of-record cross-check (Gen 1+ rollout)
 - NATS S3 tiered storage (operational scale dependency)
-- Magatama → LanceDB (semantic retrieval — depends on cell catalog maturity)
+- Kotodama → LanceDB (semantic retrieval — depends on cell catalog maturity)
 
 ## Invariants
 
 1. **No app-side direct substrate import.** All substrate access goes through `@etzhayyim/sdk` per ADR-2605181100 + `CLAUDE.md § Substrate boundary client imports`. The map above shows the **server-side** topology; the app-side topology is a single edge: `app → @etzhayyim/sdk → (any of the above)`.
-2. **No state in centralized DB.** Postgres / Kysely / RisingWave / MySQL / Mongo are prohibited per ADR-2605172000.
+2. **No state in centralized DB.** Postgres / Kysely / Kotoba/Datomic / MySQL / Mongo are prohibited per ADR-2605172000.
 3. **No fiat payment processor.** Stripe / PayPal / Square are prohibited per ADR-2605172100. USDC on Base L2 only.
 4. **No external advertising network.** Per ADR-2605192115 §1.2.
 5. **No plaintext private records on MST.** Confidential cargo MUST be wrapped via `com.etzhayyim.encrypted.*` (XChaCha20-Poly1305 + Signal-wrapped per-recipient keys, DID-bound) per ADR-2605181100.

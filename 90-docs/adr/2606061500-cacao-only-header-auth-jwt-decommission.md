@@ -170,7 +170,7 @@ merged/deployed.**
   (+ `lib/components/YoroAuthGate.svelte` `onAuth`), `routes/profile/+page.svelte`,
   `routes/sign-in/+server.ts`. authn restore + JWT provider gated behind
   `PUBLIC_AUTH_LEGACY_JWT` (default OFF).
-- **e7m-verify hook** — the pre-commit gate was falling back to the stale `gftd`
+- **e7m-verify hook** — the pre-commit gate was falling back to the stale `etzhayyim`
   v0.2.0 binary (no `verify` subcommand → `unknown command: verify`). `lefthook.yml`
   now runs the in-repo kotoba-premised e7m (venv else `python3 -m e7m`); `e7m`'s
   `__main__.py` lazy-imports `rich` so `--json verify` runs on a bare stdlib

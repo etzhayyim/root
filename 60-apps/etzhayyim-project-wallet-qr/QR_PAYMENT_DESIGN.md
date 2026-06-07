@@ -1,10 +1,10 @@
 # QR Payment Design — PayPay-like GCC Token Payment
 
-`ai-gftd-project-wallet-qr` — AppShell v2 SuperApp の Wallet タブから QR コードで GCC トークン決済を行う App。
+`etzhayyim-project-wallet-qr` — AppShell v2 SuperApp の Wallet タブから QR コードで GCC トークン決済を行う App。
 
 ## Overview
 
-PayPay モデルを GCC (GFTD Computing Credit, ERC-20, 6 decimals) に適用する。
+PayPay モデルを GCC (ETZHAYYIM Computing Credit, ERC-20, 6 decimals) に適用する。
 Geth private chain 上の GCC トークン転送を QR コードで実行する P2P / P2M (Person-to-Merchant) 決済。
 
 ## Architecture
@@ -45,7 +45,7 @@ Geth private chain 上の GCC トークン転送を QR コードで実行する 
 │            │ JSON-RPC                               │
 │            ▼                                        │
 │  ┌───────────────────────────────────────────────┐  │
-│  │  Geth PoS Node (geth-pos.magatama-runtime:8545)       │  │
+│  │  Geth PoS Node (geth-pos.kotodama-runtime:8545)       │  │
 │  │  GCC Contract: 0x799d24a6FFBb758C6E2Ed8f981...│  │
 │  └───────────────────────────────────────────────┘  │
 └─────────────────────────────────────────────────────┘
@@ -109,7 +109,7 @@ Receiver                        Sender
 ### Static QR (固定 QR — 店舗掲示用)
 
 ```
-gftd://pay?v=1&to=0x1234...abcd&name=CafeGFTD
+etzhayyim://pay?v=1&to=0x1234...abcd&name=CafeETZHAYYIM
 ```
 
 | Field | Required | Description |
@@ -121,7 +121,7 @@ gftd://pay?v=1&to=0x1234...abcd&name=CafeGFTD
 ### Dynamic QR (動的 QR — 金額指定・一回限り)
 
 ```
-gftd://pay?v=1&to=0x1234...abcd&amt=1500.00&rid=req_abc123&exp=1710400000&name=CafeGFTD
+etzhayyim://pay?v=1&to=0x1234...abcd&amt=1500.00&rid=req_abc123&exp=1710400000&name=CafeETZHAYYIM
 ```
 
 | Field | Required | Description |
@@ -136,7 +136,7 @@ gftd://pay?v=1&to=0x1234...abcd&amt=1500.00&rid=req_abc123&exp=1710400000&name=C
 ### User Display QR (ユーザー提示用 — Store Scan 方式)
 
 ```
-gftd://id?v=1&from=0x5678...efgh&nonce=n_xyz789&exp=1710400000
+etzhayyim://id?v=1&from=0x5678...efgh&nonce=n_xyz789&exp=1710400000
 ```
 
 | Field | Required | Description |
@@ -229,7 +229,7 @@ message CreatePaymentQRRequest {
 }
 
 message CreatePaymentQRResponse {
-  // QR payload string (gftd://pay?... or gftd://id?...)
+  // QR payload string (etzhayyim://pay?... or etzhayyim://id?...)
   string qr_payload = 1;
   // Payment request ID (for dynamic QR)
   string request_id = 2;
@@ -334,17 +334,17 @@ Payment コマンドは Matrix room event として永続化する。
 
 | Event Type | Description |
 |------------|-------------|
-| `org.gftd.payment.request` | 支払いリクエスト作成 |
-| `org.gftd.payment.execute` | 支払い実行 |
-| `org.gftd.payment.confirm` | 支払い確定 (on-chain confirmed) |
-| `org.gftd.payment.reject` | 支払い拒否 |
-| `org.gftd.payment.expire` | 支払いリクエスト期限切れ |
+| `org.etzhayyim.payment.request` | 支払いリクエスト作成 |
+| `org.etzhayyim.payment.execute` | 支払い実行 |
+| `org.etzhayyim.payment.confirm` | 支払い確定 (on-chain confirmed) |
+| `org.etzhayyim.payment.reject` | 支払い拒否 |
+| `org.etzhayyim.payment.expire` | 支払いリクエスト期限切れ |
 
 ### Event Payload Example
 
 ```json
 {
-  "type": "org.gftd.payment.execute",
+  "type": "org.etzhayyim.payment.execute",
   "content": {
     "paymentId": "pay_abc123",
     "requestId": "req_xyz789",
@@ -382,7 +382,7 @@ Payment コマンドは Matrix room event として永続化する。
 │  └──────┘  └──────────┘  │
 │                          │
 │  ─── 最近の取引 ─────────  │
-│  CafeGFTD    -500.00 GCC │
+│  CafeETZHAYYIM    -500.00 GCC │
 │  田中太郎   +1,200.00 GCC │
 │  BookStore   -350.00 GCC │
 │                          │
@@ -425,7 +425,7 @@ Payment コマンドは Matrix room event として永続化する。
 │  ←  支払い確認            │
 ├──────────────────────────┤
 │                          │
-│       CafeGFTD           │
+│       CafeETZHAYYIM           │
 │    0x1234...abcd         │
 │                          │
 │  ┌────────────────────┐  │
@@ -490,7 +490,7 @@ Payment コマンドは Matrix room event として永続化する。
 │     支払い完了            │
 │                          │
 │    1,500.00 GCC          │
-│    → CafeGFTD            │
+│    → CafeETZHAYYIM            │
 │                          │
 │    TX: 0xabcd...1234     │
 │    Block: #18,234,567    │
@@ -505,15 +505,15 @@ Payment コマンドは Matrix room event として永続化する。
 ## Component Structure
 
 ```
-60-apps/ai-gftd-project-wallet-qr/
+60-apps/etzhayyim-project-wallet-qr/
 ├── QR_PAYMENT_DESIGN.md              (this file)
 ├── PROJECT.jsonld
 └── wasm/
-    └── ai-gftd-wasm-qrpay-<nanoid>/
+    └── etzhayyim-wasm-qrpay-<nanoid>/
         ├── main.go                    (App — payment logic)
         ├── qr.go                      (QR payload encode/decode)
         ├── limits.go                  (amount limits, cooldown)
-        ├── magatama.toml
+        ├── kotodama.toml
         ├── go.mod
         ├── wit/
         │   ├── world.wit
@@ -592,7 +592,7 @@ Payer App          qr-payment App               geth-wallet-manager     Geth Nod
 既存の `SurvivalService.Transfer` endpoint を使用。追加 endpoint は不要。
 
 ```
-POST http://geth-wallet-manager.magatama-runtime:8080/xrpc/gftd.actor.v1.SurvivalService/Transfer
+POST http://geth-wallet-manager.kotodama-runtime:8080/xrpc/etzhayyim.actor.v1.SurvivalService/Transfer
 Content-Type: application/json
 
 {

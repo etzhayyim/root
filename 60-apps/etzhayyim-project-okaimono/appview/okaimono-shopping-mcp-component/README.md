@@ -5,8 +5,8 @@ okaimono.etzhayyim.com の App marketplace コンポーネント (nanoid: `ok4im
 ## Data Access
 
 W Protocol Event Stream:
-- Write: `magatama.WRecord("okaimono.{kind}", payload)` → PDS → yata Cypher direct (SHA-256 content CID)
-- Read: `magatama.G("Label").Match(Eq{...}).Return("prop").Query()` (Cypher)
+- Write: `kotodama.WRecord("okaimono.{kind}", payload)` → PDS → yata Cypher direct (SHA-256 content CID)
+- Read: `kotodama.G("Label").Match(Eq{...}).Return("prop").Query()` (Cypher)
 - DO SQLite / KV / PostgreSQL 直接 write 禁止
 
 ## Endpoints

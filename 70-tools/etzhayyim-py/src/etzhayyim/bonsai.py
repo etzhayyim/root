@@ -26,7 +26,7 @@ _TIER_HINTS: dict[str, list[str]] = {
     "flower": ["test_", "_test", ".spec.", ".test."],
     "leaf":   [".md", ".txt", ".yaml", ".yml", ".toml"],
     "branch": [".ts", ".py", ".go"],
-    "trunk":  ["magatama.jsonld", "wrangler.jsonc", "pyproject.toml"],
+    "trunk":  ["kotodama.jsonld", "wrangler.jsonc", "pyproject.toml"],
     "seed":   ["deps.toml", "CLAUDE.md"],
 }
 
@@ -256,7 +256,7 @@ def bonsai_canopy(min_eta: float, max_eta: float, status_filter: str,
                   limit: int, json_out: bool) -> None:
     """Live canopy shape with Shannon η scores (requires DB — use Go binary)."""
     raise click.ClickException(
-        "bonsai canopy requires direct RisingWave access (etzhayyimdb). "
+        "bonsai canopy requires direct Kotoba/Datomic access (etzhayyimdb). "
         "Use the Go binary: etzhayyim bonsai canopy"
     )
 
@@ -268,7 +268,7 @@ def bonsai_canopy(min_eta: float, max_eta: float, status_filter: str,
 def bonsai_growth(growth_type: str, limit: int, json_out: bool) -> None:
     """Growth event log from vertex_growth_event (requires DB — use Go binary)."""
     raise click.ClickException(
-        "bonsai growth requires direct RisingWave access (etzhayyimdb). "
+        "bonsai growth requires direct Kotoba/Datomic access (etzhayyimdb). "
         "Use the Go binary: etzhayyim bonsai growth"
     )
 
@@ -280,6 +280,6 @@ def bonsai_growth(growth_type: str, limit: int, json_out: bool) -> None:
 def bonsai_release(actor_did: str, json_out: bool, yes: bool) -> None:
     """Release anastomosis gate for an actor (requires DB — use Go binary)."""
     raise click.ClickException(
-        "bonsai release requires direct RisingWave access (etzhayyimdb). "
+        "bonsai release requires direct Kotoba/Datomic access (etzhayyimdb). "
         "Use the Go binary: etzhayyim bonsai release"
     )

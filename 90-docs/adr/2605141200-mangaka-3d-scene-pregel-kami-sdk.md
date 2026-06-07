@@ -206,7 +206,7 @@ preview, per the per-game WASM pattern in `60-apps/CLAUDE.md`.
 
 CF Worker (`60-apps/etzhayyim-project-mangaka/appview/etzhayyim-wasm-mangaka-mng4k4x1/src/app.ts`)
 is **edge-only**. It accepts the XRPC procedure and forwards to
-bpmn-dispatcher → LangGraph Server. RisingWave writes happen in the
+bpmn-dispatcher → LangGraph Server. Kotoba/Datomic writes happen in the
 LangGraph pod via asyncpg.
 
 New table (timestamp-based Alembic migration):

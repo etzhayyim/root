@@ -11,7 +11,7 @@ authoritative_for:
   - Kubo + B2 datastore split
   - IPFS pin policy alignment with PDS uploadBlob
 related:
-  - adr-0048-risingwave-vultr-b2-primary
+  - adr-0048-kotoba-vultr-b2-primary
   - adr-2604251400-pds-uploadblob-r2-to-b2-migration
   - adr-2604251935-blockchain-vke-head-ingest
   - adr-0029-did-etzhayyim-method-specification
@@ -35,8 +35,8 @@ ADR-2604261717 (`atRecordCid` field on `stakedAttestation`) のいずれも
    で誰でも CID を取得できる (Cloudflare's /Pinata's gateway と同等の semantic)。
 2. **データ実体は Backblaze B2** (ADR-0048 / ADR-2604251400 の方針継続)。
    block は B2、IPFS metadata + DAG index のみ pod-local PVC。
-3. **Vultr VKE 上の pod** (RisingWave / geth-private と同じ cluster)。
-   独立 namespace `ipfs`、専用 node pool 不要 (既存 `risingwave-pool-32gb` に同居可)。
+3. **Vultr VKE 上の pod** (Kotoba/Datomic / geth-private と同じ cluster)。
+   独立 namespace `ipfs`、専用 node pool 不要 (既存 `kotoba-pool-32gb` に同居可)。
 4. **PDS / claim-stake / did:etzhayyim genesis-op** の blob を **自動 pin**。
    federation 時に CAR export 経由で外部 PDS にも届くため必須。
 5. **書き込み API は HMAC で gate** (`/api/v0/add`, `/api/v0/pin/add` 等)。
@@ -44,7 +44,7 @@ ADR-2604261717 (`atRecordCid` field on `stakedAttestation`) のいずれも
 
 外部 hosted (Pinata / web3.storage / Filecoin Saturn) 不採用根拠:
 
-- **Sovereignty**: ADR-0014 の self-hosted PLC、ADR-0048 の自前 RisingWave、
+- **Sovereignty**: ADR-0014 の self-hosted PLC、ADR-0048 の自前 Kotoba/Datomic、
   ADR-2604251935 の自前 BTC/ETH ノードと方針整合。
 - **Cost predictability**: Pinata 50 GB tier=$20/mo + 0.15 USD/GB egress、
   自前 B2 + Vultr LB は ~$30/mo 固定 (B2 storage $0.005/GB/mo + Bandwidth Ally で
@@ -90,7 +90,7 @@ internal services (PDS, claim-consumer, …):
 | **caddy TLS proxy** Deployment | ns `ipfs`, replicas=2 | `caddy:2.8.4-alpine` | req 25m / 32 Mi | mirror `geth-private/40-tls-proxy.yaml` |
 | **Vultr LB** | LB :443 | `service.beta.kubernetes.io/vultr-loadbalancer-protocol=tcp` | — | terminates TLS via caddy self-signed cert |
 | **CF Worker** `etzhayyim-ipfs-proxy` | CF account | TS, single file | — | route `ipfs.etzhayyim.com/*`; HMAC SS binding for write paths |
-| **B2 prefix** `s3://etzhayyim-nats/ipfs/blocks/` | Bandwidth Alliance, region `us-west-004` | shares the bucket already used by RisingWave Hummock state (ADR-0048); application key in `etzhayyim.b2` Keychain is scoped to this `bucketId` so no new key provisioning needed | — | block storage only; lifecycle = none (pinned) |
+| **B2 prefix** `s3://etzhayyim-nats/ipfs/blocks/` | Bandwidth Alliance, region `us-west-004` | shares the bucket already used by Kotoba/Datomic Hummock state (ADR-0048); application key in `etzhayyim.b2` Keychain is scoped to this `bucketId` so no new key provisioning needed | — | block storage only; lifecycle = none (pinned) |
 
 ## Datastore configuration
 
@@ -282,7 +282,7 @@ XRPC 経路は新規追加せず、Kubo HTTP API を直接プロキシする。�
 - IPFS HTTP API: https://docs.ipfs.tech/reference/kubo/rpc/
 - IPFS gateway spec: https://specs.ipfs.tech/http-gateways/
 - Backblaze B2 S3-compat: https://www.backblaze.com/docs/cloud-storage-s3-compatible-api
-- ADR-0048 — RisingWave Vultr B2 primary
+- ADR-0048 — Kotoba/Datomic Vultr B2 primary
 - ADR-2604251400 — PDS uploadBlob R2→B2 migration
 - ADR-2604251935 — blockchain VKE head ingest (same Vultr cluster pattern)
 - ADR-2604261717 — staked claim truth-incentive (`atRecordCid` → IPFS pin target)

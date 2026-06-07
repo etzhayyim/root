@@ -13,11 +13,11 @@ Validates:
   9. /xrpc/com.etzhayyim.apps.mangaka.getEpisode returns work + 20 pages
 
 Usage:
-    RW_URL=postgresql://root@localhost:4566/dev python manga-actor-integration.py
+    KOTOBA_URL=postgresql://root@localhost:4566/dev python manga-actor-integration.py
     # Or against staging:
     DISPATCHER_URL=http://dispatcher.etzhayyim.com:8080 \
     MANGAKA_URL=https://mangaka.etzhayyim.com \
-    RW_URL=$RW_URL \
+    KOTOBA_URL=$KOTOBA_URL \
     python manga-actor-integration.py
 
 Exit codes:
@@ -38,7 +38,7 @@ import urllib.error
 
 DISPATCHER_URL = os.environ.get("DISPATCHER_URL", "http://dispatcher.etzhayyim.com:8080")
 MANGAKA_URL = os.environ.get("MANGAKA_URL", "https://mangaka.etzhayyim.com")
-RW_URL = os.environ.get("RW_URL", "")
+KOTOBA_URL = os.environ.get("KOTOBA_URL", "")
 
 EXPECTED_TOOLS = {
     "com.etzhayyim.apps.mangaka.generateEpisode",
@@ -53,7 +53,7 @@ EXPECTED_PHASES = 6  # script / panels / balloons / pages / domain / post
 def http_post(url: str, payload: dict, timeout: int = 60) -> tuple[int, dict]:
     req = urllib.request.Request(
         url, data=json.dumps(payload).encode("utf-8"),
-        headers={"Content-Type": "application/json", "x-magatama-verified": "true"},
+        headers={"Content-Type": "application/json", "x-kotodama-verified": "true"},
         method="POST",
     )
     try:
@@ -72,10 +72,10 @@ def http_get(url: str, timeout: int = 30) -> tuple[int, dict]:
 
 
 def pg_query(sql: str, params: tuple = ()) -> list[dict]:
-    if not RW_URL:
-        raise RuntimeError("RW_URL not set")
+    if not KOTOBA_URL:
+        raise RuntimeError("KOTOBA_URL not set")
     import psycopg
-    with psycopg.connect(RW_URL) as conn:
+    with psycopg.connect(KOTOBA_URL) as conn:
         with conn.cursor() as cur:
             cur.execute(sql, params)
             cols = [d.name for d in cur.description]
@@ -95,8 +95,8 @@ def check(name: str, ok: bool, msg: str = "") -> None:
 
 def test_1_mcp_registry() -> None:
     print("\n[1/9] vertex_mcp_tool_def has 4 new tools")
-    if not RW_URL:
-        check("mcp registry", False, "RW_URL not set — skipping DB checks")
+    if not KOTOBA_URL:
+        check("mcp registry", False, "KOTOBA_URL not set — skipping DB checks")
         return
     rows = pg_query(
         "SELECT nsid FROM vertex_mcp_tool_def WHERE actor_did = 'did:web:mangaka.etzhayyim.com' AND nsid = ANY(%s)",
@@ -109,8 +109,8 @@ def test_1_mcp_registry() -> None:
 
 def test_2_bpmn_registered() -> None:
     print("\n[2/9] vertex_bpmn_process_def has 2 new processes")
-    if not RW_URL:
-        check("bpmn registry", False, "RW_URL not set")
+    if not KOTOBA_URL:
+        check("bpmn registry", False, "KOTOBA_URL not set")
         return
     rows = pg_query(
         "SELECT process_id FROM vertex_bpmn_process_def WHERE process_id = ANY(%s)",
@@ -162,7 +162,7 @@ def test_3_4_5_kick_and_wait() -> tuple[str, str] | None:
     check("bpmn completes", final_status == "complete", f"status={final_status}")
 
     print("\n[5/9] vertex_mangaka has 1 work + 20 pages")
-    if RW_URL and final_status:
+    if KOTOBA_URL and final_status:
         work_rows = pg_query(
             "SELECT COUNT(*) AS n FROM vertex_mangaka WHERE vertex_id = %s",
             (episode_uri,),
@@ -179,8 +179,8 @@ def test_3_4_5_kick_and_wait() -> tuple[str, str] | None:
 
 def test_6_ocel_trace(case_id: str) -> None:
     print("\n[6/9] mv_mangaka_process_trace has ~6 audit events")
-    if not RW_URL:
-        check("ocel trace", False, "RW_URL not set")
+    if not KOTOBA_URL:
+        check("ocel trace", False, "KOTOBA_URL not set")
         return
     rows = pg_query(
         "SELECT activity, status FROM mv_mangaka_process_trace WHERE case_id = %s ORDER BY ts_ms",
@@ -242,7 +242,7 @@ def test_9_get_episode(episode_uri: str) -> None:
 def main() -> int:
     print(f"DISPATCHER_URL={DISPATCHER_URL}")
     print(f"MANGAKA_URL={MANGAKA_URL}")
-    print(f"RW_URL={'<set>' if RW_URL else '<unset>'}")
+    print(f"KOTOBA_URL={'<set>' if KOTOBA_URL else '<unset>'}")
 
     test_1_mcp_registry()
     test_2_bpmn_registered()

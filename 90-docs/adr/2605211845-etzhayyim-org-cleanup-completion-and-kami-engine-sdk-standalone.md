@@ -75,7 +75,7 @@ Verified outcome (2026-05-21 18:00 JST): `etzhayyim` has **0** MOVED-tagged repo
 
 `etzhayyim/kami-engine-sdk` is created as a public repo at `github.com/etzhayyim/kami-engine-sdk`, seeded from `20-actors/kami-engine-sdk/`. The monorepo subdir remains the **source of truth**; the standalone repo is a read-only mirror.
 
-Package name renamed from `@etzhayyim/kami-engine-sdk` to `@etzhayyim/kami-engine-sdk`. Six in-tree referrers updated (`20-actors/kami-engine-sdk/{package.json,README.md,src/lib/{index,document/index,document/scene-bridge}.ts}`, `20-actors/magatama/sdk/magatama-host-sdk/package.json`, `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/src/genko-stub.ts`).
+Package name renamed from `@etzhayyim/kami-engine-sdk` to `@etzhayyim/kami-engine-sdk`. Six in-tree referrers updated (`20-actors/kami-engine-sdk/{package.json,README.md,src/lib/{index,document/index,document/scene-bridge}.ts}`, `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/package.json`, `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/src/genko-stub.ts`).
 
 ## (d) Scope of standalone mirror policy
 
@@ -99,7 +99,7 @@ Future SDK standalone publications follow the same one-by-one explicit decision 
 
 ## Operational note (lost cross-cutting work)
 
-During the same session that performed (a)–(c), a 6-wave commit plan was attempted for the religious-corp Pregel cell substrate (yoro / shinka / etzhayyim-sdk-py / joucho / council + 1 cross-cutting cleanup, CLAUDE.md milestones 28–32). Waves 1–5 landed locally as commits `64804ab2`, `88e97621`, `06946371`, `20d6c958`, `0b6bfa55`. The cross-cutting wave (94 staged entries: CLAUDE.md row 28–32 additions, deps.toml + lockfile bumps, 5 ADR additions, fleet.toml placement edits, magatama worker_main refactor under ADR-2605214000/2605215000, generic etzhayyim platform lexicons, Stripe-purge migrations) was committed externally as part of `e4868a8e` and then wiped by a parallel `git reset --hard origin/main` (reflog HEAD@{2}). Working-tree restoration of the cross-cutting did not happen.
+During the same session that performed (a)–(c), a 6-wave commit plan was attempted for the religious-corp Pregel cell substrate (yoro / shinka / etzhayyim-sdk-py / joucho / council + 1 cross-cutting cleanup, CLAUDE.md milestones 28–32). Waves 1–5 landed locally as commits `64804ab2`, `88e97621`, `06946371`, `20d6c958`, `0b6bfa55`. The cross-cutting wave (94 staged entries: CLAUDE.md row 28–32 additions, deps.toml + lockfile bumps, 5 ADR additions, fleet.toml placement edits, kotodama worker_main refactor under ADR-2605214000/2605215000, generic etzhayyim platform lexicons, Stripe-purge migrations) was committed externally as part of `e4868a8e` and then wiped by a parallel `git reset --hard origin/main` (reflog HEAD@{2}). Working-tree restoration of the cross-cutting did not happen.
 
 Waves 1–5 were pushed to `260521-cell-waves` and opened as PR #254, but CI failed across the board (vitest + tsc) because the supporting cross-cutting (lockfile + pyproject + fleet.toml) was missing. The user is reconstructing the same work in parallel in the working tree (untracked `shinka_murakumo.py` / `joucho_murakumo.py` / etc. verified byte-identical to the wave commits); PR #254 was closed and `260521-cell-waves` deleted to avoid duplication.
 

@@ -16,4 +16,4 @@
 - messaging endpoints: `/api/messages`, `/api/messages/send`
 - Agent manifest: `/.well-known/agent.json`
 - KV store: `default`
-- App namespace: `magatama-runtime`
+- App namespace: `kotodama-runtime`

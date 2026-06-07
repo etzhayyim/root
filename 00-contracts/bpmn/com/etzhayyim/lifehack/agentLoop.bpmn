@@ -6,7 +6,7 @@
   lifehack.agent.chat:
     1. fetches active topics + top tips + recent posts
     2. composes a lifehack system prompt
-    3. calls pymagatama.llm.call_tier(tier, system, user)
+    3. calls kotodama.llm.call_tier(tier, system, user)
     4. returns content / model / latency / row counts
 -->
 <bpmn:definitions

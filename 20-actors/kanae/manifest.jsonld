@@ -79,35 +79,35 @@
   "cells": [
     {
       "name": "flow_assembler",
-      "module": "magatama.cells.kanae_flow_assembler",
+      "module": "kotodama.cells.kanae_flow_assembler",
       "murakumoNode": "reuben",
       "phase": "continuous",
       "io": "danjo budget_ledger + procurement_graph datoms + gov.dataset.{budgetRecord,procurementRecord} → kotoba EAVT fundFlowEdge datoms (domestic full chain: appropriation ↔ outlay ↔ subaward ↔ award ↔ recipientLei)"
     },
     {
       "name": "intergov_flow",
-      "module": "magatama.cells.kanae_intergov_flow",
+      "module": "kotodama.cells.kanae_intergov_flow",
       "murakumoNode": "reuben",
       "phase": "continuous",
       "io": "gov.dataset.statisticsObservation (IMF SDMX / World Bank / OECD / UN) → fundFlowEdge datoms (flowClass = intergovernmental-transfer / aid-disbursement / loan; donor-juris ↔ recipient-juris ↔ instrument ↔ amount ↔ period)"
     },
     {
       "name": "flow_narrative",
-      "module": "magatama.cells.kanae_flow_narrative",
+      "module": "kotodama.cells.kanae_flow_narrative",
       "murakumoNode": "gad",
       "phase": "continuous",
       "io": "fundFlowEdge subgraph → Murakumo-LLM flowNarrative (factual, source-cited, NON-adjudicating; G4 + G5 + G7)"
     },
     {
       "name": "viz_compiler",
-      "module": "magatama.cells.kanae_viz_compiler",
+      "module": "kotodama.cells.kanae_viz_compiler",
       "murakumoNode": "gad",
       "phase": "periodic (event)",
       "io": "fundFlowEdge subgraph + flowNarrative → visualizationManifest (kami-engine WASM scene; aggregate-first; each manifest carries the reproducing kotoba-kqe query)"
     },
     {
       "name": "publish",
-      "module": "magatama.cells.kanae_publish",
+      "module": "kotodama.cells.kanae_publish",
       "murakumoNode": "naphtali",
       "phase": "periodic (event)",
       "io": "aggregate visualizationManifest → published IPFS-pinned artifact + Council Lv6+ ≥3 attestation chain"

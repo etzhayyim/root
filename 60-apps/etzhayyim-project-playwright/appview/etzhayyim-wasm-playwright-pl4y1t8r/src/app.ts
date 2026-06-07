@@ -1,7 +1,7 @@
 import {
   asAgentTool, createKyselyDb, createWorkerExport, withCapabilityTags,
   type HostSDK, nowISO, str, genID, nsid,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 // CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 
 const ACTOR_NAME = "playwright";

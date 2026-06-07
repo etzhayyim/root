@@ -1,6 +1,6 @@
 ---
 id: adr-2605111200-cf-worker-edge-only-no-rw-connection
-title: "CF Worker = Edge-Only; RisingWave 接続は K8s Pod / Granian Server のみ"
+title: "CF Worker = Edge-Only; Kotoba/Datomic 接続は K8s Pod / Granian Server のみ"
 status: active
 doc_type: adr
 topic: cf-worker-edge-only-rw-pod-only
@@ -10,7 +10,7 @@ phase_status: "Phase 1 complete 2026-05-11 (SDK fail-fast + 148 active wrangler 
 priority: 9.5
 axis: architecture
 weight: 0.95
-priority_note: "CRITICAL — CF Worker から RisingWave (Hyperdrive) への接続を全面禁止。DB I/O は K8s Pod / Granian / SpiffWorkflow worker のみ"
+priority_note: "CRITICAL — CF Worker から Kotoba/Datomic (Hyperdrive) への接続を全面禁止。DB I/O は K8s Pod / Granian / SpiffWorkflow worker のみ"
 authoritative_for:
   - cf-worker-rw-connection-prohibition
   - hyperdrive-binding-removal-from-worker
@@ -18,7 +18,7 @@ authoritative_for:
   - rw-server-side-only-access-rule
   - createKyselyDb-deprecation
 related:
-  - adr-0002-persistence-risingwave-only
+  - adr-0002-persistence-kotoba-only
   - adr-2604282300
   - adr-2605080600-langgraph-server-granian-l3-runtime
   - adr-2605081200-spiffworkflow-bpmn-engine-replacement
@@ -34,7 +34,7 @@ amended_by: []
 
 # Goal
 
-CF Worker から RisingWave (Hyperdrive 経由) への接続を **全面禁止** する。
+CF Worker から Kotoba/Datomic (Hyperdrive 経由) への接続を **全面禁止** する。
 domain write/read を含む全 DB I/O は K8s Pod 側 (LangGraph Server + Granian / SpiffWorkflow BPMN worker / Python worker pool) に集約する。
 
 ADR-0081 (Worker-direct Hyperdrive Persistence) を **完全に supersede** する。
@@ -44,24 +44,24 @@ ADR-2604282300 が暗黙に許容していた T3 Worker の直接 DB write/read 
 
 - 禁止対象: 全 CF Worker から `env.HYPERDRIVE` 経由の PostgreSQL 接続。
 - 撤去対象: 全 `wrangler.jsonc` の `"hyperdrive"` binding。
-- 廃止対象: `@etzhayyim/magatama-host-sdk` の `createKyselyDb()` / `setKyselyHyperdrive()` の "Worker 内 DB connection 生成" 機能。型エクスポートは残し、関数は throw 化する。
+- 廃止対象: `@etzhayyim/kotodama-host-sdk` の `createKyselyDb()` / `setKyselyHyperdrive()` の "Worker 内 DB connection 生成" 機能。型エクスポートは残し、関数は throw 化する。
 - 移行先: bpmn-dispatcher → LangGraph Server (`/runs`) / SpiffWorkflow BPMN worker / 既存 K8s pod (`zeebe-worker`, `claim-consumer-actor`, 等)。
 
 # Executive Summary
 
 | Concern | Before (ADR-0081) | After (this ADR) |
 |---|---|---|
-| Domain write | Worker → `createKyselyDb(env.HYPERDRIVE)` → RisingWave (1-RTT) | Worker → XRPC → bpmn-dispatcher → LangGraph/Spiff/pod → RisingWave |
-| Domain read | Worker → `createKyselyDb` → RisingWave | Worker → XRPC → dispatcher → pod query → JSON response |
+| Domain write | Worker → `createKyselyDb(env.HYPERDRIVE)` → Kotoba/Datomic (1-RTT) | Worker → XRPC → bpmn-dispatcher → LangGraph/Spiff/pod → Kotoba/Datomic |
+| Domain read | Worker → `createKyselyDb` → Kotoba/Datomic | Worker → XRPC → dispatcher → pod query → JSON response |
 | Wrangler `hyperdrive` binding | 全 148 Worker に存在 | **全削除** |
 | `createKyselyDb()` in Worker | 正規 API (91 ファイル使用) | **runtime throw** (`WorkerDBProhibitedError`) |
-| 接続元 (RisingWave PG :4566) | CF edge + K8s pod 混在 | **K8s pod のみ** |
+| 接続元 (Kotoba/Datomic PG :4566) | CF edge + K8s pod 混在 | **K8s pod のみ** |
 | SPoF | Hyperdrive origin pool + per-Worker isolate | K8s pod (replica + HPA + circuit breaker) |
 | Audit/Observability | 各 Worker isolate に分散 | dispatcher 集約 (`x-internal-trust` + OCEL emit) |
 
 # Decision
 
-## 1. CF Worker からの RisingWave 接続を全面禁止
+## 1. CF Worker からの Kotoba/Datomic 接続を全面禁止
 
 CF Worker (T1 / T2 / T3 / infra すべて) は `env.HYPERDRIVE` を **持たない**。
 binding 自体を `wrangler.jsonc` から削除する。
@@ -81,7 +81,7 @@ binding 自体を `wrangler.jsonc` から削除する。
 
 ## 2. SDK 側で fail-fast
 
-`@etzhayyim/magatama-host-sdk/src/kysely.ts`:
+`@etzhayyim/kotodama-host-sdk/src/kysely.ts`:
 
 ```ts
 export class WorkerDBProhibitedError extends Error {
@@ -134,7 +134,7 @@ T3 Worker 内で `createKyselyDb()` を呼ぶことは禁止。
 |---|---|---|
 | **Phase 1 (本 ADR 同時)** | (a) SDK `createKyselyDb` throw 化、(b) 全 wrangler.jsonc から `hyperdrive` binding 削除、(c) 新 ADR commit | **immediate** |
 | **Phase 2** | 91 ファイルの handler 実体を bpmn-dispatcher → LangGraph/Spiff/pod 経由に書き換え。`migrations` テーブルでファイル単位 tracking。 | 別 PR (per-actor) |
-| **Phase 3** | `magatama-host-sdk` から `createKyselyDb` 関数本体と Hyperdrive dialect コード自体を削除 (全 callsite が移行済になったら) | 後続 PR |
+| **Phase 3** | `kotodama-host-sdk` から `createKyselyDb` 関数本体と Hyperdrive dialect コード自体を削除 (全 callsite が移行済になったら) | 後続 PR |
 
 Phase 1 後、未移行 Worker は handler 内 `createKyselyDb` 呼び出し時に **runtime で throw する**。これは意図的な fail-fast。型/コンパイルは通る (`env.HYPERDRIVE` が undefined になるだけ) ので deploy 自体は通る。
 
@@ -183,22 +183,22 @@ Per `60-apps/etzhayyim-project-<actor>/appview/.../src/app.ts`:
 - ADR-2604282300 (CF Worker Edge Layer) — **amended**: T3 DB write carve-out removed
 - ADR-2605080600 (LangGraph Server + Granian L3 Runtime) — migration target
 - ADR-2605081200 (SpiffWorkflow BPMN engine replacement) — BPMN-native migration target
-- ADR-0002 (RisingWave single persistence) — unchanged
-- `20-actors/magatama/sdk/magatama-host-sdk/src/kysely.ts` — throw 化
+- ADR-0002 (Kotoba/Datomic single persistence) — unchanged
+- `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/kysely.ts` — throw 化
 - `50-infra/k8s/{shigotoba-jobs-actor,claim-consumer-actor,medical-coverage-ingester,intel-dependency-worker,lg-yatabase}/` — 既存 pod-side RW connection precedent
 
 # Operational Prerequisites (2026-05-11 / yatabase BMC cut-over learnings)
 
 Phase 2 で migrate する actor 全部 に共通する infra gating 条件。yatabase BMC cycle (P55, `60-apps/etzhayyim-project-yatabase/deps.toml [product.lean_cycles.cycle_20260511_08]`) でハマった事象を将来の cut-over に伝えるための注記。
 
-1. **NATS JetStream streams MUST exist before RisingWave compute restart.**
+1. **NATS JetStream streams MUST exist before Kotoba/Datomic compute restart.**
    RW catalog に `CREATE TABLE ... WITH (connector='nats', stream='X', ...)` が登録されていても、NATS server に該当 stream が存在しないと RW source reader が 1s retry を回し続け、foreground DDL queue 全体が permanent block する (Hummock barrier coordination が `stream NOT_FOUND` 例外で advance しない)。修復: nats-box pod 経由で空 stream を作成 (`nats stream add NAME --subjects 'subj.>' --storage memory|file ...`)。`max_file_store=0` の cluster は `--storage memory` 必須。
 
 2. **runpod / Virtual Kubelet node が join すると DaemonSet 伝播が壊れる.**
    VK は `NoSchedule` taint を持っていても DaemonSet pods が Pending stuck し、`calico-node` / `kube-proxy` / `csi-vultr-node` / `konnectivity-agent` の Desired/Ready が乖離する。既存 long-lived pod (cloudflared など) が新規 ClusterIP Service / podIP に到達できない (`dial tcp ... i/o timeout`)。修復: `kubectl delete node <vk>` + DaemonSet pods 強制削除。Virtual Kubelet を本格運用する場合は DaemonSet 側に `nodeAffinity` で VK を exclude するパッチが必要。
 
 3. **compactor crashloop は schema apply の隠れた gating.**
-   Level 0 SST 数が 100+ / 数 GB に達すると compactor が OOM-restart を繰り返す。外部からは "DDL queue empty + SlowDown 無し + actors all RUNNING" に見えるが新規 CREATE TABLE が **無音で hang** する。`SHOW JOBS` の progress が 0% のまま no-error。修復: compactor の memory limit 拡張 + L0 → L1 compaction 完了待ち。`kubectl -n risingwave logs <meta-pod> | grep "Level 0 has"` で監視。
+   Level 0 SST 数が 100+ / 数 GB に達すると compactor が OOM-restart を繰り返す。外部からは "DDL queue empty + SlowDown 無し + actors all RUNNING" に見えるが新規 CREATE TABLE が **無音で hang** する。`SHOW JOBS` の progress が 0% のまま no-error。修復: compactor の memory limit 拡張 + L0 → L1 compaction 完了待ち。`kubectl -n kotoba logs <meta-pod> | grep "Level 0 has"` で監視。
 
 4. **`asyncpg` から RW へ繋ぐ pool は `connection_class` で UNLISTEN を no-op に上書き必須.**
    asyncpg の `Connection._reset()` が pool release 毎に `UNLISTEN *;` を発行する。RW は LISTEN/UNLISTEN 未対応で `sql parser error: expected statement, found: UNLISTEN` を返し connection が壊れる。実装例: `60-apps/etzhayyim-project-yatabase/lg/lg_yatabase/bmc/db.py` の `_RwConnection(asyncpg.Connection)` で `async def reset(self, *, timeout=None) -> None: return None` を override。
@@ -207,15 +207,15 @@ Phase 2 で migrate する actor 全部 に共通する infra gating 条件。ya
    transitive dep に依存すると image build は通るが起動時に `executable not found in $PATH` で crashloop する (langgraph はランタイム dep として uvicorn を強制しない)。
 
 6. **AT Lexicon の index 定義に `column DESC` は使わない.**
-   RisingWave は ASC index しかサポートせず、`CREATE INDEX ... ON tbl (col DESC)` は accepted されるが FOREGROUND DDL のまま無限 hang する。降順 scan が必要な場合は plain ASC index にし、planner の backward scan に任せる。MV `ORDER BY ... DESC` (DISTINCT ON の latest 抽出など) は OK — index definition との切り分けに注意。
+   Kotoba/Datomic は ASC index しかサポートせず、`CREATE INDEX ... ON tbl (col DESC)` は accepted されるが FOREGROUND DDL のまま無限 hang する。降順 scan が必要な場合は plain ASC index にし、planner の backward scan に任せる。MV `ORDER BY ... DESC` (DISTINCT ON の latest 抽出など) は OK — index definition との切り分けに注意。
 
 7. **B2 SlowDown 503 は RW cold-start cache refill storm で trigger.**
-   `[storage.cache_refill] data_refill_levels=0-6` 設定 (`50-infra/vultr/risingwave/helm/values.yaml`) で defense-in-depth。bulk ingest 中は `SET dml_rate_limit` 必須。詳細: `50-infra/vultr/risingwave/deps.toml [risingwave_vultr.incident_2026_04_25]`。
+   `[storage.cache_refill] data_refill_levels=0-6` 設定 (`50-infra/vultr/kotoba/helm/values.yaml`) で defense-in-depth。bulk ingest 中は `SET dml_rate_limit` 必須。詳細: `50-infra/vultr/kotoba/deps.toml [kotoba_vultr.incident_2026_04_25]`。
 
 8. **dispatcher Cloudflare 502 は app 変更前に tunnel pod の node readiness を見る.**
    2026-05-14 に `dispatcher.etzhayyim.com` が Cloudflare 502 を返したが、nginx ingress / Vultr LB 直叩き
    (`--resolve dispatcher.etzhayyim.com:443:108.61.207.153`) は `HTTP/2 200 {"status":"ok"}` だった。
-   原因は `cloudflared-bpmn-dispatcher` が `NotReady` の `risingwave-pool-58gb-e693733cc5dd`
+   原因は `cloudflared-bpmn-dispatcher` が `NotReady` の `kotoba-pool-58gb-e693733cc5dd`
    node 上に残り、origin lookup が `lookup bpmn-dispatcher.mitama-udf.svc.cluster.local: i/o timeout`
    になっていたこと。修復は app / Worker 変更ではなく、cloudflared Deployment を
    `osm-ingest-pool` へ nodeSelector で固定し、`workload=osm-ingest:NoSchedule` taint を toleration
@@ -234,7 +234,7 @@ dashboard was moved into the SvelteKit route and deployed as
 
 This remains ADR-compliant as a **read-only edge observability exception**:
 
-- no RisingWave / Hyperdrive binding;
+- no Kotoba/Datomic / Hyperdrive binding;
 - no business-domain write path;
 - `/api/data` reads Cloudflare GraphQL with `CF_API_TOKEN` / `CF_ZONE_ID`;
 - operational XRPC/MCP defaults point to `mcp.etzhayyim.com`, not `atproto.etzhayyim.com`.

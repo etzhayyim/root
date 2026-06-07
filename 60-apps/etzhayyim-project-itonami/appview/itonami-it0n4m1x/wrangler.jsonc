@@ -1,10 +1,10 @@
 {
-  "name": "magatama-it0n4m1x",
+  "name": "kotodama-it0n4m1x",
   "main": "src/app.ts",
   "compatibility_date": "2025-03-17",
   "compatibility_flags": ["nodejs_compat", "nodejs_als"],
   "alias": {
-    "@etzhayyim/magatama-host-sdk": "/Users/junkawasaki/etzhayyim/etzhayyim-apps-etzhayyim/20-actors/magatama/sdk/magatama-host-sdk/src/index.ts",
+    "@etzhayyim/kotodama-host-sdk": "/Users/junkawasaki/etzhayyim/etzhayyim-apps-etzhayyim/40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/index.ts",
     "pg": "/Users/junkawasaki/etzhayyim/etzhayyim-apps-etzhayyim/node_modules/.pnpm/pg@8.20.0/node_modules/pg/lib/index.js",
     "@etzhayyim/xrpc/transport": "/Users/junkawasaki/etzhayyim/etzhayyim-apps-etzhayyim/10-protocol/xrpc/src/transport.ts",
     "@etzhayyim/xrpc/auth": "/Users/junkawasaki/etzhayyim/etzhayyim-apps-etzhayyim/10-protocol/xrpc/src/auth.ts",

@@ -8,7 +8,7 @@ authoritative: true
 last_verified: 2026-05-07
 related:
   - adr-2605010000
-  - 90-docs/adr/0048-risingwave-vultr-b2-primary.md
+  - 90-docs/adr/0048-kotoba-vultr-b2-primary.md
   - adr-2604292130
   - 50-infra/vultr/cloudflared/blockscout-tunnel.yaml
 ---

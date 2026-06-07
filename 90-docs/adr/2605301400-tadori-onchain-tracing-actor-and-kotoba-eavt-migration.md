@@ -1,6 +1,6 @@
 ---
 id: adr-2605301400-tadori-onchain-tracing-actor-and-kotoba-eavt-migration
-title: "ADR-2605301400: 辿 (tadori) — authorized on-chain transaction-tracing + actor-attribution Tier-B actor, kotoba-EAVT-native; migrates malak pursuit + ipaddress + yabai off yata SQL / RisingWave"
+title: "ADR-2605301400: 辿 (tadori) — authorized on-chain transaction-tracing + actor-attribution Tier-B actor, kotoba-EAVT-native; migrates malak pursuit + ipaddress + yabai off yata SQL / Kotoba/Datomic"
 status: proposed
 doc_type: adr
 topic: tadori-onchain-tracing-actor
@@ -9,11 +9,11 @@ last_verified: 2026-05-30
 priority: 8.0
 axis: actor-architecture
 weight: 0.80
-priority_note: "Names a new Tier-B actor (tadori) as the kotoba-native consolidation point for authorized crypto-asset transaction tracing and actor attribution, and specifies the migration of the three existing fragmented stores (malak pursuit Pregel output, ipaddress SQL graph, yabai SQL graph) onto kotoba-kqe EAVT. Subordinate to the substrate-engine charter ADR-2605262130 (no RisingWave / no projection layer) and to the Transparent Religious Force invariant ADR-2605192100 §1.12 (authorized-investigation-only, open-source, 1 SBT = 1 vote)."
+priority_note: "Names a new Tier-B actor (tadori) as the kotoba-native consolidation point for authorized crypto-asset transaction tracing and actor attribution, and specifies the migration of the three existing fragmented stores (malak pursuit Pregel output, ipaddress SQL graph, yabai SQL graph) onto kotoba-kqe EAVT. Subordinate to the substrate-engine charter ADR-2605262130 (no Kotoba/Datomic / no projection layer) and to the Transparent Religious Force invariant ADR-2605192100 §1.12 (authorized-investigation-only, open-source, 1 SBT = 1 vote)."
 authoritative_for:
   - new Tier-B actor `tadori` (authorized on-chain tx tracing + actor attribution)
   - kotoba-kqe EAVT datom schema for tx / address / cluster / label / case / ip-observation / dns-observation / attribution / risk
-  - migration of malak `wallet_deep_inspect_pursuit` + `address_label_pursuit` Pregel output off filesystem/RisingWave onto kotoba QuadStore
+  - migration of malak `wallet_deep_inspect_pursuit` + `address_label_pursuit` Pregel output off filesystem/Kotoba/Datomic onto kotoba QuadStore
   - migration of ipaddress.etzhayyim.com SQL graph off yata Workers RPC onto kotoba-kqe
   - migration of yabai.etzhayyim.com SQL graph (CTI / DNS / IP-history / access-audit) off yata Workers RPC onto kotoba-kqe
 depends_on:
@@ -35,10 +35,10 @@ notes: |
   was designed and running on kotoba, and whether tx history / IP / DNS data
   was stored in kotoba datomic. Audit found that the capability exists but is
   (1) fragmented across three components and (2) NOT on kotoba: malak pursuit
-  Pregels write filesystem + RisingWave (ADR-2604251935 vertex_blockchain_*),
+  Pregels write filesystem + Kotoba/Datomic (ADR-2604251935 vertex_blockchain_*),
   ipaddress + yabai write "SQL graph (yata Workers RPC)". Both stores are
   prohibited by the substrate-engine charter (ADR-2605262130 strengthened the
-  no-RisingWave invariant to also cover read backends; yata SQL is a non-kotoba
+  no-Kotoba/Datomic invariant to also cover read backends; yata SQL is a non-kotoba
   primary store). This ADR proposes the consolidation actor + the migration.
 ---
 
@@ -65,18 +65,18 @@ established the current state honestly:
      `IntelDevice` (access audit with accessor_ip + device fingerprint).
 
 2. **None of it runs on kotoba.** Storage today:
-   - malak Pregel output → filesystem (`persist_fs`) + RisingWave tables
+   - malak Pregel output → filesystem (`persist_fs`) + Kotoba/Datomic tables
      `vertex_blockchain_block` / `vertex_blockchain_tx` (ADR-2604251935).
    - ipaddress + yabai → "SQL graph (yata Workers RPC)".
 
 3. **Both stores are now prohibited.** ADR-2605262130 (kotoba substrate-engine charter)
    made `kotoba-kqe` arrangements the **only** authorized hot-path read engine over
    content-addressed blocks, removed the projection layer entirely (D7), and
-   strengthened the no-RisingWave invariant to cover **read backends** as well as
+   strengthened the no-Kotoba/Datomic invariant to cover **read backends** as well as
    primary write stores (D-row 4, D-row 12). yata Workers-RPC SQL graph is a non-kotoba
    primary store and falls under the same RW-free invariant (ADR-2605172000). So the
    honest answer to the user was: **the data is NOT in kotoba datomic; it is in
-   RisingWave + yata SQL, which the current charter prohibits.**
+   Kotoba/Datomic + yata SQL, which the current charter prohibits.**
 
 4. **Constitutional posture of a tracing actor.** A crypto-tracing / forensic actor
    touches third-party data (addresses, IPs, attribution). Under the Transparent
@@ -140,7 +140,7 @@ content addresses; `T` is the kotoba Commit-DAG transaction time. Attribute name
 
 | Entity class | Key attributes (`A`) | Source today → migrates from |
 |---|---|---|
-| `tx` (on-chain transaction) | `tadori/chain`, `tadori/tx-hash`, `tadori/from`, `tadori/to`, `tadori/value`, `tadori/token`, `tadori/block`, `tadori/ts` | RisingWave `vertex_blockchain_tx` (ADR-2604251935) + malak `pages[*]` |
+| `tx` (on-chain transaction) | `tadori/chain`, `tadori/tx-hash`, `tadori/from`, `tadori/to`, `tadori/value`, `tadori/token`, `tadori/block`, `tadori/ts` | Kotoba/Datomic `vertex_blockchain_tx` (ADR-2604251935) + malak `pages[*]` |
 | `addr` (address) | `tadori/chain`, `tadori/address`, `tadori/checksum-valid`, `tadori/is-contract`, `tadori/verified`, `tadori/balance-usd`, `tadori/tx-count` | malak `fetch_address_meta` / `counterparties` |
 | `cluster` (attribution cluster) | `tadori/heuristic` (common-input / change / temporal), `tadori/member` (multi-valued → addr), `tadori/class` (cex_cold / cex_hot / dex_router / bridge_pool / mixer / whale_eoa / unknown_eoa), `tadori/confidence` | malak `classify` verdict |
 | `label` (address label) | `tadori/subject` (→ addr), `tadori/source` (local-db / bscscan / abi / ofac-sdn / tornado / chainalysis / murakumo-llm), `tadori/class`, `tadori/confidence` | malak `address_label_pursuit.labels[*]` |
@@ -162,7 +162,7 @@ This means yabai's `correlate-ip-activity` / `correlate-accessor-activity` and i
 graph edges become **kotoba-kqe Datalog rules**, not bespoke SQL — no separate projection
 (D7 of ADR-2605262130).
 
-## D3. Migration — yata SQL / RisingWave → kotoba-kqe (5 phases)
+## D3. Migration — yata SQL / Kotoba/Datomic → kotoba-kqe (5 phases)
 
 Aligned to ADR-2605262130's phase numbering (its **Phase 2** is the `kotoba-kqe` Quad
 read+write cutover). Default Phase 0 dry-run is preserved throughout (malak contract).
@@ -170,10 +170,10 @@ read+write cutover). Default Phase 0 dry-run is preserved throughout (malak cont
 | Phase | Scope | Cutover | Acceptance gate |
 |---|---|---|---|
 | **T0** (this ADR, R0) | Scaffold `20-actors/tadori/` (CLAUDE.md + manifest + cells + lex) + the EAVT schema above as `00-contracts/lexicons/com/etzhayyim/tadori/*.json`. No data moved. | none | schema lexicons validate; substrate-boundary linter green |
-| **T1** | **malak Pregel output** → kotoba QuadStore. `wallet_deep_inspect_pursuit` / `address_label_pursuit` `emit_pegel`/`persist_fs` steps additionally write `tx`/`addr`/`cluster`/`label`/`case` datoms via `@etzhayyim/sdk` (`kotoba-graph`). RisingWave `vertex_blockchain_tx` becomes a read-shadow, then retired. | dual-write → verify → drop RW | round-trip: a Takahashi-case replay produces bit-identical classifications reading from kotoba vs RW |
+| **T1** | **malak Pregel output** → kotoba QuadStore. `wallet_deep_inspect_pursuit` / `address_label_pursuit` `emit_pegel`/`persist_fs` steps additionally write `tx`/`addr`/`cluster`/`label`/`case` datoms via `@etzhayyim/sdk` (`kotoba-graph`). Kotoba/Datomic `vertex_blockchain_tx` becomes a read-shadow, then retired. | dual-write → verify → drop RW | round-trip: a Takahashi-case replay produces bit-identical classifications reading from kotoba vs RW |
 | **T2** | **ipaddress SQL graph** → `kotoba-kqe`. `IPAddress`/`IPRange`/`ASN`/`WhoisSnapshot`/`Geolocation`/`ReverseDns` become `ip-obs`/`dns-obs` datoms. ipaddress `G()` reads re-point to `kotoba-kqe` arrangements. | dual-read → cut | `lookup_ip` / `analyze_ip` return identical enrichment from kotoba |
 | **T3** | **yabai SQL graph** → `kotoba-kqe`. `DnsRecord`/`IpLocationHistory`/`IpHostingHistory`/`IntelAccessLog`/`IntelSession`/`IntelDevice` → `dns-obs`/`ip-obs` + (access-audit) `com.etzhayyim.encrypted.*` envelope. `correlate-ip-activity` → Datalog rule over VAET. | dual-read → cut | `correlate-ip-activity` output set-equal under kotoba; access-audit PII verified encrypted |
-| **T4** | Retire yata Workers-RPC SQL graph + RisingWave `vertex_blockchain_*` for these three actors. Remove projection markers. | git rm + archive marker | substrate-boundary linter rejects any residual `yata`/`RisingWave` import in tadori/ipaddress/yabai |
+| **T4** | Retire yata Workers-RPC SQL graph + Kotoba/Datomic `vertex_blockchain_*` for these three actors. Remove projection markers. | git rm + archive marker | substrate-boundary linter rejects any residual `yata`/`Kotoba/Datomic` import in tadori/ipaddress/yabai |
 
 Each cutover is **dual-write/dual-read → verify set-equality → drop legacy**, never a
 big-bang. The migration touches *which engine stores the datom*, not the wire semantics
@@ -234,7 +234,7 @@ Rejected as half the user's ask. It fixes the charter violation (data in kotoba)
 leaves the cross-store attribution join unowned — the actual "track the actor" capability
 stays a manual, per-investigation effort. The VAET-native join is the point.
 
-## Alt-3: Keep yata SQL / RisingWave for "analytics only"
+## Alt-3: Keep yata SQL / Kotoba/Datomic for "analytics only"
 Rejected — directly prohibited by ADR-2605262130 D7 + D-row 4/12 (RW and SQL side stores
 banned as read backends, not just primary stores). `kotoba-kqe` arrangements are the only
 authorized hot-path read engine.
@@ -251,7 +251,7 @@ datom, never the system of record.
 - ADR-2605152000 (malak `wallet_deep_inspect_pursuit` + `address_label_pursuit` Pregels)
 - ADR-2605172000 (malak onion/ransomware tracking)
 - ADR-2605131600 (malak LangGraph + Pregel + LangServe orchestration)
-- ADR-2604251935 (blockchain VKE head ingest — RisingWave `vertex_blockchain_*`, migration source)
+- ADR-2604251935 (blockchain VKE head ingest — Kotoba/Datomic `vertex_blockchain_*`, migration source)
 - ADR-2605215000 (Murakumo-only inference invariant)
 - ADR-2605231525 (server-side signing capability — no platform private key)
 - ADR-2605181100 (confidential records `com.etzhayyim.encrypted.*` envelope)

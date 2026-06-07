@@ -1,0 +1,19 @@
+;; com.etzhayyim.businessManager.budgetAllocation — lexicon (EDN form)
+;; A budget allocation for an account in a fiscal year. Actual spend is computed from posted
+;; journal entries (Σ debit on the account); over-budget is a FLAG, never a silent overwrite.
+;; ADR-2606072000
+{:lexicon 1
+ :id "com.etzhayyim.businessManager.budgetAllocation"
+ :defs
+ {:main
+  {:type "record"
+   :key "tid"
+   :record
+   {:type "object"
+    :required ["budgetId" "account" "fiscalYear" "allocatedMinor"]
+    :properties
+    {:budgetId       {:type "string"}
+     :account        {:type "string" :description "chart-of-accounts code"}
+     :fiscalYear     {:type "string" :description "JP FY label, e.g. FY2026"}
+     :allocatedMinor {:type "integer" :description "budgeted amount (JPY minor)"}
+     :postedBy       {:type "string" :description "member DID (G4)"}}}}}}

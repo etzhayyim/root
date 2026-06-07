@@ -79,7 +79,7 @@ merge/deploy authority and no platform master key**.
 
 tsukuroi is kotoba-native (ADR-2605262130): datom/EAVT facts on
 `kotoba-kqe`, records on MST under `com.etzhayyim.tsukuroi.*`. It does **not**
-reuse akuma's older RisingWave data plane.
+reuse akuma's older Kotoba/Datomic data plane.
 
 ## RemediationMandate contract (parallel to akuma's scope contract)
 
@@ -124,7 +124,7 @@ owner+target.
 
 ## Pregel cells (LangGraph; R0 path-reserved)
 
-Seven cells under `20-actors/magatama/cells/tsukuroi_*/`, each import-time
+Seven cells under `40-engine/kotoba/crates/kotoba-kotodama/cells/tsukuroi_*/`, each import-time
 `RuntimeError("tsukuroi R0 scaffold: activate via Council ADR + R1
 ratification")` until R1:
 
@@ -214,7 +214,7 @@ This actor **closes the loop akuma left open**:
 - **Edge**: SvelteKit CF Worker proxy `tsukuroi.etzhayyim.com` (edge only,
   ADR-2605111200)
 - **Runtime**: K8s LangServer pod `tsukuroi-langserver`; external MCP surface
-  via the `magatama` facade only (ADR-2605091400 cytoplasmic demotion)
+  via the `kotodama` facade only (ADR-2605091400 cytoplasmic demotion)
 - **Synthesis + validation**: egress-restricted namespace `tsukuroi-validate`
   with a NetworkPolicy reconciled from active mandates — egress allowed only
   to the owner-attested **git submission endpoint** (a fork remote), never to

@@ -40,7 +40,7 @@ superseded_by: []
 Phase 1 fills that gap. Three forces shape the design:
 
 1. **PHI confidentiality is non-negotiable.** Clinical records are 要配慮個人情報 (個保法 §2-3); the etzhayyim charter's Wellbecoming + 反個人主義 ontology raises this to a constitutional invariant. Plaintext PHI on MST is prohibited.
-2. **The substrate is RW-free.** No RisingWave, no Postgres, no fiat processor. AT MST + IPFS + Base L2 + USDC/ERC-4337. Apps that need insurance billing call `iryo.etzhayyim.com` (vendor) via consent capability.
+2. **The substrate is RW-free.** No Kotoba/Datomic, no Postgres, no fiat processor. AT MST + IPFS + Base L2 + USDC/ERC-4337. Apps that need insurance billing call `iryo.etzhayyim.com` (vendor) via consent capability.
 3. **FHIR R5 is the international portability anchor.** JP DPC, US MS-DRG, EU AR-DRG all flow through FHIR R5 + ICD-10 + LOINC + SNOMED. The lexicon must be a 1:1 FHIR R5 mirror so export is mechanical and ingestion from external EHRs lands without translation loss.
 
 # Decision
@@ -142,7 +142,7 @@ All three axes resolve to etzhayyim → `etzhayyim/root` is the correct home.
 ## Rollout
 
 1. **This commit** — Actor manifest + 7 inner-type lexicons + 13 XRPC lexicons + ADR + Svelte SuperApp UI scaffold.
-2. **Next: SDK seam + Phase 1 pipelines** — `@etzhayyim/sdk` `encryptedWrite` / `encryptedRead` need karute-specific tightenings (recipient role enforcement, public-meta projector). Pipeline implementation lives in `20-actors/magatama/cells/` (Pregel cells), not the actor manifest itself.
+2. **Next: SDK seam + Phase 1 pipelines** — `@etzhayyim/sdk` `encryptedWrite` / `encryptedRead` need karute-specific tightenings (recipient role enforcement, public-meta projector). Pipeline implementation lives in `40-engine/kotoba/crates/kotoba-kotodama/cells/` (Pregel cells), not the actor manifest itself.
 3. **Then: lefthook `karute-phi-plaintext-guard`** — diff-grep that blocks any plaintext PHI write.
 4. **Phase 2** — pharmacy dispense flow, consent-capability ADR + iryo billing bridge, SOAP-assist on-device LLM, patient portal (read-only).
 5. **Phase 3** — 在宅医療 (home care) episode, telehealth video, second-opinion marketplace.
@@ -151,7 +151,7 @@ All three axes resolve to etzhayyim → `etzhayyim/root` is the correct home.
 
 ## A. Extend `iryo.etzhayyim.com:karute` path-based topology
 
-The Phase 1 iryo ADR (2605080800) sketches `:hospital` / `:clinic` / `:zaitaku`, suggesting `:karute` would follow naturally. Rejected because iryo is vendor-side (RisingWave + Stripe + DRG billing): putting patient-centric chart there means PHI lives in a substrate that the etzhayyim charter prohibits for confidential records. The two actors can interoperate (consent capability), but they belong in different repos for the same 3-axis reason that splits them at all.
+The Phase 1 iryo ADR (2605080800) sketches `:hospital` / `:clinic` / `:zaitaku`, suggesting `:karute` would follow naturally. Rejected because iryo is vendor-side (Kotoba/Datomic + Stripe + DRG billing): putting patient-centric chart there means PHI lives in a substrate that the etzhayyim charter prohibits for confidential records. The two actors can interoperate (consent capability), but they belong in different repos for the same 3-axis reason that splits them at all.
 
 ## B. Single-tier (no public meta, everything in encrypted envelope)
 

@@ -94,9 +94,9 @@ macOS launchd com.etzhayyim.keiei  (PID alive, KeepAlive=true)
        ├─ security find-generic-password -s etzhayyim.keiei -a LLM_BEARER → etzhayyim_LLM_API_KEY
        ├─ export etzhayyim_LLM_URL=https://gemma-e2b.etzhayyim.com/v1/chat/completions
        ├─ export KEIEI_LLM_MODEL=gemma-4-E2B-it
-       └─ exec python3 -m pymagatama.keiei --socket ~/Library/Caches/keiei.sock
+       └─ exec python3 -m kotodama.keiei --socket ~/Library/Caches/keiei.sock
             ↓
-        pymagatama.keiei.graph._llm.call_llm()    (lazy import, only when gate allows)
+        kotodama.keiei.graph._llm.call_llm()    (lazy import, only when gate allows)
             ↓ HTTPS POST (Authorization: Bearer)
         gemma-e2b.etzhayyim.com
             ↓ QUIC tunnel (cloudflared-keiei-llm × 2 replicas)
@@ -165,7 +165,7 @@ macOS launchd com.etzhayyim.keiei  (PID alive, KeepAlive=true)
 - Cloudflare Tunnel: free tier; 2 cloudflared replicas at 50m CPU /
   64Mi RAM each.
 - **Marginal monthly cost: ~$1** (PVC). Pod fits in the existing
-  `vhf-16c-58gb × 2` nodepool headroom (RisingWave compute uses
+  `vhf-16c-58gb × 2` nodepool headroom (Kotoba/Datomic compute uses
   ~24 GiB/pod; ~10 GiB/node remains free).
 
 ## 8. Anti-goals (explicit)

@@ -12,7 +12,7 @@ authoritative_for:
   - pyzeebe Channel-close intermittent bug (workaround documented)
 related:
   - adr-2604231328-animeka-bpmn-l40s-pipeline
-  - adr-0094-risingwave-stable-three-node-topology
+  - adr-0094-kotoba-stable-three-node-topology
 ---
 
 # Goal
@@ -34,9 +34,9 @@ pipeline; Vultr fallback retired 2026-05-09) — read that first.
 | 2026-04-26 ~23Z   | comfyui.etzhayyim.com gateway break-glass key rotated; pyzeebe `Bearer pod-inline` no longer matches → all comfyui.call return 401 |
 | 2026-04-28 14:47Z | Last 401 cutRunner audit before broker died |
 | 2026-04-28 ~14:50Z | Zeebe broker zeebe-0 starts OOMKilling (1.5Gi limit insufficient under live workload) |
-| 2026-04-28 12:48Z (= 21:48 +0900) | Code fix `fbf6b86f` on branch — adds `x-magatama-verified: true` to `task_generic_comfyui_call` matching shinshi_video pattern |
+| 2026-04-28 12:48Z (= 21:48 +0900) | Code fix `fbf6b86f` on branch — adds `x-kotodama-verified: true` to `task_generic_comfyui_call` matching shinshi_video pattern |
 | 2026-04-28 15:46Z | PR #1159 merged → main has the comfyui internal-trust shim |
-| 2026-04-28 22:48Z | pymagatama image 0.2.71 deployed (contains the shim) |
+| 2026-04-28 22:48Z | kotodama image 0.2.71 deployed (contains the shim) |
 | 2026-04-28 23:13Z | Broker yaml fix committed (`fa74bc7f3d5`, 1.5Gi → 4Gi mem + JVM Xmx 768m → 2g) |
 | 2026-04-29 04:17Z | `kubectl apply -f zeebe.yaml` — broker rolls to 4Gi, partitions recover |
 | 2026-04-29 04:26Z | Worker pod re-rolled, gRPC channel reset |
@@ -49,7 +49,7 @@ pipeline; Vultr fallback retired 2026-05-09) — read that first.
 
 1. **comfyui gateway 401** — root cause: pyzeebe sent `Bearer pod-inline`
    while the gateway's `COMFYUI_API_KEY` env had been rotated to a
-   different secret. Fix: send `x-magatama-verified: true` header
+   different secret. Fix: send `x-kotodama-verified: true` header
    instead, matching the existing pattern in
    `shinshi_video.py:_comfy_headers` (lines 60-71). Same gateway,
    already in production for shinshi for 6+ days, so no new attack
@@ -205,7 +205,7 @@ Track as: `pyzeebe-channel-close-recovery` — separate from animeka R0.
 ## v6 image regression — `ImportError: _t`
 
 `20260429-v6-amd64` failed at startup with
-`ImportError: cannot import name '_t' from 'pymagatama.zeebe_worker_main'`
+`ImportError: cannot import name '_t' from 'kotodama.zeebe_worker_main'`
 at `primitives/handotai.py:375`. v7 fixed it but the buggy source was
 never pushed to a tracked branch, so we can't audit the fix retro
 (no diff to learn from). If the same regression returns, ask the
@@ -248,5 +248,5 @@ once R0 verifies and R2 LoRA is integrated.
 - `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/animeka/{autopilot,cutRunner,generateInbetween,renderComposite}.bpmn`
 - `50-infra/runpod/comfyui-l40s/adapter/openai-comfyui-adapter.py`
 - `etzhayyim-root/50-infra/vultr/zeebe/zeebe.yaml` — broker resource budget
-- `20-actors/magatama/py/src/pymagatama/zeebe_worker_main.py:1936` — `task_generic_comfyui_call`
-- `20-actors/magatama/py/src/pymagatama/shinshi_video.py:60` — established x-magatama-verified pattern
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/zeebe_worker_main.py:1936` — `task_generic_comfyui_call`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/shinshi_video.py:60` — established x-kotodama-verified pattern
