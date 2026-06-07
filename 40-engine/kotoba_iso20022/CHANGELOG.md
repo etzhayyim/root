@@ -13,6 +13,7 @@ built purely from the open published standard (no proprietary SWIFT SDK).
 - **pain.002** CustomerPaymentStatusReport — build + parse
 - **pacs.008** FIToFICustomerCreditTransfer — build + parse
 - **pacs.002** FIToFIPaymentStatusReport — build + parse
+- **pacs.004** PaymentReturn — build + parse (reversal reconciliation)
 - **camt.053** BankToCustomerStatement — build + parse
 - **camt.054** BankToCustomerDebitCreditNotification — build + parse
 - **head.001** Business Application Header + CBPR+ `<Envelope>` (BAH
@@ -43,7 +44,7 @@ built purely from the open published standard (no proprietary SWIFT SDK).
 
 ### Quality
 - Dependency-free (stdlib only), Python ≥ 3.11
-- 217 tests, 97% branch / 99% line coverage
+- 224 tests, 97% branch / 99% line coverage
 - Passes `mypy --strict` clean (all 9 modules)
 - Full SWIFT IBAN-registry country-length set (ISO 13616); breadth
   round-trip + cross-currency (incl. 0- and 3-fraction-digit) tests

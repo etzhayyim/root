@@ -43,6 +43,8 @@ from .model import (
     OriginalPaymentStatus,
     Party,
     PaymentInstruction,
+    PaymentReturn,
+    PaymentReturnTransaction,
     PostalAddress,
     RemittanceInfo,
     StatementEntry,
@@ -72,6 +74,8 @@ __all__ = (
     "parse_camt054",
     "build_pain002",
     "parse_pain002",
+    "build_pacs004",
+    "parse_pacs004",
 )
 
 DEFAULT_VERSIONS: dict[str, str] = {
@@ -79,6 +83,7 @@ DEFAULT_VERSIONS: dict[str, str] = {
     "pain.002": "pain.002.001.10",
     "pacs.008": "pacs.008.001.08",
     "pacs.002": "pacs.002.001.10",
+    "pacs.004": "pacs.004.001.09",
     "camt.053": "camt.053.001.08",
     "camt.054": "camt.054.001.08",
 }
@@ -762,4 +767,81 @@ def parse_pain002(xml: str, version: Optional[str] = None) -> CustomerPaymentSta
         original_message_id=_text(root, ns, "OrgnlGrpInfAndSts/OrgnlMsgId") or "",
         original_message_name_id=_text(root, ns, "OrgnlGrpInfAndSts/OrgnlMsgNmId") or "",
         payment_statuses=tuple(payment_statuses),
+    )
+
+
+# --------------------------------------------------------------------------
+# pacs.004 — PaymentReturn (reversal of a settled transfer)
+# --------------------------------------------------------------------------
+
+
+def build_pacs004(msg: PaymentReturn, version: Optional[str] = None) -> str:
+    ns = urn_for(version or DEFAULT_VERSIONS["pacs.004"])
+    doc, root = _root(ns, "PmtRtr")
+    _build_group_header(root, ns, msg.group_header, is_pacs=True)
+    for tx in msg.transactions:
+        txinf = _sub(root, ns, "TxInf")
+        if tx.return_id:
+            _sub(txinf, ns, "RtrId", tx.return_id)
+        if msg.original_message_id or msg.original_message_name_id:
+            ogi = _sub(txinf, ns, "OrgnlGrpInf")
+            if msg.original_message_id:
+                _sub(ogi, ns, "OrgnlMsgId", msg.original_message_id)
+            if msg.original_message_name_id:
+                _sub(ogi, ns, "OrgnlMsgNmId", msg.original_message_name_id)
+        if tx.original_end_to_end_id:
+            _sub(txinf, ns, "OrgnlEndToEndId", tx.original_end_to_end_id)
+        if tx.original_tx_id:
+            _sub(txinf, ns, "OrgnlTxId", tx.original_tx_id)
+        if tx.original_uetr:
+            _sub(txinf, ns, "OrgnlUETR", tx.original_uetr)
+        if tx.original_interbank_amount is not None:
+            _build_amt(txinf, ns, "OrgnlIntrBkSttlmAmt", tx.original_interbank_amount)
+        _build_amt(txinf, ns, "RtrdIntrBkSttlmAmt", tx.returned_interbank_amount)
+        if tx.interbank_settlement_date:
+            _sub(txinf, ns, "IntrBkSttlmDt", tx.interbank_settlement_date)
+        if tx.return_reason_code or tx.additional_info:
+            rsn = _sub(txinf, ns, "RtrRsnInf")
+            if tx.return_reason_code:
+                _sub(_sub(rsn, ns, "Rsn"), ns, "Cd", tx.return_reason_code)
+            for info in tx.additional_info:
+                _sub(rsn, ns, "AddtlInf", info)
+    return _serialize(doc)
+
+
+def parse_pacs004(xml: str, version: Optional[str] = None) -> PaymentReturn:
+    ns = urn_for(version or DEFAULT_VERSIONS["pacs.004"])
+    root = _root_or_raise(xml, ns, "PmtRtr")
+    gh = _parse_group_header(root, ns)
+    orig_msg_id: Optional[str] = None
+    orig_msg_nm: Optional[str] = None
+    txs = []
+    for txinf in _findall(root, ns, "TxInf"):
+        if orig_msg_id is None:
+            orig_msg_id = _text(txinf, ns, "OrgnlGrpInf/OrgnlMsgId")
+            orig_msg_nm = _text(txinf, ns, "OrgnlGrpInf/OrgnlMsgNmId")
+        rtrd = _parse_amount(_find(txinf, ns, "RtrdIntrBkSttlmAmt"))
+        if rtrd is None:
+            raise Iso20022CodecError("pacs.004 TxInf missing RtrdIntrBkSttlmAmt")
+        rsn = _find(txinf, ns, "RtrRsnInf")
+        txs.append(
+            PaymentReturnTransaction(
+                returned_interbank_amount=rtrd,
+                return_id=_text(txinf, ns, "RtrId"),
+                original_end_to_end_id=_text(txinf, ns, "OrgnlEndToEndId"),
+                original_tx_id=_text(txinf, ns, "OrgnlTxId"),
+                original_uetr=_text(txinf, ns, "OrgnlUETR"),
+                original_interbank_amount=_parse_amount(_find(txinf, ns, "OrgnlIntrBkSttlmAmt")),
+                interbank_settlement_date=_text(txinf, ns, "IntrBkSttlmDt"),
+                return_reason_code=_text(txinf, ns, "RtrRsnInf/Rsn/Cd"),
+                additional_info=tuple(
+                    a.text for a in (_findall(rsn, ns, "AddtlInf") if rsn is not None else []) if a.text
+                ),
+            )
+        )
+    return PaymentReturn(
+        group_header=gh,
+        transactions=tuple(txs),
+        original_message_id=orig_msg_id,
+        original_message_name_id=orig_msg_nm,
     )

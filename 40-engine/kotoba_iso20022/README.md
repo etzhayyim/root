@@ -65,6 +65,7 @@ Version-parameterised; defaults follow widely-deployed CBPR+/SEPA versions.
 | **pain.001** | CustomerCreditTransferInitiation | `pain.001.001.09` | ingress (a party instructs a transfer) |
 | **pacs.008** | FIToFICustomerCreditTransfer | `pacs.008.001.08` | inter-bank leg (the SWIFT/CBPR+ carrier) |
 | **pacs.002** | FIToFIPaymentStatusReport | `pacs.002.001.10` | acceptance / rejection / pending ack |
+| **pacs.004** | PaymentReturn | `pacs.004.001.09` | reversal (a settled transfer sent back) |
 | **camt.053** | BankToCustomerStatement | `camt.053.001.08` | reconciliation (end-of-day account statement) |
 | **camt.054** | BankToCustomerDebitCreditNotification | `camt.054.001.08` | reconciliation (debit/credit notification) |
 | **pain.002** | CustomerPaymentStatusReport | `pain.002.001.10` | pain-side ack of a pain.001 |
@@ -209,7 +210,7 @@ kotoba_iso20022/
 ├── bridge.py       # message → com.etzhayyim.iso20022.ingressAttestation records
 ├── helpers.py      # new_uetr() + auto NbOfTxs/CtrlSum group-header builders
 └── __init__.py     # public surface
-tests/              # 217 tests · 97% branch / 99% line · mypy --strict clean
+tests/              # 224 tests · 97% branch / 99% line · mypy --strict clean
 ```
 
 ## Construction helpers

@@ -57,6 +57,8 @@ __all__ = (
     "BusinessApplicationHeader",
     "OriginalPaymentStatus",
     "CustomerPaymentStatusReport",
+    "PaymentReturnTransaction",
+    "PaymentReturn",
 )
 
 # ISO 20022 external code subsets actually used by the messages here.
@@ -333,3 +335,38 @@ class CustomerPaymentStatusReport:
     original_message_id: str
     original_message_name_id: str  # e.g. "pain.001.001.09"
     payment_statuses: tuple[OriginalPaymentStatus, ...] = ()
+
+
+# --------------------------------------------------------------------------
+# pacs.004 — PaymentReturn (a settled transfer sent back; reversal loop)
+# --------------------------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class PaymentReturnTransaction:
+    """``TxInf`` — one returned transaction inside pacs.004.
+
+    Carries the *original* references (so the return reconciles onto the
+    same transaction entity as the original pacs.008/pacs.009) plus the
+    returned amount and an ``ExternalReturnReason`` code.
+    """
+
+    returned_interbank_amount: Amount  # RtrdIntrBkSttlmAmt
+    return_id: Optional[str] = None  # RtrId
+    original_end_to_end_id: Optional[str] = None
+    original_tx_id: Optional[str] = None
+    original_uetr: Optional[str] = None
+    original_interbank_amount: Optional[Amount] = None  # OrgnlIntrBkSttlmAmt
+    interbank_settlement_date: Optional[str] = None
+    return_reason_code: Optional[str] = None  # RtrRsnInf/Rsn/Cd
+    additional_info: tuple[str, ...] = ()
+
+
+@dataclass(frozen=True)
+class PaymentReturn:
+    """pacs.004 — ``PmtRtr``."""
+
+    group_header: GroupHeader
+    transactions: tuple[PaymentReturnTransaction, ...]
+    original_message_id: Optional[str] = None  # OrgnlGrpInf/OrgnlMsgId
+    original_message_name_id: Optional[str] = None  # e.g. "pacs.008.001.08"
