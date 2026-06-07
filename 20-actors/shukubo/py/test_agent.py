@@ -112,5 +112,55 @@ class Booking(unittest.TestCase):
         self.assertEqual(b["handoffUrl"], "https://inn.example/book")
 
 
+class NoDoubleBook(unittest.TestCase):
+    def test_dates_overlap(self):
+        self.assertTrue(agent.dates_overlap("2026-06-01", "2026-06-05", "2026-06-03", "2026-06-08"))
+
+    def test_adjacent_not_overlap(self):
+        # checkout == next checkin → no overlap (half-open)
+        self.assertFalse(agent.dates_overlap("2026-06-01", "2026-06-05", "2026-06-05", "2026-06-08"))
+
+    def test_stay_available_when_no_conflict(self):
+        confirmed = [{"stayId": "s1", "state": "confirmed", "checkIn": "2026-06-10", "checkOut": "2026-06-12"}]
+        self.assertTrue(agent.stay_available("s1", "2026-06-01", "2026-06-05", confirmed))
+
+    def test_internal_booking_refused_on_overlap(self):
+        confirmed = [{"stayId": _stay("internal")["stayId"], "state": "confirmed",
+                      "checkIn": "2026-06-01", "checkOut": "2026-06-05"}]
+        out = agent.book(_stay("internal"), "did:plc:pilgrim", "2026-06-03", "2026-06-07",
+                         "consent", SBT, confirmed_bookings=confirmed)
+        self.assertEqual(out["state"], "refused")
+        self.assertIn("no-double-book", out["reason"])
+
+    def test_internal_booking_ok_when_free(self):
+        confirmed = [{"stayId": _stay("internal")["stayId"], "state": "confirmed",
+                      "checkIn": "2026-06-10", "checkOut": "2026-06-12"}]
+        out = agent.book(_stay("internal"), "did:plc:pilgrim", "2026-06-01", "2026-06-05",
+                         "consent", SBT, confirmed_bookings=confirmed)
+        self.assertEqual(out["state"], "settle-intent")
+
+    def test_external_not_blocked_by_availability(self):
+        # external-mirror stays aren't shukubo inventory; availability is the operator's
+        confirmed = [{"stayId": _stay("external")["stayId"], "state": "confirmed",
+                      "checkIn": "2026-06-01", "checkOut": "2026-06-30"}]
+        out = agent.book(_stay("external", operator_url="https://inn/x"), "did:plc:pilgrim",
+                         "2026-06-02", "2026-06-04", "consent", SBT, confirmed_bookings=confirmed)
+        self.assertEqual(out["state"], "self-book-handoff")
+
+
+class HostRegistration(unittest.TestCase):
+    def test_registers_with_habitability(self):
+        out = agent.register_host("did:plc:host", _stay("internal", habitability="water+heat+egress"))
+        self.assertEqual(out["state"], "registered")
+        for k in out:
+            self.assertNotIn("score", k.lower())   # G12 no person scoring
+            self.assertNotIn("rating", k.lower())
+
+    def test_missing_habitability_refused(self):
+        out = agent.register_host("did:plc:host", _stay("internal", habitability="water"))
+        self.assertEqual(out["state"], "refused")
+        self.assertIn("G12", out["reason"])
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

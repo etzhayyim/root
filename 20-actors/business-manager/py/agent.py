@@ -141,3 +141,96 @@ def trial_balance(entries: list) -> dict:
     debit = sum(int(l.get("debitMinor", 0)) for e in entries for l in e.get("lines", []))
     credit = sum(int(l.get("creditMinor", 0)) for e in entries for l in e.get("lines", []))
     return {"totalDebitMinor": debit, "totalCreditMinor": credit, "balanced": debit == credit}
+
+
+# --------------------------------------------------------------------------- #
+# invoice — AP (payable) / AR (receivable), member-signed, approval-routed (G6)
+# --------------------------------------------------------------------------- #
+INVOICE_APPROVAL_MINOR = 1_000_000 * 100  # same threshold as a journal entry (>1M JPY)
+_INVOICE_DIRECTIONS = ("payable", "receivable")
+
+
+def post_invoice(inv: dict, posted_at: str) -> dict:
+    """Stage an invoice. `direction` is payable (AP) or receivable (AR). `approved` is DERIVED
+    from the amount (G6); `fiscalYear` from the date. Member-signed (G4). Starts :open."""
+    direction = inv.get("direction")
+    if direction not in _INVOICE_DIRECTIONS:
+        return {"state": "rejected", "reason": f"direction must be one of {_INVOICE_DIRECTIONS} (got {direction!r})"}
+    if not inv.get("postedBy"):
+        return {"state": "rejected", "reason": "missing member postedBy (G4)"}
+    amount = int(inv.get("amountMinor", 0))
+    if amount <= 0:
+        return {"state": "rejected", "reason": "invoice amount must be positive"}
+    return {
+        "state": "staged",
+        "kind": "invoice",
+        "invoiceId": inv["invoiceId"],
+        "direction": direction,
+        "party": inv.get("party", ""),       # vendor (AP) or customer (AR)
+        "amountMinor": amount,
+        "currency": "JPY",
+        "dueDate": inv.get("dueDate", ""),
+        "fiscalYear": fiscal_year_of(posted_at),
+        "approved": approval_status(amount, INVOICE_APPROVAL_MINOR),  # G6 derived
+        "paymentStatus": "open",
+        "postedBy": inv["postedBy"],
+        "postedSig": None,
+        "appendOnly": True,
+    }
+
+
+def settle_invoice(invoice: dict, paid_at: str, signature: dict) -> dict:
+    """Mark a posted invoice paid. Member-signed only (G4 no-server-key). Append-only: emits a
+    new :paid state (the original is never mutated, G7)."""
+    if invoice.get("paymentStatus") not in ("open", "overdue"):
+        return {**invoice, "refused": True, "reason": "invoice is not open/overdue"}
+    if signature.get("origin") != "member":
+        return {**invoice, "refused": True,
+                "reason": "only a member signature settles an invoice (G4 no-server-key)"}
+    return {**invoice, "paymentStatus": "paid", "paidAt": paid_at, "settledSig": signature.get("ref")}
+
+
+def invoice_aging(invoices: list, as_of_date: str) -> dict:
+    """Aging summary: open AP vs AR totals and which invoices are overdue (dueDate < as_of and
+    still open). Pure date-string comparison (ISO dates sort lexically)."""
+    ap_open = ar_open = 0
+    overdue = []
+    for inv in invoices:
+        if inv.get("paymentStatus") != "open":
+            continue
+        amt = int(inv.get("amountMinor", 0))
+        if inv.get("direction") == "payable":
+            ap_open += amt
+        elif inv.get("direction") == "receivable":
+            ar_open += amt
+        due = inv.get("dueDate", "")
+        if due and due < as_of_date:
+            overdue.append(inv.get("invoiceId"))
+    return {"apOpenMinor": ap_open, "arOpenMinor": ar_open, "overdue": overdue}
+
+
+# --------------------------------------------------------------------------- #
+# budget allocation — budget vs actual / variance, over-budget flag
+# --------------------------------------------------------------------------- #
+def budget_vs_actual(budget: dict, journal_entries: list) -> dict:
+    """Compare a budget allocation (account + fiscalYear + allocatedMinor) to actual spend on
+    that account in that fiscal year (Σ debit on the account across posted entries). Returns
+    spent / remaining / over flag. Over-budget is a flag, never a silent overwrite."""
+    account = budget["account"]
+    fy = budget["fiscalYear"]
+    allocated = int(budget["allocatedMinor"])
+    spent = 0
+    for e in journal_entries:
+        if e.get("fiscalYear") != fy:
+            continue
+        for l in e.get("lines", []):
+            if l.get("account") == account:
+                spent += int(l.get("debitMinor", 0))
+    return {
+        "account": account,
+        "fiscalYear": fy,
+        "allocatedMinor": allocated,
+        "spentMinor": spent,
+        "remainingMinor": allocated - spent,
+        "over": spent > allocated,
+    }

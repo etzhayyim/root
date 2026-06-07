@@ -19,10 +19,11 @@ ACTOR_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 echo "==> kakaku kotoba deploy → ${KOTOBA_URL} (graph ${GRAPH})"
 
-# 0. test gate — deploy is blocked on a green agent suite (deploy-autonomy invariant).
+# 0. test gate — deploy is blocked on a green suite (deploy-autonomy invariant).
+# Runs the full suite (agent + offer-ingest + viz) via run_tests.sh.
 if [[ "${SKIP_TESTS:-0}" != "1" ]]; then
-  echo "--> agent test gate (pytest)"
-  ( cd "${ACTOR_DIR}/py" && PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest -q test_agent.py )
+  echo "--> full test gate"
+  bash "${ACTOR_DIR}/run_tests.sh"
 fi
 
 # 1. health
