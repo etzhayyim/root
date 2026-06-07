@@ -5,12 +5,12 @@
   "kind": "compat",
   "title": "abb_800xa clean-room actor",
   "description": "Clean-room, API-compatible industrial SCADA actor (abb_800xa); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifs2a3cwdsokfddhuyjgx7wgm54siacmktosx4huzu7z544eo4uhe",
+  "wasmCid": "bafkreifsuaknbqjp2zhg6zitpqhicebmkcvknup2w2pmbbx5gw7u642bmy",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifs2a3cwdsokfddhuyjgx7wgm54siacmktosx4huzu7z544eo4uhe",
+  "ipfs": "ipfs://bafkreifsuaknbqjp2zhg6zitpqhicebmkcvknup2w2pmbbx5gw7u642bmy",
   "schema": "schema/abb_800xa.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Tag",
     "Device",
@@ -183,11 +183,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

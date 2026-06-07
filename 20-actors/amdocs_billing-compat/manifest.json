@@ -5,12 +5,12 @@
   "kind": "compat",
   "title": "amdocs_billing clean-room actor",
   "description": "Clean-room, API-compatible telecom / satellite actor (amdocs_billing); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiek6kbuympc55yvmp4l4a7k2eigfgu2coqha3v6dsvbxvqfqohbfq",
+  "wasmCid": "bafkreifolvls6osjlbgmea7dpqept2tqm36vu5mxn4jkngvewcv2ksgsey",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiek6kbuympc55yvmp4l4a7k2eigfgu2coqha3v6dsvbxvqfqohbfq",
+  "ipfs": "ipfs://bafkreifolvls6osjlbgmea7dpqept2tqm36vu5mxn4jkngvewcv2ksgsey",
   "schema": "schema/amdocs_billing.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Subscriber",
     "Session",
@@ -183,11 +183,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

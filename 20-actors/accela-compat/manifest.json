@@ -5,12 +5,12 @@
   "kind": "compat",
   "title": "accela clean-room actor",
   "description": "Clean-room, API-compatible AEC / GovTech actor (accela); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreieonw4t2cdtfgw7kwrx6jiknxfxcvni7cik3mxzehtghubtjc4ixy",
+  "wasmCid": "bafkreid4osfmsvsijhi6f7l3wxsvdhx6sj5yqnamjss3imc7eaqixm4ira",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreieonw4t2cdtfgw7kwrx6jiknxfxcvni7cik3mxzehtghubtjc4ixy",
+  "ipfs": "ipfs://bafkreid4osfmsvsijhi6f7l3wxsvdhx6sj5yqnamjss3imc7eaqixm4ira",
   "schema": "schema/accela.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Project",
     "Permit",
@@ -183,11 +183,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

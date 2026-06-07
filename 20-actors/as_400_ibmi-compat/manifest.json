@@ -5,12 +5,12 @@
   "kind": "compat",
   "title": "as_400_ibmi clean-room actor",
   "description": "Clean-room, API-compatible mainframe / legacy substrate actor (as_400_ibmi); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibbrgncsbqq5yetcjvhj6iefkh4rqpq4ixd2o7sn5fhepxox5siue",
+  "wasmCid": "bafkreia64lnneakre5gjel6xctzim6t3ypxykoe55ahxzbourcgomvx5we",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibbrgncsbqq5yetcjvhj6iefkh4rqpq4ixd2o7sn5fhepxox5siue",
+  "ipfs": "ipfs://bafkreia64lnneakre5gjel6xctzim6t3ypxykoe55ahxzbourcgomvx5we",
   "schema": "schema/as_400_ibmi.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Job",
     "Dataset",
@@ -183,11 +183,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

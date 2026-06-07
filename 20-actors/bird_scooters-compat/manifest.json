@@ -5,12 +5,12 @@
   "kind": "compat",
   "title": "bird_scooters clean-room actor",
   "description": "Clean-room, API-compatible ride-hailing / micro-mobility actor (bird_scooters); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihcrnffhuntgqlayjugcykxxthucgsa7w2ijteue3p2o42g5t3rfu",
+  "wasmCid": "bafkreihtotia4v5h5wemjp7xh53ih5lmgafnocm5o5uwipni5mjxacflsq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihcrnffhuntgqlayjugcykxxthucgsa7w2ijteue3p2o42g5t3rfu",
+  "ipfs": "ipfs://bafkreihtotia4v5h5wemjp7xh53ih5lmgafnocm5o5uwipni5mjxacflsq",
   "schema": "schema/bird_scooters.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Driver",
     "Rider",
@@ -183,11 +183,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

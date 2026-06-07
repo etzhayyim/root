@@ -5,12 +5,12 @@
   "kind": "compat",
   "title": "bizzabo clean-room actor",
   "description": "Clean-room, API-compatible events / NPO / creator actor (bizzabo); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidxrrvby2i6ho3iuwfon23s25bua3r6rbztlc5hp2pjcs7d2e7424",
+  "wasmCid": "bafkreibldbzh5wtbczrk7fepk4v7aicfzurxpd65lbthizq7wzvmwha7cq",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidxrrvby2i6ho3iuwfon23s25bua3r6rbztlc5hp2pjcs7d2e7424",
+  "ipfs": "ipfs://bafkreibldbzh5wtbczrk7fepk4v7aicfzurxpd65lbthizq7wzvmwha7cq",
   "schema": "schema/bizzabo.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Event",
     "Ticket",
@@ -183,11 +183,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -5,12 +5,12 @@
   "kind": "compat",
   "title": "auterion clean-room actor",
   "description": "Clean-room, API-compatible drone swarm / aerial robotics actor (auterion); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibmpki4yfvfefdrltu6ffjzgakgpjeap2dpccignf6jctrrllbfty",
+  "wasmCid": "bafkreiamnghnsilm6qc2qv5fvgaypggroeevkh5by3xmtjwbxptavmmbga",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibmpki4yfvfefdrltu6ffjzgakgpjeap2dpccignf6jctrrllbfty",
+  "ipfs": "ipfs://bafkreiamnghnsilm6qc2qv5fvgaypggroeevkh5by3xmtjwbxptavmmbga",
   "schema": "schema/auterion.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Drone",
     "Mission",
@@ -183,11 +183,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

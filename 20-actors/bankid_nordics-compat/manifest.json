@@ -5,12 +5,12 @@
   "kind": "compat",
   "title": "bankid_nordics clean-room actor",
   "description": "Clean-room, API-compatible digital public infrastructure actor (bankid_nordics); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiebplxqewofcmcevj4dm24l5hnvotid2pa35sgxlwrjabxrw2l7jq",
+  "wasmCid": "bafkreigwrtn2sexure77klxehrtmzoobztoblojfbugi2edl2guqsjmw34",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiebplxqewofcmcevj4dm24l5hnvotid2pa35sgxlwrjabxrw2l7jq",
+  "ipfs": "ipfs://bafkreigwrtn2sexure77klxehrtmzoobztoblojfbugi2edl2guqsjmw34",
   "schema": "schema/bankid_nordics.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Identity",
     "Credential",
@@ -183,11 +183,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

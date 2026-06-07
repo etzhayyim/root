@@ -10,16 +10,16 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L3": 920,
-    "L4": 80
+    "L4": 156,
+    "L3": 844
   },
   "actors": [
     {
       "handle": "8th_wall-compat",
       "did": "did:web:etzhayyim.com:actor:8th_wall-compat",
-      "wasmCid": "bafkreicxstlvo7c3yexbd3ovxwsxgth4yhl66txrklnxzg7c3xrqu6ctmi",
+      "wasmCid": "bafkreifj4vgfihtf4qoutcde5rfz5sgu6u7kb5oomctgyqtwii4jlngtni",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "8th_wall clean-room actor",
       "category": "xr_spatial",
       "capabilities": [
@@ -51,9 +51,9 @@
     {
       "handle": "aave-compat",
       "did": "did:web:etzhayyim.com:actor:aave-compat",
-      "wasmCid": "bafkreibktqmfvgkovx356mabvyojacb3etsuoueoktz4s4lgdg4zj2fzcu",
+      "wasmCid": "bafkreiftqflenhj2xihjxhyzrmlzc6fofnni4a5jucsynrtmgy7m7xjaum",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "aave clean-room actor",
       "category": "web3_rpc",
       "capabilities": [
@@ -68,9 +68,9 @@
     {
       "handle": "abb_800xa-compat",
       "did": "did:web:etzhayyim.com:actor:abb_800xa-compat",
-      "wasmCid": "bafkreifs2a3cwdsokfddhuyjgx7wgm54siacmktosx4huzu7z544eo4uhe",
+      "wasmCid": "bafkreifsuaknbqjp2zhg6zitpqhicebmkcvknup2w2pmbbx5gw7u642bmy",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "abb_800xa clean-room actor",
       "category": "scada",
       "capabilities": [
@@ -85,9 +85,9 @@
     {
       "handle": "abb_robotics-compat",
       "did": "did:web:etzhayyim.com:actor:abb_robotics-compat",
-      "wasmCid": "bafkreiajctr7jkuovxfi3hzboznf5bcyzpxzku3hrnii5ubiyu3z32jnwi",
+      "wasmCid": "bafkreigakjef7s3pkrt72ixrewsd26645kr33iizk4ab5mfxgjcchri3jq",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "abb_robotics clean-room actor",
       "category": "manufacturing_plm_robotics",
       "capabilities": [
@@ -102,9 +102,9 @@
     {
       "handle": "accela-compat",
       "did": "did:web:etzhayyim.com:actor:accela-compat",
-      "wasmCid": "bafkreieonw4t2cdtfgw7kwrx6jiknxfxcvni7cik3mxzehtghubtjc4ixy",
+      "wasmCid": "bafkreid4osfmsvsijhi6f7l3wxsvdhx6sj5yqnamjss3imc7eaqixm4ira",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "accela clean-room actor",
       "category": "aec_govtech",
       "capabilities": [
@@ -119,9 +119,9 @@
     {
       "handle": "accelbyte-compat",
       "did": "did:web:etzhayyim.com:actor:accelbyte-compat",
-      "wasmCid": "bafkreia6lehojat3as6jlk4pzl32siewn6qdkqebq54vww4vi7t4asnpq4",
+      "wasmCid": "bafkreicm4m6liynppke4ra3utd3o5u5k4lkq6vqeesn52rg5x77fszokya",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "accelbyte clean-room actor",
       "category": "gaming_backend",
       "capabilities": [
@@ -136,9 +136,9 @@
     {
       "handle": "ach_network-compat",
       "did": "did:web:etzhayyim.com:actor:ach_network-compat",
-      "wasmCid": "bafkreiefeicffuj5kv2ah3fjqfqpf7p567remqnrg7w7exmlh55li4sf2m",
+      "wasmCid": "bafkreiau5uwdeeerihebqhr34omxgrfnf5vajxaflwrahwm37ja7dbnbgm",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "ach_network clean-room actor",
       "category": "payments",
       "capabilities": [
@@ -153,9 +153,9 @@
     {
       "handle": "acorrd_standards-compat",
       "did": "did:web:etzhayyim.com:actor:acorrd_standards-compat",
-      "wasmCid": "bafkreihgt3qgqidrfq5c5x5mecz7nud33tfhbztfr54n4rpqnynch22c3q",
+      "wasmCid": "bafkreig6csxvjrt6w2u4s5fae7qyc3c2jiigv32vc5wpcouiugfnkdvoey",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "acorrd_standards clean-room actor",
       "category": "core_banking_insurtech",
       "capabilities": [
@@ -170,9 +170,9 @@
     {
       "handle": "acquia-compat",
       "did": "did:web:etzhayyim.com:actor:acquia-compat",
-      "wasmCid": "bafkreifw72tgaotdg6bcfxh2xqyhlzxvev74ctwkjv6yuym54qpbtjiwtu",
+      "wasmCid": "bafkreiaeqzqgaf3fdpbypbkambmw6lpi7kxunyvnc3dnzlpyn33to47evy",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "acquia clean-room actor",
       "category": "media_video_cms",
       "capabilities": [
@@ -187,9 +187,9 @@
     {
       "handle": "adobe-compat",
       "did": "did:web:etzhayyim.com:actor:adobe-compat",
-      "wasmCid": "bafkreihdfesz3jbanks3tkeh7y76vkrdnc3q45oe22bcstja3rodtnekbu",
+      "wasmCid": "bafkreicr4axfkstjie3jbzzg6nqhteotjg5ffvw7wynwxmdjdxvh6hz3jq",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "adobe clean-room actor",
       "category": "design_tools",
       "capabilities": [
@@ -204,9 +204,9 @@
     {
       "handle": "ads_b_aviation-compat",
       "did": "did:web:etzhayyim.com:actor:ads_b_aviation-compat",
-      "wasmCid": "bafkreidzvzj56opexobowgjuufsiuwzz6xffo57hfsnbuiwcgx5qpadikm",
+      "wasmCid": "bafkreigm3u6gzhj3zi2cv276p7pucr6twt4vlly43nnhlwcs5twtcxxdki",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "ads_b_aviation clean-room actor",
       "category": "space_ocean_earth",
       "capabilities": [
@@ -238,9 +238,9 @@
     {
       "handle": "aftership-compat",
       "did": "did:web:etzhayyim.com:actor:aftership-compat",
-      "wasmCid": "bafkreib34lmdvplzoxwrnsiuleui4mtu7awlqxniz47265v54w2omcceau",
+      "wasmCid": "bafkreibwwps4akcbu3ab4zl3lg3nh3s2axem4vff5z6mwriggrrluu5veu",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "aftership clean-room actor",
       "category": "headless_ec_logistics",
       "capabilities": [
@@ -255,9 +255,9 @@
     {
       "handle": "agleader-compat",
       "did": "did:web:etzhayyim.com:actor:agleader-compat",
-      "wasmCid": "bafkreiaoezwuum4kjjvgifpqojanshc3nr7nxcclpans3pbd5qc4tjdcyq",
+      "wasmCid": "bafkreifghg35l3cting2rpqgitzgq3xs37nvr6rmi72gr3py6avcda4thm",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "agleader clean-room actor",
       "category": "agritech_food",
       "capabilities": [
@@ -289,9 +289,9 @@
     {
       "handle": "agora-compat",
       "did": "did:web:etzhayyim.com:actor:agora-compat",
-      "wasmCid": "bafkreibgbwmzs2kq2nsjdlspwpvfgn4fjwift7ivrc4ongm42p3hux6o3m",
+      "wasmCid": "bafkreiadb3mp3p52rrczq3bxci7fygz27bvtjrvqooltg7tvpdcvtwtswm",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "agora clean-room actor",
       "category": "comms_social",
       "capabilities": [
@@ -306,9 +306,9 @@
     {
       "handle": "airbus_analytx-compat",
       "did": "did:web:etzhayyim.com:actor:airbus_analytx-compat",
-      "wasmCid": "bafkreibq3ngwa3dn3wqk3ey7ybeiupmskfdgm57tgxhcdjdakyrqh3syxi",
+      "wasmCid": "bafkreib6tjki7biy632j7bmtiurqxjz4bpfgyau62kivdjof3gszmohg3i",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "airbus_analytx clean-room actor",
       "category": "travel_aviation_hospitality",
       "capabilities": [
@@ -323,9 +323,9 @@
     {
       "handle": "airbyte-compat",
       "did": "did:web:etzhayyim.com:actor:airbyte-compat",
-      "wasmCid": "bafkreiaoulwacrk2m6bsq5bgghwqewnt3m633hqjn3krc46wqz6vj4tv7i",
+      "wasmCid": "bafkreiaoetzpwqqh7w3eft6f4c3u7v2gs2mbmwyu4d4i4ymzgvksgp4maq",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "airbyte clean-room actor",
       "category": "modern_data_stack",
       "capabilities": [
@@ -340,9 +340,9 @@
     {
       "handle": "airtable-compat",
       "did": "did:web:etzhayyim.com:actor:airtable-compat",
-      "wasmCid": "bafkreidnlihls7lrk4khjimaxiyzfvrnmu6bxaumoghq4mtxw4ktik2m24",
+      "wasmCid": "bafkreiflclmzjq55cdwjjg6hmibsi77smofyu4fy2e4vex7h7tzsso4mz4",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "airtable clean-room actor",
       "category": "office_productivity",
       "capabilities": [
@@ -408,9 +408,9 @@
     {
       "handle": "alienvault-compat",
       "did": "did:web:etzhayyim.com:actor:alienvault-compat",
-      "wasmCid": "bafkreifjb4nzefpeuqzs3ellferyhzvbkjrk3zn7btnc3qjr4s6hja72f4",
+      "wasmCid": "bafkreic2lfqxcnafqsqeuz5u46byfh66k3nmaxjjnaqdv4sw6t6zywmqxq",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "alienvault clean-room actor",
       "category": "cyber_threat_intel",
       "capabilities": [
@@ -442,9 +442,9 @@
     {
       "handle": "allscripts-compat",
       "did": "did:web:etzhayyim.com:actor:allscripts-compat",
-      "wasmCid": "bafkreiegqgyk5s2m4noz3uzcqtd2iptickhn4ahjeh2zfab5t3keh373vi",
+      "wasmCid": "bafkreiewxef7lljvoz7iqzawpl6sxad722d3gie5uquusqchowvjkonfmy",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "allscripts clean-room actor",
       "category": "ehr_health",
       "capabilities": [
@@ -459,9 +459,9 @@
     {
       "handle": "alpaca-compat",
       "did": "did:web:etzhayyim.com:actor:alpaca-compat",
-      "wasmCid": "bafkreiavg4ybecirxgafofqq2qa34if54auzajerkhqjojzsogclzp5r6m",
+      "wasmCid": "bafkreigj2pcofpjpgmxyshlr2z5o65gtx4exzcc4n4lkej66kohbdpbytm",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "alpaca clean-room actor",
       "category": "fintech_web3",
       "capabilities": [
@@ -544,9 +544,9 @@
     {
       "handle": "amd_rocm-compat",
       "did": "did:web:etzhayyim.com:actor:amd_rocm-compat",
-      "wasmCid": "bafkreig44yrfskkqfiiuagchqw5ibchsqgaaoi5c6rn7ykplt4adyvslyu",
+      "wasmCid": "bafkreibxsb5xafiv3jid35xiyd4sn6ps37i546s6apmhj4xzksb3mdiqsm",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "amd_rocm clean-room actor",
       "category": "ai_ml_infra_chips",
       "capabilities": [
@@ -561,9 +561,9 @@
     {
       "handle": "amdocs_billing-compat",
       "did": "did:web:etzhayyim.com:actor:amdocs_billing-compat",
-      "wasmCid": "bafkreiek6kbuympc55yvmp4l4a7k2eigfgu2coqha3v6dsvbxvqfqohbfq",
+      "wasmCid": "bafkreifolvls6osjlbgmea7dpqept2tqm36vu5mxn4jkngvewcv2ksgsey",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "amdocs_billing clean-room actor",
       "category": "telecom_satellite",
       "capabilities": [
@@ -578,9 +578,9 @@
     {
       "handle": "amerisourcebergen-compat",
       "did": "did:web:etzhayyim.com:actor:amerisourcebergen-compat",
-      "wasmCid": "bafkreihhgz4bpntmtbjdelumcrskafole7ph5dqdma2pewbnyxyb6nx5zy",
+      "wasmCid": "bafkreibduie7ty7cxso663efxv3pauw46yc6t75d4ubpm7jhpck6oczcr4",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "amerisourcebergen clean-room actor",
       "category": "pharmacy_rx",
       "capabilities": [
@@ -612,9 +612,9 @@
     {
       "handle": "amtrak-compat",
       "did": "did:web:etzhayyim.com:actor:amtrak-compat",
-      "wasmCid": "bafkreigeqhfmeuf7owrmc7xyjnfjs3ijggfkvetqjzimc7gsohcvpxjlz4",
+      "wasmCid": "bafkreihyuvuf35yw7mv26lq62rxgmyqjswrklsoj4272r2ie65jmb66ibu",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "amtrak clean-room actor",
       "category": "transit_smart_cities",
       "capabilities": [
@@ -629,9 +629,9 @@
     {
       "handle": "android_aosp-compat",
       "did": "did:web:etzhayyim.com:actor:android_aosp-compat",
-      "wasmCid": "bafkreiby3yvsl6rfibe5ikmbus7nucyhlgogacdntkgwbhrpajgj7bvhum",
+      "wasmCid": "bafkreig2phztydb236xlta2ioaiq5yujyoc5ci7bb2tpesodj64hnjeu5e",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "android_aosp clean-room actor",
       "category": "os_kernel",
       "capabilities": [
@@ -646,9 +646,9 @@
     {
       "handle": "anduril_lattice-compat",
       "did": "did:web:etzhayyim.com:actor:anduril_lattice-compat",
-      "wasmCid": "bafkreihzpczf57rpgq7h6jdgqjqwzldn2jlikuuu23lar4jcymjb5sivdi",
+      "wasmCid": "bafkreiamt7bqlc3ti7opcw7ffx7mxhxp4xy46n2nkpxeugbiapjg2iklbq",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "anduril_lattice clean-room actor",
       "category": "public_safety_law",
       "capabilities": [
@@ -714,9 +714,9 @@
     {
       "handle": "apigee-compat",
       "did": "did:web:etzhayyim.com:actor:apigee-compat",
-      "wasmCid": "bafkreib7sw7pg3sh43n7pw7ru4vgeudhpdtgjtw4ebq2odonbfzrww3rxy",
+      "wasmCid": "bafkreibwo7qrzw7wh2eoh2sf4tqqyzgrobhfd2342idbejttk4ioiisllm",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "apigee clean-room actor",
       "category": "devsecops_serverless",
       "capabilities": [
@@ -731,9 +731,9 @@
     {
       "handle": "apollo_auto-compat",
       "did": "did:web:etzhayyim.com:actor:apollo_auto-compat",
-      "wasmCid": "bafkreihqov2smsov7qfrp4zxlcn4fx2oyup742m6zj6fgnplynfavzvjui",
+      "wasmCid": "bafkreidttlan4tvdijjglfqkyj5qgiku4mhhdklawtise7vri3zuyhud3y",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "apollo_auto clean-room actor",
       "category": "mobility_auto_ev",
       "capabilities": [
@@ -765,9 +765,9 @@
     {
       "handle": "appdynamics-compat",
       "did": "did:web:etzhayyim.com:actor:appdynamics-compat",
-      "wasmCid": "bafkreiedsp4lw74swm5n7nhqrbsc54dlrd32k6uhr4dkkrjjqmit2ns5ai",
+      "wasmCid": "bafkreiflvq3dsg2kxm7xcyrbevztgd3gfv7x65fr24oxezswxyl6nfvbjq",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "appdynamics clean-room actor",
       "category": "devtools_apm",
       "capabilities": [
@@ -782,9 +782,9 @@
     {
       "handle": "appfolio-compat",
       "did": "did:web:etzhayyim.com:actor:appfolio-compat",
-      "wasmCid": "bafkreiea5beippj2j2xqd3wl2la2enocpthiiheohiihruzksucaekcusu",
+      "wasmCid": "bafkreiapbphxpacpru6kjfbfsnmebbdadt6du22afoqlfdqiqjhrbwlqla",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "appfolio clean-room actor",
       "category": "vertical_saas",
       "capabilities": [
@@ -816,9 +816,9 @@
     {
       "handle": "applovin-compat",
       "did": "did:web:etzhayyim.com:actor:applovin-compat",
-      "wasmCid": "bafkreiglklvjc7uoclqs2sxktuvcd3w3c3d3dc44klnp33u2wtisrkr65q",
+      "wasmCid": "bafkreia4re4ke4e4bx75qmhamdzdy2mu3gnc4jfi7ntiw7af4eishvnlci",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "applovin clean-room actor",
       "category": "martech",
       "capabilities": [
@@ -850,9 +850,9 @@
     {
       "handle": "aptos_pos-compat",
       "did": "did:web:etzhayyim.com:actor:aptos_pos-compat",
-      "wasmCid": "bafkreicx6duu3mgjauc2qpfpovjvqdwfyuftoytzpwc77wtsgvdx7pzcgq",
+      "wasmCid": "bafkreifp3ovkhd2okcvbh6jnks5zt5gasyymvhdyxkkuqfw5tjczzfo7pm",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "aptos_pos clean-room actor",
       "category": "ecommerce",
       "capabilities": [
@@ -884,9 +884,9 @@
     {
       "handle": "argus_media-compat",
       "did": "did:web:etzhayyim.com:actor:argus_media-compat",
-      "wasmCid": "bafkreihubin7wig3iizc4nwoi2jesvzthlsndqxxrz5g7umhhfxc5g5pm4",
+      "wasmCid": "bafkreictuhe5rcziwtkapnvfhehei255ftv7l47vyu7r4uxlz3v6hlofp4",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "argus_media clean-room actor",
       "category": "energy_commodities",
       "capabilities": [
@@ -901,9 +901,9 @@
     {
       "handle": "ariba-compat",
       "did": "did:web:etzhayyim.com:actor:ariba-compat",
-      "wasmCid": "bafkreifx6x2tl6qwu5zpscd22tyfviwkxont7zzz5y6dqfeqcicjtdybny",
+      "wasmCid": "bafkreifjfhdmlrdrtylluenvdpdym3elwyd6a6fidryjnc5mxt5jb6bttu",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "ariba clean-room actor",
       "category": "enterprise_commerce_spend",
       "capabilities": [
@@ -918,9 +918,9 @@
     {
       "handle": "arm_isa-compat",
       "did": "did:web:etzhayyim.com:actor:arm_isa-compat",
-      "wasmCid": "bafkreibwmipgftd4hihbkdjpfoj2h54sephoo5wzxta4tz5jzmopaq2sly",
+      "wasmCid": "bafkreifreiuwd43ju3pkvvsb7rwapuulqwcehr3rhegv7ooa7duroetx3e",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "arm_isa clean-room actor",
       "category": "isa_quantum",
       "capabilities": [
@@ -935,9 +935,9 @@
     {
       "handle": "arxiv_api-compat",
       "did": "did:web:etzhayyim.com:actor:arxiv_api-compat",
-      "wasmCid": "bafkreiefdclq7mj6okaybbpdnsfl2q7esiurdijfqwdp2yhvlvro7bkovm",
+      "wasmCid": "bafkreifh7h4ghk3okpljhv6ird2ckrlsbcbzbe5reeakxuzwoquul2a5la",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "arxiv_api clean-room actor",
       "category": "meta_knowledge_publishing",
       "capabilities": [
@@ -952,9 +952,9 @@
     {
       "handle": "as2_protocol-compat",
       "did": "did:web:etzhayyim.com:actor:as2_protocol-compat",
-      "wasmCid": "bafkreiaex366rm75giqvla4wfd44ywn7qklscnzw7ds5hzkaerdsmmh7tu",
+      "wasmCid": "bafkreibormyscnykvchflnkinfux47uenz3vswrpkukttuwnimqjo4qnyq",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "as2_protocol clean-room actor",
       "category": "deep_logistics_supply",
       "capabilities": [
@@ -969,9 +969,9 @@
     {
       "handle": "as_400_ibmi-compat",
       "did": "did:web:etzhayyim.com:actor:as_400_ibmi-compat",
-      "wasmCid": "bafkreibbrgncsbqq5yetcjvhj6iefkh4rqpq4ixd2o7sn5fhepxox5siue",
+      "wasmCid": "bafkreia64lnneakre5gjel6xctzim6t3ypxykoe55ahxzbourcgomvx5we",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "as_400_ibmi clean-room actor",
       "category": "mainframe",
       "capabilities": [
@@ -1003,9 +1003,9 @@
     {
       "handle": "asimov-compat",
       "did": "did:web:etzhayyim.com:actor:asimov-compat",
-      "wasmCid": "bafkreifwgd5di7kgahuy6ltil6ksu7fxqx33p37bj7kwo2jyhzqtx2wktm",
+      "wasmCid": "bafkreidzuqomhhekfd6326fg57z2ca6iqqwowk3k2j2ik7t5jqhgxemifa",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "asimov clean-room actor",
       "category": "synbio",
       "capabilities": [
@@ -1020,9 +1020,9 @@
     {
       "handle": "asme_materials-compat",
       "did": "did:web:etzhayyim.com:actor:asme_materials-compat",
-      "wasmCid": "bafkreihe7l2v6qiohzguooxg6dfibmrqh4nqizwjd6rvuk4y5ler4p2sru",
+      "wasmCid": "bafkreib7xlzcdgjr5gdyb2h2joz6abgt7sowuc67pyhl6o3cwzrzmy7zmq",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "asme_materials clean-room actor",
       "category": "materials_bio_chemical",
       "capabilities": [
@@ -1071,9 +1071,9 @@
     {
       "handle": "atlassian-compat",
       "did": "did:web:etzhayyim.com:actor:atlassian-compat",
-      "wasmCid": "bafkreic7ifuuuhlp3sj4vwfffjstj6gxhwhgie3ha4kplytortxtzupipu",
+      "wasmCid": "bafkreibbbzqidm2jrelc4uqilmqka2mbjdd6ffao5xskged4rfjpgwgdd4",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "atlassian clean-room actor",
       "category": "devops_ci",
       "capabilities": [
@@ -1088,9 +1088,9 @@
     {
       "handle": "ato_australia-compat",
       "did": "did:web:etzhayyim.com:actor:ato_australia-compat",
-      "wasmCid": "bafkreihn3nxzwkmnmu3wn5l574iczjeezd6674ojomhegbdcroybjwxl34",
+      "wasmCid": "bafkreicrxa6a5c34z5kxyvzesh423h4o5eg7pa2fwl2drqxcwwoxbznvtm",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "ato_australia clean-room actor",
       "category": "japan_apac_egov",
       "capabilities": [
@@ -1122,9 +1122,9 @@
     {
       "handle": "auterion-compat",
       "did": "did:web:etzhayyim.com:actor:auterion-compat",
-      "wasmCid": "bafkreibmpki4yfvfefdrltu6ffjzgakgpjeap2dpccignf6jctrrllbfty",
+      "wasmCid": "bafkreiamnghnsilm6qc2qv5fvgaypggroeevkh5by3xmtjwbxptavmmbga",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "auterion clean-room actor",
       "category": "drone_robotics",
       "capabilities": [
@@ -1139,9 +1139,9 @@
     {
       "handle": "auto_gpt-compat",
       "did": "did:web:etzhayyim.com:actor:auto_gpt-compat",
-      "wasmCid": "bafkreibvwh3c3it642gqom3y2iefu6z27jiurlyfuzfxbj5t565mkjdmeu",
+      "wasmCid": "bafkreiac6sn2rpcbb5657im56prqn7sro6knchylvecjjnjtfuahja7gbi",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "auto_gpt clean-room actor",
       "category": "agent_protocol",
       "capabilities": [
@@ -1207,9 +1207,9 @@
     {
       "handle": "automationanywhere-compat",
       "did": "did:web:etzhayyim.com:actor:automationanywhere-compat",
-      "wasmCid": "bafkreifra7n6df7qus3fwm62krut6wb3orgwsh5xqiqdyjtzra62zxlksm",
+      "wasmCid": "bafkreigmzwamenrev36umq34jbpx5j2xgyac6ueiba6qqzzi5tkio7la24",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "automationanywhere clean-room actor",
       "category": "rpa",
       "capabilities": [
@@ -1309,9 +1309,9 @@
     {
       "handle": "azure-compat",
       "did": "did:web:etzhayyim.com:actor:azure-compat",
-      "wasmCid": "bafkreifb6pbaxy3kdn535vhxaaps7vbi5nmqbekek7r7fpvkvvljtaaaem",
+      "wasmCid": "bafkreics26bkjtf6v23gfi57ipkt3uhvojrvmsdptirhq2wtu4vpcqpi3a",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "azure clean-room actor",
       "category": "iaas_cloud",
       "capabilities": [
@@ -1326,9 +1326,9 @@
     {
       "handle": "b_pipe-compat",
       "did": "did:web:etzhayyim.com:actor:b_pipe-compat",
-      "wasmCid": "bafkreifuzcdkgoaqokrsv3aird25dmquqwb5gccaij4hvas7nnlpavpwme",
+      "wasmCid": "bafkreiafcbktw4vcf4rbjcbgqmcvojcnhf2s4v7tcoqdpmqny4egtketde",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "b_pipe clean-room actor",
       "category": "fin_market_hft",
       "capabilities": [
@@ -1394,9 +1394,9 @@
     {
       "handle": "bafin-compat",
       "did": "did:web:etzhayyim.com:actor:bafin-compat",
-      "wasmCid": "bafkreidlw25z4knboebelngud2ksbqwgpxodjg3boo44etfm3fhscaeaoe",
+      "wasmCid": "bafkreihe7dltbmg62as4y2u24tp5zh3pql7srds3zv7dijehvtybhudmmu",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "bafin clean-room actor",
       "category": "uk_eu_egov",
       "capabilities": [
@@ -1411,9 +1411,9 @@
     {
       "handle": "baidu-compat",
       "did": "did:web:etzhayyim.com:actor:baidu-compat",
-      "wasmCid": "bafkreihhobvfkglqzy4v7k37m42ygvhwrlm2g2xx26toya3nm3p24a2zki",
+      "wasmCid": "bafkreidg6zqgvlqig33ciesexilr6fdm5dzfvs2svbgclrrmzolikc7caa",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "baidu clean-room actor",
       "category": "delivery_logistics",
       "capabilities": [
@@ -1445,9 +1445,9 @@
     {
       "handle": "bamboohr-compat",
       "did": "did:web:etzhayyim.com:actor:bamboohr-compat",
-      "wasmCid": "bafkreiasqakcrymyuleseh4e2cuzqtp3rqv3yxrv3gnc26gph2zhqbbkk4",
+      "wasmCid": "bafkreihqy7t7ctyzoh4fpvsbeq4ynn7ey7lxcun6dfmv5gy2ena4mkpktm",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "bamboohr clean-room actor",
       "category": "hrtech",
       "capabilities": [
@@ -1479,9 +1479,9 @@
     {
       "handle": "bankid_nordics-compat",
       "did": "did:web:etzhayyim.com:actor:bankid_nordics-compat",
-      "wasmCid": "bafkreiebplxqewofcmcevj4dm24l5hnvotid2pa35sgxlwrjabxrw2l7jq",
+      "wasmCid": "bafkreigwrtn2sexure77klxehrtmzoobztoblojfbugi2edl2guqsjmw34",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "bankid_nordics clean-room actor",
       "category": "dpg_india_stack",
       "capabilities": [
@@ -1615,9 +1615,9 @@
     {
       "handle": "bgp_rpki-compat",
       "did": "did:web:etzhayyim.com:actor:bgp_rpki-compat",
-      "wasmCid": "bafkreighoxk6jp7hkqfrzu4pkgij6wpn6udxcjbrxnicre2drteh5nrtii",
+      "wasmCid": "bafkreieh725mxsxd4gyddp5ugjxqqmfz2mkd7k3x2du22jq3dbnnvr7zsm",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "bgp_rpki clean-room actor",
       "category": "internet_routing",
       "capabilities": [
@@ -1683,9 +1683,9 @@
     {
       "handle": "bigid-compat",
       "did": "did:web:etzhayyim.com:actor:bigid-compat",
-      "wasmCid": "bafkreie6mwzcppg7lcfqtvulh2mcdup2xnwtlpn7g7c2qx7tf2ja3cl2cy",
+      "wasmCid": "bafkreigvoupposmjeurvuw6jyxrhmzhawvwfhvyesv5eaq7u2vvu7665y4",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "bigid clean-room actor",
       "category": "regtech_privacy",
       "capabilities": [
@@ -1700,9 +1700,9 @@
     {
       "handle": "billcom-compat",
       "did": "did:web:etzhayyim.com:actor:billcom-compat",
-      "wasmCid": "bafkreihw2la6w5v33gs4szxhd5d2f3f42emwogog3wayy7kaukz35wafum",
+      "wasmCid": "bafkreiax7vtmy25lisaei5bcs5qewrkez4le535vuvk26wpubhhguloeci",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "billcom clean-room actor",
       "category": "erp_finance",
       "capabilities": [
@@ -1751,9 +1751,9 @@
     {
       "handle": "bipm_utc-compat",
       "did": "did:web:etzhayyim.com:actor:bipm_utc-compat",
-      "wasmCid": "bafkreictykpr33uvpvh4bdiynfbfh6ezrixkre3rvx4thswuyoi75qszku",
+      "wasmCid": "bafkreihdh3bnsd27437ho46usxhpu543wlbmyuz3odk6d6ddmyqf35efiq",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "bipm_utc clean-room actor",
       "category": "physical_benchmarks_classifications",
       "capabilities": [
@@ -1768,9 +1768,9 @@
     {
       "handle": "bird_scooters-compat",
       "did": "did:web:etzhayyim.com:actor:bird_scooters-compat",
-      "wasmCid": "bafkreihcrnffhuntgqlayjugcykxxthucgsa7w2ijteue3p2o42g5t3rfu",
+      "wasmCid": "bafkreihtotia4v5h5wemjp7xh53ih5lmgafnocm5o5uwipni5mjxacflsq",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "bird_scooters clean-room actor",
       "category": "ride_hailing",
       "capabilities": [
@@ -1785,9 +1785,9 @@
     {
       "handle": "bis-compat",
       "did": "did:web:etzhayyim.com:actor:bis-compat",
-      "wasmCid": "bafkreia7fzedz54ae4kkzjlltllfo2thutzyzlcddzidxs2blmqh2nvfme",
+      "wasmCid": "bafkreihplh7s2fz4d35q7eobclzfe6jx74mlxbc3yhkfppvkdrifud7kj4",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "bis clean-room actor",
       "category": "intl_orgs_central_banks",
       "capabilities": [
@@ -1819,9 +1819,9 @@
     {
       "handle": "bizzabo-compat",
       "did": "did:web:etzhayyim.com:actor:bizzabo-compat",
-      "wasmCid": "bafkreidxrrvby2i6ho3iuwfon23s25bua3r6rbztlc5hp2pjcs7d2e7424",
+      "wasmCid": "bafkreibldbzh5wtbczrk7fepk4v7aicfzurxpd65lbthizq7wzvmwha7cq",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "bizzabo clean-room actor",
       "category": "event_npo_creator",
       "capabilities": [
@@ -1921,9 +1921,9 @@
     {
       "handle": "bloomberg_law-compat",
       "did": "did:web:etzhayyim.com:actor:bloomberg_law-compat",
-      "wasmCid": "bafkreibnrcm2nmhwxlth4ck7my2tejyhevfneqbzjnx5xvlyzyjkxnavlu",
+      "wasmCid": "bafkreiaeqbm2d6tpw34uqg6nukovq7cnue4vkm3pwaqvwlkdokchp627nq",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "bloomberg_law clean-room actor",
       "category": "legal_ediscovery",
       "capabilities": [
@@ -2142,9 +2142,9 @@
     {
       "handle": "boomi-compat",
       "did": "did:web:etzhayyim.com:actor:boomi-compat",
-      "wasmCid": "bafkreielxbei4rhtsgybyvwzenu7skhtw46c3qk5kztw43cica7fok6tu4",
+      "wasmCid": "bafkreifgbka5s3itzd67khm2w6rlnprggqcz2tnxpp73dcoimeqwxo37di",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "boomi clean-room actor",
       "category": "lowcode_ipaas",
       "capabilities": [
@@ -2159,9 +2159,9 @@
     {
       "handle": "boschiot-compat",
       "did": "did:web:etzhayyim.com:actor:boschiot-compat",
-      "wasmCid": "bafkreigotrwtor54s3unqzjnf5gzjapzk7cdlnacw5y2w4hdshcb5icbwa",
+      "wasmCid": "bafkreig74fkwnunhrqqbjud4n5hj4dni6ogbung4lgbyzkmh3rim5m6e6y",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "boschiot clean-room actor",
       "category": "iot_edge",
       "capabilities": [
@@ -2261,9 +2261,9 @@
     {
       "handle": "bt_qkd-compat",
       "did": "did:web:etzhayyim.com:actor:bt_qkd-compat",
-      "wasmCid": "bafkreic4unaqr33z4tntbd2scd7njctzqhe4hwubvto75n6vpmwupkjrja",
+      "wasmCid": "bafkreifiq3u6iyrwqbcvmfvvuqjjrnqvsaeuafvn65ussoroassjt3jfce",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "bt_qkd clean-room actor",
       "category": "qkd",
       "capabilities": [
@@ -2312,9 +2312,9 @@
     {
       "handle": "buildium-compat",
       "did": "did:web:etzhayyim.com:actor:buildium-compat",
-      "wasmCid": "bafkreibhfxtls3ihzio3h5w7fyril2kgt4s3trznukjg5edjjqxcv5onme",
+      "wasmCid": "bafkreia6qrt7nzb63dmq5op7f2ngao7rbp4v5smqtplvbsh2dfqwopxjqq",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "buildium clean-room actor",
       "category": "real_estate",
       "capabilities": [
@@ -2363,9 +2363,9 @@
     {
       "handle": "caiso-compat",
       "did": "did:web:etzhayyim.com:actor:caiso-compat",
-      "wasmCid": "bafkreia7z2yrrotbmvilvrpa422l2cyhbuwzgkwymwixiifz62c6c23qju",
+      "wasmCid": "bafkreiehaywdfjg4btdvtx2lpzwhkfucgkv7s3dkll5anqr2xmtoo26rsi",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "caiso clean-room actor",
       "category": "energy_grid_utilities",
       "capabilities": [
@@ -2516,9 +2516,9 @@
     {
       "handle": "careem-compat",
       "did": "did:web:etzhayyim.com:actor:careem-compat",
-      "wasmCid": "bafkreigxqaklgz56y3ietdrmtfwhczwkqjirsix4nsyrguohqpksdx2pcq",
+      "wasmCid": "bafkreig5ja4xgcjq6h2aj3zc3h3txrchtnn5h46wpbdc42os2gkfujxsze",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "careem clean-room actor",
       "category": "crm_sales",
       "capabilities": [
@@ -2669,9 +2669,9 @@
     {
       "handle": "censusgov-compat",
       "did": "did:web:etzhayyim.com:actor:censusgov-compat",
-      "wasmCid": "bafkreifm2v7dkfdzt46nhgan7zdib5tylotrh3wkspulgivvmoidz76nhq",
+      "wasmCid": "bafkreihcktusqrziylfkvbqpjplsgfldmyh2yn5z47pz66fz4xr7dnkiqa",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "censusgov clean-room actor",
       "category": "us_federal",
       "capabilities": [
@@ -2737,9 +2737,9 @@
     {
       "handle": "cerner_ignite-compat",
       "did": "did:web:etzhayyim.com:actor:cerner_ignite-compat",
-      "wasmCid": "bafkreihyxz3un4ydzorcyp7gpmc3zblqq47sv64zqq6xkeztxp2ercxz24",
+      "wasmCid": "bafkreifn4mpkcbicylet3ramipmi7blatvneooxhbjrwbbzcew34emehwe",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "cerner_ignite clean-room actor",
       "category": "healthcare_fhir_bio",
       "capabilities": [
@@ -2771,9 +2771,9 @@
     {
       "handle": "cftc-compat",
       "did": "did:web:etzhayyim.com:actor:cftc-compat",
-      "wasmCid": "bafkreidnspdglcrxrwrlfsdfdnld6oqwqsben4q2iem5b4zg3snh36mwpy",
+      "wasmCid": "bafkreic52sklyzrjsvqprytisnmorcnrd53cr7ks57rcjswenh6ejzetgm",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "cftc clean-room actor",
       "category": "open_banking_finreg",
       "capabilities": [
@@ -3349,9 +3349,9 @@
     {
       "handle": "commonwealth_fusion-compat",
       "did": "did:web:etzhayyim.com:actor:commonwealth_fusion-compat",
-      "wasmCid": "bafkreig4dovtp4wyneokjekjywjg7tgnszumu2pppscvwi4k6a7enu6bbu",
+      "wasmCid": "bafkreib4joxx7mdjc2sf6woqlidepqzoixjffibxb4aro3muzmxcmfqwvu",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "commonwealth_fusion clean-room actor",
       "category": "fusion_energy",
       "capabilities": [
@@ -3740,9 +3740,9 @@
     {
       "handle": "ctrl_labs-compat",
       "did": "did:web:etzhayyim.com:actor:ctrl_labs-compat",
-      "wasmCid": "bafkreibjzdtttwx7ynakjqqppuu6kzln62domkpuy4tr3rfcl52ikvvwpa",
+      "wasmCid": "bafkreibvsdvafaivnhfakqzsfwmrpryf4bba5ykx7aca2szknkgamotsx4",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "ctrl_labs clean-room actor",
       "category": "bci_neuro",
       "capabilities": [
@@ -3825,9 +3825,9 @@
     {
       "handle": "cyberark-compat",
       "did": "did:web:etzhayyim.com:actor:cyberark-compat",
-      "wasmCid": "bafkreidijea5xmw7cij6tt5dm42hpjr62fjp6bjqztsnzwmyvfwfvbggbe",
+      "wasmCid": "bafkreicpag7fuhxgz3yya3zehpy4o2cp7shuqo36cvyocuem5gyt7f67r4",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "cyberark clean-room actor",
       "category": "security_iam",
       "capabilities": [
@@ -3927,9 +3927,9 @@
     {
       "handle": "databricks-compat",
       "did": "did:web:etzhayyim.com:actor:databricks-compat",
-      "wasmCid": "bafkreie7j3mfiox3m4u5hjtbwwibastxcigmmz3e4c2gza26i2rezwh43a",
+      "wasmCid": "bafkreifnp4tqgggy6i2khimvja4oswqdistlz7ff4t3ch2ix6x3kmg3ueu",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "databricks clean-room actor",
       "category": "data_analytics",
       "capabilities": [
@@ -4488,9 +4488,9 @@
     {
       "handle": "drift-compat",
       "did": "did:web:etzhayyim.com:actor:drift-compat",
-      "wasmCid": "bafkreih26x5elnyjorunvjgnrp72kogfoo44ddxlqf3ar3adowb6mvwifm",
+      "wasmCid": "bafkreicuwjnh3oa7nqt2i43qhjiln7qq547wev2rbruhrgt2yxmhtfs6qu",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "drift clean-room actor",
       "category": "cx_survey",
       "capabilities": [
@@ -4709,9 +4709,9 @@
     {
       "handle": "ecdc-compat",
       "did": "did:web:etzhayyim.com:actor:ecdc-compat",
-      "wasmCid": "bafkreibxyxtpxx7zeaqfls35yuekvoe2chefygn5kgjddzpuxvwivzwqiq",
+      "wasmCid": "bafkreigdlz23eat7fvw6ldxvszsodrl26hdgxridvsia7rngtln65vnkcq",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "ecdc clean-room actor",
       "category": "public_health_env_ip",
       "capabilities": [
@@ -5083,9 +5083,9 @@
     {
       "handle": "epa-compat",
       "did": "did:web:etzhayyim.com:actor:epa-compat",
-      "wasmCid": "bafkreibugxes4l6xg2zjd4sfwinhpco5qdieciddpr5bwtybxwdxowjp2i",
+      "wasmCid": "bafkreidfzv42sciuc2if4njwr3atdw6xai4dhgussdkalaxcmgtlzekmay",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "epa clean-room actor",
       "category": "customs_trade_logistics",
       "capabilities": [
@@ -5865,9 +5865,9 @@
     {
       "handle": "flipkart-compat",
       "did": "did:web:etzhayyim.com:actor:flipkart-compat",
-      "wasmCid": "bafkreieek4hqzsscoa7pnsnvuhvbiswjq6iw34btui35eu7syfmwqytgzu",
+      "wasmCid": "bafkreia2jp4ycvsby7chsvs4ailsydd2nrcxtyohwuz6zlxqxlauw3h7kq",
       "kind": "compat",
-      "tier": "L3",
+      "tier": "L4",
       "title": "flipkart clean-room actor",
       "category": "superapp",
       "capabilities": [

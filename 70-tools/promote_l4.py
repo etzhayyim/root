@@ -72,8 +72,9 @@ PREFERRED_REP = {
 }
 
 
-def per_category_cohort():
-    """One representative platform per category model (existing dirs only)."""
+def per_category_cohort(depth=1):
+    """Up to `depth` representative platforms per category model (existing dirs).
+    depth=1 → preferred rep per domain; depth>1 widens the production cohort."""
     cats = deepen.parse_platform_categories()
     by_cat = {}
     for plat, key in cats.items():
@@ -81,9 +82,16 @@ def per_category_cohort():
     reps = []
     for key, plats in by_cat.items():
         pref = PREFERRED_REP.get(key)
-        pick = pref if (pref and pref in plats) else sorted(plats)[0]
-        if os.path.isdir(os.path.join(ACTORS_DIR, f"{pick}-compat")):
-            reps.append(pick)
+        ordered = ([pref] if (pref and pref in plats) else []) + sorted(plats)
+        seen = []
+        for pick in ordered:
+            if pick in seen:
+                continue
+            if os.path.isdir(os.path.join(ACTORS_DIR, f"{pick}-compat")):
+                reps.append(pick)
+                seen.append(pick)
+            if len(seen) >= depth:
+                break
     return sorted(set(reps) | set(L4_COHORT))
 
 
@@ -391,7 +399,10 @@ def contract_test(platform, ns, model):
 
 
 def _classname(platform):
-    return "".join(p.capitalize() for p in re.split(r"[^a-z0-9]", platform.lower()) if p)
+    name = "".join(p.capitalize() for p in re.split(r"[^a-z0-9]", platform.lower()) if p)
+    if not name or name[0].isdigit():
+        name = "A" + name           # valid Python identifier (e.g. 8th_wall)
+    return name
 
 
 def promote(cohort=None):
@@ -421,6 +432,7 @@ if __name__ == "__main__":
     import sys
     argv = sys.argv[1:]
     if argv and argv[0] == "--per-category":
-        promote(per_category_cohort())
+        depth = int(argv[1]) if len(argv) > 1 and argv[1].isdigit() else 1
+        promote(per_category_cohort(depth))
     else:
         promote(argv or None)

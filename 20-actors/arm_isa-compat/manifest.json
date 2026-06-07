@@ -5,12 +5,12 @@
   "kind": "compat",
   "title": "arm_isa clean-room actor",
   "description": "Clean-room, API-compatible hardware ISA / quantum actor (arm_isa); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibwmipgftd4hihbkdjpfoj2h54sephoo5wzxta4tz5jzmopaq2sly",
+  "wasmCid": "bafkreifreiuwd43ju3pkvvsb7rwapuulqwcehr3rhegv7ooa7duroetx3e",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibwmipgftd4hihbkdjpfoj2h54sephoo5wzxta4tz5jzmopaq2sly",
+  "ipfs": "ipfs://bafkreifreiuwd43ju3pkvvsb7rwapuulqwcehr3rhegv7ooa7duroetx3e",
   "schema": "schema/arm_isa.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Register",
     "Instruction",
@@ -183,11 +183,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

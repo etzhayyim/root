@@ -5,12 +5,12 @@
   "kind": "compat",
   "title": "billcom clean-room actor",
   "description": "Clean-room, API-compatible ERP / finance ledger actor (billcom); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihw2la6w5v33gs4szxhd5d2f3f42emwogog3wayy7kaukz35wafum",
+  "wasmCid": "bafkreiax7vtmy25lisaei5bcs5qewrkez4le535vuvk26wpubhhguloeci",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihw2la6w5v33gs4szxhd5d2f3f42emwogog3wayy7kaukz35wafum",
+  "ipfs": "ipfs://bafkreiax7vtmy25lisaei5bcs5qewrkez4le535vuvk26wpubhhguloeci",
   "schema": "schema/billcom.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "GLAccount",
     "JournalEntry",
@@ -183,11 +183,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

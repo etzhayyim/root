@@ -5,12 +5,12 @@
   "kind": "compat",
   "title": "arxiv_api clean-room actor",
   "description": "Clean-room, API-compatible meta-knowledge / scientific publishing actor (arxiv_api); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiefdclq7mj6okaybbpdnsfl2q7esiurdijfqwdp2yhvlvro7bkovm",
+  "wasmCid": "bafkreifh7h4ghk3okpljhv6ird2ckrlsbcbzbe5reeakxuzwoquul2a5la",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiefdclq7mj6okaybbpdnsfl2q7esiurdijfqwdp2yhvlvro7bkovm",
+  "ipfs": "ipfs://bafkreifh7h4ghk3okpljhv6ird2ckrlsbcbzbe5reeakxuzwoquul2a5la",
   "schema": "schema/arxiv_api.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Work",
     "Author",
@@ -183,11 +183,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

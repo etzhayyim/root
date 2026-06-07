@@ -5,12 +5,12 @@
   "kind": "compat",
   "title": "android_aosp clean-room actor",
   "description": "Clean-room, API-compatible OS / kernel interface actor (android_aosp); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiby3yvsl6rfibe5ikmbus7nucyhlgogacdntkgwbhrpajgj7bvhum",
+  "wasmCid": "bafkreig2phztydb236xlta2ioaiq5yujyoc5ci7bb2tpesodj64hnjeu5e",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiby3yvsl6rfibe5ikmbus7nucyhlgogacdntkgwbhrpajgj7bvhum",
+  "ipfs": "ipfs://bafkreig2phztydb236xlta2ioaiq5yujyoc5ci7bb2tpesodj64hnjeu5e",
   "schema": "schema/android_aosp.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Process",
     "Thread",
@@ -183,11 +183,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

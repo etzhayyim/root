@@ -25,11 +25,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible spatial computing / XR actor (8th_wall); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "8th_wall.kotoba"
-   :actor/wasm-cid "bafkreicxstlvo7c3yexbd3ovxwsxgth4yhl66txrklnxzg7c3xrqu6ctmi"
+   :actor/wasm-cid "bafkreifj4vgfihtf4qoutcde5rfz5sgu6u7kb5oomctgyqtwii4jlngtni"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:8th_wall-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreicxstlvo7c3yexbd3ovxwsxgth4yhl66txrklnxzg7c3xrqu6ctmi" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:8th_wall-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreicxstlvo7c3yexbd3ovxwsxgth4yhl66txrklnxzg7c3xrqu6ctmi" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:8th_wall-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreicxstlvo7c3yexbd3ovxwsxgth4yhl66txrklnxzg7c3xrqu6ctmi" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:8th_wall-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreicxstlvo7c3yexbd3ovxwsxgth4yhl66txrklnxzg7c3xrqu6ctmi" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:8th_wall-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreifj4vgfihtf4qoutcde5rfz5sgu6u7kb5oomctgyqtwii4jlngtni" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:8th_wall-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreifj4vgfihtf4qoutcde5rfz5sgu6u7kb5oomctgyqtwii4jlngtni" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:8th_wall-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreifj4vgfihtf4qoutcde5rfz5sgu6u7kb5oomctgyqtwii4jlngtni" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:8th_wall-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreifj4vgfihtf4qoutcde5rfz5sgu6u7kb5oomctgyqtwii4jlngtni" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "aadhaar-compat"
    :actor/did "did:web:etzhayyim.com:actor:aadhaar-compat"
    :actor/kind :compat
@@ -51,11 +51,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible web3 / blockchain RPC actor (aave); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "aave.kotoba"
-   :actor/wasm-cid "bafkreibktqmfvgkovx356mabvyojacb3etsuoueoktz4s4lgdg4zj2fzcu"
+   :actor/wasm-cid "bafkreiftqflenhj2xihjxhyzrmlzc6fofnni4a5jucsynrtmgy7m7xjaum"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:aave-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreibktqmfvgkovx356mabvyojacb3etsuoueoktz4s4lgdg4zj2fzcu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:aave-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreibktqmfvgkovx356mabvyojacb3etsuoueoktz4s4lgdg4zj2fzcu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:aave-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreibktqmfvgkovx356mabvyojacb3etsuoueoktz4s4lgdg4zj2fzcu" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:aave-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreibktqmfvgkovx356mabvyojacb3etsuoueoktz4s4lgdg4zj2fzcu" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:aave-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiftqflenhj2xihjxhyzrmlzc6fofnni4a5jucsynrtmgy7m7xjaum" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:aave-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiftqflenhj2xihjxhyzrmlzc6fofnni4a5jucsynrtmgy7m7xjaum" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:aave-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiftqflenhj2xihjxhyzrmlzc6fofnni4a5jucsynrtmgy7m7xjaum" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:aave-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiftqflenhj2xihjxhyzrmlzc6fofnni4a5jucsynrtmgy7m7xjaum" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "abb_800xa-compat"
    :actor/did "did:web:etzhayyim.com:actor:abb_800xa-compat"
    :actor/kind :compat
@@ -64,11 +64,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible industrial SCADA actor (abb_800xa); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "abb_800xa.kotoba"
-   :actor/wasm-cid "bafkreifs2a3cwdsokfddhuyjgx7wgm54siacmktosx4huzu7z544eo4uhe"
+   :actor/wasm-cid "bafkreifsuaknbqjp2zhg6zitpqhicebmkcvknup2w2pmbbx5gw7u642bmy"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:abb_800xa-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreifs2a3cwdsokfddhuyjgx7wgm54siacmktosx4huzu7z544eo4uhe" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:abb_800xa-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreifs2a3cwdsokfddhuyjgx7wgm54siacmktosx4huzu7z544eo4uhe" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:abb_800xa-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreifs2a3cwdsokfddhuyjgx7wgm54siacmktosx4huzu7z544eo4uhe" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:abb_800xa-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreifs2a3cwdsokfddhuyjgx7wgm54siacmktosx4huzu7z544eo4uhe" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:abb_800xa-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreifsuaknbqjp2zhg6zitpqhicebmkcvknup2w2pmbbx5gw7u642bmy" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:abb_800xa-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreifsuaknbqjp2zhg6zitpqhicebmkcvknup2w2pmbbx5gw7u642bmy" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:abb_800xa-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreifsuaknbqjp2zhg6zitpqhicebmkcvknup2w2pmbbx5gw7u642bmy" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:abb_800xa-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreifsuaknbqjp2zhg6zitpqhicebmkcvknup2w2pmbbx5gw7u642bmy" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "abb_robotics-compat"
    :actor/did "did:web:etzhayyim.com:actor:abb_robotics-compat"
    :actor/kind :compat
@@ -77,11 +77,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible manufacturing / PLM / robotics actor (abb_robotics); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "abb_robotics.kotoba"
-   :actor/wasm-cid "bafkreiajctr7jkuovxfi3hzboznf5bcyzpxzku3hrnii5ubiyu3z32jnwi"
+   :actor/wasm-cid "bafkreigakjef7s3pkrt72ixrewsd26645kr33iizk4ab5mfxgjcchri3jq"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:abb_robotics-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiajctr7jkuovxfi3hzboznf5bcyzpxzku3hrnii5ubiyu3z32jnwi" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:abb_robotics-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiajctr7jkuovxfi3hzboznf5bcyzpxzku3hrnii5ubiyu3z32jnwi" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:abb_robotics-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiajctr7jkuovxfi3hzboznf5bcyzpxzku3hrnii5ubiyu3z32jnwi" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:abb_robotics-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiajctr7jkuovxfi3hzboznf5bcyzpxzku3hrnii5ubiyu3z32jnwi" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:abb_robotics-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreigakjef7s3pkrt72ixrewsd26645kr33iizk4ab5mfxgjcchri3jq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:abb_robotics-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreigakjef7s3pkrt72ixrewsd26645kr33iizk4ab5mfxgjcchri3jq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:abb_robotics-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreigakjef7s3pkrt72ixrewsd26645kr33iizk4ab5mfxgjcchri3jq" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:abb_robotics-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreigakjef7s3pkrt72ixrewsd26645kr33iizk4ab5mfxgjcchri3jq" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "accela-compat"
    :actor/did "did:web:etzhayyim.com:actor:accela-compat"
    :actor/kind :compat
@@ -90,11 +90,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible AEC / GovTech actor (accela); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "accela.kotoba"
-   :actor/wasm-cid "bafkreieonw4t2cdtfgw7kwrx6jiknxfxcvni7cik3mxzehtghubtjc4ixy"
+   :actor/wasm-cid "bafkreid4osfmsvsijhi6f7l3wxsvdhx6sj5yqnamjss3imc7eaqixm4ira"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:accela-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreieonw4t2cdtfgw7kwrx6jiknxfxcvni7cik3mxzehtghubtjc4ixy" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:accela-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreieonw4t2cdtfgw7kwrx6jiknxfxcvni7cik3mxzehtghubtjc4ixy" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:accela-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreieonw4t2cdtfgw7kwrx6jiknxfxcvni7cik3mxzehtghubtjc4ixy" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:accela-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreieonw4t2cdtfgw7kwrx6jiknxfxcvni7cik3mxzehtghubtjc4ixy" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:accela-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreid4osfmsvsijhi6f7l3wxsvdhx6sj5yqnamjss3imc7eaqixm4ira" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:accela-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreid4osfmsvsijhi6f7l3wxsvdhx6sj5yqnamjss3imc7eaqixm4ira" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:accela-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreid4osfmsvsijhi6f7l3wxsvdhx6sj5yqnamjss3imc7eaqixm4ira" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:accela-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreid4osfmsvsijhi6f7l3wxsvdhx6sj5yqnamjss3imc7eaqixm4ira" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "accelbyte-compat"
    :actor/did "did:web:etzhayyim.com:actor:accelbyte-compat"
    :actor/kind :compat
@@ -103,11 +103,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible gaming backend / metaverse actor (accelbyte); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "accelbyte.kotoba"
-   :actor/wasm-cid "bafkreia6lehojat3as6jlk4pzl32siewn6qdkqebq54vww4vi7t4asnpq4"
+   :actor/wasm-cid "bafkreicm4m6liynppke4ra3utd3o5u5k4lkq6vqeesn52rg5x77fszokya"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:accelbyte-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreia6lehojat3as6jlk4pzl32siewn6qdkqebq54vww4vi7t4asnpq4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:accelbyte-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreia6lehojat3as6jlk4pzl32siewn6qdkqebq54vww4vi7t4asnpq4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:accelbyte-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreia6lehojat3as6jlk4pzl32siewn6qdkqebq54vww4vi7t4asnpq4" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:accelbyte-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreia6lehojat3as6jlk4pzl32siewn6qdkqebq54vww4vi7t4asnpq4" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:accelbyte-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreicm4m6liynppke4ra3utd3o5u5k4lkq6vqeesn52rg5x77fszokya" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:accelbyte-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreicm4m6liynppke4ra3utd3o5u5k4lkq6vqeesn52rg5x77fszokya" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:accelbyte-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreicm4m6liynppke4ra3utd3o5u5k4lkq6vqeesn52rg5x77fszokya" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:accelbyte-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreicm4m6liynppke4ra3utd3o5u5k4lkq6vqeesn52rg5x77fszokya" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "ach_network-compat"
    :actor/did "did:web:etzhayyim.com:actor:ach_network-compat"
    :actor/kind :compat
@@ -116,11 +116,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible payments / money movement actor (ach_network); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "ach_network.kotoba"
-   :actor/wasm-cid "bafkreiefeicffuj5kv2ah3fjqfqpf7p567remqnrg7w7exmlh55li4sf2m"
+   :actor/wasm-cid "bafkreiau5uwdeeerihebqhr34omxgrfnf5vajxaflwrahwm37ja7dbnbgm"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:ach_network-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiefeicffuj5kv2ah3fjqfqpf7p567remqnrg7w7exmlh55li4sf2m" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:ach_network-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiefeicffuj5kv2ah3fjqfqpf7p567remqnrg7w7exmlh55li4sf2m" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:ach_network-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiefeicffuj5kv2ah3fjqfqpf7p567remqnrg7w7exmlh55li4sf2m" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:ach_network-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiefeicffuj5kv2ah3fjqfqpf7p567remqnrg7w7exmlh55li4sf2m" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:ach_network-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiau5uwdeeerihebqhr34omxgrfnf5vajxaflwrahwm37ja7dbnbgm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:ach_network-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiau5uwdeeerihebqhr34omxgrfnf5vajxaflwrahwm37ja7dbnbgm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:ach_network-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiau5uwdeeerihebqhr34omxgrfnf5vajxaflwrahwm37ja7dbnbgm" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:ach_network-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiau5uwdeeerihebqhr34omxgrfnf5vajxaflwrahwm37ja7dbnbgm" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "acorrd_standards-compat"
    :actor/did "did:web:etzhayyim.com:actor:acorrd_standards-compat"
    :actor/kind :compat
@@ -129,11 +129,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible core banking / InsurTech actor (acorrd_standards); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "acorrd_standards.kotoba"
-   :actor/wasm-cid "bafkreihgt3qgqidrfq5c5x5mecz7nud33tfhbztfr54n4rpqnynch22c3q"
+   :actor/wasm-cid "bafkreig6csxvjrt6w2u4s5fae7qyc3c2jiigv32vc5wpcouiugfnkdvoey"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:acorrd_standards-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreihgt3qgqidrfq5c5x5mecz7nud33tfhbztfr54n4rpqnynch22c3q" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:acorrd_standards-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreihgt3qgqidrfq5c5x5mecz7nud33tfhbztfr54n4rpqnynch22c3q" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:acorrd_standards-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreihgt3qgqidrfq5c5x5mecz7nud33tfhbztfr54n4rpqnynch22c3q" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:acorrd_standards-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreihgt3qgqidrfq5c5x5mecz7nud33tfhbztfr54n4rpqnynch22c3q" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:acorrd_standards-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreig6csxvjrt6w2u4s5fae7qyc3c2jiigv32vc5wpcouiugfnkdvoey" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:acorrd_standards-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreig6csxvjrt6w2u4s5fae7qyc3c2jiigv32vc5wpcouiugfnkdvoey" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:acorrd_standards-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreig6csxvjrt6w2u4s5fae7qyc3c2jiigv32vc5wpcouiugfnkdvoey" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:acorrd_standards-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreig6csxvjrt6w2u4s5fae7qyc3c2jiigv32vc5wpcouiugfnkdvoey" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "acquia-compat"
    :actor/did "did:web:etzhayyim.com:actor:acquia-compat"
    :actor/kind :compat
@@ -142,11 +142,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible media / video / CMS actor (acquia); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "acquia.kotoba"
-   :actor/wasm-cid "bafkreifw72tgaotdg6bcfxh2xqyhlzxvev74ctwkjv6yuym54qpbtjiwtu"
+   :actor/wasm-cid "bafkreiaeqzqgaf3fdpbypbkambmw6lpi7kxunyvnc3dnzlpyn33to47evy"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:acquia-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreifw72tgaotdg6bcfxh2xqyhlzxvev74ctwkjv6yuym54qpbtjiwtu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:acquia-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreifw72tgaotdg6bcfxh2xqyhlzxvev74ctwkjv6yuym54qpbtjiwtu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:acquia-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreifw72tgaotdg6bcfxh2xqyhlzxvev74ctwkjv6yuym54qpbtjiwtu" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:acquia-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreifw72tgaotdg6bcfxh2xqyhlzxvev74ctwkjv6yuym54qpbtjiwtu" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:acquia-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiaeqzqgaf3fdpbypbkambmw6lpi7kxunyvnc3dnzlpyn33to47evy" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:acquia-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiaeqzqgaf3fdpbypbkambmw6lpi7kxunyvnc3dnzlpyn33to47evy" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:acquia-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiaeqzqgaf3fdpbypbkambmw6lpi7kxunyvnc3dnzlpyn33to47evy" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:acquia-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiaeqzqgaf3fdpbypbkambmw6lpi7kxunyvnc3dnzlpyn33to47evy" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "adobe-compat"
    :actor/did "did:web:etzhayyim.com:actor:adobe-compat"
    :actor/kind :compat
@@ -155,11 +155,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible design / creative tooling actor (adobe); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "adobe.kotoba"
-   :actor/wasm-cid "bafkreihdfesz3jbanks3tkeh7y76vkrdnc3q45oe22bcstja3rodtnekbu"
+   :actor/wasm-cid "bafkreicr4axfkstjie3jbzzg6nqhteotjg5ffvw7wynwxmdjdxvh6hz3jq"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:adobe-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreihdfesz3jbanks3tkeh7y76vkrdnc3q45oe22bcstja3rodtnekbu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:adobe-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreihdfesz3jbanks3tkeh7y76vkrdnc3q45oe22bcstja3rodtnekbu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:adobe-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreihdfesz3jbanks3tkeh7y76vkrdnc3q45oe22bcstja3rodtnekbu" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:adobe-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreihdfesz3jbanks3tkeh7y76vkrdnc3q45oe22bcstja3rodtnekbu" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:adobe-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreicr4axfkstjie3jbzzg6nqhteotjg5ffvw7wynwxmdjdxvh6hz3jq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:adobe-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreicr4axfkstjie3jbzzg6nqhteotjg5ffvw7wynwxmdjdxvh6hz3jq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:adobe-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreicr4axfkstjie3jbzzg6nqhteotjg5ffvw7wynwxmdjdxvh6hz3jq" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:adobe-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreicr4axfkstjie3jbzzg6nqhteotjg5ffvw7wynwxmdjdxvh6hz3jq" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "ads_b_aviation-compat"
    :actor/did "did:web:etzhayyim.com:actor:ads_b_aviation-compat"
    :actor/kind :compat
@@ -168,11 +168,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible space / ocean / earth physics actor (ads_b_aviation); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "ads_b_aviation.kotoba"
-   :actor/wasm-cid "bafkreidzvzj56opexobowgjuufsiuwzz6xffo57hfsnbuiwcgx5qpadikm"
+   :actor/wasm-cid "bafkreigm3u6gzhj3zi2cv276p7pucr6twt4vlly43nnhlwcs5twtcxxdki"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:ads_b_aviation-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreidzvzj56opexobowgjuufsiuwzz6xffo57hfsnbuiwcgx5qpadikm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:ads_b_aviation-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreidzvzj56opexobowgjuufsiuwzz6xffo57hfsnbuiwcgx5qpadikm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:ads_b_aviation-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreidzvzj56opexobowgjuufsiuwzz6xffo57hfsnbuiwcgx5qpadikm" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:ads_b_aviation-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreidzvzj56opexobowgjuufsiuwzz6xffo57hfsnbuiwcgx5qpadikm" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:ads_b_aviation-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreigm3u6gzhj3zi2cv276p7pucr6twt4vlly43nnhlwcs5twtcxxdki" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:ads_b_aviation-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreigm3u6gzhj3zi2cv276p7pucr6twt4vlly43nnhlwcs5twtcxxdki" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:ads_b_aviation-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreigm3u6gzhj3zi2cv276p7pucr6twt4vlly43nnhlwcs5twtcxxdki" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:ads_b_aviation-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreigm3u6gzhj3zi2cv276p7pucr6twt4vlly43nnhlwcs5twtcxxdki" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "adyen-compat"
    :actor/did "did:web:etzhayyim.com:actor:adyen-compat"
    :actor/kind :compat
@@ -194,11 +194,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible headless commerce / logistics actor (aftership); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "aftership.kotoba"
-   :actor/wasm-cid "bafkreib34lmdvplzoxwrnsiuleui4mtu7awlqxniz47265v54w2omcceau"
+   :actor/wasm-cid "bafkreibwwps4akcbu3ab4zl3lg3nh3s2axem4vff5z6mwriggrrluu5veu"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:aftership-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreib34lmdvplzoxwrnsiuleui4mtu7awlqxniz47265v54w2omcceau" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:aftership-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreib34lmdvplzoxwrnsiuleui4mtu7awlqxniz47265v54w2omcceau" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:aftership-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreib34lmdvplzoxwrnsiuleui4mtu7awlqxniz47265v54w2omcceau" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:aftership-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreib34lmdvplzoxwrnsiuleui4mtu7awlqxniz47265v54w2omcceau" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:aftership-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreibwwps4akcbu3ab4zl3lg3nh3s2axem4vff5z6mwriggrrluu5veu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:aftership-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreibwwps4akcbu3ab4zl3lg3nh3s2axem4vff5z6mwriggrrluu5veu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:aftership-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreibwwps4akcbu3ab4zl3lg3nh3s2axem4vff5z6mwriggrrluu5veu" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:aftership-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreibwwps4akcbu3ab4zl3lg3nh3s2axem4vff5z6mwriggrrluu5veu" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "agleader-compat"
    :actor/did "did:web:etzhayyim.com:actor:agleader-compat"
    :actor/kind :compat
@@ -207,11 +207,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible AgriTech / food actor (agleader); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "agleader.kotoba"
-   :actor/wasm-cid "bafkreiaoezwuum4kjjvgifpqojanshc3nr7nxcclpans3pbd5qc4tjdcyq"
+   :actor/wasm-cid "bafkreifghg35l3cting2rpqgitzgq3xs37nvr6rmi72gr3py6avcda4thm"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:agleader-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiaoezwuum4kjjvgifpqojanshc3nr7nxcclpans3pbd5qc4tjdcyq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:agleader-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiaoezwuum4kjjvgifpqojanshc3nr7nxcclpans3pbd5qc4tjdcyq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:agleader-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiaoezwuum4kjjvgifpqojanshc3nr7nxcclpans3pbd5qc4tjdcyq" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:agleader-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiaoezwuum4kjjvgifpqojanshc3nr7nxcclpans3pbd5qc4tjdcyq" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:agleader-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreifghg35l3cting2rpqgitzgq3xs37nvr6rmi72gr3py6avcda4thm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:agleader-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreifghg35l3cting2rpqgitzgq3xs37nvr6rmi72gr3py6avcda4thm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:agleader-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreifghg35l3cting2rpqgitzgq3xs37nvr6rmi72gr3py6avcda4thm" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:agleader-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreifghg35l3cting2rpqgitzgq3xs37nvr6rmi72gr3py6avcda4thm" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "agones-compat"
    :actor/did "did:web:etzhayyim.com:actor:agones-compat"
    :actor/kind :compat
@@ -233,11 +233,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible communications / social actor (agora); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "agora.kotoba"
-   :actor/wasm-cid "bafkreibgbwmzs2kq2nsjdlspwpvfgn4fjwift7ivrc4ongm42p3hux6o3m"
+   :actor/wasm-cid "bafkreiadb3mp3p52rrczq3bxci7fygz27bvtjrvqooltg7tvpdcvtwtswm"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:agora-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreibgbwmzs2kq2nsjdlspwpvfgn4fjwift7ivrc4ongm42p3hux6o3m" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:agora-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreibgbwmzs2kq2nsjdlspwpvfgn4fjwift7ivrc4ongm42p3hux6o3m" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:agora-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreibgbwmzs2kq2nsjdlspwpvfgn4fjwift7ivrc4ongm42p3hux6o3m" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:agora-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreibgbwmzs2kq2nsjdlspwpvfgn4fjwift7ivrc4ongm42p3hux6o3m" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:agora-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiadb3mp3p52rrczq3bxci7fygz27bvtjrvqooltg7tvpdcvtwtswm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:agora-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiadb3mp3p52rrczq3bxci7fygz27bvtjrvqooltg7tvpdcvtwtswm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:agora-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiadb3mp3p52rrczq3bxci7fygz27bvtjrvqooltg7tvpdcvtwtswm" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:agora-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiadb3mp3p52rrczq3bxci7fygz27bvtjrvqooltg7tvpdcvtwtswm" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "airbus_analytx-compat"
    :actor/did "did:web:etzhayyim.com:actor:airbus_analytx-compat"
    :actor/kind :compat
@@ -246,11 +246,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible travel / aviation / hospitality actor (airbus_analytx); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "airbus_analytx.kotoba"
-   :actor/wasm-cid "bafkreibq3ngwa3dn3wqk3ey7ybeiupmskfdgm57tgxhcdjdakyrqh3syxi"
+   :actor/wasm-cid "bafkreib6tjki7biy632j7bmtiurqxjz4bpfgyau62kivdjof3gszmohg3i"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:airbus_analytx-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreibq3ngwa3dn3wqk3ey7ybeiupmskfdgm57tgxhcdjdakyrqh3syxi" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:airbus_analytx-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreibq3ngwa3dn3wqk3ey7ybeiupmskfdgm57tgxhcdjdakyrqh3syxi" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:airbus_analytx-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreibq3ngwa3dn3wqk3ey7ybeiupmskfdgm57tgxhcdjdakyrqh3syxi" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:airbus_analytx-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreibq3ngwa3dn3wqk3ey7ybeiupmskfdgm57tgxhcdjdakyrqh3syxi" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:airbus_analytx-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreib6tjki7biy632j7bmtiurqxjz4bpfgyau62kivdjof3gszmohg3i" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:airbus_analytx-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreib6tjki7biy632j7bmtiurqxjz4bpfgyau62kivdjof3gszmohg3i" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:airbus_analytx-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreib6tjki7biy632j7bmtiurqxjz4bpfgyau62kivdjof3gszmohg3i" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:airbus_analytx-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreib6tjki7biy632j7bmtiurqxjz4bpfgyau62kivdjof3gszmohg3i" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "airbyte-compat"
    :actor/did "did:web:etzhayyim.com:actor:airbyte-compat"
    :actor/kind :compat
@@ -259,11 +259,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible modern data stack actor (airbyte); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "airbyte.kotoba"
-   :actor/wasm-cid "bafkreiaoulwacrk2m6bsq5bgghwqewnt3m633hqjn3krc46wqz6vj4tv7i"
+   :actor/wasm-cid "bafkreiaoetzpwqqh7w3eft6f4c3u7v2gs2mbmwyu4d4i4ymzgvksgp4maq"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:airbyte-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiaoulwacrk2m6bsq5bgghwqewnt3m633hqjn3krc46wqz6vj4tv7i" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:airbyte-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiaoulwacrk2m6bsq5bgghwqewnt3m633hqjn3krc46wqz6vj4tv7i" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:airbyte-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiaoulwacrk2m6bsq5bgghwqewnt3m633hqjn3krc46wqz6vj4tv7i" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:airbyte-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiaoulwacrk2m6bsq5bgghwqewnt3m633hqjn3krc46wqz6vj4tv7i" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:airbyte-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiaoetzpwqqh7w3eft6f4c3u7v2gs2mbmwyu4d4i4ymzgvksgp4maq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:airbyte-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiaoetzpwqqh7w3eft6f4c3u7v2gs2mbmwyu4d4i4ymzgvksgp4maq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:airbyte-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiaoetzpwqqh7w3eft6f4c3u7v2gs2mbmwyu4d4i4ymzgvksgp4maq" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:airbyte-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiaoetzpwqqh7w3eft6f4c3u7v2gs2mbmwyu4d4i4ymzgvksgp4maq" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "airtable-compat"
    :actor/did "did:web:etzhayyim.com:actor:airtable-compat"
    :actor/kind :compat
@@ -272,11 +272,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible office / productivity suite actor (airtable); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "airtable.kotoba"
-   :actor/wasm-cid "bafkreidnlihls7lrk4khjimaxiyzfvrnmu6bxaumoghq4mtxw4ktik2m24"
+   :actor/wasm-cid "bafkreiflclmzjq55cdwjjg6hmibsi77smofyu4fy2e4vex7h7tzsso4mz4"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:airtable-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreidnlihls7lrk4khjimaxiyzfvrnmu6bxaumoghq4mtxw4ktik2m24" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:airtable-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreidnlihls7lrk4khjimaxiyzfvrnmu6bxaumoghq4mtxw4ktik2m24" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:airtable-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreidnlihls7lrk4khjimaxiyzfvrnmu6bxaumoghq4mtxw4ktik2m24" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:airtable-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreidnlihls7lrk4khjimaxiyzfvrnmu6bxaumoghq4mtxw4ktik2m24" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:airtable-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiflclmzjq55cdwjjg6hmibsi77smofyu4fy2e4vex7h7tzsso4mz4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:airtable-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiflclmzjq55cdwjjg6hmibsi77smofyu4fy2e4vex7h7tzsso4mz4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:airtable-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiflclmzjq55cdwjjg6hmibsi77smofyu4fy2e4vex7h7tzsso4mz4" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:airtable-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiflclmzjq55cdwjjg6hmibsi77smofyu4fy2e4vex7h7tzsso4mz4" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "ais_marine-compat"
    :actor/did "did:web:etzhayyim.com:actor:ais_marine-compat"
    :actor/kind :compat
@@ -324,11 +324,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible cyber threat intelligence actor (alienvault); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "alienvault.kotoba"
-   :actor/wasm-cid "bafkreifjb4nzefpeuqzs3ellferyhzvbkjrk3zn7btnc3qjr4s6hja72f4"
+   :actor/wasm-cid "bafkreic2lfqxcnafqsqeuz5u46byfh66k3nmaxjjnaqdv4sw6t6zywmqxq"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:alienvault-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreifjb4nzefpeuqzs3ellferyhzvbkjrk3zn7btnc3qjr4s6hja72f4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:alienvault-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreifjb4nzefpeuqzs3ellferyhzvbkjrk3zn7btnc3qjr4s6hja72f4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:alienvault-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreifjb4nzefpeuqzs3ellferyhzvbkjrk3zn7btnc3qjr4s6hja72f4" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:alienvault-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreifjb4nzefpeuqzs3ellferyhzvbkjrk3zn7btnc3qjr4s6hja72f4" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:alienvault-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreic2lfqxcnafqsqeuz5u46byfh66k3nmaxjjnaqdv4sw6t6zywmqxq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:alienvault-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreic2lfqxcnafqsqeuz5u46byfh66k3nmaxjjnaqdv4sw6t6zywmqxq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:alienvault-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreic2lfqxcnafqsqeuz5u46byfh66k3nmaxjjnaqdv4sw6t6zywmqxq" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:alienvault-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreic2lfqxcnafqsqeuz5u46byfh66k3nmaxjjnaqdv4sw6t6zywmqxq" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "alipay-compat"
    :actor/did "did:web:etzhayyim.com:actor:alipay-compat"
    :actor/kind :compat
@@ -350,11 +350,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible EHR / clinical records actor (allscripts); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "allscripts.kotoba"
-   :actor/wasm-cid "bafkreiegqgyk5s2m4noz3uzcqtd2iptickhn4ahjeh2zfab5t3keh373vi"
+   :actor/wasm-cid "bafkreiewxef7lljvoz7iqzawpl6sxad722d3gie5uquusqchowvjkonfmy"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:allscripts-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiegqgyk5s2m4noz3uzcqtd2iptickhn4ahjeh2zfab5t3keh373vi" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:allscripts-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiegqgyk5s2m4noz3uzcqtd2iptickhn4ahjeh2zfab5t3keh373vi" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:allscripts-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiegqgyk5s2m4noz3uzcqtd2iptickhn4ahjeh2zfab5t3keh373vi" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:allscripts-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiegqgyk5s2m4noz3uzcqtd2iptickhn4ahjeh2zfab5t3keh373vi" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:allscripts-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiewxef7lljvoz7iqzawpl6sxad722d3gie5uquusqchowvjkonfmy" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:allscripts-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiewxef7lljvoz7iqzawpl6sxad722d3gie5uquusqchowvjkonfmy" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:allscripts-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiewxef7lljvoz7iqzawpl6sxad722d3gie5uquusqchowvjkonfmy" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:allscripts-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiewxef7lljvoz7iqzawpl6sxad722d3gie5uquusqchowvjkonfmy" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "alpaca-compat"
    :actor/did "did:web:etzhayyim.com:actor:alpaca-compat"
    :actor/kind :compat
@@ -363,11 +363,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible fintech / web3 actor (alpaca); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "alpaca.kotoba"
-   :actor/wasm-cid "bafkreiavg4ybecirxgafofqq2qa34if54auzajerkhqjojzsogclzp5r6m"
+   :actor/wasm-cid "bafkreigj2pcofpjpgmxyshlr2z5o65gtx4exzcc4n4lkej66kohbdpbytm"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:alpaca-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiavg4ybecirxgafofqq2qa34if54auzajerkhqjojzsogclzp5r6m" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:alpaca-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiavg4ybecirxgafofqq2qa34if54auzajerkhqjojzsogclzp5r6m" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:alpaca-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiavg4ybecirxgafofqq2qa34if54auzajerkhqjojzsogclzp5r6m" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:alpaca-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiavg4ybecirxgafofqq2qa34if54auzajerkhqjojzsogclzp5r6m" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:alpaca-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreigj2pcofpjpgmxyshlr2z5o65gtx4exzcc4n4lkej66kohbdpbytm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:alpaca-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreigj2pcofpjpgmxyshlr2z5o65gtx4exzcc4n4lkej66kohbdpbytm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:alpaca-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreigj2pcofpjpgmxyshlr2z5o65gtx4exzcc4n4lkej66kohbdpbytm" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:alpaca-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreigj2pcofpjpgmxyshlr2z5o65gtx4exzcc4n4lkej66kohbdpbytm" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "altair-compat"
    :actor/did "did:web:etzhayyim.com:actor:altair-compat"
    :actor/kind :compat
@@ -428,11 +428,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible AI/ML infrastructure / chips actor (amd_rocm); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "amd_rocm.kotoba"
-   :actor/wasm-cid "bafkreig44yrfskkqfiiuagchqw5ibchsqgaaoi5c6rn7ykplt4adyvslyu"
+   :actor/wasm-cid "bafkreibxsb5xafiv3jid35xiyd4sn6ps37i546s6apmhj4xzksb3mdiqsm"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:amd_rocm-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreig44yrfskkqfiiuagchqw5ibchsqgaaoi5c6rn7ykplt4adyvslyu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:amd_rocm-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreig44yrfskkqfiiuagchqw5ibchsqgaaoi5c6rn7ykplt4adyvslyu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:amd_rocm-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreig44yrfskkqfiiuagchqw5ibchsqgaaoi5c6rn7ykplt4adyvslyu" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:amd_rocm-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreig44yrfskkqfiiuagchqw5ibchsqgaaoi5c6rn7ykplt4adyvslyu" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:amd_rocm-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreibxsb5xafiv3jid35xiyd4sn6ps37i546s6apmhj4xzksb3mdiqsm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:amd_rocm-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreibxsb5xafiv3jid35xiyd4sn6ps37i546s6apmhj4xzksb3mdiqsm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:amd_rocm-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreibxsb5xafiv3jid35xiyd4sn6ps37i546s6apmhj4xzksb3mdiqsm" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:amd_rocm-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreibxsb5xafiv3jid35xiyd4sn6ps37i546s6apmhj4xzksb3mdiqsm" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "amdocs_billing-compat"
    :actor/did "did:web:etzhayyim.com:actor:amdocs_billing-compat"
    :actor/kind :compat
@@ -441,11 +441,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible telecom / satellite actor (amdocs_billing); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "amdocs_billing.kotoba"
-   :actor/wasm-cid "bafkreiek6kbuympc55yvmp4l4a7k2eigfgu2coqha3v6dsvbxvqfqohbfq"
+   :actor/wasm-cid "bafkreifolvls6osjlbgmea7dpqept2tqm36vu5mxn4jkngvewcv2ksgsey"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:amdocs_billing-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiek6kbuympc55yvmp4l4a7k2eigfgu2coqha3v6dsvbxvqfqohbfq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:amdocs_billing-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiek6kbuympc55yvmp4l4a7k2eigfgu2coqha3v6dsvbxvqfqohbfq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:amdocs_billing-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiek6kbuympc55yvmp4l4a7k2eigfgu2coqha3v6dsvbxvqfqohbfq" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:amdocs_billing-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiek6kbuympc55yvmp4l4a7k2eigfgu2coqha3v6dsvbxvqfqohbfq" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:amdocs_billing-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreifolvls6osjlbgmea7dpqept2tqm36vu5mxn4jkngvewcv2ksgsey" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:amdocs_billing-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreifolvls6osjlbgmea7dpqept2tqm36vu5mxn4jkngvewcv2ksgsey" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:amdocs_billing-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreifolvls6osjlbgmea7dpqept2tqm36vu5mxn4jkngvewcv2ksgsey" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:amdocs_billing-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreifolvls6osjlbgmea7dpqept2tqm36vu5mxn4jkngvewcv2ksgsey" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "amerisourcebergen-compat"
    :actor/did "did:web:etzhayyim.com:actor:amerisourcebergen-compat"
    :actor/kind :compat
@@ -454,11 +454,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible pharmacy benefit / Rx network actor (amerisourcebergen); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "amerisourcebergen.kotoba"
-   :actor/wasm-cid "bafkreihhgz4bpntmtbjdelumcrskafole7ph5dqdma2pewbnyxyb6nx5zy"
+   :actor/wasm-cid "bafkreibduie7ty7cxso663efxv3pauw46yc6t75d4ubpm7jhpck6oczcr4"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:amerisourcebergen-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreihhgz4bpntmtbjdelumcrskafole7ph5dqdma2pewbnyxyb6nx5zy" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:amerisourcebergen-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreihhgz4bpntmtbjdelumcrskafole7ph5dqdma2pewbnyxyb6nx5zy" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:amerisourcebergen-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreihhgz4bpntmtbjdelumcrskafole7ph5dqdma2pewbnyxyb6nx5zy" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:amerisourcebergen-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreihhgz4bpntmtbjdelumcrskafole7ph5dqdma2pewbnyxyb6nx5zy" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:amerisourcebergen-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreibduie7ty7cxso663efxv3pauw46yc6t75d4ubpm7jhpck6oczcr4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:amerisourcebergen-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreibduie7ty7cxso663efxv3pauw46yc6t75d4ubpm7jhpck6oczcr4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:amerisourcebergen-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreibduie7ty7cxso663efxv3pauw46yc6t75d4ubpm7jhpck6oczcr4" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:amerisourcebergen-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreibduie7ty7cxso663efxv3pauw46yc6t75d4ubpm7jhpck6oczcr4" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "amex_auth-compat"
    :actor/did "did:web:etzhayyim.com:actor:amex_auth-compat"
    :actor/kind :compat
@@ -480,11 +480,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible transit / smart cities actor (amtrak); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "amtrak.kotoba"
-   :actor/wasm-cid "bafkreigeqhfmeuf7owrmc7xyjnfjs3ijggfkvetqjzimc7gsohcvpxjlz4"
+   :actor/wasm-cid "bafkreihyuvuf35yw7mv26lq62rxgmyqjswrklsoj4272r2ie65jmb66ibu"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:amtrak-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreigeqhfmeuf7owrmc7xyjnfjs3ijggfkvetqjzimc7gsohcvpxjlz4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:amtrak-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreigeqhfmeuf7owrmc7xyjnfjs3ijggfkvetqjzimc7gsohcvpxjlz4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:amtrak-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreigeqhfmeuf7owrmc7xyjnfjs3ijggfkvetqjzimc7gsohcvpxjlz4" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:amtrak-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreigeqhfmeuf7owrmc7xyjnfjs3ijggfkvetqjzimc7gsohcvpxjlz4" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:amtrak-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreihyuvuf35yw7mv26lq62rxgmyqjswrklsoj4272r2ie65jmb66ibu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:amtrak-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreihyuvuf35yw7mv26lq62rxgmyqjswrklsoj4272r2ie65jmb66ibu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:amtrak-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreihyuvuf35yw7mv26lq62rxgmyqjswrklsoj4272r2ie65jmb66ibu" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:amtrak-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreihyuvuf35yw7mv26lq62rxgmyqjswrklsoj4272r2ie65jmb66ibu" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "android_aosp-compat"
    :actor/did "did:web:etzhayyim.com:actor:android_aosp-compat"
    :actor/kind :compat
@@ -493,11 +493,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible OS / kernel interface actor (android_aosp); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "android_aosp.kotoba"
-   :actor/wasm-cid "bafkreiby3yvsl6rfibe5ikmbus7nucyhlgogacdntkgwbhrpajgj7bvhum"
+   :actor/wasm-cid "bafkreig2phztydb236xlta2ioaiq5yujyoc5ci7bb2tpesodj64hnjeu5e"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:android_aosp-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiby3yvsl6rfibe5ikmbus7nucyhlgogacdntkgwbhrpajgj7bvhum" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:android_aosp-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiby3yvsl6rfibe5ikmbus7nucyhlgogacdntkgwbhrpajgj7bvhum" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:android_aosp-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiby3yvsl6rfibe5ikmbus7nucyhlgogacdntkgwbhrpajgj7bvhum" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:android_aosp-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiby3yvsl6rfibe5ikmbus7nucyhlgogacdntkgwbhrpajgj7bvhum" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:android_aosp-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreig2phztydb236xlta2ioaiq5yujyoc5ci7bb2tpesodj64hnjeu5e" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:android_aosp-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreig2phztydb236xlta2ioaiq5yujyoc5ci7bb2tpesodj64hnjeu5e" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:android_aosp-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreig2phztydb236xlta2ioaiq5yujyoc5ci7bb2tpesodj64hnjeu5e" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:android_aosp-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreig2phztydb236xlta2ioaiq5yujyoc5ci7bb2tpesodj64hnjeu5e" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "anduril_lattice-compat"
    :actor/did "did:web:etzhayyim.com:actor:anduril_lattice-compat"
    :actor/kind :compat
@@ -506,11 +506,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible public safety / law / justice actor (anduril_lattice); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "anduril_lattice.kotoba"
-   :actor/wasm-cid "bafkreihzpczf57rpgq7h6jdgqjqwzldn2jlikuuu23lar4jcymjb5sivdi"
+   :actor/wasm-cid "bafkreiamt7bqlc3ti7opcw7ffx7mxhxp4xy46n2nkpxeugbiapjg2iklbq"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:anduril_lattice-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreihzpczf57rpgq7h6jdgqjqwzldn2jlikuuu23lar4jcymjb5sivdi" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:anduril_lattice-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreihzpczf57rpgq7h6jdgqjqwzldn2jlikuuu23lar4jcymjb5sivdi" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:anduril_lattice-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreihzpczf57rpgq7h6jdgqjqwzldn2jlikuuu23lar4jcymjb5sivdi" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:anduril_lattice-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreihzpczf57rpgq7h6jdgqjqwzldn2jlikuuu23lar4jcymjb5sivdi" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:anduril_lattice-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiamt7bqlc3ti7opcw7ffx7mxhxp4xy46n2nkpxeugbiapjg2iklbq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:anduril_lattice-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiamt7bqlc3ti7opcw7ffx7mxhxp4xy46n2nkpxeugbiapjg2iklbq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:anduril_lattice-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiamt7bqlc3ti7opcw7ffx7mxhxp4xy46n2nkpxeugbiapjg2iklbq" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:anduril_lattice-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiamt7bqlc3ti7opcw7ffx7mxhxp4xy46n2nkpxeugbiapjg2iklbq" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "ansys-compat"
    :actor/did "did:web:etzhayyim.com:actor:ansys-compat"
    :actor/kind :compat
@@ -558,11 +558,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible DevSecOps / serverless actor (apigee); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "apigee.kotoba"
-   :actor/wasm-cid "bafkreib7sw7pg3sh43n7pw7ru4vgeudhpdtgjtw4ebq2odonbfzrww3rxy"
+   :actor/wasm-cid "bafkreibwo7qrzw7wh2eoh2sf4tqqyzgrobhfd2342idbejttk4ioiisllm"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:apigee-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreib7sw7pg3sh43n7pw7ru4vgeudhpdtgjtw4ebq2odonbfzrww3rxy" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:apigee-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreib7sw7pg3sh43n7pw7ru4vgeudhpdtgjtw4ebq2odonbfzrww3rxy" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:apigee-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreib7sw7pg3sh43n7pw7ru4vgeudhpdtgjtw4ebq2odonbfzrww3rxy" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:apigee-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreib7sw7pg3sh43n7pw7ru4vgeudhpdtgjtw4ebq2odonbfzrww3rxy" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:apigee-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreibwo7qrzw7wh2eoh2sf4tqqyzgrobhfd2342idbejttk4ioiisllm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:apigee-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreibwo7qrzw7wh2eoh2sf4tqqyzgrobhfd2342idbejttk4ioiisllm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:apigee-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreibwo7qrzw7wh2eoh2sf4tqqyzgrobhfd2342idbejttk4ioiisllm" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:apigee-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreibwo7qrzw7wh2eoh2sf4tqqyzgrobhfd2342idbejttk4ioiisllm" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "apollo_auto-compat"
    :actor/did "did:web:etzhayyim.com:actor:apollo_auto-compat"
    :actor/kind :compat
@@ -571,11 +571,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible mobility / auto / EV actor (apollo_auto); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "apollo_auto.kotoba"
-   :actor/wasm-cid "bafkreihqov2smsov7qfrp4zxlcn4fx2oyup742m6zj6fgnplynfavzvjui"
+   :actor/wasm-cid "bafkreidttlan4tvdijjglfqkyj5qgiku4mhhdklawtise7vri3zuyhud3y"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:apollo_auto-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreihqov2smsov7qfrp4zxlcn4fx2oyup742m6zj6fgnplynfavzvjui" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:apollo_auto-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreihqov2smsov7qfrp4zxlcn4fx2oyup742m6zj6fgnplynfavzvjui" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:apollo_auto-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreihqov2smsov7qfrp4zxlcn4fx2oyup742m6zj6fgnplynfavzvjui" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:apollo_auto-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreihqov2smsov7qfrp4zxlcn4fx2oyup742m6zj6fgnplynfavzvjui" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:apollo_auto-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreidttlan4tvdijjglfqkyj5qgiku4mhhdklawtise7vri3zuyhud3y" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:apollo_auto-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreidttlan4tvdijjglfqkyj5qgiku4mhhdklawtise7vri3zuyhud3y" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:apollo_auto-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreidttlan4tvdijjglfqkyj5qgiku4mhhdklawtise7vri3zuyhud3y" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:apollo_auto-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreidttlan4tvdijjglfqkyj5qgiku4mhhdklawtise7vri3zuyhud3y" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "apollo_gds-compat"
    :actor/did "did:web:etzhayyim.com:actor:apollo_gds-compat"
    :actor/kind :compat
@@ -597,11 +597,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible developer tools / APM actor (appdynamics); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "appdynamics.kotoba"
-   :actor/wasm-cid "bafkreiedsp4lw74swm5n7nhqrbsc54dlrd32k6uhr4dkkrjjqmit2ns5ai"
+   :actor/wasm-cid "bafkreiflvq3dsg2kxm7xcyrbevztgd3gfv7x65fr24oxezswxyl6nfvbjq"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:appdynamics-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiedsp4lw74swm5n7nhqrbsc54dlrd32k6uhr4dkkrjjqmit2ns5ai" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:appdynamics-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiedsp4lw74swm5n7nhqrbsc54dlrd32k6uhr4dkkrjjqmit2ns5ai" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:appdynamics-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiedsp4lw74swm5n7nhqrbsc54dlrd32k6uhr4dkkrjjqmit2ns5ai" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:appdynamics-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiedsp4lw74swm5n7nhqrbsc54dlrd32k6uhr4dkkrjjqmit2ns5ai" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:appdynamics-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiflvq3dsg2kxm7xcyrbevztgd3gfv7x65fr24oxezswxyl6nfvbjq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:appdynamics-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiflvq3dsg2kxm7xcyrbevztgd3gfv7x65fr24oxezswxyl6nfvbjq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:appdynamics-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiflvq3dsg2kxm7xcyrbevztgd3gfv7x65fr24oxezswxyl6nfvbjq" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:appdynamics-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiflvq3dsg2kxm7xcyrbevztgd3gfv7x65fr24oxezswxyl6nfvbjq" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "appfolio-compat"
    :actor/did "did:web:etzhayyim.com:actor:appfolio-compat"
    :actor/kind :compat
@@ -610,11 +610,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible vertical SaaS actor (appfolio); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "appfolio.kotoba"
-   :actor/wasm-cid "bafkreiea5beippj2j2xqd3wl2la2enocpthiiheohiihruzksucaekcusu"
+   :actor/wasm-cid "bafkreiapbphxpacpru6kjfbfsnmebbdadt6du22afoqlfdqiqjhrbwlqla"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:appfolio-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiea5beippj2j2xqd3wl2la2enocpthiiheohiihruzksucaekcusu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:appfolio-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiea5beippj2j2xqd3wl2la2enocpthiiheohiihruzksucaekcusu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:appfolio-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiea5beippj2j2xqd3wl2la2enocpthiiheohiihruzksucaekcusu" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:appfolio-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiea5beippj2j2xqd3wl2la2enocpthiiheohiihruzksucaekcusu" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:appfolio-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiapbphxpacpru6kjfbfsnmebbdadt6du22afoqlfdqiqjhrbwlqla" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:appfolio-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiapbphxpacpru6kjfbfsnmebbdadt6du22afoqlfdqiqjhrbwlqla" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:appfolio-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiapbphxpacpru6kjfbfsnmebbdadt6du22afoqlfdqiqjhrbwlqla" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:appfolio-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiapbphxpacpru6kjfbfsnmebbdadt6du22afoqlfdqiqjhrbwlqla" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "apple_visionos-compat"
    :actor/did "did:web:etzhayyim.com:actor:apple_visionos-compat"
    :actor/kind :compat
@@ -636,11 +636,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible marketing technology actor (applovin); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "applovin.kotoba"
-   :actor/wasm-cid "bafkreiglklvjc7uoclqs2sxktuvcd3w3c3d3dc44klnp33u2wtisrkr65q"
+   :actor/wasm-cid "bafkreia4re4ke4e4bx75qmhamdzdy2mu3gnc4jfi7ntiw7af4eishvnlci"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:applovin-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiglklvjc7uoclqs2sxktuvcd3w3c3d3dc44klnp33u2wtisrkr65q" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:applovin-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiglklvjc7uoclqs2sxktuvcd3w3c3d3dc44klnp33u2wtisrkr65q" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:applovin-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiglklvjc7uoclqs2sxktuvcd3w3c3d3dc44klnp33u2wtisrkr65q" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:applovin-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiglklvjc7uoclqs2sxktuvcd3w3c3d3dc44klnp33u2wtisrkr65q" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:applovin-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreia4re4ke4e4bx75qmhamdzdy2mu3gnc4jfi7ntiw7af4eishvnlci" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:applovin-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreia4re4ke4e4bx75qmhamdzdy2mu3gnc4jfi7ntiw7af4eishvnlci" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:applovin-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreia4re4ke4e4bx75qmhamdzdy2mu3gnc4jfi7ntiw7af4eishvnlci" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:applovin-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreia4re4ke4e4bx75qmhamdzdy2mu3gnc4jfi7ntiw7af4eishvnlci" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "appsflyer-compat"
    :actor/did "did:web:etzhayyim.com:actor:appsflyer-compat"
    :actor/kind :compat
@@ -662,11 +662,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible e-commerce storefront actor (aptos_pos); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "aptos_pos.kotoba"
-   :actor/wasm-cid "bafkreicx6duu3mgjauc2qpfpovjvqdwfyuftoytzpwc77wtsgvdx7pzcgq"
+   :actor/wasm-cid "bafkreifp3ovkhd2okcvbh6jnks5zt5gasyymvhdyxkkuqfw5tjczzfo7pm"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:aptos_pos-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreicx6duu3mgjauc2qpfpovjvqdwfyuftoytzpwc77wtsgvdx7pzcgq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:aptos_pos-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreicx6duu3mgjauc2qpfpovjvqdwfyuftoytzpwc77wtsgvdx7pzcgq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:aptos_pos-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreicx6duu3mgjauc2qpfpovjvqdwfyuftoytzpwc77wtsgvdx7pzcgq" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:aptos_pos-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreicx6duu3mgjauc2qpfpovjvqdwfyuftoytzpwc77wtsgvdx7pzcgq" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:aptos_pos-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreifp3ovkhd2okcvbh6jnks5zt5gasyymvhdyxkkuqfw5tjczzfo7pm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:aptos_pos-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreifp3ovkhd2okcvbh6jnks5zt5gasyymvhdyxkkuqfw5tjczzfo7pm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:aptos_pos-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreifp3ovkhd2okcvbh6jnks5zt5gasyymvhdyxkkuqfw5tjczzfo7pm" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:aptos_pos-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreifp3ovkhd2okcvbh6jnks5zt5gasyymvhdyxkkuqfw5tjczzfo7pm" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "argo_ocean_floats-compat"
    :actor/did "did:web:etzhayyim.com:actor:argo_ocean_floats-compat"
    :actor/kind :compat
@@ -688,11 +688,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible energy commodities actor (argus_media); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "argus_media.kotoba"
-   :actor/wasm-cid "bafkreihubin7wig3iizc4nwoi2jesvzthlsndqxxrz5g7umhhfxc5g5pm4"
+   :actor/wasm-cid "bafkreictuhe5rcziwtkapnvfhehei255ftv7l47vyu7r4uxlz3v6hlofp4"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:argus_media-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreihubin7wig3iizc4nwoi2jesvzthlsndqxxrz5g7umhhfxc5g5pm4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:argus_media-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreihubin7wig3iizc4nwoi2jesvzthlsndqxxrz5g7umhhfxc5g5pm4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:argus_media-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreihubin7wig3iizc4nwoi2jesvzthlsndqxxrz5g7umhhfxc5g5pm4" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:argus_media-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreihubin7wig3iizc4nwoi2jesvzthlsndqxxrz5g7umhhfxc5g5pm4" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:argus_media-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreictuhe5rcziwtkapnvfhehei255ftv7l47vyu7r4uxlz3v6hlofp4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:argus_media-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreictuhe5rcziwtkapnvfhehei255ftv7l47vyu7r4uxlz3v6hlofp4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:argus_media-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreictuhe5rcziwtkapnvfhehei255ftv7l47vyu7r4uxlz3v6hlofp4" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:argus_media-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreictuhe5rcziwtkapnvfhehei255ftv7l47vyu7r4uxlz3v6hlofp4" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "ariba-compat"
    :actor/did "did:web:etzhayyim.com:actor:ariba-compat"
    :actor/kind :compat
@@ -701,11 +701,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible enterprise commerce / spend actor (ariba); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "ariba.kotoba"
-   :actor/wasm-cid "bafkreifx6x2tl6qwu5zpscd22tyfviwkxont7zzz5y6dqfeqcicjtdybny"
+   :actor/wasm-cid "bafkreifjfhdmlrdrtylluenvdpdym3elwyd6a6fidryjnc5mxt5jb6bttu"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:ariba-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreifx6x2tl6qwu5zpscd22tyfviwkxont7zzz5y6dqfeqcicjtdybny" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:ariba-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreifx6x2tl6qwu5zpscd22tyfviwkxont7zzz5y6dqfeqcicjtdybny" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:ariba-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreifx6x2tl6qwu5zpscd22tyfviwkxont7zzz5y6dqfeqcicjtdybny" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:ariba-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreifx6x2tl6qwu5zpscd22tyfviwkxont7zzz5y6dqfeqcicjtdybny" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:ariba-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreifjfhdmlrdrtylluenvdpdym3elwyd6a6fidryjnc5mxt5jb6bttu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:ariba-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreifjfhdmlrdrtylluenvdpdym3elwyd6a6fidryjnc5mxt5jb6bttu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:ariba-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreifjfhdmlrdrtylluenvdpdym3elwyd6a6fidryjnc5mxt5jb6bttu" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:ariba-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreifjfhdmlrdrtylluenvdpdym3elwyd6a6fidryjnc5mxt5jb6bttu" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "arm_isa-compat"
    :actor/did "did:web:etzhayyim.com:actor:arm_isa-compat"
    :actor/kind :compat
@@ -714,11 +714,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible hardware ISA / quantum actor (arm_isa); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "arm_isa.kotoba"
-   :actor/wasm-cid "bafkreibwmipgftd4hihbkdjpfoj2h54sephoo5wzxta4tz5jzmopaq2sly"
+   :actor/wasm-cid "bafkreifreiuwd43ju3pkvvsb7rwapuulqwcehr3rhegv7ooa7duroetx3e"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:arm_isa-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreibwmipgftd4hihbkdjpfoj2h54sephoo5wzxta4tz5jzmopaq2sly" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:arm_isa-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreibwmipgftd4hihbkdjpfoj2h54sephoo5wzxta4tz5jzmopaq2sly" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:arm_isa-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreibwmipgftd4hihbkdjpfoj2h54sephoo5wzxta4tz5jzmopaq2sly" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:arm_isa-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreibwmipgftd4hihbkdjpfoj2h54sephoo5wzxta4tz5jzmopaq2sly" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:arm_isa-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreifreiuwd43ju3pkvvsb7rwapuulqwcehr3rhegv7ooa7duroetx3e" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:arm_isa-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreifreiuwd43ju3pkvvsb7rwapuulqwcehr3rhegv7ooa7duroetx3e" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:arm_isa-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreifreiuwd43ju3pkvvsb7rwapuulqwcehr3rhegv7ooa7duroetx3e" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:arm_isa-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreifreiuwd43ju3pkvvsb7rwapuulqwcehr3rhegv7ooa7duroetx3e" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "arxiv_api-compat"
    :actor/did "did:web:etzhayyim.com:actor:arxiv_api-compat"
    :actor/kind :compat
@@ -727,11 +727,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible meta-knowledge / scientific publishing actor (arxiv_api); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "arxiv_api.kotoba"
-   :actor/wasm-cid "bafkreiefdclq7mj6okaybbpdnsfl2q7esiurdijfqwdp2yhvlvro7bkovm"
+   :actor/wasm-cid "bafkreifh7h4ghk3okpljhv6ird2ckrlsbcbzbe5reeakxuzwoquul2a5la"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:arxiv_api-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiefdclq7mj6okaybbpdnsfl2q7esiurdijfqwdp2yhvlvro7bkovm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:arxiv_api-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiefdclq7mj6okaybbpdnsfl2q7esiurdijfqwdp2yhvlvro7bkovm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:arxiv_api-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiefdclq7mj6okaybbpdnsfl2q7esiurdijfqwdp2yhvlvro7bkovm" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:arxiv_api-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiefdclq7mj6okaybbpdnsfl2q7esiurdijfqwdp2yhvlvro7bkovm" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:arxiv_api-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreifh7h4ghk3okpljhv6ird2ckrlsbcbzbe5reeakxuzwoquul2a5la" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:arxiv_api-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreifh7h4ghk3okpljhv6ird2ckrlsbcbzbe5reeakxuzwoquul2a5la" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:arxiv_api-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreifh7h4ghk3okpljhv6ird2ckrlsbcbzbe5reeakxuzwoquul2a5la" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:arxiv_api-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreifh7h4ghk3okpljhv6ird2ckrlsbcbzbe5reeakxuzwoquul2a5la" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "as2_protocol-compat"
    :actor/did "did:web:etzhayyim.com:actor:as2_protocol-compat"
    :actor/kind :compat
@@ -740,11 +740,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible deep logistics / supply chain actor (as2_protocol); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "as2_protocol.kotoba"
-   :actor/wasm-cid "bafkreiaex366rm75giqvla4wfd44ywn7qklscnzw7ds5hzkaerdsmmh7tu"
+   :actor/wasm-cid "bafkreibormyscnykvchflnkinfux47uenz3vswrpkukttuwnimqjo4qnyq"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:as2_protocol-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiaex366rm75giqvla4wfd44ywn7qklscnzw7ds5hzkaerdsmmh7tu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:as2_protocol-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiaex366rm75giqvla4wfd44ywn7qklscnzw7ds5hzkaerdsmmh7tu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:as2_protocol-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiaex366rm75giqvla4wfd44ywn7qklscnzw7ds5hzkaerdsmmh7tu" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:as2_protocol-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiaex366rm75giqvla4wfd44ywn7qklscnzw7ds5hzkaerdsmmh7tu" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:as2_protocol-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreibormyscnykvchflnkinfux47uenz3vswrpkukttuwnimqjo4qnyq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:as2_protocol-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreibormyscnykvchflnkinfux47uenz3vswrpkukttuwnimqjo4qnyq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:as2_protocol-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreibormyscnykvchflnkinfux47uenz3vswrpkukttuwnimqjo4qnyq" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:as2_protocol-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreibormyscnykvchflnkinfux47uenz3vswrpkukttuwnimqjo4qnyq" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "as_400_ibmi-compat"
    :actor/did "did:web:etzhayyim.com:actor:as_400_ibmi-compat"
    :actor/kind :compat
@@ -753,11 +753,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible mainframe / legacy substrate actor (as_400_ibmi); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "as_400_ibmi.kotoba"
-   :actor/wasm-cid "bafkreibbrgncsbqq5yetcjvhj6iefkh4rqpq4ixd2o7sn5fhepxox5siue"
+   :actor/wasm-cid "bafkreia64lnneakre5gjel6xctzim6t3ypxykoe55ahxzbourcgomvx5we"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:as_400_ibmi-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreibbrgncsbqq5yetcjvhj6iefkh4rqpq4ixd2o7sn5fhepxox5siue" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:as_400_ibmi-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreibbrgncsbqq5yetcjvhj6iefkh4rqpq4ixd2o7sn5fhepxox5siue" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:as_400_ibmi-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreibbrgncsbqq5yetcjvhj6iefkh4rqpq4ixd2o7sn5fhepxox5siue" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:as_400_ibmi-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreibbrgncsbqq5yetcjvhj6iefkh4rqpq4ixd2o7sn5fhepxox5siue" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:as_400_ibmi-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreia64lnneakre5gjel6xctzim6t3ypxykoe55ahxzbourcgomvx5we" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:as_400_ibmi-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreia64lnneakre5gjel6xctzim6t3ypxykoe55ahxzbourcgomvx5we" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:as_400_ibmi-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreia64lnneakre5gjel6xctzim6t3ypxykoe55ahxzbourcgomvx5we" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:as_400_ibmi-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreia64lnneakre5gjel6xctzim6t3ypxykoe55ahxzbourcgomvx5we" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "asana-compat"
    :actor/did "did:web:etzhayyim.com:actor:asana-compat"
    :actor/kind :compat
@@ -779,11 +779,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible synthetic biology / DNA actor (asimov); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "asimov.kotoba"
-   :actor/wasm-cid "bafkreifwgd5di7kgahuy6ltil6ksu7fxqx33p37bj7kwo2jyhzqtx2wktm"
+   :actor/wasm-cid "bafkreidzuqomhhekfd6326fg57z2ca6iqqwowk3k2j2ik7t5jqhgxemifa"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:asimov-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreifwgd5di7kgahuy6ltil6ksu7fxqx33p37bj7kwo2jyhzqtx2wktm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:asimov-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreifwgd5di7kgahuy6ltil6ksu7fxqx33p37bj7kwo2jyhzqtx2wktm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:asimov-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreifwgd5di7kgahuy6ltil6ksu7fxqx33p37bj7kwo2jyhzqtx2wktm" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:asimov-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreifwgd5di7kgahuy6ltil6ksu7fxqx33p37bj7kwo2jyhzqtx2wktm" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:asimov-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreidzuqomhhekfd6326fg57z2ca6iqqwowk3k2j2ik7t5jqhgxemifa" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:asimov-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreidzuqomhhekfd6326fg57z2ca6iqqwowk3k2j2ik7t5jqhgxemifa" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:asimov-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreidzuqomhhekfd6326fg57z2ca6iqqwowk3k2j2ik7t5jqhgxemifa" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:asimov-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreidzuqomhhekfd6326fg57z2ca6iqqwowk3k2j2ik7t5jqhgxemifa" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "asme_materials-compat"
    :actor/did "did:web:etzhayyim.com:actor:asme_materials-compat"
    :actor/kind :compat
@@ -792,11 +792,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible materials / bio / chemical actor (asme_materials); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "asme_materials.kotoba"
-   :actor/wasm-cid "bafkreihe7l2v6qiohzguooxg6dfibmrqh4nqizwjd6rvuk4y5ler4p2sru"
+   :actor/wasm-cid "bafkreib7xlzcdgjr5gdyb2h2joz6abgt7sowuc67pyhl6o3cwzrzmy7zmq"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:asme_materials-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreihe7l2v6qiohzguooxg6dfibmrqh4nqizwjd6rvuk4y5ler4p2sru" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:asme_materials-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreihe7l2v6qiohzguooxg6dfibmrqh4nqizwjd6rvuk4y5ler4p2sru" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:asme_materials-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreihe7l2v6qiohzguooxg6dfibmrqh4nqizwjd6rvuk4y5ler4p2sru" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:asme_materials-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreihe7l2v6qiohzguooxg6dfibmrqh4nqizwjd6rvuk4y5ler4p2sru" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:asme_materials-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreib7xlzcdgjr5gdyb2h2joz6abgt7sowuc67pyhl6o3cwzrzmy7zmq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:asme_materials-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreib7xlzcdgjr5gdyb2h2joz6abgt7sowuc67pyhl6o3cwzrzmy7zmq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:asme_materials-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreib7xlzcdgjr5gdyb2h2joz6abgt7sowuc67pyhl6o3cwzrzmy7zmq" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:asme_materials-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreib7xlzcdgjr5gdyb2h2joz6abgt7sowuc67pyhl6o3cwzrzmy7zmq" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "astm_codes-compat"
    :actor/did "did:web:etzhayyim.com:actor:astm_codes-compat"
    :actor/kind :compat
@@ -831,11 +831,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible DevOps / CI-CD actor (atlassian); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "atlassian.kotoba"
-   :actor/wasm-cid "bafkreic7ifuuuhlp3sj4vwfffjstj6gxhwhgie3ha4kplytortxtzupipu"
+   :actor/wasm-cid "bafkreibbbzqidm2jrelc4uqilmqka2mbjdd6ffao5xskged4rfjpgwgdd4"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:atlassian-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreic7ifuuuhlp3sj4vwfffjstj6gxhwhgie3ha4kplytortxtzupipu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:atlassian-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreic7ifuuuhlp3sj4vwfffjstj6gxhwhgie3ha4kplytortxtzupipu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:atlassian-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreic7ifuuuhlp3sj4vwfffjstj6gxhwhgie3ha4kplytortxtzupipu" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:atlassian-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreic7ifuuuhlp3sj4vwfffjstj6gxhwhgie3ha4kplytortxtzupipu" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:atlassian-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreibbbzqidm2jrelc4uqilmqka2mbjdd6ffao5xskged4rfjpgwgdd4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:atlassian-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreibbbzqidm2jrelc4uqilmqka2mbjdd6ffao5xskged4rfjpgwgdd4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:atlassian-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreibbbzqidm2jrelc4uqilmqka2mbjdd6ffao5xskged4rfjpgwgdd4" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:atlassian-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreibbbzqidm2jrelc4uqilmqka2mbjdd6ffao5xskged4rfjpgwgdd4" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "ato_australia-compat"
    :actor/did "did:web:etzhayyim.com:actor:ato_australia-compat"
    :actor/kind :compat
@@ -844,11 +844,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible Japan / APAC e-government actor (ato_australia); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "ato_australia.kotoba"
-   :actor/wasm-cid "bafkreihn3nxzwkmnmu3wn5l574iczjeezd6674ojomhegbdcroybjwxl34"
+   :actor/wasm-cid "bafkreicrxa6a5c34z5kxyvzesh423h4o5eg7pa2fwl2drqxcwwoxbznvtm"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:ato_australia-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreihn3nxzwkmnmu3wn5l574iczjeezd6674ojomhegbdcroybjwxl34" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:ato_australia-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreihn3nxzwkmnmu3wn5l574iczjeezd6674ojomhegbdcroybjwxl34" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:ato_australia-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreihn3nxzwkmnmu3wn5l574iczjeezd6674ojomhegbdcroybjwxl34" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:ato_australia-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreihn3nxzwkmnmu3wn5l574iczjeezd6674ojomhegbdcroybjwxl34" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:ato_australia-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreicrxa6a5c34z5kxyvzesh423h4o5eg7pa2fwl2drqxcwwoxbznvtm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:ato_australia-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreicrxa6a5c34z5kxyvzesh423h4o5eg7pa2fwl2drqxcwwoxbznvtm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:ato_australia-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreicrxa6a5c34z5kxyvzesh423h4o5eg7pa2fwl2drqxcwwoxbznvtm" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:ato_australia-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreicrxa6a5c34z5kxyvzesh423h4o5eg7pa2fwl2drqxcwwoxbznvtm" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "aurora_driver-compat"
    :actor/did "did:web:etzhayyim.com:actor:aurora_driver-compat"
    :actor/kind :compat
@@ -870,11 +870,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible drone swarm / aerial robotics actor (auterion); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "auterion.kotoba"
-   :actor/wasm-cid "bafkreibmpki4yfvfefdrltu6ffjzgakgpjeap2dpccignf6jctrrllbfty"
+   :actor/wasm-cid "bafkreiamnghnsilm6qc2qv5fvgaypggroeevkh5by3xmtjwbxptavmmbga"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:auterion-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreibmpki4yfvfefdrltu6ffjzgakgpjeap2dpccignf6jctrrllbfty" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:auterion-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreibmpki4yfvfefdrltu6ffjzgakgpjeap2dpccignf6jctrrllbfty" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:auterion-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreibmpki4yfvfefdrltu6ffjzgakgpjeap2dpccignf6jctrrllbfty" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:auterion-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreibmpki4yfvfefdrltu6ffjzgakgpjeap2dpccignf6jctrrllbfty" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:auterion-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiamnghnsilm6qc2qv5fvgaypggroeevkh5by3xmtjwbxptavmmbga" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:auterion-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiamnghnsilm6qc2qv5fvgaypggroeevkh5by3xmtjwbxptavmmbga" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:auterion-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiamnghnsilm6qc2qv5fvgaypggroeevkh5by3xmtjwbxptavmmbga" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:auterion-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiamnghnsilm6qc2qv5fvgaypggroeevkh5by3xmtjwbxptavmmbga" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "auto_gpt-compat"
    :actor/did "did:web:etzhayyim.com:actor:auto_gpt-compat"
    :actor/kind :compat
@@ -883,11 +883,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible AI agent protocol actor (auto_gpt); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "auto_gpt.kotoba"
-   :actor/wasm-cid "bafkreibvwh3c3it642gqom3y2iefu6z27jiurlyfuzfxbj5t565mkjdmeu"
+   :actor/wasm-cid "bafkreiac6sn2rpcbb5657im56prqn7sro6knchylvecjjnjtfuahja7gbi"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:auto_gpt-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreibvwh3c3it642gqom3y2iefu6z27jiurlyfuzfxbj5t565mkjdmeu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:auto_gpt-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreibvwh3c3it642gqom3y2iefu6z27jiurlyfuzfxbj5t565mkjdmeu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:auto_gpt-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreibvwh3c3it642gqom3y2iefu6z27jiurlyfuzfxbj5t565mkjdmeu" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:auto_gpt-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreibvwh3c3it642gqom3y2iefu6z27jiurlyfuzfxbj5t565mkjdmeu" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:auto_gpt-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiac6sn2rpcbb5657im56prqn7sro6knchylvecjjnjtfuahja7gbi" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:auto_gpt-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiac6sn2rpcbb5657im56prqn7sro6knchylvecjjnjtfuahja7gbi" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:auto_gpt-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiac6sn2rpcbb5657im56prqn7sro6knchylvecjjnjtfuahja7gbi" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:auto_gpt-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiac6sn2rpcbb5657im56prqn7sro6knchylvecjjnjtfuahja7gbi" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "autodesk-compat"
    :actor/did "did:web:etzhayyim.com:actor:autodesk-compat"
    :actor/kind :compat
@@ -935,11 +935,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible RPA / process automation actor (automationanywhere); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "automationanywhere.kotoba"
-   :actor/wasm-cid "bafkreifra7n6df7qus3fwm62krut6wb3orgwsh5xqiqdyjtzra62zxlksm"
+   :actor/wasm-cid "bafkreigmzwamenrev36umq34jbpx5j2xgyac6ueiba6qqzzi5tkio7la24"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:automationanywhere-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreifra7n6df7qus3fwm62krut6wb3orgwsh5xqiqdyjtzra62zxlksm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:automationanywhere-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreifra7n6df7qus3fwm62krut6wb3orgwsh5xqiqdyjtzra62zxlksm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:automationanywhere-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreifra7n6df7qus3fwm62krut6wb3orgwsh5xqiqdyjtzra62zxlksm" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:automationanywhere-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreifra7n6df7qus3fwm62krut6wb3orgwsh5xqiqdyjtzra62zxlksm" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:automationanywhere-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreigmzwamenrev36umq34jbpx5j2xgyac6ueiba6qqzzi5tkio7la24" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:automationanywhere-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreigmzwamenrev36umq34jbpx5j2xgyac6ueiba6qqzzi5tkio7la24" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:automationanywhere-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreigmzwamenrev36umq34jbpx5j2xgyac6ueiba6qqzzi5tkio7la24" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:automationanywhere-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreigmzwamenrev36umq34jbpx5j2xgyac6ueiba6qqzzi5tkio7la24" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "autosar-compat"
    :actor/did "did:web:etzhayyim.com:actor:autosar-compat"
    :actor/kind :compat
@@ -1013,11 +1013,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible cloud infrastructure (IaaS) actor (azure); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "azure.kotoba"
-   :actor/wasm-cid "bafkreifb6pbaxy3kdn535vhxaaps7vbi5nmqbekek7r7fpvkvvljtaaaem"
+   :actor/wasm-cid "bafkreics26bkjtf6v23gfi57ipkt3uhvojrvmsdptirhq2wtu4vpcqpi3a"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:azure-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreifb6pbaxy3kdn535vhxaaps7vbi5nmqbekek7r7fpvkvvljtaaaem" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:azure-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreifb6pbaxy3kdn535vhxaaps7vbi5nmqbekek7r7fpvkvvljtaaaem" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:azure-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreifb6pbaxy3kdn535vhxaaps7vbi5nmqbekek7r7fpvkvvljtaaaem" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:azure-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreifb6pbaxy3kdn535vhxaaps7vbi5nmqbekek7r7fpvkvvljtaaaem" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:azure-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreics26bkjtf6v23gfi57ipkt3uhvojrvmsdptirhq2wtu4vpcqpi3a" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:azure-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreics26bkjtf6v23gfi57ipkt3uhvojrvmsdptirhq2wtu4vpcqpi3a" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:azure-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreics26bkjtf6v23gfi57ipkt3uhvojrvmsdptirhq2wtu4vpcqpi3a" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:azure-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreics26bkjtf6v23gfi57ipkt3uhvojrvmsdptirhq2wtu4vpcqpi3a" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "b_pipe-compat"
    :actor/did "did:web:etzhayyim.com:actor:b_pipe-compat"
    :actor/kind :compat
@@ -1026,11 +1026,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible financial market data / trading actor (b_pipe); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "b_pipe.kotoba"
-   :actor/wasm-cid "bafkreifuzcdkgoaqokrsv3aird25dmquqwb5gccaij4hvas7nnlpavpwme"
+   :actor/wasm-cid "bafkreiafcbktw4vcf4rbjcbgqmcvojcnhf2s4v7tcoqdpmqny4egtketde"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:b_pipe-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreifuzcdkgoaqokrsv3aird25dmquqwb5gccaij4hvas7nnlpavpwme" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:b_pipe-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreifuzcdkgoaqokrsv3aird25dmquqwb5gccaij4hvas7nnlpavpwme" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:b_pipe-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreifuzcdkgoaqokrsv3aird25dmquqwb5gccaij4hvas7nnlpavpwme" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:b_pipe-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreifuzcdkgoaqokrsv3aird25dmquqwb5gccaij4hvas7nnlpavpwme" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:b_pipe-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiafcbktw4vcf4rbjcbgqmcvojcnhf2s4v7tcoqdpmqny4egtketde" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:b_pipe-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiafcbktw4vcf4rbjcbgqmcvojcnhf2s4v7tcoqdpmqny4egtketde" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:b_pipe-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiafcbktw4vcf4rbjcbgqmcvojcnhf2s4v7tcoqdpmqny4egtketde" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:b_pipe-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiafcbktw4vcf4rbjcbgqmcvojcnhf2s4v7tcoqdpmqny4egtketde" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "babyagi-compat"
    :actor/did "did:web:etzhayyim.com:actor:babyagi-compat"
    :actor/kind :compat
@@ -1078,11 +1078,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible UK / EU e-government actor (bafin); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "bafin.kotoba"
-   :actor/wasm-cid "bafkreidlw25z4knboebelngud2ksbqwgpxodjg3boo44etfm3fhscaeaoe"
+   :actor/wasm-cid "bafkreihe7dltbmg62as4y2u24tp5zh3pql7srds3zv7dijehvtybhudmmu"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:bafin-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreidlw25z4knboebelngud2ksbqwgpxodjg3boo44etfm3fhscaeaoe" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bafin-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreidlw25z4knboebelngud2ksbqwgpxodjg3boo44etfm3fhscaeaoe" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bafin-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreidlw25z4knboebelngud2ksbqwgpxodjg3boo44etfm3fhscaeaoe" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:bafin-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreidlw25z4knboebelngud2ksbqwgpxodjg3boo44etfm3fhscaeaoe" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:bafin-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreihe7dltbmg62as4y2u24tp5zh3pql7srds3zv7dijehvtybhudmmu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bafin-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreihe7dltbmg62as4y2u24tp5zh3pql7srds3zv7dijehvtybhudmmu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bafin-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreihe7dltbmg62as4y2u24tp5zh3pql7srds3zv7dijehvtybhudmmu" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:bafin-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreihe7dltbmg62as4y2u24tp5zh3pql7srds3zv7dijehvtybhudmmu" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "baidu-compat"
    :actor/did "did:web:etzhayyim.com:actor:baidu-compat"
    :actor/kind :compat
@@ -1091,11 +1091,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible delivery / local logistics actor (baidu); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "baidu.kotoba"
-   :actor/wasm-cid "bafkreihhobvfkglqzy4v7k37m42ygvhwrlm2g2xx26toya3nm3p24a2zki"
+   :actor/wasm-cid "bafkreidg6zqgvlqig33ciesexilr6fdm5dzfvs2svbgclrrmzolikc7caa"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:baidu-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreihhobvfkglqzy4v7k37m42ygvhwrlm2g2xx26toya3nm3p24a2zki" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:baidu-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreihhobvfkglqzy4v7k37m42ygvhwrlm2g2xx26toya3nm3p24a2zki" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:baidu-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreihhobvfkglqzy4v7k37m42ygvhwrlm2g2xx26toya3nm3p24a2zki" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:baidu-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreihhobvfkglqzy4v7k37m42ygvhwrlm2g2xx26toya3nm3p24a2zki" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:baidu-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreidg6zqgvlqig33ciesexilr6fdm5dzfvs2svbgclrrmzolikc7caa" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:baidu-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreidg6zqgvlqig33ciesexilr6fdm5dzfvs2svbgclrrmzolikc7caa" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:baidu-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreidg6zqgvlqig33ciesexilr6fdm5dzfvs2svbgclrrmzolikc7caa" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:baidu-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreidg6zqgvlqig33ciesexilr6fdm5dzfvs2svbgclrrmzolikc7caa" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "baker_hughes_jewel-compat"
    :actor/did "did:web:etzhayyim.com:actor:baker_hughes_jewel-compat"
    :actor/kind :compat
@@ -1117,11 +1117,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible HR technology actor (bamboohr); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "bamboohr.kotoba"
-   :actor/wasm-cid "bafkreiasqakcrymyuleseh4e2cuzqtp3rqv3yxrv3gnc26gph2zhqbbkk4"
+   :actor/wasm-cid "bafkreihqy7t7ctyzoh4fpvsbeq4ynn7ey7lxcun6dfmv5gy2ena4mkpktm"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:bamboohr-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiasqakcrymyuleseh4e2cuzqtp3rqv3yxrv3gnc26gph2zhqbbkk4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bamboohr-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiasqakcrymyuleseh4e2cuzqtp3rqv3yxrv3gnc26gph2zhqbbkk4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bamboohr-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiasqakcrymyuleseh4e2cuzqtp3rqv3yxrv3gnc26gph2zhqbbkk4" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:bamboohr-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiasqakcrymyuleseh4e2cuzqtp3rqv3yxrv3gnc26gph2zhqbbkk4" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:bamboohr-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreihqy7t7ctyzoh4fpvsbeq4ynn7ey7lxcun6dfmv5gy2ena4mkpktm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bamboohr-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreihqy7t7ctyzoh4fpvsbeq4ynn7ey7lxcun6dfmv5gy2ena4mkpktm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bamboohr-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreihqy7t7ctyzoh4fpvsbeq4ynn7ey7lxcun6dfmv5gy2ena4mkpktm" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:bamboohr-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreihqy7t7ctyzoh4fpvsbeq4ynn7ey7lxcun6dfmv5gy2ena4mkpktm" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "bandwidth-compat"
    :actor/did "did:web:etzhayyim.com:actor:bandwidth-compat"
    :actor/kind :compat
@@ -1143,11 +1143,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible digital public infrastructure actor (bankid_nordics); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "bankid_nordics.kotoba"
-   :actor/wasm-cid "bafkreiebplxqewofcmcevj4dm24l5hnvotid2pa35sgxlwrjabxrw2l7jq"
+   :actor/wasm-cid "bafkreigwrtn2sexure77klxehrtmzoobztoblojfbugi2edl2guqsjmw34"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:bankid_nordics-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiebplxqewofcmcevj4dm24l5hnvotid2pa35sgxlwrjabxrw2l7jq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bankid_nordics-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiebplxqewofcmcevj4dm24l5hnvotid2pa35sgxlwrjabxrw2l7jq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bankid_nordics-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiebplxqewofcmcevj4dm24l5hnvotid2pa35sgxlwrjabxrw2l7jq" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:bankid_nordics-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiebplxqewofcmcevj4dm24l5hnvotid2pa35sgxlwrjabxrw2l7jq" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:bankid_nordics-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreigwrtn2sexure77klxehrtmzoobztoblojfbugi2edl2guqsjmw34" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bankid_nordics-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreigwrtn2sexure77klxehrtmzoobztoblojfbugi2edl2guqsjmw34" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bankid_nordics-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreigwrtn2sexure77klxehrtmzoobztoblojfbugi2edl2guqsjmw34" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:bankid_nordics-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreigwrtn2sexure77klxehrtmzoobztoblojfbugi2edl2guqsjmw34" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "barclays_marl-compat"
    :actor/did "did:web:etzhayyim.com:actor:barclays_marl-compat"
    :actor/kind :compat
@@ -1247,11 +1247,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible deep internet / core routing actor (bgp_rpki); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "bgp_rpki.kotoba"
-   :actor/wasm-cid "bafkreighoxk6jp7hkqfrzu4pkgij6wpn6udxcjbrxnicre2drteh5nrtii"
+   :actor/wasm-cid "bafkreieh725mxsxd4gyddp5ugjxqqmfz2mkd7k3x2du22jq3dbnnvr7zsm"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:bgp_rpki-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreighoxk6jp7hkqfrzu4pkgij6wpn6udxcjbrxnicre2drteh5nrtii" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bgp_rpki-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreighoxk6jp7hkqfrzu4pkgij6wpn6udxcjbrxnicre2drteh5nrtii" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bgp_rpki-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreighoxk6jp7hkqfrzu4pkgij6wpn6udxcjbrxnicre2drteh5nrtii" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:bgp_rpki-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreighoxk6jp7hkqfrzu4pkgij6wpn6udxcjbrxnicre2drteh5nrtii" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:bgp_rpki-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreieh725mxsxd4gyddp5ugjxqqmfz2mkd7k3x2du22jq3dbnnvr7zsm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bgp_rpki-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreieh725mxsxd4gyddp5ugjxqqmfz2mkd7k3x2du22jq3dbnnvr7zsm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bgp_rpki-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreieh725mxsxd4gyddp5ugjxqqmfz2mkd7k3x2du22jq3dbnnvr7zsm" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:bgp_rpki-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreieh725mxsxd4gyddp5ugjxqqmfz2mkd7k3x2du22jq3dbnnvr7zsm" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "bic_container_codes-compat"
    :actor/did "did:web:etzhayyim.com:actor:bic_container_codes-compat"
    :actor/kind :compat
@@ -1299,11 +1299,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible RegTech / privacy actor (bigid); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "bigid.kotoba"
-   :actor/wasm-cid "bafkreie6mwzcppg7lcfqtvulh2mcdup2xnwtlpn7g7c2qx7tf2ja3cl2cy"
+   :actor/wasm-cid "bafkreigvoupposmjeurvuw6jyxrhmzhawvwfhvyesv5eaq7u2vvu7665y4"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:bigid-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreie6mwzcppg7lcfqtvulh2mcdup2xnwtlpn7g7c2qx7tf2ja3cl2cy" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bigid-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreie6mwzcppg7lcfqtvulh2mcdup2xnwtlpn7g7c2qx7tf2ja3cl2cy" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bigid-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreie6mwzcppg7lcfqtvulh2mcdup2xnwtlpn7g7c2qx7tf2ja3cl2cy" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:bigid-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreie6mwzcppg7lcfqtvulh2mcdup2xnwtlpn7g7c2qx7tf2ja3cl2cy" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:bigid-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreigvoupposmjeurvuw6jyxrhmzhawvwfhvyesv5eaq7u2vvu7665y4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bigid-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreigvoupposmjeurvuw6jyxrhmzhawvwfhvyesv5eaq7u2vvu7665y4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bigid-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreigvoupposmjeurvuw6jyxrhmzhawvwfhvyesv5eaq7u2vvu7665y4" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:bigid-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreigvoupposmjeurvuw6jyxrhmzhawvwfhvyesv5eaq7u2vvu7665y4" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "billcom-compat"
    :actor/did "did:web:etzhayyim.com:actor:billcom-compat"
    :actor/kind :compat
@@ -1312,11 +1312,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible ERP / finance ledger actor (billcom); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "billcom.kotoba"
-   :actor/wasm-cid "bafkreihw2la6w5v33gs4szxhd5d2f3f42emwogog3wayy7kaukz35wafum"
+   :actor/wasm-cid "bafkreiax7vtmy25lisaei5bcs5qewrkez4le535vuvk26wpubhhguloeci"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:billcom-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreihw2la6w5v33gs4szxhd5d2f3f42emwogog3wayy7kaukz35wafum" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:billcom-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreihw2la6w5v33gs4szxhd5d2f3f42emwogog3wayy7kaukz35wafum" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:billcom-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreihw2la6w5v33gs4szxhd5d2f3f42emwogog3wayy7kaukz35wafum" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:billcom-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreihw2la6w5v33gs4szxhd5d2f3f42emwogog3wayy7kaukz35wafum" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:billcom-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiax7vtmy25lisaei5bcs5qewrkez4le535vuvk26wpubhhguloeci" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:billcom-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiax7vtmy25lisaei5bcs5qewrkez4le535vuvk26wpubhhguloeci" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:billcom-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiax7vtmy25lisaei5bcs5qewrkez4le535vuvk26wpubhhguloeci" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:billcom-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiax7vtmy25lisaei5bcs5qewrkez4le535vuvk26wpubhhguloeci" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "billdesk-compat"
    :actor/did "did:web:etzhayyim.com:actor:billdesk-compat"
    :actor/kind :compat
@@ -1351,11 +1351,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible physical benchmarks / classifications actor (bipm_utc); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "bipm_utc.kotoba"
-   :actor/wasm-cid "bafkreictykpr33uvpvh4bdiynfbfh6ezrixkre3rvx4thswuyoi75qszku"
+   :actor/wasm-cid "bafkreihdh3bnsd27437ho46usxhpu543wlbmyuz3odk6d6ddmyqf35efiq"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:bipm_utc-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreictykpr33uvpvh4bdiynfbfh6ezrixkre3rvx4thswuyoi75qszku" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bipm_utc-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreictykpr33uvpvh4bdiynfbfh6ezrixkre3rvx4thswuyoi75qszku" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bipm_utc-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreictykpr33uvpvh4bdiynfbfh6ezrixkre3rvx4thswuyoi75qszku" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:bipm_utc-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreictykpr33uvpvh4bdiynfbfh6ezrixkre3rvx4thswuyoi75qszku" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:bipm_utc-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreihdh3bnsd27437ho46usxhpu543wlbmyuz3odk6d6ddmyqf35efiq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bipm_utc-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreihdh3bnsd27437ho46usxhpu543wlbmyuz3odk6d6ddmyqf35efiq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bipm_utc-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreihdh3bnsd27437ho46usxhpu543wlbmyuz3odk6d6ddmyqf35efiq" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:bipm_utc-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreihdh3bnsd27437ho46usxhpu543wlbmyuz3odk6d6ddmyqf35efiq" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "bird_scooters-compat"
    :actor/did "did:web:etzhayyim.com:actor:bird_scooters-compat"
    :actor/kind :compat
@@ -1364,11 +1364,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible ride-hailing / micro-mobility actor (bird_scooters); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "bird_scooters.kotoba"
-   :actor/wasm-cid "bafkreihcrnffhuntgqlayjugcykxxthucgsa7w2ijteue3p2o42g5t3rfu"
+   :actor/wasm-cid "bafkreihtotia4v5h5wemjp7xh53ih5lmgafnocm5o5uwipni5mjxacflsq"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:bird_scooters-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreihcrnffhuntgqlayjugcykxxthucgsa7w2ijteue3p2o42g5t3rfu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bird_scooters-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreihcrnffhuntgqlayjugcykxxthucgsa7w2ijteue3p2o42g5t3rfu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bird_scooters-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreihcrnffhuntgqlayjugcykxxthucgsa7w2ijteue3p2o42g5t3rfu" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:bird_scooters-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreihcrnffhuntgqlayjugcykxxthucgsa7w2ijteue3p2o42g5t3rfu" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:bird_scooters-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreihtotia4v5h5wemjp7xh53ih5lmgafnocm5o5uwipni5mjxacflsq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bird_scooters-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreihtotia4v5h5wemjp7xh53ih5lmgafnocm5o5uwipni5mjxacflsq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bird_scooters-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreihtotia4v5h5wemjp7xh53ih5lmgafnocm5o5uwipni5mjxacflsq" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:bird_scooters-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreihtotia4v5h5wemjp7xh53ih5lmgafnocm5o5uwipni5mjxacflsq" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "bis-compat"
    :actor/did "did:web:etzhayyim.com:actor:bis-compat"
    :actor/kind :compat
@@ -1377,11 +1377,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible intl org / central bank data actor (bis); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "bis.kotoba"
-   :actor/wasm-cid "bafkreia7fzedz54ae4kkzjlltllfo2thutzyzlcddzidxs2blmqh2nvfme"
+   :actor/wasm-cid "bafkreihplh7s2fz4d35q7eobclzfe6jx74mlxbc3yhkfppvkdrifud7kj4"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:bis-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreia7fzedz54ae4kkzjlltllfo2thutzyzlcddzidxs2blmqh2nvfme" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bis-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreia7fzedz54ae4kkzjlltllfo2thutzyzlcddzidxs2blmqh2nvfme" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bis-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreia7fzedz54ae4kkzjlltllfo2thutzyzlcddzidxs2blmqh2nvfme" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:bis-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreia7fzedz54ae4kkzjlltllfo2thutzyzlcddzidxs2blmqh2nvfme" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:bis-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreihplh7s2fz4d35q7eobclzfe6jx74mlxbc3yhkfppvkdrifud7kj4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bis-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreihplh7s2fz4d35q7eobclzfe6jx74mlxbc3yhkfppvkdrifud7kj4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bis-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreihplh7s2fz4d35q7eobclzfe6jx74mlxbc3yhkfppvkdrifud7kj4" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:bis-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreihplh7s2fz4d35q7eobclzfe6jx74mlxbc3yhkfppvkdrifud7kj4" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "bitbucket-compat"
    :actor/did "did:web:etzhayyim.com:actor:bitbucket-compat"
    :actor/kind :compat
@@ -1403,11 +1403,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible events / NPO / creator actor (bizzabo); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "bizzabo.kotoba"
-   :actor/wasm-cid "bafkreidxrrvby2i6ho3iuwfon23s25bua3r6rbztlc5hp2pjcs7d2e7424"
+   :actor/wasm-cid "bafkreibldbzh5wtbczrk7fepk4v7aicfzurxpd65lbthizq7wzvmwha7cq"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:bizzabo-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreidxrrvby2i6ho3iuwfon23s25bua3r6rbztlc5hp2pjcs7d2e7424" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bizzabo-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreidxrrvby2i6ho3iuwfon23s25bua3r6rbztlc5hp2pjcs7d2e7424" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bizzabo-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreidxrrvby2i6ho3iuwfon23s25bua3r6rbztlc5hp2pjcs7d2e7424" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:bizzabo-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreidxrrvby2i6ho3iuwfon23s25bua3r6rbztlc5hp2pjcs7d2e7424" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:bizzabo-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreibldbzh5wtbczrk7fepk4v7aicfzurxpd65lbthizq7wzvmwha7cq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bizzabo-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreibldbzh5wtbczrk7fepk4v7aicfzurxpd65lbthizq7wzvmwha7cq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bizzabo-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreibldbzh5wtbczrk7fepk4v7aicfzurxpd65lbthizq7wzvmwha7cq" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:bizzabo-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreibldbzh5wtbczrk7fepk4v7aicfzurxpd65lbthizq7wzvmwha7cq" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "blackboard-compat"
    :actor/did "did:web:etzhayyim.com:actor:blackboard-compat"
    :actor/kind :compat
@@ -1481,11 +1481,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible legal / eDiscovery actor (bloomberg_law); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "bloomberg_law.kotoba"
-   :actor/wasm-cid "bafkreibnrcm2nmhwxlth4ck7my2tejyhevfneqbzjnx5xvlyzyjkxnavlu"
+   :actor/wasm-cid "bafkreiaeqbm2d6tpw34uqg6nukovq7cnue4vkm3pwaqvwlkdokchp627nq"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:bloomberg_law-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreibnrcm2nmhwxlth4ck7my2tejyhevfneqbzjnx5xvlyzyjkxnavlu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bloomberg_law-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreibnrcm2nmhwxlth4ck7my2tejyhevfneqbzjnx5xvlyzyjkxnavlu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bloomberg_law-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreibnrcm2nmhwxlth4ck7my2tejyhevfneqbzjnx5xvlyzyjkxnavlu" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:bloomberg_law-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreibnrcm2nmhwxlth4ck7my2tejyhevfneqbzjnx5xvlyzyjkxnavlu" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:bloomberg_law-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiaeqbm2d6tpw34uqg6nukovq7cnue4vkm3pwaqvwlkdokchp627nq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bloomberg_law-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiaeqbm2d6tpw34uqg6nukovq7cnue4vkm3pwaqvwlkdokchp627nq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bloomberg_law-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiaeqbm2d6tpw34uqg6nukovq7cnue4vkm3pwaqvwlkdokchp627nq" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:bloomberg_law-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiaeqbm2d6tpw34uqg6nukovq7cnue4vkm3pwaqvwlkdokchp627nq" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "blue_origin_api-compat"
    :actor/did "did:web:etzhayyim.com:actor:blue_origin_api-compat"
    :actor/kind :compat
@@ -1650,11 +1650,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible low-code / iPaaS actor (boomi); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "boomi.kotoba"
-   :actor/wasm-cid "bafkreielxbei4rhtsgybyvwzenu7skhtw46c3qk5kztw43cica7fok6tu4"
+   :actor/wasm-cid "bafkreifgbka5s3itzd67khm2w6rlnprggqcz2tnxpp73dcoimeqwxo37di"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:boomi-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreielxbei4rhtsgybyvwzenu7skhtw46c3qk5kztw43cica7fok6tu4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:boomi-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreielxbei4rhtsgybyvwzenu7skhtw46c3qk5kztw43cica7fok6tu4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:boomi-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreielxbei4rhtsgybyvwzenu7skhtw46c3qk5kztw43cica7fok6tu4" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:boomi-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreielxbei4rhtsgybyvwzenu7skhtw46c3qk5kztw43cica7fok6tu4" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:boomi-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreifgbka5s3itzd67khm2w6rlnprggqcz2tnxpp73dcoimeqwxo37di" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:boomi-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreifgbka5s3itzd67khm2w6rlnprggqcz2tnxpp73dcoimeqwxo37di" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:boomi-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreifgbka5s3itzd67khm2w6rlnprggqcz2tnxpp73dcoimeqwxo37di" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:boomi-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreifgbka5s3itzd67khm2w6rlnprggqcz2tnxpp73dcoimeqwxo37di" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "boschiot-compat"
    :actor/did "did:web:etzhayyim.com:actor:boschiot-compat"
    :actor/kind :compat
@@ -1663,11 +1663,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible IoT / edge actor (boschiot); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "boschiot.kotoba"
-   :actor/wasm-cid "bafkreigotrwtor54s3unqzjnf5gzjapzk7cdlnacw5y2w4hdshcb5icbwa"
+   :actor/wasm-cid "bafkreig74fkwnunhrqqbjud4n5hj4dni6ogbung4lgbyzkmh3rim5m6e6y"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:boschiot-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreigotrwtor54s3unqzjnf5gzjapzk7cdlnacw5y2w4hdshcb5icbwa" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:boschiot-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreigotrwtor54s3unqzjnf5gzjapzk7cdlnacw5y2w4hdshcb5icbwa" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:boschiot-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreigotrwtor54s3unqzjnf5gzjapzk7cdlnacw5y2w4hdshcb5icbwa" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:boschiot-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreigotrwtor54s3unqzjnf5gzjapzk7cdlnacw5y2w4hdshcb5icbwa" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:boschiot-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreig74fkwnunhrqqbjud4n5hj4dni6ogbung4lgbyzkmh3rim5m6e6y" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:boschiot-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreig74fkwnunhrqqbjud4n5hj4dni6ogbung4lgbyzkmh3rim5m6e6y" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:boschiot-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreig74fkwnunhrqqbjud4n5hj4dni6ogbung4lgbyzkmh3rim5m6e6y" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:boschiot-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreig74fkwnunhrqqbjud4n5hj4dni6ogbung4lgbyzkmh3rim5m6e6y" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "box-compat"
    :actor/did "did:web:etzhayyim.com:actor:box-compat"
    :actor/kind :compat
@@ -1741,11 +1741,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible quantum key distribution actor (bt_qkd); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "bt_qkd.kotoba"
-   :actor/wasm-cid "bafkreic4unaqr33z4tntbd2scd7njctzqhe4hwubvto75n6vpmwupkjrja"
+   :actor/wasm-cid "bafkreifiq3u6iyrwqbcvmfvvuqjjrnqvsaeuafvn65ussoroassjt3jfce"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:bt_qkd-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreic4unaqr33z4tntbd2scd7njctzqhe4hwubvto75n6vpmwupkjrja" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bt_qkd-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreic4unaqr33z4tntbd2scd7njctzqhe4hwubvto75n6vpmwupkjrja" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bt_qkd-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreic4unaqr33z4tntbd2scd7njctzqhe4hwubvto75n6vpmwupkjrja" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:bt_qkd-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreic4unaqr33z4tntbd2scd7njctzqhe4hwubvto75n6vpmwupkjrja" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:bt_qkd-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreifiq3u6iyrwqbcvmfvvuqjjrnqvsaeuafvn65ussoroassjt3jfce" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bt_qkd-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreifiq3u6iyrwqbcvmfvvuqjjrnqvsaeuafvn65ussoroassjt3jfce" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bt_qkd-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreifiq3u6iyrwqbcvmfvvuqjjrnqvsaeuafvn65ussoroassjt3jfce" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:bt_qkd-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreifiq3u6iyrwqbcvmfvvuqjjrnqvsaeuafvn65ussoroassjt3jfce" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "bubble-compat"
    :actor/did "did:web:etzhayyim.com:actor:bubble-compat"
    :actor/kind :compat
@@ -1780,11 +1780,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible real estate / MLS / PropTech actor (buildium); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "buildium.kotoba"
-   :actor/wasm-cid "bafkreibhfxtls3ihzio3h5w7fyril2kgt4s3trznukjg5edjjqxcv5onme"
+   :actor/wasm-cid "bafkreia6qrt7nzb63dmq5op7f2ngao7rbp4v5smqtplvbsh2dfqwopxjqq"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:buildium-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreibhfxtls3ihzio3h5w7fyril2kgt4s3trznukjg5edjjqxcv5onme" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:buildium-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreibhfxtls3ihzio3h5w7fyril2kgt4s3trznukjg5edjjqxcv5onme" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:buildium-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreibhfxtls3ihzio3h5w7fyril2kgt4s3trznukjg5edjjqxcv5onme" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:buildium-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreibhfxtls3ihzio3h5w7fyril2kgt4s3trznukjg5edjjqxcv5onme" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:buildium-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreia6qrt7nzb63dmq5op7f2ngao7rbp4v5smqtplvbsh2dfqwopxjqq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:buildium-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreia6qrt7nzb63dmq5op7f2ngao7rbp4v5smqtplvbsh2dfqwopxjqq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:buildium-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreia6qrt7nzb63dmq5op7f2ngao7rbp4v5smqtplvbsh2dfqwopxjqq" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:buildium-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreia6qrt7nzb63dmq5op7f2ngao7rbp4v5smqtplvbsh2dfqwopxjqq" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "cabify-compat"
    :actor/did "did:web:etzhayyim.com:actor:cabify-compat"
    :actor/kind :compat
@@ -1819,11 +1819,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible energy / smart grid actor (caiso); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "caiso.kotoba"
-   :actor/wasm-cid "bafkreia7z2yrrotbmvilvrpa422l2cyhbuwzgkwymwixiifz62c6c23qju"
+   :actor/wasm-cid "bafkreiehaywdfjg4btdvtx2lpzwhkfucgkv7s3dkll5anqr2xmtoo26rsi"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:caiso-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreia7z2yrrotbmvilvrpa422l2cyhbuwzgkwymwixiifz62c6c23qju" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:caiso-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreia7z2yrrotbmvilvrpa422l2cyhbuwzgkwymwixiifz62c6c23qju" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:caiso-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreia7z2yrrotbmvilvrpa422l2cyhbuwzgkwymwixiifz62c6c23qju" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:caiso-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreia7z2yrrotbmvilvrpa422l2cyhbuwzgkwymwixiifz62c6c23qju" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:caiso-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiehaywdfjg4btdvtx2lpzwhkfucgkv7s3dkll5anqr2xmtoo26rsi" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:caiso-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiehaywdfjg4btdvtx2lpzwhkfucgkv7s3dkll5anqr2xmtoo26rsi" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:caiso-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiehaywdfjg4btdvtx2lpzwhkfucgkv7s3dkll5anqr2xmtoo26rsi" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:caiso-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiehaywdfjg4btdvtx2lpzwhkfucgkv7s3dkll5anqr2xmtoo26rsi" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "calendly-compat"
    :actor/did "did:web:etzhayyim.com:actor:calendly-compat"
    :actor/kind :compat
@@ -1936,11 +1936,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible CRM / sales-pipeline actor (careem); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "careem.kotoba"
-   :actor/wasm-cid "bafkreigxqaklgz56y3ietdrmtfwhczwkqjirsix4nsyrguohqpksdx2pcq"
+   :actor/wasm-cid "bafkreig5ja4xgcjq6h2aj3zc3h3txrchtnn5h46wpbdc42os2gkfujxsze"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:careem-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreigxqaklgz56y3ietdrmtfwhczwkqjirsix4nsyrguohqpksdx2pcq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:careem-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreigxqaklgz56y3ietdrmtfwhczwkqjirsix4nsyrguohqpksdx2pcq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:careem-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreigxqaklgz56y3ietdrmtfwhczwkqjirsix4nsyrguohqpksdx2pcq" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:careem-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreigxqaklgz56y3ietdrmtfwhczwkqjirsix4nsyrguohqpksdx2pcq" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:careem-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreig5ja4xgcjq6h2aj3zc3h3txrchtnn5h46wpbdc42os2gkfujxsze" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:careem-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreig5ja4xgcjq6h2aj3zc3h3txrchtnn5h46wpbdc42os2gkfujxsze" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:careem-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreig5ja4xgcjq6h2aj3zc3h3txrchtnn5h46wpbdc42os2gkfujxsze" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:careem-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreig5ja4xgcjq6h2aj3zc3h3txrchtnn5h46wpbdc42os2gkfujxsze" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "cartegraph-compat"
    :actor/did "did:web:etzhayyim.com:actor:cartegraph-compat"
    :actor/kind :compat
@@ -2053,11 +2053,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible US federal / sovereign API actor (censusgov); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "censusgov.kotoba"
-   :actor/wasm-cid "bafkreifm2v7dkfdzt46nhgan7zdib5tylotrh3wkspulgivvmoidz76nhq"
+   :actor/wasm-cid "bafkreihcktusqrziylfkvbqpjplsgfldmyh2yn5z47pz66fz4xr7dnkiqa"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:censusgov-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreifm2v7dkfdzt46nhgan7zdib5tylotrh3wkspulgivvmoidz76nhq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:censusgov-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreifm2v7dkfdzt46nhgan7zdib5tylotrh3wkspulgivvmoidz76nhq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:censusgov-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreifm2v7dkfdzt46nhgan7zdib5tylotrh3wkspulgivvmoidz76nhq" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:censusgov-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreifm2v7dkfdzt46nhgan7zdib5tylotrh3wkspulgivvmoidz76nhq" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:censusgov-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreihcktusqrziylfkvbqpjplsgfldmyh2yn5z47pz66fz4xr7dnkiqa" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:censusgov-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreihcktusqrziylfkvbqpjplsgfldmyh2yn5z47pz66fz4xr7dnkiqa" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:censusgov-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreihcktusqrziylfkvbqpjplsgfldmyh2yn5z47pz66fz4xr7dnkiqa" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:censusgov-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreihcktusqrziylfkvbqpjplsgfldmyh2yn5z47pz66fz4xr7dnkiqa" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "censys-compat"
    :actor/did "did:web:etzhayyim.com:actor:censys-compat"
    :actor/kind :compat
@@ -2105,11 +2105,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible healthcare HL7-FHIR / bioinformatics actor (cerner_ignite); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "cerner_ignite.kotoba"
-   :actor/wasm-cid "bafkreihyxz3un4ydzorcyp7gpmc3zblqq47sv64zqq6xkeztxp2ercxz24"
+   :actor/wasm-cid "bafkreifn4mpkcbicylet3ramipmi7blatvneooxhbjrwbbzcew34emehwe"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:cerner_ignite-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreihyxz3un4ydzorcyp7gpmc3zblqq47sv64zqq6xkeztxp2ercxz24" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:cerner_ignite-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreihyxz3un4ydzorcyp7gpmc3zblqq47sv64zqq6xkeztxp2ercxz24" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:cerner_ignite-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreihyxz3un4ydzorcyp7gpmc3zblqq47sv64zqq6xkeztxp2ercxz24" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:cerner_ignite-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreihyxz3un4ydzorcyp7gpmc3zblqq47sv64zqq6xkeztxp2ercxz24" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:cerner_ignite-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreifn4mpkcbicylet3ramipmi7blatvneooxhbjrwbbzcew34emehwe" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:cerner_ignite-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreifn4mpkcbicylet3ramipmi7blatvneooxhbjrwbbzcew34emehwe" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:cerner_ignite-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreifn4mpkcbicylet3ramipmi7blatvneooxhbjrwbbzcew34emehwe" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:cerner_ignite-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreifn4mpkcbicylet3ramipmi7blatvneooxhbjrwbbzcew34emehwe" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "cesium_xr-compat"
    :actor/did "did:web:etzhayyim.com:actor:cesium_xr-compat"
    :actor/kind :compat
@@ -2131,11 +2131,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible open banking / financial regulation actor (cftc); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "cftc.kotoba"
-   :actor/wasm-cid "bafkreidnspdglcrxrwrlfsdfdnld6oqwqsben4q2iem5b4zg3snh36mwpy"
+   :actor/wasm-cid "bafkreic52sklyzrjsvqprytisnmorcnrd53cr7ks57rcjswenh6ejzetgm"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:cftc-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreidnspdglcrxrwrlfsdfdnld6oqwqsben4q2iem5b4zg3snh36mwpy" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:cftc-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreidnspdglcrxrwrlfsdfdnld6oqwqsben4q2iem5b4zg3snh36mwpy" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:cftc-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreidnspdglcrxrwrlfsdfdnld6oqwqsben4q2iem5b4zg3snh36mwpy" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:cftc-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreidnspdglcrxrwrlfsdfdnld6oqwqsben4q2iem5b4zg3snh36mwpy" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:cftc-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreic52sklyzrjsvqprytisnmorcnrd53cr7ks57rcjswenh6ejzetgm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:cftc-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreic52sklyzrjsvqprytisnmorcnrd53cr7ks57rcjswenh6ejzetgm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:cftc-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreic52sklyzrjsvqprytisnmorcnrd53cr7ks57rcjswenh6ejzetgm" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:cftc-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreic52sklyzrjsvqprytisnmorcnrd53cr7ks57rcjswenh6ejzetgm" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "cgg_tech-compat"
    :actor/did "did:web:etzhayyim.com:actor:cgg_tech-compat"
    :actor/kind :compat
@@ -2573,11 +2573,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible fusion / plasma energy actor (commonwealth_fusion); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "commonwealth_fusion.kotoba"
-   :actor/wasm-cid "bafkreig4dovtp4wyneokjekjywjg7tgnszumu2pppscvwi4k6a7enu6bbu"
+   :actor/wasm-cid "bafkreib4joxx7mdjc2sf6woqlidepqzoixjffibxb4aro3muzmxcmfqwvu"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:commonwealth_fusion-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreig4dovtp4wyneokjekjywjg7tgnszumu2pppscvwi4k6a7enu6bbu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:commonwealth_fusion-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreig4dovtp4wyneokjekjywjg7tgnszumu2pppscvwi4k6a7enu6bbu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:commonwealth_fusion-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreig4dovtp4wyneokjekjywjg7tgnszumu2pppscvwi4k6a7enu6bbu" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:commonwealth_fusion-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreig4dovtp4wyneokjekjywjg7tgnszumu2pppscvwi4k6a7enu6bbu" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:commonwealth_fusion-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreib4joxx7mdjc2sf6woqlidepqzoixjffibxb4aro3muzmxcmfqwvu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:commonwealth_fusion-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreib4joxx7mdjc2sf6woqlidepqzoixjffibxb4aro3muzmxcmfqwvu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:commonwealth_fusion-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreib4joxx7mdjc2sf6woqlidepqzoixjffibxb4aro3muzmxcmfqwvu" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:commonwealth_fusion-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreib4joxx7mdjc2sf6woqlidepqzoixjffibxb4aro3muzmxcmfqwvu" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "compliancequest-compat"
    :actor/did "did:web:etzhayyim.com:actor:compliancequest-compat"
    :actor/kind :compat
@@ -2872,11 +2872,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible brain-computer interface / neurotech actor (ctrl_labs); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "ctrl_labs.kotoba"
-   :actor/wasm-cid "bafkreibjzdtttwx7ynakjqqppuu6kzln62domkpuy4tr3rfcl52ikvvwpa"
+   :actor/wasm-cid "bafkreibvsdvafaivnhfakqzsfwmrpryf4bba5ykx7aca2szknkgamotsx4"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:ctrl_labs-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreibjzdtttwx7ynakjqqppuu6kzln62domkpuy4tr3rfcl52ikvvwpa" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:ctrl_labs-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreibjzdtttwx7ynakjqqppuu6kzln62domkpuy4tr3rfcl52ikvvwpa" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:ctrl_labs-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreibjzdtttwx7ynakjqqppuu6kzln62domkpuy4tr3rfcl52ikvvwpa" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:ctrl_labs-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreibjzdtttwx7ynakjqqppuu6kzln62domkpuy4tr3rfcl52ikvvwpa" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:ctrl_labs-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreibvsdvafaivnhfakqzsfwmrpryf4bba5ykx7aca2szknkgamotsx4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:ctrl_labs-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreibvsdvafaivnhfakqzsfwmrpryf4bba5ykx7aca2szknkgamotsx4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:ctrl_labs-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreibvsdvafaivnhfakqzsfwmrpryf4bba5ykx7aca2szknkgamotsx4" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:ctrl_labs-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreibvsdvafaivnhfakqzsfwmrpryf4bba5ykx7aca2szknkgamotsx4" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "curemd-compat"
    :actor/did "did:web:etzhayyim.com:actor:curemd-compat"
    :actor/kind :compat
@@ -2937,11 +2937,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible security / IAM actor (cyberark); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "cyberark.kotoba"
-   :actor/wasm-cid "bafkreidijea5xmw7cij6tt5dm42hpjr62fjp6bjqztsnzwmyvfwfvbggbe"
+   :actor/wasm-cid "bafkreicpag7fuhxgz3yya3zehpy4o2cp7shuqo36cvyocuem5gyt7f67r4"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:cyberark-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreidijea5xmw7cij6tt5dm42hpjr62fjp6bjqztsnzwmyvfwfvbggbe" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:cyberark-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreidijea5xmw7cij6tt5dm42hpjr62fjp6bjqztsnzwmyvfwfvbggbe" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:cyberark-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreidijea5xmw7cij6tt5dm42hpjr62fjp6bjqztsnzwmyvfwfvbggbe" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:cyberark-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreidijea5xmw7cij6tt5dm42hpjr62fjp6bjqztsnzwmyvfwfvbggbe" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:cyberark-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreicpag7fuhxgz3yya3zehpy4o2cp7shuqo36cvyocuem5gyt7f67r4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:cyberark-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreicpag7fuhxgz3yya3zehpy4o2cp7shuqo36cvyocuem5gyt7f67r4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:cyberark-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreicpag7fuhxgz3yya3zehpy4o2cp7shuqo36cvyocuem5gyt7f67r4" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:cyberark-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreicpag7fuhxgz3yya3zehpy4o2cp7shuqo36cvyocuem5gyt7f67r4" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "cybozu-compat"
    :actor/did "did:web:etzhayyim.com:actor:cybozu-compat"
    :actor/kind :compat
@@ -3015,11 +3015,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible data / analytics actor (databricks); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "databricks.kotoba"
-   :actor/wasm-cid "bafkreie7j3mfiox3m4u5hjtbwwibastxcigmmz3e4c2gza26i2rezwh43a"
+   :actor/wasm-cid "bafkreifnp4tqgggy6i2khimvja4oswqdistlz7ff4t3ch2ix6x3kmg3ueu"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:databricks-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreie7j3mfiox3m4u5hjtbwwibastxcigmmz3e4c2gza26i2rezwh43a" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:databricks-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreie7j3mfiox3m4u5hjtbwwibastxcigmmz3e4c2gza26i2rezwh43a" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:databricks-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreie7j3mfiox3m4u5hjtbwwibastxcigmmz3e4c2gza26i2rezwh43a" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:databricks-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreie7j3mfiox3m4u5hjtbwwibastxcigmmz3e4c2gza26i2rezwh43a" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:databricks-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreifnp4tqgggy6i2khimvja4oswqdistlz7ff4t3ch2ix6x3kmg3ueu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:databricks-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreifnp4tqgggy6i2khimvja4oswqdistlz7ff4t3ch2ix6x3kmg3ueu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:databricks-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreifnp4tqgggy6i2khimvja4oswqdistlz7ff4t3ch2ix6x3kmg3ueu" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:databricks-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreifnp4tqgggy6i2khimvja4oswqdistlz7ff4t3ch2ix6x3kmg3ueu" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "datadog-compat"
    :actor/did "did:web:etzhayyim.com:actor:datadog-compat"
    :actor/kind :compat
@@ -3444,11 +3444,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible customer experience / survey actor (drift); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "drift.kotoba"
-   :actor/wasm-cid "bafkreih26x5elnyjorunvjgnrp72kogfoo44ddxlqf3ar3adowb6mvwifm"
+   :actor/wasm-cid "bafkreicuwjnh3oa7nqt2i43qhjiln7qq547wev2rbruhrgt2yxmhtfs6qu"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:drift-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreih26x5elnyjorunvjgnrp72kogfoo44ddxlqf3ar3adowb6mvwifm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:drift-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreih26x5elnyjorunvjgnrp72kogfoo44ddxlqf3ar3adowb6mvwifm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:drift-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreih26x5elnyjorunvjgnrp72kogfoo44ddxlqf3ar3adowb6mvwifm" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:drift-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreih26x5elnyjorunvjgnrp72kogfoo44ddxlqf3ar3adowb6mvwifm" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:drift-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreicuwjnh3oa7nqt2i43qhjiln7qq547wev2rbruhrgt2yxmhtfs6qu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:drift-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreicuwjnh3oa7nqt2i43qhjiln7qq547wev2rbruhrgt2yxmhtfs6qu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:drift-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreicuwjnh3oa7nqt2i43qhjiln7qq547wev2rbruhrgt2yxmhtfs6qu" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:drift-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreicuwjnh3oa7nqt2i43qhjiln7qq547wev2rbruhrgt2yxmhtfs6qu" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "drone_deploy-compat"
    :actor/did "did:web:etzhayyim.com:actor:drone_deploy-compat"
    :actor/kind :compat
@@ -3613,11 +3613,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible public health / environment / IP actor (ecdc); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "ecdc.kotoba"
-   :actor/wasm-cid "bafkreibxyxtpxx7zeaqfls35yuekvoe2chefygn5kgjddzpuxvwivzwqiq"
+   :actor/wasm-cid "bafkreigdlz23eat7fvw6ldxvszsodrl26hdgxridvsia7rngtln65vnkcq"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:ecdc-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreibxyxtpxx7zeaqfls35yuekvoe2chefygn5kgjddzpuxvwivzwqiq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:ecdc-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreibxyxtpxx7zeaqfls35yuekvoe2chefygn5kgjddzpuxvwivzwqiq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:ecdc-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreibxyxtpxx7zeaqfls35yuekvoe2chefygn5kgjddzpuxvwivzwqiq" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:ecdc-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreibxyxtpxx7zeaqfls35yuekvoe2chefygn5kgjddzpuxvwivzwqiq" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:ecdc-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreigdlz23eat7fvw6ldxvszsodrl26hdgxridvsia7rngtln65vnkcq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:ecdc-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreigdlz23eat7fvw6ldxvszsodrl26hdgxridvsia7rngtln65vnkcq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:ecdc-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreigdlz23eat7fvw6ldxvszsodrl26hdgxridvsia7rngtln65vnkcq" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:ecdc-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreigdlz23eat7fvw6ldxvszsodrl26hdgxridvsia7rngtln65vnkcq" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "eclinicalworks-compat"
    :actor/did "did:web:etzhayyim.com:actor:eclinicalworks-compat"
    :actor/kind :compat
@@ -3899,11 +3899,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible customs / trade / logistics actor (epa); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "epa.kotoba"
-   :actor/wasm-cid "bafkreibugxes4l6xg2zjd4sfwinhpco5qdieciddpr5bwtybxwdxowjp2i"
+   :actor/wasm-cid "bafkreidfzv42sciuc2if4njwr3atdw6xai4dhgussdkalaxcmgtlzekmay"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:epa-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreibugxes4l6xg2zjd4sfwinhpco5qdieciddpr5bwtybxwdxowjp2i" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:epa-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreibugxes4l6xg2zjd4sfwinhpco5qdieciddpr5bwtybxwdxowjp2i" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:epa-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreibugxes4l6xg2zjd4sfwinhpco5qdieciddpr5bwtybxwdxowjp2i" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:epa-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreibugxes4l6xg2zjd4sfwinhpco5qdieciddpr5bwtybxwdxowjp2i" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:epa-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreidfzv42sciuc2if4njwr3atdw6xai4dhgussdkalaxcmgtlzekmay" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:epa-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreidfzv42sciuc2if4njwr3atdw6xai4dhgussdkalaxcmgtlzekmay" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:epa-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreidfzv42sciuc2if4njwr3atdw6xai4dhgussdkalaxcmgtlzekmay" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:epa-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreidfzv42sciuc2if4njwr3atdw6xai4dhgussdkalaxcmgtlzekmay" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "epic-systems-compat"
    :actor/did "did:web:etzhayyim.com:actor:epic-systems-compat"
    :actor/kind :compat
@@ -4497,11 +4497,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible regional super-app actor (flipkart); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "flipkart.kotoba"
-   :actor/wasm-cid "bafkreieek4hqzsscoa7pnsnvuhvbiswjq6iw34btui35eu7syfmwqytgzu"
+   :actor/wasm-cid "bafkreia2jp4ycvsby7chsvs4ailsydd2nrcxtyohwuz6zlxqxlauw3h7kq"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:flipkart-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreieek4hqzsscoa7pnsnvuhvbiswjq6iw34btui35eu7syfmwqytgzu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:flipkart-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreieek4hqzsscoa7pnsnvuhvbiswjq6iw34btui35eu7syfmwqytgzu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:flipkart-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreieek4hqzsscoa7pnsnvuhvbiswjq6iw34btui35eu7syfmwqytgzu" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:flipkart-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreieek4hqzsscoa7pnsnvuhvbiswjq6iw34btui35eu7syfmwqytgzu" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:flipkart-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreia2jp4ycvsby7chsvs4ailsydd2nrcxtyohwuz6zlxqxlauw3h7kq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:flipkart-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreia2jp4ycvsby7chsvs4ailsydd2nrcxtyohwuz6zlxqxlauw3h7kq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:flipkart-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreia2jp4ycvsby7chsvs4ailsydd2nrcxtyohwuz6zlxqxlauw3h7kq" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:flipkart-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreia2jp4ycvsby7chsvs4ailsydd2nrcxtyohwuz6zlxqxlauw3h7kq" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "flooid-compat"
    :actor/did "did:web:etzhayyim.com:actor:flooid-compat"
    :actor/kind :compat

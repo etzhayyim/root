@@ -5,12 +5,12 @@
   "kind": "compat",
   "title": "apollo_auto clean-room actor",
   "description": "Clean-room, API-compatible mobility / auto / EV actor (apollo_auto); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihqov2smsov7qfrp4zxlcn4fx2oyup742m6zj6fgnplynfavzvjui",
+  "wasmCid": "bafkreidttlan4tvdijjglfqkyj5qgiku4mhhdklawtise7vri3zuyhud3y",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihqov2smsov7qfrp4zxlcn4fx2oyup742m6zj6fgnplynfavzvjui",
+  "ipfs": "ipfs://bafkreidttlan4tvdijjglfqkyj5qgiku4mhhdklawtise7vri3zuyhud3y",
   "schema": "schema/apollo_auto.kotoba",
-  "tier": "L3",
+  "tier": "L4",
   "entities": [
     "Vehicle",
     "Signal",
@@ -183,11 +183,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },
