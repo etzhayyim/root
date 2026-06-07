@@ -14086,6 +14086,27 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606072100-shomei-believer-identity-binding-proof-of-personhood-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606072100: 証明 (shomei) — believer self-sovereign identity binding + proof-of-personhood R0",
+      "status": "accepted",
+      "topic": "shomei-believer-identity-binding",
+      "authoritative": true,
+      "authoritativeFor": [
+        "shomei-believer-identity-binding-actor",
+        "multi-identity-to-did-binding-and-verification",
+        "proof-of-personhood-credential"
+      ],
+      "related": [
+        "doc:adr-2606072300-l5-gov-auth-mynumber-webauthn-r1-shomei-integration",
+        "doc:adr-2605172700-etzhayyim-membership-layering",
+        "doc:adr-2605302000-warifu-open-zero-fee-card",
+        "doc:adr-2605263400-musubi-covenant-ceremony",
+        "doc:adr-2605302130-himotoki-active-disclosure-request-filer"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
       "id": "doc:adr-2606072200-shionome-cross-asset-capital-flow-observatory-r0",
       "type": "TechArticle",
       "title": "ADR-2606072200: 潮目 (shionome) — cross-asset capital-flow observatory (ingest · intel · analyze · dry-run social, NO trading) R0 + autonomous kotoba loop",
@@ -14117,6 +14138,23 @@
         "20-actors/yotei"
       ],
       "related": "doc:2605181100",
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606072300-l5-gov-auth-mynumber-webauthn-r1-shomei-integration",
+      "type": "TechArticle",
+      "title": "ADR-2606072300: L5 gov auth R1 — MyNumber + WebAuthn activation design + shomei integration",
+      "status": "proposed",
+      "topic": "l5-gov-auth-r1-activation",
+      "authoritative": true,
+      "authoritativeFor": [
+        "l5-gov-auth-r1-activation-design",
+        "gov-auth-shomei-gov-factor-integration"
+      ],
+      "related": [
+        "doc:adr-2605172700-etzhayyim-membership-layering",
+        "doc:adr-2605262130-kotoba-storage-substrate-unification"
+      ],
       "lastVerified": "2026-06-07"
     },
     {
