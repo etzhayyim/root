@@ -67,7 +67,8 @@ from .conformance import (
     check_cbpr_bah,
     check_cbpr_pacs008,
 )
-from .datoms import NS, Datom, to_datoms
+from .bridge import LEXICON_VERSION, RECORD_TYPE, ingress_attestations
+from .datoms import NS, Datom, to_datoms, tx_entity_of
 from .validate import (
     InvalidAmount,
     InvalidBic,
@@ -105,8 +106,13 @@ __all__ = (
     "Iso20022CodecError",
     # datoms
     "to_datoms",
+    "tx_entity_of",
     "Datom",
     "NS",
+    # kawase-yui bridge (ingressAttestation Lexicon records)
+    "ingress_attestations",
+    "RECORD_TYPE",
+    "LEXICON_VERSION",
     # validators
     "validate_iban",
     "validate_bic",

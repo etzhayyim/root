@@ -33,9 +33,20 @@ from .model import (
     StatementEntry,
 )
 
-__all__ = ("Datom", "NS", "to_datoms")
+__all__ = ("Datom", "NS", "to_datoms", "tx_entity_of")
 
 NS = "com.etzhayyim.iso20022"
+
+
+def tx_entity_of(tx: CreditTransferTransaction) -> str:
+    """Public content-addressable entity handle for a transaction.
+
+    Keyed on the most stable immutable reference (UETR → TxId →
+    EndToEndId), so the same transaction always maps to the same kotoba
+    entity across pain.001 / pacs.008 / camt ingress and pacs.002 status.
+    """
+    ref = tx.uetr or tx.tx_id or tx.end_to_end_id
+    return f"{NS}/tx:{ref}"
 
 AnyMessage = Union[
     CustomerCreditTransferInitiation,
@@ -61,8 +72,7 @@ class Datom:
 
 def _tx_entity(tx: CreditTransferTransaction) -> str:
     """Stable content-addressable entity handle for a transaction."""
-    ref = tx.uetr or tx.tx_id or tx.end_to_end_id
-    return f"{NS}/tx:{ref}"
+    return tx_entity_of(tx)
 
 
 def _tx_datoms(entity: str, tx: CreditTransferTransaction) -> list[Datom]:

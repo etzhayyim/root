@@ -169,6 +169,32 @@ immutable identifiers** (UETR → TxId → EndToEndId), so re-ingesting the
 same message is idempotent and a later `pacs.002` status lands on the
 *same* transaction entity.
 
+### kawase-yui bridge (ingressAttestation Lexicon records)
+
+`bridge.py` shapes the same value-events into
+`com.etzhayyim.iso20022.ingressAttestation` AT-Protocol records (Lexicon at
+`00-contracts/lexicons/com/etzhayyim/iso20022/`) so a kawase corridor can
+attest an external bank transfer and, where it corresponds to an on-chain
+on-ramp, reconcile it against a `com.etzhayyim.kawase.depositAttestation`
+via `linkedDepositCid`:
+
+```python
+from kotoba_iso20022 import ingress_attestations
+records = ingress_attestations(
+    msg,
+    ingested_at="2026-06-08T23:00:00Z",
+    cbpr_conformant=True,            # carry the CBPR+ verdict onto the record
+    linked_deposit_cid="bafy…",      # reconcile vs a kawase depositAttestation
+)
+# one record per pacs.008/pain.001 transaction or camt.053/054 entry
+```
+
+**PII discipline (kawase-yui G10)**: party names are 要配慮 PII and are
+**omitted by default**; `include_party_names=True` is opt-in for a
+consent-bound / encrypted path. Only institution BICs (ISO 9362) are
+first-class. Status-only messages (pacs.002 / pain.002) are rejected — their
+status is carried by `to_datoms`, not the value-event record.
+
 ## Layout
 
 ```
@@ -179,8 +205,9 @@ kotoba_iso20022/
 ├── bah.py          # head.001 BAH + CBPR+ business-message envelope (MsgDefIdr match)
 ├── conformance.py  # CBPR+ Usage-Guideline rule checks over the parsed model
 ├── datoms.py       # message → kotoba EAVT Datom ingress + reconciliation mapping
+├── bridge.py       # message → com.etzhayyim.iso20022.ingressAttestation records
 └── __init__.py     # public surface
-tests/              # 74 tests (validators + round-trip + datoms + camt + BAH + CBPR+ rules)
+tests/              # 81 tests (validators + round-trip + datoms + camt + BAH + CBPR+ + bridge)
 ```
 
 ## Tests
@@ -211,8 +238,11 @@ CH/BE); BIC vectors are real ISO 9362 codes.
   the ingress tx entity via `EndToEndId`.
 - A gated `kawase` ingress cell that calls `to_datoms` and transacts under
   G2/G13 (Council-ratified, post-RFP).
-- Lexicon mapping `com.etzhayyim.iso20022.*` ↔
-  `com.etzhayyim.kawase.depositAttestation` for corridor reconciliation.
+- ✅ Lexicon mapping `com.etzhayyim.iso20022.ingressAttestation` ↔
+  `com.etzhayyim.kawase.depositAttestation` for corridor reconciliation —
+  **shipped** (`bridge.py` + Lexicon).
+- A gated `kawase` ingress cell that calls `ingress_attestations` +
+  `to_datoms` and transacts under G2/G13 (Council-ratified, post-RFP).
 - ISO 20022 XSD conformance harness (optional dev-time check against the
   official schema files; runtime stays schema-file-free).
 - ✅ `pain.002` customer payment-status report — **shipped**.
