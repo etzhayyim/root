@@ -14437,6 +14437,20 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606074500-kotoba-py-siblings-engine-core-vs-actor-placement",
+      "type": "TechArticle",
+      "title": "ADR-2606074500: kotoba Python siblings — engine-core vs actor placement (iso20022 → engine, kawase → actor)",
+      "status": "proposed",
+      "topic": "kotoba-py-sibling-placement-taxonomy",
+      "authoritative": true,
+      "authoritativeFor": [
+        "placement taxonomy for kotoba-prefixed Python siblings (engine-core vs actor vs infra)",
+        "kotoba_iso20022 canonical location (kotoba submodule py/)",
+        "kotoba_kawase canonical location (20-actors/kawase-yui/)"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
       "id": "doc:adr-2606081500-kotoba-erp-crm-prototype-pywasm",
       "type": "TechArticle",
       "title": "ADR-2606081500: Kotoba ERP and Salesforce CRM Prototype in PyWasm",

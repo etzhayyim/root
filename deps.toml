@@ -8822,42 +8822,42 @@ status = "r0-active"
 description = "Foundry profile for KawaseYuiPool scaffold — solc 0.8.27 (matches etzhayyim-chain-contracts pragma) + src=src + out=out + libs=[\"lib\"] + fmt line_length 100 / tab_width 4. R0 has no external lib dependencies (forge-std not pulled in); R1 will add forge-std for Test inheritance + cheatcodes once flow tests are written."
 
 [[modules]]
-path = "40-engine/kotoba_kawase/"
+path = "20-actors/kawase-yui/kotoba_kawase/"
 adr = "ADR-2605282200"
 kind = "python-package-dir"
 status = "r0-scaffold-landed"
-description = "kotoba_kawase Python facade for kawase-yui (ADR-2605282200), sibling of kotoba_murakumo per ADR-2605282300 relocation pattern (downstream religious-corp consumer of the kotoba substrate lives outside the kotoba subrepo). R0 = README + pyproject.toml + kotoba_kawase/__init__.py (send / claim raise NotYetImplemented) + kotoba_kawase/exceptions.py (NotAdherent G3 + OutOfBandFx G4 + PerMonthCapBreached G9 + JurisdictionNotActivated G14 + NotYetImplemented + KawaseError base) + tests/test_r0.py (16 passing tests verifying R0 honesty + exception hierarchy + frozen dataclasses). Public surface (send + claim + SendReceipt + ClaimReceipt + Stable literal type) is fixed at R0 so reviewers can verify G3 / G4 / G5 / G7 / G9 / G11 / G14 are honored at the interface level BEFORE R1 wires bodies."
+description = "kotoba_kawase Python facade for kawase-yui (ADR-2605282200), co-located with its actor at 20-actors/kawase-yui/kotoba_kawase/ per ADR-2606074500 (engine-core vs actor layering: kawase is actor-specific business logic mirroring KawaseYuiPool.sol — not generic engine surface — so it lives WITH its actor, not as an orphan sibling of the kotoba engine). R0 = README + pyproject.toml + kotoba_kawase/__init__.py (send / claim raise NotYetImplemented) + kotoba_kawase/exceptions.py (NotAdherent G3 + OutOfBandFx G4 + PerMonthCapBreached G9 + JurisdictionNotActivated G14 + NotYetImplemented + KawaseError base) + tests/test_r0.py (16 passing tests verifying R0 honesty + exception hierarchy + frozen dataclasses). Public surface (send + claim + SendReceipt + ClaimReceipt + Stable literal type) is fixed at R0 so reviewers can verify G3 / G4 / G5 / G7 / G9 / G11 / G14 are honored at the interface level BEFORE R1 wires bodies."
 
 [[modules]]
-path = "40-engine/kotoba_kawase/kotoba_kawase/__init__.py"
+path = "20-actors/kawase-yui/kotoba_kawase/kotoba_kawase/__init__.py"
 adr = "ADR-2605282200"
 kind = "python-module"
 status = "r0-scaffold-landed"
 description = "Public surface of kotoba_kawase — send(from_did, to_did, src_amount_minor, src_stable, tgt_stable, memo=None) -> SendReceipt + claim(intent_cid, as_did) -> ClaimReceipt + frozen SendReceipt / ClaimReceipt dataclasses + Stable Literal type covering R1/R2/R3 stables. R0 every public call raises NotYetImplemented with the phase string identifying the gating event (Bootstrap-Council ratify + KawaseYuiPool R1 deploy). R1 fills in pre-flight Adherent SBT check + Chainlink quote + Charter Rider scan + per-month cap + intent CID emit + KawaseYuiPool.deposit() dispatch."
 
 [[modules]]
-path = "40-engine/kotoba_kawase/kotoba_kawase/exceptions.py"
+path = "20-actors/kawase-yui/kotoba_kawase/kotoba_kawase/exceptions.py"
 adr = "ADR-2605282200"
 kind = "python-module"
 status = "r0-scaffold-landed"
 description = "Constitutional-invariant-named exception types mirroring KawaseYuiPool.sol Solidity errors. KawaseError base class + NotAdherent (G3) + OutOfBandFx (G4; carries quoted_bps + chainlink_bps + max_band_bps for caller introspection) + PerMonthCapBreached (G9; carries sender_did + attempted + cap) + JurisdictionNotActivated (G14; carries sender_juris + recipient_juris) + NotYetImplemented (R0 honesty marker, carries phase string). G11 (no chargeback) has no exception by design — there is no reverse() entry point to fail."
 
 [[modules]]
-path = "40-engine/kotoba_kawase/tests/test_r0.py"
+path = "20-actors/kawase-yui/kotoba_kawase/tests/test_r0.py"
 adr = "ADR-2605282200"
 kind = "test-suite"
 status = "r0-16-tests-pass"
 description = "16 pytest tests for kotoba_kawase R0 scaffold: public surface shape (send + claim + SendReceipt + ClaimReceipt + Stable in __all__) + R0 honesty (send + claim raise NotYetImplemented with phase string mentioning Bootstrap-Council) + each exception type carries the right introspection fields (NotAdherent.did / OutOfBandFx.quoted_bps + chainlink_bps + max_band_bps / PerMonthCapBreached.attempted + cap / JurisdictionNotActivated.sender_juris + recipient_juris) + exception hierarchy (every gate-specific exception inherits from KawaseError + Exception via parametrize matrix) + dataclasses are frozen (assignment raises). Plugin autoload disabled via PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 to bypass dev-box pydantic-core / langsmith version skew (same convention as kotoba_murakumo)."
 
 [[modules]]
-path = "40-engine/kotoba_kawase/pyproject.toml"
+path = "20-actors/kawase-yui/kotoba_kawase/pyproject.toml"
 adr = "ADR-2605282200"
 kind = "pyproject-config"
 status = "r0-active"
 description = "kotoba-kawase Python package config — hatchling build backend + py>=3.11 + Apache-2.0 + no R0 runtime dependencies + pytest as optional test extra. Mirrors kotoba_murakumo's pyproject.toml shape (sibling-package precedent per ADR-2605282300). R1 will add httpx for the KawaseYuiPool dispatch + chainlink-feed-reader for the live mid-market quote + cryptography (or noble equivalent) for the ADR-2605181100 memo envelope."
 
 [[modules]]
-path = "40-engine/kotoba_kawase/tests/test_layer_composition.py"
+path = "20-actors/kawase-yui/kotoba_kawase/tests/test_layer_composition.py"
 adr = "ADR-2605282200"
 kind = "test-suite"
 status = "r0-10-tests-pass"
