@@ -687,6 +687,20 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
     adrs: ["2606061900"],
   },
+  chaos_monitor: {
+    description:
+      "World State Monitor — Real-time visual dashboard of the 1000 Clean Room Actors ecosystem. Displays substrate topology, active faults, and Root Router telemetry via Kotoba IPFS.",
+    glyph: "混沌",
+    displayName: "Chaos Monitor — World State Dashboard",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:chaos_monitor#browser-local-app",
+        type: "EtzhayyimBrowserLocalApp",
+        serviceEndpoint: "https://etzhayyim.com/apps/index.html",
+      },
+    ],
+    adrs: [],
+  },
 } as const;
 
 // Merged registry: generated Tier-B actors (from manifests) + hand-authored
