@@ -19,6 +19,10 @@ from sukashi_edn import load_edn, classify  # noqa: E402
 import analyze as A  # noqa: E402
 import transact as T  # noqa: E402
 import ingest as I  # noqa: E402
+import fraud_bridge as FB  # noqa: E402
+
+AKASHI_MALAK_LEX = (ROOT / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "akashi"
+                    / "malakEvidenceCandidate.json")
 
 SCHEMA = ROOT / "00-contracts" / "schemas" / "ad-supply-chain-ontology.kotoba.edn"
 SEED = ACTOR / "data" / "seed-ad-supply-chain.kotoba.edn"
@@ -200,6 +204,41 @@ class TestIngestParsers(unittest.TestCase):
             for k in d:
                 self.assertNotIn("name", k.lower())
                 self.assertNotIn("email", k.lower())
+
+
+class TestAkashiMalakBridge(unittest.TestCase):
+    """G13: sukashi hands fraud evidence to akashi's malak bridge — candidate-only, round-tripped."""
+
+    def setUp(self):
+        _, _, _, _, self.fraud = _graph()
+        self.records = FB.bridge_to_malak(self.fraud)
+        lex = json.loads(AKASHI_MALAK_LEX.read_text(encoding="utf-8"))
+        self.rec_schema = lex["defs"]["main"]["record"]
+
+    def test_only_akashi_malak_routed_signals_are_bridged(self):
+        n_routed = sum(1 for f in self.fraud
+                       if f.get(":adfraud.signal/routed-to") == ":akashi-malak")
+        self.assertEqual(len(self.records), n_routed)
+        self.assertGreaterEqual(len(self.records), 1)
+
+    def test_records_validate_against_akashi_lexicon(self):
+        req = self.rec_schema["required"]
+        cand_known = self.rec_schema["properties"]["candidateType"]["knownValues"]
+        rev_known = self.rec_schema["properties"]["reviewStatus"]["knownValues"]
+        min_sources = self.rec_schema["properties"]["sourceCids"]["minLength"]
+        for r in self.records:
+            for f in req:
+                self.assertIn(f, r, f"missing required akashi field {f}")
+            self.assertIn(r["candidateType"], cand_known)
+            self.assertIn(r["reviewStatus"], rev_known)
+            self.assertGreaterEqual(len(r["sourceCids"]), min_sources)
+
+    def test_g13_g4_candidate_only_and_non_adjudicating(self):
+        for r in self.records:
+            self.assertEqual(r["reviewStatus"], "candidate-only",
+                             "G13: sukashi may only emit candidate evidence, never escalate")
+            self.assertIs(r["nonAdjudicatingNotice"], True, "G4")
+            self.assertNotIn("malakImportCid", r, "G13: sukashi never marks an import")
 
 
 class TestTransactReadiness(unittest.TestCase):

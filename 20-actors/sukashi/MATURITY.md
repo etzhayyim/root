@@ -34,7 +34,7 @@ Analysis depth:
 - [ ] add per-registrar / per-WHOIS-org fraud co-occurrence ranking to the derived datoms
 
 Integration / readiness:
-- [ ] wire `cell:sukashi.fraud-bridge` shape to akashi's `malakEvidenceCandidate` (fixture round-trip, ≥2 source CIDs)
+- [x] wire `cell:sukashi.fraud-bridge` shape to akashi's `malakEvidenceCandidate` (fixture round-trip, ≥2 source CIDs) — methods/fraud_bridge.py maps :akashi-malak-routed signals → akashi records (candidate-only, non-adjudicating, sourceCids = evidence + method-note); TestAkashiMalakBridge validates against akashi's real lexicon
 - [x] add a `transact.py` empirical dry-run readiness check (schema attrs + datom count assertion in tests) — TestTransactReadiness: 51 schema attrs + 340 datoms from seed, dry-run offline returns 0 (G7 holds)
 - [ ] add a Murakumo-narration design note (G6) for report summaries (no live call)
 - [ ] viz: render the fraud-cluster as a highlighted sub-graph + a "routed-to" badge per signal
