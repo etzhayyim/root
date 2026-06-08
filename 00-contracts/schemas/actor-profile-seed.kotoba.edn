@@ -566,4 +566,22 @@
    :actor/created-at "2026-06-07"
    :actor/vm []
    :actor/service [{"id" "did:web:etzhayyim.com:actor:shomei#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
-                   {"id" "did:web:etzhayyim.com:actor:shomei#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}]}
+                   {"id" "did:web:etzhayyim.com:actor:shomei#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "chaos_monitor"
+   :actor/did "did:web:etzhayyim.com:actor:chaos_monitor"
+   :actor/kind :infra
+   :actor/tier "B"
+   :actor/status :landed
+   :actor/glyph "混沌"
+   :actor/display-name-ja "Chaos Monitor — World State Dashboard"
+   :actor/display-name-en "Chaos Monitor — World State Dashboard"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "World State Monitor — Real-time visual dashboard of the 1000 Clean Room Actors ecosystem. Displays substrate topology, active faults, and Root Router telemetry via Kotoba IPFS. Embedded via ATProto."
+   :actor/primary-schema "60-apps/chaos-dashboard/"
+   :actor/adr []
+   :actor/created-at "2026-06-07"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:chaos_monitor#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:chaos_monitor#browser-local-app" "type" "EtzhayyimBrowserLocalApp" "serviceEndpoint" "https://etzhayyim.com/apps/index.html"}]}]}
