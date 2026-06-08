@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-06-07",
+  "updated_at": "2026-06-08",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.md",
@@ -21969,6 +21969,29 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606071800-kotoba-monorepo-projection-r2-adr-corpus-persistence.md",
+      "id": "adr-2606071800-kotoba-monorepo-projection-r2-adr-corpus-persistence",
+      "title": "ADR-2606071800: kotoba monorepo projection Phase R2 — ADR corpus persistence via kotoba-wasm and kotodama on Murakumo",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "adr-persistence-r2",
+      "authoritative": true,
+      "authoritative_for": [
+        "Phase R2 ADR corpus persistence mechanism"
+      ],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605281700",
+        "2605281800",
+        "2606013600"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606071800-legacy-risingwave-kysely-to-kotoba-kqe-remediation-wave.md",
       "id": "adr-2606071800-substrate-remediation-wave",
       "title": "ADR-2606071800: legacy RisingWave/Hyperdrive/Kysely → kotoba-kqe read-path remediation wave",
@@ -22481,6 +22504,25 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606073100-abaki-anti-monopoly-intelligence-membrane-r0.md",
+      "id": "adr-2606073100-abaki-anti-monopoly-intelligence-membrane-r0",
+      "title": "ADR-2606073100: 暴 abaki — Anti-Monopoly & Chokepoint Intelligence Membrane (Tier-B R0)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "abaki-anti-monopoly-intelligence-membrane",
+      "authoritative": true,
+      "authoritative_for": [
+        "abaki Anti-Monopoly Membrane design"
+      ],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606073200-asobi-freed-time-play-expression-mirror.md",
       "id": "adr-2606073200-asobi-freed-time-play-expression-mirror",
       "title": "ADR-2606073200: asobi 遊び — freed-time play & cultural-expression KG mirror (gap C)",
@@ -22639,6 +22681,25 @@
         "2605312345",
         "2605215000"
       ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606074000-apps-maturity-enhancement.md",
+      "id": "adr-2606074000-apps-maturity-enhancement",
+      "title": "ADR-2606074000: Apps Store Appview Testing Baseline and Maturity Enhancement",
+      "status": "approved",
+      "doc_type": "adr",
+      "topic": "testing-maturity",
+      "authoritative": true,
+      "authoritative_for": [
+        "60-apps"
+      ],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [],
       "last_verified": "2026-06-07",
       "amends": [],
       "amended_by": []

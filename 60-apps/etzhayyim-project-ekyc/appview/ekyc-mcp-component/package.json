@@ -5,6 +5,11 @@
   "main": "src/app.ts",
   "type": "module",
   "dependencies": {
-    "@etzhayyim/kotodama-host-sdk": "workspace:*"
+  },
+  "scripts": {
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "vitest": "^4.1.0"
   }
 }

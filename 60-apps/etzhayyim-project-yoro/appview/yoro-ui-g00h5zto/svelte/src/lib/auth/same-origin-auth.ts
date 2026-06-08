@@ -373,8 +373,6 @@ export async function signInSameOrigin(now: () => number = Date.now): Promise<Sa
 			rpId: RP_ID,
 			timeout: 60_000,
 			userVerification: 'preferred',
-			// Empty allowCredentials → discoverable/iCloud-synced passkeys.
-			allowCredentials: [],
 			extensions: prfEvalExtension(salt),
 		},
 	})) as PublicKeyCredential | null;

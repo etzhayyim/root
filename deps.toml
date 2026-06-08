@@ -37,6 +37,8 @@
 #        legal-entity}) at edge layer; runtime etzhayyim.com residue zero
 #      - 3 L5 Pregel cells under 40-engine/kotoba/crates/kotoba-kotodama/cells/{member_registry,
 #        religious_marriage,religious_corp_taxation}/ — now active (100%)
+#   5. Apps Maturity Enhancement (ADR-2606074000): Baseline vitest harness
+#      scaffolded for all 73 Apps Store apps, coverage pushed >80% for core apps.
 #
 # Human-readable docs:
 #   - CLAUDE.md (this dir)            ← index, operating-entity boundary

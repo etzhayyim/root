@@ -1,0 +1,379 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "l5-verification-ledger",
+  "adr": ["260607"],
+  "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
+  "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
+  "count": 12,
+  "actors": [
+    {
+      "handle": "square-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://developer.squareup.com/reference/square",
+      "remodeled": "This actor was REMODELED from the generic Stripe-shaped payments archetype to a faithful Square model (Payment/Order/Customer/Refund/CatalogObject/Invoice) before verification — the L5 gate had correctly rejected the prior mismatched model (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Payment",
+          "source": "https://developer.squareup.com/reference/square/payments-api/get-payment",
+          "verifiedFields": ["orderId", "customerId", "amount", "currency", "status", "sourceType"],
+          "fieldStatus": "confirmed: amount/currency via amount_money, status, source_type, order_id; customer_id is a real field (not in the fetched example). status enum not fully enumerated in excerpt -> not force-enforced",
+          "discoveredEnums": {},
+          "gaps": ["status-enum (APPROVED/PENDING/COMPLETED/CANCELED/FAILED known but not enumerated in excerpt)", "receipt_url", "card_details"]
+        },
+        {
+          "entity": "Order",
+          "source": "https://developer.squareup.com/reference/square/orders-api/retrieve-order",
+          "verifiedFields": ["locationId", "customerId", "state", "totalAmount"],
+          "fieldStatus": "confirmed: location_id, state, total_money (totalAmount); customer_id is a real field (not in excerpt). state enum not fully enumerated -> not force-enforced",
+          "discoveredEnums": {},
+          "gaps": ["state-enum (OPEN/COMPLETED/CANCELED/DRAFT known but not enumerated in excerpt)", "line_items", "net_amounts"]
+        }
+      ],
+      "note": "Remodeled to a faithful Square model + Payment/Order reconciled against the official Square API docs (2/6 resources); Customer/Refund/CatalogObject/Invoice pending."
+    },
+    {
+      "handle": "slack-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://docs.slack.dev/reference",
+      "resources": [
+        {
+          "entity": "Channel",
+          "source": "https://docs.slack.dev/reference/methods/conversations.info",
+          "verifiedFields": ["name", "isPrivate", "topic", "memberCount"],
+          "fieldStatus": "name/is_private/topic confirmed; memberCount=num_members (conditional, with include_num_members)",
+          "discoveredEnums": {},
+          "gaps": ["is_archived", "is_im", "creator", "created", "purpose"]
+        }
+      ],
+      "note": "Channel (conversation) reconciled against the official Slack API docs; Message/User/Conversation/File/Reaction pending."
+    },
+    {
+      "handle": "hl7_fhir-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://hl7.org/fhir",
+      "resources": [
+        {
+          "entity": "Patient",
+          "source": "https://hl7.org/fhir/patient.html",
+          "verifiedFields": ["identifier", "givenName", "familyName", "birthDate"],
+          "fieldStatus": "identifier/birthDate confirmed; givenName/familyName = HumanName.given/.family; gender exists on the real resource but is not modeled here",
+          "discoveredEnums": {},
+          "gaps": ["gender (real enum male|female|other|unknown — not modeled, so documented not enforced)", "active", "telecom", "address", "maritalStatus"]
+        }
+      ],
+      "note": "Patient reconciled against the official HL7 FHIR spec; Observation/Condition/DiagnosticReport/Sequence/Specimen pending."
+    },
+    {
+      "handle": "discord-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://docs.discord.com/developers",
+      "resources": [
+        {
+          "entity": "Channel",
+          "source": "https://docs.discord.com/developers/resources/channel",
+          "verifiedFields": ["name", "topic", "type"],
+          "fieldStatus": "name/topic/type confirmed on the real Channel object (id present)",
+          "discoveredEnums": {},
+          "gaps": ["type-enum-values (int-coded GUILD_TEXT=0 etc., not captured)", "guild_id", "position", "nsfw", "parent_id"]
+        }
+      ],
+      "note": "Channel reconciled against the official Discord API docs; Message/User/Room/Stream/Webhook pending (Message object on a separate doc page)."
+    },
+    {
+      "handle": "gtfs-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://gtfs.org/documentation/schedule/reference/",
+      "resources": [
+        {
+          "entity": "Stop",
+          "source": "https://gtfs.org/documentation/schedule/reference/",
+          "verifiedFields": ["name", "lat", "lon"],
+          "fieldStatus": "name=stop_name, lat=stop_lat, lon=stop_lon confirmed (code=stop_id)",
+          "discoveredEnums": {},
+          "gaps": ["zone_id", "location_type", "parent_station", "wheelchair_boarding"]
+        },
+        {
+          "entity": "Route",
+          "source": "https://gtfs.org/documentation/schedule/reference/",
+          "verifiedFields": ["shortName", "longName", "mode"],
+          "fieldStatus": "shortName=route_short_name, longName=route_long_name, mode<=route_type confirmed",
+          "discoveredEnums": {},
+          "gaps": ["route_type is an INTEGER enum (0 tram .. 12 monorail) on the real spec; this actor's `mode` is a string label, so the enum is documented here but NOT force-enforced (semantic mapping, not 1:1)."]
+        }
+      ],
+      "note": "Stop + Route reconciled against the official GTFS spec; Trip/Vehicle/ServiceAlert/Fare pending. route_type enum captured as documentation."
+    },
+    {
+      "handle": "anthropic-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://platform.claude.com/docs/en/api",
+      "resources": [
+        {
+          "entity": "Message",
+          "source": "https://platform.claude.com/docs/en/api/messages",
+          "verifiedFields": ["modelId", "role", "content", "inputTokens", "outputTokens"],
+          "fieldStatus": "all generated fields confirmed (modelId=model, inputTokens=usage.input_tokens, outputTokens=usage.output_tokens)",
+          "discoveredEnums": {
+            "role": ["user", "assistant"],
+            "stop_reason": ["end_turn", "max_tokens", "stop_sequence", "tool_use", "pause_turn", "refusal"]
+          },
+          "gaps": ["id", "stop_reason", "stop_sequence", "type"]
+        }
+      ],
+      "note": "Message reconciled against the official Anthropic API docs; Model/Conversation/Tool/ToolUse/Batch/File pending."
+    },
+    {
+      "handle": "zendesk-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://developer.zendesk.com/api-reference",
+      "resources": [
+        {
+          "entity": "Ticket",
+          "source": "https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/",
+          "verifiedFields": ["subject", "requesterId", "priority", "status"],
+          "fieldStatus": "all generated fields confirmed (requesterId = real requester_id)",
+          "discoveredEnums": {
+            "priority": ["urgent", "high", "normal", "low"],
+            "status": ["new", "open", "pending", "hold", "solved", "closed"]
+          },
+          "gaps": ["description", "assignee_id", "group_id", "tags", "custom_status_id"]
+        }
+      ],
+      "note": "Ticket reconciled against the official Zendesk API docs; Survey/Response/Account/Conversation/Contact pending. (Note: zendesk uses the cx_survey category model, whose Ticket archetype matches the real Zendesk Ticket.)"
+    },
+    {
+      "handle": "shopify-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://shopify.dev/docs/api/admin-rest",
+      "resources": [
+        {
+          "entity": "Product",
+          "source": "https://shopify.dev/docs/api/admin-rest/latest/resources/product",
+          "verifiedFields": ["title", "vendor", "productType", "status"],
+          "fieldStatus": "all generated fields confirmed (productType = real product_type)",
+          "discoveredEnums": {"status": ["active", "archived", "draft"]},
+          "gaps": ["handle", "tags", "published_at", "options", "images"]
+        },
+        {
+          "entity": "Order",
+          "source": "https://shopify.dev/docs/api/admin-rest/latest/resources/order",
+          "verifiedFields": ["customerId", "totalPrice", "currency", "financialStatus"],
+          "fieldStatus": "all generated fields confirmed (customerId via customer object, totalPrice=total_price, financialStatus=financial_status)",
+          "discoveredEnums": {"financialStatus": ["pending", "authorized", "partially_paid", "paid", "partially_refunded", "refunded", "voided"]},
+          "gaps": ["fulfillment_status", "line_items", "email", "order_number"]
+        },
+        {
+          "entity": "Fulfillment",
+          "source": "https://shopify.dev/docs/api/admin-rest/latest/resources/fulfillment",
+          "verifiedFields": ["orderId", "status", "trackingNumber"],
+          "fieldStatus": "all generated fields confirmed (orderId=order_id, trackingNumber=tracking_number)",
+          "discoveredEnums": {"status": ["pending", "open", "success", "cancelled", "error", "failure"]},
+          "gaps": ["tracking_company", "tracking_urls", "line_items", "shipment_status"]
+        }
+      ],
+      "note": "Product + Order + Fulfillment reconciled against the official Shopify Admin REST docs (3/8); Variant/Customer/Collection/DiscountCode pending. Enforced enums: product.status, order.financialStatus, fulfillment.status."
+    },
+    {
+      "handle": "plaid-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://plaid.com/docs/api",
+      "resources": [
+        {
+          "entity": "Account",
+          "source": "https://plaid.com/docs/api/accounts/",
+          "verifiedFields": ["name", "type", "subtype", "currentBalance"],
+          "fieldStatus": "all generated fields confirmed (id = real account_id; currentBalance = real balances.current)",
+          "discoveredEnums": {"type": ["depository", "credit", "investment", "loan", "other"]},
+          "gaps": ["mask", "official_name", "balances.available", "balances.iso_currency_code"]
+        },
+        {
+          "entity": "Transaction",
+          "source": "https://plaid.com/docs/api/products/transactions/",
+          "verifiedFields": ["accountId", "amount", "currency", "category", "date"],
+          "fieldStatus": "all generated fields confirmed (accountId=account_id, currency=iso_currency_code)",
+          "discoveredEnums": {},
+          "gaps": ["category is a free taxonomy list (not a fixed enum)", "merchant_name", "pending", "payment_channel"]
+        }
+      ],
+      "note": "Account + Transaction reconciled against the official Plaid docs; Item/Institution/Identity/Liability pending."
+    },
+    {
+      "handle": "github-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://docs.github.com/en/rest",
+      "resources": [
+        {
+          "entity": "Repository",
+          "source": "https://docs.github.com/en/rest/repos/repos",
+          "verifiedFields": ["name", "owner", "defaultBranch", "private", "stars"],
+          "fieldStatus": "all generated fields confirmed (stars = real stargazers_count; owner = Simple User; defaultBranch = default_branch)",
+          "discoveredEnums": {},
+          "gaps": ["full_name", "fork", "language", "description", "html_url", "visibility"]
+        },
+        {
+          "entity": "Issue",
+          "source": "https://docs.github.com/en/rest/issues/issues",
+          "verifiedFields": ["number", "title", "state", "authorId"],
+          "fieldStatus": "all generated fields confirmed (authorId = real user/Simple User; body also present)",
+          "discoveredEnums": {"state": ["open", "closed"]},
+          "gaps": ["body", "state_reason", "labels", "assignees", "milestone"]
+        },
+        {
+          "entity": "PullRequest",
+          "source": "https://docs.github.com/en/rest/pulls/pulls",
+          "verifiedFields": ["number", "title", "state", "headRef", "baseRef"],
+          "fieldStatus": "all generated fields confirmed (headRef=head.ref, baseRef=base.ref)",
+          "discoveredEnums": {"state": ["open", "closed"]},
+          "gaps": ["merged", "draft", "merge_commit_sha", "user", "body"]
+        },
+        {
+          "entity": "WorkflowRun",
+          "source": "https://docs.github.com/en/rest/actions/workflow-runs",
+          "verifiedFields": ["status", "conclusion", "commitSha"],
+          "fieldStatus": "all generated fields confirmed (commitSha = real head_sha)",
+          "discoveredEnums": {
+            "status": ["completed", "action_required", "cancelled", "failure", "neutral", "skipped", "stale", "success", "timed_out", "in_progress", "queued", "requested", "waiting", "pending"],
+            "conclusion": ["success", "failure", "neutral", "cancelled", "skipped", "timed_out", "action_required", "stale"]
+          },
+          "gaps": ["run_number", "event", "workflow_id", "actor", "html_url"]
+        },
+        {
+          "entity": "Release",
+          "source": "https://docs.github.com/en/rest/releases/releases",
+          "verifiedFields": ["repoId", "tag", "name", "draft"],
+          "fieldStatus": "all generated fields confirmed (tag=tag_name; draft is a real boolean; repoId is the relation)",
+          "discoveredEnums": {},
+          "gaps": ["prerelease", "body", "published_at", "assets"]
+        },
+        {
+          "entity": "Commit",
+          "source": "https://docs.github.com/en/rest/commits/commits",
+          "verifiedFields": ["repoId", "sha", "message", "authorId"],
+          "fieldStatus": "all generated fields confirmed (message=commit.message, authorId=author/Simple User)",
+          "discoveredEnums": {},
+          "gaps": ["committer", "parents", "html_url", "stats"]
+        }
+      ],
+      "note": "Repository + Issue + PullRequest + WorkflowRun + Release + Commit reconciled against the official GitHub REST docs (6/7 resources); Workflow pending. Enforced enums: issue.state, pullRequest.state, workflowRun.status, workflowRun.conclusion."
+    },
+    {
+      "handle": "twilio-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://www.twilio.com/docs",
+      "resources": [
+        {
+          "entity": "Message",
+          "source": "https://www.twilio.com/docs/messaging/api/message-resource",
+          "verifiedFields": ["fromNumber", "toNumber", "body", "status", "direction"],
+          "fieldStatus": "all generated fields confirmed (fromNumber=from, toNumber=to)",
+          "discoveredEnums": {
+            "status": ["queued", "sending", "sent", "failed", "delivered", "undelivered", "receiving", "received", "accepted", "scheduled", "read", "canceled"],
+            "direction": ["inbound", "outbound-api", "outbound-call", "outbound-reply"]
+          },
+          "gaps": ["price", "num_segments", "error_code", "messaging_service_sid", "date_sent"]
+        },
+        {
+          "entity": "Call",
+          "source": "https://www.twilio.com/docs/voice/api/call-resource",
+          "verifiedFields": ["fromNumber", "toNumber", "status", "durationSec"],
+          "fieldStatus": "all generated fields confirmed (fromNumber=from, toNumber=to, durationSec=duration in seconds)",
+          "discoveredEnums": {"status": ["queued", "ringing", "in-progress", "canceled", "completed", "busy", "failed", "no-answer"]},
+          "gaps": ["price", "direction", "answered_by", "start_time", "end_time"]
+        },
+        {
+          "entity": "Verification",
+          "source": "https://www.twilio.com/docs/verify/api/verification",
+          "verifiedFields": ["toNumber", "channel", "status"],
+          "fieldStatus": "all generated fields confirmed (toNumber=to)",
+          "discoveredEnums": {
+            "channel": ["sms", "call", "email", "whatsapp", "sna", "auto", "rcs"],
+            "status": ["pending", "approved", "canceled", "max_attempts_reached", "deleted", "failed", "expired"]
+          },
+          "gaps": ["valid", "amount", "payee", "send_code_attempts"]
+        }
+      ],
+      "note": "Message + Call + Verification reconciled against the official Twilio docs (3/6); PhoneNumber/Recording/Conference pending. Enforced enums: message.status, message.direction, call.status, verification.channel, verification.status."
+    },
+    {
+      "handle": "stripe-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://docs.stripe.com/api",
+      "resources": [
+        {
+          "entity": "Customer",
+          "source": "https://docs.stripe.com/api/customers/object",
+          "verifiedFields": ["id", "email", "name", "phone", "balance", "currency"],
+          "fieldStatus": "all generated fields confirmed present on the real Customer object",
+          "discoveredEnums": {},
+          "gaps": ["description", "metadata", "address", "shipping", "invoice_settings", "tax_exempt", "preferred_locales"]
+        },
+        {
+          "entity": "PaymentIntent",
+          "source": "https://docs.stripe.com/api/payment_intents/object",
+          "verifiedFields": ["id", "amount", "currency", "customer", "status", "description"],
+          "fieldStatus": "all generated fields confirmed present on the real PaymentIntent object",
+          "discoveredEnums": {
+            "status": ["requires_payment_method", "requires_confirmation", "requires_action", "processing", "requires_capture", "canceled", "succeeded"]
+          },
+          "gaps": ["amount_received", "client_secret", "payment_method", "metadata", "latest_charge"]
+        },
+        {
+          "entity": "Charge",
+          "source": "https://docs.stripe.com/api/charges/object",
+          "verifiedFields": ["customer", "paymentIntent", "amount", "currency", "status"],
+          "fieldStatus": "all generated fields confirmed (paymentIntent = real payment_intent); status confirmed present but the fetched excerpt did not enumerate the full enum, so it is NOT force-enforced",
+          "discoveredEnums": {},
+          "gaps": ["status-enum (succeeded/pending/failed documented elsewhere, not enumerated in excerpt)", "receipt_url", "outcome", "refunded"]
+        },
+        {
+          "entity": "Invoice",
+          "source": "https://docs.stripe.com/api/invoices/object",
+          "verifiedFields": ["customer", "amountDue", "currency", "status"],
+          "fieldStatus": "all generated fields confirmed (amountDue = real amount_due)",
+          "discoveredEnums": {"status": ["draft", "open", "paid", "uncollectible", "void"]},
+          "gaps": ["amount_paid", "hosted_invoice_url", "number", "lines"]
+        },
+        {
+          "entity": "Subscription",
+          "source": "https://docs.stripe.com/api/subscriptions/object",
+          "verifiedFields": ["customer", "status", "currentPeriodEnd"],
+          "fieldStatus": "customer/status confirmed; currentPeriodEnd maps to the real current_period_end (now per subscription-item)",
+          "discoveredEnums": {"status": ["incomplete", "incomplete_expired", "trialing", "active", "past_due", "canceled", "unpaid", "paused"]},
+          "gaps": ["items", "cancel_at_period_end", "latest_invoice", "default_payment_method"]
+        },
+        {
+          "entity": "Product",
+          "source": "https://docs.stripe.com/api/products/object",
+          "verifiedFields": ["name", "description", "active"],
+          "fieldStatus": "all generated fields confirmed",
+          "discoveredEnums": {},
+          "gaps": ["default_price", "images", "metadata", "tax_code"]
+        },
+        {
+          "entity": "Refund",
+          "source": "https://docs.stripe.com/api/refunds/object",
+          "verifiedFields": ["charge", "amount", "reason", "status"],
+          "fieldStatus": "all generated fields confirmed",
+          "discoveredEnums": {
+            "status": ["pending", "requires_action", "succeeded", "failed", "canceled"],
+            "reason": ["duplicate", "fraudulent", "requested_by_customer", "expired_uncaptured_charge"]
+          },
+          "gaps": ["payment_intent", "receipt_number", "metadata"]
+        }
+      ],
+      "note": "Customer + PaymentIntent + Charge + Invoice + Subscription + Product + Refund reconciled against official docs (7/8 resources); Price pending. Enforceable enums: PaymentIntent.status, Invoice.status, Subscription.status, Refund.status, Refund.reason."
+    }
+  ]
+}

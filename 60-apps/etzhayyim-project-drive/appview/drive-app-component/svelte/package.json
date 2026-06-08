@@ -7,13 +7,13 @@
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",
-    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json"
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "test": "vitest run"
   },
   "dependencies": {
     "@bufbuild/protobuf": "^2.11.0",
     "@connectrpc/connect": "^2.1.1",
     "@connectrpc/connect-web": "^2.1.1",
-    "@etzhayyim/design-system": "workspace:*",
     "svelte": "^5.55.3"
   },
   "devDependencies": {
@@ -26,6 +26,7 @@
     "typescript": "^5.9.3",
     "vite": "^6.4.2",
     "@sveltejs/adapter-cloudflare": "^7.2.8",
-    "@sveltejs/kit": "^2.57.1"
+    "@sveltejs/kit": "^2.57.1",
+    "vitest": "^4.1.0"
   }
 }

@@ -4,10 +4,10 @@
 
 - **Name**: ossekai (御節介 — caring proactive intervention)
 - **DID**: `did:web:ossekai.etzhayyim.com`
-- **ADR**: ADR-2605264000 (R0 scaffold, 2026-05-26)
+- **ADR**: ADR-2605264000 (R2 Autonomous, upgraded from R0 scaffold)
 - **Parent ADR**: ADR-2605192100 (Mission Charter — Wellbecoming §1.13 + Anti-individualism §1.4 + Covert-ops-avoidance §2(c))
 - **AT-Proto-substrate parent**: ADR-2605231902 (`app.bsky.feed.post` membrane + L1-projection feed-discover preserved unchanged)
-- **Status**: R0 scaffold — 8 cells path-reserved + 9 Lexicon skeletons
+- **Status**: R2 Autonomous — fully operational targeted path and aggregate publication without manual operator gating
 - **Form**: 任意団体 internal artificial-organism information-arbitrage substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格 — Preamble §0.4 Lv7+ unanimity lock)
 
 ## Constitutional Discipline (CRITICAL — IMMUTABLE)

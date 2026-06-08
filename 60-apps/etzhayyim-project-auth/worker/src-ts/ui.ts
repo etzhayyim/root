@@ -254,26 +254,13 @@ export function renderAuthPage(mode: "sign-in" | "sign-up", request: Request): s
         body: "{}",
       }).then(r => r.json());
       if (begin.error) throw new Error(begin.message || begin.error);
-      const storedCred = localStorage.getItem("etzhayyim-auth-credential");
       const basePublicKey = {
         challenge: b64d(begin.challenge),
         rpId: begin.rpId || begin.rp_id,
         timeout: begin.timeout,
         userVerification: begin.userVerification || begin.user_verification || "required",
       };
-      const reqWithAllow = storedCred
-        ? { ...basePublicKey, allowCredentials: [{ type: "public-key", id: b64d(storedCred) }] }
-        : basePublicKey;
-      let assertion;
-      try {
-        assertion = await navigator.credentials.get({ publicKey: reqWithAllow });
-      } catch (err) {
-        const msg = String((err && err.message) || err || "");
-        const shouldRetryWithoutAllow =
-          !!storedCred && (/allowcredentials/i.test(msg) || /resident credentials/i.test(msg));
-        if (!shouldRetryWithoutAllow) throw err;
-        assertion = await navigator.credentials.get({ publicKey: basePublicKey });
-      }
+      const assertion = await navigator.credentials.get({ publicKey: basePublicKey });
       if (!assertion) throw new Error("Passkey cancelled");
       const verified = await fetch(API + "/xrpc/com.etzhayyim.auth.passkeyVerifyAuth", {
         method: "POST",

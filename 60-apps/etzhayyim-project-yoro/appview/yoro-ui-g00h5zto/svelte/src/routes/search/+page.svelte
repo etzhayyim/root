@@ -316,13 +316,13 @@
 	<link rel="canonical" href="https://yoro.etzhayyim.com/search" />
 </svelte:head>
 
-<div class="flex h-full flex-col">
-	<div class="sticky top-0 z-10 bg-gv2-bg-primary/90 material-blur border-b border-gv2-border/40 px-4 pt-3 pb-0">
-		<div class="relative mb-3">
-			<svg class="absolute left-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-gv2-text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" /></svg>
+<div class="yoro-search-page flex h-full flex-col">
+	<div class="search-header sticky top-0 z-10 bg-gv2-bg-primary/90 material-blur border-b border-gv2-border/40 px-4 pt-3 pb-0">
+		<div class="search-input-wrap relative mb-3">
+			<svg class="search-input-icon absolute left-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-gv2-text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" /></svg>
 			<input
 				type="search"
-				class="w-full rounded-xl border border-gv2-border bg-gv2-bg-hover/30 py-3 pl-11 pr-4 text-[15px] text-gv2-text-primary outline-none placeholder:text-gv2-text-muted/60 focus:border-[#1185FE]"
+				class="search-input w-full rounded-xl border border-gv2-border bg-gv2-bg-hover/30 py-3 pl-11 pr-4 text-[15px] text-gv2-text-primary outline-none placeholder:text-gv2-text-muted/60 focus:border-[#1185FE]"
 				placeholder="Search actors, posts..."
 				bind:value={query}
 			/>
@@ -350,14 +350,14 @@
 				{/if}
 			</div>
 		{/if}
-		<div class="flex">
-			<button type="button" class="flex-1 py-2.5 text-center text-[14px] font-semibold touch-manipulation {activeTab === 'actors' ? 'text-gv2-text-primary border-b-2 border-[#1185FE]' : 'text-gv2-text-muted'}" onclick={() => { activeTab = 'actors'; }}>Actors</button>
-			<button type="button" class="flex-1 py-2.5 text-center text-[14px] font-semibold touch-manipulation {activeTab === 'posts' ? 'text-gv2-text-primary border-b-2 border-[#1185FE]' : 'text-gv2-text-muted'}" onclick={() => { activeTab = 'posts'; }}>Posts</button>
-			<button type="button" class="flex-1 py-2.5 text-center text-[14px] font-semibold touch-manipulation {activeTab === 'people' ? 'text-gv2-text-primary border-b-2 border-[#1185FE]' : 'text-gv2-text-muted'}" onclick={() => { activeTab = 'people'; }}>People</button>
+		<div class="search-tabs flex">
+			<button type="button" class="search-tab flex-1 py-2.5 text-center text-[14px] font-semibold touch-manipulation {activeTab === 'actors' ? 'is-active text-gv2-text-primary border-b-2 border-[#1185FE]' : 'text-gv2-text-muted'}" onclick={() => { activeTab = 'actors'; }}>Actors</button>
+			<button type="button" class="search-tab flex-1 py-2.5 text-center text-[14px] font-semibold touch-manipulation {activeTab === 'posts' ? 'is-active text-gv2-text-primary border-b-2 border-[#1185FE]' : 'text-gv2-text-muted'}" onclick={() => { activeTab = 'posts'; }}>Posts</button>
+			<button type="button" class="search-tab flex-1 py-2.5 text-center text-[14px] font-semibold touch-manipulation {activeTab === 'people' ? 'is-active text-gv2-text-primary border-b-2 border-[#1185FE]' : 'text-gv2-text-muted'}" onclick={() => { activeTab = 'people'; }}>People</button>
 		</div>
 	</div>
 
-	<div class="flex-1 overflow-y-auto scrollbar-none">
+	<div class="search-content flex-1 overflow-y-auto scrollbar-none">
 		{#if loading}
 			<div class="flex flex-col gap-1 p-2" in:fade={staggerFade(0, { duration: 300 })}>
 				{#each { length: 5 } as _}
@@ -368,25 +368,25 @@
 			<div class="px-4 py-8 text-center text-[14px] text-red-500">{errorMessage}</div>
 		{:else if !query.trim() && activeTab !== 'actors'}
 			<div class="flex flex-col items-center justify-center gap-3 py-20 text-center">
-				<svg class="h-12 w-12 text-gv2-text-muted/20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" /></svg>
+				<svg class="empty-search-icon h-12 w-12 text-gv2-text-muted/20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" /></svg>
 				<p class="text-[15px] text-gv2-text-muted">Search for posts or people</p>
 			</div>
 		{:else if activeTab === 'actors' && actorList.length === 0}
 			<div class="py-12 text-center text-[14px] text-gv2-text-muted">{query.trim() ? `No actors found for "${query}"` : 'No actors available'}</div>
 		{:else if activeTab === 'actors'}
 			<!-- Sort controls -->
-			<div class="flex items-center justify-between px-4 pt-3 pb-1">
+			<div class="search-sortbar flex items-center justify-between px-4 pt-3 pb-1">
 				<span class="text-[12px] text-gv2-text-muted" title={totalActors > 0 ? `${totalActors.toLocaleString()} total actors indexed` : ''}>{totalActors > 0 ? `${totalActors.toLocaleString()} actors` : `${actorList.length}+ actors`}</span>
 				<div class="flex gap-1">
-					<button type="button" class="rounded-lg px-2.5 py-1 text-[11px] font-medium transition-colors {sortOrder === 'registered' ? 'bg-[#1185FE]/10 text-[#1185FE]' : 'text-gv2-text-muted hover:bg-gv2-bg-hover/40'}" onclick={() => { sortOrder = 'registered'; actorList = sortActors(actorList, 'registered'); }}>Registered</button>
-					<button type="button" class="rounded-lg px-2.5 py-1 text-[11px] font-medium transition-colors {sortOrder === 'updated' ? 'bg-[#1185FE]/10 text-[#1185FE]' : 'text-gv2-text-muted hover:bg-gv2-bg-hover/40'}" onclick={() => { sortOrder = 'updated'; actorList = sortActors(actorList, 'updated'); }}>Updated</button>
+					<button type="button" class="search-sort rounded-lg px-2.5 py-1 text-[11px] font-medium transition-colors {sortOrder === 'registered' ? 'is-active bg-[#1185FE]/10 text-[#1185FE]' : 'text-gv2-text-muted hover:bg-gv2-bg-hover/40'}" onclick={() => { sortOrder = 'registered'; actorList = sortActors(actorList, 'registered'); }}>Registered</button>
+					<button type="button" class="search-sort rounded-lg px-2.5 py-1 text-[11px] font-medium transition-colors {sortOrder === 'updated' ? 'is-active bg-[#1185FE]/10 text-[#1185FE]' : 'text-gv2-text-muted hover:bg-gv2-bg-hover/40'}" onclick={() => { sortOrder = 'updated'; actorList = sortActors(actorList, 'updated'); }}>Updated</button>
 				</div>
 			</div>
 			<div class="divide-y divide-gv2-border/20">
 				{#each actorList as actor, i (actor.did || i)}
 					<button
 						type="button"
-						class="flex w-full items-start gap-3 px-4 py-3 text-left touch-manipulation active:bg-gv2-bg-hover/40"
+						class="search-result flex w-full items-start gap-3 px-4 py-3 text-left touch-manipulation active:bg-gv2-bg-hover/40"
 						onclick={() => goto(`/profile/${encodeURIComponent(actor.did || actor.handle)}`)}
 						in:fade={staggerFade(i, { duration: 150 })}
 					>
@@ -440,8 +440,10 @@
 			<div class="py-12 text-center text-[14px] text-gv2-text-muted">No people found for "{query}"</div>
 		{:else if activeTab === 'posts'}
 			<div class="divide-y divide-gv2-border/20">
-				{#each posts as post, i (post.uri || post.rkey)}
-					<button type="button" class="flex w-full gap-3 px-4 py-3 text-left touch-manipulation active:bg-gv2-bg-hover/40" onclick={() => goto(`/profile/${encodeURIComponent(post.author.handle)}/post/${encodeURIComponent(post.rkey)}`)} in:fade={staggerFade(i, { duration: 150 })}>
+				{#each posts as post, i (post.uri || post.uri.split('/').pop())}
+					<!-- svelte-ignore a11y_click_events_have_key_events -->
+					<!-- svelte-ignore a11y_no_static_element_interactions -->
+					<div class="search-result flex w-full cursor-pointer gap-3 px-4 py-3 text-left touch-manipulation active:bg-gv2-bg-hover/40" onclick={(e) => { if ((e.target as HTMLElement).closest('a')) return; goto(`/profile/${encodeURIComponent(post.author.handle)}/post/${encodeURIComponent(post.uri.split('/').pop() || '')}`); }} in:fade={staggerFade(i, { duration: 150 })}>
 						<Avatar src={post.author.avatar || undefined} fallback={(post.author.displayName || post.author.handle).slice(0, 2).toUpperCase()} size="sm" class="!h-10 !w-10 flex-shrink-0" />
 						<div class="min-w-0 flex-1">
 							<div class="flex items-center gap-1.5 text-[14px]">
@@ -449,15 +451,15 @@
 								<span class="truncate text-gv2-text-muted">@{post.author.handle}</span>
 								<span class="flex-shrink-0 text-gv2-text-muted">&middot; {timeAgo(post.indexedAt)}</span>
 							</div>
-							<div class="mt-0.5 text-[15px] leading-snug text-gv2-text-primary"><RichText text={post.text} facets={post.facets} /></div>
+							<div class="mt-0.5 text-[15px] leading-snug text-gv2-text-primary"><RichText text={(post.record as any)?.text ?? ''} facets={(post.record as any)?.facets ?? []} /></div>
 						</div>
-					</button>
+					</div>
 				{/each}
 			</div>
 		{:else}
 			<div class="divide-y divide-gv2-border/20">
 				{#each people as person, i (person.did)}
-					<button type="button" class="flex w-full items-center gap-3 px-4 py-3 text-left touch-manipulation active:bg-gv2-bg-hover/40" onclick={() => goto(`/profile/${encodeURIComponent(person.handle || person.did)}`)} in:fade={staggerFade(i, { duration: 150 })}>
+					<button type="button" class="search-result flex w-full items-center gap-3 px-4 py-3 text-left touch-manipulation active:bg-gv2-bg-hover/40" onclick={() => goto(`/profile/${encodeURIComponent(person.handle || person.did)}`)} in:fade={staggerFade(i, { duration: 150 })}>
 						<Avatar src={person.avatar || undefined} fallback={(person.displayName || person.handle || '?').slice(0, 2).toUpperCase()} size="md" class="!h-11 !w-11 flex-shrink-0" />
 						<div class="min-w-0 flex-1">
 							<span class="block truncate text-[15px] font-bold text-gv2-text-primary">{person.displayName || person.handle}</span>
@@ -470,3 +472,136 @@
 		{/if}
 	</div>
 </div>
+
+<style>
+	.yoro-search-page {
+		display: flex;
+		height: 100%;
+		min-height: 0;
+		flex-direction: column;
+		background: var(--gv2-bg-primary, #141414);
+		color: var(--gv2-text-primary, #fff);
+	}
+
+	.search-header {
+		position: sticky;
+		top: 0;
+		z-index: 10;
+		border-bottom: 1px solid color-mix(in oklab, var(--gv2-border, #333) 60%, transparent);
+		background: color-mix(in oklab, var(--gv2-bg-primary, #141414) 90%, transparent);
+		padding: 12px 16px 0;
+		backdrop-filter: blur(16px);
+	}
+
+	.search-input-wrap {
+		position: relative;
+		margin-bottom: 12px;
+	}
+
+	.search-input-icon {
+		position: absolute;
+		left: 14px;
+		top: 50%;
+		width: 20px;
+		height: 20px;
+		transform: translateY(-50%);
+		color: var(--gv2-text-muted, #777);
+		pointer-events: none;
+	}
+
+	.search-input {
+		box-sizing: border-box;
+		width: 100%;
+		border: 1px solid var(--gv2-border, #333);
+		border-radius: 12px;
+		background: color-mix(in oklab, var(--gv2-bg-hover, #333) 30%, transparent);
+		color: var(--gv2-text-primary, #fff);
+		font-size: 15px;
+		line-height: 1.25;
+		outline: none;
+		padding: 12px 16px 12px 44px;
+	}
+
+	.search-input::placeholder {
+		color: color-mix(in oklab, var(--gv2-text-muted, #777) 60%, transparent);
+	}
+
+	.search-input:focus {
+		border-color: #1185fe;
+	}
+
+	.search-tabs {
+		display: flex;
+	}
+
+	.search-tab {
+		flex: 1 1 0;
+		border: 0;
+		border-bottom: 2px solid transparent;
+		background: transparent;
+		color: var(--gv2-text-muted, #777);
+		font-size: 14px;
+		font-weight: 600;
+		padding: 10px 0;
+		text-align: center;
+		touch-action: manipulation;
+	}
+
+	.search-tab.is-active {
+		border-bottom-color: #1185fe;
+		color: var(--gv2-text-primary, #fff);
+	}
+
+	.search-content {
+		flex: 1 1 0;
+		min-height: 0;
+		overflow-y: auto;
+		scrollbar-width: none;
+	}
+
+	.empty-search-icon {
+		width: 48px;
+		height: 48px;
+		color: color-mix(in oklab, var(--gv2-text-muted, #777) 20%, transparent);
+	}
+
+	.search-sortbar {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 12px 16px 4px;
+	}
+
+	.search-sort {
+		border: 0;
+		border-radius: 8px;
+		background: transparent;
+		color: var(--gv2-text-muted, #777);
+		font-size: 11px;
+		font-weight: 500;
+		padding: 4px 10px;
+	}
+
+	.search-sort.is-active {
+		background: color-mix(in oklab, #1185fe 10%, transparent);
+		color: #1185fe;
+	}
+
+	.search-result {
+		box-sizing: border-box;
+		display: flex;
+		width: 100%;
+		gap: 12px;
+		border: 0;
+		border-bottom: 1px solid color-mix(in oklab, var(--gv2-border, #333) 45%, transparent);
+		background: transparent;
+		color: inherit;
+		padding: 12px 16px;
+		text-align: left;
+		touch-action: manipulation;
+	}
+
+	.search-result:active {
+		background: color-mix(in oklab, var(--gv2-bg-hover, #333) 40%, transparent);
+	}
+</style>

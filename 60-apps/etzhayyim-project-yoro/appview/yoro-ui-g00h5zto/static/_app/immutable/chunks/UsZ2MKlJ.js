@@ -1,1 +1,0 @@
-function e(n,a){return{duration:(a==null?void 0:a.duration)??200,delay:Math.min(n*((a==null?void 0:a.delay)??40),400),...a}}function r(n){const a=2*Math.PI/3;return n===0?0:n===1?1:Math.pow(2,-10*n)*Math.sin((n*10-.75)*a)+1}export{r as e,e as s};

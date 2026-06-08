@@ -14045,6 +14045,18 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606071800-kotoba-monorepo-projection-r2-adr-corpus-persistence",
+      "type": "TechArticle",
+      "title": "ADR-2606071800: kotoba monorepo projection Phase R2 — ADR corpus persistence via kotoba-wasm and kotodama on Murakumo",
+      "status": "proposed",
+      "topic": "adr-persistence-r2",
+      "authoritative": true,
+      "authoritativeFor": [
+        "Phase R2 ADR corpus persistence mechanism"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
       "id": "doc:adr-2606071800-substrate-remediation-wave",
       "type": "TechArticle",
       "title": "ADR-2606071800: legacy RisingWave/Hyperdrive/Kysely → kotoba-kqe read-path remediation wave",
@@ -14334,6 +14346,18 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606073100-abaki-anti-monopoly-intelligence-membrane-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606073100: 暴 abaki — Anti-Monopoly & Chokepoint Intelligence Membrane (Tier-B R0)",
+      "status": "accepted",
+      "topic": "abaki-anti-monopoly-intelligence-membrane",
+      "authoritative": true,
+      "authoritativeFor": [
+        "abaki Anti-Monopoly Membrane design"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
       "id": "doc:adr-2606073200-asobi-freed-time-play-expression-mirror",
       "type": "TechArticle",
       "title": "ADR-2606073200: asobi 遊び — freed-time play & cultural-expression KG mirror (gap C)",
@@ -14419,6 +14443,18 @@
         "doc:2606011800",
         "doc:2606014500",
         "doc:2605261045"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606074000-apps-maturity-enhancement",
+      "type": "TechArticle",
+      "title": "ADR-2606074000: Apps Store Appview Testing Baseline and Maturity Enhancement",
+      "status": "approved",
+      "topic": "testing-maturity",
+      "authoritative": true,
+      "authoritativeFor": [
+        "60-apps"
       ],
       "lastVerified": "2026-06-07"
     },

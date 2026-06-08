@@ -1,0 +1,1204 @@
+#!/usr/bin/env python3
+"""
+Deepening-Phase generator for the 600 Clean Room Actors (ADR 260607).
+
+Transitions actors from L1 (Scaffolded — 1 endpoint / 1 entity / boilerplate)
+to L3 (Advanced — domain-differentiated multi-entity schema + full CRUD
+endpoints with payload validation + Datomic query/transact).
+
+Design (the honest part):
+  The shallow-boilerplate critique in the ADR is answered NOT by emitting one
+  generic CRUD template 600 times, but by a per-DOMAIN resource model. Each of
+  the ~60 wave categories gets a hand-authored set of realistic resources
+  (entities + fields). Marquee platforms additionally get a curated override
+  with their real API resource names. So 600 actors materialize ~60 genuinely
+  distinct domain models, not one template.
+
+Generated per actor:
+  schema/<platform>.kotoba   multi-entity namespace (>=5 entities)
+  src/main.py                CRUD routes per entity (list/get/create/update/
+                             delete) with required-field validation, plus a
+                             /healthz probe, backed by DatomicClient.
+
+Idempotent: safe to re-run; overwrites schema + main.py from the model.
+Curated L2 hand-impls (salesforce, stripe) are upgraded in place via overrides.
+"""
+
+import os
+import re
+import glob
+import sys
+
+ACTORS_DIR = "20-actors"
+TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(TOOLS_DIR)
+
+# ---------------------------------------------------------------------------
+# 1. Domain resource models.  category-key -> { EntityName: {field: type} }
+#    Types: string | integer | float | boolean | datetime
+#    Every entity implicitly gets `id: string @unique` + `createdAt: datetime`.
+# ---------------------------------------------------------------------------
+
+def E(**fields):
+    return fields
+
+
+# Generic fallback model — used only when a platform's category is not (yet)
+# mapped, so even an un-categorised actor reaches L3 (multi-entity + CRUD).
+GENERIC_MODEL = {
+    "Resource": E(name="string", type="string", status="string", externalId="string"),
+    "Collection": E(name="string", description="string", itemCount="integer"),
+    "Item": E(collectionId="string", name="string", value="string"),
+    "Event": E(resourceId="string", type="string", payloadRef="string", occurredAt="datetime"),
+    "Attachment": E(resourceId="string", name="string", contentRef="string", sizeBytes="integer"),
+    "Webhook": E(event="string", url="string", active="boolean"),
+}
+
+CATEGORY_MODELS = {
+    # ---- Wave 1 archetypes (well-known SaaS) ----------------------------
+    "crm_sales": {
+        "Account": E(name="string", domain="string", industry="string", ownerId="string", annualRevenue="float"),
+        "Contact": E(accountId="string", firstName="string", lastName="string", email="string", phone="string"),
+        "Lead": E(company="string", email="string", status="string", source="string", score="integer"),
+        "Opportunity": E(accountId="string", name="string", stage="string", amount="float", closeDate="datetime"),
+        "Activity": E(subjectId="string", type="string", subject="string", dueDate="datetime", done="boolean"),
+        "Pipeline": E(name="string", stageOrder="string", ownerId="string"),
+    },
+    "erp_finance": {
+        "GLAccount": E(code="string", name="string", type="string", currency="string", balance="float"),
+        "JournalEntry": E(accountId="string", debit="float", credit="float", memo="string", postedAt="datetime"),
+        "Invoice": E(customerId="string", number="string", total="float", currency="string", status="string"),
+        "PurchaseOrder": E(vendorId="string", number="string", total="float", status="string"),
+        "Vendor": E(name="string", taxId="string", terms="string", currency="string"),
+        "CostCenter": E(code="string", name="string", ownerId="string"),
+    },
+    "iaas_cloud": {
+        "Project": E(name="string", region="string", billingId="string"),
+        "ComputeInstance": E(projectId="string", name="string", machineType="string", state="string", ipAddress="string"),
+        "Volume": E(projectId="string", sizeGb="integer", type="string", attachedTo="string"),
+        "Bucket": E(projectId="string", name="string", region="string", public="boolean"),
+        "Network": E(projectId="string", cidr="string", region="string"),
+        "IamRole": E(projectId="string", name="string", policy="string"),
+    },
+    "office_productivity": {
+        "Workspace": E(name="string", ownerId="string", plan="string"),
+        "Document": E(workspaceId="string", title="string", contentRef="string", ownerId="string"),
+        "Folder": E(workspaceId="string", name="string", parentId="string"),
+        "Comment": E(documentId="string", authorId="string", body="string"),
+        "Permission": E(resourceId="string", principalId="string", role="string"),
+        "User": E(email="string", displayName="string", status="string"),
+    },
+    "devops_ci": {
+        "Repository": E(name="string", owner="string", defaultBranch="string", private="boolean"),
+        "Pipeline": E(repoId="string", name="string", trigger="string"),
+        "Build": E(pipelineId="string", number="integer", status="string", commitSha="string", durationMs="integer"),
+        "Artifact": E(buildId="string", name="string", sizeBytes="integer", contentRef="string"),
+        "Deployment": E(buildId="string", environment="string", status="string"),
+        "Webhook": E(repoId="string", url="string", event="string", active="boolean"),
+    },
+    "ehr_health": {
+        "Patient": E(mrn="string", givenName="string", familyName="string", birthDate="datetime", sex="string"),
+        "Encounter": E(patientId="string", type="string", status="string", startedAt="datetime"),
+        "Observation": E(patientId="string", code="string", value="string", unit="string", takenAt="datetime"),
+        "Medication": E(patientId="string", code="string", dose="string", route="string", active="boolean"),
+        "Practitioner": E(npi="string", givenName="string", familyName="string", specialty="string"),
+        "Appointment": E(patientId="string", practitionerId="string", start="datetime", status="string"),
+    },
+    "ecommerce": {
+        "Product": E(sku="string", title="string", price="float", currency="string", inventory="integer"),
+        "Variant": E(productId="string", sku="string", price="float", optionValues="string"),
+        "Order": E(customerId="string", number="string", total="float", currency="string", status="string"),
+        "LineItem": E(orderId="string", productId="string", quantity="integer", unitPrice="float"),
+        "Customer": E(email="string", firstName="string", lastName="string", phone="string"),
+        "Collection": E(title="string", handle="string", published="boolean"),
+    },
+    "payments": {
+        "Customer": E(email="string", name="string", phone="string", balance="integer"),
+        "PaymentIntent": E(customerId="string", amount="integer", currency="string", status="string"),
+        "Charge": E(customerId="string", paymentIntentId="string", amount="integer", currency="string", status="string"),
+        "Refund": E(chargeId="string", amount="integer", reason="string", status="string"),
+        "Payout": E(amount="integer", currency="string", arrivalDate="datetime", status="string"),
+        "PaymentMethod": E(customerId="string", type="string", last4="string", brand="string"),
+    },
+    "data_analytics": {
+        "Dataset": E(name="string", source="string", schemaRef="string", rowCount="integer"),
+        "Query": E(datasetId="string", sql="string", ownerId="string"),
+        "Dashboard": E(name="string", ownerId="string", layout="string"),
+        "Report": E(dashboardId="string", name="string", schedule="string"),
+        "Connection": E(name="string", type="string", host="string", active="boolean"),
+        "Metric": E(datasetId="string", name="string", expression="string", unit="string"),
+    },
+    "design_tools": {
+        "Project": E(name="string", ownerId="string", teamId="string"),
+        "File": E(projectId="string", name="string", contentRef="string", version="integer"),
+        "Frame": E(fileId="string", name="string", width="float", height="float"),
+        "Component": E(fileId="string", name="string", description="string"),
+        "Comment": E(fileId="string", authorId="string", body="string", resolved="boolean"),
+        "Export": E(fileId="string", format="string", scale="float", contentRef="string"),
+    },
+    # ---- Wave 2 ---------------------------------------------------------
+    "ai_ml": {
+        "Model": E(name="string", family="string", contextWindow="integer", modality="string"),
+        "Completion": E(modelId="string", prompt="string", output="string", tokens="integer"),
+        "Embedding": E(modelId="string", input="string", dimensions="integer", vectorRef="string"),
+        "FineTune": E(baseModelId="string", datasetId="string", status="string", epochs="integer"),
+        "Dataset": E(name="string", rows="integer", contentRef="string"),
+        "File": E(purpose="string", filename="string", sizeBytes="integer", contentRef="string"),
+    },
+    "martech": {
+        "Campaign": E(name="string", channel="string", status="string", budget="float"),
+        "Audience": E(name="string", size="integer", definition="string"),
+        "Event": E(profileId="string", name="string", properties="string", occurredAt="datetime"),
+        "Profile": E(email="string", externalId="string", traits="string"),
+        "Message": E(campaignId="string", profileId="string", channel="string", status="string"),
+        "Funnel": E(name="string", steps="string", conversionRate="float"),
+    },
+    "security_iam": {
+        "Identity": E(username="string", email="string", status="string", mfaEnabled="boolean"),
+        "Policy": E(name="string", effect="string", resources="string", actions="string"),
+        "Detection": E(severity="string", rule="string", entityRef="string", detectedAt="datetime"),
+        "Incident": E(title="string", severity="string", status="string", assignee="string"),
+        "Asset": E(hostname="string", ipAddress="string", os="string", riskScore="float"),
+        "Session": E(identityId="string", source="string", expiresAt="datetime"),
+    },
+    "hrtech": {
+        "Employee": E(firstName="string", lastName="string", email="string", title="string", department="string"),
+        "Candidate": E(firstName="string", lastName="string", email="string", stage="string"),
+        "JobReq": E(title="string", department="string", status="string", openings="integer"),
+        "PayrollRun": E(period="string", grossTotal="float", currency="string", status="string"),
+        "TimeOff": E(employeeId="string", type="string", start="datetime", days="float", status="string"),
+        "Review": E(employeeId="string", cycle="string", rating="float", reviewerId="string"),
+    },
+    "devtools_apm": {
+        "Service": E(name="string", environment="string", language="string"),
+        "Error": E(serviceId="string", message="string", culprit="string", count="integer"),
+        "Trace": E(serviceId="string", operation="string", durationMs="integer", status="string"),
+        "Metric": E(serviceId="string", name="string", value="float", unit="string"),
+        "Alert": E(serviceId="string", condition="string", severity="string", active="boolean"),
+        "Incident": E(title="string", status="string", severity="string", startedAt="datetime"),
+    },
+    "headless_ec_logistics": {
+        "ContentEntry": E(modelName="string", title="string", locale="string", published="boolean"),
+        "Product": E(sku="string", title="string", price="float", currency="string"),
+        "Shipment": E(orderId="string", carrier="string", tracking="string", status="string"),
+        "SearchIndex": E(name="string", recordCount="integer", primaryKey="string"),
+        "Webhook": E(event="string", url="string", active="boolean"),
+        "Order": E(number="string", total="float", currency="string", status="string"),
+    },
+    "fintech_web3": {
+        "Account": E(holderId="string", currency="string", balance="float", status="string"),
+        "Card": E(accountId="string", last4="string", network="string", state="string"),
+        "Transaction": E(accountId="string", amount="float", currency="string", type="string", status="string"),
+        "Order": E(symbol="string", side="string", quantity="float", price="float", status="string"),
+        "Wallet": E(address="string", chain="string", balance="float"),
+        "Ledger": E(accountId="string", debit="float", credit="float", memo="string"),
+    },
+    "comms_social": {
+        "Channel": E(name="string", type="string", topic="string", memberCount="integer"),
+        "Message": E(channelId="string", authorId="string", body="string", sentAt="datetime"),
+        "User": E(handle="string", displayName="string", verified="boolean"),
+        "Room": E(name="string", maxParticipants="integer", recording="boolean"),
+        "Stream": E(roomId="string", status="string", bitrate="integer"),
+        "Webhook": E(event="string", url="string", active="boolean"),
+    },
+    "cx_survey": {
+        "Ticket": E(subject="string", requesterId="string", priority="string", status="string"),
+        "Survey": E(title="string", type="string", status="string"),
+        "Response": E(surveyId="string", respondentId="string", score="integer", submittedAt="datetime"),
+        "Account": E(name="string", healthScore="float", arr="float"),
+        "Conversation": E(accountId="string", channel="string", sentiment="float"),
+        "Contact": E(email="string", firstName="string", lastName="string"),
+    },
+    "vertical_saas": {
+        "Record": E(name="string", type="string", ownerId="string", status="string"),
+        "Matter": E(clientId="string", title="string", status="string", openedAt="datetime"),
+        "Contract": E(counterparty="string", value="float", status="string", signedAt="datetime"),
+        "Course": E(title="string", term="string", enrollment="integer"),
+        "Property": E(address="string", units="integer", value="float"),
+        "Document": E(recordId="string", name="string", contentRef="string"),
+    },
+    # ---- Wave 3 ---------------------------------------------------------
+    "lowcode_ipaas": {
+        "Flow": E(name="string", trigger="string", status="string"),
+        "Step": E(flowId="string", appName="string", action="string", position="integer"),
+        "Connection": E(appName="string", authType="string", active="boolean"),
+        "Run": E(flowId="string", status="string", durationMs="integer", startedAt="datetime"),
+        "App": E(name="string", category="string"),
+        "Webhook": E(flowId="string", url="string", active="boolean"),
+    },
+    "rpa": {
+        "Bot": E(name="string", machine="string", status="string"),
+        "Process": E(name="string", version="string", published="boolean"),
+        "Job": E(processId="string", botId="string", status="string", startedAt="datetime"),
+        "Queue": E(name="string", pending="integer", priority="string"),
+        "Asset": E(name="string", type="string", valueRef="string"),
+        "ProcessMining": E(name="string", caseCount="integer", variants="integer"),
+    },
+    "modern_data_stack": {
+        "Connector": E(name="string", source="string", destination="string", status="string"),
+        "Sync": E(connectorId="string", status="string", rows="integer", startedAt="datetime"),
+        "Model": E(name="string", materialization="string", sql="string"),
+        "Stream": E(name="string", partitions="integer", retentionMs="integer"),
+        "Schema": E(name="string", database="string", tableCount="integer"),
+        "Test": E(modelName="string", type="string", passed="boolean"),
+    },
+    "iot_edge": {
+        "Device": E(serial="string", model="string", status="string", firmware="string"),
+        "Telemetry": E(deviceId="string", metric="string", value="float", recordedAt="datetime"),
+        "Gateway": E(name="string", location="string", deviceCount="integer"),
+        "Command": E(deviceId="string", name="string", payload="string", status="string"),
+        "Firmware": E(model="string", version="string", contentRef="string"),
+        "Alert": E(deviceId="string", rule="string", severity="string"),
+    },
+    "regtech_privacy": {
+        "DataSubject": E(email="string", jurisdiction="string", status="string"),
+        "ConsentRecord": E(subjectId="string", purpose="string", granted="boolean", recordedAt="datetime"),
+        "Request": E(subjectId="string", type="string", status="string", dueAt="datetime"),
+        "Control": E(framework="string", name="string", status="string"),
+        "Evidence": E(controlId="string", name="string", contentRef="string"),
+        "Assessment": E(name="string", riskLevel="string", completedAt="datetime"),
+    },
+    "aec_govtech": {
+        "Project": E(name="string", jurisdiction="string", status="string"),
+        "Permit": E(projectId="string", type="string", number="string", status="string"),
+        "Drawing": E(projectId="string", name="string", revision="string", contentRef="string"),
+        "Inspection": E(permitId="string", type="string", result="string", inspectedAt="datetime"),
+        "Asset": E(name="string", type="string", location="string", condition="string"),
+        "ServiceRequest": E(citizenId="string", category="string", status="string"),
+    },
+    "media_video_cms": {
+        "Asset": E(title="string", type="string", durationMs="integer", contentRef="string"),
+        "Rendition": E(assetId="string", format="string", bitrate="integer", contentRef="string"),
+        "Channel": E(name="string", description="string", public="boolean"),
+        "Playlist": E(channelId="string", title="string", itemCount="integer"),
+        "ContentEntry": E(modelName="string", title="string", locale="string", published="boolean"),
+        "Experiment": E(name="string", variant="string", conversionRate="float"),
+    },
+    "event_npo_creator": {
+        "Event": E(name="string", startsAt="datetime", venue="string", capacity="integer"),
+        "Ticket": E(eventId="string", type="string", price="float", sold="integer"),
+        "Attendee": E(eventId="string", email="string", checkedIn="boolean"),
+        "Donor": E(email="string", name="string", lifetimeValue="float"),
+        "Donation": E(donorId="string", amount="float", currency="string", recurring="boolean"),
+        "Membership": E(memberId="string", tier="string", status="string"),
+    },
+    "core_banking_insurtech": {
+        "Account": E(holderId="string", type="string", balance="float", currency="string", status="string"),
+        "Loan": E(borrowerId="string", principal="float", rate="float", termMonths="integer", status="string"),
+        "Policy": E(holderId="string", type="string", premium="float", coverage="float", status="string"),
+        "Claim": E(policyId="string", amount="float", status="string", filedAt="datetime"),
+        "Transaction": E(accountId="string", amount="float", type="string", postedAt="datetime"),
+        "Customer": E(name="string", taxId="string", kycStatus="string"),
+    },
+    "devsecops_serverless": {
+        "Service": E(name="string", runtime="string", region="string", status="string"),
+        "Deployment": E(serviceId="string", version="string", status="string", deployedAt="datetime"),
+        "Secret": E(name="string", scope="string", rotatedAt="datetime"),
+        "ApiProxy": E(name="string", basePath="string", target="string", active="boolean"),
+        "Database": E(name="string", engine="string", region="string", sizeGb="integer"),
+        "Function": E(serviceId="string", name="string", memoryMb="integer", timeoutMs="integer"),
+    },
+    "enterprise_commerce_spend": {
+        "Catalog": E(name="string", supplierId="string", itemCount="integer"),
+        "Product": E(sku="string", title="string", price="float", currency="string"),
+        "Requisition": E(requesterId="string", total="float", status="string"),
+        "PurchaseOrder": E(supplierId="string", total="float", status="string"),
+        "Supplier": E(name="string", taxId="string", rating="float"),
+        "Invoice": E(supplierId="string", poId="string", total="float", status="string"),
+    },
+    # ---- Wave 4 (sovereign / gov) --------------------------------------
+    "dpg_india_stack": {
+        "Identity": E(externalId="string", jurisdiction="string", verified="boolean"),
+        "Credential": E(identityId="string", type="string", issuer="string", issuedAt="datetime"),
+        "Consent": E(identityId="string", purpose="string", granted="boolean", expiresAt="datetime"),
+        "Transaction": E(identityId="string", type="string", amount="float", status="string"),
+        "Document": E(identityId="string", type="string", contentRef="string"),
+        "VerificationRequest": E(identityId="string", verifier="string", status="string"),
+    },
+    "us_federal": {
+        "Filing": E(filerId="string", form="string", period="string", status="string"),
+        "Entity": E(name="string", ein="string", jurisdiction="string"),
+        "Dataset": E(name="string", agency="string", updatedAt="datetime"),
+        "Application": E(applicantId="string", program="string", status="string"),
+        "PublicRecord": E(recordType="string", jurisdiction="string", recordedAt="datetime"),
+        "Notice": E(subjectId="string", type="string", issuedAt="datetime"),
+    },
+    "uk_eu_egov": {
+        "Filing": E(filerId="string", scheme="string", period="string", status="string"),
+        "Citizen": E(nationalId="string", jurisdiction="string"),
+        "Service": E(name="string", department="string"),
+        "Application": E(citizenId="string", serviceId="string", status="string"),
+        "Dataset": E(name="string", publisher="string", updatedAt="datetime"),
+        "Identity": E(citizenId="string", assuranceLevel="string", verified="boolean"),
+    },
+    "japan_apac_egov": {
+        "Filing": E(filerId="string", form="string", fiscalYear="string", status="string"),
+        "Corporation": E(name="string", corporateNumber="string", jurisdiction="string"),
+        "Disclosure": E(corporationId="string", docType="string", submittedAt="datetime"),
+        "Citizen": E(myNumber="string", municipality="string"),
+        "Application": E(citizenId="string", procedure="string", status="string"),
+        "Dataset": E(name="string", agency="string", updatedAt="datetime"),
+    },
+    "intl_orgs_central_banks": {
+        "Indicator": E(code="string", name="string", unit="string", source="string"),
+        "Observation": E(indicatorId="string", country="string", period="string", value="float"),
+        "Country": E(iso3="string", name="string", region="string"),
+        "Series": E(indicatorId="string", frequency="string", startPeriod="string"),
+        "Report": E(title="string", publishedAt="datetime", contentRef="string"),
+        "ExchangeRate": E(base="string", quote="string", rate="float", asOf="datetime"),
+    },
+    "open_banking_finreg": {
+        "Account": E(holderId="string", iban="string", currency="string", balance="float"),
+        "Consent": E(accountId="string", scope="string", status="string", expiresAt="datetime"),
+        "Transaction": E(accountId="string", amount="float", currency="string", bookedAt="datetime"),
+        "PaymentInitiation": E(debtorAccount="string", creditorAccount="string", amount="float", status="string"),
+        "Institution": E(name="string", bic="string", country="string"),
+        "Filing": E(institutionId="string", regime="string", period="string", status="string"),
+    },
+    "customs_trade_logistics": {
+        "Declaration": E(declarantId="string", type="string", hsCode="string", status="string"),
+        "Shipment": E(declarationId="string", carrier="string", origin="string", destination="string"),
+        "Manifest": E(shipmentId="string", vessel="string", containerCount="integer"),
+        "Tariff": E(hsCode="string", rate="float", jurisdiction="string"),
+        "Permit": E(declarationId="string", type="string", status="string"),
+        "Party": E(name="string", role="string", taxId="string"),
+    },
+    "public_health_env_ip": {
+        "Application": E(applicantId="string", type="string", number="string", status="string"),
+        "Grant": E(applicationId="string", number="string", grantedAt="datetime"),
+        "Surveillance": E(disease="string", region="string", cases="integer", reportedAt="datetime"),
+        "Measurement": E(station="string", parameter="string", value="float", measuredAt="datetime"),
+        "Patent": E(applicantId="string", title="string", number="string", status="string"),
+        "Trial": E(sponsor="string", phase="string", status="string"),
+    },
+    "public_safety_law": {
+        "Case": E(number="string", jurisdiction="string", status="string", filedAt="datetime"),
+        "Party": E(caseId="string", role="string", name="string"),
+        "Document": E(caseId="string", type="string", contentRef="string"),
+        "Incident": E(type="string", jurisdiction="string", occurredAt="datetime"),
+        "Watchlist": E(name="string", program="string", entries="integer"),
+        "Sanction": E(targetName="string", program="string", listedAt="datetime"),
+    },
+    "transit_smart_cities": {
+        "Stop": E(code="string", name="string", lat="float", lon="float"),
+        "Route": E(shortName="string", longName="string", mode="string"),
+        "Trip": E(routeId="string", headsign="string", serviceId="string"),
+        "Vehicle": E(routeId="string", label="string", lat="float", lon="float"),
+        "ServiceAlert": E(routeId="string", cause="string", effect="string"),
+        "Fare": E(routeId="string", price="float", currency="string"),
+    },
+    # ---- Wave 5 (deep systems) -----------------------------------------
+    "fin_market_hft": {
+        "Instrument": E(symbol="string", assetClass="string", exchange="string", currency="string"),
+        "Quote": E(instrumentId="string", bid="float", ask="float", asOf="datetime"),
+        "Order": E(instrumentId="string", side="string", quantity="float", price="float", status="string"),
+        "Execution": E(orderId="string", quantity="float", price="float", executedAt="datetime"),
+        "MarketData": E(instrumentId="string", open="float", high="float", low="float", close="float"),
+        "Position": E(instrumentId="string", quantity="float", avgPrice="float"),
+    },
+    "web3_rpc": {
+        "Block": E(number="integer", hash="string", chain="string", minedAt="datetime"),
+        "Transaction": E(hash="string", fromAddr="string", toAddr="string", value="float", status="string"),
+        "Contract": E(address="string", chain="string", abiRef="string"),
+        "Account": E(address="string", chain="string", balance="float", nonce="integer"),
+        "Event": E(contractAddr="string", name="string", blockNumber="integer", dataRef="string"),
+        "Token": E(contractAddr="string", symbol="string", decimals="integer", standard="string"),
+    },
+    "telecom_satellite": {
+        "Subscriber": E(imsi="string", msisdn="string", plan="string", status="string"),
+        "Session": E(subscriberId="string", apn="string", startedAt="datetime", bytesUsed="integer"),
+        "Message": E(fromAddr="string", toAddr="string", body="string", status="string"),
+        "Number": E(e164="string", type="string", assignedTo="string"),
+        "Terminal": E(serial="string", satellite="string", signalDb="float", online="boolean"),
+        "UsageRecord": E(subscriberId="string", quantity="float", unit="string", ratedAt="datetime"),
+    },
+    "healthcare_fhir_bio": {
+        "Patient": E(identifier="string", givenName="string", familyName="string", birthDate="datetime"),
+        "Observation": E(patientId="string", code="string", value="string", unit="string"),
+        "Condition": E(patientId="string", code="string", clinicalStatus="string"),
+        "DiagnosticReport": E(patientId="string", code="string", status="string", issuedAt="datetime"),
+        "Sequence": E(patientId="string", accession="string", referenceGenome="string"),
+        "Specimen": E(patientId="string", type="string", collectedAt="datetime"),
+    },
+    "energy_grid_utilities": {
+        "Meter": E(serial="string", type="string", location="string"),
+        "Reading": E(meterId="string", value="float", unit="string", readAt="datetime"),
+        "Node": E(name="string", region="string", voltageKv="float"),
+        "LoadForecast": E(nodeId="string", period="string", megawatts="float"),
+        "MarketBid": E(nodeId="string", price="float", megawatts="float", interval="string"),
+        "Tag": E(nodeId="string", address="string", value="float", quality="string"),
+    },
+    "travel_aviation_hospitality": {
+        "Flight": E(carrier="string", number="string", origin="string", destination="string", status="string"),
+        "Booking": E(pnr="string", passengerName="string", status="string"),
+        "Segment": E(bookingId="string", flightId="string", cabin="string", seat="string"),
+        "Property": E(name="string", location="string", rooms="integer"),
+        "Reservation": E(propertyId="string", guestName="string", checkIn="datetime", nights="integer"),
+        "Fare": E(flightId="string", cabin="string", price="float", currency="string"),
+    },
+    "os_kernel": {
+        "Process": E(pid="integer", command="string", state="string", uid="integer"),
+        "Thread": E(pid="integer", tid="integer", state="string", priority="integer"),
+        "FileDescriptor": E(pid="integer", fd="integer", path="string", mode="string"),
+        "Syscall": E(name="string", number="integer", argCount="integer"),
+        "MemoryRegion": E(pid="integer", startAddr="string", sizeBytes="integer", perms="string"),
+        "Signal": E(pid="integer", number="integer", action="string"),
+    },
+    "ai_ml_infra_chips": {
+        "Device": E(name="string", vendor="string", memoryGb="integer", index="integer"),
+        "Kernel": E(deviceId="string", name="string", gridDim="string", blockDim="string"),
+        "MemoryAlloc": E(deviceId="string", sizeBytes="integer", ptr="string"),
+        "InferenceJob": E(modelRef="string", deviceId="string", status="string", latencyMs="float"),
+        "Engine": E(name="string", precision="string", maxBatch="integer"),
+        "Utilization": E(deviceId="string", gpuPct="float", memPct="float", sampledAt="datetime"),
+    },
+    "cyber_threat_intel": {
+        "Indicator": E(type="string", value="string", confidence="integer", firstSeen="datetime"),
+        "Vulnerability": E(cveId="string", cvss="float", description="string", published="datetime"),
+        "ThreatActor": E(name="string", motivation="string", sophistication="string"),
+        "Campaign": E(name="string", actorId="string", firstSeen="datetime"),
+        "Host": E(ipAddress="string", asn="string", country="string", openPorts="string"),
+        "Technique": E(attckId="string", tactic="string", name="string"),
+    },
+    "manufacturing_plm_robotics": {
+        "Part": E(partNumber="string", name="string", revision="string", material="string"),
+        "BOM": E(parentPartId="string", childPartId="string", quantity="integer"),
+        "ChangeOrder": E(partId="string", number="string", status="string"),
+        "WorkOrder": E(partId="string", quantity="integer", status="string"),
+        "Robot": E(model="string", cellId="string", status="string", payloadKg="float"),
+        "Program": E(robotId="string", name="string", cycleTimeMs="integer"),
+    },
+    # ---- Wave 6 (physical substrate) -----------------------------------
+    "isa_quantum": {
+        "Register": E(name="string", widthBits="integer", role="string"),
+        "Instruction": E(mnemonic="string", opcode="string", operands="string"),
+        "Qubit": E(index="integer", t1Us="float", t2Us="float", readoutError="float"),
+        "Circuit": E(name="string", qubitCount="integer", depth="integer"),
+        "Gate": E(circuitId="string", name="string", targets="string"),
+        "Job": E(circuitId="string", shots="integer", status="string"),
+    },
+    "internet_routing": {
+        "Prefix": E(cidr="string", originAsn="string", validity="string"),
+        "Route": E(prefixId="string", nextHop="string", asPath="string"),
+        "Peer": E(asn="string", ipAddress="string", state="string"),
+        "Zone": E(name="string", serial="integer", refreshSec="integer"),
+        "Record": E(zoneId="string", name="string", type="string", value="string"),
+        "Tunnel": E(localAddr="string", remoteAddr="string", protocol="string", active="boolean"),
+    },
+    "mobility_auto_ev": {
+        "Vehicle": E(vin="string", model="string", state="string", odometerKm="float"),
+        "Signal": E(vehicleId="string", name="string", value="float", unit="string"),
+        "ChargeSession": E(vehicleId="string", connectorId="string", energyKwh="float", status="string"),
+        "Connector": E(stationId="string", standard="string", powerKw="float", status="string"),
+        "Trip": E(vehicleId="string", distanceKm="float", startedAt="datetime"),
+        "Command": E(vehicleId="string", name="string", status="string"),
+    },
+    "space_ocean_earth": {
+        "Object": E(designator="string", type="string", source="string"),
+        "Position": E(objectId="string", lat="float", lon="float", altitudeM="float", asOf="datetime"),
+        "Observation": E(objectId="string", parameter="string", value="float", observedAt="datetime"),
+        "Scene": E(satellite="string", sceneId="string", cloudCover="float", capturedAt="datetime"),
+        "Float": E(wmoId="string", lat="float", lon="float", parkDepthM="float"),
+        "Station": E(stationId="string", name="string", network="string"),
+    },
+    "agritech_food": {
+        "Field": E(name="string", areaHa="float", crop="string", lat="float", lon="float"),
+        "Operation": E(fieldId="string", type="string", date="datetime", rate="float"),
+        "Reading": E(fieldId="string", parameter="string", value="float", recordedAt="datetime"),
+        "Machine": E(model="string", serial="string", hoursUsed="float"),
+        "Lot": E(productName="string", harvestId="string", quantity="float", traceCode="string"),
+        "Imagery": E(fieldId="string", index="string", capturedAt="datetime", contentRef="string"),
+    },
+    "meta_knowledge_publishing": {
+        "Work": E(doi="string", title="string", type="string", publishedAt="datetime"),
+        "Author": E(orcid="string", givenName="string", familyName="string"),
+        "Citation": E(workId="string", citedDoi="string"),
+        "Standard": E(designation="string", title="string", organization="string", status="string"),
+        "Record": E(accession="string", database="string", title="string"),
+        "Subject": E(workId="string", term="string", scheme="string"),
+    },
+    "deep_logistics_supply": {
+        "TradeItem": E(gtin="string", description="string", brand="string"),
+        "Event": E(itemId="string", bizStep="string", disposition="string", recordedAt="datetime"),
+        "Document": E(type="string", senderId="string", receiverId="string", status="string"),
+        "Container": E(bicCode="string", type="string", status="string"),
+        "Party": E(gln="string", name="string", role="string"),
+        "Shipment": E(documentId="string", origin="string", destination="string", status="string"),
+    },
+    "materials_bio_chemical": {
+        "Substance": E(casNumber="string", name="string", formula="string", molarMass="float"),
+        "Compound": E(inchiKey="string", smiles="string", name="string"),
+        "Structure": E(pdbId="string", title="string", method="string", resolution="float"),
+        "Material": E(materialId="string", formula="string", bandGap="float"),
+        "Standard": E(designation="string", title="string", organization="string"),
+        "Property": E(substanceId="string", name="string", value="float", unit="string"),
+    },
+    "energy_commodities": {
+        "Commodity": E(symbol="string", name="string", unit="string", exchange="string"),
+        "Price": E(commodityId="string", value="float", currency="string", asOf="datetime"),
+        "Contract": E(commodityId="string", expiry="string", lastPrice="float"),
+        "Series": E(commodityId="string", frequency="string", source="string"),
+        "Inventory": E(commodityId="string", region="string", quantity="float", reportedAt="datetime"),
+        "Forecast": E(commodityId="string", period="string", value="float"),
+    },
+    "physical_benchmarks_classifications": {
+        "Code": E(code="string", description="string", scheme="string", parentCode="string"),
+        "Unit": E(symbol="string", name="string", quantity="string"),
+        "Reference": E(name="string", value="float", uncertainty="float", unit="string"),
+        "Mapping": E(fromCode="string", toScheme="string", toCode="string"),
+        "Location": E(unLocode="string", name="string", country="string"),
+        "Epoch": E(name="string", utcOffset="string", asOf="datetime"),
+    },
+    # ---- Waves 7-10 (regional super-apps, legacy substrate, frontier) ---
+    "superapp": {
+        "User": E(phone="string", displayName="string", kycStatus="string", walletId="string"),
+        "Wallet": E(userId="string", currency="string", balance="float", status="string"),
+        "Merchant": E(name="string", category="string", rating="float"),
+        "RideOrder": E(userId="string", origin="string", destination="string", fare="float", status="string"),
+        "FoodOrder": E(userId="string", merchantId="string", total="float", status="string"),
+        "Payment": E(userId="string", amount="float", currency="string", method="string", status="string"),
+    },
+    "delivery_logistics": {
+        "Order": E(customerId="string", merchantId="string", total="float", status="string"),
+        "Courier": E(name="string", vehicle="string", lat="float", lon="float", online="boolean"),
+        "Delivery": E(orderId="string", courierId="string", status="string", etaMin="integer"),
+        "Merchant": E(name="string", cuisine="string", lat="float", lon="float"),
+        "Route": E(deliveryId="string", distanceKm="float", durationMin="integer"),
+        "Tracking": E(deliveryId="string", lat="float", lon="float", recordedAt="datetime"),
+    },
+    "ride_hailing": {
+        "Driver": E(name="string", licensePlate="string", rating="float", online="boolean"),
+        "Rider": E(name="string", phone="string", rating="float"),
+        "Trip": E(riderId="string", driverId="string", origin="string", destination="string", status="string"),
+        "Vehicle": E(driverId="string", make="string", model="string", plate="string"),
+        "Fare": E(tripId="string", base="float", distanceKm="float", total="float", currency="string"),
+        "Rating": E(tripId="string", byRole="string", score="integer", comment="string"),
+    },
+    "mainframe": {
+        "Job": E(jcl="string", class_="string", owner="string", status="string"),
+        "Dataset": E(name="string", dsorg="string", recfm="string", sizeTracks="integer"),
+        "Region": E(name="string", type="string", maxTasks="integer"),
+        "Subsystem": E(name="string", type="string", status="string"),
+        "Transaction": E(code="string", program="string", regionId="string", status="string"),
+        "Queue": E(name="string", depth="integer", maxDepth="integer"),
+    },
+    "scada": {
+        "Tag": E(address="string", name="string", value="float", quality="string", unit="string"),
+        "Device": E(name="string", protocol="string", ipAddress="string", online="boolean"),
+        "Alarm": E(tagId="string", priority="string", state="string", raisedAt="datetime"),
+        "Trend": E(tagId="string", sampleRateMs="integer", retentionDays="integer"),
+        "ControlLoop": E(name="string", setpoint="float", processValue="float", mode="string"),
+        "Batch": E(recipe="string", status="string", startedAt="datetime"),
+    },
+    "pharmacy_rx": {
+        "Prescription": E(memberId="string", drugId="string", quantity="integer", refills="integer", status="string"),
+        "Claim": E(prescriptionId="string", pharmacyId="string", amount="float", status="string"),
+        "Pharmacy": E(npi="string", name="string", network="string"),
+        "Drug": E(ndc="string", name="string", strength="string", form="string"),
+        "Member": E(memberId="string", planId="string", groupId="string"),
+        "PriorAuth": E(prescriptionId="string", status="string", decidedAt="datetime"),
+    },
+    "real_estate": {
+        "Listing": E(propertyId="string", price="float", status="string", listedAt="datetime"),
+        "Property": E(address="string", beds="integer", baths="float", sqft="integer", lat="float"),
+        "Agent": E(name="string", license="string", brokerage="string"),
+        "Transaction": E(listingId="string", buyerId="string", salePrice="float", closedAt="datetime"),
+        "Lease": E(propertyId="string", tenantId="string", rent="float", startsAt="datetime"),
+        "Tenant": E(name="string", email="string", phone="string"),
+    },
+    "gaming_backend": {
+        "Player": E(handle="string", level="integer", xp="integer", region="string"),
+        "Session": E(playerId="string", platform="string", startedAt="datetime", durationSec="integer"),
+        "Match": E(mode="string", status="string", playerCount="integer"),
+        "Leaderboard": E(name="string", metric="string", season="string"),
+        "Inventory": E(playerId="string", itemId="string", quantity="integer"),
+        "Achievement": E(playerId="string", code="string", unlockedAt="datetime"),
+    },
+    "legal_ediscovery": {
+        "Matter": E(clientId="string", name="string", status="string", openedAt="datetime"),
+        "Document": E(matterId="string", custodianId="string", contentRef="string", reviewStatus="string"),
+        "Custodian": E(matterId="string", name="string", email="string"),
+        "Review": E(documentId="string", reviewerId="string", coding="string"),
+        "ProductionSet": E(matterId="string", name="string", documentCount="integer"),
+        "LegalHold": E(matterId="string", custodianId="string", status="string", issuedAt="datetime"),
+    },
+    "bci_neuro": {
+        "Device": E(model="string", channels="integer", samplingHz="integer", firmware="string"),
+        "Session": E(deviceId="string", subjectRef="string", startedAt="datetime", durationSec="integer"),
+        "Channel": E(deviceId="string", label="string", location="string", impedanceKohm="float"),
+        "Signal": E(sessionId="string", channelLabel="string", band="string", dataRef="string"),
+        "Event": E(sessionId="string", marker="string", offsetMs="integer"),
+        "Calibration": E(deviceId="string", type="string", completedAt="datetime"),
+    },
+    "synbio": {
+        "Strain": E(name="string", organism="string", genotype="string"),
+        "Construct": E(name="string", vector="string", insertRef="string"),
+        "Sequence": E(constructId="string", length="integer", checksum="string", dataRef="string"),
+        "Assay": E(strainId="string", type="string", readout="string", value="float"),
+        "Sample": E(strainId="string", barcode="string", volumeUl="float", location="string"),
+        "Workflow": E(name="string", protocolRef="string", status="string"),
+    },
+    "xr_spatial": {
+        "Anchor": E(sceneId="string", x="float", y="float", z="float", persistent="boolean"),
+        "Scene": E(name="string", deviceId="string", meshRef="string"),
+        "Mesh": E(sceneId="string", vertexCount="integer", contentRef="string"),
+        "Session": E(deviceId="string", appId="string", startedAt="datetime"),
+        "Asset": E(sceneId="string", type="string", contentRef="string"),
+        "Device": E(model="string", platform="string", trackingMode="string"),
+    },
+    "drone_robotics": {
+        "Drone": E(serial="string", model="string", batteryPct="float", status="string"),
+        "Mission": E(droneId="string", type="string", status="string"),
+        "Waypoint": E(missionId="string", lat="float", lon="float", altitudeM="float", seq="integer"),
+        "Telemetry": E(droneId="string", lat="float", lon="float", altitudeM="float", recordedAt="datetime"),
+        "Payload": E(droneId="string", type="string", weightKg="float"),
+        "Swarm": E(name="string", droneCount="integer", leaderId="string"),
+    },
+    "agent_protocol": {
+        "Agent": E(name="string", role="string", modelRef="string", status="string"),
+        "Task": E(agentId="string", goal="string", status="string", priority="integer"),
+        "Message": E(fromAgentId="string", toAgentId="string", performative="string", content="string"),
+        "Tool": E(name="string", description="string", schemaRef="string"),
+        "Memory": E(agentId="string", kind="string", contentRef="string"),
+        "Plan": E(taskId="string", steps="string", status="string"),
+    },
+    "qkd": {
+        "KeySession": E(aliceNodeId="string", bobNodeId="string", protocol="string", status="string"),
+        "Node": E(name="string", location="string", role="string"),
+        "Channel": E(sessionId="string", medium="string", lossDb="float"),
+        "Key": E(sessionId="string", lengthBits="integer", qber="float", contentRef="string"),
+        "Protocol": E(name="string", family="string"),
+        "Alarm": E(nodeId="string", type="string", raisedAt="datetime"),
+    },
+    "fusion_energy": {
+        "Shot": E(number="integer", configuration="string", status="string", executedAt="datetime"),
+        "Diagnostic": E(shotId="string", instrument="string", channel="string", dataRef="string"),
+        "Coil": E(name="string", currentKa="float", status="string"),
+        "PlasmaState": E(shotId="string", temperatureKev="float", densityM3="float", betaN="float"),
+        "Pulse": E(shotId="string", durationMs="integer", energyMj="float"),
+        "Sample": E(shotId="string", parameter="string", value="float", takenAt="datetime"),
+    },
+}
+
+# ---------------------------------------------------------------------------
+# 2. wave-comment -> model-key mapping (parsed from scaffold scripts).
+# ---------------------------------------------------------------------------
+
+COMMENT_TO_KEY = {
+    # wave2
+    "ai/ml": "ai_ml", "martech": "martech", "security/iam": "security_iam",
+    "hrtech": "hrtech", "devtools/apm": "devtools_apm",
+    "headless/ec/logistics": "headless_ec_logistics", "fintech/web3": "fintech_web3",
+    "communications/social": "comms_social", "cx/survey": "cx_survey",
+    "vertical saas": "vertical_saas",
+    # wave3
+    "low-code / ipaas": "lowcode_ipaas", "rpa / process automation": "rpa",
+    "modern data stack": "modern_data_stack", "iot / edge": "iot_edge",
+    "regtech / privacy": "regtech_privacy", "aec / govtech": "aec_govtech",
+    "media / video / cms": "media_video_cms",
+    "event mgmt / npo / creator": "event_npo_creator",
+    "core banking / insurtech": "core_banking_insurtech",
+    "devsecops / api mgmt / serverless": "devsecops_serverless",
+    "enterprise commerce / spend mgmt": "enterprise_commerce_spend",
+    # wave4 (the comments start with "category N:")
+    "india stack & digital public infrastructure (dpg)": "dpg_india_stack",
+    "us federal & sovereign infra": "us_federal",
+    "uk & europe e-gov": "uk_eu_egov", "japan & apac e-gov": "japan_apac_egov",
+    "international organizations & central banks": "intl_orgs_central_banks",
+    "open banking & financial regulation": "open_banking_finreg",
+    "customs, trade & logistics": "customs_trade_logistics",
+    "public health, environment & ip": "public_health_env_ip",
+    "public safety, law & justice": "public_safety_law",
+    "global public transit & smart cities": "transit_smart_cities",
+    # wave5
+    "financial market data & trading (hft)": "fin_market_hft",
+    "web3 & blockchain rpcs": "web3_rpc",
+    "telecom, satellite & connectivity": "telecom_satellite",
+    "healthcare hl7/fhir & bioinformatics": "healthcare_fhir_bio",
+    "energy, smart grid & utilities": "energy_grid_utilities",
+    "deep travel, aviation & hospitality": "travel_aviation_hospitality",
+    "open source os & kernel interfaces": "os_kernel",
+    "deep ai/ml infrastructure & chips": "ai_ml_infra_chips",
+    "cybersecurity threat intel & dark web": "cyber_threat_intel",
+    "manufacturing, plm & robotics": "manufacturing_plm_robotics",
+    # wave6
+    "hardware isas & quantum": "isa_quantum",
+    "deep internet & core routing": "internet_routing",
+    "mobility, auto & ev": "mobility_auto_ev",
+    "space, ocean & earth physics": "space_ocean_earth",
+    "agritech, food & precision": "agritech_food",
+    "meta-knowledge & scientific publishing": "meta_knowledge_publishing",
+    "deep logistics & legacy supply chain": "deep_logistics_supply",
+    "materials, bio & chemical": "materials_bio_chemical",
+    "energy commodities & trading base": "energy_commodities",
+    "ultimate physical benchmarks & classifications": "physical_benchmarks_classifications",
+    # wave7 (regional super-apps / fintech)
+    "asian super apps & messengers": "comms_social",
+    "sea & south asian tech giants": "superapp",
+    "latam & african infrastructure": "payments",
+    "regional e-commerce & retail": "ecommerce",
+    "regional fintech & neo-banks": "payments",
+    "local search, delivery & logistics": "delivery_logistics",
+    "regional enterprise & saas": "crm_sales",
+    "telco mobile money & payment gateways": "payments",
+    "ride hailing & micro-mobility": "ride_hailing",
+    "digital identity & regional trust": "dpg_india_stack",
+    # wave8 (legacy substrate)
+    "core payments & switching networks": "payments",
+    "mainframes & legacy infrastructure": "mainframe",
+    "deep airline & travel legacy": "travel_aviation_hospitality",
+    "wholesale banking & custody": "core_banking_insurtech",
+    "card networks & acquirers (deep)": "payments",
+    "deep telecom billing & routing": "telecom_satellite",
+    "heavy industry & scada": "scada",
+    "deep shipping & maritime": "deep_logistics_supply",
+    "legacy insurance & reinsurance": "core_banking_insurtech",
+    "deep retail & pos substrate": "ecommerce",
+    # wave9 (deep verticals)
+    "deep energy & resource exploration": "energy_commodities",
+    "pharmacy benefit managers (pbm) & rx networks": "pharmacy_rx",
+    "real estate (mls) & proptech substrate": "real_estate",
+    "programmatic adtech & dsp/ssp": "martech",
+    "gaming backends & metaverse infra": "gaming_backend",
+    "deep legal & ediscovery": "legal_ediscovery",
+    "heavy construction & bim": "aec_govtech",
+    "specialized insurance underwriting": "core_banking_insurtech",
+    "deep aviation & fleet operations": "travel_aviation_hospitality",
+    "specialized public sector & defense": "public_safety_law",
+    # wave10 (frontier)
+    "brain-computer interfaces (bci) & neurotech": "bci_neuro",
+    "synthetic biology & dna": "synbio",
+    "spatial computing & xr infrastructure": "xr_spatial",
+    "autonomous vehicles & v2x": "mobility_auto_ev",
+    "drone swarms & aerial robotics": "drone_robotics",
+    "ai agent protocols & fipa": "agent_protocol",
+    "deep space & off-world infra": "space_ocean_earth",
+    "quantum key distribution & cryptography": "qkd",
+    "deep deep-sea & subsea data": "space_ocean_earth",
+    "fusion, plasma & advanced energy": "fusion_energy",
+}
+
+# Wave-1 platform -> model-key (the 100 not covered by wave scripts).
+WAVE1_KEYS = {
+    "salesforce": "crm_sales", "hubspot": "crm_sales", "pipedrive": "crm_sales",
+    "zoho": "crm_sales", "dynamics365": "crm_sales", "servicenow": "vertical_saas",
+    "sap": "erp_finance", "oracle": "erp_finance", "netsuite": "erp_finance",
+    "workday": "hrtech", "xero": "erp_finance", "billcom": "erp_finance",
+    "brex": "payments", "ramp": "payments",
+    "aws": "iaas_cloud", "azure": "iaas_cloud", "gcp": "iaas_cloud",
+    "digitalocean": "iaas_cloud", "linode": "iaas_cloud", "ovh": "iaas_cloud",
+    "heroku": "iaas_cloud", "vercel": "iaas_cloud", "netlify": "iaas_cloud",
+    "cloudflare": "iaas_cloud",
+    "google-workspace": "office_productivity", "m365": "office_productivity",
+    "notion": "office_productivity", "box": "office_productivity",
+    "dropbox": "office_productivity", "docusign": "office_productivity",
+    "calendly": "office_productivity", "airtable": "office_productivity",
+    "monday": "office_productivity", "asana": "office_productivity",
+    "trello": "office_productivity", "miro": "office_productivity",
+    "github": "devops_ci", "gitlab": "devops_ci", "bitbucket": "devops_ci",
+    "atlassian": "devops_ci",
+    "jenkins": "devops_ci", "circleci": "devops_ci", "docker": "devops_ci",
+    "kubernetes": "devops_ci", "terraform": "devsecops_serverless",
+    "postman": "devtools_apm", "datadog": "devtools_apm", "splunk": "devtools_apm",
+    "elastic": "devtools_apm",
+    "epic-systems": "ehr_health", "cerner": "ehr_health", "meditech": "ehr_health",
+    "allscripts": "ehr_health", "athenahealth": "ehr_health",
+    "eclinicalworks": "ehr_health", "nextgen": "ehr_health",
+    "drchrono": "ehr_health", "curemd": "ehr_health", "greenway": "ehr_health",
+    "shopify": "ecommerce", "magento": "ecommerce", "woocommerce": "ecommerce",
+    "bigcommerce": "ecommerce", "ecwid": "ecommerce", "wix-stores": "ecommerce",
+    "vtex": "ecommerce", "sf-commerce": "ecommerce", "lightspeed": "ecommerce",
+    "square-retail": "ecommerce",
+    "stripe": "payments", "paypal": "payments", "square": "payments",
+    "adyen": "payments", "plaid": "fintech_web3", "coinbase": "fintech_web3",
+    "snowflake": "data_analytics", "databricks": "data_analytics",
+    "looker": "data_analytics", "tableau": "data_analytics",
+    "powerbi": "data_analytics", "mongodb": "data_analytics",
+    "redis": "data_analytics", "kafka": "modern_data_stack",
+    "figma": "design_tools", "sketch": "design_tools", "invision": "design_tools",
+    "canva": "design_tools", "adobe": "design_tools", "blender": "design_tools",
+    "rhino": "design_tools", "autodesk": "aec_govtech", "solidworks": "manufacturing_plm_robotics",
+    "slack": "comms_social", "zoom": "comms_social", "twilio": "telecom_satellite",
+    "sendgrid": "martech", "mailchimp": "martech", "intercom": "cx_survey",
+    "zendesk": "cx_survey", "typeform": "cx_survey",
+}
+
+
+def parse_platform_categories():
+    """platform -> model-key, from wave scripts + wave1 map."""
+    mapping = {}
+    for f in sorted(glob.glob(os.path.join(TOOLS_DIR, "scaffold_wave*.py"))):
+        txt = open(f).read()
+        m = re.search(r"PLATFORMS\s*=\s*\[(.*?)\]", txt, re.S)
+        if not m:
+            continue
+        body = m.group(1)
+        current_key = None
+        for line in body.splitlines():
+            cstart = line.find("#")
+            if cstart != -1:
+                comment = line[cstart + 1:].strip().lower()
+                comment = re.sub(r"^cat(egory)?\s*\d+\s*:\s*", "", comment)
+                comment = comment.strip()
+                if comment in COMMENT_TO_KEY:
+                    current_key = COMMENT_TO_KEY[comment]
+            for name in re.findall(r'"([^"]+)"', line):
+                if current_key:
+                    mapping[name.strip()] = current_key
+    # wave1
+    for name, key in WAVE1_KEYS.items():
+        mapping.setdefault(name, key)
+    return mapping
+
+
+# ---------------------------------------------------------------------------
+# 3. Curated overrides — marquee platforms get their real resource models.
+#    (Resource set tuned to the public API; falls back to category otherwise.)
+# ---------------------------------------------------------------------------
+
+PLATFORM_OVERRIDES = {
+    "stripe": {
+        "Customer": E(email="string", name="string", phone="string", balance="integer", currency="string"),
+        "PaymentIntent": E(customer="string", amount="integer", currency="string", status="string", description="string"),
+        "Charge": E(customer="string", paymentIntent="string", amount="integer", currency="string", status="string"),
+        "Refund": E(charge="string", amount="integer", reason="string", status="string"),
+        "Invoice": E(customer="string", amountDue="integer", currency="string", status="string"),
+        "Subscription": E(customer="string", priceId="string", status="string", currentPeriodEnd="datetime"),
+        "Product": E(name="string", description="string", active="boolean"),
+        "Price": E(product="string", unitAmount="integer", currency="string", recurringInterval="string"),
+    },
+    "salesforce": {
+        "Account": E(name="string", industry="string", annualRevenue="float", ownerId="string", website="string"),
+        "Contact": E(accountId="string", firstName="string", lastName="string", email="string", title="string"),
+        "Lead": E(company="string", firstName="string", lastName="string", status="string", leadSource="string"),
+        "Opportunity": E(accountId="string", name="string", stageName="string", amount="float", closeDate="datetime"),
+        "Case": E(accountId="string", subject="string", status="string", priority="string", origin="string"),
+        "Campaign": E(name="string", type="string", status="string", budgetedCost="float"),
+        "Task": E(whoId="string", subject="string", status="string", activityDate="datetime"),
+    },
+    "openai": {
+        "Model": E(name="string", ownedBy="string", contextWindow="integer"),
+        "ChatCompletion": E(modelId="string", prompt="string", output="string", promptTokens="integer", completionTokens="integer"),
+        "Embedding": E(modelId="string", input="string", dimensions="integer", vectorRef="string"),
+        "FineTuningJob": E(baseModel="string", trainingFile="string", status="string"),
+        "File": E(purpose="string", filename="string", bytes="integer"),
+        "Assistant": E(name="string", modelId="string", instructions="string"),
+        "Thread": E(assistantId="string", status="string"),
+    },
+    "anthropic": {
+        "Model": E(name="string", family="string", contextWindow="integer", maxOutputTokens="integer"),
+        "Message": E(modelId="string", role="string", content="string", inputTokens="integer", outputTokens="integer"),
+        "Conversation": E(modelId="string", systemPrompt="string", turnCount="integer"),
+        "Tool": E(name="string", description="string", inputSchemaRef="string"),
+        "ToolUse": E(messageId="string", toolName="string", inputRef="string", status="string"),
+        "Batch": E(modelId="string", requestCount="integer", status="string"),
+        "File": E(filename="string", mimeType="string", bytes="integer"),
+    },
+    "twilio": {
+        "Message": E(fromNumber="string", toNumber="string", body="string", status="string", direction="string"),
+        "Call": E(fromNumber="string", toNumber="string", status="string", durationSec="integer"),
+        "PhoneNumber": E(e164="string", capabilities="string", friendlyName="string"),
+        "Verification": E(toNumber="string", channel="string", status="string"),
+        "Recording": E(callSid="string", durationSec="integer", contentRef="string"),
+        "Conference": E(friendlyName="string", status="string", participantCount="integer"),
+    },
+    "github": {
+        "Repository": E(name="string", owner="string", defaultBranch="string", private="boolean", stars="integer"),
+        "Issue": E(repoId="string", number="integer", title="string", state="string", authorId="string"),
+        "PullRequest": E(repoId="string", number="integer", title="string", state="string", headRef="string", baseRef="string"),
+        "Commit": E(repoId="string", sha="string", message="string", authorId="string"),
+        "Workflow": E(repoId="string", name="string", state="string"),
+        "WorkflowRun": E(workflowId="string", status="string", conclusion="string", commitSha="string"),
+        "Release": E(repoId="string", tag="string", name="string", draft="boolean"),
+    },
+    "shopify": {
+        "Product": E(title="string", vendor="string", productType="string", status="string"),
+        "Variant": E(productId="string", sku="string", price="float", inventoryQuantity="integer"),
+        "Order": E(customerId="string", number="string", totalPrice="float", currency="string", financialStatus="string"),
+        "Customer": E(email="string", firstName="string", lastName="string", ordersCount="integer"),
+        "Collection": E(title="string", handle="string", published="boolean"),
+        "Fulfillment": E(orderId="string", status="string", trackingNumber="string"),
+        "DiscountCode": E(code="string", valueType="string", value="float"),
+    },
+    "plaid": {
+        "Item": E(institutionId="string", status="string", consentExpiresAt="datetime"),
+        "Account": E(itemId="string", name="string", type="string", subtype="string", currentBalance="float"),
+        "Transaction": E(accountId="string", amount="float", currency="string", category="string", date="datetime"),
+        "Institution": E(name="string", country="string", products="string"),
+        "Identity": E(accountId="string", ownerName="string", email="string"),
+        "Liability": E(accountId="string", type="string", balance="float", apr="float"),
+    },
+    "slack": {
+        "Channel": E(name="string", isPrivate="boolean", topic="string", memberCount="integer"),
+        "Message": E(channelId="string", userId="string", text="string", ts="string"),
+        "User": E(handle="string", realName="string", email="string", isBot="boolean"),
+        "Conversation": E(type="string", creatorId="string"),
+        "File": E(name="string", mimeType="string", sizeBytes="integer", uploaderId="string"),
+        "Reaction": E(messageTs="string", name="string", count="integer"),
+    },
+    "aws": {
+        "Ec2Instance": E(instanceId="string", instanceType="string", state="string", privateIp="string", region="string"),
+        "S3Bucket": E(name="string", region="string", versioning="boolean"),
+        "S3Object": E(bucket="string", key="string", sizeBytes="integer", etag="string"),
+        "LambdaFunction": E(name="string", runtime="string", memoryMb="integer", timeoutSec="integer"),
+        "DynamoTable": E(name="string", partitionKey="string", itemCount="integer", status="string"),
+        "IamRole": E(name="string", arn="string", policyRef="string"),
+        "RdsInstance": E(identifier="string", engine="string", instanceClass="string", status="string"),
+    },
+    # Faithful Square model (replaces the generic Stripe-shaped payments model)
+    # so the actor can be doc-verified to L5 (ADR 260607 §8).
+    "square": {
+        "Payment": E(orderId="string", customerId="string", amount="integer", currency="string", status="string", sourceType="string"),
+        "Order": E(locationId="string", customerId="string", state="string", totalAmount="integer", currency="string"),
+        "Customer": E(givenName="string", familyName="string", emailAddress="string", phoneNumber="string"),
+        "Refund": E(paymentId="string", amount="integer", currency="string", status="string", reason="string"),
+        "CatalogObject": E(type="string", name="string", version="integer"),
+        "Invoice": E(orderId="string", status="string", invoiceNumber="string"),
+    },
+}
+
+# ---------------------------------------------------------------------------
+# 4. Code generation.
+# ---------------------------------------------------------------------------
+
+PY_TYPE_DEFAULT = {
+    "string": '""', "integer": "0", "float": "0.0",
+    "boolean": "False", "datetime": "now()",
+}
+
+
+def kotoba_schema(platform, ns, model):
+    lines = [f"// {platform.capitalize()} clean-room schema -> Datomic EAVT mapping",
+             f"// Generated by deepen_actors.py (ADR 260607 deepening phase).",
+             "", f"namespace {ns} {{", ""]
+    for ent, fields in model.items():
+        lines.append(f"    entity {ent} {{")
+        lines.append("        id: string @unique")
+        for fname, ftype in fields.items():
+            lines.append(f"        {fname}: {ftype}")
+        lines.append("        createdAt: datetime")
+        lines.append("        updatedAt: datetime")
+        lines.append("    }")
+        lines.append("")
+    lines.append("}")
+    return "\n".join(lines) + "\n"
+
+
+def _coerce_expr(ftype, varexpr):
+    if ftype == "integer":
+        return f"int({varexpr} or 0)"
+    if ftype == "float":
+        return f"float({varexpr} or 0)"
+    if ftype == "boolean":
+        return f"bool({varexpr})"
+    return f"{varexpr}"
+
+
+def main_py(platform, ns, model):
+    """Generate a CRUD WASM entrypoint covering every entity in the model."""
+    id_prefix = re.sub(r"[^a-z0-9]", "", platform.lower())[:8] or "obj"
+    out = []
+    out.append('"""')
+    out.append(f"Py Kotodama WASM entrypoint for the {platform.capitalize()} clean-room actor.")
+    out.append("")
+    out.append("Clean-room, API-shaped CRUD over a Datomic-backed Kotoba schema.")
+    out.append("Generated by 70-tools/deepen_actors.py (ADR 260607 deepening phase).")
+    out.append("No proprietary code or credentials; resource shapes only.")
+    out.append('"""')
+    out.append("from kotodama import Runtime")
+    out.append("from kotoba import load_schema")
+    out.append("from datomic import DatomicClient")
+    out.append("import uuid")
+    out.append("import datetime")
+    out.append("")
+    out.append(f'schema = load_schema("../schema/{platform}.kotoba")')
+    out.append("db = DatomicClient.connect()")
+    out.append(f'app = Runtime("{platform}-compat")')
+    out.append("")
+    out.append("")
+    out.append("def now():")
+    out.append("    return datetime.datetime.utcnow().isoformat()")
+    out.append("")
+    out.append("")
+    out.append("def new_id(prefix):")
+    out.append('    return f"{prefix}_" + uuid.uuid4().hex[:16]')
+    out.append("")
+    out.append("")
+    out.append("def _persist(entity, rec):")
+    out.append('    """Transact a record into Datomic as namespaced EAVT facts."""')
+    out.append("    facts = {}")
+    out.append("    for k, v in rec.items():")
+    out.append(f'        facts[f"{ns}.{{entity}}/{{k}}"] = v')
+    out.append("    db.transact([facts])")
+    out.append("    return rec")
+    out.append("")
+    out.append("")
+    out.append("def _query(entity, eid=None):")
+    out.append('    """Read records of an entity from Datomic (optionally by id)."""')
+    out.append(f'    pattern = {{"entity": f"{ns}.{{entity}}"}}')
+    out.append("    if eid is not None:")
+    out.append('        pattern["id"] = eid')
+    out.append("    return db.query(pattern)")
+    out.append("")
+    out.append("")
+    out.append("def _require(data, fields):")
+    out.append("    missing = [f for f in fields if not data.get(f)]")
+    out.append("    if missing:")
+    out.append('        return {"error": {"message": "Missing required fields: " + ", ".join(missing)}}')
+    out.append("    return None")
+    out.append("")
+
+    for ent, fields in model.items():
+        plural = _pluralize(ent)
+        route = f"/v1/{plural.lower()}"
+        prefix = f"{id_prefix}_{ent[:3].lower()}"
+        required = _required_fields(fields)
+        # CREATE
+        out.append("")
+        out.append(f'@app.route("{route}", methods=["POST"])')
+        out.append(f"def create_{_snake(ent)}(request):")
+        out.append(f'    """Create a {ent}."""')
+        out.append("    data = request.json or request.form or {}")
+        if required:
+            out.append(f"    err = _require(data, {required!r})")
+            out.append("    if err:")
+            out.append("        return err, 400")
+        out.append(f'    rec = {{"id": new_id("{prefix}")}}')
+        for fname, ftype in fields.items():
+            out.append(f'    rec["{fname}"] = {_coerce_expr(ftype, f"data.get({fname!r})")}')
+        out.append('    rec["createdAt"] = now()')
+        out.append('    rec["updatedAt"] = rec["createdAt"]')
+        out.append(f'    _persist("{ent}", rec)')
+        out.append("    return rec, 201")
+        # LIST
+        out.append("")
+        out.append(f'@app.route("{route}", methods=["GET"])')
+        out.append(f"def list_{_snake(plural)}(request):")
+        out.append(f'    """List {plural}."""')
+        out.append(f'    items = _query("{ent}")')
+        out.append('    return {"object": "list", "data": items, "count": len(items)}, 200')
+        # GET
+        out.append("")
+        out.append(f'@app.route("{route}/<eid>", methods=["GET"])')
+        out.append(f"def get_{_snake(ent)}(request, eid):")
+        out.append(f'    """Retrieve a {ent} by id."""')
+        out.append(f'    rows = _query("{ent}", eid)')
+        out.append("    if not rows:")
+        out.append('        return {"error": {"message": "Not found"}}, 404')
+        out.append("    return rows[0], 200")
+        # UPDATE
+        out.append("")
+        out.append(f'@app.route("{route}/<eid>", methods=["POST", "PATCH"])')
+        out.append(f"def update_{_snake(ent)}(request, eid):")
+        out.append(f'    """Update a {ent}."""')
+        out.append(f'    rows = _query("{ent}", eid)')
+        out.append("    if not rows:")
+        out.append('        return {"error": {"message": "Not found"}}, 404')
+        out.append("    data = request.json or request.form or {}")
+        out.append("    rec = rows[0]")
+        out.append("    for k, v in data.items():")
+        out.append("        if k in rec and k not in (\"id\", \"createdAt\"):")
+        out.append("            rec[k] = v")
+        out.append('    rec["updatedAt"] = now()')
+        out.append(f'    _persist("{ent}", rec)')
+        out.append("    return rec, 200")
+        # DELETE
+        out.append("")
+        out.append(f'@app.route("{route}/<eid>", methods=["DELETE"])')
+        out.append(f"def delete_{_snake(ent)}(request, eid):")
+        out.append(f'    """Delete a {ent}."""')
+        out.append(f'    rows = _query("{ent}", eid)')
+        out.append("    if not rows:")
+        out.append('        return {"error": {"message": "Not found"}}, 404')
+        out.append(f'    db.retract({{"entity": f"{ns}.{ent}", "id": eid}})')
+        out.append('    return {"id": eid, "deleted": True}, 200')
+
+    # healthz
+    out.append("")
+    out.append('@app.route("/healthz", methods=["GET"])')
+    out.append("def healthz(request):")
+    entity_names = list(model.keys())
+    out.append(f'    return {{"status": "ok", "actor": "{platform}-compat", "entities": {entity_names!r}}}, 200')
+    out.append("")
+    out.append("")
+    out.append('if __name__ == "__main__":')
+    out.append("    app.start()")
+    return "\n".join(out) + "\n"
+
+
+def _required_fields(fields):
+    """First 1-2 non-relational fields treated as required for validation."""
+    req = []
+    for fname, ftype in fields.items():
+        if fname.endswith("Id") or fname.endswith("Ref"):
+            continue
+        req.append(fname)
+        if len(req) >= 2:
+            break
+    return req
+
+
+def _snake(name):
+    return re.sub(r"(?<!^)(?=[A-Z])", "_", name).lower()
+
+
+def _pluralize(name):
+    if name.endswith("y") and name[-2:-1] not in "aeiou":
+        return name[:-1] + "ies"
+    if name.endswith(("s", "x", "z", "ch", "sh")):
+        return name + "es"
+    return name + "s"
+
+
+# ---------------------------------------------------------------------------
+# 5. Driver.
+# ---------------------------------------------------------------------------
+
+def deepen(only=None, dry_run=False):
+    os.chdir(ROOT)
+    cats = parse_platform_categories()
+    actor_dirs = sorted(d for d in os.listdir(ACTORS_DIR) if d.endswith("-compat"))
+    written, skipped = 0, []
+    for actor in actor_dirs:
+        platform = actor[:-len("-compat")]
+        if only and platform not in only:
+            continue
+        pkey = platform.strip()
+        ns = re.sub(r"[^a-z0-9_]", "_", pkey.lower()) or "actor"
+        model = (PLATFORM_OVERRIDES.get(pkey)
+                 or CATEGORY_MODELS.get(cats.get(pkey))
+                 or CATEGORY_MODELS.get(cats.get(platform)))
+        if not model:
+            # Unknown category (e.g. a future wave whose comment is not yet
+            # mapped): fall back to a generic-but-multi-entity resource model
+            # so the actor still reaches L3 rather than staying L1 boilerplate.
+            skipped.append(platform)
+            model = GENERIC_MODEL
+        adir = os.path.join(ACTORS_DIR, actor)
+        sdir = os.path.join(adir, "schema")
+        srcdir = os.path.join(adir, "src")
+        if dry_run:
+            written += 1
+            continue
+        os.makedirs(sdir, exist_ok=True)
+        os.makedirs(srcdir, exist_ok=True)
+        with open(os.path.join(sdir, f"{platform}.kotoba"), "w") as f:
+            f.write(kotoba_schema(platform, ns, model))
+        with open(os.path.join(srcdir, "main.py"), "w") as f:
+            f.write(main_py(platform, ns, model))
+        written += 1
+    print(f"Deepened {written} actors.")
+    if skipped:
+        print(f"UNMAPPED -> generic fallback ({len(skipped)}): "
+              f"{', '.join(sorted(skipped))}")
+        print("  (add their wave category to COMMENT_TO_KEY for a domain model.)")
+    return skipped
+
+
+if __name__ == "__main__":
+    only = None
+    dry = "--dry-run" in sys.argv
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    if args:
+        only = set(args)
+    deepen(only=only, dry_run=dry)

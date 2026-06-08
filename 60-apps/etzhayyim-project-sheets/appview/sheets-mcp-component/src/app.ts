@@ -1,7 +1,7 @@
 // sheets.etzhayyim.com thin edge facade. OAuth/sync/cron run in AgentGateway MCP + pod-side LangServer.
 
 interface SecretBinding { get(): Promise<string>; }
-interface Env { ASSETS?: Fetcher; DISPATCHER_URL?: string; DISPATCHER_INTERNAL_SECRET?: string | SecretBinding; APP_NANOID?: string; }
+interface Env { ASSETS?: { fetch(req: Request): Promise<Response> }; DISPATCHER_URL?: string; DISPATCHER_INTERNAL_SECRET?: string | SecretBinding; APP_NANOID?: string; }
 const APP = "sheets";
 const NSID_PREFIX = "com.etzhayyim.apps.sheets.";
 
@@ -19,7 +19,7 @@ export default {
     if (env.ASSETS) return env.ASSETS.fetch(req);
     return json({ error: "NotFound", message: `${APP} not found` }, 404);
   },
-} satisfies ExportedHandler<Env>;
+};
 
 async function bodyWithQuery(req: Request, url: URL): Promise<Record<string, unknown>> { let body: Record<string, unknown> = {}; if (req.method === "POST") { const text = await req.text(); try { body = text ? JSON.parse(text) : {}; } catch { return { __invalidJson: true }; } } for (const [k, v] of url.searchParams) if (!(k in body)) body[k] = v; return body; }
 async function htmlFromDispatcher(env: Env, nsid: string, body: Record<string, unknown>): Promise<Response> { const r = await proxyToDispatcher(env, nsid, body); const text = await r.text(); let html = text; try { html = (JSON.parse(text) as { html?: string }).html ?? text; } catch {} return new Response(html, { status: r.status, headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-store" } }); }

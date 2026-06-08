@@ -280,7 +280,10 @@ function main() {
   const has = (f) => args.includes(f);
   const valOf = (f) => { const k = args.indexOf(f); return k >= 0 ? args[k + 1] : undefined; };
 
-  const seed = parseEdn(readFileSync(SEED_PATH, "utf8"));
+  // --seed <path> overrides the canonical seed (e.g. the generated clean-room
+  // corpus seed 00-contracts/schemas/cleanroom-actors-seed.kotoba.edn, ADR 260607).
+  const seedPath = valOf("--seed") ? resolve(REPO_ROOT, valOf("--seed")) : SEED_PATH;
+  const seed = parseEdn(readFileSync(seedPath, "utf8"));
   const entities = (seed.seed || []).map(recordFromSeed);
   const only = valOf("--actor");
   const records = only ? entities.filter((r) => r.handle === only) : entities;

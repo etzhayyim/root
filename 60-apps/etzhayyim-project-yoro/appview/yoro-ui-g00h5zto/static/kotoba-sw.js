@@ -61,6 +61,88 @@ function isFeedNsid(nsid) {
   );
 }
 
+// ── Browser-only RESOURCE FLOW read (kotoba-native; replaces kagami SQL) ─────
+// Reverse-topology actor money-flow (受け取り / 支払 / UBO), assembled ENTIRELY
+// in the browser from the in-page kotoba Datom log — the `:yoro.fiscal/*` and
+// `:yoro.ownership/*` datoms published in the yoro-social-v1 blocks. This is the
+// kotoba-canonical successor to the deprecated `com.etzhayyim.kagami.sql` /
+// RisingWave path (ADR-2605262130 — no Kotoba/Datomic; the Datom log is the
+// first-class canonical state, ADR-2605312345). On any miss the caller gets a
+// clean empty result (browser-only — no server fallback).
+const FISCAL_NSIDS = new Set(["com.etzhayyim.yoro.fiscal.getResourceFlow"]);
+
+// Group a flat {e,a,v_edn} datom array into per-entity attribute maps for the
+// entities whose attribute namespace starts with `nsPrefix` (e.g. ":yoro.fiscal/").
+function groupEntities(datoms, nsPrefix) {
+  const byE = new Map();
+  for (const d of datoms) {
+    if (!d || typeof d.a !== "string" || !d.a.startsWith(nsPrefix)) continue;
+    let m = byE.get(d.e);
+    if (!m) {
+      m = {};
+      byE.set(d.e, m);
+    }
+    // local attribute name = ":yoro.fiscal/amountJpy" → "amountJpy"
+    const key = d.a.slice(d.a.indexOf("/") + 1);
+    m[key] = safeParse(d.v_edn);
+  }
+  return [...byE.values()];
+}
+
+// Datomic-style AS-OF over the log's fact-time: keep only facts observed at or
+// before `asOf` (an ISO date/datetime string). Empty asOf = current (latest).
+// NOTE: this is the OBSERVED-dimension as-of carried on each datom. The
+// transaction-time (basis-t CID) as-of — `com.etzhayyim.apps.kotoba.datomic.asOf`
+// — activates once the wasm node exposes an as-of root to the SW; the UI control
+// is identical, only this predicate changes.
+function asOfOk(observedAt, asOf) {
+  if (!asOf) return true;
+  if (!observedAt) return true; // undated facts are always visible
+  return String(observedAt) <= String(asOf) + "T23:59:59.999Z";
+}
+
+const numOr0 = (v) => (v == null || v === "" ? 0 : Number(v) || 0);
+
+// Build the resource-flow view for one actor DID from the kotoba Datom log.
+// Returns { incoming, outgoing, uboParents, uboChildren, totalIn, totalOut }.
+function buildResourceFlow(datoms, did, asOf) {
+  const flows = groupEntities(datoms, ":yoro.fiscal/").filter((f) => asOfOk(f.observedAt, asOf));
+  const ubo = groupEntities(datoms, ":yoro.ownership/").filter((o) => asOfOk(o.observedAt, asOf));
+  const flowRow = (f) => ({
+    from_did: f.from || "",
+    to_did: f.to || "",
+    stage: f.stage || "",
+    fiscal_year: f.fiscalYear != null ? Number(f.fiscalYear) : null,
+    amount_jpy: numOr0(f.amountJpy),
+    basis: f.basis ?? null,
+    program_code: f.programCode ?? null,
+    source_url: f.sourceUrl ?? null,
+    observed_at: f.observedAt ?? null,
+  });
+  const uboRow = (o) => ({
+    parent_did: o.parent || "",
+    child_did: o.child || "",
+    ownership_pct: numOr0(o.pct),
+    voting_pct: numOr0(o.votingPct),
+    evidence_kind: o.evidenceKind ?? null,
+    evidence_url: o.evidenceUrl ?? null,
+    observed_at: o.observedAt ?? null,
+  });
+  const byYear = (a, b) => (b.fiscal_year ?? 0) - (a.fiscal_year ?? 0);
+  const incoming = flows.filter((f) => f.to === did).map(flowRow).sort(byYear).slice(0, 50);
+  const outgoing = flows.filter((f) => f.from === did).map(flowRow).sort(byYear).slice(0, 50);
+  const uboParents = ubo.filter((o) => o.child === did).map(uboRow).slice(0, 30);
+  const uboChildren = ubo.filter((o) => o.parent === did).map(uboRow).slice(0, 30);
+  return {
+    incoming,
+    outgoing,
+    uboParents,
+    uboChildren,
+    totalIn: incoming.reduce((s, r) => s + r.amount_jpy, 0),
+    totalOut: outgoing.reduce((s, r) => s + r.amount_jpy, 0),
+  };
+}
+
 // ── Browser-local WRITES (post / reply / comment / like) ────────────────────
 // Wikipedia-style: every write is computed AND stored in the in-page kotoba
 // node, MEMBER-SIGNED (ed25519, the server never signs — ADR-2605231525), and
@@ -709,7 +791,26 @@ self.addEventListener("fetch", (event) => {
   const m = url.pathname.match(/^\/xrpc\/([^/?]+)$/);
   if (!m) return;
   const nsid = m[1];
-  if (!SEARCH_NSIDS.has(nsid) && !isFeedNsid(nsid) && !WRITE_NSIDS.has(nsid)) return; // not ours
+  if (!SEARCH_NSIDS.has(nsid) && !isFeedNsid(nsid) && !WRITE_NSIDS.has(nsid) && !FISCAL_NSIDS.has(nsid)) return; // not ours
+
+  // ── Browser-only RESOURCE FLOW read (kotoba Datom log; kagami-free) ────────
+  if (FISCAL_NSIDS.has(nsid)) {
+    event.respondWith(
+      (async () => {
+        try {
+          await ensureReady();
+          const did = url.searchParams.get("did") || "";
+          const asOf = url.searchParams.get("asOf") || "";
+          if (!did) return jsonResponse(buildResourceFlow([], "", ""), "local-wasm-fiscal-empty");
+          return jsonResponse(buildResourceFlow(seedDatoms, did, asOf), "local-wasm-fiscal");
+        } catch (e) {
+          console.warn("[kotoba-sw] resource-flow read failed → empty (browser-only)", e);
+          return jsonResponse(buildResourceFlow([], "", ""), "local-wasm-fiscal-error");
+        }
+      })(),
+    );
+    return;
+  }
 
   // ── Browser-local WRITE (member-signed, stored in the kotoba node) ─────────
   if (WRITE_NSIDS.has(nsid)) {
@@ -739,6 +840,7 @@ self.addEventListener("fetch", (event) => {
         try {
           await ensureReady();
           const limit = Math.max(1, Math.min(100, parseInt(url.searchParams.get("limit") || "50", 10) || 50));
+          const offset = Math.max(0, parseInt(url.searchParams.get("cursor") || "0", 10) || 0);
 
           if (PROFILE_NSIDS.has(nsid)) {
             const actor = url.searchParams.get("actor") || url.searchParams.get("handle") || "";
@@ -765,11 +867,12 @@ self.addEventListener("fetch", (event) => {
             const actor = url.searchParams.get("actor") || "";
             views = views.filter((v) => actorMatches(v, actor));
           }
-          const feed = views.slice(0, limit).map((v) => ({ post: v }));
+          const page = views.slice(offset, offset + limit);
+          const feed = page.map((v) => ({ post: v }));
           // Empty local set → defer to network (don't shadow a live server with []).
           if (feed.length === 0) return fetch(event.request);
           return jsonResponse(
-            { feed, cursor: "" },
+            { feed, cursor: offset + feed.length < views.length ? String(offset + feed.length) : "" },
             FEED_AUTHOR_NSIDS.has(nsid) ? "local-wasm-authorfeed" : "local-wasm-feed",
           );
         } catch {

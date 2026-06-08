@@ -9,7 +9,7 @@ interface SecretBinding {
 }
 
 interface Env {
-  ASSETS?: Fetcher;
+  ASSETS?: { fetch(req: Request): Promise<Response> };
   DISPATCHER_URL?: string;
   DISPATCHER_INTERNAL_SECRET?: string | SecretBinding;
   APP_NANOID?: string;
@@ -72,7 +72,7 @@ export default {
   async scheduled(_event: ScheduledEvent, env: Env): Promise<void> {
     await proxyToDispatcher(env, `${NSID_PREFIX}cronTick`, {});
   },
-} satisfies ExportedHandler<Env>;
+};
 
 async function proxyToDispatcher(env: Env, nsid: string, body: Record<string, unknown>): Promise<Response> {
   const base = (env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com").replace(/\/+$/, "");
