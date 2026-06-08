@@ -155,6 +155,18 @@ class TestCrosscheck(unittest.TestCase):
         # honest gap surfacing: Coca-Cola / Ferrero are not in the kabuto seed
         self.assertIn("org.corp.us.coca-cola", self.s['unresolved'])
 
+    def test_reverse_coverage_is_measured_with_worklist(self):
+        rev = self.s.get('reverse')
+        self.assertIsNotNone(rev)
+        # honest: product-BOM layer covers only a small fraction of kabuto's universe
+        self.assertGreater(rev['kabuto_supply_companies'], 50)
+        self.assertGreaterEqual(rev['reverse_pct'], 0.0)
+        self.assertLess(rev['reverse_pct'], 100.0)
+        # a worklist of uncovered high-centrality suppliers must be produced + sorted desc
+        self.assertTrue(rev['worklist'])
+        degs = [w['supply_out_degree'] for w in rev['worklist']]
+        self.assertEqual(degs, sorted(degs, reverse=True))
+
 
 class TestExpandedSeed(unittest.TestCase):
     def test_milk_powder_reachable_from_kitkat(self):

@@ -36,14 +36,43 @@ SEED = ROOT / "data" / "seed-products.kotoba.edn"
 KABUTO_SEED = ROOT.parent / "kabuto" / "data" / "seed-public-companies.kotoba.edn"
 
 
-def load_kabuto_company_ids():
+def load_kabuto():
+    """Return (company_ids:set, supply_out_degree:dict) or (None, None) if absent."""
     if not KABUTO_SEED.is_file():
-        return None
+        return None, None
     ids = set()
+    out_degree = defaultdict(int)
     for r in load_edn(KABUTO_SEED):
-        if isinstance(r, dict) and ':company/id' in r:
+        if not isinstance(r, dict):
+            continue
+        if ':company/id' in r:
             ids.add(r[':company/id'])
+        elif ':supply.edge/from' in r:  # supplier node = out-edge source
+            out_degree[r[':supply.edge/from']] += 1
+    return ids, out_degree
+
+
+def load_kabuto_company_ids():
+    ids, _ = load_kabuto()
     return ids
+
+
+def uchiwake_covered_companies(g):
+    """Set of kabuto company ids that have ANY product-level detail in uchiwake."""
+    covered = set()
+    for p in g['products'].values():
+        if p.get(':product/brand-owner'):
+            covered.add(p[':product/brand-owner'])
+    for e in g['bom']:
+        if e.get(':bom.edge/supplier'):
+            covered.add(e[':bom.edge/supplier'])
+    for s in g['process']:
+        if s.get(':process.step/operator'):
+            covered.add(s[':process.step/operator'])
+    for lg in g['logistics']:
+        if lg.get(':logistics.leg/carrier'):
+            covered.add(lg[':logistics.leg/carrier'])
+    return covered
 
 
 def collect_company_refs(g):
@@ -110,6 +139,27 @@ def crosscheck():
     summary['distinct_resolved'] = len(resolved)
     summary['linkage_pct'] = round(100.0 * len(resolved) / max(1, len(distinct)), 1)
     summary['unresolved'] = sorted(all_refs - resolved)
+
+    # ── REVERSE coverage: what fraction of kabuto's SUPPLY-CHAIN companies have any
+    #    product-level BOM detail in uchiwake? + prioritized worklist of the highest-
+    #    centrality kabuto suppliers still missing product detail (the ingest worklist).
+    _, out_degree = load_kabuto()
+    if kabuto_ids is not None:
+        covered = uchiwake_covered_companies(g) & kabuto_ids
+        supply_companies = set(out_degree.keys()) if out_degree else set()
+        covered_supply = covered & supply_companies
+        summary['reverse'] = {
+            'kabuto_supply_companies': len(supply_companies),
+            'with_product_detail': len(covered_supply),
+            'reverse_pct': round(100.0 * len(covered_supply) / max(1, len(supply_companies)), 3),
+            'all_company_coverage_pct': round(100.0 * len(covered) / max(1, len(kabuto_ids)), 3),
+            # worklist: top kabuto suppliers (by out-degree) with NO uchiwake product detail
+            'worklist': [
+                {'company': c, 'supply_out_degree': d}
+                for c, d in sorted(out_degree.items(), key=lambda kv: -kv[1])
+                if c not in covered
+            ][:15],
+        }
     return summary
 
 
@@ -136,6 +186,22 @@ def render(s):
         out.append("\n## Not yet ingested in kabuto (honest gap)\n")
         for u in s['unresolved']:
             out.append(f"- `{u}`")
+    rev = s.get('reverse')
+    if rev:
+        out.append("\n## Reverse coverage — how much of kabuto has product-level BOM detail (情報取得割合)\n")
+        out.append(f"- kabuto supply-chain companies (appear as a supplier): **{rev['kabuto_supply_companies']}**")
+        out.append(f"- of those, with ANY uchiwake product detail: **{rev['with_product_detail']}** "
+                   f"(**{rev['reverse_pct']}%**)")
+        out.append(f"- across ALL {s['kabuto_company_count']} kabuto companies: "
+                   f"**{rev['all_company_coverage_pct']}%** have product detail")
+        out.append("\nThis is the honest worldwide-coverage figure: the product-BOM layer covers a")
+        out.append("tiny fraction of the company universe today. Full ingest is R1 / G7-gated.\n")
+        if rev['worklist']:
+            out.append("### Ingest worklist — highest-centrality kabuto suppliers with NO product BOM yet\n")
+            out.append("| kabuto supplier | supply out-degree |")
+            out.append("|---|---:|")
+            for w in rev['worklist']:
+                out.append(f"| `{w['company']}` | {w['supply_out_degree']} |")
     return "\n".join(out) + "\n"
 
 
