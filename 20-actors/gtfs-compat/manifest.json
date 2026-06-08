@@ -17,9 +17,43 @@
     "verifiedAt": "2026-06-08",
     "resources": [
       "Stop",
-      "Route"
+      "Route",
+      "Trip",
+      "Fare",
+      "Vehicle",
+      "ServiceAlert"
     ],
-    "enums": {}
+    "enums": {
+      "ServiceAlert": {
+        "cause": [
+          "UNKNOWN_CAUSE",
+          "OTHER_CAUSE",
+          "TECHNICAL_PROBLEM",
+          "STRIKE",
+          "DEMONSTRATION",
+          "ACCIDENT",
+          "HOLIDAY",
+          "WEATHER",
+          "MAINTENANCE",
+          "CONSTRUCTION",
+          "POLICE_ACTIVITY",
+          "MEDICAL_EMERGENCY"
+        ],
+        "effect": [
+          "NO_SERVICE",
+          "REDUCED_SERVICE",
+          "SIGNIFICANT_DELAYS",
+          "DETOUR",
+          "ADDITIONAL_SERVICE",
+          "MODIFIED_SERVICE",
+          "OTHER_EFFECT",
+          "UNKNOWN_EFFECT",
+          "STOP_MOVED",
+          "NO_EFFECT",
+          "ACCESSIBILITY_ISSUE"
+        ]
+      }
+    }
   },
   "entities": [
     "Stop",

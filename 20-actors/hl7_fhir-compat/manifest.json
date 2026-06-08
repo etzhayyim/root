@@ -16,9 +16,32 @@
     "source": "https://hl7.org/fhir",
     "verifiedAt": "2026-06-08",
     "resources": [
-      "Patient"
+      "Patient",
+      "Observation",
+      "Condition",
+      "DiagnosticReport",
+      "Specimen"
     ],
-    "enums": {}
+    "enums": {
+      "Condition": {
+        "clinicalStatus": [
+          "active",
+          "recurrence",
+          "relapse",
+          "inactive",
+          "remission",
+          "resolved"
+        ]
+      },
+      "DiagnosticReport": {
+        "status": [
+          "registered",
+          "partial",
+          "preliminary",
+          "final"
+        ]
+      }
+    }
   },
   "entities": [
     "Patient",

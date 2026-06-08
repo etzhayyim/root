@@ -202,6 +202,8 @@ expansion + strict validation + a runnable contract test.
 suites pass** (8 assertions each).
 
 **Honesty: L4 = production *pattern*, not vendor fidelity (the new L5 bar).**
+
+**L5 deepening via parallel haiku subagents (this wave).** Eight `haiku` subagents fanned out — one per partial actor — each fetching official API docs (WebFetch) and reconciling the actor's remaining resources, returning structured verdicts. Integrated honestly: **6 actors are now FULLY doc-verified** (stripe 8/8, github 7/7, twilio 6/6, shopify 7/7, square 6/6, gtfs 6/6); ~65 resources verified and ~31 enums enforced corpus-wide. The subagents also correctly REJECTED ~11 generic-archetype entities that have no real vendor counterpart (e.g. discord Room/Stream, zendesk Account/Survey/Conversation, FHIR Sequence, plaid polymorphic Liability) — recorded under `notApplicable` in the ledger rather than fabricated.
 The corpus-wide L4 means every actor implements the full production
 implementation pattern and passes its contract test — it does NOT mean the
 schema/enums match each live vendor API field-for-field. To avoid overclaiming,

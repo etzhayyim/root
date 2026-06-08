@@ -19,7 +19,8 @@
       "Account",
       "Transaction",
       "Institution",
-      "Identity"
+      "Identity",
+      "Item"
     ],
     "enums": {
       "Account": {

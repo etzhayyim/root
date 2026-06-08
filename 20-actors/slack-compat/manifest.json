@@ -16,7 +16,11 @@
     "source": "https://docs.slack.dev/reference",
     "verifiedAt": "2026-06-08",
     "resources": [
-      "Channel"
+      "Channel",
+      "Message",
+      "User",
+      "File",
+      "Conversation"
     ],
     "enums": {}
   },
