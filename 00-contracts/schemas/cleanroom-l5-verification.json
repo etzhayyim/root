@@ -242,9 +242,25 @@
           "fieldStatus": "all generated fields confirmed (accountId=account_id, currency=iso_currency_code)",
           "discoveredEnums": {},
           "gaps": ["category is a free taxonomy list (not a fixed enum)", "merchant_name", "pending", "payment_channel"]
+        },
+        {
+          "entity": "Institution",
+          "source": "https://plaid.com/docs/api/institutions/",
+          "verifiedFields": ["name", "country", "products"],
+          "fieldStatus": "all generated fields confirmed (id=institution_id, country=country_codes, products=products list)",
+          "discoveredEnums": {},
+          "gaps": ["url", "logo", "oauth", "routing_numbers"]
+        },
+        {
+          "entity": "Identity",
+          "source": "https://plaid.com/docs/api/products/identity/",
+          "verifiedFields": ["accountId", "ownerName", "email"],
+          "fieldStatus": "accountId=account_id linkage; ownerName<=owners[].names[]; email<=owners[].emails[].data (real API uses arrays; this actor stores the primary value)",
+          "discoveredEnums": {},
+          "gaps": ["phone_numbers", "addresses", "multiple owners/names (arrays simplified to a single value)"]
         }
       ],
-      "note": "Account + Transaction reconciled against the official Plaid docs; Item/Institution/Identity/Liability pending."
+      "note": "Account + Transaction + Institution + Identity reconciled against the official Plaid docs (4/6); Item/Liability pending."
     },
     {
       "handle": "github-compat",

@@ -17,7 +17,9 @@
     "verifiedAt": "2026-06-08",
     "resources": [
       "Account",
-      "Transaction"
+      "Transaction",
+      "Institution",
+      "Identity"
     ],
     "enums": {
       "Account": {
