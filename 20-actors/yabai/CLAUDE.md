@@ -26,9 +26,26 @@ AML/sanctions/anti-social forces risk scoring + IP access filtering。
 > python3 methods/ingest.py --source pdns --in data/ingest/pdns-sample.json
 > python3 methods/ingest.py --source ct --domain example.com --live   # G7: live crt.sh pull
 > python3 methods/analyze.py                                    # → out/ (encryption audit = PASS)
-> python3 methods/transact.py                                   # SAVE → kotoba Datom log (dry-run;
+> python3 methods/transact.py                                   # SAVE → live kotoba node (dry-run;
 > #   REFUSES if any :access/* is plaintext — G6/G10 enforced at write; live needs KOTOBA_SESSION_POP)
+> python3 methods/autorun.py --cycles 3 --fresh                 # AUTONOMOUS CTI heartbeat → LOCAL kotoba Datom log
 > ```
+>
+> **Autonomous on the Murakumo fleet (ADR-2605301400 §T3).** `methods/autorun.py` is the
+> self-driving CTI heartbeat — the same shape shionome / ipaddress use. Each cycle it runs the
+> whole defensive pipeline ITSELF (observe offline merged graph → **G6/G10 guard** → analyze
+> fast-flux / hosting concentration / IOC load / cert pivots → PERSIST a content-addressed
+> transaction to the append-only **local** kotoba Datom log, `methods/kotoba.py`), linking the
+> previous tx's CID into a verifiable commit-DAG. `methods/kotoba.py:assert_access_encrypted`
+> **hard-stops persistence** if any `:access/*` record is plaintext — so the loop can NEVER write
+> plaintext accessor PII to the log (G6/G10 enforced at the local write, not only in transact.py).
+> Deterministic / resume-safe; NO external I/O. Fleet cells: `yabai_cti_ingest` (cron 22) +
+> `yabai_cti_weave` (cron 27) on `issachar`, `yabai_cti_persist` (cron 32) on `dan` — see
+> `50-infra/murakumo/fleet.toml`. Separation of duties holds: yabai SCORES, the Council enforces,
+> tadori holds case evidence. Live CT/PDNS ingest (`ingest.py --live`, G7) + the live-node push
+> (`transact.py`, G8) stay one human gate-flip away. Invariants guarded by `methods/test_autorun.py`
+> (commit-DAG verify, tamper-detect, determinism, append-only, derived-flagging, **G6/G10
+> plaintext-access hard-stop**, no-external-I/O).
 >
 > **Saved + verified live (2026-06-03)**: the merged CTI graph was transacted into a running
 > kotoba node's Datom log and read back via AEVT — **schema + 163 data datoms** (domains, IOC
