@@ -161,6 +161,8 @@ cells = [
   "ossekai_emergency_advisory",
   "shionome_ingest",       # 潮目 capital-flow intake (cron 5 * * * *) (ADR-2606072200)
   "shionome_flow_graph",   # 潮目 net-flow index (cron 10 * * * *) (ADR-2606072200)
+  "ipaddress_ingest",      # IP/ASN offline merged-graph intake (cron 7 * * * *) (ADR-2605301400 §T2; G7 live RIR pull gated)
+  "ipaddress_concentration_weave",  # RIR coverage + ASN prefix-load + hosting-class HHI (cron 12 * * * *) (ADR-2605301400 §T2)
 ]
 shard_index = 1
 total_shards = 3
@@ -178,6 +180,7 @@ cells = [
   "UnispscOrganismFleetCell",  # 5204 organisms, segments 45-60 (ADR-2605240000) — subsumes UnispscOrganismC10101500Cell
   "shionome_rotation_weave",    # 潮目 rotation pairs + regime (cron 15 * * * *) (ADR-2606072200)
   "shionome_regime_observer",   # 潮目 cross-asset regime (cron 20 * * * *) (ADR-2606072200)
+  "ipaddress_persist",          # IP/ASN autonomous heartbeat → append-only kotoba Datom log (cron 17 * * * *) (ADR-2605301400 §T2; local persist, G8 live-node push gated)
 ]
 shard_index = 2
 total_shards = 3
