@@ -25,8 +25,8 @@ import sys
 from pathlib import Path
 
 # Repo-root-relative path to the runtime source tree we guard.
-# kotoba_murakumo was integrated into the kotoba submodule (ADR re-integration,
-# 2026-06-07); it now lives at 40-engine/kotoba/py/kotoba_murakumo/.
+# kotoba_murakumo was re-integrated into the kotoba submodule (ADR-2606074000);
+# it now lives at 40-engine/kotoba/py/kotoba_murakumo/.
 _PACKAGE_ROOT = Path("40-engine/kotoba/py/kotoba_murakumo/kotoba_murakumo")
 
 # Patterns that constitute a violation of ADR-2605282000 N1.

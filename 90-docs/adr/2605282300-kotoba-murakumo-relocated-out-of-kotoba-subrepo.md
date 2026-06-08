@@ -20,8 +20,15 @@ depends_on:
   - "2605262130"  # kotoba canonical storage substrate (the subrepo)
 related: []
 supersedes: []
-superseded_by: []
+superseded_by:
+  - "2606074000"  # re-integrated into the kotoba submodule (subrepo hazard dissolved)
 ---
+
+> **Superseded by ADR-2606074000 (2026-06-07)**: kotoba is now a git submodule,
+> not a git-subrepo, so the merge-base force-push hazard that forced this
+> relocation no longer exists. `kotoba_murakumo` has been re-integrated into the
+> submodule at `40-engine/kotoba/py/kotoba_murakumo/`. The "downstream consumer
+> must live outside the upstream mirror" rule below was a subrepo-era rule.
 
 # ADR-2605282300: kotoba_murakumo relocated out of the kotoba subrepo to 40-engine/kotoba_murakumo/ (downstream-consumer placement)
 
