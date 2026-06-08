@@ -6,3 +6,5 @@ echo "== sukashi: analyze (seed) =="
 python3 methods/analyze.py >/dev/null
 echo "== sukashi: tests =="
 python3 tests/test_sukashi.py
+echo "== sukashi: autonomous heartbeat + kotoba Datom-log tests =="
+python3 methods/test_autorun.py

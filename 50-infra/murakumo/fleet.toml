@@ -166,6 +166,8 @@ cells = [
   "yabai_cti_ingest",      # CTI/passive-DNS offline merged-graph intake (cron 22 * * * *) (ADR-2605301400 §T3; G7 live CT/PDNS pull gated)
   "yabai_cti_weave",       # fast-flux + hosting concentration + IOC load + cert pivots (cron 27 * * * *) (ADR-2605301400 §T3)
   "tadori_silen_review",   # 辿 autonomous Transparent-Force self-audit heartbeat → append-only kotoba log (cron 37 * * * *) (ADR-2605301400 §D1; G3/G5/G12: counters ONLY, no case/PII/obs; live case-ingest gated)
+  "sukashi_adsupply_ingest",  # 透かし ad-supply-chain offline merged-graph intake (cron 42 * * * *) (ADR-2606071600; G7 live crawl gated)
+  "sukashi_fraud_weave",      # 透かし auth-handshake + delivery-infra concentration + scam-network clusters (cron 47 * * * *) (ADR-2606071600; G4 non-adjudicating)
 ]
 shard_index = 1
 total_shards = 3
@@ -185,6 +187,7 @@ cells = [
   "shionome_regime_observer",   # 潮目 cross-asset regime (cron 20 * * * *) (ADR-2606072200)
   "ipaddress_persist",          # IP/ASN autonomous heartbeat → append-only kotoba Datom log (cron 17 * * * *) (ADR-2605301400 §T2; local persist, G8 live-node push gated)
   "yabai_cti_persist",          # CTI autonomous heartbeat → append-only kotoba Datom log; G6/G10 hard-stops plaintext :access PII (cron 32 * * * *) (ADR-2605301400 §T3; local persist, G8 gated)
+  "sukashi_adsupply_persist",   # 透かし ad-supply-chain + fraud autonomous heartbeat → append-only kotoba Datom log (cron 52 * * * *) (ADR-2606071600; observatory-only G2, local persist, G11 gated)
 ]
 shard_index = 2
 total_shards = 3
