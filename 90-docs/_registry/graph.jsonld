@@ -14532,6 +14532,25 @@
       "lastVerified": "2026-06-08"
     },
     {
+      "id": "doc:adr-2606082400-charter-mutual-surveillance-reciprocity-clarification",
+      "type": "TechArticle",
+      "title": "ADR-2606082400: Charter-Rider §2(c) — the reciprocity axis (相互監視 affirmed; monetized/asymmetric surveillance prohibited)",
+      "status": "accepted",
+      "topic": "charter-mutual-surveillance-reciprocity-clarification",
+      "authoritative": true,
+      "authoritativeFor": [
+        "Charter Compliance Rider §2(c) (monetized-or-asymmetric surveillance)",
+        "the 相互監視 / reciprocal-transparency doctrine"
+      ],
+      "related": [
+        "doc:2605181100",
+        "doc:2605312345",
+        "doc:2605264000",
+        "doc:2606082100"
+      ],
+      "lastVerified": "2026-06-08"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
