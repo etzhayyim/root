@@ -144,6 +144,21 @@ learning_loop_wrapper_module = "kotodama.unispsc_capabilities.wrapper"
 learning_loop_reference_cell = "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs/unispsc_agents/c10101500.py"
 learning_loop_publish_endpoint_env = "ETZ_PDS_ENDPOINT (https://pds.etzhayyim.com); auth via ETZ_PDS_SERVICE_TOKEN secret (optional — graceful degradation to local-only on absence)"
 
+# Kaizen self-evolution actuator publish target (ADR-2606082500). The loop is no
+# longer GitHub-bound: KaizenPrAgent publishes its patch branch via a pluggable
+# GitRemote — GitHub PR (default, back-compat) OR a real git push into kotoba's
+# content-addressed Datom log over the kotoba server's git smart-HTTP
+# receive-pack endpoint (GitHub-independent). Switched by KAIZEN_GIT_REMOTE.
+self_evolution_remote_adr = "2606082500"
+self_evolution_remote_default = "github"
+self_evolution_remote_options = ["github", "kotoba"]
+self_evolution_remote_module = "kotodama.organism.kaizen.git_remote"  # GithubRemote / KotobaRemote / select_remote
+self_evolution_kotoba_push_endpoint = "POST /git/<repo>/git-receive-pack (kotoba-server::git_http → kotoba_git::wire::receive_pack)"
+self_evolution_kotoba_env = "KAIZEN_GIT_REMOTE=kotoba + KAIZEN_KOTOBA_GIT_URL + (KAIZEN_KOTOBA_GIT_TOKEN operator-JWT | KAIZEN_KOTOBA_GIT_ANON=1)"
+self_evolution_no_server_key_adr = "2605231525"  # kotoba push uses operator-injected short-lived token, never a platform key
+self_evolution_parent_adr = "2605240200"          # KaizenObserver + PR-agent contract
+self_evolution_wave4_adr = "2605266200"           # real PR/issue enablement
+
 payment_substrate = ["USDC on Base L2", "ERC-4337 Smart Account", "Coinbase Smart Wallet", "Superfluid streams", "0xSplits", "Gnosis Safe escrow"]
 payment_prohibited = ["Stripe", "PayPal", "Square", "Razorpay", "Braintree", "Adyen", "credit-card gateways", "bank ACH", "wire transfer"]
 payment_rule_adr = "2605172100"

@@ -14459,6 +14459,22 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606074000-iryo-rezept-claims-engine-charter",
+      "type": "TechArticle",
+      "title": "ADR-2606074000: iryo 医療 — Japan レセプト / 医療保険請求 engine (electronic karte → claims)",
+      "status": "proposed",
+      "topic": "iryo-rezept-claims-engine",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/iryo"
+      ],
+      "related": [
+        "doc:adr-2605250500-yakushi-pharmaceutical-tier-b-actor-r0",
+        "doc:adr-2605262900-toritate-accounting-audit-tier-b-actor-r0"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
       "id": "doc:adr-2606074000-kotoba-murakumo-reintegrated-into-kotoba-submodule",
       "type": "TechArticle",
       "title": "ADR-2606074000: kotoba_murakumo re-integrated into the kotoba submodule (py/kotoba_murakumo/) — submodule era supersedes the subrepo-relocation",
@@ -14629,6 +14645,26 @@
         "doc:2605312345",
         "doc:2605264000",
         "doc:2606082100"
+      ],
+      "lastVerified": "2026-06-08"
+    },
+    {
+      "id": "doc:adr-2606082500-kaizen-github-independent-self-evolution-kotoba-git",
+      "type": "TechArticle",
+      "title": "ADR-2606082500: GitHub-independent Kaizen self-evolution via kotoba git-protocol (GitRemote abstraction + live fleet)",
+      "status": "accepted",
+      "topic": "kaizen-github-independent-self-evolution",
+      "authoritative": true,
+      "authoritativeFor": [
+        "Kaizen GitRemote abstraction (GithubRemote / KotobaRemote / select_remote)",
+        "KAIZEN_GIT_REMOTE env switch + KotobaRemote env contract",
+        "kotoba-git fleet deployment (git smart-HTTP push target)",
+        "kaizen-pr-agent fleet resource/clone crash-fix"
+      ],
+      "related": [
+        "doc:adr-2605262130-kotoba-storage-substrate-unification",
+        "doc:adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "doc:adr-2605231525-etzhayyim-no-server-key-invariant"
       ],
       "lastVerified": "2026-06-08"
     },
