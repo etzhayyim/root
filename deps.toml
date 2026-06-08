@@ -1086,7 +1086,7 @@ path = "90-docs/adr/2605192145-etzhayyim-public-fund-architecture.md"
 id = "2605192200"
 title = "etzhayyim IP-Free-Release with Charter Compliance Rider v2.0 — Apache 2.0 + 多世代 + 反個人主義 + Wellbecoming license addendum (von Neumann minimax 解)"
 status = "proposed"
-status_note = "S3 = Apache 2.0 + Extended Rider v2.0 が maximin -2 / avg +1.42 で optimal。Rider §2(a)-(h): weapons / speculative finance / surveillance capitalism / fossil fuel extraction (new) / specialist gatekeeping / multi-generational harm (v2.0) / strict individualist ontology (v2.0) / wellbecoming subordination (v2.0)。三層 enforcement (L1 license / L2 便益拒否 / L3 評価最低 = Phenotype.effectiveMultiplier 0)"
+status_note = "S3 = Apache 2.0 + Extended Rider v2.0 が maximin -2 / avg +1.42 で optimal。Rider §2(a)-(h): weapons / speculative finance / monetized-or-asymmetric surveillance (v3.1 reciprocity axis, ADR-2606082400: 相互監視 affirmed, only monetized OR watcher-unwatched prohibited) / fossil fuel extraction (new) / specialist gatekeeping / multi-generational harm (v2.0) / strict individualist ontology (v2.0) / wellbecoming subordination (v2.0)。三層 enforcement (L1 license / L2 便益拒否 / L3 評価最低 = Phenotype.effectiveMultiplier 0)"
 path = "90-docs/adr/2605192200-etzhayyim-ip-free-release-charter-rider.md"
 
 [[adrs]]
