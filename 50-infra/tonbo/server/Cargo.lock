@@ -2973,7 +2973,7 @@ dependencies = [
  "libc",
  "percent-encoding",
  "pin-project-lite",
- "socket2 0.6.3",
+ "socket2 0.5.10",
  "tokio",
  "tower-service",
  "tracing",
@@ -3185,15 +3185,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "itertools"
-version = "0.14.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2b192c782037fadd9cfa75548310488aabdbf3d2da73885b31bd0abd03351285"
-dependencies = [
- "either",
-]
-
-[[package]]
 name = "itoa"
 version = "1.0.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3256,7 +3247,7 @@ dependencies = [
  "lance-file 0.23.2",
  "lance-index",
  "lance-io 0.23.2",
- "lance-linalg 0.23.2",
+ "lance-linalg",
  "lance-table 0.23.2",
  "lazy_static",
  "log",
@@ -3602,7 +3593,7 @@ dependencies = [
  "lance-encoding 0.23.2",
  "lance-file 0.23.2",
  "lance-io 0.23.2",
- "lance-linalg 0.23.2",
+ "lance-linalg",
  "lance-table 0.23.2",
  "lazy_static",
  "log",
@@ -3703,31 +3694,6 @@ dependencies = [
  "tokio",
  "tracing",
  "url",
-]
-
-[[package]]
-name = "lance-linalg"
-version = "0.20.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6430b82c3c7d4bb822dc297b85ec1d5f764420e37a697590ce2a7a040ebb5131"
-dependencies = [
- "arrow-array 53.4.0",
- "arrow-ord 53.4.0",
- "arrow-schema 53.4.1",
- "bitvec",
- "cc",
- "deepsize",
- "futures",
- "half",
- "lance-arrow 0.20.0",
- "lance-core 0.20.0",
- "lazy_static",
- "log",
- "num-traits",
- "rand 0.8.6",
- "rayon",
- "tokio",
- "tracing",
 ]
 
 [[package]]
@@ -4672,7 +4638,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "be769465445e8c1474e9c5dac2018218498557af32d9ed057325ec9a41ae81bf"
 dependencies = [
  "heck 0.5.0",
- "itertools 0.14.0",
+ "itertools 0.12.1",
  "log",
  "multimap",
  "once_cell",
@@ -4692,7 +4658,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8a56d757972c98b346a9b766e3f02746cde6dd1cd1d1d563472929fdd74bec4d"
 dependencies = [
  "anyhow",
- "itertools 0.14.0",
+ "itertools 0.12.1",
  "proc-macro2",
  "quote",
  "syn 2.0.117",
@@ -4705,7 +4671,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "27c6023962132f4b30eb4c172c91ce92d933da334c59c23cddee82358ddafb0b"
 dependencies = [
  "anyhow",
- "itertools 0.14.0",
+ "itertools 0.12.1",
  "proc-macro2",
  "quote",
  "syn 2.0.117",
@@ -4782,7 +4748,7 @@ dependencies = [
  "quinn-udp",
  "rustc-hash 2.1.1",
  "rustls 0.23.37",
- "socket2 0.6.3",
+ "socket2 0.5.10",
  "thiserror 2.0.18",
  "tokio",
  "tracing",
@@ -4819,7 +4785,7 @@ dependencies = [
  "cfg_aliases",
  "libc",
  "once_cell",
- "socket2 0.6.3",
+ "socket2 0.5.10",
  "tracing",
  "windows-sys 0.59.0",
 ]
@@ -6082,7 +6048,7 @@ dependencies = [
  "futures",
  "lance",
  "lance-index",
- "lance-linalg 0.20.0",
+ "lance-linalg",
  "lance-table 0.20.0",
  "object_store 0.11.2",
  "ocra",
@@ -6573,7 +6539,7 @@ version = "0.1.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c2a7b1c03c876122aa43f3020e6c3c3ee5c05081c9a00739faf7503aeba10d22"
 dependencies = [
- "windows-sys 0.61.2",
+ "windows-sys 0.48.0",
 ]
 
 [[package]]
