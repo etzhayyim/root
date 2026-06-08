@@ -103,7 +103,7 @@
  {:bom.edge/id "bom.cola.can"     :bom.edge/parent "gtin.05449000000996" :bom.edge/child "part.al-can" :bom.edge/qty 1.0 :bom.edge/qty-unit "unit" :bom.edge/tier 1 :bom.edge/criticality 0.4 :bom.edge/sourcing :representative}
  {:bom.edge/id "bom.alcan.al"     :bom.edge/parent "part.al-can"         :bom.edge/child "mat.aluminum" :bom.edge/qty 13.0 :bom.edge/qty-unit "g" :bom.edge/tier 2 :bom.edge/criticality 0.5 :bom.edge/sourcing :representative}
  ;; Nutella → ingredients
- {:bom.edge/id "bom.nut.sugar"    :bom.edge/parent "gtin.03017620422003" :bom.edge/child "mat.sugar"   :bom.edge/qty 56.0 :bom.edge/qty-unit "%mass" :bom.edge/tier 1 :bom.edge/criticality 0.2 :bom.edge/sourcing :representative}
+ {:bom.edge/id "bom.nut.sugar"    :bom.edge/parent "gtin.03017620422003" :bom.edge/child "mat.sugar"   :bom.edge/qty 56.0 :bom.edge/qty-unit "%mass" :bom.edge/tier 1 :bom.edge/supplier "org.corp.us.adm" :bom.edge/criticality 0.2 :bom.edge/sourcing :representative}
  {:bom.edge/id "bom.nut.palm"     :bom.edge/parent "gtin.03017620422003" :bom.edge/child "mat.palm-oil" :bom.edge/qty 31.0 :bom.edge/qty-unit "%mass" :bom.edge/tier 1 :bom.edge/criticality 0.6 :bom.edge/sourcing :representative}
  {:bom.edge/id "bom.nut.hazel"    :bom.edge/parent "gtin.03017620422003" :bom.edge/child "mat.hazelnut" :bom.edge/qty 13.0 :bom.edge/qty-unit "%mass" :bom.edge/tier 1 :bom.edge/criticality 0.7 :bom.edge/sourcing :representative}
  {:bom.edge/id "bom.nut.cocoa"    :bom.edge/parent "gtin.03017620422003" :bom.edge/child "mat.cocoa"    :bom.edge/qty 7.4 :bom.edge/qty-unit "%mass" :bom.edge/tier 1 :bom.edge/criticality 0.6 :bom.edge/sourcing :representative}
@@ -118,7 +118,7 @@
  {:bom.edge/id "bom.disp.glass"   :bom.edge/parent "part.display-oled" :bom.edge/child "mat.glass" :bom.edge/qty 1.0 :bom.edge/qty-unit "unit" :bom.edge/tier 2 :bom.edge/criticality 0.4 :bom.edge/sourcing :representative}
  ;; Li-ion cell → materials (shared by phone + EV pack)
  {:bom.edge/id "bom.cell.li"      :bom.edge/parent "part.li-ion-cell" :bom.edge/child "mat.lithium"  :bom.edge/qty 2.0 :bom.edge/qty-unit "%mass" :bom.edge/tier 2 :bom.edge/criticality 0.8 :bom.edge/sourcing :representative}
- {:bom.edge/id "bom.cell.co"      :bom.edge/parent "part.li-ion-cell" :bom.edge/child "mat.cobalt"   :bom.edge/qty 12.0 :bom.edge/qty-unit "%mass" :bom.edge/tier 2 :bom.edge/criticality 0.9 :bom.edge/sourcing :representative}
+ {:bom.edge/id "bom.cell.co"      :bom.edge/parent "part.li-ion-cell" :bom.edge/child "mat.cobalt"   :bom.edge/qty 12.0 :bom.edge/qty-unit "%mass" :bom.edge/tier 2 :bom.edge/supplier "org.corp.ch.glencore" :bom.edge/criticality 0.9 :bom.edge/sourcing :representative}
  {:bom.edge/id "bom.cell.ni"      :bom.edge/parent "part.li-ion-cell" :bom.edge/child "mat.nickel"   :bom.edge/qty 20.0 :bom.edge/qty-unit "%mass" :bom.edge/tier 2 :bom.edge/criticality 0.7 :bom.edge/sourcing :representative}
  {:bom.edge/id "bom.cell.gr"      :bom.edge/parent "part.li-ion-cell" :bom.edge/child "mat.graphite" :bom.edge/qty 16.0 :bom.edge/qty-unit "%mass" :bom.edge/tier 2 :bom.edge/criticality 0.8 :bom.edge/sourcing :representative}
  {:bom.edge/id "bom.cell.cu"      :bom.edge/parent "part.li-ion-cell" :bom.edge/child "mat.copper"   :bom.edge/qty 8.0 :bom.edge/qty-unit "%mass" :bom.edge/tier 2 :bom.edge/criticality 0.4 :bom.edge/sourcing :representative}
@@ -166,4 +166,59 @@
  ;; computed at the true beneficial-owner level. :is-ultimately-consolidated-by mirrors GLEIF RR.
  {:company.ownership/id "own.sony-semicon" :company.ownership/child "org.corp.jp.sony-semicon" :company.ownership/parent "org.corp.jp.sony" :company.ownership/relationship :is-ultimately-consolidated-by :company.ownership/sourcing :representative}
  {:company.ownership/id "own.cocacola-na"  :company.ownership/child "org.corp.us.coca-cola-na"  :company.ownership/parent "org.corp.us.coca-cola" :company.ownership/relationship :is-directly-consolidated-by :company.ownership/sourcing :representative}
- {:company.ownership/id "own.ferrero"      :company.ownership/child "org.corp.it.ferrero" :company.ownership/parent "org.corp.lu.ferrero-intl" :company.ownership/relationship :is-ultimately-consolidated-by :company.ownership/sourcing :representative}]
+ {:company.ownership/id "own.ferrero"      :company.ownership/child "org.corp.it.ferrero" :company.ownership/parent "org.corp.lu.ferrero-intl" :company.ownership/relationship :is-ultimately-consolidated-by :company.ownership/sourcing :representative}
+
+ ;; ═══════════════ ITER4 WORKLIST COVERAGE — products wired to high-centrality kabuto suppliers ═══
+ ;; Closes the top of crosscheck.py's reverse-coverage ingest worklist (NVIDIA/Ericsson/Boeing/
+ ;; ARM/SMIC/Denso/Magna/Glencore/ADM/LG-Energy). All :representative public teardown/disclosure.
+
+ ;; new materials
+ {:material/id "mat.composite"    :material/name "Carbon-fibre composite (CFRP)" :material/kind :composite :material/hs-code "6815" :material/sourcing :representative}
+ {:material/id "mat.titanium"     :material/name "Titanium"             :material/kind :metal        :material/hs-code "8108" :material/sourcing :representative}
+ {:material/id "mat.tin"          :material/name "Tin (solder)"         :material/kind :metal        :material/hs-code "8001" :material/sourcing :representative}
+
+ ;; new parts
+ {:part/id "part.gpu-die"         :part/name "GPU/AI-accelerator die"   :part/kind :component   :part/unspsc "32101604" :part/sourcing :representative}
+ {:part/id "part.hbm"            :part/name "High-bandwidth memory (HBM) stack" :part/kind :component :part/unspsc "32101602" :part/sourcing :representative}
+ {:part/id "part.cpu-core-ip"     :part/name "CPU core IP block (licensed)" :part/kind :component :part/sourcing :representative}
+ {:part/id "part.rf-soc"          :part/name "RF transceiver SoC"       :part/kind :component   :part/unspsc "32101604" :part/sourcing :representative}
+ {:part/id "part.jet-engine"      :part/name "Turbofan jet engine"      :part/kind :sub-assembly :part/unspsc "25172504" :part/sourcing :representative}
+ {:part/id "part.avionics"        :part/name "Avionics suite"           :part/kind :sub-assembly :part/sourcing :representative}
+ {:part/id "part.auto-ecu"        :part/name "Automotive ECU + thermal module" :part/kind :sub-assembly :part/sourcing :representative}
+ {:part/id "part.driveline"       :part/name "EV driveline / e-axle"    :part/kind :sub-assembly :part/sourcing :representative}
+
+ ;; new products
+ {:product/id "prod.ai-gpu-module" :product/name "AI GPU server module (representative)" :product/brand "(representative)" :product/brand-owner "org.corp.us.nvidia" :product/sector :electronics :product/unspsc "43201401" :product/hs-code "8473" :product/sourcing :representative}
+ {:product/id "prod.5g-radio"      :product/name "5G radio unit (representative)" :product/brand "(representative)" :product/brand-owner "org.corp.se.ericsson" :product/sector :electronics :product/unspsc "43222609" :product/hs-code "8517" :product/sourcing :representative}
+ {:product/id "prod.aircraft-narrowbody" :product/name "Narrowbody commercial aircraft (representative)" :product/brand "(representative)" :product/brand-owner "org.corp.us.boeing" :product/sector :industrials :product/unspsc "25111500" :product/hs-code "8802" :product/sourcing :representative}
+ {:product/id "prod.ev-vehicle"    :product/name "Battery-electric vehicle (representative)" :product/brand "(representative)" :product/brand-owner "org.corp.cn.byd" :product/sector :automotive :product/unspsc "25101503" :product/hs-code "8703" :product/sourcing :representative}
+
+ ;; AI GPU module BOM — TSMC die, SK hynix HBM, ARM core IP
+ {:bom.edge/id "bom.gpu.die"      :bom.edge/parent "prod.ai-gpu-module" :bom.edge/child "part.gpu-die" :bom.edge/qty 1.0 :bom.edge/qty-unit "unit" :bom.edge/tier 1 :bom.edge/supplier "org.corp.tw.tsmc" :bom.edge/criticality 0.95 :bom.edge/sourcing :representative}
+ {:bom.edge/id "bom.gpu.hbm"      :bom.edge/parent "prod.ai-gpu-module" :bom.edge/child "part.hbm"     :bom.edge/qty 8.0 :bom.edge/qty-unit "unit" :bom.edge/tier 1 :bom.edge/supplier "org.corp.kr.sk-hynix" :bom.edge/criticality 0.9 :bom.edge/sourcing :representative}
+ {:bom.edge/id "bom.gpu.ip"       :bom.edge/parent "part.gpu-die"       :bom.edge/child "part.cpu-core-ip" :bom.edge/qty 1.0 :bom.edge/qty-unit "unit" :bom.edge/tier 2 :bom.edge/supplier "org.corp.gb.arm" :bom.edge/criticality 0.85 :bom.edge/sourcing :representative}
+ {:bom.edge/id "bom.gpu.si"       :bom.edge/parent "part.gpu-die"       :bom.edge/child "mat.silicon"  :bom.edge/qty 2.0 :bom.edge/qty-unit "g" :bom.edge/tier 2 :bom.edge/criticality 0.7 :bom.edge/sourcing :representative}
+
+ ;; 5G radio BOM — SMIC RF SoC, rare-earth filters
+ {:bom.edge/id "bom.5g.soc"       :bom.edge/parent "prod.5g-radio"      :bom.edge/child "part.rf-soc"  :bom.edge/qty 4.0 :bom.edge/qty-unit "unit" :bom.edge/tier 1 :bom.edge/supplier "org.corp.cn.smic" :bom.edge/criticality 0.7 :bom.edge/sourcing :representative}
+ {:bom.edge/id "bom.5g.re"        :bom.edge/parent "part.rf-soc"        :bom.edge/child "mat.rare-earth" :bom.edge/qty 1.0 :bom.edge/qty-unit "g" :bom.edge/tier 2 :bom.edge/criticality 0.6 :bom.edge/sourcing :representative}
+
+ ;; Aircraft BOM — engines, composite fuselage, avionics
+ {:bom.edge/id "bom.ac.engine"    :bom.edge/parent "prod.aircraft-narrowbody" :bom.edge/child "part.jet-engine" :bom.edge/qty 2.0 :bom.edge/qty-unit "unit" :bom.edge/tier 1 :bom.edge/criticality 0.9 :bom.edge/sourcing :representative}
+ {:bom.edge/id "bom.ac.fuse"      :bom.edge/parent "prod.aircraft-narrowbody" :bom.edge/child "mat.composite" :bom.edge/qty 35.0 :bom.edge/qty-unit "%mass" :bom.edge/tier 1 :bom.edge/criticality 0.5 :bom.edge/sourcing :representative}
+ {:bom.edge/id "bom.ac.ti"        :bom.edge/parent "prod.aircraft-narrowbody" :bom.edge/child "mat.titanium" :bom.edge/qty 14.0 :bom.edge/qty-unit "%mass" :bom.edge/tier 1 :bom.edge/criticality 0.7 :bom.edge/sourcing :representative}
+ {:bom.edge/id "bom.ac.avi"       :bom.edge/parent "prod.aircraft-narrowbody" :bom.edge/child "part.avionics" :bom.edge/qty 1.0 :bom.edge/qty-unit "unit" :bom.edge/tier 1 :bom.edge/criticality 0.6 :bom.edge/sourcing :representative}
+
+ ;; EV vehicle BOM — CATL pack, Denso ECU, Magna driveline
+ {:bom.edge/id "bom.evv.pack"     :bom.edge/parent "prod.ev-vehicle"    :bom.edge/child "prod.ev-battery-pack" :bom.edge/qty 1.0 :bom.edge/qty-unit "unit" :bom.edge/tier 1 :bom.edge/supplier "org.corp.cn.catl" :bom.edge/criticality 0.85 :bom.edge/sourcing :representative}
+ {:bom.edge/id "bom.evv.ecu"      :bom.edge/parent "prod.ev-vehicle"    :bom.edge/child "part.auto-ecu" :bom.edge/qty 1.0 :bom.edge/qty-unit "unit" :bom.edge/tier 1 :bom.edge/supplier "org.corp.jp.denso" :bom.edge/criticality 0.6 :bom.edge/sourcing :representative}
+ {:bom.edge/id "bom.evv.drv"      :bom.edge/parent "prod.ev-vehicle"    :bom.edge/child "part.driveline" :bom.edge/qty 1.0 :bom.edge/qty-unit "unit" :bom.edge/tier 1 :bom.edge/supplier "org.corp.ca.magna" :bom.edge/criticality 0.6 :bom.edge/sourcing :representative}
+
+ ;; DESIGN activity steps (設計) — operator = the design house (kind :design)
+ {:process.step/id "proc.gpu-design" :process.step/name "GPU architecture + physical design (EDA)" :process.step/kind :design :process.step/of "part.gpu-die" :process.step/operator "org.corp.us.nvidia" :process.step/country "US" :process.step/seq 1 :process.step/sourcing :representative}
+ {:process.step/id "proc.ac-design"  :process.step/name "Airframe design + certification" :process.step/kind :design :process.step/of "prod.aircraft-narrowbody" :process.step/operator "org.corp.us.boeing" :process.step/country "US" :process.step/seq 1 :process.step/sourcing :representative}
+
+ ;; design/standard refs for new products
+ {:design.ref/id "dr.gpu.pcie"    :design.ref/of "prod.ai-gpu-module" :design.ref/standard "PCIe 5.0" :design.ref/kind :interface-spec :design.ref/body "PCI-SIG" :design.ref/sourcing :representative}
+ {:design.ref/id "dr.5g.3gpp"     :design.ref/of "prod.5g-radio" :design.ref/standard "3GPP 5G NR Rel-16" :design.ref/kind :interface-spec :design.ref/body "3GPP" :design.ref/sourcing :representative}
+ {:design.ref/id "dr.ac.do178"    :design.ref/of "prod.aircraft-narrowbody" :design.ref/standard "DO-178C" :design.ref/kind :safety-standard :design.ref/body "RTCA" :design.ref/sourcing :representative}]

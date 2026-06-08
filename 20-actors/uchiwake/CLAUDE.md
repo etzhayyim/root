@@ -82,13 +82,16 @@ python3 -m unittest tests.test_uchiwake -v   # 15 tests
 
 ## Honesty (R0)
 
-Bounded illustrative seed of **7 products** (real public GTINs: Coca-Cola 330ml `5449000000996`,
-Nutella 750g `3017620422003` `:authoritative`; KitKat `7613035044289` `:representative`), **10
-parts**, **23 materials**, **33 BOM edges**, **8 process steps**, **5 logistics legs**, **4 design
-refs**, **3 ownership edges** — **not** exhaustive coverage and **not** an authoritative recipe.
-Brand-owners / suppliers / operators / carriers wire to REAL kabuto companies (Apple, Foxconn, BYD,
-CATL, Maersk, Nestlé, Fast Retailing, TSMC, SK hynix, Kioxia, Sony); `crosscheck.py` reports the
-measured linkage (~71% of distinct company refs resolve into kabuto's universe). GTINs are validated by GS1 mod-10 check
+Bounded illustrative seed of **11 products** (real public GTINs: Coca-Cola 330ml `5449000000996`,
+Nutella 750g `3017620422003` `:authoritative`; KitKat `7613035044289` `:representative`), **18
+parts**, **26 materials**, **46 BOM edges**, **10 process steps** (incl. `:design` activity), **5
+logistics legs**, **7 design refs**, **3 ownership edges** — **not** exhaustive coverage and **not**
+an authoritative recipe. Brand-owners / suppliers / operators / carriers wire to REAL kabuto
+companies (Apple, Foxconn, BYD, CATL, Maersk, Nestlé, Fast Retailing, TSMC, SK hynix, Kioxia, Sony,
+NVIDIA, Ericsson, Boeing, ARM, SMIC, Denso, Magna, Glencore, ADM). `crosscheck.py` measures linkage
+(**80.8%** of distinct refs resolve) AND reverse coverage (**6.4%** of kabuto's 233 supply-chain
+companies / **1.16%** of all 1,719 have product-BOM detail) with a prioritized ingest worklist —
+each `/loop` iteration ingests worklist suppliers to raise it (2.6%→6.4% this iteration). GTINs are validated by GS1 mod-10 check
 digit; decompositions are `:representative` public-teardown/label estimates. "Register ALL trade
 items" is the **R1** goal — full GS1 GDSN / GLEIF-RR / Open Product Data universe ingest (hundreds
 of millions of GTINs) is **G7** Council + operator gated. Live atproto posting is **G11** (later).
