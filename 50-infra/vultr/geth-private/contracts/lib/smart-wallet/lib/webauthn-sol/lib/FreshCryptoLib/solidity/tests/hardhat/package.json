@@ -17,7 +17,7 @@
     "hardhat-preprocessor": "^0.1.5",
     "prettier": "^3.8.3",
     "prettier-plugin-solidity": "^1.1.2",
-    "solidity-coverage": "^0.8.2",
+    "solidity-coverage": "^0.8.17",
     "typechain": "^8.1.1"
   },
   "dependencies": {
