@@ -1,0 +1,111 @@
+# KaizenPrAgentCell — the self-evolution ACTUATOR (Wave 4, ADR-2605240200).
+#
+# Counterpart to the kaizen-observer Deployment. The observer writes
+# KaizenProposal NDJSON lines to /var/lib/etzhayyim/kaizen-proposals/observer.ndjson
+# (a hostPath on levi); this resident process drains that queue via
+# kaizen_pr_agent_main.serve_loop → KaizenPrAgent.consume_all, applies
+# structured patches to a checkout of github.com/etzhayyim/root, and opens
+# PRs / issues — closing the recursive self-evolution loop on the fleet.
+#
+# Co-located on levi: the proposal queue is a node-local hostPath, so the
+# consumer MUST run on the same node as the observer that writes it
+# (multi-node read is Wave 5 — NFS / OBJECT_STORE, same as the observer).
+#
+# no-server-key (ADR-2605231525): GH_TOKEN is an OPERATOR-injected,
+# short-lived GitHub token (k8s Secret), NOT a platform-held master key. The
+# default KAIZEN_PR_AGENT_DRY_RUN=true means a pod that starts without a token
+# (or before the secret is provisioned) drains + patches the local checkout
+# WITHOUT pushing — _verify_gh_auth fails, the cycle is skipped and retried.
+# Flip to "false" only once an operator has provisioned the token + the repo
+# checkout sync, per Council review of the Wave 4 enablement.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kaizen-pr-agent
+  namespace: etzhayyim-organism
+  labels:
+    app.kubernetes.io/name: kaizen-pr-agent
+    etzhayyim.com/role: ecosystem-self-evolution-actuator
+    etzhayyim.com/leader-node: levi
+  annotations:
+    etzhayyim.com/adr: "2605240200,2605240100,2605240000,2605231525"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: kaizen-pr-agent
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: kaizen-pr-agent
+        etzhayyim.com/leader-node: levi
+    spec:
+      serviceAccountName: kaizen-pr-agent
+      nodeSelector:
+        kubernetes.io/hostname: levinomac-mini.local
+      imagePullSecrets:
+        - name: ghcr-pull
+      containers:
+        - name: pr-agent
+          image: ghcr.io/etzhayyim/kotodama:main
+          imagePullPolicy: Always
+          command:
+            - python
+            - -m
+            - kotodama.organism.kaizen_pr_agent_main
+          env:
+            - name: KAIZEN_PR_AGENT_INTERVAL_S
+              value: "600"  # 10 min — match the observer cadence
+            - name: KAIZEN_PROPOSAL_PATH
+              value: /var/lib/etzhayyim/kaizen-proposals/observer.ndjson
+            - name: KAIZEN_PR_AGENT_REPO_ROOT
+              value: /workspace/root
+            # Safe default: drain + patch the local checkout, gh --dry-run, no
+            # push. Set to "false" only after operator provisions GH_TOKEN +
+            # repo-sync, per Council Wave-4 enablement review.
+            - name: KAIZEN_PR_AGENT_DRY_RUN
+              value: "true"
+            # Operator-injected short-lived token (optional; absent → dry-run
+            # cycles are skipped at auth, daemon stays up).
+            - name: GH_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: kaizen-pr-agent-gh
+                  key: token
+                  optional: true
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: kaizen-proposals
+              mountPath: /var/lib/etzhayyim/kaizen-proposals
+            - name: repo-checkout
+              mountPath: /workspace/root
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        # Same hostPath the observer writes to (co-located on levi).
+        - name: kaizen-proposals
+          hostPath:
+            path: /var/lib/etzhayyim/kaizen-proposals
+            type: DirectoryOrCreate
+        # A git working tree of github.com/etzhayyim/root the agent patches.
+        # Operator-provisioned / kept fresh out-of-band (a git-sync sidecar is
+        # Wave 5); DirectoryOrCreate so a token-less dry-run pod still starts.
+        - name: repo-checkout
+          hostPath:
+            path: /var/lib/etzhayyim/root-checkout
+            type: DirectoryOrCreate
+        - name: tmp
+          emptyDir:
+            sizeLimit: 64Mi
