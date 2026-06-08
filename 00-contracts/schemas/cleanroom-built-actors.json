@@ -14100,12 +14100,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Dataset",
-        "Query",
-        "Dashboard",
-        "Report",
-        "Connection",
-        "Metric"
+        "Warehouse",
+        "Database",
+        "Schema",
+        "Table",
+        "Task",
+        "Role"
       ]
     },
     {

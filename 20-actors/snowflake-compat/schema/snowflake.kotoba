@@ -3,70 +3,69 @@
 
 namespace snowflake {
 
-    entity Dataset {
+    entity Warehouse {
         id: string @unique
         name: string
-        source: string
-        schemaRef: string
-        rowCount: integer
+        warehouseType: string
+        warehouseSize: string
+        scalingPolicy: string
+        autoSuspend: integer
+        autoResume: boolean
+        state: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Query {
+    entity Database {
         id: string @unique
-        datasetId: string
-        sql: string
-        ownerId: string
+        name: string
+        kind: string
+        owner: string
+        retentionTime: integer
+        isDefault: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Dashboard {
+    entity Schema {
         id: string @unique
         name: string
-        ownerId: string
-        layout: string
+        kind: string
+        databaseName: string
+        owner: string
+        managedAccess: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Report {
+    entity Table {
         id: string @unique
-        dashboardId: string
         name: string
-        schedule: string
+        kind: string
+        databaseName: string
+        schemaName: string
+        rows: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Connection {
+    entity Task {
         id: string @unique
         name: string
-        type: string
-        host: string
-        active: boolean
+        warehouse: string
+        state: string
+        owner: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Metric {
+    entity Role {
         id: string @unique
-        datasetId: string
         name: string
-        expression: string
-        unit: string
+        owner: string
+        comment: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

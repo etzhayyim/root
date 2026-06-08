@@ -7464,7 +7464,7 @@
     {
       "handle": "snowflake-compat",
       "did": "did:web:etzhayyim.com:actor:snowflake-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreiagvcjly3vx5ud4umfifxxosiksvo4wqdataawijz2vtog2i7foua",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,

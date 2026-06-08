@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 43,
+  "count": 44,
   "actors": [
     {
       "handle": "square-compat",
@@ -5724,6 +5724,166 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official Looker API 4.0 spec. No enforced enums on the modeled fields (result_format enum lives on CreateQueryTask; modeled flags are pure booleans)."
+    },
+    {
+      "handle": "snowflake-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/snowflakedb/snowflake-rest-api-specs/blob/main/specifications",
+      "remodeled": "Remodeled from generic data_analytics to a faithful Snowflake model, verified against the official snowflake-rest-api-specs OpenAPI.",
+      "resources": [
+        {
+          "entity": "Warehouse",
+          "source": "https://github.com/snowflakedb/snowflake-rest-api-specs/blob/main/specifications/warehouse.yaml",
+          "verifiedFields": [
+            "name",
+            "warehouseType",
+            "warehouseSize",
+            "scalingPolicy",
+            "autoSuspend",
+            "autoResume",
+            "state"
+          ],
+          "fieldStatus": "confirmed (warehouse_type/size, scaling_policy, auto_suspend/resume)",
+          "discoveredEnums": {
+            "warehouseType": [
+              "STANDARD",
+              "SNOWPARK-OPTIMIZED"
+            ],
+            "warehouseSize": [
+              "XSMALL",
+              "SMALL",
+              "MEDIUM",
+              "LARGE",
+              "XLARGE",
+              "XXLARGE",
+              "XXXLARGE",
+              "X4LARGE",
+              "X5LARGE",
+              "X6LARGE"
+            ],
+            "scalingPolicy": [
+              "STANDARD",
+              "ECONOMY"
+            ],
+            "state": [
+              "STARTED",
+              "STARTING",
+              "DYNAMIC",
+              "SUSPENDED",
+              "RESIZING",
+              "RESUMING",
+              "SUSPENDING"
+            ]
+          },
+          "gaps": [
+            "max_concurrency_level"
+          ]
+        },
+        {
+          "entity": "Database",
+          "source": "https://github.com/snowflakedb/snowflake-rest-api-specs/blob/main/specifications/database.yaml",
+          "verifiedFields": [
+            "name",
+            "kind",
+            "owner",
+            "retentionTime",
+            "isDefault"
+          ],
+          "fieldStatus": "confirmed (retention_time, is_default)",
+          "discoveredEnums": {
+            "kind": [
+              "PERMANENT",
+              "TRANSIENT"
+            ]
+          },
+          "gaps": [
+            "comment",
+            "dropped_on"
+          ]
+        },
+        {
+          "entity": "Schema",
+          "source": "https://github.com/snowflakedb/snowflake-rest-api-specs/blob/main/specifications/schema.yaml",
+          "verifiedFields": [
+            "name",
+            "kind",
+            "databaseName",
+            "owner",
+            "managedAccess"
+          ],
+          "fieldStatus": "confirmed (database_name, managed_access)",
+          "discoveredEnums": {
+            "kind": [
+              "PERMANENT",
+              "TRANSIENT"
+            ]
+          },
+          "gaps": [
+            "retention_time"
+          ]
+        },
+        {
+          "entity": "Table",
+          "source": "https://github.com/snowflakedb/snowflake-rest-api-specs/blob/main/specifications/table.yaml",
+          "verifiedFields": [
+            "name",
+            "kind",
+            "databaseName",
+            "schemaName",
+            "rows"
+          ],
+          "fieldStatus": "confirmed (schema_name)",
+          "discoveredEnums": {
+            "kind": [
+              "PERMANENT",
+              "TRANSIENT",
+              "TEMPORARY"
+            ]
+          },
+          "gaps": [
+            "columns",
+            "constraints"
+          ]
+        },
+        {
+          "entity": "Task",
+          "source": "https://github.com/snowflakedb/snowflake-rest-api-specs/blob/main/specifications/task.yaml",
+          "verifiedFields": [
+            "name",
+            "warehouse",
+            "state",
+            "owner"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "state": [
+              "started",
+              "suspended"
+            ]
+          },
+          "gaps": [
+            "schedule",
+            "definition"
+          ]
+        },
+        {
+          "entity": "Role",
+          "source": "https://github.com/snowflakedb/snowflake-rest-api-specs/blob/main/specifications/role.yaml",
+          "verifiedFields": [
+            "name",
+            "owner",
+            "comment"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "created_on"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official Snowflake REST API specs. Enforced enums: Warehouse.warehouseType/warehouseSize/scalingPolicy/state, Database.kind, Schema.kind, Table.kind, Task.state (8)."
     }
   ]
 }

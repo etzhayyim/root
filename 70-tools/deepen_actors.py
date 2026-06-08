@@ -1232,6 +1232,16 @@ PLATFORM_OVERRIDES = {
         "Folder": E(name="string", parentId="string", creatorId="string"),
         "ScheduledPlan": E(name="string", userId="string", enabled="boolean"),
     },
+    # Faithful Snowflake model (remodeled from generic data_analytics), L5
+    # (confirmed against the official snowflakedb/snowflake-rest-api-specs).
+    "snowflake": {
+        "Warehouse": E(name="string", warehouseType="string", warehouseSize="string", scalingPolicy="string", autoSuspend="integer", autoResume="boolean", state="string"),
+        "Database": E(name="string", kind="string", owner="string", retentionTime="integer", isDefault="boolean"),
+        "Schema": E(name="string", kind="string", databaseName="string", owner="string", managedAccess="boolean"),
+        "Table": E(name="string", kind="string", databaseName="string", schemaName="string", rows="integer"),
+        "Task": E(name="string", warehouse="string", state="string", owner="string"),
+        "Role": E(name="string", owner="string", comment="string"),
+    },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).
     "square": {

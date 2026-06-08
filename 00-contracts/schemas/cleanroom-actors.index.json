@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 957,
-    "L5": 43
+    "L4": 956,
+    "L5": 44
   },
   "actors": [
     {
@@ -14924,7 +14924,7 @@
       "wasmCid": "bafkreiagvcjly3vx5ud4umfifxxosiksvo4wqdataawijz2vtog2i7foua",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "snowflake clean-room actor",
       "category": "data_analytics",
       "capabilities": [

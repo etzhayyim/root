@@ -14088,7 +14088,7 @@
     {
       "handle": "snowflake-compat",
       "did": "did:web:etzhayyim.com:actor:snowflake-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreiagvcjly3vx5ud4umfifxxosiksvo4wqdataawijz2vtog2i7foua",
