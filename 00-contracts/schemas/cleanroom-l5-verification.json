@@ -325,9 +325,25 @@
             "status": ["pending", "approved", "canceled", "max_attempts_reached", "deleted", "failed", "expired"]
           },
           "gaps": ["valid", "amount", "payee", "send_code_attempts"]
+        },
+        {
+          "entity": "Conference",
+          "source": "https://www.twilio.com/docs/voice/api/conference-resource",
+          "verifiedFields": ["friendlyName", "status"],
+          "fieldStatus": "friendly_name/status confirmed (participantCount maps to a real participant count)",
+          "discoveredEnums": {"status": ["init", "in-progress", "completed"]},
+          "gaps": ["region", "reason_conference_ended", "call_sid_ending_conference"]
+        },
+        {
+          "entity": "PhoneNumber",
+          "source": "https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource",
+          "verifiedFields": ["e164", "friendlyName", "capabilities"],
+          "fieldStatus": "all generated fields confirmed (e164=phone_number; capabilities is the real voice/sms/mms object)",
+          "discoveredEnums": {},
+          "gaps": ["sid", "sms_url", "voice_url", "status_callback"]
         }
       ],
-      "note": "Message + Call + Verification reconciled against the official Twilio docs (3/6); PhoneNumber/Recording/Conference pending. Enforced enums: message.status, message.direction, call.status, verification.channel, verification.status."
+      "note": "Message + Call + Verification + Conference + PhoneNumber reconciled against the official Twilio docs (5/6); Recording pending. Enforced enums: message.status, message.direction, call.status, verification.channel, verification.status, conference.status (6)."
     },
     {
       "handle": "stripe-compat",

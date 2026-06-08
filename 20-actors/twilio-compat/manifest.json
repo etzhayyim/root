@@ -18,7 +18,9 @@
     "resources": [
       "Message",
       "Call",
-      "Verification"
+      "Verification",
+      "Conference",
+      "PhoneNumber"
     ],
     "enums": {
       "Message": {
@@ -73,6 +75,13 @@
           "deleted",
           "failed",
           "expired"
+        ]
+      },
+      "Conference": {
+        "status": [
+          "init",
+          "in-progress",
+          "completed"
         ]
       }
     }

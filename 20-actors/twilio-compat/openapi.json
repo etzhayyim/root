@@ -1479,7 +1479,12 @@
             "type": "string"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "init",
+              "in-progress",
+              "completed"
+            ]
           },
           "participantCount": {
             "type": "integer"
@@ -1501,7 +1506,12 @@
             "type": "string"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "init",
+              "in-progress",
+              "completed"
+            ]
           },
           "participantCount": {
             "type": "integer"
