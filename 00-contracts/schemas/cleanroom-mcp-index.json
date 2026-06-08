@@ -4125,7 +4125,7 @@
     {
       "handle": "intercom-compat",
       "did": "did:web:etzhayyim.com:actor:intercom-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreibrglqzum3ldogxotquxlknsi7y72rfmrnpwdxjhl6wobxfe4sa3a",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -5241,7 +5241,7 @@
     {
       "handle": "monday-compat",
       "did": "did:web:etzhayyim.com:actor:monday-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreibqv2wdd7zlmw2mjhes6f6w2l7tup5mpcacvidjz42kyfw6guaf24",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,

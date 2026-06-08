@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 38,
+  "count": 40,
   "actors": [
     {
       "handle": "square-compat",
@@ -5024,6 +5024,304 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official MongoDB Atlas OpenAPI v2. Enforced enums: Cluster.clusterType, Cluster.stateName, DatabaseUser.databaseName, DatabaseUser.awsIAMType, Backup.frequencyType, NetworkPeering.localStatus (6)."
+    },
+    {
+      "handle": "intercom-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/intercom/Intercom-OpenAPI/main/descriptions/2.15/api.intercom.io.yaml",
+      "remodeled": "Remodeled from generic cx_survey to a faithful Intercom model, verified against the official Intercom OpenAPI v2.15.",
+      "resources": [
+        {
+          "entity": "Contact",
+          "source": "https://raw.githubusercontent.com/intercom/Intercom-OpenAPI/main/descriptions/2.15/api.intercom.io.yaml",
+          "verifiedFields": [
+            "email",
+            "phone",
+            "name",
+            "role",
+            "createdAt",
+            "signedUpAt"
+          ],
+          "fieldStatus": "confirmed; role is a string (no closed enum); *_at are unix integers",
+          "discoveredEnums": {},
+          "gaps": [
+            "external_id",
+            "custom_attributes"
+          ]
+        },
+        {
+          "entity": "Conversation",
+          "source": "https://raw.githubusercontent.com/intercom/Intercom-OpenAPI/main/descriptions/2.15/api.intercom.io.yaml",
+          "verifiedFields": [
+            "state",
+            "priority",
+            "open",
+            "read",
+            "adminAssigneeId"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "state": [
+              "open",
+              "closed",
+              "snoozed"
+            ],
+            "priority": [
+              "priority",
+              "not_priority"
+            ]
+          },
+          "gaps": [
+            "source",
+            "contacts",
+            "statistics"
+          ]
+        },
+        {
+          "entity": "Company",
+          "source": "https://raw.githubusercontent.com/intercom/Intercom-OpenAPI/main/descriptions/2.15/api.intercom.io.yaml",
+          "verifiedFields": [
+            "name",
+            "industry",
+            "monthlySpend",
+            "size",
+            "companyId"
+          ],
+          "fieldStatus": "confirmed (monthly_spend, company_id)",
+          "discoveredEnums": {},
+          "gaps": [
+            "plan",
+            "segments"
+          ]
+        },
+        {
+          "entity": "Admin",
+          "source": "https://raw.githubusercontent.com/intercom/Intercom-OpenAPI/main/descriptions/2.15/api.intercom.io.yaml",
+          "verifiedFields": [
+            "name",
+            "email",
+            "awayModeEnabled",
+            "hasInboxSeat",
+            "jobTitle"
+          ],
+          "fieldStatus": "confirmed (away_mode_enabled, has_inbox_seat)",
+          "discoveredEnums": {},
+          "gaps": [
+            "team_ids"
+          ]
+        },
+        {
+          "entity": "Article",
+          "source": "https://raw.githubusercontent.com/intercom/Intercom-OpenAPI/main/descriptions/2.15/api.intercom.io.yaml",
+          "verifiedFields": [
+            "title",
+            "body",
+            "state",
+            "authorId"
+          ],
+          "fieldStatus": "confirmed (author_id)",
+          "discoveredEnums": {
+            "state": [
+              "published",
+              "draft"
+            ]
+          },
+          "gaps": [
+            "parent_id",
+            "url"
+          ]
+        },
+        {
+          "entity": "Tag",
+          "source": "https://raw.githubusercontent.com/intercom/Intercom-OpenAPI/main/descriptions/2.15/api.intercom.io.yaml",
+          "verifiedFields": [
+            "name",
+            "appliedAt"
+          ],
+          "fieldStatus": "confirmed (applied_at)",
+          "discoveredEnums": {},
+          "gaps": [
+            "applied_by"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official Intercom OpenAPI v2.15. Enforced enums: Conversation.state, Conversation.priority, Article.state (3)."
+    },
+    {
+      "handle": "monday-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/mondaycom/monday-graphql-api/main/packages/api/lib/generated/sdk.ts",
+      "remodeled": "Remodeled from generic office_productivity to a faithful monday.com model, verified against the official monday-graphql-api SDK types.",
+      "resources": [
+        {
+          "entity": "Board",
+          "source": "https://raw.githubusercontent.com/mondaycom/monday-graphql-api/main/packages/api/lib/generated/sdk.ts",
+          "verifiedFields": [
+            "name",
+            "description",
+            "state",
+            "boardKind",
+            "itemsCount"
+          ],
+          "fieldStatus": "confirmed (board_kind, items_count)",
+          "discoveredEnums": {
+            "state": [
+              "active",
+              "all",
+              "archived",
+              "deleted"
+            ],
+            "boardKind": [
+              "public",
+              "private",
+              "share"
+            ]
+          },
+          "gaps": [
+            "owners",
+            "workspace"
+          ]
+        },
+        {
+          "entity": "Item",
+          "source": "https://raw.githubusercontent.com/mondaycom/monday-graphql-api/main/packages/api/lib/generated/sdk.ts",
+          "verifiedFields": [
+            "name",
+            "email",
+            "creatorId",
+            "state"
+          ],
+          "fieldStatus": "confirmed (creator_id)",
+          "discoveredEnums": {
+            "state": [
+              "active",
+              "all",
+              "archived",
+              "deleted"
+            ]
+          },
+          "gaps": [
+            "column_values",
+            "group"
+          ]
+        },
+        {
+          "entity": "Column",
+          "source": "https://raw.githubusercontent.com/mondaycom/monday-graphql-api/main/packages/api/lib/generated/sdk.ts",
+          "verifiedFields": [
+            "title",
+            "description",
+            "type",
+            "archived",
+            "width"
+          ],
+          "fieldStatus": "confirmed; type is the ColumnType enum (42 members)",
+          "discoveredEnums": {
+            "type": [
+              "auto_number",
+              "board_relation",
+              "button",
+              "checkbox",
+              "color_picker",
+              "country",
+              "creation_log",
+              "date",
+              "dependency",
+              "doc",
+              "dropdown",
+              "email",
+              "file",
+              "formula",
+              "group",
+              "hour",
+              "integration",
+              "item_assignees",
+              "item_id",
+              "last_updated",
+              "link",
+              "location",
+              "long_text",
+              "mirror",
+              "name",
+              "numbers",
+              "people",
+              "person",
+              "phone",
+              "progress",
+              "rating",
+              "status",
+              "subtasks",
+              "tags",
+              "team",
+              "text",
+              "time_tracking",
+              "timeline",
+              "unsupported",
+              "vote",
+              "week",
+              "world_clock"
+            ]
+          },
+          "gaps": [
+            "settings_str"
+          ]
+        },
+        {
+          "entity": "Group",
+          "source": "https://raw.githubusercontent.com/mondaycom/monday-graphql-api/main/packages/api/lib/generated/sdk.ts",
+          "verifiedFields": [
+            "title",
+            "color",
+            "position",
+            "archived"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "deleted",
+            "items"
+          ]
+        },
+        {
+          "entity": "User",
+          "source": "https://raw.githubusercontent.com/mondaycom/monday-graphql-api/main/packages/api/lib/generated/sdk.ts",
+          "verifiedFields": [
+            "name",
+            "email",
+            "enabled",
+            "isAdmin",
+            "isGuest",
+            "countryCode"
+          ],
+          "fieldStatus": "confirmed (is_admin, is_guest, country_code); roles are boolean flags (no UserKind enum)",
+          "discoveredEnums": {},
+          "gaps": [
+            "join_date",
+            "teams"
+          ]
+        },
+        {
+          "entity": "Update",
+          "source": "https://raw.githubusercontent.com/mondaycom/monday-graphql-api/main/packages/api/lib/generated/sdk.ts",
+          "verifiedFields": [
+            "body",
+            "textBody",
+            "creatorId",
+            "itemId"
+          ],
+          "fieldStatus": "confirmed (text_body, creator_id, item_id)",
+          "discoveredEnums": {},
+          "gaps": [
+            "replies",
+            "assets"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official monday GraphQL SDK. Enforced enums: Board.state, Board.boardKind, Item.state, Column.type (4)."
     }
   ]
 }

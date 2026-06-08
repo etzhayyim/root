@@ -7791,12 +7791,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Ticket",
-        "Survey",
-        "Response",
-        "Account",
+        "Contact",
         "Conversation",
-        "Contact"
+        "Company",
+        "Admin",
+        "Article",
+        "Tag"
       ]
     },
     {
@@ -9899,12 +9899,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Workspace",
-        "Document",
-        "Folder",
-        "Comment",
-        "Permission",
-        "User"
+        "Board",
+        "Item",
+        "Column",
+        "Group",
+        "User",
+        "Update"
       ]
     },
     {

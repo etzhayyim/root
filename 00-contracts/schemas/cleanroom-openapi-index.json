@@ -7781,7 +7781,7 @@
     {
       "handle": "intercom-compat",
       "did": "did:web:etzhayyim.com:actor:intercom-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreibrglqzum3ldogxotquxlknsi7y72rfmrnpwdxjhl6wobxfe4sa3a",
@@ -9889,7 +9889,7 @@
     {
       "handle": "monday-compat",
       "did": "did:web:etzhayyim.com:actor:monday-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreibqv2wdd7zlmw2mjhes6f6w2l7tup5mpcacvidjz42kyfw6guaf24",

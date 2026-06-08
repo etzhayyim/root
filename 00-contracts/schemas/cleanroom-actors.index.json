@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 962,
-    "L5": 38
+    "L4": 960,
+    "L5": 40
   },
   "actors": [
     {
@@ -8246,7 +8246,7 @@
       "wasmCid": "bafkreibrglqzum3ldogxotquxlknsi7y72rfmrnpwdxjhl6wobxfe4sa3a",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "intercom clean-room actor",
       "category": "cx_survey",
       "capabilities": [
@@ -10478,7 +10478,7 @@
       "wasmCid": "bafkreibqv2wdd7zlmw2mjhes6f6w2l7tup5mpcacvidjz42kyfw6guaf24",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "monday clean-room actor",
       "category": "office_productivity",
       "capabilities": [

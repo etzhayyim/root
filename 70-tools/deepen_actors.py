@@ -1182,6 +1182,26 @@ PLATFORM_OVERRIDES = {
         "Organization": E(orgName="string", planType="string", groupId="string"),
         "NetworkPeering": E(name="string", accepterAccountId="string", localStatus="string", cloudStatus="string"),
     },
+    # Faithful Intercom model (remodeled from generic cx_survey), L5
+    # (confirmed against the official Intercom OpenAPI v2.15). *_at are unix int.
+    "intercom": {
+        "Contact": E(email="string", phone="string", name="string", role="string", createdAt="integer", signedUpAt="integer"),
+        "Conversation": E(state="string", priority="string", open="boolean", read="boolean", adminAssigneeId="integer"),
+        "Company": E(name="string", industry="string", monthlySpend="integer", size="integer", companyId="string"),
+        "Admin": E(name="string", email="string", awayModeEnabled="boolean", hasInboxSeat="boolean", jobTitle="string"),
+        "Article": E(title="string", body="string", state="string", authorId="integer"),
+        "Tag": E(name="string", appliedAt="integer"),
+    },
+    # Faithful monday.com model (remodeled from generic office_productivity), L5
+    # (confirmed against the official monday-graphql-api SDK types).
+    "monday": {
+        "Board": E(name="string", description="string", state="string", boardKind="string", itemsCount="integer"),
+        "Item": E(name="string", email="string", creatorId="string", state="string"),
+        "Column": E(title="string", description="string", type="string", archived="boolean", width="integer"),
+        "Group": E(title="string", color="string", position="string", archived="boolean"),
+        "User": E(name="string", email="string", enabled="boolean", isAdmin="boolean", isGuest="boolean", countryCode="string"),
+        "Update": E(body="string", textBody="string", creatorId="string", itemId="string"),
+    },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).
     "square": {
