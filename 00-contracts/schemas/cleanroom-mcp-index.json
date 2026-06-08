@@ -3378,7 +3378,7 @@
     {
       "handle": "gitlab-compat",
       "did": "did:web:etzhayyim.com:actor:gitlab-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreih4gxrsiz2pzuirbygdx3v6iecbgb4zbws4x654mb3ktn3jeu3zfe",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -4881,7 +4881,7 @@
     {
       "handle": "mailchimp-compat",
       "did": "did:web:etzhayyim.com:actor:mailchimp-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreihzfxkbuhwlyhgwy7hkkk73h24w6mqjd5sfkjzkxn6xwyzxztfioi",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,

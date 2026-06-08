@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 14,
+  "count": 16,
   "actors": [
     {
       "handle": "square-compat",
@@ -1914,6 +1914,340 @@
         }
       ],
       "note": "6 resource(s) doc-verified; enforced enums: Template.generation"
+    },
+    {
+      "handle": "gitlab-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://docs.gitlab.com/ee/api",
+      "remodeled": "Remodeled from generic devops_ci to a faithful GitLab REST model, then doc-verified (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Project",
+          "source": "https://docs.gitlab.com/ee/api/projects.html",
+          "verifiedFields": [
+            "name",
+            "path",
+            "description",
+            "visibility",
+            "defaultBranch",
+            "archived"
+          ],
+          "fieldStatus": "confirmed (default_branch)",
+          "discoveredEnums": {
+            "visibility": [
+              "private",
+              "internal",
+              "public"
+            ]
+          },
+          "gaps": [
+            "namespace",
+            "star_count",
+            "forks_count"
+          ]
+        },
+        {
+          "entity": "Issue",
+          "source": "https://docs.gitlab.com/ee/api/issues.html",
+          "verifiedFields": [
+            "projectId",
+            "iid",
+            "title",
+            "description",
+            "state",
+            "issueType"
+          ],
+          "fieldStatus": "confirmed (project_id, issue_type)",
+          "discoveredEnums": {
+            "state": [
+              "opened",
+              "closed"
+            ],
+            "issueType": [
+              "issue",
+              "incident",
+              "test_case",
+              "task"
+            ]
+          },
+          "gaps": [
+            "labels",
+            "assignees",
+            "milestone"
+          ]
+        },
+        {
+          "entity": "MergeRequest",
+          "source": "https://docs.gitlab.com/ee/api/merge_requests.html",
+          "verifiedFields": [
+            "projectId",
+            "iid",
+            "title",
+            "state",
+            "sourceBranch",
+            "targetBranch",
+            "sha"
+          ],
+          "fieldStatus": "confirmed (source_branch/target_branch)",
+          "discoveredEnums": {
+            "state": [
+              "opened",
+              "closed",
+              "merged",
+              "locked"
+            ]
+          },
+          "gaps": [
+            "draft",
+            "merge_status",
+            "author"
+          ]
+        },
+        {
+          "entity": "Pipeline",
+          "source": "https://docs.gitlab.com/ee/api/pipelines.html",
+          "verifiedFields": [
+            "projectId",
+            "status",
+            "ref",
+            "sha",
+            "duration"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "created",
+              "waiting_for_resource",
+              "preparing",
+              "pending",
+              "running",
+              "success",
+              "failed",
+              "canceled",
+              "skipped",
+              "manual",
+              "scheduled"
+            ]
+          },
+          "gaps": [
+            "source",
+            "web_url"
+          ]
+        },
+        {
+          "entity": "Job",
+          "source": "https://docs.gitlab.com/ee/api/jobs.html",
+          "verifiedFields": [
+            "name",
+            "status",
+            "stage",
+            "ref"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "canceled",
+              "canceling",
+              "created",
+              "failed",
+              "manual",
+              "pending",
+              "preparing",
+              "running",
+              "scheduled",
+              "skipped",
+              "success",
+              "waiting_for_callback",
+              "waiting_for_resource"
+            ]
+          },
+          "gaps": [
+            "failure_reason",
+            "artifacts"
+          ]
+        },
+        {
+          "entity": "Commit",
+          "source": "https://docs.gitlab.com/ee/api/commits.html",
+          "verifiedFields": [
+            "shortId",
+            "title",
+            "message",
+            "authorName",
+            "authorEmail"
+          ],
+          "fieldStatus": "confirmed (short_id, author_name/email)",
+          "discoveredEnums": {},
+          "gaps": [
+            "committed_date",
+            "stats",
+            "parent_ids"
+          ]
+        }
+      ],
+      "note": "FULLY VERIFIED (6/6): Project/Issue/MergeRequest/Pipeline/Job/Commit vs official GitLab docs. Enforced enums: Project.visibility, Issue.state, Issue.issueType, MergeRequest.state, Pipeline.status, Job.status (6)."
+    },
+    {
+      "handle": "mailchimp-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://mailchimp.com/developer/marketing/api",
+      "remodeled": "Remodeled from generic martech to a faithful Mailchimp Marketing v3 model, then doc-verified (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "List",
+          "source": "https://mailchimp.com/developer/marketing/api/lists/",
+          "verifiedFields": [
+            "name",
+            "permissionReminder",
+            "useArchiveBar",
+            "notifyOnSubscribe",
+            "notifyOnUnsubscribe",
+            "listRating"
+          ],
+          "fieldStatus": "confirmed (permission_reminder, use_archive_bar, list_rating)",
+          "discoveredEnums": {},
+          "gaps": [
+            "contact (object)",
+            "campaign_defaults (object)",
+            "stats"
+          ]
+        },
+        {
+          "entity": "ListMember",
+          "source": "https://mailchimp.com/developer/marketing/api/list-members/",
+          "verifiedFields": [
+            "emailAddress",
+            "emailType",
+            "status",
+            "language",
+            "vip",
+            "memberRating"
+          ],
+          "fieldStatus": "confirmed (email_address, email_type, member_rating)",
+          "discoveredEnums": {
+            "status": [
+              "subscribed",
+              "unsubscribed",
+              "cleaned",
+              "pending",
+              "transactional",
+              "archived"
+            ],
+            "emailType": [
+              "html",
+              "text"
+            ]
+          },
+          "gaps": [
+            "merge_fields (object)",
+            "interests (object)",
+            "tags"
+          ]
+        },
+        {
+          "entity": "Campaign",
+          "source": "https://mailchimp.com/developer/marketing/api/campaigns/",
+          "verifiedFields": [
+            "type",
+            "contentType",
+            "status",
+            "emailTitle"
+          ],
+          "fieldStatus": "confirmed (content_type, email_title)",
+          "discoveredEnums": {
+            "status": [
+              "save",
+              "paused",
+              "schedule",
+              "sending",
+              "sent"
+            ],
+            "type": [
+              "regular",
+              "plaintext",
+              "absplit",
+              "rss",
+              "automation",
+              "variate"
+            ],
+            "contentType": [
+              "html",
+              "template"
+            ]
+          },
+          "gaps": [
+            "recipients (object)",
+            "settings",
+            "tracking (object)"
+          ]
+        },
+        {
+          "entity": "Template",
+          "source": "https://mailchimp.com/developer/marketing/api/templates/",
+          "verifiedFields": [
+            "name",
+            "type",
+            "folderId"
+          ],
+          "fieldStatus": "confirmed (folder_id)",
+          "discoveredEnums": {
+            "type": [
+              "user",
+              "base"
+            ]
+          },
+          "gaps": [
+            "html",
+            "date_created",
+            "active"
+          ]
+        },
+        {
+          "entity": "Segment",
+          "source": "https://mailchimp.com/developer/marketing/api/segments/",
+          "verifiedFields": [
+            "name",
+            "type",
+            "memberCount"
+          ],
+          "fieldStatus": "confirmed (member_count)",
+          "discoveredEnums": {
+            "type": [
+              "static",
+              "fuzzy"
+            ]
+          },
+          "gaps": [
+            "options",
+            "created_at"
+          ]
+        },
+        {
+          "entity": "Automation",
+          "source": "https://mailchimp.com/developer/marketing/api/automation/",
+          "verifiedFields": [
+            "workflowId",
+            "type",
+            "status"
+          ],
+          "fieldStatus": "status confirmed; type values are not a published closed enum -> NOT force-enforced",
+          "discoveredEnums": {
+            "status": [
+              "active",
+              "paused",
+              "archived"
+            ]
+          },
+          "gaps": [
+            "type-enum (inferred only)",
+            "trigger_settings (object)",
+            "recipients (object)"
+          ]
+        }
+      ],
+      "note": "FULLY VERIFIED (6/6): List/ListMember/Campaign/Template/Segment/Automation vs official Mailchimp docs. Enforced enums: ListMember.status, ListMember.emailType, Campaign.status, Campaign.type, Campaign.contentType, Template.type, Segment.type, Automation.status (8)."
     }
   ]
 }

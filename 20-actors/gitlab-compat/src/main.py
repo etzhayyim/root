@@ -111,86 +111,247 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/repositories", methods=["POST"])
-def create_repository(request):
-    """Create a Repository."""
+@app.route("/v1/projects", methods=["POST"])
+def create_project(request):
+    """Create a Project."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'owner', 'defaultBranch', 'private'])
+    err = _reject_unknown(data, ['name', 'path', 'description', 'visibility', 'defaultBranch', 'archived'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'owner'])
+    err = _require(data, ['name', 'path'])
     if err:
         return err, 400
-    rec = {"id": new_id("gitlab_rep")}
+    if data.get('visibility') and data['visibility'] not in ['private', 'internal', 'public']:
+        return {"error": {"message": "invalid visibility; allowed: " + ", ".join(['private', 'internal', 'public']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("gitlab_pro")}
     rec["name"] = data.get('name')
-    rec["owner"] = data.get('owner')
+    rec["path"] = data.get('path')
+    rec["description"] = data.get('description')
+    rec["visibility"] = data.get('visibility')
     rec["defaultBranch"] = data.get('defaultBranch')
-    rec["private"] = _as_bool(data.get('private'))
+    rec["archived"] = _as_bool(data.get('archived'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Repository", rec)
+    _persist("Project", rec)
     return rec, 201
 
-@app.route("/v1/repositories", methods=["GET"])
-def list_repositories(request):
-    """List Repositories with filtering + cursor pagination."""
+@app.route("/v1/projects", methods=["GET"])
+def list_projects(request):
+    """List Projects with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Repository")
-    rows = _apply_filters(rows, params, ['name', 'owner', 'defaultBranch', 'private'])
+    rows = _query("Project")
+    rows = _apply_filters(rows, params, ['name', 'path', 'description', 'visibility', 'defaultBranch', 'archived'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/repositories/<eid>", methods=["GET"])
-def get_repository(request, eid):
-    """Retrieve a Repository by id (supports ?expand=)."""
-    rows = _query("Repository", eid)
+@app.route("/v1/projects/<eid>", methods=["GET"])
+def get_project(request, eid):
+    """Retrieve a Project by id (supports ?expand=)."""
+    rows = _query("Project", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/repositories/<eid>", methods=["POST", "PATCH"])
-def update_repository(request, eid):
-    """Update a Repository."""
-    rows = _query("Repository", eid)
+@app.route("/v1/projects/<eid>", methods=["POST", "PATCH"])
+def update_project(request, eid):
+    """Update a Project."""
+    rows = _query("Project", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'owner', 'defaultBranch', 'private'])
+    err = _reject_unknown(data, ['name', 'path', 'description', 'visibility', 'defaultBranch', 'archived'])
     if err:
         return err, 400
+    if data.get('visibility') and data['visibility'] not in ['private', 'internal', 'public']:
+        return {"error": {"message": "invalid visibility; allowed: " + ", ".join(['private', 'internal', 'public']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Repository", rec)
+    _persist("Project", rec)
     return rec, 200
 
-@app.route("/v1/repositories/<eid>", methods=["DELETE"])
-def delete_repository(request, eid):
-    """Delete a Repository."""
-    rows = _query("Repository", eid)
+@app.route("/v1/projects/<eid>", methods=["DELETE"])
+def delete_project(request, eid):
+    """Delete a Project."""
+    rows = _query("Project", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"gitlab.Repository", "id": eid})
+    db.retract({"entity": f"gitlab.Project", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/issues", methods=["POST"])
+def create_issue(request):
+    """Create a Issue."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['projectId', 'iid', 'title', 'description', 'state', 'issueType'])
+    if err:
+        return err, 400
+    err = _require(data, ['iid', 'title'])
+    if err:
+        return err, 400
+    if data.get('state') and data['state'] not in ['opened', 'closed']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['opened', 'closed']), "type": "invalid_request_error"}}, 400
+    if data.get('issueType') and data['issueType'] not in ['issue', 'incident', 'test_case', 'task']:
+        return {"error": {"message": "invalid issueType; allowed: " + ", ".join(['issue', 'incident', 'test_case', 'task']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("gitlab_iss")}
+    rec["projectId"] = _as_int(data.get('projectId'))
+    rec["iid"] = _as_int(data.get('iid'))
+    rec["title"] = data.get('title')
+    rec["description"] = data.get('description')
+    rec["state"] = data.get('state')
+    rec["issueType"] = data.get('issueType')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Issue", rec)
+    return rec, 201
+
+@app.route("/v1/issues", methods=["GET"])
+def list_issues(request):
+    """List Issues with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Issue")
+    rows = _apply_filters(rows, params, ['projectId', 'iid', 'title', 'description', 'state', 'issueType'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/issues/<eid>", methods=["GET"])
+def get_issue(request, eid):
+    """Retrieve a Issue by id (supports ?expand=)."""
+    rows = _query("Issue", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'projectId': 'Project'})
+    return rec, 200
+
+@app.route("/v1/issues/<eid>", methods=["POST", "PATCH"])
+def update_issue(request, eid):
+    """Update a Issue."""
+    rows = _query("Issue", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['projectId', 'iid', 'title', 'description', 'state', 'issueType'])
+    if err:
+        return err, 400
+    if data.get('state') and data['state'] not in ['opened', 'closed']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['opened', 'closed']), "type": "invalid_request_error"}}, 400
+    if data.get('issueType') and data['issueType'] not in ['issue', 'incident', 'test_case', 'task']:
+        return {"error": {"message": "invalid issueType; allowed: " + ", ".join(['issue', 'incident', 'test_case', 'task']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Issue", rec)
+    return rec, 200
+
+@app.route("/v1/issues/<eid>", methods=["DELETE"])
+def delete_issue(request, eid):
+    """Delete a Issue."""
+    rows = _query("Issue", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"gitlab.Issue", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/mergerequests", methods=["POST"])
+def create_merge_request(request):
+    """Create a MergeRequest."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['projectId', 'iid', 'title', 'state', 'sourceBranch', 'targetBranch', 'sha'])
+    if err:
+        return err, 400
+    err = _require(data, ['iid', 'title'])
+    if err:
+        return err, 400
+    if data.get('state') and data['state'] not in ['opened', 'closed', 'merged', 'locked']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['opened', 'closed', 'merged', 'locked']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("gitlab_mer")}
+    rec["projectId"] = _as_int(data.get('projectId'))
+    rec["iid"] = _as_int(data.get('iid'))
+    rec["title"] = data.get('title')
+    rec["state"] = data.get('state')
+    rec["sourceBranch"] = data.get('sourceBranch')
+    rec["targetBranch"] = data.get('targetBranch')
+    rec["sha"] = data.get('sha')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("MergeRequest", rec)
+    return rec, 201
+
+@app.route("/v1/mergerequests", methods=["GET"])
+def list_merge_requests(request):
+    """List MergeRequests with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("MergeRequest")
+    rows = _apply_filters(rows, params, ['projectId', 'iid', 'title', 'state', 'sourceBranch', 'targetBranch', 'sha'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/mergerequests/<eid>", methods=["GET"])
+def get_merge_request(request, eid):
+    """Retrieve a MergeRequest by id (supports ?expand=)."""
+    rows = _query("MergeRequest", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'projectId': 'Project'})
+    return rec, 200
+
+@app.route("/v1/mergerequests/<eid>", methods=["POST", "PATCH"])
+def update_merge_request(request, eid):
+    """Update a MergeRequest."""
+    rows = _query("MergeRequest", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['projectId', 'iid', 'title', 'state', 'sourceBranch', 'targetBranch', 'sha'])
+    if err:
+        return err, 400
+    if data.get('state') and data['state'] not in ['opened', 'closed', 'merged', 'locked']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['opened', 'closed', 'merged', 'locked']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("MergeRequest", rec)
+    return rec, 200
+
+@app.route("/v1/mergerequests/<eid>", methods=["DELETE"])
+def delete_merge_request(request, eid):
+    """Delete a MergeRequest."""
+    rows = _query("MergeRequest", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"gitlab.MergeRequest", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/v1/pipelines", methods=["POST"])
 def create_pipeline(request):
     """Create a Pipeline."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['repoId', 'name', 'trigger'])
+    err = _reject_unknown(data, ['projectId', 'status', 'ref', 'sha', 'duration'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'trigger'])
+    err = _require(data, ['status', 'ref'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['created', 'waiting_for_resource', 'preparing', 'pending', 'running', 'success', 'failed', 'canceled', 'skipped', 'manual', 'scheduled']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['created', 'waiting_for_resource', 'preparing', 'pending', 'running', 'success', 'failed', 'canceled', 'skipped', 'manual', 'scheduled']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("gitlab_pip")}
-    rec["repoId"] = data.get('repoId')
-    rec["name"] = data.get('name')
-    rec["trigger"] = data.get('trigger')
+    rec["projectId"] = _as_int(data.get('projectId'))
+    rec["status"] = data.get('status')
+    rec["ref"] = data.get('ref')
+    rec["sha"] = data.get('sha')
+    rec["duration"] = _as_int(data.get('duration'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Pipeline", rec)
@@ -201,7 +362,7 @@ def list_pipelines(request):
     """List Pipelines with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Pipeline")
-    rows = _apply_filters(rows, params, ['repoId', 'name', 'trigger'])
+    rows = _apply_filters(rows, params, ['projectId', 'status', 'ref', 'sha', 'duration'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -213,6 +374,7 @@ def get_pipeline(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'projectId': 'Project'})
     return rec, 200
 
 @app.route("/v1/pipelines/<eid>", methods=["POST", "PATCH"])
@@ -222,9 +384,11 @@ def update_pipeline(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['repoId', 'name', 'trigger'])
+    err = _reject_unknown(data, ['projectId', 'status', 'ref', 'sha', 'duration'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['created', 'waiting_for_resource', 'preparing', 'pending', 'running', 'success', 'failed', 'canceled', 'skipped', 'manual', 'scheduled']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['created', 'waiting_for_resource', 'preparing', 'pending', 'running', 'success', 'failed', 'canceled', 'skipped', 'manual', 'scheduled']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -242,254 +406,124 @@ def delete_pipeline(request, eid):
     db.retract({"entity": f"gitlab.Pipeline", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/builds", methods=["POST"])
-def create_build(request):
-    """Create a Build."""
+@app.route("/v1/jobs", methods=["POST"])
+def create_job(request):
+    """Create a Job."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pipelineId', 'number', 'status', 'commitSha', 'durationMs'])
+    err = _reject_unknown(data, ['name', 'status', 'stage', 'ref'])
     if err:
         return err, 400
-    err = _require(data, ['number', 'status'])
+    err = _require(data, ['name', 'status'])
     if err:
         return err, 400
-    rec = {"id": new_id("gitlab_bui")}
-    rec["pipelineId"] = data.get('pipelineId')
-    rec["number"] = _as_int(data.get('number'))
-    rec["status"] = data.get('status')
-    rec["commitSha"] = data.get('commitSha')
-    rec["durationMs"] = _as_int(data.get('durationMs'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Build", rec)
-    return rec, 201
-
-@app.route("/v1/builds", methods=["GET"])
-def list_builds(request):
-    """List Builds with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Build")
-    rows = _apply_filters(rows, params, ['pipelineId', 'number', 'status', 'commitSha', 'durationMs'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/builds/<eid>", methods=["GET"])
-def get_build(request, eid):
-    """Retrieve a Build by id (supports ?expand=)."""
-    rows = _query("Build", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'pipelineId': 'Pipeline'})
-    return rec, 200
-
-@app.route("/v1/builds/<eid>", methods=["POST", "PATCH"])
-def update_build(request, eid):
-    """Update a Build."""
-    rows = _query("Build", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pipelineId', 'number', 'status', 'commitSha', 'durationMs'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Build", rec)
-    return rec, 200
-
-@app.route("/v1/builds/<eid>", methods=["DELETE"])
-def delete_build(request, eid):
-    """Delete a Build."""
-    rows = _query("Build", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"gitlab.Build", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/artifacts", methods=["POST"])
-def create_artifact(request):
-    """Create a Artifact."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['buildId', 'name', 'sizeBytes', 'contentRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'sizeBytes'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("gitlab_art")}
-    rec["buildId"] = data.get('buildId')
+    if data.get('status') and data['status'] not in ['canceled', 'canceling', 'created', 'failed', 'manual', 'pending', 'preparing', 'running', 'scheduled', 'skipped', 'success', 'waiting_for_callback', 'waiting_for_resource']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['canceled', 'canceling', 'created', 'failed', 'manual', 'pending', 'preparing', 'running', 'scheduled', 'skipped', 'success', 'waiting_for_callback', 'waiting_for_resource']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("gitlab_job")}
     rec["name"] = data.get('name')
-    rec["sizeBytes"] = _as_int(data.get('sizeBytes'))
-    rec["contentRef"] = data.get('contentRef')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Artifact", rec)
-    return rec, 201
-
-@app.route("/v1/artifacts", methods=["GET"])
-def list_artifacts(request):
-    """List Artifacts with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Artifact")
-    rows = _apply_filters(rows, params, ['buildId', 'name', 'sizeBytes', 'contentRef'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/artifacts/<eid>", methods=["GET"])
-def get_artifact(request, eid):
-    """Retrieve a Artifact by id (supports ?expand=)."""
-    rows = _query("Artifact", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'buildId': 'Build'})
-    return rec, 200
-
-@app.route("/v1/artifacts/<eid>", methods=["POST", "PATCH"])
-def update_artifact(request, eid):
-    """Update a Artifact."""
-    rows = _query("Artifact", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['buildId', 'name', 'sizeBytes', 'contentRef'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Artifact", rec)
-    return rec, 200
-
-@app.route("/v1/artifacts/<eid>", methods=["DELETE"])
-def delete_artifact(request, eid):
-    """Delete a Artifact."""
-    rows = _query("Artifact", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"gitlab.Artifact", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/deployments", methods=["POST"])
-def create_deployment(request):
-    """Create a Deployment."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['buildId', 'environment', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['environment', 'status'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("gitlab_dep")}
-    rec["buildId"] = data.get('buildId')
-    rec["environment"] = data.get('environment')
     rec["status"] = data.get('status')
+    rec["stage"] = data.get('stage')
+    rec["ref"] = data.get('ref')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Deployment", rec)
+    _persist("Job", rec)
     return rec, 201
 
-@app.route("/v1/deployments", methods=["GET"])
-def list_deployments(request):
-    """List Deployments with filtering + cursor pagination."""
+@app.route("/v1/jobs", methods=["GET"])
+def list_jobs(request):
+    """List Jobs with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Deployment")
-    rows = _apply_filters(rows, params, ['buildId', 'environment', 'status'])
+    rows = _query("Job")
+    rows = _apply_filters(rows, params, ['name', 'status', 'stage', 'ref'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/deployments/<eid>", methods=["GET"])
-def get_deployment(request, eid):
-    """Retrieve a Deployment by id (supports ?expand=)."""
-    rows = _query("Deployment", eid)
+@app.route("/v1/jobs/<eid>", methods=["GET"])
+def get_job(request, eid):
+    """Retrieve a Job by id (supports ?expand=)."""
+    rows = _query("Job", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'buildId': 'Build'})
     return rec, 200
 
-@app.route("/v1/deployments/<eid>", methods=["POST", "PATCH"])
-def update_deployment(request, eid):
-    """Update a Deployment."""
-    rows = _query("Deployment", eid)
+@app.route("/v1/jobs/<eid>", methods=["POST", "PATCH"])
+def update_job(request, eid):
+    """Update a Job."""
+    rows = _query("Job", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['buildId', 'environment', 'status'])
+    err = _reject_unknown(data, ['name', 'status', 'stage', 'ref'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['canceled', 'canceling', 'created', 'failed', 'manual', 'pending', 'preparing', 'running', 'scheduled', 'skipped', 'success', 'waiting_for_callback', 'waiting_for_resource']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['canceled', 'canceling', 'created', 'failed', 'manual', 'pending', 'preparing', 'running', 'scheduled', 'skipped', 'success', 'waiting_for_callback', 'waiting_for_resource']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Deployment", rec)
+    _persist("Job", rec)
     return rec, 200
 
-@app.route("/v1/deployments/<eid>", methods=["DELETE"])
-def delete_deployment(request, eid):
-    """Delete a Deployment."""
-    rows = _query("Deployment", eid)
+@app.route("/v1/jobs/<eid>", methods=["DELETE"])
+def delete_job(request, eid):
+    """Delete a Job."""
+    rows = _query("Job", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"gitlab.Deployment", "id": eid})
+    db.retract({"entity": f"gitlab.Job", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/webhooks", methods=["POST"])
-def create_webhook(request):
-    """Create a Webhook."""
+@app.route("/v1/commits", methods=["POST"])
+def create_commit(request):
+    """Create a Commit."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['repoId', 'url', 'event', 'active'])
+    err = _reject_unknown(data, ['shortId', 'title', 'message', 'authorName', 'authorEmail'])
     if err:
         return err, 400
-    err = _require(data, ['url', 'event'])
+    err = _require(data, ['title', 'message'])
     if err:
         return err, 400
-    rec = {"id": new_id("gitlab_web")}
-    rec["repoId"] = data.get('repoId')
-    rec["url"] = data.get('url')
-    rec["event"] = data.get('event')
-    rec["active"] = _as_bool(data.get('active'))
+    rec = {"id": new_id("gitlab_com")}
+    rec["shortId"] = data.get('shortId')
+    rec["title"] = data.get('title')
+    rec["message"] = data.get('message')
+    rec["authorName"] = data.get('authorName')
+    rec["authorEmail"] = data.get('authorEmail')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Webhook", rec)
+    _persist("Commit", rec)
     return rec, 201
 
-@app.route("/v1/webhooks", methods=["GET"])
-def list_webhooks(request):
-    """List Webhooks with filtering + cursor pagination."""
+@app.route("/v1/commits", methods=["GET"])
+def list_commits(request):
+    """List Commits with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Webhook")
-    rows = _apply_filters(rows, params, ['repoId', 'url', 'event', 'active'])
+    rows = _query("Commit")
+    rows = _apply_filters(rows, params, ['shortId', 'title', 'message', 'authorName', 'authorEmail'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["GET"])
-def get_webhook(request, eid):
-    """Retrieve a Webhook by id (supports ?expand=)."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/commits/<eid>", methods=["GET"])
+def get_commit(request, eid):
+    """Retrieve a Commit by id (supports ?expand=)."""
+    rows = _query("Commit", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["POST", "PATCH"])
-def update_webhook(request, eid):
-    """Update a Webhook."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/commits/<eid>", methods=["POST", "PATCH"])
+def update_commit(request, eid):
+    """Update a Commit."""
+    rows = _query("Commit", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['repoId', 'url', 'event', 'active'])
+    err = _reject_unknown(data, ['shortId', 'title', 'message', 'authorName', 'authorEmail'])
     if err:
         return err, 400
     rec = rows[0]
@@ -497,22 +531,22 @@ def update_webhook(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Webhook", rec)
+    _persist("Commit", rec)
     return rec, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["DELETE"])
-def delete_webhook(request, eid):
-    """Delete a Webhook."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/commits/<eid>", methods=["DELETE"])
+def delete_commit(request, eid):
+    """Delete a Commit."""
+    rows = _query("Commit", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"gitlab.Webhook", "id": eid})
+    db.retract({"entity": f"gitlab.Commit", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "gitlab-compat", "tier": "L4",
-            "entities": ['Repository', 'Pipeline', 'Build', 'Artifact', 'Deployment', 'Webhook']}, 200
+            "entities": ['Project', 'Issue', 'MergeRequest', 'Pipeline', 'Job', 'Commit']}, 200
 
 
 if __name__ == "__main__":

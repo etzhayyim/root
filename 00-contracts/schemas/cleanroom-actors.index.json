@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 986,
-    "L5": 14
+    "L4": 984,
+    "L5": 16
   },
   "actors": [
     {
@@ -6752,7 +6752,7 @@
       "wasmCid": "bafkreih4gxrsiz2pzuirbygdx3v6iecbgb4zbws4x654mb3ktn3jeu3zfe",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "gitlab clean-room actor",
       "category": "devops_ci",
       "capabilities": [
@@ -9758,7 +9758,7 @@
       "wasmCid": "bafkreihzfxkbuhwlyhgwy7hkkk73h24w6mqjd5sfkjzkxn6xwyzxztfioi",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "mailchimp clean-room actor",
       "category": "martech",
       "capabilities": [

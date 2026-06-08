@@ -3,70 +3,65 @@
 
 namespace mailchimp {
 
+    entity List {
+        id: string @unique
+        name: string
+        permissionReminder: string
+        useArchiveBar: boolean
+        notifyOnSubscribe: boolean
+        notifyOnUnsubscribe: boolean
+        listRating: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity ListMember {
+        id: string @unique
+        emailAddress: string
+        emailType: string
+        status: string
+        language: string
+        vip: boolean
+        memberRating: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
     entity Campaign {
         id: string @unique
-        name: string
-        channel: string
+        type: string
+        contentType: string
         status: string
-        budget: float
+        emailTitle: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Audience {
+    entity Template {
         id: string @unique
         name: string
-        size: integer
-        definition: string
+        type: string
+        folderId: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Event {
+    entity Segment {
         id: string @unique
-        profileId: string
         name: string
-        properties: string
-        occurredAt: datetime
+        type: string
+        memberCount: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Profile {
+    entity Automation {
         id: string @unique
-        email: string
-        externalId: string
-        traits: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Message {
-        id: string @unique
-        campaignId: string
-        profileId: string
-        channel: string
+        workflowId: string
+        type: string
         status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Funnel {
-        id: string @unique
-        name: string
-        steps: string
-        conversionRate: float
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

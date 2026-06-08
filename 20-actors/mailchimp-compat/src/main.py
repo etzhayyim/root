@@ -111,21 +111,171 @@ def _expand(rec, params, refs):
     return rec
 
 
+@app.route("/v1/lists", methods=["POST"])
+def create_list(request):
+    """Create a List."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'permissionReminder', 'useArchiveBar', 'notifyOnSubscribe', 'notifyOnUnsubscribe', 'listRating'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'permissionReminder'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("mailchim_lis")}
+    rec["name"] = data.get('name')
+    rec["permissionReminder"] = data.get('permissionReminder')
+    rec["useArchiveBar"] = _as_bool(data.get('useArchiveBar'))
+    rec["notifyOnSubscribe"] = _as_bool(data.get('notifyOnSubscribe'))
+    rec["notifyOnUnsubscribe"] = _as_bool(data.get('notifyOnUnsubscribe'))
+    rec["listRating"] = _as_int(data.get('listRating'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("List", rec)
+    return rec, 201
+
+@app.route("/v1/lists", methods=["GET"])
+def list_lists(request):
+    """List Lists with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("List")
+    rows = _apply_filters(rows, params, ['name', 'permissionReminder', 'useArchiveBar', 'notifyOnSubscribe', 'notifyOnUnsubscribe', 'listRating'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/lists/<eid>", methods=["GET"])
+def get_list(request, eid):
+    """Retrieve a List by id (supports ?expand=)."""
+    rows = _query("List", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/lists/<eid>", methods=["POST", "PATCH"])
+def update_list(request, eid):
+    """Update a List."""
+    rows = _query("List", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'permissionReminder', 'useArchiveBar', 'notifyOnSubscribe', 'notifyOnUnsubscribe', 'listRating'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("List", rec)
+    return rec, 200
+
+@app.route("/v1/lists/<eid>", methods=["DELETE"])
+def delete_list(request, eid):
+    """Delete a List."""
+    rows = _query("List", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"mailchimp.List", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/listmembers", methods=["POST"])
+def create_list_member(request):
+    """Create a ListMember."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['emailAddress', 'emailType', 'status', 'language', 'vip', 'memberRating'])
+    if err:
+        return err, 400
+    err = _require(data, ['emailAddress', 'emailType'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['subscribed', 'unsubscribed', 'cleaned', 'pending', 'transactional', 'archived']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['subscribed', 'unsubscribed', 'cleaned', 'pending', 'transactional', 'archived']), "type": "invalid_request_error"}}, 400
+    if data.get('emailType') and data['emailType'] not in ['html', 'text']:
+        return {"error": {"message": "invalid emailType; allowed: " + ", ".join(['html', 'text']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("mailchim_lis")}
+    rec["emailAddress"] = data.get('emailAddress')
+    rec["emailType"] = data.get('emailType')
+    rec["status"] = data.get('status')
+    rec["language"] = data.get('language')
+    rec["vip"] = _as_bool(data.get('vip'))
+    rec["memberRating"] = _as_int(data.get('memberRating'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("ListMember", rec)
+    return rec, 201
+
+@app.route("/v1/listmembers", methods=["GET"])
+def list_list_members(request):
+    """List ListMembers with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("ListMember")
+    rows = _apply_filters(rows, params, ['emailAddress', 'emailType', 'status', 'language', 'vip', 'memberRating'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/listmembers/<eid>", methods=["GET"])
+def get_list_member(request, eid):
+    """Retrieve a ListMember by id (supports ?expand=)."""
+    rows = _query("ListMember", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/listmembers/<eid>", methods=["POST", "PATCH"])
+def update_list_member(request, eid):
+    """Update a ListMember."""
+    rows = _query("ListMember", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['emailAddress', 'emailType', 'status', 'language', 'vip', 'memberRating'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['subscribed', 'unsubscribed', 'cleaned', 'pending', 'transactional', 'archived']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['subscribed', 'unsubscribed', 'cleaned', 'pending', 'transactional', 'archived']), "type": "invalid_request_error"}}, 400
+    if data.get('emailType') and data['emailType'] not in ['html', 'text']:
+        return {"error": {"message": "invalid emailType; allowed: " + ", ".join(['html', 'text']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("ListMember", rec)
+    return rec, 200
+
+@app.route("/v1/listmembers/<eid>", methods=["DELETE"])
+def delete_list_member(request, eid):
+    """Delete a ListMember."""
+    rows = _query("ListMember", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"mailchimp.ListMember", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
 @app.route("/v1/campaigns", methods=["POST"])
 def create_campaign(request):
     """Create a Campaign."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'channel', 'status', 'budget'])
+    err = _reject_unknown(data, ['type', 'contentType', 'status', 'emailTitle'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'channel'])
+    err = _require(data, ['type', 'contentType'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['save', 'paused', 'schedule', 'sending', 'sent']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['save', 'paused', 'schedule', 'sending', 'sent']), "type": "invalid_request_error"}}, 400
+    if data.get('type') and data['type'] not in ['regular', 'plaintext', 'absplit', 'rss', 'automation', 'variate']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['regular', 'plaintext', 'absplit', 'rss', 'automation', 'variate']), "type": "invalid_request_error"}}, 400
+    if data.get('contentType') and data['contentType'] not in ['html', 'template']:
+        return {"error": {"message": "invalid contentType; allowed: " + ", ".join(['html', 'template']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("mailchim_cam")}
-    rec["name"] = data.get('name')
-    rec["channel"] = data.get('channel')
+    rec["type"] = data.get('type')
+    rec["contentType"] = data.get('contentType')
     rec["status"] = data.get('status')
-    rec["budget"] = _as_float(data.get('budget'))
+    rec["emailTitle"] = data.get('emailTitle')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Campaign", rec)
@@ -136,7 +286,7 @@ def list_campaigns(request):
     """List Campaigns with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Campaign")
-    rows = _apply_filters(rows, params, ['name', 'channel', 'status', 'budget'])
+    rows = _apply_filters(rows, params, ['type', 'contentType', 'status', 'emailTitle'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -157,9 +307,15 @@ def update_campaign(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'channel', 'status', 'budget'])
+    err = _reject_unknown(data, ['type', 'contentType', 'status', 'emailTitle'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['save', 'paused', 'schedule', 'sending', 'sent']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['save', 'paused', 'schedule', 'sending', 'sent']), "type": "invalid_request_error"}}, 400
+    if data.get('type') and data['type'] not in ['regular', 'plaintext', 'absplit', 'rss', 'automation', 'variate']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['regular', 'plaintext', 'absplit', 'rss', 'automation', 'variate']), "type": "invalid_request_error"}}, 400
+    if data.get('contentType') and data['contentType'] not in ['html', 'template']:
+        return {"error": {"message": "invalid contentType; allowed: " + ", ".join(['html', 'template']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -177,339 +333,217 @@ def delete_campaign(request, eid):
     db.retract({"entity": f"mailchimp.Campaign", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/audiences", methods=["POST"])
-def create_audience(request):
-    """Create a Audience."""
+@app.route("/v1/templates", methods=["POST"])
+def create_template(request):
+    """Create a Template."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'size', 'definition'])
+    err = _reject_unknown(data, ['name', 'type', 'folderId'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'size'])
+    err = _require(data, ['name', 'type'])
     if err:
         return err, 400
-    rec = {"id": new_id("mailchim_aud")}
+    if data.get('type') and data['type'] not in ['user', 'base']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['user', 'base']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("mailchim_tem")}
     rec["name"] = data.get('name')
-    rec["size"] = _as_int(data.get('size'))
-    rec["definition"] = data.get('definition')
+    rec["type"] = data.get('type')
+    rec["folderId"] = data.get('folderId')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Audience", rec)
+    _persist("Template", rec)
     return rec, 201
 
-@app.route("/v1/audiences", methods=["GET"])
-def list_audiences(request):
-    """List Audiences with filtering + cursor pagination."""
+@app.route("/v1/templates", methods=["GET"])
+def list_templates(request):
+    """List Templates with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Audience")
-    rows = _apply_filters(rows, params, ['name', 'size', 'definition'])
+    rows = _query("Template")
+    rows = _apply_filters(rows, params, ['name', 'type', 'folderId'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/audiences/<eid>", methods=["GET"])
-def get_audience(request, eid):
-    """Retrieve a Audience by id (supports ?expand=)."""
-    rows = _query("Audience", eid)
+@app.route("/v1/templates/<eid>", methods=["GET"])
+def get_template(request, eid):
+    """Retrieve a Template by id (supports ?expand=)."""
+    rows = _query("Template", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/audiences/<eid>", methods=["POST", "PATCH"])
-def update_audience(request, eid):
-    """Update a Audience."""
-    rows = _query("Audience", eid)
+@app.route("/v1/templates/<eid>", methods=["POST", "PATCH"])
+def update_template(request, eid):
+    """Update a Template."""
+    rows = _query("Template", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'size', 'definition'])
+    err = _reject_unknown(data, ['name', 'type', 'folderId'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in ['user', 'base']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['user', 'base']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Audience", rec)
+    _persist("Template", rec)
     return rec, 200
 
-@app.route("/v1/audiences/<eid>", methods=["DELETE"])
-def delete_audience(request, eid):
-    """Delete a Audience."""
-    rows = _query("Audience", eid)
+@app.route("/v1/templates/<eid>", methods=["DELETE"])
+def delete_template(request, eid):
+    """Delete a Template."""
+    rows = _query("Template", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mailchimp.Audience", "id": eid})
+    db.retract({"entity": f"mailchimp.Template", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/events", methods=["POST"])
-def create_event(request):
-    """Create a Event."""
+@app.route("/v1/segments", methods=["POST"])
+def create_segment(request):
+    """Create a Segment."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['profileId', 'name', 'properties', 'occurredAt'])
+    err = _reject_unknown(data, ['name', 'type', 'memberCount'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'properties'])
+    err = _require(data, ['name', 'type'])
     if err:
         return err, 400
-    rec = {"id": new_id("mailchim_eve")}
-    rec["profileId"] = data.get('profileId')
+    if data.get('type') and data['type'] not in ['static', 'fuzzy']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['static', 'fuzzy']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("mailchim_seg")}
     rec["name"] = data.get('name')
-    rec["properties"] = data.get('properties')
-    rec["occurredAt"] = data.get('occurredAt')
+    rec["type"] = data.get('type')
+    rec["memberCount"] = _as_int(data.get('memberCount'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Event", rec)
+    _persist("Segment", rec)
     return rec, 201
 
-@app.route("/v1/events", methods=["GET"])
-def list_events(request):
-    """List Events with filtering + cursor pagination."""
+@app.route("/v1/segments", methods=["GET"])
+def list_segments(request):
+    """List Segments with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Event")
-    rows = _apply_filters(rows, params, ['profileId', 'name', 'properties', 'occurredAt'])
+    rows = _query("Segment")
+    rows = _apply_filters(rows, params, ['name', 'type', 'memberCount'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/events/<eid>", methods=["GET"])
-def get_event(request, eid):
-    """Retrieve a Event by id (supports ?expand=)."""
-    rows = _query("Event", eid)
+@app.route("/v1/segments/<eid>", methods=["GET"])
+def get_segment(request, eid):
+    """Retrieve a Segment by id (supports ?expand=)."""
+    rows = _query("Segment", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'profileId': 'Profile'})
     return rec, 200
 
-@app.route("/v1/events/<eid>", methods=["POST", "PATCH"])
-def update_event(request, eid):
-    """Update a Event."""
-    rows = _query("Event", eid)
+@app.route("/v1/segments/<eid>", methods=["POST", "PATCH"])
+def update_segment(request, eid):
+    """Update a Segment."""
+    rows = _query("Segment", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['profileId', 'name', 'properties', 'occurredAt'])
+    err = _reject_unknown(data, ['name', 'type', 'memberCount'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in ['static', 'fuzzy']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['static', 'fuzzy']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Event", rec)
+    _persist("Segment", rec)
     return rec, 200
 
-@app.route("/v1/events/<eid>", methods=["DELETE"])
-def delete_event(request, eid):
-    """Delete a Event."""
-    rows = _query("Event", eid)
+@app.route("/v1/segments/<eid>", methods=["DELETE"])
+def delete_segment(request, eid):
+    """Delete a Segment."""
+    rows = _query("Segment", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mailchimp.Event", "id": eid})
+    db.retract({"entity": f"mailchimp.Segment", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/profiles", methods=["POST"])
-def create_profile(request):
-    """Create a Profile."""
+@app.route("/v1/automations", methods=["POST"])
+def create_automation(request):
+    """Create a Automation."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'externalId', 'traits'])
+    err = _reject_unknown(data, ['workflowId', 'type', 'status'])
     if err:
         return err, 400
-    err = _require(data, ['email', 'traits'])
+    err = _require(data, ['type', 'status'])
     if err:
         return err, 400
-    rec = {"id": new_id("mailchim_pro")}
-    rec["email"] = data.get('email')
-    rec["externalId"] = data.get('externalId')
-    rec["traits"] = data.get('traits')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Profile", rec)
-    return rec, 201
-
-@app.route("/v1/profiles", methods=["GET"])
-def list_profiles(request):
-    """List Profiles with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Profile")
-    rows = _apply_filters(rows, params, ['email', 'externalId', 'traits'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/profiles/<eid>", methods=["GET"])
-def get_profile(request, eid):
-    """Retrieve a Profile by id (supports ?expand=)."""
-    rows = _query("Profile", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/profiles/<eid>", methods=["POST", "PATCH"])
-def update_profile(request, eid):
-    """Update a Profile."""
-    rows = _query("Profile", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'externalId', 'traits'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Profile", rec)
-    return rec, 200
-
-@app.route("/v1/profiles/<eid>", methods=["DELETE"])
-def delete_profile(request, eid):
-    """Delete a Profile."""
-    rows = _query("Profile", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mailchimp.Profile", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/messages", methods=["POST"])
-def create_message(request):
-    """Create a Message."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['campaignId', 'profileId', 'channel', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['channel', 'status'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("mailchim_mes")}
-    rec["campaignId"] = data.get('campaignId')
-    rec["profileId"] = data.get('profileId')
-    rec["channel"] = data.get('channel')
+    if data.get('status') and data['status'] not in ['active', 'paused', 'archived']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['active', 'paused', 'archived']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("mailchim_aut")}
+    rec["workflowId"] = data.get('workflowId')
+    rec["type"] = data.get('type')
     rec["status"] = data.get('status')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Message", rec)
+    _persist("Automation", rec)
     return rec, 201
 
-@app.route("/v1/messages", methods=["GET"])
-def list_messages(request):
-    """List Messages with filtering + cursor pagination."""
+@app.route("/v1/automations", methods=["GET"])
+def list_automations(request):
+    """List Automations with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Message")
-    rows = _apply_filters(rows, params, ['campaignId', 'profileId', 'channel', 'status'])
+    rows = _query("Automation")
+    rows = _apply_filters(rows, params, ['workflowId', 'type', 'status'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/messages/<eid>", methods=["GET"])
-def get_message(request, eid):
-    """Retrieve a Message by id (supports ?expand=)."""
-    rows = _query("Message", eid)
+@app.route("/v1/automations/<eid>", methods=["GET"])
+def get_automation(request, eid):
+    """Retrieve a Automation by id (supports ?expand=)."""
+    rows = _query("Automation", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'campaignId': 'Campaign', 'profileId': 'Profile'})
     return rec, 200
 
-@app.route("/v1/messages/<eid>", methods=["POST", "PATCH"])
-def update_message(request, eid):
-    """Update a Message."""
-    rows = _query("Message", eid)
+@app.route("/v1/automations/<eid>", methods=["POST", "PATCH"])
+def update_automation(request, eid):
+    """Update a Automation."""
+    rows = _query("Automation", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['campaignId', 'profileId', 'channel', 'status'])
+    err = _reject_unknown(data, ['workflowId', 'type', 'status'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['active', 'paused', 'archived']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['active', 'paused', 'archived']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Message", rec)
+    _persist("Automation", rec)
     return rec, 200
 
-@app.route("/v1/messages/<eid>", methods=["DELETE"])
-def delete_message(request, eid):
-    """Delete a Message."""
-    rows = _query("Message", eid)
+@app.route("/v1/automations/<eid>", methods=["DELETE"])
+def delete_automation(request, eid):
+    """Delete a Automation."""
+    rows = _query("Automation", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mailchimp.Message", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/funnels", methods=["POST"])
-def create_funnel(request):
-    """Create a Funnel."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'steps', 'conversionRate'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'steps'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("mailchim_fun")}
-    rec["name"] = data.get('name')
-    rec["steps"] = data.get('steps')
-    rec["conversionRate"] = _as_float(data.get('conversionRate'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Funnel", rec)
-    return rec, 201
-
-@app.route("/v1/funnels", methods=["GET"])
-def list_funnels(request):
-    """List Funnels with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Funnel")
-    rows = _apply_filters(rows, params, ['name', 'steps', 'conversionRate'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/funnels/<eid>", methods=["GET"])
-def get_funnel(request, eid):
-    """Retrieve a Funnel by id (supports ?expand=)."""
-    rows = _query("Funnel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/funnels/<eid>", methods=["POST", "PATCH"])
-def update_funnel(request, eid):
-    """Update a Funnel."""
-    rows = _query("Funnel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'steps', 'conversionRate'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Funnel", rec)
-    return rec, 200
-
-@app.route("/v1/funnels/<eid>", methods=["DELETE"])
-def delete_funnel(request, eid):
-    """Delete a Funnel."""
-    rows = _query("Funnel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mailchimp.Funnel", "id": eid})
+    db.retract({"entity": f"mailchimp.Automation", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "mailchimp-compat", "tier": "L4",
-            "entities": ['Campaign', 'Audience', 'Event', 'Profile', 'Message', 'Funnel']}, 200
+            "entities": ['List', 'ListMember', 'Campaign', 'Template', 'Segment', 'Automation']}, 200
 
 
 if __name__ == "__main__":

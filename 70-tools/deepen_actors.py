@@ -964,6 +964,24 @@ PLATFORM_OVERRIDES = {
         "UnsubscribeGroup": E(name="string", description="string", isDefault="boolean"),
         "Sender": E(nickname="string", fromEmail="string", fromName="string", verified="boolean"),
     },
+    # Faithful GitLab model (remodeled from generic devops_ci), doc-verified L5.
+    "gitlab": {
+        "Project": E(name="string", path="string", description="string", visibility="string", defaultBranch="string", archived="boolean"),
+        "Issue": E(projectId="integer", iid="integer", title="string", description="string", state="string", issueType="string"),
+        "MergeRequest": E(projectId="integer", iid="integer", title="string", state="string", sourceBranch="string", targetBranch="string", sha="string"),
+        "Pipeline": E(projectId="integer", status="string", ref="string", sha="string", duration="integer"),
+        "Job": E(name="string", status="string", stage="string", ref="string"),
+        "Commit": E(shortId="string", title="string", message="string", authorName="string", authorEmail="string"),
+    },
+    # Faithful Mailchimp Marketing model (remodeled from generic martech), L5.
+    "mailchimp": {
+        "List": E(name="string", permissionReminder="string", useArchiveBar="boolean", notifyOnSubscribe="boolean", notifyOnUnsubscribe="boolean", listRating="integer"),
+        "ListMember": E(emailAddress="string", emailType="string", status="string", language="string", vip="boolean", memberRating="integer"),
+        "Campaign": E(type="string", contentType="string", status="string", emailTitle="string"),
+        "Template": E(name="string", type="string", folderId="string"),
+        "Segment": E(name="string", type="string", memberCount="integer"),
+        "Automation": E(workflowId="string", type="string", status="string"),
+    },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).
     "square": {

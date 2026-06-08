@@ -11,15 +11,87 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreih4gxrsiz2pzuirbygdx3v6iecbgb4zbws4x654mb3ktn3jeu3zfe",
   "schema": "schema/gitlab.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://docs.gitlab.com/ee/api",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "Project",
+      "Issue",
+      "MergeRequest",
+      "Pipeline",
+      "Job",
+      "Commit"
+    ],
+    "enums": {
+      "Project": {
+        "visibility": [
+          "private",
+          "internal",
+          "public"
+        ]
+      },
+      "Issue": {
+        "state": [
+          "opened",
+          "closed"
+        ],
+        "issueType": [
+          "issue",
+          "incident",
+          "test_case",
+          "task"
+        ]
+      },
+      "MergeRequest": {
+        "state": [
+          "opened",
+          "closed",
+          "merged",
+          "locked"
+        ]
+      },
+      "Pipeline": {
+        "status": [
+          "created",
+          "waiting_for_resource",
+          "preparing",
+          "pending",
+          "running",
+          "success",
+          "failed",
+          "canceled",
+          "skipped",
+          "manual",
+          "scheduled"
+        ]
+      },
+      "Job": {
+        "status": [
+          "canceled",
+          "canceling",
+          "created",
+          "failed",
+          "manual",
+          "pending",
+          "preparing",
+          "running",
+          "scheduled",
+          "skipped",
+          "success",
+          "waiting_for_callback",
+          "waiting_for_resource"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Repository",
+    "Project",
+    "Issue",
+    "MergeRequest",
     "Pipeline",
-    "Build",
-    "Artifact",
-    "Deployment",
-    "Webhook"
+    "Job",
+    "Commit"
   ],
   "adr": [
     "260607",
@@ -35,28 +107,78 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/repositories",
-          "op": "create Repository"
+          "path": "/v1/projects",
+          "op": "create Project"
         },
         {
           "method": "GET",
-          "path": "/v1/repositories",
-          "op": "list Repository"
+          "path": "/v1/projects",
+          "op": "list Project"
         },
         {
           "method": "GET",
-          "path": "/v1/repositories/{id}",
-          "op": "get Repository"
+          "path": "/v1/projects/{id}",
+          "op": "get Project"
         },
         {
           "method": "PATCH",
-          "path": "/v1/repositories/{id}",
-          "op": "update Repository"
+          "path": "/v1/projects/{id}",
+          "op": "update Project"
         },
         {
           "method": "DELETE",
-          "path": "/v1/repositories/{id}",
-          "op": "delete Repository"
+          "path": "/v1/projects/{id}",
+          "op": "delete Project"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/issues",
+          "op": "create Issue"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/issues",
+          "op": "list Issue"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/issues/{id}",
+          "op": "get Issue"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/issues/{id}",
+          "op": "update Issue"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/issues/{id}",
+          "op": "delete Issue"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/mergerequests",
+          "op": "create MergeRequest"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/mergerequests",
+          "op": "list MergeRequest"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/mergerequests/{id}",
+          "op": "get MergeRequest"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/mergerequests/{id}",
+          "op": "update MergeRequest"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/mergerequests/{id}",
+          "op": "delete MergeRequest"
         },
         {
           "method": "POST",
@@ -85,103 +207,53 @@
         },
         {
           "method": "POST",
-          "path": "/v1/builds",
-          "op": "create Build"
+          "path": "/v1/jobs",
+          "op": "create Job"
         },
         {
           "method": "GET",
-          "path": "/v1/builds",
-          "op": "list Build"
+          "path": "/v1/jobs",
+          "op": "list Job"
         },
         {
           "method": "GET",
-          "path": "/v1/builds/{id}",
-          "op": "get Build"
+          "path": "/v1/jobs/{id}",
+          "op": "get Job"
         },
         {
           "method": "PATCH",
-          "path": "/v1/builds/{id}",
-          "op": "update Build"
+          "path": "/v1/jobs/{id}",
+          "op": "update Job"
         },
         {
           "method": "DELETE",
-          "path": "/v1/builds/{id}",
-          "op": "delete Build"
+          "path": "/v1/jobs/{id}",
+          "op": "delete Job"
         },
         {
           "method": "POST",
-          "path": "/v1/artifacts",
-          "op": "create Artifact"
+          "path": "/v1/commits",
+          "op": "create Commit"
         },
         {
           "method": "GET",
-          "path": "/v1/artifacts",
-          "op": "list Artifact"
+          "path": "/v1/commits",
+          "op": "list Commit"
         },
         {
           "method": "GET",
-          "path": "/v1/artifacts/{id}",
-          "op": "get Artifact"
+          "path": "/v1/commits/{id}",
+          "op": "get Commit"
         },
         {
           "method": "PATCH",
-          "path": "/v1/artifacts/{id}",
-          "op": "update Artifact"
+          "path": "/v1/commits/{id}",
+          "op": "update Commit"
         },
         {
           "method": "DELETE",
-          "path": "/v1/artifacts/{id}",
-          "op": "delete Artifact"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/deployments",
-          "op": "create Deployment"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/deployments",
-          "op": "list Deployment"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/deployments/{id}",
-          "op": "get Deployment"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/deployments/{id}",
-          "op": "update Deployment"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/deployments/{id}",
-          "op": "delete Deployment"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/webhooks",
-          "op": "create Webhook"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/webhooks",
-          "op": "list Webhook"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/webhooks/{id}",
-          "op": "get Webhook"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/webhooks/{id}",
-          "op": "update Webhook"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/webhooks/{id}",
-          "op": "delete Webhook"
+          "path": "/v1/commits/{id}",
+          "op": "delete Commit"
         }
       ],
       "features": {
@@ -247,41 +319,47 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_repository",
-          "description": "Create a Repository.",
+          "name": "create_project",
+          "description": "Create a Project.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "owner": {
+              "path": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "visibility": {
                 "type": "string"
               },
               "defaultBranch": {
                 "type": "string"
               },
-              "private": {
+              "archived": {
                 "type": "boolean"
               }
             },
             "required": [
               "name",
-              "owner"
+              "path"
             ]
           }
         },
         {
-          "name": "list_repositories",
-          "description": "List Repositories.",
+          "name": "list_projects",
+          "description": "List Projects.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_repository",
-          "description": "Get a Repository by id.",
+          "name": "get_project",
+          "description": "Get a Project by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,8 +373,8 @@
           }
         },
         {
-          "name": "update_repository",
-          "description": "Update a Repository.",
+          "name": "update_project",
+          "description": "Update a Project.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -306,13 +384,19 @@
               "name": {
                 "type": "string"
               },
-              "owner": {
+              "path": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "visibility": {
                 "type": "string"
               },
               "defaultBranch": {
                 "type": "string"
               },
-              "private": {
+              "archived": {
                 "type": "boolean"
               }
             },
@@ -322,8 +406,218 @@
           }
         },
         {
-          "name": "delete_repository",
-          "description": "Delete a Repository.",
+          "name": "delete_project",
+          "description": "Delete a Project.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_issue",
+          "description": "Create a Issue.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "projectId": {
+                "type": "integer"
+              },
+              "iid": {
+                "type": "integer"
+              },
+              "title": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "issueType": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "iid",
+              "title"
+            ]
+          }
+        },
+        {
+          "name": "list_issues",
+          "description": "List Issues.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_issue",
+          "description": "Get a Issue by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_issue",
+          "description": "Update a Issue.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "projectId": {
+                "type": "integer"
+              },
+              "iid": {
+                "type": "integer"
+              },
+              "title": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "issueType": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_issue",
+          "description": "Delete a Issue.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_merge_request",
+          "description": "Create a MergeRequest.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "projectId": {
+                "type": "integer"
+              },
+              "iid": {
+                "type": "integer"
+              },
+              "title": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "sourceBranch": {
+                "type": "string"
+              },
+              "targetBranch": {
+                "type": "string"
+              },
+              "sha": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "iid",
+              "title"
+            ]
+          }
+        },
+        {
+          "name": "list_merge_requests",
+          "description": "List MergeRequests.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_merge_request",
+          "description": "Get a MergeRequest by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_merge_request",
+          "description": "Update a MergeRequest.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "projectId": {
+                "type": "integer"
+              },
+              "iid": {
+                "type": "integer"
+              },
+              "title": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "sourceBranch": {
+                "type": "string"
+              },
+              "targetBranch": {
+                "type": "string"
+              },
+              "sha": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_merge_request",
+          "description": "Delete a MergeRequest.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -342,19 +636,25 @@
           "inputSchema": {
             "type": "object",
             "properties": {
-              "repoId": {
+              "projectId": {
+                "type": "integer"
+              },
+              "status": {
                 "type": "string"
               },
-              "name": {
+              "ref": {
                 "type": "string"
               },
-              "trigger": {
+              "sha": {
                 "type": "string"
+              },
+              "duration": {
+                "type": "integer"
               }
             },
             "required": [
-              "name",
-              "trigger"
+              "status",
+              "ref"
             ]
           }
         },
@@ -390,14 +690,20 @@
               "id": {
                 "type": "string"
               },
-              "repoId": {
+              "projectId": {
+                "type": "integer"
+              },
+              "status": {
                 "type": "string"
               },
-              "name": {
+              "ref": {
                 "type": "string"
               },
-              "trigger": {
+              "sha": {
                 "type": "string"
+              },
+              "duration": {
+                "type": "integer"
               }
             },
             "required": [
@@ -421,224 +727,41 @@
           }
         },
         {
-          "name": "create_build",
-          "description": "Create a Build.",
+          "name": "create_job",
+          "description": "Create a Job.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "pipelineId": {
-                "type": "string"
-              },
-              "number": {
-                "type": "integer"
-              },
-              "status": {
-                "type": "string"
-              },
-              "commitSha": {
-                "type": "string"
-              },
-              "durationMs": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "number",
-              "status"
-            ]
-          }
-        },
-        {
-          "name": "list_builds",
-          "description": "List Builds.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_build",
-          "description": "Get a Build by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_build",
-          "description": "Update a Build.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "pipelineId": {
-                "type": "string"
-              },
-              "number": {
-                "type": "integer"
-              },
-              "status": {
-                "type": "string"
-              },
-              "commitSha": {
-                "type": "string"
-              },
-              "durationMs": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_build",
-          "description": "Delete a Build.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_artifact",
-          "description": "Create a Artifact.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "buildId": {
-                "type": "string"
-              },
               "name": {
                 "type": "string"
               },
-              "sizeBytes": {
-                "type": "integer"
+              "status": {
+                "type": "string"
               },
-              "contentRef": {
+              "stage": {
+                "type": "string"
+              },
+              "ref": {
                 "type": "string"
               }
             },
             "required": [
               "name",
-              "sizeBytes"
-            ]
-          }
-        },
-        {
-          "name": "list_artifacts",
-          "description": "List Artifacts.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_artifact",
-          "description": "Get a Artifact by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_artifact",
-          "description": "Update a Artifact.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "buildId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "sizeBytes": {
-                "type": "integer"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_artifact",
-          "description": "Delete a Artifact.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_deployment",
-          "description": "Create a Deployment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "buildId": {
-                "type": "string"
-              },
-              "environment": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "environment",
               "status"
             ]
           }
         },
         {
-          "name": "list_deployments",
-          "description": "List Deployments.",
+          "name": "list_jobs",
+          "description": "List Jobs.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_deployment",
-          "description": "Get a Deployment by id.",
+          "name": "get_job",
+          "description": "Get a Job by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -652,22 +775,25 @@
           }
         },
         {
-          "name": "update_deployment",
-          "description": "Update a Deployment.",
+          "name": "update_job",
+          "description": "Update a Job.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "buildId": {
-                "type": "string"
-              },
-              "environment": {
+              "name": {
                 "type": "string"
               },
               "status": {
                 "type": "string"
+              },
+              "stage": {
+                "type": "string"
+              },
+              "ref": {
+                "type": "string"
               }
             },
             "required": [
@@ -676,8 +802,8 @@
           }
         },
         {
-          "name": "delete_deployment",
-          "description": "Delete a Deployment.",
+          "name": "delete_job",
+          "description": "Delete a Job.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -691,41 +817,44 @@
           }
         },
         {
-          "name": "create_webhook",
-          "description": "Create a Webhook.",
+          "name": "create_commit",
+          "description": "Create a Commit.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "repoId": {
+              "shortId": {
                 "type": "string"
               },
-              "url": {
+              "title": {
                 "type": "string"
               },
-              "event": {
+              "message": {
                 "type": "string"
               },
-              "active": {
-                "type": "boolean"
+              "authorName": {
+                "type": "string"
+              },
+              "authorEmail": {
+                "type": "string"
               }
             },
             "required": [
-              "url",
-              "event"
+              "title",
+              "message"
             ]
           }
         },
         {
-          "name": "list_webhooks",
-          "description": "List Webhooks.",
+          "name": "list_commits",
+          "description": "List Commits.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_webhook",
-          "description": "Get a Webhook by id.",
+          "name": "get_commit",
+          "description": "Get a Commit by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -739,25 +868,28 @@
           }
         },
         {
-          "name": "update_webhook",
-          "description": "Update a Webhook.",
+          "name": "update_commit",
+          "description": "Update a Commit.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "repoId": {
+              "shortId": {
                 "type": "string"
               },
-              "url": {
+              "title": {
                 "type": "string"
               },
-              "event": {
+              "message": {
                 "type": "string"
               },
-              "active": {
-                "type": "boolean"
+              "authorName": {
+                "type": "string"
+              },
+              "authorEmail": {
+                "type": "string"
               }
             },
             "required": [
@@ -766,8 +898,8 @@
           }
         },
         {
-          "name": "delete_webhook",
-          "description": "Delete a Webhook.",
+          "name": "delete_commit",
+          "description": "Delete a Commit.",
           "inputSchema": {
             "type": "object",
             "properties": {

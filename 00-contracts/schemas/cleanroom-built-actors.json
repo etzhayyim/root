@@ -6383,12 +6383,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Repository",
+        "Project",
+        "Issue",
+        "MergeRequest",
         "Pipeline",
-        "Build",
-        "Artifact",
-        "Deployment",
-        "Webhook"
+        "Job",
+        "Commit"
       ]
     },
     {
@@ -9222,12 +9222,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
+        "List",
+        "ListMember",
         "Campaign",
-        "Audience",
-        "Event",
-        "Profile",
-        "Message",
-        "Funnel"
+        "Template",
+        "Segment",
+        "Automation"
       ]
     },
     {
