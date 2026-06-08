@@ -39,6 +39,13 @@
       "input": "data/products.merged.kotoba.edn (or data/seed-products.kotoba.edn)",
       "output": ["out/intel-report.md", "out/product-criticality.kotoba.edn"],
       "pipeline": "classify → recursive BOM material-closure → material dependence → processing-jurisdiction load → ultimate-parent rollup (子会社) → single-source/high-criticality edges (aggregate-first)"
+    },
+    {
+      "id": "cell:uchiwake.crosscheck",
+      "method": "methods/crosscheck.py",
+      "input": "data/seed-products.kotoba.edn + 20-actors/kabuto/data/seed-public-companies.kotoba.edn",
+      "output": ["stdout report / --json summary"],
+      "pipeline": "collect every company reference (brand-owner/supplier/operator/carrier/ownership) → resolve against kabuto's ingested company universe → measured linkage % + 子会社 ultimate-parent rollup recovery → honest unresolved (not-yet-ingested) gap. Measures integration, does not assert it."
     }
   ],
   "lexiconNamespaces": [

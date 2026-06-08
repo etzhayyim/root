@@ -64,6 +64,10 @@
 - `cell:uchiwake.analyze` → `methods/analyze.py` (stdlib). recursive BOM material-closure →
   material dependence → processing-jurisdiction load → ultimate-parent rollup (子会社) →
   single-source/high-criticality edges. Aggregate-first. Idempotent.
+- `cell:uchiwake.crosscheck` → `methods/crosscheck.py` (stdlib). resolves every uchiwake company
+  reference (brand-owner/supplier/operator/carrier/ownership) against kabuto's ingested company
+  universe → MEASURED linkage % + 子会社 rollup recovery + honest not-yet-ingested gap. Measures
+  cross-actor supply-chain integration; does not assert it.
 
 ## Run
 
@@ -78,10 +82,13 @@ python3 -m unittest tests.test_uchiwake -v   # 15 tests
 
 ## Honesty (R0)
 
-Bounded illustrative seed of **6 products** (2 with real public GTINs — Coca-Cola 330ml
-`5449000000996`, Nutella 750g `3017620422003`), **10 parts**, **19 materials**, **29 BOM edges**,
-**8 process steps**, **5 logistics legs**, **4 design refs**, **3 ownership edges** — **not**
-exhaustive coverage and **not** an authoritative recipe. GTINs are validated by GS1 mod-10 check
+Bounded illustrative seed of **7 products** (real public GTINs: Coca-Cola 330ml `5449000000996`,
+Nutella 750g `3017620422003` `:authoritative`; KitKat `7613035044289` `:representative`), **10
+parts**, **23 materials**, **33 BOM edges**, **8 process steps**, **5 logistics legs**, **4 design
+refs**, **3 ownership edges** — **not** exhaustive coverage and **not** an authoritative recipe.
+Brand-owners / suppliers / operators / carriers wire to REAL kabuto companies (Apple, Foxconn, BYD,
+CATL, Maersk, Nestlé, Fast Retailing, TSMC, SK hynix, Kioxia, Sony); `crosscheck.py` reports the
+measured linkage (~71% of distinct company refs resolve into kabuto's universe). GTINs are validated by GS1 mod-10 check
 digit; decompositions are `:representative` public-teardown/label estimates. "Register ALL trade
 items" is the **R1** goal — full GS1 GDSN / GLEIF-RR / Open Product Data universe ingest (hundreds
 of millions of GTINs) is **G7** Council + operator gated. Live atproto posting is **G11** (later).

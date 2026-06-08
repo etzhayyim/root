@@ -14,6 +14,7 @@ from uchiwake_edn import (  # noqa: E402
     load_edn, classify, normalize_gtin, gtin_check_digit_ok,
 )
 import analyze as A  # noqa: E402
+import crosscheck as X  # noqa: E402
 
 SEED = ROOT / "data" / "seed-products.kotoba.edn"
 SCHEMA = ROOT.parent.parent / "00-contracts" / "schemas" / "product-bom-ontology.kotoba.edn"
@@ -128,6 +129,39 @@ class TestAnalyzeRuns(unittest.TestCase):
         md, _ = A.analyze(SEED)
         self.assertIn("RESILIENCE", md)
         self.assertNotIn("target-list,", md.replace("never a target-list", ""))
+
+
+class TestCrosscheck(unittest.TestCase):
+    def setUp(self):
+        self.s = X.crosscheck()
+
+    def test_kabuto_seed_resolves(self):
+        """The kabuto seed must be findable and non-trivial for the crosscheck to mean anything."""
+        self.assertTrue(self.s['kabuto_available'])
+        self.assertGreater(self.s['kabuto_company_count'], 1000)
+
+    def test_linkage_is_measured_and_bounded(self):
+        self.assertGreaterEqual(self.s['linkage_pct'], 0.0)
+        self.assertLessEqual(self.s['linkage_pct'], 100.0)
+        # real wiring exists: brand-owner/supplier/operator/carrier link to real kabuto ids
+        self.assertGreater(self.s['distinct_resolved'], 0)
+
+    def test_subsidiary_rollup_recovers_a_link(self):
+        """G5/子会社: sony-semicon is absent from kabuto but its ultimate parent sony resolves."""
+        recovered = {r['ref'] for r in self.s['rollup_recovered']}
+        self.assertIn("org.corp.jp.sony-semicon", recovered)
+
+    def test_unresolved_are_reported_not_hidden(self):
+        # honest gap surfacing: Coca-Cola / Ferrero are not in the kabuto seed
+        self.assertIn("org.corp.us.coca-cola", self.s['unresolved'])
+
+
+class TestExpandedSeed(unittest.TestCase):
+    def test_milk_powder_reachable_from_kitkat(self):
+        g = classify(load_edn(SEED))
+        idx = A._bom_children_index(g['bom'])
+        mats = A._all_materials_reachable("gtin.07613035044289", idx)
+        self.assertIn("mat.milk-powder", mats)
 
 
 if __name__ == '__main__':

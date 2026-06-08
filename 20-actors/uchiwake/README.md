@@ -35,12 +35,14 @@ and Council + operator gated (G7).
 ```bash
 python3 methods/ingest.py            # offline bridge + seed (live = G7-gated)
 python3 methods/analyze.py            # resilience report + derived concentration datoms
+python3 methods/crosscheck.py         # measured uchiwake ⇄ kabuto coverage linkage
 python3 -m unittest tests.test_uchiwake -v
 ```
 
 ## Honesty (R0)
 
-6 products (2 real public GTINs), 10 parts, 19 materials, 29 BOM edges, 8 process steps, 5
-logistics legs, 4 design refs, 3 ownership edges. `:representative` decompositions, GS1
+7 products (3 real GTINs; 2 `:authoritative`), 10 parts, 23 materials, 33 BOM edges, 8 process
+steps, 5 logistics legs, 4 design refs, 3 ownership edges. `:representative` decompositions, GS1
 check-digit-validated GTINs, bounded criticality estimates — never an authoritative recipe or a
-contract figure. See `CLAUDE.md` for the full gate list.
+contract figure. Company refs wire to REAL kabuto companies; `crosscheck.py` measures the linkage
+(~71%) and honestly reports the not-yet-ingested gap. See `CLAUDE.md` for the full gate list.

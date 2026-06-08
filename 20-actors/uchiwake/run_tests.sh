@@ -8,3 +8,5 @@ echo "== ingest (offline) =="
 python3 methods/ingest.py
 echo "== analyze (seed) =="
 python3 methods/analyze.py >/dev/null && echo "analyze OK → out/intel-report.md"
+echo "== crosscheck (uchiwake ⇄ kabuto) =="
+python3 methods/crosscheck.py | grep -E "linkage|companies"

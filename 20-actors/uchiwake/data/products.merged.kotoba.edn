@@ -39,6 +39,10 @@
  {:material/id "mat.water"         :material/name "Water"                :material/kind :chemical     :material/sourcing :representative}
  {:material/id "mat.co2"           :material/name "Carbon dioxide (food grade)" :material/kind :chemical :material/hs-code "2811" :material/sourcing :representative}
  {:material/id "mat.paracetamol-api" :material/name "Paracetamol (acetaminophen) API" :material/kind :chemical :material/hs-code "2924" :material/sourcing :representative}
+ {:material/id "mat.milk-powder"   :material/name "Skim milk powder"     :material/kind :agricultural :material/hs-code "0402" :material/sourcing :representative}
+ {:material/id "mat.steel"         :material/name "Steel"                :material/kind :metal        :material/hs-code "7208" :material/unspsc "11101704" :material/sourcing :representative}
+ {:material/id "mat.pet"           :material/name "PET (polyethylene terephthalate)" :material/kind :polymer :material/hs-code "3907" :material/sourcing :representative}
+ {:material/id "mat.neodymium"     :material/name "Neodymium (NdFeB magnet)" :material/kind :mineral   :material/hs-code "2846" :material/sourcing :representative}
 
  ;; ═══════════════════════════════ PARTS (sub-assemblies / components) ═══════════════════════════
  {:part/id "part.soc"              :part/name "System-on-Chip (application processor)" :part/kind :component :part/unspsc "32101604" :part/sourcing :representative}
@@ -66,18 +70,26 @@
   :product/unspsc "50161900" :product/hs-code "1806" :product/net-content 750.0 :product/net-content-unit "g"
   :product/sourcing :authoritative}
  ;; Flagship smartphone — GTIN withheld (varies by SKU/region); identity & teardown :representative.
+ ;; brand-owner + assembler wired to REAL kabuto companies (Apple / Foxconn).
  {:product/id "prod.smartphone-flagship" :product/name "Flagship smartphone (representative teardown)"
-  :product/brand "(representative)" :product/brand-owner "org.corp.kr.samsung-electronics"
+  :product/brand "(representative)" :product/brand-owner "org.corp.us.apple"
   :product/sector :electronics :product/unspsc "43191501" :product/hs-code "8517"
   :product/sourcing :representative}
- ;; EV traction battery pack — representative composition (NMC chemistry teardown).
+ ;; EV traction battery pack — representative composition (NMC chemistry teardown); brand-owner BYD.
  {:product/id "prod.ev-battery-pack" :product/name "EV traction battery pack (NMC, representative)"
-  :product/brand "(representative)" :product/sector :automotive :product/unspsc "26111714"
-  :product/hs-code "8507" :product/sourcing :representative}
- ;; Cotton T-shirt — representative apparel chain (ties to hataori 機織).
+  :product/brand "(representative)" :product/brand-owner "org.corp.cn.byd"
+  :product/sector :automotive :product/unspsc "26111714" :product/hs-code "8507" :product/sourcing :representative}
+ ;; Cotton T-shirt — representative apparel chain (ties to hataori 機織); brand-owner Fast Retailing.
  {:product/id "prod.cotton-tshirt" :product/name "Cotton T-shirt (representative)"
-  :product/brand "(representative)" :product/sector :apparel :product/unspsc "53102516"
-  :product/hs-code "6109" :product/sourcing :representative}
+  :product/brand "(representative)" :product/brand-owner "org.corp.jp.fast-retailing"
+  :product/sector :apparel :product/unspsc "53102516" :product/hs-code "6109" :product/sourcing :representative}
+ ;; KitKat 4-finger — Nestlé; GTIN 7613035044289 structurally valid (GS1 mod-10), product↔GTIN
+ ;; binding :representative pending GS1 GDSN authoritative lookup (R1).
+ {:product/id "gtin.07613035044289" :product/gtin "07613035044289" :product/gtin-format :gtin-13
+  :product/name "KitKat 4-finger" :product/brand "KitKat" :product/brand-owner "org.corp.ch.nestle"
+  :product/gs1-prefix "761" :product/gs1-prefix-country "CH" :product/sector :food-beverage
+  :product/unspsc "50161900" :product/hs-code "1806" :product/net-content 41.5 :product/net-content-unit "g"
+  :product/sourcing :representative}
  ;; Paracetamol 500mg tablet — representative OTC pharma chain.
  {:product/id "prod.paracetamol-500" :product/name "Paracetamol 500mg tablet (representative)"
   :product/brand "(representative)" :product/sector :pharma :product/unspsc "51142003"
@@ -111,7 +123,12 @@
  {:bom.edge/id "bom.cell.gr"      :bom.edge/parent "part.li-ion-cell" :bom.edge/child "mat.graphite" :bom.edge/qty 16.0 :bom.edge/qty-unit "%mass" :bom.edge/tier 2 :bom.edge/criticality 0.8 :bom.edge/sourcing :representative}
  {:bom.edge/id "bom.cell.cu"      :bom.edge/parent "part.li-ion-cell" :bom.edge/child "mat.copper"   :bom.edge/qty 8.0 :bom.edge/qty-unit "%mass" :bom.edge/tier 2 :bom.edge/criticality 0.4 :bom.edge/sourcing :representative}
  ;; EV battery pack → cells + BMS
- {:bom.edge/id "bom.ev.cells"     :bom.edge/parent "prod.ev-battery-pack" :bom.edge/child "part.li-ion-cell" :bom.edge/qty 4000.0 :bom.edge/qty-unit "unit" :bom.edge/tier 1 :bom.edge/criticality 0.7 :bom.edge/sourcing :representative}
+ {:bom.edge/id "bom.ev.cells"     :bom.edge/parent "prod.ev-battery-pack" :bom.edge/child "part.li-ion-cell" :bom.edge/qty 4000.0 :bom.edge/qty-unit "unit" :bom.edge/tier 1 :bom.edge/supplier "org.corp.cn.catl" :bom.edge/criticality 0.7 :bom.edge/sourcing :representative}
+ ;; KitKat → ingredients (cocoa/sugar/palm-oil/milk-powder)
+ {:bom.edge/id "bom.kk.cocoa"     :bom.edge/parent "gtin.07613035044289" :bom.edge/child "mat.cocoa"    :bom.edge/qty 18.0 :bom.edge/qty-unit "%mass" :bom.edge/tier 1 :bom.edge/criticality 0.6 :bom.edge/sourcing :representative}
+ {:bom.edge/id "bom.kk.sugar"     :bom.edge/parent "gtin.07613035044289" :bom.edge/child "mat.sugar"    :bom.edge/qty 47.0 :bom.edge/qty-unit "%mass" :bom.edge/tier 1 :bom.edge/criticality 0.2 :bom.edge/sourcing :representative}
+ {:bom.edge/id "bom.kk.palm"      :bom.edge/parent "gtin.07613035044289" :bom.edge/child "mat.palm-oil" :bom.edge/qty 12.0 :bom.edge/qty-unit "%mass" :bom.edge/tier 1 :bom.edge/criticality 0.6 :bom.edge/sourcing :representative}
+ {:bom.edge/id "bom.kk.milk"      :bom.edge/parent "gtin.07613035044289" :bom.edge/child "mat.milk-powder" :bom.edge/qty 15.0 :bom.edge/qty-unit "%mass" :bom.edge/tier 1 :bom.edge/criticality 0.4 :bom.edge/sourcing :representative}
  {:bom.edge/id "bom.ev.bms"       :bom.edge/parent "prod.ev-battery-pack" :bom.edge/child "part.bms"          :bom.edge/qty 1.0 :bom.edge/qty-unit "unit" :bom.edge/tier 1 :bom.edge/criticality 0.6 :bom.edge/sourcing :representative}
  ;; T-shirt → fabric → fibre
  {:bom.edge/id "bom.tshirt.fab"   :bom.edge/parent "prod.cotton-tshirt" :bom.edge/child "part.woven-fabric" :bom.edge/qty 1.0 :bom.edge/qty-unit "unit" :bom.edge/tier 1 :bom.edge/criticality 0.3 :bom.edge/sourcing :representative}
@@ -124,7 +141,7 @@
  ;; ═══════════════════════════════ PROCESS STEPS (transformation) ══════════════════════════════════
  {:process.step/id "proc.poly-refine" :process.step/name "Polysilicon refining" :process.step/kind :refining :process.step/of "mat.silicon" :process.step/country "CN" :process.step/seq 1 :process.step/sourcing :representative}
  {:process.step/id "proc.wafer-fab"   :process.step/name "Wafer fabrication" :process.step/kind :fabrication :process.step/of "part.soc" :process.step/operator "org.corp.tw.tsmc" :process.step/country "TW" :process.step/seq 2 :process.step/sourcing :representative}
- {:process.step/id "proc.phone-asm"   :process.step/name "Final phone assembly" :process.step/kind :assembly :process.step/of "prod.smartphone-flagship" :process.step/country "CN" :process.step/seq 3 :process.step/sourcing :representative}
+ {:process.step/id "proc.phone-asm"   :process.step/name "Final phone assembly" :process.step/kind :assembly :process.step/of "prod.smartphone-flagship" :process.step/operator "org.corp.tw.foxconn" :process.step/country "CN" :process.step/seq 3 :process.step/sourcing :representative}
  {:process.step/id "proc.cotton-gin"  :process.step/name "Ginning" :process.step/kind :extraction :process.step/of "mat.cotton-fibre" :process.step/country "IN" :process.step/seq 1 :process.step/sourcing :representative}
  {:process.step/id "proc.spin-weave"  :process.step/name "Spinning + weaving" :process.step/kind :fabrication :process.step/of "part.woven-fabric" :process.step/country "BD" :process.step/seq 2 :process.step/sourcing :representative}
  {:process.step/id "proc.cmt"         :process.step/name "Cut-make-trim" :process.step/kind :assembly :process.step/of "prod.cotton-tshirt" :process.step/country "VN" :process.step/seq 3 :process.step/sourcing :representative}
@@ -134,8 +151,8 @@
  ;; ═══════════════════════════════ LOGISTICS LEGS (transport) ══════════════════════════════════════
  {:logistics.leg/id "leg.soc.tw-cn"   :logistics.leg/of "part.soc"  :logistics.leg/origin-country "TW" :logistics.leg/dest-country "CN" :logistics.leg/mode :air  :logistics.leg/seq 1 :logistics.leg/sourcing :representative}
  {:logistics.leg/id "leg.phone.cn-ww" :logistics.leg/of "prod.smartphone-flagship" :logistics.leg/origin-country "CN" :logistics.leg/dest-country "US" :logistics.leg/mode :air :logistics.leg/seq 2 :logistics.leg/sourcing :representative}
- {:logistics.leg/id "leg.fab.bd-vn"   :logistics.leg/of "part.woven-fabric" :logistics.leg/origin-country "BD" :logistics.leg/dest-country "VN" :logistics.leg/mode :sea :logistics.leg/seq 1 :logistics.leg/sourcing :representative}
- {:logistics.leg/id "leg.tshirt.vn-eu" :logistics.leg/of "prod.cotton-tshirt" :logistics.leg/origin-country "VN" :logistics.leg/dest-country "DE" :logistics.leg/mode :sea :logistics.leg/seq 2 :logistics.leg/sourcing :representative}
+ {:logistics.leg/id "leg.fab.bd-vn"   :logistics.leg/of "part.woven-fabric" :logistics.leg/origin-country "BD" :logistics.leg/dest-country "VN" :logistics.leg/mode :sea :logistics.leg/carrier "org.corp.dk.maersk" :logistics.leg/seq 1 :logistics.leg/sourcing :representative}
+ {:logistics.leg/id "leg.tshirt.vn-eu" :logistics.leg/of "prod.cotton-tshirt" :logistics.leg/origin-country "VN" :logistics.leg/dest-country "DE" :logistics.leg/mode :sea :logistics.leg/carrier "org.corp.dk.maersk" :logistics.leg/seq 2 :logistics.leg/sourcing :representative}
  {:logistics.leg/id "leg.api.cn-in"   :logistics.leg/of "mat.paracetamol-api" :logistics.leg/origin-country "CN" :logistics.leg/dest-country "IN" :logistics.leg/mode :sea :logistics.leg/seq 1 :logistics.leg/sourcing :representative}
 
  ;; ═══════════════════════════════ DESIGN / STANDARD REFS ══════════════════════════════════════════
