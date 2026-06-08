@@ -1053,6 +1053,15 @@ PLATFORM_OVERRIDES = {
         "View": E(name="string", type="string", personalForUserId="string"),
         "Comment": E(text="string", lastUpdatedTime="datetime"),
     },
+    # Faithful Greenhouse Harvest model (remodeled from generic hrtech), L5.
+    "greenhouse": {
+        "Candidate": E(firstName="string", lastName="string", email="string", canEmail="boolean"),
+        "Application": E(candidateId="string", prospect="boolean", appliedAt="datetime", status="string", jobPostId="string"),
+        "Job": E(name="string", requisitionId="string", status="string"),
+        "Offer": E(applicationId="string", candidateId="string", jobId="string", status="string", startDate="datetime"),
+        "Scorecard": E(applicationId="string", interviewerId="string", score="string", notes="string"),
+        "ScheduledInterview": E(applicationId="string", name="string", scheduledAt="datetime", videoConferencingUrl="string"),
+    },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).
     "square": {

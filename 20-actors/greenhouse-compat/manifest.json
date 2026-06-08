@@ -11,15 +11,36 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihb7rndnigyemm75vpdsa7gtjj7sotso26czhyinogrinl47jg7vu",
   "schema": "schema/greenhouse.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://developers.greenhouse.io/harvest.html",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "Candidate",
+      "Application",
+      "Job",
+      "Offer",
+      "Scorecard",
+      "ScheduledInterview"
+    ],
+    "enums": {
+      "Application": {
+        "status": [
+          "active",
+          "rejected",
+          "hired",
+          "converted"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Employee",
     "Candidate",
-    "JobReq",
-    "PayrollRun",
-    "TimeOff",
-    "Review"
+    "Application",
+    "Job",
+    "Offer",
+    "Scorecard",
+    "ScheduledInterview"
   ],
   "adr": [
     "260607",
@@ -33,31 +54,6 @@
       "runtime": "kotoba-wasm",
       "endpointCount": 30,
       "routes": [
-        {
-          "method": "POST",
-          "path": "/v1/employees",
-          "op": "create Employee"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/employees",
-          "op": "list Employee"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/employees/{id}",
-          "op": "get Employee"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/employees/{id}",
-          "op": "update Employee"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/employees/{id}",
-          "op": "delete Employee"
-        },
         {
           "method": "POST",
           "path": "/v1/candidates",
@@ -85,103 +81,128 @@
         },
         {
           "method": "POST",
-          "path": "/v1/jobreqs",
-          "op": "create JobReq"
+          "path": "/v1/applications",
+          "op": "create Application"
         },
         {
           "method": "GET",
-          "path": "/v1/jobreqs",
-          "op": "list JobReq"
+          "path": "/v1/applications",
+          "op": "list Application"
         },
         {
           "method": "GET",
-          "path": "/v1/jobreqs/{id}",
-          "op": "get JobReq"
+          "path": "/v1/applications/{id}",
+          "op": "get Application"
         },
         {
           "method": "PATCH",
-          "path": "/v1/jobreqs/{id}",
-          "op": "update JobReq"
+          "path": "/v1/applications/{id}",
+          "op": "update Application"
         },
         {
           "method": "DELETE",
-          "path": "/v1/jobreqs/{id}",
-          "op": "delete JobReq"
+          "path": "/v1/applications/{id}",
+          "op": "delete Application"
         },
         {
           "method": "POST",
-          "path": "/v1/payrollruns",
-          "op": "create PayrollRun"
+          "path": "/v1/jobs",
+          "op": "create Job"
         },
         {
           "method": "GET",
-          "path": "/v1/payrollruns",
-          "op": "list PayrollRun"
+          "path": "/v1/jobs",
+          "op": "list Job"
         },
         {
           "method": "GET",
-          "path": "/v1/payrollruns/{id}",
-          "op": "get PayrollRun"
+          "path": "/v1/jobs/{id}",
+          "op": "get Job"
         },
         {
           "method": "PATCH",
-          "path": "/v1/payrollruns/{id}",
-          "op": "update PayrollRun"
+          "path": "/v1/jobs/{id}",
+          "op": "update Job"
         },
         {
           "method": "DELETE",
-          "path": "/v1/payrollruns/{id}",
-          "op": "delete PayrollRun"
+          "path": "/v1/jobs/{id}",
+          "op": "delete Job"
         },
         {
           "method": "POST",
-          "path": "/v1/timeoffs",
-          "op": "create TimeOff"
+          "path": "/v1/offers",
+          "op": "create Offer"
         },
         {
           "method": "GET",
-          "path": "/v1/timeoffs",
-          "op": "list TimeOff"
+          "path": "/v1/offers",
+          "op": "list Offer"
         },
         {
           "method": "GET",
-          "path": "/v1/timeoffs/{id}",
-          "op": "get TimeOff"
+          "path": "/v1/offers/{id}",
+          "op": "get Offer"
         },
         {
           "method": "PATCH",
-          "path": "/v1/timeoffs/{id}",
-          "op": "update TimeOff"
+          "path": "/v1/offers/{id}",
+          "op": "update Offer"
         },
         {
           "method": "DELETE",
-          "path": "/v1/timeoffs/{id}",
-          "op": "delete TimeOff"
+          "path": "/v1/offers/{id}",
+          "op": "delete Offer"
         },
         {
           "method": "POST",
-          "path": "/v1/reviews",
-          "op": "create Review"
+          "path": "/v1/scorecards",
+          "op": "create Scorecard"
         },
         {
           "method": "GET",
-          "path": "/v1/reviews",
-          "op": "list Review"
+          "path": "/v1/scorecards",
+          "op": "list Scorecard"
         },
         {
           "method": "GET",
-          "path": "/v1/reviews/{id}",
-          "op": "get Review"
+          "path": "/v1/scorecards/{id}",
+          "op": "get Scorecard"
         },
         {
           "method": "PATCH",
-          "path": "/v1/reviews/{id}",
-          "op": "update Review"
+          "path": "/v1/scorecards/{id}",
+          "op": "update Scorecard"
         },
         {
           "method": "DELETE",
-          "path": "/v1/reviews/{id}",
-          "op": "delete Review"
+          "path": "/v1/scorecards/{id}",
+          "op": "delete Scorecard"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/scheduledinterviews",
+          "op": "create ScheduledInterview"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/scheduledinterviews",
+          "op": "list ScheduledInterview"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/scheduledinterviews/{id}",
+          "op": "get ScheduledInterview"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/scheduledinterviews/{id}",
+          "op": "update ScheduledInterview"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/scheduledinterviews/{id}",
+          "op": "delete ScheduledInterview"
         }
       ],
       "features": {
@@ -247,102 +268,6 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_employee",
-          "description": "Create a Employee.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "firstName": {
-                "type": "string"
-              },
-              "lastName": {
-                "type": "string"
-              },
-              "email": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "department": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "firstName",
-              "lastName"
-            ]
-          }
-        },
-        {
-          "name": "list_employees",
-          "description": "List Employees.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_employee",
-          "description": "Get a Employee by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_employee",
-          "description": "Update a Employee.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "firstName": {
-                "type": "string"
-              },
-              "lastName": {
-                "type": "string"
-              },
-              "email": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "department": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_employee",
-          "description": "Delete a Employee.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
           "name": "create_candidate",
           "description": "Create a Candidate.",
           "inputSchema": {
@@ -357,8 +282,8 @@
               "email": {
                 "type": "string"
               },
-              "stage": {
-                "type": "string"
+              "canEmail": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -408,8 +333,8 @@
               "email": {
                 "type": "string"
               },
-              "stage": {
-                "type": "string"
+              "canEmail": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -433,41 +358,44 @@
           }
         },
         {
-          "name": "create_job_req",
-          "description": "Create a JobReq.",
+          "name": "create_application",
+          "description": "Create a Application.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "title": {
+              "candidateId": {
                 "type": "string"
               },
-              "department": {
+              "prospect": {
+                "type": "boolean"
+              },
+              "appliedAt": {
                 "type": "string"
               },
               "status": {
                 "type": "string"
               },
-              "openings": {
-                "type": "integer"
+              "jobPostId": {
+                "type": "string"
               }
             },
             "required": [
-              "title",
-              "department"
+              "prospect",
+              "appliedAt"
             ]
           }
         },
         {
-          "name": "list_job_reqs",
-          "description": "List JobReqs.",
+          "name": "list_applications",
+          "description": "List Applications.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_job_req",
-          "description": "Get a JobReq by id.",
+          "name": "get_application",
+          "description": "Get a Application by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -481,25 +409,28 @@
           }
         },
         {
-          "name": "update_job_req",
-          "description": "Update a JobReq.",
+          "name": "update_application",
+          "description": "Update a Application.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "title": {
+              "candidateId": {
                 "type": "string"
               },
-              "department": {
+              "prospect": {
+                "type": "boolean"
+              },
+              "appliedAt": {
                 "type": "string"
               },
               "status": {
                 "type": "string"
               },
-              "openings": {
-                "type": "integer"
+              "jobPostId": {
+                "type": "string"
               }
             },
             "required": [
@@ -508,8 +439,8 @@
           }
         },
         {
-          "name": "delete_job_req",
-          "description": "Delete a JobReq.",
+          "name": "delete_application",
+          "description": "Delete a Application.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -523,18 +454,15 @@
           }
         },
         {
-          "name": "create_payroll_run",
-          "description": "Create a PayrollRun.",
+          "name": "create_job",
+          "description": "Create a Job.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "period": {
+              "name": {
                 "type": "string"
               },
-              "grossTotal": {
-                "type": "number"
-              },
-              "currency": {
+              "requisitionId": {
                 "type": "string"
               },
               "status": {
@@ -542,22 +470,22 @@
               }
             },
             "required": [
-              "period",
-              "grossTotal"
+              "name",
+              "status"
             ]
           }
         },
         {
-          "name": "list_payroll_runs",
-          "description": "List PayrollRuns.",
+          "name": "list_jobs",
+          "description": "List Jobs.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_payroll_run",
-          "description": "Get a PayrollRun by id.",
+          "name": "get_job",
+          "description": "Get a Job by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -571,21 +499,18 @@
           }
         },
         {
-          "name": "update_payroll_run",
-          "description": "Update a PayrollRun.",
+          "name": "update_job",
+          "description": "Update a Job.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "period": {
+              "name": {
                 "type": "string"
               },
-              "grossTotal": {
-                "type": "number"
-              },
-              "currency": {
+              "requisitionId": {
                 "type": "string"
               },
               "status": {
@@ -598,8 +523,8 @@
           }
         },
         {
-          "name": "delete_payroll_run",
-          "description": "Delete a PayrollRun.",
+          "name": "delete_job",
+          "description": "Delete a Job.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -613,44 +538,44 @@
           }
         },
         {
-          "name": "create_time_off",
-          "description": "Create a TimeOff.",
+          "name": "create_offer",
+          "description": "Create a Offer.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "employeeId": {
+              "applicationId": {
                 "type": "string"
               },
-              "type": {
+              "candidateId": {
                 "type": "string"
               },
-              "start": {
+              "jobId": {
                 "type": "string"
-              },
-              "days": {
-                "type": "number"
               },
               "status": {
+                "type": "string"
+              },
+              "startDate": {
                 "type": "string"
               }
             },
             "required": [
-              "type",
-              "start"
+              "status",
+              "startDate"
             ]
           }
         },
         {
-          "name": "list_time_offs",
-          "description": "List TimeOffs.",
+          "name": "list_offers",
+          "description": "List Offers.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_time_off",
-          "description": "Get a TimeOff by id.",
+          "name": "get_offer",
+          "description": "Get a Offer by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -664,28 +589,28 @@
           }
         },
         {
-          "name": "update_time_off",
-          "description": "Update a TimeOff.",
+          "name": "update_offer",
+          "description": "Update a Offer.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "employeeId": {
+              "applicationId": {
                 "type": "string"
               },
-              "type": {
+              "candidateId": {
                 "type": "string"
               },
-              "start": {
+              "jobId": {
                 "type": "string"
-              },
-              "days": {
-                "type": "number"
               },
               "status": {
                 "type": "string"
+              },
+              "startDate": {
+                "type": "string"
               }
             },
             "required": [
@@ -694,8 +619,8 @@
           }
         },
         {
-          "name": "delete_time_off",
-          "description": "Delete a TimeOff.",
+          "name": "delete_offer",
+          "description": "Delete a Offer.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -709,41 +634,41 @@
           }
         },
         {
-          "name": "create_review",
-          "description": "Create a Review.",
+          "name": "create_scorecard",
+          "description": "Create a Scorecard.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "employeeId": {
+              "applicationId": {
                 "type": "string"
               },
-              "cycle": {
+              "interviewerId": {
                 "type": "string"
               },
-              "rating": {
-                "type": "number"
+              "score": {
+                "type": "string"
               },
-              "reviewerId": {
+              "notes": {
                 "type": "string"
               }
             },
             "required": [
-              "cycle",
-              "rating"
+              "score",
+              "notes"
             ]
           }
         },
         {
-          "name": "list_reviews",
-          "description": "List Reviews.",
+          "name": "list_scorecards",
+          "description": "List Scorecards.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_review",
-          "description": "Get a Review by id.",
+          "name": "get_scorecard",
+          "description": "Get a Scorecard by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -757,24 +682,24 @@
           }
         },
         {
-          "name": "update_review",
-          "description": "Update a Review.",
+          "name": "update_scorecard",
+          "description": "Update a Scorecard.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "employeeId": {
+              "applicationId": {
                 "type": "string"
               },
-              "cycle": {
+              "interviewerId": {
                 "type": "string"
               },
-              "rating": {
-                "type": "number"
+              "score": {
+                "type": "string"
               },
-              "reviewerId": {
+              "notes": {
                 "type": "string"
               }
             },
@@ -784,8 +709,98 @@
           }
         },
         {
-          "name": "delete_review",
-          "description": "Delete a Review.",
+          "name": "delete_scorecard",
+          "description": "Delete a Scorecard.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_scheduled_interview",
+          "description": "Create a ScheduledInterview.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "applicationId": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "scheduledAt": {
+                "type": "string"
+              },
+              "videoConferencingUrl": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "scheduledAt"
+            ]
+          }
+        },
+        {
+          "name": "list_scheduled_interviews",
+          "description": "List ScheduledInterviews.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_scheduled_interview",
+          "description": "Get a ScheduledInterview by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_scheduled_interview",
+          "description": "Update a ScheduledInterview.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "applicationId": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "scheduledAt": {
+                "type": "string"
+              },
+              "videoConferencingUrl": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_scheduled_interview",
+          "description": "Delete a ScheduledInterview.",
           "inputSchema": {
             "type": "object",
             "properties": {

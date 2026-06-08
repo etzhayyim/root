@@ -6659,7 +6659,7 @@
     {
       "handle": "greenhouse-compat",
       "did": "did:web:etzhayyim.com:actor:greenhouse-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreihb7rndnigyemm75vpdsa7gtjj7sotso26czhyinogrinl47jg7vu",

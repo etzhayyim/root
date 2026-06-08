@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 24,
+  "count": 25,
   "actors": [
     {
       "handle": "square-compat",
@@ -3254,6 +3254,127 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official Airtable Web API docs. Enforced enums: Base.permissionLevel, Field.type, View.type (3)."
+    },
+    {
+      "handle": "greenhouse-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://developers.greenhouse.io/harvest.html",
+      "remodeled": "Remodeled from generic hrtech to a faithful Greenhouse Harvest model, then doc-verified (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Candidate",
+          "source": "https://developers.greenhouse.io/harvest.html#candidate-object",
+          "verifiedFields": [
+            "firstName",
+            "lastName",
+            "email",
+            "canEmail"
+          ],
+          "fieldStatus": "confirmed (first_name/last_name/can_email)",
+          "discoveredEnums": {},
+          "gaps": [
+            "company",
+            "title",
+            "phone_numbers"
+          ]
+        },
+        {
+          "entity": "Application",
+          "source": "https://developers.greenhouse.io/harvest.html#application-object",
+          "verifiedFields": [
+            "candidateId",
+            "prospect",
+            "appliedAt",
+            "status",
+            "jobPostId"
+          ],
+          "fieldStatus": "confirmed (candidate_id, applied_at, job_post_id)",
+          "discoveredEnums": {
+            "status": [
+              "active",
+              "rejected",
+              "hired",
+              "converted"
+            ]
+          },
+          "gaps": [
+            "rejected_at",
+            "current_stage",
+            "source"
+          ]
+        },
+        {
+          "entity": "Job",
+          "source": "https://developers.greenhouse.io/harvest.html#job-object",
+          "verifiedFields": [
+            "name",
+            "requisitionId",
+            "status"
+          ],
+          "fieldStatus": "fields confirmed; status enum inferred (open/closed/draft) not explicitly enumerated -> NOT force-enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "status-enum (inferred only)",
+            "departments",
+            "offices"
+          ]
+        },
+        {
+          "entity": "Offer",
+          "source": "https://developers.greenhouse.io/harvest.html#offer-object",
+          "verifiedFields": [
+            "applicationId",
+            "candidateId",
+            "jobId",
+            "status",
+            "startDate"
+          ],
+          "fieldStatus": "fields confirmed; status enum inferred -> NOT force-enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "status-enum (inferred only)",
+            "sent_at",
+            "resolved_at"
+          ]
+        },
+        {
+          "entity": "Scorecard",
+          "source": "https://developers.greenhouse.io/harvest.html#scorecard-object",
+          "verifiedFields": [
+            "applicationId",
+            "interviewerId",
+            "score",
+            "notes"
+          ],
+          "fieldStatus": "fields confirmed; score enum inferred -> NOT force-enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "score-enum (inferred)",
+            "interview_step",
+            "attributes"
+          ]
+        },
+        {
+          "entity": "ScheduledInterview",
+          "source": "https://developers.greenhouse.io/harvest.html#scheduled-interview-object",
+          "verifiedFields": [
+            "applicationId",
+            "name",
+            "scheduledAt",
+            "videoConferencingUrl"
+          ],
+          "fieldStatus": "confirmed (scheduled_at, video_conferencing_url)",
+          "discoveredEnums": {},
+          "gaps": [
+            "start",
+            "end",
+            "interviewers"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official Greenhouse Harvest docs. Enforced enums: Application.status (1); Job/Offer/Scorecard enums were INFERRED not doc-enumerated -> intentionally NOT enforced."
     }
   ]
 }

@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreihb7rndnigyemm75vpdsa7gtjj7sotso26czhyinogrinl47jg7vu",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,191 +17,6 @@
     }
   ],
   "paths": {
-    "/v1/employees": {
-      "get": {
-        "summary": "List Employees",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Employee"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Employee",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EmployeeCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Employee"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/employees/{id}": {
-      "get": {
-        "summary": "Get a Employee",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Employee"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Employee",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EmployeeCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Employee"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Employee",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
     "/v1/candidates": {
       "get": {
         "summary": "List Candidates",
@@ -387,9 +202,9 @@
         }
       }
     },
-    "/v1/jobreqs": {
+    "/v1/applications": {
       "get": {
-        "summary": "List JobReqs",
+        "summary": "List Applications",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/JobReq"
+                        "$ref": "#/components/schemas/Application"
                       }
                     },
                     "has_more": {
@@ -449,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a JobReq",
+        "summary": "Create a Application",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/JobReqCreate"
+                "$ref": "#/components/schemas/ApplicationCreate"
               }
             }
           }
@@ -466,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/JobReq"
+                  "$ref": "#/components/schemas/Application"
                 }
               }
             }
@@ -477,9 +292,9 @@
         }
       }
     },
-    "/v1/jobreqs/{id}": {
+    "/v1/applications/{id}": {
       "get": {
-        "summary": "Get a JobReq",
+        "summary": "Get a Application",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/JobReq"
+                  "$ref": "#/components/schemas/Application"
                 }
               }
             }
@@ -514,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a JobReq",
+        "summary": "Update a Application",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/JobReqCreate"
+                "$ref": "#/components/schemas/ApplicationCreate"
               }
             }
           }
@@ -540,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/JobReq"
+                  "$ref": "#/components/schemas/Application"
                 }
               }
             }
@@ -551,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a JobReq",
+        "summary": "Delete a Application",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +387,9 @@
         }
       }
     },
-    "/v1/payrollruns": {
+    "/v1/jobs": {
       "get": {
-        "summary": "List PayrollRuns",
+        "summary": "List Jobs",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/PayrollRun"
+                        "$ref": "#/components/schemas/Job"
                       }
                     },
                     "has_more": {
@@ -634,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a PayrollRun",
+        "summary": "Create a Job",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PayrollRunCreate"
+                "$ref": "#/components/schemas/JobCreate"
               }
             }
           }
@@ -651,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PayrollRun"
+                  "$ref": "#/components/schemas/Job"
                 }
               }
             }
@@ -662,9 +477,9 @@
         }
       }
     },
-    "/v1/payrollruns/{id}": {
+    "/v1/jobs/{id}": {
       "get": {
-        "summary": "Get a PayrollRun",
+        "summary": "Get a Job",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PayrollRun"
+                  "$ref": "#/components/schemas/Job"
                 }
               }
             }
@@ -699,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a PayrollRun",
+        "summary": "Update a Job",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PayrollRunCreate"
+                "$ref": "#/components/schemas/JobCreate"
               }
             }
           }
@@ -725,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PayrollRun"
+                  "$ref": "#/components/schemas/Job"
                 }
               }
             }
@@ -736,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a PayrollRun",
+        "summary": "Delete a Job",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +572,9 @@
         }
       }
     },
-    "/v1/timeoffs": {
+    "/v1/offers": {
       "get": {
-        "summary": "List TimeOffs",
+        "summary": "List Offers",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/TimeOff"
+                        "$ref": "#/components/schemas/Offer"
                       }
                     },
                     "has_more": {
@@ -819,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a TimeOff",
+        "summary": "Create a Offer",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TimeOffCreate"
+                "$ref": "#/components/schemas/OfferCreate"
               }
             }
           }
@@ -836,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TimeOff"
+                  "$ref": "#/components/schemas/Offer"
                 }
               }
             }
@@ -847,9 +662,9 @@
         }
       }
     },
-    "/v1/timeoffs/{id}": {
+    "/v1/offers/{id}": {
       "get": {
-        "summary": "Get a TimeOff",
+        "summary": "Get a Offer",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TimeOff"
+                  "$ref": "#/components/schemas/Offer"
                 }
               }
             }
@@ -884,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a TimeOff",
+        "summary": "Update a Offer",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TimeOffCreate"
+                "$ref": "#/components/schemas/OfferCreate"
               }
             }
           }
@@ -910,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TimeOff"
+                  "$ref": "#/components/schemas/Offer"
                 }
               }
             }
@@ -921,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a TimeOff",
+        "summary": "Delete a Offer",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +757,9 @@
         }
       }
     },
-    "/v1/reviews": {
+    "/v1/scorecards": {
       "get": {
-        "summary": "List Reviews",
+        "summary": "List Scorecards",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Review"
+                        "$ref": "#/components/schemas/Scorecard"
                       }
                     },
                     "has_more": {
@@ -1004,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Review",
+        "summary": "Create a Scorecard",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ReviewCreate"
+                "$ref": "#/components/schemas/ScorecardCreate"
               }
             }
           }
@@ -1021,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Review"
+                  "$ref": "#/components/schemas/Scorecard"
                 }
               }
             }
@@ -1032,9 +847,9 @@
         }
       }
     },
-    "/v1/reviews/{id}": {
+    "/v1/scorecards/{id}": {
       "get": {
-        "summary": "Get a Review",
+        "summary": "Get a Scorecard",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Review"
+                  "$ref": "#/components/schemas/Scorecard"
                 }
               }
             }
@@ -1069,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Review",
+        "summary": "Update a Scorecard",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ReviewCreate"
+                "$ref": "#/components/schemas/ScorecardCreate"
               }
             }
           }
@@ -1095,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Review"
+                  "$ref": "#/components/schemas/Scorecard"
                 }
               }
             }
@@ -1106,7 +921,192 @@
         }
       },
       "delete": {
-        "summary": "Delete a Review",
+        "summary": "Delete a Scorecard",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/scheduledinterviews": {
+      "get": {
+        "summary": "List ScheduledInterviews",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ScheduledInterview"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a ScheduledInterview",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScheduledInterviewCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScheduledInterview"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/scheduledinterviews/{id}": {
+      "get": {
+        "summary": "Get a ScheduledInterview",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScheduledInterview"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a ScheduledInterview",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScheduledInterviewCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScheduledInterview"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a ScheduledInterview",
         "parameters": [
           {
             "name": "id",
@@ -1140,61 +1140,6 @@
   },
   "components": {
     "schemas": {
-      "Employee": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "firstName": {
-            "type": "string"
-          },
-          "lastName": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "department": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "EmployeeCreate": {
-        "type": "object",
-        "properties": {
-          "firstName": {
-            "type": "string"
-          },
-          "lastName": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "department": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "firstName",
-          "lastName"
-        ]
-      },
       "Candidate": {
         "type": "object",
         "properties": {
@@ -1210,8 +1155,8 @@
           "email": {
             "type": "string"
           },
-          "stage": {
-            "type": "string"
+          "canEmail": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1235,8 +1180,8 @@
           "email": {
             "type": "string"
           },
-          "stage": {
-            "type": "string"
+          "canEmail": {
+            "type": "boolean"
           }
         },
         "required": [
@@ -1244,23 +1189,33 @@
           "lastName"
         ]
       },
-      "JobReq": {
+      "Application": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "title": {
+          "candidateId": {
             "type": "string"
           },
-          "department": {
-            "type": "string"
+          "prospect": {
+            "type": "boolean"
+          },
+          "appliedAt": {
+            "type": "string",
+            "format": "date-time"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "active",
+              "rejected",
+              "hired",
+              "converted"
+            ]
           },
-          "openings": {
-            "type": "integer"
+          "jobPostId": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -1272,40 +1227,46 @@
           }
         }
       },
-      "JobReqCreate": {
+      "ApplicationCreate": {
         "type": "object",
         "properties": {
-          "title": {
+          "candidateId": {
             "type": "string"
           },
-          "department": {
+          "prospect": {
+            "type": "boolean"
+          },
+          "appliedAt": {
             "type": "string"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "active",
+              "rejected",
+              "hired",
+              "converted"
+            ]
           },
-          "openings": {
-            "type": "integer"
+          "jobPostId": {
+            "type": "string"
           }
         },
         "required": [
-          "title",
-          "department"
+          "prospect",
+          "appliedAt"
         ]
       },
-      "PayrollRun": {
+      "Job": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "period": {
+          "name": {
             "type": "string"
           },
-          "grossTotal": {
-            "type": "number"
-          },
-          "currency": {
+          "requisitionId": {
             "type": "string"
           },
           "status": {
@@ -1321,16 +1282,13 @@
           }
         }
       },
-      "PayrollRunCreate": {
+      "JobCreate": {
         "type": "object",
         "properties": {
-          "period": {
+          "name": {
             "type": "string"
           },
-          "grossTotal": {
-            "type": "number"
-          },
-          "currency": {
+          "requisitionId": {
             "type": "string"
           },
           "status": {
@@ -1338,31 +1296,31 @@
           }
         },
         "required": [
-          "period",
-          "grossTotal"
+          "name",
+          "status"
         ]
       },
-      "TimeOff": {
+      "Offer": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "employeeId": {
+          "applicationId": {
             "type": "string"
           },
-          "type": {
+          "candidateId": {
             "type": "string"
           },
-          "start": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "days": {
-            "type": "number"
+          "jobId": {
+            "type": "string"
           },
           "status": {
             "type": "string"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
           },
           "createdAt": {
             "type": "string",
@@ -1374,46 +1332,46 @@
           }
         }
       },
-      "TimeOffCreate": {
+      "OfferCreate": {
         "type": "object",
         "properties": {
-          "employeeId": {
+          "applicationId": {
             "type": "string"
           },
-          "type": {
+          "candidateId": {
             "type": "string"
           },
-          "start": {
+          "jobId": {
             "type": "string"
-          },
-          "days": {
-            "type": "number"
           },
           "status": {
+            "type": "string"
+          },
+          "startDate": {
             "type": "string"
           }
         },
         "required": [
-          "type",
-          "start"
+          "status",
+          "startDate"
         ]
       },
-      "Review": {
+      "Scorecard": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "employeeId": {
+          "applicationId": {
             "type": "string"
           },
-          "cycle": {
+          "interviewerId": {
             "type": "string"
           },
-          "rating": {
-            "type": "number"
+          "score": {
+            "type": "string"
           },
-          "reviewerId": {
+          "notes": {
             "type": "string"
           },
           "createdAt": {
@@ -1426,25 +1384,75 @@
           }
         }
       },
-      "ReviewCreate": {
+      "ScorecardCreate": {
         "type": "object",
         "properties": {
-          "employeeId": {
+          "applicationId": {
             "type": "string"
           },
-          "cycle": {
+          "interviewerId": {
             "type": "string"
           },
-          "rating": {
-            "type": "number"
+          "score": {
+            "type": "string"
           },
-          "reviewerId": {
+          "notes": {
             "type": "string"
           }
         },
         "required": [
-          "cycle",
-          "rating"
+          "score",
+          "notes"
+        ]
+      },
+      "ScheduledInterview": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "applicationId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "scheduledAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "videoConferencingUrl": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ScheduledInterviewCreate": {
+        "type": "object",
+        "properties": {
+          "applicationId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "scheduledAt": {
+            "type": "string"
+          },
+          "videoConferencingUrl": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "scheduledAt"
         ]
       }
     }

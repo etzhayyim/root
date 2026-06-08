@@ -6671,12 +6671,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Employee",
         "Candidate",
-        "JobReq",
-        "PayrollRun",
-        "TimeOff",
-        "Review"
+        "Application",
+        "Job",
+        "Offer",
+        "Scorecard",
+        "ScheduledInterview"
       ]
     },
     {

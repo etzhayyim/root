@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 976,
-    "L5": 24
+    "L4": 975,
+    "L5": 25
   },
   "actors": [
     {
@@ -7058,7 +7058,7 @@
       "wasmCid": "bafkreihb7rndnigyemm75vpdsa7gtjj7sotso26czhyinogrinl47jg7vu",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "greenhouse clean-room actor",
       "category": "hrtech",
       "capabilities": [
