@@ -16534,12 +16534,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "GLAccount",
-        "JournalEntry",
         "Invoice",
-        "PurchaseOrder",
-        "Vendor",
-        "CostCenter"
+        "Contact",
+        "Account",
+        "Payment",
+        "BankTransaction",
+        "CreditNote"
       ]
     },
     {

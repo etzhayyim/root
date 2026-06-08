@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 28,
+  "count": 29,
   "actors": [
     {
       "handle": "square-compat",
@@ -3715,6 +3715,197 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (5/5) vs official Databricks SDK. Enforced enums: Run.state, Warehouse.warehouseType, ObjectInfo.objectType, ObjectInfo.language (4)."
+    },
+    {
+      "handle": "xero-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://developer.xero.com/documentation/api/accounting/overview",
+      "remodeled": "Remodeled from generic erp_finance to a faithful Xero Accounting model, verified against the official XeroAPI/xero-node SDK models.",
+      "resources": [
+        {
+          "entity": "Invoice",
+          "source": "https://github.com/XeroAPI/xero-node/blob/master/src/gen/model/accounting/invoice.ts",
+          "verifiedFields": [
+            "invoiceNumber",
+            "type",
+            "status",
+            "total",
+            "amountDue"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "ACCPAY",
+              "ACCPAYCREDIT",
+              "APOVERPAYMENT",
+              "APPREPAYMENT",
+              "ACCREC",
+              "ACCRECCREDIT",
+              "AROVERPAYMENT",
+              "ARPREPAYMENT"
+            ],
+            "status": [
+              "DRAFT",
+              "SUBMITTED",
+              "DELETED",
+              "AUTHORISED",
+              "PAID",
+              "VOIDED"
+            ]
+          },
+          "gaps": [
+            "lineItems",
+            "contact",
+            "date"
+          ]
+        },
+        {
+          "entity": "Contact",
+          "source": "https://github.com/XeroAPI/xero-node/blob/master/src/gen/model/accounting/contact.ts",
+          "verifiedFields": [
+            "name",
+            "emailAddress",
+            "contactStatus",
+            "taxNumber",
+            "isSupplier",
+            "isCustomer"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "contactStatus": [
+              "ACTIVE",
+              "ARCHIVED",
+              "GDPRREQUEST"
+            ]
+          },
+          "gaps": [
+            "addresses",
+            "phones",
+            "taxNumberType"
+          ]
+        },
+        {
+          "entity": "Account",
+          "source": "https://github.com/XeroAPI/xero-node/blob/master/src/gen/model/accounting/account.ts",
+          "verifiedFields": [
+            "code",
+            "name",
+            "type",
+            "status",
+            "bankAccountNumber"
+          ],
+          "fieldStatus": "confirmed; 'type' is a large account-type enum (modeled, not enforced); status enforced",
+          "discoveredEnums": {
+            "status": [
+              "ACTIVE",
+              "ARCHIVED",
+              "DELETED"
+            ]
+          },
+          "gaps": [
+            "class",
+            "taxType",
+            "type-enum (large)"
+          ]
+        },
+        {
+          "entity": "Payment",
+          "source": "https://github.com/XeroAPI/xero-node/blob/master/src/gen/model/accounting/payment.ts",
+          "verifiedFields": [
+            "amount",
+            "status",
+            "paymentType",
+            "isReconciled"
+          ],
+          "fieldStatus": "confirmed (is_reconciled)",
+          "discoveredEnums": {
+            "status": [
+              "AUTHORISED",
+              "DELETED"
+            ],
+            "paymentType": [
+              "ACCRECPAYMENT",
+              "ACCPAYPAYMENT",
+              "ARCREDITPAYMENT",
+              "APCREDITPAYMENT",
+              "AROVERPAYMENTPAYMENT",
+              "ARPREPAYMENTPAYMENT",
+              "APPREPAYMENTPAYMENT",
+              "APOVERPAYMENTPAYMENT"
+            ]
+          },
+          "gaps": [
+            "invoice",
+            "account",
+            "date"
+          ]
+        },
+        {
+          "entity": "BankTransaction",
+          "source": "https://github.com/XeroAPI/xero-node/blob/master/src/gen/model/accounting/bankTransaction.ts",
+          "verifiedFields": [
+            "type",
+            "status",
+            "total",
+            "reference",
+            "isReconciled"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "RECEIVE",
+              "RECEIVE-OVERPAYMENT",
+              "RECEIVE-PREPAYMENT",
+              "SPEND",
+              "SPEND-OVERPAYMENT",
+              "SPEND-PREPAYMENT",
+              "RECEIVE-TRANSFER",
+              "SPEND-TRANSFER"
+            ],
+            "status": [
+              "AUTHORISED",
+              "DELETED",
+              "VOIDED"
+            ]
+          },
+          "gaps": [
+            "bankAccount",
+            "lineItems"
+          ]
+        },
+        {
+          "entity": "CreditNote",
+          "source": "https://github.com/XeroAPI/xero-node/blob/master/src/gen/model/accounting/creditNote.ts",
+          "verifiedFields": [
+            "creditNoteNumber",
+            "type",
+            "status",
+            "total"
+          ],
+          "fieldStatus": "confirmed (credit_note_number)",
+          "discoveredEnums": {
+            "type": [
+              "ACCPAYCREDIT",
+              "ACCRECCREDIT"
+            ],
+            "status": [
+              "DRAFT",
+              "SUBMITTED",
+              "DELETED",
+              "AUTHORISED",
+              "PAID",
+              "VOIDED"
+            ]
+          },
+          "gaps": [
+            "allocations",
+            "appliedAmount"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official Xero SDK. Enforced enums: Invoice.type, Invoice.status, Contact.contactStatus, Account.status, Payment.status, Payment.paymentType, BankTransaction.type, BankTransaction.status, CreditNote.type, CreditNote.status (10)."
     }
   ]
 }

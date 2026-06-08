@@ -111,156 +111,26 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/glaccounts", methods=["POST"])
-def create_g_l_account(request):
-    """Create a GLAccount."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['code', 'name', 'type', 'currency', 'balance'])
-    if err:
-        return err, 400
-    err = _require(data, ['code', 'name'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("xero_gla")}
-    rec["code"] = data.get('code')
-    rec["name"] = data.get('name')
-    rec["type"] = data.get('type')
-    rec["currency"] = data.get('currency')
-    rec["balance"] = _as_float(data.get('balance'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("GLAccount", rec)
-    return rec, 201
-
-@app.route("/v1/glaccounts", methods=["GET"])
-def list_g_l_accounts(request):
-    """List GLAccounts with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("GLAccount")
-    rows = _apply_filters(rows, params, ['code', 'name', 'type', 'currency', 'balance'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/glaccounts/<eid>", methods=["GET"])
-def get_g_l_account(request, eid):
-    """Retrieve a GLAccount by id (supports ?expand=)."""
-    rows = _query("GLAccount", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/glaccounts/<eid>", methods=["POST", "PATCH"])
-def update_g_l_account(request, eid):
-    """Update a GLAccount."""
-    rows = _query("GLAccount", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['code', 'name', 'type', 'currency', 'balance'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("GLAccount", rec)
-    return rec, 200
-
-@app.route("/v1/glaccounts/<eid>", methods=["DELETE"])
-def delete_g_l_account(request, eid):
-    """Delete a GLAccount."""
-    rows = _query("GLAccount", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"xero.GLAccount", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/journalentries", methods=["POST"])
-def create_journal_entry(request):
-    """Create a JournalEntry."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'debit', 'credit', 'memo', 'postedAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['debit', 'credit'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("xero_jou")}
-    rec["accountId"] = data.get('accountId')
-    rec["debit"] = _as_float(data.get('debit'))
-    rec["credit"] = _as_float(data.get('credit'))
-    rec["memo"] = data.get('memo')
-    rec["postedAt"] = data.get('postedAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("JournalEntry", rec)
-    return rec, 201
-
-@app.route("/v1/journalentries", methods=["GET"])
-def list_journal_entries(request):
-    """List JournalEntries with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("JournalEntry")
-    rows = _apply_filters(rows, params, ['accountId', 'debit', 'credit', 'memo', 'postedAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/journalentries/<eid>", methods=["GET"])
-def get_journal_entry(request, eid):
-    """Retrieve a JournalEntry by id (supports ?expand=)."""
-    rows = _query("JournalEntry", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/journalentries/<eid>", methods=["POST", "PATCH"])
-def update_journal_entry(request, eid):
-    """Update a JournalEntry."""
-    rows = _query("JournalEntry", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'debit', 'credit', 'memo', 'postedAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("JournalEntry", rec)
-    return rec, 200
-
-@app.route("/v1/journalentries/<eid>", methods=["DELETE"])
-def delete_journal_entry(request, eid):
-    """Delete a JournalEntry."""
-    rows = _query("JournalEntry", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"xero.JournalEntry", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
 @app.route("/v1/invoices", methods=["POST"])
 def create_invoice(request):
     """Create a Invoice."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['customerId', 'number', 'total', 'currency', 'status'])
+    err = _reject_unknown(data, ['invoiceNumber', 'type', 'status', 'total', 'amountDue'])
     if err:
         return err, 400
-    err = _require(data, ['number', 'total'])
+    err = _require(data, ['invoiceNumber', 'type'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in ['ACCPAY', 'ACCPAYCREDIT', 'APOVERPAYMENT', 'APPREPAYMENT', 'ACCREC', 'ACCRECCREDIT', 'AROVERPAYMENT', 'ARPREPAYMENT']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['ACCPAY', 'ACCPAYCREDIT', 'APOVERPAYMENT', 'APPREPAYMENT', 'ACCREC', 'ACCRECCREDIT', 'AROVERPAYMENT', 'ARPREPAYMENT']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['DRAFT', 'SUBMITTED', 'DELETED', 'AUTHORISED', 'PAID', 'VOIDED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['DRAFT', 'SUBMITTED', 'DELETED', 'AUTHORISED', 'PAID', 'VOIDED']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("xero_inv")}
-    rec["customerId"] = data.get('customerId')
-    rec["number"] = data.get('number')
-    rec["total"] = _as_float(data.get('total'))
-    rec["currency"] = data.get('currency')
+    rec["invoiceNumber"] = data.get('invoiceNumber')
+    rec["type"] = data.get('type')
     rec["status"] = data.get('status')
+    rec["total"] = _as_float(data.get('total'))
+    rec["amountDue"] = _as_float(data.get('amountDue'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Invoice", rec)
@@ -271,7 +141,7 @@ def list_invoices(request):
     """List Invoices with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Invoice")
-    rows = _apply_filters(rows, params, ['customerId', 'number', 'total', 'currency', 'status'])
+    rows = _apply_filters(rows, params, ['invoiceNumber', 'type', 'status', 'total', 'amountDue'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -292,9 +162,13 @@ def update_invoice(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['customerId', 'number', 'total', 'currency', 'status'])
+    err = _reject_unknown(data, ['invoiceNumber', 'type', 'status', 'total', 'amountDue'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in ['ACCPAY', 'ACCPAYCREDIT', 'APOVERPAYMENT', 'APPREPAYMENT', 'ACCREC', 'ACCRECCREDIT', 'AROVERPAYMENT', 'ARPREPAYMENT']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['ACCPAY', 'ACCPAYCREDIT', 'APOVERPAYMENT', 'APPREPAYMENT', 'ACCREC', 'ACCRECCREDIT', 'AROVERPAYMENT', 'ARPREPAYMENT']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['DRAFT', 'SUBMITTED', 'DELETED', 'AUTHORISED', 'PAID', 'VOIDED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['DRAFT', 'SUBMITTED', 'DELETED', 'AUTHORISED', 'PAID', 'VOIDED']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -312,208 +186,376 @@ def delete_invoice(request, eid):
     db.retract({"entity": f"xero.Invoice", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/purchaseorders", methods=["POST"])
-def create_purchase_order(request):
-    """Create a PurchaseOrder."""
+@app.route("/v1/contacts", methods=["POST"])
+def create_contact(request):
+    """Create a Contact."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vendorId', 'number', 'total', 'status'])
+    err = _reject_unknown(data, ['name', 'emailAddress', 'contactStatus', 'taxNumber', 'isSupplier', 'isCustomer'])
     if err:
         return err, 400
-    err = _require(data, ['number', 'total'])
+    err = _require(data, ['name', 'emailAddress'])
     if err:
         return err, 400
-    rec = {"id": new_id("xero_pur")}
-    rec["vendorId"] = data.get('vendorId')
-    rec["number"] = data.get('number')
-    rec["total"] = _as_float(data.get('total'))
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("PurchaseOrder", rec)
-    return rec, 201
-
-@app.route("/v1/purchaseorders", methods=["GET"])
-def list_purchase_orders(request):
-    """List PurchaseOrders with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("PurchaseOrder")
-    rows = _apply_filters(rows, params, ['vendorId', 'number', 'total', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/purchaseorders/<eid>", methods=["GET"])
-def get_purchase_order(request, eid):
-    """Retrieve a PurchaseOrder by id (supports ?expand=)."""
-    rows = _query("PurchaseOrder", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'vendorId': 'Vendor'})
-    return rec, 200
-
-@app.route("/v1/purchaseorders/<eid>", methods=["POST", "PATCH"])
-def update_purchase_order(request, eid):
-    """Update a PurchaseOrder."""
-    rows = _query("PurchaseOrder", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vendorId', 'number', 'total', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("PurchaseOrder", rec)
-    return rec, 200
-
-@app.route("/v1/purchaseorders/<eid>", methods=["DELETE"])
-def delete_purchase_order(request, eid):
-    """Delete a PurchaseOrder."""
-    rows = _query("PurchaseOrder", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"xero.PurchaseOrder", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/vendors", methods=["POST"])
-def create_vendor(request):
-    """Create a Vendor."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'taxId', 'terms', 'currency'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'terms'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("xero_ven")}
+    if data.get('contactStatus') and data['contactStatus'] not in ['ACTIVE', 'ARCHIVED', 'GDPRREQUEST']:
+        return {"error": {"message": "invalid contactStatus; allowed: " + ", ".join(['ACTIVE', 'ARCHIVED', 'GDPRREQUEST']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("xero_con")}
     rec["name"] = data.get('name')
-    rec["taxId"] = data.get('taxId')
-    rec["terms"] = data.get('terms')
-    rec["currency"] = data.get('currency')
+    rec["emailAddress"] = data.get('emailAddress')
+    rec["contactStatus"] = data.get('contactStatus')
+    rec["taxNumber"] = data.get('taxNumber')
+    rec["isSupplier"] = _as_bool(data.get('isSupplier'))
+    rec["isCustomer"] = _as_bool(data.get('isCustomer'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Vendor", rec)
+    _persist("Contact", rec)
     return rec, 201
 
-@app.route("/v1/vendors", methods=["GET"])
-def list_vendors(request):
-    """List Vendors with filtering + cursor pagination."""
+@app.route("/v1/contacts", methods=["GET"])
+def list_contacts(request):
+    """List Contacts with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Vendor")
-    rows = _apply_filters(rows, params, ['name', 'taxId', 'terms', 'currency'])
+    rows = _query("Contact")
+    rows = _apply_filters(rows, params, ['name', 'emailAddress', 'contactStatus', 'taxNumber', 'isSupplier', 'isCustomer'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/vendors/<eid>", methods=["GET"])
-def get_vendor(request, eid):
-    """Retrieve a Vendor by id (supports ?expand=)."""
-    rows = _query("Vendor", eid)
+@app.route("/v1/contacts/<eid>", methods=["GET"])
+def get_contact(request, eid):
+    """Retrieve a Contact by id (supports ?expand=)."""
+    rows = _query("Contact", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/vendors/<eid>", methods=["POST", "PATCH"])
-def update_vendor(request, eid):
-    """Update a Vendor."""
-    rows = _query("Vendor", eid)
+@app.route("/v1/contacts/<eid>", methods=["POST", "PATCH"])
+def update_contact(request, eid):
+    """Update a Contact."""
+    rows = _query("Contact", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'taxId', 'terms', 'currency'])
+    err = _reject_unknown(data, ['name', 'emailAddress', 'contactStatus', 'taxNumber', 'isSupplier', 'isCustomer'])
     if err:
         return err, 400
+    if data.get('contactStatus') and data['contactStatus'] not in ['ACTIVE', 'ARCHIVED', 'GDPRREQUEST']:
+        return {"error": {"message": "invalid contactStatus; allowed: " + ", ".join(['ACTIVE', 'ARCHIVED', 'GDPRREQUEST']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Vendor", rec)
+    _persist("Contact", rec)
     return rec, 200
 
-@app.route("/v1/vendors/<eid>", methods=["DELETE"])
-def delete_vendor(request, eid):
-    """Delete a Vendor."""
-    rows = _query("Vendor", eid)
+@app.route("/v1/contacts/<eid>", methods=["DELETE"])
+def delete_contact(request, eid):
+    """Delete a Contact."""
+    rows = _query("Contact", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"xero.Vendor", "id": eid})
+    db.retract({"entity": f"xero.Contact", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/costcenters", methods=["POST"])
-def create_cost_center(request):
-    """Create a CostCenter."""
+@app.route("/v1/accounts", methods=["POST"])
+def create_account(request):
+    """Create a Account."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['code', 'name', 'ownerId'])
+    err = _reject_unknown(data, ['code', 'name', 'type', 'status', 'bankAccountNumber'])
     if err:
         return err, 400
     err = _require(data, ['code', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("xero_cos")}
+    if data.get('status') and data['status'] not in ['ACTIVE', 'ARCHIVED', 'DELETED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['ACTIVE', 'ARCHIVED', 'DELETED']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("xero_acc")}
     rec["code"] = data.get('code')
     rec["name"] = data.get('name')
-    rec["ownerId"] = data.get('ownerId')
+    rec["type"] = data.get('type')
+    rec["status"] = data.get('status')
+    rec["bankAccountNumber"] = data.get('bankAccountNumber')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("CostCenter", rec)
+    _persist("Account", rec)
     return rec, 201
 
-@app.route("/v1/costcenters", methods=["GET"])
-def list_cost_centers(request):
-    """List CostCenters with filtering + cursor pagination."""
+@app.route("/v1/accounts", methods=["GET"])
+def list_accounts(request):
+    """List Accounts with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("CostCenter")
-    rows = _apply_filters(rows, params, ['code', 'name', 'ownerId'])
+    rows = _query("Account")
+    rows = _apply_filters(rows, params, ['code', 'name', 'type', 'status', 'bankAccountNumber'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/costcenters/<eid>", methods=["GET"])
-def get_cost_center(request, eid):
-    """Retrieve a CostCenter by id (supports ?expand=)."""
-    rows = _query("CostCenter", eid)
+@app.route("/v1/accounts/<eid>", methods=["GET"])
+def get_account(request, eid):
+    """Retrieve a Account by id (supports ?expand=)."""
+    rows = _query("Account", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/costcenters/<eid>", methods=["POST", "PATCH"])
-def update_cost_center(request, eid):
-    """Update a CostCenter."""
-    rows = _query("CostCenter", eid)
+@app.route("/v1/accounts/<eid>", methods=["POST", "PATCH"])
+def update_account(request, eid):
+    """Update a Account."""
+    rows = _query("Account", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['code', 'name', 'ownerId'])
+    err = _reject_unknown(data, ['code', 'name', 'type', 'status', 'bankAccountNumber'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['ACTIVE', 'ARCHIVED', 'DELETED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['ACTIVE', 'ARCHIVED', 'DELETED']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("CostCenter", rec)
+    _persist("Account", rec)
     return rec, 200
 
-@app.route("/v1/costcenters/<eid>", methods=["DELETE"])
-def delete_cost_center(request, eid):
-    """Delete a CostCenter."""
-    rows = _query("CostCenter", eid)
+@app.route("/v1/accounts/<eid>", methods=["DELETE"])
+def delete_account(request, eid):
+    """Delete a Account."""
+    rows = _query("Account", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"xero.CostCenter", "id": eid})
+    db.retract({"entity": f"xero.Account", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/payments", methods=["POST"])
+def create_payment(request):
+    """Create a Payment."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['amount', 'status', 'paymentType', 'isReconciled'])
+    if err:
+        return err, 400
+    err = _require(data, ['amount', 'status'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['AUTHORISED', 'DELETED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['AUTHORISED', 'DELETED']), "type": "invalid_request_error"}}, 400
+    if data.get('paymentType') and data['paymentType'] not in ['ACCRECPAYMENT', 'ACCPAYPAYMENT', 'ARCREDITPAYMENT', 'APCREDITPAYMENT', 'AROVERPAYMENTPAYMENT', 'ARPREPAYMENTPAYMENT', 'APPREPAYMENTPAYMENT', 'APOVERPAYMENTPAYMENT']:
+        return {"error": {"message": "invalid paymentType; allowed: " + ", ".join(['ACCRECPAYMENT', 'ACCPAYPAYMENT', 'ARCREDITPAYMENT', 'APCREDITPAYMENT', 'AROVERPAYMENTPAYMENT', 'ARPREPAYMENTPAYMENT', 'APPREPAYMENTPAYMENT', 'APOVERPAYMENTPAYMENT']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("xero_pay")}
+    rec["amount"] = _as_float(data.get('amount'))
+    rec["status"] = data.get('status')
+    rec["paymentType"] = data.get('paymentType')
+    rec["isReconciled"] = _as_bool(data.get('isReconciled'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Payment", rec)
+    return rec, 201
+
+@app.route("/v1/payments", methods=["GET"])
+def list_payments(request):
+    """List Payments with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Payment")
+    rows = _apply_filters(rows, params, ['amount', 'status', 'paymentType', 'isReconciled'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/payments/<eid>", methods=["GET"])
+def get_payment(request, eid):
+    """Retrieve a Payment by id (supports ?expand=)."""
+    rows = _query("Payment", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/payments/<eid>", methods=["POST", "PATCH"])
+def update_payment(request, eid):
+    """Update a Payment."""
+    rows = _query("Payment", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['amount', 'status', 'paymentType', 'isReconciled'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['AUTHORISED', 'DELETED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['AUTHORISED', 'DELETED']), "type": "invalid_request_error"}}, 400
+    if data.get('paymentType') and data['paymentType'] not in ['ACCRECPAYMENT', 'ACCPAYPAYMENT', 'ARCREDITPAYMENT', 'APCREDITPAYMENT', 'AROVERPAYMENTPAYMENT', 'ARPREPAYMENTPAYMENT', 'APPREPAYMENTPAYMENT', 'APOVERPAYMENTPAYMENT']:
+        return {"error": {"message": "invalid paymentType; allowed: " + ", ".join(['ACCRECPAYMENT', 'ACCPAYPAYMENT', 'ARCREDITPAYMENT', 'APCREDITPAYMENT', 'AROVERPAYMENTPAYMENT', 'ARPREPAYMENTPAYMENT', 'APPREPAYMENTPAYMENT', 'APOVERPAYMENTPAYMENT']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Payment", rec)
+    return rec, 200
+
+@app.route("/v1/payments/<eid>", methods=["DELETE"])
+def delete_payment(request, eid):
+    """Delete a Payment."""
+    rows = _query("Payment", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"xero.Payment", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/banktransactions", methods=["POST"])
+def create_bank_transaction(request):
+    """Create a BankTransaction."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['type', 'status', 'total', 'reference', 'isReconciled'])
+    if err:
+        return err, 400
+    err = _require(data, ['type', 'status'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['RECEIVE', 'RECEIVE-OVERPAYMENT', 'RECEIVE-PREPAYMENT', 'SPEND', 'SPEND-OVERPAYMENT', 'SPEND-PREPAYMENT', 'RECEIVE-TRANSFER', 'SPEND-TRANSFER']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['RECEIVE', 'RECEIVE-OVERPAYMENT', 'RECEIVE-PREPAYMENT', 'SPEND', 'SPEND-OVERPAYMENT', 'SPEND-PREPAYMENT', 'RECEIVE-TRANSFER', 'SPEND-TRANSFER']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['AUTHORISED', 'DELETED', 'VOIDED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['AUTHORISED', 'DELETED', 'VOIDED']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("xero_ban")}
+    rec["type"] = data.get('type')
+    rec["status"] = data.get('status')
+    rec["total"] = _as_float(data.get('total'))
+    rec["reference"] = data.get('reference')
+    rec["isReconciled"] = _as_bool(data.get('isReconciled'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("BankTransaction", rec)
+    return rec, 201
+
+@app.route("/v1/banktransactions", methods=["GET"])
+def list_bank_transactions(request):
+    """List BankTransactions with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("BankTransaction")
+    rows = _apply_filters(rows, params, ['type', 'status', 'total', 'reference', 'isReconciled'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/banktransactions/<eid>", methods=["GET"])
+def get_bank_transaction(request, eid):
+    """Retrieve a BankTransaction by id (supports ?expand=)."""
+    rows = _query("BankTransaction", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/banktransactions/<eid>", methods=["POST", "PATCH"])
+def update_bank_transaction(request, eid):
+    """Update a BankTransaction."""
+    rows = _query("BankTransaction", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['type', 'status', 'total', 'reference', 'isReconciled'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['RECEIVE', 'RECEIVE-OVERPAYMENT', 'RECEIVE-PREPAYMENT', 'SPEND', 'SPEND-OVERPAYMENT', 'SPEND-PREPAYMENT', 'RECEIVE-TRANSFER', 'SPEND-TRANSFER']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['RECEIVE', 'RECEIVE-OVERPAYMENT', 'RECEIVE-PREPAYMENT', 'SPEND', 'SPEND-OVERPAYMENT', 'SPEND-PREPAYMENT', 'RECEIVE-TRANSFER', 'SPEND-TRANSFER']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['AUTHORISED', 'DELETED', 'VOIDED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['AUTHORISED', 'DELETED', 'VOIDED']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("BankTransaction", rec)
+    return rec, 200
+
+@app.route("/v1/banktransactions/<eid>", methods=["DELETE"])
+def delete_bank_transaction(request, eid):
+    """Delete a BankTransaction."""
+    rows = _query("BankTransaction", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"xero.BankTransaction", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/creditnotes", methods=["POST"])
+def create_credit_note(request):
+    """Create a CreditNote."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['creditNoteNumber', 'type', 'status', 'total'])
+    if err:
+        return err, 400
+    err = _require(data, ['creditNoteNumber', 'type'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['ACCPAYCREDIT', 'ACCRECCREDIT']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['ACCPAYCREDIT', 'ACCRECCREDIT']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['DRAFT', 'SUBMITTED', 'DELETED', 'AUTHORISED', 'PAID', 'VOIDED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['DRAFT', 'SUBMITTED', 'DELETED', 'AUTHORISED', 'PAID', 'VOIDED']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("xero_cre")}
+    rec["creditNoteNumber"] = data.get('creditNoteNumber')
+    rec["type"] = data.get('type')
+    rec["status"] = data.get('status')
+    rec["total"] = _as_float(data.get('total'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("CreditNote", rec)
+    return rec, 201
+
+@app.route("/v1/creditnotes", methods=["GET"])
+def list_credit_notes(request):
+    """List CreditNotes with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("CreditNote")
+    rows = _apply_filters(rows, params, ['creditNoteNumber', 'type', 'status', 'total'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/creditnotes/<eid>", methods=["GET"])
+def get_credit_note(request, eid):
+    """Retrieve a CreditNote by id (supports ?expand=)."""
+    rows = _query("CreditNote", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/creditnotes/<eid>", methods=["POST", "PATCH"])
+def update_credit_note(request, eid):
+    """Update a CreditNote."""
+    rows = _query("CreditNote", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['creditNoteNumber', 'type', 'status', 'total'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['ACCPAYCREDIT', 'ACCRECCREDIT']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['ACCPAYCREDIT', 'ACCRECCREDIT']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['DRAFT', 'SUBMITTED', 'DELETED', 'AUTHORISED', 'PAID', 'VOIDED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['DRAFT', 'SUBMITTED', 'DELETED', 'AUTHORISED', 'PAID', 'VOIDED']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("CreditNote", rec)
+    return rec, 200
+
+@app.route("/v1/creditnotes/<eid>", methods=["DELETE"])
+def delete_credit_note(request, eid):
+    """Delete a CreditNote."""
+    rows = _query("CreditNote", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"xero.CreditNote", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "xero-compat", "tier": "L4",
-            "entities": ['GLAccount', 'JournalEntry', 'Invoice', 'PurchaseOrder', 'Vendor', 'CostCenter']}, 200
+            "entities": ['Invoice', 'Contact', 'Account', 'Payment', 'BankTransaction', 'CreditNote']}, 200
 
 
 if __name__ == "__main__":

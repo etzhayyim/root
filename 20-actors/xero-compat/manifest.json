@@ -11,15 +11,109 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiez7mstrybd3jjxtahalmbhuf3hdgdonf75f7iedk7o2abqme2sui",
   "schema": "schema/xero.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://developer.xero.com/documentation/api/accounting/overview",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "Invoice",
+      "Contact",
+      "Account",
+      "Payment",
+      "BankTransaction",
+      "CreditNote"
+    ],
+    "enums": {
+      "Invoice": {
+        "type": [
+          "ACCPAY",
+          "ACCPAYCREDIT",
+          "APOVERPAYMENT",
+          "APPREPAYMENT",
+          "ACCREC",
+          "ACCRECCREDIT",
+          "AROVERPAYMENT",
+          "ARPREPAYMENT"
+        ],
+        "status": [
+          "DRAFT",
+          "SUBMITTED",
+          "DELETED",
+          "AUTHORISED",
+          "PAID",
+          "VOIDED"
+        ]
+      },
+      "Contact": {
+        "contactStatus": [
+          "ACTIVE",
+          "ARCHIVED",
+          "GDPRREQUEST"
+        ]
+      },
+      "Account": {
+        "status": [
+          "ACTIVE",
+          "ARCHIVED",
+          "DELETED"
+        ]
+      },
+      "Payment": {
+        "status": [
+          "AUTHORISED",
+          "DELETED"
+        ],
+        "paymentType": [
+          "ACCRECPAYMENT",
+          "ACCPAYPAYMENT",
+          "ARCREDITPAYMENT",
+          "APCREDITPAYMENT",
+          "AROVERPAYMENTPAYMENT",
+          "ARPREPAYMENTPAYMENT",
+          "APPREPAYMENTPAYMENT",
+          "APOVERPAYMENTPAYMENT"
+        ]
+      },
+      "BankTransaction": {
+        "type": [
+          "RECEIVE",
+          "RECEIVE-OVERPAYMENT",
+          "RECEIVE-PREPAYMENT",
+          "SPEND",
+          "SPEND-OVERPAYMENT",
+          "SPEND-PREPAYMENT",
+          "RECEIVE-TRANSFER",
+          "SPEND-TRANSFER"
+        ],
+        "status": [
+          "AUTHORISED",
+          "DELETED",
+          "VOIDED"
+        ]
+      },
+      "CreditNote": {
+        "type": [
+          "ACCPAYCREDIT",
+          "ACCRECCREDIT"
+        ],
+        "status": [
+          "DRAFT",
+          "SUBMITTED",
+          "DELETED",
+          "AUTHORISED",
+          "PAID",
+          "VOIDED"
+        ]
+      }
+    }
+  },
   "entities": [
-    "GLAccount",
-    "JournalEntry",
     "Invoice",
-    "PurchaseOrder",
-    "Vendor",
-    "CostCenter"
+    "Contact",
+    "Account",
+    "Payment",
+    "BankTransaction",
+    "CreditNote"
   ],
   "adr": [
     "260607",
@@ -33,56 +127,6 @@
       "runtime": "kotoba-wasm",
       "endpointCount": 30,
       "routes": [
-        {
-          "method": "POST",
-          "path": "/v1/glaccounts",
-          "op": "create GLAccount"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/glaccounts",
-          "op": "list GLAccount"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/glaccounts/{id}",
-          "op": "get GLAccount"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/glaccounts/{id}",
-          "op": "update GLAccount"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/glaccounts/{id}",
-          "op": "delete GLAccount"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/journalentries",
-          "op": "create JournalEntry"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/journalentries",
-          "op": "list JournalEntry"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/journalentries/{id}",
-          "op": "get JournalEntry"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/journalentries/{id}",
-          "op": "update JournalEntry"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/journalentries/{id}",
-          "op": "delete JournalEntry"
-        },
         {
           "method": "POST",
           "path": "/v1/invoices",
@@ -110,78 +154,128 @@
         },
         {
           "method": "POST",
-          "path": "/v1/purchaseorders",
-          "op": "create PurchaseOrder"
+          "path": "/v1/contacts",
+          "op": "create Contact"
         },
         {
           "method": "GET",
-          "path": "/v1/purchaseorders",
-          "op": "list PurchaseOrder"
+          "path": "/v1/contacts",
+          "op": "list Contact"
         },
         {
           "method": "GET",
-          "path": "/v1/purchaseorders/{id}",
-          "op": "get PurchaseOrder"
+          "path": "/v1/contacts/{id}",
+          "op": "get Contact"
         },
         {
           "method": "PATCH",
-          "path": "/v1/purchaseorders/{id}",
-          "op": "update PurchaseOrder"
+          "path": "/v1/contacts/{id}",
+          "op": "update Contact"
         },
         {
           "method": "DELETE",
-          "path": "/v1/purchaseorders/{id}",
-          "op": "delete PurchaseOrder"
+          "path": "/v1/contacts/{id}",
+          "op": "delete Contact"
         },
         {
           "method": "POST",
-          "path": "/v1/vendors",
-          "op": "create Vendor"
+          "path": "/v1/accounts",
+          "op": "create Account"
         },
         {
           "method": "GET",
-          "path": "/v1/vendors",
-          "op": "list Vendor"
+          "path": "/v1/accounts",
+          "op": "list Account"
         },
         {
           "method": "GET",
-          "path": "/v1/vendors/{id}",
-          "op": "get Vendor"
+          "path": "/v1/accounts/{id}",
+          "op": "get Account"
         },
         {
           "method": "PATCH",
-          "path": "/v1/vendors/{id}",
-          "op": "update Vendor"
+          "path": "/v1/accounts/{id}",
+          "op": "update Account"
         },
         {
           "method": "DELETE",
-          "path": "/v1/vendors/{id}",
-          "op": "delete Vendor"
+          "path": "/v1/accounts/{id}",
+          "op": "delete Account"
         },
         {
           "method": "POST",
-          "path": "/v1/costcenters",
-          "op": "create CostCenter"
+          "path": "/v1/payments",
+          "op": "create Payment"
         },
         {
           "method": "GET",
-          "path": "/v1/costcenters",
-          "op": "list CostCenter"
+          "path": "/v1/payments",
+          "op": "list Payment"
         },
         {
           "method": "GET",
-          "path": "/v1/costcenters/{id}",
-          "op": "get CostCenter"
+          "path": "/v1/payments/{id}",
+          "op": "get Payment"
         },
         {
           "method": "PATCH",
-          "path": "/v1/costcenters/{id}",
-          "op": "update CostCenter"
+          "path": "/v1/payments/{id}",
+          "op": "update Payment"
         },
         {
           "method": "DELETE",
-          "path": "/v1/costcenters/{id}",
-          "op": "delete CostCenter"
+          "path": "/v1/payments/{id}",
+          "op": "delete Payment"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/banktransactions",
+          "op": "create BankTransaction"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/banktransactions",
+          "op": "list BankTransaction"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/banktransactions/{id}",
+          "op": "get BankTransaction"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/banktransactions/{id}",
+          "op": "update BankTransaction"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/banktransactions/{id}",
+          "op": "delete BankTransaction"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/creditnotes",
+          "op": "create CreditNote"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/creditnotes",
+          "op": "list CreditNote"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/creditnotes/{id}",
+          "op": "get CreditNote"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/creditnotes/{id}",
+          "op": "update CreditNote"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/creditnotes/{id}",
+          "op": "delete CreditNote"
         }
       ],
       "features": {
@@ -247,222 +341,30 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_g_l_account",
-          "description": "Create a GLAccount.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "code": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "currency": {
-                "type": "string"
-              },
-              "balance": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "code",
-              "name"
-            ]
-          }
-        },
-        {
-          "name": "list_g_l_accounts",
-          "description": "List GLAccounts.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_g_l_account",
-          "description": "Get a GLAccount by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_g_l_account",
-          "description": "Update a GLAccount.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "code": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "currency": {
-                "type": "string"
-              },
-              "balance": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_g_l_account",
-          "description": "Delete a GLAccount.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_journal_entry",
-          "description": "Create a JournalEntry.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "accountId": {
-                "type": "string"
-              },
-              "debit": {
-                "type": "number"
-              },
-              "credit": {
-                "type": "number"
-              },
-              "memo": {
-                "type": "string"
-              },
-              "postedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "debit",
-              "credit"
-            ]
-          }
-        },
-        {
-          "name": "list_journal_entries",
-          "description": "List JournalEntries.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_journal_entry",
-          "description": "Get a JournalEntry by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_journal_entry",
-          "description": "Update a JournalEntry.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "accountId": {
-                "type": "string"
-              },
-              "debit": {
-                "type": "number"
-              },
-              "credit": {
-                "type": "number"
-              },
-              "memo": {
-                "type": "string"
-              },
-              "postedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_journal_entry",
-          "description": "Delete a JournalEntry.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
           "name": "create_invoice",
           "description": "Create a Invoice.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "customerId": {
+              "invoiceNumber": {
                 "type": "string"
               },
-              "number": {
+              "type": {
+                "type": "string"
+              },
+              "status": {
                 "type": "string"
               },
               "total": {
                 "type": "number"
               },
-              "currency": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
+              "amountDue": {
+                "type": "number"
               }
             },
             "required": [
-              "number",
-              "total"
+              "invoiceNumber",
+              "type"
             ]
           }
         },
@@ -498,20 +400,20 @@
               "id": {
                 "type": "string"
               },
-              "customerId": {
+              "invoiceNumber": {
                 "type": "string"
               },
-              "number": {
+              "type": {
+                "type": "string"
+              },
+              "status": {
                 "type": "string"
               },
               "total": {
                 "type": "number"
               },
-              "currency": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
+              "amountDue": {
+                "type": "number"
               }
             },
             "required": [
@@ -535,131 +437,47 @@
           }
         },
         {
-          "name": "create_purchase_order",
-          "description": "Create a PurchaseOrder.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "vendorId": {
-                "type": "string"
-              },
-              "number": {
-                "type": "string"
-              },
-              "total": {
-                "type": "number"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "number",
-              "total"
-            ]
-          }
-        },
-        {
-          "name": "list_purchase_orders",
-          "description": "List PurchaseOrders.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_purchase_order",
-          "description": "Get a PurchaseOrder by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_purchase_order",
-          "description": "Update a PurchaseOrder.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "vendorId": {
-                "type": "string"
-              },
-              "number": {
-                "type": "string"
-              },
-              "total": {
-                "type": "number"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_purchase_order",
-          "description": "Delete a PurchaseOrder.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_vendor",
-          "description": "Create a Vendor.",
+          "name": "create_contact",
+          "description": "Create a Contact.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "taxId": {
+              "emailAddress": {
                 "type": "string"
               },
-              "terms": {
+              "contactStatus": {
                 "type": "string"
               },
-              "currency": {
+              "taxNumber": {
                 "type": "string"
+              },
+              "isSupplier": {
+                "type": "boolean"
+              },
+              "isCustomer": {
+                "type": "boolean"
               }
             },
             "required": [
               "name",
-              "terms"
+              "emailAddress"
             ]
           }
         },
         {
-          "name": "list_vendors",
-          "description": "List Vendors.",
+          "name": "list_contacts",
+          "description": "List Contacts.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_vendor",
-          "description": "Get a Vendor by id.",
+          "name": "get_contact",
+          "description": "Get a Contact by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -673,8 +491,8 @@
           }
         },
         {
-          "name": "update_vendor",
-          "description": "Update a Vendor.",
+          "name": "update_contact",
+          "description": "Update a Contact.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -684,14 +502,20 @@
               "name": {
                 "type": "string"
               },
-              "taxId": {
+              "emailAddress": {
                 "type": "string"
               },
-              "terms": {
+              "contactStatus": {
                 "type": "string"
               },
-              "currency": {
+              "taxNumber": {
                 "type": "string"
+              },
+              "isSupplier": {
+                "type": "boolean"
+              },
+              "isCustomer": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -700,8 +524,8 @@
           }
         },
         {
-          "name": "delete_vendor",
-          "description": "Delete a Vendor.",
+          "name": "delete_contact",
+          "description": "Delete a Contact.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -715,8 +539,8 @@
           }
         },
         {
-          "name": "create_cost_center",
-          "description": "Create a CostCenter.",
+          "name": "create_account",
+          "description": "Create a Account.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -726,7 +550,13 @@
               "name": {
                 "type": "string"
               },
-              "ownerId": {
+              "type": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "bankAccountNumber": {
                 "type": "string"
               }
             },
@@ -737,16 +567,16 @@
           }
         },
         {
-          "name": "list_cost_centers",
-          "description": "List CostCenters.",
+          "name": "list_accounts",
+          "description": "List Accounts.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_cost_center",
-          "description": "Get a CostCenter by id.",
+          "name": "get_account",
+          "description": "Get a Account by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -760,8 +590,8 @@
           }
         },
         {
-          "name": "update_cost_center",
-          "description": "Update a CostCenter.",
+          "name": "update_account",
+          "description": "Update a Account.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -774,7 +604,13 @@
               "name": {
                 "type": "string"
               },
-              "ownerId": {
+              "type": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "bankAccountNumber": {
                 "type": "string"
               }
             },
@@ -784,8 +620,284 @@
           }
         },
         {
-          "name": "delete_cost_center",
-          "description": "Delete a CostCenter.",
+          "name": "delete_account",
+          "description": "Delete a Account.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_payment",
+          "description": "Create a Payment.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "amount": {
+                "type": "number"
+              },
+              "status": {
+                "type": "string"
+              },
+              "paymentType": {
+                "type": "string"
+              },
+              "isReconciled": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "amount",
+              "status"
+            ]
+          }
+        },
+        {
+          "name": "list_payments",
+          "description": "List Payments.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_payment",
+          "description": "Get a Payment by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_payment",
+          "description": "Update a Payment.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "number"
+              },
+              "status": {
+                "type": "string"
+              },
+              "paymentType": {
+                "type": "string"
+              },
+              "isReconciled": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_payment",
+          "description": "Delete a Payment.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_bank_transaction",
+          "description": "Create a BankTransaction.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "total": {
+                "type": "number"
+              },
+              "reference": {
+                "type": "string"
+              },
+              "isReconciled": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "type",
+              "status"
+            ]
+          }
+        },
+        {
+          "name": "list_bank_transactions",
+          "description": "List BankTransactions.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_bank_transaction",
+          "description": "Get a BankTransaction by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_bank_transaction",
+          "description": "Update a BankTransaction.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "total": {
+                "type": "number"
+              },
+              "reference": {
+                "type": "string"
+              },
+              "isReconciled": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_bank_transaction",
+          "description": "Delete a BankTransaction.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_credit_note",
+          "description": "Create a CreditNote.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "creditNoteNumber": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "total": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "creditNoteNumber",
+              "type"
+            ]
+          }
+        },
+        {
+          "name": "list_credit_notes",
+          "description": "List CreditNotes.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_credit_note",
+          "description": "Get a CreditNote by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_credit_note",
+          "description": "Update a CreditNote.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "creditNoteNumber": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "total": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_credit_note",
+          "description": "Delete a CreditNote.",
           "inputSchema": {
             "type": "object",
             "properties": {

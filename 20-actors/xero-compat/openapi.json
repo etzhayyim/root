@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreiez7mstrybd3jjxtahalmbhuf3hdgdonf75f7iedk7o2abqme2sui",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,376 +17,6 @@
     }
   ],
   "paths": {
-    "/v1/glaccounts": {
-      "get": {
-        "summary": "List GLAccounts",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/GLAccount"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a GLAccount",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/GLAccountCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GLAccount"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/glaccounts/{id}": {
-      "get": {
-        "summary": "Get a GLAccount",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GLAccount"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a GLAccount",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/GLAccountCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GLAccount"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a GLAccount",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/journalentries": {
-      "get": {
-        "summary": "List JournalEntries",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/JournalEntry"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a JournalEntry",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/JournalEntryCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/JournalEntry"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/journalentries/{id}": {
-      "get": {
-        "summary": "Get a JournalEntry",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/JournalEntry"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a JournalEntry",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/JournalEntryCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/JournalEntry"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a JournalEntry",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
     "/v1/invoices": {
       "get": {
         "summary": "List Invoices",
@@ -572,9 +202,9 @@
         }
       }
     },
-    "/v1/purchaseorders": {
+    "/v1/contacts": {
       "get": {
-        "summary": "List PurchaseOrders",
+        "summary": "List Contacts",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/PurchaseOrder"
+                        "$ref": "#/components/schemas/Contact"
                       }
                     },
                     "has_more": {
@@ -634,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a PurchaseOrder",
+        "summary": "Create a Contact",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PurchaseOrderCreate"
+                "$ref": "#/components/schemas/ContactCreate"
               }
             }
           }
@@ -651,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PurchaseOrder"
+                  "$ref": "#/components/schemas/Contact"
                 }
               }
             }
@@ -662,9 +292,9 @@
         }
       }
     },
-    "/v1/purchaseorders/{id}": {
+    "/v1/contacts/{id}": {
       "get": {
-        "summary": "Get a PurchaseOrder",
+        "summary": "Get a Contact",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PurchaseOrder"
+                  "$ref": "#/components/schemas/Contact"
                 }
               }
             }
@@ -699,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a PurchaseOrder",
+        "summary": "Update a Contact",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PurchaseOrderCreate"
+                "$ref": "#/components/schemas/ContactCreate"
               }
             }
           }
@@ -725,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PurchaseOrder"
+                  "$ref": "#/components/schemas/Contact"
                 }
               }
             }
@@ -736,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a PurchaseOrder",
+        "summary": "Delete a Contact",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +387,9 @@
         }
       }
     },
-    "/v1/vendors": {
+    "/v1/accounts": {
       "get": {
-        "summary": "List Vendors",
+        "summary": "List Accounts",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Vendor"
+                        "$ref": "#/components/schemas/Account"
                       }
                     },
                     "has_more": {
@@ -819,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Vendor",
+        "summary": "Create a Account",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/VendorCreate"
+                "$ref": "#/components/schemas/AccountCreate"
               }
             }
           }
@@ -836,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Vendor"
+                  "$ref": "#/components/schemas/Account"
                 }
               }
             }
@@ -847,9 +477,9 @@
         }
       }
     },
-    "/v1/vendors/{id}": {
+    "/v1/accounts/{id}": {
       "get": {
-        "summary": "Get a Vendor",
+        "summary": "Get a Account",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Vendor"
+                  "$ref": "#/components/schemas/Account"
                 }
               }
             }
@@ -884,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Vendor",
+        "summary": "Update a Account",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/VendorCreate"
+                "$ref": "#/components/schemas/AccountCreate"
               }
             }
           }
@@ -910,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Vendor"
+                  "$ref": "#/components/schemas/Account"
                 }
               }
             }
@@ -921,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Vendor",
+        "summary": "Delete a Account",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +572,9 @@
         }
       }
     },
-    "/v1/costcenters": {
+    "/v1/payments": {
       "get": {
-        "summary": "List CostCenters",
+        "summary": "List Payments",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/CostCenter"
+                        "$ref": "#/components/schemas/Payment"
                       }
                     },
                     "has_more": {
@@ -1004,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a CostCenter",
+        "summary": "Create a Payment",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CostCenterCreate"
+                "$ref": "#/components/schemas/PaymentCreate"
               }
             }
           }
@@ -1021,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CostCenter"
+                  "$ref": "#/components/schemas/Payment"
                 }
               }
             }
@@ -1032,9 +662,9 @@
         }
       }
     },
-    "/v1/costcenters/{id}": {
+    "/v1/payments/{id}": {
       "get": {
-        "summary": "Get a CostCenter",
+        "summary": "Get a Payment",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CostCenter"
+                  "$ref": "#/components/schemas/Payment"
                 }
               }
             }
@@ -1069,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a CostCenter",
+        "summary": "Update a Payment",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CostCenterCreate"
+                "$ref": "#/components/schemas/PaymentCreate"
               }
             }
           }
@@ -1095,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CostCenter"
+                  "$ref": "#/components/schemas/Payment"
                 }
               }
             }
@@ -1106,7 +736,377 @@
         }
       },
       "delete": {
-        "summary": "Delete a CostCenter",
+        "summary": "Delete a Payment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/banktransactions": {
+      "get": {
+        "summary": "List BankTransactions",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/BankTransaction"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a BankTransaction",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BankTransactionCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankTransaction"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/banktransactions/{id}": {
+      "get": {
+        "summary": "Get a BankTransaction",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankTransaction"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a BankTransaction",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BankTransactionCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankTransaction"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a BankTransaction",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/creditnotes": {
+      "get": {
+        "summary": "List CreditNotes",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/CreditNote"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a CreditNote",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreditNoteCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreditNote"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/creditnotes/{id}": {
+      "get": {
+        "summary": "Get a CreditNote",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreditNote"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a CreditNote",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreditNoteCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreditNote"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a CreditNote",
         "parameters": [
           {
             "name": "id",
@@ -1140,137 +1140,44 @@
   },
   "components": {
     "schemas": {
-      "GLAccount": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "code": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "balance": {
-            "type": "number"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "GLAccountCreate": {
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "balance": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "code",
-          "name"
-        ]
-      },
-      "JournalEntry": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "accountId": {
-            "type": "string"
-          },
-          "debit": {
-            "type": "number"
-          },
-          "credit": {
-            "type": "number"
-          },
-          "memo": {
-            "type": "string"
-          },
-          "postedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "JournalEntryCreate": {
-        "type": "object",
-        "properties": {
-          "accountId": {
-            "type": "string"
-          },
-          "debit": {
-            "type": "number"
-          },
-          "credit": {
-            "type": "number"
-          },
-          "memo": {
-            "type": "string"
-          },
-          "postedAt": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "debit",
-          "credit"
-        ]
-      },
       "Invoice": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "customerId": {
+          "invoiceNumber": {
             "type": "string"
           },
-          "number": {
-            "type": "string"
+          "type": {
+            "type": "string",
+            "enum": [
+              "ACCPAY",
+              "ACCPAYCREDIT",
+              "APOVERPAYMENT",
+              "APPREPAYMENT",
+              "ACCREC",
+              "ACCRECCREDIT",
+              "AROVERPAYMENT",
+              "ARPREPAYMENT"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "DRAFT",
+              "SUBMITTED",
+              "DELETED",
+              "AUTHORISED",
+              "PAID",
+              "VOIDED"
+            ]
           },
           "total": {
             "type": "number"
           },
-          "currency": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
+          "amountDue": {
+            "type": "number"
           },
           "createdAt": {
             "type": "string",
@@ -1285,44 +1192,73 @@
       "InvoiceCreate": {
         "type": "object",
         "properties": {
-          "customerId": {
+          "invoiceNumber": {
             "type": "string"
           },
-          "number": {
-            "type": "string"
+          "type": {
+            "type": "string",
+            "enum": [
+              "ACCPAY",
+              "ACCPAYCREDIT",
+              "APOVERPAYMENT",
+              "APPREPAYMENT",
+              "ACCREC",
+              "ACCRECCREDIT",
+              "AROVERPAYMENT",
+              "ARPREPAYMENT"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "DRAFT",
+              "SUBMITTED",
+              "DELETED",
+              "AUTHORISED",
+              "PAID",
+              "VOIDED"
+            ]
           },
           "total": {
             "type": "number"
           },
-          "currency": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
+          "amountDue": {
+            "type": "number"
           }
         },
         "required": [
-          "number",
-          "total"
+          "invoiceNumber",
+          "type"
         ]
       },
-      "PurchaseOrder": {
+      "Contact": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "vendorId": {
+          "name": {
             "type": "string"
           },
-          "number": {
+          "emailAddress": {
             "type": "string"
           },
-          "total": {
-            "type": "number"
+          "contactStatus": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "ARCHIVED",
+              "GDPRREQUEST"
+            ]
           },
-          "status": {
+          "taxNumber": {
             "type": "string"
+          },
+          "isSupplier": {
+            "type": "boolean"
+          },
+          "isCustomer": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1334,77 +1270,39 @@
           }
         }
       },
-      "PurchaseOrderCreate": {
-        "type": "object",
-        "properties": {
-          "vendorId": {
-            "type": "string"
-          },
-          "number": {
-            "type": "string"
-          },
-          "total": {
-            "type": "number"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "number",
-          "total"
-        ]
-      },
-      "Vendor": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "taxId": {
-            "type": "string"
-          },
-          "terms": {
-            "type": "string"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "VendorCreate": {
+      "ContactCreate": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string"
           },
-          "taxId": {
+          "emailAddress": {
             "type": "string"
           },
-          "terms": {
+          "contactStatus": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "ARCHIVED",
+              "GDPRREQUEST"
+            ]
+          },
+          "taxNumber": {
             "type": "string"
           },
-          "currency": {
-            "type": "string"
+          "isSupplier": {
+            "type": "boolean"
+          },
+          "isCustomer": {
+            "type": "boolean"
           }
         },
         "required": [
           "name",
-          "terms"
+          "emailAddress"
         ]
       },
-      "CostCenter": {
+      "Account": {
         "type": "object",
         "properties": {
           "id": {
@@ -1416,7 +1314,18 @@
           "name": {
             "type": "string"
           },
-          "ownerId": {
+          "type": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "ARCHIVED",
+              "DELETED"
+            ]
+          },
+          "bankAccountNumber": {
             "type": "string"
           },
           "createdAt": {
@@ -1429,7 +1338,7 @@
           }
         }
       },
-      "CostCenterCreate": {
+      "AccountCreate": {
         "type": "object",
         "properties": {
           "code": {
@@ -1438,13 +1347,259 @@
           "name": {
             "type": "string"
           },
-          "ownerId": {
+          "type": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "ARCHIVED",
+              "DELETED"
+            ]
+          },
+          "bankAccountNumber": {
             "type": "string"
           }
         },
         "required": [
           "code",
           "name"
+        ]
+      },
+      "Payment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "AUTHORISED",
+              "DELETED"
+            ]
+          },
+          "paymentType": {
+            "type": "string",
+            "enum": [
+              "ACCRECPAYMENT",
+              "ACCPAYPAYMENT",
+              "ARCREDITPAYMENT",
+              "APCREDITPAYMENT",
+              "AROVERPAYMENTPAYMENT",
+              "ARPREPAYMENTPAYMENT",
+              "APPREPAYMENTPAYMENT",
+              "APOVERPAYMENTPAYMENT"
+            ]
+          },
+          "isReconciled": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "PaymentCreate": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "AUTHORISED",
+              "DELETED"
+            ]
+          },
+          "paymentType": {
+            "type": "string",
+            "enum": [
+              "ACCRECPAYMENT",
+              "ACCPAYPAYMENT",
+              "ARCREDITPAYMENT",
+              "APCREDITPAYMENT",
+              "AROVERPAYMENTPAYMENT",
+              "ARPREPAYMENTPAYMENT",
+              "APPREPAYMENTPAYMENT",
+              "APOVERPAYMENTPAYMENT"
+            ]
+          },
+          "isReconciled": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "amount",
+          "status"
+        ]
+      },
+      "BankTransaction": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "RECEIVE",
+              "RECEIVE-OVERPAYMENT",
+              "RECEIVE-PREPAYMENT",
+              "SPEND",
+              "SPEND-OVERPAYMENT",
+              "SPEND-PREPAYMENT",
+              "RECEIVE-TRANSFER",
+              "SPEND-TRANSFER"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "AUTHORISED",
+              "DELETED",
+              "VOIDED"
+            ]
+          },
+          "total": {
+            "type": "number"
+          },
+          "reference": {
+            "type": "string"
+          },
+          "isReconciled": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "BankTransactionCreate": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "RECEIVE",
+              "RECEIVE-OVERPAYMENT",
+              "RECEIVE-PREPAYMENT",
+              "SPEND",
+              "SPEND-OVERPAYMENT",
+              "SPEND-PREPAYMENT",
+              "RECEIVE-TRANSFER",
+              "SPEND-TRANSFER"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "AUTHORISED",
+              "DELETED",
+              "VOIDED"
+            ]
+          },
+          "total": {
+            "type": "number"
+          },
+          "reference": {
+            "type": "string"
+          },
+          "isReconciled": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "type",
+          "status"
+        ]
+      },
+      "CreditNote": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "creditNoteNumber": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "ACCPAYCREDIT",
+              "ACCRECCREDIT"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "DRAFT",
+              "SUBMITTED",
+              "DELETED",
+              "AUTHORISED",
+              "PAID",
+              "VOIDED"
+            ]
+          },
+          "total": {
+            "type": "number"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "CreditNoteCreate": {
+        "type": "object",
+        "properties": {
+          "creditNoteNumber": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "ACCPAYCREDIT",
+              "ACCRECCREDIT"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "DRAFT",
+              "SUBMITTED",
+              "DELETED",
+              "AUTHORISED",
+              "PAID",
+              "VOIDED"
+            ]
+          },
+          "total": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "creditNoteNumber",
+          "type"
         ]
       }
     }

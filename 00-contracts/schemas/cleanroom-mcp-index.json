@@ -8751,7 +8751,7 @@
     {
       "handle": "xero-compat",
       "did": "did:web:etzhayyim.com:actor:xero-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreiez7mstrybd3jjxtahalmbhuf3hdgdonf75f7iedk7o2abqme2sui",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,

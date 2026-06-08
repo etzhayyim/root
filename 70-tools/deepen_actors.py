@@ -1089,6 +1089,16 @@ PLATFORM_OVERRIDES = {
         "Warehouse": E(name="string", state="string", warehouseType="string", clusterSize="string"),
         "ObjectInfo": E(path="string", objectType="string", language="string", size="integer"),
     },
+    # Faithful Xero Accounting model (remodeled from generic erp_finance), L5
+    # (confirmed against the official XeroAPI/xero-node SDK models).
+    "xero": {
+        "Invoice": E(invoiceNumber="string", type="string", status="string", total="float", amountDue="float"),
+        "Contact": E(name="string", emailAddress="string", contactStatus="string", taxNumber="string", isSupplier="boolean", isCustomer="boolean"),
+        "Account": E(code="string", name="string", type="string", status="string", bankAccountNumber="string"),
+        "Payment": E(amount="float", status="string", paymentType="string", isReconciled="boolean"),
+        "BankTransaction": E(type="string", status="string", total="float", reference="string", isReconciled="boolean"),
+        "CreditNote": E(creditNoteNumber="string", type="string", status="string", total="float"),
+    },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).
     "square": {

@@ -210,7 +210,7 @@ schema/enums match each live vendor API field-for-field. To avoid overclaiming,
 that distinct axis is named **L5 (Verified)**: an actor reaches L5 only when its
 Kotoba schema + endpoint contract are reconciled against the platform's official
 API documentation (field names, types, enums, required-ness, error codes) via the
-Autonomous Reverse-Engineering Loop, with provenance recorded. **L5 count today: 28** — 20 fully verified + 8 partial; remodel-then-doc-verify via parallel haiku subagents (now also using official SDK source — dropbox/databricks — when HTTP docs render dynamically). DEFERRED honestly (stay L4, never fabricated): coinbase, asana, docusign, calendly, gusto. Inferred-but-not-doc-enumerated enums (greenhouse Job/Offer/Scorecard, klaviyo Campaign.status, databricks Cluster/Warehouse.state, pipedrive Activity.type) are recorded as gaps and NOT enforced.
+Autonomous Reverse-Engineering Loop, with provenance recorded. **L5 count today: 29** — 21 fully verified + 8 partial; xero alone enforces 10 doc/SDK-confirmed enums. DEFERRED honestly (stay L4, never fabricated): coinbase, asana, docusign, calendly, gusto, atlassian/jira (docs JS/truncated — agent could not confirm), servicenow (all fetches blocked). The verification gate's value is precisely that it refuses to certify what cannot be sourced.
 implementation" (achieved corpus-wide); L5 = "verified against the real API"
 (the next, doc-gated tier).
 
