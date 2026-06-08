@@ -165,6 +165,7 @@ cells = [
   "ipaddress_concentration_weave",  # RIR coverage + ASN prefix-load + hosting-class HHI (cron 12 * * * *) (ADR-2605301400 §T2)
   "yabai_cti_ingest",      # CTI/passive-DNS offline merged-graph intake (cron 22 * * * *) (ADR-2605301400 §T3; G7 live CT/PDNS pull gated)
   "yabai_cti_weave",       # fast-flux + hosting concentration + IOC load + cert pivots (cron 27 * * * *) (ADR-2605301400 §T3)
+  "tadori_silen_review",   # 辿 autonomous Transparent-Force self-audit heartbeat → append-only kotoba log (cron 37 * * * *) (ADR-2605301400 §D1; G3/G5/G12: counters ONLY, no case/PII/obs; live case-ingest gated)
 ]
 shard_index = 1
 total_shards = 3
