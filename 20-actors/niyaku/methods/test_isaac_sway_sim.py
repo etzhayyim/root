@@ -56,6 +56,42 @@ def test_anti_sway_quietens_load_vs_naive():
     assert good.reached
 
 
+def test_resolve_py_src_env_override(monkeypatch, tmp_path):
+    """_resolve_py_src honours NIYAKU_KOTODAMA_SRC when it points at a valid tree."""
+    good = tmp_path / "src"
+    (good / "kotodama" / "nv_compat").mkdir(parents=True)
+    monkeypatch.setenv("NIYAKU_KOTODAMA_SRC", str(good))
+    assert sim._resolve_py_src() == str(good.resolve())
+
+
+def test_resolve_py_src_walks_when_env_invalid(monkeypatch):
+    """A bogus env value is ignored; resolution falls through to the dir walk."""
+    monkeypatch.setenv("NIYAKU_KOTODAMA_SRC", "/nonexistent/path/xyz")
+    out = sim._resolve_py_src()
+    assert out.endswith("py/src") or "kotoba" in out  # a path string, not a crash
+
+
+def test_isaac_available_returns_bool():
+    assert isinstance(sim.isaac_available(), bool)
+
+
+@isaac
+def test_boom_luff_small_step_converges():
+    """Double-pendulum boom crane: a small luff step lands the load quiet."""
+    r = sim.run_boom_luff(0.15, steps=4000)
+    assert r.reached
+    assert abs(r.final_boom_rad - 0.15) <= 0.05
+    assert r.residual_load_rad < 0.05
+
+
+@isaac
+def test_boom_luff_large_step_reports_honestly():
+    """Outside the small-angle envelope the underactuated PD does NOT pretend to
+    converge — reached is False rather than a faked success."""
+    r = sim.run_boom_luff(1.2, steps=1500)
+    assert r.reached is False
+
+
 @isaac
 def test_report_to_datoms_shape():
     r = sim.run_sts_transfer(x_target=1.0, anti_sway=True, steps=4000)

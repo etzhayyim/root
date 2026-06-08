@@ -87,6 +87,23 @@ def test_zv_shaper_amplitudes_sum_to_one():
     assert t1 == pytest.approx(c.sway_period() / 2.0, rel=0.05)  # ~half period
 
 
+def test_traverse_records_trajectory_when_requested():
+    c = GantryCrane(cable_length=25.0)
+    res = simulate_traverse(c, 20.0, max_time_s=300.0, record=True)
+    assert res.reached
+    assert len(res.trajectory) == res.steps
+    assert all(len(s) == 4 for s in res.trajectory)
+
+
+def test_traverse_not_settled_within_short_window():
+    """Too little time to settle → reached False and settle_time clamps to the
+    horizon (exercises the un-settled fall-through)."""
+    c = GantryCrane(cable_length=40.0)
+    res = simulate_traverse(c, 55.0, max_time_s=2.0, dt=1.0 / 50.0)
+    assert res.reached is False
+    assert res.settle_time_s == pytest.approx(2.0)
+
+
 def test_cycle_time_and_productivity():
     c = GantryCrane(cable_length=25.0)
     t = lift_cycle_time(c, traverse_m=30.0, hoist_up_m=20.0, hoist_down_m=18.0)

@@ -102,5 +102,29 @@ def test_discharge_sequence_top_first():
     assert tiers == sorted(tiers, reverse=True)
 
 
+def test_weight_on_top_forces_new_column():
+    """A heavy early-discharge box cannot sit on a light late-discharge box, so
+    it is pushed to a fresh column (exercises the weight-on-top skip)."""
+    rotation = ["P0", "P1"]
+    boxes = [
+        Container("late_light", 10.0, "P1"),  # placed bottom of col0 first
+        Container("early_heavy", 20.0, "P0"),  # heavier → can't top col0 → col1
+    ]
+    plan = build_stow_plan(boxes, rotation, bays=2, rows=1, tiers=2)
+    assert plan.slot_of("late_light").bay != plan.slot_of("early_heavy").bay
+
+
+def test_validate_no_rehandle_detects_violation():
+    """A hand-built plan with a later-discharge box stacked above an earlier one
+    is flagged (returns False)."""
+    from stow_plan import StowagePlan
+    plan = StowagePlan()
+    plan.assignments["below_early"] = Slot(0, 0, 0)  # P0 (early) at bottom — bad
+    plan.assignments["above_late"] = Slot(0, 0, 1)   # P1 (late) on top — buries early
+    rot_index = {"P0": 0, "P1": 1}
+    box_port = {"below_early": "P0", "above_late": "P1"}
+    assert validate_no_rehandle(plan, rot_index, box_port) is False
+
+
 def test_slot_key():
     assert Slot(1, 2, 3).key() == (1, 2, 3)

@@ -192,6 +192,99 @@ def run_sts_transfer(
     )
 
 
+# ── boom / luffing crane (double-pendulum Isaac topology) ───────────────────
+
+
+@dataclass
+class BoomLuffController:
+    """Luffing-jib crane anti-sway on the Isaac DoublePendulum.
+
+    A boom/jib crane is a *double pendulum*: link1 (shoulder) is the powered jib
+    that luffs to a target angle; link2 (elbow) is the passive hoist cable + load
+    that must not swing. Only the jib joint is actuated (the cable is passive,
+    like a real crane); the elbow effort stays 0. The jib torque regulates the
+    boom angle while damping load sway via the elbow state.
+
+    This is a genuinely **underactuated, nonlinear** problem: the PD law below is
+    robust only for SMALL luff steps (≲0.2 rad about the hanging pose). Large
+    luffing arcs need input-shaping / trajectory optimisation and are deferred to
+    R1 — `run_boom_luff` honestly reports `reached=False` outside the envelope
+    rather than pretending to converge.
+    """
+
+    kp: float = 20.0
+    kd: float = 12.0
+    k_load: float = 10.0
+    k_loadd: float = 6.0
+    max_torque: float = 60.0
+
+    def torque(self, q: List[float], qd: List[float], q1_target: float) -> List[float]:
+        q1, q2 = q
+        q1d, q2d = qd
+        tau1 = (
+            -self.kp * (q1 - q1_target)
+            - self.kd * q1d
+            - self.k_load * q2
+            - self.k_loadd * q2d
+        )
+        tau1 = max(-self.max_torque, min(self.max_torque, tau1))
+        return [tau1, 0.0]  # elbow (cable) is passive
+
+
+@dataclass
+class LuffReport:
+    reached: bool
+    final_boom_rad: float
+    residual_load_rad: float   # |q2| at the end (load sway)
+    peak_load_rad: float
+    steps: int
+
+
+def run_boom_luff(
+    q1_target: float,
+    steps: int = 3000,
+    physics_dt: float = 1.0 / 120.0,
+    ang_tol: float = 0.02,
+    controller: Optional[BoomLuffController] = None,
+) -> LuffReport:
+    """Luff the jib to ``q1_target`` (rad) through the Isaac DoublePendulum API
+    while damping the passive load on the cable. Raises ImportError if the Isaac
+    surface is unavailable.
+    """
+    _ensure_kotodama_stub()
+    from kotodama.nv_compat.isaacsim.core.api import World, Articulation  # noqa: E402
+    from kotodama.nv_compat.isaacsim.assets import DoublePendulum  # noqa: E402
+
+    boom = DoublePendulum(prim_path="/World/LuffingJib")
+    world = World(physics_dt=physics_dt)
+    art = Articulation(prim_path=boom.prim_path, name=boom.name, urdf_text=boom.urdf_text)
+    world.add_articulation(art)
+    world.reset()
+
+    ctrl = controller or BoomLuffController()
+    peak = 0.0
+    reached = False
+    i = 0
+    for i in range(steps):
+        q = art.get_joint_positions()
+        qd = art.get_joint_velocities()
+        art.apply_action({"joint_efforts": ctrl.torque(q, qd, q1_target)})
+        world.step()
+        q = art.get_joint_positions()
+        peak = max(peak, abs(q[1]))
+        if abs(q[0] - q1_target) <= ang_tol and abs(q[1]) <= 0.03:
+            reached = True
+            break
+    q = art.get_joint_positions()
+    return LuffReport(
+        reached=reached,
+        final_boom_rad=q[0],
+        residual_load_rad=abs(q[1]),
+        peak_load_rad=peak,
+        steps=i + 1,
+    )
+
+
 def report_to_datoms(report: TransferReport, sim_id: str) -> List[Tuple[str, str, Any]]:
     """Serialise a transfer report to kotoba EAVT datom tuples (e a v).
 
