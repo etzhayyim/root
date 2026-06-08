@@ -14540,6 +14540,21 @@
       "lastVerified": "2026-06-08"
     },
     {
+      "id": "doc:adr-2606082300-hydrogen-electrolysis-cfe-actor-kami-kotoba",
+      "type": "TechArticle",
+      "title": "ADR-2606082300: hydrogen electrolysis CFE efficiency actor — actor logic, kami simulation, kotoba deploy",
+      "status": "active",
+      "topic": "hydrogen-electrolysis-cfe-actor-kami-kotoba",
+      "authoritative": true,
+      "authoritativeFor": [
+        "hydrogen_electrolysis actor placement",
+        "kami-hydrogen-electrolysis-sim package placement",
+        "hydrogen electrolysis efficiency kotoba deploy boundary"
+      ],
+      "related": "doc:2605262130",
+      "lastVerified": "2026-06-08"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

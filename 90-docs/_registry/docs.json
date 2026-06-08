@@ -22834,6 +22834,8 @@
       "supersedes": [],
       "superseded_by": [],
       "depends_on": [
+        "2605262130",
+        "2606062100",
         "2605231400",
         "2605282100",
         "2604261717",
@@ -22846,6 +22848,32 @@
         "0075",
         "2605240001",
         "2605231525"
+      ],
+      "last_verified": "2026-06-08",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606082300-hydrogen-electrolysis-cfe-actor-kami-kotoba.md",
+      "id": "adr-2606082300-hydrogen-electrolysis-cfe-actor-kami-kotoba",
+      "title": "ADR-2606082300: hydrogen electrolysis CFE efficiency actor — actor logic, kami simulation, kotoba deploy",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "hydrogen-electrolysis-cfe-actor-kami-kotoba",
+      "authoritative": true,
+      "authoritative_for": [
+        "hydrogen_electrolysis actor placement",
+        "kami-hydrogen-electrolysis-sim package placement",
+        "hydrogen electrolysis efficiency kotoba deploy boundary"
+      ],
+      "related": [
+        "2605262130"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606074500",
+        "2606074000"
       ],
       "last_verified": "2026-06-08",
       "amends": [],
