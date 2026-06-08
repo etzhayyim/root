@@ -97,6 +97,10 @@ on the canonical Datom log.
   (frame-weld) — the useful two-lens insight → units/day (documented operating-hours) +
   availability-recovery relief (+50% on the seed). Relief is within takt (G2), plan-not-actuate
   (G1), documented hours (G5). 8 tests. ✅
-- **R6** — fold the throughput two-lens insight into the digest; live scan-cycle socket
-  (Modbus/OPC-UA/EtherCAT via kotoba-os device worlds, Council + operator DID gated);
-  cross-check OEE against the sarutahiko produce sim; componentize-py WASM build + CID.
+- **R6 (landed)** — `digest.py` folds in the R5 throughput two-lens insight: the daily brief +
+  Murakumo narration now surface BOTH the OEE bottleneck (frame-weld) and the throughput
+  bottleneck (paint, ~units/day), so the line lead relieves the right station for the right
+  goal. +3 digest tests (52 total). ✅
+- **R7** — live scan-cycle socket (Modbus/OPC-UA/EtherCAT via kotoba-os device worlds, Council
+  + operator DID gated); cross-check OEE against the sarutahiko produce sim; componentize-py
+  WASM build + CID advertisement.

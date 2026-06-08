@@ -79,6 +79,33 @@ def test_narrate_uses_murakumo_when_available():
     assert "line OEE" in seen["prompt"]  # the facts were passed through
 
 
+def test_digest_includes_throughput_two_lens():
+    """R6: the digest folds in the throughput lens — distinct from the OEE bottleneck."""
+    d = _build()
+    assert d["throughput"]["bottleneck"] == ":st.paint"          # throughput-worst
+    assert d["bottleneck"]["bottleneck"] == ":st.frame-weld"     # OEE-worst
+    assert d["throughput"]["units_per_day_good"] > 0
+    assert digest._facts(d)["two_lens"] is True  # the two bottlenecks genuinely differ
+
+
+def test_narration_surfaces_both_bottlenecks():
+    d = _build()
+    text = digest.fallback_narration(d)
+    assert "OEE bottleneck" in text and "throughput bottleneck" in text and "units/day" in text
+    p = digest.narration_prompt(d)
+    assert "OEE bottleneck" in p and "throughput bottleneck" in p
+
+
+def test_emit_includes_throughput_datoms():
+    d = _build()
+    out = digest.emit(d, digest.narrate(d), tx=2)
+    assert ":ops/digest-throughput-bottleneck :st.paint" in out
+    assert ":ops/digest-units-per-day" in out
+    for line in out.splitlines():
+        if line.startswith("[") and ":ops/digest" in line:
+            assert ":derived]" in line and ":bond/is-transient true" in line, line
+
+
 def test_emit_transient_only():
     d = _build()
     out = digest.emit(d, digest.narrate(d), tx=9)

@@ -28,6 +28,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from analyze import load, analyze  # noqa: E402
 import optimize  # noqa: E402
 import inspect as vis  # noqa: E402
+import plan as P  # noqa: E402
 
 # Narration routes ONLY through the Murakumo fleet (ADR-2605215000). Fixed by construction.
 NARRATION_BACKEND = "murakumo"
@@ -44,6 +45,8 @@ def build_digest(stations: dict, ticks: list, detections: list) -> dict:
     req = vis.inspection_request(stations, res, detections)
     rec = vis.reconcile(detections, res)
     qtarget = req["station"]
+    tplan = P.line_plan(stations, res)
+    trelief = P.relief_plan(stations, res, tplan)
     return {
         "line": res["_line"],
         "recommend": res["_recommend"],
@@ -55,6 +58,12 @@ def build_digest(stations: dict, ticks: list, detections: list) -> dict:
             "scrap_rate": res[qtarget]["scrap_rate"],
             "top_defect": rec.get(qtarget, {}).get("top_defect"),
             "inspect_sample_rate": req["sample_rate"],
+        },
+        "throughput": {
+            "bottleneck": tplan["throughput_bottleneck"],
+            "label": _label(stations, tplan["throughput_bottleneck"]),
+            "units_per_day_good": tplan["units_per_day_good"],
+            "uplift_frac": trelief["uplift_frac"],
         },
         "_stations": stations,
     }
@@ -70,7 +79,15 @@ def _facts(d: dict) -> dict:
         "quality_label": d["quality"]["label"],
         "scrap_rate": d["quality"]["scrap_rate"],
         "top_defect": (d["quality"]["top_defect"] or ":none").lstrip(":"),
+        "throughput_label": d["throughput"]["label"],
+        "units_per_day": d["throughput"]["units_per_day_good"],
+        "throughput_uplift": d["throughput"]["uplift_frac"],
+        "two_lens": d["throughput"]["label"] != _facts_bottleneck(d),
     }
+
+
+def _facts_bottleneck(d: dict) -> str:
+    return _label(d["_stations"], d["bottleneck"]["bottleneck"])
 
 
 def narration_prompt(d: dict) -> str:
@@ -81,7 +98,9 @@ def narration_prompt(d: dict) -> str:
         "sentences for a line lead. State facts only; recommend, never command; describe only "
         "stations and the line as a whole, never an individual. Facts:\n"
         f"- line OEE: {f['line_oee']:.1%}\n"
-        f"- bottleneck: {f['bottleneck']} (relieving it lifts line OEE +{f['oee_uplift']:.1%})\n"
+        f"- OEE bottleneck: {f['bottleneck']} (relieving it lifts line OEE +{f['oee_uplift']:.1%})\n"
+        f"- throughput bottleneck: {f['throughput_label']} (~{f['units_per_day']:.0f} good "
+        f"units/day; availability recovery +{f['throughput_uplift']:.1%})\n"
         f"- energy: powering down idle windows recovers ~{f['energy_reduction']:.1%} of line energy\n"
         f"- quality: {f['quality_label']} scrap {f['scrap_rate']:.1%}, "
         f"top defect {f['top_defect']} (route to vision inspection)\n"
@@ -91,9 +110,14 @@ def narration_prompt(d: dict) -> str:
 def fallback_narration(d: dict) -> str:
     """Deterministic offline narration (no external LLM) — used when Murakumo is unreachable."""
     f = _facts(d)
+    lens = (f"The OEE bottleneck is {f['bottleneck']}, while the throughput bottleneck is a "
+            f"different station, {f['throughput_label']} (~{f['units_per_day']:.0f} good units/day)"
+            if f["two_lens"] else
+            f"The bottleneck is {f['bottleneck']} on both OEE and throughput "
+            f"(~{f['units_per_day']:.0f} good units/day)")
     return (
-        f"Line OEE is {f['line_oee']:.1%}; the gating station is {f['bottleneck']}, and "
-        f"relieving it would lift line OEE by about {f['oee_uplift']:.1%}. "
+        f"Line OEE is {f['line_oee']:.1%}. {lens}; relieving its availability lifts line OEE by "
+        f"about {f['oee_uplift']:.1%} and throughput by {f['throughput_uplift']:.1%}. "
         f"Powering down idle windows could recover roughly {f['energy_reduction']:.1%} of line "
         f"energy. Quality attention: {f['quality_label']} at {f['scrap_rate']:.1%} scrap "
         f"(top defect {f['top_defect']}) — route to vision inspection."
@@ -126,7 +150,9 @@ def report_md(d: dict, narration: dict) -> str:
     L.append(f"\n| metric | value |")
     L.append("|---|---|")
     L.append(f"| line OEE | {f['line_oee']:.1%} |")
-    L.append(f"| bottleneck | {f['bottleneck']} (+{f['oee_uplift']:.1%} if relieved) |")
+    L.append(f"| OEE bottleneck | {f['bottleneck']} (+{f['oee_uplift']:.1%} if relieved) |")
+    L.append(f"| throughput bottleneck | {f['throughput_label']} · ~{f['units_per_day']:.0f} "
+             f"good units/day · +{f['throughput_uplift']:.1%} if relieved |")
     L.append(f"| energy reduction (idle power-down) | {f['energy_reduction']:.1%} |")
     L.append(f"| quality target | {f['quality_label']} · scrap {f['scrap_rate']:.1%} · "
              f"top defect {f['top_defect']} |")
@@ -141,6 +167,8 @@ def emit(d: dict, narration: dict, tx: int = 1) -> str:
     L = [";; itonami R4 daily digest — TRANSIENT (:bond/is-transient true), G1/G3/G7.", "["]
     L.append(f"[:line.sarutahiko-a :ops/digest-line-oee {f['line_oee']:g} {tx} :derived] ;; :bond/is-transient true")
     L.append(f"[:line.sarutahiko-a :ops/digest-energy-reduction {f['energy_reduction']:g} {tx} :derived] ;; :bond/is-transient true")
+    L.append(f"[:line.sarutahiko-a :ops/digest-throughput-bottleneck {d['throughput']['bottleneck']} {tx} :derived] ;; :bond/is-transient true")
+    L.append(f"[:line.sarutahiko-a :ops/digest-units-per-day {f['units_per_day']:g} {tx} :derived] ;; :bond/is-transient true")
     L.append(f"[:line.sarutahiko-a :ops/digest-narration-backend :{narration['backend'].replace('-', '.')} {tx} :derived] ;; :bond/is-transient true")
     L.append("]")
     return "\n".join(L) + "\n"
