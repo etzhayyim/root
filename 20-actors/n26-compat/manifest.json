@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "n26 clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (n26); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihs4wfjsbtkyrpqn5tqzm7qhi3vhz2bzuoaag22pp7nxjdbh2w6ra",
+  "wasmCid": "bafkreihhujhlawkvssehqjl5eidt36qyuihnv4ic33smdylm6ay63kifj4",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihs4wfjsbtkyrpqn5tqzm7qhi3vhz2bzuoaag22pp7nxjdbh2w6ra",
+  "ipfs": "ipfs://bafkreihhujhlawkvssehqjl5eidt36qyuihnv4ic33smdylm6ay63kifj4",
   "schema": "schema/n26.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

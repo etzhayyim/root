@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "lazada clean-room actor",
   "description": "Clean-room, API-compatible regional super-app actor (lazada); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigsnysxqcqq4kkqsosjqsmbjudf6vgcdj4vrnvzp2bwvvvtwbrxoa",
+  "wasmCid": "bafkreigg2i56rakvq7vdj6owkbqmzmbopdn6vu6d5qllemmlbsuasyol4y",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigsnysxqcqq4kkqsosjqsmbjudf6vgcdj4vrnvzp2bwvvvtwbrxoa",
+  "ipfs": "ipfs://bafkreigg2i56rakvq7vdj6owkbqmzmbopdn6vu6d5qllemmlbsuasyol4y",
   "schema": "schema/lazada.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "User",
     "Wallet",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

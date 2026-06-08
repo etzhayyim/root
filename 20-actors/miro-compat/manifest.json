@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "miro clean-room actor",
   "description": "Clean-room, API-compatible office / productivity suite actor (miro); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibdwpsfu7uugfcns4upqq54rdv2hc6x7zdu74vkwo5emegycatw54",
+  "wasmCid": "bafkreieahvnz3226jx66a6qb7khvrefsuygnakmllmhklp2wgmevyj4xuq",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibdwpsfu7uugfcns4upqq54rdv2hc6x7zdu74vkwo5emegycatw54",
+  "ipfs": "ipfs://bafkreieahvnz3226jx66a6qb7khvrefsuygnakmllmhklp2wgmevyj4xuq",
   "schema": "schema/miro.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Workspace",
     "Document",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

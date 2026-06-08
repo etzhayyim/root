@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "camel_ai clean-room actor",
   "description": "Clean-room, API-compatible AI agent protocol actor (camel_ai); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreic5tb263xbwirxz6hadroiggn5cw3l7nac7ip4ea72dbxodwhreru",
+  "wasmCid": "bafkreibf64vbwrexl4ymkmttdxbb6pwi5creh6idqlgncifu5cu3spjaba",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreic5tb263xbwirxz6hadroiggn5cw3l7nac7ip4ea72dbxodwhreru",
+  "ipfs": "ipfs://bafkreibf64vbwrexl4ymkmttdxbb6pwi5creh6idqlgncifu5cu3spjaba",
   "schema": "schema/camel_ai.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Agent",
     "Task",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

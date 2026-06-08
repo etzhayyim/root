@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "edi_x12 clean-room actor",
   "description": "Clean-room, API-compatible deep logistics / supply chain actor (edi_x12); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiaphdnwly3blcrbil7kd4axfqihyqthp5onimfmkpwx24rdflqjam",
+  "wasmCid": "bafkreievbdzdmk5mkd3bbxu5m3546bswg7oysvkil5fgct54ckcxtj4ega",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiaphdnwly3blcrbil7kd4axfqihyqthp5onimfmkpwx24rdflqjam",
+  "ipfs": "ipfs://bafkreievbdzdmk5mkd3bbxu5m3546bswg7oysvkil5fgct54ckcxtj4ega",
   "schema": "schema/edi_x12.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "TradeItem",
     "Event",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

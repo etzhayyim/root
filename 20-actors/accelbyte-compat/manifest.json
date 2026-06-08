@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "accelbyte clean-room actor",
   "description": "Clean-room, API-compatible gaming backend / metaverse actor (accelbyte); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreia6lehojat3as6jlk4pzl32siewn6qdkqebq54vww4vi7t4asnpq4",
+  "wasmCid": "bafkreidtombt72fxdyrumh2swj7btg3wczfjagtlgxqeahyvoy36l6to54",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreia6lehojat3as6jlk4pzl32siewn6qdkqebq54vww4vi7t4asnpq4",
+  "ipfs": "ipfs://bafkreidtombt72fxdyrumh2swj7btg3wczfjagtlgxqeahyvoy36l6to54",
   "schema": "schema/accelbyte.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Player",
     "Session",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

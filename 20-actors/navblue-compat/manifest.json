@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "navblue clean-room actor",
   "description": "Clean-room, API-compatible travel / aviation / hospitality actor (navblue); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidarrgfcfebf72oj6e6b4c5rlfxtas2bmhqzypgjolqaxs4e67chu",
+  "wasmCid": "bafkreiewfdgm7enzcjaydrx22sk3okdmhfppelsfpl46zv2kpcmg4jhiwi",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidarrgfcfebf72oj6e6b4c5rlfxtas2bmhqzypgjolqaxs4e67chu",
+  "ipfs": "ipfs://bafkreiewfdgm7enzcjaydrx22sk3okdmhfppelsfpl46zv2kpcmg4jhiwi",
   "schema": "schema/navblue.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Flight",
     "Booking",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

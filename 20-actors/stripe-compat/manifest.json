@@ -5,12 +5,75 @@
   "kind": "compat",
   "title": "stripe clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (stripe); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibsgp32yx4rwko6qhwxlmw2f5wdnlzlup2tsuxyyqqa47uaexuovu",
+  "wasmCid": "bafkreidjpmhiynl4mazx2x4wuhozj2l5ez4ndk7ifdwec42am6ir5hpuaa",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibsgp32yx4rwko6qhwxlmw2f5wdnlzlup2tsuxyyqqa47uaexuovu",
+  "ipfs": "ipfs://bafkreidjpmhiynl4mazx2x4wuhozj2l5ez4ndk7ifdwec42am6ir5hpuaa",
   "schema": "schema/stripe.kotoba",
-  "tier": "L4",
+  "tier": "L5",
+  "verified": {
+    "source": "https://docs.stripe.com/api",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "Customer",
+      "PaymentIntent",
+      "Charge",
+      "Invoice",
+      "Subscription",
+      "Product",
+      "Refund"
+    ],
+    "enums": {
+      "PaymentIntent": {
+        "status": [
+          "requires_payment_method",
+          "requires_confirmation",
+          "requires_action",
+          "processing",
+          "requires_capture",
+          "canceled",
+          "succeeded"
+        ]
+      },
+      "Invoice": {
+        "status": [
+          "draft",
+          "open",
+          "paid",
+          "uncollectible",
+          "void"
+        ]
+      },
+      "Subscription": {
+        "status": [
+          "incomplete",
+          "incomplete_expired",
+          "trialing",
+          "active",
+          "past_due",
+          "canceled",
+          "unpaid",
+          "paused"
+        ]
+      },
+      "Refund": {
+        "status": [
+          "pending",
+          "requires_action",
+          "succeeded",
+          "failed",
+          "canceled"
+        ],
+        "reason": [
+          "duplicate",
+          "fraudulent",
+          "requested_by_customer",
+          "expired_uncaptured_charge"
+        ]
+      }
+    }
+  },
   "entities": [
     "Customer",
     "PaymentIntent",

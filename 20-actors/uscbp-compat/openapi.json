@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible customs / trade / logistics actor (uscbp); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:uscbp-compat",
-    "x-wasm-cid": "bafkreiddumzzxms7r56q3rykspzdi5gmwb6cdzv5vcwnmxr3ygegkicwgy",
+    "x-wasm-cid": "bafkreifcac522lqvb27cpyg74slway5x72hb3uh63dakk7gasuuq2pts3e",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreiddumzzxms7r56q3rykspzdi5gmwb6cdzv5vcwnmxr3ygegkicwgy",
+      "url": "ipfs://bafkreifcac522lqvb27cpyg74slway5x72hb3uh63dakk7gasuuq2pts3e",
       "description": "browser-local kotoba-wasm component"
     }
   ],

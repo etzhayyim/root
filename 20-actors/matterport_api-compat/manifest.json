@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "matterport_api clean-room actor",
   "description": "Clean-room, API-compatible spatial computing / XR actor (matterport_api); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicjatfa6ux356vm4dxatwdl7jailknyvabh5vk5n6ngio2bmnwida",
+  "wasmCid": "bafkreibkmhcvbycdz75bm2hatan4tb72ccwi7d777xoy5ps7u4jh2iyddy",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicjatfa6ux356vm4dxatwdl7jailknyvabh5vk5n6ngio2bmnwida",
+  "ipfs": "ipfs://bafkreibkmhcvbycdz75bm2hatan4tb72ccwi7d777xoy5ps7u4jh2iyddy",
   "schema": "schema/matterport_api.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Anchor",
     "Scene",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

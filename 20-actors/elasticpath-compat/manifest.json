@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "elasticpath clean-room actor",
   "description": "Clean-room, API-compatible enterprise commerce / spend actor (elasticpath); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidech2rdbkmsyad7olhnvzuxmwaiw7i7xp44kpqpfdicyvbsf5e3i",
+  "wasmCid": "bafkreie4gxxhtmn6xgdixy2iv2qgow6zu35i45o6lfbgabp3s6pwo6kusu",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidech2rdbkmsyad7olhnvzuxmwaiw7i7xp44kpqpfdicyvbsf5e3i",
+  "ipfs": "ipfs://bafkreie4gxxhtmn6xgdixy2iv2qgow6zu35i45o6lfbgabp3s6pwo6kusu",
   "schema": "schema/elasticpath.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Catalog",
     "Product",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

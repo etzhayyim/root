@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "babyagi clean-room actor",
   "description": "Clean-room, API-compatible AI agent protocol actor (babyagi); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigauapgw72n6bnlhr3omim7w5kn3zfrswncffh6fvkuvpcx6s5yem",
+  "wasmCid": "bafkreid3z4avw3vp2dfvdxy4osogqjsc4lpofcbn22d6klm64tbrcv5z4a",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigauapgw72n6bnlhr3omim7w5kn3zfrswncffh6fvkuvpcx6s5yem",
+  "ipfs": "ipfs://bafkreid3z4avw3vp2dfvdxy4osogqjsc4lpofcbn22d6klm64tbrcv5z4a",
   "schema": "schema/babyagi.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Agent",
     "Task",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

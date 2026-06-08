@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "vipps_norway clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (vipps_norway); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihpjerqh3avzo3fg25ersyibncpeltcptcboqgzugnvc3ta5hx6sy",
+  "wasmCid": "bafkreic2qz6yvp6cydhjjth4nnkjdrn52h2mkcv5yrhvuzgzuxf3ne67d4",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihpjerqh3avzo3fg25ersyibncpeltcptcboqgzugnvc3ta5hx6sy",
+  "ipfs": "ipfs://bafkreic2qz6yvp6cydhjjth4nnkjdrn52h2mkcv5yrhvuzgzuxf3ne67d4",
   "schema": "schema/vipps_norway.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

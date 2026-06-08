@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible IoT / edge actor (samsara); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:samsara-compat",
-    "x-wasm-cid": "bafkreigesdor3bwathdqiwk3nk2zegwqt2zvvrmcq2wmrfimdsbbfy4uc4",
+    "x-wasm-cid": "bafkreieyhtbptiyucc7eboowdpporx3acw5bfz6gghd3emjpikx6bh4pf4",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreigesdor3bwathdqiwk3nk2zegwqt2zvvrmcq2wmrfimdsbbfy4uc4",
+      "url": "ipfs://bafkreieyhtbptiyucc7eboowdpporx3acw5bfz6gghd3emjpikx6bh4pf4",
       "description": "browser-local kotoba-wasm component"
     }
   ],

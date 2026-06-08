@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "mendix clean-room actor",
   "description": "Clean-room, API-compatible low-code / iPaaS actor (mendix); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihfrpdqb7jzap6sjbd47al25q45br5ty2hb6g2xfc2wuy5gdpi3by",
+  "wasmCid": "bafkreibmgih6ysfiz7k62me6glg3wes7az5kwiiukldyhk7y6aq2pnlxzu",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihfrpdqb7jzap6sjbd47al25q45br5ty2hb6g2xfc2wuy5gdpi3by",
+  "ipfs": "ipfs://bafkreibmgih6ysfiz7k62me6glg3wes7az5kwiiukldyhk7y6aq2pnlxzu",
   "schema": "schema/mendix.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Flow",
     "Step",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

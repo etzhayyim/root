@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "tocom clean-room actor",
   "description": "Clean-room, API-compatible energy commodities actor (tocom); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidcndsvj33u6mx6wrkmw3tpdnui4ysjvrvr2zgfawimvproezf5ua",
+  "wasmCid": "bafkreib7oq6ufrblvqzxuady2hsuqgtdz4dcsf2r62wsujd2r2cnka57de",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidcndsvj33u6mx6wrkmw3tpdnui4ysjvrvr2zgfawimvproezf5ua",
+  "ipfs": "ipfs://bafkreib7oq6ufrblvqzxuady2hsuqgtdz4dcsf2r62wsujd2r2cnka57de",
   "schema": "schema/tocom.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Commodity",
     "Price",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

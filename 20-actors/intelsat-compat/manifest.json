@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "intelsat clean-room actor",
   "description": "Clean-room, API-compatible telecom / satellite actor (intelsat); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidkt7db5wxlflbr4needndsghmmu7oenllyn7b2fxcx6v3yx7nukq",
+  "wasmCid": "bafkreie6wqyvnyvtnwtggixc2jtt75rp36xcqbv7k5xkcjzykeud2wstku",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidkt7db5wxlflbr4needndsghmmu7oenllyn7b2fxcx6v3yx7nukq",
+  "ipfs": "ipfs://bafkreie6wqyvnyvtnwtggixc2jtt75rp36xcqbv7k5xkcjzykeud2wstku",
   "schema": "schema/intelsat.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Subscriber",
     "Session",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

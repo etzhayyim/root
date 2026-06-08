@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "teledyne_marine clean-room actor",
   "description": "Clean-room, API-compatible space / ocean / earth physics actor (teledyne_marine); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibyt4x3zatw6b7vqvks6uzxwptyvkeoybjkv7x5wski45idmcfzxm",
+  "wasmCid": "bafkreiddxrtzl5o2wbplby6q6ztnbe3oymntcisipubqr4a2imqbxcdc7m",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibyt4x3zatw6b7vqvks6uzxwptyvkeoybjkv7x5wski45idmcfzxm",
+  "ipfs": "ipfs://bafkreiddxrtzl5o2wbplby6q6ztnbe3oymntcisipubqr4a2imqbxcdc7m",
   "schema": "schema/teledyne_marine.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Object",
     "Position",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

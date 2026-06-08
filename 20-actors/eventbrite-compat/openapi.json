@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible events / NPO / creator actor (eventbrite); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:eventbrite-compat",
-    "x-wasm-cid": "bafkreibsxhxgpauwhs2jyicw6solgimumw43vat4rdh5dubqtlq2g5x7mu",
+    "x-wasm-cid": "bafkreifjtn2h6c3jn77aicou6vb3oruh7y46cuely5ea4nvhdocipt5gxm",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreibsxhxgpauwhs2jyicw6solgimumw43vat4rdh5dubqtlq2g5x7mu",
+      "url": "ipfs://bafkreifjtn2h6c3jn77aicou6vb3oruh7y46cuely5ea4nvhdocipt5gxm",
       "description": "browser-local kotoba-wasm component"
     }
   ],

@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible manufacturing / PLM / robotics actor (ros_robotics); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:ros_robotics-compat",
-    "x-wasm-cid": "bafkreiboeuturckxg7mzzq23wvtgb6okt5jjtpgbdjfy6iwj46l6jqnbbu",
+    "x-wasm-cid": "bafkreielnfhwr32nktagfrjrw4rk2ay46pnvesfegevur7bixxr75wpxoq",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreiboeuturckxg7mzzq23wvtgb6okt5jjtpgbdjfy6iwj46l6jqnbbu",
+      "url": "ipfs://bafkreielnfhwr32nktagfrjrw4rk2ay46pnvesfegevur7bixxr75wpxoq",
       "description": "browser-local kotoba-wasm component"
     }
   ],

@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "iata_timatic clean-room actor",
   "description": "Clean-room, API-compatible deep logistics / supply chain actor (iata_timatic); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreif5msfxaxayslv3qosej4lurijk3n2t5o5mdcroqwjuh5mtxoyl34",
+  "wasmCid": "bafkreihkxue7wszurzvdjflwdlw5j2vu66ubl3xja2g3iintvmaypv2gie",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreif5msfxaxayslv3qosej4lurijk3n2t5o5mdcroqwjuh5mtxoyl34",
+  "ipfs": "ipfs://bafkreihkxue7wszurzvdjflwdlw5j2vu66ubl3xja2g3iintvmaypv2gie",
   "schema": "schema/iata_timatic.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "TradeItem",
     "Event",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

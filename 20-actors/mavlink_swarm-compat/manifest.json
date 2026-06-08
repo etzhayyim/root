@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "mavlink_swarm clean-room actor",
   "description": "Clean-room, API-compatible drone swarm / aerial robotics actor (mavlink_swarm); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiezj2obaruwm72ajvhlq5u3r6finhugqtnkcp2eupr7akze3mq2zm",
+  "wasmCid": "bafkreiexsug4b7zn4ndvaurbnys6p37eiqjr5x2ctxevivnlmhprcq6feu",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiezj2obaruwm72ajvhlq5u3r6finhugqtnkcp2eupr7akze3mq2zm",
+  "ipfs": "ipfs://bafkreiexsug4b7zn4ndvaurbnys6p37eiqjr5x2ctxevivnlmhprcq6feu",
   "schema": "schema/mavlink_swarm.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Drone",
     "Mission",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

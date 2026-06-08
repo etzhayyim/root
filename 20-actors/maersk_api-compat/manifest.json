@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "maersk_api clean-room actor",
   "description": "Clean-room, API-compatible deep logistics / supply chain actor (maersk_api); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibzotmiw4bicljgec73a3jeemutneirp55bhjymkz2wpd4xxta6yu",
+  "wasmCid": "bafkreigfs4h7e465gfwt434hf2f5ahywiau44ciotzfahbukq3m7iyymze",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibzotmiw4bicljgec73a3jeemutneirp55bhjymkz2wpd4xxta6yu",
+  "ipfs": "ipfs://bafkreigfs4h7e465gfwt434hf2f5ahywiau44ciotzfahbukq3m7iyymze",
   "schema": "schema/maersk_api.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "TradeItem",
     "Event",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

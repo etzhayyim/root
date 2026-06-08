@@ -5,12 +5,78 @@
   "kind": "compat",
   "title": "twilio clean-room actor",
   "description": "Clean-room, API-compatible telecom / satellite actor (twilio); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreih3dziv5yarja24qh3r5x32h7bsbydmkicagna2azew6glygil6rm",
+  "wasmCid": "bafkreibaqzz7l3fflbzupta7h6ced4hvu2dbb33whck3nxbsihhskpexw4",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreih3dziv5yarja24qh3r5x32h7bsbydmkicagna2azew6glygil6rm",
+  "ipfs": "ipfs://bafkreibaqzz7l3fflbzupta7h6ced4hvu2dbb33whck3nxbsihhskpexw4",
   "schema": "schema/twilio.kotoba",
-  "tier": "L4",
+  "tier": "L5",
+  "verified": {
+    "source": "https://www.twilio.com/docs",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "Message",
+      "Call",
+      "Verification"
+    ],
+    "enums": {
+      "Message": {
+        "status": [
+          "queued",
+          "sending",
+          "sent",
+          "failed",
+          "delivered",
+          "undelivered",
+          "receiving",
+          "received",
+          "accepted",
+          "scheduled",
+          "read",
+          "canceled"
+        ],
+        "direction": [
+          "inbound",
+          "outbound-api",
+          "outbound-call",
+          "outbound-reply"
+        ]
+      },
+      "Call": {
+        "status": [
+          "queued",
+          "ringing",
+          "in-progress",
+          "canceled",
+          "completed",
+          "busy",
+          "failed",
+          "no-answer"
+        ]
+      },
+      "Verification": {
+        "channel": [
+          "sms",
+          "call",
+          "email",
+          "whatsapp",
+          "sna",
+          "auto",
+          "rcs"
+        ],
+        "status": [
+          "pending",
+          "approved",
+          "canceled",
+          "max_attempts_reached",
+          "deleted",
+          "failed",
+          "expired"
+        ]
+      }
+    }
+  },
   "entities": [
     "Message",
     "Call",

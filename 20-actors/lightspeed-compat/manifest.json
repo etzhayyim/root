@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "lightspeed clean-room actor",
   "description": "Clean-room, API-compatible e-commerce storefront actor (lightspeed); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibmkxhmauf3qcrdgmdjty7qzbkeyq3g22t5iymwboydkxtp43otja",
+  "wasmCid": "bafkreialxw2ka5xdeed2bj4cea2innprltpo2rkpvyfd2g6mixdg6fcbwa",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibmkxhmauf3qcrdgmdjty7qzbkeyq3g22t5iymwboydkxtp43otja",
+  "ipfs": "ipfs://bafkreialxw2ka5xdeed2bj4cea2innprltpo2rkpvyfd2g6mixdg6fcbwa",
   "schema": "schema/lightspeed.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Product",
     "Variant",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

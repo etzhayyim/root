@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "google_tpu_api clean-room actor",
   "description": "Clean-room, API-compatible AI/ML infrastructure / chips actor (google_tpu_api); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreib22obw2uxlqphdxyyznmgwjyxh7jkhxw556fr7jntse4i5umx3jq",
+  "wasmCid": "bafkreihvd4ryjvfevkxyj6msdfnmjfrdkjbb2iskcwcmgvfkt2nurkjln4",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreib22obw2uxlqphdxyyznmgwjyxh7jkhxw556fr7jntse4i5umx3jq",
+  "ipfs": "ipfs://bafkreihvd4ryjvfevkxyj6msdfnmjfrdkjbb2iskcwcmgvfkt2nurkjln4",
   "schema": "schema/google_tpu_api.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Device",
     "Kernel",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -63,6 +63,12 @@ class StripeContract(unittest.TestCase):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
 
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['reason', 'status']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
+
 
 if __name__ == "__main__":
     unittest.main()

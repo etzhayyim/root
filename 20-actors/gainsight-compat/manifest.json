@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "gainsight clean-room actor",
   "description": "Clean-room, API-compatible customer experience / survey actor (gainsight); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibu5vawbgnx22ipl7lv73jvmaetbt6didkyopegv4qluavmjppufa",
+  "wasmCid": "bafkreiasm44gsjji3nk4hczkqjzwczobyteiglxv6cbzhdxk77yoz7oxtq",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibu5vawbgnx22ipl7lv73jvmaetbt6didkyopegv4qluavmjppufa",
+  "ipfs": "ipfs://bafkreiasm44gsjji3nk4hczkqjzwczobyteiglxv6cbzhdxk77yoz7oxtq",
   "schema": "schema/gainsight.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Ticket",
     "Survey",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

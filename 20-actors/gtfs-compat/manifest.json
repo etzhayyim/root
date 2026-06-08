@@ -5,12 +5,22 @@
   "kind": "compat",
   "title": "gtfs clean-room actor",
   "description": "Clean-room, API-compatible transit / smart cities actor (gtfs); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiam2fuqblogvxkfkc2artuw7ylofdah7ucjj5zv7ynxoqleojhvc4",
+  "wasmCid": "bafkreicbtb2hg3f6as7ivd2dejektvt4bwx7qpre3oi2bvzr6tt57jbyii",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiam2fuqblogvxkfkc2artuw7ylofdah7ucjj5zv7ynxoqleojhvc4",
+  "ipfs": "ipfs://bafkreicbtb2hg3f6as7ivd2dejektvt4bwx7qpre3oi2bvzr6tt57jbyii",
   "schema": "schema/gtfs.kotoba",
-  "tier": "L4",
+  "tier": "L5",
+  "verified": {
+    "source": "https://gtfs.org/documentation/schedule/reference/",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "Stop",
+      "Route"
+    ],
+    "enums": {}
+  },
   "entities": [
     "Stop",
     "Route",

@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "iata_ndc clean-room actor",
   "description": "Clean-room, API-compatible travel / aviation / hospitality actor (iata_ndc); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicewkuhtlwuii7mctsfbp5ujir2bv5fm5qzv2bgdhiedp2sw4i7eq",
+  "wasmCid": "bafkreiaekn6255ph5d2jchsutccq2pssmc2xeu7dzomzi6e3f5trnaylsi",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicewkuhtlwuii7mctsfbp5ujir2bv5fm5qzv2bgdhiedp2sw4i7eq",
+  "ipfs": "ipfs://bafkreiaekn6255ph5d2jchsutccq2pssmc2xeu7dzomzi6e3f5trnaylsi",
   "schema": "schema/iata_ndc.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Flight",
     "Booking",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

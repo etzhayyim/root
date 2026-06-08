@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible e-commerce storefront actor (shopify); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:shopify-compat",
-    "x-wasm-cid": "bafkreigavk24k74i73jk6mycrpb7bkgk5ysoef5she7bbyou2n47lo6bzm",
+    "x-wasm-cid": "bafkreifyjnssgr2mdxm6edev4yuafhtfffw3ue5ju2jtko5o6f6lymc6pm",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreigavk24k74i73jk6mycrpb7bkgk5ysoef5she7bbyou2n47lo6bzm",
+      "url": "ipfs://bafkreifyjnssgr2mdxm6edev4yuafhtfffw3ue5ju2jtko5o6f6lymc6pm",
       "description": "browser-local kotoba-wasm component"
     }
   ],
@@ -1341,7 +1341,12 @@
             "type": "string"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "active",
+              "archived",
+              "draft"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1366,7 +1371,12 @@
             "type": "string"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "active",
+              "archived",
+              "draft"
+            ]
           }
         },
         "required": [
@@ -1442,7 +1452,16 @@
             "type": "string"
           },
           "financialStatus": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "pending",
+              "authorized",
+              "partially_paid",
+              "paid",
+              "partially_refunded",
+              "refunded",
+              "voided"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1470,7 +1489,16 @@
             "type": "string"
           },
           "financialStatus": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "pending",
+              "authorized",
+              "partially_paid",
+              "paid",
+              "partially_refunded",
+              "refunded",
+              "voided"
+            ]
           }
         },
         "required": [
@@ -1580,7 +1608,15 @@
             "type": "string"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "pending",
+              "open",
+              "success",
+              "cancelled",
+              "error",
+              "failure"
+            ]
           },
           "trackingNumber": {
             "type": "string"
@@ -1602,7 +1638,15 @@
             "type": "string"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "pending",
+              "open",
+              "success",
+              "cancelled",
+              "error",
+              "failure"
+            ]
           },
           "trackingNumber": {
             "type": "string"

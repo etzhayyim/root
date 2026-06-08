@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "confluent clean-room actor",
   "description": "Clean-room, API-compatible modern data stack actor (confluent); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreie5ygz23ofixlld4nn4ockc7523x4wwosmakaztcgdabqqjzkkrha",
+  "wasmCid": "bafkreihlqxetq4clfv3orcs6ikctqqnpkwayqcaxgw5qukxqqixecq743u",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreie5ygz23ofixlld4nn4ockc7523x4wwosmakaztcgdabqqjzkkrha",
+  "ipfs": "ipfs://bafkreihlqxetq4clfv3orcs6ikctqqnpkwayqcaxgw5qukxqqixecq743u",
   "schema": "schema/confluent.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Connector",
     "Sync",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

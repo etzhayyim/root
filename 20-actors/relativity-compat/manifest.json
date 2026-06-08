@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "relativity clean-room actor",
   "description": "Clean-room, API-compatible vertical SaaS actor (relativity); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifqivcukidg23dmy65426fxncndywgqzp42ilznqxsqfaimwiylpy",
+  "wasmCid": "bafkreig4edt6xl6hnsi42madoz4ndct4ceq43gfygkosccehodo2pkz5ce",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifqivcukidg23dmy65426fxncndywgqzp42ilznqxsqfaimwiylpy",
+  "ipfs": "ipfs://bafkreig4edt6xl6hnsi42madoz4ndct4ceq43gfygkosccehodo2pkz5ce",
   "schema": "schema/relativity.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Record",
     "Matter",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

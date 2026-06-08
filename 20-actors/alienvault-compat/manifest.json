@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "alienvault clean-room actor",
   "description": "Clean-room, API-compatible cyber threat intelligence actor (alienvault); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifjb4nzefpeuqzs3ellferyhzvbkjrk3zn7btnc3qjr4s6hja72f4",
+  "wasmCid": "bafkreigqcojgatv7fbpxxusvt5spk7mtmtcsmf3flkzoobvw6l35g7ezum",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifjb4nzefpeuqzs3ellferyhzvbkjrk3zn7btnc3qjr4s6hja72f4",
+  "ipfs": "ipfs://bafkreigqcojgatv7fbpxxusvt5spk7mtmtcsmf3flkzoobvw6l35g7ezum",
   "schema": "schema/alienvault.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Indicator",
     "Vulnerability",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

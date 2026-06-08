@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "epic_fhir clean-room actor",
   "description": "Clean-room, API-compatible healthcare HL7-FHIR / bioinformatics actor (epic_fhir); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreic3gjphu4ctwvhr7riroluiaqez5g32mruzgodxyjmlr4hvw4c5im",
+  "wasmCid": "bafkreih4p3ipmeeo3jpdm4fb7omctr3mcpfhatsok3niv3fp5xx7fj2fja",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreic3gjphu4ctwvhr7riroluiaqez5g32mruzgodxyjmlr4hvw4c5im",
+  "ipfs": "ipfs://bafkreih4p3ipmeeo3jpdm4fb7omctr3mcpfhatsok3niv3fp5xx7fj2fja",
   "schema": "schema/epic_fhir.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Patient",
     "Observation",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

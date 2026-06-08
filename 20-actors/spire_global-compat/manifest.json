@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "spire_global clean-room actor",
   "description": "Clean-room, API-compatible space / ocean / earth physics actor (spire_global); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihklhfurojh7rx3zzner2yfm7fdllmv5aqqexq5lbw6sxjmh5czre",
+  "wasmCid": "bafkreia6yv3cfphkvokxnp2z7lbuuo2q5bwrokxqqwbp6bjlyt7xpz2hqe",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihklhfurojh7rx3zzner2yfm7fdllmv5aqqexq5lbw6sxjmh5czre",
+  "ipfs": "ipfs://bafkreia6yv3cfphkvokxnp2z7lbuuo2q5bwrokxqqwbp6bjlyt7xpz2hqe",
   "schema": "schema/spire_global.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Object",
     "Position",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

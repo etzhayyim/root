@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "wechat_api clean-room actor",
   "description": "Clean-room, API-compatible communications / social actor (wechat_api); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifbnjfe4byortwobdjvw5je72ck2fpi7btny6edzjzbvckzw543pa",
+  "wasmCid": "bafkreie6a5ezg6biz5jaivvhqd6ovwoqwcunln2zbjbhensho3a6rer55a",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifbnjfe4byortwobdjvw5je72ck2fpi7btny6edzjzbvckzw543pa",
+  "ipfs": "ipfs://bafkreie6a5ezg6biz5jaivvhqd6ovwoqwcunln2zbjbhensho3a6rer55a",
   "schema": "schema/wechat_api.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Channel",
     "Message",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

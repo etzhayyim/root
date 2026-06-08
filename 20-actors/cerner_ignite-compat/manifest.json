@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "cerner_ignite clean-room actor",
   "description": "Clean-room, API-compatible healthcare HL7-FHIR / bioinformatics actor (cerner_ignite); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihyxz3un4ydzorcyp7gpmc3zblqq47sv64zqq6xkeztxp2ercxz24",
+  "wasmCid": "bafkreichj5p66pbnx5amxeoyeaairvxke5uwzjgxkfahkccc7kpn5mj4je",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihyxz3un4ydzorcyp7gpmc3zblqq47sv64zqq6xkeztxp2ercxz24",
+  "ipfs": "ipfs://bafkreichj5p66pbnx5amxeoyeaairvxke5uwzjgxkfahkccc7kpn5mj4je",
   "schema": "schema/cerner_ignite.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Patient",
     "Observation",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

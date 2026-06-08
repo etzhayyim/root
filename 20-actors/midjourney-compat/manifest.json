@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "midjourney clean-room actor",
   "description": "Clean-room, API-compatible AI / ML inference actor (midjourney); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiep7wvniefzgynh66lozkfzw5zufvxsoujaajjd5ztmskebpnppb4",
+  "wasmCid": "bafkreifzfdlabbdjop4y4iynwmebfdgcxnzfuc6h74ggogcslyig2743hu",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiep7wvniefzgynh66lozkfzw5zufvxsoujaajjd5ztmskebpnppb4",
+  "ipfs": "ipfs://bafkreifzfdlabbdjop4y4iynwmebfdgcxnzfuc6h74ggogcslyig2743hu",
   "schema": "schema/midjourney.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Model",
     "Completion",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

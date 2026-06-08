@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "cardinal_health clean-room actor",
   "description": "Clean-room, API-compatible pharmacy benefit / Rx network actor (cardinal_health); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifvttjjaupi6i4pixfjuhlskcnit5xgph6fsqt33t2u4mjp5dda2y",
+  "wasmCid": "bafkreidbcezpirat4bhgr35vud3vbnywos5okrswphrjkw4f6xguqt3bly",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifvttjjaupi6i4pixfjuhlskcnit5xgph6fsqt33t2u4mjp5dda2y",
+  "ipfs": "ipfs://bafkreidbcezpirat4bhgr35vud3vbnywos5okrswphrjkw4f6xguqt3bly",
   "schema": "schema/cardinal_health.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Prescription",
     "Claim",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

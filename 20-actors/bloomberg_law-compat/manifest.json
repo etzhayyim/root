@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "bloomberg_law clean-room actor",
   "description": "Clean-room, API-compatible legal / eDiscovery actor (bloomberg_law); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibnrcm2nmhwxlth4ck7my2tejyhevfneqbzjnx5xvlyzyjkxnavlu",
+  "wasmCid": "bafkreic2nsihpshzbn4q4dztb3cpy4x5o5jrmf4ktwm3v5p7wlhc5pfevq",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibnrcm2nmhwxlth4ck7my2tejyhevfneqbzjnx5xvlyzyjkxnavlu",
+  "ipfs": "ipfs://bafkreic2nsihpshzbn4q4dztb3cpy4x5o5jrmf4ktwm3v5p7wlhc5pfevq",
   "schema": "schema/bloomberg_law.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Matter",
     "Document",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "epiconlineservices clean-room actor",
   "description": "Clean-room, API-compatible vertical SaaS actor (epiconlineservices); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifjqccuv3eeznzpbzlwnl4lyj3ufchr3gqahsvdmaciyj2zcwtdby",
+  "wasmCid": "bafkreiciav24k2kgniscijipgdh666bokjegciu463pde4gwkq4soudtde",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifjqccuv3eeznzpbzlwnl4lyj3ufchr3gqahsvdmaciyj2zcwtdby",
+  "ipfs": "ipfs://bafkreiciav24k2kgniscijipgdh666bokjegciu463pde4gwkq4soudtde",
   "schema": "schema/epiconlineservices.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Record",
     "Matter",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

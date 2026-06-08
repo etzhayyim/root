@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible physical benchmarks / classifications actor (hs_codes_customs); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:hs_codes_customs-compat",
-    "x-wasm-cid": "bafkreifburcqmhmy2nq3pypqpnsw5jjsmqqxxoo5z6or7m7imfgqihv62y",
+    "x-wasm-cid": "bafkreiddsqrw3mk4iifal7kph4t2uv7wx7pz4y6ybnk66c5ps6yqdrhzxu",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreifburcqmhmy2nq3pypqpnsw5jjsmqqxxoo5z6or7m7imfgqihv62y",
+      "url": "ipfs://bafkreiddsqrw3mk4iifal7kph4t2uv7wx7pz4y6ybnk66c5ps6yqdrhzxu",
       "description": "browser-local kotoba-wasm component"
     }
   ],

@@ -5,12 +5,67 @@
   "kind": "compat",
   "title": "github clean-room actor",
   "description": "Clean-room, API-compatible DevOps / CI-CD actor (github); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreien7omi6yrqetuvnlswf7mrmtpmh4aocgsgf2hi3ftjgib752oc74",
+  "wasmCid": "bafkreiazcxsk43tdp5ac4y2rkb6rdgo3gjqwa4sdsu4ry7uxlflcocucgu",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreien7omi6yrqetuvnlswf7mrmtpmh4aocgsgf2hi3ftjgib752oc74",
+  "ipfs": "ipfs://bafkreiazcxsk43tdp5ac4y2rkb6rdgo3gjqwa4sdsu4ry7uxlflcocucgu",
   "schema": "schema/github.kotoba",
-  "tier": "L4",
+  "tier": "L5",
+  "verified": {
+    "source": "https://docs.github.com/en/rest",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "Repository",
+      "Issue",
+      "PullRequest",
+      "WorkflowRun",
+      "Release",
+      "Commit"
+    ],
+    "enums": {
+      "Issue": {
+        "state": [
+          "open",
+          "closed"
+        ]
+      },
+      "PullRequest": {
+        "state": [
+          "open",
+          "closed"
+        ]
+      },
+      "WorkflowRun": {
+        "status": [
+          "completed",
+          "action_required",
+          "cancelled",
+          "failure",
+          "neutral",
+          "skipped",
+          "stale",
+          "success",
+          "timed_out",
+          "in_progress",
+          "queued",
+          "requested",
+          "waiting",
+          "pending"
+        ],
+        "conclusion": [
+          "success",
+          "failure",
+          "neutral",
+          "cancelled",
+          "skipped",
+          "timed_out",
+          "action_required",
+          "stale"
+        ]
+      }
+    }
+  },
   "entities": [
     "Repository",
     "Issue",

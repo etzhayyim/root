@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "hologram clean-room actor",
   "description": "Clean-room, API-compatible IoT / edge actor (hologram); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigkg3m6r6hylwhpnblv4y7zm7aih24xvfkpdwcahdm5wlcrzfdcgq",
+  "wasmCid": "bafkreiecsvxlgzm535g7vfqypk5vrovlem63majc2mwrj6wqrdenpepuwa",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigkg3m6r6hylwhpnblv4y7zm7aih24xvfkpdwcahdm5wlcrzfdcgq",
+  "ipfs": "ipfs://bafkreiecsvxlgzm535g7vfqypk5vrovlem63majc2mwrj6wqrdenpepuwa",
   "schema": "schema/hologram.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Device",
     "Telemetry",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

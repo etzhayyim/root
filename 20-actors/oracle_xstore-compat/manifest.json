@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "oracle_xstore clean-room actor",
   "description": "Clean-room, API-compatible e-commerce storefront actor (oracle_xstore); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicj4jk5t4uumimcbh2pjt2tanutht2qf2ibhnrhvi7x3mfnxca6eq",
+  "wasmCid": "bafkreifsdeeuqcrnhuw3sdeiiwczvyj6luoqxlg656nydx4ejk7pf56scq",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicj4jk5t4uumimcbh2pjt2tanutht2qf2ibhnrhvi7x3mfnxca6eq",
+  "ipfs": "ipfs://bafkreifsdeeuqcrnhuw3sdeiiwczvyj6luoqxlg656nydx4ejk7pf56scq",
   "schema": "schema/oracle_xstore.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Product",
     "Variant",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "naics_codes clean-room actor",
   "description": "Clean-room, API-compatible physical benchmarks / classifications actor (naics_codes); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibyjj65u2rxefbrzip5pncaykqd4qwrpb6sio3swg3z6pzdpjrfq4",
+  "wasmCid": "bafkreig7niwwkabzrjampehvvee6q7enbtcoe26azowiepo56tzi2rvotq",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibyjj65u2rxefbrzip5pncaykqd4qwrpb6sio3swg3z6pzdpjrfq4",
+  "ipfs": "ipfs://bafkreig7niwwkabzrjampehvvee6q7enbtcoe26azowiepo56tzi2rvotq",
   "schema": "schema/naics_codes.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Code",
     "Unit",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

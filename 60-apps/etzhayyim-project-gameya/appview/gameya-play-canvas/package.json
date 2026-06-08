@@ -5,9 +5,12 @@
   "type": "module",
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "quality:gate": "node scripts/quality-gate.mjs"
+    "quality:gate": "node scripts/quality-gate.mjs",
+    "test": "vitest run"
   },
   "devDependencies": {
-    "typescript": "^6.0.2"
+    "@vitest/coverage-v8": "^4.1.8",
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.8"
   }
 }

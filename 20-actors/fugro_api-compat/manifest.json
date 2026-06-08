@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "fugro_api clean-room actor",
   "description": "Clean-room, API-compatible space / ocean / earth physics actor (fugro_api); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigxlewvvic5hcfc2ggu5holcwrjrzp3m5b3ma2ulk7e3bxrvm43xm",
+  "wasmCid": "bafkreiaevppqpohpgvxhtki6bfw2iex4fmq4nu2lwemvj2o4je2qeuhnqy",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigxlewvvic5hcfc2ggu5holcwrjrzp3m5b3ma2ulk7e3bxrvm43xm",
+  "ipfs": "ipfs://bafkreiaevppqpohpgvxhtki6bfw2iex4fmq4nu2lwemvj2o4je2qeuhnqy",
   "schema": "schema/fugro_api.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Object",
     "Position",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

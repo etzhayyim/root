@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "shipbob clean-room actor",
   "description": "Clean-room, API-compatible headless commerce / logistics actor (shipbob); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidbpzuzypsqlm7eqb2lyp2yfgkwncrokqjjbdl4fgyjphklnmknqq",
+  "wasmCid": "bafkreibm7rwrsulftk3moiu2whf2ozwxvh3pehvrimczigmvl6i4hkkut4",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidbpzuzypsqlm7eqb2lyp2yfgkwncrokqjjbdl4fgyjphklnmknqq",
+  "ipfs": "ipfs://bafkreibm7rwrsulftk3moiu2whf2ozwxvh3pehvrimczigmvl6i4hkkut4",
   "schema": "schema/shipbob.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "ContentEntry",
     "Product",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

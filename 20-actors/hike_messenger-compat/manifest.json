@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "hike_messenger clean-room actor",
   "description": "Clean-room, API-compatible communications / social actor (hike_messenger); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifwqlc3xh4vopysoyhnaephgg6kdqcmzvxanfz66k6cwupab2t4hq",
+  "wasmCid": "bafkreidw5hesutwjaba7mqdwh3zcnvclmst4e2x36plutqqhitctiqcgaq",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifwqlc3xh4vopysoyhnaephgg6kdqcmzvxanfz66k6cwupab2t4hq",
+  "ipfs": "ipfs://bafkreidw5hesutwjaba7mqdwh3zcnvclmst4e2x36plutqqhitctiqcgaq",
   "schema": "schema/hike_messenger.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Channel",
     "Message",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

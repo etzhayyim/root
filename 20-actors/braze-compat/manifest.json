@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "braze clean-room actor",
   "description": "Clean-room, API-compatible marketing technology actor (braze); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreia55rowuh6fgspobrzuzti5e5wuxzsmdwavomlqxajgioiyca533i",
+  "wasmCid": "bafkreidgz43bi7xmj4lc3l6xiywp5gbkbsy3rn2navduxsygurh2e4iqmu",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreia55rowuh6fgspobrzuzti5e5wuxzsmdwavomlqxajgioiyca533i",
+  "ipfs": "ipfs://bafkreidgz43bi7xmj4lc3l6xiywp5gbkbsy3rn2navduxsygurh2e4iqmu",
   "schema": "schema/braze.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Campaign",
     "Audience",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "agleader clean-room actor",
   "description": "Clean-room, API-compatible AgriTech / food actor (agleader); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiaoezwuum4kjjvgifpqojanshc3nr7nxcclpans3pbd5qc4tjdcyq",
+  "wasmCid": "bafkreibo36lxbbytuouwzpj2yo5mtn4q5meukpvkaxaybjsbw74nhg6l4a",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiaoezwuum4kjjvgifpqojanshc3nr7nxcclpans3pbd5qc4tjdcyq",
+  "ipfs": "ipfs://bafkreibo36lxbbytuouwzpj2yo5mtn4q5meukpvkaxaybjsbw74nhg6l4a",
   "schema": "schema/agleader.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Field",
     "Operation",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "redfin_api clean-room actor",
   "description": "Clean-room, API-compatible real estate / MLS / PropTech actor (redfin_api); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifaxbv7x7g23wtbl4vnlkejdvzr6o7ybu63xvcqfckiuqtbf5q5di",
+  "wasmCid": "bafkreia4azezovej5lvcq65qlqeij7ev5omeaqwhdawouz5orfqhbn4jhq",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifaxbv7x7g23wtbl4vnlkejdvzr6o7ybu63xvcqfckiuqtbf5q5di",
+  "ipfs": "ipfs://bafkreia4azezovej5lvcq65qlqeij7ev5omeaqwhdawouz5orfqhbn4jhq",
   "schema": "schema/redfin_api.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Listing",
     "Property",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "discover_global clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (discover_global); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigofuveaudomtf6ic2zzkup6xm5nipskzfve2bik74ff3z4ui7a2i",
+  "wasmCid": "bafkreicgei4cvw57nsdzkkfrfrunkocbbed7nps75ufo5ar7ge2rk33ygi",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigofuveaudomtf6ic2zzkup6xm5nipskzfve2bik74ff3z4ui7a2i",
+  "ipfs": "ipfs://bafkreicgei4cvw57nsdzkkfrfrunkocbbed7nps75ufo5ar7ge2rk33ygi",
   "schema": "schema/discover_global.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

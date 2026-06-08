@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "gcash clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (gcash); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidwvlfdugoabobwasylmnecynrr3l5jarzuv6w6gadknfcramre4e",
+  "wasmCid": "bafkreia2f6acy7pfo42fsi5qsq6imz3y5k24v3lcl5aahxettozobvepcq",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidwvlfdugoabobwasylmnecynrr3l5jarzuv6w6gadknfcramre4e",
+  "ipfs": "ipfs://bafkreia2f6acy7pfo42fsi5qsq6imz3y5k24v3lcl5aahxettozobvepcq",
   "schema": "schema/gcash.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

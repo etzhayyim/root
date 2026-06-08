@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "allscripts clean-room actor",
   "description": "Clean-room, API-compatible EHR / clinical records actor (allscripts); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiegqgyk5s2m4noz3uzcqtd2iptickhn4ahjeh2zfab5t3keh373vi",
+  "wasmCid": "bafkreicemyenektbx6iomyjyspuhpzjkqatkuo3mwefx6c5pdykkfd44xq",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiegqgyk5s2m4noz3uzcqtd2iptickhn4ahjeh2zfab5t3keh373vi",
+  "ipfs": "ipfs://bafkreicemyenektbx6iomyjyspuhpzjkqatkuo3mwefx6c5pdykkfd44xq",
   "schema": "schema/allscripts.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Patient",
     "Encounter",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "grafana clean-room actor",
   "description": "Clean-room, API-compatible developer tools / APM actor (grafana); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicgopamdespzugtzzhhq7s6l7l7ofd3vx2h5n747ugdr6yw4dvmhe",
+  "wasmCid": "bafkreidljzcjkllk5suekgtz7hmk6w6ga5i5q5xhufl6o2rmiee5viro3a",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicgopamdespzugtzzhhq7s6l7l7ofd3vx2h5n747ugdr6yw4dvmhe",
+  "ipfs": "ipfs://bafkreidljzcjkllk5suekgtz7hmk6w6ga5i5q5xhufl6o2rmiee5viro3a",
   "schema": "schema/grafana.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Service",
     "Error",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

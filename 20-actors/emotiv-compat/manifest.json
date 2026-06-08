@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "emotiv clean-room actor",
   "description": "Clean-room, API-compatible brain-computer interface / neurotech actor (emotiv); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiee7g7vsxlnigtgdp36324pb4qyrzkwrntj4bvhd22ldu6ktyix7u",
+  "wasmCid": "bafkreihwveyfdy4pqmo4oqabonukr74upuyphy6abuxjvi4jglllvzpuy4",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiee7g7vsxlnigtgdp36324pb4qyrzkwrntj4bvhd22ldu6ktyix7u",
+  "ipfs": "ipfs://bafkreihwveyfdy4pqmo4oqabonukr74upuyphy6abuxjvi4jglllvzpuy4",
   "schema": "schema/emotiv.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Device",
     "Session",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -188,6 +188,8 @@ def create_payment_intent(request):
     err = _require(data, ['customer', 'amount'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['requires_payment_method', 'requires_confirmation', 'requires_action', 'processing', 'requires_capture', 'canceled', 'succeeded']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['requires_payment_method', 'requires_confirmation', 'requires_action', 'processing', 'requires_capture', 'canceled', 'succeeded']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("stripe_pay")}
     rec["customer"] = data.get('customer')
     rec["amount"] = _as_int(data.get('amount'))
@@ -228,6 +230,8 @@ def update_payment_intent(request, eid):
     err = _reject_unknown(data, ['customer', 'amount', 'currency', 'status', 'description'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['requires_payment_method', 'requires_confirmation', 'requires_action', 'processing', 'requires_capture', 'canceled', 'succeeded']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['requires_payment_method', 'requires_confirmation', 'requires_action', 'processing', 'requires_capture', 'canceled', 'succeeded']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -322,6 +326,10 @@ def create_refund(request):
     err = _require(data, ['charge', 'amount'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['pending', 'requires_action', 'succeeded', 'failed', 'canceled']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['pending', 'requires_action', 'succeeded', 'failed', 'canceled']), "type": "invalid_request_error"}}, 400
+    if data.get('reason') and data['reason'] not in ['duplicate', 'fraudulent', 'requested_by_customer', 'expired_uncaptured_charge']:
+        return {"error": {"message": "invalid reason; allowed: " + ", ".join(['duplicate', 'fraudulent', 'requested_by_customer', 'expired_uncaptured_charge']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("stripe_ref")}
     rec["charge"] = data.get('charge')
     rec["amount"] = _as_int(data.get('amount'))
@@ -361,6 +369,10 @@ def update_refund(request, eid):
     err = _reject_unknown(data, ['charge', 'amount', 'reason', 'status'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['pending', 'requires_action', 'succeeded', 'failed', 'canceled']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['pending', 'requires_action', 'succeeded', 'failed', 'canceled']), "type": "invalid_request_error"}}, 400
+    if data.get('reason') and data['reason'] not in ['duplicate', 'fraudulent', 'requested_by_customer', 'expired_uncaptured_charge']:
+        return {"error": {"message": "invalid reason; allowed: " + ", ".join(['duplicate', 'fraudulent', 'requested_by_customer', 'expired_uncaptured_charge']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -388,6 +400,8 @@ def create_invoice(request):
     err = _require(data, ['customer', 'amountDue'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['draft', 'open', 'paid', 'uncollectible', 'void']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['draft', 'open', 'paid', 'uncollectible', 'void']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("stripe_inv")}
     rec["customer"] = data.get('customer')
     rec["amountDue"] = _as_int(data.get('amountDue'))
@@ -427,6 +441,8 @@ def update_invoice(request, eid):
     err = _reject_unknown(data, ['customer', 'amountDue', 'currency', 'status'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['draft', 'open', 'paid', 'uncollectible', 'void']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['draft', 'open', 'paid', 'uncollectible', 'void']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -454,6 +470,8 @@ def create_subscription(request):
     err = _require(data, ['customer', 'status'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['incomplete', 'incomplete_expired', 'trialing', 'active', 'past_due', 'canceled', 'unpaid', 'paused']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['incomplete', 'incomplete_expired', 'trialing', 'active', 'past_due', 'canceled', 'unpaid', 'paused']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("stripe_sub")}
     rec["customer"] = data.get('customer')
     rec["priceId"] = data.get('priceId')
@@ -494,6 +512,8 @@ def update_subscription(request, eid):
     err = _reject_unknown(data, ['customer', 'priceId', 'status', 'currentPeriodEnd'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['incomplete', 'incomplete_expired', 'trialing', 'active', 'past_due', 'canceled', 'unpaid', 'paused']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['incomplete', 'incomplete_expired', 'trialing', 'active', 'past_due', 'canceled', 'unpaid', 'paused']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):

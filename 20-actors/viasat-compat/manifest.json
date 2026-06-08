@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "viasat clean-room actor",
   "description": "Clean-room, API-compatible telecom / satellite actor (viasat); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihdzonmycxxo4fjrmo7labdw7j4pxdieb64kzt3n53iwe6gh5floy",
+  "wasmCid": "bafkreiajk2lmt5zcnxwcgfbbvafxoupm77dl7hnjaaal7kvzm44jvswiyi",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihdzonmycxxo4fjrmo7labdw7j4pxdieb64kzt3n53iwe6gh5floy",
+  "ipfs": "ipfs://bafkreiajk2lmt5zcnxwcgfbbvafxoupm77dl7hnjaaal7kvzm44jvswiyi",
   "schema": "schema/viasat.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Subscriber",
     "Session",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

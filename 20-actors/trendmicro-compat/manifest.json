@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "trendmicro clean-room actor",
   "description": "Clean-room, API-compatible security / IAM actor (trendmicro); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiemdnq6i3ksqjbxpqzpcajnpvwdyifzvqyzmp4wpq7takihhndz2y",
+  "wasmCid": "bafkreihbkiqg25f6tm6hdd7w22loqp7h4jzlkmh7vlguwpgh72dec3d6g4",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiemdnq6i3ksqjbxpqzpcajnpvwdyifzvqyzmp4wpq7takihhndz2y",
+  "ipfs": "ipfs://bafkreihbkiqg25f6tm6hdd7w22loqp7h4jzlkmh7vlguwpgh72dec3d6g4",
   "schema": "schema/trendmicro.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Identity",
     "Policy",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

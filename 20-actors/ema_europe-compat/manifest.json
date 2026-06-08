@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "ema_europe clean-room actor",
   "description": "Clean-room, API-compatible public health / environment / IP actor (ema_europe); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreif2xdwzh77kimzmp7x5ywfovea7yd6tkutq4ffc5p5ylunwexi42y",
+  "wasmCid": "bafkreidnq24wp2tobrx74jvs6okyuetrfe3jz7dmr5fqcablkv5pokqf3q",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreif2xdwzh77kimzmp7x5ywfovea7yd6tkutq4ffc5p5ylunwexi42y",
+  "ipfs": "ipfs://bafkreidnq24wp2tobrx74jvs6okyuetrfe3jz7dmr5fqcablkv5pokqf3q",
   "schema": "schema/ema_europe.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Application",
     "Grant",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

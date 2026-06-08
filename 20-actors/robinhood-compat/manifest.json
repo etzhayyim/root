@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "robinhood clean-room actor",
   "description": "Clean-room, API-compatible fintech / web3 actor (robinhood); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiaimjvuithk4wpb2nowwulm7xzgdtcmq5bc5sedgc62a3246c72k4",
+  "wasmCid": "bafkreifyotll3xqsmh3jwwchi46ilae3gex4enbrjqqrvp7grtcxj6fz64",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiaimjvuithk4wpb2nowwulm7xzgdtcmq5bc5sedgc62a3246c72k4",
+  "ipfs": "ipfs://bafkreifyotll3xqsmh3jwwchi46ilae3gex4enbrjqqrvp7grtcxj6fz64",
   "schema": "schema/robinhood.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Card",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

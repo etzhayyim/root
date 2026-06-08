@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "curemd clean-room actor",
   "description": "Clean-room, API-compatible EHR / clinical records actor (curemd); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifhzixdo2vfsj2uwswbfmt6zychkykgj25qsh3vqqucnwslvgzfdu",
+  "wasmCid": "bafkreihuwbutpuvfs5vlystldszsdj2gz4kj4liafua4ijcljncbwhhtxq",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifhzixdo2vfsj2uwswbfmt6zychkykgj25qsh3vqqucnwslvgzfdu",
+  "ipfs": "ipfs://bafkreihuwbutpuvfs5vlystldszsdj2gz4kj4liafua4ijcljncbwhhtxq",
   "schema": "schema/curemd.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Patient",
     "Encounter",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

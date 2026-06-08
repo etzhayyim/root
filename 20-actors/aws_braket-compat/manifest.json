@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "aws_braket clean-room actor",
   "description": "Clean-room, API-compatible hardware ISA / quantum actor (aws_braket); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihicx7kfjjaqdrboedfsez5c5zrmr3e566eumttpf7uep7ukh5vuy",
+  "wasmCid": "bafkreicsmuzhtt4vm4zukpe3oqzyxhf3gfp5dtkmmnwjt4lvvs5qqktoxq",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihicx7kfjjaqdrboedfsez5c5zrmr3e566eumttpf7uep7ukh5vuy",
+  "ipfs": "ipfs://bafkreicsmuzhtt4vm4zukpe3oqzyxhf3gfp5dtkmmnwjt4lvvs5qqktoxq",
   "schema": "schema/aws_braket.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Register",
     "Instruction",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

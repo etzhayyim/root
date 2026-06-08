@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "flexport clean-room actor",
   "description": "Clean-room, API-compatible headless commerce / logistics actor (flexport); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiebwn5mzukxg6huv7faqtf5rjqvsev77xgpxj6gd3tlqz3k4n5ufy",
+  "wasmCid": "bafkreiejhpmqtgyx7sfajr4lyxx4jncoz27mi2peyz4mhteqzsf3iszl6e",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiebwn5mzukxg6huv7faqtf5rjqvsev77xgpxj6gd3tlqz3k4n5ufy",
+  "ipfs": "ipfs://bafkreiejhpmqtgyx7sfajr4lyxx4jncoz27mi2peyz4mhteqzsf3iszl6e",
   "schema": "schema/flexport.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "ContentEntry",
     "Product",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

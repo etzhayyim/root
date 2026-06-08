@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "optumrx clean-room actor",
   "description": "Clean-room, API-compatible pharmacy benefit / Rx network actor (optumrx); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibrq7i3z7shtbm4c3dy5hkyhofxkiwmbj7z5vumppf2hlysvv4dzm",
+  "wasmCid": "bafkreie6pbfv6iiunukdaabqdwg2pg7acqarvbjvzm3esj37eljcqwckbu",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibrq7i3z7shtbm4c3dy5hkyhofxkiwmbj7z5vumppf2hlysvv4dzm",
+  "ipfs": "ipfs://bafkreie6pbfv6iiunukdaabqdwg2pg7acqarvbjvzm3esj37eljcqwckbu",
   "schema": "schema/optumrx.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Prescription",
     "Claim",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

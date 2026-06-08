@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "zoox clean-room actor",
   "description": "Clean-room, API-compatible mobility / auto / EV actor (zoox); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifeioqrartcngz6p43pgcmetjqfn7qwnjnz5s5tgqkka7tjhf7f4y",
+  "wasmCid": "bafkreidamteochs4khzxhd4snhhpdi6qehwdnfd7mr3lfuodszlypdhpjy",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifeioqrartcngz6p43pgcmetjqfn7qwnjnz5s5tgqkka7tjhf7f4y",
+  "ipfs": "ipfs://bafkreidamteochs4khzxhd4snhhpdi6qehwdnfd7mr3lfuodszlypdhpjy",
   "schema": "schema/zoox.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Vehicle",
     "Signal",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

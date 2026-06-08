@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible DevOps / CI-CD actor (github); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:github-compat",
-    "x-wasm-cid": "bafkreien7omi6yrqetuvnlswf7mrmtpmh4aocgsgf2hi3ftjgib752oc74",
+    "x-wasm-cid": "bafkreiazcxsk43tdp5ac4y2rkb6rdgo3gjqwa4sdsu4ry7uxlflcocucgu",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreien7omi6yrqetuvnlswf7mrmtpmh4aocgsgf2hi3ftjgib752oc74",
+      "url": "ipfs://bafkreiazcxsk43tdp5ac4y2rkb6rdgo3gjqwa4sdsu4ry7uxlflcocucgu",
       "description": "browser-local kotoba-wasm component"
     }
   ],
@@ -1396,7 +1396,11 @@
             "type": "string"
           },
           "state": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "open",
+              "closed"
+            ]
           },
           "authorId": {
             "type": "string"
@@ -1424,7 +1428,11 @@
             "type": "string"
           },
           "state": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "open",
+              "closed"
+            ]
           },
           "authorId": {
             "type": "string"
@@ -1451,7 +1459,11 @@
             "type": "string"
           },
           "state": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "open",
+              "closed"
+            ]
           },
           "headRef": {
             "type": "string"
@@ -1482,7 +1494,11 @@
             "type": "string"
           },
           "state": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "open",
+              "closed"
+            ]
           },
           "headRef": {
             "type": "string"
@@ -1598,10 +1614,36 @@
             "type": "string"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "completed",
+              "action_required",
+              "cancelled",
+              "failure",
+              "neutral",
+              "skipped",
+              "stale",
+              "success",
+              "timed_out",
+              "in_progress",
+              "queued",
+              "requested",
+              "waiting",
+              "pending"
+            ]
           },
           "conclusion": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "success",
+              "failure",
+              "neutral",
+              "cancelled",
+              "skipped",
+              "timed_out",
+              "action_required",
+              "stale"
+            ]
           },
           "commitSha": {
             "type": "string"
@@ -1623,10 +1665,36 @@
             "type": "string"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "completed",
+              "action_required",
+              "cancelled",
+              "failure",
+              "neutral",
+              "skipped",
+              "stale",
+              "success",
+              "timed_out",
+              "in_progress",
+              "queued",
+              "requested",
+              "waiting",
+              "pending"
+            ]
           },
           "conclusion": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "success",
+              "failure",
+              "neutral",
+              "cancelled",
+              "skipped",
+              "timed_out",
+              "action_required",
+              "stale"
+            ]
           },
           "commitSha": {
             "type": "string"

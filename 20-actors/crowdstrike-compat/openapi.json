@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible security / IAM actor (crowdstrike); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:crowdstrike-compat",
-    "x-wasm-cid": "bafkreigb5ki5opgpmx3w34da5gvsjglgueq3sdb5kvpi2w5d5l7bkdlre4",
+    "x-wasm-cid": "bafkreiafbpy2hcxf7hihuldgsj3x4vn3uga6cl47ao2sxvuzibtsztluxu",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreigb5ki5opgpmx3w34da5gvsjglgueq3sdb5kvpi2w5d5l7bkdlre4",
+      "url": "ipfs://bafkreiafbpy2hcxf7hihuldgsj3x4vn3uga6cl47ao2sxvuzibtsztluxu",
       "description": "browser-local kotoba-wasm component"
     }
   ],

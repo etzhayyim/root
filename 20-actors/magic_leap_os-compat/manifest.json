@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "magic_leap_os clean-room actor",
   "description": "Clean-room, API-compatible spatial computing / XR actor (magic_leap_os); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreieqdmpdl3dvuhkhpy23k5vjqcbfdotfsh6bunbvntkahpmpz2o2yq",
+  "wasmCid": "bafkreibmbvurujpb5lejexgmdvkvxi53ujacnaolr4fba2ndpgs2ezameq",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreieqdmpdl3dvuhkhpy23k5vjqcbfdotfsh6bunbvntkahpmpz2o2yq",
+  "ipfs": "ipfs://bafkreibmbvurujpb5lejexgmdvkvxi53ujacnaolr4fba2ndpgs2ezameq",
   "schema": "schema/magic_leap_os.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Anchor",
     "Scene",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

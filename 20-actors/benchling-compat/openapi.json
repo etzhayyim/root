@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible synthetic biology / DNA actor (benchling); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:benchling-compat",
-    "x-wasm-cid": "bafkreiaxrggesulo3fnsnjid7gipdvhppzhg4j3neurh52hl62s4idnkfm",
+    "x-wasm-cid": "bafkreiaysggx6p3oadasboz2jplzqmdn46mtium7dwliofzbxlylrj62a4",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreiaxrggesulo3fnsnjid7gipdvhppzhg4j3neurh52hl62s4idnkfm",
+      "url": "ipfs://bafkreiaysggx6p3oadasboz2jplzqmdn46mtium7dwliofzbxlylrj62a4",
       "description": "browser-local kotoba-wasm component"
     }
   ],

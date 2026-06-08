@@ -5,12 +5,52 @@
   "kind": "compat",
   "title": "shopify clean-room actor",
   "description": "Clean-room, API-compatible e-commerce storefront actor (shopify); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigavk24k74i73jk6mycrpb7bkgk5ysoef5she7bbyou2n47lo6bzm",
+  "wasmCid": "bafkreifyjnssgr2mdxm6edev4yuafhtfffw3ue5ju2jtko5o6f6lymc6pm",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigavk24k74i73jk6mycrpb7bkgk5ysoef5she7bbyou2n47lo6bzm",
+  "ipfs": "ipfs://bafkreifyjnssgr2mdxm6edev4yuafhtfffw3ue5ju2jtko5o6f6lymc6pm",
   "schema": "schema/shopify.kotoba",
-  "tier": "L4",
+  "tier": "L5",
+  "verified": {
+    "source": "https://shopify.dev/docs/api/admin-rest",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "Product",
+      "Order",
+      "Fulfillment"
+    ],
+    "enums": {
+      "Product": {
+        "status": [
+          "active",
+          "archived",
+          "draft"
+        ]
+      },
+      "Order": {
+        "financialStatus": [
+          "pending",
+          "authorized",
+          "partially_paid",
+          "paid",
+          "partially_refunded",
+          "refunded",
+          "voided"
+        ]
+      },
+      "Fulfillment": {
+        "status": [
+          "pending",
+          "open",
+          "success",
+          "cancelled",
+          "error",
+          "failure"
+        ]
+      }
+    }
+  },
   "entities": [
     "Product",
     "Variant",

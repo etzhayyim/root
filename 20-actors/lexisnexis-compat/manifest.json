@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "lexisnexis clean-room actor",
   "description": "Clean-room, API-compatible legal / eDiscovery actor (lexisnexis); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicwnfh3y3kxnvti7s2lxzbzlvoemmj2isbdtgrynkg3a4x6zr4mla",
+  "wasmCid": "bafkreigfehvmxryr3onrlo7bnyipkcdrrllowp437vmp5oovtrajjrzh34",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicwnfh3y3kxnvti7s2lxzbzlvoemmj2isbdtgrynkg3a4x6zr4mla",
+  "ipfs": "ipfs://bafkreigfehvmxryr3onrlo7bnyipkcdrrllowp437vmp5oovtrajjrzh34",
   "schema": "schema/lexisnexis.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Matter",
     "Document",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

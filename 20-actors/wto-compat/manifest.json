@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "wto clean-room actor",
   "description": "Clean-room, API-compatible intl org / central bank data actor (wto); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifq5diar2wp5eqk5smmaernhlq7u7tqmimda3l7gwnnoj2iacvowq",
+  "wasmCid": "bafkreibt6vokliqipqfxtim5xr72bq56o767mwm5gfeleq36nsyskdwugq",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifq5diar2wp5eqk5smmaernhlq7u7tqmimda3l7gwnnoj2iacvowq",
+  "ipfs": "ipfs://bafkreibt6vokliqipqfxtim5xr72bq56o767mwm5gfeleq36nsyskdwugq",
   "schema": "schema/wto.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Indicator",
     "Observation",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

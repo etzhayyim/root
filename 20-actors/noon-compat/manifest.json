@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "noon clean-room actor",
   "description": "Clean-room, API-compatible e-commerce storefront actor (noon); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicnycbt37fhj4urz32ns5ibpfl4mofzv6uufvy7fsuay62iw3jn54",
+  "wasmCid": "bafkreif2kvqj4xevmbyy3wi3vb2hvustgs3f22vnizbgksj3j43gjh3nwm",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicnycbt37fhj4urz32ns5ibpfl4mofzv6uufvy7fsuay62iw3jn54",
+  "ipfs": "ipfs://bafkreif2kvqj4xevmbyy3wi3vb2hvustgs3f22vnizbgksj3j43gjh3nwm",
   "schema": "schema/noon.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Product",
     "Variant",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

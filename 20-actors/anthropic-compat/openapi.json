@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible AI / ML inference actor (anthropic); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:anthropic-compat",
-    "x-wasm-cid": "bafkreigpozmdpm3eyd5lzwmeka4tci35tx2asvednynu7k2i3r3vcjwrjq",
+    "x-wasm-cid": "bafkreicx4q2mg4gwxchjh2kitjgkkuzboegmujzwqilujtu4so3uoojl7u",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreigpozmdpm3eyd5lzwmeka4tci35tx2asvednynu7k2i3r3vcjwrjq",
+      "url": "ipfs://bafkreicx4q2mg4gwxchjh2kitjgkkuzboegmujzwqilujtu4so3uoojl7u",
       "description": "browser-local kotoba-wasm component"
     }
   ],
@@ -1384,7 +1384,11 @@
             "type": "string"
           },
           "role": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "user",
+              "assistant"
+            ]
           },
           "content": {
             "type": "string"
@@ -1412,7 +1416,11 @@
             "type": "string"
           },
           "role": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "user",
+              "assistant"
+            ]
           },
           "content": {
             "type": "string"

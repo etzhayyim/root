@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "pinduoduo clean-room actor",
   "description": "Clean-room, API-compatible e-commerce storefront actor (pinduoduo); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreievmkkdo4cetalvv3rq2uak6xnvb7skoiln4cwe42nuvze5e67pba",
+  "wasmCid": "bafkreihf2xye2tkl64yjwk6r4253ggh643nc3u2c7vrx42wkehs3velk6m",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreievmkkdo4cetalvv3rq2uak6xnvb7skoiln4cwe42nuvze5e67pba",
+  "ipfs": "ipfs://bafkreihf2xye2tkl64yjwk6r4253ggh643nc3u2c7vrx42wkehs3velk6m",
   "schema": "schema/pinduoduo.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Product",
     "Variant",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

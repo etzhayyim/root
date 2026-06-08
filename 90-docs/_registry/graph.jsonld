@@ -10658,6 +10658,7 @@
         "kotoba_murakumo canonical filesystem location",
         "subrepo-relocation pattern (when to move out vs stay in)"
       ],
+      "supersededBy": "doc:2606074000",
       "lastVerified": "2026-05-28"
     },
     {
@@ -14446,12 +14447,53 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606074000-apps-maturity-enhancement",
+      "type": "TechArticle",
+      "title": "ADR-2606074000: Apps Store Appview Testing Baseline and Maturity Enhancement",
+      "status": "approved",
+      "topic": "testing-maturity",
+      "authoritative": true,
+      "authoritativeFor": [
+        "60-apps"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606074000-kotoba-murakumo-reintegrated-into-kotoba-submodule",
+      "type": "TechArticle",
+      "title": "ADR-2606074000: kotoba_murakumo re-integrated into the kotoba submodule (py/kotoba_murakumo/) — submodule era supersedes the subrepo-relocation",
+      "status": "proposed",
+      "topic": "kotoba-murakumo-submodule-reintegration",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kotoba_murakumo canonical filesystem location (now inside the kotoba submodule)",
+        "the submodule-era placement rule for religious-corp Python siblings of the kotoba engine"
+      ],
+      "supersedes": "doc:2605282300",
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606074500-kotoba-py-siblings-engine-core-vs-actor-placement",
+      "type": "TechArticle",
+      "title": "ADR-2606074500: kotoba Python siblings — engine-core vs actor placement (iso20022 → engine, kawase → actor)",
+      "status": "proposed",
+      "topic": "kotoba-py-sibling-placement-taxonomy",
+      "authoritative": true,
+      "authoritativeFor": [
+        "placement taxonomy for kotoba-prefixed Python siblings (engine-core vs actor vs infra)",
+        "kotoba_iso20022 canonical location (kotoba submodule py/)",
+        "kotoba_kawase canonical location (20-actors/kawase-yui/)"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
       "id": "doc:adr-2606081500-kotoba-erp-crm-prototype-pywasm",
       "type": "TechArticle",
       "title": "ADR-2606081500: Kotoba ERP and Salesforce CRM Prototype in PyWasm",
       "status": "accepted",
-      "topic": "kotoba-erp-crm-prototype-pywasm",
-      "authoritative": false
+      "topic": "kotoba-erp-crm-pywasm-prototype",
+      "authoritative": false,
+      "lastVerified": "2026-06-07"
     },
     {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",

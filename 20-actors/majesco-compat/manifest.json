@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "majesco clean-room actor",
   "description": "Clean-room, API-compatible core banking / InsurTech actor (majesco); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidydiqzu4u73u4zwxpfhij7ydes72jjsw6hqlw43cvg7z2spo5h4y",
+  "wasmCid": "bafkreihwjy6ncfvs3mh4scfqef2hoc3336wlemyc3zuqj4mbna2qm6inle",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidydiqzu4u73u4zwxpfhij7ydes72jjsw6hqlw43cvg7z2spo5h4y",
+  "ipfs": "ipfs://bafkreihwjy6ncfvs3mh4scfqef2hoc3336wlemyc3zuqj4mbna2qm6inle",
   "schema": "schema/majesco.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -43,21 +43,29 @@ def _pluralize(n):
     return deepen._pluralize(n)
 
 
-def openapi_spec(platform, model, manifest):
-    """OpenAPI 3.1 from the domain model (L4 production cohort)."""
+def openapi_spec(platform, model, manifest, enums=None):
+    """OpenAPI 3.1 from the domain model (L4 cohort); L5 verified enums inlined."""
+    enums = enums or {}            # {EntityName: {field: [allowed values]}}
     schemas = {}
     paths = {}
     for ent, fields in model.items():
+        ent_enums = {f: v for f, v in (enums.get(ent) or {}).items() if f in fields}
         props = {"id": {"type": "string"}}
         for f, t in fields.items():
             props[f] = {"type": OPENAPI_TYPE.get(t, "string")}
             if t == "datetime":
                 props[f]["format"] = "date-time"
+            if f in ent_enums:
+                props[f]["enum"] = list(ent_enums[f])
         props["createdAt"] = {"type": "string", "format": "date-time"}
         props["updatedAt"] = {"type": "string", "format": "date-time"}
         schemas[ent] = {"type": "object", "properties": props}
         required = deepen._required_fields(fields)
-        create_props = {f: {"type": OPENAPI_TYPE.get(t, "string")} for f, t in fields.items()}
+        create_props = {}
+        for f, t in fields.items():
+            create_props[f] = {"type": OPENAPI_TYPE.get(t, "string")}
+            if f in ent_enums:
+                create_props[f]["enum"] = list(ent_enums[f])
         schemas[f"{ent}Create"] = {"type": "object", "properties": create_props,
                                    "required": required}
         plural = _pluralize(ent).lower()
@@ -124,6 +132,15 @@ def build():
     component_to_actors = {}
     actor_sbom = []
     openapi_written = 0
+    # L5 verified enums per handle: {handle: {Entity: {field: [allowed]}}}
+    l5_enums = {}
+    _l5 = os.path.join(SCHEMAS_DIR, "cleanroom-l5-verification.json")
+    if os.path.exists(_l5):
+        for a in json.load(open(_l5)).get("actors", []):
+            em = {r["entity"]: dict(r["discoveredEnums"])
+                  for r in a.get("resources", []) if r.get("discoveredEnums")}
+            if em:
+                l5_enums[a["handle"]] = em
 
     for actor in actor_dirs:
         adir = os.path.join(ACTORS_DIR, actor)
@@ -147,7 +164,7 @@ def build():
             "basePath": "/v1", "endpointCount": api.get("endpointCount", 0),
             "ipfs": f"ipfs://{cid}", "health": "/healthz",
             "features": api.get("features", {}),
-            "openapi": f"20-actors/{actor}/openapi.json" if tier == "L4" else None,
+            "openapi": f"20-actors/{actor}/openapi.json" if tier in ("L4", "L5") else None,
         })
         sp = caps.get("socialpost", {})
         social_feeds.append({
@@ -162,12 +179,12 @@ def build():
             component_to_actors.setdefault(c["name"], []).append(handle)
 
         # full OpenAPI for the L4 production cohort
-        if tier == "L4":
+        if tier in ("L4", "L5"):
             platform = actor[:-len("-compat")].strip()
             model = (deepen.PLATFORM_OVERRIDES.get(platform)
                      or deepen.CATEGORY_MODELS.get(cats.get(platform))
                      or deepen.GENERIC_MODEL)
-            spec = openapi_spec(platform, model, m)
+            spec = openapi_spec(platform, model, m, l5_enums.get(m["handle"]))
             with open(os.path.join(adir, "openapi.json"), "w") as f:
                 json.dump(spec, f, indent=2, ensure_ascii=False)
                 f.write("\n")

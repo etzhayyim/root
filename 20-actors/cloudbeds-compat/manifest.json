@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "cloudbeds clean-room actor",
   "description": "Clean-room, API-compatible travel / aviation / hospitality actor (cloudbeds); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiavtfund2yxiodxrgmmei4ejy2ipzay4dllls4sd5gc7gxcso7zui",
+  "wasmCid": "bafkreiciiozand4dfceunuqqlg6svwysexbkzs4gtj5gyao7ny72kbwvki",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiavtfund2yxiodxrgmmei4ejy2ipzay4dllls4sd5gc7gxcso7zui",
+  "ipfs": "ipfs://bafkreiciiozand4dfceunuqqlg6svwysexbkzs4gtj5gyao7ny72kbwvki",
   "schema": "schema/cloudbeds.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Flight",
     "Booking",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

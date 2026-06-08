@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "barclays_marl clean-room actor",
   "description": "Clean-room, API-compatible core banking / InsurTech actor (barclays_marl); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidee6vw36kx4v6cegx5wwox4qzjrkvhjpf5hyntzcvdou2ncqdwnq",
+  "wasmCid": "bafkreig6dol4msquvvitihhs4fi2xixxdwof3iqtlvvr6xb5e3pmvlinb4",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidee6vw36kx4v6cegx5wwox4qzjrkvhjpf5hyntzcvdou2ncqdwnq",
+  "ipfs": "ipfs://bafkreig6dol4msquvvitihhs4fi2xixxdwof3iqtlvvr6xb5e3pmvlinb4",
   "schema": "schema/barclays_marl.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

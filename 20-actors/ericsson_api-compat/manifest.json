@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "ericsson_api clean-room actor",
   "description": "Clean-room, API-compatible telecom / satellite actor (ericsson_api); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibvx4bvadtorjdjd6hdwpp4s35kvglrnoiubm3xkrxp2qnvlx5ov4",
+  "wasmCid": "bafkreibk5o6o3xg6ozcecerorirqro5eagchsibxl3foktzfuxq3cc7dp4",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibvx4bvadtorjdjd6hdwpp4s35kvglrnoiubm3xkrxp2qnvlx5ov4",
+  "ipfs": "ipfs://bafkreibk5o6o3xg6ozcecerorirqro5eagchsibxl3foktzfuxq3cc7dp4",
   "schema": "schema/ericsson_api.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Subscriber",
     "Session",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

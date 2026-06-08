@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "rakuten_ichiba clean-room actor",
   "description": "Clean-room, API-compatible e-commerce storefront actor (rakuten_ichiba); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiebekxkpksdmrjzpd2bbukjog5e5jj5lfm475ctc6xszdczi33wai",
+  "wasmCid": "bafkreigiw65ty2rfvdo763wlh7xslzxptybrikoinonoqfwuntg7hq7pke",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiebekxkpksdmrjzpd2bbukjog5e5jj5lfm475ctc6xszdczi33wai",
+  "ipfs": "ipfs://bafkreigiw65ty2rfvdo763wlh7xslzxptybrikoinonoqfwuntg7hq7pke",
   "schema": "schema/rakuten_ichiba.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Product",
     "Variant",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "saildrone clean-room actor",
   "description": "Clean-room, API-compatible space / ocean / earth physics actor (saildrone); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigk637vmc2er6rzh6h2ccd7tchhb3l3tiprjodezu6kh5rkuy3s7y",
+  "wasmCid": "bafkreib3so2xg7i4b3g6g7oeskc2q36gcc5pmblguemazvomc3t2j2nkbu",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigk637vmc2er6rzh6h2ccd7tchhb3l3tiprjodezu6kh5rkuy3s7y",
+  "ipfs": "ipfs://bafkreib3so2xg7i4b3g6g7oeskc2q36gcc5pmblguemazvomc3t2j2nkbu",
   "schema": "schema/saildrone.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Object",
     "Position",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

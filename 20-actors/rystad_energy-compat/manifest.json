@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "rystad_energy clean-room actor",
   "description": "Clean-room, API-compatible energy commodities actor (rystad_energy); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreif7qlbbnxajbm24roout5v5tcje34xvo7sfpti4uv2e6hofcespga",
+  "wasmCid": "bafkreiaofzuifsq27nix4sy2c7kjwxwtluxw47re2t7ote5nid2tlqllmi",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreif7qlbbnxajbm24roout5v5tcje34xvo7sfpti4uv2e6hofcespga",
+  "ipfs": "ipfs://bafkreiaofzuifsq27nix4sy2c7kjwxwtluxw47re2t7ote5nid2tlqllmi",
   "schema": "schema/rystad_energy.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Commodity",
     "Price",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

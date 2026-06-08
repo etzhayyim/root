@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "yang_ming_api clean-room actor",
   "description": "Clean-room, API-compatible deep logistics / supply chain actor (yang_ming_api); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiaq5ydtzyextkcq3narwoiin7hwwdenfw5ep4cg3vy7j4wmx5r2fy",
+  "wasmCid": "bafkreiahqtrg7k22yw2tgscl4tu5m4m42tbgidir7nuvrpvwarkytpwj2m",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiaq5ydtzyextkcq3narwoiin7hwwdenfw5ep4cg3vy7j4wmx5r2fy",
+  "ipfs": "ipfs://bafkreiahqtrg7k22yw2tgscl4tu5m4m42tbgidir7nuvrpvwarkytpwj2m",
   "schema": "schema/yang_ming_api.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "TradeItem",
     "Event",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

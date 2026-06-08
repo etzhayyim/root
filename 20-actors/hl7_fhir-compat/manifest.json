@@ -5,12 +5,21 @@
   "kind": "compat",
   "title": "hl7_fhir clean-room actor",
   "description": "Clean-room, API-compatible healthcare HL7-FHIR / bioinformatics actor (hl7_fhir); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiekg7x6fgjbngl5s722hosvxnqrewejgmdopl4g6hhg3e4zjh4i5u",
+  "wasmCid": "bafkreihdwergcwkl2t262im3pgegqonrbdv2t3m2uw7x3ykcco4zuoqqiq",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiekg7x6fgjbngl5s722hosvxnqrewejgmdopl4g6hhg3e4zjh4i5u",
+  "ipfs": "ipfs://bafkreihdwergcwkl2t262im3pgegqonrbdv2t3m2uw7x3ykcco4zuoqqiq",
   "schema": "schema/hl7_fhir.kotoba",
-  "tier": "L4",
+  "tier": "L5",
+  "verified": {
+    "source": "https://hl7.org/fhir",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "Patient"
+    ],
+    "enums": {}
+  },
   "entities": [
     "Patient",
     "Observation",

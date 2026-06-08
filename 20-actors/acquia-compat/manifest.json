@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "acquia clean-room actor",
   "description": "Clean-room, API-compatible media / video / CMS actor (acquia); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifw72tgaotdg6bcfxh2xqyhlzxvev74ctwkjv6yuym54qpbtjiwtu",
+  "wasmCid": "bafkreig7awziwor76tlxhc5icmcf36ja3cbe5utgw4wpg624p72nkgmmwa",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifw72tgaotdg6bcfxh2xqyhlzxvev74ctwkjv6yuym54qpbtjiwtu",
+  "ipfs": "ipfs://bafkreig7awziwor76tlxhc5icmcf36ja3cbe5utgw4wpg624p72nkgmmwa",
   "schema": "schema/acquia.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Asset",
     "Rendition",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "ansys clean-room actor",
   "description": "Clean-room, API-compatible AEC / GovTech actor (ansys); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifcyoak4n32yc2enrwyvfsnatmmml4c3cu7dbnsrnd2ox7n252vka",
+  "wasmCid": "bafkreibdyn47pm43vssdzcemm2dcvgzyemr5o2wn23naiecw5xbxl5mmgm",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifcyoak4n32yc2enrwyvfsnatmmml4c3cu7dbnsrnd2ox7n252vka",
+  "ipfs": "ipfs://bafkreibdyn47pm43vssdzcemm2dcvgzyemr5o2wn23naiecw5xbxl5mmgm",
   "schema": "schema/ansys.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Project",
     "Permit",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

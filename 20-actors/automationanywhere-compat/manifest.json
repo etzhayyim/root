@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "automationanywhere clean-room actor",
   "description": "Clean-room, API-compatible RPA / process automation actor (automationanywhere); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifra7n6df7qus3fwm62krut6wb3orgwsh5xqiqdyjtzra62zxlksm",
+  "wasmCid": "bafkreidlmutowplwabwh5tukuffqa3wfdef4pq3cwobpeg7xfct53jampa",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifra7n6df7qus3fwm62krut6wb3orgwsh5xqiqdyjtzra62zxlksm",
+  "ipfs": "ipfs://bafkreidlmutowplwabwh5tukuffqa3wfdef4pq3cwobpeg7xfct53jampa",
   "schema": "schema/automationanywhere.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Bot",
     "Process",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

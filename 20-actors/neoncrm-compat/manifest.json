@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "neoncrm clean-room actor",
   "description": "Clean-room, API-compatible events / NPO / creator actor (neoncrm); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidxbyfknkqmfkqkdgilkqs44dotb6bxqep2g2ttaapz2wrzr64wb4",
+  "wasmCid": "bafkreifluqy75ojcjbqrby4jbv5m2g3x63dz6cq4np3k4g55423pfaenwu",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidxbyfknkqmfkqkdgilkqs44dotb6bxqep2g2ttaapz2wrzr64wb4",
+  "ipfs": "ipfs://bafkreifluqy75ojcjbqrby4jbv5m2g3x63dz6cq4np3k4g55423pfaenwu",
   "schema": "schema/neoncrm.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Event",
     "Ticket",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

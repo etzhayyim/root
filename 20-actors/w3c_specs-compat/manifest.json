@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "w3c_specs clean-room actor",
   "description": "Clean-room, API-compatible meta-knowledge / scientific publishing actor (w3c_specs); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreighdt27psb6tir6n7wsgyp3qkykprwkhyn5fnn4c2m7pirqnrv6xu",
+  "wasmCid": "bafkreige2ujb7zmylz5mzsaefsk4vlditnizcw7z56insp2rsvb5snatgm",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreighdt27psb6tir6n7wsgyp3qkykprwkhyn5fnn4c2m7pirqnrv6xu",
+  "ipfs": "ipfs://bafkreige2ujb7zmylz5mzsaefsk4vlditnizcw7z56insp2rsvb5snatgm",
   "schema": "schema/w3c_specs.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Work",
     "Author",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

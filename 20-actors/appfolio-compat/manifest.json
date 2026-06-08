@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "appfolio clean-room actor",
   "description": "Clean-room, API-compatible vertical SaaS actor (appfolio); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiea5beippj2j2xqd3wl2la2enocpthiiheohiihruzksucaekcusu",
+  "wasmCid": "bafkreicnj4vvycjb7lyxlgi5o4azlz7z5itakmpp66etetbeagcegwyo7e",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiea5beippj2j2xqd3wl2la2enocpthiiheohiihruzksucaekcusu",
+  "ipfs": "ipfs://bafkreicnj4vvycjb7lyxlgi5o4azlz7z5itakmpp66etetbeagcegwyo7e",
   "schema": "schema/appfolio.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Record",
     "Matter",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-06-07",
+  "updated_at": "2026-06-08",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.md",
@@ -16407,7 +16407,9 @@
       ],
       "related": [],
       "supersedes": [],
-      "superseded_by": [],
+      "superseded_by": [
+        "2606074000"
+      ],
       "depends_on": [
         "2605282000",
         "2605282100",
@@ -22684,13 +22686,87 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606074000-apps-maturity-enhancement.md",
+      "id": "adr-2606074000-apps-maturity-enhancement",
+      "title": "ADR-2606074000: Apps Store Appview Testing Baseline and Maturity Enhancement",
+      "status": "approved",
+      "doc_type": "adr",
+      "topic": "testing-maturity",
+      "authoritative": true,
+      "authoritative_for": [
+        "60-apps"
+      ],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606074000-kotoba-murakumo-reintegrated-into-kotoba-submodule.md",
+      "id": "adr-2606074000-kotoba-murakumo-reintegrated-into-kotoba-submodule",
+      "title": "ADR-2606074000: kotoba_murakumo re-integrated into the kotoba submodule (py/kotoba_murakumo/) — submodule era supersedes the subrepo-relocation",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kotoba-murakumo-submodule-reintegration",
+      "authoritative": true,
+      "authoritative_for": [
+        "kotoba_murakumo canonical filesystem location (now inside the kotoba submodule)",
+        "the submodule-era placement rule for religious-corp Python siblings of the kotoba engine"
+      ],
+      "related": [],
+      "supersedes": [
+        "2605282300"
+      ],
+      "superseded_by": [],
+      "depends_on": [
+        "2605282000",
+        "2605282100",
+        "2605282300",
+        "2605262130",
+        "2605215000"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606074500-kotoba-py-siblings-engine-core-vs-actor-placement.md",
+      "id": "adr-2606074500-kotoba-py-siblings-engine-core-vs-actor-placement",
+      "title": "ADR-2606074500: kotoba Python siblings — engine-core vs actor placement (iso20022 → engine, kawase → actor)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kotoba-py-sibling-placement-taxonomy",
+      "authoritative": true,
+      "authoritative_for": [
+        "placement taxonomy for kotoba-prefixed Python siblings (engine-core vs actor vs infra)",
+        "kotoba_iso20022 canonical location (kotoba submodule py/)",
+        "kotoba_kawase canonical location (20-actors/kawase-yui/)"
+      ],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606074000",
+        "2605282300",
+        "2605282200",
+        "2605262130"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606081500-kotoba-erp-crm-prototype-pywasm.md",
       "id": "adr-2606081500-kotoba-erp-crm-prototype-pywasm",
       "title": "ADR-2606081500: Kotoba ERP and Salesforce CRM Prototype in PyWasm",
       "status": "accepted",
       "doc_type": "adr",
-      "topic": "kotoba-erp-crm-prototype-pywasm",
+      "topic": "kotoba-erp-crm-pywasm-prototype",
       "authoritative": false,
+      "last_verified": "2026-06-07",
       "authoritative_for": [],
       "related": [],
       "supersedes": [],

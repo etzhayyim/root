@@ -187,6 +187,8 @@ def create_account(request):
     err = _require(data, ['name', 'type'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in ['depository', 'credit', 'investment', 'loan', 'other']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['depository', 'credit', 'investment', 'loan', 'other']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("plaid_acc")}
     rec["itemId"] = data.get('itemId')
     rec["name"] = data.get('name')
@@ -228,6 +230,8 @@ def update_account(request, eid):
     err = _reject_unknown(data, ['itemId', 'name', 'type', 'subtype', 'currentBalance'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in ['depository', 'credit', 'investment', 'loan', 'other']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['depository', 'credit', 'investment', 'loan', 'other']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):

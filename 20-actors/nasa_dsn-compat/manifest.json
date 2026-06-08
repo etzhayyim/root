@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "nasa_dsn clean-room actor",
   "description": "Clean-room, API-compatible space / ocean / earth physics actor (nasa_dsn); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreid4tsfpd7e6t5b7fb4aa25ld5q5cimdhg7g3bbwmhhta5lop6e2pu",
+  "wasmCid": "bafkreifdnfn5c5y4x7ffnrqkkxc33xoaudxbhbk6gfppfthrh3e4qsizqi",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreid4tsfpd7e6t5b7fb4aa25ld5q5cimdhg7g3bbwmhhta5lop6e2pu",
+  "ipfs": "ipfs://bafkreifdnfn5c5y4x7ffnrqkkxc33xoaudxbhbk6gfppfthrh3e4qsizqi",
   "schema": "schema/nasa_dsn.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Object",
     "Position",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

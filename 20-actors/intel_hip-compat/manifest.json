@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "intel_hip clean-room actor",
   "description": "Clean-room, API-compatible AI/ML infrastructure / chips actor (intel_hip); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigbqenenwd2pjgqlchxclmksvck6emmsn6pijrhc653kmu5hqlwba",
+  "wasmCid": "bafkreicvgdeynnhzs5azghmd6wgvhitf6pprctxfxhb3bugu5trikrxf5u",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigbqenenwd2pjgqlchxclmksvck6emmsn6pijrhc653kmu5hqlwba",
+  "ipfs": "ipfs://bafkreicvgdeynnhzs5azghmd6wgvhitf6pprctxfxhb3bugu5trikrxf5u",
   "schema": "schema/intel_hip.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Device",
     "Kernel",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

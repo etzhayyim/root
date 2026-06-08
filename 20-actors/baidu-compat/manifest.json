@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "baidu clean-room actor",
   "description": "Clean-room, API-compatible delivery / local logistics actor (baidu); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihhobvfkglqzy4v7k37m42ygvhwrlm2g2xx26toya3nm3p24a2zki",
+  "wasmCid": "bafkreicngsfffkca6xr7cnned5tzevbhpjedxjmcztov5575atljjzanom",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihhobvfkglqzy4v7k37m42ygvhwrlm2g2xx26toya3nm3p24a2zki",
+  "ipfs": "ipfs://bafkreicngsfffkca6xr7cnned5tzevbhpjedxjmcztov5575atljjzanom",
   "schema": "schema/baidu.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Order",
     "Courier",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

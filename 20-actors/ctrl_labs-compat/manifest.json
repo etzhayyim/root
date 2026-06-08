@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "ctrl_labs clean-room actor",
   "description": "Clean-room, API-compatible brain-computer interface / neurotech actor (ctrl_labs); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibjzdtttwx7ynakjqqppuu6kzln62domkpuy4tr3rfcl52ikvvwpa",
+  "wasmCid": "bafkreideek5pkzcxivkjx3cbymzh7m5ryhntd4fy5lpho5fwxbmlt2xmdu",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibjzdtttwx7ynakjqqppuu6kzln62domkpuy4tr3rfcl52ikvvwpa",
+  "ipfs": "ipfs://bafkreideek5pkzcxivkjx3cbymzh7m5ryhntd4fy5lpho5fwxbmlt2xmdu",
   "schema": "schema/ctrl_labs.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Device",
     "Session",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

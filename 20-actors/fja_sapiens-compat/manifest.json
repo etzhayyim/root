@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "fja_sapiens clean-room actor",
   "description": "Clean-room, API-compatible core banking / InsurTech actor (fja_sapiens); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicxagrduvtte6qpjfbztdz24lnkobcy74ckzp5szzn7ccwqbfuija",
+  "wasmCid": "bafkreif2erolw2jlilxm5qav6fwszdp4tcs5bm5enkfwfgys3csmxjf6ry",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicxagrduvtte6qpjfbztdz24lnkobcy74ckzp5szzn7ccwqbfuija",
+  "ipfs": "ipfs://bafkreif2erolw2jlilxm5qav6fwszdp4tcs5bm5enkfwfgys3csmxjf6ry",
   "schema": "schema/fja_sapiens.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

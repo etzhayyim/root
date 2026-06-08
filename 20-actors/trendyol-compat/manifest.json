@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "trendyol clean-room actor",
   "description": "Clean-room, API-compatible e-commerce storefront actor (trendyol); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiemjkcxrdyhupnczfuk23ziof4gcpr7ugg7da7tkodtwqlgzbqdoi",
+  "wasmCid": "bafkreiay7dxdm7ebhx5sj7stymcbtwq5ddbhhp5m3nr442p343as27k57u",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiemjkcxrdyhupnczfuk23ziof4gcpr7ugg7da7tkodtwqlgzbqdoi",
+  "ipfs": "ipfs://bafkreiay7dxdm7ebhx5sj7stymcbtwq5ddbhhp5m3nr442p343as27k57u",
   "schema": "schema/trendyol.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Product",
     "Variant",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

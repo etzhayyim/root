@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible developer tools / APM actor (datadog); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:datadog-compat",
-    "x-wasm-cid": "bafkreicuscbyb4noa6zska35rtc46fhz3wyhw2asg366r2fv2a44hmqe6a",
+    "x-wasm-cid": "bafkreiei2la2wdiq2nhxgbzgpmdzgs5ulubq3ezzjak5vf7dyfmggbmrie",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreicuscbyb4noa6zska35rtc46fhz3wyhw2asg366r2fv2a44hmqe6a",
+      "url": "ipfs://bafkreiei2la2wdiq2nhxgbzgpmdzgs5ulubq3ezzjak5vf7dyfmggbmrie",
       "description": "browser-local kotoba-wasm component"
     }
   ],

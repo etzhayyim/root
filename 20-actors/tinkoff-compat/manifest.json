@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "tinkoff clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (tinkoff); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiapwgkfiwizsndn6vx7vmjuw5sbt6zbux2ubxdssamha5oijytbdq",
+  "wasmCid": "bafkreifkbayhmv2b6rrigfgi75ywxwpor5pntdsjfh7rokcalt3my34q6u",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiapwgkfiwizsndn6vx7vmjuw5sbt6zbux2ubxdssamha5oijytbdq",
+  "ipfs": "ipfs://bafkreifkbayhmv2b6rrigfgi75ywxwpor5pntdsjfh7rokcalt3my34q6u",
   "schema": "schema/tinkoff.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

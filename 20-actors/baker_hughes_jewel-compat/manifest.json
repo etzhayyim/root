@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "baker_hughes_jewel clean-room actor",
   "description": "Clean-room, API-compatible energy commodities actor (baker_hughes_jewel); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidppbgobgmoqvarpdvfiagyqlo4syujleetk4vb2en6d4olqd6jzq",
+  "wasmCid": "bafkreifdhfjdzbv77uz3d7hpb7m3zos3fotshn24ubn3yshk7u7czk7yam",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidppbgobgmoqvarpdvfiagyqlo4syujleetk4vb2en6d4olqd6jzq",
+  "ipfs": "ipfs://bafkreifdhfjdzbv77uz3d7hpb7m3zos3fotshn24ubn3yshk7u7czk7yam",
   "schema": "schema/baker_hughes_jewel.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Commodity",
     "Price",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

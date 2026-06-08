@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "flutterwave clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (flutterwave); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibybcqn7p33bxja7r4tbthl6a5q3jrfnd3oevra44ngnhlijsnq6e",
+  "wasmCid": "bafkreidauswycjcj3pfvlazckk3lcccomeh5liatibvgcv3tph3pwhd4ei",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibybcqn7p33bxja7r4tbthl6a5q3jrfnd3oevra44ngnhlijsnq6e",
+  "ipfs": "ipfs://bafkreidauswycjcj3pfvlazckk3lcccomeh5liatibvgcv3tph3pwhd4ei",
   "schema": "schema/flutterwave.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "yonyou clean-room actor",
   "description": "Clean-room, API-compatible CRM / sales-pipeline actor (yonyou); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiazphdfhpuyruznzjras3lttbam3hxxxnhxl3hjtnlmmiyfbnszye",
+  "wasmCid": "bafkreidrskrgjkp3idx5adbejihi5onkugo26pv73u5tmnyf5anxby6wmm",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiazphdfhpuyruznzjras3lttbam3hxxxnhxl3hjtnlmmiyfbnszye",
+  "ipfs": "ipfs://bafkreidrskrgjkp3idx5adbejihi5onkugo26pv73u5tmnyf5anxby6wmm",
   "schema": "schema/yonyou.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Contact",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

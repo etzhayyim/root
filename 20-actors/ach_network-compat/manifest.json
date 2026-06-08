@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "ach_network clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (ach_network); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiefeicffuj5kv2ah3fjqfqpf7p567remqnrg7w7exmlh55li4sf2m",
+  "wasmCid": "bafkreictt65xpa2dz466wwuo7ckfwyuour37ubgvclgjrcxyi4sesy4to4",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiefeicffuj5kv2ah3fjqfqpf7p567remqnrg7w7exmlh55li4sf2m",
+  "ipfs": "ipfs://bafkreictt65xpa2dz466wwuo7ckfwyuour37ubgvclgjrcxyi4sesy4to4",
   "schema": "schema/ach_network.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

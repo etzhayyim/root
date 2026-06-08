@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "aave clean-room actor",
   "description": "Clean-room, API-compatible web3 / blockchain RPC actor (aave); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibktqmfvgkovx356mabvyojacb3etsuoueoktz4s4lgdg4zj2fzcu",
+  "wasmCid": "bafkreiaa6zwwqr7vybn75vnfknww33hapckiqnyhrv2nz45pnoxi72qksy",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibktqmfvgkovx356mabvyojacb3etsuoueoktz4s4lgdg4zj2fzcu",
+  "ipfs": "ipfs://bafkreiaa6zwwqr7vybn75vnfknww33hapckiqnyhrv2nz45pnoxi72qksy",
   "schema": "schema/aave.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Block",
     "Transaction",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

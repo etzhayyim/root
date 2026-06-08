@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "insurity clean-room actor",
   "description": "Clean-room, API-compatible core banking / InsurTech actor (insurity); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigg6epjghv6gtgnwejx7p63jv3hwth2jhkfgpeaa5gf4bz6yflqym",
+  "wasmCid": "bafkreidvt57ynm3irwvryfvohf3kbr473gn5ook4if4cqu66uigrvfki2q",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigg6epjghv6gtgnwejx7p63jv3hwth2jhkfgpeaa5gf4bz6yflqym",
+  "ipfs": "ipfs://bafkreidvt57ynm3irwvryfvohf3kbr473gn5ook4if4cqu66uigrvfki2q",
   "schema": "schema/insurity.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

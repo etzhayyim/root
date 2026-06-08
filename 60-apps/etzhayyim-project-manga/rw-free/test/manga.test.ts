@@ -7,6 +7,12 @@ import {
   updateChapterStatus,
   listChapters,
   submitFromNarou,
+  getTitle,
+  listTitles,
+  searchTitles,
+  addTag,
+  getChapter,
+  recordReadingProgress,
 } from "../src/index.js";
 
 describe("manga rw-free", () => {
@@ -159,6 +165,60 @@ describe("manga rw-free", () => {
       });
       expect(result.chapters.length).toBe(1);
       expect(result.chapters[0]?.status).toBe("published");
+    });
+  });
+
+  describe("getTitle, listTitles, searchTitles, addTag", () => {
+    beforeEach(async () => {
+      await createTitle(e, { title_id: "naruto", title: "Naruto" });
+      await createTitle(e, { title_id: "bleach", title: "Bleach", author_did: "did:web:kubo.etzhayyim.com" });
+      await addTag(e, { title_id: "naruto", tag: "ninja" });
+      await addTag(e, { title_id: "naruto", tag: "shounen" });
+    });
+
+    it("gets title by id", async () => {
+      const result = await getTitle(e, { id: "naruto" });
+      expect(result.title?.title).toBe("Naruto");
+      expect(result.title?.tags).toContain("ninja");
+    });
+
+    it("lists all titles", async () => {
+      const result = await listTitles(e, {});
+      expect(result.titles.length).toBeGreaterThanOrEqual(2);
+    });
+
+    it("searches titles by query", async () => {
+      const result = await searchTitles(e, { q: "Bleach" });
+      expect(result.titles.length).toBe(1);
+      expect(result.titles[0]?.title).toBe("Bleach");
+    });
+
+    it("searches titles by tag and query", async () => {
+      const result = await searchTitles(e, { q: "Naruto", tag: "ninja" });
+      expect(result.titles.length).toBe(1);
+      expect(result.titles[0]?.title).toBe("Naruto");
+    });
+  });
+
+  describe("getChapter and recordReadingProgress", () => {
+    beforeEach(async () => {
+      await createTitle(e, { title_id: "op", title: "One Piece" });
+      await createChapter(e, { title_id: "op", chapter_num: 1, episode_title: "Romance Dawn" });
+    });
+
+    it("gets chapter by id", async () => {
+      const result = await getChapter(e, { id: "op-ch1" });
+      expect(result.chapter?.episode_title).toBe("Romance Dawn");
+    });
+
+    it("records reading progress", async () => {
+      const result = await recordReadingProgress(e, {
+        chapter_id: "op-ch1",
+        title_id: "op",
+        user_id: "did:web:reader.etzhayyim.com",
+        page_num: 10
+      });
+      expect(result.status).toBe("registered");
     });
   });
 });

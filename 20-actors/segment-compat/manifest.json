@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "segment clean-room actor",
   "description": "Clean-room, API-compatible marketing technology actor (segment); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiemfuvywtutfujwdpl7ng2fgb2ayy6zqaq5pj4hhbspkugsmyidim",
+  "wasmCid": "bafkreig5txyrgdharc6eglhpafdeuvcappsh37rrcifb4cwho74s4pns6q",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiemfuvywtutfujwdpl7ng2fgb2ayy6zqaq5pj4hhbspkugsmyidim",
+  "ipfs": "ipfs://bafkreig5txyrgdharc6eglhpafdeuvcappsh37rrcifb4cwho74s4pns6q",
   "schema": "schema/segment.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Campaign",
     "Audience",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

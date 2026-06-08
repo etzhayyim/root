@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "ola_cabs clean-room actor",
   "description": "Clean-room, API-compatible regional super-app actor (ola_cabs); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihsjfx7kyo63e6orn2io6bbctf2xbmttb3v5tqivgyc2m3y3cgq7m",
+  "wasmCid": "bafkreidtybwhldrhtzgn2ug4howj7flxtzqpimh642budhp2rw42jhg2gi",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihsjfx7kyo63e6orn2io6bbctf2xbmttb3v5tqivgyc2m3y3cgq7m",
+  "ipfs": "ipfs://bafkreidtybwhldrhtzgn2ug4howj7flxtzqpimh642budhp2rw42jhg2gi",
   "schema": "schema/ola_cabs.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "User",
     "Wallet",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

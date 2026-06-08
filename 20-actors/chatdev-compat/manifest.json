@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "chatdev clean-room actor",
   "description": "Clean-room, API-compatible AI agent protocol actor (chatdev); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicfb3m52ejzkqti5xanrvqw6szy6t3nfpeosw4rmhibtskzx34bzq",
+  "wasmCid": "bafkreifj4i2ddomagc4nudmemgb26gy2t4naamjsc2bb2zex2pt6pepy2y",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicfb3m52ejzkqti5xanrvqw6szy6t3nfpeosw4rmhibtskzx34bzq",
+  "ipfs": "ipfs://bafkreifj4i2ddomagc4nudmemgb26gy2t4naamjsc2bb2zex2pt6pepy2y",
   "schema": "schema/chatdev.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Agent",
     "Task",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

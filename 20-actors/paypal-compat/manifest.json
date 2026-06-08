@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "paypal clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (paypal); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidti32b3flglg6r3kvq4cm35y5vfqyaojay76tn5njsdulnb5pwl4",
+  "wasmCid": "bafkreidp64ax25666dndvtpoipek5z3anpwh7aneap36doydkfk2zjpsny",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidti32b3flglg6r3kvq4cm35y5vfqyaojay76tn5njsdulnb5pwl4",
+  "ipfs": "ipfs://bafkreidp64ax25666dndvtpoipek5z3anpwh7aneap36doydkfk2zjpsny",
   "schema": "schema/paypal.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

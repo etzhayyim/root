@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "nhsdigital clean-room actor",
   "description": "Clean-room, API-compatible UK / EU e-government actor (nhsdigital); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigrfsrqs4q2mofogjudsyvibv3hbujz537jhivqsub6qbcnbfitv4",
+  "wasmCid": "bafkreifrh776rikd5uaedbd6esr3h3mvu553bxe3lmzkyup2vvcath24zi",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigrfsrqs4q2mofogjudsyvibv3hbujz537jhivqsub6qbcnbfitv4",
+  "ipfs": "ipfs://bafkreifrh776rikd5uaedbd6esr3h3mvu553bxe3lmzkyup2vvcath24zi",
   "schema": "schema/nhsdigital.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Filing",
     "Citizen",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "pacer_courts clean-room actor",
   "description": "Clean-room, API-compatible public safety / law / justice actor (pacer_courts); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiehmfhkzhpoqol7agcxys7iwdzpam2gpcuxqk67d5ehqh2xs2b4ja",
+  "wasmCid": "bafkreidcryn6txluxgo5vqolvmjhcgah4arniizh5nkq7ofz6izt35wpt4",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiehmfhkzhpoqol7agcxys7iwdzpam2gpcuxqk67d5ehqh2xs2b4ja",
+  "ipfs": "ipfs://bafkreidcryn6txluxgo5vqolvmjhcgah4arniizh5nkq7ofz6izt35wpt4",
   "schema": "schema/pacer_courts.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Case",
     "Party",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

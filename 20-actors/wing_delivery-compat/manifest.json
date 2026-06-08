@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "wing_delivery clean-room actor",
   "description": "Clean-room, API-compatible drone swarm / aerial robotics actor (wing_delivery); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihp4jqejplkajp6v42jab2buhkegipsh5xjh7umazp2fqketaicki",
+  "wasmCid": "bafkreig2rrlaponaa3m3447jqck3qyhrwdpg77yvb3hhf2jtmcttgjwxie",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihp4jqejplkajp6v42jab2buhkegipsh5xjh7umazp2fqketaicki",
+  "ipfs": "ipfs://bafkreig2rrlaponaa3m3447jqck3qyhrwdpg77yvb3hhf2jtmcttgjwxie",
   "schema": "schema/wing_delivery.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Drone",
     "Mission",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

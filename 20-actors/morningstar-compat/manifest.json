@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "morningstar clean-room actor",
   "description": "Clean-room, API-compatible financial market data / trading actor (morningstar); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreib7f7ghi5lwidt5bcmqu3b4ujj5nv6oohzwwlhdrxpjhvjnossqva",
+  "wasmCid": "bafkreibhyf3lbht7hy7axnh2w2ub4vhvecv7ii3ckipift6qc66jiwheoa",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreib7f7ghi5lwidt5bcmqu3b4ujj5nv6oohzwwlhdrxpjhvjnossqva",
+  "ipfs": "ipfs://bafkreibhyf3lbht7hy7axnh2w2ub4vhvecv7ii3ckipift6qc66jiwheoa",
   "schema": "schema/morningstar.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Instrument",
     "Quote",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

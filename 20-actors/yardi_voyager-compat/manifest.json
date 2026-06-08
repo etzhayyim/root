@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "yardi_voyager clean-room actor",
   "description": "Clean-room, API-compatible real estate / MLS / PropTech actor (yardi_voyager); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreif2acdzuttqq5gptcmwa5ted2wmrh2ksyuyn5w22bwzn2buvzvhta",
+  "wasmCid": "bafkreibciilxnf2kbrgtv6gl4bps5kmys4zhsmx5cq2zwgjypeazxq5jeq",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreif2acdzuttqq5gptcmwa5ted2wmrh2ksyuyn5w22bwzn2buvzvhta",
+  "ipfs": "ipfs://bafkreibciilxnf2kbrgtv6gl4bps5kmys4zhsmx5cq2zwgjypeazxq5jeq",
   "schema": "schema/yardi_voyager.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Listing",
     "Property",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

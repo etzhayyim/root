@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "kaltura clean-room actor",
   "description": "Clean-room, API-compatible media / video / CMS actor (kaltura); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreih522fhhnctblwku6g332weochiib3ncq62vqwpq5o7vbzqjdji6i",
+  "wasmCid": "bafkreibzxk6hczwtybo5w27lzhijo73dh3s2ximuzrleg43i4epglvze2y",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreih522fhhnctblwku6g332weochiib3ncq62vqwpq5o7vbzqjdji6i",
+  "ipfs": "ipfs://bafkreibzxk6hczwtybo5w27lzhijo73dh3s2ximuzrleg43i4epglvze2y",
   "schema": "schema/kaltura.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Asset",
     "Rendition",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "openvino clean-room actor",
   "description": "Clean-room, API-compatible AI/ML infrastructure / chips actor (openvino); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiawyjpkjys64lfv6r2wjqjyddnqnfbvplsesg2tbqhuriogq2ksb4",
+  "wasmCid": "bafkreiadnhjgil3t7x2scwpe2i7gajodsoapj5jluo5tkhrtnfs2drdxyi",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiawyjpkjys64lfv6r2wjqjyddnqnfbvplsesg2tbqhuriogq2ksb4",
+  "ipfs": "ipfs://bafkreiadnhjgil3t7x2scwpe2i7gajodsoapj5jluo5tkhrtnfs2drdxyi",
   "schema": "schema/openvino.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Device",
     "Kernel",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

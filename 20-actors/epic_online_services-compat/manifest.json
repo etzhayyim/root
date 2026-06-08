@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "epic_online_services clean-room actor",
   "description": "Clean-room, API-compatible gaming backend / metaverse actor (epic_online_services); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidi62ipecsyy25c32boobndk7wkmis3eugxdz3jpaiayhat67rohy",
+  "wasmCid": "bafkreiaf5tq7hovnijfqsuygxd6gpjqj2ltqcs4726pkv6uwf46ch4brem",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidi62ipecsyy25c32boobndk7wkmis3eugxdz3jpaiayhat67rohy",
+  "ipfs": "ipfs://bafkreiaf5tq7hovnijfqsuygxd6gpjqj2ltqcs4726pkv6uwf46ch4brem",
   "schema": "schema/epic_online_services.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Player",
     "Session",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

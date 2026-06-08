@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "clio clean-room actor",
   "description": "Clean-room, API-compatible vertical SaaS actor (clio); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigfvc427o4hdek6f52t4dknudij6fl2gjoxndtwcty66vujm2dbeu",
+  "wasmCid": "bafkreiejokkxsuo7tyglfb3q43wuoocuzwkmat2aofqg6k2trpn5ivif2a",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigfvc427o4hdek6f52t4dknudij6fl2gjoxndtwcty66vujm2dbeu",
+  "ipfs": "ipfs://bafkreiejokkxsuo7tyglfb3q43wuoocuzwkmat2aofqg6k2trpn5ivif2a",
   "schema": "schema/clio.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Record",
     "Matter",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

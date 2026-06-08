@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "honeywell_plantscape clean-room actor",
   "description": "Clean-room, API-compatible industrial SCADA actor (honeywell_plantscape); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidxcauw53hz5fjf53csj65gpw7khxpfacxnajzv6ep7ybjqvq4j3q",
+  "wasmCid": "bafkreigl3muml5camvr2xcb32l3yvqyeuanfy4otq2wyy2lg5jkjrxxkzm",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidxcauw53hz5fjf53csj65gpw7khxpfacxnajzv6ep7ybjqvq4j3q",
+  "ipfs": "ipfs://bafkreigl3muml5camvr2xcb32l3yvqyeuanfy4otq2wyy2lg5jkjrxxkzm",
   "schema": "schema/honeywell_plantscape.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Tag",
     "Device",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

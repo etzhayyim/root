@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "sendbird clean-room actor",
   "description": "Clean-room, API-compatible communications / social actor (sendbird); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiggwppquf7qyo2hvdiekr37vrobttnrplh42wzmvy7llkvplfj7hm",
+  "wasmCid": "bafkreifzoe2irevprt4jtrtnyk2ch5wmnh6sd5tqlxe5ha3oz73phehfcy",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiggwppquf7qyo2hvdiekr37vrobttnrplh42wzmvy7llkvplfj7hm",
+  "ipfs": "ipfs://bafkreifzoe2irevprt4jtrtnyk2ch5wmnh6sd5tqlxe5ha3oz73phehfcy",
   "schema": "schema/sendbird.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Channel",
     "Message",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

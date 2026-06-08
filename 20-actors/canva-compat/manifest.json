@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "canva clean-room actor",
   "description": "Clean-room, API-compatible design / creative tooling actor (canva); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidyjewyfhwuxek4x3twfraezlxz4z3aj2lnaauf6w6z33kezjqrzm",
+  "wasmCid": "bafkreifiwxk3qruothrh7n7vi3h7k5nr66r5s76txl7rtzc3lbmdutg7be",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidyjewyfhwuxek4x3twfraezlxz4z3aj2lnaauf6w6z33kezjqrzm",
+  "ipfs": "ipfs://bafkreifiwxk3qruothrh7n7vi3h7k5nr66r5s76txl7rtzc3lbmdutg7be",
   "schema": "schema/canva.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Project",
     "File",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

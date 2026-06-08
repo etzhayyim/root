@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "atlassian clean-room actor",
   "description": "Clean-room, API-compatible DevOps / CI-CD actor (atlassian); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreic7ifuuuhlp3sj4vwfffjstj6gxhwhgie3ha4kplytortxtzupipu",
+  "wasmCid": "bafkreidbe2at2yd53oqvisi36hpxfko3mxcgbg32di3zlmsccksdlm2dgi",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreic7ifuuuhlp3sj4vwfffjstj6gxhwhgie3ha4kplytortxtzupipu",
+  "ipfs": "ipfs://bafkreidbe2at2yd53oqvisi36hpxfko3mxcgbg32di3zlmsccksdlm2dgi",
   "schema": "schema/atlassian.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Repository",
     "Pipeline",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

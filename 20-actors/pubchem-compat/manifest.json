@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "pubchem clean-room actor",
   "description": "Clean-room, API-compatible meta-knowledge / scientific publishing actor (pubchem); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibdoyw22rbzzsk3h4j6535q42f5p76f27quts6azyzhpk7zykvvwa",
+  "wasmCid": "bafkreies22cmajj3hkealczuxuxa6sc6s3knm5lco2xa3bjs2oq4rxk3qu",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibdoyw22rbzzsk3h4j6535q42f5p76f27quts6azyzhpk7zykvvwa",
+  "ipfs": "ipfs://bafkreies22cmajj3hkealczuxuxa6sc6s3knm5lco2xa3bjs2oq4rxk3qu",
   "schema": "schema/pubchem.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Work",
     "Author",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

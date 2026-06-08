@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "trustarc clean-room actor",
   "description": "Clean-room, API-compatible RegTech / privacy actor (trustarc); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreia3lnhqqg4olzbeoreh67rpcfqienddfgcrarev2ipsreovhmbpsy",
+  "wasmCid": "bafkreiaru3txq3a4q7w2obp7uzjaw4ihd2oltopfvf44qdybh337l7xuei",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreia3lnhqqg4olzbeoreh67rpcfqienddfgcrarev2ipsreovhmbpsy",
+  "ipfs": "ipfs://bafkreiaru3txq3a4q7w2obp7uzjaw4ihd2oltopfvf44qdybh337l7xuei",
   "schema": "schema/trustarc.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "DataSubject",
     "ConsentRecord",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

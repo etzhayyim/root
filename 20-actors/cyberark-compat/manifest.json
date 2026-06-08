@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "cyberark clean-room actor",
   "description": "Clean-room, API-compatible security / IAM actor (cyberark); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidijea5xmw7cij6tt5dm42hpjr62fjp6bjqztsnzwmyvfwfvbggbe",
+  "wasmCid": "bafkreiaf6ad6dqxthzjprqx43c3qdarebyu63nfolti5wtzbsa45wyrx2u",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidijea5xmw7cij6tt5dm42hpjr62fjp6bjqztsnzwmyvfwfvbggbe",
+  "ipfs": "ipfs://bafkreiaf6ad6dqxthzjprqx43c3qdarebyu63nfolti5wtzbsa45wyrx2u",
   "schema": "schema/cyberark.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Identity",
     "Policy",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

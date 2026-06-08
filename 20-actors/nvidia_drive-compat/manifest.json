@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "nvidia_drive clean-room actor",
   "description": "Clean-room, API-compatible mobility / auto / EV actor (nvidia_drive); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibqhbs35d7zoczl2l2ae44voath5atkyc4sgwtt4fiqoaldpbnnba",
+  "wasmCid": "bafkreieteak64fls3w7gsnt6psrb5fcm3nqe2udtcaoebtdmfn5yhpcfja",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibqhbs35d7zoczl2l2ae44voath5atkyc4sgwtt4fiqoaldpbnnba",
+  "ipfs": "ipfs://bafkreieteak64fls3w7gsnt6psrb5fcm3nqe2udtcaoebtdmfn5yhpcfja",
   "schema": "schema/nvidia_drive.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Vehicle",
     "Signal",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

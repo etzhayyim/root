@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "sendgrid clean-room actor",
   "description": "Clean-room, API-compatible marketing technology actor (sendgrid); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifdunijtjiiqu65hrhbrdzge7kqqghfp3mctrl7kuckmmecgp35m4",
+  "wasmCid": "bafkreiclpoa6rkzdzk2mtijk6ak7b7skkil6equmnep6y7gtjduzvu67du",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifdunijtjiiqu65hrhbrdzge7kqqghfp3mctrl7kuckmmecgp35m4",
+  "ipfs": "ipfs://bafkreiclpoa6rkzdzk2mtijk6ak7b7skkil6equmnep6y7gtjduzvu67du",
   "schema": "schema/sendgrid.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Campaign",
     "Audience",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

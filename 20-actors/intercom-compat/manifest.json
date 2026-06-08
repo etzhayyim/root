@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "intercom clean-room actor",
   "description": "Clean-room, API-compatible customer experience / survey actor (intercom); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreic7zbra4k6xlfnfwtox5l43upgoesjmt5znhlikkg2fxzhrnngzly",
+  "wasmCid": "bafkreibrglqzum3ldogxotquxlknsi7y72rfmrnpwdxjhl6wobxfe4sa3a",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreic7zbra4k6xlfnfwtox5l43upgoesjmt5znhlikkg2fxzhrnngzly",
+  "ipfs": "ipfs://bafkreibrglqzum3ldogxotquxlknsi7y72rfmrnpwdxjhl6wobxfe4sa3a",
   "schema": "schema/intercom.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Ticket",
     "Survey",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

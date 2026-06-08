@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "ipsec clean-room actor",
   "description": "Clean-room, API-compatible deep internet / core routing actor (ipsec); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreictvamdblvdlb5sbpqvvbti4lyd6ibvmxgfjoedb7ppuvom6blpay",
+  "wasmCid": "bafkreiel7feh5e6hhkc43thcwkevlacpgdroy67dtjda5phzvdtp332qjy",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreictvamdblvdlb5sbpqvvbti4lyd6ibvmxgfjoedb7ppuvom6blpay",
+  "ipfs": "ipfs://bafkreiel7feh5e6hhkc43thcwkevlacpgdroy67dtjda5phzvdtp332qjy",
   "schema": "schema/ipsec.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Prefix",
     "Route",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

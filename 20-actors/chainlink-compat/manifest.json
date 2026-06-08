@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "chainlink clean-room actor",
   "description": "Clean-room, API-compatible web3 / blockchain RPC actor (chainlink); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicthenbs5osjw4feowjoy2kzm7al2dt36ibj6j2w6acqpn33gxgle",
+  "wasmCid": "bafkreid3t3xet5zlys7ubjabs3xzplbinbwgbydhoxh6blgdjdgh27mgpu",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicthenbs5osjw4feowjoy2kzm7al2dt36ibj6j2w6acqpn33gxgle",
+  "ipfs": "ipfs://bafkreid3t3xet5zlys7ubjabs3xzplbinbwgbydhoxh6blgdjdgh27mgpu",
   "schema": "schema/chainlink.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Block",
     "Transaction",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

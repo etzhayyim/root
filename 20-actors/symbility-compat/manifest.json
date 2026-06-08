@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "symbility clean-room actor",
   "description": "Clean-room, API-compatible core banking / InsurTech actor (symbility); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiew5xsruznyet3brjbmyna3dw5ptlqu4loc6uihpy52yceklxbvhe",
+  "wasmCid": "bafkreif6yxqhag3zq2uayzwpozsqviokowvsdfzrt4vxnsrobgxrjdh2my",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiew5xsruznyet3brjbmyna3dw5ptlqu4loc6uihpy52yceklxbvhe",
+  "ipfs": "ipfs://bafkreif6yxqhag3zq2uayzwpozsqviokowvsdfzrt4vxnsrobgxrjdh2my",
   "schema": "schema/symbility.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "trello clean-room actor",
   "description": "Clean-room, API-compatible office / productivity suite actor (trello); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiesqxpzzecxihgxsm3wu5i7etb7wcfeil5nfqzblsjdp5glpakaq4",
+  "wasmCid": "bafkreihf73msim45tmmldw2cxptta6hgdkbnsqi4j77p74e3fqrbmhva6i",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiesqxpzzecxihgxsm3wu5i7etb7wcfeil5nfqzblsjdp5glpakaq4",
+  "ipfs": "ipfs://bafkreihf73msim45tmmldw2cxptta6hgdkbnsqi4j77p74e3fqrbmhva6i",
   "schema": "schema/trello.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Workspace",
     "Document",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

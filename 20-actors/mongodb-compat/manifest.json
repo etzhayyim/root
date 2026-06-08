@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "mongodb clean-room actor",
   "description": "Clean-room, API-compatible data / analytics actor (mongodb); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiczlofegxexgapf3jsu5jcxovl56afgfbzwzjd7tmxjexuc7t2d4e",
+  "wasmCid": "bafkreif3sz5h3bgm4ubfzhlpqmjqyvopyuf5fqvjkmt57y74qw65lyajqe",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiczlofegxexgapf3jsu5jcxovl56afgfbzwzjd7tmxjexuc7t2d4e",
+  "ipfs": "ipfs://bafkreif3sz5h3bgm4ubfzhlpqmjqyvopyuf5fqvjkmt57y74qw65lyajqe",
   "schema": "schema/mongodb.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Dataset",
     "Query",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

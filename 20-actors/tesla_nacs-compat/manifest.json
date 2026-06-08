@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "tesla_nacs clean-room actor",
   "description": "Clean-room, API-compatible mobility / auto / EV actor (tesla_nacs); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidrlglk5qots2dpmnzjztuaqpggdvyrperpc5hmdp6w627kgg2qaq",
+  "wasmCid": "bafkreidqoyzcunxgofpl3clcib3cvhlfzfag4a2uxottvgrk4wruaubghu",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidrlglk5qots2dpmnzjztuaqpggdvyrperpc5hmdp6w627kgg2qaq",
+  "ipfs": "ipfs://bafkreidqoyzcunxgofpl3clcib3cvhlfzfag4a2uxottvgrk4wruaubghu",
   "schema": "schema/tesla_nacs.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Vehicle",
     "Signal",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

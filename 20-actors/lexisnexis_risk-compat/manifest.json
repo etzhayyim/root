@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "lexisnexis_risk clean-room actor",
   "description": "Clean-room, API-compatible core banking / InsurTech actor (lexisnexis_risk); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigqorbkdptoo7qqw236vcm5sjvhdbyzpmvuz37obzc6gse4vhvelm",
+  "wasmCid": "bafkreibsobewcouwymic345uyueetifw722x42crrsxsuv5q5oatxr4jfm",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigqorbkdptoo7qqw236vcm5sjvhdbyzpmvuz37obzc6gse4vhvelm",
+  "ipfs": "ipfs://bafkreibsobewcouwymic345uyueetifw722x42crrsxsuv5q5oatxr4jfm",
   "schema": "schema/lexisnexis_risk.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

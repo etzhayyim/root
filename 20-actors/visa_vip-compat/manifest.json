@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "visa_vip clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (visa_vip); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihadawwuryyavqvcaksfdd2buk72tqlc3arlr5xbqj7n6phawwhzq",
+  "wasmCid": "bafkreieqmdp2fqr3bfvwmfmm73fgjknlugtpdo5axd3o26b7zyyhaaj42e",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihadawwuryyavqvcaksfdd2buk72tqlc3arlr5xbqj7n6phawwhzq",
+  "ipfs": "ipfs://bafkreieqmdp2fqr3bfvwmfmm73fgjknlugtpdo5axd3o26b7zyyhaaj42e",
   "schema": "schema/visa_vip.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

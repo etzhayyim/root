@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "typeform clean-room actor",
   "description": "Clean-room, API-compatible customer experience / survey actor (typeform); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiewlnjs4rxl64nbesyamahprz7jdctaczabt64dyh5wrn45yny44u",
+  "wasmCid": "bafkreicxperilnbw45gohp4s7jvwxgra4hy35gsuqyhgya5zrdpiyvbn2u",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiewlnjs4rxl64nbesyamahprz7jdctaczabt64dyh5wrn45yny44u",
+  "ipfs": "ipfs://bafkreicxperilnbw45gohp4s7jvwxgra4hy35gsuqyhgya5zrdpiyvbn2u",
   "schema": "schema/typeform.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Ticket",
     "Survey",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

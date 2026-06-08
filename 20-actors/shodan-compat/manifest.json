@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "shodan clean-room actor",
   "description": "Clean-room, API-compatible cyber threat intelligence actor (shodan); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihfasl6s7akohwahfnwdcypjqpftn55jw6t7aebevg6lh4ym2snye",
+  "wasmCid": "bafkreihndem246nankhhp2nh3qduwpaaq3iw2cmkepi4h4jbo5sutdgyyi",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihfasl6s7akohwahfnwdcypjqpftn55jw6t7aebevg6lh4ym2snye",
+  "ipfs": "ipfs://bafkreihndem246nankhhp2nh3qduwpaaq3iw2cmkepi4h4jbo5sutdgyyi",
   "schema": "schema/shodan.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Indicator",
     "Vulnerability",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

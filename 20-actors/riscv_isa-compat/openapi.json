@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible hardware ISA / quantum actor (riscv_isa); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:riscv_isa-compat",
-    "x-wasm-cid": "bafkreiexbeny527ekeg2lsvnrmipqpjellnl53yb46vgx6mbrsksn25thm",
+    "x-wasm-cid": "bafkreie7dht3vvwarpbujnhfdcrcjcvzcmsltfftorxejl7tz66kvbktre",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreiexbeny527ekeg2lsvnrmipqpjellnl53yb46vgx6mbrsksn25thm",
+      "url": "ipfs://bafkreie7dht3vvwarpbujnhfdcrcjcvzcmsltfftorxejl7tz66kvbktre",
       "description": "browser-local kotoba-wasm component"
     }
   ],

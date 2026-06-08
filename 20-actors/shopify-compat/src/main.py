@@ -121,6 +121,8 @@ def create_product(request):
     err = _require(data, ['title', 'vendor'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['active', 'archived', 'draft']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['active', 'archived', 'draft']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("shopify_pro")}
     rec["title"] = data.get('title')
     rec["vendor"] = data.get('vendor')
@@ -160,6 +162,8 @@ def update_product(request, eid):
     err = _reject_unknown(data, ['title', 'vendor', 'productType', 'status'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['active', 'archived', 'draft']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['active', 'archived', 'draft']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -254,6 +258,8 @@ def create_order(request):
     err = _require(data, ['number', 'totalPrice'])
     if err:
         return err, 400
+    if data.get('financialStatus') and data['financialStatus'] not in ['pending', 'authorized', 'partially_paid', 'paid', 'partially_refunded', 'refunded', 'voided']:
+        return {"error": {"message": "invalid financialStatus; allowed: " + ", ".join(['pending', 'authorized', 'partially_paid', 'paid', 'partially_refunded', 'refunded', 'voided']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("shopify_ord")}
     rec["customerId"] = data.get('customerId')
     rec["number"] = data.get('number')
@@ -295,6 +301,8 @@ def update_order(request, eid):
     err = _reject_unknown(data, ['customerId', 'number', 'totalPrice', 'currency', 'financialStatus'])
     if err:
         return err, 400
+    if data.get('financialStatus') and data['financialStatus'] not in ['pending', 'authorized', 'partially_paid', 'paid', 'partially_refunded', 'refunded', 'voided']:
+        return {"error": {"message": "invalid financialStatus; allowed: " + ", ".join(['pending', 'authorized', 'partially_paid', 'paid', 'partially_refunded', 'refunded', 'voided']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -453,6 +461,8 @@ def create_fulfillment(request):
     err = _require(data, ['status', 'trackingNumber'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['pending', 'open', 'success', 'cancelled', 'error', 'failure']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['pending', 'open', 'success', 'cancelled', 'error', 'failure']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("shopify_ful")}
     rec["orderId"] = data.get('orderId')
     rec["status"] = data.get('status')
@@ -492,6 +502,8 @@ def update_fulfillment(request, eid):
     err = _reject_unknown(data, ['orderId', 'status', 'trackingNumber'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['pending', 'open', 'success', 'cancelled', 'error', 'failure']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['pending', 'open', 'success', 'cancelled', 'error', 'failure']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):

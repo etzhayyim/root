@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible regional super-app actor (grab); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:grab-compat",
-    "x-wasm-cid": "bafkreictoqihq7lxolhl2jrnrw7zjv5tvsqgnivvio6oxuhqwih4pfwi5u",
+    "x-wasm-cid": "bafkreifio2hok6fsevsfv5psevqghepcsid57pjwouxuvqa7jxubqddwdi",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreictoqihq7lxolhl2jrnrw7zjv5tvsqgnivvio6oxuhqwih4pfwi5u",
+      "url": "ipfs://bafkreifio2hok6fsevsfv5psevqghepcsid57pjwouxuvqa7jxubqddwdi",
       "description": "browser-local kotoba-wasm component"
     }
   ],

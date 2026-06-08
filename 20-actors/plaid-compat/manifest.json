@@ -5,12 +5,32 @@
   "kind": "compat",
   "title": "plaid clean-room actor",
   "description": "Clean-room, API-compatible fintech / web3 actor (plaid); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreif2wzbofk3ichhs7pjej5ynfihsmosi22ysc7keit7yekz3ehslty",
+  "wasmCid": "bafkreigp6z5bg47rjd6gkrn7varia7mipfztw2qfqod5v4kjrl3tmddp7i",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreif2wzbofk3ichhs7pjej5ynfihsmosi22ysc7keit7yekz3ehslty",
+  "ipfs": "ipfs://bafkreigp6z5bg47rjd6gkrn7varia7mipfztw2qfqod5v4kjrl3tmddp7i",
   "schema": "schema/plaid.kotoba",
-  "tier": "L4",
+  "tier": "L5",
+  "verified": {
+    "source": "https://plaid.com/docs/api",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "Account",
+      "Transaction"
+    ],
+    "enums": {
+      "Account": {
+        "type": [
+          "depository",
+          "credit",
+          "investment",
+          "loan",
+          "other"
+        ]
+      }
+    }
+  },
   "entities": [
     "Item",
     "Account",

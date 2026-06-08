@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "kakao_talk clean-room actor",
   "description": "Clean-room, API-compatible communications / social actor (kakao_talk); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreie72dtuqkm2uxrjr6euxdlk6dvbresgojc7yh6d35plo7b6qgu4xq",
+  "wasmCid": "bafkreicr5w5wdebst6j72fdpelwy7g2izvqucwef74sdmmu5ctkn4tz4ym",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreie72dtuqkm2uxrjr6euxdlk6dvbresgojc7yh6d35plo7b6qgu4xq",
+  "ipfs": "ipfs://bafkreicr5w5wdebst6j72fdpelwy7g2izvqucwef74sdmmu5ctkn4tz4ym",
   "schema": "schema/kakao_talk.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Channel",
     "Message",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

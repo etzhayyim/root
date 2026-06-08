@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "hp_vos3 clean-room actor",
   "description": "Clean-room, API-compatible mainframe / legacy substrate actor (hp_vos3); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiei2ndslcxudph4444znv2qj5dfdl4mhnvi5nlzwiucf2r4jkzr6q",
+  "wasmCid": "bafkreigqfije6ihu4jjtvlyvrg6cvntgda3zpmmjrawl2yrzt54t4exnoq",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiei2ndslcxudph4444znv2qj5dfdl4mhnvi5nlzwiucf2r4jkzr6q",
+  "ipfs": "ipfs://bafkreigqfije6ihu4jjtvlyvrg6cvntgda3zpmmjrawl2yrzt54t4exnoq",
   "schema": "schema/hp_vos3.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Job",
     "Dataset",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

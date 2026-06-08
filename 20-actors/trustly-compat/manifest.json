@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "trustly clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (trustly); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiaposrtz6yrqor7qb7tyxcekkpjj3wo76w6pyjpwkrdbzchxuf6fm",
+  "wasmCid": "bafkreig5bxrpi7srpjuiq566anh3makpqbtfkhq46pdgyo4zooiieebzhi",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiaposrtz6yrqor7qb7tyxcekkpjj3wo76w6pyjpwkrdbzchxuf6fm",
+  "ipfs": "ipfs://bafkreig5bxrpi7srpjuiq566anh3makpqbtfkhq46pdgyo4zooiieebzhi",
   "schema": "schema/trustly.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "entrata clean-room actor",
   "description": "Clean-room, API-compatible real estate / MLS / PropTech actor (entrata); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreib2at4dkzh3tqvnykq2rricfj6ighhgxcobiriycc5e72lq47pjcy",
+  "wasmCid": "bafkreiaerkstm2zoamawb7i5cergkvisw4pukvgifoifi2nyybjtsbzrbm",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreib2at4dkzh3tqvnykq2rricfj6ighhgxcobiriycc5e72lq47pjcy",
+  "ipfs": "ipfs://bafkreiaerkstm2zoamawb7i5cergkvisw4pukvgifoifi2nyybjtsbzrbm",
   "schema": "schema/entrata.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Listing",
     "Property",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "appsflyer clean-room actor",
   "description": "Clean-room, API-compatible marketing technology actor (appsflyer); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreieihoildvfaj4vzg22zvj766ubxm5or44vkwkp3afwrtwgvv5hyjq",
+  "wasmCid": "bafkreie27u35cdqx34hfju5kcmgh45derc7mhpb24vb4m5erjyswhxfwmi",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreieihoildvfaj4vzg22zvj766ubxm5or44vkwkp3afwrtwgvv5hyjq",
+  "ipfs": "ipfs://bafkreie27u35cdqx34hfju5kcmgh45derc7mhpb24vb4m5erjyswhxfwmi",
   "schema": "schema/appsflyer.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Campaign",
     "Audience",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

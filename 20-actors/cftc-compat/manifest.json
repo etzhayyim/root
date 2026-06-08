@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "cftc clean-room actor",
   "description": "Clean-room, API-compatible open banking / financial regulation actor (cftc); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidnspdglcrxrwrlfsdfdnld6oqwqsben4q2iem5b4zg3snh36mwpy",
+  "wasmCid": "bafkreicnp43uxls4xnek6tfqjnm3jfrlvkth456lxklfos2lpfxvo6ykvy",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidnspdglcrxrwrlfsdfdnld6oqwqsben4q2iem5b4zg3snh36mwpy",
+  "ipfs": "ipfs://bafkreicnp43uxls4xnek6tfqjnm3jfrlvkth456lxklfos2lpfxvo6ykvy",
   "schema": "schema/cftc.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Consent",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "oag_flights clean-room actor",
   "description": "Clean-room, API-compatible travel / aviation / hospitality actor (oag_flights); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiajhec37q5aktcjunapcnd75jbydi4r7mlok6i53vxroolqxobc6e",
+  "wasmCid": "bafkreieni6ziwkriey3rzulxrg7dtc4gjeks5h75fmeljworkqvsg7zcwe",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiajhec37q5aktcjunapcnd75jbydi4r7mlok6i53vxroolqxobc6e",
+  "ipfs": "ipfs://bafkreieni6ziwkriey3rzulxrg7dtc4gjeks5h75fmeljworkqvsg7zcwe",
   "schema": "schema/oag_flights.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Flight",
     "Booking",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

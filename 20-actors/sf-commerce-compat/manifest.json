@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "sf-commerce clean-room actor",
   "description": "Clean-room, API-compatible e-commerce storefront actor (sf-commerce); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreichp7dmlajx4wwwjvy4hxgrtj65eg77syj4cbvoaamtgabfe3fzpq",
+  "wasmCid": "bafkreiggxxy65sbb7ge5ie3i3q3krv653fny556hn6zw5z7vib2ftrqaey",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreichp7dmlajx4wwwjvy4hxgrtj65eg77syj4cbvoaamtgabfe3fzpq",
+  "ipfs": "ipfs://bafkreiggxxy65sbb7ge5ie3i3q3krv653fny556hn6zw5z7vib2ftrqaey",
   "schema": "schema/sf-commerce.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Product",
     "Variant",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

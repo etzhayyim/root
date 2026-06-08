@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "chime clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (chime); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreieqfpomihqrumzpssslbvmelvvtzzu2gzzuwra4x26y5o53aigjea",
+  "wasmCid": "bafkreiezfwnolo3s755lxzad45b7lfjxoq5t5j63kit5kouwg5pwolplv4",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreieqfpomihqrumzpssslbvmelvvtzzu2gzzuwra4x26y5o53aigjea",
+  "ipfs": "ipfs://bafkreiezfwnolo3s755lxzad45b7lfjxoq5t5j63kit5kouwg5pwolplv4",
   "schema": "schema/chime.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

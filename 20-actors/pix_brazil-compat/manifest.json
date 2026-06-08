@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "pix_brazil clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (pix_brazil); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigmikrqy24zeajtx6xofsxtjdgcrw7nxi6gwxmsccu3twcyjpr74u",
+  "wasmCid": "bafkreic4dgl7qeqmpnql5wkennwuyy3mlbi26mobk62dtjt5xazti23jjm",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigmikrqy24zeajtx6xofsxtjdgcrw7nxi6gwxmsccu3twcyjpr74u",
+  "ipfs": "ipfs://bafkreic4dgl7qeqmpnql5wkennwuyy3mlbi26mobk62dtjt5xazti23jjm",
   "schema": "schema/pix_brazil.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

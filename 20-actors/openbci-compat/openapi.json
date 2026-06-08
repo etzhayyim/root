@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible brain-computer interface / neurotech actor (openbci); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:openbci-compat",
-    "x-wasm-cid": "bafkreiczinwsri3u67rgytaodbsd7nijwb6byenmqxcqd6rqgox5bhmfru",
+    "x-wasm-cid": "bafkreifbcelr7vggsx2tlb2txypvwhzy7rcbrhp5ptxggrbj3xrinje4cq",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreiczinwsri3u67rgytaodbsd7nijwb6byenmqxcqd6rqgox5bhmfru",
+      "url": "ipfs://bafkreifbcelr7vggsx2tlb2txypvwhzy7rcbrhp5ptxggrbj3xrinje4cq",
       "description": "browser-local kotoba-wasm component"
     }
   ],

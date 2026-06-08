@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "opera_pms clean-room actor",
   "description": "Clean-room, API-compatible travel / aviation / hospitality actor (opera_pms); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihbg5wu2saituv7cs5qguvyztsk75f773hnncjut2goeetj2p72ai",
+  "wasmCid": "bafkreievx5juasvu4gjppahegva3bjkbi2jvmhrjt7upuhf5c6247lkruu",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihbg5wu2saituv7cs5qguvyztsk75f773hnncjut2goeetj2p72ai",
+  "ipfs": "ipfs://bafkreievx5juasvu4gjppahegva3bjkbi2jvmhrjt7upuhf5c6247lkruu",
   "schema": "schema/opera_pms.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Flight",
     "Booking",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "smart_meter_dms clean-room actor",
   "description": "Clean-room, API-compatible energy / smart grid actor (smart_meter_dms); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidmqwktwynosxlicnmplx54pd6ajl7nvwbs7lubgz2e6evd3ug4dm",
+  "wasmCid": "bafkreigaulkcj4n67mwnm7idni4rptba23pzpglo6aj7okgzq5ls6j65yy",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidmqwktwynosxlicnmplx54pd6ajl7nvwbs7lubgz2e6evd3ug4dm",
+  "ipfs": "ipfs://bafkreigaulkcj4n67mwnm7idni4rptba23pzpglo6aj7okgzq5ls6j65yy",
   "schema": "schema/smart_meter_dms.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Meter",
     "Reading",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

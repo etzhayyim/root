@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "bubble clean-room actor",
   "description": "Clean-room, API-compatible low-code / iPaaS actor (bubble); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreih22fcj274mth2ewuuvaawf74r2s7g3tl3shzomorc6njuoebjggy",
+  "wasmCid": "bafkreihwya4bgjhmngc7w4djymdg77tbr4iwv2e6tpgfj742v2owqeo4gq",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreih22fcj274mth2ewuuvaawf74r2s7g3tl3shzomorc6njuoebjggy",
+  "ipfs": "ipfs://bafkreihwya4bgjhmngc7w4djymdg77tbr4iwv2e6tpgfj742v2owqeo4gq",
   "schema": "schema/bubble.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Flow",
     "Step",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

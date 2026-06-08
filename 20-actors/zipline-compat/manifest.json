@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "zipline clean-room actor",
   "description": "Clean-room, API-compatible drone swarm / aerial robotics actor (zipline); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiec5ty7jm3qgsxnzfozyrpezvjvoo2uxgnxdeyvz3mkvqqzyjtkq4",
+  "wasmCid": "bafkreicgoipbaydymrqmc4pdbqopnb7l4i7yuphnm4hvnv73flb7r4jati",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiec5ty7jm3qgsxnzfozyrpezvjvoo2uxgnxdeyvz3mkvqqzyjtkq4",
+  "ipfs": "ipfs://bafkreicgoipbaydymrqmc4pdbqopnb7l4i7yuphnm4hvnv73flb7r4jati",
   "schema": "schema/zipline.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Drone",
     "Mission",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

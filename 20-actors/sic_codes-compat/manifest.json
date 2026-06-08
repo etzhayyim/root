@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "sic_codes clean-room actor",
   "description": "Clean-room, API-compatible physical benchmarks / classifications actor (sic_codes); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicx5xkdfxfzjdaawig37ztqssyypyvcq2j2thqvmizwygnunswew4",
+  "wasmCid": "bafkreidvxxqvnlv6n4d5cozhoion3dn5q2zjsl4gejbsjq6qzm7nmamx6m",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicx5xkdfxfzjdaawig37ztqssyypyvcq2j2thqvmizwygnunswew4",
+  "ipfs": "ipfs://bafkreidvxxqvnlv6n4d5cozhoion3dn5q2zjsl4gejbsjq6qzm7nmamx6m",
   "schema": "schema/sic_codes.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Code",
     "Unit",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "superagi clean-room actor",
   "description": "Clean-room, API-compatible AI agent protocol actor (superagi); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidf224d55zmjgm4t6t3pcjxwvokpazvyofpiwqlysqrkm2abrsfge",
+  "wasmCid": "bafkreidriqkbiihsmuwk5dbpsivmdbsugba6ngatxztw5x6wfhba2f3afu",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidf224d55zmjgm4t6t3pcjxwvokpazvyofpiwqlysqrkm2abrsfge",
+  "ipfs": "ipfs://bafkreidriqkbiihsmuwk5dbpsivmdbsugba6ngatxztw5x6wfhba2f3afu",
   "schema": "schema/superagi.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Agent",
     "Task",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

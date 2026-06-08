@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "myinfo clean-room actor",
   "description": "Clean-room, API-compatible digital public infrastructure actor (myinfo); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiddfrjmla6ok7djxjid4i6ou35yyekqrpwcr25rmecdugj72mn7vy",
+  "wasmCid": "bafkreibhgd6vp6byirnbvoacge3whkzarhr37fzowi6vbpfzsiegysxh2a",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiddfrjmla6ok7djxjid4i6ou35yyekqrpwcr25rmecdugj72mn7vy",
+  "ipfs": "ipfs://bafkreibhgd6vp6byirnbvoacge3whkzarhr37fzowi6vbpfzsiegysxh2a",
   "schema": "schema/myinfo.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Identity",
     "Credential",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "flooid clean-room actor",
   "description": "Clean-room, API-compatible e-commerce storefront actor (flooid); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidff44niwdfrg2xh754r4gpnv4nu6syusqbmpn35j5bvctehqohxm",
+  "wasmCid": "bafkreietcehz4bolf5w73kivbv3hs4nn4w245hhge45neb3bbtt22avgii",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidff44niwdfrg2xh754r4gpnv4nu6syusqbmpn35j5bvctehqohxm",
+  "ipfs": "ipfs://bafkreietcehz4bolf5w73kivbv3hs4nn4w245hhge45neb3bbtt22avgii",
   "schema": "schema/flooid.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Product",
     "Variant",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

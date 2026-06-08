@@ -24,7 +24,7 @@ WAVE_9_PLATFORMS = [
     "criteo_commerce", "applovin", "ironSource", "vungle", "unity_ads",
     # Cat 5: Gaming Backends & Metaverse Infra
     "photon_engine", "playfab", "epic_online_services", "nakama", "firebase_games",
-    "accelbyte", "agones", "spatial_os", "improbable", " coherence",
+    "accelbyte", "agones", "spatial_os", "improbable", "coherence",
     # Cat 6: Deep Legal & eDiscovery
     "thomson_reuters_westlaw", "lexisnexis", "bloomberg_law", "relativity_ediscovery", "disco_legal",
     "logikcull_edisc", "nuix", "everlaw_core", "cs_disco", "reveal_data",

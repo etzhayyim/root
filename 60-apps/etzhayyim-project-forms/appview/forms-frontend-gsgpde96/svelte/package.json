@@ -7,7 +7,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
-    "test": "vitest"
+    "test": "vitest run"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^4.0.4",
@@ -25,7 +25,6 @@
     "@bufbuild/protobuf": "^2.11.0",
     "@connectrpc/connect": "^2.1.1",
     "@connectrpc/connect-web": "^2.1.1",
-    "@etzhayyim/design-system": "workspace:*",
     "@inlang/paraglide-js": "^2.15.3",
     "@xyflow/svelte": "^1.5.2",
     "lucide-svelte": "^0.460.1"

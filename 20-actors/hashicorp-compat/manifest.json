@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "hashicorp clean-room actor",
   "description": "Clean-room, API-compatible DevSecOps / serverless actor (hashicorp); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreih7y2mxbao26ghrrrsoswfsoxdrpionlgntt5n3rfxgr273miogqi",
+  "wasmCid": "bafkreieeu24cg5xzyb7htmbby3th6rt67tpqmmgknomifhuhce2xrpqy7u",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreih7y2mxbao26ghrrrsoswfsoxdrpionlgntt5n3rfxgr273miogqi",
+  "ipfs": "ipfs://bafkreieeu24cg5xzyb7htmbby3th6rt67tpqmmgknomifhuhce2xrpqy7u",
   "schema": "schema/hashicorp.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Service",
     "Deployment",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

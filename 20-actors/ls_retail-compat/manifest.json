@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "ls_retail clean-room actor",
   "description": "Clean-room, API-compatible e-commerce storefront actor (ls_retail); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifba6siej3i7amwclmekwaeqyhy6etqldxxfkpllyimam52xkk7j4",
+  "wasmCid": "bafkreicrgcrbhxwg57ns2q6wvc6iwwrksvccln5fordyszymgqjv2n5mdq",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifba6siej3i7amwclmekwaeqyhy6etqldxxfkpllyimam52xkk7j4",
+  "ipfs": "ipfs://bafkreicrgcrbhxwg57ns2q6wvc6iwwrksvccln5fordyszymgqjv2n5mdq",
   "schema": "schema/ls_retail.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Product",
     "Variant",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

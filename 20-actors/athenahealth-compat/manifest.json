@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "athenahealth clean-room actor",
   "description": "Clean-room, API-compatible EHR / clinical records actor (athenahealth); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihypu4vfpew76ovixs7mnnekudt3hfezg3mkzryuttddhnahmuche",
+  "wasmCid": "bafkreidyhu3tq3twxzlznejvx6wgm6z772deyzzqt2lfwnrdhbk45sy2xa",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihypu4vfpew76ovixs7mnnekudt3hfezg3mkzryuttddhnahmuche",
+  "ipfs": "ipfs://bafkreidyhu3tq3twxzlznejvx6wgm6z772deyzzqt2lfwnrdhbk45sy2xa",
   "schema": "schema/athenahealth.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Patient",
     "Encounter",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

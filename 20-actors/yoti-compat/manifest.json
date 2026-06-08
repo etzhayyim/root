@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "yoti clean-room actor",
   "description": "Clean-room, API-compatible digital public infrastructure actor (yoti); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreib5vqdixxmunauxlfba2354tvzdcwqz34tlbdtqyt6ihebfuyq5d4",
+  "wasmCid": "bafkreigpgu6sbi6fblrrqxx3zl2a7opgtikqaagr6eejonrmjczgqidmhu",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreib5vqdixxmunauxlfba2354tvzdcwqz34tlbdtqyt6ihebfuyq5d4",
+  "ipfs": "ipfs://bafkreigpgu6sbi6fblrrqxx3zl2a7opgtikqaagr6eejonrmjczgqidmhu",
   "schema": "schema/yoti.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Identity",
     "Credential",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

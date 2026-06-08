@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "planetscale clean-room actor",
   "description": "Clean-room, API-compatible DevSecOps / serverless actor (planetscale); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreid233vrgtp7ozy7awuaoobnyr5f4lf3n3bacciaegy33uowsgehgi",
+  "wasmCid": "bafkreiai24hmfxppzfv7yvblk5mzasgo7unorjdfw2tsentlbt4qq7mj6y",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreid233vrgtp7ozy7awuaoobnyr5f4lf3n3bacciaegy33uowsgehgi",
+  "ipfs": "ipfs://bafkreiai24hmfxppzfv7yvblk5mzasgo7unorjdfw2tsentlbt4qq7mj6y",
   "schema": "schema/planetscale.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Service",
     "Deployment",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

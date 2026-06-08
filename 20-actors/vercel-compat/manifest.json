@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "vercel clean-room actor",
   "description": "Clean-room, API-compatible cloud infrastructure (IaaS) actor (vercel); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreib3gstqtvuevrtowd3tudcd5w3titwja2w56d2rvh6fbgdcjwfpfa",
+  "wasmCid": "bafkreicipndzgzd6lord25hopx4i3w4chiwf6fysbmhlhqvi2towx7x2ji",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreib3gstqtvuevrtowd3tudcd5w3titwja2w56d2rvh6fbgdcjwfpfa",
+  "ipfs": "ipfs://bafkreicipndzgzd6lord25hopx4i3w4chiwf6fysbmhlhqvi2towx7x2ji",
   "schema": "schema/vercel.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Project",
     "ComputeInstance",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

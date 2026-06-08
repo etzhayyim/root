@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "redknee clean-room actor",
   "description": "Clean-room, API-compatible telecom / satellite actor (redknee); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifnkpnc7lhwi6s6nd7lqytalbhyu6wqhso3ecg6q6gwmmaizzppxy",
+  "wasmCid": "bafkreiebbnahxkgtlogrd4s7r6wi3wcpcxgas5mg2m4sqh2ncio2yedsfi",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifnkpnc7lhwi6s6nd7lqytalbhyu6wqhso3ecg6q6gwmmaizzppxy",
+  "ipfs": "ipfs://bafkreiebbnahxkgtlogrd4s7r6wi3wcpcxgas5mg2m4sqh2ncio2yedsfi",
   "schema": "schema/redknee.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Subscriber",
     "Session",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

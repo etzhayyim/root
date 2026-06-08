@@ -5,12 +5,36 @@
   "kind": "compat",
   "title": "anthropic clean-room actor",
   "description": "Clean-room, API-compatible AI / ML inference actor (anthropic); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigpozmdpm3eyd5lzwmeka4tci35tx2asvednynu7k2i3r3vcjwrjq",
+  "wasmCid": "bafkreicx4q2mg4gwxchjh2kitjgkkuzboegmujzwqilujtu4so3uoojl7u",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigpozmdpm3eyd5lzwmeka4tci35tx2asvednynu7k2i3r3vcjwrjq",
+  "ipfs": "ipfs://bafkreicx4q2mg4gwxchjh2kitjgkkuzboegmujzwqilujtu4so3uoojl7u",
   "schema": "schema/anthropic.kotoba",
-  "tier": "L4",
+  "tier": "L5",
+  "verified": {
+    "source": "https://platform.claude.com/docs/en/api",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "Message"
+    ],
+    "enums": {
+      "Message": {
+        "role": [
+          "user",
+          "assistant"
+        ],
+        "stop_reason": [
+          "end_turn",
+          "max_tokens",
+          "stop_sequence",
+          "tool_use",
+          "pause_turn",
+          "refusal"
+        ]
+      }
+    }
+  },
   "entities": [
     "Model",
     "Message",

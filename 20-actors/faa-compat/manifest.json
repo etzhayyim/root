@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "faa clean-room actor",
   "description": "Clean-room, API-compatible transit / smart cities actor (faa); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidjcer3sxztk6u2ejjz2ecqiszfd3vivt7u643y6hdrfbw6gnja3e",
+  "wasmCid": "bafkreigtkleofrabkdv2lw6mfarlyyzvw6rwcwvjawxelxaupzrqhwud5u",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidjcer3sxztk6u2ejjz2ecqiszfd3vivt7u643y6hdrfbw6gnja3e",
+  "ipfs": "ipfs://bafkreigtkleofrabkdv2lw6mfarlyyzvw6rwcwvjawxelxaupzrqhwud5u",
   "schema": "schema/faa.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Stop",
     "Route",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

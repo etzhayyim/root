@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible energy / smart grid actor (opc_ua); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:opc_ua-compat",
-    "x-wasm-cid": "bafkreibdkxiapis2z2l6ahjum3vryh37n2jdxhxotnyy6q2rfmnpv4brhq",
+    "x-wasm-cid": "bafkreibc3earfwuo227bwzsjsebwxw7v6wu2dws7spsd5weyalbrfuyvye",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L4"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreibdkxiapis2z2l6ahjum3vryh37n2jdxhxotnyy6q2rfmnpv4brhq",
+      "url": "ipfs://bafkreibc3earfwuo227bwzsjsebwxw7v6wu2dws7spsd5weyalbrfuyvye",
       "description": "browser-local kotoba-wasm component"
     }
   ],

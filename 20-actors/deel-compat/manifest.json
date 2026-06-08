@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "deel clean-room actor",
   "description": "Clean-room, API-compatible HR technology actor (deel); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicjaqkpkggluazfwmuyo7wytmxiikbkp7h22lt3e756lr6ogmpcra",
+  "wasmCid": "bafkreifz2gnnrseeqbwoqosapn5pqnlscrvvvzjkokmt6vw3f5bktvrlza",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicjaqkpkggluazfwmuyo7wytmxiikbkp7h22lt3e756lr6ogmpcra",
+  "ipfs": "ipfs://bafkreifz2gnnrseeqbwoqosapn5pqnlscrvvvzjkokmt6vw3f5bktvrlza",
   "schema": "schema/deel.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Employee",
     "Candidate",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "bandwidth clean-room actor",
   "description": "Clean-room, API-compatible communications / social actor (bandwidth); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreih6xceyqzqqrfr2sxktiuauwxjrjsgyi3q5d26qgqfy532bhpmuve",
+  "wasmCid": "bafkreigvtfeqjfqit2wi7ydcbsxssvnjttv3cfkuktmajbffjvzhrfwn3e",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreih6xceyqzqqrfr2sxktiuauwxjrjsgyi3q5d26qgqfy532bhpmuve",
+  "ipfs": "ipfs://bafkreigvtfeqjfqit2wi7ydcbsxssvnjttv3cfkuktmajbffjvzhrfwn3e",
   "schema": "schema/bandwidth.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Channel",
     "Message",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },

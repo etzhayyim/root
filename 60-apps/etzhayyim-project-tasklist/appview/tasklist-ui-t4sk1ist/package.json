@@ -4,9 +4,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "pnpm --dir svelte build"
+    "build": "pnpm --dir svelte build",
+    "test": "vitest run"
   },
-  "dependencies": {
-    "@etzhayyim/kotodama-host-sdk": "workspace:*"
+  "dependencies": {},
+  "devDependencies": {
+    "vitest": "^4.1.0"
   }
 }

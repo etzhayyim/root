@@ -5,12 +5,14 @@
   "kind": "compat",
   "title": "opensea clean-room actor",
   "description": "Clean-room, API-compatible web3 / blockchain RPC actor (opensea); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreichyy7p5sq3ywciesqogh7atbsx2nea7ffyoztc3kjxxjewpuqnja",
+  "wasmCid": "bafkreicj5h3onwuv5leuq4ifxbwqiamleekwuvyd7qv7ev3gyfusxal2cm",
+  "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreichyy7p5sq3ywciesqogh7atbsx2nea7ffyoztc3kjxxjewpuqnja",
+  "ipfs": "ipfs://bafkreicj5h3onwuv5leuq4ifxbwqiamleekwuvyd7qv7ev3gyfusxal2cm",
   "schema": "schema/opensea.kotoba",
-  "tier": "L3",
+  "tier": "L4",
+  "verified": null,
   "entities": [
     "Block",
     "Transaction",
@@ -183,11 +185,11 @@
         }
       ],
       "features": {
-        "pagination": false,
-        "filtering": false,
-        "relationExpansion": false,
-        "strictValidation": false,
-        "contractTest": false
+        "pagination": true,
+        "filtering": true,
+        "relationExpansion": true,
+        "strictValidation": true,
+        "contractTest": true
       },
       "health": "/healthz"
     },
