@@ -38,6 +38,14 @@
       "output": ["out/itonami-datoms.kotoba.edn"],
       "pipeline": "ground EAVT datoms [e a v tx :add] (station + scan-cycle ticks, durable) + derived KPIs/findings flagged :bond/is-transient (computed on read, G3)",
       "doc": "kotoba Datom-log projection — first-class canonical state (ADR-2605312345)"
+    },
+    {
+      "id": "cell:itonami.optimize",
+      "method": "methods/optimize.py",
+      "input": "data/seed-factory-ops.kotoba.edn",
+      "output": ["out/optimization-proposals.md", "out/itonami-proposals.kotoba.edn"],
+      "pipeline": "analyze → idle-powerdown (recoverable kWh × conservative fraction → line energy-reduction %) + bottleneck-relief (lift worst station to 2nd-worst → line OEE uplift) → transient proposal datoms",
+      "doc": "R1 quantified improvement PROPOSALS (charter-clean form of the FOX 'cut 10% energy' lever); proposals-only, never a write-back (G1); efficiency not intensification (G2)"
     }
   ],
   "gates": {

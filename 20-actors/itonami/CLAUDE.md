@@ -51,15 +51,20 @@ observer to the existing build sim.
 ## Run
 
 ```bash
-python3 tests/test_analyze.py          # 10 tests, pure stdlib
+python3 tests/test_analyze.py          # 10 tests — KPI engine, pure stdlib
+python3 tests/test_optimize.py         # 6 tests — R1 proposal engine
 python3 methods/analyze.py             # → out/operations-report.md
 python3 methods/datom_emit.py --tx 1   # → out/itonami-datoms.kotoba.edn
+python3 methods/optimize.py            # → out/optimization-proposals.md (+ proposal datoms)
 ```
 
 ## Status / roadmap
 
-- **R0 (this)** — analyzer + datom-emit + ontology + seed + 10 tests. design-only.
-- **R1** — line-balancing recommendation (bottleneck-relief proposal) + energy-schedule
-  optimizer (idle-power-down windows); cross-check OEE against the sarutahiko produce sim.
+- **R0** — analyzer + datom-emit + ontology + seed + 10 tests. ✅
+- **R1 (landed)** — `methods/optimize.py`: idle-power-down energy-reduction proposal
+  (recoverable kWh × conservative fraction → line %) + bottleneck-relief proposal (lift worst
+  station to 2nd-worst → line OEE uplift). Proposals-only (G1), efficiency-not-intensification
+  within takt (G2), honest energy % (not inflated to FOX's headline 10%). 6 tests. ✅
 - **R2** — live scan-cycle ingest from a kotoba-os `plc-host-runner` Datom stream (G6/Council
-  gated); manako scrap-image hand-off; Murakumo-narrated daily ops digest.
+  gated); manako scrap-image hand-off; cross-check OEE against the sarutahiko produce sim;
+  Murakumo-narrated daily ops digest.
