@@ -20,7 +20,9 @@
       "Order",
       "Fulfillment",
       "Customer",
-      "Variant"
+      "Variant",
+      "Collection",
+      "DiscountCode"
     ],
     "enums": {
       "Product": {
@@ -49,6 +51,12 @@
           "cancelled",
           "error",
           "failure"
+        ]
+      },
+      "DiscountCode": {
+        "valueType": [
+          "fixed_amount",
+          "percentage"
         ]
       }
     }

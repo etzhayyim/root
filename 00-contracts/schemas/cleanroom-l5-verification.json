@@ -201,9 +201,25 @@
           "fieldStatus": "all generated fields confirmed (productId=product_id; inventoryQuantity=inventory_quantity is also real)",
           "discoveredEnums": {},
           "gaps": ["inventory_management", "barcode", "weight", "option1"]
+        },
+        {
+          "entity": "Collection",
+          "source": "https://shopify.dev/docs/api/admin-rest/latest/resources/customcollection",
+          "verifiedFields": ["title", "handle", "published"],
+          "fieldStatus": "all generated fields confirmed (published is a real boolean)",
+          "discoveredEnums": {},
+          "gaps": ["body_html", "sort_order", "image", "products_count"]
+        },
+        {
+          "entity": "DiscountCode",
+          "source": "https://shopify.dev/docs/api/admin-rest/latest/resources/pricerule",
+          "verifiedFields": ["code", "valueType", "value"],
+          "fieldStatus": "valueType=value_type (on PriceRule) confirmed; code is on the DiscountCode child resource",
+          "discoveredEnums": {"valueType": ["fixed_amount", "percentage"]},
+          "gaps": ["target_type", "allocation_method", "usage_limit", "starts_at"]
         }
       ],
-      "note": "Product + Order + Fulfillment + Customer + Variant reconciled against the official Shopify Admin REST docs (5/8); Collection/DiscountCode pending. Enforced enums: product.status, order.financialStatus, fulfillment.status."
+      "note": "FULLY VERIFIED (7/7 resources): Product + Variant + Order + Customer + Collection + Fulfillment + DiscountCode reconciled against the official Shopify Admin REST docs. Enforced enums: product.status, order.financialStatus, fulfillment.status, discountCode.valueType (4)."
     },
     {
       "handle": "plaid-compat",
