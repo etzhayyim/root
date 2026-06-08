@@ -397,6 +397,8 @@ def create_workflow(request):
     err = _require(data, ['name', 'state'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in ['active', 'deleted', 'disabled_fork', 'disabled_inactivity', 'disabled_manually']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['active', 'deleted', 'disabled_fork', 'disabled_inactivity', 'disabled_manually']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("github_wor")}
     rec["repoId"] = data.get('repoId')
     rec["name"] = data.get('name')
@@ -435,6 +437,8 @@ def update_workflow(request, eid):
     err = _reject_unknown(data, ['repoId', 'name', 'state'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in ['active', 'deleted', 'disabled_fork', 'disabled_inactivity', 'disabled_manually']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['active', 'deleted', 'disabled_fork', 'disabled_inactivity', 'disabled_manually']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):

@@ -185,9 +185,17 @@
           "fieldStatus": "all generated fields confirmed (orderId=order_id, trackingNumber=tracking_number)",
           "discoveredEnums": {"status": ["pending", "open", "success", "cancelled", "error", "failure"]},
           "gaps": ["tracking_company", "tracking_urls", "line_items", "shipment_status"]
+        },
+        {
+          "entity": "Customer",
+          "source": "https://shopify.dev/docs/api/admin-rest/latest/resources/customer",
+          "verifiedFields": ["email", "firstName", "lastName", "ordersCount"],
+          "fieldStatus": "all generated fields confirmed (firstName=first_name, lastName=last_name, ordersCount=orders_count)",
+          "discoveredEnums": {},
+          "gaps": ["phone", "tags", "state", "total_spent", "verified_email"]
         }
       ],
-      "note": "Product + Order + Fulfillment reconciled against the official Shopify Admin REST docs (3/8); Variant/Customer/Collection/DiscountCode pending. Enforced enums: product.status, order.financialStatus, fulfillment.status."
+      "note": "Product + Order + Fulfillment + Customer reconciled against the official Shopify Admin REST docs (4/8); Variant/Collection/DiscountCode pending. Enforced enums: product.status, order.financialStatus, fulfillment.status."
     },
     {
       "handle": "plaid-compat",
@@ -270,9 +278,17 @@
           "fieldStatus": "all generated fields confirmed (message=commit.message, authorId=author/Simple User)",
           "discoveredEnums": {},
           "gaps": ["committer", "parents", "html_url", "stats"]
+        },
+        {
+          "entity": "Workflow",
+          "source": "https://docs.github.com/en/rest/actions/workflows",
+          "verifiedFields": ["repoId", "name", "state"],
+          "fieldStatus": "name/state confirmed (repoId is the relation)",
+          "discoveredEnums": {"state": ["active", "deleted", "disabled_fork", "disabled_inactivity", "disabled_manually"]},
+          "gaps": ["path", "badge_url", "html_url"]
         }
       ],
-      "note": "Repository + Issue + PullRequest + WorkflowRun + Release + Commit reconciled against the official GitHub REST docs (6/7 resources); Workflow pending. Enforced enums: issue.state, pullRequest.state, workflowRun.status, workflowRun.conclusion."
+      "note": "FULLY VERIFIED (7/7 resources): Repository + Issue + PullRequest + WorkflowRun + Release + Commit + Workflow reconciled against the official GitHub REST docs. Enforced enums: issue.state, pullRequest.state, workflowRun.status, workflowRun.conclusion, workflow.state (5)."
     },
     {
       "handle": "twilio-compat",

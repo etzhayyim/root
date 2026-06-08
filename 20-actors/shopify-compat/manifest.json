@@ -18,7 +18,8 @@
     "resources": [
       "Product",
       "Order",
-      "Fulfillment"
+      "Fulfillment",
+      "Customer"
     ],
     "enums": {
       "Product": {
