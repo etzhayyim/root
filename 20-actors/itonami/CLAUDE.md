@@ -55,8 +55,9 @@ python3 tests/test_analyze.py          # 10 tests — KPI engine, pure stdlib
 python3 tests/test_optimize.py         # 6 tests — R1 proposal engine
 python3 tests/test_inspect.py          # 7 tests — R2 vision hand-off
 python3 tests/test_ingest.py           # 10 tests — R3 SCADA/OT scan-cycle ingest
-python3 tests/test_digest.py           # 8 tests — R4 daily digest + Murakumo narration
+python3 tests/test_digest.py           # 11 tests — R4 daily digest + R6 throughput fold
 python3 tests/test_plan.py             # 8 tests — R5 throughput / line-balance plan
+python3 tests/test_trend.py            # 8 tests — R7 KPI trend / drift detector
 python3 methods/analyze.py             # → out/operations-report.md
 python3 methods/datom_emit.py --tx 1   # → out/itonami-datoms.kotoba.edn
 python3 methods/optimize.py            # → out/optimization-proposals.md (+ proposal datoms)
@@ -64,6 +65,7 @@ python3 methods/inspect.py             # → out/vision-inspection.md (+ inspect
 python3 methods/ingest.py              # kotoba-os scan stream → out/ingested-ticks.kotoba.edn
 python3 methods/digest.py              # → out/daily-digest.md (Murakumo-narrated, G7)
 python3 methods/plan.py                # → out/throughput-plan.md (units/day + relief)
+python3 methods/trend.py               # → out/trend-report.md (KPI drift over days)
 ```
 
 End-to-end (gap-(3) loop): `ingest.py` (scan-cycle Datoms → ticks) → `analyze.py` (KPIs) →
@@ -101,6 +103,11 @@ on the canonical Datom log.
   Murakumo narration now surface BOTH the OEE bottleneck (frame-weld) and the throughput
   bottleneck (paint, ~units/day), so the line lead relieves the right station for the right
   goal. +3 digest tests (52 total). ✅
-- **R7** — live scan-cycle socket (Modbus/OPC-UA/EtherCAT via kotoba-os device worlds, Council
+- **R7 (landed)** — `methods/trend.py`: KPI trend / drift detector. Reads durable daily
+  `:opsday/*` snapshots (as-of series; Wellbecoming = trajectory not snapshot) and surfaces drift
+  via least-squares slope + polarity-aware direction {improving/flat/degrading} — catches a slow
+  OEE decline / scrap creep before any single day alarms. Line/station scope only, no worker
+  trajectory (G2); recommend-not-actuate (G1); directions transient (G3). 8 tests. ✅
+- **R8** — live scan-cycle socket (Modbus/OPC-UA/EtherCAT via kotoba-os device worlds, Council
   + operator DID gated); cross-check OEE against the sarutahiko produce sim; componentize-py
   WASM build + CID advertisement.

@@ -78,6 +78,14 @@
       "output": ["out/throughput-plan.md", "out/itonami-plan.kotoba.edn"],
       "pipeline": "per-station takt-capacity (uptime÷takt) → line throughput bottleneck (distinct from the OEE bottleneck) → units/day (documented operating-hours) → availability-recovery relief plan with quantified uplift",
       "doc": "R5 throughput / line-balance plan; translates OEE into units/day through the takt-capacity lens (the throughput-worst station often differs from the OEE-worst); relief is availability recovery within takt (G2), plan-not-actuate (G1), documented hours (G5)"
+    },
+    {
+      "id": "cell:itonami.trend",
+      "method": "methods/trend.py",
+      "input": "data/seed-ops-history.kotoba.edn",
+      "output": ["out/trend-report.md", "out/itonami-trends.kotoba.edn"],
+      "pipeline": "load durable daily :opsday/* snapshots (as-of series) → per (scope, KPI) first/last + least-squares slope + polarity-aware direction {improving/flat/degrading} → regression attention list",
+      "doc": "R7 KPI trend / drift detector; tracks trajectories (kotoba as-of history; Wellbecoming = trajectory not snapshot) to surface slow OEE decline / scrap creep before any single day alarms; recommend-not-actuate (G1), line/station scope only — no worker trajectory (G2), directions transient (G3)"
     }
   ],
   "gates": {
