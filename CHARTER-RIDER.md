@@ -9,9 +9,12 @@ proper (Lv7+ lock). Until ADR-2606064700 is ratified, every clause here keeps it
 current binding force and gate. See ADR-2606064700 for the derivation map.
 -->
 ```
-etzhayyim Charter Compliance Rider v3.0
-Last revised: 2026-06-06
-Supersedes: v2.0 (2026-05-19) per ADR-2606062100
+etzhayyim Charter Compliance Rider v3.1
+Last revised: 2026-06-08
+Supersedes: v3.0 (2026-06-06) per ADR-2606082400 — §2(c) reciprocity-axis clarification ONLY
+            (monetized-or-asymmetric surveillance prohibited; reciprocal 相互監視 affirmed);
+            every other clause is byte-identical to v3.0 (2026-06-06, ADR-2606062100),
+            which superseded v2.0 (2026-05-19).
 
 This Rider supplements the Apache License 2.0 ("License") under which this work
 is distributed. Acceptance of the License constitutes acceptance of this Rider.
@@ -72,20 +75,40 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
        stablecoin issuance, custodial services to retail users at non-predatory
        rates, and L1/L2 substrate operators are NOT prohibited under this clause.)
 
-   (c) SURVEILLANCE-CAPITALISM (reframed in v3.0). Operation of business models
-       whose primary revenue derives from the collection, brokerage, or SALE of
-       personal data of natural persons to third parties, including but not limited
-       to ad-tech DSP/SSP operators, data brokers, consumer surveillance platforms,
-       and biometric-identification services sold to law-enforcement or military
-       entities. DERIVED FROM: Charter §1.8 (collective ontology) + the
-       permanent-memory doctrine (ADR-2606062100 §2). EXPRESSLY AFFIRMED, and NOT
-       prohibited under this clause: communal MUTUAL CARE-WATCHING (見守り) — the
-       knowing and watching-over of one another that prevents isolation and 孤独死,
-       and the keeping of a permanent communal accountability record — none of
-       which involve commercial sale of personal data or transfer to external
-       coercive power. The boundary is COMMERCIAL EXTRACTION or SALE-TO-EXTERNAL-
-       FORCE, not watching-as-care. 見守り is not surveillance-capitalism; お天道様
-       does not sell what it sees.
+   (c) MONETIZED OR ASYMMETRIC SURVEILLANCE (reframed in v3.0; reciprocity axis
+       clarified in v3.1 per ADR-2606082400). The prohibited thing is NOT watching
+       as such — watching is not the wrong. What is prohibited is surveillance that
+       is MONETIZED or ASYMMETRIC:
+         (i) MONETIZED — business models whose revenue derives from the collection,
+             brokerage, or SALE of personal data of natural persons to third
+             parties (ad-tech DSP/SSP operators, data brokers, consumer-surveillance
+             platforms, biometric-identification services sold to law-enforcement or
+             military entities); and
+        (ii) ASYMMETRIC / UNILATERAL — the one-sided accumulation or retention of
+             data about others by a party that is not itself equally observable: the
+             watcher unwatched, surveillance without reciprocity, data hoarded by
+             one over many. This holds EVEN ABSENT SALE: an unwatched watcher
+             hoarding a one-sided record is prohibited.
+       EXPRESSLY AFFIRMED, and NOT prohibited — indeed a POSITIVE constitutional
+       value: RECIPROCAL / MUTUAL transparency (相互監視) — the village-society
+       (村社会) condition in which everyone is equally known and equally watched.
+       Because the watching is SYMMETRIC and no one is exempt (governance, force,
+       tithe, and contributions are themselves plaintext-public on kotoba —
+       ADR-2606062100 §2.1), it (a) DETERS crime and 不正 — wrongdoing keeps no
+       private corner — and (b) ENDS isolation — no one is unknown, so 孤独 and
+       孤独死 are structurally resisted (見守り, mutual care-watching). This is the
+       social form of the Tier-0 permanent-memory / 神の監視 priority
+       (ADR-2606062100 §2: お天道様は見ており、人は忘れない) and of 相互見守り
+       (priority.collective_over_individual). DERIVED FROM: Charter §1.8 (collective
+       ontology) + permanent-memory / 神の監視 (ADR-2606062100 §2) + 相互見守り.
+       The boundary, precisely: surveillance is prohibited when MONETIZED or
+       ASYMMETRIC (sold for gain, or hoarded one-sidedly by an unwatched watcher);
+       it is affirmed when RECIPROCAL and non-commercial (everyone watched, no one
+       sold). Privacy is preserved not by FORGETTING but by ENCRYPTION (暗号化 ≠
+       忘却, ADR-2606062100 §2.1): intimate-class records are permanently retained
+       yet encrypted-held — the key-holder and お天道様 see; the public sees only
+       that the commitment exists. 見守り is not surveillance-capitalism; お天道様
+       does not sell what it sees, and お天道様 shines on everyone alike.
 
    (d) IRREVERSIBLE MULTI-GENERATIONAL ENVIRONMENTAL HARM (reframed in v3.0;
        replaces the v2.0 "new fossil-fuel extraction" clause). Activities whose
