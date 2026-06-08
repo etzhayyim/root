@@ -469,6 +469,8 @@ def create_conference(request):
     err = _require(data, ['friendlyName', 'status'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['init', 'in-progress', 'completed']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['init', 'in-progress', 'completed']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("twilio_con")}
     rec["friendlyName"] = data.get('friendlyName')
     rec["status"] = data.get('status')
@@ -507,6 +509,8 @@ def update_conference(request, eid):
     err = _reject_unknown(data, ['friendlyName', 'status', 'participantCount'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['init', 'in-progress', 'completed']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['init', 'in-progress', 'completed']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):

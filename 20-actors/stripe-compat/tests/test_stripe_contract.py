@@ -65,7 +65,7 @@ class StripeContract(unittest.TestCase):
 
     def test_verified_enums_enforced(self):
         """L5: discovered enums from official docs are enforced."""
-        for field in ['reason', 'status']:
+        for field in ['reason', 'recurringInterval', 'status']:
             self.assertIn(f"invalid {field}; allowed:", self.src,
                           f"verified enum for {field} not enforced")
 

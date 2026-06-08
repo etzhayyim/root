@@ -21,7 +21,8 @@
       "PullRequest",
       "WorkflowRun",
       "Release",
-      "Commit"
+      "Commit",
+      "Workflow"
     ],
     "enums": {
       "Issue": {
@@ -62,6 +63,15 @@
           "timed_out",
           "action_required",
           "stale"
+        ]
+      },
+      "Workflow": {
+        "state": [
+          "active",
+          "deleted",
+          "disabled_fork",
+          "disabled_inactivity",
+          "disabled_manually"
         ]
       }
     }

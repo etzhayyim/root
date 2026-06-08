@@ -18,7 +18,11 @@
     "resources": [
       "Product",
       "Order",
-      "Fulfillment"
+      "Fulfillment",
+      "Customer",
+      "Variant",
+      "Collection",
+      "DiscountCode"
     ],
     "enums": {
       "Product": {
@@ -47,6 +51,12 @@
           "cancelled",
           "error",
           "failure"
+        ]
+      },
+      "DiscountCode": {
+        "valueType": [
+          "fixed_amount",
+          "percentage"
         ]
       }
     }

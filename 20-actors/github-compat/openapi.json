@@ -1574,7 +1574,14 @@
             "type": "string"
           },
           "state": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "active",
+              "deleted",
+              "disabled_fork",
+              "disabled_inactivity",
+              "disabled_manually"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1596,7 +1603,14 @@
             "type": "string"
           },
           "state": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "active",
+              "deleted",
+              "disabled_fork",
+              "disabled_inactivity",
+              "disabled_manually"
+            ]
           }
         },
         "required": [

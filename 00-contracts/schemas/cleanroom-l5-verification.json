@@ -79,9 +79,17 @@
           "fieldStatus": "name/topic/type confirmed on the real Channel object (id present)",
           "discoveredEnums": {},
           "gaps": ["type-enum-values (int-coded GUILD_TEXT=0 etc., not captured)", "guild_id", "position", "nsfw", "parent_id"]
+        },
+        {
+          "entity": "Message",
+          "source": "https://docs.discord.com/developers/resources/message",
+          "verifiedFields": ["channelId", "authorId", "body"],
+          "fieldStatus": "channel_id, author, content (=body) confirmed; type exists as int field (not modeled)",
+          "discoveredEnums": {},
+          "gaps": ["type (int-coded message type)", "timestamp", "embeds", "attachments", "mentions"]
         }
       ],
-      "note": "Channel reconciled against the official Discord API docs; Message/User/Room/Stream/Webhook pending (Message object on a separate doc page)."
+      "note": "Channel + Message reconciled against the official Discord API docs (2/6); User/Room/Stream/Webhook pending."
     },
     {
       "handle": "gtfs-compat",
@@ -177,9 +185,41 @@
           "fieldStatus": "all generated fields confirmed (orderId=order_id, trackingNumber=tracking_number)",
           "discoveredEnums": {"status": ["pending", "open", "success", "cancelled", "error", "failure"]},
           "gaps": ["tracking_company", "tracking_urls", "line_items", "shipment_status"]
+        },
+        {
+          "entity": "Customer",
+          "source": "https://shopify.dev/docs/api/admin-rest/latest/resources/customer",
+          "verifiedFields": ["email", "firstName", "lastName", "ordersCount"],
+          "fieldStatus": "all generated fields confirmed (firstName=first_name, lastName=last_name, ordersCount=orders_count)",
+          "discoveredEnums": {},
+          "gaps": ["phone", "tags", "state", "total_spent", "verified_email"]
+        },
+        {
+          "entity": "Variant",
+          "source": "https://shopify.dev/docs/api/admin-rest/latest/resources/product-variant",
+          "verifiedFields": ["productId", "sku", "price"],
+          "fieldStatus": "all generated fields confirmed (productId=product_id; inventoryQuantity=inventory_quantity is also real)",
+          "discoveredEnums": {},
+          "gaps": ["inventory_management", "barcode", "weight", "option1"]
+        },
+        {
+          "entity": "Collection",
+          "source": "https://shopify.dev/docs/api/admin-rest/latest/resources/customcollection",
+          "verifiedFields": ["title", "handle", "published"],
+          "fieldStatus": "all generated fields confirmed (published is a real boolean)",
+          "discoveredEnums": {},
+          "gaps": ["body_html", "sort_order", "image", "products_count"]
+        },
+        {
+          "entity": "DiscountCode",
+          "source": "https://shopify.dev/docs/api/admin-rest/latest/resources/pricerule",
+          "verifiedFields": ["code", "valueType", "value"],
+          "fieldStatus": "valueType=value_type (on PriceRule) confirmed; code is on the DiscountCode child resource",
+          "discoveredEnums": {"valueType": ["fixed_amount", "percentage"]},
+          "gaps": ["target_type", "allocation_method", "usage_limit", "starts_at"]
         }
       ],
-      "note": "Product + Order + Fulfillment reconciled against the official Shopify Admin REST docs (3/8); Variant/Customer/Collection/DiscountCode pending. Enforced enums: product.status, order.financialStatus, fulfillment.status."
+      "note": "FULLY VERIFIED (7/7 resources): Product + Variant + Order + Customer + Collection + Fulfillment + DiscountCode reconciled against the official Shopify Admin REST docs. Enforced enums: product.status, order.financialStatus, fulfillment.status, discountCode.valueType (4)."
     },
     {
       "handle": "plaid-compat",
@@ -262,9 +302,17 @@
           "fieldStatus": "all generated fields confirmed (message=commit.message, authorId=author/Simple User)",
           "discoveredEnums": {},
           "gaps": ["committer", "parents", "html_url", "stats"]
+        },
+        {
+          "entity": "Workflow",
+          "source": "https://docs.github.com/en/rest/actions/workflows",
+          "verifiedFields": ["repoId", "name", "state"],
+          "fieldStatus": "name/state confirmed (repoId is the relation)",
+          "discoveredEnums": {"state": ["active", "deleted", "disabled_fork", "disabled_inactivity", "disabled_manually"]},
+          "gaps": ["path", "badge_url", "html_url"]
         }
       ],
-      "note": "Repository + Issue + PullRequest + WorkflowRun + Release + Commit reconciled against the official GitHub REST docs (6/7 resources); Workflow pending. Enforced enums: issue.state, pullRequest.state, workflowRun.status, workflowRun.conclusion."
+      "note": "FULLY VERIFIED (7/7 resources): Repository + Issue + PullRequest + WorkflowRun + Release + Commit + Workflow reconciled against the official GitHub REST docs. Enforced enums: issue.state, pullRequest.state, workflowRun.status, workflowRun.conclusion, workflow.state (5)."
     },
     {
       "handle": "twilio-compat",
@@ -301,9 +349,33 @@
             "status": ["pending", "approved", "canceled", "max_attempts_reached", "deleted", "failed", "expired"]
           },
           "gaps": ["valid", "amount", "payee", "send_code_attempts"]
+        },
+        {
+          "entity": "Conference",
+          "source": "https://www.twilio.com/docs/voice/api/conference-resource",
+          "verifiedFields": ["friendlyName", "status"],
+          "fieldStatus": "friendly_name/status confirmed (participantCount maps to a real participant count)",
+          "discoveredEnums": {"status": ["init", "in-progress", "completed"]},
+          "gaps": ["region", "reason_conference_ended", "call_sid_ending_conference"]
+        },
+        {
+          "entity": "PhoneNumber",
+          "source": "https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource",
+          "verifiedFields": ["e164", "friendlyName", "capabilities"],
+          "fieldStatus": "all generated fields confirmed (e164=phone_number; capabilities is the real voice/sms/mms object)",
+          "discoveredEnums": {},
+          "gaps": ["sid", "sms_url", "voice_url", "status_callback"]
+        },
+        {
+          "entity": "Recording",
+          "source": "https://www.twilio.com/docs/voice/api/recording",
+          "verifiedFields": ["callSid", "durationSec"],
+          "fieldStatus": "call_sid + duration (durationSec) confirmed; contentRef maps to the real media URI. status enum exists on the real resource but status is not modeled here -> documented gap, not enforced",
+          "discoveredEnums": {},
+          "gaps": ["status (real enum in-progress/paused/stopped/processing/completed/absent/deleted — not modeled)", "media_url", "channels", "source"]
         }
       ],
-      "note": "Message + Call + Verification reconciled against the official Twilio docs (3/6); PhoneNumber/Recording/Conference pending. Enforced enums: message.status, message.direction, call.status, verification.channel, verification.status."
+      "note": "FULLY VERIFIED (6/6 resources): Message + Call + Verification + Conference + PhoneNumber + Recording reconciled against the official Twilio docs. Enforced enums: message.status, message.direction, call.status, verification.channel, verification.status, conference.status (6)."
     },
     {
       "handle": "stripe-compat",
@@ -371,9 +443,17 @@
             "reason": ["duplicate", "fraudulent", "requested_by_customer", "expired_uncaptured_charge"]
           },
           "gaps": ["payment_intent", "receipt_number", "metadata"]
+        },
+        {
+          "entity": "Price",
+          "source": "https://docs.stripe.com/api/prices/object",
+          "verifiedFields": ["product", "unitAmount", "currency", "recurringInterval"],
+          "fieldStatus": "all generated fields confirmed (unitAmount=unit_amount, recurringInterval=recurring.interval)",
+          "discoveredEnums": {"recurringInterval": ["day", "week", "month", "year"]},
+          "gaps": ["billing_scheme", "tiers", "type", "interval_count"]
         }
       ],
-      "note": "Customer + PaymentIntent + Charge + Invoice + Subscription + Product + Refund reconciled against official docs (7/8 resources); Price pending. Enforceable enums: PaymentIntent.status, Invoice.status, Subscription.status, Refund.status, Refund.reason."
+      "note": "FULLY VERIFIED (8/8 resources): Customer + PaymentIntent + Charge + Invoice + Subscription + Product + Refund + Price reconciled against official docs. First fully doc-verified actor. Enforced enums: PaymentIntent.status, Invoice.status, Subscription.status, Refund.status, Refund.reason, Price.recurringInterval (6)."
     }
   ]
 }

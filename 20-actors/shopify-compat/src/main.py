@@ -531,6 +531,8 @@ def create_discount_code(request):
     err = _require(data, ['code', 'valueType'])
     if err:
         return err, 400
+    if data.get('valueType') and data['valueType'] not in ['fixed_amount', 'percentage']:
+        return {"error": {"message": "invalid valueType; allowed: " + ", ".join(['fixed_amount', 'percentage']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("shopify_dis")}
     rec["code"] = data.get('code')
     rec["valueType"] = data.get('valueType')
@@ -569,6 +571,8 @@ def update_discount_code(request, eid):
     err = _reject_unknown(data, ['code', 'valueType', 'value'])
     if err:
         return err, 400
+    if data.get('valueType') and data['valueType'] not in ['fixed_amount', 'percentage']:
+        return {"error": {"message": "invalid valueType; allowed: " + ", ".join(['fixed_amount', 'percentage']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):

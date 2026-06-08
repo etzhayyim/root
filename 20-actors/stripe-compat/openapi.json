@@ -1960,7 +1960,13 @@
             "type": "string"
           },
           "recurringInterval": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "day",
+              "week",
+              "month",
+              "year"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1985,7 +1991,13 @@
             "type": "string"
           },
           "recurringInterval": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "day",
+              "week",
+              "month",
+              "year"
+            ]
           }
         },
         "required": [

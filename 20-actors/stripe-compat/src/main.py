@@ -606,6 +606,8 @@ def create_price(request):
     err = _require(data, ['product', 'unitAmount'])
     if err:
         return err, 400
+    if data.get('recurringInterval') and data['recurringInterval'] not in ['day', 'week', 'month', 'year']:
+        return {"error": {"message": "invalid recurringInterval; allowed: " + ", ".join(['day', 'week', 'month', 'year']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("stripe_pri")}
     rec["product"] = data.get('product')
     rec["unitAmount"] = _as_int(data.get('unitAmount'))
@@ -645,6 +647,8 @@ def update_price(request, eid):
     err = _reject_unknown(data, ['product', 'unitAmount', 'currency', 'recurringInterval'])
     if err:
         return err, 400
+    if data.get('recurringInterval') and data['recurringInterval'] not in ['day', 'week', 'month', 'year']:
+        return {"error": {"message": "invalid recurringInterval; allowed: " + ", ".join(['day', 'week', 'month', 'year']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
