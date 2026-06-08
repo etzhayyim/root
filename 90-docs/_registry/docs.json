@@ -22808,6 +22808,50 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606082100-mishmar-storage-covenant-social-capital.md",
+      "id": "adr-2606082100-mishmar-storage-covenant-social-capital",
+      "title": "ADR-2606082100: Mishmar Storage Covenant — social-capital-funded bonded pinning for unstoppable persistence (donation-native, anchor-chain staking, anti-usury)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "mishmar-storage-covenant",
+      "authoritative": true,
+      "authoritative_for": [
+        "Mishmar Storage Covenant — bonded pinning + proof-of-availability + slash-to-commons",
+        "Social Capital ledger — wellbecoming-intervention + information-disclosure minting, non-transferable + decaying",
+        "donation-economic-system definition — social capital as the denominator of the persistence retainer",
+        "anchor-chain staking placement (MishmarBondEscrow on geth-private → Base L2)",
+        "Charter §2(b) / Yobel anti-usury compliance pattern for storage incentives"
+      ],
+      "related": [
+        "2605260004",
+        "2605240200",
+        "50-infra/etzhayyim-yobel-contract/",
+        "50-infra/etzhayyim-chain-contracts/",
+        "50-infra/vultr/geth-private/contracts/"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605262130",
+        "2606062100",
+        "2605231400",
+        "2605282100",
+        "2604261717",
+        "2605192100",
+        "2605192200",
+        "2605192130",
+        "2605192145",
+        "2605172100",
+        "2605172300",
+        "0075",
+        "2605240001",
+        "2605231525"
+      ],
+      "last_verified": "2026-06-08",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606082100-shiori-wellbecoming-detractor-mirror.md",
       "id": "adr-2606082100-shiori-wellbecoming-detractor-mirror",
       "title": "ADR-2606082100: shiori 栞 — human-Wellbecoming detractor observatory + transparent intervention",

@@ -14515,6 +14515,29 @@
       "lastVerified": "2026-06-08"
     },
     {
+      "id": "doc:adr-2606082100-mishmar-storage-covenant-social-capital",
+      "type": "TechArticle",
+      "title": "ADR-2606082100: Mishmar Storage Covenant — social-capital-funded bonded pinning for unstoppable persistence (donation-native, anchor-chain staking, anti-usury)",
+      "status": "proposed",
+      "topic": "mishmar-storage-covenant",
+      "authoritative": true,
+      "authoritativeFor": [
+        "Mishmar Storage Covenant — bonded pinning + proof-of-availability + slash-to-commons",
+        "Social Capital ledger — wellbecoming-intervention + information-disclosure minting, non-transferable + decaying",
+        "donation-economic-system definition — social capital as the denominator of the persistence retainer",
+        "anchor-chain staking placement (MishmarBondEscrow on geth-private → Base L2)",
+        "Charter §2(b) / Yobel anti-usury compliance pattern for storage incentives"
+      ],
+      "related": [
+        "doc:2605260004",
+        "doc:2605240200",
+        "doc:50-infra/etzhayyim-yobel-contract/",
+        "doc:50-infra/etzhayyim-chain-contracts/",
+        "doc:50-infra/vultr/geth-private/contracts/"
+      ],
+      "lastVerified": "2026-06-08"
+    },
+    {
       "id": "doc:adr-2606082100-shiori-wellbecoming-detractor-mirror",
       "type": "TechArticle",
       "title": "ADR-2606082100: shiori 栞 — human-Wellbecoming detractor observatory + transparent intervention",
