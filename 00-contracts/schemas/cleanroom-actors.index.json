@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 984,
-    "L5": 16
+    "L4": 981,
+    "L5": 19
   },
   "actors": [
     {
@@ -2306,7 +2306,7 @@
       "wasmCid": "bafkreiddmhozc2z45errrbbh3yh5vs4r4hlckluk46zzi4wzc2lotgxeyu",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "box clean-room actor",
       "category": "office_productivity",
       "capabilities": [
@@ -14402,7 +14402,7 @@
       "wasmCid": "bafkreid6kvbdn5mqs33stfb7otsnv2yj4vrgdpsuoim76gv5zb6pavm2dy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "sentry clean-room actor",
       "category": "devtools_apm",
       "capabilities": [
@@ -16292,7 +16292,7 @@
       "wasmCid": "bafkreib23svsknutnnezlqzfudne55ttgluwadzc7p2d6ha7c5fef25qhy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "twitch clean-room actor",
       "category": "comms_social",
       "capabilities": [

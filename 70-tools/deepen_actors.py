@@ -982,6 +982,33 @@ PLATFORM_OVERRIDES = {
         "Segment": E(name="string", type="string", memberCount="integer"),
         "Automation": E(workflowId="string", type="string", status="string"),
     },
+    # Faithful Sentry model (remodeled from generic devtools_apm), doc-verified L5.
+    "sentry": {
+        "Issue": E(shortId="string", title="string", status="string", level="string", priority="string", count="integer", userCount="integer"),
+        "Event": E(eventID="string", groupID="string", projectID="string", title="string", message="string", level="string", platform="string"),
+        "Project": E(slug="string", name="string", platform="string", isBookmarked="boolean"),
+        "Organization": E(slug="string", name="string", hasAuthProvider="boolean", require2FA="boolean", isEarlyAdopter="boolean"),
+        "Team": E(slug="string", name="string", memberCount="integer", hasAccess="boolean"),
+        "Release": E(version="string", status="string", commitCount="integer", deployCount="integer"),
+    },
+    # Faithful Twitch Helix model (remodeled from generic comms_social), L5.
+    "twitch": {
+        "User": E(userLogin="string", userName="string", broadcasterType="string"),
+        "Channel": E(broadcasterLogin="string", broadcasterName="string", broadcasterLanguage="string", gameId="string", gameName="string", title="string", delay="integer"),
+        "Stream": E(userId="string", userName="string", gameId="string", gameName="string", type="string", viewerCount="integer", title="string", language="string"),
+        "Video": E(userId="string", title="string", description="string", type="string", viewable="string", viewCount="integer", duration="integer"),
+        "Clip": E(broadcasterId="string", creatorId="string", gameId="string", title="string", viewCount="integer", duration="float", isFeatured="boolean"),
+        "Game": E(name="string", boxArtUrl="string"),
+    },
+    # Faithful Box model (remodeled from generic office_productivity), L5.
+    "box": {
+        "File": E(name="string", description="string", size="integer", sha1="string", itemStatus="string", commentCount="integer"),
+        "Folder": E(name="string", description="string", size="integer", itemStatus="string", syncState="string"),
+        "User": E(name="string", login="string", status="string", role="string"),
+        "Collaboration": E(role="string", status="string", isAccessOnly="boolean"),
+        "SharedLink": E(access="string", vanityName="string", canDownload="boolean"),
+        "Comment": E(message="string", isReplyComment="boolean"),
+    },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).
     "square": {

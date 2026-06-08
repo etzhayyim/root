@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 16,
+  "count": 19,
   "actors": [
     {
       "handle": "square-compat",
@@ -2248,6 +2248,448 @@
         }
       ],
       "note": "FULLY VERIFIED (6/6): List/ListMember/Campaign/Template/Segment/Automation vs official Mailchimp docs. Enforced enums: ListMember.status, ListMember.emailType, Campaign.status, Campaign.type, Campaign.contentType, Template.type, Segment.type, Automation.status (8)."
+    },
+    {
+      "handle": "sentry-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://docs.sentry.io/api",
+      "remodeled": "Remodeled from generic devtools_apm to a faithful Sentry model, then doc-verified (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Issue",
+          "source": "https://docs.sentry.io/api/events/list-an-organizations-issues/",
+          "verifiedFields": [
+            "shortId",
+            "title",
+            "status",
+            "level",
+            "priority",
+            "count",
+            "userCount"
+          ],
+          "fieldStatus": "confirmed (short_id, user_count)",
+          "discoveredEnums": {
+            "status": [
+              "ignored",
+              "resolved",
+              "unresolved"
+            ],
+            "level": [
+              "fatal",
+              "error",
+              "warning",
+              "info",
+              "debug"
+            ],
+            "priority": [
+              "low",
+              "medium",
+              "high"
+            ]
+          },
+          "gaps": [
+            "substatus (full enum not in docs — DEFER)",
+            "culprit",
+            "metadata"
+          ]
+        },
+        {
+          "entity": "Event",
+          "source": "https://docs.sentry.io/api/events/",
+          "verifiedFields": [
+            "eventID",
+            "groupID",
+            "projectID",
+            "title",
+            "message",
+            "level",
+            "platform"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "level": [
+              "fatal",
+              "error",
+              "warning",
+              "info",
+              "debug"
+            ]
+          },
+          "gaps": [
+            "tags",
+            "entries",
+            "dateReceived"
+          ]
+        },
+        {
+          "entity": "Project",
+          "source": "https://docs.sentry.io/api/projects/",
+          "verifiedFields": [
+            "slug",
+            "name",
+            "platform",
+            "isBookmarked"
+          ],
+          "fieldStatus": "confirmed (is_bookmarked); status enum is degenerate [active], not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "status",
+            "features",
+            "dateCreated"
+          ]
+        },
+        {
+          "entity": "Organization",
+          "source": "https://docs.sentry.io/api/organizations/",
+          "verifiedFields": [
+            "slug",
+            "name",
+            "hasAuthProvider",
+            "require2FA",
+            "isEarlyAdopter"
+          ],
+          "fieldStatus": "confirmed booleans",
+          "discoveredEnums": {},
+          "gaps": [
+            "avatar",
+            "features"
+          ]
+        },
+        {
+          "entity": "Team",
+          "source": "https://docs.sentry.io/api/teams/",
+          "verifiedFields": [
+            "slug",
+            "name",
+            "memberCount",
+            "hasAccess"
+          ],
+          "fieldStatus": "confirmed (member_count, has_access)",
+          "discoveredEnums": {},
+          "gaps": [
+            "projects",
+            "teamRole"
+          ]
+        },
+        {
+          "entity": "Release",
+          "source": "https://docs.sentry.io/api/releases/",
+          "verifiedFields": [
+            "version",
+            "status",
+            "commitCount",
+            "deployCount"
+          ],
+          "fieldStatus": "confirmed (commit_count, deploy_count)",
+          "discoveredEnums": {
+            "status": [
+              "open",
+              "archived"
+            ]
+          },
+          "gaps": [
+            "dateReleased",
+            "authors",
+            "projects"
+          ]
+        }
+      ],
+      "note": "FULLY VERIFIED (6/6) vs official Sentry docs. Enforced enums: Issue.status, Issue.level, Issue.priority, Event.level, Release.status (5)."
+    },
+    {
+      "handle": "twitch-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://dev.twitch.tv/docs/api/reference",
+      "remodeled": "Remodeled from generic comms_social to a faithful Twitch Helix model, then doc-verified (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "User",
+          "source": "https://dev.twitch.tv/docs/api/reference/#get-users",
+          "verifiedFields": [
+            "userLogin",
+            "userName",
+            "broadcasterType"
+          ],
+          "fieldStatus": "confirmed (login/display_name/broadcaster_type)",
+          "discoveredEnums": {
+            "broadcasterType": [
+              "partner",
+              "affiliate",
+              ""
+            ]
+          },
+          "gaps": [
+            "description",
+            "createdAt",
+            "viewCount"
+          ]
+        },
+        {
+          "entity": "Channel",
+          "source": "https://dev.twitch.tv/docs/api/reference/#get-channel-information",
+          "verifiedFields": [
+            "broadcasterLogin",
+            "broadcasterName",
+            "broadcasterLanguage",
+            "gameId",
+            "gameName",
+            "title",
+            "delay"
+          ],
+          "fieldStatus": "confirmed; delay unsigned int",
+          "discoveredEnums": {},
+          "gaps": [
+            "tags",
+            "content_classification_labels"
+          ]
+        },
+        {
+          "entity": "Stream",
+          "source": "https://dev.twitch.tv/docs/api/reference/#get-streams",
+          "verifiedFields": [
+            "userId",
+            "userName",
+            "gameId",
+            "gameName",
+            "type",
+            "viewerCount",
+            "title",
+            "language"
+          ],
+          "fieldStatus": "confirmed; type enum degenerate [live], not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "startedAt",
+            "thumbnailUrl",
+            "tags"
+          ]
+        },
+        {
+          "entity": "Video",
+          "source": "https://dev.twitch.tv/docs/api/reference/#get-videos",
+          "verifiedFields": [
+            "userId",
+            "title",
+            "description",
+            "type",
+            "viewable",
+            "viewCount",
+            "duration"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "archive",
+              "highlight",
+              "upload"
+            ],
+            "viewable": [
+              "public",
+              "private",
+              "unlisted"
+            ]
+          },
+          "gaps": [
+            "createdAt",
+            "publishedAt",
+            "url"
+          ]
+        },
+        {
+          "entity": "Clip",
+          "source": "https://dev.twitch.tv/docs/api/reference/#get-clips",
+          "verifiedFields": [
+            "broadcasterId",
+            "creatorId",
+            "gameId",
+            "title",
+            "viewCount",
+            "duration",
+            "isFeatured"
+          ],
+          "fieldStatus": "confirmed; duration float; is_featured boolean",
+          "discoveredEnums": {},
+          "gaps": [
+            "url",
+            "embedUrl",
+            "createdAt"
+          ]
+        },
+        {
+          "entity": "Game",
+          "source": "https://dev.twitch.tv/docs/api/reference/#get-games",
+          "verifiedFields": [
+            "name",
+            "boxArtUrl"
+          ],
+          "fieldStatus": "confirmed (box_art_url)",
+          "discoveredEnums": {},
+          "gaps": [
+            "igdb_id"
+          ]
+        }
+      ],
+      "note": "FULLY VERIFIED (6/6) vs official Twitch Helix docs. Enforced enums: User.broadcasterType, Video.type, Video.viewable (3)."
+    },
+    {
+      "handle": "box-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://developer.box.com/reference",
+      "remodeled": "Remodeled from generic office_productivity to a faithful Box model, then doc-verified (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "File",
+          "source": "https://developer.box.com/reference/get-files-id/",
+          "verifiedFields": [
+            "name",
+            "description",
+            "size",
+            "sha1",
+            "itemStatus",
+            "commentCount"
+          ],
+          "fieldStatus": "confirmed (item_status, comment_count)",
+          "discoveredEnums": {
+            "itemStatus": [
+              "active",
+              "trashed",
+              "deleted"
+            ]
+          },
+          "gaps": [
+            "parent",
+            "version_number",
+            "extension"
+          ]
+        },
+        {
+          "entity": "Folder",
+          "source": "https://developer.box.com/reference/get-folders-id/",
+          "verifiedFields": [
+            "name",
+            "description",
+            "size",
+            "itemStatus",
+            "syncState"
+          ],
+          "fieldStatus": "confirmed (sync_state)",
+          "discoveredEnums": {
+            "itemStatus": [
+              "active",
+              "trashed",
+              "deleted"
+            ],
+            "syncState": [
+              "synced",
+              "not_synced",
+              "partially_synced"
+            ]
+          },
+          "gaps": [
+            "parent",
+            "item_collection"
+          ]
+        },
+        {
+          "entity": "User",
+          "source": "https://developer.box.com/reference/get-users-id/",
+          "verifiedFields": [
+            "name",
+            "login",
+            "status",
+            "role"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "active",
+              "inactive",
+              "cannot_delete_edit",
+              "cannot_delete_edit_upload"
+            ],
+            "role": [
+              "admin",
+              "coadmin",
+              "user"
+            ]
+          },
+          "gaps": [
+            "language",
+            "space_amount"
+          ]
+        },
+        {
+          "entity": "Collaboration",
+          "source": "https://developer.box.com/reference/post-collaborations/",
+          "verifiedFields": [
+            "role",
+            "status",
+            "isAccessOnly"
+          ],
+          "fieldStatus": "confirmed (is_access_only)",
+          "discoveredEnums": {
+            "role": [
+              "editor",
+              "viewer",
+              "previewer",
+              "uploader",
+              "previewer uploader",
+              "viewer uploader",
+              "co-owner",
+              "owner"
+            ],
+            "status": [
+              "accepted",
+              "pending",
+              "rejected"
+            ]
+          },
+          "gaps": [
+            "accessible_by",
+            "expires_at"
+          ]
+        },
+        {
+          "entity": "SharedLink",
+          "source": "https://github.com/box/box-openapi",
+          "verifiedFields": [
+            "access",
+            "vanityName",
+            "canDownload"
+          ],
+          "fieldStatus": "confirmed via official OpenAPI spec (developer.box.com SharedLink page 404'd)",
+          "discoveredEnums": {
+            "access": [
+              "open",
+              "company",
+              "collaborators"
+            ]
+          },
+          "gaps": [
+            "password",
+            "unshared_at",
+            "download_count"
+          ]
+        },
+        {
+          "entity": "Comment",
+          "source": "https://developer.box.com/reference/post-comments/",
+          "verifiedFields": [
+            "message",
+            "isReplyComment"
+          ],
+          "fieldStatus": "confirmed (is_reply_comment)",
+          "discoveredEnums": {},
+          "gaps": [
+            "tagged_message",
+            "created_by"
+          ]
+        }
+      ],
+      "note": "FULLY VERIFIED (6/6) vs official Box docs/OpenAPI. Enforced enums: File.itemStatus, Folder.itemStatus, Folder.syncState, User.status, User.role, Collaboration.role, Collaboration.status, SharedLink.access (8)."
     }
   ]
 }

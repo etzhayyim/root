@@ -11,15 +11,47 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreib23svsknutnnezlqzfudne55ttgluwadzc7p2d6ha7c5fef25qhy",
   "schema": "schema/twitch.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://dev.twitch.tv/docs/api/reference",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "User",
+      "Channel",
+      "Stream",
+      "Video",
+      "Clip",
+      "Game"
+    ],
+    "enums": {
+      "User": {
+        "broadcasterType": [
+          "partner",
+          "affiliate",
+          ""
+        ]
+      },
+      "Video": {
+        "type": [
+          "archive",
+          "highlight",
+          "upload"
+        ],
+        "viewable": [
+          "public",
+          "private",
+          "unlisted"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Channel",
-    "Message",
     "User",
-    "Room",
+    "Channel",
     "Stream",
-    "Webhook"
+    "Video",
+    "Clip",
+    "Game"
   ],
   "adr": [
     "260607",
@@ -33,56 +65,6 @@
       "runtime": "kotoba-wasm",
       "endpointCount": 30,
       "routes": [
-        {
-          "method": "POST",
-          "path": "/v1/channels",
-          "op": "create Channel"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/channels",
-          "op": "list Channel"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/channels/{id}",
-          "op": "get Channel"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/channels/{id}",
-          "op": "update Channel"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/channels/{id}",
-          "op": "delete Channel"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/messages",
-          "op": "create Message"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/messages",
-          "op": "list Message"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/messages/{id}",
-          "op": "get Message"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/messages/{id}",
-          "op": "update Message"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/messages/{id}",
-          "op": "delete Message"
-        },
         {
           "method": "POST",
           "path": "/v1/users",
@@ -110,28 +92,28 @@
         },
         {
           "method": "POST",
-          "path": "/v1/rooms",
-          "op": "create Room"
+          "path": "/v1/channels",
+          "op": "create Channel"
         },
         {
           "method": "GET",
-          "path": "/v1/rooms",
-          "op": "list Room"
+          "path": "/v1/channels",
+          "op": "list Channel"
         },
         {
           "method": "GET",
-          "path": "/v1/rooms/{id}",
-          "op": "get Room"
+          "path": "/v1/channels/{id}",
+          "op": "get Channel"
         },
         {
           "method": "PATCH",
-          "path": "/v1/rooms/{id}",
-          "op": "update Room"
+          "path": "/v1/channels/{id}",
+          "op": "update Channel"
         },
         {
           "method": "DELETE",
-          "path": "/v1/rooms/{id}",
-          "op": "delete Room"
+          "path": "/v1/channels/{id}",
+          "op": "delete Channel"
         },
         {
           "method": "POST",
@@ -160,28 +142,78 @@
         },
         {
           "method": "POST",
-          "path": "/v1/webhooks",
-          "op": "create Webhook"
+          "path": "/v1/videos",
+          "op": "create Video"
         },
         {
           "method": "GET",
-          "path": "/v1/webhooks",
-          "op": "list Webhook"
+          "path": "/v1/videos",
+          "op": "list Video"
         },
         {
           "method": "GET",
-          "path": "/v1/webhooks/{id}",
-          "op": "get Webhook"
+          "path": "/v1/videos/{id}",
+          "op": "get Video"
         },
         {
           "method": "PATCH",
-          "path": "/v1/webhooks/{id}",
-          "op": "update Webhook"
+          "path": "/v1/videos/{id}",
+          "op": "update Video"
         },
         {
           "method": "DELETE",
-          "path": "/v1/webhooks/{id}",
-          "op": "delete Webhook"
+          "path": "/v1/videos/{id}",
+          "op": "delete Video"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/clips",
+          "op": "create Clip"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/clips",
+          "op": "list Clip"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/clips/{id}",
+          "op": "get Clip"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/clips/{id}",
+          "op": "update Clip"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/clips/{id}",
+          "op": "delete Clip"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/games",
+          "op": "create Game"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/games",
+          "op": "list Game"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/games/{id}",
+          "op": "get Game"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/games/{id}",
+          "op": "update Game"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/games/{id}",
+          "op": "delete Game"
         }
       ],
       "features": {
@@ -247,204 +279,24 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_channel",
-          "description": "Create a Channel.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "topic": {
-                "type": "string"
-              },
-              "memberCount": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "name",
-              "type"
-            ]
-          }
-        },
-        {
-          "name": "list_channels",
-          "description": "List Channels.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_channel",
-          "description": "Get a Channel by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_channel",
-          "description": "Update a Channel.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "topic": {
-                "type": "string"
-              },
-              "memberCount": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_channel",
-          "description": "Delete a Channel.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_message",
-          "description": "Create a Message.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "channelId": {
-                "type": "string"
-              },
-              "authorId": {
-                "type": "string"
-              },
-              "body": {
-                "type": "string"
-              },
-              "sentAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "body",
-              "sentAt"
-            ]
-          }
-        },
-        {
-          "name": "list_messages",
-          "description": "List Messages.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_message",
-          "description": "Get a Message by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_message",
-          "description": "Update a Message.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "channelId": {
-                "type": "string"
-              },
-              "authorId": {
-                "type": "string"
-              },
-              "body": {
-                "type": "string"
-              },
-              "sentAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_message",
-          "description": "Delete a Message.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
           "name": "create_user",
           "description": "Create a User.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "handle": {
+              "userLogin": {
                 "type": "string"
               },
-              "displayName": {
+              "userName": {
                 "type": "string"
               },
-              "verified": {
-                "type": "boolean"
+              "broadcasterType": {
+                "type": "string"
               }
             },
             "required": [
-              "handle",
-              "displayName"
+              "userLogin",
+              "userName"
             ]
           }
         },
@@ -480,14 +332,14 @@
               "id": {
                 "type": "string"
               },
-              "handle": {
+              "userLogin": {
                 "type": "string"
               },
-              "displayName": {
+              "userName": {
                 "type": "string"
               },
-              "verified": {
-                "type": "boolean"
+              "broadcasterType": {
+                "type": "string"
               }
             },
             "required": [
@@ -511,38 +363,50 @@
           }
         },
         {
-          "name": "create_room",
-          "description": "Create a Room.",
+          "name": "create_channel",
+          "description": "Create a Channel.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "broadcasterLogin": {
                 "type": "string"
               },
-              "maxParticipants": {
-                "type": "integer"
+              "broadcasterName": {
+                "type": "string"
               },
-              "recording": {
-                "type": "boolean"
+              "broadcasterLanguage": {
+                "type": "string"
+              },
+              "gameId": {
+                "type": "string"
+              },
+              "gameName": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "delay": {
+                "type": "integer"
               }
             },
             "required": [
-              "name",
-              "maxParticipants"
+              "broadcasterLogin",
+              "broadcasterName"
             ]
           }
         },
         {
-          "name": "list_rooms",
-          "description": "List Rooms.",
+          "name": "list_channels",
+          "description": "List Channels.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_room",
-          "description": "Get a Room by id.",
+          "name": "get_channel",
+          "description": "Get a Channel by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -556,22 +420,34 @@
           }
         },
         {
-          "name": "update_room",
-          "description": "Update a Room.",
+          "name": "update_channel",
+          "description": "Update a Channel.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
+              "broadcasterLogin": {
                 "type": "string"
               },
-              "maxParticipants": {
+              "broadcasterName": {
+                "type": "string"
+              },
+              "broadcasterLanguage": {
+                "type": "string"
+              },
+              "gameId": {
+                "type": "string"
+              },
+              "gameName": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "delay": {
                 "type": "integer"
-              },
-              "recording": {
-                "type": "boolean"
               }
             },
             "required": [
@@ -580,8 +456,8 @@
           }
         },
         {
-          "name": "delete_room",
-          "description": "Delete a Room.",
+          "name": "delete_channel",
+          "description": "Delete a Channel.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -600,19 +476,34 @@
           "inputSchema": {
             "type": "object",
             "properties": {
-              "roomId": {
+              "userId": {
                 "type": "string"
               },
-              "status": {
+              "userName": {
                 "type": "string"
               },
-              "bitrate": {
+              "gameId": {
+                "type": "string"
+              },
+              "gameName": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "viewerCount": {
                 "type": "integer"
+              },
+              "title": {
+                "type": "string"
+              },
+              "language": {
+                "type": "string"
               }
             },
             "required": [
-              "status",
-              "bitrate"
+              "userName",
+              "gameName"
             ]
           }
         },
@@ -648,14 +539,29 @@
               "id": {
                 "type": "string"
               },
-              "roomId": {
+              "userId": {
                 "type": "string"
               },
-              "status": {
+              "userName": {
                 "type": "string"
               },
-              "bitrate": {
+              "gameId": {
+                "type": "string"
+              },
+              "gameName": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "viewerCount": {
                 "type": "integer"
+              },
+              "title": {
+                "type": "string"
+              },
+              "language": {
+                "type": "string"
               }
             },
             "required": [
@@ -679,38 +585,50 @@
           }
         },
         {
-          "name": "create_webhook",
-          "description": "Create a Webhook.",
+          "name": "create_video",
+          "description": "Create a Video.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "event": {
+              "userId": {
                 "type": "string"
               },
-              "url": {
+              "title": {
                 "type": "string"
               },
-              "active": {
-                "type": "boolean"
+              "description": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "viewable": {
+                "type": "string"
+              },
+              "viewCount": {
+                "type": "integer"
+              },
+              "duration": {
+                "type": "integer"
               }
             },
             "required": [
-              "event",
-              "url"
+              "title",
+              "description"
             ]
           }
         },
         {
-          "name": "list_webhooks",
-          "description": "List Webhooks.",
+          "name": "list_videos",
+          "description": "List Videos.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_webhook",
-          "description": "Get a Webhook by id.",
+          "name": "get_video",
+          "description": "Get a Video by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -724,21 +642,141 @@
           }
         },
         {
-          "name": "update_webhook",
-          "description": "Update a Webhook.",
+          "name": "update_video",
+          "description": "Update a Video.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "event": {
+              "userId": {
                 "type": "string"
               },
-              "url": {
+              "title": {
                 "type": "string"
               },
-              "active": {
+              "description": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "viewable": {
+                "type": "string"
+              },
+              "viewCount": {
+                "type": "integer"
+              },
+              "duration": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_video",
+          "description": "Delete a Video.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_clip",
+          "description": "Create a Clip.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "broadcasterId": {
+                "type": "string"
+              },
+              "creatorId": {
+                "type": "string"
+              },
+              "gameId": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "viewCount": {
+                "type": "integer"
+              },
+              "duration": {
+                "type": "number"
+              },
+              "isFeatured": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "title",
+              "viewCount"
+            ]
+          }
+        },
+        {
+          "name": "list_clips",
+          "description": "List Clips.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_clip",
+          "description": "Get a Clip by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_clip",
+          "description": "Update a Clip.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "broadcasterId": {
+                "type": "string"
+              },
+              "creatorId": {
+                "type": "string"
+              },
+              "gameId": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "viewCount": {
+                "type": "integer"
+              },
+              "duration": {
+                "type": "number"
+              },
+              "isFeatured": {
                 "type": "boolean"
               }
             },
@@ -748,8 +786,86 @@
           }
         },
         {
-          "name": "delete_webhook",
-          "description": "Delete a Webhook.",
+          "name": "delete_clip",
+          "description": "Delete a Clip.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_game",
+          "description": "Create a Game.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "boxArtUrl": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "boxArtUrl"
+            ]
+          }
+        },
+        {
+          "name": "list_games",
+          "description": "List Games.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_game",
+          "description": "Get a Game by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_game",
+          "description": "Update a Game.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "boxArtUrl": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_game",
+          "description": "Delete a Game.",
           "inputSchema": {
             "type": "object",
             "properties": {

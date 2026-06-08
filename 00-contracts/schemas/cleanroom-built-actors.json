@@ -2183,12 +2183,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Workspace",
-        "Document",
+        "File",
         "Folder",
-        "Comment",
-        "Permission",
-        "User"
+        "User",
+        "Collaboration",
+        "SharedLink",
+        "Comment"
       ]
     },
     {
@@ -13610,12 +13610,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Service",
-        "Error",
-        "Trace",
-        "Metric",
-        "Alert",
-        "Incident"
+        "Issue",
+        "Event",
+        "Project",
+        "Organization",
+        "Team",
+        "Release"
       ]
     },
     {
@@ -15398,12 +15398,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Channel",
-        "Message",
         "User",
-        "Room",
+        "Channel",
         "Stream",
-        "Webhook"
+        "Video",
+        "Clip",
+        "Game"
       ]
     },
     {

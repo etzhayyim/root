@@ -11,15 +11,62 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreid6kvbdn5mqs33stfb7otsnv2yj4vrgdpsuoim76gv5zb6pavm2dy",
   "schema": "schema/sentry.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://docs.sentry.io/api",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "Issue",
+      "Event",
+      "Project",
+      "Organization",
+      "Team",
+      "Release"
+    ],
+    "enums": {
+      "Issue": {
+        "status": [
+          "ignored",
+          "resolved",
+          "unresolved"
+        ],
+        "level": [
+          "fatal",
+          "error",
+          "warning",
+          "info",
+          "debug"
+        ],
+        "priority": [
+          "low",
+          "medium",
+          "high"
+        ]
+      },
+      "Event": {
+        "level": [
+          "fatal",
+          "error",
+          "warning",
+          "info",
+          "debug"
+        ]
+      },
+      "Release": {
+        "status": [
+          "open",
+          "archived"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Service",
-    "Error",
-    "Trace",
-    "Metric",
-    "Alert",
-    "Incident"
+    "Issue",
+    "Event",
+    "Project",
+    "Organization",
+    "Team",
+    "Release"
   ],
   "adr": [
     "260607",
@@ -35,153 +82,153 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/services",
-          "op": "create Service"
+          "path": "/v1/issues",
+          "op": "create Issue"
         },
         {
           "method": "GET",
-          "path": "/v1/services",
-          "op": "list Service"
+          "path": "/v1/issues",
+          "op": "list Issue"
         },
         {
           "method": "GET",
-          "path": "/v1/services/{id}",
-          "op": "get Service"
+          "path": "/v1/issues/{id}",
+          "op": "get Issue"
         },
         {
           "method": "PATCH",
-          "path": "/v1/services/{id}",
-          "op": "update Service"
+          "path": "/v1/issues/{id}",
+          "op": "update Issue"
         },
         {
           "method": "DELETE",
-          "path": "/v1/services/{id}",
-          "op": "delete Service"
+          "path": "/v1/issues/{id}",
+          "op": "delete Issue"
         },
         {
           "method": "POST",
-          "path": "/v1/errors",
-          "op": "create Error"
+          "path": "/v1/events",
+          "op": "create Event"
         },
         {
           "method": "GET",
-          "path": "/v1/errors",
-          "op": "list Error"
+          "path": "/v1/events",
+          "op": "list Event"
         },
         {
           "method": "GET",
-          "path": "/v1/errors/{id}",
-          "op": "get Error"
+          "path": "/v1/events/{id}",
+          "op": "get Event"
         },
         {
           "method": "PATCH",
-          "path": "/v1/errors/{id}",
-          "op": "update Error"
+          "path": "/v1/events/{id}",
+          "op": "update Event"
         },
         {
           "method": "DELETE",
-          "path": "/v1/errors/{id}",
-          "op": "delete Error"
+          "path": "/v1/events/{id}",
+          "op": "delete Event"
         },
         {
           "method": "POST",
-          "path": "/v1/traces",
-          "op": "create Trace"
+          "path": "/v1/projects",
+          "op": "create Project"
         },
         {
           "method": "GET",
-          "path": "/v1/traces",
-          "op": "list Trace"
+          "path": "/v1/projects",
+          "op": "list Project"
         },
         {
           "method": "GET",
-          "path": "/v1/traces/{id}",
-          "op": "get Trace"
+          "path": "/v1/projects/{id}",
+          "op": "get Project"
         },
         {
           "method": "PATCH",
-          "path": "/v1/traces/{id}",
-          "op": "update Trace"
+          "path": "/v1/projects/{id}",
+          "op": "update Project"
         },
         {
           "method": "DELETE",
-          "path": "/v1/traces/{id}",
-          "op": "delete Trace"
+          "path": "/v1/projects/{id}",
+          "op": "delete Project"
         },
         {
           "method": "POST",
-          "path": "/v1/metrics",
-          "op": "create Metric"
+          "path": "/v1/organizations",
+          "op": "create Organization"
         },
         {
           "method": "GET",
-          "path": "/v1/metrics",
-          "op": "list Metric"
+          "path": "/v1/organizations",
+          "op": "list Organization"
         },
         {
           "method": "GET",
-          "path": "/v1/metrics/{id}",
-          "op": "get Metric"
+          "path": "/v1/organizations/{id}",
+          "op": "get Organization"
         },
         {
           "method": "PATCH",
-          "path": "/v1/metrics/{id}",
-          "op": "update Metric"
+          "path": "/v1/organizations/{id}",
+          "op": "update Organization"
         },
         {
           "method": "DELETE",
-          "path": "/v1/metrics/{id}",
-          "op": "delete Metric"
+          "path": "/v1/organizations/{id}",
+          "op": "delete Organization"
         },
         {
           "method": "POST",
-          "path": "/v1/alerts",
-          "op": "create Alert"
+          "path": "/v1/teams",
+          "op": "create Team"
         },
         {
           "method": "GET",
-          "path": "/v1/alerts",
-          "op": "list Alert"
+          "path": "/v1/teams",
+          "op": "list Team"
         },
         {
           "method": "GET",
-          "path": "/v1/alerts/{id}",
-          "op": "get Alert"
+          "path": "/v1/teams/{id}",
+          "op": "get Team"
         },
         {
           "method": "PATCH",
-          "path": "/v1/alerts/{id}",
-          "op": "update Alert"
+          "path": "/v1/teams/{id}",
+          "op": "update Team"
         },
         {
           "method": "DELETE",
-          "path": "/v1/alerts/{id}",
-          "op": "delete Alert"
+          "path": "/v1/teams/{id}",
+          "op": "delete Team"
         },
         {
           "method": "POST",
-          "path": "/v1/incidents",
-          "op": "create Incident"
+          "path": "/v1/releases",
+          "op": "create Release"
         },
         {
           "method": "GET",
-          "path": "/v1/incidents",
-          "op": "list Incident"
+          "path": "/v1/releases",
+          "op": "list Release"
         },
         {
           "method": "GET",
-          "path": "/v1/incidents/{id}",
-          "op": "get Incident"
+          "path": "/v1/releases/{id}",
+          "op": "get Release"
         },
         {
           "method": "PATCH",
-          "path": "/v1/incidents/{id}",
-          "op": "update Incident"
+          "path": "/v1/releases/{id}",
+          "op": "update Release"
         },
         {
           "method": "DELETE",
-          "path": "/v1/incidents/{id}",
-          "op": "delete Incident"
+          "path": "/v1/releases/{id}",
+          "op": "delete Release"
         }
       ],
       "features": {
@@ -247,466 +294,31 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_service",
-          "description": "Create a Service.",
+          "name": "create_issue",
+          "description": "Create a Issue.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "shortId": {
                 "type": "string"
               },
-              "environment": {
-                "type": "string"
-              },
-              "language": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "environment"
-            ]
-          }
-        },
-        {
-          "name": "list_services",
-          "description": "List Services.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_service",
-          "description": "Get a Service by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_service",
-          "description": "Update a Service.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "environment": {
-                "type": "string"
-              },
-              "language": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_service",
-          "description": "Delete a Service.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_error",
-          "description": "Create a Error.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "serviceId": {
-                "type": "string"
-              },
-              "message": {
-                "type": "string"
-              },
-              "culprit": {
-                "type": "string"
-              },
-              "count": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "message",
-              "culprit"
-            ]
-          }
-        },
-        {
-          "name": "list_errors",
-          "description": "List Errors.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_error",
-          "description": "Get a Error by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_error",
-          "description": "Update a Error.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "serviceId": {
-                "type": "string"
-              },
-              "message": {
-                "type": "string"
-              },
-              "culprit": {
-                "type": "string"
-              },
-              "count": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_error",
-          "description": "Delete a Error.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_trace",
-          "description": "Create a Trace.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "serviceId": {
-                "type": "string"
-              },
-              "operation": {
-                "type": "string"
-              },
-              "durationMs": {
-                "type": "integer"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "operation",
-              "durationMs"
-            ]
-          }
-        },
-        {
-          "name": "list_traces",
-          "description": "List Traces.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_trace",
-          "description": "Get a Trace by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_trace",
-          "description": "Update a Trace.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "serviceId": {
-                "type": "string"
-              },
-              "operation": {
-                "type": "string"
-              },
-              "durationMs": {
-                "type": "integer"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_trace",
-          "description": "Delete a Trace.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_metric",
-          "description": "Create a Metric.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "serviceId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "unit": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "value"
-            ]
-          }
-        },
-        {
-          "name": "list_metrics",
-          "description": "List Metrics.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_metric",
-          "description": "Get a Metric by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_metric",
-          "description": "Update a Metric.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "serviceId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "unit": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_metric",
-          "description": "Delete a Metric.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_alert",
-          "description": "Create a Alert.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "serviceId": {
-                "type": "string"
-              },
-              "condition": {
-                "type": "string"
-              },
-              "severity": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "condition",
-              "severity"
-            ]
-          }
-        },
-        {
-          "name": "list_alerts",
-          "description": "List Alerts.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_alert",
-          "description": "Get a Alert by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_alert",
-          "description": "Update a Alert.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "serviceId": {
-                "type": "string"
-              },
-              "condition": {
-                "type": "string"
-              },
-              "severity": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_alert",
-          "description": "Delete a Alert.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_incident",
-          "description": "Create a Incident.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
               "title": {
                 "type": "string"
               },
               "status": {
                 "type": "string"
               },
-              "severity": {
+              "level": {
                 "type": "string"
               },
-              "startedAt": {
+              "priority": {
                 "type": "string"
+              },
+              "count": {
+                "type": "integer"
+              },
+              "userCount": {
+                "type": "integer"
               }
             },
             "required": [
@@ -716,16 +328,16 @@
           }
         },
         {
-          "name": "list_incidents",
-          "description": "List Incidents.",
+          "name": "list_issues",
+          "description": "List Issues.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_incident",
-          "description": "Get a Incident by id.",
+          "name": "get_issue",
+          "description": "Get a Issue by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -739,12 +351,15 @@
           }
         },
         {
-          "name": "update_incident",
-          "description": "Update a Incident.",
+          "name": "update_issue",
+          "description": "Update a Issue.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
+                "type": "string"
+              },
+              "shortId": {
                 "type": "string"
               },
               "title": {
@@ -753,10 +368,31 @@
               "status": {
                 "type": "string"
               },
-              "severity": {
+              "level": {
                 "type": "string"
               },
-              "startedAt": {
+              "priority": {
+                "type": "string"
+              },
+              "count": {
+                "type": "integer"
+              },
+              "userCount": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_issue",
+          "description": "Delete a Issue.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               }
             },
@@ -766,8 +402,467 @@
           }
         },
         {
-          "name": "delete_incident",
-          "description": "Delete a Incident.",
+          "name": "create_event",
+          "description": "Create a Event.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "eventID": {
+                "type": "string"
+              },
+              "groupID": {
+                "type": "string"
+              },
+              "projectID": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "level": {
+                "type": "string"
+              },
+              "platform": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "eventID",
+              "groupID"
+            ]
+          }
+        },
+        {
+          "name": "list_events",
+          "description": "List Events.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_event",
+          "description": "Get a Event by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_event",
+          "description": "Update a Event.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "eventID": {
+                "type": "string"
+              },
+              "groupID": {
+                "type": "string"
+              },
+              "projectID": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "level": {
+                "type": "string"
+              },
+              "platform": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_event",
+          "description": "Delete a Event.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_project",
+          "description": "Create a Project.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "slug": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "platform": {
+                "type": "string"
+              },
+              "isBookmarked": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "slug",
+              "name"
+            ]
+          }
+        },
+        {
+          "name": "list_projects",
+          "description": "List Projects.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_project",
+          "description": "Get a Project by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_project",
+          "description": "Update a Project.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "slug": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "platform": {
+                "type": "string"
+              },
+              "isBookmarked": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_project",
+          "description": "Delete a Project.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_organization",
+          "description": "Create a Organization.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "slug": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "hasAuthProvider": {
+                "type": "boolean"
+              },
+              "require2FA": {
+                "type": "boolean"
+              },
+              "isEarlyAdopter": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "slug",
+              "name"
+            ]
+          }
+        },
+        {
+          "name": "list_organizations",
+          "description": "List Organizations.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_organization",
+          "description": "Get a Organization by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_organization",
+          "description": "Update a Organization.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "slug": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "hasAuthProvider": {
+                "type": "boolean"
+              },
+              "require2FA": {
+                "type": "boolean"
+              },
+              "isEarlyAdopter": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_organization",
+          "description": "Delete a Organization.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_team",
+          "description": "Create a Team.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "slug": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "memberCount": {
+                "type": "integer"
+              },
+              "hasAccess": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "slug",
+              "name"
+            ]
+          }
+        },
+        {
+          "name": "list_teams",
+          "description": "List Teams.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_team",
+          "description": "Get a Team by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_team",
+          "description": "Update a Team.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "slug": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "memberCount": {
+                "type": "integer"
+              },
+              "hasAccess": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_team",
+          "description": "Delete a Team.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_release",
+          "description": "Create a Release.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "version": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "commitCount": {
+                "type": "integer"
+              },
+              "deployCount": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "version",
+              "status"
+            ]
+          }
+        },
+        {
+          "name": "list_releases",
+          "description": "List Releases.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_release",
+          "description": "Get a Release by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_release",
+          "description": "Update a Release.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "commitCount": {
+                "type": "integer"
+              },
+              "deployCount": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_release",
+          "description": "Delete a Release.",
           "inputSchema": {
             "type": "object",
             "properties": {

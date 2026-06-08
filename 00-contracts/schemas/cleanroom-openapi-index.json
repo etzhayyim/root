@@ -2171,7 +2171,7 @@
     {
       "handle": "box-compat",
       "did": "did:web:etzhayyim.com:actor:box-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreiddmhozc2z45errrbbh3yh5vs4r4hlckluk46zzi4wzc2lotgxeyu",
@@ -13595,7 +13595,7 @@
     {
       "handle": "sentry-compat",
       "did": "did:web:etzhayyim.com:actor:sentry-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreid6kvbdn5mqs33stfb7otsnv2yj4vrgdpsuoim76gv5zb6pavm2dy",
@@ -15380,7 +15380,7 @@
     {
       "handle": "twitch-compat",
       "did": "did:web:etzhayyim.com:actor:twitch-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreib23svsknutnnezlqzfudne55ttgluwadzc7p2d6ha7c5fef25qhy",

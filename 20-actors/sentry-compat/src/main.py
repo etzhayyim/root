@@ -111,386 +111,207 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/services", methods=["POST"])
-def create_service(request):
-    """Create a Service."""
+@app.route("/v1/issues", methods=["POST"])
+def create_issue(request):
+    """Create a Issue."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'environment', 'language'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'environment'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("sentry_ser")}
-    rec["name"] = data.get('name')
-    rec["environment"] = data.get('environment')
-    rec["language"] = data.get('language')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Service", rec)
-    return rec, 201
-
-@app.route("/v1/services", methods=["GET"])
-def list_services(request):
-    """List Services with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Service")
-    rows = _apply_filters(rows, params, ['name', 'environment', 'language'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/services/<eid>", methods=["GET"])
-def get_service(request, eid):
-    """Retrieve a Service by id (supports ?expand=)."""
-    rows = _query("Service", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/services/<eid>", methods=["POST", "PATCH"])
-def update_service(request, eid):
-    """Update a Service."""
-    rows = _query("Service", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'environment', 'language'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Service", rec)
-    return rec, 200
-
-@app.route("/v1/services/<eid>", methods=["DELETE"])
-def delete_service(request, eid):
-    """Delete a Service."""
-    rows = _query("Service", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"sentry.Service", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/errors", methods=["POST"])
-def create_error(request):
-    """Create a Error."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'message', 'culprit', 'count'])
-    if err:
-        return err, 400
-    err = _require(data, ['message', 'culprit'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("sentry_err")}
-    rec["serviceId"] = data.get('serviceId')
-    rec["message"] = data.get('message')
-    rec["culprit"] = data.get('culprit')
-    rec["count"] = _as_int(data.get('count'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Error", rec)
-    return rec, 201
-
-@app.route("/v1/errors", methods=["GET"])
-def list_errors(request):
-    """List Errors with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Error")
-    rows = _apply_filters(rows, params, ['serviceId', 'message', 'culprit', 'count'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/errors/<eid>", methods=["GET"])
-def get_error(request, eid):
-    """Retrieve a Error by id (supports ?expand=)."""
-    rows = _query("Error", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
-    return rec, 200
-
-@app.route("/v1/errors/<eid>", methods=["POST", "PATCH"])
-def update_error(request, eid):
-    """Update a Error."""
-    rows = _query("Error", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'message', 'culprit', 'count'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Error", rec)
-    return rec, 200
-
-@app.route("/v1/errors/<eid>", methods=["DELETE"])
-def delete_error(request, eid):
-    """Delete a Error."""
-    rows = _query("Error", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"sentry.Error", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/traces", methods=["POST"])
-def create_trace(request):
-    """Create a Trace."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'operation', 'durationMs', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['operation', 'durationMs'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("sentry_tra")}
-    rec["serviceId"] = data.get('serviceId')
-    rec["operation"] = data.get('operation')
-    rec["durationMs"] = _as_int(data.get('durationMs'))
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Trace", rec)
-    return rec, 201
-
-@app.route("/v1/traces", methods=["GET"])
-def list_traces(request):
-    """List Traces with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Trace")
-    rows = _apply_filters(rows, params, ['serviceId', 'operation', 'durationMs', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/traces/<eid>", methods=["GET"])
-def get_trace(request, eid):
-    """Retrieve a Trace by id (supports ?expand=)."""
-    rows = _query("Trace", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
-    return rec, 200
-
-@app.route("/v1/traces/<eid>", methods=["POST", "PATCH"])
-def update_trace(request, eid):
-    """Update a Trace."""
-    rows = _query("Trace", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'operation', 'durationMs', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Trace", rec)
-    return rec, 200
-
-@app.route("/v1/traces/<eid>", methods=["DELETE"])
-def delete_trace(request, eid):
-    """Delete a Trace."""
-    rows = _query("Trace", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"sentry.Trace", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/metrics", methods=["POST"])
-def create_metric(request):
-    """Create a Metric."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'name', 'value', 'unit'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'value'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("sentry_met")}
-    rec["serviceId"] = data.get('serviceId')
-    rec["name"] = data.get('name')
-    rec["value"] = _as_float(data.get('value'))
-    rec["unit"] = data.get('unit')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Metric", rec)
-    return rec, 201
-
-@app.route("/v1/metrics", methods=["GET"])
-def list_metrics(request):
-    """List Metrics with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Metric")
-    rows = _apply_filters(rows, params, ['serviceId', 'name', 'value', 'unit'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/metrics/<eid>", methods=["GET"])
-def get_metric(request, eid):
-    """Retrieve a Metric by id (supports ?expand=)."""
-    rows = _query("Metric", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
-    return rec, 200
-
-@app.route("/v1/metrics/<eid>", methods=["POST", "PATCH"])
-def update_metric(request, eid):
-    """Update a Metric."""
-    rows = _query("Metric", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'name', 'value', 'unit'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Metric", rec)
-    return rec, 200
-
-@app.route("/v1/metrics/<eid>", methods=["DELETE"])
-def delete_metric(request, eid):
-    """Delete a Metric."""
-    rows = _query("Metric", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"sentry.Metric", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/alerts", methods=["POST"])
-def create_alert(request):
-    """Create a Alert."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'condition', 'severity', 'active'])
-    if err:
-        return err, 400
-    err = _require(data, ['condition', 'severity'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("sentry_ale")}
-    rec["serviceId"] = data.get('serviceId')
-    rec["condition"] = data.get('condition')
-    rec["severity"] = data.get('severity')
-    rec["active"] = _as_bool(data.get('active'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Alert", rec)
-    return rec, 201
-
-@app.route("/v1/alerts", methods=["GET"])
-def list_alerts(request):
-    """List Alerts with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Alert")
-    rows = _apply_filters(rows, params, ['serviceId', 'condition', 'severity', 'active'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/alerts/<eid>", methods=["GET"])
-def get_alert(request, eid):
-    """Retrieve a Alert by id (supports ?expand=)."""
-    rows = _query("Alert", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
-    return rec, 200
-
-@app.route("/v1/alerts/<eid>", methods=["POST", "PATCH"])
-def update_alert(request, eid):
-    """Update a Alert."""
-    rows = _query("Alert", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'condition', 'severity', 'active'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Alert", rec)
-    return rec, 200
-
-@app.route("/v1/alerts/<eid>", methods=["DELETE"])
-def delete_alert(request, eid):
-    """Delete a Alert."""
-    rows = _query("Alert", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"sentry.Alert", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/incidents", methods=["POST"])
-def create_incident(request):
-    """Create a Incident."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'status', 'severity', 'startedAt'])
+    err = _reject_unknown(data, ['shortId', 'title', 'status', 'level', 'priority', 'count', 'userCount'])
     if err:
         return err, 400
     err = _require(data, ['title', 'status'])
     if err:
         return err, 400
-    rec = {"id": new_id("sentry_inc")}
+    if data.get('status') and data['status'] not in ['ignored', 'resolved', 'unresolved']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['ignored', 'resolved', 'unresolved']), "type": "invalid_request_error"}}, 400
+    if data.get('level') and data['level'] not in ['fatal', 'error', 'warning', 'info', 'debug']:
+        return {"error": {"message": "invalid level; allowed: " + ", ".join(['fatal', 'error', 'warning', 'info', 'debug']), "type": "invalid_request_error"}}, 400
+    if data.get('priority') and data['priority'] not in ['low', 'medium', 'high']:
+        return {"error": {"message": "invalid priority; allowed: " + ", ".join(['low', 'medium', 'high']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("sentry_iss")}
+    rec["shortId"] = data.get('shortId')
     rec["title"] = data.get('title')
     rec["status"] = data.get('status')
-    rec["severity"] = data.get('severity')
-    rec["startedAt"] = data.get('startedAt')
+    rec["level"] = data.get('level')
+    rec["priority"] = data.get('priority')
+    rec["count"] = _as_int(data.get('count'))
+    rec["userCount"] = _as_int(data.get('userCount'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Incident", rec)
+    _persist("Issue", rec)
     return rec, 201
 
-@app.route("/v1/incidents", methods=["GET"])
-def list_incidents(request):
-    """List Incidents with filtering + cursor pagination."""
+@app.route("/v1/issues", methods=["GET"])
+def list_issues(request):
+    """List Issues with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Incident")
-    rows = _apply_filters(rows, params, ['title', 'status', 'severity', 'startedAt'])
+    rows = _query("Issue")
+    rows = _apply_filters(rows, params, ['shortId', 'title', 'status', 'level', 'priority', 'count', 'userCount'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/incidents/<eid>", methods=["GET"])
-def get_incident(request, eid):
-    """Retrieve a Incident by id (supports ?expand=)."""
-    rows = _query("Incident", eid)
+@app.route("/v1/issues/<eid>", methods=["GET"])
+def get_issue(request, eid):
+    """Retrieve a Issue by id (supports ?expand=)."""
+    rows = _query("Issue", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/incidents/<eid>", methods=["POST", "PATCH"])
-def update_incident(request, eid):
-    """Update a Incident."""
-    rows = _query("Incident", eid)
+@app.route("/v1/issues/<eid>", methods=["POST", "PATCH"])
+def update_issue(request, eid):
+    """Update a Issue."""
+    rows = _query("Issue", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'status', 'severity', 'startedAt'])
+    err = _reject_unknown(data, ['shortId', 'title', 'status', 'level', 'priority', 'count', 'userCount'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['ignored', 'resolved', 'unresolved']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['ignored', 'resolved', 'unresolved']), "type": "invalid_request_error"}}, 400
+    if data.get('level') and data['level'] not in ['fatal', 'error', 'warning', 'info', 'debug']:
+        return {"error": {"message": "invalid level; allowed: " + ", ".join(['fatal', 'error', 'warning', 'info', 'debug']), "type": "invalid_request_error"}}, 400
+    if data.get('priority') and data['priority'] not in ['low', 'medium', 'high']:
+        return {"error": {"message": "invalid priority; allowed: " + ", ".join(['low', 'medium', 'high']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Issue", rec)
+    return rec, 200
+
+@app.route("/v1/issues/<eid>", methods=["DELETE"])
+def delete_issue(request, eid):
+    """Delete a Issue."""
+    rows = _query("Issue", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"sentry.Issue", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/events", methods=["POST"])
+def create_event(request):
+    """Create a Event."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['eventID', 'groupID', 'projectID', 'title', 'message', 'level', 'platform'])
+    if err:
+        return err, 400
+    err = _require(data, ['eventID', 'groupID'])
+    if err:
+        return err, 400
+    if data.get('level') and data['level'] not in ['fatal', 'error', 'warning', 'info', 'debug']:
+        return {"error": {"message": "invalid level; allowed: " + ", ".join(['fatal', 'error', 'warning', 'info', 'debug']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("sentry_eve")}
+    rec["eventID"] = data.get('eventID')
+    rec["groupID"] = data.get('groupID')
+    rec["projectID"] = data.get('projectID')
+    rec["title"] = data.get('title')
+    rec["message"] = data.get('message')
+    rec["level"] = data.get('level')
+    rec["platform"] = data.get('platform')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Event", rec)
+    return rec, 201
+
+@app.route("/v1/events", methods=["GET"])
+def list_events(request):
+    """List Events with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Event")
+    rows = _apply_filters(rows, params, ['eventID', 'groupID', 'projectID', 'title', 'message', 'level', 'platform'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/events/<eid>", methods=["GET"])
+def get_event(request, eid):
+    """Retrieve a Event by id (supports ?expand=)."""
+    rows = _query("Event", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/events/<eid>", methods=["POST", "PATCH"])
+def update_event(request, eid):
+    """Update a Event."""
+    rows = _query("Event", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['eventID', 'groupID', 'projectID', 'title', 'message', 'level', 'platform'])
+    if err:
+        return err, 400
+    if data.get('level') and data['level'] not in ['fatal', 'error', 'warning', 'info', 'debug']:
+        return {"error": {"message": "invalid level; allowed: " + ", ".join(['fatal', 'error', 'warning', 'info', 'debug']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Event", rec)
+    return rec, 200
+
+@app.route("/v1/events/<eid>", methods=["DELETE"])
+def delete_event(request, eid):
+    """Delete a Event."""
+    rows = _query("Event", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"sentry.Event", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/projects", methods=["POST"])
+def create_project(request):
+    """Create a Project."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['slug', 'name', 'platform', 'isBookmarked'])
+    if err:
+        return err, 400
+    err = _require(data, ['slug', 'name'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("sentry_pro")}
+    rec["slug"] = data.get('slug')
+    rec["name"] = data.get('name')
+    rec["platform"] = data.get('platform')
+    rec["isBookmarked"] = _as_bool(data.get('isBookmarked'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Project", rec)
+    return rec, 201
+
+@app.route("/v1/projects", methods=["GET"])
+def list_projects(request):
+    """List Projects with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Project")
+    rows = _apply_filters(rows, params, ['slug', 'name', 'platform', 'isBookmarked'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/projects/<eid>", methods=["GET"])
+def get_project(request, eid):
+    """Retrieve a Project by id (supports ?expand=)."""
+    rows = _query("Project", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/projects/<eid>", methods=["POST", "PATCH"])
+def update_project(request, eid):
+    """Update a Project."""
+    rows = _query("Project", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['slug', 'name', 'platform', 'isBookmarked'])
     if err:
         return err, 400
     rec = rows[0]
@@ -498,22 +319,225 @@ def update_incident(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Incident", rec)
+    _persist("Project", rec)
     return rec, 200
 
-@app.route("/v1/incidents/<eid>", methods=["DELETE"])
-def delete_incident(request, eid):
-    """Delete a Incident."""
-    rows = _query("Incident", eid)
+@app.route("/v1/projects/<eid>", methods=["DELETE"])
+def delete_project(request, eid):
+    """Delete a Project."""
+    rows = _query("Project", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"sentry.Incident", "id": eid})
+    db.retract({"entity": f"sentry.Project", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/organizations", methods=["POST"])
+def create_organization(request):
+    """Create a Organization."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['slug', 'name', 'hasAuthProvider', 'require2FA', 'isEarlyAdopter'])
+    if err:
+        return err, 400
+    err = _require(data, ['slug', 'name'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("sentry_org")}
+    rec["slug"] = data.get('slug')
+    rec["name"] = data.get('name')
+    rec["hasAuthProvider"] = _as_bool(data.get('hasAuthProvider'))
+    rec["require2FA"] = _as_bool(data.get('require2FA'))
+    rec["isEarlyAdopter"] = _as_bool(data.get('isEarlyAdopter'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Organization", rec)
+    return rec, 201
+
+@app.route("/v1/organizations", methods=["GET"])
+def list_organizations(request):
+    """List Organizations with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Organization")
+    rows = _apply_filters(rows, params, ['slug', 'name', 'hasAuthProvider', 'require2FA', 'isEarlyAdopter'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/organizations/<eid>", methods=["GET"])
+def get_organization(request, eid):
+    """Retrieve a Organization by id (supports ?expand=)."""
+    rows = _query("Organization", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/organizations/<eid>", methods=["POST", "PATCH"])
+def update_organization(request, eid):
+    """Update a Organization."""
+    rows = _query("Organization", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['slug', 'name', 'hasAuthProvider', 'require2FA', 'isEarlyAdopter'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Organization", rec)
+    return rec, 200
+
+@app.route("/v1/organizations/<eid>", methods=["DELETE"])
+def delete_organization(request, eid):
+    """Delete a Organization."""
+    rows = _query("Organization", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"sentry.Organization", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/teams", methods=["POST"])
+def create_team(request):
+    """Create a Team."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['slug', 'name', 'memberCount', 'hasAccess'])
+    if err:
+        return err, 400
+    err = _require(data, ['slug', 'name'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("sentry_tea")}
+    rec["slug"] = data.get('slug')
+    rec["name"] = data.get('name')
+    rec["memberCount"] = _as_int(data.get('memberCount'))
+    rec["hasAccess"] = _as_bool(data.get('hasAccess'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Team", rec)
+    return rec, 201
+
+@app.route("/v1/teams", methods=["GET"])
+def list_teams(request):
+    """List Teams with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Team")
+    rows = _apply_filters(rows, params, ['slug', 'name', 'memberCount', 'hasAccess'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/teams/<eid>", methods=["GET"])
+def get_team(request, eid):
+    """Retrieve a Team by id (supports ?expand=)."""
+    rows = _query("Team", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/teams/<eid>", methods=["POST", "PATCH"])
+def update_team(request, eid):
+    """Update a Team."""
+    rows = _query("Team", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['slug', 'name', 'memberCount', 'hasAccess'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Team", rec)
+    return rec, 200
+
+@app.route("/v1/teams/<eid>", methods=["DELETE"])
+def delete_team(request, eid):
+    """Delete a Team."""
+    rows = _query("Team", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"sentry.Team", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/releases", methods=["POST"])
+def create_release(request):
+    """Create a Release."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['version', 'status', 'commitCount', 'deployCount'])
+    if err:
+        return err, 400
+    err = _require(data, ['version', 'status'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['open', 'archived']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['open', 'archived']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("sentry_rel")}
+    rec["version"] = data.get('version')
+    rec["status"] = data.get('status')
+    rec["commitCount"] = _as_int(data.get('commitCount'))
+    rec["deployCount"] = _as_int(data.get('deployCount'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Release", rec)
+    return rec, 201
+
+@app.route("/v1/releases", methods=["GET"])
+def list_releases(request):
+    """List Releases with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Release")
+    rows = _apply_filters(rows, params, ['version', 'status', 'commitCount', 'deployCount'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/releases/<eid>", methods=["GET"])
+def get_release(request, eid):
+    """Retrieve a Release by id (supports ?expand=)."""
+    rows = _query("Release", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/releases/<eid>", methods=["POST", "PATCH"])
+def update_release(request, eid):
+    """Update a Release."""
+    rows = _query("Release", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['version', 'status', 'commitCount', 'deployCount'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['open', 'archived']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['open', 'archived']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Release", rec)
+    return rec, 200
+
+@app.route("/v1/releases/<eid>", methods=["DELETE"])
+def delete_release(request, eid):
+    """Delete a Release."""
+    rows = _query("Release", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"sentry.Release", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "sentry-compat", "tier": "L4",
-            "entities": ['Service', 'Error', 'Trace', 'Metric', 'Alert', 'Incident']}, 200
+            "entities": ['Issue', 'Event', 'Project', 'Organization', 'Team', 'Release']}, 200
 
 
 if __name__ == "__main__":

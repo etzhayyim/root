@@ -111,152 +111,98 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/workspaces", methods=["POST"])
-def create_workspace(request):
-    """Create a Workspace."""
+@app.route("/v1/files", methods=["POST"])
+def create_file(request):
+    """Create a File."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'plan'])
+    err = _reject_unknown(data, ['name', 'description', 'size', 'sha1', 'itemStatus', 'commentCount'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'plan'])
+    err = _require(data, ['name', 'description'])
     if err:
         return err, 400
-    rec = {"id": new_id("box_wor")}
+    if data.get('itemStatus') and data['itemStatus'] not in ['active', 'trashed', 'deleted']:
+        return {"error": {"message": "invalid itemStatus; allowed: " + ", ".join(['active', 'trashed', 'deleted']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("box_fil")}
     rec["name"] = data.get('name')
-    rec["ownerId"] = data.get('ownerId')
-    rec["plan"] = data.get('plan')
+    rec["description"] = data.get('description')
+    rec["size"] = _as_int(data.get('size'))
+    rec["sha1"] = data.get('sha1')
+    rec["itemStatus"] = data.get('itemStatus')
+    rec["commentCount"] = _as_int(data.get('commentCount'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Workspace", rec)
+    _persist("File", rec)
     return rec, 201
 
-@app.route("/v1/workspaces", methods=["GET"])
-def list_workspaces(request):
-    """List Workspaces with filtering + cursor pagination."""
+@app.route("/v1/files", methods=["GET"])
+def list_files(request):
+    """List Files with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Workspace")
-    rows = _apply_filters(rows, params, ['name', 'ownerId', 'plan'])
+    rows = _query("File")
+    rows = _apply_filters(rows, params, ['name', 'description', 'size', 'sha1', 'itemStatus', 'commentCount'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/workspaces/<eid>", methods=["GET"])
-def get_workspace(request, eid):
-    """Retrieve a Workspace by id (supports ?expand=)."""
-    rows = _query("Workspace", eid)
+@app.route("/v1/files/<eid>", methods=["GET"])
+def get_file(request, eid):
+    """Retrieve a File by id (supports ?expand=)."""
+    rows = _query("File", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/workspaces/<eid>", methods=["POST", "PATCH"])
-def update_workspace(request, eid):
-    """Update a Workspace."""
-    rows = _query("Workspace", eid)
+@app.route("/v1/files/<eid>", methods=["POST", "PATCH"])
+def update_file(request, eid):
+    """Update a File."""
+    rows = _query("File", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'plan'])
+    err = _reject_unknown(data, ['name', 'description', 'size', 'sha1', 'itemStatus', 'commentCount'])
     if err:
         return err, 400
+    if data.get('itemStatus') and data['itemStatus'] not in ['active', 'trashed', 'deleted']:
+        return {"error": {"message": "invalid itemStatus; allowed: " + ", ".join(['active', 'trashed', 'deleted']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Workspace", rec)
+    _persist("File", rec)
     return rec, 200
 
-@app.route("/v1/workspaces/<eid>", methods=["DELETE"])
-def delete_workspace(request, eid):
-    """Delete a Workspace."""
-    rows = _query("Workspace", eid)
+@app.route("/v1/files/<eid>", methods=["DELETE"])
+def delete_file(request, eid):
+    """Delete a File."""
+    rows = _query("File", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"box.Workspace", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/documents", methods=["POST"])
-def create_document(request):
-    """Create a Document."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'title', 'contentRef', 'ownerId'])
-    if err:
-        return err, 400
-    err = _require(data, ['title'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("box_doc")}
-    rec["workspaceId"] = data.get('workspaceId')
-    rec["title"] = data.get('title')
-    rec["contentRef"] = data.get('contentRef')
-    rec["ownerId"] = data.get('ownerId')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Document", rec)
-    return rec, 201
-
-@app.route("/v1/documents", methods=["GET"])
-def list_documents(request):
-    """List Documents with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Document")
-    rows = _apply_filters(rows, params, ['workspaceId', 'title', 'contentRef', 'ownerId'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/documents/<eid>", methods=["GET"])
-def get_document(request, eid):
-    """Retrieve a Document by id (supports ?expand=)."""
-    rows = _query("Document", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'workspaceId': 'Workspace'})
-    return rec, 200
-
-@app.route("/v1/documents/<eid>", methods=["POST", "PATCH"])
-def update_document(request, eid):
-    """Update a Document."""
-    rows = _query("Document", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'title', 'contentRef', 'ownerId'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Document", rec)
-    return rec, 200
-
-@app.route("/v1/documents/<eid>", methods=["DELETE"])
-def delete_document(request, eid):
-    """Delete a Document."""
-    rows = _query("Document", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"box.Document", "id": eid})
+    db.retract({"entity": f"box.File", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/v1/folders", methods=["POST"])
 def create_folder(request):
     """Create a Folder."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'name', 'parentId'])
+    err = _reject_unknown(data, ['name', 'description', 'size', 'itemStatus', 'syncState'])
     if err:
         return err, 400
-    err = _require(data, ['name'])
+    err = _require(data, ['name', 'description'])
     if err:
         return err, 400
+    if data.get('itemStatus') and data['itemStatus'] not in ['active', 'trashed', 'deleted']:
+        return {"error": {"message": "invalid itemStatus; allowed: " + ", ".join(['active', 'trashed', 'deleted']), "type": "invalid_request_error"}}, 400
+    if data.get('syncState') and data['syncState'] not in ['synced', 'not_synced', 'partially_synced']:
+        return {"error": {"message": "invalid syncState; allowed: " + ", ".join(['synced', 'not_synced', 'partially_synced']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("box_fol")}
-    rec["workspaceId"] = data.get('workspaceId')
     rec["name"] = data.get('name')
-    rec["parentId"] = data.get('parentId')
+    rec["description"] = data.get('description')
+    rec["size"] = _as_int(data.get('size'))
+    rec["itemStatus"] = data.get('itemStatus')
+    rec["syncState"] = data.get('syncState')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Folder", rec)
@@ -267,7 +213,7 @@ def list_folders(request):
     """List Folders with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Folder")
-    rows = _apply_filters(rows, params, ['workspaceId', 'name', 'parentId'])
+    rows = _apply_filters(rows, params, ['name', 'description', 'size', 'itemStatus', 'syncState'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -279,7 +225,6 @@ def get_folder(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'workspaceId': 'Workspace'})
     return rec, 200
 
 @app.route("/v1/folders/<eid>", methods=["POST", "PATCH"])
@@ -289,9 +234,13 @@ def update_folder(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'name', 'parentId'])
+    err = _reject_unknown(data, ['name', 'description', 'size', 'itemStatus', 'syncState'])
     if err:
         return err, 400
+    if data.get('itemStatus') and data['itemStatus'] not in ['active', 'trashed', 'deleted']:
+        return {"error": {"message": "invalid itemStatus; allowed: " + ", ".join(['active', 'trashed', 'deleted']), "type": "invalid_request_error"}}, 400
+    if data.get('syncState') and data['syncState'] not in ['synced', 'not_synced', 'partially_synced']:
+        return {"error": {"message": "invalid syncState; allowed: " + ", ".join(['synced', 'not_synced', 'partially_synced']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -309,151 +258,25 @@ def delete_folder(request, eid):
     db.retract({"entity": f"box.Folder", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/comments", methods=["POST"])
-def create_comment(request):
-    """Create a Comment."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['documentId', 'authorId', 'body'])
-    if err:
-        return err, 400
-    err = _require(data, ['body'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("box_com")}
-    rec["documentId"] = data.get('documentId')
-    rec["authorId"] = data.get('authorId')
-    rec["body"] = data.get('body')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Comment", rec)
-    return rec, 201
-
-@app.route("/v1/comments", methods=["GET"])
-def list_comments(request):
-    """List Comments with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Comment")
-    rows = _apply_filters(rows, params, ['documentId', 'authorId', 'body'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/comments/<eid>", methods=["GET"])
-def get_comment(request, eid):
-    """Retrieve a Comment by id (supports ?expand=)."""
-    rows = _query("Comment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'documentId': 'Document'})
-    return rec, 200
-
-@app.route("/v1/comments/<eid>", methods=["POST", "PATCH"])
-def update_comment(request, eid):
-    """Update a Comment."""
-    rows = _query("Comment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['documentId', 'authorId', 'body'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Comment", rec)
-    return rec, 200
-
-@app.route("/v1/comments/<eid>", methods=["DELETE"])
-def delete_comment(request, eid):
-    """Delete a Comment."""
-    rows = _query("Comment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"box.Comment", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/permissions", methods=["POST"])
-def create_permission(request):
-    """Create a Permission."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['resourceId', 'principalId', 'role'])
-    if err:
-        return err, 400
-    err = _require(data, ['role'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("box_per")}
-    rec["resourceId"] = data.get('resourceId')
-    rec["principalId"] = data.get('principalId')
-    rec["role"] = data.get('role')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Permission", rec)
-    return rec, 201
-
-@app.route("/v1/permissions", methods=["GET"])
-def list_permissions(request):
-    """List Permissions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Permission")
-    rows = _apply_filters(rows, params, ['resourceId', 'principalId', 'role'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/permissions/<eid>", methods=["GET"])
-def get_permission(request, eid):
-    """Retrieve a Permission by id (supports ?expand=)."""
-    rows = _query("Permission", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/permissions/<eid>", methods=["POST", "PATCH"])
-def update_permission(request, eid):
-    """Update a Permission."""
-    rows = _query("Permission", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['resourceId', 'principalId', 'role'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Permission", rec)
-    return rec, 200
-
-@app.route("/v1/permissions/<eid>", methods=["DELETE"])
-def delete_permission(request, eid):
-    """Delete a Permission."""
-    rows = _query("Permission", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"box.Permission", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
 @app.route("/v1/users", methods=["POST"])
 def create_user(request):
     """Create a User."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'displayName', 'status'])
+    err = _reject_unknown(data, ['name', 'login', 'status', 'role'])
     if err:
         return err, 400
-    err = _require(data, ['email', 'displayName'])
+    err = _require(data, ['name', 'login'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['active', 'inactive', 'cannot_delete_edit', 'cannot_delete_edit_upload']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['active', 'inactive', 'cannot_delete_edit', 'cannot_delete_edit_upload']), "type": "invalid_request_error"}}, 400
+    if data.get('role') and data['role'] not in ['admin', 'coadmin', 'user']:
+        return {"error": {"message": "invalid role; allowed: " + ", ".join(['admin', 'coadmin', 'user']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("box_use")}
-    rec["email"] = data.get('email')
-    rec["displayName"] = data.get('displayName')
+    rec["name"] = data.get('name')
+    rec["login"] = data.get('login')
     rec["status"] = data.get('status')
+    rec["role"] = data.get('role')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("User", rec)
@@ -464,7 +287,7 @@ def list_users(request):
     """List Users with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("User")
-    rows = _apply_filters(rows, params, ['email', 'displayName', 'status'])
+    rows = _apply_filters(rows, params, ['name', 'login', 'status', 'role'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -485,9 +308,13 @@ def update_user(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'displayName', 'status'])
+    err = _reject_unknown(data, ['name', 'login', 'status', 'role'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['active', 'inactive', 'cannot_delete_edit', 'cannot_delete_edit_upload']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['active', 'inactive', 'cannot_delete_edit', 'cannot_delete_edit_upload']), "type": "invalid_request_error"}}, 400
+    if data.get('role') and data['role'] not in ['admin', 'coadmin', 'user']:
+        return {"error": {"message": "invalid role; allowed: " + ", ".join(['admin', 'coadmin', 'user']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -505,10 +332,216 @@ def delete_user(request, eid):
     db.retract({"entity": f"box.User", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
+@app.route("/v1/collaborations", methods=["POST"])
+def create_collaboration(request):
+    """Create a Collaboration."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['role', 'status', 'isAccessOnly'])
+    if err:
+        return err, 400
+    err = _require(data, ['role', 'status'])
+    if err:
+        return err, 400
+    if data.get('role') and data['role'] not in ['editor', 'viewer', 'previewer', 'uploader', 'previewer uploader', 'viewer uploader', 'co-owner', 'owner']:
+        return {"error": {"message": "invalid role; allowed: " + ", ".join(['editor', 'viewer', 'previewer', 'uploader', 'previewer uploader', 'viewer uploader', 'co-owner', 'owner']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['accepted', 'pending', 'rejected']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['accepted', 'pending', 'rejected']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("box_col")}
+    rec["role"] = data.get('role')
+    rec["status"] = data.get('status')
+    rec["isAccessOnly"] = _as_bool(data.get('isAccessOnly'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Collaboration", rec)
+    return rec, 201
+
+@app.route("/v1/collaborations", methods=["GET"])
+def list_collaborations(request):
+    """List Collaborations with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Collaboration")
+    rows = _apply_filters(rows, params, ['role', 'status', 'isAccessOnly'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/collaborations/<eid>", methods=["GET"])
+def get_collaboration(request, eid):
+    """Retrieve a Collaboration by id (supports ?expand=)."""
+    rows = _query("Collaboration", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/collaborations/<eid>", methods=["POST", "PATCH"])
+def update_collaboration(request, eid):
+    """Update a Collaboration."""
+    rows = _query("Collaboration", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['role', 'status', 'isAccessOnly'])
+    if err:
+        return err, 400
+    if data.get('role') and data['role'] not in ['editor', 'viewer', 'previewer', 'uploader', 'previewer uploader', 'viewer uploader', 'co-owner', 'owner']:
+        return {"error": {"message": "invalid role; allowed: " + ", ".join(['editor', 'viewer', 'previewer', 'uploader', 'previewer uploader', 'viewer uploader', 'co-owner', 'owner']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['accepted', 'pending', 'rejected']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['accepted', 'pending', 'rejected']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Collaboration", rec)
+    return rec, 200
+
+@app.route("/v1/collaborations/<eid>", methods=["DELETE"])
+def delete_collaboration(request, eid):
+    """Delete a Collaboration."""
+    rows = _query("Collaboration", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"box.Collaboration", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/sharedlinks", methods=["POST"])
+def create_shared_link(request):
+    """Create a SharedLink."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['access', 'vanityName', 'canDownload'])
+    if err:
+        return err, 400
+    err = _require(data, ['access', 'vanityName'])
+    if err:
+        return err, 400
+    if data.get('access') and data['access'] not in ['open', 'company', 'collaborators']:
+        return {"error": {"message": "invalid access; allowed: " + ", ".join(['open', 'company', 'collaborators']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("box_sha")}
+    rec["access"] = data.get('access')
+    rec["vanityName"] = data.get('vanityName')
+    rec["canDownload"] = _as_bool(data.get('canDownload'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("SharedLink", rec)
+    return rec, 201
+
+@app.route("/v1/sharedlinks", methods=["GET"])
+def list_shared_links(request):
+    """List SharedLinks with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("SharedLink")
+    rows = _apply_filters(rows, params, ['access', 'vanityName', 'canDownload'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/sharedlinks/<eid>", methods=["GET"])
+def get_shared_link(request, eid):
+    """Retrieve a SharedLink by id (supports ?expand=)."""
+    rows = _query("SharedLink", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/sharedlinks/<eid>", methods=["POST", "PATCH"])
+def update_shared_link(request, eid):
+    """Update a SharedLink."""
+    rows = _query("SharedLink", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['access', 'vanityName', 'canDownload'])
+    if err:
+        return err, 400
+    if data.get('access') and data['access'] not in ['open', 'company', 'collaborators']:
+        return {"error": {"message": "invalid access; allowed: " + ", ".join(['open', 'company', 'collaborators']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("SharedLink", rec)
+    return rec, 200
+
+@app.route("/v1/sharedlinks/<eid>", methods=["DELETE"])
+def delete_shared_link(request, eid):
+    """Delete a SharedLink."""
+    rows = _query("SharedLink", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"box.SharedLink", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/comments", methods=["POST"])
+def create_comment(request):
+    """Create a Comment."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['message', 'isReplyComment'])
+    if err:
+        return err, 400
+    err = _require(data, ['message', 'isReplyComment'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("box_com")}
+    rec["message"] = data.get('message')
+    rec["isReplyComment"] = _as_bool(data.get('isReplyComment'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Comment", rec)
+    return rec, 201
+
+@app.route("/v1/comments", methods=["GET"])
+def list_comments(request):
+    """List Comments with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Comment")
+    rows = _apply_filters(rows, params, ['message', 'isReplyComment'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/comments/<eid>", methods=["GET"])
+def get_comment(request, eid):
+    """Retrieve a Comment by id (supports ?expand=)."""
+    rows = _query("Comment", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/comments/<eid>", methods=["POST", "PATCH"])
+def update_comment(request, eid):
+    """Update a Comment."""
+    rows = _query("Comment", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['message', 'isReplyComment'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Comment", rec)
+    return rec, 200
+
+@app.route("/v1/comments/<eid>", methods=["DELETE"])
+def delete_comment(request, eid):
+    """Delete a Comment."""
+    rows = _query("Comment", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"box.Comment", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "box-compat", "tier": "L4",
-            "entities": ['Workspace', 'Document', 'Folder', 'Comment', 'Permission', 'User']}, 200
+            "entities": ['File', 'Folder', 'User', 'Collaboration', 'SharedLink', 'Comment']}, 200
 
 
 if __name__ == "__main__":
