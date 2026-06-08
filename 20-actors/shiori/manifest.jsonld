@@ -12,7 +12,7 @@
   "status": "R0-design-only",
   "tier": "B",
   "adr": "2606082100",
-  "dependsOnAdr": ["2605192100", "2605264000", "2605231902", "2605181100", "2605301600", "2606011800", "2606066000", "2605302300", "2605312345", "2605215000"],
+  "dependsOnAdr": ["2605192100", "2606082400", "2605264000", "2605231902", "2605181100", "2605301600", "2606011800", "2606066000", "2605302300", "2605312345", "2605215000"],
   "schema": ["00-contracts/schemas/wellbecoming-ontology.kotoba.edn"],
   "substrate": {
     "state": "kotoba Datom log (ADR-2605312345) — methods/datom_emit.py emits canonical EAVT",
@@ -49,7 +49,7 @@
     }
   ],
   "gates": {
-    "G1": "WELLBECOMING-RELIEF map at AGGREGATE / cohort scale, NEVER a per-person affect / happiness / sentiment scoring or manipulation engine — no individual records, no per-person mood/affect score, no biometric; the bearer is ALWAYS a cohort; drivers are structural PATTERNS, never named orgs/persons; it routes to relief, never to coercion / dark patterns (anti-addictive, §1.13); per-person data brokerage / affect-profiling is forbidden under §2(c) surveillance-capitalism",
+    "G1": "WELLBECOMING-RELIEF map at AGGREGATE / cohort scale, NEVER a per-person affect / happiness / sentiment scoring or manipulation engine — no individual records, no per-person mood/affect score, no biometric; the bearer is ALWAYS a cohort; drivers are structural PATTERNS, never named orgs/persons; it routes to relief, never to coercion / dark patterns (anti-addictive, §1.13); monetized or one-sided/asymmetric per-person data brokerage / affect-profiling is forbidden under §2(c) v3.1 (monetized-or-asymmetric surveillance, ADR-2606082400) — shiori builds NO one-sided per-person record at all (cohort-aggregate only), so it cannot be an asymmetric watcher; it is fully 相互監視-compatible but takes the strictest no-individual-data posture",
     "G2": "edge-primary (N1) — detraction lives only on :en/load; wellbecoming-burden is the integral computed on read; no :shiori/score-of-cohort and no per-person score",
     "G3": "non-adjudicating (N3) — detractor-severity bands + cohort burden patterns are DISCLOSED facts (OECD Better Life / WHO / public wellbeing research), never shiori verdicts; shiori diagnoses no person",
     "G4": "public venue — open-source + on-chain + 1 SBT = 1 vote; never a private/covert profiling registry",

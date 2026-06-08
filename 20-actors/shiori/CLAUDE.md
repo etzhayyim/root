@@ -2,7 +2,7 @@
 
 **ADR**: 2606082100 · **depends**: 2605192100 (Mission Charter — §1.13 Wellbecoming + anti-addictive,
 §1.4 anti-individualism, §1.7 multi-generational, §1.12.B Transparent Religious Force /
-covert-operations prohibited, §2(c) no-surveillance-capitalism / no per-person profiling) +
+covert-operations prohibited, §2(c) v3.1 no monetized-or-asymmetric surveillance — ADR-2606082400) +
 2605264000 (ossekai — the intervention carrier) + 2605181100 (PII envelope) +
 2605301600 (danjo) + 2606011800 (tsumugi) + 2606066000 (keizu) + 2605302300 (kanae) + 2605312345
 (Datom = canonical state) + 2605215000 (Murakumo-only). **Status**: 🟡 R0 design-only.
@@ -69,8 +69,11 @@ Charter's hard limits on influence, not around them.
     email** — sent from the actor's own address via the openmail pipeline (`50-infra/openmail-postage/`),
     where the **full email body is disclosed** (the same content is posted/append-logged on-chain),
     never a private back-channel. A nudge that cannot be shown in full, in public, is not a
-    permitted action — opacity is the disqualifier, not the medium. (Surveillance-capitalism /
-    per-person data brokerage stays forbidden under §2(c) regardless of channel.)
+    permitted action — opacity is the disqualifier, not the medium. (Monetized or one-sided /
+    asymmetric per-person data retention stays forbidden under §2(c) v3.1 — monetized-or-asymmetric
+    surveillance, ADR-2606082400 — regardless of channel; shiori holds no individual data at all,
+    so it cannot be an asymmetric watcher. Reciprocal/symmetric 相互監視 is itself affirmed, but
+    shiori takes the strictest cohort-only posture.)
 
 ## How it routes (the intervention chain)
 

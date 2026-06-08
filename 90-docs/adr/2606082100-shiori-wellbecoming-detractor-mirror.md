@@ -29,6 +29,7 @@ related:
   - 2605263700
   - 2605263000
   - 2605231902
+  - 2606082400
   - 2606014500
 supersedes: []
 superseded_by: []
@@ -67,8 +68,10 @@ HUMAN side** of the mirror lineage — observatory **and** routing signal — bu
 Charter's hard limits on influence, not around them.
 
 **The defining tension.** "Evaluate and influence persons" is exactly where the Charter is most
-restrictive: it forbids per-person scoring (§2(c) surveillance-capitalism — no brokerage/profiling
-of natural persons), covert persuasion (§1.12.B Transparent Force — covert operations prohibited),
+restrictive: it forbids per-person scoring (§2(c) v3.1 monetized-or-asymmetric surveillance,
+ADR-2606082400 — no monetized or one-sided/asymmetric brokerage/profiling of natural persons;
+reciprocal/symmetric 相互監視 is itself affirmed, but shiori holds no individual data at all),
+covert persuasion (§1.12.B Transparent Force — covert operations prohibited),
 and dark patterns (Wellbecoming §1.13; anti-individualism §1.4). shiori is therefore designed so its
 *influence* is **structurally constrained**: cohort-scale only, structural causes (never
 individuals to blame), relief **carried by ossekai** (which logs every nudge on-chain and is
@@ -124,7 +127,8 @@ routed to **RELIEF (救い)**:
   email body disclosed** (the same content append-logged on-chain), never a private back-channel. A
   nudge that cannot be shown **in full, in public** is not a permitted action — **opacity is the
   disqualifier, not the medium**. (Per-person data brokerage / affect-profiling stays forbidden
-  under §2(c) surveillance-capitalism regardless of channel.) Relief is routed to **structural
+  under §2(c) v3.1 (monetized-or-asymmetric surveillance, ADR-2606082400) regardless of channel —
+  shiori holds no individual data at all, so it cannot be an asymmetric watcher.) Relief is routed to **structural
   change first**, not individual blame (§1.4 / §1.7).
 
 ## 2. wellbecoming-ontology + kotoba Datom-log implementation
@@ -227,7 +231,8 @@ never an aggregate mirror.
 
 - `20-actors/shiori/` — actor (manifest, CLAUDE.md, methods, tests, wasm, seed, out)
 - `00-contracts/schemas/wellbecoming-ontology.kotoba.edn`
-- ADR-2605192100 (Mission Charter — §1.13 Wellbecoming + anti-addictive, §1.4, §1.7, §1.12.B Transparent Force / covert-ops prohibited, §2(c) surveillance-capitalism)
+- ADR-2605192100 (Mission Charter — §1.13 Wellbecoming + anti-addictive, §1.4, §1.7, §1.12.B Transparent Force / covert-ops prohibited, §2(c))
+- ADR-2606082400 (Charter-Rider §2(c) v3.1 — reciprocity axis: monetized-or-asymmetric surveillance prohibited, reciprocal 相互監視 affirmed)
 - ADR-2605264000 (ossekai — the transparent intervention carrier)
 - ADR-2605231902 (`app.bsky.feed.post` §4 MST membrane — permitted public atproto post channel) · `50-infra/openmail-postage/` (actor-bound full-disclosure email channel)
 - ADR-2605263700 (kokoro) · ADR-2605263000 (iyashi) — relief havens
