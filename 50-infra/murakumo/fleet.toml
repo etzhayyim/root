@@ -81,6 +81,9 @@ role = "ipfs-pinner + stewardship-leader + kuni-umi-commission-leader"
 cells = [
   "LandStewardshipMonitoringCell",
   "CommissioningCell",  # kuni-umi Phase 4 (ADR-2605201400)
+  "watatsuna_cable_ingest",     # 綿津綱 submarine-cable offline merged-graph intake (cron 23 * * * *) (ADR-2606012600; G7 live TeleGeography/AIS feed gated)
+  "watatsuna_resilience_weave", # chokepoint-load + station degree/capacity + cable-diversity + redundancy-gap (cron 28 * * * *) (ADR-2606012600; G2 resilience not interdiction)
+  "watatsuna_resilience_persist",  # 綿津綱 cable-resilience autonomous heartbeat → append-only kotoba Datom log (cron 33 * * * *) (ADR-2606012600; local persist, G7 live-node push gated)
 ]
 infrastructure = ["ipfs-pinner (existing, ADR-2605171800)"]
 replicas_of = []
