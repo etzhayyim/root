@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 981,
-    "L5": 19
+    "L4": 979,
+    "L5": 21
   },
   "actors": [
     {
@@ -4787,10 +4787,10 @@
     {
       "handle": "dropbox-compat",
       "did": "did:web:etzhayyim.com:actor:dropbox-compat",
-      "wasmCid": "bafkreidepd7brpc6lc5lrch5ekhu4wiarxaoqts2seof3yealknlbvvbv4",
+      "wasmCid": "bafkreifwl4ma7h5ek5xugcltuygf3rrbqukcwhx4juatogqbtybumhkbgy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "dropbox clean-room actor",
       "category": "office_productivity",
       "capabilities": [
@@ -5960,7 +5960,7 @@
       "wasmCid": "bafkreidqnoadnajzsspij3ylxtsp6dqlyei4lgwblt3dkpch2y72j37iq4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "figma clean-room actor",
       "category": "design_tools",
       "capabilities": [

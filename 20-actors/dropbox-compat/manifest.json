@@ -5,21 +5,59 @@
   "kind": "compat",
   "title": "dropbox clean-room actor",
   "description": "Clean-room, API-compatible office / productivity suite actor (dropbox); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidepd7brpc6lc5lrch5ekhu4wiarxaoqts2seof3yealknlbvvbv4",
+  "wasmCid": "bafkreifwl4ma7h5ek5xugcltuygf3rrbqukcwhx4juatogqbtybumhkbgy",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidepd7brpc6lc5lrch5ekhu4wiarxaoqts2seof3yealknlbvvbv4",
+  "ipfs": "ipfs://bafkreifwl4ma7h5ek5xugcltuygf3rrbqukcwhx4juatogqbtybumhkbgy",
   "schema": "schema/dropbox.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://www.dropbox.com/developers/documentation/http/documentation",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "FileMetadata",
+      "FolderMetadata",
+      "SharedLink",
+      "Account",
+      "SharedFolder"
+    ],
+    "enums": {
+      "SharedLink": {
+        "requestedVisibility": [
+          "public",
+          "team_only",
+          "password"
+        ],
+        "visibility": [
+          "public",
+          "team_only",
+          "password",
+          "team_and_password",
+          "shared_folder_only",
+          "no_one",
+          "only_you",
+          "other"
+        ]
+      },
+      "SharedFolder": {
+        "accessType": [
+          "owner",
+          "editor",
+          "viewer",
+          "viewer_no_comment",
+          "traverse",
+          "no_access"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Workspace",
-    "Document",
-    "Folder",
-    "Comment",
-    "Permission",
-    "User"
+    "FileMetadata",
+    "FolderMetadata",
+    "SharedLink",
+    "Account",
+    "SharedFolder"
   ],
   "adr": [
     "260607",
@@ -31,157 +69,132 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/workspaces",
-          "op": "create Workspace"
+          "path": "/v1/filemetadatas",
+          "op": "create FileMetadata"
         },
         {
           "method": "GET",
-          "path": "/v1/workspaces",
-          "op": "list Workspace"
+          "path": "/v1/filemetadatas",
+          "op": "list FileMetadata"
         },
         {
           "method": "GET",
-          "path": "/v1/workspaces/{id}",
-          "op": "get Workspace"
+          "path": "/v1/filemetadatas/{id}",
+          "op": "get FileMetadata"
         },
         {
           "method": "PATCH",
-          "path": "/v1/workspaces/{id}",
-          "op": "update Workspace"
+          "path": "/v1/filemetadatas/{id}",
+          "op": "update FileMetadata"
         },
         {
           "method": "DELETE",
-          "path": "/v1/workspaces/{id}",
-          "op": "delete Workspace"
+          "path": "/v1/filemetadatas/{id}",
+          "op": "delete FileMetadata"
         },
         {
           "method": "POST",
-          "path": "/v1/documents",
-          "op": "create Document"
+          "path": "/v1/foldermetadatas",
+          "op": "create FolderMetadata"
         },
         {
           "method": "GET",
-          "path": "/v1/documents",
-          "op": "list Document"
+          "path": "/v1/foldermetadatas",
+          "op": "list FolderMetadata"
         },
         {
           "method": "GET",
-          "path": "/v1/documents/{id}",
-          "op": "get Document"
+          "path": "/v1/foldermetadatas/{id}",
+          "op": "get FolderMetadata"
         },
         {
           "method": "PATCH",
-          "path": "/v1/documents/{id}",
-          "op": "update Document"
+          "path": "/v1/foldermetadatas/{id}",
+          "op": "update FolderMetadata"
         },
         {
           "method": "DELETE",
-          "path": "/v1/documents/{id}",
-          "op": "delete Document"
+          "path": "/v1/foldermetadatas/{id}",
+          "op": "delete FolderMetadata"
         },
         {
           "method": "POST",
-          "path": "/v1/folders",
-          "op": "create Folder"
+          "path": "/v1/sharedlinks",
+          "op": "create SharedLink"
         },
         {
           "method": "GET",
-          "path": "/v1/folders",
-          "op": "list Folder"
+          "path": "/v1/sharedlinks",
+          "op": "list SharedLink"
         },
         {
           "method": "GET",
-          "path": "/v1/folders/{id}",
-          "op": "get Folder"
+          "path": "/v1/sharedlinks/{id}",
+          "op": "get SharedLink"
         },
         {
           "method": "PATCH",
-          "path": "/v1/folders/{id}",
-          "op": "update Folder"
+          "path": "/v1/sharedlinks/{id}",
+          "op": "update SharedLink"
         },
         {
           "method": "DELETE",
-          "path": "/v1/folders/{id}",
-          "op": "delete Folder"
+          "path": "/v1/sharedlinks/{id}",
+          "op": "delete SharedLink"
         },
         {
           "method": "POST",
-          "path": "/v1/comments",
-          "op": "create Comment"
+          "path": "/v1/accounts",
+          "op": "create Account"
         },
         {
           "method": "GET",
-          "path": "/v1/comments",
-          "op": "list Comment"
+          "path": "/v1/accounts",
+          "op": "list Account"
         },
         {
           "method": "GET",
-          "path": "/v1/comments/{id}",
-          "op": "get Comment"
+          "path": "/v1/accounts/{id}",
+          "op": "get Account"
         },
         {
           "method": "PATCH",
-          "path": "/v1/comments/{id}",
-          "op": "update Comment"
+          "path": "/v1/accounts/{id}",
+          "op": "update Account"
         },
         {
           "method": "DELETE",
-          "path": "/v1/comments/{id}",
-          "op": "delete Comment"
+          "path": "/v1/accounts/{id}",
+          "op": "delete Account"
         },
         {
           "method": "POST",
-          "path": "/v1/permissions",
-          "op": "create Permission"
+          "path": "/v1/sharedfolders",
+          "op": "create SharedFolder"
         },
         {
           "method": "GET",
-          "path": "/v1/permissions",
-          "op": "list Permission"
+          "path": "/v1/sharedfolders",
+          "op": "list SharedFolder"
         },
         {
           "method": "GET",
-          "path": "/v1/permissions/{id}",
-          "op": "get Permission"
+          "path": "/v1/sharedfolders/{id}",
+          "op": "get SharedFolder"
         },
         {
           "method": "PATCH",
-          "path": "/v1/permissions/{id}",
-          "op": "update Permission"
+          "path": "/v1/sharedfolders/{id}",
+          "op": "update SharedFolder"
         },
         {
           "method": "DELETE",
-          "path": "/v1/permissions/{id}",
-          "op": "delete Permission"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/users",
-          "op": "create User"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/users",
-          "op": "list User"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/users/{id}",
-          "op": "get User"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/users/{id}",
-          "op": "update User"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/users/{id}",
-          "op": "delete User"
+          "path": "/v1/sharedfolders/{id}",
+          "op": "delete SharedFolder"
         }
       ],
       "features": {
@@ -244,41 +257,56 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
         {
-          "name": "create_workspace",
-          "description": "Create a Workspace.",
+          "name": "create_file_metadata",
+          "description": "Create a FileMetadata.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "ownerId": {
+              "pathLower": {
                 "type": "string"
               },
-              "plan": {
+              "pathDisplay": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "rev": {
+                "type": "string"
+              },
+              "size": {
+                "type": "integer"
+              },
+              "isDownloadable": {
+                "type": "boolean"
+              },
+              "contentHash": {
                 "type": "string"
               }
             },
             "required": [
               "name",
-              "plan"
+              "pathLower"
             ]
           }
         },
         {
-          "name": "list_workspaces",
-          "description": "List Workspaces.",
+          "name": "list_file_metadatas",
+          "description": "List FileMetadatas.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_workspace",
-          "description": "Get a Workspace by id.",
+          "name": "get_file_metadata",
+          "description": "Get a FileMetadata by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -292,8 +320,8 @@
           }
         },
         {
-          "name": "update_workspace",
-          "description": "Update a Workspace.",
+          "name": "update_file_metadata",
+          "description": "Update a FileMetadata.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -303,10 +331,22 @@
               "name": {
                 "type": "string"
               },
-              "ownerId": {
+              "pathLower": {
                 "type": "string"
               },
-              "plan": {
+              "pathDisplay": {
+                "type": "string"
+              },
+              "rev": {
+                "type": "string"
+              },
+              "size": {
+                "type": "integer"
+              },
+              "isDownloadable": {
+                "type": "boolean"
+              },
+              "contentHash": {
                 "type": "string"
               }
             },
@@ -316,8 +356,8 @@
           }
         },
         {
-          "name": "delete_workspace",
-          "description": "Delete a Workspace.",
+          "name": "delete_file_metadata",
+          "description": "Delete a FileMetadata.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -331,40 +371,44 @@
           }
         },
         {
-          "name": "create_document",
-          "description": "Create a Document.",
+          "name": "create_folder_metadata",
+          "description": "Create a FolderMetadata.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "workspaceId": {
+              "name": {
                 "type": "string"
               },
-              "title": {
+              "pathLower": {
                 "type": "string"
               },
-              "contentRef": {
+              "pathDisplay": {
                 "type": "string"
               },
-              "ownerId": {
+              "id": {
+                "type": "string"
+              },
+              "sharedFolderId": {
                 "type": "string"
               }
             },
             "required": [
-              "title"
+              "name",
+              "pathLower"
             ]
           }
         },
         {
-          "name": "list_documents",
-          "description": "List Documents.",
+          "name": "list_folder_metadatas",
+          "description": "List FolderMetadatas.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_document",
-          "description": "Get a Document by id.",
+          "name": "get_folder_metadata",
+          "description": "Get a FolderMetadata by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -378,79 +422,83 @@
           }
         },
         {
-          "name": "update_document",
-          "description": "Update a Document.",
+          "name": "update_folder_metadata",
+          "description": "Update a FolderMetadata.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "workspaceId": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "contentRef": {
-                "type": "string"
-              },
-              "ownerId": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_document",
-          "description": "Delete a Document.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_folder",
-          "description": "Create a Folder.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "workspaceId": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "parentId": {
+              "pathLower": {
+                "type": "string"
+              },
+              "pathDisplay": {
+                "type": "string"
+              },
+              "sharedFolderId": {
                 "type": "string"
               }
             },
             "required": [
-              "name"
+              "id"
             ]
           }
         },
         {
-          "name": "list_folders",
-          "description": "List Folders.",
+          "name": "delete_folder_metadata",
+          "description": "Delete a FolderMetadata.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_shared_link",
+          "description": "Create a SharedLink.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "visibility": {
+                "type": "string"
+              },
+              "requestedVisibility": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "path"
+            ]
+          }
+        },
+        {
+          "name": "list_shared_links",
+          "description": "List SharedLinks.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_folder",
-          "description": "Get a Folder by id.",
+          "name": "get_shared_link",
+          "description": "Get a SharedLink by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -464,21 +512,24 @@
           }
         },
         {
-          "name": "update_folder",
-          "description": "Update a Folder.",
+          "name": "update_shared_link",
+          "description": "Update a SharedLink.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "workspaceId": {
+              "url": {
                 "type": "string"
               },
-              "name": {
+              "path": {
                 "type": "string"
               },
-              "parentId": {
+              "visibility": {
+                "type": "string"
+              },
+              "requestedVisibility": {
                 "type": "string"
               }
             },
@@ -488,52 +539,8 @@
           }
         },
         {
-          "name": "delete_folder",
-          "description": "Delete a Folder.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_comment",
-          "description": "Create a Comment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "documentId": {
-                "type": "string"
-              },
-              "authorId": {
-                "type": "string"
-              },
-              "body": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "body"
-            ]
-          }
-        },
-        {
-          "name": "list_comments",
-          "description": "List Comments.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_comment",
-          "description": "Get a Comment by id.",
+          "name": "delete_shared_link",
+          "description": "Delete a SharedLink.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -547,160 +554,47 @@
           }
         },
         {
-          "name": "update_comment",
-          "description": "Update a Comment.",
+          "name": "create_account",
+          "description": "Create a Account.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "id": {
+              "accountId": {
                 "type": "string"
               },
-              "documentId": {
-                "type": "string"
-              },
-              "authorId": {
-                "type": "string"
-              },
-              "body": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_comment",
-          "description": "Delete a Comment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_permission",
-          "description": "Create a Permission.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "resourceId": {
-                "type": "string"
-              },
-              "principalId": {
-                "type": "string"
-              },
-              "role": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "role"
-            ]
-          }
-        },
-        {
-          "name": "list_permissions",
-          "description": "List Permissions.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_permission",
-          "description": "Get a Permission by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_permission",
-          "description": "Update a Permission.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "resourceId": {
-                "type": "string"
-              },
-              "principalId": {
-                "type": "string"
-              },
-              "role": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_permission",
-          "description": "Delete a Permission.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_user",
-          "description": "Create a User.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
               "email": {
                 "type": "string"
+              },
+              "emailVerified": {
+                "type": "boolean"
               },
               "displayName": {
                 "type": "string"
               },
-              "status": {
+              "locale": {
+                "type": "string"
+              },
+              "country": {
                 "type": "string"
               }
             },
             "required": [
               "email",
-              "displayName"
+              "emailVerified"
             ]
           }
         },
         {
-          "name": "list_users",
-          "description": "List Users.",
+          "name": "list_accounts",
+          "description": "List Accounts.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_user",
-          "description": "Get a User by id.",
+          "name": "get_account",
+          "description": "Get a Account by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -714,21 +608,30 @@
           }
         },
         {
-          "name": "update_user",
-          "description": "Update a User.",
+          "name": "update_account",
+          "description": "Update a Account.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
+                "type": "string"
+              },
+              "accountId": {
                 "type": "string"
               },
               "email": {
                 "type": "string"
               },
+              "emailVerified": {
+                "type": "boolean"
+              },
               "displayName": {
                 "type": "string"
               },
-              "status": {
+              "locale": {
+                "type": "string"
+              },
+              "country": {
                 "type": "string"
               }
             },
@@ -738,8 +641,98 @@
           }
         },
         {
-          "name": "delete_user",
-          "description": "Delete a User.",
+          "name": "delete_account",
+          "description": "Delete a Account.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_shared_folder",
+          "description": "Create a SharedFolder.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "sharedFolderId": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "pathLower": {
+                "type": "string"
+              },
+              "accessType": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "pathLower"
+            ]
+          }
+        },
+        {
+          "name": "list_shared_folders",
+          "description": "List SharedFolders.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_shared_folder",
+          "description": "Get a SharedFolder by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_shared_folder",
+          "description": "Update a SharedFolder.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "sharedFolderId": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "pathLower": {
+                "type": "string"
+              },
+              "accessType": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_shared_folder",
+          "description": "Delete a SharedFolder.",
           "inputSchema": {
             "type": "object",
             "properties": {

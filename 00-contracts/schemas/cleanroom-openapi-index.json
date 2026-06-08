@@ -6,7 +6,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 30040,
+  "totalEndpoints": 30035,
   "l4SpecsAvailable": 1000,
   "apis": [
     {
@@ -4517,10 +4517,10 @@
     {
       "handle": "dropbox-compat",
       "did": "did:web:etzhayyim.com:actor:dropbox-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreidepd7brpc6lc5lrch5ekhu4wiarxaoqts2seof3yealknlbvvbv4",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreifwl4ma7h5ek5xugcltuygf3rrbqukcwhx4juatogqbtybumhkbgy",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -5622,7 +5622,7 @@
     {
       "handle": "figma-compat",
       "did": "did:web:etzhayyim.com:actor:figma-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreidqnoadnajzsspij3ylxtsp6dqlyei4lgwblt3dkpch2y72j37iq4",

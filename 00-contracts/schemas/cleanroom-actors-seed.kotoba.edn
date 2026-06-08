@@ -3470,11 +3470,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible office / productivity suite actor (dropbox); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "dropbox.kotoba"
-   :actor/wasm-cid "bafkreidepd7brpc6lc5lrch5ekhu4wiarxaoqts2seof3yealknlbvvbv4"
+   :actor/wasm-cid "bafkreifwl4ma7h5ek5xugcltuygf3rrbqukcwhx4juatogqbtybumhkbgy"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:dropbox-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreidepd7brpc6lc5lrch5ekhu4wiarxaoqts2seof3yealknlbvvbv4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:dropbox-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreidepd7brpc6lc5lrch5ekhu4wiarxaoqts2seof3yealknlbvvbv4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:dropbox-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreidepd7brpc6lc5lrch5ekhu4wiarxaoqts2seof3yealknlbvvbv4" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:dropbox-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreidepd7brpc6lc5lrch5ekhu4wiarxaoqts2seof3yealknlbvvbv4" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:dropbox-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreifwl4ma7h5ek5xugcltuygf3rrbqukcwhx4juatogqbtybumhkbgy" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:dropbox-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreifwl4ma7h5ek5xugcltuygf3rrbqukcwhx4juatogqbtybumhkbgy" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:dropbox-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreifwl4ma7h5ek5xugcltuygf3rrbqukcwhx4juatogqbtybumhkbgy" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:dropbox-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreifwl4ma7h5ek5xugcltuygf3rrbqukcwhx4juatogqbtybumhkbgy" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "dtcc-compat"
    :actor/did "did:web:etzhayyim.com:actor:dtcc-compat"
    :actor/kind :compat

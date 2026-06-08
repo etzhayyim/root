@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreidqnoadnajzsspij3ylxtsp6dqlyei4lgwblt3dkpch2y72j37iq4",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,191 +17,6 @@
     }
   ],
   "paths": {
-    "/v1/projects": {
-      "get": {
-        "summary": "List Projects",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Project"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Project",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProjectCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Project"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/projects/{id}": {
-      "get": {
-        "summary": "Get a Project",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Project"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Project",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProjectCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Project"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Project",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
     "/v1/files": {
       "get": {
         "summary": "List Files",
@@ -387,9 +202,9 @@
         }
       }
     },
-    "/v1/frames": {
+    "/v1/nodes": {
       "get": {
-        "summary": "List Frames",
+        "summary": "List Nodes",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Frame"
+                        "$ref": "#/components/schemas/Node"
                       }
                     },
                     "has_more": {
@@ -449,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Frame",
+        "summary": "Create a Node",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FrameCreate"
+                "$ref": "#/components/schemas/NodeCreate"
               }
             }
           }
@@ -466,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Frame"
+                  "$ref": "#/components/schemas/Node"
                 }
               }
             }
@@ -477,9 +292,9 @@
         }
       }
     },
-    "/v1/frames/{id}": {
+    "/v1/nodes/{id}": {
       "get": {
-        "summary": "Get a Frame",
+        "summary": "Get a Node",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Frame"
+                  "$ref": "#/components/schemas/Node"
                 }
               }
             }
@@ -514,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Frame",
+        "summary": "Update a Node",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FrameCreate"
+                "$ref": "#/components/schemas/NodeCreate"
               }
             }
           }
@@ -540,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Frame"
+                  "$ref": "#/components/schemas/Node"
                 }
               }
             }
@@ -551,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Frame",
+        "summary": "Delete a Node",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +757,9 @@
         }
       }
     },
-    "/v1/exports": {
+    "/v1/projects": {
       "get": {
-        "summary": "List Exports",
+        "summary": "List Projects",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Export"
+                        "$ref": "#/components/schemas/Project"
                       }
                     },
                     "has_more": {
@@ -1004,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Export",
+        "summary": "Create a Project",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ExportCreate"
+                "$ref": "#/components/schemas/ProjectCreate"
               }
             }
           }
@@ -1021,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Export"
+                  "$ref": "#/components/schemas/Project"
                 }
               }
             }
@@ -1032,9 +847,9 @@
         }
       }
     },
-    "/v1/exports/{id}": {
+    "/v1/projects/{id}": {
       "get": {
-        "summary": "Get a Export",
+        "summary": "Get a Project",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Export"
+                  "$ref": "#/components/schemas/Project"
                 }
               }
             }
@@ -1069,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Export",
+        "summary": "Update a Project",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ExportCreate"
+                "$ref": "#/components/schemas/ProjectCreate"
               }
             }
           }
@@ -1095,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Export"
+                  "$ref": "#/components/schemas/Project"
                 }
               }
             }
@@ -1106,7 +921,192 @@
         }
       },
       "delete": {
-        "summary": "Delete a Export",
+        "summary": "Delete a Project",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/styles": {
+      "get": {
+        "summary": "List Styles",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Style"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a Style",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StyleCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Style"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/styles/{id}": {
+      "get": {
+        "summary": "Get a Style",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Style"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a Style",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StyleCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Style"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a Style",
         "parameters": [
           {
             "name": "id",
@@ -1140,64 +1140,29 @@
   },
   "components": {
     "schemas": {
-      "Project": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "ownerId": {
-            "type": "string"
-          },
-          "teamId": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ProjectCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "ownerId": {
-            "type": "string"
-          },
-          "teamId": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name"
-        ]
-      },
       "File": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "projectId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "contentRef": {
+          "role": {
+            "type": "string"
+          },
+          "lastModified": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "editorType": {
             "type": "string"
           },
           "version": {
+            "type": "string"
+          },
+          "schemaVersion": {
             "type": "integer"
           },
           "createdAt": {
@@ -1213,41 +1178,77 @@
       "FileCreate": {
         "type": "object",
         "properties": {
-          "projectId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "contentRef": {
+          "role": {
+            "type": "string"
+          },
+          "lastModified": {
+            "type": "string"
+          },
+          "editorType": {
             "type": "string"
           },
           "version": {
+            "type": "string"
+          },
+          "schemaVersion": {
             "type": "integer"
           }
         },
         "required": [
           "name",
-          "version"
+          "role"
         ]
       },
-      "Frame": {
+      "Node": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "fileId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "width": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "DOCUMENT",
+              "CANVAS",
+              "FRAME",
+              "GROUP",
+              "VECTOR",
+              "BOOLEAN_OPERATION",
+              "STAR",
+              "LINE",
+              "ELLIPSE",
+              "REGULAR_POLYGON",
+              "RECTANGLE",
+              "TEXT",
+              "SLICE",
+              "COMPONENT",
+              "COMPONENT_SET",
+              "INSTANCE",
+              "SECTION",
+              "TABLE",
+              "TABLE_CELL",
+              "SHAPE_WITH_TEXT",
+              "CONNECTOR",
+              "TEXT_PATH",
+              "STICKY",
+              "WASHI_TAPE",
+              "TRANSFORM_GROUP"
+            ]
+          },
+          "visible": {
+            "type": "boolean"
+          },
+          "rotation": {
             "type": "number"
           },
-          "height": {
-            "type": "number"
+          "locked": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1259,25 +1260,58 @@
           }
         }
       },
-      "FrameCreate": {
+      "NodeCreate": {
         "type": "object",
         "properties": {
-          "fileId": {
+          "id": {
             "type": "string"
           },
           "name": {
             "type": "string"
           },
-          "width": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "DOCUMENT",
+              "CANVAS",
+              "FRAME",
+              "GROUP",
+              "VECTOR",
+              "BOOLEAN_OPERATION",
+              "STAR",
+              "LINE",
+              "ELLIPSE",
+              "REGULAR_POLYGON",
+              "RECTANGLE",
+              "TEXT",
+              "SLICE",
+              "COMPONENT",
+              "COMPONENT_SET",
+              "INSTANCE",
+              "SECTION",
+              "TABLE",
+              "TABLE_CELL",
+              "SHAPE_WITH_TEXT",
+              "CONNECTOR",
+              "TEXT_PATH",
+              "STICKY",
+              "WASHI_TAPE",
+              "TRANSFORM_GROUP"
+            ]
+          },
+          "visible": {
+            "type": "boolean"
+          },
+          "rotation": {
             "type": "number"
           },
-          "height": {
-            "type": "number"
+          "locked": {
+            "type": "boolean"
           }
         },
         "required": [
-          "name",
-          "width"
+          "id",
+          "name"
         ]
       },
       "Component": {
@@ -1286,7 +1320,7 @@
           "id": {
             "type": "string"
           },
-          "fileId": {
+          "key": {
             "type": "string"
           },
           "name": {
@@ -1308,7 +1342,7 @@
       "ComponentCreate": {
         "type": "object",
         "properties": {
-          "fileId": {
+          "key": {
             "type": "string"
           },
           "name": {
@@ -1319,8 +1353,8 @@
           }
         },
         "required": [
-          "name",
-          "description"
+          "key",
+          "name"
         ]
       },
       "Comment": {
@@ -1329,17 +1363,15 @@
           "id": {
             "type": "string"
           },
-          "fileId": {
+          "fileKey": {
             "type": "string"
           },
-          "authorId": {
+          "message": {
             "type": "string"
           },
-          "body": {
-            "type": "string"
-          },
-          "resolved": {
-            "type": "boolean"
+          "resolvedAt": {
+            "type": "string",
+            "format": "date-time"
           },
           "createdAt": {
             "type": "string",
@@ -1354,40 +1386,31 @@
       "CommentCreate": {
         "type": "object",
         "properties": {
-          "fileId": {
+          "fileKey": {
             "type": "string"
           },
-          "authorId": {
+          "message": {
             "type": "string"
           },
-          "body": {
+          "resolvedAt": {
             "type": "string"
-          },
-          "resolved": {
-            "type": "boolean"
           }
         },
         "required": [
-          "body",
-          "resolved"
+          "fileKey",
+          "message"
         ]
       },
-      "Export": {
+      "Project": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "fileId": {
+          "name": {
             "type": "string"
           },
-          "format": {
-            "type": "string"
-          },
-          "scale": {
-            "type": "number"
-          },
-          "contentRef": {
+          "teamId": {
             "type": "string"
           },
           "createdAt": {
@@ -1400,25 +1423,61 @@
           }
         }
       },
-      "ExportCreate": {
+      "ProjectCreate": {
         "type": "object",
         "properties": {
-          "fileId": {
+          "name": {
             "type": "string"
           },
-          "format": {
-            "type": "string"
-          },
-          "scale": {
-            "type": "number"
-          },
-          "contentRef": {
+          "teamId": {
             "type": "string"
           }
         },
         "required": [
-          "format",
-          "scale"
+          "name"
+        ]
+      },
+      "Style": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "key": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "styleType": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "StyleCreate": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "styleType": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "key",
+          "name"
         ]
       }
     }

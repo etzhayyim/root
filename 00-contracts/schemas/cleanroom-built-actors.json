@@ -4524,17 +4524,16 @@
       "handle": "dropbox-compat",
       "platform": "dropbox",
       "bytes": 2121,
-      "wasmCid": "bafkreidepd7brpc6lc5lrch5ekhu4wiarxaoqts2seof3yealknlbvvbv4",
+      "wasmCid": "bafkreifwl4ma7h5ek5xugcltuygf3rrbqukcwhx4juatogqbtybumhkbgy",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Workspace",
-        "Document",
-        "Folder",
-        "Comment",
-        "Permission",
-        "User"
+        "FileMetadata",
+        "FolderMetadata",
+        "SharedLink",
+        "Account",
+        "SharedFolder"
       ]
     },
     {
@@ -5634,12 +5633,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Project",
         "File",
-        "Frame",
+        "Node",
         "Component",
         "Comment",
-        "Export"
+        "Project",
+        "Style"
       ]
     },
     {

@@ -111,86 +111,23 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/projects", methods=["POST"])
-def create_project(request):
-    """Create a Project."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'teamId'])
-    if err:
-        return err, 400
-    err = _require(data, ['name'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("figma_pro")}
-    rec["name"] = data.get('name')
-    rec["ownerId"] = data.get('ownerId')
-    rec["teamId"] = data.get('teamId')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Project", rec)
-    return rec, 201
-
-@app.route("/v1/projects", methods=["GET"])
-def list_projects(request):
-    """List Projects with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Project")
-    rows = _apply_filters(rows, params, ['name', 'ownerId', 'teamId'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/projects/<eid>", methods=["GET"])
-def get_project(request, eid):
-    """Retrieve a Project by id (supports ?expand=)."""
-    rows = _query("Project", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/projects/<eid>", methods=["POST", "PATCH"])
-def update_project(request, eid):
-    """Update a Project."""
-    rows = _query("Project", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'teamId'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Project", rec)
-    return rec, 200
-
-@app.route("/v1/projects/<eid>", methods=["DELETE"])
-def delete_project(request, eid):
-    """Delete a Project."""
-    rows = _query("Project", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"figma.Project", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
 @app.route("/v1/files", methods=["POST"])
 def create_file(request):
     """Create a File."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'name', 'contentRef', 'version'])
+    err = _reject_unknown(data, ['name', 'role', 'lastModified', 'editorType', 'version', 'schemaVersion'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'version'])
+    err = _require(data, ['name', 'role'])
     if err:
         return err, 400
     rec = {"id": new_id("figma_fil")}
-    rec["projectId"] = data.get('projectId')
     rec["name"] = data.get('name')
-    rec["contentRef"] = data.get('contentRef')
-    rec["version"] = _as_int(data.get('version'))
+    rec["role"] = data.get('role')
+    rec["lastModified"] = data.get('lastModified')
+    rec["editorType"] = data.get('editorType')
+    rec["version"] = data.get('version')
+    rec["schemaVersion"] = _as_int(data.get('schemaVersion'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("File", rec)
@@ -201,7 +138,7 @@ def list_files(request):
     """List Files with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("File")
-    rows = _apply_filters(rows, params, ['projectId', 'name', 'contentRef', 'version'])
+    rows = _apply_filters(rows, params, ['name', 'role', 'lastModified', 'editorType', 'version', 'schemaVersion'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -213,7 +150,6 @@ def get_file(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'projectId': 'Project'})
     return rec, 200
 
 @app.route("/v1/files/<eid>", methods=["POST", "PATCH"])
@@ -223,7 +159,7 @@ def update_file(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'name', 'contentRef', 'version'])
+    err = _reject_unknown(data, ['name', 'role', 'lastModified', 'editorType', 'version', 'schemaVersion'])
     if err:
         return err, 400
     rec = rows[0]
@@ -243,85 +179,90 @@ def delete_file(request, eid):
     db.retract({"entity": f"figma.File", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/frames", methods=["POST"])
-def create_frame(request):
-    """Create a Frame."""
+@app.route("/v1/nodes", methods=["POST"])
+def create_node(request):
+    """Create a Node."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fileId', 'name', 'width', 'height'])
+    err = _reject_unknown(data, ['id', 'name', 'type', 'visible', 'rotation', 'locked'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'width'])
+    err = _require(data, ['id', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("figma_fra")}
-    rec["fileId"] = data.get('fileId')
+    if data.get('type') and data['type'] not in ['DOCUMENT', 'CANVAS', 'FRAME', 'GROUP', 'VECTOR', 'BOOLEAN_OPERATION', 'STAR', 'LINE', 'ELLIPSE', 'REGULAR_POLYGON', 'RECTANGLE', 'TEXT', 'SLICE', 'COMPONENT', 'COMPONENT_SET', 'INSTANCE', 'SECTION', 'TABLE', 'TABLE_CELL', 'SHAPE_WITH_TEXT', 'CONNECTOR', 'TEXT_PATH', 'STICKY', 'WASHI_TAPE', 'TRANSFORM_GROUP']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['DOCUMENT', 'CANVAS', 'FRAME', 'GROUP', 'VECTOR', 'BOOLEAN_OPERATION', 'STAR', 'LINE', 'ELLIPSE', 'REGULAR_POLYGON', 'RECTANGLE', 'TEXT', 'SLICE', 'COMPONENT', 'COMPONENT_SET', 'INSTANCE', 'SECTION', 'TABLE', 'TABLE_CELL', 'SHAPE_WITH_TEXT', 'CONNECTOR', 'TEXT_PATH', 'STICKY', 'WASHI_TAPE', 'TRANSFORM_GROUP']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("figma_nod")}
+    rec["id"] = data.get('id')
     rec["name"] = data.get('name')
-    rec["width"] = _as_float(data.get('width'))
-    rec["height"] = _as_float(data.get('height'))
+    rec["type"] = data.get('type')
+    rec["visible"] = _as_bool(data.get('visible'))
+    rec["rotation"] = _as_float(data.get('rotation'))
+    rec["locked"] = _as_bool(data.get('locked'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Frame", rec)
+    _persist("Node", rec)
     return rec, 201
 
-@app.route("/v1/frames", methods=["GET"])
-def list_frames(request):
-    """List Frames with filtering + cursor pagination."""
+@app.route("/v1/nodes", methods=["GET"])
+def list_nodes(request):
+    """List Nodes with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Frame")
-    rows = _apply_filters(rows, params, ['fileId', 'name', 'width', 'height'])
+    rows = _query("Node")
+    rows = _apply_filters(rows, params, ['id', 'name', 'type', 'visible', 'rotation', 'locked'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/frames/<eid>", methods=["GET"])
-def get_frame(request, eid):
-    """Retrieve a Frame by id (supports ?expand=)."""
-    rows = _query("Frame", eid)
+@app.route("/v1/nodes/<eid>", methods=["GET"])
+def get_node(request, eid):
+    """Retrieve a Node by id (supports ?expand=)."""
+    rows = _query("Node", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'fileId': 'File'})
     return rec, 200
 
-@app.route("/v1/frames/<eid>", methods=["POST", "PATCH"])
-def update_frame(request, eid):
-    """Update a Frame."""
-    rows = _query("Frame", eid)
+@app.route("/v1/nodes/<eid>", methods=["POST", "PATCH"])
+def update_node(request, eid):
+    """Update a Node."""
+    rows = _query("Node", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fileId', 'name', 'width', 'height'])
+    err = _reject_unknown(data, ['id', 'name', 'type', 'visible', 'rotation', 'locked'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in ['DOCUMENT', 'CANVAS', 'FRAME', 'GROUP', 'VECTOR', 'BOOLEAN_OPERATION', 'STAR', 'LINE', 'ELLIPSE', 'REGULAR_POLYGON', 'RECTANGLE', 'TEXT', 'SLICE', 'COMPONENT', 'COMPONENT_SET', 'INSTANCE', 'SECTION', 'TABLE', 'TABLE_CELL', 'SHAPE_WITH_TEXT', 'CONNECTOR', 'TEXT_PATH', 'STICKY', 'WASHI_TAPE', 'TRANSFORM_GROUP']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['DOCUMENT', 'CANVAS', 'FRAME', 'GROUP', 'VECTOR', 'BOOLEAN_OPERATION', 'STAR', 'LINE', 'ELLIPSE', 'REGULAR_POLYGON', 'RECTANGLE', 'TEXT', 'SLICE', 'COMPONENT', 'COMPONENT_SET', 'INSTANCE', 'SECTION', 'TABLE', 'TABLE_CELL', 'SHAPE_WITH_TEXT', 'CONNECTOR', 'TEXT_PATH', 'STICKY', 'WASHI_TAPE', 'TRANSFORM_GROUP']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Frame", rec)
+    _persist("Node", rec)
     return rec, 200
 
-@app.route("/v1/frames/<eid>", methods=["DELETE"])
-def delete_frame(request, eid):
-    """Delete a Frame."""
-    rows = _query("Frame", eid)
+@app.route("/v1/nodes/<eid>", methods=["DELETE"])
+def delete_node(request, eid):
+    """Delete a Node."""
+    rows = _query("Node", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"figma.Frame", "id": eid})
+    db.retract({"entity": f"figma.Node", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/v1/components", methods=["POST"])
 def create_component(request):
     """Create a Component."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fileId', 'name', 'description'])
+    err = _reject_unknown(data, ['key', 'name', 'description'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'description'])
+    err = _require(data, ['key', 'name'])
     if err:
         return err, 400
     rec = {"id": new_id("figma_com")}
-    rec["fileId"] = data.get('fileId')
+    rec["key"] = data.get('key')
     rec["name"] = data.get('name')
     rec["description"] = data.get('description')
     rec["createdAt"] = now()
@@ -334,7 +275,7 @@ def list_components(request):
     """List Components with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Component")
-    rows = _apply_filters(rows, params, ['fileId', 'name', 'description'])
+    rows = _apply_filters(rows, params, ['key', 'name', 'description'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -346,7 +287,6 @@ def get_component(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'fileId': 'File'})
     return rec, 200
 
 @app.route("/v1/components/<eid>", methods=["POST", "PATCH"])
@@ -356,7 +296,7 @@ def update_component(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fileId', 'name', 'description'])
+    err = _reject_unknown(data, ['key', 'name', 'description'])
     if err:
         return err, 400
     rec = rows[0]
@@ -380,17 +320,16 @@ def delete_component(request, eid):
 def create_comment(request):
     """Create a Comment."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fileId', 'authorId', 'body', 'resolved'])
+    err = _reject_unknown(data, ['fileKey', 'message', 'resolvedAt'])
     if err:
         return err, 400
-    err = _require(data, ['body', 'resolved'])
+    err = _require(data, ['fileKey', 'message'])
     if err:
         return err, 400
     rec = {"id": new_id("figma_com")}
-    rec["fileId"] = data.get('fileId')
-    rec["authorId"] = data.get('authorId')
-    rec["body"] = data.get('body')
-    rec["resolved"] = _as_bool(data.get('resolved'))
+    rec["fileKey"] = data.get('fileKey')
+    rec["message"] = data.get('message')
+    rec["resolvedAt"] = data.get('resolvedAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Comment", rec)
@@ -401,7 +340,7 @@ def list_comments(request):
     """List Comments with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Comment")
-    rows = _apply_filters(rows, params, ['fileId', 'authorId', 'body', 'resolved'])
+    rows = _apply_filters(rows, params, ['fileKey', 'message', 'resolvedAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -413,7 +352,6 @@ def get_comment(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'fileId': 'File'})
     return rec, 200
 
 @app.route("/v1/comments/<eid>", methods=["POST", "PATCH"])
@@ -423,7 +361,7 @@ def update_comment(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fileId', 'authorId', 'body', 'resolved'])
+    err = _reject_unknown(data, ['fileKey', 'message', 'resolvedAt'])
     if err:
         return err, 400
     rec = rows[0]
@@ -443,54 +381,51 @@ def delete_comment(request, eid):
     db.retract({"entity": f"figma.Comment", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/exports", methods=["POST"])
-def create_export(request):
-    """Create a Export."""
+@app.route("/v1/projects", methods=["POST"])
+def create_project(request):
+    """Create a Project."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fileId', 'format', 'scale', 'contentRef'])
+    err = _reject_unknown(data, ['name', 'teamId'])
     if err:
         return err, 400
-    err = _require(data, ['format', 'scale'])
+    err = _require(data, ['name'])
     if err:
         return err, 400
-    rec = {"id": new_id("figma_exp")}
-    rec["fileId"] = data.get('fileId')
-    rec["format"] = data.get('format')
-    rec["scale"] = _as_float(data.get('scale'))
-    rec["contentRef"] = data.get('contentRef')
+    rec = {"id": new_id("figma_pro")}
+    rec["name"] = data.get('name')
+    rec["teamId"] = data.get('teamId')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Export", rec)
+    _persist("Project", rec)
     return rec, 201
 
-@app.route("/v1/exports", methods=["GET"])
-def list_exports(request):
-    """List Exports with filtering + cursor pagination."""
+@app.route("/v1/projects", methods=["GET"])
+def list_projects(request):
+    """List Projects with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Export")
-    rows = _apply_filters(rows, params, ['fileId', 'format', 'scale', 'contentRef'])
+    rows = _query("Project")
+    rows = _apply_filters(rows, params, ['name', 'teamId'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/exports/<eid>", methods=["GET"])
-def get_export(request, eid):
-    """Retrieve a Export by id (supports ?expand=)."""
-    rows = _query("Export", eid)
+@app.route("/v1/projects/<eid>", methods=["GET"])
+def get_project(request, eid):
+    """Retrieve a Project by id (supports ?expand=)."""
+    rows = _query("Project", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'fileId': 'File'})
     return rec, 200
 
-@app.route("/v1/exports/<eid>", methods=["POST", "PATCH"])
-def update_export(request, eid):
-    """Update a Export."""
-    rows = _query("Export", eid)
+@app.route("/v1/projects/<eid>", methods=["POST", "PATCH"])
+def update_project(request, eid):
+    """Update a Project."""
+    rows = _query("Project", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fileId', 'format', 'scale', 'contentRef'])
+    err = _reject_unknown(data, ['name', 'teamId'])
     if err:
         return err, 400
     rec = rows[0]
@@ -498,22 +433,87 @@ def update_export(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Export", rec)
+    _persist("Project", rec)
     return rec, 200
 
-@app.route("/v1/exports/<eid>", methods=["DELETE"])
-def delete_export(request, eid):
-    """Delete a Export."""
-    rows = _query("Export", eid)
+@app.route("/v1/projects/<eid>", methods=["DELETE"])
+def delete_project(request, eid):
+    """Delete a Project."""
+    rows = _query("Project", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"figma.Export", "id": eid})
+    db.retract({"entity": f"figma.Project", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/styles", methods=["POST"])
+def create_style(request):
+    """Create a Style."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['key', 'name', 'styleType'])
+    if err:
+        return err, 400
+    err = _require(data, ['key', 'name'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("figma_sty")}
+    rec["key"] = data.get('key')
+    rec["name"] = data.get('name')
+    rec["styleType"] = data.get('styleType')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Style", rec)
+    return rec, 201
+
+@app.route("/v1/styles", methods=["GET"])
+def list_styles(request):
+    """List Styles with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Style")
+    rows = _apply_filters(rows, params, ['key', 'name', 'styleType'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/styles/<eid>", methods=["GET"])
+def get_style(request, eid):
+    """Retrieve a Style by id (supports ?expand=)."""
+    rows = _query("Style", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/styles/<eid>", methods=["POST", "PATCH"])
+def update_style(request, eid):
+    """Update a Style."""
+    rows = _query("Style", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['key', 'name', 'styleType'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Style", rec)
+    return rec, 200
+
+@app.route("/v1/styles/<eid>", methods=["DELETE"])
+def delete_style(request, eid):
+    """Delete a Style."""
+    rows = _query("Style", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"figma.Style", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "figma-compat", "tier": "L4",
-            "entities": ['Project', 'File', 'Frame', 'Component', 'Comment', 'Export']}, 200
+            "entities": ['File', 'Node', 'Component', 'Comment', 'Project', 'Style']}, 200
 
 
 if __name__ == "__main__":

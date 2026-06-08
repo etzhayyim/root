@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 19,
+  "count": 21,
   "actors": [
     {
       "handle": "square-compat",
@@ -2690,6 +2690,223 @@
         }
       ],
       "note": "FULLY VERIFIED (6/6) vs official Box docs/OpenAPI. Enforced enums: File.itemStatus, Folder.itemStatus, Folder.syncState, User.status, User.role, Collaboration.role, Collaboration.status, SharedLink.access (8)."
+    },
+    {
+      "handle": "figma-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://developers.figma.com/docs/rest-api",
+      "remodeled": "Remodeled from generic design_tools to a faithful Figma REST model, then partially doc-verified (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "File",
+          "source": "https://developers.figma.com/docs/rest-api/file-endpoints/",
+          "verifiedFields": [
+            "name",
+            "role",
+            "lastModified",
+            "editorType",
+            "version",
+            "schemaVersion"
+          ],
+          "fieldStatus": "confirmed (last_modified, editor_type, schema_version)",
+          "discoveredEnums": {},
+          "gaps": [
+            "thumbnailUrl",
+            "document",
+            "components"
+          ]
+        },
+        {
+          "entity": "Node",
+          "source": "https://developers.figma.com/docs/rest-api/file-node-types/",
+          "verifiedFields": [
+            "id",
+            "name",
+            "type",
+            "visible",
+            "rotation",
+            "locked"
+          ],
+          "fieldStatus": "confirmed; type enum from file-node-types (24 values)",
+          "discoveredEnums": {
+            "type": [
+              "DOCUMENT",
+              "CANVAS",
+              "FRAME",
+              "GROUP",
+              "VECTOR",
+              "BOOLEAN_OPERATION",
+              "STAR",
+              "LINE",
+              "ELLIPSE",
+              "REGULAR_POLYGON",
+              "RECTANGLE",
+              "TEXT",
+              "SLICE",
+              "COMPONENT",
+              "COMPONENT_SET",
+              "INSTANCE",
+              "SECTION",
+              "TABLE",
+              "TABLE_CELL",
+              "SHAPE_WITH_TEXT",
+              "CONNECTOR",
+              "TEXT_PATH",
+              "STICKY",
+              "WASHI_TAPE",
+              "TRANSFORM_GROUP"
+            ]
+          },
+          "gaps": [
+            "children",
+            "absoluteBoundingBox",
+            "fills"
+          ]
+        },
+        {
+          "entity": "Component",
+          "source": "https://developers.figma.com/docs/rest-api/file-endpoints/",
+          "verifiedFields": [
+            "key",
+            "name",
+            "description"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "componentSetId",
+            "documentationLinks"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "3/6 doc-verified (Comment/Project/Style endpoint pages 404'd via WebFetch — DEFERRED). Enforced enums: Node.type."
+    },
+    {
+      "handle": "dropbox-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://www.dropbox.com/developers/documentation/http/documentation",
+      "remodeled": "Remodeled from generic office_productivity to a faithful Dropbox model, verified against Dropbox's official Stone-generated SDK (the canonical API contract; the HTTP docs page is JS-rendered).",
+      "resources": [
+        {
+          "entity": "FileMetadata",
+          "source": "https://github.com/dropbox/dropbox-sdk-python/blob/main/dropbox/files.py",
+          "verifiedFields": [
+            "name",
+            "pathLower",
+            "pathDisplay",
+            "id",
+            "rev",
+            "size",
+            "isDownloadable",
+            "contentHash"
+          ],
+          "fieldStatus": "confirmed (path_lower, is_downloadable, content_hash)",
+          "discoveredEnums": {},
+          "gaps": [
+            "client_modified",
+            "server_modified",
+            "media_info"
+          ]
+        },
+        {
+          "entity": "FolderMetadata",
+          "source": "https://github.com/dropbox/dropbox-sdk-python/blob/main/dropbox/files.py",
+          "verifiedFields": [
+            "name",
+            "pathLower",
+            "pathDisplay",
+            "id",
+            "sharedFolderId"
+          ],
+          "fieldStatus": "confirmed (shared_folder_id)",
+          "discoveredEnums": {},
+          "gaps": [
+            "sharing_info",
+            "property_groups"
+          ]
+        },
+        {
+          "entity": "SharedLink",
+          "source": "https://github.com/dropbox/dropbox-sdk-python/blob/main/dropbox/sharing.py",
+          "verifiedFields": [
+            "url",
+            "path",
+            "visibility",
+            "requestedVisibility"
+          ],
+          "fieldStatus": "confirmed (requested_visibility); visibility=ResolvedVisibility",
+          "discoveredEnums": {
+            "requestedVisibility": [
+              "public",
+              "team_only",
+              "password"
+            ],
+            "visibility": [
+              "public",
+              "team_only",
+              "password",
+              "team_and_password",
+              "shared_folder_only",
+              "no_one",
+              "only_you",
+              "other"
+            ]
+          },
+          "gaps": [
+            "expires",
+            "link_permissions"
+          ]
+        },
+        {
+          "entity": "Account",
+          "source": "https://github.com/dropbox/dropbox-sdk-python/blob/main/dropbox/users.py",
+          "verifiedFields": [
+            "accountId",
+            "email",
+            "emailVerified",
+            "displayName",
+            "locale",
+            "country"
+          ],
+          "fieldStatus": "confirmed (account_id, email_verified, display_name)",
+          "discoveredEnums": {},
+          "gaps": [
+            "referral_link",
+            "is_paired",
+            "account_type"
+          ]
+        },
+        {
+          "entity": "SharedFolder",
+          "source": "https://github.com/dropbox/dropbox-sdk-python/blob/main/dropbox/sharing.py",
+          "verifiedFields": [
+            "sharedFolderId",
+            "name",
+            "pathLower",
+            "accessType"
+          ],
+          "fieldStatus": "confirmed; accessType=AccessLevel",
+          "discoveredEnums": {
+            "accessType": [
+              "owner",
+              "editor",
+              "viewer",
+              "viewer_no_comment",
+              "traverse",
+              "no_access"
+            ]
+          },
+          "gaps": [
+            "is_team_folder",
+            "policy"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs Dropbox official SDK. Enforced enums: SharedLink.requestedVisibility, SharedLink.visibility, SharedFolder.accessType (3)."
     }
   ]
 }

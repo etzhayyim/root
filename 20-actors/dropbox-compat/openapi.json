@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible office / productivity suite actor (dropbox); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:dropbox-compat",
-    "x-wasm-cid": "bafkreidepd7brpc6lc5lrch5ekhu4wiarxaoqts2seof3yealknlbvvbv4",
+    "x-wasm-cid": "bafkreifwl4ma7h5ek5xugcltuygf3rrbqukcwhx4juatogqbtybumhkbgy",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreidepd7brpc6lc5lrch5ekhu4wiarxaoqts2seof3yealknlbvvbv4",
+      "url": "ipfs://bafkreifwl4ma7h5ek5xugcltuygf3rrbqukcwhx4juatogqbtybumhkbgy",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/workspaces": {
+    "/v1/filemetadatas": {
       "get": {
-        "summary": "List Workspaces",
+        "summary": "List FileMetadatas",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Workspace"
+                        "$ref": "#/components/schemas/FileMetadata"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Workspace",
+        "summary": "Create a FileMetadata",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/WorkspaceCreate"
+                "$ref": "#/components/schemas/FileMetadataCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Workspace"
+                  "$ref": "#/components/schemas/FileMetadata"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/workspaces/{id}": {
+    "/v1/filemetadatas/{id}": {
       "get": {
-        "summary": "Get a Workspace",
+        "summary": "Get a FileMetadata",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Workspace"
+                  "$ref": "#/components/schemas/FileMetadata"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Workspace",
+        "summary": "Update a FileMetadata",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/WorkspaceCreate"
+                "$ref": "#/components/schemas/FileMetadataCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Workspace"
+                  "$ref": "#/components/schemas/FileMetadata"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Workspace",
+        "summary": "Delete a FileMetadata",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/documents": {
+    "/v1/foldermetadatas": {
       "get": {
-        "summary": "List Documents",
+        "summary": "List FolderMetadatas",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Document"
+                        "$ref": "#/components/schemas/FolderMetadata"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Document",
+        "summary": "Create a FolderMetadata",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DocumentCreate"
+                "$ref": "#/components/schemas/FolderMetadataCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Document"
+                  "$ref": "#/components/schemas/FolderMetadata"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/documents/{id}": {
+    "/v1/foldermetadatas/{id}": {
       "get": {
-        "summary": "Get a Document",
+        "summary": "Get a FolderMetadata",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Document"
+                  "$ref": "#/components/schemas/FolderMetadata"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Document",
+        "summary": "Update a FolderMetadata",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DocumentCreate"
+                "$ref": "#/components/schemas/FolderMetadataCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Document"
+                  "$ref": "#/components/schemas/FolderMetadata"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Document",
+        "summary": "Delete a FolderMetadata",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/folders": {
+    "/v1/sharedlinks": {
       "get": {
-        "summary": "List Folders",
+        "summary": "List SharedLinks",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Folder"
+                        "$ref": "#/components/schemas/SharedLink"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Folder",
+        "summary": "Create a SharedLink",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FolderCreate"
+                "$ref": "#/components/schemas/SharedLinkCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Folder"
+                  "$ref": "#/components/schemas/SharedLink"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/folders/{id}": {
+    "/v1/sharedlinks/{id}": {
       "get": {
-        "summary": "Get a Folder",
+        "summary": "Get a SharedLink",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Folder"
+                  "$ref": "#/components/schemas/SharedLink"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Folder",
+        "summary": "Update a SharedLink",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FolderCreate"
+                "$ref": "#/components/schemas/SharedLinkCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Folder"
+                  "$ref": "#/components/schemas/SharedLink"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Folder",
+        "summary": "Delete a SharedLink",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/comments": {
+    "/v1/accounts": {
       "get": {
-        "summary": "List Comments",
+        "summary": "List Accounts",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Comment"
+                        "$ref": "#/components/schemas/Account"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Comment",
+        "summary": "Create a Account",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CommentCreate"
+                "$ref": "#/components/schemas/AccountCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Comment"
+                  "$ref": "#/components/schemas/Account"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/comments/{id}": {
+    "/v1/accounts/{id}": {
       "get": {
-        "summary": "Get a Comment",
+        "summary": "Get a Account",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Comment"
+                  "$ref": "#/components/schemas/Account"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Comment",
+        "summary": "Update a Account",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CommentCreate"
+                "$ref": "#/components/schemas/AccountCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Comment"
+                  "$ref": "#/components/schemas/Account"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Comment",
+        "summary": "Delete a Account",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/permissions": {
+    "/v1/sharedfolders": {
       "get": {
-        "summary": "List Permissions",
+        "summary": "List SharedFolders",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Permission"
+                        "$ref": "#/components/schemas/SharedFolder"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Permission",
+        "summary": "Create a SharedFolder",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PermissionCreate"
+                "$ref": "#/components/schemas/SharedFolderCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Permission"
+                  "$ref": "#/components/schemas/SharedFolder"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/permissions/{id}": {
+    "/v1/sharedfolders/{id}": {
       "get": {
-        "summary": "Get a Permission",
+        "summary": "Get a SharedFolder",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Permission"
+                  "$ref": "#/components/schemas/SharedFolder"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Permission",
+        "summary": "Update a SharedFolder",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PermissionCreate"
+                "$ref": "#/components/schemas/SharedFolderCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Permission"
+                  "$ref": "#/components/schemas/SharedFolder"
                 }
               }
             }
@@ -921,192 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Permission",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/users": {
-      "get": {
-        "summary": "List Users",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/User"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a User",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/users/{id}": {
-      "get": {
-        "summary": "Get a User",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a User",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a User",
+        "summary": "Delete a SharedFolder",
         "parameters": [
           {
             "name": "id",
@@ -1140,7 +955,7 @@
   },
   "components": {
     "schemas": {
-      "Workspace": {
+      "FileMetadata": {
         "type": "object",
         "properties": {
           "id": {
@@ -1149,10 +964,22 @@
           "name": {
             "type": "string"
           },
-          "ownerId": {
+          "pathLower": {
             "type": "string"
           },
-          "plan": {
+          "pathDisplay": {
+            "type": "string"
+          },
+          "rev": {
+            "type": "string"
+          },
+          "size": {
+            "type": "integer"
+          },
+          "isDownloadable": {
+            "type": "boolean"
+          },
+          "contentHash": {
             "type": "string"
           },
           "createdAt": {
@@ -1165,85 +992,55 @@
           }
         }
       },
-      "WorkspaceCreate": {
+      "FileMetadataCreate": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string"
           },
-          "ownerId": {
+          "pathLower": {
             "type": "string"
           },
-          "plan": {
+          "pathDisplay": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "rev": {
+            "type": "string"
+          },
+          "size": {
+            "type": "integer"
+          },
+          "isDownloadable": {
+            "type": "boolean"
+          },
+          "contentHash": {
             "type": "string"
           }
         },
         "required": [
           "name",
-          "plan"
+          "pathLower"
         ]
       },
-      "Document": {
+      "FolderMetadata": {
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
-          },
-          "workspaceId": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "contentRef": {
-            "type": "string"
-          },
-          "ownerId": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "DocumentCreate": {
-        "type": "object",
-        "properties": {
-          "workspaceId": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "contentRef": {
-            "type": "string"
-          },
-          "ownerId": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "title"
-        ]
-      },
-      "Folder": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "workspaceId": {
             "type": "string"
           },
           "name": {
             "type": "string"
           },
-          "parentId": {
+          "pathLower": {
+            "type": "string"
+          },
+          "pathDisplay": {
+            "type": "string"
+          },
+          "sharedFolderId": {
             "type": "string"
           },
           "createdAt": {
@@ -1256,37 +1053,62 @@
           }
         }
       },
-      "FolderCreate": {
+      "FolderMetadataCreate": {
         "type": "object",
         "properties": {
-          "workspaceId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "parentId": {
+          "pathLower": {
+            "type": "string"
+          },
+          "pathDisplay": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "sharedFolderId": {
             "type": "string"
           }
         },
         "required": [
-          "name"
+          "name",
+          "pathLower"
         ]
       },
-      "Comment": {
+      "SharedLink": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "documentId": {
+          "url": {
             "type": "string"
           },
-          "authorId": {
+          "path": {
             "type": "string"
           },
-          "body": {
-            "type": "string"
+          "visibility": {
+            "type": "string",
+            "enum": [
+              "public",
+              "team_only",
+              "password",
+              "team_and_password",
+              "shared_folder_only",
+              "no_one",
+              "only_you",
+              "other"
+            ]
+          },
+          "requestedVisibility": {
+            "type": "string",
+            "enum": [
+              "public",
+              "team_only",
+              "password"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1298,78 +1120,64 @@
           }
         }
       },
-      "CommentCreate": {
+      "SharedLinkCreate": {
         "type": "object",
         "properties": {
-          "documentId": {
+          "url": {
             "type": "string"
           },
-          "authorId": {
+          "path": {
             "type": "string"
           },
-          "body": {
-            "type": "string"
+          "visibility": {
+            "type": "string",
+            "enum": [
+              "public",
+              "team_only",
+              "password",
+              "team_and_password",
+              "shared_folder_only",
+              "no_one",
+              "only_you",
+              "other"
+            ]
+          },
+          "requestedVisibility": {
+            "type": "string",
+            "enum": [
+              "public",
+              "team_only",
+              "password"
+            ]
           }
         },
         "required": [
-          "body"
+          "url",
+          "path"
         ]
       },
-      "Permission": {
+      "Account": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "resourceId": {
-            "type": "string"
-          },
-          "principalId": {
-            "type": "string"
-          },
-          "role": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "PermissionCreate": {
-        "type": "object",
-        "properties": {
-          "resourceId": {
-            "type": "string"
-          },
-          "principalId": {
-            "type": "string"
-          },
-          "role": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "role"
-        ]
-      },
-      "User": {
-        "type": "object",
-        "properties": {
-          "id": {
+          "accountId": {
             "type": "string"
           },
           "email": {
             "type": "string"
           },
+          "emailVerified": {
+            "type": "boolean"
+          },
           "displayName": {
             "type": "string"
           },
-          "status": {
+          "locale": {
+            "type": "string"
+          },
+          "country": {
             "type": "string"
           },
           "createdAt": {
@@ -1382,22 +1190,96 @@
           }
         }
       },
-      "UserCreate": {
+      "AccountCreate": {
         "type": "object",
         "properties": {
+          "accountId": {
+            "type": "string"
+          },
           "email": {
             "type": "string"
+          },
+          "emailVerified": {
+            "type": "boolean"
           },
           "displayName": {
             "type": "string"
           },
-          "status": {
+          "locale": {
+            "type": "string"
+          },
+          "country": {
             "type": "string"
           }
         },
         "required": [
           "email",
-          "displayName"
+          "emailVerified"
+        ]
+      },
+      "SharedFolder": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "sharedFolderId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "pathLower": {
+            "type": "string"
+          },
+          "accessType": {
+            "type": "string",
+            "enum": [
+              "owner",
+              "editor",
+              "viewer",
+              "viewer_no_comment",
+              "traverse",
+              "no_access"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "SharedFolderCreate": {
+        "type": "object",
+        "properties": {
+          "sharedFolderId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "pathLower": {
+            "type": "string"
+          },
+          "accessType": {
+            "type": "string",
+            "enum": [
+              "owner",
+              "editor",
+              "viewer",
+              "viewer_no_comment",
+              "traverse",
+              "no_access"
+            ]
+          }
+        },
+        "required": [
+          "name",
+          "pathLower"
         ]
       }
     }

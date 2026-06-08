@@ -7,7 +7,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 30040,
+  "totalTools": 30035,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -2397,10 +2397,10 @@
     {
       "handle": "dropbox-compat",
       "did": "did:web:etzhayyim.com:actor:dropbox-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreidepd7brpc6lc5lrch5ekhu4wiarxaoqts2seof3yealknlbvvbv4",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreifwl4ma7h5ek5xugcltuygf3rrbqukcwhx4juatogqbtybumhkbgy",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "manifest": "20-actors/dropbox-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -2982,7 +2982,7 @@
     {
       "handle": "figma-compat",
       "did": "did:web:etzhayyim.com:actor:figma-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreidqnoadnajzsspij3ylxtsp6dqlyei4lgwblt3dkpch2y72j37iq4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,

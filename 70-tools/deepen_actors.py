@@ -1009,6 +1009,24 @@ PLATFORM_OVERRIDES = {
         "SharedLink": E(access="string", vanityName="string", canDownload="boolean"),
         "Comment": E(message="string", isReplyComment="boolean"),
     },
+    # Faithful Figma model (remodeled from generic design_tools), partial L5.
+    "figma": {
+        "File": E(name="string", role="string", lastModified="datetime", editorType="string", version="string", schemaVersion="integer"),
+        "Node": E(id="string", name="string", type="string", visible="boolean", rotation="float", locked="boolean"),
+        "Component": E(key="string", name="string", description="string"),
+        "Comment": E(fileKey="string", message="string", resolvedAt="datetime"),
+        "Project": E(name="string", teamId="string"),
+        "Style": E(key="string", name="string", styleType="string"),
+    },
+    # Faithful Dropbox model (remodeled from generic office_productivity), L5
+    # (confirmed against Dropbox's official Stone-generated SDK = the API contract).
+    "dropbox": {
+        "FileMetadata": E(name="string", pathLower="string", pathDisplay="string", id="string", rev="string", size="integer", isDownloadable="boolean", contentHash="string"),
+        "FolderMetadata": E(name="string", pathLower="string", pathDisplay="string", id="string", sharedFolderId="string"),
+        "SharedLink": E(url="string", path="string", visibility="string", requestedVisibility="string"),
+        "Account": E(accountId="string", email="string", emailVerified="boolean", displayName="string", locale="string", country="string"),
+        "SharedFolder": E(sharedFolderId="string", name="string", pathLower="string", accessType="string"),
+    },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).
     "square": {
