@@ -24,7 +24,6 @@
     "vitest": "^4.1.0"
   },
   "dependencies": {
-    "@etzhayyim/design-system": "workspace:*",
     "@threlte/core": "^8.5.9",
     "@threlte/extras": "^9.14.5",
     "@threlte/flex": "^2.2.2",

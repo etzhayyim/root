@@ -10,9 +10,7 @@
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "test": "vitest run"
   },
-  "dependencies": {
-    "@etzhayyim/design-system": "workspace:*"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^5.1.1",
     "autoprefixer": "^10.4.27",
