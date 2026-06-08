@@ -1,5 +1,5 @@
 ;; com.etzhayyim.niyaku.moveAttestation — lexicon (EDN form)
-;; ADR-2606074000 · terminal per-move container-handling attestation
+;; ADR-2606082000 · terminal per-move container-handling attestation
 {:lexicon 1
  :id "com.etzhayyim.niyaku.moveAttestation"
  :defs

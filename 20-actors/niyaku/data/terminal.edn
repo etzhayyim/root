@@ -1,5 +1,5 @@
 ;; niyaku reference terminal + STS crane + sample vessel cell — kotoba EAVT seed
-;; ADR-2606074000 (R0). Illustrative reference data; moves no real equipment.
+;; ADR-2606082000 (R0). Illustrative reference data; moves no real equipment.
 {:terminal/id        "JPYOK-T1"
  :terminal/name      "Yokohama Container Terminal (reference)"
  :terminal/un-locode "JPYOK"

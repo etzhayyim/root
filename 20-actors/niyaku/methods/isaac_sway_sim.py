@@ -18,7 +18,7 @@ script written against real Isaac runs unchanged — but no NVIDIA code is linke
 (e.g. its optional langchain deps are absent), ``isaac_available()`` returns
 False and callers/tests skip gracefully.
 
-Per ADR-2606074000 (niyaku R0).
+Per ADR-2606082000 (niyaku R0).
 """
 
 from __future__ import annotations

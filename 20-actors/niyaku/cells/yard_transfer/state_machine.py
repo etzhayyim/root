@@ -1,7 +1,7 @@
-"""yard_transfer state machine — ADR-2606074000 (L5 AGV/straddle transfer quay apron -> yard stack tier).
+"""yard_transfer state machine — ADR-2606082000 (L5 AGV/straddle transfer quay apron -> yard stack tier).
 
 R0 scaffold: phase transitions are structural placeholders. The cell's .solve()
-raises RuntimeError until Council Lv6+ ratifies the R1 activation ADR-2606074015.
+raises RuntimeError until Council Lv6+ ratifies the R1 activation ADR-2606082015.
 """
 
 from __future__ import annotations

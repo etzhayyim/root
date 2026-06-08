@@ -15,7 +15,7 @@ input-shaper (the technique most container terminals actually deploy).
 
 stdlib-only · pywasm-ready · no NumPy. All state is plain ``list``/``float``.
 
-Per ADR-2606074000 (niyaku R0). Methods are pure compute (no outward action,
+Per ADR-2606082000 (niyaku R0). Methods are pure compute (no outward action,
 G-no-server-key); they do not move a real crane.
 """
 

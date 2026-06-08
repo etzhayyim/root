@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""niyaku cell state machines — R0 transition coverage (ADR-2606074000).
+"""niyaku cell state machines — R0 transition coverage (ADR-2606082000).
 
 The 9 cells' `.solve()` deliberately raise RuntimeError until Council ratifies
-the R1 activation ADR-2606074015 — this test does NOT bypass that gate (it never
+the R1 activation ADR-2606082015 — this test does NOT bypass that gate (it never
 calls solve()). It exercises the pure, langgraph-free `state_machine.py`
 transition functions that back each cell:
 

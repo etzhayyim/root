@@ -1,6 +1,6 @@
 # niyaku 荷役 — automated port cargo handling (ship↔shore loading/unloading)
 
-> Tier-B actor · `did:web:etzhayyim.com:niyaku` · ADR-2606074000 · **R0 scaffold**
+> Tier-B actor · `did:web:etzhayyim.com:niyaku` · ADR-2606082000 · **R0 scaffold**
 > Operator-side counterpart of **funadaiku** (船大工, builds the ships) · consumer of
 > **port** (terminal registry) + **watari** (live vessel position)
 
@@ -56,7 +56,7 @@ absent the Isaac tests skip and the rest stay green.
 `sts_hoist_cycle` (L3) → **`trolley_traverse`** (L4, anti-sway) → `yard_transfer` (L5) →
 `lashing_twistlock` (L6) → `manifest_attestation` (terminal), with `emissions_audit`
 cross-cutting. R0 = scaffold; every cell is import-clean but `.solve()` raises
-`RuntimeError` until Council Lv6+ ratifies R1 (ADR-2606074015, reserved). The
+`RuntimeError` until Council Lv6+ ratifies R1 (ADR-2606082015, reserved). The
 langgraph-free `state_machine.py` transitions are covered by `cells/test_state_machines.py`.
 
 ## Constitutional gates (R0)

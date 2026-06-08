@@ -11,7 +11,7 @@ coordinates). Automated handling needs two plan products:
 
 stdlib-only · pywasm-ready. Pure planning compute; emits no outward action.
 
-Per ADR-2606074000 (niyaku R0).
+Per ADR-2606082000 (niyaku R0).
 """
 
 from __future__ import annotations

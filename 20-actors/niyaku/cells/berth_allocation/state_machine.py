@@ -1,7 +1,7 @@
-"""berth_allocation state machine — ADR-2606074000 (L0 assign an arriving vessel to a berth + STS crane window).
+"""berth_allocation state machine — ADR-2606082000 (L0 assign an arriving vessel to a berth + STS crane window).
 
 R0 scaffold: phase transitions are structural placeholders. The cell's .solve()
-raises RuntimeError until Council Lv6+ ratifies the R1 activation ADR-2606074015.
+raises RuntimeError until Council Lv6+ ratifies the R1 activation ADR-2606082015.
 """
 
 from __future__ import annotations

@@ -2,8 +2,8 @@
 
 L3 ship-to-shore hoist: raise the box clear of the cell guides.
 
-Per ADR-2606074000. R0 scaffold — .solve() raises RuntimeError until Council Lv6+
-ratifies ADR-2606074015 (R1 activation). Lexicon:
+Per ADR-2606082000. R0 scaffold — .solve() raises RuntimeError until Council Lv6+
+ratifies ADR-2606082015 (R1 activation). Lexicon:
 com.etzhayyim.niyaku.stshoistcycleAttestation.
 """
 
@@ -51,7 +51,7 @@ class StsHoistCycleCell:
     def solve(self, input_state: dict[str, Any]) -> dict[str, Any]:
         """Execute the cell — R0 scaffold raises until R1 activation."""
         raise RuntimeError(
-            "niyaku R0 scaffold: activate via Council ADR-2606074015 post-ratification"
+            "niyaku R0 scaffold: activate via Council ADR-2606082015 post-ratification"
         )
 
 

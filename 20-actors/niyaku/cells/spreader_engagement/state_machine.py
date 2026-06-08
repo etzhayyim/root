@@ -1,7 +1,7 @@
-"""spreader_engagement state machine — ADR-2606074000 (L2 align + engage the twistlock spreader on the target container).
+"""spreader_engagement state machine — ADR-2606082000 (L2 align + engage the twistlock spreader on the target container).
 
 R0 scaffold: phase transitions are structural placeholders. The cell's .solve()
-raises RuntimeError until Council Lv6+ ratifies the R1 activation ADR-2606074015.
+raises RuntimeError until Council Lv6+ ratifies the R1 activation ADR-2606082015.
 """
 
 from __future__ import annotations
