@@ -114,6 +114,9 @@ cells = [
   "PublicFundGrantCell",
   "TitheRoutingCell",
   "DeploymentPlanningCell",  # kuni-umi Phase 2 (ADR-2605201400) — treasury-adjacent for BoM cost
+  "kabuto_company_ingest",      # 兜 public-company supply-chain offline merged-graph intake (cron 24 * * * *) (ADR-2606022000; G7 live GLEIF/EDGAR universe gated)
+  "kabuto_concentration_weave", # supplier-concentration / single-source / tier-depth / cross-bloc / cap-HHI (cron 29 * * * *) (ADR-2606022000; G2 resilience not target-list)
+  "kabuto_supply_persist",      # 兜 supply-chain resilience autonomous heartbeat → append-only kotoba Datom log (cron 34 * * * *) (ADR-2606022000; local persist, G7/G11 gated)
 ]
 replicas_of = []
 
