@@ -14517,6 +14517,25 @@
       "lastVerified": "2026-06-08"
     },
     {
+      "id": "doc:adr-2606082000-niyaku-port-cargo-handling-automation-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606082000: niyaku 荷役 — automated port cargo handling (ship↔shore loading/unloading) Tier-B actor (R0)",
+      "status": "proposed",
+      "topic": "niyaku-port-cargo-handling-automation",
+      "authoritative": true,
+      "authoritativeFor": [
+        "niyaku actor (automated port cargo handling — ship↔shore container loading/unloading)",
+        "anti-sway STS/gantry crane control mapped to the Cartpole topology",
+        "com.etzhayyim.niyaku.* lexicons"
+      ],
+      "related": [
+        "doc:adr-2606012600-watatsuna-submarine-cable-knowledge-graph-and-watatsumi-cable-laying-robotics",
+        "doc:adr-2606041827-watari-live-ship-aircraft-position-knowledge-graph",
+        "doc:adr-2605252500-sarutahiko-heavy-truck-manufacturing-r0"
+      ],
+      "lastVerified": "2026-06-08"
+    },
+    {
       "id": "doc:adr-2606082100-mishmar-storage-covenant-social-capital",
       "type": "TechArticle",
       "title": "ADR-2606082100: Mishmar Storage Covenant — social-capital-funded bonded pinning for unstoppable persistence (donation-native, anchor-chain staking, anti-usury)",
@@ -14540,6 +14559,28 @@
       "lastVerified": "2026-06-08"
     },
     {
+      "id": "doc:adr-2606082100-shiori-wellbecoming-detractor-mirror",
+      "type": "TechArticle",
+      "title": "ADR-2606082100: shiori 栞 — human-Wellbecoming detractor observatory + transparent intervention",
+      "status": "accepted",
+      "topic": "shiori-wellbecoming-detractor-mirror",
+      "authoritative": true,
+      "authoritativeFor": [
+        "shiori 栞 actor (human-Wellbecoming detractor observatory + transparent intervention)",
+        "wellbecoming-ontology"
+      ],
+      "related": [
+        "doc:2606073000",
+        "doc:2606073800",
+        "doc:2605263700",
+        "doc:2605263000",
+        "doc:2605231902",
+        "doc:2606082400",
+        "doc:2606014500"
+      ],
+      "lastVerified": "2026-06-08"
+    },
+    {
       "id": "doc:adr-2606082100-tailscale-ssh-fleet-operator-access-overlay",
       "type": "TechArticle",
       "title": "ADR-2606082100: Tailscale SSH mesh for the Murakumo Mac-mini fleet — keyless, tailnet-SSO-gated operator remote access",
@@ -14551,6 +14592,25 @@
         "the keyless Tailscale-SSH access convention for fleet nodes"
       ],
       "related": "doc:2605201400",
+      "lastVerified": "2026-06-08"
+    },
+    {
+      "id": "doc:adr-2606082400-charter-mutual-surveillance-reciprocity-clarification",
+      "type": "TechArticle",
+      "title": "ADR-2606082400: Charter-Rider §2(c) — the reciprocity axis (相互監視 affirmed; monetized/asymmetric surveillance prohibited)",
+      "status": "accepted",
+      "topic": "charter-mutual-surveillance-reciprocity-clarification",
+      "authoritative": true,
+      "authoritativeFor": [
+        "Charter Compliance Rider §2(c) (monetized-or-asymmetric surveillance)",
+        "the 相互監視 / reciprocal-transparency doctrine"
+      ],
+      "related": [
+        "doc:2605181100",
+        "doc:2605312345",
+        "doc:2605264000",
+        "doc:2606082100"
+      ],
       "lastVerified": "2026-06-08"
     },
     {
