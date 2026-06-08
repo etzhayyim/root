@@ -1,0 +1,4433 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "l5-verification-ledger",
+  "adr": [
+    "260607"
+  ],
+  "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
+  "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
+  "count": 34,
+  "actors": [
+    {
+      "handle": "square-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://developer.squareup.com/reference/square",
+      "remodeled": "This actor was REMODELED from the generic Stripe-shaped payments archetype to a faithful Square model (Payment/Order/Customer/Refund/CatalogObject/Invoice) before verification — the L5 gate had correctly rejected the prior mismatched model (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Payment",
+          "source": "https://developer.squareup.com/reference/square/payments-api/get-payment",
+          "verifiedFields": [
+            "orderId",
+            "customerId",
+            "amount",
+            "currency",
+            "status",
+            "sourceType"
+          ],
+          "fieldStatus": "confirmed: amount/currency via amount_money, status, source_type, order_id; customer_id is a real field (not in the fetched example). status enum not fully enumerated in excerpt -> not force-enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "status-enum (APPROVED/PENDING/COMPLETED/CANCELED/FAILED known but not enumerated in excerpt)",
+            "receipt_url",
+            "card_details"
+          ]
+        },
+        {
+          "entity": "Order",
+          "source": "https://developer.squareup.com/reference/square/orders-api/retrieve-order",
+          "verifiedFields": [
+            "locationId",
+            "customerId",
+            "state",
+            "totalAmount"
+          ],
+          "fieldStatus": "confirmed: location_id, state, total_money (totalAmount); customer_id is a real field (not in excerpt). state enum not fully enumerated -> not force-enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "state-enum (OPEN/COMPLETED/CANCELED/DRAFT known but not enumerated in excerpt)",
+            "line_items",
+            "net_amounts"
+          ]
+        },
+        {
+          "entity": "Customer",
+          "source": "https://developer.squareup.com/reference/square/objects/Customer",
+          "verifiedFields": [
+            "givenName",
+            "familyName",
+            "emailAddress",
+            "phoneNumber"
+          ],
+          "fieldStatus": "all 4 confirmed (snake_case)",
+          "discoveredEnums": {},
+          "gaps": [
+            "id",
+            "address",
+            "company_name",
+            "reference_id"
+          ]
+        },
+        {
+          "entity": "Refund",
+          "source": "https://developer.squareup.com/reference/square/objects/PaymentRefund",
+          "verifiedFields": [
+            "paymentId",
+            "amount",
+            "status",
+            "reason"
+          ],
+          "fieldStatus": "payment_id/status/reason confirmed; amount=amount_money; currency is nested in Money (gap)",
+          "discoveredEnums": {
+            "status": [
+              "PENDING",
+              "COMPLETED",
+              "REJECTED",
+              "FAILED"
+            ]
+          },
+          "gaps": [
+            "currency (nested in amount_money, not a direct field)",
+            "location_id",
+            "order_id"
+          ]
+        },
+        {
+          "entity": "CatalogObject",
+          "source": "https://developer.squareup.com/reference/square/objects/CatalogObject",
+          "verifiedFields": [
+            "type",
+            "version"
+          ],
+          "fieldStatus": "type/version confirmed; name only exists in type-specific *_data sub-objects (gap)",
+          "discoveredEnums": {
+            "type": [
+              "ITEM",
+              "CATEGORY",
+              "ITEM_VARIATION",
+              "TAX",
+              "DISCOUNT",
+              "MODIFIER_LIST",
+              "MODIFIER",
+              "TIME_PERIOD",
+              "PRODUCT_SET",
+              "PRICING_RULE",
+              "IMAGE",
+              "MEASUREMENT_UNIT",
+              "SUBSCRIPTION_PLAN",
+              "ITEM_OPTION",
+              "ITEM_OPTION_VAL",
+              "CUSTOM_ATTRIBUTE_DEFINITION",
+              "QUICK_AMOUNTS_SETTINGS",
+              "SUBSCRIPTION_PLAN_VARIATION",
+              "AVAILABILITY_PERIOD"
+            ]
+          },
+          "gaps": [
+            "name (only in *_data sub-objects)",
+            "id",
+            "is_deleted"
+          ]
+        },
+        {
+          "entity": "Invoice",
+          "source": "https://developer.squareup.com/reference/square/objects/Invoice",
+          "verifiedFields": [
+            "orderId",
+            "status",
+            "invoiceNumber"
+          ],
+          "fieldStatus": "order_id/status/invoice_number confirmed",
+          "discoveredEnums": {
+            "status": [
+              "DRAFT",
+              "PUBLISHED",
+              "SCHEDULED",
+              "SENT",
+              "PARTIALLY_PAID",
+              "PAID",
+              "PARTIALLY_REFUNDED",
+              "REFUNDED",
+              "CANCELED",
+              "FAILED"
+            ]
+          },
+          "gaps": [
+            "location_id",
+            "payment_requests",
+            "delivery_method"
+          ]
+        }
+      ],
+      "note": "6 resource(s) doc-verified; enforced enums: CatalogObject.type, Invoice.status, Refund.status"
+    },
+    {
+      "handle": "slack-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://docs.slack.dev/reference",
+      "resources": [
+        {
+          "entity": "Channel",
+          "source": "https://docs.slack.dev/reference/methods/conversations.info",
+          "verifiedFields": [
+            "name",
+            "isPrivate",
+            "topic",
+            "memberCount"
+          ],
+          "fieldStatus": "name/is_private/topic confirmed; memberCount=num_members (conditional, with include_num_members)",
+          "discoveredEnums": {},
+          "gaps": [
+            "is_archived",
+            "is_im",
+            "creator",
+            "created",
+            "purpose"
+          ]
+        },
+        {
+          "entity": "Message",
+          "source": "https://docs.slack.dev/reference/events/message",
+          "verifiedFields": [
+            "channelId",
+            "userId",
+            "text",
+            "ts"
+          ],
+          "fieldStatus": "channel/user/text/ts confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "type",
+            "subtype",
+            "edited",
+            "attachments"
+          ]
+        },
+        {
+          "entity": "User",
+          "source": "https://docs.slack.dev/reference/objects/user-object",
+          "verifiedFields": [
+            "handle",
+            "realName",
+            "email",
+            "isBot"
+          ],
+          "fieldStatus": "handle=name, realName=real_name, email=profile.email (nested), isBot=is_bot",
+          "discoveredEnums": {},
+          "gaps": [
+            "id",
+            "team_id",
+            "tz",
+            "profile.* (10+ fields)"
+          ]
+        },
+        {
+          "entity": "File",
+          "source": "https://docs.slack.dev/reference/objects/file-object",
+          "verifiedFields": [
+            "name",
+            "mimeType",
+            "sizeBytes",
+            "uploaderId"
+          ],
+          "fieldStatus": "name confirmed; mimeType=mimetype, sizeBytes=size, uploaderId=user",
+          "discoveredEnums": {},
+          "gaps": [
+            "id",
+            "title",
+            "url_private",
+            "channels[]"
+          ]
+        },
+        {
+          "entity": "Conversation",
+          "source": "https://docs.slack.dev/reference/objects/conversation-object",
+          "verifiedFields": [
+            "type",
+            "creatorId"
+          ],
+          "fieldStatus": "creatorId=creator; 'type' is a string simplification of Slack's is_channel/is_group/is_im/is_mpim boolean flags",
+          "discoveredEnums": {},
+          "gaps": [
+            "id",
+            "name",
+            "topic/purpose objects",
+            "num_members"
+          ]
+        }
+      ],
+      "note": "5 resource(s) doc-verified; 1 archetype entities have no real vendor counterpart (see notApplicable)",
+      "notApplicable": [
+        {
+          "entity": "Reaction",
+          "reason": "Slack has no first-class Reaction entity with a stable id; reactions are transient events + reactions.list results (count/users only there)."
+        }
+      ]
+    },
+    {
+      "handle": "hl7_fhir-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://hl7.org/fhir",
+      "resources": [
+        {
+          "entity": "Patient",
+          "source": "https://hl7.org/fhir/patient.html",
+          "verifiedFields": [
+            "identifier",
+            "givenName",
+            "familyName",
+            "birthDate"
+          ],
+          "fieldStatus": "identifier/birthDate confirmed; givenName/familyName = HumanName.given/.family; gender exists on the real resource but is not modeled here",
+          "discoveredEnums": {},
+          "gaps": [
+            "gender (real enum male|female|other|unknown — not modeled, so documented not enforced)",
+            "active",
+            "telecom",
+            "address",
+            "maritalStatus"
+          ]
+        },
+        {
+          "entity": "Observation",
+          "source": "https://hl7.org/fhir/R4/observation.html",
+          "verifiedFields": [
+            "patientId",
+            "code",
+            "value",
+            "unit"
+          ],
+          "fieldStatus": "subject(=patientId)/code confirmed; value=value[x] choice (e.g. valueQuantity.value), unit=valueQuantity.unit (nested)",
+          "discoveredEnums": {},
+          "gaps": [
+            "status (real enum registered/preliminary/final/amended — not modeled)",
+            "value[x] choice type",
+            "effective[x]"
+          ]
+        },
+        {
+          "entity": "Condition",
+          "source": "https://hl7.org/fhir/R4/condition.html",
+          "verifiedFields": [
+            "patientId",
+            "code",
+            "clinicalStatus"
+          ],
+          "fieldStatus": "subject(=patientId)/code/clinicalStatus confirmed",
+          "discoveredEnums": {
+            "clinicalStatus": [
+              "active",
+              "recurrence",
+              "relapse",
+              "inactive",
+              "remission",
+              "resolved"
+            ]
+          },
+          "gaps": [
+            "verificationStatus",
+            "category",
+            "severity",
+            "onset[x]"
+          ]
+        },
+        {
+          "entity": "DiagnosticReport",
+          "source": "https://hl7.org/fhir/R4/diagnosticreport.html",
+          "verifiedFields": [
+            "patientId",
+            "code",
+            "status",
+            "issuedAt"
+          ],
+          "fieldStatus": "subject(=patientId)/code/status/issued(=issuedAt) confirmed",
+          "discoveredEnums": {
+            "status": [
+              "registered",
+              "partial",
+              "preliminary",
+              "final"
+            ]
+          },
+          "gaps": [
+            "category",
+            "effective[x]",
+            "result",
+            "conclusion"
+          ]
+        },
+        {
+          "entity": "Specimen",
+          "source": "https://hl7.org/fhir/R4/specimen.html",
+          "verifiedFields": [
+            "patientId",
+            "type",
+            "collectedAt"
+          ],
+          "fieldStatus": "subject(=patientId)/type confirmed; collectedAt=collection.collectedDateTime (nested backbone element)",
+          "discoveredEnums": {},
+          "gaps": [
+            "status (real enum available/unavailable/unsatisfactory/entered-in-error — not modeled)",
+            "collection backbone nesting",
+            "container"
+          ]
+        }
+      ],
+      "note": "5 resource(s) doc-verified; enforced enums: Condition.clinicalStatus, DiagnosticReport.status; 1 archetype entities have no real vendor counterpart (see notApplicable)",
+      "notApplicable": [
+        {
+          "entity": "Sequence",
+          "reason": "FHIR R4 names it MolecularSequence and has no 'accession'/'referenceGenome' fields (uses identifier + referenceSeq.genomeBuild)."
+        }
+      ]
+    },
+    {
+      "handle": "discord-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://docs.discord.com/developers",
+      "resources": [
+        {
+          "entity": "Channel",
+          "source": "https://docs.discord.com/developers/resources/channel",
+          "verifiedFields": [
+            "name",
+            "topic",
+            "type"
+          ],
+          "fieldStatus": "name/topic/type confirmed on the real Channel object (id present)",
+          "discoveredEnums": {},
+          "gaps": [
+            "type-enum-values (int-coded GUILD_TEXT=0 etc., not captured)",
+            "guild_id",
+            "position",
+            "nsfw",
+            "parent_id"
+          ]
+        },
+        {
+          "entity": "Message",
+          "source": "https://docs.discord.com/developers/resources/message",
+          "verifiedFields": [
+            "channelId",
+            "authorId",
+            "body"
+          ],
+          "fieldStatus": "channel_id, author, content (=body) confirmed; type exists as int field (not modeled)",
+          "discoveredEnums": {},
+          "gaps": [
+            "type (int-coded message type)",
+            "timestamp",
+            "embeds",
+            "attachments",
+            "mentions"
+          ]
+        },
+        {
+          "entity": "User",
+          "source": "https://docs.discord.com/developers/resources/user",
+          "verifiedFields": [
+            "handle",
+            "displayName",
+            "verified"
+          ],
+          "fieldStatus": "handle=username, displayName=global_name, verified confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "id",
+            "bot",
+            "premium_type (int 0-3)",
+            "mfa_enabled"
+          ]
+        }
+      ],
+      "note": "3 resource(s) doc-verified; 3 archetype entities have no real vendor counterpart (see notApplicable)",
+      "notApplicable": [
+        {
+          "entity": "Webhook",
+          "reason": "Discord Webhook has url but NO 'event'/'active' fields (those are generic-webhook concepts); only url maps."
+        },
+        {
+          "entity": "Room",
+          "reason": "Discord has no 'Room' resource (voice happens in Channel type GUILD_VOICE / GUILD_STAGE_VOICE)."
+        },
+        {
+          "entity": "Stream",
+          "reason": "Discord has no standalone 'Stream' resource; streaming is a voice-channel capability."
+        }
+      ]
+    },
+    {
+      "handle": "gtfs-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://gtfs.org/documentation/schedule/reference/",
+      "resources": [
+        {
+          "entity": "Stop",
+          "source": "https://gtfs.org/documentation/schedule/reference/",
+          "verifiedFields": [
+            "name",
+            "lat",
+            "lon"
+          ],
+          "fieldStatus": "name=stop_name, lat=stop_lat, lon=stop_lon confirmed (code=stop_id)",
+          "discoveredEnums": {},
+          "gaps": [
+            "zone_id",
+            "location_type",
+            "parent_station",
+            "wheelchair_boarding"
+          ]
+        },
+        {
+          "entity": "Route",
+          "source": "https://gtfs.org/documentation/schedule/reference/",
+          "verifiedFields": [
+            "shortName",
+            "longName",
+            "mode"
+          ],
+          "fieldStatus": "shortName=route_short_name, longName=route_long_name, mode<=route_type confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "route_type is an INTEGER enum (0 tram .. 12 monorail) on the real spec; this actor's `mode` is a string label, so the enum is documented here but NOT force-enforced (semantic mapping, not 1:1)."
+          ]
+        },
+        {
+          "entity": "Trip",
+          "source": "https://gtfs.org/documentation/schedule/reference/",
+          "verifiedFields": [
+            "routeId",
+            "headsign",
+            "serviceId"
+          ],
+          "fieldStatus": "route_id/trip_headsign/service_id confirmed (trips.txt)",
+          "discoveredEnums": {},
+          "gaps": [
+            "trip_id",
+            "direction_id",
+            "shape_id"
+          ]
+        },
+        {
+          "entity": "Fare",
+          "source": "https://gtfs.org/documentation/schedule/reference/",
+          "verifiedFields": [
+            "routeId",
+            "price",
+            "currency"
+          ],
+          "fieldStatus": "price/currency_type confirmed (fare_attributes.txt); routeId via fare_rules.txt",
+          "discoveredEnums": {},
+          "gaps": [
+            "payment_method",
+            "transfers",
+            "fare_id"
+          ]
+        },
+        {
+          "entity": "Vehicle",
+          "source": "https://gtfs.org/documentation/realtime/reference/",
+          "verifiedFields": [
+            "routeId",
+            "label",
+            "lat",
+            "lon"
+          ],
+          "fieldStatus": "GTFS-RT VehiclePosition: trip.route_id, vehicle.label, position.latitude/longitude confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "timestamp",
+            "current_status",
+            "occupancy_status"
+          ]
+        },
+        {
+          "entity": "ServiceAlert",
+          "source": "https://gtfs.org/documentation/realtime/reference/",
+          "verifiedFields": [
+            "routeId",
+            "cause",
+            "effect"
+          ],
+          "fieldStatus": "GTFS-RT Alert: informed_entity.route_id, cause enum, effect enum confirmed",
+          "discoveredEnums": {
+            "cause": [
+              "UNKNOWN_CAUSE",
+              "OTHER_CAUSE",
+              "TECHNICAL_PROBLEM",
+              "STRIKE",
+              "DEMONSTRATION",
+              "ACCIDENT",
+              "HOLIDAY",
+              "WEATHER",
+              "MAINTENANCE",
+              "CONSTRUCTION",
+              "POLICE_ACTIVITY",
+              "MEDICAL_EMERGENCY"
+            ],
+            "effect": [
+              "NO_SERVICE",
+              "REDUCED_SERVICE",
+              "SIGNIFICANT_DELAYS",
+              "DETOUR",
+              "ADDITIONAL_SERVICE",
+              "MODIFIED_SERVICE",
+              "OTHER_EFFECT",
+              "UNKNOWN_EFFECT",
+              "STOP_MOVED",
+              "NO_EFFECT",
+              "ACCESSIBILITY_ISSUE"
+            ]
+          },
+          "gaps": [
+            "header_text",
+            "description_text",
+            "active_period"
+          ]
+        }
+      ],
+      "note": "6 resource(s) doc-verified; enforced enums: ServiceAlert.cause, ServiceAlert.effect"
+    },
+    {
+      "handle": "anthropic-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://platform.claude.com/docs/en/api",
+      "resources": [
+        {
+          "entity": "Message",
+          "source": "https://platform.claude.com/docs/en/api/messages",
+          "verifiedFields": [
+            "modelId",
+            "role",
+            "content",
+            "inputTokens",
+            "outputTokens"
+          ],
+          "fieldStatus": "all generated fields confirmed (modelId=model, inputTokens=usage.input_tokens, outputTokens=usage.output_tokens)",
+          "discoveredEnums": {
+            "role": [
+              "user",
+              "assistant"
+            ],
+            "stop_reason": [
+              "end_turn",
+              "max_tokens",
+              "stop_sequence",
+              "tool_use",
+              "pause_turn",
+              "refusal"
+            ]
+          },
+          "gaps": [
+            "id",
+            "stop_reason",
+            "stop_sequence",
+            "type"
+          ]
+        },
+        {
+          "entity": "Model",
+          "source": "https://platform.claude.com/docs/en/api/models",
+          "verifiedFields": [
+            "name",
+            "contextWindow",
+            "maxOutputTokens"
+          ],
+          "fieldStatus": "name<=id/display_name; contextWindow<=max_input_tokens; maxOutputTokens<=max_tokens; 'family' has no real counterpart (gap)",
+          "discoveredEnums": {},
+          "gaps": [
+            "family (not on real Model)",
+            "capabilities object",
+            "created_at"
+          ]
+        },
+        {
+          "entity": "Batch",
+          "source": "https://platform.claude.com/docs/en/api/batch-processing",
+          "verifiedFields": [
+            "requestCount",
+            "status"
+          ],
+          "fieldStatus": "status<=processing_status; requestCount<=request_counts (object on real API); modelId not on the batch object (gap)",
+          "discoveredEnums": {
+            "status": [
+              "processing",
+              "succeeded",
+              "failed",
+              "expired"
+            ]
+          },
+          "gaps": [
+            "modelId (model is per-request, not on batch)",
+            "output_file_id",
+            "created_at",
+            "expires_at"
+          ]
+        },
+        {
+          "entity": "File",
+          "source": "https://platform.claude.com/docs/en/api/files",
+          "verifiedFields": [
+            "filename",
+            "mimeType",
+            "bytes"
+          ],
+          "fieldStatus": "filename confirmed; mimeType=mime_type; bytes=size_bytes",
+          "discoveredEnums": {},
+          "gaps": [
+            "id",
+            "created_at",
+            "expires_at"
+          ]
+        },
+        {
+          "entity": "Tool",
+          "source": "https://platform.claude.com/docs/en/api/messages",
+          "verifiedFields": [
+            "name",
+            "description",
+            "inputSchemaRef"
+          ],
+          "fieldStatus": "name/description confirmed; inputSchemaRef<=input_schema (tools are request-scoped, not a stored resource)",
+          "discoveredEnums": {},
+          "gaps": [
+            "tools are ephemeral per-request, not a CRUD resource"
+          ]
+        },
+        {
+          "entity": "ToolUse",
+          "source": "https://platform.claude.com/docs/en/api/messages",
+          "verifiedFields": [
+            "toolName",
+            "inputRef"
+          ],
+          "fieldStatus": "toolName<=name, inputRef<=input on the tool_use content block; messageId/status are actor additions (block has no status)",
+          "discoveredEnums": {},
+          "gaps": [
+            "messageId (block is embedded in a Message)",
+            "status (tool_use is terminal, no status)"
+          ]
+        }
+      ],
+      "note": "6 resource(s) doc-verified; enforced enums: Batch.status, Message.role, Message.stop_reason; 1 archetype entities have no real vendor counterpart (see notApplicable)",
+      "notApplicable": [
+        {
+          "entity": "Conversation",
+          "reason": "The Anthropic API is stateless; there is no standalone Conversation resource (callers pass the message array per request)."
+        }
+      ]
+    },
+    {
+      "handle": "zendesk-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://developer.zendesk.com/api-reference",
+      "resources": [
+        {
+          "entity": "Ticket",
+          "source": "https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/",
+          "verifiedFields": [
+            "subject",
+            "requesterId",
+            "priority",
+            "status"
+          ],
+          "fieldStatus": "all generated fields confirmed (requesterId = real requester_id)",
+          "discoveredEnums": {
+            "priority": [
+              "urgent",
+              "high",
+              "normal",
+              "low"
+            ],
+            "status": [
+              "new",
+              "open",
+              "pending",
+              "hold",
+              "solved",
+              "closed"
+            ]
+          },
+          "gaps": [
+            "description",
+            "assignee_id",
+            "group_id",
+            "tags",
+            "custom_status_id"
+          ]
+        }
+      ],
+      "note": "1 resource(s) doc-verified; enforced enums: Ticket.priority, Ticket.status; 5 archetype entities have no real vendor counterpart (see notApplicable)",
+      "notApplicable": [
+        {
+          "entity": "Contact",
+          "reason": "email maps to Users.email, but firstName/lastName have no counterpart — Zendesk uses a single 'name' field."
+        },
+        {
+          "entity": "Account",
+          "reason": "Zendesk has Organization (name), but healthScore/arr are CRM/CS metrics absent from the Support API."
+        },
+        {
+          "entity": "Conversation",
+          "reason": "No Zendesk Conversation resource in the Support API; 'sentiment' is not a field; channel only via via.channel."
+        },
+        {
+          "entity": "Survey",
+          "reason": "Zendesk has legacy read-only CSAT Satisfaction Ratings, not a generic Survey resource with title/type/status."
+        },
+        {
+          "entity": "Response",
+          "reason": "Maps loosely to SatisfactionRating (score enum offered/unoffered/good/bad), not a Survey->Response hierarchy."
+        }
+      ]
+    },
+    {
+      "handle": "shopify-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://shopify.dev/docs/api/admin-rest",
+      "resources": [
+        {
+          "entity": "Product",
+          "source": "https://shopify.dev/docs/api/admin-rest/latest/resources/product",
+          "verifiedFields": [
+            "title",
+            "vendor",
+            "productType",
+            "status"
+          ],
+          "fieldStatus": "all generated fields confirmed (productType = real product_type)",
+          "discoveredEnums": {
+            "status": [
+              "active",
+              "archived",
+              "draft"
+            ]
+          },
+          "gaps": [
+            "handle",
+            "tags",
+            "published_at",
+            "options",
+            "images"
+          ]
+        },
+        {
+          "entity": "Order",
+          "source": "https://shopify.dev/docs/api/admin-rest/latest/resources/order",
+          "verifiedFields": [
+            "customerId",
+            "totalPrice",
+            "currency",
+            "financialStatus"
+          ],
+          "fieldStatus": "all generated fields confirmed (customerId via customer object, totalPrice=total_price, financialStatus=financial_status)",
+          "discoveredEnums": {
+            "financialStatus": [
+              "pending",
+              "authorized",
+              "partially_paid",
+              "paid",
+              "partially_refunded",
+              "refunded",
+              "voided"
+            ]
+          },
+          "gaps": [
+            "fulfillment_status",
+            "line_items",
+            "email",
+            "order_number"
+          ]
+        },
+        {
+          "entity": "Fulfillment",
+          "source": "https://shopify.dev/docs/api/admin-rest/latest/resources/fulfillment",
+          "verifiedFields": [
+            "orderId",
+            "status",
+            "trackingNumber"
+          ],
+          "fieldStatus": "all generated fields confirmed (orderId=order_id, trackingNumber=tracking_number)",
+          "discoveredEnums": {
+            "status": [
+              "pending",
+              "open",
+              "success",
+              "cancelled",
+              "error",
+              "failure"
+            ]
+          },
+          "gaps": [
+            "tracking_company",
+            "tracking_urls",
+            "line_items",
+            "shipment_status"
+          ]
+        },
+        {
+          "entity": "Customer",
+          "source": "https://shopify.dev/docs/api/admin-rest/latest/resources/customer",
+          "verifiedFields": [
+            "email",
+            "firstName",
+            "lastName",
+            "ordersCount"
+          ],
+          "fieldStatus": "all generated fields confirmed (firstName=first_name, lastName=last_name, ordersCount=orders_count)",
+          "discoveredEnums": {},
+          "gaps": [
+            "phone",
+            "tags",
+            "state",
+            "total_spent",
+            "verified_email"
+          ]
+        },
+        {
+          "entity": "Variant",
+          "source": "https://shopify.dev/docs/api/admin-rest/latest/resources/product-variant",
+          "verifiedFields": [
+            "productId",
+            "sku",
+            "price"
+          ],
+          "fieldStatus": "all generated fields confirmed (productId=product_id; inventoryQuantity=inventory_quantity is also real)",
+          "discoveredEnums": {},
+          "gaps": [
+            "inventory_management",
+            "barcode",
+            "weight",
+            "option1"
+          ]
+        },
+        {
+          "entity": "Collection",
+          "source": "https://shopify.dev/docs/api/admin-rest/latest/resources/customcollection",
+          "verifiedFields": [
+            "title",
+            "handle",
+            "published"
+          ],
+          "fieldStatus": "all generated fields confirmed (published is a real boolean)",
+          "discoveredEnums": {},
+          "gaps": [
+            "body_html",
+            "sort_order",
+            "image",
+            "products_count"
+          ]
+        },
+        {
+          "entity": "DiscountCode",
+          "source": "https://shopify.dev/docs/api/admin-rest/latest/resources/pricerule",
+          "verifiedFields": [
+            "code",
+            "valueType",
+            "value"
+          ],
+          "fieldStatus": "valueType=value_type (on PriceRule) confirmed; code is on the DiscountCode child resource",
+          "discoveredEnums": {
+            "valueType": [
+              "fixed_amount",
+              "percentage"
+            ]
+          },
+          "gaps": [
+            "target_type",
+            "allocation_method",
+            "usage_limit",
+            "starts_at"
+          ]
+        }
+      ],
+      "note": "7 resource(s) doc-verified; enforced enums: DiscountCode.valueType, Fulfillment.status, Order.financialStatus, Product.status"
+    },
+    {
+      "handle": "plaid-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://plaid.com/docs/api",
+      "resources": [
+        {
+          "entity": "Account",
+          "source": "https://plaid.com/docs/api/accounts/",
+          "verifiedFields": [
+            "name",
+            "type",
+            "subtype",
+            "currentBalance"
+          ],
+          "fieldStatus": "all generated fields confirmed (id = real account_id; currentBalance = real balances.current)",
+          "discoveredEnums": {
+            "type": [
+              "depository",
+              "credit",
+              "investment",
+              "loan",
+              "other"
+            ]
+          },
+          "gaps": [
+            "mask",
+            "official_name",
+            "balances.available",
+            "balances.iso_currency_code"
+          ]
+        },
+        {
+          "entity": "Transaction",
+          "source": "https://plaid.com/docs/api/products/transactions/",
+          "verifiedFields": [
+            "accountId",
+            "amount",
+            "currency",
+            "category",
+            "date"
+          ],
+          "fieldStatus": "all generated fields confirmed (accountId=account_id, currency=iso_currency_code)",
+          "discoveredEnums": {},
+          "gaps": [
+            "category is a free taxonomy list (not a fixed enum)",
+            "merchant_name",
+            "pending",
+            "payment_channel"
+          ]
+        },
+        {
+          "entity": "Institution",
+          "source": "https://plaid.com/docs/api/institutions/",
+          "verifiedFields": [
+            "name",
+            "country",
+            "products"
+          ],
+          "fieldStatus": "all generated fields confirmed (id=institution_id, country=country_codes, products=products list)",
+          "discoveredEnums": {},
+          "gaps": [
+            "url",
+            "logo",
+            "oauth",
+            "routing_numbers"
+          ]
+        },
+        {
+          "entity": "Identity",
+          "source": "https://plaid.com/docs/api/products/identity/",
+          "verifiedFields": [
+            "accountId",
+            "ownerName",
+            "email"
+          ],
+          "fieldStatus": "accountId=account_id linkage; ownerName<=owners[].names[]; email<=owners[].emails[].data (real API uses arrays; this actor stores the primary value)",
+          "discoveredEnums": {},
+          "gaps": [
+            "phone_numbers",
+            "addresses",
+            "multiple owners/names (arrays simplified to a single value)"
+          ]
+        },
+        {
+          "entity": "Item",
+          "source": "https://plaid.com/docs/api/items/",
+          "verifiedFields": [
+            "institutionId",
+            "consentExpiresAt"
+          ],
+          "fieldStatus": "institution_id + consent_expiration_time confirmed; 'status' has NO real counterpart on the Plaid Item (gap)",
+          "discoveredEnums": {},
+          "gaps": [
+            "status (no such field on real Item)",
+            "item_id",
+            "error",
+            "available_products",
+            "update_type"
+          ]
+        }
+      ],
+      "note": "5 resource(s) doc-verified; enforced enums: Account.type; 1 archetype entities have no real vendor counterpart (see notApplicable)",
+      "notApplicable": [
+        {
+          "entity": "Liability",
+          "reason": "Plaid returns a polymorphic LiabilitiesObject (credit[]/mortgage[]/student[]), each a distinct schema; the flat type/balance/apr model does not correspond 1:1."
+        }
+      ]
+    },
+    {
+      "handle": "github-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://docs.github.com/en/rest",
+      "resources": [
+        {
+          "entity": "Repository",
+          "source": "https://docs.github.com/en/rest/repos/repos",
+          "verifiedFields": [
+            "name",
+            "owner",
+            "defaultBranch",
+            "private",
+            "stars"
+          ],
+          "fieldStatus": "all generated fields confirmed (stars = real stargazers_count; owner = Simple User; defaultBranch = default_branch)",
+          "discoveredEnums": {},
+          "gaps": [
+            "full_name",
+            "fork",
+            "language",
+            "description",
+            "html_url",
+            "visibility"
+          ]
+        },
+        {
+          "entity": "Issue",
+          "source": "https://docs.github.com/en/rest/issues/issues",
+          "verifiedFields": [
+            "number",
+            "title",
+            "state",
+            "authorId"
+          ],
+          "fieldStatus": "all generated fields confirmed (authorId = real user/Simple User; body also present)",
+          "discoveredEnums": {
+            "state": [
+              "open",
+              "closed"
+            ]
+          },
+          "gaps": [
+            "body",
+            "state_reason",
+            "labels",
+            "assignees",
+            "milestone"
+          ]
+        },
+        {
+          "entity": "PullRequest",
+          "source": "https://docs.github.com/en/rest/pulls/pulls",
+          "verifiedFields": [
+            "number",
+            "title",
+            "state",
+            "headRef",
+            "baseRef"
+          ],
+          "fieldStatus": "all generated fields confirmed (headRef=head.ref, baseRef=base.ref)",
+          "discoveredEnums": {
+            "state": [
+              "open",
+              "closed"
+            ]
+          },
+          "gaps": [
+            "merged",
+            "draft",
+            "merge_commit_sha",
+            "user",
+            "body"
+          ]
+        },
+        {
+          "entity": "WorkflowRun",
+          "source": "https://docs.github.com/en/rest/actions/workflow-runs",
+          "verifiedFields": [
+            "status",
+            "conclusion",
+            "commitSha"
+          ],
+          "fieldStatus": "all generated fields confirmed (commitSha = real head_sha)",
+          "discoveredEnums": {
+            "status": [
+              "completed",
+              "action_required",
+              "cancelled",
+              "failure",
+              "neutral",
+              "skipped",
+              "stale",
+              "success",
+              "timed_out",
+              "in_progress",
+              "queued",
+              "requested",
+              "waiting",
+              "pending"
+            ],
+            "conclusion": [
+              "success",
+              "failure",
+              "neutral",
+              "cancelled",
+              "skipped",
+              "timed_out",
+              "action_required",
+              "stale"
+            ]
+          },
+          "gaps": [
+            "run_number",
+            "event",
+            "workflow_id",
+            "actor",
+            "html_url"
+          ]
+        },
+        {
+          "entity": "Release",
+          "source": "https://docs.github.com/en/rest/releases/releases",
+          "verifiedFields": [
+            "repoId",
+            "tag",
+            "name",
+            "draft"
+          ],
+          "fieldStatus": "all generated fields confirmed (tag=tag_name; draft is a real boolean; repoId is the relation)",
+          "discoveredEnums": {},
+          "gaps": [
+            "prerelease",
+            "body",
+            "published_at",
+            "assets"
+          ]
+        },
+        {
+          "entity": "Commit",
+          "source": "https://docs.github.com/en/rest/commits/commits",
+          "verifiedFields": [
+            "repoId",
+            "sha",
+            "message",
+            "authorId"
+          ],
+          "fieldStatus": "all generated fields confirmed (message=commit.message, authorId=author/Simple User)",
+          "discoveredEnums": {},
+          "gaps": [
+            "committer",
+            "parents",
+            "html_url",
+            "stats"
+          ]
+        },
+        {
+          "entity": "Workflow",
+          "source": "https://docs.github.com/en/rest/actions/workflows",
+          "verifiedFields": [
+            "repoId",
+            "name",
+            "state"
+          ],
+          "fieldStatus": "name/state confirmed (repoId is the relation)",
+          "discoveredEnums": {
+            "state": [
+              "active",
+              "deleted",
+              "disabled_fork",
+              "disabled_inactivity",
+              "disabled_manually"
+            ]
+          },
+          "gaps": [
+            "path",
+            "badge_url",
+            "html_url"
+          ]
+        }
+      ],
+      "note": "7 resource(s) doc-verified; enforced enums: Issue.state, PullRequest.state, Workflow.state, WorkflowRun.conclusion, WorkflowRun.status"
+    },
+    {
+      "handle": "twilio-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://www.twilio.com/docs",
+      "resources": [
+        {
+          "entity": "Message",
+          "source": "https://www.twilio.com/docs/messaging/api/message-resource",
+          "verifiedFields": [
+            "fromNumber",
+            "toNumber",
+            "body",
+            "status",
+            "direction"
+          ],
+          "fieldStatus": "all generated fields confirmed (fromNumber=from, toNumber=to)",
+          "discoveredEnums": {
+            "status": [
+              "queued",
+              "sending",
+              "sent",
+              "failed",
+              "delivered",
+              "undelivered",
+              "receiving",
+              "received",
+              "accepted",
+              "scheduled",
+              "read",
+              "canceled"
+            ],
+            "direction": [
+              "inbound",
+              "outbound-api",
+              "outbound-call",
+              "outbound-reply"
+            ]
+          },
+          "gaps": [
+            "price",
+            "num_segments",
+            "error_code",
+            "messaging_service_sid",
+            "date_sent"
+          ]
+        },
+        {
+          "entity": "Call",
+          "source": "https://www.twilio.com/docs/voice/api/call-resource",
+          "verifiedFields": [
+            "fromNumber",
+            "toNumber",
+            "status",
+            "durationSec"
+          ],
+          "fieldStatus": "all generated fields confirmed (fromNumber=from, toNumber=to, durationSec=duration in seconds)",
+          "discoveredEnums": {
+            "status": [
+              "queued",
+              "ringing",
+              "in-progress",
+              "canceled",
+              "completed",
+              "busy",
+              "failed",
+              "no-answer"
+            ]
+          },
+          "gaps": [
+            "price",
+            "direction",
+            "answered_by",
+            "start_time",
+            "end_time"
+          ]
+        },
+        {
+          "entity": "Verification",
+          "source": "https://www.twilio.com/docs/verify/api/verification",
+          "verifiedFields": [
+            "toNumber",
+            "channel",
+            "status"
+          ],
+          "fieldStatus": "all generated fields confirmed (toNumber=to)",
+          "discoveredEnums": {
+            "channel": [
+              "sms",
+              "call",
+              "email",
+              "whatsapp",
+              "sna",
+              "auto",
+              "rcs"
+            ],
+            "status": [
+              "pending",
+              "approved",
+              "canceled",
+              "max_attempts_reached",
+              "deleted",
+              "failed",
+              "expired"
+            ]
+          },
+          "gaps": [
+            "valid",
+            "amount",
+            "payee",
+            "send_code_attempts"
+          ]
+        },
+        {
+          "entity": "Conference",
+          "source": "https://www.twilio.com/docs/voice/api/conference-resource",
+          "verifiedFields": [
+            "friendlyName",
+            "status"
+          ],
+          "fieldStatus": "friendly_name/status confirmed (participantCount maps to a real participant count)",
+          "discoveredEnums": {
+            "status": [
+              "init",
+              "in-progress",
+              "completed"
+            ]
+          },
+          "gaps": [
+            "region",
+            "reason_conference_ended",
+            "call_sid_ending_conference"
+          ]
+        },
+        {
+          "entity": "PhoneNumber",
+          "source": "https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource",
+          "verifiedFields": [
+            "e164",
+            "friendlyName",
+            "capabilities"
+          ],
+          "fieldStatus": "all generated fields confirmed (e164=phone_number; capabilities is the real voice/sms/mms object)",
+          "discoveredEnums": {},
+          "gaps": [
+            "sid",
+            "sms_url",
+            "voice_url",
+            "status_callback"
+          ]
+        },
+        {
+          "entity": "Recording",
+          "source": "https://www.twilio.com/docs/voice/api/recording",
+          "verifiedFields": [
+            "callSid",
+            "durationSec"
+          ],
+          "fieldStatus": "call_sid + duration (durationSec) confirmed; contentRef maps to the real media URI. status enum exists on the real resource but status is not modeled here -> documented gap, not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "status (real enum in-progress/paused/stopped/processing/completed/absent/deleted — not modeled)",
+            "media_url",
+            "channels",
+            "source"
+          ]
+        }
+      ],
+      "note": "6 resource(s) doc-verified; enforced enums: Call.status, Conference.status, Message.direction, Message.status, Verification.channel, Verification.status"
+    },
+    {
+      "handle": "stripe-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://docs.stripe.com/api",
+      "resources": [
+        {
+          "entity": "Customer",
+          "source": "https://docs.stripe.com/api/customers/object",
+          "verifiedFields": [
+            "id",
+            "email",
+            "name",
+            "phone",
+            "balance",
+            "currency"
+          ],
+          "fieldStatus": "all generated fields confirmed present on the real Customer object",
+          "discoveredEnums": {},
+          "gaps": [
+            "description",
+            "metadata",
+            "address",
+            "shipping",
+            "invoice_settings",
+            "tax_exempt",
+            "preferred_locales"
+          ]
+        },
+        {
+          "entity": "PaymentIntent",
+          "source": "https://docs.stripe.com/api/payment_intents/object",
+          "verifiedFields": [
+            "id",
+            "amount",
+            "currency",
+            "customer",
+            "status",
+            "description"
+          ],
+          "fieldStatus": "all generated fields confirmed present on the real PaymentIntent object",
+          "discoveredEnums": {
+            "status": [
+              "requires_payment_method",
+              "requires_confirmation",
+              "requires_action",
+              "processing",
+              "requires_capture",
+              "canceled",
+              "succeeded"
+            ]
+          },
+          "gaps": [
+            "amount_received",
+            "client_secret",
+            "payment_method",
+            "metadata",
+            "latest_charge"
+          ]
+        },
+        {
+          "entity": "Charge",
+          "source": "https://docs.stripe.com/api/charges/object",
+          "verifiedFields": [
+            "customer",
+            "paymentIntent",
+            "amount",
+            "currency",
+            "status"
+          ],
+          "fieldStatus": "all generated fields confirmed (paymentIntent = real payment_intent); status confirmed present but the fetched excerpt did not enumerate the full enum, so it is NOT force-enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "status-enum (succeeded/pending/failed documented elsewhere, not enumerated in excerpt)",
+            "receipt_url",
+            "outcome",
+            "refunded"
+          ]
+        },
+        {
+          "entity": "Invoice",
+          "source": "https://docs.stripe.com/api/invoices/object",
+          "verifiedFields": [
+            "customer",
+            "amountDue",
+            "currency",
+            "status"
+          ],
+          "fieldStatus": "all generated fields confirmed (amountDue = real amount_due)",
+          "discoveredEnums": {
+            "status": [
+              "draft",
+              "open",
+              "paid",
+              "uncollectible",
+              "void"
+            ]
+          },
+          "gaps": [
+            "amount_paid",
+            "hosted_invoice_url",
+            "number",
+            "lines"
+          ]
+        },
+        {
+          "entity": "Subscription",
+          "source": "https://docs.stripe.com/api/subscriptions/object",
+          "verifiedFields": [
+            "customer",
+            "status",
+            "currentPeriodEnd"
+          ],
+          "fieldStatus": "customer/status confirmed; currentPeriodEnd maps to the real current_period_end (now per subscription-item)",
+          "discoveredEnums": {
+            "status": [
+              "incomplete",
+              "incomplete_expired",
+              "trialing",
+              "active",
+              "past_due",
+              "canceled",
+              "unpaid",
+              "paused"
+            ]
+          },
+          "gaps": [
+            "items",
+            "cancel_at_period_end",
+            "latest_invoice",
+            "default_payment_method"
+          ]
+        },
+        {
+          "entity": "Product",
+          "source": "https://docs.stripe.com/api/products/object",
+          "verifiedFields": [
+            "name",
+            "description",
+            "active"
+          ],
+          "fieldStatus": "all generated fields confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "default_price",
+            "images",
+            "metadata",
+            "tax_code"
+          ]
+        },
+        {
+          "entity": "Refund",
+          "source": "https://docs.stripe.com/api/refunds/object",
+          "verifiedFields": [
+            "charge",
+            "amount",
+            "reason",
+            "status"
+          ],
+          "fieldStatus": "all generated fields confirmed",
+          "discoveredEnums": {
+            "status": [
+              "pending",
+              "requires_action",
+              "succeeded",
+              "failed",
+              "canceled"
+            ],
+            "reason": [
+              "duplicate",
+              "fraudulent",
+              "requested_by_customer",
+              "expired_uncaptured_charge"
+            ]
+          },
+          "gaps": [
+            "payment_intent",
+            "receipt_number",
+            "metadata"
+          ]
+        },
+        {
+          "entity": "Price",
+          "source": "https://docs.stripe.com/api/prices/object",
+          "verifiedFields": [
+            "product",
+            "unitAmount",
+            "currency",
+            "recurringInterval"
+          ],
+          "fieldStatus": "all generated fields confirmed (unitAmount=unit_amount, recurringInterval=recurring.interval)",
+          "discoveredEnums": {
+            "recurringInterval": [
+              "day",
+              "week",
+              "month",
+              "year"
+            ]
+          },
+          "gaps": [
+            "billing_scheme",
+            "tiers",
+            "type",
+            "interval_count"
+          ]
+        }
+      ],
+      "note": "8 resource(s) doc-verified; enforced enums: Invoice.status, PaymentIntent.status, Price.recurringInterval, Refund.reason, Refund.status, Subscription.status"
+    },
+    {
+      "handle": "datadog-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://docs.datadoghq.com/api/latest",
+      "remodeled": "Remodeled from the generic devtools_apm archetype to a faithful Datadog model, then doc-verified (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Monitor",
+          "source": "https://docs.datadoghq.com/api/latest/monitors/",
+          "verifiedFields": [
+            "name",
+            "type",
+            "query",
+            "message",
+            "overallState",
+            "tags"
+          ],
+          "fieldStatus": "confirmed via official Datadog Monitors API examples",
+          "discoveredEnums": {
+            "type": [
+              "metric_alert",
+              "log_alert",
+              "anomaly",
+              "outlier",
+              "forecast",
+              "composite",
+              "host",
+              "network",
+              "integration",
+              "process",
+              "event",
+              "service_check",
+              "apm",
+              "real_user_monitoring",
+              "cloud_cost",
+              "slo_alert"
+            ],
+            "overallState": [
+              "alert",
+              "warn",
+              "no_data",
+              "ok"
+            ]
+          },
+          "gaps": [
+            "id",
+            "priority",
+            "options",
+            "creator"
+          ]
+        },
+        {
+          "entity": "Dashboard",
+          "source": "https://docs.datadoghq.com/api/latest/dashboards/",
+          "verifiedFields": [
+            "title",
+            "layoutType",
+            "description",
+            "widgets"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "layoutType": [
+              "ordered",
+              "free"
+            ]
+          },
+          "gaps": [
+            "id",
+            "template_variables",
+            "notify_list"
+          ]
+        },
+        {
+          "entity": "TimeSeries",
+          "source": "https://docs.datadoghq.com/api/latest/metrics/",
+          "verifiedFields": [
+            "metric",
+            "type",
+            "timestamp",
+            "value",
+            "host",
+            "tags"
+          ],
+          "fieldStatus": "confirmed via metrics submission",
+          "discoveredEnums": {
+            "type": [
+              "gauge",
+              "count",
+              "histogram",
+              "distribution",
+              "rate"
+            ]
+          },
+          "gaps": [
+            "interval",
+            "unit"
+          ]
+        },
+        {
+          "entity": "Event",
+          "source": "https://docs.datadoghq.com/api/latest/events/",
+          "verifiedFields": [
+            "title",
+            "text",
+            "timestamp",
+            "priority",
+            "alertType",
+            "tags"
+          ],
+          "fieldStatus": "confirmed via Events API",
+          "discoveredEnums": {
+            "priority": [
+              "normal",
+              "low"
+            ],
+            "alertType": [
+              "error",
+              "warning",
+              "info",
+              "success"
+            ]
+          },
+          "gaps": [
+            "id",
+            "source_type_name",
+            "aggregation_key"
+          ]
+        },
+        {
+          "entity": "Downtime",
+          "source": "https://docs.datadoghq.com/api/latest/downtimes/",
+          "verifiedFields": [
+            "monitorId",
+            "scope",
+            "start",
+            "end",
+            "timezone"
+          ],
+          "fieldStatus": "confirmed via downtime scheduling",
+          "discoveredEnums": {},
+          "gaps": [
+            "recurrence",
+            "message",
+            "muted"
+          ]
+        },
+        {
+          "entity": "Incident",
+          "source": "https://docs.datadoghq.com/api/latest/incidents/",
+          "verifiedFields": [
+            "title",
+            "severity",
+            "status",
+            "customerImpactScope"
+          ],
+          "fieldStatus": "confirmed via Incidents API",
+          "discoveredEnums": {
+            "severity": [
+              "UNKNOWN",
+              "LOW",
+              "MEDIUM",
+              "HIGH",
+              "CRITICAL"
+            ],
+            "status": [
+              "ACTIVE",
+              "RESOLVED",
+              "CLOSED"
+            ]
+          },
+          "gaps": [
+            "created",
+            "commander",
+            "fields"
+          ]
+        }
+      ],
+      "note": "6 resource(s) doc-verified; enforced enums: Monitor.type, Monitor.overallState, TimeSeries.type, Event.priority, Event.alertType, Incident.severity, Incident.status"
+    },
+    {
+      "handle": "sendgrid-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://www.twilio.com/docs/sendgrid/api-reference",
+      "remodeled": "Remodeled from the generic martech archetype to a faithful SendGrid v3 model, then doc-verified (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Contact",
+          "source": "https://www.twilio.com/docs/sendgrid/api-reference/contacts",
+          "verifiedFields": [
+            "email",
+            "firstName",
+            "lastName",
+            "country",
+            "externalId"
+          ],
+          "fieldStatus": "confirmed (first_name/last_name/country/external_id)",
+          "discoveredEnums": {},
+          "gaps": [
+            "custom_fields",
+            "phone_number_id",
+            "address_line_1"
+          ]
+        },
+        {
+          "entity": "Template",
+          "source": "https://www.twilio.com/docs/sendgrid/api-reference/transactional-templates",
+          "verifiedFields": [
+            "name",
+            "generation"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "generation": [
+              "legacy",
+              "dynamic"
+            ]
+          },
+          "gaps": [
+            "id",
+            "versions"
+          ]
+        },
+        {
+          "entity": "SingleSend",
+          "source": "https://www.twilio.com/docs/sendgrid/api-reference/single-sends",
+          "verifiedFields": [
+            "name",
+            "status",
+            "templateId",
+            "senderId"
+          ],
+          "fieldStatus": "name/template_id/sender_id confirmed; status present but the closed enum list is not published in the endpoint spec -> NOT force-enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "status-enum (draft/scheduled/sent/paused inferred, not in spec)",
+            "list_ids",
+            "send_at"
+          ]
+        },
+        {
+          "entity": "Bounce",
+          "source": "https://www.twilio.com/docs/sendgrid/api-reference/bounces-api",
+          "verifiedFields": [
+            "email",
+            "reason",
+            "status"
+          ],
+          "fieldStatus": "confirmed; reason/status are free-text SMTP detail, not enumerated",
+          "discoveredEnums": {},
+          "gaps": [
+            "created (unix)"
+          ]
+        },
+        {
+          "entity": "UnsubscribeGroup",
+          "source": "https://www.twilio.com/docs/sendgrid/api-reference/suppressions-unsubscribe-groups",
+          "verifiedFields": [
+            "name",
+            "description",
+            "isDefault"
+          ],
+          "fieldStatus": "confirmed (is_default boolean)",
+          "discoveredEnums": {},
+          "gaps": [
+            "id",
+            "unsubscribes"
+          ]
+        },
+        {
+          "entity": "Sender",
+          "source": "https://www.twilio.com/docs/sendgrid/api-reference/senders",
+          "verifiedFields": [
+            "nickname",
+            "fromEmail",
+            "fromName",
+            "verified"
+          ],
+          "fieldStatus": "confirmed (from.email/from.name nested; verified boolean)",
+          "discoveredEnums": {},
+          "gaps": [
+            "id",
+            "reply_to",
+            "address"
+          ]
+        }
+      ],
+      "note": "6 resource(s) doc-verified; enforced enums: Template.generation"
+    },
+    {
+      "handle": "gitlab-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://docs.gitlab.com/ee/api",
+      "remodeled": "Remodeled from generic devops_ci to a faithful GitLab REST model, then doc-verified (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Project",
+          "source": "https://docs.gitlab.com/ee/api/projects.html",
+          "verifiedFields": [
+            "name",
+            "path",
+            "description",
+            "visibility",
+            "defaultBranch",
+            "archived"
+          ],
+          "fieldStatus": "confirmed (default_branch)",
+          "discoveredEnums": {
+            "visibility": [
+              "private",
+              "internal",
+              "public"
+            ]
+          },
+          "gaps": [
+            "namespace",
+            "star_count",
+            "forks_count"
+          ]
+        },
+        {
+          "entity": "Issue",
+          "source": "https://docs.gitlab.com/ee/api/issues.html",
+          "verifiedFields": [
+            "projectId",
+            "iid",
+            "title",
+            "description",
+            "state",
+            "issueType"
+          ],
+          "fieldStatus": "confirmed (project_id, issue_type)",
+          "discoveredEnums": {
+            "state": [
+              "opened",
+              "closed"
+            ],
+            "issueType": [
+              "issue",
+              "incident",
+              "test_case",
+              "task"
+            ]
+          },
+          "gaps": [
+            "labels",
+            "assignees",
+            "milestone"
+          ]
+        },
+        {
+          "entity": "MergeRequest",
+          "source": "https://docs.gitlab.com/ee/api/merge_requests.html",
+          "verifiedFields": [
+            "projectId",
+            "iid",
+            "title",
+            "state",
+            "sourceBranch",
+            "targetBranch",
+            "sha"
+          ],
+          "fieldStatus": "confirmed (source_branch/target_branch)",
+          "discoveredEnums": {
+            "state": [
+              "opened",
+              "closed",
+              "merged",
+              "locked"
+            ]
+          },
+          "gaps": [
+            "draft",
+            "merge_status",
+            "author"
+          ]
+        },
+        {
+          "entity": "Pipeline",
+          "source": "https://docs.gitlab.com/ee/api/pipelines.html",
+          "verifiedFields": [
+            "projectId",
+            "status",
+            "ref",
+            "sha",
+            "duration"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "created",
+              "waiting_for_resource",
+              "preparing",
+              "pending",
+              "running",
+              "success",
+              "failed",
+              "canceled",
+              "skipped",
+              "manual",
+              "scheduled"
+            ]
+          },
+          "gaps": [
+            "source",
+            "web_url"
+          ]
+        },
+        {
+          "entity": "Job",
+          "source": "https://docs.gitlab.com/ee/api/jobs.html",
+          "verifiedFields": [
+            "name",
+            "status",
+            "stage",
+            "ref"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "canceled",
+              "canceling",
+              "created",
+              "failed",
+              "manual",
+              "pending",
+              "preparing",
+              "running",
+              "scheduled",
+              "skipped",
+              "success",
+              "waiting_for_callback",
+              "waiting_for_resource"
+            ]
+          },
+          "gaps": [
+            "failure_reason",
+            "artifacts"
+          ]
+        },
+        {
+          "entity": "Commit",
+          "source": "https://docs.gitlab.com/ee/api/commits.html",
+          "verifiedFields": [
+            "shortId",
+            "title",
+            "message",
+            "authorName",
+            "authorEmail"
+          ],
+          "fieldStatus": "confirmed (short_id, author_name/email)",
+          "discoveredEnums": {},
+          "gaps": [
+            "committed_date",
+            "stats",
+            "parent_ids"
+          ]
+        }
+      ],
+      "note": "FULLY VERIFIED (6/6): Project/Issue/MergeRequest/Pipeline/Job/Commit vs official GitLab docs. Enforced enums: Project.visibility, Issue.state, Issue.issueType, MergeRequest.state, Pipeline.status, Job.status (6)."
+    },
+    {
+      "handle": "mailchimp-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://mailchimp.com/developer/marketing/api",
+      "remodeled": "Remodeled from generic martech to a faithful Mailchimp Marketing v3 model, then doc-verified (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "List",
+          "source": "https://mailchimp.com/developer/marketing/api/lists/",
+          "verifiedFields": [
+            "name",
+            "permissionReminder",
+            "useArchiveBar",
+            "notifyOnSubscribe",
+            "notifyOnUnsubscribe",
+            "listRating"
+          ],
+          "fieldStatus": "confirmed (permission_reminder, use_archive_bar, list_rating)",
+          "discoveredEnums": {},
+          "gaps": [
+            "contact (object)",
+            "campaign_defaults (object)",
+            "stats"
+          ]
+        },
+        {
+          "entity": "ListMember",
+          "source": "https://mailchimp.com/developer/marketing/api/list-members/",
+          "verifiedFields": [
+            "emailAddress",
+            "emailType",
+            "status",
+            "language",
+            "vip",
+            "memberRating"
+          ],
+          "fieldStatus": "confirmed (email_address, email_type, member_rating)",
+          "discoveredEnums": {
+            "status": [
+              "subscribed",
+              "unsubscribed",
+              "cleaned",
+              "pending",
+              "transactional",
+              "archived"
+            ],
+            "emailType": [
+              "html",
+              "text"
+            ]
+          },
+          "gaps": [
+            "merge_fields (object)",
+            "interests (object)",
+            "tags"
+          ]
+        },
+        {
+          "entity": "Campaign",
+          "source": "https://mailchimp.com/developer/marketing/api/campaigns/",
+          "verifiedFields": [
+            "type",
+            "contentType",
+            "status",
+            "emailTitle"
+          ],
+          "fieldStatus": "confirmed (content_type, email_title)",
+          "discoveredEnums": {
+            "status": [
+              "save",
+              "paused",
+              "schedule",
+              "sending",
+              "sent"
+            ],
+            "type": [
+              "regular",
+              "plaintext",
+              "absplit",
+              "rss",
+              "automation",
+              "variate"
+            ],
+            "contentType": [
+              "html",
+              "template"
+            ]
+          },
+          "gaps": [
+            "recipients (object)",
+            "settings",
+            "tracking (object)"
+          ]
+        },
+        {
+          "entity": "Template",
+          "source": "https://mailchimp.com/developer/marketing/api/templates/",
+          "verifiedFields": [
+            "name",
+            "type",
+            "folderId"
+          ],
+          "fieldStatus": "confirmed (folder_id)",
+          "discoveredEnums": {
+            "type": [
+              "user",
+              "base"
+            ]
+          },
+          "gaps": [
+            "html",
+            "date_created",
+            "active"
+          ]
+        },
+        {
+          "entity": "Segment",
+          "source": "https://mailchimp.com/developer/marketing/api/segments/",
+          "verifiedFields": [
+            "name",
+            "type",
+            "memberCount"
+          ],
+          "fieldStatus": "confirmed (member_count)",
+          "discoveredEnums": {
+            "type": [
+              "static",
+              "fuzzy"
+            ]
+          },
+          "gaps": [
+            "options",
+            "created_at"
+          ]
+        },
+        {
+          "entity": "Automation",
+          "source": "https://mailchimp.com/developer/marketing/api/automation/",
+          "verifiedFields": [
+            "workflowId",
+            "type",
+            "status"
+          ],
+          "fieldStatus": "status confirmed; type values are not a published closed enum -> NOT force-enforced",
+          "discoveredEnums": {
+            "status": [
+              "active",
+              "paused",
+              "archived"
+            ]
+          },
+          "gaps": [
+            "type-enum (inferred only)",
+            "trigger_settings (object)",
+            "recipients (object)"
+          ]
+        }
+      ],
+      "note": "FULLY VERIFIED (6/6): List/ListMember/Campaign/Template/Segment/Automation vs official Mailchimp docs. Enforced enums: ListMember.status, ListMember.emailType, Campaign.status, Campaign.type, Campaign.contentType, Template.type, Segment.type, Automation.status (8)."
+    },
+    {
+      "handle": "sentry-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://docs.sentry.io/api",
+      "remodeled": "Remodeled from generic devtools_apm to a faithful Sentry model, then doc-verified (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Issue",
+          "source": "https://docs.sentry.io/api/events/list-an-organizations-issues/",
+          "verifiedFields": [
+            "shortId",
+            "title",
+            "status",
+            "level",
+            "priority",
+            "count",
+            "userCount"
+          ],
+          "fieldStatus": "confirmed (short_id, user_count)",
+          "discoveredEnums": {
+            "status": [
+              "ignored",
+              "resolved",
+              "unresolved"
+            ],
+            "level": [
+              "fatal",
+              "error",
+              "warning",
+              "info",
+              "debug"
+            ],
+            "priority": [
+              "low",
+              "medium",
+              "high"
+            ]
+          },
+          "gaps": [
+            "substatus (full enum not in docs — DEFER)",
+            "culprit",
+            "metadata"
+          ]
+        },
+        {
+          "entity": "Event",
+          "source": "https://docs.sentry.io/api/events/",
+          "verifiedFields": [
+            "eventID",
+            "groupID",
+            "projectID",
+            "title",
+            "message",
+            "level",
+            "platform"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "level": [
+              "fatal",
+              "error",
+              "warning",
+              "info",
+              "debug"
+            ]
+          },
+          "gaps": [
+            "tags",
+            "entries",
+            "dateReceived"
+          ]
+        },
+        {
+          "entity": "Project",
+          "source": "https://docs.sentry.io/api/projects/",
+          "verifiedFields": [
+            "slug",
+            "name",
+            "platform",
+            "isBookmarked"
+          ],
+          "fieldStatus": "confirmed (is_bookmarked); status enum is degenerate [active], not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "status",
+            "features",
+            "dateCreated"
+          ]
+        },
+        {
+          "entity": "Organization",
+          "source": "https://docs.sentry.io/api/organizations/",
+          "verifiedFields": [
+            "slug",
+            "name",
+            "hasAuthProvider",
+            "require2FA",
+            "isEarlyAdopter"
+          ],
+          "fieldStatus": "confirmed booleans",
+          "discoveredEnums": {},
+          "gaps": [
+            "avatar",
+            "features"
+          ]
+        },
+        {
+          "entity": "Team",
+          "source": "https://docs.sentry.io/api/teams/",
+          "verifiedFields": [
+            "slug",
+            "name",
+            "memberCount",
+            "hasAccess"
+          ],
+          "fieldStatus": "confirmed (member_count, has_access)",
+          "discoveredEnums": {},
+          "gaps": [
+            "projects",
+            "teamRole"
+          ]
+        },
+        {
+          "entity": "Release",
+          "source": "https://docs.sentry.io/api/releases/",
+          "verifiedFields": [
+            "version",
+            "status",
+            "commitCount",
+            "deployCount"
+          ],
+          "fieldStatus": "confirmed (commit_count, deploy_count)",
+          "discoveredEnums": {
+            "status": [
+              "open",
+              "archived"
+            ]
+          },
+          "gaps": [
+            "dateReleased",
+            "authors",
+            "projects"
+          ]
+        }
+      ],
+      "note": "FULLY VERIFIED (6/6) vs official Sentry docs. Enforced enums: Issue.status, Issue.level, Issue.priority, Event.level, Release.status (5)."
+    },
+    {
+      "handle": "twitch-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://dev.twitch.tv/docs/api/reference",
+      "remodeled": "Remodeled from generic comms_social to a faithful Twitch Helix model, then doc-verified (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "User",
+          "source": "https://dev.twitch.tv/docs/api/reference/#get-users",
+          "verifiedFields": [
+            "userLogin",
+            "userName",
+            "broadcasterType"
+          ],
+          "fieldStatus": "confirmed (login/display_name/broadcaster_type)",
+          "discoveredEnums": {
+            "broadcasterType": [
+              "partner",
+              "affiliate",
+              ""
+            ]
+          },
+          "gaps": [
+            "description",
+            "createdAt",
+            "viewCount"
+          ]
+        },
+        {
+          "entity": "Channel",
+          "source": "https://dev.twitch.tv/docs/api/reference/#get-channel-information",
+          "verifiedFields": [
+            "broadcasterLogin",
+            "broadcasterName",
+            "broadcasterLanguage",
+            "gameId",
+            "gameName",
+            "title",
+            "delay"
+          ],
+          "fieldStatus": "confirmed; delay unsigned int",
+          "discoveredEnums": {},
+          "gaps": [
+            "tags",
+            "content_classification_labels"
+          ]
+        },
+        {
+          "entity": "Stream",
+          "source": "https://dev.twitch.tv/docs/api/reference/#get-streams",
+          "verifiedFields": [
+            "userId",
+            "userName",
+            "gameId",
+            "gameName",
+            "type",
+            "viewerCount",
+            "title",
+            "language"
+          ],
+          "fieldStatus": "confirmed; type enum degenerate [live], not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "startedAt",
+            "thumbnailUrl",
+            "tags"
+          ]
+        },
+        {
+          "entity": "Video",
+          "source": "https://dev.twitch.tv/docs/api/reference/#get-videos",
+          "verifiedFields": [
+            "userId",
+            "title",
+            "description",
+            "type",
+            "viewable",
+            "viewCount",
+            "duration"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "archive",
+              "highlight",
+              "upload"
+            ],
+            "viewable": [
+              "public",
+              "private",
+              "unlisted"
+            ]
+          },
+          "gaps": [
+            "createdAt",
+            "publishedAt",
+            "url"
+          ]
+        },
+        {
+          "entity": "Clip",
+          "source": "https://dev.twitch.tv/docs/api/reference/#get-clips",
+          "verifiedFields": [
+            "broadcasterId",
+            "creatorId",
+            "gameId",
+            "title",
+            "viewCount",
+            "duration",
+            "isFeatured"
+          ],
+          "fieldStatus": "confirmed; duration float; is_featured boolean",
+          "discoveredEnums": {},
+          "gaps": [
+            "url",
+            "embedUrl",
+            "createdAt"
+          ]
+        },
+        {
+          "entity": "Game",
+          "source": "https://dev.twitch.tv/docs/api/reference/#get-games",
+          "verifiedFields": [
+            "name",
+            "boxArtUrl"
+          ],
+          "fieldStatus": "confirmed (box_art_url)",
+          "discoveredEnums": {},
+          "gaps": [
+            "igdb_id"
+          ]
+        }
+      ],
+      "note": "FULLY VERIFIED (6/6) vs official Twitch Helix docs. Enforced enums: User.broadcasterType, Video.type, Video.viewable (3)."
+    },
+    {
+      "handle": "box-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://developer.box.com/reference",
+      "remodeled": "Remodeled from generic office_productivity to a faithful Box model, then doc-verified (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "File",
+          "source": "https://developer.box.com/reference/get-files-id/",
+          "verifiedFields": [
+            "name",
+            "description",
+            "size",
+            "sha1",
+            "itemStatus",
+            "commentCount"
+          ],
+          "fieldStatus": "confirmed (item_status, comment_count)",
+          "discoveredEnums": {
+            "itemStatus": [
+              "active",
+              "trashed",
+              "deleted"
+            ]
+          },
+          "gaps": [
+            "parent",
+            "version_number",
+            "extension"
+          ]
+        },
+        {
+          "entity": "Folder",
+          "source": "https://developer.box.com/reference/get-folders-id/",
+          "verifiedFields": [
+            "name",
+            "description",
+            "size",
+            "itemStatus",
+            "syncState"
+          ],
+          "fieldStatus": "confirmed (sync_state)",
+          "discoveredEnums": {
+            "itemStatus": [
+              "active",
+              "trashed",
+              "deleted"
+            ],
+            "syncState": [
+              "synced",
+              "not_synced",
+              "partially_synced"
+            ]
+          },
+          "gaps": [
+            "parent",
+            "item_collection"
+          ]
+        },
+        {
+          "entity": "User",
+          "source": "https://developer.box.com/reference/get-users-id/",
+          "verifiedFields": [
+            "name",
+            "login",
+            "status",
+            "role"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "active",
+              "inactive",
+              "cannot_delete_edit",
+              "cannot_delete_edit_upload"
+            ],
+            "role": [
+              "admin",
+              "coadmin",
+              "user"
+            ]
+          },
+          "gaps": [
+            "language",
+            "space_amount"
+          ]
+        },
+        {
+          "entity": "Collaboration",
+          "source": "https://developer.box.com/reference/post-collaborations/",
+          "verifiedFields": [
+            "role",
+            "status",
+            "isAccessOnly"
+          ],
+          "fieldStatus": "confirmed (is_access_only)",
+          "discoveredEnums": {
+            "role": [
+              "editor",
+              "viewer",
+              "previewer",
+              "uploader",
+              "previewer uploader",
+              "viewer uploader",
+              "co-owner",
+              "owner"
+            ],
+            "status": [
+              "accepted",
+              "pending",
+              "rejected"
+            ]
+          },
+          "gaps": [
+            "accessible_by",
+            "expires_at"
+          ]
+        },
+        {
+          "entity": "SharedLink",
+          "source": "https://github.com/box/box-openapi",
+          "verifiedFields": [
+            "access",
+            "vanityName",
+            "canDownload"
+          ],
+          "fieldStatus": "confirmed via official OpenAPI spec (developer.box.com SharedLink page 404'd)",
+          "discoveredEnums": {
+            "access": [
+              "open",
+              "company",
+              "collaborators"
+            ]
+          },
+          "gaps": [
+            "password",
+            "unshared_at",
+            "download_count"
+          ]
+        },
+        {
+          "entity": "Comment",
+          "source": "https://developer.box.com/reference/post-comments/",
+          "verifiedFields": [
+            "message",
+            "isReplyComment"
+          ],
+          "fieldStatus": "confirmed (is_reply_comment)",
+          "discoveredEnums": {},
+          "gaps": [
+            "tagged_message",
+            "created_by"
+          ]
+        }
+      ],
+      "note": "FULLY VERIFIED (6/6) vs official Box docs/OpenAPI. Enforced enums: File.itemStatus, Folder.itemStatus, Folder.syncState, User.status, User.role, Collaboration.role, Collaboration.status, SharedLink.access (8)."
+    },
+    {
+      "handle": "figma-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://developers.figma.com/docs/rest-api",
+      "remodeled": "Remodeled from generic design_tools to a faithful Figma REST model, then partially doc-verified (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "File",
+          "source": "https://developers.figma.com/docs/rest-api/file-endpoints/",
+          "verifiedFields": [
+            "name",
+            "role",
+            "lastModified",
+            "editorType",
+            "version",
+            "schemaVersion"
+          ],
+          "fieldStatus": "confirmed (last_modified, editor_type, schema_version)",
+          "discoveredEnums": {},
+          "gaps": [
+            "thumbnailUrl",
+            "document",
+            "components"
+          ]
+        },
+        {
+          "entity": "Node",
+          "source": "https://developers.figma.com/docs/rest-api/file-node-types/",
+          "verifiedFields": [
+            "id",
+            "name",
+            "type",
+            "visible",
+            "rotation",
+            "locked"
+          ],
+          "fieldStatus": "confirmed; type enum from file-node-types (24 values)",
+          "discoveredEnums": {
+            "type": [
+              "DOCUMENT",
+              "CANVAS",
+              "FRAME",
+              "GROUP",
+              "VECTOR",
+              "BOOLEAN_OPERATION",
+              "STAR",
+              "LINE",
+              "ELLIPSE",
+              "REGULAR_POLYGON",
+              "RECTANGLE",
+              "TEXT",
+              "SLICE",
+              "COMPONENT",
+              "COMPONENT_SET",
+              "INSTANCE",
+              "SECTION",
+              "TABLE",
+              "TABLE_CELL",
+              "SHAPE_WITH_TEXT",
+              "CONNECTOR",
+              "TEXT_PATH",
+              "STICKY",
+              "WASHI_TAPE",
+              "TRANSFORM_GROUP"
+            ]
+          },
+          "gaps": [
+            "children",
+            "absoluteBoundingBox",
+            "fills"
+          ]
+        },
+        {
+          "entity": "Component",
+          "source": "https://developers.figma.com/docs/rest-api/file-endpoints/",
+          "verifiedFields": [
+            "key",
+            "name",
+            "description"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "componentSetId",
+            "documentationLinks"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "3/6 doc-verified (Comment/Project/Style endpoint pages 404'd via WebFetch — DEFERRED). Enforced enums: Node.type."
+    },
+    {
+      "handle": "dropbox-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://www.dropbox.com/developers/documentation/http/documentation",
+      "remodeled": "Remodeled from generic office_productivity to a faithful Dropbox model, verified against Dropbox's official Stone-generated SDK (the canonical API contract; the HTTP docs page is JS-rendered).",
+      "resources": [
+        {
+          "entity": "FileMetadata",
+          "source": "https://github.com/dropbox/dropbox-sdk-python/blob/main/dropbox/files.py",
+          "verifiedFields": [
+            "name",
+            "pathLower",
+            "pathDisplay",
+            "id",
+            "rev",
+            "size",
+            "isDownloadable",
+            "contentHash"
+          ],
+          "fieldStatus": "confirmed (path_lower, is_downloadable, content_hash)",
+          "discoveredEnums": {},
+          "gaps": [
+            "client_modified",
+            "server_modified",
+            "media_info"
+          ]
+        },
+        {
+          "entity": "FolderMetadata",
+          "source": "https://github.com/dropbox/dropbox-sdk-python/blob/main/dropbox/files.py",
+          "verifiedFields": [
+            "name",
+            "pathLower",
+            "pathDisplay",
+            "id",
+            "sharedFolderId"
+          ],
+          "fieldStatus": "confirmed (shared_folder_id)",
+          "discoveredEnums": {},
+          "gaps": [
+            "sharing_info",
+            "property_groups"
+          ]
+        },
+        {
+          "entity": "SharedLink",
+          "source": "https://github.com/dropbox/dropbox-sdk-python/blob/main/dropbox/sharing.py",
+          "verifiedFields": [
+            "url",
+            "path",
+            "visibility",
+            "requestedVisibility"
+          ],
+          "fieldStatus": "confirmed (requested_visibility); visibility=ResolvedVisibility",
+          "discoveredEnums": {
+            "requestedVisibility": [
+              "public",
+              "team_only",
+              "password"
+            ],
+            "visibility": [
+              "public",
+              "team_only",
+              "password",
+              "team_and_password",
+              "shared_folder_only",
+              "no_one",
+              "only_you",
+              "other"
+            ]
+          },
+          "gaps": [
+            "expires",
+            "link_permissions"
+          ]
+        },
+        {
+          "entity": "Account",
+          "source": "https://github.com/dropbox/dropbox-sdk-python/blob/main/dropbox/users.py",
+          "verifiedFields": [
+            "accountId",
+            "email",
+            "emailVerified",
+            "displayName",
+            "locale",
+            "country"
+          ],
+          "fieldStatus": "confirmed (account_id, email_verified, display_name)",
+          "discoveredEnums": {},
+          "gaps": [
+            "referral_link",
+            "is_paired",
+            "account_type"
+          ]
+        },
+        {
+          "entity": "SharedFolder",
+          "source": "https://github.com/dropbox/dropbox-sdk-python/blob/main/dropbox/sharing.py",
+          "verifiedFields": [
+            "sharedFolderId",
+            "name",
+            "pathLower",
+            "accessType"
+          ],
+          "fieldStatus": "confirmed; accessType=AccessLevel",
+          "discoveredEnums": {
+            "accessType": [
+              "owner",
+              "editor",
+              "viewer",
+              "viewer_no_comment",
+              "traverse",
+              "no_access"
+            ]
+          },
+          "gaps": [
+            "is_team_folder",
+            "policy"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs Dropbox official SDK. Enforced enums: SharedLink.requestedVisibility, SharedLink.visibility, SharedFolder.accessType (3)."
+    },
+    {
+      "handle": "cloudflare-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://developers.cloudflare.com/api",
+      "remodeled": "Remodeled from generic iaas_cloud to a faithful Cloudflare model, partially doc-verified (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Zone",
+          "source": "https://developers.cloudflare.com/api/operations/zones-list/",
+          "verifiedFields": [
+            "name",
+            "status",
+            "type",
+            "paused",
+            "developmentMode"
+          ],
+          "fieldStatus": "confirmed (created_on/activated_on/modified_on present; development_mode int)",
+          "discoveredEnums": {
+            "status": [
+              "initializing",
+              "pending",
+              "active",
+              "moved"
+            ],
+            "type": [
+              "full",
+              "partial",
+              "secondary",
+              "internal"
+            ]
+          },
+          "gaps": [
+            "account",
+            "name_servers",
+            "original_registrar"
+          ]
+        },
+        {
+          "entity": "DNSRecord",
+          "source": "https://developers.cloudflare.com/dns/manage-dns-records/reference/dns-record-types/",
+          "verifiedFields": [
+            "name",
+            "type"
+          ],
+          "fieldStatus": "type enum confirmed from official DNS record-types reference; content/ttl/proxied are standard fields not enumerated in the fetched excerpt",
+          "discoveredEnums": {
+            "type": [
+              "A",
+              "AAAA",
+              "CNAME",
+              "TXT",
+              "MX",
+              "NS",
+              "SRV",
+              "CAA",
+              "SOA",
+              "DKIM",
+              "SPF",
+              "DMARC",
+              "SVCB",
+              "HTTPS",
+              "PTR",
+              "DS",
+              "DNSKEY",
+              "URI",
+              "NAPTR",
+              "SSHFP",
+              "TLSA",
+              "SMIMEA",
+              "CERT"
+            ]
+          },
+          "gaps": [
+            "content",
+            "ttl",
+            "proxied (standard, not in excerpt)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "2/6 doc-verified (WorkerScript/Certificate/PageRule/LoadBalancer endpoint pages 404'd/index-only — DEFERRED). Enforced enums: Zone.status, Zone.type, DNSRecord.type."
+    },
+    {
+      "handle": "vercel-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://vercel.com/docs/rest-api",
+      "remodeled": "Remodeled from generic iaas_cloud to a faithful Vercel REST model, then doc-verified (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Deployment",
+          "source": "https://vercel.com/docs/rest-api/deployments/list-deployments",
+          "verifiedFields": [
+            "name",
+            "projectId",
+            "url",
+            "readyState",
+            "target",
+            "type"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "readyState": [
+              "BUILDING",
+              "ERROR",
+              "INITIALIZING",
+              "QUEUED",
+              "READY",
+              "CANCELED",
+              "BLOCKED",
+              "DELETED"
+            ],
+            "target": [
+              "production",
+              "staging"
+            ]
+          },
+          "gaps": [
+            "created (epoch ms)",
+            "creator",
+            "source"
+          ]
+        },
+        {
+          "entity": "Project",
+          "source": "https://vercel.com/docs/rest-api/projects/retrieve-a-list-of-projects",
+          "verifiedFields": [
+            "name",
+            "accountId",
+            "nodeVersion",
+            "framework",
+            "buildCommand"
+          ],
+          "fieldStatus": "confirmed; nodeVersion/framework are large enums (not force-enforced)",
+          "discoveredEnums": {},
+          "gaps": [
+            "framework-enum (50+ values)",
+            "env",
+            "latestDeployments"
+          ]
+        },
+        {
+          "entity": "Domain",
+          "source": "https://vercel.com/docs/rest-api/domains/get-information-for-a-single-domain",
+          "verifiedFields": [
+            "name",
+            "verified",
+            "serviceType",
+            "expiresAt"
+          ],
+          "fieldStatus": "confirmed (verified boolean)",
+          "discoveredEnums": {
+            "serviceType": [
+              "zeit.world",
+              "external",
+              "na"
+            ]
+          },
+          "gaps": [
+            "boughtAt",
+            "nameservers"
+          ]
+        },
+        {
+          "entity": "Alias",
+          "source": "https://vercel.com/docs/rest-api/aliases/list-aliases",
+          "verifiedFields": [
+            "alias",
+            "deploymentId",
+            "projectId"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "redirect",
+            "redirectStatusCode (int enum)"
+          ]
+        },
+        {
+          "entity": "Team",
+          "source": "https://vercel.com/docs/rest-api/teams/get-a-team",
+          "verifiedFields": [
+            "name",
+            "slug",
+            "description"
+          ],
+          "fieldStatus": "confirmed; membership role enum lives on the nested membership object, not Team",
+          "discoveredEnums": {},
+          "gaps": [
+            "avatar",
+            "membership.role"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs official Vercel REST docs. Enforced enums: Deployment.readyState, Deployment.target, Domain.serviceType (3)."
+    },
+    {
+      "handle": "airtable-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://airtable.com/developers/web/api",
+      "remodeled": "Remodeled from generic office_productivity to a faithful Airtable Web API model, then doc-verified (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Base",
+          "source": "https://airtable.com/developers/web/api/list-bases",
+          "verifiedFields": [
+            "name",
+            "permissionLevel"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "permissionLevel": [
+              "none",
+              "read",
+              "comment",
+              "edit",
+              "create"
+            ]
+          },
+          "gaps": [
+            "id"
+          ]
+        },
+        {
+          "entity": "Table",
+          "source": "https://airtable.com/developers/web/api/create-table",
+          "verifiedFields": [
+            "name",
+            "description",
+            "primaryFieldId"
+          ],
+          "fieldStatus": "confirmed (primary_field_id)",
+          "discoveredEnums": {},
+          "gaps": [
+            "fields",
+            "views"
+          ]
+        },
+        {
+          "entity": "Field",
+          "source": "https://airtable.com/developers/web/api/create-field",
+          "verifiedFields": [
+            "name",
+            "type",
+            "description"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "aiText",
+              "multipleAttachments",
+              "autoNumber",
+              "barcode",
+              "button",
+              "checkbox",
+              "singleCollaborator",
+              "count",
+              "createdBy",
+              "createdTime",
+              "currency",
+              "date",
+              "dateTime",
+              "duration",
+              "email",
+              "formula",
+              "lastModifiedBy",
+              "lastModifiedTime",
+              "multipleRecordLinks",
+              "multilineText",
+              "multipleLookupValues",
+              "multipleCollaborators",
+              "multipleSelects",
+              "number",
+              "percent",
+              "phoneNumber",
+              "rating",
+              "richText",
+              "rollup",
+              "singleLineText",
+              "singleSelect",
+              "externalSyncSource",
+              "url"
+            ]
+          },
+          "gaps": [
+            "options"
+          ]
+        },
+        {
+          "entity": "Record",
+          "source": "https://airtable.com/developers/web/api/create-records",
+          "verifiedFields": [
+            "createdTime",
+            "fieldsJson"
+          ],
+          "fieldStatus": "createdTime confirmed; fieldsJson holds the real 'fields' object as JSON",
+          "discoveredEnums": {},
+          "gaps": [
+            "commentCount"
+          ]
+        },
+        {
+          "entity": "View",
+          "source": "https://airtable.com/developers/web/api/list-views",
+          "verifiedFields": [
+            "name",
+            "type",
+            "personalForUserId"
+          ],
+          "fieldStatus": "confirmed (personal_for_user_id)",
+          "discoveredEnums": {
+            "type": [
+              "grid",
+              "form",
+              "calendar",
+              "gallery",
+              "kanban",
+              "timeline",
+              "block"
+            ]
+          },
+          "gaps": [
+            "id"
+          ]
+        },
+        {
+          "entity": "Comment",
+          "source": "https://airtable.com/developers/web/api/list-comments",
+          "verifiedFields": [
+            "text",
+            "lastUpdatedTime"
+          ],
+          "fieldStatus": "confirmed (last_updated_time)",
+          "discoveredEnums": {},
+          "gaps": [
+            "author",
+            "reactions",
+            "parentCommentId"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official Airtable Web API docs. Enforced enums: Base.permissionLevel, Field.type, View.type (3)."
+    },
+    {
+      "handle": "greenhouse-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://developers.greenhouse.io/harvest.html",
+      "remodeled": "Remodeled from generic hrtech to a faithful Greenhouse Harvest model, then doc-verified (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Candidate",
+          "source": "https://developers.greenhouse.io/harvest.html#candidate-object",
+          "verifiedFields": [
+            "firstName",
+            "lastName",
+            "email",
+            "canEmail"
+          ],
+          "fieldStatus": "confirmed (first_name/last_name/can_email)",
+          "discoveredEnums": {},
+          "gaps": [
+            "company",
+            "title",
+            "phone_numbers"
+          ]
+        },
+        {
+          "entity": "Application",
+          "source": "https://developers.greenhouse.io/harvest.html#application-object",
+          "verifiedFields": [
+            "candidateId",
+            "prospect",
+            "appliedAt",
+            "status",
+            "jobPostId"
+          ],
+          "fieldStatus": "confirmed (candidate_id, applied_at, job_post_id)",
+          "discoveredEnums": {
+            "status": [
+              "active",
+              "rejected",
+              "hired",
+              "converted"
+            ]
+          },
+          "gaps": [
+            "rejected_at",
+            "current_stage",
+            "source"
+          ]
+        },
+        {
+          "entity": "Job",
+          "source": "https://developers.greenhouse.io/harvest.html#job-object",
+          "verifiedFields": [
+            "name",
+            "requisitionId",
+            "status"
+          ],
+          "fieldStatus": "fields confirmed; status enum inferred (open/closed/draft) not explicitly enumerated -> NOT force-enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "status-enum (inferred only)",
+            "departments",
+            "offices"
+          ]
+        },
+        {
+          "entity": "Offer",
+          "source": "https://developers.greenhouse.io/harvest.html#offer-object",
+          "verifiedFields": [
+            "applicationId",
+            "candidateId",
+            "jobId",
+            "status",
+            "startDate"
+          ],
+          "fieldStatus": "fields confirmed; status enum inferred -> NOT force-enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "status-enum (inferred only)",
+            "sent_at",
+            "resolved_at"
+          ]
+        },
+        {
+          "entity": "Scorecard",
+          "source": "https://developers.greenhouse.io/harvest.html#scorecard-object",
+          "verifiedFields": [
+            "applicationId",
+            "interviewerId",
+            "score",
+            "notes"
+          ],
+          "fieldStatus": "fields confirmed; score enum inferred -> NOT force-enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "score-enum (inferred)",
+            "interview_step",
+            "attributes"
+          ]
+        },
+        {
+          "entity": "ScheduledInterview",
+          "source": "https://developers.greenhouse.io/harvest.html#scheduled-interview-object",
+          "verifiedFields": [
+            "applicationId",
+            "name",
+            "scheduledAt",
+            "videoConferencingUrl"
+          ],
+          "fieldStatus": "confirmed (scheduled_at, video_conferencing_url)",
+          "discoveredEnums": {},
+          "gaps": [
+            "start",
+            "end",
+            "interviewers"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official Greenhouse Harvest docs. Enforced enums: Application.status (1); Job/Offer/Scorecard enums were INFERRED not doc-enumerated -> intentionally NOT enforced."
+    },
+    {
+      "handle": "pipedrive-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://developers.pipedrive.com/docs/api/v1",
+      "remodeled": "Remodeled from generic crm_sales to a faithful Pipedrive model, then doc-verified (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Deal",
+          "source": "https://developers.pipedrive.com/docs/api/v1/Deals",
+          "verifiedFields": [
+            "title",
+            "value",
+            "currency",
+            "status",
+            "probability",
+            "pipelineId",
+            "stageId"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "open",
+              "won",
+              "lost",
+              "deleted"
+            ]
+          },
+          "gaps": [
+            "visible_to enum (1/3/5 not enumerated)",
+            "add_time"
+          ]
+        },
+        {
+          "entity": "Person",
+          "source": "https://developers.pipedrive.com/docs/api/v1/Persons",
+          "verifiedFields": [
+            "name",
+            "ownerId",
+            "orgId",
+            "marketingStatus"
+          ],
+          "fieldStatus": "confirmed (owner_id, org_id, marketing_status)",
+          "discoveredEnums": {
+            "marketingStatus": [
+              "no_consent",
+              "unsubscribed",
+              "subscribed",
+              "archived"
+            ]
+          },
+          "gaps": [
+            "email[]",
+            "phone[]"
+          ]
+        },
+        {
+          "entity": "Organization",
+          "source": "https://developers.pipedrive.com/docs/api/v1/Organizations",
+          "verifiedFields": [
+            "name",
+            "ownerId"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "address",
+            "visible_to"
+          ]
+        },
+        {
+          "entity": "Pipeline",
+          "source": "https://developers.pipedrive.com/docs/api/v1/Pipelines",
+          "verifiedFields": [
+            "name",
+            "isDealProbabilityEnabled"
+          ],
+          "fieldStatus": "confirmed (deal_probability)",
+          "discoveredEnums": {},
+          "gaps": [
+            "order_nr"
+          ]
+        },
+        {
+          "entity": "Stage",
+          "source": "https://developers.pipedrive.com/docs/api/v1/Stages",
+          "verifiedFields": [
+            "name",
+            "pipelineId",
+            "dealProbability"
+          ],
+          "fieldStatus": "confirmed (deal_probability)",
+          "discoveredEnums": {},
+          "gaps": [
+            "rotten_flag",
+            "order_nr"
+          ]
+        },
+        {
+          "entity": "Activity",
+          "source": "https://developers.pipedrive.com/docs/api/v1/Activities",
+          "verifiedFields": [
+            "subject",
+            "type",
+            "done",
+            "dueDate"
+          ],
+          "fieldStatus": "confirmed; type is open-ended (call/meeting/lunch + custom) -> NOT enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "type-enum (open-ended)",
+            "due_time"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official Pipedrive docs. Enforced enums: Deal.status, Person.marketingStatus (2)."
+    },
+    {
+      "handle": "klaviyo-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://developers.klaviyo.com/en/reference",
+      "remodeled": "Remodeled from generic martech to a faithful Klaviyo (JSON:API) model, then doc-verified (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Profile",
+          "source": "https://developers.klaviyo.com/en/reference/get-profile",
+          "verifiedFields": [
+            "email",
+            "phoneNumber",
+            "externalId"
+          ],
+          "fieldStatus": "confirmed (data.attributes phone_number, external_id)",
+          "discoveredEnums": {},
+          "gaps": [
+            "$-prefixed special attrs",
+            "location"
+          ]
+        },
+        {
+          "entity": "List",
+          "source": "https://developers.klaviyo.com/en/reference/get-list",
+          "verifiedFields": [
+            "name"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "opt_in_process"
+          ]
+        },
+        {
+          "entity": "Segment",
+          "source": "https://developers.klaviyo.com/en/reference/get-segment",
+          "verifiedFields": [
+            "name",
+            "isActive",
+            "isStarred"
+          ],
+          "fieldStatus": "confirmed (is_active, is_starred)",
+          "discoveredEnums": {},
+          "gaps": [
+            "definition"
+          ]
+        },
+        {
+          "entity": "Campaign",
+          "source": "https://developers.klaviyo.com/en/reference/get-campaign",
+          "verifiedFields": [
+            "name",
+            "status",
+            "archived"
+          ],
+          "fieldStatus": "fields confirmed; status enum not doc-enumerated -> NOT enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "status-enum (inferred)",
+            "send_strategy",
+            "audiences"
+          ]
+        },
+        {
+          "entity": "Flow",
+          "source": "https://developers.klaviyo.com/en/reference/get-flow",
+          "verifiedFields": [
+            "name",
+            "status",
+            "triggerType",
+            "archived"
+          ],
+          "fieldStatus": "confirmed (trigger_type)",
+          "discoveredEnums": {
+            "status": [
+              "draft",
+              "manual",
+              "live"
+            ]
+          },
+          "gaps": [
+            "definition"
+          ]
+        },
+        {
+          "entity": "Event",
+          "source": "https://developers.klaviyo.com/en/reference/get-event",
+          "verifiedFields": [
+            "metricId",
+            "profileId",
+            "timestamp"
+          ],
+          "fieldStatus": "confirmed (metric_id, profile_id)",
+          "discoveredEnums": {},
+          "gaps": [
+            "event_properties",
+            "value"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official Klaviyo docs. Enforced enums: Flow.status (1); Campaign.status inferred -> not enforced."
+    },
+    {
+      "handle": "databricks-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://docs.databricks.com/api",
+      "remodeled": "Remodeled from generic data_analytics to a faithful Databricks model, verified against the official databricks-sdk-py source (HTTP docs render dynamically).",
+      "resources": [
+        {
+          "entity": "Cluster",
+          "source": "https://github.com/databricks/databricks-sdk-py/blob/main/databricks/sdk/service/compute.py",
+          "verifiedFields": [
+            "clusterName",
+            "state",
+            "sparkVersion",
+            "numWorkers"
+          ],
+          "fieldStatus": "fields confirmed (cluster_name, spark_version, num_workers); state full enum not exhaustively listed in SDK source -> NOT enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "state-enum (PENDING/RUNNING/TERMINATED.. abstract in SDK)",
+            "node_type_id"
+          ]
+        },
+        {
+          "entity": "Job",
+          "source": "https://github.com/databricks/databricks-sdk-py/blob/main/databricks/sdk/service/jobs.py",
+          "verifiedFields": [
+            "jobId",
+            "creatorUserName",
+            "createdTime"
+          ],
+          "fieldStatus": "confirmed (job_id, creator_user_name, created_time)",
+          "discoveredEnums": {},
+          "gaps": [
+            "settings",
+            "run_as"
+          ]
+        },
+        {
+          "entity": "Run",
+          "source": "https://github.com/databricks/databricks-sdk-py/blob/main/databricks/sdk/service/jobs.py",
+          "verifiedFields": [
+            "runId",
+            "jobId",
+            "state",
+            "runName",
+            "startTime"
+          ],
+          "fieldStatus": "confirmed (run_id, run_name, start_time)",
+          "discoveredEnums": {
+            "state": [
+              "PENDING",
+              "RUNNING",
+              "TERMINATING",
+              "TERMINATED"
+            ]
+          },
+          "gaps": [
+            "lifecycle/result_state (separate fields)",
+            "attempt_number"
+          ]
+        },
+        {
+          "entity": "Warehouse",
+          "source": "https://github.com/databricks/databricks-sdk-py/blob/main/databricks/sdk/service/sql.py",
+          "verifiedFields": [
+            "name",
+            "state",
+            "warehouseType",
+            "clusterSize"
+          ],
+          "fieldStatus": "confirmed (warehouse_type, cluster_size); state enum DEFER",
+          "discoveredEnums": {
+            "warehouseType": [
+              "CLASSIC",
+              "SERVERLESS"
+            ]
+          },
+          "gaps": [
+            "state-enum (STARTING/RUNNING.. DEFER)",
+            "enable_photon"
+          ]
+        },
+        {
+          "entity": "ObjectInfo",
+          "source": "https://github.com/databricks/databricks-sdk-py/blob/main/databricks/sdk/service/workspace.py",
+          "verifiedFields": [
+            "path",
+            "objectType",
+            "language",
+            "size"
+          ],
+          "fieldStatus": "confirmed unified notebook/file/dir object",
+          "discoveredEnums": {
+            "objectType": [
+              "NOTEBOOK",
+              "DIRECTORY",
+              "FILE",
+              "LIBRARY",
+              "REPO",
+              "DASHBOARD"
+            ],
+            "language": [
+              "PYTHON",
+              "R",
+              "SCALA",
+              "SQL"
+            ]
+          },
+          "gaps": [
+            "object_id",
+            "modified_at"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs official Databricks SDK. Enforced enums: Run.state, Warehouse.warehouseType, ObjectInfo.objectType, ObjectInfo.language (4)."
+    },
+    {
+      "handle": "xero-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://developer.xero.com/documentation/api/accounting/overview",
+      "remodeled": "Remodeled from generic erp_finance to a faithful Xero Accounting model, verified against the official XeroAPI/xero-node SDK models.",
+      "resources": [
+        {
+          "entity": "Invoice",
+          "source": "https://github.com/XeroAPI/xero-node/blob/master/src/gen/model/accounting/invoice.ts",
+          "verifiedFields": [
+            "invoiceNumber",
+            "type",
+            "status",
+            "total",
+            "amountDue"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "ACCPAY",
+              "ACCPAYCREDIT",
+              "APOVERPAYMENT",
+              "APPREPAYMENT",
+              "ACCREC",
+              "ACCRECCREDIT",
+              "AROVERPAYMENT",
+              "ARPREPAYMENT"
+            ],
+            "status": [
+              "DRAFT",
+              "SUBMITTED",
+              "DELETED",
+              "AUTHORISED",
+              "PAID",
+              "VOIDED"
+            ]
+          },
+          "gaps": [
+            "lineItems",
+            "contact",
+            "date"
+          ]
+        },
+        {
+          "entity": "Contact",
+          "source": "https://github.com/XeroAPI/xero-node/blob/master/src/gen/model/accounting/contact.ts",
+          "verifiedFields": [
+            "name",
+            "emailAddress",
+            "contactStatus",
+            "taxNumber",
+            "isSupplier",
+            "isCustomer"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "contactStatus": [
+              "ACTIVE",
+              "ARCHIVED",
+              "GDPRREQUEST"
+            ]
+          },
+          "gaps": [
+            "addresses",
+            "phones",
+            "taxNumberType"
+          ]
+        },
+        {
+          "entity": "Account",
+          "source": "https://github.com/XeroAPI/xero-node/blob/master/src/gen/model/accounting/account.ts",
+          "verifiedFields": [
+            "code",
+            "name",
+            "type",
+            "status",
+            "bankAccountNumber"
+          ],
+          "fieldStatus": "confirmed; 'type' is a large account-type enum (modeled, not enforced); status enforced",
+          "discoveredEnums": {
+            "status": [
+              "ACTIVE",
+              "ARCHIVED",
+              "DELETED"
+            ]
+          },
+          "gaps": [
+            "class",
+            "taxType",
+            "type-enum (large)"
+          ]
+        },
+        {
+          "entity": "Payment",
+          "source": "https://github.com/XeroAPI/xero-node/blob/master/src/gen/model/accounting/payment.ts",
+          "verifiedFields": [
+            "amount",
+            "status",
+            "paymentType",
+            "isReconciled"
+          ],
+          "fieldStatus": "confirmed (is_reconciled)",
+          "discoveredEnums": {
+            "status": [
+              "AUTHORISED",
+              "DELETED"
+            ],
+            "paymentType": [
+              "ACCRECPAYMENT",
+              "ACCPAYPAYMENT",
+              "ARCREDITPAYMENT",
+              "APCREDITPAYMENT",
+              "AROVERPAYMENTPAYMENT",
+              "ARPREPAYMENTPAYMENT",
+              "APPREPAYMENTPAYMENT",
+              "APOVERPAYMENTPAYMENT"
+            ]
+          },
+          "gaps": [
+            "invoice",
+            "account",
+            "date"
+          ]
+        },
+        {
+          "entity": "BankTransaction",
+          "source": "https://github.com/XeroAPI/xero-node/blob/master/src/gen/model/accounting/bankTransaction.ts",
+          "verifiedFields": [
+            "type",
+            "status",
+            "total",
+            "reference",
+            "isReconciled"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "RECEIVE",
+              "RECEIVE-OVERPAYMENT",
+              "RECEIVE-PREPAYMENT",
+              "SPEND",
+              "SPEND-OVERPAYMENT",
+              "SPEND-PREPAYMENT",
+              "RECEIVE-TRANSFER",
+              "SPEND-TRANSFER"
+            ],
+            "status": [
+              "AUTHORISED",
+              "DELETED",
+              "VOIDED"
+            ]
+          },
+          "gaps": [
+            "bankAccount",
+            "lineItems"
+          ]
+        },
+        {
+          "entity": "CreditNote",
+          "source": "https://github.com/XeroAPI/xero-node/blob/master/src/gen/model/accounting/creditNote.ts",
+          "verifiedFields": [
+            "creditNoteNumber",
+            "type",
+            "status",
+            "total"
+          ],
+          "fieldStatus": "confirmed (credit_note_number)",
+          "discoveredEnums": {
+            "type": [
+              "ACCPAYCREDIT",
+              "ACCRECCREDIT"
+            ],
+            "status": [
+              "DRAFT",
+              "SUBMITTED",
+              "DELETED",
+              "AUTHORISED",
+              "PAID",
+              "VOIDED"
+            ]
+          },
+          "gaps": [
+            "allocations",
+            "appliedAmount"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official Xero SDK. Enforced enums: Invoice.type, Invoice.status, Contact.contactStatus, Account.status, Payment.status, Payment.paymentType, BankTransaction.type, BankTransaction.status, CreditNote.type, CreditNote.status (10)."
+    },
+    {
+      "handle": "notion-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://developers.notion.com/reference",
+      "remodeled": "Remodeled from generic office_productivity to a faithful Notion model, verified against the official makenotion/notion-sdk-js types.",
+      "resources": [
+        {
+          "entity": "Page",
+          "source": "https://github.com/makenotion/notion-sdk-js/blob/main/src/api-endpoints/common.ts",
+          "verifiedFields": [
+            "object",
+            "createdTime",
+            "lastEditedTime",
+            "inTrash",
+            "url"
+          ],
+          "fieldStatus": "confirmed (created_time, last_edited_time, in_trash)",
+          "discoveredEnums": {},
+          "gaps": [
+            "properties",
+            "parent",
+            "public_url"
+          ]
+        },
+        {
+          "entity": "Database",
+          "source": "https://github.com/makenotion/notion-sdk-js/blob/main/src/api-endpoints/databases.ts",
+          "verifiedFields": [
+            "object",
+            "title",
+            "description",
+            "isInline",
+            "url"
+          ],
+          "fieldStatus": "confirmed (is_inline)",
+          "discoveredEnums": {},
+          "gaps": [
+            "properties",
+            "parent"
+          ]
+        },
+        {
+          "entity": "Block",
+          "source": "https://github.com/makenotion/notion-sdk-js/blob/main/src/api-endpoints/blocks.ts",
+          "verifiedFields": [
+            "object",
+            "type",
+            "hasChildren"
+          ],
+          "fieldStatus": "confirmed (has_children)",
+          "discoveredEnums": {
+            "type": [
+              "paragraph",
+              "heading_1",
+              "heading_2",
+              "heading_3",
+              "heading_4",
+              "bulleted_list_item",
+              "numbered_list_item",
+              "quote",
+              "to_do",
+              "toggle",
+              "template",
+              "synced_block",
+              "child_page",
+              "child_database",
+              "equation",
+              "code",
+              "callout",
+              "divider",
+              "breadcrumb",
+              "table_of_contents",
+              "column_list",
+              "column",
+              "link_to_page",
+              "table",
+              "table_row",
+              "embed",
+              "bookmark",
+              "image",
+              "video",
+              "pdf",
+              "file",
+              "audio",
+              "link_preview",
+              "unsupported"
+            ]
+          },
+          "gaps": [
+            "object enum degenerate [block]"
+          ]
+        },
+        {
+          "entity": "User",
+          "source": "https://github.com/makenotion/notion-sdk-js/blob/main/src/api-endpoints/users.ts",
+          "verifiedFields": [
+            "object",
+            "name",
+            "type",
+            "avatarUrl"
+          ],
+          "fieldStatus": "confirmed (avatar_url)",
+          "discoveredEnums": {
+            "type": [
+              "person",
+              "bot"
+            ]
+          },
+          "gaps": [
+            "person.email",
+            "bot.owner"
+          ]
+        },
+        {
+          "entity": "Comment",
+          "source": "https://github.com/makenotion/notion-sdk-js/blob/main/src/api-endpoints/comments.ts",
+          "verifiedFields": [
+            "discussionId",
+            "createdTime"
+          ],
+          "fieldStatus": "confirmed (discussion_id)",
+          "discoveredEnums": {},
+          "gaps": [
+            "rich_text",
+            "parent"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs official Notion SDK. Enforced enums: Block.type, User.type (2; object enums degenerate, not enforced)."
+    },
+    {
+      "handle": "zoom-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://developers.zoom.us/docs/api",
+      "remodeled": "Remodeled from generic comms_social to a faithful Zoom model, partially doc-verified (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Meeting",
+          "source": "https://developers.zoom.us/docs/api/meetings/",
+          "verifiedFields": [
+            "topic",
+            "type",
+            "status",
+            "duration",
+            "timezone",
+            "hostId",
+            "startTime"
+          ],
+          "fieldStatus": "confirmed; type is integer-coded (1=instant..100=breakout — not string-enforced); status string enum enforced",
+          "discoveredEnums": {
+            "status": [
+              "waiting",
+              "started",
+              "ended",
+              "completed",
+              "processing"
+            ]
+          },
+          "gaps": [
+            "type-enum (integer-coded)",
+            "uuid",
+            "join_url"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "PARTIAL (1/5): Meeting verified vs official Zoom docs; Webinar/Recording/Registrant/User endpoints 404'd/inferred -> DEFERRED. Enforced enums: Meeting.status."
+    },
+    {
+      "handle": "asana-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/Asana/openapi/master/defs/asana_oas.yaml",
+      "remodeled": "RECOVERED from full-defer: remodeled from generic archetype to a faithful Asana model, verified against the official Asana OpenAPI spec.",
+      "resources": [
+        {
+          "entity": "Task",
+          "source": "https://raw.githubusercontent.com/Asana/openapi/master/defs/asana_oas.yaml",
+          "verifiedFields": [
+            "name",
+            "resourceSubtype",
+            "completed",
+            "completedAt",
+            "createdAt",
+            "approvalStatus",
+            "dueAt"
+          ],
+          "fieldStatus": "confirmed (resource_subtype, approval_status, completed_at)",
+          "discoveredEnums": {
+            "resourceSubtype": [
+              "default_task",
+              "milestone",
+              "approval",
+              "custom"
+            ],
+            "approvalStatus": [
+              "pending",
+              "approved",
+              "rejected",
+              "changes_requested"
+            ]
+          },
+          "gaps": [
+            "assignee",
+            "projects",
+            "custom_fields"
+          ]
+        },
+        {
+          "entity": "Project",
+          "source": "https://raw.githubusercontent.com/Asana/openapi/master/defs/asana_oas.yaml",
+          "verifiedFields": [
+            "name",
+            "archived",
+            "color",
+            "completed",
+            "defaultView"
+          ],
+          "fieldStatus": "confirmed (default_view)",
+          "discoveredEnums": {
+            "defaultView": [
+              "list",
+              "board",
+              "calendar",
+              "timeline"
+            ],
+            "color": [
+              "dark-pink",
+              "dark-green",
+              "dark-blue",
+              "dark-red",
+              "dark-teal",
+              "dark-brown",
+              "dark-orange",
+              "dark-purple",
+              "dark-warm-gray",
+              "light-pink",
+              "light-green",
+              "light-blue",
+              "light-red",
+              "light-teal",
+              "light-brown",
+              "light-orange",
+              "light-purple",
+              "light-warm-gray",
+              "none"
+            ]
+          },
+          "gaps": [
+            "owner",
+            "team",
+            "workspace"
+          ]
+        },
+        {
+          "entity": "Section",
+          "source": "https://raw.githubusercontent.com/Asana/openapi/master/defs/asana_oas.yaml",
+          "verifiedFields": [
+            "name",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "project"
+          ]
+        },
+        {
+          "entity": "User",
+          "source": "https://raw.githubusercontent.com/Asana/openapi/master/defs/asana_oas.yaml",
+          "verifiedFields": [
+            "name",
+            "email"
+          ],
+          "fieldStatus": "confirmed (read-only email)",
+          "discoveredEnums": {},
+          "gaps": [
+            "photo",
+            "workspaces"
+          ]
+        },
+        {
+          "entity": "Tag",
+          "source": "https://raw.githubusercontent.com/Asana/openapi/master/defs/asana_oas.yaml",
+          "verifiedFields": [
+            "name",
+            "color",
+            "notes"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "color": [
+              "dark-pink",
+              "dark-green",
+              "dark-blue",
+              "dark-red",
+              "dark-teal",
+              "dark-brown",
+              "dark-orange",
+              "dark-purple",
+              "dark-warm-gray",
+              "light-pink",
+              "light-green",
+              "light-blue",
+              "light-red",
+              "light-teal",
+              "light-brown",
+              "light-orange",
+              "light-purple",
+              "light-warm-gray"
+            ]
+          },
+          "gaps": [
+            "followers",
+            "workspace"
+          ]
+        },
+        {
+          "entity": "Workspace",
+          "source": "https://raw.githubusercontent.com/Asana/openapi/master/defs/asana_oas.yaml",
+          "verifiedFields": [
+            "name",
+            "isOrganization"
+          ],
+          "fieldStatus": "confirmed (is_organization)",
+          "discoveredEnums": {},
+          "gaps": [
+            "email_domains"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official Asana OpenAPI spec. Enforced enums: Task.resourceSubtype, Task.approvalStatus, Project.defaultView, Project.color, Tag.color (5)."
+    },
+    {
+      "handle": "coinbase-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://github.com/coinbase/coinbase-advanced-py",
+      "remodeled": "RECOVERED from full-defer: remodeled to a faithful Coinbase Advanced Trade model, verified against the official coinbase-advanced-py SDK types. Numeric values are strings per the SDK.",
+      "resources": [
+        {
+          "entity": "Order",
+          "source": "https://raw.githubusercontent.com/coinbase/coinbase-advanced-py/master/coinbase/rest/types/orders_types.py",
+          "verifiedFields": [
+            "orderId",
+            "productId",
+            "side",
+            "status",
+            "clientOrderId",
+            "orderType"
+          ],
+          "fieldStatus": "confirmed; status/orderType accepted as strings (not enumerated in SDK -> not enforced)",
+          "discoveredEnums": {
+            "side": [
+              "BUY",
+              "SELL"
+            ]
+          },
+          "gaps": [
+            "status-enum (not explicit)",
+            "orderType-enum (not explicit)"
+          ]
+        },
+        {
+          "entity": "Fill",
+          "source": "https://raw.githubusercontent.com/coinbase/coinbase-advanced-py/master/coinbase/rest/types/orders_types.py",
+          "verifiedFields": [
+            "entryId",
+            "tradeId",
+            "orderId",
+            "price",
+            "size",
+            "productId",
+            "side"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "side": [
+              "BUY",
+              "SELL"
+            ]
+          },
+          "gaps": [
+            "commission",
+            "liquidity_indicator"
+          ]
+        },
+        {
+          "entity": "Account",
+          "source": "https://raw.githubusercontent.com/coinbase/coinbase-advanced-py/master/coinbase/rest/types/accounts_types.py",
+          "verifiedFields": [
+            "uuid",
+            "name",
+            "currency",
+            "default",
+            "active",
+            "type"
+          ],
+          "fieldStatus": "confirmed; type not explicitly enumerated",
+          "discoveredEnums": {},
+          "gaps": [
+            "available_balance",
+            "hold",
+            "type-enum (not explicit)"
+          ]
+        },
+        {
+          "entity": "Product",
+          "source": "https://raw.githubusercontent.com/coinbase/coinbase-advanced-py/master/coinbase/rest/types/product_types.py",
+          "verifiedFields": [
+            "productId",
+            "price",
+            "volume24h",
+            "productType",
+            "status"
+          ],
+          "fieldStatus": "confirmed (product_id, volume_24h); productType/status not enumerated",
+          "discoveredEnums": {},
+          "gaps": [
+            "productType-enum (SPOT/FUTURE not explicit)",
+            "quote_currency_id"
+          ]
+        },
+        {
+          "entity": "Portfolio",
+          "source": "https://raw.githubusercontent.com/coinbase/coinbase-advanced-py/master/coinbase/rest/types/portfolios_types.py",
+          "verifiedFields": [
+            "uuid",
+            "name",
+            "type"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "deleted"
+          ]
+        },
+        {
+          "entity": "PortfolioPosition",
+          "source": "https://raw.githubusercontent.com/coinbase/coinbase-advanced-py/master/coinbase/rest/types/portfolios_types.py",
+          "verifiedFields": [
+            "asset",
+            "totalBalanceFiat",
+            "totalBalanceCrypto",
+            "allocation"
+          ],
+          "fieldStatus": "confirmed (float balances/allocation)",
+          "discoveredEnums": {},
+          "gaps": [
+            "account_uuid",
+            "leverage"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official Coinbase SDK. Enforced enums: Order.side, Fill.side (2). status/type fields are SDK strings, intentionally NOT enforced."
+    },
+    {
+      "handle": "hubspot-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://github.com/HubSpot/HubSpot-public-api-spec-collection/tree/master/PublicApiSpecs/CRM",
+      "remodeled": "RECOVERED from full-defer (partial): Contact + Pipeline confirmed from the official HubSpot public OpenAPI spec; HubSpot's other CRM objects use a generic property system, so their standard properties are modeled but not confirmed this fetch.",
+      "resources": [
+        {
+          "entity": "Contact",
+          "source": "https://github.com/HubSpot/HubSpot-public-api-spec-collection/tree/master/PublicApiSpecs/CRM/Contacts",
+          "verifiedFields": [
+            "email",
+            "firstname",
+            "lastname",
+            "company",
+            "phone",
+            "website"
+          ],
+          "fieldStatus": "confirmed from the official spec example (default contact properties)",
+          "discoveredEnums": {},
+          "gaps": [
+            "lifecyclestage (configurable, not a fixed enum)",
+            "createdate",
+            "hs_object_id"
+          ]
+        },
+        {
+          "entity": "Pipeline",
+          "source": "https://github.com/HubSpot/HubSpot-public-api-spec-collection/tree/master/PublicApiSpecs/CRM/Pipelines",
+          "verifiedFields": [
+            "label",
+            "displayOrder"
+          ],
+          "fieldStatus": "confirmed (display_order)",
+          "discoveredEnums": {},
+          "gaps": [
+            "stages",
+            "id"
+          ]
+        }
+      ],
+      "notApplicable": [
+        {
+          "entity": "Company",
+          "reason": "HubSpot exposes a generic property system; standard Company props modeled but not confirmed in this spec fetch."
+        },
+        {
+          "entity": "Deal",
+          "reason": "dealstage is a configurable pipeline stage (not a fixed enum); standard props modeled, not confirmed this fetch."
+        },
+        {
+          "entity": "Ticket",
+          "reason": "hs_ticket_priority/hs_pipeline_stage not confirmed in this spec fetch; modeled standard, not enforced."
+        },
+        {
+          "entity": "LineItem",
+          "reason": "standard props modeled, not confirmed this spec fetch."
+        }
+      ],
+      "note": "PARTIAL (2/6 doc-confirmed: Contact + Pipeline). HubSpot's generic property system means the other CRM objects' fixed schemas aren't published; modeled with standard props but not certified. No enforced enums (HubSpot stages are configurable)."
+    }
+  ]
+}

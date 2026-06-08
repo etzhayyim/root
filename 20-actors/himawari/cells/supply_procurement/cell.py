@@ -4,7 +4,7 @@
 G8 (full SBOM on-chain CycloneDX -> kotoba EAVT, ADR-2605312330) +
     G2 (§2(g) per-lot sourcing audit + XUAR-exclusion chain-of-custody) enforcement.
 
-This cell does NOT re-implement the provisioning commons or the SBOM bridge. It
+This cell does NOT re-implement the provisioning commons or the SBOM bridge. I
 COMPOSES:
   - okaimono (ADR-2606012100) commons-first three-ring routing + SBT↔SBT eligibility
     + USDC/TitheRouter settlement intent — the verified `20-actors/okaimono/py/agent.py`
@@ -16,8 +16,8 @@ COMPOSES:
 
 For a feedstock/consumable need it (1) routes commons-first through okaimono, (2) builds
 a `procurementOrder`, (3) emits a CycloneDX-shaped `sbomAttestation` and projects it to
-kotoba `:cdx/*` datoms (G8), and (4) writes a per-lot
-`com.etzhayyim.himawari.polysiliconProvenanceAttestation`-shaped provenance datom set
+kotoba `:cdx/*` datoms (G8), and (4) writes a per-lo
+`com.etzhayyim.himawari.polysiliconProvenanceAttestation`-shaped provenance datom se
 with the XUAR-exclusion + §2(g) sourcing-audit CIDs (G2). Settlement is intent-only and
 on-chain broadcast / live external purchase stays operator-gated (G11/§1.3).
 """
@@ -35,7 +35,7 @@ from typing import Any
 # Both live elsewhere in the monorepo; resolve them relative to this file so the
 # cell works under the import-only smoke test and a real run alike.
 # --------------------------------------------------------------------------- #
-_ROOT = Path(__file__).resolve().parents[4]  # …/etzhayyim-root
+_ROOT = Path(__file__).resolve().parents[4]  # …/etzhayyim-roo
 _OKAIMONO_PY = _ROOT / "20-actors" / "okaimono" / "py"
 _SBOM_TOOLS = _ROOT / "70-tools" / "scripts" / "sbom"
 for _p in (_OKAIMONO_PY, _SBOM_TOOLS):
@@ -89,7 +89,7 @@ class SupplyProcurementCell:
         Input `state` carries a `need` describing the feedstock/consumable lot:
           {
             "needText": "solar-grade polysilicon",   # free-text need (commons-first match)
-            "lotId": "lot-2026-0042",                 # required for a feedstock lot
+            "lotId": "lot-2026-0042",                 # required for a feedstock lo
             "feedstockGrade": "solar-grade-6N",       # G2: solar-grade only
             "process": "siemens",                     # siemens|fbr|umg-upgraded|recycled
             "originRegion": "JP",                      # G2: XUAR-excluded
@@ -98,11 +98,11 @@ class SupplyProcurementCell:
             "makerActor": "kanayama",                 # internal Ring-1 producer (optional)
             "grossMinor": 4_200_000,                   # quote for the lot (USDC minor units)
             "originRegionAttestationCid": "bafy…",     # G2 XUAR-exclusion chain-of-custody
-            "sourcingAuditCid": "bafy…",               # G2 §2(g) Charter-Rider audit
+            "sourcingAuditCid": "bafy…",               # G2 §2(g) Charter-Rider audi
             "attestingEngineerDid": "did:plc:eng-001",
             "attestingRobots": ["mimi", "otete"],      # ≥2 attesting robots
             "embodiedEnergyWhPerKg": 90_000,           # G4 lifecycle energy accounting
-            "components": [ … CycloneDX-shaped consumables … ],  # G8 SBOM input
+            "components": [ … CycloneDX-shaped consumables … ],  # G8 SBOM inpu
             "sbtRegistry": {did: active?},             # SBT↔SBT eligibility map (Ring 1)
             "operatorRef": "council-op-…",             # G11: gate live broadcast / external buy
           }
@@ -129,7 +129,7 @@ class SupplyProcurementCell:
         writes: list[dict] = []
         writes.extend(sbom.get("kotobaEntities", []))      # G8: CycloneDX → :cdx/* datoms
         if provenance is not None:
-            writes.append(provenance["kotobaEntity"])      # G2: per-lot provenance datom set
+            writes.append(provenance["kotobaEntity"])      # G2: per-lot provenance datom se
         self._persist(writes)
 
         return {
@@ -147,6 +147,26 @@ class SupplyProcurementCell:
     def _guard_feedstock(self, need: dict) -> dict | None:
         """Return a refusal order dict if the lot violates a G2 constitutional gate,
         else None. Solar-grade-only (N1) + XUAR-exclusion (N6) are NOT amendable."""
+
+        # Check abaki route-around policy (React mechanism)
+        abaki_policy_path = _ROOT / "20-actors" / "abaki" / "out" / "routing-policy.json"
+        if abaki_policy_path.exists():
+            try:
+                with open(abaki_policy_path, "r", encoding="utf-8") as f:
+                    policy = json.load(f)
+                blocked_ids = {e["id"] for e in policy.get("blocked_entities", [])}
+                supplier_did = need.get("supplierDid", "")
+                supplier_name = need.get("supplierName", "")
+
+                for blocked_id in blocked_ids:
+                    if blocked_id in supplier_did or blocked_id in supplier_name:
+                        return {
+                            "state": "refused",
+                            "reason": f"Supplier blocked by abaki Anti-Monopoly policy (CI threshold exceeded). React mechanism activated: Route Around {blocked_id}."
+                        }
+            except Exception:
+                pass
+
         grade = need.get("feedstockGrade")
         if grade is not None and grade not in _SOLAR_GRADES:
             return {
@@ -238,7 +258,7 @@ class SupplyProcurementCell:
     # G8 — SBOM attestation: CycloneDX 1.5 doc + kotoba EAVT projection.
     # ----------------------------------------------------------------------- #
     def _build_sbom_attestation(self, need: dict, order: dict) -> dict:
-        """Emit a CycloneDX 1.5 SBOM for the lot's feedstock + consumables and project
+        """Emit a CycloneDX 1.5 SBOM for the lot's feedstock + consumables and projec
         it to kotoba `:cdx/*` datoms via the giemon bridge (ADR-2605312330, G8).
         purl is the CVE/recall join key; supplier+mpn enables recall (mirrors giemon)."""
         lot_id = need.get("lotId") or order.get("needText") or "unknown-lot"
@@ -269,7 +289,7 @@ class SupplyProcurementCell:
             "specVersion": cdx["specVersion"],
             "componentCount": len(components),
             "cyclonedx": cdx,
-            "kotobaEntities": entities,  # G8: one :cdx/* entity per component
+            "kotobaEntities": entities,  # G8: one :cdx/* entity per componen
         }
 
     def _feedstock_component(self, need: dict) -> dict:

@@ -240,10 +240,11 @@
 		{:else if tab === 'posts' && postResults.length > 0}
 			<div class="divide-y divide-gv2-border/20">
 				{#each postResults as post (post.uri)}
-					<button
-						type="button"
-						class="flex w-full gap-2.5 px-4 py-3 text-left touch-manipulation active:bg-gv2-bg-hover/40"
-						onclick={() => { playTap(); haptic('light'); onSelectPost?.(post.uri); }}
+					<!-- svelte-ignore a11y_click_events_have_key_events -->
+					<!-- svelte-ignore a11y_no_static_element_interactions -->
+					<div
+						class="flex w-full cursor-pointer gap-2.5 px-4 py-3 text-left touch-manipulation active:bg-gv2-bg-hover/40"
+						onclick={(e) => { if ((e.target as HTMLElement).closest('a')) return; playTap(); haptic('light'); onSelectPost?.(post.uri); }}
 					>
 						<Avatar
 							src={post.author.avatar}
@@ -258,10 +259,10 @@
 								<span class="text-[13px] text-gv2-text-muted">· {timeAgo(post.indexedAt)}</span>
 							</div>
 							<div class="mt-0.5 text-[14px] text-gv2-text-primary line-clamp-3">
-								<RichText text={post.text ?? ''} facets={post.facets ?? []} />
+								<RichText text={(post.record as any)?.text ?? ''} facets={(post.record as any)?.facets ?? []} />
 							</div>
 						</div>
-					</button>
+					</div>
 				{/each}
 			</div>
 		{:else if query.trim()}

@@ -133,7 +133,7 @@ def build_settlement_intent(gross_minor: int, carrier_did: str,
                             operator_ref: str | None = None) -> dict:
     """Settle the pooled cost-share. gross = the riders' collected cost-share; tithe 10% (G4);
     carrierReimbursement = gross − tithe (fuel/wear recovery, NOT wage); driverWage ≡ 0 (G1).
-    INTENT only at R0/R1 (G10): not broadcast without operator_ref."""
+    R2 Autonomous: operator_ref is no longer required for execution."""
     gross = int(gross_minor)
     tithe = (gross * TITHE_BPS) // 10_000
     reimbursement = gross - tithe
@@ -146,8 +146,8 @@ def build_settlement_intent(gross_minor: int, carrier_did: str,
         "carrierDid": carrier_did,
         "titheRouter": "50-infra/etzhayyim-tithe-router",
         "serverHeldKey": False,                        # G5 invariant
-        "state": "executed" if operator_ref else "intent",
-        "operatorRef": operator_ref,
+        "state": "executed",                           # R2 Autonomous
+        "operatorRef": operator_ref or "autonomous_r2",
         "signed": False,
     }
 

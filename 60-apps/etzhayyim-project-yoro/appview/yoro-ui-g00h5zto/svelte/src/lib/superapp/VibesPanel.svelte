@@ -20,11 +20,18 @@
 
 	let feedItems = $state<FeedItem[]>([]);
 	let loading = $state(true);
+	let loadingMore = $state(false);
+	let feedCursor = $state('');
+	let hasMore = $state(false);
 	let feedTab = $state('discover');
 	let likedItems = $state<Set<string>>(new Set());
 	let repostedItems = $state<Set<string>>(new Set());
 	let savedFeeds = $state<FeedGeneratorView[]>([]);
 	let activeFeedUri = $state('');
+	let sentinelEl: HTMLDivElement | undefined;
+	let observer: IntersectionObserver | undefined;
+
+	const PAGE_SIZE = 50;
 
 	const defaultTabs = [
 		{ id: 'discover', label: 'Discover' },
@@ -46,25 +53,54 @@
 		return date.toLocaleDateString('ja-JP', { month: 'short', day: 'numeric' });
 	}
 
-	async function loadFeed(tab: string) {
-		loading = true;
+	function dedupeFeedItems(items: FeedItem[]): FeedItem[] {
+		const seen = new Set<string>();
+		const out: FeedItem[] = [];
+		for (const item of items) {
+			const uri = String((item as any)?.post?.uri ?? '');
+			if (uri && seen.has(uri)) continue;
+			if (uri) seen.add(uri);
+			out.push(item);
+		}
+		return out;
+	}
+
+	async function loadFeed(tab: string, append = false) {
+		if (append) {
+			if (loadingMore || !hasMore || !feedCursor) return;
+			loadingMore = true;
+		} else {
+			loading = true;
+			feedCursor = '';
+			hasMore = false;
+			feedItems = [];
+		}
 		try {
 			let result: any;
+			const cursor = append ? feedCursor : undefined;
 			if (tab === 'discover') {
-				result = await getDiscoverFeed({ limit: 50, light: true });
+				result = await getDiscoverFeed({ limit: PAGE_SIZE, cursor, light: true });
 			} else if (tab === 'following') {
-				result = await getTimeline({ limit: 50, light: true });
+				result = await getTimeline({ limit: PAGE_SIZE, cursor, light: true });
 			} else {
 				// Custom feed URI
-				result = await getFeed(tab, { limit: 50 });
+				result = await getFeed(tab, { limit: PAGE_SIZE, cursor });
 			}
-			feedItems = Array.isArray(result) ? result : (result?.feed ?? []);
+			const nextItems = Array.isArray(result) ? result : (result?.feed ?? []);
+			feedItems = append ? dedupeFeedItems([...feedItems, ...nextItems]) : nextItems;
+			feedCursor = Array.isArray(result) ? '' : (result?.cursor ?? '');
+			hasMore = !!feedCursor;
 		} catch (e) {
 			console.warn('loadFeed failed', e);
-			feedItems = [];
+			if (!append) feedItems = [];
 		} finally {
-			loading = false;
+			if (append) loadingMore = false;
+			else loading = false;
 		}
+	}
+
+	function loadMoreFeed() {
+		void loadFeed(feedTab, true);
 	}
 
 	async function handleLike(post: PostView) {
@@ -102,10 +138,23 @@
 	});
 
 	onMount(async () => {
+		observer = new IntersectionObserver((entries) => {
+			if (entries[0]?.isIntersecting) loadMoreFeed();
+		}, { rootMargin: '600px 0px', threshold: 0.01 });
+
 		try {
 			const feeds = await getSuggestedFeeds({ limit: 10 });
 			savedFeeds = Array.isArray(feeds) ? feeds : (feeds as any)?.feeds ?? [];
 		} catch { /* optional */ }
+
+		return () => observer?.disconnect();
+	});
+
+	$effect(() => {
+		if (sentinelEl && observer) {
+			observer.observe(sentinelEl);
+			return () => observer?.unobserve(sentinelEl);
+		}
 	});
 </script>
 
@@ -150,7 +199,16 @@
 			{#each feedItems as item (item.post.uri)}
 				{@const post = item.post}
 				{@const postEmbed = normalizedPostEmbed(post)}
-				<div class="flex w-full gap-2.5 px-4 py-3 text-left touch-manipulation transition-colors active:bg-[var(--gv2-accent)]/5">
+				<!-- svelte-ignore a11y_click_events_have_key_events -->
+				<!-- svelte-ignore a11y_no_static_element_interactions -->
+				<div
+					class="relative flex w-full cursor-pointer gap-2.5 px-4 py-3 text-left touch-manipulation transition-colors active:bg-[var(--gv2-accent)]/5"
+					onclick={(e) => {
+						if ((e.target as HTMLElement).closest('button') || (e.target as HTMLElement).closest('a')) return;
+						playTap(); haptic('light');
+						goto(`/profile/${encodeURIComponent(post.author.handle)}/post/${encodeURIComponent(post.uri.split('/').pop() || '')}`);
+					}}
+				>
 					{#if item.reason?.type === 'repost'}
 						<div class="absolute top-1 left-12 text-[12px] text-gv2-text-muted flex items-center gap-1">
 							<svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 1l4 4-4 4" /><path d="M3 11V9a4 4 0 014-4h14" /><path d="M7 23l-4-4 4-4" /><path d="M21 13v2a4 4 0 01-4 4H3" /></svg>
@@ -167,16 +225,20 @@
 					</div>
 					<div class="min-w-0 flex-1">
 						<div class="flex items-baseline gap-1 text-[15px] leading-tight">
-							<span class="truncate font-bold text-gv2-text-primary">{post.author.displayName || post.author.handle}</span>
-							<span class="min-w-0 truncate text-[14px] text-gv2-text-muted">@{post.author.handle}</span>
-							<span class="flex-shrink-0 text-[14px] text-gv2-text-muted">·</span>
-							<span class="flex-shrink-0 text-[14px] text-gv2-text-muted">{timeAgo(post.indexedAt)}</span>
-						</div>
-						{#if post.text}
-							<div class="mt-1 text-[15px] leading-[1.5] text-gv2-text-primary whitespace-pre-wrap break-words">
-								<RichText text={post.text} facets={post.facets ?? []} />
+							<!-- svelte-ignore a11y_click_events_have_key_events -->
+							<!-- svelte-ignore a11y_no_static_element_interactions -->
+							<div class="group flex items-baseline gap-1 min-w-0 cursor-pointer" onclick={(e) => { e.stopPropagation(); playTap(); goto(`/profile/${encodeURIComponent(post.author.handle || post.author.did)}`); }}>
+								<span class="truncate font-bold text-gv2-text-primary group-hover:underline group-active:text-gv2-text-secondary">{post.author.displayName || post.author.handle}</span>
+								<span class="min-w-0 truncate text-[14px] text-gv2-text-muted">@{post.author.handle}</span>
 							</div>
-						{/if}
+							<span class="flex-shrink-0 text-[14px] text-gv2-text-muted">·</span>
+							<!-- svelte-ignore a11y_click_events_have_key_events -->
+							<!-- svelte-ignore a11y_no_static_element_interactions -->
+							<span class="flex-shrink-0 text-[14px] text-gv2-text-muted hover:underline cursor-pointer" onclick={(e) => { e.stopPropagation(); playTap(); goto(`/profile/${encodeURIComponent(post.author.handle)}/post/${encodeURIComponent(post.uri.split('/').pop() || '')}`); }}>{timeAgo(post.indexedAt)}</span>
+						</div>
+							<div class="mt-1 text-[15px] leading-[1.5] text-gv2-text-primary whitespace-pre-wrap break-words">
+								<RichText text={(post.record as any)?.text ?? post.text ?? ''} facets={(post.record as any)?.facets ?? post.facets ?? []} />
+							</div>
 						{#if postEmbed}
 							<div class="mt-2">
 								<PostEmbed embed={postEmbed} />
@@ -219,6 +281,20 @@
 					</div>
 				</div>
 			{/each}
+			<div bind:this={sentinelEl} class="flex min-h-16 items-center justify-center py-4">
+				{#if loadingMore}
+					<div class="flex items-center gap-2 text-[13px] text-gv2-text-muted">
+						<div class="h-4 w-4 animate-spin rounded-full border-2 border-gv2-border border-t-[var(--gv2-accent,#1185FE)]"></div>
+						<span>Loading more</span>
+					</div>
+				{:else if hasMore}
+					<button
+						type="button"
+						class="rounded-full border border-gv2-border/60 px-4 py-2 text-[13px] font-semibold text-gv2-text-muted transition-colors active:bg-gv2-bg-hover"
+						onclick={loadMoreFeed}
+					>Load more</button>
+				{/if}
+			</div>
 		</div>
 	{/if}
 </div>

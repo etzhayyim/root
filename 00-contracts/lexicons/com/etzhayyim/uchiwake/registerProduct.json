@@ -1,0 +1,49 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.uchiwake.registerProduct",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Assert a TRADE ITEM (product) into the kotoba Datom log (:product/*), keyed on the GS1 GTIN. Public-record data only — GTIN, brand, brand-owner (→ kabuto :company/id), GS1 prefix, GPC/UNSPSC/HS classification, net content (uchiwake G1). The GTIN is validated against the GS1 mod-10 check digit before admission (G5). NEVER a confidential recipe, non-public commercial term, or consumer PII.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["productId", "name", "sector", "sourcing", "observedAt"],
+          "properties": {
+            "productId": { "type": "string", "description": ":product/id, canonically \"gtin.<14-digit GTIN-14>\" or \"prod.<slug>\"" },
+            "gtin": { "type": "string", "description": "GS1 GTIN; any of GTIN-8/12/13/14, validated by the mod-10 check digit, normalized to 14 digits on ingest" },
+            "gtinFormat": { "type": "string", "enum": ["gtin-8", "gtin-12", "gtin-13", "gtin-14"] },
+            "name": { "type": "string" },
+            "brand": { "type": "string" },
+            "brandOwner": { "type": "string", "description": "→ kabuto :company/id (org.corp.*) of the brand-owning legal entity (may be a subsidiary; see registerOwnership)" },
+            "gs1Prefix": { "type": "string", "description": "GS1 company prefix (leading GTIN digits GS1 allocates to a licensee)" },
+            "gs1PrefixCountry": { "type": "string", "description": "ISO 3166-1 alpha-2 of the GS1 Member Organisation that issued the prefix — licensing country, NOT necessarily origin" },
+            "gpcBrick": { "type": "string", "description": "GS1 Global Product Classification brick code (8-digit)" },
+            "unspsc": { "type": "string", "description": "UNSPSC commodity code (existing 18,342-code space)" },
+            "hsCode": { "type": "string", "description": "Harmonized System (HS) trade classification code" },
+            "netContentMilli": { "type": "integer", "description": "net content in THOUSANDTHS of the unit (magnitude × 1000, integer implied units)" },
+            "netContentUnit": { "type": "string", "description": "e.g. \"ml\", \"g\", \"unit\"" },
+            "sector": { "type": "string", "enum": ["electronics", "automotive", "food_beverage", "apparel", "pharma", "consumer", "industrials", "energy", "materials"] },
+            "sourcing": { "type": "string", "enum": ["authoritative", "representative", "synthesized"], "description": "uchiwake G5; :authoritative only when the GTIN↔product binding is confirmed (GS1 GDSN / GS1 Verified)" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "productId": { "type": "string" },
+            "gtinValid": { "type": "boolean", "description": "GS1 mod-10 check-digit validation result" },
+            "txCid": { "type": "string", "description": "kotoba transaction CID" },
+            "datomCount": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

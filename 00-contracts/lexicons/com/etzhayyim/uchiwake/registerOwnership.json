@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.uchiwake.registerOwnership",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Assert a corporate OWNERSHIP edge (子会社 → parent) into the kotoba Datom log (:company.ownership/*), sourced from GLEIF Level-2 Relationship Records (RR). Lets a brand-owning subsidiary roll up to its ultimate parent so supply concentration is computed at the true beneficial-owner level. Public-record data only (uchiwake G1). Non-adjudicating (G4): records the disclosed consolidation relationship, does not rule on control/beneficial-ownership in law.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ownershipId", "child", "parent", "relationship", "sourcing", "observedAt"],
+          "properties": {
+            "ownershipId": { "type": "string", "description": ":company.ownership/id" },
+            "child": { "type": "string", "description": "→ kabuto :company/id of the owned entity (the subsidiary)" },
+            "parent": { "type": "string", "description": "→ kabuto :company/id of the owning entity (the parent)" },
+            "relationship": { "type": "string", "enum": ["is_directly_consolidated_by", "is_ultimately_consolidated_by"], "description": "GLEIF RR relationship type" },
+            "sourcing": { "type": "string", "enum": ["authoritative", "representative", "synthesized"], "description": "uchiwake G5; :authoritative when from a GLEIF RR record" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "ownershipId": { "type": "string" },
+            "txCid": { "type": "string", "description": "kotoba transaction CID" },
+            "datomCount": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

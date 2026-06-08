@@ -37,6 +37,8 @@
 #        legal-entity}) at edge layer; runtime etzhayyim.com residue zero
 #      - 3 L5 Pregel cells under 40-engine/kotoba/crates/kotoba-kotodama/cells/{member_registry,
 #        religious_marriage,religious_corp_taxation}/ — now active (100%)
+#   5. Apps Maturity Enhancement (ADR-2606074000): Baseline vitest harness
+#      scaffolded for all 73 Apps Store apps, coverage pushed >80% for core apps.
 #
 # Human-readable docs:
 #   - CLAUDE.md (this dir)            ← index, operating-entity boundary
@@ -706,6 +708,21 @@ monitor_command = "./20-actors/first-breath/monitor.sh"
 wol_state = "not_woken_2026_05_18"
 wol_unblock = "physical wake + pmset -a womp 1 on benjamin, asher"
 
+# ─── Operator remote-access overlay (Tailscale SSH) — ADR-2606082100 ──
+# Control-plane ONLY: keyless, tailnet-SSO-gated SSH across the fleet for
+# deploy/monitor/maintenance. NOT a substrate primitive — carries no inference,
+# no kotoba state, and no signing; orthogonal to the langserver 10.99.0.0/16
+# data-plane mesh. Tailnet auth key lives in Keychain + 1Password, NEVER in-repo
+# (handled like the DID private key). No IPs / usernames / secrets recorded here.
+operator_access_overlay = "tailscale"   # WireGuard mesh; data plane peer-to-peer
+operator_ssh = "tailscale-ssh"          # port 22 served by the tailnet-identity SSH server
+operator_ssh_auth = "tailnet-sso + acl(action=accept, src=autogroup:member, dst=autogroup:self, users=autogroup:nonroot)"
+operator_ssh_keyless = true             # no per-node authorized_keys, no distributed SSH private keys, no passwords
+operator_login_convention = "local-account == node hostname (<tribe>); primary node = operator handle"
+operator_enroll = "one-off / ephemeral tailnet auth key (Keychain + 1Password); never committed"
+operator_overlay_selfhost_exit = "headscale (deferred de-SaaS path)"
+operator_overlay_adr = "2606082100"
+
 # ─── ADR registry (mirrors 90-docs/adr/README.md for machine discovery) ──
 
 [[adrs]]
@@ -1069,7 +1086,7 @@ path = "90-docs/adr/2605192145-etzhayyim-public-fund-architecture.md"
 id = "2605192200"
 title = "etzhayyim IP-Free-Release with Charter Compliance Rider v2.0 — Apache 2.0 + 多世代 + 反個人主義 + Wellbecoming license addendum (von Neumann minimax 解)"
 status = "proposed"
-status_note = "S3 = Apache 2.0 + Extended Rider v2.0 が maximin -2 / avg +1.42 で optimal。Rider §2(a)-(h): weapons / speculative finance / surveillance capitalism / fossil fuel extraction (new) / specialist gatekeeping / multi-generational harm (v2.0) / strict individualist ontology (v2.0) / wellbecoming subordination (v2.0)。三層 enforcement (L1 license / L2 便益拒否 / L3 評価最低 = Phenotype.effectiveMultiplier 0)"
+status_note = "S3 = Apache 2.0 + Extended Rider v2.0 が maximin -2 / avg +1.42 で optimal。Rider §2(a)-(h): weapons / speculative finance / monetized-or-asymmetric surveillance (v3.1 reciprocity axis, ADR-2606082400: 相互監視 affirmed, only monetized OR watcher-unwatched prohibited) / fossil fuel extraction (new) / specialist gatekeeping / multi-generational harm (v2.0) / strict individualist ontology (v2.0) / wellbecoming subordination (v2.0)。三層 enforcement (L1 license / L2 便益拒否 / L3 評価最低 = Phenotype.effectiveMultiplier 0)"
 path = "90-docs/adr/2605192200-etzhayyim-ip-free-release-charter-rider.md"
 
 [[adrs]]
@@ -8554,22 +8571,22 @@ status_note = "R0 scaffold: Modal-compat surface + 3-backend routing policy (jud
 path = "90-docs/adr/2605282000-kotoba-murakumo-modal-compat-python-fleet-inference.md"
 
 [[modules]]
-path = "40-engine/kotoba_murakumo/"
+path = "40-engine/kotoba/py/kotoba_murakumo/"
 adr = "ADR-2605282000"
 kind = "python-package"
-status = "r1.3b-live + relocated-per-2605282300"
-placement_note = "Religious-corp downstream consumer of the kotoba substrate. Relocated 2026-05-28 evening from 40-engine/kotoba/py/kotoba_murakumo/ (inside kotoba subrepo) to 40-engine/kotoba_murakumo/ (sibling of subrepo) per ADR-2605282300 §'Decision'. The original placement triggered a structural failure when the first git subrepo push revealed that upstream github.com/etzhayyim/kotoba had force-pushed away the merge-base commit recorded in .gitrepo (17e30d9db...), making subrepo sync impossible. The fix is structural — consumer lives outside the upstream mirror. Pattern: stay-in vs move-out criteria documented in ADR-2605282300 §'Pattern: when does a Python sibling stay in a subrepo vs move out?'. kotoba_langgraph stays inside (canonical kotoba); kotoba_murakumo moves out (downstream consumer). Test runner is now 70-tools/scripts/test-kotoba-murakumo.sh (replaces deleted 40-engine/kotoba/scripts/test-py.sh)."
+status = "r1.3b-live + reintegrated-per-2606074000"
+placement_note = "Religious-corp downstream consumer of the kotoba substrate, living INSIDE the kotoba submodule at 40-engine/kotoba/py/kotoba_murakumo/ as a sibling of py/kotoba_langgraph/. Re-integrated 2026-06-07 per ADR-2606074000, which supersedes the subrepo-era relocation ADR-2605282300. The 2026-05-28 relocation OUT (to 40-engine/kotoba_murakumo/) was forced by a git-subrepo failure: the upstream github.com/etzhayyim/kotoba had force-pushed away the merge-base commit recorded in .gitrepo (17e30d9db...), making subrepo sync impossible. kotoba is now a git submodule (a pinned commit + an independent push/pull lifecycle), so that merge-base hazard no longer exists and the consumer rejoins the engine repo. It remains a monorepo-context package: its inputs (50-infra/murakumo/fleet.toml, the 70-tools lint gate) live in the monorepo, so conftest skips the suite in a standalone kotoba checkout. Test runner: 70-tools/scripts/test-kotoba-murakumo.sh."
 description = "Modal-compatible Python facade for Murakumo fleet inference. Apache 2.0 + Charter Rider v2.0. Public API: App / @app.function / @app.cls / @enter / @exit / @method / Image / Volume / Secret / gpu.{EvoX2,MacMini,WebGPU,Any} + Function.{remote, remote_async, spawn, map, starmap, stream, estimate} + FunctionCall handle + economy.{Tariff, UsageEstimate, UsageActual, BudgetExceeded, InsufficientCredit, default_tariff} + App.balance / App.get_tariff. Modal-compat shim at .modal_compat re-exports as if it were `modal` (Stub alias + gpu.{T4,L4,A10G,A100,H100,H200} → EvoX2 with N5 honest warning). 62 tests pass + 2 live_fleet skip in 0.21s. R1.1 live httpx-backed LiteLLM/Ollama dispatch + SSE stream + Charter Rider §2 scan (advisory→enforce via KOTOBA_MURAKUMO_CHARTER_ENFORCE=1) + invocation NDJSON. R1.3b mKOTO economy + Modal-billing-parity (max_cost_mkoto= decorator param; Function.estimate; pre-dispatch budget+balance check; NDJSON +cost_mkoto+tariff_version). Relocated per ADR-2605282300."
 
 [[modules]]
-path = "40-engine/kotoba_murakumo/kotoba_murakumo/fleet.py"
+path = "40-engine/kotoba/py/kotoba_murakumo/kotoba_murakumo/fleet.py"
 adr = "ADR-2605282000"
 kind = "python-module"
 status = "r0-active"
 description = "stdlib tomllib-backed loader for 50-infra/murakumo/fleet.toml. Typed view (FleetNode + InferenceEndpoint dataclasses, slots+frozen). Raises FleetUnreachable when fleet.toml missing — no silent fallback per ADR-2605282000 N4. Parses [[inference_backends]] array + per-backend [inference_backends.<name>.endpoints.<kind>] nested form (the actual fleet.toml shape, tomllib-faithful). Verified against canonical SSoT: judah=192.168.1.17, evo-x2 litellm=192.168.1.70:4000 master_key_env=EVO_X2_LITELLM_KEY, evo-x2 ollama=192.168.1.70:11434, litellm gateway URL = http://192.168.1.17:4000."
 
 [[modules]]
-path = "40-engine/kotoba_murakumo/kotoba_murakumo/_internal/routing.py"
+path = "40-engine/kotoba/py/kotoba_murakumo/kotoba_murakumo/_internal/routing.py"
 adr = "ADR-2605282000"
 kind = "python-module"
 status = "r1.3-active-with-LITELLM_MASTER_KEY-fix"
@@ -8577,7 +8594,7 @@ amends = ["ADR-2605282400"]
 description = "Pure-function selector→endpoint resolver. Inputs: (GpuSpec | str | None, model, FleetView). Output: ResolvedRoute(url, model, backend, kind, auth_bearer_env). Rules: gpu=None|Any → LiteLLM gateway judah:4000 (auth_bearer_env='LITELLM_MASTER_KEY' since ADR-2605282400 live-verification fix; gateway returns 401 without it per 60-apps/etzhayyim-project-murakumo/litellm/config.yaml master_key line 78); gpu=MacMini(node=) → that node's own-node Ollama :11434 (no auth); gpu=EvoX2(prefer=) → EVO-X2 LiteLLM/Ollama/ComfyUI (LiteLLM uses EVO_X2_LITELLM_KEY); gpu=WebGPU → R2 not-implemented; gpu='A100'/'H100'/'A10G'/'T4'/'L4' string → EvoX2 with N5 honest warning logged. No HTTP traffic in this module."
 
 [[modules]]
-path = "40-engine/kotoba_murakumo/kotoba_murakumo/modal_compat.py"
+path = "40-engine/kotoba/py/kotoba_murakumo/kotoba_murakumo/modal_compat.py"
 adr = "ADR-2605282000"
 kind = "python-module"
 status = "r0-active"
@@ -8588,38 +8605,38 @@ path = "70-tools/scripts/lint/verify_no_modal_labs_calls.py"
 adr = "ADR-2605282000"
 kind = "lint-gate"
 status = "r1.1-active"
-description = "ADR-2605282000 N1 enforcement: scans 40-engine/kotoba_murakumo/kotoba_murakumo/**/*.py for `modal.com` / `api.modal.com` / `from modal import` / `import modal as` references; exit 1 on any hit. Allow-list scope is enforced by path-restriction (the trademark notice in README.md + the ADR are outside the scanned package source tree so they pass automatically). R1.1 ships with 2 self-tests (passes on clean tree, flags an injected violation in a tmp-dir fake repo)."
+description = "ADR-2605282000 N1 enforcement: scans 40-engine/kotoba/py/kotoba_murakumo/kotoba_murakumo/**/*.py for `modal.com` / `api.modal.com` / `from modal import` / `import modal as` references; exit 1 on any hit. Allow-list scope is enforced by path-restriction (the trademark notice in README.md + the ADR are outside the scanned package source tree so they pass automatically). R1.1 ships with 2 self-tests (passes on clean tree, flags an injected violation in a tmp-dir fake repo)."
 
 [[modules]]
-path = "40-engine/kotoba_murakumo/kotoba_murakumo/function.py"
+path = "40-engine/kotoba/py/kotoba_murakumo/kotoba_murakumo/function.py"
 adr = "ADR-2605282000"
 kind = "python-module"
 status = "r1.1-live-dispatch"
 status_note = "R1.1 replaces R0 MurakumoCompatNotImplemented stubs with live httpx-backed dispatch. Function.{remote, remote_async, spawn, map, starmap, stream} all wired. .spawn() returns a FunctionCall handle (call_id uuid + concurrent.futures.Future). .map() runs in a per-call ThreadPoolExecutor with order_outputs=True (Modal default) or as-completed. .stream() is an async generator over OpenAI SSE chunks (decodes 'data: {...}\\n' lines, terminates on 'data: [DONE]'). Charter Rider §2 scan runs on input prompt and output text; KOTOBA_MURAKUMO_CHARTER_ENFORCE=1 flips advisory→enforce and raises CharterViolation before the result is returned to the caller (constitutional invariant per ADR-2605192200). NDJSON invocation log written via call-time path resolve (test fixtures can monkeypatch _DEFAULT_PATH). httpx.HTTPError → FleetUnreachable conversion preserves the attempted endpoint chain (ADR-2605282000 N4)."
 
 [[modules]]
-path = "40-engine/kotoba_murakumo/kotoba_murakumo/client/litellm.py"
+path = "40-engine/kotoba/py/kotoba_murakumo/kotoba_murakumo/client/litellm.py"
 adr = "ADR-2605282000"
 kind = "python-module"
 status = "r1.1-live"
 status_note = "Real impl: chat_completions (sync via httpx.Client) + chat_completions_async (async via httpx.AsyncClient) + chat_completions_stream (async generator decoding OpenAI SSE 'data:' chunks). Wire format mirrors kotoba-llm::http_infer.rs (POST /v1/chat/completions + Authorization: Bearer when auth_bearer). Returns the assistant content string; raises ValueError on missing choices[0].message.content; raises httpx.HTTPStatusError on non-2xx (Function._dispatch_sync converts to FleetUnreachable upstream)."
 
 [[modules]]
-path = "40-engine/kotoba_murakumo/kotoba_murakumo/client/ollama.py"
+path = "40-engine/kotoba/py/kotoba_murakumo/kotoba_murakumo/client/ollama.py"
 adr = "ADR-2605282000"
 kind = "python-module"
 status = "r1.1-live"
 status_note = "Ollama-direct (own-node gemma3:4b) — Ollama exposes the OpenAI-compat endpoint at /v1/chat/completions so this module delegates to client.litellm with auth_bearer=None. R2 wires Ollama-specific knobs (num_ctx / num_gpu / keep_alive) without touching the LiteLLM signature."
 
 [[modules]]
-path = "40-engine/kotoba_murakumo/kotoba_murakumo/charter.py"
+path = "40-engine/kotoba/py/kotoba_murakumo/kotoba_murakumo/charter.py"
 adr = "ADR-2605282000"
 kind = "python-module"
 status = "r1.1-bound"
 status_note = "R1.1 binds to canonical scanner at etzhayyim_organism.sensors.charter_rider.scan via try-import (graceful fallback to local 4-regex matcher when the etzhayyim_organism package is not on sys.path — keeps kotoba_murakumo importable in isolation). Severity ladder: clean → minor (§2(c) advisory patterns only) → major (any §2(a)/(b)/(d)/(f)/(h) hit OR multi-hit §2(c)) → critical (§2(a) Weapons OR §2(f) Multi-Gen Harm with >1 hit). KOTOBA_MURAKUMO_CHARTER_ENFORCE truthy env (1/true/yes; case-insensitive) flips the enforce() helper from no-op to raising CharterViolation on severity >= major. Default off at R1.1 to support gradual rollout; R2 default-on contingent on the Council Lv6+ ratify of CHARTER-RIDER §6 attribution amendment."
 
 [[modules]]
-path = "40-engine/kotoba_murakumo/tests/"
+path = "40-engine/kotoba/py/kotoba_murakumo/tests/"
 adr = "ADR-2605282000"
 kind = "test-suite"
 status = "r1.1-42-pass-2-skip"
@@ -8633,7 +8650,7 @@ status_note = "6-layer mKOTO economy charter (L1 meter / L2 tariff / L3 wallet /
 path = "90-docs/adr/2605282100-kotoba-mkoto-economy-and-modal-billing-parity.md"
 
 [[modules]]
-path = "40-engine/kotoba_murakumo/kotoba_murakumo/economy.py"
+path = "40-engine/kotoba/py/kotoba_murakumo/kotoba_murakumo/economy.py"
 adr = "ADR-2605282100"
 kind = "python-module"
 status = "r1.3b-live"
@@ -8668,7 +8685,7 @@ status = "r1.3d-scaffold-cfg-gated"
 description = "Rust XRPC handler signatures for com.etzhayyim.kotoba.economy.{tariff, balance, debit, creditFromDonation}. NOT YET WIRED into lib.rs — file is `#[cfg(any())]` gated so it does not affect the kotoba-server compilation surface. R1.3d-wiring (separate ADR) will: (1) add `pub mod economy_xrpc;` to lib.rs; (2) register routes in xrpc.rs; (3) implement handlers via existing QuadStore + CACAO auth (check_read_access / require_did_ownership patterns from kotobase_xrpc.rs). NSID constants NSID_ECONOMY_{TARIFF,BALANCE,DEBIT,CREDIT_FROM_DONATION} match the Lexicon IDs. credit_from_donation handler verifies tithed_to_fund_usdc == usdc_amount * 0.10 as a constitutional invariant per ADR-2605192130; rejects on mismatch."
 
 [[modules]]
-path = "40-engine/kotoba_murakumo/tests/test_economy.py"
+path = "40-engine/kotoba/py/kotoba_murakumo/tests/test_economy.py"
 adr = "ADR-2605282100"
 kind = "test-suite"
 status = "r1.3b-17-tests"
@@ -8822,42 +8839,42 @@ status = "r0-active"
 description = "Foundry profile for KawaseYuiPool scaffold — solc 0.8.27 (matches etzhayyim-chain-contracts pragma) + src=src + out=out + libs=[\"lib\"] + fmt line_length 100 / tab_width 4. R0 has no external lib dependencies (forge-std not pulled in); R1 will add forge-std for Test inheritance + cheatcodes once flow tests are written."
 
 [[modules]]
-path = "40-engine/kotoba_kawase/"
+path = "20-actors/kawase-yui/kotoba_kawase/"
 adr = "ADR-2605282200"
 kind = "python-package-dir"
 status = "r0-scaffold-landed"
-description = "kotoba_kawase Python facade for kawase-yui (ADR-2605282200), sibling of kotoba_murakumo per ADR-2605282300 relocation pattern (downstream religious-corp consumer of the kotoba substrate lives outside the kotoba subrepo). R0 = README + pyproject.toml + kotoba_kawase/__init__.py (send / claim raise NotYetImplemented) + kotoba_kawase/exceptions.py (NotAdherent G3 + OutOfBandFx G4 + PerMonthCapBreached G9 + JurisdictionNotActivated G14 + NotYetImplemented + KawaseError base) + tests/test_r0.py (16 passing tests verifying R0 honesty + exception hierarchy + frozen dataclasses). Public surface (send + claim + SendReceipt + ClaimReceipt + Stable literal type) is fixed at R0 so reviewers can verify G3 / G4 / G5 / G7 / G9 / G11 / G14 are honored at the interface level BEFORE R1 wires bodies."
+description = "kotoba_kawase Python facade for kawase-yui (ADR-2605282200), co-located with its actor at 20-actors/kawase-yui/kotoba_kawase/ per ADR-2606074500 (engine-core vs actor layering: kawase is actor-specific business logic mirroring KawaseYuiPool.sol — not generic engine surface — so it lives WITH its actor, not as an orphan sibling of the kotoba engine). R0 = README + pyproject.toml + kotoba_kawase/__init__.py (send / claim raise NotYetImplemented) + kotoba_kawase/exceptions.py (NotAdherent G3 + OutOfBandFx G4 + PerMonthCapBreached G9 + JurisdictionNotActivated G14 + NotYetImplemented + KawaseError base) + tests/test_r0.py (16 passing tests verifying R0 honesty + exception hierarchy + frozen dataclasses). Public surface (send + claim + SendReceipt + ClaimReceipt + Stable literal type) is fixed at R0 so reviewers can verify G3 / G4 / G5 / G7 / G9 / G11 / G14 are honored at the interface level BEFORE R1 wires bodies."
 
 [[modules]]
-path = "40-engine/kotoba_kawase/kotoba_kawase/__init__.py"
+path = "20-actors/kawase-yui/kotoba_kawase/kotoba_kawase/__init__.py"
 adr = "ADR-2605282200"
 kind = "python-module"
 status = "r0-scaffold-landed"
 description = "Public surface of kotoba_kawase — send(from_did, to_did, src_amount_minor, src_stable, tgt_stable, memo=None) -> SendReceipt + claim(intent_cid, as_did) -> ClaimReceipt + frozen SendReceipt / ClaimReceipt dataclasses + Stable Literal type covering R1/R2/R3 stables. R0 every public call raises NotYetImplemented with the phase string identifying the gating event (Bootstrap-Council ratify + KawaseYuiPool R1 deploy). R1 fills in pre-flight Adherent SBT check + Chainlink quote + Charter Rider scan + per-month cap + intent CID emit + KawaseYuiPool.deposit() dispatch."
 
 [[modules]]
-path = "40-engine/kotoba_kawase/kotoba_kawase/exceptions.py"
+path = "20-actors/kawase-yui/kotoba_kawase/kotoba_kawase/exceptions.py"
 adr = "ADR-2605282200"
 kind = "python-module"
 status = "r0-scaffold-landed"
 description = "Constitutional-invariant-named exception types mirroring KawaseYuiPool.sol Solidity errors. KawaseError base class + NotAdherent (G3) + OutOfBandFx (G4; carries quoted_bps + chainlink_bps + max_band_bps for caller introspection) + PerMonthCapBreached (G9; carries sender_did + attempted + cap) + JurisdictionNotActivated (G14; carries sender_juris + recipient_juris) + NotYetImplemented (R0 honesty marker, carries phase string). G11 (no chargeback) has no exception by design — there is no reverse() entry point to fail."
 
 [[modules]]
-path = "40-engine/kotoba_kawase/tests/test_r0.py"
+path = "20-actors/kawase-yui/kotoba_kawase/tests/test_r0.py"
 adr = "ADR-2605282200"
 kind = "test-suite"
 status = "r0-16-tests-pass"
 description = "16 pytest tests for kotoba_kawase R0 scaffold: public surface shape (send + claim + SendReceipt + ClaimReceipt + Stable in __all__) + R0 honesty (send + claim raise NotYetImplemented with phase string mentioning Bootstrap-Council) + each exception type carries the right introspection fields (NotAdherent.did / OutOfBandFx.quoted_bps + chainlink_bps + max_band_bps / PerMonthCapBreached.attempted + cap / JurisdictionNotActivated.sender_juris + recipient_juris) + exception hierarchy (every gate-specific exception inherits from KawaseError + Exception via parametrize matrix) + dataclasses are frozen (assignment raises). Plugin autoload disabled via PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 to bypass dev-box pydantic-core / langsmith version skew (same convention as kotoba_murakumo)."
 
 [[modules]]
-path = "40-engine/kotoba_kawase/pyproject.toml"
+path = "20-actors/kawase-yui/kotoba_kawase/pyproject.toml"
 adr = "ADR-2605282200"
 kind = "pyproject-config"
 status = "r0-active"
 description = "kotoba-kawase Python package config — hatchling build backend + py>=3.11 + Apache-2.0 + no R0 runtime dependencies + pytest as optional test extra. Mirrors kotoba_murakumo's pyproject.toml shape (sibling-package precedent per ADR-2605282300). R1 will add httpx for the KawaseYuiPool dispatch + chainlink-feed-reader for the live mid-market quote + cryptography (or noble equivalent) for the ADR-2605181100 memo envelope."
 
 [[modules]]
-path = "40-engine/kotoba_kawase/tests/test_layer_composition.py"
+path = "20-actors/kawase-yui/kotoba_kawase/tests/test_layer_composition.py"
 adr = "ADR-2605282200"
 kind = "test-suite"
 status = "r0-10-tests-pass"
@@ -8887,16 +8904,25 @@ description = "26 tests for verify_no_commercial_remittance.py: R0 path-reserved
 [[adrs]]
 id = "2605282300"
 title = "kotoba_murakumo relocated out of the kotoba subrepo to 40-engine/kotoba_murakumo/ (downstream-consumer placement)"
-status = "proposed"
-status_note = "Closure ADR for the structural mistake surfaced by the first git subrepo push attempt on 2026-05-28 evening (id originally 2605282200 collided with kawase-yui ADR; renumbered to 2605282300). Root cause: kotoba_murakumo was placed inside the kotoba subrepo working tree but is a religious-corp downstream consumer, NOT part of kotoba's canonical external surface. When upstream github.com/etzhayyim/kotoba had force-pushed away the merge-base commit (17e30d9db5...) recorded in .gitrepo, all three git-subrepo sync paths (pull, branch, pull --force) failed or were destructive. The honest fix is structural relocation, not a git-workflow patch. This ADR documents the relocation + the durable stay-in-vs-move-out rule: a Python sibling stays inside a subrepo iff (1) it IS canonical upstream-shipped content (e.g. kotoba_langgraph compiles to WASM Components for kotoba-runtime), (2) it imports only documented external interfaces, (3) the upstream release tag includes it. Moves OUT iff (1) it consumes the subrepo via HTTP/wire format but isn't part of its external surface, (2) it imports monorepo-only modules, (3) its constitutional invariants are religious-corp-specific. kotoba_murakumo matches all 3 move-out criteria. Relocation preserved git history via git mv. The Rust scaffold economy_xrpc.rs stays inside the subrepo (it IS intended for upstream eventually; R1.3d-wiring will turn the cfg-gate off). Depends on ADR-2605282000 (the subject) + ADR-2605282100 (lives alongside) + ADR-2605262130 (kotoba substrate)."
+status = "superseded"
+superseded_by = "2606074000"
+status_note = "SUPERSEDED by ADR-2606074000 (2026-06-07): kotoba is now a git submodule, not a git-subrepo, so the merge-base force-push hazard that forced this relocation no longer exists; kotoba_murakumo was re-integrated into the submodule at 40-engine/kotoba/py/kotoba_murakumo/. Original closure ADR for the structural mistake surfaced by the first git subrepo push attempt on 2026-05-28 evening (id originally 2605282200 collided with kawase-yui ADR; renumbered to 2605282300). Root cause: kotoba_murakumo was placed inside the kotoba subrepo working tree but is a religious-corp downstream consumer, NOT part of kotoba's canonical external surface. When upstream github.com/etzhayyim/kotoba had force-pushed away the merge-base commit (17e30d9db5...) recorded in .gitrepo, all three git-subrepo sync paths (pull, branch, pull --force) failed or were destructive. The honest fix is structural relocation, not a git-workflow patch. This ADR documents the relocation + the durable stay-in-vs-move-out rule: a Python sibling stays inside a subrepo iff (1) it IS canonical upstream-shipped content (e.g. kotoba_langgraph compiles to WASM Components for kotoba-runtime), (2) it imports only documented external interfaces, (3) the upstream release tag includes it. Moves OUT iff (1) it consumes the subrepo via HTTP/wire format but isn't part of its external surface, (2) it imports monorepo-only modules, (3) its constitutional invariants are religious-corp-specific. kotoba_murakumo matches all 3 move-out criteria. Relocation preserved git history via git mv. The Rust scaffold economy_xrpc.rs stays inside the subrepo (it IS intended for upstream eventually; R1.3d-wiring will turn the cfg-gate off). Depends on ADR-2605282000 (the subject) + ADR-2605282100 (lives alongside) + ADR-2605262130 (kotoba substrate)."
 path = "90-docs/adr/2605282300-kotoba-murakumo-relocated-out-of-kotoba-subrepo.md"
+
+[[adrs]]
+id = "2606074000"
+title = "kotoba_murakumo re-integrated into the kotoba submodule (py/kotoba_murakumo/) — submodule era supersedes the subrepo-relocation"
+status = "proposed"
+supersedes = "2605282300"
+status_note = "Reverses ADR-2605282300 now that the root cause has dissolved. The relocation OUT was forced by a git-subrepo failure (upstream force-pushed away the .gitrepo merge-base, making subrepo sync impossible). kotoba is now a git submodule — the parent records only a pinned commit SHA + the submodule has an independent push/pull lifecycle — so a force-push upstream can no longer corrupt a parent-side merge-base. The Modal-compat facade rejoins the engine repo at 40-engine/kotoba/py/kotoba_murakumo/ as a sibling of py/kotoba_langgraph/. Path-depth rebased parents[3]→parents[5]; conftest skips the suite in a standalone kotoba checkout (monorepo-context inputs absent). 62 tests pass / 2 live_fleet skipped in the monorepo. Murakumo-only invariant (ADR-2605215000), Charter Rider §2 scan (ADR-2605192200), no-Modal-Labs N1 gate (ADR-2605282000) all unchanged. The submodule's local main had diverged from upstream origin/main; the integration is stacked on the local line to keep the monorepo delta minimal — reconciling that divergence with upstream is tracked separately. Depends on ADR-2605282000 + ADR-2605282100 + ADR-2605282300 (superseded) + ADR-2605262130 + ADR-2605215000."
+path = "90-docs/adr/2606074000-kotoba-murakumo-reintegrated-into-kotoba-submodule.md"
 
 [[modules]]
 path = "70-tools/scripts/test-kotoba-murakumo.sh"
 adr = "ADR-2605282300"
 kind = "test-runner"
 status = "r1.3b-active"
-description = "Monorepo-side test runner for 40-engine/kotoba_murakumo/. Replaces the deleted 40-engine/kotoba/scripts/test-py.sh that was inside the kotoba subrepo. Resolves PKG_DIR to $REPO_ROOT/40-engine/kotoba_murakumo (post-relocation path per ADR-2605282300). Sets PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 default to avoid the global-site-packages langsmith / pydantic-core version-mismatch issue on the dev box. Passes through positional args to pytest. Exit 0 on green; non-zero on first failure."
+description = "Monorepo-side test runner for the kotoba_murakumo package. Resolves PKG_DIR to $REPO_ROOT/40-engine/kotoba/py/kotoba_murakumo (re-integrated into the kotoba submodule per ADR-2606074000, superseding the subrepo-era relocation ADR-2605282300). Sets PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 default to avoid the global-site-packages langsmith / pydantic-core version-mismatch issue on the dev box. Passes through positional args to pytest. Exit 0 on green; non-zero on first failure (suite skips entirely in a standalone kotoba checkout where 50-infra/murakumo/fleet.toml is absent)."
 
 [[adrs]]
 id = "2605282400"
@@ -10141,6 +10167,14 @@ status_note = "Adds shomei as a DID-centric believer identity binding and proof-
 path = "90-docs/adr/2606072100-shomei-believer-identity-binding-proof-of-personhood-r0.md"
 adr = ["2606072100", "2606072300", "2605260000", "2605181100", "2605231525", "2605215000"]
 
+[[adrs]]
+id = "2606082100"
+title = "Mishmar Storage Covenant — social-capital-funded bonded pinning for unstoppable persistence"
+status = "proposed"
+status_note = "Session-close ADR for the 2026-06-08 persistence/economic-security gap review. Chooses the Charter-clean incentive model for third-party data persistence: non-yielding bonded pinning, slash-to-commons through TitheRouter/Public Fund, social-capital-denominated retainers, and kotoba read+verify-only observation. It closes the design gap without creating live staking resources, Kubernetes resources, external-payment paths, or a yield-bearing/security-like token. Follow-ups: Social Capital ledger predicates, MishmarBondEscrow, witness challenge scheduler, and mKOTO retainer settlement."
+path = "90-docs/adr/2606082100-mishmar-storage-covenant-social-capital.md"
+adr = ["2606082100", "2605231400", "2605282100", "2604261717", "2605192100", "2605192200", "2605192130", "2605192145", "2605172100", "2605172300", "0075", "2605240001", "2605231525"]
+
 # ─── Donation policy (machine-readable SSoT, ADR-2606012100) ─────────────────
 # Public declaration: https://etzhayyim.com/donate + /.well-known/donation.json
 [donation]
@@ -10243,6 +10277,34 @@ status = "proposed"
 status_note = "The 統合 arbitrage アクター named in the price-intel gap audit. did:web:meyasu.etzhayyim.com (20-actors/meyasu/), a THIN ORCHESTRATOR (a 目安 = yardstick, NOT a trade) that computes no price or forecast math itself but FUSES three siblings: kakaku 価格 (cross-merchant/region price SPREAD + present supply/demand index, ADR-2605091200) + mitooshi 見通し (forecast DISTRIBUTION of that index, ADR-2606051800) + ossekai 御節介 (aggregate-first publication discipline, ADR-2605264000). 3 cells over one kotoba Datom graph: fuse (handle_fuse — per-product {kakaku, mitooshi} -> unified arbitrage-intel card: spread, supply/demand now, forecast BAND, trajectory tightening/easing/stable, attention flag, planner route; a point-asserted or speculative forecast is REFUSED, G2) + publish (handle_publish — cards -> aggregate-first post + planner handoff for attention cards; broadcast operator-gated, default :draft) + persist (handle_persist + card_to_datoms — flatten cards into kotoba Datoms over kotoba/schema.edn :meyasu.card/* :meyasu.post/*; tx RETURNED not written without operatorRef, no-server-key; forecast persisted as :forecast-band-lo/hi, never a point). 6 gates: G1 non-speculative (intent buyer-transparency+supply-resilience; emits no trade/price target; :trade/:speculation are NOT representable in the card intent — speculation structurally unrepresentable, Charter §1.3 + yobel) + G2 distribution-respecting (consumed forecast MUST be a distribution point_asserted false with a resilience use; point/speculative refused per-item) + G3 aggregate-first (published intel anonymized aggregate) + G4 non-adjudicating (attention cards routed to a planner okaimono buyers / danjo resilience; meyasu states, planner decides) + G5 Murakumo-only inference (kotoba llm host binding) + G6 no-server-key (publication + persist operator-gated). Lexicons com.etzhayyim.apps.meyasu.{card,post}. Self-driving kotoba/deploy.sh (blocking test gate) + path-scoped .github/workflows/meyasu-test.yml. Cohort END-TO-END test (test_cohort_e2e.py) proves kakaku -> mitooshi -> meyasu composes leak-free across actor boundaries. COMPANION work same session/PR: kakaku offer-ingest extraction pipeline (JSON-LD -> selector -> meta -> Murakumo; live fetch G11-gated) + mitooshi quantile (pinball-scored) forecaster + okaimono live USDC + TitheRouter settlement broadcast (member-signed, no-server-key) + ossekai 8/8 cells complete + onion -> kotoba-kqe migration (ADR-2606071800; removes last createKyselyDb/Hyperdrive read-path violation) + onion BPMN crawl worker re-homed as a py-kotodama primitive running in a kotoba-wasm component (Datom-native, operator-gated Tor fetch). Deciders: Jun Kawasaki. Depends on ADR-2605091200 + 2606051800 + 2606012100 + 2605264000 + 2606071800 + 2605262130 + 2605312345 + 2605215000."
 path = "90-docs/adr/2606073200-meyasu-unified-arbitrage-intel-orchestrator.md"
 
+# ─── Tailscale SSH operator-access overlay for the Murakumo fleet (ADR-2606082100) ──
+
+[[adrs]]
+id = "2606082100"
+title = "Tailscale SSH mesh for the Murakumo Mac-mini fleet — keyless, tailnet-SSO-gated operator remote access (control-plane overlay; not a substrate primitive)"
+status = "proposed"
+status_note = "Records the operator control-plane overlay for the Mac-mini fleet (ADR-2605191346). Tailscale (WireGuard mesh) + Tailscale SSH on every node: port 22 on the tailnet interface is served by the tailnet-identity SSH server, authorized by a tailnet ACL ssh rule (action=accept, src=autogroup:member, dst=autogroup:self, users=autogroup:nonroot). KEYLESS — no per-node authorized_keys, no distributed SSH private keys, no passwords; access granted/revoked centrally; aligns with the no-server-key spirit (ADR-2605231525) because a tailnet IDENTITY, not a stored key, authorizes each session. Enrollment uses a one-off/ephemeral tailnet auth key held only in Keychain + 1Password, never committed (handled like the DID private key). Login convention: local account == node hostname (<tribe>); primary node = operator handle. SCOPE BOUNDARY (load-bearing): control-plane ONLY — carries no inference, no kotoba Datom state, and no signing; does NOT replace the langserver 10.99.0.0/16 data-plane mesh, the geth/IPFS/Base substrate, or the Murakumo-only inference path (ADR-2605215000). Trade-off: the login.tailscale.com coordination server is a third-party control-plane dependency (data plane stays peer-to-peer WireGuard); the de-SaaS exit is self-hosted Headscale (deferred). Secrets hygiene: no auth keys, passwords, tailnet IPs (100.64.0.0/10 CGNAT ephemeral), or local usernames recorded in-repo. Deciders: Jun Kawasaki. Depends on ADR-2605191346 + 2605215000 + 2605231525."
+path = "90-docs/adr/2606082100-tailscale-ssh-fleet-operator-access-overlay.md"
+
+# ─── shiori 栞 — human-Wellbecoming detractor mirror + transparent intervention (ADR-2606082100) ──
+# NOTE: numeric id 2606082100 is shared with the Tailscale-SSH overlay ADR above (a parallel-agent
+# id race, same tolerated/tracked pattern as 2605263400 / 2605263500). The full doc-id + filename
+# slug disambiguate; tracked for a future ADR-id reconciliation.
+[[adrs]]
+id = "2606082100"
+title = "shiori 栞 — human-Wellbecoming detractor observatory + transparent intervention"
+status = "accepted"
+status_note = "Tier-B actor: the 取-concentration HUMAN side of the KG-mirror lineage (inochi/asobi/hokorobi/tsugite). Weaves cohorts(aggregate)/detractors(structural)/drivers(patterns)/mitigators(havens) into the kotoba Datom log; edge-primary detraction vs relief routed to RELIEF (救い); surfaces relief-gap per cohort (→ossekai), 取-holder driver concentration (→danjo/tsumugi/keizu), intervention-design gap. G1 = relief map NEVER per-person affect/manipulation (cohort-only, drivers are PATTERNS not entities, anti-addictive); G8 = transparent-intervention only — shiori PROPOSES, ossekai CARRIES (on-chain-logged + consent-bound), permitted channels = public app.bsky.feed.post + actor-bound email with FULL body disclosed. R0 scaffold + wellbecoming-ontology + seed(39 nodes/55 縁) + pure-stdlib pywasm-ready methods + 11 tests green. ZERO Charter amendments."
+path = "90-docs/adr/2606082100-shiori-wellbecoming-detractor-mirror.md"
+
+# ─── Charter-Rider §2(c) v3.1 — the reciprocity axis (ADR-2606082400) ──
+[[adrs]]
+id = "2606082400"
+title = "Charter-Rider §2(c) — the reciprocity axis (相互監視 affirmed; monetized/asymmetric surveillance prohibited)"
+status = "accepted"
+status_note = "Tier-1 Derived-Policy amendment (ADR-2606062100 §3), ratified by Council Lv7+ unanimity (founder 1/1) with a clean priority-conformance attestation. Reframes §2(c) from v3.0's 'commercial vs care' axis to the RECIPROCITY axis: surveillance is prohibited when MONETIZED (revenue from collection/brokerage/SALE of natural-persons' data) OR ASYMMETRIC (one-sided accumulation by a watcher-unwatched, even absent sale); AFFIRMED when RECIPROCAL/symmetric — 相互監視, the 村社会 condition where everyone is equally known + watched (governance/force/tithe themselves plaintext-public), which DETERS crime+不正 and ENDS isolation (見守り; 孤独死 resisted) — the social form of 神の監視 + 相互見守り. Privacy preserved by ENCRYPTION not forgetting (暗号化≠忘却). Rider v3.0→v3.1 (§2(c) clause only). Deciders: Jun Kawasaki. Depends on ADR-2605192100 + 2605192200 + 2606062100 + 2605252300."
+path = "90-docs/adr/2606082400-charter-mutual-surveillance-reciprocity-clarification.md"
+
 [[modules]]
 path = "20-actors/meyasu"
 kind = "tier-b-unified-arbitrage-supply-demand-intel-orchestrator-actor"
@@ -10250,3 +10312,33 @@ version = "0.1.0-r1"
 status = "R1-fuse-publish-persist-cells-tested-kotoba-schema-and-lexicons-landed"
 description = "meyasu (目安 — a yardstick/guide, NOT a trade) unified arbitrage / supply-demand intel orchestrator. A thin orchestrator that fuses kakaku price-spread + supply/demand index + mitooshi forecast distribution into one per-product arbitrage-intel card, publishes it aggregate-first, and persists it as kotoba Datoms. Computes NO price/forecast math itself (single source of truth stays in the source actors). 3 cells (fuse/publish/persist) + py/agent.py handlers + py/test_agent.py (15) + py/test_cohort_e2e.py (cohort kakaku->mitooshi->meyasu, 3) + viz dashboard (build_viz_data.py + _template.htm + test, 5) + kotoba/schema.edn (:meyasu.card/* :meyasu.post/*) + lex/{card,post}.edn + kotoba/deploy.sh (test-gated) + manifest.edn + CLAUDE.md. Charter-clean: G1 non-speculative (speculation structurally unrepresentable — a forecast is a BAND not a point; :trade not an enum member), G2 distribution-respecting, G3 aggregate-first, G4 non-adjudicating planner-routing, G5 Murakumo-only, G6 no-server-key (publish + persist operator-gated, default :draft / tx-only)."
 adr = ["2606073200", "2605091200", "2606051800", "2606012100", "2605264000", "2606071800", "2605262130", "2605312345", "2605215000"]
+
+# ─── niyaku (荷役) automated port cargo handling — ship↔shore loading/unloading (ADR-2606082000) ──
+
+[[adrs]]
+id = "2606082000"
+title = "niyaku 荷役 — automated port cargo handling (ship↔shore container loading/unloading) Tier-B actor (R0)"
+status = "proposed"
+status_note = "Closes the cargo-handling gap surfaced 2026-06-08: the roster had a zero-emission cargo-ship BUILDER (funadaiku 船大工, ADR-2606013400), a port REGISTRY (port), and a live POSITION mirror (watari) — but NO actor automating the loading/unloading of those ships. niyaku (荷役, did:web:etzhayyim.com:niyaku) is the operator-side counterpart of funadaiku. The defining problem is ANTI-SWAY: an STS crane traverses a 20-40 t suspended container ship↔shore and must settle residual sway to a few cm before landing — dynamically a cart + hanging load, the SAME topology as Isaac Sim's Cartpole (prismatic trolley + revolute load). That mapping makes a verifiable NVIDIA-free crane sim possible NOW via the clean-room isaacsim.core.api (kotodama.nv_compat, ADR-2605261800, G2 no-NVIDIA-binary): with the load at the stable hanging equilibrium θ=π, anti-sway state feedback lands the box at residual <0.01 rad where a naive position push diverges. 5 runnable pure-stdlib / pywasm-ready methods: crane_dynamics (RK4 hanging-pendulum model + state-feedback anti-sway controller + ZV input-shaper + cycle-time→moves/hour), stow_plan (bay/row/tier slotting under weight-on-top + port-rotation no-rehandle + reefer-row + IMDG hazmat segregation + discharge sequencing), isaac_sway_sim (STS=Cartpole anti-sway + boom/luffing-jib=DoublePendulum small-angle luff with passive-cable load damping, honest reached=False outside the underactuated envelope), agv_transfer (trapezoidal/triangular travel-time profile + lane-segment time-window conflict detection + LPT makespan dispatch), terminal_cycle (end-to-end discharge orchestration: stow → no-rehandle sequence → per-box hoist+anti-sway crane leg [analytic or Isaac] → parallel AGV yard legs → pipelined discharge time / moves-hour / worst residual sway / per-box ledger; 6-box demo ~325 s crane-bound, 66 moves/hour). 9 Pregel cells (berth_allocation→stowage_planning→spreader_engagement→sts_hoist_cycle→trolley_traverse→yard_transfer→lashing_twistlock→manifest_attestation + emissions_audit cross-cut; import-clean, RuntimeError on .solve() until R1 ADR-2606082015 reserved). 14 gates: G2 clean-room sim (no NVIDIA binary/header/library) · G8 zero-emission electric cranes (regenerative lowering credited) · G9 IMDG/weight/rotation stow feasibility (infeasible → StowError) · G10 no weapons/military-materiel cargo (Charter Rider §2(a)) · G11/G14 no worker-pace/biometric surveillance (moves/hour is an equipment KPI) · G12 no-server-key (methods are pure compute, move no real crane) · G13 consent-bound (compute-only R0). 55 tests green (52 methods incl. 2-topology clean-room Isaac sims + end-to-end orchestration, 3 cell-state-machine), 98% branch coverage of methods; the few uncovered lines are env-dependent Isaac-unavailable fallbacks. HONEST R0: design + physics/planning cores + sim only; no real equipment actuated; live actuation Council-gated R1. ADR id reassigned 2606074000→2606082000 (074000 already used by two unrelated ADRs). Deciders: Jun Kawasaki. Depends on ADR-2606013400 + 2605261800 + 2606010600 + 2605262130 + 2605312345 + 2605215000 + 2606062100."
+path = "90-docs/adr/2606082000-niyaku-port-cargo-handling-automation-r0.md"
+
+[[modules]]
+path = "20-actors/niyaku"
+kind = "tier-b-port-cargo-handling-automation-actor"
+version = "0.1.0-r0"
+status = "R0-scaffold-5-methods-tested-9-cells-manifest-lex-data-landed"
+description = "niyaku (荷役) automated port cargo handling — ship↔shore container loading/unloading robotics; operator-side counterpart of funadaiku (which builds the ships). Core = anti-sway control of a suspended container = the cart+hanging-load (Cartpole) topology, verified through the clean-room isaacsim.core.api (kotodama.nv_compat, G2 no-NVIDIA-binary). 5 pure-stdlib methods (crane_dynamics anti-sway + ZV shaper; stow_plan weight/rotation/reefer/IMDG no-rehandle; isaac_sway_sim Cartpole-STS + DoublePendulum boom-luff; agv_transfer profile/conflict/dispatch; terminal_cycle end-to-end discharge orchestration) + 9 Pregel cells (berth→stow→spreader→hoist→anti-sway traverse→yard→lash→attest + emissions audit; RuntimeError on .solve() until R1) + lex/moveAttestation.edn + data/terminal.edn. 55 tests green / 98% branch coverage. Charter-clean: G2 clean-room sim, G8 zero-emission electric cranes, G9 IMDG/weight/rotation stow feasibility, G10 no-weapons-cargo, G11/G14 no worker surveillance, G12 no-server-key (compute-only), G13 consent-bound."
+adr = ["2606082000", "2606013400", "2605261800", "2606010600", "2605262130", "2605312345", "2605215000", "2606062100"]
+
+[[modules]]
+path = "20-actors/shiori"
+kind = "tier-b-human-wellbecoming-detractor-mirror-and-transparent-intervention-actor"
+version = "0.1.0-r0"
+status = "R0-design-only-scaffold-11-tests-green"
+description = "shiori (栞 — the 枝折り branch-marker that marks a path through difficult terrain) — the 取-concentration HUMAN side of the KG-mirror lineage (inochi/asobi/hokorobi/tsugite). Fuses what the prior roster split apart: analysing/warning about the structural factors that diminish Wellbecoming, AND a transparent route to relieve them. Weaves cohorts(aggregate)/detractors(structural: precarity/overwork/isolation/addictive-design/debt/housing-insecurity/chronic-pain/discrimination/care-deprivation)/drivers(patterns)/mitigators(havens) into the kotoba Datom log; edge-primary detraction vs relief routed to RELIEF (救い); surfaces relief-gap per cohort (→ossekai), 取-holder driver concentration (→danjo/tsumugi/keizu), intervention-design gap (unrouted detractions). 3 cells (analyze/datom_emit/coverage) + pure-stdlib pywasm-ready methods + wellbecoming-ontology + seed(39 nodes/55 縁) + 11 tests green. G1 = relief map NEVER per-person affect/manipulation (cohort-only, drivers are PATTERNS not entities, anti-addictive); G8 = transparent-intervention only (§1.12.B) — shiori PROPOSES, ossekai CARRIES on-chain-logged + consent-bound, permitted channels ONLY public app.bsky.feed.post + actor-bound email with FULL body disclosed; §2(c) v3.1 reciprocity (monetized-or-asymmetric prohibited, 相互監視 affirmed). ZERO Charter amendments."
+adr = ["2606082100", "2606082400", "2605264000", "2605231902", "2605181100", "2605301600", "2606011800", "2606066000", "2605302300", "2605312345", "2605215000"]
+schema = "00-contracts/schemas/wellbecoming-ontology.kotoba.edn"
+
+[etzhayyim.milestones.260607_cognitive_world_state]
+description = "Achieved 1000 Clean Room Actors. Transformed all endpoints into Cognitive APIs with internal LangGraph LLM inference and strict external backward compatibility. Deployed the Root Router as a unified ingress and IPFS Gateway. Launched the Chaos Monitor Dashboard on Kotoba IPFS, registered to the ATProto profile embed."
+adrs = ["260607-clean-room-actors-600-generation.md", "260607-cognitive-actors-and-root-router.md"]

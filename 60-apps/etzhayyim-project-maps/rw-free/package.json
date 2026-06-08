@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "RW-free reference implementation of maps Tier A surfaces (Source DID registry first) using @etzhayyim/sdk. Mirrors the open-isic/rw-free pattern; substrate posture per ADR-2605172000 + ADR-2605231400. First wave: Source DID registry (24 records). Subsequent waves add AdminArea / Geo DID / Display layer / Registry & Legal Entity register/list — see MIGRATION-TODO.md Phase 1.",
+  "description": "RW-free reference implementation of maps Tier A surfaces (Source DID registry first) using @etzhayyim/sdk. Mirrors the open-isic/rw-free pattern; substrate posture per ADR-2605172000 + ADR-2605231400. First wave: Source DID registry (24 records). Subsequent waves add AdminArea / Geo DID / Display layer / Registry & Legal Entity register/list \u2014 see MIGRATION-TODO.md Phase 1.",
   "license": "Apache-2.0",
   "scripts": {
     "seed:sources": "tsx src/source/seed.ts",

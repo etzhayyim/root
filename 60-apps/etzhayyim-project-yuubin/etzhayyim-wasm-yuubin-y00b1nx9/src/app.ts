@@ -35,7 +35,7 @@ import {
 } from "@etzhayyim/kotodama-host-sdk";
 import { unzipSync, zipSync, strFromU8, strToU8 } from "./fflate.mjs";
 import puppeteer from "@cloudflare/puppeteer";
-import { cdnHead, cdnRead, cdnWrite } from "./cdn-b2";
+import { cdnHead, cdnRead, cdnWrite } from "./cdn-s3";
 
 let appId = "";
 

@@ -30,7 +30,7 @@ on:
       - '00-contracts/lexicons/com/etzhayyim/kawase/**'
       - '20-actors/kawase-yui/**'
       - '40-engine/kotoba/crates/kotoba-kotodama/cells/kawase_**/**'
-      - '40-engine/kotoba_kawase/**'
+      - '20-actors/kawase-yui/kotoba_kawase/**'
       - '50-infra/etzhayyim-kawase-pool/**'
       - '70-tools/scripts/lint/verify_no_commercial_remittance.py'
       - '70-tools/scripts/lint/test_verify_no_commercial_remittance.py'
@@ -41,7 +41,7 @@ on:
       - '00-contracts/lexicons/com/etzhayyim/kawase/**'
       - '20-actors/kawase-yui/**'
       - '40-engine/kotoba/crates/kotoba-kotodama/cells/kawase_**/**'
-      - '40-engine/kotoba_kawase/**'
+      - '20-actors/kawase-yui/kotoba_kawase/**'
       - '50-infra/etzhayyim-kawase-pool/**'
       - '70-tools/scripts/lint/verify_no_commercial_remittance.py'
       - '70-tools/scripts/lint/test_verify_no_commercial_remittance.py'
@@ -133,7 +133,7 @@ jobs:
         run: pip install pytest
 
       - name: Run kotoba_kawase R0 tests
-        working-directory: 40-engine/kotoba_kawase
+        working-directory: 20-actors/kawase-yui/kotoba_kawase
         env:
           PYTEST_DISABLE_PLUGIN_AUTOLOAD: '1'
           PYTHONPATH: '.'

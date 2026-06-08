@@ -140,6 +140,28 @@ def handle_basket(state: dict) -> dict:
 # provision — checkout router (G2/G7/G11)
 # --------------------------------------------------------------------------- #
 def handle_provision(state: dict) -> dict:
+    # abaki Anti-Monopoly Check (React mechanism)
+    import json
+    from pathlib import Path
+    try:
+        policy_path = Path(__file__).resolve().parents[3] / "abaki" / "out" / "routing-policy.json"
+        if policy_path.exists():
+            with open(policy_path, "r", encoding="utf-8") as f:
+                policy = json.load(f)
+            blocked_ids = {e["id"] for e in policy.get("blocked_entities", [])}
+            supplier_did = state.get("supplierDid", "")
+            supplier_name = state.get("supplierName", "")
+            for blocked_id in blocked_ids:
+                if blocked_id in supplier_did or blocked_id in supplier_name:
+                    return {
+                        **state,
+                        "settlement": "proxy-gated",
+                        "refused": True,
+                        "reason": f"Provider blocked by abaki Anti-Monopoly policy (React mechanism). Route Around {blocked_id} activated."
+                    }
+    except Exception:
+        pass
+
     ring = state.get("ring")
     if ring == "commons":
         return {**state, "settlement": "commons-none", "titheMinor": 0}

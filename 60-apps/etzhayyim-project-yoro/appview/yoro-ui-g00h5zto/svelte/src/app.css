@@ -1,3 +1,21 @@
+/* Tailwind v4 entrypoint — MUST be the first statement (CSS requires @import
+   before all other rules). Was the v3 `@tailwind base/components/utilities`
+   directives at the bottom of this file. Under the v4 `@tailwindcss/postcss`
+   plugin those directives silently drop Preflight (the global reset), so every
+   element fell back to browser UA defaults (body margin, no border-box, unreset
+   headings/buttons) and the /apps layout broke. `@import "tailwindcss"` restores
+   theme + Preflight + utilities.
+
+   NOTE: we intentionally do NOT `@config '../tailwind.config.js'`. The
+   `etzhayyimUIKit` plugin in that config uses the Tailwind v3 plugin API
+   (`addUtilities({ '@media (prefers-reduced-motion: reduce)': … })`), which v4
+   rejects at build time. The deployed build already ran without that config
+   loaded (v4 ignores a JS config unless `@config` is present), so omitting it
+   changes nothing in prod except restoring the missing Preflight. Migrating the
+   design-system plugin to the v4 API (and re-adding `@config`/`@plugin`) is a
+   separate follow-up. */
+@import 'tailwindcss';
+
 /* Theme tokens (standalone) */
 :root {
   color-scheme: dark;
@@ -37,8 +55,3 @@
   --gv2-tab-bg: #f0f0f0;
   --gv2-tab-active-bg: #e6e6e6;
 }
-
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;

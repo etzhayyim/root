@@ -68,6 +68,19 @@ def provision(rails: list, alloc_id: str) -> list[ProvisioningIntent]:
 
     `rails` are route.Rail instances (or dicts with .kind/.imputed_usd_micros_yr/.member_principal).
     """
+    import json
+    from pathlib import Path
+
+    abaki_policy_path = Path(__file__).resolve().parents[3] / "abaki" / "out" / "routing-policy.json"
+    blocked_ids = set()
+    if abaki_policy_path.exists():
+        try:
+            with open(abaki_policy_path, "r", encoding="utf-8") as f:
+                policy = json.load(f)
+            blocked_ids = {e["id"] for e in policy.get("blocked_entities", [])}
+        except Exception:
+            pass
+
     out: list[ProvisioningIntent] = []
     for r in rails:
         kind = getattr(r, "kind", None) or r.get("kind")
@@ -78,6 +91,11 @@ def provision(rails: list, alloc_id: str) -> list[ProvisioningIntent]:
         if member_principal is None:
             member_principal = bool(r.get("memberPrincipal", r.get("member_principal", False)))
         provider_did, provider_kind, _label = PROVIDER_REGISTRY[kind]
+
+        for blocked_id in blocked_ids:
+            if blocked_id in provider_did:
+                raise ValueError(f"Provider {provider_did} blocked by abaki Anti-Monopoly policy. React mechanism triggered: Route Around {blocked_id}.")
+
         out.append(ProvisioningIntent(
             alloc_id=alloc_id,
             rail_kind=kind,

@@ -45,6 +45,7 @@ const VERIFY_PATH = '/xrpc/com.etzhayyim.authz.verifyCacao';
 /** localStorage map: WebAuthn credentialId(b64url) → derived account did. Lets the
  *  no-PRF (P-256) path resolve its DID on sign-in (the assertion alone can't). */
 const CRED_DID_MAP_KEY = 'etzhayyim-auth-cred-did';
+const DID_STORAGE_KEY = 'etzhayyim-auth-did';
 
 export type SignInMethod = 'prf-ed25519' | 'p256-passkey';
 
@@ -117,6 +118,16 @@ function rememberCredDid(credentialId: string, did: string): void {
 
 function lookupCredDid(credentialId: string): string | null {
 	return readCredDidMap()[credentialId] ?? null;
+}
+
+function lookupStoredDid(): string | null {
+	if (typeof localStorage === 'undefined') return null;
+	try {
+		const did = localStorage.getItem(DID_STORAGE_KEY);
+		return did && (did.startsWith('did:key:') || did.startsWith('did:web:')) ? did : null;
+	} catch {
+		return null;
+	}
 }
 
 // ─── DID derivation ─────────────────────────────────────────────────────────
@@ -373,8 +384,6 @@ export async function signInSameOrigin(now: () => number = Date.now): Promise<Sa
 			rpId: RP_ID,
 			timeout: 60_000,
 			userVerification: 'preferred',
-			// Empty allowCredentials → discoverable/iCloud-synced passkeys.
-			allowCredentials: [],
 			extensions: prfEvalExtension(salt),
 		},
 	})) as PublicKeyCredential | null;
@@ -401,8 +410,20 @@ export async function signInSameOrigin(now: () => number = Date.now): Promise<Sa
 			serverConfirmed: false,
 		};
 	}
+	const storedDid = lookupStoredDid();
+	if (storedDid) {
+		rememberCredDid(credentialId, storedDid);
+		return {
+			did: storedDid,
+			handle: handleFromDid(storedDid),
+			accessJwt: '',
+			refreshJwt: '',
+			method: 'p256-passkey',
+			serverConfirmed: false,
+		};
+	}
 	throw new Error(
-		'This device/browser has no PRF and no local record of this passkey. Sign in on the device you registered with, or use a PRF-capable device / phone (QR).',
+		'This passkey did not return a PRF secret and this browser has no local DID record for it. Try another listed passkey provider for etzhayyim.com, or sign in on a device that has already used this account.',
 	);
 }
 

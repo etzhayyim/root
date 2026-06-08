@@ -2,7 +2,10 @@
 id: adr-2606081500-kotoba-erp-crm-prototype-pywasm
 title: "ADR-2606081500: Kotoba ERP and Salesforce CRM Prototype in PyWasm"
 status: accepted
-doc_type: ADR
+doc_type: adr
+topic: kotoba-erp-crm-pywasm-prototype
+authoritative: false
+last_verified: 2026-06-07
 ---
 
 # ADR-2606081500: Kotoba ERP and Salesforce CRM Prototype in PyWasm

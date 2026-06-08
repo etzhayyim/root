@@ -10658,6 +10658,7 @@
         "kotoba_murakumo canonical filesystem location",
         "subrepo-relocation pattern (when to move out vs stay in)"
       ],
+      "supersededBy": "doc:2606074000",
       "lastVerified": "2026-05-28"
     },
     {
@@ -14044,6 +14045,18 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606071800-kotoba-monorepo-projection-r2-adr-corpus-persistence",
+      "type": "TechArticle",
+      "title": "ADR-2606071800: kotoba monorepo projection Phase R2 — ADR corpus persistence via kotoba-wasm and kotodama on Murakumo",
+      "status": "proposed",
+      "topic": "adr-persistence-r2",
+      "authoritative": true,
+      "authoritativeFor": [
+        "Phase R2 ADR corpus persistence mechanism"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
       "id": "doc:adr-2606071800-substrate-remediation-wave",
       "type": "TechArticle",
       "title": "ADR-2606071800: legacy RisingWave/Hyperdrive/Kysely → kotoba-kqe read-path remediation wave",
@@ -14333,6 +14346,18 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606073100-abaki-anti-monopoly-intelligence-membrane-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606073100: 暴 abaki — Anti-Monopoly & Chokepoint Intelligence Membrane (Tier-B R0)",
+      "status": "accepted",
+      "topic": "abaki-anti-monopoly-intelligence-membrane",
+      "authoritative": true,
+      "authoritativeFor": [
+        "abaki Anti-Monopoly Membrane design"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
       "id": "doc:adr-2606073200-asobi-freed-time-play-expression-mirror",
       "type": "TechArticle",
       "title": "ADR-2606073200: asobi 遊び — freed-time play & cultural-expression KG mirror (gap C)",
@@ -14420,6 +14445,173 @@
         "doc:2605261045"
       ],
       "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606074000-apps-maturity-enhancement",
+      "type": "TechArticle",
+      "title": "ADR-2606074000: Apps Store Appview Testing Baseline and Maturity Enhancement",
+      "status": "approved",
+      "topic": "testing-maturity",
+      "authoritative": true,
+      "authoritativeFor": [
+        "60-apps"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606074000-kotoba-murakumo-reintegrated-into-kotoba-submodule",
+      "type": "TechArticle",
+      "title": "ADR-2606074000: kotoba_murakumo re-integrated into the kotoba submodule (py/kotoba_murakumo/) — submodule era supersedes the subrepo-relocation",
+      "status": "proposed",
+      "topic": "kotoba-murakumo-submodule-reintegration",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kotoba_murakumo canonical filesystem location (now inside the kotoba submodule)",
+        "the submodule-era placement rule for religious-corp Python siblings of the kotoba engine"
+      ],
+      "supersedes": "doc:2605282300",
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606074500-kotoba-py-siblings-engine-core-vs-actor-placement",
+      "type": "TechArticle",
+      "title": "ADR-2606074500: kotoba Python siblings — engine-core vs actor placement (iso20022 → engine, kawase → actor)",
+      "status": "proposed",
+      "topic": "kotoba-py-sibling-placement-taxonomy",
+      "authoritative": true,
+      "authoritativeFor": [
+        "placement taxonomy for kotoba-prefixed Python siblings (engine-core vs actor vs infra)",
+        "kotoba_iso20022 canonical location (kotoba submodule py/)",
+        "kotoba_kawase canonical location (20-actors/kawase-yui/)"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606081500-kotoba-erp-crm-prototype-pywasm",
+      "type": "TechArticle",
+      "title": "ADR-2606081500: Kotoba ERP and Salesforce CRM Prototype in PyWasm",
+      "status": "accepted",
+      "topic": "kotoba-erp-crm-pywasm-prototype",
+      "authoritative": false,
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606081800",
+      "type": "TechArticle",
+      "title": "ADR-2606081800: uchiwake (内訳) — World Product Bill-of-Materials / GTIN Knowledge Graph Tier-B Actor R0",
+      "status": "proposed",
+      "topic": "uchiwake-product-bom-gtin-knowledge-graph",
+      "authoritative": true,
+      "authoritativeFor": [
+        "uchiwake actor charter (R0)",
+        "product bill-of-materials knowledge-graph constitutional gates G1..G12",
+        "product-bom-ontology.kotoba.edn vocabulary",
+        "GTIN normalization + GS1 mod-10 check-digit validation on ingest",
+        "subsidiary→ultimate-parent rollup (子会社) via GLEIF Level-2 RR ownership edges"
+      ],
+      "related": [
+        "doc:adr-2606022000-kabuto-public-company-supply-chain-kg",
+        "doc:adr-2606042330-entity-as-actor-society-scale-social-mirror",
+        "doc:adr-2605312330-giemon-part-graph-sbom-kotoba"
+      ],
+      "lastVerified": "2026-06-08"
+    },
+    {
+      "id": "doc:adr-2606082000-niyaku-port-cargo-handling-automation-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606082000: niyaku 荷役 — automated port cargo handling (ship↔shore loading/unloading) Tier-B actor (R0)",
+      "status": "proposed",
+      "topic": "niyaku-port-cargo-handling-automation",
+      "authoritative": true,
+      "authoritativeFor": [
+        "niyaku actor (automated port cargo handling — ship↔shore container loading/unloading)",
+        "anti-sway STS/gantry crane control mapped to the Cartpole topology",
+        "com.etzhayyim.niyaku.* lexicons"
+      ],
+      "related": [
+        "doc:adr-2606012600-watatsuna-submarine-cable-knowledge-graph-and-watatsumi-cable-laying-robotics",
+        "doc:adr-2606041827-watari-live-ship-aircraft-position-knowledge-graph",
+        "doc:adr-2605252500-sarutahiko-heavy-truck-manufacturing-r0"
+      ],
+      "lastVerified": "2026-06-08"
+    },
+    {
+      "id": "doc:adr-2606082100-mishmar-storage-covenant-social-capital",
+      "type": "TechArticle",
+      "title": "ADR-2606082100: Mishmar Storage Covenant — social-capital-funded bonded pinning for unstoppable persistence (donation-native, anchor-chain staking, anti-usury)",
+      "status": "proposed",
+      "topic": "mishmar-storage-covenant",
+      "authoritative": true,
+      "authoritativeFor": [
+        "Mishmar Storage Covenant — bonded pinning + proof-of-availability + slash-to-commons",
+        "Social Capital ledger — wellbecoming-intervention + information-disclosure minting, non-transferable + decaying",
+        "donation-economic-system definition — social capital as the denominator of the persistence retainer",
+        "anchor-chain staking placement (MishmarBondEscrow on geth-private → Base L2)",
+        "Charter §2(b) / Yobel anti-usury compliance pattern for storage incentives"
+      ],
+      "related": [
+        "doc:2605260004",
+        "doc:2605240200",
+        "doc:50-infra/etzhayyim-yobel-contract/",
+        "doc:50-infra/etzhayyim-chain-contracts/",
+        "doc:50-infra/vultr/geth-private/contracts/"
+      ],
+      "lastVerified": "2026-06-08"
+    },
+    {
+      "id": "doc:adr-2606082100-shiori-wellbecoming-detractor-mirror",
+      "type": "TechArticle",
+      "title": "ADR-2606082100: shiori 栞 — human-Wellbecoming detractor observatory + transparent intervention",
+      "status": "accepted",
+      "topic": "shiori-wellbecoming-detractor-mirror",
+      "authoritative": true,
+      "authoritativeFor": [
+        "shiori 栞 actor (human-Wellbecoming detractor observatory + transparent intervention)",
+        "wellbecoming-ontology"
+      ],
+      "related": [
+        "doc:2606073000",
+        "doc:2606073800",
+        "doc:2605263700",
+        "doc:2605263000",
+        "doc:2605231902",
+        "doc:2606082400",
+        "doc:2606014500"
+      ],
+      "lastVerified": "2026-06-08"
+    },
+    {
+      "id": "doc:adr-2606082100-tailscale-ssh-fleet-operator-access-overlay",
+      "type": "TechArticle",
+      "title": "ADR-2606082100: Tailscale SSH mesh for the Murakumo Mac-mini fleet — keyless, tailnet-SSO-gated operator remote access",
+      "status": "proposed",
+      "topic": "tailscale-ssh-fleet-operator-access-overlay",
+      "authoritative": true,
+      "authoritativeFor": [
+        "the fleet operator remote-access overlay (Tailscale) and its auth model",
+        "the keyless Tailscale-SSH access convention for fleet nodes"
+      ],
+      "related": "doc:2605201400",
+      "lastVerified": "2026-06-08"
+    },
+    {
+      "id": "doc:adr-2606082400-charter-mutual-surveillance-reciprocity-clarification",
+      "type": "TechArticle",
+      "title": "ADR-2606082400: Charter-Rider §2(c) — the reciprocity axis (相互監視 affirmed; monetized/asymmetric surveillance prohibited)",
+      "status": "accepted",
+      "topic": "charter-mutual-surveillance-reciprocity-clarification",
+      "authoritative": true,
+      "authoritativeFor": [
+        "Charter Compliance Rider §2(c) (monetized-or-asymmetric surveillance)",
+        "the 相互監視 / reciprocal-transparency doctrine"
+      ],
+      "related": [
+        "doc:2605181100",
+        "doc:2605312345",
+        "doc:2605264000",
+        "doc:2606082100"
+      ],
+      "lastVerified": "2026-06-08"
     },
     {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",

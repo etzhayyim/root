@@ -2,10 +2,21 @@ import { sveltekit } from '@sveltejs/kit/vite';
 import { paraglideVitePlugin as paraglide } from '@inlang/paraglide-js';
 import fs from 'node:fs';
 import path from 'node:path';
+import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import type { Plugin, UserConfig as ViteUserConfig } from 'vite';
 
 const rootDir = fileURLToPath(new URL('.', import.meta.url));
+
+// Tailwind v4 ships its entrypoint as `@import "tailwindcss"` (resolved via the
+// package's `style` export → index.css). Vite/rolldown's CSS @import resolver in
+// this setup does not honour that bare specifier and throws ENOENT, so we alias
+// `tailwindcss` to the package's self-contained index.css. Resolved dynamically
+// (not version-pinned) so a dependabot bump keeps working.
+const tailwindEntryCss = path.resolve(
+	path.dirname(createRequire(import.meta.url).resolve('tailwindcss/package.json')),
+	'index.css'
+);
 const repoRoot = path.resolve(rootDir, '../../../../..');
 const pnpmStore = path.resolve(rootDir, '../../../../../node_modules/.pnpm');
 const protobufPkg = path.resolve(pnpmStore, '@bufbuild+protobuf@2.12.0/node_modules/@bufbuild/protobuf');
@@ -177,6 +188,8 @@ const config: ExtendedUserConfig = {
 	},
 	resolve: {
 		alias: [
+			// Tailwind v4 CSS entry — see tailwindEntryCss note above.
+			{ find: /^tailwindcss$/, replacement: tailwindEntryCss },
 			{ find: 'blake3-wasm/esm/browser/index', replacement: path.resolve(pnpmStore, 'blake3-wasm@2.1.5/node_modules/blake3-wasm/esm/browser/index.js') },
 			{ find: /^blake3-wasm/, replacement: path.resolve(pnpmStore, 'blake3-wasm@2.1.5/node_modules/blake3-wasm/esm/browser/index.js') },
 			{ find: /^@bufbuild\/protobuf$/, replacement: path.resolve(protobufPkg, 'dist/esm/index.js') },

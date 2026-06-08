@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.uchiwake.publishResilienceReport",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Publish an AGGREGATE-FIRST product bill-of-materials RESILIENCE report into the kotoba Datom log (derived :concentration/* datoms + a report blob CID). Surfaces material dependence, processing-jurisdiction load, ultimate-parent (子会社) concentration, and single-source diversification candidates. uchiwake G2/G3/G4: aggregate-first, framed toward redundancy + accountability, NEVER a target-list or clone recipe; derived figures are flagged and never re-ingested as authoritative fact; non-adjudicating.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["reportId", "dimension", "sourcing", "observedAt"],
+          "properties": {
+            "reportId": { "type": "string", "description": ":concentration report id" },
+            "dimension": { "type": "string", "enum": ["material", "gs1_prefix_country", "process_country", "brand_owner", "ultimate_parent", "carrier"], "description": "the concentration dimension reported" },
+            "reportCid": { "type": "string", "description": "kotoba CID of the rendered report blob (markdown / EDN)" },
+            "topKeyCount": { "type": "integer", "description": "number of concentration keys included" },
+            "sourcing": { "type": "string", "enum": ["authoritative", "representative", "synthesized"], "description": "derived reports are :synthesized" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "reportId": { "type": "string" },
+            "txCid": { "type": "string", "description": "kotoba transaction CID" },
+            "datomCount": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}
