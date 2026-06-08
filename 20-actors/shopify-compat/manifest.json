@@ -19,7 +19,8 @@
       "Product",
       "Order",
       "Fulfillment",
-      "Customer"
+      "Customer",
+      "Variant"
     ],
     "enums": {
       "Product": {

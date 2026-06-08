@@ -20,7 +20,8 @@
       "Call",
       "Verification",
       "Conference",
-      "PhoneNumber"
+      "PhoneNumber",
+      "Recording"
     ],
     "enums": {
       "Message": {
