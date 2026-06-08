@@ -17,7 +17,9 @@ authoritative_for:
   - anchor-chain staking placement (MishmarBondEscrow on geth-private → Base L2)
   - Charter §2(b) / Yobel anti-usury compliance pattern for storage incentives
 depends_on:
-  - "2605231400"  # kotoba-datomic Holochain-iso substrate — witness quorum >=3-of-5 reused as PoA attestor
+  - "2605262130"  # kotoba storage substrate unification — CANONICAL engine (supersedes 2605231400)
+  - "2606062100"  # moyai 舫い reciprocity credit — social capital REUSES its non-monetary/non-transferable/decaying/conservation ledger primitive (do NOT reinvent)
+  - "2605231400"  # (superseded by 2605262130) origin of the >=3-of-5 witness-quorum concept reused as PoA attestor
   - "2605282100"  # mKOTO economy — L6 settlement bridge gets its concrete lander here
   - "2604261717"  # staked-claim truth-incentive — ClaimStakeEscrow state-machine type-reused
   - "2605192100"  # mission charter — wellbecoming mission, multi-generational stewardship
@@ -151,6 +153,23 @@ existing primitives, with all staking/slashing on the **anchor chain**.
 Social capital is **read** by Part C to size retainers and **direct** which
 roots get persistence priority. It never leaves the religious-corp accounting
 boundary.
+
+> **Reuse, do not reinvent — social capital is a moyai-family credit.**
+> ADR-2606062100 (**moyai 舫い**) already ships the EXACT ledger shape this needs:
+> non-monetary (`redeemableUsdMicros=0`), non-transferable (no transfer/gift/merge
+> verb), **decaying** (half-life flow, not a hoardable store), **conservation**
+> (minted ≤ verified contribution), and a **proof-of-contribution** anti-sybil
+> membrane (honeypot challenges + per-identity earn-rate caps) — with a Python
+> reference impl at `50-infra/etzhayyim-moyai-credit/methods/` (46 tests green),
+> framed as the 入会権 (iriai-ken, commons-use-right). Social capital MUST reuse
+> that ledger primitive verbatim. The ONLY differences are (a) the **mint
+> sources** — moyai mints on verified *inference contribution*; social capital
+> mints on verified *information disclosure* + *wellbecoming intervention* — and
+> (b) what it **denominates** — moyai gates discretionary inference draw; social
+> capital denominates the persistence retainer (Part C). Treat social capital as
+> a second moyai-shaped sub-ledger, NOT a parallel substrate. Its
+> `grantsBenefitOrStage=false` / `grantsGovernanceWeight=false` / BHI-firewall
+> invariants carry over unchanged.
 
 ### Part B — `MishmarBondEscrow` on the anchor chain (staking placement)
 
