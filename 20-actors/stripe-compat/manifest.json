@@ -22,7 +22,8 @@
       "Invoice",
       "Subscription",
       "Product",
-      "Refund"
+      "Refund",
+      "Price"
     ],
     "enums": {
       "PaymentIntent": {
@@ -70,6 +71,14 @@
           "fraudulent",
           "requested_by_customer",
           "expired_uncaptured_charge"
+        ]
+      },
+      "Price": {
+        "recurringInterval": [
+          "day",
+          "week",
+          "month",
+          "year"
         ]
       }
     }

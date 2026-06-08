@@ -16,7 +16,8 @@
     "source": "https://docs.discord.com/developers",
     "verifiedAt": "2026-06-08",
     "resources": [
-      "Channel"
+      "Channel",
+      "Message"
     ],
     "enums": {}
   },
