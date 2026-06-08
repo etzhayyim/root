@@ -70,7 +70,7 @@
     "ethereumjs-wallet": "^1.0.1",
     "glob": "^10.3.5",
     "graphlib": "^2.1.8",
-    "hardhat": "^2.9.1",
+    "hardhat": "^3.8.0",
     "hardhat-exposed": "^0.3.19",
     "hardhat-gas-reporter": "^2.3.0",
     "hardhat-ignore-warnings": "^0.2.0",
