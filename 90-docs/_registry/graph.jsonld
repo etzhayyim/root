@@ -14595,6 +14595,25 @@
       "lastVerified": "2026-06-08"
     },
     {
+      "id": "doc:adr-2606082300-itonami-factory-operations-agent",
+      "type": "TechArticle",
+      "title": "ADR-2606082300: itonami 営み — factory-operations agent (charter-clean FOX inversion)",
+      "status": "accepted",
+      "topic": "itonami-factory-operations-agent",
+      "authoritative": true,
+      "authoritativeFor": [
+        "itonami 営み actor (factory-operations agent)",
+        "itonami-ontology"
+      ],
+      "related": [
+        "doc:2606010030",
+        "doc:2605250715",
+        "doc:2606014500",
+        "doc:2605261600"
+      ],
+      "lastVerified": "2026-06-08"
+    },
+    {
       "id": "doc:adr-2606082400-charter-mutual-surveillance-reciprocity-clarification",
       "type": "TechArticle",
       "title": "ADR-2606082400: Charter-Rider §2(c) — the reciprocity axis (相互監視 affirmed; monetized/asymmetric surveillance prohibited)",

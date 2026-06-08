@@ -1,0 +1,52 @@
+{
+  "@context": {
+    "@vocab": "https://etzhayyim.com/ns/actor#",
+    "id": "@id",
+    "type": "@type"
+  },
+  "id": "actor:itonami",
+  "type": "Actor",
+  "name": "itonami",
+  "glyph": "営み",
+  "purpose": "Factory-operations agent — the charter-clean inversion of an 'AI Factory Brain' / NVIDIA Factory Operations Blueprint (FOX). Observes the running line via kotoba-os scan-cycle Datoms (OEE / energy / quality) and RECOMMENDS improvement; never actuates the line and cannot represent per-worker monitoring.",
+  "status": "R0-design-only",
+  "tier": "B",
+  "adr": "2606082300",
+  "dependsOnAdr": ["2606031600", "2606013100", "2606034800", "2605311800", "2605312345", "2605215000", "2605241500"],
+  "schema": ["00-contracts/schemas/itonami-ontology.kotoba.edn"],
+  "substrate": {
+    "state": "kotoba Datom log (ADR-2605312345) — scan-cycle observation = canonical state (kotoba-os: scan-cycle = Datom txn); methods/datom_emit.py emits canonical EAVT",
+    "largeAssets": "DataLad → IPFS (80-data/itonami) — NO git-lfs",
+    "inference": "Murakumo-only (ADR-2605215000) — narration of routed findings only",
+    "runtime": "kotoba pywasm actor (componentize-py) — pure-stdlib methods, no numpy"
+  },
+  "integrates": ["actor:sarutahiko", "actor:giemon", "actor:manako", "actor:hikari", "actor:toritate"],
+  "lineage": "the 'run the factory' observer paired with the 'build the factory' sims (giemon/sarutahiko/tatekata); consumes kotoba-os (ADR-2606031600) scan-cycle Datoms; quality findings route to manako vision (ADR-2606034800)",
+  "cells": [
+    {
+      "id": "cell:itonami.analyze",
+      "method": "methods/analyze.py",
+      "input": "data/seed-factory-ops.kotoba.edn",
+      "output": ["out/operations-report.md"],
+      "pipeline": "load-edn → aggregate scan-cycle ticks per station → OEE (A×P×Q) + energy/good + idle-energy + scrap-rate → line rollup (gated by weakest station) → routed findings",
+      "doc": "aggregate-first OEE / energy / quality; observe→recommend, never a write-back to the OT bus"
+    },
+    {
+      "id": "cell:itonami.datom-emit",
+      "method": "methods/datom_emit.py",
+      "input": "data/seed-factory-ops.kotoba.edn",
+      "output": ["out/itonami-datoms.kotoba.edn"],
+      "pipeline": "ground EAVT datoms [e a v tx :add] (station + scan-cycle ticks, durable) + derived KPIs/findings flagged :bond/is-transient (computed on read, G3)",
+      "doc": "kotoba Datom-log projection — first-class canonical state (ADR-2605312345)"
+    }
+  ],
+  "gates": {
+    "G1": "OBSERVE → RECOMMEND only. itonami NEVER actuates the line — no-server-key, liveActuation:false (consistent with kotoba-os C-carve-outs). Optimization is a proposal to a human / Council, never a write back to the OT bus.",
+    "G2": "STATION / LINE scale ONLY. No :worker/* or :person/* dimension exists or is permitted; per-person productivity / pace / presence is structurally unrepresentable (Wellbecoming §1.13, anti-labor-surveillance). Efficiency/energy/quality gains route to IMPROVEMENT, never to line-speed-up or labor intensification.",
+    "G3": "non-adjudicating. Station states (:run/:idle/:down) and counts are DISCLOSED scan-cycle facts; KPIs are read-time aggregates flagged :bond/is-transient, never durable itonami verdicts.",
+    "G4": "civilian producing actors ONLY (sarutahiko/giemon/tatekata/hikari/mitsuho/mizuho line ops). Weapons / kinetic-military line control is unrepresentable (Charter §1.12).",
+    "G5": "sourcing honesty — every record :authoritative | :representative; R0 seed is :representative synthetic data, never presented as live OT.",
+    "G6": "outward-gated — live OT/SCADA ingest (Modbus/OPC-UA/EtherCAT via kotoba-os device worlds) requires Council + operator DID; R0 = analyzer + schema + seed only.",
+    "G7": "Murakumo-only narration (ADR-2605215000) — no external LLM for finding narration."
+  }
+}
