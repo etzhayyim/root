@@ -226,12 +226,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Customer",
-        "PaymentIntent",
-        "Charge",
-        "Refund",
-        "Payout",
-        "PaymentMethod"
+        "PaymentRequest",
+        "PaymentResponse",
+        "Amount",
+        "PaymentRefundRequest",
+        "PaymentRefundResponse",
+        "PaymentCaptureResponse"
       ]
     },
     {
@@ -9032,12 +9032,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Dataset",
-        "Query",
+        "Look",
         "Dashboard",
-        "Report",
-        "Connection",
-        "Metric"
+        "Query",
+        "User",
+        "Folder",
+        "ScheduledPlan"
       ]
     },
     {
@@ -11769,12 +11769,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Customer",
-        "PaymentIntent",
-        "Charge",
+        "Order",
+        "Authorization",
+        "Capture",
         "Refund",
-        "Payout",
-        "PaymentMethod"
+        "Plan",
+        "Subscription"
       ]
     },
     {

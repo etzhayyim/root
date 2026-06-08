@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 40,
+  "count": 43,
   "actors": [
     {
       "handle": "square-compat",
@@ -5322,6 +5322,408 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official monday GraphQL SDK. Enforced enums: Board.state, Board.boardKind, Item.state, Column.type (4)."
+    },
+    {
+      "handle": "paypal-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/paypal/paypal-rest-api-specifications/main/openapi",
+      "remodeled": "Remodeled from generic payments to a faithful PayPal model, verified against the official paypal-rest-api-specifications OpenAPI.",
+      "resources": [
+        {
+          "entity": "Order",
+          "source": "https://raw.githubusercontent.com/paypal/paypal-rest-api-specifications/main/openapi/checkout_orders_v2.json",
+          "verifiedFields": [
+            "status",
+            "intent"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "CREATED",
+              "SAVED",
+              "APPROVED",
+              "VOIDED",
+              "COMPLETED",
+              "PAYER_ACTION_REQUIRED"
+            ],
+            "intent": [
+              "CAPTURE",
+              "AUTHORIZE"
+            ]
+          },
+          "gaps": [
+            "purchase_units",
+            "payer"
+          ]
+        },
+        {
+          "entity": "Authorization",
+          "source": "https://raw.githubusercontent.com/paypal/paypal-rest-api-specifications/main/openapi/checkout_orders_v2.json",
+          "verifiedFields": [
+            "status",
+            "createTime",
+            "updateTime"
+          ],
+          "fieldStatus": "confirmed (create_time/update_time)",
+          "discoveredEnums": {
+            "status": [
+              "CREATED",
+              "CAPTURED",
+              "DENIED",
+              "PARTIALLY_CAPTURED",
+              "VOIDED",
+              "PENDING"
+            ]
+          },
+          "gaps": [
+            "amount",
+            "seller_protection"
+          ]
+        },
+        {
+          "entity": "Capture",
+          "source": "https://raw.githubusercontent.com/paypal/paypal-rest-api-specifications/main/openapi/checkout_orders_v2.json",
+          "verifiedFields": [
+            "status",
+            "invoiceId",
+            "customId"
+          ],
+          "fieldStatus": "confirmed (invoice_id, custom_id)",
+          "discoveredEnums": {
+            "status": [
+              "COMPLETED",
+              "DECLINED",
+              "PARTIALLY_REFUNDED",
+              "PENDING",
+              "REFUNDED",
+              "FAILED"
+            ]
+          },
+          "gaps": [
+            "amount",
+            "status_details"
+          ]
+        },
+        {
+          "entity": "Refund",
+          "source": "https://raw.githubusercontent.com/paypal/paypal-rest-api-specifications/main/openapi/payments_payment_v2.json",
+          "verifiedFields": [
+            "status",
+            "invoiceId",
+            "customId"
+          ],
+          "fieldStatus": "fields confirmed; v2 spec types status as string with no explicit enum -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "status-enum (not explicit in v2)",
+            "amount"
+          ]
+        },
+        {
+          "entity": "Plan",
+          "source": "https://raw.githubusercontent.com/paypal/paypal-rest-api-specifications/main/openapi/billing_subscriptions_v1.json",
+          "verifiedFields": [
+            "productId",
+            "status",
+            "name",
+            "description"
+          ],
+          "fieldStatus": "confirmed (product_id)",
+          "discoveredEnums": {
+            "status": [
+              "CREATED",
+              "INACTIVE",
+              "ACTIVE"
+            ]
+          },
+          "gaps": [
+            "billing_cycles"
+          ]
+        },
+        {
+          "entity": "Subscription",
+          "source": "https://raw.githubusercontent.com/paypal/paypal-rest-api-specifications/main/openapi/billing_subscriptions_v1.json",
+          "verifiedFields": [
+            "status",
+            "planId",
+            "createTime",
+            "startTime"
+          ],
+          "fieldStatus": "confirmed (plan_id, start_time)",
+          "discoveredEnums": {
+            "status": [
+              "APPROVAL_PENDING",
+              "APPROVED",
+              "ACTIVE",
+              "SUSPENDED",
+              "CANCELLED",
+              "EXPIRED"
+            ]
+          },
+          "gaps": [
+            "subscriber",
+            "billing_info"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official PayPal OpenAPI. Enforced enums: Order.status, Order.intent, Authorization.status, Capture.status, Plan.status, Subscription.status (6)."
+    },
+    {
+      "handle": "adyen-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/Adyen/adyen-openapi/main/json/CheckoutService-v71.json",
+      "remodeled": "Remodeled from generic payments to a faithful Adyen Checkout model, verified against the official Adyen CheckoutService v71 OpenAPI.",
+      "resources": [
+        {
+          "entity": "PaymentRequest",
+          "source": "https://raw.githubusercontent.com/Adyen/adyen-openapi/main/json/CheckoutService-v71.json",
+          "verifiedFields": [
+            "reference",
+            "merchantAccount",
+            "shopperEmail",
+            "channel",
+            "recurringProcessingModel",
+            "storePaymentMethod"
+          ],
+          "fieldStatus": "confirmed (store_payment_method)",
+          "discoveredEnums": {
+            "channel": [
+              "iOS",
+              "Android",
+              "Web"
+            ],
+            "recurringProcessingModel": [
+              "CardOnFile",
+              "Subscription",
+              "UnscheduledCardOnFile"
+            ]
+          },
+          "gaps": [
+            "paymentMethod",
+            "amount"
+          ]
+        },
+        {
+          "entity": "PaymentResponse",
+          "source": "https://raw.githubusercontent.com/Adyen/adyen-openapi/main/json/CheckoutService-v71.json",
+          "verifiedFields": [
+            "pspReference",
+            "resultCode",
+            "merchantReference",
+            "refusalReason",
+            "refusalReasonCode"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "resultCode": [
+              "AuthenticationFinished",
+              "AuthenticationNotRequired",
+              "Authorised",
+              "Cancelled",
+              "ChallengeShopper",
+              "Error",
+              "IdentifyShopper",
+              "PartiallyAuthorised",
+              "Pending",
+              "PresentToShopper",
+              "Received",
+              "RedirectShopper",
+              "Refused",
+              "Success"
+            ]
+          },
+          "gaps": [
+            "action",
+            "additionalData"
+          ]
+        },
+        {
+          "entity": "Amount",
+          "source": "https://raw.githubusercontent.com/Adyen/adyen-openapi/main/json/CheckoutService-v71.json",
+          "verifiedFields": [
+            "currency",
+            "value"
+          ],
+          "fieldStatus": "confirmed (value in minor units, integer)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "PaymentRefundRequest",
+          "source": "https://raw.githubusercontent.com/Adyen/adyen-openapi/main/json/CheckoutService-v71.json",
+          "verifiedFields": [
+            "merchantAccount",
+            "reference",
+            "merchantRefundReason"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "merchantRefundReason": [
+              "FRAUD",
+              "CUSTOMER REQUEST",
+              "RETURN",
+              "DUPLICATE",
+              "OTHER"
+            ]
+          },
+          "gaps": [
+            "amount"
+          ]
+        },
+        {
+          "entity": "PaymentRefundResponse",
+          "source": "https://raw.githubusercontent.com/Adyen/adyen-openapi/main/json/CheckoutService-v71.json",
+          "verifiedFields": [
+            "pspReference",
+            "paymentPspReference",
+            "status",
+            "merchantRefundReason",
+            "reference"
+          ],
+          "fieldStatus": "confirmed; status is degenerate [received] -> not enforced",
+          "discoveredEnums": {
+            "merchantRefundReason": [
+              "FRAUD",
+              "CUSTOMER REQUEST",
+              "RETURN",
+              "DUPLICATE",
+              "OTHER"
+            ]
+          },
+          "gaps": [
+            "amount"
+          ]
+        },
+        {
+          "entity": "PaymentCaptureResponse",
+          "source": "https://raw.githubusercontent.com/Adyen/adyen-openapi/main/json/CheckoutService-v71.json",
+          "verifiedFields": [
+            "pspReference",
+            "paymentPspReference",
+            "status",
+            "merchantAccount",
+            "reference"
+          ],
+          "fieldStatus": "confirmed; status degenerate [received]",
+          "discoveredEnums": {},
+          "gaps": [
+            "amount",
+            "lineItems"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official Adyen Checkout v71 OpenAPI. Enforced enums: PaymentResponse.resultCode, PaymentRequest.channel, PaymentRequest.recurringProcessingModel, PaymentRefundRequest.merchantRefundReason, PaymentRefundResponse.merchantRefundReason (5)."
+    },
+    {
+      "handle": "looker-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/looker-open-source/sdk-codegen/main/spec/Looker.4.0.json",
+      "remodeled": "Remodeled from generic data_analytics to a faithful Looker API 4.0 model, verified against the official looker-open-source/sdk-codegen spec.",
+      "resources": [
+        {
+          "entity": "Look",
+          "source": "https://raw.githubusercontent.com/looker-open-source/sdk-codegen/main/spec/Looker.4.0.json",
+          "verifiedFields": [
+            "title",
+            "public",
+            "queryId",
+            "userId",
+            "deleted"
+          ],
+          "fieldStatus": "confirmed (query_id, user_id; public/deleted booleans)",
+          "discoveredEnums": {},
+          "gaps": [
+            "folder_id",
+            "view_count"
+          ]
+        },
+        {
+          "entity": "Dashboard",
+          "source": "https://raw.githubusercontent.com/looker-open-source/sdk-codegen/main/spec/Looker.4.0.json",
+          "verifiedFields": [
+            "title",
+            "folderId",
+            "userId",
+            "viewCount"
+          ],
+          "fieldStatus": "confirmed (folder_id, view_count)",
+          "discoveredEnums": {},
+          "gaps": [
+            "dashboard_elements",
+            "load_configuration"
+          ]
+        },
+        {
+          "entity": "Query",
+          "source": "https://raw.githubusercontent.com/looker-open-source/sdk-codegen/main/spec/Looker.4.0.json",
+          "verifiedFields": [
+            "model",
+            "view",
+            "slug",
+            "queryTimezone",
+            "hasTableCalculations"
+          ],
+          "fieldStatus": "confirmed (query_timezone, has_table_calculations)",
+          "discoveredEnums": {},
+          "gaps": [
+            "fields",
+            "filters",
+            "result_format (on CreateQueryTask)"
+          ]
+        },
+        {
+          "entity": "User",
+          "source": "https://raw.githubusercontent.com/looker-open-source/sdk-codegen/main/spec/Looker.4.0.json",
+          "verifiedFields": [
+            "email",
+            "firstName",
+            "lastName",
+            "isDisabled"
+          ],
+          "fieldStatus": "confirmed (first_name, last_name, is_disabled)",
+          "discoveredEnums": {},
+          "gaps": [
+            "role_ids",
+            "group_ids"
+          ]
+        },
+        {
+          "entity": "Folder",
+          "source": "https://raw.githubusercontent.com/looker-open-source/sdk-codegen/main/spec/Looker.4.0.json",
+          "verifiedFields": [
+            "name",
+            "parentId",
+            "creatorId"
+          ],
+          "fieldStatus": "confirmed (parent_id, creator_id)",
+          "discoveredEnums": {},
+          "gaps": [
+            "child_count"
+          ]
+        },
+        {
+          "entity": "ScheduledPlan",
+          "source": "https://raw.githubusercontent.com/looker-open-source/sdk-codegen/main/spec/Looker.4.0.json",
+          "verifiedFields": [
+            "name",
+            "userId",
+            "enabled"
+          ],
+          "fieldStatus": "confirmed (user_id, enabled)",
+          "discoveredEnums": {},
+          "gaps": [
+            "crontab",
+            "destinations"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official Looker API 4.0 spec. No enforced enums on the modeled fields (result_format enum lives on CreateQueryTask; modeled flags are pure booleans)."
     }
   ]
 }

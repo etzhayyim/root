@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "looker.kotoba")
-ENTITIES = ['Dataset', 'Query', 'Dashboard', 'Report', 'Connection', 'Metric']
-PLURALS = {'Dataset': 'datasets', 'Query': 'queries', 'Dashboard': 'dashboards', 'Report': 'reports', 'Connection': 'connections', 'Metric': 'metrics'}
+ENTITIES = ['Look', 'Dashboard', 'Query', 'User', 'Folder', 'ScheduledPlan']
+PLURALS = {'Look': 'looks', 'Dashboard': 'dashboards', 'Query': 'queries', 'User': 'users', 'Folder': 'folders', 'ScheduledPlan': 'scheduledplans'}
 
 
 class LookerContract(unittest.TestCase):

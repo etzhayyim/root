@@ -1202,6 +1202,36 @@ PLATFORM_OVERRIDES = {
         "User": E(name="string", email="string", enabled="boolean", isAdmin="boolean", isGuest="boolean", countryCode="string"),
         "Update": E(body="string", textBody="string", creatorId="string", itemId="string"),
     },
+    # Faithful PayPal model (remodeled from generic payments), L5
+    # (confirmed against the official paypal-rest-api-specifications OpenAPI).
+    "paypal": {
+        "Order": E(status="string", intent="string"),
+        "Authorization": E(status="string", createTime="datetime", updateTime="datetime"),
+        "Capture": E(status="string", invoiceId="string", customId="string"),
+        "Refund": E(status="string", invoiceId="string", customId="string"),
+        "Plan": E(productId="string", status="string", name="string", description="string"),
+        "Subscription": E(status="string", planId="string", createTime="datetime", startTime="datetime"),
+    },
+    # Faithful Adyen Checkout model (remodeled from generic payments), L5
+    # (confirmed against the official Adyen CheckoutService v71 OpenAPI).
+    "adyen": {
+        "PaymentRequest": E(reference="string", merchantAccount="string", shopperEmail="string", channel="string", recurringProcessingModel="string", storePaymentMethod="boolean"),
+        "PaymentResponse": E(pspReference="string", resultCode="string", merchantReference="string", refusalReason="string", refusalReasonCode="string"),
+        "Amount": E(currency="string", value="integer"),
+        "PaymentRefundRequest": E(merchantAccount="string", reference="string", merchantRefundReason="string"),
+        "PaymentRefundResponse": E(pspReference="string", paymentPspReference="string", status="string", merchantRefundReason="string", reference="string"),
+        "PaymentCaptureResponse": E(pspReference="string", paymentPspReference="string", status="string", merchantAccount="string", reference="string"),
+    },
+    # Faithful Looker API 4.0 model (remodeled from generic data_analytics), L5
+    # (confirmed against the official looker-open-source/sdk-codegen spec).
+    "looker": {
+        "Look": E(title="string", public="boolean", queryId="string", userId="string", deleted="boolean"),
+        "Dashboard": E(title="string", folderId="string", userId="string", viewCount="integer"),
+        "Query": E(model="string", view="string", slug="string", queryTimezone="string", hasTableCalculations="boolean"),
+        "User": E(email="string", firstName="string", lastName="string", isDisabled="boolean"),
+        "Folder": E(name="string", parentId="string", creatorId="string"),
+        "ScheduledPlan": E(name="string", userId="string", enabled="boolean"),
+    },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).
     "square": {

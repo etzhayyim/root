@@ -216,7 +216,7 @@
     {
       "handle": "adyen-compat",
       "did": "did:web:etzhayyim.com:actor:adyen-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreiflz4pkbigafgh2gugoafxwaoz3dsdqmx6w25zyv3qxrz3hxypdd4",
@@ -9022,7 +9022,7 @@
     {
       "handle": "looker-compat",
       "did": "did:web:etzhayyim.com:actor:looker-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreif234wvyhsqlsq265u44ui6pavbmeth7znl7xg7ffe2d24pwp776i",
@@ -11759,7 +11759,7 @@
     {
       "handle": "paypal-compat",
       "did": "did:web:etzhayyim.com:actor:paypal-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreidp64ax25666dndvtpoipek5z3anpwh7aneap36doydkfk2zjpsny",

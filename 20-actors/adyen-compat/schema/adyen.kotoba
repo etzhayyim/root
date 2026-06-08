@@ -3,74 +3,66 @@
 
 namespace adyen {
 
-    entity Customer {
+    entity PaymentRequest {
         id: string @unique
-        email: string
-        name: string
-        phone: string
-        balance: integer
+        reference: string
+        merchantAccount: string
+        shopperEmail: string
+        channel: string
+        recurringProcessingModel: string
+        storePaymentMethod: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity PaymentIntent {
+    entity PaymentResponse {
         id: string @unique
-        customerId: string
-        amount: integer
+        pspReference: string
+        resultCode: string
+        merchantReference: string
+        refusalReason: string
+        refusalReasonCode: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Amount {
+        id: string @unique
         currency: string
-        status: string
+        value: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Charge {
+    entity PaymentRefundRequest {
         id: string @unique
-        customerId: string
-        paymentIntentId: string
-        amount: integer
-        currency: string
-        status: string
+        merchantAccount: string
+        reference: string
+        merchantRefundReason: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Refund {
+    entity PaymentRefundResponse {
         id: string @unique
-        chargeId: string
-        amount: integer
-        reason: string
+        pspReference: string
+        paymentPspReference: string
         status: string
+        merchantRefundReason: string
+        reference: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Payout {
+    entity PaymentCaptureResponse {
         id: string @unique
-        amount: integer
-        currency: string
-        arrivalDate: datetime
+        pspReference: string
+        paymentPspReference: string
         status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity PaymentMethod {
-        id: string @unique
-        customerId: string
-        type: string
-        last4: string
-        brand: string
+        merchantAccount: string
+        reference: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

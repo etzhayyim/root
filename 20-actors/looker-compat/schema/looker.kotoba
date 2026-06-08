@@ -3,70 +3,64 @@
 
 namespace looker {
 
-    entity Dataset {
+    entity Look {
         id: string @unique
-        name: string
-        source: string
-        schemaRef: string
-        rowCount: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Query {
-        id: string @unique
-        datasetId: string
-        sql: string
-        ownerId: string
+        title: string
+        public: boolean
+        queryId: string
+        userId: string
+        deleted: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Dashboard {
         id: string @unique
-        name: string
-        ownerId: string
-        layout: string
+        title: string
+        folderId: string
+        userId: string
+        viewCount: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Report {
+    entity Query {
         id: string @unique
-        dashboardId: string
-        name: string
-        schedule: string
+        model: string
+        view: string
+        slug: string
+        queryTimezone: string
+        hasTableCalculations: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Connection {
+    entity User {
         id: string @unique
-        name: string
-        type: string
-        host: string
-        active: boolean
+        email: string
+        firstName: string
+        lastName: string
+        isDisabled: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Metric {
+    entity Folder {
         id: string @unique
-        datasetId: string
         name: string
-        expression: string
-        unit: string
+        parentId: string
+        creatorId: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity ScheduledPlan {
+        id: string @unique
+        name: string
+        userId: string
+        enabled: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

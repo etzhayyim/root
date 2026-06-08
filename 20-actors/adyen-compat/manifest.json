@@ -11,15 +11,76 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiflz4pkbigafgh2gugoafxwaoz3dsdqmx6w25zyv3qxrz3hxypdd4",
   "schema": "schema/adyen.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://raw.githubusercontent.com/Adyen/adyen-openapi/main/json/CheckoutService-v71.json",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "PaymentRequest",
+      "PaymentResponse",
+      "Amount",
+      "PaymentRefundRequest",
+      "PaymentRefundResponse",
+      "PaymentCaptureResponse"
+    ],
+    "enums": {
+      "PaymentRequest": {
+        "channel": [
+          "iOS",
+          "Android",
+          "Web"
+        ],
+        "recurringProcessingModel": [
+          "CardOnFile",
+          "Subscription",
+          "UnscheduledCardOnFile"
+        ]
+      },
+      "PaymentResponse": {
+        "resultCode": [
+          "AuthenticationFinished",
+          "AuthenticationNotRequired",
+          "Authorised",
+          "Cancelled",
+          "ChallengeShopper",
+          "Error",
+          "IdentifyShopper",
+          "PartiallyAuthorised",
+          "Pending",
+          "PresentToShopper",
+          "Received",
+          "RedirectShopper",
+          "Refused",
+          "Success"
+        ]
+      },
+      "PaymentRefundRequest": {
+        "merchantRefundReason": [
+          "FRAUD",
+          "CUSTOMER REQUEST",
+          "RETURN",
+          "DUPLICATE",
+          "OTHER"
+        ]
+      },
+      "PaymentRefundResponse": {
+        "merchantRefundReason": [
+          "FRAUD",
+          "CUSTOMER REQUEST",
+          "RETURN",
+          "DUPLICATE",
+          "OTHER"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Customer",
-    "PaymentIntent",
-    "Charge",
-    "Refund",
-    "Payout",
-    "PaymentMethod"
+    "PaymentRequest",
+    "PaymentResponse",
+    "Amount",
+    "PaymentRefundRequest",
+    "PaymentRefundResponse",
+    "PaymentCaptureResponse"
   ],
   "adr": [
     "260607",
@@ -35,153 +96,153 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/customers",
-          "op": "create Customer"
+          "path": "/v1/paymentrequests",
+          "op": "create PaymentRequest"
         },
         {
           "method": "GET",
-          "path": "/v1/customers",
-          "op": "list Customer"
+          "path": "/v1/paymentrequests",
+          "op": "list PaymentRequest"
         },
         {
           "method": "GET",
-          "path": "/v1/customers/{id}",
-          "op": "get Customer"
+          "path": "/v1/paymentrequests/{id}",
+          "op": "get PaymentRequest"
         },
         {
           "method": "PATCH",
-          "path": "/v1/customers/{id}",
-          "op": "update Customer"
+          "path": "/v1/paymentrequests/{id}",
+          "op": "update PaymentRequest"
         },
         {
           "method": "DELETE",
-          "path": "/v1/customers/{id}",
-          "op": "delete Customer"
+          "path": "/v1/paymentrequests/{id}",
+          "op": "delete PaymentRequest"
         },
         {
           "method": "POST",
-          "path": "/v1/paymentintents",
-          "op": "create PaymentIntent"
+          "path": "/v1/paymentresponses",
+          "op": "create PaymentResponse"
         },
         {
           "method": "GET",
-          "path": "/v1/paymentintents",
-          "op": "list PaymentIntent"
+          "path": "/v1/paymentresponses",
+          "op": "list PaymentResponse"
         },
         {
           "method": "GET",
-          "path": "/v1/paymentintents/{id}",
-          "op": "get PaymentIntent"
+          "path": "/v1/paymentresponses/{id}",
+          "op": "get PaymentResponse"
         },
         {
           "method": "PATCH",
-          "path": "/v1/paymentintents/{id}",
-          "op": "update PaymentIntent"
+          "path": "/v1/paymentresponses/{id}",
+          "op": "update PaymentResponse"
         },
         {
           "method": "DELETE",
-          "path": "/v1/paymentintents/{id}",
-          "op": "delete PaymentIntent"
+          "path": "/v1/paymentresponses/{id}",
+          "op": "delete PaymentResponse"
         },
         {
           "method": "POST",
-          "path": "/v1/charges",
-          "op": "create Charge"
+          "path": "/v1/amounts",
+          "op": "create Amount"
         },
         {
           "method": "GET",
-          "path": "/v1/charges",
-          "op": "list Charge"
+          "path": "/v1/amounts",
+          "op": "list Amount"
         },
         {
           "method": "GET",
-          "path": "/v1/charges/{id}",
-          "op": "get Charge"
+          "path": "/v1/amounts/{id}",
+          "op": "get Amount"
         },
         {
           "method": "PATCH",
-          "path": "/v1/charges/{id}",
-          "op": "update Charge"
+          "path": "/v1/amounts/{id}",
+          "op": "update Amount"
         },
         {
           "method": "DELETE",
-          "path": "/v1/charges/{id}",
-          "op": "delete Charge"
+          "path": "/v1/amounts/{id}",
+          "op": "delete Amount"
         },
         {
           "method": "POST",
-          "path": "/v1/refunds",
-          "op": "create Refund"
+          "path": "/v1/paymentrefundrequests",
+          "op": "create PaymentRefundRequest"
         },
         {
           "method": "GET",
-          "path": "/v1/refunds",
-          "op": "list Refund"
+          "path": "/v1/paymentrefundrequests",
+          "op": "list PaymentRefundRequest"
         },
         {
           "method": "GET",
-          "path": "/v1/refunds/{id}",
-          "op": "get Refund"
+          "path": "/v1/paymentrefundrequests/{id}",
+          "op": "get PaymentRefundRequest"
         },
         {
           "method": "PATCH",
-          "path": "/v1/refunds/{id}",
-          "op": "update Refund"
+          "path": "/v1/paymentrefundrequests/{id}",
+          "op": "update PaymentRefundRequest"
         },
         {
           "method": "DELETE",
-          "path": "/v1/refunds/{id}",
-          "op": "delete Refund"
+          "path": "/v1/paymentrefundrequests/{id}",
+          "op": "delete PaymentRefundRequest"
         },
         {
           "method": "POST",
-          "path": "/v1/payouts",
-          "op": "create Payout"
+          "path": "/v1/paymentrefundresponses",
+          "op": "create PaymentRefundResponse"
         },
         {
           "method": "GET",
-          "path": "/v1/payouts",
-          "op": "list Payout"
+          "path": "/v1/paymentrefundresponses",
+          "op": "list PaymentRefundResponse"
         },
         {
           "method": "GET",
-          "path": "/v1/payouts/{id}",
-          "op": "get Payout"
+          "path": "/v1/paymentrefundresponses/{id}",
+          "op": "get PaymentRefundResponse"
         },
         {
           "method": "PATCH",
-          "path": "/v1/payouts/{id}",
-          "op": "update Payout"
+          "path": "/v1/paymentrefundresponses/{id}",
+          "op": "update PaymentRefundResponse"
         },
         {
           "method": "DELETE",
-          "path": "/v1/payouts/{id}",
-          "op": "delete Payout"
+          "path": "/v1/paymentrefundresponses/{id}",
+          "op": "delete PaymentRefundResponse"
         },
         {
           "method": "POST",
-          "path": "/v1/paymentmethods",
-          "op": "create PaymentMethod"
+          "path": "/v1/paymentcaptureresponses",
+          "op": "create PaymentCaptureResponse"
         },
         {
           "method": "GET",
-          "path": "/v1/paymentmethods",
-          "op": "list PaymentMethod"
+          "path": "/v1/paymentcaptureresponses",
+          "op": "list PaymentCaptureResponse"
         },
         {
           "method": "GET",
-          "path": "/v1/paymentmethods/{id}",
-          "op": "get PaymentMethod"
+          "path": "/v1/paymentcaptureresponses/{id}",
+          "op": "get PaymentCaptureResponse"
         },
         {
           "method": "PATCH",
-          "path": "/v1/paymentmethods/{id}",
-          "op": "update PaymentMethod"
+          "path": "/v1/paymentcaptureresponses/{id}",
+          "op": "update PaymentCaptureResponse"
         },
         {
           "method": "DELETE",
-          "path": "/v1/paymentmethods/{id}",
-          "op": "delete PaymentMethod"
+          "path": "/v1/paymentcaptureresponses/{id}",
+          "op": "delete PaymentCaptureResponse"
         }
       ],
       "features": {
@@ -247,41 +308,47 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_customer",
-          "description": "Create a Customer.",
+          "name": "create_payment_request",
+          "description": "Create a PaymentRequest.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "email": {
+              "reference": {
                 "type": "string"
               },
-              "name": {
+              "merchantAccount": {
                 "type": "string"
               },
-              "phone": {
+              "shopperEmail": {
                 "type": "string"
               },
-              "balance": {
-                "type": "integer"
+              "channel": {
+                "type": "string"
+              },
+              "recurringProcessingModel": {
+                "type": "string"
+              },
+              "storePaymentMethod": {
+                "type": "boolean"
               }
             },
             "required": [
-              "email",
-              "name"
+              "reference",
+              "merchantAccount"
             ]
           }
         },
         {
-          "name": "list_customers",
-          "description": "List Customers.",
+          "name": "list_payment_requests",
+          "description": "List PaymentRequests.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_customer",
-          "description": "Get a Customer by id.",
+          "name": "get_payment_request",
+          "description": "Get a PaymentRequest by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,25 +362,31 @@
           }
         },
         {
-          "name": "update_customer",
-          "description": "Update a Customer.",
+          "name": "update_payment_request",
+          "description": "Update a PaymentRequest.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "email": {
+              "reference": {
                 "type": "string"
               },
-              "name": {
+              "merchantAccount": {
                 "type": "string"
               },
-              "phone": {
+              "shopperEmail": {
                 "type": "string"
               },
-              "balance": {
-                "type": "integer"
+              "channel": {
+                "type": "string"
+              },
+              "recurringProcessingModel": {
+                "type": "string"
+              },
+              "storePaymentMethod": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -322,8 +395,8 @@
           }
         },
         {
-          "name": "delete_customer",
-          "description": "Delete a Customer.",
+          "name": "delete_payment_request",
+          "description": "Delete a PaymentRequest.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -337,41 +410,44 @@
           }
         },
         {
-          "name": "create_payment_intent",
-          "description": "Create a PaymentIntent.",
+          "name": "create_payment_response",
+          "description": "Create a PaymentResponse.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "customerId": {
+              "pspReference": {
                 "type": "string"
               },
-              "amount": {
-                "type": "integer"
-              },
-              "currency": {
+              "resultCode": {
                 "type": "string"
               },
-              "status": {
+              "merchantReference": {
+                "type": "string"
+              },
+              "refusalReason": {
+                "type": "string"
+              },
+              "refusalReasonCode": {
                 "type": "string"
               }
             },
             "required": [
-              "amount",
-              "currency"
+              "pspReference",
+              "resultCode"
             ]
           }
         },
         {
-          "name": "list_payment_intents",
-          "description": "List PaymentIntents.",
+          "name": "list_payment_responses",
+          "description": "List PaymentResponses.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_payment_intent",
-          "description": "Get a PaymentIntent by id.",
+          "name": "get_payment_response",
+          "description": "Get a PaymentResponse by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -385,86 +461,80 @@
           }
         },
         {
-          "name": "update_payment_intent",
-          "description": "Update a PaymentIntent.",
+          "name": "update_payment_response",
+          "description": "Update a PaymentResponse.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "customerId": {
+              "pspReference": {
                 "type": "string"
               },
-              "amount": {
-                "type": "integer"
+              "resultCode": {
+                "type": "string"
               },
+              "merchantReference": {
+                "type": "string"
+              },
+              "refusalReason": {
+                "type": "string"
+              },
+              "refusalReasonCode": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_payment_response",
+          "description": "Delete a PaymentResponse.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_amount",
+          "description": "Create a Amount.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
               "currency": {
                 "type": "string"
               },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_payment_intent",
-          "description": "Delete a PaymentIntent.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_charge",
-          "description": "Create a Charge.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "customerId": {
-                "type": "string"
-              },
-              "paymentIntentId": {
-                "type": "string"
-              },
-              "amount": {
+              "value": {
                 "type": "integer"
-              },
-              "currency": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
               }
             },
             "required": [
-              "amount",
-              "currency"
+              "currency",
+              "value"
             ]
           }
         },
         {
-          "name": "list_charges",
-          "description": "List Charges.",
+          "name": "list_amounts",
+          "description": "List Amounts.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_charge",
-          "description": "Get a Charge by id.",
+          "name": "get_amount",
+          "description": "Get a Amount by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -478,28 +548,19 @@
           }
         },
         {
-          "name": "update_charge",
-          "description": "Update a Charge.",
+          "name": "update_amount",
+          "description": "Update a Amount.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
-              },
-              "customerId": {
-                "type": "string"
-              },
-              "paymentIntentId": {
-                "type": "string"
-              },
-              "amount": {
-                "type": "integer"
               },
               "currency": {
                 "type": "string"
               },
-              "status": {
-                "type": "string"
+              "value": {
+                "type": "integer"
               }
             },
             "required": [
@@ -508,8 +569,8 @@
           }
         },
         {
-          "name": "delete_charge",
-          "description": "Delete a Charge.",
+          "name": "delete_amount",
+          "description": "Delete a Amount.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -523,41 +584,38 @@
           }
         },
         {
-          "name": "create_refund",
-          "description": "Create a Refund.",
+          "name": "create_payment_refund_request",
+          "description": "Create a PaymentRefundRequest.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "chargeId": {
+              "merchantAccount": {
                 "type": "string"
               },
-              "amount": {
-                "type": "integer"
-              },
-              "reason": {
+              "reference": {
                 "type": "string"
               },
-              "status": {
+              "merchantRefundReason": {
                 "type": "string"
               }
             },
             "required": [
-              "amount",
-              "reason"
+              "merchantAccount",
+              "reference"
             ]
           }
         },
         {
-          "name": "list_refunds",
-          "description": "List Refunds.",
+          "name": "list_payment_refund_requests",
+          "description": "List PaymentRefundRequests.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_refund",
-          "description": "Get a Refund by id.",
+          "name": "get_payment_refund_request",
+          "description": "Get a PaymentRefundRequest by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -571,83 +629,83 @@
           }
         },
         {
-          "name": "update_refund",
-          "description": "Update a Refund.",
+          "name": "update_payment_refund_request",
+          "description": "Update a PaymentRefundRequest.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "chargeId": {
+              "merchantAccount": {
                 "type": "string"
               },
-              "amount": {
-                "type": "integer"
+              "reference": {
+                "type": "string"
               },
-              "reason": {
+              "merchantRefundReason": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_payment_refund_request",
+          "description": "Delete a PaymentRefundRequest.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_payment_refund_response",
+          "description": "Create a PaymentRefundResponse.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "pspReference": {
+                "type": "string"
+              },
+              "paymentPspReference": {
                 "type": "string"
               },
               "status": {
                 "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_refund",
-          "description": "Delete a Refund.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              },
+              "merchantRefundReason": {
+                "type": "string"
+              },
+              "reference": {
                 "type": "string"
               }
             },
             "required": [
-              "id"
+              "pspReference",
+              "paymentPspReference"
             ]
           }
         },
         {
-          "name": "create_payout",
-          "description": "Create a Payout.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "amount": {
-                "type": "integer"
-              },
-              "currency": {
-                "type": "string"
-              },
-              "arrivalDate": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "amount",
-              "currency"
-            ]
-          }
-        },
-        {
-          "name": "list_payouts",
-          "description": "List Payouts.",
+          "name": "list_payment_refund_responses",
+          "description": "List PaymentRefundResponses.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_payout",
-          "description": "Get a Payout by id.",
+          "name": "get_payment_refund_response",
+          "description": "Get a PaymentRefundResponse by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -661,25 +719,28 @@
           }
         },
         {
-          "name": "update_payout",
-          "description": "Update a Payout.",
+          "name": "update_payment_refund_response",
+          "description": "Update a PaymentRefundResponse.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "amount": {
-                "type": "integer"
-              },
-              "currency": {
+              "pspReference": {
                 "type": "string"
               },
-              "arrivalDate": {
+              "paymentPspReference": {
                 "type": "string"
               },
               "status": {
                 "type": "string"
+              },
+              "merchantRefundReason": {
+                "type": "string"
+              },
+              "reference": {
+                "type": "string"
               }
             },
             "required": [
@@ -688,8 +749,8 @@
           }
         },
         {
-          "name": "delete_payout",
-          "description": "Delete a Payout.",
+          "name": "delete_payment_refund_response",
+          "description": "Delete a PaymentRefundResponse.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -703,41 +764,44 @@
           }
         },
         {
-          "name": "create_payment_method",
-          "description": "Create a PaymentMethod.",
+          "name": "create_payment_capture_response",
+          "description": "Create a PaymentCaptureResponse.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "customerId": {
+              "pspReference": {
                 "type": "string"
               },
-              "type": {
+              "paymentPspReference": {
                 "type": "string"
               },
-              "last4": {
+              "status": {
                 "type": "string"
               },
-              "brand": {
+              "merchantAccount": {
+                "type": "string"
+              },
+              "reference": {
                 "type": "string"
               }
             },
             "required": [
-              "type",
-              "last4"
+              "pspReference",
+              "paymentPspReference"
             ]
           }
         },
         {
-          "name": "list_payment_methods",
-          "description": "List PaymentMethods.",
+          "name": "list_payment_capture_responses",
+          "description": "List PaymentCaptureResponses.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_payment_method",
-          "description": "Get a PaymentMethod by id.",
+          "name": "get_payment_capture_response",
+          "description": "Get a PaymentCaptureResponse by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -751,24 +815,27 @@
           }
         },
         {
-          "name": "update_payment_method",
-          "description": "Update a PaymentMethod.",
+          "name": "update_payment_capture_response",
+          "description": "Update a PaymentCaptureResponse.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "customerId": {
+              "pspReference": {
                 "type": "string"
               },
-              "type": {
+              "paymentPspReference": {
                 "type": "string"
               },
-              "last4": {
+              "status": {
                 "type": "string"
               },
-              "brand": {
+              "merchantAccount": {
+                "type": "string"
+              },
+              "reference": {
                 "type": "string"
               }
             },
@@ -778,8 +845,8 @@
           }
         },
         {
-          "name": "delete_payment_method",
-          "description": "Delete a PaymentMethod.",
+          "name": "delete_payment_capture_response",
+          "description": "Delete a PaymentCaptureResponse.",
           "inputSchema": {
             "type": "object",
             "properties": {

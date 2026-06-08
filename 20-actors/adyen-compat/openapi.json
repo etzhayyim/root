@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreiflz4pkbigafgh2gugoafxwaoz3dsdqmx6w25zyv3qxrz3hxypdd4",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,9 +17,9 @@
     }
   ],
   "paths": {
-    "/v1/customers": {
+    "/v1/paymentrequests": {
       "get": {
-        "summary": "List Customers",
+        "summary": "List PaymentRequests",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Customer"
+                        "$ref": "#/components/schemas/PaymentRequest"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Customer",
+        "summary": "Create a PaymentRequest",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CustomerCreate"
+                "$ref": "#/components/schemas/PaymentRequestCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Customer"
+                  "$ref": "#/components/schemas/PaymentRequest"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/customers/{id}": {
+    "/v1/paymentrequests/{id}": {
       "get": {
-        "summary": "Get a Customer",
+        "summary": "Get a PaymentRequest",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Customer"
+                  "$ref": "#/components/schemas/PaymentRequest"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Customer",
+        "summary": "Update a PaymentRequest",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CustomerCreate"
+                "$ref": "#/components/schemas/PaymentRequestCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Customer"
+                  "$ref": "#/components/schemas/PaymentRequest"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Customer",
+        "summary": "Delete a PaymentRequest",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/paymentintents": {
+    "/v1/paymentresponses": {
       "get": {
-        "summary": "List PaymentIntents",
+        "summary": "List PaymentResponses",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/PaymentIntent"
+                        "$ref": "#/components/schemas/PaymentResponse"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a PaymentIntent",
+        "summary": "Create a PaymentResponse",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PaymentIntentCreate"
+                "$ref": "#/components/schemas/PaymentResponseCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PaymentIntent"
+                  "$ref": "#/components/schemas/PaymentResponse"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/paymentintents/{id}": {
+    "/v1/paymentresponses/{id}": {
       "get": {
-        "summary": "Get a PaymentIntent",
+        "summary": "Get a PaymentResponse",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PaymentIntent"
+                  "$ref": "#/components/schemas/PaymentResponse"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a PaymentIntent",
+        "summary": "Update a PaymentResponse",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PaymentIntentCreate"
+                "$ref": "#/components/schemas/PaymentResponseCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PaymentIntent"
+                  "$ref": "#/components/schemas/PaymentResponse"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a PaymentIntent",
+        "summary": "Delete a PaymentResponse",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/charges": {
+    "/v1/amounts": {
       "get": {
-        "summary": "List Charges",
+        "summary": "List Amounts",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Charge"
+                        "$ref": "#/components/schemas/Amount"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Charge",
+        "summary": "Create a Amount",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ChargeCreate"
+                "$ref": "#/components/schemas/AmountCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Charge"
+                  "$ref": "#/components/schemas/Amount"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/charges/{id}": {
+    "/v1/amounts/{id}": {
       "get": {
-        "summary": "Get a Charge",
+        "summary": "Get a Amount",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Charge"
+                  "$ref": "#/components/schemas/Amount"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Charge",
+        "summary": "Update a Amount",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ChargeCreate"
+                "$ref": "#/components/schemas/AmountCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Charge"
+                  "$ref": "#/components/schemas/Amount"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Charge",
+        "summary": "Delete a Amount",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/refunds": {
+    "/v1/paymentrefundrequests": {
       "get": {
-        "summary": "List Refunds",
+        "summary": "List PaymentRefundRequests",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Refund"
+                        "$ref": "#/components/schemas/PaymentRefundRequest"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Refund",
+        "summary": "Create a PaymentRefundRequest",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RefundCreate"
+                "$ref": "#/components/schemas/PaymentRefundRequestCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Refund"
+                  "$ref": "#/components/schemas/PaymentRefundRequest"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/refunds/{id}": {
+    "/v1/paymentrefundrequests/{id}": {
       "get": {
-        "summary": "Get a Refund",
+        "summary": "Get a PaymentRefundRequest",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Refund"
+                  "$ref": "#/components/schemas/PaymentRefundRequest"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Refund",
+        "summary": "Update a PaymentRefundRequest",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RefundCreate"
+                "$ref": "#/components/schemas/PaymentRefundRequestCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Refund"
+                  "$ref": "#/components/schemas/PaymentRefundRequest"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Refund",
+        "summary": "Delete a PaymentRefundRequest",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/payouts": {
+    "/v1/paymentrefundresponses": {
       "get": {
-        "summary": "List Payouts",
+        "summary": "List PaymentRefundResponses",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Payout"
+                        "$ref": "#/components/schemas/PaymentRefundResponse"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Payout",
+        "summary": "Create a PaymentRefundResponse",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PayoutCreate"
+                "$ref": "#/components/schemas/PaymentRefundResponseCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Payout"
+                  "$ref": "#/components/schemas/PaymentRefundResponse"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/payouts/{id}": {
+    "/v1/paymentrefundresponses/{id}": {
       "get": {
-        "summary": "Get a Payout",
+        "summary": "Get a PaymentRefundResponse",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Payout"
+                  "$ref": "#/components/schemas/PaymentRefundResponse"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Payout",
+        "summary": "Update a PaymentRefundResponse",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PayoutCreate"
+                "$ref": "#/components/schemas/PaymentRefundResponseCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Payout"
+                  "$ref": "#/components/schemas/PaymentRefundResponse"
                 }
               }
             }
@@ -921,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Payout",
+        "summary": "Delete a PaymentRefundResponse",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +942,9 @@
         }
       }
     },
-    "/v1/paymentmethods": {
+    "/v1/paymentcaptureresponses": {
       "get": {
-        "summary": "List PaymentMethods",
+        "summary": "List PaymentCaptureResponses",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +984,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/PaymentMethod"
+                        "$ref": "#/components/schemas/PaymentCaptureResponse"
                       }
                     },
                     "has_more": {
@@ -1004,13 +1004,13 @@
         }
       },
       "post": {
-        "summary": "Create a PaymentMethod",
+        "summary": "Create a PaymentCaptureResponse",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PaymentMethodCreate"
+                "$ref": "#/components/schemas/PaymentCaptureResponseCreate"
               }
             }
           }
@@ -1021,7 +1021,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PaymentMethod"
+                  "$ref": "#/components/schemas/PaymentCaptureResponse"
                 }
               }
             }
@@ -1032,9 +1032,9 @@
         }
       }
     },
-    "/v1/paymentmethods/{id}": {
+    "/v1/paymentcaptureresponses/{id}": {
       "get": {
-        "summary": "Get a PaymentMethod",
+        "summary": "Get a PaymentCaptureResponse",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +1058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PaymentMethod"
+                  "$ref": "#/components/schemas/PaymentCaptureResponse"
                 }
               }
             }
@@ -1069,7 +1069,7 @@
         }
       },
       "patch": {
-        "summary": "Update a PaymentMethod",
+        "summary": "Update a PaymentCaptureResponse",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +1084,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PaymentMethodCreate"
+                "$ref": "#/components/schemas/PaymentCaptureResponseCreate"
               }
             }
           }
@@ -1095,7 +1095,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PaymentMethod"
+                  "$ref": "#/components/schemas/PaymentCaptureResponse"
                 }
               }
             }
@@ -1106,7 +1106,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a PaymentMethod",
+        "summary": "Delete a PaymentCaptureResponse",
         "parameters": [
           {
             "name": "id",
@@ -1140,23 +1140,39 @@
   },
   "components": {
     "schemas": {
-      "Customer": {
+      "PaymentRequest": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "email": {
+          "reference": {
             "type": "string"
           },
-          "name": {
+          "merchantAccount": {
             "type": "string"
           },
-          "phone": {
+          "shopperEmail": {
             "type": "string"
           },
-          "balance": {
-            "type": "integer"
+          "channel": {
+            "type": "string",
+            "enum": [
+              "iOS",
+              "Android",
+              "Web"
+            ]
+          },
+          "recurringProcessingModel": {
+            "type": "string",
+            "enum": [
+              "CardOnFile",
+              "Subscription",
+              "UnscheduledCardOnFile"
+            ]
+          },
+          "storePaymentMethod": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1168,43 +1184,78 @@
           }
         }
       },
-      "CustomerCreate": {
+      "PaymentRequestCreate": {
         "type": "object",
         "properties": {
-          "email": {
+          "reference": {
             "type": "string"
           },
-          "name": {
+          "merchantAccount": {
             "type": "string"
           },
-          "phone": {
+          "shopperEmail": {
             "type": "string"
           },
-          "balance": {
-            "type": "integer"
+          "channel": {
+            "type": "string",
+            "enum": [
+              "iOS",
+              "Android",
+              "Web"
+            ]
+          },
+          "recurringProcessingModel": {
+            "type": "string",
+            "enum": [
+              "CardOnFile",
+              "Subscription",
+              "UnscheduledCardOnFile"
+            ]
+          },
+          "storePaymentMethod": {
+            "type": "boolean"
           }
         },
         "required": [
-          "email",
-          "name"
+          "reference",
+          "merchantAccount"
         ]
       },
-      "PaymentIntent": {
+      "PaymentResponse": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "customerId": {
+          "pspReference": {
             "type": "string"
           },
-          "amount": {
-            "type": "integer"
+          "resultCode": {
+            "type": "string",
+            "enum": [
+              "AuthenticationFinished",
+              "AuthenticationNotRequired",
+              "Authorised",
+              "Cancelled",
+              "ChallengeShopper",
+              "Error",
+              "IdentifyShopper",
+              "PartiallyAuthorised",
+              "Pending",
+              "PresentToShopper",
+              "Received",
+              "RedirectShopper",
+              "Refused",
+              "Success"
+            ]
           },
-          "currency": {
+          "merchantReference": {
             "type": "string"
           },
-          "status": {
+          "refusalReason": {
+            "type": "string"
+          },
+          "refusalReasonCode": {
             "type": "string"
           },
           "createdAt": {
@@ -1217,47 +1268,57 @@
           }
         }
       },
-      "PaymentIntentCreate": {
+      "PaymentResponseCreate": {
         "type": "object",
         "properties": {
-          "customerId": {
+          "pspReference": {
             "type": "string"
           },
-          "amount": {
-            "type": "integer"
+          "resultCode": {
+            "type": "string",
+            "enum": [
+              "AuthenticationFinished",
+              "AuthenticationNotRequired",
+              "Authorised",
+              "Cancelled",
+              "ChallengeShopper",
+              "Error",
+              "IdentifyShopper",
+              "PartiallyAuthorised",
+              "Pending",
+              "PresentToShopper",
+              "Received",
+              "RedirectShopper",
+              "Refused",
+              "Success"
+            ]
           },
-          "currency": {
+          "merchantReference": {
             "type": "string"
           },
-          "status": {
+          "refusalReason": {
+            "type": "string"
+          },
+          "refusalReasonCode": {
             "type": "string"
           }
         },
         "required": [
-          "amount",
-          "currency"
+          "pspReference",
+          "resultCode"
         ]
       },
-      "Charge": {
+      "Amount": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "customerId": {
-            "type": "string"
-          },
-          "paymentIntentId": {
-            "type": "string"
-          },
-          "amount": {
-            "type": "integer"
-          },
           "currency": {
             "type": "string"
           },
-          "status": {
-            "type": "string"
+          "value": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1269,47 +1330,42 @@
           }
         }
       },
-      "ChargeCreate": {
+      "AmountCreate": {
         "type": "object",
         "properties": {
-          "customerId": {
-            "type": "string"
-          },
-          "paymentIntentId": {
-            "type": "string"
-          },
-          "amount": {
-            "type": "integer"
-          },
           "currency": {
             "type": "string"
           },
-          "status": {
-            "type": "string"
+          "value": {
+            "type": "integer"
           }
         },
         "required": [
-          "amount",
-          "currency"
+          "currency",
+          "value"
         ]
       },
-      "Refund": {
+      "PaymentRefundRequest": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "chargeId": {
+          "merchantAccount": {
             "type": "string"
           },
-          "amount": {
-            "type": "integer"
-          },
-          "reason": {
+          "reference": {
             "type": "string"
           },
-          "status": {
-            "type": "string"
+          "merchantRefundReason": {
+            "type": "string",
+            "enum": [
+              "FRAUD",
+              "CUSTOMER REQUEST",
+              "RETURN",
+              "DUPLICATE",
+              "OTHER"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1321,44 +1377,57 @@
           }
         }
       },
-      "RefundCreate": {
+      "PaymentRefundRequestCreate": {
         "type": "object",
         "properties": {
-          "chargeId": {
+          "merchantAccount": {
             "type": "string"
           },
-          "amount": {
-            "type": "integer"
-          },
-          "reason": {
+          "reference": {
             "type": "string"
           },
-          "status": {
-            "type": "string"
+          "merchantRefundReason": {
+            "type": "string",
+            "enum": [
+              "FRAUD",
+              "CUSTOMER REQUEST",
+              "RETURN",
+              "DUPLICATE",
+              "OTHER"
+            ]
           }
         },
         "required": [
-          "amount",
-          "reason"
+          "merchantAccount",
+          "reference"
         ]
       },
-      "Payout": {
+      "PaymentRefundResponse": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "amount": {
-            "type": "integer"
-          },
-          "currency": {
+          "pspReference": {
             "type": "string"
           },
-          "arrivalDate": {
-            "type": "string",
-            "format": "date-time"
+          "paymentPspReference": {
+            "type": "string"
           },
           "status": {
+            "type": "string"
+          },
+          "merchantRefundReason": {
+            "type": "string",
+            "enum": [
+              "FRAUD",
+              "CUSTOMER REQUEST",
+              "RETURN",
+              "DUPLICATE",
+              "OTHER"
+            ]
+          },
+          "reference": {
             "type": "string"
           },
           "createdAt": {
@@ -1371,43 +1440,56 @@
           }
         }
       },
-      "PayoutCreate": {
+      "PaymentRefundResponseCreate": {
         "type": "object",
         "properties": {
-          "amount": {
-            "type": "integer"
-          },
-          "currency": {
+          "pspReference": {
             "type": "string"
           },
-          "arrivalDate": {
+          "paymentPspReference": {
             "type": "string"
           },
           "status": {
             "type": "string"
+          },
+          "merchantRefundReason": {
+            "type": "string",
+            "enum": [
+              "FRAUD",
+              "CUSTOMER REQUEST",
+              "RETURN",
+              "DUPLICATE",
+              "OTHER"
+            ]
+          },
+          "reference": {
+            "type": "string"
           }
         },
         "required": [
-          "amount",
-          "currency"
+          "pspReference",
+          "paymentPspReference"
         ]
       },
-      "PaymentMethod": {
+      "PaymentCaptureResponse": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "customerId": {
+          "pspReference": {
             "type": "string"
           },
-          "type": {
+          "paymentPspReference": {
             "type": "string"
           },
-          "last4": {
+          "status": {
             "type": "string"
           },
-          "brand": {
+          "merchantAccount": {
+            "type": "string"
+          },
+          "reference": {
             "type": "string"
           },
           "createdAt": {
@@ -1420,25 +1502,28 @@
           }
         }
       },
-      "PaymentMethodCreate": {
+      "PaymentCaptureResponseCreate": {
         "type": "object",
         "properties": {
-          "customerId": {
+          "pspReference": {
             "type": "string"
           },
-          "type": {
+          "paymentPspReference": {
             "type": "string"
           },
-          "last4": {
+          "status": {
             "type": "string"
           },
-          "brand": {
+          "merchantAccount": {
+            "type": "string"
+          },
+          "reference": {
             "type": "string"
           }
         },
         "required": [
-          "type",
-          "last4"
+          "pspReference",
+          "paymentPspReference"
         ]
       }
     }

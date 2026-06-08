@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 960,
-    "L5": 40
+    "L4": 957,
+    "L5": 43
   },
   "actors": [
     {
@@ -236,7 +236,7 @@
       "wasmCid": "bafkreiflz4pkbigafgh2gugoafxwaoz3dsdqmx6w25zyv3qxrz3hxypdd4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "adyen clean-room actor",
       "category": "payments",
       "capabilities": [
@@ -9560,7 +9560,7 @@
       "wasmCid": "bafkreif234wvyhsqlsq265u44ui6pavbmeth7znl7xg7ffe2d24pwp776i",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "looker clean-room actor",
       "category": "data_analytics",
       "capabilities": [
@@ -12458,7 +12458,7 @@
       "wasmCid": "bafkreidp64ax25666dndvtpoipek5z3anpwh7aneap36doydkfk2zjpsny",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "paypal clean-room actor",
       "category": "payments",
       "capabilities": [
