@@ -58,6 +58,7 @@ python3 tests/test_ingest.py           # 10 tests — R3 SCADA/OT scan-cycle ing
 python3 tests/test_digest.py           # 11 tests — R4 daily digest + R6 throughput fold
 python3 tests/test_plan.py             # 8 tests — R5 throughput / line-balance plan
 python3 tests/test_trend.py            # 8 tests — R7 KPI trend / drift detector
+python3 tests/test_alert.py            # 9 tests — R9 operational threshold alerts
 python3 methods/analyze.py             # → out/operations-report.md
 python3 methods/datom_emit.py --tx 1   # → out/itonami-datoms.kotoba.edn
 python3 methods/optimize.py            # → out/optimization-proposals.md (+ proposal datoms)
@@ -66,6 +67,7 @@ python3 methods/ingest.py              # kotoba-os scan stream → out/ingested-
 python3 methods/digest.py              # → out/daily-digest.md (Murakumo-narrated, G7)
 python3 methods/plan.py                # → out/throughput-plan.md (units/day + relief)
 python3 methods/trend.py               # → out/trend-report.md (KPI drift over days)
+python3 methods/alert.py               # → out/alerts.md (graded threshold alerts, advisory)
 ```
 
 End-to-end (gap-(3) loop): `ingest.py` (scan-cycle Datoms → ticks) → `analyze.py` (KPIs) →
@@ -112,6 +114,12 @@ on the canonical Datom log.
   is supplied, the brief + narration surface multi-day drift (e.g. "N series degrading, worst is
   cab-weld scrap +120%"), so a slow regression is flagged before any single day alarms.
   Backward-compatible (no history → no drift section). +2 digest tests (62 total). ✅
-- **R9** — live scan-cycle socket (Modbus/OPC-UA/EtherCAT via kotoba-os device worlds, Council
+- **R9 (landed)** — `methods/alert.py`: operational threshold alerts (the HMI alarm half).
+  Compares each line/station KPI to documented (warn, critical) thresholds, polarity-aware →
+  graded advisory alerts (seed: 1 critical cab-weld scrap, 5 warn). **ADVISORY ONLY** — raises a
+  flag for a human/Council, NEVER halts the line / trips an e-stop / writes to the OT bus (no
+  actuation token is even representable in the output, test-enforced). Thresholds caller-
+  overridable (G5). 9 tests. ✅
+- **R10** — live scan-cycle socket (Modbus/OPC-UA/EtherCAT via kotoba-os device worlds, Council
   + operator DID gated); cross-check OEE against the sarutahiko produce sim; componentize-py
   WASM build + CID advertisement.
