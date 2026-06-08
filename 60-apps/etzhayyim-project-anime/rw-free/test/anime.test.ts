@@ -4,9 +4,12 @@ import {
   createTitle,
   getTitle,
   listTitles,
+  searchTitles,
   createSeason,
   createEpisode,
   listEpisodes,
+  createSchedule,
+  listSchedules,
   submitReview,
 } from "../src/index.js";
 
@@ -56,6 +59,43 @@ describe("anime rw-free", () => {
       const second = await createTitle(e, input);
       expect(second.status).toBe("alreadyExists");
       expect(second.did).toBe(firstDid);
+    });
+  });
+
+  describe("getTitle, listTitles, searchTitles", () => {
+    beforeEach(async () => {
+      await createTitle(e, {
+        titleId: "fmab",
+        title: "Fullmetal Alchemist",
+        genre: "action",
+        tags: ["shounen", "alchemy"]
+      });
+      await createTitle(e, {
+        titleId: "k-on",
+        title: "K-On!",
+        genre: "slice_of_life",
+        tags: ["music", "school"]
+      });
+    });
+
+    it("gets title by titleId", async () => {
+      const result = await getTitle(e, { titleId: "fmab" });
+      expect(result.title?.title).toBe("Fullmetal Alchemist");
+    });
+
+    it("lists titles and filters by genre", async () => {
+      const all = await listTitles(e, {});
+      expect(all.titles.length).toBeGreaterThanOrEqual(2);
+
+      const filtered = await listTitles(e, { genre: "action" });
+      expect(filtered.titles.length).toBe(1);
+      expect(filtered.titles[0]?.titleId).toBe("fmab");
+    });
+
+    it("searches titles by query", async () => {
+      const result = await searchTitles(e, { q: "K-On" });
+      expect(result.titles.length).toBe(1);
+      expect(result.titles[0]?.titleId).toBe("k-on");
     });
   });
 
@@ -138,7 +178,7 @@ describe("anime rw-free", () => {
     });
   });
 
-  describe("listEpisodes filter", () => {
+  describe("createSchedule, listSchedules, listEpisodes", () => {
     beforeEach(async () => {
       await createTitle(e, {
         titleId: "mha",
@@ -178,6 +218,29 @@ describe("anime rw-free", () => {
     it("respects limit parameter", async () => {
       const result = await listEpisodes(e, { seasonId: "mha-s1", limit: 1 });
       expect(result.episodes.length).toBeLessThanOrEqual(1);
+    });
+
+    it("creates a broadcast schedule", async () => {
+      const result = await createSchedule(e, {
+        scheduleId: "sched-1",
+        titleId: "mha",
+        channel: "TokyoMX",
+        startDate: "2016-04-03",
+        dayOfWeek: "sunday",
+      });
+      expect(result.status).toBe("registered");
+    });
+
+    it("lists schedules by titleId", async () => {
+      await createSchedule(e, {
+        scheduleId: "sched-2",
+        titleId: "mha",
+        channel: "BS11",
+        startDate: "2016-04-03",
+        dayOfWeek: "sunday",
+      });
+      const result = await listSchedules(e, { titleId: "mha" });
+      expect(result.schedules.length).toBe(1);
     });
   });
 });

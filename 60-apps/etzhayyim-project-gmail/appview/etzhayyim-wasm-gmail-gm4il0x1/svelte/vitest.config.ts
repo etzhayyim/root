@@ -8,6 +8,9 @@ export default defineConfig({
       deps: {
         inline: ["@etzhayyim/sdk-mock", "@noble/hashes"]
       }
+    },
+    coverage: {
+      include: ["../src/**/*.ts"]
     }
   }
 });

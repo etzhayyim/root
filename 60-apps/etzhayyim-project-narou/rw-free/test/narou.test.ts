@@ -2,10 +2,16 @@ import { describe, it, expect, beforeEach } from "vitest";
 import { MockEtzhayyim } from "@etzhayyim/sdk-mock";
 import {
   createNovel,
+  getNovel,
+  listNovels,
+  searchNovels,
   createChapter,
   generateChapter,
   publishChapter,
   listChapters,
+  getChapter,
+  createWorldSetting,
+  createCharacter,
 } from "../src/index.js";
 
 describe("narou rw-free", () => {
@@ -20,7 +26,40 @@ describe("narou rw-free", () => {
       await createNovel(e, {
         novel_id: "web-novel-1",
         title: "My Web Novel",
+        tags: "isekai, fantasy",
+        genre: "fantasy"
       });
+      await createNovel(e, {
+        novel_id: "web-novel-2",
+        title: "Sci-Fi Story",
+        tags: "space, future",
+        genre: "sci_fi"
+      });
+    });
+
+    it("gets novel by id", async () => {
+      const result = await getNovel(e, { id: "web-novel-1" });
+      expect(result.novel?.title).toBe("My Web Novel");
+    });
+
+    it("lists all novels and filters by genre", async () => {
+      const all = await listNovels(e, {});
+      expect(all.novels.length).toBeGreaterThanOrEqual(2);
+
+      const filtered = await listNovels(e, { genre: "fantasy" });
+      expect(filtered.novels.length).toBe(1);
+      expect(filtered.novels[0]?.title).toBe("My Web Novel");
+    });
+
+    it("searches novels by query", async () => {
+      const result = await searchNovels(e, { q: "Sci-Fi" });
+      expect(result.novels.length).toBe(1);
+      expect(result.novels[0]?.title).toBe("Sci-Fi Story");
+    });
+
+    it("searches novels by tag and query", async () => {
+      const result = await searchNovels(e, { q: "Web", tag: "isekai" });
+      expect(result.novels.length).toBe(1);
     });
 
     it("creates chapter under existing novel", async () => {
@@ -43,6 +82,60 @@ describe("narou rw-free", () => {
 
       expect(result.status).toBe("rejected");
       expect(result.error).toBe("novelNotFound");
+    });
+
+    it("gets chapter by id", async () => {
+      await createChapter(e, {
+        novel_id: "web-novel-1",
+        title: "Chapter 2",
+        chapter_num: 2,
+      });
+      const result = await getChapter(e, { id: "web-novel-1-ch2" });
+      expect(result.chapter?.title).toBe("Chapter 2");
+    });
+  });
+
+  describe("worldbuilding", () => {
+    beforeEach(async () => {
+      await createNovel(e, {
+        novel_id: "fantasy-1",
+        title: "Fantasy World",
+      });
+    });
+
+    it("creates a world setting", async () => {
+      const result = await createWorldSetting(e, {
+        novel_id: "fantasy-1",
+        name: "Kingdom of Magic",
+        description: "A very magical place."
+      });
+      expect(result.status).toBe("registered");
+    });
+
+    it("creates a character", async () => {
+      const result = await createCharacter(e, {
+        novel_id: "fantasy-1",
+        name: "Arthur",
+        role: "Protagonist",
+        description: "The main hero."
+      });
+      expect(result.status).toBe("registered");
+    });
+
+    it("rejects world setting for non-existent novel", async () => {
+      const result = await createWorldSetting(e, {
+        novel_id: "nonexistent",
+        name: "Void",
+      });
+      expect(result.status).toBe("rejected");
+    });
+
+    it("rejects character for non-existent novel", async () => {
+      const result = await createCharacter(e, {
+        novel_id: "nonexistent",
+        name: "Nobody",
+      });
+      expect(result.status).toBe("rejected");
     });
   });
 
