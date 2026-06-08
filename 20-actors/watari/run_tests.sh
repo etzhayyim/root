@@ -8,6 +8,7 @@ cd "$(dirname "$0")"
 SUITES=(
   "methods/test_analyze.py"
   "methods/test_ingest.py"
+  "methods/test_autorun.py"
 )
 
 fail=0

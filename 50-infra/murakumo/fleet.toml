@@ -84,6 +84,9 @@ cells = [
   "watatsuna_cable_ingest",     # 綿津綱 submarine-cable offline merged-graph intake (cron 23 * * * *) (ADR-2606012600; G7 live TeleGeography/AIS feed gated)
   "watatsuna_resilience_weave", # chokepoint-load + station degree/capacity + cable-diversity + redundancy-gap (cron 28 * * * *) (ADR-2606012600; G2 resilience not interdiction)
   "watatsuna_resilience_persist",  # 綿津綱 cable-resilience autonomous heartbeat → append-only kotoba Datom log (cron 33 * * * *) (ADR-2606012600; local persist, G7 live-node push gated)
+  "watari_craft_ingest",        # 渡り live moving-craft (AIS/ADS-B) offline merged-graph intake (cron 38 * * * *) (ADR-2606041827; G7 live feed gated)
+  "watari_situation_weave",     # latest-fix-per-craft + lane/corridor load + chokepoint transit + freshness tail (cron 43 * * * *) (ADR-2606041827; G2/G4 awareness not surveillance, no person-tracking)
+  "watari_situation_persist",   # 渡り moving-craft situational-awareness autonomous heartbeat → append-only kotoba Datom log (cron 48 * * * *) (ADR-2606041827; local persist, G7 gated; 動 sibling of watatsuna 静)
 ]
 infrastructure = ["ipfs-pinner (existing, ADR-2605171800)"]
 replicas_of = []
