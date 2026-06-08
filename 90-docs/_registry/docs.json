@@ -22775,6 +22775,34 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606081748-kotoba-bounded-rsi-build-deploy-contract.md",
+      "id": "adr-2606081748-kotoba-bounded-rsi-build-deploy-contract",
+      "title": "ADR-2606081748: Kotoba bounded RSI build/deploy contract",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "kotoba-bounded-rsi-build-deploy",
+      "authoritative": true,
+      "authoritative_for": [
+        "kotoba-rsi-build-deploy-contract",
+        "murakumo-modal-training-artifact-loop",
+        "token-bounded-self-modification"
+      ],
+      "related": [
+        "adr-2605232200",
+        "adr-2605191346",
+        "adr-2605182312"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606074000-kotoba-murakumo-reintegrated-into-kotoba-submodule",
+        "adr-2606074500-kotoba-py-siblings-engine-core-vs-actor-placement"
+      ],
+      "last_verified": "2026-06-08",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606081800-uchiwake-world-product-bom-gtin-kg.md",
       "id": "adr-2606081800",
       "title": "ADR-2606081800: uchiwake (内訳) — World Product Bill-of-Materials / GTIN Knowledge Graph Tier-B Actor R0",
