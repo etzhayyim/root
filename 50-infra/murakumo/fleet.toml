@@ -115,13 +115,14 @@ replicas_of = []
 name = "levi"
 hostname = "levinomac-mini.local"
 ip_lan = "192.168.1.16"
-role = "membership + council orchestration + kuni-umi-audit-leader + kaizen-observer + feed-post-membrane"
+role = "membership + council orchestration + kuni-umi-audit-leader + kaizen-observer + kaizen-pr-agent + feed-post-membrane"
 cells = [
   "AdherentAttestationCell",
   "CouncilLevelAdvancementCell",
   "CouncilDeliberationCell",  # generic, multi-instance per attestation
   "AuditWitnessCell",  # kuni-umi continuous robot-witness audit (ADR-2605201400 §9)
   "KaizenObserverCell",  # ecosystem self-reflection (ADR-2605240200)
+  "KaizenPrAgentCell",  # self-evolution actuator — drains observer.ndjson → PR/issue (ADR-2605240200 Wave 4)
   "FeedPostCell",  # kotoba-datomic §4 L3 verdict for app.bsky.feed.post (ADR-2605231400 SPEC §4)
 ]
 replicas_of = []
@@ -432,7 +433,30 @@ entry = "fire"
 actor_did = "did:web:etzhayyim.com:actor:kaizen-observer"
 proposal_path = "/var/lib/etzhayyim/kaizen-proposals/observer.ndjson"
 dedup_window_s = 7200  # 2 hours
-notes = "Emits KaizenProposal NDJSON. PR agent (Wave 4) opens GitHub PRs from the queue."
+notes = "Emits KaizenProposal NDJSON. PR agent (KaizenPrAgentCell) opens GitHub PRs from the queue."
+
+# ─── kaizen PR agent — the self-evolution ACTUATOR (Wave 4, ADR-2605240200) ──
+#
+# Resident counterpart to KaizenObserverCell. Co-located on levi (the proposal
+# queue is a node-local hostPath the observer writes). Drains observer.ndjson
+# via kaizen_pr_agent_main.serve_loop → consume_all, applies structured patches
+# to a checkout of github.com/etzhayyim/root, and opens PRs / issues — closing
+# the recursive self-evolution loop on the fleet.
+#
+# no-server-key (ADR-2605231525): GH_TOKEN is operator-injected + short-lived,
+# NOT a platform master key; dry_run default = drain+patch locally, no push.
+[cells.KaizenPrAgentCell]
+trigger = "resident"  # serve_loop polls; not a cron-fire
+interval_s = 600  # match observer cadence
+adr = ["2605240200", "2605240100", "2605240000", "2605231525"]
+module = "kotodama.organism.kaizen_pr_agent_main"
+entry = "serve_loop"
+actor_did = "did:web:etzhayyim.com:actor:kaizen-pr-agent"
+proposal_path = "/var/lib/etzhayyim/kaizen-proposals/observer.ndjson"
+repo_root = "/workspace/root"
+dry_run_default = true  # flip to false only on operator GH_TOKEN + repo-sync provisioning (Council Wave-4 enablement)
+k8s_manifest = "50-infra/k8s/unispsc-organism-fleet/kaizen-pr-agent/"
+notes = "Drains observer.ndjson → PR/issue. Co-located on levi. Operator-credentialed, no platform key; dry-run default."
 
 # ─── kuni-umi cells (ADR-2605201400) ────────────────────────────────
 
