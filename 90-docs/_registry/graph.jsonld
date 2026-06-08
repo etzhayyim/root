@@ -14614,6 +14614,26 @@
       "lastVerified": "2026-06-08"
     },
     {
+      "id": "doc:adr-2606082700",
+      "type": "TechArticle",
+      "title": "ADR-2606082700: uchiwake (内訳) — G7 Worldwide-Ingest Authorization Proposal (full GTIN / GS1 / GLEIF universe)",
+      "status": "proposed",
+      "topic": "uchiwake-g7-worldwide-ingest-authorization",
+      "authoritative": true,
+      "authoritativeFor": [
+        "uchiwake G7 live-ingest authorization request + phased rollout plan",
+        "data-source inventory + volume + license analysis for full product-BOM coverage",
+        "Charter Rider compliance analysis (G1 public-record, G9 no-PII, no-server-key) for bulk ingest"
+      ],
+      "related": [
+        "doc:adr-2606081800-uchiwake-world-product-bom-gtin-kg",
+        "doc:adr-2606022000-kabuto-public-company-supply-chain-kg",
+        "doc:adr-2606042330-entity-as-actor-society-scale-social-mirror",
+        "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "lastVerified": "2026-06-08"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
