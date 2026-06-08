@@ -454,9 +454,9 @@ entry = "serve_loop"
 actor_did = "did:web:etzhayyim.com:actor:kaizen-pr-agent"
 proposal_path = "/var/lib/etzhayyim/kaizen-proposals/observer.ndjson"
 repo_root = "/workspace/root"
-dry_run_default = true  # flip to false only on operator GH_TOKEN + repo-sync provisioning (Council Wave-4 enablement)
+dry_run_default = false  # Wave-4 ENABLED 2026-06-08 (Council Lv7+ unanimity); fails safe — absent GH_TOKEN Secret → auth-skip, no push
 k8s_manifest = "50-infra/k8s/unispsc-organism-fleet/kaizen-pr-agent/"
-notes = "Drains observer.ndjson → PR/issue. Co-located on levi. Operator-credentialed, no platform key; dry-run default."
+notes = "Drains observer.ndjson → PR/issue. Co-located on levi. Operator-credentialed, no platform key. Wave-4 enabled; repo-clone initContainer syncs etzhayyim/root each start."
 
 # ─── kuni-umi cells (ADR-2605201400) ────────────────────────────────
 
