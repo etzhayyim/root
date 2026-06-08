@@ -24,7 +24,7 @@
 // Cross-actor invocation:
 //   composeAndSend → roukisho.recordCommunication (when officeId given) via sdk.hostImports.invoke.
 
-import { cdnHead, cdnRead, cdnWrite } from "./cdn-b2";
+import { cdnHead, cdnRead, cdnWrite } from "./cdn-s3";
 import {
   asAgentTool,
   createWorkerExport,
