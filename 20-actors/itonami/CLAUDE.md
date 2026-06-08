@@ -54,11 +54,17 @@ observer to the existing build sim.
 python3 tests/test_analyze.py          # 10 tests — KPI engine, pure stdlib
 python3 tests/test_optimize.py         # 6 tests — R1 proposal engine
 python3 tests/test_inspect.py          # 7 tests — R2 vision hand-off
+python3 tests/test_ingest.py           # 10 tests — R3 SCADA/OT scan-cycle ingest
 python3 methods/analyze.py             # → out/operations-report.md
 python3 methods/datom_emit.py --tx 1   # → out/itonami-datoms.kotoba.edn
 python3 methods/optimize.py            # → out/optimization-proposals.md (+ proposal datoms)
 python3 methods/inspect.py             # → out/vision-inspection.md (+ inspect datoms)
+python3 methods/ingest.py              # kotoba-os scan stream → out/ingested-ticks.kotoba.edn
 ```
+
+End-to-end (gap-(3) loop): `ingest.py` (scan-cycle Datoms → ticks) → `analyze.py` (KPIs) →
+`optimize.py` / `inspect.py` (proposals + vision) — OT field data to operations intelligence
+on the canonical Datom log.
 
 ## Status / roadmap
 
@@ -72,6 +78,11 @@ python3 methods/inspect.py             # → out/vision-inspection.md (+ inspect
   no-biometric constraints) + reconcile manako detections → defect-class Pareto (root-cause
   hint) + scan-cycle scrap cross-check. Object-only — the inspected entity is a line PART,
   never a person (G2); inspection INFORMS, never auto-rejects (G1). 7 tests. ✅
-- **R3** — live scan-cycle ingest from a kotoba-os `plc-host-runner` Datom stream (G6/Council
-  gated); cross-check OEE against the sarutahiko produce sim; Murakumo-narrated daily ops
-  digest.
+- **R3 (landed)** — `methods/ingest.py`: SCADA/OT scan-cycle ingest. Parse a recorded
+  kotoba-os `plc-host-runner` Datom stream → EAVT fold → interval ticks (Wh→kWh, most-severe
+  state never hides a stop) that the rest of the pipeline consumes. OFFLINE replay only — the
+  live OT socket is gated by construction (G6); no PLC write-back (G1); a stream carrying a
+  person/worker attr is rejected (G2). 10 tests. ✅
+- **R4** — live scan-cycle socket (Modbus/OPC-UA/EtherCAT via kotoba-os device worlds, Council
+  + operator DID gated); cross-check OEE against the sarutahiko produce sim; Murakumo-narrated
+  daily ops digest; componentize-py WASM build + CID advertisement.

@@ -54,6 +54,14 @@
       "output": ["out/vision-inspection.md", "out/itonami-inspect.kotoba.edn"],
       "pipeline": "quality_target → manako inspection request (watch-classes, sample-rate, on-device/no-biometric constraints) + reconcile manako detections → defect-class Pareto + scan-cycle scrap cross-check → transient inspect datoms",
       "doc": "R2 vision-inspection hand-off (charter-clean form of the FOX 'vision-AI quality inspection' lever); object-only, never a person (manako ADR-2606034800); inspection INFORMS, never auto-rejects (G1)"
+    },
+    {
+      "id": "cell:itonami.ingest",
+      "method": "methods/ingest.py",
+      "input": "data/seed-scancycle-stream.kotoba.edn",
+      "output": ["out/ingested-ticks.kotoba.edn"],
+      "pipeline": "parse recorded kotoba-os scan-cycle [e a v tx op] datoms → EAVT fold to scan-report entities → aggregate by (station,t) into interval ticks (Wh→kWh, cycles=good+scrap, state=most-severe) → :tick/* EDN that analyze/optimize/inspect consume",
+      "doc": "R3 SCADA/OT scan-cycle ingest (charter-clean form of the FOX 'SCADA operating-data loop'); OFFLINE replay only — live OT socket is G6/Council-gated, no PLC write-back (G1), station/PLC scale rejects person attrs (G2)"
     }
   ],
   "gates": {
