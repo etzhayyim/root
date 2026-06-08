@@ -11,15 +11,6 @@ interface IERC1271 {
 }
 bytes4 constant ERC1271_MAGIC_VALUE = 0x1626ba7e;
 
-/// @notice TitheRouter (50-infra/etzhayyim-chain-contracts/src/TitheRouter.sol).
-///         route() pulls `gross` from msg.sender (this escrow) and splits
-///         90% recipient + 10% Public Fund Safe, atomic. purpose must be titheable.
-interface ITitheRouter {
-    function route(address recipient, uint256 grossAmount, bytes32 purpose)
-        external
-        returns (uint256 titheAmount, uint256 netAmount);
-}
-
 /// @notice Adherent SBT (50-infra/etzhayyim-membership-contract). Non-transferable
 ///         membership. balanceOf > 0 == covenant member.
 interface IAdherentSBT {
@@ -53,9 +44,10 @@ interface ICharterComplianceRegistry {
 ///                          → back to Pinned; emits RetainerEarned (reward is
 ///                          OFF-CHAIN social-capital + mKOTO, never paid here).
 ///           3b. slash    — proof window elapsed with no valid proof. bond is
-///                          routed to the COMMONS via TitheRouter (90% retainer
-///                          pool that funds honest pinners + 10% Public Fund).
-///                          NOTHING goes to a competing staker — no extraction game.
+///                          split to the COMMONS by direct single-token transfer
+///                          (90% retainer pool that funds honest pinners + 10%
+///                          Public Fund tithe). NOTHING goes to a competing
+///                          staker — no extraction game.
 ///           4. release   — after expiry, no open challenge → bond returned IN
 ///                          FULL. Never more than principal (anti-usury / Yobel).
 ///           5. yobelRelease — Shmita/Yobel cycle: owner/Yobel-registry force-
@@ -73,15 +65,17 @@ interface ICharterComplianceRegistry {
 ///         needed (no external callback on the success path).
 contract MishmarBondEscrow {
     // ── Immutable wiring ─────────────────────────────────────────────────────
-    IERC20  public immutable bondToken;     // GCC (same as ClaimStakeEscrow)
-    ITitheRouter public immutable tithe;    // commons router (slash destination)
+    IERC20  public immutable bondToken;     // GCC (same as ClaimStakeEscrow on geth-private)
     IAdherentSBT public immutable sbt;      // membership gate
     ICharterComplianceRegistry public immutable charters;
-    address public immutable retainerPool;  // commons pool funding honest pinners
-                                            // (slash recipient; 90/10 via TitheRouter)
+    address public immutable retainerPool;  // commons pool funding honest pinners (slash 90%)
+    address public immutable publicFund;    // Public Fund Safe (slash 10% tithe)
 
-    /// keccak256("storage-slash") — must be titheable in TitheRouter policy.
-    bytes32 public constant PURPOSE_STORAGE_SLASH = keccak256("storage-slash");
+    uint16 public constant BPS_DENOMINATOR = 10_000;
+    /// 10% of a slashed bond → Public Fund (tithe); 90% → retainer pool (commons).
+    /// Direct single-token split (GCC), NOT routed through the USDC-denominated
+    /// TitheRouter (which lives on Base L2) — mirrors ClaimStakeEscrow's gcc.transfer splits.
+    uint16 public constant SLASH_TITHE_BPS = 1_000;
 
     // ── Admin / policy ───────────────────────────────────────────────────────
     address public owner;
@@ -158,27 +152,26 @@ contract MishmarBondEscrow {
     error SignerNotWitness();
     error InvalidQuorumPolicy();
     error TransferFailed();
-    error ApproveFailed();
 
     modifier onlyOwner() { if (msg.sender != owner) revert NotOwner(); _; }
     modifier onlyWitness() { if (!isWitness[msg.sender]) revert NotWitness(); _; }
 
     constructor(
         IERC20 bondToken_,
-        ITitheRouter tithe_,
         IAdherentSBT sbt_,
         ICharterComplianceRegistry charters_,
         address retainerPool_,
+        address publicFund_,
         address owner_
     ) {
-        if (address(bondToken_) == address(0) || address(tithe_) == address(0)
+        if (address(bondToken_) == address(0)
             || address(sbt_) == address(0) || address(charters_) == address(0)
-            || retainerPool_ == address(0)) revert ZeroAddress();
+            || retainerPool_ == address(0) || publicFund_ == address(0)) revert ZeroAddress();
         bondToken = bondToken_;
-        tithe = tithe_;
         sbt = sbt_;
         charters = charters_;
         retainerPool = retainerPool_;
+        publicFund = publicFund_;
         owner = owner_ == address(0) ? msg.sender : owner_;
 
         quorumThreshold = 3;       // >=3-of-5 (ADR-2605231400)
@@ -284,8 +277,9 @@ contract MishmarBondEscrow {
     }
 
     /// @notice Slash a pin whose proof window elapsed with no valid proof.
-    ///         Permissionless. Bond → commons via TitheRouter (90% retainer
-    ///         pool + 10% Public Fund). No payout to any individual.
+    ///         Permissionless. Bond → commons (90% retainer pool + 10% Public
+    ///         Fund) by DIRECT single-token transfer. No payout to any individual
+    ///         / competing staker — there is no extraction game.
     function slash(bytes32 pinId) external {
         Pin storage p = _pins[pinId];
         if (p.state == State.None) revert PinNotFound();
@@ -294,12 +288,13 @@ contract MishmarBondEscrow {
         Chal storage ch = _chals[pinId];
         if (block.timestamp <= uint256(ch.postedAt) + uint256(proofWindow)) revert ProofWindowOpen();
 
-        p.state = State.Slashed;
+        p.state = State.Slashed; // CEI: state before external transfers
         uint256 bond = p.bond;
 
-        // approve + route (TitheRouter.route pulls from this escrow).
-        if (!bondToken.approve(address(tithe), bond)) revert ApproveFailed();
-        (uint256 toPublicFund, uint256 toRetainer) = tithe.route(retainerPool, bond, PURPOSE_STORAGE_SLASH);
+        uint256 toPublicFund = (bond * SLASH_TITHE_BPS) / BPS_DENOMINATOR; // 10% tithe
+        uint256 toRetainer = bond - toPublicFund;                          // 90% commons pool
+        if (toRetainer  > 0 && !bondToken.transfer(retainerPool, toRetainer)) revert TransferFailed();
+        if (toPublicFund > 0 && !bondToken.transfer(publicFund, toPublicFund)) revert TransferFailed();
 
         emit Slashed(pinId, bond, toRetainer, toPublicFund);
     }
