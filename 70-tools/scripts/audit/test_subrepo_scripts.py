@@ -48,7 +48,10 @@ SYMLINK_HEALTH_PERF_BUDGET_S = 2.0
 #   6. 60-apps/etzhayyim-project-os → etzhayyim/etzhayyim-project-os (404)
 #   7. 60-apps/etzhayyim-project-news → etzhayyimcojp/etzhayyim-apps-media (404)
 #   8. 60-apps/etzhayyim-project-activity-monitor/...-xgng091s → etzhayyimcojp/...-xgng091s (404)
-EXPECTED_STALE_URLS = 8
+# 2026-06-08 main merge: stale upstream count dropped 8 → 7 after one vendored
+# path was removed from the active tree. Keep the audit strict in both
+# directions: a count change means the subrepo set changed and must be reviewed.
+EXPECTED_STALE_URLS = 7
 # ESCAPE_SYMLINKS baseline dropped 18 → 0 (2026-05-31): the 18 escape
 # symlinks were all the `CHARTER-RIDER.md → ../../CHARTER-RIDER.md`
 # pattern inside the kotoba **git-subrepo** (1 root + 17 crates), a
@@ -99,7 +102,7 @@ class TestSubrepoUpstreamHealth:
 
     def test_strict_mode_exits_1_on_findings(self):
         rc, _, _ = _run_script(UPSTREAM_HEALTH, ["--strict"])
-        # 7 stale URLs > 0, so strict mode MUST fail.
+        # stale URLs > 0, so strict mode MUST fail.
         assert rc == 1, f"strict mode with {EXPECTED_STALE_URLS} findings should exit 1; got {rc}"
 
     def test_performance_budget(self):
