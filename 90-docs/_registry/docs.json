@@ -22775,6 +22775,41 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606081800-uchiwake-world-product-bom-gtin-kg.md",
+      "id": "adr-2606081800",
+      "title": "ADR-2606081800: uchiwake (内訳) — World Product Bill-of-Materials / GTIN Knowledge Graph Tier-B Actor R0",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "uchiwake-product-bom-gtin-knowledge-graph",
+      "authoritative": true,
+      "authoritative_for": [
+        "uchiwake actor charter (R0)",
+        "product bill-of-materials knowledge-graph constitutional gates G1..G12",
+        "product-bom-ontology.kotoba.edn vocabulary",
+        "GTIN normalization + GS1 mod-10 check-digit validation on ingest",
+        "subsidiary→ultimate-parent rollup (子会社) via GLEIF Level-2 RR ownership edges"
+      ],
+      "related": [
+        "adr-2606022000-kabuto-public-company-supply-chain-kg",
+        "adr-2606042330-entity-as-actor-society-scale-social-mirror",
+        "adr-2605312330-giemon-part-graph-sbom-kotoba"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606022000 (kabuto — shared org.corp.* company id space + resilience-not-target discipline)",
+        "ADR-2606042330 (entity-as-actor — UNSPSC 18,342-code commodity space reused here)",
+        "ADR-2605262130 (kotoba storage substrate)",
+        "ADR-2605312345 (kotoba Datom log = first-class canonical state)",
+        "ADR-2606013600 (kotoba-wasm browser node — the render target)",
+        "ADR-2606013800 (actor-profile SSoT + dynamic did.json — the registration path)",
+        "ADR-2605215000 (Murakumo-only inference)"
+      ],
+      "last_verified": "2026-06-08",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
