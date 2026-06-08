@@ -54,7 +54,7 @@
     "@changesets/pre": "^2.0.0",
     "@changesets/read": "^0.6.7",
     "@nomicfoundation/hardhat-chai-matchers": "^3.0.0",
-    "@nomicfoundation/hardhat-ethers": "^3.0.4",
+    "@nomicfoundation/hardhat-ethers": "^4.0.13",
     "@nomicfoundation/hardhat-network-helpers": "^1.0.3",
     "@openzeppelin/docs-utils": "^0.1.6",
     "@openzeppelin/merkle-tree": "^1.0.8",
