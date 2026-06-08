@@ -106,6 +106,33 @@ def test_emit_includes_throughput_datoms():
             assert ":derived]" in line and ":bond/is-transient true" in line, line
 
 
+def _build_with_history():
+    import trend
+    stations, ticks = load(OPS)
+    detections = vis.load_detections(DET)
+    history = trend.load_history(ACTOR_DIR / "data" / "seed-ops-history.kotoba.edn")
+    return digest.build_digest(stations, ticks, detections, history)
+
+
+def test_digest_without_history_has_no_drift():
+    """Backward-compatible: omitting history → no drift section (drift None)."""
+    d = _build()
+    assert d["drift"] is None
+    f = digest._facts(d)
+    assert f["drift_n"] == 0 and f["drift_top"] is None
+    # narration must not mention drift when there is no history
+    assert "drift" not in digest.fallback_narration(d).lower()
+
+
+def test_digest_with_history_surfaces_drift():
+    d = _build_with_history()
+    assert d["drift"] is not None and d["drift"]["n"] >= 1
+    assert d["drift"]["top"]["scope"] == ":st.cab-weld"  # worst relative regression
+    text = digest.fallback_narration(d)
+    assert "drift" in text.lower()
+    assert ":ops/digest-drift-count" in digest.emit(d, digest.narrate(d))
+
+
 def test_emit_transient_only():
     d = _build()
     out = digest.emit(d, digest.narrate(d), tx=9)

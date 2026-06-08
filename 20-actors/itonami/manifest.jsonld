@@ -66,9 +66,9 @@
     {
       "id": "cell:itonami.digest",
       "method": "methods/digest.py",
-      "input": ["data/seed-factory-ops.kotoba.edn", "data/seed-vision-detections.kotoba.edn"],
+      "input": ["data/seed-factory-ops.kotoba.edn", "data/seed-vision-detections.kotoba.edn", "data/seed-ops-history.kotoba.edn"],
       "output": ["out/daily-digest.md", "out/itonami-digest.kotoba.edn"],
-      "pipeline": "fuse analyze + optimize + inspect → one daily digest (line OEE, bottleneck, energy proposal, quality/vision) → Murakumo narration (LiteLLM loopback) with deterministic offline fallback → transient digest datoms",
+      "pipeline": "fuse analyze + optimize + inspect + plan (two-lens bottlenecks) + trend (multi-day drift, when history supplied) → one daily digest → Murakumo narration (LiteLLM loopback) with deterministic offline fallback → transient digest datoms",
       "doc": "R4 daily operations digest (charter-clean form of the FOX 'AI Factory Brain' daily report); Murakumo-only narration (G7, ADR-2605215000) — no external LLM, deterministic fallback when unreachable; recommends not actuates (G1), station-scale (G2)"
     },
     {

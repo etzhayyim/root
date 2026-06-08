@@ -108,6 +108,10 @@ on the canonical Datom log.
   via least-squares slope + polarity-aware direction {improving/flat/degrading} — catches a slow
   OEE decline / scrap creep before any single day alarms. Line/station scope only, no worker
   trajectory (G2); recommend-not-actuate (G1); directions transient (G3). 8 tests. ✅
-- **R8** — live scan-cycle socket (Modbus/OPC-UA/EtherCAT via kotoba-os device worlds, Council
+- **R8 (landed)** — `digest.py` folds in the R7 drift detector: when a daily-snapshot history
+  is supplied, the brief + narration surface multi-day drift (e.g. "N series degrading, worst is
+  cab-weld scrap +120%"), so a slow regression is flagged before any single day alarms.
+  Backward-compatible (no history → no drift section). +2 digest tests (62 total). ✅
+- **R9** — live scan-cycle socket (Modbus/OPC-UA/EtherCAT via kotoba-os device worlds, Council
   + operator DID gated); cross-check OEE against the sarutahiko produce sim; componentize-py
   WASM build + CID advertisement.

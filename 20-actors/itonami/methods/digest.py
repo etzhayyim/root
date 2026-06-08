@@ -29,6 +29,7 @@ from analyze import load, analyze  # noqa: E402
 import optimize  # noqa: E402
 import inspect as vis  # noqa: E402
 import plan as P  # noqa: E402
+import trend as T  # noqa: E402
 
 # Narration routes ONLY through the Murakumo fleet (ADR-2605215000). Fixed by construction.
 NARRATION_BACKEND = "murakumo"
@@ -39,7 +40,7 @@ def _label(stations, sid):
     return stations.get(sid, {}).get(":station/label", sid) if sid else "—"
 
 
-def build_digest(stations: dict, ticks: list, detections: list) -> dict:
+def build_digest(stations: dict, ticks: list, detections: list, history: list | None = None) -> dict:
     res = analyze(stations, ticks)
     opt = optimize.optimize(stations, ticks, res)
     req = vis.inspection_request(stations, res, detections)
@@ -47,6 +48,13 @@ def build_digest(stations: dict, ticks: list, detections: list) -> dict:
     qtarget = req["station"]
     tplan = P.line_plan(stations, res)
     trelief = P.relief_plan(stations, res, tplan)
+    # optional multi-day drift (R8): if a snapshot history is supplied, surface degrading series
+    drift = None
+    if history:
+        regs = T.regressions(T.analyze_trends(history))
+        drift = {"n": len(regs),
+                 "top": ({"scope": regs[0][0], "kpi": regs[0][1].split('/')[-1],
+                          "rel_change": regs[0][2]} if regs else None)}
     return {
         "line": res["_line"],
         "recommend": res["_recommend"],
@@ -65,6 +73,7 @@ def build_digest(stations: dict, ticks: list, detections: list) -> dict:
             "units_per_day_good": tplan["units_per_day_good"],
             "uplift_frac": trelief["uplift_frac"],
         },
+        "drift": drift,
         "_stations": stations,
     }
 
@@ -83,6 +92,8 @@ def _facts(d: dict) -> dict:
         "units_per_day": d["throughput"]["units_per_day_good"],
         "throughput_uplift": d["throughput"]["uplift_frac"],
         "two_lens": d["throughput"]["label"] != _facts_bottleneck(d),
+        "drift_n": (d["drift"]["n"] if d.get("drift") else 0),
+        "drift_top": (d["drift"]["top"] if d.get("drift") else None),
     }
 
 
@@ -104,6 +115,9 @@ def narration_prompt(d: dict) -> str:
         f"- energy: powering down idle windows recovers ~{f['energy_reduction']:.1%} of line energy\n"
         f"- quality: {f['quality_label']} scrap {f['scrap_rate']:.1%}, "
         f"top defect {f['top_defect']} (route to vision inspection)\n"
+        + (f"- multi-day drift: {f['drift_n']} degrading series; worst "
+           f"{f['drift_top']['scope']} {f['drift_top']['kpi']} {f['drift_top']['rel_change']:+.1%}\n"
+           if f["drift_top"] else "")
     )
 
 
@@ -121,6 +135,9 @@ def fallback_narration(d: dict) -> str:
         f"Powering down idle windows could recover roughly {f['energy_reduction']:.1%} of line "
         f"energy. Quality attention: {f['quality_label']} at {f['scrap_rate']:.1%} scrap "
         f"(top defect {f['top_defect']}) — route to vision inspection."
+        + (f" Multi-day drift: {f['drift_n']} series degrading, worst is {f['drift_top']['scope']} "
+           f"{f['drift_top']['kpi']} ({f['drift_top']['rel_change']:+.1%}) — investigate the trend."
+           if f["drift_top"] else "")
     )
 
 
@@ -156,6 +173,9 @@ def report_md(d: dict, narration: dict) -> str:
     L.append(f"| energy reduction (idle power-down) | {f['energy_reduction']:.1%} |")
     L.append(f"| quality target | {f['quality_label']} · scrap {f['scrap_rate']:.1%} · "
              f"top defect {f['top_defect']} |")
+    if f["drift_top"]:
+        L.append(f"| multi-day drift | {f['drift_n']} degrading · worst {f['drift_top']['scope']} "
+                 f"{f['drift_top']['kpi']} {f['drift_top']['rel_change']:+.1%} |")
     L.append("\n---\n_itonami 営み R4 · ADR-2606082300 · Murakumo-only narration · "
              "recommends-not-actuates · station-scale._\n")
     return "\n".join(L)
@@ -169,6 +189,8 @@ def emit(d: dict, narration: dict, tx: int = 1) -> str:
     L.append(f"[:line.sarutahiko-a :ops/digest-energy-reduction {f['energy_reduction']:g} {tx} :derived] ;; :bond/is-transient true")
     L.append(f"[:line.sarutahiko-a :ops/digest-throughput-bottleneck {d['throughput']['bottleneck']} {tx} :derived] ;; :bond/is-transient true")
     L.append(f"[:line.sarutahiko-a :ops/digest-units-per-day {f['units_per_day']:g} {tx} :derived] ;; :bond/is-transient true")
+    if f["drift_top"] is not None:
+        L.append(f"[:line.sarutahiko-a :ops/digest-drift-count {f['drift_n']} {tx} :derived] ;; :bond/is-transient true")
     L.append(f"[:line.sarutahiko-a :ops/digest-narration-backend :{narration['backend'].replace('-', '.')} {tx} :derived] ;; :bond/is-transient true")
     L.append("]")
     return "\n".join(L) + "\n"
@@ -180,6 +202,8 @@ def main(argv):
         else here / "data" / "seed-factory-ops.kotoba.edn"
     det_path = pathlib.Path(argv[argv.index("--detections") + 1]) if "--detections" in argv \
         else here / "data" / "seed-vision-detections.kotoba.edn"
+    hist_path = pathlib.Path(argv[argv.index("--history") + 1]) if "--history" in argv \
+        else here / "data" / "seed-ops-history.kotoba.edn"
     outdir = here / "out"
     if "--out" in argv:
         outdir = pathlib.Path(argv[argv.index("--out") + 1])
@@ -188,7 +212,8 @@ def main(argv):
 
     stations, ticks = load(seed)
     detections = vis.load_detections(det_path)
-    d = build_digest(stations, ticks, detections)
+    history = T.load_history(hist_path) if hist_path.exists() else None
+    d = build_digest(stations, ticks, detections, history)
     narration = narrate(d)  # R4: no Murakumo caller wired → deterministic fallback
     (outdir / "daily-digest.md").write_text(report_md(d, narration), encoding="utf-8")
     (outdir / "itonami-digest.kotoba.edn").write_text(emit(d, narration, tx), encoding="utf-8")
