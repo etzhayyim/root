@@ -56,12 +56,14 @@ python3 tests/test_optimize.py         # 6 tests — R1 proposal engine
 python3 tests/test_inspect.py          # 7 tests — R2 vision hand-off
 python3 tests/test_ingest.py           # 10 tests — R3 SCADA/OT scan-cycle ingest
 python3 tests/test_digest.py           # 8 tests — R4 daily digest + Murakumo narration
+python3 tests/test_plan.py             # 8 tests — R5 throughput / line-balance plan
 python3 methods/analyze.py             # → out/operations-report.md
 python3 methods/datom_emit.py --tx 1   # → out/itonami-datoms.kotoba.edn
 python3 methods/optimize.py            # → out/optimization-proposals.md (+ proposal datoms)
 python3 methods/inspect.py             # → out/vision-inspection.md (+ inspect datoms)
 python3 methods/ingest.py              # kotoba-os scan stream → out/ingested-ticks.kotoba.edn
 python3 methods/digest.py              # → out/daily-digest.md (Murakumo-narrated, G7)
+python3 methods/plan.py                # → out/throughput-plan.md (units/day + relief)
 ```
 
 End-to-end (gap-(3) loop): `ingest.py` (scan-cycle Datoms → ticks) → `analyze.py` (KPIs) →
@@ -90,6 +92,11 @@ on the canonical Datom log.
   routes only through the Murakumo LiteLLM loopback; deterministic offline fallback when
   unreachable, never an external LLM). Recommends not actuates (G1), station-scale (G2),
   transient datoms (G3). 8 tests. ✅
-- **R5** — live scan-cycle socket (Modbus/OPC-UA/EtherCAT via kotoba-os device worlds, Council
-  + operator DID gated); cross-check OEE against the sarutahiko produce sim; componentize-py
-  WASM build + CID advertisement.
+- **R5 (landed)** — `methods/plan.py`: throughput / line-balance plan. Per-station takt-capacity
+  (uptime÷takt) → line throughput bottleneck (paint), which is DISTINCT from the OEE bottleneck
+  (frame-weld) — the useful two-lens insight → units/day (documented operating-hours) +
+  availability-recovery relief (+50% on the seed). Relief is within takt (G2), plan-not-actuate
+  (G1), documented hours (G5). 8 tests. ✅
+- **R6** — fold the throughput two-lens insight into the digest; live scan-cycle socket
+  (Modbus/OPC-UA/EtherCAT via kotoba-os device worlds, Council + operator DID gated);
+  cross-check OEE against the sarutahiko produce sim; componentize-py WASM build + CID.

@@ -70,6 +70,14 @@
       "output": ["out/daily-digest.md", "out/itonami-digest.kotoba.edn"],
       "pipeline": "fuse analyze + optimize + inspect → one daily digest (line OEE, bottleneck, energy proposal, quality/vision) → Murakumo narration (LiteLLM loopback) with deterministic offline fallback → transient digest datoms",
       "doc": "R4 daily operations digest (charter-clean form of the FOX 'AI Factory Brain' daily report); Murakumo-only narration (G7, ADR-2605215000) — no external LLM, deterministic fallback when unreachable; recommends not actuates (G1), station-scale (G2)"
+    },
+    {
+      "id": "cell:itonami.plan",
+      "method": "methods/plan.py",
+      "input": "data/seed-factory-ops.kotoba.edn",
+      "output": ["out/throughput-plan.md", "out/itonami-plan.kotoba.edn"],
+      "pipeline": "per-station takt-capacity (uptime÷takt) → line throughput bottleneck (distinct from the OEE bottleneck) → units/day (documented operating-hours) → availability-recovery relief plan with quantified uplift",
+      "doc": "R5 throughput / line-balance plan; translates OEE into units/day through the takt-capacity lens (the throughput-worst station often differs from the OEE-worst); relief is availability recovery within takt (G2), plan-not-actuate (G1), documented hours (G5)"
     }
   ],
   "gates": {
