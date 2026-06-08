@@ -210,7 +210,7 @@ schema/enums match each live vendor API field-for-field. To avoid overclaiming,
 that distinct axis is named **L5 (Verified)**: an actor reaches L5 only when its
 Kotoba schema + endpoint contract are reconciled against the platform's official
 API documentation (field names, types, enums, required-ness, error codes) via the
-Autonomous Reverse-Engineering Loop, with provenance recorded. **L5 count today: 31** — 22 fully verified + 9 partial; verified via official docs OR official SDK source (notion-sdk-js, xero-node, databricks-sdk-py, dropbox Stone). DEFERRED honestly (stay L4, never fabricated): coinbase, asana, docusign, calendly, gusto, atlassian, servicenow, hubspot (docs JS-rendered + GitHub timeouts — agent declined to certify from training knowledge).
+Autonomous Reverse-Engineering Loop, with provenance recorded. **L5 count today: 34** — 24 fully verified + 10 partial. NEW: deferred actors RECOVERED via their official OpenAPI specs / SDK source (asana via Asana OpenAPI, coinbase via coinbase-advanced-py, hubspot Contact+Pipeline via the HubSpot public spec) — the same authoritative-fallback that worked for notion/xero/databricks/dropbox. STILL DEFERRED (5, never fabricated): docusign, calendly, gusto, atlassian/jira, servicenow (docs JS-rendered/blocked and no public spec located yet).
 implementation" (achieved corpus-wide); L5 = "verified against the real API"
 (the next, doc-gated tier).
 

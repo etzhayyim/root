@@ -3,74 +3,71 @@
 
 namespace coinbase {
 
-    entity Account {
-        id: string @unique
-        holderId: string
-        currency: string
-        balance: float
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Card {
-        id: string @unique
-        accountId: string
-        last4: string
-        network: string
-        state: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Transaction {
-        id: string @unique
-        accountId: string
-        amount: float
-        currency: string
-        type: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
     entity Order {
         id: string @unique
-        symbol: string
+        orderId: string
+        productId: string
         side: string
-        quantity: float
-        price: float
+        status: string
+        clientOrderId: string
+        orderType: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Fill {
+        id: string @unique
+        entryId: string
+        tradeId: string
+        orderId: string
+        price: string
+        size: string
+        productId: string
+        side: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Account {
+        id: string @unique
+        uuid: string
+        name: string
+        currency: string
+        default: boolean
+        active: boolean
+        type: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Product {
+        id: string @unique
+        productId: string
+        price: string
+        volume24h: string
+        productType: string
         status: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Wallet {
+    entity Portfolio {
         id: string @unique
-        address: string
-        chain: string
-        balance: float
+        uuid: string
+        name: string
+        type: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Ledger {
+    entity PortfolioPosition {
         id: string @unique
-        accountId: string
-        debit: float
-        credit: float
-        memo: string
+        asset: string
+        totalBalanceFiat: float
+        totalBalanceCrypto: float
+        allocation: float
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

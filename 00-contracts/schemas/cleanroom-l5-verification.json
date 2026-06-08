@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 31,
+  "count": 34,
   "actors": [
     {
       "handle": "square-compat",
@@ -4077,6 +4077,357 @@
       ],
       "notApplicable": [],
       "note": "PARTIAL (1/5): Meeting verified vs official Zoom docs; Webinar/Recording/Registrant/User endpoints 404'd/inferred -> DEFERRED. Enforced enums: Meeting.status."
+    },
+    {
+      "handle": "asana-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/Asana/openapi/master/defs/asana_oas.yaml",
+      "remodeled": "RECOVERED from full-defer: remodeled from generic archetype to a faithful Asana model, verified against the official Asana OpenAPI spec.",
+      "resources": [
+        {
+          "entity": "Task",
+          "source": "https://raw.githubusercontent.com/Asana/openapi/master/defs/asana_oas.yaml",
+          "verifiedFields": [
+            "name",
+            "resourceSubtype",
+            "completed",
+            "completedAt",
+            "createdAt",
+            "approvalStatus",
+            "dueAt"
+          ],
+          "fieldStatus": "confirmed (resource_subtype, approval_status, completed_at)",
+          "discoveredEnums": {
+            "resourceSubtype": [
+              "default_task",
+              "milestone",
+              "approval",
+              "custom"
+            ],
+            "approvalStatus": [
+              "pending",
+              "approved",
+              "rejected",
+              "changes_requested"
+            ]
+          },
+          "gaps": [
+            "assignee",
+            "projects",
+            "custom_fields"
+          ]
+        },
+        {
+          "entity": "Project",
+          "source": "https://raw.githubusercontent.com/Asana/openapi/master/defs/asana_oas.yaml",
+          "verifiedFields": [
+            "name",
+            "archived",
+            "color",
+            "completed",
+            "defaultView"
+          ],
+          "fieldStatus": "confirmed (default_view)",
+          "discoveredEnums": {
+            "defaultView": [
+              "list",
+              "board",
+              "calendar",
+              "timeline"
+            ],
+            "color": [
+              "dark-pink",
+              "dark-green",
+              "dark-blue",
+              "dark-red",
+              "dark-teal",
+              "dark-brown",
+              "dark-orange",
+              "dark-purple",
+              "dark-warm-gray",
+              "light-pink",
+              "light-green",
+              "light-blue",
+              "light-red",
+              "light-teal",
+              "light-brown",
+              "light-orange",
+              "light-purple",
+              "light-warm-gray",
+              "none"
+            ]
+          },
+          "gaps": [
+            "owner",
+            "team",
+            "workspace"
+          ]
+        },
+        {
+          "entity": "Section",
+          "source": "https://raw.githubusercontent.com/Asana/openapi/master/defs/asana_oas.yaml",
+          "verifiedFields": [
+            "name",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "project"
+          ]
+        },
+        {
+          "entity": "User",
+          "source": "https://raw.githubusercontent.com/Asana/openapi/master/defs/asana_oas.yaml",
+          "verifiedFields": [
+            "name",
+            "email"
+          ],
+          "fieldStatus": "confirmed (read-only email)",
+          "discoveredEnums": {},
+          "gaps": [
+            "photo",
+            "workspaces"
+          ]
+        },
+        {
+          "entity": "Tag",
+          "source": "https://raw.githubusercontent.com/Asana/openapi/master/defs/asana_oas.yaml",
+          "verifiedFields": [
+            "name",
+            "color",
+            "notes"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "color": [
+              "dark-pink",
+              "dark-green",
+              "dark-blue",
+              "dark-red",
+              "dark-teal",
+              "dark-brown",
+              "dark-orange",
+              "dark-purple",
+              "dark-warm-gray",
+              "light-pink",
+              "light-green",
+              "light-blue",
+              "light-red",
+              "light-teal",
+              "light-brown",
+              "light-orange",
+              "light-purple",
+              "light-warm-gray"
+            ]
+          },
+          "gaps": [
+            "followers",
+            "workspace"
+          ]
+        },
+        {
+          "entity": "Workspace",
+          "source": "https://raw.githubusercontent.com/Asana/openapi/master/defs/asana_oas.yaml",
+          "verifiedFields": [
+            "name",
+            "isOrganization"
+          ],
+          "fieldStatus": "confirmed (is_organization)",
+          "discoveredEnums": {},
+          "gaps": [
+            "email_domains"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official Asana OpenAPI spec. Enforced enums: Task.resourceSubtype, Task.approvalStatus, Project.defaultView, Project.color, Tag.color (5)."
+    },
+    {
+      "handle": "coinbase-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://github.com/coinbase/coinbase-advanced-py",
+      "remodeled": "RECOVERED from full-defer: remodeled to a faithful Coinbase Advanced Trade model, verified against the official coinbase-advanced-py SDK types. Numeric values are strings per the SDK.",
+      "resources": [
+        {
+          "entity": "Order",
+          "source": "https://raw.githubusercontent.com/coinbase/coinbase-advanced-py/master/coinbase/rest/types/orders_types.py",
+          "verifiedFields": [
+            "orderId",
+            "productId",
+            "side",
+            "status",
+            "clientOrderId",
+            "orderType"
+          ],
+          "fieldStatus": "confirmed; status/orderType accepted as strings (not enumerated in SDK -> not enforced)",
+          "discoveredEnums": {
+            "side": [
+              "BUY",
+              "SELL"
+            ]
+          },
+          "gaps": [
+            "status-enum (not explicit)",
+            "orderType-enum (not explicit)"
+          ]
+        },
+        {
+          "entity": "Fill",
+          "source": "https://raw.githubusercontent.com/coinbase/coinbase-advanced-py/master/coinbase/rest/types/orders_types.py",
+          "verifiedFields": [
+            "entryId",
+            "tradeId",
+            "orderId",
+            "price",
+            "size",
+            "productId",
+            "side"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "side": [
+              "BUY",
+              "SELL"
+            ]
+          },
+          "gaps": [
+            "commission",
+            "liquidity_indicator"
+          ]
+        },
+        {
+          "entity": "Account",
+          "source": "https://raw.githubusercontent.com/coinbase/coinbase-advanced-py/master/coinbase/rest/types/accounts_types.py",
+          "verifiedFields": [
+            "uuid",
+            "name",
+            "currency",
+            "default",
+            "active",
+            "type"
+          ],
+          "fieldStatus": "confirmed; type not explicitly enumerated",
+          "discoveredEnums": {},
+          "gaps": [
+            "available_balance",
+            "hold",
+            "type-enum (not explicit)"
+          ]
+        },
+        {
+          "entity": "Product",
+          "source": "https://raw.githubusercontent.com/coinbase/coinbase-advanced-py/master/coinbase/rest/types/product_types.py",
+          "verifiedFields": [
+            "productId",
+            "price",
+            "volume24h",
+            "productType",
+            "status"
+          ],
+          "fieldStatus": "confirmed (product_id, volume_24h); productType/status not enumerated",
+          "discoveredEnums": {},
+          "gaps": [
+            "productType-enum (SPOT/FUTURE not explicit)",
+            "quote_currency_id"
+          ]
+        },
+        {
+          "entity": "Portfolio",
+          "source": "https://raw.githubusercontent.com/coinbase/coinbase-advanced-py/master/coinbase/rest/types/portfolios_types.py",
+          "verifiedFields": [
+            "uuid",
+            "name",
+            "type"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "deleted"
+          ]
+        },
+        {
+          "entity": "PortfolioPosition",
+          "source": "https://raw.githubusercontent.com/coinbase/coinbase-advanced-py/master/coinbase/rest/types/portfolios_types.py",
+          "verifiedFields": [
+            "asset",
+            "totalBalanceFiat",
+            "totalBalanceCrypto",
+            "allocation"
+          ],
+          "fieldStatus": "confirmed (float balances/allocation)",
+          "discoveredEnums": {},
+          "gaps": [
+            "account_uuid",
+            "leverage"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official Coinbase SDK. Enforced enums: Order.side, Fill.side (2). status/type fields are SDK strings, intentionally NOT enforced."
+    },
+    {
+      "handle": "hubspot-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://github.com/HubSpot/HubSpot-public-api-spec-collection/tree/master/PublicApiSpecs/CRM",
+      "remodeled": "RECOVERED from full-defer (partial): Contact + Pipeline confirmed from the official HubSpot public OpenAPI spec; HubSpot's other CRM objects use a generic property system, so their standard properties are modeled but not confirmed this fetch.",
+      "resources": [
+        {
+          "entity": "Contact",
+          "source": "https://github.com/HubSpot/HubSpot-public-api-spec-collection/tree/master/PublicApiSpecs/CRM/Contacts",
+          "verifiedFields": [
+            "email",
+            "firstname",
+            "lastname",
+            "company",
+            "phone",
+            "website"
+          ],
+          "fieldStatus": "confirmed from the official spec example (default contact properties)",
+          "discoveredEnums": {},
+          "gaps": [
+            "lifecyclestage (configurable, not a fixed enum)",
+            "createdate",
+            "hs_object_id"
+          ]
+        },
+        {
+          "entity": "Pipeline",
+          "source": "https://github.com/HubSpot/HubSpot-public-api-spec-collection/tree/master/PublicApiSpecs/CRM/Pipelines",
+          "verifiedFields": [
+            "label",
+            "displayOrder"
+          ],
+          "fieldStatus": "confirmed (display_order)",
+          "discoveredEnums": {},
+          "gaps": [
+            "stages",
+            "id"
+          ]
+        }
+      ],
+      "notApplicable": [
+        {
+          "entity": "Company",
+          "reason": "HubSpot exposes a generic property system; standard Company props modeled but not confirmed in this spec fetch."
+        },
+        {
+          "entity": "Deal",
+          "reason": "dealstage is a configurable pipeline stage (not a fixed enum); standard props modeled, not confirmed this fetch."
+        },
+        {
+          "entity": "Ticket",
+          "reason": "hs_ticket_priority/hs_pipeline_stage not confirmed in this spec fetch; modeled standard, not enforced."
+        },
+        {
+          "entity": "LineItem",
+          "reason": "standard props modeled, not confirmed this spec fetch."
+        }
+      ],
+      "note": "PARTIAL (2/6 doc-confirmed: Contact + Pipeline). HubSpot's generic property system means the other CRM objects' fixed schemas aren't published; modeled with standard props but not certified. No enforced enums (HubSpot stages are configurable)."
     }
   ]
 }

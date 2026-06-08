@@ -992,12 +992,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Workspace",
-        "Document",
-        "Folder",
-        "Comment",
-        "Permission",
-        "User"
+        "Task",
+        "Project",
+        "Section",
+        "User",
+        "Tag",
+        "Workspace"
       ]
     },
     {
@@ -3254,12 +3254,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Account",
-        "Card",
-        "Transaction",
         "Order",
-        "Wallet",
-        "Ledger"
+        "Fill",
+        "Account",
+        "Product",
+        "Portfolio",
+        "PortfolioPosition"
       ]
     },
     {
@@ -7197,11 +7197,11 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Account",
         "Contact",
-        "Lead",
-        "Opportunity",
-        "Activity",
+        "Company",
+        "Deal",
+        "Ticket",
+        "LineItem",
         "Pipeline"
       ]
     },

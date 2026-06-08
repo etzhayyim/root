@@ -1116,6 +1116,36 @@ PLATFORM_OVERRIDES = {
         "Registrant": E(email="string", firstName="string", lastName="string", status="string"),
         "User": E(email="string", firstName="string", lastName="string", type="integer", status="string"),
     },
+    # Faithful Asana model (recovered from the official Asana OpenAPI spec), L5.
+    "asana": {
+        "Task": E(name="string", resourceSubtype="string", completed="boolean", completedAt="datetime", createdAt="datetime", approvalStatus="string", dueAt="datetime"),
+        "Project": E(name="string", archived="boolean", color="string", completed="boolean", defaultView="string"),
+        "Section": E(name="string", createdAt="datetime"),
+        "User": E(name="string", email="string"),
+        "Tag": E(name="string", color="string", notes="string"),
+        "Workspace": E(name="string", isOrganization="boolean"),
+    },
+    # Faithful Coinbase Advanced Trade model (recovered from coinbase-advanced-py
+    # SDK), L5. Numeric values are strings per the SDK contract.
+    "coinbase": {
+        "Order": E(orderId="string", productId="string", side="string", status="string", clientOrderId="string", orderType="string"),
+        "Fill": E(entryId="string", tradeId="string", orderId="string", price="string", size="string", productId="string", side="string"),
+        "Account": E(uuid="string", name="string", currency="string", default="boolean", active="boolean", type="string"),
+        "Product": E(productId="string", price="string", volume24h="string", productType="string", status="string"),
+        "Portfolio": E(uuid="string", name="string", type="string"),
+        "PortfolioPosition": E(asset="string", totalBalanceFiat="float", totalBalanceCrypto="float", allocation="float"),
+    },
+    # Faithful HubSpot CRM model (recovered from the official public OpenAPI
+    # spec). Contact + Pipeline doc-confirmed; the other objects use HubSpot's
+    # generic property system (standard props, not confirmed this fetch).
+    "hubspot": {
+        "Contact": E(email="string", firstname="string", lastname="string", company="string", phone="string", website="string"),
+        "Company": E(name="string", domain="string", industry="string"),
+        "Deal": E(dealname="string", dealstage="string", amount="float", pipeline="string"),
+        "Ticket": E(subject="string", hsTicketPriority="string", hsPipelineStage="string"),
+        "LineItem": E(name="string", quantity="integer", price="float"),
+        "Pipeline": E(label="string", displayOrder="integer"),
+    },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).
     "square": {

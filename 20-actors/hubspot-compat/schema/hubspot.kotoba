@@ -3,77 +3,61 @@
 
 namespace hubspot {
 
-    entity Account {
+    entity Contact {
+        id: string @unique
+        email: string
+        firstname: string
+        lastname: string
+        company: string
+        phone: string
+        website: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Company {
         id: string @unique
         name: string
         domain: string
         industry: string
-        ownerId: string
-        annualRevenue: float
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Contact {
+    entity Deal {
         id: string @unique
-        accountId: string
-        firstName: string
-        lastName: string
-        email: string
-        phone: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Lead {
-        id: string @unique
-        company: string
-        email: string
-        status: string
-        source: string
-        score: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Opportunity {
-        id: string @unique
-        accountId: string
-        name: string
-        stage: string
+        dealname: string
+        dealstage: string
         amount: float
-        closeDate: datetime
+        pipeline: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Activity {
+    entity Ticket {
         id: string @unique
-        subjectId: string
-        type: string
         subject: string
-        dueDate: datetime
-        done: boolean
+        hsTicketPriority: string
+        hsPipelineStage: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity LineItem {
+        id: string @unique
+        name: string
+        quantity: integer
+        price: float
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Pipeline {
         id: string @unique
-        name: string
-        stageOrder: string
-        ownerId: string
+        label: string
+        displayOrder: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreiak7kavtyeq5xkwjiiaeanuue2vs4qcwfycmbencftisuw5fqllci",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,191 +17,6 @@
     }
   ],
   "paths": {
-    "/v1/accounts": {
-      "get": {
-        "summary": "List Accounts",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Account"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Account",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AccountCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Account"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/accounts/{id}": {
-      "get": {
-        "summary": "Get a Account",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Account"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Account",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AccountCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Account"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Account",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
     "/v1/contacts": {
       "get": {
         "summary": "List Contacts",
@@ -387,9 +202,9 @@
         }
       }
     },
-    "/v1/leads": {
+    "/v1/companies": {
       "get": {
-        "summary": "List Leads",
+        "summary": "List Companies",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Lead"
+                        "$ref": "#/components/schemas/Company"
                       }
                     },
                     "has_more": {
@@ -449,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Lead",
+        "summary": "Create a Company",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LeadCreate"
+                "$ref": "#/components/schemas/CompanyCreate"
               }
             }
           }
@@ -466,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Lead"
+                  "$ref": "#/components/schemas/Company"
                 }
               }
             }
@@ -477,9 +292,9 @@
         }
       }
     },
-    "/v1/leads/{id}": {
+    "/v1/companies/{id}": {
       "get": {
-        "summary": "Get a Lead",
+        "summary": "Get a Company",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Lead"
+                  "$ref": "#/components/schemas/Company"
                 }
               }
             }
@@ -514,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Lead",
+        "summary": "Update a Company",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LeadCreate"
+                "$ref": "#/components/schemas/CompanyCreate"
               }
             }
           }
@@ -540,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Lead"
+                  "$ref": "#/components/schemas/Company"
                 }
               }
             }
@@ -551,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Lead",
+        "summary": "Delete a Company",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +387,9 @@
         }
       }
     },
-    "/v1/opportunities": {
+    "/v1/deals": {
       "get": {
-        "summary": "List Opportunities",
+        "summary": "List Deals",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Opportunity"
+                        "$ref": "#/components/schemas/Deal"
                       }
                     },
                     "has_more": {
@@ -634,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Opportunity",
+        "summary": "Create a Deal",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/OpportunityCreate"
+                "$ref": "#/components/schemas/DealCreate"
               }
             }
           }
@@ -651,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Opportunity"
+                  "$ref": "#/components/schemas/Deal"
                 }
               }
             }
@@ -662,9 +477,9 @@
         }
       }
     },
-    "/v1/opportunities/{id}": {
+    "/v1/deals/{id}": {
       "get": {
-        "summary": "Get a Opportunity",
+        "summary": "Get a Deal",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Opportunity"
+                  "$ref": "#/components/schemas/Deal"
                 }
               }
             }
@@ -699,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Opportunity",
+        "summary": "Update a Deal",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/OpportunityCreate"
+                "$ref": "#/components/schemas/DealCreate"
               }
             }
           }
@@ -725,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Opportunity"
+                  "$ref": "#/components/schemas/Deal"
                 }
               }
             }
@@ -736,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Opportunity",
+        "summary": "Delete a Deal",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +572,9 @@
         }
       }
     },
-    "/v1/activities": {
+    "/v1/tickets": {
       "get": {
-        "summary": "List Activities",
+        "summary": "List Tickets",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Activity"
+                        "$ref": "#/components/schemas/Ticket"
                       }
                     },
                     "has_more": {
@@ -819,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Activity",
+        "summary": "Create a Ticket",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ActivityCreate"
+                "$ref": "#/components/schemas/TicketCreate"
               }
             }
           }
@@ -836,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Activity"
+                  "$ref": "#/components/schemas/Ticket"
                 }
               }
             }
@@ -847,9 +662,9 @@
         }
       }
     },
-    "/v1/activities/{id}": {
+    "/v1/tickets/{id}": {
       "get": {
-        "summary": "Get a Activity",
+        "summary": "Get a Ticket",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Activity"
+                  "$ref": "#/components/schemas/Ticket"
                 }
               }
             }
@@ -884,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Activity",
+        "summary": "Update a Ticket",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ActivityCreate"
+                "$ref": "#/components/schemas/TicketCreate"
               }
             }
           }
@@ -910,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Activity"
+                  "$ref": "#/components/schemas/Ticket"
                 }
               }
             }
@@ -921,7 +736,192 @@
         }
       },
       "delete": {
-        "summary": "Delete a Activity",
+        "summary": "Delete a Ticket",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/lineitems": {
+      "get": {
+        "summary": "List LineItems",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/LineItem"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a LineItem",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LineItemCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LineItem"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/lineitems/{id}": {
+      "get": {
+        "summary": "Get a LineItem",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LineItem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a LineItem",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LineItemCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LineItem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a LineItem",
         "parameters": [
           {
             "name": "id",
@@ -1140,80 +1140,28 @@
   },
   "components": {
     "schemas": {
-      "Account": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "domain": {
-            "type": "string"
-          },
-          "industry": {
-            "type": "string"
-          },
-          "ownerId": {
-            "type": "string"
-          },
-          "annualRevenue": {
-            "type": "number"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "AccountCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "domain": {
-            "type": "string"
-          },
-          "industry": {
-            "type": "string"
-          },
-          "ownerId": {
-            "type": "string"
-          },
-          "annualRevenue": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "name",
-          "domain"
-        ]
-      },
       "Contact": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "accountId": {
-            "type": "string"
-          },
-          "firstName": {
-            "type": "string"
-          },
-          "lastName": {
-            "type": "string"
-          },
           "email": {
             "type": "string"
           },
+          "firstname": {
+            "type": "string"
+          },
+          "lastname": {
+            "type": "string"
+          },
+          "company": {
+            "type": "string"
+          },
           "phone": {
+            "type": "string"
+          },
+          "website": {
             "type": "string"
           },
           "createdAt": {
@@ -1229,47 +1177,44 @@
       "ContactCreate": {
         "type": "object",
         "properties": {
-          "accountId": {
-            "type": "string"
-          },
-          "firstName": {
-            "type": "string"
-          },
-          "lastName": {
-            "type": "string"
-          },
           "email": {
+            "type": "string"
+          },
+          "firstname": {
+            "type": "string"
+          },
+          "lastname": {
+            "type": "string"
+          },
+          "company": {
             "type": "string"
           },
           "phone": {
             "type": "string"
+          },
+          "website": {
+            "type": "string"
           }
         },
         "required": [
-          "firstName",
-          "lastName"
+          "email",
+          "firstname"
         ]
       },
-      "Lead": {
+      "Company": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "company": {
+          "name": {
             "type": "string"
           },
-          "email": {
+          "domain": {
             "type": "string"
           },
-          "status": {
+          "industry": {
             "type": "string"
-          },
-          "source": {
-            "type": "string"
-          },
-          "score": {
-            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1281,107 +1226,41 @@
           }
         }
       },
-      "LeadCreate": {
+      "CompanyCreate": {
         "type": "object",
         "properties": {
-          "company": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "source": {
-            "type": "string"
-          },
-          "score": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "company",
-          "email"
-        ]
-      },
-      "Opportunity": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "accountId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "stage": {
+          "domain": {
             "type": "string"
           },
-          "amount": {
-            "type": "number"
-          },
-          "closeDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "OpportunityCreate": {
-        "type": "object",
-        "properties": {
-          "accountId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "stage": {
-            "type": "string"
-          },
-          "amount": {
-            "type": "number"
-          },
-          "closeDate": {
+          "industry": {
             "type": "string"
           }
         },
         "required": [
           "name",
-          "stage"
+          "domain"
         ]
       },
-      "Activity": {
+      "Deal": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "subjectId": {
+          "dealname": {
             "type": "string"
           },
-          "type": {
+          "dealstage": {
             "type": "string"
           },
-          "subject": {
+          "amount": {
+            "type": "number"
+          },
+          "pipeline": {
             "type": "string"
-          },
-          "dueDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "done": {
-            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1393,28 +1272,111 @@
           }
         }
       },
-      "ActivityCreate": {
+      "DealCreate": {
         "type": "object",
         "properties": {
-          "subjectId": {
+          "dealname": {
             "type": "string"
           },
-          "type": {
+          "dealstage": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "number"
+          },
+          "pipeline": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "dealname",
+          "dealstage"
+        ]
+      },
+      "Ticket": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "string"
           },
           "subject": {
             "type": "string"
           },
-          "dueDate": {
+          "hsTicketPriority": {
             "type": "string"
           },
-          "done": {
-            "type": "boolean"
+          "hsPipelineStage": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "TicketCreate": {
+        "type": "object",
+        "properties": {
+          "subject": {
+            "type": "string"
+          },
+          "hsTicketPriority": {
+            "type": "string"
+          },
+          "hsPipelineStage": {
+            "type": "string"
           }
         },
         "required": [
-          "type",
-          "subject"
+          "subject",
+          "hsTicketPriority"
+        ]
+      },
+      "LineItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer"
+          },
+          "price": {
+            "type": "number"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "LineItemCreate": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer"
+          },
+          "price": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "name",
+          "quantity"
         ]
       },
       "Pipeline": {
@@ -1423,14 +1385,11 @@
           "id": {
             "type": "string"
           },
-          "name": {
+          "label": {
             "type": "string"
           },
-          "stageOrder": {
-            "type": "string"
-          },
-          "ownerId": {
-            "type": "string"
+          "displayOrder": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1445,19 +1404,16 @@
       "PipelineCreate": {
         "type": "object",
         "properties": {
-          "name": {
+          "label": {
             "type": "string"
           },
-          "stageOrder": {
-            "type": "string"
-          },
-          "ownerId": {
-            "type": "string"
+          "displayOrder": {
+            "type": "integer"
           }
         },
         "required": [
-          "name",
-          "stageOrder"
+          "label",
+          "displayOrder"
         ]
       }
     }

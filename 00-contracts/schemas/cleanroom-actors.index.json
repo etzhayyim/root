@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 969,
-    "L5": 31
+    "L4": 966,
+    "L5": 34
   },
   "actors": [
     {
@@ -1046,7 +1046,7 @@
       "wasmCid": "bafkreifh3qbzbcy6a33d7gus5ffjtnwpj5hid64obcgwnkohumxse4zjmi",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "asana clean-room actor",
       "category": "office_productivity",
       "capabilities": [
@@ -3440,7 +3440,7 @@
       "wasmCid": "bafkreie6lzjl2fqs5vhbdhco6ikhxzlrluwy6mzbdshg7ypi2xcessrply",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "coinbase clean-room actor",
       "category": "fintech_web3",
       "capabilities": [
@@ -7616,7 +7616,7 @@
       "wasmCid": "bafkreiak7kavtyeq5xkwjiiaeanuue2vs4qcwfycmbencftisuw5fqllci",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "hubspot clean-room actor",
       "category": "crm_sales",
       "capabilities": [

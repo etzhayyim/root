@@ -981,7 +981,7 @@
     {
       "handle": "asana-compat",
       "did": "did:web:etzhayyim.com:actor:asana-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreifh3qbzbcy6a33d7gus5ffjtnwpj5hid64obcgwnkohumxse4zjmi",
@@ -3242,7 +3242,7 @@
     {
       "handle": "coinbase-compat",
       "did": "did:web:etzhayyim.com:actor:coinbase-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreie6lzjl2fqs5vhbdhco6ikhxzlrluwy6mzbdshg7ypi2xcessrply",
@@ -7186,7 +7186,7 @@
     {
       "handle": "hubspot-compat",
       "did": "did:web:etzhayyim.com:actor:hubspot-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreiak7kavtyeq5xkwjiiaeanuue2vs4qcwfycmbencftisuw5fqllci",

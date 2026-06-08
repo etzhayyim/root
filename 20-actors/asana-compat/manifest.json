@@ -11,15 +11,93 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreifh3qbzbcy6a33d7gus5ffjtnwpj5hid64obcgwnkohumxse4zjmi",
   "schema": "schema/asana.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://raw.githubusercontent.com/Asana/openapi/master/defs/asana_oas.yaml",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "Task",
+      "Project",
+      "Section",
+      "User",
+      "Tag",
+      "Workspace"
+    ],
+    "enums": {
+      "Task": {
+        "resourceSubtype": [
+          "default_task",
+          "milestone",
+          "approval",
+          "custom"
+        ],
+        "approvalStatus": [
+          "pending",
+          "approved",
+          "rejected",
+          "changes_requested"
+        ]
+      },
+      "Project": {
+        "defaultView": [
+          "list",
+          "board",
+          "calendar",
+          "timeline"
+        ],
+        "color": [
+          "dark-pink",
+          "dark-green",
+          "dark-blue",
+          "dark-red",
+          "dark-teal",
+          "dark-brown",
+          "dark-orange",
+          "dark-purple",
+          "dark-warm-gray",
+          "light-pink",
+          "light-green",
+          "light-blue",
+          "light-red",
+          "light-teal",
+          "light-brown",
+          "light-orange",
+          "light-purple",
+          "light-warm-gray",
+          "none"
+        ]
+      },
+      "Tag": {
+        "color": [
+          "dark-pink",
+          "dark-green",
+          "dark-blue",
+          "dark-red",
+          "dark-teal",
+          "dark-brown",
+          "dark-orange",
+          "dark-purple",
+          "dark-warm-gray",
+          "light-pink",
+          "light-green",
+          "light-blue",
+          "light-red",
+          "light-teal",
+          "light-brown",
+          "light-orange",
+          "light-purple",
+          "light-warm-gray"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Workspace",
-    "Document",
-    "Folder",
-    "Comment",
-    "Permission",
-    "User"
+    "Task",
+    "Project",
+    "Section",
+    "User",
+    "Tag",
+    "Workspace"
   ],
   "adr": [
     "260607",
@@ -35,128 +113,78 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/workspaces",
-          "op": "create Workspace"
+          "path": "/v1/tasks",
+          "op": "create Task"
         },
         {
           "method": "GET",
-          "path": "/v1/workspaces",
-          "op": "list Workspace"
+          "path": "/v1/tasks",
+          "op": "list Task"
         },
         {
           "method": "GET",
-          "path": "/v1/workspaces/{id}",
-          "op": "get Workspace"
+          "path": "/v1/tasks/{id}",
+          "op": "get Task"
         },
         {
           "method": "PATCH",
-          "path": "/v1/workspaces/{id}",
-          "op": "update Workspace"
+          "path": "/v1/tasks/{id}",
+          "op": "update Task"
         },
         {
           "method": "DELETE",
-          "path": "/v1/workspaces/{id}",
-          "op": "delete Workspace"
+          "path": "/v1/tasks/{id}",
+          "op": "delete Task"
         },
         {
           "method": "POST",
-          "path": "/v1/documents",
-          "op": "create Document"
+          "path": "/v1/projects",
+          "op": "create Project"
         },
         {
           "method": "GET",
-          "path": "/v1/documents",
-          "op": "list Document"
+          "path": "/v1/projects",
+          "op": "list Project"
         },
         {
           "method": "GET",
-          "path": "/v1/documents/{id}",
-          "op": "get Document"
+          "path": "/v1/projects/{id}",
+          "op": "get Project"
         },
         {
           "method": "PATCH",
-          "path": "/v1/documents/{id}",
-          "op": "update Document"
+          "path": "/v1/projects/{id}",
+          "op": "update Project"
         },
         {
           "method": "DELETE",
-          "path": "/v1/documents/{id}",
-          "op": "delete Document"
+          "path": "/v1/projects/{id}",
+          "op": "delete Project"
         },
         {
           "method": "POST",
-          "path": "/v1/folders",
-          "op": "create Folder"
+          "path": "/v1/sections",
+          "op": "create Section"
         },
         {
           "method": "GET",
-          "path": "/v1/folders",
-          "op": "list Folder"
+          "path": "/v1/sections",
+          "op": "list Section"
         },
         {
           "method": "GET",
-          "path": "/v1/folders/{id}",
-          "op": "get Folder"
+          "path": "/v1/sections/{id}",
+          "op": "get Section"
         },
         {
           "method": "PATCH",
-          "path": "/v1/folders/{id}",
-          "op": "update Folder"
+          "path": "/v1/sections/{id}",
+          "op": "update Section"
         },
         {
           "method": "DELETE",
-          "path": "/v1/folders/{id}",
-          "op": "delete Folder"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/comments",
-          "op": "create Comment"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/comments",
-          "op": "list Comment"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/comments/{id}",
-          "op": "get Comment"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/comments/{id}",
-          "op": "update Comment"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/comments/{id}",
-          "op": "delete Comment"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/permissions",
-          "op": "create Permission"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/permissions",
-          "op": "list Permission"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/permissions/{id}",
-          "op": "get Permission"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/permissions/{id}",
-          "op": "update Permission"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/permissions/{id}",
-          "op": "delete Permission"
+          "path": "/v1/sections/{id}",
+          "op": "delete Section"
         },
         {
           "method": "POST",
@@ -182,6 +210,56 @@
           "method": "DELETE",
           "path": "/v1/users/{id}",
           "op": "delete User"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/tags",
+          "op": "create Tag"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/tags",
+          "op": "list Tag"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/tags/{id}",
+          "op": "get Tag"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/tags/{id}",
+          "op": "update Tag"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/tags/{id}",
+          "op": "delete Tag"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/workspaces",
+          "op": "create Workspace"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/workspaces",
+          "op": "list Workspace"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/workspaces/{id}",
+          "op": "get Workspace"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/workspaces/{id}",
+          "op": "update Workspace"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/workspaces/{id}",
+          "op": "delete Workspace"
         }
       ],
       "features": {
@@ -247,6 +325,450 @@
       "toolCount": 30,
       "tools": [
         {
+          "name": "create_task",
+          "description": "Create a Task.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "resourceSubtype": {
+                "type": "string"
+              },
+              "completed": {
+                "type": "boolean"
+              },
+              "completedAt": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "approvalStatus": {
+                "type": "string"
+              },
+              "dueAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "resourceSubtype"
+            ]
+          }
+        },
+        {
+          "name": "list_tasks",
+          "description": "List Tasks.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_task",
+          "description": "Get a Task by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_task",
+          "description": "Update a Task.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "resourceSubtype": {
+                "type": "string"
+              },
+              "completed": {
+                "type": "boolean"
+              },
+              "completedAt": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "approvalStatus": {
+                "type": "string"
+              },
+              "dueAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_task",
+          "description": "Delete a Task.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_project",
+          "description": "Create a Project.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "archived": {
+                "type": "boolean"
+              },
+              "color": {
+                "type": "string"
+              },
+              "completed": {
+                "type": "boolean"
+              },
+              "defaultView": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "archived"
+            ]
+          }
+        },
+        {
+          "name": "list_projects",
+          "description": "List Projects.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_project",
+          "description": "Get a Project by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_project",
+          "description": "Update a Project.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "archived": {
+                "type": "boolean"
+              },
+              "color": {
+                "type": "string"
+              },
+              "completed": {
+                "type": "boolean"
+              },
+              "defaultView": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_project",
+          "description": "Delete a Project.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_section",
+          "description": "Create a Section.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "createdAt"
+            ]
+          }
+        },
+        {
+          "name": "list_sections",
+          "description": "List Sections.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_section",
+          "description": "Get a Section by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_section",
+          "description": "Update a Section.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_section",
+          "description": "Delete a Section.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_user",
+          "description": "Create a User.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "email"
+            ]
+          }
+        },
+        {
+          "name": "list_users",
+          "description": "List Users.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_user",
+          "description": "Get a User by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_user",
+          "description": "Update a User.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_user",
+          "description": "Delete a User.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_tag",
+          "description": "Create a Tag.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "color": {
+                "type": "string"
+              },
+              "notes": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "color"
+            ]
+          }
+        },
+        {
+          "name": "list_tags",
+          "description": "List Tags.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_tag",
+          "description": "Get a Tag by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_tag",
+          "description": "Update a Tag.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "color": {
+                "type": "string"
+              },
+              "notes": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_tag",
+          "description": "Delete a Tag.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
           "name": "create_workspace",
           "description": "Create a Workspace.",
           "inputSchema": {
@@ -255,16 +777,13 @@
               "name": {
                 "type": "string"
               },
-              "ownerId": {
-                "type": "string"
-              },
-              "plan": {
-                "type": "string"
+              "isOrganization": {
+                "type": "boolean"
               }
             },
             "required": [
               "name",
-              "plan"
+              "isOrganization"
             ]
           }
         },
@@ -303,11 +822,8 @@
               "name": {
                 "type": "string"
               },
-              "ownerId": {
-                "type": "string"
-              },
-              "plan": {
-                "type": "string"
+              "isOrganization": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -318,428 +834,6 @@
         {
           "name": "delete_workspace",
           "description": "Delete a Workspace.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_document",
-          "description": "Create a Document.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "workspaceId": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "contentRef": {
-                "type": "string"
-              },
-              "ownerId": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "title"
-            ]
-          }
-        },
-        {
-          "name": "list_documents",
-          "description": "List Documents.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_document",
-          "description": "Get a Document by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_document",
-          "description": "Update a Document.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "workspaceId": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "contentRef": {
-                "type": "string"
-              },
-              "ownerId": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_document",
-          "description": "Delete a Document.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_folder",
-          "description": "Create a Folder.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "workspaceId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "parentId": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name"
-            ]
-          }
-        },
-        {
-          "name": "list_folders",
-          "description": "List Folders.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_folder",
-          "description": "Get a Folder by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_folder",
-          "description": "Update a Folder.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "workspaceId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "parentId": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_folder",
-          "description": "Delete a Folder.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_comment",
-          "description": "Create a Comment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "documentId": {
-                "type": "string"
-              },
-              "authorId": {
-                "type": "string"
-              },
-              "body": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "body"
-            ]
-          }
-        },
-        {
-          "name": "list_comments",
-          "description": "List Comments.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_comment",
-          "description": "Get a Comment by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_comment",
-          "description": "Update a Comment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "documentId": {
-                "type": "string"
-              },
-              "authorId": {
-                "type": "string"
-              },
-              "body": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_comment",
-          "description": "Delete a Comment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_permission",
-          "description": "Create a Permission.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "resourceId": {
-                "type": "string"
-              },
-              "principalId": {
-                "type": "string"
-              },
-              "role": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "role"
-            ]
-          }
-        },
-        {
-          "name": "list_permissions",
-          "description": "List Permissions.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_permission",
-          "description": "Get a Permission by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_permission",
-          "description": "Update a Permission.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "resourceId": {
-                "type": "string"
-              },
-              "principalId": {
-                "type": "string"
-              },
-              "role": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_permission",
-          "description": "Delete a Permission.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_user",
-          "description": "Create a User.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "email": {
-                "type": "string"
-              },
-              "displayName": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "email",
-              "displayName"
-            ]
-          }
-        },
-        {
-          "name": "list_users",
-          "description": "List Users.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_user",
-          "description": "Get a User by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_user",
-          "description": "Update a User.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "email": {
-                "type": "string"
-              },
-              "displayName": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_user",
-          "description": "Delete a User.",
           "inputSchema": {
             "type": "object",
             "properties": {
