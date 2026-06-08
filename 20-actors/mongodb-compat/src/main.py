@@ -111,119 +111,199 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/datasets", methods=["POST"])
-def create_dataset(request):
-    """Create a Dataset."""
+@app.route("/v1/clusters", methods=["POST"])
+def create_cluster(request):
+    """Create a Cluster."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'source', 'schemaRef', 'rowCount'])
+    err = _reject_unknown(data, ['name', 'clusterType', 'stateName', 'mongoDBVersion'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'source'])
+    err = _require(data, ['name', 'clusterType'])
     if err:
         return err, 400
+    if data.get('clusterType') and data['clusterType'] not in ['REPLICASET', 'SHARDED', 'GEOSHARDED']:
+        return {"error": {"message": "invalid clusterType; allowed: " + ", ".join(['REPLICASET', 'SHARDED', 'GEOSHARDED']), "type": "invalid_request_error"}}, 400
+    if data.get('stateName') and data['stateName'] not in ['IDLE', 'CREATING', 'UPDATING', 'DELETING', 'REPAIRING']:
+        return {"error": {"message": "invalid stateName; allowed: " + ", ".join(['IDLE', 'CREATING', 'UPDATING', 'DELETING', 'REPAIRING']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("mongodb_clu")}
+    rec["name"] = data.get('name')
+    rec["clusterType"] = data.get('clusterType')
+    rec["stateName"] = data.get('stateName')
+    rec["mongoDBVersion"] = data.get('mongoDBVersion')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Cluster", rec)
+    return rec, 201
+
+@app.route("/v1/clusters", methods=["GET"])
+def list_clusters(request):
+    """List Clusters with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Cluster")
+    rows = _apply_filters(rows, params, ['name', 'clusterType', 'stateName', 'mongoDBVersion'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/clusters/<eid>", methods=["GET"])
+def get_cluster(request, eid):
+    """Retrieve a Cluster by id (supports ?expand=)."""
+    rows = _query("Cluster", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/clusters/<eid>", methods=["POST", "PATCH"])
+def update_cluster(request, eid):
+    """Update a Cluster."""
+    rows = _query("Cluster", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'clusterType', 'stateName', 'mongoDBVersion'])
+    if err:
+        return err, 400
+    if data.get('clusterType') and data['clusterType'] not in ['REPLICASET', 'SHARDED', 'GEOSHARDED']:
+        return {"error": {"message": "invalid clusterType; allowed: " + ", ".join(['REPLICASET', 'SHARDED', 'GEOSHARDED']), "type": "invalid_request_error"}}, 400
+    if data.get('stateName') and data['stateName'] not in ['IDLE', 'CREATING', 'UPDATING', 'DELETING', 'REPAIRING']:
+        return {"error": {"message": "invalid stateName; allowed: " + ", ".join(['IDLE', 'CREATING', 'UPDATING', 'DELETING', 'REPAIRING']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Cluster", rec)
+    return rec, 200
+
+@app.route("/v1/clusters/<eid>", methods=["DELETE"])
+def delete_cluster(request, eid):
+    """Delete a Cluster."""
+    rows = _query("Cluster", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"mongodb.Cluster", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/databaseusers", methods=["POST"])
+def create_database_user(request):
+    """Create a DatabaseUser."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['username', 'databaseName', 'awsIAMType'])
+    if err:
+        return err, 400
+    err = _require(data, ['username', 'databaseName'])
+    if err:
+        return err, 400
+    if data.get('databaseName') and data['databaseName'] not in ['admin', '$external']:
+        return {"error": {"message": "invalid databaseName; allowed: " + ", ".join(['admin', '$external']), "type": "invalid_request_error"}}, 400
+    if data.get('awsIAMType') and data['awsIAMType'] not in ['NONE', 'USER', 'ROLE']:
+        return {"error": {"message": "invalid awsIAMType; allowed: " + ", ".join(['NONE', 'USER', 'ROLE']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("mongodb_dat")}
-    rec["name"] = data.get('name')
-    rec["source"] = data.get('source')
-    rec["schemaRef"] = data.get('schemaRef')
-    rec["rowCount"] = _as_int(data.get('rowCount'))
+    rec["username"] = data.get('username')
+    rec["databaseName"] = data.get('databaseName')
+    rec["awsIAMType"] = data.get('awsIAMType')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Dataset", rec)
+    _persist("DatabaseUser", rec)
     return rec, 201
 
-@app.route("/v1/datasets", methods=["GET"])
-def list_datasets(request):
-    """List Datasets with filtering + cursor pagination."""
+@app.route("/v1/databaseusers", methods=["GET"])
+def list_database_users(request):
+    """List DatabaseUsers with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Dataset")
-    rows = _apply_filters(rows, params, ['name', 'source', 'schemaRef', 'rowCount'])
+    rows = _query("DatabaseUser")
+    rows = _apply_filters(rows, params, ['username', 'databaseName', 'awsIAMType'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/datasets/<eid>", methods=["GET"])
-def get_dataset(request, eid):
-    """Retrieve a Dataset by id (supports ?expand=)."""
-    rows = _query("Dataset", eid)
+@app.route("/v1/databaseusers/<eid>", methods=["GET"])
+def get_database_user(request, eid):
+    """Retrieve a DatabaseUser by id (supports ?expand=)."""
+    rows = _query("DatabaseUser", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/datasets/<eid>", methods=["POST", "PATCH"])
-def update_dataset(request, eid):
-    """Update a Dataset."""
-    rows = _query("Dataset", eid)
+@app.route("/v1/databaseusers/<eid>", methods=["POST", "PATCH"])
+def update_database_user(request, eid):
+    """Update a DatabaseUser."""
+    rows = _query("DatabaseUser", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'source', 'schemaRef', 'rowCount'])
+    err = _reject_unknown(data, ['username', 'databaseName', 'awsIAMType'])
     if err:
         return err, 400
+    if data.get('databaseName') and data['databaseName'] not in ['admin', '$external']:
+        return {"error": {"message": "invalid databaseName; allowed: " + ", ".join(['admin', '$external']), "type": "invalid_request_error"}}, 400
+    if data.get('awsIAMType') and data['awsIAMType'] not in ['NONE', 'USER', 'ROLE']:
+        return {"error": {"message": "invalid awsIAMType; allowed: " + ", ".join(['NONE', 'USER', 'ROLE']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Dataset", rec)
+    _persist("DatabaseUser", rec)
     return rec, 200
 
-@app.route("/v1/datasets/<eid>", methods=["DELETE"])
-def delete_dataset(request, eid):
-    """Delete a Dataset."""
-    rows = _query("Dataset", eid)
+@app.route("/v1/databaseusers/<eid>", methods=["DELETE"])
+def delete_database_user(request, eid):
+    """Delete a DatabaseUser."""
+    rows = _query("DatabaseUser", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mongodb.Dataset", "id": eid})
+    db.retract({"entity": f"mongodb.DatabaseUser", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/queries", methods=["POST"])
-def create_query(request):
-    """Create a Query."""
+@app.route("/v1/projects", methods=["POST"])
+def create_project(request):
+    """Create a Project."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['datasetId', 'sql', 'ownerId'])
+    err = _reject_unknown(data, ['name', 'orgId', 'clusterCount'])
     if err:
         return err, 400
-    err = _require(data, ['sql'])
+    err = _require(data, ['name', 'clusterCount'])
     if err:
         return err, 400
-    rec = {"id": new_id("mongodb_que")}
-    rec["datasetId"] = data.get('datasetId')
-    rec["sql"] = data.get('sql')
-    rec["ownerId"] = data.get('ownerId')
+    rec = {"id": new_id("mongodb_pro")}
+    rec["name"] = data.get('name')
+    rec["orgId"] = data.get('orgId')
+    rec["clusterCount"] = _as_int(data.get('clusterCount'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Query", rec)
+    _persist("Project", rec)
     return rec, 201
 
-@app.route("/v1/queries", methods=["GET"])
-def list_queries(request):
-    """List Queries with filtering + cursor pagination."""
+@app.route("/v1/projects", methods=["GET"])
+def list_projects(request):
+    """List Projects with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Query")
-    rows = _apply_filters(rows, params, ['datasetId', 'sql', 'ownerId'])
+    rows = _query("Project")
+    rows = _apply_filters(rows, params, ['name', 'orgId', 'clusterCount'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/queries/<eid>", methods=["GET"])
-def get_query(request, eid):
-    """Retrieve a Query by id (supports ?expand=)."""
-    rows = _query("Query", eid)
+@app.route("/v1/projects/<eid>", methods=["GET"])
+def get_project(request, eid):
+    """Retrieve a Project by id (supports ?expand=)."""
+    rows = _query("Project", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'datasetId': 'Dataset'})
     return rec, 200
 
-@app.route("/v1/queries/<eid>", methods=["POST", "PATCH"])
-def update_query(request, eid):
-    """Update a Query."""
-    rows = _query("Query", eid)
+@app.route("/v1/projects/<eid>", methods=["POST", "PATCH"])
+def update_project(request, eid):
+    """Update a Project."""
+    rows = _query("Project", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['datasetId', 'sql', 'ownerId'])
+    err = _reject_unknown(data, ['name', 'orgId', 'clusterCount'])
     if err:
         return err, 400
     rec = rows[0]
@@ -231,130 +311,132 @@ def update_query(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Query", rec)
+    _persist("Project", rec)
     return rec, 200
 
-@app.route("/v1/queries/<eid>", methods=["DELETE"])
-def delete_query(request, eid):
-    """Delete a Query."""
-    rows = _query("Query", eid)
+@app.route("/v1/projects/<eid>", methods=["DELETE"])
+def delete_project(request, eid):
+    """Delete a Project."""
+    rows = _query("Project", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mongodb.Query", "id": eid})
+    db.retract({"entity": f"mongodb.Project", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/dashboards", methods=["POST"])
-def create_dashboard(request):
-    """Create a Dashboard."""
+@app.route("/v1/backups", methods=["POST"])
+def create_backup(request):
+    """Create a Backup."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'layout'])
+    err = _reject_unknown(data, ['frequencyType', 'description'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'layout'])
+    err = _require(data, ['frequencyType', 'description'])
     if err:
         return err, 400
-    rec = {"id": new_id("mongodb_das")}
-    rec["name"] = data.get('name')
-    rec["ownerId"] = data.get('ownerId')
-    rec["layout"] = data.get('layout')
+    if data.get('frequencyType') and data['frequencyType'] not in ['hourly', 'daily', 'weekly', 'monthly', 'yearly']:
+        return {"error": {"message": "invalid frequencyType; allowed: " + ", ".join(['hourly', 'daily', 'weekly', 'monthly', 'yearly']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("mongodb_bac")}
+    rec["frequencyType"] = data.get('frequencyType')
+    rec["description"] = data.get('description')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Dashboard", rec)
+    _persist("Backup", rec)
     return rec, 201
 
-@app.route("/v1/dashboards", methods=["GET"])
-def list_dashboards(request):
-    """List Dashboards with filtering + cursor pagination."""
+@app.route("/v1/backups", methods=["GET"])
+def list_backups(request):
+    """List Backups with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Dashboard")
-    rows = _apply_filters(rows, params, ['name', 'ownerId', 'layout'])
+    rows = _query("Backup")
+    rows = _apply_filters(rows, params, ['frequencyType', 'description'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/dashboards/<eid>", methods=["GET"])
-def get_dashboard(request, eid):
-    """Retrieve a Dashboard by id (supports ?expand=)."""
-    rows = _query("Dashboard", eid)
+@app.route("/v1/backups/<eid>", methods=["GET"])
+def get_backup(request, eid):
+    """Retrieve a Backup by id (supports ?expand=)."""
+    rows = _query("Backup", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/dashboards/<eid>", methods=["POST", "PATCH"])
-def update_dashboard(request, eid):
-    """Update a Dashboard."""
-    rows = _query("Dashboard", eid)
+@app.route("/v1/backups/<eid>", methods=["POST", "PATCH"])
+def update_backup(request, eid):
+    """Update a Backup."""
+    rows = _query("Backup", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'layout'])
+    err = _reject_unknown(data, ['frequencyType', 'description'])
     if err:
         return err, 400
+    if data.get('frequencyType') and data['frequencyType'] not in ['hourly', 'daily', 'weekly', 'monthly', 'yearly']:
+        return {"error": {"message": "invalid frequencyType; allowed: " + ", ".join(['hourly', 'daily', 'weekly', 'monthly', 'yearly']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Dashboard", rec)
+    _persist("Backup", rec)
     return rec, 200
 
-@app.route("/v1/dashboards/<eid>", methods=["DELETE"])
-def delete_dashboard(request, eid):
-    """Delete a Dashboard."""
-    rows = _query("Dashboard", eid)
+@app.route("/v1/backups/<eid>", methods=["DELETE"])
+def delete_backup(request, eid):
+    """Delete a Backup."""
+    rows = _query("Backup", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mongodb.Dashboard", "id": eid})
+    db.retract({"entity": f"mongodb.Backup", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/reports", methods=["POST"])
-def create_report(request):
-    """Create a Report."""
+@app.route("/v1/organizations", methods=["POST"])
+def create_organization(request):
+    """Create a Organization."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['dashboardId', 'name', 'schedule'])
+    err = _reject_unknown(data, ['orgName', 'planType', 'groupId'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'schedule'])
+    err = _require(data, ['orgName', 'planType'])
     if err:
         return err, 400
-    rec = {"id": new_id("mongodb_rep")}
-    rec["dashboardId"] = data.get('dashboardId')
-    rec["name"] = data.get('name')
-    rec["schedule"] = data.get('schedule')
+    rec = {"id": new_id("mongodb_org")}
+    rec["orgName"] = data.get('orgName')
+    rec["planType"] = data.get('planType')
+    rec["groupId"] = data.get('groupId')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Report", rec)
+    _persist("Organization", rec)
     return rec, 201
 
-@app.route("/v1/reports", methods=["GET"])
-def list_reports(request):
-    """List Reports with filtering + cursor pagination."""
+@app.route("/v1/organizations", methods=["GET"])
+def list_organizations(request):
+    """List Organizations with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Report")
-    rows = _apply_filters(rows, params, ['dashboardId', 'name', 'schedule'])
+    rows = _query("Organization")
+    rows = _apply_filters(rows, params, ['orgName', 'planType', 'groupId'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/reports/<eid>", methods=["GET"])
-def get_report(request, eid):
-    """Retrieve a Report by id (supports ?expand=)."""
-    rows = _query("Report", eid)
+@app.route("/v1/organizations/<eid>", methods=["GET"])
+def get_organization(request, eid):
+    """Retrieve a Organization by id (supports ?expand=)."""
+    rows = _query("Organization", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'dashboardId': 'Dashboard'})
     return rec, 200
 
-@app.route("/v1/reports/<eid>", methods=["POST", "PATCH"])
-def update_report(request, eid):
-    """Update a Report."""
-    rows = _query("Report", eid)
+@app.route("/v1/organizations/<eid>", methods=["POST", "PATCH"])
+def update_organization(request, eid):
+    """Update a Organization."""
+    rows = _query("Organization", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['dashboardId', 'name', 'schedule'])
+    err = _reject_unknown(data, ['orgName', 'planType', 'groupId'])
     if err:
         return err, 400
     rec = rows[0]
@@ -362,155 +444,92 @@ def update_report(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Report", rec)
+    _persist("Organization", rec)
     return rec, 200
 
-@app.route("/v1/reports/<eid>", methods=["DELETE"])
-def delete_report(request, eid):
-    """Delete a Report."""
-    rows = _query("Report", eid)
+@app.route("/v1/organizations/<eid>", methods=["DELETE"])
+def delete_organization(request, eid):
+    """Delete a Organization."""
+    rows = _query("Organization", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mongodb.Report", "id": eid})
+    db.retract({"entity": f"mongodb.Organization", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/connections", methods=["POST"])
-def create_connection(request):
-    """Create a Connection."""
+@app.route("/v1/networkpeerings", methods=["POST"])
+def create_network_peering(request):
+    """Create a NetworkPeering."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'type', 'host', 'active'])
+    err = _reject_unknown(data, ['name', 'accepterAccountId', 'localStatus', 'cloudStatus'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'type'])
+    err = _require(data, ['name', 'localStatus'])
     if err:
         return err, 400
-    rec = {"id": new_id("mongodb_con")}
+    if data.get('localStatus') and data['localStatus'] not in ['NONE', 'SCAN_FAILED', 'UPDATE_FAILED', 'REQUEST_ACCEPT', 'ACCEPT_REQUESTED', 'REQUEST_REJECT', 'REJECT_REQUESTED', 'REQUEST_DELETE', 'DELETE_REQUESTED', 'ACTIVE']:
+        return {"error": {"message": "invalid localStatus; allowed: " + ", ".join(['NONE', 'SCAN_FAILED', 'UPDATE_FAILED', 'REQUEST_ACCEPT', 'ACCEPT_REQUESTED', 'REQUEST_REJECT', 'REJECT_REQUESTED', 'REQUEST_DELETE', 'DELETE_REQUESTED', 'ACTIVE']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("mongodb_net")}
     rec["name"] = data.get('name')
-    rec["type"] = data.get('type')
-    rec["host"] = data.get('host')
-    rec["active"] = _as_bool(data.get('active'))
+    rec["accepterAccountId"] = data.get('accepterAccountId')
+    rec["localStatus"] = data.get('localStatus')
+    rec["cloudStatus"] = data.get('cloudStatus')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Connection", rec)
+    _persist("NetworkPeering", rec)
     return rec, 201
 
-@app.route("/v1/connections", methods=["GET"])
-def list_connections(request):
-    """List Connections with filtering + cursor pagination."""
+@app.route("/v1/networkpeerings", methods=["GET"])
+def list_network_peerings(request):
+    """List NetworkPeerings with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Connection")
-    rows = _apply_filters(rows, params, ['name', 'type', 'host', 'active'])
+    rows = _query("NetworkPeering")
+    rows = _apply_filters(rows, params, ['name', 'accepterAccountId', 'localStatus', 'cloudStatus'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/connections/<eid>", methods=["GET"])
-def get_connection(request, eid):
-    """Retrieve a Connection by id (supports ?expand=)."""
-    rows = _query("Connection", eid)
+@app.route("/v1/networkpeerings/<eid>", methods=["GET"])
+def get_network_peering(request, eid):
+    """Retrieve a NetworkPeering by id (supports ?expand=)."""
+    rows = _query("NetworkPeering", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/connections/<eid>", methods=["POST", "PATCH"])
-def update_connection(request, eid):
-    """Update a Connection."""
-    rows = _query("Connection", eid)
+@app.route("/v1/networkpeerings/<eid>", methods=["POST", "PATCH"])
+def update_network_peering(request, eid):
+    """Update a NetworkPeering."""
+    rows = _query("NetworkPeering", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'type', 'host', 'active'])
+    err = _reject_unknown(data, ['name', 'accepterAccountId', 'localStatus', 'cloudStatus'])
     if err:
         return err, 400
+    if data.get('localStatus') and data['localStatus'] not in ['NONE', 'SCAN_FAILED', 'UPDATE_FAILED', 'REQUEST_ACCEPT', 'ACCEPT_REQUESTED', 'REQUEST_REJECT', 'REJECT_REQUESTED', 'REQUEST_DELETE', 'DELETE_REQUESTED', 'ACTIVE']:
+        return {"error": {"message": "invalid localStatus; allowed: " + ", ".join(['NONE', 'SCAN_FAILED', 'UPDATE_FAILED', 'REQUEST_ACCEPT', 'ACCEPT_REQUESTED', 'REQUEST_REJECT', 'REJECT_REQUESTED', 'REQUEST_DELETE', 'DELETE_REQUESTED', 'ACTIVE']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Connection", rec)
+    _persist("NetworkPeering", rec)
     return rec, 200
 
-@app.route("/v1/connections/<eid>", methods=["DELETE"])
-def delete_connection(request, eid):
-    """Delete a Connection."""
-    rows = _query("Connection", eid)
+@app.route("/v1/networkpeerings/<eid>", methods=["DELETE"])
+def delete_network_peering(request, eid):
+    """Delete a NetworkPeering."""
+    rows = _query("NetworkPeering", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mongodb.Connection", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/metrics", methods=["POST"])
-def create_metric(request):
-    """Create a Metric."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['datasetId', 'name', 'expression', 'unit'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'expression'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("mongodb_met")}
-    rec["datasetId"] = data.get('datasetId')
-    rec["name"] = data.get('name')
-    rec["expression"] = data.get('expression')
-    rec["unit"] = data.get('unit')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Metric", rec)
-    return rec, 201
-
-@app.route("/v1/metrics", methods=["GET"])
-def list_metrics(request):
-    """List Metrics with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Metric")
-    rows = _apply_filters(rows, params, ['datasetId', 'name', 'expression', 'unit'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/metrics/<eid>", methods=["GET"])
-def get_metric(request, eid):
-    """Retrieve a Metric by id (supports ?expand=)."""
-    rows = _query("Metric", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'datasetId': 'Dataset'})
-    return rec, 200
-
-@app.route("/v1/metrics/<eid>", methods=["POST", "PATCH"])
-def update_metric(request, eid):
-    """Update a Metric."""
-    rows = _query("Metric", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['datasetId', 'name', 'expression', 'unit'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Metric", rec)
-    return rec, 200
-
-@app.route("/v1/metrics/<eid>", methods=["DELETE"])
-def delete_metric(request, eid):
-    """Delete a Metric."""
-    rows = _query("Metric", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mongodb.Metric", "id": eid})
+    db.retract({"entity": f"mongodb.NetworkPeering", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "mongodb-compat", "tier": "L4",
-            "entities": ['Dataset', 'Query', 'Dashboard', 'Report', 'Connection', 'Metric']}, 200
+            "entities": ['Cluster', 'DatabaseUser', 'Project', 'Backup', 'Organization', 'NetworkPeering']}, 200
 
 
 if __name__ == "__main__":

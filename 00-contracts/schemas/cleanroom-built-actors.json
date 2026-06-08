@@ -9933,12 +9933,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Dataset",
-        "Query",
-        "Dashboard",
-        "Report",
-        "Connection",
-        "Metric"
+        "Cluster",
+        "DatabaseUser",
+        "Project",
+        "Backup",
+        "Organization",
+        "NetworkPeering"
       ]
     },
     {

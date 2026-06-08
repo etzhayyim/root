@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 963,
-    "L5": 37
+    "L4": 962,
+    "L5": 38
   },
   "actors": [
     {
@@ -10514,7 +10514,7 @@
       "wasmCid": "bafkreif3sz5h3bgm4ubfzhlpqmjqyvopyuf5fqvjkmt57y74qw65lyajqe",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "mongodb clean-room actor",
       "category": "data_analytics",
       "capabilities": [

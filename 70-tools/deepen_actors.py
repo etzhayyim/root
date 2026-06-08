@@ -1172,6 +1172,16 @@ PLATFORM_OVERRIDES = {
         "Contractor": E(firstName="string", lastName="string", businessName="string", wageType="string", contractorType="string", isActive="boolean"),
         "Payroll": E(uuid="string", processed="boolean", offCycle="boolean", offCycleReason="string"),
     },
+    # Faithful MongoDB Atlas model (remodeled from generic data_analytics), L5
+    # (confirmed against the official mongodb/openapi Atlas Admin API v2 spec).
+    "mongodb": {
+        "Cluster": E(name="string", clusterType="string", stateName="string", mongoDBVersion="string"),
+        "DatabaseUser": E(username="string", databaseName="string", awsIAMType="string"),
+        "Project": E(name="string", orgId="string", clusterCount="integer"),
+        "Backup": E(frequencyType="string", description="string"),
+        "Organization": E(orgName="string", planType="string", groupId="string"),
+        "NetworkPeering": E(name="string", accepterAccountId="string", localStatus="string", cloudStatus="string"),
+    },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).
     "square": {

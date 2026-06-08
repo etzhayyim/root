@@ -11,15 +11,76 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreif3sz5h3bgm4ubfzhlpqmjqyvopyuf5fqvjkmt57y74qw65lyajqe",
   "schema": "schema/mongodb.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://raw.githubusercontent.com/mongodb/openapi/main/openapi/v2.json",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "Cluster",
+      "DatabaseUser",
+      "Project",
+      "Backup",
+      "Organization",
+      "NetworkPeering"
+    ],
+    "enums": {
+      "Cluster": {
+        "clusterType": [
+          "REPLICASET",
+          "SHARDED",
+          "GEOSHARDED"
+        ],
+        "stateName": [
+          "IDLE",
+          "CREATING",
+          "UPDATING",
+          "DELETING",
+          "REPAIRING"
+        ]
+      },
+      "DatabaseUser": {
+        "databaseName": [
+          "admin",
+          "$external"
+        ],
+        "awsIAMType": [
+          "NONE",
+          "USER",
+          "ROLE"
+        ]
+      },
+      "Backup": {
+        "frequencyType": [
+          "hourly",
+          "daily",
+          "weekly",
+          "monthly",
+          "yearly"
+        ]
+      },
+      "NetworkPeering": {
+        "localStatus": [
+          "NONE",
+          "SCAN_FAILED",
+          "UPDATE_FAILED",
+          "REQUEST_ACCEPT",
+          "ACCEPT_REQUESTED",
+          "REQUEST_REJECT",
+          "REJECT_REQUESTED",
+          "REQUEST_DELETE",
+          "DELETE_REQUESTED",
+          "ACTIVE"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Dataset",
-    "Query",
-    "Dashboard",
-    "Report",
-    "Connection",
-    "Metric"
+    "Cluster",
+    "DatabaseUser",
+    "Project",
+    "Backup",
+    "Organization",
+    "NetworkPeering"
   ],
   "adr": [
     "260607",
@@ -35,153 +96,153 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/datasets",
-          "op": "create Dataset"
+          "path": "/v1/clusters",
+          "op": "create Cluster"
         },
         {
           "method": "GET",
-          "path": "/v1/datasets",
-          "op": "list Dataset"
+          "path": "/v1/clusters",
+          "op": "list Cluster"
         },
         {
           "method": "GET",
-          "path": "/v1/datasets/{id}",
-          "op": "get Dataset"
+          "path": "/v1/clusters/{id}",
+          "op": "get Cluster"
         },
         {
           "method": "PATCH",
-          "path": "/v1/datasets/{id}",
-          "op": "update Dataset"
+          "path": "/v1/clusters/{id}",
+          "op": "update Cluster"
         },
         {
           "method": "DELETE",
-          "path": "/v1/datasets/{id}",
-          "op": "delete Dataset"
+          "path": "/v1/clusters/{id}",
+          "op": "delete Cluster"
         },
         {
           "method": "POST",
-          "path": "/v1/queries",
-          "op": "create Query"
+          "path": "/v1/databaseusers",
+          "op": "create DatabaseUser"
         },
         {
           "method": "GET",
-          "path": "/v1/queries",
-          "op": "list Query"
+          "path": "/v1/databaseusers",
+          "op": "list DatabaseUser"
         },
         {
           "method": "GET",
-          "path": "/v1/queries/{id}",
-          "op": "get Query"
+          "path": "/v1/databaseusers/{id}",
+          "op": "get DatabaseUser"
         },
         {
           "method": "PATCH",
-          "path": "/v1/queries/{id}",
-          "op": "update Query"
+          "path": "/v1/databaseusers/{id}",
+          "op": "update DatabaseUser"
         },
         {
           "method": "DELETE",
-          "path": "/v1/queries/{id}",
-          "op": "delete Query"
+          "path": "/v1/databaseusers/{id}",
+          "op": "delete DatabaseUser"
         },
         {
           "method": "POST",
-          "path": "/v1/dashboards",
-          "op": "create Dashboard"
+          "path": "/v1/projects",
+          "op": "create Project"
         },
         {
           "method": "GET",
-          "path": "/v1/dashboards",
-          "op": "list Dashboard"
+          "path": "/v1/projects",
+          "op": "list Project"
         },
         {
           "method": "GET",
-          "path": "/v1/dashboards/{id}",
-          "op": "get Dashboard"
+          "path": "/v1/projects/{id}",
+          "op": "get Project"
         },
         {
           "method": "PATCH",
-          "path": "/v1/dashboards/{id}",
-          "op": "update Dashboard"
+          "path": "/v1/projects/{id}",
+          "op": "update Project"
         },
         {
           "method": "DELETE",
-          "path": "/v1/dashboards/{id}",
-          "op": "delete Dashboard"
+          "path": "/v1/projects/{id}",
+          "op": "delete Project"
         },
         {
           "method": "POST",
-          "path": "/v1/reports",
-          "op": "create Report"
+          "path": "/v1/backups",
+          "op": "create Backup"
         },
         {
           "method": "GET",
-          "path": "/v1/reports",
-          "op": "list Report"
+          "path": "/v1/backups",
+          "op": "list Backup"
         },
         {
           "method": "GET",
-          "path": "/v1/reports/{id}",
-          "op": "get Report"
+          "path": "/v1/backups/{id}",
+          "op": "get Backup"
         },
         {
           "method": "PATCH",
-          "path": "/v1/reports/{id}",
-          "op": "update Report"
+          "path": "/v1/backups/{id}",
+          "op": "update Backup"
         },
         {
           "method": "DELETE",
-          "path": "/v1/reports/{id}",
-          "op": "delete Report"
+          "path": "/v1/backups/{id}",
+          "op": "delete Backup"
         },
         {
           "method": "POST",
-          "path": "/v1/connections",
-          "op": "create Connection"
+          "path": "/v1/organizations",
+          "op": "create Organization"
         },
         {
           "method": "GET",
-          "path": "/v1/connections",
-          "op": "list Connection"
+          "path": "/v1/organizations",
+          "op": "list Organization"
         },
         {
           "method": "GET",
-          "path": "/v1/connections/{id}",
-          "op": "get Connection"
+          "path": "/v1/organizations/{id}",
+          "op": "get Organization"
         },
         {
           "method": "PATCH",
-          "path": "/v1/connections/{id}",
-          "op": "update Connection"
+          "path": "/v1/organizations/{id}",
+          "op": "update Organization"
         },
         {
           "method": "DELETE",
-          "path": "/v1/connections/{id}",
-          "op": "delete Connection"
+          "path": "/v1/organizations/{id}",
+          "op": "delete Organization"
         },
         {
           "method": "POST",
-          "path": "/v1/metrics",
-          "op": "create Metric"
+          "path": "/v1/networkpeerings",
+          "op": "create NetworkPeering"
         },
         {
           "method": "GET",
-          "path": "/v1/metrics",
-          "op": "list Metric"
+          "path": "/v1/networkpeerings",
+          "op": "list NetworkPeering"
         },
         {
           "method": "GET",
-          "path": "/v1/metrics/{id}",
-          "op": "get Metric"
+          "path": "/v1/networkpeerings/{id}",
+          "op": "get NetworkPeering"
         },
         {
           "method": "PATCH",
-          "path": "/v1/metrics/{id}",
-          "op": "update Metric"
+          "path": "/v1/networkpeerings/{id}",
+          "op": "update NetworkPeering"
         },
         {
           "method": "DELETE",
-          "path": "/v1/metrics/{id}",
-          "op": "delete Metric"
+          "path": "/v1/networkpeerings/{id}",
+          "op": "delete NetworkPeering"
         }
       ],
       "features": {
@@ -247,41 +308,212 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_dataset",
-          "description": "Create a Dataset.",
+          "name": "create_cluster",
+          "description": "Create a Cluster.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "source": {
+              "clusterType": {
                 "type": "string"
               },
-              "schemaRef": {
+              "stateName": {
                 "type": "string"
               },
-              "rowCount": {
+              "mongoDBVersion": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "clusterType"
+            ]
+          }
+        },
+        {
+          "name": "list_clusters",
+          "description": "List Clusters.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_cluster",
+          "description": "Get a Cluster by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_cluster",
+          "description": "Update a Cluster.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "clusterType": {
+                "type": "string"
+              },
+              "stateName": {
+                "type": "string"
+              },
+              "mongoDBVersion": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_cluster",
+          "description": "Delete a Cluster.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_database_user",
+          "description": "Create a DatabaseUser.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "username": {
+                "type": "string"
+              },
+              "databaseName": {
+                "type": "string"
+              },
+              "awsIAMType": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "username",
+              "databaseName"
+            ]
+          }
+        },
+        {
+          "name": "list_database_users",
+          "description": "List DatabaseUsers.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_database_user",
+          "description": "Get a DatabaseUser by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_database_user",
+          "description": "Update a DatabaseUser.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "databaseName": {
+                "type": "string"
+              },
+              "awsIAMType": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_database_user",
+          "description": "Delete a DatabaseUser.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_project",
+          "description": "Create a Project.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "orgId": {
+                "type": "string"
+              },
+              "clusterCount": {
                 "type": "integer"
               }
             },
             "required": [
               "name",
-              "source"
+              "clusterCount"
             ]
           }
         },
         {
-          "name": "list_datasets",
-          "description": "List Datasets.",
+          "name": "list_projects",
+          "description": "List Projects.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_dataset",
-          "description": "Get a Dataset by id.",
+          "name": "get_project",
+          "description": "Get a Project by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,8 +527,8 @@
           }
         },
         {
-          "name": "update_dataset",
-          "description": "Update a Dataset.",
+          "name": "update_project",
+          "description": "Update a Project.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -306,13 +538,10 @@
               "name": {
                 "type": "string"
               },
-              "source": {
+              "orgId": {
                 "type": "string"
               },
-              "schemaRef": {
-                "type": "string"
-              },
-              "rowCount": {
+              "clusterCount": {
                 "type": "integer"
               }
             },
@@ -322,8 +551,8 @@
           }
         },
         {
-          "name": "delete_dataset",
-          "description": "Delete a Dataset.",
+          "name": "delete_project",
+          "description": "Delete a Project.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -337,37 +566,35 @@
           }
         },
         {
-          "name": "create_query",
-          "description": "Create a Query.",
+          "name": "create_backup",
+          "description": "Create a Backup.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "datasetId": {
+              "frequencyType": {
                 "type": "string"
               },
-              "sql": {
-                "type": "string"
-              },
-              "ownerId": {
+              "description": {
                 "type": "string"
               }
             },
             "required": [
-              "sql"
+              "frequencyType",
+              "description"
             ]
           }
         },
         {
-          "name": "list_queries",
-          "description": "List Queries.",
+          "name": "list_backups",
+          "description": "List Backups.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_query",
-          "description": "Get a Query by id.",
+          "name": "get_backup",
+          "description": "Get a Backup by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -381,21 +608,18 @@
           }
         },
         {
-          "name": "update_query",
-          "description": "Update a Query.",
+          "name": "update_backup",
+          "description": "Update a Backup.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "datasetId": {
+              "frequencyType": {
                 "type": "string"
               },
-              "sql": {
-                "type": "string"
-              },
-              "ownerId": {
+              "description": {
                 "type": "string"
               }
             },
@@ -405,8 +629,8 @@
           }
         },
         {
-          "name": "delete_query",
-          "description": "Delete a Query.",
+          "name": "delete_backup",
+          "description": "Delete a Backup.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -420,38 +644,125 @@
           }
         },
         {
-          "name": "create_dashboard",
-          "description": "Create a Dashboard.",
+          "name": "create_organization",
+          "description": "Create a Organization.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "orgName": {
+                "type": "string"
+              },
+              "planType": {
+                "type": "string"
+              },
+              "groupId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "orgName",
+              "planType"
+            ]
+          }
+        },
+        {
+          "name": "list_organizations",
+          "description": "List Organizations.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_organization",
+          "description": "Get a Organization by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_organization",
+          "description": "Update a Organization.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "orgName": {
+                "type": "string"
+              },
+              "planType": {
+                "type": "string"
+              },
+              "groupId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_organization",
+          "description": "Delete a Organization.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_network_peering",
+          "description": "Create a NetworkPeering.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "ownerId": {
+              "accepterAccountId": {
                 "type": "string"
               },
-              "layout": {
+              "localStatus": {
+                "type": "string"
+              },
+              "cloudStatus": {
                 "type": "string"
               }
             },
             "required": [
               "name",
-              "layout"
+              "localStatus"
             ]
           }
         },
         {
-          "name": "list_dashboards",
-          "description": "List Dashboards.",
+          "name": "list_network_peerings",
+          "description": "List NetworkPeerings.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_dashboard",
-          "description": "Get a Dashboard by id.",
+          "name": "get_network_peering",
+          "description": "Get a NetworkPeering by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -465,179 +776,8 @@
           }
         },
         {
-          "name": "update_dashboard",
-          "description": "Update a Dashboard.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "ownerId": {
-                "type": "string"
-              },
-              "layout": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_dashboard",
-          "description": "Delete a Dashboard.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_report",
-          "description": "Create a Report.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "dashboardId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "schedule": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "schedule"
-            ]
-          }
-        },
-        {
-          "name": "list_reports",
-          "description": "List Reports.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_report",
-          "description": "Get a Report by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_report",
-          "description": "Update a Report.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "dashboardId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "schedule": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_report",
-          "description": "Delete a Report.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_connection",
-          "description": "Create a Connection.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "host": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "name",
-              "type"
-            ]
-          }
-        },
-        {
-          "name": "list_connections",
-          "description": "List Connections.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_connection",
-          "description": "Get a Connection by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_connection",
-          "description": "Update a Connection.",
+          "name": "update_network_peering",
+          "description": "Update a NetworkPeering.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -647,28 +787,13 @@
               "name": {
                 "type": "string"
               },
-              "type": {
+              "accepterAccountId": {
                 "type": "string"
               },
-              "host": {
+              "localStatus": {
                 "type": "string"
               },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_connection",
-          "description": "Delete a Connection.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              "cloudStatus": {
                 "type": "string"
               }
             },
@@ -678,83 +803,8 @@
           }
         },
         {
-          "name": "create_metric",
-          "description": "Create a Metric.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "datasetId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "expression": {
-                "type": "string"
-              },
-              "unit": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "expression"
-            ]
-          }
-        },
-        {
-          "name": "list_metrics",
-          "description": "List Metrics.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_metric",
-          "description": "Get a Metric by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_metric",
-          "description": "Update a Metric.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "datasetId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "expression": {
-                "type": "string"
-              },
-              "unit": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_metric",
-          "description": "Delete a Metric.",
+          "name": "delete_network_peering",
+          "description": "Delete a NetworkPeering.",
           "inputSchema": {
             "type": "object",
             "properties": {

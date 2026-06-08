@@ -5259,7 +5259,7 @@
     {
       "handle": "mongodb-compat",
       "did": "did:web:etzhayyim.com:actor:mongodb-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreif3sz5h3bgm4ubfzhlpqmjqyvopyuf5fqvjkmt57y74qw65lyajqe",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,

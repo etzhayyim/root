@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 37,
+  "count": 38,
   "actors": [
     {
       "handle": "square-compat",
@@ -4878,6 +4878,152 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official Gusto SDK. Enforced enums: Employee.onboardingStatus/paymentMethod/flsaStatus, Company.status/entityType/tier, Compensation.paymentUnit/flsaStatus, Contractor.wageType/contractorType, Payroll.offCycleReason (11)."
+    },
+    {
+      "handle": "mongodb-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/mongodb/openapi/main/openapi/v2.json",
+      "remodeled": "Remodeled from generic data_analytics to a faithful MongoDB Atlas model, verified against the official mongodb/openapi Atlas Admin API v2 spec.",
+      "resources": [
+        {
+          "entity": "Cluster",
+          "source": "https://raw.githubusercontent.com/mongodb/openapi/main/openapi/v2.json",
+          "verifiedFields": [
+            "name",
+            "clusterType",
+            "stateName",
+            "mongoDBVersion"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "clusterType": [
+              "REPLICASET",
+              "SHARDED",
+              "GEOSHARDED"
+            ],
+            "stateName": [
+              "IDLE",
+              "CREATING",
+              "UPDATING",
+              "DELETING",
+              "REPAIRING"
+            ]
+          },
+          "gaps": [
+            "diskSizeGB",
+            "providerSettings"
+          ]
+        },
+        {
+          "entity": "DatabaseUser",
+          "source": "https://raw.githubusercontent.com/mongodb/openapi/main/openapi/v2.json",
+          "verifiedFields": [
+            "username",
+            "databaseName",
+            "awsIAMType"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "databaseName": [
+              "admin",
+              "$external"
+            ],
+            "awsIAMType": [
+              "NONE",
+              "USER",
+              "ROLE"
+            ]
+          },
+          "gaps": [
+            "roles",
+            "scopes",
+            "deleteAfterDate"
+          ]
+        },
+        {
+          "entity": "Project",
+          "source": "https://raw.githubusercontent.com/mongodb/openapi/main/openapi/v2.json",
+          "verifiedFields": [
+            "name",
+            "orgId",
+            "clusterCount"
+          ],
+          "fieldStatus": "confirmed (cluster_count)",
+          "discoveredEnums": {},
+          "gaps": [
+            "created",
+            "regionUsageRestrictions"
+          ]
+        },
+        {
+          "entity": "Backup",
+          "source": "https://raw.githubusercontent.com/mongodb/openapi/main/openapi/v2.json",
+          "verifiedFields": [
+            "frequencyType",
+            "description"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "frequencyType": [
+              "hourly",
+              "daily",
+              "weekly",
+              "monthly",
+              "yearly"
+            ]
+          },
+          "gaps": [
+            "expiresAt",
+            "createdAt"
+          ]
+        },
+        {
+          "entity": "Organization",
+          "source": "https://raw.githubusercontent.com/mongodb/openapi/main/openapi/v2.json",
+          "verifiedFields": [
+            "orgName",
+            "planType",
+            "groupId"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "isDeleted"
+          ]
+        },
+        {
+          "entity": "NetworkPeering",
+          "source": "https://raw.githubusercontent.com/mongodb/openapi/main/openapi/v2.json",
+          "verifiedFields": [
+            "name",
+            "accepterAccountId",
+            "localStatus",
+            "cloudStatus"
+          ],
+          "fieldStatus": "confirmed (accepter_account_id, local_status)",
+          "discoveredEnums": {
+            "localStatus": [
+              "NONE",
+              "SCAN_FAILED",
+              "UPDATE_FAILED",
+              "REQUEST_ACCEPT",
+              "ACCEPT_REQUESTED",
+              "REQUEST_REJECT",
+              "REJECT_REQUESTED",
+              "REQUEST_DELETE",
+              "DELETE_REQUESTED",
+              "ACTIVE"
+            ]
+          },
+          "gaps": [
+            "vpcId",
+            "routeTableCidrBlock"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official MongoDB Atlas OpenAPI v2. Enforced enums: Cluster.clusterType, Cluster.stateName, DatabaseUser.databaseName, DatabaseUser.awsIAMType, Backup.frequencyType, NetworkPeering.localStatus (6)."
     }
   ]
 }
