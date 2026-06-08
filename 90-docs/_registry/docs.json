@@ -22834,6 +22834,36 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606082400-charter-mutual-surveillance-reciprocity-clarification.md",
+      "id": "adr-2606082400-charter-mutual-surveillance-reciprocity-clarification",
+      "title": "ADR-2606082400: Charter-Rider §2(c) — the reciprocity axis (相互監視 affirmed; monetized/asymmetric surveillance prohibited)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "charter-mutual-surveillance-reciprocity-clarification",
+      "authoritative": true,
+      "authoritative_for": [
+        "Charter Compliance Rider §2(c) (monetized-or-asymmetric surveillance)",
+        "the 相互監視 / reciprocal-transparency doctrine"
+      ],
+      "related": [
+        "2605181100",
+        "2605312345",
+        "2605264000",
+        "2606082100"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605192100",
+        "2605192200",
+        "2606062100",
+        "2605252300"
+      ],
+      "last_verified": "2026-06-08",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

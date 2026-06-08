@@ -1086,7 +1086,7 @@ path = "90-docs/adr/2605192145-etzhayyim-public-fund-architecture.md"
 id = "2605192200"
 title = "etzhayyim IP-Free-Release with Charter Compliance Rider v2.0 — Apache 2.0 + 多世代 + 反個人主義 + Wellbecoming license addendum (von Neumann minimax 解)"
 status = "proposed"
-status_note = "S3 = Apache 2.0 + Extended Rider v2.0 が maximin -2 / avg +1.42 で optimal。Rider §2(a)-(h): weapons / speculative finance / surveillance capitalism / fossil fuel extraction (new) / specialist gatekeeping / multi-generational harm (v2.0) / strict individualist ontology (v2.0) / wellbecoming subordination (v2.0)。三層 enforcement (L1 license / L2 便益拒否 / L3 評価最低 = Phenotype.effectiveMultiplier 0)"
+status_note = "S3 = Apache 2.0 + Extended Rider v2.0 が maximin -2 / avg +1.42 で optimal。Rider §2(a)-(h): weapons / speculative finance / monetized-or-asymmetric surveillance (v3.1 reciprocity axis, ADR-2606082400: 相互監視 affirmed, only monetized OR watcher-unwatched prohibited) / fossil fuel extraction (new) / specialist gatekeeping / multi-generational harm (v2.0) / strict individualist ontology (v2.0) / wellbecoming subordination (v2.0)。三層 enforcement (L1 license / L2 便益拒否 / L3 評価最低 = Phenotype.effectiveMultiplier 0)"
 path = "90-docs/adr/2605192200-etzhayyim-ip-free-release-charter-rider.md"
 
 [[adrs]]
@@ -10278,6 +10278,25 @@ status = "proposed"
 status_note = "Records the operator control-plane overlay for the Mac-mini fleet (ADR-2605191346). Tailscale (WireGuard mesh) + Tailscale SSH on every node: port 22 on the tailnet interface is served by the tailnet-identity SSH server, authorized by a tailnet ACL ssh rule (action=accept, src=autogroup:member, dst=autogroup:self, users=autogroup:nonroot). KEYLESS — no per-node authorized_keys, no distributed SSH private keys, no passwords; access granted/revoked centrally; aligns with the no-server-key spirit (ADR-2605231525) because a tailnet IDENTITY, not a stored key, authorizes each session. Enrollment uses a one-off/ephemeral tailnet auth key held only in Keychain + 1Password, never committed (handled like the DID private key). Login convention: local account == node hostname (<tribe>); primary node = operator handle. SCOPE BOUNDARY (load-bearing): control-plane ONLY — carries no inference, no kotoba Datom state, and no signing; does NOT replace the langserver 10.99.0.0/16 data-plane mesh, the geth/IPFS/Base substrate, or the Murakumo-only inference path (ADR-2605215000). Trade-off: the login.tailscale.com coordination server is a third-party control-plane dependency (data plane stays peer-to-peer WireGuard); the de-SaaS exit is self-hosted Headscale (deferred). Secrets hygiene: no auth keys, passwords, tailnet IPs (100.64.0.0/10 CGNAT ephemeral), or local usernames recorded in-repo. Deciders: Jun Kawasaki. Depends on ADR-2605191346 + 2605215000 + 2605231525."
 path = "90-docs/adr/2606082100-tailscale-ssh-fleet-operator-access-overlay.md"
 
+# ─── shiori 栞 — human-Wellbecoming detractor mirror + transparent intervention (ADR-2606082100) ──
+# NOTE: numeric id 2606082100 is shared with the Tailscale-SSH overlay ADR above (a parallel-agent
+# id race, same tolerated/tracked pattern as 2605263400 / 2605263500). The full doc-id + filename
+# slug disambiguate; tracked for a future ADR-id reconciliation.
+[[adrs]]
+id = "2606082100"
+title = "shiori 栞 — human-Wellbecoming detractor observatory + transparent intervention"
+status = "accepted"
+status_note = "Tier-B actor: the 取-concentration HUMAN side of the KG-mirror lineage (inochi/asobi/hokorobi/tsugite). Weaves cohorts(aggregate)/detractors(structural)/drivers(patterns)/mitigators(havens) into the kotoba Datom log; edge-primary detraction vs relief routed to RELIEF (救い); surfaces relief-gap per cohort (→ossekai), 取-holder driver concentration (→danjo/tsumugi/keizu), intervention-design gap. G1 = relief map NEVER per-person affect/manipulation (cohort-only, drivers are PATTERNS not entities, anti-addictive); G8 = transparent-intervention only — shiori PROPOSES, ossekai CARRIES (on-chain-logged + consent-bound), permitted channels = public app.bsky.feed.post + actor-bound email with FULL body disclosed. R0 scaffold + wellbecoming-ontology + seed(39 nodes/55 縁) + pure-stdlib pywasm-ready methods + 11 tests green. ZERO Charter amendments."
+path = "90-docs/adr/2606082100-shiori-wellbecoming-detractor-mirror.md"
+
+# ─── Charter-Rider §2(c) v3.1 — the reciprocity axis (ADR-2606082400) ──
+[[adrs]]
+id = "2606082400"
+title = "Charter-Rider §2(c) — the reciprocity axis (相互監視 affirmed; monetized/asymmetric surveillance prohibited)"
+status = "accepted"
+status_note = "Tier-1 Derived-Policy amendment (ADR-2606062100 §3), ratified by Council Lv7+ unanimity (founder 1/1) with a clean priority-conformance attestation. Reframes §2(c) from v3.0's 'commercial vs care' axis to the RECIPROCITY axis: surveillance is prohibited when MONETIZED (revenue from collection/brokerage/SALE of natural-persons' data) OR ASYMMETRIC (one-sided accumulation by a watcher-unwatched, even absent sale); AFFIRMED when RECIPROCAL/symmetric — 相互監視, the 村社会 condition where everyone is equally known + watched (governance/force/tithe themselves plaintext-public), which DETERS crime+不正 and ENDS isolation (見守り; 孤独死 resisted) — the social form of 神の監視 + 相互見守り. Privacy preserved by ENCRYPTION not forgetting (暗号化≠忘却). Rider v3.0→v3.1 (§2(c) clause only). Deciders: Jun Kawasaki. Depends on ADR-2605192100 + 2605192200 + 2606062100 + 2605252300."
+path = "90-docs/adr/2606082400-charter-mutual-surveillance-reciprocity-clarification.md"
+
 [[modules]]
 path = "20-actors/meyasu"
 kind = "tier-b-unified-arbitrage-supply-demand-intel-orchestrator-actor"
@@ -10302,6 +10321,15 @@ version = "0.1.0-r0"
 status = "R0-scaffold-5-methods-tested-9-cells-manifest-lex-data-landed"
 description = "niyaku (荷役) automated port cargo handling — ship↔shore container loading/unloading robotics; operator-side counterpart of funadaiku (which builds the ships). Core = anti-sway control of a suspended container = the cart+hanging-load (Cartpole) topology, verified through the clean-room isaacsim.core.api (kotodama.nv_compat, G2 no-NVIDIA-binary). 5 pure-stdlib methods (crane_dynamics anti-sway + ZV shaper; stow_plan weight/rotation/reefer/IMDG no-rehandle; isaac_sway_sim Cartpole-STS + DoublePendulum boom-luff; agv_transfer profile/conflict/dispatch; terminal_cycle end-to-end discharge orchestration) + 9 Pregel cells (berth→stow→spreader→hoist→anti-sway traverse→yard→lash→attest + emissions audit; RuntimeError on .solve() until R1) + lex/moveAttestation.edn + data/terminal.edn. 55 tests green / 98% branch coverage. Charter-clean: G2 clean-room sim, G8 zero-emission electric cranes, G9 IMDG/weight/rotation stow feasibility, G10 no-weapons-cargo, G11/G14 no worker surveillance, G12 no-server-key (compute-only), G13 consent-bound."
 adr = ["2606082000", "2606013400", "2605261800", "2606010600", "2605262130", "2605312345", "2605215000", "2606062100"]
+
+[[modules]]
+path = "20-actors/shiori"
+kind = "tier-b-human-wellbecoming-detractor-mirror-and-transparent-intervention-actor"
+version = "0.1.0-r0"
+status = "R0-design-only-scaffold-11-tests-green"
+description = "shiori (栞 — the 枝折り branch-marker that marks a path through difficult terrain) — the 取-concentration HUMAN side of the KG-mirror lineage (inochi/asobi/hokorobi/tsugite). Fuses what the prior roster split apart: analysing/warning about the structural factors that diminish Wellbecoming, AND a transparent route to relieve them. Weaves cohorts(aggregate)/detractors(structural: precarity/overwork/isolation/addictive-design/debt/housing-insecurity/chronic-pain/discrimination/care-deprivation)/drivers(patterns)/mitigators(havens) into the kotoba Datom log; edge-primary detraction vs relief routed to RELIEF (救い); surfaces relief-gap per cohort (→ossekai), 取-holder driver concentration (→danjo/tsumugi/keizu), intervention-design gap (unrouted detractions). 3 cells (analyze/datom_emit/coverage) + pure-stdlib pywasm-ready methods + wellbecoming-ontology + seed(39 nodes/55 縁) + 11 tests green. G1 = relief map NEVER per-person affect/manipulation (cohort-only, drivers are PATTERNS not entities, anti-addictive); G8 = transparent-intervention only (§1.12.B) — shiori PROPOSES, ossekai CARRIES on-chain-logged + consent-bound, permitted channels ONLY public app.bsky.feed.post + actor-bound email with FULL body disclosed; §2(c) v3.1 reciprocity (monetized-or-asymmetric prohibited, 相互監視 affirmed). ZERO Charter amendments."
+adr = ["2606082100", "2606082400", "2605264000", "2605231902", "2605181100", "2605301600", "2606011800", "2606066000", "2605302300", "2605312345", "2605215000"]
+schema = "00-contracts/schemas/wellbecoming-ontology.kotoba.edn"
 
 [etzhayyim.milestones.260607_cognitive_world_state]
 description = "Achieved 1000 Clean Room Actors. Transformed all endpoints into Cognitive APIs with internal LangGraph LLM inference and strict external backward compatibility. Deployed the Root Router as a unified ingress and IPFS Gateway. Launched the Chaos Monitor Dashboard on Kotoba IPFS, registered to the ATProto profile embed."
