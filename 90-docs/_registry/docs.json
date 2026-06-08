@@ -22775,6 +22775,44 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606082100-shiori-wellbecoming-detractor-mirror.md",
+      "id": "adr-2606082100-shiori-wellbecoming-detractor-mirror",
+      "title": "ADR-2606082100: shiori 栞 — human-Wellbecoming detractor observatory + transparent intervention",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "shiori-wellbecoming-detractor-mirror",
+      "authoritative": true,
+      "authoritative_for": [
+        "shiori 栞 actor (human-Wellbecoming detractor observatory + transparent intervention)",
+        "wellbecoming-ontology"
+      ],
+      "related": [
+        "2606073000",
+        "2606073800",
+        "2605263700",
+        "2605263000",
+        "2605231902",
+        "2606082400",
+        "2606014500"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605192100",
+        "2605264000",
+        "2605181100",
+        "2605301600",
+        "2606011800",
+        "2606066000",
+        "2605302300",
+        "2605312345",
+        "2605215000"
+      ],
+      "last_verified": "2026-06-08",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606082100-tailscale-ssh-fleet-operator-access-overlay.md",
       "id": "adr-2606082100-tailscale-ssh-fleet-operator-access-overlay",
       "title": "ADR-2606082100: Tailscale SSH mesh for the Murakumo Mac-mini fleet — keyless, tailnet-SSO-gated operator remote access",
