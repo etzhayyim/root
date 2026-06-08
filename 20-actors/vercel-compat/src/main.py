@@ -111,20 +111,99 @@ def _expand(rec, params, refs):
     return rec
 
 
+@app.route("/v1/deployments", methods=["POST"])
+def create_deployment(request):
+    """Create a Deployment."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'projectId', 'url', 'readyState', 'target', 'type'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'url'])
+    if err:
+        return err, 400
+    if data.get('readyState') and data['readyState'] not in ['BUILDING', 'ERROR', 'INITIALIZING', 'QUEUED', 'READY', 'CANCELED', 'BLOCKED', 'DELETED']:
+        return {"error": {"message": "invalid readyState; allowed: " + ", ".join(['BUILDING', 'ERROR', 'INITIALIZING', 'QUEUED', 'READY', 'CANCELED', 'BLOCKED', 'DELETED']), "type": "invalid_request_error"}}, 400
+    if data.get('target') and data['target'] not in ['production', 'staging']:
+        return {"error": {"message": "invalid target; allowed: " + ", ".join(['production', 'staging']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("vercel_dep")}
+    rec["name"] = data.get('name')
+    rec["projectId"] = data.get('projectId')
+    rec["url"] = data.get('url')
+    rec["readyState"] = data.get('readyState')
+    rec["target"] = data.get('target')
+    rec["type"] = data.get('type')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Deployment", rec)
+    return rec, 201
+
+@app.route("/v1/deployments", methods=["GET"])
+def list_deployments(request):
+    """List Deployments with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Deployment")
+    rows = _apply_filters(rows, params, ['name', 'projectId', 'url', 'readyState', 'target', 'type'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/deployments/<eid>", methods=["GET"])
+def get_deployment(request, eid):
+    """Retrieve a Deployment by id (supports ?expand=)."""
+    rows = _query("Deployment", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'projectId': 'Project'})
+    return rec, 200
+
+@app.route("/v1/deployments/<eid>", methods=["POST", "PATCH"])
+def update_deployment(request, eid):
+    """Update a Deployment."""
+    rows = _query("Deployment", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'projectId', 'url', 'readyState', 'target', 'type'])
+    if err:
+        return err, 400
+    if data.get('readyState') and data['readyState'] not in ['BUILDING', 'ERROR', 'INITIALIZING', 'QUEUED', 'READY', 'CANCELED', 'BLOCKED', 'DELETED']:
+        return {"error": {"message": "invalid readyState; allowed: " + ", ".join(['BUILDING', 'ERROR', 'INITIALIZING', 'QUEUED', 'READY', 'CANCELED', 'BLOCKED', 'DELETED']), "type": "invalid_request_error"}}, 400
+    if data.get('target') and data['target'] not in ['production', 'staging']:
+        return {"error": {"message": "invalid target; allowed: " + ", ".join(['production', 'staging']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Deployment", rec)
+    return rec, 200
+
+@app.route("/v1/deployments/<eid>", methods=["DELETE"])
+def delete_deployment(request, eid):
+    """Delete a Deployment."""
+    rows = _query("Deployment", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"vercel.Deployment", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
 @app.route("/v1/projects", methods=["POST"])
 def create_project(request):
     """Create a Project."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'region', 'billingId'])
+    err = _reject_unknown(data, ['name', 'accountId', 'nodeVersion', 'framework', 'buildCommand'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'region'])
+    err = _require(data, ['name', 'nodeVersion'])
     if err:
         return err, 400
     rec = {"id": new_id("vercel_pro")}
     rec["name"] = data.get('name')
-    rec["region"] = data.get('region')
-    rec["billingId"] = data.get('billingId')
+    rec["accountId"] = data.get('accountId')
+    rec["nodeVersion"] = data.get('nodeVersion')
+    rec["framework"] = data.get('framework')
+    rec["buildCommand"] = data.get('buildCommand')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Project", rec)
@@ -135,7 +214,7 @@ def list_projects(request):
     """List Projects with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Project")
-    rows = _apply_filters(rows, params, ['name', 'region', 'billingId'])
+    rows = _apply_filters(rows, params, ['name', 'accountId', 'nodeVersion', 'framework', 'buildCommand'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -156,7 +235,7 @@ def update_project(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'region', 'billingId'])
+    err = _reject_unknown(data, ['name', 'accountId', 'nodeVersion', 'framework', 'buildCommand'])
     if err:
         return err, 400
     rec = rows[0]
@@ -176,55 +255,123 @@ def delete_project(request, eid):
     db.retract({"entity": f"vercel.Project", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/computeinstances", methods=["POST"])
-def create_compute_instance(request):
-    """Create a ComputeInstance."""
+@app.route("/v1/domains", methods=["POST"])
+def create_domain(request):
+    """Create a Domain."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'name', 'machineType', 'state', 'ipAddress'])
+    err = _reject_unknown(data, ['name', 'verified', 'serviceType', 'expiresAt'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'machineType'])
+    err = _require(data, ['name', 'verified'])
     if err:
         return err, 400
-    rec = {"id": new_id("vercel_com")}
-    rec["projectId"] = data.get('projectId')
+    if data.get('serviceType') and data['serviceType'] not in ['zeit.world', 'external', 'na']:
+        return {"error": {"message": "invalid serviceType; allowed: " + ", ".join(['zeit.world', 'external', 'na']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("vercel_dom")}
     rec["name"] = data.get('name')
-    rec["machineType"] = data.get('machineType')
-    rec["state"] = data.get('state')
-    rec["ipAddress"] = data.get('ipAddress')
+    rec["verified"] = _as_bool(data.get('verified'))
+    rec["serviceType"] = data.get('serviceType')
+    rec["expiresAt"] = _as_int(data.get('expiresAt'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("ComputeInstance", rec)
+    _persist("Domain", rec)
     return rec, 201
 
-@app.route("/v1/computeinstances", methods=["GET"])
-def list_compute_instances(request):
-    """List ComputeInstances with filtering + cursor pagination."""
+@app.route("/v1/domains", methods=["GET"])
+def list_domains(request):
+    """List Domains with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("ComputeInstance")
-    rows = _apply_filters(rows, params, ['projectId', 'name', 'machineType', 'state', 'ipAddress'])
+    rows = _query("Domain")
+    rows = _apply_filters(rows, params, ['name', 'verified', 'serviceType', 'expiresAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/computeinstances/<eid>", methods=["GET"])
-def get_compute_instance(request, eid):
-    """Retrieve a ComputeInstance by id (supports ?expand=)."""
-    rows = _query("ComputeInstance", eid)
+@app.route("/v1/domains/<eid>", methods=["GET"])
+def get_domain(request, eid):
+    """Retrieve a Domain by id (supports ?expand=)."""
+    rows = _query("Domain", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'projectId': 'Project'})
     return rec, 200
 
-@app.route("/v1/computeinstances/<eid>", methods=["POST", "PATCH"])
-def update_compute_instance(request, eid):
-    """Update a ComputeInstance."""
-    rows = _query("ComputeInstance", eid)
+@app.route("/v1/domains/<eid>", methods=["POST", "PATCH"])
+def update_domain(request, eid):
+    """Update a Domain."""
+    rows = _query("Domain", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'name', 'machineType', 'state', 'ipAddress'])
+    err = _reject_unknown(data, ['name', 'verified', 'serviceType', 'expiresAt'])
+    if err:
+        return err, 400
+    if data.get('serviceType') and data['serviceType'] not in ['zeit.world', 'external', 'na']:
+        return {"error": {"message": "invalid serviceType; allowed: " + ", ".join(['zeit.world', 'external', 'na']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Domain", rec)
+    return rec, 200
+
+@app.route("/v1/domains/<eid>", methods=["DELETE"])
+def delete_domain(request, eid):
+    """Delete a Domain."""
+    rows = _query("Domain", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"vercel.Domain", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/aliases", methods=["POST"])
+def create_alias(request):
+    """Create a Alias."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['alias', 'deploymentId', 'projectId'])
+    if err:
+        return err, 400
+    err = _require(data, ['alias'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("vercel_ali")}
+    rec["alias"] = data.get('alias')
+    rec["deploymentId"] = data.get('deploymentId')
+    rec["projectId"] = data.get('projectId')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Alias", rec)
+    return rec, 201
+
+@app.route("/v1/aliases", methods=["GET"])
+def list_aliases(request):
+    """List Aliases with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Alias")
+    rows = _apply_filters(rows, params, ['alias', 'deploymentId', 'projectId'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/aliases/<eid>", methods=["GET"])
+def get_alias(request, eid):
+    """Retrieve a Alias by id (supports ?expand=)."""
+    rows = _query("Alias", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'deploymentId': 'Deployment', 'projectId': 'Project'})
+    return rec, 200
+
+@app.route("/v1/aliases/<eid>", methods=["POST", "PATCH"])
+def update_alias(request, eid):
+    """Update a Alias."""
+    rows = _query("Alias", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['alias', 'deploymentId', 'projectId'])
     if err:
         return err, 400
     rec = rows[0]
@@ -232,133 +379,64 @@ def update_compute_instance(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("ComputeInstance", rec)
+    _persist("Alias", rec)
     return rec, 200
 
-@app.route("/v1/computeinstances/<eid>", methods=["DELETE"])
-def delete_compute_instance(request, eid):
-    """Delete a ComputeInstance."""
-    rows = _query("ComputeInstance", eid)
+@app.route("/v1/aliases/<eid>", methods=["DELETE"])
+def delete_alias(request, eid):
+    """Delete a Alias."""
+    rows = _query("Alias", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"vercel.ComputeInstance", "id": eid})
+    db.retract({"entity": f"vercel.Alias", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/volumes", methods=["POST"])
-def create_volume(request):
-    """Create a Volume."""
+@app.route("/v1/teams", methods=["POST"])
+def create_team(request):
+    """Create a Team."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'sizeGb', 'type', 'attachedTo'])
+    err = _reject_unknown(data, ['name', 'slug', 'description'])
     if err:
         return err, 400
-    err = _require(data, ['sizeGb', 'type'])
+    err = _require(data, ['name', 'slug'])
     if err:
         return err, 400
-    rec = {"id": new_id("vercel_vol")}
-    rec["projectId"] = data.get('projectId')
-    rec["sizeGb"] = _as_int(data.get('sizeGb'))
-    rec["type"] = data.get('type')
-    rec["attachedTo"] = data.get('attachedTo')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Volume", rec)
-    return rec, 201
-
-@app.route("/v1/volumes", methods=["GET"])
-def list_volumes(request):
-    """List Volumes with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Volume")
-    rows = _apply_filters(rows, params, ['projectId', 'sizeGb', 'type', 'attachedTo'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/volumes/<eid>", methods=["GET"])
-def get_volume(request, eid):
-    """Retrieve a Volume by id (supports ?expand=)."""
-    rows = _query("Volume", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'projectId': 'Project'})
-    return rec, 200
-
-@app.route("/v1/volumes/<eid>", methods=["POST", "PATCH"])
-def update_volume(request, eid):
-    """Update a Volume."""
-    rows = _query("Volume", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'sizeGb', 'type', 'attachedTo'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Volume", rec)
-    return rec, 200
-
-@app.route("/v1/volumes/<eid>", methods=["DELETE"])
-def delete_volume(request, eid):
-    """Delete a Volume."""
-    rows = _query("Volume", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"vercel.Volume", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/buckets", methods=["POST"])
-def create_bucket(request):
-    """Create a Bucket."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'name', 'region', 'public'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'region'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("vercel_buc")}
-    rec["projectId"] = data.get('projectId')
+    rec = {"id": new_id("vercel_tea")}
     rec["name"] = data.get('name')
-    rec["region"] = data.get('region')
-    rec["public"] = _as_bool(data.get('public'))
+    rec["slug"] = data.get('slug')
+    rec["description"] = data.get('description')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Bucket", rec)
+    _persist("Team", rec)
     return rec, 201
 
-@app.route("/v1/buckets", methods=["GET"])
-def list_buckets(request):
-    """List Buckets with filtering + cursor pagination."""
+@app.route("/v1/teams", methods=["GET"])
+def list_teams(request):
+    """List Teams with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Bucket")
-    rows = _apply_filters(rows, params, ['projectId', 'name', 'region', 'public'])
+    rows = _query("Team")
+    rows = _apply_filters(rows, params, ['name', 'slug', 'description'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/buckets/<eid>", methods=["GET"])
-def get_bucket(request, eid):
-    """Retrieve a Bucket by id (supports ?expand=)."""
-    rows = _query("Bucket", eid)
+@app.route("/v1/teams/<eid>", methods=["GET"])
+def get_team(request, eid):
+    """Retrieve a Team by id (supports ?expand=)."""
+    rows = _query("Team", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'projectId': 'Project'})
     return rec, 200
 
-@app.route("/v1/buckets/<eid>", methods=["POST", "PATCH"])
-def update_bucket(request, eid):
-    """Update a Bucket."""
-    rows = _query("Bucket", eid)
+@app.route("/v1/teams/<eid>", methods=["POST", "PATCH"])
+def update_team(request, eid):
+    """Update a Team."""
+    rows = _query("Team", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'name', 'region', 'public'])
+    err = _reject_unknown(data, ['name', 'slug', 'description'])
     if err:
         return err, 400
     rec = rows[0]
@@ -366,154 +444,22 @@ def update_bucket(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Bucket", rec)
+    _persist("Team", rec)
     return rec, 200
 
-@app.route("/v1/buckets/<eid>", methods=["DELETE"])
-def delete_bucket(request, eid):
-    """Delete a Bucket."""
-    rows = _query("Bucket", eid)
+@app.route("/v1/teams/<eid>", methods=["DELETE"])
+def delete_team(request, eid):
+    """Delete a Team."""
+    rows = _query("Team", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"vercel.Bucket", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/networks", methods=["POST"])
-def create_network(request):
-    """Create a Network."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'cidr', 'region'])
-    if err:
-        return err, 400
-    err = _require(data, ['cidr', 'region'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("vercel_net")}
-    rec["projectId"] = data.get('projectId')
-    rec["cidr"] = data.get('cidr')
-    rec["region"] = data.get('region')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Network", rec)
-    return rec, 201
-
-@app.route("/v1/networks", methods=["GET"])
-def list_networks(request):
-    """List Networks with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Network")
-    rows = _apply_filters(rows, params, ['projectId', 'cidr', 'region'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/networks/<eid>", methods=["GET"])
-def get_network(request, eid):
-    """Retrieve a Network by id (supports ?expand=)."""
-    rows = _query("Network", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'projectId': 'Project'})
-    return rec, 200
-
-@app.route("/v1/networks/<eid>", methods=["POST", "PATCH"])
-def update_network(request, eid):
-    """Update a Network."""
-    rows = _query("Network", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'cidr', 'region'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Network", rec)
-    return rec, 200
-
-@app.route("/v1/networks/<eid>", methods=["DELETE"])
-def delete_network(request, eid):
-    """Delete a Network."""
-    rows = _query("Network", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"vercel.Network", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/iamroles", methods=["POST"])
-def create_iam_role(request):
-    """Create a IamRole."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'name', 'policy'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'policy'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("vercel_iam")}
-    rec["projectId"] = data.get('projectId')
-    rec["name"] = data.get('name')
-    rec["policy"] = data.get('policy')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("IamRole", rec)
-    return rec, 201
-
-@app.route("/v1/iamroles", methods=["GET"])
-def list_iam_roles(request):
-    """List IamRoles with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("IamRole")
-    rows = _apply_filters(rows, params, ['projectId', 'name', 'policy'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/iamroles/<eid>", methods=["GET"])
-def get_iam_role(request, eid):
-    """Retrieve a IamRole by id (supports ?expand=)."""
-    rows = _query("IamRole", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'projectId': 'Project'})
-    return rec, 200
-
-@app.route("/v1/iamroles/<eid>", methods=["POST", "PATCH"])
-def update_iam_role(request, eid):
-    """Update a IamRole."""
-    rows = _query("IamRole", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'name', 'policy'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("IamRole", rec)
-    return rec, 200
-
-@app.route("/v1/iamroles/<eid>", methods=["DELETE"])
-def delete_iam_role(request, eid):
-    """Delete a IamRole."""
-    rows = _query("IamRole", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"vercel.IamRole", "id": eid})
+    db.retract({"entity": f"vercel.Team", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "vercel-compat", "tier": "L4",
-            "entities": ['Project', 'ComputeInstance', 'Volume', 'Bucket', 'Network', 'IamRole']}, 200
+            "entities": ['Deployment', 'Project', 'Domain', 'Alias', 'Team']}, 200
 
 
 if __name__ == "__main__":

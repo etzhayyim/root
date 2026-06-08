@@ -12076,11 +12076,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible cloud infrastructure (IaaS) actor (vercel); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "vercel.kotoba"
-   :actor/wasm-cid "bafkreicipndzgzd6lord25hopx4i3w4chiwf6fysbmhlhqvi2towx7x2ji"
+   :actor/wasm-cid "bafkreidcs5xleripnw7n3xht4ms62ozwpfwfh2arqbbo7uktui534lttjq"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:vercel-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreicipndzgzd6lord25hopx4i3w4chiwf6fysbmhlhqvi2towx7x2ji" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:vercel-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreicipndzgzd6lord25hopx4i3w4chiwf6fysbmhlhqvi2towx7x2ji" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:vercel-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreicipndzgzd6lord25hopx4i3w4chiwf6fysbmhlhqvi2towx7x2ji" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:vercel-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreicipndzgzd6lord25hopx4i3w4chiwf6fysbmhlhqvi2towx7x2ji" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:vercel-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreidcs5xleripnw7n3xht4ms62ozwpfwfh2arqbbo7uktui534lttjq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:vercel-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreidcs5xleripnw7n3xht4ms62ozwpfwfh2arqbbo7uktui534lttjq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:vercel-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreidcs5xleripnw7n3xht4ms62ozwpfwfh2arqbbo7uktui534lttjq" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:vercel-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreidcs5xleripnw7n3xht4ms62ozwpfwfh2arqbbo7uktui534lttjq" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "veriff-compat"
    :actor/did "did:web:etzhayyim.com:actor:veriff-compat"
    :actor/kind :compat

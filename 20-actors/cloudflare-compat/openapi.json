@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreigu3r5x6vudgbpypd6r4jdv4qmffvr5ibjnptt37vm2w5v3hqftae",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,9 +17,9 @@
     }
   ],
   "paths": {
-    "/v1/projects": {
+    "/v1/zones": {
       "get": {
-        "summary": "List Projects",
+        "summary": "List Zones",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Project"
+                        "$ref": "#/components/schemas/Zone"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Project",
+        "summary": "Create a Zone",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProjectCreate"
+                "$ref": "#/components/schemas/ZoneCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Project"
+                  "$ref": "#/components/schemas/Zone"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/projects/{id}": {
+    "/v1/zones/{id}": {
       "get": {
-        "summary": "Get a Project",
+        "summary": "Get a Zone",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Project"
+                  "$ref": "#/components/schemas/Zone"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Project",
+        "summary": "Update a Zone",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProjectCreate"
+                "$ref": "#/components/schemas/ZoneCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Project"
+                  "$ref": "#/components/schemas/Zone"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Project",
+        "summary": "Delete a Zone",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/computeinstances": {
+    "/v1/dnsrecords": {
       "get": {
-        "summary": "List ComputeInstances",
+        "summary": "List DNSRecords",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ComputeInstance"
+                        "$ref": "#/components/schemas/DNSRecord"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a ComputeInstance",
+        "summary": "Create a DNSRecord",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ComputeInstanceCreate"
+                "$ref": "#/components/schemas/DNSRecordCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ComputeInstance"
+                  "$ref": "#/components/schemas/DNSRecord"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/computeinstances/{id}": {
+    "/v1/dnsrecords/{id}": {
       "get": {
-        "summary": "Get a ComputeInstance",
+        "summary": "Get a DNSRecord",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ComputeInstance"
+                  "$ref": "#/components/schemas/DNSRecord"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a ComputeInstance",
+        "summary": "Update a DNSRecord",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ComputeInstanceCreate"
+                "$ref": "#/components/schemas/DNSRecordCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ComputeInstance"
+                  "$ref": "#/components/schemas/DNSRecord"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a ComputeInstance",
+        "summary": "Delete a DNSRecord",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/volumes": {
+    "/v1/workerscripts": {
       "get": {
-        "summary": "List Volumes",
+        "summary": "List WorkerScripts",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Volume"
+                        "$ref": "#/components/schemas/WorkerScript"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Volume",
+        "summary": "Create a WorkerScript",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/VolumeCreate"
+                "$ref": "#/components/schemas/WorkerScriptCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Volume"
+                  "$ref": "#/components/schemas/WorkerScript"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/volumes/{id}": {
+    "/v1/workerscripts/{id}": {
       "get": {
-        "summary": "Get a Volume",
+        "summary": "Get a WorkerScript",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Volume"
+                  "$ref": "#/components/schemas/WorkerScript"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Volume",
+        "summary": "Update a WorkerScript",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/VolumeCreate"
+                "$ref": "#/components/schemas/WorkerScriptCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Volume"
+                  "$ref": "#/components/schemas/WorkerScript"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Volume",
+        "summary": "Delete a WorkerScript",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/buckets": {
+    "/v1/certificates": {
       "get": {
-        "summary": "List Buckets",
+        "summary": "List Certificates",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Bucket"
+                        "$ref": "#/components/schemas/Certificate"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Bucket",
+        "summary": "Create a Certificate",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BucketCreate"
+                "$ref": "#/components/schemas/CertificateCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Bucket"
+                  "$ref": "#/components/schemas/Certificate"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/buckets/{id}": {
+    "/v1/certificates/{id}": {
       "get": {
-        "summary": "Get a Bucket",
+        "summary": "Get a Certificate",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Bucket"
+                  "$ref": "#/components/schemas/Certificate"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Bucket",
+        "summary": "Update a Certificate",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BucketCreate"
+                "$ref": "#/components/schemas/CertificateCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Bucket"
+                  "$ref": "#/components/schemas/Certificate"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Bucket",
+        "summary": "Delete a Certificate",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/networks": {
+    "/v1/pagerules": {
       "get": {
-        "summary": "List Networks",
+        "summary": "List PageRules",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Network"
+                        "$ref": "#/components/schemas/PageRule"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Network",
+        "summary": "Create a PageRule",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NetworkCreate"
+                "$ref": "#/components/schemas/PageRuleCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Network"
+                  "$ref": "#/components/schemas/PageRule"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/networks/{id}": {
+    "/v1/pagerules/{id}": {
       "get": {
-        "summary": "Get a Network",
+        "summary": "Get a PageRule",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Network"
+                  "$ref": "#/components/schemas/PageRule"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Network",
+        "summary": "Update a PageRule",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NetworkCreate"
+                "$ref": "#/components/schemas/PageRuleCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Network"
+                  "$ref": "#/components/schemas/PageRule"
                 }
               }
             }
@@ -921,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Network",
+        "summary": "Delete a PageRule",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +942,9 @@
         }
       }
     },
-    "/v1/iamroles": {
+    "/v1/loadbalancers": {
       "get": {
-        "summary": "List IamRoles",
+        "summary": "List LoadBalancers",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +984,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/IamRole"
+                        "$ref": "#/components/schemas/LoadBalancer"
                       }
                     },
                     "has_more": {
@@ -1004,13 +1004,13 @@
         }
       },
       "post": {
-        "summary": "Create a IamRole",
+        "summary": "Create a LoadBalancer",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IamRoleCreate"
+                "$ref": "#/components/schemas/LoadBalancerCreate"
               }
             }
           }
@@ -1021,7 +1021,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IamRole"
+                  "$ref": "#/components/schemas/LoadBalancer"
                 }
               }
             }
@@ -1032,9 +1032,9 @@
         }
       }
     },
-    "/v1/iamroles/{id}": {
+    "/v1/loadbalancers/{id}": {
       "get": {
-        "summary": "Get a IamRole",
+        "summary": "Get a LoadBalancer",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +1058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IamRole"
+                  "$ref": "#/components/schemas/LoadBalancer"
                 }
               }
             }
@@ -1069,7 +1069,7 @@
         }
       },
       "patch": {
-        "summary": "Update a IamRole",
+        "summary": "Update a LoadBalancer",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +1084,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IamRoleCreate"
+                "$ref": "#/components/schemas/LoadBalancerCreate"
               }
             }
           }
@@ -1095,7 +1095,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IamRole"
+                  "$ref": "#/components/schemas/LoadBalancer"
                 }
               }
             }
@@ -1106,7 +1106,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a IamRole",
+        "summary": "Delete a LoadBalancer",
         "parameters": [
           {
             "name": "id",
@@ -1140,7 +1140,7 @@
   },
   "components": {
     "schemas": {
-      "Project": {
+      "Zone": {
         "type": "object",
         "properties": {
           "id": {
@@ -1149,11 +1149,29 @@
           "name": {
             "type": "string"
           },
-          "region": {
-            "type": "string"
+          "status": {
+            "type": "string",
+            "enum": [
+              "initializing",
+              "pending",
+              "active",
+              "moved"
+            ]
           },
-          "billingId": {
-            "type": "string"
+          "type": {
+            "type": "string",
+            "enum": [
+              "full",
+              "partial",
+              "secondary",
+              "internal"
+            ]
+          },
+          "paused": {
+            "type": "boolean"
+          },
+          "developmentMode": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1165,44 +1183,87 @@
           }
         }
       },
-      "ProjectCreate": {
+      "ZoneCreate": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string"
           },
-          "region": {
-            "type": "string"
+          "status": {
+            "type": "string",
+            "enum": [
+              "initializing",
+              "pending",
+              "active",
+              "moved"
+            ]
           },
-          "billingId": {
-            "type": "string"
+          "type": {
+            "type": "string",
+            "enum": [
+              "full",
+              "partial",
+              "secondary",
+              "internal"
+            ]
+          },
+          "paused": {
+            "type": "boolean"
+          },
+          "developmentMode": {
+            "type": "integer"
           }
         },
         "required": [
           "name",
-          "region"
+          "status"
         ]
       },
-      "ComputeInstance": {
+      "DNSRecord": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "projectId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "machineType": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "A",
+              "AAAA",
+              "CNAME",
+              "TXT",
+              "MX",
+              "NS",
+              "SRV",
+              "CAA",
+              "SOA",
+              "DKIM",
+              "SPF",
+              "DMARC",
+              "SVCB",
+              "HTTPS",
+              "PTR",
+              "DS",
+              "DNSKEY",
+              "URI",
+              "NAPTR",
+              "SSHFP",
+              "TLSA",
+              "SMIMEA",
+              "CERT"
+            ]
+          },
+          "content": {
             "type": "string"
           },
-          "state": {
-            "type": "string"
+          "ttl": {
+            "type": "integer"
           },
-          "ipAddress": {
-            "type": "string"
+          "proxied": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1214,95 +1275,198 @@
           }
         }
       },
-      "ComputeInstanceCreate": {
+      "DNSRecordCreate": {
         "type": "object",
         "properties": {
-          "projectId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "machineType": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "A",
+              "AAAA",
+              "CNAME",
+              "TXT",
+              "MX",
+              "NS",
+              "SRV",
+              "CAA",
+              "SOA",
+              "DKIM",
+              "SPF",
+              "DMARC",
+              "SVCB",
+              "HTTPS",
+              "PTR",
+              "DS",
+              "DNSKEY",
+              "URI",
+              "NAPTR",
+              "SSHFP",
+              "TLSA",
+              "SMIMEA",
+              "CERT"
+            ]
+          },
+          "content": {
             "type": "string"
           },
-          "state": {
-            "type": "string"
+          "ttl": {
+            "type": "integer"
           },
-          "ipAddress": {
-            "type": "string"
+          "proxied": {
+            "type": "boolean"
           }
         },
         "required": [
           "name",
-          "machineType"
-        ]
-      },
-      "Volume": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "projectId": {
-            "type": "string"
-          },
-          "sizeGb": {
-            "type": "integer"
-          },
-          "type": {
-            "type": "string"
-          },
-          "attachedTo": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "VolumeCreate": {
-        "type": "object",
-        "properties": {
-          "projectId": {
-            "type": "string"
-          },
-          "sizeGb": {
-            "type": "integer"
-          },
-          "type": {
-            "type": "string"
-          },
-          "attachedTo": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "sizeGb",
           "type"
         ]
       },
-      "Bucket": {
+      "WorkerScript": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "projectId": {
+          "name": {
+            "type": "string"
+          },
+          "usageModel": {
+            "type": "string"
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "WorkerScriptCreate": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "usageModel": {
+            "type": "string"
+          },
+          "createdOn": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "usageModel"
+        ]
+      },
+      "Certificate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "hosts": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "CertificateCreate": {
+        "type": "object",
+        "properties": {
+          "hosts": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "hosts",
+          "status"
+        ]
+      },
+      "PageRule": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "targetUrl": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "priority": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "PageRuleCreate": {
+        "type": "object",
+        "properties": {
+          "targetUrl": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "priority": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "targetUrl",
+          "status"
+        ]
+      },
+      "LoadBalancer": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "string"
           },
           "name": {
             "type": "string"
           },
-          "region": {
-            "type": "string"
+          "enabled": {
+            "type": "boolean"
           },
-          "public": {
+          "proxied": {
             "type": "boolean"
           },
           "createdAt": {
@@ -1315,111 +1479,22 @@
           }
         }
       },
-      "BucketCreate": {
+      "LoadBalancerCreate": {
         "type": "object",
         "properties": {
-          "projectId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "region": {
-            "type": "string"
+          "enabled": {
+            "type": "boolean"
           },
-          "public": {
+          "proxied": {
             "type": "boolean"
           }
         },
         "required": [
           "name",
-          "region"
-        ]
-      },
-      "Network": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "projectId": {
-            "type": "string"
-          },
-          "cidr": {
-            "type": "string"
-          },
-          "region": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "NetworkCreate": {
-        "type": "object",
-        "properties": {
-          "projectId": {
-            "type": "string"
-          },
-          "cidr": {
-            "type": "string"
-          },
-          "region": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "cidr",
-          "region"
-        ]
-      },
-      "IamRole": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "projectId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "policy": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "IamRoleCreate": {
-        "type": "object",
-        "properties": {
-          "projectId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "policy": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "policy"
+          "enabled"
         ]
       }
     }

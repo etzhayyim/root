@@ -5,21 +5,55 @@
   "kind": "compat",
   "title": "vercel clean-room actor",
   "description": "Clean-room, API-compatible cloud infrastructure (IaaS) actor (vercel); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicipndzgzd6lord25hopx4i3w4chiwf6fysbmhlhqvi2towx7x2ji",
+  "wasmCid": "bafkreidcs5xleripnw7n3xht4ms62ozwpfwfh2arqbbo7uktui534lttjq",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicipndzgzd6lord25hopx4i3w4chiwf6fysbmhlhqvi2towx7x2ji",
+  "ipfs": "ipfs://bafkreidcs5xleripnw7n3xht4ms62ozwpfwfh2arqbbo7uktui534lttjq",
   "schema": "schema/vercel.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://vercel.com/docs/rest-api",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "Deployment",
+      "Project",
+      "Domain",
+      "Alias",
+      "Team"
+    ],
+    "enums": {
+      "Deployment": {
+        "readyState": [
+          "BUILDING",
+          "ERROR",
+          "INITIALIZING",
+          "QUEUED",
+          "READY",
+          "CANCELED",
+          "BLOCKED",
+          "DELETED"
+        ],
+        "target": [
+          "production",
+          "staging"
+        ]
+      },
+      "Domain": {
+        "serviceType": [
+          "zeit.world",
+          "external",
+          "na"
+        ]
+      }
+    }
+  },
   "entities": [
+    "Deployment",
     "Project",
-    "ComputeInstance",
-    "Volume",
-    "Bucket",
-    "Network",
-    "IamRole"
+    "Domain",
+    "Alias",
+    "Team"
   ],
   "adr": [
     "260607",
@@ -31,8 +65,33 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
+        {
+          "method": "POST",
+          "path": "/v1/deployments",
+          "op": "create Deployment"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/deployments",
+          "op": "list Deployment"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/deployments/{id}",
+          "op": "get Deployment"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/deployments/{id}",
+          "op": "update Deployment"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/deployments/{id}",
+          "op": "delete Deployment"
+        },
         {
           "method": "POST",
           "path": "/v1/projects",
@@ -60,128 +119,78 @@
         },
         {
           "method": "POST",
-          "path": "/v1/computeinstances",
-          "op": "create ComputeInstance"
+          "path": "/v1/domains",
+          "op": "create Domain"
         },
         {
           "method": "GET",
-          "path": "/v1/computeinstances",
-          "op": "list ComputeInstance"
+          "path": "/v1/domains",
+          "op": "list Domain"
         },
         {
           "method": "GET",
-          "path": "/v1/computeinstances/{id}",
-          "op": "get ComputeInstance"
+          "path": "/v1/domains/{id}",
+          "op": "get Domain"
         },
         {
           "method": "PATCH",
-          "path": "/v1/computeinstances/{id}",
-          "op": "update ComputeInstance"
+          "path": "/v1/domains/{id}",
+          "op": "update Domain"
         },
         {
           "method": "DELETE",
-          "path": "/v1/computeinstances/{id}",
-          "op": "delete ComputeInstance"
+          "path": "/v1/domains/{id}",
+          "op": "delete Domain"
         },
         {
           "method": "POST",
-          "path": "/v1/volumes",
-          "op": "create Volume"
+          "path": "/v1/aliases",
+          "op": "create Alias"
         },
         {
           "method": "GET",
-          "path": "/v1/volumes",
-          "op": "list Volume"
+          "path": "/v1/aliases",
+          "op": "list Alias"
         },
         {
           "method": "GET",
-          "path": "/v1/volumes/{id}",
-          "op": "get Volume"
+          "path": "/v1/aliases/{id}",
+          "op": "get Alias"
         },
         {
           "method": "PATCH",
-          "path": "/v1/volumes/{id}",
-          "op": "update Volume"
+          "path": "/v1/aliases/{id}",
+          "op": "update Alias"
         },
         {
           "method": "DELETE",
-          "path": "/v1/volumes/{id}",
-          "op": "delete Volume"
+          "path": "/v1/aliases/{id}",
+          "op": "delete Alias"
         },
         {
           "method": "POST",
-          "path": "/v1/buckets",
-          "op": "create Bucket"
+          "path": "/v1/teams",
+          "op": "create Team"
         },
         {
           "method": "GET",
-          "path": "/v1/buckets",
-          "op": "list Bucket"
+          "path": "/v1/teams",
+          "op": "list Team"
         },
         {
           "method": "GET",
-          "path": "/v1/buckets/{id}",
-          "op": "get Bucket"
+          "path": "/v1/teams/{id}",
+          "op": "get Team"
         },
         {
           "method": "PATCH",
-          "path": "/v1/buckets/{id}",
-          "op": "update Bucket"
+          "path": "/v1/teams/{id}",
+          "op": "update Team"
         },
         {
           "method": "DELETE",
-          "path": "/v1/buckets/{id}",
-          "op": "delete Bucket"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/networks",
-          "op": "create Network"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/networks",
-          "op": "list Network"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/networks/{id}",
-          "op": "get Network"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/networks/{id}",
-          "op": "update Network"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/networks/{id}",
-          "op": "delete Network"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/iamroles",
-          "op": "create IamRole"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/iamroles",
-          "op": "list IamRole"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/iamroles/{id}",
-          "op": "get IamRole"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/iamroles/{id}",
-          "op": "update IamRole"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/iamroles/{id}",
-          "op": "delete IamRole"
+          "path": "/v1/teams/{id}",
+          "op": "delete Team"
         }
       ],
       "features": {
@@ -244,8 +253,110 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
+        {
+          "name": "create_deployment",
+          "description": "Create a Deployment.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "projectId": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "readyState": {
+                "type": "string"
+              },
+              "target": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "url"
+            ]
+          }
+        },
+        {
+          "name": "list_deployments",
+          "description": "List Deployments.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_deployment",
+          "description": "Get a Deployment by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_deployment",
+          "description": "Update a Deployment.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "projectId": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "readyState": {
+                "type": "string"
+              },
+              "target": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_deployment",
+          "description": "Delete a Deployment.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
         {
           "name": "create_project",
           "description": "Create a Project.",
@@ -255,16 +366,22 @@
               "name": {
                 "type": "string"
               },
-              "region": {
+              "accountId": {
                 "type": "string"
               },
-              "billingId": {
+              "nodeVersion": {
+                "type": "string"
+              },
+              "framework": {
+                "type": "string"
+              },
+              "buildCommand": {
                 "type": "string"
               }
             },
             "required": [
               "name",
-              "region"
+              "nodeVersion"
             ]
           }
         },
@@ -303,10 +420,16 @@
               "name": {
                 "type": "string"
               },
-              "region": {
+              "accountId": {
                 "type": "string"
               },
-              "billingId": {
+              "nodeVersion": {
+                "type": "string"
+              },
+              "framework": {
+                "type": "string"
+              },
+              "buildCommand": {
                 "type": "string"
               }
             },
@@ -331,227 +454,41 @@
           }
         },
         {
-          "name": "create_compute_instance",
-          "description": "Create a ComputeInstance.",
+          "name": "create_domain",
+          "description": "Create a Domain.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "projectId": {
-                "type": "string"
-              },
               "name": {
                 "type": "string"
               },
-              "machineType": {
-                "type": "string"
-              },
-              "state": {
-                "type": "string"
-              },
-              "ipAddress": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "machineType"
-            ]
-          }
-        },
-        {
-          "name": "list_compute_instances",
-          "description": "List ComputeInstances.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_compute_instance",
-          "description": "Get a ComputeInstance by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_compute_instance",
-          "description": "Update a ComputeInstance.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "projectId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "machineType": {
-                "type": "string"
-              },
-              "state": {
-                "type": "string"
-              },
-              "ipAddress": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_compute_instance",
-          "description": "Delete a ComputeInstance.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_volume",
-          "description": "Create a Volume.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "projectId": {
-                "type": "string"
-              },
-              "sizeGb": {
-                "type": "integer"
-              },
-              "type": {
-                "type": "string"
-              },
-              "attachedTo": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "sizeGb",
-              "type"
-            ]
-          }
-        },
-        {
-          "name": "list_volumes",
-          "description": "List Volumes.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_volume",
-          "description": "Get a Volume by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_volume",
-          "description": "Update a Volume.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "projectId": {
-                "type": "string"
-              },
-              "sizeGb": {
-                "type": "integer"
-              },
-              "type": {
-                "type": "string"
-              },
-              "attachedTo": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_volume",
-          "description": "Delete a Volume.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_bucket",
-          "description": "Create a Bucket.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "projectId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "region": {
-                "type": "string"
-              },
-              "public": {
+              "verified": {
                 "type": "boolean"
+              },
+              "serviceType": {
+                "type": "string"
+              },
+              "expiresAt": {
+                "type": "integer"
               }
             },
             "required": [
               "name",
-              "region"
+              "verified"
             ]
           }
         },
         {
-          "name": "list_buckets",
-          "description": "List Buckets.",
+          "name": "list_domains",
+          "description": "List Domains.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_bucket",
-          "description": "Get a Bucket by id.",
+          "name": "get_domain",
+          "description": "Get a Domain by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -565,25 +502,25 @@
           }
         },
         {
-          "name": "update_bucket",
-          "description": "Update a Bucket.",
+          "name": "update_domain",
+          "description": "Update a Domain.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "projectId": {
-                "type": "string"
-              },
               "name": {
                 "type": "string"
               },
-              "region": {
-                "type": "string"
-              },
-              "public": {
+              "verified": {
                 "type": "boolean"
+              },
+              "serviceType": {
+                "type": "string"
+              },
+              "expiresAt": {
+                "type": "integer"
               }
             },
             "required": [
@@ -592,8 +529,8 @@
           }
         },
         {
-          "name": "delete_bucket",
-          "description": "Delete a Bucket.",
+          "name": "delete_domain",
+          "description": "Delete a Domain.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -607,38 +544,37 @@
           }
         },
         {
-          "name": "create_network",
-          "description": "Create a Network.",
+          "name": "create_alias",
+          "description": "Create a Alias.",
           "inputSchema": {
             "type": "object",
             "properties": {
+              "alias": {
+                "type": "string"
+              },
+              "deploymentId": {
+                "type": "string"
+              },
               "projectId": {
-                "type": "string"
-              },
-              "cidr": {
-                "type": "string"
-              },
-              "region": {
                 "type": "string"
               }
             },
             "required": [
-              "cidr",
-              "region"
+              "alias"
             ]
           }
         },
         {
-          "name": "list_networks",
-          "description": "List Networks.",
+          "name": "list_aliases",
+          "description": "List Aliases.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_network",
-          "description": "Get a Network by id.",
+          "name": "get_alias",
+          "description": "Get a Alias by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -652,22 +588,22 @@
           }
         },
         {
-          "name": "update_network",
-          "description": "Update a Network.",
+          "name": "update_alias",
+          "description": "Update a Alias.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
+                "type": "string"
+              },
+              "alias": {
+                "type": "string"
+              },
+              "deploymentId": {
                 "type": "string"
               },
               "projectId": {
                 "type": "string"
-              },
-              "cidr": {
-                "type": "string"
-              },
-              "region": {
-                "type": "string"
               }
             },
             "required": [
@@ -676,8 +612,8 @@
           }
         },
         {
-          "name": "delete_network",
-          "description": "Delete a Network.",
+          "name": "delete_alias",
+          "description": "Delete a Alias.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -691,38 +627,38 @@
           }
         },
         {
-          "name": "create_iam_role",
-          "description": "Create a IamRole.",
+          "name": "create_team",
+          "description": "Create a Team.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "projectId": {
-                "type": "string"
-              },
               "name": {
                 "type": "string"
               },
-              "policy": {
+              "slug": {
+                "type": "string"
+              },
+              "description": {
                 "type": "string"
               }
             },
             "required": [
               "name",
-              "policy"
+              "slug"
             ]
           }
         },
         {
-          "name": "list_iam_roles",
-          "description": "List IamRoles.",
+          "name": "list_teams",
+          "description": "List Teams.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_iam_role",
-          "description": "Get a IamRole by id.",
+          "name": "get_team",
+          "description": "Get a Team by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -736,21 +672,21 @@
           }
         },
         {
-          "name": "update_iam_role",
-          "description": "Update a IamRole.",
+          "name": "update_team",
+          "description": "Update a Team.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "projectId": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "policy": {
+              "slug": {
+                "type": "string"
+              },
+              "description": {
                 "type": "string"
               }
             },
@@ -760,8 +696,8 @@
           }
         },
         {
-          "name": "delete_iam_role",
-          "description": "Delete a IamRole.",
+          "name": "delete_team",
+          "description": "Delete a Team.",
           "inputSchema": {
             "type": "object",
             "properties": {

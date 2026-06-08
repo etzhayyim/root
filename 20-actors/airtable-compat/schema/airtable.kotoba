@@ -3,68 +3,55 @@
 
 namespace airtable {
 
-    entity Workspace {
+    entity Base {
         id: string @unique
         name: string
-        ownerId: string
-        plan: string
+        permissionLevel: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Document {
+    entity Table {
         id: string @unique
-        workspaceId: string
-        title: string
-        contentRef: string
-        ownerId: string
+        name: string
+        description: string
+        primaryFieldId: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Folder {
+    entity Field {
         id: string @unique
-        workspaceId: string
         name: string
-        parentId: string
+        type: string
+        description: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Record {
+        id: string @unique
+        createdTime: datetime
+        fieldsJson: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity View {
+        id: string @unique
+        name: string
+        type: string
+        personalForUserId: string
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Comment {
         id: string @unique
-        documentId: string
-        authorId: string
-        body: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Permission {
-        id: string @unique
-        resourceId: string
-        principalId: string
-        role: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity User {
-        id: string @unique
-        email: string
-        displayName: string
-        status: string
+        text: string
+        lastUpdatedTime: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

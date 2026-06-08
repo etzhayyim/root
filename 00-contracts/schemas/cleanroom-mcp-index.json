@@ -7,7 +7,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 30035,
+  "totalTools": 30030,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -183,7 +183,7 @@
     {
       "handle": "airtable-compat",
       "did": "did:web:etzhayyim.com:actor:airtable-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreibvewheitwk54mgyeoqq5orlkubbdjukr2bwtibcgxxeaauj4xceq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -1650,7 +1650,7 @@
     {
       "handle": "cloudflare-compat",
       "did": "did:web:etzhayyim.com:actor:cloudflare-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreigu3r5x6vudgbpypd6r4jdv4qmffvr5ibjnptt37vm2w5v3hqftae",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -8355,10 +8355,10 @@
     {
       "handle": "vercel-compat",
       "did": "did:web:etzhayyim.com:actor:vercel-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreicipndzgzd6lord25hopx4i3w4chiwf6fysbmhlhqvi2towx7x2ji",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreidcs5xleripnw7n3xht4ms62ozwpfwfh2arqbbo7uktui534lttjq",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "manifest": "20-actors/vercel-compat/manifest.json#/capabilities/mcp"
     },
     {

@@ -6,7 +6,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 30035,
+  "totalEndpoints": 30030,
   "l4SpecsAvailable": 1000,
   "apis": [
     {
@@ -335,7 +335,7 @@
     {
       "handle": "airtable-compat",
       "did": "did:web:etzhayyim.com:actor:airtable-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreibvewheitwk54mgyeoqq5orlkubbdjukr2bwtibcgxxeaauj4xceq",
@@ -3106,7 +3106,7 @@
     {
       "handle": "cloudflare-compat",
       "did": "did:web:etzhayyim.com:actor:cloudflare-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreigu3r5x6vudgbpypd6r4jdv4qmffvr5ibjnptt37vm2w5v3hqftae",
@@ -15771,10 +15771,10 @@
     {
       "handle": "vercel-compat",
       "did": "did:web:etzhayyim.com:actor:vercel-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreicipndzgzd6lord25hopx4i3w4chiwf6fysbmhlhqvi2towx7x2ji",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreidcs5xleripnw7n3xht4ms62ozwpfwfh2arqbbo7uktui534lttjq",
       "health": "/healthz",
       "features": {
         "pagination": true,

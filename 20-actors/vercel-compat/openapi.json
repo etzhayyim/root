@@ -5,18 +5,203 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible cloud infrastructure (IaaS) actor (vercel); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:vercel-compat",
-    "x-wasm-cid": "bafkreicipndzgzd6lord25hopx4i3w4chiwf6fysbmhlhqvi2towx7x2ji",
+    "x-wasm-cid": "bafkreidcs5xleripnw7n3xht4ms62ozwpfwfh2arqbbo7uktui534lttjq",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreicipndzgzd6lord25hopx4i3w4chiwf6fysbmhlhqvi2towx7x2ji",
+      "url": "ipfs://bafkreidcs5xleripnw7n3xht4ms62ozwpfwfh2arqbbo7uktui534lttjq",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
+    "/v1/deployments": {
+      "get": {
+        "summary": "List Deployments",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Deployment"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a Deployment",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeploymentCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Deployment"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/deployments/{id}": {
+      "get": {
+        "summary": "Get a Deployment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Deployment"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a Deployment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeploymentCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Deployment"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a Deployment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
     "/v1/projects": {
       "get": {
         "summary": "List Projects",
@@ -202,9 +387,9 @@
         }
       }
     },
-    "/v1/computeinstances": {
+    "/v1/domains": {
       "get": {
-        "summary": "List ComputeInstances",
+        "summary": "List Domains",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ComputeInstance"
+                        "$ref": "#/components/schemas/Domain"
                       }
                     },
                     "has_more": {
@@ -264,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a ComputeInstance",
+        "summary": "Create a Domain",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ComputeInstanceCreate"
+                "$ref": "#/components/schemas/DomainCreate"
               }
             }
           }
@@ -281,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ComputeInstance"
+                  "$ref": "#/components/schemas/Domain"
                 }
               }
             }
@@ -292,9 +477,9 @@
         }
       }
     },
-    "/v1/computeinstances/{id}": {
+    "/v1/domains/{id}": {
       "get": {
-        "summary": "Get a ComputeInstance",
+        "summary": "Get a Domain",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ComputeInstance"
+                  "$ref": "#/components/schemas/Domain"
                 }
               }
             }
@@ -329,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a ComputeInstance",
+        "summary": "Update a Domain",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ComputeInstanceCreate"
+                "$ref": "#/components/schemas/DomainCreate"
               }
             }
           }
@@ -355,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ComputeInstance"
+                  "$ref": "#/components/schemas/Domain"
                 }
               }
             }
@@ -366,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a ComputeInstance",
+        "summary": "Delete a Domain",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +572,9 @@
         }
       }
     },
-    "/v1/volumes": {
+    "/v1/aliases": {
       "get": {
-        "summary": "List Volumes",
+        "summary": "List Aliases",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Volume"
+                        "$ref": "#/components/schemas/Alias"
                       }
                     },
                     "has_more": {
@@ -449,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Volume",
+        "summary": "Create a Alias",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/VolumeCreate"
+                "$ref": "#/components/schemas/AliasCreate"
               }
             }
           }
@@ -466,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Volume"
+                  "$ref": "#/components/schemas/Alias"
                 }
               }
             }
@@ -477,9 +662,9 @@
         }
       }
     },
-    "/v1/volumes/{id}": {
+    "/v1/aliases/{id}": {
       "get": {
-        "summary": "Get a Volume",
+        "summary": "Get a Alias",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Volume"
+                  "$ref": "#/components/schemas/Alias"
                 }
               }
             }
@@ -514,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Volume",
+        "summary": "Update a Alias",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/VolumeCreate"
+                "$ref": "#/components/schemas/AliasCreate"
               }
             }
           }
@@ -540,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Volume"
+                  "$ref": "#/components/schemas/Alias"
                 }
               }
             }
@@ -551,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Volume",
+        "summary": "Delete a Alias",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +757,9 @@
         }
       }
     },
-    "/v1/buckets": {
+    "/v1/teams": {
       "get": {
-        "summary": "List Buckets",
+        "summary": "List Teams",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Bucket"
+                        "$ref": "#/components/schemas/Team"
                       }
                     },
                     "has_more": {
@@ -634,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Bucket",
+        "summary": "Create a Team",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BucketCreate"
+                "$ref": "#/components/schemas/TeamCreate"
               }
             }
           }
@@ -651,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Bucket"
+                  "$ref": "#/components/schemas/Team"
                 }
               }
             }
@@ -662,9 +847,9 @@
         }
       }
     },
-    "/v1/buckets/{id}": {
+    "/v1/teams/{id}": {
       "get": {
-        "summary": "Get a Bucket",
+        "summary": "Get a Team",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Bucket"
+                  "$ref": "#/components/schemas/Team"
                 }
               }
             }
@@ -699,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Bucket",
+        "summary": "Update a Team",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BucketCreate"
+                "$ref": "#/components/schemas/TeamCreate"
               }
             }
           }
@@ -725,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Bucket"
+                  "$ref": "#/components/schemas/Team"
                 }
               }
             }
@@ -736,377 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Bucket",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/networks": {
-      "get": {
-        "summary": "List Networks",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Network"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Network",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NetworkCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Network"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/networks/{id}": {
-      "get": {
-        "summary": "Get a Network",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Network"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Network",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NetworkCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Network"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Network",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/iamroles": {
-      "get": {
-        "summary": "List IamRoles",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/IamRole"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a IamRole",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IamRoleCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IamRole"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/iamroles/{id}": {
-      "get": {
-        "summary": "Get a IamRole",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IamRole"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a IamRole",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IamRoleCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IamRole"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a IamRole",
+        "summary": "Delete a Team",
         "parameters": [
           {
             "name": "id",
@@ -1140,6 +955,95 @@
   },
   "components": {
     "schemas": {
+      "Deployment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "projectId": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "readyState": {
+            "type": "string",
+            "enum": [
+              "BUILDING",
+              "ERROR",
+              "INITIALIZING",
+              "QUEUED",
+              "READY",
+              "CANCELED",
+              "BLOCKED",
+              "DELETED"
+            ]
+          },
+          "target": {
+            "type": "string",
+            "enum": [
+              "production",
+              "staging"
+            ]
+          },
+          "type": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "DeploymentCreate": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "projectId": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "readyState": {
+            "type": "string",
+            "enum": [
+              "BUILDING",
+              "ERROR",
+              "INITIALIZING",
+              "QUEUED",
+              "READY",
+              "CANCELED",
+              "BLOCKED",
+              "DELETED"
+            ]
+          },
+          "target": {
+            "type": "string",
+            "enum": [
+              "production",
+              "staging"
+            ]
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "url"
+        ]
+      },
       "Project": {
         "type": "object",
         "properties": {
@@ -1149,10 +1053,16 @@
           "name": {
             "type": "string"
           },
-          "region": {
+          "accountId": {
             "type": "string"
           },
-          "billingId": {
+          "nodeVersion": {
+            "type": "string"
+          },
+          "framework": {
+            "type": "string"
+          },
+          "buildCommand": {
             "type": "string"
           },
           "createdAt": {
@@ -1171,140 +1081,47 @@
           "name": {
             "type": "string"
           },
-          "region": {
+          "accountId": {
             "type": "string"
           },
-          "billingId": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "region"
-        ]
-      },
-      "ComputeInstance": {
-        "type": "object",
-        "properties": {
-          "id": {
+          "nodeVersion": {
             "type": "string"
           },
-          "projectId": {
+          "framework": {
             "type": "string"
           },
-          "name": {
-            "type": "string"
-          },
-          "machineType": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "ipAddress": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ComputeInstanceCreate": {
-        "type": "object",
-        "properties": {
-          "projectId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "machineType": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "ipAddress": {
+          "buildCommand": {
             "type": "string"
           }
         },
         "required": [
           "name",
-          "machineType"
+          "nodeVersion"
         ]
       },
-      "Volume": {
+      "Domain": {
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
-          },
-          "projectId": {
-            "type": "string"
-          },
-          "sizeGb": {
-            "type": "integer"
-          },
-          "type": {
-            "type": "string"
-          },
-          "attachedTo": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "VolumeCreate": {
-        "type": "object",
-        "properties": {
-          "projectId": {
-            "type": "string"
-          },
-          "sizeGb": {
-            "type": "integer"
-          },
-          "type": {
-            "type": "string"
-          },
-          "attachedTo": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "sizeGb",
-          "type"
-        ]
-      },
-      "Bucket": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "projectId": {
             "type": "string"
           },
           "name": {
             "type": "string"
           },
-          "region": {
-            "type": "string"
-          },
-          "public": {
+          "verified": {
             "type": "boolean"
           },
+          "serviceType": {
+            "type": "string",
+            "enum": [
+              "zeit.world",
+              "external",
+              "na"
+            ]
+          },
+          "expiresAt": {
+            "type": "integer"
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -1315,40 +1132,45 @@
           }
         }
       },
-      "BucketCreate": {
+      "DomainCreate": {
         "type": "object",
         "properties": {
-          "projectId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "region": {
-            "type": "string"
-          },
-          "public": {
+          "verified": {
             "type": "boolean"
+          },
+          "serviceType": {
+            "type": "string",
+            "enum": [
+              "zeit.world",
+              "external",
+              "na"
+            ]
+          },
+          "expiresAt": {
+            "type": "integer"
           }
         },
         "required": [
           "name",
-          "region"
+          "verified"
         ]
       },
-      "Network": {
+      "Alias": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
+          "alias": {
+            "type": "string"
+          },
+          "deploymentId": {
+            "type": "string"
+          },
           "projectId": {
-            "type": "string"
-          },
-          "cidr": {
-            "type": "string"
-          },
-          "region": {
             "type": "string"
           },
           "createdAt": {
@@ -1361,37 +1183,36 @@
           }
         }
       },
-      "NetworkCreate": {
+      "AliasCreate": {
         "type": "object",
         "properties": {
+          "alias": {
+            "type": "string"
+          },
+          "deploymentId": {
+            "type": "string"
+          },
           "projectId": {
-            "type": "string"
-          },
-          "cidr": {
-            "type": "string"
-          },
-          "region": {
             "type": "string"
           }
         },
         "required": [
-          "cidr",
-          "region"
+          "alias"
         ]
       },
-      "IamRole": {
+      "Team": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "projectId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "policy": {
+          "slug": {
+            "type": "string"
+          },
+          "description": {
             "type": "string"
           },
           "createdAt": {
@@ -1404,22 +1225,22 @@
           }
         }
       },
-      "IamRoleCreate": {
+      "TeamCreate": {
         "type": "object",
         "properties": {
-          "projectId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "policy": {
+          "slug": {
+            "type": "string"
+          },
+          "description": {
             "type": "string"
           }
         },
         "required": [
           "name",
-          "policy"
+          "slug"
         ]
       }
     }

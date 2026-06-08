@@ -3,71 +3,55 @@
 
 namespace vercel {
 
+    entity Deployment {
+        id: string @unique
+        name: string
+        projectId: string
+        url: string
+        readyState: string
+        target: string
+        type: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
     entity Project {
         id: string @unique
         name: string
-        region: string
-        billingId: string
+        accountId: string
+        nodeVersion: string
+        framework: string
+        buildCommand: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity ComputeInstance {
+    entity Domain {
         id: string @unique
-        projectId: string
         name: string
-        machineType: string
-        state: string
-        ipAddress: string
+        verified: boolean
+        serviceType: string
+        expiresAt: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Volume {
+    entity Alias {
         id: string @unique
+        alias: string
+        deploymentId: string
         projectId: string
-        sizeGb: integer
-        type: string
-        attachedTo: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Bucket {
+    entity Team {
         id: string @unique
-        projectId: string
         name: string
-        region: string
-        public: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Network {
-        id: string @unique
-        projectId: string
-        cidr: string
-        region: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity IamRole {
-        id: string @unique
-        projectId: string
-        name: string
-        policy: string
+        slug: string
+        description: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

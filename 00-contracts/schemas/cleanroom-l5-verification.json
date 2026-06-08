@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 21,
+  "count": 24,
   "actors": [
     {
       "handle": "square-compat",
@@ -2907,6 +2907,353 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (5/5) vs Dropbox official SDK. Enforced enums: SharedLink.requestedVisibility, SharedLink.visibility, SharedFolder.accessType (3)."
+    },
+    {
+      "handle": "cloudflare-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://developers.cloudflare.com/api",
+      "remodeled": "Remodeled from generic iaas_cloud to a faithful Cloudflare model, partially doc-verified (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Zone",
+          "source": "https://developers.cloudflare.com/api/operations/zones-list/",
+          "verifiedFields": [
+            "name",
+            "status",
+            "type",
+            "paused",
+            "developmentMode"
+          ],
+          "fieldStatus": "confirmed (created_on/activated_on/modified_on present; development_mode int)",
+          "discoveredEnums": {
+            "status": [
+              "initializing",
+              "pending",
+              "active",
+              "moved"
+            ],
+            "type": [
+              "full",
+              "partial",
+              "secondary",
+              "internal"
+            ]
+          },
+          "gaps": [
+            "account",
+            "name_servers",
+            "original_registrar"
+          ]
+        },
+        {
+          "entity": "DNSRecord",
+          "source": "https://developers.cloudflare.com/dns/manage-dns-records/reference/dns-record-types/",
+          "verifiedFields": [
+            "name",
+            "type"
+          ],
+          "fieldStatus": "type enum confirmed from official DNS record-types reference; content/ttl/proxied are standard fields not enumerated in the fetched excerpt",
+          "discoveredEnums": {
+            "type": [
+              "A",
+              "AAAA",
+              "CNAME",
+              "TXT",
+              "MX",
+              "NS",
+              "SRV",
+              "CAA",
+              "SOA",
+              "DKIM",
+              "SPF",
+              "DMARC",
+              "SVCB",
+              "HTTPS",
+              "PTR",
+              "DS",
+              "DNSKEY",
+              "URI",
+              "NAPTR",
+              "SSHFP",
+              "TLSA",
+              "SMIMEA",
+              "CERT"
+            ]
+          },
+          "gaps": [
+            "content",
+            "ttl",
+            "proxied (standard, not in excerpt)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "2/6 doc-verified (WorkerScript/Certificate/PageRule/LoadBalancer endpoint pages 404'd/index-only — DEFERRED). Enforced enums: Zone.status, Zone.type, DNSRecord.type."
+    },
+    {
+      "handle": "vercel-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://vercel.com/docs/rest-api",
+      "remodeled": "Remodeled from generic iaas_cloud to a faithful Vercel REST model, then doc-verified (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Deployment",
+          "source": "https://vercel.com/docs/rest-api/deployments/list-deployments",
+          "verifiedFields": [
+            "name",
+            "projectId",
+            "url",
+            "readyState",
+            "target",
+            "type"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "readyState": [
+              "BUILDING",
+              "ERROR",
+              "INITIALIZING",
+              "QUEUED",
+              "READY",
+              "CANCELED",
+              "BLOCKED",
+              "DELETED"
+            ],
+            "target": [
+              "production",
+              "staging"
+            ]
+          },
+          "gaps": [
+            "created (epoch ms)",
+            "creator",
+            "source"
+          ]
+        },
+        {
+          "entity": "Project",
+          "source": "https://vercel.com/docs/rest-api/projects/retrieve-a-list-of-projects",
+          "verifiedFields": [
+            "name",
+            "accountId",
+            "nodeVersion",
+            "framework",
+            "buildCommand"
+          ],
+          "fieldStatus": "confirmed; nodeVersion/framework are large enums (not force-enforced)",
+          "discoveredEnums": {},
+          "gaps": [
+            "framework-enum (50+ values)",
+            "env",
+            "latestDeployments"
+          ]
+        },
+        {
+          "entity": "Domain",
+          "source": "https://vercel.com/docs/rest-api/domains/get-information-for-a-single-domain",
+          "verifiedFields": [
+            "name",
+            "verified",
+            "serviceType",
+            "expiresAt"
+          ],
+          "fieldStatus": "confirmed (verified boolean)",
+          "discoveredEnums": {
+            "serviceType": [
+              "zeit.world",
+              "external",
+              "na"
+            ]
+          },
+          "gaps": [
+            "boughtAt",
+            "nameservers"
+          ]
+        },
+        {
+          "entity": "Alias",
+          "source": "https://vercel.com/docs/rest-api/aliases/list-aliases",
+          "verifiedFields": [
+            "alias",
+            "deploymentId",
+            "projectId"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "redirect",
+            "redirectStatusCode (int enum)"
+          ]
+        },
+        {
+          "entity": "Team",
+          "source": "https://vercel.com/docs/rest-api/teams/get-a-team",
+          "verifiedFields": [
+            "name",
+            "slug",
+            "description"
+          ],
+          "fieldStatus": "confirmed; membership role enum lives on the nested membership object, not Team",
+          "discoveredEnums": {},
+          "gaps": [
+            "avatar",
+            "membership.role"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs official Vercel REST docs. Enforced enums: Deployment.readyState, Deployment.target, Domain.serviceType (3)."
+    },
+    {
+      "handle": "airtable-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://airtable.com/developers/web/api",
+      "remodeled": "Remodeled from generic office_productivity to a faithful Airtable Web API model, then doc-verified (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Base",
+          "source": "https://airtable.com/developers/web/api/list-bases",
+          "verifiedFields": [
+            "name",
+            "permissionLevel"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "permissionLevel": [
+              "none",
+              "read",
+              "comment",
+              "edit",
+              "create"
+            ]
+          },
+          "gaps": [
+            "id"
+          ]
+        },
+        {
+          "entity": "Table",
+          "source": "https://airtable.com/developers/web/api/create-table",
+          "verifiedFields": [
+            "name",
+            "description",
+            "primaryFieldId"
+          ],
+          "fieldStatus": "confirmed (primary_field_id)",
+          "discoveredEnums": {},
+          "gaps": [
+            "fields",
+            "views"
+          ]
+        },
+        {
+          "entity": "Field",
+          "source": "https://airtable.com/developers/web/api/create-field",
+          "verifiedFields": [
+            "name",
+            "type",
+            "description"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "aiText",
+              "multipleAttachments",
+              "autoNumber",
+              "barcode",
+              "button",
+              "checkbox",
+              "singleCollaborator",
+              "count",
+              "createdBy",
+              "createdTime",
+              "currency",
+              "date",
+              "dateTime",
+              "duration",
+              "email",
+              "formula",
+              "lastModifiedBy",
+              "lastModifiedTime",
+              "multipleRecordLinks",
+              "multilineText",
+              "multipleLookupValues",
+              "multipleCollaborators",
+              "multipleSelects",
+              "number",
+              "percent",
+              "phoneNumber",
+              "rating",
+              "richText",
+              "rollup",
+              "singleLineText",
+              "singleSelect",
+              "externalSyncSource",
+              "url"
+            ]
+          },
+          "gaps": [
+            "options"
+          ]
+        },
+        {
+          "entity": "Record",
+          "source": "https://airtable.com/developers/web/api/create-records",
+          "verifiedFields": [
+            "createdTime",
+            "fieldsJson"
+          ],
+          "fieldStatus": "createdTime confirmed; fieldsJson holds the real 'fields' object as JSON",
+          "discoveredEnums": {},
+          "gaps": [
+            "commentCount"
+          ]
+        },
+        {
+          "entity": "View",
+          "source": "https://airtable.com/developers/web/api/list-views",
+          "verifiedFields": [
+            "name",
+            "type",
+            "personalForUserId"
+          ],
+          "fieldStatus": "confirmed (personal_for_user_id)",
+          "discoveredEnums": {
+            "type": [
+              "grid",
+              "form",
+              "calendar",
+              "gallery",
+              "kanban",
+              "timeline",
+              "block"
+            ]
+          },
+          "gaps": [
+            "id"
+          ]
+        },
+        {
+          "entity": "Comment",
+          "source": "https://airtable.com/developers/web/api/list-comments",
+          "verifiedFields": [
+            "text",
+            "lastUpdatedTime"
+          ],
+          "fieldStatus": "confirmed (last_updated_time)",
+          "discoveredEnums": {},
+          "gaps": [
+            "author",
+            "reactions",
+            "parentCommentId"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official Airtable Web API docs. Enforced enums: Base.permissionLevel, Field.type, View.type (3)."
     }
   ]
 }

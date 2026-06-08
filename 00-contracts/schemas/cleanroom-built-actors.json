@@ -345,12 +345,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Workspace",
-        "Document",
-        "Folder",
-        "Comment",
-        "Permission",
-        "User"
+        "Base",
+        "Table",
+        "Field",
+        "Record",
+        "View",
+        "Comment"
       ]
     },
     {
@@ -3118,12 +3118,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Project",
-        "ComputeInstance",
-        "Volume",
-        "Bucket",
-        "Network",
-        "IamRole"
+        "Zone",
+        "DNSRecord",
+        "WorkerScript",
+        "Certificate",
+        "PageRule",
+        "LoadBalancer"
       ]
     },
     {
@@ -15783,17 +15783,16 @@
       "handle": "vercel-compat",
       "platform": "vercel",
       "bytes": 2120,
-      "wasmCid": "bafkreicipndzgzd6lord25hopx4i3w4chiwf6fysbmhlhqvi2towx7x2ji",
+      "wasmCid": "bafkreidcs5xleripnw7n3xht4ms62ozwpfwfh2arqbbo7uktui534lttjq",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
+        "Deployment",
         "Project",
-        "ComputeInstance",
-        "Volume",
-        "Bucket",
-        "Network",
-        "IamRole"
+        "Domain",
+        "Alias",
+        "Team"
       ]
     },
     {

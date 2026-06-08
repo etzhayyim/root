@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 979,
-    "L5": 21
+    "L4": 976,
+    "L5": 24
   },
   "actors": [
     {
@@ -362,7 +362,7 @@
       "wasmCid": "bafkreibvewheitwk54mgyeoqq5orlkubbdjukr2bwtibcgxxeaauj4xceq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "airtable clean-room actor",
       "category": "office_productivity",
       "capabilities": [
@@ -3296,7 +3296,7 @@
       "wasmCid": "bafkreigu3r5x6vudgbpypd6r4jdv4qmffvr5ibjnptt37vm2w5v3hqftae",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "cloudflare clean-room actor",
       "category": "iaas_cloud",
       "capabilities": [
@@ -16703,10 +16703,10 @@
     {
       "handle": "vercel-compat",
       "did": "did:web:etzhayyim.com:actor:vercel-compat",
-      "wasmCid": "bafkreicipndzgzd6lord25hopx4i3w4chiwf6fysbmhlhqvi2towx7x2ji",
+      "wasmCid": "bafkreidcs5xleripnw7n3xht4ms62ozwpfwfh2arqbbo7uktui534lttjq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "vercel clean-room actor",
       "category": "iaas_cloud",
       "capabilities": [

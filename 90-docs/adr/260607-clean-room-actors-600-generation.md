@@ -210,7 +210,7 @@ schema/enums match each live vendor API field-for-field. To avoid overclaiming,
 that distinct axis is named **L5 (Verified)**: an actor reaches L5 only when its
 Kotoba schema + endpoint contract are reconciled against the platform's official
 API documentation (field names, types, enums, required-ness, error codes) via the
-Autonomous Reverse-Engineering Loop, with provenance recorded. **L5 count today: 21** — 14 fully verified + 7 partial; remodeled-then-doc-verified across ~14 actors via parallel haiku subagents (research→remodel→rebuild WASM→doc-verify→enforce). DEFERRED honestly (stay L4, not fabricated): coinbase (REST ref 404), asana + docusign (docs JS-rendered/unreachable), figma Comment/Project/Style (404, so figma is partial 3/6).
+Autonomous Reverse-Engineering Loop, with provenance recorded. **L5 count today: 24** — 16 fully verified + 8 partial; ~20 actors remodeled-then-doc-verified via parallel haiku subagents (research→remodel→rebuild WASM→doc-verify→enforce). DEFERRED honestly (stay L4, never fabricated): coinbase / asana / docusign (docs unreachable or JS-rendered); partial actors (figma 3/6, cloudflare 2/6, plaid/anthropic/slack/hl7_fhir/discord/zendesk) record only doc-confirmed resources.
 implementation" (achieved corpus-wide); L5 = "verified against the real API"
 (the next, doc-gated tier).
 

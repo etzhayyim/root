@@ -1027,6 +1027,32 @@ PLATFORM_OVERRIDES = {
         "Account": E(accountId="string", email="string", emailVerified="boolean", displayName="string", locale="string", country="string"),
         "SharedFolder": E(sharedFolderId="string", name="string", pathLower="string", accessType="string"),
     },
+    # Faithful Cloudflare model (remodeled from generic iaas_cloud), partial L5.
+    "cloudflare": {
+        "Zone": E(name="string", status="string", type="string", paused="boolean", developmentMode="integer"),
+        "DNSRecord": E(name="string", type="string", content="string", ttl="integer", proxied="boolean"),
+        "WorkerScript": E(name="string", usageModel="string", createdOn="datetime"),
+        "Certificate": E(hosts="string", status="string", type="string"),
+        "PageRule": E(targetUrl="string", status="string", priority="integer"),
+        "LoadBalancer": E(name="string", enabled="boolean", proxied="boolean"),
+    },
+    # Faithful Vercel model (remodeled from generic iaas_cloud), L5.
+    "vercel": {
+        "Deployment": E(name="string", projectId="string", url="string", readyState="string", target="string", type="string"),
+        "Project": E(name="string", accountId="string", nodeVersion="string", framework="string", buildCommand="string"),
+        "Domain": E(name="string", verified="boolean", serviceType="string", expiresAt="integer"),
+        "Alias": E(alias="string", deploymentId="string", projectId="string"),
+        "Team": E(name="string", slug="string", description="string"),
+    },
+    # Faithful Airtable model (remodeled from generic office_productivity), L5.
+    "airtable": {
+        "Base": E(name="string", permissionLevel="string"),
+        "Table": E(name="string", description="string", primaryFieldId="string"),
+        "Field": E(name="string", type="string", description="string"),
+        "Record": E(createdTime="datetime", fieldsJson="string"),
+        "View": E(name="string", type="string", personalForUserId="string"),
+        "Comment": E(text="string", lastUpdatedTime="datetime"),
+    },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).
     "square": {
