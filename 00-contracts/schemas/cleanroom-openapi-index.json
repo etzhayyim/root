@@ -14258,7 +14258,7 @@
     {
       "handle": "square-compat",
       "did": "did:web:etzhayyim.com:actor:square-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreib6d6mqtn7w2qrqp7jday4nw5xv6zthmosknkye4lrkii2xnsrkey",

@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 989,
-    "L5": 11
+    "L4": 988,
+    "L5": 12
   },
   "actors": [
     {
@@ -15104,7 +15104,7 @@
       "wasmCid": "bafkreib6d6mqtn7w2qrqp7jday4nw5xv6zthmosknkye4lrkii2xnsrkey",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "square clean-room actor",
       "category": "payments",
       "capabilities": [

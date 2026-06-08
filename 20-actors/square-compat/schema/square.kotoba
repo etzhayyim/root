@@ -3,74 +3,66 @@
 
 namespace square {
 
+    entity Payment {
+        id: string @unique
+        orderId: string
+        customerId: string
+        amount: integer
+        currency: string
+        status: string
+        sourceType: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Order {
+        id: string @unique
+        locationId: string
+        customerId: string
+        state: string
+        totalAmount: integer
+        currency: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
     entity Customer {
         id: string @unique
-        email: string
-        name: string
-        phone: string
-        balance: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity PaymentIntent {
-        id: string @unique
-        customerId: string
-        amount: integer
-        currency: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Charge {
-        id: string @unique
-        customerId: string
-        paymentIntentId: string
-        amount: integer
-        currency: string
-        status: string
+        givenName: string
+        familyName: string
+        emailAddress: string
+        phoneNumber: string
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Refund {
         id: string @unique
-        chargeId: string
-        amount: integer
-        reason: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Payout {
-        id: string @unique
+        paymentId: string
         amount: integer
         currency: string
-        arrivalDate: datetime
         status: string
+        reason: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity PaymentMethod {
+    entity CatalogObject {
         id: string @unique
-        customerId: string
         type: string
-        last4: string
-        brand: string
+        name: string
+        version: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Invoice {
+        id: string @unique
+        orderId: string
+        status: string
+        invoiceNumber: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

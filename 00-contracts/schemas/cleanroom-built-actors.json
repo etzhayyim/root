@@ -14274,12 +14274,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
+        "Payment",
+        "Order",
         "Customer",
-        "PaymentIntent",
-        "Charge",
         "Refund",
-        "Payout",
-        "PaymentMethod"
+        "CatalogObject",
+        "Invoice"
       ]
     },
     {

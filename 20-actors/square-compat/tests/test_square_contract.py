@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "square.kotoba")
-ENTITIES = ['Customer', 'PaymentIntent', 'Charge', 'Refund', 'Payout', 'PaymentMethod']
-PLURALS = {'Customer': 'customers', 'PaymentIntent': 'paymentintents', 'Charge': 'charges', 'Refund': 'refunds', 'Payout': 'payouts', 'PaymentMethod': 'paymentmethods'}
+ENTITIES = ['Payment', 'Order', 'Customer', 'Refund', 'CatalogObject', 'Invoice']
+PLURALS = {'Payment': 'payments', 'Order': 'orders', 'Customer': 'customers', 'Refund': 'refunds', 'CatalogObject': 'catalogobjects', 'Invoice': 'invoices'}
 
 
 class SquareContract(unittest.TestCase):

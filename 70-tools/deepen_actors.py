@@ -945,6 +945,16 @@ PLATFORM_OVERRIDES = {
         "IamRole": E(name="string", arn="string", policyRef="string"),
         "RdsInstance": E(identifier="string", engine="string", instanceClass="string", status="string"),
     },
+    # Faithful Square model (replaces the generic Stripe-shaped payments model)
+    # so the actor can be doc-verified to L5 (ADR 260607 §8).
+    "square": {
+        "Payment": E(orderId="string", customerId="string", amount="integer", currency="string", status="string", sourceType="string"),
+        "Order": E(locationId="string", customerId="string", state="string", totalAmount="integer", currency="string"),
+        "Customer": E(givenName="string", familyName="string", emailAddress="string", phoneNumber="string"),
+        "Refund": E(paymentId="string", amount="integer", currency="string", status="string", reason="string"),
+        "CatalogObject": E(type="string", name="string", version="integer"),
+        "Invoice": E(orderId="string", status="string", invoiceNumber="string"),
+    },
 }
 
 # ---------------------------------------------------------------------------

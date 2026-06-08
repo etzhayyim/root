@@ -4,8 +4,34 @@
   "adr": ["260607"],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 11,
+  "count": 12,
   "actors": [
+    {
+      "handle": "square-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://developer.squareup.com/reference/square",
+      "remodeled": "This actor was REMODELED from the generic Stripe-shaped payments archetype to a faithful Square model (Payment/Order/Customer/Refund/CatalogObject/Invoice) before verification — the L5 gate had correctly rejected the prior mismatched model (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Payment",
+          "source": "https://developer.squareup.com/reference/square/payments-api/get-payment",
+          "verifiedFields": ["orderId", "customerId", "amount", "currency", "status", "sourceType"],
+          "fieldStatus": "confirmed: amount/currency via amount_money, status, source_type, order_id; customer_id is a real field (not in the fetched example). status enum not fully enumerated in excerpt -> not force-enforced",
+          "discoveredEnums": {},
+          "gaps": ["status-enum (APPROVED/PENDING/COMPLETED/CANCELED/FAILED known but not enumerated in excerpt)", "receipt_url", "card_details"]
+        },
+        {
+          "entity": "Order",
+          "source": "https://developer.squareup.com/reference/square/orders-api/retrieve-order",
+          "verifiedFields": ["locationId", "customerId", "state", "totalAmount"],
+          "fieldStatus": "confirmed: location_id, state, total_money (totalAmount); customer_id is a real field (not in excerpt). state enum not fully enumerated -> not force-enforced",
+          "discoveredEnums": {},
+          "gaps": ["state-enum (OPEN/COMPLETED/CANCELED/DRAFT known but not enumerated in excerpt)", "line_items", "net_amounts"]
+        }
+      ],
+      "note": "Remodeled to a faithful Square model + Payment/Order reconciled against the official Square API docs (2/6 resources); Customer/Refund/CatalogObject/Invoice pending."
+    },
     {
       "handle": "slack-compat",
       "verifiedAt": "2026-06-08",
