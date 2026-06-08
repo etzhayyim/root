@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 34,
+  "count": 37,
   "actors": [
     {
       "handle": "square-compat",
@@ -4428,6 +4428,456 @@
         }
       ],
       "note": "PARTIAL (2/6 doc-confirmed: Contact + Pipeline). HubSpot's generic property system means the other CRM objects' fixed schemas aren't published; modeled with standard props but not certified. No enforced enums (HubSpot stages are configurable)."
+    },
+    {
+      "handle": "atlassian-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://dac-static.atlassian.com/cloud/jira/platform/swagger-v3.v3.json",
+      "remodeled": "RECOVERED from full-defer: faithful Jira Cloud model verified against the official Atlassian swagger-v3 spec.",
+      "resources": [
+        {
+          "entity": "Project",
+          "source": "https://dac-static.atlassian.com/cloud/jira/platform/swagger-v3.v3.json",
+          "verifiedFields": [
+            "key",
+            "name",
+            "projectTypeKey",
+            "style",
+            "archived",
+            "simplified"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "projectTypeKey": [
+              "software",
+              "service_desk",
+              "business"
+            ],
+            "style": [
+              "classic",
+              "next-gen"
+            ]
+          },
+          "gaps": [
+            "lead",
+            "components",
+            "versions"
+          ]
+        },
+        {
+          "entity": "IssueType",
+          "source": "https://dac-static.atlassian.com/cloud/jira/platform/swagger-v3.v3.json",
+          "verifiedFields": [
+            "name",
+            "description",
+            "subtask",
+            "hierarchyLevel"
+          ],
+          "fieldStatus": "confirmed (IssueTypeDetails)",
+          "discoveredEnums": {},
+          "gaps": [
+            "avatarId",
+            "iconUrl",
+            "scope"
+          ]
+        },
+        {
+          "entity": "Status",
+          "source": "https://dac-static.atlassian.com/cloud/jira/platform/swagger-v3.v3.json",
+          "verifiedFields": [
+            "name",
+            "description"
+          ],
+          "fieldStatus": "confirmed (StatusDetails)",
+          "discoveredEnums": {},
+          "gaps": [
+            "statusCategory ref",
+            "iconUrl"
+          ]
+        },
+        {
+          "entity": "StatusCategory",
+          "source": "https://dac-static.atlassian.com/cloud/jira/platform/swagger-v3.v3.json",
+          "verifiedFields": [
+            "key",
+            "name",
+            "colorName"
+          ],
+          "fieldStatus": "confirmed; key enum (new/indeterminate/done) documented in reference but only typed as string in spec -> not force-enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "key-enum (string-typed in spec)"
+          ]
+        },
+        {
+          "entity": "User",
+          "source": "https://dac-static.atlassian.com/cloud/jira/platform/swagger-v3.v3.json",
+          "verifiedFields": [
+            "accountId",
+            "accountType",
+            "displayName",
+            "emailAddress",
+            "active"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "accountType": [
+              "atlassian",
+              "app",
+              "customer",
+              "unknown"
+            ]
+          },
+          "gaps": [
+            "timeZone",
+            "avatarUrls"
+          ]
+        },
+        {
+          "entity": "Comment",
+          "source": "https://dac-static.atlassian.com/cloud/jira/platform/swagger-v3.v3.json",
+          "verifiedFields": [
+            "body",
+            "created",
+            "updated",
+            "jsdPublic"
+          ],
+          "fieldStatus": "confirmed (jsdPublic); body is Atlassian Document Format",
+          "discoveredEnums": {},
+          "gaps": [
+            "author",
+            "visibility"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official Atlassian Jira swagger. Enforced enums: Project.projectTypeKey, Project.style, User.accountType (3)."
+    },
+    {
+      "handle": "docusign-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/docusign/OpenAPI-Specifications/master/esignature.rest.swagger-v2.1.json",
+      "remodeled": "RECOVERED from full-defer: faithful DocuSign eSignature model verified against the official OpenAPI v2.1 spec.",
+      "resources": [
+        {
+          "entity": "Envelope",
+          "source": "https://raw.githubusercontent.com/docusign/OpenAPI-Specifications/master/esignature.rest.swagger-v2.1.json",
+          "verifiedFields": [
+            "emailSubject",
+            "status",
+            "sentDateTime",
+            "completedDateTime",
+            "envelopeId"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "completed",
+              "created",
+              "declined",
+              "delivered",
+              "sent",
+              "signed",
+              "voided"
+            ]
+          },
+          "gaps": [
+            "emailBlurb",
+            "recipients",
+            "documents"
+          ]
+        },
+        {
+          "entity": "Signer",
+          "source": "https://raw.githubusercontent.com/docusign/OpenAPI-Specifications/master/esignature.rest.swagger-v2.1.json",
+          "verifiedFields": [
+            "email",
+            "firstName",
+            "lastName",
+            "status",
+            "signedDateTime"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "created",
+              "sent",
+              "delivered",
+              "signed",
+              "declined",
+              "completed",
+              "faxpending",
+              "autoresponded"
+            ]
+          },
+          "gaps": [
+            "routingOrder",
+            "recipientId",
+            "tabs"
+          ]
+        },
+        {
+          "entity": "Document",
+          "source": "https://raw.githubusercontent.com/docusign/OpenAPI-Specifications/master/esignature.rest.swagger-v2.1.json",
+          "verifiedFields": [
+            "documentId",
+            "name",
+            "order"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "pages",
+            "uri",
+            "fileExtension"
+          ]
+        },
+        {
+          "entity": "SignHereTab",
+          "source": "https://raw.githubusercontent.com/docusign/OpenAPI-Specifications/master/esignature.rest.swagger-v2.1.json",
+          "verifiedFields": [
+            "tabId",
+            "pageNumber",
+            "xPosition",
+            "yPosition"
+          ],
+          "fieldStatus": "confirmed (signHere tab)",
+          "discoveredEnums": {},
+          "gaps": [
+            "documentId",
+            "recipientId",
+            "optional"
+          ]
+        },
+        {
+          "entity": "EnvelopeTemplate",
+          "source": "https://raw.githubusercontent.com/docusign/OpenAPI-Specifications/master/esignature.rest.swagger-v2.1.json",
+          "verifiedFields": [
+            "templateId",
+            "name",
+            "status",
+            "description"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "created",
+            "lastModified",
+            "shared"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs official DocuSign OpenAPI v2.1. Enforced enums: Envelope.status, Signer.status (2)."
+    },
+    {
+      "handle": "gusto-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/Gusto/gusto-python-client/main/gusto_embedded/src/gusto_embedded/models",
+      "remodeled": "RECOVERED from full-defer: faithful Gusto model verified against the official Gusto Python SDK (Speakeasy-generated).",
+      "resources": [
+        {
+          "entity": "Employee",
+          "source": "https://raw.githubusercontent.com/Gusto/gusto-python-client/main/gusto_embedded/src/gusto_embedded/models/employee.py",
+          "verifiedFields": [
+            "uuid",
+            "firstName",
+            "lastName",
+            "email",
+            "onboardingStatus",
+            "paymentMethod",
+            "terminated",
+            "flsaStatus"
+          ],
+          "fieldStatus": "confirmed (first_name, onboarding_status, payment_method, flsa_status)",
+          "discoveredEnums": {
+            "onboardingStatus": [
+              "onboarding_completed",
+              "admin_onboarding_incomplete",
+              "self_onboarding_pending_invite",
+              "self_onboarding_invited",
+              "self_onboarding_invited_started",
+              "self_onboarding_invited_overdue",
+              "self_onboarding_completed_by_employee",
+              "self_onboarding_awaiting_admin_review"
+            ],
+            "paymentMethod": [
+              "Direct Deposit",
+              "Check"
+            ],
+            "flsaStatus": [
+              "Exempt",
+              "Salaried Nonexempt",
+              "Nonexempt",
+              "Commission Only Exempt",
+              "Commission Only Nonexempt",
+              "Owner"
+            ]
+          },
+          "gaps": [
+            "jobs",
+            "home_address"
+          ]
+        },
+        {
+          "entity": "Company",
+          "source": "https://raw.githubusercontent.com/Gusto/gusto-python-client/main/gusto_embedded/src/gusto_embedded/models/company.py",
+          "verifiedFields": [
+            "uuid",
+            "name",
+            "status",
+            "entityType",
+            "tier"
+          ],
+          "fieldStatus": "confirmed (entity_type)",
+          "discoveredEnums": {
+            "status": [
+              "Approved",
+              "Not Approved",
+              "Suspended"
+            ],
+            "entityType": [
+              "C-Corporation",
+              "S-Corporation",
+              "Sole proprietor",
+              "LLC",
+              "LLP",
+              "Limited partnership",
+              "Co-ownership",
+              "Association",
+              "Trusteeship",
+              "General partnership",
+              "Joint venture",
+              "Non-Profit"
+            ],
+            "tier": [
+              "simple",
+              "plus",
+              "premium",
+              "core",
+              "complete",
+              "concierge",
+              "contractor_only",
+              "basic"
+            ]
+          },
+          "gaps": [
+            "locations",
+            "compensations"
+          ]
+        },
+        {
+          "entity": "Compensation",
+          "source": "https://raw.githubusercontent.com/Gusto/gusto-python-client/main/gusto_embedded/src/gusto_embedded/models/compensation.py",
+          "verifiedFields": [
+            "rate",
+            "paymentUnit",
+            "flsaStatus",
+            "effectiveDate",
+            "adjustForMinimumWage"
+          ],
+          "fieldStatus": "confirmed (payment_unit, flsa_status, adjust_for_minimum_wage)",
+          "discoveredEnums": {
+            "paymentUnit": [
+              "Hour",
+              "Week",
+              "Month",
+              "Year",
+              "Paycheck"
+            ],
+            "flsaStatus": [
+              "Exempt",
+              "Salaried Nonexempt",
+              "Nonexempt",
+              "Commission Only Exempt",
+              "Commission Only Nonexempt",
+              "Owner"
+            ]
+          },
+          "gaps": [
+            "job_uuid"
+          ]
+        },
+        {
+          "entity": "Job",
+          "source": "https://raw.githubusercontent.com/Gusto/gusto-python-client/main/gusto_embedded/src/gusto_embedded/models/job.py",
+          "verifiedFields": [
+            "uuid",
+            "title",
+            "rate",
+            "paymentUnit",
+            "primary"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "hire_date",
+            "compensations"
+          ]
+        },
+        {
+          "entity": "Contractor",
+          "source": "https://raw.githubusercontent.com/Gusto/gusto-python-client/main/gusto_embedded/src/gusto_embedded/models/contractor.py",
+          "verifiedFields": [
+            "firstName",
+            "lastName",
+            "businessName",
+            "wageType",
+            "contractorType",
+            "isActive"
+          ],
+          "fieldStatus": "confirmed (wage_type, contractor_type, is_active)",
+          "discoveredEnums": {
+            "wageType": [
+              "Fixed",
+              "Hourly"
+            ],
+            "contractorType": [
+              "Individual",
+              "Business"
+            ]
+          },
+          "gaps": [
+            "onboarding_status",
+            "email"
+          ]
+        },
+        {
+          "entity": "Payroll",
+          "source": "https://raw.githubusercontent.com/Gusto/gusto-python-client/main/gusto_embedded/src/gusto_embedded/models/payroll.py",
+          "verifiedFields": [
+            "uuid",
+            "processed",
+            "offCycle",
+            "offCycleReason"
+          ],
+          "fieldStatus": "confirmed (off_cycle, off_cycle_reason)",
+          "discoveredEnums": {
+            "offCycleReason": [
+              "Adhoc",
+              "Benefit reversal",
+              "Bonus",
+              "Correction",
+              "Dismissed employee",
+              "Hired employee",
+              "Wage correction",
+              "Tax reconciliation",
+              "Reversal",
+              "Disability insurance distribution",
+              "Transition from old pay schedule"
+            ]
+          },
+          "gaps": [
+            "check_date",
+            "totals"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official Gusto SDK. Enforced enums: Employee.onboardingStatus/paymentMethod/flsaStatus, Company.status/entityType/tier, Compensation.paymentUnit/flsaStatus, Contractor.wageType/contractorType, Payroll.offCycleReason (11)."
     }
   ]
 }

@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 966,
-    "L5": 34
+    "L4": 963,
+    "L5": 37
   },
   "actors": [
     {
@@ -1136,7 +1136,7 @@
       "wasmCid": "bafkreidbe2at2yd53oqvisi36hpxfko3mxcgbg32di3zlmsccksdlm2dgi",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "atlassian clean-room actor",
       "category": "devops_ci",
       "capabilities": [
@@ -4625,10 +4625,10 @@
     {
       "handle": "docusign-compat",
       "did": "did:web:etzhayyim.com:actor:docusign-compat",
-      "wasmCid": "bafkreiccs45ppsbmrw3iemowwethszjqqzk4654etqgnefz4rl6lmxbhaa",
+      "wasmCid": "bafkreiar3ckvrianixzuzvu5gkajjnsdht4xbwyxuelal6m453glsmyty4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "docusign clean-room actor",
       "category": "office_productivity",
       "capabilities": [
@@ -7202,7 +7202,7 @@
       "wasmCid": "bafkreibhrztothxaohwckoimyulckihprxlsyg4cf62vdgmbtfebfm4vke",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "gusto clean-room actor",
       "category": "hrtech",
       "capabilities": [

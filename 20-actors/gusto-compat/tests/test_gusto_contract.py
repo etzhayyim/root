@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "gusto.kotoba")
-ENTITIES = ['Employee', 'Candidate', 'JobReq', 'PayrollRun', 'TimeOff', 'Review']
-PLURALS = {'Employee': 'employees', 'Candidate': 'candidates', 'JobReq': 'jobreqs', 'PayrollRun': 'payrollruns', 'TimeOff': 'timeoffs', 'Review': 'reviews'}
+ENTITIES = ['Employee', 'Company', 'Compensation', 'Job', 'Contractor', 'Payroll']
+PLURALS = {'Employee': 'employees', 'Company': 'companies', 'Compensation': 'compensations', 'Job': 'jobs', 'Contractor': 'contractors', 'Payroll': 'payrolls'}
 
 
 class GustoContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class GustoContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['contractorType', 'entityType', 'flsaStatus', 'offCycleReason', 'onboardingStatus', 'paymentMethod', 'paymentUnit', 'status', 'tier', 'wageType']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

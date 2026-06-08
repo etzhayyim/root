@@ -7,7 +7,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 30015,
+  "totalTools": 30010,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -570,7 +570,7 @@
     {
       "handle": "atlassian-compat",
       "did": "did:web:etzhayyim.com:actor:atlassian-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreidbe2at2yd53oqvisi36hpxfko3mxcgbg32di3zlmsccksdlm2dgi",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -2316,10 +2316,10 @@
     {
       "handle": "docusign-compat",
       "did": "did:web:etzhayyim.com:actor:docusign-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreiccs45ppsbmrw3iemowwethszjqqzk4654etqgnefz4rl6lmxbhaa",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreiar3ckvrianixzuzvu5gkajjnsdht4xbwyxuelal6m453glsmyty4",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "manifest": "20-actors/docusign-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -3603,7 +3603,7 @@
     {
       "handle": "gusto-compat",
       "did": "did:web:etzhayyim.com:actor:gusto-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreibhrztothxaohwckoimyulckihprxlsyg4cf62vdgmbtfebfm4vke",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,

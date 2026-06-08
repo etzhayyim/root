@@ -6,7 +6,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 30015,
+  "totalEndpoints": 30010,
   "l4SpecsAvailable": 1000,
   "apis": [
     {
@@ -1066,7 +1066,7 @@
     {
       "handle": "atlassian-compat",
       "did": "did:web:etzhayyim.com:actor:atlassian-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreidbe2at2yd53oqvisi36hpxfko3mxcgbg32di3zlmsccksdlm2dgi",
@@ -4364,10 +4364,10 @@
     {
       "handle": "docusign-compat",
       "did": "did:web:etzhayyim.com:actor:docusign-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreiccs45ppsbmrw3iemowwethszjqqzk4654etqgnefz4rl6lmxbhaa",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreiar3ckvrianixzuzvu5gkajjnsdht4xbwyxuelal6m453glsmyty4",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -6795,7 +6795,7 @@
     {
       "handle": "gusto-compat",
       "did": "did:web:etzhayyim.com:actor:gusto-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreibhrztothxaohwckoimyulckihprxlsyg4cf62vdgmbtfebfm4vke",

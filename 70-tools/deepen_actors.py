@@ -1146,6 +1146,32 @@ PLATFORM_OVERRIDES = {
         "LineItem": E(name="string", quantity="integer", price="float"),
         "Pipeline": E(label="string", displayOrder="integer"),
     },
+    # Faithful Jira Cloud model (recovered from the official Atlassian swagger), L5.
+    "atlassian": {
+        "Project": E(key="string", name="string", projectTypeKey="string", style="string", archived="boolean", simplified="boolean"),
+        "IssueType": E(name="string", description="string", subtask="boolean", hierarchyLevel="integer"),
+        "Status": E(name="string", description="string"),
+        "StatusCategory": E(key="string", name="string", colorName="string"),
+        "User": E(accountId="string", accountType="string", displayName="string", emailAddress="string", active="boolean"),
+        "Comment": E(body="string", created="datetime", updated="datetime", jsdPublic="boolean"),
+    },
+    # Faithful DocuSign eSignature model (recovered from the official OpenAPI v2.1), L5.
+    "docusign": {
+        "Envelope": E(emailSubject="string", status="string", sentDateTime="datetime", completedDateTime="datetime", envelopeId="string"),
+        "Signer": E(email="string", firstName="string", lastName="string", status="string", signedDateTime="datetime"),
+        "Document": E(documentId="string", name="string", order="integer"),
+        "SignHereTab": E(tabId="string", pageNumber="string", xPosition="string", yPosition="string"),
+        "EnvelopeTemplate": E(templateId="string", name="string", status="string", description="string"),
+    },
+    # Faithful Gusto model (recovered from the official Gusto Python SDK), L5.
+    "gusto": {
+        "Employee": E(uuid="string", firstName="string", lastName="string", email="string", onboardingStatus="string", paymentMethod="string", terminated="boolean", flsaStatus="string"),
+        "Company": E(uuid="string", name="string", status="string", entityType="string", tier="string"),
+        "Compensation": E(rate="string", paymentUnit="string", flsaStatus="string", effectiveDate="string", adjustForMinimumWage="boolean"),
+        "Job": E(uuid="string", title="string", rate="string", paymentUnit="string", primary="boolean"),
+        "Contractor": E(firstName="string", lastName="string", businessName="string", wageType="string", contractorType="string", isActive="boolean"),
+        "Payroll": E(uuid="string", processed="boolean", offCycle="boolean", offCycleReason="string"),
+    },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).
     "square": {

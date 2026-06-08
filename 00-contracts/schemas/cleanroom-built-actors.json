@@ -1077,12 +1077,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Repository",
-        "Pipeline",
-        "Build",
-        "Artifact",
-        "Deployment",
-        "Webhook"
+        "Project",
+        "IssueType",
+        "Status",
+        "StatusCategory",
+        "User",
+        "Comment"
       ]
     },
     {
@@ -4370,17 +4370,16 @@
       "handle": "docusign-compat",
       "platform": "docusign",
       "bytes": 2122,
-      "wasmCid": "bafkreiccs45ppsbmrw3iemowwethszjqqzk4654etqgnefz4rl6lmxbhaa",
+      "wasmCid": "bafkreiar3ckvrianixzuzvu5gkajjnsdht4xbwyxuelal6m453glsmyty4",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Workspace",
+        "Envelope",
+        "Signer",
         "Document",
-        "Folder",
-        "Comment",
-        "Permission",
-        "User"
+        "SignHereTab",
+        "EnvelopeTemplate"
       ]
     },
     {
@@ -6807,11 +6806,11 @@
       "tier": "browser-local",
       "entities": [
         "Employee",
-        "Candidate",
-        "JobReq",
-        "PayrollRun",
-        "TimeOff",
-        "Review"
+        "Company",
+        "Compensation",
+        "Job",
+        "Contractor",
+        "Payroll"
       ]
     },
     {

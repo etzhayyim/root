@@ -3353,11 +3353,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible office / productivity suite actor (docusign); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "docusign.kotoba"
-   :actor/wasm-cid "bafkreiccs45ppsbmrw3iemowwethszjqqzk4654etqgnefz4rl6lmxbhaa"
+   :actor/wasm-cid "bafkreiar3ckvrianixzuzvu5gkajjnsdht4xbwyxuelal6m453glsmyty4"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:docusign-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiccs45ppsbmrw3iemowwethszjqqzk4654etqgnefz4rl6lmxbhaa" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:docusign-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiccs45ppsbmrw3iemowwethszjqqzk4654etqgnefz4rl6lmxbhaa" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:docusign-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiccs45ppsbmrw3iemowwethszjqqzk4654etqgnefz4rl6lmxbhaa" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:docusign-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiccs45ppsbmrw3iemowwethszjqqzk4654etqgnefz4rl6lmxbhaa" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:docusign-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiar3ckvrianixzuzvu5gkajjnsdht4xbwyxuelal6m453glsmyty4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:docusign-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiar3ckvrianixzuzvu5gkajjnsdht4xbwyxuelal6m453glsmyty4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:docusign-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiar3ckvrianixzuzvu5gkajjnsdht4xbwyxuelal6m453glsmyty4" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:docusign-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiar3ckvrianixzuzvu5gkajjnsdht4xbwyxuelal6m453glsmyty4" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "doi_system-compat"
    :actor/did "did:web:etzhayyim.com:actor:doi_system-compat"
    :actor/kind :compat
