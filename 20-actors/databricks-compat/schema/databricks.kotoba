@@ -3,70 +3,54 @@
 
 namespace databricks {
 
-    entity Dataset {
+    entity Cluster {
         id: string @unique
-        name: string
-        source: string
-        schemaRef: string
-        rowCount: integer
+        clusterName: string
+        state: string
+        sparkVersion: string
+        numWorkers: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Query {
+    entity Job {
         id: string @unique
-        datasetId: string
-        sql: string
-        ownerId: string
+        jobId: integer
+        creatorUserName: string
+        createdTime: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Dashboard {
+    entity Run {
         id: string @unique
-        name: string
-        ownerId: string
-        layout: string
+        runId: integer
+        jobId: integer
+        state: string
+        runName: string
+        startTime: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Report {
+    entity Warehouse {
         id: string @unique
-        dashboardId: string
         name: string
-        schedule: string
+        state: string
+        warehouseType: string
+        clusterSize: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Connection {
+    entity ObjectInfo {
         id: string @unique
-        name: string
-        type: string
-        host: string
-        active: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Metric {
-        id: string @unique
-        datasetId: string
-        name: string
-        expression: string
-        unit: string
+        path: string
+        objectType: string
+        language: string
+        size: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

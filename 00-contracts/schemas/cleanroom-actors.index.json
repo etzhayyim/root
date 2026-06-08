@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 975,
-    "L5": 25
+    "L4": 972,
+    "L5": 28
   },
   "actors": [
     {
@@ -4157,10 +4157,10 @@
     {
       "handle": "databricks-compat",
       "did": "did:web:etzhayyim.com:actor:databricks-compat",
-      "wasmCid": "bafkreibtyzesgtha46o3cafsfqwfsqeopiqhka4acyr6ad7srg3j6q63cm",
+      "wasmCid": "bafkreic7cqk3x5zndnxpo3cwjqaljjk5i4nqhgsbttu3j4l6nvjrrth2bi",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "databricks clean-room actor",
       "category": "data_analytics",
       "capabilities": [
@@ -9020,7 +9020,7 @@
       "wasmCid": "bafkreif4hrn7utw3nousb7ajuy56nhvxjzexufse3rrmyj2bfagzchsjpu",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "klaviyo clean-room actor",
       "category": "martech",
       "capabilities": [
@@ -12602,7 +12602,7 @@
       "wasmCid": "bafkreifrhnx2bgxykll64vqayxxuv2sdonfi5r27xt5i2lwvqfk3ojqala",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "pipedrive clean-room actor",
       "category": "crm_sales",
       "capabilities": [

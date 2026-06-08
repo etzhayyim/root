@@ -111,324 +111,195 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/accounts", methods=["POST"])
-def create_account(request):
-    """Create a Account."""
+@app.route("/v1/deals", methods=["POST"])
+def create_deal(request):
+    """Create a Deal."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'domain', 'industry', 'ownerId', 'annualRevenue'])
+    err = _reject_unknown(data, ['title', 'value', 'currency', 'status', 'probability', 'pipelineId', 'stageId'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'domain'])
+    err = _require(data, ['title', 'value'])
     if err:
         return err, 400
-    rec = {"id": new_id("pipedriv_acc")}
-    rec["name"] = data.get('name')
-    rec["domain"] = data.get('domain')
-    rec["industry"] = data.get('industry')
-    rec["ownerId"] = data.get('ownerId')
-    rec["annualRevenue"] = _as_float(data.get('annualRevenue'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Account", rec)
-    return rec, 201
-
-@app.route("/v1/accounts", methods=["GET"])
-def list_accounts(request):
-    """List Accounts with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Account")
-    rows = _apply_filters(rows, params, ['name', 'domain', 'industry', 'ownerId', 'annualRevenue'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/accounts/<eid>", methods=["GET"])
-def get_account(request, eid):
-    """Retrieve a Account by id (supports ?expand=)."""
-    rows = _query("Account", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/accounts/<eid>", methods=["POST", "PATCH"])
-def update_account(request, eid):
-    """Update a Account."""
-    rows = _query("Account", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'domain', 'industry', 'ownerId', 'annualRevenue'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Account", rec)
-    return rec, 200
-
-@app.route("/v1/accounts/<eid>", methods=["DELETE"])
-def delete_account(request, eid):
-    """Delete a Account."""
-    rows = _query("Account", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"pipedrive.Account", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/contacts", methods=["POST"])
-def create_contact(request):
-    """Create a Contact."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'firstName', 'lastName', 'email', 'phone'])
-    if err:
-        return err, 400
-    err = _require(data, ['firstName', 'lastName'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("pipedriv_con")}
-    rec["accountId"] = data.get('accountId')
-    rec["firstName"] = data.get('firstName')
-    rec["lastName"] = data.get('lastName')
-    rec["email"] = data.get('email')
-    rec["phone"] = data.get('phone')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Contact", rec)
-    return rec, 201
-
-@app.route("/v1/contacts", methods=["GET"])
-def list_contacts(request):
-    """List Contacts with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Contact")
-    rows = _apply_filters(rows, params, ['accountId', 'firstName', 'lastName', 'email', 'phone'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/contacts/<eid>", methods=["GET"])
-def get_contact(request, eid):
-    """Retrieve a Contact by id (supports ?expand=)."""
-    rows = _query("Contact", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'accountId': 'Account'})
-    return rec, 200
-
-@app.route("/v1/contacts/<eid>", methods=["POST", "PATCH"])
-def update_contact(request, eid):
-    """Update a Contact."""
-    rows = _query("Contact", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'firstName', 'lastName', 'email', 'phone'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Contact", rec)
-    return rec, 200
-
-@app.route("/v1/contacts/<eid>", methods=["DELETE"])
-def delete_contact(request, eid):
-    """Delete a Contact."""
-    rows = _query("Contact", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"pipedrive.Contact", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/leads", methods=["POST"])
-def create_lead(request):
-    """Create a Lead."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['company', 'email', 'status', 'source', 'score'])
-    if err:
-        return err, 400
-    err = _require(data, ['company', 'email'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("pipedriv_lea")}
-    rec["company"] = data.get('company')
-    rec["email"] = data.get('email')
+    if data.get('status') and data['status'] not in ['open', 'won', 'lost', 'deleted']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['open', 'won', 'lost', 'deleted']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("pipedriv_dea")}
+    rec["title"] = data.get('title')
+    rec["value"] = _as_float(data.get('value'))
+    rec["currency"] = data.get('currency')
     rec["status"] = data.get('status')
-    rec["source"] = data.get('source')
-    rec["score"] = _as_int(data.get('score'))
+    rec["probability"] = _as_float(data.get('probability'))
+    rec["pipelineId"] = _as_int(data.get('pipelineId'))
+    rec["stageId"] = _as_int(data.get('stageId'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Lead", rec)
+    _persist("Deal", rec)
     return rec, 201
 
-@app.route("/v1/leads", methods=["GET"])
-def list_leads(request):
-    """List Leads with filtering + cursor pagination."""
+@app.route("/v1/deals", methods=["GET"])
+def list_deals(request):
+    """List Deals with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Lead")
-    rows = _apply_filters(rows, params, ['company', 'email', 'status', 'source', 'score'])
+    rows = _query("Deal")
+    rows = _apply_filters(rows, params, ['title', 'value', 'currency', 'status', 'probability', 'pipelineId', 'stageId'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/leads/<eid>", methods=["GET"])
-def get_lead(request, eid):
-    """Retrieve a Lead by id (supports ?expand=)."""
-    rows = _query("Lead", eid)
+@app.route("/v1/deals/<eid>", methods=["GET"])
+def get_deal(request, eid):
+    """Retrieve a Deal by id (supports ?expand=)."""
+    rows = _query("Deal", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'pipelineId': 'Pipeline', 'stageId': 'Stage'})
     return rec, 200
 
-@app.route("/v1/leads/<eid>", methods=["POST", "PATCH"])
-def update_lead(request, eid):
-    """Update a Lead."""
-    rows = _query("Lead", eid)
+@app.route("/v1/deals/<eid>", methods=["POST", "PATCH"])
+def update_deal(request, eid):
+    """Update a Deal."""
+    rows = _query("Deal", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['company', 'email', 'status', 'source', 'score'])
+    err = _reject_unknown(data, ['title', 'value', 'currency', 'status', 'probability', 'pipelineId', 'stageId'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['open', 'won', 'lost', 'deleted']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['open', 'won', 'lost', 'deleted']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Lead", rec)
+    _persist("Deal", rec)
     return rec, 200
 
-@app.route("/v1/leads/<eid>", methods=["DELETE"])
-def delete_lead(request, eid):
-    """Delete a Lead."""
-    rows = _query("Lead", eid)
+@app.route("/v1/deals/<eid>", methods=["DELETE"])
+def delete_deal(request, eid):
+    """Delete a Deal."""
+    rows = _query("Deal", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"pipedrive.Lead", "id": eid})
+    db.retract({"entity": f"pipedrive.Deal", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/opportunities", methods=["POST"])
-def create_opportunity(request):
-    """Create a Opportunity."""
+@app.route("/v1/persons", methods=["POST"])
+def create_person(request):
+    """Create a Person."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'name', 'stage', 'amount', 'closeDate'])
+    err = _reject_unknown(data, ['name', 'ownerId', 'orgId', 'marketingStatus'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'stage'])
+    err = _require(data, ['name', 'marketingStatus'])
     if err:
         return err, 400
-    rec = {"id": new_id("pipedriv_opp")}
-    rec["accountId"] = data.get('accountId')
+    if data.get('marketingStatus') and data['marketingStatus'] not in ['no_consent', 'unsubscribed', 'subscribed', 'archived']:
+        return {"error": {"message": "invalid marketingStatus; allowed: " + ", ".join(['no_consent', 'unsubscribed', 'subscribed', 'archived']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("pipedriv_per")}
     rec["name"] = data.get('name')
-    rec["stage"] = data.get('stage')
-    rec["amount"] = _as_float(data.get('amount'))
-    rec["closeDate"] = data.get('closeDate')
+    rec["ownerId"] = _as_int(data.get('ownerId'))
+    rec["orgId"] = _as_int(data.get('orgId'))
+    rec["marketingStatus"] = data.get('marketingStatus')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Opportunity", rec)
+    _persist("Person", rec)
     return rec, 201
 
-@app.route("/v1/opportunities", methods=["GET"])
-def list_opportunities(request):
-    """List Opportunities with filtering + cursor pagination."""
+@app.route("/v1/persons", methods=["GET"])
+def list_persons(request):
+    """List Persons with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Opportunity")
-    rows = _apply_filters(rows, params, ['accountId', 'name', 'stage', 'amount', 'closeDate'])
+    rows = _query("Person")
+    rows = _apply_filters(rows, params, ['name', 'ownerId', 'orgId', 'marketingStatus'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/opportunities/<eid>", methods=["GET"])
-def get_opportunity(request, eid):
-    """Retrieve a Opportunity by id (supports ?expand=)."""
-    rows = _query("Opportunity", eid)
+@app.route("/v1/persons/<eid>", methods=["GET"])
+def get_person(request, eid):
+    """Retrieve a Person by id (supports ?expand=)."""
+    rows = _query("Person", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'accountId': 'Account'})
     return rec, 200
 
-@app.route("/v1/opportunities/<eid>", methods=["POST", "PATCH"])
-def update_opportunity(request, eid):
-    """Update a Opportunity."""
-    rows = _query("Opportunity", eid)
+@app.route("/v1/persons/<eid>", methods=["POST", "PATCH"])
+def update_person(request, eid):
+    """Update a Person."""
+    rows = _query("Person", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'name', 'stage', 'amount', 'closeDate'])
+    err = _reject_unknown(data, ['name', 'ownerId', 'orgId', 'marketingStatus'])
     if err:
         return err, 400
+    if data.get('marketingStatus') and data['marketingStatus'] not in ['no_consent', 'unsubscribed', 'subscribed', 'archived']:
+        return {"error": {"message": "invalid marketingStatus; allowed: " + ", ".join(['no_consent', 'unsubscribed', 'subscribed', 'archived']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Opportunity", rec)
+    _persist("Person", rec)
     return rec, 200
 
-@app.route("/v1/opportunities/<eid>", methods=["DELETE"])
-def delete_opportunity(request, eid):
-    """Delete a Opportunity."""
-    rows = _query("Opportunity", eid)
+@app.route("/v1/persons/<eid>", methods=["DELETE"])
+def delete_person(request, eid):
+    """Delete a Person."""
+    rows = _query("Person", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"pipedrive.Opportunity", "id": eid})
+    db.retract({"entity": f"pipedrive.Person", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/activities", methods=["POST"])
-def create_activity(request):
-    """Create a Activity."""
+@app.route("/v1/organizations", methods=["POST"])
+def create_organization(request):
+    """Create a Organization."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['subjectId', 'type', 'subject', 'dueDate', 'done'])
+    err = _reject_unknown(data, ['name', 'ownerId'])
     if err:
         return err, 400
-    err = _require(data, ['type', 'subject'])
+    err = _require(data, ['name'])
     if err:
         return err, 400
-    rec = {"id": new_id("pipedriv_act")}
-    rec["subjectId"] = data.get('subjectId')
-    rec["type"] = data.get('type')
-    rec["subject"] = data.get('subject')
-    rec["dueDate"] = data.get('dueDate')
-    rec["done"] = _as_bool(data.get('done'))
+    rec = {"id": new_id("pipedriv_org")}
+    rec["name"] = data.get('name')
+    rec["ownerId"] = _as_int(data.get('ownerId'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Activity", rec)
+    _persist("Organization", rec)
     return rec, 201
 
-@app.route("/v1/activities", methods=["GET"])
-def list_activities(request):
-    """List Activities with filtering + cursor pagination."""
+@app.route("/v1/organizations", methods=["GET"])
+def list_organizations(request):
+    """List Organizations with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Activity")
-    rows = _apply_filters(rows, params, ['subjectId', 'type', 'subject', 'dueDate', 'done'])
+    rows = _query("Organization")
+    rows = _apply_filters(rows, params, ['name', 'ownerId'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/activities/<eid>", methods=["GET"])
-def get_activity(request, eid):
-    """Retrieve a Activity by id (supports ?expand=)."""
-    rows = _query("Activity", eid)
+@app.route("/v1/organizations/<eid>", methods=["GET"])
+def get_organization(request, eid):
+    """Retrieve a Organization by id (supports ?expand=)."""
+    rows = _query("Organization", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/activities/<eid>", methods=["POST", "PATCH"])
-def update_activity(request, eid):
-    """Update a Activity."""
-    rows = _query("Activity", eid)
+@app.route("/v1/organizations/<eid>", methods=["POST", "PATCH"])
+def update_organization(request, eid):
+    """Update a Organization."""
+    rows = _query("Organization", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['subjectId', 'type', 'subject', 'dueDate', 'done'])
+    err = _reject_unknown(data, ['name', 'ownerId'])
     if err:
         return err, 400
     rec = rows[0]
@@ -436,32 +307,31 @@ def update_activity(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Activity", rec)
+    _persist("Organization", rec)
     return rec, 200
 
-@app.route("/v1/activities/<eid>", methods=["DELETE"])
-def delete_activity(request, eid):
-    """Delete a Activity."""
-    rows = _query("Activity", eid)
+@app.route("/v1/organizations/<eid>", methods=["DELETE"])
+def delete_organization(request, eid):
+    """Delete a Organization."""
+    rows = _query("Organization", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"pipedrive.Activity", "id": eid})
+    db.retract({"entity": f"pipedrive.Organization", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/v1/pipelines", methods=["POST"])
 def create_pipeline(request):
     """Create a Pipeline."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'stageOrder', 'ownerId'])
+    err = _reject_unknown(data, ['name', 'isDealProbabilityEnabled'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'stageOrder'])
+    err = _require(data, ['name', 'isDealProbabilityEnabled'])
     if err:
         return err, 400
     rec = {"id": new_id("pipedriv_pip")}
     rec["name"] = data.get('name')
-    rec["stageOrder"] = data.get('stageOrder')
-    rec["ownerId"] = data.get('ownerId')
+    rec["isDealProbabilityEnabled"] = _as_bool(data.get('isDealProbabilityEnabled'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Pipeline", rec)
@@ -472,7 +342,7 @@ def list_pipelines(request):
     """List Pipelines with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Pipeline")
-    rows = _apply_filters(rows, params, ['name', 'stageOrder', 'ownerId'])
+    rows = _apply_filters(rows, params, ['name', 'isDealProbabilityEnabled'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -493,7 +363,7 @@ def update_pipeline(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'stageOrder', 'ownerId'])
+    err = _reject_unknown(data, ['name', 'isDealProbabilityEnabled'])
     if err:
         return err, 400
     rec = rows[0]
@@ -513,10 +383,142 @@ def delete_pipeline(request, eid):
     db.retract({"entity": f"pipedrive.Pipeline", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
+@app.route("/v1/stages", methods=["POST"])
+def create_stage(request):
+    """Create a Stage."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'pipelineId', 'dealProbability'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'dealProbability'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("pipedriv_sta")}
+    rec["name"] = data.get('name')
+    rec["pipelineId"] = _as_int(data.get('pipelineId'))
+    rec["dealProbability"] = _as_int(data.get('dealProbability'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Stage", rec)
+    return rec, 201
+
+@app.route("/v1/stages", methods=["GET"])
+def list_stages(request):
+    """List Stages with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Stage")
+    rows = _apply_filters(rows, params, ['name', 'pipelineId', 'dealProbability'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/stages/<eid>", methods=["GET"])
+def get_stage(request, eid):
+    """Retrieve a Stage by id (supports ?expand=)."""
+    rows = _query("Stage", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'pipelineId': 'Pipeline'})
+    return rec, 200
+
+@app.route("/v1/stages/<eid>", methods=["POST", "PATCH"])
+def update_stage(request, eid):
+    """Update a Stage."""
+    rows = _query("Stage", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'pipelineId', 'dealProbability'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Stage", rec)
+    return rec, 200
+
+@app.route("/v1/stages/<eid>", methods=["DELETE"])
+def delete_stage(request, eid):
+    """Delete a Stage."""
+    rows = _query("Stage", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"pipedrive.Stage", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/activities", methods=["POST"])
+def create_activity(request):
+    """Create a Activity."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['subject', 'type', 'done', 'dueDate'])
+    if err:
+        return err, 400
+    err = _require(data, ['subject', 'type'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("pipedriv_act")}
+    rec["subject"] = data.get('subject')
+    rec["type"] = data.get('type')
+    rec["done"] = _as_bool(data.get('done'))
+    rec["dueDate"] = data.get('dueDate')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Activity", rec)
+    return rec, 201
+
+@app.route("/v1/activities", methods=["GET"])
+def list_activities(request):
+    """List Activities with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Activity")
+    rows = _apply_filters(rows, params, ['subject', 'type', 'done', 'dueDate'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/activities/<eid>", methods=["GET"])
+def get_activity(request, eid):
+    """Retrieve a Activity by id (supports ?expand=)."""
+    rows = _query("Activity", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/activities/<eid>", methods=["POST", "PATCH"])
+def update_activity(request, eid):
+    """Update a Activity."""
+    rows = _query("Activity", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['subject', 'type', 'done', 'dueDate'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Activity", rec)
+    return rec, 200
+
+@app.route("/v1/activities/<eid>", methods=["DELETE"])
+def delete_activity(request, eid):
+    """Delete a Activity."""
+    rows = _query("Activity", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"pipedrive.Activity", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "pipedrive-compat", "tier": "L4",
-            "entities": ['Account', 'Contact', 'Lead', 'Opportunity', 'Activity', 'Pipeline']}, 200
+            "entities": ['Deal', 'Person', 'Organization', 'Pipeline', 'Stage', 'Activity']}, 200
 
 
 if __name__ == "__main__":

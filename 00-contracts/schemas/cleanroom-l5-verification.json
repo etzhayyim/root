@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 25,
+  "count": 28,
   "actors": [
     {
       "handle": "square-compat",
@@ -3375,6 +3375,346 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official Greenhouse Harvest docs. Enforced enums: Application.status (1); Job/Offer/Scorecard enums were INFERRED not doc-enumerated -> intentionally NOT enforced."
+    },
+    {
+      "handle": "pipedrive-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://developers.pipedrive.com/docs/api/v1",
+      "remodeled": "Remodeled from generic crm_sales to a faithful Pipedrive model, then doc-verified (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Deal",
+          "source": "https://developers.pipedrive.com/docs/api/v1/Deals",
+          "verifiedFields": [
+            "title",
+            "value",
+            "currency",
+            "status",
+            "probability",
+            "pipelineId",
+            "stageId"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "open",
+              "won",
+              "lost",
+              "deleted"
+            ]
+          },
+          "gaps": [
+            "visible_to enum (1/3/5 not enumerated)",
+            "add_time"
+          ]
+        },
+        {
+          "entity": "Person",
+          "source": "https://developers.pipedrive.com/docs/api/v1/Persons",
+          "verifiedFields": [
+            "name",
+            "ownerId",
+            "orgId",
+            "marketingStatus"
+          ],
+          "fieldStatus": "confirmed (owner_id, org_id, marketing_status)",
+          "discoveredEnums": {
+            "marketingStatus": [
+              "no_consent",
+              "unsubscribed",
+              "subscribed",
+              "archived"
+            ]
+          },
+          "gaps": [
+            "email[]",
+            "phone[]"
+          ]
+        },
+        {
+          "entity": "Organization",
+          "source": "https://developers.pipedrive.com/docs/api/v1/Organizations",
+          "verifiedFields": [
+            "name",
+            "ownerId"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "address",
+            "visible_to"
+          ]
+        },
+        {
+          "entity": "Pipeline",
+          "source": "https://developers.pipedrive.com/docs/api/v1/Pipelines",
+          "verifiedFields": [
+            "name",
+            "isDealProbabilityEnabled"
+          ],
+          "fieldStatus": "confirmed (deal_probability)",
+          "discoveredEnums": {},
+          "gaps": [
+            "order_nr"
+          ]
+        },
+        {
+          "entity": "Stage",
+          "source": "https://developers.pipedrive.com/docs/api/v1/Stages",
+          "verifiedFields": [
+            "name",
+            "pipelineId",
+            "dealProbability"
+          ],
+          "fieldStatus": "confirmed (deal_probability)",
+          "discoveredEnums": {},
+          "gaps": [
+            "rotten_flag",
+            "order_nr"
+          ]
+        },
+        {
+          "entity": "Activity",
+          "source": "https://developers.pipedrive.com/docs/api/v1/Activities",
+          "verifiedFields": [
+            "subject",
+            "type",
+            "done",
+            "dueDate"
+          ],
+          "fieldStatus": "confirmed; type is open-ended (call/meeting/lunch + custom) -> NOT enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "type-enum (open-ended)",
+            "due_time"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official Pipedrive docs. Enforced enums: Deal.status, Person.marketingStatus (2)."
+    },
+    {
+      "handle": "klaviyo-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://developers.klaviyo.com/en/reference",
+      "remodeled": "Remodeled from generic martech to a faithful Klaviyo (JSON:API) model, then doc-verified (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Profile",
+          "source": "https://developers.klaviyo.com/en/reference/get-profile",
+          "verifiedFields": [
+            "email",
+            "phoneNumber",
+            "externalId"
+          ],
+          "fieldStatus": "confirmed (data.attributes phone_number, external_id)",
+          "discoveredEnums": {},
+          "gaps": [
+            "$-prefixed special attrs",
+            "location"
+          ]
+        },
+        {
+          "entity": "List",
+          "source": "https://developers.klaviyo.com/en/reference/get-list",
+          "verifiedFields": [
+            "name"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "opt_in_process"
+          ]
+        },
+        {
+          "entity": "Segment",
+          "source": "https://developers.klaviyo.com/en/reference/get-segment",
+          "verifiedFields": [
+            "name",
+            "isActive",
+            "isStarred"
+          ],
+          "fieldStatus": "confirmed (is_active, is_starred)",
+          "discoveredEnums": {},
+          "gaps": [
+            "definition"
+          ]
+        },
+        {
+          "entity": "Campaign",
+          "source": "https://developers.klaviyo.com/en/reference/get-campaign",
+          "verifiedFields": [
+            "name",
+            "status",
+            "archived"
+          ],
+          "fieldStatus": "fields confirmed; status enum not doc-enumerated -> NOT enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "status-enum (inferred)",
+            "send_strategy",
+            "audiences"
+          ]
+        },
+        {
+          "entity": "Flow",
+          "source": "https://developers.klaviyo.com/en/reference/get-flow",
+          "verifiedFields": [
+            "name",
+            "status",
+            "triggerType",
+            "archived"
+          ],
+          "fieldStatus": "confirmed (trigger_type)",
+          "discoveredEnums": {
+            "status": [
+              "draft",
+              "manual",
+              "live"
+            ]
+          },
+          "gaps": [
+            "definition"
+          ]
+        },
+        {
+          "entity": "Event",
+          "source": "https://developers.klaviyo.com/en/reference/get-event",
+          "verifiedFields": [
+            "metricId",
+            "profileId",
+            "timestamp"
+          ],
+          "fieldStatus": "confirmed (metric_id, profile_id)",
+          "discoveredEnums": {},
+          "gaps": [
+            "event_properties",
+            "value"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official Klaviyo docs. Enforced enums: Flow.status (1); Campaign.status inferred -> not enforced."
+    },
+    {
+      "handle": "databricks-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://docs.databricks.com/api",
+      "remodeled": "Remodeled from generic data_analytics to a faithful Databricks model, verified against the official databricks-sdk-py source (HTTP docs render dynamically).",
+      "resources": [
+        {
+          "entity": "Cluster",
+          "source": "https://github.com/databricks/databricks-sdk-py/blob/main/databricks/sdk/service/compute.py",
+          "verifiedFields": [
+            "clusterName",
+            "state",
+            "sparkVersion",
+            "numWorkers"
+          ],
+          "fieldStatus": "fields confirmed (cluster_name, spark_version, num_workers); state full enum not exhaustively listed in SDK source -> NOT enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "state-enum (PENDING/RUNNING/TERMINATED.. abstract in SDK)",
+            "node_type_id"
+          ]
+        },
+        {
+          "entity": "Job",
+          "source": "https://github.com/databricks/databricks-sdk-py/blob/main/databricks/sdk/service/jobs.py",
+          "verifiedFields": [
+            "jobId",
+            "creatorUserName",
+            "createdTime"
+          ],
+          "fieldStatus": "confirmed (job_id, creator_user_name, created_time)",
+          "discoveredEnums": {},
+          "gaps": [
+            "settings",
+            "run_as"
+          ]
+        },
+        {
+          "entity": "Run",
+          "source": "https://github.com/databricks/databricks-sdk-py/blob/main/databricks/sdk/service/jobs.py",
+          "verifiedFields": [
+            "runId",
+            "jobId",
+            "state",
+            "runName",
+            "startTime"
+          ],
+          "fieldStatus": "confirmed (run_id, run_name, start_time)",
+          "discoveredEnums": {
+            "state": [
+              "PENDING",
+              "RUNNING",
+              "TERMINATING",
+              "TERMINATED"
+            ]
+          },
+          "gaps": [
+            "lifecycle/result_state (separate fields)",
+            "attempt_number"
+          ]
+        },
+        {
+          "entity": "Warehouse",
+          "source": "https://github.com/databricks/databricks-sdk-py/blob/main/databricks/sdk/service/sql.py",
+          "verifiedFields": [
+            "name",
+            "state",
+            "warehouseType",
+            "clusterSize"
+          ],
+          "fieldStatus": "confirmed (warehouse_type, cluster_size); state enum DEFER",
+          "discoveredEnums": {
+            "warehouseType": [
+              "CLASSIC",
+              "SERVERLESS"
+            ]
+          },
+          "gaps": [
+            "state-enum (STARTING/RUNNING.. DEFER)",
+            "enable_photon"
+          ]
+        },
+        {
+          "entity": "ObjectInfo",
+          "source": "https://github.com/databricks/databricks-sdk-py/blob/main/databricks/sdk/service/workspace.py",
+          "verifiedFields": [
+            "path",
+            "objectType",
+            "language",
+            "size"
+          ],
+          "fieldStatus": "confirmed unified notebook/file/dir object",
+          "discoveredEnums": {
+            "objectType": [
+              "NOTEBOOK",
+              "DIRECTORY",
+              "FILE",
+              "LIBRARY",
+              "REPO",
+              "DASHBOARD"
+            ],
+            "language": [
+              "PYTHON",
+              "R",
+              "SCALA",
+              "SQL"
+            ]
+          },
+          "gaps": [
+            "object_id",
+            "modified_at"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs official Databricks SDK. Enforced enums: Run.state, Warehouse.warehouseType, ObjectInfo.objectType, ObjectInfo.language (4)."
     }
   ]
 }

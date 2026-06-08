@@ -7,7 +7,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 30030,
+  "totalTools": 30025,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -2082,10 +2082,10 @@
     {
       "handle": "databricks-compat",
       "did": "did:web:etzhayyim.com:actor:databricks-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreibtyzesgtha46o3cafsfqwfsqeopiqhka4acyr6ad7srg3j6q63cm",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreic7cqk3x5zndnxpo3cwjqaljjk5i4nqhgsbttu3j4l6nvjrrth2bi",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "manifest": "20-actors/databricks-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -4512,7 +4512,7 @@
     {
       "handle": "klaviyo-compat",
       "did": "did:web:etzhayyim.com:actor:klaviyo-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreif4hrn7utw3nousb7ajuy56nhvxjzexufse3rrmyj2bfagzchsjpu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -6303,7 +6303,7 @@
     {
       "handle": "pipedrive-compat",
       "did": "did:web:etzhayyim.com:actor:pipedrive-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreifrhnx2bgxykll64vqayxxuv2sdonfi5r27xt5i2lwvqfk3ojqala",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,

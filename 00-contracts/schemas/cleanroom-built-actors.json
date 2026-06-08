@@ -3929,17 +3929,16 @@
       "handle": "databricks-compat",
       "platform": "databricks",
       "bytes": 2124,
-      "wasmCid": "bafkreibtyzesgtha46o3cafsfqwfsqeopiqhka4acyr6ad7srg3j6q63cm",
+      "wasmCid": "bafkreic7cqk3x5zndnxpo3cwjqaljjk5i4nqhgsbttu3j4l6nvjrrth2bi",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Dataset",
-        "Query",
-        "Dashboard",
-        "Report",
-        "Connection",
-        "Metric"
+        "Cluster",
+        "Job",
+        "Run",
+        "Warehouse",
+        "ObjectInfo"
       ]
     },
     {
@@ -8524,12 +8523,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Campaign",
-        "Audience",
-        "Event",
         "Profile",
-        "Message",
-        "Funnel"
+        "List",
+        "Segment",
+        "Campaign",
+        "Flow",
+        "Event"
       ]
     },
     {
@@ -11908,12 +11907,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Account",
-        "Contact",
-        "Lead",
-        "Opportunity",
-        "Activity",
-        "Pipeline"
+        "Deal",
+        "Person",
+        "Organization",
+        "Pipeline",
+        "Stage",
+        "Activity"
       ]
     },
     {

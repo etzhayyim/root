@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible data / analytics actor (databricks); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:databricks-compat",
-    "x-wasm-cid": "bafkreibtyzesgtha46o3cafsfqwfsqeopiqhka4acyr6ad7srg3j6q63cm",
+    "x-wasm-cid": "bafkreic7cqk3x5zndnxpo3cwjqaljjk5i4nqhgsbttu3j4l6nvjrrth2bi",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreibtyzesgtha46o3cafsfqwfsqeopiqhka4acyr6ad7srg3j6q63cm",
+      "url": "ipfs://bafkreic7cqk3x5zndnxpo3cwjqaljjk5i4nqhgsbttu3j4l6nvjrrth2bi",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/datasets": {
+    "/v1/clusters": {
       "get": {
-        "summary": "List Datasets",
+        "summary": "List Clusters",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Dataset"
+                        "$ref": "#/components/schemas/Cluster"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Dataset",
+        "summary": "Create a Cluster",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DatasetCreate"
+                "$ref": "#/components/schemas/ClusterCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Dataset"
+                  "$ref": "#/components/schemas/Cluster"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/datasets/{id}": {
+    "/v1/clusters/{id}": {
       "get": {
-        "summary": "Get a Dataset",
+        "summary": "Get a Cluster",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Dataset"
+                  "$ref": "#/components/schemas/Cluster"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Dataset",
+        "summary": "Update a Cluster",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DatasetCreate"
+                "$ref": "#/components/schemas/ClusterCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Dataset"
+                  "$ref": "#/components/schemas/Cluster"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Dataset",
+        "summary": "Delete a Cluster",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/queries": {
+    "/v1/jobs": {
       "get": {
-        "summary": "List Queries",
+        "summary": "List Jobs",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Query"
+                        "$ref": "#/components/schemas/Job"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Query",
+        "summary": "Create a Job",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/QueryCreate"
+                "$ref": "#/components/schemas/JobCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Query"
+                  "$ref": "#/components/schemas/Job"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/queries/{id}": {
+    "/v1/jobs/{id}": {
       "get": {
-        "summary": "Get a Query",
+        "summary": "Get a Job",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Query"
+                  "$ref": "#/components/schemas/Job"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Query",
+        "summary": "Update a Job",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/QueryCreate"
+                "$ref": "#/components/schemas/JobCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Query"
+                  "$ref": "#/components/schemas/Job"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Query",
+        "summary": "Delete a Job",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/dashboards": {
+    "/v1/runs": {
       "get": {
-        "summary": "List Dashboards",
+        "summary": "List Runs",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Dashboard"
+                        "$ref": "#/components/schemas/Run"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Dashboard",
+        "summary": "Create a Run",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DashboardCreate"
+                "$ref": "#/components/schemas/RunCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Dashboard"
+                  "$ref": "#/components/schemas/Run"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/dashboards/{id}": {
+    "/v1/runs/{id}": {
       "get": {
-        "summary": "Get a Dashboard",
+        "summary": "Get a Run",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Dashboard"
+                  "$ref": "#/components/schemas/Run"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Dashboard",
+        "summary": "Update a Run",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DashboardCreate"
+                "$ref": "#/components/schemas/RunCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Dashboard"
+                  "$ref": "#/components/schemas/Run"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Dashboard",
+        "summary": "Delete a Run",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/reports": {
+    "/v1/warehouses": {
       "get": {
-        "summary": "List Reports",
+        "summary": "List Warehouses",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Report"
+                        "$ref": "#/components/schemas/Warehouse"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Report",
+        "summary": "Create a Warehouse",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ReportCreate"
+                "$ref": "#/components/schemas/WarehouseCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Report"
+                  "$ref": "#/components/schemas/Warehouse"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/reports/{id}": {
+    "/v1/warehouses/{id}": {
       "get": {
-        "summary": "Get a Report",
+        "summary": "Get a Warehouse",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Report"
+                  "$ref": "#/components/schemas/Warehouse"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Report",
+        "summary": "Update a Warehouse",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ReportCreate"
+                "$ref": "#/components/schemas/WarehouseCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Report"
+                  "$ref": "#/components/schemas/Warehouse"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Report",
+        "summary": "Delete a Warehouse",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/connections": {
+    "/v1/objectinfos": {
       "get": {
-        "summary": "List Connections",
+        "summary": "List ObjectInfos",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Connection"
+                        "$ref": "#/components/schemas/ObjectInfo"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Connection",
+        "summary": "Create a ObjectInfo",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ConnectionCreate"
+                "$ref": "#/components/schemas/ObjectInfoCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connection"
+                  "$ref": "#/components/schemas/ObjectInfo"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/connections/{id}": {
+    "/v1/objectinfos/{id}": {
       "get": {
-        "summary": "Get a Connection",
+        "summary": "Get a ObjectInfo",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connection"
+                  "$ref": "#/components/schemas/ObjectInfo"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Connection",
+        "summary": "Update a ObjectInfo",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ConnectionCreate"
+                "$ref": "#/components/schemas/ObjectInfoCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connection"
+                  "$ref": "#/components/schemas/ObjectInfo"
                 }
               }
             }
@@ -921,192 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Connection",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/metrics": {
-      "get": {
-        "summary": "List Metrics",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Metric"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Metric",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MetricCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Metric"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/metrics/{id}": {
-      "get": {
-        "summary": "Get a Metric",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Metric"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Metric",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MetricCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Metric"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Metric",
+        "summary": "Delete a ObjectInfo",
         "parameters": [
           {
             "name": "id",
@@ -1140,22 +955,22 @@
   },
   "components": {
     "schemas": {
-      "Dataset": {
+      "Cluster": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
+          "clusterName": {
             "type": "string"
           },
-          "source": {
+          "state": {
             "type": "string"
           },
-          "schemaRef": {
+          "sparkVersion": {
             "type": "string"
           },
-          "rowCount": {
+          "numWorkers": {
             "type": "integer"
           },
           "createdAt": {
@@ -1168,40 +983,159 @@
           }
         }
       },
-      "DatasetCreate": {
+      "ClusterCreate": {
         "type": "object",
         "properties": {
-          "name": {
+          "clusterName": {
             "type": "string"
           },
-          "source": {
+          "state": {
             "type": "string"
           },
-          "schemaRef": {
+          "sparkVersion": {
             "type": "string"
           },
-          "rowCount": {
+          "numWorkers": {
             "type": "integer"
           }
         },
         "required": [
-          "name",
-          "source"
+          "clusterName",
+          "state"
         ]
       },
-      "Query": {
+      "Job": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "datasetId": {
+          "jobId": {
+            "type": "integer"
+          },
+          "creatorUserName": {
             "type": "string"
           },
-          "sql": {
+          "createdTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "JobCreate": {
+        "type": "object",
+        "properties": {
+          "jobId": {
+            "type": "integer"
+          },
+          "creatorUserName": {
             "type": "string"
           },
-          "ownerId": {
+          "createdTime": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "creatorUserName",
+          "createdTime"
+        ]
+      },
+      "Run": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "runId": {
+            "type": "integer"
+          },
+          "jobId": {
+            "type": "integer"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "PENDING",
+              "RUNNING",
+              "TERMINATING",
+              "TERMINATED"
+            ]
+          },
+          "runName": {
+            "type": "string"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "RunCreate": {
+        "type": "object",
+        "properties": {
+          "runId": {
+            "type": "integer"
+          },
+          "jobId": {
+            "type": "integer"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "PENDING",
+              "RUNNING",
+              "TERMINATING",
+              "TERMINATED"
+            ]
+          },
+          "runName": {
+            "type": "string"
+          },
+          "startTime": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "state",
+          "runName"
+        ]
+      },
+      "Warehouse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "warehouseType": {
+            "type": "string",
+            "enum": [
+              "CLASSIC",
+              "SERVERLESS"
+            ]
+          },
+          "clusterSize": {
             "type": "string"
           },
           "createdAt": {
@@ -1214,37 +1148,62 @@
           }
         }
       },
-      "QueryCreate": {
+      "WarehouseCreate": {
         "type": "object",
         "properties": {
-          "datasetId": {
+          "name": {
             "type": "string"
           },
-          "sql": {
+          "state": {
             "type": "string"
           },
-          "ownerId": {
+          "warehouseType": {
+            "type": "string",
+            "enum": [
+              "CLASSIC",
+              "SERVERLESS"
+            ]
+          },
+          "clusterSize": {
             "type": "string"
           }
         },
         "required": [
-          "sql"
+          "name",
+          "state"
         ]
       },
-      "Dashboard": {
+      "ObjectInfo": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
+          "path": {
             "type": "string"
           },
-          "ownerId": {
-            "type": "string"
+          "objectType": {
+            "type": "string",
+            "enum": [
+              "NOTEBOOK",
+              "DIRECTORY",
+              "FILE",
+              "LIBRARY",
+              "REPO",
+              "DASHBOARD"
+            ]
           },
-          "layout": {
-            "type": "string"
+          "language": {
+            "type": "string",
+            "enum": [
+              "PYTHON",
+              "R",
+              "SCALA",
+              "SQL"
+            ]
+          },
+          "size": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1256,163 +1215,39 @@
           }
         }
       },
-      "DashboardCreate": {
+      "ObjectInfoCreate": {
         "type": "object",
         "properties": {
-          "name": {
+          "path": {
             "type": "string"
           },
-          "ownerId": {
-            "type": "string"
+          "objectType": {
+            "type": "string",
+            "enum": [
+              "NOTEBOOK",
+              "DIRECTORY",
+              "FILE",
+              "LIBRARY",
+              "REPO",
+              "DASHBOARD"
+            ]
           },
-          "layout": {
-            "type": "string"
+          "language": {
+            "type": "string",
+            "enum": [
+              "PYTHON",
+              "R",
+              "SCALA",
+              "SQL"
+            ]
+          },
+          "size": {
+            "type": "integer"
           }
         },
         "required": [
-          "name",
-          "layout"
-        ]
-      },
-      "Report": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "dashboardId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "schedule": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ReportCreate": {
-        "type": "object",
-        "properties": {
-          "dashboardId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "schedule": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "schedule"
-        ]
-      },
-      "Connection": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "host": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ConnectionCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "host": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "name",
-          "type"
-        ]
-      },
-      "Metric": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "datasetId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "expression": {
-            "type": "string"
-          },
-          "unit": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "MetricCreate": {
-        "type": "object",
-        "properties": {
-          "datasetId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "expression": {
-            "type": "string"
-          },
-          "unit": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "expression"
+          "path",
+          "objectType"
         ]
       }
     }

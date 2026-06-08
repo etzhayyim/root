@@ -11,15 +11,35 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreif4hrn7utw3nousb7ajuy56nhvxjzexufse3rrmyj2bfagzchsjpu",
   "schema": "schema/klaviyo.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://developers.klaviyo.com/en/reference",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "Profile",
+      "List",
+      "Segment",
+      "Campaign",
+      "Flow",
+      "Event"
+    ],
+    "enums": {
+      "Flow": {
+        "status": [
+          "draft",
+          "manual",
+          "live"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Campaign",
-    "Audience",
-    "Event",
     "Profile",
-    "Message",
-    "Funnel"
+    "List",
+    "Segment",
+    "Campaign",
+    "Flow",
+    "Event"
   ],
   "adr": [
     "260607",
@@ -33,81 +53,6 @@
       "runtime": "kotoba-wasm",
       "endpointCount": 30,
       "routes": [
-        {
-          "method": "POST",
-          "path": "/v1/campaigns",
-          "op": "create Campaign"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/campaigns",
-          "op": "list Campaign"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/campaigns/{id}",
-          "op": "get Campaign"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/campaigns/{id}",
-          "op": "update Campaign"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/campaigns/{id}",
-          "op": "delete Campaign"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/audiences",
-          "op": "create Audience"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/audiences",
-          "op": "list Audience"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/audiences/{id}",
-          "op": "get Audience"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/audiences/{id}",
-          "op": "update Audience"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/audiences/{id}",
-          "op": "delete Audience"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/events",
-          "op": "create Event"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/events",
-          "op": "list Event"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/events/{id}",
-          "op": "get Event"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/events/{id}",
-          "op": "update Event"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/events/{id}",
-          "op": "delete Event"
-        },
         {
           "method": "POST",
           "path": "/v1/profiles",
@@ -135,53 +80,128 @@
         },
         {
           "method": "POST",
-          "path": "/v1/messages",
-          "op": "create Message"
+          "path": "/v1/lists",
+          "op": "create List"
         },
         {
           "method": "GET",
-          "path": "/v1/messages",
-          "op": "list Message"
+          "path": "/v1/lists",
+          "op": "list List"
         },
         {
           "method": "GET",
-          "path": "/v1/messages/{id}",
-          "op": "get Message"
+          "path": "/v1/lists/{id}",
+          "op": "get List"
         },
         {
           "method": "PATCH",
-          "path": "/v1/messages/{id}",
-          "op": "update Message"
+          "path": "/v1/lists/{id}",
+          "op": "update List"
         },
         {
           "method": "DELETE",
-          "path": "/v1/messages/{id}",
-          "op": "delete Message"
+          "path": "/v1/lists/{id}",
+          "op": "delete List"
         },
         {
           "method": "POST",
-          "path": "/v1/funnels",
-          "op": "create Funnel"
+          "path": "/v1/segments",
+          "op": "create Segment"
         },
         {
           "method": "GET",
-          "path": "/v1/funnels",
-          "op": "list Funnel"
+          "path": "/v1/segments",
+          "op": "list Segment"
         },
         {
           "method": "GET",
-          "path": "/v1/funnels/{id}",
-          "op": "get Funnel"
+          "path": "/v1/segments/{id}",
+          "op": "get Segment"
         },
         {
           "method": "PATCH",
-          "path": "/v1/funnels/{id}",
-          "op": "update Funnel"
+          "path": "/v1/segments/{id}",
+          "op": "update Segment"
         },
         {
           "method": "DELETE",
-          "path": "/v1/funnels/{id}",
-          "op": "delete Funnel"
+          "path": "/v1/segments/{id}",
+          "op": "delete Segment"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/campaigns",
+          "op": "create Campaign"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/campaigns",
+          "op": "list Campaign"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/campaigns/{id}",
+          "op": "get Campaign"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/campaigns/{id}",
+          "op": "update Campaign"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/campaigns/{id}",
+          "op": "delete Campaign"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/flows",
+          "op": "create Flow"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/flows",
+          "op": "list Flow"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/flows/{id}",
+          "op": "get Flow"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/flows/{id}",
+          "op": "update Flow"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/flows/{id}",
+          "op": "delete Flow"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/events",
+          "op": "create Event"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/events",
+          "op": "list Event"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/events/{id}",
+          "op": "get Event"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/events/{id}",
+          "op": "update Event"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/events/{id}",
+          "op": "delete Event"
         }
       ],
       "features": {
@@ -247,270 +267,6 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_campaign",
-          "description": "Create a Campaign.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "channel": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "budget": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "name",
-              "channel"
-            ]
-          }
-        },
-        {
-          "name": "list_campaigns",
-          "description": "List Campaigns.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_campaign",
-          "description": "Get a Campaign by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_campaign",
-          "description": "Update a Campaign.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "channel": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "budget": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_campaign",
-          "description": "Delete a Campaign.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_audience",
-          "description": "Create a Audience.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "size": {
-                "type": "integer"
-              },
-              "definition": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "size"
-            ]
-          }
-        },
-        {
-          "name": "list_audiences",
-          "description": "List Audiences.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_audience",
-          "description": "Get a Audience by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_audience",
-          "description": "Update a Audience.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "size": {
-                "type": "integer"
-              },
-              "definition": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_audience",
-          "description": "Delete a Audience.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_event",
-          "description": "Create a Event.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "profileId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "properties": {
-                "type": "string"
-              },
-              "occurredAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "properties"
-            ]
-          }
-        },
-        {
-          "name": "list_events",
-          "description": "List Events.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_event",
-          "description": "Get a Event by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_event",
-          "description": "Update a Event.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "profileId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "properties": {
-                "type": "string"
-              },
-              "occurredAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_event",
-          "description": "Delete a Event.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
           "name": "create_profile",
           "description": "Create a Profile.",
           "inputSchema": {
@@ -519,16 +275,16 @@
               "email": {
                 "type": "string"
               },
-              "externalId": {
+              "phoneNumber": {
                 "type": "string"
               },
-              "traits": {
+              "externalId": {
                 "type": "string"
               }
             },
             "required": [
               "email",
-              "traits"
+              "phoneNumber"
             ]
           }
         },
@@ -567,10 +323,10 @@
               "email": {
                 "type": "string"
               },
-              "externalId": {
+              "phoneNumber": {
                 "type": "string"
               },
-              "traits": {
+              "externalId": {
                 "type": "string"
               }
             },
@@ -595,41 +351,193 @@
           }
         },
         {
-          "name": "create_message",
-          "description": "Create a Message.",
+          "name": "create_list",
+          "description": "Create a List.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "campaignId": {
-                "type": "string"
-              },
-              "profileId": {
-                "type": "string"
-              },
-              "channel": {
-                "type": "string"
-              },
-              "status": {
+              "name": {
                 "type": "string"
               }
             },
             "required": [
-              "channel",
+              "name"
+            ]
+          }
+        },
+        {
+          "name": "list_lists",
+          "description": "List Lists.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_list",
+          "description": "Get a List by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_list",
+          "description": "Update a List.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_list",
+          "description": "Delete a List.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_segment",
+          "description": "Create a Segment.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "isActive": {
+                "type": "boolean"
+              },
+              "isStarred": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "name",
+              "isActive"
+            ]
+          }
+        },
+        {
+          "name": "list_segments",
+          "description": "List Segments.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_segment",
+          "description": "Get a Segment by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_segment",
+          "description": "Update a Segment.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "isActive": {
+                "type": "boolean"
+              },
+              "isStarred": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_segment",
+          "description": "Delete a Segment.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_campaign",
+          "description": "Create a Campaign.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "archived": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "name",
               "status"
             ]
           }
         },
         {
-          "name": "list_messages",
-          "description": "List Messages.",
+          "name": "list_campaigns",
+          "description": "List Campaigns.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_message",
-          "description": "Get a Message by id.",
+          "name": "get_campaign",
+          "description": "Get a Campaign by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -643,80 +551,166 @@
           }
         },
         {
-          "name": "update_message",
-          "description": "Update a Message.",
+          "name": "update_campaign",
+          "description": "Update a Campaign.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "campaignId": {
+              "name": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "archived": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_campaign",
+          "description": "Delete a Campaign.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_flow",
+          "description": "Create a Flow.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "triggerType": {
+                "type": "string"
+              },
+              "archived": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "name",
+              "status"
+            ]
+          }
+        },
+        {
+          "name": "list_flows",
+          "description": "List Flows.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_flow",
+          "description": "Get a Flow by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_flow",
+          "description": "Update a Flow.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "triggerType": {
+                "type": "string"
+              },
+              "archived": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_flow",
+          "description": "Delete a Flow.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_event",
+          "description": "Create a Event.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "metricId": {
                 "type": "string"
               },
               "profileId": {
                 "type": "string"
               },
-              "channel": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
+              "timestamp": {
+                "type": "integer"
               }
             },
             "required": [
-              "id"
+              "timestamp"
             ]
           }
         },
         {
-          "name": "delete_message",
-          "description": "Delete a Message.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_funnel",
-          "description": "Create a Funnel.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "steps": {
-                "type": "string"
-              },
-              "conversionRate": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "name",
-              "steps"
-            ]
-          }
-        },
-        {
-          "name": "list_funnels",
-          "description": "List Funnels.",
+          "name": "list_events",
+          "description": "List Events.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_funnel",
-          "description": "Get a Funnel by id.",
+          "name": "get_event",
+          "description": "Get a Event by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -730,22 +724,22 @@
           }
         },
         {
-          "name": "update_funnel",
-          "description": "Update a Funnel.",
+          "name": "update_event",
+          "description": "Update a Event.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
+              "metricId": {
                 "type": "string"
               },
-              "steps": {
+              "profileId": {
                 "type": "string"
               },
-              "conversionRate": {
-                "type": "number"
+              "timestamp": {
+                "type": "integer"
               }
             },
             "required": [
@@ -754,8 +748,8 @@
           }
         },
         {
-          "name": "delete_funnel",
-          "description": "Delete a Funnel.",
+          "name": "delete_event",
+          "description": "Delete a Event.",
           "inputSchema": {
             "type": "object",
             "properties": {

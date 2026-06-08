@@ -1062,6 +1062,33 @@ PLATFORM_OVERRIDES = {
         "Scorecard": E(applicationId="string", interviewerId="string", score="string", notes="string"),
         "ScheduledInterview": E(applicationId="string", name="string", scheduledAt="datetime", videoConferencingUrl="string"),
     },
+    # Faithful Pipedrive model (remodeled from generic crm_sales), L5.
+    "pipedrive": {
+        "Deal": E(title="string", value="float", currency="string", status="string", probability="float", pipelineId="integer", stageId="integer"),
+        "Person": E(name="string", ownerId="integer", orgId="integer", marketingStatus="string"),
+        "Organization": E(name="string", ownerId="integer"),
+        "Pipeline": E(name="string", isDealProbabilityEnabled="boolean"),
+        "Stage": E(name="string", pipelineId="integer", dealProbability="integer"),
+        "Activity": E(subject="string", type="string", done="boolean", dueDate="string"),
+    },
+    # Faithful Klaviyo model (remodeled from generic martech), L5.
+    "klaviyo": {
+        "Profile": E(email="string", phoneNumber="string", externalId="string"),
+        "List": E(name="string"),
+        "Segment": E(name="string", isActive="boolean", isStarred="boolean"),
+        "Campaign": E(name="string", status="string", archived="boolean"),
+        "Flow": E(name="string", status="string", triggerType="string", archived="boolean"),
+        "Event": E(metricId="string", profileId="string", timestamp="integer"),
+    },
+    # Faithful Databricks model (remodeled from generic data_analytics), L5
+    # (confirmed against the official databricks-sdk-py source).
+    "databricks": {
+        "Cluster": E(clusterName="string", state="string", sparkVersion="string", numWorkers="integer"),
+        "Job": E(jobId="integer", creatorUserName="string", createdTime="datetime"),
+        "Run": E(runId="integer", jobId="integer", state="string", runName="string", startTime="datetime"),
+        "Warehouse": E(name="string", state="string", warehouseType="string", clusterSize="string"),
+        "ObjectInfo": E(path="string", objectType="string", language="string", size="integer"),
+    },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).
     "square": {

@@ -11,15 +11,44 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreifrhnx2bgxykll64vqayxxuv2sdonfi5r27xt5i2lwvqfk3ojqala",
   "schema": "schema/pipedrive.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://developers.pipedrive.com/docs/api/v1",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "Deal",
+      "Person",
+      "Organization",
+      "Pipeline",
+      "Stage",
+      "Activity"
+    ],
+    "enums": {
+      "Deal": {
+        "status": [
+          "open",
+          "won",
+          "lost",
+          "deleted"
+        ]
+      },
+      "Person": {
+        "marketingStatus": [
+          "no_consent",
+          "unsubscribed",
+          "subscribed",
+          "archived"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Account",
-    "Contact",
-    "Lead",
-    "Opportunity",
-    "Activity",
-    "Pipeline"
+    "Deal",
+    "Person",
+    "Organization",
+    "Pipeline",
+    "Stage",
+    "Activity"
   ],
   "adr": [
     "260607",
@@ -35,128 +64,78 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/accounts",
-          "op": "create Account"
+          "path": "/v1/deals",
+          "op": "create Deal"
         },
         {
           "method": "GET",
-          "path": "/v1/accounts",
-          "op": "list Account"
+          "path": "/v1/deals",
+          "op": "list Deal"
         },
         {
           "method": "GET",
-          "path": "/v1/accounts/{id}",
-          "op": "get Account"
+          "path": "/v1/deals/{id}",
+          "op": "get Deal"
         },
         {
           "method": "PATCH",
-          "path": "/v1/accounts/{id}",
-          "op": "update Account"
+          "path": "/v1/deals/{id}",
+          "op": "update Deal"
         },
         {
           "method": "DELETE",
-          "path": "/v1/accounts/{id}",
-          "op": "delete Account"
+          "path": "/v1/deals/{id}",
+          "op": "delete Deal"
         },
         {
           "method": "POST",
-          "path": "/v1/contacts",
-          "op": "create Contact"
+          "path": "/v1/persons",
+          "op": "create Person"
         },
         {
           "method": "GET",
-          "path": "/v1/contacts",
-          "op": "list Contact"
+          "path": "/v1/persons",
+          "op": "list Person"
         },
         {
           "method": "GET",
-          "path": "/v1/contacts/{id}",
-          "op": "get Contact"
+          "path": "/v1/persons/{id}",
+          "op": "get Person"
         },
         {
           "method": "PATCH",
-          "path": "/v1/contacts/{id}",
-          "op": "update Contact"
+          "path": "/v1/persons/{id}",
+          "op": "update Person"
         },
         {
           "method": "DELETE",
-          "path": "/v1/contacts/{id}",
-          "op": "delete Contact"
+          "path": "/v1/persons/{id}",
+          "op": "delete Person"
         },
         {
           "method": "POST",
-          "path": "/v1/leads",
-          "op": "create Lead"
+          "path": "/v1/organizations",
+          "op": "create Organization"
         },
         {
           "method": "GET",
-          "path": "/v1/leads",
-          "op": "list Lead"
+          "path": "/v1/organizations",
+          "op": "list Organization"
         },
         {
           "method": "GET",
-          "path": "/v1/leads/{id}",
-          "op": "get Lead"
+          "path": "/v1/organizations/{id}",
+          "op": "get Organization"
         },
         {
           "method": "PATCH",
-          "path": "/v1/leads/{id}",
-          "op": "update Lead"
+          "path": "/v1/organizations/{id}",
+          "op": "update Organization"
         },
         {
           "method": "DELETE",
-          "path": "/v1/leads/{id}",
-          "op": "delete Lead"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/opportunities",
-          "op": "create Opportunity"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/opportunities",
-          "op": "list Opportunity"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/opportunities/{id}",
-          "op": "get Opportunity"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/opportunities/{id}",
-          "op": "update Opportunity"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/opportunities/{id}",
-          "op": "delete Opportunity"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/activities",
-          "op": "create Activity"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/activities",
-          "op": "list Activity"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/activities/{id}",
-          "op": "get Activity"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/activities/{id}",
-          "op": "update Activity"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/activities/{id}",
-          "op": "delete Activity"
+          "path": "/v1/organizations/{id}",
+          "op": "delete Organization"
         },
         {
           "method": "POST",
@@ -182,6 +161,56 @@
           "method": "DELETE",
           "path": "/v1/pipelines/{id}",
           "op": "delete Pipeline"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/stages",
+          "op": "create Stage"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/stages",
+          "op": "list Stage"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/stages/{id}",
+          "op": "get Stage"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/stages/{id}",
+          "op": "update Stage"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/stages/{id}",
+          "op": "delete Stage"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/activities",
+          "op": "create Activity"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/activities",
+          "op": "list Activity"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/activities/{id}",
+          "op": "get Activity"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/activities/{id}",
+          "op": "update Activity"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/activities/{id}",
+          "op": "delete Activity"
         }
       ],
       "features": {
@@ -247,236 +276,50 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_account",
-          "description": "Create a Account.",
+          "name": "create_deal",
+          "description": "Create a Deal.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "title": {
                 "type": "string"
               },
-              "domain": {
-                "type": "string"
-              },
-              "industry": {
-                "type": "string"
-              },
-              "ownerId": {
-                "type": "string"
-              },
-              "annualRevenue": {
+              "value": {
                 "type": "number"
-              }
-            },
-            "required": [
-              "name",
-              "domain"
-            ]
-          }
-        },
-        {
-          "name": "list_accounts",
-          "description": "List Accounts.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_account",
-          "description": "Get a Account by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_account",
-          "description": "Update a Account.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
               },
-              "name": {
-                "type": "string"
-              },
-              "domain": {
-                "type": "string"
-              },
-              "industry": {
-                "type": "string"
-              },
-              "ownerId": {
-                "type": "string"
-              },
-              "annualRevenue": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_account",
-          "description": "Delete a Account.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_contact",
-          "description": "Create a Contact.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "accountId": {
-                "type": "string"
-              },
-              "firstName": {
-                "type": "string"
-              },
-              "lastName": {
-                "type": "string"
-              },
-              "email": {
-                "type": "string"
-              },
-              "phone": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "firstName",
-              "lastName"
-            ]
-          }
-        },
-        {
-          "name": "list_contacts",
-          "description": "List Contacts.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_contact",
-          "description": "Get a Contact by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_contact",
-          "description": "Update a Contact.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "accountId": {
-                "type": "string"
-              },
-              "firstName": {
-                "type": "string"
-              },
-              "lastName": {
-                "type": "string"
-              },
-              "email": {
-                "type": "string"
-              },
-              "phone": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_contact",
-          "description": "Delete a Contact.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_lead",
-          "description": "Create a Lead.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "company": {
-                "type": "string"
-              },
-              "email": {
+              "currency": {
                 "type": "string"
               },
               "status": {
                 "type": "string"
               },
-              "source": {
-                "type": "string"
+              "probability": {
+                "type": "number"
               },
-              "score": {
+              "pipelineId": {
+                "type": "integer"
+              },
+              "stageId": {
                 "type": "integer"
               }
             },
             "required": [
-              "company",
-              "email"
+              "title",
+              "value"
             ]
           }
         },
         {
-          "name": "list_leads",
-          "description": "List Leads.",
+          "name": "list_deals",
+          "description": "List Deals.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_lead",
-          "description": "Get a Lead by id.",
+          "name": "get_deal",
+          "description": "Get a Deal by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -490,27 +333,33 @@
           }
         },
         {
-          "name": "update_lead",
-          "description": "Update a Lead.",
+          "name": "update_deal",
+          "description": "Update a Deal.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "company": {
+              "title": {
                 "type": "string"
               },
-              "email": {
+              "value": {
+                "type": "number"
+              },
+              "currency": {
                 "type": "string"
               },
               "status": {
                 "type": "string"
               },
-              "source": {
-                "type": "string"
+              "probability": {
+                "type": "number"
               },
-              "score": {
+              "pipelineId": {
+                "type": "integer"
+              },
+              "stageId": {
                 "type": "integer"
               }
             },
@@ -520,8 +369,8 @@
           }
         },
         {
-          "name": "delete_lead",
-          "description": "Delete a Lead.",
+          "name": "delete_deal",
+          "description": "Delete a Deal.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -535,44 +384,41 @@
           }
         },
         {
-          "name": "create_opportunity",
-          "description": "Create a Opportunity.",
+          "name": "create_person",
+          "description": "Create a Person.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "accountId": {
-                "type": "string"
-              },
               "name": {
                 "type": "string"
               },
-              "stage": {
-                "type": "string"
+              "ownerId": {
+                "type": "integer"
               },
-              "amount": {
-                "type": "number"
+              "orgId": {
+                "type": "integer"
               },
-              "closeDate": {
+              "marketingStatus": {
                 "type": "string"
               }
             },
             "required": [
               "name",
-              "stage"
+              "marketingStatus"
             ]
           }
         },
         {
-          "name": "list_opportunities",
-          "description": "List Opportunities.",
+          "name": "list_persons",
+          "description": "List Persons.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_opportunity",
-          "description": "Get a Opportunity by id.",
+          "name": "get_person",
+          "description": "Get a Person by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -586,27 +432,24 @@
           }
         },
         {
-          "name": "update_opportunity",
-          "description": "Update a Opportunity.",
+          "name": "update_person",
+          "description": "Update a Person.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "accountId": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "stage": {
-                "type": "string"
+              "ownerId": {
+                "type": "integer"
               },
-              "amount": {
-                "type": "number"
+              "orgId": {
+                "type": "integer"
               },
-              "closeDate": {
+              "marketingStatus": {
                 "type": "string"
               }
             },
@@ -616,8 +459,8 @@
           }
         },
         {
-          "name": "delete_opportunity",
-          "description": "Delete a Opportunity.",
+          "name": "delete_person",
+          "description": "Delete a Person.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -631,44 +474,34 @@
           }
         },
         {
-          "name": "create_activity",
-          "description": "Create a Activity.",
+          "name": "create_organization",
+          "description": "Create a Organization.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "subjectId": {
+              "name": {
                 "type": "string"
               },
-              "type": {
-                "type": "string"
-              },
-              "subject": {
-                "type": "string"
-              },
-              "dueDate": {
-                "type": "string"
-              },
-              "done": {
-                "type": "boolean"
+              "ownerId": {
+                "type": "integer"
               }
             },
             "required": [
-              "type",
-              "subject"
+              "name"
             ]
           }
         },
         {
-          "name": "list_activities",
-          "description": "List Activities.",
+          "name": "list_organizations",
+          "description": "List Organizations.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_activity",
-          "description": "Get a Activity by id.",
+          "name": "get_organization",
+          "description": "Get a Organization by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -682,28 +515,19 @@
           }
         },
         {
-          "name": "update_activity",
-          "description": "Update a Activity.",
+          "name": "update_organization",
+          "description": "Update a Organization.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "subjectId": {
+              "name": {
                 "type": "string"
               },
-              "type": {
-                "type": "string"
-              },
-              "subject": {
-                "type": "string"
-              },
-              "dueDate": {
-                "type": "string"
-              },
-              "done": {
-                "type": "boolean"
+              "ownerId": {
+                "type": "integer"
               }
             },
             "required": [
@@ -712,8 +536,8 @@
           }
         },
         {
-          "name": "delete_activity",
-          "description": "Delete a Activity.",
+          "name": "delete_organization",
+          "description": "Delete a Organization.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -735,16 +559,13 @@
               "name": {
                 "type": "string"
               },
-              "stageOrder": {
-                "type": "string"
-              },
-              "ownerId": {
-                "type": "string"
+              "isDealProbabilityEnabled": {
+                "type": "boolean"
               }
             },
             "required": [
               "name",
-              "stageOrder"
+              "isDealProbabilityEnabled"
             ]
           }
         },
@@ -783,11 +604,8 @@
               "name": {
                 "type": "string"
               },
-              "stageOrder": {
-                "type": "string"
-              },
-              "ownerId": {
-                "type": "string"
+              "isDealProbabilityEnabled": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -798,6 +616,180 @@
         {
           "name": "delete_pipeline",
           "description": "Delete a Pipeline.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_stage",
+          "description": "Create a Stage.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "pipelineId": {
+                "type": "integer"
+              },
+              "dealProbability": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "name",
+              "dealProbability"
+            ]
+          }
+        },
+        {
+          "name": "list_stages",
+          "description": "List Stages.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_stage",
+          "description": "Get a Stage by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_stage",
+          "description": "Update a Stage.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "pipelineId": {
+                "type": "integer"
+              },
+              "dealProbability": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_stage",
+          "description": "Delete a Stage.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_activity",
+          "description": "Create a Activity.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "subject": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "done": {
+                "type": "boolean"
+              },
+              "dueDate": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "subject",
+              "type"
+            ]
+          }
+        },
+        {
+          "name": "list_activities",
+          "description": "List Activities.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_activity",
+          "description": "Get a Activity by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_activity",
+          "description": "Update a Activity.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "subject": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "done": {
+                "type": "boolean"
+              },
+              "dueDate": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_activity",
+          "description": "Delete a Activity.",
           "inputSchema": {
             "type": "object",
             "properties": {

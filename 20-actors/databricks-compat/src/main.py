@@ -111,53 +111,53 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/datasets", methods=["POST"])
-def create_dataset(request):
-    """Create a Dataset."""
+@app.route("/v1/clusters", methods=["POST"])
+def create_cluster(request):
+    """Create a Cluster."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'source', 'schemaRef', 'rowCount'])
+    err = _reject_unknown(data, ['clusterName', 'state', 'sparkVersion', 'numWorkers'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'source'])
+    err = _require(data, ['clusterName', 'state'])
     if err:
         return err, 400
-    rec = {"id": new_id("databric_dat")}
-    rec["name"] = data.get('name')
-    rec["source"] = data.get('source')
-    rec["schemaRef"] = data.get('schemaRef')
-    rec["rowCount"] = _as_int(data.get('rowCount'))
+    rec = {"id": new_id("databric_clu")}
+    rec["clusterName"] = data.get('clusterName')
+    rec["state"] = data.get('state')
+    rec["sparkVersion"] = data.get('sparkVersion')
+    rec["numWorkers"] = _as_int(data.get('numWorkers'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Dataset", rec)
+    _persist("Cluster", rec)
     return rec, 201
 
-@app.route("/v1/datasets", methods=["GET"])
-def list_datasets(request):
-    """List Datasets with filtering + cursor pagination."""
+@app.route("/v1/clusters", methods=["GET"])
+def list_clusters(request):
+    """List Clusters with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Dataset")
-    rows = _apply_filters(rows, params, ['name', 'source', 'schemaRef', 'rowCount'])
+    rows = _query("Cluster")
+    rows = _apply_filters(rows, params, ['clusterName', 'state', 'sparkVersion', 'numWorkers'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/datasets/<eid>", methods=["GET"])
-def get_dataset(request, eid):
-    """Retrieve a Dataset by id (supports ?expand=)."""
-    rows = _query("Dataset", eid)
+@app.route("/v1/clusters/<eid>", methods=["GET"])
+def get_cluster(request, eid):
+    """Retrieve a Cluster by id (supports ?expand=)."""
+    rows = _query("Cluster", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/datasets/<eid>", methods=["POST", "PATCH"])
-def update_dataset(request, eid):
-    """Update a Dataset."""
-    rows = _query("Dataset", eid)
+@app.route("/v1/clusters/<eid>", methods=["POST", "PATCH"])
+def update_cluster(request, eid):
+    """Update a Cluster."""
+    rows = _query("Cluster", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'source', 'schemaRef', 'rowCount'])
+    err = _reject_unknown(data, ['clusterName', 'state', 'sparkVersion', 'numWorkers'])
     if err:
         return err, 400
     rec = rows[0]
@@ -165,65 +165,65 @@ def update_dataset(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Dataset", rec)
+    _persist("Cluster", rec)
     return rec, 200
 
-@app.route("/v1/datasets/<eid>", methods=["DELETE"])
-def delete_dataset(request, eid):
-    """Delete a Dataset."""
-    rows = _query("Dataset", eid)
+@app.route("/v1/clusters/<eid>", methods=["DELETE"])
+def delete_cluster(request, eid):
+    """Delete a Cluster."""
+    rows = _query("Cluster", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"databricks.Dataset", "id": eid})
+    db.retract({"entity": f"databricks.Cluster", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/queries", methods=["POST"])
-def create_query(request):
-    """Create a Query."""
+@app.route("/v1/jobs", methods=["POST"])
+def create_job(request):
+    """Create a Job."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['datasetId', 'sql', 'ownerId'])
+    err = _reject_unknown(data, ['jobId', 'creatorUserName', 'createdTime'])
     if err:
         return err, 400
-    err = _require(data, ['sql'])
+    err = _require(data, ['creatorUserName', 'createdTime'])
     if err:
         return err, 400
-    rec = {"id": new_id("databric_que")}
-    rec["datasetId"] = data.get('datasetId')
-    rec["sql"] = data.get('sql')
-    rec["ownerId"] = data.get('ownerId')
+    rec = {"id": new_id("databric_job")}
+    rec["jobId"] = _as_int(data.get('jobId'))
+    rec["creatorUserName"] = data.get('creatorUserName')
+    rec["createdTime"] = data.get('createdTime')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Query", rec)
+    _persist("Job", rec)
     return rec, 201
 
-@app.route("/v1/queries", methods=["GET"])
-def list_queries(request):
-    """List Queries with filtering + cursor pagination."""
+@app.route("/v1/jobs", methods=["GET"])
+def list_jobs(request):
+    """List Jobs with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Query")
-    rows = _apply_filters(rows, params, ['datasetId', 'sql', 'ownerId'])
+    rows = _query("Job")
+    rows = _apply_filters(rows, params, ['jobId', 'creatorUserName', 'createdTime'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/queries/<eid>", methods=["GET"])
-def get_query(request, eid):
-    """Retrieve a Query by id (supports ?expand=)."""
-    rows = _query("Query", eid)
+@app.route("/v1/jobs/<eid>", methods=["GET"])
+def get_job(request, eid):
+    """Retrieve a Job by id (supports ?expand=)."""
+    rows = _query("Job", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'datasetId': 'Dataset'})
+    rec = _expand(rec, request.query or {}, {'jobId': 'Job'})
     return rec, 200
 
-@app.route("/v1/queries/<eid>", methods=["POST", "PATCH"])
-def update_query(request, eid):
-    """Update a Query."""
-    rows = _query("Query", eid)
+@app.route("/v1/jobs/<eid>", methods=["POST", "PATCH"])
+def update_job(request, eid):
+    """Update a Job."""
+    rows = _query("Job", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['datasetId', 'sql', 'ownerId'])
+    err = _reject_unknown(data, ['jobId', 'creatorUserName', 'createdTime'])
     if err:
         return err, 400
     rec = rows[0]
@@ -231,286 +231,238 @@ def update_query(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Query", rec)
+    _persist("Job", rec)
     return rec, 200
 
-@app.route("/v1/queries/<eid>", methods=["DELETE"])
-def delete_query(request, eid):
-    """Delete a Query."""
-    rows = _query("Query", eid)
+@app.route("/v1/jobs/<eid>", methods=["DELETE"])
+def delete_job(request, eid):
+    """Delete a Job."""
+    rows = _query("Job", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"databricks.Query", "id": eid})
+    db.retract({"entity": f"databricks.Job", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/dashboards", methods=["POST"])
-def create_dashboard(request):
-    """Create a Dashboard."""
+@app.route("/v1/runs", methods=["POST"])
+def create_run(request):
+    """Create a Run."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'layout'])
+    err = _reject_unknown(data, ['runId', 'jobId', 'state', 'runName', 'startTime'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'layout'])
+    err = _require(data, ['state', 'runName'])
     if err:
         return err, 400
-    rec = {"id": new_id("databric_das")}
-    rec["name"] = data.get('name')
-    rec["ownerId"] = data.get('ownerId')
-    rec["layout"] = data.get('layout')
+    if data.get('state') and data['state'] not in ['PENDING', 'RUNNING', 'TERMINATING', 'TERMINATED']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['PENDING', 'RUNNING', 'TERMINATING', 'TERMINATED']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("databric_run")}
+    rec["runId"] = _as_int(data.get('runId'))
+    rec["jobId"] = _as_int(data.get('jobId'))
+    rec["state"] = data.get('state')
+    rec["runName"] = data.get('runName')
+    rec["startTime"] = data.get('startTime')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Dashboard", rec)
+    _persist("Run", rec)
     return rec, 201
 
-@app.route("/v1/dashboards", methods=["GET"])
-def list_dashboards(request):
-    """List Dashboards with filtering + cursor pagination."""
+@app.route("/v1/runs", methods=["GET"])
+def list_runs(request):
+    """List Runs with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Dashboard")
-    rows = _apply_filters(rows, params, ['name', 'ownerId', 'layout'])
+    rows = _query("Run")
+    rows = _apply_filters(rows, params, ['runId', 'jobId', 'state', 'runName', 'startTime'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/dashboards/<eid>", methods=["GET"])
-def get_dashboard(request, eid):
-    """Retrieve a Dashboard by id (supports ?expand=)."""
-    rows = _query("Dashboard", eid)
+@app.route("/v1/runs/<eid>", methods=["GET"])
+def get_run(request, eid):
+    """Retrieve a Run by id (supports ?expand=)."""
+    rows = _query("Run", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'runId': 'Run', 'jobId': 'Job'})
     return rec, 200
 
-@app.route("/v1/dashboards/<eid>", methods=["POST", "PATCH"])
-def update_dashboard(request, eid):
-    """Update a Dashboard."""
-    rows = _query("Dashboard", eid)
+@app.route("/v1/runs/<eid>", methods=["POST", "PATCH"])
+def update_run(request, eid):
+    """Update a Run."""
+    rows = _query("Run", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'layout'])
+    err = _reject_unknown(data, ['runId', 'jobId', 'state', 'runName', 'startTime'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in ['PENDING', 'RUNNING', 'TERMINATING', 'TERMINATED']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['PENDING', 'RUNNING', 'TERMINATING', 'TERMINATED']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Dashboard", rec)
+    _persist("Run", rec)
     return rec, 200
 
-@app.route("/v1/dashboards/<eid>", methods=["DELETE"])
-def delete_dashboard(request, eid):
-    """Delete a Dashboard."""
-    rows = _query("Dashboard", eid)
+@app.route("/v1/runs/<eid>", methods=["DELETE"])
+def delete_run(request, eid):
+    """Delete a Run."""
+    rows = _query("Run", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"databricks.Dashboard", "id": eid})
+    db.retract({"entity": f"databricks.Run", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/reports", methods=["POST"])
-def create_report(request):
-    """Create a Report."""
+@app.route("/v1/warehouses", methods=["POST"])
+def create_warehouse(request):
+    """Create a Warehouse."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['dashboardId', 'name', 'schedule'])
+    err = _reject_unknown(data, ['name', 'state', 'warehouseType', 'clusterSize'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'schedule'])
+    err = _require(data, ['name', 'state'])
     if err:
         return err, 400
-    rec = {"id": new_id("databric_rep")}
-    rec["dashboardId"] = data.get('dashboardId')
+    if data.get('warehouseType') and data['warehouseType'] not in ['CLASSIC', 'SERVERLESS']:
+        return {"error": {"message": "invalid warehouseType; allowed: " + ", ".join(['CLASSIC', 'SERVERLESS']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("databric_war")}
     rec["name"] = data.get('name')
-    rec["schedule"] = data.get('schedule')
+    rec["state"] = data.get('state')
+    rec["warehouseType"] = data.get('warehouseType')
+    rec["clusterSize"] = data.get('clusterSize')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Report", rec)
+    _persist("Warehouse", rec)
     return rec, 201
 
-@app.route("/v1/reports", methods=["GET"])
-def list_reports(request):
-    """List Reports with filtering + cursor pagination."""
+@app.route("/v1/warehouses", methods=["GET"])
+def list_warehouses(request):
+    """List Warehouses with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Report")
-    rows = _apply_filters(rows, params, ['dashboardId', 'name', 'schedule'])
+    rows = _query("Warehouse")
+    rows = _apply_filters(rows, params, ['name', 'state', 'warehouseType', 'clusterSize'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/reports/<eid>", methods=["GET"])
-def get_report(request, eid):
-    """Retrieve a Report by id (supports ?expand=)."""
-    rows = _query("Report", eid)
+@app.route("/v1/warehouses/<eid>", methods=["GET"])
+def get_warehouse(request, eid):
+    """Retrieve a Warehouse by id (supports ?expand=)."""
+    rows = _query("Warehouse", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'dashboardId': 'Dashboard'})
     return rec, 200
 
-@app.route("/v1/reports/<eid>", methods=["POST", "PATCH"])
-def update_report(request, eid):
-    """Update a Report."""
-    rows = _query("Report", eid)
+@app.route("/v1/warehouses/<eid>", methods=["POST", "PATCH"])
+def update_warehouse(request, eid):
+    """Update a Warehouse."""
+    rows = _query("Warehouse", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['dashboardId', 'name', 'schedule'])
+    err = _reject_unknown(data, ['name', 'state', 'warehouseType', 'clusterSize'])
     if err:
         return err, 400
+    if data.get('warehouseType') and data['warehouseType'] not in ['CLASSIC', 'SERVERLESS']:
+        return {"error": {"message": "invalid warehouseType; allowed: " + ", ".join(['CLASSIC', 'SERVERLESS']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Report", rec)
+    _persist("Warehouse", rec)
     return rec, 200
 
-@app.route("/v1/reports/<eid>", methods=["DELETE"])
-def delete_report(request, eid):
-    """Delete a Report."""
-    rows = _query("Report", eid)
+@app.route("/v1/warehouses/<eid>", methods=["DELETE"])
+def delete_warehouse(request, eid):
+    """Delete a Warehouse."""
+    rows = _query("Warehouse", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"databricks.Report", "id": eid})
+    db.retract({"entity": f"databricks.Warehouse", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/connections", methods=["POST"])
-def create_connection(request):
-    """Create a Connection."""
+@app.route("/v1/objectinfos", methods=["POST"])
+def create_object_info(request):
+    """Create a ObjectInfo."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'type', 'host', 'active'])
+    err = _reject_unknown(data, ['path', 'objectType', 'language', 'size'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'type'])
+    err = _require(data, ['path', 'objectType'])
     if err:
         return err, 400
-    rec = {"id": new_id("databric_con")}
-    rec["name"] = data.get('name')
-    rec["type"] = data.get('type')
-    rec["host"] = data.get('host')
-    rec["active"] = _as_bool(data.get('active'))
+    if data.get('objectType') and data['objectType'] not in ['NOTEBOOK', 'DIRECTORY', 'FILE', 'LIBRARY', 'REPO', 'DASHBOARD']:
+        return {"error": {"message": "invalid objectType; allowed: " + ", ".join(['NOTEBOOK', 'DIRECTORY', 'FILE', 'LIBRARY', 'REPO', 'DASHBOARD']), "type": "invalid_request_error"}}, 400
+    if data.get('language') and data['language'] not in ['PYTHON', 'R', 'SCALA', 'SQL']:
+        return {"error": {"message": "invalid language; allowed: " + ", ".join(['PYTHON', 'R', 'SCALA', 'SQL']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("databric_obj")}
+    rec["path"] = data.get('path')
+    rec["objectType"] = data.get('objectType')
+    rec["language"] = data.get('language')
+    rec["size"] = _as_int(data.get('size'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Connection", rec)
+    _persist("ObjectInfo", rec)
     return rec, 201
 
-@app.route("/v1/connections", methods=["GET"])
-def list_connections(request):
-    """List Connections with filtering + cursor pagination."""
+@app.route("/v1/objectinfos", methods=["GET"])
+def list_object_infos(request):
+    """List ObjectInfos with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Connection")
-    rows = _apply_filters(rows, params, ['name', 'type', 'host', 'active'])
+    rows = _query("ObjectInfo")
+    rows = _apply_filters(rows, params, ['path', 'objectType', 'language', 'size'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/connections/<eid>", methods=["GET"])
-def get_connection(request, eid):
-    """Retrieve a Connection by id (supports ?expand=)."""
-    rows = _query("Connection", eid)
+@app.route("/v1/objectinfos/<eid>", methods=["GET"])
+def get_object_info(request, eid):
+    """Retrieve a ObjectInfo by id (supports ?expand=)."""
+    rows = _query("ObjectInfo", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/connections/<eid>", methods=["POST", "PATCH"])
-def update_connection(request, eid):
-    """Update a Connection."""
-    rows = _query("Connection", eid)
+@app.route("/v1/objectinfos/<eid>", methods=["POST", "PATCH"])
+def update_object_info(request, eid):
+    """Update a ObjectInfo."""
+    rows = _query("ObjectInfo", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'type', 'host', 'active'])
+    err = _reject_unknown(data, ['path', 'objectType', 'language', 'size'])
     if err:
         return err, 400
+    if data.get('objectType') and data['objectType'] not in ['NOTEBOOK', 'DIRECTORY', 'FILE', 'LIBRARY', 'REPO', 'DASHBOARD']:
+        return {"error": {"message": "invalid objectType; allowed: " + ", ".join(['NOTEBOOK', 'DIRECTORY', 'FILE', 'LIBRARY', 'REPO', 'DASHBOARD']), "type": "invalid_request_error"}}, 400
+    if data.get('language') and data['language'] not in ['PYTHON', 'R', 'SCALA', 'SQL']:
+        return {"error": {"message": "invalid language; allowed: " + ", ".join(['PYTHON', 'R', 'SCALA', 'SQL']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Connection", rec)
+    _persist("ObjectInfo", rec)
     return rec, 200
 
-@app.route("/v1/connections/<eid>", methods=["DELETE"])
-def delete_connection(request, eid):
-    """Delete a Connection."""
-    rows = _query("Connection", eid)
+@app.route("/v1/objectinfos/<eid>", methods=["DELETE"])
+def delete_object_info(request, eid):
+    """Delete a ObjectInfo."""
+    rows = _query("ObjectInfo", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"databricks.Connection", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/metrics", methods=["POST"])
-def create_metric(request):
-    """Create a Metric."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['datasetId', 'name', 'expression', 'unit'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'expression'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("databric_met")}
-    rec["datasetId"] = data.get('datasetId')
-    rec["name"] = data.get('name')
-    rec["expression"] = data.get('expression')
-    rec["unit"] = data.get('unit')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Metric", rec)
-    return rec, 201
-
-@app.route("/v1/metrics", methods=["GET"])
-def list_metrics(request):
-    """List Metrics with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Metric")
-    rows = _apply_filters(rows, params, ['datasetId', 'name', 'expression', 'unit'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/metrics/<eid>", methods=["GET"])
-def get_metric(request, eid):
-    """Retrieve a Metric by id (supports ?expand=)."""
-    rows = _query("Metric", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'datasetId': 'Dataset'})
-    return rec, 200
-
-@app.route("/v1/metrics/<eid>", methods=["POST", "PATCH"])
-def update_metric(request, eid):
-    """Update a Metric."""
-    rows = _query("Metric", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['datasetId', 'name', 'expression', 'unit'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Metric", rec)
-    return rec, 200
-
-@app.route("/v1/metrics/<eid>", methods=["DELETE"])
-def delete_metric(request, eid):
-    """Delete a Metric."""
-    rows = _query("Metric", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"databricks.Metric", "id": eid})
+    db.retract({"entity": f"databricks.ObjectInfo", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "databricks-compat", "tier": "L4",
-            "entities": ['Dataset', 'Query', 'Dashboard', 'Report', 'Connection', 'Metric']}, 200
+            "entities": ['Cluster', 'Job', 'Run', 'Warehouse', 'ObjectInfo']}, 200
 
 
 if __name__ == "__main__":
