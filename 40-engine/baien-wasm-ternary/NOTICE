@@ -5,8 +5,8 @@ Licensed under the Apache License, Version 2.0 — see LICENSE in the
 repository root.
 
 This work is additionally subject to the etzhayyim Charter Compliance
-Rider v2.0 — see /CHARTER-RIDER.md in the repository root and
-ADR-2605192200 for the authoritative spec.
+Rider v3.1 — see CHARTER-RIDER.md in the repository root and
+ADR-2605192200 + ADR-2606062100 + ADR-2606082400 for the authoritative spec.
 
 ================================================================================
 bitnet.cpp public API mirror — legal attribution
@@ -42,26 +42,23 @@ for the API surface as it existed at the date of this NOTICE
 (2026-05-26).
 
 ================================================================================
-Charter Compliance Rider v2.0 — required reading
+Charter Compliance Rider v3.1 — required reading
 ================================================================================
 
-By using, modifying, or redistributing this crate you affirm that
-your use respects the 8 prohibited categories in CHARTER-RIDER.md §2:
+By using, modifying, or redistributing this crate you affirm that your use
+respects the prohibited categories §2(a)-(k) in CHARTER-RIDER.md §2. That file
+is the single, authoritative, current list — DO NOT rely on an inline copy here
+(an earlier hand-written summary in this NOTICE had drifted out of date and has
+been replaced by this pointer to prevent recurrence).
 
-  §2(a) Weapons (offensive military, cyberweapons)
-  §2(b) Surveillance state infrastructure (mass surveillance, social credit)
-  §2(c) Covert operations (intelligence agencies, false-flag tooling)
-  §2(d) Predatory finance (PayDay, MLM, gambling addiction-engineering)
-  §2(e) Anti-competition gatekeeping (vendor-lock-in, walled gardens
-        designed to prevent OSS substitution)
-  §2(f) Addictive design (UX patterns optimised for compulsion)
-  §2(g) State-aligned activity (national-security contractors, military-
-        adjacent civilian agencies)
-  §2(h) Anti-public-good (private-data scraping, anti-research
-        litigation)
+Of particular note under v3.1 (ADR-2606082400): §2(c) prohibits MONETIZED or
+ASYMMETRIC (watcher-unwatched) surveillance, while RECIPROCAL/symmetric mutual
+transparency (相互監視 — the 村社会 condition, the social form of 永久記憶=神の監視)
+is expressly AFFIRMED, not prohibited. Privacy is preserved by encryption, not
+forgetting (暗号化≠忘却).
 
-Three-tier enforcement (L1 license / L2 benefit denial / L3
-evaluation=0) applies. See ADR-2605192200 for details.
+Three-tier enforcement (L1 license / L2 benefit denial / L3 evaluation=0)
+applies. See CHARTER-RIDER.md §2 + ADR-2605192200 / 2606062100 / 2606082400.
 
 ================================================================================
 Edge invariant (constitutional — ADR-2605241900)
