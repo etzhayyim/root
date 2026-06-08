@@ -14496,6 +14496,25 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606082000-niyaku-port-cargo-handling-automation-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606082000: niyaku 荷役 — automated port cargo handling (ship↔shore loading/unloading) Tier-B actor (R0)",
+      "status": "proposed",
+      "topic": "niyaku-port-cargo-handling-automation",
+      "authoritative": true,
+      "authoritativeFor": [
+        "niyaku actor (automated port cargo handling — ship↔shore container loading/unloading)",
+        "anti-sway STS/gantry crane control mapped to the Cartpole topology",
+        "com.etzhayyim.niyaku.* lexicons"
+      ],
+      "related": [
+        "doc:adr-2606012600-watatsuna-submarine-cable-knowledge-graph-and-watatsumi-cable-laying-robotics",
+        "doc:adr-2606041827-watari-live-ship-aircraft-position-knowledge-graph",
+        "doc:adr-2605252500-sarutahiko-heavy-truck-manufacturing-r0"
+      ],
+      "lastVerified": "2026-06-08"
+    },
+    {
       "id": "doc:adr-2606082100-mishmar-storage-covenant-social-capital",
       "type": "TechArticle",
       "title": "ADR-2606082100: Mishmar Storage Covenant — social-capital-funded bonded pinning for unstoppable persistence (donation-native, anchor-chain staking, anti-usury)",
