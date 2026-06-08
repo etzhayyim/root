@@ -46,6 +46,14 @@
       "output": ["out/optimization-proposals.md", "out/itonami-proposals.kotoba.edn"],
       "pipeline": "analyze → idle-powerdown (recoverable kWh × conservative fraction → line energy-reduction %) + bottleneck-relief (lift worst station to 2nd-worst → line OEE uplift) → transient proposal datoms",
       "doc": "R1 quantified improvement PROPOSALS (charter-clean form of the FOX 'cut 10% energy' lever); proposals-only, never a write-back (G1); efficiency not intensification (G2)"
+    },
+    {
+      "id": "cell:itonami.inspect",
+      "method": "methods/inspect.py",
+      "input": ["data/seed-factory-ops.kotoba.edn", "data/seed-vision-detections.kotoba.edn"],
+      "output": ["out/vision-inspection.md", "out/itonami-inspect.kotoba.edn"],
+      "pipeline": "quality_target → manako inspection request (watch-classes, sample-rate, on-device/no-biometric constraints) + reconcile manako detections → defect-class Pareto + scan-cycle scrap cross-check → transient inspect datoms",
+      "doc": "R2 vision-inspection hand-off (charter-clean form of the FOX 'vision-AI quality inspection' lever); object-only, never a person (manako ADR-2606034800); inspection INFORMS, never auto-rejects (G1)"
     }
   ],
   "gates": {

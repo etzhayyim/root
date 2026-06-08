@@ -53,9 +53,11 @@ observer to the existing build sim.
 ```bash
 python3 tests/test_analyze.py          # 10 tests — KPI engine, pure stdlib
 python3 tests/test_optimize.py         # 6 tests — R1 proposal engine
+python3 tests/test_inspect.py          # 7 tests — R2 vision hand-off
 python3 methods/analyze.py             # → out/operations-report.md
 python3 methods/datom_emit.py --tx 1   # → out/itonami-datoms.kotoba.edn
 python3 methods/optimize.py            # → out/optimization-proposals.md (+ proposal datoms)
+python3 methods/inspect.py             # → out/vision-inspection.md (+ inspect datoms)
 ```
 
 ## Status / roadmap
@@ -65,6 +67,11 @@ python3 methods/optimize.py            # → out/optimization-proposals.md (+ pr
   (recoverable kWh × conservative fraction → line %) + bottleneck-relief proposal (lift worst
   station to 2nd-worst → line OEE uplift). Proposals-only (G1), efficiency-not-intensification
   within takt (G2), honest energy % (not inflated to FOX's headline 10%). 6 tests. ✅
-- **R2** — live scan-cycle ingest from a kotoba-os `plc-host-runner` Datom stream (G6/Council
-  gated); manako scrap-image hand-off; cross-check OEE against the sarutahiko produce sim;
-  Murakumo-narrated daily ops digest.
+- **R2 (landed)** — `methods/inspect.py`: vision-inspection hand-off. From the quality_target,
+  build a manako 眼 (ADR-2606034800) inspection request (watch-classes, sample-rate, on-device/
+  no-biometric constraints) + reconcile manako detections → defect-class Pareto (root-cause
+  hint) + scan-cycle scrap cross-check. Object-only — the inspected entity is a line PART,
+  never a person (G2); inspection INFORMS, never auto-rejects (G1). 7 tests. ✅
+- **R3** — live scan-cycle ingest from a kotoba-os `plc-host-runner` Datom stream (G6/Council
+  gated); cross-check OEE against the sarutahiko produce sim; Murakumo-narrated daily ops
+  digest.
