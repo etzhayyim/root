@@ -55,11 +55,13 @@ python3 tests/test_analyze.py          # 10 tests — KPI engine, pure stdlib
 python3 tests/test_optimize.py         # 6 tests — R1 proposal engine
 python3 tests/test_inspect.py          # 7 tests — R2 vision hand-off
 python3 tests/test_ingest.py           # 10 tests — R3 SCADA/OT scan-cycle ingest
+python3 tests/test_digest.py           # 8 tests — R4 daily digest + Murakumo narration
 python3 methods/analyze.py             # → out/operations-report.md
 python3 methods/datom_emit.py --tx 1   # → out/itonami-datoms.kotoba.edn
 python3 methods/optimize.py            # → out/optimization-proposals.md (+ proposal datoms)
 python3 methods/inspect.py             # → out/vision-inspection.md (+ inspect datoms)
 python3 methods/ingest.py              # kotoba-os scan stream → out/ingested-ticks.kotoba.edn
+python3 methods/digest.py              # → out/daily-digest.md (Murakumo-narrated, G7)
 ```
 
 End-to-end (gap-(3) loop): `ingest.py` (scan-cycle Datoms → ticks) → `analyze.py` (KPIs) →
@@ -83,6 +85,11 @@ on the canonical Datom log.
   state never hides a stop) that the rest of the pipeline consumes. OFFLINE replay only — the
   live OT socket is gated by construction (G6); no PLC write-back (G1); a stream carrying a
   person/worker attr is rejected (G2). 10 tests. ✅
-- **R4** — live scan-cycle socket (Modbus/OPC-UA/EtherCAT via kotoba-os device worlds, Council
-  + operator DID gated); cross-check OEE against the sarutahiko produce sim; Murakumo-narrated
-  daily ops digest; componentize-py WASM build + CID advertisement.
+- **R4 (landed)** — `methods/digest.py`: daily operations digest. Fuses analyze + optimize +
+  inspect into one operator-facing summary + a Murakumo-narrated headline (G7 — narration
+  routes only through the Murakumo LiteLLM loopback; deterministic offline fallback when
+  unreachable, never an external LLM). Recommends not actuates (G1), station-scale (G2),
+  transient datoms (G3). 8 tests. ✅
+- **R5** — live scan-cycle socket (Modbus/OPC-UA/EtherCAT via kotoba-os device worlds, Council
+  + operator DID gated); cross-check OEE against the sarutahiko produce sim; componentize-py
+  WASM build + CID advertisement.

@@ -62,6 +62,14 @@
       "output": ["out/ingested-ticks.kotoba.edn"],
       "pipeline": "parse recorded kotoba-os scan-cycle [e a v tx op] datoms → EAVT fold to scan-report entities → aggregate by (station,t) into interval ticks (Wh→kWh, cycles=good+scrap, state=most-severe) → :tick/* EDN that analyze/optimize/inspect consume",
       "doc": "R3 SCADA/OT scan-cycle ingest (charter-clean form of the FOX 'SCADA operating-data loop'); OFFLINE replay only — live OT socket is G6/Council-gated, no PLC write-back (G1), station/PLC scale rejects person attrs (G2)"
+    },
+    {
+      "id": "cell:itonami.digest",
+      "method": "methods/digest.py",
+      "input": ["data/seed-factory-ops.kotoba.edn", "data/seed-vision-detections.kotoba.edn"],
+      "output": ["out/daily-digest.md", "out/itonami-digest.kotoba.edn"],
+      "pipeline": "fuse analyze + optimize + inspect → one daily digest (line OEE, bottleneck, energy proposal, quality/vision) → Murakumo narration (LiteLLM loopback) with deterministic offline fallback → transient digest datoms",
+      "doc": "R4 daily operations digest (charter-clean form of the FOX 'AI Factory Brain' daily report); Murakumo-only narration (G7, ADR-2605215000) — no external LLM, deterministic fallback when unreachable; recommends not actuates (G1), station-scale (G2)"
     }
   ],
   "gates": {
