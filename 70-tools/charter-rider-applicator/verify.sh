@@ -2,10 +2,15 @@
 # charter-rider-applicator/verify.sh
 #
 # Verifies that every Apache-2.0 sub-repo / package has the NOTICE +
-# CHARTER-RIDER.md symlink present and consistent with the repo-root
-# CHARTER-RIDER.md (per ADR-2605192200 v2.0 §3.4).
+# CHARTER-RIDER.md symlink present, content-consistent with the repo-root
+# CHARTER-RIDER.md, AND stamped with the CURRENT Rider version string.
 #
-# Exit code 0 if all green, 1 if any missing.
+# Per ADR-2605192200 → v3.0 (ADR-2606062100) → v3.1 (ADR-2606082400). The
+# current version is derived from the repo-root CHARTER-RIDER.md header, so this
+# check auto-tracks future bumps and flags any NOTICE left on a stale version
+# (run ./apply.sh to re-stamp).
+#
+# Exit code 0 if all green, 1 if any missing / drifted / stale.
 
 set -euo pipefail
 
@@ -13,9 +18,17 @@ ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 RIDER_FILE="$ROOT/CHARTER-RIDER.md"
 EXPECTED_HASH="$(shasum -a 256 "$RIDER_FILE" | awk '{print $1}')"
 
+# Derive the current version from the canonical Rider header (single source of truth).
+CURRENT_VER="$(grep -m1 -oE 'Charter Compliance Rider v[0-9]+\.[0-9]+' "$RIDER_FILE" | grep -oE 'v[0-9]+\.[0-9]+')"
+if [[ -z "$CURRENT_VER" ]]; then
+  echo "ERROR: could not derive current Rider version from $RIDER_FILE" >&2
+  exit 1
+fi
+
 missing_notice=()
 missing_rider=()
 mismatch_rider=()
+stale_version=()
 checked=0
 
 while IFS= read -r manifest; do
@@ -38,6 +51,8 @@ while IFS= read -r manifest; do
 
   if [[ ! -f "$pkg_dir/NOTICE" ]] || ! grep -q "etzhayyim Charter Compliance Rider" "$pkg_dir/NOTICE"; then
     missing_notice+=("$pkg_dir")
+  elif ! grep -q "Charter Compliance Rider ${CURRENT_VER}" "$pkg_dir/NOTICE"; then
+    stale_version+=("$pkg_dir")
   fi
 
   if [[ ! -e "$pkg_dir/CHARTER-RIDER.md" ]]; then
@@ -50,7 +65,7 @@ while IFS= read -r manifest; do
   fi
 done < <(find "$ROOT" \( -name package.json -o -name Cargo.toml -o -name pyproject.toml \) -type f 2>/dev/null)
 
-echo "Checked: $checked Apache-2.0 manifests"
+echo "Checked: $checked Apache-2.0 manifests (current Rider version: ${CURRENT_VER})"
 
 ok=true
 if [[ ${#missing_notice[@]} -gt 0 ]]; then
@@ -74,9 +89,16 @@ if [[ ${#mismatch_rider[@]} -gt 0 ]]; then
   ok=false
 fi
 
+if [[ ${#stale_version[@]} -gt 0 ]]; then
+  echo ""
+  echo "NOTICE Rider version string STALE (not ${CURRENT_VER}) in:"
+  printf '  %s\n' "${stale_version[@]}"
+  ok=false
+fi
+
 if $ok; then
   echo ""
-  echo "✓ All Apache-2.0 manifests have NOTICE + CHARTER-RIDER.md correctly applied."
+  echo "✓ All Apache-2.0 manifests have NOTICE + CHARTER-RIDER.md correctly applied at ${CURRENT_VER}."
   exit 0
 else
   echo ""
