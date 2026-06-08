@@ -3,69 +3,59 @@
 
 namespace zoom {
 
-    entity Channel {
+    entity Meeting {
         id: string @unique
-        name: string
-        type: string
         topic: string
-        memberCount: integer
+        type: integer
+        status: string
+        duration: integer
+        timezone: string
+        hostId: string
+        startTime: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Message {
+    entity Webinar {
         id: string @unique
-        channelId: string
-        authorId: string
-        body: string
-        sentAt: datetime
+        topic: string
+        type: integer
+        duration: integer
+        hostId: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Recording {
+        id: string @unique
+        meetingId: string
+        recordingType: string
+        duration: integer
+        fileSize: integer
+        status: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Registrant {
+        id: string @unique
+        email: string
+        firstName: string
+        lastName: string
+        status: string
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity User {
         id: string @unique
-        handle: string
-        displayName: string
-        verified: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Room {
-        id: string @unique
-        name: string
-        maxParticipants: integer
-        recording: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Stream {
-        id: string @unique
-        roomId: string
+        email: string
+        firstName: string
+        lastName: string
+        type: integer
         status: string
-        bitrate: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Webhook {
-        id: string @unique
-        event: string
-        url: string
-        active: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

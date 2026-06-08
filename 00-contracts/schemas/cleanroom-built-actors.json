@@ -10881,17 +10881,16 @@
       "handle": "notion-compat",
       "platform": "notion",
       "bytes": 2120,
-      "wasmCid": "bafkreibeutu5q24gxgpbghsbbbgedf3pqaaxeqvkmscx7lictbpezvtmvm",
+      "wasmCid": "bafkreif7jqdmgnfftwxspiie3qmdqeacyblfvefszzzlmf3v4wx3sc4nb4",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Workspace",
-        "Document",
-        "Folder",
-        "Comment",
-        "Permission",
-        "User"
+        "Page",
+        "Database",
+        "Block",
+        "User",
+        "Comment"
       ]
     },
     {
@@ -16920,17 +16919,16 @@
       "handle": "zoom-compat",
       "platform": "zoom",
       "bytes": 2118,
-      "wasmCid": "bafkreibgz4t4pqnk2ltfcp353ug4mxcekgkgoss6p5hvcwdzjx7a3vdjbi",
+      "wasmCid": "bafkreic7acvft62iltobeeyyzj2rofcls6efetjih3xyr3ovs7jonsbhh4",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Channel",
-        "Message",
-        "User",
-        "Room",
-        "Stream",
-        "Webhook"
+        "Meeting",
+        "Webinar",
+        "Recording",
+        "Registrant",
+        "User"
       ]
     },
     {

@@ -1099,6 +1099,23 @@ PLATFORM_OVERRIDES = {
         "BankTransaction": E(type="string", status="string", total="float", reference="string", isReconciled="boolean"),
         "CreditNote": E(creditNoteNumber="string", type="string", status="string", total="float"),
     },
+    # Faithful Notion model (remodeled from generic office_productivity), L5
+    # (confirmed against the official makenotion/notion-sdk-js types).
+    "notion": {
+        "Page": E(object="string", createdTime="datetime", lastEditedTime="datetime", inTrash="boolean", url="string"),
+        "Database": E(object="string", title="string", description="string", isInline="boolean", url="string"),
+        "Block": E(object="string", type="string", hasChildren="boolean"),
+        "User": E(object="string", name="string", type="string", avatarUrl="string"),
+        "Comment": E(discussionId="string", createdTime="datetime"),
+    },
+    # Faithful Zoom model (remodeled from generic comms_social), partial L5.
+    "zoom": {
+        "Meeting": E(topic="string", type="integer", status="string", duration="integer", timezone="string", hostId="string", startTime="datetime"),
+        "Webinar": E(topic="string", type="integer", duration="integer", hostId="string"),
+        "Recording": E(meetingId="string", recordingType="string", duration="integer", fileSize="integer", status="string"),
+        "Registrant": E(email="string", firstName="string", lastName="string", status="string"),
+        "User": E(email="string", firstName="string", lastName="string", type="integer", status="string"),
+    },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).
     "square": {

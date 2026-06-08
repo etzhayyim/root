@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 29,
+  "count": 31,
   "actors": [
     {
       "handle": "square-compat",
@@ -3906,6 +3906,177 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official Xero SDK. Enforced enums: Invoice.type, Invoice.status, Contact.contactStatus, Account.status, Payment.status, Payment.paymentType, BankTransaction.type, BankTransaction.status, CreditNote.type, CreditNote.status (10)."
+    },
+    {
+      "handle": "notion-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://developers.notion.com/reference",
+      "remodeled": "Remodeled from generic office_productivity to a faithful Notion model, verified against the official makenotion/notion-sdk-js types.",
+      "resources": [
+        {
+          "entity": "Page",
+          "source": "https://github.com/makenotion/notion-sdk-js/blob/main/src/api-endpoints/common.ts",
+          "verifiedFields": [
+            "object",
+            "createdTime",
+            "lastEditedTime",
+            "inTrash",
+            "url"
+          ],
+          "fieldStatus": "confirmed (created_time, last_edited_time, in_trash)",
+          "discoveredEnums": {},
+          "gaps": [
+            "properties",
+            "parent",
+            "public_url"
+          ]
+        },
+        {
+          "entity": "Database",
+          "source": "https://github.com/makenotion/notion-sdk-js/blob/main/src/api-endpoints/databases.ts",
+          "verifiedFields": [
+            "object",
+            "title",
+            "description",
+            "isInline",
+            "url"
+          ],
+          "fieldStatus": "confirmed (is_inline)",
+          "discoveredEnums": {},
+          "gaps": [
+            "properties",
+            "parent"
+          ]
+        },
+        {
+          "entity": "Block",
+          "source": "https://github.com/makenotion/notion-sdk-js/blob/main/src/api-endpoints/blocks.ts",
+          "verifiedFields": [
+            "object",
+            "type",
+            "hasChildren"
+          ],
+          "fieldStatus": "confirmed (has_children)",
+          "discoveredEnums": {
+            "type": [
+              "paragraph",
+              "heading_1",
+              "heading_2",
+              "heading_3",
+              "heading_4",
+              "bulleted_list_item",
+              "numbered_list_item",
+              "quote",
+              "to_do",
+              "toggle",
+              "template",
+              "synced_block",
+              "child_page",
+              "child_database",
+              "equation",
+              "code",
+              "callout",
+              "divider",
+              "breadcrumb",
+              "table_of_contents",
+              "column_list",
+              "column",
+              "link_to_page",
+              "table",
+              "table_row",
+              "embed",
+              "bookmark",
+              "image",
+              "video",
+              "pdf",
+              "file",
+              "audio",
+              "link_preview",
+              "unsupported"
+            ]
+          },
+          "gaps": [
+            "object enum degenerate [block]"
+          ]
+        },
+        {
+          "entity": "User",
+          "source": "https://github.com/makenotion/notion-sdk-js/blob/main/src/api-endpoints/users.ts",
+          "verifiedFields": [
+            "object",
+            "name",
+            "type",
+            "avatarUrl"
+          ],
+          "fieldStatus": "confirmed (avatar_url)",
+          "discoveredEnums": {
+            "type": [
+              "person",
+              "bot"
+            ]
+          },
+          "gaps": [
+            "person.email",
+            "bot.owner"
+          ]
+        },
+        {
+          "entity": "Comment",
+          "source": "https://github.com/makenotion/notion-sdk-js/blob/main/src/api-endpoints/comments.ts",
+          "verifiedFields": [
+            "discussionId",
+            "createdTime"
+          ],
+          "fieldStatus": "confirmed (discussion_id)",
+          "discoveredEnums": {},
+          "gaps": [
+            "rich_text",
+            "parent"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs official Notion SDK. Enforced enums: Block.type, User.type (2; object enums degenerate, not enforced)."
+    },
+    {
+      "handle": "zoom-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://developers.zoom.us/docs/api",
+      "remodeled": "Remodeled from generic comms_social to a faithful Zoom model, partially doc-verified (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Meeting",
+          "source": "https://developers.zoom.us/docs/api/meetings/",
+          "verifiedFields": [
+            "topic",
+            "type",
+            "status",
+            "duration",
+            "timezone",
+            "hostId",
+            "startTime"
+          ],
+          "fieldStatus": "confirmed; type is integer-coded (1=instant..100=breakout — not string-enforced); status string enum enforced",
+          "discoveredEnums": {
+            "status": [
+              "waiting",
+              "started",
+              "ended",
+              "completed",
+              "processing"
+            ]
+          },
+          "gaps": [
+            "type-enum (integer-coded)",
+            "uuid",
+            "join_url"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "PARTIAL (1/5): Meeting verified vs official Zoom docs; Webinar/Recording/Registrant/User endpoints 404'd/inferred -> DEFERRED. Enforced enums: Meeting.status."
     }
   ]
 }

@@ -111,120 +111,126 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/channels", methods=["POST"])
-def create_channel(request):
-    """Create a Channel."""
+@app.route("/v1/meetings", methods=["POST"])
+def create_meeting(request):
+    """Create a Meeting."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'type', 'topic', 'memberCount'])
+    err = _reject_unknown(data, ['topic', 'type', 'status', 'duration', 'timezone', 'hostId', 'startTime'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'type'])
+    err = _require(data, ['topic', 'type'])
     if err:
         return err, 400
-    rec = {"id": new_id("zoom_cha")}
-    rec["name"] = data.get('name')
-    rec["type"] = data.get('type')
+    if data.get('status') and data['status'] not in ['waiting', 'started', 'ended', 'completed', 'processing']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['waiting', 'started', 'ended', 'completed', 'processing']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("zoom_mee")}
     rec["topic"] = data.get('topic')
-    rec["memberCount"] = _as_int(data.get('memberCount'))
+    rec["type"] = _as_int(data.get('type'))
+    rec["status"] = data.get('status')
+    rec["duration"] = _as_int(data.get('duration'))
+    rec["timezone"] = data.get('timezone')
+    rec["hostId"] = data.get('hostId')
+    rec["startTime"] = data.get('startTime')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Channel", rec)
+    _persist("Meeting", rec)
     return rec, 201
 
-@app.route("/v1/channels", methods=["GET"])
-def list_channels(request):
-    """List Channels with filtering + cursor pagination."""
+@app.route("/v1/meetings", methods=["GET"])
+def list_meetings(request):
+    """List Meetings with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Channel")
-    rows = _apply_filters(rows, params, ['name', 'type', 'topic', 'memberCount'])
+    rows = _query("Meeting")
+    rows = _apply_filters(rows, params, ['topic', 'type', 'status', 'duration', 'timezone', 'hostId', 'startTime'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/channels/<eid>", methods=["GET"])
-def get_channel(request, eid):
-    """Retrieve a Channel by id (supports ?expand=)."""
-    rows = _query("Channel", eid)
+@app.route("/v1/meetings/<eid>", methods=["GET"])
+def get_meeting(request, eid):
+    """Retrieve a Meeting by id (supports ?expand=)."""
+    rows = _query("Meeting", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/channels/<eid>", methods=["POST", "PATCH"])
-def update_channel(request, eid):
-    """Update a Channel."""
-    rows = _query("Channel", eid)
+@app.route("/v1/meetings/<eid>", methods=["POST", "PATCH"])
+def update_meeting(request, eid):
+    """Update a Meeting."""
+    rows = _query("Meeting", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'type', 'topic', 'memberCount'])
+    err = _reject_unknown(data, ['topic', 'type', 'status', 'duration', 'timezone', 'hostId', 'startTime'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['waiting', 'started', 'ended', 'completed', 'processing']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['waiting', 'started', 'ended', 'completed', 'processing']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Channel", rec)
+    _persist("Meeting", rec)
     return rec, 200
 
-@app.route("/v1/channels/<eid>", methods=["DELETE"])
-def delete_channel(request, eid):
-    """Delete a Channel."""
-    rows = _query("Channel", eid)
+@app.route("/v1/meetings/<eid>", methods=["DELETE"])
+def delete_meeting(request, eid):
+    """Delete a Meeting."""
+    rows = _query("Meeting", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"zoom.Channel", "id": eid})
+    db.retract({"entity": f"zoom.Meeting", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/messages", methods=["POST"])
-def create_message(request):
-    """Create a Message."""
+@app.route("/v1/webinars", methods=["POST"])
+def create_webinar(request):
+    """Create a Webinar."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['channelId', 'authorId', 'body', 'sentAt'])
+    err = _reject_unknown(data, ['topic', 'type', 'duration', 'hostId'])
     if err:
         return err, 400
-    err = _require(data, ['body', 'sentAt'])
+    err = _require(data, ['topic', 'type'])
     if err:
         return err, 400
-    rec = {"id": new_id("zoom_mes")}
-    rec["channelId"] = data.get('channelId')
-    rec["authorId"] = data.get('authorId')
-    rec["body"] = data.get('body')
-    rec["sentAt"] = data.get('sentAt')
+    rec = {"id": new_id("zoom_web")}
+    rec["topic"] = data.get('topic')
+    rec["type"] = _as_int(data.get('type'))
+    rec["duration"] = _as_int(data.get('duration'))
+    rec["hostId"] = data.get('hostId')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Message", rec)
+    _persist("Webinar", rec)
     return rec, 201
 
-@app.route("/v1/messages", methods=["GET"])
-def list_messages(request):
-    """List Messages with filtering + cursor pagination."""
+@app.route("/v1/webinars", methods=["GET"])
+def list_webinars(request):
+    """List Webinars with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Message")
-    rows = _apply_filters(rows, params, ['channelId', 'authorId', 'body', 'sentAt'])
+    rows = _query("Webinar")
+    rows = _apply_filters(rows, params, ['topic', 'type', 'duration', 'hostId'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/messages/<eid>", methods=["GET"])
-def get_message(request, eid):
-    """Retrieve a Message by id (supports ?expand=)."""
-    rows = _query("Message", eid)
+@app.route("/v1/webinars/<eid>", methods=["GET"])
+def get_webinar(request, eid):
+    """Retrieve a Webinar by id (supports ?expand=)."""
+    rows = _query("Webinar", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'channelId': 'Channel'})
     return rec, 200
 
-@app.route("/v1/messages/<eid>", methods=["POST", "PATCH"])
-def update_message(request, eid):
-    """Update a Message."""
-    rows = _query("Message", eid)
+@app.route("/v1/webinars/<eid>", methods=["POST", "PATCH"])
+def update_webinar(request, eid):
+    """Update a Webinar."""
+    rows = _query("Webinar", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['channelId', 'authorId', 'body', 'sentAt'])
+    err = _reject_unknown(data, ['topic', 'type', 'duration', 'hostId'])
     if err:
         return err, 400
     rec = rows[0]
@@ -232,32 +238,168 @@ def update_message(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Message", rec)
+    _persist("Webinar", rec)
     return rec, 200
 
-@app.route("/v1/messages/<eid>", methods=["DELETE"])
-def delete_message(request, eid):
-    """Delete a Message."""
-    rows = _query("Message", eid)
+@app.route("/v1/webinars/<eid>", methods=["DELETE"])
+def delete_webinar(request, eid):
+    """Delete a Webinar."""
+    rows = _query("Webinar", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"zoom.Message", "id": eid})
+    db.retract({"entity": f"zoom.Webinar", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/recordings", methods=["POST"])
+def create_recording(request):
+    """Create a Recording."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['meetingId', 'recordingType', 'duration', 'fileSize', 'status'])
+    if err:
+        return err, 400
+    err = _require(data, ['recordingType', 'duration'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("zoom_rec")}
+    rec["meetingId"] = data.get('meetingId')
+    rec["recordingType"] = data.get('recordingType')
+    rec["duration"] = _as_int(data.get('duration'))
+    rec["fileSize"] = _as_int(data.get('fileSize'))
+    rec["status"] = data.get('status')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Recording", rec)
+    return rec, 201
+
+@app.route("/v1/recordings", methods=["GET"])
+def list_recordings(request):
+    """List Recordings with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Recording")
+    rows = _apply_filters(rows, params, ['meetingId', 'recordingType', 'duration', 'fileSize', 'status'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/recordings/<eid>", methods=["GET"])
+def get_recording(request, eid):
+    """Retrieve a Recording by id (supports ?expand=)."""
+    rows = _query("Recording", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'meetingId': 'Meeting'})
+    return rec, 200
+
+@app.route("/v1/recordings/<eid>", methods=["POST", "PATCH"])
+def update_recording(request, eid):
+    """Update a Recording."""
+    rows = _query("Recording", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['meetingId', 'recordingType', 'duration', 'fileSize', 'status'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Recording", rec)
+    return rec, 200
+
+@app.route("/v1/recordings/<eid>", methods=["DELETE"])
+def delete_recording(request, eid):
+    """Delete a Recording."""
+    rows = _query("Recording", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"zoom.Recording", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/registrants", methods=["POST"])
+def create_registrant(request):
+    """Create a Registrant."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['email', 'firstName', 'lastName', 'status'])
+    if err:
+        return err, 400
+    err = _require(data, ['email', 'firstName'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("zoom_reg")}
+    rec["email"] = data.get('email')
+    rec["firstName"] = data.get('firstName')
+    rec["lastName"] = data.get('lastName')
+    rec["status"] = data.get('status')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Registrant", rec)
+    return rec, 201
+
+@app.route("/v1/registrants", methods=["GET"])
+def list_registrants(request):
+    """List Registrants with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Registrant")
+    rows = _apply_filters(rows, params, ['email', 'firstName', 'lastName', 'status'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/registrants/<eid>", methods=["GET"])
+def get_registrant(request, eid):
+    """Retrieve a Registrant by id (supports ?expand=)."""
+    rows = _query("Registrant", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/registrants/<eid>", methods=["POST", "PATCH"])
+def update_registrant(request, eid):
+    """Update a Registrant."""
+    rows = _query("Registrant", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['email', 'firstName', 'lastName', 'status'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Registrant", rec)
+    return rec, 200
+
+@app.route("/v1/registrants/<eid>", methods=["DELETE"])
+def delete_registrant(request, eid):
+    """Delete a Registrant."""
+    rows = _query("Registrant", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"zoom.Registrant", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/v1/users", methods=["POST"])
 def create_user(request):
     """Create a User."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['handle', 'displayName', 'verified'])
+    err = _reject_unknown(data, ['email', 'firstName', 'lastName', 'type', 'status'])
     if err:
         return err, 400
-    err = _require(data, ['handle', 'displayName'])
+    err = _require(data, ['email', 'firstName'])
     if err:
         return err, 400
     rec = {"id": new_id("zoom_use")}
-    rec["handle"] = data.get('handle')
-    rec["displayName"] = data.get('displayName')
-    rec["verified"] = _as_bool(data.get('verified'))
+    rec["email"] = data.get('email')
+    rec["firstName"] = data.get('firstName')
+    rec["lastName"] = data.get('lastName')
+    rec["type"] = _as_int(data.get('type'))
+    rec["status"] = data.get('status')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("User", rec)
@@ -268,7 +410,7 @@ def list_users(request):
     """List Users with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("User")
-    rows = _apply_filters(rows, params, ['handle', 'displayName', 'verified'])
+    rows = _apply_filters(rows, params, ['email', 'firstName', 'lastName', 'type', 'status'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -289,7 +431,7 @@ def update_user(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['handle', 'displayName', 'verified'])
+    err = _reject_unknown(data, ['email', 'firstName', 'lastName', 'type', 'status'])
     if err:
         return err, 400
     rec = rows[0]
@@ -309,206 +451,10 @@ def delete_user(request, eid):
     db.retract({"entity": f"zoom.User", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/rooms", methods=["POST"])
-def create_room(request):
-    """Create a Room."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'maxParticipants', 'recording'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'maxParticipants'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("zoom_roo")}
-    rec["name"] = data.get('name')
-    rec["maxParticipants"] = _as_int(data.get('maxParticipants'))
-    rec["recording"] = _as_bool(data.get('recording'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Room", rec)
-    return rec, 201
-
-@app.route("/v1/rooms", methods=["GET"])
-def list_rooms(request):
-    """List Rooms with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Room")
-    rows = _apply_filters(rows, params, ['name', 'maxParticipants', 'recording'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/rooms/<eid>", methods=["GET"])
-def get_room(request, eid):
-    """Retrieve a Room by id (supports ?expand=)."""
-    rows = _query("Room", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/rooms/<eid>", methods=["POST", "PATCH"])
-def update_room(request, eid):
-    """Update a Room."""
-    rows = _query("Room", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'maxParticipants', 'recording'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Room", rec)
-    return rec, 200
-
-@app.route("/v1/rooms/<eid>", methods=["DELETE"])
-def delete_room(request, eid):
-    """Delete a Room."""
-    rows = _query("Room", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"zoom.Room", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/streams", methods=["POST"])
-def create_stream(request):
-    """Create a Stream."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['roomId', 'status', 'bitrate'])
-    if err:
-        return err, 400
-    err = _require(data, ['status', 'bitrate'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("zoom_str")}
-    rec["roomId"] = data.get('roomId')
-    rec["status"] = data.get('status')
-    rec["bitrate"] = _as_int(data.get('bitrate'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Stream", rec)
-    return rec, 201
-
-@app.route("/v1/streams", methods=["GET"])
-def list_streams(request):
-    """List Streams with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Stream")
-    rows = _apply_filters(rows, params, ['roomId', 'status', 'bitrate'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/streams/<eid>", methods=["GET"])
-def get_stream(request, eid):
-    """Retrieve a Stream by id (supports ?expand=)."""
-    rows = _query("Stream", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'roomId': 'Room'})
-    return rec, 200
-
-@app.route("/v1/streams/<eid>", methods=["POST", "PATCH"])
-def update_stream(request, eid):
-    """Update a Stream."""
-    rows = _query("Stream", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['roomId', 'status', 'bitrate'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Stream", rec)
-    return rec, 200
-
-@app.route("/v1/streams/<eid>", methods=["DELETE"])
-def delete_stream(request, eid):
-    """Delete a Stream."""
-    rows = _query("Stream", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"zoom.Stream", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/webhooks", methods=["POST"])
-def create_webhook(request):
-    """Create a Webhook."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['event', 'url', 'active'])
-    if err:
-        return err, 400
-    err = _require(data, ['event', 'url'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("zoom_web")}
-    rec["event"] = data.get('event')
-    rec["url"] = data.get('url')
-    rec["active"] = _as_bool(data.get('active'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Webhook", rec)
-    return rec, 201
-
-@app.route("/v1/webhooks", methods=["GET"])
-def list_webhooks(request):
-    """List Webhooks with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Webhook")
-    rows = _apply_filters(rows, params, ['event', 'url', 'active'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/webhooks/<eid>", methods=["GET"])
-def get_webhook(request, eid):
-    """Retrieve a Webhook by id (supports ?expand=)."""
-    rows = _query("Webhook", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/webhooks/<eid>", methods=["POST", "PATCH"])
-def update_webhook(request, eid):
-    """Update a Webhook."""
-    rows = _query("Webhook", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['event', 'url', 'active'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Webhook", rec)
-    return rec, 200
-
-@app.route("/v1/webhooks/<eid>", methods=["DELETE"])
-def delete_webhook(request, eid):
-    """Delete a Webhook."""
-    rows = _query("Webhook", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"zoom.Webhook", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "zoom-compat", "tier": "L4",
-            "entities": ['Channel', 'Message', 'User', 'Room', 'Stream', 'Webhook']}, 200
+            "entities": ['Meeting', 'Webinar', 'Recording', 'Registrant', 'User']}, 200
 
 
 if __name__ == "__main__":

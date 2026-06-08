@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 971,
-    "L5": 29
+    "L4": 969,
+    "L5": 31
   },
   "actors": [
     {
@@ -11519,10 +11519,10 @@
     {
       "handle": "notion-compat",
       "did": "did:web:etzhayyim.com:actor:notion-compat",
-      "wasmCid": "bafkreibeutu5q24gxgpbghsbbbgedf3pqaaxeqvkmscx7lictbpezvtmvm",
+      "wasmCid": "bafkreif7jqdmgnfftwxspiie3qmdqeacyblfvefszzzlmf3v4wx3sc4nb4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "notion clean-room actor",
       "category": "office_productivity",
       "capabilities": [
@@ -17909,10 +17909,10 @@
     {
       "handle": "zoom-compat",
       "did": "did:web:etzhayyim.com:actor:zoom-compat",
-      "wasmCid": "bafkreibgz4t4pqnk2ltfcp353ug4mxcekgkgoss6p5hvcwdzjx7a3vdjbi",
+      "wasmCid": "bafkreic7acvft62iltobeeyyzj2rofcls6efetjih3xyr3ovs7jonsbhh4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "zoom clean-room actor",
       "category": "comms_social",
       "capabilities": [
