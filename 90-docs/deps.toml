@@ -190,6 +190,14 @@ related = [
   "50-infra/cloudflare/workers/atproto/wrangler.jsonc",
 ]
 
+[files."adr/2606082100-mishmar-storage-covenant-social-capital.md"]
+role = "architecture-decision"
+kind = "adr"
+tier = "production"
+flags = ["editable"]
+status = "proposed"
+description = "Mishmar Storage Covenant: social-capital-funded, non-yielding bonded pinning and slash-to-commons persistence design."
+
 [files."adr/2605141930-world-monitor-resident-intelligence-graph.md"]
 role = "architecture-decision"
 kind = "adr"
