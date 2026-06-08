@@ -3,68 +3,53 @@
 
 namespace notion {
 
-    entity Workspace {
+    entity Page {
         id: string @unique
-        name: string
-        ownerId: string
-        plan: string
+        object: string
+        createdTime: datetime
+        lastEditedTime: datetime
+        inTrash: boolean
+        url: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Document {
+    entity Database {
         id: string @unique
-        workspaceId: string
+        object: string
         title: string
-        contentRef: string
-        ownerId: string
+        description: string
+        isInline: boolean
+        url: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Folder {
+    entity Block {
         id: string @unique
-        workspaceId: string
-        name: string
-        parentId: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Comment {
-        id: string @unique
-        documentId: string
-        authorId: string
-        body: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Permission {
-        id: string @unique
-        resourceId: string
-        principalId: string
-        role: string
+        object: string
+        type: string
+        hasChildren: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity User {
         id: string @unique
-        email: string
-        displayName: string
-        status: string
+        object: string
+        name: string
+        type: string
+        avatarUrl: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Comment {
+        id: string @unique
+        discussionId: string
+        createdTime: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreih4gxrsiz2pzuirbygdx3v6iecbgb4zbws4x654mb3ktn3jeu3zfe",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,9 +17,9 @@
     }
   ],
   "paths": {
-    "/v1/repositories": {
+    "/v1/projects": {
       "get": {
-        "summary": "List Repositories",
+        "summary": "List Projects",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Repository"
+                        "$ref": "#/components/schemas/Project"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Repository",
+        "summary": "Create a Project",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RepositoryCreate"
+                "$ref": "#/components/schemas/ProjectCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Repository"
+                  "$ref": "#/components/schemas/Project"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/repositories/{id}": {
+    "/v1/projects/{id}": {
       "get": {
-        "summary": "Get a Repository",
+        "summary": "Get a Project",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Repository"
+                  "$ref": "#/components/schemas/Project"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Repository",
+        "summary": "Update a Project",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RepositoryCreate"
+                "$ref": "#/components/schemas/ProjectCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Repository"
+                  "$ref": "#/components/schemas/Project"
                 }
               }
             }
@@ -181,7 +181,377 @@
         }
       },
       "delete": {
-        "summary": "Delete a Repository",
+        "summary": "Delete a Project",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/issues": {
+      "get": {
+        "summary": "List Issues",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Issue"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a Issue",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IssueCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Issue"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/issues/{id}": {
+      "get": {
+        "summary": "Get a Issue",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Issue"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a Issue",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IssueCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Issue"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a Issue",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/mergerequests": {
+      "get": {
+        "summary": "List MergeRequests",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/MergeRequest"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a MergeRequest",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MergeRequestCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MergeRequest"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/mergerequests/{id}": {
+      "get": {
+        "summary": "Get a MergeRequest",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MergeRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a MergeRequest",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MergeRequestCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MergeRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a MergeRequest",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +757,9 @@
         }
       }
     },
-    "/v1/builds": {
+    "/v1/jobs": {
       "get": {
-        "summary": "List Builds",
+        "summary": "List Jobs",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Build"
+                        "$ref": "#/components/schemas/Job"
                       }
                     },
                     "has_more": {
@@ -449,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Build",
+        "summary": "Create a Job",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BuildCreate"
+                "$ref": "#/components/schemas/JobCreate"
               }
             }
           }
@@ -466,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Build"
+                  "$ref": "#/components/schemas/Job"
                 }
               }
             }
@@ -477,9 +847,9 @@
         }
       }
     },
-    "/v1/builds/{id}": {
+    "/v1/jobs/{id}": {
       "get": {
-        "summary": "Get a Build",
+        "summary": "Get a Job",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Build"
+                  "$ref": "#/components/schemas/Job"
                 }
               }
             }
@@ -514,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Build",
+        "summary": "Update a Job",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BuildCreate"
+                "$ref": "#/components/schemas/JobCreate"
               }
             }
           }
@@ -540,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Build"
+                  "$ref": "#/components/schemas/Job"
                 }
               }
             }
@@ -551,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Build",
+        "summary": "Delete a Job",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +942,9 @@
         }
       }
     },
-    "/v1/artifacts": {
+    "/v1/commits": {
       "get": {
-        "summary": "List Artifacts",
+        "summary": "List Commits",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +984,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Artifact"
+                        "$ref": "#/components/schemas/Commit"
                       }
                     },
                     "has_more": {
@@ -634,13 +1004,13 @@
         }
       },
       "post": {
-        "summary": "Create a Artifact",
+        "summary": "Create a Commit",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ArtifactCreate"
+                "$ref": "#/components/schemas/CommitCreate"
               }
             }
           }
@@ -651,7 +1021,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Artifact"
+                  "$ref": "#/components/schemas/Commit"
                 }
               }
             }
@@ -662,9 +1032,9 @@
         }
       }
     },
-    "/v1/artifacts/{id}": {
+    "/v1/commits/{id}": {
       "get": {
-        "summary": "Get a Artifact",
+        "summary": "Get a Commit",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +1058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Artifact"
+                  "$ref": "#/components/schemas/Commit"
                 }
               }
             }
@@ -699,7 +1069,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Artifact",
+        "summary": "Update a Commit",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +1084,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ArtifactCreate"
+                "$ref": "#/components/schemas/CommitCreate"
               }
             }
           }
@@ -725,7 +1095,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Artifact"
+                  "$ref": "#/components/schemas/Commit"
                 }
               }
             }
@@ -736,377 +1106,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Artifact",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/deployments": {
-      "get": {
-        "summary": "List Deployments",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Deployment"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Deployment",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DeploymentCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Deployment"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/deployments/{id}": {
-      "get": {
-        "summary": "Get a Deployment",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Deployment"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Deployment",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DeploymentCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Deployment"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Deployment",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/webhooks": {
-      "get": {
-        "summary": "List Webhooks",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Webhook"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Webhook",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/WebhookCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Webhook"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/webhooks/{id}": {
-      "get": {
-        "summary": "Get a Webhook",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Webhook"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Webhook",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/WebhookCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Webhook"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Webhook",
+        "summary": "Delete a Commit",
         "parameters": [
           {
             "name": "id",
@@ -1140,7 +1140,7 @@
   },
   "components": {
     "schemas": {
-      "Repository": {
+      "Project": {
         "type": "object",
         "properties": {
           "id": {
@@ -1149,13 +1149,24 @@
           "name": {
             "type": "string"
           },
-          "owner": {
+          "path": {
             "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "visibility": {
+            "type": "string",
+            "enum": [
+              "private",
+              "internal",
+              "public"
+            ]
           },
           "defaultBranch": {
             "type": "string"
           },
-          "private": {
+          "archived": {
             "type": "boolean"
           },
           "createdAt": {
@@ -1168,25 +1179,196 @@
           }
         }
       },
-      "RepositoryCreate": {
+      "ProjectCreate": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string"
           },
-          "owner": {
+          "path": {
             "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "visibility": {
+            "type": "string",
+            "enum": [
+              "private",
+              "internal",
+              "public"
+            ]
           },
           "defaultBranch": {
             "type": "string"
           },
-          "private": {
+          "archived": {
             "type": "boolean"
           }
         },
         "required": [
           "name",
-          "owner"
+          "path"
+        ]
+      },
+      "Issue": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "projectId": {
+            "type": "integer"
+          },
+          "iid": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "opened",
+              "closed"
+            ]
+          },
+          "issueType": {
+            "type": "string",
+            "enum": [
+              "issue",
+              "incident",
+              "test_case",
+              "task"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "IssueCreate": {
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "type": "integer"
+          },
+          "iid": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "opened",
+              "closed"
+            ]
+          },
+          "issueType": {
+            "type": "string",
+            "enum": [
+              "issue",
+              "incident",
+              "test_case",
+              "task"
+            ]
+          }
+        },
+        "required": [
+          "iid",
+          "title"
+        ]
+      },
+      "MergeRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "projectId": {
+            "type": "integer"
+          },
+          "iid": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "opened",
+              "closed",
+              "merged",
+              "locked"
+            ]
+          },
+          "sourceBranch": {
+            "type": "string"
+          },
+          "targetBranch": {
+            "type": "string"
+          },
+          "sha": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "MergeRequestCreate": {
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "type": "integer"
+          },
+          "iid": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "opened",
+              "closed",
+              "merged",
+              "locked"
+            ]
+          },
+          "sourceBranch": {
+            "type": "string"
+          },
+          "targetBranch": {
+            "type": "string"
+          },
+          "sha": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "iid",
+          "title"
         ]
       },
       "Pipeline": {
@@ -1195,14 +1377,33 @@
           "id": {
             "type": "string"
           },
-          "repoId": {
+          "projectId": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "created",
+              "waiting_for_resource",
+              "preparing",
+              "pending",
+              "running",
+              "success",
+              "failed",
+              "canceled",
+              "skipped",
+              "manual",
+              "scheduled"
+            ]
+          },
+          "ref": {
             "type": "string"
           },
-          "name": {
+          "sha": {
             "type": "string"
           },
-          "trigger": {
-            "type": "string"
+          "duration": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1217,92 +1418,138 @@
       "PipelineCreate": {
         "type": "object",
         "properties": {
-          "repoId": {
+          "projectId": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "created",
+              "waiting_for_resource",
+              "preparing",
+              "pending",
+              "running",
+              "success",
+              "failed",
+              "canceled",
+              "skipped",
+              "manual",
+              "scheduled"
+            ]
+          },
+          "ref": {
+            "type": "string"
+          },
+          "sha": {
+            "type": "string"
+          },
+          "duration": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "status",
+          "ref"
+        ]
+      },
+      "Job": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "string"
           },
           "name": {
             "type": "string"
           },
-          "trigger": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "canceled",
+              "canceling",
+              "created",
+              "failed",
+              "manual",
+              "pending",
+              "preparing",
+              "running",
+              "scheduled",
+              "skipped",
+              "success",
+              "waiting_for_callback",
+              "waiting_for_resource"
+            ]
+          },
+          "stage": {
+            "type": "string"
+          },
+          "ref": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "JobCreate": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "canceled",
+              "canceling",
+              "created",
+              "failed",
+              "manual",
+              "pending",
+              "preparing",
+              "running",
+              "scheduled",
+              "skipped",
+              "success",
+              "waiting_for_callback",
+              "waiting_for_resource"
+            ]
+          },
+          "stage": {
+            "type": "string"
+          },
+          "ref": {
             "type": "string"
           }
         },
         "required": [
           "name",
-          "trigger"
-        ]
-      },
-      "Build": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "pipelineId": {
-            "type": "string"
-          },
-          "number": {
-            "type": "integer"
-          },
-          "status": {
-            "type": "string"
-          },
-          "commitSha": {
-            "type": "string"
-          },
-          "durationMs": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "BuildCreate": {
-        "type": "object",
-        "properties": {
-          "pipelineId": {
-            "type": "string"
-          },
-          "number": {
-            "type": "integer"
-          },
-          "status": {
-            "type": "string"
-          },
-          "commitSha": {
-            "type": "string"
-          },
-          "durationMs": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "number",
           "status"
         ]
       },
-      "Artifact": {
+      "Commit": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "buildId": {
+          "shortId": {
             "type": "string"
           },
-          "name": {
+          "title": {
             "type": "string"
           },
-          "sizeBytes": {
-            "type": "integer"
+          "message": {
+            "type": "string"
           },
-          "contentRef": {
+          "authorName": {
+            "type": "string"
+          },
+          "authorEmail": {
             "type": "string"
           },
           "createdAt": {
@@ -1315,117 +1562,28 @@
           }
         }
       },
-      "ArtifactCreate": {
+      "CommitCreate": {
         "type": "object",
         "properties": {
-          "buildId": {
+          "shortId": {
             "type": "string"
           },
-          "name": {
+          "title": {
             "type": "string"
           },
-          "sizeBytes": {
-            "type": "integer"
+          "message": {
+            "type": "string"
           },
-          "contentRef": {
+          "authorName": {
+            "type": "string"
+          },
+          "authorEmail": {
             "type": "string"
           }
         },
         "required": [
-          "name",
-          "sizeBytes"
-        ]
-      },
-      "Deployment": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "buildId": {
-            "type": "string"
-          },
-          "environment": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "DeploymentCreate": {
-        "type": "object",
-        "properties": {
-          "buildId": {
-            "type": "string"
-          },
-          "environment": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "environment",
-          "status"
-        ]
-      },
-      "Webhook": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "repoId": {
-            "type": "string"
-          },
-          "url": {
-            "type": "string"
-          },
-          "event": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "WebhookCreate": {
-        "type": "object",
-        "properties": {
-          "repoId": {
-            "type": "string"
-          },
-          "url": {
-            "type": "string"
-          },
-          "event": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "url",
-          "event"
+          "title",
+          "message"
         ]
       }
     }

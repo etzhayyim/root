@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "notion.kotoba")
-ENTITIES = ['Workspace', 'Document', 'Folder', 'Comment', 'Permission', 'User']
-PLURALS = {'Workspace': 'workspaces', 'Document': 'documents', 'Folder': 'folders', 'Comment': 'comments', 'Permission': 'permissions', 'User': 'users'}
+ENTITIES = ['Page', 'Database', 'Block', 'User', 'Comment']
+PLURALS = {'Page': 'pages', 'Database': 'databases', 'Block': 'blocks', 'User': 'users', 'Comment': 'comments'}
 
 
 class NotionContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class NotionContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['type']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

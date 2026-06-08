@@ -16,7 +16,12 @@
     "source": "https://platform.claude.com/docs/en/api",
     "verifiedAt": "2026-06-08",
     "resources": [
-      "Message"
+      "Message",
+      "Model",
+      "Batch",
+      "File",
+      "Tool",
+      "ToolUse"
     ],
     "enums": {
       "Message": {
@@ -31,6 +36,14 @@
           "tool_use",
           "pause_turn",
           "refusal"
+        ]
+      },
+      "Batch": {
+        "status": [
+          "processing",
+          "succeeded",
+          "failed",
+          "expired"
         ]
       }
     }

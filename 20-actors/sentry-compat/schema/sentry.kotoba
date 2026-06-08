@@ -3,72 +3,71 @@
 
 namespace sentry {
 
-    entity Service {
+    entity Issue {
         id: string @unique
-        name: string
-        environment: string
-        language: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Error {
-        id: string @unique
-        serviceId: string
-        message: string
-        culprit: string
-        count: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Trace {
-        id: string @unique
-        serviceId: string
-        operation: string
-        durationMs: integer
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Metric {
-        id: string @unique
-        serviceId: string
-        name: string
-        value: float
-        unit: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Alert {
-        id: string @unique
-        serviceId: string
-        condition: string
-        severity: string
-        active: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Incident {
-        id: string @unique
+        shortId: string
         title: string
         status: string
-        severity: string
-        startedAt: datetime
+        level: string
+        priority: string
+        count: integer
+        userCount: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Event {
+        id: string @unique
+        eventID: string
+        groupID: string
+        projectID: string
+        title: string
+        message: string
+        level: string
+        platform: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Project {
+        id: string @unique
+        slug: string
+        name: string
+        platform: string
+        isBookmarked: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Organization {
+        id: string @unique
+        slug: string
+        name: string
+        hasAuthProvider: boolean
+        require2FA: boolean
+        isEarlyAdopter: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Team {
+        id: string @unique
+        slug: string
+        name: string
+        memberCount: integer
+        hasAccess: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Release {
+        id: string @unique
+        version: string
+        status: string
+        commitCount: integer
+        deployCount: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

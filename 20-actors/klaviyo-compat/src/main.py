@@ -111,21 +111,213 @@ def _expand(rec, params, refs):
     return rec
 
 
+@app.route("/v1/profiles", methods=["POST"])
+def create_profile(request):
+    """Create a Profile."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['email', 'phoneNumber', 'externalId'])
+    if err:
+        return err, 400
+    err = _require(data, ['email', 'phoneNumber'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("klaviyo_pro")}
+    rec["email"] = data.get('email')
+    rec["phoneNumber"] = data.get('phoneNumber')
+    rec["externalId"] = data.get('externalId')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Profile", rec)
+    return rec, 201
+
+@app.route("/v1/profiles", methods=["GET"])
+def list_profiles(request):
+    """List Profiles with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Profile")
+    rows = _apply_filters(rows, params, ['email', 'phoneNumber', 'externalId'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/profiles/<eid>", methods=["GET"])
+def get_profile(request, eid):
+    """Retrieve a Profile by id (supports ?expand=)."""
+    rows = _query("Profile", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/profiles/<eid>", methods=["POST", "PATCH"])
+def update_profile(request, eid):
+    """Update a Profile."""
+    rows = _query("Profile", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['email', 'phoneNumber', 'externalId'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Profile", rec)
+    return rec, 200
+
+@app.route("/v1/profiles/<eid>", methods=["DELETE"])
+def delete_profile(request, eid):
+    """Delete a Profile."""
+    rows = _query("Profile", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"klaviyo.Profile", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/lists", methods=["POST"])
+def create_list(request):
+    """Create a List."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name'])
+    if err:
+        return err, 400
+    err = _require(data, ['name'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("klaviyo_lis")}
+    rec["name"] = data.get('name')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("List", rec)
+    return rec, 201
+
+@app.route("/v1/lists", methods=["GET"])
+def list_lists(request):
+    """List Lists with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("List")
+    rows = _apply_filters(rows, params, ['name'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/lists/<eid>", methods=["GET"])
+def get_list(request, eid):
+    """Retrieve a List by id (supports ?expand=)."""
+    rows = _query("List", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/lists/<eid>", methods=["POST", "PATCH"])
+def update_list(request, eid):
+    """Update a List."""
+    rows = _query("List", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("List", rec)
+    return rec, 200
+
+@app.route("/v1/lists/<eid>", methods=["DELETE"])
+def delete_list(request, eid):
+    """Delete a List."""
+    rows = _query("List", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"klaviyo.List", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/segments", methods=["POST"])
+def create_segment(request):
+    """Create a Segment."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'isActive', 'isStarred'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'isActive'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("klaviyo_seg")}
+    rec["name"] = data.get('name')
+    rec["isActive"] = _as_bool(data.get('isActive'))
+    rec["isStarred"] = _as_bool(data.get('isStarred'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Segment", rec)
+    return rec, 201
+
+@app.route("/v1/segments", methods=["GET"])
+def list_segments(request):
+    """List Segments with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Segment")
+    rows = _apply_filters(rows, params, ['name', 'isActive', 'isStarred'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/segments/<eid>", methods=["GET"])
+def get_segment(request, eid):
+    """Retrieve a Segment by id (supports ?expand=)."""
+    rows = _query("Segment", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/segments/<eid>", methods=["POST", "PATCH"])
+def update_segment(request, eid):
+    """Update a Segment."""
+    rows = _query("Segment", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'isActive', 'isStarred'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Segment", rec)
+    return rec, 200
+
+@app.route("/v1/segments/<eid>", methods=["DELETE"])
+def delete_segment(request, eid):
+    """Delete a Segment."""
+    rows = _query("Segment", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"klaviyo.Segment", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
 @app.route("/v1/campaigns", methods=["POST"])
 def create_campaign(request):
     """Create a Campaign."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'channel', 'status', 'budget'])
+    err = _reject_unknown(data, ['name', 'status', 'archived'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'channel'])
+    err = _require(data, ['name', 'status'])
     if err:
         return err, 400
     rec = {"id": new_id("klaviyo_cam")}
     rec["name"] = data.get('name')
-    rec["channel"] = data.get('channel')
     rec["status"] = data.get('status')
-    rec["budget"] = _as_float(data.get('budget'))
+    rec["archived"] = _as_bool(data.get('archived'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Campaign", rec)
@@ -136,7 +328,7 @@ def list_campaigns(request):
     """List Campaigns with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Campaign")
-    rows = _apply_filters(rows, params, ['name', 'channel', 'status', 'budget'])
+    rows = _apply_filters(rows, params, ['name', 'status', 'archived'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -157,7 +349,7 @@ def update_campaign(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'channel', 'status', 'budget'])
+    err = _reject_unknown(data, ['name', 'status', 'archived'])
     if err:
         return err, 400
     rec = rows[0]
@@ -177,86 +369,90 @@ def delete_campaign(request, eid):
     db.retract({"entity": f"klaviyo.Campaign", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/audiences", methods=["POST"])
-def create_audience(request):
-    """Create a Audience."""
+@app.route("/v1/flows", methods=["POST"])
+def create_flow(request):
+    """Create a Flow."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'size', 'definition'])
+    err = _reject_unknown(data, ['name', 'status', 'triggerType', 'archived'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'size'])
+    err = _require(data, ['name', 'status'])
     if err:
         return err, 400
-    rec = {"id": new_id("klaviyo_aud")}
+    if data.get('status') and data['status'] not in ['draft', 'manual', 'live']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['draft', 'manual', 'live']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("klaviyo_flo")}
     rec["name"] = data.get('name')
-    rec["size"] = _as_int(data.get('size'))
-    rec["definition"] = data.get('definition')
+    rec["status"] = data.get('status')
+    rec["triggerType"] = data.get('triggerType')
+    rec["archived"] = _as_bool(data.get('archived'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Audience", rec)
+    _persist("Flow", rec)
     return rec, 201
 
-@app.route("/v1/audiences", methods=["GET"])
-def list_audiences(request):
-    """List Audiences with filtering + cursor pagination."""
+@app.route("/v1/flows", methods=["GET"])
+def list_flows(request):
+    """List Flows with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Audience")
-    rows = _apply_filters(rows, params, ['name', 'size', 'definition'])
+    rows = _query("Flow")
+    rows = _apply_filters(rows, params, ['name', 'status', 'triggerType', 'archived'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/audiences/<eid>", methods=["GET"])
-def get_audience(request, eid):
-    """Retrieve a Audience by id (supports ?expand=)."""
-    rows = _query("Audience", eid)
+@app.route("/v1/flows/<eid>", methods=["GET"])
+def get_flow(request, eid):
+    """Retrieve a Flow by id (supports ?expand=)."""
+    rows = _query("Flow", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/audiences/<eid>", methods=["POST", "PATCH"])
-def update_audience(request, eid):
-    """Update a Audience."""
-    rows = _query("Audience", eid)
+@app.route("/v1/flows/<eid>", methods=["POST", "PATCH"])
+def update_flow(request, eid):
+    """Update a Flow."""
+    rows = _query("Flow", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'size', 'definition'])
+    err = _reject_unknown(data, ['name', 'status', 'triggerType', 'archived'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['draft', 'manual', 'live']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['draft', 'manual', 'live']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Audience", rec)
+    _persist("Flow", rec)
     return rec, 200
 
-@app.route("/v1/audiences/<eid>", methods=["DELETE"])
-def delete_audience(request, eid):
-    """Delete a Audience."""
-    rows = _query("Audience", eid)
+@app.route("/v1/flows/<eid>", methods=["DELETE"])
+def delete_flow(request, eid):
+    """Delete a Flow."""
+    rows = _query("Flow", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"klaviyo.Audience", "id": eid})
+    db.retract({"entity": f"klaviyo.Flow", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/v1/events", methods=["POST"])
 def create_event(request):
     """Create a Event."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['profileId', 'name', 'properties', 'occurredAt'])
+    err = _reject_unknown(data, ['metricId', 'profileId', 'timestamp'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'properties'])
+    err = _require(data, ['timestamp'])
     if err:
         return err, 400
     rec = {"id": new_id("klaviyo_eve")}
+    rec["metricId"] = data.get('metricId')
     rec["profileId"] = data.get('profileId')
-    rec["name"] = data.get('name')
-    rec["properties"] = data.get('properties')
-    rec["occurredAt"] = data.get('occurredAt')
+    rec["timestamp"] = _as_int(data.get('timestamp'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Event", rec)
@@ -267,7 +463,7 @@ def list_events(request):
     """List Events with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Event")
-    rows = _apply_filters(rows, params, ['profileId', 'name', 'properties', 'occurredAt'])
+    rows = _apply_filters(rows, params, ['metricId', 'profileId', 'timestamp'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -289,7 +485,7 @@ def update_event(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['profileId', 'name', 'properties', 'occurredAt'])
+    err = _reject_unknown(data, ['metricId', 'profileId', 'timestamp'])
     if err:
         return err, 400
     rec = rows[0]
@@ -309,207 +505,10 @@ def delete_event(request, eid):
     db.retract({"entity": f"klaviyo.Event", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/profiles", methods=["POST"])
-def create_profile(request):
-    """Create a Profile."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'externalId', 'traits'])
-    if err:
-        return err, 400
-    err = _require(data, ['email', 'traits'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("klaviyo_pro")}
-    rec["email"] = data.get('email')
-    rec["externalId"] = data.get('externalId')
-    rec["traits"] = data.get('traits')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Profile", rec)
-    return rec, 201
-
-@app.route("/v1/profiles", methods=["GET"])
-def list_profiles(request):
-    """List Profiles with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Profile")
-    rows = _apply_filters(rows, params, ['email', 'externalId', 'traits'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/profiles/<eid>", methods=["GET"])
-def get_profile(request, eid):
-    """Retrieve a Profile by id (supports ?expand=)."""
-    rows = _query("Profile", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/profiles/<eid>", methods=["POST", "PATCH"])
-def update_profile(request, eid):
-    """Update a Profile."""
-    rows = _query("Profile", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'externalId', 'traits'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Profile", rec)
-    return rec, 200
-
-@app.route("/v1/profiles/<eid>", methods=["DELETE"])
-def delete_profile(request, eid):
-    """Delete a Profile."""
-    rows = _query("Profile", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"klaviyo.Profile", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/messages", methods=["POST"])
-def create_message(request):
-    """Create a Message."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['campaignId', 'profileId', 'channel', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['channel', 'status'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("klaviyo_mes")}
-    rec["campaignId"] = data.get('campaignId')
-    rec["profileId"] = data.get('profileId')
-    rec["channel"] = data.get('channel')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Message", rec)
-    return rec, 201
-
-@app.route("/v1/messages", methods=["GET"])
-def list_messages(request):
-    """List Messages with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Message")
-    rows = _apply_filters(rows, params, ['campaignId', 'profileId', 'channel', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/messages/<eid>", methods=["GET"])
-def get_message(request, eid):
-    """Retrieve a Message by id (supports ?expand=)."""
-    rows = _query("Message", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'campaignId': 'Campaign', 'profileId': 'Profile'})
-    return rec, 200
-
-@app.route("/v1/messages/<eid>", methods=["POST", "PATCH"])
-def update_message(request, eid):
-    """Update a Message."""
-    rows = _query("Message", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['campaignId', 'profileId', 'channel', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Message", rec)
-    return rec, 200
-
-@app.route("/v1/messages/<eid>", methods=["DELETE"])
-def delete_message(request, eid):
-    """Delete a Message."""
-    rows = _query("Message", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"klaviyo.Message", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/funnels", methods=["POST"])
-def create_funnel(request):
-    """Create a Funnel."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'steps', 'conversionRate'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'steps'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("klaviyo_fun")}
-    rec["name"] = data.get('name')
-    rec["steps"] = data.get('steps')
-    rec["conversionRate"] = _as_float(data.get('conversionRate'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Funnel", rec)
-    return rec, 201
-
-@app.route("/v1/funnels", methods=["GET"])
-def list_funnels(request):
-    """List Funnels with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Funnel")
-    rows = _apply_filters(rows, params, ['name', 'steps', 'conversionRate'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/funnels/<eid>", methods=["GET"])
-def get_funnel(request, eid):
-    """Retrieve a Funnel by id (supports ?expand=)."""
-    rows = _query("Funnel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/funnels/<eid>", methods=["POST", "PATCH"])
-def update_funnel(request, eid):
-    """Update a Funnel."""
-    rows = _query("Funnel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'steps', 'conversionRate'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Funnel", rec)
-    return rec, 200
-
-@app.route("/v1/funnels/<eid>", methods=["DELETE"])
-def delete_funnel(request, eid):
-    """Delete a Funnel."""
-    rows = _query("Funnel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"klaviyo.Funnel", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "klaviyo-compat", "tier": "L4",
-            "entities": ['Campaign', 'Audience', 'Event', 'Profile', 'Message', 'Funnel']}, 200
+            "entities": ['Profile', 'List', 'Segment', 'Campaign', 'Flow', 'Event']}, 200
 
 
 if __name__ == "__main__":

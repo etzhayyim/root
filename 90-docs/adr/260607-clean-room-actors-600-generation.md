@@ -202,13 +202,15 @@ expansion + strict validation + a runnable contract test.
 suites pass** (8 assertions each).
 
 **Honesty: L4 = production *pattern*, not vendor fidelity (the new L5 bar).**
+
+**L5 deepening via parallel haiku subagents (this wave).** Eight `haiku` subagents fanned out — one per partial actor — each fetching official API docs (WebFetch) and reconciling the actor's remaining resources, returning structured verdicts. Integrated honestly: **6 actors are now FULLY doc-verified** (stripe 8/8, github 7/7, twilio 6/6, shopify 7/7, square 6/6, gtfs 6/6); ~65 resources verified and ~31 enums enforced corpus-wide. The subagents also correctly REJECTED ~11 generic-archetype entities that have no real vendor counterpart (e.g. discord Room/Stream, zendesk Account/Survey/Conversation, FHIR Sequence, plaid polymorphic Liability) — recorded under `notApplicable` in the ledger rather than fabricated.
 The corpus-wide L4 means every actor implements the full production
 implementation pattern and passes its contract test — it does NOT mean the
 schema/enums match each live vendor API field-for-field. To avoid overclaiming,
 that distinct axis is named **L5 (Verified)**: an actor reaches L5 only when its
 Kotoba schema + endpoint contract are reconciled against the platform's official
 API documentation (field names, types, enums, required-ness, error codes) via the
-Autonomous Reverse-Engineering Loop, with provenance recorded. **L5 count today: 12** (+square, remodeled to a faithful model then doc-verified) — stripe, github, twilio, shopify, plaid, anthropic, zendesk, discord, gtfs, slack, hl7_fhir are doc-verified (reconciled against official API docs; real enums enforced in runtime + OpenAPI where 1:1, documented otherwise; see `00-contracts/schemas/cleanroom-l5-verification.json`). Actors whose category model does not match a specific vendor (e.g. square ≠ the Stripe-shaped payments model) are correctly NOT certified L5 — the process catches mismatches, and JS-rendered doc sites (salesforce, hubspot) are deferred until a fetchable source is available. So: L4 = "production-grade clean-room
+Autonomous Reverse-Engineering Loop, with provenance recorded. **L5 count today: 34** — 24 fully verified + 10 partial. NEW: deferred actors RECOVERED via their official OpenAPI specs / SDK source (asana via Asana OpenAPI, coinbase via coinbase-advanced-py, hubspot Contact+Pipeline via the HubSpot public spec) — the same authoritative-fallback that worked for notion/xero/databricks/dropbox. STILL DEFERRED (5, never fabricated): docusign, calendly, gusto, atlassian/jira, servicenow (docs JS-rendered/blocked and no public spec located yet).
 implementation" (achieved corpus-wide); L5 = "verified against the real API"
 (the next, doc-gated tier).
 

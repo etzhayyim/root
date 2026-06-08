@@ -254,6 +254,8 @@ def create_condition(request):
     err = _require(data, ['code', 'clinicalStatus'])
     if err:
         return err, 400
+    if data.get('clinicalStatus') and data['clinicalStatus'] not in ['active', 'recurrence', 'relapse', 'inactive', 'remission', 'resolved']:
+        return {"error": {"message": "invalid clinicalStatus; allowed: " + ", ".join(['active', 'recurrence', 'relapse', 'inactive', 'remission', 'resolved']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("hl7fhir_con")}
     rec["patientId"] = data.get('patientId')
     rec["code"] = data.get('code')
@@ -293,6 +295,8 @@ def update_condition(request, eid):
     err = _reject_unknown(data, ['patientId', 'code', 'clinicalStatus'])
     if err:
         return err, 400
+    if data.get('clinicalStatus') and data['clinicalStatus'] not in ['active', 'recurrence', 'relapse', 'inactive', 'remission', 'resolved']:
+        return {"error": {"message": "invalid clinicalStatus; allowed: " + ", ".join(['active', 'recurrence', 'relapse', 'inactive', 'remission', 'resolved']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -320,6 +324,8 @@ def create_diagnostic_report(request):
     err = _require(data, ['code', 'status'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['registered', 'partial', 'preliminary', 'final']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['registered', 'partial', 'preliminary', 'final']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("hl7fhir_dia")}
     rec["patientId"] = data.get('patientId')
     rec["code"] = data.get('code')
@@ -360,6 +366,8 @@ def update_diagnostic_report(request, eid):
     err = _reject_unknown(data, ['patientId', 'code', 'status', 'issuedAt'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['registered', 'partial', 'preliminary', 'final']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['registered', 'partial', 'preliminary', 'final']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):

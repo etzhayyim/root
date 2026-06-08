@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "mailchimp.kotoba")
-ENTITIES = ['Campaign', 'Audience', 'Event', 'Profile', 'Message', 'Funnel']
-PLURALS = {'Campaign': 'campaigns', 'Audience': 'audiences', 'Event': 'events', 'Profile': 'profiles', 'Message': 'messages', 'Funnel': 'funnels'}
+ENTITIES = ['List', 'ListMember', 'Campaign', 'Template', 'Segment', 'Automation']
+PLURALS = {'List': 'lists', 'ListMember': 'listmembers', 'Campaign': 'campaigns', 'Template': 'templates', 'Segment': 'segments', 'Automation': 'automations'}
 
 
 class MailchimpContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class MailchimpContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['contentType', 'emailType', 'status', 'type']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

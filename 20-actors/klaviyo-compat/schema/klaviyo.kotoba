@@ -3,70 +3,57 @@
 
 namespace klaviyo {
 
-    entity Campaign {
+    entity Profile {
         id: string @unique
-        name: string
-        channel: string
-        status: string
-        budget: float
+        email: string
+        phoneNumber: string
+        externalId: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Audience {
+    entity List {
         id: string @unique
         name: string
-        size: integer
-        definition: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Segment {
+        id: string @unique
+        name: string
+        isActive: boolean
+        isStarred: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Campaign {
+        id: string @unique
+        name: string
+        status: string
+        archived: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Flow {
+        id: string @unique
+        name: string
+        status: string
+        triggerType: string
+        archived: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Event {
         id: string @unique
+        metricId: string
         profileId: string
-        name: string
-        properties: string
-        occurredAt: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Profile {
-        id: string @unique
-        email: string
-        externalId: string
-        traits: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Message {
-        id: string @unique
-        campaignId: string
-        profileId: string
-        channel: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Funnel {
-        id: string @unique
-        name: string
-        steps: string
-        conversionRate: float
+        timestamp: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

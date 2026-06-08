@@ -945,6 +945,207 @@ PLATFORM_OVERRIDES = {
         "IamRole": E(name="string", arn="string", policyRef="string"),
         "RdsInstance": E(identifier="string", engine="string", instanceClass="string", status="string"),
     },
+    # Faithful Datadog model (remodeled from the generic devtools_apm archetype),
+    # doc-verified to L5 (ADR 260607 §8).
+    "datadog": {
+        "Monitor": E(name="string", type="string", query="string", message="string", overallState="string", tags="string"),
+        "Dashboard": E(title="string", layoutType="string", description="string", widgets="string"),
+        "TimeSeries": E(metric="string", type="string", timestamp="integer", value="float", host="string", tags="string"),
+        "Event": E(title="string", text="string", timestamp="integer", priority="string", alertType="string", tags="string"),
+        "Downtime": E(monitorId="integer", scope="string", start="integer", end="integer", timezone="string"),
+        "Incident": E(title="string", severity="string", status="string", customerImpactScope="string"),
+    },
+    # Faithful SendGrid (Twilio SendGrid) model, doc-verified to L5.
+    "sendgrid": {
+        "Contact": E(email="string", firstName="string", lastName="string", country="string", externalId="string"),
+        "Template": E(name="string", generation="string"),
+        "SingleSend": E(name="string", status="string", templateId="string", senderId="string"),
+        "Bounce": E(email="string", reason="string", status="string"),
+        "UnsubscribeGroup": E(name="string", description="string", isDefault="boolean"),
+        "Sender": E(nickname="string", fromEmail="string", fromName="string", verified="boolean"),
+    },
+    # Faithful GitLab model (remodeled from generic devops_ci), doc-verified L5.
+    "gitlab": {
+        "Project": E(name="string", path="string", description="string", visibility="string", defaultBranch="string", archived="boolean"),
+        "Issue": E(projectId="integer", iid="integer", title="string", description="string", state="string", issueType="string"),
+        "MergeRequest": E(projectId="integer", iid="integer", title="string", state="string", sourceBranch="string", targetBranch="string", sha="string"),
+        "Pipeline": E(projectId="integer", status="string", ref="string", sha="string", duration="integer"),
+        "Job": E(name="string", status="string", stage="string", ref="string"),
+        "Commit": E(shortId="string", title="string", message="string", authorName="string", authorEmail="string"),
+    },
+    # Faithful Mailchimp Marketing model (remodeled from generic martech), L5.
+    "mailchimp": {
+        "List": E(name="string", permissionReminder="string", useArchiveBar="boolean", notifyOnSubscribe="boolean", notifyOnUnsubscribe="boolean", listRating="integer"),
+        "ListMember": E(emailAddress="string", emailType="string", status="string", language="string", vip="boolean", memberRating="integer"),
+        "Campaign": E(type="string", contentType="string", status="string", emailTitle="string"),
+        "Template": E(name="string", type="string", folderId="string"),
+        "Segment": E(name="string", type="string", memberCount="integer"),
+        "Automation": E(workflowId="string", type="string", status="string"),
+    },
+    # Faithful Sentry model (remodeled from generic devtools_apm), doc-verified L5.
+    "sentry": {
+        "Issue": E(shortId="string", title="string", status="string", level="string", priority="string", count="integer", userCount="integer"),
+        "Event": E(eventID="string", groupID="string", projectID="string", title="string", message="string", level="string", platform="string"),
+        "Project": E(slug="string", name="string", platform="string", isBookmarked="boolean"),
+        "Organization": E(slug="string", name="string", hasAuthProvider="boolean", require2FA="boolean", isEarlyAdopter="boolean"),
+        "Team": E(slug="string", name="string", memberCount="integer", hasAccess="boolean"),
+        "Release": E(version="string", status="string", commitCount="integer", deployCount="integer"),
+    },
+    # Faithful Twitch Helix model (remodeled from generic comms_social), L5.
+    "twitch": {
+        "User": E(userLogin="string", userName="string", broadcasterType="string"),
+        "Channel": E(broadcasterLogin="string", broadcasterName="string", broadcasterLanguage="string", gameId="string", gameName="string", title="string", delay="integer"),
+        "Stream": E(userId="string", userName="string", gameId="string", gameName="string", type="string", viewerCount="integer", title="string", language="string"),
+        "Video": E(userId="string", title="string", description="string", type="string", viewable="string", viewCount="integer", duration="integer"),
+        "Clip": E(broadcasterId="string", creatorId="string", gameId="string", title="string", viewCount="integer", duration="float", isFeatured="boolean"),
+        "Game": E(name="string", boxArtUrl="string"),
+    },
+    # Faithful Box model (remodeled from generic office_productivity), L5.
+    "box": {
+        "File": E(name="string", description="string", size="integer", sha1="string", itemStatus="string", commentCount="integer"),
+        "Folder": E(name="string", description="string", size="integer", itemStatus="string", syncState="string"),
+        "User": E(name="string", login="string", status="string", role="string"),
+        "Collaboration": E(role="string", status="string", isAccessOnly="boolean"),
+        "SharedLink": E(access="string", vanityName="string", canDownload="boolean"),
+        "Comment": E(message="string", isReplyComment="boolean"),
+    },
+    # Faithful Figma model (remodeled from generic design_tools), partial L5.
+    "figma": {
+        "File": E(name="string", role="string", lastModified="datetime", editorType="string", version="string", schemaVersion="integer"),
+        "Node": E(id="string", name="string", type="string", visible="boolean", rotation="float", locked="boolean"),
+        "Component": E(key="string", name="string", description="string"),
+        "Comment": E(fileKey="string", message="string", resolvedAt="datetime"),
+        "Project": E(name="string", teamId="string"),
+        "Style": E(key="string", name="string", styleType="string"),
+    },
+    # Faithful Dropbox model (remodeled from generic office_productivity), L5
+    # (confirmed against Dropbox's official Stone-generated SDK = the API contract).
+    "dropbox": {
+        "FileMetadata": E(name="string", pathLower="string", pathDisplay="string", id="string", rev="string", size="integer", isDownloadable="boolean", contentHash="string"),
+        "FolderMetadata": E(name="string", pathLower="string", pathDisplay="string", id="string", sharedFolderId="string"),
+        "SharedLink": E(url="string", path="string", visibility="string", requestedVisibility="string"),
+        "Account": E(accountId="string", email="string", emailVerified="boolean", displayName="string", locale="string", country="string"),
+        "SharedFolder": E(sharedFolderId="string", name="string", pathLower="string", accessType="string"),
+    },
+    # Faithful Cloudflare model (remodeled from generic iaas_cloud), partial L5.
+    "cloudflare": {
+        "Zone": E(name="string", status="string", type="string", paused="boolean", developmentMode="integer"),
+        "DNSRecord": E(name="string", type="string", content="string", ttl="integer", proxied="boolean"),
+        "WorkerScript": E(name="string", usageModel="string", createdOn="datetime"),
+        "Certificate": E(hosts="string", status="string", type="string"),
+        "PageRule": E(targetUrl="string", status="string", priority="integer"),
+        "LoadBalancer": E(name="string", enabled="boolean", proxied="boolean"),
+    },
+    # Faithful Vercel model (remodeled from generic iaas_cloud), L5.
+    "vercel": {
+        "Deployment": E(name="string", projectId="string", url="string", readyState="string", target="string", type="string"),
+        "Project": E(name="string", accountId="string", nodeVersion="string", framework="string", buildCommand="string"),
+        "Domain": E(name="string", verified="boolean", serviceType="string", expiresAt="integer"),
+        "Alias": E(alias="string", deploymentId="string", projectId="string"),
+        "Team": E(name="string", slug="string", description="string"),
+    },
+    # Faithful Airtable model (remodeled from generic office_productivity), L5.
+    "airtable": {
+        "Base": E(name="string", permissionLevel="string"),
+        "Table": E(name="string", description="string", primaryFieldId="string"),
+        "Field": E(name="string", type="string", description="string"),
+        "Record": E(createdTime="datetime", fieldsJson="string"),
+        "View": E(name="string", type="string", personalForUserId="string"),
+        "Comment": E(text="string", lastUpdatedTime="datetime"),
+    },
+    # Faithful Greenhouse Harvest model (remodeled from generic hrtech), L5.
+    "greenhouse": {
+        "Candidate": E(firstName="string", lastName="string", email="string", canEmail="boolean"),
+        "Application": E(candidateId="string", prospect="boolean", appliedAt="datetime", status="string", jobPostId="string"),
+        "Job": E(name="string", requisitionId="string", status="string"),
+        "Offer": E(applicationId="string", candidateId="string", jobId="string", status="string", startDate="datetime"),
+        "Scorecard": E(applicationId="string", interviewerId="string", score="string", notes="string"),
+        "ScheduledInterview": E(applicationId="string", name="string", scheduledAt="datetime", videoConferencingUrl="string"),
+    },
+    # Faithful Pipedrive model (remodeled from generic crm_sales), L5.
+    "pipedrive": {
+        "Deal": E(title="string", value="float", currency="string", status="string", probability="float", pipelineId="integer", stageId="integer"),
+        "Person": E(name="string", ownerId="integer", orgId="integer", marketingStatus="string"),
+        "Organization": E(name="string", ownerId="integer"),
+        "Pipeline": E(name="string", isDealProbabilityEnabled="boolean"),
+        "Stage": E(name="string", pipelineId="integer", dealProbability="integer"),
+        "Activity": E(subject="string", type="string", done="boolean", dueDate="string"),
+    },
+    # Faithful Klaviyo model (remodeled from generic martech), L5.
+    "klaviyo": {
+        "Profile": E(email="string", phoneNumber="string", externalId="string"),
+        "List": E(name="string"),
+        "Segment": E(name="string", isActive="boolean", isStarred="boolean"),
+        "Campaign": E(name="string", status="string", archived="boolean"),
+        "Flow": E(name="string", status="string", triggerType="string", archived="boolean"),
+        "Event": E(metricId="string", profileId="string", timestamp="integer"),
+    },
+    # Faithful Databricks model (remodeled from generic data_analytics), L5
+    # (confirmed against the official databricks-sdk-py source).
+    "databricks": {
+        "Cluster": E(clusterName="string", state="string", sparkVersion="string", numWorkers="integer"),
+        "Job": E(jobId="integer", creatorUserName="string", createdTime="datetime"),
+        "Run": E(runId="integer", jobId="integer", state="string", runName="string", startTime="datetime"),
+        "Warehouse": E(name="string", state="string", warehouseType="string", clusterSize="string"),
+        "ObjectInfo": E(path="string", objectType="string", language="string", size="integer"),
+    },
+    # Faithful Xero Accounting model (remodeled from generic erp_finance), L5
+    # (confirmed against the official XeroAPI/xero-node SDK models).
+    "xero": {
+        "Invoice": E(invoiceNumber="string", type="string", status="string", total="float", amountDue="float"),
+        "Contact": E(name="string", emailAddress="string", contactStatus="string", taxNumber="string", isSupplier="boolean", isCustomer="boolean"),
+        "Account": E(code="string", name="string", type="string", status="string", bankAccountNumber="string"),
+        "Payment": E(amount="float", status="string", paymentType="string", isReconciled="boolean"),
+        "BankTransaction": E(type="string", status="string", total="float", reference="string", isReconciled="boolean"),
+        "CreditNote": E(creditNoteNumber="string", type="string", status="string", total="float"),
+    },
+    # Faithful Notion model (remodeled from generic office_productivity), L5
+    # (confirmed against the official makenotion/notion-sdk-js types).
+    "notion": {
+        "Page": E(object="string", createdTime="datetime", lastEditedTime="datetime", inTrash="boolean", url="string"),
+        "Database": E(object="string", title="string", description="string", isInline="boolean", url="string"),
+        "Block": E(object="string", type="string", hasChildren="boolean"),
+        "User": E(object="string", name="string", type="string", avatarUrl="string"),
+        "Comment": E(discussionId="string", createdTime="datetime"),
+    },
+    # Faithful Zoom model (remodeled from generic comms_social), partial L5.
+    "zoom": {
+        "Meeting": E(topic="string", type="integer", status="string", duration="integer", timezone="string", hostId="string", startTime="datetime"),
+        "Webinar": E(topic="string", type="integer", duration="integer", hostId="string"),
+        "Recording": E(meetingId="string", recordingType="string", duration="integer", fileSize="integer", status="string"),
+        "Registrant": E(email="string", firstName="string", lastName="string", status="string"),
+        "User": E(email="string", firstName="string", lastName="string", type="integer", status="string"),
+    },
+    # Faithful Asana model (recovered from the official Asana OpenAPI spec), L5.
+    "asana": {
+        "Task": E(name="string", resourceSubtype="string", completed="boolean", completedAt="datetime", createdAt="datetime", approvalStatus="string", dueAt="datetime"),
+        "Project": E(name="string", archived="boolean", color="string", completed="boolean", defaultView="string"),
+        "Section": E(name="string", createdAt="datetime"),
+        "User": E(name="string", email="string"),
+        "Tag": E(name="string", color="string", notes="string"),
+        "Workspace": E(name="string", isOrganization="boolean"),
+    },
+    # Faithful Coinbase Advanced Trade model (recovered from coinbase-advanced-py
+    # SDK), L5. Numeric values are strings per the SDK contract.
+    "coinbase": {
+        "Order": E(orderId="string", productId="string", side="string", status="string", clientOrderId="string", orderType="string"),
+        "Fill": E(entryId="string", tradeId="string", orderId="string", price="string", size="string", productId="string", side="string"),
+        "Account": E(uuid="string", name="string", currency="string", default="boolean", active="boolean", type="string"),
+        "Product": E(productId="string", price="string", volume24h="string", productType="string", status="string"),
+        "Portfolio": E(uuid="string", name="string", type="string"),
+        "PortfolioPosition": E(asset="string", totalBalanceFiat="float", totalBalanceCrypto="float", allocation="float"),
+    },
+    # Faithful HubSpot CRM model (recovered from the official public OpenAPI
+    # spec). Contact + Pipeline doc-confirmed; the other objects use HubSpot's
+    # generic property system (standard props, not confirmed this fetch).
+    "hubspot": {
+        "Contact": E(email="string", firstname="string", lastname="string", company="string", phone="string", website="string"),
+        "Company": E(name="string", domain="string", industry="string"),
+        "Deal": E(dealname="string", dealstage="string", amount="float", pipeline="string"),
+        "Ticket": E(subject="string", hsTicketPriority="string", hsPipelineStage="string"),
+        "LineItem": E(name="string", quantity="integer", price="float"),
+        "Pipeline": E(label="string", displayOrder="integer"),
+    },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).
     "square": {

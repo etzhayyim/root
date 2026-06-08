@@ -111,320 +111,349 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/services", methods=["POST"])
-def create_service(request):
-    """Create a Service."""
+@app.route("/v1/monitors", methods=["POST"])
+def create_monitor(request):
+    """Create a Monitor."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'environment', 'language'])
+    err = _reject_unknown(data, ['name', 'type', 'query', 'message', 'overallState', 'tags'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'environment'])
+    err = _require(data, ['name', 'type'])
     if err:
         return err, 400
-    rec = {"id": new_id("datadog_ser")}
+    if data.get('type') and data['type'] not in ['metric_alert', 'log_alert', 'anomaly', 'outlier', 'forecast', 'composite', 'host', 'network', 'integration', 'process', 'event', 'service_check', 'apm', 'real_user_monitoring', 'cloud_cost', 'slo_alert']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['metric_alert', 'log_alert', 'anomaly', 'outlier', 'forecast', 'composite', 'host', 'network', 'integration', 'process', 'event', 'service_check', 'apm', 'real_user_monitoring', 'cloud_cost', 'slo_alert']), "type": "invalid_request_error"}}, 400
+    if data.get('overallState') and data['overallState'] not in ['alert', 'warn', 'no_data', 'ok']:
+        return {"error": {"message": "invalid overallState; allowed: " + ", ".join(['alert', 'warn', 'no_data', 'ok']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("datadog_mon")}
     rec["name"] = data.get('name')
-    rec["environment"] = data.get('environment')
-    rec["language"] = data.get('language')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Service", rec)
-    return rec, 201
-
-@app.route("/v1/services", methods=["GET"])
-def list_services(request):
-    """List Services with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Service")
-    rows = _apply_filters(rows, params, ['name', 'environment', 'language'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/services/<eid>", methods=["GET"])
-def get_service(request, eid):
-    """Retrieve a Service by id (supports ?expand=)."""
-    rows = _query("Service", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/services/<eid>", methods=["POST", "PATCH"])
-def update_service(request, eid):
-    """Update a Service."""
-    rows = _query("Service", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'environment', 'language'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Service", rec)
-    return rec, 200
-
-@app.route("/v1/services/<eid>", methods=["DELETE"])
-def delete_service(request, eid):
-    """Delete a Service."""
-    rows = _query("Service", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"datadog.Service", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/errors", methods=["POST"])
-def create_error(request):
-    """Create a Error."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'message', 'culprit', 'count'])
-    if err:
-        return err, 400
-    err = _require(data, ['message', 'culprit'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("datadog_err")}
-    rec["serviceId"] = data.get('serviceId')
+    rec["type"] = data.get('type')
+    rec["query"] = data.get('query')
     rec["message"] = data.get('message')
-    rec["culprit"] = data.get('culprit')
-    rec["count"] = _as_int(data.get('count'))
+    rec["overallState"] = data.get('overallState')
+    rec["tags"] = data.get('tags')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Error", rec)
+    _persist("Monitor", rec)
     return rec, 201
 
-@app.route("/v1/errors", methods=["GET"])
-def list_errors(request):
-    """List Errors with filtering + cursor pagination."""
+@app.route("/v1/monitors", methods=["GET"])
+def list_monitors(request):
+    """List Monitors with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Error")
-    rows = _apply_filters(rows, params, ['serviceId', 'message', 'culprit', 'count'])
+    rows = _query("Monitor")
+    rows = _apply_filters(rows, params, ['name', 'type', 'query', 'message', 'overallState', 'tags'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/errors/<eid>", methods=["GET"])
-def get_error(request, eid):
-    """Retrieve a Error by id (supports ?expand=)."""
-    rows = _query("Error", eid)
+@app.route("/v1/monitors/<eid>", methods=["GET"])
+def get_monitor(request, eid):
+    """Retrieve a Monitor by id (supports ?expand=)."""
+    rows = _query("Monitor", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
     return rec, 200
 
-@app.route("/v1/errors/<eid>", methods=["POST", "PATCH"])
-def update_error(request, eid):
-    """Update a Error."""
-    rows = _query("Error", eid)
+@app.route("/v1/monitors/<eid>", methods=["POST", "PATCH"])
+def update_monitor(request, eid):
+    """Update a Monitor."""
+    rows = _query("Monitor", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'message', 'culprit', 'count'])
+    err = _reject_unknown(data, ['name', 'type', 'query', 'message', 'overallState', 'tags'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in ['metric_alert', 'log_alert', 'anomaly', 'outlier', 'forecast', 'composite', 'host', 'network', 'integration', 'process', 'event', 'service_check', 'apm', 'real_user_monitoring', 'cloud_cost', 'slo_alert']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['metric_alert', 'log_alert', 'anomaly', 'outlier', 'forecast', 'composite', 'host', 'network', 'integration', 'process', 'event', 'service_check', 'apm', 'real_user_monitoring', 'cloud_cost', 'slo_alert']), "type": "invalid_request_error"}}, 400
+    if data.get('overallState') and data['overallState'] not in ['alert', 'warn', 'no_data', 'ok']:
+        return {"error": {"message": "invalid overallState; allowed: " + ", ".join(['alert', 'warn', 'no_data', 'ok']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Error", rec)
+    _persist("Monitor", rec)
     return rec, 200
 
-@app.route("/v1/errors/<eid>", methods=["DELETE"])
-def delete_error(request, eid):
-    """Delete a Error."""
-    rows = _query("Error", eid)
+@app.route("/v1/monitors/<eid>", methods=["DELETE"])
+def delete_monitor(request, eid):
+    """Delete a Monitor."""
+    rows = _query("Monitor", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"datadog.Error", "id": eid})
+    db.retract({"entity": f"datadog.Monitor", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/traces", methods=["POST"])
-def create_trace(request):
-    """Create a Trace."""
+@app.route("/v1/dashboards", methods=["POST"])
+def create_dashboard(request):
+    """Create a Dashboard."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'operation', 'durationMs', 'status'])
+    err = _reject_unknown(data, ['title', 'layoutType', 'description', 'widgets'])
     if err:
         return err, 400
-    err = _require(data, ['operation', 'durationMs'])
+    err = _require(data, ['title', 'layoutType'])
     if err:
         return err, 400
-    rec = {"id": new_id("datadog_tra")}
-    rec["serviceId"] = data.get('serviceId')
-    rec["operation"] = data.get('operation')
-    rec["durationMs"] = _as_int(data.get('durationMs'))
-    rec["status"] = data.get('status')
+    if data.get('layoutType') and data['layoutType'] not in ['ordered', 'free']:
+        return {"error": {"message": "invalid layoutType; allowed: " + ", ".join(['ordered', 'free']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("datadog_das")}
+    rec["title"] = data.get('title')
+    rec["layoutType"] = data.get('layoutType')
+    rec["description"] = data.get('description')
+    rec["widgets"] = data.get('widgets')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Trace", rec)
+    _persist("Dashboard", rec)
     return rec, 201
 
-@app.route("/v1/traces", methods=["GET"])
-def list_traces(request):
-    """List Traces with filtering + cursor pagination."""
+@app.route("/v1/dashboards", methods=["GET"])
+def list_dashboards(request):
+    """List Dashboards with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Trace")
-    rows = _apply_filters(rows, params, ['serviceId', 'operation', 'durationMs', 'status'])
+    rows = _query("Dashboard")
+    rows = _apply_filters(rows, params, ['title', 'layoutType', 'description', 'widgets'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/traces/<eid>", methods=["GET"])
-def get_trace(request, eid):
-    """Retrieve a Trace by id (supports ?expand=)."""
-    rows = _query("Trace", eid)
+@app.route("/v1/dashboards/<eid>", methods=["GET"])
+def get_dashboard(request, eid):
+    """Retrieve a Dashboard by id (supports ?expand=)."""
+    rows = _query("Dashboard", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
     return rec, 200
 
-@app.route("/v1/traces/<eid>", methods=["POST", "PATCH"])
-def update_trace(request, eid):
-    """Update a Trace."""
-    rows = _query("Trace", eid)
+@app.route("/v1/dashboards/<eid>", methods=["POST", "PATCH"])
+def update_dashboard(request, eid):
+    """Update a Dashboard."""
+    rows = _query("Dashboard", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'operation', 'durationMs', 'status'])
+    err = _reject_unknown(data, ['title', 'layoutType', 'description', 'widgets'])
     if err:
         return err, 400
+    if data.get('layoutType') and data['layoutType'] not in ['ordered', 'free']:
+        return {"error": {"message": "invalid layoutType; allowed: " + ", ".join(['ordered', 'free']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Trace", rec)
+    _persist("Dashboard", rec)
     return rec, 200
 
-@app.route("/v1/traces/<eid>", methods=["DELETE"])
-def delete_trace(request, eid):
-    """Delete a Trace."""
-    rows = _query("Trace", eid)
+@app.route("/v1/dashboards/<eid>", methods=["DELETE"])
+def delete_dashboard(request, eid):
+    """Delete a Dashboard."""
+    rows = _query("Dashboard", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"datadog.Trace", "id": eid})
+    db.retract({"entity": f"datadog.Dashboard", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/metrics", methods=["POST"])
-def create_metric(request):
-    """Create a Metric."""
+@app.route("/v1/timeserieses", methods=["POST"])
+def create_time_series(request):
+    """Create a TimeSeries."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'name', 'value', 'unit'])
+    err = _reject_unknown(data, ['metric', 'type', 'timestamp', 'value', 'host', 'tags'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'value'])
+    err = _require(data, ['metric', 'type'])
     if err:
         return err, 400
-    rec = {"id": new_id("datadog_met")}
-    rec["serviceId"] = data.get('serviceId')
-    rec["name"] = data.get('name')
+    if data.get('type') and data['type'] not in ['gauge', 'count', 'histogram', 'distribution', 'rate']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['gauge', 'count', 'histogram', 'distribution', 'rate']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("datadog_tim")}
+    rec["metric"] = data.get('metric')
+    rec["type"] = data.get('type')
+    rec["timestamp"] = _as_int(data.get('timestamp'))
     rec["value"] = _as_float(data.get('value'))
-    rec["unit"] = data.get('unit')
+    rec["host"] = data.get('host')
+    rec["tags"] = data.get('tags')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Metric", rec)
+    _persist("TimeSeries", rec)
     return rec, 201
 
-@app.route("/v1/metrics", methods=["GET"])
-def list_metrics(request):
-    """List Metrics with filtering + cursor pagination."""
+@app.route("/v1/timeserieses", methods=["GET"])
+def list_time_serieses(request):
+    """List TimeSerieses with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Metric")
-    rows = _apply_filters(rows, params, ['serviceId', 'name', 'value', 'unit'])
+    rows = _query("TimeSeries")
+    rows = _apply_filters(rows, params, ['metric', 'type', 'timestamp', 'value', 'host', 'tags'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/metrics/<eid>", methods=["GET"])
-def get_metric(request, eid):
-    """Retrieve a Metric by id (supports ?expand=)."""
-    rows = _query("Metric", eid)
+@app.route("/v1/timeserieses/<eid>", methods=["GET"])
+def get_time_series(request, eid):
+    """Retrieve a TimeSeries by id (supports ?expand=)."""
+    rows = _query("TimeSeries", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
     return rec, 200
 
-@app.route("/v1/metrics/<eid>", methods=["POST", "PATCH"])
-def update_metric(request, eid):
-    """Update a Metric."""
-    rows = _query("Metric", eid)
+@app.route("/v1/timeserieses/<eid>", methods=["POST", "PATCH"])
+def update_time_series(request, eid):
+    """Update a TimeSeries."""
+    rows = _query("TimeSeries", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'name', 'value', 'unit'])
+    err = _reject_unknown(data, ['metric', 'type', 'timestamp', 'value', 'host', 'tags'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in ['gauge', 'count', 'histogram', 'distribution', 'rate']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['gauge', 'count', 'histogram', 'distribution', 'rate']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Metric", rec)
+    _persist("TimeSeries", rec)
     return rec, 200
 
-@app.route("/v1/metrics/<eid>", methods=["DELETE"])
-def delete_metric(request, eid):
-    """Delete a Metric."""
-    rows = _query("Metric", eid)
+@app.route("/v1/timeserieses/<eid>", methods=["DELETE"])
+def delete_time_series(request, eid):
+    """Delete a TimeSeries."""
+    rows = _query("TimeSeries", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"datadog.Metric", "id": eid})
+    db.retract({"entity": f"datadog.TimeSeries", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/alerts", methods=["POST"])
-def create_alert(request):
-    """Create a Alert."""
+@app.route("/v1/events", methods=["POST"])
+def create_event(request):
+    """Create a Event."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'condition', 'severity', 'active'])
+    err = _reject_unknown(data, ['title', 'text', 'timestamp', 'priority', 'alertType', 'tags'])
     if err:
         return err, 400
-    err = _require(data, ['condition', 'severity'])
+    err = _require(data, ['title', 'text'])
     if err:
         return err, 400
-    rec = {"id": new_id("datadog_ale")}
-    rec["serviceId"] = data.get('serviceId')
-    rec["condition"] = data.get('condition')
-    rec["severity"] = data.get('severity')
-    rec["active"] = _as_bool(data.get('active'))
+    if data.get('priority') and data['priority'] not in ['normal', 'low']:
+        return {"error": {"message": "invalid priority; allowed: " + ", ".join(['normal', 'low']), "type": "invalid_request_error"}}, 400
+    if data.get('alertType') and data['alertType'] not in ['error', 'warning', 'info', 'success']:
+        return {"error": {"message": "invalid alertType; allowed: " + ", ".join(['error', 'warning', 'info', 'success']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("datadog_eve")}
+    rec["title"] = data.get('title')
+    rec["text"] = data.get('text')
+    rec["timestamp"] = _as_int(data.get('timestamp'))
+    rec["priority"] = data.get('priority')
+    rec["alertType"] = data.get('alertType')
+    rec["tags"] = data.get('tags')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Alert", rec)
+    _persist("Event", rec)
     return rec, 201
 
-@app.route("/v1/alerts", methods=["GET"])
-def list_alerts(request):
-    """List Alerts with filtering + cursor pagination."""
+@app.route("/v1/events", methods=["GET"])
+def list_events(request):
+    """List Events with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Alert")
-    rows = _apply_filters(rows, params, ['serviceId', 'condition', 'severity', 'active'])
+    rows = _query("Event")
+    rows = _apply_filters(rows, params, ['title', 'text', 'timestamp', 'priority', 'alertType', 'tags'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/alerts/<eid>", methods=["GET"])
-def get_alert(request, eid):
-    """Retrieve a Alert by id (supports ?expand=)."""
-    rows = _query("Alert", eid)
+@app.route("/v1/events/<eid>", methods=["GET"])
+def get_event(request, eid):
+    """Retrieve a Event by id (supports ?expand=)."""
+    rows = _query("Event", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
     return rec, 200
 
-@app.route("/v1/alerts/<eid>", methods=["POST", "PATCH"])
-def update_alert(request, eid):
-    """Update a Alert."""
-    rows = _query("Alert", eid)
+@app.route("/v1/events/<eid>", methods=["POST", "PATCH"])
+def update_event(request, eid):
+    """Update a Event."""
+    rows = _query("Event", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'condition', 'severity', 'active'])
+    err = _reject_unknown(data, ['title', 'text', 'timestamp', 'priority', 'alertType', 'tags'])
+    if err:
+        return err, 400
+    if data.get('priority') and data['priority'] not in ['normal', 'low']:
+        return {"error": {"message": "invalid priority; allowed: " + ", ".join(['normal', 'low']), "type": "invalid_request_error"}}, 400
+    if data.get('alertType') and data['alertType'] not in ['error', 'warning', 'info', 'success']:
+        return {"error": {"message": "invalid alertType; allowed: " + ", ".join(['error', 'warning', 'info', 'success']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Event", rec)
+    return rec, 200
+
+@app.route("/v1/events/<eid>", methods=["DELETE"])
+def delete_event(request, eid):
+    """Delete a Event."""
+    rows = _query("Event", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"datadog.Event", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/downtimes", methods=["POST"])
+def create_downtime(request):
+    """Create a Downtime."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['monitorId', 'scope', 'start', 'end', 'timezone'])
+    if err:
+        return err, 400
+    err = _require(data, ['scope', 'start'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("datadog_dow")}
+    rec["monitorId"] = _as_int(data.get('monitorId'))
+    rec["scope"] = data.get('scope')
+    rec["start"] = _as_int(data.get('start'))
+    rec["end"] = _as_int(data.get('end'))
+    rec["timezone"] = data.get('timezone')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Downtime", rec)
+    return rec, 201
+
+@app.route("/v1/downtimes", methods=["GET"])
+def list_downtimes(request):
+    """List Downtimes with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Downtime")
+    rows = _apply_filters(rows, params, ['monitorId', 'scope', 'start', 'end', 'timezone'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/downtimes/<eid>", methods=["GET"])
+def get_downtime(request, eid):
+    """Retrieve a Downtime by id (supports ?expand=)."""
+    rows = _query("Downtime", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'monitorId': 'Monitor'})
+    return rec, 200
+
+@app.route("/v1/downtimes/<eid>", methods=["POST", "PATCH"])
+def update_downtime(request, eid):
+    """Update a Downtime."""
+    rows = _query("Downtime", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['monitorId', 'scope', 'start', 'end', 'timezone'])
     if err:
         return err, 400
     rec = rows[0]
@@ -432,33 +461,37 @@ def update_alert(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Alert", rec)
+    _persist("Downtime", rec)
     return rec, 200
 
-@app.route("/v1/alerts/<eid>", methods=["DELETE"])
-def delete_alert(request, eid):
-    """Delete a Alert."""
-    rows = _query("Alert", eid)
+@app.route("/v1/downtimes/<eid>", methods=["DELETE"])
+def delete_downtime(request, eid):
+    """Delete a Downtime."""
+    rows = _query("Downtime", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"datadog.Alert", "id": eid})
+    db.retract({"entity": f"datadog.Downtime", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/v1/incidents", methods=["POST"])
 def create_incident(request):
     """Create a Incident."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'status', 'severity', 'startedAt'])
+    err = _reject_unknown(data, ['title', 'severity', 'status', 'customerImpactScope'])
     if err:
         return err, 400
-    err = _require(data, ['title', 'status'])
+    err = _require(data, ['title', 'severity'])
     if err:
         return err, 400
+    if data.get('severity') and data['severity'] not in ['UNKNOWN', 'LOW', 'MEDIUM', 'HIGH', 'CRITICAL']:
+        return {"error": {"message": "invalid severity; allowed: " + ", ".join(['UNKNOWN', 'LOW', 'MEDIUM', 'HIGH', 'CRITICAL']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['ACTIVE', 'RESOLVED', 'CLOSED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['ACTIVE', 'RESOLVED', 'CLOSED']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("datadog_inc")}
     rec["title"] = data.get('title')
-    rec["status"] = data.get('status')
     rec["severity"] = data.get('severity')
-    rec["startedAt"] = data.get('startedAt')
+    rec["status"] = data.get('status')
+    rec["customerImpactScope"] = data.get('customerImpactScope')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Incident", rec)
@@ -469,7 +502,7 @@ def list_incidents(request):
     """List Incidents with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Incident")
-    rows = _apply_filters(rows, params, ['title', 'status', 'severity', 'startedAt'])
+    rows = _apply_filters(rows, params, ['title', 'severity', 'status', 'customerImpactScope'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -490,9 +523,13 @@ def update_incident(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'status', 'severity', 'startedAt'])
+    err = _reject_unknown(data, ['title', 'severity', 'status', 'customerImpactScope'])
     if err:
         return err, 400
+    if data.get('severity') and data['severity'] not in ['UNKNOWN', 'LOW', 'MEDIUM', 'HIGH', 'CRITICAL']:
+        return {"error": {"message": "invalid severity; allowed: " + ", ".join(['UNKNOWN', 'LOW', 'MEDIUM', 'HIGH', 'CRITICAL']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['ACTIVE', 'RESOLVED', 'CLOSED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['ACTIVE', 'RESOLVED', 'CLOSED']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -513,7 +550,7 @@ def delete_incident(request, eid):
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "datadog-compat", "tier": "L4",
-            "entities": ['Service', 'Error', 'Trace', 'Metric', 'Alert', 'Incident']}, 200
+            "entities": ['Monitor', 'Dashboard', 'TimeSeries', 'Event', 'Downtime', 'Incident']}, 200
 
 
 if __name__ == "__main__":

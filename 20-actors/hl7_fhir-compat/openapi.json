@@ -1252,7 +1252,15 @@
             "type": "string"
           },
           "clinicalStatus": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "active",
+              "recurrence",
+              "relapse",
+              "inactive",
+              "remission",
+              "resolved"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1274,7 +1282,15 @@
             "type": "string"
           },
           "clinicalStatus": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "active",
+              "recurrence",
+              "relapse",
+              "inactive",
+              "remission",
+              "resolved"
+            ]
           }
         },
         "required": [
@@ -1295,7 +1311,13 @@
             "type": "string"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "registered",
+              "partial",
+              "preliminary",
+              "final"
+            ]
           },
           "issuedAt": {
             "type": "string",
@@ -1321,7 +1343,13 @@
             "type": "string"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "registered",
+              "partial",
+              "preliminary",
+              "final"
+            ]
           },
           "issuedAt": {
             "type": "string"

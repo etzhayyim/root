@@ -3,57 +3,33 @@
 
 namespace pipedrive {
 
-    entity Account {
+    entity Deal {
         id: string @unique
-        name: string
-        domain: string
-        industry: string
-        ownerId: string
-        annualRevenue: float
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Contact {
-        id: string @unique
-        accountId: string
-        firstName: string
-        lastName: string
-        email: string
-        phone: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Lead {
-        id: string @unique
-        company: string
-        email: string
+        title: string
+        value: float
+        currency: string
         status: string
-        source: string
-        score: integer
+        probability: float
+        pipelineId: integer
+        stageId: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Opportunity {
+    entity Person {
         id: string @unique
-        accountId: string
         name: string
-        stage: string
-        amount: float
-        closeDate: datetime
+        ownerId: integer
+        orgId: integer
+        marketingStatus: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Activity {
+    entity Organization {
         id: string @unique
-        subjectId: string
-        type: string
-        subject: string
-        dueDate: datetime
-        done: boolean
+        name: string
+        ownerId: integer
         createdAt: datetime
         updatedAt: datetime
     }
@@ -61,19 +37,28 @@ namespace pipedrive {
     entity Pipeline {
         id: string @unique
         name: string
-        stageOrder: string
-        ownerId: string
+        isDealProbabilityEnabled: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Stage {
+        id: string @unique
+        name: string
+        pipelineId: integer
+        dealProbability: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Activity {
+        id: string @unique
+        subject: string
+        type: string
+        done: boolean
+        dueDate: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

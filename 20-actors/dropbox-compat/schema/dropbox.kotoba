@@ -3,68 +3,61 @@
 
 namespace dropbox {
 
-    entity Workspace {
+    entity FileMetadata {
         id: string @unique
         name: string
-        ownerId: string
-        plan: string
+        pathLower: string
+        pathDisplay: string
+        id: string
+        rev: string
+        size: integer
+        isDownloadable: boolean
+        contentHash: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Document {
+    entity FolderMetadata {
         id: string @unique
-        workspaceId: string
-        title: string
-        contentRef: string
-        ownerId: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Folder {
-        id: string @unique
-        workspaceId: string
         name: string
-        parentId: string
+        pathLower: string
+        pathDisplay: string
+        id: string
+        sharedFolderId: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Comment {
+    entity SharedLink {
         id: string @unique
-        documentId: string
-        authorId: string
-        body: string
+        url: string
+        path: string
+        visibility: string
+        requestedVisibility: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Permission {
+    entity Account {
         id: string @unique
-        resourceId: string
-        principalId: string
-        role: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity User {
-        id: string @unique
+        accountId: string
         email: string
+        emailVerified: boolean
         displayName: string
-        status: string
+        locale: string
+        country: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity SharedFolder {
+        id: string @unique
+        sharedFolderId: string
+        name: string
+        pathLower: string
+        accessType: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

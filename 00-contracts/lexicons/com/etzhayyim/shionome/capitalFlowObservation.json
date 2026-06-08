@@ -1,0 +1,1 @@
+{"lexicon":1,"id":"com.etzhayyim.shionome.capitalFlowObservation","description":"R0 placeholder lexicon for shionome public aggregate capital-flow observations; no trade signal is represented.","defs":{"main":{"type":"record","key":"tid","record":{"type":"object","required":["createdAt"],"properties":{"createdAt":{"type":"string","format":"datetime"}}}}}}

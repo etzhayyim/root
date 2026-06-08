@@ -3,72 +3,73 @@
 
 namespace gitlab {
 
-    entity Repository {
+    entity Project {
         id: string @unique
         name: string
-        owner: string
+        path: string
+        description: string
+        visibility: string
         defaultBranch: string
-        private: boolean
+        archived: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Issue {
+        id: string @unique
+        projectId: integer
+        iid: integer
+        title: string
+        description: string
+        state: string
+        issueType: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity MergeRequest {
+        id: string @unique
+        projectId: integer
+        iid: integer
+        title: string
+        state: string
+        sourceBranch: string
+        targetBranch: string
+        sha: string
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Pipeline {
         id: string @unique
-        repoId: string
-        name: string
-        trigger: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Build {
-        id: string @unique
-        pipelineId: string
-        number: integer
+        projectId: integer
         status: string
-        commitSha: string
-        durationMs: integer
+        ref: string
+        sha: string
+        duration: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Artifact {
+    entity Job {
         id: string @unique
-        buildId: string
         name: string
-        sizeBytes: integer
-        contentRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Deployment {
-        id: string @unique
-        buildId: string
-        environment: string
         status: string
+        stage: string
+        ref: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Webhook {
+    entity Commit {
         id: string @unique
-        repoId: string
-        url: string
-        event: string
-        active: boolean
+        shortId: string
+        title: string
+        message: string
+        authorName: string
+        authorEmail: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

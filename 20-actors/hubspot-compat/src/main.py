@@ -111,89 +111,23 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/accounts", methods=["POST"])
-def create_account(request):
-    """Create a Account."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'domain', 'industry', 'ownerId', 'annualRevenue'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'domain'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("hubspot_acc")}
-    rec["name"] = data.get('name')
-    rec["domain"] = data.get('domain')
-    rec["industry"] = data.get('industry')
-    rec["ownerId"] = data.get('ownerId')
-    rec["annualRevenue"] = _as_float(data.get('annualRevenue'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Account", rec)
-    return rec, 201
-
-@app.route("/v1/accounts", methods=["GET"])
-def list_accounts(request):
-    """List Accounts with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Account")
-    rows = _apply_filters(rows, params, ['name', 'domain', 'industry', 'ownerId', 'annualRevenue'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/accounts/<eid>", methods=["GET"])
-def get_account(request, eid):
-    """Retrieve a Account by id (supports ?expand=)."""
-    rows = _query("Account", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/accounts/<eid>", methods=["POST", "PATCH"])
-def update_account(request, eid):
-    """Update a Account."""
-    rows = _query("Account", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'domain', 'industry', 'ownerId', 'annualRevenue'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Account", rec)
-    return rec, 200
-
-@app.route("/v1/accounts/<eid>", methods=["DELETE"])
-def delete_account(request, eid):
-    """Delete a Account."""
-    rows = _query("Account", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"hubspot.Account", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
 @app.route("/v1/contacts", methods=["POST"])
 def create_contact(request):
     """Create a Contact."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'firstName', 'lastName', 'email', 'phone'])
+    err = _reject_unknown(data, ['email', 'firstname', 'lastname', 'company', 'phone', 'website'])
     if err:
         return err, 400
-    err = _require(data, ['firstName', 'lastName'])
+    err = _require(data, ['email', 'firstname'])
     if err:
         return err, 400
     rec = {"id": new_id("hubspot_con")}
-    rec["accountId"] = data.get('accountId')
-    rec["firstName"] = data.get('firstName')
-    rec["lastName"] = data.get('lastName')
     rec["email"] = data.get('email')
+    rec["firstname"] = data.get('firstname')
+    rec["lastname"] = data.get('lastname')
+    rec["company"] = data.get('company')
     rec["phone"] = data.get('phone')
+    rec["website"] = data.get('website')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Contact", rec)
@@ -204,7 +138,7 @@ def list_contacts(request):
     """List Contacts with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Contact")
-    rows = _apply_filters(rows, params, ['accountId', 'firstName', 'lastName', 'email', 'phone'])
+    rows = _apply_filters(rows, params, ['email', 'firstname', 'lastname', 'company', 'phone', 'website'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -216,7 +150,6 @@ def get_contact(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'accountId': 'Account'})
     return rec, 200
 
 @app.route("/v1/contacts/<eid>", methods=["POST", "PATCH"])
@@ -226,7 +159,7 @@ def update_contact(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'firstName', 'lastName', 'email', 'phone'])
+    err = _reject_unknown(data, ['email', 'firstname', 'lastname', 'company', 'phone', 'website'])
     if err:
         return err, 400
     rec = rows[0]
@@ -246,122 +179,52 @@ def delete_contact(request, eid):
     db.retract({"entity": f"hubspot.Contact", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/leads", methods=["POST"])
-def create_lead(request):
-    """Create a Lead."""
+@app.route("/v1/companies", methods=["POST"])
+def create_company(request):
+    """Create a Company."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['company', 'email', 'status', 'source', 'score'])
+    err = _reject_unknown(data, ['name', 'domain', 'industry'])
     if err:
         return err, 400
-    err = _require(data, ['company', 'email'])
+    err = _require(data, ['name', 'domain'])
     if err:
         return err, 400
-    rec = {"id": new_id("hubspot_lea")}
-    rec["company"] = data.get('company')
-    rec["email"] = data.get('email')
-    rec["status"] = data.get('status')
-    rec["source"] = data.get('source')
-    rec["score"] = _as_int(data.get('score'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Lead", rec)
-    return rec, 201
-
-@app.route("/v1/leads", methods=["GET"])
-def list_leads(request):
-    """List Leads with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Lead")
-    rows = _apply_filters(rows, params, ['company', 'email', 'status', 'source', 'score'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/leads/<eid>", methods=["GET"])
-def get_lead(request, eid):
-    """Retrieve a Lead by id (supports ?expand=)."""
-    rows = _query("Lead", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/leads/<eid>", methods=["POST", "PATCH"])
-def update_lead(request, eid):
-    """Update a Lead."""
-    rows = _query("Lead", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['company', 'email', 'status', 'source', 'score'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Lead", rec)
-    return rec, 200
-
-@app.route("/v1/leads/<eid>", methods=["DELETE"])
-def delete_lead(request, eid):
-    """Delete a Lead."""
-    rows = _query("Lead", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"hubspot.Lead", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/opportunities", methods=["POST"])
-def create_opportunity(request):
-    """Create a Opportunity."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'name', 'stage', 'amount', 'closeDate'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'stage'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("hubspot_opp")}
-    rec["accountId"] = data.get('accountId')
+    rec = {"id": new_id("hubspot_com")}
     rec["name"] = data.get('name')
-    rec["stage"] = data.get('stage')
-    rec["amount"] = _as_float(data.get('amount'))
-    rec["closeDate"] = data.get('closeDate')
+    rec["domain"] = data.get('domain')
+    rec["industry"] = data.get('industry')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Opportunity", rec)
+    _persist("Company", rec)
     return rec, 201
 
-@app.route("/v1/opportunities", methods=["GET"])
-def list_opportunities(request):
-    """List Opportunities with filtering + cursor pagination."""
+@app.route("/v1/companies", methods=["GET"])
+def list_companies(request):
+    """List Companies with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Opportunity")
-    rows = _apply_filters(rows, params, ['accountId', 'name', 'stage', 'amount', 'closeDate'])
+    rows = _query("Company")
+    rows = _apply_filters(rows, params, ['name', 'domain', 'industry'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/opportunities/<eid>", methods=["GET"])
-def get_opportunity(request, eid):
-    """Retrieve a Opportunity by id (supports ?expand=)."""
-    rows = _query("Opportunity", eid)
+@app.route("/v1/companies/<eid>", methods=["GET"])
+def get_company(request, eid):
+    """Retrieve a Company by id (supports ?expand=)."""
+    rows = _query("Company", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'accountId': 'Account'})
     return rec, 200
 
-@app.route("/v1/opportunities/<eid>", methods=["POST", "PATCH"])
-def update_opportunity(request, eid):
-    """Update a Opportunity."""
-    rows = _query("Opportunity", eid)
+@app.route("/v1/companies/<eid>", methods=["POST", "PATCH"])
+def update_company(request, eid):
+    """Update a Company."""
+    rows = _query("Company", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'name', 'stage', 'amount', 'closeDate'])
+    err = _reject_unknown(data, ['name', 'domain', 'industry'])
     if err:
         return err, 400
     rec = rows[0]
@@ -369,66 +232,65 @@ def update_opportunity(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Opportunity", rec)
+    _persist("Company", rec)
     return rec, 200
 
-@app.route("/v1/opportunities/<eid>", methods=["DELETE"])
-def delete_opportunity(request, eid):
-    """Delete a Opportunity."""
-    rows = _query("Opportunity", eid)
+@app.route("/v1/companies/<eid>", methods=["DELETE"])
+def delete_company(request, eid):
+    """Delete a Company."""
+    rows = _query("Company", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"hubspot.Opportunity", "id": eid})
+    db.retract({"entity": f"hubspot.Company", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/activities", methods=["POST"])
-def create_activity(request):
-    """Create a Activity."""
+@app.route("/v1/deals", methods=["POST"])
+def create_deal(request):
+    """Create a Deal."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['subjectId', 'type', 'subject', 'dueDate', 'done'])
+    err = _reject_unknown(data, ['dealname', 'dealstage', 'amount', 'pipeline'])
     if err:
         return err, 400
-    err = _require(data, ['type', 'subject'])
+    err = _require(data, ['dealname', 'dealstage'])
     if err:
         return err, 400
-    rec = {"id": new_id("hubspot_act")}
-    rec["subjectId"] = data.get('subjectId')
-    rec["type"] = data.get('type')
-    rec["subject"] = data.get('subject')
-    rec["dueDate"] = data.get('dueDate')
-    rec["done"] = _as_bool(data.get('done'))
+    rec = {"id": new_id("hubspot_dea")}
+    rec["dealname"] = data.get('dealname')
+    rec["dealstage"] = data.get('dealstage')
+    rec["amount"] = _as_float(data.get('amount'))
+    rec["pipeline"] = data.get('pipeline')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Activity", rec)
+    _persist("Deal", rec)
     return rec, 201
 
-@app.route("/v1/activities", methods=["GET"])
-def list_activities(request):
-    """List Activities with filtering + cursor pagination."""
+@app.route("/v1/deals", methods=["GET"])
+def list_deals(request):
+    """List Deals with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Activity")
-    rows = _apply_filters(rows, params, ['subjectId', 'type', 'subject', 'dueDate', 'done'])
+    rows = _query("Deal")
+    rows = _apply_filters(rows, params, ['dealname', 'dealstage', 'amount', 'pipeline'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/activities/<eid>", methods=["GET"])
-def get_activity(request, eid):
-    """Retrieve a Activity by id (supports ?expand=)."""
-    rows = _query("Activity", eid)
+@app.route("/v1/deals/<eid>", methods=["GET"])
+def get_deal(request, eid):
+    """Retrieve a Deal by id (supports ?expand=)."""
+    rows = _query("Deal", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/activities/<eid>", methods=["POST", "PATCH"])
-def update_activity(request, eid):
-    """Update a Activity."""
-    rows = _query("Activity", eid)
+@app.route("/v1/deals/<eid>", methods=["POST", "PATCH"])
+def update_deal(request, eid):
+    """Update a Deal."""
+    rows = _query("Deal", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['subjectId', 'type', 'subject', 'dueDate', 'done'])
+    err = _reject_unknown(data, ['dealname', 'dealstage', 'amount', 'pipeline'])
     if err:
         return err, 400
     rec = rows[0]
@@ -436,32 +298,161 @@ def update_activity(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Activity", rec)
+    _persist("Deal", rec)
     return rec, 200
 
-@app.route("/v1/activities/<eid>", methods=["DELETE"])
-def delete_activity(request, eid):
-    """Delete a Activity."""
-    rows = _query("Activity", eid)
+@app.route("/v1/deals/<eid>", methods=["DELETE"])
+def delete_deal(request, eid):
+    """Delete a Deal."""
+    rows = _query("Deal", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"hubspot.Activity", "id": eid})
+    db.retract({"entity": f"hubspot.Deal", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/tickets", methods=["POST"])
+def create_ticket(request):
+    """Create a Ticket."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['subject', 'hsTicketPriority', 'hsPipelineStage'])
+    if err:
+        return err, 400
+    err = _require(data, ['subject', 'hsTicketPriority'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("hubspot_tic")}
+    rec["subject"] = data.get('subject')
+    rec["hsTicketPriority"] = data.get('hsTicketPriority')
+    rec["hsPipelineStage"] = data.get('hsPipelineStage')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Ticket", rec)
+    return rec, 201
+
+@app.route("/v1/tickets", methods=["GET"])
+def list_tickets(request):
+    """List Tickets with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Ticket")
+    rows = _apply_filters(rows, params, ['subject', 'hsTicketPriority', 'hsPipelineStage'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/tickets/<eid>", methods=["GET"])
+def get_ticket(request, eid):
+    """Retrieve a Ticket by id (supports ?expand=)."""
+    rows = _query("Ticket", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/tickets/<eid>", methods=["POST", "PATCH"])
+def update_ticket(request, eid):
+    """Update a Ticket."""
+    rows = _query("Ticket", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['subject', 'hsTicketPriority', 'hsPipelineStage'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Ticket", rec)
+    return rec, 200
+
+@app.route("/v1/tickets/<eid>", methods=["DELETE"])
+def delete_ticket(request, eid):
+    """Delete a Ticket."""
+    rows = _query("Ticket", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"hubspot.Ticket", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/lineitems", methods=["POST"])
+def create_line_item(request):
+    """Create a LineItem."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'quantity', 'price'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'quantity'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("hubspot_lin")}
+    rec["name"] = data.get('name')
+    rec["quantity"] = _as_int(data.get('quantity'))
+    rec["price"] = _as_float(data.get('price'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("LineItem", rec)
+    return rec, 201
+
+@app.route("/v1/lineitems", methods=["GET"])
+def list_line_items(request):
+    """List LineItems with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("LineItem")
+    rows = _apply_filters(rows, params, ['name', 'quantity', 'price'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/lineitems/<eid>", methods=["GET"])
+def get_line_item(request, eid):
+    """Retrieve a LineItem by id (supports ?expand=)."""
+    rows = _query("LineItem", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/lineitems/<eid>", methods=["POST", "PATCH"])
+def update_line_item(request, eid):
+    """Update a LineItem."""
+    rows = _query("LineItem", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'quantity', 'price'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("LineItem", rec)
+    return rec, 200
+
+@app.route("/v1/lineitems/<eid>", methods=["DELETE"])
+def delete_line_item(request, eid):
+    """Delete a LineItem."""
+    rows = _query("LineItem", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"hubspot.LineItem", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/v1/pipelines", methods=["POST"])
 def create_pipeline(request):
     """Create a Pipeline."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'stageOrder', 'ownerId'])
+    err = _reject_unknown(data, ['label', 'displayOrder'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'stageOrder'])
+    err = _require(data, ['label', 'displayOrder'])
     if err:
         return err, 400
     rec = {"id": new_id("hubspot_pip")}
-    rec["name"] = data.get('name')
-    rec["stageOrder"] = data.get('stageOrder')
-    rec["ownerId"] = data.get('ownerId')
+    rec["label"] = data.get('label')
+    rec["displayOrder"] = _as_int(data.get('displayOrder'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Pipeline", rec)
@@ -472,7 +463,7 @@ def list_pipelines(request):
     """List Pipelines with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Pipeline")
-    rows = _apply_filters(rows, params, ['name', 'stageOrder', 'ownerId'])
+    rows = _apply_filters(rows, params, ['label', 'displayOrder'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -493,7 +484,7 @@ def update_pipeline(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'stageOrder', 'ownerId'])
+    err = _reject_unknown(data, ['label', 'displayOrder'])
     if err:
         return err, 400
     rec = rows[0]
@@ -516,7 +507,7 @@ def delete_pipeline(request, eid):
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "hubspot-compat", "tier": "L4",
-            "entities": ['Account', 'Contact', 'Lead', 'Opportunity', 'Activity', 'Pipeline']}, 200
+            "entities": ['Contact', 'Company', 'Deal', 'Ticket', 'LineItem', 'Pipeline']}, 200
 
 
 if __name__ == "__main__":

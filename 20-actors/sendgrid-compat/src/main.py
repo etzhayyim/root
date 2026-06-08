@@ -111,250 +111,54 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/campaigns", methods=["POST"])
-def create_campaign(request):
-    """Create a Campaign."""
+@app.route("/v1/contacts", methods=["POST"])
+def create_contact(request):
+    """Create a Contact."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'channel', 'status', 'budget'])
+    err = _reject_unknown(data, ['email', 'firstName', 'lastName', 'country', 'externalId'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'channel'])
+    err = _require(data, ['email', 'firstName'])
     if err:
         return err, 400
-    rec = {"id": new_id("sendgrid_cam")}
-    rec["name"] = data.get('name')
-    rec["channel"] = data.get('channel')
-    rec["status"] = data.get('status')
-    rec["budget"] = _as_float(data.get('budget'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Campaign", rec)
-    return rec, 201
-
-@app.route("/v1/campaigns", methods=["GET"])
-def list_campaigns(request):
-    """List Campaigns with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Campaign")
-    rows = _apply_filters(rows, params, ['name', 'channel', 'status', 'budget'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/campaigns/<eid>", methods=["GET"])
-def get_campaign(request, eid):
-    """Retrieve a Campaign by id (supports ?expand=)."""
-    rows = _query("Campaign", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/campaigns/<eid>", methods=["POST", "PATCH"])
-def update_campaign(request, eid):
-    """Update a Campaign."""
-    rows = _query("Campaign", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'channel', 'status', 'budget'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Campaign", rec)
-    return rec, 200
-
-@app.route("/v1/campaigns/<eid>", methods=["DELETE"])
-def delete_campaign(request, eid):
-    """Delete a Campaign."""
-    rows = _query("Campaign", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"sendgrid.Campaign", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/audiences", methods=["POST"])
-def create_audience(request):
-    """Create a Audience."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'size', 'definition'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'size'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("sendgrid_aud")}
-    rec["name"] = data.get('name')
-    rec["size"] = _as_int(data.get('size'))
-    rec["definition"] = data.get('definition')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Audience", rec)
-    return rec, 201
-
-@app.route("/v1/audiences", methods=["GET"])
-def list_audiences(request):
-    """List Audiences with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Audience")
-    rows = _apply_filters(rows, params, ['name', 'size', 'definition'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/audiences/<eid>", methods=["GET"])
-def get_audience(request, eid):
-    """Retrieve a Audience by id (supports ?expand=)."""
-    rows = _query("Audience", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/audiences/<eid>", methods=["POST", "PATCH"])
-def update_audience(request, eid):
-    """Update a Audience."""
-    rows = _query("Audience", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'size', 'definition'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Audience", rec)
-    return rec, 200
-
-@app.route("/v1/audiences/<eid>", methods=["DELETE"])
-def delete_audience(request, eid):
-    """Delete a Audience."""
-    rows = _query("Audience", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"sendgrid.Audience", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/events", methods=["POST"])
-def create_event(request):
-    """Create a Event."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['profileId', 'name', 'properties', 'occurredAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'properties'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("sendgrid_eve")}
-    rec["profileId"] = data.get('profileId')
-    rec["name"] = data.get('name')
-    rec["properties"] = data.get('properties')
-    rec["occurredAt"] = data.get('occurredAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Event", rec)
-    return rec, 201
-
-@app.route("/v1/events", methods=["GET"])
-def list_events(request):
-    """List Events with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Event")
-    rows = _apply_filters(rows, params, ['profileId', 'name', 'properties', 'occurredAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/events/<eid>", methods=["GET"])
-def get_event(request, eid):
-    """Retrieve a Event by id (supports ?expand=)."""
-    rows = _query("Event", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'profileId': 'Profile'})
-    return rec, 200
-
-@app.route("/v1/events/<eid>", methods=["POST", "PATCH"])
-def update_event(request, eid):
-    """Update a Event."""
-    rows = _query("Event", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['profileId', 'name', 'properties', 'occurredAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Event", rec)
-    return rec, 200
-
-@app.route("/v1/events/<eid>", methods=["DELETE"])
-def delete_event(request, eid):
-    """Delete a Event."""
-    rows = _query("Event", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"sendgrid.Event", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/profiles", methods=["POST"])
-def create_profile(request):
-    """Create a Profile."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'externalId', 'traits'])
-    if err:
-        return err, 400
-    err = _require(data, ['email', 'traits'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("sendgrid_pro")}
+    rec = {"id": new_id("sendgrid_con")}
     rec["email"] = data.get('email')
+    rec["firstName"] = data.get('firstName')
+    rec["lastName"] = data.get('lastName')
+    rec["country"] = data.get('country')
     rec["externalId"] = data.get('externalId')
-    rec["traits"] = data.get('traits')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Profile", rec)
+    _persist("Contact", rec)
     return rec, 201
 
-@app.route("/v1/profiles", methods=["GET"])
-def list_profiles(request):
-    """List Profiles with filtering + cursor pagination."""
+@app.route("/v1/contacts", methods=["GET"])
+def list_contacts(request):
+    """List Contacts with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Profile")
-    rows = _apply_filters(rows, params, ['email', 'externalId', 'traits'])
+    rows = _query("Contact")
+    rows = _apply_filters(rows, params, ['email', 'firstName', 'lastName', 'country', 'externalId'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/profiles/<eid>", methods=["GET"])
-def get_profile(request, eid):
-    """Retrieve a Profile by id (supports ?expand=)."""
-    rows = _query("Profile", eid)
+@app.route("/v1/contacts/<eid>", methods=["GET"])
+def get_contact(request, eid):
+    """Retrieve a Contact by id (supports ?expand=)."""
+    rows = _query("Contact", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/profiles/<eid>", methods=["POST", "PATCH"])
-def update_profile(request, eid):
-    """Update a Profile."""
-    rows = _query("Profile", eid)
+@app.route("/v1/contacts/<eid>", methods=["POST", "PATCH"])
+def update_contact(request, eid):
+    """Update a Contact."""
+    rows = _query("Contact", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'externalId', 'traits'])
+    err = _reject_unknown(data, ['email', 'firstName', 'lastName', 'country', 'externalId'])
     if err:
         return err, 400
     rec = rows[0]
@@ -362,66 +166,199 @@ def update_profile(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Profile", rec)
+    _persist("Contact", rec)
     return rec, 200
 
-@app.route("/v1/profiles/<eid>", methods=["DELETE"])
-def delete_profile(request, eid):
-    """Delete a Profile."""
-    rows = _query("Profile", eid)
+@app.route("/v1/contacts/<eid>", methods=["DELETE"])
+def delete_contact(request, eid):
+    """Delete a Contact."""
+    rows = _query("Contact", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"sendgrid.Profile", "id": eid})
+    db.retract({"entity": f"sendgrid.Contact", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/messages", methods=["POST"])
-def create_message(request):
-    """Create a Message."""
+@app.route("/v1/templates", methods=["POST"])
+def create_template(request):
+    """Create a Template."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['campaignId', 'profileId', 'channel', 'status'])
+    err = _reject_unknown(data, ['name', 'generation'])
     if err:
         return err, 400
-    err = _require(data, ['channel', 'status'])
+    err = _require(data, ['name', 'generation'])
     if err:
         return err, 400
-    rec = {"id": new_id("sendgrid_mes")}
-    rec["campaignId"] = data.get('campaignId')
-    rec["profileId"] = data.get('profileId')
-    rec["channel"] = data.get('channel')
+    if data.get('generation') and data['generation'] not in ['legacy', 'dynamic']:
+        return {"error": {"message": "invalid generation; allowed: " + ", ".join(['legacy', 'dynamic']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("sendgrid_tem")}
+    rec["name"] = data.get('name')
+    rec["generation"] = data.get('generation')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Template", rec)
+    return rec, 201
+
+@app.route("/v1/templates", methods=["GET"])
+def list_templates(request):
+    """List Templates with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Template")
+    rows = _apply_filters(rows, params, ['name', 'generation'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/templates/<eid>", methods=["GET"])
+def get_template(request, eid):
+    """Retrieve a Template by id (supports ?expand=)."""
+    rows = _query("Template", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/templates/<eid>", methods=["POST", "PATCH"])
+def update_template(request, eid):
+    """Update a Template."""
+    rows = _query("Template", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'generation'])
+    if err:
+        return err, 400
+    if data.get('generation') and data['generation'] not in ['legacy', 'dynamic']:
+        return {"error": {"message": "invalid generation; allowed: " + ", ".join(['legacy', 'dynamic']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Template", rec)
+    return rec, 200
+
+@app.route("/v1/templates/<eid>", methods=["DELETE"])
+def delete_template(request, eid):
+    """Delete a Template."""
+    rows = _query("Template", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"sendgrid.Template", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/singlesends", methods=["POST"])
+def create_single_send(request):
+    """Create a SingleSend."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'status', 'templateId', 'senderId'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'status'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("sendgrid_sin")}
+    rec["name"] = data.get('name')
+    rec["status"] = data.get('status')
+    rec["templateId"] = data.get('templateId')
+    rec["senderId"] = data.get('senderId')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("SingleSend", rec)
+    return rec, 201
+
+@app.route("/v1/singlesends", methods=["GET"])
+def list_single_sends(request):
+    """List SingleSends with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("SingleSend")
+    rows = _apply_filters(rows, params, ['name', 'status', 'templateId', 'senderId'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/singlesends/<eid>", methods=["GET"])
+def get_single_send(request, eid):
+    """Retrieve a SingleSend by id (supports ?expand=)."""
+    rows = _query("SingleSend", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'templateId': 'Template', 'senderId': 'Sender'})
+    return rec, 200
+
+@app.route("/v1/singlesends/<eid>", methods=["POST", "PATCH"])
+def update_single_send(request, eid):
+    """Update a SingleSend."""
+    rows = _query("SingleSend", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'status', 'templateId', 'senderId'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("SingleSend", rec)
+    return rec, 200
+
+@app.route("/v1/singlesends/<eid>", methods=["DELETE"])
+def delete_single_send(request, eid):
+    """Delete a SingleSend."""
+    rows = _query("SingleSend", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"sendgrid.SingleSend", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/bounces", methods=["POST"])
+def create_bounce(request):
+    """Create a Bounce."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['email', 'reason', 'status'])
+    if err:
+        return err, 400
+    err = _require(data, ['email', 'reason'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("sendgrid_bou")}
+    rec["email"] = data.get('email')
+    rec["reason"] = data.get('reason')
     rec["status"] = data.get('status')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Message", rec)
+    _persist("Bounce", rec)
     return rec, 201
 
-@app.route("/v1/messages", methods=["GET"])
-def list_messages(request):
-    """List Messages with filtering + cursor pagination."""
+@app.route("/v1/bounces", methods=["GET"])
+def list_bounces(request):
+    """List Bounces with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Message")
-    rows = _apply_filters(rows, params, ['campaignId', 'profileId', 'channel', 'status'])
+    rows = _query("Bounce")
+    rows = _apply_filters(rows, params, ['email', 'reason', 'status'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/messages/<eid>", methods=["GET"])
-def get_message(request, eid):
-    """Retrieve a Message by id (supports ?expand=)."""
-    rows = _query("Message", eid)
+@app.route("/v1/bounces/<eid>", methods=["GET"])
+def get_bounce(request, eid):
+    """Retrieve a Bounce by id (supports ?expand=)."""
+    rows = _query("Bounce", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'campaignId': 'Campaign', 'profileId': 'Profile'})
     return rec, 200
 
-@app.route("/v1/messages/<eid>", methods=["POST", "PATCH"])
-def update_message(request, eid):
-    """Update a Message."""
-    rows = _query("Message", eid)
+@app.route("/v1/bounces/<eid>", methods=["POST", "PATCH"])
+def update_bounce(request, eid):
+    """Update a Bounce."""
+    rows = _query("Bounce", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['campaignId', 'profileId', 'channel', 'status'])
+    err = _reject_unknown(data, ['email', 'reason', 'status'])
     if err:
         return err, 400
     rec = rows[0]
@@ -429,64 +366,64 @@ def update_message(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Message", rec)
+    _persist("Bounce", rec)
     return rec, 200
 
-@app.route("/v1/messages/<eid>", methods=["DELETE"])
-def delete_message(request, eid):
-    """Delete a Message."""
-    rows = _query("Message", eid)
+@app.route("/v1/bounces/<eid>", methods=["DELETE"])
+def delete_bounce(request, eid):
+    """Delete a Bounce."""
+    rows = _query("Bounce", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"sendgrid.Message", "id": eid})
+    db.retract({"entity": f"sendgrid.Bounce", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/funnels", methods=["POST"])
-def create_funnel(request):
-    """Create a Funnel."""
+@app.route("/v1/unsubscribegroups", methods=["POST"])
+def create_unsubscribe_group(request):
+    """Create a UnsubscribeGroup."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'steps', 'conversionRate'])
+    err = _reject_unknown(data, ['name', 'description', 'isDefault'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'steps'])
+    err = _require(data, ['name', 'description'])
     if err:
         return err, 400
-    rec = {"id": new_id("sendgrid_fun")}
+    rec = {"id": new_id("sendgrid_uns")}
     rec["name"] = data.get('name')
-    rec["steps"] = data.get('steps')
-    rec["conversionRate"] = _as_float(data.get('conversionRate'))
+    rec["description"] = data.get('description')
+    rec["isDefault"] = _as_bool(data.get('isDefault'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Funnel", rec)
+    _persist("UnsubscribeGroup", rec)
     return rec, 201
 
-@app.route("/v1/funnels", methods=["GET"])
-def list_funnels(request):
-    """List Funnels with filtering + cursor pagination."""
+@app.route("/v1/unsubscribegroups", methods=["GET"])
+def list_unsubscribe_groups(request):
+    """List UnsubscribeGroups with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Funnel")
-    rows = _apply_filters(rows, params, ['name', 'steps', 'conversionRate'])
+    rows = _query("UnsubscribeGroup")
+    rows = _apply_filters(rows, params, ['name', 'description', 'isDefault'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/funnels/<eid>", methods=["GET"])
-def get_funnel(request, eid):
-    """Retrieve a Funnel by id (supports ?expand=)."""
-    rows = _query("Funnel", eid)
+@app.route("/v1/unsubscribegroups/<eid>", methods=["GET"])
+def get_unsubscribe_group(request, eid):
+    """Retrieve a UnsubscribeGroup by id (supports ?expand=)."""
+    rows = _query("UnsubscribeGroup", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/funnels/<eid>", methods=["POST", "PATCH"])
-def update_funnel(request, eid):
-    """Update a Funnel."""
-    rows = _query("Funnel", eid)
+@app.route("/v1/unsubscribegroups/<eid>", methods=["POST", "PATCH"])
+def update_unsubscribe_group(request, eid):
+    """Update a UnsubscribeGroup."""
+    rows = _query("UnsubscribeGroup", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'steps', 'conversionRate'])
+    err = _reject_unknown(data, ['name', 'description', 'isDefault'])
     if err:
         return err, 400
     rec = rows[0]
@@ -494,22 +431,88 @@ def update_funnel(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Funnel", rec)
+    _persist("UnsubscribeGroup", rec)
     return rec, 200
 
-@app.route("/v1/funnels/<eid>", methods=["DELETE"])
-def delete_funnel(request, eid):
-    """Delete a Funnel."""
-    rows = _query("Funnel", eid)
+@app.route("/v1/unsubscribegroups/<eid>", methods=["DELETE"])
+def delete_unsubscribe_group(request, eid):
+    """Delete a UnsubscribeGroup."""
+    rows = _query("UnsubscribeGroup", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"sendgrid.Funnel", "id": eid})
+    db.retract({"entity": f"sendgrid.UnsubscribeGroup", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/senders", methods=["POST"])
+def create_sender(request):
+    """Create a Sender."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['nickname', 'fromEmail', 'fromName', 'verified'])
+    if err:
+        return err, 400
+    err = _require(data, ['nickname', 'fromEmail'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("sendgrid_sen")}
+    rec["nickname"] = data.get('nickname')
+    rec["fromEmail"] = data.get('fromEmail')
+    rec["fromName"] = data.get('fromName')
+    rec["verified"] = _as_bool(data.get('verified'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Sender", rec)
+    return rec, 201
+
+@app.route("/v1/senders", methods=["GET"])
+def list_senders(request):
+    """List Senders with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Sender")
+    rows = _apply_filters(rows, params, ['nickname', 'fromEmail', 'fromName', 'verified'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/senders/<eid>", methods=["GET"])
+def get_sender(request, eid):
+    """Retrieve a Sender by id (supports ?expand=)."""
+    rows = _query("Sender", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/senders/<eid>", methods=["POST", "PATCH"])
+def update_sender(request, eid):
+    """Update a Sender."""
+    rows = _query("Sender", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['nickname', 'fromEmail', 'fromName', 'verified'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Sender", rec)
+    return rec, 200
+
+@app.route("/v1/senders/<eid>", methods=["DELETE"])
+def delete_sender(request, eid):
+    """Delete a Sender."""
+    rows = _query("Sender", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"sendgrid.Sender", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "sendgrid-compat", "tier": "L4",
-            "entities": ['Campaign', 'Audience', 'Event', 'Profile', 'Message', 'Funnel']}, 200
+            "entities": ['Contact', 'Template', 'SingleSend', 'Bounce', 'UnsubscribeGroup', 'Sender']}, 200
 
 
 if __name__ == "__main__":

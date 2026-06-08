@@ -457,6 +457,8 @@ def create_batch(request):
     err = _require(data, ['requestCount', 'status'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['processing', 'succeeded', 'failed', 'expired']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['processing', 'succeeded', 'failed', 'expired']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("anthropi_bat")}
     rec["modelId"] = data.get('modelId')
     rec["requestCount"] = _as_int(data.get('requestCount'))
@@ -496,6 +498,8 @@ def update_batch(request, eid):
     err = _reject_unknown(data, ['modelId', 'requestCount', 'status'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['processing', 'succeeded', 'failed', 'expired']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['processing', 'succeeded', 'failed', 'expired']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):

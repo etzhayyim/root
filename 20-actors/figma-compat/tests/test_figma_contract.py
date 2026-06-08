@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "figma.kotoba")
-ENTITIES = ['Project', 'File', 'Frame', 'Component', 'Comment', 'Export']
-PLURALS = {'Project': 'projects', 'File': 'files', 'Frame': 'frames', 'Component': 'components', 'Comment': 'comments', 'Export': 'exports'}
+ENTITIES = ['File', 'Node', 'Component', 'Comment', 'Project', 'Style']
+PLURALS = {'File': 'files', 'Node': 'nodes', 'Component': 'components', 'Comment': 'comments', 'Project': 'projects', 'Style': 'styles'}
 
 
 class FigmaContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class FigmaContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['type']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

@@ -324,6 +324,8 @@ def create_refund(request):
     err = _require(data, ['amount', 'currency'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['PENDING', 'COMPLETED', 'REJECTED', 'FAILED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['PENDING', 'COMPLETED', 'REJECTED', 'FAILED']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("square_ref")}
     rec["paymentId"] = data.get('paymentId')
     rec["amount"] = _as_int(data.get('amount'))
@@ -365,6 +367,8 @@ def update_refund(request, eid):
     err = _reject_unknown(data, ['paymentId', 'amount', 'currency', 'status', 'reason'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['PENDING', 'COMPLETED', 'REJECTED', 'FAILED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['PENDING', 'COMPLETED', 'REJECTED', 'FAILED']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -392,6 +396,8 @@ def create_catalog_object(request):
     err = _require(data, ['type', 'name'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in ['ITEM', 'CATEGORY', 'ITEM_VARIATION', 'TAX', 'DISCOUNT', 'MODIFIER_LIST', 'MODIFIER', 'TIME_PERIOD', 'PRODUCT_SET', 'PRICING_RULE', 'IMAGE', 'MEASUREMENT_UNIT', 'SUBSCRIPTION_PLAN', 'ITEM_OPTION', 'ITEM_OPTION_VAL', 'CUSTOM_ATTRIBUTE_DEFINITION', 'QUICK_AMOUNTS_SETTINGS', 'SUBSCRIPTION_PLAN_VARIATION', 'AVAILABILITY_PERIOD']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['ITEM', 'CATEGORY', 'ITEM_VARIATION', 'TAX', 'DISCOUNT', 'MODIFIER_LIST', 'MODIFIER', 'TIME_PERIOD', 'PRODUCT_SET', 'PRICING_RULE', 'IMAGE', 'MEASUREMENT_UNIT', 'SUBSCRIPTION_PLAN', 'ITEM_OPTION', 'ITEM_OPTION_VAL', 'CUSTOM_ATTRIBUTE_DEFINITION', 'QUICK_AMOUNTS_SETTINGS', 'SUBSCRIPTION_PLAN_VARIATION', 'AVAILABILITY_PERIOD']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("square_cat")}
     rec["type"] = data.get('type')
     rec["name"] = data.get('name')
@@ -430,6 +436,8 @@ def update_catalog_object(request, eid):
     err = _reject_unknown(data, ['type', 'name', 'version'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in ['ITEM', 'CATEGORY', 'ITEM_VARIATION', 'TAX', 'DISCOUNT', 'MODIFIER_LIST', 'MODIFIER', 'TIME_PERIOD', 'PRODUCT_SET', 'PRICING_RULE', 'IMAGE', 'MEASUREMENT_UNIT', 'SUBSCRIPTION_PLAN', 'ITEM_OPTION', 'ITEM_OPTION_VAL', 'CUSTOM_ATTRIBUTE_DEFINITION', 'QUICK_AMOUNTS_SETTINGS', 'SUBSCRIPTION_PLAN_VARIATION', 'AVAILABILITY_PERIOD']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['ITEM', 'CATEGORY', 'ITEM_VARIATION', 'TAX', 'DISCOUNT', 'MODIFIER_LIST', 'MODIFIER', 'TIME_PERIOD', 'PRODUCT_SET', 'PRICING_RULE', 'IMAGE', 'MEASUREMENT_UNIT', 'SUBSCRIPTION_PLAN', 'ITEM_OPTION', 'ITEM_OPTION_VAL', 'CUSTOM_ATTRIBUTE_DEFINITION', 'QUICK_AMOUNTS_SETTINGS', 'SUBSCRIPTION_PLAN_VARIATION', 'AVAILABILITY_PERIOD']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -457,6 +465,8 @@ def create_invoice(request):
     err = _require(data, ['status', 'invoiceNumber'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['DRAFT', 'PUBLISHED', 'SCHEDULED', 'SENT', 'PARTIALLY_PAID', 'PAID', 'PARTIALLY_REFUNDED', 'REFUNDED', 'CANCELED', 'FAILED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['DRAFT', 'PUBLISHED', 'SCHEDULED', 'SENT', 'PARTIALLY_PAID', 'PAID', 'PARTIALLY_REFUNDED', 'REFUNDED', 'CANCELED', 'FAILED']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("square_inv")}
     rec["orderId"] = data.get('orderId')
     rec["status"] = data.get('status')
@@ -496,6 +506,8 @@ def update_invoice(request, eid):
     err = _reject_unknown(data, ['orderId', 'status', 'invoiceNumber'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['DRAFT', 'PUBLISHED', 'SCHEDULED', 'SENT', 'PARTIALLY_PAID', 'PAID', 'PARTIALLY_REFUNDED', 'REFUNDED', 'CANCELED', 'FAILED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['DRAFT', 'PUBLISHED', 'SCHEDULED', 'SENT', 'PARTIALLY_PAID', 'PAID', 'PARTIALLY_REFUNDED', 'REFUNDED', 'CANCELED', 'FAILED']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):

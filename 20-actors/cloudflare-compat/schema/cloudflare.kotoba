@@ -3,71 +3,62 @@
 
 namespace cloudflare {
 
-    entity Project {
+    entity Zone {
         id: string @unique
         name: string
-        region: string
-        billingId: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity ComputeInstance {
-        id: string @unique
-        projectId: string
-        name: string
-        machineType: string
-        state: string
-        ipAddress: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Volume {
-        id: string @unique
-        projectId: string
-        sizeGb: integer
+        status: string
         type: string
-        attachedTo: string
+        paused: boolean
+        developmentMode: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Bucket {
+    entity DNSRecord {
         id: string @unique
-        projectId: string
         name: string
-        region: string
-        public: boolean
+        type: string
+        content: string
+        ttl: integer
+        proxied: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Network {
+    entity WorkerScript {
         id: string @unique
-        projectId: string
-        cidr: string
-        region: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity IamRole {
-        id: string @unique
-        projectId: string
         name: string
-        policy: string
+        usageModel: string
+        createdOn: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Certificate {
+        id: string @unique
+        hosts: string
+        status: string
+        type: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity PageRule {
+        id: string @unique
+        targetUrl: string
+        status: string
+        priority: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity LoadBalancer {
+        id: string @unique
+        name: string
+        enabled: boolean
+        proxied: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

@@ -10167,6 +10167,14 @@ status_note = "Adds shomei as a DID-centric believer identity binding and proof-
 path = "90-docs/adr/2606072100-shomei-believer-identity-binding-proof-of-personhood-r0.md"
 adr = ["2606072100", "2606072300", "2605260000", "2605181100", "2605231525", "2605215000"]
 
+[[adrs]]
+id = "2606082100"
+title = "Mishmar Storage Covenant — social-capital-funded bonded pinning for unstoppable persistence"
+status = "proposed"
+status_note = "Session-close ADR for the 2026-06-08 persistence/economic-security gap review. Chooses the Charter-clean incentive model for third-party data persistence: non-yielding bonded pinning, slash-to-commons through TitheRouter/Public Fund, social-capital-denominated retainers, and kotoba read+verify-only observation. It closes the design gap without creating live staking resources, Kubernetes resources, external-payment paths, or a yield-bearing/security-like token. Follow-ups: Social Capital ledger predicates, MishmarBondEscrow, witness challenge scheduler, and mKOTO retainer settlement."
+path = "90-docs/adr/2606082100-mishmar-storage-covenant-social-capital.md"
+adr = ["2606082100", "2605231400", "2605282100", "2604261717", "2605192100", "2605192200", "2605192130", "2605192145", "2605172100", "2605172300", "0075", "2605240001", "2605231525"]
+
 # ─── Donation policy (machine-readable SSoT, ADR-2606012100) ─────────────────
 # Public declaration: https://etzhayyim.com/donate + /.well-known/donation.json
 [donation]

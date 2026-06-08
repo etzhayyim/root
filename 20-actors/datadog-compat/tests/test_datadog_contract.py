@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "datadog.kotoba")
-ENTITIES = ['Service', 'Error', 'Trace', 'Metric', 'Alert', 'Incident']
-PLURALS = {'Service': 'services', 'Error': 'errors', 'Trace': 'traces', 'Metric': 'metrics', 'Alert': 'alerts', 'Incident': 'incidents'}
+ENTITIES = ['Monitor', 'Dashboard', 'TimeSeries', 'Event', 'Downtime', 'Incident']
+PLURALS = {'Monitor': 'monitors', 'Dashboard': 'dashboards', 'TimeSeries': 'timeserieses', 'Event': 'events', 'Downtime': 'downtimes', 'Incident': 'incidents'}
 
 
 class DatadogContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class DatadogContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['alertType', 'layoutType', 'overallState', 'priority', 'severity', 'status', 'type']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

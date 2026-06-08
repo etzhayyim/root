@@ -6,7 +6,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 30040,
+  "totalEndpoints": 30015,
   "l4SpecsAvailable": 1000,
   "apis": [
     {
@@ -335,7 +335,7 @@
     {
       "handle": "airtable-compat",
       "did": "did:web:etzhayyim.com:actor:airtable-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreibvewheitwk54mgyeoqq5orlkubbdjukr2bwtibcgxxeaauj4xceq",
@@ -981,7 +981,7 @@
     {
       "handle": "asana-compat",
       "did": "did:web:etzhayyim.com:actor:asana-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreifh3qbzbcy6a33d7gus5ffjtnwpj5hid64obcgwnkohumxse4zjmi",
@@ -2171,7 +2171,7 @@
     {
       "handle": "box-compat",
       "did": "did:web:etzhayyim.com:actor:box-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreiddmhozc2z45errrbbh3yh5vs4r4hlckluk46zzi4wzc2lotgxeyu",
@@ -3106,7 +3106,7 @@
     {
       "handle": "cloudflare-compat",
       "did": "did:web:etzhayyim.com:actor:cloudflare-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreigu3r5x6vudgbpypd6r4jdv4qmffvr5ibjnptt37vm2w5v3hqftae",
@@ -3242,7 +3242,7 @@
     {
       "handle": "coinbase-compat",
       "did": "did:web:etzhayyim.com:actor:coinbase-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreie6lzjl2fqs5vhbdhco6ikhxzlrluwy6mzbdshg7ypi2xcessrply",
@@ -3922,10 +3922,10 @@
     {
       "handle": "databricks-compat",
       "did": "did:web:etzhayyim.com:actor:databricks-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreibtyzesgtha46o3cafsfqwfsqeopiqhka4acyr6ad7srg3j6q63cm",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreic7cqk3x5zndnxpo3cwjqaljjk5i4nqhgsbttu3j4l6nvjrrth2bi",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -3939,7 +3939,7 @@
     {
       "handle": "datadog-compat",
       "did": "did:web:etzhayyim.com:actor:datadog-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreiei2la2wdiq2nhxgbzgpmdzgs5ulubq3ezzjak5vf7dyfmggbmrie",
@@ -4517,10 +4517,10 @@
     {
       "handle": "dropbox-compat",
       "did": "did:web:etzhayyim.com:actor:dropbox-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreidepd7brpc6lc5lrch5ekhu4wiarxaoqts2seof3yealknlbvvbv4",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreifwl4ma7h5ek5xugcltuygf3rrbqukcwhx4juatogqbtybumhkbgy",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -5622,7 +5622,7 @@
     {
       "handle": "figma-compat",
       "did": "did:web:etzhayyim.com:actor:figma-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreidqnoadnajzsspij3ylxtsp6dqlyei4lgwblt3dkpch2y72j37iq4",
@@ -6370,7 +6370,7 @@
     {
       "handle": "gitlab-compat",
       "did": "did:web:etzhayyim.com:actor:gitlab-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreih4gxrsiz2pzuirbygdx3v6iecbgb4zbws4x654mb3ktn3jeu3zfe",
@@ -6659,7 +6659,7 @@
     {
       "handle": "greenhouse-compat",
       "did": "did:web:etzhayyim.com:actor:greenhouse-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreihb7rndnigyemm75vpdsa7gtjj7sotso26czhyinogrinl47jg7vu",
@@ -7186,7 +7186,7 @@
     {
       "handle": "hubspot-compat",
       "did": "did:web:etzhayyim.com:actor:hubspot-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreiak7kavtyeq5xkwjiiaeanuue2vs4qcwfycmbencftisuw5fqllci",
@@ -8512,7 +8512,7 @@
     {
       "handle": "klaviyo-compat",
       "did": "did:web:etzhayyim.com:actor:klaviyo-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreif4hrn7utw3nousb7ajuy56nhvxjzexufse3rrmyj2bfagzchsjpu",
@@ -9209,7 +9209,7 @@
     {
       "handle": "mailchimp-compat",
       "did": "did:web:etzhayyim.com:actor:mailchimp-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreihzfxkbuhwlyhgwy7hkkk73h24w6mqjd5sfkjzkxn6xwyzxztfioi",
@@ -10875,10 +10875,10 @@
     {
       "handle": "notion-compat",
       "did": "did:web:etzhayyim.com:actor:notion-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreibeutu5q24gxgpbghsbbbgedf3pqaaxeqvkmscx7lictbpezvtmvm",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreif7jqdmgnfftwxspiie3qmdqeacyblfvefszzzlmf3v4wx3sc4nb4",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -11895,7 +11895,7 @@
     {
       "handle": "pipedrive-compat",
       "did": "did:web:etzhayyim.com:actor:pipedrive-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreifrhnx2bgxykll64vqayxxuv2sdonfi5r27xt5i2lwvqfk3ojqala",
@@ -13561,7 +13561,7 @@
     {
       "handle": "sendgrid-compat",
       "did": "did:web:etzhayyim.com:actor:sendgrid-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreiclpoa6rkzdzk2mtijk6ak7b7skkil6equmnep6y7gtjduzvu67du",
@@ -13595,7 +13595,7 @@
     {
       "handle": "sentry-compat",
       "did": "did:web:etzhayyim.com:actor:sentry-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreid6kvbdn5mqs33stfb7otsnv2yj4vrgdpsuoim76gv5zb6pavm2dy",
@@ -15380,7 +15380,7 @@
     {
       "handle": "twitch-compat",
       "did": "did:web:etzhayyim.com:actor:twitch-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreib23svsknutnnezlqzfudne55ttgluwadzc7p2d6ha7c5fef25qhy",
@@ -15771,10 +15771,10 @@
     {
       "handle": "vercel-compat",
       "did": "did:web:etzhayyim.com:actor:vercel-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreicipndzgzd6lord25hopx4i3w4chiwf6fysbmhlhqvi2towx7x2ji",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreidcs5xleripnw7n3xht4ms62ozwpfwfh2arqbbo7uktui534lttjq",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -16519,7 +16519,7 @@
     {
       "handle": "xero-compat",
       "did": "did:web:etzhayyim.com:actor:xero-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreiez7mstrybd3jjxtahalmbhuf3hdgdonf75f7iedk7o2abqme2sui",
@@ -16910,10 +16910,10 @@
     {
       "handle": "zoom-compat",
       "did": "did:web:etzhayyim.com:actor:zoom-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreibgz4t4pqnk2ltfcp353ug4mxcekgkgoss6p5hvcwdzjx7a3vdjbi",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreic7acvft62iltobeeyyzj2rofcls6efetjih3xyr3ovs7jonsbhh4",
       "health": "/healthz",
       "features": {
         "pagination": true,

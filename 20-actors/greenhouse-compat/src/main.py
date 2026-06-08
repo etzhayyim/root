@@ -111,78 +111,11 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/employees", methods=["POST"])
-def create_employee(request):
-    """Create a Employee."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['firstName', 'lastName', 'email', 'title', 'department'])
-    if err:
-        return err, 400
-    err = _require(data, ['firstName', 'lastName'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("greenhou_emp")}
-    rec["firstName"] = data.get('firstName')
-    rec["lastName"] = data.get('lastName')
-    rec["email"] = data.get('email')
-    rec["title"] = data.get('title')
-    rec["department"] = data.get('department')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Employee", rec)
-    return rec, 201
-
-@app.route("/v1/employees", methods=["GET"])
-def list_employees(request):
-    """List Employees with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Employee")
-    rows = _apply_filters(rows, params, ['firstName', 'lastName', 'email', 'title', 'department'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/employees/<eid>", methods=["GET"])
-def get_employee(request, eid):
-    """Retrieve a Employee by id (supports ?expand=)."""
-    rows = _query("Employee", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/employees/<eid>", methods=["POST", "PATCH"])
-def update_employee(request, eid):
-    """Update a Employee."""
-    rows = _query("Employee", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['firstName', 'lastName', 'email', 'title', 'department'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Employee", rec)
-    return rec, 200
-
-@app.route("/v1/employees/<eid>", methods=["DELETE"])
-def delete_employee(request, eid):
-    """Delete a Employee."""
-    rows = _query("Employee", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"greenhouse.Employee", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
 @app.route("/v1/candidates", methods=["POST"])
 def create_candidate(request):
     """Create a Candidate."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['firstName', 'lastName', 'email', 'stage'])
+    err = _reject_unknown(data, ['firstName', 'lastName', 'email', 'canEmail'])
     if err:
         return err, 400
     err = _require(data, ['firstName', 'lastName'])
@@ -192,7 +125,7 @@ def create_candidate(request):
     rec["firstName"] = data.get('firstName')
     rec["lastName"] = data.get('lastName')
     rec["email"] = data.get('email')
-    rec["stage"] = data.get('stage')
+    rec["canEmail"] = _as_bool(data.get('canEmail'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Candidate", rec)
@@ -203,7 +136,7 @@ def list_candidates(request):
     """List Candidates with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Candidate")
-    rows = _apply_filters(rows, params, ['firstName', 'lastName', 'email', 'stage'])
+    rows = _apply_filters(rows, params, ['firstName', 'lastName', 'email', 'canEmail'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -224,7 +157,7 @@ def update_candidate(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['firstName', 'lastName', 'email', 'stage'])
+    err = _reject_unknown(data, ['firstName', 'lastName', 'email', 'canEmail'])
     if err:
         return err, 400
     rec = rows[0]
@@ -244,119 +177,124 @@ def delete_candidate(request, eid):
     db.retract({"entity": f"greenhouse.Candidate", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/jobreqs", methods=["POST"])
-def create_job_req(request):
-    """Create a JobReq."""
+@app.route("/v1/applications", methods=["POST"])
+def create_application(request):
+    """Create a Application."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'department', 'status', 'openings'])
+    err = _reject_unknown(data, ['candidateId', 'prospect', 'appliedAt', 'status', 'jobPostId'])
     if err:
         return err, 400
-    err = _require(data, ['title', 'department'])
+    err = _require(data, ['prospect', 'appliedAt'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['active', 'rejected', 'hired', 'converted']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['active', 'rejected', 'hired', 'converted']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("greenhou_app")}
+    rec["candidateId"] = data.get('candidateId')
+    rec["prospect"] = _as_bool(data.get('prospect'))
+    rec["appliedAt"] = data.get('appliedAt')
+    rec["status"] = data.get('status')
+    rec["jobPostId"] = data.get('jobPostId')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Application", rec)
+    return rec, 201
+
+@app.route("/v1/applications", methods=["GET"])
+def list_applications(request):
+    """List Applications with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Application")
+    rows = _apply_filters(rows, params, ['candidateId', 'prospect', 'appliedAt', 'status', 'jobPostId'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/applications/<eid>", methods=["GET"])
+def get_application(request, eid):
+    """Retrieve a Application by id (supports ?expand=)."""
+    rows = _query("Application", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'candidateId': 'Candidate'})
+    return rec, 200
+
+@app.route("/v1/applications/<eid>", methods=["POST", "PATCH"])
+def update_application(request, eid):
+    """Update a Application."""
+    rows = _query("Application", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['candidateId', 'prospect', 'appliedAt', 'status', 'jobPostId'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['active', 'rejected', 'hired', 'converted']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['active', 'rejected', 'hired', 'converted']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Application", rec)
+    return rec, 200
+
+@app.route("/v1/applications/<eid>", methods=["DELETE"])
+def delete_application(request, eid):
+    """Delete a Application."""
+    rows = _query("Application", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"greenhouse.Application", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/jobs", methods=["POST"])
+def create_job(request):
+    """Create a Job."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'requisitionId', 'status'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'status'])
     if err:
         return err, 400
     rec = {"id": new_id("greenhou_job")}
-    rec["title"] = data.get('title')
-    rec["department"] = data.get('department')
-    rec["status"] = data.get('status')
-    rec["openings"] = _as_int(data.get('openings'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("JobReq", rec)
-    return rec, 201
-
-@app.route("/v1/jobreqs", methods=["GET"])
-def list_job_reqs(request):
-    """List JobReqs with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("JobReq")
-    rows = _apply_filters(rows, params, ['title', 'department', 'status', 'openings'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/jobreqs/<eid>", methods=["GET"])
-def get_job_req(request, eid):
-    """Retrieve a JobReq by id (supports ?expand=)."""
-    rows = _query("JobReq", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/jobreqs/<eid>", methods=["POST", "PATCH"])
-def update_job_req(request, eid):
-    """Update a JobReq."""
-    rows = _query("JobReq", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'department', 'status', 'openings'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("JobReq", rec)
-    return rec, 200
-
-@app.route("/v1/jobreqs/<eid>", methods=["DELETE"])
-def delete_job_req(request, eid):
-    """Delete a JobReq."""
-    rows = _query("JobReq", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"greenhouse.JobReq", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/payrollruns", methods=["POST"])
-def create_payroll_run(request):
-    """Create a PayrollRun."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['period', 'grossTotal', 'currency', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['period', 'grossTotal'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("greenhou_pay")}
-    rec["period"] = data.get('period')
-    rec["grossTotal"] = _as_float(data.get('grossTotal'))
-    rec["currency"] = data.get('currency')
+    rec["name"] = data.get('name')
+    rec["requisitionId"] = data.get('requisitionId')
     rec["status"] = data.get('status')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("PayrollRun", rec)
+    _persist("Job", rec)
     return rec, 201
 
-@app.route("/v1/payrollruns", methods=["GET"])
-def list_payroll_runs(request):
-    """List PayrollRuns with filtering + cursor pagination."""
+@app.route("/v1/jobs", methods=["GET"])
+def list_jobs(request):
+    """List Jobs with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("PayrollRun")
-    rows = _apply_filters(rows, params, ['period', 'grossTotal', 'currency', 'status'])
+    rows = _query("Job")
+    rows = _apply_filters(rows, params, ['name', 'requisitionId', 'status'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/payrollruns/<eid>", methods=["GET"])
-def get_payroll_run(request, eid):
-    """Retrieve a PayrollRun by id (supports ?expand=)."""
-    rows = _query("PayrollRun", eid)
+@app.route("/v1/jobs/<eid>", methods=["GET"])
+def get_job(request, eid):
+    """Retrieve a Job by id (supports ?expand=)."""
+    rows = _query("Job", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/payrollruns/<eid>", methods=["POST", "PATCH"])
-def update_payroll_run(request, eid):
-    """Update a PayrollRun."""
-    rows = _query("PayrollRun", eid)
+@app.route("/v1/jobs/<eid>", methods=["POST", "PATCH"])
+def update_job(request, eid):
+    """Update a Job."""
+    rows = _query("Job", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['period', 'grossTotal', 'currency', 'status'])
+    err = _reject_unknown(data, ['name', 'requisitionId', 'status'])
     if err:
         return err, 400
     rec = rows[0]
@@ -364,67 +302,67 @@ def update_payroll_run(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("PayrollRun", rec)
+    _persist("Job", rec)
     return rec, 200
 
-@app.route("/v1/payrollruns/<eid>", methods=["DELETE"])
-def delete_payroll_run(request, eid):
-    """Delete a PayrollRun."""
-    rows = _query("PayrollRun", eid)
+@app.route("/v1/jobs/<eid>", methods=["DELETE"])
+def delete_job(request, eid):
+    """Delete a Job."""
+    rows = _query("Job", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"greenhouse.PayrollRun", "id": eid})
+    db.retract({"entity": f"greenhouse.Job", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/timeoffs", methods=["POST"])
-def create_time_off(request):
-    """Create a TimeOff."""
+@app.route("/v1/offers", methods=["POST"])
+def create_offer(request):
+    """Create a Offer."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['employeeId', 'type', 'start', 'days', 'status'])
+    err = _reject_unknown(data, ['applicationId', 'candidateId', 'jobId', 'status', 'startDate'])
     if err:
         return err, 400
-    err = _require(data, ['type', 'start'])
+    err = _require(data, ['status', 'startDate'])
     if err:
         return err, 400
-    rec = {"id": new_id("greenhou_tim")}
-    rec["employeeId"] = data.get('employeeId')
-    rec["type"] = data.get('type')
-    rec["start"] = data.get('start')
-    rec["days"] = _as_float(data.get('days'))
+    rec = {"id": new_id("greenhou_off")}
+    rec["applicationId"] = data.get('applicationId')
+    rec["candidateId"] = data.get('candidateId')
+    rec["jobId"] = data.get('jobId')
     rec["status"] = data.get('status')
+    rec["startDate"] = data.get('startDate')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("TimeOff", rec)
+    _persist("Offer", rec)
     return rec, 201
 
-@app.route("/v1/timeoffs", methods=["GET"])
-def list_time_offs(request):
-    """List TimeOffs with filtering + cursor pagination."""
+@app.route("/v1/offers", methods=["GET"])
+def list_offers(request):
+    """List Offers with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("TimeOff")
-    rows = _apply_filters(rows, params, ['employeeId', 'type', 'start', 'days', 'status'])
+    rows = _query("Offer")
+    rows = _apply_filters(rows, params, ['applicationId', 'candidateId', 'jobId', 'status', 'startDate'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/timeoffs/<eid>", methods=["GET"])
-def get_time_off(request, eid):
-    """Retrieve a TimeOff by id (supports ?expand=)."""
-    rows = _query("TimeOff", eid)
+@app.route("/v1/offers/<eid>", methods=["GET"])
+def get_offer(request, eid):
+    """Retrieve a Offer by id (supports ?expand=)."""
+    rows = _query("Offer", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'employeeId': 'Employee'})
+    rec = _expand(rec, request.query or {}, {'applicationId': 'Application', 'candidateId': 'Candidate', 'jobId': 'Job'})
     return rec, 200
 
-@app.route("/v1/timeoffs/<eid>", methods=["POST", "PATCH"])
-def update_time_off(request, eid):
-    """Update a TimeOff."""
-    rows = _query("TimeOff", eid)
+@app.route("/v1/offers/<eid>", methods=["POST", "PATCH"])
+def update_offer(request, eid):
+    """Update a Offer."""
+    rows = _query("Offer", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['employeeId', 'type', 'start', 'days', 'status'])
+    err = _reject_unknown(data, ['applicationId', 'candidateId', 'jobId', 'status', 'startDate'])
     if err:
         return err, 400
     rec = rows[0]
@@ -432,66 +370,66 @@ def update_time_off(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("TimeOff", rec)
+    _persist("Offer", rec)
     return rec, 200
 
-@app.route("/v1/timeoffs/<eid>", methods=["DELETE"])
-def delete_time_off(request, eid):
-    """Delete a TimeOff."""
-    rows = _query("TimeOff", eid)
+@app.route("/v1/offers/<eid>", methods=["DELETE"])
+def delete_offer(request, eid):
+    """Delete a Offer."""
+    rows = _query("Offer", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"greenhouse.TimeOff", "id": eid})
+    db.retract({"entity": f"greenhouse.Offer", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/reviews", methods=["POST"])
-def create_review(request):
-    """Create a Review."""
+@app.route("/v1/scorecards", methods=["POST"])
+def create_scorecard(request):
+    """Create a Scorecard."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['employeeId', 'cycle', 'rating', 'reviewerId'])
+    err = _reject_unknown(data, ['applicationId', 'interviewerId', 'score', 'notes'])
     if err:
         return err, 400
-    err = _require(data, ['cycle', 'rating'])
+    err = _require(data, ['score', 'notes'])
     if err:
         return err, 400
-    rec = {"id": new_id("greenhou_rev")}
-    rec["employeeId"] = data.get('employeeId')
-    rec["cycle"] = data.get('cycle')
-    rec["rating"] = _as_float(data.get('rating'))
-    rec["reviewerId"] = data.get('reviewerId')
+    rec = {"id": new_id("greenhou_sco")}
+    rec["applicationId"] = data.get('applicationId')
+    rec["interviewerId"] = data.get('interviewerId')
+    rec["score"] = data.get('score')
+    rec["notes"] = data.get('notes')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Review", rec)
+    _persist("Scorecard", rec)
     return rec, 201
 
-@app.route("/v1/reviews", methods=["GET"])
-def list_reviews(request):
-    """List Reviews with filtering + cursor pagination."""
+@app.route("/v1/scorecards", methods=["GET"])
+def list_scorecards(request):
+    """List Scorecards with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Review")
-    rows = _apply_filters(rows, params, ['employeeId', 'cycle', 'rating', 'reviewerId'])
+    rows = _query("Scorecard")
+    rows = _apply_filters(rows, params, ['applicationId', 'interviewerId', 'score', 'notes'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/reviews/<eid>", methods=["GET"])
-def get_review(request, eid):
-    """Retrieve a Review by id (supports ?expand=)."""
-    rows = _query("Review", eid)
+@app.route("/v1/scorecards/<eid>", methods=["GET"])
+def get_scorecard(request, eid):
+    """Retrieve a Scorecard by id (supports ?expand=)."""
+    rows = _query("Scorecard", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'employeeId': 'Employee'})
+    rec = _expand(rec, request.query or {}, {'applicationId': 'Application'})
     return rec, 200
 
-@app.route("/v1/reviews/<eid>", methods=["POST", "PATCH"])
-def update_review(request, eid):
-    """Update a Review."""
-    rows = _query("Review", eid)
+@app.route("/v1/scorecards/<eid>", methods=["POST", "PATCH"])
+def update_scorecard(request, eid):
+    """Update a Scorecard."""
+    rows = _query("Scorecard", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['employeeId', 'cycle', 'rating', 'reviewerId'])
+    err = _reject_unknown(data, ['applicationId', 'interviewerId', 'score', 'notes'])
     if err:
         return err, 400
     rec = rows[0]
@@ -499,22 +437,89 @@ def update_review(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Review", rec)
+    _persist("Scorecard", rec)
     return rec, 200
 
-@app.route("/v1/reviews/<eid>", methods=["DELETE"])
-def delete_review(request, eid):
-    """Delete a Review."""
-    rows = _query("Review", eid)
+@app.route("/v1/scorecards/<eid>", methods=["DELETE"])
+def delete_scorecard(request, eid):
+    """Delete a Scorecard."""
+    rows = _query("Scorecard", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"greenhouse.Review", "id": eid})
+    db.retract({"entity": f"greenhouse.Scorecard", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/scheduledinterviews", methods=["POST"])
+def create_scheduled_interview(request):
+    """Create a ScheduledInterview."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['applicationId', 'name', 'scheduledAt', 'videoConferencingUrl'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'scheduledAt'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("greenhou_sch")}
+    rec["applicationId"] = data.get('applicationId')
+    rec["name"] = data.get('name')
+    rec["scheduledAt"] = data.get('scheduledAt')
+    rec["videoConferencingUrl"] = data.get('videoConferencingUrl')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("ScheduledInterview", rec)
+    return rec, 201
+
+@app.route("/v1/scheduledinterviews", methods=["GET"])
+def list_scheduled_interviews(request):
+    """List ScheduledInterviews with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("ScheduledInterview")
+    rows = _apply_filters(rows, params, ['applicationId', 'name', 'scheduledAt', 'videoConferencingUrl'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/scheduledinterviews/<eid>", methods=["GET"])
+def get_scheduled_interview(request, eid):
+    """Retrieve a ScheduledInterview by id (supports ?expand=)."""
+    rows = _query("ScheduledInterview", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'applicationId': 'Application'})
+    return rec, 200
+
+@app.route("/v1/scheduledinterviews/<eid>", methods=["POST", "PATCH"])
+def update_scheduled_interview(request, eid):
+    """Update a ScheduledInterview."""
+    rows = _query("ScheduledInterview", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['applicationId', 'name', 'scheduledAt', 'videoConferencingUrl'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("ScheduledInterview", rec)
+    return rec, 200
+
+@app.route("/v1/scheduledinterviews/<eid>", methods=["DELETE"])
+def delete_scheduled_interview(request, eid):
+    """Delete a ScheduledInterview."""
+    rows = _query("ScheduledInterview", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"greenhouse.ScheduledInterview", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "greenhouse-compat", "tier": "L4",
-            "entities": ['Employee', 'Candidate', 'JobReq', 'PayrollRun', 'TimeOff', 'Review']}, 200
+            "entities": ['Candidate', 'Application', 'Job', 'Offer', 'Scorecard', 'ScheduledInterview']}, 200
 
 
 if __name__ == "__main__":

@@ -3,68 +3,61 @@
 
 namespace asana {
 
-    entity Workspace {
+    entity Task {
         id: string @unique
         name: string
-        ownerId: string
-        plan: string
+        resourceSubtype: string
+        completed: boolean
+        completedAt: datetime
+        createdAt: datetime
+        approvalStatus: string
+        dueAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Document {
+    entity Project {
         id: string @unique
-        workspaceId: string
-        title: string
-        contentRef: string
-        ownerId: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Folder {
-        id: string @unique
-        workspaceId: string
         name: string
-        parentId: string
+        archived: boolean
+        color: string
+        completed: boolean
+        defaultView: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Comment {
+    entity Section {
         id: string @unique
-        documentId: string
-        authorId: string
-        body: string
+        name: string
         createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Permission {
-        id: string @unique
-        resourceId: string
-        principalId: string
-        role: string
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity User {
         id: string @unique
+        name: string
         email: string
-        displayName: string
-        status: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Tag {
+        id: string @unique
+        name: string
+        color: string
+        notes: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Workspace {
+        id: string @unique
+        name: string
+        isOrganization: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

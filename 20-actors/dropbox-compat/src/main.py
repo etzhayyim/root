@@ -111,52 +111,57 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/workspaces", methods=["POST"])
-def create_workspace(request):
-    """Create a Workspace."""
+@app.route("/v1/filemetadatas", methods=["POST"])
+def create_file_metadata(request):
+    """Create a FileMetadata."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'plan'])
+    err = _reject_unknown(data, ['name', 'pathLower', 'pathDisplay', 'id', 'rev', 'size', 'isDownloadable', 'contentHash'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'plan'])
+    err = _require(data, ['name', 'pathLower'])
     if err:
         return err, 400
-    rec = {"id": new_id("dropbox_wor")}
+    rec = {"id": new_id("dropbox_fil")}
     rec["name"] = data.get('name')
-    rec["ownerId"] = data.get('ownerId')
-    rec["plan"] = data.get('plan')
+    rec["pathLower"] = data.get('pathLower')
+    rec["pathDisplay"] = data.get('pathDisplay')
+    rec["id"] = data.get('id')
+    rec["rev"] = data.get('rev')
+    rec["size"] = _as_int(data.get('size'))
+    rec["isDownloadable"] = _as_bool(data.get('isDownloadable'))
+    rec["contentHash"] = data.get('contentHash')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Workspace", rec)
+    _persist("FileMetadata", rec)
     return rec, 201
 
-@app.route("/v1/workspaces", methods=["GET"])
-def list_workspaces(request):
-    """List Workspaces with filtering + cursor pagination."""
+@app.route("/v1/filemetadatas", methods=["GET"])
+def list_file_metadatas(request):
+    """List FileMetadatas with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Workspace")
-    rows = _apply_filters(rows, params, ['name', 'ownerId', 'plan'])
+    rows = _query("FileMetadata")
+    rows = _apply_filters(rows, params, ['name', 'pathLower', 'pathDisplay', 'id', 'rev', 'size', 'isDownloadable', 'contentHash'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/workspaces/<eid>", methods=["GET"])
-def get_workspace(request, eid):
-    """Retrieve a Workspace by id (supports ?expand=)."""
-    rows = _query("Workspace", eid)
+@app.route("/v1/filemetadatas/<eid>", methods=["GET"])
+def get_file_metadata(request, eid):
+    """Retrieve a FileMetadata by id (supports ?expand=)."""
+    rows = _query("FileMetadata", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/workspaces/<eid>", methods=["POST", "PATCH"])
-def update_workspace(request, eid):
-    """Update a Workspace."""
-    rows = _query("Workspace", eid)
+@app.route("/v1/filemetadatas/<eid>", methods=["POST", "PATCH"])
+def update_file_metadata(request, eid):
+    """Update a FileMetadata."""
+    rows = _query("FileMetadata", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'plan'])
+    err = _reject_unknown(data, ['name', 'pathLower', 'pathDisplay', 'id', 'rev', 'size', 'isDownloadable', 'contentHash'])
     if err:
         return err, 400
     rec = rows[0]
@@ -164,132 +169,67 @@ def update_workspace(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Workspace", rec)
+    _persist("FileMetadata", rec)
     return rec, 200
 
-@app.route("/v1/workspaces/<eid>", methods=["DELETE"])
-def delete_workspace(request, eid):
-    """Delete a Workspace."""
-    rows = _query("Workspace", eid)
+@app.route("/v1/filemetadatas/<eid>", methods=["DELETE"])
+def delete_file_metadata(request, eid):
+    """Delete a FileMetadata."""
+    rows = _query("FileMetadata", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"dropbox.Workspace", "id": eid})
+    db.retract({"entity": f"dropbox.FileMetadata", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/documents", methods=["POST"])
-def create_document(request):
-    """Create a Document."""
+@app.route("/v1/foldermetadatas", methods=["POST"])
+def create_folder_metadata(request):
+    """Create a FolderMetadata."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'title', 'contentRef', 'ownerId'])
+    err = _reject_unknown(data, ['name', 'pathLower', 'pathDisplay', 'id', 'sharedFolderId'])
     if err:
         return err, 400
-    err = _require(data, ['title'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("dropbox_doc")}
-    rec["workspaceId"] = data.get('workspaceId')
-    rec["title"] = data.get('title')
-    rec["contentRef"] = data.get('contentRef')
-    rec["ownerId"] = data.get('ownerId')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Document", rec)
-    return rec, 201
-
-@app.route("/v1/documents", methods=["GET"])
-def list_documents(request):
-    """List Documents with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Document")
-    rows = _apply_filters(rows, params, ['workspaceId', 'title', 'contentRef', 'ownerId'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/documents/<eid>", methods=["GET"])
-def get_document(request, eid):
-    """Retrieve a Document by id (supports ?expand=)."""
-    rows = _query("Document", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'workspaceId': 'Workspace'})
-    return rec, 200
-
-@app.route("/v1/documents/<eid>", methods=["POST", "PATCH"])
-def update_document(request, eid):
-    """Update a Document."""
-    rows = _query("Document", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'title', 'contentRef', 'ownerId'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Document", rec)
-    return rec, 200
-
-@app.route("/v1/documents/<eid>", methods=["DELETE"])
-def delete_document(request, eid):
-    """Delete a Document."""
-    rows = _query("Document", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"dropbox.Document", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/folders", methods=["POST"])
-def create_folder(request):
-    """Create a Folder."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'name', 'parentId'])
-    if err:
-        return err, 400
-    err = _require(data, ['name'])
+    err = _require(data, ['name', 'pathLower'])
     if err:
         return err, 400
     rec = {"id": new_id("dropbox_fol")}
-    rec["workspaceId"] = data.get('workspaceId')
     rec["name"] = data.get('name')
-    rec["parentId"] = data.get('parentId')
+    rec["pathLower"] = data.get('pathLower')
+    rec["pathDisplay"] = data.get('pathDisplay')
+    rec["id"] = data.get('id')
+    rec["sharedFolderId"] = data.get('sharedFolderId')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Folder", rec)
+    _persist("FolderMetadata", rec)
     return rec, 201
 
-@app.route("/v1/folders", methods=["GET"])
-def list_folders(request):
-    """List Folders with filtering + cursor pagination."""
+@app.route("/v1/foldermetadatas", methods=["GET"])
+def list_folder_metadatas(request):
+    """List FolderMetadatas with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Folder")
-    rows = _apply_filters(rows, params, ['workspaceId', 'name', 'parentId'])
+    rows = _query("FolderMetadata")
+    rows = _apply_filters(rows, params, ['name', 'pathLower', 'pathDisplay', 'id', 'sharedFolderId'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/folders/<eid>", methods=["GET"])
-def get_folder(request, eid):
-    """Retrieve a Folder by id (supports ?expand=)."""
-    rows = _query("Folder", eid)
+@app.route("/v1/foldermetadatas/<eid>", methods=["GET"])
+def get_folder_metadata(request, eid):
+    """Retrieve a FolderMetadata by id (supports ?expand=)."""
+    rows = _query("FolderMetadata", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'workspaceId': 'Workspace'})
+    rec = _expand(rec, request.query or {}, {'sharedFolderId': 'SharedFolder'})
     return rec, 200
 
-@app.route("/v1/folders/<eid>", methods=["POST", "PATCH"])
-def update_folder(request, eid):
-    """Update a Folder."""
-    rows = _query("Folder", eid)
+@app.route("/v1/foldermetadatas/<eid>", methods=["POST", "PATCH"])
+def update_folder_metadata(request, eid):
+    """Update a FolderMetadata."""
+    rows = _query("FolderMetadata", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'name', 'parentId'])
+    err = _reject_unknown(data, ['name', 'pathLower', 'pathDisplay', 'id', 'sharedFolderId'])
     if err:
         return err, 400
     rec = rows[0]
@@ -297,195 +237,142 @@ def update_folder(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Folder", rec)
+    _persist("FolderMetadata", rec)
     return rec, 200
 
-@app.route("/v1/folders/<eid>", methods=["DELETE"])
-def delete_folder(request, eid):
-    """Delete a Folder."""
-    rows = _query("Folder", eid)
+@app.route("/v1/foldermetadatas/<eid>", methods=["DELETE"])
+def delete_folder_metadata(request, eid):
+    """Delete a FolderMetadata."""
+    rows = _query("FolderMetadata", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"dropbox.Folder", "id": eid})
+    db.retract({"entity": f"dropbox.FolderMetadata", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/comments", methods=["POST"])
-def create_comment(request):
-    """Create a Comment."""
+@app.route("/v1/sharedlinks", methods=["POST"])
+def create_shared_link(request):
+    """Create a SharedLink."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['documentId', 'authorId', 'body'])
+    err = _reject_unknown(data, ['url', 'path', 'visibility', 'requestedVisibility'])
     if err:
         return err, 400
-    err = _require(data, ['body'])
+    err = _require(data, ['url', 'path'])
     if err:
         return err, 400
-    rec = {"id": new_id("dropbox_com")}
-    rec["documentId"] = data.get('documentId')
-    rec["authorId"] = data.get('authorId')
-    rec["body"] = data.get('body')
+    if data.get('requestedVisibility') and data['requestedVisibility'] not in ['public', 'team_only', 'password']:
+        return {"error": {"message": "invalid requestedVisibility; allowed: " + ", ".join(['public', 'team_only', 'password']), "type": "invalid_request_error"}}, 400
+    if data.get('visibility') and data['visibility'] not in ['public', 'team_only', 'password', 'team_and_password', 'shared_folder_only', 'no_one', 'only_you', 'other']:
+        return {"error": {"message": "invalid visibility; allowed: " + ", ".join(['public', 'team_only', 'password', 'team_and_password', 'shared_folder_only', 'no_one', 'only_you', 'other']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("dropbox_sha")}
+    rec["url"] = data.get('url')
+    rec["path"] = data.get('path')
+    rec["visibility"] = data.get('visibility')
+    rec["requestedVisibility"] = data.get('requestedVisibility')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Comment", rec)
+    _persist("SharedLink", rec)
     return rec, 201
 
-@app.route("/v1/comments", methods=["GET"])
-def list_comments(request):
-    """List Comments with filtering + cursor pagination."""
+@app.route("/v1/sharedlinks", methods=["GET"])
+def list_shared_links(request):
+    """List SharedLinks with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Comment")
-    rows = _apply_filters(rows, params, ['documentId', 'authorId', 'body'])
+    rows = _query("SharedLink")
+    rows = _apply_filters(rows, params, ['url', 'path', 'visibility', 'requestedVisibility'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/comments/<eid>", methods=["GET"])
-def get_comment(request, eid):
-    """Retrieve a Comment by id (supports ?expand=)."""
-    rows = _query("Comment", eid)
+@app.route("/v1/sharedlinks/<eid>", methods=["GET"])
+def get_shared_link(request, eid):
+    """Retrieve a SharedLink by id (supports ?expand=)."""
+    rows = _query("SharedLink", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'documentId': 'Document'})
     return rec, 200
 
-@app.route("/v1/comments/<eid>", methods=["POST", "PATCH"])
-def update_comment(request, eid):
-    """Update a Comment."""
-    rows = _query("Comment", eid)
+@app.route("/v1/sharedlinks/<eid>", methods=["POST", "PATCH"])
+def update_shared_link(request, eid):
+    """Update a SharedLink."""
+    rows = _query("SharedLink", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['documentId', 'authorId', 'body'])
+    err = _reject_unknown(data, ['url', 'path', 'visibility', 'requestedVisibility'])
     if err:
         return err, 400
+    if data.get('requestedVisibility') and data['requestedVisibility'] not in ['public', 'team_only', 'password']:
+        return {"error": {"message": "invalid requestedVisibility; allowed: " + ", ".join(['public', 'team_only', 'password']), "type": "invalid_request_error"}}, 400
+    if data.get('visibility') and data['visibility'] not in ['public', 'team_only', 'password', 'team_and_password', 'shared_folder_only', 'no_one', 'only_you', 'other']:
+        return {"error": {"message": "invalid visibility; allowed: " + ", ".join(['public', 'team_only', 'password', 'team_and_password', 'shared_folder_only', 'no_one', 'only_you', 'other']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Comment", rec)
+    _persist("SharedLink", rec)
     return rec, 200
 
-@app.route("/v1/comments/<eid>", methods=["DELETE"])
-def delete_comment(request, eid):
-    """Delete a Comment."""
-    rows = _query("Comment", eid)
+@app.route("/v1/sharedlinks/<eid>", methods=["DELETE"])
+def delete_shared_link(request, eid):
+    """Delete a SharedLink."""
+    rows = _query("SharedLink", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"dropbox.Comment", "id": eid})
+    db.retract({"entity": f"dropbox.SharedLink", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/permissions", methods=["POST"])
-def create_permission(request):
-    """Create a Permission."""
+@app.route("/v1/accounts", methods=["POST"])
+def create_account(request):
+    """Create a Account."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['resourceId', 'principalId', 'role'])
+    err = _reject_unknown(data, ['accountId', 'email', 'emailVerified', 'displayName', 'locale', 'country'])
     if err:
         return err, 400
-    err = _require(data, ['role'])
+    err = _require(data, ['email', 'emailVerified'])
     if err:
         return err, 400
-    rec = {"id": new_id("dropbox_per")}
-    rec["resourceId"] = data.get('resourceId')
-    rec["principalId"] = data.get('principalId')
-    rec["role"] = data.get('role')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Permission", rec)
-    return rec, 201
-
-@app.route("/v1/permissions", methods=["GET"])
-def list_permissions(request):
-    """List Permissions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Permission")
-    rows = _apply_filters(rows, params, ['resourceId', 'principalId', 'role'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/permissions/<eid>", methods=["GET"])
-def get_permission(request, eid):
-    """Retrieve a Permission by id (supports ?expand=)."""
-    rows = _query("Permission", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/permissions/<eid>", methods=["POST", "PATCH"])
-def update_permission(request, eid):
-    """Update a Permission."""
-    rows = _query("Permission", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['resourceId', 'principalId', 'role'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Permission", rec)
-    return rec, 200
-
-@app.route("/v1/permissions/<eid>", methods=["DELETE"])
-def delete_permission(request, eid):
-    """Delete a Permission."""
-    rows = _query("Permission", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"dropbox.Permission", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/users", methods=["POST"])
-def create_user(request):
-    """Create a User."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'displayName', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['email', 'displayName'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("dropbox_use")}
+    rec = {"id": new_id("dropbox_acc")}
+    rec["accountId"] = data.get('accountId')
     rec["email"] = data.get('email')
+    rec["emailVerified"] = _as_bool(data.get('emailVerified'))
     rec["displayName"] = data.get('displayName')
-    rec["status"] = data.get('status')
+    rec["locale"] = data.get('locale')
+    rec["country"] = data.get('country')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("User", rec)
+    _persist("Account", rec)
     return rec, 201
 
-@app.route("/v1/users", methods=["GET"])
-def list_users(request):
-    """List Users with filtering + cursor pagination."""
+@app.route("/v1/accounts", methods=["GET"])
+def list_accounts(request):
+    """List Accounts with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("User")
-    rows = _apply_filters(rows, params, ['email', 'displayName', 'status'])
+    rows = _query("Account")
+    rows = _apply_filters(rows, params, ['accountId', 'email', 'emailVerified', 'displayName', 'locale', 'country'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/users/<eid>", methods=["GET"])
-def get_user(request, eid):
-    """Retrieve a User by id (supports ?expand=)."""
-    rows = _query("User", eid)
+@app.route("/v1/accounts/<eid>", methods=["GET"])
+def get_account(request, eid):
+    """Retrieve a Account by id (supports ?expand=)."""
+    rows = _query("Account", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'accountId': 'Account'})
     return rec, 200
 
-@app.route("/v1/users/<eid>", methods=["POST", "PATCH"])
-def update_user(request, eid):
-    """Update a User."""
-    rows = _query("User", eid)
+@app.route("/v1/accounts/<eid>", methods=["POST", "PATCH"])
+def update_account(request, eid):
+    """Update a Account."""
+    rows = _query("Account", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'displayName', 'status'])
+    err = _reject_unknown(data, ['accountId', 'email', 'emailVerified', 'displayName', 'locale', 'country'])
     if err:
         return err, 400
     rec = rows[0]
@@ -493,22 +380,93 @@ def update_user(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("User", rec)
+    _persist("Account", rec)
     return rec, 200
 
-@app.route("/v1/users/<eid>", methods=["DELETE"])
-def delete_user(request, eid):
-    """Delete a User."""
-    rows = _query("User", eid)
+@app.route("/v1/accounts/<eid>", methods=["DELETE"])
+def delete_account(request, eid):
+    """Delete a Account."""
+    rows = _query("Account", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"dropbox.User", "id": eid})
+    db.retract({"entity": f"dropbox.Account", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/sharedfolders", methods=["POST"])
+def create_shared_folder(request):
+    """Create a SharedFolder."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['sharedFolderId', 'name', 'pathLower', 'accessType'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'pathLower'])
+    if err:
+        return err, 400
+    if data.get('accessType') and data['accessType'] not in ['owner', 'editor', 'viewer', 'viewer_no_comment', 'traverse', 'no_access']:
+        return {"error": {"message": "invalid accessType; allowed: " + ", ".join(['owner', 'editor', 'viewer', 'viewer_no_comment', 'traverse', 'no_access']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("dropbox_sha")}
+    rec["sharedFolderId"] = data.get('sharedFolderId')
+    rec["name"] = data.get('name')
+    rec["pathLower"] = data.get('pathLower')
+    rec["accessType"] = data.get('accessType')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("SharedFolder", rec)
+    return rec, 201
+
+@app.route("/v1/sharedfolders", methods=["GET"])
+def list_shared_folders(request):
+    """List SharedFolders with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("SharedFolder")
+    rows = _apply_filters(rows, params, ['sharedFolderId', 'name', 'pathLower', 'accessType'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/sharedfolders/<eid>", methods=["GET"])
+def get_shared_folder(request, eid):
+    """Retrieve a SharedFolder by id (supports ?expand=)."""
+    rows = _query("SharedFolder", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'sharedFolderId': 'SharedFolder'})
+    return rec, 200
+
+@app.route("/v1/sharedfolders/<eid>", methods=["POST", "PATCH"])
+def update_shared_folder(request, eid):
+    """Update a SharedFolder."""
+    rows = _query("SharedFolder", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['sharedFolderId', 'name', 'pathLower', 'accessType'])
+    if err:
+        return err, 400
+    if data.get('accessType') and data['accessType'] not in ['owner', 'editor', 'viewer', 'viewer_no_comment', 'traverse', 'no_access']:
+        return {"error": {"message": "invalid accessType; allowed: " + ", ".join(['owner', 'editor', 'viewer', 'viewer_no_comment', 'traverse', 'no_access']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("SharedFolder", rec)
+    return rec, 200
+
+@app.route("/v1/sharedfolders/<eid>", methods=["DELETE"])
+def delete_shared_folder(request, eid):
+    """Delete a SharedFolder."""
+    rows = _query("SharedFolder", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"dropbox.SharedFolder", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "dropbox-compat", "tier": "L4",
-            "entities": ['Workspace', 'Document', 'Folder', 'Comment', 'Permission', 'User']}, 200
+            "entities": ['FileMetadata', 'FolderMetadata', 'SharedLink', 'Account', 'SharedFolder']}, 200
 
 
 if __name__ == "__main__":

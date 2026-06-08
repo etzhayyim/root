@@ -111,119 +111,120 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/workspaces", methods=["POST"])
-def create_workspace(request):
-    """Create a Workspace."""
+@app.route("/v1/bases", methods=["POST"])
+def create_base(request):
+    """Create a Base."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'plan'])
+    err = _reject_unknown(data, ['name', 'permissionLevel'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'plan'])
+    err = _require(data, ['name', 'permissionLevel'])
     if err:
         return err, 400
-    rec = {"id": new_id("airtable_wor")}
+    if data.get('permissionLevel') and data['permissionLevel'] not in ['none', 'read', 'comment', 'edit', 'create']:
+        return {"error": {"message": "invalid permissionLevel; allowed: " + ", ".join(['none', 'read', 'comment', 'edit', 'create']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("airtable_bas")}
     rec["name"] = data.get('name')
-    rec["ownerId"] = data.get('ownerId')
-    rec["plan"] = data.get('plan')
+    rec["permissionLevel"] = data.get('permissionLevel')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Workspace", rec)
+    _persist("Base", rec)
     return rec, 201
 
-@app.route("/v1/workspaces", methods=["GET"])
-def list_workspaces(request):
-    """List Workspaces with filtering + cursor pagination."""
+@app.route("/v1/bases", methods=["GET"])
+def list_bases(request):
+    """List Bases with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Workspace")
-    rows = _apply_filters(rows, params, ['name', 'ownerId', 'plan'])
+    rows = _query("Base")
+    rows = _apply_filters(rows, params, ['name', 'permissionLevel'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/workspaces/<eid>", methods=["GET"])
-def get_workspace(request, eid):
-    """Retrieve a Workspace by id (supports ?expand=)."""
-    rows = _query("Workspace", eid)
+@app.route("/v1/bases/<eid>", methods=["GET"])
+def get_base(request, eid):
+    """Retrieve a Base by id (supports ?expand=)."""
+    rows = _query("Base", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/workspaces/<eid>", methods=["POST", "PATCH"])
-def update_workspace(request, eid):
-    """Update a Workspace."""
-    rows = _query("Workspace", eid)
+@app.route("/v1/bases/<eid>", methods=["POST", "PATCH"])
+def update_base(request, eid):
+    """Update a Base."""
+    rows = _query("Base", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'plan'])
+    err = _reject_unknown(data, ['name', 'permissionLevel'])
     if err:
         return err, 400
+    if data.get('permissionLevel') and data['permissionLevel'] not in ['none', 'read', 'comment', 'edit', 'create']:
+        return {"error": {"message": "invalid permissionLevel; allowed: " + ", ".join(['none', 'read', 'comment', 'edit', 'create']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Workspace", rec)
+    _persist("Base", rec)
     return rec, 200
 
-@app.route("/v1/workspaces/<eid>", methods=["DELETE"])
-def delete_workspace(request, eid):
-    """Delete a Workspace."""
-    rows = _query("Workspace", eid)
+@app.route("/v1/bases/<eid>", methods=["DELETE"])
+def delete_base(request, eid):
+    """Delete a Base."""
+    rows = _query("Base", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"airtable.Workspace", "id": eid})
+    db.retract({"entity": f"airtable.Base", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/documents", methods=["POST"])
-def create_document(request):
-    """Create a Document."""
+@app.route("/v1/tables", methods=["POST"])
+def create_table(request):
+    """Create a Table."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'title', 'contentRef', 'ownerId'])
+    err = _reject_unknown(data, ['name', 'description', 'primaryFieldId'])
     if err:
         return err, 400
-    err = _require(data, ['title'])
+    err = _require(data, ['name', 'description'])
     if err:
         return err, 400
-    rec = {"id": new_id("airtable_doc")}
-    rec["workspaceId"] = data.get('workspaceId')
-    rec["title"] = data.get('title')
-    rec["contentRef"] = data.get('contentRef')
-    rec["ownerId"] = data.get('ownerId')
+    rec = {"id": new_id("airtable_tab")}
+    rec["name"] = data.get('name')
+    rec["description"] = data.get('description')
+    rec["primaryFieldId"] = data.get('primaryFieldId')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Document", rec)
+    _persist("Table", rec)
     return rec, 201
 
-@app.route("/v1/documents", methods=["GET"])
-def list_documents(request):
-    """List Documents with filtering + cursor pagination."""
+@app.route("/v1/tables", methods=["GET"])
+def list_tables(request):
+    """List Tables with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Document")
-    rows = _apply_filters(rows, params, ['workspaceId', 'title', 'contentRef', 'ownerId'])
+    rows = _query("Table")
+    rows = _apply_filters(rows, params, ['name', 'description', 'primaryFieldId'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/documents/<eid>", methods=["GET"])
-def get_document(request, eid):
-    """Retrieve a Document by id (supports ?expand=)."""
-    rows = _query("Document", eid)
+@app.route("/v1/tables/<eid>", methods=["GET"])
+def get_table(request, eid):
+    """Retrieve a Table by id (supports ?expand=)."""
+    rows = _query("Table", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'workspaceId': 'Workspace'})
     return rec, 200
 
-@app.route("/v1/documents/<eid>", methods=["POST", "PATCH"])
-def update_document(request, eid):
-    """Update a Document."""
-    rows = _query("Document", eid)
+@app.route("/v1/tables/<eid>", methods=["POST", "PATCH"])
+def update_table(request, eid):
+    """Update a Table."""
+    rows = _query("Table", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'title', 'contentRef', 'ownerId'])
+    err = _reject_unknown(data, ['name', 'description', 'primaryFieldId'])
     if err:
         return err, 400
     rec = rows[0]
@@ -231,65 +232,132 @@ def update_document(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Document", rec)
+    _persist("Table", rec)
     return rec, 200
 
-@app.route("/v1/documents/<eid>", methods=["DELETE"])
-def delete_document(request, eid):
-    """Delete a Document."""
-    rows = _query("Document", eid)
+@app.route("/v1/tables/<eid>", methods=["DELETE"])
+def delete_table(request, eid):
+    """Delete a Table."""
+    rows = _query("Table", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"airtable.Document", "id": eid})
+    db.retract({"entity": f"airtable.Table", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/folders", methods=["POST"])
-def create_folder(request):
-    """Create a Folder."""
+@app.route("/v1/fields", methods=["POST"])
+def create_field(request):
+    """Create a Field."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'name', 'parentId'])
+    err = _reject_unknown(data, ['name', 'type', 'description'])
     if err:
         return err, 400
-    err = _require(data, ['name'])
+    err = _require(data, ['name', 'type'])
     if err:
         return err, 400
-    rec = {"id": new_id("airtable_fol")}
-    rec["workspaceId"] = data.get('workspaceId')
+    if data.get('type') and data['type'] not in ['aiText', 'multipleAttachments', 'autoNumber', 'barcode', 'button', 'checkbox', 'singleCollaborator', 'count', 'createdBy', 'createdTime', 'currency', 'date', 'dateTime', 'duration', 'email', 'formula', 'lastModifiedBy', 'lastModifiedTime', 'multipleRecordLinks', 'multilineText', 'multipleLookupValues', 'multipleCollaborators', 'multipleSelects', 'number', 'percent', 'phoneNumber', 'rating', 'richText', 'rollup', 'singleLineText', 'singleSelect', 'externalSyncSource', 'url']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['aiText', 'multipleAttachments', 'autoNumber', 'barcode', 'button', 'checkbox', 'singleCollaborator', 'count', 'createdBy', 'createdTime', 'currency', 'date', 'dateTime', 'duration', 'email', 'formula', 'lastModifiedBy', 'lastModifiedTime', 'multipleRecordLinks', 'multilineText', 'multipleLookupValues', 'multipleCollaborators', 'multipleSelects', 'number', 'percent', 'phoneNumber', 'rating', 'richText', 'rollup', 'singleLineText', 'singleSelect', 'externalSyncSource', 'url']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("airtable_fie")}
     rec["name"] = data.get('name')
-    rec["parentId"] = data.get('parentId')
+    rec["type"] = data.get('type')
+    rec["description"] = data.get('description')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Folder", rec)
+    _persist("Field", rec)
     return rec, 201
 
-@app.route("/v1/folders", methods=["GET"])
-def list_folders(request):
-    """List Folders with filtering + cursor pagination."""
+@app.route("/v1/fields", methods=["GET"])
+def list_fields(request):
+    """List Fields with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Folder")
-    rows = _apply_filters(rows, params, ['workspaceId', 'name', 'parentId'])
+    rows = _query("Field")
+    rows = _apply_filters(rows, params, ['name', 'type', 'description'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/folders/<eid>", methods=["GET"])
-def get_folder(request, eid):
-    """Retrieve a Folder by id (supports ?expand=)."""
-    rows = _query("Folder", eid)
+@app.route("/v1/fields/<eid>", methods=["GET"])
+def get_field(request, eid):
+    """Retrieve a Field by id (supports ?expand=)."""
+    rows = _query("Field", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'workspaceId': 'Workspace'})
     return rec, 200
 
-@app.route("/v1/folders/<eid>", methods=["POST", "PATCH"])
-def update_folder(request, eid):
-    """Update a Folder."""
-    rows = _query("Folder", eid)
+@app.route("/v1/fields/<eid>", methods=["POST", "PATCH"])
+def update_field(request, eid):
+    """Update a Field."""
+    rows = _query("Field", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'name', 'parentId'])
+    err = _reject_unknown(data, ['name', 'type', 'description'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['aiText', 'multipleAttachments', 'autoNumber', 'barcode', 'button', 'checkbox', 'singleCollaborator', 'count', 'createdBy', 'createdTime', 'currency', 'date', 'dateTime', 'duration', 'email', 'formula', 'lastModifiedBy', 'lastModifiedTime', 'multipleRecordLinks', 'multilineText', 'multipleLookupValues', 'multipleCollaborators', 'multipleSelects', 'number', 'percent', 'phoneNumber', 'rating', 'richText', 'rollup', 'singleLineText', 'singleSelect', 'externalSyncSource', 'url']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['aiText', 'multipleAttachments', 'autoNumber', 'barcode', 'button', 'checkbox', 'singleCollaborator', 'count', 'createdBy', 'createdTime', 'currency', 'date', 'dateTime', 'duration', 'email', 'formula', 'lastModifiedBy', 'lastModifiedTime', 'multipleRecordLinks', 'multilineText', 'multipleLookupValues', 'multipleCollaborators', 'multipleSelects', 'number', 'percent', 'phoneNumber', 'rating', 'richText', 'rollup', 'singleLineText', 'singleSelect', 'externalSyncSource', 'url']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Field", rec)
+    return rec, 200
+
+@app.route("/v1/fields/<eid>", methods=["DELETE"])
+def delete_field(request, eid):
+    """Delete a Field."""
+    rows = _query("Field", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"airtable.Field", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/records", methods=["POST"])
+def create_record(request):
+    """Create a Record."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['createdTime', 'fieldsJson'])
+    if err:
+        return err, 400
+    err = _require(data, ['createdTime', 'fieldsJson'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("airtable_rec")}
+    rec["createdTime"] = data.get('createdTime')
+    rec["fieldsJson"] = data.get('fieldsJson')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Record", rec)
+    return rec, 201
+
+@app.route("/v1/records", methods=["GET"])
+def list_records(request):
+    """List Records with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Record")
+    rows = _apply_filters(rows, params, ['createdTime', 'fieldsJson'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/records/<eid>", methods=["GET"])
+def get_record(request, eid):
+    """Retrieve a Record by id (supports ?expand=)."""
+    rows = _query("Record", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/records/<eid>", methods=["POST", "PATCH"])
+def update_record(request, eid):
+    """Update a Record."""
+    rows = _query("Record", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['createdTime', 'fieldsJson'])
     if err:
         return err, 400
     rec = rows[0]
@@ -297,32 +365,100 @@ def update_folder(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Folder", rec)
+    _persist("Record", rec)
     return rec, 200
 
-@app.route("/v1/folders/<eid>", methods=["DELETE"])
-def delete_folder(request, eid):
-    """Delete a Folder."""
-    rows = _query("Folder", eid)
+@app.route("/v1/records/<eid>", methods=["DELETE"])
+def delete_record(request, eid):
+    """Delete a Record."""
+    rows = _query("Record", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"airtable.Folder", "id": eid})
+    db.retract({"entity": f"airtable.Record", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/views", methods=["POST"])
+def create_view(request):
+    """Create a View."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'type', 'personalForUserId'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'type'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['grid', 'form', 'calendar', 'gallery', 'kanban', 'timeline', 'block']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['grid', 'form', 'calendar', 'gallery', 'kanban', 'timeline', 'block']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("airtable_vie")}
+    rec["name"] = data.get('name')
+    rec["type"] = data.get('type')
+    rec["personalForUserId"] = data.get('personalForUserId')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("View", rec)
+    return rec, 201
+
+@app.route("/v1/views", methods=["GET"])
+def list_views(request):
+    """List Views with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("View")
+    rows = _apply_filters(rows, params, ['name', 'type', 'personalForUserId'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/views/<eid>", methods=["GET"])
+def get_view(request, eid):
+    """Retrieve a View by id (supports ?expand=)."""
+    rows = _query("View", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/views/<eid>", methods=["POST", "PATCH"])
+def update_view(request, eid):
+    """Update a View."""
+    rows = _query("View", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'type', 'personalForUserId'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['grid', 'form', 'calendar', 'gallery', 'kanban', 'timeline', 'block']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['grid', 'form', 'calendar', 'gallery', 'kanban', 'timeline', 'block']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("View", rec)
+    return rec, 200
+
+@app.route("/v1/views/<eid>", methods=["DELETE"])
+def delete_view(request, eid):
+    """Delete a View."""
+    rows = _query("View", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"airtable.View", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/v1/comments", methods=["POST"])
 def create_comment(request):
     """Create a Comment."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['documentId', 'authorId', 'body'])
+    err = _reject_unknown(data, ['text', 'lastUpdatedTime'])
     if err:
         return err, 400
-    err = _require(data, ['body'])
+    err = _require(data, ['text', 'lastUpdatedTime'])
     if err:
         return err, 400
     rec = {"id": new_id("airtable_com")}
-    rec["documentId"] = data.get('documentId')
-    rec["authorId"] = data.get('authorId')
-    rec["body"] = data.get('body')
+    rec["text"] = data.get('text')
+    rec["lastUpdatedTime"] = data.get('lastUpdatedTime')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Comment", rec)
@@ -333,7 +469,7 @@ def list_comments(request):
     """List Comments with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Comment")
-    rows = _apply_filters(rows, params, ['documentId', 'authorId', 'body'])
+    rows = _apply_filters(rows, params, ['text', 'lastUpdatedTime'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -345,7 +481,6 @@ def get_comment(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'documentId': 'Document'})
     return rec, 200
 
 @app.route("/v1/comments/<eid>", methods=["POST", "PATCH"])
@@ -355,7 +490,7 @@ def update_comment(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['documentId', 'authorId', 'body'])
+    err = _reject_unknown(data, ['text', 'lastUpdatedTime'])
     if err:
         return err, 400
     rec = rows[0]
@@ -375,140 +510,10 @@ def delete_comment(request, eid):
     db.retract({"entity": f"airtable.Comment", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/permissions", methods=["POST"])
-def create_permission(request):
-    """Create a Permission."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['resourceId', 'principalId', 'role'])
-    if err:
-        return err, 400
-    err = _require(data, ['role'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("airtable_per")}
-    rec["resourceId"] = data.get('resourceId')
-    rec["principalId"] = data.get('principalId')
-    rec["role"] = data.get('role')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Permission", rec)
-    return rec, 201
-
-@app.route("/v1/permissions", methods=["GET"])
-def list_permissions(request):
-    """List Permissions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Permission")
-    rows = _apply_filters(rows, params, ['resourceId', 'principalId', 'role'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/permissions/<eid>", methods=["GET"])
-def get_permission(request, eid):
-    """Retrieve a Permission by id (supports ?expand=)."""
-    rows = _query("Permission", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/permissions/<eid>", methods=["POST", "PATCH"])
-def update_permission(request, eid):
-    """Update a Permission."""
-    rows = _query("Permission", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['resourceId', 'principalId', 'role'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Permission", rec)
-    return rec, 200
-
-@app.route("/v1/permissions/<eid>", methods=["DELETE"])
-def delete_permission(request, eid):
-    """Delete a Permission."""
-    rows = _query("Permission", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"airtable.Permission", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/users", methods=["POST"])
-def create_user(request):
-    """Create a User."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'displayName', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['email', 'displayName'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("airtable_use")}
-    rec["email"] = data.get('email')
-    rec["displayName"] = data.get('displayName')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("User", rec)
-    return rec, 201
-
-@app.route("/v1/users", methods=["GET"])
-def list_users(request):
-    """List Users with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("User")
-    rows = _apply_filters(rows, params, ['email', 'displayName', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/users/<eid>", methods=["GET"])
-def get_user(request, eid):
-    """Retrieve a User by id (supports ?expand=)."""
-    rows = _query("User", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/users/<eid>", methods=["POST", "PATCH"])
-def update_user(request, eid):
-    """Update a User."""
-    rows = _query("User", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'displayName', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("User", rec)
-    return rec, 200
-
-@app.route("/v1/users/<eid>", methods=["DELETE"])
-def delete_user(request, eid):
-    """Delete a User."""
-    rows = _query("User", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"airtable.User", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "airtable-compat", "tier": "L4",
-            "entities": ['Workspace', 'Document', 'Folder', 'Comment', 'Permission', 'User']}, 200
+            "entities": ['Base', 'Table', 'Field', 'Record', 'View', 'Comment']}, 200
 
 
 if __name__ == "__main__":

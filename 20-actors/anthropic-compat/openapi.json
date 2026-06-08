@@ -1585,7 +1585,13 @@
             "type": "integer"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "processing",
+              "succeeded",
+              "failed",
+              "expired"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1607,7 +1613,13 @@
             "type": "integer"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "processing",
+              "succeeded",
+              "failed",
+              "expired"
+            ]
           }
         },
         "required": [

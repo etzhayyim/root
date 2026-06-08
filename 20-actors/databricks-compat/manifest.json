@@ -5,21 +5,62 @@
   "kind": "compat",
   "title": "databricks clean-room actor",
   "description": "Clean-room, API-compatible data / analytics actor (databricks); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibtyzesgtha46o3cafsfqwfsqeopiqhka4acyr6ad7srg3j6q63cm",
+  "wasmCid": "bafkreic7cqk3x5zndnxpo3cwjqaljjk5i4nqhgsbttu3j4l6nvjrrth2bi",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibtyzesgtha46o3cafsfqwfsqeopiqhka4acyr6ad7srg3j6q63cm",
+  "ipfs": "ipfs://bafkreic7cqk3x5zndnxpo3cwjqaljjk5i4nqhgsbttu3j4l6nvjrrth2bi",
   "schema": "schema/databricks.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://docs.databricks.com/api",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "Cluster",
+      "Job",
+      "Run",
+      "Warehouse",
+      "ObjectInfo"
+    ],
+    "enums": {
+      "Run": {
+        "state": [
+          "PENDING",
+          "RUNNING",
+          "TERMINATING",
+          "TERMINATED"
+        ]
+      },
+      "Warehouse": {
+        "warehouseType": [
+          "CLASSIC",
+          "SERVERLESS"
+        ]
+      },
+      "ObjectInfo": {
+        "objectType": [
+          "NOTEBOOK",
+          "DIRECTORY",
+          "FILE",
+          "LIBRARY",
+          "REPO",
+          "DASHBOARD"
+        ],
+        "language": [
+          "PYTHON",
+          "R",
+          "SCALA",
+          "SQL"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Dataset",
-    "Query",
-    "Dashboard",
-    "Report",
-    "Connection",
-    "Metric"
+    "Cluster",
+    "Job",
+    "Run",
+    "Warehouse",
+    "ObjectInfo"
   ],
   "adr": [
     "260607",
@@ -31,157 +72,132 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/datasets",
-          "op": "create Dataset"
+          "path": "/v1/clusters",
+          "op": "create Cluster"
         },
         {
           "method": "GET",
-          "path": "/v1/datasets",
-          "op": "list Dataset"
+          "path": "/v1/clusters",
+          "op": "list Cluster"
         },
         {
           "method": "GET",
-          "path": "/v1/datasets/{id}",
-          "op": "get Dataset"
+          "path": "/v1/clusters/{id}",
+          "op": "get Cluster"
         },
         {
           "method": "PATCH",
-          "path": "/v1/datasets/{id}",
-          "op": "update Dataset"
+          "path": "/v1/clusters/{id}",
+          "op": "update Cluster"
         },
         {
           "method": "DELETE",
-          "path": "/v1/datasets/{id}",
-          "op": "delete Dataset"
+          "path": "/v1/clusters/{id}",
+          "op": "delete Cluster"
         },
         {
           "method": "POST",
-          "path": "/v1/queries",
-          "op": "create Query"
+          "path": "/v1/jobs",
+          "op": "create Job"
         },
         {
           "method": "GET",
-          "path": "/v1/queries",
-          "op": "list Query"
+          "path": "/v1/jobs",
+          "op": "list Job"
         },
         {
           "method": "GET",
-          "path": "/v1/queries/{id}",
-          "op": "get Query"
+          "path": "/v1/jobs/{id}",
+          "op": "get Job"
         },
         {
           "method": "PATCH",
-          "path": "/v1/queries/{id}",
-          "op": "update Query"
+          "path": "/v1/jobs/{id}",
+          "op": "update Job"
         },
         {
           "method": "DELETE",
-          "path": "/v1/queries/{id}",
-          "op": "delete Query"
+          "path": "/v1/jobs/{id}",
+          "op": "delete Job"
         },
         {
           "method": "POST",
-          "path": "/v1/dashboards",
-          "op": "create Dashboard"
+          "path": "/v1/runs",
+          "op": "create Run"
         },
         {
           "method": "GET",
-          "path": "/v1/dashboards",
-          "op": "list Dashboard"
+          "path": "/v1/runs",
+          "op": "list Run"
         },
         {
           "method": "GET",
-          "path": "/v1/dashboards/{id}",
-          "op": "get Dashboard"
+          "path": "/v1/runs/{id}",
+          "op": "get Run"
         },
         {
           "method": "PATCH",
-          "path": "/v1/dashboards/{id}",
-          "op": "update Dashboard"
+          "path": "/v1/runs/{id}",
+          "op": "update Run"
         },
         {
           "method": "DELETE",
-          "path": "/v1/dashboards/{id}",
-          "op": "delete Dashboard"
+          "path": "/v1/runs/{id}",
+          "op": "delete Run"
         },
         {
           "method": "POST",
-          "path": "/v1/reports",
-          "op": "create Report"
+          "path": "/v1/warehouses",
+          "op": "create Warehouse"
         },
         {
           "method": "GET",
-          "path": "/v1/reports",
-          "op": "list Report"
+          "path": "/v1/warehouses",
+          "op": "list Warehouse"
         },
         {
           "method": "GET",
-          "path": "/v1/reports/{id}",
-          "op": "get Report"
+          "path": "/v1/warehouses/{id}",
+          "op": "get Warehouse"
         },
         {
           "method": "PATCH",
-          "path": "/v1/reports/{id}",
-          "op": "update Report"
+          "path": "/v1/warehouses/{id}",
+          "op": "update Warehouse"
         },
         {
           "method": "DELETE",
-          "path": "/v1/reports/{id}",
-          "op": "delete Report"
+          "path": "/v1/warehouses/{id}",
+          "op": "delete Warehouse"
         },
         {
           "method": "POST",
-          "path": "/v1/connections",
-          "op": "create Connection"
+          "path": "/v1/objectinfos",
+          "op": "create ObjectInfo"
         },
         {
           "method": "GET",
-          "path": "/v1/connections",
-          "op": "list Connection"
+          "path": "/v1/objectinfos",
+          "op": "list ObjectInfo"
         },
         {
           "method": "GET",
-          "path": "/v1/connections/{id}",
-          "op": "get Connection"
+          "path": "/v1/objectinfos/{id}",
+          "op": "get ObjectInfo"
         },
         {
           "method": "PATCH",
-          "path": "/v1/connections/{id}",
-          "op": "update Connection"
+          "path": "/v1/objectinfos/{id}",
+          "op": "update ObjectInfo"
         },
         {
           "method": "DELETE",
-          "path": "/v1/connections/{id}",
-          "op": "delete Connection"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/metrics",
-          "op": "create Metric"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/metrics",
-          "op": "list Metric"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/metrics/{id}",
-          "op": "get Metric"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/metrics/{id}",
-          "op": "update Metric"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/metrics/{id}",
-          "op": "delete Metric"
+          "path": "/v1/objectinfos/{id}",
+          "op": "delete ObjectInfo"
         }
       ],
       "features": {
@@ -244,44 +260,44 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
         {
-          "name": "create_dataset",
-          "description": "Create a Dataset.",
+          "name": "create_cluster",
+          "description": "Create a Cluster.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "clusterName": {
                 "type": "string"
               },
-              "source": {
+              "state": {
                 "type": "string"
               },
-              "schemaRef": {
+              "sparkVersion": {
                 "type": "string"
               },
-              "rowCount": {
+              "numWorkers": {
                 "type": "integer"
               }
             },
             "required": [
-              "name",
-              "source"
+              "clusterName",
+              "state"
             ]
           }
         },
         {
-          "name": "list_datasets",
-          "description": "List Datasets.",
+          "name": "list_clusters",
+          "description": "List Clusters.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_dataset",
-          "description": "Get a Dataset by id.",
+          "name": "get_cluster",
+          "description": "Get a Cluster by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,24 +311,24 @@
           }
         },
         {
-          "name": "update_dataset",
-          "description": "Update a Dataset.",
+          "name": "update_cluster",
+          "description": "Update a Cluster.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
+              "clusterName": {
                 "type": "string"
               },
-              "source": {
+              "state": {
                 "type": "string"
               },
-              "schemaRef": {
+              "sparkVersion": {
                 "type": "string"
               },
-              "rowCount": {
+              "numWorkers": {
                 "type": "integer"
               }
             },
@@ -322,8 +338,8 @@
           }
         },
         {
-          "name": "delete_dataset",
-          "description": "Delete a Dataset.",
+          "name": "delete_cluster",
+          "description": "Delete a Cluster.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -337,37 +353,38 @@
           }
         },
         {
-          "name": "create_query",
-          "description": "Create a Query.",
+          "name": "create_job",
+          "description": "Create a Job.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "datasetId": {
+              "jobId": {
+                "type": "integer"
+              },
+              "creatorUserName": {
                 "type": "string"
               },
-              "sql": {
-                "type": "string"
-              },
-              "ownerId": {
+              "createdTime": {
                 "type": "string"
               }
             },
             "required": [
-              "sql"
+              "creatorUserName",
+              "createdTime"
             ]
           }
         },
         {
-          "name": "list_queries",
-          "description": "List Queries.",
+          "name": "list_jobs",
+          "description": "List Jobs.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_query",
-          "description": "Get a Query by id.",
+          "name": "get_job",
+          "description": "Get a Job by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -381,21 +398,21 @@
           }
         },
         {
-          "name": "update_query",
-          "description": "Update a Query.",
+          "name": "update_job",
+          "description": "Update a Job.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "datasetId": {
+              "jobId": {
+                "type": "integer"
+              },
+              "creatorUserName": {
                 "type": "string"
               },
-              "sql": {
-                "type": "string"
-              },
-              "ownerId": {
+              "createdTime": {
                 "type": "string"
               }
             },
@@ -405,8 +422,8 @@
           }
         },
         {
-          "name": "delete_query",
-          "description": "Delete a Query.",
+          "name": "delete_job",
+          "description": "Delete a Job.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -420,38 +437,137 @@
           }
         },
         {
-          "name": "create_dashboard",
-          "description": "Create a Dashboard.",
+          "name": "create_run",
+          "description": "Create a Run.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "runId": {
+                "type": "integer"
+              },
+              "jobId": {
+                "type": "integer"
+              },
+              "state": {
+                "type": "string"
+              },
+              "runName": {
+                "type": "string"
+              },
+              "startTime": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "state",
+              "runName"
+            ]
+          }
+        },
+        {
+          "name": "list_runs",
+          "description": "List Runs.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_run",
+          "description": "Get a Run by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_run",
+          "description": "Update a Run.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "runId": {
+                "type": "integer"
+              },
+              "jobId": {
+                "type": "integer"
+              },
+              "state": {
+                "type": "string"
+              },
+              "runName": {
+                "type": "string"
+              },
+              "startTime": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_run",
+          "description": "Delete a Run.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_warehouse",
+          "description": "Create a Warehouse.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "ownerId": {
+              "state": {
                 "type": "string"
               },
-              "layout": {
+              "warehouseType": {
+                "type": "string"
+              },
+              "clusterSize": {
                 "type": "string"
               }
             },
             "required": [
               "name",
-              "layout"
+              "state"
             ]
           }
         },
         {
-          "name": "list_dashboards",
-          "description": "List Dashboards.",
+          "name": "list_warehouses",
+          "description": "List Warehouses.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_dashboard",
-          "description": "Get a Dashboard by id.",
+          "name": "get_warehouse",
+          "description": "Get a Warehouse by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -465,8 +581,8 @@
           }
         },
         {
-          "name": "update_dashboard",
-          "description": "Update a Dashboard.",
+          "name": "update_warehouse",
+          "description": "Update a Warehouse.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -476,10 +592,13 @@
               "name": {
                 "type": "string"
               },
-              "ownerId": {
+              "state": {
                 "type": "string"
               },
-              "layout": {
+              "warehouseType": {
+                "type": "string"
+              },
+              "clusterSize": {
                 "type": "string"
               }
             },
@@ -489,8 +608,8 @@
           }
         },
         {
-          "name": "delete_dashboard",
-          "description": "Delete a Dashboard.",
+          "name": "delete_warehouse",
+          "description": "Delete a Warehouse.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -504,38 +623,41 @@
           }
         },
         {
-          "name": "create_report",
-          "description": "Create a Report.",
+          "name": "create_object_info",
+          "description": "Create a ObjectInfo.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "dashboardId": {
+              "path": {
                 "type": "string"
               },
-              "name": {
+              "objectType": {
                 "type": "string"
               },
-              "schedule": {
+              "language": {
                 "type": "string"
+              },
+              "size": {
+                "type": "integer"
               }
             },
             "required": [
-              "name",
-              "schedule"
+              "path",
+              "objectType"
             ]
           }
         },
         {
-          "name": "list_reports",
-          "description": "List Reports.",
+          "name": "list_object_infos",
+          "description": "List ObjectInfos.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_report",
-          "description": "Get a Report by id.",
+          "name": "get_object_info",
+          "description": "Get a ObjectInfo by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -549,22 +671,25 @@
           }
         },
         {
-          "name": "update_report",
-          "description": "Update a Report.",
+          "name": "update_object_info",
+          "description": "Update a ObjectInfo.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "dashboardId": {
+              "path": {
                 "type": "string"
               },
-              "name": {
+              "objectType": {
                 "type": "string"
               },
-              "schedule": {
+              "language": {
                 "type": "string"
+              },
+              "size": {
+                "type": "integer"
               }
             },
             "required": [
@@ -573,188 +698,8 @@
           }
         },
         {
-          "name": "delete_report",
-          "description": "Delete a Report.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_connection",
-          "description": "Create a Connection.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "host": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "name",
-              "type"
-            ]
-          }
-        },
-        {
-          "name": "list_connections",
-          "description": "List Connections.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_connection",
-          "description": "Get a Connection by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_connection",
-          "description": "Update a Connection.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "host": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_connection",
-          "description": "Delete a Connection.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_metric",
-          "description": "Create a Metric.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "datasetId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "expression": {
-                "type": "string"
-              },
-              "unit": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "expression"
-            ]
-          }
-        },
-        {
-          "name": "list_metrics",
-          "description": "List Metrics.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_metric",
-          "description": "Get a Metric by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_metric",
-          "description": "Update a Metric.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "datasetId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "expression": {
-                "type": "string"
-              },
-              "unit": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_metric",
-          "description": "Delete a Metric.",
+          "name": "delete_object_info",
+          "description": "Delete a ObjectInfo.",
           "inputSchema": {
             "type": "object",
             "properties": {

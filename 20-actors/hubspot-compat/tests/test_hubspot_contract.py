@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "hubspot.kotoba")
-ENTITIES = ['Account', 'Contact', 'Lead', 'Opportunity', 'Activity', 'Pipeline']
-PLURALS = {'Account': 'accounts', 'Contact': 'contacts', 'Lead': 'leads', 'Opportunity': 'opportunities', 'Activity': 'activities', 'Pipeline': 'pipelines'}
+ENTITIES = ['Contact', 'Company', 'Deal', 'Ticket', 'LineItem', 'Pipeline']
+PLURALS = {'Contact': 'contacts', 'Company': 'companies', 'Deal': 'deals', 'Ticket': 'tickets', 'LineItem': 'lineitems', 'Pipeline': 'pipelines'}
 
 
 class HubspotContract(unittest.TestCase):

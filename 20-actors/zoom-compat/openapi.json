@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible communications / social actor (zoom); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:zoom-compat",
-    "x-wasm-cid": "bafkreibgz4t4pqnk2ltfcp353ug4mxcekgkgoss6p5hvcwdzjx7a3vdjbi",
+    "x-wasm-cid": "bafkreic7acvft62iltobeeyyzj2rofcls6efetjih3xyr3ovs7jonsbhh4",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreibgz4t4pqnk2ltfcp353ug4mxcekgkgoss6p5hvcwdzjx7a3vdjbi",
+      "url": "ipfs://bafkreic7acvft62iltobeeyyzj2rofcls6efetjih3xyr3ovs7jonsbhh4",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/channels": {
+    "/v1/meetings": {
       "get": {
-        "summary": "List Channels",
+        "summary": "List Meetings",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Channel"
+                        "$ref": "#/components/schemas/Meeting"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Channel",
+        "summary": "Create a Meeting",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ChannelCreate"
+                "$ref": "#/components/schemas/MeetingCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Channel"
+                  "$ref": "#/components/schemas/Meeting"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/channels/{id}": {
+    "/v1/meetings/{id}": {
       "get": {
-        "summary": "Get a Channel",
+        "summary": "Get a Meeting",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Channel"
+                  "$ref": "#/components/schemas/Meeting"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Channel",
+        "summary": "Update a Meeting",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ChannelCreate"
+                "$ref": "#/components/schemas/MeetingCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Channel"
+                  "$ref": "#/components/schemas/Meeting"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Channel",
+        "summary": "Delete a Meeting",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/messages": {
+    "/v1/webinars": {
       "get": {
-        "summary": "List Messages",
+        "summary": "List Webinars",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Message"
+                        "$ref": "#/components/schemas/Webinar"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Message",
+        "summary": "Create a Webinar",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MessageCreate"
+                "$ref": "#/components/schemas/WebinarCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Message"
+                  "$ref": "#/components/schemas/Webinar"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/messages/{id}": {
+    "/v1/webinars/{id}": {
       "get": {
-        "summary": "Get a Message",
+        "summary": "Get a Webinar",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Message"
+                  "$ref": "#/components/schemas/Webinar"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Message",
+        "summary": "Update a Webinar",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MessageCreate"
+                "$ref": "#/components/schemas/WebinarCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Message"
+                  "$ref": "#/components/schemas/Webinar"
                 }
               }
             }
@@ -366,7 +366,377 @@
         }
       },
       "delete": {
-        "summary": "Delete a Message",
+        "summary": "Delete a Webinar",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/recordings": {
+      "get": {
+        "summary": "List Recordings",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Recording"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a Recording",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecordingCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Recording"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/recordings/{id}": {
+      "get": {
+        "summary": "Get a Recording",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Recording"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a Recording",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecordingCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Recording"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a Recording",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/registrants": {
+      "get": {
+        "summary": "List Registrants",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Registrant"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a Registrant",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrantCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Registrant"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/registrants/{id}": {
+      "get": {
+        "summary": "Get a Registrant",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Registrant"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a Registrant",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrantCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Registrant"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a Registrant",
         "parameters": [
           {
             "name": "id",
@@ -572,561 +942,6 @@
         }
       }
     },
-    "/v1/rooms": {
-      "get": {
-        "summary": "List Rooms",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Room"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Room",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RoomCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Room"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/rooms/{id}": {
-      "get": {
-        "summary": "Get a Room",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Room"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Room",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RoomCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Room"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Room",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/streams": {
-      "get": {
-        "summary": "List Streams",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Stream"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Stream",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/StreamCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Stream"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/streams/{id}": {
-      "get": {
-        "summary": "Get a Stream",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Stream"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Stream",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/StreamCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Stream"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Stream",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/webhooks": {
-      "get": {
-        "summary": "List Webhooks",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Webhook"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Webhook",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/WebhookCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Webhook"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/webhooks/{id}": {
-      "get": {
-        "summary": "Get a Webhook",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Webhook"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Webhook",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/WebhookCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Webhook"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Webhook",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
     "/healthz": {
       "get": {
         "summary": "Health probe",
@@ -1140,23 +955,40 @@
   },
   "components": {
     "schemas": {
-      "Channel": {
+      "Meeting": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
           "topic": {
             "type": "string"
           },
-          "memberCount": {
+          "type": {
             "type": "integer"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "waiting",
+              "started",
+              "ended",
+              "completed",
+              "processing"
+            ]
+          },
+          "duration": {
+            "type": "integer"
+          },
+          "timezone": {
+            "type": "string"
+          },
+          "hostId": {
+            "type": "string"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
           },
           "createdAt": {
             "type": "string",
@@ -1168,45 +1000,60 @@
           }
         }
       },
-      "ChannelCreate": {
+      "MeetingCreate": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
           "topic": {
             "type": "string"
           },
-          "memberCount": {
+          "type": {
             "type": "integer"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "waiting",
+              "started",
+              "ended",
+              "completed",
+              "processing"
+            ]
+          },
+          "duration": {
+            "type": "integer"
+          },
+          "timezone": {
+            "type": "string"
+          },
+          "hostId": {
+            "type": "string"
+          },
+          "startTime": {
+            "type": "string"
           }
         },
         "required": [
-          "name",
+          "topic",
           "type"
         ]
       },
-      "Message": {
+      "Webinar": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "channelId": {
+          "topic": {
             "type": "string"
           },
-          "authorId": {
-            "type": "string"
+          "type": {
+            "type": "integer"
           },
-          "body": {
-            "type": "string"
+          "duration": {
+            "type": "integer"
           },
-          "sentAt": {
-            "type": "string",
-            "format": "date-time"
+          "hostId": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -1218,25 +1065,129 @@
           }
         }
       },
-      "MessageCreate": {
+      "WebinarCreate": {
         "type": "object",
         "properties": {
-          "channelId": {
+          "topic": {
             "type": "string"
           },
-          "authorId": {
-            "type": "string"
+          "type": {
+            "type": "integer"
           },
-          "body": {
-            "type": "string"
+          "duration": {
+            "type": "integer"
           },
-          "sentAt": {
+          "hostId": {
             "type": "string"
           }
         },
         "required": [
-          "body",
-          "sentAt"
+          "topic",
+          "type"
+        ]
+      },
+      "Recording": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "meetingId": {
+            "type": "string"
+          },
+          "recordingType": {
+            "type": "string"
+          },
+          "duration": {
+            "type": "integer"
+          },
+          "fileSize": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "RecordingCreate": {
+        "type": "object",
+        "properties": {
+          "meetingId": {
+            "type": "string"
+          },
+          "recordingType": {
+            "type": "string"
+          },
+          "duration": {
+            "type": "integer"
+          },
+          "fileSize": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "recordingType",
+          "duration"
+        ]
+      },
+      "Registrant": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "RegistrantCreate": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "email",
+          "firstName"
         ]
       },
       "User": {
@@ -1245,14 +1196,20 @@
           "id": {
             "type": "string"
           },
-          "handle": {
+          "email": {
             "type": "string"
           },
-          "displayName": {
+          "firstName": {
             "type": "string"
           },
-          "verified": {
-            "type": "boolean"
+          "lastName": {
+            "type": "string"
+          },
+          "type": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -1267,148 +1224,25 @@
       "UserCreate": {
         "type": "object",
         "properties": {
-          "handle": {
+          "email": {
             "type": "string"
           },
-          "displayName": {
+          "firstName": {
             "type": "string"
           },
-          "verified": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "handle",
-          "displayName"
-        ]
-      },
-      "Room": {
-        "type": "object",
-        "properties": {
-          "id": {
+          "lastName": {
             "type": "string"
           },
-          "name": {
-            "type": "string"
-          },
-          "maxParticipants": {
+          "type": {
             "type": "integer"
-          },
-          "recording": {
-            "type": "boolean"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "RoomCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "maxParticipants": {
-            "type": "integer"
-          },
-          "recording": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "name",
-          "maxParticipants"
-        ]
-      },
-      "Stream": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "roomId": {
-            "type": "string"
           },
           "status": {
             "type": "string"
-          },
-          "bitrate": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "StreamCreate": {
-        "type": "object",
-        "properties": {
-          "roomId": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "bitrate": {
-            "type": "integer"
           }
         },
         "required": [
-          "status",
-          "bitrate"
-        ]
-      },
-      "Webhook": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "event": {
-            "type": "string"
-          },
-          "url": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "WebhookCreate": {
-        "type": "object",
-        "properties": {
-          "event": {
-            "type": "string"
-          },
-          "url": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "event",
-          "url"
+          "email",
+          "firstName"
         ]
       }
     }

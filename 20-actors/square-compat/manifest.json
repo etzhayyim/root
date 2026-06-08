@@ -17,9 +17,59 @@
     "verifiedAt": "2026-06-08",
     "resources": [
       "Payment",
-      "Order"
+      "Order",
+      "Customer",
+      "Refund",
+      "CatalogObject",
+      "Invoice"
     ],
-    "enums": {}
+    "enums": {
+      "Refund": {
+        "status": [
+          "PENDING",
+          "COMPLETED",
+          "REJECTED",
+          "FAILED"
+        ]
+      },
+      "CatalogObject": {
+        "type": [
+          "ITEM",
+          "CATEGORY",
+          "ITEM_VARIATION",
+          "TAX",
+          "DISCOUNT",
+          "MODIFIER_LIST",
+          "MODIFIER",
+          "TIME_PERIOD",
+          "PRODUCT_SET",
+          "PRICING_RULE",
+          "IMAGE",
+          "MEASUREMENT_UNIT",
+          "SUBSCRIPTION_PLAN",
+          "ITEM_OPTION",
+          "ITEM_OPTION_VAL",
+          "CUSTOM_ATTRIBUTE_DEFINITION",
+          "QUICK_AMOUNTS_SETTINGS",
+          "SUBSCRIPTION_PLAN_VARIATION",
+          "AVAILABILITY_PERIOD"
+        ]
+      },
+      "Invoice": {
+        "status": [
+          "DRAFT",
+          "PUBLISHED",
+          "SCHEDULED",
+          "SENT",
+          "PARTIALLY_PAID",
+          "PAID",
+          "PARTIALLY_REFUNDED",
+          "REFUNDED",
+          "CANCELED",
+          "FAILED"
+        ]
+      }
+    }
   },
   "entities": [
     "Payment",

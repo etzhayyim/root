@@ -3,38 +3,33 @@
 
 namespace figma {
 
-    entity Project {
-        id: string @unique
-        name: string
-        ownerId: string
-        teamId: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
     entity File {
         id: string @unique
-        projectId: string
         name: string
-        contentRef: string
-        version: integer
+        role: string
+        lastModified: datetime
+        editorType: string
+        version: string
+        schemaVersion: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Frame {
+    entity Node {
         id: string @unique
-        fileId: string
+        id: string
         name: string
-        width: float
-        height: float
+        type: string
+        visible: boolean
+        rotation: float
+        locked: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Component {
         id: string @unique
-        fileId: string
+        key: string
         name: string
         description: string
         createdAt: datetime
@@ -43,31 +38,28 @@ namespace figma {
 
     entity Comment {
         id: string @unique
-        fileId: string
-        authorId: string
-        body: string
-        resolved: boolean
+        fileKey: string
+        message: string
+        resolvedAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Export {
+    entity Project {
         id: string @unique
-        fileId: string
-        format: string
-        scale: float
-        contentRef: string
+        name: string
+        teamId: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Style {
+        id: string @unique
+        key: string
+        name: string
+        styleType: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

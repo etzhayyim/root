@@ -3,75 +3,65 @@
 
 namespace greenhouse {
 
-    entity Employee {
-        id: string @unique
-        firstName: string
-        lastName: string
-        email: string
-        title: string
-        department: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
     entity Candidate {
         id: string @unique
         firstName: string
         lastName: string
         email: string
-        stage: string
+        canEmail: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity JobReq {
+    entity Application {
         id: string @unique
-        title: string
-        department: string
+        candidateId: string
+        prospect: boolean
+        appliedAt: datetime
         status: string
-        openings: integer
+        jobPostId: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity PayrollRun {
+    entity Job {
         id: string @unique
-        period: string
-        grossTotal: float
-        currency: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity TimeOff {
-        id: string @unique
-        employeeId: string
-        type: string
-        start: datetime
-        days: float
+        name: string
+        requisitionId: string
         status: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Review {
+    entity Offer {
         id: string @unique
-        employeeId: string
-        cycle: string
-        rating: float
-        reviewerId: string
+        applicationId: string
+        candidateId: string
+        jobId: string
+        status: string
+        startDate: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Scorecard {
+        id: string @unique
+        applicationId: string
+        interviewerId: string
+        score: string
+        notes: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity ScheduledInterview {
+        id: string @unique
+        applicationId: string
+        name: string
+        scheduledAt: datetime
+        videoConferencingUrl: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

@@ -11,15 +11,54 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreidqnoadnajzsspij3ylxtsp6dqlyei4lgwblt3dkpch2y72j37iq4",
   "schema": "schema/figma.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://developers.figma.com/docs/rest-api",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "File",
+      "Node",
+      "Component"
+    ],
+    "enums": {
+      "Node": {
+        "type": [
+          "DOCUMENT",
+          "CANVAS",
+          "FRAME",
+          "GROUP",
+          "VECTOR",
+          "BOOLEAN_OPERATION",
+          "STAR",
+          "LINE",
+          "ELLIPSE",
+          "REGULAR_POLYGON",
+          "RECTANGLE",
+          "TEXT",
+          "SLICE",
+          "COMPONENT",
+          "COMPONENT_SET",
+          "INSTANCE",
+          "SECTION",
+          "TABLE",
+          "TABLE_CELL",
+          "SHAPE_WITH_TEXT",
+          "CONNECTOR",
+          "TEXT_PATH",
+          "STICKY",
+          "WASHI_TAPE",
+          "TRANSFORM_GROUP"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Project",
     "File",
-    "Frame",
+    "Node",
     "Component",
     "Comment",
-    "Export"
+    "Project",
+    "Style"
   ],
   "adr": [
     "260607",
@@ -33,31 +72,6 @@
       "runtime": "kotoba-wasm",
       "endpointCount": 30,
       "routes": [
-        {
-          "method": "POST",
-          "path": "/v1/projects",
-          "op": "create Project"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/projects",
-          "op": "list Project"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/projects/{id}",
-          "op": "get Project"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/projects/{id}",
-          "op": "update Project"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/projects/{id}",
-          "op": "delete Project"
-        },
         {
           "method": "POST",
           "path": "/v1/files",
@@ -85,28 +99,28 @@
         },
         {
           "method": "POST",
-          "path": "/v1/frames",
-          "op": "create Frame"
+          "path": "/v1/nodes",
+          "op": "create Node"
         },
         {
           "method": "GET",
-          "path": "/v1/frames",
-          "op": "list Frame"
+          "path": "/v1/nodes",
+          "op": "list Node"
         },
         {
           "method": "GET",
-          "path": "/v1/frames/{id}",
-          "op": "get Frame"
+          "path": "/v1/nodes/{id}",
+          "op": "get Node"
         },
         {
           "method": "PATCH",
-          "path": "/v1/frames/{id}",
-          "op": "update Frame"
+          "path": "/v1/nodes/{id}",
+          "op": "update Node"
         },
         {
           "method": "DELETE",
-          "path": "/v1/frames/{id}",
-          "op": "delete Frame"
+          "path": "/v1/nodes/{id}",
+          "op": "delete Node"
         },
         {
           "method": "POST",
@@ -160,28 +174,53 @@
         },
         {
           "method": "POST",
-          "path": "/v1/exports",
-          "op": "create Export"
+          "path": "/v1/projects",
+          "op": "create Project"
         },
         {
           "method": "GET",
-          "path": "/v1/exports",
-          "op": "list Export"
+          "path": "/v1/projects",
+          "op": "list Project"
         },
         {
           "method": "GET",
-          "path": "/v1/exports/{id}",
-          "op": "get Export"
+          "path": "/v1/projects/{id}",
+          "op": "get Project"
         },
         {
           "method": "PATCH",
-          "path": "/v1/exports/{id}",
-          "op": "update Export"
+          "path": "/v1/projects/{id}",
+          "op": "update Project"
         },
         {
           "method": "DELETE",
-          "path": "/v1/exports/{id}",
-          "op": "delete Export"
+          "path": "/v1/projects/{id}",
+          "op": "delete Project"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/styles",
+          "op": "create Style"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/styles",
+          "op": "list Style"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/styles/{id}",
+          "op": "get Style"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/styles/{id}",
+          "op": "update Style"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/styles/{id}",
+          "op": "delete Style"
         }
       ],
       "features": {
@@ -247,15 +286,381 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_project",
-          "description": "Create a Project.",
+          "name": "create_file",
+          "description": "Create a File.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "ownerId": {
+              "role": {
+                "type": "string"
+              },
+              "lastModified": {
+                "type": "string"
+              },
+              "editorType": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              },
+              "schemaVersion": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "name",
+              "role"
+            ]
+          }
+        },
+        {
+          "name": "list_files",
+          "description": "List Files.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_file",
+          "description": "Get a File by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_file",
+          "description": "Update a File.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "lastModified": {
+                "type": "string"
+              },
+              "editorType": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              },
+              "schemaVersion": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_file",
+          "description": "Delete a File.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_node",
+          "description": "Create a Node.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "visible": {
+                "type": "boolean"
+              },
+              "rotation": {
+                "type": "number"
+              },
+              "locked": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          }
+        },
+        {
+          "name": "list_nodes",
+          "description": "List Nodes.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_node",
+          "description": "Get a Node by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_node",
+          "description": "Update a Node.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "visible": {
+                "type": "boolean"
+              },
+              "rotation": {
+                "type": "number"
+              },
+              "locked": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_node",
+          "description": "Delete a Node.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_component",
+          "description": "Create a Component.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "key",
+              "name"
+            ]
+          }
+        },
+        {
+          "name": "list_components",
+          "description": "List Components.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_component",
+          "description": "Get a Component by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_component",
+          "description": "Update a Component.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "key": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_component",
+          "description": "Delete a Component.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_comment",
+          "description": "Create a Comment.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "fileKey": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "resolvedAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "fileKey",
+              "message"
+            ]
+          }
+        },
+        {
+          "name": "list_comments",
+          "description": "List Comments.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_comment",
+          "description": "Get a Comment by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_comment",
+          "description": "Update a Comment.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "fileKey": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "resolvedAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_comment",
+          "description": "Delete a Comment.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_project",
+          "description": "Create a Project.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
                 "type": "string"
               },
               "teamId": {
@@ -302,9 +707,6 @@
               "name": {
                 "type": "string"
               },
-              "ownerId": {
-                "type": "string"
-              },
               "teamId": {
                 "type": "string"
               }
@@ -330,41 +732,38 @@
           }
         },
         {
-          "name": "create_file",
-          "description": "Create a File.",
+          "name": "create_style",
+          "description": "Create a Style.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "projectId": {
+              "key": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "contentRef": {
+              "styleType": {
                 "type": "string"
-              },
-              "version": {
-                "type": "integer"
               }
             },
             "required": [
-              "name",
-              "version"
+              "key",
+              "name"
             ]
           }
         },
         {
-          "name": "list_files",
-          "description": "List Files.",
+          "name": "list_styles",
+          "description": "List Styles.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_file",
-          "description": "Get a File by id.",
+          "name": "get_style",
+          "description": "Get a Style by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -378,39 +777,21 @@
           }
         },
         {
-          "name": "update_file",
-          "description": "Update a File.",
+          "name": "update_style",
+          "description": "Update a Style.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "projectId": {
+              "key": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "contentRef": {
-                "type": "string"
-              },
-              "version": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_file",
-          "description": "Delete a File.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              "styleType": {
                 "type": "string"
               }
             },
@@ -420,347 +801,8 @@
           }
         },
         {
-          "name": "create_frame",
-          "description": "Create a Frame.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "fileId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "width": {
-                "type": "number"
-              },
-              "height": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "name",
-              "width"
-            ]
-          }
-        },
-        {
-          "name": "list_frames",
-          "description": "List Frames.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_frame",
-          "description": "Get a Frame by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_frame",
-          "description": "Update a Frame.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "fileId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "width": {
-                "type": "number"
-              },
-              "height": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_frame",
-          "description": "Delete a Frame.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_component",
-          "description": "Create a Component.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "fileId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "description": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "description"
-            ]
-          }
-        },
-        {
-          "name": "list_components",
-          "description": "List Components.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_component",
-          "description": "Get a Component by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_component",
-          "description": "Update a Component.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "fileId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "description": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_component",
-          "description": "Delete a Component.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_comment",
-          "description": "Create a Comment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "fileId": {
-                "type": "string"
-              },
-              "authorId": {
-                "type": "string"
-              },
-              "body": {
-                "type": "string"
-              },
-              "resolved": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "body",
-              "resolved"
-            ]
-          }
-        },
-        {
-          "name": "list_comments",
-          "description": "List Comments.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_comment",
-          "description": "Get a Comment by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_comment",
-          "description": "Update a Comment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "fileId": {
-                "type": "string"
-              },
-              "authorId": {
-                "type": "string"
-              },
-              "body": {
-                "type": "string"
-              },
-              "resolved": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_comment",
-          "description": "Delete a Comment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_export",
-          "description": "Create a Export.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "fileId": {
-                "type": "string"
-              },
-              "format": {
-                "type": "string"
-              },
-              "scale": {
-                "type": "number"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "format",
-              "scale"
-            ]
-          }
-        },
-        {
-          "name": "list_exports",
-          "description": "List Exports.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_export",
-          "description": "Get a Export by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_export",
-          "description": "Update a Export.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "fileId": {
-                "type": "string"
-              },
-              "format": {
-                "type": "string"
-              },
-              "scale": {
-                "type": "number"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_export",
-          "description": "Delete a Export.",
+          "name": "delete_style",
+          "description": "Delete a Style.",
           "inputSchema": {
             "type": "object",
             "properties": {

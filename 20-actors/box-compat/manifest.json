@@ -11,15 +11,84 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiddmhozc2z45errrbbh3yh5vs4r4hlckluk46zzi4wzc2lotgxeyu",
   "schema": "schema/box.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://developer.box.com/reference",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "File",
+      "Folder",
+      "User",
+      "Collaboration",
+      "SharedLink",
+      "Comment"
+    ],
+    "enums": {
+      "File": {
+        "itemStatus": [
+          "active",
+          "trashed",
+          "deleted"
+        ]
+      },
+      "Folder": {
+        "itemStatus": [
+          "active",
+          "trashed",
+          "deleted"
+        ],
+        "syncState": [
+          "synced",
+          "not_synced",
+          "partially_synced"
+        ]
+      },
+      "User": {
+        "status": [
+          "active",
+          "inactive",
+          "cannot_delete_edit",
+          "cannot_delete_edit_upload"
+        ],
+        "role": [
+          "admin",
+          "coadmin",
+          "user"
+        ]
+      },
+      "Collaboration": {
+        "role": [
+          "editor",
+          "viewer",
+          "previewer",
+          "uploader",
+          "previewer uploader",
+          "viewer uploader",
+          "co-owner",
+          "owner"
+        ],
+        "status": [
+          "accepted",
+          "pending",
+          "rejected"
+        ]
+      },
+      "SharedLink": {
+        "access": [
+          "open",
+          "company",
+          "collaborators"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Workspace",
-    "Document",
+    "File",
     "Folder",
-    "Comment",
-    "Permission",
-    "User"
+    "User",
+    "Collaboration",
+    "SharedLink",
+    "Comment"
   ],
   "adr": [
     "260607",
@@ -35,53 +104,28 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/workspaces",
-          "op": "create Workspace"
+          "path": "/v1/files",
+          "op": "create File"
         },
         {
           "method": "GET",
-          "path": "/v1/workspaces",
-          "op": "list Workspace"
+          "path": "/v1/files",
+          "op": "list File"
         },
         {
           "method": "GET",
-          "path": "/v1/workspaces/{id}",
-          "op": "get Workspace"
+          "path": "/v1/files/{id}",
+          "op": "get File"
         },
         {
           "method": "PATCH",
-          "path": "/v1/workspaces/{id}",
-          "op": "update Workspace"
+          "path": "/v1/files/{id}",
+          "op": "update File"
         },
         {
           "method": "DELETE",
-          "path": "/v1/workspaces/{id}",
-          "op": "delete Workspace"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/documents",
-          "op": "create Document"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/documents",
-          "op": "list Document"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/documents/{id}",
-          "op": "get Document"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/documents/{id}",
-          "op": "update Document"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/documents/{id}",
-          "op": "delete Document"
+          "path": "/v1/files/{id}",
+          "op": "delete File"
         },
         {
           "method": "POST",
@@ -110,56 +154,6 @@
         },
         {
           "method": "POST",
-          "path": "/v1/comments",
-          "op": "create Comment"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/comments",
-          "op": "list Comment"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/comments/{id}",
-          "op": "get Comment"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/comments/{id}",
-          "op": "update Comment"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/comments/{id}",
-          "op": "delete Comment"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/permissions",
-          "op": "create Permission"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/permissions",
-          "op": "list Permission"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/permissions/{id}",
-          "op": "get Permission"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/permissions/{id}",
-          "op": "update Permission"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/permissions/{id}",
-          "op": "delete Permission"
-        },
-        {
-          "method": "POST",
           "path": "/v1/users",
           "op": "create User"
         },
@@ -182,6 +176,81 @@
           "method": "DELETE",
           "path": "/v1/users/{id}",
           "op": "delete User"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/collaborations",
+          "op": "create Collaboration"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/collaborations",
+          "op": "list Collaboration"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/collaborations/{id}",
+          "op": "get Collaboration"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/collaborations/{id}",
+          "op": "update Collaboration"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/collaborations/{id}",
+          "op": "delete Collaboration"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/sharedlinks",
+          "op": "create SharedLink"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/sharedlinks",
+          "op": "list SharedLink"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/sharedlinks/{id}",
+          "op": "get SharedLink"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/sharedlinks/{id}",
+          "op": "update SharedLink"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/sharedlinks/{id}",
+          "op": "delete SharedLink"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/comments",
+          "op": "create Comment"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/comments",
+          "op": "list Comment"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/comments/{id}",
+          "op": "get Comment"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/comments/{id}",
+          "op": "update Comment"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/comments/{id}",
+          "op": "delete Comment"
         }
       ],
       "features": {
@@ -247,38 +316,47 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_workspace",
-          "description": "Create a Workspace.",
+          "name": "create_file",
+          "description": "Create a File.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "ownerId": {
+              "description": {
                 "type": "string"
               },
-              "plan": {
+              "size": {
+                "type": "integer"
+              },
+              "sha1": {
                 "type": "string"
+              },
+              "itemStatus": {
+                "type": "string"
+              },
+              "commentCount": {
+                "type": "integer"
               }
             },
             "required": [
               "name",
-              "plan"
+              "description"
             ]
           }
         },
         {
-          "name": "list_workspaces",
-          "description": "List Workspaces.",
+          "name": "list_files",
+          "description": "List Files.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_workspace",
-          "description": "Get a Workspace by id.",
+          "name": "get_file",
+          "description": "Get a File by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -292,8 +370,8 @@
           }
         },
         {
-          "name": "update_workspace",
-          "description": "Update a Workspace.",
+          "name": "update_file",
+          "description": "Update a File.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -303,11 +381,20 @@
               "name": {
                 "type": "string"
               },
-              "ownerId": {
+              "description": {
                 "type": "string"
               },
-              "plan": {
+              "size": {
+                "type": "integer"
+              },
+              "sha1": {
                 "type": "string"
+              },
+              "itemStatus": {
+                "type": "string"
+              },
+              "commentCount": {
+                "type": "integer"
               }
             },
             "required": [
@@ -316,97 +403,8 @@
           }
         },
         {
-          "name": "delete_workspace",
-          "description": "Delete a Workspace.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_document",
-          "description": "Create a Document.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "workspaceId": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "contentRef": {
-                "type": "string"
-              },
-              "ownerId": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "title"
-            ]
-          }
-        },
-        {
-          "name": "list_documents",
-          "description": "List Documents.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_document",
-          "description": "Get a Document by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_document",
-          "description": "Update a Document.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "workspaceId": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "contentRef": {
-                "type": "string"
-              },
-              "ownerId": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_document",
-          "description": "Delete a Document.",
+          "name": "delete_file",
+          "description": "Delete a File.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -425,18 +423,25 @@
           "inputSchema": {
             "type": "object",
             "properties": {
-              "workspaceId": {
-                "type": "string"
-              },
               "name": {
                 "type": "string"
               },
-              "parentId": {
+              "description": {
+                "type": "string"
+              },
+              "size": {
+                "type": "integer"
+              },
+              "itemStatus": {
+                "type": "string"
+              },
+              "syncState": {
                 "type": "string"
               }
             },
             "required": [
-              "name"
+              "name",
+              "description"
             ]
           }
         },
@@ -472,13 +477,19 @@
               "id": {
                 "type": "string"
               },
-              "workspaceId": {
-                "type": "string"
-              },
               "name": {
                 "type": "string"
               },
-              "parentId": {
+              "description": {
+                "type": "string"
+              },
+              "size": {
+                "type": "integer"
+              },
+              "itemStatus": {
+                "type": "string"
+              },
+              "syncState": {
                 "type": "string"
               }
             },
@@ -503,190 +514,27 @@
           }
         },
         {
-          "name": "create_comment",
-          "description": "Create a Comment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "documentId": {
-                "type": "string"
-              },
-              "authorId": {
-                "type": "string"
-              },
-              "body": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "body"
-            ]
-          }
-        },
-        {
-          "name": "list_comments",
-          "description": "List Comments.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_comment",
-          "description": "Get a Comment by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_comment",
-          "description": "Update a Comment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "documentId": {
-                "type": "string"
-              },
-              "authorId": {
-                "type": "string"
-              },
-              "body": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_comment",
-          "description": "Delete a Comment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_permission",
-          "description": "Create a Permission.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "resourceId": {
-                "type": "string"
-              },
-              "principalId": {
-                "type": "string"
-              },
-              "role": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "role"
-            ]
-          }
-        },
-        {
-          "name": "list_permissions",
-          "description": "List Permissions.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_permission",
-          "description": "Get a Permission by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_permission",
-          "description": "Update a Permission.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "resourceId": {
-                "type": "string"
-              },
-              "principalId": {
-                "type": "string"
-              },
-              "role": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_permission",
-          "description": "Delete a Permission.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
           "name": "create_user",
           "description": "Create a User.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "email": {
+              "name": {
                 "type": "string"
               },
-              "displayName": {
+              "login": {
                 "type": "string"
               },
               "status": {
                 "type": "string"
+              },
+              "role": {
+                "type": "string"
               }
             },
             "required": [
-              "email",
-              "displayName"
+              "name",
+              "login"
             ]
           }
         },
@@ -722,13 +570,16 @@
               "id": {
                 "type": "string"
               },
-              "email": {
+              "name": {
                 "type": "string"
               },
-              "displayName": {
+              "login": {
                 "type": "string"
               },
               "status": {
+                "type": "string"
+              },
+              "role": {
                 "type": "string"
               }
             },
@@ -740,6 +591,252 @@
         {
           "name": "delete_user",
           "description": "Delete a User.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_collaboration",
+          "description": "Create a Collaboration.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "role": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "isAccessOnly": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "role",
+              "status"
+            ]
+          }
+        },
+        {
+          "name": "list_collaborations",
+          "description": "List Collaborations.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_collaboration",
+          "description": "Get a Collaboration by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_collaboration",
+          "description": "Update a Collaboration.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "isAccessOnly": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_collaboration",
+          "description": "Delete a Collaboration.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_shared_link",
+          "description": "Create a SharedLink.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "access": {
+                "type": "string"
+              },
+              "vanityName": {
+                "type": "string"
+              },
+              "canDownload": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "access",
+              "vanityName"
+            ]
+          }
+        },
+        {
+          "name": "list_shared_links",
+          "description": "List SharedLinks.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_shared_link",
+          "description": "Get a SharedLink by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_shared_link",
+          "description": "Update a SharedLink.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "access": {
+                "type": "string"
+              },
+              "vanityName": {
+                "type": "string"
+              },
+              "canDownload": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_shared_link",
+          "description": "Delete a SharedLink.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_comment",
+          "description": "Create a Comment.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string"
+              },
+              "isReplyComment": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "message",
+              "isReplyComment"
+            ]
+          }
+        },
+        {
+          "name": "list_comments",
+          "description": "List Comments.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_comment",
+          "description": "Get a Comment by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_comment",
+          "description": "Update a Comment.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "isReplyComment": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_comment",
+          "description": "Delete a Comment.",
           "inputSchema": {
             "type": "object",
             "properties": {

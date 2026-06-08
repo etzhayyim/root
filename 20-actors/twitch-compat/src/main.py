@@ -111,153 +111,22 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/channels", methods=["POST"])
-def create_channel(request):
-    """Create a Channel."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'type', 'topic', 'memberCount'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'type'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("twitch_cha")}
-    rec["name"] = data.get('name')
-    rec["type"] = data.get('type')
-    rec["topic"] = data.get('topic')
-    rec["memberCount"] = _as_int(data.get('memberCount'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Channel", rec)
-    return rec, 201
-
-@app.route("/v1/channels", methods=["GET"])
-def list_channels(request):
-    """List Channels with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Channel")
-    rows = _apply_filters(rows, params, ['name', 'type', 'topic', 'memberCount'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/channels/<eid>", methods=["GET"])
-def get_channel(request, eid):
-    """Retrieve a Channel by id (supports ?expand=)."""
-    rows = _query("Channel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/channels/<eid>", methods=["POST", "PATCH"])
-def update_channel(request, eid):
-    """Update a Channel."""
-    rows = _query("Channel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'type', 'topic', 'memberCount'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Channel", rec)
-    return rec, 200
-
-@app.route("/v1/channels/<eid>", methods=["DELETE"])
-def delete_channel(request, eid):
-    """Delete a Channel."""
-    rows = _query("Channel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"twitch.Channel", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/messages", methods=["POST"])
-def create_message(request):
-    """Create a Message."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['channelId', 'authorId', 'body', 'sentAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['body', 'sentAt'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("twitch_mes")}
-    rec["channelId"] = data.get('channelId')
-    rec["authorId"] = data.get('authorId')
-    rec["body"] = data.get('body')
-    rec["sentAt"] = data.get('sentAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Message", rec)
-    return rec, 201
-
-@app.route("/v1/messages", methods=["GET"])
-def list_messages(request):
-    """List Messages with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Message")
-    rows = _apply_filters(rows, params, ['channelId', 'authorId', 'body', 'sentAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/messages/<eid>", methods=["GET"])
-def get_message(request, eid):
-    """Retrieve a Message by id (supports ?expand=)."""
-    rows = _query("Message", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'channelId': 'Channel'})
-    return rec, 200
-
-@app.route("/v1/messages/<eid>", methods=["POST", "PATCH"])
-def update_message(request, eid):
-    """Update a Message."""
-    rows = _query("Message", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['channelId', 'authorId', 'body', 'sentAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Message", rec)
-    return rec, 200
-
-@app.route("/v1/messages/<eid>", methods=["DELETE"])
-def delete_message(request, eid):
-    """Delete a Message."""
-    rows = _query("Message", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"twitch.Message", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
 @app.route("/v1/users", methods=["POST"])
 def create_user(request):
     """Create a User."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['handle', 'displayName', 'verified'])
+    err = _reject_unknown(data, ['userLogin', 'userName', 'broadcasterType'])
     if err:
         return err, 400
-    err = _require(data, ['handle', 'displayName'])
+    err = _require(data, ['userLogin', 'userName'])
     if err:
         return err, 400
+    if data.get('broadcasterType') and data['broadcasterType'] not in ['partner', 'affiliate', '']:
+        return {"error": {"message": "invalid broadcasterType; allowed: " + ", ".join(['partner', 'affiliate', '']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("twitch_use")}
-    rec["handle"] = data.get('handle')
-    rec["displayName"] = data.get('displayName')
-    rec["verified"] = _as_bool(data.get('verified'))
+    rec["userLogin"] = data.get('userLogin')
+    rec["userName"] = data.get('userName')
+    rec["broadcasterType"] = data.get('broadcasterType')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("User", rec)
@@ -268,7 +137,7 @@ def list_users(request):
     """List Users with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("User")
-    rows = _apply_filters(rows, params, ['handle', 'displayName', 'verified'])
+    rows = _apply_filters(rows, params, ['userLogin', 'userName', 'broadcasterType'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -289,9 +158,11 @@ def update_user(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['handle', 'displayName', 'verified'])
+    err = _reject_unknown(data, ['userLogin', 'userName', 'broadcasterType'])
     if err:
         return err, 400
+    if data.get('broadcasterType') and data['broadcasterType'] not in ['partner', 'affiliate', '']:
+        return {"error": {"message": "invalid broadcasterType; allowed: " + ", ".join(['partner', 'affiliate', '']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -309,52 +180,57 @@ def delete_user(request, eid):
     db.retract({"entity": f"twitch.User", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/rooms", methods=["POST"])
-def create_room(request):
-    """Create a Room."""
+@app.route("/v1/channels", methods=["POST"])
+def create_channel(request):
+    """Create a Channel."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'maxParticipants', 'recording'])
+    err = _reject_unknown(data, ['broadcasterLogin', 'broadcasterName', 'broadcasterLanguage', 'gameId', 'gameName', 'title', 'delay'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'maxParticipants'])
+    err = _require(data, ['broadcasterLogin', 'broadcasterName'])
     if err:
         return err, 400
-    rec = {"id": new_id("twitch_roo")}
-    rec["name"] = data.get('name')
-    rec["maxParticipants"] = _as_int(data.get('maxParticipants'))
-    rec["recording"] = _as_bool(data.get('recording'))
+    rec = {"id": new_id("twitch_cha")}
+    rec["broadcasterLogin"] = data.get('broadcasterLogin')
+    rec["broadcasterName"] = data.get('broadcasterName')
+    rec["broadcasterLanguage"] = data.get('broadcasterLanguage')
+    rec["gameId"] = data.get('gameId')
+    rec["gameName"] = data.get('gameName')
+    rec["title"] = data.get('title')
+    rec["delay"] = _as_int(data.get('delay'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Room", rec)
+    _persist("Channel", rec)
     return rec, 201
 
-@app.route("/v1/rooms", methods=["GET"])
-def list_rooms(request):
-    """List Rooms with filtering + cursor pagination."""
+@app.route("/v1/channels", methods=["GET"])
+def list_channels(request):
+    """List Channels with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Room")
-    rows = _apply_filters(rows, params, ['name', 'maxParticipants', 'recording'])
+    rows = _query("Channel")
+    rows = _apply_filters(rows, params, ['broadcasterLogin', 'broadcasterName', 'broadcasterLanguage', 'gameId', 'gameName', 'title', 'delay'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/rooms/<eid>", methods=["GET"])
-def get_room(request, eid):
-    """Retrieve a Room by id (supports ?expand=)."""
-    rows = _query("Room", eid)
+@app.route("/v1/channels/<eid>", methods=["GET"])
+def get_channel(request, eid):
+    """Retrieve a Channel by id (supports ?expand=)."""
+    rows = _query("Channel", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'gameId': 'Game'})
     return rec, 200
 
-@app.route("/v1/rooms/<eid>", methods=["POST", "PATCH"])
-def update_room(request, eid):
-    """Update a Room."""
-    rows = _query("Room", eid)
+@app.route("/v1/channels/<eid>", methods=["POST", "PATCH"])
+def update_channel(request, eid):
+    """Update a Channel."""
+    rows = _query("Channel", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'maxParticipants', 'recording'])
+    err = _reject_unknown(data, ['broadcasterLogin', 'broadcasterName', 'broadcasterLanguage', 'gameId', 'gameName', 'title', 'delay'])
     if err:
         return err, 400
     rec = rows[0]
@@ -362,32 +238,37 @@ def update_room(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Room", rec)
+    _persist("Channel", rec)
     return rec, 200
 
-@app.route("/v1/rooms/<eid>", methods=["DELETE"])
-def delete_room(request, eid):
-    """Delete a Room."""
-    rows = _query("Room", eid)
+@app.route("/v1/channels/<eid>", methods=["DELETE"])
+def delete_channel(request, eid):
+    """Delete a Channel."""
+    rows = _query("Channel", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"twitch.Room", "id": eid})
+    db.retract({"entity": f"twitch.Channel", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/v1/streams", methods=["POST"])
 def create_stream(request):
     """Create a Stream."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['roomId', 'status', 'bitrate'])
+    err = _reject_unknown(data, ['userId', 'userName', 'gameId', 'gameName', 'type', 'viewerCount', 'title', 'language'])
     if err:
         return err, 400
-    err = _require(data, ['status', 'bitrate'])
+    err = _require(data, ['userName', 'gameName'])
     if err:
         return err, 400
     rec = {"id": new_id("twitch_str")}
-    rec["roomId"] = data.get('roomId')
-    rec["status"] = data.get('status')
-    rec["bitrate"] = _as_int(data.get('bitrate'))
+    rec["userId"] = data.get('userId')
+    rec["userName"] = data.get('userName')
+    rec["gameId"] = data.get('gameId')
+    rec["gameName"] = data.get('gameName')
+    rec["type"] = data.get('type')
+    rec["viewerCount"] = _as_int(data.get('viewerCount'))
+    rec["title"] = data.get('title')
+    rec["language"] = data.get('language')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Stream", rec)
@@ -398,7 +279,7 @@ def list_streams(request):
     """List Streams with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Stream")
-    rows = _apply_filters(rows, params, ['roomId', 'status', 'bitrate'])
+    rows = _apply_filters(rows, params, ['userId', 'userName', 'gameId', 'gameName', 'type', 'viewerCount', 'title', 'language'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -410,7 +291,7 @@ def get_stream(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'roomId': 'Room'})
+    rec = _expand(rec, request.query or {}, {'userId': 'User', 'gameId': 'Game'})
     return rec, 200
 
 @app.route("/v1/streams/<eid>", methods=["POST", "PATCH"])
@@ -420,7 +301,7 @@ def update_stream(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['roomId', 'status', 'bitrate'])
+    err = _reject_unknown(data, ['userId', 'userName', 'gameId', 'gameName', 'type', 'viewerCount', 'title', 'language'])
     if err:
         return err, 400
     rec = rows[0]
@@ -440,52 +321,135 @@ def delete_stream(request, eid):
     db.retract({"entity": f"twitch.Stream", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/webhooks", methods=["POST"])
-def create_webhook(request):
-    """Create a Webhook."""
+@app.route("/v1/videos", methods=["POST"])
+def create_video(request):
+    """Create a Video."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['event', 'url', 'active'])
+    err = _reject_unknown(data, ['userId', 'title', 'description', 'type', 'viewable', 'viewCount', 'duration'])
     if err:
         return err, 400
-    err = _require(data, ['event', 'url'])
+    err = _require(data, ['title', 'description'])
     if err:
         return err, 400
-    rec = {"id": new_id("twitch_web")}
-    rec["event"] = data.get('event')
-    rec["url"] = data.get('url')
-    rec["active"] = _as_bool(data.get('active'))
+    if data.get('type') and data['type'] not in ['archive', 'highlight', 'upload']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['archive', 'highlight', 'upload']), "type": "invalid_request_error"}}, 400
+    if data.get('viewable') and data['viewable'] not in ['public', 'private', 'unlisted']:
+        return {"error": {"message": "invalid viewable; allowed: " + ", ".join(['public', 'private', 'unlisted']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("twitch_vid")}
+    rec["userId"] = data.get('userId')
+    rec["title"] = data.get('title')
+    rec["description"] = data.get('description')
+    rec["type"] = data.get('type')
+    rec["viewable"] = data.get('viewable')
+    rec["viewCount"] = _as_int(data.get('viewCount'))
+    rec["duration"] = _as_int(data.get('duration'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Webhook", rec)
+    _persist("Video", rec)
     return rec, 201
 
-@app.route("/v1/webhooks", methods=["GET"])
-def list_webhooks(request):
-    """List Webhooks with filtering + cursor pagination."""
+@app.route("/v1/videos", methods=["GET"])
+def list_videos(request):
+    """List Videos with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Webhook")
-    rows = _apply_filters(rows, params, ['event', 'url', 'active'])
+    rows = _query("Video")
+    rows = _apply_filters(rows, params, ['userId', 'title', 'description', 'type', 'viewable', 'viewCount', 'duration'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["GET"])
-def get_webhook(request, eid):
-    """Retrieve a Webhook by id (supports ?expand=)."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/videos/<eid>", methods=["GET"])
+def get_video(request, eid):
+    """Retrieve a Video by id (supports ?expand=)."""
+    rows = _query("Video", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'userId': 'User'})
     return rec, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["POST", "PATCH"])
-def update_webhook(request, eid):
-    """Update a Webhook."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/videos/<eid>", methods=["POST", "PATCH"])
+def update_video(request, eid):
+    """Update a Video."""
+    rows = _query("Video", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['event', 'url', 'active'])
+    err = _reject_unknown(data, ['userId', 'title', 'description', 'type', 'viewable', 'viewCount', 'duration'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['archive', 'highlight', 'upload']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['archive', 'highlight', 'upload']), "type": "invalid_request_error"}}, 400
+    if data.get('viewable') and data['viewable'] not in ['public', 'private', 'unlisted']:
+        return {"error": {"message": "invalid viewable; allowed: " + ", ".join(['public', 'private', 'unlisted']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Video", rec)
+    return rec, 200
+
+@app.route("/v1/videos/<eid>", methods=["DELETE"])
+def delete_video(request, eid):
+    """Delete a Video."""
+    rows = _query("Video", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"twitch.Video", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/clips", methods=["POST"])
+def create_clip(request):
+    """Create a Clip."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['broadcasterId', 'creatorId', 'gameId', 'title', 'viewCount', 'duration', 'isFeatured'])
+    if err:
+        return err, 400
+    err = _require(data, ['title', 'viewCount'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("twitch_cli")}
+    rec["broadcasterId"] = data.get('broadcasterId')
+    rec["creatorId"] = data.get('creatorId')
+    rec["gameId"] = data.get('gameId')
+    rec["title"] = data.get('title')
+    rec["viewCount"] = _as_int(data.get('viewCount'))
+    rec["duration"] = _as_float(data.get('duration'))
+    rec["isFeatured"] = _as_bool(data.get('isFeatured'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Clip", rec)
+    return rec, 201
+
+@app.route("/v1/clips", methods=["GET"])
+def list_clips(request):
+    """List Clips with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Clip")
+    rows = _apply_filters(rows, params, ['broadcasterId', 'creatorId', 'gameId', 'title', 'viewCount', 'duration', 'isFeatured'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/clips/<eid>", methods=["GET"])
+def get_clip(request, eid):
+    """Retrieve a Clip by id (supports ?expand=)."""
+    rows = _query("Clip", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'gameId': 'Game'})
+    return rec, 200
+
+@app.route("/v1/clips/<eid>", methods=["POST", "PATCH"])
+def update_clip(request, eid):
+    """Update a Clip."""
+    rows = _query("Clip", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['broadcasterId', 'creatorId', 'gameId', 'title', 'viewCount', 'duration', 'isFeatured'])
     if err:
         return err, 400
     rec = rows[0]
@@ -493,22 +457,86 @@ def update_webhook(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Webhook", rec)
+    _persist("Clip", rec)
     return rec, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["DELETE"])
-def delete_webhook(request, eid):
-    """Delete a Webhook."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/clips/<eid>", methods=["DELETE"])
+def delete_clip(request, eid):
+    """Delete a Clip."""
+    rows = _query("Clip", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"twitch.Webhook", "id": eid})
+    db.retract({"entity": f"twitch.Clip", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/games", methods=["POST"])
+def create_game(request):
+    """Create a Game."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'boxArtUrl'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'boxArtUrl'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("twitch_gam")}
+    rec["name"] = data.get('name')
+    rec["boxArtUrl"] = data.get('boxArtUrl')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Game", rec)
+    return rec, 201
+
+@app.route("/v1/games", methods=["GET"])
+def list_games(request):
+    """List Games with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Game")
+    rows = _apply_filters(rows, params, ['name', 'boxArtUrl'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/games/<eid>", methods=["GET"])
+def get_game(request, eid):
+    """Retrieve a Game by id (supports ?expand=)."""
+    rows = _query("Game", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/games/<eid>", methods=["POST", "PATCH"])
+def update_game(request, eid):
+    """Update a Game."""
+    rows = _query("Game", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'boxArtUrl'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Game", rec)
+    return rec, 200
+
+@app.route("/v1/games/<eid>", methods=["DELETE"])
+def delete_game(request, eid):
+    """Delete a Game."""
+    rows = _query("Game", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"twitch.Game", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "twitch-compat", "tier": "L4",
-            "entities": ['Channel', 'Message', 'User', 'Room', 'Stream', 'Webhook']}, 200
+            "entities": ['User', 'Channel', 'Stream', 'Video', 'Clip', 'Game']}, 200
 
 
 if __name__ == "__main__":

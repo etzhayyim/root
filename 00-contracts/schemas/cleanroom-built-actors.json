@@ -345,12 +345,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Workspace",
-        "Document",
-        "Folder",
-        "Comment",
-        "Permission",
-        "User"
+        "Base",
+        "Table",
+        "Field",
+        "Record",
+        "View",
+        "Comment"
       ]
     },
     {
@@ -992,12 +992,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Workspace",
-        "Document",
-        "Folder",
-        "Comment",
-        "Permission",
-        "User"
+        "Task",
+        "Project",
+        "Section",
+        "User",
+        "Tag",
+        "Workspace"
       ]
     },
     {
@@ -2183,12 +2183,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Workspace",
-        "Document",
+        "File",
         "Folder",
-        "Comment",
-        "Permission",
-        "User"
+        "User",
+        "Collaboration",
+        "SharedLink",
+        "Comment"
       ]
     },
     {
@@ -3118,12 +3118,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Project",
-        "ComputeInstance",
-        "Volume",
-        "Bucket",
-        "Network",
-        "IamRole"
+        "Zone",
+        "DNSRecord",
+        "WorkerScript",
+        "Certificate",
+        "PageRule",
+        "LoadBalancer"
       ]
     },
     {
@@ -3254,12 +3254,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Account",
-        "Card",
-        "Transaction",
         "Order",
-        "Wallet",
-        "Ledger"
+        "Fill",
+        "Account",
+        "Product",
+        "Portfolio",
+        "PortfolioPosition"
       ]
     },
     {
@@ -3929,17 +3929,16 @@
       "handle": "databricks-compat",
       "platform": "databricks",
       "bytes": 2124,
-      "wasmCid": "bafkreibtyzesgtha46o3cafsfqwfsqeopiqhka4acyr6ad7srg3j6q63cm",
+      "wasmCid": "bafkreic7cqk3x5zndnxpo3cwjqaljjk5i4nqhgsbttu3j4l6nvjrrth2bi",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Dataset",
-        "Query",
-        "Dashboard",
-        "Report",
-        "Connection",
-        "Metric"
+        "Cluster",
+        "Job",
+        "Run",
+        "Warehouse",
+        "ObjectInfo"
       ]
     },
     {
@@ -3951,11 +3950,11 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Service",
-        "Error",
-        "Trace",
-        "Metric",
-        "Alert",
+        "Monitor",
+        "Dashboard",
+        "TimeSeries",
+        "Event",
+        "Downtime",
         "Incident"
       ]
     },
@@ -4524,17 +4523,16 @@
       "handle": "dropbox-compat",
       "platform": "dropbox",
       "bytes": 2121,
-      "wasmCid": "bafkreidepd7brpc6lc5lrch5ekhu4wiarxaoqts2seof3yealknlbvvbv4",
+      "wasmCid": "bafkreifwl4ma7h5ek5xugcltuygf3rrbqukcwhx4juatogqbtybumhkbgy",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Workspace",
-        "Document",
-        "Folder",
-        "Comment",
-        "Permission",
-        "User"
+        "FileMetadata",
+        "FolderMetadata",
+        "SharedLink",
+        "Account",
+        "SharedFolder"
       ]
     },
     {
@@ -5634,12 +5632,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Project",
         "File",
-        "Frame",
+        "Node",
         "Component",
         "Comment",
-        "Export"
+        "Project",
+        "Style"
       ]
     },
     {
@@ -6383,12 +6381,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Repository",
+        "Project",
+        "Issue",
+        "MergeRequest",
         "Pipeline",
-        "Build",
-        "Artifact",
-        "Deployment",
-        "Webhook"
+        "Job",
+        "Commit"
       ]
     },
     {
@@ -6672,12 +6670,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Employee",
         "Candidate",
-        "JobReq",
-        "PayrollRun",
-        "TimeOff",
-        "Review"
+        "Application",
+        "Job",
+        "Offer",
+        "Scorecard",
+        "ScheduledInterview"
       ]
     },
     {
@@ -7199,11 +7197,11 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Account",
         "Contact",
-        "Lead",
-        "Opportunity",
-        "Activity",
+        "Company",
+        "Deal",
+        "Ticket",
+        "LineItem",
         "Pipeline"
       ]
     },
@@ -8525,12 +8523,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Campaign",
-        "Audience",
-        "Event",
         "Profile",
-        "Message",
-        "Funnel"
+        "List",
+        "Segment",
+        "Campaign",
+        "Flow",
+        "Event"
       ]
     },
     {
@@ -9222,12 +9220,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
+        "List",
+        "ListMember",
         "Campaign",
-        "Audience",
-        "Event",
-        "Profile",
-        "Message",
-        "Funnel"
+        "Template",
+        "Segment",
+        "Automation"
       ]
     },
     {
@@ -10883,17 +10881,16 @@
       "handle": "notion-compat",
       "platform": "notion",
       "bytes": 2120,
-      "wasmCid": "bafkreibeutu5q24gxgpbghsbbbgedf3pqaaxeqvkmscx7lictbpezvtmvm",
+      "wasmCid": "bafkreif7jqdmgnfftwxspiie3qmdqeacyblfvefszzzlmf3v4wx3sc4nb4",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Workspace",
-        "Document",
-        "Folder",
-        "Comment",
-        "Permission",
-        "User"
+        "Page",
+        "Database",
+        "Block",
+        "User",
+        "Comment"
       ]
     },
     {
@@ -11909,12 +11906,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Account",
-        "Contact",
-        "Lead",
-        "Opportunity",
-        "Activity",
-        "Pipeline"
+        "Deal",
+        "Person",
+        "Organization",
+        "Pipeline",
+        "Stage",
+        "Activity"
       ]
     },
     {
@@ -13576,12 +13573,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Campaign",
-        "Audience",
-        "Event",
-        "Profile",
-        "Message",
-        "Funnel"
+        "Contact",
+        "Template",
+        "SingleSend",
+        "Bounce",
+        "UnsubscribeGroup",
+        "Sender"
       ]
     },
     {
@@ -13610,12 +13607,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Service",
-        "Error",
-        "Trace",
-        "Metric",
-        "Alert",
-        "Incident"
+        "Issue",
+        "Event",
+        "Project",
+        "Organization",
+        "Team",
+        "Release"
       ]
     },
     {
@@ -15398,12 +15395,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Channel",
-        "Message",
         "User",
-        "Room",
+        "Channel",
         "Stream",
-        "Webhook"
+        "Video",
+        "Clip",
+        "Game"
       ]
     },
     {
@@ -15784,17 +15781,16 @@
       "handle": "vercel-compat",
       "platform": "vercel",
       "bytes": 2120,
-      "wasmCid": "bafkreicipndzgzd6lord25hopx4i3w4chiwf6fysbmhlhqvi2towx7x2ji",
+      "wasmCid": "bafkreidcs5xleripnw7n3xht4ms62ozwpfwfh2arqbbo7uktui534lttjq",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
+        "Deployment",
         "Project",
-        "ComputeInstance",
-        "Volume",
-        "Bucket",
-        "Network",
-        "IamRole"
+        "Domain",
+        "Alias",
+        "Team"
       ]
     },
     {
@@ -16537,12 +16533,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "GLAccount",
-        "JournalEntry",
         "Invoice",
-        "PurchaseOrder",
-        "Vendor",
-        "CostCenter"
+        "Contact",
+        "Account",
+        "Payment",
+        "BankTransaction",
+        "CreditNote"
       ]
     },
     {
@@ -16923,17 +16919,16 @@
       "handle": "zoom-compat",
       "platform": "zoom",
       "bytes": 2118,
-      "wasmCid": "bafkreibgz4t4pqnk2ltfcp353ug4mxcekgkgoss6p5hvcwdzjx7a3vdjbi",
+      "wasmCid": "bafkreic7acvft62iltobeeyyzj2rofcls6efetjih3xyr3ovs7jonsbhh4",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Channel",
-        "Message",
-        "User",
-        "Room",
-        "Stream",
-        "Webhook"
+        "Meeting",
+        "Webinar",
+        "Recording",
+        "Registrant",
+        "User"
       ]
     },
     {

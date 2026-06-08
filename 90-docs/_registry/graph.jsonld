@@ -14496,6 +14496,27 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606081800",
+      "type": "TechArticle",
+      "title": "ADR-2606081800: uchiwake (内訳) — World Product Bill-of-Materials / GTIN Knowledge Graph Tier-B Actor R0",
+      "status": "proposed",
+      "topic": "uchiwake-product-bom-gtin-knowledge-graph",
+      "authoritative": true,
+      "authoritativeFor": [
+        "uchiwake actor charter (R0)",
+        "product bill-of-materials knowledge-graph constitutional gates G1..G12",
+        "product-bom-ontology.kotoba.edn vocabulary",
+        "GTIN normalization + GS1 mod-10 check-digit validation on ingest",
+        "subsidiary→ultimate-parent rollup (子会社) via GLEIF Level-2 RR ownership edges"
+      ],
+      "related": [
+        "doc:adr-2606022000-kabuto-public-company-supply-chain-kg",
+        "doc:adr-2606042330-entity-as-actor-society-scale-social-mirror",
+        "doc:adr-2605312330-giemon-part-graph-sbom-kotoba"
+      ],
+      "lastVerified": "2026-06-08"
+    },
+    {
       "id": "doc:adr-2606082000-niyaku-port-cargo-handling-automation-r0",
       "type": "TechArticle",
       "title": "ADR-2606082000: niyaku 荷役 — automated port cargo handling (ship↔shore loading/unloading) Tier-B actor (R0)",

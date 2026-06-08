@@ -3,69 +3,74 @@
 
 namespace twitch {
 
-    entity Channel {
-        id: string @unique
-        name: string
-        type: string
-        topic: string
-        memberCount: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Message {
-        id: string @unique
-        channelId: string
-        authorId: string
-        body: string
-        sentAt: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
     entity User {
         id: string @unique
-        handle: string
-        displayName: string
-        verified: boolean
+        userLogin: string
+        userName: string
+        broadcasterType: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Room {
+    entity Channel {
         id: string @unique
-        name: string
-        maxParticipants: integer
-        recording: boolean
+        broadcasterLogin: string
+        broadcasterName: string
+        broadcasterLanguage: string
+        gameId: string
+        gameName: string
+        title: string
+        delay: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Stream {
         id: string @unique
-        roomId: string
-        status: string
-        bitrate: integer
+        userId: string
+        userName: string
+        gameId: string
+        gameName: string
+        type: string
+        viewerCount: integer
+        title: string
+        language: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Webhook {
+    entity Video {
         id: string @unique
-        event: string
-        url: string
-        active: boolean
+        userId: string
+        title: string
+        description: string
+        type: string
+        viewable: string
+        viewCount: integer
+        duration: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Clip {
+        id: string @unique
+        broadcasterId: string
+        creatorId: string
+        gameId: string
+        title: string
+        viewCount: integer
+        duration: float
+        isFeatured: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Game {
+        id: string @unique
+        name: string
+        boxArtUrl: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

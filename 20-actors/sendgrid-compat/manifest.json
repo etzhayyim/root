@@ -11,15 +11,34 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiclpoa6rkzdzk2mtijk6ak7b7skkil6equmnep6y7gtjduzvu67du",
   "schema": "schema/sendgrid.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://www.twilio.com/docs/sendgrid/api-reference",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "Contact",
+      "Template",
+      "SingleSend",
+      "Bounce",
+      "UnsubscribeGroup",
+      "Sender"
+    ],
+    "enums": {
+      "Template": {
+        "generation": [
+          "legacy",
+          "dynamic"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Campaign",
-    "Audience",
-    "Event",
-    "Profile",
-    "Message",
-    "Funnel"
+    "Contact",
+    "Template",
+    "SingleSend",
+    "Bounce",
+    "UnsubscribeGroup",
+    "Sender"
   ],
   "adr": [
     "260607",
@@ -35,153 +54,153 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/campaigns",
-          "op": "create Campaign"
+          "path": "/v1/contacts",
+          "op": "create Contact"
         },
         {
           "method": "GET",
-          "path": "/v1/campaigns",
-          "op": "list Campaign"
+          "path": "/v1/contacts",
+          "op": "list Contact"
         },
         {
           "method": "GET",
-          "path": "/v1/campaigns/{id}",
-          "op": "get Campaign"
+          "path": "/v1/contacts/{id}",
+          "op": "get Contact"
         },
         {
           "method": "PATCH",
-          "path": "/v1/campaigns/{id}",
-          "op": "update Campaign"
+          "path": "/v1/contacts/{id}",
+          "op": "update Contact"
         },
         {
           "method": "DELETE",
-          "path": "/v1/campaigns/{id}",
-          "op": "delete Campaign"
+          "path": "/v1/contacts/{id}",
+          "op": "delete Contact"
         },
         {
           "method": "POST",
-          "path": "/v1/audiences",
-          "op": "create Audience"
+          "path": "/v1/templates",
+          "op": "create Template"
         },
         {
           "method": "GET",
-          "path": "/v1/audiences",
-          "op": "list Audience"
+          "path": "/v1/templates",
+          "op": "list Template"
         },
         {
           "method": "GET",
-          "path": "/v1/audiences/{id}",
-          "op": "get Audience"
+          "path": "/v1/templates/{id}",
+          "op": "get Template"
         },
         {
           "method": "PATCH",
-          "path": "/v1/audiences/{id}",
-          "op": "update Audience"
+          "path": "/v1/templates/{id}",
+          "op": "update Template"
         },
         {
           "method": "DELETE",
-          "path": "/v1/audiences/{id}",
-          "op": "delete Audience"
+          "path": "/v1/templates/{id}",
+          "op": "delete Template"
         },
         {
           "method": "POST",
-          "path": "/v1/events",
-          "op": "create Event"
+          "path": "/v1/singlesends",
+          "op": "create SingleSend"
         },
         {
           "method": "GET",
-          "path": "/v1/events",
-          "op": "list Event"
+          "path": "/v1/singlesends",
+          "op": "list SingleSend"
         },
         {
           "method": "GET",
-          "path": "/v1/events/{id}",
-          "op": "get Event"
+          "path": "/v1/singlesends/{id}",
+          "op": "get SingleSend"
         },
         {
           "method": "PATCH",
-          "path": "/v1/events/{id}",
-          "op": "update Event"
+          "path": "/v1/singlesends/{id}",
+          "op": "update SingleSend"
         },
         {
           "method": "DELETE",
-          "path": "/v1/events/{id}",
-          "op": "delete Event"
+          "path": "/v1/singlesends/{id}",
+          "op": "delete SingleSend"
         },
         {
           "method": "POST",
-          "path": "/v1/profiles",
-          "op": "create Profile"
+          "path": "/v1/bounces",
+          "op": "create Bounce"
         },
         {
           "method": "GET",
-          "path": "/v1/profiles",
-          "op": "list Profile"
+          "path": "/v1/bounces",
+          "op": "list Bounce"
         },
         {
           "method": "GET",
-          "path": "/v1/profiles/{id}",
-          "op": "get Profile"
+          "path": "/v1/bounces/{id}",
+          "op": "get Bounce"
         },
         {
           "method": "PATCH",
-          "path": "/v1/profiles/{id}",
-          "op": "update Profile"
+          "path": "/v1/bounces/{id}",
+          "op": "update Bounce"
         },
         {
           "method": "DELETE",
-          "path": "/v1/profiles/{id}",
-          "op": "delete Profile"
+          "path": "/v1/bounces/{id}",
+          "op": "delete Bounce"
         },
         {
           "method": "POST",
-          "path": "/v1/messages",
-          "op": "create Message"
+          "path": "/v1/unsubscribegroups",
+          "op": "create UnsubscribeGroup"
         },
         {
           "method": "GET",
-          "path": "/v1/messages",
-          "op": "list Message"
+          "path": "/v1/unsubscribegroups",
+          "op": "list UnsubscribeGroup"
         },
         {
           "method": "GET",
-          "path": "/v1/messages/{id}",
-          "op": "get Message"
+          "path": "/v1/unsubscribegroups/{id}",
+          "op": "get UnsubscribeGroup"
         },
         {
           "method": "PATCH",
-          "path": "/v1/messages/{id}",
-          "op": "update Message"
+          "path": "/v1/unsubscribegroups/{id}",
+          "op": "update UnsubscribeGroup"
         },
         {
           "method": "DELETE",
-          "path": "/v1/messages/{id}",
-          "op": "delete Message"
+          "path": "/v1/unsubscribegroups/{id}",
+          "op": "delete UnsubscribeGroup"
         },
         {
           "method": "POST",
-          "path": "/v1/funnels",
-          "op": "create Funnel"
+          "path": "/v1/senders",
+          "op": "create Sender"
         },
         {
           "method": "GET",
-          "path": "/v1/funnels",
-          "op": "list Funnel"
+          "path": "/v1/senders",
+          "op": "list Sender"
         },
         {
           "method": "GET",
-          "path": "/v1/funnels/{id}",
-          "op": "get Funnel"
+          "path": "/v1/senders/{id}",
+          "op": "get Sender"
         },
         {
           "method": "PATCH",
-          "path": "/v1/funnels/{id}",
-          "op": "update Funnel"
+          "path": "/v1/senders/{id}",
+          "op": "update Sender"
         },
         {
           "method": "DELETE",
-          "path": "/v1/funnels/{id}",
-          "op": "delete Funnel"
+          "path": "/v1/senders/{id}",
+          "op": "delete Sender"
         }
       ],
       "features": {
@@ -247,302 +266,44 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_campaign",
-          "description": "Create a Campaign.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "channel": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "budget": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "name",
-              "channel"
-            ]
-          }
-        },
-        {
-          "name": "list_campaigns",
-          "description": "List Campaigns.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_campaign",
-          "description": "Get a Campaign by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_campaign",
-          "description": "Update a Campaign.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "channel": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "budget": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_campaign",
-          "description": "Delete a Campaign.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_audience",
-          "description": "Create a Audience.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "size": {
-                "type": "integer"
-              },
-              "definition": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "size"
-            ]
-          }
-        },
-        {
-          "name": "list_audiences",
-          "description": "List Audiences.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_audience",
-          "description": "Get a Audience by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_audience",
-          "description": "Update a Audience.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "size": {
-                "type": "integer"
-              },
-              "definition": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_audience",
-          "description": "Delete a Audience.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_event",
-          "description": "Create a Event.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "profileId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "properties": {
-                "type": "string"
-              },
-              "occurredAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "properties"
-            ]
-          }
-        },
-        {
-          "name": "list_events",
-          "description": "List Events.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_event",
-          "description": "Get a Event by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_event",
-          "description": "Update a Event.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "profileId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "properties": {
-                "type": "string"
-              },
-              "occurredAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_event",
-          "description": "Delete a Event.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_profile",
-          "description": "Create a Profile.",
+          "name": "create_contact",
+          "description": "Create a Contact.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "email": {
                 "type": "string"
               },
-              "externalId": {
+              "firstName": {
                 "type": "string"
               },
-              "traits": {
+              "lastName": {
+                "type": "string"
+              },
+              "country": {
+                "type": "string"
+              },
+              "externalId": {
                 "type": "string"
               }
             },
             "required": [
               "email",
-              "traits"
+              "firstName"
             ]
           }
         },
         {
-          "name": "list_profiles",
-          "description": "List Profiles.",
+          "name": "list_contacts",
+          "description": "List Contacts.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_profile",
-          "description": "Get a Profile by id.",
+          "name": "get_contact",
+          "description": "Get a Contact by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -556,8 +317,8 @@
           }
         },
         {
-          "name": "update_profile",
-          "description": "Update a Profile.",
+          "name": "update_contact",
+          "description": "Update a Contact.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -567,10 +328,16 @@
               "email": {
                 "type": "string"
               },
-              "externalId": {
+              "firstName": {
                 "type": "string"
               },
-              "traits": {
+              "lastName": {
+                "type": "string"
+              },
+              "country": {
+                "type": "string"
+              },
+              "externalId": {
                 "type": "string"
               }
             },
@@ -580,8 +347,8 @@
           }
         },
         {
-          "name": "delete_profile",
-          "description": "Delete a Profile.",
+          "name": "delete_contact",
+          "description": "Delete a Contact.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -595,41 +362,119 @@
           }
         },
         {
-          "name": "create_message",
-          "description": "Create a Message.",
+          "name": "create_template",
+          "description": "Create a Template.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "campaignId": {
+              "name": {
                 "type": "string"
               },
-              "profileId": {
-                "type": "string"
-              },
-              "channel": {
-                "type": "string"
-              },
-              "status": {
+              "generation": {
                 "type": "string"
               }
             },
             "required": [
-              "channel",
+              "name",
+              "generation"
+            ]
+          }
+        },
+        {
+          "name": "list_templates",
+          "description": "List Templates.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_template",
+          "description": "Get a Template by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_template",
+          "description": "Update a Template.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "generation": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_template",
+          "description": "Delete a Template.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_single_send",
+          "description": "Create a SingleSend.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "templateId": {
+                "type": "string"
+              },
+              "senderId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
               "status"
             ]
           }
         },
         {
-          "name": "list_messages",
-          "description": "List Messages.",
+          "name": "list_single_sends",
+          "description": "List SingleSends.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_message",
-          "description": "Get a Message by id.",
+          "name": "get_single_send",
+          "description": "Get a SingleSend by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -643,21 +488,105 @@
           }
         },
         {
-          "name": "update_message",
-          "description": "Update a Message.",
+          "name": "update_single_send",
+          "description": "Update a SingleSend.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "campaignId": {
+              "name": {
                 "type": "string"
               },
-              "profileId": {
+              "status": {
                 "type": "string"
               },
-              "channel": {
+              "templateId": {
+                "type": "string"
+              },
+              "senderId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_single_send",
+          "description": "Delete a SingleSend.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_bounce",
+          "description": "Create a Bounce.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "email",
+              "reason"
+            ]
+          }
+        },
+        {
+          "name": "list_bounces",
+          "description": "List Bounces.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_bounce",
+          "description": "Get a Bounce by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_bounce",
+          "description": "Update a Bounce.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "reason": {
                 "type": "string"
               },
               "status": {
@@ -670,8 +599,8 @@
           }
         },
         {
-          "name": "delete_message",
-          "description": "Delete a Message.",
+          "name": "delete_bounce",
+          "description": "Delete a Bounce.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -685,38 +614,38 @@
           }
         },
         {
-          "name": "create_funnel",
-          "description": "Create a Funnel.",
+          "name": "create_unsubscribe_group",
+          "description": "Create a UnsubscribeGroup.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "steps": {
+              "description": {
                 "type": "string"
               },
-              "conversionRate": {
-                "type": "number"
+              "isDefault": {
+                "type": "boolean"
               }
             },
             "required": [
               "name",
-              "steps"
+              "description"
             ]
           }
         },
         {
-          "name": "list_funnels",
-          "description": "List Funnels.",
+          "name": "list_unsubscribe_groups",
+          "description": "List UnsubscribeGroups.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_funnel",
-          "description": "Get a Funnel by id.",
+          "name": "get_unsubscribe_group",
+          "description": "Get a UnsubscribeGroup by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -730,8 +659,8 @@
           }
         },
         {
-          "name": "update_funnel",
-          "description": "Update a Funnel.",
+          "name": "update_unsubscribe_group",
+          "description": "Update a UnsubscribeGroup.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -741,11 +670,11 @@
               "name": {
                 "type": "string"
               },
-              "steps": {
+              "description": {
                 "type": "string"
               },
-              "conversionRate": {
-                "type": "number"
+              "isDefault": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -754,8 +683,98 @@
           }
         },
         {
-          "name": "delete_funnel",
-          "description": "Delete a Funnel.",
+          "name": "delete_unsubscribe_group",
+          "description": "Delete a UnsubscribeGroup.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_sender",
+          "description": "Create a Sender.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "nickname": {
+                "type": "string"
+              },
+              "fromEmail": {
+                "type": "string"
+              },
+              "fromName": {
+                "type": "string"
+              },
+              "verified": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "nickname",
+              "fromEmail"
+            ]
+          }
+        },
+        {
+          "name": "list_senders",
+          "description": "List Senders.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_sender",
+          "description": "Get a Sender by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_sender",
+          "description": "Update a Sender.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "nickname": {
+                "type": "string"
+              },
+              "fromEmail": {
+                "type": "string"
+              },
+              "fromName": {
+                "type": "string"
+              },
+              "verified": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_sender",
+          "description": "Delete a Sender.",
           "inputSchema": {
             "type": "object",
             "properties": {
