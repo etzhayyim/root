@@ -28,6 +28,7 @@ related:
   - 2606073800
   - 2605263700
   - 2605263000
+  - 2605231902
   - 2606014500
 supersedes: []
 superseded_by: []
@@ -57,7 +58,8 @@ A roster audit found the capability **split, with no actor fusing the two halves
   suimin sleep-evidence) — but each acts on a consenting individual, not on the population-scale
   pattern of *what diminishes Wellbecoming*.
 - **Influence** is permitted, narrowly, by exactly one actor — **ossekai** (R2 Wellbecoming-nudge,
-  info-arbitrage) — under §2(c) covert-ops avoidance and anti-addictive constraints.
+  info-arbitrage) — under §1.12.B Transparent-Force (covert operations prohibited) and
+  anti-addictive constraints.
 
 No actor connected *what structurally burdens people* (the detraction surface) to *a transparent
 route to relieve it* (ossekai + the care havens). shiori is that fusion: the **取-concentration
@@ -65,8 +67,9 @@ HUMAN side** of the mirror lineage — observatory **and** routing signal — bu
 Charter's hard limits on influence, not around them.
 
 **The defining tension.** "Evaluate and influence persons" is exactly where the Charter is most
-restrictive: it forbids per-person scoring, covert persuasion, and dark patterns (Wellbecoming
-§1.13; anti-individualism §1.4; covert-ops avoidance §2(c)). shiori is therefore designed so its
+restrictive: it forbids per-person scoring (§2(c) surveillance-capitalism — no brokerage/profiling
+of natural persons), covert persuasion (§1.12.B Transparent Force — covert operations prohibited),
+and dark patterns (Wellbecoming §1.13; anti-individualism §1.4). shiori is therefore designed so its
 *influence* is **structurally constrained**: cohort-scale only, structural causes (never
 individuals to blame), relief **carried by ossekai** (which logs every nudge on-chain and is
 consent-bound), and **anti-addictive by construction** — it may never deploy the engagement-
@@ -110,11 +113,19 @@ routed to **RELIEF (救い)**:
   facts (OECD Better Life / WHO / public wellbeing research); shiori diagnoses no person.
 - **G4 public venue · G5 sourcing honesty · G6 Murakumo-only · G7 outward-gated** (live ingest AND
   live intervention routing require Council + operator DID; R0 = analyzer + schema + seed only).
-- **G8 — TRANSPARENT-INTERVENTION only** (§1.12 Transparent Religious Force + §2(c) covert-ops
-  avoidance). Every nudge is logged on-chain, consent-bound for any member-targeted intervention,
-  never covert / manipulative / coercive. shiori **proposes**; **ossekai (R2) carries**; the
-  recipient can **always see why**. Relief is routed to **structural change first**, not individual
-  blame (§1.4 / §1.7).
+- **G8 — TRANSPARENT-INTERVENTION only** (§1.12.B Transparent Religious Force — covert operations
+  prohibited; the transparency requirement is full on-chain monitoring + open-source + 1 SBT = 1
+  vote). Every nudge is logged on-chain, consent-bound for any member-targeted intervention, never
+  covert / manipulative / coercive. shiori **proposes**; **ossekai (R2) carries**; the recipient can
+  **always see why**. The **only permitted transparent action channels** are: (1) a **public
+  `app.bsky.feed.post` atproto social post** over the §4 MST membrane (ADR-2605231902) —
+  public-by-construction, hence transparent by construction; and (2) **actor-bound email** sent from
+  the actor's own address via the openmail pipeline (`50-infra/openmail-postage/`), with the **full
+  email body disclosed** (the same content append-logged on-chain), never a private back-channel. A
+  nudge that cannot be shown **in full, in public** is not a permitted action — **opacity is the
+  disqualifier, not the medium**. (Per-person data brokerage / affect-profiling stays forbidden
+  under §2(c) surveillance-capitalism regardless of channel.) Relief is routed to **structural
+  change first**, not individual blame (§1.4 / §1.7).
 
 ## 2. wellbecoming-ontology + kotoba Datom-log implementation
 
@@ -206,16 +217,19 @@ never an aggregate mirror.
   power entity is implicated, that is routed to the accountability mirrors (danjo / tsumugi /
   keizu), which themselves never target — they make structure transparent.
 - **Let shiori carry interventions itself.** Rejected: a single actor that both decides who is
-  burdened and acts on them is precisely the covert-influence concentration §2(c) forbids. The
-  observe → propose → (gated, consent-bound, logged) ossekai-carries chain is the Charter-clean
-  shape.
+  burdened and acts on them is precisely the covert-influence concentration §1.12.B forbids (force
+  / influence requires full transparency: on-chain monitoring + open-source + 1 SBT = 1 vote). The
+  observe → propose → (gated, consent-bound, logged) ossekai-carries chain — emitted only over the
+  permitted transparent channels (public atproto post / full-body-disclosed actor email) — is the
+  Charter-clean shape.
 
 # References
 
 - `20-actors/shiori/` — actor (manifest, CLAUDE.md, methods, tests, wasm, seed, out)
 - `00-contracts/schemas/wellbecoming-ontology.kotoba.edn`
-- ADR-2605192100 (Mission Charter — §1.13 Wellbecoming + anti-addictive, §1.4, §1.7, §1.12, §2(c))
+- ADR-2605192100 (Mission Charter — §1.13 Wellbecoming + anti-addictive, §1.4, §1.7, §1.12.B Transparent Force / covert-ops prohibited, §2(c) surveillance-capitalism)
 - ADR-2605264000 (ossekai — the transparent intervention carrier)
+- ADR-2605231902 (`app.bsky.feed.post` §4 MST membrane — permitted public atproto post channel) · `50-infra/openmail-postage/` (actor-bound full-disclosure email channel)
 - ADR-2605263700 (kokoro) · ADR-2605263000 (iyashi) — relief havens
 - ADR-2605301600 (danjo) · 2606011800 (tsumugi) · 2606066000 (keizu) · 2605302300 (kanae) — 取-concentration transparency
 - ADR-2606073000 / 2606073800 (KG-mirror lineage — gap catalog / tsugite pattern)

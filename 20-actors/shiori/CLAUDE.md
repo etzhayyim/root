@@ -1,8 +1,9 @@
 # shiori 栞 — human-Wellbecoming detractor observatory + transparent intervention
 
 **ADR**: 2606082100 · **depends**: 2605192100 (Mission Charter — §1.13 Wellbecoming + anti-addictive,
-§1.4 anti-individualism, §1.7 multi-generational, §1.12 Transparent Force, §2(c) covert-ops
-avoidance) + 2605264000 (ossekai — the intervention carrier) + 2605181100 (PII envelope) +
+§1.4 anti-individualism, §1.7 multi-generational, §1.12.B Transparent Religious Force /
+covert-operations prohibited, §2(c) no-surveillance-capitalism / no per-person profiling) +
+2605264000 (ossekai — the intervention carrier) + 2605181100 (PII envelope) +
 2605301600 (danjo) + 2606011800 (tsumugi) + 2606066000 (keizu) + 2605302300 (kanae) + 2605312345
 (Datom = canonical state) + 2605215000 (Murakumo-only). **Status**: 🟡 R0 design-only.
 
@@ -56,10 +57,20 @@ Charter's hard limits on influence, not around them.
 - **G6 — Murakumo-only narration** (ADR-2605215000).
 - **G7 — outward-gated.** Live ingest **and live intervention routing** (to ossekai targeted-path /
   dry-run social) require Council + operator DID. R0 = analyzer + schema + seed only.
-- **G8 — TRANSPARENT-INTERVENTION only** (§1.12 + §2(c)). Every nudge is **logged on-chain**,
-  **consent-bound** for any member-targeted intervention, and **never covert / manipulative /
-  coercive**. shiori **proposes**; **ossekai (R2) carries**; the recipient can **always see why**.
-  Relief is routed to **structural change first**, not individual blame (§1.4 / §1.7).
+- **G8 — TRANSPARENT-INTERVENTION only** (§1.12.B Transparent Religious Force — covert operations
+  prohibited; transparency requirement = full on-chain monitoring + open-source + 1 SBT = 1 vote).
+  Every nudge is **logged on-chain**, **consent-bound** for any member-targeted intervention, and
+  **never covert / manipulative / coercive**. shiori **proposes**; **ossekai (R2) carries**; the
+  recipient can **always see why**. Relief is routed to **structural change first**, not individual
+  blame (§1.4 / §1.7).
+  - **Permitted transparent action channels** (the only ways an intervention may leave the
+    boundary): (1) **atproto social post** — a public `app.bsky.feed.post` over the §4 MST membrane
+    (ADR-2605231902); public-by-construction, so transparent by construction. (2) **actor-bound
+    email** — sent from the actor's own address via the openmail pipeline (`50-infra/openmail-postage/`),
+    where the **full email body is disclosed** (the same content is posted/append-logged on-chain),
+    never a private back-channel. A nudge that cannot be shown in full, in public, is not a
+    permitted action — opacity is the disqualifier, not the medium. (Surveillance-capitalism /
+    per-person data brokerage stays forbidden under §2(c) regardless of channel.)
 
 ## How it routes (the intervention chain)
 
