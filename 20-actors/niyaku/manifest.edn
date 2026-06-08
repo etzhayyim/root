@@ -45,7 +45,8 @@
  [{:method/id "crane_dynamics"  :method/lang :python :method/pure true  :method/desc "Gantry/STS anti-sway pendulum model + state-feedback controller + ZV input shaper + cycle-time"}
   {:method/id "stow_plan"       :method/lang :python :method/pure true  :method/desc "Bay/row/tier slotting under weight/rotation/reefer/hazmat + no-rehandle discharge sequencing"}
   {:method/id "isaac_sway_sim"  :method/lang :python :method/pure true  :method/desc "Anti-sway transfer driven through clean-room isaacsim.core.api: STS=Cartpole (trolley+hanging-load) + boom/luffing-jib=DoublePendulum (small-angle envelope, honest about underactuation)"}
-  {:method/id "agv_transfer"    :method/lang :python :method/pure true  :method/desc "AGV horizontal transport: trapezoidal/triangular travel-time profile + lane-segment conflict check + LPT makespan dispatch (backs yard_transfer)"}]
+  {:method/id "agv_transfer"    :method/lang :python :method/pure true  :method/desc "AGV horizontal transport: trapezoidal/triangular travel-time profile + lane-segment conflict check + LPT makespan dispatch (backs yard_transfer)"}
+  {:method/id "terminal_cycle"  :method/lang :python :method/pure true  :method/desc "End-to-end discharge orchestration: stow_plan + crane_dynamics + agv_transfer (+optional Isaac crane leg) → pipelined discharge time, moves/hour, worst residual sway, per-box ledger"}]
 
  :actor/reference-equipment
  {:crane/class "ship-to-shore (STS) gantry"

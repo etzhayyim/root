@@ -38,6 +38,7 @@ anti-sway feedback     →  trolley reaches the slot, residual sway < 0.01 rad
 | `stow_plan.py` | bay/row/tier slotting under **weight-on-top + port-rotation + reefer + IMDG hazmat segregation**; **no-rehandle** discharge sequencing |
 | `isaac_sway_sim.py` | drives the clean-room `isaacsim.core.api` (kotodama.nv_compat) — **STS crane = Cartpole** (trolley + hanging load, anti-sway vs naive) **and boom/luffing-jib = DoublePendulum** (small-angle luff with passive-cable load damping; honest `reached=False` outside the underactuated envelope); emits kotoba EAVT datoms |
 | `agv_transfer.py` | AGV horizontal transport: trapezoidal/triangular time-optimal travel profile, lane-segment time-window conflict detection, LPT makespan dispatch (backs `yard_transfer`) |
+| `terminal_cycle.py` | **end-to-end discharge orchestration** — stow → no-rehandle sequence → per-box hoist+anti-sway crane leg (analytic, or routed through Isaac) → AGV yard legs dispatched in parallel → pipelined discharge time, moves/hour, worst residual sway, per-box ledger |
 
 ```sh
 cd 20-actors/niyaku/methods
@@ -72,7 +73,7 @@ G14 no worker biometric/pace surveillance.
 
 ## Status
 
-R0 scaffold (2026-06-08): manifest + 9 cells + 4 runnable methods + lexicon + reference
-terminal data. **47 tests green, 99 % branch coverage** of the methods (44 methods incl.
-Cartpole STS + DoublePendulum boom-luff Isaac sims, 3 cell-state-machine). R1 (live
-actuation) is Council-gated.
+R0 scaffold (2026-06-08): manifest + 9 cells + 5 runnable methods + lexicon + reference
+terminal data. **55 tests green, 98 % branch coverage** of the methods (52 methods incl.
+Cartpole STS + DoublePendulum boom-luff Isaac sims + end-to-end discharge orchestration,
+3 cell-state-machine). R1 (live actuation) is Council-gated.
