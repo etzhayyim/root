@@ -81,10 +81,11 @@
 	{:else}
 		<div class="flex-1 overflow-y-auto scrollbar-none divide-y divide-gv2-border/20">
 			{#each posts as post, i (post.uri || post.uri.split('/').pop())}
-				<button
-					type="button"
-					class="flex w-full gap-3 px-4 py-3 text-left touch-manipulation active:bg-gv2-bg-hover/40"
-					onclick={() => goto(`/profile/${encodeURIComponent(post.author.handle)}/post/${encodeURIComponent(post.uri.split('/').pop() || '')}`)}
+				<!-- svelte-ignore a11y_click_events_have_key_events -->
+				<!-- svelte-ignore a11y_no_static_element_interactions -->
+				<div
+					class="flex w-full cursor-pointer gap-3 px-4 py-3 text-left touch-manipulation active:bg-gv2-bg-hover/40"
+					onclick={(e) => { if ((e.target as HTMLElement).closest('a')) return; goto(`/profile/${encodeURIComponent(post.author.handle)}/post/${encodeURIComponent(post.uri.split('/').pop() || '')}`); }}
 					in:fade={staggerFade(i, { duration: 150 })}
 				>
 					<Avatar src={post.author.avatar || undefined} fallback={(post.author.displayName || post.author.handle).slice(0, 2).toUpperCase()} size="sm" class="!h-10 !w-10 flex-shrink-0" />
@@ -106,7 +107,7 @@
 							</div>
 						{/if}
 					</div>
-				</button>
+				</div>
 			{/each}
 		</div>
 	{/if}
