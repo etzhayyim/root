@@ -22775,6 +22775,32 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606082100-tailscale-ssh-fleet-operator-access-overlay.md",
+      "id": "adr-2606082100-tailscale-ssh-fleet-operator-access-overlay",
+      "title": "ADR-2606082100: Tailscale SSH mesh for the Murakumo Mac-mini fleet — keyless, tailnet-SSO-gated operator remote access",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "tailscale-ssh-fleet-operator-access-overlay",
+      "authoritative": true,
+      "authoritative_for": [
+        "the fleet operator remote-access overlay (Tailscale) and its auth model",
+        "the keyless Tailscale-SSH access convention for fleet nodes"
+      ],
+      "related": [
+        "2605201400"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605191346",
+        "2605215000",
+        "2605231525"
+      ],
+      "last_verified": "2026-06-08",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

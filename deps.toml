@@ -708,6 +708,21 @@ monitor_command = "./20-actors/first-breath/monitor.sh"
 wol_state = "not_woken_2026_05_18"
 wol_unblock = "physical wake + pmset -a womp 1 on benjamin, asher"
 
+# ─── Operator remote-access overlay (Tailscale SSH) — ADR-2606082100 ──
+# Control-plane ONLY: keyless, tailnet-SSO-gated SSH across the fleet for
+# deploy/monitor/maintenance. NOT a substrate primitive — carries no inference,
+# no kotoba state, and no signing; orthogonal to the langserver 10.99.0.0/16
+# data-plane mesh. Tailnet auth key lives in Keychain + 1Password, NEVER in-repo
+# (handled like the DID private key). No IPs / usernames / secrets recorded here.
+operator_access_overlay = "tailscale"   # WireGuard mesh; data plane peer-to-peer
+operator_ssh = "tailscale-ssh"          # port 22 served by the tailnet-identity SSH server
+operator_ssh_auth = "tailnet-sso + acl(action=accept, src=autogroup:member, dst=autogroup:self, users=autogroup:nonroot)"
+operator_ssh_keyless = true             # no per-node authorized_keys, no distributed SSH private keys, no passwords
+operator_login_convention = "local-account == node hostname (<tribe>); primary node = operator handle"
+operator_enroll = "one-off / ephemeral tailnet auth key (Keychain + 1Password); never committed"
+operator_overlay_selfhost_exit = "headscale (deferred de-SaaS path)"
+operator_overlay_adr = "2606082100"
+
 # ─── ADR registry (mirrors 90-docs/adr/README.md for machine discovery) ──
 
 [[adrs]]
@@ -10253,6 +10268,15 @@ title = "meyasu (目安) — unified arbitrage / supply-demand intel orchestrato
 status = "proposed"
 status_note = "The 統合 arbitrage アクター named in the price-intel gap audit. did:web:meyasu.etzhayyim.com (20-actors/meyasu/), a THIN ORCHESTRATOR (a 目安 = yardstick, NOT a trade) that computes no price or forecast math itself but FUSES three siblings: kakaku 価格 (cross-merchant/region price SPREAD + present supply/demand index, ADR-2605091200) + mitooshi 見通し (forecast DISTRIBUTION of that index, ADR-2606051800) + ossekai 御節介 (aggregate-first publication discipline, ADR-2605264000). 3 cells over one kotoba Datom graph: fuse (handle_fuse — per-product {kakaku, mitooshi} -> unified arbitrage-intel card: spread, supply/demand now, forecast BAND, trajectory tightening/easing/stable, attention flag, planner route; a point-asserted or speculative forecast is REFUSED, G2) + publish (handle_publish — cards -> aggregate-first post + planner handoff for attention cards; broadcast operator-gated, default :draft) + persist (handle_persist + card_to_datoms — flatten cards into kotoba Datoms over kotoba/schema.edn :meyasu.card/* :meyasu.post/*; tx RETURNED not written without operatorRef, no-server-key; forecast persisted as :forecast-band-lo/hi, never a point). 6 gates: G1 non-speculative (intent buyer-transparency+supply-resilience; emits no trade/price target; :trade/:speculation are NOT representable in the card intent — speculation structurally unrepresentable, Charter §1.3 + yobel) + G2 distribution-respecting (consumed forecast MUST be a distribution point_asserted false with a resilience use; point/speculative refused per-item) + G3 aggregate-first (published intel anonymized aggregate) + G4 non-adjudicating (attention cards routed to a planner okaimono buyers / danjo resilience; meyasu states, planner decides) + G5 Murakumo-only inference (kotoba llm host binding) + G6 no-server-key (publication + persist operator-gated). Lexicons com.etzhayyim.apps.meyasu.{card,post}. Self-driving kotoba/deploy.sh (blocking test gate) + path-scoped .github/workflows/meyasu-test.yml. Cohort END-TO-END test (test_cohort_e2e.py) proves kakaku -> mitooshi -> meyasu composes leak-free across actor boundaries. COMPANION work same session/PR: kakaku offer-ingest extraction pipeline (JSON-LD -> selector -> meta -> Murakumo; live fetch G11-gated) + mitooshi quantile (pinball-scored) forecaster + okaimono live USDC + TitheRouter settlement broadcast (member-signed, no-server-key) + ossekai 8/8 cells complete + onion -> kotoba-kqe migration (ADR-2606071800; removes last createKyselyDb/Hyperdrive read-path violation) + onion BPMN crawl worker re-homed as a py-kotodama primitive running in a kotoba-wasm component (Datom-native, operator-gated Tor fetch). Deciders: Jun Kawasaki. Depends on ADR-2605091200 + 2606051800 + 2606012100 + 2605264000 + 2606071800 + 2605262130 + 2605312345 + 2605215000."
 path = "90-docs/adr/2606073200-meyasu-unified-arbitrage-intel-orchestrator.md"
+
+# ─── Tailscale SSH operator-access overlay for the Murakumo fleet (ADR-2606082100) ──
+
+[[adrs]]
+id = "2606082100"
+title = "Tailscale SSH mesh for the Murakumo Mac-mini fleet — keyless, tailnet-SSO-gated operator remote access (control-plane overlay; not a substrate primitive)"
+status = "proposed"
+status_note = "Records the operator control-plane overlay for the Mac-mini fleet (ADR-2605191346). Tailscale (WireGuard mesh) + Tailscale SSH on every node: port 22 on the tailnet interface is served by the tailnet-identity SSH server, authorized by a tailnet ACL ssh rule (action=accept, src=autogroup:member, dst=autogroup:self, users=autogroup:nonroot). KEYLESS — no per-node authorized_keys, no distributed SSH private keys, no passwords; access granted/revoked centrally; aligns with the no-server-key spirit (ADR-2605231525) because a tailnet IDENTITY, not a stored key, authorizes each session. Enrollment uses a one-off/ephemeral tailnet auth key held only in Keychain + 1Password, never committed (handled like the DID private key). Login convention: local account == node hostname (<tribe>); primary node = operator handle. SCOPE BOUNDARY (load-bearing): control-plane ONLY — carries no inference, no kotoba Datom state, and no signing; does NOT replace the langserver 10.99.0.0/16 data-plane mesh, the geth/IPFS/Base substrate, or the Murakumo-only inference path (ADR-2605215000). Trade-off: the login.tailscale.com coordination server is a third-party control-plane dependency (data plane stays peer-to-peer WireGuard); the de-SaaS exit is self-hosted Headscale (deferred). Secrets hygiene: no auth keys, passwords, tailnet IPs (100.64.0.0/10 CGNAT ephemeral), or local usernames recorded in-repo. Deciders: Jun Kawasaki. Depends on ADR-2605191346 + 2605215000 + 2605231525."
+path = "90-docs/adr/2606082100-tailscale-ssh-fleet-operator-access-overlay.md"
 
 [[modules]]
 path = "20-actors/meyasu"
