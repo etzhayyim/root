@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreiei2la2wdiq2nhxgbzgpmdzgs5ulubq3ezzjak5vf7dyfmggbmrie",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,9 +17,9 @@
     }
   ],
   "paths": {
-    "/v1/services": {
+    "/v1/monitors": {
       "get": {
-        "summary": "List Services",
+        "summary": "List Monitors",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Service"
+                        "$ref": "#/components/schemas/Monitor"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Service",
+        "summary": "Create a Monitor",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ServiceCreate"
+                "$ref": "#/components/schemas/MonitorCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Service"
+                  "$ref": "#/components/schemas/Monitor"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/services/{id}": {
+    "/v1/monitors/{id}": {
       "get": {
-        "summary": "Get a Service",
+        "summary": "Get a Monitor",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Service"
+                  "$ref": "#/components/schemas/Monitor"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Service",
+        "summary": "Update a Monitor",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ServiceCreate"
+                "$ref": "#/components/schemas/MonitorCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Service"
+                  "$ref": "#/components/schemas/Monitor"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Service",
+        "summary": "Delete a Monitor",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/errors": {
+    "/v1/dashboards": {
       "get": {
-        "summary": "List Errors",
+        "summary": "List Dashboards",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Error"
+                        "$ref": "#/components/schemas/Dashboard"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Error",
+        "summary": "Create a Dashboard",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ErrorCreate"
+                "$ref": "#/components/schemas/DashboardCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/Dashboard"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/errors/{id}": {
+    "/v1/dashboards/{id}": {
       "get": {
-        "summary": "Get a Error",
+        "summary": "Get a Dashboard",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/Dashboard"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Error",
+        "summary": "Update a Dashboard",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ErrorCreate"
+                "$ref": "#/components/schemas/DashboardCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/Dashboard"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Error",
+        "summary": "Delete a Dashboard",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/traces": {
+    "/v1/timeserieses": {
       "get": {
-        "summary": "List Traces",
+        "summary": "List TimeSerieses",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Trace"
+                        "$ref": "#/components/schemas/TimeSeries"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Trace",
+        "summary": "Create a TimeSeries",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TraceCreate"
+                "$ref": "#/components/schemas/TimeSeriesCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Trace"
+                  "$ref": "#/components/schemas/TimeSeries"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/traces/{id}": {
+    "/v1/timeserieses/{id}": {
       "get": {
-        "summary": "Get a Trace",
+        "summary": "Get a TimeSeries",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Trace"
+                  "$ref": "#/components/schemas/TimeSeries"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Trace",
+        "summary": "Update a TimeSeries",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TraceCreate"
+                "$ref": "#/components/schemas/TimeSeriesCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Trace"
+                  "$ref": "#/components/schemas/TimeSeries"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Trace",
+        "summary": "Delete a TimeSeries",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/metrics": {
+    "/v1/events": {
       "get": {
-        "summary": "List Metrics",
+        "summary": "List Events",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Metric"
+                        "$ref": "#/components/schemas/Event"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Metric",
+        "summary": "Create a Event",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MetricCreate"
+                "$ref": "#/components/schemas/EventCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Metric"
+                  "$ref": "#/components/schemas/Event"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/metrics/{id}": {
+    "/v1/events/{id}": {
       "get": {
-        "summary": "Get a Metric",
+        "summary": "Get a Event",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Metric"
+                  "$ref": "#/components/schemas/Event"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Metric",
+        "summary": "Update a Event",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MetricCreate"
+                "$ref": "#/components/schemas/EventCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Metric"
+                  "$ref": "#/components/schemas/Event"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Metric",
+        "summary": "Delete a Event",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/alerts": {
+    "/v1/downtimes": {
       "get": {
-        "summary": "List Alerts",
+        "summary": "List Downtimes",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Alert"
+                        "$ref": "#/components/schemas/Downtime"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Alert",
+        "summary": "Create a Downtime",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AlertCreate"
+                "$ref": "#/components/schemas/DowntimeCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Alert"
+                  "$ref": "#/components/schemas/Downtime"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/alerts/{id}": {
+    "/v1/downtimes/{id}": {
       "get": {
-        "summary": "Get a Alert",
+        "summary": "Get a Downtime",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Alert"
+                  "$ref": "#/components/schemas/Downtime"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Alert",
+        "summary": "Update a Downtime",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AlertCreate"
+                "$ref": "#/components/schemas/DowntimeCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Alert"
+                  "$ref": "#/components/schemas/Downtime"
                 }
               }
             }
@@ -921,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Alert",
+        "summary": "Delete a Downtime",
         "parameters": [
           {
             "name": "id",
@@ -1140,7 +1140,7 @@
   },
   "components": {
     "schemas": {
-      "Service": {
+      "Monitor": {
         "type": "object",
         "properties": {
           "id": {
@@ -1149,57 +1149,44 @@
           "name": {
             "type": "string"
           },
-          "environment": {
-            "type": "string"
-          },
-          "language": {
-            "type": "string"
-          },
-          "createdAt": {
+          "type": {
             "type": "string",
-            "format": "date-time"
+            "enum": [
+              "metric_alert",
+              "log_alert",
+              "anomaly",
+              "outlier",
+              "forecast",
+              "composite",
+              "host",
+              "network",
+              "integration",
+              "process",
+              "event",
+              "service_check",
+              "apm",
+              "real_user_monitoring",
+              "cloud_cost",
+              "slo_alert"
+            ]
           },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ServiceCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "environment": {
-            "type": "string"
-          },
-          "language": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "environment"
-        ]
-      },
-      "Error": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "serviceId": {
+          "query": {
             "type": "string"
           },
           "message": {
             "type": "string"
           },
-          "culprit": {
-            "type": "string"
+          "overallState": {
+            "type": "string",
+            "enum": [
+              "alert",
+              "warn",
+              "no_data",
+              "ok"
+            ]
           },
-          "count": {
-            "type": "integer"
+          "tags": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -1211,142 +1198,78 @@
           }
         }
       },
-      "ErrorCreate": {
+      "MonitorCreate": {
         "type": "object",
         "properties": {
-          "serviceId": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "metric_alert",
+              "log_alert",
+              "anomaly",
+              "outlier",
+              "forecast",
+              "composite",
+              "host",
+              "network",
+              "integration",
+              "process",
+              "event",
+              "service_check",
+              "apm",
+              "real_user_monitoring",
+              "cloud_cost",
+              "slo_alert"
+            ]
+          },
+          "query": {
             "type": "string"
           },
           "message": {
             "type": "string"
           },
-          "culprit": {
-            "type": "string"
-          },
-          "count": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "message",
-          "culprit"
-        ]
-      },
-      "Trace": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "serviceId": {
-            "type": "string"
-          },
-          "operation": {
-            "type": "string"
-          },
-          "durationMs": {
-            "type": "integer"
-          },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
+          "overallState": {
             "type": "string",
-            "format": "date-time"
+            "enum": [
+              "alert",
+              "warn",
+              "no_data",
+              "ok"
+            ]
           },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "TraceCreate": {
-        "type": "object",
-        "properties": {
-          "serviceId": {
-            "type": "string"
-          },
-          "operation": {
-            "type": "string"
-          },
-          "durationMs": {
-            "type": "integer"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "operation",
-          "durationMs"
-        ]
-      },
-      "Metric": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "serviceId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "value": {
-            "type": "number"
-          },
-          "unit": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "MetricCreate": {
-        "type": "object",
-        "properties": {
-          "serviceId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "value": {
-            "type": "number"
-          },
-          "unit": {
+          "tags": {
             "type": "string"
           }
         },
         "required": [
           "name",
-          "value"
+          "type"
         ]
       },
-      "Alert": {
+      "Dashboard": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "serviceId": {
+          "title": {
             "type": "string"
           },
-          "condition": {
+          "layoutType": {
+            "type": "string",
+            "enum": [
+              "ordered",
+              "free"
+            ]
+          },
+          "description": {
             "type": "string"
           },
-          "severity": {
+          "widgets": {
             "type": "string"
-          },
-          "active": {
-            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1358,25 +1281,240 @@
           }
         }
       },
-      "AlertCreate": {
+      "DashboardCreate": {
         "type": "object",
         "properties": {
-          "serviceId": {
+          "title": {
             "type": "string"
           },
-          "condition": {
+          "layoutType": {
+            "type": "string",
+            "enum": [
+              "ordered",
+              "free"
+            ]
+          },
+          "description": {
             "type": "string"
           },
-          "severity": {
+          "widgets": {
             "type": "string"
-          },
-          "active": {
-            "type": "boolean"
           }
         },
         "required": [
-          "condition",
-          "severity"
+          "title",
+          "layoutType"
+        ]
+      },
+      "TimeSeries": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "metric": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "gauge",
+              "count",
+              "histogram",
+              "distribution",
+              "rate"
+            ]
+          },
+          "timestamp": {
+            "type": "integer"
+          },
+          "value": {
+            "type": "number"
+          },
+          "host": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "TimeSeriesCreate": {
+        "type": "object",
+        "properties": {
+          "metric": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "gauge",
+              "count",
+              "histogram",
+              "distribution",
+              "rate"
+            ]
+          },
+          "timestamp": {
+            "type": "integer"
+          },
+          "value": {
+            "type": "number"
+          },
+          "host": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "metric",
+          "type"
+        ]
+      },
+      "Event": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "integer"
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "normal",
+              "low"
+            ]
+          },
+          "alertType": {
+            "type": "string",
+            "enum": [
+              "error",
+              "warning",
+              "info",
+              "success"
+            ]
+          },
+          "tags": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "EventCreate": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "integer"
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "normal",
+              "low"
+            ]
+          },
+          "alertType": {
+            "type": "string",
+            "enum": [
+              "error",
+              "warning",
+              "info",
+              "success"
+            ]
+          },
+          "tags": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "title",
+          "text"
+        ]
+      },
+      "Downtime": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "monitorId": {
+            "type": "integer"
+          },
+          "scope": {
+            "type": "string"
+          },
+          "start": {
+            "type": "integer"
+          },
+          "end": {
+            "type": "integer"
+          },
+          "timezone": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "DowntimeCreate": {
+        "type": "object",
+        "properties": {
+          "monitorId": {
+            "type": "integer"
+          },
+          "scope": {
+            "type": "string"
+          },
+          "start": {
+            "type": "integer"
+          },
+          "end": {
+            "type": "integer"
+          },
+          "timezone": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "scope",
+          "start"
         ]
       },
       "Incident": {
@@ -1388,15 +1526,26 @@
           "title": {
             "type": "string"
           },
-          "status": {
-            "type": "string"
-          },
           "severity": {
-            "type": "string"
-          },
-          "startedAt": {
             "type": "string",
-            "format": "date-time"
+            "enum": [
+              "UNKNOWN",
+              "LOW",
+              "MEDIUM",
+              "HIGH",
+              "CRITICAL"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "RESOLVED",
+              "CLOSED"
+            ]
+          },
+          "customerImpactScope": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -1414,19 +1563,31 @@
           "title": {
             "type": "string"
           },
-          "status": {
-            "type": "string"
-          },
           "severity": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "UNKNOWN",
+              "LOW",
+              "MEDIUM",
+              "HIGH",
+              "CRITICAL"
+            ]
           },
-          "startedAt": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "RESOLVED",
+              "CLOSED"
+            ]
+          },
+          "customerImpactScope": {
             "type": "string"
           }
         },
         "required": [
           "title",
-          "status"
+          "severity"
         ]
       }
     }

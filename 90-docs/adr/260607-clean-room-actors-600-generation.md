@@ -210,7 +210,7 @@ schema/enums match each live vendor API field-for-field. To avoid overclaiming,
 that distinct axis is named **L5 (Verified)**: an actor reaches L5 only when its
 Kotoba schema + endpoint contract are reconciled against the platform's official
 API documentation (field names, types, enums, required-ness, error codes) via the
-Autonomous Reverse-Engineering Loop, with provenance recorded. **L5 count today: 12** (+square, remodeled to a faithful model then doc-verified) — stripe, github, twilio, shopify, plaid, anthropic, zendesk, discord, gtfs, slack, hl7_fhir are doc-verified (reconciled against official API docs; real enums enforced in runtime + OpenAPI where 1:1, documented otherwise; see `00-contracts/schemas/cleanroom-l5-verification.json`). Actors whose category model does not match a specific vendor (e.g. square ≠ the Stripe-shaped payments model) are correctly NOT certified L5 — the process catches mismatches, and JS-rendered doc sites (salesforce, hubspot) are deferred until a fetchable source is available. So: L4 = "production-grade clean-room
+Autonomous Reverse-Engineering Loop, with provenance recorded. **L5 count today: 14** — stripe, github, twilio, shopify, square, gtfs, datadog, sendgrid are FULLY verified (every resource doc-reconciled); plaid/anthropic/slack/hl7_fhir/discord/zendesk partial. datadog + sendgrid were remodeled from generic archetypes then doc-verified (haiku subagents researched the faithful model). Coinbase was researched but DEFERRED — its official REST reference was unreachable (404) and enums could not be doc-confirmed, so it stays L4 (honest: no fabricated verification).
 implementation" (achieved corpus-wide); L5 = "verified against the real API"
 (the next, doc-gated tier).
 

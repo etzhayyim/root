@@ -3939,7 +3939,7 @@
     {
       "handle": "datadog-compat",
       "did": "did:web:etzhayyim.com:actor:datadog-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreiei2la2wdiq2nhxgbzgpmdzgs5ulubq3ezzjak5vf7dyfmggbmrie",
@@ -13561,7 +13561,7 @@
     {
       "handle": "sendgrid-compat",
       "did": "did:web:etzhayyim.com:actor:sendgrid-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreiclpoa6rkzdzk2mtijk6ak7b7skkil6equmnep6y7gtjduzvu67du",

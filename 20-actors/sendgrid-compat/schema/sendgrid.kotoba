@@ -3,70 +3,61 @@
 
 namespace sendgrid {
 
-    entity Campaign {
-        id: string @unique
-        name: string
-        channel: string
-        status: string
-        budget: float
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Audience {
-        id: string @unique
-        name: string
-        size: integer
-        definition: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Event {
-        id: string @unique
-        profileId: string
-        name: string
-        properties: string
-        occurredAt: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Profile {
+    entity Contact {
         id: string @unique
         email: string
+        firstName: string
+        lastName: string
+        country: string
         externalId: string
-        traits: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Message {
+    entity Template {
         id: string @unique
-        campaignId: string
-        profileId: string
-        channel: string
+        name: string
+        generation: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity SingleSend {
+        id: string @unique
+        name: string
+        status: string
+        templateId: string
+        senderId: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Bounce {
+        id: string @unique
+        email: string
+        reason: string
         status: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Funnel {
+    entity UnsubscribeGroup {
         id: string @unique
         name: string
-        steps: string
-        conversionRate: float
+        description: string
+        isDefault: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Sender {
+        id: string @unique
+        nickname: string
+        fromEmail: string
+        fromName: string
+        verified: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

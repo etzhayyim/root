@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 12,
+  "count": 14,
   "actors": [
     {
       "handle": "square-compat",
@@ -1623,6 +1623,297 @@
         }
       ],
       "note": "8 resource(s) doc-verified; enforced enums: Invoice.status, PaymentIntent.status, Price.recurringInterval, Refund.reason, Refund.status, Subscription.status"
+    },
+    {
+      "handle": "datadog-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://docs.datadoghq.com/api/latest",
+      "remodeled": "Remodeled from the generic devtools_apm archetype to a faithful Datadog model, then doc-verified (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Monitor",
+          "source": "https://docs.datadoghq.com/api/latest/monitors/",
+          "verifiedFields": [
+            "name",
+            "type",
+            "query",
+            "message",
+            "overallState",
+            "tags"
+          ],
+          "fieldStatus": "confirmed via official Datadog Monitors API examples",
+          "discoveredEnums": {
+            "type": [
+              "metric_alert",
+              "log_alert",
+              "anomaly",
+              "outlier",
+              "forecast",
+              "composite",
+              "host",
+              "network",
+              "integration",
+              "process",
+              "event",
+              "service_check",
+              "apm",
+              "real_user_monitoring",
+              "cloud_cost",
+              "slo_alert"
+            ],
+            "overallState": [
+              "alert",
+              "warn",
+              "no_data",
+              "ok"
+            ]
+          },
+          "gaps": [
+            "id",
+            "priority",
+            "options",
+            "creator"
+          ]
+        },
+        {
+          "entity": "Dashboard",
+          "source": "https://docs.datadoghq.com/api/latest/dashboards/",
+          "verifiedFields": [
+            "title",
+            "layoutType",
+            "description",
+            "widgets"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "layoutType": [
+              "ordered",
+              "free"
+            ]
+          },
+          "gaps": [
+            "id",
+            "template_variables",
+            "notify_list"
+          ]
+        },
+        {
+          "entity": "TimeSeries",
+          "source": "https://docs.datadoghq.com/api/latest/metrics/",
+          "verifiedFields": [
+            "metric",
+            "type",
+            "timestamp",
+            "value",
+            "host",
+            "tags"
+          ],
+          "fieldStatus": "confirmed via metrics submission",
+          "discoveredEnums": {
+            "type": [
+              "gauge",
+              "count",
+              "histogram",
+              "distribution",
+              "rate"
+            ]
+          },
+          "gaps": [
+            "interval",
+            "unit"
+          ]
+        },
+        {
+          "entity": "Event",
+          "source": "https://docs.datadoghq.com/api/latest/events/",
+          "verifiedFields": [
+            "title",
+            "text",
+            "timestamp",
+            "priority",
+            "alertType",
+            "tags"
+          ],
+          "fieldStatus": "confirmed via Events API",
+          "discoveredEnums": {
+            "priority": [
+              "normal",
+              "low"
+            ],
+            "alertType": [
+              "error",
+              "warning",
+              "info",
+              "success"
+            ]
+          },
+          "gaps": [
+            "id",
+            "source_type_name",
+            "aggregation_key"
+          ]
+        },
+        {
+          "entity": "Downtime",
+          "source": "https://docs.datadoghq.com/api/latest/downtimes/",
+          "verifiedFields": [
+            "monitorId",
+            "scope",
+            "start",
+            "end",
+            "timezone"
+          ],
+          "fieldStatus": "confirmed via downtime scheduling",
+          "discoveredEnums": {},
+          "gaps": [
+            "recurrence",
+            "message",
+            "muted"
+          ]
+        },
+        {
+          "entity": "Incident",
+          "source": "https://docs.datadoghq.com/api/latest/incidents/",
+          "verifiedFields": [
+            "title",
+            "severity",
+            "status",
+            "customerImpactScope"
+          ],
+          "fieldStatus": "confirmed via Incidents API",
+          "discoveredEnums": {
+            "severity": [
+              "UNKNOWN",
+              "LOW",
+              "MEDIUM",
+              "HIGH",
+              "CRITICAL"
+            ],
+            "status": [
+              "ACTIVE",
+              "RESOLVED",
+              "CLOSED"
+            ]
+          },
+          "gaps": [
+            "created",
+            "commander",
+            "fields"
+          ]
+        }
+      ],
+      "note": "6 resource(s) doc-verified; enforced enums: Monitor.type, Monitor.overallState, TimeSeries.type, Event.priority, Event.alertType, Incident.severity, Incident.status"
+    },
+    {
+      "handle": "sendgrid-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://www.twilio.com/docs/sendgrid/api-reference",
+      "remodeled": "Remodeled from the generic martech archetype to a faithful SendGrid v3 model, then doc-verified (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Contact",
+          "source": "https://www.twilio.com/docs/sendgrid/api-reference/contacts",
+          "verifiedFields": [
+            "email",
+            "firstName",
+            "lastName",
+            "country",
+            "externalId"
+          ],
+          "fieldStatus": "confirmed (first_name/last_name/country/external_id)",
+          "discoveredEnums": {},
+          "gaps": [
+            "custom_fields",
+            "phone_number_id",
+            "address_line_1"
+          ]
+        },
+        {
+          "entity": "Template",
+          "source": "https://www.twilio.com/docs/sendgrid/api-reference/transactional-templates",
+          "verifiedFields": [
+            "name",
+            "generation"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "generation": [
+              "legacy",
+              "dynamic"
+            ]
+          },
+          "gaps": [
+            "id",
+            "versions"
+          ]
+        },
+        {
+          "entity": "SingleSend",
+          "source": "https://www.twilio.com/docs/sendgrid/api-reference/single-sends",
+          "verifiedFields": [
+            "name",
+            "status",
+            "templateId",
+            "senderId"
+          ],
+          "fieldStatus": "name/template_id/sender_id confirmed; status present but the closed enum list is not published in the endpoint spec -> NOT force-enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "status-enum (draft/scheduled/sent/paused inferred, not in spec)",
+            "list_ids",
+            "send_at"
+          ]
+        },
+        {
+          "entity": "Bounce",
+          "source": "https://www.twilio.com/docs/sendgrid/api-reference/bounces-api",
+          "verifiedFields": [
+            "email",
+            "reason",
+            "status"
+          ],
+          "fieldStatus": "confirmed; reason/status are free-text SMTP detail, not enumerated",
+          "discoveredEnums": {},
+          "gaps": [
+            "created (unix)"
+          ]
+        },
+        {
+          "entity": "UnsubscribeGroup",
+          "source": "https://www.twilio.com/docs/sendgrid/api-reference/suppressions-unsubscribe-groups",
+          "verifiedFields": [
+            "name",
+            "description",
+            "isDefault"
+          ],
+          "fieldStatus": "confirmed (is_default boolean)",
+          "discoveredEnums": {},
+          "gaps": [
+            "id",
+            "unsubscribes"
+          ]
+        },
+        {
+          "entity": "Sender",
+          "source": "https://www.twilio.com/docs/sendgrid/api-reference/senders",
+          "verifiedFields": [
+            "nickname",
+            "fromEmail",
+            "fromName",
+            "verified"
+          ],
+          "fieldStatus": "confirmed (from.email/from.name nested; verified boolean)",
+          "discoveredEnums": {},
+          "gaps": [
+            "id",
+            "reply_to",
+            "address"
+          ]
+        }
+      ],
+      "note": "6 resource(s) doc-verified; enforced enums: Template.generation"
     }
   ]
 }

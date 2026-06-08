@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 988,
-    "L5": 12
+    "L4": 986,
+    "L5": 14
   },
   "actors": [
     {
@@ -4178,7 +4178,7 @@
       "wasmCid": "bafkreiei2la2wdiq2nhxgbzgpmdzgs5ulubq3ezzjak5vf7dyfmggbmrie",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "datadog clean-room actor",
       "category": "devtools_apm",
       "capabilities": [
@@ -14366,7 +14366,7 @@
       "wasmCid": "bafkreiclpoa6rkzdzk2mtijk6ak7b7skkil6equmnep6y7gtjduzvu67du",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "sendgrid clean-room actor",
       "category": "martech",
       "capabilities": [

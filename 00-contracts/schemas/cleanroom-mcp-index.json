@@ -2091,7 +2091,7 @@
     {
       "handle": "datadog-compat",
       "did": "did:web:etzhayyim.com:actor:datadog-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreiei2la2wdiq2nhxgbzgpmdzgs5ulubq3ezzjak5vf7dyfmggbmrie",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -7185,7 +7185,7 @@
     {
       "handle": "sendgrid-compat",
       "did": "did:web:etzhayyim.com:actor:sendgrid-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreiclpoa6rkzdzk2mtijk6ak7b7skkil6equmnep6y7gtjduzvu67du",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,

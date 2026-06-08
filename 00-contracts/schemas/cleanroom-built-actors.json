@@ -3951,11 +3951,11 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Service",
-        "Error",
-        "Trace",
-        "Metric",
-        "Alert",
+        "Monitor",
+        "Dashboard",
+        "TimeSeries",
+        "Event",
+        "Downtime",
         "Incident"
       ]
     },
@@ -13576,12 +13576,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Campaign",
-        "Audience",
-        "Event",
-        "Profile",
-        "Message",
-        "Funnel"
+        "Contact",
+        "Template",
+        "SingleSend",
+        "Bounce",
+        "UnsubscribeGroup",
+        "Sender"
       ]
     },
     {

@@ -945,6 +945,25 @@ PLATFORM_OVERRIDES = {
         "IamRole": E(name="string", arn="string", policyRef="string"),
         "RdsInstance": E(identifier="string", engine="string", instanceClass="string", status="string"),
     },
+    # Faithful Datadog model (remodeled from the generic devtools_apm archetype),
+    # doc-verified to L5 (ADR 260607 §8).
+    "datadog": {
+        "Monitor": E(name="string", type="string", query="string", message="string", overallState="string", tags="string"),
+        "Dashboard": E(title="string", layoutType="string", description="string", widgets="string"),
+        "TimeSeries": E(metric="string", type="string", timestamp="integer", value="float", host="string", tags="string"),
+        "Event": E(title="string", text="string", timestamp="integer", priority="string", alertType="string", tags="string"),
+        "Downtime": E(monitorId="integer", scope="string", start="integer", end="integer", timezone="string"),
+        "Incident": E(title="string", severity="string", status="string", customerImpactScope="string"),
+    },
+    # Faithful SendGrid (Twilio SendGrid) model, doc-verified to L5.
+    "sendgrid": {
+        "Contact": E(email="string", firstName="string", lastName="string", country="string", externalId="string"),
+        "Template": E(name="string", generation="string"),
+        "SingleSend": E(name="string", status="string", templateId="string", senderId="string"),
+        "Bounce": E(email="string", reason="string", status="string"),
+        "UnsubscribeGroup": E(name="string", description="string", isDefault="boolean"),
+        "Sender": E(nickname="string", fromEmail="string", fromName="string", verified="boolean"),
+    },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).
     "square": {

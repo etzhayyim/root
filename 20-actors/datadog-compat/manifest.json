@@ -11,14 +11,94 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiei2la2wdiq2nhxgbzgpmdzgs5ulubq3ezzjak5vf7dyfmggbmrie",
   "schema": "schema/datadog.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://docs.datadoghq.com/api/latest",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "Monitor",
+      "Dashboard",
+      "TimeSeries",
+      "Event",
+      "Downtime",
+      "Incident"
+    ],
+    "enums": {
+      "Monitor": {
+        "type": [
+          "metric_alert",
+          "log_alert",
+          "anomaly",
+          "outlier",
+          "forecast",
+          "composite",
+          "host",
+          "network",
+          "integration",
+          "process",
+          "event",
+          "service_check",
+          "apm",
+          "real_user_monitoring",
+          "cloud_cost",
+          "slo_alert"
+        ],
+        "overallState": [
+          "alert",
+          "warn",
+          "no_data",
+          "ok"
+        ]
+      },
+      "Dashboard": {
+        "layoutType": [
+          "ordered",
+          "free"
+        ]
+      },
+      "TimeSeries": {
+        "type": [
+          "gauge",
+          "count",
+          "histogram",
+          "distribution",
+          "rate"
+        ]
+      },
+      "Event": {
+        "priority": [
+          "normal",
+          "low"
+        ],
+        "alertType": [
+          "error",
+          "warning",
+          "info",
+          "success"
+        ]
+      },
+      "Incident": {
+        "severity": [
+          "UNKNOWN",
+          "LOW",
+          "MEDIUM",
+          "HIGH",
+          "CRITICAL"
+        ],
+        "status": [
+          "ACTIVE",
+          "RESOLVED",
+          "CLOSED"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Service",
-    "Error",
-    "Trace",
-    "Metric",
-    "Alert",
+    "Monitor",
+    "Dashboard",
+    "TimeSeries",
+    "Event",
+    "Downtime",
     "Incident"
   ],
   "adr": [
@@ -35,128 +115,128 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/services",
-          "op": "create Service"
+          "path": "/v1/monitors",
+          "op": "create Monitor"
         },
         {
           "method": "GET",
-          "path": "/v1/services",
-          "op": "list Service"
+          "path": "/v1/monitors",
+          "op": "list Monitor"
         },
         {
           "method": "GET",
-          "path": "/v1/services/{id}",
-          "op": "get Service"
+          "path": "/v1/monitors/{id}",
+          "op": "get Monitor"
         },
         {
           "method": "PATCH",
-          "path": "/v1/services/{id}",
-          "op": "update Service"
+          "path": "/v1/monitors/{id}",
+          "op": "update Monitor"
         },
         {
           "method": "DELETE",
-          "path": "/v1/services/{id}",
-          "op": "delete Service"
+          "path": "/v1/monitors/{id}",
+          "op": "delete Monitor"
         },
         {
           "method": "POST",
-          "path": "/v1/errors",
-          "op": "create Error"
+          "path": "/v1/dashboards",
+          "op": "create Dashboard"
         },
         {
           "method": "GET",
-          "path": "/v1/errors",
-          "op": "list Error"
+          "path": "/v1/dashboards",
+          "op": "list Dashboard"
         },
         {
           "method": "GET",
-          "path": "/v1/errors/{id}",
-          "op": "get Error"
+          "path": "/v1/dashboards/{id}",
+          "op": "get Dashboard"
         },
         {
           "method": "PATCH",
-          "path": "/v1/errors/{id}",
-          "op": "update Error"
+          "path": "/v1/dashboards/{id}",
+          "op": "update Dashboard"
         },
         {
           "method": "DELETE",
-          "path": "/v1/errors/{id}",
-          "op": "delete Error"
+          "path": "/v1/dashboards/{id}",
+          "op": "delete Dashboard"
         },
         {
           "method": "POST",
-          "path": "/v1/traces",
-          "op": "create Trace"
+          "path": "/v1/timeserieses",
+          "op": "create TimeSeries"
         },
         {
           "method": "GET",
-          "path": "/v1/traces",
-          "op": "list Trace"
+          "path": "/v1/timeserieses",
+          "op": "list TimeSeries"
         },
         {
           "method": "GET",
-          "path": "/v1/traces/{id}",
-          "op": "get Trace"
+          "path": "/v1/timeserieses/{id}",
+          "op": "get TimeSeries"
         },
         {
           "method": "PATCH",
-          "path": "/v1/traces/{id}",
-          "op": "update Trace"
+          "path": "/v1/timeserieses/{id}",
+          "op": "update TimeSeries"
         },
         {
           "method": "DELETE",
-          "path": "/v1/traces/{id}",
-          "op": "delete Trace"
+          "path": "/v1/timeserieses/{id}",
+          "op": "delete TimeSeries"
         },
         {
           "method": "POST",
-          "path": "/v1/metrics",
-          "op": "create Metric"
+          "path": "/v1/events",
+          "op": "create Event"
         },
         {
           "method": "GET",
-          "path": "/v1/metrics",
-          "op": "list Metric"
+          "path": "/v1/events",
+          "op": "list Event"
         },
         {
           "method": "GET",
-          "path": "/v1/metrics/{id}",
-          "op": "get Metric"
+          "path": "/v1/events/{id}",
+          "op": "get Event"
         },
         {
           "method": "PATCH",
-          "path": "/v1/metrics/{id}",
-          "op": "update Metric"
+          "path": "/v1/events/{id}",
+          "op": "update Event"
         },
         {
           "method": "DELETE",
-          "path": "/v1/metrics/{id}",
-          "op": "delete Metric"
+          "path": "/v1/events/{id}",
+          "op": "delete Event"
         },
         {
           "method": "POST",
-          "path": "/v1/alerts",
-          "op": "create Alert"
+          "path": "/v1/downtimes",
+          "op": "create Downtime"
         },
         {
           "method": "GET",
-          "path": "/v1/alerts",
-          "op": "list Alert"
+          "path": "/v1/downtimes",
+          "op": "list Downtime"
         },
         {
           "method": "GET",
-          "path": "/v1/alerts/{id}",
-          "op": "get Alert"
+          "path": "/v1/downtimes/{id}",
+          "op": "get Downtime"
         },
         {
           "method": "PATCH",
-          "path": "/v1/alerts/{id}",
-          "op": "update Alert"
+          "path": "/v1/downtimes/{id}",
+          "op": "update Downtime"
         },
         {
           "method": "DELETE",
-          "path": "/v1/alerts/{id}",
-          "op": "delete Alert"
+          "path": "/v1/downtimes/{id}",
+          "op": "delete Downtime"
         },
         {
           "method": "POST",
@@ -247,305 +327,47 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_service",
-          "description": "Create a Service.",
+          "name": "create_monitor",
+          "description": "Create a Monitor.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "environment": {
+              "type": {
                 "type": "string"
               },
-              "language": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "environment"
-            ]
-          }
-        },
-        {
-          "name": "list_services",
-          "description": "List Services.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_service",
-          "description": "Get a Service by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_service",
-          "description": "Update a Service.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "environment": {
-                "type": "string"
-              },
-              "language": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_service",
-          "description": "Delete a Service.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_error",
-          "description": "Create a Error.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "serviceId": {
+              "query": {
                 "type": "string"
               },
               "message": {
                 "type": "string"
               },
-              "culprit": {
+              "overallState": {
                 "type": "string"
               },
-              "count": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "message",
-              "culprit"
-            ]
-          }
-        },
-        {
-          "name": "list_errors",
-          "description": "List Errors.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_error",
-          "description": "Get a Error by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_error",
-          "description": "Update a Error.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "serviceId": {
-                "type": "string"
-              },
-              "message": {
-                "type": "string"
-              },
-              "culprit": {
-                "type": "string"
-              },
-              "count": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_error",
-          "description": "Delete a Error.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_trace",
-          "description": "Create a Trace.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "serviceId": {
-                "type": "string"
-              },
-              "operation": {
-                "type": "string"
-              },
-              "durationMs": {
-                "type": "integer"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "operation",
-              "durationMs"
-            ]
-          }
-        },
-        {
-          "name": "list_traces",
-          "description": "List Traces.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_trace",
-          "description": "Get a Trace by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_trace",
-          "description": "Update a Trace.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "serviceId": {
-                "type": "string"
-              },
-              "operation": {
-                "type": "string"
-              },
-              "durationMs": {
-                "type": "integer"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_trace",
-          "description": "Delete a Trace.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_metric",
-          "description": "Create a Metric.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "serviceId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "unit": {
+              "tags": {
                 "type": "string"
               }
             },
             "required": [
               "name",
-              "value"
+              "type"
             ]
           }
         },
         {
-          "name": "list_metrics",
-          "description": "List Metrics.",
+          "name": "list_monitors",
+          "description": "List Monitors.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_metric",
-          "description": "Get a Metric by id.",
+          "name": "get_monitor",
+          "description": "Get a Monitor by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -559,24 +381,30 @@
           }
         },
         {
-          "name": "update_metric",
-          "description": "Update a Metric.",
+          "name": "update_monitor",
+          "description": "Update a Monitor.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "serviceId": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "value": {
-                "type": "number"
+              "type": {
+                "type": "string"
               },
-              "unit": {
+              "query": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "overallState": {
+                "type": "string"
+              },
+              "tags": {
                 "type": "string"
               }
             },
@@ -586,8 +414,8 @@
           }
         },
         {
-          "name": "delete_metric",
-          "description": "Delete a Metric.",
+          "name": "delete_monitor",
+          "description": "Delete a Monitor.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -601,41 +429,41 @@
           }
         },
         {
-          "name": "create_alert",
-          "description": "Create a Alert.",
+          "name": "create_dashboard",
+          "description": "Create a Dashboard.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "serviceId": {
+              "title": {
                 "type": "string"
               },
-              "condition": {
+              "layoutType": {
                 "type": "string"
               },
-              "severity": {
+              "description": {
                 "type": "string"
               },
-              "active": {
-                "type": "boolean"
+              "widgets": {
+                "type": "string"
               }
             },
             "required": [
-              "condition",
-              "severity"
+              "title",
+              "layoutType"
             ]
           }
         },
         {
-          "name": "list_alerts",
-          "description": "List Alerts.",
+          "name": "list_dashboards",
+          "description": "List Dashboards.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_alert",
-          "description": "Get a Alert by id.",
+          "name": "get_dashboard",
+          "description": "Get a Dashboard by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -649,25 +477,25 @@
           }
         },
         {
-          "name": "update_alert",
-          "description": "Update a Alert.",
+          "name": "update_dashboard",
+          "description": "Update a Dashboard.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "serviceId": {
+              "title": {
                 "type": "string"
               },
-              "condition": {
+              "layoutType": {
                 "type": "string"
               },
-              "severity": {
+              "description": {
                 "type": "string"
               },
-              "active": {
-                "type": "boolean"
+              "widgets": {
+                "type": "string"
               }
             },
             "required": [
@@ -676,8 +504,308 @@
           }
         },
         {
-          "name": "delete_alert",
-          "description": "Delete a Alert.",
+          "name": "delete_dashboard",
+          "description": "Delete a Dashboard.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_time_series",
+          "description": "Create a TimeSeries.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "metric": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "timestamp": {
+                "type": "integer"
+              },
+              "value": {
+                "type": "number"
+              },
+              "host": {
+                "type": "string"
+              },
+              "tags": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "metric",
+              "type"
+            ]
+          }
+        },
+        {
+          "name": "list_time_serieses",
+          "description": "List TimeSerieses.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_time_series",
+          "description": "Get a TimeSeries by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_time_series",
+          "description": "Update a TimeSeries.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "metric": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "timestamp": {
+                "type": "integer"
+              },
+              "value": {
+                "type": "number"
+              },
+              "host": {
+                "type": "string"
+              },
+              "tags": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_time_series",
+          "description": "Delete a TimeSeries.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_event",
+          "description": "Create a Event.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "text": {
+                "type": "string"
+              },
+              "timestamp": {
+                "type": "integer"
+              },
+              "priority": {
+                "type": "string"
+              },
+              "alertType": {
+                "type": "string"
+              },
+              "tags": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "text"
+            ]
+          }
+        },
+        {
+          "name": "list_events",
+          "description": "List Events.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_event",
+          "description": "Get a Event by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_event",
+          "description": "Update a Event.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "text": {
+                "type": "string"
+              },
+              "timestamp": {
+                "type": "integer"
+              },
+              "priority": {
+                "type": "string"
+              },
+              "alertType": {
+                "type": "string"
+              },
+              "tags": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_event",
+          "description": "Delete a Event.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_downtime",
+          "description": "Create a Downtime.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "monitorId": {
+                "type": "integer"
+              },
+              "scope": {
+                "type": "string"
+              },
+              "start": {
+                "type": "integer"
+              },
+              "end": {
+                "type": "integer"
+              },
+              "timezone": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "scope",
+              "start"
+            ]
+          }
+        },
+        {
+          "name": "list_downtimes",
+          "description": "List Downtimes.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_downtime",
+          "description": "Get a Downtime by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_downtime",
+          "description": "Update a Downtime.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "monitorId": {
+                "type": "integer"
+              },
+              "scope": {
+                "type": "string"
+              },
+              "start": {
+                "type": "integer"
+              },
+              "end": {
+                "type": "integer"
+              },
+              "timezone": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_downtime",
+          "description": "Delete a Downtime.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -699,19 +827,19 @@
               "title": {
                 "type": "string"
               },
-              "status": {
-                "type": "string"
-              },
               "severity": {
                 "type": "string"
               },
-              "startedAt": {
+              "status": {
+                "type": "string"
+              },
+              "customerImpactScope": {
                 "type": "string"
               }
             },
             "required": [
               "title",
-              "status"
+              "severity"
             ]
           }
         },
@@ -750,13 +878,13 @@
               "title": {
                 "type": "string"
               },
-              "status": {
-                "type": "string"
-              },
               "severity": {
                 "type": "string"
               },
-              "startedAt": {
+              "status": {
+                "type": "string"
+              },
+              "customerImpactScope": {
                 "type": "string"
               }
             },
