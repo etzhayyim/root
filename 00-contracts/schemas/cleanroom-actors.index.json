@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 890,
-    "L5": 110
+    "L4": 888,
+    "L5": 112
   },
   "actors": [
     {
@@ -470,7 +470,7 @@
       "wasmCid": "bafkreicemyenektbx6iomyjyspuhpzjkqatkuo3mwefx6c5pdykkfd44xq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "allscripts clean-room actor",
       "category": "ehr_health",
       "capabilities": [
@@ -2900,7 +2900,7 @@
       "wasmCid": "bafkreichj5p66pbnx5amxeoyeaairvxke5uwzjgxkfahkccc7kpn5mj4je",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "cerner_ignite clean-room actor",
       "category": "healthcare_fhir_bio",
       "capabilities": [

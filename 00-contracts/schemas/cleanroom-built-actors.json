@@ -445,11 +445,11 @@
       "tier": "browser-local",
       "entities": [
         "Patient",
-        "Encounter",
         "Observation",
-        "Medication",
-        "Practitioner",
-        "Appointment"
+        "Encounter",
+        "MedicationRequest",
+        "AllergyIntolerance",
+        "Condition"
       ]
     },
     {
@@ -2740,10 +2740,10 @@
       "entities": [
         "Patient",
         "Observation",
-        "Condition",
-        "DiagnosticReport",
-        "Sequence",
-        "Specimen"
+        "Encounter",
+        "MedicationRequest",
+        "AllergyIntolerance",
+        "Condition"
       ]
     },
     {

@@ -1621,6 +1621,26 @@ PLATFORM_OVERRIDES = {
         "Deployment": E(id="string", status="string", projectName="string", stackName="string", paused="boolean", created="datetime", modified="datetime"),
         "Organization": E(name="string", role="string"),
     },
+    # Faithful Cerner/Oracle Health Ignite FHIR R4 model — Cerner Millennium exposes
+    # HL7 FHIR R4; normative R4 REQUIRED-binding value sets (hl7.org/fhir/R4).
+    "cerner_ignite": {
+        "Patient": E(id="string", resourceType="string", gender="string", birthDate="string", active="boolean", deceasedBoolean="boolean"),
+        "Observation": E(id="string", resourceType="string", status="string", effectiveDateTime="datetime", valueString="string", issued="datetime"),
+        "Encounter": E(id="string", resourceType="string", status="string", serviceType="string", period="string"),
+        "MedicationRequest": E(id="string", resourceType="string", status="string", intent="string", authoredOn="datetime"),
+        "AllergyIntolerance": E(id="string", resourceType="string", clinicalStatus="string", criticality="string", recordedDate="datetime"),
+        "Condition": E(id="string", resourceType="string", clinicalStatus="string", recordedDate="datetime"),
+    },
+    # Faithful Allscripts/Veradigm FHIR R4 model — exposes HL7 FHIR R4; normative
+    # R4 REQUIRED-binding value sets (hl7.org/fhir/R4).
+    "allscripts": {
+        "Patient": E(id="string", resourceType="string", gender="string", birthDate="string", active="boolean", deceasedBoolean="boolean"),
+        "Observation": E(id="string", resourceType="string", status="string", effectiveDateTime="datetime", valueString="string", issued="datetime"),
+        "Encounter": E(id="string", resourceType="string", status="string", serviceType="string", period="string"),
+        "MedicationRequest": E(id="string", resourceType="string", status="string", intent="string", authoredOn="datetime"),
+        "AllergyIntolerance": E(id="string", resourceType="string", clinicalStatus="string", criticality="string", recordedDate="datetime"),
+        "Condition": E(id="string", resourceType="string", clinicalStatus="string", recordedDate="datetime"),
+    },
     # Faithful Epic on FHIR R4 model — Epic's FHIR endpoint implements HL7 FHIR R4;
     # status fields use the normative R4 REQUIRED-binding value sets (hl7.org/fhir/R4).
     "epic_fhir": {

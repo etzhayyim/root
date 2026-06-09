@@ -437,7 +437,7 @@
     {
       "handle": "allscripts-compat",
       "did": "did:web:etzhayyim.com:actor:allscripts-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreicemyenektbx6iomyjyspuhpzjkqatkuo3mwefx6c5pdykkfd44xq",
@@ -2732,7 +2732,7 @@
     {
       "handle": "cerner_ignite-compat",
       "did": "did:web:etzhayyim.com:actor:cerner_ignite-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreichj5p66pbnx5amxeoyeaairvxke5uwzjgxkfahkccc7kpn5mj4je",
