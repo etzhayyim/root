@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreicsxf7kslscffsdfy6kdif5fioqnsryu3km7axvh7jhw6i72lryna",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,9 +17,9 @@
     }
   ],
   "paths": {
-    "/v1/projects": {
+    "/v1/apps": {
       "get": {
-        "summary": "List Projects",
+        "summary": "List Apps",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Project"
+                        "$ref": "#/components/schemas/App"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Project",
+        "summary": "Create a App",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProjectCreate"
+                "$ref": "#/components/schemas/AppCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Project"
+                  "$ref": "#/components/schemas/App"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/projects/{id}": {
+    "/v1/apps/{id}": {
       "get": {
-        "summary": "Get a Project",
+        "summary": "Get a App",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Project"
+                  "$ref": "#/components/schemas/App"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Project",
+        "summary": "Update a App",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProjectCreate"
+                "$ref": "#/components/schemas/AppCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Project"
+                  "$ref": "#/components/schemas/App"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Project",
+        "summary": "Delete a App",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/computeinstances": {
+    "/v1/dynos": {
       "get": {
-        "summary": "List ComputeInstances",
+        "summary": "List Dynos",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ComputeInstance"
+                        "$ref": "#/components/schemas/Dyno"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a ComputeInstance",
+        "summary": "Create a Dyno",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ComputeInstanceCreate"
+                "$ref": "#/components/schemas/DynoCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ComputeInstance"
+                  "$ref": "#/components/schemas/Dyno"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/computeinstances/{id}": {
+    "/v1/dynos/{id}": {
       "get": {
-        "summary": "Get a ComputeInstance",
+        "summary": "Get a Dyno",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ComputeInstance"
+                  "$ref": "#/components/schemas/Dyno"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a ComputeInstance",
+        "summary": "Update a Dyno",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ComputeInstanceCreate"
+                "$ref": "#/components/schemas/DynoCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ComputeInstance"
+                  "$ref": "#/components/schemas/Dyno"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a ComputeInstance",
+        "summary": "Delete a Dyno",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/volumes": {
+    "/v1/releases": {
       "get": {
-        "summary": "List Volumes",
+        "summary": "List Releases",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Volume"
+                        "$ref": "#/components/schemas/Release"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Volume",
+        "summary": "Create a Release",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/VolumeCreate"
+                "$ref": "#/components/schemas/ReleaseCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Volume"
+                  "$ref": "#/components/schemas/Release"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/volumes/{id}": {
+    "/v1/releases/{id}": {
       "get": {
-        "summary": "Get a Volume",
+        "summary": "Get a Release",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Volume"
+                  "$ref": "#/components/schemas/Release"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Volume",
+        "summary": "Update a Release",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/VolumeCreate"
+                "$ref": "#/components/schemas/ReleaseCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Volume"
+                  "$ref": "#/components/schemas/Release"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Volume",
+        "summary": "Delete a Release",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/buckets": {
+    "/v1/addons": {
       "get": {
-        "summary": "List Buckets",
+        "summary": "List Addons",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Bucket"
+                        "$ref": "#/components/schemas/Addon"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Bucket",
+        "summary": "Create a Addon",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BucketCreate"
+                "$ref": "#/components/schemas/AddonCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Bucket"
+                  "$ref": "#/components/schemas/Addon"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/buckets/{id}": {
+    "/v1/addons/{id}": {
       "get": {
-        "summary": "Get a Bucket",
+        "summary": "Get a Addon",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Bucket"
+                  "$ref": "#/components/schemas/Addon"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Bucket",
+        "summary": "Update a Addon",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BucketCreate"
+                "$ref": "#/components/schemas/AddonCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Bucket"
+                  "$ref": "#/components/schemas/Addon"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Bucket",
+        "summary": "Delete a Addon",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/networks": {
+    "/v1/builds": {
       "get": {
-        "summary": "List Networks",
+        "summary": "List Builds",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Network"
+                        "$ref": "#/components/schemas/Build"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Network",
+        "summary": "Create a Build",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NetworkCreate"
+                "$ref": "#/components/schemas/BuildCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Network"
+                  "$ref": "#/components/schemas/Build"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/networks/{id}": {
+    "/v1/builds/{id}": {
       "get": {
-        "summary": "Get a Network",
+        "summary": "Get a Build",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Network"
+                  "$ref": "#/components/schemas/Build"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Network",
+        "summary": "Update a Build",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NetworkCreate"
+                "$ref": "#/components/schemas/BuildCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Network"
+                  "$ref": "#/components/schemas/Build"
                 }
               }
             }
@@ -921,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Network",
+        "summary": "Delete a Build",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +942,9 @@
         }
       }
     },
-    "/v1/iamroles": {
+    "/v1/formations": {
       "get": {
-        "summary": "List IamRoles",
+        "summary": "List Formations",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +984,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/IamRole"
+                        "$ref": "#/components/schemas/Formation"
                       }
                     },
                     "has_more": {
@@ -1004,13 +1004,13 @@
         }
       },
       "post": {
-        "summary": "Create a IamRole",
+        "summary": "Create a Formation",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IamRoleCreate"
+                "$ref": "#/components/schemas/FormationCreate"
               }
             }
           }
@@ -1021,7 +1021,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IamRole"
+                  "$ref": "#/components/schemas/Formation"
                 }
               }
             }
@@ -1032,9 +1032,9 @@
         }
       }
     },
-    "/v1/iamroles/{id}": {
+    "/v1/formations/{id}": {
       "get": {
-        "summary": "Get a IamRole",
+        "summary": "Get a Formation",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +1058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IamRole"
+                  "$ref": "#/components/schemas/Formation"
                 }
               }
             }
@@ -1069,7 +1069,7 @@
         }
       },
       "patch": {
-        "summary": "Update a IamRole",
+        "summary": "Update a Formation",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +1084,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IamRoleCreate"
+                "$ref": "#/components/schemas/FormationCreate"
               }
             }
           }
@@ -1095,7 +1095,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IamRole"
+                  "$ref": "#/components/schemas/Formation"
                 }
               }
             }
@@ -1106,7 +1106,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a IamRole",
+        "summary": "Delete a Formation",
         "parameters": [
           {
             "name": "id",
@@ -1140,7 +1140,7 @@
   },
   "components": {
     "schemas": {
-      "Project": {
+      "App": {
         "type": "object",
         "properties": {
           "id": {
@@ -1149,10 +1149,7 @@
           "name": {
             "type": "string"
           },
-          "region": {
-            "type": "string"
-          },
-          "billingId": {
+          "webUrl": {
             "type": "string"
           },
           "createdAt": {
@@ -1165,97 +1162,55 @@
           }
         }
       },
-      "ProjectCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "region": {
-            "type": "string"
-          },
-          "billingId": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "region"
-        ]
-      },
-      "ComputeInstance": {
+      "AppCreate": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "projectId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "machineType": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "ipAddress": {
+          "webUrl": {
             "type": "string"
           },
           "createdAt": {
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ComputeInstanceCreate": {
-        "type": "object",
-        "properties": {
-          "projectId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "machineType": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "ipAddress": {
             "type": "string"
           }
         },
         "required": [
-          "name",
-          "machineType"
+          "id",
+          "name"
         ]
       },
-      "Volume": {
+      "Dyno": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "projectId": {
+          "name": {
             "type": "string"
           },
-          "sizeGb": {
-            "type": "integer"
+          "state": {
+            "type": "string",
+            "enum": [
+              "crashed",
+              "down",
+              "idle",
+              "starting",
+              "up"
+            ]
+          },
+          "command": {
+            "type": "string"
           },
           "type": {
             "type": "string"
           },
-          "attachedTo": {
-            "type": "string"
-          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -1266,43 +1221,53 @@
           }
         }
       },
-      "VolumeCreate": {
-        "type": "object",
-        "properties": {
-          "projectId": {
-            "type": "string"
-          },
-          "sizeGb": {
-            "type": "integer"
-          },
-          "type": {
-            "type": "string"
-          },
-          "attachedTo": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "sizeGb",
-          "type"
-        ]
-      },
-      "Bucket": {
+      "DynoCreate": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "projectId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "region": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "crashed",
+              "down",
+              "idle",
+              "starting",
+              "up"
+            ]
+          },
+          "command": {
             "type": "string"
           },
-          "public": {
+          "type": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "Release": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer"
+          },
+          "description": {
+            "type": "string"
+          },
+          "current": {
             "type": "boolean"
           },
           "createdAt": {
@@ -1315,40 +1280,51 @@
           }
         }
       },
-      "BucketCreate": {
+      "ReleaseCreate": {
         "type": "object",
         "properties": {
-          "projectId": {
+          "id": {
             "type": "string"
           },
-          "name": {
+          "version": {
+            "type": "integer"
+          },
+          "description": {
             "type": "string"
           },
-          "region": {
-            "type": "string"
-          },
-          "public": {
+          "current": {
             "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string"
           }
         },
         "required": [
-          "name",
-          "region"
+          "id",
+          "version"
         ]
       },
-      "Network": {
+      "Addon": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "projectId": {
+          "name": {
             "type": "string"
           },
-          "cidr": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "provisioning",
+              "provisioned",
+              "deprovisioned"
+            ]
+          },
+          "plan": {
             "type": "string"
           },
-          "region": {
+          "app": {
             "type": "string"
           },
           "createdAt": {
@@ -1361,37 +1337,53 @@
           }
         }
       },
-      "NetworkCreate": {
-        "type": "object",
-        "properties": {
-          "projectId": {
-            "type": "string"
-          },
-          "cidr": {
-            "type": "string"
-          },
-          "region": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "cidr",
-          "region"
-        ]
-      },
-      "IamRole": {
+      "AddonCreate": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "projectId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "policy": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "provisioning",
+              "provisioned",
+              "deprovisioned"
+            ]
+          },
+          "plan": {
+            "type": "string"
+          },
+          "app": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "Build": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "failed",
+              "pending",
+              "succeeded"
+            ]
+          },
+          "app": {
             "type": "string"
           },
           "createdAt": {
@@ -1404,22 +1396,82 @@
           }
         }
       },
-      "IamRoleCreate": {
+      "BuildCreate": {
         "type": "object",
         "properties": {
-          "projectId": {
+          "id": {
             "type": "string"
           },
-          "name": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "failed",
+              "pending",
+              "succeeded"
+            ]
+          },
+          "app": {
             "type": "string"
           },
-          "policy": {
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
             "type": "string"
           }
         },
         "required": [
-          "name",
-          "policy"
+          "id",
+          "status"
+        ]
+      },
+      "Formation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer"
+          },
+          "size": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "FormationCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer"
+          },
+          "size": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "quantity"
         ]
       }
     }

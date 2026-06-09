@@ -11,15 +11,88 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreidxoepgun3rftxe43fzln5wkqsa4fjnlyvqdqyeliglkg3qdrfice",
   "schema": "schema/linode.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://github.com/linode/linode-api-openapi/blob/main/openapi.json",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Instance",
+      "Volume",
+      "Domain",
+      "NodeBalancer",
+      "LKECluster",
+      "Image"
+    ],
+    "enums": {
+      "Instance": {
+        "status": [
+          "running",
+          "offline",
+          "booting",
+          "busy",
+          "rebooting",
+          "shutting_down",
+          "provisioning",
+          "deleting",
+          "migrating",
+          "rebuilding",
+          "cloning",
+          "restoring",
+          "stopped",
+          "billing_suspension"
+        ]
+      },
+      "Volume": {
+        "status": [
+          "creating",
+          "active",
+          "resizing",
+          "key_rotating"
+        ],
+        "encryption": [
+          "enabled",
+          "disabled"
+        ]
+      },
+      "Domain": {
+        "type": [
+          "master",
+          "slave"
+        ]
+      },
+      "NodeBalancer": {
+        "type": [
+          "common",
+          "premium"
+        ]
+      },
+      "LKECluster": {
+        "tier": [
+          "standard",
+          "enterprise"
+        ]
+      },
+      "Image": {
+        "status": [
+          "available",
+          "creating",
+          "pending_upload"
+        ],
+        "type": [
+          "manual",
+          "automatic",
+          "shared"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Project",
-    "ComputeInstance",
+    "Instance",
     "Volume",
-    "Bucket",
-    "Network",
-    "IamRole"
+    "Domain",
+    "NodeBalancer",
+    "LKECluster",
+    "Image"
   ],
   "adr": [
     "260607",
@@ -35,53 +108,28 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/projects",
-          "op": "create Project"
+          "path": "/v1/instances",
+          "op": "create Instance"
         },
         {
           "method": "GET",
-          "path": "/v1/projects",
-          "op": "list Project"
+          "path": "/v1/instances",
+          "op": "list Instance"
         },
         {
           "method": "GET",
-          "path": "/v1/projects/{id}",
-          "op": "get Project"
+          "path": "/v1/instances/{id}",
+          "op": "get Instance"
         },
         {
           "method": "PATCH",
-          "path": "/v1/projects/{id}",
-          "op": "update Project"
+          "path": "/v1/instances/{id}",
+          "op": "update Instance"
         },
         {
           "method": "DELETE",
-          "path": "/v1/projects/{id}",
-          "op": "delete Project"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/computeinstances",
-          "op": "create ComputeInstance"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/computeinstances",
-          "op": "list ComputeInstance"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/computeinstances/{id}",
-          "op": "get ComputeInstance"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/computeinstances/{id}",
-          "op": "update ComputeInstance"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/computeinstances/{id}",
-          "op": "delete ComputeInstance"
+          "path": "/v1/instances/{id}",
+          "op": "delete Instance"
         },
         {
           "method": "POST",
@@ -110,78 +158,103 @@
         },
         {
           "method": "POST",
-          "path": "/v1/buckets",
-          "op": "create Bucket"
+          "path": "/v1/domains",
+          "op": "create Domain"
         },
         {
           "method": "GET",
-          "path": "/v1/buckets",
-          "op": "list Bucket"
+          "path": "/v1/domains",
+          "op": "list Domain"
         },
         {
           "method": "GET",
-          "path": "/v1/buckets/{id}",
-          "op": "get Bucket"
+          "path": "/v1/domains/{id}",
+          "op": "get Domain"
         },
         {
           "method": "PATCH",
-          "path": "/v1/buckets/{id}",
-          "op": "update Bucket"
+          "path": "/v1/domains/{id}",
+          "op": "update Domain"
         },
         {
           "method": "DELETE",
-          "path": "/v1/buckets/{id}",
-          "op": "delete Bucket"
+          "path": "/v1/domains/{id}",
+          "op": "delete Domain"
         },
         {
           "method": "POST",
-          "path": "/v1/networks",
-          "op": "create Network"
+          "path": "/v1/nodebalancers",
+          "op": "create NodeBalancer"
         },
         {
           "method": "GET",
-          "path": "/v1/networks",
-          "op": "list Network"
+          "path": "/v1/nodebalancers",
+          "op": "list NodeBalancer"
         },
         {
           "method": "GET",
-          "path": "/v1/networks/{id}",
-          "op": "get Network"
+          "path": "/v1/nodebalancers/{id}",
+          "op": "get NodeBalancer"
         },
         {
           "method": "PATCH",
-          "path": "/v1/networks/{id}",
-          "op": "update Network"
+          "path": "/v1/nodebalancers/{id}",
+          "op": "update NodeBalancer"
         },
         {
           "method": "DELETE",
-          "path": "/v1/networks/{id}",
-          "op": "delete Network"
+          "path": "/v1/nodebalancers/{id}",
+          "op": "delete NodeBalancer"
         },
         {
           "method": "POST",
-          "path": "/v1/iamroles",
-          "op": "create IamRole"
+          "path": "/v1/lkeclusters",
+          "op": "create LKECluster"
         },
         {
           "method": "GET",
-          "path": "/v1/iamroles",
-          "op": "list IamRole"
+          "path": "/v1/lkeclusters",
+          "op": "list LKECluster"
         },
         {
           "method": "GET",
-          "path": "/v1/iamroles/{id}",
-          "op": "get IamRole"
+          "path": "/v1/lkeclusters/{id}",
+          "op": "get LKECluster"
         },
         {
           "method": "PATCH",
-          "path": "/v1/iamroles/{id}",
-          "op": "update IamRole"
+          "path": "/v1/lkeclusters/{id}",
+          "op": "update LKECluster"
         },
         {
           "method": "DELETE",
-          "path": "/v1/iamroles/{id}",
-          "op": "delete IamRole"
+          "path": "/v1/lkeclusters/{id}",
+          "op": "delete LKECluster"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/images",
+          "op": "create Image"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/images",
+          "op": "list Image"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/images/{id}",
+          "op": "get Image"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/images/{id}",
+          "op": "update Image"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/images/{id}",
+          "op": "delete Image"
         }
       ],
       "features": {
@@ -247,38 +320,53 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_project",
-          "description": "Create a Project.",
+          "name": "create_instance",
+          "description": "Create a Instance.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "id": {
+                "type": "integer"
+              },
+              "label": {
+                "type": "string"
+              },
+              "status": {
                 "type": "string"
               },
               "region": {
                 "type": "string"
               },
-              "billingId": {
+              "type": {
+                "type": "string"
+              },
+              "image": {
+                "type": "string"
+              },
+              "created": {
+                "type": "string"
+              },
+              "updated": {
                 "type": "string"
               }
             },
             "required": [
-              "name",
-              "region"
+              "id",
+              "label"
             ]
           }
         },
         {
-          "name": "list_projects",
-          "description": "List Projects.",
+          "name": "list_instances",
+          "description": "List Instances.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_project",
-          "description": "Get a Project by id.",
+          "name": "get_instance",
+          "description": "Get a Instance by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -292,21 +380,33 @@
           }
         },
         {
-          "name": "update_project",
-          "description": "Update a Project.",
+          "name": "update_instance",
+          "description": "Update a Instance.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
+                "type": "integer"
+              },
+              "label": {
                 "type": "string"
               },
-              "name": {
+              "status": {
                 "type": "string"
               },
               "region": {
                 "type": "string"
               },
-              "billingId": {
+              "type": {
+                "type": "string"
+              },
+              "image": {
+                "type": "string"
+              },
+              "created": {
+                "type": "string"
+              },
+              "updated": {
                 "type": "string"
               }
             },
@@ -316,104 +416,8 @@
           }
         },
         {
-          "name": "delete_project",
-          "description": "Delete a Project.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_compute_instance",
-          "description": "Create a ComputeInstance.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "projectId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "machineType": {
-                "type": "string"
-              },
-              "state": {
-                "type": "string"
-              },
-              "ipAddress": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "machineType"
-            ]
-          }
-        },
-        {
-          "name": "list_compute_instances",
-          "description": "List ComputeInstances.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_compute_instance",
-          "description": "Get a ComputeInstance by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_compute_instance",
-          "description": "Update a ComputeInstance.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "projectId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "machineType": {
-                "type": "string"
-              },
-              "state": {
-                "type": "string"
-              },
-              "ipAddress": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_compute_instance",
-          "description": "Delete a ComputeInstance.",
+          "name": "delete_instance",
+          "description": "Delete a Instance.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -432,22 +436,34 @@
           "inputSchema": {
             "type": "object",
             "properties": {
-              "projectId": {
-                "type": "string"
-              },
-              "sizeGb": {
+              "id": {
                 "type": "integer"
               },
-              "type": {
+              "label": {
                 "type": "string"
               },
-              "attachedTo": {
+              "status": {
+                "type": "string"
+              },
+              "size": {
+                "type": "integer"
+              },
+              "region": {
+                "type": "string"
+              },
+              "encryption": {
+                "type": "string"
+              },
+              "created": {
+                "type": "string"
+              },
+              "updated": {
                 "type": "string"
               }
             },
             "required": [
-              "sizeGb",
-              "type"
+              "id",
+              "label"
             ]
           }
         },
@@ -481,18 +497,27 @@
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "projectId": {
-                "type": "string"
-              },
-              "sizeGb": {
                 "type": "integer"
               },
-              "type": {
+              "label": {
                 "type": "string"
               },
-              "attachedTo": {
+              "status": {
+                "type": "string"
+              },
+              "size": {
+                "type": "integer"
+              },
+              "region": {
+                "type": "string"
+              },
+              "encryption": {
+                "type": "string"
+              },
+              "created": {
+                "type": "string"
+              },
+              "updated": {
                 "type": "string"
               }
             },
@@ -517,41 +542,368 @@
           }
         },
         {
-          "name": "create_bucket",
-          "description": "Create a Bucket.",
+          "name": "create_domain",
+          "description": "Create a Domain.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "projectId": {
+              "id": {
+                "type": "integer"
+              },
+              "domain": {
                 "type": "string"
               },
-              "name": {
+              "type": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "soaEmail": {
+                "type": "string"
+              },
+              "created": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "domain"
+            ]
+          }
+        },
+        {
+          "name": "list_domains",
+          "description": "List Domains.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_domain",
+          "description": "Get a Domain by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_domain",
+          "description": "Update a Domain.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "domain": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "soaEmail": {
+                "type": "string"
+              },
+              "created": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_domain",
+          "description": "Delete a Domain.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_node_balancer",
+          "description": "Create a NodeBalancer.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "label": {
+                "type": "string"
+              },
+              "type": {
                 "type": "string"
               },
               "region": {
                 "type": "string"
               },
-              "public": {
+              "ipv4": {
+                "type": "string"
+              },
+              "ipv6": {
+                "type": "string"
+              },
+              "created": {
+                "type": "string"
+              },
+              "updated": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "label"
+            ]
+          }
+        },
+        {
+          "name": "list_node_balancers",
+          "description": "List NodeBalancers.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_node_balancer",
+          "description": "Get a NodeBalancer by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_node_balancer",
+          "description": "Update a NodeBalancer.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "label": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "region": {
+                "type": "string"
+              },
+              "ipv4": {
+                "type": "string"
+              },
+              "ipv6": {
+                "type": "string"
+              },
+              "created": {
+                "type": "string"
+              },
+              "updated": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_node_balancer",
+          "description": "Delete a NodeBalancer.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_l_k_e_cluster",
+          "description": "Create a LKECluster.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "label": {
+                "type": "string"
+              },
+              "region": {
+                "type": "string"
+              },
+              "k8sVersion": {
+                "type": "string"
+              },
+              "tier": {
+                "type": "string"
+              },
+              "created": {
+                "type": "string"
+              },
+              "updated": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "label"
+            ]
+          }
+        },
+        {
+          "name": "list_l_k_e_clusters",
+          "description": "List LKEClusters.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_l_k_e_cluster",
+          "description": "Get a LKECluster by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_l_k_e_cluster",
+          "description": "Update a LKECluster.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "label": {
+                "type": "string"
+              },
+              "region": {
+                "type": "string"
+              },
+              "k8sVersion": {
+                "type": "string"
+              },
+              "tier": {
+                "type": "string"
+              },
+              "created": {
+                "type": "string"
+              },
+              "updated": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_l_k_e_cluster",
+          "description": "Delete a LKECluster.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_image",
+          "description": "Create a Image.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "size": {
+                "type": "integer"
+              },
+              "isPublic": {
                 "type": "boolean"
+              },
+              "created": {
+                "type": "string"
+              },
+              "updated": {
+                "type": "string"
               }
             },
             "required": [
-              "name",
-              "region"
+              "id",
+              "label"
             ]
           }
         },
         {
-          "name": "list_buckets",
-          "description": "List Buckets.",
+          "name": "list_images",
+          "description": "List Images.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_bucket",
-          "description": "Get a Bucket by id.",
+          "name": "get_image",
+          "description": "Get a Image by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -565,39 +917,33 @@
           }
         },
         {
-          "name": "update_bucket",
-          "description": "Update a Bucket.",
+          "name": "update_image",
+          "description": "Update a Image.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "projectId": {
+              "label": {
                 "type": "string"
               },
-              "name": {
+              "status": {
                 "type": "string"
               },
-              "region": {
+              "type": {
                 "type": "string"
               },
-              "public": {
+              "size": {
+                "type": "integer"
+              },
+              "isPublic": {
                 "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_bucket",
-          "description": "Delete a Bucket.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              },
+              "created": {
+                "type": "string"
+              },
+              "updated": {
                 "type": "string"
               }
             },
@@ -607,161 +953,8 @@
           }
         },
         {
-          "name": "create_network",
-          "description": "Create a Network.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "projectId": {
-                "type": "string"
-              },
-              "cidr": {
-                "type": "string"
-              },
-              "region": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "cidr",
-              "region"
-            ]
-          }
-        },
-        {
-          "name": "list_networks",
-          "description": "List Networks.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_network",
-          "description": "Get a Network by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_network",
-          "description": "Update a Network.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "projectId": {
-                "type": "string"
-              },
-              "cidr": {
-                "type": "string"
-              },
-              "region": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_network",
-          "description": "Delete a Network.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_iam_role",
-          "description": "Create a IamRole.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "projectId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "policy": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "policy"
-            ]
-          }
-        },
-        {
-          "name": "list_iam_roles",
-          "description": "List IamRoles.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_iam_role",
-          "description": "Get a IamRole by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_iam_role",
-          "description": "Update a IamRole.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "projectId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "policy": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_iam_role",
-          "description": "Delete a IamRole.",
+          "name": "delete_image",
+          "description": "Delete a Image.",
           "inputSchema": {
             "type": "object",
             "properties": {

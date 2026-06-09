@@ -6,7 +6,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29985,
+  "totalEndpoints": 29980,
   "l4SpecsAvailable": 1000,
   "apis": [
     {
@@ -2919,10 +2919,10 @@
     {
       "handle": "circleci-compat",
       "did": "did:web:etzhayyim.com:actor:circleci-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreifvvqd764oy5772a3gybdypk7sciv66nhot7semyuipeia7ghtc2m",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreihjjy5csbczgic3uyy5h2mftvrar6bsbljzvz2uuksp3f7ocqx4ve",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -6948,7 +6948,7 @@
     {
       "handle": "heroku-compat",
       "did": "did:web:etzhayyim.com:actor:heroku-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreicsxf7kslscffsdfy6kdif5fioqnsryu3km7axvh7jhw6i72lryna",
@@ -8869,7 +8869,7 @@
     {
       "handle": "linode-compat",
       "did": "did:web:etzhayyim.com:actor:linode-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreidxoepgun3rftxe43fzln5wkqsa4fjnlyvqdqyeliglkg3qdrfice",

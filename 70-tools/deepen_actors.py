@@ -1335,6 +1335,36 @@ PLATFORM_OVERRIDES = {
         "Customer": E(id="string", name="string", email="string", contact="string", createdAt="integer"),
         "Settlement": E(id="string", amount="integer", status="string", fees="integer", tax="integer", createdAt="integer"),
     },
+    # Faithful CircleCI v2 model — fields verified against the official
+    # circleci.com/api/v2/openapi.json; enum sets NOT enforced (the fetch returned
+    # a reduced status set vs the documented one — enforcing it would false-reject).
+    "circleci": {
+        "Pipeline": E(id="string", number="integer", state="string", projectSlug="string", createdAt="datetime", updatedAt="datetime"),
+        "Workflow": E(id="string", pipelineId="string", name="string", status="string", startedBy="string", createdAt="datetime", stoppedAt="datetime"),
+        "Job": E(id="string", jobNumber="integer", name="string", status="string", duration="integer", workflowId="string", createdAt="datetime", stoppedAt="datetime"),
+        "Project": E(id="string", slug="string", name="string", externalUrl="string"),
+        "User": E(id="string", login="string", name="string", avatarUrl="string"),
+    },
+    # Faithful Linode API v4 model — verified against the official Linode OpenAPI
+    # (github.com/linode/linode-api-openapi). snake_case -> camelCase.
+    "linode": {
+        "Instance": E(id="integer", label="string", status="string", region="string", type="string", image="string", created="datetime", updated="datetime"),
+        "Volume": E(id="integer", label="string", status="string", size="integer", region="string", encryption="string", created="datetime", updated="datetime"),
+        "Domain": E(id="integer", domain="string", type="string", status="string", soaEmail="string", created="datetime"),
+        "NodeBalancer": E(id="integer", label="string", type="string", region="string", ipv4="string", ipv6="string", created="datetime", updated="datetime"),
+        "LKECluster": E(id="integer", label="string", region="string", k8sVersion="string", tier="string", created="datetime", updated="datetime"),
+        "Image": E(id="string", label="string", status="string", type="string", size="integer", isPublic="boolean", created="datetime", updated="datetime"),
+    },
+    # Faithful Heroku Platform API model — verified against the official Heroku
+    # schema (api.heroku.com/schema). snake_case -> camelCase.
+    "heroku": {
+        "App": E(id="string", name="string", webUrl="string", createdAt="datetime", updatedAt="datetime"),
+        "Dyno": E(id="string", name="string", state="string", command="string", type="string", createdAt="datetime"),
+        "Release": E(id="string", version="integer", description="string", current="boolean", createdAt="datetime"),
+        "Addon": E(id="string", name="string", state="string", plan="string", app="string", createdAt="datetime"),
+        "Build": E(id="string", status="string", app="string", createdAt="datetime", updatedAt="datetime"),
+        "Formation": E(id="string", quantity="integer", size="string", type="string", createdAt="datetime"),
+    },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).
     "square": {

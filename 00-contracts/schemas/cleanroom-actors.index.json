@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 940,
-    "L5": 60
+    "L4": 937,
+    "L5": 63
   },
   "actors": [
     {
@@ -3095,10 +3095,10 @@
     {
       "handle": "circleci-compat",
       "did": "did:web:etzhayyim.com:actor:circleci-compat",
-      "wasmCid": "bafkreifvvqd764oy5772a3gybdypk7sciv66nhot7semyuipeia7ghtc2m",
+      "wasmCid": "bafkreihjjy5csbczgic3uyy5h2mftvrar6bsbljzvz2uuksp3f7ocqx4ve",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "circleci clean-room actor",
       "category": "devops_ci",
       "capabilities": [
@@ -7364,7 +7364,7 @@
       "wasmCid": "bafkreicsxf7kslscffsdfy6kdif5fioqnsryu3km7axvh7jhw6i72lryna",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "heroku clean-room actor",
       "category": "iaas_cloud",
       "capabilities": [
@@ -9398,7 +9398,7 @@
       "wasmCid": "bafkreidxoepgun3rftxe43fzln5wkqsa4fjnlyvqdqyeliglkg3qdrfice",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "linode clean-room actor",
       "category": "iaas_cloud",
       "capabilities": [

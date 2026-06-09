@@ -2924,17 +2924,16 @@
       "handle": "circleci-compat",
       "platform": "circleci",
       "bytes": 2122,
-      "wasmCid": "bafkreifvvqd764oy5772a3gybdypk7sciv66nhot7semyuipeia7ghtc2m",
+      "wasmCid": "bafkreihjjy5csbczgic3uyy5h2mftvrar6bsbljzvz2uuksp3f7ocqx4ve",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Repository",
         "Pipeline",
-        "Build",
-        "Artifact",
-        "Deployment",
-        "Webhook"
+        "Workflow",
+        "Job",
+        "Project",
+        "User"
       ]
     },
     {
@@ -6956,12 +6955,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Project",
-        "ComputeInstance",
-        "Volume",
-        "Bucket",
-        "Network",
-        "IamRole"
+        "App",
+        "Dyno",
+        "Release",
+        "Addon",
+        "Build",
+        "Formation"
       ]
     },
     {
@@ -8877,12 +8876,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Project",
-        "ComputeInstance",
+        "Instance",
         "Volume",
-        "Bucket",
-        "Network",
-        "IamRole"
+        "Domain",
+        "NodeBalancer",
+        "LKECluster",
+        "Image"
       ]
     },
     {

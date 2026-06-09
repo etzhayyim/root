@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 60,
+  "count": 63,
   "actors": [
     {
       "handle": "square-compat",
@@ -8446,6 +8446,406 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (5/5) vs official razorpay-python SDK. Enforced enums: Payment.status/method, Order.status, Refund.status/speed, Settlement.status = 6 enums. createdAt modeled as integer (Unix epoch) per API response shape."
+    },
+    {
+      "handle": "circleci-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://circleci.com/api/v2/openapi.json",
+      "remodeled": "Remodeled from generic devtools_saas to a faithful CircleCI v2 model. Fields verified against the official openapi.json. PARTIAL: enum sets intentionally NOT enforced — the fetch returned a reduced Workflow.status/Pipeline.state vs the documented set (missing on_hold/failing/not_run), so enforcing would false-reject valid API values. Recorded as gaps; honesty over coverage.",
+      "resources": [
+        {
+          "entity": "Pipeline",
+          "source": "https://circleci.com/api/v2/openapi.json",
+          "verifiedFields": [
+            "id",
+            "number",
+            "state",
+            "projectSlug",
+            "createdAt",
+            "updatedAt"
+          ],
+          "fieldStatus": "fields confirmed; state enum not exhaustively confirmed -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "state-enum-not-exhaustive"
+          ]
+        },
+        {
+          "entity": "Workflow",
+          "source": "https://circleci.com/api/v2/openapi.json",
+          "verifiedFields": [
+            "id",
+            "pipelineId",
+            "name",
+            "status",
+            "startedBy",
+            "createdAt",
+            "stoppedAt"
+          ],
+          "fieldStatus": "fields confirmed; status enum appeared reduced (missing on_hold/failing/not_run) -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "status-enum-not-exhaustive"
+          ]
+        },
+        {
+          "entity": "Job",
+          "source": "https://circleci.com/api/v2/openapi.json",
+          "verifiedFields": [
+            "id",
+            "jobNumber",
+            "name",
+            "status",
+            "duration",
+            "workflowId",
+            "createdAt",
+            "stoppedAt"
+          ],
+          "fieldStatus": "fields confirmed; status enum not exhaustively confirmed -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "status-enum-not-exhaustive"
+          ]
+        },
+        {
+          "entity": "Project",
+          "source": "https://circleci.com/api/v2/openapi.json",
+          "verifiedFields": [
+            "id",
+            "slug",
+            "name",
+            "externalUrl"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "vcsInfo"
+          ]
+        },
+        {
+          "entity": "User",
+          "source": "https://circleci.com/api/v2/openapi.json",
+          "verifiedFields": [
+            "id",
+            "login",
+            "name",
+            "avatarUrl"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "PARTIAL: 5/5 entity SCHEMAS verified vs official CircleCI v2 openapi.json; ZERO enums enforced (status/state sets not exhaustively confirmed — refused to enforce an incomplete enum that would false-reject valid values). A clean re-fetch of the full status enums is the recorded follow-up."
+    },
+    {
+      "handle": "linode-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/linode/linode-api-openapi/blob/main/openapi.json",
+      "remodeled": "Remodeled from generic iaas_cloud to a faithful Linode API v4 model, verified against the official Linode OpenAPI. snake_case->camelCase. Malformed is_shared tristate dropped; Domain.status left a gap (documented set incl edit_mode/has_errors not fully confirmed by the fetch).",
+      "resources": [
+        {
+          "entity": "Instance",
+          "source": "https://github.com/linode/linode-api-openapi/blob/main/openapi.json",
+          "verifiedFields": [
+            "id",
+            "label",
+            "status",
+            "region",
+            "type",
+            "image",
+            "created",
+            "updated"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "running",
+              "offline",
+              "booting",
+              "busy",
+              "rebooting",
+              "shutting_down",
+              "provisioning",
+              "deleting",
+              "migrating",
+              "rebuilding",
+              "cloning",
+              "restoring",
+              "stopped",
+              "billing_suspension"
+            ]
+          },
+          "gaps": [
+            "ipv4(array)",
+            "specs(object)"
+          ]
+        },
+        {
+          "entity": "Volume",
+          "source": "https://github.com/linode/linode-api-openapi/blob/main/openapi.json",
+          "verifiedFields": [
+            "id",
+            "label",
+            "status",
+            "size",
+            "region",
+            "encryption",
+            "created",
+            "updated"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "creating",
+              "active",
+              "resizing",
+              "key_rotating"
+            ],
+            "encryption": [
+              "enabled",
+              "disabled"
+            ]
+          },
+          "gaps": [
+            "linodeId"
+          ]
+        },
+        {
+          "entity": "Domain",
+          "source": "https://github.com/linode/linode-api-openapi/blob/main/openapi.json",
+          "verifiedFields": [
+            "id",
+            "domain",
+            "type",
+            "status",
+            "soaEmail",
+            "created"
+          ],
+          "fieldStatus": "fields confirmed; status enum not exhaustively confirmed (edit_mode/has_errors) -> not enforced",
+          "discoveredEnums": {
+            "type": [
+              "master",
+              "slave"
+            ]
+          },
+          "gaps": [
+            "status-enum-not-exhaustive"
+          ]
+        },
+        {
+          "entity": "NodeBalancer",
+          "source": "https://github.com/linode/linode-api-openapi/blob/main/openapi.json",
+          "verifiedFields": [
+            "id",
+            "label",
+            "type",
+            "region",
+            "ipv4",
+            "ipv6",
+            "created",
+            "updated"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "common",
+              "premium"
+            ]
+          },
+          "gaps": [
+            "clientConnThrottle"
+          ]
+        },
+        {
+          "entity": "LKECluster",
+          "source": "https://github.com/linode/linode-api-openapi/blob/main/openapi.json",
+          "verifiedFields": [
+            "id",
+            "label",
+            "region",
+            "k8sVersion",
+            "tier",
+            "created",
+            "updated"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "tier": [
+              "standard",
+              "enterprise"
+            ]
+          },
+          "gaps": [
+            "controlPlane(object)"
+          ]
+        },
+        {
+          "entity": "Image",
+          "source": "https://github.com/linode/linode-api-openapi/blob/main/openapi.json",
+          "verifiedFields": [
+            "id",
+            "label",
+            "status",
+            "type",
+            "size",
+            "isPublic",
+            "created",
+            "updated"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "available",
+              "creating",
+              "pending_upload"
+            ],
+            "type": [
+              "manual",
+              "automatic",
+              "shared"
+            ]
+          },
+          "gaps": [
+            "isShared(malformed-tristate-dropped)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official Linode OpenAPI v4. Enforced enums: Instance.status(14), Volume.status/encryption, Domain.type, NodeBalancer.type, LKECluster.tier, Image.status/type = 8 enums. Domain.status left a gap (not exhaustively confirmed) — honesty over coverage."
+    },
+    {
+      "handle": "heroku-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://api.heroku.com/schema",
+      "remodeled": "Remodeled from generic devtools_saas to a faithful Heroku Platform API model, verified against the official api.heroku.com/schema. snake_case->camelCase. Dyno/Formation size are extensible (no enum); Formation.size deprecated for dyno_size.",
+      "resources": [
+        {
+          "entity": "App",
+          "source": "https://api.heroku.com/schema",
+          "verifiedFields": [
+            "id",
+            "name",
+            "webUrl",
+            "createdAt",
+            "updatedAt"
+          ],
+          "fieldStatus": "confirmed; no closed enum (stack is extensible)",
+          "discoveredEnums": {},
+          "gaps": [
+            "region(object)",
+            "stack(object)"
+          ]
+        },
+        {
+          "entity": "Dyno",
+          "source": "https://api.heroku.com/schema",
+          "verifiedFields": [
+            "id",
+            "name",
+            "state",
+            "command",
+            "type",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "state": [
+              "crashed",
+              "down",
+              "idle",
+              "starting",
+              "up"
+            ]
+          },
+          "gaps": [
+            "size(extensible)"
+          ]
+        },
+        {
+          "entity": "Release",
+          "source": "https://api.heroku.com/schema",
+          "verifiedFields": [
+            "id",
+            "version",
+            "description",
+            "current",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "slug(object)"
+          ]
+        },
+        {
+          "entity": "Addon",
+          "source": "https://api.heroku.com/schema",
+          "verifiedFields": [
+            "id",
+            "name",
+            "state",
+            "plan",
+            "app",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "state": [
+              "provisioning",
+              "provisioned",
+              "deprovisioned"
+            ]
+          },
+          "gaps": [
+            "billingEntity"
+          ]
+        },
+        {
+          "entity": "Build",
+          "source": "https://api.heroku.com/schema",
+          "verifiedFields": [
+            "id",
+            "status",
+            "app",
+            "createdAt",
+            "updatedAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "failed",
+              "pending",
+              "succeeded"
+            ]
+          },
+          "gaps": [
+            "sourceBlob(object)"
+          ]
+        },
+        {
+          "entity": "Formation",
+          "source": "https://api.heroku.com/schema",
+          "verifiedFields": [
+            "id",
+            "quantity",
+            "size",
+            "type",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed; size extensible -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "size(extensible-deprecated-for-dynoSize)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official Heroku Platform API schema. Enforced enums: Dyno.state(5), Addon.state(3), Build.status(3) = 3 enums. Dyno/Formation size are extensible (no closed enum) -> intentionally not enforced."
     }
   ]
 }

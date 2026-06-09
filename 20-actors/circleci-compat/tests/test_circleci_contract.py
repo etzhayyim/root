@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "circleci.kotoba")
-ENTITIES = ['Repository', 'Pipeline', 'Build', 'Artifact', 'Deployment', 'Webhook']
-PLURALS = {'Repository': 'repositories', 'Pipeline': 'pipelines', 'Build': 'builds', 'Artifact': 'artifacts', 'Deployment': 'deployments', 'Webhook': 'webhooks'}
+ENTITIES = ['Pipeline', 'Workflow', 'Job', 'Project', 'User']
+PLURALS = {'Pipeline': 'pipelines', 'Workflow': 'workflows', 'Job': 'jobs', 'Project': 'projects', 'User': 'users'}
 
 
 class CircleciContract(unittest.TestCase):
