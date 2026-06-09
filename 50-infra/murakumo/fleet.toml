@@ -214,6 +214,9 @@ cells = [
   "ForceAuthorizationCell",
   "ForceLogMonitoringCell",
   "EthicsContentClassifierCell",
+  "danjo_corpus_ingest",        # 弾正 pre-published gov procurement corpus intake (cron 25 * * * *) (ADR-2605301600; G3 passive-only, no live portal fetch)
+  "danjo_crossref_weave",       # open-method discrepancy detectors (single-bidder-streak …) over the public record (cron 30 * * * *) (ADR-2605301600; G4 non-adjudicating, G5 ≥2 CIDs, G6 method-note)
+  "danjo_oversight_persist",    # 弾正 public-accountability autonomous heartbeat → append-only kotoba Datom log (cron 35 * * * *) (ADR-2605301600; censor's EYE never SWORD; named-party publish G10+1SBT gated)
 ]
 replicas_of = []
 
