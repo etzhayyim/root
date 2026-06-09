@@ -1443,6 +1443,36 @@ PLATFORM_OVERRIDES = {
         "ExportJob": E(id="string", status="string", format="string"),
         "User": E(id="string", displayName="string"),
     },
+    # Faithful BigCommerce model — verified against the official BigCommerce
+    # OpenAPI specs (github.com/bigcommerce/api-specs).
+    "bigcommerce": {
+        "Product": E(id="integer", name="string", type="string", sku="string", description="string", price="float", availability="string", condition="string", inventoryTracking="string", isVisible="boolean", dateCreated="datetime"),
+        "Order": E(id="integer", customerId="integer", email="string", status="string", total="float", subtotal="float", currencyCode="string", paymentMethod="string", dateCreated="datetime"),
+        "Customer": E(id="integer", email="string", firstName="string", lastName="string", company="string", phone="string", customerGroupId="integer", dateCreated="datetime"),
+        "Category": E(id="integer", name="string", parentId="integer", description="string", isVisible="boolean", sortOrder="integer", defaultProductSort="string"),
+        "Brand": E(id="integer", name="string", pageTitle="string", searchKeywords="string", imageUrl="string"),
+        "Cart": E(id="string", customerId="integer", email="string", channelId="integer", baseAmount="float", cartAmount="float", createdTime="datetime"),
+    },
+    # Faithful LaunchDarkly model — verified against the official OpenAPI
+    # (github.com/launchdarkly/ld-openapi). _id->id; Member.role left a gap.
+    "launchdarkly": {
+        "FeatureFlag": E(key="string", name="string", kind="string", description="string", temporary="boolean", archived="boolean"),
+        "Project": E(id="string", key="string", name="string", includeInSnippetByDefault="boolean"),
+        "Environment": E(id="string", key="string", name="string", apiKey="string", mobileKey="string", color="string"),
+        "Segment": E(key="string", name="string", environmentKey="string", description="string", deleted="boolean", creationDate="integer"),
+        "Member": E(id="string", email="string", firstName="string", lastName="string", role="string"),
+        "Webhook": E(id="string", name="string", url="string", on="boolean"),
+    },
+    # Faithful WooCommerce REST v3 model — verified against the official docs
+    # (woocommerce.github.io/woocommerce-rest-api-docs).
+    "woocommerce": {
+        "Order": E(id="integer", number="string", orderKey="string", status="string", currency="string", total="float", totalTax="float", discountTotal="float", customerId="integer", dateCreated="datetime"),
+        "Product": E(id="integer", name="string", slug="string", type="string", status="string", featured="boolean", catalogVisibility="string", sku="string", regularPrice="float", salePrice="float", onSale="boolean", stockQuantity="integer", stockStatus="string", virtual="boolean", downloadable="boolean"),
+        "Customer": E(id="integer", email="string", firstName="string", lastName="string", username="string", role="string", isPayingCustomer="boolean", dateCreated="datetime"),
+        "Coupon": E(id="integer", code="string", amount="float", discountType="string", description="string", individualUse="boolean", freeShipping="boolean", minimumAmount="float"),
+        "ProductCategory": E(id="integer", name="string", slug="string", parent="integer", description="string", display="string", menuOrder="integer"),
+        "Refund": E(id="integer", amount="float", reason="string", refundedBy="integer", refundedPayment="boolean", dateCreated="datetime"),
+    },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).
     "square": {

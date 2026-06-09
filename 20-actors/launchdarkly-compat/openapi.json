@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreigf4zm5jromrz2a3o747yxudc7xpc3i2wgo4khg4hs5gcctlnpu7e",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,9 +17,9 @@
     }
   ],
   "paths": {
-    "/v1/services": {
+    "/v1/featureflags": {
       "get": {
-        "summary": "List Services",
+        "summary": "List FeatureFlags",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Service"
+                        "$ref": "#/components/schemas/FeatureFlag"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Service",
+        "summary": "Create a FeatureFlag",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ServiceCreate"
+                "$ref": "#/components/schemas/FeatureFlagCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Service"
+                  "$ref": "#/components/schemas/FeatureFlag"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/services/{id}": {
+    "/v1/featureflags/{id}": {
       "get": {
-        "summary": "Get a Service",
+        "summary": "Get a FeatureFlag",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Service"
+                  "$ref": "#/components/schemas/FeatureFlag"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Service",
+        "summary": "Update a FeatureFlag",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ServiceCreate"
+                "$ref": "#/components/schemas/FeatureFlagCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Service"
+                  "$ref": "#/components/schemas/FeatureFlag"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Service",
+        "summary": "Delete a FeatureFlag",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/errors": {
+    "/v1/projects": {
       "get": {
-        "summary": "List Errors",
+        "summary": "List Projects",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Error"
+                        "$ref": "#/components/schemas/Project"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Error",
+        "summary": "Create a Project",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ErrorCreate"
+                "$ref": "#/components/schemas/ProjectCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/Project"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/errors/{id}": {
+    "/v1/projects/{id}": {
       "get": {
-        "summary": "Get a Error",
+        "summary": "Get a Project",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/Project"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Error",
+        "summary": "Update a Project",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ErrorCreate"
+                "$ref": "#/components/schemas/ProjectCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/Project"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Error",
+        "summary": "Delete a Project",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/traces": {
+    "/v1/environments": {
       "get": {
-        "summary": "List Traces",
+        "summary": "List Environments",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Trace"
+                        "$ref": "#/components/schemas/Environment"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Trace",
+        "summary": "Create a Environment",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TraceCreate"
+                "$ref": "#/components/schemas/EnvironmentCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Trace"
+                  "$ref": "#/components/schemas/Environment"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/traces/{id}": {
+    "/v1/environments/{id}": {
       "get": {
-        "summary": "Get a Trace",
+        "summary": "Get a Environment",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Trace"
+                  "$ref": "#/components/schemas/Environment"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Trace",
+        "summary": "Update a Environment",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TraceCreate"
+                "$ref": "#/components/schemas/EnvironmentCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Trace"
+                  "$ref": "#/components/schemas/Environment"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Trace",
+        "summary": "Delete a Environment",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/metrics": {
+    "/v1/segments": {
       "get": {
-        "summary": "List Metrics",
+        "summary": "List Segments",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Metric"
+                        "$ref": "#/components/schemas/Segment"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Metric",
+        "summary": "Create a Segment",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MetricCreate"
+                "$ref": "#/components/schemas/SegmentCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Metric"
+                  "$ref": "#/components/schemas/Segment"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/metrics/{id}": {
+    "/v1/segments/{id}": {
       "get": {
-        "summary": "Get a Metric",
+        "summary": "Get a Segment",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Metric"
+                  "$ref": "#/components/schemas/Segment"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Metric",
+        "summary": "Update a Segment",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MetricCreate"
+                "$ref": "#/components/schemas/SegmentCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Metric"
+                  "$ref": "#/components/schemas/Segment"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Metric",
+        "summary": "Delete a Segment",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/alerts": {
+    "/v1/members": {
       "get": {
-        "summary": "List Alerts",
+        "summary": "List Members",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Alert"
+                        "$ref": "#/components/schemas/Member"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Alert",
+        "summary": "Create a Member",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AlertCreate"
+                "$ref": "#/components/schemas/MemberCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Alert"
+                  "$ref": "#/components/schemas/Member"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/alerts/{id}": {
+    "/v1/members/{id}": {
       "get": {
-        "summary": "Get a Alert",
+        "summary": "Get a Member",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Alert"
+                  "$ref": "#/components/schemas/Member"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Alert",
+        "summary": "Update a Member",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AlertCreate"
+                "$ref": "#/components/schemas/MemberCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Alert"
+                  "$ref": "#/components/schemas/Member"
                 }
               }
             }
@@ -921,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Alert",
+        "summary": "Delete a Member",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +942,9 @@
         }
       }
     },
-    "/v1/incidents": {
+    "/v1/webhooks": {
       "get": {
-        "summary": "List Incidents",
+        "summary": "List Webhooks",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +984,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Incident"
+                        "$ref": "#/components/schemas/Webhook"
                       }
                     },
                     "has_more": {
@@ -1004,13 +1004,13 @@
         }
       },
       "post": {
-        "summary": "Create a Incident",
+        "summary": "Create a Webhook",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IncidentCreate"
+                "$ref": "#/components/schemas/WebhookCreate"
               }
             }
           }
@@ -1021,7 +1021,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Incident"
+                  "$ref": "#/components/schemas/Webhook"
                 }
               }
             }
@@ -1032,9 +1032,9 @@
         }
       }
     },
-    "/v1/incidents/{id}": {
+    "/v1/webhooks/{id}": {
       "get": {
-        "summary": "Get a Incident",
+        "summary": "Get a Webhook",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +1058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Incident"
+                  "$ref": "#/components/schemas/Webhook"
                 }
               }
             }
@@ -1069,7 +1069,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Incident",
+        "summary": "Update a Webhook",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +1084,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IncidentCreate"
+                "$ref": "#/components/schemas/WebhookCreate"
               }
             }
           }
@@ -1095,7 +1095,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Incident"
+                  "$ref": "#/components/schemas/Webhook"
                 }
               }
             }
@@ -1106,7 +1106,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Incident",
+        "summary": "Delete a Webhook",
         "parameters": [
           {
             "name": "id",
@@ -1140,212 +1140,32 @@
   },
   "components": {
     "schemas": {
-      "Service": {
+      "FeatureFlag": {
         "type": "object",
         "properties": {
           "id": {
+            "type": "string"
+          },
+          "key": {
             "type": "string"
           },
           "name": {
             "type": "string"
           },
-          "environment": {
-            "type": "string"
-          },
-          "language": {
-            "type": "string"
-          },
-          "createdAt": {
+          "kind": {
             "type": "string",
-            "format": "date-time"
+            "enum": [
+              "boolean",
+              "multivariate"
+            ]
           },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ServiceCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
+          "description": {
             "type": "string"
           },
-          "environment": {
-            "type": "string"
+          "temporary": {
+            "type": "boolean"
           },
-          "language": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "environment"
-        ]
-      },
-      "Error": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "serviceId": {
-            "type": "string"
-          },
-          "message": {
-            "type": "string"
-          },
-          "culprit": {
-            "type": "string"
-          },
-          "count": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ErrorCreate": {
-        "type": "object",
-        "properties": {
-          "serviceId": {
-            "type": "string"
-          },
-          "message": {
-            "type": "string"
-          },
-          "culprit": {
-            "type": "string"
-          },
-          "count": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "message",
-          "culprit"
-        ]
-      },
-      "Trace": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "serviceId": {
-            "type": "string"
-          },
-          "operation": {
-            "type": "string"
-          },
-          "durationMs": {
-            "type": "integer"
-          },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "TraceCreate": {
-        "type": "object",
-        "properties": {
-          "serviceId": {
-            "type": "string"
-          },
-          "operation": {
-            "type": "string"
-          },
-          "durationMs": {
-            "type": "integer"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "operation",
-          "durationMs"
-        ]
-      },
-      "Metric": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "serviceId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "value": {
-            "type": "number"
-          },
-          "unit": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "MetricCreate": {
-        "type": "object",
-        "properties": {
-          "serviceId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "value": {
-            "type": "number"
-          },
-          "unit": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "value"
-        ]
-      },
-      "Alert": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "serviceId": {
-            "type": "string"
-          },
-          "condition": {
-            "type": "string"
-          },
-          "severity": {
-            "type": "string"
-          },
-          "active": {
+          "archived": {
             "type": "boolean"
           },
           "createdAt": {
@@ -1358,45 +1178,51 @@
           }
         }
       },
-      "AlertCreate": {
+      "FeatureFlagCreate": {
         "type": "object",
         "properties": {
-          "serviceId": {
+          "key": {
             "type": "string"
           },
-          "condition": {
+          "name": {
             "type": "string"
           },
-          "severity": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "boolean",
+              "multivariate"
+            ]
+          },
+          "description": {
             "type": "string"
           },
-          "active": {
+          "temporary": {
+            "type": "boolean"
+          },
+          "archived": {
             "type": "boolean"
           }
         },
         "required": [
-          "condition",
-          "severity"
+          "key",
+          "name"
         ]
       },
-      "Incident": {
+      "Project": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "title": {
+          "key": {
             "type": "string"
           },
-          "status": {
+          "name": {
             "type": "string"
           },
-          "severity": {
-            "type": "string"
-          },
-          "startedAt": {
-            "type": "string",
-            "format": "date-time"
+          "includeInSnippetByDefault": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1408,25 +1234,242 @@
           }
         }
       },
-      "IncidentCreate": {
+      "ProjectCreate": {
         "type": "object",
         "properties": {
-          "title": {
+          "id": {
             "type": "string"
           },
-          "status": {
+          "key": {
             "type": "string"
           },
-          "severity": {
+          "name": {
             "type": "string"
           },
-          "startedAt": {
+          "includeInSnippetByDefault": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "key"
+        ]
+      },
+      "Environment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "key": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "apiKey": {
+            "type": "string"
+          },
+          "mobileKey": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "EnvironmentCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "key": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "apiKey": {
+            "type": "string"
+          },
+          "mobileKey": {
+            "type": "string"
+          },
+          "color": {
             "type": "string"
           }
         },
         "required": [
-          "title",
-          "status"
+          "id",
+          "key"
+        ]
+      },
+      "Segment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "key": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "environmentKey": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "deleted": {
+            "type": "boolean"
+          },
+          "creationDate": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "SegmentCreate": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "environmentKey": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "deleted": {
+            "type": "boolean"
+          },
+          "creationDate": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "key",
+          "name"
+        ]
+      },
+      "Member": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "MemberCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "email"
+        ]
+      },
+      "Webhook": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "on": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "WebhookCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "on": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "name"
         ]
       }
     }

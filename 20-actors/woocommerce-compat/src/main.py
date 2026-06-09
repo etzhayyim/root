@@ -111,156 +111,29 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/products", methods=["POST"])
-def create_product(request):
-    """Create a Product."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['sku', 'title', 'price', 'currency', 'inventory'])
-    if err:
-        return err, 400
-    err = _require(data, ['sku', 'title'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("woocomme_pro")}
-    rec["sku"] = data.get('sku')
-    rec["title"] = data.get('title')
-    rec["price"] = _as_float(data.get('price'))
-    rec["currency"] = data.get('currency')
-    rec["inventory"] = _as_int(data.get('inventory'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Product", rec)
-    return rec, 201
-
-@app.route("/v1/products", methods=["GET"])
-def list_products(request):
-    """List Products with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Product")
-    rows = _apply_filters(rows, params, ['sku', 'title', 'price', 'currency', 'inventory'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/products/<eid>", methods=["GET"])
-def get_product(request, eid):
-    """Retrieve a Product by id (supports ?expand=)."""
-    rows = _query("Product", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/products/<eid>", methods=["POST", "PATCH"])
-def update_product(request, eid):
-    """Update a Product."""
-    rows = _query("Product", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['sku', 'title', 'price', 'currency', 'inventory'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Product", rec)
-    return rec, 200
-
-@app.route("/v1/products/<eid>", methods=["DELETE"])
-def delete_product(request, eid):
-    """Delete a Product."""
-    rows = _query("Product", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"woocommerce.Product", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/variants", methods=["POST"])
-def create_variant(request):
-    """Create a Variant."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['productId', 'sku', 'price', 'optionValues'])
-    if err:
-        return err, 400
-    err = _require(data, ['sku', 'price'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("woocomme_var")}
-    rec["productId"] = data.get('productId')
-    rec["sku"] = data.get('sku')
-    rec["price"] = _as_float(data.get('price'))
-    rec["optionValues"] = data.get('optionValues')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Variant", rec)
-    return rec, 201
-
-@app.route("/v1/variants", methods=["GET"])
-def list_variants(request):
-    """List Variants with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Variant")
-    rows = _apply_filters(rows, params, ['productId', 'sku', 'price', 'optionValues'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/variants/<eid>", methods=["GET"])
-def get_variant(request, eid):
-    """Retrieve a Variant by id (supports ?expand=)."""
-    rows = _query("Variant", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'productId': 'Product'})
-    return rec, 200
-
-@app.route("/v1/variants/<eid>", methods=["POST", "PATCH"])
-def update_variant(request, eid):
-    """Update a Variant."""
-    rows = _query("Variant", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['productId', 'sku', 'price', 'optionValues'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Variant", rec)
-    return rec, 200
-
-@app.route("/v1/variants/<eid>", methods=["DELETE"])
-def delete_variant(request, eid):
-    """Delete a Variant."""
-    rows = _query("Variant", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"woocommerce.Variant", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
 @app.route("/v1/orders", methods=["POST"])
 def create_order(request):
     """Create a Order."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['customerId', 'number', 'total', 'currency', 'status'])
+    err = _reject_unknown(data, ['id', 'number', 'orderKey', 'status', 'currency', 'total', 'totalTax', 'discountTotal', 'customerId', 'dateCreated'])
     if err:
         return err, 400
-    err = _require(data, ['number', 'total'])
+    err = _require(data, ['id', 'number'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['pending', 'processing', 'on-hold', 'completed', 'cancelled', 'refunded', 'failed', 'trash']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['pending', 'processing', 'on-hold', 'completed', 'cancelled', 'refunded', 'failed', 'trash']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("woocomme_ord")}
-    rec["customerId"] = data.get('customerId')
+    rec["id"] = _as_int(data.get('id'))
     rec["number"] = data.get('number')
-    rec["total"] = _as_float(data.get('total'))
-    rec["currency"] = data.get('currency')
+    rec["orderKey"] = data.get('orderKey')
     rec["status"] = data.get('status')
+    rec["currency"] = data.get('currency')
+    rec["total"] = _as_float(data.get('total'))
+    rec["totalTax"] = _as_float(data.get('totalTax'))
+    rec["discountTotal"] = _as_float(data.get('discountTotal'))
+    rec["customerId"] = _as_int(data.get('customerId'))
+    rec["dateCreated"] = data.get('dateCreated')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Order", rec)
@@ -271,7 +144,7 @@ def list_orders(request):
     """List Orders with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Order")
-    rows = _apply_filters(rows, params, ['customerId', 'number', 'total', 'currency', 'status'])
+    rows = _apply_filters(rows, params, ['id', 'number', 'orderKey', 'status', 'currency', 'total', 'totalTax', 'discountTotal', 'customerId', 'dateCreated'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -293,9 +166,11 @@ def update_order(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['customerId', 'number', 'total', 'currency', 'status'])
+    err = _reject_unknown(data, ['id', 'number', 'orderKey', 'status', 'currency', 'total', 'totalTax', 'discountTotal', 'customerId', 'dateCreated'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['pending', 'processing', 'on-hold', 'completed', 'cancelled', 'refunded', 'failed', 'trash']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['pending', 'processing', 'on-hold', 'completed', 'cancelled', 'refunded', 'failed', 'trash']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -313,88 +188,120 @@ def delete_order(request, eid):
     db.retract({"entity": f"woocommerce.Order", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/lineitems", methods=["POST"])
-def create_line_item(request):
-    """Create a LineItem."""
+@app.route("/v1/products", methods=["POST"])
+def create_product(request):
+    """Create a Product."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['orderId', 'productId', 'quantity', 'unitPrice'])
+    err = _reject_unknown(data, ['id', 'name', 'slug', 'type', 'status', 'featured', 'catalogVisibility', 'sku', 'regularPrice', 'salePrice', 'onSale', 'stockQuantity', 'stockStatus', 'virtual', 'downloadable'])
     if err:
         return err, 400
-    err = _require(data, ['quantity', 'unitPrice'])
+    err = _require(data, ['id', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("woocomme_lin")}
-    rec["orderId"] = data.get('orderId')
-    rec["productId"] = data.get('productId')
-    rec["quantity"] = _as_int(data.get('quantity'))
-    rec["unitPrice"] = _as_float(data.get('unitPrice'))
+    if data.get('type') and data['type'] not in ['simple', 'grouped', 'external', 'variable']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['simple', 'grouped', 'external', 'variable']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['draft', 'pending', 'private', 'publish']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['draft', 'pending', 'private', 'publish']), "type": "invalid_request_error"}}, 400
+    if data.get('catalogVisibility') and data['catalogVisibility'] not in ['visible', 'catalog', 'search', 'hidden']:
+        return {"error": {"message": "invalid catalogVisibility; allowed: " + ", ".join(['visible', 'catalog', 'search', 'hidden']), "type": "invalid_request_error"}}, 400
+    if data.get('stockStatus') and data['stockStatus'] not in ['instock', 'outofstock', 'onbackorder']:
+        return {"error": {"message": "invalid stockStatus; allowed: " + ", ".join(['instock', 'outofstock', 'onbackorder']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("woocomme_pro")}
+    rec["id"] = _as_int(data.get('id'))
+    rec["name"] = data.get('name')
+    rec["slug"] = data.get('slug')
+    rec["type"] = data.get('type')
+    rec["status"] = data.get('status')
+    rec["featured"] = _as_bool(data.get('featured'))
+    rec["catalogVisibility"] = data.get('catalogVisibility')
+    rec["sku"] = data.get('sku')
+    rec["regularPrice"] = _as_float(data.get('regularPrice'))
+    rec["salePrice"] = _as_float(data.get('salePrice'))
+    rec["onSale"] = _as_bool(data.get('onSale'))
+    rec["stockQuantity"] = _as_int(data.get('stockQuantity'))
+    rec["stockStatus"] = data.get('stockStatus')
+    rec["virtual"] = _as_bool(data.get('virtual'))
+    rec["downloadable"] = _as_bool(data.get('downloadable'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("LineItem", rec)
+    _persist("Product", rec)
     return rec, 201
 
-@app.route("/v1/lineitems", methods=["GET"])
-def list_line_items(request):
-    """List LineItems with filtering + cursor pagination."""
+@app.route("/v1/products", methods=["GET"])
+def list_products(request):
+    """List Products with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("LineItem")
-    rows = _apply_filters(rows, params, ['orderId', 'productId', 'quantity', 'unitPrice'])
+    rows = _query("Product")
+    rows = _apply_filters(rows, params, ['id', 'name', 'slug', 'type', 'status', 'featured', 'catalogVisibility', 'sku', 'regularPrice', 'salePrice', 'onSale', 'stockQuantity', 'stockStatus', 'virtual', 'downloadable'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/lineitems/<eid>", methods=["GET"])
-def get_line_item(request, eid):
-    """Retrieve a LineItem by id (supports ?expand=)."""
-    rows = _query("LineItem", eid)
+@app.route("/v1/products/<eid>", methods=["GET"])
+def get_product(request, eid):
+    """Retrieve a Product by id (supports ?expand=)."""
+    rows = _query("Product", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'orderId': 'Order', 'productId': 'Product'})
     return rec, 200
 
-@app.route("/v1/lineitems/<eid>", methods=["POST", "PATCH"])
-def update_line_item(request, eid):
-    """Update a LineItem."""
-    rows = _query("LineItem", eid)
+@app.route("/v1/products/<eid>", methods=["POST", "PATCH"])
+def update_product(request, eid):
+    """Update a Product."""
+    rows = _query("Product", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['orderId', 'productId', 'quantity', 'unitPrice'])
+    err = _reject_unknown(data, ['id', 'name', 'slug', 'type', 'status', 'featured', 'catalogVisibility', 'sku', 'regularPrice', 'salePrice', 'onSale', 'stockQuantity', 'stockStatus', 'virtual', 'downloadable'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in ['simple', 'grouped', 'external', 'variable']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['simple', 'grouped', 'external', 'variable']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['draft', 'pending', 'private', 'publish']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['draft', 'pending', 'private', 'publish']), "type": "invalid_request_error"}}, 400
+    if data.get('catalogVisibility') and data['catalogVisibility'] not in ['visible', 'catalog', 'search', 'hidden']:
+        return {"error": {"message": "invalid catalogVisibility; allowed: " + ", ".join(['visible', 'catalog', 'search', 'hidden']), "type": "invalid_request_error"}}, 400
+    if data.get('stockStatus') and data['stockStatus'] not in ['instock', 'outofstock', 'onbackorder']:
+        return {"error": {"message": "invalid stockStatus; allowed: " + ", ".join(['instock', 'outofstock', 'onbackorder']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("LineItem", rec)
+    _persist("Product", rec)
     return rec, 200
 
-@app.route("/v1/lineitems/<eid>", methods=["DELETE"])
-def delete_line_item(request, eid):
-    """Delete a LineItem."""
-    rows = _query("LineItem", eid)
+@app.route("/v1/products/<eid>", methods=["DELETE"])
+def delete_product(request, eid):
+    """Delete a Product."""
+    rows = _query("Product", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"woocommerce.LineItem", "id": eid})
+    db.retract({"entity": f"woocommerce.Product", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/v1/customers", methods=["POST"])
 def create_customer(request):
     """Create a Customer."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'firstName', 'lastName', 'phone'])
+    err = _reject_unknown(data, ['id', 'email', 'firstName', 'lastName', 'username', 'role', 'isPayingCustomer', 'dateCreated'])
     if err:
         return err, 400
-    err = _require(data, ['email', 'firstName'])
+    err = _require(data, ['id', 'email'])
     if err:
         return err, 400
+    if data.get('role') and data['role'] not in ['administrator', 'editor', 'author', 'contributor', 'subscriber', 'customer', 'shop_manager']:
+        return {"error": {"message": "invalid role; allowed: " + ", ".join(['administrator', 'editor', 'author', 'contributor', 'subscriber', 'customer', 'shop_manager']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("woocomme_cus")}
+    rec["id"] = _as_int(data.get('id'))
     rec["email"] = data.get('email')
     rec["firstName"] = data.get('firstName')
     rec["lastName"] = data.get('lastName')
-    rec["phone"] = data.get('phone')
+    rec["username"] = data.get('username')
+    rec["role"] = data.get('role')
+    rec["isPayingCustomer"] = _as_bool(data.get('isPayingCustomer'))
+    rec["dateCreated"] = data.get('dateCreated')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Customer", rec)
@@ -405,7 +312,7 @@ def list_customers(request):
     """List Customers with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Customer")
-    rows = _apply_filters(rows, params, ['email', 'firstName', 'lastName', 'phone'])
+    rows = _apply_filters(rows, params, ['id', 'email', 'firstName', 'lastName', 'username', 'role', 'isPayingCustomer', 'dateCreated'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -426,9 +333,11 @@ def update_customer(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'firstName', 'lastName', 'phone'])
+    err = _reject_unknown(data, ['id', 'email', 'firstName', 'lastName', 'username', 'role', 'isPayingCustomer', 'dateCreated'])
     if err:
         return err, 400
+    if data.get('role') and data['role'] not in ['administrator', 'editor', 'author', 'contributor', 'subscriber', 'customer', 'shop_manager']:
+        return {"error": {"message": "invalid role; allowed: " + ", ".join(['administrator', 'editor', 'author', 'contributor', 'subscriber', 'customer', 'shop_manager']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -446,52 +355,202 @@ def delete_customer(request, eid):
     db.retract({"entity": f"woocommerce.Customer", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/collections", methods=["POST"])
-def create_collection(request):
-    """Create a Collection."""
+@app.route("/v1/coupons", methods=["POST"])
+def create_coupon(request):
+    """Create a Coupon."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'handle', 'published'])
+    err = _reject_unknown(data, ['id', 'code', 'amount', 'discountType', 'description', 'individualUse', 'freeShipping', 'minimumAmount'])
     if err:
         return err, 400
-    err = _require(data, ['title', 'handle'])
+    err = _require(data, ['id', 'code'])
     if err:
         return err, 400
-    rec = {"id": new_id("woocomme_col")}
-    rec["title"] = data.get('title')
-    rec["handle"] = data.get('handle')
-    rec["published"] = _as_bool(data.get('published'))
+    if data.get('discountType') and data['discountType'] not in ['percent', 'fixed_cart', 'fixed_product']:
+        return {"error": {"message": "invalid discountType; allowed: " + ", ".join(['percent', 'fixed_cart', 'fixed_product']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("woocomme_cou")}
+    rec["id"] = _as_int(data.get('id'))
+    rec["code"] = data.get('code')
+    rec["amount"] = _as_float(data.get('amount'))
+    rec["discountType"] = data.get('discountType')
+    rec["description"] = data.get('description')
+    rec["individualUse"] = _as_bool(data.get('individualUse'))
+    rec["freeShipping"] = _as_bool(data.get('freeShipping'))
+    rec["minimumAmount"] = _as_float(data.get('minimumAmount'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Collection", rec)
+    _persist("Coupon", rec)
     return rec, 201
 
-@app.route("/v1/collections", methods=["GET"])
-def list_collections(request):
-    """List Collections with filtering + cursor pagination."""
+@app.route("/v1/coupons", methods=["GET"])
+def list_coupons(request):
+    """List Coupons with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Collection")
-    rows = _apply_filters(rows, params, ['title', 'handle', 'published'])
+    rows = _query("Coupon")
+    rows = _apply_filters(rows, params, ['id', 'code', 'amount', 'discountType', 'description', 'individualUse', 'freeShipping', 'minimumAmount'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/collections/<eid>", methods=["GET"])
-def get_collection(request, eid):
-    """Retrieve a Collection by id (supports ?expand=)."""
-    rows = _query("Collection", eid)
+@app.route("/v1/coupons/<eid>", methods=["GET"])
+def get_coupon(request, eid):
+    """Retrieve a Coupon by id (supports ?expand=)."""
+    rows = _query("Coupon", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/collections/<eid>", methods=["POST", "PATCH"])
-def update_collection(request, eid):
-    """Update a Collection."""
-    rows = _query("Collection", eid)
+@app.route("/v1/coupons/<eid>", methods=["POST", "PATCH"])
+def update_coupon(request, eid):
+    """Update a Coupon."""
+    rows = _query("Coupon", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'handle', 'published'])
+    err = _reject_unknown(data, ['id', 'code', 'amount', 'discountType', 'description', 'individualUse', 'freeShipping', 'minimumAmount'])
+    if err:
+        return err, 400
+    if data.get('discountType') and data['discountType'] not in ['percent', 'fixed_cart', 'fixed_product']:
+        return {"error": {"message": "invalid discountType; allowed: " + ", ".join(['percent', 'fixed_cart', 'fixed_product']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Coupon", rec)
+    return rec, 200
+
+@app.route("/v1/coupons/<eid>", methods=["DELETE"])
+def delete_coupon(request, eid):
+    """Delete a Coupon."""
+    rows = _query("Coupon", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"woocommerce.Coupon", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/productcategories", methods=["POST"])
+def create_product_category(request):
+    """Create a ProductCategory."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'name', 'slug', 'parent', 'description', 'display', 'menuOrder'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'name'])
+    if err:
+        return err, 400
+    if data.get('display') and data['display'] not in ['default', 'products', 'subcategories', 'both']:
+        return {"error": {"message": "invalid display; allowed: " + ", ".join(['default', 'products', 'subcategories', 'both']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("woocomme_pro")}
+    rec["id"] = _as_int(data.get('id'))
+    rec["name"] = data.get('name')
+    rec["slug"] = data.get('slug')
+    rec["parent"] = _as_int(data.get('parent'))
+    rec["description"] = data.get('description')
+    rec["display"] = data.get('display')
+    rec["menuOrder"] = _as_int(data.get('menuOrder'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("ProductCategory", rec)
+    return rec, 201
+
+@app.route("/v1/productcategories", methods=["GET"])
+def list_product_categories(request):
+    """List ProductCategories with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("ProductCategory")
+    rows = _apply_filters(rows, params, ['id', 'name', 'slug', 'parent', 'description', 'display', 'menuOrder'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/productcategories/<eid>", methods=["GET"])
+def get_product_category(request, eid):
+    """Retrieve a ProductCategory by id (supports ?expand=)."""
+    rows = _query("ProductCategory", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/productcategories/<eid>", methods=["POST", "PATCH"])
+def update_product_category(request, eid):
+    """Update a ProductCategory."""
+    rows = _query("ProductCategory", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'name', 'slug', 'parent', 'description', 'display', 'menuOrder'])
+    if err:
+        return err, 400
+    if data.get('display') and data['display'] not in ['default', 'products', 'subcategories', 'both']:
+        return {"error": {"message": "invalid display; allowed: " + ", ".join(['default', 'products', 'subcategories', 'both']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("ProductCategory", rec)
+    return rec, 200
+
+@app.route("/v1/productcategories/<eid>", methods=["DELETE"])
+def delete_product_category(request, eid):
+    """Delete a ProductCategory."""
+    rows = _query("ProductCategory", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"woocommerce.ProductCategory", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/refunds", methods=["POST"])
+def create_refund(request):
+    """Create a Refund."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'amount', 'reason', 'refundedBy', 'refundedPayment', 'dateCreated'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'amount'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("woocomme_ref")}
+    rec["id"] = _as_int(data.get('id'))
+    rec["amount"] = _as_float(data.get('amount'))
+    rec["reason"] = data.get('reason')
+    rec["refundedBy"] = _as_int(data.get('refundedBy'))
+    rec["refundedPayment"] = _as_bool(data.get('refundedPayment'))
+    rec["dateCreated"] = data.get('dateCreated')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Refund", rec)
+    return rec, 201
+
+@app.route("/v1/refunds", methods=["GET"])
+def list_refunds(request):
+    """List Refunds with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Refund")
+    rows = _apply_filters(rows, params, ['id', 'amount', 'reason', 'refundedBy', 'refundedPayment', 'dateCreated'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/refunds/<eid>", methods=["GET"])
+def get_refund(request, eid):
+    """Retrieve a Refund by id (supports ?expand=)."""
+    rows = _query("Refund", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/refunds/<eid>", methods=["POST", "PATCH"])
+def update_refund(request, eid):
+    """Update a Refund."""
+    rows = _query("Refund", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'amount', 'reason', 'refundedBy', 'refundedPayment', 'dateCreated'])
     if err:
         return err, 400
     rec = rows[0]
@@ -499,22 +558,22 @@ def update_collection(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Collection", rec)
+    _persist("Refund", rec)
     return rec, 200
 
-@app.route("/v1/collections/<eid>", methods=["DELETE"])
-def delete_collection(request, eid):
-    """Delete a Collection."""
-    rows = _query("Collection", eid)
+@app.route("/v1/refunds/<eid>", methods=["DELETE"])
+def delete_refund(request, eid):
+    """Delete a Refund."""
+    rows = _query("Refund", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"woocommerce.Collection", "id": eid})
+    db.retract({"entity": f"woocommerce.Refund", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "woocommerce-compat", "tier": "L4",
-            "entities": ['Product', 'Variant', 'Order', 'LineItem', 'Customer', 'Collection']}, 200
+            "entities": ['Order', 'Product', 'Customer', 'Coupon', 'ProductCategory', 'Refund']}, 200
 
 
 if __name__ == "__main__":

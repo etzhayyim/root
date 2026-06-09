@@ -11,15 +11,76 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihtbxjxoqzzurvhc4c3wq6ki76lpgwlkhtnvk7usbzifd3rhfjs7i",
   "schema": "schema/bigcommerce.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://github.com/bigcommerce/api-specs",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Product",
+      "Order",
+      "Customer",
+      "Category",
+      "Brand",
+      "Cart"
+    ],
+    "enums": {
+      "Product": {
+        "type": [
+          "physical",
+          "digital"
+        ],
+        "availability": [
+          "available",
+          "disabled",
+          "preorder"
+        ],
+        "condition": [
+          "New",
+          "Used",
+          "Refurbished"
+        ],
+        "inventoryTracking": [
+          "none",
+          "product",
+          "variant"
+        ]
+      },
+      "Order": {
+        "status": [
+          "Incomplete",
+          "Pending",
+          "Shipped",
+          "Partially Shipped",
+          "Refunded",
+          "Cancelled",
+          "Declined",
+          "Awaiting Payment",
+          "Awaiting Pickup",
+          "Awaiting Shipment"
+        ]
+      },
+      "Category": {
+        "defaultProductSort": [
+          "use_store_settings",
+          "featured",
+          "newest",
+          "best_selling",
+          "alpha_asc",
+          "alpha_desc",
+          "avg_customer_review",
+          "price_asc",
+          "price_desc"
+        ]
+      }
+    }
+  },
   "entities": [
     "Product",
-    "Variant",
     "Order",
-    "LineItem",
     "Customer",
-    "Collection"
+    "Category",
+    "Brand",
+    "Cart"
   ],
   "adr": [
     "260607",
@@ -60,31 +121,6 @@
         },
         {
           "method": "POST",
-          "path": "/v1/variants",
-          "op": "create Variant"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/variants",
-          "op": "list Variant"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/variants/{id}",
-          "op": "get Variant"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/variants/{id}",
-          "op": "update Variant"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/variants/{id}",
-          "op": "delete Variant"
-        },
-        {
-          "method": "POST",
           "path": "/v1/orders",
           "op": "create Order"
         },
@@ -107,31 +143,6 @@
           "method": "DELETE",
           "path": "/v1/orders/{id}",
           "op": "delete Order"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/lineitems",
-          "op": "create LineItem"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/lineitems",
-          "op": "list LineItem"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/lineitems/{id}",
-          "op": "get LineItem"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/lineitems/{id}",
-          "op": "update LineItem"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/lineitems/{id}",
-          "op": "delete LineItem"
         },
         {
           "method": "POST",
@@ -160,28 +171,78 @@
         },
         {
           "method": "POST",
-          "path": "/v1/collections",
-          "op": "create Collection"
+          "path": "/v1/categories",
+          "op": "create Category"
         },
         {
           "method": "GET",
-          "path": "/v1/collections",
-          "op": "list Collection"
+          "path": "/v1/categories",
+          "op": "list Category"
         },
         {
           "method": "GET",
-          "path": "/v1/collections/{id}",
-          "op": "get Collection"
+          "path": "/v1/categories/{id}",
+          "op": "get Category"
         },
         {
           "method": "PATCH",
-          "path": "/v1/collections/{id}",
-          "op": "update Collection"
+          "path": "/v1/categories/{id}",
+          "op": "update Category"
         },
         {
           "method": "DELETE",
-          "path": "/v1/collections/{id}",
-          "op": "delete Collection"
+          "path": "/v1/categories/{id}",
+          "op": "delete Category"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/brands",
+          "op": "create Brand"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/brands",
+          "op": "list Brand"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/brands/{id}",
+          "op": "get Brand"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/brands/{id}",
+          "op": "update Brand"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/brands/{id}",
+          "op": "delete Brand"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/carts",
+          "op": "create Cart"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/carts",
+          "op": "list Cart"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/carts/{id}",
+          "op": "get Cart"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/carts/{id}",
+          "op": "update Cart"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/carts/{id}",
+          "op": "delete Cart"
         }
       ],
       "features": {
@@ -252,25 +313,43 @@
           "inputSchema": {
             "type": "object",
             "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
               "sku": {
                 "type": "string"
               },
-              "title": {
+              "description": {
                 "type": "string"
               },
               "price": {
                 "type": "number"
               },
-              "currency": {
+              "availability": {
                 "type": "string"
               },
-              "inventory": {
-                "type": "integer"
+              "condition": {
+                "type": "string"
+              },
+              "inventoryTracking": {
+                "type": "string"
+              },
+              "isVisible": {
+                "type": "boolean"
+              },
+              "dateCreated": {
+                "type": "string"
               }
             },
             "required": [
-              "sku",
-              "title"
+              "id",
+              "name"
             ]
           }
         },
@@ -304,22 +383,37 @@
             "type": "object",
             "properties": {
               "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "type": {
                 "type": "string"
               },
               "sku": {
                 "type": "string"
               },
-              "title": {
+              "description": {
                 "type": "string"
               },
               "price": {
                 "type": "number"
               },
-              "currency": {
+              "availability": {
                 "type": "string"
               },
-              "inventory": {
-                "type": "integer"
+              "condition": {
+                "type": "string"
+              },
+              "inventoryTracking": {
+                "type": "string"
+              },
+              "isVisible": {
+                "type": "boolean"
+              },
+              "dateCreated": {
+                "type": "string"
               }
             },
             "required": [
@@ -343,120 +437,42 @@
           }
         },
         {
-          "name": "create_variant",
-          "description": "Create a Variant.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "productId": {
-                "type": "string"
-              },
-              "sku": {
-                "type": "string"
-              },
-              "price": {
-                "type": "number"
-              },
-              "optionValues": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "sku",
-              "price"
-            ]
-          }
-        },
-        {
-          "name": "list_variants",
-          "description": "List Variants.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_variant",
-          "description": "Get a Variant by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_variant",
-          "description": "Update a Variant.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "productId": {
-                "type": "string"
-              },
-              "sku": {
-                "type": "string"
-              },
-              "price": {
-                "type": "number"
-              },
-              "optionValues": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_variant",
-          "description": "Delete a Variant.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
           "name": "create_order",
           "description": "Create a Order.",
           "inputSchema": {
             "type": "object",
             "properties": {
+              "id": {
+                "type": "integer"
+              },
               "customerId": {
+                "type": "integer"
+              },
+              "email": {
                 "type": "string"
               },
-              "number": {
+              "status": {
                 "type": "string"
               },
               "total": {
                 "type": "number"
               },
-              "currency": {
+              "subtotal": {
+                "type": "number"
+              },
+              "currencyCode": {
                 "type": "string"
               },
-              "status": {
+              "paymentMethod": {
+                "type": "string"
+              },
+              "dateCreated": {
                 "type": "string"
               }
             },
             "required": [
-              "number",
-              "total"
+              "id",
+              "email"
             ]
           }
         },
@@ -490,21 +506,30 @@
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
+                "type": "integer"
               },
               "customerId": {
+                "type": "integer"
+              },
+              "email": {
                 "type": "string"
               },
-              "number": {
+              "status": {
                 "type": "string"
               },
               "total": {
                 "type": "number"
               },
-              "currency": {
+              "subtotal": {
+                "type": "number"
+              },
+              "currencyCode": {
                 "type": "string"
               },
-              "status": {
+              "paymentMethod": {
+                "type": "string"
+              },
+              "dateCreated": {
                 "type": "string"
               }
             },
@@ -529,101 +554,14 @@
           }
         },
         {
-          "name": "create_line_item",
-          "description": "Create a LineItem.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "orderId": {
-                "type": "string"
-              },
-              "productId": {
-                "type": "string"
-              },
-              "quantity": {
-                "type": "integer"
-              },
-              "unitPrice": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "quantity",
-              "unitPrice"
-            ]
-          }
-        },
-        {
-          "name": "list_line_items",
-          "description": "List LineItems.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_line_item",
-          "description": "Get a LineItem by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_line_item",
-          "description": "Update a LineItem.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "orderId": {
-                "type": "string"
-              },
-              "productId": {
-                "type": "string"
-              },
-              "quantity": {
-                "type": "integer"
-              },
-              "unitPrice": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_line_item",
-          "description": "Delete a LineItem.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
           "name": "create_customer",
           "description": "Create a Customer.",
           "inputSchema": {
             "type": "object",
             "properties": {
+              "id": {
+                "type": "integer"
+              },
               "email": {
                 "type": "string"
               },
@@ -633,13 +571,22 @@
               "lastName": {
                 "type": "string"
               },
+              "company": {
+                "type": "string"
+              },
               "phone": {
+                "type": "string"
+              },
+              "customerGroupId": {
+                "type": "integer"
+              },
+              "dateCreated": {
                 "type": "string"
               }
             },
             "required": [
-              "email",
-              "firstName"
+              "id",
+              "email"
             ]
           }
         },
@@ -673,7 +620,7 @@
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
+                "type": "integer"
               },
               "email": {
                 "type": "string"
@@ -684,7 +631,16 @@
               "lastName": {
                 "type": "string"
               },
+              "company": {
+                "type": "string"
+              },
               "phone": {
+                "type": "string"
+              },
+              "customerGroupId": {
+                "type": "integer"
+              },
+              "dateCreated": {
                 "type": "string"
               }
             },
@@ -709,38 +665,50 @@
           }
         },
         {
-          "name": "create_collection",
-          "description": "Create a Collection.",
+          "name": "create_category",
+          "description": "Create a Category.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "title": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
                 "type": "string"
               },
-              "handle": {
+              "parentId": {
+                "type": "integer"
+              },
+              "description": {
                 "type": "string"
               },
-              "published": {
+              "isVisible": {
                 "type": "boolean"
+              },
+              "sortOrder": {
+                "type": "integer"
+              },
+              "defaultProductSort": {
+                "type": "string"
               }
             },
             "required": [
-              "title",
-              "handle"
+              "id",
+              "name"
             ]
           }
         },
         {
-          "name": "list_collections",
-          "description": "List Collections.",
+          "name": "list_categories",
+          "description": "List Categories.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_collection",
-          "description": "Get a Collection by id.",
+          "name": "get_category",
+          "description": "Get a Category by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -754,22 +722,31 @@
           }
         },
         {
-          "name": "update_collection",
-          "description": "Update a Collection.",
+          "name": "update_category",
+          "description": "Update a Category.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
+                "type": "integer"
+              },
+              "name": {
                 "type": "string"
               },
-              "title": {
+              "parentId": {
+                "type": "integer"
+              },
+              "description": {
                 "type": "string"
               },
-              "handle": {
-                "type": "string"
-              },
-              "published": {
+              "isVisible": {
                 "type": "boolean"
+              },
+              "sortOrder": {
+                "type": "integer"
+              },
+              "defaultProductSort": {
+                "type": "string"
               }
             },
             "required": [
@@ -778,8 +755,206 @@
           }
         },
         {
-          "name": "delete_collection",
-          "description": "Delete a Collection.",
+          "name": "delete_category",
+          "description": "Delete a Category.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_brand",
+          "description": "Create a Brand.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "pageTitle": {
+                "type": "string"
+              },
+              "searchKeywords": {
+                "type": "string"
+              },
+              "imageUrl": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          }
+        },
+        {
+          "name": "list_brands",
+          "description": "List Brands.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_brand",
+          "description": "Get a Brand by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_brand",
+          "description": "Update a Brand.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "pageTitle": {
+                "type": "string"
+              },
+              "searchKeywords": {
+                "type": "string"
+              },
+              "imageUrl": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_brand",
+          "description": "Delete a Brand.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_cart",
+          "description": "Create a Cart.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "customerId": {
+                "type": "integer"
+              },
+              "email": {
+                "type": "string"
+              },
+              "channelId": {
+                "type": "integer"
+              },
+              "baseAmount": {
+                "type": "number"
+              },
+              "cartAmount": {
+                "type": "number"
+              },
+              "createdTime": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "email"
+            ]
+          }
+        },
+        {
+          "name": "list_carts",
+          "description": "List Carts.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_cart",
+          "description": "Get a Cart by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_cart",
+          "description": "Update a Cart.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "customerId": {
+                "type": "integer"
+              },
+              "email": {
+                "type": "string"
+              },
+              "channelId": {
+                "type": "integer"
+              },
+              "baseAmount": {
+                "type": "number"
+              },
+              "cartAmount": {
+                "type": "number"
+              },
+              "createdTime": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_cart",
+          "description": "Delete a Cart.",
           "inputSchema": {
             "type": "object",
             "properties": {

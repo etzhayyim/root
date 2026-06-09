@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 71,
+  "count": 74,
   "actors": [
     {
       "handle": "square-compat",
@@ -9997,6 +9997,477 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official Canva Connect API OpenAPI. Enforced enums: Asset.type(2), ExportJob.status(3), ExportJob.format(9) = 3 enums."
+    },
+    {
+      "handle": "bigcommerce-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/bigcommerce/api-specs",
+      "remodeled": "Remodeled from generic ecommerce to a faithful BigCommerce model, verified against the official BigCommerce OpenAPI specs (catalog.v3 / orders.v2 / customers.v3). Nested address fields dropped; snake_case->camelCase.",
+      "resources": [
+        {
+          "entity": "Product",
+          "source": "https://github.com/bigcommerce/api-specs catalog products.v3",
+          "verifiedFields": [
+            "id",
+            "name",
+            "type",
+            "sku",
+            "description",
+            "price",
+            "availability",
+            "condition",
+            "inventoryTracking",
+            "isVisible",
+            "dateCreated"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "physical",
+              "digital"
+            ],
+            "availability": [
+              "available",
+              "disabled",
+              "preorder"
+            ],
+            "condition": [
+              "New",
+              "Used",
+              "Refurbished"
+            ],
+            "inventoryTracking": [
+              "none",
+              "product",
+              "variant"
+            ]
+          },
+          "gaps": [
+            "categories(array)"
+          ]
+        },
+        {
+          "entity": "Order",
+          "source": "https://github.com/bigcommerce/api-specs orders.v2",
+          "verifiedFields": [
+            "id",
+            "customerId",
+            "email",
+            "status",
+            "total",
+            "subtotal",
+            "currencyCode",
+            "paymentMethod",
+            "dateCreated"
+          ],
+          "fieldStatus": "confirmed (status maps to the documented status list)",
+          "discoveredEnums": {
+            "status": [
+              "Incomplete",
+              "Pending",
+              "Shipped",
+              "Partially Shipped",
+              "Refunded",
+              "Cancelled",
+              "Declined",
+              "Awaiting Payment",
+              "Awaiting Pickup",
+              "Awaiting Shipment"
+            ]
+          },
+          "gaps": [
+            "statusId(int-mirror)"
+          ]
+        },
+        {
+          "entity": "Customer",
+          "source": "https://github.com/bigcommerce/api-specs customers.v3",
+          "verifiedFields": [
+            "id",
+            "email",
+            "firstName",
+            "lastName",
+            "company",
+            "phone",
+            "customerGroupId",
+            "dateCreated"
+          ],
+          "fieldStatus": "confirmed; addressType is nested -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "addresses(array)"
+          ]
+        },
+        {
+          "entity": "Category",
+          "source": "https://github.com/bigcommerce/api-specs categories.v3",
+          "verifiedFields": [
+            "id",
+            "name",
+            "parentId",
+            "description",
+            "isVisible",
+            "sortOrder",
+            "defaultProductSort"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "defaultProductSort": [
+              "use_store_settings",
+              "featured",
+              "newest",
+              "best_selling",
+              "alpha_asc",
+              "alpha_desc",
+              "avg_customer_review",
+              "price_asc",
+              "price_desc"
+            ]
+          },
+          "gaps": [
+            "imageUrl"
+          ]
+        },
+        {
+          "entity": "Brand",
+          "source": "https://github.com/bigcommerce/api-specs brands.v3",
+          "verifiedFields": [
+            "id",
+            "name",
+            "pageTitle",
+            "searchKeywords",
+            "imageUrl"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "metaKeywords(array)"
+          ]
+        },
+        {
+          "entity": "Cart",
+          "source": "https://github.com/bigcommerce/api-specs carts.v3",
+          "verifiedFields": [
+            "id",
+            "customerId",
+            "email",
+            "channelId",
+            "baseAmount",
+            "cartAmount",
+            "createdTime"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "lineItems(object)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official BigCommerce OpenAPI specs. Enforced enums: Product.type/availability/condition/inventoryTracking, Order.status(10), Category.defaultProductSort(9) = 6 enums. Customer.addressType is nested -> not enforced."
+    },
+    {
+      "handle": "launchdarkly-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/launchdarkly/ld-openapi",
+      "remodeled": "Remodeled from generic devtools_saas to a faithful LaunchDarkly model, verified against the official ld-openapi spec. _id->id; object/array fields dropped. Member.role left a gap: the fetched NewMemberForm set [reader,writer,admin,no_access] may omit 'owner', so enforcing it could false-reject a valid owner.",
+      "resources": [
+        {
+          "entity": "FeatureFlag",
+          "source": "https://github.com/launchdarkly/ld-openapi",
+          "verifiedFields": [
+            "key",
+            "name",
+            "kind",
+            "description",
+            "temporary",
+            "archived"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "kind": [
+              "boolean",
+              "multivariate"
+            ]
+          },
+          "gaps": [
+            "variations(array)"
+          ]
+        },
+        {
+          "entity": "Project",
+          "source": "https://github.com/launchdarkly/ld-openapi",
+          "verifiedFields": [
+            "id",
+            "key",
+            "name",
+            "includeInSnippetByDefault"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "defaultClientSideAvailability(object)"
+          ]
+        },
+        {
+          "entity": "Environment",
+          "source": "https://github.com/launchdarkly/ld-openapi",
+          "verifiedFields": [
+            "id",
+            "key",
+            "name",
+            "apiKey",
+            "mobileKey",
+            "color"
+          ],
+          "fieldStatus": "confirmed; color is a free hex string (no closed enum)",
+          "discoveredEnums": {},
+          "gaps": [
+            "defaultTtl"
+          ]
+        },
+        {
+          "entity": "Segment",
+          "source": "https://github.com/launchdarkly/ld-openapi (ExpandedSegment)",
+          "verifiedFields": [
+            "key",
+            "name",
+            "environmentKey",
+            "description",
+            "deleted",
+            "creationDate"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "rules(array)"
+          ]
+        },
+        {
+          "entity": "Member",
+          "source": "https://github.com/launchdarkly/ld-openapi",
+          "verifiedFields": [
+            "id",
+            "email",
+            "firstName",
+            "lastName",
+            "role"
+          ],
+          "fieldStatus": "fields confirmed; role enum (NewMemberForm) may omit 'owner' -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "role-enum-possibly-incomplete"
+          ]
+        },
+        {
+          "entity": "Webhook",
+          "source": "https://github.com/launchdarkly/ld-openapi",
+          "verifiedFields": [
+            "id",
+            "name",
+            "url",
+            "on"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "statements(array)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6 schemas) vs official ld-openapi. Enforced enum: FeatureFlag.kind(2). Member.role left a gap (fetched set may omit 'owner' — honesty over coverage, won't risk a false-reject)."
+    },
+    {
+      "handle": "woocommerce-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://woocommerce.github.io/woocommerce-rest-api-docs/",
+      "remodeled": "Remodeled from generic ecommerce to a faithful WooCommerce REST v3 model, verified against the official WooCommerce REST API docs. snake_case->camelCase.",
+      "resources": [
+        {
+          "entity": "Order",
+          "source": "https://woocommerce.github.io/woocommerce-rest-api-docs/#orders",
+          "verifiedFields": [
+            "id",
+            "number",
+            "orderKey",
+            "status",
+            "currency",
+            "total",
+            "totalTax",
+            "discountTotal",
+            "customerId",
+            "dateCreated"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "pending",
+              "processing",
+              "on-hold",
+              "completed",
+              "cancelled",
+              "refunded",
+              "failed",
+              "trash"
+            ]
+          },
+          "gaps": [
+            "lineItems(array)"
+          ]
+        },
+        {
+          "entity": "Product",
+          "source": "https://woocommerce.github.io/woocommerce-rest-api-docs/#products",
+          "verifiedFields": [
+            "id",
+            "name",
+            "slug",
+            "type",
+            "status",
+            "featured",
+            "catalogVisibility",
+            "sku",
+            "regularPrice",
+            "salePrice",
+            "onSale",
+            "stockQuantity",
+            "stockStatus",
+            "virtual",
+            "downloadable"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "simple",
+              "grouped",
+              "external",
+              "variable"
+            ],
+            "status": [
+              "draft",
+              "pending",
+              "private",
+              "publish"
+            ],
+            "catalogVisibility": [
+              "visible",
+              "catalog",
+              "search",
+              "hidden"
+            ],
+            "stockStatus": [
+              "instock",
+              "outofstock",
+              "onbackorder"
+            ]
+          },
+          "gaps": [
+            "categories(array)"
+          ]
+        },
+        {
+          "entity": "Customer",
+          "source": "https://woocommerce.github.io/woocommerce-rest-api-docs/#customers",
+          "verifiedFields": [
+            "id",
+            "email",
+            "firstName",
+            "lastName",
+            "username",
+            "role",
+            "isPayingCustomer",
+            "dateCreated"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "role": [
+              "administrator",
+              "editor",
+              "author",
+              "contributor",
+              "subscriber",
+              "customer",
+              "shop_manager"
+            ]
+          },
+          "gaps": [
+            "billing(object)"
+          ]
+        },
+        {
+          "entity": "Coupon",
+          "source": "https://woocommerce.github.io/woocommerce-rest-api-docs/#coupons",
+          "verifiedFields": [
+            "id",
+            "code",
+            "amount",
+            "discountType",
+            "description",
+            "individualUse",
+            "freeShipping",
+            "minimumAmount"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "discountType": [
+              "percent",
+              "fixed_cart",
+              "fixed_product"
+            ]
+          },
+          "gaps": [
+            "productIds(array)"
+          ]
+        },
+        {
+          "entity": "ProductCategory",
+          "source": "https://woocommerce.github.io/woocommerce-rest-api-docs/#product-categories",
+          "verifiedFields": [
+            "id",
+            "name",
+            "slug",
+            "parent",
+            "description",
+            "display",
+            "menuOrder"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "display": [
+              "default",
+              "products",
+              "subcategories",
+              "both"
+            ]
+          },
+          "gaps": [
+            "image(object)"
+          ]
+        },
+        {
+          "entity": "Refund",
+          "source": "https://woocommerce.github.io/woocommerce-rest-api-docs/#refunds",
+          "verifiedFields": [
+            "id",
+            "amount",
+            "reason",
+            "refundedBy",
+            "refundedPayment",
+            "dateCreated"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "lineItems(array)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official WooCommerce REST v3 docs. Enforced enums: Order.status(8), Product.type(4)/status(4)/catalogVisibility(4)/stockStatus(3), Customer.role(7), Coupon.discountType(3), ProductCategory.display(4) = 9 enums."
     }
   ]
 }

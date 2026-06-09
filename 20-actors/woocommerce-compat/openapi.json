@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreie4vot77pv3nuqedtomq4pt4aqokdjyhawzqhptczowzii7jft7ly",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,376 +17,6 @@
     }
   ],
   "paths": {
-    "/v1/products": {
-      "get": {
-        "summary": "List Products",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Product"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Product",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProductCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Product"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/products/{id}": {
-      "get": {
-        "summary": "Get a Product",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Product"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Product",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProductCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Product"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Product",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/variants": {
-      "get": {
-        "summary": "List Variants",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Variant"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Variant",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/VariantCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Variant"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/variants/{id}": {
-      "get": {
-        "summary": "Get a Variant",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Variant"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Variant",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/VariantCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Variant"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Variant",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
     "/v1/orders": {
       "get": {
         "summary": "List Orders",
@@ -572,9 +202,9 @@
         }
       }
     },
-    "/v1/lineitems": {
+    "/v1/products": {
       "get": {
-        "summary": "List LineItems",
+        "summary": "List Products",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/LineItem"
+                        "$ref": "#/components/schemas/Product"
                       }
                     },
                     "has_more": {
@@ -634,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a LineItem",
+        "summary": "Create a Product",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LineItemCreate"
+                "$ref": "#/components/schemas/ProductCreate"
               }
             }
           }
@@ -651,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LineItem"
+                  "$ref": "#/components/schemas/Product"
                 }
               }
             }
@@ -662,9 +292,9 @@
         }
       }
     },
-    "/v1/lineitems/{id}": {
+    "/v1/products/{id}": {
       "get": {
-        "summary": "Get a LineItem",
+        "summary": "Get a Product",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LineItem"
+                  "$ref": "#/components/schemas/Product"
                 }
               }
             }
@@ -699,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a LineItem",
+        "summary": "Update a Product",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LineItemCreate"
+                "$ref": "#/components/schemas/ProductCreate"
               }
             }
           }
@@ -725,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LineItem"
+                  "$ref": "#/components/schemas/Product"
                 }
               }
             }
@@ -736,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a LineItem",
+        "summary": "Delete a Product",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +572,9 @@
         }
       }
     },
-    "/v1/collections": {
+    "/v1/coupons": {
       "get": {
-        "summary": "List Collections",
+        "summary": "List Coupons",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Collection"
+                        "$ref": "#/components/schemas/Coupon"
                       }
                     },
                     "has_more": {
@@ -1004,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Collection",
+        "summary": "Create a Coupon",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CollectionCreate"
+                "$ref": "#/components/schemas/CouponCreate"
               }
             }
           }
@@ -1021,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Collection"
+                  "$ref": "#/components/schemas/Coupon"
                 }
               }
             }
@@ -1032,9 +662,9 @@
         }
       }
     },
-    "/v1/collections/{id}": {
+    "/v1/coupons/{id}": {
       "get": {
-        "summary": "Get a Collection",
+        "summary": "Get a Coupon",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Collection"
+                  "$ref": "#/components/schemas/Coupon"
                 }
               }
             }
@@ -1069,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Collection",
+        "summary": "Update a Coupon",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CollectionCreate"
+                "$ref": "#/components/schemas/CouponCreate"
               }
             }
           }
@@ -1095,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Collection"
+                  "$ref": "#/components/schemas/Coupon"
                 }
               }
             }
@@ -1106,7 +736,377 @@
         }
       },
       "delete": {
-        "summary": "Delete a Collection",
+        "summary": "Delete a Coupon",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/productcategories": {
+      "get": {
+        "summary": "List ProductCategories",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ProductCategory"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a ProductCategory",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductCategoryCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductCategory"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/productcategories/{id}": {
+      "get": {
+        "summary": "Get a ProductCategory",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductCategory"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a ProductCategory",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductCategoryCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductCategory"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a ProductCategory",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/refunds": {
+      "get": {
+        "summary": "List Refunds",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Refund"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a Refund",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefundCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Refund"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/refunds/{id}": {
+      "get": {
+        "summary": "Get a Refund",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Refund"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a Refund",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefundCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Refund"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a Refund",
         "parameters": [
           {
             "name": "id",
@@ -1140,130 +1140,49 @@
   },
   "components": {
     "schemas": {
-      "Product": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "sku": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "price": {
-            "type": "number"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "inventory": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ProductCreate": {
-        "type": "object",
-        "properties": {
-          "sku": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "price": {
-            "type": "number"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "inventory": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "sku",
-          "title"
-        ]
-      },
-      "Variant": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "productId": {
-            "type": "string"
-          },
-          "sku": {
-            "type": "string"
-          },
-          "price": {
-            "type": "number"
-          },
-          "optionValues": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "VariantCreate": {
-        "type": "object",
-        "properties": {
-          "productId": {
-            "type": "string"
-          },
-          "sku": {
-            "type": "string"
-          },
-          "price": {
-            "type": "number"
-          },
-          "optionValues": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "sku",
-          "price"
-        ]
-      },
       "Order": {
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
-          },
-          "customerId": {
-            "type": "string"
+            "type": "integer"
           },
           "number": {
+            "type": "string"
+          },
+          "orderKey": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "processing",
+              "on-hold",
+              "completed",
+              "cancelled",
+              "refunded",
+              "failed",
+              "trash"
+            ]
+          },
+          "currency": {
             "type": "string"
           },
           "total": {
             "type": "number"
           },
-          "currency": {
-            "type": "string"
+          "totalTax": {
+            "type": "number"
           },
-          "status": {
-            "type": "string"
+          "discountTotal": {
+            "type": "number"
+          },
+          "customerId": {
+            "type": "integer"
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time"
           },
           "createdAt": {
             "type": "string",
@@ -1278,44 +1197,122 @@
       "OrderCreate": {
         "type": "object",
         "properties": {
-          "customerId": {
-            "type": "string"
+          "id": {
+            "type": "integer"
           },
           "number": {
+            "type": "string"
+          },
+          "orderKey": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "processing",
+              "on-hold",
+              "completed",
+              "cancelled",
+              "refunded",
+              "failed",
+              "trash"
+            ]
+          },
+          "currency": {
             "type": "string"
           },
           "total": {
             "type": "number"
           },
-          "currency": {
-            "type": "string"
+          "totalTax": {
+            "type": "number"
           },
-          "status": {
+          "discountTotal": {
+            "type": "number"
+          },
+          "customerId": {
+            "type": "integer"
+          },
+          "dateCreated": {
             "type": "string"
           }
         },
         "required": [
-          "number",
-          "total"
+          "id",
+          "number"
         ]
       },
-      "LineItem": {
+      "Product": {
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
-          },
-          "orderId": {
-            "type": "string"
-          },
-          "productId": {
-            "type": "string"
-          },
-          "quantity": {
             "type": "integer"
           },
-          "unitPrice": {
+          "name": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "simple",
+              "grouped",
+              "external",
+              "variable"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "pending",
+              "private",
+              "publish"
+            ]
+          },
+          "featured": {
+            "type": "boolean"
+          },
+          "catalogVisibility": {
+            "type": "string",
+            "enum": [
+              "visible",
+              "catalog",
+              "search",
+              "hidden"
+            ]
+          },
+          "sku": {
+            "type": "string"
+          },
+          "regularPrice": {
             "type": "number"
+          },
+          "salePrice": {
+            "type": "number"
+          },
+          "onSale": {
+            "type": "boolean"
+          },
+          "stockQuantity": {
+            "type": "integer"
+          },
+          "stockStatus": {
+            "type": "string",
+            "enum": [
+              "instock",
+              "outofstock",
+              "onbackorder"
+            ]
+          },
+          "virtual": {
+            "type": "boolean"
+          },
+          "downloadable": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1327,32 +1324,88 @@
           }
         }
       },
-      "LineItemCreate": {
+      "ProductCreate": {
         "type": "object",
         "properties": {
-          "orderId": {
-            "type": "string"
-          },
-          "productId": {
-            "type": "string"
-          },
-          "quantity": {
+          "id": {
             "type": "integer"
           },
-          "unitPrice": {
+          "name": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "simple",
+              "grouped",
+              "external",
+              "variable"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "pending",
+              "private",
+              "publish"
+            ]
+          },
+          "featured": {
+            "type": "boolean"
+          },
+          "catalogVisibility": {
+            "type": "string",
+            "enum": [
+              "visible",
+              "catalog",
+              "search",
+              "hidden"
+            ]
+          },
+          "sku": {
+            "type": "string"
+          },
+          "regularPrice": {
             "type": "number"
+          },
+          "salePrice": {
+            "type": "number"
+          },
+          "onSale": {
+            "type": "boolean"
+          },
+          "stockQuantity": {
+            "type": "integer"
+          },
+          "stockStatus": {
+            "type": "string",
+            "enum": [
+              "instock",
+              "outofstock",
+              "onbackorder"
+            ]
+          },
+          "virtual": {
+            "type": "boolean"
+          },
+          "downloadable": {
+            "type": "boolean"
           }
         },
         "required": [
-          "quantity",
-          "unitPrice"
+          "id",
+          "name"
         ]
       },
       "Customer": {
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "integer"
           },
           "email": {
             "type": "string"
@@ -1363,8 +1416,27 @@
           "lastName": {
             "type": "string"
           },
-          "phone": {
+          "username": {
             "type": "string"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "administrator",
+              "editor",
+              "author",
+              "contributor",
+              "subscriber",
+              "customer",
+              "shop_manager"
+            ]
+          },
+          "isPayingCustomer": {
+            "type": "boolean"
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time"
           },
           "createdAt": {
             "type": "string",
@@ -1379,6 +1451,9 @@
       "CustomerCreate": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "integer"
+          },
           "email": {
             "type": "string"
           },
@@ -1388,29 +1463,64 @@
           "lastName": {
             "type": "string"
           },
-          "phone": {
+          "username": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "administrator",
+              "editor",
+              "author",
+              "contributor",
+              "subscriber",
+              "customer",
+              "shop_manager"
+            ]
+          },
+          "isPayingCustomer": {
+            "type": "boolean"
+          },
+          "dateCreated": {
             "type": "string"
           }
         },
         "required": [
-          "email",
-          "firstName"
+          "id",
+          "email"
         ]
       },
-      "Collection": {
+      "Coupon": {
         "type": "object",
         "properties": {
           "id": {
+            "type": "integer"
+          },
+          "code": {
             "type": "string"
           },
-          "title": {
+          "amount": {
+            "type": "number"
+          },
+          "discountType": {
+            "type": "string",
+            "enum": [
+              "percent",
+              "fixed_cart",
+              "fixed_product"
+            ]
+          },
+          "description": {
             "type": "string"
           },
-          "handle": {
-            "type": "string"
-          },
-          "published": {
+          "individualUse": {
             "type": "boolean"
+          },
+          "freeShipping": {
+            "type": "boolean"
+          },
+          "minimumAmount": {
+            "type": "number"
           },
           "createdAt": {
             "type": "string",
@@ -1422,22 +1532,177 @@
           }
         }
       },
-      "CollectionCreate": {
+      "CouponCreate": {
         "type": "object",
         "properties": {
-          "title": {
+          "id": {
+            "type": "integer"
+          },
+          "code": {
             "type": "string"
           },
-          "handle": {
+          "amount": {
+            "type": "number"
+          },
+          "discountType": {
+            "type": "string",
+            "enum": [
+              "percent",
+              "fixed_cart",
+              "fixed_product"
+            ]
+          },
+          "description": {
             "type": "string"
           },
-          "published": {
+          "individualUse": {
             "type": "boolean"
+          },
+          "freeShipping": {
+            "type": "boolean"
+          },
+          "minimumAmount": {
+            "type": "number"
           }
         },
         "required": [
-          "title",
-          "handle"
+          "id",
+          "code"
+        ]
+      },
+      "ProductCategory": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "parent": {
+            "type": "integer"
+          },
+          "description": {
+            "type": "string"
+          },
+          "display": {
+            "type": "string",
+            "enum": [
+              "default",
+              "products",
+              "subcategories",
+              "both"
+            ]
+          },
+          "menuOrder": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ProductCategoryCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "parent": {
+            "type": "integer"
+          },
+          "description": {
+            "type": "string"
+          },
+          "display": {
+            "type": "string",
+            "enum": [
+              "default",
+              "products",
+              "subcategories",
+              "both"
+            ]
+          },
+          "menuOrder": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "Refund": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "amount": {
+            "type": "number"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "refundedBy": {
+            "type": "integer"
+          },
+          "refundedPayment": {
+            "type": "boolean"
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "RefundCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "amount": {
+            "type": "number"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "refundedBy": {
+            "type": "integer"
+          },
+          "refundedPayment": {
+            "type": "boolean"
+          },
+          "dateCreated": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "amount"
         ]
       }
     }

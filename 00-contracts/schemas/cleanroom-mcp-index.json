@@ -885,7 +885,7 @@
     {
       "handle": "bigcommerce-compat",
       "did": "did:web:etzhayyim.com:actor:bigcommerce-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreihtbxjxoqzzurvhc4c3wq6ki76lpgwlkhtnvk7usbzifd3rhfjs7i",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -4620,7 +4620,7 @@
     {
       "handle": "launchdarkly-compat",
       "did": "did:web:etzhayyim.com:actor:launchdarkly-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreigf4zm5jromrz2a3o747yxudc7xpc3i2wgo4khg4hs5gcctlnpu7e",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -8652,7 +8652,7 @@
     {
       "handle": "woocommerce-compat",
       "did": "did:web:etzhayyim.com:actor:woocommerce-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreie4vot77pv3nuqedtomq4pt4aqokdjyhawzqhptczowzii7jft7ly",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,

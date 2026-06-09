@@ -1671,11 +1671,11 @@
       "tier": "browser-local",
       "entities": [
         "Product",
-        "Variant",
         "Order",
-        "LineItem",
         "Customer",
-        "Collection"
+        "Category",
+        "Brand",
+        "Cart"
       ]
     },
     {
@@ -8721,12 +8721,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Service",
-        "Error",
-        "Trace",
-        "Metric",
-        "Alert",
-        "Incident"
+        "FeatureFlag",
+        "Project",
+        "Environment",
+        "Segment",
+        "Member",
+        "Webhook"
       ]
     },
     {
@@ -16336,12 +16336,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Product",
-        "Variant",
         "Order",
-        "LineItem",
+        "Product",
         "Customer",
-        "Collection"
+        "Coupon",
+        "ProductCategory",
+        "Refund"
       ]
     },
     {
