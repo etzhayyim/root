@@ -1133,6 +1133,17 @@ PLATFORM_OVERRIDES = {
         "UserId": E(userID="string", clusterName="string", nbRecords="integer", dataSize="integer"),
         "Task": E(status="string"),
     },
+    # Faithful Mux (Video) model (remodeled from the generic comms_social
+    # archetype whose Channel/Message/Room chat entities did not match Mux's
+    # video API), doc-verified L5 vs github.com/muxinc/mux-python.
+    "mux": {
+        "Asset": E(status="string", duration="float", maxStoredResolution="string", resolutionTier="string", encodingTier="string", videoQuality="string", aspectRatio="string", maxStoredFrameRate="float", uploadId="string", isLive="boolean", liveStreamId="string", masterAccess="string", mp4Support="string", passthrough="string", ingestType="string", test="boolean"),
+        "LiveStream": E(streamKey="string", activeAssetId="string", passthrough="string", audioOnly="boolean", reconnectWindow="float", latencyMode="string", reducedLatency="boolean", lowLatency="boolean", maxContinuousDuration="integer", activeIngestProtocol="string", test="boolean"),
+        "Upload": E(timeout="integer", status="string", assetId="string", corsOrigin="string", url="string", test="boolean"),
+        "Track": E(type="string", duration="float", maxWidth="integer", maxHeight="integer", maxFrameRate="float", maxChannels="integer", maxChannelLayout="string", textType="string", textSource="string", languageCode="string", name="string", closedCaptions="boolean", status="string", primary="boolean"),
+        "PlaybackID": E(drmConfigurationId="string"),
+        "SigningKey": E(privateKey="string"),
+    },
     # Faithful Airtable model (remodeled from generic office_productivity), L5.
     "airtable": {
         "Base": E(name="string", permissionLevel="string"),

@@ -3,69 +3,89 @@
 
 namespace mux {
 
-    entity Channel {
+    entity Asset {
         id: string @unique
-        name: string
-        type: string
-        topic: string
-        memberCount: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Message {
-        id: string @unique
-        channelId: string
-        authorId: string
-        body: string
-        sentAt: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity User {
-        id: string @unique
-        handle: string
-        displayName: string
-        verified: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Room {
-        id: string @unique
-        name: string
-        maxParticipants: integer
-        recording: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Stream {
-        id: string @unique
-        roomId: string
         status: string
-        bitrate: integer
+        duration: float
+        maxStoredResolution: string
+        resolutionTier: string
+        encodingTier: string
+        videoQuality: string
+        aspectRatio: string
+        maxStoredFrameRate: float
+        uploadId: string
+        isLive: boolean
+        liveStreamId: string
+        masterAccess: string
+        mp4Support: string
+        passthrough: string
+        ingestType: string
+        test: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Webhook {
+    entity LiveStream {
         id: string @unique
-        event: string
+        streamKey: string
+        activeAssetId: string
+        passthrough: string
+        audioOnly: boolean
+        reconnectWindow: float
+        latencyMode: string
+        reducedLatency: boolean
+        lowLatency: boolean
+        maxContinuousDuration: integer
+        activeIngestProtocol: string
+        test: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Upload {
+        id: string @unique
+        timeout: integer
+        status: string
+        assetId: string
+        corsOrigin: string
         url: string
-        active: boolean
+        test: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Track {
+        id: string @unique
+        type: string
+        duration: float
+        maxWidth: integer
+        maxHeight: integer
+        maxFrameRate: float
+        maxChannels: integer
+        maxChannelLayout: string
+        textType: string
+        textSource: string
+        languageCode: string
+        name: string
+        closedCaptions: boolean
+        status: string
+        primary: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity PlaybackID {
+        id: string @unique
+        drmConfigurationId: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity SigningKey {
+        id: string @unique
+        privateKey: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

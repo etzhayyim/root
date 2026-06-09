@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 65,
+  "count": 66,
   "actors": [
     {
       "handle": "square-compat",
@@ -9142,6 +9142,222 @@
       ],
       "notApplicable": [],
       "note": "Remodeled from a mismatched e-commerce archetype (shared with old contentful) to a faithful search-engine model. 6/6 entities field-verified vs Algolia's official OpenAPI spec. Discovered closed enums (2): Synonym.type (SynonymType), Task.status. Schemaless search Records intentionally not modeled."
+    },
+    {
+      "handle": "mux-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/muxinc/mux-python (official Mux Python SDK, openapi-generator models)",
+      "remodeled": "Remodeled from the generic comms_social archetype (Channel/Message/User/Room/Stream/Webhook — a chat shape) to a faithful Mux video model (Asset/LiveStream/Upload/Track/PlaybackID/SigningKey), verified field-by-field against the official mux-python SDK models (openapi_types + inline allowed_values enums, downloaded + parsed). The L5 gate had correctly rejected the prior mismatched model (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Asset",
+          "source": "mux_python/models/asset.py",
+          "verifiedFields": [
+            "status",
+            "duration",
+            "maxStoredResolution",
+            "resolutionTier",
+            "encodingTier",
+            "videoQuality",
+            "aspectRatio",
+            "maxStoredFrameRate",
+            "uploadId",
+            "isLive",
+            "liveStreamId",
+            "masterAccess",
+            "mp4Support",
+            "passthrough",
+            "ingestType",
+            "test"
+          ],
+          "fieldStatus": "confirmed vs Asset openapi_types (status/duration/max_stored_resolution/resolution_tier/encoding_tier/video_quality/aspect_ratio/max_stored_frame_rate/upload_id/is_live/live_stream_id/master_access/mp4_support/passthrough/ingest_type/test)",
+          "discoveredEnums": {
+            "status": [
+              "preparing",
+              "ready",
+              "errored"
+            ],
+            "maxStoredResolution": [
+              "Audio only",
+              "SD",
+              "HD",
+              "FHD",
+              "UHD"
+            ],
+            "resolutionTier": [
+              "audio-only",
+              "720p",
+              "1080p",
+              "1440p",
+              "2160p"
+            ],
+            "encodingTier": [
+              "smart",
+              "baseline",
+              "premium"
+            ],
+            "videoQuality": [
+              "basic",
+              "plus",
+              "premium"
+            ],
+            "masterAccess": [
+              "temporary",
+              "none"
+            ],
+            "mp4Support": [
+              "standard",
+              "none",
+              "capped-1080p",
+              "audio-only",
+              "audio-only,capped-1080p"
+            ],
+            "ingestType": [
+              "on_demand_url",
+              "on_demand_direct_upload",
+              "on_demand_clip",
+              "live_rtmp",
+              "live_srt"
+            ]
+          },
+          "gaps": [
+            "playback_ids(array)",
+            "tracks(array)",
+            "static_renditions(object)",
+            "errors(object)"
+          ]
+        },
+        {
+          "entity": "LiveStream",
+          "source": "mux_python/models/live_stream.py",
+          "verifiedFields": [
+            "streamKey",
+            "activeAssetId",
+            "passthrough",
+            "audioOnly",
+            "reconnectWindow",
+            "latencyMode",
+            "reducedLatency",
+            "lowLatency",
+            "maxContinuousDuration",
+            "activeIngestProtocol",
+            "test"
+          ],
+          "fieldStatus": "confirmed vs LiveStream openapi_types (stream_key/active_asset_id/passthrough/audio_only/reconnect_window/latency_mode/reduced_latency/low_latency/max_continuous_duration/active_ingest_protocol/test)",
+          "discoveredEnums": {
+            "latencyMode": [
+              "low",
+              "reduced",
+              "standard"
+            ],
+            "activeIngestProtocol": [
+              "rtmp",
+              "srt"
+            ]
+          },
+          "gaps": [
+            "playback_ids(array)",
+            "recent_asset_ids(array)",
+            "simulcast_targets(array)"
+          ]
+        },
+        {
+          "entity": "Upload",
+          "source": "mux_python/models/upload.py",
+          "verifiedFields": [
+            "timeout",
+            "status",
+            "assetId",
+            "corsOrigin",
+            "url",
+            "test"
+          ],
+          "fieldStatus": "confirmed vs Upload openapi_types (timeout/status/asset_id/cors_origin/url/test)",
+          "discoveredEnums": {
+            "status": [
+              "waiting",
+              "asset_created",
+              "errored",
+              "cancelled",
+              "timed_out"
+            ]
+          },
+          "gaps": [
+            "new_asset_settings(object)",
+            "error(object)"
+          ]
+        },
+        {
+          "entity": "Track",
+          "source": "mux_python/models/track.py",
+          "verifiedFields": [
+            "type",
+            "duration",
+            "maxWidth",
+            "maxHeight",
+            "maxFrameRate",
+            "maxChannels",
+            "maxChannelLayout",
+            "textType",
+            "textSource",
+            "languageCode",
+            "name",
+            "closedCaptions",
+            "status",
+            "primary"
+          ],
+          "fieldStatus": "confirmed vs Track openapi_types (type/duration/max_width/max_height/max_frame_rate/max_channels/max_channel_layout/text_type/text_source/language_code/name/closed_captions/status/primary)",
+          "discoveredEnums": {
+            "type": [
+              "video",
+              "audio",
+              "text"
+            ],
+            "textType": [
+              "subtitles"
+            ],
+            "textSource": [
+              "uploaded",
+              "embedded",
+              "generated_live",
+              "generated_live_final",
+              "generated_vod"
+            ],
+            "status": [
+              "preparing",
+              "ready",
+              "errored",
+              "deleted"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "PlaybackID",
+          "source": "mux_python/models/playback_id.py",
+          "verifiedFields": [
+            "drmConfigurationId"
+          ],
+          "fieldStatus": "confirmed vs PlaybackID openapi_types (id/drm_configuration_id); thin in the SDK model (policy is set on create, not returned here)",
+          "discoveredEnums": {},
+          "gaps": [
+            "policy (public/signed/drm — create-request field)"
+          ]
+        },
+        {
+          "entity": "SigningKey",
+          "source": "mux_python/models/signing_key.py",
+          "verifiedFields": [
+            "privateKey"
+          ],
+          "fieldStatus": "confirmed vs SigningKey openapi_types (id/created_at/private_key)",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "Remodeled from a mismatched chat/comms archetype to a faithful video model. 6/6 entities field-verified vs the official mux-python SDK. Richest enum yield so far: 15 closed enums across Asset (8), LiveStream (2), Upload (1), Track (4). Schemaless metadata/passthrough kept as plain string."
     }
   ]
 }
