@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 897,
-    "L5": 103
+    "L4": 895,
+    "L5": 105
   },
   "actors": [
     {
@@ -9791,10 +9791,10 @@
     {
       "handle": "mambu-compat",
       "did": "did:web:etzhayyim.com:actor:mambu-compat",
-      "wasmCid": "bafkreifi6n7er6svdiuuspan4fyk3dnumd6gokuxashsulvntoaecxv3eu",
+      "wasmCid": "bafkreihywg2dv7gqwdlga75s7xfsp5qwcyy23u6r7llo75rh2oofw6cgva",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "mambu clean-room actor",
       "category": "core_banking_insurtech",
       "capabilities": [
@@ -12419,10 +12419,10 @@
     {
       "handle": "patreon-compat",
       "did": "did:web:etzhayyim.com:actor:patreon-compat",
-      "wasmCid": "bafkreidkj7ypazmys5w4vfyizvfyhx53l6pvmooriw4zdfhsjbkxfwz6qy",
+      "wasmCid": "bafkreihcnigw6v4rwxcnaxq76rtu7k7rof4yayxvs47gvmu6bsg72rt3nu",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "patreon clean-room actor",
       "category": "event_npo_creator",
       "capabilities": [

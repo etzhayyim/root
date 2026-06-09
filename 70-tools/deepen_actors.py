@@ -1621,6 +1621,24 @@ PLATFORM_OVERRIDES = {
         "Deployment": E(id="string", status="string", projectName="string", stackName="string", paused="boolean", created="datetime", modified="datetime"),
         "Organization": E(name="string", role="string"),
     },
+    # Faithful Mambu API v2 model — verified against the official Mambu OpenAPI
+    # (api.mambu.com / demo.mambu.com openapi resources).
+    "mambu": {
+        "LoanAccount": E(id="string", encodedKey="string", accountState="string", accountSubState="string", accountHolderType="string", accountHolderKey="string", loanAmount="float", loanName="string", daysInArrears="integer", creationDate="datetime", approvedDate="datetime", closedDate="datetime"),
+        "DepositAccount": E(id="string", encodedKey="string", accountState="string", accountHolderType="string", accountHolderKey="string", creationDate="datetime", approvedDate="datetime"),
+        "Client": E(id="string", encodedKey="string", state="string", firstName="string", lastName="string", emailAddress="string", mobilePhone="string", creationDate="datetime"),
+        "Group": E(id="string", encodedKey="string", groupName="string", assignedBranchKey="string", creationDate="datetime"),
+        "LoanTransaction": E(id="string", encodedKey="string", type="string", amount="float", notes="string", creationDate="datetime", bookingDate="datetime", valueDate="datetime"),
+    },
+    # Faithful Patreon API v2 model — verified against docs.patreon.com.
+    # amounts integer cents; null enum members handled by the falsy guard.
+    "patreon": {
+        "User": E(id="string", about="string", fullName="string", firstName="string", lastName="string", email="string", isCreator="boolean", isEmailVerified="boolean", likeCount="integer", created="datetime"),
+        "Member": E(id="string", patronStatus="string", lastChargeStatus="string", fullName="string", email="string", currentlyEntitledAmountCents="integer", campaignLifetimeSupportCents="integer", willPayAmountCents="integer", isFollower="boolean", isFreeTrial="boolean", lastChargeDate="datetime", nextChargeDate="datetime", pledgeRelationshipStart="datetime"),
+        "Campaign": E(id="string", creationName="string", currency="string", name="string", patronCount="integer", payPerName="string", isMonthly="boolean", isNsfw="boolean", createdAt="datetime", publishedAt="datetime"),
+        "Tier": E(id="string", amountCents="integer", description="string", patronCount="integer", published="boolean", requiresShipping="boolean", title="string", createdAt="datetime"),
+        "Benefit": E(id="string", benefitType="string", description="string", isDeleted="boolean", isPublished="boolean", title="string", tiersCount="integer", createdAt="datetime"),
+    },
     # Faithful commercetools Composable Commerce API model — verified against
     # docs.commercetools.com + commercetools-api-reference. Money objects dropped.
     "commercetools": {

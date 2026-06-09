@@ -7,7 +7,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 29850,
+  "totalTools": 29840,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -4899,10 +4899,10 @@
     {
       "handle": "mambu-compat",
       "did": "did:web:etzhayyim.com:actor:mambu-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreifi6n7er6svdiuuspan4fyk3dnumd6gokuxashsulvntoaecxv3eu",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreihywg2dv7gqwdlga75s7xfsp5qwcyy23u6r7llo75rh2oofw6cgva",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "manifest": "20-actors/mambu-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -6213,10 +6213,10 @@
     {
       "handle": "patreon-compat",
       "did": "did:web:etzhayyim.com:actor:patreon-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreidkj7ypazmys5w4vfyizvfyhx53l6pvmooriw4zdfhsjbkxfwz6qy",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreihcnigw6v4rwxcnaxq76rtu7k7rof4yayxvs47gvmu6bsg72rt3nu",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "manifest": "20-actors/patreon-compat/manifest.json#/capabilities/mcp"
     },
     {

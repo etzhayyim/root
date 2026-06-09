@@ -9231,17 +9231,16 @@
       "handle": "mambu-compat",
       "platform": "mambu",
       "bytes": 2119,
-      "wasmCid": "bafkreifi6n7er6svdiuuspan4fyk3dnumd6gokuxashsulvntoaecxv3eu",
+      "wasmCid": "bafkreihywg2dv7gqwdlga75s7xfsp5qwcyy23u6r7llo75rh2oofw6cgva",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Account",
-        "Loan",
-        "Policy",
-        "Claim",
-        "Transaction",
-        "Customer"
+        "LoanAccount",
+        "DepositAccount",
+        "Client",
+        "Group",
+        "LoanTransaction"
       ]
     },
     {
@@ -11708,17 +11707,16 @@
       "handle": "patreon-compat",
       "platform": "patreon",
       "bytes": 2121,
-      "wasmCid": "bafkreidkj7ypazmys5w4vfyizvfyhx53l6pvmooriw4zdfhsjbkxfwz6qy",
+      "wasmCid": "bafkreihcnigw6v4rwxcnaxq76rtu7k7rof4yayxvs47gvmu6bsg72rt3nu",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Event",
-        "Ticket",
-        "Attendee",
-        "Donor",
-        "Donation",
-        "Membership"
+        "User",
+        "Member",
+        "Campaign",
+        "Tier",
+        "Benefit"
       ]
     },
     {

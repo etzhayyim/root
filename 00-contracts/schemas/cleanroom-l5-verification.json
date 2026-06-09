@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 103,
+  "count": 105,
   "actors": [
     {
       "handle": "square-compat",
@@ -14500,6 +14500,363 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (5/5) vs @opensea/api-types SDK + docs. Enforced enums: Nft.tokenStandard(3), Collection.safelistStatus(5), Listing.status(5), Offer.status(5) = 4 enums. Listing.type inferred (seaport) -> not enforced."
+    },
+    {
+      "handle": "mambu-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://api.mambu.com (OpenAPI v2)",
+      "remodeled": "Remodeled from generic category model to a faithful Mambu API v2 model, verified against the official Mambu OpenAPI resources.",
+      "resources": [
+        {
+          "entity": "LoanAccount",
+          "source": "https://api.mambu.com (OpenAPI v2)",
+          "verifiedFields": [
+            "id",
+            "encodedKey",
+            "accountState",
+            "accountSubState",
+            "accountHolderType",
+            "accountHolderKey",
+            "loanAmount",
+            "loanName",
+            "daysInArrears",
+            "creationDate",
+            "approvedDate",
+            "closedDate"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "accountState": [
+              "PARTIAL_APPLICATION",
+              "PENDING_APPROVAL",
+              "APPROVED",
+              "ACTIVE",
+              "ACTIVE_IN_ARREARS",
+              "CLOSED",
+              "CLOSED_WRITTEN_OFF",
+              "CLOSED_REJECTED"
+            ],
+            "accountSubState": [
+              "PARTIALLY_DISBURSED",
+              "LOCKED",
+              "LOCKED_CAPPING",
+              "REFINANCED",
+              "RESCHEDULED",
+              "WITHDRAWN",
+              "REPAID",
+              "REJECTED",
+              "WRITTEN_OFF",
+              "TERMINATED"
+            ],
+            "accountHolderType": [
+              "CLIENT",
+              "GROUP"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "DepositAccount",
+          "source": "https://api.mambu.com (OpenAPI v2)",
+          "verifiedFields": [
+            "id",
+            "encodedKey",
+            "accountState",
+            "accountHolderType",
+            "accountHolderKey",
+            "creationDate",
+            "approvedDate"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "accountState": [
+              "PENDING_APPROVAL",
+              "APPROVED",
+              "ACTIVE",
+              "ACTIVE_IN_ARREARS",
+              "MATURED",
+              "LOCKED",
+              "DORMANT",
+              "CLOSED",
+              "CLOSED_WRITTEN_OFF",
+              "WITHDRAWN",
+              "CLOSED_REJECTED"
+            ],
+            "accountHolderType": [
+              "CLIENT",
+              "GROUP"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Client",
+          "source": "https://api.mambu.com (OpenAPI v2)",
+          "verifiedFields": [
+            "id",
+            "encodedKey",
+            "state",
+            "firstName",
+            "lastName",
+            "emailAddress",
+            "mobilePhone",
+            "creationDate"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "state": [
+              "PENDING_APPROVAL",
+              "INACTIVE",
+              "ACTIVE",
+              "EXITED",
+              "BLACKLISTED",
+              "REJECTED"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Group",
+          "source": "https://api.mambu.com (OpenAPI v2)",
+          "verifiedFields": [
+            "id",
+            "encodedKey",
+            "groupName",
+            "assignedBranchKey",
+            "creationDate"
+          ],
+          "fieldStatus": "confirmed; no state enum on Group",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "LoanTransaction",
+          "source": "https://api.mambu.com (OpenAPI v2)",
+          "verifiedFields": [
+            "id",
+            "encodedKey",
+            "type",
+            "amount",
+            "notes",
+            "creationDate",
+            "bookingDate",
+            "valueDate"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "IMPORT",
+              "DISBURSEMENT",
+              "DISBURSEMENT_ADJUSTMENT",
+              "WRITE_OFF",
+              "WRITE_OFF_ADJUSTMENT",
+              "REPAYMENT",
+              "ADVANCE_REPAYMENT",
+              "PAYMENT_MADE",
+              "WITHDRAWAL_REDRAW",
+              "WITHDRAWAL_REDRAW_ADJUSTMENT",
+              "FEE_APPLIED",
+              "FEE_CHARGED",
+              "FEE_CAPITALISED",
+              "SCHEDULE_FIX_APPLIED",
+              "FEES_DUE_REDUCED",
+              "FEE_REFUND",
+              "FEE_REFUND_ADJUSTMENT",
+              "FEE_ADJUSTMENT",
+              "PENALTY_APPLIED",
+              "PENALTY_ADJUSTMENT",
+              "PENALTIES_DUE_REDUCED",
+              "REPAYMENT_ADJUSTMENT",
+              "ADVANCE_REPAYMENT_ADJUSTMENT",
+              "FEE_CAPITALISED_ADJUSTMENT",
+              "PAYMENT_MADE_ADJUSTMENT",
+              "INTEREST_RATE_CHANGED",
+              "FEE_RATE_CHANGED",
+              "TAX_RATE_CHANGED",
+              "PENALTY_RATE_CHANGED",
+              "INTEREST_APPLIED",
+              "IBF_INTEREST_APPLIED",
+              "IBF_INTEREST_APPLIED_ADJUSTMENT",
+              "INTEREST_APPLIED_ADJUSTMENT",
+              "INTEREST_DUE_REDUCED",
+              "PENALTY_REDUCTION_ADJUSTMENT",
+              "FEE_REDUCTION_ADJUSTMENT",
+              "INTEREST_REDUCTION_ADJUSTMENT",
+              "DEFERRED_INTEREST_APPLIED",
+              "DEFERRED_INTEREST_APPLIED_ADJUSTMENT",
+              "DEFERRED_INTEREST_PAID",
+              "DEFERRED_INTEREST_PAID_ADJUSTMENT",
+              "INTEREST_LOCKED",
+              "FEE_LOCKED",
+              "PENALTY_LOCKED",
+              "INTEREST_UNLOCKED",
+              "FEE_UNLOCKED",
+              "PENALTY_UNLOCKED",
+              "REDRAW_TRANSFER",
+              "REDRAW_REPAYMENT",
+              "REDRAW_TRANSFER_ADJUSTMENT",
+              "REDRAW_REPAYMENT_ADJUSTMENT",
+              "TRANSFER",
+              "TRANSFER_ADJUSTMENT",
+              "BRANCH_CHANGED",
+              "TERMS_CHANGED",
+              "CARD_TRANSACTION_REVERSAL",
+              "CARD_TRANSACTION_REVERSAL_ADJUSTMENT",
+              "DUE_DATE_CHANGED",
+              "DUE_DATE_CHANGED_ADJUSTMENT",
+              "ACCOUNT_TERMINATED",
+              "ACCOUNT_TERMINATED_ADJUSTMENT",
+              "REFUND",
+              "REFUND_ADJUSTMENT",
+              "REDUCE_BALANCE",
+              "REDUCE_BALANCE_ADJUSTMENT",
+              "PRINCIPAL_OVERPAYMENT",
+              "PRINCIPAL_OVERPAYMENT_ADJUSTMENT",
+              "CREDIT_BALANCE_DEPOSIT",
+              "CREDIT_BALANCE_DEPOSIT_ADJUSTMENT",
+              "CREDIT_BALANCE_WITHDRAWAL",
+              "CREDIT_BALANCE_WITHDRAWAL_ADJUSTMENT",
+              "PAYMENT_HOLIDAYS_INTEREST_CAPITALISED",
+              "PAYMENT_HOLIDAYS_INTEREST_CAPITALISED_ADJUSTMENT"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs official Mambu OpenAPI v2. Enforced enums: LoanAccount.accountState(8)/accountSubState(10)/accountHolderType(2), DepositAccount.accountState(11)/accountHolderType(2), Client.state(6), LoanTransaction.type(66) = 7 enums."
+    },
+    {
+      "handle": "patreon-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://docs.patreon.com/",
+      "remodeled": "Remodeled from generic category model to a faithful Patreon API v2 model, verified against docs.patreon.com. snake_case->camelCase; amounts integer cents. payPerName left a gap (docs do not enumerate exhaustively).",
+      "resources": [
+        {
+          "entity": "User",
+          "source": "https://docs.patreon.com/#user-v2",
+          "verifiedFields": [
+            "id",
+            "about",
+            "fullName",
+            "firstName",
+            "lastName",
+            "email",
+            "isCreator",
+            "isEmailVerified",
+            "likeCount",
+            "created"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Member",
+          "source": "https://docs.patreon.com/#member",
+          "verifiedFields": [
+            "id",
+            "patronStatus",
+            "lastChargeStatus",
+            "fullName",
+            "email",
+            "currentlyEntitledAmountCents",
+            "campaignLifetimeSupportCents",
+            "willPayAmountCents",
+            "isFollower",
+            "isFreeTrial",
+            "lastChargeDate",
+            "nextChargeDate",
+            "pledgeRelationshipStart"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "patronStatus": [
+              "active_patron",
+              "declined_patron",
+              "former_patron"
+            ],
+            "lastChargeStatus": [
+              "Paid",
+              "Declined",
+              "Deleted",
+              "Pending",
+              "Refunded",
+              "Fraud",
+              "Refunded by Patreon",
+              "Other",
+              "Partially Refunded",
+              "Free Trial",
+              "Refund Pending",
+              "Refund Declined"
+            ]
+          },
+          "gaps": [
+            "null-members-handled-by-falsy-guard"
+          ]
+        },
+        {
+          "entity": "Campaign",
+          "source": "https://docs.patreon.com/#campaign-v2",
+          "verifiedFields": [
+            "id",
+            "creationName",
+            "currency",
+            "name",
+            "patronCount",
+            "payPerName",
+            "isMonthly",
+            "isNsfw",
+            "createdAt",
+            "publishedAt"
+          ],
+          "fieldStatus": "confirmed; payPerName not exhaustively enumerated -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "payPerName-not-exhaustive"
+          ]
+        },
+        {
+          "entity": "Tier",
+          "source": "https://docs.patreon.com/#tier",
+          "verifiedFields": [
+            "id",
+            "amountCents",
+            "description",
+            "patronCount",
+            "published",
+            "requiresShipping",
+            "title",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Benefit",
+          "source": "https://docs.patreon.com/#benefit",
+          "verifiedFields": [
+            "id",
+            "benefitType",
+            "description",
+            "isDeleted",
+            "isPublished",
+            "title",
+            "tiersCount",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "benefitType-open"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs official Patreon API v2 docs. Enforced enums: Member.patronStatus(3), Member.lastChargeStatus(12) = 2 enums. payPerName left a gap (not exhaustively documented)."
     }
   ]
 }
