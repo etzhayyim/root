@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreiel7feh5e6hhkc43thcwkevlacpgdroy67dtjda5phzvdtp332qjy",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,9 +17,9 @@
     }
   ],
   "paths": {
-    "/v1/prefixes": {
+    "/v1/ikeheaders": {
       "get": {
-        "summary": "List Prefixes",
+        "summary": "List IkeHeaders",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Prefix"
+                        "$ref": "#/components/schemas/IkeHeader"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Prefix",
+        "summary": "Create a IkeHeader",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PrefixCreate"
+                "$ref": "#/components/schemas/IkeHeaderCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Prefix"
+                  "$ref": "#/components/schemas/IkeHeader"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/prefixes/{id}": {
+    "/v1/ikeheaders/{id}": {
       "get": {
-        "summary": "Get a Prefix",
+        "summary": "Get a IkeHeader",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Prefix"
+                  "$ref": "#/components/schemas/IkeHeader"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Prefix",
+        "summary": "Update a IkeHeader",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PrefixCreate"
+                "$ref": "#/components/schemas/IkeHeaderCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Prefix"
+                  "$ref": "#/components/schemas/IkeHeader"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Prefix",
+        "summary": "Delete a IkeHeader",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/routes": {
+    "/v1/payloads": {
       "get": {
-        "summary": "List Routes",
+        "summary": "List Payloads",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Route"
+                        "$ref": "#/components/schemas/Payload"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Route",
+        "summary": "Create a Payload",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RouteCreate"
+                "$ref": "#/components/schemas/PayloadCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Route"
+                  "$ref": "#/components/schemas/Payload"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/routes/{id}": {
+    "/v1/payloads/{id}": {
       "get": {
-        "summary": "Get a Route",
+        "summary": "Get a Payload",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Route"
+                  "$ref": "#/components/schemas/Payload"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Route",
+        "summary": "Update a Payload",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RouteCreate"
+                "$ref": "#/components/schemas/PayloadCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Route"
+                  "$ref": "#/components/schemas/Payload"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Route",
+        "summary": "Delete a Payload",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/peers": {
+    "/v1/securityassociations": {
       "get": {
-        "summary": "List Peers",
+        "summary": "List SecurityAssociations",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Peer"
+                        "$ref": "#/components/schemas/SecurityAssociation"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Peer",
+        "summary": "Create a SecurityAssociation",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PeerCreate"
+                "$ref": "#/components/schemas/SecurityAssociationCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Peer"
+                  "$ref": "#/components/schemas/SecurityAssociation"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/peers/{id}": {
+    "/v1/securityassociations/{id}": {
       "get": {
-        "summary": "Get a Peer",
+        "summary": "Get a SecurityAssociation",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Peer"
+                  "$ref": "#/components/schemas/SecurityAssociation"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Peer",
+        "summary": "Update a SecurityAssociation",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PeerCreate"
+                "$ref": "#/components/schemas/SecurityAssociationCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Peer"
+                  "$ref": "#/components/schemas/SecurityAssociation"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Peer",
+        "summary": "Delete a SecurityAssociation",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/zones": {
+    "/v1/proposals": {
       "get": {
-        "summary": "List Zones",
+        "summary": "List Proposals",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Zone"
+                        "$ref": "#/components/schemas/Proposal"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Zone",
+        "summary": "Create a Proposal",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ZoneCreate"
+                "$ref": "#/components/schemas/ProposalCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Zone"
+                  "$ref": "#/components/schemas/Proposal"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/zones/{id}": {
+    "/v1/proposals/{id}": {
       "get": {
-        "summary": "Get a Zone",
+        "summary": "Get a Proposal",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Zone"
+                  "$ref": "#/components/schemas/Proposal"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Zone",
+        "summary": "Update a Proposal",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ZoneCreate"
+                "$ref": "#/components/schemas/ProposalCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Zone"
+                  "$ref": "#/components/schemas/Proposal"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Zone",
+        "summary": "Delete a Proposal",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/records": {
+    "/v1/transforms": {
       "get": {
-        "summary": "List Records",
+        "summary": "List Transforms",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Record"
+                        "$ref": "#/components/schemas/Transform"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Record",
+        "summary": "Create a Transform",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RecordCreate"
+                "$ref": "#/components/schemas/TransformCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Record"
+                  "$ref": "#/components/schemas/Transform"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/records/{id}": {
+    "/v1/transforms/{id}": {
       "get": {
-        "summary": "Get a Record",
+        "summary": "Get a Transform",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Record"
+                  "$ref": "#/components/schemas/Transform"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Record",
+        "summary": "Update a Transform",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RecordCreate"
+                "$ref": "#/components/schemas/TransformCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Record"
+                  "$ref": "#/components/schemas/Transform"
                 }
               }
             }
@@ -921,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Record",
+        "summary": "Delete a Transform",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +942,9 @@
         }
       }
     },
-    "/v1/tunnels": {
+    "/v1/notifies": {
       "get": {
-        "summary": "List Tunnels",
+        "summary": "List Notifies",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +984,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Tunnel"
+                        "$ref": "#/components/schemas/Notify"
                       }
                     },
                     "has_more": {
@@ -1004,13 +1004,13 @@
         }
       },
       "post": {
-        "summary": "Create a Tunnel",
+        "summary": "Create a Notify",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TunnelCreate"
+                "$ref": "#/components/schemas/NotifyCreate"
               }
             }
           }
@@ -1021,7 +1021,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Tunnel"
+                  "$ref": "#/components/schemas/Notify"
                 }
               }
             }
@@ -1032,9 +1032,9 @@
         }
       }
     },
-    "/v1/tunnels/{id}": {
+    "/v1/notifies/{id}": {
       "get": {
-        "summary": "Get a Tunnel",
+        "summary": "Get a Notify",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +1058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Tunnel"
+                  "$ref": "#/components/schemas/Notify"
                 }
               }
             }
@@ -1069,7 +1069,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Tunnel",
+        "summary": "Update a Notify",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +1084,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TunnelCreate"
+                "$ref": "#/components/schemas/NotifyCreate"
               }
             }
           }
@@ -1095,7 +1095,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Tunnel"
+                  "$ref": "#/components/schemas/Notify"
                 }
               }
             }
@@ -1106,7 +1106,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Tunnel",
+        "summary": "Delete a Notify",
         "parameters": [
           {
             "name": "id",
@@ -1140,148 +1140,50 @@
   },
   "components": {
     "schemas": {
-      "Prefix": {
+      "IkeHeader": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "cidr": {
-            "type": "string"
-          },
-          "originAsn": {
-            "type": "string"
-          },
-          "validity": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "PrefixCreate": {
-        "type": "object",
-        "properties": {
-          "cidr": {
-            "type": "string"
-          },
-          "originAsn": {
-            "type": "string"
-          },
-          "validity": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "cidr",
-          "originAsn"
-        ]
-      },
-      "Route": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "prefixId": {
-            "type": "string"
-          },
-          "nextHop": {
-            "type": "string"
-          },
-          "asPath": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "RouteCreate": {
-        "type": "object",
-        "properties": {
-          "prefixId": {
-            "type": "string"
-          },
-          "nextHop": {
-            "type": "string"
-          },
-          "asPath": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "nextHop",
-          "asPath"
-        ]
-      },
-      "Peer": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "asn": {
-            "type": "string"
-          },
-          "ipAddress": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "PeerCreate": {
-        "type": "object",
-        "properties": {
-          "asn": {
-            "type": "string"
-          },
-          "ipAddress": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "asn",
-          "ipAddress"
-        ]
-      },
-      "Zone": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "serial": {
+          "initiatorSpi": {
             "type": "integer"
           },
-          "refreshSec": {
+          "responderSpi": {
+            "type": "integer"
+          },
+          "nextPayload": {
+            "type": "integer"
+          },
+          "majorVersion": {
+            "type": "integer"
+          },
+          "minorVersion": {
+            "type": "integer"
+          },
+          "exchangeType": {
+            "type": "integer",
+            "enum": [
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44
+            ]
+          },
+          "flags": {
+            "type": "integer"
+          },
+          "messageId": {
+            "type": "integer"
+          },
+          "totalLength": {
             "type": "integer"
           },
           "createdAt": {
@@ -1294,40 +1196,294 @@
           }
         }
       },
-      "ZoneCreate": {
+      "IkeHeaderCreate": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string"
-          },
-          "serial": {
+          "initiatorSpi": {
             "type": "integer"
           },
-          "refreshSec": {
+          "responderSpi": {
+            "type": "integer"
+          },
+          "nextPayload": {
+            "type": "integer"
+          },
+          "majorVersion": {
+            "type": "integer"
+          },
+          "minorVersion": {
+            "type": "integer"
+          },
+          "exchangeType": {
+            "type": "integer",
+            "enum": [
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44
+            ]
+          },
+          "flags": {
+            "type": "integer"
+          },
+          "messageId": {
+            "type": "integer"
+          },
+          "totalLength": {
             "type": "integer"
           }
         },
         "required": [
-          "name",
-          "serial"
+          "initiatorSpi",
+          "responderSpi"
         ]
       },
-      "Record": {
+      "Payload": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "zoneId": {
+          "nextPayload": {
+            "type": "integer"
+          },
+          "critical": {
+            "type": "boolean"
+          },
+          "payloadLength": {
+            "type": "integer"
+          },
+          "payloadType": {
+            "type": "integer",
+            "enum": [
+              0,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "PayloadCreate": {
+        "type": "object",
+        "properties": {
+          "nextPayload": {
+            "type": "integer"
+          },
+          "critical": {
+            "type": "boolean"
+          },
+          "payloadLength": {
+            "type": "integer"
+          },
+          "payloadType": {
+            "type": "integer",
+            "enum": [
+              0,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54
+            ]
+          }
+        },
+        "required": [
+          "nextPayload",
+          "critical"
+        ]
+      },
+      "SecurityAssociation": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "string"
           },
-          "name": {
+          "payloadType": {
+            "type": "integer"
+          },
+          "proposals": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "SecurityAssociationCreate": {
+        "type": "object",
+        "properties": {
+          "payloadType": {
+            "type": "integer"
+          },
+          "proposals": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "payloadType",
+          "proposals"
+        ]
+      },
+      "Proposal": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "number": {
+            "type": "integer"
+          },
+          "protocolId": {
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          },
+          "spiSize": {
+            "type": "integer"
+          },
+          "transformCount": {
+            "type": "integer"
+          },
+          "spi": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ProposalCreate": {
+        "type": "object",
+        "properties": {
+          "number": {
+            "type": "integer"
+          },
+          "protocolId": {
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          },
+          "spiSize": {
+            "type": "integer"
+          },
+          "transformCount": {
+            "type": "integer"
+          },
+          "spi": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "number",
+          "spiSize"
+        ]
+      },
+      "Transform": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "string"
           },
           "type": {
-            "type": "string"
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14
+            ]
           },
-          "value": {
+          "transformId": {
+            "type": "integer"
+          },
+          "transformLength": {
+            "type": "integer"
+          },
+          "attributes": {
             "type": "string"
           },
           "createdAt": {
@@ -1340,44 +1496,71 @@
           }
         }
       },
-      "RecordCreate": {
+      "TransformCreate": {
         "type": "object",
         "properties": {
-          "zoneId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
           "type": {
-            "type": "string"
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14
+            ]
           },
-          "value": {
+          "transformId": {
+            "type": "integer"
+          },
+          "transformLength": {
+            "type": "integer"
+          },
+          "attributes": {
             "type": "string"
           }
         },
         "required": [
-          "name",
-          "type"
+          "type",
+          "transformLength"
         ]
       },
-      "Tunnel": {
+      "Notify": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "localAddr": {
+          "protocolId": {
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          },
+          "spiSize": {
+            "type": "integer"
+          },
+          "notifyMessageType": {
+            "type": "integer"
+          },
+          "spi": {
             "type": "string"
           },
-          "remoteAddr": {
+          "notificationData": {
             "type": "string"
-          },
-          "protocol": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1389,25 +1572,36 @@
           }
         }
       },
-      "TunnelCreate": {
+      "NotifyCreate": {
         "type": "object",
         "properties": {
-          "localAddr": {
+          "protocolId": {
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          },
+          "spiSize": {
+            "type": "integer"
+          },
+          "notifyMessageType": {
+            "type": "integer"
+          },
+          "spi": {
             "type": "string"
           },
-          "remoteAddr": {
+          "notificationData": {
             "type": "string"
-          },
-          "protocol": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
           }
         },
         "required": [
-          "localAddr",
-          "remoteAddr"
+          "spiSize",
+          "notifyMessageType"
         ]
       }
     }

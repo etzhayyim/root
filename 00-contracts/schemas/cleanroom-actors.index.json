@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 877,
-    "L5": 123
+    "L4": 875,
+    "L5": 125
   },
   "actors": [
     {
@@ -4589,10 +4589,10 @@
     {
       "handle": "dns_root_zone-compat",
       "did": "did:web:etzhayyim.com:actor:dns_root_zone-compat",
-      "wasmCid": "bafkreidsmkoi4awmhlpn5o32dtdnshuxhhijf437lki76y4otrdenze76i",
+      "wasmCid": "bafkreieksbastwgbhskrcv6l4crilrzzeb26rhuasxhlpcetpf66zcf7iy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "dns_root_zone clean-room actor",
       "category": "internet_routing",
       "capabilities": [
@@ -8336,7 +8336,7 @@
       "wasmCid": "bafkreiel7feh5e6hhkc43thcwkevlacpgdroy67dtjda5phzvdtp332qjy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "ipsec clean-room actor",
       "category": "internet_routing",
       "capabilities": [

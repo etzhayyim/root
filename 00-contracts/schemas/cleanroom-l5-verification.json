@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 123,
+  "count": 125,
   "actors": [
     {
       "handle": "square-compat",
@@ -17195,6 +17195,279 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (3/3) vs official RFC 5905. Enforced enums: Packet.leapIndicator[0-3], Packet.mode[0-7], Packet.version[1-4] = 3 enums (bit-field-complete). stratum(range) + KissCode(extensible) intentionally not enforced."
+    },
+    {
+      "handle": "dns_root_zone-compat",
+      "verifiedAt": "2026-06-10",
+      "tier": "L5",
+      "source": "https://datatracker.ietf.org/doc/html/rfc1035",
+      "remodeled": "Remodeled from generic category model to a faithful DNS message model (RFC 1035 + IANA dns-parameters). 'class' field stored as class_ (Python keyword). rrType/qtype (open IANA registry, 100+ extensible types) + rcode (EDNS-extensible) -> not enforced.",
+      "resources": [
+        {
+          "entity": "Header",
+          "source": "https://datatracker.ietf.org/doc/html/rfc1035#section-4.1.1",
+          "verifiedFields": [
+            "id",
+            "qr",
+            "opcode",
+            "aa",
+            "tc",
+            "rd",
+            "ra",
+            "rcode",
+            "qdcount",
+            "ancount",
+            "nscount",
+            "arcount"
+          ],
+          "fieldStatus": "confirmed; rcode EDNS-extensible -> not enforced",
+          "discoveredEnums": {
+            "opcode": [
+              0,
+              1,
+              2,
+              4,
+              5
+            ]
+          },
+          "gaps": [
+            "rcode-edns-extensible"
+          ]
+        },
+        {
+          "entity": "Question",
+          "source": "https://datatracker.ietf.org/doc/html/rfc1035#section-4.1.2",
+          "verifiedFields": [
+            "qname",
+            "qtype",
+            "qclass"
+          ],
+          "fieldStatus": "confirmed; qtype open registry -> not enforced",
+          "discoveredEnums": {
+            "qclass": [
+              1,
+              3,
+              4,
+              255
+            ]
+          },
+          "gaps": [
+            "qtype-open-registry"
+          ]
+        },
+        {
+          "entity": "ResourceRecord",
+          "source": "https://datatracker.ietf.org/doc/html/rfc1035#section-4.1.3",
+          "verifiedFields": [
+            "name",
+            "type",
+            "class_",
+            "ttl",
+            "rdlength",
+            "rdata"
+          ],
+          "fieldStatus": "confirmed; type open registry -> not enforced",
+          "discoveredEnums": {
+            "class_": [
+              1,
+              3,
+              4,
+              255
+            ]
+          },
+          "gaps": [
+            "type-open-registry"
+          ]
+        },
+        {
+          "entity": "OptRecord",
+          "source": "RFC 6891 (EDNS0)",
+          "verifiedFields": [
+            "extendedRcode",
+            "version",
+            "flags",
+            "rdlength"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (4/4) vs RFC 1035 + IANA dns-parameters. Enforced enums: Header.opcode[0,1,2,4,5], Question.qclass[1,3,4,255], ResourceRecord.class[1,3,4,255] = 3 enums. rrType/qtype (open registry) + rcode (EDNS-extensible) intentionally not enforced."
+    },
+    {
+      "handle": "ipsec-compat",
+      "verifiedAt": "2026-06-10",
+      "tier": "L5",
+      "source": "https://datatracker.ietf.org/doc/html/rfc7296",
+      "remodeled": "Remodeled from generic category model to a faithful IPsec/IKEv2 model (RFC 7296 + live IANA ikev2-parameters registry). Per-type transform IDs + the large Notify message-type registry are volatile -> not enforced as closed enums.",
+      "resources": [
+        {
+          "entity": "IkeHeader",
+          "source": "https://datatracker.ietf.org/doc/html/rfc7296#section-3.1",
+          "verifiedFields": [
+            "initiatorSpi",
+            "responderSpi",
+            "nextPayload",
+            "majorVersion",
+            "minorVersion",
+            "exchangeType",
+            "flags",
+            "messageId",
+            "totalLength"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "exchangeType": [
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Payload",
+          "source": "https://datatracker.ietf.org/doc/html/rfc7296#section-3.2",
+          "verifiedFields": [
+            "nextPayload",
+            "critical",
+            "payloadLength",
+            "payloadType"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "payloadType": [
+              0,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "SecurityAssociation",
+          "source": "https://datatracker.ietf.org/doc/html/rfc7296#section-3.3",
+          "verifiedFields": [
+            "payloadType",
+            "proposals"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Proposal",
+          "source": "https://datatracker.ietf.org/doc/html/rfc7296#section-3.3.1",
+          "verifiedFields": [
+            "number",
+            "protocolId",
+            "spiSize",
+            "transformCount",
+            "spi"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "protocolId": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Transform",
+          "source": "https://datatracker.ietf.org/doc/html/rfc7296#section-3.3.2",
+          "verifiedFields": [
+            "type",
+            "transformId",
+            "transformLength",
+            "attributes"
+          ],
+          "fieldStatus": "confirmed; transformId is a per-type volatile registry -> not enforced",
+          "discoveredEnums": {
+            "type": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14
+            ]
+          },
+          "gaps": [
+            "transformId-volatile"
+          ]
+        },
+        {
+          "entity": "Notify",
+          "source": "https://datatracker.ietf.org/doc/html/rfc7296#section-3.10",
+          "verifiedFields": [
+            "protocolId",
+            "spiSize",
+            "notifyMessageType",
+            "spi",
+            "notificationData"
+          ],
+          "fieldStatus": "confirmed; notifyMessageType is a large registry -> not enforced",
+          "discoveredEnums": {
+            "protocolId": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          },
+          "gaps": [
+            "notifyMessageType-large-registry"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs RFC 7296 + live IANA ikev2-parameters. Enforced enums: IkeHeader.exchangeType[34-44], Payload.payloadType[0,33-54], Proposal.protocolId[1-6], Transform.type[1-14], Notify.protocolId[1-6] = 5 enums. Per-type transformIds + Notify message-type registry (volatile/large) not enforced."
     }
   ]
 }

@@ -1621,6 +1621,24 @@ PLATFORM_OVERRIDES = {
         "Deployment": E(id="string", status="string", projectName="string", stackName="string", paused="boolean", created="datetime", modified="datetime"),
         "Organization": E(name="string", role="string"),
     },
+    # Faithful DNS model (RFC 1035 + IANA dns-parameters). rrType/qtype are open
+    # extensible registries + rcode is EDNS-extensible -> not enforced as closed enums.
+    "dns_root_zone": {
+        "Header": E(id="integer", qr="boolean", opcode="integer", aa="boolean", tc="boolean", rd="boolean", ra="boolean", rcode="integer", qdcount="integer", ancount="integer", nscount="integer", arcount="integer"),
+        "Question": E(qname="string", qtype="integer", qclass="integer"),
+        "ResourceRecord": E(name="string", type="integer", class_="integer", ttl="integer", rdlength="integer", rdata="string"),
+        "OptRecord": E(extendedRcode="integer", version="integer", flags="integer", rdlength="integer"),
+    },
+    # Faithful IPsec / IKEv2 model (RFC 7296 + IANA ikev2-parameters). Per-type transform
+    # IDs + the large Notify-type registry are volatile -> not enforced as closed enums.
+    "ipsec": {
+        "IkeHeader": E(initiatorSpi="integer", responderSpi="integer", nextPayload="integer", majorVersion="integer", minorVersion="integer", exchangeType="integer", flags="integer", messageId="integer", totalLength="integer"),
+        "Payload": E(nextPayload="integer", critical="boolean", payloadLength="integer", payloadType="integer"),
+        "SecurityAssociation": E(payloadType="integer", proposals="integer"),
+        "Proposal": E(number="integer", protocolId="integer", spiSize="integer", transformCount="integer", spi="string"),
+        "Transform": E(type="integer", transformId="integer", transformLength="integer", attributes="string"),
+        "Notify": E(protocolId="integer", spiSize="integer", notifyMessageType="integer", spi="string", notificationData="string"),
+    },
     # Faithful BGP-4 (RFC 4271) model — verified against the official RFC 4271 + IANA
     # BGP parameters registry. Enums scoped to RFC 4271 core (ROUTE-REFRESH is RFC 2918).
     "bgp_routing": {

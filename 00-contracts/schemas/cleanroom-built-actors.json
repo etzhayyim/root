@@ -4322,17 +4322,15 @@
       "handle": "dns_root_zone-compat",
       "platform": "dns_root_zone",
       "bytes": 2127,
-      "wasmCid": "bafkreidsmkoi4awmhlpn5o32dtdnshuxhhijf437lki76y4otrdenze76i",
+      "wasmCid": "bafkreieksbastwgbhskrcv6l4crilrzzeb26rhuasxhlpcetpf66zcf7iy",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Prefix",
-        "Route",
-        "Peer",
-        "Zone",
-        "Record",
-        "Tunnel"
+        "Header",
+        "Question",
+        "ResourceRecord",
+        "OptRecord"
       ]
     },
     {
@@ -7858,12 +7856,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Prefix",
-        "Route",
-        "Peer",
-        "Zone",
-        "Record",
-        "Tunnel"
+        "IkeHeader",
+        "Payload",
+        "SecurityAssociation",
+        "Proposal",
+        "Transform",
+        "Notify"
       ]
     },
     {
