@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 106,
+  "count": 108,
   "actors": [
     {
       "handle": "square-compat",
@@ -15004,6 +15004,229 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official MobilityData/gbfs spec. Enforced enums: VehicleType.formFactor(7)/propulsionType(8)/returnConstraint(4), Station.parkingType(5) = 4 enums. rentalMethods array -> not enforced."
+    },
+    {
+      "handle": "pinecone-compat",
+      "verifiedAt": "2026-06-10",
+      "tier": "L5",
+      "source": "https://github.com/pinecone-io/pinecone-api",
+      "remodeled": "Remodeled from generic category model to a faithful Pinecone model, verified against the official pinecone-io OpenAPI (db_control + db_data). Vector values/metadata arrays dropped; ServerlessSpec.cloud flattened to Index.cloud.",
+      "resources": [
+        {
+          "entity": "Index",
+          "source": "https://github.com/pinecone-io/pinecone-api db_control_2025-04.oas.yaml",
+          "verifiedFields": [
+            "name",
+            "dimension",
+            "metric",
+            "host",
+            "state",
+            "deletionProtection",
+            "vectorType",
+            "cloud",
+            "ready"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "metric": [
+              "cosine",
+              "euclidean",
+              "dotproduct"
+            ],
+            "state": [
+              "Initializing",
+              "InitializationFailed",
+              "ScalingUp",
+              "ScalingDown",
+              "ScalingUpPodSize",
+              "ScalingDownPodSize",
+              "Terminating",
+              "Ready",
+              "Disabled"
+            ],
+            "deletionProtection": [
+              "enabled",
+              "disabled"
+            ],
+            "vectorType": [
+              "dense",
+              "sparse"
+            ],
+            "cloud": [
+              "aws",
+              "gcp",
+              "azure"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Collection",
+          "source": "https://github.com/pinecone-io/pinecone-api db_control_2025-04.oas.yaml",
+          "verifiedFields": [
+            "name",
+            "dimension",
+            "status",
+            "vectorCount",
+            "size",
+            "environment"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "Initializing",
+              "Ready",
+              "Terminating"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Vector",
+          "source": "https://github.com/pinecone-io/pinecone-api db_data_2025-04.oas.yaml",
+          "verifiedFields": [
+            "id",
+            "namespace"
+          ],
+          "fieldStatus": "confirmed; values/metadata arrays dropped",
+          "discoveredEnums": {},
+          "gaps": [
+            "values(array)",
+            "metadata(object)"
+          ]
+        },
+        {
+          "entity": "Namespace",
+          "source": "https://github.com/pinecone-io/pinecone-api db_data_2025-04.oas.yaml",
+          "verifiedFields": [
+            "name",
+            "recordCount"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (4/4) vs official pinecone-io OpenAPI. Enforced enums: Index.metric(3)/state(9)/deletionProtection(2)/vectorType(2)/cloud(3), Collection.status(3) = 6 enums."
+    },
+    {
+      "handle": "deel-compat",
+      "verifiedAt": "2026-06-10",
+      "tier": "L5",
+      "source": "https://developer.deel.com/openapi",
+      "remodeled": "Remodeled from generic category model to a faithful Deel API model, verified against developer.deel.com OpenAPI. Object fields (worker/compensation) dropped. Contract.status partial + Adjustment variant-specific + Milestone inferred -> left gaps.",
+      "resources": [
+        {
+          "entity": "Contract",
+          "source": "https://developer.deel.com/openapi/ic-endpoints.json",
+          "verifiedFields": [
+            "id",
+            "contractId",
+            "type",
+            "status",
+            "teamId",
+            "country",
+            "currency",
+            "externalId"
+          ],
+          "fieldStatus": "confirmed; status set may be incomplete -> not enforced",
+          "discoveredEnums": {
+            "type": [
+              "ongoing_time_based",
+              "milestones",
+              "payg_tasks",
+              "time_based",
+              "pay_as_you_go_time_based",
+              "eor"
+            ]
+          },
+          "gaps": [
+            "status-may-be-incomplete"
+          ]
+        },
+        {
+          "entity": "Worker",
+          "source": "https://developer.deel.com/openapi/endpoints-3.json",
+          "verifiedFields": [
+            "profileId",
+            "name",
+            "firstName",
+            "lastName",
+            "email",
+            "country"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Milestone",
+          "source": "https://developer.deel.com/openapi/ic-endpoints.json",
+          "verifiedFields": [
+            "id",
+            "title",
+            "amount",
+            "status",
+            "contractId",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed; status inferred -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "status-inferred"
+          ]
+        },
+        {
+          "entity": "Timesheet",
+          "source": "https://developer.deel.com/openapi/endpoints-4.json",
+          "verifiedFields": [
+            "id",
+            "contractId",
+            "date",
+            "hours",
+            "description",
+            "status",
+            "reporterId"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "pending",
+              "approved",
+              "rejected",
+              "queued_for_payment"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Payment",
+          "source": "https://developer.deel.com/openapi/endpoints-5.json",
+          "verifiedFields": [
+            "paymentId",
+            "dateFrom",
+            "dateTo",
+            "status",
+            "currency",
+            "entityType"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "paid",
+              "processing"
+            ],
+            "entityType": [
+              "individual",
+              "company"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5 schemas) vs developer.deel.com OpenAPI. Enforced enums: Contract.type(6), Timesheet.status(4), Payment.status(2)/entityType(2) = 4 enums. Contract.status/Milestone.status/Adjustment left gaps (incomplete/variant-specific)."
     }
   ]
 }

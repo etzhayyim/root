@@ -4036,17 +4036,16 @@
       "handle": "deel-compat",
       "platform": "deel",
       "bytes": 2118,
-      "wasmCid": "bafkreifz2gnnrseeqbwoqosapn5pqnlscrvvvzjkokmt6vw3f5bktvrlza",
+      "wasmCid": "bafkreihbfefyy2hpjvebamus25os573zeonkzadt3io26cn2de4ovtwivy",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Employee",
-        "Candidate",
-        "JobReq",
-        "PayrollRun",
-        "TimeOff",
-        "Review"
+        "Contract",
+        "Worker",
+        "Milestone",
+        "Timesheet",
+        "Payment"
       ]
     },
     {
@@ -11842,17 +11841,15 @@
       "handle": "pinecone-compat",
       "platform": "pinecone",
       "bytes": 2122,
-      "wasmCid": "bafkreicxfzzfnrufvsjwdsmdrfxm3akitpn3t63bznziwl26csh3twriy4",
+      "wasmCid": "bafkreigjmwfgeu2j6amiqp7z66kea63xqrsghngsup4o3yhdszv2pcmihu",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Model",
-        "Completion",
-        "Embedding",
-        "FineTune",
-        "Dataset",
-        "File"
+        "Index",
+        "Collection",
+        "Vector",
+        "Namespace"
       ]
     },
     {

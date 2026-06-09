@@ -1621,6 +1621,22 @@ PLATFORM_OVERRIDES = {
         "Deployment": E(id="string", status="string", projectName="string", stackName="string", paused="boolean", created="datetime", modified="datetime"),
         "Organization": E(name="string", role="string"),
     },
+    # Faithful Pinecone API model — verified against the official pinecone-io OpenAPI.
+    "pinecone": {
+        "Index": E(name="string", dimension="integer", metric="string", host="string", state="string", deletionProtection="string", vectorType="string", cloud="string", ready="boolean"),
+        "Collection": E(name="string", dimension="integer", status="string", vectorCount="integer", size="integer", environment="string"),
+        "Vector": E(id="string", namespace="string"),
+        "Namespace": E(name="string", recordCount="integer"),
+    },
+    # Faithful Deel API model — verified against developer.deel.com OpenAPI. Contract
+    # .status partial + Adjustment variant-specific + Milestone inferred -> not enforced.
+    "deel": {
+        "Contract": E(id="string", contractId="string", type="string", status="string", teamId="string", country="string", currency="string", externalId="string"),
+        "Worker": E(profileId="string", name="string", firstName="string", lastName="string", email="string", country="string"),
+        "Milestone": E(id="string", title="string", amount="float", status="string", contractId="string", createdAt="datetime"),
+        "Timesheet": E(id="string", contractId="string", date="datetime", hours="float", description="string", status="string", reporterId="string"),
+        "Payment": E(paymentId="string", dateFrom="datetime", dateTo="datetime", status="string", currency="string", entityType="string"),
+    },
     # Faithful GBFS (General Bikeshare Feed Spec) model — verified against the
     # official MobilityData/gbfs spec. rentalMethods is array-valued -> not enforced.
     "gbfs": {

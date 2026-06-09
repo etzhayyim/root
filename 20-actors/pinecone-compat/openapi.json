@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible AI / ML inference actor (pinecone); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:pinecone-compat",
-    "x-wasm-cid": "bafkreicxfzzfnrufvsjwdsmdrfxm3akitpn3t63bznziwl26csh3twriy4",
+    "x-wasm-cid": "bafkreigjmwfgeu2j6amiqp7z66kea63xqrsghngsup4o3yhdszv2pcmihu",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreicxfzzfnrufvsjwdsmdrfxm3akitpn3t63bznziwl26csh3twriy4",
+      "url": "ipfs://bafkreigjmwfgeu2j6amiqp7z66kea63xqrsghngsup4o3yhdszv2pcmihu",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/models": {
+    "/v1/indexes": {
       "get": {
-        "summary": "List Models",
+        "summary": "List Indexes",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Model"
+                        "$ref": "#/components/schemas/Index"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Model",
+        "summary": "Create a Index",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ModelCreate"
+                "$ref": "#/components/schemas/IndexCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Model"
+                  "$ref": "#/components/schemas/Index"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/models/{id}": {
+    "/v1/indexes/{id}": {
       "get": {
-        "summary": "Get a Model",
+        "summary": "Get a Index",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Model"
+                  "$ref": "#/components/schemas/Index"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Model",
+        "summary": "Update a Index",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ModelCreate"
+                "$ref": "#/components/schemas/IndexCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Model"
+                  "$ref": "#/components/schemas/Index"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Model",
+        "summary": "Delete a Index",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/completions": {
+    "/v1/collections": {
       "get": {
-        "summary": "List Completions",
+        "summary": "List Collections",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Completion"
+                        "$ref": "#/components/schemas/Collection"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Completion",
+        "summary": "Create a Collection",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CompletionCreate"
+                "$ref": "#/components/schemas/CollectionCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Completion"
+                  "$ref": "#/components/schemas/Collection"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/completions/{id}": {
+    "/v1/collections/{id}": {
       "get": {
-        "summary": "Get a Completion",
+        "summary": "Get a Collection",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Completion"
+                  "$ref": "#/components/schemas/Collection"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Completion",
+        "summary": "Update a Collection",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CompletionCreate"
+                "$ref": "#/components/schemas/CollectionCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Completion"
+                  "$ref": "#/components/schemas/Collection"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Completion",
+        "summary": "Delete a Collection",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/embeddings": {
+    "/v1/vectors": {
       "get": {
-        "summary": "List Embeddings",
+        "summary": "List Vectors",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Embedding"
+                        "$ref": "#/components/schemas/Vector"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Embedding",
+        "summary": "Create a Vector",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/EmbeddingCreate"
+                "$ref": "#/components/schemas/VectorCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Embedding"
+                  "$ref": "#/components/schemas/Vector"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/embeddings/{id}": {
+    "/v1/vectors/{id}": {
       "get": {
-        "summary": "Get a Embedding",
+        "summary": "Get a Vector",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Embedding"
+                  "$ref": "#/components/schemas/Vector"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Embedding",
+        "summary": "Update a Vector",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/EmbeddingCreate"
+                "$ref": "#/components/schemas/VectorCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Embedding"
+                  "$ref": "#/components/schemas/Vector"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Embedding",
+        "summary": "Delete a Vector",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/finetunes": {
+    "/v1/namespaces": {
       "get": {
-        "summary": "List FineTunes",
+        "summary": "List Namespaces",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/FineTune"
+                        "$ref": "#/components/schemas/Namespace"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a FineTune",
+        "summary": "Create a Namespace",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FineTuneCreate"
+                "$ref": "#/components/schemas/NamespaceCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/FineTune"
+                  "$ref": "#/components/schemas/Namespace"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/finetunes/{id}": {
+    "/v1/namespaces/{id}": {
       "get": {
-        "summary": "Get a FineTune",
+        "summary": "Get a Namespace",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/FineTune"
+                  "$ref": "#/components/schemas/Namespace"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a FineTune",
+        "summary": "Update a Namespace",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FineTuneCreate"
+                "$ref": "#/components/schemas/NamespaceCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/FineTune"
+                  "$ref": "#/components/schemas/Namespace"
                 }
               }
             }
@@ -736,377 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a FineTune",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/datasets": {
-      "get": {
-        "summary": "List Datasets",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Dataset"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Dataset",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DatasetCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Dataset"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/datasets/{id}": {
-      "get": {
-        "summary": "Get a Dataset",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Dataset"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Dataset",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DatasetCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Dataset"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Dataset",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/files": {
-      "get": {
-        "summary": "List Files",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/File"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a File",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/FileCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/File"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/files/{id}": {
-      "get": {
-        "summary": "Get a File",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/File"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a File",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/FileCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/File"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a File",
+        "summary": "Delete a Namespace",
         "parameters": [
           {
             "name": "id",
@@ -1140,7 +770,7 @@
   },
   "components": {
     "schemas": {
-      "Model": {
+      "Index": {
         "type": "object",
         "properties": {
           "id": {
@@ -1149,13 +779,161 @@
           "name": {
             "type": "string"
           },
-          "family": {
-            "type": "string"
-          },
-          "contextWindow": {
+          "dimension": {
             "type": "integer"
           },
-          "modality": {
+          "metric": {
+            "type": "string",
+            "enum": [
+              "cosine",
+              "euclidean",
+              "dotproduct"
+            ]
+          },
+          "host": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "Initializing",
+              "InitializationFailed",
+              "ScalingUp",
+              "ScalingDown",
+              "ScalingUpPodSize",
+              "ScalingDownPodSize",
+              "Terminating",
+              "Ready",
+              "Disabled"
+            ]
+          },
+          "deletionProtection": {
+            "type": "string",
+            "enum": [
+              "enabled",
+              "disabled"
+            ]
+          },
+          "vectorType": {
+            "type": "string",
+            "enum": [
+              "dense",
+              "sparse"
+            ]
+          },
+          "cloud": {
+            "type": "string",
+            "enum": [
+              "aws",
+              "gcp",
+              "azure"
+            ]
+          },
+          "ready": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "IndexCreate": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "dimension": {
+            "type": "integer"
+          },
+          "metric": {
+            "type": "string",
+            "enum": [
+              "cosine",
+              "euclidean",
+              "dotproduct"
+            ]
+          },
+          "host": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "Initializing",
+              "InitializationFailed",
+              "ScalingUp",
+              "ScalingDown",
+              "ScalingUpPodSize",
+              "ScalingDownPodSize",
+              "Terminating",
+              "Ready",
+              "Disabled"
+            ]
+          },
+          "deletionProtection": {
+            "type": "string",
+            "enum": [
+              "enabled",
+              "disabled"
+            ]
+          },
+          "vectorType": {
+            "type": "string",
+            "enum": [
+              "dense",
+              "sparse"
+            ]
+          },
+          "cloud": {
+            "type": "string",
+            "enum": [
+              "aws",
+              "gcp",
+              "azure"
+            ]
+          },
+          "ready": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name",
+          "dimension"
+        ]
+      },
+      "Collection": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "dimension": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "Initializing",
+              "Ready",
+              "Terminating"
+            ]
+          },
+          "vectorCount": {
+            "type": "integer"
+          },
+          "size": {
+            "type": "integer"
+          },
+          "environment": {
             "type": "string"
           },
           "createdAt": {
@@ -1168,92 +946,45 @@
           }
         }
       },
-      "ModelCreate": {
+      "CollectionCreate": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string"
           },
-          "family": {
-            "type": "string"
-          },
-          "contextWindow": {
+          "dimension": {
             "type": "integer"
           },
-          "modality": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "Initializing",
+              "Ready",
+              "Terminating"
+            ]
+          },
+          "vectorCount": {
+            "type": "integer"
+          },
+          "size": {
+            "type": "integer"
+          },
+          "environment": {
             "type": "string"
           }
         },
         "required": [
           "name",
-          "family"
+          "dimension"
         ]
       },
-      "Completion": {
+      "Vector": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "modelId": {
-            "type": "string"
-          },
-          "prompt": {
-            "type": "string"
-          },
-          "output": {
-            "type": "string"
-          },
-          "tokens": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "CompletionCreate": {
-        "type": "object",
-        "properties": {
-          "modelId": {
-            "type": "string"
-          },
-          "prompt": {
-            "type": "string"
-          },
-          "output": {
-            "type": "string"
-          },
-          "tokens": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "prompt",
-          "output"
-        ]
-      },
-      "Embedding": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "modelId": {
-            "type": "string"
-          },
-          "input": {
-            "type": "string"
-          },
-          "dimensions": {
-            "type": "integer"
-          },
-          "vectorRef": {
+          "namespace": {
             "type": "string"
           },
           "createdAt": {
@@ -1266,77 +997,22 @@
           }
         }
       },
-      "EmbeddingCreate": {
-        "type": "object",
-        "properties": {
-          "modelId": {
-            "type": "string"
-          },
-          "input": {
-            "type": "string"
-          },
-          "dimensions": {
-            "type": "integer"
-          },
-          "vectorRef": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "input",
-          "dimensions"
-        ]
-      },
-      "FineTune": {
+      "VectorCreate": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "baseModelId": {
+          "namespace": {
             "type": "string"
-          },
-          "datasetId": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "epochs": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "FineTuneCreate": {
-        "type": "object",
-        "properties": {
-          "baseModelId": {
-            "type": "string"
-          },
-          "datasetId": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "epochs": {
-            "type": "integer"
           }
         },
         "required": [
-          "status",
-          "epochs"
+          "id",
+          "namespace"
         ]
       },
-      "Dataset": {
+      "Namespace": {
         "type": "object",
         "properties": {
           "id": {
@@ -1345,11 +1021,8 @@
           "name": {
             "type": "string"
           },
-          "rows": {
+          "recordCount": {
             "type": "integer"
-          },
-          "contentRef": {
-            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -1361,71 +1034,19 @@
           }
         }
       },
-      "DatasetCreate": {
+      "NamespaceCreate": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string"
           },
-          "rows": {
+          "recordCount": {
             "type": "integer"
-          },
-          "contentRef": {
-            "type": "string"
           }
         },
         "required": [
           "name",
-          "rows"
-        ]
-      },
-      "File": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "purpose": {
-            "type": "string"
-          },
-          "filename": {
-            "type": "string"
-          },
-          "sizeBytes": {
-            "type": "integer"
-          },
-          "contentRef": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "FileCreate": {
-        "type": "object",
-        "properties": {
-          "purpose": {
-            "type": "string"
-          },
-          "filename": {
-            "type": "string"
-          },
-          "sizeBytes": {
-            "type": "integer"
-          },
-          "contentRef": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "purpose",
-          "filename"
+          "recordCount"
         ]
       }
     }

@@ -5,21 +5,68 @@
   "kind": "compat",
   "title": "pinecone clean-room actor",
   "description": "Clean-room, API-compatible AI / ML inference actor (pinecone); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicxfzzfnrufvsjwdsmdrfxm3akitpn3t63bznziwl26csh3twriy4",
+  "wasmCid": "bafkreigjmwfgeu2j6amiqp7z66kea63xqrsghngsup4o3yhdszv2pcmihu",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicxfzzfnrufvsjwdsmdrfxm3akitpn3t63bznziwl26csh3twriy4",
+  "ipfs": "ipfs://bafkreigjmwfgeu2j6amiqp7z66kea63xqrsghngsup4o3yhdszv2pcmihu",
   "schema": "schema/pinecone.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://github.com/pinecone-io/pinecone-api",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "Index",
+      "Collection",
+      "Vector",
+      "Namespace"
+    ],
+    "enums": {
+      "Index": {
+        "metric": [
+          "cosine",
+          "euclidean",
+          "dotproduct"
+        ],
+        "state": [
+          "Initializing",
+          "InitializationFailed",
+          "ScalingUp",
+          "ScalingDown",
+          "ScalingUpPodSize",
+          "ScalingDownPodSize",
+          "Terminating",
+          "Ready",
+          "Disabled"
+        ],
+        "deletionProtection": [
+          "enabled",
+          "disabled"
+        ],
+        "vectorType": [
+          "dense",
+          "sparse"
+        ],
+        "cloud": [
+          "aws",
+          "gcp",
+          "azure"
+        ]
+      },
+      "Collection": {
+        "status": [
+          "Initializing",
+          "Ready",
+          "Terminating"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Model",
-    "Completion",
-    "Embedding",
-    "FineTune",
-    "Dataset",
-    "File"
+    "Index",
+    "Collection",
+    "Vector",
+    "Namespace"
   ],
   "adr": [
     "260607",
@@ -31,157 +78,107 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 20,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/models",
-          "op": "create Model"
+          "path": "/v1/indexes",
+          "op": "create Index"
         },
         {
           "method": "GET",
-          "path": "/v1/models",
-          "op": "list Model"
+          "path": "/v1/indexes",
+          "op": "list Index"
         },
         {
           "method": "GET",
-          "path": "/v1/models/{id}",
-          "op": "get Model"
+          "path": "/v1/indexes/{id}",
+          "op": "get Index"
         },
         {
           "method": "PATCH",
-          "path": "/v1/models/{id}",
-          "op": "update Model"
+          "path": "/v1/indexes/{id}",
+          "op": "update Index"
         },
         {
           "method": "DELETE",
-          "path": "/v1/models/{id}",
-          "op": "delete Model"
+          "path": "/v1/indexes/{id}",
+          "op": "delete Index"
         },
         {
           "method": "POST",
-          "path": "/v1/completions",
-          "op": "create Completion"
+          "path": "/v1/collections",
+          "op": "create Collection"
         },
         {
           "method": "GET",
-          "path": "/v1/completions",
-          "op": "list Completion"
+          "path": "/v1/collections",
+          "op": "list Collection"
         },
         {
           "method": "GET",
-          "path": "/v1/completions/{id}",
-          "op": "get Completion"
+          "path": "/v1/collections/{id}",
+          "op": "get Collection"
         },
         {
           "method": "PATCH",
-          "path": "/v1/completions/{id}",
-          "op": "update Completion"
+          "path": "/v1/collections/{id}",
+          "op": "update Collection"
         },
         {
           "method": "DELETE",
-          "path": "/v1/completions/{id}",
-          "op": "delete Completion"
+          "path": "/v1/collections/{id}",
+          "op": "delete Collection"
         },
         {
           "method": "POST",
-          "path": "/v1/embeddings",
-          "op": "create Embedding"
+          "path": "/v1/vectors",
+          "op": "create Vector"
         },
         {
           "method": "GET",
-          "path": "/v1/embeddings",
-          "op": "list Embedding"
+          "path": "/v1/vectors",
+          "op": "list Vector"
         },
         {
           "method": "GET",
-          "path": "/v1/embeddings/{id}",
-          "op": "get Embedding"
+          "path": "/v1/vectors/{id}",
+          "op": "get Vector"
         },
         {
           "method": "PATCH",
-          "path": "/v1/embeddings/{id}",
-          "op": "update Embedding"
+          "path": "/v1/vectors/{id}",
+          "op": "update Vector"
         },
         {
           "method": "DELETE",
-          "path": "/v1/embeddings/{id}",
-          "op": "delete Embedding"
+          "path": "/v1/vectors/{id}",
+          "op": "delete Vector"
         },
         {
           "method": "POST",
-          "path": "/v1/finetunes",
-          "op": "create FineTune"
+          "path": "/v1/namespaces",
+          "op": "create Namespace"
         },
         {
           "method": "GET",
-          "path": "/v1/finetunes",
-          "op": "list FineTune"
+          "path": "/v1/namespaces",
+          "op": "list Namespace"
         },
         {
           "method": "GET",
-          "path": "/v1/finetunes/{id}",
-          "op": "get FineTune"
+          "path": "/v1/namespaces/{id}",
+          "op": "get Namespace"
         },
         {
           "method": "PATCH",
-          "path": "/v1/finetunes/{id}",
-          "op": "update FineTune"
+          "path": "/v1/namespaces/{id}",
+          "op": "update Namespace"
         },
         {
           "method": "DELETE",
-          "path": "/v1/finetunes/{id}",
-          "op": "delete FineTune"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/datasets",
-          "op": "create Dataset"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/datasets",
-          "op": "list Dataset"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/datasets/{id}",
-          "op": "get Dataset"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/datasets/{id}",
-          "op": "update Dataset"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/datasets/{id}",
-          "op": "delete Dataset"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/files",
-          "op": "create File"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/files",
-          "op": "list File"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/files/{id}",
-          "op": "get File"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/files/{id}",
-          "op": "update File"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/files/{id}",
-          "op": "delete File"
+          "path": "/v1/namespaces/{id}",
+          "op": "delete Namespace"
         }
       ],
       "features": {
@@ -244,44 +241,170 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 20,
       "tools": [
         {
-          "name": "create_model",
-          "description": "Create a Model.",
+          "name": "create_index",
+          "description": "Create a Index.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "family": {
-                "type": "string"
-              },
-              "contextWindow": {
+              "dimension": {
                 "type": "integer"
               },
-              "modality": {
+              "metric": {
+                "type": "string"
+              },
+              "host": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "deletionProtection": {
+                "type": "string"
+              },
+              "vectorType": {
+                "type": "string"
+              },
+              "cloud": {
+                "type": "string"
+              },
+              "ready": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "name",
+              "dimension"
+            ]
+          }
+        },
+        {
+          "name": "list_indexes",
+          "description": "List Indexes.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_index",
+          "description": "Get a Index by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_index",
+          "description": "Update a Index.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "dimension": {
+                "type": "integer"
+              },
+              "metric": {
+                "type": "string"
+              },
+              "host": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "deletionProtection": {
+                "type": "string"
+              },
+              "vectorType": {
+                "type": "string"
+              },
+              "cloud": {
+                "type": "string"
+              },
+              "ready": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_index",
+          "description": "Delete a Index.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_collection",
+          "description": "Create a Collection.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "dimension": {
+                "type": "integer"
+              },
+              "status": {
+                "type": "string"
+              },
+              "vectorCount": {
+                "type": "integer"
+              },
+              "size": {
+                "type": "integer"
+              },
+              "environment": {
                 "type": "string"
               }
             },
             "required": [
               "name",
-              "family"
+              "dimension"
             ]
           }
         },
         {
-          "name": "list_models",
-          "description": "List Models.",
+          "name": "list_collections",
+          "description": "List Collections.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_model",
-          "description": "Get a Model by id.",
+          "name": "get_collection",
+          "description": "Get a Collection by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,8 +418,8 @@
           }
         },
         {
-          "name": "update_model",
-          "description": "Update a Model.",
+          "name": "update_collection",
+          "description": "Update a Collection.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -306,252 +429,72 @@
               "name": {
                 "type": "string"
               },
-              "family": {
-                "type": "string"
-              },
-              "contextWindow": {
+              "dimension": {
                 "type": "integer"
-              },
-              "modality": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_model",
-          "description": "Delete a Model.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_completion",
-          "description": "Create a Completion.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "modelId": {
-                "type": "string"
-              },
-              "prompt": {
-                "type": "string"
-              },
-              "output": {
-                "type": "string"
-              },
-              "tokens": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "prompt",
-              "output"
-            ]
-          }
-        },
-        {
-          "name": "list_completions",
-          "description": "List Completions.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_completion",
-          "description": "Get a Completion by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_completion",
-          "description": "Update a Completion.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "modelId": {
-                "type": "string"
-              },
-              "prompt": {
-                "type": "string"
-              },
-              "output": {
-                "type": "string"
-              },
-              "tokens": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_completion",
-          "description": "Delete a Completion.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_embedding",
-          "description": "Create a Embedding.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "modelId": {
-                "type": "string"
-              },
-              "input": {
-                "type": "string"
-              },
-              "dimensions": {
-                "type": "integer"
-              },
-              "vectorRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "input",
-              "dimensions"
-            ]
-          }
-        },
-        {
-          "name": "list_embeddings",
-          "description": "List Embeddings.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_embedding",
-          "description": "Get a Embedding by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_embedding",
-          "description": "Update a Embedding.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "modelId": {
-                "type": "string"
-              },
-              "input": {
-                "type": "string"
-              },
-              "dimensions": {
-                "type": "integer"
-              },
-              "vectorRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_embedding",
-          "description": "Delete a Embedding.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_fine_tune",
-          "description": "Create a FineTune.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "baseModelId": {
-                "type": "string"
-              },
-              "datasetId": {
-                "type": "string"
               },
               "status": {
                 "type": "string"
               },
-              "epochs": {
+              "vectorCount": {
                 "type": "integer"
+              },
+              "size": {
+                "type": "integer"
+              },
+              "environment": {
+                "type": "string"
               }
             },
             "required": [
-              "status",
-              "epochs"
+              "id"
             ]
           }
         },
         {
-          "name": "list_fine_tunes",
-          "description": "List FineTunes.",
+          "name": "delete_collection",
+          "description": "Delete a Collection.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_vector",
+          "description": "Create a Vector.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "namespace": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "namespace"
+            ]
+          }
+        },
+        {
+          "name": "list_vectors",
+          "description": "List Vectors.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_fine_tune",
-          "description": "Get a FineTune by id.",
+          "name": "get_vector",
+          "description": "Get a Vector by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -565,25 +508,16 @@
           }
         },
         {
-          "name": "update_fine_tune",
-          "description": "Update a FineTune.",
+          "name": "update_vector",
+          "description": "Update a Vector.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "baseModelId": {
+              "namespace": {
                 "type": "string"
-              },
-              "datasetId": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "epochs": {
-                "type": "integer"
               }
             },
             "required": [
@@ -592,8 +526,8 @@
           }
         },
         {
-          "name": "delete_fine_tune",
-          "description": "Delete a FineTune.",
+          "name": "delete_vector",
+          "description": "Delete a Vector.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -607,38 +541,35 @@
           }
         },
         {
-          "name": "create_dataset",
-          "description": "Create a Dataset.",
+          "name": "create_namespace",
+          "description": "Create a Namespace.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "rows": {
+              "recordCount": {
                 "type": "integer"
-              },
-              "contentRef": {
-                "type": "string"
               }
             },
             "required": [
               "name",
-              "rows"
+              "recordCount"
             ]
           }
         },
         {
-          "name": "list_datasets",
-          "description": "List Datasets.",
+          "name": "list_namespaces",
+          "description": "List Namespaces.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_dataset",
-          "description": "Get a Dataset by id.",
+          "name": "get_namespace",
+          "description": "Get a Namespace by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -652,8 +583,8 @@
           }
         },
         {
-          "name": "update_dataset",
-          "description": "Update a Dataset.",
+          "name": "update_namespace",
+          "description": "Update a Namespace.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -663,11 +594,8 @@
               "name": {
                 "type": "string"
               },
-              "rows": {
+              "recordCount": {
                 "type": "integer"
-              },
-              "contentRef": {
-                "type": "string"
               }
             },
             "required": [
@@ -676,98 +604,8 @@
           }
         },
         {
-          "name": "delete_dataset",
-          "description": "Delete a Dataset.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_file",
-          "description": "Create a File.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "purpose": {
-                "type": "string"
-              },
-              "filename": {
-                "type": "string"
-              },
-              "sizeBytes": {
-                "type": "integer"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "purpose",
-              "filename"
-            ]
-          }
-        },
-        {
-          "name": "list_files",
-          "description": "List Files.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_file",
-          "description": "Get a File by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_file",
-          "description": "Update a File.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "purpose": {
-                "type": "string"
-              },
-              "filename": {
-                "type": "string"
-              },
-              "sizeBytes": {
-                "type": "integer"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_file",
-          "description": "Delete a File.",
+          "name": "delete_namespace",
+          "description": "Delete a Namespace.",
           "inputSchema": {
             "type": "object",
             "properties": {

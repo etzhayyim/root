@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 894,
-    "L5": 106
+    "L4": 892,
+    "L5": 108
   },
   "actors": [
     {
@@ -4283,10 +4283,10 @@
     {
       "handle": "deel-compat",
       "did": "did:web:etzhayyim.com:actor:deel-compat",
-      "wasmCid": "bafkreifz2gnnrseeqbwoqosapn5pqnlscrvvvzjkokmt6vw3f5bktvrlza",
+      "wasmCid": "bafkreihbfefyy2hpjvebamus25os573zeonkzadt3io26cn2de4ovtwivy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "deel clean-room actor",
       "category": "hrtech",
       "capabilities": [
@@ -12563,10 +12563,10 @@
     {
       "handle": "pinecone-compat",
       "did": "did:web:etzhayyim.com:actor:pinecone-compat",
-      "wasmCid": "bafkreicxfzzfnrufvsjwdsmdrfxm3akitpn3t63bznziwl26csh3twriy4",
+      "wasmCid": "bafkreigjmwfgeu2j6amiqp7z66kea63xqrsghngsup4o3yhdszv2pcmihu",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "pinecone clean-room actor",
       "category": "ai_ml",
       "capabilities": [
