@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 72,
+  "count": 73,
   "actors": [
     {
       "handle": "square-compat",
@@ -10231,6 +10231,157 @@
       ],
       "notApplicable": [],
       "note": "Refined to faithful STATEFUL resources (vs per-call ChatCompletion/Embedding payloads). 6/6 entities field-verified vs OpenAI's official OpenAPI. Discovered closed enums (5): File.purpose/status, FineTuningJob.status, VectorStore.status, Batch.status. The `object` discriminator (single-value enum per entity) omitted as redundant type tag."
+    },
+    {
+      "handle": "trello-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://dac-static.atlassian.com/cloud/trello/swagger.v3.json (official Atlassian Trello REST API OpenAPI)",
+      "remodeled": "Remodeled from the generic office_productivity docs archetype (Workspace/Document/Folder/Comment/Permission/User — shared with the old calendly/miro models) to a faithful Trello kanban model (Board/List/Card/Member/Label/Organization), verified field-by-field against Atlassian's official Trello OpenAPI definitions. The L5 gate had correctly rejected the prior mismatched model (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Board",
+          "source": "swagger.v3.json Board",
+          "verifiedFields": [
+            "name",
+            "desc",
+            "closed",
+            "pinned",
+            "starred",
+            "url",
+            "shortUrl",
+            "shortLink",
+            "subscribed",
+            "dateLastActivity",
+            "creationMethod",
+            "enterpriseOwned"
+          ],
+          "fieldStatus": "confirmed vs Board definition (name/desc/closed/pinned/starred/url/shortUrl/shortLink/subscribed/dateLastActivity/creationMethod/enterpriseOwned)",
+          "discoveredEnums": {},
+          "gaps": [
+            "prefs(object)",
+            "labelNames(object)",
+            "memberships(array)"
+          ]
+        },
+        {
+          "entity": "List",
+          "source": "swagger.v3.json TrelloList",
+          "verifiedFields": [
+            "name",
+            "closed",
+            "pos",
+            "softLimit",
+            "idBoard",
+            "subscribed"
+          ],
+          "fieldStatus": "confirmed vs TrelloList definition (name/closed/pos/softLimit/idBoard/subscribed)",
+          "discoveredEnums": {},
+          "gaps": [
+            "limits(object)"
+          ]
+        },
+        {
+          "entity": "Card",
+          "source": "swagger.v3.json Card",
+          "verifiedFields": [
+            "name",
+            "desc",
+            "closed",
+            "cardRole",
+            "due",
+            "dueReminder",
+            "idBoard",
+            "idList",
+            "idShort",
+            "pos",
+            "shortLink",
+            "url",
+            "subscribed",
+            "dateLastActivity",
+            "locationName"
+          ],
+          "fieldStatus": "confirmed vs Card definition (name/desc/closed/cardRole/due/dueReminder/idBoard/idList/idShort/pos/shortLink/url/subscribed/dateLastActivity/locationName)",
+          "discoveredEnums": {
+            "cardRole": [
+              "separator",
+              "board",
+              "mirror",
+              "link"
+            ]
+          },
+          "gaps": [
+            "badges(object)",
+            "labels(array)",
+            "idMembers(array)",
+            "checkItemStates(array)"
+          ]
+        },
+        {
+          "entity": "Member",
+          "source": "swagger.v3.json Member",
+          "verifiedFields": [
+            "fullName",
+            "username",
+            "initials",
+            "bio",
+            "confirmed",
+            "memberType",
+            "email",
+            "avatarUrl",
+            "status"
+          ],
+          "fieldStatus": "confirmed vs Member definition (fullName/username/initials/bio/confirmed/memberType/email/avatarUrl/status)",
+          "discoveredEnums": {
+            "memberType": [
+              "normal",
+              "ghost"
+            ],
+            "status": [
+              "disconnected"
+            ]
+          },
+          "gaps": [
+            "prefs(object)",
+            "idBoards(array)",
+            "idOrganizations(array)"
+          ]
+        },
+        {
+          "entity": "Label",
+          "source": "swagger.v3.json Label",
+          "verifiedFields": [
+            "idBoard",
+            "name",
+            "color"
+          ],
+          "fieldStatus": "confirmed vs Label definition (id/idBoard/name/color)",
+          "discoveredEnums": {},
+          "gaps": [
+            "uses"
+          ]
+        },
+        {
+          "entity": "Organization",
+          "source": "swagger.v3.json Organization",
+          "verifiedFields": [
+            "name",
+            "displayName",
+            "url",
+            "offering",
+            "dateLastActivity"
+          ],
+          "fieldStatus": "confirmed vs Organization definition (name/displayName/url/offering/dateLastActivity)",
+          "discoveredEnums": {},
+          "gaps": [
+            "prefs(object)",
+            "memberships(array)",
+            "idBoards(array)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "Remodeled from a mismatched docs archetype (shared with old calendly/miro) to a faithful kanban model. 6/6 entities field-verified vs Atlassian's official Trello OpenAPI. Discovered closed enums (3): Card.cardRole, Member.memberType, Member.status."
     }
   ]
 }

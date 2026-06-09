@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 928,
-    "L5": 72
+    "L4": 927,
+    "L5": 73
   },
   "actors": [
     {
@@ -16058,7 +16058,7 @@
       "wasmCid": "bafkreihf73msim45tmmldw2cxptta6hgdkbnsqi4j77p74e3fqrbmhva6i",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "trello clean-room actor",
       "category": "office_productivity",
       "capabilities": [

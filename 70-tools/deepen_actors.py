@@ -1214,6 +1214,17 @@ PLATFORM_OVERRIDES = {
         "VectorStore": E(name="string", usageBytes="integer", status="string"),
         "Batch": E(endpoint="string", model="string", inputFileId="string", completionWindow="string", status="string", outputFileId="string", errorFileId="string"),
     },
+    # Faithful Trello model (remodeled from the generic office_productivity docs
+    # archetype whose Workspace/Document/Folder entities did not match Trello's
+    # kanban API), doc-verified L5 vs Atlassian's official Trello OpenAPI.
+    "trello": {
+        "Board": E(name="string", desc="string", closed="boolean", pinned="boolean", starred="boolean", url="string", shortUrl="string", shortLink="string", subscribed="boolean", dateLastActivity="datetime", creationMethod="string", enterpriseOwned="boolean"),
+        "List": E(name="string", closed="boolean", pos="float", softLimit="string", idBoard="string", subscribed="boolean"),
+        "Card": E(name="string", desc="string", closed="boolean", cardRole="string", due="datetime", dueReminder="string", idBoard="string", idList="string", idShort="integer", pos="float", shortLink="string", url="string", subscribed="boolean", dateLastActivity="datetime", locationName="string"),
+        "Member": E(fullName="string", username="string", initials="string", bio="string", confirmed="boolean", memberType="string", email="string", avatarUrl="string", status="string"),
+        "Label": E(idBoard="string", name="string", color="string"),
+        "Organization": E(name="string", displayName="string", url="string", offering="string", dateLastActivity="datetime"),
+    },
     # Faithful Airtable model (remodeled from generic office_productivity), L5.
     "airtable": {
         "Base": E(name="string", permissionLevel="string"),
