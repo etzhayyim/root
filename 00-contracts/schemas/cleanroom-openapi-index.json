@@ -6,7 +6,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29900,
+  "totalEndpoints": 29895,
   "l4SpecsAvailable": 1000,
   "apis": [
     {
@@ -9940,10 +9940,10 @@
     {
       "handle": "monzo-compat",
       "did": "did:web:etzhayyim.com:actor:monzo-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreiconvu5rcyy5dxslv2hvds3ojodrpd7zdzonvx2debcd2kixejwmm",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreihp4ja3v64wxi2itzdzip2ebdlyyqypgtvxatak2ivrq7hnb6x62a",
       "health": "/healthz",
       "features": {
         "pagination": true,

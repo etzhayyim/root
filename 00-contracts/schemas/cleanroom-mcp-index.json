@@ -7,7 +7,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 29900,
+  "totalTools": 29895,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -5268,10 +5268,10 @@
     {
       "handle": "monzo-compat",
       "did": "did:web:etzhayyim.com:actor:monzo-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreiconvu5rcyy5dxslv2hvds3ojodrpd7zdzonvx2debcd2kixejwmm",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreihp4ja3v64wxi2itzdzip2ebdlyyqypgtvxatak2ivrq7hnb6x62a",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "manifest": "20-actors/monzo-compat/manifest.json#/capabilities/mcp"
     },
     {

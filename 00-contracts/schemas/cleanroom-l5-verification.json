@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 92,
+  "count": 93,
   "actors": [
     {
       "handle": "square-compat",
@@ -13055,6 +13055,125 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (5/5 schemas) vs official Pulumi Go SDK apitype. Enforced enums: Update.kind(7)/result(4), Policy.enforcementLevel(4)/severity(5), Deployment.status(6) = 5 enums. Organization.role left open (FGA-extensible)."
+    },
+    {
+      "handle": "monzo-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://docs.monzo.com/",
+      "remodeled": "Remodeled from generic fintech_web3 to a faithful Monzo model, verified against official docs.monzo.com. amounts are integer minor units (pennies); merchant captured as string id (expandable object dropped).",
+      "resources": [
+        {
+          "entity": "Account",
+          "source": "https://docs.monzo.com/",
+          "verifiedFields": [
+            "id",
+            "description",
+            "type",
+            "created"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "uk_retail",
+              "uk_retail_joint"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Balance",
+          "source": "https://docs.monzo.com/",
+          "verifiedFields": [
+            "balance",
+            "totalBalance",
+            "currency",
+            "spendToday"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Transaction",
+          "source": "https://docs.monzo.com/",
+          "verifiedFields": [
+            "id",
+            "amount",
+            "currency",
+            "description",
+            "category",
+            "declineReason",
+            "isLoad",
+            "merchant",
+            "created",
+            "settled"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "category": [
+              "general",
+              "eating_out",
+              "expenses",
+              "transport",
+              "cash",
+              "bills",
+              "entertainment",
+              "shopping",
+              "holidays",
+              "groceries",
+              "mondo"
+            ],
+            "declineReason": [
+              "INSUFFICIENT_FUNDS",
+              "CARD_INACTIVE",
+              "CARD_BLOCKED",
+              "INVALID_CVC",
+              "OTHER"
+            ]
+          },
+          "gaps": [
+            "merchant(expandable-object)"
+          ]
+        },
+        {
+          "entity": "Pot",
+          "source": "https://docs.monzo.com/",
+          "verifiedFields": [
+            "id",
+            "name",
+            "balance",
+            "currency",
+            "deleted",
+            "created",
+            "updated"
+          ],
+          "fieldStatus": "confirmed; style enum (beach_ball/blue..) not exhaustively documented -> not modeled",
+          "discoveredEnums": {},
+          "gaps": [
+            "style-enum-not-exhaustive"
+          ]
+        },
+        {
+          "entity": "Attachment",
+          "source": "https://docs.monzo.com/",
+          "verifiedFields": [
+            "id",
+            "userId",
+            "externalId",
+            "fileUrl",
+            "fileType",
+            "created"
+          ],
+          "fieldStatus": "confirmed; fileType is MIME (open) -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "fileType-mime-open"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs official docs.monzo.com. Enforced enums: Account.type(2), Transaction.category(11), Transaction.declineReason(5) = 3 enums."
     }
   ]
 }

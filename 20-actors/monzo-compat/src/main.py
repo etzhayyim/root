@@ -111,388 +111,123 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/customers", methods=["POST"])
-def create_customer(request):
-    """Create a Customer."""
+@app.route("/v1/accounts", methods=["POST"])
+def create_account(request):
+    """Create a Account."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'name', 'phone', 'balance'])
+    err = _reject_unknown(data, ['id', 'description', 'type', 'created'])
     if err:
         return err, 400
-    err = _require(data, ['email', 'name'])
+    err = _require(data, ['id', 'description'])
     if err:
         return err, 400
-    rec = {"id": new_id("monzo_cus")}
-    rec["email"] = data.get('email')
-    rec["name"] = data.get('name')
-    rec["phone"] = data.get('phone')
-    rec["balance"] = _as_int(data.get('balance'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Customer", rec)
-    return rec, 201
-
-@app.route("/v1/customers", methods=["GET"])
-def list_customers(request):
-    """List Customers with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Customer")
-    rows = _apply_filters(rows, params, ['email', 'name', 'phone', 'balance'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/customers/<eid>", methods=["GET"])
-def get_customer(request, eid):
-    """Retrieve a Customer by id (supports ?expand=)."""
-    rows = _query("Customer", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/customers/<eid>", methods=["POST", "PATCH"])
-def update_customer(request, eid):
-    """Update a Customer."""
-    rows = _query("Customer", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'name', 'phone', 'balance'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Customer", rec)
-    return rec, 200
-
-@app.route("/v1/customers/<eid>", methods=["DELETE"])
-def delete_customer(request, eid):
-    """Delete a Customer."""
-    rows = _query("Customer", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"monzo.Customer", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/paymentintents", methods=["POST"])
-def create_payment_intent(request):
-    """Create a PaymentIntent."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['customerId', 'amount', 'currency', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['amount', 'currency'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("monzo_pay")}
-    rec["customerId"] = data.get('customerId')
-    rec["amount"] = _as_int(data.get('amount'))
-    rec["currency"] = data.get('currency')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("PaymentIntent", rec)
-    return rec, 201
-
-@app.route("/v1/paymentintents", methods=["GET"])
-def list_payment_intents(request):
-    """List PaymentIntents with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("PaymentIntent")
-    rows = _apply_filters(rows, params, ['customerId', 'amount', 'currency', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/paymentintents/<eid>", methods=["GET"])
-def get_payment_intent(request, eid):
-    """Retrieve a PaymentIntent by id (supports ?expand=)."""
-    rows = _query("PaymentIntent", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'customerId': 'Customer'})
-    return rec, 200
-
-@app.route("/v1/paymentintents/<eid>", methods=["POST", "PATCH"])
-def update_payment_intent(request, eid):
-    """Update a PaymentIntent."""
-    rows = _query("PaymentIntent", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['customerId', 'amount', 'currency', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("PaymentIntent", rec)
-    return rec, 200
-
-@app.route("/v1/paymentintents/<eid>", methods=["DELETE"])
-def delete_payment_intent(request, eid):
-    """Delete a PaymentIntent."""
-    rows = _query("PaymentIntent", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"monzo.PaymentIntent", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/charges", methods=["POST"])
-def create_charge(request):
-    """Create a Charge."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['customerId', 'paymentIntentId', 'amount', 'currency', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['amount', 'currency'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("monzo_cha")}
-    rec["customerId"] = data.get('customerId')
-    rec["paymentIntentId"] = data.get('paymentIntentId')
-    rec["amount"] = _as_int(data.get('amount'))
-    rec["currency"] = data.get('currency')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Charge", rec)
-    return rec, 201
-
-@app.route("/v1/charges", methods=["GET"])
-def list_charges(request):
-    """List Charges with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Charge")
-    rows = _apply_filters(rows, params, ['customerId', 'paymentIntentId', 'amount', 'currency', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/charges/<eid>", methods=["GET"])
-def get_charge(request, eid):
-    """Retrieve a Charge by id (supports ?expand=)."""
-    rows = _query("Charge", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'customerId': 'Customer', 'paymentIntentId': 'PaymentIntent'})
-    return rec, 200
-
-@app.route("/v1/charges/<eid>", methods=["POST", "PATCH"])
-def update_charge(request, eid):
-    """Update a Charge."""
-    rows = _query("Charge", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['customerId', 'paymentIntentId', 'amount', 'currency', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Charge", rec)
-    return rec, 200
-
-@app.route("/v1/charges/<eid>", methods=["DELETE"])
-def delete_charge(request, eid):
-    """Delete a Charge."""
-    rows = _query("Charge", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"monzo.Charge", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/refunds", methods=["POST"])
-def create_refund(request):
-    """Create a Refund."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['chargeId', 'amount', 'reason', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['amount', 'reason'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("monzo_ref")}
-    rec["chargeId"] = data.get('chargeId')
-    rec["amount"] = _as_int(data.get('amount'))
-    rec["reason"] = data.get('reason')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Refund", rec)
-    return rec, 201
-
-@app.route("/v1/refunds", methods=["GET"])
-def list_refunds(request):
-    """List Refunds with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Refund")
-    rows = _apply_filters(rows, params, ['chargeId', 'amount', 'reason', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/refunds/<eid>", methods=["GET"])
-def get_refund(request, eid):
-    """Retrieve a Refund by id (supports ?expand=)."""
-    rows = _query("Refund", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'chargeId': 'Charge'})
-    return rec, 200
-
-@app.route("/v1/refunds/<eid>", methods=["POST", "PATCH"])
-def update_refund(request, eid):
-    """Update a Refund."""
-    rows = _query("Refund", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['chargeId', 'amount', 'reason', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Refund", rec)
-    return rec, 200
-
-@app.route("/v1/refunds/<eid>", methods=["DELETE"])
-def delete_refund(request, eid):
-    """Delete a Refund."""
-    rows = _query("Refund", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"monzo.Refund", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/payouts", methods=["POST"])
-def create_payout(request):
-    """Create a Payout."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['amount', 'currency', 'arrivalDate', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['amount', 'currency'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("monzo_pay")}
-    rec["amount"] = _as_int(data.get('amount'))
-    rec["currency"] = data.get('currency')
-    rec["arrivalDate"] = data.get('arrivalDate')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Payout", rec)
-    return rec, 201
-
-@app.route("/v1/payouts", methods=["GET"])
-def list_payouts(request):
-    """List Payouts with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Payout")
-    rows = _apply_filters(rows, params, ['amount', 'currency', 'arrivalDate', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/payouts/<eid>", methods=["GET"])
-def get_payout(request, eid):
-    """Retrieve a Payout by id (supports ?expand=)."""
-    rows = _query("Payout", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/payouts/<eid>", methods=["POST", "PATCH"])
-def update_payout(request, eid):
-    """Update a Payout."""
-    rows = _query("Payout", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['amount', 'currency', 'arrivalDate', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Payout", rec)
-    return rec, 200
-
-@app.route("/v1/payouts/<eid>", methods=["DELETE"])
-def delete_payout(request, eid):
-    """Delete a Payout."""
-    rows = _query("Payout", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"monzo.Payout", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/paymentmethods", methods=["POST"])
-def create_payment_method(request):
-    """Create a PaymentMethod."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['customerId', 'type', 'last4', 'brand'])
-    if err:
-        return err, 400
-    err = _require(data, ['type', 'last4'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("monzo_pay")}
-    rec["customerId"] = data.get('customerId')
+    if data.get('type') and data['type'] not in ['uk_retail', 'uk_retail_joint']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['uk_retail', 'uk_retail_joint']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("monzo_acc")}
+    rec["id"] = data.get('id')
+    rec["description"] = data.get('description')
     rec["type"] = data.get('type')
-    rec["last4"] = data.get('last4')
-    rec["brand"] = data.get('brand')
+    rec["created"] = data.get('created')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("PaymentMethod", rec)
+    _persist("Account", rec)
     return rec, 201
 
-@app.route("/v1/paymentmethods", methods=["GET"])
-def list_payment_methods(request):
-    """List PaymentMethods with filtering + cursor pagination."""
+@app.route("/v1/accounts", methods=["GET"])
+def list_accounts(request):
+    """List Accounts with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("PaymentMethod")
-    rows = _apply_filters(rows, params, ['customerId', 'type', 'last4', 'brand'])
+    rows = _query("Account")
+    rows = _apply_filters(rows, params, ['id', 'description', 'type', 'created'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/paymentmethods/<eid>", methods=["GET"])
-def get_payment_method(request, eid):
-    """Retrieve a PaymentMethod by id (supports ?expand=)."""
-    rows = _query("PaymentMethod", eid)
+@app.route("/v1/accounts/<eid>", methods=["GET"])
+def get_account(request, eid):
+    """Retrieve a Account by id (supports ?expand=)."""
+    rows = _query("Account", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'customerId': 'Customer'})
     return rec, 200
 
-@app.route("/v1/paymentmethods/<eid>", methods=["POST", "PATCH"])
-def update_payment_method(request, eid):
-    """Update a PaymentMethod."""
-    rows = _query("PaymentMethod", eid)
+@app.route("/v1/accounts/<eid>", methods=["POST", "PATCH"])
+def update_account(request, eid):
+    """Update a Account."""
+    rows = _query("Account", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['customerId', 'type', 'last4', 'brand'])
+    err = _reject_unknown(data, ['id', 'description', 'type', 'created'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['uk_retail', 'uk_retail_joint']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['uk_retail', 'uk_retail_joint']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Account", rec)
+    return rec, 200
+
+@app.route("/v1/accounts/<eid>", methods=["DELETE"])
+def delete_account(request, eid):
+    """Delete a Account."""
+    rows = _query("Account", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"monzo.Account", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/balances", methods=["POST"])
+def create_balance(request):
+    """Create a Balance."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['balance', 'totalBalance', 'currency', 'spendToday'])
+    if err:
+        return err, 400
+    err = _require(data, ['balance', 'totalBalance'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("monzo_bal")}
+    rec["balance"] = _as_int(data.get('balance'))
+    rec["totalBalance"] = _as_int(data.get('totalBalance'))
+    rec["currency"] = data.get('currency')
+    rec["spendToday"] = _as_int(data.get('spendToday'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Balance", rec)
+    return rec, 201
+
+@app.route("/v1/balances", methods=["GET"])
+def list_balances(request):
+    """List Balances with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Balance")
+    rows = _apply_filters(rows, params, ['balance', 'totalBalance', 'currency', 'spendToday'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/balances/<eid>", methods=["GET"])
+def get_balance(request, eid):
+    """Retrieve a Balance by id (supports ?expand=)."""
+    rows = _query("Balance", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/balances/<eid>", methods=["POST", "PATCH"])
+def update_balance(request, eid):
+    """Update a Balance."""
+    rows = _query("Balance", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['balance', 'totalBalance', 'currency', 'spendToday'])
     if err:
         return err, 400
     rec = rows[0]
@@ -500,22 +235,239 @@ def update_payment_method(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("PaymentMethod", rec)
+    _persist("Balance", rec)
     return rec, 200
 
-@app.route("/v1/paymentmethods/<eid>", methods=["DELETE"])
-def delete_payment_method(request, eid):
-    """Delete a PaymentMethod."""
-    rows = _query("PaymentMethod", eid)
+@app.route("/v1/balances/<eid>", methods=["DELETE"])
+def delete_balance(request, eid):
+    """Delete a Balance."""
+    rows = _query("Balance", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"monzo.PaymentMethod", "id": eid})
+    db.retract({"entity": f"monzo.Balance", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/transactions", methods=["POST"])
+def create_transaction(request):
+    """Create a Transaction."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'amount', 'currency', 'description', 'category', 'declineReason', 'isLoad', 'merchant', 'created', 'settled'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'amount'])
+    if err:
+        return err, 400
+    if data.get('category') and data['category'] not in ['general', 'eating_out', 'expenses', 'transport', 'cash', 'bills', 'entertainment', 'shopping', 'holidays', 'groceries', 'mondo']:
+        return {"error": {"message": "invalid category; allowed: " + ", ".join(['general', 'eating_out', 'expenses', 'transport', 'cash', 'bills', 'entertainment', 'shopping', 'holidays', 'groceries', 'mondo']), "type": "invalid_request_error"}}, 400
+    if data.get('declineReason') and data['declineReason'] not in ['INSUFFICIENT_FUNDS', 'CARD_INACTIVE', 'CARD_BLOCKED', 'INVALID_CVC', 'OTHER']:
+        return {"error": {"message": "invalid declineReason; allowed: " + ", ".join(['INSUFFICIENT_FUNDS', 'CARD_INACTIVE', 'CARD_BLOCKED', 'INVALID_CVC', 'OTHER']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("monzo_tra")}
+    rec["id"] = data.get('id')
+    rec["amount"] = _as_int(data.get('amount'))
+    rec["currency"] = data.get('currency')
+    rec["description"] = data.get('description')
+    rec["category"] = data.get('category')
+    rec["declineReason"] = data.get('declineReason')
+    rec["isLoad"] = _as_bool(data.get('isLoad'))
+    rec["merchant"] = data.get('merchant')
+    rec["created"] = data.get('created')
+    rec["settled"] = data.get('settled')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Transaction", rec)
+    return rec, 201
+
+@app.route("/v1/transactions", methods=["GET"])
+def list_transactions(request):
+    """List Transactions with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Transaction")
+    rows = _apply_filters(rows, params, ['id', 'amount', 'currency', 'description', 'category', 'declineReason', 'isLoad', 'merchant', 'created', 'settled'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/transactions/<eid>", methods=["GET"])
+def get_transaction(request, eid):
+    """Retrieve a Transaction by id (supports ?expand=)."""
+    rows = _query("Transaction", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/transactions/<eid>", methods=["POST", "PATCH"])
+def update_transaction(request, eid):
+    """Update a Transaction."""
+    rows = _query("Transaction", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'amount', 'currency', 'description', 'category', 'declineReason', 'isLoad', 'merchant', 'created', 'settled'])
+    if err:
+        return err, 400
+    if data.get('category') and data['category'] not in ['general', 'eating_out', 'expenses', 'transport', 'cash', 'bills', 'entertainment', 'shopping', 'holidays', 'groceries', 'mondo']:
+        return {"error": {"message": "invalid category; allowed: " + ", ".join(['general', 'eating_out', 'expenses', 'transport', 'cash', 'bills', 'entertainment', 'shopping', 'holidays', 'groceries', 'mondo']), "type": "invalid_request_error"}}, 400
+    if data.get('declineReason') and data['declineReason'] not in ['INSUFFICIENT_FUNDS', 'CARD_INACTIVE', 'CARD_BLOCKED', 'INVALID_CVC', 'OTHER']:
+        return {"error": {"message": "invalid declineReason; allowed: " + ", ".join(['INSUFFICIENT_FUNDS', 'CARD_INACTIVE', 'CARD_BLOCKED', 'INVALID_CVC', 'OTHER']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Transaction", rec)
+    return rec, 200
+
+@app.route("/v1/transactions/<eid>", methods=["DELETE"])
+def delete_transaction(request, eid):
+    """Delete a Transaction."""
+    rows = _query("Transaction", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"monzo.Transaction", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/pots", methods=["POST"])
+def create_pot(request):
+    """Create a Pot."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'name', 'balance', 'currency', 'deleted', 'created', 'updated'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'name'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("monzo_pot")}
+    rec["id"] = data.get('id')
+    rec["name"] = data.get('name')
+    rec["balance"] = _as_int(data.get('balance'))
+    rec["currency"] = data.get('currency')
+    rec["deleted"] = _as_bool(data.get('deleted'))
+    rec["created"] = data.get('created')
+    rec["updated"] = data.get('updated')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Pot", rec)
+    return rec, 201
+
+@app.route("/v1/pots", methods=["GET"])
+def list_pots(request):
+    """List Pots with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Pot")
+    rows = _apply_filters(rows, params, ['id', 'name', 'balance', 'currency', 'deleted', 'created', 'updated'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/pots/<eid>", methods=["GET"])
+def get_pot(request, eid):
+    """Retrieve a Pot by id (supports ?expand=)."""
+    rows = _query("Pot", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/pots/<eid>", methods=["POST", "PATCH"])
+def update_pot(request, eid):
+    """Update a Pot."""
+    rows = _query("Pot", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'name', 'balance', 'currency', 'deleted', 'created', 'updated'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Pot", rec)
+    return rec, 200
+
+@app.route("/v1/pots/<eid>", methods=["DELETE"])
+def delete_pot(request, eid):
+    """Delete a Pot."""
+    rows = _query("Pot", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"monzo.Pot", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/attachments", methods=["POST"])
+def create_attachment(request):
+    """Create a Attachment."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'userId', 'externalId', 'fileUrl', 'fileType', 'created'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'fileUrl'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("monzo_att")}
+    rec["id"] = data.get('id')
+    rec["userId"] = data.get('userId')
+    rec["externalId"] = data.get('externalId')
+    rec["fileUrl"] = data.get('fileUrl')
+    rec["fileType"] = data.get('fileType')
+    rec["created"] = data.get('created')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Attachment", rec)
+    return rec, 201
+
+@app.route("/v1/attachments", methods=["GET"])
+def list_attachments(request):
+    """List Attachments with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Attachment")
+    rows = _apply_filters(rows, params, ['id', 'userId', 'externalId', 'fileUrl', 'fileType', 'created'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/attachments/<eid>", methods=["GET"])
+def get_attachment(request, eid):
+    """Retrieve a Attachment by id (supports ?expand=)."""
+    rows = _query("Attachment", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/attachments/<eid>", methods=["POST", "PATCH"])
+def update_attachment(request, eid):
+    """Update a Attachment."""
+    rows = _query("Attachment", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'userId', 'externalId', 'fileUrl', 'fileType', 'created'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Attachment", rec)
+    return rec, 200
+
+@app.route("/v1/attachments/<eid>", methods=["DELETE"])
+def delete_attachment(request, eid):
+    """Delete a Attachment."""
+    rows = _query("Attachment", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"monzo.Attachment", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "monzo-compat", "tier": "L4",
-            "entities": ['Customer', 'PaymentIntent', 'Charge', 'Refund', 'Payout', 'PaymentMethod']}, 200
+            "entities": ['Account', 'Balance', 'Transaction', 'Pot', 'Attachment']}, 200
 
 
 if __name__ == "__main__":

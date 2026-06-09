@@ -9931,17 +9931,16 @@
       "handle": "monzo-compat",
       "platform": "monzo",
       "bytes": 2119,
-      "wasmCid": "bafkreiconvu5rcyy5dxslv2hvds3ojodrpd7zdzonvx2debcd2kixejwmm",
+      "wasmCid": "bafkreihp4ja3v64wxi2itzdzip2ebdlyyqypgtvxatak2ivrq7hnb6x62a",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Customer",
-        "PaymentIntent",
-        "Charge",
-        "Refund",
-        "Payout",
-        "PaymentMethod"
+        "Account",
+        "Balance",
+        "Transaction",
+        "Pot",
+        "Attachment"
       ]
     },
     {

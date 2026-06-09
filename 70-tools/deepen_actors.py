@@ -1621,6 +1621,15 @@ PLATFORM_OVERRIDES = {
         "Deployment": E(id="string", status="string", projectName="string", stackName="string", paused="boolean", created="datetime", modified="datetime"),
         "Organization": E(name="string", role="string"),
     },
+    # Faithful Monzo model — verified against official docs.monzo.com.
+    # amounts integer minor units (pennies).
+    "monzo": {
+        "Account": E(id="string", description="string", type="string", created="datetime"),
+        "Balance": E(balance="integer", totalBalance="integer", currency="string", spendToday="integer"),
+        "Transaction": E(id="string", amount="integer", currency="string", description="string", category="string", declineReason="string", isLoad="boolean", merchant="string", created="datetime", settled="datetime"),
+        "Pot": E(id="string", name="string", balance="integer", currency="string", deleted="boolean", created="datetime", updated="datetime"),
+        "Attachment": E(id="string", userId="string", externalId="string", fileUrl="string", fileType="string", created="datetime"),
+    },
     # Faithful Ramp model — verified against the official Ramp Developer API OpenAPI
     # (docs.ramp.com/openapi/developer-api.json). snake_case->camelCase.
     "ramp": {
