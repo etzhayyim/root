@@ -5,67 +5,72 @@ namespace fivetran {
 
     entity Connector {
         id: string @unique
+        id: string
+        service: string
+        schema: string
+        groupId: string
+        setupState: string
+        syncState: string
+        updateState: string
+        scheduleType: string
+        networkingMethod: string
+        syncFrequency: integer
+        paused: boolean
+        createdAt: datetime
+        succeededAt: datetime
+        failedAt: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Destination {
+        id: string @unique
+        id: string
+        groupId: string
+        service: string
+        region: string
+        setupStatus: string
+        networkingMethod: string
+        daylightSavingTimeEnabled: boolean
+        createdAt: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Group {
+        id: string @unique
+        id: string
         name: string
-        source: string
-        destination: string
-        status: string
+        createdAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Sync {
+    entity User {
         id: string @unique
-        connectorId: string
-        status: string
-        rows: integer
-        startedAt: datetime
+        id: string
+        email: string
+        givenName: string
+        familyName: string
+        role: string
+        verified: boolean
+        active: boolean
+        createdAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Model {
+    entity Transformation {
         id: string @unique
-        name: string
-        materialization: string
-        sql: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Stream {
-        id: string @unique
-        name: string
-        partitions: integer
-        retentionMs: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Schema {
-        id: string @unique
-        name: string
-        database: string
-        tableCount: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Test {
-        id: string @unique
-        modelName: string
+        id: string
         type: string
-        passed: boolean
+        status: string
+        paused: boolean
+        createdAt: datetime
+        lastStartedAt: datetime
+        lastEndedAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

@@ -3,72 +3,35 @@
 
 namespace cohere {
 
+    entity Dataset {
+        id: string @unique
+        id: string
+        name: string
+        validationStatus: string
+        datasetType: string
+        createdAt: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity DatasetPart {
+        id: string @unique
+        id: string
+        name: string
+        sizeBytes: integer
+        numRows: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
     entity Model {
         id: string @unique
         name: string
-        family: string
-        contextWindow: integer
-        modality: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Completion {
-        id: string @unique
-        modelId: string
-        prompt: string
-        output: string
-        tokens: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Embedding {
-        id: string @unique
-        modelId: string
-        input: string
-        dimensions: integer
-        vectorRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity FineTune {
-        id: string @unique
-        baseModelId: string
-        datasetId: string
-        status: string
-        epochs: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Dataset {
-        id: string @unique
-        name: string
-        rows: integer
-        contentRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity File {
-        id: string @unique
-        purpose: string
-        filename: string
-        sizeBytes: integer
-        contentRef: string
+        isDeprecated: boolean
+        contextLength: integer
+        finetuned: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

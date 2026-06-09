@@ -3209,17 +3209,14 @@
       "handle": "cohere-compat",
       "platform": "cohere",
       "bytes": 2120,
-      "wasmCid": "bafkreicnovmwib4aqmkgxpkpjijjho6ehv4wswwanogsho4t6dvnpwtzka",
+      "wasmCid": "bafkreiftxbatyk7oacejdg6wuhfdornlex7747vcqygif3yol3ygwknq6i",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Model",
-        "Completion",
-        "Embedding",
-        "FineTune",
         "Dataset",
-        "File"
+        "DatasetPart",
+        "Model"
       ]
     },
     {
@@ -5738,17 +5735,16 @@
       "handle": "fivetran-compat",
       "platform": "fivetran",
       "bytes": 2122,
-      "wasmCid": "bafkreicvv2mzupc2owx3o5gzjflybspxabcnemacnatxjrk52x6iopexci",
+      "wasmCid": "bafkreicugs3dppeto2nxvc7vehue7trg3vmvhqrebzveshhyc6fu6kye54",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
         "Connector",
-        "Sync",
-        "Model",
-        "Stream",
-        "Schema",
-        "Test"
+        "Destination",
+        "Group",
+        "User",
+        "Transformation"
       ]
     },
     {

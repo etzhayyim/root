@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible modern data stack actor (fivetran); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:fivetran-compat",
-    "x-wasm-cid": "bafkreicvv2mzupc2owx3o5gzjflybspxabcnemacnatxjrk52x6iopexci",
+    "x-wasm-cid": "bafkreicugs3dppeto2nxvc7vehue7trg3vmvhqrebzveshhyc6fu6kye54",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreicvv2mzupc2owx3o5gzjflybspxabcnemacnatxjrk52x6iopexci",
+      "url": "ipfs://bafkreicugs3dppeto2nxvc7vehue7trg3vmvhqrebzveshhyc6fu6kye54",
       "description": "browser-local kotoba-wasm component"
     }
   ],
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/syncs": {
+    "/v1/destinations": {
       "get": {
-        "summary": "List Syncs",
+        "summary": "List Destinations",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Sync"
+                        "$ref": "#/components/schemas/Destination"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Sync",
+        "summary": "Create a Destination",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SyncCreate"
+                "$ref": "#/components/schemas/DestinationCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Sync"
+                  "$ref": "#/components/schemas/Destination"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/syncs/{id}": {
+    "/v1/destinations/{id}": {
       "get": {
-        "summary": "Get a Sync",
+        "summary": "Get a Destination",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Sync"
+                  "$ref": "#/components/schemas/Destination"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Sync",
+        "summary": "Update a Destination",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SyncCreate"
+                "$ref": "#/components/schemas/DestinationCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Sync"
+                  "$ref": "#/components/schemas/Destination"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Sync",
+        "summary": "Delete a Destination",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/models": {
+    "/v1/groups": {
       "get": {
-        "summary": "List Models",
+        "summary": "List Groups",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Model"
+                        "$ref": "#/components/schemas/Group"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Model",
+        "summary": "Create a Group",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ModelCreate"
+                "$ref": "#/components/schemas/GroupCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Model"
+                  "$ref": "#/components/schemas/Group"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/models/{id}": {
+    "/v1/groups/{id}": {
       "get": {
-        "summary": "Get a Model",
+        "summary": "Get a Group",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Model"
+                  "$ref": "#/components/schemas/Group"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Model",
+        "summary": "Update a Group",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ModelCreate"
+                "$ref": "#/components/schemas/GroupCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Model"
+                  "$ref": "#/components/schemas/Group"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Model",
+        "summary": "Delete a Group",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/streams": {
+    "/v1/users": {
       "get": {
-        "summary": "List Streams",
+        "summary": "List Users",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Stream"
+                        "$ref": "#/components/schemas/User"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Stream",
+        "summary": "Create a User",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StreamCreate"
+                "$ref": "#/components/schemas/UserCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Stream"
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/streams/{id}": {
+    "/v1/users/{id}": {
       "get": {
-        "summary": "Get a Stream",
+        "summary": "Get a User",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Stream"
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Stream",
+        "summary": "Update a User",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StreamCreate"
+                "$ref": "#/components/schemas/UserCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Stream"
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Stream",
+        "summary": "Delete a User",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/schemas": {
+    "/v1/transformations": {
       "get": {
-        "summary": "List Schemas",
+        "summary": "List Transformations",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Schema"
+                        "$ref": "#/components/schemas/Transformation"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Schema",
+        "summary": "Create a Transformation",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SchemaCreate"
+                "$ref": "#/components/schemas/TransformationCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Schema"
+                  "$ref": "#/components/schemas/Transformation"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/schemas/{id}": {
+    "/v1/transformations/{id}": {
       "get": {
-        "summary": "Get a Schema",
+        "summary": "Get a Transformation",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Schema"
+                  "$ref": "#/components/schemas/Transformation"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Schema",
+        "summary": "Update a Transformation",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SchemaCreate"
+                "$ref": "#/components/schemas/TransformationCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Schema"
+                  "$ref": "#/components/schemas/Transformation"
                 }
               }
             }
@@ -921,192 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Schema",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/tests": {
-      "get": {
-        "summary": "List Tests",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Test"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Test",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TestCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Test"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/tests/{id}": {
-      "get": {
-        "summary": "Get a Test",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Test"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Test",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TestCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Test"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Test",
+        "summary": "Delete a Transformation",
         "parameters": [
           {
             "name": "id",
@@ -1146,19 +961,72 @@
           "id": {
             "type": "string"
           },
-          "name": {
+          "service": {
             "type": "string"
           },
-          "source": {
+          "schema": {
             "type": "string"
           },
-          "destination": {
+          "groupId": {
             "type": "string"
           },
-          "status": {
-            "type": "string"
+          "setupState": {
+            "type": "string",
+            "enum": [
+              "incomplete",
+              "connected",
+              "broken"
+            ]
+          },
+          "syncState": {
+            "type": "string",
+            "enum": [
+              "scheduled",
+              "syncing",
+              "paused",
+              "rescheduled"
+            ]
+          },
+          "updateState": {
+            "type": "string",
+            "enum": [
+              "on_schedule",
+              "delayed"
+            ]
+          },
+          "scheduleType": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "manual"
+            ]
+          },
+          "networkingMethod": {
+            "type": "string",
+            "enum": [
+              "Directly",
+              "SshTunnel",
+              "ProxyAgent",
+              "PrivateLink",
+              "UnmanagedProxyAgent",
+              "Unknown"
+            ]
+          },
+          "syncFrequency": {
+            "type": "integer"
+          },
+          "paused": {
+            "type": "boolean"
           },
           "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "succeededAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "failedAt": {
             "type": "string",
             "format": "date-time"
           },
@@ -1171,216 +1039,114 @@
       "ConnectorCreate": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string"
-          },
-          "source": {
-            "type": "string"
-          },
-          "destination": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "source"
-        ]
-      },
-      "Sync": {
-        "type": "object",
-        "properties": {
           "id": {
             "type": "string"
           },
-          "connectorId": {
+          "service": {
             "type": "string"
           },
-          "status": {
+          "schema": {
             "type": "string"
           },
-          "rows": {
+          "groupId": {
+            "type": "string"
+          },
+          "setupState": {
+            "type": "string",
+            "enum": [
+              "incomplete",
+              "connected",
+              "broken"
+            ]
+          },
+          "syncState": {
+            "type": "string",
+            "enum": [
+              "scheduled",
+              "syncing",
+              "paused",
+              "rescheduled"
+            ]
+          },
+          "updateState": {
+            "type": "string",
+            "enum": [
+              "on_schedule",
+              "delayed"
+            ]
+          },
+          "scheduleType": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "manual"
+            ]
+          },
+          "networkingMethod": {
+            "type": "string",
+            "enum": [
+              "Directly",
+              "SshTunnel",
+              "ProxyAgent",
+              "PrivateLink",
+              "UnmanagedProxyAgent",
+              "Unknown"
+            ]
+          },
+          "syncFrequency": {
             "type": "integer"
           },
-          "startedAt": {
-            "type": "string",
-            "format": "date-time"
+          "paused": {
+            "type": "boolean"
           },
           "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "SyncCreate": {
-        "type": "object",
-        "properties": {
-          "connectorId": {
             "type": "string"
           },
-          "status": {
+          "succeededAt": {
             "type": "string"
           },
-          "rows": {
-            "type": "integer"
-          },
-          "startedAt": {
+          "failedAt": {
             "type": "string"
           }
         },
         "required": [
-          "status",
-          "rows"
+          "id",
+          "service"
         ]
       },
-      "Model": {
+      "Destination": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
+          "groupId": {
             "type": "string"
           },
-          "materialization": {
+          "service": {
             "type": "string"
           },
-          "sql": {
+          "region": {
             "type": "string"
           },
-          "createdAt": {
+          "setupStatus": {
             "type": "string",
-            "format": "date-time"
+            "enum": [
+              "connected",
+              "incomplete",
+              "broken"
+            ]
           },
-          "updatedAt": {
+          "networkingMethod": {
             "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ModelCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
+            "enum": [
+              "Directly",
+              "PrivateLink",
+              "SshTunnel",
+              "ProxyAgent"
+            ]
           },
-          "materialization": {
-            "type": "string"
-          },
-          "sql": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "materialization"
-        ]
-      },
-      "Stream": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "partitions": {
-            "type": "integer"
-          },
-          "retentionMs": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "StreamCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "partitions": {
-            "type": "integer"
-          },
-          "retentionMs": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "name",
-          "partitions"
-        ]
-      },
-      "Schema": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "database": {
-            "type": "string"
-          },
-          "tableCount": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "SchemaCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "database": {
-            "type": "string"
-          },
-          "tableCount": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "name",
-          "database"
-        ]
-      },
-      "Test": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "modelName": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "passed": {
+          "daylightSavingTimeEnabled": {
             "type": "boolean"
           },
           "createdAt": {
@@ -1393,21 +1159,244 @@
           }
         }
       },
-      "TestCreate": {
+      "DestinationCreate": {
         "type": "object",
         "properties": {
-          "modelName": {
+          "id": {
             "type": "string"
           },
-          "type": {
+          "groupId": {
             "type": "string"
           },
-          "passed": {
+          "service": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "setupStatus": {
+            "type": "string",
+            "enum": [
+              "connected",
+              "incomplete",
+              "broken"
+            ]
+          },
+          "networkingMethod": {
+            "type": "string",
+            "enum": [
+              "Directly",
+              "PrivateLink",
+              "SshTunnel",
+              "ProxyAgent"
+            ]
+          },
+          "daylightSavingTimeEnabled": {
             "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string"
           }
         },
         "required": [
-          "modelName",
+          "id",
+          "service"
+        ]
+      },
+      "Group": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "GroupCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "givenName": {
+            "type": "string"
+          },
+          "familyName": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "verified": {
+            "type": "boolean"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "UserCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "givenName": {
+            "type": "string"
+          },
+          "familyName": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "verified": {
+            "type": "boolean"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "email"
+        ]
+      },
+      "Transformation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "DBT_CORE",
+              "QUICKSTART"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "NEW",
+              "SCHEDULING",
+              "RUNNING",
+              "TERMINATING",
+              "SUCCEEDED",
+              "PARTIALLY_SUCCEEDED",
+              "FAILED",
+              "CANCELED",
+              "BLOCKED"
+            ]
+          },
+          "paused": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastStartedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastEndedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "TransformationCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "DBT_CORE",
+              "QUICKSTART"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "NEW",
+              "SCHEDULING",
+              "RUNNING",
+              "TERMINATING",
+              "SUCCEEDED",
+              "PARTIALLY_SUCCEEDED",
+              "FAILED",
+              "CANCELED",
+              "BLOCKED"
+            ]
+          },
+          "paused": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "lastStartedAt": {
+            "type": "string"
+          },
+          "lastEndedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
           "type"
         ]
       }

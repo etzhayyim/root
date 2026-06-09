@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 917,
-    "L5": 83
+    "L4": 915,
+    "L5": 85
   },
   "actors": [
     {
@@ -3401,10 +3401,10 @@
     {
       "handle": "cohere-compat",
       "did": "did:web:etzhayyim.com:actor:cohere-compat",
-      "wasmCid": "bafkreicnovmwib4aqmkgxpkpjijjho6ehv4wswwanogsho4t6dvnpwtzka",
+      "wasmCid": "bafkreiftxbatyk7oacejdg6wuhfdornlex7747vcqygif3yol3ygwknq6i",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "cohere clean-room actor",
       "category": "ai_ml",
       "capabilities": [
@@ -6083,10 +6083,10 @@
     {
       "handle": "fivetran-compat",
       "did": "did:web:etzhayyim.com:actor:fivetran-compat",
-      "wasmCid": "bafkreicvv2mzupc2owx3o5gzjflybspxabcnemacnatxjrk52x6iopexci",
+      "wasmCid": "bafkreicugs3dppeto2nxvc7vehue7trg3vmvhqrebzveshhyc6fu6kye54",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "fivetran clean-room actor",
       "category": "modern_data_stack",
       "capabilities": [

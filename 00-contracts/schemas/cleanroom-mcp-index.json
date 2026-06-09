@@ -7,7 +7,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 29940,
+  "totalTools": 29920,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -1704,10 +1704,10 @@
     {
       "handle": "cohere-compat",
       "did": "did:web:etzhayyim.com:actor:cohere-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreicnovmwib4aqmkgxpkpjijjho6ehv4wswwanogsho4t6dvnpwtzka",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreiftxbatyk7oacejdg6wuhfdornlex7747vcqygif3yol3ygwknq6i",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 15,
       "manifest": "20-actors/cohere-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -3045,10 +3045,10 @@
     {
       "handle": "fivetran-compat",
       "did": "did:web:etzhayyim.com:actor:fivetran-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreicvv2mzupc2owx3o5gzjflybspxabcnemacnatxjrk52x6iopexci",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreicugs3dppeto2nxvc7vehue7trg3vmvhqrebzveshhyc6fu6kye54",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "manifest": "20-actors/fivetran-compat/manifest.json#/capabilities/mcp"
     },
     {

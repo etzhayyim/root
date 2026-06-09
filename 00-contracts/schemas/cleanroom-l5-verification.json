@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 83,
+  "count": 85,
   "actors": [
     {
       "handle": "square-compat",
@@ -11705,6 +11705,255 @@
       ],
       "notApplicable": [],
       "note": "RECOVERED from defer via OFFICIAL github.com/Bandwidth/api-docs. Enforced enums (cross-source agreed): Message.direction(2), Call.direction(2), Recording.fileFormat(2) = 3. Call.state/Recording.status DISAGREED between the official repo and the prior fork -> left as gaps rather than pick one (honesty over coverage)."
+    },
+    {
+      "handle": "fivetran-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://fivetran.com/docs/rest-api",
+      "remodeled": "Remodeled from generic devtools_saas to a faithful Fivetran REST API model, verified against the official Fivetran REST API docs. Nested status.* flattened to top-level fields. User.role left open (custom account roles allowed).",
+      "resources": [
+        {
+          "entity": "Connector",
+          "source": "https://fivetran.com/docs/rest-api/api-reference/connections",
+          "verifiedFields": [
+            "id",
+            "service",
+            "schema",
+            "groupId",
+            "setupState",
+            "syncState",
+            "updateState",
+            "scheduleType",
+            "networkingMethod",
+            "syncFrequency",
+            "paused",
+            "createdAt",
+            "succeededAt",
+            "failedAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "setupState": [
+              "incomplete",
+              "connected",
+              "broken"
+            ],
+            "syncState": [
+              "scheduled",
+              "syncing",
+              "paused",
+              "rescheduled"
+            ],
+            "updateState": [
+              "on_schedule",
+              "delayed"
+            ],
+            "scheduleType": [
+              "auto",
+              "manual"
+            ],
+            "networkingMethod": [
+              "Directly",
+              "SshTunnel",
+              "ProxyAgent",
+              "PrivateLink",
+              "UnmanagedProxyAgent",
+              "Unknown"
+            ]
+          },
+          "gaps": [
+            "config(object)"
+          ]
+        },
+        {
+          "entity": "Destination",
+          "source": "https://fivetran.com/docs/rest-api/api-reference/destinations",
+          "verifiedFields": [
+            "id",
+            "groupId",
+            "service",
+            "region",
+            "setupStatus",
+            "networkingMethod",
+            "daylightSavingTimeEnabled",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "setupStatus": [
+              "connected",
+              "incomplete",
+              "broken"
+            ],
+            "networkingMethod": [
+              "Directly",
+              "PrivateLink",
+              "SshTunnel",
+              "ProxyAgent"
+            ]
+          },
+          "gaps": [
+            "config(object)"
+          ]
+        },
+        {
+          "entity": "Group",
+          "source": "https://fivetran.com/docs/rest-api/api-reference/groups",
+          "verifiedFields": [
+            "id",
+            "name",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "User",
+          "source": "https://fivetran.com/docs/rest-api/api-reference/users",
+          "verifiedFields": [
+            "id",
+            "email",
+            "givenName",
+            "familyName",
+            "role",
+            "verified",
+            "active",
+            "createdAt"
+          ],
+          "fieldStatus": "fields confirmed; role allows custom account roles -> not a closed set, not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "role-open-custom-roles"
+          ]
+        },
+        {
+          "entity": "Transformation",
+          "source": "https://fivetran.com/docs/rest-api/api-reference/transformation-management",
+          "verifiedFields": [
+            "id",
+            "type",
+            "status",
+            "paused",
+            "createdAt",
+            "lastStartedAt",
+            "lastEndedAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "DBT_CORE",
+              "QUICKSTART"
+            ],
+            "status": [
+              "NEW",
+              "SCHEDULING",
+              "RUNNING",
+              "TERMINATING",
+              "SUCCEEDED",
+              "PARTIALLY_SUCCEEDED",
+              "FAILED",
+              "CANCELED",
+              "BLOCKED"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs official Fivetran REST API docs. Enforced enums: Connector.setupState/syncState/updateState/scheduleType/networkingMethod, Destination.setupStatus/networkingMethod, Transformation.type/status = 9 enums. User.role open (custom roles) -> not enforced."
+    },
+    {
+      "handle": "cohere-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://docs.cohere.com/reference",
+      "remodeled": "Remodeled from generic ai_ml to a faithful Cohere model, verified against official docs.cohere.com. PARTIAL: only the 3 confirmed entities modeled — EmbedJob/FineTunedModel/Connector returned 404 and are deferred. Model.endpoints is array-valued -> not enforced as a scalar enum.",
+      "resources": [
+        {
+          "entity": "Dataset",
+          "source": "https://docs.cohere.com/reference/get-dataset",
+          "verifiedFields": [
+            "id",
+            "name",
+            "validationStatus",
+            "datasetType",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "validationStatus": [
+              "unknown",
+              "queued",
+              "processing",
+              "failed",
+              "validated",
+              "skipped"
+            ],
+            "datasetType": [
+              "embed-input",
+              "embed-result",
+              "cluster-result",
+              "cluster-outliers",
+              "reranker-finetune-input",
+              "single-label-classification-finetune-input",
+              "chat-finetune-input",
+              "multi-label-classification-finetune-input",
+              "batch-chat-input",
+              "batch-openai-chat-input",
+              "batch-embed-v2-input",
+              "batch-chat-v2-input"
+            ]
+          },
+          "gaps": [
+            "metrics(object)"
+          ]
+        },
+        {
+          "entity": "DatasetPart",
+          "source": "https://docs.cohere.com/reference/get-dataset",
+          "verifiedFields": [
+            "id",
+            "name",
+            "sizeBytes",
+            "numRows"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Model",
+          "source": "https://docs.cohere.com/reference/list-models",
+          "verifiedFields": [
+            "name",
+            "isDeprecated",
+            "contextLength",
+            "finetuned"
+          ],
+          "fieldStatus": "confirmed; endpoints is an array (not scalar) -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "endpoints(array)"
+          ]
+        }
+      ],
+      "notApplicable": [
+        {
+          "entity": "EmbedJob",
+          "reason": "docs 404"
+        },
+        {
+          "entity": "FineTunedModel",
+          "reason": "docs 404"
+        },
+        {
+          "entity": "Connector",
+          "reason": "not found in accessible docs"
+        }
+      ],
+      "note": "PARTIAL: 3/3 modeled entities FULLY verified vs official docs.cohere.com. Enforced enums: Dataset.validationStatus(6), Dataset.datasetType(12) = 2 enums (18 values). EmbedJob/FineTunedModel/Connector deferred (404). Model.endpoints array -> not enforced."
     }
   ]
 }

@@ -1560,6 +1560,22 @@ PLATFORM_OVERRIDES = {
         "Conference": E(id="string", name="string", status="string", redirectUrl="string", createdTime="datetime"),
         "Recording": E(recordingId="string", applicationId="string", accountId="string", name="string", status="string", fileFormat="string", startTime="datetime", endTime="datetime", duration="integer"),
     },
+    # Faithful Fivetran model — verified against the official Fivetran REST API docs.
+    # Nested status.* flattened. User.role left open (custom roles allowed).
+    "fivetran": {
+        "Connector": E(id="string", service="string", schema="string", groupId="string", setupState="string", syncState="string", updateState="string", scheduleType="string", networkingMethod="string", syncFrequency="integer", paused="boolean", createdAt="datetime", succeededAt="datetime", failedAt="datetime"),
+        "Destination": E(id="string", groupId="string", service="string", region="string", setupStatus="string", networkingMethod="string", daylightSavingTimeEnabled="boolean", createdAt="datetime"),
+        "Group": E(id="string", name="string", createdAt="datetime"),
+        "User": E(id="string", email="string", givenName="string", familyName="string", role="string", verified="boolean", active="boolean", createdAt="datetime"),
+        "Transformation": E(id="string", type="string", status="string", paused="boolean", createdAt="datetime", lastStartedAt="datetime", lastEndedAt="datetime"),
+    },
+    # Faithful Cohere model — verified against official docs.cohere.com. Only the 3
+    # confirmed entities modeled (EmbedJob/FineTunedModel/Connector 404'd -> deferred).
+    "cohere": {
+        "Dataset": E(id="string", name="string", validationStatus="string", datasetType="string", createdAt="datetime"),
+        "DatasetPart": E(id="string", name="string", sizeBytes="integer", numRows="integer"),
+        "Model": E(name="string", isDeprecated="boolean", contextLength="integer", finetuned="boolean"),
+    },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).
     "square": {
