@@ -68,12 +68,13 @@ def read_edn(text):
 # ── closed vocabs (mirror the ontology :db/allowed) ───────────────────────────────────────
 SECTORS = [":san", ":kan", ":gaku", ":hou", ":min", ":kin"]
 SECTOR_JA = {":san": "産", ":kan": "官", ":gaku": "学", ":hou": "報", ":min": "民", ":kin": "金"}
-SCALES = [":global", ":supranational", ":national", ":regional", ":local", ":intra-org"]
-COLLECTIVE_KINDS = [":org", ":region", ":community", ":intra-org-faction",
+SCALES = [":global", ":supranational", ":national", ":regional", ":municipal",
+          ":local", ":intra-org"]
+COLLECTIVE_KINDS = [":org", ":region", ":municipality", ":community", ":intra-org-faction",
                     ":academic-clique", ":keiretsu", ":advisory-body"]
-COLLECTIVE_JA = {":org": "組織", ":region": "地域", ":community": "コミュニティ",
-                 ":intra-org-faction": "社内派閥", ":academic-clique": "学閥",
-                 ":keiretsu": "系列", ":advisory-body": "審議会"}
+COLLECTIVE_JA = {":org": "組織/企業単位", ":region": "地域(県)", ":municipality": "市区町村",
+                 ":community": "コミュニティ", ":intra-org-faction": "社内派閥",
+                 ":academic-clique": "学閥", ":keiretsu": "系列", ":advisory-body": "審議会"}
 STANDINGS = [":institutional", ":public-seat"]
 TIE_KINDS = [":custodies", ":depends-on", ":funds", ":awards", ":seats-on",
              ":co-member", ":supplies", ":covers", ":employs", ":follows"]

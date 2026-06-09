@@ -109,4 +109,37 @@
  {:tie/id "tie.hiroshima.mazda.employs" :tie/kind :employs :tie/from "org.plant.jp.mazda-hiroshima" :tie/to "org.gov.jp.hiroshima-ken" :tie/grasping-load 0.70 :tie/sources ["マツダ 有価証券報告書 事業所" "広島県 統計年鑑 製造業"] :tie/sourcing :representative}
  {:tie/id "tie.hiroshima.u.depends" :tie/kind :depends-on :tie/from "org.univ.jp.hiroshima-u" :tie/to "org.plant.jp.mazda-hiroshima" :tie/grasping-load 0.44 :tie/sources ["広島大学 産学連携 公開資料" "マツダ 共同研究 公表実績"] :tie/sourcing :representative}
  {:tie/id "tie.hiroshima.press.covers" :tie/kind :covers :tie/from "org.press.jp.chugoku-shimbun" :tie/to "org.plant.jp.mazda-hiroshima" :tie/grasping-load 0.40 :tie/sources ["中国新聞 紙面 (経済面)" "中国新聞社 社史 公開情報"] :tie/sourcing :representative}
- {:tie/id "tie.hiroshima.press.covers-ken" :tie/kind :covers :tie/from "org.press.jp.chugoku-shimbun" :tie/to "org.gov.jp.hiroshima-ken" :tie/grasping-load 0.40 :tie/sources ["中国新聞 紙面 (県政面)" "広島県 記者クラブ 公開情報"] :tie/sourcing :representative}]
+ {:tie/id "tie.hiroshima.press.covers-ken" :tie/kind :covers :tie/from "org.press.jp.chugoku-shimbun" :tie/to "org.gov.jp.hiroshima-ken" :tie/grasping-load 0.40 :tie/sources ["中国新聞 紙面 (県政面)" "広島県 記者クラブ 公開情報"] :tie/sourcing :representative}
+
+ ;; ═══════════ granularity wave 3 (/loop): 市区町村・自治体・企業単位 (one scale below 県) ═══════════
+ ;; (9) 豊田市 — the flagship 企業城下町: 市名そのものが企業由来 (real structural-public facts).
+ ;;     municipal scale; トヨタ本社 holds :national power but sits IN 豊田市 → municipal dominance.
+ {:pwr/id "org.gov.jp.toyota-shi" :pwr/label "豊田市役所 (基礎自治体)" :pwr/standing :institutional :pwr/scale :municipal :pwr/sector :kan :pwr/locality "jp.aichi.toyota-shi" :pwr/collective-kind :municipality :pwr/sourcing :representative}
+ {:pwr/id "seat.gov.jp.toyota-shi.council" :pwr/label "豊田市議会 — 議員 seat (public)" :pwr/standing :public-seat :pwr/scale :municipal :pwr/sector :kan :pwr/locality "jp.aichi.toyota-shi" :pwr/parent "org.gov.jp.toyota-shi" :pwr/collective-kind :advisory-body :pwr/sourcing :representative}
+ {:pwr/id "org.corp.jp.toyota-hq" :pwr/label "トヨタ自動車 本社 (豊田市)" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "jp.aichi.toyota-shi" :pwr/parent "org.corp.jp.7203" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.cci.jp.toyota" :pwr/label "豊田商工会議所" :pwr/standing :institutional :pwr/scale :municipal :pwr/sector :min :pwr/locality "jp.aichi.toyota-shi" :pwr/collective-kind :community :pwr/sourcing :representative}
+
+ ;; (10) 企業単位 — トヨタ本社 の社内・直近軌道 (事業部 seat + 労連; structural-public)
+ {:pwr/id "seat.corp.jp.toyota.division" :pwr/label "トヨタ — 事業部長 seat (public)" :pwr/standing :public-seat :pwr/scale :intra-org :pwr/sector :san :pwr/locality "jp.toyota-unit" :pwr/parent "org.corp.jp.toyota-hq" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.union.jp.toyota-roren" :pwr/label "全トヨタ労働組合連合会 (労連)" :pwr/standing :institutional :pwr/scale :national :pwr/sector :min :pwr/locality "jp.toyota-unit" :pwr/collective-kind :org :pwr/sourcing :representative}
+
+ ;; (11) 長崎市 — 市区町村-level cluster distinct from the 長崎県 prefecture cluster
+ {:pwr/id "org.gov.jp.nagasaki-shi" :pwr/label "長崎市役所 (基礎自治体)" :pwr/standing :institutional :pwr/scale :municipal :pwr/sector :kan :pwr/locality "jp.nagasaki.nagasaki-shi" :pwr/collective-kind :municipality :pwr/sourcing :representative}
+ {:pwr/id "org.cci.jp.nagasaki" :pwr/label "長崎商工会議所" :pwr/standing :institutional :pwr/scale :municipal :pwr/sector :min :pwr/locality "jp.nagasaki.nagasaki-shi" :pwr/collective-kind :community :pwr/sourcing :representative}
+ {:pwr/id "org.corp.jp.nagasaki-local" :pwr/label "(representative) 長崎市 地元企業" :pwr/standing :institutional :pwr/scale :local :pwr/sector :san :pwr/locality "jp.nagasaki.nagasaki-shi" :pwr/collective-kind :org :pwr/sourcing :representative}
+
+ ;; ───────────── granularity wave 3 ties ─────────────
+ ;; 豊田市: 本社↔市役所↔商工会議所↔市議会 — the 企業城下町 municipal weave (産官民)
+ {:tie/id "tie.toyota-shi.hq.employs" :tie/kind :employs :tie/from "org.corp.jp.toyota-hq" :tie/to "org.gov.jp.toyota-shi" :tie/grasping-load 0.88 :tie/sources ["トヨタ 有価証券報告書 本社所在地" "豊田市 統計書 製造業従業者・税収"] :tie/sourcing :representative}
+ {:tie/id "tie.toyota-shi.hq.funds" :tie/kind :funds :tie/from "org.corp.jp.toyota-hq" :tie/to "org.gov.jp.toyota-shi" :tie/grasping-load 0.66 :tie/sources ["豊田市 歳入 法人市民税 (公開)" "豊田市 財政状況資料集 (公開)"] :tie/sourcing :representative}
+ {:tie/id "tie.toyota-shi.hq.seats" :tie/kind :seats-on :tie/from "org.corp.jp.toyota-hq" :tie/to "seat.gov.jp.toyota-shi.council" :tie/grasping-load 0.50 :tie/sources ["豊田市 各種審議会 委員名簿 (公開)" "豊田市 公開資料"] :tie/sourcing :representative}
+ {:tie/id "tie.toyota-shi.cci.hq" :tie/kind :co-member :tie/from "org.cci.jp.toyota" :tie/to "org.corp.jp.toyota-hq" :tie/grasping-load 0.60 :tie/sources ["豊田商工会議所 会員・役員名簿 (公開)" "豊田商工会議所 公開情報"] :tie/sourcing :representative}
+ {:tie/id "tie.toyota-shi.cci.city" :tie/kind :co-member :tie/from "org.cci.jp.toyota" :tie/to "org.gov.jp.toyota-shi" :tie/grasping-load 0.46 :tie/sources ["豊田市 産業政策 公開資料" "豊田商工会議所 公開情報"] :tie/sourcing :representative}
+ {:tie/id "tie.toyota-shi.council.city" :tie/kind :co-member :tie/from "seat.gov.jp.toyota-shi.council" :tie/to "org.gov.jp.toyota-shi" :tie/grasping-load 0.44 :tie/sources ["豊田市議会 会議録 (公開)" "豊田市 例規集 (公開)"] :tie/sourcing :representative}
+ ;; 企業単位: 事業部↔本社, 労連↔本社 (労使)
+ {:tie/id "tie.toyota-unit.div.hq" :tie/kind :co-member :tie/from "seat.corp.jp.toyota.division" :tie/to "org.corp.jp.toyota-hq" :tie/grasping-load 0.58 :tie/sources ["トヨタ 役員・組織 公表情報" "トヨタ コーポレートガバナンス報告書 (公開)"] :tie/sourcing :representative}
+ {:tie/id "tie.toyota-unit.roren.hq" :tie/kind :co-member :tie/from "org.union.jp.toyota-roren" :tie/to "org.corp.jp.toyota-hq" :tie/grasping-load 0.50 :tie/sources ["全トヨタ労連 公開情報" "トヨタ 労使協議 公表情報"] :tie/sourcing :representative}
+ ;; 長崎市: 市役所↔商工会議所↔地元企業 (産官民)
+ {:tie/id "tie.nagasaki-shi.cci.city" :tie/kind :co-member :tie/from "org.cci.jp.nagasaki" :tie/to "org.gov.jp.nagasaki-shi" :tie/grasping-load 0.44 :tie/sources ["長崎市 産業政策 公開資料" "長崎商工会議所 公開情報"] :tie/sourcing :representative}
+ {:tie/id "tie.nagasaki-shi.cci.local" :tie/kind :co-member :tie/from "org.cci.jp.nagasaki" :tie/to "org.corp.jp.nagasaki-local" :tie/grasping-load 0.40 :tie/sources ["長崎商工会議所 会員名簿 (公開)" "長崎商工会議所 公開情報"] :tie/sourcing :representative}
+ {:tie/id "tie.nagasaki-shi.city.local" :tie/kind :awards :tie/from "org.gov.jp.nagasaki-shi" :tie/to "org.corp.jp.nagasaki-local" :tie/grasping-load 0.38 :tie/sources ["長崎市 入札・契約情報 (公開)" "長崎市 公開資料"] :tie/sourcing :representative}]

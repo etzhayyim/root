@@ -62,8 +62,9 @@
   :db/doc "S2 person-exclusion gate; CLOSED"
   :db/allowed [:institutional :public-seat]}
  {:db/ident :pwr/scale
-  :db/doc "the SCALE at which this entity holds power; CLOSED"
-  :db/allowed [:global :supranational :national :regional :local :intra-org]}
+  :db/doc "the SCALE at which this entity holds power; CLOSED. :regional = 広域自治体 (都道府県);
+           :municipal = 基礎自治体 (市区町村); :local = site/neighborhood; :intra-org = within one org."
+  :db/allowed [:global :supranational :national :regional :municipal :local :intra-org]}
  {:db/ident :pwr/sector
   :db/doc "産官学報民金 sector; CLOSED. 産=industry 官=gov 学=academia 報=press 民=civil 金=finance"
   :db/allowed [:san :kan :gaku :hou :min :kin]}
@@ -73,8 +74,9 @@
            axis the founder asked to detail. Optional; CLOSED. 学閥/社内派閥 are still
            seat/institution-level (S2): a 学閥 is a cross-institution CLIQUE of public SEATS,
            a 社内派閥 is a faction of public SEATS under one org — never a roster of persons."
-  :db/allowed [:org              ;; 組織 — a single institution/法人
-               :region           ;; 地域 — a geographic locality cluster
+  :db/allowed [:org              ;; 組織/企業単位 — a single institution/法人 (incl. enterprise-unit)
+               :region           ;; 地域 — a 広域自治体 (都道府県) cluster
+               :municipality      ;; 市区町村/基礎自治体 — a city/ward/town/village unit
                :community         ;; コミュニティ — a local cooperative / civic community
                :intra-org-faction ;; 社内派閥 — a faction of seats inside ONE org
                :academic-clique   ;; 学閥 — a cross-institution academic clique (seats)

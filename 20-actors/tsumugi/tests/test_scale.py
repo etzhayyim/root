@@ -59,6 +59,11 @@ def main():
     check("社内派閥 (intra-org-faction) granularity present", ":intra-org-faction" in cks)
     check("学閥 (academic-clique) granularity present", ":academic-clique" in cks)
     check("コミュニティ (community) granularity present", ":community" in cks)
+    check("市区町村 (municipality) granularity present", ":municipality" in cks)
+    # 市区町村 scale is one step below 県 (regional) — 豊田市/長崎市 clusters surface
+    scale_names = {s["scale"] for s in result["scales"]}
+    check("municipal scale present (市区町村)", ":municipal" in scale_names)
+    check("豊田市 (jp.aichi.toyota-shi) cluster surfaces", "jp.aichi.toyota-shi" in by_loc)
 
     # S1 — output graph carries NO per-node score, only per-locality readouts
     graph = A.render_graph_edn(result)

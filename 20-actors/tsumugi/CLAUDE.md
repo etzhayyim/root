@@ -237,12 +237,15 @@ A recurring `/loop` (every 30 min) progressively details the intel across **全�
 組織・地域・コミュニティ・社内派閥・学閥** granularities and keeps it narratable on the
 Gemma-4 Murakumo fleet. Standing structure:
 
-- **Granularity axis** `:pwr/collective-kind ∈ {:org 組織 :region 地域 :community コミュニティ
-  :intra-org-faction 社内派閥 :academic-clique 学閥 :keiretsu 系列 :advisory-body 審議会}` —
-  still seat/institution-level (S2): a 学閥 is a cross-institution CLIQUE of public SEATS, a
-  社内派閥 a faction of SEATS under one org — **never a roster of persons**. `analyze_scale.py`
-  emits a per-collective-kind aggregate (粒度 section in the report). Each wave adds more
-  `:representative` instances; wave 1 added 社内派閥 + 学閥 + community.
+- **Granularity axis** `:pwr/collective-kind ∈ {:org 組織/企業単位 :region 地域(県) :municipality
+  市区町村 :community コミュニティ :intra-org-faction 社内派閥 :academic-clique 学閥 :keiretsu 系列
+  :advisory-body 審議会}` + a `:pwr/scale` that now drops one step below 県:
+  `…:regional(都道府県) → :municipal(市区町村/基礎自治体) → :local → :intra-org`. Still
+  seat/institution-level (S2): a 学閥 is a cross-institution CLIQUE of public SEATS, a 社内派閥
+  a faction of SEATS under one org — **never a roster of persons**. `analyze_scale.py` emits a
+  per-collective-kind aggregate (粒度 section). Each `/loop` wave adds more `:representative`
+  instances: wave 1 社内派閥/学閥/community · wave 2 愛知/広島 (県) · wave 3 豊田市/長崎市
+  (市区町村) + トヨタ企業単位 (本社↔事業部↔労連). 豊田市 = flagship 企業城下町.
 - **Murakumo narration** (`cell:tsumugi.narrate`): `methods/narrate.py` (stdlib twin, urllib →
   LiteLLM `127.0.0.1:4000`, **refuses non-fleet host**, operator-gated, dry-run default) +
   `deploy/agent.py` (canonical in-WASM `kotoba_langgraph` → `KotobaLLM` → host
