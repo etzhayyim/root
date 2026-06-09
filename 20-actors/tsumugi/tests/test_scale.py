@@ -71,6 +71,12 @@ def main():
     # 全世界 coverage has begun — at least one non-JP locality present
     check("overseas (non-jp) locality present", any(not l.startswith("jp") for l in by_loc))
 
+    # cross-scale vertical integration — Toyota family (root org.corp.jp.7203) threads ≥2 scales
+    vfam = {x["root"]: x for x in result["vertical"]}
+    check("vertical integration computed", len(result["vertical"]) >= 1)
+    toyota = vfam.get("org.corp.jp.7203")
+    check("Toyota family threads ≥2 scales (国→市→社内)", toyota and toyota["scale_span"] >= 2)
+
     # S1 — output graph carries NO per-node score, only per-locality readouts
     graph = A.render_graph_edn(result)
     check("S1: no per-node score attr in output", ":pwr/power-score" not in graph

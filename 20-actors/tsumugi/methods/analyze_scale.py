@@ -222,8 +222,43 @@ def analyze(nodes, ties):
                                for ck, d in ck_agg.items()),
                               key=lambda x: (-x["load"], x["kind"]))
 
+    # cross-scale VERTICAL integration — follow :pwr/parent chains; how one org's power
+    # threads THROUGH scales (国→県→市→社内). Edge-primary load aggregated per family (S1/S3).
+    parent_of = {nid: n.get(":pwr/parent") for nid, n in nodes.items()}
+
+    def _root_of(nid):
+        cur, seen = nid, set()
+        while True:
+            p = parent_of.get(cur)
+            if not p or p in seen:
+                return cur
+            seen.add(cur)
+            if p not in nodes:   # parent referenced but not itself a node → the family root key
+                return p
+            cur = p
+
+    nload = {}
+    for t in ties:
+        gl = float(t.get(":tie/grasping-load", 0.0))
+        for x in (t.get(":tie/from"), t.get(":tie/to")):
+            if x in nodes:
+                nload[x] = nload.get(x, 0.0) + gl
+    fam = {}
+    for nid, n in nodes.items():
+        r = _root_of(nid)
+        d = fam.setdefault(r, {"scales": set(), "localities": set(), "members": 0, "load": 0.0})
+        d["scales"].add(scale_of.get(nid)); d["localities"].add(locality_of.get(nid))
+        d["members"] += 1; d["load"] += nload.get(nid, 0.0)
+    vertical = sorted(({"root": r, "label": (nodes[r].get(":pwr/label") if r in nodes else r),
+                        "scale_span": len(d["scales"]),
+                        "scales": sorted(s for s in d["scales"] if s),
+                        "locality_span": len(d["localities"]), "members": d["members"],
+                        "load": round(d["load"], 4)}
+                       for r, d in fam.items() if len(d["scales"]) >= 2),
+                      key=lambda x: (-x["scale_span"], -x["locality_span"], -x["load"], x["root"]))
+
     return {"localities": localities, "scales": scales, "brokers": brokers,
-            "collective_kinds": collective_kinds,
+            "collective_kinds": collective_kinds, "vertical": vertical,
             "node_count": len(nodes), "tie_count": len(ties)}
 
 
@@ -252,6 +287,13 @@ def render_report(result):
               "| collective-kind | nodes | incident load |", "|---|---|---|"]
         for x in result["collective_kinds"]:
             L.append(f"| {x['ja']} (`{x['kind']}`) | {x['node_count']} | {x['load']} |")
+    if result.get("vertical"):
+        L += ["", "## Vertically-integrated organizations (跨-scale 縦の集中 — :pwr/parent chains)", "",
+              "| organization (root) | scale span | scales | localities | incident load |",
+              "|---|---|---|---|---|"]
+        for x in result["vertical"][:10]:
+            L.append(f"| {x['label']} | **{x['scale_span']}** | {' '.join(x['scales'])} | "
+                     f"{x['locality_span']} | {x['load']} |")
     L += ["", "## Cross-sector brokers (seat/org, never a person)", "",
           "| id | sector | bridges to | span | cross-load |", "|---|---|---|---|---|"]
     for x in result["brokers"][:10]:
