@@ -1576,6 +1576,33 @@ PLATFORM_OVERRIDES = {
         "DatasetPart": E(id="string", name="string", sizeBytes="integer", numRows="integer"),
         "Model": E(name="string", isDeprecated="boolean", contextLength="integer", finetuned="boolean"),
     },
+    # Faithful SonarQube Web API model — verified against official SonarSource docs.
+    "sonarqube": {
+        "Issue": E(key="string", severity="string", status="string", type="string", resolution="string", component="string", line="integer", message="string"),
+        "Hotspot": E(key="string", status="string", message="string", component="string"),
+        "QualityGate": E(status="string", ignoredConditions="boolean"),
+        "Condition": E(status="string", metricKey="string", comparator="string", errorThreshold="string", actualValue="string"),
+        "Measure": E(metric="string", value="string", bestValue="boolean"),
+    },
+    # Faithful Terraform Cloud / HCP Terraform API model — verified against the
+    # official HashiCorp Cloud API docs. JSON:API attributes flattened.
+    "terraform": {
+        "Run": E(id="string", type="string", status="string", message="string", source="string", triggerReason="string", hasChanges="boolean", autoApply="boolean", isDestroy="boolean", planOnly="boolean", createdAt="datetime", canceledAt="datetime"),
+        "Plan": E(id="string", type="string", status="string", hasChanges="boolean", resourceAdditions="integer", resourceChanges="integer", resourceDestructions="integer"),
+        "Apply": E(id="string", type="string", status="string", resourceAdditions="integer", resourceChanges="integer", resourceDestructions="integer"),
+        "Workspace": E(id="string", name="string", type="string", description="string", executionMode="string", locked="boolean", resourceCount="integer", autoApply="boolean", terraformVersion="string", createdAt="datetime", updatedAt="datetime"),
+        "StateVersion": E(id="string", status="string", serial="integer", terraformVersion="string", resourcesProcessed="boolean", createdAt="datetime"),
+        "ConfigurationVersion": E(id="string", type="string", status="string", source="string", speculative="boolean", provisional="boolean", autoQueueRuns="boolean"),
+    },
+    # Faithful Jenkins Remote Access API model — verified against the official
+    # Jenkins core source (@Exported fields + Result/BallColor enums).
+    "jenkins": {
+        "Build": E(number="integer", result="string", building="boolean", duration="integer", timestamp="integer", displayName="string", description="string", id="string", queueId="integer"),
+        "Job": E(name="string", displayName="string", description="string", color="string", nextBuildNumber="integer", url="string"),
+        "QueueItem": E(id="integer", inQueueSince="integer", why="string", blocked="boolean", buildable="boolean", stuck="boolean"),
+        "Computer": E(displayName="string", name="string", url="string", offline="boolean", offlineCauseReason="string", numExecutors="integer"),
+        "View": E(name="string", url="string", description="string"),
+    },
     # Faithful Ramp model — verified against the official Ramp Developer API OpenAPI
     # (docs.ramp.com/openapi/developer-api.json). snake_case->camelCase.
     "ramp": {

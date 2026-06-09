@@ -3,72 +3,89 @@
 
 namespace terraform {
 
-    entity Service {
+    entity Run {
         id: string @unique
-        name: string
-        runtime: string
-        region: string
+        id: string
+        type: string
         status: string
+        message: string
+        source: string
+        triggerReason: string
+        hasChanges: boolean
+        autoApply: boolean
+        isDestroy: boolean
+        planOnly: boolean
+        createdAt: datetime
+        canceledAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Deployment {
+    entity Plan {
         id: string @unique
-        serviceId: string
-        version: string
+        id: string
+        type: string
         status: string
-        deployedAt: datetime
+        hasChanges: boolean
+        resourceAdditions: integer
+        resourceChanges: integer
+        resourceDestructions: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Secret {
+    entity Apply {
         id: string @unique
-        name: string
-        scope: string
-        rotatedAt: datetime
+        id: string
+        type: string
+        status: string
+        resourceAdditions: integer
+        resourceChanges: integer
+        resourceDestructions: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity ApiProxy {
+    entity Workspace {
         id: string @unique
+        id: string
         name: string
-        basePath: string
-        target: string
-        active: boolean
+        type: string
+        description: string
+        executionMode: string
+        locked: boolean
+        resourceCount: integer
+        autoApply: boolean
+        terraformVersion: string
+        createdAt: datetime
+        updatedAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Database {
+    entity StateVersion {
         id: string @unique
-        name: string
-        engine: string
-        region: string
-        sizeGb: integer
+        id: string
+        status: string
+        serial: integer
+        terraformVersion: string
+        resourcesProcessed: boolean
+        createdAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Function {
+    entity ConfigurationVersion {
         id: string @unique
-        serviceId: string
-        name: string
-        memoryMb: integer
-        timeoutMs: integer
+        id: string
+        type: string
+        status: string
+        source: string
+        speculative: boolean
+        provisional: boolean
+        autoQueueRuns: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

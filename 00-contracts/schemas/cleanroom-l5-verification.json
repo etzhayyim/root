@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 87,
+  "count": 90,
   "actors": [
     {
       "handle": "square-compat",
@@ -12370,6 +12370,421 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (5/5) vs official AfterShip Node SDK. Enforced enums: Tracking.tag(9), Tracking.deliveryType(3), Checkpoint.tag(9) = 3 enums."
+    },
+    {
+      "handle": "sonarqube-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://docs.sonarsource.com / next.sonarqube.com/sonarqube/web_api",
+      "remodeled": "Remodeled from generic devtools_saas to a faithful SonarQube Web API model, verified against official SonarSource docs. Issue.status left a gap (only OPEN/CLOSED seen — the full OPEN/CONFIRMED/REOPENED/RESOLVED/CLOSED set not exhaustively confirmed).",
+      "resources": [
+        {
+          "entity": "Issue",
+          "source": "https://docs.sonarsource.com / next.sonarqube.com/sonarqube/web_api",
+          "verifiedFields": [
+            "key",
+            "severity",
+            "status",
+            "type",
+            "resolution",
+            "component",
+            "line",
+            "message"
+          ],
+          "fieldStatus": "confirmed; status enum incomplete (only OPEN/CLOSED seen) -> not enforced",
+          "discoveredEnums": {
+            "severity": [
+              "BLOCKER",
+              "CRITICAL",
+              "MAJOR",
+              "MINOR",
+              "INFO"
+            ],
+            "type": [
+              "BUG",
+              "VULNERABILITY",
+              "CODE_SMELL"
+            ],
+            "resolution": [
+              "FIXED",
+              "REMOVED",
+              "FALSE_POSITIVE",
+              "WONTFIX"
+            ]
+          },
+          "gaps": [
+            "status-enum-incomplete"
+          ]
+        },
+        {
+          "entity": "Hotspot",
+          "source": "https://docs.sonarsource.com / next.sonarqube.com/sonarqube/web_api",
+          "verifiedFields": [
+            "key",
+            "status",
+            "message",
+            "component"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "TO_REVIEW",
+              "FIXED",
+              "SAFE"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "QualityGate",
+          "source": "https://docs.sonarsource.com / next.sonarqube.com/sonarqube/web_api",
+          "verifiedFields": [
+            "status",
+            "ignoredConditions"
+          ],
+          "fieldStatus": "confirmed; gate status enum not exhaustively seen -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "gate-status-enum"
+          ]
+        },
+        {
+          "entity": "Condition",
+          "source": "https://docs.sonarsource.com / next.sonarqube.com/sonarqube/web_api",
+          "verifiedFields": [
+            "status",
+            "metricKey",
+            "comparator",
+            "errorThreshold",
+            "actualValue"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "OK",
+              "ERROR"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Measure",
+          "source": "https://docs.sonarsource.com / next.sonarqube.com/sonarqube/web_api",
+          "verifiedFields": [
+            "metric",
+            "value",
+            "bestValue"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5 schemas) vs official SonarSource docs. Enforced enums: Issue.severity(5)/type(3)/resolution(4), Hotspot.status(3), Condition.status(2) = 5 enums. Issue.status left a gap (only OPEN/CLOSED seen) — honesty over coverage."
+    },
+    {
+      "handle": "terraform-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://developer.hashicorp.com/terraform/cloud-docs/api-docs",
+      "remodeled": "Remodeled from generic devtools_saas to a faithful HCP Terraform (Terraform Cloud) API model, verified against the official HashiCorp Cloud API docs. JSON:API attributes flattened to top-level fields.",
+      "resources": [
+        {
+          "entity": "Run",
+          "source": "https://developer.hashicorp.com/terraform/cloud-docs/api-docs/run",
+          "verifiedFields": [
+            "id",
+            "type",
+            "status",
+            "message",
+            "source",
+            "triggerReason",
+            "hasChanges",
+            "autoApply",
+            "isDestroy",
+            "planOnly",
+            "createdAt",
+            "canceledAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "pending",
+              "fetching",
+              "fetching_completed",
+              "pre_plan_running",
+              "pre_plan_completed",
+              "queuing",
+              "plan_queued",
+              "planning",
+              "planned",
+              "cost_estimating",
+              "cost_estimated",
+              "policy_checking",
+              "policy_override",
+              "policy_soft_failed",
+              "policy_checked",
+              "confirmed",
+              "post_plan_running",
+              "post_plan_completed",
+              "planned_and_finished",
+              "planned_and_saved",
+              "apply_queued",
+              "applying",
+              "applied",
+              "discarded",
+              "errored",
+              "canceled",
+              "force_canceled"
+            ]
+          },
+          "gaps": [
+            "statusTimestamps(object)"
+          ]
+        },
+        {
+          "entity": "Plan",
+          "source": "https://developer.hashicorp.com/terraform/cloud-docs/api-docs/plans",
+          "verifiedFields": [
+            "id",
+            "type",
+            "status",
+            "hasChanges",
+            "resourceAdditions",
+            "resourceChanges",
+            "resourceDestructions"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "pending",
+              "managed_queued",
+              "running",
+              "errored",
+              "canceled",
+              "finished",
+              "unreachable"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Apply",
+          "source": "https://developer.hashicorp.com/terraform/cloud-docs/api-docs/applies",
+          "verifiedFields": [
+            "id",
+            "type",
+            "status",
+            "resourceAdditions",
+            "resourceChanges",
+            "resourceDestructions"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "pending",
+              "managed_queued",
+              "running",
+              "errored",
+              "canceled",
+              "finished",
+              "unreachable"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Workspace",
+          "source": "https://developer.hashicorp.com/terraform/cloud-docs/api-docs/workspaces",
+          "verifiedFields": [
+            "id",
+            "name",
+            "type",
+            "description",
+            "executionMode",
+            "locked",
+            "resourceCount",
+            "autoApply",
+            "terraformVersion",
+            "createdAt",
+            "updatedAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "executionMode": [
+              "remote",
+              "local",
+              "agent"
+            ]
+          },
+          "gaps": [
+            "vcsRepo(object)"
+          ]
+        },
+        {
+          "entity": "StateVersion",
+          "source": "https://developer.hashicorp.com/terraform/cloud-docs/api-docs/state-versions",
+          "verifiedFields": [
+            "id",
+            "status",
+            "serial",
+            "terraformVersion",
+            "resourcesProcessed",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "pending",
+              "finalized",
+              "discarded"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "ConfigurationVersion",
+          "source": "https://developer.hashicorp.com/terraform/cloud-docs/api-docs/configuration-versions",
+          "verifiedFields": [
+            "id",
+            "type",
+            "status",
+            "source",
+            "speculative",
+            "provisional",
+            "autoQueueRuns"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "pending",
+              "fetching",
+              "uploaded",
+              "archived",
+              "errored",
+              "backing_data_soft_deleted",
+              "backing_data_permanently_deleted"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official HCP Terraform API docs. Enforced enums: Run.status(27), Plan.status(7), Apply.status(7), Workspace.executionMode(3), StateVersion.status(3), ConfigurationVersion.status(7) = 6 enums (54 values)."
+    },
+    {
+      "handle": "jenkins-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/jenkinsci/jenkins",
+      "remodeled": "Remodeled from generic devtools_saas to a faithful Jenkins Remote Access API model, verified against the official Jenkins core source (@Exported fields + Result/BallColor enums).",
+      "resources": [
+        {
+          "entity": "Build",
+          "source": "https://github.com/jenkinsci/jenkins/blob/master/core/src/main/java/hudson/model/Run.java",
+          "verifiedFields": [
+            "number",
+            "result",
+            "building",
+            "duration",
+            "timestamp",
+            "displayName",
+            "description",
+            "id",
+            "queueId"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "result": [
+              "SUCCESS",
+              "UNSTABLE",
+              "FAILURE",
+              "NOT_BUILT",
+              "ABORTED"
+            ]
+          },
+          "gaps": [
+            "actions(array)"
+          ]
+        },
+        {
+          "entity": "Job",
+          "source": "https://github.com/jenkinsci/jenkins/blob/master/core/src/main/java/hudson/model/Job.java",
+          "verifiedFields": [
+            "name",
+            "displayName",
+            "description",
+            "color",
+            "nextBuildNumber",
+            "url"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "color": [
+              "red",
+              "red_anime",
+              "yellow",
+              "yellow_anime",
+              "blue",
+              "blue_anime",
+              "grey",
+              "grey_anime",
+              "disabled",
+              "disabled_anime",
+              "aborted",
+              "aborted_anime",
+              "notbuilt",
+              "notbuilt_anime"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "QueueItem",
+          "source": "https://github.com/jenkinsci/jenkins/blob/master/core/src/main/java/hudson/model/Queue.java",
+          "verifiedFields": [
+            "id",
+            "inQueueSince",
+            "why",
+            "blocked",
+            "buildable",
+            "stuck"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Computer",
+          "source": "https://github.com/jenkinsci/jenkins/blob/master/core/src/main/java/hudson/model/Computer.java",
+          "verifiedFields": [
+            "displayName",
+            "name",
+            "url",
+            "offline",
+            "offlineCauseReason",
+            "numExecutors"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "View",
+          "source": "https://github.com/jenkinsci/jenkins/blob/master/core/src/main/java/hudson/model/View.java",
+          "verifiedFields": [
+            "name",
+            "url",
+            "description"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs official Jenkins core source. Enforced enums: Build.result(5), Job.color(14) = 2 enums."
     }
   ]
 }

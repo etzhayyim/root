@@ -7,7 +7,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 29915,
+  "totalTools": 29905,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -4314,10 +4314,10 @@
     {
       "handle": "jenkins-compat",
       "did": "did:web:etzhayyim.com:actor:jenkins-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreihsr7rh6dhnzoqjeg2otmufqrgh57c4tbzxafsrpzbmwlxm433fz4",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreig42y3biwtawqubltmsra2mykfehix44eppjx7lp3nu2rqwmhiu3a",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "manifest": "20-actors/jenkins-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -7491,10 +7491,10 @@
     {
       "handle": "sonarqube-compat",
       "did": "did:web:etzhayyim.com:actor:sonarqube-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreigexy34jsdlw5t33b64q6tamte72whh5fzipkemgoncxg46vyzfhq",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreibnpp5tehuioav7goyq2lgwyapuxapvjvujylh2j36n6e74he4qrq",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "manifest": "20-actors/sonarqube-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -7851,7 +7851,7 @@
     {
       "handle": "terraform-compat",
       "did": "did:web:etzhayyim.com:actor:terraform-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreia6faidx5a6gcbkdpgqjohlvspc3ewdqnyj6pavflj7lmapn6ugfa",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,

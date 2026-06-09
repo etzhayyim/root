@@ -8131,17 +8131,16 @@
       "handle": "jenkins-compat",
       "platform": "jenkins",
       "bytes": 2121,
-      "wasmCid": "bafkreihsr7rh6dhnzoqjeg2otmufqrgh57c4tbzxafsrpzbmwlxm433fz4",
+      "wasmCid": "bafkreig42y3biwtawqubltmsra2mykfehix44eppjx7lp3nu2rqwmhiu3a",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Repository",
-        "Pipeline",
         "Build",
-        "Artifact",
-        "Deployment",
-        "Webhook"
+        "Job",
+        "QueueItem",
+        "Computer",
+        "View"
       ]
     },
     {
@@ -14130,17 +14129,16 @@
       "handle": "sonarqube-compat",
       "platform": "sonarqube",
       "bytes": 2123,
-      "wasmCid": "bafkreigexy34jsdlw5t33b64q6tamte72whh5fzipkemgoncxg46vyzfhq",
+      "wasmCid": "bafkreibnpp5tehuioav7goyq2lgwyapuxapvjvujylh2j36n6e74he4qrq",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Service",
-        "Error",
-        "Trace",
-        "Metric",
-        "Alert",
-        "Incident"
+        "Issue",
+        "Hotspot",
+        "QualityGate",
+        "Condition",
+        "Measure"
       ]
     },
     {
@@ -14817,12 +14815,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Service",
-        "Deployment",
-        "Secret",
-        "ApiProxy",
-        "Database",
-        "Function"
+        "Run",
+        "Plan",
+        "Apply",
+        "Workspace",
+        "StateVersion",
+        "ConfigurationVersion"
       ]
     },
     {

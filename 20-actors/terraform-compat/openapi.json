@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreia6faidx5a6gcbkdpgqjohlvspc3ewdqnyj6pavflj7lmapn6ugfa",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,9 +17,9 @@
     }
   ],
   "paths": {
-    "/v1/services": {
+    "/v1/runs": {
       "get": {
-        "summary": "List Services",
+        "summary": "List Runs",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Service"
+                        "$ref": "#/components/schemas/Run"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Service",
+        "summary": "Create a Run",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ServiceCreate"
+                "$ref": "#/components/schemas/RunCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Service"
+                  "$ref": "#/components/schemas/Run"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/services/{id}": {
+    "/v1/runs/{id}": {
       "get": {
-        "summary": "Get a Service",
+        "summary": "Get a Run",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Service"
+                  "$ref": "#/components/schemas/Run"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Service",
+        "summary": "Update a Run",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ServiceCreate"
+                "$ref": "#/components/schemas/RunCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Service"
+                  "$ref": "#/components/schemas/Run"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Service",
+        "summary": "Delete a Run",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/deployments": {
+    "/v1/plans": {
       "get": {
-        "summary": "List Deployments",
+        "summary": "List Plans",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Deployment"
+                        "$ref": "#/components/schemas/Plan"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Deployment",
+        "summary": "Create a Plan",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DeploymentCreate"
+                "$ref": "#/components/schemas/PlanCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Deployment"
+                  "$ref": "#/components/schemas/Plan"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/deployments/{id}": {
+    "/v1/plans/{id}": {
       "get": {
-        "summary": "Get a Deployment",
+        "summary": "Get a Plan",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Deployment"
+                  "$ref": "#/components/schemas/Plan"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Deployment",
+        "summary": "Update a Plan",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DeploymentCreate"
+                "$ref": "#/components/schemas/PlanCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Deployment"
+                  "$ref": "#/components/schemas/Plan"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Deployment",
+        "summary": "Delete a Plan",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/secrets": {
+    "/v1/applies": {
       "get": {
-        "summary": "List Secrets",
+        "summary": "List Applies",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Secret"
+                        "$ref": "#/components/schemas/Apply"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Secret",
+        "summary": "Create a Apply",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SecretCreate"
+                "$ref": "#/components/schemas/ApplyCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Secret"
+                  "$ref": "#/components/schemas/Apply"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/secrets/{id}": {
+    "/v1/applies/{id}": {
       "get": {
-        "summary": "Get a Secret",
+        "summary": "Get a Apply",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Secret"
+                  "$ref": "#/components/schemas/Apply"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Secret",
+        "summary": "Update a Apply",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SecretCreate"
+                "$ref": "#/components/schemas/ApplyCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Secret"
+                  "$ref": "#/components/schemas/Apply"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Secret",
+        "summary": "Delete a Apply",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/apiproxies": {
+    "/v1/workspaces": {
       "get": {
-        "summary": "List ApiProxies",
+        "summary": "List Workspaces",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ApiProxy"
+                        "$ref": "#/components/schemas/Workspace"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a ApiProxy",
+        "summary": "Create a Workspace",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ApiProxyCreate"
+                "$ref": "#/components/schemas/WorkspaceCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiProxy"
+                  "$ref": "#/components/schemas/Workspace"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/apiproxies/{id}": {
+    "/v1/workspaces/{id}": {
       "get": {
-        "summary": "Get a ApiProxy",
+        "summary": "Get a Workspace",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiProxy"
+                  "$ref": "#/components/schemas/Workspace"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a ApiProxy",
+        "summary": "Update a Workspace",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ApiProxyCreate"
+                "$ref": "#/components/schemas/WorkspaceCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiProxy"
+                  "$ref": "#/components/schemas/Workspace"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a ApiProxy",
+        "summary": "Delete a Workspace",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/databases": {
+    "/v1/stateversions": {
       "get": {
-        "summary": "List Databases",
+        "summary": "List StateVersions",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Database"
+                        "$ref": "#/components/schemas/StateVersion"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Database",
+        "summary": "Create a StateVersion",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DatabaseCreate"
+                "$ref": "#/components/schemas/StateVersionCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Database"
+                  "$ref": "#/components/schemas/StateVersion"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/databases/{id}": {
+    "/v1/stateversions/{id}": {
       "get": {
-        "summary": "Get a Database",
+        "summary": "Get a StateVersion",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Database"
+                  "$ref": "#/components/schemas/StateVersion"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Database",
+        "summary": "Update a StateVersion",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DatabaseCreate"
+                "$ref": "#/components/schemas/StateVersionCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Database"
+                  "$ref": "#/components/schemas/StateVersion"
                 }
               }
             }
@@ -921,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Database",
+        "summary": "Delete a StateVersion",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +942,9 @@
         }
       }
     },
-    "/v1/functions": {
+    "/v1/configurationversions": {
       "get": {
-        "summary": "List Functions",
+        "summary": "List ConfigurationVersions",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +984,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Function"
+                        "$ref": "#/components/schemas/ConfigurationVersion"
                       }
                     },
                     "has_more": {
@@ -1004,13 +1004,13 @@
         }
       },
       "post": {
-        "summary": "Create a Function",
+        "summary": "Create a ConfigurationVersion",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FunctionCreate"
+                "$ref": "#/components/schemas/ConfigurationVersionCreate"
               }
             }
           }
@@ -1021,7 +1021,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Function"
+                  "$ref": "#/components/schemas/ConfigurationVersion"
                 }
               }
             }
@@ -1032,9 +1032,9 @@
         }
       }
     },
-    "/v1/functions/{id}": {
+    "/v1/configurationversions/{id}": {
       "get": {
-        "summary": "Get a Function",
+        "summary": "Get a ConfigurationVersion",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +1058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Function"
+                  "$ref": "#/components/schemas/ConfigurationVersion"
                 }
               }
             }
@@ -1069,7 +1069,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Function",
+        "summary": "Update a ConfigurationVersion",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +1084,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FunctionCreate"
+                "$ref": "#/components/schemas/ConfigurationVersionCreate"
               }
             }
           }
@@ -1095,7 +1095,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Function"
+                  "$ref": "#/components/schemas/ConfigurationVersion"
                 }
               }
             }
@@ -1106,7 +1106,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Function",
+        "summary": "Delete a ConfigurationVersion",
         "parameters": [
           {
             "name": "id",
@@ -1140,25 +1140,73 @@
   },
   "components": {
     "schemas": {
-      "Service": {
+      "Run": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
-            "type": "string"
-          },
-          "runtime": {
-            "type": "string"
-          },
-          "region": {
+          "type": {
             "type": "string"
           },
           "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "fetching",
+              "fetching_completed",
+              "pre_plan_running",
+              "pre_plan_completed",
+              "queuing",
+              "plan_queued",
+              "planning",
+              "planned",
+              "cost_estimating",
+              "cost_estimated",
+              "policy_checking",
+              "policy_override",
+              "policy_soft_failed",
+              "policy_checked",
+              "confirmed",
+              "post_plan_running",
+              "post_plan_completed",
+              "planned_and_finished",
+              "planned_and_saved",
+              "apply_queued",
+              "applying",
+              "applied",
+              "discarded",
+              "errored",
+              "canceled",
+              "force_canceled"
+            ]
+          },
+          "message": {
             "type": "string"
           },
+          "source": {
+            "type": "string"
+          },
+          "triggerReason": {
+            "type": "string"
+          },
+          "hasChanges": {
+            "type": "boolean"
+          },
+          "autoApply": {
+            "type": "boolean"
+          },
+          "isDestroy": {
+            "type": "boolean"
+          },
+          "planOnly": {
+            "type": "boolean"
+          },
           "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "canceledAt": {
             "type": "string",
             "format": "date-time"
           },
@@ -1168,45 +1216,112 @@
           }
         }
       },
-      "ServiceCreate": {
+      "RunCreate": {
         "type": "object",
         "properties": {
-          "name": {
+          "id": {
             "type": "string"
           },
-          "runtime": {
-            "type": "string"
-          },
-          "region": {
+          "type": {
             "type": "string"
           },
           "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "fetching",
+              "fetching_completed",
+              "pre_plan_running",
+              "pre_plan_completed",
+              "queuing",
+              "plan_queued",
+              "planning",
+              "planned",
+              "cost_estimating",
+              "cost_estimated",
+              "policy_checking",
+              "policy_override",
+              "policy_soft_failed",
+              "policy_checked",
+              "confirmed",
+              "post_plan_running",
+              "post_plan_completed",
+              "planned_and_finished",
+              "planned_and_saved",
+              "apply_queued",
+              "applying",
+              "applied",
+              "discarded",
+              "errored",
+              "canceled",
+              "force_canceled"
+            ]
+          },
+          "message": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "triggerReason": {
+            "type": "string"
+          },
+          "hasChanges": {
+            "type": "boolean"
+          },
+          "autoApply": {
+            "type": "boolean"
+          },
+          "isDestroy": {
+            "type": "boolean"
+          },
+          "planOnly": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "canceledAt": {
             "type": "string"
           }
         },
         "required": [
-          "name",
-          "runtime"
+          "id",
+          "type"
         ]
       },
-      "Deployment": {
+      "Plan": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "serviceId": {
-            "type": "string"
-          },
-          "version": {
+          "type": {
             "type": "string"
           },
           "status": {
-            "type": "string"
-          },
-          "deployedAt": {
             "type": "string",
-            "format": "date-time"
+            "enum": [
+              "pending",
+              "managed_queued",
+              "running",
+              "errored",
+              "canceled",
+              "finished",
+              "unreachable"
+            ]
+          },
+          "hasChanges": {
+            "type": "boolean"
+          },
+          "resourceAdditions": {
+            "type": "integer"
+          },
+          "resourceChanges": {
+            "type": "integer"
+          },
+          "resourceDestructions": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1218,87 +1333,309 @@
           }
         }
       },
-      "DeploymentCreate": {
+      "PlanCreate": {
         "type": "object",
         "properties": {
-          "serviceId": {
+          "id": {
             "type": "string"
           },
-          "version": {
+          "type": {
             "type": "string"
           },
           "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "managed_queued",
+              "running",
+              "errored",
+              "canceled",
+              "finished",
+              "unreachable"
+            ]
+          },
+          "hasChanges": {
+            "type": "boolean"
+          },
+          "resourceAdditions": {
+            "type": "integer"
+          },
+          "resourceChanges": {
+            "type": "integer"
+          },
+          "resourceDestructions": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "type"
+        ]
+      },
+      "Apply": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "string"
           },
-          "deployedAt": {
+          "type": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "managed_queued",
+              "running",
+              "errored",
+              "canceled",
+              "finished",
+              "unreachable"
+            ]
+          },
+          "resourceAdditions": {
+            "type": "integer"
+          },
+          "resourceChanges": {
+            "type": "integer"
+          },
+          "resourceDestructions": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ApplyCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "managed_queued",
+              "running",
+              "errored",
+              "canceled",
+              "finished",
+              "unreachable"
+            ]
+          },
+          "resourceAdditions": {
+            "type": "integer"
+          },
+          "resourceChanges": {
+            "type": "integer"
+          },
+          "resourceDestructions": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "type"
+        ]
+      },
+      "Workspace": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "executionMode": {
+            "type": "string",
+            "enum": [
+              "remote",
+              "local",
+              "agent"
+            ]
+          },
+          "locked": {
+            "type": "boolean"
+          },
+          "resourceCount": {
+            "type": "integer"
+          },
+          "autoApply": {
+            "type": "boolean"
+          },
+          "terraformVersion": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "WorkspaceCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "executionMode": {
+            "type": "string",
+            "enum": [
+              "remote",
+              "local",
+              "agent"
+            ]
+          },
+          "locked": {
+            "type": "boolean"
+          },
+          "resourceCount": {
+            "type": "integer"
+          },
+          "autoApply": {
+            "type": "boolean"
+          },
+          "terraformVersion": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
             "type": "string"
           }
         },
         "required": [
-          "version",
+          "id",
+          "name"
+        ]
+      },
+      "StateVersion": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "finalized",
+              "discarded"
+            ]
+          },
+          "serial": {
+            "type": "integer"
+          },
+          "terraformVersion": {
+            "type": "string"
+          },
+          "resourcesProcessed": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "StateVersionCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "finalized",
+              "discarded"
+            ]
+          },
+          "serial": {
+            "type": "integer"
+          },
+          "terraformVersion": {
+            "type": "string"
+          },
+          "resourcesProcessed": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
           "status"
         ]
       },
-      "Secret": {
+      "ConfigurationVersion": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
+          "type": {
             "type": "string"
           },
-          "scope": {
-            "type": "string"
-          },
-          "rotatedAt": {
+          "status": {
             "type": "string",
-            "format": "date-time"
+            "enum": [
+              "pending",
+              "fetching",
+              "uploaded",
+              "archived",
+              "errored",
+              "backing_data_soft_deleted",
+              "backing_data_permanently_deleted"
+            ]
           },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "SecretCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
+          "source": {
             "type": "string"
           },
-          "scope": {
-            "type": "string"
+          "speculative": {
+            "type": "boolean"
           },
-          "rotatedAt": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "scope"
-        ]
-      },
-      "ApiProxy": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
+          "provisional": {
+            "type": "boolean"
           },
-          "name": {
-            "type": "string"
-          },
-          "basePath": {
-            "type": "string"
-          },
-          "target": {
-            "type": "string"
-          },
-          "active": {
+          "autoQueueRuns": {
             "type": "boolean"
           },
           "createdAt": {
@@ -1311,123 +1648,43 @@
           }
         }
       },
-      "ApiProxyCreate": {
+      "ConfigurationVersionCreate": {
         "type": "object",
         "properties": {
-          "name": {
+          "id": {
             "type": "string"
           },
-          "basePath": {
+          "type": {
             "type": "string"
           },
-          "target": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "fetching",
+              "uploaded",
+              "archived",
+              "errored",
+              "backing_data_soft_deleted",
+              "backing_data_permanently_deleted"
+            ]
+          },
+          "source": {
             "type": "string"
           },
-          "active": {
+          "speculative": {
+            "type": "boolean"
+          },
+          "provisional": {
+            "type": "boolean"
+          },
+          "autoQueueRuns": {
             "type": "boolean"
           }
         },
         "required": [
-          "name",
-          "basePath"
-        ]
-      },
-      "Database": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "engine": {
-            "type": "string"
-          },
-          "region": {
-            "type": "string"
-          },
-          "sizeGb": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "DatabaseCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "engine": {
-            "type": "string"
-          },
-          "region": {
-            "type": "string"
-          },
-          "sizeGb": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "name",
-          "engine"
-        ]
-      },
-      "Function": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "serviceId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "memoryMb": {
-            "type": "integer"
-          },
-          "timeoutMs": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "FunctionCreate": {
-        "type": "object",
-        "properties": {
-          "serviceId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "memoryMb": {
-            "type": "integer"
-          },
-          "timeoutMs": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "name",
-          "memoryMb"
+          "id",
+          "type"
         ]
       }
     }
