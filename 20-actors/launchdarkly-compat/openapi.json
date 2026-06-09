@@ -1390,7 +1390,13 @@
             "type": "string"
           },
           "role": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "reader",
+              "writer",
+              "admin",
+              "no_access"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1418,7 +1424,13 @@
             "type": "string"
           },
           "role": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "reader",
+              "writer",
+              "admin",
+              "no_access"
+            ]
           }
         },
         "required": [

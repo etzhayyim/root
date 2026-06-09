@@ -395,6 +395,8 @@ def create_member(request):
     err = _require(data, ['id', 'email'])
     if err:
         return err, 400
+    if data.get('role') and data['role'] not in ['reader', 'writer', 'admin', 'no_access']:
+        return {"error": {"message": "invalid role; allowed: " + ", ".join(['reader', 'writer', 'admin', 'no_access']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("launchda_mem")}
     rec["id"] = data.get('id')
     rec["email"] = data.get('email')
@@ -435,6 +437,8 @@ def update_member(request, eid):
     err = _reject_unknown(data, ['id', 'email', 'firstName', 'lastName', 'role'])
     if err:
         return err, 400
+    if data.get('role') and data['role'] not in ['reader', 'writer', 'admin', 'no_access']:
+        return {"error": {"message": "invalid role; allowed: " + ", ".join(['reader', 'writer', 'admin', 'no_access']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):

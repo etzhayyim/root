@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 85,
+  "count": 87,
   "actors": [
     {
       "handle": "square-compat",
@@ -8656,16 +8656,18 @@
             "soaEmail",
             "created"
           ],
-          "fieldStatus": "fields confirmed; status enum not exhaustively confirmed (edit_mode/has_errors) -> not enforced",
+          "fieldStatus": "confirmed (status enum re-fetch-confirmed exhaustive: edit_mode is a display hint, not an enum member)",
           "discoveredEnums": {
             "type": [
               "master",
               "slave"
+            ],
+            "status": [
+              "disabled",
+              "active"
             ]
           },
-          "gaps": [
-            "status-enum-not-exhaustive"
-          ]
+          "gaps": []
         },
         {
           "entity": "NodeBalancer",
@@ -8746,7 +8748,7 @@
         }
       ],
       "notApplicable": [],
-      "note": "FULLY VERIFIED (6/6) vs official Linode OpenAPI v4. Enforced enums: Instance.status(14), Volume.status/encryption, Domain.type, NodeBalancer.type, LKECluster.tier, Image.status/type = 8 enums. Domain.status left a gap (not exhaustively confirmed) — honesty over coverage."
+      "note": "FULLY VERIFIED (6/6) vs official Linode OpenAPI v4. Enforced enums: Instance.status(14), Volume.status/encryption, Domain.type, NodeBalancer.type, LKECluster.tier, Image.status/type = 8 enums. Domain.status gap CLOSED by re-fetch (official Linode OpenAPI: exactly [disabled,active]; edit_mode is a display hint). Domain.status + Domain.type now both enforced."
     },
     {
       "handle": "heroku-compat",
@@ -10255,11 +10257,16 @@
             "lastName",
             "role"
           ],
-          "fieldStatus": "fields confirmed; role enum (NewMemberForm) may omit 'owner' -> not enforced",
-          "discoveredEnums": {},
-          "gaps": [
-            "role-enum-possibly-incomplete"
-          ]
+          "fieldStatus": "confirmed (role enum re-fetch-confirmed exhaustive: owner is an account designation, NOT a Member.role value)",
+          "discoveredEnums": {
+            "role": [
+              "reader",
+              "writer",
+              "admin",
+              "no_access"
+            ]
+          },
+          "gaps": []
         },
         {
           "entity": "Webhook",
@@ -10278,7 +10285,7 @@
         }
       ],
       "notApplicable": [],
-      "note": "FULLY VERIFIED (6/6 schemas) vs official ld-openapi. Enforced enum: FeatureFlag.kind(2). Member.role left a gap (fetched set may omit 'owner' — honesty over coverage, won't risk a false-reject)."
+      "note": "FULLY VERIFIED (6/6) vs official ld-openapi. Enforced enums: FeatureFlag.kind(2), Member.role(4) = 2 enums. Member.role gap closed by re-fetch (api-client-ruby NewMemberForm: exactly reader/writer/admin/no_access; owner is not a selectable role value)."
     },
     {
       "handle": "woocommerce-compat",
@@ -11954,6 +11961,345 @@
         }
       ],
       "note": "PARTIAL: 3/3 modeled entities FULLY verified vs official docs.cohere.com. Enforced enums: Dataset.validationStatus(6), Dataset.datasetType(12) = 2 enums (18 values). EmbedJob/FineTunedModel/Connector deferred (404). Model.endpoints array -> not enforced."
+    },
+    {
+      "handle": "ramp-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://docs.ramp.com/openapi/developer-api.json",
+      "remodeled": "Remodeled from generic fintech_web3 to a faithful Ramp Developer API model, verified against the official OpenAPI (docs.ramp.com/openapi/developer-api.json). snake_case->camelCase. Transaction.sk_category_id (43 volatile integer codes) intentionally not enforced.",
+      "resources": [
+        {
+          "entity": "Card",
+          "source": "https://docs.ramp.com/openapi/developer-api.json",
+          "verifiedFields": [
+            "id",
+            "state",
+            "lastFour",
+            "cardholderName",
+            "cardholderID",
+            "isPhysical",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "state": [
+              "ACTIVE",
+              "CHIP_LOCKED",
+              "SUSPENDED",
+              "TERMINATED",
+              "UNACTIVATED"
+            ]
+          },
+          "gaps": [
+            "spendingRestrictions(object)"
+          ]
+        },
+        {
+          "entity": "Transaction",
+          "source": "https://docs.ramp.com/openapi/developer-api.json",
+          "verifiedFields": [
+            "id",
+            "state",
+            "amount",
+            "currencyCode",
+            "cardID",
+            "merchantName",
+            "userTransactionTime",
+            "settlementDate"
+          ],
+          "fieldStatus": "confirmed; sk_category_id (43 int codes, volatile) not enforced",
+          "discoveredEnums": {
+            "state": [
+              "ALL",
+              "CLEARED",
+              "COMPLETION",
+              "DECLINED",
+              "ERROR",
+              "PENDING",
+              "PENDING_INITIATION"
+            ]
+          },
+          "gaps": [
+            "sk_category_id-volatile-int"
+          ]
+        },
+        {
+          "entity": "User",
+          "source": "https://docs.ramp.com/openapi/developer-api.json",
+          "verifiedFields": [
+            "id",
+            "email",
+            "firstName",
+            "lastName",
+            "role",
+            "status",
+            "departmentID",
+            "isManager"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "role": [
+              "AUDITOR",
+              "BUSINESS_ADMIN",
+              "BUSINESS_BOOKKEEPER",
+              "BUSINESS_OWNER",
+              "BUSINESS_USER",
+              "GUEST_USER",
+              "IT_ADMIN",
+              "UNBUNDLED_ADMIN",
+              "UNBUNDLED_BOOKKEEPER",
+              "UNBUNDLED_OWNER",
+              "UNBUNDLED_USER"
+            ],
+            "status": [
+              "INVITE_EXPIRED",
+              "INVITE_PENDING",
+              "USER_ACTIVE",
+              "USER_DRAFT",
+              "USER_INACTIVE",
+              "USER_ONBOARDING",
+              "USER_SUSPENDED"
+            ]
+          },
+          "gaps": [
+            "locationId"
+          ]
+        },
+        {
+          "entity": "Department",
+          "source": "https://docs.ramp.com/openapi/developer-api.json",
+          "verifiedFields": [
+            "id",
+            "name"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Reimbursement",
+          "source": "https://docs.ramp.com/openapi/developer-api.json",
+          "verifiedFields": [
+            "id",
+            "state",
+            "amount",
+            "currency",
+            "type",
+            "userID",
+            "direction",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "state": [
+              "APPROVED",
+              "AWAITING_EXPORT",
+              "AWAITING_PAYMENT",
+              "AWAITING_PUSH_PAYMENT",
+              "CANCELED",
+              "DELETED",
+              "DRAFT",
+              "EXPORTED",
+              "EXPORT_FAILED",
+              "EXPORT_INITIATED",
+              "EXPORT_MARKED_AS_FAILED",
+              "EXPORT_SUCCESSFUL",
+              "FAILED_REIMBURSEMENT",
+              "INIT",
+              "MANUALLY_REIMBURSED",
+              "MISSING_ACH",
+              "PENDING",
+              "PROCESSING",
+              "PUSH_PAYMENT_FAILED",
+              "PUSH_PAYMENT_INITIATED",
+              "REIMBURSED",
+              "REIMBURSED_VIA_PUSH",
+              "REJECTED"
+            ],
+            "direction": [
+              "BUSINESS_TO_USER",
+              "USER_TO_BUSINESS"
+            ],
+            "type": [
+              "MILEAGE",
+              "OUT_OF_POCKET",
+              "PAYBACK_FULL",
+              "PAYBACK_PARTIAL",
+              "PER_DIEM"
+            ]
+          },
+          "gaps": [
+            "receipts(array)"
+          ]
+        },
+        {
+          "entity": "Bill",
+          "source": "https://docs.ramp.com/openapi/developer-api.json",
+          "verifiedFields": [
+            "id",
+            "status",
+            "amount",
+            "currencyCode",
+            "invoiceNumber",
+            "statusSummary",
+            "createdAt",
+            "dueAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "OPEN",
+              "PAID"
+            ],
+            "statusSummary": [
+              "APPROVAL_PENDING",
+              "APPROVAL_REJECTED",
+              "ARCHIVED",
+              "AWAITING_RELEASE",
+              "BLOCKED",
+              "HELD_BY_PROVIDER",
+              "ON_HOLD",
+              "PAYMENT_COMPLETED",
+              "PAYMENT_DETAILS_MISSING",
+              "PAYMENT_ERROR",
+              "PAYMENT_NOT_INSTRUCTED",
+              "PAYMENT_PROCESSING",
+              "PAYMENT_READY",
+              "PAYMENT_SCHEDULED",
+              "PENDING_VENDOR_APPROVAL",
+              "WAITING_FOR_TRANSACTION_MATCH",
+              "WAITING_FOR_VENDOR"
+            ]
+          },
+          "gaps": [
+            "lineItems(array)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official Ramp Developer API OpenAPI. Enforced enums: Card.state(5), Transaction.state(7), User.role(11)/status(7), Reimbursement.state(22)/direction(2)/type(5), Bill.status(2)/statusSummary(16) = 9 enums. sk_category_id (volatile int codes) not enforced."
+    },
+    {
+      "handle": "aftership-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/AfterShip/aftership-sdk-nodejs",
+      "remodeled": "Remodeled from generic logistics to a faithful AfterShip Tracking model, verified against the official AfterShip Node SDK (TypeScript interfaces + enum modules). snake_case->camelCase.",
+      "resources": [
+        {
+          "entity": "Tracking",
+          "source": "https://github.com/AfterShip/aftership-sdk-nodejs/blob/master/src/model/tracking/tracking.ts",
+          "verifiedFields": [
+            "id",
+            "trackingNumber",
+            "slug",
+            "tag",
+            "subtag",
+            "deliveryType",
+            "active",
+            "expectedDelivery",
+            "orderId",
+            "createdAt",
+            "updatedAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "tag": [
+              "Pending",
+              "InfoReceived",
+              "InTransit",
+              "OutForDelivery",
+              "AttemptFail",
+              "Delivered",
+              "AvailableForPickup",
+              "Exception",
+              "Expired"
+            ],
+            "deliveryType": [
+              "pickup_at_store",
+              "pickup_at_courier",
+              "door_to_door"
+            ]
+          },
+          "gaps": [
+            "checkpoints(array)"
+          ]
+        },
+        {
+          "entity": "Checkpoint",
+          "source": "https://github.com/AfterShip/aftership-sdk-nodejs/blob/master/src/model/checkpoint/checkpoint.ts",
+          "verifiedFields": [
+            "checkpointTime",
+            "slug",
+            "tag",
+            "subtag",
+            "message",
+            "location",
+            "city",
+            "countryIso3"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "tag": [
+              "Pending",
+              "InfoReceived",
+              "InTransit",
+              "OutForDelivery",
+              "AttemptFail",
+              "Delivered",
+              "AvailableForPickup",
+              "Exception",
+              "Expired"
+            ]
+          },
+          "gaps": [
+            "coordinates(array)"
+          ]
+        },
+        {
+          "entity": "Courier",
+          "source": "https://github.com/AfterShip/aftership-sdk-nodejs/blob/master/src/model/courier/courier.ts",
+          "verifiedFields": [
+            "slug",
+            "name",
+            "phone",
+            "webUrl",
+            "defaultLanguage"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "requiredFields(array)"
+          ]
+        },
+        {
+          "entity": "Notification",
+          "source": "https://github.com/AfterShip/aftership-sdk-nodejs/blob/master/src/model/notification/notification.ts",
+          "verifiedFields": [
+            "emails",
+            "smses"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "EstimatedDeliveryDate",
+          "source": "https://github.com/AfterShip/aftership-sdk-nodejs/blob/master/src/model/estimated_delivery_date/estimated_delivery_date.ts",
+          "verifiedFields": [
+            "estimatedDeliveryDate",
+            "confidenceScore",
+            "estimatedDeliveryDateMin",
+            "estimatedDeliveryDateMax"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs official AfterShip Node SDK. Enforced enums: Tracking.tag(9), Tracking.deliveryType(3), Checkpoint.tag(9) = 3 enums."
     }
   ]
 }

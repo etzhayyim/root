@@ -1576,6 +1576,25 @@ PLATFORM_OVERRIDES = {
         "DatasetPart": E(id="string", name="string", sizeBytes="integer", numRows="integer"),
         "Model": E(name="string", isDeprecated="boolean", contextLength="integer", finetuned="boolean"),
     },
+    # Faithful Ramp model — verified against the official Ramp Developer API OpenAPI
+    # (docs.ramp.com/openapi/developer-api.json). snake_case->camelCase.
+    "ramp": {
+        "Card": E(id="string", state="string", lastFour="string", cardholderName="string", cardholderID="string", isPhysical="boolean", createdAt="datetime"),
+        "Transaction": E(id="string", state="string", amount="float", currencyCode="string", cardID="string", merchantName="string", userTransactionTime="datetime", settlementDate="datetime"),
+        "User": E(id="string", email="string", firstName="string", lastName="string", role="string", status="string", departmentID="string", isManager="boolean"),
+        "Department": E(id="string", name="string"),
+        "Reimbursement": E(id="string", state="string", amount="float", currency="string", type="string", userID="string", direction="string", createdAt="datetime"),
+        "Bill": E(id="string", status="string", amount="integer", currencyCode="string", invoiceNumber="string", statusSummary="string", createdAt="datetime", dueAt="datetime"),
+    },
+    # Faithful AfterShip Tracking model — verified against the official AfterShip SDK
+    # (github.com/AfterShip/aftership-sdk-nodejs). snake_case->camelCase.
+    "aftership": {
+        "Tracking": E(id="string", trackingNumber="string", slug="string", tag="string", subtag="string", deliveryType="string", active="boolean", expectedDelivery="string", orderId="string", createdAt="datetime", updatedAt="datetime"),
+        "Checkpoint": E(checkpointTime="datetime", slug="string", tag="string", subtag="string", message="string", location="string", city="string", countryIso3="string"),
+        "Courier": E(slug="string", name="string", phone="string", webUrl="string", defaultLanguage="string"),
+        "Notification": E(emails="string", smses="string"),
+        "EstimatedDeliveryDate": E(estimatedDeliveryDate="string", confidenceScore="float", estimatedDeliveryDateMin="string", estimatedDeliveryDateMax="string"),
+    },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).
     "square": {

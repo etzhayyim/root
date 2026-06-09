@@ -275,6 +275,8 @@ def create_domain(request):
         return err, 400
     if data.get('type') and data['type'] not in ['master', 'slave']:
         return {"error": {"message": "invalid type; allowed: " + ", ".join(['master', 'slave']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['disabled', 'active']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['disabled', 'active']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("linode_dom")}
     rec["id"] = _as_int(data.get('id'))
     rec["domain"] = data.get('domain')
@@ -318,6 +320,8 @@ def update_domain(request, eid):
         return err, 400
     if data.get('type') and data['type'] not in ['master', 'slave']:
         return {"error": {"message": "invalid type; allowed: " + ", ".join(['master', 'slave']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['disabled', 'active']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['disabled', 'active']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):

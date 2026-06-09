@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 915,
-    "L5": 85
+    "L4": 913,
+    "L5": 87
   },
   "actors": [
     {
@@ -251,10 +251,10 @@
     {
       "handle": "aftership-compat",
       "did": "did:web:etzhayyim.com:actor:aftership-compat",
-      "wasmCid": "bafkreie4jlvgs7ovpmqiifqh2ewgnru55iaznfghihtr4gsiiqmeatnkim",
+      "wasmCid": "bafkreibympf452g3krruallceo6fhg5gtk6ohdgm76cf6u66qbghwxsz7y",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "aftership clean-room actor",
       "category": "headless_ec_logistics",
       "capabilities": [
@@ -13214,7 +13214,7 @@
       "wasmCid": "bafkreihqh6ovaxw2y2qnvkmapzkiizcphfxzslo7gptr6y6673sjb2uwiy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "ramp clean-room actor",
       "category": "payments",
       "capabilities": [

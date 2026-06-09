@@ -58,6 +58,10 @@
         "type": [
           "master",
           "slave"
+        ],
+        "status": [
+          "disabled",
+          "active"
         ]
       },
       "NodeBalancer": {

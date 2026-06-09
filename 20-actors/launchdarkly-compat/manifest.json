@@ -29,6 +29,14 @@
           "boolean",
           "multivariate"
         ]
+      },
+      "Member": {
+        "role": [
+          "reader",
+          "writer",
+          "admin",
+          "no_access"
+        ]
       }
     }
   },

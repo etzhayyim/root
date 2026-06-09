@@ -237,17 +237,16 @@
       "handle": "aftership-compat",
       "platform": "aftership",
       "bytes": 2123,
-      "wasmCid": "bafkreie4jlvgs7ovpmqiifqh2ewgnru55iaznfghihtr4gsiiqmeatnkim",
+      "wasmCid": "bafkreibympf452g3krruallceo6fhg5gtk6ohdgm76cf6u66qbghwxsz7y",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "ContentEntry",
-        "Product",
-        "Shipment",
-        "SearchIndex",
-        "Webhook",
-        "Order"
+        "Tracking",
+        "Checkpoint",
+        "Courier",
+        "Notification",
+        "EstimatedDeliveryDate"
       ]
     },
     {
@@ -12469,12 +12468,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Customer",
-        "PaymentIntent",
-        "Charge",
-        "Refund",
-        "Payout",
-        "PaymentMethod"
+        "Card",
+        "Transaction",
+        "User",
+        "Department",
+        "Reimbursement",
+        "Bill"
       ]
     },
     {

@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible headless commerce / logistics actor (aftership); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:aftership-compat",
-    "x-wasm-cid": "bafkreie4jlvgs7ovpmqiifqh2ewgnru55iaznfghihtr4gsiiqmeatnkim",
+    "x-wasm-cid": "bafkreibympf452g3krruallceo6fhg5gtk6ohdgm76cf6u66qbghwxsz7y",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreie4jlvgs7ovpmqiifqh2ewgnru55iaznfghihtr4gsiiqmeatnkim",
+      "url": "ipfs://bafkreibympf452g3krruallceo6fhg5gtk6ohdgm76cf6u66qbghwxsz7y",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/contententries": {
+    "/v1/trackings": {
       "get": {
-        "summary": "List ContentEntries",
+        "summary": "List Trackings",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ContentEntry"
+                        "$ref": "#/components/schemas/Tracking"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a ContentEntry",
+        "summary": "Create a Tracking",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ContentEntryCreate"
+                "$ref": "#/components/schemas/TrackingCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContentEntry"
+                  "$ref": "#/components/schemas/Tracking"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/contententries/{id}": {
+    "/v1/trackings/{id}": {
       "get": {
-        "summary": "Get a ContentEntry",
+        "summary": "Get a Tracking",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContentEntry"
+                  "$ref": "#/components/schemas/Tracking"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a ContentEntry",
+        "summary": "Update a Tracking",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ContentEntryCreate"
+                "$ref": "#/components/schemas/TrackingCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContentEntry"
+                  "$ref": "#/components/schemas/Tracking"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a ContentEntry",
+        "summary": "Delete a Tracking",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/products": {
+    "/v1/checkpoints": {
       "get": {
-        "summary": "List Products",
+        "summary": "List Checkpoints",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Product"
+                        "$ref": "#/components/schemas/Checkpoint"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Product",
+        "summary": "Create a Checkpoint",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProductCreate"
+                "$ref": "#/components/schemas/CheckpointCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Product"
+                  "$ref": "#/components/schemas/Checkpoint"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/products/{id}": {
+    "/v1/checkpoints/{id}": {
       "get": {
-        "summary": "Get a Product",
+        "summary": "Get a Checkpoint",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Product"
+                  "$ref": "#/components/schemas/Checkpoint"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Product",
+        "summary": "Update a Checkpoint",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProductCreate"
+                "$ref": "#/components/schemas/CheckpointCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Product"
+                  "$ref": "#/components/schemas/Checkpoint"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Product",
+        "summary": "Delete a Checkpoint",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/shipments": {
+    "/v1/couriers": {
       "get": {
-        "summary": "List Shipments",
+        "summary": "List Couriers",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Shipment"
+                        "$ref": "#/components/schemas/Courier"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Shipment",
+        "summary": "Create a Courier",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ShipmentCreate"
+                "$ref": "#/components/schemas/CourierCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Shipment"
+                  "$ref": "#/components/schemas/Courier"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/shipments/{id}": {
+    "/v1/couriers/{id}": {
       "get": {
-        "summary": "Get a Shipment",
+        "summary": "Get a Courier",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Shipment"
+                  "$ref": "#/components/schemas/Courier"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Shipment",
+        "summary": "Update a Courier",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ShipmentCreate"
+                "$ref": "#/components/schemas/CourierCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Shipment"
+                  "$ref": "#/components/schemas/Courier"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Shipment",
+        "summary": "Delete a Courier",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/searchindexes": {
+    "/v1/notifications": {
       "get": {
-        "summary": "List SearchIndexes",
+        "summary": "List Notifications",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/SearchIndex"
+                        "$ref": "#/components/schemas/Notification"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a SearchIndex",
+        "summary": "Create a Notification",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SearchIndexCreate"
+                "$ref": "#/components/schemas/NotificationCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SearchIndex"
+                  "$ref": "#/components/schemas/Notification"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/searchindexes/{id}": {
+    "/v1/notifications/{id}": {
       "get": {
-        "summary": "Get a SearchIndex",
+        "summary": "Get a Notification",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SearchIndex"
+                  "$ref": "#/components/schemas/Notification"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a SearchIndex",
+        "summary": "Update a Notification",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SearchIndexCreate"
+                "$ref": "#/components/schemas/NotificationCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SearchIndex"
+                  "$ref": "#/components/schemas/Notification"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a SearchIndex",
+        "summary": "Delete a Notification",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/webhooks": {
+    "/v1/estimateddeliverydates": {
       "get": {
-        "summary": "List Webhooks",
+        "summary": "List EstimatedDeliveryDates",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Webhook"
+                        "$ref": "#/components/schemas/EstimatedDeliveryDate"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Webhook",
+        "summary": "Create a EstimatedDeliveryDate",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/WebhookCreate"
+                "$ref": "#/components/schemas/EstimatedDeliveryDateCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Webhook"
+                  "$ref": "#/components/schemas/EstimatedDeliveryDate"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/webhooks/{id}": {
+    "/v1/estimateddeliverydates/{id}": {
       "get": {
-        "summary": "Get a Webhook",
+        "summary": "Get a EstimatedDeliveryDate",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Webhook"
+                  "$ref": "#/components/schemas/EstimatedDeliveryDate"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Webhook",
+        "summary": "Update a EstimatedDeliveryDate",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/WebhookCreate"
+                "$ref": "#/components/schemas/EstimatedDeliveryDateCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Webhook"
+                  "$ref": "#/components/schemas/EstimatedDeliveryDate"
                 }
               }
             }
@@ -921,192 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Webhook",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/orders": {
-      "get": {
-        "summary": "List Orders",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Order"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Order",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/OrderCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Order"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/orders/{id}": {
-      "get": {
-        "summary": "Get a Order",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Order"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Order",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/OrderCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Order"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Order",
+        "summary": "Delete a EstimatedDeliveryDate",
         "parameters": [
           {
             "name": "id",
@@ -1140,122 +955,52 @@
   },
   "components": {
     "schemas": {
-      "ContentEntry": {
+      "Tracking": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "modelName": {
+          "trackingNumber": {
             "type": "string"
           },
-          "title": {
+          "slug": {
             "type": "string"
           },
-          "locale": {
+          "tag": {
+            "type": "string",
+            "enum": [
+              "Pending",
+              "InfoReceived",
+              "InTransit",
+              "OutForDelivery",
+              "AttemptFail",
+              "Delivered",
+              "AvailableForPickup",
+              "Exception",
+              "Expired"
+            ]
+          },
+          "subtag": {
             "type": "string"
           },
-          "published": {
+          "deliveryType": {
+            "type": "string",
+            "enum": [
+              "pickup_at_store",
+              "pickup_at_courier",
+              "door_to_door"
+            ]
+          },
+          "active": {
             "type": "boolean"
           },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ContentEntryCreate": {
-        "type": "object",
-        "properties": {
-          "modelName": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "locale": {
-            "type": "string"
-          },
-          "published": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "modelName",
-          "title"
-        ]
-      },
-      "Product": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "sku": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "price": {
-            "type": "number"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ProductCreate": {
-        "type": "object",
-        "properties": {
-          "sku": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "price": {
-            "type": "number"
-          },
-          "currency": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "sku",
-          "title"
-        ]
-      },
-      "Shipment": {
-        "type": "object",
-        "properties": {
-          "id": {
+          "expectedDelivery": {
             "type": "string"
           },
           "orderId": {
             "type": "string"
           },
-          "carrier": {
-            "type": "string"
-          },
-          "tracking": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -1266,40 +1011,179 @@
           }
         }
       },
-      "ShipmentCreate": {
+      "TrackingCreate": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string"
+          },
+          "trackingNumber": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "tag": {
+            "type": "string",
+            "enum": [
+              "Pending",
+              "InfoReceived",
+              "InTransit",
+              "OutForDelivery",
+              "AttemptFail",
+              "Delivered",
+              "AvailableForPickup",
+              "Exception",
+              "Expired"
+            ]
+          },
+          "subtag": {
+            "type": "string"
+          },
+          "deliveryType": {
+            "type": "string",
+            "enum": [
+              "pickup_at_store",
+              "pickup_at_courier",
+              "door_to_door"
+            ]
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "expectedDelivery": {
+            "type": "string"
+          },
           "orderId": {
             "type": "string"
           },
-          "carrier": {
+          "createdAt": {
             "type": "string"
           },
-          "tracking": {
-            "type": "string"
-          },
-          "status": {
+          "updatedAt": {
             "type": "string"
           }
         },
         "required": [
-          "carrier",
-          "tracking"
+          "id",
+          "trackingNumber"
         ]
       },
-      "SearchIndex": {
+      "Checkpoint": {
         "type": "object",
         "properties": {
           "id": {
+            "type": "string"
+          },
+          "checkpointTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "tag": {
+            "type": "string",
+            "enum": [
+              "Pending",
+              "InfoReceived",
+              "InTransit",
+              "OutForDelivery",
+              "AttemptFail",
+              "Delivered",
+              "AvailableForPickup",
+              "Exception",
+              "Expired"
+            ]
+          },
+          "subtag": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "countryIso3": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "CheckpointCreate": {
+        "type": "object",
+        "properties": {
+          "checkpointTime": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "tag": {
+            "type": "string",
+            "enum": [
+              "Pending",
+              "InfoReceived",
+              "InTransit",
+              "OutForDelivery",
+              "AttemptFail",
+              "Delivered",
+              "AvailableForPickup",
+              "Exception",
+              "Expired"
+            ]
+          },
+          "subtag": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "countryIso3": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "checkpointTime",
+          "slug"
+        ]
+      },
+      "Courier": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "slug": {
             "type": "string"
           },
           "name": {
             "type": "string"
           },
-          "recordCount": {
-            "type": "integer"
+          "phone": {
+            "type": "string"
           },
-          "primaryKey": {
+          "webUrl": {
+            "type": "string"
+          },
+          "defaultLanguage": {
             "type": "string"
           },
           "createdAt": {
@@ -1312,83 +1196,40 @@
           }
         }
       },
-      "SearchIndexCreate": {
+      "CourierCreate": {
         "type": "object",
         "properties": {
+          "slug": {
+            "type": "string"
+          },
           "name": {
             "type": "string"
           },
-          "recordCount": {
-            "type": "integer"
+          "phone": {
+            "type": "string"
           },
-          "primaryKey": {
+          "webUrl": {
+            "type": "string"
+          },
+          "defaultLanguage": {
             "type": "string"
           }
         },
         "required": [
-          "name",
-          "recordCount"
+          "slug",
+          "name"
         ]
       },
-      "Webhook": {
+      "Notification": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "event": {
+          "emails": {
             "type": "string"
           },
-          "url": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "WebhookCreate": {
-        "type": "object",
-        "properties": {
-          "event": {
-            "type": "string"
-          },
-          "url": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "event",
-          "url"
-        ]
-      },
-      "Order": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "number": {
-            "type": "string"
-          },
-          "total": {
-            "type": "number"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "status": {
+          "smses": {
             "type": "string"
           },
           "createdAt": {
@@ -1401,25 +1242,68 @@
           }
         }
       },
-      "OrderCreate": {
+      "NotificationCreate": {
         "type": "object",
         "properties": {
-          "number": {
+          "emails": {
             "type": "string"
           },
-          "total": {
-            "type": "number"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "status": {
+          "smses": {
             "type": "string"
           }
         },
         "required": [
-          "number",
-          "total"
+          "emails",
+          "smses"
+        ]
+      },
+      "EstimatedDeliveryDate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "estimatedDeliveryDate": {
+            "type": "string"
+          },
+          "confidenceScore": {
+            "type": "number"
+          },
+          "estimatedDeliveryDateMin": {
+            "type": "string"
+          },
+          "estimatedDeliveryDateMax": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "EstimatedDeliveryDateCreate": {
+        "type": "object",
+        "properties": {
+          "estimatedDeliveryDate": {
+            "type": "string"
+          },
+          "confidenceScore": {
+            "type": "number"
+          },
+          "estimatedDeliveryDateMin": {
+            "type": "string"
+          },
+          "estimatedDeliveryDateMax": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "estimatedDeliveryDate",
+          "confidenceScore"
         ]
       }
     }

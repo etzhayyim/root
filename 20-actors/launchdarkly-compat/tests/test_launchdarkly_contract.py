@@ -65,7 +65,7 @@ class LaunchdarklyContract(unittest.TestCase):
 
     def test_verified_enums_enforced(self):
         """L5: discovered enums from official docs are enforced."""
-        for field in ['kind']:
+        for field in ['kind', 'role']:
             self.assertIn(f"invalid {field}; allowed:", self.src,
                           f"verified enum for {field} not enforced")
 

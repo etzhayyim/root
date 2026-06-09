@@ -1353,7 +1353,11 @@
             ]
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "disabled",
+              "active"
+            ]
           },
           "soaEmail": {
             "type": "string"
@@ -1389,7 +1393,11 @@
             ]
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "disabled",
+              "active"
+            ]
           },
           "soaEmail": {
             "type": "string"
