@@ -6,7 +6,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29820,
+  "totalEndpoints": 29815,
   "l4SpecsAvailable": 1000,
   "apis": [
     {
@@ -14955,10 +14955,10 @@
     {
       "handle": "thegraph-compat",
       "did": "did:web:etzhayyim.com:actor:thegraph-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreic6vjz2sa5tjuyipki4zgx6fffsoq3xxvd5r23tdmx2d6a62pincm",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreih4i2f2urx66j6jyjdqn33hblfqs7fuc36hiljx7vnz46eec26syu",
       "health": "/healthz",
       "features": {
         "pagination": true,

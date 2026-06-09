@@ -1621,6 +1621,15 @@ PLATFORM_OVERRIDES = {
         "Deployment": E(id="string", status="string", projectName="string", stackName="string", paused="boolean", created="datetime", modified="datetime"),
         "Organization": E(name="string", role="string"),
     },
+    # Faithful The Graph (Studio + Network) model — verified against the official
+    # graph-network-subgraph schema + Studio API. Subgraph.status is array -> dropped.
+    "thegraph": {
+        "Subgraph": E(id="integer", name="string", displayName="string", description="string", sourceCodeUrl="string", imageUrl="string", createdAt="datetime", updatedAt="datetime"),
+        "SubgraphDeployment": E(id="string", ipfsHash="string", createdAt="integer", stakedTokens="integer", signalledTokens="integer", queryFeesAmount="integer", activeSubgraphCount="integer", transferredToL2="boolean"),
+        "Indexer": E(id="string", createdAt="integer", stakedTokens="integer", allocatedTokens="integer", queryFeesCollected="integer", delegatedTokens="integer", isLegacy="boolean"),
+        "Allocation": E(id="string", allocatedTokens="integer", createdAtEpoch="integer", closedAtEpoch="integer", queryFeesCollected="integer", status="string", isLegacy="boolean"),
+        "PublishedSubgraph": E(id="string", networkCaip2Id="string", networkSubgraphId="string", createdAt="datetime", updatedAt="datetime"),
+    },
     # Faithful Magento 2 / Adobe Commerce model — verified against the official
     # magento2 source (Sales/Catalog model constants). status/visibility are int-coded.
     "magento": {

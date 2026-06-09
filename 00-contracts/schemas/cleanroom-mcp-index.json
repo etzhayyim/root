@@ -7,7 +7,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 29820,
+  "totalTools": 29815,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -7923,10 +7923,10 @@
     {
       "handle": "thegraph-compat",
       "did": "did:web:etzhayyim.com:actor:thegraph-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreic6vjz2sa5tjuyipki4zgx6fffsoq3xxvd5r23tdmx2d6a62pincm",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreih4i2f2urx66j6jyjdqn33hblfqs7fuc36hiljx7vnz46eec26syu",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "manifest": "20-actors/thegraph-compat/manifest.json#/capabilities/mcp"
     },
     {

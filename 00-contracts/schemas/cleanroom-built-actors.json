@@ -14929,17 +14929,16 @@
       "handle": "thegraph-compat",
       "platform": "thegraph",
       "bytes": 2122,
-      "wasmCid": "bafkreic6vjz2sa5tjuyipki4zgx6fffsoq3xxvd5r23tdmx2d6a62pincm",
+      "wasmCid": "bafkreih4i2f2urx66j6jyjdqn33hblfqs7fuc36hiljx7vnz46eec26syu",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Block",
-        "Transaction",
-        "Contract",
-        "Account",
-        "Event",
-        "Token"
+        "Subgraph",
+        "SubgraphDeployment",
+        "Indexer",
+        "Allocation",
+        "PublishedSubgraph"
       ]
     },
     {

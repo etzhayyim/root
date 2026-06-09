@@ -5,21 +5,41 @@
   "kind": "compat",
   "title": "thegraph clean-room actor",
   "description": "Clean-room, API-compatible web3 / blockchain RPC actor (thegraph); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreic6vjz2sa5tjuyipki4zgx6fffsoq3xxvd5r23tdmx2d6a62pincm",
+  "wasmCid": "bafkreih4i2f2urx66j6jyjdqn33hblfqs7fuc36hiljx7vnz46eec26syu",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreic6vjz2sa5tjuyipki4zgx6fffsoq3xxvd5r23tdmx2d6a62pincm",
+  "ipfs": "ipfs://bafkreih4i2f2urx66j6jyjdqn33hblfqs7fuc36hiljx7vnz46eec26syu",
   "schema": "schema/thegraph.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://github.com/graphprotocol/graph-network-subgraph",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "Subgraph",
+      "SubgraphDeployment",
+      "Indexer",
+      "Allocation",
+      "PublishedSubgraph"
+    ],
+    "enums": {
+      "Allocation": {
+        "status": [
+          "Null",
+          "Active",
+          "Closed",
+          "Finalized",
+          "Claimed"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Block",
-    "Transaction",
-    "Contract",
-    "Account",
-    "Event",
-    "Token"
+    "Subgraph",
+    "SubgraphDeployment",
+    "Indexer",
+    "Allocation",
+    "PublishedSubgraph"
   ],
   "adr": [
     "260607",
@@ -31,157 +51,132 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/blocks",
-          "op": "create Block"
+          "path": "/v1/subgraphs",
+          "op": "create Subgraph"
         },
         {
           "method": "GET",
-          "path": "/v1/blocks",
-          "op": "list Block"
+          "path": "/v1/subgraphs",
+          "op": "list Subgraph"
         },
         {
           "method": "GET",
-          "path": "/v1/blocks/{id}",
-          "op": "get Block"
+          "path": "/v1/subgraphs/{id}",
+          "op": "get Subgraph"
         },
         {
           "method": "PATCH",
-          "path": "/v1/blocks/{id}",
-          "op": "update Block"
+          "path": "/v1/subgraphs/{id}",
+          "op": "update Subgraph"
         },
         {
           "method": "DELETE",
-          "path": "/v1/blocks/{id}",
-          "op": "delete Block"
+          "path": "/v1/subgraphs/{id}",
+          "op": "delete Subgraph"
         },
         {
           "method": "POST",
-          "path": "/v1/transactions",
-          "op": "create Transaction"
+          "path": "/v1/subgraphdeployments",
+          "op": "create SubgraphDeployment"
         },
         {
           "method": "GET",
-          "path": "/v1/transactions",
-          "op": "list Transaction"
+          "path": "/v1/subgraphdeployments",
+          "op": "list SubgraphDeployment"
         },
         {
           "method": "GET",
-          "path": "/v1/transactions/{id}",
-          "op": "get Transaction"
+          "path": "/v1/subgraphdeployments/{id}",
+          "op": "get SubgraphDeployment"
         },
         {
           "method": "PATCH",
-          "path": "/v1/transactions/{id}",
-          "op": "update Transaction"
+          "path": "/v1/subgraphdeployments/{id}",
+          "op": "update SubgraphDeployment"
         },
         {
           "method": "DELETE",
-          "path": "/v1/transactions/{id}",
-          "op": "delete Transaction"
+          "path": "/v1/subgraphdeployments/{id}",
+          "op": "delete SubgraphDeployment"
         },
         {
           "method": "POST",
-          "path": "/v1/contracts",
-          "op": "create Contract"
+          "path": "/v1/indexers",
+          "op": "create Indexer"
         },
         {
           "method": "GET",
-          "path": "/v1/contracts",
-          "op": "list Contract"
+          "path": "/v1/indexers",
+          "op": "list Indexer"
         },
         {
           "method": "GET",
-          "path": "/v1/contracts/{id}",
-          "op": "get Contract"
+          "path": "/v1/indexers/{id}",
+          "op": "get Indexer"
         },
         {
           "method": "PATCH",
-          "path": "/v1/contracts/{id}",
-          "op": "update Contract"
+          "path": "/v1/indexers/{id}",
+          "op": "update Indexer"
         },
         {
           "method": "DELETE",
-          "path": "/v1/contracts/{id}",
-          "op": "delete Contract"
+          "path": "/v1/indexers/{id}",
+          "op": "delete Indexer"
         },
         {
           "method": "POST",
-          "path": "/v1/accounts",
-          "op": "create Account"
+          "path": "/v1/allocations",
+          "op": "create Allocation"
         },
         {
           "method": "GET",
-          "path": "/v1/accounts",
-          "op": "list Account"
+          "path": "/v1/allocations",
+          "op": "list Allocation"
         },
         {
           "method": "GET",
-          "path": "/v1/accounts/{id}",
-          "op": "get Account"
+          "path": "/v1/allocations/{id}",
+          "op": "get Allocation"
         },
         {
           "method": "PATCH",
-          "path": "/v1/accounts/{id}",
-          "op": "update Account"
+          "path": "/v1/allocations/{id}",
+          "op": "update Allocation"
         },
         {
           "method": "DELETE",
-          "path": "/v1/accounts/{id}",
-          "op": "delete Account"
+          "path": "/v1/allocations/{id}",
+          "op": "delete Allocation"
         },
         {
           "method": "POST",
-          "path": "/v1/events",
-          "op": "create Event"
+          "path": "/v1/publishedsubgraphs",
+          "op": "create PublishedSubgraph"
         },
         {
           "method": "GET",
-          "path": "/v1/events",
-          "op": "list Event"
+          "path": "/v1/publishedsubgraphs",
+          "op": "list PublishedSubgraph"
         },
         {
           "method": "GET",
-          "path": "/v1/events/{id}",
-          "op": "get Event"
+          "path": "/v1/publishedsubgraphs/{id}",
+          "op": "get PublishedSubgraph"
         },
         {
           "method": "PATCH",
-          "path": "/v1/events/{id}",
-          "op": "update Event"
+          "path": "/v1/publishedsubgraphs/{id}",
+          "op": "update PublishedSubgraph"
         },
         {
           "method": "DELETE",
-          "path": "/v1/events/{id}",
-          "op": "delete Event"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/tokens",
-          "op": "create Token"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/tokens",
-          "op": "list Token"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/tokens/{id}",
-          "op": "get Token"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/tokens/{id}",
-          "op": "update Token"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/tokens/{id}",
-          "op": "delete Token"
+          "path": "/v1/publishedsubgraphs/{id}",
+          "op": "delete PublishedSubgraph"
         }
       ],
       "features": {
@@ -244,404 +239,56 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
         {
-          "name": "create_block",
-          "description": "Create a Block.",
+          "name": "create_subgraph",
+          "description": "Create a Subgraph.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "number": {
+              "id": {
                 "type": "integer"
-              },
-              "hash": {
-                "type": "string"
-              },
-              "chain": {
-                "type": "string"
-              },
-              "minedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "number",
-              "hash"
-            ]
-          }
-        },
-        {
-          "name": "list_blocks",
-          "description": "List Blocks.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_block",
-          "description": "Get a Block by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_block",
-          "description": "Update a Block.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "number": {
-                "type": "integer"
-              },
-              "hash": {
-                "type": "string"
-              },
-              "chain": {
-                "type": "string"
-              },
-              "minedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_block",
-          "description": "Delete a Block.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_transaction",
-          "description": "Create a Transaction.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "hash": {
-                "type": "string"
-              },
-              "fromAddr": {
-                "type": "string"
-              },
-              "toAddr": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "hash",
-              "fromAddr"
-            ]
-          }
-        },
-        {
-          "name": "list_transactions",
-          "description": "List Transactions.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_transaction",
-          "description": "Get a Transaction by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_transaction",
-          "description": "Update a Transaction.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "hash": {
-                "type": "string"
-              },
-              "fromAddr": {
-                "type": "string"
-              },
-              "toAddr": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_transaction",
-          "description": "Delete a Transaction.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_contract",
-          "description": "Create a Contract.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "address": {
-                "type": "string"
-              },
-              "chain": {
-                "type": "string"
-              },
-              "abiRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "address",
-              "chain"
-            ]
-          }
-        },
-        {
-          "name": "list_contracts",
-          "description": "List Contracts.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_contract",
-          "description": "Get a Contract by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_contract",
-          "description": "Update a Contract.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "address": {
-                "type": "string"
-              },
-              "chain": {
-                "type": "string"
-              },
-              "abiRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_contract",
-          "description": "Delete a Contract.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_account",
-          "description": "Create a Account.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "address": {
-                "type": "string"
-              },
-              "chain": {
-                "type": "string"
-              },
-              "balance": {
-                "type": "number"
-              },
-              "nonce": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "address",
-              "chain"
-            ]
-          }
-        },
-        {
-          "name": "list_accounts",
-          "description": "List Accounts.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_account",
-          "description": "Get a Account by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_account",
-          "description": "Update a Account.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "address": {
-                "type": "string"
-              },
-              "chain": {
-                "type": "string"
-              },
-              "balance": {
-                "type": "number"
-              },
-              "nonce": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_account",
-          "description": "Delete a Account.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_event",
-          "description": "Create a Event.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "contractAddr": {
-                "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "blockNumber": {
-                "type": "integer"
+              "displayName": {
+                "type": "string"
               },
-              "dataRef": {
+              "description": {
+                "type": "string"
+              },
+              "sourceCodeUrl": {
+                "type": "string"
+              },
+              "imageUrl": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "updatedAt": {
                 "type": "string"
               }
             },
             "required": [
-              "contractAddr",
+              "id",
               "name"
             ]
           }
         },
         {
-          "name": "list_events",
-          "description": "List Events.",
+          "name": "list_subgraphs",
+          "description": "List Subgraphs.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_event",
-          "description": "Get a Event by id.",
+          "name": "get_subgraph",
+          "description": "Get a Subgraph by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -655,24 +302,33 @@
           }
         },
         {
-          "name": "update_event",
-          "description": "Update a Event.",
+          "name": "update_subgraph",
+          "description": "Update a Subgraph.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "contractAddr": {
-                "type": "string"
+                "type": "integer"
               },
               "name": {
                 "type": "string"
               },
-              "blockNumber": {
-                "type": "integer"
+              "displayName": {
+                "type": "string"
               },
-              "dataRef": {
+              "description": {
+                "type": "string"
+              },
+              "sourceCodeUrl": {
+                "type": "string"
+              },
+              "imageUrl": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "updatedAt": {
                 "type": "string"
               }
             },
@@ -682,8 +338,8 @@
           }
         },
         {
-          "name": "delete_event",
-          "description": "Delete a Event.",
+          "name": "delete_subgraph",
+          "description": "Delete a Subgraph.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -697,41 +353,53 @@
           }
         },
         {
-          "name": "create_token",
-          "description": "Create a Token.",
+          "name": "create_subgraph_deployment",
+          "description": "Create a SubgraphDeployment.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "contractAddr": {
+              "id": {
                 "type": "string"
               },
-              "symbol": {
+              "ipfsHash": {
                 "type": "string"
               },
-              "decimals": {
+              "createdAt": {
                 "type": "integer"
               },
-              "standard": {
-                "type": "string"
+              "stakedTokens": {
+                "type": "integer"
+              },
+              "signalledTokens": {
+                "type": "integer"
+              },
+              "queryFeesAmount": {
+                "type": "integer"
+              },
+              "activeSubgraphCount": {
+                "type": "integer"
+              },
+              "transferredToL2": {
+                "type": "boolean"
               }
             },
             "required": [
-              "contractAddr",
-              "symbol"
+              "id",
+              "ipfsHash"
             ]
           }
         },
         {
-          "name": "list_tokens",
-          "description": "List Tokens.",
+          "name": "list_subgraph_deployments",
+          "description": "List SubgraphDeployments.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_token",
-          "description": "Get a Token by id.",
+          "name": "get_subgraph_deployment",
+          "description": "Get a SubgraphDeployment by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -745,24 +413,48 @@
           }
         },
         {
-          "name": "update_token",
-          "description": "Update a Token.",
+          "name": "update_subgraph_deployment",
+          "description": "Update a SubgraphDeployment.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "contractAddr": {
+              "ipfsHash": {
                 "type": "string"
               },
-              "symbol": {
-                "type": "string"
-              },
-              "decimals": {
+              "createdAt": {
                 "type": "integer"
               },
-              "standard": {
+              "stakedTokens": {
+                "type": "integer"
+              },
+              "signalledTokens": {
+                "type": "integer"
+              },
+              "queryFeesAmount": {
+                "type": "integer"
+              },
+              "activeSubgraphCount": {
+                "type": "integer"
+              },
+              "transferredToL2": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_subgraph_deployment",
+          "description": "Delete a SubgraphDeployment.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               }
             },
@@ -772,8 +464,296 @@
           }
         },
         {
-          "name": "delete_token",
-          "description": "Delete a Token.",
+          "name": "create_indexer",
+          "description": "Create a Indexer.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "integer"
+              },
+              "stakedTokens": {
+                "type": "integer"
+              },
+              "allocatedTokens": {
+                "type": "integer"
+              },
+              "queryFeesCollected": {
+                "type": "integer"
+              },
+              "delegatedTokens": {
+                "type": "integer"
+              },
+              "isLegacy": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "createdAt"
+            ]
+          }
+        },
+        {
+          "name": "list_indexers",
+          "description": "List Indexers.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_indexer",
+          "description": "Get a Indexer by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_indexer",
+          "description": "Update a Indexer.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "integer"
+              },
+              "stakedTokens": {
+                "type": "integer"
+              },
+              "allocatedTokens": {
+                "type": "integer"
+              },
+              "queryFeesCollected": {
+                "type": "integer"
+              },
+              "delegatedTokens": {
+                "type": "integer"
+              },
+              "isLegacy": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_indexer",
+          "description": "Delete a Indexer.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_allocation",
+          "description": "Create a Allocation.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "allocatedTokens": {
+                "type": "integer"
+              },
+              "createdAtEpoch": {
+                "type": "integer"
+              },
+              "closedAtEpoch": {
+                "type": "integer"
+              },
+              "queryFeesCollected": {
+                "type": "integer"
+              },
+              "status": {
+                "type": "string"
+              },
+              "isLegacy": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "allocatedTokens"
+            ]
+          }
+        },
+        {
+          "name": "list_allocations",
+          "description": "List Allocations.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_allocation",
+          "description": "Get a Allocation by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_allocation",
+          "description": "Update a Allocation.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "allocatedTokens": {
+                "type": "integer"
+              },
+              "createdAtEpoch": {
+                "type": "integer"
+              },
+              "closedAtEpoch": {
+                "type": "integer"
+              },
+              "queryFeesCollected": {
+                "type": "integer"
+              },
+              "status": {
+                "type": "string"
+              },
+              "isLegacy": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_allocation",
+          "description": "Delete a Allocation.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_published_subgraph",
+          "description": "Create a PublishedSubgraph.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "networkCaip2Id": {
+                "type": "string"
+              },
+              "networkSubgraphId": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "updatedAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "createdAt"
+            ]
+          }
+        },
+        {
+          "name": "list_published_subgraphs",
+          "description": "List PublishedSubgraphs.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_published_subgraph",
+          "description": "Get a PublishedSubgraph by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_published_subgraph",
+          "description": "Update a PublishedSubgraph.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "networkCaip2Id": {
+                "type": "string"
+              },
+              "networkSubgraphId": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "updatedAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_published_subgraph",
+          "description": "Delete a PublishedSubgraph.",
           "inputSchema": {
             "type": "object",
             "properties": {

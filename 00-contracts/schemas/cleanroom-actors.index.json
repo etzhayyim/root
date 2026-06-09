@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 886,
-    "L5": 114
+    "L4": 885,
+    "L5": 115
   },
   "actors": [
     {
@@ -15839,10 +15839,10 @@
     {
       "handle": "thegraph-compat",
       "did": "did:web:etzhayyim.com:actor:thegraph-compat",
-      "wasmCid": "bafkreic6vjz2sa5tjuyipki4zgx6fffsoq3xxvd5r23tdmx2d6a62pincm",
+      "wasmCid": "bafkreih4i2f2urx66j6jyjdqn33hblfqs7fuc36hiljx7vnz46eec26syu",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "thegraph clean-room actor",
       "category": "web3_rpc",
       "capabilities": [

@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 114,
+  "count": 115,
   "actors": [
     {
       "handle": "square-compat",
@@ -16090,6 +16090,109 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (5/5) vs official Cloudinary Admin API docs. Enforced enums: Resource.resourceType(3), Resource.type(14) = 2 enums."
+    },
+    {
+      "handle": "thegraph-compat",
+      "verifiedAt": "2026-06-10",
+      "tier": "L5",
+      "source": "https://github.com/graphprotocol/graph-network-subgraph",
+      "remodeled": "Remodeled from generic category model to a faithful The Graph (Studio + Network) model, verified against the official graph-network-subgraph schema.graphql + Subgraph Studio API introspection. Subgraph.status is array-valued -> dropped; IndexingStatus not found in official schema -> not modeled.",
+      "resources": [
+        {
+          "entity": "Subgraph",
+          "source": "https://api.studio.thegraph.com/graphql",
+          "verifiedFields": [
+            "id",
+            "name",
+            "displayName",
+            "description",
+            "sourceCodeUrl",
+            "imageUrl",
+            "createdAt",
+            "updatedAt"
+          ],
+          "fieldStatus": "confirmed; status is array -> dropped",
+          "discoveredEnums": {},
+          "gaps": [
+            "status(array)"
+          ]
+        },
+        {
+          "entity": "SubgraphDeployment",
+          "source": "https://github.com/graphprotocol/graph-network-subgraph/schema.graphql",
+          "verifiedFields": [
+            "id",
+            "ipfsHash",
+            "createdAt",
+            "stakedTokens",
+            "signalledTokens",
+            "queryFeesAmount",
+            "activeSubgraphCount",
+            "transferredToL2"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "BigInt-as-int"
+          ]
+        },
+        {
+          "entity": "Indexer",
+          "source": "https://github.com/graphprotocol/graph-network-subgraph/schema.graphql",
+          "verifiedFields": [
+            "id",
+            "createdAt",
+            "stakedTokens",
+            "allocatedTokens",
+            "queryFeesCollected",
+            "delegatedTokens",
+            "isLegacy"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Allocation",
+          "source": "https://github.com/graphprotocol/graph-network-subgraph/schema.graphql",
+          "verifiedFields": [
+            "id",
+            "allocatedTokens",
+            "createdAtEpoch",
+            "closedAtEpoch",
+            "queryFeesCollected",
+            "status",
+            "isLegacy"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "Null",
+              "Active",
+              "Closed",
+              "Finalized",
+              "Claimed"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "PublishedSubgraph",
+          "source": "https://api.studio.thegraph.com/graphql",
+          "verifiedFields": [
+            "id",
+            "networkCaip2Id",
+            "networkSubgraphId",
+            "createdAt",
+            "updatedAt"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs official graph-network-subgraph schema + Studio API. Enforced enum: Allocation.status(5). Subgraph.status array + IndexingStatus (not in official schema) intentionally not enforced."
     }
   ]
 }
