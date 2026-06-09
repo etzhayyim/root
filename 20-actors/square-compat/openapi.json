@@ -1214,7 +1214,13 @@
             "type": "string"
           },
           "state": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "OPEN",
+              "COMPLETED",
+              "CANCELED",
+              "DRAFT"
+            ]
           },
           "totalAmount": {
             "type": "integer"
@@ -1242,7 +1248,13 @@
             "type": "string"
           },
           "state": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "OPEN",
+              "COMPLETED",
+              "CANCELED",
+              "DRAFT"
+            ]
           },
           "totalAmount": {
             "type": "integer"
@@ -1324,7 +1336,7 @@
             "type": "string",
             "enum": [
               "PENDING",
-              "COMPLETED",
+              "APPROVED",
               "REJECTED",
               "FAILED"
             ]
@@ -1358,7 +1370,7 @@
             "type": "string",
             "enum": [
               "PENDING",
-              "COMPLETED",
+              "APPROVED",
               "REJECTED",
               "FAILED"
             ]
@@ -1470,15 +1482,15 @@
             "type": "string",
             "enum": [
               "DRAFT",
-              "PUBLISHED",
+              "UNPAID",
               "SCHEDULED",
-              "SENT",
               "PARTIALLY_PAID",
               "PAID",
               "PARTIALLY_REFUNDED",
               "REFUNDED",
               "CANCELED",
-              "FAILED"
+              "FAILED",
+              "PAYMENT_PENDING"
             ]
           },
           "invoiceNumber": {
@@ -1504,15 +1516,15 @@
             "type": "string",
             "enum": [
               "DRAFT",
-              "PUBLISHED",
+              "UNPAID",
               "SCHEDULED",
-              "SENT",
               "PARTIALLY_PAID",
               "PAID",
               "PARTIALLY_REFUNDED",
               "REFUNDED",
               "CANCELED",
-              "FAILED"
+              "FAILED",
+              "PAYMENT_PENDING"
             ]
           },
           "invoiceNumber": {

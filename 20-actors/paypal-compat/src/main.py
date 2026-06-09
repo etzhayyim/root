@@ -262,8 +262,8 @@ def create_capture(request):
     err = _require(data, ['status'])
     if err:
         return err, 400
-    if data.get('status') and data['status'] not in ['COMPLETED', 'DECLINED', 'PARTIALLY_REFUNDED', 'PENDING', 'REFUNDED', 'FAILED']:
-        return {"error": {"message": "invalid status; allowed: " + ", ".join(['COMPLETED', 'DECLINED', 'PARTIALLY_REFUNDED', 'PENDING', 'REFUNDED', 'FAILED']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['COMPLETED', 'DECLINED', 'PARTIALLY_REFUNDED', 'PENDING', 'REFUNDED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['COMPLETED', 'DECLINED', 'PARTIALLY_REFUNDED', 'PENDING', 'REFUNDED']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("paypal_cap")}
     rec["status"] = data.get('status')
     rec["invoiceId"] = data.get('invoiceId')
@@ -302,8 +302,8 @@ def update_capture(request, eid):
     err = _reject_unknown(data, ['status', 'invoiceId', 'customId'])
     if err:
         return err, 400
-    if data.get('status') and data['status'] not in ['COMPLETED', 'DECLINED', 'PARTIALLY_REFUNDED', 'PENDING', 'REFUNDED', 'FAILED']:
-        return {"error": {"message": "invalid status; allowed: " + ", ".join(['COMPLETED', 'DECLINED', 'PARTIALLY_REFUNDED', 'PENDING', 'REFUNDED', 'FAILED']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['COMPLETED', 'DECLINED', 'PARTIALLY_REFUNDED', 'PENDING', 'REFUNDED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['COMPLETED', 'DECLINED', 'PARTIALLY_REFUNDED', 'PENDING', 'REFUNDED']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):

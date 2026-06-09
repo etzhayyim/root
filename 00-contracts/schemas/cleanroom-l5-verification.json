@@ -43,10 +43,16 @@
             "state",
             "totalAmount"
           ],
-          "fieldStatus": "confirmed: location_id, state, total_money (totalAmount); customer_id is a real field (not in excerpt). state enum not fully enumerated -> not force-enforced",
-          "discoveredEnums": {},
+          "fieldStatus": "confirmed: location_id, state, total_money (totalAmount); customer_id is a real field (not in excerpt). state enum not fully enumerated -> not force-enforced | enum re-fetch-confirmed",
+          "discoveredEnums": {
+            "state": [
+              "OPEN",
+              "COMPLETED",
+              "CANCELED",
+              "DRAFT"
+            ]
+          },
           "gaps": [
-            "state-enum (OPEN/COMPLETED/CANCELED/DRAFT known but not enumerated in excerpt)",
             "line_items",
             "net_amounts"
           ]
@@ -78,11 +84,11 @@
             "status",
             "reason"
           ],
-          "fieldStatus": "payment_id/status/reason confirmed; amount=amount_money; currency is nested in Money (gap)",
+          "fieldStatus": "payment_id/status/reason confirmed; amount=amount_money; currency is nested in Money (gap) | enum re-fetch-confirmed",
           "discoveredEnums": {
             "status": [
               "PENDING",
-              "COMPLETED",
+              "APPROVED",
               "REJECTED",
               "FAILED"
             ]
@@ -138,19 +144,19 @@
             "status",
             "invoiceNumber"
           ],
-          "fieldStatus": "order_id/status/invoice_number confirmed",
+          "fieldStatus": "order_id/status/invoice_number confirmed | enum re-fetch-confirmed",
           "discoveredEnums": {
             "status": [
               "DRAFT",
-              "PUBLISHED",
+              "UNPAID",
               "SCHEDULED",
-              "SENT",
               "PARTIALLY_PAID",
               "PAID",
               "PARTIALLY_REFUNDED",
               "REFUNDED",
               "CANCELED",
-              "FAILED"
+              "FAILED",
+              "PAYMENT_PENDING"
             ]
           },
           "gaps": [
@@ -160,7 +166,7 @@
           ]
         }
       ],
-      "note": "6 resource(s) doc-verified; enforced enums: CatalogObject.type, Invoice.status, Refund.status"
+      "note": "6 resource(s) doc-verified; enforced enums: CatalogObject.type, Invoice.status, Refund.status [+enum upgrade Order.state(4),Refund.status(4),Invoice.status(10)]"
     },
     {
       "handle": "slack-compat",
@@ -1503,7 +1509,7 @@
             "currency",
             "status"
           ],
-          "fieldStatus": "all generated fields confirmed (amountDue = real amount_due)",
+          "fieldStatus": "all generated fields confirmed (amountDue = real amount_due) | enum re-fetch-confirmed",
           "discoveredEnums": {
             "status": [
               "draft",
@@ -1528,7 +1534,7 @@
             "status",
             "currentPeriodEnd"
           ],
-          "fieldStatus": "customer/status confirmed; currentPeriodEnd maps to the real current_period_end (now per subscription-item)",
+          "fieldStatus": "customer/status confirmed; currentPeriodEnd maps to the real current_period_end (now per subscription-item) | enum re-fetch-confirmed",
           "discoveredEnums": {
             "status": [
               "incomplete",
@@ -1574,7 +1580,7 @@
             "reason",
             "status"
           ],
-          "fieldStatus": "all generated fields confirmed",
+          "fieldStatus": "all generated fields confirmed | enum re-fetch-confirmed",
           "discoveredEnums": {
             "status": [
               "pending",
@@ -1622,7 +1628,7 @@
           ]
         }
       ],
-      "note": "8 resource(s) doc-verified; enforced enums: Invoice.status, PaymentIntent.status, Price.recurringInterval, Refund.reason, Refund.status, Subscription.status"
+      "note": "8 resource(s) doc-verified; enforced enums: Invoice.status, PaymentIntent.status, Price.recurringInterval, Refund.reason, Refund.status, Subscription.status [+enum upgrade Refund.status(5),Subscription.status(8),Invoice.status(5)]"
     },
     {
       "handle": "datadog-compat",
@@ -5365,7 +5371,7 @@
             "createTime",
             "updateTime"
           ],
-          "fieldStatus": "confirmed (create_time/update_time)",
+          "fieldStatus": "confirmed (create_time/update_time) | enum re-fetch-confirmed",
           "discoveredEnums": {
             "status": [
               "CREATED",
@@ -5389,20 +5395,18 @@
             "invoiceId",
             "customId"
           ],
-          "fieldStatus": "confirmed (invoice_id, custom_id)",
+          "fieldStatus": "confirmed (invoice_id, custom_id) | enum re-fetch-confirmed",
           "discoveredEnums": {
             "status": [
               "COMPLETED",
               "DECLINED",
               "PARTIALLY_REFUNDED",
               "PENDING",
-              "REFUNDED",
-              "FAILED"
+              "REFUNDED"
             ]
           },
           "gaps": [
-            "amount",
-            "status_details"
+            "amount"
           ]
         },
         {
@@ -5429,7 +5433,7 @@
             "name",
             "description"
           ],
-          "fieldStatus": "confirmed (product_id)",
+          "fieldStatus": "confirmed (product_id) | enum re-fetch-confirmed",
           "discoveredEnums": {
             "status": [
               "CREATED",
@@ -5468,7 +5472,7 @@
         }
       ],
       "notApplicable": [],
-      "note": "FULLY VERIFIED (6/6) vs official PayPal OpenAPI. Enforced enums: Order.status, Order.intent, Authorization.status, Capture.status, Plan.status, Subscription.status (6)."
+      "note": "FULLY VERIFIED (6/6) vs official PayPal OpenAPI. Enforced enums: Order.status, Order.intent, Authorization.status, Capture.status, Plan.status, Subscription.status (6). [+enum upgrade Capture.status(5),Authorization.status(6),Plan.status(3)]"
     },
     {
       "handle": "adyen-compat",
