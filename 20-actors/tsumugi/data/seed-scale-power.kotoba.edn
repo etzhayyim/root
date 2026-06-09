@@ -1,0 +1,55 @@
+;; tsumugi 紡ぎ — seed scale-power graph (A): scale-agnostic 産官学報 concentration.
+;; ADR-2606092000 · vocab = power-scale-ontology.kotoba.edn
+;;
+;; SCOPE GUARD (S2/S4/S5/S6): institutions + PUBLIC SEATS only (never a private person);
+;; every tie ≥2 public sources; :representative; structural facts only (a plant exists, a
+;; paper is the local paper, an org is in the prefecture) — NEVER a verdict (癒着/談合
+;; unrepresentable) and NEVER a target-list. The "concentration" is the edge-primary
+;; integral of cross-sector co-location, routed to OPENING.
+;;
+;; Three instances, three scales — to show the SAME lens runs everywhere:
+;;   (1) jp.nagasaki  — :local/:regional cross-sector cluster (産官学報) — the flagship case
+;;   (2) jp.gakkai-x  — :intra-org — a 学会 (academic society) board + its journal seat
+;;   (3) jp.keiretsu  — :national — a corporate group (reuses tsumugi seed-power-graph shape)
+
+[;; ───────────────────────── (1) 長崎 local cross-sector cluster ─────────────────────────
+ ;; 産 industry — Mitsubishi Heavy Industries' Nagasaki Shipyard is a public, documented plant.
+ {:pwr/id "org.plant.jp.mhi-nagasaki" :pwr/label "三菱重工 長崎造船所 (plant)" :pwr/standing :institutional :pwr/scale :local :pwr/sector :san :pwr/locality "jp.nagasaki" :pwr/parent "org.corp.jp.7011" :pwr/sourcing :representative}
+ ;; 官 government — the prefecture + a public advisory-council SEAT (not a person)
+ {:pwr/id "org.gov.jp.nagasaki-ken" :pwr/label "長崎県 (県庁)" :pwr/standing :institutional :pwr/scale :regional :pwr/sector :kan :pwr/locality "jp.nagasaki" :pwr/sourcing :representative}
+ {:pwr/id "seat.gov.jp.nagasaki.shingikai-industry" :pwr/label "長崎県 産業振興審議会 — 委員 seat (public)" :pwr/standing :public-seat :pwr/scale :regional :pwr/sector :kan :pwr/locality "jp.nagasaki" :pwr/parent "org.gov.jp.nagasaki-ken" :pwr/sourcing :representative}
+ ;; 学 academia — the local national university
+ {:pwr/id "org.univ.jp.nagasaki-u" :pwr/label "長崎大学" :pwr/standing :institutional :pwr/scale :local :pwr/sector :gaku :pwr/locality "jp.nagasaki" :pwr/sourcing :representative}
+ ;; 報 press — the prefecture's local newspaper
+ {:pwr/id "org.press.jp.nagasaki-shimbun" :pwr/label "長崎新聞" :pwr/standing :institutional :pwr/scale :local :pwr/sector :hou :pwr/locality "jp.nagasaki" :pwr/sourcing :representative}
+
+ ;; ───────────────────────── (2) 学会 intra-org (academic society) ─────────────────────────
+ {:pwr/id "org.gakkai.jp.x" :pwr/label "(representative) 学会X — academic society" :pwr/standing :institutional :pwr/scale :intra-org :pwr/sector :gaku :pwr/locality "jp.gakkai-x" :pwr/sourcing :representative}
+ {:pwr/id "seat.gakkai.jp.x.board" :pwr/label "学会X — 理事 seat (public)" :pwr/standing :public-seat :pwr/scale :intra-org :pwr/sector :gaku :pwr/locality "jp.gakkai-x" :pwr/parent "org.gakkai.jp.x" :pwr/sourcing :representative}
+ {:pwr/id "seat.gakkai.jp.x.editor" :pwr/label "学会X — 機関誌 編集委員 seat (public)" :pwr/standing :public-seat :pwr/scale :intra-org :pwr/sector :gaku :pwr/locality "jp.gakkai-x" :pwr/parent "org.gakkai.jp.x" :pwr/sourcing :representative}
+ ;; an industry sponsor co-located with the society's intra-org world (産↔学 tie)
+ {:pwr/id "org.corp.jp.gakkai-x-sponsor" :pwr/label "(representative) 学会X 賛助会員企業" :pwr/standing :institutional :pwr/scale :intra-org :pwr/sector :san :pwr/locality "jp.gakkai-x" :pwr/sourcing :representative}
+
+ ;; ───────────────────────── (3) national keiretsu (compact) ─────────────────────────
+ {:pwr/id "org.corp.jp.7011" :pwr/label "Mitsubishi Heavy Industries" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "jp" :pwr/sourcing :representative}
+ {:pwr/id "org.gov.jp.meti" :pwr/label "METI (経済産業省)" :pwr/standing :institutional :pwr/scale :national :pwr/sector :kan :pwr/locality "jp" :pwr/sourcing :representative}
+
+ ;; ───────────────────────── 縁 (ties) — S1 edge-primary, S5 factual kinds ─────────────────────────
+ ;; (1) 長崎 cross-sector ties — co-location woven into one local power fabric
+ {:tie/id "tie.nagasaki.mhi.employs" :tie/kind :employs   :tie/from "org.plant.jp.mhi-nagasaki" :tie/to "org.gov.jp.nagasaki-ken" :tie/grasping-load 0.72 :tie/sources ["MHI corporate site — Nagasaki Shipyard" "長崎県 統計年鑑 — 製造業従業者"] :tie/sourcing :representative}
+ {:tie/id "tie.nagasaki.mhi.seats" :tie/kind :seats-on  :tie/from "org.plant.jp.mhi-nagasaki" :tie/to "seat.gov.jp.nagasaki.shingikai-industry" :tie/grasping-load 0.58 :tie/sources ["長崎県 審議会 委員名簿 (公開)" "長崎県 産業振興審議会 設置要綱"] :tie/sourcing :representative}
+ {:tie/id "tie.nagasaki.ken.seats" :tie/kind :co-member :tie/from "org.gov.jp.nagasaki-ken" :tie/to "seat.gov.jp.nagasaki.shingikai-industry" :tie/grasping-load 0.50 :tie/sources ["長崎県 審議会 設置要綱" "長崎県 例規集"] :tie/sourcing :representative}
+ {:tie/id "tie.nagasaki.u.seats" :tie/kind :seats-on  :tie/from "org.univ.jp.nagasaki-u" :tie/to "seat.gov.jp.nagasaki.shingikai-industry" :tie/grasping-load 0.46 :tie/sources ["長崎県 審議会 委員名簿 (公開)" "長崎大学 教員 公務 公開情報"] :tie/sourcing :representative}
+ {:tie/id "tie.nagasaki.u.depends" :tie/kind :depends-on :tie/from "org.univ.jp.nagasaki-u" :tie/to "org.plant.jp.mhi-nagasaki" :tie/grasping-load 0.44 :tie/sources ["長崎大学 産学連携 公開資料" "共同研究 公表実績"] :tie/sourcing :representative}
+ {:tie/id "tie.nagasaki.press.covers" :tie/kind :covers :tie/from "org.press.jp.nagasaki-shimbun" :tie/to "org.plant.jp.mhi-nagasaki" :tie/grasping-load 0.40 :tie/sources ["長崎新聞 紙面 (地域経済面)" "長崎新聞 社史 公開情報"] :tie/sourcing :representative}
+ {:tie/id "tie.nagasaki.press.covers-ken" :tie/kind :covers :tie/from "org.press.jp.nagasaki-shimbun" :tie/to "org.gov.jp.nagasaki-ken" :tie/grasping-load 0.42 :tie/sources ["長崎新聞 紙面 (県政面)" "長崎県 記者クラブ 公開情報"] :tie/sourcing :representative}
+
+ ;; (2) 学会 intra-org ties — faction structure shown STRUCTURALLY (seats under one org)
+ {:tie/id "tie.gakkai.board" :tie/kind :co-member :tie/from "org.gakkai.jp.x" :tie/to "seat.gakkai.jp.x.board" :tie/grasping-load 0.55 :tie/sources ["学会X 定款 (公開)" "学会X 理事名簿 (公開)"] :tie/sourcing :representative}
+ {:tie/id "tie.gakkai.editor" :tie/kind :co-member :tie/from "org.gakkai.jp.x" :tie/to "seat.gakkai.jp.x.editor" :tie/grasping-load 0.50 :tie/sources ["学会X 機関誌 編集規程 (公開)" "学会X 編集委員名簿 (公開)"] :tie/sourcing :representative}
+ {:tie/id "tie.gakkai.board.editor" :tie/kind :co-member :tie/from "seat.gakkai.jp.x.board" :tie/to "seat.gakkai.jp.x.editor" :tie/grasping-load 0.48 :tie/sources ["学会X 役員名簿 (公開)" "学会X 編集委員名簿 (公開)"] :tie/sourcing :representative}
+ {:tie/id "tie.gakkai.sponsor" :tie/kind :funds :tie/from "org.corp.jp.gakkai-x-sponsor" :tie/to "org.gakkai.jp.x" :tie/grasping-load 0.52 :tie/sources ["学会X 賛助会員一覧 (公開)" "学会X 決算報告 (公開)"] :tie/sourcing :representative}
+
+ ;; (3) national keiretsu ties
+ {:tie/id "tie.kr.mhi.parent" :tie/kind :custodies  :tie/from "org.corp.jp.7011" :tie/to "org.plant.jp.mhi-nagasaki" :tie/grasping-load 0.80 :tie/sources ["MHI 有価証券報告書" "MHI 事業所一覧 (公開)"] :tie/sourcing :representative}
+ {:tie/id "tie.kr.meti.mhi"   :tie/kind :awards     :tie/from "org.gov.jp.meti" :tie/to "org.corp.jp.7011" :tie/grasping-load 0.60 :tie/sources ["政府調達 公示 (公開)" "経済産業省 補助金 交付決定 (公開)"] :tie/sourcing :representative}]
