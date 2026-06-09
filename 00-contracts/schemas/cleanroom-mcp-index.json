@@ -7,7 +7,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 29990,
+  "totalTools": 29985,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -2217,7 +2217,7 @@
     {
       "handle": "digitalocean-compat",
       "did": "did:web:etzhayyim.com:actor:digitalocean-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreielbzomeatswxe67bqlg6xpuf6wnujdaypcjrfhaz4vo7nv5gx6ua",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -6159,7 +6159,7 @@
     {
       "handle": "pagerduty-compat",
       "did": "did:web:etzhayyim.com:actor:pagerduty-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreihbcsb7quanvdoc2rflxxkv42jcqtidnrxxhmistn25r7mcwwksuq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -6654,10 +6654,10 @@
     {
       "handle": "razorpay-compat",
       "did": "did:web:etzhayyim.com:actor:razorpay-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreigbgglmpw6wjuljdkebav37tqbmaozcandjfouvbze2z4qvwv77wa",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreih6texjj4ksexuwbd4zyxutfcmdwoiln36tb3gxxkobe2szkd635e",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "manifest": "20-actors/razorpay-compat/manifest.json#/capabilities/mcp"
     },
     {

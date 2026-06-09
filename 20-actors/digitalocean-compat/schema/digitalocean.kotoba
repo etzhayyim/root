@@ -3,71 +3,83 @@
 
 namespace digitalocean {
 
-    entity Project {
+    entity Droplet {
         id: string @unique
+        id: integer
         name: string
-        region: string
-        billingId: string
+        status: string
+        memory: integer
+        vcpus: integer
+        disk: integer
+        locked: boolean
         createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity ComputeInstance {
-        id: string @unique
-        projectId: string
-        name: string
-        machineType: string
-        state: string
-        ipAddress: string
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Volume {
         id: string @unique
-        projectId: string
-        sizeGb: integer
-        type: string
-        attachedTo: string
+        id: string
+        name: string
+        sizeGigabytes: integer
+        filesystemType: string
+        createdAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Bucket {
+    entity DatabaseCluster {
         id: string @unique
-        projectId: string
+        id: string
+        name: string
+        engine: string
+        numNodes: integer
+        size: string
+        region: string
+        status: string
+        createdAt: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity LoadBalancer {
+        id: string @unique
+        id: string
+        name: string
+        ip: string
+        status: string
+        sizeUnit: integer
+        createdAt: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity KubernetesCluster {
+        id: string @unique
+        id: string
         name: string
         region: string
+        version: string
+        endpoint: string
+        autoUpgrade: boolean
+        ha: boolean
+        createdAt: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Image {
+        id: string @unique
+        id: integer
+        name: string
+        slug: string
         public: boolean
+        status: string
+        type: string
+        sizeGigabytes: float
         createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Network {
-        id: string @unique
-        projectId: string
-        cidr: string
-        region: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity IamRole {
-        id: string @unique
-        projectId: string
-        name: string
-        policy: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

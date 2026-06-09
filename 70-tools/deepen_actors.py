@@ -1306,6 +1306,35 @@ PLATFORM_OVERRIDES = {
         "PaymentMethod": E(type="string", storedPaymentMethodId="string"),
         "Notification": E(eventCode="string", pspReference="string", merchantReference="string", eventDate="datetime", success="boolean"),
     },
+    # Faithful PagerDuty model — verified against the official PagerDuty OpenAPI
+    # 3.0.2 (github.com/PagerDuty/api-schema). snake_case -> camelCase.
+    "pagerduty": {
+        "Incident": E(title="string", incidentNumber="integer", status="string", urgency="string", incidentKey="string", assignedVia="string", createdAt="datetime", updatedAt="datetime", resolvedAt="datetime"),
+        "Service": E(name="string", description="string", status="string", autoResolveTimeout="integer", acknowledgementTimeout="integer", createdAt="datetime"),
+        "EscalationPolicy": E(name="string", description="string", numLoops="integer", onCallHandoffNotifications="string"),
+        "User": E(name="string", email="string", role="string", timeZone="string", jobTitle="string", invitationSent="boolean"),
+        "Schedule": E(name="string", description="string", timeZone="string"),
+        "Team": E(name="string", description="string", defaultRole="string"),
+    },
+    # Faithful DigitalOcean model — verified against the official DigitalOcean
+    # OpenAPI (github.com/digitalocean/openapi). Array fields dropped.
+    "digitalocean": {
+        "Droplet": E(id="integer", name="string", status="string", memory="integer", vcpus="integer", disk="integer", locked="boolean", createdAt="datetime"),
+        "Volume": E(id="string", name="string", sizeGigabytes="integer", filesystemType="string", createdAt="datetime"),
+        "DatabaseCluster": E(id="string", name="string", engine="string", numNodes="integer", size="string", region="string", status="string", createdAt="datetime"),
+        "LoadBalancer": E(id="string", name="string", ip="string", status="string", sizeUnit="integer", createdAt="datetime"),
+        "KubernetesCluster": E(id="string", name="string", region="string", version="string", endpoint="string", autoUpgrade="boolean", ha="boolean", createdAt="datetime"),
+        "Image": E(id="integer", name="string", slug="string", public="boolean", status="string", type="string", sizeGigabytes="float", createdAt="datetime"),
+    },
+    # Faithful Razorpay model — verified against the official razorpay-python SDK
+    # (github.com/razorpay/razorpay-python). amounts in paise (integer); timestamps epoch.
+    "razorpay": {
+        "Payment": E(id="string", amount="integer", currency="string", status="string", method="string", orderId="string", email="string", contact="string", captured="boolean", createdAt="integer"),
+        "Order": E(id="string", amount="integer", currency="string", status="string", receipt="string", attempts="integer", createdAt="integer"),
+        "Refund": E(id="string", amount="integer", currency="string", status="string", speed="string", paymentId="string", createdAt="integer"),
+        "Customer": E(id="string", name="string", email="string", contact="string", createdAt="integer"),
+        "Settlement": E(id="string", amount="integer", status="string", fees="integer", tax="integer", createdAt="integer"),
+    },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).
     "square": {

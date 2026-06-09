@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible payments / money movement actor (razorpay); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:razorpay-compat",
-    "x-wasm-cid": "bafkreigbgglmpw6wjuljdkebav37tqbmaozcandjfouvbze2z4qvwv77wa",
+    "x-wasm-cid": "bafkreih6texjj4ksexuwbd4zyxutfcmdwoiln36tb3gxxkobe2szkd635e",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreigbgglmpw6wjuljdkebav37tqbmaozcandjfouvbze2z4qvwv77wa",
+      "url": "ipfs://bafkreih6texjj4ksexuwbd4zyxutfcmdwoiln36tb3gxxkobe2szkd635e",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/customers": {
+    "/v1/payments": {
       "get": {
-        "summary": "List Customers",
+        "summary": "List Payments",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Customer"
+                        "$ref": "#/components/schemas/Payment"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Customer",
+        "summary": "Create a Payment",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CustomerCreate"
+                "$ref": "#/components/schemas/PaymentCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Customer"
+                  "$ref": "#/components/schemas/Payment"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/customers/{id}": {
+    "/v1/payments/{id}": {
       "get": {
-        "summary": "Get a Customer",
+        "summary": "Get a Payment",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Customer"
+                  "$ref": "#/components/schemas/Payment"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Customer",
+        "summary": "Update a Payment",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CustomerCreate"
+                "$ref": "#/components/schemas/PaymentCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Customer"
+                  "$ref": "#/components/schemas/Payment"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Customer",
+        "summary": "Delete a Payment",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/paymentintents": {
+    "/v1/orders": {
       "get": {
-        "summary": "List PaymentIntents",
+        "summary": "List Orders",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/PaymentIntent"
+                        "$ref": "#/components/schemas/Order"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a PaymentIntent",
+        "summary": "Create a Order",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PaymentIntentCreate"
+                "$ref": "#/components/schemas/OrderCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PaymentIntent"
+                  "$ref": "#/components/schemas/Order"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/paymentintents/{id}": {
+    "/v1/orders/{id}": {
       "get": {
-        "summary": "Get a PaymentIntent",
+        "summary": "Get a Order",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PaymentIntent"
+                  "$ref": "#/components/schemas/Order"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a PaymentIntent",
+        "summary": "Update a Order",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PaymentIntentCreate"
+                "$ref": "#/components/schemas/OrderCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PaymentIntent"
+                  "$ref": "#/components/schemas/Order"
                 }
               }
             }
@@ -366,192 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a PaymentIntent",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/charges": {
-      "get": {
-        "summary": "List Charges",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Charge"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Charge",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ChargeCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Charge"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/charges/{id}": {
-      "get": {
-        "summary": "Get a Charge",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Charge"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Charge",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ChargeCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Charge"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Charge",
+        "summary": "Delete a Order",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +572,9 @@
         }
       }
     },
-    "/v1/payouts": {
+    "/v1/customers": {
       "get": {
-        "summary": "List Payouts",
+        "summary": "List Customers",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Payout"
+                        "$ref": "#/components/schemas/Customer"
                       }
                     },
                     "has_more": {
@@ -819,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Payout",
+        "summary": "Create a Customer",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PayoutCreate"
+                "$ref": "#/components/schemas/CustomerCreate"
               }
             }
           }
@@ -836,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Payout"
+                  "$ref": "#/components/schemas/Customer"
                 }
               }
             }
@@ -847,9 +662,9 @@
         }
       }
     },
-    "/v1/payouts/{id}": {
+    "/v1/customers/{id}": {
       "get": {
-        "summary": "Get a Payout",
+        "summary": "Get a Customer",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Payout"
+                  "$ref": "#/components/schemas/Customer"
                 }
               }
             }
@@ -884,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Payout",
+        "summary": "Update a Customer",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PayoutCreate"
+                "$ref": "#/components/schemas/CustomerCreate"
               }
             }
           }
@@ -910,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Payout"
+                  "$ref": "#/components/schemas/Customer"
                 }
               }
             }
@@ -921,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Payout",
+        "summary": "Delete a Customer",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +757,9 @@
         }
       }
     },
-    "/v1/paymentmethods": {
+    "/v1/settlements": {
       "get": {
-        "summary": "List PaymentMethods",
+        "summary": "List Settlements",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/PaymentMethod"
+                        "$ref": "#/components/schemas/Settlement"
                       }
                     },
                     "has_more": {
@@ -1004,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a PaymentMethod",
+        "summary": "Create a Settlement",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PaymentMethodCreate"
+                "$ref": "#/components/schemas/SettlementCreate"
               }
             }
           }
@@ -1021,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PaymentMethod"
+                  "$ref": "#/components/schemas/Settlement"
                 }
               }
             }
@@ -1032,9 +847,9 @@
         }
       }
     },
-    "/v1/paymentmethods/{id}": {
+    "/v1/settlements/{id}": {
       "get": {
-        "summary": "Get a PaymentMethod",
+        "summary": "Get a Settlement",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PaymentMethod"
+                  "$ref": "#/components/schemas/Settlement"
                 }
               }
             }
@@ -1069,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a PaymentMethod",
+        "summary": "Update a Settlement",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PaymentMethodCreate"
+                "$ref": "#/components/schemas/SettlementCreate"
               }
             }
           }
@@ -1095,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PaymentMethod"
+                  "$ref": "#/components/schemas/Settlement"
                 }
               }
             }
@@ -1106,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a PaymentMethod",
+        "summary": "Delete a Settlement",
         "parameters": [
           {
             "name": "id",
@@ -1140,23 +955,49 @@
   },
   "components": {
     "schemas": {
-      "Customer": {
+      "Payment": {
         "type": "object",
         "properties": {
           "id": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "integer"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "created",
+              "authorized",
+              "captured",
+              "refunded",
+              "failed"
+            ]
+          },
+          "method": {
+            "type": "string",
+            "enum": [
+              "card",
+              "netbanking",
+              "wallet",
+              "upi",
+              "emi"
+            ]
+          },
+          "orderId": {
             "type": "string"
           },
           "email": {
             "type": "string"
           },
-          "name": {
+          "contact": {
             "type": "string"
           },
-          "phone": {
-            "type": "string"
-          },
-          "balance": {
-            "type": "integer"
+          "captured": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1168,34 +1009,63 @@
           }
         }
       },
-      "CustomerCreate": {
+      "PaymentCreate": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "integer"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "created",
+              "authorized",
+              "captured",
+              "refunded",
+              "failed"
+            ]
+          },
+          "method": {
+            "type": "string",
+            "enum": [
+              "card",
+              "netbanking",
+              "wallet",
+              "upi",
+              "emi"
+            ]
+          },
+          "orderId": {
+            "type": "string"
+          },
           "email": {
             "type": "string"
           },
-          "name": {
+          "contact": {
             "type": "string"
           },
-          "phone": {
-            "type": "string"
+          "captured": {
+            "type": "boolean"
           },
-          "balance": {
+          "createdAt": {
             "type": "integer"
           }
         },
         "required": [
-          "email",
-          "name"
+          "id",
+          "amount"
         ]
       },
-      "PaymentIntent": {
+      "Order": {
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
-          },
-          "customerId": {
             "type": "string"
           },
           "amount": {
@@ -1205,7 +1075,18 @@
             "type": "string"
           },
           "status": {
+            "type": "string",
+            "enum": [
+              "created",
+              "attempted",
+              "paid"
+            ]
+          },
+          "receipt": {
             "type": "string"
+          },
+          "attempts": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1217,39 +1098,12 @@
           }
         }
       },
-      "PaymentIntentCreate": {
-        "type": "object",
-        "properties": {
-          "customerId": {
-            "type": "string"
-          },
-          "amount": {
-            "type": "integer"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "amount",
-          "currency"
-        ]
-      },
-      "Charge": {
+      "OrderCreate": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "customerId": {
-            "type": "string"
-          },
-          "paymentIntentId": {
-            "type": "string"
-          },
           "amount": {
             "type": "integer"
           },
@@ -1257,40 +1111,26 @@
             "type": "string"
           },
           "status": {
+            "type": "string",
+            "enum": [
+              "created",
+              "attempted",
+              "paid"
+            ]
+          },
+          "receipt": {
             "type": "string"
+          },
+          "attempts": {
+            "type": "integer"
           },
           "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ChargeCreate": {
-        "type": "object",
-        "properties": {
-          "customerId": {
-            "type": "string"
-          },
-          "paymentIntentId": {
-            "type": "string"
-          },
-          "amount": {
             "type": "integer"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
           }
         },
         "required": [
-          "amount",
-          "currency"
+          "id",
+          "amount"
         ]
       },
       "Refund": {
@@ -1299,16 +1139,29 @@
           "id": {
             "type": "string"
           },
-          "chargeId": {
-            "type": "string"
-          },
           "amount": {
             "type": "integer"
           },
-          "reason": {
+          "currency": {
             "type": "string"
           },
           "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "processed",
+              "failed"
+            ]
+          },
+          "speed": {
+            "type": "string",
+            "enum": [
+              "normal",
+              "optimum",
+              "instant"
+            ]
+          },
+          "paymentId": {
             "type": "string"
           },
           "createdAt": {
@@ -1324,27 +1177,6 @@
       "RefundCreate": {
         "type": "object",
         "properties": {
-          "chargeId": {
-            "type": "string"
-          },
-          "amount": {
-            "type": "integer"
-          },
-          "reason": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "amount",
-          "reason"
-        ]
-      },
-      "Payout": {
-        "type": "object",
-        "properties": {
           "id": {
             "type": "string"
           },
@@ -1354,11 +1186,47 @@
           "currency": {
             "type": "string"
           },
-          "arrivalDate": {
-            "type": "string",
-            "format": "date-time"
-          },
           "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "processed",
+              "failed"
+            ]
+          },
+          "speed": {
+            "type": "string",
+            "enum": [
+              "normal",
+              "optimum",
+              "instant"
+            ]
+          },
+          "paymentId": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "amount"
+        ]
+      },
+      "Customer": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "contact": {
             "type": "string"
           },
           "createdAt": {
@@ -1371,44 +1239,52 @@
           }
         }
       },
-      "PayoutCreate": {
-        "type": "object",
-        "properties": {
-          "amount": {
-            "type": "integer"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "arrivalDate": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "amount",
-          "currency"
-        ]
-      },
-      "PaymentMethod": {
+      "CustomerCreate": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "customerId": {
+          "name": {
             "type": "string"
           },
-          "type": {
+          "email": {
             "type": "string"
           },
-          "last4": {
+          "contact": {
             "type": "string"
           },
-          "brand": {
+          "createdAt": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "Settlement": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "string"
+          },
+          "amount": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "processed",
+              "failed",
+              "initiated"
+            ]
+          },
+          "fees": {
+            "type": "integer"
+          },
+          "tax": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1420,25 +1296,36 @@
           }
         }
       },
-      "PaymentMethodCreate": {
+      "SettlementCreate": {
         "type": "object",
         "properties": {
-          "customerId": {
+          "id": {
             "type": "string"
           },
-          "type": {
-            "type": "string"
+          "amount": {
+            "type": "integer"
           },
-          "last4": {
-            "type": "string"
+          "status": {
+            "type": "string",
+            "enum": [
+              "processed",
+              "failed",
+              "initiated"
+            ]
           },
-          "brand": {
-            "type": "string"
+          "fees": {
+            "type": "integer"
+          },
+          "tax": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "integer"
           }
         },
         "required": [
-          "type",
-          "last4"
+          "id",
+          "amount"
         ]
       }
     }

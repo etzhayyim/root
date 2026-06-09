@@ -4186,12 +4186,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Project",
-        "ComputeInstance",
+        "Droplet",
         "Volume",
-        "Bucket",
-        "Network",
-        "IamRole"
+        "DatabaseCluster",
+        "LoadBalancer",
+        "KubernetesCluster",
+        "Image"
       ]
     },
     {
@@ -11630,12 +11630,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
+        "Incident",
         "Service",
-        "Error",
-        "Trace",
-        "Metric",
-        "Alert",
-        "Incident"
+        "EscalationPolicy",
+        "User",
+        "Schedule",
+        "Team"
       ]
     },
     {
@@ -12560,17 +12560,16 @@
       "handle": "razorpay-compat",
       "platform": "razorpay",
       "bytes": 2122,
-      "wasmCid": "bafkreigbgglmpw6wjuljdkebav37tqbmaozcandjfouvbze2z4qvwv77wa",
+      "wasmCid": "bafkreih6texjj4ksexuwbd4zyxutfcmdwoiln36tb3gxxkobe2szkd635e",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Customer",
-        "PaymentIntent",
-        "Charge",
+        "Payment",
+        "Order",
         "Refund",
-        "Payout",
-        "PaymentMethod"
+        "Customer",
+        "Settlement"
       ]
     },
     {

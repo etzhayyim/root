@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 57,
+  "count": 60,
   "actors": [
     {
       "handle": "square-compat",
@@ -7965,6 +7965,487 @@
         }
       ],
       "note": "5 faithful W3C resources reconciled against live api.w3.org. Real fields are kebab-case (editor-draft/rec-track/is-closed/start-date) mapped to camelCase; _links flattened to *Uri scalars or json. KEY HONESTY NOTE: the API returns version status as full strings ('Candidate Recommendation Snapshot'), NOT the WD/CR/REC abbreviation set from w3.org/standards/types (a distinct vocabulary)."
+    },
+    {
+      "handle": "pagerduty-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/PagerDuty/api-schema/blob/main/reference/REST/openapiv3.json",
+      "remodeled": "Remodeled from generic devtools_saas to a faithful PagerDuty model, verified against the official PagerDuty OpenAPI 3.0.2. snake_case->camelCase.",
+      "resources": [
+        {
+          "entity": "Incident",
+          "source": "https://github.com/PagerDuty/api-schema/blob/main/reference/REST/openapiv3.json",
+          "verifiedFields": [
+            "title",
+            "incidentNumber",
+            "status",
+            "urgency",
+            "incidentKey",
+            "assignedVia",
+            "createdAt",
+            "updatedAt",
+            "resolvedAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "triggered",
+              "acknowledged",
+              "resolved"
+            ],
+            "urgency": [
+              "high",
+              "low"
+            ],
+            "assignedVia": [
+              "escalation_policy",
+              "direct_assignment"
+            ]
+          },
+          "gaps": [
+            "serviceId",
+            "priority"
+          ]
+        },
+        {
+          "entity": "Service",
+          "source": "https://github.com/PagerDuty/api-schema/blob/main/reference/REST/openapiv3.json",
+          "verifiedFields": [
+            "name",
+            "description",
+            "status",
+            "autoResolveTimeout",
+            "acknowledgementTimeout",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "active",
+              "warning",
+              "critical",
+              "maintenance",
+              "disabled"
+            ]
+          },
+          "gaps": [
+            "escalationPolicyId"
+          ]
+        },
+        {
+          "entity": "EscalationPolicy",
+          "source": "https://github.com/PagerDuty/api-schema/blob/main/reference/REST/openapiv3.json",
+          "verifiedFields": [
+            "name",
+            "description",
+            "numLoops",
+            "onCallHandoffNotifications"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "onCallHandoffNotifications": [
+              "if_has_services",
+              "always"
+            ]
+          },
+          "gaps": [
+            "rules"
+          ]
+        },
+        {
+          "entity": "User",
+          "source": "https://github.com/PagerDuty/api-schema/blob/main/reference/REST/openapiv3.json",
+          "verifiedFields": [
+            "name",
+            "email",
+            "role",
+            "timeZone",
+            "jobTitle",
+            "invitationSent"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "role": [
+              "admin",
+              "limited_user",
+              "observer",
+              "owner",
+              "read_only_user",
+              "restricted_access",
+              "read_only_limited_user",
+              "user"
+            ]
+          },
+          "gaps": [
+            "color"
+          ]
+        },
+        {
+          "entity": "Schedule",
+          "source": "https://github.com/PagerDuty/api-schema/blob/main/reference/REST/openapiv3.json",
+          "verifiedFields": [
+            "name",
+            "description",
+            "timeZone"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "scheduleLayers"
+          ]
+        },
+        {
+          "entity": "Team",
+          "source": "https://github.com/PagerDuty/api-schema/blob/main/reference/REST/openapiv3.json",
+          "verifiedFields": [
+            "name",
+            "description",
+            "defaultRole"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "defaultRole": [
+              "manager",
+              "none"
+            ]
+          },
+          "gaps": [
+            "parent"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official PagerDuty OpenAPI 3.0.2. Enforced enums: Incident.status/urgency/assignedVia, Service.status, EscalationPolicy.onCallHandoffNotifications, User.role(8), Team.defaultRole = 7 enums."
+    },
+    {
+      "handle": "digitalocean-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/digitalocean/openapi/blob/main/specification/resources",
+      "remodeled": "Remodeled from generic iaas_cloud to a faithful DigitalOcean model, verified against the official DigitalOcean OpenAPI YAML. Array fields (dropletIds) dropped; snake_case->camelCase.",
+      "resources": [
+        {
+          "entity": "Droplet",
+          "source": "https://github.com/digitalocean/openapi/blob/main/specification/resources/droplets/models/droplet.yml",
+          "verifiedFields": [
+            "id",
+            "name",
+            "status",
+            "memory",
+            "vcpus",
+            "disk",
+            "locked",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "new",
+              "active",
+              "off",
+              "archive"
+            ]
+          },
+          "gaps": [
+            "region(object)",
+            "image(object)"
+          ]
+        },
+        {
+          "entity": "Volume",
+          "source": "https://github.com/digitalocean/openapi/blob/main/specification/resources/volumes/models/volume_base_read.yml",
+          "verifiedFields": [
+            "id",
+            "name",
+            "sizeGigabytes",
+            "filesystemType",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "filesystemType": [
+              "ext4",
+              "xfs"
+            ]
+          },
+          "gaps": [
+            "dropletIds(array)"
+          ]
+        },
+        {
+          "entity": "DatabaseCluster",
+          "source": "https://github.com/digitalocean/openapi/blob/main/specification/resources/databases/models/database_cluster.yml",
+          "verifiedFields": [
+            "id",
+            "name",
+            "engine",
+            "numNodes",
+            "size",
+            "region",
+            "status",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "engine": [
+              "pg",
+              "mysql",
+              "redis",
+              "valkey",
+              "mongodb",
+              "kafka",
+              "opensearch",
+              "advanced_pg",
+              "advanced_mysql"
+            ],
+            "status": [
+              "creating",
+              "online",
+              "resizing",
+              "migrating",
+              "forking"
+            ]
+          },
+          "gaps": [
+            "connection(object)"
+          ]
+        },
+        {
+          "entity": "LoadBalancer",
+          "source": "https://github.com/digitalocean/openapi/blob/main/specification/resources/load_balancers/models/load_balancer_base.yml",
+          "verifiedFields": [
+            "id",
+            "name",
+            "ip",
+            "status",
+            "sizeUnit",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "new",
+              "active",
+              "errored"
+            ]
+          },
+          "gaps": [
+            "forwardingRules(array)"
+          ]
+        },
+        {
+          "entity": "KubernetesCluster",
+          "source": "https://github.com/digitalocean/openapi/blob/main/specification/resources/kubernetes/models/cluster_read.yml",
+          "verifiedFields": [
+            "id",
+            "name",
+            "region",
+            "version",
+            "endpoint",
+            "autoUpgrade",
+            "ha",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "running",
+              "provisioning",
+              "degraded",
+              "error",
+              "deleted",
+              "upgrading",
+              "deleting"
+            ]
+          },
+          "gaps": [
+            "nodePools(array)"
+          ]
+        },
+        {
+          "entity": "Image",
+          "source": "https://github.com/digitalocean/openapi/blob/main/specification/resources/images/models/image.yml",
+          "verifiedFields": [
+            "id",
+            "name",
+            "slug",
+            "public",
+            "status",
+            "type",
+            "sizeGigabytes",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "base",
+              "snapshot",
+              "backup",
+              "custom",
+              "admin"
+            ],
+            "status": [
+              "NEW",
+              "available",
+              "pending",
+              "deleted",
+              "retired"
+            ]
+          },
+          "gaps": [
+            "regions(array)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official DigitalOcean OpenAPI. Enforced enums: Droplet.status, Volume.filesystemType, DatabaseCluster.engine(9)/status, LoadBalancer.status, KubernetesCluster.status(7), Image.type/status = 8 enums. KubernetesCluster.status uses the cluster_read state enum verbatim."
+    },
+    {
+      "handle": "razorpay-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/razorpay/razorpay-python",
+      "remodeled": "Remodeled from generic fintech_web3 to a faithful Razorpay model, verified against the official razorpay-python SDK. amounts in paise (integer); createdAt is a Unix epoch integer per the API.",
+      "resources": [
+        {
+          "entity": "Payment",
+          "source": "https://github.com/razorpay/razorpay-python/blob/master/razorpay/resources/payment.py",
+          "verifiedFields": [
+            "id",
+            "amount",
+            "currency",
+            "status",
+            "method",
+            "orderId",
+            "email",
+            "contact",
+            "captured",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed (order_id, created_at epoch)",
+          "discoveredEnums": {
+            "status": [
+              "created",
+              "authorized",
+              "captured",
+              "refunded",
+              "failed"
+            ],
+            "method": [
+              "card",
+              "netbanking",
+              "wallet",
+              "upi",
+              "emi"
+            ]
+          },
+          "gaps": [
+            "bank",
+            "vpa",
+            "fee",
+            "tax"
+          ]
+        },
+        {
+          "entity": "Order",
+          "source": "https://github.com/razorpay/razorpay-python/blob/master/razorpay/resources/order.py",
+          "verifiedFields": [
+            "id",
+            "amount",
+            "currency",
+            "status",
+            "receipt",
+            "attempts",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "created",
+              "attempted",
+              "paid"
+            ]
+          },
+          "gaps": [
+            "amountPaid",
+            "amountDue",
+            "notes"
+          ]
+        },
+        {
+          "entity": "Refund",
+          "source": "https://github.com/razorpay/razorpay-python/blob/master/razorpay/resources/refund.py",
+          "verifiedFields": [
+            "id",
+            "amount",
+            "currency",
+            "status",
+            "speed",
+            "paymentId",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed (payment_id)",
+          "discoveredEnums": {
+            "status": [
+              "pending",
+              "processed",
+              "failed"
+            ],
+            "speed": [
+              "normal",
+              "optimum",
+              "instant"
+            ]
+          },
+          "gaps": [
+            "speedRequested",
+            "batchId"
+          ]
+        },
+        {
+          "entity": "Customer",
+          "source": "https://github.com/razorpay/razorpay-python/blob/master/razorpay/resources/customer.py",
+          "verifiedFields": [
+            "id",
+            "name",
+            "email",
+            "contact",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "gstin",
+            "notes"
+          ]
+        },
+        {
+          "entity": "Settlement",
+          "source": "https://github.com/razorpay/razorpay-python/blob/master/razorpay/resources/settlement.py",
+          "verifiedFields": [
+            "id",
+            "amount",
+            "status",
+            "fees",
+            "tax",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "processed",
+              "failed",
+              "initiated"
+            ]
+          },
+          "gaps": [
+            "utr"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs official razorpay-python SDK. Enforced enums: Payment.status/method, Order.status, Refund.status/speed, Settlement.status = 6 enums. createdAt modeled as integer (Unix epoch) per API response shape."
     }
   ]
 }

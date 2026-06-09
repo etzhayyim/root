@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 943,
-    "L5": 57
+    "L4": 940,
+    "L5": 60
   },
   "actors": [
     {
@@ -4430,7 +4430,7 @@
       "wasmCid": "bafkreielbzomeatswxe67bqlg6xpuf6wnujdaypcjrfhaz4vo7nv5gx6ua",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "digitalocean clean-room actor",
       "category": "iaas_cloud",
       "capabilities": [
@@ -12314,7 +12314,7 @@
       "wasmCid": "bafkreihbcsb7quanvdoc2rflxxkv42jcqtidnrxxhmistn25r7mcwwksuq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "pagerduty clean-room actor",
       "category": "devtools_apm",
       "capabilities": [
@@ -13301,10 +13301,10 @@
     {
       "handle": "razorpay-compat",
       "did": "did:web:etzhayyim.com:actor:razorpay-compat",
-      "wasmCid": "bafkreigbgglmpw6wjuljdkebav37tqbmaozcandjfouvbze2z4qvwv77wa",
+      "wasmCid": "bafkreih6texjj4ksexuwbd4zyxutfcmdwoiln36tb3gxxkobe2szkd635e",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "razorpay clean-room actor",
       "category": "payments",
       "capabilities": [
