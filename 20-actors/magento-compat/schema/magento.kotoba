@@ -5,42 +5,14 @@ namespace magento {
 
     entity Product {
         id: string @unique
-        sku: string
-        title: string
-        price: float
-        currency: string
-        inventory: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Variant {
-        id: string @unique
-        productId: string
+        name: string
         sku: string
         price: float
-        optionValues: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Order {
-        id: string @unique
-        customerId: string
-        number: string
-        total: float
-        currency: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity LineItem {
-        id: string @unique
-        orderId: string
-        productId: string
-        quantity: integer
-        unitPrice: float
+        status: integer
+        typeId: string
+        visibility: integer
+        weight: float
+        attributeSetId: integer
         createdAt: datetime
         updatedAt: datetime
     }
@@ -48,29 +20,91 @@ namespace magento {
     entity Customer {
         id: string @unique
         email: string
-        firstName: string
-        lastName: string
-        phone: string
+        firstname: string
+        lastname: string
+        middlename: string
+        prefix: string
+        suffix: string
+        dob: string
+        gender: integer
+        groupId: integer
+        storeId: integer
+        createdIn: string
+        taxvat: string
+        defaultBilling: string
+        defaultShipping: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Collection {
+    entity Order {
         id: string @unique
-        title: string
-        handle: string
-        published: boolean
+        incrementId: string
+        status: string
+        state: string
+        customerEmail: string
+        customerFirstname: string
+        customerLastname: string
+        grandTotal: float
+        baseGrandTotal: float
+        orderCurrencyCode: string
+        baseCurrencyCode: string
+        couponCode: string
+        totalQtyOrdered: float
+        subtotal: float
+        taxAmount: float
+        shippingAmount: float
+        totalPaid: float
+        customerId: integer
+        storeId: integer
+        customerIsGuest: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Category {
+        id: string @unique
+        name: string
+        isActive: boolean
+        parentId: integer
+        level: integer
+        path: string
+        position: integer
+        includeInMenu: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Cart {
+        id: string @unique
+        customerIsGuest: boolean
+        customerNote: string
+        isActive: boolean
+        isVirtual: boolean
+        itemsCount: integer
+        itemsQty: float
+        reservedOrderId: string
+        storeId: integer
+        origOrderId: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Invoice {
+        id: string @unique
+        incrementId: string
+        state: integer
+        grandTotal: float
+        baseGrandTotal: float
+        orderCurrencyCode: string
+        baseCurrencyCode: string
+        subtotal: float
+        taxAmount: float
+        shippingAmount: float
+        storeId: integer
+        orderId: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

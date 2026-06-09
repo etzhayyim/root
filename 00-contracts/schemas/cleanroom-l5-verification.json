@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 80,
+  "count": 81,
   "actors": [
     {
       "handle": "square-compat",
@@ -11581,6 +11581,166 @@
       ],
       "notApplicable": [],
       "note": "Remodeled from a mismatched OpenAI-shaped LLM archetype to a faithful voice-synthesis model. 6/6 entities field-verified vs ElevenLabs' official OpenAPI. Discovered closed enums (3): HistoryItem.state, Subscription.status/currency. The xi_api_key credential is intentionally omitted from the clean-room schema."
+    },
+    {
+      "handle": "magento-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "Magento (Adobe Commerce) official OpenAPI (via apis.guru mirror: magento.com)",
+      "remodeled": "Verified + refined to Magento's real REST entities (Product/Customer/Order/Category/Cart/Invoice), mapped from the official Magento OpenAPI module-data interfaces (catalog-data-product-interface, sales-data-order-interface, quote-data-cart-interface, etc., allOf/$ref resolved). Magento uses integer status/visibility codes rather than string enums. The L5 gate verifies real-platform fidelity (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Product",
+          "source": "catalog-data-product-interface",
+          "verifiedFields": [
+            "name",
+            "sku",
+            "price",
+            "status",
+            "typeId",
+            "visibility",
+            "weight",
+            "attributeSetId"
+          ],
+          "fieldStatus": "confirmed vs catalog-data-product-interface (name/sku/price/status/type_id/visibility/weight/attribute_set_id; status/visibility are integer codes)",
+          "discoveredEnums": {},
+          "gaps": [
+            "custom_attributes(array)",
+            "extension_attributes(object)",
+            "media_gallery_entries(array)",
+            "product_links(array)"
+          ]
+        },
+        {
+          "entity": "Customer",
+          "source": "customer-data-customer-interface",
+          "verifiedFields": [
+            "email",
+            "firstname",
+            "lastname",
+            "middlename",
+            "prefix",
+            "suffix",
+            "dob",
+            "gender",
+            "groupId",
+            "storeId",
+            "createdIn",
+            "taxvat",
+            "defaultBilling",
+            "defaultShipping"
+          ],
+          "fieldStatus": "confirmed vs customer-data-customer-interface",
+          "discoveredEnums": {},
+          "gaps": [
+            "addresses(array)",
+            "custom_attributes(array)",
+            "extension_attributes(object)"
+          ]
+        },
+        {
+          "entity": "Order",
+          "source": "sales-data-order-interface",
+          "verifiedFields": [
+            "incrementId",
+            "status",
+            "state",
+            "customerEmail",
+            "customerFirstname",
+            "customerLastname",
+            "grandTotal",
+            "baseGrandTotal",
+            "orderCurrencyCode",
+            "baseCurrencyCode",
+            "couponCode",
+            "totalQtyOrdered",
+            "subtotal",
+            "taxAmount",
+            "shippingAmount",
+            "totalPaid",
+            "customerId",
+            "storeId",
+            "customerIsGuest"
+          ],
+          "fieldStatus": "confirmed vs sales-data-order-interface (132 scalar fields total; modeled the salient subset)",
+          "discoveredEnums": {},
+          "gaps": [
+            "items(array)",
+            "billing_address(object)",
+            "payment(object)",
+            "status_histories(array)",
+            "100+ base_*/* tax fields"
+          ]
+        },
+        {
+          "entity": "Category",
+          "source": "catalog-data-category-interface",
+          "verifiedFields": [
+            "name",
+            "isActive",
+            "parentId",
+            "level",
+            "path",
+            "position",
+            "includeInMenu"
+          ],
+          "fieldStatus": "confirmed vs catalog-data-category-interface",
+          "discoveredEnums": {},
+          "gaps": [
+            "children_data(array)",
+            "custom_attributes(array)"
+          ]
+        },
+        {
+          "entity": "Cart",
+          "source": "quote-data-cart-interface",
+          "verifiedFields": [
+            "customerIsGuest",
+            "customerNote",
+            "isActive",
+            "isVirtual",
+            "itemsCount",
+            "itemsQty",
+            "reservedOrderId",
+            "storeId",
+            "origOrderId"
+          ],
+          "fieldStatus": "confirmed vs quote-data-cart-interface",
+          "discoveredEnums": {},
+          "gaps": [
+            "items(array)",
+            "customer(object)",
+            "billing_address(object)",
+            "currency(object)"
+          ]
+        },
+        {
+          "entity": "Invoice",
+          "source": "sales-data-invoice-interface",
+          "verifiedFields": [
+            "incrementId",
+            "state",
+            "grandTotal",
+            "baseGrandTotal",
+            "orderCurrencyCode",
+            "baseCurrencyCode",
+            "subtotal",
+            "taxAmount",
+            "shippingAmount",
+            "storeId",
+            "orderId"
+          ],
+          "fieldStatus": "confirmed vs sales-data-invoice-interface (state is an integer code)",
+          "discoveredEnums": {},
+          "gaps": [
+            "items(array)",
+            "comments(array)",
+            "44 base_*/* tax fields"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "Verified + refined to faithful Magento REST entities. 6/6 entities field-verified vs Magento's official OpenAPI module-data interfaces. No string enums (Magento encodes status/visibility/state as integer codes); recorded faithfully as integer. Money fields are number/float."
     }
   ]
 }

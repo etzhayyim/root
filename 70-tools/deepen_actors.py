@@ -1304,6 +1304,17 @@ PLATFORM_OVERRIDES = {
         "Subscription": E(tier="string", status="string", currency="string", characterCount="integer", characterLimit="integer", voiceLimit="integer", professionalVoiceLimit="integer", canUseInstantVoiceCloning="boolean", canUseProfessionalVoiceCloning="boolean", canExtendCharacterLimit="boolean", canExtendVoiceLimit="boolean", nextCharacterCountResetUnix="integer"),
         "User": E(isNewUser="boolean"),
     },
+    # Faithful Magento (Commerce/Open Source) model (verified + refined from the
+    # generic e-commerce archetype to Magento's real REST entities), doc-verified
+    # L5 vs Magento's official OpenAPI (via apis.guru).
+    "magento": {
+        "Product": E(name="string", sku="string", price="float", status="integer", typeId="string", visibility="integer", weight="float", attributeSetId="integer"),
+        "Customer": E(email="string", firstname="string", lastname="string", middlename="string", prefix="string", suffix="string", dob="string", gender="integer", groupId="integer", storeId="integer", createdIn="string", taxvat="string", defaultBilling="string", defaultShipping="string"),
+        "Order": E(incrementId="string", status="string", state="string", customerEmail="string", customerFirstname="string", customerLastname="string", grandTotal="float", baseGrandTotal="float", orderCurrencyCode="string", baseCurrencyCode="string", couponCode="string", totalQtyOrdered="float", subtotal="float", taxAmount="float", shippingAmount="float", totalPaid="float", customerId="integer", storeId="integer", customerIsGuest="integer"),
+        "Category": E(name="string", isActive="boolean", parentId="integer", level="integer", path="string", position="integer", includeInMenu="boolean"),
+        "Cart": E(customerIsGuest="boolean", customerNote="string", isActive="boolean", isVirtual="boolean", itemsCount="integer", itemsQty="float", reservedOrderId="string", storeId="integer", origOrderId="integer"),
+        "Invoice": E(incrementId="string", state="integer", grandTotal="float", baseGrandTotal="float", orderCurrencyCode="string", baseCurrencyCode="string", subtotal="float", taxAmount="float", shippingAmount="float", storeId="integer", orderId="integer"),
+    },
     # Faithful Airtable model (remodeled from generic office_productivity), L5.
     "airtable": {
         "Base": E(name="string", permissionLevel="string"),

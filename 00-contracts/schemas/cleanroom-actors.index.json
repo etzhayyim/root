@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 920,
-    "L5": 80
+    "L4": 919,
+    "L5": 81
   },
   "actors": [
     {
@@ -9686,7 +9686,7 @@
       "wasmCid": "bafkreihggzcn3lv33e5gbmu7xhcirqnrhckymuk7zn65kjgcncugzhq2dq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "magento clean-room actor",
       "category": "ecommerce",
       "capabilities": [
