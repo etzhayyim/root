@@ -1621,6 +1621,24 @@ PLATFORM_OVERRIDES = {
         "Deployment": E(id="string", status="string", projectName="string", stackName="string", paused="boolean", created="datetime", modified="datetime"),
         "Organization": E(name="string", role="string"),
     },
+    # Faithful Telegram Bot API model — verified against core.telegram.org/bots/api.
+    # timestamps Unix integer; nested object refs dropped.
+    "telegram_api": {
+        "User": E(id="integer", isBot="boolean", firstName="string", lastName="string", username="string", languageCode="string", isPremium="boolean"),
+        "Chat": E(id="integer", type="string", title="string", username="string", firstName="string", lastName="string", isForum="boolean"),
+        "Message": E(messageId="integer", date="integer", text="string", chatId="integer"),
+        "ChatMember": E(status="string", isAnonymous="boolean", customTitle="string"),
+    },
+    # Faithful Kong Gateway Admin API model — verified against the official Kong
+    # entity schemas (github.com/Kong/kong db/schema/entities). timestamps Unix int.
+    "kong": {
+        "Service": E(id="string", name="string", protocol="string", host="string", port="integer", path="string", retries="integer", enabled="boolean", connectTimeout="integer", createdAt="integer", updatedAt="integer"),
+        "Route": E(id="string", name="string", service="string", stripPath="boolean", preserveHost="boolean", priority="integer", pathHandling="string", httpsRedirectStatusCode="integer", createdAt="integer"),
+        "Consumer": E(id="string", username="string", customId="string", createdAt="integer", updatedAt="integer"),
+        "Plugin": E(id="string", name="string", instanceName="string", service="string", route="string", consumer="string", enabled="boolean", createdAt="integer"),
+        "Upstream": E(id="string", name="string", algorithm="string", hashOn="string", hashFallback="string", hashOnHeader="string", createdAt="integer"),
+        "Target": E(id="string", upstream="string", target="string", weight="integer", createdAt="integer"),
+    },
     # Faithful World Bank Indicators API model — verified against the live
     # api.worldbank.org/v2 endpoints (code lists are documented closed sets).
     "worldbank": {

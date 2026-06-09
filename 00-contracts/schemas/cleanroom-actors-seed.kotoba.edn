@@ -11322,11 +11322,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible communications / social actor (telegram_api); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "telegram_api.kotoba"
-   :actor/wasm-cid "bafkreif2exaga5zhuv3uyw5wwsb5o5n6jocutlt3c24ctxjuq4cwmgb52y"
+   :actor/wasm-cid "bafkreick2mkgb5lf5da5r3bnknujos3ugfcb3x6djkrxxvy4rkhl5s7rwy"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:telegram_api-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreif2exaga5zhuv3uyw5wwsb5o5n6jocutlt3c24ctxjuq4cwmgb52y" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:telegram_api-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreif2exaga5zhuv3uyw5wwsb5o5n6jocutlt3c24ctxjuq4cwmgb52y" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:telegram_api-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreif2exaga5zhuv3uyw5wwsb5o5n6jocutlt3c24ctxjuq4cwmgb52y" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:telegram_api-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreif2exaga5zhuv3uyw5wwsb5o5n6jocutlt3c24ctxjuq4cwmgb52y" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:telegram_api-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreick2mkgb5lf5da5r3bnknujos3ugfcb3x6djkrxxvy4rkhl5s7rwy" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:telegram_api-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreick2mkgb5lf5da5r3bnknujos3ugfcb3x6djkrxxvy4rkhl5s7rwy" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:telegram_api-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreick2mkgb5lf5da5r3bnknujos3ugfcb3x6djkrxxvy4rkhl5s7rwy" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:telegram_api-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreick2mkgb5lf5da5r3bnknujos3ugfcb3x6djkrxxvy4rkhl5s7rwy" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "tensorrt-compat"
    :actor/did "did:web:etzhayyim.com:actor:tensorrt-compat"
    :actor/kind :compat

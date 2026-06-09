@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreicpxt356vvpbsga57ljoqlua6heyel4b4jcyjcrcplbyhakkwyvzy",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/deployments": {
+    "/v1/routes": {
       "get": {
-        "summary": "List Deployments",
+        "summary": "List Routes",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Deployment"
+                        "$ref": "#/components/schemas/Route"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Deployment",
+        "summary": "Create a Route",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DeploymentCreate"
+                "$ref": "#/components/schemas/RouteCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Deployment"
+                  "$ref": "#/components/schemas/Route"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/deployments/{id}": {
+    "/v1/routes/{id}": {
       "get": {
-        "summary": "Get a Deployment",
+        "summary": "Get a Route",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Deployment"
+                  "$ref": "#/components/schemas/Route"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Deployment",
+        "summary": "Update a Route",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DeploymentCreate"
+                "$ref": "#/components/schemas/RouteCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Deployment"
+                  "$ref": "#/components/schemas/Route"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Deployment",
+        "summary": "Delete a Route",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/secrets": {
+    "/v1/consumers": {
       "get": {
-        "summary": "List Secrets",
+        "summary": "List Consumers",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Secret"
+                        "$ref": "#/components/schemas/Consumer"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Secret",
+        "summary": "Create a Consumer",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SecretCreate"
+                "$ref": "#/components/schemas/ConsumerCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Secret"
+                  "$ref": "#/components/schemas/Consumer"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/secrets/{id}": {
+    "/v1/consumers/{id}": {
       "get": {
-        "summary": "Get a Secret",
+        "summary": "Get a Consumer",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Secret"
+                  "$ref": "#/components/schemas/Consumer"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Secret",
+        "summary": "Update a Consumer",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SecretCreate"
+                "$ref": "#/components/schemas/ConsumerCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Secret"
+                  "$ref": "#/components/schemas/Consumer"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Secret",
+        "summary": "Delete a Consumer",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/apiproxies": {
+    "/v1/plugins": {
       "get": {
-        "summary": "List ApiProxies",
+        "summary": "List Plugins",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ApiProxy"
+                        "$ref": "#/components/schemas/Plugin"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a ApiProxy",
+        "summary": "Create a Plugin",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ApiProxyCreate"
+                "$ref": "#/components/schemas/PluginCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiProxy"
+                  "$ref": "#/components/schemas/Plugin"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/apiproxies/{id}": {
+    "/v1/plugins/{id}": {
       "get": {
-        "summary": "Get a ApiProxy",
+        "summary": "Get a Plugin",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiProxy"
+                  "$ref": "#/components/schemas/Plugin"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a ApiProxy",
+        "summary": "Update a Plugin",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ApiProxyCreate"
+                "$ref": "#/components/schemas/PluginCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiProxy"
+                  "$ref": "#/components/schemas/Plugin"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a ApiProxy",
+        "summary": "Delete a Plugin",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/databases": {
+    "/v1/upstreams": {
       "get": {
-        "summary": "List Databases",
+        "summary": "List Upstreams",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Database"
+                        "$ref": "#/components/schemas/Upstream"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Database",
+        "summary": "Create a Upstream",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DatabaseCreate"
+                "$ref": "#/components/schemas/UpstreamCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Database"
+                  "$ref": "#/components/schemas/Upstream"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/databases/{id}": {
+    "/v1/upstreams/{id}": {
       "get": {
-        "summary": "Get a Database",
+        "summary": "Get a Upstream",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Database"
+                  "$ref": "#/components/schemas/Upstream"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Database",
+        "summary": "Update a Upstream",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DatabaseCreate"
+                "$ref": "#/components/schemas/UpstreamCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Database"
+                  "$ref": "#/components/schemas/Upstream"
                 }
               }
             }
@@ -921,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Database",
+        "summary": "Delete a Upstream",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +942,9 @@
         }
       }
     },
-    "/v1/functions": {
+    "/v1/targets": {
       "get": {
-        "summary": "List Functions",
+        "summary": "List Targets",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +984,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Function"
+                        "$ref": "#/components/schemas/Target"
                       }
                     },
                     "has_more": {
@@ -1004,13 +1004,13 @@
         }
       },
       "post": {
-        "summary": "Create a Function",
+        "summary": "Create a Target",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FunctionCreate"
+                "$ref": "#/components/schemas/TargetCreate"
               }
             }
           }
@@ -1021,7 +1021,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Function"
+                  "$ref": "#/components/schemas/Target"
                 }
               }
             }
@@ -1032,9 +1032,9 @@
         }
       }
     },
-    "/v1/functions/{id}": {
+    "/v1/targets/{id}": {
       "get": {
-        "summary": "Get a Function",
+        "summary": "Get a Target",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +1058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Function"
+                  "$ref": "#/components/schemas/Target"
                 }
               }
             }
@@ -1069,7 +1069,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Function",
+        "summary": "Update a Target",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +1084,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FunctionCreate"
+                "$ref": "#/components/schemas/TargetCreate"
               }
             }
           }
@@ -1095,7 +1095,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Function"
+                  "$ref": "#/components/schemas/Target"
                 }
               }
             }
@@ -1106,7 +1106,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Function",
+        "summary": "Delete a Target",
         "parameters": [
           {
             "name": "id",
@@ -1149,14 +1149,35 @@
           "name": {
             "type": "string"
           },
-          "runtime": {
+          "protocol": {
+            "type": "string",
+            "enum": [
+              "http",
+              "https",
+              "grpc",
+              "grpcs",
+              "tcp",
+              "tls",
+              "udp"
+            ]
+          },
+          "host": {
             "type": "string"
           },
-          "region": {
+          "port": {
+            "type": "integer"
+          },
+          "path": {
             "type": "string"
           },
-          "status": {
-            "type": "string"
+          "retries": {
+            "type": "integer"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "connectTimeout": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1171,42 +1192,84 @@
       "ServiceCreate": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string"
+          },
           "name": {
             "type": "string"
           },
-          "runtime": {
+          "protocol": {
+            "type": "string",
+            "enum": [
+              "http",
+              "https",
+              "grpc",
+              "grpcs",
+              "tcp",
+              "tls",
+              "udp"
+            ]
+          },
+          "host": {
             "type": "string"
           },
-          "region": {
+          "port": {
+            "type": "integer"
+          },
+          "path": {
             "type": "string"
           },
-          "status": {
-            "type": "string"
+          "retries": {
+            "type": "integer"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "connectTimeout": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "integer"
+          },
+          "updatedAt": {
+            "type": "integer"
           }
         },
         "required": [
-          "name",
-          "runtime"
+          "id",
+          "name"
         ]
       },
-      "Deployment": {
+      "Route": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "serviceId": {
+          "name": {
             "type": "string"
           },
-          "version": {
+          "service": {
             "type": "string"
           },
-          "status": {
-            "type": "string"
+          "stripPath": {
+            "type": "boolean"
           },
-          "deployedAt": {
+          "preserveHost": {
+            "type": "boolean"
+          },
+          "priority": {
+            "type": "integer"
+          },
+          "pathHandling": {
             "type": "string",
-            "format": "date-time"
+            "enum": [
+              "v0",
+              "v1"
+            ]
+          },
+          "httpsRedirectStatusCode": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1218,28 +1281,7 @@
           }
         }
       },
-      "DeploymentCreate": {
-        "type": "object",
-        "properties": {
-          "serviceId": {
-            "type": "string"
-          },
-          "version": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "deployedAt": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "version",
-          "status"
-        ]
-      },
-      "Secret": {
+      "RouteCreate": {
         "type": "object",
         "properties": {
           "id": {
@@ -1248,12 +1290,48 @@
           "name": {
             "type": "string"
           },
-          "scope": {
+          "service": {
             "type": "string"
           },
-          "rotatedAt": {
+          "stripPath": {
+            "type": "boolean"
+          },
+          "preserveHost": {
+            "type": "boolean"
+          },
+          "priority": {
+            "type": "integer"
+          },
+          "pathHandling": {
             "type": "string",
-            "format": "date-time"
+            "enum": [
+              "v0",
+              "v1"
+            ]
+          },
+          "httpsRedirectStatusCode": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "Consumer": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "customId": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -1265,25 +1343,31 @@
           }
         }
       },
-      "SecretCreate": {
+      "ConsumerCreate": {
         "type": "object",
         "properties": {
-          "name": {
+          "id": {
             "type": "string"
           },
-          "scope": {
+          "username": {
             "type": "string"
           },
-          "rotatedAt": {
+          "customId": {
             "type": "string"
+          },
+          "createdAt": {
+            "type": "integer"
+          },
+          "updatedAt": {
+            "type": "integer"
           }
         },
         "required": [
-          "name",
-          "scope"
+          "id",
+          "username"
         ]
       },
-      "ApiProxy": {
+      "Plugin": {
         "type": "object",
         "properties": {
           "id": {
@@ -1292,13 +1376,19 @@
           "name": {
             "type": "string"
           },
-          "basePath": {
+          "instanceName": {
             "type": "string"
           },
-          "target": {
+          "service": {
             "type": "string"
           },
-          "active": {
+          "route": {
+            "type": "string"
+          },
+          "consumer": {
+            "type": "string"
+          },
+          "enabled": {
             "type": "boolean"
           },
           "createdAt": {
@@ -1311,43 +1401,165 @@
           }
         }
       },
-      "ApiProxyCreate": {
+      "PluginCreate": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string"
+          },
           "name": {
             "type": "string"
           },
-          "basePath": {
+          "instanceName": {
+            "type": "string"
+          },
+          "service": {
+            "type": "string"
+          },
+          "route": {
+            "type": "string"
+          },
+          "consumer": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "Upstream": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "algorithm": {
+            "type": "string",
+            "enum": [
+              "round-robin",
+              "consistent-hashing",
+              "least-connections",
+              "latency"
+            ]
+          },
+          "hashOn": {
+            "type": "string",
+            "enum": [
+              "none",
+              "consumer",
+              "ip",
+              "header",
+              "cookie",
+              "path",
+              "query_arg",
+              "uri_capture"
+            ]
+          },
+          "hashFallback": {
+            "type": "string",
+            "enum": [
+              "none",
+              "consumer",
+              "ip",
+              "header",
+              "cookie",
+              "path",
+              "query_arg",
+              "uri_capture"
+            ]
+          },
+          "hashOnHeader": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "UpstreamCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "algorithm": {
+            "type": "string",
+            "enum": [
+              "round-robin",
+              "consistent-hashing",
+              "least-connections",
+              "latency"
+            ]
+          },
+          "hashOn": {
+            "type": "string",
+            "enum": [
+              "none",
+              "consumer",
+              "ip",
+              "header",
+              "cookie",
+              "path",
+              "query_arg",
+              "uri_capture"
+            ]
+          },
+          "hashFallback": {
+            "type": "string",
+            "enum": [
+              "none",
+              "consumer",
+              "ip",
+              "header",
+              "cookie",
+              "path",
+              "query_arg",
+              "uri_capture"
+            ]
+          },
+          "hashOnHeader": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "Target": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "upstream": {
             "type": "string"
           },
           "target": {
             "type": "string"
           },
-          "active": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "name",
-          "basePath"
-        ]
-      },
-      "Database": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "engine": {
-            "type": "string"
-          },
-          "region": {
-            "type": "string"
-          },
-          "sizeGb": {
+          "weight": {
             "type": "integer"
           },
           "createdAt": {
@@ -1360,74 +1572,28 @@
           }
         }
       },
-      "DatabaseCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "engine": {
-            "type": "string"
-          },
-          "region": {
-            "type": "string"
-          },
-          "sizeGb": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "name",
-          "engine"
-        ]
-      },
-      "Function": {
+      "TargetCreate": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "serviceId": {
+          "upstream": {
             "type": "string"
           },
-          "name": {
+          "target": {
             "type": "string"
           },
-          "memoryMb": {
-            "type": "integer"
-          },
-          "timeoutMs": {
+          "weight": {
             "type": "integer"
           },
           "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "FunctionCreate": {
-        "type": "object",
-        "properties": {
-          "serviceId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "memoryMb": {
-            "type": "integer"
-          },
-          "timeoutMs": {
             "type": "integer"
           }
         },
         "required": [
-          "name",
-          "memoryMb"
+          "id",
+          "upstream"
         ]
       }
     }

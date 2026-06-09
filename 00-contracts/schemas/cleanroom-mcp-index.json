@@ -7,7 +7,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 29885,
+  "totalTools": 29875,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -4521,7 +4521,7 @@
     {
       "handle": "kong-compat",
       "did": "did:web:etzhayyim.com:actor:kong-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreicpxt356vvpbsga57ljoqlua6heyel4b4jcyjcrcplbyhakkwyvzy",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -7833,10 +7833,10 @@
     {
       "handle": "telegram_api-compat",
       "did": "did:web:etzhayyim.com:actor:telegram_api-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreif2exaga5zhuv3uyw5wwsb5o5n6jocutlt3c24ctxjuq4cwmgb52y",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreick2mkgb5lf5da5r3bnknujos3ugfcb3x6djkrxxvy4rkhl5s7rwy",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 20,
       "manifest": "20-actors/telegram_api-compat/manifest.json#/capabilities/mcp"
     },
     {

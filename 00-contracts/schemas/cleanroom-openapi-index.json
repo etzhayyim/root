@@ -6,7 +6,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29885,
+  "totalEndpoints": 29875,
   "l4SpecsAvailable": 1000,
   "apis": [
     {
@@ -8529,7 +8529,7 @@
     {
       "handle": "kong-compat",
       "did": "did:web:etzhayyim.com:actor:kong-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreicpxt356vvpbsga57ljoqlua6heyel4b4jcyjcrcplbyhakkwyvzy",
@@ -14785,10 +14785,10 @@
     {
       "handle": "telegram_api-compat",
       "did": "did:web:etzhayyim.com:actor:telegram_api-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreif2exaga5zhuv3uyw5wwsb5o5n6jocutlt3c24ctxjuq4cwmgb52y",
+      "endpointCount": 20,
+      "ipfs": "ipfs://bafkreick2mkgb5lf5da5r3bnknujos3ugfcb3x6djkrxxvy4rkhl5s7rwy",
       "health": "/healthz",
       "features": {
         "pagination": true,

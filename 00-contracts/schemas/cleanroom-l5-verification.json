@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 95,
+  "count": 97,
   "actors": [
     {
       "handle": "square-compat",
@@ -13514,6 +13514,248 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs live World Bank API. Enforced enums: Country.incomeLevelId(7)/lendingTypeId(4), IncomeLevel.id(7), LendingType.id(4), Topic.id(21) = 5 enums. Region left a gap (partial numeric-id coverage)."
+    },
+    {
+      "handle": "telegram_api-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://core.telegram.org/bots/api",
+      "remodeled": "Remodeled from generic category model to a faithful Telegram Bot API model, verified against the official core.telegram.org/bots/api spec. snake_case->camelCase; timestamps Unix int; nested object refs (from/chat/reply) dropped.",
+      "resources": [
+        {
+          "entity": "User",
+          "source": "https://core.telegram.org/bots/api",
+          "verifiedFields": [
+            "id",
+            "isBot",
+            "firstName",
+            "lastName",
+            "username",
+            "languageCode",
+            "isPremium"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Chat",
+          "source": "https://core.telegram.org/bots/api",
+          "verifiedFields": [
+            "id",
+            "type",
+            "title",
+            "username",
+            "firstName",
+            "lastName",
+            "isForum"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "private",
+              "group",
+              "supergroup",
+              "channel"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Message",
+          "source": "https://core.telegram.org/bots/api",
+          "verifiedFields": [
+            "messageId",
+            "date",
+            "text",
+            "chatId"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "entities(array)"
+          ]
+        },
+        {
+          "entity": "ChatMember",
+          "source": "https://core.telegram.org/bots/api",
+          "verifiedFields": [
+            "status",
+            "isAnonymous",
+            "customTitle"
+          ],
+          "fieldStatus": "confirmed (status domain = the 6 ChatMember subclasses)",
+          "discoveredEnums": {
+            "status": [
+              "creator",
+              "administrator",
+              "member",
+              "restricted",
+              "left",
+              "kicked"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (4/4) vs official Telegram Bot API. Enforced enums: Chat.type(4), ChatMember.status(6) = 2 enums."
+    },
+    {
+      "handle": "kong-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/Kong/kong/blob/master/kong/db/schema/entities",
+      "remodeled": "Remodeled from generic category model to a faithful Kong Gateway Admin API model, verified against the official Kong entity schemas (Lua db/schema/entities). Array/object fields dropped; timestamps Unix int. Route.protocols is array-valued -> not enforced as scalar.",
+      "resources": [
+        {
+          "entity": "Service",
+          "source": "https://github.com/Kong/kong/blob/master/kong/db/schema/entities/services.lua",
+          "verifiedFields": [
+            "id",
+            "name",
+            "protocol",
+            "host",
+            "port",
+            "path",
+            "retries",
+            "enabled",
+            "connectTimeout",
+            "createdAt",
+            "updatedAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "protocol": [
+              "http",
+              "https",
+              "grpc",
+              "grpcs",
+              "tcp",
+              "tls",
+              "udp"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Route",
+          "source": "https://github.com/Kong/kong/blob/master/kong/db/schema/entities/routes.lua",
+          "verifiedFields": [
+            "id",
+            "name",
+            "service",
+            "stripPath",
+            "preserveHost",
+            "priority",
+            "pathHandling",
+            "httpsRedirectStatusCode",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed; protocols is array -> not enforced as scalar",
+          "discoveredEnums": {
+            "pathHandling": [
+              "v0",
+              "v1"
+            ]
+          },
+          "gaps": [
+            "protocols(array)"
+          ]
+        },
+        {
+          "entity": "Consumer",
+          "source": "https://github.com/Kong/kong/blob/master/kong/db/schema/entities/consumers.lua",
+          "verifiedFields": [
+            "id",
+            "username",
+            "customId",
+            "createdAt",
+            "updatedAt"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Plugin",
+          "source": "https://github.com/Kong/kong/blob/master/kong/db/schema/entities/plugins.lua",
+          "verifiedFields": [
+            "id",
+            "name",
+            "instanceName",
+            "service",
+            "route",
+            "consumer",
+            "enabled",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "config(object)"
+          ]
+        },
+        {
+          "entity": "Upstream",
+          "source": "https://github.com/Kong/kong/blob/master/kong/db/schema/entities/upstreams.lua",
+          "verifiedFields": [
+            "id",
+            "name",
+            "algorithm",
+            "hashOn",
+            "hashFallback",
+            "hashOnHeader",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "algorithm": [
+              "round-robin",
+              "consistent-hashing",
+              "least-connections",
+              "latency"
+            ],
+            "hashOn": [
+              "none",
+              "consumer",
+              "ip",
+              "header",
+              "cookie",
+              "path",
+              "query_arg",
+              "uri_capture"
+            ],
+            "hashFallback": [
+              "none",
+              "consumer",
+              "ip",
+              "header",
+              "cookie",
+              "path",
+              "query_arg",
+              "uri_capture"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Target",
+          "source": "https://github.com/Kong/kong/blob/master/kong/db/schema/entities/targets.lua",
+          "verifiedFields": [
+            "id",
+            "upstream",
+            "target",
+            "weight",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official Kong entity schemas. Enforced enums: Service.protocol(7), Route.pathHandling(2), Upstream.algorithm(4)/hashOn(8)/hashFallback(8) = 5 enums. Route.protocols array -> not enforced."
     }
   ]
 }

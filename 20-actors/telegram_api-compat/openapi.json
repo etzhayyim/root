@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible communications / social actor (telegram_api); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:telegram_api-compat",
-    "x-wasm-cid": "bafkreif2exaga5zhuv3uyw5wwsb5o5n6jocutlt3c24ctxjuq4cwmgb52y",
+    "x-wasm-cid": "bafkreick2mkgb5lf5da5r3bnknujos3ugfcb3x6djkrxxvy4rkhl5s7rwy",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreif2exaga5zhuv3uyw5wwsb5o5n6jocutlt3c24ctxjuq4cwmgb52y",
+      "url": "ipfs://bafkreick2mkgb5lf5da5r3bnknujos3ugfcb3x6djkrxxvy4rkhl5s7rwy",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/channels": {
+    "/v1/users": {
       "get": {
-        "summary": "List Channels",
+        "summary": "List Users",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Channel"
+                        "$ref": "#/components/schemas/User"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Channel",
+        "summary": "Create a User",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ChannelCreate"
+                "$ref": "#/components/schemas/UserCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Channel"
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/channels/{id}": {
+    "/v1/users/{id}": {
       "get": {
-        "summary": "Get a Channel",
+        "summary": "Get a User",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Channel"
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Channel",
+        "summary": "Update a User",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ChannelCreate"
+                "$ref": "#/components/schemas/UserCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Channel"
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
@@ -181,7 +181,192 @@
         }
       },
       "delete": {
-        "summary": "Delete a Channel",
+        "summary": "Delete a User",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/chats": {
+      "get": {
+        "summary": "List Chats",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Chat"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a Chat",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChatCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Chat"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/chats/{id}": {
+      "get": {
+        "summary": "Get a Chat",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Chat"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a Chat",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChatCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Chat"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a Chat",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +572,9 @@
         }
       }
     },
-    "/v1/users": {
+    "/v1/chatmembers": {
       "get": {
-        "summary": "List Users",
+        "summary": "List ChatMembers",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/User"
+                        "$ref": "#/components/schemas/ChatMember"
                       }
                     },
                     "has_more": {
@@ -449,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a User",
+        "summary": "Create a ChatMember",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserCreate"
+                "$ref": "#/components/schemas/ChatMemberCreate"
               }
             }
           }
@@ -466,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/User"
+                  "$ref": "#/components/schemas/ChatMember"
                 }
               }
             }
@@ -477,9 +662,9 @@
         }
       }
     },
-    "/v1/users/{id}": {
+    "/v1/chatmembers/{id}": {
       "get": {
-        "summary": "Get a User",
+        "summary": "Get a ChatMember",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/User"
+                  "$ref": "#/components/schemas/ChatMember"
                 }
               }
             }
@@ -514,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a User",
+        "summary": "Update a ChatMember",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserCreate"
+                "$ref": "#/components/schemas/ChatMemberCreate"
               }
             }
           }
@@ -540,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/User"
+                  "$ref": "#/components/schemas/ChatMember"
                 }
               }
             }
@@ -551,562 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a User",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/rooms": {
-      "get": {
-        "summary": "List Rooms",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Room"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Room",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RoomCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Room"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/rooms/{id}": {
-      "get": {
-        "summary": "Get a Room",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Room"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Room",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RoomCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Room"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Room",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/streams": {
-      "get": {
-        "summary": "List Streams",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Stream"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Stream",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/StreamCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Stream"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/streams/{id}": {
-      "get": {
-        "summary": "Get a Stream",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Stream"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Stream",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/StreamCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Stream"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Stream",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/webhooks": {
-      "get": {
-        "summary": "List Webhooks",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Webhook"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Webhook",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/WebhookCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Webhook"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/webhooks/{id}": {
-      "get": {
-        "summary": "Get a Webhook",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Webhook"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Webhook",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/WebhookCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Webhook"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Webhook",
+        "summary": "Delete a ChatMember",
         "parameters": [
           {
             "name": "id",
@@ -1140,118 +770,28 @@
   },
   "components": {
     "schemas": {
-      "Channel": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "topic": {
-            "type": "string"
-          },
-          "memberCount": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ChannelCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "topic": {
-            "type": "string"
-          },
-          "memberCount": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "name",
-          "type"
-        ]
-      },
-      "Message": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "channelId": {
-            "type": "string"
-          },
-          "authorId": {
-            "type": "string"
-          },
-          "body": {
-            "type": "string"
-          },
-          "sentAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "MessageCreate": {
-        "type": "object",
-        "properties": {
-          "channelId": {
-            "type": "string"
-          },
-          "authorId": {
-            "type": "string"
-          },
-          "body": {
-            "type": "string"
-          },
-          "sentAt": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "body",
-          "sentAt"
-        ]
-      },
       "User": {
         "type": "object",
         "properties": {
           "id": {
+            "type": "integer"
+          },
+          "isBot": {
+            "type": "boolean"
+          },
+          "firstName": {
             "type": "string"
           },
-          "handle": {
+          "lastName": {
             "type": "string"
           },
-          "displayName": {
+          "username": {
             "type": "string"
           },
-          "verified": {
+          "languageCode": {
+            "type": "string"
+          },
+          "isPremium": {
             "type": "boolean"
           },
           "createdAt": {
@@ -1267,34 +807,61 @@
       "UserCreate": {
         "type": "object",
         "properties": {
-          "handle": {
+          "id": {
+            "type": "integer"
+          },
+          "isBot": {
+            "type": "boolean"
+          },
+          "firstName": {
             "type": "string"
           },
-          "displayName": {
+          "lastName": {
             "type": "string"
           },
-          "verified": {
+          "username": {
+            "type": "string"
+          },
+          "languageCode": {
+            "type": "string"
+          },
+          "isPremium": {
             "type": "boolean"
           }
         },
         "required": [
-          "handle",
-          "displayName"
+          "id",
+          "isBot"
         ]
       },
-      "Room": {
+      "Chat": {
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "maxParticipants": {
             "type": "integer"
           },
-          "recording": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "private",
+              "group",
+              "supergroup",
+              "channel"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "isForum": {
             "type": "boolean"
           },
           "createdAt": {
@@ -1307,37 +874,58 @@
           }
         }
       },
-      "RoomCreate": {
+      "ChatCreate": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string"
-          },
-          "maxParticipants": {
+          "id": {
             "type": "integer"
           },
-          "recording": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "private",
+              "group",
+              "supergroup",
+              "channel"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "isForum": {
             "type": "boolean"
           }
         },
         "required": [
-          "name",
-          "maxParticipants"
+          "id",
+          "type"
         ]
       },
-      "Stream": {
+      "Message": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "roomId": {
+          "messageId": {
+            "type": "integer"
+          },
+          "date": {
+            "type": "integer"
+          },
+          "text": {
             "type": "string"
           },
-          "status": {
-            "type": "string"
-          },
-          "bitrate": {
+          "chatId": {
             "type": "integer"
           },
           "createdAt": {
@@ -1350,65 +938,84 @@
           }
         }
       },
-      "StreamCreate": {
+      "MessageCreate": {
         "type": "object",
         "properties": {
-          "roomId": {
+          "messageId": {
+            "type": "integer"
+          },
+          "date": {
+            "type": "integer"
+          },
+          "text": {
+            "type": "string"
+          },
+          "chatId": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "date",
+          "text"
+        ]
+      },
+      "ChatMember": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "string"
           },
           "status": {
+            "type": "string",
+            "enum": [
+              "creator",
+              "administrator",
+              "member",
+              "restricted",
+              "left",
+              "kicked"
+            ]
+          },
+          "isAnonymous": {
+            "type": "boolean"
+          },
+          "customTitle": {
             "type": "string"
           },
-          "bitrate": {
-            "type": "integer"
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ChatMemberCreate": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "creator",
+              "administrator",
+              "member",
+              "restricted",
+              "left",
+              "kicked"
+            ]
+          },
+          "isAnonymous": {
+            "type": "boolean"
+          },
+          "customTitle": {
+            "type": "string"
           }
         },
         "required": [
           "status",
-          "bitrate"
-        ]
-      },
-      "Webhook": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "event": {
-            "type": "string"
-          },
-          "url": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "WebhookCreate": {
-        "type": "object",
-        "properties": {
-          "event": {
-            "type": "string"
-          },
-          "url": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "event",
-          "url"
+          "isAnonymous"
         ]
       }
     }

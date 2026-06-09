@@ -8525,11 +8525,11 @@
       "tier": "browser-local",
       "entities": [
         "Service",
-        "Deployment",
-        "Secret",
-        "ApiProxy",
-        "Database",
-        "Function"
+        "Route",
+        "Consumer",
+        "Plugin",
+        "Upstream",
+        "Target"
       ]
     },
     {
@@ -14772,17 +14772,15 @@
       "handle": "telegram_api-compat",
       "platform": "telegram_api",
       "bytes": 2126,
-      "wasmCid": "bafkreif2exaga5zhuv3uyw5wwsb5o5n6jocutlt3c24ctxjuq4cwmgb52y",
+      "wasmCid": "bafkreick2mkgb5lf5da5r3bnknujos3ugfcb3x6djkrxxvy4rkhl5s7rwy",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Channel",
-        "Message",
         "User",
-        "Room",
-        "Stream",
-        "Webhook"
+        "Chat",
+        "Message",
+        "ChatMember"
       ]
     },
     {

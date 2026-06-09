@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 905,
-    "L5": 95
+    "L4": 903,
+    "L5": 97
   },
   "actors": [
     {
@@ -9038,7 +9038,7 @@
       "wasmCid": "bafkreicpxt356vvpbsga57ljoqlua6heyel4b4jcyjcrcplbyhakkwyvzy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "kong clean-room actor",
       "category": "devsecops_serverless",
       "capabilities": [
@@ -15659,10 +15659,10 @@
     {
       "handle": "telegram_api-compat",
       "did": "did:web:etzhayyim.com:actor:telegram_api-compat",
-      "wasmCid": "bafkreif2exaga5zhuv3uyw5wwsb5o5n6jocutlt3c24ctxjuq4cwmgb52y",
+      "wasmCid": "bafkreick2mkgb5lf5da5r3bnknujos3ugfcb3x6djkrxxvy4rkhl5s7rwy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "telegram_api clean-room actor",
       "category": "comms_social",
       "capabilities": [

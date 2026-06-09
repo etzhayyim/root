@@ -5,70 +5,83 @@ namespace kong {
 
     entity Service {
         id: string @unique
+        id: string
         name: string
-        runtime: string
-        region: string
-        status: string
+        protocol: string
+        host: string
+        port: integer
+        path: string
+        retries: integer
+        enabled: boolean
+        connectTimeout: integer
+        createdAt: integer
+        updatedAt: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Deployment {
+    entity Route {
         id: string @unique
-        serviceId: string
-        version: string
-        status: string
-        deployedAt: datetime
+        id: string
+        name: string
+        service: string
+        stripPath: boolean
+        preserveHost: boolean
+        priority: integer
+        pathHandling: string
+        httpsRedirectStatusCode: integer
+        createdAt: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Secret {
+    entity Consumer {
         id: string @unique
-        name: string
-        scope: string
-        rotatedAt: datetime
+        id: string
+        username: string
+        customId: string
+        createdAt: integer
+        updatedAt: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity ApiProxy {
+    entity Plugin {
         id: string @unique
+        id: string
         name: string
-        basePath: string
+        instanceName: string
+        service: string
+        route: string
+        consumer: string
+        enabled: boolean
+        createdAt: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Upstream {
+        id: string @unique
+        id: string
+        name: string
+        algorithm: string
+        hashOn: string
+        hashFallback: string
+        hashOnHeader: string
+        createdAt: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Target {
+        id: string @unique
+        id: string
+        upstream: string
         target: string
-        active: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Database {
-        id: string @unique
-        name: string
-        engine: string
-        region: string
-        sizeGb: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Function {
-        id: string @unique
-        serviceId: string
-        name: string
-        memoryMb: integer
-        timeoutMs: integer
+        weight: integer
+        createdAt: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }
