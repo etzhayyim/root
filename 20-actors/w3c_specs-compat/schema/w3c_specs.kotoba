@@ -3,57 +3,74 @@
 
 namespace w3c_specs {
 
-    entity Work {
+    entity Specification {
         id: string @unique
-        doi: string
+        shortname: string
         title: string
-        type: string
-        publishedAt: datetime
+        description: string
+        editorDraft: string
+        seriesVersion: string
+        shortlink: string
+        latestVersionUri: string
+        firstVersionUri: string
+        seriesUri: string
+        versionHistoryUri: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Author {
+    entity SpecVersion {
         id: string @unique
-        orcid: string
+        shortname: string
+        status: string
+        recTrack: bool
+        informative: bool
+        editorDraft: string
+        uri: string
+        date: datetime
+        shortlink: string
+        processRules: string
+        title: string
+        editors: json
+        deliverers: json
+        specificationUri: string
+        predecessorVersionUri: string
+        successorVersionUri: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Group {
+        id: string @unique
+        name: string
+        shortname: string
+        type: string
+        discr: string
+        description: string
+        isClosed: bool
+        startDate: datetime
+        endDate: datetime
+        homepageUri: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Series {
+        id: string @unique
+        shortname: string
+        name: string
+        currentSpecificationUri: string
+        specificationsUri: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity User {
+        id: string @unique
+        name: string
         givenName: string
         familyName: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Citation {
-        id: string @unique
-        workId: string
-        citedDoi: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Standard {
-        id: string @unique
-        designation: string
-        title: string
-        organization: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Record {
-        id: string @unique
-        accession: string
-        database: string
-        title: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Subject {
-        id: string @unique
-        workId: string
-        term: string
-        scheme: string
+        connectedAccountsUri: string
         createdAt: datetime
         updatedAt: datetime
     }

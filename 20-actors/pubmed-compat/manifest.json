@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigu6k377oacuy6lve73kggkuf7r53qo7mypfsom3hncnmodfahjh4",
   "schema": "schema/pubmed.kotoba",
-  "tier": "L4",
+  "tier": "L5",
   "verified": null,
   "entities": [
     "Work",

@@ -992,7 +992,7 @@
       "wasmCid": "bafkreicmhtff5wvqvmourkghxxmrplja4udyw66lvvg2d46dzzb4j7cbme",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "arxiv_api clean-room actor",
       "category": "meta_knowledge_publishing",
       "capabilities": [
@@ -3854,7 +3854,7 @@
       "wasmCid": "bafkreid4crbveuot63ykgbu7oicpxf7ves5pybohg46v3xxydvilrreoli",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "crossref clean-room actor",
       "category": "meta_knowledge_publishing",
       "capabilities": [
@@ -4646,7 +4646,7 @@
       "wasmCid": "bafkreihhvfvhxgih7aicd3kmeqhd43pxgsjcn7plkijy6na3t4x3vt6er4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "doi_system clean-room actor",
       "category": "meta_knowledge_publishing",
       "capabilities": [
@@ -7976,7 +7976,7 @@
       "wasmCid": "bafkreicerupscmo2jopsqmzuazv2hralxnjbafct6naidh7flnvfiwe77e",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "ietf_rfcs clean-room actor",
       "category": "meta_knowledge_publishing",
       "capabilities": [
@@ -11000,7 +11000,7 @@
       "wasmCid": "bafkreiep6qnj4lpass7gbboudgbg6wl4vqjtyvbw3murstp5wnwuaazrmy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "ncbi clean-room actor",
       "category": "healthcare_fhir_bio",
       "capabilities": [
@@ -12224,7 +12224,7 @@
       "wasmCid": "bafkreialfeh4maep4chx4v4ragbdtoafuncebzsqyw3pdahxb7jukoxzau",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "orcid clean-room actor",
       "category": "meta_knowledge_publishing",
       "capabilities": [
@@ -12998,7 +12998,7 @@
       "wasmCid": "bafkreigu6k377oacuy6lve73kggkuf7r53qo7mypfsom3hncnmodfahjh4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "pubmed clean-room actor",
       "category": "meta_knowledge_publishing",
       "capabilities": [
@@ -16994,7 +16994,7 @@
       "wasmCid": "bafkreige2ujb7zmylz5mzsaefsk4vlditnizcw7z56insp2rsvb5snatgm",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "w3c_specs clean-room actor",
       "category": "meta_knowledge_publishing",
       "capabilities": [

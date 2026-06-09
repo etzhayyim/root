@@ -11,7 +11,7 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreid4crbveuot63ykgbu7oicpxf7ves5pybohg46v3xxydvilrreoli",
   "schema": "schema/crossref.kotoba",
-  "tier": "L4",
+  "tier": "L5",
   "verified": null,
   "entities": [
     "Work",
