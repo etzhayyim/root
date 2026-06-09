@@ -111,21 +111,224 @@ def _expand(rec, params, refs):
     return rec
 
 
+@app.route("/v1/studies", methods=["POST"])
+def create_study(request):
+    """Create a Study."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['studyInstanceUid', 'studyDate', 'studyTime', 'studyDescription', 'accessionNumber', 'referringPhysicianName'])
+    if err:
+        return err, 400
+    err = _require(data, ['studyInstanceUid', 'studyDate'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("dicomweb_stu")}
+    rec["studyInstanceUid"] = data.get('studyInstanceUid')
+    rec["studyDate"] = data.get('studyDate')
+    rec["studyTime"] = data.get('studyTime')
+    rec["studyDescription"] = data.get('studyDescription')
+    rec["accessionNumber"] = data.get('accessionNumber')
+    rec["referringPhysicianName"] = data.get('referringPhysicianName')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Study", rec)
+    return rec, 201
+
+@app.route("/v1/studies", methods=["GET"])
+def list_studies(request):
+    """List Studies with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Study")
+    rows = _apply_filters(rows, params, ['studyInstanceUid', 'studyDate', 'studyTime', 'studyDescription', 'accessionNumber', 'referringPhysicianName'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/studies/<eid>", methods=["GET"])
+def get_study(request, eid):
+    """Retrieve a Study by id (supports ?expand=)."""
+    rows = _query("Study", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/studies/<eid>", methods=["POST", "PATCH"])
+def update_study(request, eid):
+    """Update a Study."""
+    rows = _query("Study", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['studyInstanceUid', 'studyDate', 'studyTime', 'studyDescription', 'accessionNumber', 'referringPhysicianName'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Study", rec)
+    return rec, 200
+
+@app.route("/v1/studies/<eid>", methods=["DELETE"])
+def delete_study(request, eid):
+    """Delete a Study."""
+    rows = _query("Study", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"dicomweb.Study", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/serieses", methods=["POST"])
+def create_series(request):
+    """Create a Series."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['seriesInstanceUid', 'seriesNumber', 'seriesDescription', 'modality', 'seriesDate'])
+    if err:
+        return err, 400
+    err = _require(data, ['seriesInstanceUid', 'seriesNumber'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("dicomweb_ser")}
+    rec["seriesInstanceUid"] = data.get('seriesInstanceUid')
+    rec["seriesNumber"] = _as_int(data.get('seriesNumber'))
+    rec["seriesDescription"] = data.get('seriesDescription')
+    rec["modality"] = data.get('modality')
+    rec["seriesDate"] = data.get('seriesDate')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Series", rec)
+    return rec, 201
+
+@app.route("/v1/serieses", methods=["GET"])
+def list_serieses(request):
+    """List Serieses with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Series")
+    rows = _apply_filters(rows, params, ['seriesInstanceUid', 'seriesNumber', 'seriesDescription', 'modality', 'seriesDate'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/serieses/<eid>", methods=["GET"])
+def get_series(request, eid):
+    """Retrieve a Series by id (supports ?expand=)."""
+    rows = _query("Series", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/serieses/<eid>", methods=["POST", "PATCH"])
+def update_series(request, eid):
+    """Update a Series."""
+    rows = _query("Series", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['seriesInstanceUid', 'seriesNumber', 'seriesDescription', 'modality', 'seriesDate'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Series", rec)
+    return rec, 200
+
+@app.route("/v1/serieses/<eid>", methods=["DELETE"])
+def delete_series(request, eid):
+    """Delete a Series."""
+    rows = _query("Series", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"dicomweb.Series", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/instances", methods=["POST"])
+def create_instance(request):
+    """Create a Instance."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['sopInstanceUid', 'sopClassUid', 'instanceNumber', 'contentDate'])
+    if err:
+        return err, 400
+    err = _require(data, ['sopInstanceUid', 'sopClassUid'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("dicomweb_ins")}
+    rec["sopInstanceUid"] = data.get('sopInstanceUid')
+    rec["sopClassUid"] = data.get('sopClassUid')
+    rec["instanceNumber"] = _as_int(data.get('instanceNumber'))
+    rec["contentDate"] = data.get('contentDate')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Instance", rec)
+    return rec, 201
+
+@app.route("/v1/instances", methods=["GET"])
+def list_instances(request):
+    """List Instances with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Instance")
+    rows = _apply_filters(rows, params, ['sopInstanceUid', 'sopClassUid', 'instanceNumber', 'contentDate'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/instances/<eid>", methods=["GET"])
+def get_instance(request, eid):
+    """Retrieve a Instance by id (supports ?expand=)."""
+    rows = _query("Instance", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/instances/<eid>", methods=["POST", "PATCH"])
+def update_instance(request, eid):
+    """Update a Instance."""
+    rows = _query("Instance", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['sopInstanceUid', 'sopClassUid', 'instanceNumber', 'contentDate'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Instance", rec)
+    return rec, 200
+
+@app.route("/v1/instances/<eid>", methods=["DELETE"])
+def delete_instance(request, eid):
+    """Delete a Instance."""
+    rows = _query("Instance", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"dicomweb.Instance", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
 @app.route("/v1/patients", methods=["POST"])
 def create_patient(request):
     """Create a Patient."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['identifier', 'givenName', 'familyName', 'birthDate'])
+    err = _reject_unknown(data, ['patientId', 'patientName', 'patientBirthDate', 'patientSex'])
     if err:
         return err, 400
-    err = _require(data, ['identifier', 'givenName'])
+    err = _require(data, ['patientName', 'patientBirthDate'])
     if err:
         return err, 400
+    if data.get('patientSex') and data['patientSex'] not in ['M', 'F', 'O']:
+        return {"error": {"message": "invalid patientSex; allowed: " + ", ".join(['M', 'F', 'O']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("dicomweb_pat")}
-    rec["identifier"] = data.get('identifier')
-    rec["givenName"] = data.get('givenName')
-    rec["familyName"] = data.get('familyName')
-    rec["birthDate"] = data.get('birthDate')
+    rec["patientId"] = data.get('patientId')
+    rec["patientName"] = data.get('patientName')
+    rec["patientBirthDate"] = data.get('patientBirthDate')
+    rec["patientSex"] = data.get('patientSex')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Patient", rec)
@@ -136,7 +339,7 @@ def list_patients(request):
     """List Patients with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Patient")
-    rows = _apply_filters(rows, params, ['identifier', 'givenName', 'familyName', 'birthDate'])
+    rows = _apply_filters(rows, params, ['patientId', 'patientName', 'patientBirthDate', 'patientSex'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -148,6 +351,7 @@ def get_patient(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'patientId': 'Patient'})
     return rec, 200
 
 @app.route("/v1/patients/<eid>", methods=["POST", "PATCH"])
@@ -157,9 +361,11 @@ def update_patient(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['identifier', 'givenName', 'familyName', 'birthDate'])
+    err = _reject_unknown(data, ['patientId', 'patientName', 'patientBirthDate', 'patientSex'])
     if err:
         return err, 400
+    if data.get('patientSex') and data['patientSex'] not in ['M', 'F', 'O']:
+        return {"error": {"message": "invalid patientSex; allowed: " + ", ".join(['M', 'F', 'O']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -177,54 +383,55 @@ def delete_patient(request, eid):
     db.retract({"entity": f"dicomweb.Patient", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/observations", methods=["POST"])
-def create_observation(request):
-    """Create a Observation."""
+@app.route("/v1/qidoqueries", methods=["POST"])
+def create_qido_query(request):
+    """Create a QidoQuery."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['patientId', 'code', 'value', 'unit'])
+    err = _reject_unknown(data, ['patientId', 'patientName', 'studyInstanceUid', 'modality', 'fuzzyMatching'])
     if err:
         return err, 400
-    err = _require(data, ['code', 'value'])
+    err = _require(data, ['patientName', 'studyInstanceUid'])
     if err:
         return err, 400
-    rec = {"id": new_id("dicomweb_obs")}
+    rec = {"id": new_id("dicomweb_qid")}
     rec["patientId"] = data.get('patientId')
-    rec["code"] = data.get('code')
-    rec["value"] = data.get('value')
-    rec["unit"] = data.get('unit')
+    rec["patientName"] = data.get('patientName')
+    rec["studyInstanceUid"] = data.get('studyInstanceUid')
+    rec["modality"] = data.get('modality')
+    rec["fuzzyMatching"] = _as_bool(data.get('fuzzyMatching'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Observation", rec)
+    _persist("QidoQuery", rec)
     return rec, 201
 
-@app.route("/v1/observations", methods=["GET"])
-def list_observations(request):
-    """List Observations with filtering + cursor pagination."""
+@app.route("/v1/qidoqueries", methods=["GET"])
+def list_qido_queries(request):
+    """List QidoQueries with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Observation")
-    rows = _apply_filters(rows, params, ['patientId', 'code', 'value', 'unit'])
+    rows = _query("QidoQuery")
+    rows = _apply_filters(rows, params, ['patientId', 'patientName', 'studyInstanceUid', 'modality', 'fuzzyMatching'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/observations/<eid>", methods=["GET"])
-def get_observation(request, eid):
-    """Retrieve a Observation by id (supports ?expand=)."""
-    rows = _query("Observation", eid)
+@app.route("/v1/qidoqueries/<eid>", methods=["GET"])
+def get_qido_query(request, eid):
+    """Retrieve a QidoQuery by id (supports ?expand=)."""
+    rows = _query("QidoQuery", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     rec = _expand(rec, request.query or {}, {'patientId': 'Patient'})
     return rec, 200
 
-@app.route("/v1/observations/<eid>", methods=["POST", "PATCH"])
-def update_observation(request, eid):
-    """Update a Observation."""
-    rows = _query("Observation", eid)
+@app.route("/v1/qidoqueries/<eid>", methods=["POST", "PATCH"])
+def update_qido_query(request, eid):
+    """Update a QidoQuery."""
+    rows = _query("QidoQuery", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['patientId', 'code', 'value', 'unit'])
+    err = _reject_unknown(data, ['patientId', 'patientName', 'studyInstanceUid', 'modality', 'fuzzyMatching'])
     if err:
         return err, 400
     rec = rows[0]
@@ -232,287 +439,22 @@ def update_observation(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Observation", rec)
+    _persist("QidoQuery", rec)
     return rec, 200
 
-@app.route("/v1/observations/<eid>", methods=["DELETE"])
-def delete_observation(request, eid):
-    """Delete a Observation."""
-    rows = _query("Observation", eid)
+@app.route("/v1/qidoqueries/<eid>", methods=["DELETE"])
+def delete_qido_query(request, eid):
+    """Delete a QidoQuery."""
+    rows = _query("QidoQuery", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"dicomweb.Observation", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/conditions", methods=["POST"])
-def create_condition(request):
-    """Create a Condition."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['patientId', 'code', 'clinicalStatus'])
-    if err:
-        return err, 400
-    err = _require(data, ['code', 'clinicalStatus'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("dicomweb_con")}
-    rec["patientId"] = data.get('patientId')
-    rec["code"] = data.get('code')
-    rec["clinicalStatus"] = data.get('clinicalStatus')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Condition", rec)
-    return rec, 201
-
-@app.route("/v1/conditions", methods=["GET"])
-def list_conditions(request):
-    """List Conditions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Condition")
-    rows = _apply_filters(rows, params, ['patientId', 'code', 'clinicalStatus'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/conditions/<eid>", methods=["GET"])
-def get_condition(request, eid):
-    """Retrieve a Condition by id (supports ?expand=)."""
-    rows = _query("Condition", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'patientId': 'Patient'})
-    return rec, 200
-
-@app.route("/v1/conditions/<eid>", methods=["POST", "PATCH"])
-def update_condition(request, eid):
-    """Update a Condition."""
-    rows = _query("Condition", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['patientId', 'code', 'clinicalStatus'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Condition", rec)
-    return rec, 200
-
-@app.route("/v1/conditions/<eid>", methods=["DELETE"])
-def delete_condition(request, eid):
-    """Delete a Condition."""
-    rows = _query("Condition", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"dicomweb.Condition", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/diagnosticreports", methods=["POST"])
-def create_diagnostic_report(request):
-    """Create a DiagnosticReport."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['patientId', 'code', 'status', 'issuedAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['code', 'status'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("dicomweb_dia")}
-    rec["patientId"] = data.get('patientId')
-    rec["code"] = data.get('code')
-    rec["status"] = data.get('status')
-    rec["issuedAt"] = data.get('issuedAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("DiagnosticReport", rec)
-    return rec, 201
-
-@app.route("/v1/diagnosticreports", methods=["GET"])
-def list_diagnostic_reports(request):
-    """List DiagnosticReports with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("DiagnosticReport")
-    rows = _apply_filters(rows, params, ['patientId', 'code', 'status', 'issuedAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/diagnosticreports/<eid>", methods=["GET"])
-def get_diagnostic_report(request, eid):
-    """Retrieve a DiagnosticReport by id (supports ?expand=)."""
-    rows = _query("DiagnosticReport", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'patientId': 'Patient'})
-    return rec, 200
-
-@app.route("/v1/diagnosticreports/<eid>", methods=["POST", "PATCH"])
-def update_diagnostic_report(request, eid):
-    """Update a DiagnosticReport."""
-    rows = _query("DiagnosticReport", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['patientId', 'code', 'status', 'issuedAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("DiagnosticReport", rec)
-    return rec, 200
-
-@app.route("/v1/diagnosticreports/<eid>", methods=["DELETE"])
-def delete_diagnostic_report(request, eid):
-    """Delete a DiagnosticReport."""
-    rows = _query("DiagnosticReport", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"dicomweb.DiagnosticReport", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/sequences", methods=["POST"])
-def create_sequence(request):
-    """Create a Sequence."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['patientId', 'accession', 'referenceGenome'])
-    if err:
-        return err, 400
-    err = _require(data, ['accession', 'referenceGenome'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("dicomweb_seq")}
-    rec["patientId"] = data.get('patientId')
-    rec["accession"] = data.get('accession')
-    rec["referenceGenome"] = data.get('referenceGenome')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Sequence", rec)
-    return rec, 201
-
-@app.route("/v1/sequences", methods=["GET"])
-def list_sequences(request):
-    """List Sequences with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Sequence")
-    rows = _apply_filters(rows, params, ['patientId', 'accession', 'referenceGenome'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/sequences/<eid>", methods=["GET"])
-def get_sequence(request, eid):
-    """Retrieve a Sequence by id (supports ?expand=)."""
-    rows = _query("Sequence", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'patientId': 'Patient'})
-    return rec, 200
-
-@app.route("/v1/sequences/<eid>", methods=["POST", "PATCH"])
-def update_sequence(request, eid):
-    """Update a Sequence."""
-    rows = _query("Sequence", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['patientId', 'accession', 'referenceGenome'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Sequence", rec)
-    return rec, 200
-
-@app.route("/v1/sequences/<eid>", methods=["DELETE"])
-def delete_sequence(request, eid):
-    """Delete a Sequence."""
-    rows = _query("Sequence", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"dicomweb.Sequence", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/specimens", methods=["POST"])
-def create_specimen(request):
-    """Create a Specimen."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['patientId', 'type', 'collectedAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['type', 'collectedAt'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("dicomweb_spe")}
-    rec["patientId"] = data.get('patientId')
-    rec["type"] = data.get('type')
-    rec["collectedAt"] = data.get('collectedAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Specimen", rec)
-    return rec, 201
-
-@app.route("/v1/specimens", methods=["GET"])
-def list_specimens(request):
-    """List Specimens with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Specimen")
-    rows = _apply_filters(rows, params, ['patientId', 'type', 'collectedAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/specimens/<eid>", methods=["GET"])
-def get_specimen(request, eid):
-    """Retrieve a Specimen by id (supports ?expand=)."""
-    rows = _query("Specimen", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'patientId': 'Patient'})
-    return rec, 200
-
-@app.route("/v1/specimens/<eid>", methods=["POST", "PATCH"])
-def update_specimen(request, eid):
-    """Update a Specimen."""
-    rows = _query("Specimen", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['patientId', 'type', 'collectedAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Specimen", rec)
-    return rec, 200
-
-@app.route("/v1/specimens/<eid>", methods=["DELETE"])
-def delete_specimen(request, eid):
-    """Delete a Specimen."""
-    rows = _query("Specimen", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"dicomweb.Specimen", "id": eid})
+    db.retract({"entity": f"dicomweb.QidoQuery", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "dicomweb-compat", "tier": "L4",
-            "entities": ['Patient', 'Observation', 'Condition', 'DiagnosticReport', 'Sequence', 'Specimen']}, 200
+            "entities": ['Study', 'Series', 'Instance', 'Patient', 'QidoQuery']}, 200
 
 
 if __name__ == "__main__":

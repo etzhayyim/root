@@ -3,66 +3,46 @@
 
 namespace eidas {
 
-    entity Filing {
+    entity AuthenticationAssertion {
         id: string @unique
-        filerId: string
-        scheme: string
-        period: string
-        status: string
+        id: string
+        levelOfAssurance: string
+        issueInstant: datetime
+        sessionIndex: string
+        issuer: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Citizen {
-        id: string @unique
-        nationalId: string
-        jurisdiction: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Service {
+    entity EidasAttribute {
         id: string @unique
         name: string
-        department: string
+        friendlyName: string
+        nameFormat: string
+        value: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Application {
+    entity TrustService {
         id: string @unique
-        citizenId: string
-        serviceId: string
+        id: string
+        serviceProvider: string
+        serviceName: string
+        serviceType: string
         status: string
+        statusStartingTime: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Dataset {
+    entity Subject {
         id: string @unique
-        name: string
-        publisher: string
-        updatedAt: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Identity {
-        id: string @unique
-        citizenId: string
-        assuranceLevel: string
-        verified: boolean
+        nameID: string
+        format: string
+        spNameQualifier: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

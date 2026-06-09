@@ -1720,6 +1720,23 @@ PLATFORM_OVERRIDES = {
         "VisitOccurrence": E(visitOccurrenceId="integer", personId="integer", visitConceptId="integer", visitStartDate="datetime", visitEndDate="datetime", providerId="integer"),
         "Observation": E(observationId="integer", personId="integer", observationConceptId="integer", observationDate="datetime", valueAsNumber="float", valueAsString="string"),
     },
+    # Faithful eIDAS model — levelOfAssurance is the closed Art.8 Reg 910/2014 set;
+    # SAML attrname-format is closed. serviceType/classRef/status not exhaustive -> gapped.
+    "eidas": {
+        "AuthenticationAssertion": E(id="string", levelOfAssurance="string", issueInstant="datetime", sessionIndex="string", issuer="string"),
+        "EidasAttribute": E(name="string", friendlyName="string", nameFormat="string", value="string"),
+        "TrustService": E(id="string", serviceProvider="string", serviceName="string", serviceType="string", status="string", statusStartingTime="datetime"),
+        "Subject": E(nameID="string", format="string", spNameQualifier="string"),
+    },
+    # Faithful DICOMweb model (DICOM PS3.18). PatientSex (M/F/O) is closed; Modality
+    # (large extensible defined-terms) + SOP Class UIDs (huge registry) -> not enforced.
+    "dicomweb": {
+        "Study": E(studyInstanceUid="string", studyDate="string", studyTime="string", studyDescription="string", accessionNumber="string", referringPhysicianName="string"),
+        "Series": E(seriesInstanceUid="string", seriesNumber="integer", seriesDescription="string", modality="string", seriesDate="string"),
+        "Instance": E(sopInstanceUid="string", sopClassUid="string", instanceNumber="integer", contentDate="string"),
+        "Patient": E(patientId="string", patientName="string", patientBirthDate="string", patientSex="string"),
+        "QidoQuery": E(patientId="string", patientName="string", studyInstanceUid="string", modality="string", fuzzyMatching="boolean"),
+    },
     # Faithful AIS (ITU-R M.1371) model — verified vs gpsd AIVDM canonical reference.
     # shipType (0-99) is a large IMO code list -> not enforced.
     "ais_marine": {

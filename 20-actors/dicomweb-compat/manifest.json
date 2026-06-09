@@ -5,21 +5,39 @@
   "kind": "compat",
   "title": "dicomweb clean-room actor",
   "description": "Clean-room, API-compatible healthcare HL7-FHIR / bioinformatics actor (dicomweb); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifowxbaavyjrvjcpofnxsay2dvisct65bi32ozg2ypfbtdg2yu2xu",
+  "wasmCid": "bafkreiajc6duouto33gflfjovv4j3b2jodsswmdce24wh6xrl44qbhrqxi",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifowxbaavyjrvjcpofnxsay2dvisct65bi32ozg2ypfbtdg2yu2xu",
+  "ipfs": "ipfs://bafkreiajc6duouto33gflfjovv4j3b2jodsswmdce24wh6xrl44qbhrqxi",
   "schema": "schema/dicomweb.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://dicom.nema.org/medical/dicom/current/output/html/part18.html",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "Study",
+      "Series",
+      "Instance",
+      "Patient",
+      "QidoQuery"
+    ],
+    "enums": {
+      "Patient": {
+        "patientSex": [
+          "M",
+          "F",
+          "O"
+        ]
+      }
+    }
+  },
   "entities": [
+    "Study",
+    "Series",
+    "Instance",
     "Patient",
-    "Observation",
-    "Condition",
-    "DiagnosticReport",
-    "Sequence",
-    "Specimen"
+    "QidoQuery"
   ],
   "adr": [
     "260607",
@@ -31,8 +49,83 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
+        {
+          "method": "POST",
+          "path": "/v1/studies",
+          "op": "create Study"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/studies",
+          "op": "list Study"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/studies/{id}",
+          "op": "get Study"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/studies/{id}",
+          "op": "update Study"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/studies/{id}",
+          "op": "delete Study"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/serieses",
+          "op": "create Series"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/serieses",
+          "op": "list Series"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/serieses/{id}",
+          "op": "get Series"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/serieses/{id}",
+          "op": "update Series"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/serieses/{id}",
+          "op": "delete Series"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/instances",
+          "op": "create Instance"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/instances",
+          "op": "list Instance"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/instances/{id}",
+          "op": "get Instance"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/instances/{id}",
+          "op": "update Instance"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/instances/{id}",
+          "op": "delete Instance"
+        },
         {
           "method": "POST",
           "path": "/v1/patients",
@@ -60,128 +153,28 @@
         },
         {
           "method": "POST",
-          "path": "/v1/observations",
-          "op": "create Observation"
+          "path": "/v1/qidoqueries",
+          "op": "create QidoQuery"
         },
         {
           "method": "GET",
-          "path": "/v1/observations",
-          "op": "list Observation"
+          "path": "/v1/qidoqueries",
+          "op": "list QidoQuery"
         },
         {
           "method": "GET",
-          "path": "/v1/observations/{id}",
-          "op": "get Observation"
+          "path": "/v1/qidoqueries/{id}",
+          "op": "get QidoQuery"
         },
         {
           "method": "PATCH",
-          "path": "/v1/observations/{id}",
-          "op": "update Observation"
+          "path": "/v1/qidoqueries/{id}",
+          "op": "update QidoQuery"
         },
         {
           "method": "DELETE",
-          "path": "/v1/observations/{id}",
-          "op": "delete Observation"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/conditions",
-          "op": "create Condition"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/conditions",
-          "op": "list Condition"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/conditions/{id}",
-          "op": "get Condition"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/conditions/{id}",
-          "op": "update Condition"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/conditions/{id}",
-          "op": "delete Condition"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/diagnosticreports",
-          "op": "create DiagnosticReport"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/diagnosticreports",
-          "op": "list DiagnosticReport"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/diagnosticreports/{id}",
-          "op": "get DiagnosticReport"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/diagnosticreports/{id}",
-          "op": "update DiagnosticReport"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/diagnosticreports/{id}",
-          "op": "delete DiagnosticReport"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/sequences",
-          "op": "create Sequence"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/sequences",
-          "op": "list Sequence"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/sequences/{id}",
-          "op": "get Sequence"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/sequences/{id}",
-          "op": "update Sequence"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/sequences/{id}",
-          "op": "delete Sequence"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/specimens",
-          "op": "create Specimen"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/specimens",
-          "op": "list Specimen"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/specimens/{id}",
-          "op": "get Specimen"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/specimens/{id}",
-          "op": "update Specimen"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/specimens/{id}",
-          "op": "delete Specimen"
+          "path": "/v1/qidoqueries/{id}",
+          "op": "delete QidoQuery"
         }
       ],
       "features": {
@@ -244,30 +237,318 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
+        {
+          "name": "create_study",
+          "description": "Create a Study.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "studyInstanceUid": {
+                "type": "string"
+              },
+              "studyDate": {
+                "type": "string"
+              },
+              "studyTime": {
+                "type": "string"
+              },
+              "studyDescription": {
+                "type": "string"
+              },
+              "accessionNumber": {
+                "type": "string"
+              },
+              "referringPhysicianName": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "studyInstanceUid",
+              "studyDate"
+            ]
+          }
+        },
+        {
+          "name": "list_studies",
+          "description": "List Studies.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_study",
+          "description": "Get a Study by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_study",
+          "description": "Update a Study.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "studyInstanceUid": {
+                "type": "string"
+              },
+              "studyDate": {
+                "type": "string"
+              },
+              "studyTime": {
+                "type": "string"
+              },
+              "studyDescription": {
+                "type": "string"
+              },
+              "accessionNumber": {
+                "type": "string"
+              },
+              "referringPhysicianName": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_study",
+          "description": "Delete a Study.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_series",
+          "description": "Create a Series.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "seriesInstanceUid": {
+                "type": "string"
+              },
+              "seriesNumber": {
+                "type": "integer"
+              },
+              "seriesDescription": {
+                "type": "string"
+              },
+              "modality": {
+                "type": "string"
+              },
+              "seriesDate": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "seriesInstanceUid",
+              "seriesNumber"
+            ]
+          }
+        },
+        {
+          "name": "list_serieses",
+          "description": "List Serieses.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_series",
+          "description": "Get a Series by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_series",
+          "description": "Update a Series.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "seriesInstanceUid": {
+                "type": "string"
+              },
+              "seriesNumber": {
+                "type": "integer"
+              },
+              "seriesDescription": {
+                "type": "string"
+              },
+              "modality": {
+                "type": "string"
+              },
+              "seriesDate": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_series",
+          "description": "Delete a Series.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_instance",
+          "description": "Create a Instance.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "sopInstanceUid": {
+                "type": "string"
+              },
+              "sopClassUid": {
+                "type": "string"
+              },
+              "instanceNumber": {
+                "type": "integer"
+              },
+              "contentDate": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "sopInstanceUid",
+              "sopClassUid"
+            ]
+          }
+        },
+        {
+          "name": "list_instances",
+          "description": "List Instances.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_instance",
+          "description": "Get a Instance by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_instance",
+          "description": "Update a Instance.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "sopInstanceUid": {
+                "type": "string"
+              },
+              "sopClassUid": {
+                "type": "string"
+              },
+              "instanceNumber": {
+                "type": "integer"
+              },
+              "contentDate": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_instance",
+          "description": "Delete a Instance.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
         {
           "name": "create_patient",
           "description": "Create a Patient.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "identifier": {
+              "patientId": {
                 "type": "string"
               },
-              "givenName": {
+              "patientName": {
                 "type": "string"
               },
-              "familyName": {
+              "patientBirthDate": {
                 "type": "string"
               },
-              "birthDate": {
+              "patientSex": {
                 "type": "string"
               }
             },
             "required": [
-              "identifier",
-              "givenName"
+              "patientName",
+              "patientBirthDate"
             ]
           }
         },
@@ -303,16 +584,16 @@
               "id": {
                 "type": "string"
               },
-              "identifier": {
+              "patientId": {
                 "type": "string"
               },
-              "givenName": {
+              "patientName": {
                 "type": "string"
               },
-              "familyName": {
+              "patientBirthDate": {
                 "type": "string"
               },
-              "birthDate": {
+              "patientSex": {
                 "type": "string"
               }
             },
@@ -337,41 +618,44 @@
           }
         },
         {
-          "name": "create_observation",
-          "description": "Create a Observation.",
+          "name": "create_qido_query",
+          "description": "Create a QidoQuery.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "patientId": {
                 "type": "string"
               },
-              "code": {
+              "patientName": {
                 "type": "string"
               },
-              "value": {
+              "studyInstanceUid": {
                 "type": "string"
               },
-              "unit": {
+              "modality": {
                 "type": "string"
+              },
+              "fuzzyMatching": {
+                "type": "boolean"
               }
             },
             "required": [
-              "code",
-              "value"
+              "patientName",
+              "studyInstanceUid"
             ]
           }
         },
         {
-          "name": "list_observations",
-          "description": "List Observations.",
+          "name": "list_qido_queries",
+          "description": "List QidoQueries.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_observation",
-          "description": "Get a Observation by id.",
+          "name": "get_qido_query",
+          "description": "Get a QidoQuery by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -385,95 +669,8 @@
           }
         },
         {
-          "name": "update_observation",
-          "description": "Update a Observation.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "patientId": {
-                "type": "string"
-              },
-              "code": {
-                "type": "string"
-              },
-              "value": {
-                "type": "string"
-              },
-              "unit": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_observation",
-          "description": "Delete a Observation.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_condition",
-          "description": "Create a Condition.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "patientId": {
-                "type": "string"
-              },
-              "code": {
-                "type": "string"
-              },
-              "clinicalStatus": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "code",
-              "clinicalStatus"
-            ]
-          }
-        },
-        {
-          "name": "list_conditions",
-          "description": "List Conditions.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_condition",
-          "description": "Get a Condition by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_condition",
-          "description": "Update a Condition.",
+          "name": "update_qido_query",
+          "description": "Update a QidoQuery.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -483,11 +680,17 @@
               "patientId": {
                 "type": "string"
               },
-              "code": {
+              "patientName": {
                 "type": "string"
               },
-              "clinicalStatus": {
+              "studyInstanceUid": {
                 "type": "string"
+              },
+              "modality": {
+                "type": "string"
+              },
+              "fuzzyMatching": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -496,266 +699,8 @@
           }
         },
         {
-          "name": "delete_condition",
-          "description": "Delete a Condition.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_diagnostic_report",
-          "description": "Create a DiagnosticReport.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "patientId": {
-                "type": "string"
-              },
-              "code": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "issuedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "code",
-              "status"
-            ]
-          }
-        },
-        {
-          "name": "list_diagnostic_reports",
-          "description": "List DiagnosticReports.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_diagnostic_report",
-          "description": "Get a DiagnosticReport by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_diagnostic_report",
-          "description": "Update a DiagnosticReport.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "patientId": {
-                "type": "string"
-              },
-              "code": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "issuedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_diagnostic_report",
-          "description": "Delete a DiagnosticReport.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_sequence",
-          "description": "Create a Sequence.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "patientId": {
-                "type": "string"
-              },
-              "accession": {
-                "type": "string"
-              },
-              "referenceGenome": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "accession",
-              "referenceGenome"
-            ]
-          }
-        },
-        {
-          "name": "list_sequences",
-          "description": "List Sequences.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_sequence",
-          "description": "Get a Sequence by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_sequence",
-          "description": "Update a Sequence.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "patientId": {
-                "type": "string"
-              },
-              "accession": {
-                "type": "string"
-              },
-              "referenceGenome": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_sequence",
-          "description": "Delete a Sequence.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_specimen",
-          "description": "Create a Specimen.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "patientId": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "collectedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "type",
-              "collectedAt"
-            ]
-          }
-        },
-        {
-          "name": "list_specimens",
-          "description": "List Specimens.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_specimen",
-          "description": "Get a Specimen by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_specimen",
-          "description": "Update a Specimen.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "patientId": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "collectedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_specimen",
-          "description": "Delete a Specimen.",
+          "name": "delete_qido_query",
+          "description": "Delete a QidoQuery.",
           "inputSchema": {
             "type": "object",
             "properties": {

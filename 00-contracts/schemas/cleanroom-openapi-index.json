@@ -6,10 +6,10 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29705,
+  "totalEndpoints": 29690,
   "l4SpecsAvailable": 1000,
-  "l5VerifiedActors": 131,
-  "totalVerifiedEnumFields": 591,
+  "l5VerifiedActors": 133,
+  "totalVerifiedEnumFields": 594,
   "apis": [
     {
       "handle": "8th_wall-compat",
@@ -4593,10 +4593,10 @@
     {
       "handle": "dicomweb-compat",
       "did": "did:web:etzhayyim.com:actor:dicomweb-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreifowxbaavyjrvjcpofnxsay2dvisct65bi32ozg2ypfbtdg2yu2xu",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreiajc6duouto33gflfjovv4j3b2jodsswmdce24wh6xrl44qbhrqxi",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -4605,8 +4605,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 1,
       "openapi": "20-actors/dicomweb-compat/openapi.json"
     },
     {
@@ -5429,10 +5429,10 @@
     {
       "handle": "eidas-compat",
       "did": "did:web:etzhayyim.com:actor:eidas-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreievno4yq4xyn64ojpf5htuwjq5k3l2l63oxoqnhkxbjedg72uspoy",
+      "endpointCount": 20,
+      "ipfs": "ipfs://bafkreidfqgax5trw3itiypsnphpfcrvzbmhxdt3e7zddkdctznjw7fd4mm",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -5441,8 +5441,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 2,
       "openapi": "20-actors/eidas-compat/openapi.json"
     },
     {

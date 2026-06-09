@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 865,
-    "L5": 135
+    "L4": 863,
+    "L5": 137
   },
   "actors": [
     {
@@ -4355,10 +4355,10 @@
     {
       "handle": "dicomweb-compat",
       "did": "did:web:etzhayyim.com:actor:dicomweb-compat",
-      "wasmCid": "bafkreifowxbaavyjrvjcpofnxsay2dvisct65bi32ozg2ypfbtdg2yu2xu",
+      "wasmCid": "bafkreiajc6duouto33gflfjovv4j3b2jodsswmdce24wh6xrl44qbhrqxi",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "dicomweb clean-room actor",
       "category": "healthcare_fhir_bio",
       "capabilities": [
@@ -5147,10 +5147,10 @@
     {
       "handle": "eidas-compat",
       "did": "did:web:etzhayyim.com:actor:eidas-compat",
-      "wasmCid": "bafkreievno4yq4xyn64ojpf5htuwjq5k3l2l63oxoqnhkxbjedg72uspoy",
+      "wasmCid": "bafkreidfqgax5trw3itiypsnphpfcrvzbmhxdt3e7zddkdctznjw7fd4mm",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "eidas clean-room actor",
       "category": "uk_eu_egov",
       "capabilities": [

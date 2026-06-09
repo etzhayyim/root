@@ -5,21 +5,44 @@
   "kind": "compat",
   "title": "eidas clean-room actor",
   "description": "Clean-room, API-compatible UK / EU e-government actor (eidas); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreievno4yq4xyn64ojpf5htuwjq5k3l2l63oxoqnhkxbjedg72uspoy",
+  "wasmCid": "bafkreidfqgax5trw3itiypsnphpfcrvzbmhxdt3e7zddkdctznjw7fd4mm",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreievno4yq4xyn64ojpf5htuwjq5k3l2l63oxoqnhkxbjedg72uspoy",
+  "ipfs": "ipfs://bafkreidfqgax5trw3itiypsnphpfcrvzbmhxdt3e7zddkdctznjw7fd4mm",
   "schema": "schema/eidas.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:32014R0910",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "AuthenticationAssertion",
+      "EidasAttribute",
+      "TrustService",
+      "Subject"
+    ],
+    "enums": {
+      "AuthenticationAssertion": {
+        "levelOfAssurance": [
+          "low",
+          "substantial",
+          "high"
+        ]
+      },
+      "EidasAttribute": {
+        "nameFormat": [
+          "urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified",
+          "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
+          "urn:oasis:names:tc:SAML:2.0:attrname-format:basic"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Filing",
-    "Citizen",
-    "Service",
-    "Application",
-    "Dataset",
-    "Identity"
+    "AuthenticationAssertion",
+    "EidasAttribute",
+    "TrustService",
+    "Subject"
   ],
   "adr": [
     "260607",
@@ -31,157 +54,107 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 20,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/filings",
-          "op": "create Filing"
+          "path": "/v1/authenticationassertions",
+          "op": "create AuthenticationAssertion"
         },
         {
           "method": "GET",
-          "path": "/v1/filings",
-          "op": "list Filing"
+          "path": "/v1/authenticationassertions",
+          "op": "list AuthenticationAssertion"
         },
         {
           "method": "GET",
-          "path": "/v1/filings/{id}",
-          "op": "get Filing"
+          "path": "/v1/authenticationassertions/{id}",
+          "op": "get AuthenticationAssertion"
         },
         {
           "method": "PATCH",
-          "path": "/v1/filings/{id}",
-          "op": "update Filing"
+          "path": "/v1/authenticationassertions/{id}",
+          "op": "update AuthenticationAssertion"
         },
         {
           "method": "DELETE",
-          "path": "/v1/filings/{id}",
-          "op": "delete Filing"
+          "path": "/v1/authenticationassertions/{id}",
+          "op": "delete AuthenticationAssertion"
         },
         {
           "method": "POST",
-          "path": "/v1/citizens",
-          "op": "create Citizen"
+          "path": "/v1/eidasattributes",
+          "op": "create EidasAttribute"
         },
         {
           "method": "GET",
-          "path": "/v1/citizens",
-          "op": "list Citizen"
+          "path": "/v1/eidasattributes",
+          "op": "list EidasAttribute"
         },
         {
           "method": "GET",
-          "path": "/v1/citizens/{id}",
-          "op": "get Citizen"
+          "path": "/v1/eidasattributes/{id}",
+          "op": "get EidasAttribute"
         },
         {
           "method": "PATCH",
-          "path": "/v1/citizens/{id}",
-          "op": "update Citizen"
+          "path": "/v1/eidasattributes/{id}",
+          "op": "update EidasAttribute"
         },
         {
           "method": "DELETE",
-          "path": "/v1/citizens/{id}",
-          "op": "delete Citizen"
+          "path": "/v1/eidasattributes/{id}",
+          "op": "delete EidasAttribute"
         },
         {
           "method": "POST",
-          "path": "/v1/services",
-          "op": "create Service"
+          "path": "/v1/trustservices",
+          "op": "create TrustService"
         },
         {
           "method": "GET",
-          "path": "/v1/services",
-          "op": "list Service"
+          "path": "/v1/trustservices",
+          "op": "list TrustService"
         },
         {
           "method": "GET",
-          "path": "/v1/services/{id}",
-          "op": "get Service"
+          "path": "/v1/trustservices/{id}",
+          "op": "get TrustService"
         },
         {
           "method": "PATCH",
-          "path": "/v1/services/{id}",
-          "op": "update Service"
+          "path": "/v1/trustservices/{id}",
+          "op": "update TrustService"
         },
         {
           "method": "DELETE",
-          "path": "/v1/services/{id}",
-          "op": "delete Service"
+          "path": "/v1/trustservices/{id}",
+          "op": "delete TrustService"
         },
         {
           "method": "POST",
-          "path": "/v1/applications",
-          "op": "create Application"
+          "path": "/v1/subjects",
+          "op": "create Subject"
         },
         {
           "method": "GET",
-          "path": "/v1/applications",
-          "op": "list Application"
+          "path": "/v1/subjects",
+          "op": "list Subject"
         },
         {
           "method": "GET",
-          "path": "/v1/applications/{id}",
-          "op": "get Application"
+          "path": "/v1/subjects/{id}",
+          "op": "get Subject"
         },
         {
           "method": "PATCH",
-          "path": "/v1/applications/{id}",
-          "op": "update Application"
+          "path": "/v1/subjects/{id}",
+          "op": "update Subject"
         },
         {
           "method": "DELETE",
-          "path": "/v1/applications/{id}",
-          "op": "delete Application"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/datasets",
-          "op": "create Dataset"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/datasets",
-          "op": "list Dataset"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/datasets/{id}",
-          "op": "get Dataset"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/datasets/{id}",
-          "op": "update Dataset"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/datasets/{id}",
-          "op": "delete Dataset"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/identities",
-          "op": "create Identity"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/identities",
-          "op": "list Identity"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/identities/{id}",
-          "op": "get Identity"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/identities/{id}",
-          "op": "update Identity"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/identities/{id}",
-          "op": "delete Identity"
+          "path": "/v1/subjects/{id}",
+          "op": "delete Subject"
         }
       ],
       "features": {
@@ -244,44 +217,47 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 20,
       "tools": [
         {
-          "name": "create_filing",
-          "description": "Create a Filing.",
+          "name": "create_authentication_assertion",
+          "description": "Create a AuthenticationAssertion.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "filerId": {
+              "id": {
                 "type": "string"
               },
-              "scheme": {
+              "levelOfAssurance": {
                 "type": "string"
               },
-              "period": {
+              "issueInstant": {
                 "type": "string"
               },
-              "status": {
+              "sessionIndex": {
+                "type": "string"
+              },
+              "issuer": {
                 "type": "string"
               }
             },
             "required": [
-              "scheme",
-              "period"
+              "id",
+              "levelOfAssurance"
             ]
           }
         },
         {
-          "name": "list_filings",
-          "description": "List Filings.",
+          "name": "list_authentication_assertions",
+          "description": "List AuthenticationAssertions.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_filing",
-          "description": "Get a Filing by id.",
+          "name": "get_authentication_assertion",
+          "description": "Get a AuthenticationAssertion by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,24 +271,24 @@
           }
         },
         {
-          "name": "update_filing",
-          "description": "Update a Filing.",
+          "name": "update_authentication_assertion",
+          "description": "Update a AuthenticationAssertion.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "filerId": {
+              "levelOfAssurance": {
                 "type": "string"
               },
-              "scheme": {
+              "issueInstant": {
                 "type": "string"
               },
-              "period": {
+              "sessionIndex": {
                 "type": "string"
               },
-              "status": {
+              "issuer": {
                 "type": "string"
               }
             },
@@ -322,49 +298,8 @@
           }
         },
         {
-          "name": "delete_filing",
-          "description": "Delete a Filing.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_citizen",
-          "description": "Create a Citizen.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "nationalId": {
-                "type": "string"
-              },
-              "jurisdiction": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "jurisdiction"
-            ]
-          }
-        },
-        {
-          "name": "list_citizens",
-          "description": "List Citizens.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_citizen",
-          "description": "Get a Citizen by id.",
+          "name": "delete_authentication_assertion",
+          "description": "Delete a AuthenticationAssertion.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -378,71 +313,41 @@
           }
         },
         {
-          "name": "update_citizen",
-          "description": "Update a Citizen.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "nationalId": {
-                "type": "string"
-              },
-              "jurisdiction": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_citizen",
-          "description": "Delete a Citizen.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_service",
-          "description": "Create a Service.",
+          "name": "create_eidas_attribute",
+          "description": "Create a EidasAttribute.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "department": {
+              "friendlyName": {
+                "type": "string"
+              },
+              "nameFormat": {
+                "type": "string"
+              },
+              "value": {
                 "type": "string"
               }
             },
             "required": [
               "name",
-              "department"
+              "friendlyName"
             ]
           }
         },
         {
-          "name": "list_services",
-          "description": "List Services.",
+          "name": "list_eidas_attributes",
+          "description": "List EidasAttributes.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_service",
-          "description": "Get a Service by id.",
+          "name": "get_eidas_attribute",
+          "description": "Get a EidasAttribute by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -456,8 +361,8 @@
           }
         },
         {
-          "name": "update_service",
-          "description": "Update a Service.",
+          "name": "update_eidas_attribute",
+          "description": "Update a EidasAttribute.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -467,7 +372,13 @@
               "name": {
                 "type": "string"
               },
-              "department": {
+              "friendlyName": {
+                "type": "string"
+              },
+              "nameFormat": {
+                "type": "string"
+              },
+              "value": {
                 "type": "string"
               }
             },
@@ -477,8 +388,8 @@
           }
         },
         {
-          "name": "delete_service",
-          "description": "Delete a Service.",
+          "name": "delete_eidas_attribute",
+          "description": "Delete a EidasAttribute.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -492,37 +403,47 @@
           }
         },
         {
-          "name": "create_application",
-          "description": "Create a Application.",
+          "name": "create_trust_service",
+          "description": "Create a TrustService.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "citizenId": {
+              "id": {
                 "type": "string"
               },
-              "serviceId": {
+              "serviceProvider": {
+                "type": "string"
+              },
+              "serviceName": {
+                "type": "string"
+              },
+              "serviceType": {
                 "type": "string"
               },
               "status": {
                 "type": "string"
+              },
+              "statusStartingTime": {
+                "type": "string"
               }
             },
             "required": [
-              "status"
+              "id",
+              "serviceProvider"
             ]
           }
         },
         {
-          "name": "list_applications",
-          "description": "List Applications.",
+          "name": "list_trust_services",
+          "description": "List TrustServices.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_application",
-          "description": "Get a Application by id.",
+          "name": "get_trust_service",
+          "description": "Get a TrustService by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -536,22 +457,28 @@
           }
         },
         {
-          "name": "update_application",
-          "description": "Update a Application.",
+          "name": "update_trust_service",
+          "description": "Update a TrustService.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "citizenId": {
+              "serviceProvider": {
                 "type": "string"
               },
-              "serviceId": {
+              "serviceName": {
+                "type": "string"
+              },
+              "serviceType": {
                 "type": "string"
               },
               "status": {
                 "type": "string"
+              },
+              "statusStartingTime": {
+                "type": "string"
               }
             },
             "required": [
@@ -560,8 +487,8 @@
           }
         },
         {
-          "name": "delete_application",
-          "description": "Delete a Application.",
+          "name": "delete_trust_service",
+          "description": "Delete a TrustService.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -575,38 +502,38 @@
           }
         },
         {
-          "name": "create_dataset",
-          "description": "Create a Dataset.",
+          "name": "create_subject",
+          "description": "Create a Subject.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "nameID": {
                 "type": "string"
               },
-              "publisher": {
+              "format": {
                 "type": "string"
               },
-              "updatedAt": {
+              "spNameQualifier": {
                 "type": "string"
               }
             },
             "required": [
-              "name",
-              "publisher"
+              "nameID",
+              "format"
             ]
           }
         },
         {
-          "name": "list_datasets",
-          "description": "List Datasets.",
+          "name": "list_subjects",
+          "description": "List Subjects.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_dataset",
-          "description": "Get a Dataset by id.",
+          "name": "get_subject",
+          "description": "Get a Subject by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -620,21 +547,21 @@
           }
         },
         {
-          "name": "update_dataset",
-          "description": "Update a Dataset.",
+          "name": "update_subject",
+          "description": "Update a Subject.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
+              "nameID": {
                 "type": "string"
               },
-              "publisher": {
+              "format": {
                 "type": "string"
               },
-              "updatedAt": {
+              "spNameQualifier": {
                 "type": "string"
               }
             },
@@ -644,92 +571,8 @@
           }
         },
         {
-          "name": "delete_dataset",
-          "description": "Delete a Dataset.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_identity",
-          "description": "Create a Identity.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "citizenId": {
-                "type": "string"
-              },
-              "assuranceLevel": {
-                "type": "string"
-              },
-              "verified": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "assuranceLevel",
-              "verified"
-            ]
-          }
-        },
-        {
-          "name": "list_identities",
-          "description": "List Identities.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_identity",
-          "description": "Get a Identity by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_identity",
-          "description": "Update a Identity.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "citizenId": {
-                "type": "string"
-              },
-              "assuranceLevel": {
-                "type": "string"
-              },
-              "verified": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_identity",
-          "description": "Delete a Identity.",
+          "name": "delete_subject",
+          "description": "Delete a Subject.",
           "inputSchema": {
             "type": "object",
             "properties": {

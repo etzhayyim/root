@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 135,
+  "count": 137,
   "actors": [
     {
       "handle": "square-compat",
@@ -18740,6 +18740,178 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official OHDSI OMOP CDM v5.4. Enforced enums: Concept.standardConcept(S,C), Concept.invalidReason(D,U) = 2 small closed flags. All *_concept_id fields are CONCEPT vocab references (not enums) -> intentionally not enforced."
+    },
+    {
+      "handle": "eidas-compat",
+      "verifiedAt": "2026-06-10",
+      "tier": "L5",
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:32014R0910",
+      "remodeled": "Remodeled from generic category model to a faithful eIDAS model. levelOfAssurance is the closed 3-value set per Art.8 of EU Reg 910/2014; nameFormat is the closed SAML 2.0 attrname-format set. serviceType/classRef/Subject.format are non-exhaustive + TrustService.status (ETSI 403) -> gapped.",
+      "resources": [
+        {
+          "entity": "AuthenticationAssertion",
+          "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:32014R0910",
+          "verifiedFields": [
+            "id",
+            "levelOfAssurance",
+            "issueInstant",
+            "sessionIndex",
+            "issuer"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "levelOfAssurance": [
+              "low",
+              "substantial",
+              "high"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "EidasAttribute",
+          "source": "OASIS SAML 2.0 core",
+          "verifiedFields": [
+            "name",
+            "friendlyName",
+            "nameFormat",
+            "value"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "nameFormat": [
+              "urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified",
+              "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
+              "urn:oasis:names:tc:SAML:2.0:attrname-format:basic"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "TrustService",
+          "source": "ETSI TS 119 612",
+          "verifiedFields": [
+            "id",
+            "serviceProvider",
+            "serviceName",
+            "serviceType",
+            "status",
+            "statusStartingTime"
+          ],
+          "fieldStatus": "fields confirmed; serviceType not exhaustive + status (ETSI 403) -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "serviceType-not-exhaustive",
+            "status-etsi-403"
+          ]
+        },
+        {
+          "entity": "Subject",
+          "source": "OASIS SAML 2.0 core",
+          "verifiedFields": [
+            "nameID",
+            "format",
+            "spNameQualifier"
+          ],
+          "fieldStatus": "fields confirmed; nameid-format set not exhaustively listed -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "format-not-exhaustive"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (4/4 schemas). Enforced enums: AuthenticationAssertion.levelOfAssurance(low/substantial/high, Art.8 Reg 910/2014), EidasAttribute.nameFormat(3 SAML attrname-formats) = 2 enums. serviceType/status/Subject.format gapped (non-exhaustive / ETSI 403)."
+    },
+    {
+      "handle": "dicomweb-compat",
+      "verifiedAt": "2026-06-10",
+      "tier": "L5",
+      "source": "https://dicom.nema.org/medical/dicom/current/output/html/part18.html",
+      "remodeled": "Remodeled from generic category model to a faithful DICOMweb model (DICOM PS3.18). PatientSex (M/F/O) is a closed DICOM CS; Modality (large extensible defined-terms list) + SOP Class UIDs (huge registry) -> not enforced.",
+      "resources": [
+        {
+          "entity": "Study",
+          "source": "https://dicom.nema.org/medical/dicom/current/output/html/part18.html",
+          "verifiedFields": [
+            "studyInstanceUid",
+            "studyDate",
+            "studyTime",
+            "studyDescription",
+            "accessionNumber",
+            "referringPhysicianName"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Series",
+          "source": "https://dicom.nema.org/medical/dicom/current/output/html/part18.html",
+          "verifiedFields": [
+            "seriesInstanceUid",
+            "seriesNumber",
+            "seriesDescription",
+            "modality",
+            "seriesDate"
+          ],
+          "fieldStatus": "confirmed; modality large extensible defined-terms -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "modality-large-extensible"
+          ]
+        },
+        {
+          "entity": "Instance",
+          "source": "https://dicom.nema.org/medical/dicom/current/output/html/part18.html",
+          "verifiedFields": [
+            "sopInstanceUid",
+            "sopClassUid",
+            "instanceNumber",
+            "contentDate"
+          ],
+          "fieldStatus": "confirmed; sopClassUid huge registry -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "sopClassUid-registry"
+          ]
+        },
+        {
+          "entity": "Patient",
+          "source": "DICOM PS3.6 (0010,0040)",
+          "verifiedFields": [
+            "patientId",
+            "patientName",
+            "patientBirthDate",
+            "patientSex"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "patientSex": [
+              "M",
+              "F",
+              "O"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "QidoQuery",
+          "source": "https://dicom.nema.org/medical/dicom/current/output/html/part18.html (PS3.18 ch7 QIDO-RS)",
+          "verifiedFields": [
+            "patientId",
+            "patientName",
+            "studyInstanceUid",
+            "modality",
+            "fuzzyMatching"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5 schemas) vs DICOM PS3.18/PS3.6. Enforced enum: Patient.patientSex(M/F/O, closed DICOM CS). Modality (large extensible) + SOP Class UIDs (huge registry) intentionally not enforced."
     }
   ]
 }
