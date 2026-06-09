@@ -115,18 +115,43 @@ The R0 seed is the sarutahiko 8-cell line, binding the observer to an existing b
 that is *structurally* incapable of worker surveillance or line actuation; reuses existing
 substrate (kotoba Datom log, kotoba-os scan-cycle, sarutahiko line); pure-stdlib pywasm-ready.
 
-**Negative / limits**: R0 is analyzer + ontology + seed + 10 tests, design-only. No live OT
-ingest (G6-gated), no line-balancing optimizer yet (R1), no manako image hand-off yet (R2).
-KPIs are computed from disclosed counts, not a physics-faithful plant model.
+**Negative / limits**: R0–R11 are computed from a `:representative` synthetic seed, not live OT
+(live scan-cycle socket is G6/Council-gated; `ingest.py` does offline Datom replay only). KPIs
+are aggregates of disclosed counts, not a physics-faithful plant model. The vision hand-off
+emits a manako inspection request + reconciles a detection log, but does not run the detector.
+No componentize-py `.wasm` is built yet (R12); the actor entrypoint is verified via the CLI/test
+path. The OEE↔sarutahiko-produce-sim cross-check remains future (R12).
 
 # Roadmap
 
-- **R0 (this)** — `methods/analyze.py` (OEE/energy/quality) + `methods/datom_emit.py` +
-  `itonami-ontology.kotoba.edn` + sarutahiko seed + 10 tests green.
-- **R1** — bottleneck-relief + energy-schedule (idle power-down windows) recommendations;
-  cross-check OEE vs the sarutahiko produce sim.
-- **R2** — live scan-cycle ingest from a kotoba-os `plc-host-runner` Datom stream (Council
-  gated); manako scrap-image hand-off; Murakumo-narrated daily ops digest.
+R0–R11 landed in one session (9 cells + the WASM actor entrypoint; **87 tests green**,
+pure-stdlib pywasm-ready). Per-cell detail lives in `20-actors/itonami/CLAUDE.md`.
+
+- **R0 ✅** — `analyze.py` (OEE=A×P×Q / energy / quality, routed findings) + `datom_emit.py`
+  (canonical EAVT) + `itonami-ontology.kotoba.edn` + sarutahiko 8-cell seed. 10 tests.
+- **R1 ✅** — `optimize.py`: idle-power-down energy-reduction proposal (honest %, not inflated to
+  FOX's 10%) + bottleneck-relief. 6 tests.
+- **R2 ✅** — `inspect.py`: manako 眼 (ADR-2606034800) vision-inspection hand-off + defect-Pareto
+  reconcile; object-only, never a person (G2). 7 tests.
+- **R3 ✅** — `ingest.py`: SCADA/OT scan-cycle Datom-stream fold → ticks (offline replay; live
+  socket G6-gated). 10 tests.
+- **R4 ✅** — `digest.py`: fused daily digest + Murakumo-only narration (G7), deterministic
+  offline fallback. **R6 ✅** folds in the throughput two-lens, **R8 ✅** folds in multi-day drift.
+  13 tests.
+- **R5 ✅** — `plan.py`: throughput / line-balance via the takt-capacity lens (throughput-worst ≠
+  OEE-worst); units/day + availability-recovery relief. 8 tests.
+- **R7 ✅** — `trend.py`: KPI drift detector over durable daily `:opsday/*` snapshots (as-of
+  trajectory; polarity-aware direction). 8 tests.
+- **R9 ✅** — `alert.py`: graded threshold alerts (HMI alarm half), ADVISORY ONLY — never halts /
+  trips / writes to the OT bus (no actuation token representable). 9 tests.
+- **R10 ✅** — `fleet.py`: multi-line plant rollup + attention ranking (ranks LINES, never
+  people). 7 tests.
+- **R11 ✅** — `actor.py`: pywasm actor entrypoint wiring the nine cells into one WIT-sketched
+  export surface (summary/analyze/digest/alert/fleet JSON + datoms EDN); READ-ONLY by
+  construction. 9 tests.
+- **R12 (next)** — componentize-py WASM build + content-addressed `did.json` service wiring;
+  live scan-cycle socket (Council + operator DID gated); cross-check OEE vs the sarutahiko
+  produce sim (kami-engine).
 
 # Alternatives considered
 
