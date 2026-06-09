@@ -3,72 +3,75 @@
 
 namespace elevenlabs {
 
-    entity Model {
+    entity Voice {
         id: string @unique
+        voiceId: string
         name: string
-        family: string
-        contextWindow: integer
-        modality: string
+        category: string
+        description: string
+        previewUrl: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Completion {
+    entity Sample {
         id: string @unique
-        modelId: string
-        prompt: string
-        output: string
-        tokens: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Embedding {
-        id: string @unique
-        modelId: string
-        input: string
-        dimensions: integer
-        vectorRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity FineTune {
-        id: string @unique
-        baseModelId: string
-        datasetId: string
-        status: string
-        epochs: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Dataset {
-        id: string @unique
-        name: string
-        rows: integer
-        contentRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity File {
-        id: string @unique
-        purpose: string
-        filename: string
+        sampleId: string
+        fileName: string
+        mimeType: string
+        hash: string
         sizeBytes: integer
-        contentRef: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity HistoryItem {
+        id: string @unique
+        historyItemId: string
+        voiceId: string
+        voiceName: string
+        text: string
+        contentType: string
+        state: string
+        dateUnix: integer
+        requestId: string
+        characterCountChangeFrom: integer
+        characterCountChangeTo: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity TTSModel {
+        id: string @unique
+        modelId: string
+        displayName: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Subscription {
+        id: string @unique
+        tier: string
+        status: string
+        currency: string
+        characterCount: integer
+        characterLimit: integer
+        voiceLimit: integer
+        professionalVoiceLimit: integer
+        canUseInstantVoiceCloning: boolean
+        canUseProfessionalVoiceCloning: boolean
+        canExtendCharacterLimit: boolean
+        canExtendVoiceLimit: boolean
+        nextCharacterCountResetUnix: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity User {
+        id: string @unique
+        isNewUser: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

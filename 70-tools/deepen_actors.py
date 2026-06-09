@@ -1292,6 +1292,18 @@ PLATFORM_OVERRIDES = {
         "Group": E(name="string", description="string", link="string", resourceKey="string", uri="string"),
         "Category": E(name="string", topLevel="boolean", lastVideoFeaturedTime="datetime", link="string", resourceKey="string", uri="string"),
     },
+    # Faithful ElevenLabs model (remodeled from the generic ai_ml LLM archetype
+    # whose Completion/Embedding/FineTune/Dataset entities did not match
+    # ElevenLabs' voice-synthesis API), doc-verified L5 vs ElevenLabs' official
+    # OpenAPI (via apis.guru).
+    "elevenlabs": {
+        "Voice": E(voiceId="string", name="string", category="string", description="string", previewUrl="string"),
+        "Sample": E(sampleId="string", fileName="string", mimeType="string", hash="string", sizeBytes="integer"),
+        "HistoryItem": E(historyItemId="string", voiceId="string", voiceName="string", text="string", contentType="string", state="string", dateUnix="integer", requestId="string", characterCountChangeFrom="integer", characterCountChangeTo="integer"),
+        "TTSModel": E(modelId="string", displayName="string"),
+        "Subscription": E(tier="string", status="string", currency="string", characterCount="integer", characterLimit="integer", voiceLimit="integer", professionalVoiceLimit="integer", canUseInstantVoiceCloning="boolean", canUseProfessionalVoiceCloning="boolean", canExtendCharacterLimit="boolean", canExtendVoiceLimit="boolean", nextCharacterCountResetUnix="integer"),
+        "User": E(isNewUser="boolean"),
+    },
     # Faithful Airtable model (remodeled from generic office_productivity), L5.
     "airtable": {
         "Base": E(name="string", permissionLevel="string"),

@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 79,
+  "count": 80,
   "actors": [
     {
       "handle": "square-compat",
@@ -11444,6 +11444,143 @@
       ],
       "notApplicable": [],
       "note": "Remodeled from a mismatched streaming-CMS archetype to a faithful Vimeo model. 6/6 entities field-verified vs Vimeo's official OpenAPI 3.4. Discovered closed enums (6): Video.license/status, Album.layout/sort/theme, User.account. Vimeo identifiers are uri/resource_key (no numeric id)."
+    },
+    {
+      "handle": "elevenlabs-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "ElevenLabs official OpenAPI (via apis.guru mirror: elevenlabs.io)",
+      "remodeled": "Remodeled from the generic ai_ml LLM archetype (Model/Completion/Embedding/FineTune/Dataset/File — an OpenAI-shaped model) to a faithful ElevenLabs voice-synthesis model (Voice/Sample/HistoryItem/TTSModel/Subscription/User), verified field-by-field against ElevenLabs' official OpenAPI *ResponseModel schemas. The xi_api_key credential field is omitted from the clean-room schema. The L5 gate had correctly rejected the prior mismatched model (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Voice",
+          "source": "VoiceResponseModel",
+          "verifiedFields": [
+            "voiceId",
+            "name",
+            "category",
+            "description",
+            "previewUrl"
+          ],
+          "fieldStatus": "confirmed vs VoiceResponseModel (voice_id/name/category/description/preview_url)",
+          "discoveredEnums": {},
+          "gaps": [
+            "labels(object)",
+            "samples(array)",
+            "settings(object)",
+            "fine_tuning(object)"
+          ]
+        },
+        {
+          "entity": "Sample",
+          "source": "SampleResponseModel",
+          "verifiedFields": [
+            "sampleId",
+            "fileName",
+            "mimeType",
+            "hash",
+            "sizeBytes"
+          ],
+          "fieldStatus": "confirmed vs SampleResponseModel (sample_id/file_name/mime_type/hash/size_bytes)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "HistoryItem",
+          "source": "HistoryItemResponseModel",
+          "verifiedFields": [
+            "historyItemId",
+            "voiceId",
+            "voiceName",
+            "text",
+            "contentType",
+            "state",
+            "dateUnix",
+            "requestId",
+            "characterCountChangeFrom",
+            "characterCountChangeTo"
+          ],
+          "fieldStatus": "confirmed vs HistoryItemResponseModel (history_item_id/voice_id/voice_name/text/content_type/state/date_unix/request_id/character_count_change_from/character_count_change_to)",
+          "discoveredEnums": {
+            "state": [
+              "created",
+              "deleted",
+              "processing"
+            ]
+          },
+          "gaps": [
+            "settings(object)",
+            "feedback(object)"
+          ]
+        },
+        {
+          "entity": "TTSModel",
+          "source": "TTSModelResponseModel",
+          "verifiedFields": [
+            "modelId",
+            "displayName"
+          ],
+          "fieldStatus": "confirmed vs TTSModelResponseModel (model_id/display_name)",
+          "discoveredEnums": {},
+          "gaps": [
+            "languages(array)",
+            "can_do_text_to_speech/can_be_finetuned (booleans on extended model)"
+          ]
+        },
+        {
+          "entity": "Subscription",
+          "source": "SubscriptionResponseModel",
+          "verifiedFields": [
+            "tier",
+            "status",
+            "currency",
+            "characterCount",
+            "characterLimit",
+            "voiceLimit",
+            "professionalVoiceLimit",
+            "canUseInstantVoiceCloning",
+            "canUseProfessionalVoiceCloning",
+            "canExtendCharacterLimit",
+            "canExtendVoiceLimit",
+            "nextCharacterCountResetUnix"
+          ],
+          "fieldStatus": "confirmed vs SubscriptionResponseModel (tier/status/currency/character_count/character_limit/voice_limit/professional_voice_limit/can_use_instant_voice_cloning/can_use_professional_voice_cloning/can_extend_character_limit/can_extend_voice_limit/next_character_count_reset_unix)",
+          "discoveredEnums": {
+            "status": [
+              "trialing",
+              "active",
+              "incomplete",
+              "incomplete_expired",
+              "past_due",
+              "canceled",
+              "unpaid",
+              "free"
+            ],
+            "currency": [
+              "usd",
+              "eur"
+            ]
+          },
+          "gaps": [
+            "billing_period(object)"
+          ]
+        },
+        {
+          "entity": "User",
+          "source": "UserResponseModel",
+          "verifiedFields": [
+            "isNewUser"
+          ],
+          "fieldStatus": "confirmed vs UserResponseModel (is_new_user); xi_api_key omitted (credential)",
+          "discoveredEnums": {},
+          "gaps": [
+            "xi_api_key (credential — omitted)",
+            "subscription(object)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "Remodeled from a mismatched OpenAI-shaped LLM archetype to a faithful voice-synthesis model. 6/6 entities field-verified vs ElevenLabs' official OpenAPI. Discovered closed enums (3): HistoryItem.state, Subscription.status/currency. The xi_api_key credential is intentionally omitted from the clean-room schema."
     }
   ]
 }

@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 921,
-    "L5": 79
+    "L4": 920,
+    "L5": 80
   },
   "actors": [
     {
@@ -5240,7 +5240,7 @@
       "wasmCid": "bafkreibg5ziqrvwg5676ahgu6wuktjva35akzwtyarlrifpjm4svwfq7ku",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "elevenlabs clean-room actor",
       "category": "ai_ml",
       "capabilities": [
