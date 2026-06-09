@@ -14255,17 +14255,16 @@
       "handle": "ss7_sigtran-compat",
       "platform": "ss7_sigtran",
       "bytes": 2125,
-      "wasmCid": "bafkreicg3i6b6sgpvoncbummtktjbriofcpb6jlf7kvtaxhbirilx2vflq",
+      "wasmCid": "bafkreihvzquaf5ifruoif3zps34qt37y37wads7eakzo3e2jlgg54fvpqe",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Subscriber",
-        "Session",
-        "Message",
-        "Number",
-        "Terminal",
-        "UsageRecord"
+        "M3uaMessage",
+        "SuaMessage",
+        "ProtocolData",
+        "Mtp3Message",
+        "SccpMessage"
       ]
     },
     {

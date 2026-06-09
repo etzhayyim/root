@@ -6,10 +6,10 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29745,
+  "totalEndpoints": 29740,
   "l4SpecsAvailable": 1000,
-  "l5VerifiedActors": 126,
-  "totalVerifiedEnumFields": 564,
+  "l5VerifiedActors": 127,
+  "totalVerifiedEnumFields": 568,
   "apis": [
     {
       "handle": "8th_wall-compat",
@@ -15974,10 +15974,10 @@
     {
       "handle": "ss7_sigtran-compat",
       "did": "did:web:etzhayyim.com:actor:ss7_sigtran-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreicg3i6b6sgpvoncbummtktjbriofcpb6jlf7kvtaxhbirilx2vflq",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreihvzquaf5ifruoif3zps34qt37y37wads7eakzo3e2jlgg54fvpqe",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -15986,8 +15986,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 4,
       "openapi": "20-actors/ss7_sigtran-compat/openapi.json"
     },
     {

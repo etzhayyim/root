@@ -1621,6 +1621,15 @@ PLATFORM_OVERRIDES = {
         "Deployment": E(id="string", status="string", projectName="string", stackName="string", paused="boolean", created="datetime", modified="datetime"),
         "Organization": E(name="string", role="string"),
     },
+    # Faithful SS7/SIGTRAN model — M3UA (RFC 4666) + SUA (RFC 3868) message classes
+    # are RFC-verified closed sets; SCCP/ISUP message types are ITU-T-paywalled -> gapped.
+    "ss7_sigtran": {
+        "M3uaMessage": E(version="integer", reserved="integer", messageClass="integer", messageType="integer", messageLength="integer"),
+        "SuaMessage": E(version="integer", messageClass="integer", messageType="integer", messageLength="integer"),
+        "ProtocolData": E(opc="integer", dpc="integer", si="integer", ni="integer", mp="integer", sls="integer"),
+        "Mtp3Message": E(serviceIndicator="integer", networkIndicator="integer", payload="string"),
+        "SccpMessage": E(messageType="integer", destinationPointCode="integer", sourcePointCode="integer", subsystemNumber="integer", globalTitle="string"),
+    },
     # Faithful CVE/NVD + CVSS v3.1 model — verified vs the FIRST CVSS v3.1 spec +
     # the official NIST NVD API schema. All CVSS metric value sets are closed.
     "cve_nvd": {

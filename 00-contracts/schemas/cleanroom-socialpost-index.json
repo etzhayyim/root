@@ -7,8 +7,8 @@
     "260607"
   ],
   "count": 1000,
-  "l5VerifiedActors": 126,
-  "totalVerifiedEnumFields": 564,
+  "l5VerifiedActors": 127,
+  "totalVerifiedEnumFields": 568,
   "feeds": [
     {
       "handle": "8th_wall-compat",
@@ -8417,8 +8417,8 @@
       "source": "ss7_sigtran.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 4
     },
     {
       "handle": "starlink-compat",

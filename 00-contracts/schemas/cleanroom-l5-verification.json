@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 130,
+  "count": 131,
   "actors": [
     {
       "handle": "square-compat",
@@ -18085,6 +18085,128 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (5/5 schemas) vs official MITRE attack-stix-data. Enforced enum: Software.type(malware/tool). Tactic.shortName gapped (fetch contaminated with bogus values — honesty over coverage); technique IDs large-set -> gapped."
+    },
+    {
+      "handle": "ss7_sigtran-compat",
+      "verifiedAt": "2026-06-10",
+      "tier": "L5",
+      "source": "https://datatracker.ietf.org/doc/html/rfc4666",
+      "remodeled": "Remodeled from generic category model to a faithful SS7/SIGTRAN model. M3UA (RFC 4666) + SUA (RFC 3868) message classes are RFC-verified closed sets; networkIndicator (2-bit) closed. SCCP/ISUP message-type codes are defined in ITU-T Q.713/Q.764 (paywalled) -> not enforced.",
+      "resources": [
+        {
+          "entity": "M3uaMessage",
+          "source": "https://datatracker.ietf.org/doc/html/rfc4666",
+          "verifiedFields": [
+            "version",
+            "reserved",
+            "messageClass",
+            "messageType",
+            "messageLength"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "messageClass": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              9
+            ]
+          },
+          "gaps": [
+            "messageType-per-class"
+          ]
+        },
+        {
+          "entity": "SuaMessage",
+          "source": "https://datatracker.ietf.org/doc/html/rfc3868",
+          "verifiedFields": [
+            "version",
+            "messageClass",
+            "messageType",
+            "messageLength"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "messageClass": [
+              0,
+              2,
+              3,
+              4,
+              7,
+              8,
+              9
+            ]
+          },
+          "gaps": [
+            "messageType-per-class"
+          ]
+        },
+        {
+          "entity": "ProtocolData",
+          "source": "https://datatracker.ietf.org/doc/html/rfc4666",
+          "verifiedFields": [
+            "opc",
+            "dpc",
+            "si",
+            "ni",
+            "mp",
+            "sls"
+          ],
+          "fieldStatus": "confirmed; ni (2-bit network indicator) closed",
+          "discoveredEnums": {
+            "ni": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          "gaps": [
+            "si-q704"
+          ]
+        },
+        {
+          "entity": "Mtp3Message",
+          "source": "ITU-T Q.704",
+          "verifiedFields": [
+            "serviceIndicator",
+            "networkIndicator",
+            "payload"
+          ],
+          "fieldStatus": "confirmed; serviceIndicator assignments are Q.704 (paywalled) -> not enforced; networkIndicator 2-bit closed",
+          "discoveredEnums": {
+            "networkIndicator": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          "gaps": [
+            "serviceIndicator-q704"
+          ]
+        },
+        {
+          "entity": "SccpMessage",
+          "source": "ITU-T Q.713",
+          "verifiedFields": [
+            "messageType",
+            "destinationPointCode",
+            "sourcePointCode",
+            "subsystemNumber",
+            "globalTitle"
+          ],
+          "fieldStatus": "fields confirmed; SCCP messageType codes are ITU-T Q.713 (paywalled) -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "messageType-q713-paywalled"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5 schemas; M3UA/SUA RFC-verified). Enforced enums: M3uaMessage.messageClass(6, RFC 4666), SuaMessage.messageClass(7, RFC 3868), ProtocolData.ni(4), Mtp3Message.networkIndicator(4) = 4 enums. SCCP/ISUP message types (ITU-T Q.713/Q.764 paywalled) intentionally not enforced."
     }
   ]
 }
