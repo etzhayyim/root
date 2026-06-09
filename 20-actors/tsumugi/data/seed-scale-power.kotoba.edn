@@ -16,8 +16,8 @@
  ;; 産 industry — Mitsubishi Heavy Industries' Nagasaki Shipyard is a public, documented plant.
  {:pwr/id "org.plant.jp.mhi-nagasaki" :pwr/label "三菱重工 長崎造船所 (plant)" :pwr/standing :institutional :pwr/scale :local :pwr/sector :san :pwr/locality "jp.nagasaki" :pwr/parent "org.corp.jp.7011" :pwr/sourcing :representative}
  ;; 官 government — the prefecture + a public advisory-council SEAT (not a person)
- {:pwr/id "org.gov.jp.nagasaki-ken" :pwr/label "長崎県 (県庁)" :pwr/standing :institutional :pwr/scale :regional :pwr/sector :kan :pwr/locality "jp.nagasaki" :pwr/sourcing :representative}
- {:pwr/id "seat.gov.jp.nagasaki.shingikai-industry" :pwr/label "長崎県 産業振興審議会 — 委員 seat (public)" :pwr/standing :public-seat :pwr/scale :regional :pwr/sector :kan :pwr/locality "jp.nagasaki" :pwr/parent "org.gov.jp.nagasaki-ken" :pwr/sourcing :representative}
+ {:pwr/id "org.gov.jp.nagasaki-ken" :pwr/label "長崎県 (県庁)" :pwr/standing :institutional :pwr/scale :regional :pwr/sector :kan :pwr/locality "jp.nagasaki" :pwr/collective-kind :region :pwr/sourcing :representative}
+ {:pwr/id "seat.gov.jp.nagasaki.shingikai-industry" :pwr/label "長崎県 産業振興審議会 — 委員 seat (public)" :pwr/standing :public-seat :pwr/scale :regional :pwr/sector :kan :pwr/locality "jp.nagasaki" :pwr/parent "org.gov.jp.nagasaki-ken" :pwr/collective-kind :advisory-body :pwr/sourcing :representative}
  ;; 学 academia — the local national university
  {:pwr/id "org.univ.jp.nagasaki-u" :pwr/label "長崎大学" :pwr/standing :institutional :pwr/scale :local :pwr/sector :gaku :pwr/locality "jp.nagasaki" :pwr/sourcing :representative}
  ;; 報 press — the prefecture's local newspaper
@@ -52,4 +52,33 @@
 
  ;; (3) national keiretsu ties
  {:tie/id "tie.kr.mhi.parent" :tie/kind :custodies  :tie/from "org.corp.jp.7011" :tie/to "org.plant.jp.mhi-nagasaki" :tie/grasping-load 0.80 :tie/sources ["MHI 有価証券報告書" "MHI 事業所一覧 (公開)"] :tie/sourcing :representative}
- {:tie/id "tie.kr.meti.mhi"   :tie/kind :awards     :tie/from "org.gov.jp.meti" :tie/to "org.corp.jp.7011" :tie/grasping-load 0.60 :tie/sources ["政府調達 公示 (公開)" "経済産業省 補助金 交付決定 (公開)"] :tie/sourcing :representative}]
+ {:tie/id "tie.kr.meti.mhi"   :tie/kind :awards     :tie/from "org.gov.jp.meti" :tie/to "org.corp.jp.7011" :tie/grasping-load 0.60 :tie/sources ["政府調達 公示 (公開)" "経済産業省 補助金 交付決定 (公開)"] :tie/sourcing :representative}
+
+ ;; ═══════════ granularity wave 1 (ADR-2606092000 /loop): 社内派閥 · 学閥 · community ═══════════
+ ;; (4) 社内派閥 — two factions of public SEATS inside ONE corporation (not a roster of persons)
+ {:pwr/id "org.corp.jp.faction-host" :pwr/label "(representative) 大手企業Y" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "jp.corpY" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "seat.corp.jp.Y.faction-a" :pwr/label "企業Y — 役員会 派閥A seat (public)" :pwr/standing :public-seat :pwr/scale :intra-org :pwr/sector :san :pwr/locality "jp.corpY" :pwr/parent "org.corp.jp.faction-host" :pwr/collective-kind :intra-org-faction :pwr/sourcing :representative}
+ {:pwr/id "seat.corp.jp.Y.faction-b" :pwr/label "企業Y — 役員会 派閥B seat (public)" :pwr/standing :public-seat :pwr/scale :intra-org :pwr/sector :san :pwr/locality "jp.corpY" :pwr/parent "org.corp.jp.faction-host" :pwr/collective-kind :intra-org-faction :pwr/sourcing :representative}
+
+ ;; (5) 学閥 — a cross-institution academic CLIQUE of public seats (co-located cluster key)
+ {:pwr/id "seat.univ.jp.A.chair" :pwr/label "(representative) 大学A — 学部長 seat (public)" :pwr/standing :public-seat :pwr/scale :intra-org :pwr/sector :gaku :pwr/locality "jp.gakubatsu-x" :pwr/collective-kind :academic-clique :pwr/sourcing :representative}
+ {:pwr/id "seat.univ.jp.B.chair" :pwr/label "(representative) 大学B — 学部長 seat (public)" :pwr/standing :public-seat :pwr/scale :intra-org :pwr/sector :gaku :pwr/locality "jp.gakubatsu-x" :pwr/collective-kind :academic-clique :pwr/sourcing :representative}
+ {:pwr/id "seat.gov.jp.ministry-council" :pwr/label "(representative) 中央省庁 審議会 — 委員 seat (public)" :pwr/standing :public-seat :pwr/scale :national :pwr/sector :kan :pwr/locality "jp.gakubatsu-x" :pwr/collective-kind :advisory-body :pwr/sourcing :representative}
+
+ ;; (6) コミュニティ — a local cooperative + town hall + community paper (community scale)
+ {:pwr/id "org.coop.jp.communityX" :pwr/label "(representative) 地域協同組合X" :pwr/standing :institutional :pwr/scale :local :pwr/sector :min :pwr/locality "jp.communityX" :pwr/collective-kind :community :pwr/sourcing :representative}
+ {:pwr/id "org.gov.jp.townX" :pwr/label "(representative) X町役場" :pwr/standing :institutional :pwr/scale :local :pwr/sector :kan :pwr/locality "jp.communityX" :pwr/collective-kind :region :pwr/sourcing :representative}
+ {:pwr/id "org.press.jp.communityX" :pwr/label "(representative) X町 コミュニティ紙" :pwr/standing :institutional :pwr/scale :local :pwr/sector :hou :pwr/locality "jp.communityX" :pwr/collective-kind :community :pwr/sourcing :representative}
+
+ ;; ───────────── granularity wave 1 ties ─────────────
+ ;; 社内派閥: the two factions are tied to each other (rivalry/co-membership) + to outside patrons
+ {:tie/id "tie.Y.factions" :tie/kind :co-member :tie/from "seat.corp.jp.Y.faction-a" :tie/to "seat.corp.jp.Y.faction-b" :tie/grasping-load 0.50 :tie/sources ["企業Y 有価証券報告書 役員一覧 (公開)" "企業Y コーポレートガバナンス報告書 (公開)"] :tie/sourcing :representative}
+ {:tie/id "tie.Y.a.host" :tie/kind :co-member :tie/from "seat.corp.jp.Y.faction-a" :tie/to "org.corp.jp.faction-host" :tie/grasping-load 0.55 :tie/sources ["企業Y 役員一覧 (公開)" "企業Y 招集通知 (公開)"] :tie/sourcing :representative}
+ {:tie/id "tie.Y.b.host" :tie/kind :co-member :tie/from "seat.corp.jp.Y.faction-b" :tie/to "org.corp.jp.faction-host" :tie/grasping-load 0.55 :tie/sources ["企業Y 役員一覧 (公開)" "企業Y 招集通知 (公開)"] :tie/sourcing :representative}
+ ;; 学閥: the clique = cross-institution co-membership + a shared ministry council seat (学官 weave)
+ {:tie/id "tie.gakubatsu.AB" :tie/kind :co-member :tie/from "seat.univ.jp.A.chair" :tie/to "seat.univ.jp.B.chair" :tie/grasping-load 0.48 :tie/sources ["学会 役員名簿 (公開)" "共同研究 公表実績 (公開)"] :tie/sourcing :representative}
+ {:tie/id "tie.gakubatsu.A.gov" :tie/kind :seats-on :tie/from "seat.univ.jp.A.chair" :tie/to "seat.gov.jp.ministry-council" :tie/grasping-load 0.52 :tie/sources ["審議会 委員名簿 (公開)" "省庁 公開資料"] :tie/sourcing :representative}
+ {:tie/id "tie.gakubatsu.B.gov" :tie/kind :seats-on :tie/from "seat.univ.jp.B.chair" :tie/to "seat.gov.jp.ministry-council" :tie/grasping-load 0.46 :tie/sources ["審議会 委員名簿 (公開)" "省庁 公開資料"] :tie/sourcing :representative}
+ ;; コミュニティ: coop ↔ town hall ↔ community paper (民官報 local weave)
+ {:tie/id "tie.communityX.coop.town" :tie/kind :co-member :tie/from "org.coop.jp.communityX" :tie/to "org.gov.jp.townX" :tie/grasping-load 0.40 :tie/sources ["X町 広報 (公開)" "協同組合X 総会資料 (公開)"] :tie/sourcing :representative}
+ {:tie/id "tie.communityX.press.coop" :tie/kind :covers :tie/from "org.press.jp.communityX" :tie/to "org.coop.jp.communityX" :tie/grasping-load 0.34 :tie/sources ["X町 コミュニティ紙 紙面 (公開)" "協同組合X 公開情報"] :tie/sourcing :representative}]

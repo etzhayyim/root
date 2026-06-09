@@ -230,3 +230,26 @@ placeholders, NOT assertions about named orgs); committed banner seed aligns onl
 public platforms + abstract streams (no corporate/newspaper/person ideology labels — that stays
 G7-gated). Live locality + entity↔banner ingest is G7 + Council + operator-gated. Murakumo-only
 narration (G6). New lexicons (future, gated): `com.etzhayyim.power.{scaleCluster,bannerCamp}`.
+
+## Granularity waves + Murakumo narration (/loop, ADR-2606092000)
+
+A recurring `/loop` (every 30 min) progressively details the intel across **全世界の
+組織・地域・コミュニティ・社内派閥・学閥** granularities and keeps it narratable on the
+Gemma-4 Murakumo fleet. Standing structure:
+
+- **Granularity axis** `:pwr/collective-kind ∈ {:org 組織 :region 地域 :community コミュニティ
+  :intra-org-faction 社内派閥 :academic-clique 学閥 :keiretsu 系列 :advisory-body 審議会}` —
+  still seat/institution-level (S2): a 学閥 is a cross-institution CLIQUE of public SEATS, a
+  社内派閥 a faction of SEATS under one org — **never a roster of persons**. `analyze_scale.py`
+  emits a per-collective-kind aggregate (粒度 section in the report). Each wave adds more
+  `:representative` instances; wave 1 added 社内派閥 + 学閥 + community.
+- **Murakumo narration** (`cell:tsumugi.narrate`): `methods/narrate.py` (stdlib twin, urllib →
+  LiteLLM `127.0.0.1:4000`, **refuses non-fleet host**, operator-gated, dry-run default) +
+  `deploy/agent.py` (canonical in-WASM `kotoba_langgraph` → `KotobaLLM` → host
+  `MURAKUMO_DEFAULT_MODEL` gemma4; himawari pattern). G6 Murakumo-only · G7 `published=false`.
+  See `deploy/README.md`.
+
+```bash
+python3 20-actors/tsumugi/methods/narrate.py            # dry-run → out/narration.dryrun.md
+python3 20-actors/tsumugi/tests/test_narrate.py         # 9 tests (Murakumo-only + aggregate-safe)
+```

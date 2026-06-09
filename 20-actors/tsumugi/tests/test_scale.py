@@ -50,6 +50,12 @@ def main():
     check("top broker is a seat/org id", brokers and brokers[0]["id"].startswith(("org.", "seat.")))
     check("top broker bridges ≥2 other sectors", brokers[0]["span"] >= 2)
 
+    # granularity (粒度) — 社内派閥/学閥/コミュニティ surface as collective-kinds
+    cks = {x["kind"] for x in result["collective_kinds"]}
+    check("社内派閥 (intra-org-faction) granularity present", ":intra-org-faction" in cks)
+    check("学閥 (academic-clique) granularity present", ":academic-clique" in cks)
+    check("コミュニティ (community) granularity present", ":community" in cks)
+
     # S1 — output graph carries NO per-node score, only per-locality readouts
     graph = A.render_graph_edn(result)
     check("S1: no per-node score attr in output", ":pwr/power-score" not in graph

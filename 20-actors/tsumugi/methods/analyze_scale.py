@@ -69,6 +69,11 @@ def read_edn(text):
 SECTORS = [":san", ":kan", ":gaku", ":hou", ":min", ":kin"]
 SECTOR_JA = {":san": "産", ":kan": "官", ":gaku": "学", ":hou": "報", ":min": "民", ":kin": "金"}
 SCALES = [":global", ":supranational", ":national", ":regional", ":local", ":intra-org"]
+COLLECTIVE_KINDS = [":org", ":region", ":community", ":intra-org-faction",
+                    ":academic-clique", ":keiretsu", ":advisory-body"]
+COLLECTIVE_JA = {":org": "組織", ":region": "地域", ":community": "コミュニティ",
+                 ":intra-org-faction": "社内派閥", ":academic-clique": "学閥",
+                 ":keiretsu": "系列", ":advisory-body": "審議会"}
 STANDINGS = [":institutional", ":public-seat"]
 TIE_KINDS = [":custodies", ":depends-on", ":funds", ":awards", ":seats-on",
              ":co-member", ":supplies", ":covers", ":employs", ":follows"]
@@ -109,6 +114,9 @@ def _validate_node(n):
         raise ValueError(f"closed-vocab breach: :pwr/scale {n.get(':pwr/scale')!r} on {n.get(':pwr/id')}")
     if n.get(":pwr/sector") not in SECTORS:
         raise ValueError(f"closed-vocab breach: :pwr/sector {n.get(':pwr/sector')!r} on {n.get(':pwr/id')}")
+    ck = n.get(":pwr/collective-kind")
+    if ck is not None and ck not in COLLECTIVE_KINDS:
+        raise ValueError(f"closed-vocab breach: :pwr/collective-kind {ck!r} on {n.get(':pwr/id')}")
 
 
 def _validate_tie(t):
@@ -195,7 +203,26 @@ def analyze(nodes, ties):
                       for nid, d in span.items()),
                      key=lambda x: (-x["span"], -x["cross_load"], x["id"]))
 
+    # per-collective-kind aggregate (粒度: 組織/地域/コミュニティ/社内派閥/学閥) — S3 aggregate
+    ck_of = {nid: n.get(":pwr/collective-kind") for nid, n in nodes.items()}
+    ck_agg = {}
+    for t in ties:
+        f, to = t.get(":tie/from"), t.get(":tie/to")
+        if f not in nodes or to not in nodes:
+            continue
+        gl = float(t.get(":tie/grasping-load", 0.0))
+        for nid in {f, to}:
+            ck = ck_of.get(nid)
+            if ck:
+                d = ck_agg.setdefault(ck, {"load": 0.0, "nodes": set()})
+                d["load"] += gl; d["nodes"].add(nid)
+    collective_kinds = sorted(({"kind": ck, "ja": COLLECTIVE_JA.get(ck, ck),
+                                "node_count": len(d["nodes"]), "load": round(d["load"], 4)}
+                               for ck, d in ck_agg.items()),
+                              key=lambda x: (-x["load"], x["kind"]))
+
     return {"localities": localities, "scales": scales, "brokers": brokers,
+            "collective_kinds": collective_kinds,
             "node_count": len(nodes), "tie_count": len(ties)}
 
 
@@ -219,6 +246,11 @@ def render_report(result):
           "| scale | incident load | ties |", "|---|---|---|"]
     for x in result["scales"]:
         L.append(f"| {x['scale']} | {x['load']} | {x['ties']} |")
+    if result.get("collective_kinds"):
+        L += ["", "## Granularity (粒度: 組織/地域/コミュニティ/社内派閥/学閥)", "",
+              "| collective-kind | nodes | incident load |", "|---|---|---|"]
+        for x in result["collective_kinds"]:
+            L.append(f"| {x['ja']} (`{x['kind']}`) | {x['node_count']} | {x['load']} |")
     L += ["", "## Cross-sector brokers (seat/org, never a person)", "",
           "| id | sector | bridges to | span | cross-load |", "|---|---|---|---|---|"]
     for x in result["brokers"][:10]:
