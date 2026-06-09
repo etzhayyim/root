@@ -111,21 +111,253 @@ def _expand(rec, params, refs):
     return rec
 
 
+@app.route("/v1/orders", methods=["POST"])
+def create_order(request):
+    """Create a Order."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['symbol', 'orderId', 'clientOrderId', 'price', 'origQty', 'executedQty', 'cummulativeQuoteQty', 'status', 'type', 'side', 'timeInForce', 'transactTime'])
+    if err:
+        return err, 400
+    err = _require(data, ['symbol', 'price'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['NEW', 'PENDING_NEW', 'PARTIALLY_FILLED', 'FILLED', 'CANCELED', 'PENDING_CANCEL', 'REJECTED', 'EXPIRED', 'EXPIRED_IN_MATCH']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['NEW', 'PENDING_NEW', 'PARTIALLY_FILLED', 'FILLED', 'CANCELED', 'PENDING_CANCEL', 'REJECTED', 'EXPIRED', 'EXPIRED_IN_MATCH']), "type": "invalid_request_error"}}, 400
+    if data.get('type') and data['type'] not in ['LIMIT', 'MARKET', 'STOP_LOSS', 'STOP_LOSS_LIMIT', 'TAKE_PROFIT', 'TAKE_PROFIT_LIMIT', 'LIMIT_MAKER']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['LIMIT', 'MARKET', 'STOP_LOSS', 'STOP_LOSS_LIMIT', 'TAKE_PROFIT', 'TAKE_PROFIT_LIMIT', 'LIMIT_MAKER']), "type": "invalid_request_error"}}, 400
+    if data.get('side') and data['side'] not in ['BUY', 'SELL']:
+        return {"error": {"message": "invalid side; allowed: " + ", ".join(['BUY', 'SELL']), "type": "invalid_request_error"}}, 400
+    if data.get('timeInForce') and data['timeInForce'] not in ['GTC', 'IOC', 'FOK']:
+        return {"error": {"message": "invalid timeInForce; allowed: " + ", ".join(['GTC', 'IOC', 'FOK']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("binance_ord")}
+    rec["symbol"] = data.get('symbol')
+    rec["orderId"] = _as_int(data.get('orderId'))
+    rec["clientOrderId"] = data.get('clientOrderId')
+    rec["price"] = data.get('price')
+    rec["origQty"] = data.get('origQty')
+    rec["executedQty"] = data.get('executedQty')
+    rec["cummulativeQuoteQty"] = data.get('cummulativeQuoteQty')
+    rec["status"] = data.get('status')
+    rec["type"] = data.get('type')
+    rec["side"] = data.get('side')
+    rec["timeInForce"] = data.get('timeInForce')
+    rec["transactTime"] = _as_int(data.get('transactTime'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Order", rec)
+    return rec, 201
+
+@app.route("/v1/orders", methods=["GET"])
+def list_orders(request):
+    """List Orders with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Order")
+    rows = _apply_filters(rows, params, ['symbol', 'orderId', 'clientOrderId', 'price', 'origQty', 'executedQty', 'cummulativeQuoteQty', 'status', 'type', 'side', 'timeInForce', 'transactTime'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/orders/<eid>", methods=["GET"])
+def get_order(request, eid):
+    """Retrieve a Order by id (supports ?expand=)."""
+    rows = _query("Order", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'orderId': 'Order'})
+    return rec, 200
+
+@app.route("/v1/orders/<eid>", methods=["POST", "PATCH"])
+def update_order(request, eid):
+    """Update a Order."""
+    rows = _query("Order", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['symbol', 'orderId', 'clientOrderId', 'price', 'origQty', 'executedQty', 'cummulativeQuoteQty', 'status', 'type', 'side', 'timeInForce', 'transactTime'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['NEW', 'PENDING_NEW', 'PARTIALLY_FILLED', 'FILLED', 'CANCELED', 'PENDING_CANCEL', 'REJECTED', 'EXPIRED', 'EXPIRED_IN_MATCH']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['NEW', 'PENDING_NEW', 'PARTIALLY_FILLED', 'FILLED', 'CANCELED', 'PENDING_CANCEL', 'REJECTED', 'EXPIRED', 'EXPIRED_IN_MATCH']), "type": "invalid_request_error"}}, 400
+    if data.get('type') and data['type'] not in ['LIMIT', 'MARKET', 'STOP_LOSS', 'STOP_LOSS_LIMIT', 'TAKE_PROFIT', 'TAKE_PROFIT_LIMIT', 'LIMIT_MAKER']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['LIMIT', 'MARKET', 'STOP_LOSS', 'STOP_LOSS_LIMIT', 'TAKE_PROFIT', 'TAKE_PROFIT_LIMIT', 'LIMIT_MAKER']), "type": "invalid_request_error"}}, 400
+    if data.get('side') and data['side'] not in ['BUY', 'SELL']:
+        return {"error": {"message": "invalid side; allowed: " + ", ".join(['BUY', 'SELL']), "type": "invalid_request_error"}}, 400
+    if data.get('timeInForce') and data['timeInForce'] not in ['GTC', 'IOC', 'FOK']:
+        return {"error": {"message": "invalid timeInForce; allowed: " + ", ".join(['GTC', 'IOC', 'FOK']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Order", rec)
+    return rec, 200
+
+@app.route("/v1/orders/<eid>", methods=["DELETE"])
+def delete_order(request, eid):
+    """Delete a Order."""
+    rows = _query("Order", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"binance.Order", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/trades", methods=["POST"])
+def create_trade(request):
+    """Create a Trade."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'symbol', 'orderId', 'price', 'qty', 'quoteQty', 'commission', 'commissionAsset', 'time', 'isBuyer', 'isMaker'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'symbol'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("binance_tra")}
+    rec["id"] = _as_int(data.get('id'))
+    rec["symbol"] = data.get('symbol')
+    rec["orderId"] = _as_int(data.get('orderId'))
+    rec["price"] = data.get('price')
+    rec["qty"] = data.get('qty')
+    rec["quoteQty"] = data.get('quoteQty')
+    rec["commission"] = data.get('commission')
+    rec["commissionAsset"] = data.get('commissionAsset')
+    rec["time"] = _as_int(data.get('time'))
+    rec["isBuyer"] = _as_bool(data.get('isBuyer'))
+    rec["isMaker"] = _as_bool(data.get('isMaker'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Trade", rec)
+    return rec, 201
+
+@app.route("/v1/trades", methods=["GET"])
+def list_trades(request):
+    """List Trades with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Trade")
+    rows = _apply_filters(rows, params, ['id', 'symbol', 'orderId', 'price', 'qty', 'quoteQty', 'commission', 'commissionAsset', 'time', 'isBuyer', 'isMaker'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/trades/<eid>", methods=["GET"])
+def get_trade(request, eid):
+    """Retrieve a Trade by id (supports ?expand=)."""
+    rows = _query("Trade", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'orderId': 'Order'})
+    return rec, 200
+
+@app.route("/v1/trades/<eid>", methods=["POST", "PATCH"])
+def update_trade(request, eid):
+    """Update a Trade."""
+    rows = _query("Trade", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'symbol', 'orderId', 'price', 'qty', 'quoteQty', 'commission', 'commissionAsset', 'time', 'isBuyer', 'isMaker'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Trade", rec)
+    return rec, 200
+
+@app.route("/v1/trades/<eid>", methods=["DELETE"])
+def delete_trade(request, eid):
+    """Delete a Trade."""
+    rows = _query("Trade", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"binance.Trade", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/balances", methods=["POST"])
+def create_balance(request):
+    """Create a Balance."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['asset', 'free', 'locked'])
+    if err:
+        return err, 400
+    err = _require(data, ['asset', 'free'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("binance_bal")}
+    rec["asset"] = data.get('asset')
+    rec["free"] = data.get('free')
+    rec["locked"] = data.get('locked')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Balance", rec)
+    return rec, 201
+
+@app.route("/v1/balances", methods=["GET"])
+def list_balances(request):
+    """List Balances with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Balance")
+    rows = _apply_filters(rows, params, ['asset', 'free', 'locked'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/balances/<eid>", methods=["GET"])
+def get_balance(request, eid):
+    """Retrieve a Balance by id (supports ?expand=)."""
+    rows = _query("Balance", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/balances/<eid>", methods=["POST", "PATCH"])
+def update_balance(request, eid):
+    """Update a Balance."""
+    rows = _query("Balance", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['asset', 'free', 'locked'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Balance", rec)
+    return rec, 200
+
+@app.route("/v1/balances/<eid>", methods=["DELETE"])
+def delete_balance(request, eid):
+    """Delete a Balance."""
+    rows = _query("Balance", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"binance.Balance", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
 @app.route("/v1/accounts", methods=["POST"])
 def create_account(request):
     """Create a Account."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['holderId', 'currency', 'balance', 'status'])
+    err = _reject_unknown(data, ['makerCommission', 'takerCommission', 'canTrade', 'canWithdraw', 'canDeposit', 'updateTime'])
     if err:
         return err, 400
-    err = _require(data, ['currency', 'balance'])
+    err = _require(data, ['makerCommission', 'takerCommission'])
     if err:
         return err, 400
     rec = {"id": new_id("binance_acc")}
-    rec["holderId"] = data.get('holderId')
-    rec["currency"] = data.get('currency')
-    rec["balance"] = _as_float(data.get('balance'))
-    rec["status"] = data.get('status')
+    rec["makerCommission"] = _as_int(data.get('makerCommission'))
+    rec["takerCommission"] = _as_int(data.get('takerCommission'))
+    rec["canTrade"] = _as_bool(data.get('canTrade'))
+    rec["canWithdraw"] = _as_bool(data.get('canWithdraw'))
+    rec["canDeposit"] = _as_bool(data.get('canDeposit'))
+    rec["updateTime"] = _as_int(data.get('updateTime'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Account", rec)
@@ -136,7 +368,7 @@ def list_accounts(request):
     """List Accounts with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Account")
-    rows = _apply_filters(rows, params, ['holderId', 'currency', 'balance', 'status'])
+    rows = _apply_filters(rows, params, ['makerCommission', 'takerCommission', 'canTrade', 'canWithdraw', 'canDeposit', 'updateTime'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -157,7 +389,7 @@ def update_account(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['holderId', 'currency', 'balance', 'status'])
+    err = _reject_unknown(data, ['makerCommission', 'takerCommission', 'canTrade', 'canWithdraw', 'canDeposit', 'updateTime'])
     if err:
         return err, 400
     rec = rows[0]
@@ -177,189 +409,59 @@ def delete_account(request, eid):
     db.retract({"entity": f"binance.Account", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/cards", methods=["POST"])
-def create_card(request):
-    """Create a Card."""
+@app.route("/v1/tickers", methods=["POST"])
+def create_ticker(request):
+    """Create a Ticker."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'last4', 'network', 'state'])
+    err = _reject_unknown(data, ['symbol', 'lastPrice', 'priceChange', 'priceChangePercent', 'highPrice', 'lowPrice', 'volume', 'quoteVolume', 'openTime', 'closeTime'])
     if err:
         return err, 400
-    err = _require(data, ['last4', 'network'])
+    err = _require(data, ['symbol', 'lastPrice'])
     if err:
         return err, 400
-    rec = {"id": new_id("binance_car")}
-    rec["accountId"] = data.get('accountId')
-    rec["last4"] = data.get('last4')
-    rec["network"] = data.get('network')
-    rec["state"] = data.get('state')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Card", rec)
-    return rec, 201
-
-@app.route("/v1/cards", methods=["GET"])
-def list_cards(request):
-    """List Cards with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Card")
-    rows = _apply_filters(rows, params, ['accountId', 'last4', 'network', 'state'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/cards/<eid>", methods=["GET"])
-def get_card(request, eid):
-    """Retrieve a Card by id (supports ?expand=)."""
-    rows = _query("Card", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'accountId': 'Account'})
-    return rec, 200
-
-@app.route("/v1/cards/<eid>", methods=["POST", "PATCH"])
-def update_card(request, eid):
-    """Update a Card."""
-    rows = _query("Card", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'last4', 'network', 'state'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Card", rec)
-    return rec, 200
-
-@app.route("/v1/cards/<eid>", methods=["DELETE"])
-def delete_card(request, eid):
-    """Delete a Card."""
-    rows = _query("Card", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"binance.Card", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/transactions", methods=["POST"])
-def create_transaction(request):
-    """Create a Transaction."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'amount', 'currency', 'type', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['amount', 'currency'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("binance_tra")}
-    rec["accountId"] = data.get('accountId')
-    rec["amount"] = _as_float(data.get('amount'))
-    rec["currency"] = data.get('currency')
-    rec["type"] = data.get('type')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Transaction", rec)
-    return rec, 201
-
-@app.route("/v1/transactions", methods=["GET"])
-def list_transactions(request):
-    """List Transactions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Transaction")
-    rows = _apply_filters(rows, params, ['accountId', 'amount', 'currency', 'type', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/transactions/<eid>", methods=["GET"])
-def get_transaction(request, eid):
-    """Retrieve a Transaction by id (supports ?expand=)."""
-    rows = _query("Transaction", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'accountId': 'Account'})
-    return rec, 200
-
-@app.route("/v1/transactions/<eid>", methods=["POST", "PATCH"])
-def update_transaction(request, eid):
-    """Update a Transaction."""
-    rows = _query("Transaction", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'amount', 'currency', 'type', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Transaction", rec)
-    return rec, 200
-
-@app.route("/v1/transactions/<eid>", methods=["DELETE"])
-def delete_transaction(request, eid):
-    """Delete a Transaction."""
-    rows = _query("Transaction", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"binance.Transaction", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/orders", methods=["POST"])
-def create_order(request):
-    """Create a Order."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['symbol', 'side', 'quantity', 'price', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['symbol', 'side'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("binance_ord")}
+    rec = {"id": new_id("binance_tic")}
     rec["symbol"] = data.get('symbol')
-    rec["side"] = data.get('side')
-    rec["quantity"] = _as_float(data.get('quantity'))
-    rec["price"] = _as_float(data.get('price'))
-    rec["status"] = data.get('status')
+    rec["lastPrice"] = data.get('lastPrice')
+    rec["priceChange"] = data.get('priceChange')
+    rec["priceChangePercent"] = data.get('priceChangePercent')
+    rec["highPrice"] = data.get('highPrice')
+    rec["lowPrice"] = data.get('lowPrice')
+    rec["volume"] = data.get('volume')
+    rec["quoteVolume"] = data.get('quoteVolume')
+    rec["openTime"] = _as_int(data.get('openTime'))
+    rec["closeTime"] = _as_int(data.get('closeTime'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Order", rec)
+    _persist("Ticker", rec)
     return rec, 201
 
-@app.route("/v1/orders", methods=["GET"])
-def list_orders(request):
-    """List Orders with filtering + cursor pagination."""
+@app.route("/v1/tickers", methods=["GET"])
+def list_tickers(request):
+    """List Tickers with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Order")
-    rows = _apply_filters(rows, params, ['symbol', 'side', 'quantity', 'price', 'status'])
+    rows = _query("Ticker")
+    rows = _apply_filters(rows, params, ['symbol', 'lastPrice', 'priceChange', 'priceChangePercent', 'highPrice', 'lowPrice', 'volume', 'quoteVolume', 'openTime', 'closeTime'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/orders/<eid>", methods=["GET"])
-def get_order(request, eid):
-    """Retrieve a Order by id (supports ?expand=)."""
-    rows = _query("Order", eid)
+@app.route("/v1/tickers/<eid>", methods=["GET"])
+def get_ticker(request, eid):
+    """Retrieve a Ticker by id (supports ?expand=)."""
+    rows = _query("Ticker", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/orders/<eid>", methods=["POST", "PATCH"])
-def update_order(request, eid):
-    """Update a Order."""
-    rows = _query("Order", eid)
+@app.route("/v1/tickers/<eid>", methods=["POST", "PATCH"])
+def update_ticker(request, eid):
+    """Update a Ticker."""
+    rows = _query("Ticker", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['symbol', 'side', 'quantity', 'price', 'status'])
+    err = _reject_unknown(data, ['symbol', 'lastPrice', 'priceChange', 'priceChangePercent', 'highPrice', 'lowPrice', 'volume', 'quoteVolume', 'openTime', 'closeTime'])
     if err:
         return err, 400
     rec = rows[0]
@@ -367,64 +469,69 @@ def update_order(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Order", rec)
+    _persist("Ticker", rec)
     return rec, 200
 
-@app.route("/v1/orders/<eid>", methods=["DELETE"])
-def delete_order(request, eid):
-    """Delete a Order."""
-    rows = _query("Order", eid)
+@app.route("/v1/tickers/<eid>", methods=["DELETE"])
+def delete_ticker(request, eid):
+    """Delete a Ticker."""
+    rows = _query("Ticker", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"binance.Order", "id": eid})
+    db.retract({"entity": f"binance.Ticker", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/wallets", methods=["POST"])
-def create_wallet(request):
-    """Create a Wallet."""
+@app.route("/v1/klines", methods=["POST"])
+def create_kline(request):
+    """Create a Kline."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['address', 'chain', 'balance'])
+    err = _reject_unknown(data, ['openTime', 'open', 'high', 'low', 'close', 'volume', 'closeTime', 'trades'])
     if err:
         return err, 400
-    err = _require(data, ['address', 'chain'])
+    err = _require(data, ['openTime', 'open'])
     if err:
         return err, 400
-    rec = {"id": new_id("binance_wal")}
-    rec["address"] = data.get('address')
-    rec["chain"] = data.get('chain')
-    rec["balance"] = _as_float(data.get('balance'))
+    rec = {"id": new_id("binance_kli")}
+    rec["openTime"] = _as_int(data.get('openTime'))
+    rec["open"] = data.get('open')
+    rec["high"] = data.get('high')
+    rec["low"] = data.get('low')
+    rec["close"] = data.get('close')
+    rec["volume"] = data.get('volume')
+    rec["closeTime"] = _as_int(data.get('closeTime'))
+    rec["trades"] = _as_int(data.get('trades'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Wallet", rec)
+    _persist("Kline", rec)
     return rec, 201
 
-@app.route("/v1/wallets", methods=["GET"])
-def list_wallets(request):
-    """List Wallets with filtering + cursor pagination."""
+@app.route("/v1/klines", methods=["GET"])
+def list_klines(request):
+    """List Klines with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Wallet")
-    rows = _apply_filters(rows, params, ['address', 'chain', 'balance'])
+    rows = _query("Kline")
+    rows = _apply_filters(rows, params, ['openTime', 'open', 'high', 'low', 'close', 'volume', 'closeTime', 'trades'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/wallets/<eid>", methods=["GET"])
-def get_wallet(request, eid):
-    """Retrieve a Wallet by id (supports ?expand=)."""
-    rows = _query("Wallet", eid)
+@app.route("/v1/klines/<eid>", methods=["GET"])
+def get_kline(request, eid):
+    """Retrieve a Kline by id (supports ?expand=)."""
+    rows = _query("Kline", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/wallets/<eid>", methods=["POST", "PATCH"])
-def update_wallet(request, eid):
-    """Update a Wallet."""
-    rows = _query("Wallet", eid)
+@app.route("/v1/klines/<eid>", methods=["POST", "PATCH"])
+def update_kline(request, eid):
+    """Update a Kline."""
+    rows = _query("Kline", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['address', 'chain', 'balance'])
+    err = _reject_unknown(data, ['openTime', 'open', 'high', 'low', 'close', 'volume', 'closeTime', 'trades'])
     if err:
         return err, 400
     rec = rows[0]
@@ -432,89 +539,22 @@ def update_wallet(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Wallet", rec)
+    _persist("Kline", rec)
     return rec, 200
 
-@app.route("/v1/wallets/<eid>", methods=["DELETE"])
-def delete_wallet(request, eid):
-    """Delete a Wallet."""
-    rows = _query("Wallet", eid)
+@app.route("/v1/klines/<eid>", methods=["DELETE"])
+def delete_kline(request, eid):
+    """Delete a Kline."""
+    rows = _query("Kline", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"binance.Wallet", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/ledgers", methods=["POST"])
-def create_ledger(request):
-    """Create a Ledger."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'debit', 'credit', 'memo'])
-    if err:
-        return err, 400
-    err = _require(data, ['debit', 'credit'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("binance_led")}
-    rec["accountId"] = data.get('accountId')
-    rec["debit"] = _as_float(data.get('debit'))
-    rec["credit"] = _as_float(data.get('credit'))
-    rec["memo"] = data.get('memo')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Ledger", rec)
-    return rec, 201
-
-@app.route("/v1/ledgers", methods=["GET"])
-def list_ledgers(request):
-    """List Ledgers with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Ledger")
-    rows = _apply_filters(rows, params, ['accountId', 'debit', 'credit', 'memo'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/ledgers/<eid>", methods=["GET"])
-def get_ledger(request, eid):
-    """Retrieve a Ledger by id (supports ?expand=)."""
-    rows = _query("Ledger", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'accountId': 'Account'})
-    return rec, 200
-
-@app.route("/v1/ledgers/<eid>", methods=["POST", "PATCH"])
-def update_ledger(request, eid):
-    """Update a Ledger."""
-    rows = _query("Ledger", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'debit', 'credit', 'memo'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Ledger", rec)
-    return rec, 200
-
-@app.route("/v1/ledgers/<eid>", methods=["DELETE"])
-def delete_ledger(request, eid):
-    """Delete a Ledger."""
-    rows = _query("Ledger", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"binance.Ledger", "id": eid})
+    db.retract({"entity": f"binance.Kline", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "binance-compat", "tier": "L4",
-            "entities": ['Account', 'Card', 'Transaction', 'Order', 'Wallet', 'Ledger']}, 200
+            "entities": ['Order', 'Trade', 'Balance', 'Account', 'Ticker', 'Kline']}, 200
 
 
 if __name__ == "__main__":

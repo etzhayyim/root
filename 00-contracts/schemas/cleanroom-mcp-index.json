@@ -921,7 +921,7 @@
     {
       "handle": "binance-compat",
       "did": "did:web:etzhayyim.com:actor:binance-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreiftr4klxcvyk5r3lqpybnvhwsnaxgtawvkpbylnep7mp6vrv22s7u",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -7257,7 +7257,7 @@
     {
       "handle": "shippo-compat",
       "did": "did:web:etzhayyim.com:actor:shippo-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreidv2qf4dwlmkuz6tkw44z4izydinilxs4vbh7y2dz2rvkd4w7kctu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,

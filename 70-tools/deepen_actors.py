@@ -1403,6 +1403,27 @@ PLATFORM_OVERRIDES = {
         "Environment": E(id="string", type="string", version="integer", name="string", space="string", status="string", createdAt="datetime", updatedAt="datetime"),
         "Locale": E(id="string", type="string", version="integer", name="string", code="string", fallbackCode="string", default="boolean", optional="boolean", createdAt="datetime"),
     },
+    # Faithful Binance Spot model — verified against the official spec
+    # (github.com/binance/binance-spot-api-docs rest-api.md + enums.md).
+    # prices/qty are decimal strings; timestamps are integer ms.
+    "binance": {
+        "Order": E(symbol="string", orderId="integer", clientOrderId="string", price="string", origQty="string", executedQty="string", cummulativeQuoteQty="string", status="string", type="string", side="string", timeInForce="string", transactTime="integer"),
+        "Trade": E(id="integer", symbol="string", orderId="integer", price="string", qty="string", quoteQty="string", commission="string", commissionAsset="string", time="integer", isBuyer="boolean", isMaker="boolean"),
+        "Balance": E(asset="string", free="string", locked="string"),
+        "Account": E(makerCommission="integer", takerCommission="integer", canTrade="boolean", canWithdraw="boolean", canDeposit="boolean", updateTime="integer"),
+        "Ticker": E(symbol="string", lastPrice="string", priceChange="string", priceChangePercent="string", highPrice="string", lowPrice="string", volume="string", quoteVolume="string", openTime="integer", closeTime="integer"),
+        "Kline": E(openTime="integer", open="string", high="string", low="string", close="string", volume="string", closeTime="integer", trades="integer"),
+    },
+    # Faithful Shippo model — verified against the official Shippo OpenAPI + SDK
+    # (docs.goshippo.com + goshippo/shippo-node-sdk). Object/array fields dropped.
+    "shippo": {
+        "Address": E(name="string", company="string", street1="string", city="string", state="string", zip="string", country="string", phone="string", email="string", isResidential="boolean"),
+        "Parcel": E(objectId="string", weight="string", massUnit="string", length="string", width="string", height="string", distanceUnit="string", objectCreated="datetime"),
+        "Shipment": E(objectId="string", status="string", addressFrom="string", addressTo="string", shipmentDate="datetime", objectCreated="datetime"),
+        "Rate": E(objectId="string", amount="string", currency="string", carrierAccount="string", servicelevelToken="string", estimatedDays="integer", objectCreated="datetime"),
+        "Transaction": E(objectId="string", status="string", objectState="string", trackingNumber="string", trackingStatus="string", labelUrl="string", labelFileType="string", rate="string", test="boolean", objectCreated="datetime"),
+        "TrackingStatus": E(objectId="string", status="string", statusDetails="string", substatus="string", statusDate="datetime"),
+    },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).
     "square": {

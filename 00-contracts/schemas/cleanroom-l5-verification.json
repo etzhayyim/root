@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 67,
+  "count": 69,
   "actors": [
     {
       "handle": "square-compat",
@@ -9423,6 +9423,327 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official Contentful CMA docs + SDK. Enforced enum: sys.type(9) on the `type` field of all 6 entities. ContentType.field.type(11)/linkType(3) are nested field-definition enums (not top-level scalar fields) -> recorded, not enforced here."
+    },
+    {
+      "handle": "binance-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/binance/binance-spot-api-docs",
+      "remodeled": "Remodeled from generic fintech_web3 to a faithful Binance Spot model, verified against the official binance-spot-api-docs (rest-api.md + enums.md). prices/qty are decimal strings; timestamps integer ms; balances array dropped.",
+      "resources": [
+        {
+          "entity": "Order",
+          "source": "https://github.com/binance/binance-spot-api-docs/blob/master/enums.md",
+          "verifiedFields": [
+            "symbol",
+            "orderId",
+            "clientOrderId",
+            "price",
+            "origQty",
+            "executedQty",
+            "cummulativeQuoteQty",
+            "status",
+            "type",
+            "side",
+            "timeInForce",
+            "transactTime"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "NEW",
+              "PENDING_NEW",
+              "PARTIALLY_FILLED",
+              "FILLED",
+              "CANCELED",
+              "PENDING_CANCEL",
+              "REJECTED",
+              "EXPIRED",
+              "EXPIRED_IN_MATCH"
+            ],
+            "type": [
+              "LIMIT",
+              "MARKET",
+              "STOP_LOSS",
+              "STOP_LOSS_LIMIT",
+              "TAKE_PROFIT",
+              "TAKE_PROFIT_LIMIT",
+              "LIMIT_MAKER"
+            ],
+            "side": [
+              "BUY",
+              "SELL"
+            ],
+            "timeInForce": [
+              "GTC",
+              "IOC",
+              "FOK"
+            ]
+          },
+          "gaps": [
+            "icebergQty",
+            "stopPrice"
+          ]
+        },
+        {
+          "entity": "Trade",
+          "source": "https://github.com/binance/binance-spot-api-docs/blob/master/rest-api.md",
+          "verifiedFields": [
+            "id",
+            "symbol",
+            "orderId",
+            "price",
+            "qty",
+            "quoteQty",
+            "commission",
+            "commissionAsset",
+            "time",
+            "isBuyer",
+            "isMaker"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "isBestMatch"
+          ]
+        },
+        {
+          "entity": "Balance",
+          "source": "https://github.com/binance/binance-spot-api-docs/blob/master/rest-api.md",
+          "verifiedFields": [
+            "asset",
+            "free",
+            "locked"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Account",
+          "source": "https://github.com/binance/binance-spot-api-docs/blob/master/rest-api.md",
+          "verifiedFields": [
+            "makerCommission",
+            "takerCommission",
+            "canTrade",
+            "canWithdraw",
+            "canDeposit",
+            "updateTime"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "accountType",
+            "permissions(array)"
+          ]
+        },
+        {
+          "entity": "Ticker",
+          "source": "https://github.com/binance/binance-spot-api-docs/blob/master/rest-api.md",
+          "verifiedFields": [
+            "symbol",
+            "lastPrice",
+            "priceChange",
+            "priceChangePercent",
+            "highPrice",
+            "lowPrice",
+            "volume",
+            "quoteVolume",
+            "openTime",
+            "closeTime"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "weightedAvgPrice"
+          ]
+        },
+        {
+          "entity": "Kline",
+          "source": "https://github.com/binance/binance-spot-api-docs/blob/master/rest-api.md",
+          "verifiedFields": [
+            "openTime",
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume",
+            "closeTime",
+            "trades"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "takerBuyBaseAssetVolume"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official binance-spot-api-docs. Enforced enums: Order.status(9), Order.type(7), Order.side(2), Order.timeInForce(3) = 4 enums (full arrays from enums.md)."
+    },
+    {
+      "handle": "shippo-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://docs.goshippo.com/spec/shippoapi/public-api.yaml",
+      "remodeled": "Remodeled from generic logistics to a faithful Shippo model, verified against the official Shippo OpenAPI + goshippo/shippo-node-sdk (Speakeasy zod schemas). Object/array fields (validationResults, location, Rate.attributes) dropped/not enforced.",
+      "resources": [
+        {
+          "entity": "Address",
+          "source": "https://docs.goshippo.com/spec/shippoapi/public-api.yaml (Address)",
+          "verifiedFields": [
+            "name",
+            "company",
+            "street1",
+            "city",
+            "state",
+            "zip",
+            "country",
+            "phone",
+            "email",
+            "isResidential"
+          ],
+          "fieldStatus": "confirmed; no closed scalar enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "validationResults(object)"
+          ]
+        },
+        {
+          "entity": "Parcel",
+          "source": "https://docs.goshippo.com/spec/shippoapi/public-api.yaml (Parcel)",
+          "verifiedFields": [
+            "objectId",
+            "weight",
+            "massUnit",
+            "length",
+            "width",
+            "height",
+            "distanceUnit",
+            "objectCreated"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "massUnit": [
+              "lb",
+              "kg",
+              "oz",
+              "g"
+            ],
+            "distanceUnit": [
+              "in",
+              "cm"
+            ]
+          },
+          "gaps": [
+            "template"
+          ]
+        },
+        {
+          "entity": "Shipment",
+          "source": "https://docs.goshippo.com/spec/shippoapi/public-api.yaml (Shipment)",
+          "verifiedFields": [
+            "objectId",
+            "status",
+            "addressFrom",
+            "addressTo",
+            "shipmentDate",
+            "objectCreated"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "WAITING",
+              "QUEUED",
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "gaps": [
+            "rates(array)"
+          ]
+        },
+        {
+          "entity": "Rate",
+          "source": "https://docs.goshippo.com/spec/shippoapi/public-api.yaml (Rate)",
+          "verifiedFields": [
+            "objectId",
+            "amount",
+            "currency",
+            "carrierAccount",
+            "servicelevelToken",
+            "estimatedDays",
+            "objectCreated"
+          ],
+          "fieldStatus": "confirmed; attributes is an array -> not enforced as scalar enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "attributes(array)"
+          ]
+        },
+        {
+          "entity": "Transaction",
+          "source": "https://docs.goshippo.com/spec/shippoapi/public-api.yaml (Transaction)",
+          "verifiedFields": [
+            "objectId",
+            "status",
+            "objectState",
+            "trackingNumber",
+            "trackingStatus",
+            "labelUrl",
+            "labelFileType",
+            "rate",
+            "test",
+            "objectCreated"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "WAITING",
+              "QUEUED",
+              "SUCCESS",
+              "ERROR",
+              "REFUNDED",
+              "REFUNDPENDING",
+              "REFUNDREJECTED"
+            ],
+            "objectState": [
+              "VALID",
+              "INVALID"
+            ]
+          },
+          "gaps": [
+            "messages(array)"
+          ]
+        },
+        {
+          "entity": "TrackingStatus",
+          "source": "https://docs.goshippo.com/spec/shippoapi/public-api.yaml (TrackingStatus)",
+          "verifiedFields": [
+            "objectId",
+            "status",
+            "statusDetails",
+            "substatus",
+            "statusDate"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "UNKNOWN",
+              "PRE_TRANSIT",
+              "TRANSIT",
+              "DELIVERED",
+              "RETURNED",
+              "FAILURE"
+            ]
+          },
+          "gaps": [
+            "location(object)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official Shippo OpenAPI + SDK. Enforced enums: Parcel.massUnit/distanceUnit, Shipment.status, Transaction.status/objectState, TrackingStatus.status = 6 enums. Rate.attributes array intentionally not enforced as a scalar enum."
     }
   ]
 }

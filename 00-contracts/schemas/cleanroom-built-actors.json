@@ -1738,12 +1738,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Account",
-        "Card",
-        "Transaction",
         "Order",
-        "Wallet",
-        "Ledger"
+        "Trade",
+        "Balance",
+        "Account",
+        "Ticker",
+        "Kline"
       ]
     },
     {
@@ -13701,12 +13701,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "ContentEntry",
-        "Product",
+        "Address",
+        "Parcel",
         "Shipment",
-        "SearchIndex",
-        "Webhook",
-        "Order"
+        "Rate",
+        "Transaction",
+        "TrackingStatus"
       ]
     },
     {

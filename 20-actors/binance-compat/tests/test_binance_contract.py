@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "binance.kotoba")
-ENTITIES = ['Account', 'Card', 'Transaction', 'Order', 'Wallet', 'Ledger']
-PLURALS = {'Account': 'accounts', 'Card': 'cards', 'Transaction': 'transactions', 'Order': 'orders', 'Wallet': 'wallets', 'Ledger': 'ledgers'}
+ENTITIES = ['Order', 'Trade', 'Balance', 'Account', 'Ticker', 'Kline']
+PLURALS = {'Order': 'orders', 'Trade': 'trades', 'Balance': 'balances', 'Account': 'accounts', 'Ticker': 'tickers', 'Kline': 'klines'}
 
 
 class BinanceContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class BinanceContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['side', 'status', 'timeInForce', 'type']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

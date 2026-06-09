@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreiftr4klxcvyk5r3lqpybnvhwsnaxgtawvkpbylnep7mp6vrv22s7u",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,561 +17,6 @@
     }
   ],
   "paths": {
-    "/v1/accounts": {
-      "get": {
-        "summary": "List Accounts",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Account"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Account",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AccountCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Account"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/accounts/{id}": {
-      "get": {
-        "summary": "Get a Account",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Account"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Account",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AccountCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Account"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Account",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/cards": {
-      "get": {
-        "summary": "List Cards",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Card"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Card",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CardCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Card"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/cards/{id}": {
-      "get": {
-        "summary": "Get a Card",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Card"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Card",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CardCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Card"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Card",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/transactions": {
-      "get": {
-        "summary": "List Transactions",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Transaction"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Transaction",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TransactionCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Transaction"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/transactions/{id}": {
-      "get": {
-        "summary": "Get a Transaction",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Transaction"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Transaction",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TransactionCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Transaction"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Transaction",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
     "/v1/orders": {
       "get": {
         "summary": "List Orders",
@@ -757,9 +202,9 @@
         }
       }
     },
-    "/v1/wallets": {
+    "/v1/trades": {
       "get": {
-        "summary": "List Wallets",
+        "summary": "List Trades",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Wallet"
+                        "$ref": "#/components/schemas/Trade"
                       }
                     },
                     "has_more": {
@@ -819,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Wallet",
+        "summary": "Create a Trade",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/WalletCreate"
+                "$ref": "#/components/schemas/TradeCreate"
               }
             }
           }
@@ -836,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Wallet"
+                  "$ref": "#/components/schemas/Trade"
                 }
               }
             }
@@ -847,9 +292,9 @@
         }
       }
     },
-    "/v1/wallets/{id}": {
+    "/v1/trades/{id}": {
       "get": {
-        "summary": "Get a Wallet",
+        "summary": "Get a Trade",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Wallet"
+                  "$ref": "#/components/schemas/Trade"
                 }
               }
             }
@@ -884,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Wallet",
+        "summary": "Update a Trade",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/WalletCreate"
+                "$ref": "#/components/schemas/TradeCreate"
               }
             }
           }
@@ -910,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Wallet"
+                  "$ref": "#/components/schemas/Trade"
                 }
               }
             }
@@ -921,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Wallet",
+        "summary": "Delete a Trade",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +387,9 @@
         }
       }
     },
-    "/v1/ledgers": {
+    "/v1/balances": {
       "get": {
-        "summary": "List Ledgers",
+        "summary": "List Balances",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Ledger"
+                        "$ref": "#/components/schemas/Balance"
                       }
                     },
                     "has_more": {
@@ -1004,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Ledger",
+        "summary": "Create a Balance",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LedgerCreate"
+                "$ref": "#/components/schemas/BalanceCreate"
               }
             }
           }
@@ -1021,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Ledger"
+                  "$ref": "#/components/schemas/Balance"
                 }
               }
             }
@@ -1032,9 +477,9 @@
         }
       }
     },
-    "/v1/ledgers/{id}": {
+    "/v1/balances/{id}": {
       "get": {
-        "summary": "Get a Ledger",
+        "summary": "Get a Balance",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Ledger"
+                  "$ref": "#/components/schemas/Balance"
                 }
               }
             }
@@ -1069,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Ledger",
+        "summary": "Update a Balance",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LedgerCreate"
+                "$ref": "#/components/schemas/BalanceCreate"
               }
             }
           }
@@ -1095,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Ledger"
+                  "$ref": "#/components/schemas/Balance"
                 }
               }
             }
@@ -1106,7 +551,562 @@
         }
       },
       "delete": {
-        "summary": "Delete a Ledger",
+        "summary": "Delete a Balance",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/accounts": {
+      "get": {
+        "summary": "List Accounts",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Account"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a Account",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccountCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Account"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/accounts/{id}": {
+      "get": {
+        "summary": "Get a Account",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Account"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a Account",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccountCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Account"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a Account",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/tickers": {
+      "get": {
+        "summary": "List Tickers",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Ticker"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a Ticker",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TickerCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ticker"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/tickers/{id}": {
+      "get": {
+        "summary": "Get a Ticker",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ticker"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a Ticker",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TickerCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ticker"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a Ticker",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/klines": {
+      "get": {
+        "summary": "List Klines",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Kline"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a Kline",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KlineCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Kline"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/klines/{id}": {
+      "get": {
+        "summary": "Get a Kline",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Kline"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a Kline",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KlineCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Kline"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a Kline",
         "parameters": [
           {
             "name": "id",
@@ -1140,159 +1140,6 @@
   },
   "components": {
     "schemas": {
-      "Account": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "holderId": {
-            "type": "string"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "balance": {
-            "type": "number"
-          },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "AccountCreate": {
-        "type": "object",
-        "properties": {
-          "holderId": {
-            "type": "string"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "balance": {
-            "type": "number"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "currency",
-          "balance"
-        ]
-      },
-      "Card": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "accountId": {
-            "type": "string"
-          },
-          "last4": {
-            "type": "string"
-          },
-          "network": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "CardCreate": {
-        "type": "object",
-        "properties": {
-          "accountId": {
-            "type": "string"
-          },
-          "last4": {
-            "type": "string"
-          },
-          "network": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "last4",
-          "network"
-        ]
-      },
-      "Transaction": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "accountId": {
-            "type": "string"
-          },
-          "amount": {
-            "type": "number"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "TransactionCreate": {
-        "type": "object",
-        "properties": {
-          "accountId": {
-            "type": "string"
-          },
-          "amount": {
-            "type": "number"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "amount",
-          "currency"
-        ]
-      },
       "Order": {
         "type": "object",
         "properties": {
@@ -1302,17 +1149,67 @@
           "symbol": {
             "type": "string"
           },
-          "side": {
-            "type": "string"
+          "orderId": {
+            "type": "integer"
           },
-          "quantity": {
-            "type": "number"
+          "clientOrderId": {
+            "type": "string"
           },
           "price": {
-            "type": "number"
+            "type": "string"
+          },
+          "origQty": {
+            "type": "string"
+          },
+          "executedQty": {
+            "type": "string"
+          },
+          "cummulativeQuoteQty": {
+            "type": "string"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "NEW",
+              "PENDING_NEW",
+              "PARTIALLY_FILLED",
+              "FILLED",
+              "CANCELED",
+              "PENDING_CANCEL",
+              "REJECTED",
+              "EXPIRED",
+              "EXPIRED_IN_MATCH"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "LIMIT",
+              "MARKET",
+              "STOP_LOSS",
+              "STOP_LOSS_LIMIT",
+              "TAKE_PROFIT",
+              "TAKE_PROFIT_LIMIT",
+              "LIMIT_MAKER"
+            ]
+          },
+          "side": {
+            "type": "string",
+            "enum": [
+              "BUY",
+              "SELL"
+            ]
+          },
+          "timeInForce": {
+            "type": "string",
+            "enum": [
+              "GTC",
+              "IOC",
+              "FOK"
+            ]
+          },
+          "transactTime": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1330,38 +1227,109 @@
           "symbol": {
             "type": "string"
           },
-          "side": {
-            "type": "string"
+          "orderId": {
+            "type": "integer"
           },
-          "quantity": {
-            "type": "number"
+          "clientOrderId": {
+            "type": "string"
           },
           "price": {
-            "type": "number"
+            "type": "string"
+          },
+          "origQty": {
+            "type": "string"
+          },
+          "executedQty": {
+            "type": "string"
+          },
+          "cummulativeQuoteQty": {
+            "type": "string"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "NEW",
+              "PENDING_NEW",
+              "PARTIALLY_FILLED",
+              "FILLED",
+              "CANCELED",
+              "PENDING_CANCEL",
+              "REJECTED",
+              "EXPIRED",
+              "EXPIRED_IN_MATCH"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "LIMIT",
+              "MARKET",
+              "STOP_LOSS",
+              "STOP_LOSS_LIMIT",
+              "TAKE_PROFIT",
+              "TAKE_PROFIT_LIMIT",
+              "LIMIT_MAKER"
+            ]
+          },
+          "side": {
+            "type": "string",
+            "enum": [
+              "BUY",
+              "SELL"
+            ]
+          },
+          "timeInForce": {
+            "type": "string",
+            "enum": [
+              "GTC",
+              "IOC",
+              "FOK"
+            ]
+          },
+          "transactTime": {
+            "type": "integer"
           }
         },
         "required": [
           "symbol",
-          "side"
+          "price"
         ]
       },
-      "Wallet": {
+      "Trade": {
         "type": "object",
         "properties": {
           "id": {
+            "type": "integer"
+          },
+          "symbol": {
             "type": "string"
           },
-          "address": {
+          "orderId": {
+            "type": "integer"
+          },
+          "price": {
             "type": "string"
           },
-          "chain": {
+          "qty": {
             "type": "string"
           },
-          "balance": {
-            "type": "number"
+          "quoteQty": {
+            "type": "string"
+          },
+          "commission": {
+            "type": "string"
+          },
+          "commissionAsset": {
+            "type": "string"
+          },
+          "time": {
+            "type": "integer"
+          },
+          "isBuyer": {
+            "type": "boolean"
+          },
+          "isMaker": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1373,40 +1341,61 @@
           }
         }
       },
-      "WalletCreate": {
+      "TradeCreate": {
         "type": "object",
         "properties": {
-          "address": {
+          "id": {
+            "type": "integer"
+          },
+          "symbol": {
             "type": "string"
           },
-          "chain": {
+          "orderId": {
+            "type": "integer"
+          },
+          "price": {
             "type": "string"
           },
-          "balance": {
-            "type": "number"
+          "qty": {
+            "type": "string"
+          },
+          "quoteQty": {
+            "type": "string"
+          },
+          "commission": {
+            "type": "string"
+          },
+          "commissionAsset": {
+            "type": "string"
+          },
+          "time": {
+            "type": "integer"
+          },
+          "isBuyer": {
+            "type": "boolean"
+          },
+          "isMaker": {
+            "type": "boolean"
           }
         },
         "required": [
-          "address",
-          "chain"
+          "id",
+          "symbol"
         ]
       },
-      "Ledger": {
+      "Balance": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "accountId": {
+          "asset": {
             "type": "string"
           },
-          "debit": {
-            "type": "number"
+          "free": {
+            "type": "string"
           },
-          "credit": {
-            "type": "number"
-          },
-          "memo": {
+          "locked": {
             "type": "string"
           },
           "createdAt": {
@@ -1419,25 +1408,241 @@
           }
         }
       },
-      "LedgerCreate": {
+      "BalanceCreate": {
         "type": "object",
         "properties": {
-          "accountId": {
+          "asset": {
             "type": "string"
           },
-          "debit": {
-            "type": "number"
+          "free": {
+            "type": "string"
           },
-          "credit": {
-            "type": "number"
-          },
-          "memo": {
+          "locked": {
             "type": "string"
           }
         },
         "required": [
-          "debit",
-          "credit"
+          "asset",
+          "free"
+        ]
+      },
+      "Account": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "makerCommission": {
+            "type": "integer"
+          },
+          "takerCommission": {
+            "type": "integer"
+          },
+          "canTrade": {
+            "type": "boolean"
+          },
+          "canWithdraw": {
+            "type": "boolean"
+          },
+          "canDeposit": {
+            "type": "boolean"
+          },
+          "updateTime": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "AccountCreate": {
+        "type": "object",
+        "properties": {
+          "makerCommission": {
+            "type": "integer"
+          },
+          "takerCommission": {
+            "type": "integer"
+          },
+          "canTrade": {
+            "type": "boolean"
+          },
+          "canWithdraw": {
+            "type": "boolean"
+          },
+          "canDeposit": {
+            "type": "boolean"
+          },
+          "updateTime": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "makerCommission",
+          "takerCommission"
+        ]
+      },
+      "Ticker": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "symbol": {
+            "type": "string"
+          },
+          "lastPrice": {
+            "type": "string"
+          },
+          "priceChange": {
+            "type": "string"
+          },
+          "priceChangePercent": {
+            "type": "string"
+          },
+          "highPrice": {
+            "type": "string"
+          },
+          "lowPrice": {
+            "type": "string"
+          },
+          "volume": {
+            "type": "string"
+          },
+          "quoteVolume": {
+            "type": "string"
+          },
+          "openTime": {
+            "type": "integer"
+          },
+          "closeTime": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "TickerCreate": {
+        "type": "object",
+        "properties": {
+          "symbol": {
+            "type": "string"
+          },
+          "lastPrice": {
+            "type": "string"
+          },
+          "priceChange": {
+            "type": "string"
+          },
+          "priceChangePercent": {
+            "type": "string"
+          },
+          "highPrice": {
+            "type": "string"
+          },
+          "lowPrice": {
+            "type": "string"
+          },
+          "volume": {
+            "type": "string"
+          },
+          "quoteVolume": {
+            "type": "string"
+          },
+          "openTime": {
+            "type": "integer"
+          },
+          "closeTime": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "symbol",
+          "lastPrice"
+        ]
+      },
+      "Kline": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "openTime": {
+            "type": "integer"
+          },
+          "open": {
+            "type": "string"
+          },
+          "high": {
+            "type": "string"
+          },
+          "low": {
+            "type": "string"
+          },
+          "close": {
+            "type": "string"
+          },
+          "volume": {
+            "type": "string"
+          },
+          "closeTime": {
+            "type": "integer"
+          },
+          "trades": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "KlineCreate": {
+        "type": "object",
+        "properties": {
+          "openTime": {
+            "type": "integer"
+          },
+          "open": {
+            "type": "string"
+          },
+          "high": {
+            "type": "string"
+          },
+          "low": {
+            "type": "string"
+          },
+          "close": {
+            "type": "string"
+          },
+          "volume": {
+            "type": "string"
+          },
+          "closeTime": {
+            "type": "integer"
+          },
+          "trades": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "openTime",
+          "open"
         ]
       }
     }
