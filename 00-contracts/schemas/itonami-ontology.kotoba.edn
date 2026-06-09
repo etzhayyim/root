@@ -1,0 +1,38 @@
+;; itonami 営み — factory-operations ontology (ADR-2606082300).
+;; kotoba EAVT attribute registry for the operations observer. Station/line scale ONLY.
+;; There is intentionally NO :worker/* or :person/* namespace (G2, Wellbecoming §1.13).
+{:ontology/id :itonami
+ :ontology/adr "2606082300"
+
+ ;; ── station (line cell) — GROUND, durable ──
+ :station/id        {:db/valueType :db.type/keyword :db/cardinality :one :db/unique :identity}
+ :station/label     {:db/valueType :db.type/string  :db/cardinality :one}
+ :station/line      {:db/valueType :db.type/keyword :db/cardinality :one}
+ :station/takt-s    {:db/valueType :db.type/long    :db/cardinality :one :db/doc "target/ideal cycle time (s)"}
+ :station/rated-kw  {:db/valueType :db.type/double  :db/cardinality :one :db/doc "rated power draw (kW)"}
+ :station/sourcing  {:db/valueType :db.type/keyword :db/cardinality :one :db/doc ":authoritative | :representative (G5)"}
+
+ ;; ── scan-cycle tick (kotoba-os scan-cycle = Datom txn) — GROUND, durable, the canonical fact ──
+ :tick/station    {:db/valueType :db.type/keyword :db/cardinality :one}
+ :tick/t          {:db/valueType :db.type/long    :db/cardinality :one :db/doc "interval index"}
+ :tick/state      {:db/valueType :db.type/keyword :db/cardinality :one :db/doc ":run | :idle | :down"}
+ :tick/cycles     {:db/valueType :db.type/long    :db/cardinality :one}
+ :tick/good       {:db/valueType :db.type/long    :db/cardinality :one}
+ :tick/scrap      {:db/valueType :db.type/long    :db/cardinality :one :db/doc "feeds quality routing → manako vision"}
+ :tick/kwh        {:db/valueType :db.type/double  :db/cardinality :one}
+ :tick/interval-s {:db/valueType :db.type/long    :db/cardinality :one}
+
+ ;; ── DERIVED KPIs (transient; :bond/is-transient true; computed on read, NOT durable — G3) ──
+ :ops/oee              {:db/valueType :db.type/double :db/cardinality :one :db/doc "Availability × Performance × Quality"}
+ :ops/availability     {:db/valueType :db.type/double :db/cardinality :one}
+ :ops/performance      {:db/valueType :db.type/double :db/cardinality :one}
+ :ops/quality          {:db/valueType :db.type/double :db/cardinality :one}
+ :ops/energy-per-good  {:db/valueType :db.type/double :db/cardinality :one :db/doc "kWh per good unit — FOX energy lever"}
+ :ops/idle-energy-frac {:db/valueType :db.type/double :db/cardinality :one :db/doc "energy burned while not producing"}
+ :ops/scrap-rate       {:db/valueType :db.type/double :db/cardinality :one}
+
+ ;; ── routed findings (transient; to human/Council, never a write-back — G1) ──
+ :ops/routed-bottleneck          {:db/valueType :db.type/keyword :db/cardinality :one}
+ :ops/routed-energy_target       {:db/valueType :db.type/keyword :db/cardinality :one}
+ :ops/routed-idle_energy_target  {:db/valueType :db.type/keyword :db/cardinality :one}
+ :ops/routed-quality_target      {:db/valueType :db.type/keyword :db/cardinality :one}}
