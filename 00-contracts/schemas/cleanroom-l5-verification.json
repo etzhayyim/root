@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 74,
+  "count": 75,
   "actors": [
     {
       "handle": "square-compat",
@@ -10526,6 +10526,154 @@
       ],
       "notApplicable": [],
       "note": "Remodeled from a mismatched e-commerce archetype (shared with old contentful/algolia) to a faithful shipping/logistics model. 6/6 entities field-verified vs Shippo's official public OpenAPI. Discovered closed enums (2): Shipment.status, Parcel.objectState. Decimal amounts/dimensions are strings in the Shippo API (modeled faithfully as string)."
+    },
+    {
+      "handle": "x-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://api.twitter.com/2/openapi.json (official X/Twitter API v2 OpenAPI)",
+      "remodeled": "Remodeled from the generic comms_social chat archetype (Channel/Message/User/Room/Stream/Webhook) to a faithful X (Twitter) v2 microblog model (Tweet/User/Space/List/Media/Poll), verified field-by-field against X's official API v2 OpenAPI components.schemas. Tweet core fields (text/replySettings/conversationId/authorId) are $ref-typed scalars (TweetText/TweetId/ReplySettings). The L5 gate had correctly rejected the prior mismatched model (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Tweet",
+          "source": "openapi.json Tweet",
+          "verifiedFields": [
+            "text",
+            "lang",
+            "source",
+            "paidPartnership",
+            "possiblySensitive",
+            "replySettings",
+            "conversationId",
+            "authorId"
+          ],
+          "fieldStatus": "confirmed vs Tweet schema (text/lang/source/paid_partnership/possibly_sensitive/reply_settings/conversation_id/author_id; created_at->scaffold)",
+          "discoveredEnums": {},
+          "gaps": [
+            "replySettings enum (everyone/mentionedUsers/following/subscribers) is ref-typed, not inline-enumerated",
+            "public_metrics(object)",
+            "entities(object)",
+            "referenced_tweets(array)"
+          ]
+        },
+        {
+          "entity": "User",
+          "source": "openapi.json User",
+          "verifiedFields": [
+            "name",
+            "description",
+            "location",
+            "url",
+            "protected",
+            "verified",
+            "verifiedType",
+            "subscriptionType",
+            "profileImageUrl",
+            "profileBannerUrl",
+            "receivesYourDm"
+          ],
+          "fieldStatus": "confirmed vs User schema (name/description/location/url/protected/verified/verified_type/subscription_type/profile_image_url/profile_banner_url/receives_your_dm)",
+          "discoveredEnums": {
+            "verifiedType": [
+              "blue",
+              "government",
+              "business",
+              "none"
+            ],
+            "subscriptionType": [
+              "Basic",
+              "Premium",
+              "PremiumPlus",
+              "None"
+            ]
+          },
+          "gaps": [
+            "public_metrics(object)",
+            "entities(object)",
+            "username(ref)"
+          ]
+        },
+        {
+          "entity": "Space",
+          "source": "openapi.json Space",
+          "verifiedFields": [
+            "title",
+            "state",
+            "lang",
+            "isTicketed",
+            "participantCount",
+            "subscriberCount",
+            "scheduledStart",
+            "startedAt",
+            "endedAt"
+          ],
+          "fieldStatus": "confirmed vs Space schema (title/state/lang/is_ticketed/participant_count/subscriber_count/scheduled_start/started_at/ended_at)",
+          "discoveredEnums": {
+            "state": [
+              "live",
+              "scheduled",
+              "ended"
+            ]
+          },
+          "gaps": [
+            "host_ids(array)",
+            "speaker_ids(array)",
+            "topic_ids(array)"
+          ]
+        },
+        {
+          "entity": "List",
+          "source": "openapi.json List",
+          "verifiedFields": [
+            "name",
+            "description",
+            "private",
+            "followerCount",
+            "memberCount"
+          ],
+          "fieldStatus": "confirmed vs List schema (name/description/private/follower_count/member_count)",
+          "discoveredEnums": {},
+          "gaps": [
+            "owner_id(ref)"
+          ]
+        },
+        {
+          "entity": "Media",
+          "source": "openapi.json Media",
+          "verifiedFields": [
+            "type"
+          ],
+          "fieldStatus": "confirmed vs Media schema (type); polymorphic (photo/video/animated_gif subtypes carry the rest)",
+          "discoveredEnums": {},
+          "gaps": [
+            "url",
+            "preview_image_url",
+            "public_metrics(object)",
+            "width/height (on subtypes)"
+          ]
+        },
+        {
+          "entity": "Poll",
+          "source": "openapi.json Poll",
+          "verifiedFields": [
+            "durationMinutes",
+            "endDatetime",
+            "votingStatus"
+          ],
+          "fieldStatus": "confirmed vs Poll schema (duration_minutes/end_datetime/voting_status)",
+          "discoveredEnums": {
+            "votingStatus": [
+              "open",
+              "closed"
+            ]
+          },
+          "gaps": [
+            "options(array)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "Remodeled from a mismatched chat archetype to a faithful microblog model. 6/6 entities field-verified vs X's official API v2 OpenAPI. Discovered closed enums (4): User.verifiedType/subscriptionType, Space.state, Poll.votingStatus. Tweet/List/Media id-and-text fields are $ref-typed scalars in the spec."
     }
   ]
 }

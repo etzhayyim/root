@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 926,
-    "L5": 74
+    "L4": 925,
+    "L5": 75
   },
   "actors": [
     {
@@ -17462,7 +17462,7 @@
       "wasmCid": "bafkreie55iolfozdkdvxov3belu5wobtydprijjaem4cjngscxehnnx4la",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "x clean-room actor",
       "category": "comms_social",
       "capabilities": [

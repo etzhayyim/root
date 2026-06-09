@@ -11,15 +11,55 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreie55iolfozdkdvxov3belu5wobtydprijjaem4cjngscxehnnx4la",
   "schema": "schema/x.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://api.twitter.com/2/openapi.json (official X/Twitter API v2 OpenAPI)",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Tweet",
+      "User",
+      "Space",
+      "List",
+      "Media",
+      "Poll"
+    ],
+    "enums": {
+      "User": {
+        "verifiedType": [
+          "blue",
+          "government",
+          "business",
+          "none"
+        ],
+        "subscriptionType": [
+          "Basic",
+          "Premium",
+          "PremiumPlus",
+          "None"
+        ]
+      },
+      "Space": {
+        "state": [
+          "live",
+          "scheduled",
+          "ended"
+        ]
+      },
+      "Poll": {
+        "votingStatus": [
+          "open",
+          "closed"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Channel",
-    "Message",
+    "Tweet",
     "User",
-    "Room",
-    "Stream",
-    "Webhook"
+    "Space",
+    "List",
+    "Media",
+    "Poll"
   ],
   "adr": [
     "260607",
@@ -35,53 +75,28 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/channels",
-          "op": "create Channel"
+          "path": "/v1/tweets",
+          "op": "create Tweet"
         },
         {
           "method": "GET",
-          "path": "/v1/channels",
-          "op": "list Channel"
+          "path": "/v1/tweets",
+          "op": "list Tweet"
         },
         {
           "method": "GET",
-          "path": "/v1/channels/{id}",
-          "op": "get Channel"
+          "path": "/v1/tweets/{id}",
+          "op": "get Tweet"
         },
         {
           "method": "PATCH",
-          "path": "/v1/channels/{id}",
-          "op": "update Channel"
+          "path": "/v1/tweets/{id}",
+          "op": "update Tweet"
         },
         {
           "method": "DELETE",
-          "path": "/v1/channels/{id}",
-          "op": "delete Channel"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/messages",
-          "op": "create Message"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/messages",
-          "op": "list Message"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/messages/{id}",
-          "op": "get Message"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/messages/{id}",
-          "op": "update Message"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/messages/{id}",
-          "op": "delete Message"
+          "path": "/v1/tweets/{id}",
+          "op": "delete Tweet"
         },
         {
           "method": "POST",
@@ -110,85 +125,110 @@
         },
         {
           "method": "POST",
-          "path": "/v1/rooms",
-          "op": "create Room"
+          "path": "/v1/spaces",
+          "op": "create Space"
         },
         {
           "method": "GET",
-          "path": "/v1/rooms",
-          "op": "list Room"
+          "path": "/v1/spaces",
+          "op": "list Space"
         },
         {
           "method": "GET",
-          "path": "/v1/rooms/{id}",
-          "op": "get Room"
+          "path": "/v1/spaces/{id}",
+          "op": "get Space"
         },
         {
           "method": "PATCH",
-          "path": "/v1/rooms/{id}",
-          "op": "update Room"
+          "path": "/v1/spaces/{id}",
+          "op": "update Space"
         },
         {
           "method": "DELETE",
-          "path": "/v1/rooms/{id}",
-          "op": "delete Room"
+          "path": "/v1/spaces/{id}",
+          "op": "delete Space"
         },
         {
           "method": "POST",
-          "path": "/v1/streams",
-          "op": "create Stream"
+          "path": "/v1/lists",
+          "op": "create List"
         },
         {
           "method": "GET",
-          "path": "/v1/streams",
-          "op": "list Stream"
+          "path": "/v1/lists",
+          "op": "list List"
         },
         {
           "method": "GET",
-          "path": "/v1/streams/{id}",
-          "op": "get Stream"
+          "path": "/v1/lists/{id}",
+          "op": "get List"
         },
         {
           "method": "PATCH",
-          "path": "/v1/streams/{id}",
-          "op": "update Stream"
+          "path": "/v1/lists/{id}",
+          "op": "update List"
         },
         {
           "method": "DELETE",
-          "path": "/v1/streams/{id}",
-          "op": "delete Stream"
+          "path": "/v1/lists/{id}",
+          "op": "delete List"
         },
         {
           "method": "POST",
-          "path": "/v1/webhooks",
-          "op": "create Webhook"
+          "path": "/v1/medias",
+          "op": "create Media"
         },
         {
           "method": "GET",
-          "path": "/v1/webhooks",
-          "op": "list Webhook"
+          "path": "/v1/medias",
+          "op": "list Media"
         },
         {
           "method": "GET",
-          "path": "/v1/webhooks/{id}",
-          "op": "get Webhook"
+          "path": "/v1/medias/{id}",
+          "op": "get Media"
         },
         {
           "method": "PATCH",
-          "path": "/v1/webhooks/{id}",
-          "op": "update Webhook"
+          "path": "/v1/medias/{id}",
+          "op": "update Media"
         },
         {
           "method": "DELETE",
-          "path": "/v1/webhooks/{id}",
-          "op": "delete Webhook"
+          "path": "/v1/medias/{id}",
+          "op": "delete Media"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/polls",
+          "op": "create Poll"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/polls",
+          "op": "list Poll"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/polls/{id}",
+          "op": "get Poll"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/polls/{id}",
+          "op": "update Poll"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/polls/{id}",
+          "op": "delete Poll"
         }
       ],
       "features": {
-        "pagination": true,
-        "filtering": true,
-        "relationExpansion": true,
-        "strictValidation": true,
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
         "contractTest": true
       },
       "health": "/healthz"
@@ -247,41 +287,53 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_channel",
-          "description": "Create a Channel.",
+          "name": "create_tweet",
+          "description": "Create a Tweet.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "text": {
                 "type": "string"
               },
-              "type": {
+              "lang": {
                 "type": "string"
               },
-              "topic": {
+              "source": {
                 "type": "string"
               },
-              "memberCount": {
-                "type": "integer"
+              "paidPartnership": {
+                "type": "boolean"
+              },
+              "possiblySensitive": {
+                "type": "boolean"
+              },
+              "replySettings": {
+                "type": "string"
+              },
+              "conversationId": {
+                "type": "string"
+              },
+              "authorId": {
+                "type": "string"
               }
             },
             "required": [
-              "name",
-              "type"
+              "text",
+              "lang"
             ]
           }
         },
         {
-          "name": "list_channels",
-          "description": "List Channels.",
+          "name": "list_tweets",
+          "description": "List Tweets.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_channel",
-          "description": "Get a Channel by id.",
+          "name": "get_tweet",
+          "description": "Get a Tweet by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,88 +347,37 @@
           }
         },
         {
-          "name": "update_channel",
-          "description": "Update a Channel.",
+          "name": "update_tweet",
+          "description": "Update a Tweet.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
+              "text": {
                 "type": "string"
               },
-              "type": {
+              "lang": {
                 "type": "string"
               },
-              "topic": {
+              "source": {
                 "type": "string"
               },
-              "memberCount": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_channel",
-          "description": "Delete a Channel.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              "paidPartnership": {
+                "type": "boolean"
+              },
+              "possiblySensitive": {
+                "type": "boolean"
+              },
+              "replySettings": {
                 "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_message",
-          "description": "Create a Message.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "channelId": {
+              },
+              "conversationId": {
                 "type": "string"
               },
               "authorId": {
                 "type": "string"
-              },
-              "body": {
-                "type": "string"
-              },
-              "sentAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "body",
-              "sentAt"
-            ]
-          }
-        },
-        {
-          "name": "list_messages",
-          "description": "List Messages.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_message",
-          "description": "Get a Message by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
               }
             },
             "required": [
@@ -385,35 +386,8 @@
           }
         },
         {
-          "name": "update_message",
-          "description": "Update a Message.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "channelId": {
-                "type": "string"
-              },
-              "authorId": {
-                "type": "string"
-              },
-              "body": {
-                "type": "string"
-              },
-              "sentAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_message",
-          "description": "Delete a Message.",
+          "name": "delete_tweet",
+          "description": "Delete a Tweet.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -432,19 +406,43 @@
           "inputSchema": {
             "type": "object",
             "properties": {
-              "handle": {
+              "name": {
                 "type": "string"
               },
-              "displayName": {
+              "description": {
                 "type": "string"
+              },
+              "location": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "protected": {
+                "type": "boolean"
               },
               "verified": {
+                "type": "boolean"
+              },
+              "verifiedType": {
+                "type": "string"
+              },
+              "subscriptionType": {
+                "type": "string"
+              },
+              "profileImageUrl": {
+                "type": "string"
+              },
+              "profileBannerUrl": {
+                "type": "string"
+              },
+              "receivesYourDm": {
                 "type": "boolean"
               }
             },
             "required": [
-              "handle",
-              "displayName"
+              "name",
+              "description"
             ]
           }
         },
@@ -480,13 +478,37 @@
               "id": {
                 "type": "string"
               },
-              "handle": {
+              "name": {
                 "type": "string"
               },
-              "displayName": {
+              "description": {
                 "type": "string"
+              },
+              "location": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "protected": {
+                "type": "boolean"
               },
               "verified": {
+                "type": "boolean"
+              },
+              "verifiedType": {
+                "type": "string"
+              },
+              "subscriptionType": {
+                "type": "string"
+              },
+              "profileImageUrl": {
+                "type": "string"
+              },
+              "profileBannerUrl": {
+                "type": "string"
+              },
+              "receivesYourDm": {
                 "type": "boolean"
               }
             },
@@ -511,38 +533,164 @@
           }
         },
         {
-          "name": "create_room",
-          "description": "Create a Room.",
+          "name": "create_space",
+          "description": "Create a Space.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "lang": {
+                "type": "string"
+              },
+              "isTicketed": {
+                "type": "boolean"
+              },
+              "participantCount": {
+                "type": "integer"
+              },
+              "subscriberCount": {
+                "type": "integer"
+              },
+              "scheduledStart": {
+                "type": "string"
+              },
+              "startedAt": {
+                "type": "string"
+              },
+              "endedAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "state"
+            ]
+          }
+        },
+        {
+          "name": "list_spaces",
+          "description": "List Spaces.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_space",
+          "description": "Get a Space by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_space",
+          "description": "Update a Space.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "lang": {
+                "type": "string"
+              },
+              "isTicketed": {
+                "type": "boolean"
+              },
+              "participantCount": {
+                "type": "integer"
+              },
+              "subscriberCount": {
+                "type": "integer"
+              },
+              "scheduledStart": {
+                "type": "string"
+              },
+              "startedAt": {
+                "type": "string"
+              },
+              "endedAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_space",
+          "description": "Delete a Space.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_list",
+          "description": "Create a List.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "maxParticipants": {
+              "description": {
+                "type": "string"
+              },
+              "private": {
+                "type": "boolean"
+              },
+              "followerCount": {
                 "type": "integer"
               },
-              "recording": {
-                "type": "boolean"
+              "memberCount": {
+                "type": "integer"
               }
             },
             "required": [
               "name",
-              "maxParticipants"
+              "description"
             ]
           }
         },
         {
-          "name": "list_rooms",
-          "description": "List Rooms.",
+          "name": "list_lists",
+          "description": "List Lists.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_room",
-          "description": "Get a Room by id.",
+          "name": "get_list",
+          "description": "Get a List by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -556,8 +704,8 @@
           }
         },
         {
-          "name": "update_room",
-          "description": "Update a Room.",
+          "name": "update_list",
+          "description": "Update a List.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -567,11 +715,17 @@
               "name": {
                 "type": "string"
               },
-              "maxParticipants": {
+              "description": {
+                "type": "string"
+              },
+              "private": {
+                "type": "boolean"
+              },
+              "followerCount": {
                 "type": "integer"
               },
-              "recording": {
-                "type": "boolean"
+              "memberCount": {
+                "type": "integer"
               }
             },
             "required": [
@@ -580,8 +734,8 @@
           }
         },
         {
-          "name": "delete_room",
-          "description": "Delete a Room.",
+          "name": "delete_list",
+          "description": "Delete a List.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -595,38 +749,31 @@
           }
         },
         {
-          "name": "create_stream",
-          "description": "Create a Stream.",
+          "name": "create_media",
+          "description": "Create a Media.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "roomId": {
+              "type": {
                 "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "bitrate": {
-                "type": "integer"
               }
             },
             "required": [
-              "status",
-              "bitrate"
+              "type"
             ]
           }
         },
         {
-          "name": "list_streams",
-          "description": "List Streams.",
+          "name": "list_medias",
+          "description": "List Medias.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_stream",
-          "description": "Get a Stream by id.",
+          "name": "get_media",
+          "description": "Get a Media by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -640,77 +787,71 @@
           }
         },
         {
-          "name": "update_stream",
-          "description": "Update a Stream.",
+          "name": "update_media",
+          "description": "Update a Media.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "roomId": {
+              "type": {
                 "type": "string"
-              },
-              "status": {
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_media",
+          "description": "Delete a Media.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
-              },
-              "bitrate": {
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_poll",
+          "description": "Create a Poll.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "durationMinutes": {
                 "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_stream",
-          "description": "Delete a Stream.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_webhook",
-          "description": "Create a Webhook.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "event": {
+              },
+              "endDatetime": {
                 "type": "string"
               },
-              "url": {
+              "votingStatus": {
                 "type": "string"
-              },
-              "active": {
-                "type": "boolean"
               }
             },
             "required": [
-              "event",
-              "url"
+              "durationMinutes",
+              "endDatetime"
             ]
           }
         },
         {
-          "name": "list_webhooks",
-          "description": "List Webhooks.",
+          "name": "list_polls",
+          "description": "List Polls.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_webhook",
-          "description": "Get a Webhook by id.",
+          "name": "get_poll",
+          "description": "Get a Poll by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -724,22 +865,22 @@
           }
         },
         {
-          "name": "update_webhook",
-          "description": "Update a Webhook.",
+          "name": "update_poll",
+          "description": "Update a Poll.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "event": {
+              "durationMinutes": {
+                "type": "integer"
+              },
+              "endDatetime": {
                 "type": "string"
               },
-              "url": {
+              "votingStatus": {
                 "type": "string"
-              },
-              "active": {
-                "type": "boolean"
               }
             },
             "required": [
@@ -748,8 +889,8 @@
           }
         },
         {
-          "name": "delete_webhook",
-          "description": "Delete a Webhook.",
+          "name": "delete_poll",
+          "description": "Delete a Poll.",
           "inputSchema": {
             "type": "object",
             "properties": {

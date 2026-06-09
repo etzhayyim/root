@@ -1237,6 +1237,17 @@ PLATFORM_OVERRIDES = {
         "Parcel": E(weight="string", height="string", length="string", width="string", objectState="string", test="boolean"),
         "CarrierAccount": E(accountId="string", active="boolean", carrier="string", isShippoAccount="boolean", test="boolean"),
     },
+    # Faithful X (Twitter API v2) model (remodeled from the generic comms_social
+    # chat archetype whose Channel/Message/Room entities did not match X's
+    # microblog API), doc-verified L5 vs the official api.twitter.com/2/openapi.json.
+    "x": {
+        "Tweet": E(text="string", lang="string", source="string", paidPartnership="boolean", possiblySensitive="boolean", replySettings="string", conversationId="string", authorId="string"),
+        "User": E(name="string", description="string", location="string", url="string", protected="boolean", verified="boolean", verifiedType="string", subscriptionType="string", profileImageUrl="string", profileBannerUrl="string", receivesYourDm="boolean"),
+        "Space": E(title="string", state="string", lang="string", isTicketed="boolean", participantCount="integer", subscriberCount="integer", scheduledStart="datetime", startedAt="datetime", endedAt="datetime"),
+        "List": E(name="string", description="string", private="boolean", followerCount="integer", memberCount="integer"),
+        "Media": E(type="string"),
+        "Poll": E(durationMinutes="integer", endDatetime="datetime", votingStatus="string"),
+    },
     # Faithful Airtable model (remodeled from generic office_productivity), L5.
     "airtable": {
         "Base": E(name="string", permissionLevel="string"),
