@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 900,
-    "L5": 100
+    "L4": 897,
+    "L5": 103
   },
   "actors": [
     {
@@ -3530,7 +3530,7 @@
       "wasmCid": "bafkreicveye6jfrynvxpl42cd647634dxbdcsxf27pqcgoobkjjkmx6pta",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "commercetools clean-room actor",
       "category": "headless_ec_logistics",
       "capabilities": [
@@ -12023,10 +12023,10 @@
     {
       "handle": "opensea-compat",
       "did": "did:web:etzhayyim.com:actor:opensea-compat",
-      "wasmCid": "bafkreicj5h3onwuv5leuq4ifxbwqiamleekwuvyd7qv7ev3gyfusxal2cm",
+      "wasmCid": "bafkreicngmo727jthfbpvz2bnvvh5jrqioei4hbbr6qbiz64zma7v75rtq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "opensea clean-room actor",
       "category": "web3_rpc",
       "capabilities": [
@@ -14345,10 +14345,10 @@
     {
       "handle": "sendbird-compat",
       "did": "did:web:etzhayyim.com:actor:sendbird-compat",
-      "wasmCid": "bafkreifzoe2irevprt4jtrtnyk2ch5wmnh6sd5tqlxe5ha3oz73phehfcy",
+      "wasmCid": "bafkreic4aoe356hrfa5gfwyujeggv53fngh35u6you2aco7teasniqvnq4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "sendbird clean-room actor",
       "category": "comms_social",
       "capabilities": [

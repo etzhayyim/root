@@ -3,69 +3,54 @@
 
 namespace sendbird {
 
-    entity Channel {
+    entity User {
         id: string @unique
-        name: string
-        type: string
-        topic: string
-        memberCount: integer
+        userId: string
+        nickname: string
+        profileUrl: string
+        accessToken: string
+        isActive: boolean
+        role: string
+        createdAt: integer
+        lastSeenAt: integer
+        isOnline: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Message {
         id: string @unique
-        channelId: string
-        authorId: string
-        body: string
-        sentAt: datetime
+        messageId: integer
+        type: string
+        customType: string
+        message: string
+        channelUrl: string
+        createdAt: integer
+        updatedAt: integer
+        isRemoved: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity User {
+    entity GroupChannel {
         id: string @unique
-        handle: string
-        displayName: string
-        verified: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Room {
-        id: string @unique
+        channelUrl: string
         name: string
-        maxParticipants: integer
-        recording: boolean
+        memberCount: integer
+        isDistinct: boolean
+        createdAt: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Stream {
+    entity OpenChannel {
         id: string @unique
-        roomId: string
-        status: string
-        bitrate: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Webhook {
-        id: string @unique
-        event: string
-        url: string
-        active: boolean
+        channelUrl: string
+        name: string
+        participantCount: integer
+        createdAt: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

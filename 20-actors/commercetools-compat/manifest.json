@@ -11,15 +11,82 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreicveye6jfrynvxpl42cd647634dxbdcsxf27pqcgoobkjjkmx6pta",
   "schema": "schema/commercetools.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://docs.commercetools.com/api",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Order",
+      "Cart",
+      "Payment",
+      "Product",
+      "Customer",
+      "Transaction"
+    ],
+    "enums": {
+      "Order": {
+        "orderState": [
+          "Open",
+          "Confirmed",
+          "Complete",
+          "Cancelled"
+        ],
+        "paymentState": [
+          "BalanceDue",
+          "Failed",
+          "Pending",
+          "CreditOwed",
+          "Paid"
+        ],
+        "shipmentState": [
+          "Shipped",
+          "Delivered",
+          "Ready",
+          "Pending",
+          "Delayed",
+          "Partial",
+          "Backorder",
+          "Canceled"
+        ]
+      },
+      "Cart": {
+        "cartState": [
+          "Active",
+          "Merged",
+          "Ordered",
+          "Frozen"
+        ]
+      },
+      "Product": {
+        "priceMode": [
+          "Embedded",
+          "Standalone"
+        ]
+      },
+      "Transaction": {
+        "type": [
+          "Authorization",
+          "CancelAuthorization",
+          "Charge",
+          "Refund",
+          "Chargeback"
+        ],
+        "state": [
+          "Initial",
+          "Pending",
+          "Success",
+          "Failure"
+        ]
+      }
+    }
+  },
   "entities": [
-    "ContentEntry",
+    "Order",
+    "Cart",
+    "Payment",
     "Product",
-    "Shipment",
-    "SearchIndex",
-    "Webhook",
-    "Order"
+    "Customer",
+    "Transaction"
   ],
   "adr": [
     "260607",
@@ -35,28 +102,78 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/contententries",
-          "op": "create ContentEntry"
+          "path": "/v1/orders",
+          "op": "create Order"
         },
         {
           "method": "GET",
-          "path": "/v1/contententries",
-          "op": "list ContentEntry"
+          "path": "/v1/orders",
+          "op": "list Order"
         },
         {
           "method": "GET",
-          "path": "/v1/contententries/{id}",
-          "op": "get ContentEntry"
+          "path": "/v1/orders/{id}",
+          "op": "get Order"
         },
         {
           "method": "PATCH",
-          "path": "/v1/contententries/{id}",
-          "op": "update ContentEntry"
+          "path": "/v1/orders/{id}",
+          "op": "update Order"
         },
         {
           "method": "DELETE",
-          "path": "/v1/contententries/{id}",
-          "op": "delete ContentEntry"
+          "path": "/v1/orders/{id}",
+          "op": "delete Order"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/carts",
+          "op": "create Cart"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/carts",
+          "op": "list Cart"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/carts/{id}",
+          "op": "get Cart"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/carts/{id}",
+          "op": "update Cart"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/carts/{id}",
+          "op": "delete Cart"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/payments",
+          "op": "create Payment"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/payments",
+          "op": "list Payment"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/payments/{id}",
+          "op": "get Payment"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/payments/{id}",
+          "op": "update Payment"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/payments/{id}",
+          "op": "delete Payment"
         },
         {
           "method": "POST",
@@ -85,103 +202,53 @@
         },
         {
           "method": "POST",
-          "path": "/v1/shipments",
-          "op": "create Shipment"
+          "path": "/v1/customers",
+          "op": "create Customer"
         },
         {
           "method": "GET",
-          "path": "/v1/shipments",
-          "op": "list Shipment"
+          "path": "/v1/customers",
+          "op": "list Customer"
         },
         {
           "method": "GET",
-          "path": "/v1/shipments/{id}",
-          "op": "get Shipment"
+          "path": "/v1/customers/{id}",
+          "op": "get Customer"
         },
         {
           "method": "PATCH",
-          "path": "/v1/shipments/{id}",
-          "op": "update Shipment"
+          "path": "/v1/customers/{id}",
+          "op": "update Customer"
         },
         {
           "method": "DELETE",
-          "path": "/v1/shipments/{id}",
-          "op": "delete Shipment"
+          "path": "/v1/customers/{id}",
+          "op": "delete Customer"
         },
         {
           "method": "POST",
-          "path": "/v1/searchindexes",
-          "op": "create SearchIndex"
+          "path": "/v1/transactions",
+          "op": "create Transaction"
         },
         {
           "method": "GET",
-          "path": "/v1/searchindexes",
-          "op": "list SearchIndex"
+          "path": "/v1/transactions",
+          "op": "list Transaction"
         },
         {
           "method": "GET",
-          "path": "/v1/searchindexes/{id}",
-          "op": "get SearchIndex"
+          "path": "/v1/transactions/{id}",
+          "op": "get Transaction"
         },
         {
           "method": "PATCH",
-          "path": "/v1/searchindexes/{id}",
-          "op": "update SearchIndex"
+          "path": "/v1/transactions/{id}",
+          "op": "update Transaction"
         },
         {
           "method": "DELETE",
-          "path": "/v1/searchindexes/{id}",
-          "op": "delete SearchIndex"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/webhooks",
-          "op": "create Webhook"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/webhooks",
-          "op": "list Webhook"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/webhooks/{id}",
-          "op": "get Webhook"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/webhooks/{id}",
-          "op": "update Webhook"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/webhooks/{id}",
-          "op": "delete Webhook"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/orders",
-          "op": "create Order"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/orders",
-          "op": "list Order"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/orders/{id}",
-          "op": "get Order"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/orders/{id}",
-          "op": "update Order"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/orders/{id}",
-          "op": "delete Order"
+          "path": "/v1/transactions/{id}",
+          "op": "delete Transaction"
         }
       ],
       "features": {
@@ -247,465 +314,45 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_content_entry",
-          "description": "Create a ContentEntry.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "modelName": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "locale": {
-                "type": "string"
-              },
-              "published": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "modelName",
-              "title"
-            ]
-          }
-        },
-        {
-          "name": "list_content_entries",
-          "description": "List ContentEntries.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_content_entry",
-          "description": "Get a ContentEntry by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_content_entry",
-          "description": "Update a ContentEntry.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "modelName": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "locale": {
-                "type": "string"
-              },
-              "published": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_content_entry",
-          "description": "Delete a ContentEntry.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_product",
-          "description": "Create a Product.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "sku": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "price": {
-                "type": "number"
-              },
-              "currency": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "sku",
-              "title"
-            ]
-          }
-        },
-        {
-          "name": "list_products",
-          "description": "List Products.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_product",
-          "description": "Get a Product by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_product",
-          "description": "Update a Product.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "sku": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "price": {
-                "type": "number"
-              },
-              "currency": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_product",
-          "description": "Delete a Product.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_shipment",
-          "description": "Create a Shipment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "orderId": {
-                "type": "string"
-              },
-              "carrier": {
-                "type": "string"
-              },
-              "tracking": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "carrier",
-              "tracking"
-            ]
-          }
-        },
-        {
-          "name": "list_shipments",
-          "description": "List Shipments.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_shipment",
-          "description": "Get a Shipment by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_shipment",
-          "description": "Update a Shipment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "orderId": {
-                "type": "string"
-              },
-              "carrier": {
-                "type": "string"
-              },
-              "tracking": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_shipment",
-          "description": "Delete a Shipment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_search_index",
-          "description": "Create a SearchIndex.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "recordCount": {
-                "type": "integer"
-              },
-              "primaryKey": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "recordCount"
-            ]
-          }
-        },
-        {
-          "name": "list_search_indexes",
-          "description": "List SearchIndexes.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_search_index",
-          "description": "Get a SearchIndex by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_search_index",
-          "description": "Update a SearchIndex.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "recordCount": {
-                "type": "integer"
-              },
-              "primaryKey": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_search_index",
-          "description": "Delete a SearchIndex.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_webhook",
-          "description": "Create a Webhook.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "event": {
-                "type": "string"
-              },
-              "url": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "event",
-              "url"
-            ]
-          }
-        },
-        {
-          "name": "list_webhooks",
-          "description": "List Webhooks.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_webhook",
-          "description": "Get a Webhook by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_webhook",
-          "description": "Update a Webhook.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "event": {
-                "type": "string"
-              },
-              "url": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_webhook",
-          "description": "Delete a Webhook.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
           "name": "create_order",
           "description": "Create a Order.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "number": {
+              "id": {
                 "type": "string"
               },
-              "total": {
-                "type": "number"
+              "version": {
+                "type": "integer"
               },
-              "currency": {
+              "orderNumber": {
                 "type": "string"
               },
-              "status": {
+              "customerId": {
+                "type": "string"
+              },
+              "customerEmail": {
+                "type": "string"
+              },
+              "orderState": {
+                "type": "string"
+              },
+              "paymentState": {
+                "type": "string"
+              },
+              "shipmentState": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "lastModifiedAt": {
                 "type": "string"
               }
             },
             "required": [
-              "number",
-              "total"
+              "id",
+              "version"
             ]
           }
         },
@@ -741,16 +388,31 @@
               "id": {
                 "type": "string"
               },
-              "number": {
+              "version": {
+                "type": "integer"
+              },
+              "orderNumber": {
                 "type": "string"
               },
-              "total": {
-                "type": "number"
-              },
-              "currency": {
+              "customerId": {
                 "type": "string"
               },
-              "status": {
+              "customerEmail": {
+                "type": "string"
+              },
+              "orderState": {
+                "type": "string"
+              },
+              "paymentState": {
+                "type": "string"
+              },
+              "shipmentState": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "lastModifiedAt": {
                 "type": "string"
               }
             },
@@ -762,6 +424,507 @@
         {
           "name": "delete_order",
           "description": "Delete a Order.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_cart",
+          "description": "Create a Cart.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "version": {
+                "type": "integer"
+              },
+              "customerId": {
+                "type": "string"
+              },
+              "cartState": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "lastModifiedAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "version"
+            ]
+          }
+        },
+        {
+          "name": "list_carts",
+          "description": "List Carts.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_cart",
+          "description": "Get a Cart by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_cart",
+          "description": "Update a Cart.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "version": {
+                "type": "integer"
+              },
+              "customerId": {
+                "type": "string"
+              },
+              "cartState": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "lastModifiedAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_cart",
+          "description": "Delete a Cart.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_payment",
+          "description": "Create a Payment.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "version": {
+                "type": "integer"
+              },
+              "key": {
+                "type": "string"
+              },
+              "customerId": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "lastModifiedAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "version"
+            ]
+          }
+        },
+        {
+          "name": "list_payments",
+          "description": "List Payments.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_payment",
+          "description": "Get a Payment by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_payment",
+          "description": "Update a Payment.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "version": {
+                "type": "integer"
+              },
+              "key": {
+                "type": "string"
+              },
+              "customerId": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "lastModifiedAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_payment",
+          "description": "Delete a Payment.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_product",
+          "description": "Create a Product.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "version": {
+                "type": "integer"
+              },
+              "key": {
+                "type": "string"
+              },
+              "priceMode": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "lastModifiedAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "version"
+            ]
+          }
+        },
+        {
+          "name": "list_products",
+          "description": "List Products.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_product",
+          "description": "Get a Product by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_product",
+          "description": "Update a Product.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "version": {
+                "type": "integer"
+              },
+              "key": {
+                "type": "string"
+              },
+              "priceMode": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "lastModifiedAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_product",
+          "description": "Delete a Product.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_customer",
+          "description": "Create a Customer.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "version": {
+                "type": "integer"
+              },
+              "key": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "firstName": {
+                "type": "string"
+              },
+              "lastName": {
+                "type": "string"
+              },
+              "isEmailVerified": {
+                "type": "boolean"
+              },
+              "createdAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "version"
+            ]
+          }
+        },
+        {
+          "name": "list_customers",
+          "description": "List Customers.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_customer",
+          "description": "Get a Customer by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_customer",
+          "description": "Update a Customer.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "version": {
+                "type": "integer"
+              },
+              "key": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "firstName": {
+                "type": "string"
+              },
+              "lastName": {
+                "type": "string"
+              },
+              "isEmailVerified": {
+                "type": "boolean"
+              },
+              "createdAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_customer",
+          "description": "Delete a Customer.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_transaction",
+          "description": "Create a Transaction.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "timestamp": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "interactionId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "timestamp"
+            ]
+          }
+        },
+        {
+          "name": "list_transactions",
+          "description": "List Transactions.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_transaction",
+          "description": "Get a Transaction by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_transaction",
+          "description": "Update a Transaction.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "timestamp": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "interactionId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_transaction",
+          "description": "Delete a Transaction.",
           "inputSchema": {
             "type": "object",
             "properties": {

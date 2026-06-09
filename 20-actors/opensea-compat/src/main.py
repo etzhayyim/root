@@ -111,219 +111,319 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/blocks", methods=["POST"])
-def create_block(request):
-    """Create a Block."""
+@app.route("/v1/nfts", methods=["POST"])
+def create_nft(request):
+    """Create a Nft."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['number', 'hash', 'chain', 'minedAt'])
+    err = _reject_unknown(data, ['identifier', 'collection', 'contract', 'tokenStandard', 'name', 'description', 'imageUrl', 'openseaUrl', 'isDisabled', 'isNsfw', 'updatedAt'])
     if err:
         return err, 400
-    err = _require(data, ['number', 'hash'])
+    err = _require(data, ['identifier', 'collection'])
     if err:
         return err, 400
-    rec = {"id": new_id("opensea_blo")}
-    rec["number"] = _as_int(data.get('number'))
-    rec["hash"] = data.get('hash')
-    rec["chain"] = data.get('chain')
-    rec["minedAt"] = data.get('minedAt')
+    if data.get('tokenStandard') and data['tokenStandard'] not in ['erc721', 'erc1155', 'erc20']:
+        return {"error": {"message": "invalid tokenStandard; allowed: " + ", ".join(['erc721', 'erc1155', 'erc20']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("opensea_nft")}
+    rec["identifier"] = data.get('identifier')
+    rec["collection"] = data.get('collection')
+    rec["contract"] = data.get('contract')
+    rec["tokenStandard"] = data.get('tokenStandard')
+    rec["name"] = data.get('name')
+    rec["description"] = data.get('description')
+    rec["imageUrl"] = data.get('imageUrl')
+    rec["openseaUrl"] = data.get('openseaUrl')
+    rec["isDisabled"] = _as_bool(data.get('isDisabled'))
+    rec["isNsfw"] = _as_bool(data.get('isNsfw'))
+    rec["updatedAt"] = data.get('updatedAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Block", rec)
+    _persist("Nft", rec)
     return rec, 201
 
-@app.route("/v1/blocks", methods=["GET"])
-def list_blocks(request):
-    """List Blocks with filtering + cursor pagination."""
+@app.route("/v1/nfts", methods=["GET"])
+def list_nfts(request):
+    """List Nfts with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Block")
-    rows = _apply_filters(rows, params, ['number', 'hash', 'chain', 'minedAt'])
+    rows = _query("Nft")
+    rows = _apply_filters(rows, params, ['identifier', 'collection', 'contract', 'tokenStandard', 'name', 'description', 'imageUrl', 'openseaUrl', 'isDisabled', 'isNsfw', 'updatedAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/blocks/<eid>", methods=["GET"])
-def get_block(request, eid):
-    """Retrieve a Block by id (supports ?expand=)."""
-    rows = _query("Block", eid)
+@app.route("/v1/nfts/<eid>", methods=["GET"])
+def get_nft(request, eid):
+    """Retrieve a Nft by id (supports ?expand=)."""
+    rows = _query("Nft", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/blocks/<eid>", methods=["POST", "PATCH"])
-def update_block(request, eid):
-    """Update a Block."""
-    rows = _query("Block", eid)
+@app.route("/v1/nfts/<eid>", methods=["POST", "PATCH"])
+def update_nft(request, eid):
+    """Update a Nft."""
+    rows = _query("Nft", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['number', 'hash', 'chain', 'minedAt'])
+    err = _reject_unknown(data, ['identifier', 'collection', 'contract', 'tokenStandard', 'name', 'description', 'imageUrl', 'openseaUrl', 'isDisabled', 'isNsfw', 'updatedAt'])
     if err:
         return err, 400
+    if data.get('tokenStandard') and data['tokenStandard'] not in ['erc721', 'erc1155', 'erc20']:
+        return {"error": {"message": "invalid tokenStandard; allowed: " + ", ".join(['erc721', 'erc1155', 'erc20']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Block", rec)
+    _persist("Nft", rec)
     return rec, 200
 
-@app.route("/v1/blocks/<eid>", methods=["DELETE"])
-def delete_block(request, eid):
-    """Delete a Block."""
-    rows = _query("Block", eid)
+@app.route("/v1/nfts/<eid>", methods=["DELETE"])
+def delete_nft(request, eid):
+    """Delete a Nft."""
+    rows = _query("Nft", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"opensea.Block", "id": eid})
+    db.retract({"entity": f"opensea.Nft", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/transactions", methods=["POST"])
-def create_transaction(request):
-    """Create a Transaction."""
+@app.route("/v1/collections", methods=["POST"])
+def create_collection(request):
+    """Create a Collection."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['hash', 'fromAddr', 'toAddr', 'value', 'status'])
+    err = _reject_unknown(data, ['collection', 'name', 'description', 'imageUrl', 'safelistStatus', 'isDisabled', 'isNsfw', 'totalSupply', 'createdDate'])
     if err:
         return err, 400
-    err = _require(data, ['hash', 'fromAddr'])
+    err = _require(data, ['collection', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("opensea_tra")}
-    rec["hash"] = data.get('hash')
-    rec["fromAddr"] = data.get('fromAddr')
-    rec["toAddr"] = data.get('toAddr')
-    rec["value"] = _as_float(data.get('value'))
+    if data.get('safelistStatus') and data['safelistStatus'] not in ['not_requested', 'requested', 'approved', 'verified', 'disabled_top_trending']:
+        return {"error": {"message": "invalid safelistStatus; allowed: " + ", ".join(['not_requested', 'requested', 'approved', 'verified', 'disabled_top_trending']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("opensea_col")}
+    rec["collection"] = data.get('collection')
+    rec["name"] = data.get('name')
+    rec["description"] = data.get('description')
+    rec["imageUrl"] = data.get('imageUrl')
+    rec["safelistStatus"] = data.get('safelistStatus')
+    rec["isDisabled"] = _as_bool(data.get('isDisabled'))
+    rec["isNsfw"] = _as_bool(data.get('isNsfw'))
+    rec["totalSupply"] = _as_int(data.get('totalSupply'))
+    rec["createdDate"] = data.get('createdDate')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Collection", rec)
+    return rec, 201
+
+@app.route("/v1/collections", methods=["GET"])
+def list_collections(request):
+    """List Collections with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Collection")
+    rows = _apply_filters(rows, params, ['collection', 'name', 'description', 'imageUrl', 'safelistStatus', 'isDisabled', 'isNsfw', 'totalSupply', 'createdDate'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/collections/<eid>", methods=["GET"])
+def get_collection(request, eid):
+    """Retrieve a Collection by id (supports ?expand=)."""
+    rows = _query("Collection", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/collections/<eid>", methods=["POST", "PATCH"])
+def update_collection(request, eid):
+    """Update a Collection."""
+    rows = _query("Collection", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['collection', 'name', 'description', 'imageUrl', 'safelistStatus', 'isDisabled', 'isNsfw', 'totalSupply', 'createdDate'])
+    if err:
+        return err, 400
+    if data.get('safelistStatus') and data['safelistStatus'] not in ['not_requested', 'requested', 'approved', 'verified', 'disabled_top_trending']:
+        return {"error": {"message": "invalid safelistStatus; allowed: " + ", ".join(['not_requested', 'requested', 'approved', 'verified', 'disabled_top_trending']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Collection", rec)
+    return rec, 200
+
+@app.route("/v1/collections/<eid>", methods=["DELETE"])
+def delete_collection(request, eid):
+    """Delete a Collection."""
+    rows = _query("Collection", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"opensea.Collection", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/listings", methods=["POST"])
+def create_listing(request):
+    """Create a Listing."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['orderHash', 'chain', 'protocolAddress', 'remainingQuantity', 'orderCreatedAt', 'type', 'status'])
+    if err:
+        return err, 400
+    err = _require(data, ['orderHash', 'chain'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['ACTIVE', 'INACTIVE', 'FULFILLED', 'EXPIRED', 'CANCELLED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['ACTIVE', 'INACTIVE', 'FULFILLED', 'EXPIRED', 'CANCELLED']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("opensea_lis")}
+    rec["orderHash"] = data.get('orderHash')
+    rec["chain"] = data.get('chain')
+    rec["protocolAddress"] = data.get('protocolAddress')
+    rec["remainingQuantity"] = _as_int(data.get('remainingQuantity'))
+    rec["orderCreatedAt"] = _as_int(data.get('orderCreatedAt'))
+    rec["type"] = data.get('type')
     rec["status"] = data.get('status')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Transaction", rec)
+    _persist("Listing", rec)
     return rec, 201
 
-@app.route("/v1/transactions", methods=["GET"])
-def list_transactions(request):
-    """List Transactions with filtering + cursor pagination."""
+@app.route("/v1/listings", methods=["GET"])
+def list_listings(request):
+    """List Listings with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Transaction")
-    rows = _apply_filters(rows, params, ['hash', 'fromAddr', 'toAddr', 'value', 'status'])
+    rows = _query("Listing")
+    rows = _apply_filters(rows, params, ['orderHash', 'chain', 'protocolAddress', 'remainingQuantity', 'orderCreatedAt', 'type', 'status'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/transactions/<eid>", methods=["GET"])
-def get_transaction(request, eid):
-    """Retrieve a Transaction by id (supports ?expand=)."""
-    rows = _query("Transaction", eid)
+@app.route("/v1/listings/<eid>", methods=["GET"])
+def get_listing(request, eid):
+    """Retrieve a Listing by id (supports ?expand=)."""
+    rows = _query("Listing", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/transactions/<eid>", methods=["POST", "PATCH"])
-def update_transaction(request, eid):
-    """Update a Transaction."""
-    rows = _query("Transaction", eid)
+@app.route("/v1/listings/<eid>", methods=["POST", "PATCH"])
+def update_listing(request, eid):
+    """Update a Listing."""
+    rows = _query("Listing", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['hash', 'fromAddr', 'toAddr', 'value', 'status'])
+    err = _reject_unknown(data, ['orderHash', 'chain', 'protocolAddress', 'remainingQuantity', 'orderCreatedAt', 'type', 'status'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['ACTIVE', 'INACTIVE', 'FULFILLED', 'EXPIRED', 'CANCELLED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['ACTIVE', 'INACTIVE', 'FULFILLED', 'EXPIRED', 'CANCELLED']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Transaction", rec)
+    _persist("Listing", rec)
     return rec, 200
 
-@app.route("/v1/transactions/<eid>", methods=["DELETE"])
-def delete_transaction(request, eid):
-    """Delete a Transaction."""
-    rows = _query("Transaction", eid)
+@app.route("/v1/listings/<eid>", methods=["DELETE"])
+def delete_listing(request, eid):
+    """Delete a Listing."""
+    rows = _query("Listing", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"opensea.Transaction", "id": eid})
+    db.retract({"entity": f"opensea.Listing", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/contracts", methods=["POST"])
-def create_contract(request):
-    """Create a Contract."""
+@app.route("/v1/offers", methods=["POST"])
+def create_offer(request):
+    """Create a Offer."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['address', 'chain', 'abiRef'])
+    err = _reject_unknown(data, ['orderHash', 'chain', 'protocolAddress', 'remainingQuantity', 'orderCreatedAt', 'status'])
     if err:
         return err, 400
-    err = _require(data, ['address', 'chain'])
+    err = _require(data, ['orderHash', 'chain'])
     if err:
         return err, 400
-    rec = {"id": new_id("opensea_con")}
-    rec["address"] = data.get('address')
+    if data.get('status') and data['status'] not in ['ACTIVE', 'INACTIVE', 'FULFILLED', 'EXPIRED', 'CANCELLED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['ACTIVE', 'INACTIVE', 'FULFILLED', 'EXPIRED', 'CANCELLED']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("opensea_off")}
+    rec["orderHash"] = data.get('orderHash')
     rec["chain"] = data.get('chain')
-    rec["abiRef"] = data.get('abiRef')
+    rec["protocolAddress"] = data.get('protocolAddress')
+    rec["remainingQuantity"] = _as_int(data.get('remainingQuantity'))
+    rec["orderCreatedAt"] = _as_int(data.get('orderCreatedAt'))
+    rec["status"] = data.get('status')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Contract", rec)
+    _persist("Offer", rec)
     return rec, 201
 
-@app.route("/v1/contracts", methods=["GET"])
-def list_contracts(request):
-    """List Contracts with filtering + cursor pagination."""
+@app.route("/v1/offers", methods=["GET"])
+def list_offers(request):
+    """List Offers with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Contract")
-    rows = _apply_filters(rows, params, ['address', 'chain', 'abiRef'])
+    rows = _query("Offer")
+    rows = _apply_filters(rows, params, ['orderHash', 'chain', 'protocolAddress', 'remainingQuantity', 'orderCreatedAt', 'status'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/contracts/<eid>", methods=["GET"])
-def get_contract(request, eid):
-    """Retrieve a Contract by id (supports ?expand=)."""
-    rows = _query("Contract", eid)
+@app.route("/v1/offers/<eid>", methods=["GET"])
+def get_offer(request, eid):
+    """Retrieve a Offer by id (supports ?expand=)."""
+    rows = _query("Offer", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/contracts/<eid>", methods=["POST", "PATCH"])
-def update_contract(request, eid):
-    """Update a Contract."""
-    rows = _query("Contract", eid)
+@app.route("/v1/offers/<eid>", methods=["POST", "PATCH"])
+def update_offer(request, eid):
+    """Update a Offer."""
+    rows = _query("Offer", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['address', 'chain', 'abiRef'])
+    err = _reject_unknown(data, ['orderHash', 'chain', 'protocolAddress', 'remainingQuantity', 'orderCreatedAt', 'status'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['ACTIVE', 'INACTIVE', 'FULFILLED', 'EXPIRED', 'CANCELLED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['ACTIVE', 'INACTIVE', 'FULFILLED', 'EXPIRED', 'CANCELLED']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Contract", rec)
+    _persist("Offer", rec)
     return rec, 200
 
-@app.route("/v1/contracts/<eid>", methods=["DELETE"])
-def delete_contract(request, eid):
-    """Delete a Contract."""
-    rows = _query("Contract", eid)
+@app.route("/v1/offers/<eid>", methods=["DELETE"])
+def delete_offer(request, eid):
+    """Delete a Offer."""
+    rows = _query("Offer", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"opensea.Contract", "id": eid})
+    db.retract({"entity": f"opensea.Offer", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/v1/accounts", methods=["POST"])
 def create_account(request):
     """Create a Account."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['address', 'chain', 'balance', 'nonce'])
+    err = _reject_unknown(data, ['address', 'username', 'bio', 'website', 'joinedDate'])
     if err:
         return err, 400
-    err = _require(data, ['address', 'chain'])
+    err = _require(data, ['address', 'username'])
     if err:
         return err, 400
     rec = {"id": new_id("opensea_acc")}
     rec["address"] = data.get('address')
-    rec["chain"] = data.get('chain')
-    rec["balance"] = _as_float(data.get('balance'))
-    rec["nonce"] = _as_int(data.get('nonce'))
+    rec["username"] = data.get('username')
+    rec["bio"] = data.get('bio')
+    rec["website"] = data.get('website')
+    rec["joinedDate"] = data.get('joinedDate')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Account", rec)
@@ -334,7 +434,7 @@ def list_accounts(request):
     """List Accounts with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Account")
-    rows = _apply_filters(rows, params, ['address', 'chain', 'balance', 'nonce'])
+    rows = _apply_filters(rows, params, ['address', 'username', 'bio', 'website', 'joinedDate'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -355,7 +455,7 @@ def update_account(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['address', 'chain', 'balance', 'nonce'])
+    err = _reject_unknown(data, ['address', 'username', 'bio', 'website', 'joinedDate'])
     if err:
         return err, 400
     rec = rows[0]
@@ -375,142 +475,10 @@ def delete_account(request, eid):
     db.retract({"entity": f"opensea.Account", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/events", methods=["POST"])
-def create_event(request):
-    """Create a Event."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['contractAddr', 'name', 'blockNumber', 'dataRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['contractAddr', 'name'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("opensea_eve")}
-    rec["contractAddr"] = data.get('contractAddr')
-    rec["name"] = data.get('name')
-    rec["blockNumber"] = _as_int(data.get('blockNumber'))
-    rec["dataRef"] = data.get('dataRef')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Event", rec)
-    return rec, 201
-
-@app.route("/v1/events", methods=["GET"])
-def list_events(request):
-    """List Events with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Event")
-    rows = _apply_filters(rows, params, ['contractAddr', 'name', 'blockNumber', 'dataRef'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/events/<eid>", methods=["GET"])
-def get_event(request, eid):
-    """Retrieve a Event by id (supports ?expand=)."""
-    rows = _query("Event", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/events/<eid>", methods=["POST", "PATCH"])
-def update_event(request, eid):
-    """Update a Event."""
-    rows = _query("Event", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['contractAddr', 'name', 'blockNumber', 'dataRef'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Event", rec)
-    return rec, 200
-
-@app.route("/v1/events/<eid>", methods=["DELETE"])
-def delete_event(request, eid):
-    """Delete a Event."""
-    rows = _query("Event", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"opensea.Event", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/tokens", methods=["POST"])
-def create_token(request):
-    """Create a Token."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['contractAddr', 'symbol', 'decimals', 'standard'])
-    if err:
-        return err, 400
-    err = _require(data, ['contractAddr', 'symbol'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("opensea_tok")}
-    rec["contractAddr"] = data.get('contractAddr')
-    rec["symbol"] = data.get('symbol')
-    rec["decimals"] = _as_int(data.get('decimals'))
-    rec["standard"] = data.get('standard')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Token", rec)
-    return rec, 201
-
-@app.route("/v1/tokens", methods=["GET"])
-def list_tokens(request):
-    """List Tokens with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Token")
-    rows = _apply_filters(rows, params, ['contractAddr', 'symbol', 'decimals', 'standard'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/tokens/<eid>", methods=["GET"])
-def get_token(request, eid):
-    """Retrieve a Token by id (supports ?expand=)."""
-    rows = _query("Token", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/tokens/<eid>", methods=["POST", "PATCH"])
-def update_token(request, eid):
-    """Update a Token."""
-    rows = _query("Token", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['contractAddr', 'symbol', 'decimals', 'standard'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Token", rec)
-    return rec, 200
-
-@app.route("/v1/tokens/<eid>", methods=["DELETE"])
-def delete_token(request, eid):
-    """Delete a Token."""
-    rows = _query("Token", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"opensea.Token", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "opensea-compat", "tier": "L4",
-            "entities": ['Block', 'Transaction', 'Contract', 'Account', 'Event', 'Token']}, 200
+            "entities": ['Nft', 'Collection', 'Listing', 'Offer', 'Account']}, 200
 
 
 if __name__ == "__main__":

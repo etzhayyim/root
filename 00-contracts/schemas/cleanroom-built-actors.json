@@ -3328,12 +3328,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "ContentEntry",
+        "Order",
+        "Cart",
+        "Payment",
         "Product",
-        "Shipment",
-        "SearchIndex",
-        "Webhook",
-        "Order"
+        "Customer",
+        "Transaction"
       ]
     },
     {
@@ -11335,17 +11335,16 @@
       "handle": "opensea-compat",
       "platform": "opensea",
       "bytes": 2121,
-      "wasmCid": "bafkreicj5h3onwuv5leuq4ifxbwqiamleekwuvyd7qv7ev3gyfusxal2cm",
+      "wasmCid": "bafkreicngmo727jthfbpvz2bnvvh5jrqioei4hbbr6qbiz64zma7v75rtq",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Block",
-        "Transaction",
-        "Contract",
-        "Account",
-        "Event",
-        "Token"
+        "Nft",
+        "Collection",
+        "Listing",
+        "Offer",
+        "Account"
       ]
     },
     {
@@ -13527,17 +13526,15 @@
       "handle": "sendbird-compat",
       "platform": "sendbird",
       "bytes": 2122,
-      "wasmCid": "bafkreifzoe2irevprt4jtrtnyk2ch5wmnh6sd5tqlxe5ha3oz73phehfcy",
+      "wasmCid": "bafkreic4aoe356hrfa5gfwyujeggv53fngh35u6you2aco7teasniqvnq4",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Channel",
-        "Message",
         "User",
-        "Room",
-        "Stream",
-        "Webhook"
+        "Message",
+        "GroupChannel",
+        "OpenChannel"
       ]
     },
     {

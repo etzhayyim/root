@@ -1621,6 +1621,34 @@ PLATFORM_OVERRIDES = {
         "Deployment": E(id="string", status="string", projectName="string", stackName="string", paused="boolean", created="datetime", modified="datetime"),
         "Organization": E(name="string", role="string"),
     },
+    # Faithful commercetools Composable Commerce API model — verified against
+    # docs.commercetools.com + commercetools-api-reference. Money objects dropped.
+    "commercetools": {
+        "Order": E(id="string", version="integer", orderNumber="string", customerId="string", customerEmail="string", orderState="string", paymentState="string", shipmentState="string", createdAt="datetime", lastModifiedAt="datetime"),
+        "Cart": E(id="string", version="integer", customerId="string", cartState="string", createdAt="datetime", lastModifiedAt="datetime"),
+        "Payment": E(id="string", version="integer", key="string", customerId="string", createdAt="datetime", lastModifiedAt="datetime"),
+        "Product": E(id="string", version="integer", key="string", priceMode="string", createdAt="datetime", lastModifiedAt="datetime"),
+        "Customer": E(id="string", version="integer", key="string", email="string", firstName="string", lastName="string", isEmailVerified="boolean", createdAt="datetime"),
+        "Transaction": E(id="string", timestamp="datetime", type="string", state="string", interactionId="string"),
+    },
+    # Faithful Sendbird Chat Platform API model — verified against sendbird.com/docs.
+    # Channels partially confirmed (some endpoints 404); timestamps Unix int ms.
+    "sendbird": {
+        "User": E(userId="string", nickname="string", profileUrl="string", accessToken="string", isActive="boolean", role="string", createdAt="integer", lastSeenAt="integer", isOnline="boolean"),
+        "Message": E(messageId="integer", type="string", customType="string", message="string", channelUrl="string", createdAt="integer", updatedAt="integer", isRemoved="boolean"),
+        "GroupChannel": E(channelUrl="string", name="string", memberCount="integer", isDistinct="boolean", createdAt="integer"),
+        "OpenChannel": E(channelUrl="string", name="string", participantCount="integer", createdAt="integer"),
+    },
+    # Faithful OpenSea API v2 model — verified against @opensea/api-types + docs.
+    # nested price/asset/criteria objects dropped. Listing.type inferred -> not enforced.
+    "opensea": {
+        "Nft": E(identifier="string", collection="string", contract="string", tokenStandard="string", name="string", description="string", imageUrl="string", openseaUrl="string", isDisabled="boolean", isNsfw="boolean", updatedAt="datetime"),
+        "Collection": E(collection="string", name="string", description="string", imageUrl="string", safelistStatus="string", isDisabled="boolean", isNsfw="boolean", totalSupply="integer", createdDate="datetime"),
+        "Listing": E(orderHash="string", chain="string", protocolAddress="string", remainingQuantity="integer", orderCreatedAt="integer", type="string", status="string"),
+        "Offer": E(orderHash="string", chain="string", protocolAddress="string", remainingQuantity="integer", orderCreatedAt="integer", status="string"),
+        "Account": E(address="string", username="string", bio="string", website="string", joinedDate="datetime"),
+    }
+,
     # Faithful Docker Engine API model — verified against the official moby/moby
     # swagger.yaml. Network scope/driver are open (plugins) -> not enforced.
     "docker": {

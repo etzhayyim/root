@@ -7,7 +7,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 29865,
+  "totalTools": 29850,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -1767,7 +1767,7 @@
     {
       "handle": "commercetools-compat",
       "did": "did:web:etzhayyim.com:actor:commercetools-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreicveye6jfrynvxpl42cd647634dxbdcsxf27pqcgoobkjjkmx6pta",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -6015,10 +6015,10 @@
     {
       "handle": "opensea-compat",
       "did": "did:web:etzhayyim.com:actor:opensea-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreicj5h3onwuv5leuq4ifxbwqiamleekwuvyd7qv7ev3gyfusxal2cm",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreicngmo727jthfbpvz2bnvvh5jrqioei4hbbr6qbiz64zma7v75rtq",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "manifest": "20-actors/opensea-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -7176,10 +7176,10 @@
     {
       "handle": "sendbird-compat",
       "did": "did:web:etzhayyim.com:actor:sendbird-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreifzoe2irevprt4jtrtnyk2ch5wmnh6sd5tqlxe5ha3oz73phehfcy",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreic4aoe356hrfa5gfwyujeggv53fngh35u6you2aco7teasniqvnq4",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 20,
       "manifest": "20-actors/sendbird-compat/manifest.json#/capabilities/mcp"
     },
     {

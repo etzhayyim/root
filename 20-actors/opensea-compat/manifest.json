@@ -5,21 +5,66 @@
   "kind": "compat",
   "title": "opensea clean-room actor",
   "description": "Clean-room, API-compatible web3 / blockchain RPC actor (opensea); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicj5h3onwuv5leuq4ifxbwqiamleekwuvyd7qv7ev3gyfusxal2cm",
+  "wasmCid": "bafkreicngmo727jthfbpvz2bnvvh5jrqioei4hbbr6qbiz64zma7v75rtq",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicj5h3onwuv5leuq4ifxbwqiamleekwuvyd7qv7ev3gyfusxal2cm",
+  "ipfs": "ipfs://bafkreicngmo727jthfbpvz2bnvvh5jrqioei4hbbr6qbiz64zma7v75rtq",
   "schema": "schema/opensea.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://docs.opensea.io/reference",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Nft",
+      "Collection",
+      "Listing",
+      "Offer",
+      "Account"
+    ],
+    "enums": {
+      "Nft": {
+        "tokenStandard": [
+          "erc721",
+          "erc1155",
+          "erc20"
+        ]
+      },
+      "Collection": {
+        "safelistStatus": [
+          "not_requested",
+          "requested",
+          "approved",
+          "verified",
+          "disabled_top_trending"
+        ]
+      },
+      "Listing": {
+        "status": [
+          "ACTIVE",
+          "INACTIVE",
+          "FULFILLED",
+          "EXPIRED",
+          "CANCELLED"
+        ]
+      },
+      "Offer": {
+        "status": [
+          "ACTIVE",
+          "INACTIVE",
+          "FULFILLED",
+          "EXPIRED",
+          "CANCELLED"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Block",
-    "Transaction",
-    "Contract",
-    "Account",
-    "Event",
-    "Token"
+    "Nft",
+    "Collection",
+    "Listing",
+    "Offer",
+    "Account"
   ],
   "adr": [
     "260607",
@@ -31,82 +76,107 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/blocks",
-          "op": "create Block"
+          "path": "/v1/nfts",
+          "op": "create Nft"
         },
         {
           "method": "GET",
-          "path": "/v1/blocks",
-          "op": "list Block"
+          "path": "/v1/nfts",
+          "op": "list Nft"
         },
         {
           "method": "GET",
-          "path": "/v1/blocks/{id}",
-          "op": "get Block"
+          "path": "/v1/nfts/{id}",
+          "op": "get Nft"
         },
         {
           "method": "PATCH",
-          "path": "/v1/blocks/{id}",
-          "op": "update Block"
+          "path": "/v1/nfts/{id}",
+          "op": "update Nft"
         },
         {
           "method": "DELETE",
-          "path": "/v1/blocks/{id}",
-          "op": "delete Block"
+          "path": "/v1/nfts/{id}",
+          "op": "delete Nft"
         },
         {
           "method": "POST",
-          "path": "/v1/transactions",
-          "op": "create Transaction"
+          "path": "/v1/collections",
+          "op": "create Collection"
         },
         {
           "method": "GET",
-          "path": "/v1/transactions",
-          "op": "list Transaction"
+          "path": "/v1/collections",
+          "op": "list Collection"
         },
         {
           "method": "GET",
-          "path": "/v1/transactions/{id}",
-          "op": "get Transaction"
+          "path": "/v1/collections/{id}",
+          "op": "get Collection"
         },
         {
           "method": "PATCH",
-          "path": "/v1/transactions/{id}",
-          "op": "update Transaction"
+          "path": "/v1/collections/{id}",
+          "op": "update Collection"
         },
         {
           "method": "DELETE",
-          "path": "/v1/transactions/{id}",
-          "op": "delete Transaction"
+          "path": "/v1/collections/{id}",
+          "op": "delete Collection"
         },
         {
           "method": "POST",
-          "path": "/v1/contracts",
-          "op": "create Contract"
+          "path": "/v1/listings",
+          "op": "create Listing"
         },
         {
           "method": "GET",
-          "path": "/v1/contracts",
-          "op": "list Contract"
+          "path": "/v1/listings",
+          "op": "list Listing"
         },
         {
           "method": "GET",
-          "path": "/v1/contracts/{id}",
-          "op": "get Contract"
+          "path": "/v1/listings/{id}",
+          "op": "get Listing"
         },
         {
           "method": "PATCH",
-          "path": "/v1/contracts/{id}",
-          "op": "update Contract"
+          "path": "/v1/listings/{id}",
+          "op": "update Listing"
         },
         {
           "method": "DELETE",
-          "path": "/v1/contracts/{id}",
-          "op": "delete Contract"
+          "path": "/v1/listings/{id}",
+          "op": "delete Listing"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/offers",
+          "op": "create Offer"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/offers",
+          "op": "list Offer"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/offers/{id}",
+          "op": "get Offer"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/offers/{id}",
+          "op": "update Offer"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/offers/{id}",
+          "op": "delete Offer"
         },
         {
           "method": "POST",
@@ -132,56 +202,6 @@
           "method": "DELETE",
           "path": "/v1/accounts/{id}",
           "op": "delete Account"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/events",
-          "op": "create Event"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/events",
-          "op": "list Event"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/events/{id}",
-          "op": "get Event"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/events/{id}",
-          "op": "update Event"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/events/{id}",
-          "op": "delete Event"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/tokens",
-          "op": "create Token"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/tokens",
-          "op": "list Token"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/tokens/{id}",
-          "op": "get Token"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/tokens/{id}",
-          "op": "update Token"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/tokens/{id}",
-          "op": "delete Token"
         }
       ],
       "features": {
@@ -244,44 +264,65 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
         {
-          "name": "create_block",
-          "description": "Create a Block.",
+          "name": "create_nft",
+          "description": "Create a Nft.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "number": {
-                "type": "integer"
-              },
-              "hash": {
+              "identifier": {
                 "type": "string"
               },
-              "chain": {
+              "collection": {
                 "type": "string"
               },
-              "minedAt": {
+              "contract": {
+                "type": "string"
+              },
+              "tokenStandard": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "imageUrl": {
+                "type": "string"
+              },
+              "openseaUrl": {
+                "type": "string"
+              },
+              "isDisabled": {
+                "type": "boolean"
+              },
+              "isNsfw": {
+                "type": "boolean"
+              },
+              "updatedAt": {
                 "type": "string"
               }
             },
             "required": [
-              "number",
-              "hash"
+              "identifier",
+              "collection"
             ]
           }
         },
         {
-          "name": "list_blocks",
-          "description": "List Blocks.",
+          "name": "list_nfts",
+          "description": "List Nfts.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_block",
-          "description": "Get a Block by id.",
+          "name": "get_nft",
+          "description": "Get a Nft by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,86 +336,119 @@
           }
         },
         {
-          "name": "update_block",
-          "description": "Update a Block.",
+          "name": "update_nft",
+          "description": "Update a Nft.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "number": {
+              "identifier": {
+                "type": "string"
+              },
+              "collection": {
+                "type": "string"
+              },
+              "contract": {
+                "type": "string"
+              },
+              "tokenStandard": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "imageUrl": {
+                "type": "string"
+              },
+              "openseaUrl": {
+                "type": "string"
+              },
+              "isDisabled": {
+                "type": "boolean"
+              },
+              "isNsfw": {
+                "type": "boolean"
+              },
+              "updatedAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_nft",
+          "description": "Delete a Nft.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_collection",
+          "description": "Create a Collection.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "collection": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "imageUrl": {
+                "type": "string"
+              },
+              "safelistStatus": {
+                "type": "string"
+              },
+              "isDisabled": {
+                "type": "boolean"
+              },
+              "isNsfw": {
+                "type": "boolean"
+              },
+              "totalSupply": {
                 "type": "integer"
               },
-              "hash": {
-                "type": "string"
-              },
-              "chain": {
-                "type": "string"
-              },
-              "minedAt": {
+              "createdDate": {
                 "type": "string"
               }
             },
             "required": [
-              "id"
+              "collection",
+              "name"
             ]
           }
         },
         {
-          "name": "delete_block",
-          "description": "Delete a Block.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_transaction",
-          "description": "Create a Transaction.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "hash": {
-                "type": "string"
-              },
-              "fromAddr": {
-                "type": "string"
-              },
-              "toAddr": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "hash",
-              "fromAddr"
-            ]
-          }
-        },
-        {
-          "name": "list_transactions",
-          "description": "List Transactions.",
+          "name": "list_collections",
+          "description": "List Collections.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_transaction",
-          "description": "Get a Transaction by id.",
+          "name": "get_collection",
+          "description": "Get a Collection by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -388,83 +462,107 @@
           }
         },
         {
-          "name": "update_transaction",
-          "description": "Update a Transaction.",
+          "name": "update_collection",
+          "description": "Update a Collection.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "hash": {
+              "collection": {
                 "type": "string"
               },
-              "fromAddr": {
+              "name": {
                 "type": "string"
               },
-              "toAddr": {
+              "description": {
                 "type": "string"
               },
-              "value": {
-                "type": "number"
+              "imageUrl": {
+                "type": "string"
+              },
+              "safelistStatus": {
+                "type": "string"
+              },
+              "isDisabled": {
+                "type": "boolean"
+              },
+              "isNsfw": {
+                "type": "boolean"
+              },
+              "totalSupply": {
+                "type": "integer"
+              },
+              "createdDate": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_collection",
+          "description": "Delete a Collection.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_listing",
+          "description": "Create a Listing.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "orderHash": {
+                "type": "string"
+              },
+              "chain": {
+                "type": "string"
+              },
+              "protocolAddress": {
+                "type": "string"
+              },
+              "remainingQuantity": {
+                "type": "integer"
+              },
+              "orderCreatedAt": {
+                "type": "integer"
+              },
+              "type": {
+                "type": "string"
               },
               "status": {
                 "type": "string"
               }
             },
             "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_transaction",
-          "description": "Delete a Transaction.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_contract",
-          "description": "Create a Contract.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "address": {
-                "type": "string"
-              },
-              "chain": {
-                "type": "string"
-              },
-              "abiRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "address",
+              "orderHash",
               "chain"
             ]
           }
         },
         {
-          "name": "list_contracts",
-          "description": "List Contracts.",
+          "name": "list_listings",
+          "description": "List Listings.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_contract",
-          "description": "Get a Contract by id.",
+          "name": "get_listing",
+          "description": "Get a Listing by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -478,21 +576,33 @@
           }
         },
         {
-          "name": "update_contract",
-          "description": "Update a Contract.",
+          "name": "update_listing",
+          "description": "Update a Listing.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "address": {
+              "orderHash": {
                 "type": "string"
               },
               "chain": {
                 "type": "string"
               },
-              "abiRef": {
+              "protocolAddress": {
+                "type": "string"
+              },
+              "remainingQuantity": {
+                "type": "integer"
+              },
+              "orderCreatedAt": {
+                "type": "integer"
+              },
+              "type": {
+                "type": "string"
+              },
+              "status": {
                 "type": "string"
               }
             },
@@ -502,8 +612,110 @@
           }
         },
         {
-          "name": "delete_contract",
-          "description": "Delete a Contract.",
+          "name": "delete_listing",
+          "description": "Delete a Listing.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_offer",
+          "description": "Create a Offer.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "orderHash": {
+                "type": "string"
+              },
+              "chain": {
+                "type": "string"
+              },
+              "protocolAddress": {
+                "type": "string"
+              },
+              "remainingQuantity": {
+                "type": "integer"
+              },
+              "orderCreatedAt": {
+                "type": "integer"
+              },
+              "status": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "orderHash",
+              "chain"
+            ]
+          }
+        },
+        {
+          "name": "list_offers",
+          "description": "List Offers.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_offer",
+          "description": "Get a Offer by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_offer",
+          "description": "Update a Offer.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "orderHash": {
+                "type": "string"
+              },
+              "chain": {
+                "type": "string"
+              },
+              "protocolAddress": {
+                "type": "string"
+              },
+              "remainingQuantity": {
+                "type": "integer"
+              },
+              "orderCreatedAt": {
+                "type": "integer"
+              },
+              "status": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_offer",
+          "description": "Delete a Offer.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -525,19 +737,22 @@
               "address": {
                 "type": "string"
               },
-              "chain": {
+              "username": {
                 "type": "string"
               },
-              "balance": {
-                "type": "number"
+              "bio": {
+                "type": "string"
               },
-              "nonce": {
-                "type": "integer"
+              "website": {
+                "type": "string"
+              },
+              "joinedDate": {
+                "type": "string"
               }
             },
             "required": [
               "address",
-              "chain"
+              "username"
             ]
           }
         },
@@ -576,14 +791,17 @@
               "address": {
                 "type": "string"
               },
-              "chain": {
+              "username": {
                 "type": "string"
               },
-              "balance": {
-                "type": "number"
+              "bio": {
+                "type": "string"
               },
-              "nonce": {
-                "type": "integer"
+              "website": {
+                "type": "string"
+              },
+              "joinedDate": {
+                "type": "string"
               }
             },
             "required": [
@@ -594,186 +812,6 @@
         {
           "name": "delete_account",
           "description": "Delete a Account.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_event",
-          "description": "Create a Event.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "contractAddr": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "blockNumber": {
-                "type": "integer"
-              },
-              "dataRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "contractAddr",
-              "name"
-            ]
-          }
-        },
-        {
-          "name": "list_events",
-          "description": "List Events.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_event",
-          "description": "Get a Event by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_event",
-          "description": "Update a Event.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "contractAddr": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "blockNumber": {
-                "type": "integer"
-              },
-              "dataRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_event",
-          "description": "Delete a Event.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_token",
-          "description": "Create a Token.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "contractAddr": {
-                "type": "string"
-              },
-              "symbol": {
-                "type": "string"
-              },
-              "decimals": {
-                "type": "integer"
-              },
-              "standard": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "contractAddr",
-              "symbol"
-            ]
-          }
-        },
-        {
-          "name": "list_tokens",
-          "description": "List Tokens.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_token",
-          "description": "Get a Token by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_token",
-          "description": "Update a Token.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "contractAddr": {
-                "type": "string"
-              },
-              "symbol": {
-                "type": "string"
-              },
-              "decimals": {
-                "type": "integer"
-              },
-              "standard": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_token",
-          "description": "Delete a Token.",
           "inputSchema": {
             "type": "object",
             "properties": {

@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "opensea.kotoba")
-ENTITIES = ['Block', 'Transaction', 'Contract', 'Account', 'Event', 'Token']
-PLURALS = {'Block': 'blocks', 'Transaction': 'transactions', 'Contract': 'contracts', 'Account': 'accounts', 'Event': 'events', 'Token': 'tokens'}
+ENTITIES = ['Nft', 'Collection', 'Listing', 'Offer', 'Account']
+PLURALS = {'Nft': 'nfts', 'Collection': 'collections', 'Listing': 'listings', 'Offer': 'offers', 'Account': 'accounts'}
 
 
 class OpenseaContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class OpenseaContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['safelistStatus', 'status', 'tokenStandard']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":
