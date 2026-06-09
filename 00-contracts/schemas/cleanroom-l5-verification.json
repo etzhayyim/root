@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 66,
+  "count": 67,
   "actors": [
     {
       "handle": "square-compat",
@@ -9358,6 +9358,161 @@
       ],
       "notApplicable": [],
       "note": "Remodeled from a mismatched chat/comms archetype to a faithful video model. 6/6 entities field-verified vs the official mux-python SDK. Richest enum yield so far: 15 closed enums across Asset (8), LiveStream (2), Upload (1), Track (4). Schemaless metadata/passthrough kept as plain string."
+    },
+    {
+      "handle": "webflow-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/webflow/openapi-spec (openapi/v2.yml — official Webflow Data API v2 OpenAPI)",
+      "remodeled": "Remodeled from the generic lowcode_ipaas archetype (Flow/Step/Connection/Run/App/Webhook — a Zapier-like automation shape) to a faithful Webflow CMS/site-builder model (Site/Page/Collection/CollectionItem/Asset/Order), verified field-by-field against Webflow's official OpenAPI v2 (response schemas parsed from paths). CollectionItem user data lives in a schemaless fieldData map (not modeled). The L5 gate had correctly rejected the prior mismatched model (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Site",
+          "source": "v2.yml GET /sites/{site_id}",
+          "verifiedFields": [
+            "workspaceId",
+            "displayName",
+            "shortName",
+            "previewUrl",
+            "timeZone",
+            "parentFolderId",
+            "lastPublished",
+            "dataCollectionEnabled",
+            "dataCollectionType"
+          ],
+          "fieldStatus": "confirmed vs Site response (workspaceId/displayName/shortName/previewUrl/timeZone/parentFolderId/lastPublished/dataCollectionEnabled/dataCollectionType); createdOn/lastUpdated map to scaffold createdAt/updatedAt",
+          "discoveredEnums": {
+            "dataCollectionType": [
+              "always",
+              "optOut",
+              "disabled"
+            ]
+          },
+          "gaps": [
+            "customDomains(array)",
+            "locales(object)"
+          ]
+        },
+        {
+          "entity": "Page",
+          "source": "v2.yml GET /pages/{page_id}",
+          "verifiedFields": [
+            "siteId",
+            "title",
+            "slug",
+            "parentId",
+            "collectionId",
+            "localeId",
+            "publishedPath",
+            "archived",
+            "draft",
+            "canBranch",
+            "isBranch"
+          ],
+          "fieldStatus": "confirmed vs Page response (siteId/title/slug/parentId/collectionId/localeId/publishedPath/archived/draft/canBranch/isBranch)",
+          "discoveredEnums": {},
+          "gaps": [
+            "seo(object)",
+            "openGraph(object)",
+            "branchId"
+          ]
+        },
+        {
+          "entity": "Collection",
+          "source": "v2.yml GET /collections/{collection_id}",
+          "verifiedFields": [
+            "displayName",
+            "singularName",
+            "slug"
+          ],
+          "fieldStatus": "confirmed vs Collection response (displayName/singularName/slug)",
+          "discoveredEnums": {},
+          "gaps": [
+            "fields(array)"
+          ]
+        },
+        {
+          "entity": "CollectionItem",
+          "source": "v2.yml GET /collections/{collection_id}/items/{item_id}",
+          "verifiedFields": [
+            "cmsLocaleId",
+            "lastPublished",
+            "isArchived",
+            "isDraft"
+          ],
+          "fieldStatus": "confirmed vs CollectionItem response (cmsLocaleId/lastPublished/isArchived/isDraft); user data is a schemaless fieldData map",
+          "discoveredEnums": {},
+          "gaps": [
+            "fieldData(schemaless object — not modeled)"
+          ]
+        },
+        {
+          "entity": "Asset",
+          "source": "v2.yml GET /assets/{asset_id}",
+          "verifiedFields": [
+            "contentType",
+            "size",
+            "siteId",
+            "hostedUrl",
+            "originalFileName",
+            "displayName",
+            "altText",
+            "folderId"
+          ],
+          "fieldStatus": "confirmed vs Asset response (contentType/size/siteId/hostedUrl/originalFileName/displayName/altText/folderId)",
+          "discoveredEnums": {},
+          "gaps": [
+            "variants(array)"
+          ]
+        },
+        {
+          "entity": "Order",
+          "source": "v2.yml GET /sites/{site_id}/orders/{order_id}",
+          "verifiedFields": [
+            "orderId",
+            "status",
+            "comment",
+            "orderComment",
+            "disputeLastStatus",
+            "shippingProvider",
+            "shippingTracking",
+            "purchasedItemsCount",
+            "isCustomerDeleted",
+            "isShippingRequired",
+            "hasDownloads",
+            "paymentProcessor"
+          ],
+          "fieldStatus": "confirmed vs Order response (orderId/status/comment/orderComment/disputeLastStatus/shippingProvider/shippingTracking/purchasedItemsCount/isCustomerDeleted/isShippingRequired/hasDownloads/paymentProcessor)",
+          "discoveredEnums": {
+            "status": [
+              "pending",
+              "unfulfilled",
+              "fulfilled",
+              "disputed",
+              "dispute-lost",
+              "refunded"
+            ],
+            "disputeLastStatus": [
+              "warning_needs_response",
+              "warning_under_review",
+              "warning_closed",
+              "needs_response",
+              "under_review",
+              "charge_refunded",
+              "won",
+              "lost"
+            ]
+          },
+          "gaps": [
+            "customerInfo(object)",
+            "purchasedItems(array)",
+            "totals(object)",
+            "shippingAddress(object)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "Remodeled from a mismatched Zapier-like iPaaS archetype to a faithful CMS/site-builder model. 6/6 entities field-verified vs Webflow's official OpenAPI v2. Discovered closed enums (3): Site.dataCollectionType, Order.status, Order.disputeLastStatus. Schemaless CollectionItem.fieldData intentionally not modeled."
     }
   ]
 }

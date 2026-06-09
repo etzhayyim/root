@@ -1144,6 +1144,18 @@ PLATFORM_OVERRIDES = {
         "PlaybackID": E(drmConfigurationId="string"),
         "SigningKey": E(privateKey="string"),
     },
+    # Faithful Webflow (Data API v2) model (remodeled from the generic
+    # lowcode_ipaas archetype whose Flow/Step/Connection/Run automation entities
+    # did not match Webflow's CMS/site-builder API), doc-verified L5 vs
+    # github.com/webflow/openapi-spec (official OpenAPI v2.yml).
+    "webflow": {
+        "Site": E(workspaceId="string", displayName="string", shortName="string", previewUrl="string", timeZone="string", parentFolderId="string", lastPublished="datetime", dataCollectionEnabled="boolean", dataCollectionType="string"),
+        "Page": E(siteId="string", title="string", slug="string", parentId="string", collectionId="string", localeId="string", publishedPath="string", archived="boolean", draft="boolean", canBranch="boolean", isBranch="boolean"),
+        "Collection": E(displayName="string", singularName="string", slug="string"),
+        "CollectionItem": E(cmsLocaleId="string", lastPublished="datetime", isArchived="boolean", isDraft="boolean"),
+        "Asset": E(contentType="string", size="integer", siteId="string", hostedUrl="string", originalFileName="string", displayName="string", altText="string", folderId="string"),
+        "Order": E(orderId="string", status="string", comment="string", orderComment="string", disputeLastStatus="string", shippingProvider="string", shippingTracking="string", purchasedItemsCount="float", isCustomerDeleted="boolean", isShippingRequired="boolean", hasDownloads="boolean", paymentProcessor="string"),
+    },
     # Faithful Airtable model (remodeled from generic office_productivity), L5.
     "airtable": {
         "Base": E(name="string", permissionLevel="string"),

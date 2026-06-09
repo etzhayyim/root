@@ -3,68 +3,87 @@
 
 namespace webflow {
 
-    entity Flow {
+    entity Site {
         id: string @unique
-        name: string
-        trigger: string
+        workspaceId: string
+        displayName: string
+        shortName: string
+        previewUrl: string
+        timeZone: string
+        parentFolderId: string
+        lastPublished: datetime
+        dataCollectionEnabled: boolean
+        dataCollectionType: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Page {
+        id: string @unique
+        siteId: string
+        title: string
+        slug: string
+        parentId: string
+        collectionId: string
+        localeId: string
+        publishedPath: string
+        archived: boolean
+        draft: boolean
+        canBranch: boolean
+        isBranch: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Collection {
+        id: string @unique
+        displayName: string
+        singularName: string
+        slug: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity CollectionItem {
+        id: string @unique
+        cmsLocaleId: string
+        lastPublished: datetime
+        isArchived: boolean
+        isDraft: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Asset {
+        id: string @unique
+        contentType: string
+        size: integer
+        siteId: string
+        hostedUrl: string
+        originalFileName: string
+        displayName: string
+        altText: string
+        folderId: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Order {
+        id: string @unique
+        orderId: string
         status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Step {
-        id: string @unique
-        flowId: string
-        appName: string
-        action: string
-        position: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Connection {
-        id: string @unique
-        appName: string
-        authType: string
-        active: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Run {
-        id: string @unique
-        flowId: string
-        status: string
-        durationMs: integer
-        startedAt: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity App {
-        id: string @unique
-        name: string
-        category: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Webhook {
-        id: string @unique
-        flowId: string
-        url: string
-        active: boolean
+        comment: string
+        orderComment: string
+        disputeLastStatus: string
+        shippingProvider: string
+        shippingTracking: string
+        purchasedItemsCount: float
+        isCustomerDeleted: boolean
+        isShippingRequired: boolean
+        hasDownloads: boolean
+        paymentProcessor: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }
