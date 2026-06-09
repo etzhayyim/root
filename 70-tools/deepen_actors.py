@@ -1267,6 +1267,25 @@ PLATFORM_OVERRIDES = {
         "Verification": E(requestId="string", number="string", status="string", codeLength="integer"),
         "Application": E(name="string", type="string", answerUrl="string"),
     },
+    # Faithful Segment model — verified against segmentio/facade (the open-source
+    # event parser all SDKs share); the `type` discriminator is a documented closed set.
+    "segment": {
+        "TrackEvent": E(type="string", event="string", userId="string", anonymousId="string", messageId="string", timestamp="datetime"),
+        "IdentifyEvent": E(type="string", userId="string", anonymousId="string", messageId="string", timestamp="datetime"),
+        "PageEvent": E(type="string", userId="string", anonymousId="string", category="string", name="string", messageId="string", timestamp="datetime"),
+        "GroupEvent": E(type="string", userId="string", anonymousId="string", groupId="string", messageId="string", timestamp="datetime"),
+        "Source": E(name="string", slug="string", enabled="boolean", workspaceId="string"),
+        "Destination": E(name="string", enabled="boolean", sourceId="string", workspaceId="string"),
+    },
+    # Faithful Marqeta Core API model — verified against the official Marqeta
+    # OpenAPI 3.0.40 spec (github.com/marqeta/marqeta-openapi).
+    "marqeta": {
+        "Card": E(token="string", state="string", lastFour="string", cardProductToken="string", userToken="string", fulfillmentStatus="string", createdTime="datetime"),
+        "CardProduct": E(token="string", name="string", active="boolean", createdTime="datetime"),
+        "User": E(token="string", firstName="string", lastName="string", email="string", status="string", active="boolean", createdTime="datetime"),
+        "Transaction": E(token="string", amount="float", type="string", state="string", cardToken="string", userToken="string", createdTime="datetime"),
+        "FundingSource": E(token="string", type="string", active="boolean", isDefaultAccount="boolean", createdTime="datetime"),
+    },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).
     "square": {

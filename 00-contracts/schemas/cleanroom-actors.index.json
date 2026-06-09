@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 953,
-    "L5": 47
+    "L4": 951,
+    "L5": 49
   },
   "actors": [
     {
@@ -9881,10 +9881,10 @@
     {
       "handle": "marqeta-compat",
       "did": "did:web:etzhayyim.com:actor:marqeta-compat",
-      "wasmCid": "bafkreifrv7xzv2c7bylhboprqoo3niy3j65u44t5dcolqqwspsrbv232ku",
+      "wasmCid": "bafkreicgrgqlyjofm7ioinwlnks4esi5bhhn27yfdqsbjyczw7gaqm2oom",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "marqeta clean-room actor",
       "category": "fintech_web3",
       "capabilities": [
@@ -14312,7 +14312,7 @@
       "wasmCid": "bafkreig5txyrgdharc6eglhpafdeuvcappsh37rrcifb4cwho74s4pns6q",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "segment clean-room actor",
       "category": "martech",
       "capabilities": [

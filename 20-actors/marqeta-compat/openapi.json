@@ -5,203 +5,18 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible fintech / web3 actor (marqeta); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:marqeta-compat",
-    "x-wasm-cid": "bafkreifrv7xzv2c7bylhboprqoo3niy3j65u44t5dcolqqwspsrbv232ku",
+    "x-wasm-cid": "bafkreicgrgqlyjofm7ioinwlnks4esi5bhhn27yfdqsbjyczw7gaqm2oom",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreifrv7xzv2c7bylhboprqoo3niy3j65u44t5dcolqqwspsrbv232ku",
+      "url": "ipfs://bafkreicgrgqlyjofm7ioinwlnks4esi5bhhn27yfdqsbjyczw7gaqm2oom",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/accounts": {
-      "get": {
-        "summary": "List Accounts",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Account"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Account",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AccountCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Account"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/accounts/{id}": {
-      "get": {
-        "summary": "Get a Account",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Account"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Account",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AccountCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Account"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Account",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
     "/v1/cards": {
       "get": {
         "summary": "List Cards",
@@ -367,6 +182,376 @@
       },
       "delete": {
         "summary": "Delete a Card",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/cardproducts": {
+      "get": {
+        "summary": "List CardProducts",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/CardProduct"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a CardProduct",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CardProductCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CardProduct"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/cardproducts/{id}": {
+      "get": {
+        "summary": "Get a CardProduct",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CardProduct"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a CardProduct",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CardProductCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CardProduct"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a CardProduct",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/users": {
+      "get": {
+        "summary": "List Users",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/User"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a User",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/users/{id}": {
+      "get": {
+        "summary": "Get a User",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a User",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a User",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +757,9 @@
         }
       }
     },
-    "/v1/orders": {
+    "/v1/fundingsources": {
       "get": {
-        "summary": "List Orders",
+        "summary": "List FundingSources",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Order"
+                        "$ref": "#/components/schemas/FundingSource"
                       }
                     },
                     "has_more": {
@@ -634,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Order",
+        "summary": "Create a FundingSource",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/OrderCreate"
+                "$ref": "#/components/schemas/FundingSourceCreate"
               }
             }
           }
@@ -651,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Order"
+                  "$ref": "#/components/schemas/FundingSource"
                 }
               }
             }
@@ -662,9 +847,9 @@
         }
       }
     },
-    "/v1/orders/{id}": {
+    "/v1/fundingsources/{id}": {
       "get": {
-        "summary": "Get a Order",
+        "summary": "Get a FundingSource",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Order"
+                  "$ref": "#/components/schemas/FundingSource"
                 }
               }
             }
@@ -699,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Order",
+        "summary": "Update a FundingSource",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/OrderCreate"
+                "$ref": "#/components/schemas/FundingSourceCreate"
               }
             }
           }
@@ -725,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Order"
+                  "$ref": "#/components/schemas/FundingSource"
                 }
               }
             }
@@ -736,377 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Order",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/wallets": {
-      "get": {
-        "summary": "List Wallets",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Wallet"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Wallet",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/WalletCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Wallet"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/wallets/{id}": {
-      "get": {
-        "summary": "Get a Wallet",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Wallet"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Wallet",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/WalletCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Wallet"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Wallet",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/ledgers": {
-      "get": {
-        "summary": "List Ledgers",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Ledger"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Ledger",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LedgerCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Ledger"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/ledgers/{id}": {
-      "get": {
-        "summary": "Get a Ledger",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Ledger"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Ledger",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LedgerCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Ledger"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Ledger",
+        "summary": "Delete a FundingSource",
         "parameters": [
           {
             "name": "id",
@@ -1140,72 +955,50 @@
   },
   "components": {
     "schemas": {
-      "Account": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "holderId": {
-            "type": "string"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "balance": {
-            "type": "number"
-          },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "AccountCreate": {
-        "type": "object",
-        "properties": {
-          "holderId": {
-            "type": "string"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "balance": {
-            "type": "number"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "currency",
-          "balance"
-        ]
-      },
       "Card": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "accountId": {
-            "type": "string"
-          },
-          "last4": {
-            "type": "string"
-          },
-          "network": {
+          "token": {
             "type": "string"
           },
           "state": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "SUSPENDED",
+              "TERMINATED",
+              "UNSUPPORTED",
+              "UNACTIVATED",
+              "LIMITED"
+            ]
+          },
+          "lastFour": {
             "type": "string"
+          },
+          "cardProductToken": {
+            "type": "string"
+          },
+          "userToken": {
+            "type": "string"
+          },
+          "fulfillmentStatus": {
+            "type": "string",
+            "enum": [
+              "ISSUED",
+              "ORDERED",
+              "REORDERED",
+              "REJECTED",
+              "SHIPPED",
+              "DELIVERED",
+              "DIGITALLY_PRESENTED"
+            ]
+          },
+          "createdTime": {
+            "type": "string",
+            "format": "date-time"
           },
           "createdAt": {
             "type": "string",
@@ -1220,22 +1013,182 @@
       "CardCreate": {
         "type": "object",
         "properties": {
-          "accountId": {
-            "type": "string"
-          },
-          "last4": {
-            "type": "string"
-          },
-          "network": {
+          "token": {
             "type": "string"
           },
           "state": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "SUSPENDED",
+              "TERMINATED",
+              "UNSUPPORTED",
+              "UNACTIVATED",
+              "LIMITED"
+            ]
+          },
+          "lastFour": {
+            "type": "string"
+          },
+          "cardProductToken": {
+            "type": "string"
+          },
+          "userToken": {
+            "type": "string"
+          },
+          "fulfillmentStatus": {
+            "type": "string",
+            "enum": [
+              "ISSUED",
+              "ORDERED",
+              "REORDERED",
+              "REJECTED",
+              "SHIPPED",
+              "DELIVERED",
+              "DIGITALLY_PRESENTED"
+            ]
+          },
+          "createdTime": {
             "type": "string"
           }
         },
         "required": [
-          "last4",
-          "network"
+          "token",
+          "state"
+        ]
+      },
+      "CardProduct": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "token": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "createdTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "CardProductCreate": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "createdTime": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "token",
+          "name"
+        ]
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "token": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "UNVERIFIED",
+              "LIMITED",
+              "ACTIVE",
+              "SUSPENDED",
+              "CLOSED",
+              "TERMINATED"
+            ]
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "createdTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "UserCreate": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "UNVERIFIED",
+              "LIMITED",
+              "ACTIVE",
+              "SUSPENDED",
+              "CLOSED",
+              "TERMINATED"
+            ]
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "createdTime": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "token",
+          "firstName"
         ]
       },
       "Transaction": {
@@ -1244,20 +1197,34 @@
           "id": {
             "type": "string"
           },
-          "accountId": {
+          "token": {
             "type": "string"
           },
           "amount": {
             "type": "number"
           },
-          "currency": {
-            "type": "string"
-          },
           "type": {
             "type": "string"
           },
-          "status": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "PENDING",
+              "CLEARED",
+              "COMPLETION",
+              "DECLINED",
+              "ERROR"
+            ]
+          },
+          "cardToken": {
             "type": "string"
+          },
+          "userToken": {
+            "type": "string"
+          },
+          "createdTime": {
+            "type": "string",
+            "format": "date-time"
           },
           "createdAt": {
             "type": "string",
@@ -1272,47 +1239,61 @@
       "TransactionCreate": {
         "type": "object",
         "properties": {
-          "accountId": {
+          "token": {
             "type": "string"
           },
           "amount": {
             "type": "number"
           },
-          "currency": {
+          "type": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "PENDING",
+              "CLEARED",
+              "COMPLETION",
+              "DECLINED",
+              "ERROR"
+            ]
+          },
+          "cardToken": {
+            "type": "string"
+          },
+          "userToken": {
+            "type": "string"
+          },
+          "createdTime": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "token",
+          "amount"
+        ]
+      },
+      "FundingSource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "token": {
             "type": "string"
           },
           "type": {
             "type": "string"
           },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "amount",
-          "currency"
-        ]
-      },
-      "Order": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
+          "active": {
+            "type": "boolean"
           },
-          "symbol": {
-            "type": "string"
+          "isDefaultAccount": {
+            "type": "boolean"
           },
-          "side": {
-            "type": "string"
-          },
-          "quantity": {
-            "type": "number"
-          },
-          "price": {
-            "type": "number"
-          },
-          "status": {
-            "type": "string"
+          "createdTime": {
+            "type": "string",
+            "format": "date-time"
           },
           "createdAt": {
             "type": "string",
@@ -1324,120 +1305,28 @@
           }
         }
       },
-      "OrderCreate": {
+      "FundingSourceCreate": {
         "type": "object",
         "properties": {
-          "symbol": {
+          "token": {
             "type": "string"
           },
-          "side": {
+          "type": {
             "type": "string"
           },
-          "quantity": {
-            "type": "number"
+          "active": {
+            "type": "boolean"
           },
-          "price": {
-            "type": "number"
+          "isDefaultAccount": {
+            "type": "boolean"
           },
-          "status": {
+          "createdTime": {
             "type": "string"
           }
         },
         "required": [
-          "symbol",
-          "side"
-        ]
-      },
-      "Wallet": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "address": {
-            "type": "string"
-          },
-          "chain": {
-            "type": "string"
-          },
-          "balance": {
-            "type": "number"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "WalletCreate": {
-        "type": "object",
-        "properties": {
-          "address": {
-            "type": "string"
-          },
-          "chain": {
-            "type": "string"
-          },
-          "balance": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "address",
-          "chain"
-        ]
-      },
-      "Ledger": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "accountId": {
-            "type": "string"
-          },
-          "debit": {
-            "type": "number"
-          },
-          "credit": {
-            "type": "number"
-          },
-          "memo": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "LedgerCreate": {
-        "type": "object",
-        "properties": {
-          "accountId": {
-            "type": "string"
-          },
-          "debit": {
-            "type": "number"
-          },
-          "credit": {
-            "type": "number"
-          },
-          "memo": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "debit",
-          "credit"
+          "token",
+          "type"
         ]
       }
     }

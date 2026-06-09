@@ -6,7 +6,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 30000,
+  "totalEndpoints": 29995,
   "l4SpecsAvailable": 1000,
   "apis": [
     {
@@ -9328,10 +9328,10 @@
     {
       "handle": "marqeta-compat",
       "did": "did:web:etzhayyim.com:actor:marqeta-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreifrv7xzv2c7bylhboprqoo3niy3j65u44t5dcolqqwspsrbv232ku",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreicgrgqlyjofm7ioinwlnks4esi5bhhn27yfdqsbjyczw7gaqm2oom",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -13510,7 +13510,7 @@
     {
       "handle": "segment-compat",
       "did": "did:web:etzhayyim.com:actor:segment-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreig5txyrgdharc6eglhpafdeuvcappsh37rrcifb4cwho74s4pns6q",

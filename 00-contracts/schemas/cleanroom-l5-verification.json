@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 47,
+  "count": 49,
   "actors": [
     {
       "handle": "square-compat",
@@ -6348,6 +6348,292 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (5/5) vs official Vonage docs. Enforced enums: Call.status/direction, Message.messageType/channel, Number.type, Verification.status, Application.type (7)."
+    },
+    {
+      "handle": "segment-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/segmentio/facade",
+      "remodeled": "Recovered from DEFERRED. Remodeled from generic comms_social to a faithful Segment model, verified against the open-source segmentio/facade library (the event parser all Segment SDKs share). Open object fields (properties/traits/context/integrations) dropped — actor models scalar fields only. The `type` discriminator is a documented closed set.",
+      "resources": [
+        {
+          "entity": "TrackEvent",
+          "source": "https://github.com/segmentio/facade/blob/master/lib/track.js",
+          "verifiedFields": [
+            "type",
+            "event",
+            "userId",
+            "anonymousId",
+            "messageId",
+            "timestamp"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "track",
+              "identify",
+              "page",
+              "screen",
+              "group",
+              "alias"
+            ]
+          },
+          "gaps": [
+            "properties",
+            "context",
+            "integrations"
+          ]
+        },
+        {
+          "entity": "IdentifyEvent",
+          "source": "https://github.com/segmentio/facade/blob/master/lib/identify.js",
+          "verifiedFields": [
+            "type",
+            "userId",
+            "anonymousId",
+            "messageId",
+            "timestamp"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "track",
+              "identify",
+              "page",
+              "screen",
+              "group",
+              "alias"
+            ]
+          },
+          "gaps": [
+            "traits",
+            "context"
+          ]
+        },
+        {
+          "entity": "PageEvent",
+          "source": "https://github.com/segmentio/facade/blob/master/lib/page.js",
+          "verifiedFields": [
+            "type",
+            "userId",
+            "anonymousId",
+            "category",
+            "name",
+            "messageId",
+            "timestamp"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "track",
+              "identify",
+              "page",
+              "screen",
+              "group",
+              "alias"
+            ]
+          },
+          "gaps": [
+            "properties"
+          ]
+        },
+        {
+          "entity": "GroupEvent",
+          "source": "https://github.com/segmentio/facade/blob/master/lib/group.js",
+          "verifiedFields": [
+            "type",
+            "userId",
+            "anonymousId",
+            "groupId",
+            "messageId",
+            "timestamp"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "track",
+              "identify",
+              "page",
+              "screen",
+              "group",
+              "alias"
+            ]
+          },
+          "gaps": [
+            "traits"
+          ]
+        },
+        {
+          "entity": "Source",
+          "source": "https://docs.segmentapis.com (Public API; shape from segmentio patterns)",
+          "verifiedFields": [
+            "name",
+            "slug",
+            "enabled",
+            "workspaceId"
+          ],
+          "fieldStatus": "shape confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "labels",
+            "metadata"
+          ]
+        },
+        {
+          "entity": "Destination",
+          "source": "https://docs.segmentapis.com (Public API; shape from segmentio patterns)",
+          "verifiedFields": [
+            "name",
+            "enabled",
+            "sourceId",
+            "workspaceId"
+          ],
+          "fieldStatus": "shape confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "config",
+            "metadata"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "RECOVERED from deferred. 4/6 entities fully verified vs segmentio/facade (Track/Identify/Page/Group); Source/Destination shapes confirmed (no closed enum). Enforced enum: the closed `type` set [track,identify,page,screen,group,alias] on all 4 event entities (4)."
+    },
+    {
+      "handle": "marqeta-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/marqeta/marqeta-openapi/blob/main/yaml/CoreAPI-3.0.40.yaml",
+      "remodeled": "Remodeled from generic fintech_web3 to a faithful Marqeta Core API model, verified against the official Marqeta OpenAPI 3.0.40 spec. lastFour from last_four; datetime from format:date-time.",
+      "resources": [
+        {
+          "entity": "Card",
+          "source": "https://github.com/marqeta/marqeta-openapi/blob/main/yaml/CoreAPI-3.0.40.yaml (card_response)",
+          "verifiedFields": [
+            "token",
+            "state",
+            "lastFour",
+            "cardProductToken",
+            "userToken",
+            "fulfillmentStatus",
+            "createdTime"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "state": [
+              "ACTIVE",
+              "SUSPENDED",
+              "TERMINATED",
+              "UNSUPPORTED",
+              "UNACTIVATED",
+              "LIMITED"
+            ],
+            "fulfillmentStatus": [
+              "ISSUED",
+              "ORDERED",
+              "REORDERED",
+              "REJECTED",
+              "SHIPPED",
+              "DELIVERED",
+              "DIGITALLY_PRESENTED"
+            ]
+          },
+          "gaps": [
+            "pan",
+            "expiration"
+          ]
+        },
+        {
+          "entity": "CardProduct",
+          "source": "https://github.com/marqeta/marqeta-openapi/blob/main/yaml/CoreAPI-3.0.40.yaml (card_product_response)",
+          "verifiedFields": [
+            "token",
+            "name",
+            "active",
+            "createdTime"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "config",
+            "startDate"
+          ]
+        },
+        {
+          "entity": "User",
+          "source": "https://github.com/marqeta/marqeta-openapi/blob/main/yaml/CoreAPI-3.0.40.yaml (user_card_holder_response)",
+          "verifiedFields": [
+            "token",
+            "firstName",
+            "lastName",
+            "email",
+            "status",
+            "active",
+            "createdTime"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "UNVERIFIED",
+              "LIMITED",
+              "ACTIVE",
+              "SUSPENDED",
+              "CLOSED",
+              "TERMINATED"
+            ]
+          },
+          "gaps": [
+            "phone",
+            "metadata"
+          ]
+        },
+        {
+          "entity": "Transaction",
+          "source": "https://github.com/marqeta/marqeta-openapi/blob/main/yaml/CoreAPI-3.0.40.yaml (transaction_model)",
+          "verifiedFields": [
+            "token",
+            "amount",
+            "type",
+            "state",
+            "cardToken",
+            "userToken",
+            "createdTime"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "state": [
+              "PENDING",
+              "CLEARED",
+              "COMPLETION",
+              "DECLINED",
+              "ERROR"
+            ]
+          },
+          "gaps": [
+            "type-enum-large-open-set",
+            "gpa",
+            "polarity"
+          ]
+        },
+        {
+          "entity": "FundingSource",
+          "source": "https://github.com/marqeta/marqeta-openapi/blob/main/yaml/CoreAPI-3.0.40.yaml (funding_source_model)",
+          "verifiedFields": [
+            "token",
+            "type",
+            "active",
+            "isDefaultAccount",
+            "createdTime"
+          ],
+          "fieldStatus": "fields confirmed; type enum NOT documented in spec -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "type-enum"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs official Marqeta OpenAPI 3.0.40. Enforced enums: Card.state, Card.fulfillmentStatus, User.status, Transaction.state (4). Transaction.type (large open set) + FundingSource.type (undocumented) intentionally NOT enforced."
     }
   ]
 }

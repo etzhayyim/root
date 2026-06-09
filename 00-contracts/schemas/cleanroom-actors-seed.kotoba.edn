@@ -7149,11 +7149,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible fintech / web3 actor (marqeta); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "marqeta.kotoba"
-   :actor/wasm-cid "bafkreifrv7xzv2c7bylhboprqoo3niy3j65u44t5dcolqqwspsrbv232ku"
+   :actor/wasm-cid "bafkreicgrgqlyjofm7ioinwlnks4esi5bhhn27yfdqsbjyczw7gaqm2oom"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:marqeta-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreifrv7xzv2c7bylhboprqoo3niy3j65u44t5dcolqqwspsrbv232ku" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:marqeta-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreifrv7xzv2c7bylhboprqoo3niy3j65u44t5dcolqqwspsrbv232ku" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:marqeta-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreifrv7xzv2c7bylhboprqoo3niy3j65u44t5dcolqqwspsrbv232ku" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:marqeta-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreifrv7xzv2c7bylhboprqoo3niy3j65u44t5dcolqqwspsrbv232ku" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:marqeta-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreicgrgqlyjofm7ioinwlnks4esi5bhhn27yfdqsbjyczw7gaqm2oom" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:marqeta-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreicgrgqlyjofm7ioinwlnks4esi5bhhn27yfdqsbjyczw7gaqm2oom" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:marqeta-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreicgrgqlyjofm7ioinwlnks4esi5bhhn27yfdqsbjyczw7gaqm2oom" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:marqeta-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreicgrgqlyjofm7ioinwlnks4esi5bhhn27yfdqsbjyczw7gaqm2oom" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "marvel_fusion-compat"
    :actor/did "did:web:etzhayyim.com:actor:marvel_fusion-compat"
    :actor/kind :compat

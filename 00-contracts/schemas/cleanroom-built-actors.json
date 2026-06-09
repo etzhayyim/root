@@ -9332,17 +9332,16 @@
       "handle": "marqeta-compat",
       "platform": "marqeta",
       "bytes": 2121,
-      "wasmCid": "bafkreifrv7xzv2c7bylhboprqoo3niy3j65u44t5dcolqqwspsrbv232ku",
+      "wasmCid": "bafkreicgrgqlyjofm7ioinwlnks4esi5bhhn27yfdqsbjyczw7gaqm2oom",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Account",
         "Card",
+        "CardProduct",
+        "User",
         "Transaction",
-        "Order",
-        "Wallet",
-        "Ledger"
+        "FundingSource"
       ]
     },
     {
@@ -13520,12 +13519,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Campaign",
-        "Audience",
-        "Event",
-        "Profile",
-        "Message",
-        "Funnel"
+        "TrackEvent",
+        "IdentifyEvent",
+        "PageEvent",
+        "GroupEvent",
+        "Source",
+        "Destination"
       ]
     },
     {

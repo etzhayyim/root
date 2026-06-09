@@ -3,74 +3,64 @@
 
 namespace marqeta {
 
-    entity Account {
+    entity Card {
         id: string @unique
-        holderId: string
-        currency: string
-        balance: float
-        status: string
+        token: string
+        state: string
+        lastFour: string
+        cardProductToken: string
+        userToken: string
+        fulfillmentStatus: string
+        createdTime: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Card {
+    entity CardProduct {
         id: string @unique
-        accountId: string
-        last4: string
-        network: string
-        state: string
+        token: string
+        name: string
+        active: boolean
+        createdTime: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity User {
+        id: string @unique
+        token: string
+        firstName: string
+        lastName: string
+        email: string
+        status: string
+        active: boolean
+        createdTime: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Transaction {
         id: string @unique
-        accountId: string
+        token: string
         amount: float
-        currency: string
         type: string
-        status: string
+        state: string
+        cardToken: string
+        userToken: string
+        createdTime: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Order {
+    entity FundingSource {
         id: string @unique
-        symbol: string
-        side: string
-        quantity: float
-        price: float
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Wallet {
-        id: string @unique
-        address: string
-        chain: string
-        balance: float
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Ledger {
-        id: string @unique
-        accountId: string
-        debit: float
-        credit: float
-        memo: string
+        token: string
+        type: string
+        active: boolean
+        isDefaultAccount: boolean
+        createdTime: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }
