@@ -1621,6 +1621,23 @@ PLATFORM_OVERRIDES = {
         "Deployment": E(id="string", status="string", projectName="string", stackName="string", paused="boolean", created="datetime", modified="datetime"),
         "Organization": E(name="string", role="string"),
     },
+    # Faithful BGP-4 (RFC 4271) model — verified against the official RFC 4271 + IANA
+    # BGP parameters registry. Enums scoped to RFC 4271 core (ROUTE-REFRESH is RFC 2918).
+    "bgp_routing": {
+        "Message": E(marker="string", length="integer", type="integer"),
+        "OpenMessage": E(version="integer", myAutonomousSystem="integer", holdTime="integer", bgpIdentifier="string", optionalParametersLength="integer"),
+        "UpdateMessage": E(withdrawnRoutesLength="integer", totalPathAttributeLength="integer"),
+        "NotificationMessage": E(errorCode="integer", errorSubcode="integer"),
+        "PathAttribute": E(attributeFlags="integer", typeCode="integer", attributeLength="integer", origin="integer"),
+        "KeepaliveMessage": E(headerOnly="boolean"),
+    },
+    # Faithful NTPv4 (RFC 5905) packet model — verified against the official RFC 5905.
+    # stratum (0-255 range) + KissCode (extensible) -> not enforced as closed enums.
+    "ntp_time": {
+        "Packet": E(leapIndicator="integer", version="integer", mode="integer", stratum="integer", poll="integer", precision="integer", rootDelay="float", rootDispersion="float", referenceId="string", referenceTimestamp="datetime", originTimestamp="datetime", receiveTimestamp="datetime", transmitTimestamp="datetime"),
+        "Header": E(leapIndicator="integer", version="integer", mode="integer", stratum="integer", poll="integer", precision="integer"),
+        "KissCode": E(code="string", meaning="string"),
+    },
     # Faithful MAVLink model — verified against the official mavlink XML message defs.
     # Only the stable/confirmed-complete enums enforced (MAV_STATE, MAV_MISSION_TYPE);
     # version-growing enums (MAV_TYPE/GPS_FIX_TYPE/MAV_FRAME) left as gaps.

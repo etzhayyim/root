@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 879,
-    "L5": 121
+    "L4": 877,
+    "L5": 123
   },
   "actors": [
     {
@@ -1694,7 +1694,7 @@
       "wasmCid": "bafkreift6z6rerlwxh66ep4qaunshkyn5pzwr4b6zsvlc436ow7scj2bz4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "bgp_routing clean-room actor",
       "category": "internet_routing",
       "capabilities": [
@@ -11537,10 +11537,10 @@
     {
       "handle": "ntp_time-compat",
       "did": "did:web:etzhayyim.com:actor:ntp_time-compat",
-      "wasmCid": "bafkreibrgzdsipassrtkf3ytocvds5l7c5dw62ikphbjonxlxdub4a74wi",
+      "wasmCid": "bafkreiden5tcdmomr67ulrbnmuqwui6cf7rq6xy6lmzsie7fbrqpviqhoq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "ntp_time clean-room actor",
       "category": "internet_routing",
       "capabilities": [

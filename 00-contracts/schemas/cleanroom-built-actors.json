@@ -1599,12 +1599,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Prefix",
-        "Route",
-        "Peer",
-        "Zone",
-        "Record",
-        "Tunnel"
+        "Message",
+        "OpenMessage",
+        "UpdateMessage",
+        "NotificationMessage",
+        "PathAttribute",
+        "KeepaliveMessage"
       ]
     },
     {
@@ -10869,17 +10869,14 @@
       "handle": "ntp_time-compat",
       "platform": "ntp_time",
       "bytes": 2122,
-      "wasmCid": "bafkreibrgzdsipassrtkf3ytocvds5l7c5dw62ikphbjonxlxdub4a74wi",
+      "wasmCid": "bafkreiden5tcdmomr67ulrbnmuqwui6cf7rq6xy6lmzsie7fbrqpviqhoq",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Prefix",
-        "Route",
-        "Peer",
-        "Zone",
-        "Record",
-        "Tunnel"
+        "Packet",
+        "Header",
+        "KissCode"
       ]
     },
     {

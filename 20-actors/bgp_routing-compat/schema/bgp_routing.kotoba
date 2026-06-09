@@ -3,69 +3,57 @@
 
 namespace bgp_routing {
 
-    entity Prefix {
+    entity Message {
         id: string @unique
-        cidr: string
-        originAsn: string
-        validity: string
+        marker: string
+        length: integer
+        type: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Route {
+    entity OpenMessage {
         id: string @unique
-        prefixId: string
-        nextHop: string
-        asPath: string
+        version: integer
+        myAutonomousSystem: integer
+        holdTime: integer
+        bgpIdentifier: string
+        optionalParametersLength: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Peer {
+    entity UpdateMessage {
         id: string @unique
-        asn: string
-        ipAddress: string
-        state: string
+        withdrawnRoutesLength: integer
+        totalPathAttributeLength: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Zone {
+    entity NotificationMessage {
         id: string @unique
-        name: string
-        serial: integer
-        refreshSec: integer
+        errorCode: integer
+        errorSubcode: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Record {
+    entity PathAttribute {
         id: string @unique
-        zoneId: string
-        name: string
-        type: string
-        value: string
+        attributeFlags: integer
+        typeCode: integer
+        attributeLength: integer
+        origin: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Tunnel {
+    entity KeepaliveMessage {
         id: string @unique
-        localAddr: string
-        remoteAddr: string
-        protocol: string
-        active: boolean
+        headerOnly: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

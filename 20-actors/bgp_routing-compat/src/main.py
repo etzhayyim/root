@@ -111,118 +111,123 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/prefixes", methods=["POST"])
-def create_prefix(request):
-    """Create a Prefix."""
+@app.route("/v1/messages", methods=["POST"])
+def create_message(request):
+    """Create a Message."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['cidr', 'originAsn', 'validity'])
+    err = _reject_unknown(data, ['marker', 'length', 'type'])
     if err:
         return err, 400
-    err = _require(data, ['cidr', 'originAsn'])
+    err = _require(data, ['marker', 'length'])
     if err:
         return err, 400
-    rec = {"id": new_id("bgprouti_pre")}
-    rec["cidr"] = data.get('cidr')
-    rec["originAsn"] = data.get('originAsn')
-    rec["validity"] = data.get('validity')
+    if data.get('type') and data['type'] not in [1, 2, 3, 4]:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join([1, 2, 3, 4]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("bgprouti_mes")}
+    rec["marker"] = data.get('marker')
+    rec["length"] = _as_int(data.get('length'))
+    rec["type"] = _as_int(data.get('type'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Prefix", rec)
+    _persist("Message", rec)
     return rec, 201
 
-@app.route("/v1/prefixes", methods=["GET"])
-def list_prefixes(request):
-    """List Prefixes with filtering + cursor pagination."""
+@app.route("/v1/messages", methods=["GET"])
+def list_messages(request):
+    """List Messages with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Prefix")
-    rows = _apply_filters(rows, params, ['cidr', 'originAsn', 'validity'])
+    rows = _query("Message")
+    rows = _apply_filters(rows, params, ['marker', 'length', 'type'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/prefixes/<eid>", methods=["GET"])
-def get_prefix(request, eid):
-    """Retrieve a Prefix by id (supports ?expand=)."""
-    rows = _query("Prefix", eid)
+@app.route("/v1/messages/<eid>", methods=["GET"])
+def get_message(request, eid):
+    """Retrieve a Message by id (supports ?expand=)."""
+    rows = _query("Message", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/prefixes/<eid>", methods=["POST", "PATCH"])
-def update_prefix(request, eid):
-    """Update a Prefix."""
-    rows = _query("Prefix", eid)
+@app.route("/v1/messages/<eid>", methods=["POST", "PATCH"])
+def update_message(request, eid):
+    """Update a Message."""
+    rows = _query("Message", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['cidr', 'originAsn', 'validity'])
+    err = _reject_unknown(data, ['marker', 'length', 'type'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in [1, 2, 3, 4]:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join([1, 2, 3, 4]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Prefix", rec)
+    _persist("Message", rec)
     return rec, 200
 
-@app.route("/v1/prefixes/<eid>", methods=["DELETE"])
-def delete_prefix(request, eid):
-    """Delete a Prefix."""
-    rows = _query("Prefix", eid)
+@app.route("/v1/messages/<eid>", methods=["DELETE"])
+def delete_message(request, eid):
+    """Delete a Message."""
+    rows = _query("Message", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bgp_routing.Prefix", "id": eid})
+    db.retract({"entity": f"bgp_routing.Message", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/routes", methods=["POST"])
-def create_route(request):
-    """Create a Route."""
+@app.route("/v1/openmessages", methods=["POST"])
+def create_open_message(request):
+    """Create a OpenMessage."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['prefixId', 'nextHop', 'asPath'])
+    err = _reject_unknown(data, ['version', 'myAutonomousSystem', 'holdTime', 'bgpIdentifier', 'optionalParametersLength'])
     if err:
         return err, 400
-    err = _require(data, ['nextHop', 'asPath'])
+    err = _require(data, ['version', 'myAutonomousSystem'])
     if err:
         return err, 400
-    rec = {"id": new_id("bgprouti_rou")}
-    rec["prefixId"] = data.get('prefixId')
-    rec["nextHop"] = data.get('nextHop')
-    rec["asPath"] = data.get('asPath')
+    rec = {"id": new_id("bgprouti_ope")}
+    rec["version"] = _as_int(data.get('version'))
+    rec["myAutonomousSystem"] = _as_int(data.get('myAutonomousSystem'))
+    rec["holdTime"] = _as_int(data.get('holdTime'))
+    rec["bgpIdentifier"] = data.get('bgpIdentifier')
+    rec["optionalParametersLength"] = _as_int(data.get('optionalParametersLength'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Route", rec)
+    _persist("OpenMessage", rec)
     return rec, 201
 
-@app.route("/v1/routes", methods=["GET"])
-def list_routes(request):
-    """List Routes with filtering + cursor pagination."""
+@app.route("/v1/openmessages", methods=["GET"])
+def list_open_messages(request):
+    """List OpenMessages with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Route")
-    rows = _apply_filters(rows, params, ['prefixId', 'nextHop', 'asPath'])
+    rows = _query("OpenMessage")
+    rows = _apply_filters(rows, params, ['version', 'myAutonomousSystem', 'holdTime', 'bgpIdentifier', 'optionalParametersLength'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/routes/<eid>", methods=["GET"])
-def get_route(request, eid):
-    """Retrieve a Route by id (supports ?expand=)."""
-    rows = _query("Route", eid)
+@app.route("/v1/openmessages/<eid>", methods=["GET"])
+def get_open_message(request, eid):
+    """Retrieve a OpenMessage by id (supports ?expand=)."""
+    rows = _query("OpenMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'prefixId': 'Prefix'})
     return rec, 200
 
-@app.route("/v1/routes/<eid>", methods=["POST", "PATCH"])
-def update_route(request, eid):
-    """Update a Route."""
-    rows = _query("Route", eid)
+@app.route("/v1/openmessages/<eid>", methods=["POST", "PATCH"])
+def update_open_message(request, eid):
+    """Update a OpenMessage."""
+    rows = _query("OpenMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['prefixId', 'nextHop', 'asPath'])
+    err = _reject_unknown(data, ['version', 'myAutonomousSystem', 'holdTime', 'bgpIdentifier', 'optionalParametersLength'])
     if err:
         return err, 400
     rec = rows[0]
@@ -230,64 +235,63 @@ def update_route(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Route", rec)
+    _persist("OpenMessage", rec)
     return rec, 200
 
-@app.route("/v1/routes/<eid>", methods=["DELETE"])
-def delete_route(request, eid):
-    """Delete a Route."""
-    rows = _query("Route", eid)
+@app.route("/v1/openmessages/<eid>", methods=["DELETE"])
+def delete_open_message(request, eid):
+    """Delete a OpenMessage."""
+    rows = _query("OpenMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bgp_routing.Route", "id": eid})
+    db.retract({"entity": f"bgp_routing.OpenMessage", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/peers", methods=["POST"])
-def create_peer(request):
-    """Create a Peer."""
+@app.route("/v1/updatemessages", methods=["POST"])
+def create_update_message(request):
+    """Create a UpdateMessage."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['asn', 'ipAddress', 'state'])
+    err = _reject_unknown(data, ['withdrawnRoutesLength', 'totalPathAttributeLength'])
     if err:
         return err, 400
-    err = _require(data, ['asn', 'ipAddress'])
+    err = _require(data, ['withdrawnRoutesLength', 'totalPathAttributeLength'])
     if err:
         return err, 400
-    rec = {"id": new_id("bgprouti_pee")}
-    rec["asn"] = data.get('asn')
-    rec["ipAddress"] = data.get('ipAddress')
-    rec["state"] = data.get('state')
+    rec = {"id": new_id("bgprouti_upd")}
+    rec["withdrawnRoutesLength"] = _as_int(data.get('withdrawnRoutesLength'))
+    rec["totalPathAttributeLength"] = _as_int(data.get('totalPathAttributeLength'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Peer", rec)
+    _persist("UpdateMessage", rec)
     return rec, 201
 
-@app.route("/v1/peers", methods=["GET"])
-def list_peers(request):
-    """List Peers with filtering + cursor pagination."""
+@app.route("/v1/updatemessages", methods=["GET"])
+def list_update_messages(request):
+    """List UpdateMessages with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Peer")
-    rows = _apply_filters(rows, params, ['asn', 'ipAddress', 'state'])
+    rows = _query("UpdateMessage")
+    rows = _apply_filters(rows, params, ['withdrawnRoutesLength', 'totalPathAttributeLength'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/peers/<eid>", methods=["GET"])
-def get_peer(request, eid):
-    """Retrieve a Peer by id (supports ?expand=)."""
-    rows = _query("Peer", eid)
+@app.route("/v1/updatemessages/<eid>", methods=["GET"])
+def get_update_message(request, eid):
+    """Retrieve a UpdateMessage by id (supports ?expand=)."""
+    rows = _query("UpdateMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/peers/<eid>", methods=["POST", "PATCH"])
-def update_peer(request, eid):
-    """Update a Peer."""
-    rows = _query("Peer", eid)
+@app.route("/v1/updatemessages/<eid>", methods=["POST", "PATCH"])
+def update_update_message(request, eid):
+    """Update a UpdateMessage."""
+    rows = _query("UpdateMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['asn', 'ipAddress', 'state'])
+    err = _reject_unknown(data, ['withdrawnRoutesLength', 'totalPathAttributeLength'])
     if err:
         return err, 400
     rec = rows[0]
@@ -295,197 +299,204 @@ def update_peer(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Peer", rec)
+    _persist("UpdateMessage", rec)
     return rec, 200
 
-@app.route("/v1/peers/<eid>", methods=["DELETE"])
-def delete_peer(request, eid):
-    """Delete a Peer."""
-    rows = _query("Peer", eid)
+@app.route("/v1/updatemessages/<eid>", methods=["DELETE"])
+def delete_update_message(request, eid):
+    """Delete a UpdateMessage."""
+    rows = _query("UpdateMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bgp_routing.Peer", "id": eid})
+    db.retract({"entity": f"bgp_routing.UpdateMessage", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/zones", methods=["POST"])
-def create_zone(request):
-    """Create a Zone."""
+@app.route("/v1/notificationmessages", methods=["POST"])
+def create_notification_message(request):
+    """Create a NotificationMessage."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'serial', 'refreshSec'])
+    err = _reject_unknown(data, ['errorCode', 'errorSubcode'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'serial'])
+    err = _require(data, ['errorCode', 'errorSubcode'])
     if err:
         return err, 400
-    rec = {"id": new_id("bgprouti_zon")}
-    rec["name"] = data.get('name')
-    rec["serial"] = _as_int(data.get('serial'))
-    rec["refreshSec"] = _as_int(data.get('refreshSec'))
+    if data.get('errorCode') and data['errorCode'] not in [1, 2, 3, 4, 5, 6]:
+        return {"error": {"message": "invalid errorCode; allowed: " + ", ".join([1, 2, 3, 4, 5, 6]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("bgprouti_not")}
+    rec["errorCode"] = _as_int(data.get('errorCode'))
+    rec["errorSubcode"] = _as_int(data.get('errorSubcode'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Zone", rec)
+    _persist("NotificationMessage", rec)
     return rec, 201
 
-@app.route("/v1/zones", methods=["GET"])
-def list_zones(request):
-    """List Zones with filtering + cursor pagination."""
+@app.route("/v1/notificationmessages", methods=["GET"])
+def list_notification_messages(request):
+    """List NotificationMessages with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Zone")
-    rows = _apply_filters(rows, params, ['name', 'serial', 'refreshSec'])
+    rows = _query("NotificationMessage")
+    rows = _apply_filters(rows, params, ['errorCode', 'errorSubcode'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/zones/<eid>", methods=["GET"])
-def get_zone(request, eid):
-    """Retrieve a Zone by id (supports ?expand=)."""
-    rows = _query("Zone", eid)
+@app.route("/v1/notificationmessages/<eid>", methods=["GET"])
+def get_notification_message(request, eid):
+    """Retrieve a NotificationMessage by id (supports ?expand=)."""
+    rows = _query("NotificationMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/zones/<eid>", methods=["POST", "PATCH"])
-def update_zone(request, eid):
-    """Update a Zone."""
-    rows = _query("Zone", eid)
+@app.route("/v1/notificationmessages/<eid>", methods=["POST", "PATCH"])
+def update_notification_message(request, eid):
+    """Update a NotificationMessage."""
+    rows = _query("NotificationMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'serial', 'refreshSec'])
+    err = _reject_unknown(data, ['errorCode', 'errorSubcode'])
     if err:
         return err, 400
+    if data.get('errorCode') and data['errorCode'] not in [1, 2, 3, 4, 5, 6]:
+        return {"error": {"message": "invalid errorCode; allowed: " + ", ".join([1, 2, 3, 4, 5, 6]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Zone", rec)
+    _persist("NotificationMessage", rec)
     return rec, 200
 
-@app.route("/v1/zones/<eid>", methods=["DELETE"])
-def delete_zone(request, eid):
-    """Delete a Zone."""
-    rows = _query("Zone", eid)
+@app.route("/v1/notificationmessages/<eid>", methods=["DELETE"])
+def delete_notification_message(request, eid):
+    """Delete a NotificationMessage."""
+    rows = _query("NotificationMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bgp_routing.Zone", "id": eid})
+    db.retract({"entity": f"bgp_routing.NotificationMessage", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/records", methods=["POST"])
-def create_record(request):
-    """Create a Record."""
+@app.route("/v1/pathattributes", methods=["POST"])
+def create_path_attribute(request):
+    """Create a PathAttribute."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['zoneId', 'name', 'type', 'value'])
+    err = _reject_unknown(data, ['attributeFlags', 'typeCode', 'attributeLength', 'origin'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'type'])
+    err = _require(data, ['attributeFlags', 'typeCode'])
     if err:
         return err, 400
-    rec = {"id": new_id("bgprouti_rec")}
-    rec["zoneId"] = data.get('zoneId')
-    rec["name"] = data.get('name')
-    rec["type"] = data.get('type')
-    rec["value"] = data.get('value')
+    if data.get('typeCode') and data['typeCode'] not in [1, 2, 3, 4, 5, 6, 7]:
+        return {"error": {"message": "invalid typeCode; allowed: " + ", ".join([1, 2, 3, 4, 5, 6, 7]), "type": "invalid_request_error"}}, 400
+    if data.get('origin') and data['origin'] not in [0, 1, 2]:
+        return {"error": {"message": "invalid origin; allowed: " + ", ".join([0, 1, 2]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("bgprouti_pat")}
+    rec["attributeFlags"] = _as_int(data.get('attributeFlags'))
+    rec["typeCode"] = _as_int(data.get('typeCode'))
+    rec["attributeLength"] = _as_int(data.get('attributeLength'))
+    rec["origin"] = _as_int(data.get('origin'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Record", rec)
+    _persist("PathAttribute", rec)
     return rec, 201
 
-@app.route("/v1/records", methods=["GET"])
-def list_records(request):
-    """List Records with filtering + cursor pagination."""
+@app.route("/v1/pathattributes", methods=["GET"])
+def list_path_attributes(request):
+    """List PathAttributes with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Record")
-    rows = _apply_filters(rows, params, ['zoneId', 'name', 'type', 'value'])
+    rows = _query("PathAttribute")
+    rows = _apply_filters(rows, params, ['attributeFlags', 'typeCode', 'attributeLength', 'origin'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/records/<eid>", methods=["GET"])
-def get_record(request, eid):
-    """Retrieve a Record by id (supports ?expand=)."""
-    rows = _query("Record", eid)
+@app.route("/v1/pathattributes/<eid>", methods=["GET"])
+def get_path_attribute(request, eid):
+    """Retrieve a PathAttribute by id (supports ?expand=)."""
+    rows = _query("PathAttribute", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'zoneId': 'Zone'})
     return rec, 200
 
-@app.route("/v1/records/<eid>", methods=["POST", "PATCH"])
-def update_record(request, eid):
-    """Update a Record."""
-    rows = _query("Record", eid)
+@app.route("/v1/pathattributes/<eid>", methods=["POST", "PATCH"])
+def update_path_attribute(request, eid):
+    """Update a PathAttribute."""
+    rows = _query("PathAttribute", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['zoneId', 'name', 'type', 'value'])
+    err = _reject_unknown(data, ['attributeFlags', 'typeCode', 'attributeLength', 'origin'])
     if err:
         return err, 400
+    if data.get('typeCode') and data['typeCode'] not in [1, 2, 3, 4, 5, 6, 7]:
+        return {"error": {"message": "invalid typeCode; allowed: " + ", ".join([1, 2, 3, 4, 5, 6, 7]), "type": "invalid_request_error"}}, 400
+    if data.get('origin') and data['origin'] not in [0, 1, 2]:
+        return {"error": {"message": "invalid origin; allowed: " + ", ".join([0, 1, 2]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Record", rec)
+    _persist("PathAttribute", rec)
     return rec, 200
 
-@app.route("/v1/records/<eid>", methods=["DELETE"])
-def delete_record(request, eid):
-    """Delete a Record."""
-    rows = _query("Record", eid)
+@app.route("/v1/pathattributes/<eid>", methods=["DELETE"])
+def delete_path_attribute(request, eid):
+    """Delete a PathAttribute."""
+    rows = _query("PathAttribute", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bgp_routing.Record", "id": eid})
+    db.retract({"entity": f"bgp_routing.PathAttribute", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/tunnels", methods=["POST"])
-def create_tunnel(request):
-    """Create a Tunnel."""
+@app.route("/v1/keepalivemessages", methods=["POST"])
+def create_keepalive_message(request):
+    """Create a KeepaliveMessage."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['localAddr', 'remoteAddr', 'protocol', 'active'])
+    err = _reject_unknown(data, ['headerOnly'])
     if err:
         return err, 400
-    err = _require(data, ['localAddr', 'remoteAddr'])
+    err = _require(data, ['headerOnly'])
     if err:
         return err, 400
-    rec = {"id": new_id("bgprouti_tun")}
-    rec["localAddr"] = data.get('localAddr')
-    rec["remoteAddr"] = data.get('remoteAddr')
-    rec["protocol"] = data.get('protocol')
-    rec["active"] = _as_bool(data.get('active'))
+    rec = {"id": new_id("bgprouti_kee")}
+    rec["headerOnly"] = _as_bool(data.get('headerOnly'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Tunnel", rec)
+    _persist("KeepaliveMessage", rec)
     return rec, 201
 
-@app.route("/v1/tunnels", methods=["GET"])
-def list_tunnels(request):
-    """List Tunnels with filtering + cursor pagination."""
+@app.route("/v1/keepalivemessages", methods=["GET"])
+def list_keepalive_messages(request):
+    """List KeepaliveMessages with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Tunnel")
-    rows = _apply_filters(rows, params, ['localAddr', 'remoteAddr', 'protocol', 'active'])
+    rows = _query("KeepaliveMessage")
+    rows = _apply_filters(rows, params, ['headerOnly'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/tunnels/<eid>", methods=["GET"])
-def get_tunnel(request, eid):
-    """Retrieve a Tunnel by id (supports ?expand=)."""
-    rows = _query("Tunnel", eid)
+@app.route("/v1/keepalivemessages/<eid>", methods=["GET"])
+def get_keepalive_message(request, eid):
+    """Retrieve a KeepaliveMessage by id (supports ?expand=)."""
+    rows = _query("KeepaliveMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/tunnels/<eid>", methods=["POST", "PATCH"])
-def update_tunnel(request, eid):
-    """Update a Tunnel."""
-    rows = _query("Tunnel", eid)
+@app.route("/v1/keepalivemessages/<eid>", methods=["POST", "PATCH"])
+def update_keepalive_message(request, eid):
+    """Update a KeepaliveMessage."""
+    rows = _query("KeepaliveMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['localAddr', 'remoteAddr', 'protocol', 'active'])
+    err = _reject_unknown(data, ['headerOnly'])
     if err:
         return err, 400
     rec = rows[0]
@@ -493,22 +504,22 @@ def update_tunnel(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Tunnel", rec)
+    _persist("KeepaliveMessage", rec)
     return rec, 200
 
-@app.route("/v1/tunnels/<eid>", methods=["DELETE"])
-def delete_tunnel(request, eid):
-    """Delete a Tunnel."""
-    rows = _query("Tunnel", eid)
+@app.route("/v1/keepalivemessages/<eid>", methods=["DELETE"])
+def delete_keepalive_message(request, eid):
+    """Delete a KeepaliveMessage."""
+    rows = _query("KeepaliveMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bgp_routing.Tunnel", "id": eid})
+    db.retract({"entity": f"bgp_routing.KeepaliveMessage", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "bgp_routing-compat", "tier": "L4",
-            "entities": ['Prefix', 'Route', 'Peer', 'Zone', 'Record', 'Tunnel']}, 200
+            "entities": ['Message', 'OpenMessage', 'UpdateMessage', 'NotificationMessage', 'PathAttribute', 'KeepaliveMessage']}, 200
 
 
 if __name__ == "__main__":

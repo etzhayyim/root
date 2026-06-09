@@ -8345,11 +8345,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible deep internet / core routing actor (ntp_time); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "ntp_time.kotoba"
-   :actor/wasm-cid "bafkreibrgzdsipassrtkf3ytocvds5l7c5dw62ikphbjonxlxdub4a74wi"
+   :actor/wasm-cid "bafkreiden5tcdmomr67ulrbnmuqwui6cf7rq6xy6lmzsie7fbrqpviqhoq"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:ntp_time-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreibrgzdsipassrtkf3ytocvds5l7c5dw62ikphbjonxlxdub4a74wi" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:ntp_time-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreibrgzdsipassrtkf3ytocvds5l7c5dw62ikphbjonxlxdub4a74wi" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:ntp_time-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreibrgzdsipassrtkf3ytocvds5l7c5dw62ikphbjonxlxdub4a74wi" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:ntp_time-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreibrgzdsipassrtkf3ytocvds5l7c5dw62ikphbjonxlxdub4a74wi" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:ntp_time-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiden5tcdmomr67ulrbnmuqwui6cf7rq6xy6lmzsie7fbrqpviqhoq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:ntp_time-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiden5tcdmomr67ulrbnmuqwui6cf7rq6xy6lmzsie7fbrqpviqhoq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:ntp_time-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiden5tcdmomr67ulrbnmuqwui6cf7rq6xy6lmzsie7fbrqpviqhoq" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:ntp_time-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiden5tcdmomr67ulrbnmuqwui6cf7rq6xy6lmzsie7fbrqpviqhoq" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "nubank-compat"
    :actor/did "did:web:etzhayyim.com:actor:nubank-compat"
    :actor/kind :compat
