@@ -1797,7 +1797,7 @@
     {
       "handle": "bitbucket-compat",
       "did": "did:web:etzhayyim.com:actor:bitbucket-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreicglcgmrpnibv7viji54n5wiyxj5jbif4jd77okhxvvavqcmzlvyq",
@@ -3395,7 +3395,7 @@
     {
       "handle": "contentful-compat",
       "did": "did:web:etzhayyim.com:actor:contentful-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreidaqvilflgmapzg3jmtkkuq4alba6w64jac34eqffsdgfrun5nv7m",

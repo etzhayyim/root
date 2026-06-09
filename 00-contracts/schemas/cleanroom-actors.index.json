@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 935,
-    "L5": 65
+    "L4": 933,
+    "L5": 67
   },
   "actors": [
     {
@@ -1910,7 +1910,7 @@
       "wasmCid": "bafkreicglcgmrpnibv7viji54n5wiyxj5jbif4jd77okhxvvavqcmzlvyq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "bitbucket clean-room actor",
       "category": "devops_ci",
       "capabilities": [
@@ -3602,7 +3602,7 @@
       "wasmCid": "bafkreidaqvilflgmapzg3jmtkkuq4alba6w64jac34eqffsdgfrun5nv7m",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "contentful clean-room actor",
       "category": "headless_ec_logistics",
       "capabilities": [

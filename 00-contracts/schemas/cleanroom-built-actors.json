@@ -1806,12 +1806,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
+        "PullRequest",
         "Repository",
-        "Pipeline",
-        "Build",
-        "Artifact",
-        "Deployment",
-        "Webhook"
+        "Workspace",
+        "Project",
+        "Issue",
+        "Commit"
       ]
     },
     {
@@ -3403,12 +3403,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "ContentEntry",
-        "Product",
-        "Shipment",
-        "SearchIndex",
-        "Webhook",
-        "Order"
+        "Entry",
+        "Asset",
+        "ContentType",
+        "Space",
+        "Environment",
+        "Locale"
       ]
     },
     {

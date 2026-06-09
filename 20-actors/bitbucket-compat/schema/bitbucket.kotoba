@@ -3,72 +3,72 @@
 
 namespace bitbucket {
 
+    entity PullRequest {
+        id: string @unique
+        id: integer
+        title: string
+        state: string
+        draft: boolean
+        createdOn: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
     entity Repository {
         id: string @unique
         name: string
-        owner: string
-        defaultBranch: string
-        private: boolean
+        fullName: string
+        scm: string
+        isPrivate: boolean
+        uuid: string
+        createdOn: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Pipeline {
+    entity Workspace {
         id: string @unique
-        repoId: string
         name: string
-        trigger: string
+        slug: string
+        uuid: string
+        isPrivate: boolean
+        createdOn: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Build {
+    entity Project {
         id: string @unique
-        pipelineId: string
-        number: integer
-        status: string
-        commitSha: string
-        durationMs: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Artifact {
-        id: string @unique
-        buildId: string
         name: string
-        sizeBytes: integer
-        contentRef: string
+        key: string
+        uuid: string
+        isPrivate: boolean
+        createdOn: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Deployment {
+    entity Issue {
         id: string @unique
-        buildId: string
-        environment: string
-        status: string
+        id: integer
+        title: string
+        state: string
+        priority: string
+        kind: string
+        createdOn: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Webhook {
+    entity Commit {
         id: string @unique
-        repoId: string
-        url: string
-        event: string
-        active: boolean
+        hash: string
+        message: string
+        date: datetime
+        summary: string
+        author: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

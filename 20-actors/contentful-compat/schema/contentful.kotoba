@@ -3,71 +3,91 @@
 
 namespace contentful {
 
-    entity ContentEntry {
+    entity Entry {
         id: string @unique
-        modelName: string
-        title: string
-        locale: string
-        published: boolean
+        id: string
+        type: string
+        version: integer
+        space: string
+        environment: string
+        contentType: string
+        publishedVersion: integer
+        createdAt: datetime
+        updatedAt: datetime
+        publishedAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Product {
+    entity Asset {
         id: string @unique
-        sku: string
-        title: string
-        price: float
-        currency: string
+        id: string
+        type: string
+        version: integer
+        space: string
+        environment: string
+        publishedVersion: integer
+        createdAt: datetime
+        updatedAt: datetime
+        publishedAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Shipment {
+    entity ContentType {
         id: string @unique
-        orderId: string
-        carrier: string
-        tracking: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity SearchIndex {
-        id: string @unique
+        id: string
+        type: string
+        version: integer
         name: string
-        recordCount: integer
-        primaryKey: string
+        displayField: string
+        description: string
+        createdAt: datetime
+        updatedAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Webhook {
+    entity Space {
         id: string @unique
-        event: string
-        url: string
-        active: boolean
+        id: string
+        type: string
+        version: integer
+        name: string
+        organization: string
+        createdAt: datetime
+        updatedAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Order {
+    entity Environment {
         id: string @unique
-        number: string
-        total: float
-        currency: string
+        id: string
+        type: string
+        version: integer
+        name: string
+        space: string
         status: string
+        createdAt: datetime
+        updatedAt: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Locale {
+        id: string @unique
+        id: string
+        type: string
+        version: integer
+        name: string
+        code: string
+        fallbackCode: string
+        default: boolean
+        optional: boolean
+        createdAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

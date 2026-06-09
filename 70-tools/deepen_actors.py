@@ -1383,6 +1383,26 @@ PLATFORM_OVERRIDES = {
         "Rule": E(objectID="string", description="string", enabled="boolean"),
         "Task": E(taskID="integer", status="string"),
     },
+    # Faithful Bitbucket Cloud model — verified against the official Bitbucket
+    # swagger (api.bitbucket.org/swagger.json). snake_case->camelCase.
+    "bitbucket": {
+        "PullRequest": E(id="integer", title="string", state="string", draft="boolean", createdOn="datetime"),
+        "Repository": E(name="string", fullName="string", scm="string", isPrivate="boolean", uuid="string", createdOn="datetime"),
+        "Workspace": E(name="string", slug="string", uuid="string", isPrivate="boolean", createdOn="datetime"),
+        "Project": E(name="string", key="string", uuid="string", isPrivate="boolean", createdOn="datetime"),
+        "Issue": E(id="integer", title="string", state="string", priority="string", kind="string", createdOn="datetime"),
+        "Commit": E(hash="string", message="string", date="datetime", summary="string", author="string"),
+    },
+    # Faithful Contentful model — verified against the official CMA docs +
+    # contentful-management.js SDK. sys.* flattened; localized/link objects dropped.
+    "contentful": {
+        "Entry": E(id="string", type="string", version="integer", space="string", environment="string", contentType="string", publishedVersion="integer", createdAt="datetime", updatedAt="datetime", publishedAt="datetime"),
+        "Asset": E(id="string", type="string", version="integer", space="string", environment="string", publishedVersion="integer", createdAt="datetime", updatedAt="datetime", publishedAt="datetime"),
+        "ContentType": E(id="string", type="string", version="integer", name="string", displayField="string", description="string", createdAt="datetime", updatedAt="datetime"),
+        "Space": E(id="string", type="string", version="integer", name="string", organization="string", createdAt="datetime", updatedAt="datetime"),
+        "Environment": E(id="string", type="string", version="integer", name="string", space="string", status="string", createdAt="datetime", updatedAt="datetime"),
+        "Locale": E(id="string", type="string", version="integer", name="string", code="string", fallbackCode="string", default="boolean", optional="boolean", createdAt="datetime"),
+    },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).
     "square": {

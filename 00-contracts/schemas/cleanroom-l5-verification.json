@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 65,
+  "count": 67,
   "actors": [
     {
       "handle": "square-compat",
@@ -9087,6 +9087,342 @@
         }
       ],
       "note": "FULLY VERIFIED (5/5 modeled entities) vs official Algolia OpenAPI specs. Enforced enums: Synonym.type(5 canonical lowercase), Task.status(2) = 2. ApiKey.acl(23) is array-valued + Rule.anchoring is nested -> intentionally NOT enforced as scalar field enums."
+    },
+    {
+      "handle": "bitbucket-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://api.bitbucket.org/swagger.json",
+      "remodeled": "Remodeled from generic devtools_saas to a faithful Bitbucket Cloud model, verified against the official Bitbucket swagger. snake_case->camelCase. PullRequest.state enforced as the canonical 4 (DRAFT/QUEUED excluded — draft is a separate boolean, not a state member); Issue.state left a gap (the fetched array appeared padded with 'submitted').",
+      "resources": [
+        {
+          "entity": "PullRequest",
+          "source": "https://api.bitbucket.org/swagger.json",
+          "verifiedFields": [
+            "id",
+            "title",
+            "state",
+            "draft",
+            "createdOn"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "state": [
+              "OPEN",
+              "MERGED",
+              "DECLINED",
+              "SUPERSEDED"
+            ]
+          },
+          "gaps": [
+            "closeSourceBranch"
+          ]
+        },
+        {
+          "entity": "Repository",
+          "source": "https://api.bitbucket.org/swagger.json",
+          "verifiedFields": [
+            "name",
+            "fullName",
+            "scm",
+            "isPrivate",
+            "uuid",
+            "createdOn"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "scm": [
+              "git"
+            ]
+          },
+          "gaps": [
+            "mainbranch"
+          ]
+        },
+        {
+          "entity": "Workspace",
+          "source": "https://api.bitbucket.org/swagger.json",
+          "verifiedFields": [
+            "name",
+            "slug",
+            "uuid",
+            "isPrivate",
+            "createdOn"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Project",
+          "source": "https://api.bitbucket.org/swagger.json",
+          "verifiedFields": [
+            "name",
+            "key",
+            "uuid",
+            "isPrivate",
+            "createdOn"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Issue",
+          "source": "https://api.bitbucket.org/swagger.json",
+          "verifiedFields": [
+            "id",
+            "title",
+            "state",
+            "priority",
+            "kind",
+            "createdOn"
+          ],
+          "fieldStatus": "fields confirmed; state array appeared padded ('submitted') -> state not enforced",
+          "discoveredEnums": {
+            "priority": [
+              "trivial",
+              "minor",
+              "major",
+              "critical",
+              "blocker"
+            ],
+            "kind": [
+              "bug",
+              "enhancement",
+              "proposal",
+              "task"
+            ]
+          },
+          "gaps": [
+            "state-enum-not-exhaustively-confirmed"
+          ]
+        },
+        {
+          "entity": "Commit",
+          "source": "https://api.bitbucket.org/swagger.json",
+          "verifiedFields": [
+            "hash",
+            "message",
+            "date",
+            "summary",
+            "author"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "parents(array)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official Bitbucket swagger. Enforced enums: PullRequest.state(4 canonical), Repository.scm(git), Issue.priority(5), Issue.kind(4) = 4 enums. PullRequest.state DRAFT/QUEUED + Issue.state padding rejected to keep the enum faithful (honesty over coverage)."
+    },
+    {
+      "handle": "contentful-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://www.contentful.com/developers/docs/references/content-management-api/",
+      "remodeled": "Remodeled from generic devtools_saas/cms to a faithful Contentful model, verified against the official CMA docs + contentful-management.js SDK. sys.* metadata flattened to scalars; localized/link objects dropped. The `type` field domain is the documented sys.type closed set, enforced on each entity.",
+      "resources": [
+        {
+          "entity": "Entry",
+          "source": "https://www.contentful.com/developers/docs/references/content-management-api/",
+          "verifiedFields": [
+            "id",
+            "type",
+            "version",
+            "space",
+            "environment",
+            "contentType",
+            "publishedVersion",
+            "createdAt",
+            "updatedAt",
+            "publishedAt"
+          ],
+          "fieldStatus": "confirmed (sys.* flattened)",
+          "discoveredEnums": {
+            "type": [
+              "Entry",
+              "Asset",
+              "ContentType",
+              "Space",
+              "Environment",
+              "EnvironmentAlias",
+              "Locale",
+              "Link",
+              "Array"
+            ]
+          },
+          "gaps": [
+            "metadata(object)",
+            "fields(localized)"
+          ]
+        },
+        {
+          "entity": "Asset",
+          "source": "https://www.contentful.com/developers/docs/references/content-management-api/",
+          "verifiedFields": [
+            "id",
+            "type",
+            "version",
+            "space",
+            "environment",
+            "publishedVersion",
+            "createdAt",
+            "updatedAt",
+            "publishedAt"
+          ],
+          "fieldStatus": "confirmed (sys.* flattened)",
+          "discoveredEnums": {
+            "type": [
+              "Entry",
+              "Asset",
+              "ContentType",
+              "Space",
+              "Environment",
+              "EnvironmentAlias",
+              "Locale",
+              "Link",
+              "Array"
+            ]
+          },
+          "gaps": [
+            "metadata(object)",
+            "fields(localized)"
+          ]
+        },
+        {
+          "entity": "ContentType",
+          "source": "https://www.contentful.com/developers/docs/references/content-management-api/",
+          "verifiedFields": [
+            "id",
+            "type",
+            "version",
+            "name",
+            "displayField",
+            "description",
+            "createdAt",
+            "updatedAt"
+          ],
+          "fieldStatus": "confirmed (sys.* flattened)",
+          "discoveredEnums": {
+            "type": [
+              "Entry",
+              "Asset",
+              "ContentType",
+              "Space",
+              "Environment",
+              "EnvironmentAlias",
+              "Locale",
+              "Link",
+              "Array"
+            ]
+          },
+          "gaps": [
+            "metadata(object)",
+            "fields(localized)"
+          ]
+        },
+        {
+          "entity": "Space",
+          "source": "https://www.contentful.com/developers/docs/references/content-management-api/",
+          "verifiedFields": [
+            "id",
+            "type",
+            "version",
+            "name",
+            "organization",
+            "createdAt",
+            "updatedAt"
+          ],
+          "fieldStatus": "confirmed (sys.* flattened)",
+          "discoveredEnums": {
+            "type": [
+              "Entry",
+              "Asset",
+              "ContentType",
+              "Space",
+              "Environment",
+              "EnvironmentAlias",
+              "Locale",
+              "Link",
+              "Array"
+            ]
+          },
+          "gaps": [
+            "metadata(object)",
+            "fields(localized)"
+          ]
+        },
+        {
+          "entity": "Environment",
+          "source": "https://www.contentful.com/developers/docs/references/content-management-api/",
+          "verifiedFields": [
+            "id",
+            "type",
+            "version",
+            "name",
+            "space",
+            "status",
+            "createdAt",
+            "updatedAt"
+          ],
+          "fieldStatus": "confirmed (sys.* flattened)",
+          "discoveredEnums": {
+            "type": [
+              "Entry",
+              "Asset",
+              "ContentType",
+              "Space",
+              "Environment",
+              "EnvironmentAlias",
+              "Locale",
+              "Link",
+              "Array"
+            ]
+          },
+          "gaps": [
+            "metadata(object)",
+            "fields(localized)"
+          ]
+        },
+        {
+          "entity": "Locale",
+          "source": "https://www.contentful.com/developers/docs/references/content-management-api/",
+          "verifiedFields": [
+            "id",
+            "type",
+            "version",
+            "name",
+            "code",
+            "fallbackCode",
+            "default",
+            "optional",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed (sys.* flattened)",
+          "discoveredEnums": {
+            "type": [
+              "Entry",
+              "Asset",
+              "ContentType",
+              "Space",
+              "Environment",
+              "EnvironmentAlias",
+              "Locale",
+              "Link",
+              "Array"
+            ]
+          },
+          "gaps": [
+            "metadata(object)",
+            "fields(localized)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official Contentful CMA docs + SDK. Enforced enum: sys.type(9) on the `type` field of all 6 entities. ContentType.field.type(11)/linkType(3) are nested field-definition enums (not top-level scalar fields) -> recorded, not enforced here."
     }
   ]
 }

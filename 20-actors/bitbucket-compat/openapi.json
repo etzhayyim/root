@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreicglcgmrpnibv7viji54n5wiyxj5jbif4jd77okhxvvavqcmzlvyq",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,6 +17,191 @@
     }
   ],
   "paths": {
+    "/v1/pullrequests": {
+      "get": {
+        "summary": "List PullRequests",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/PullRequest"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a PullRequest",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PullRequestCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PullRequest"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/pullrequests/{id}": {
+      "get": {
+        "summary": "Get a PullRequest",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PullRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a PullRequest",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PullRequestCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PullRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a PullRequest",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
     "/v1/repositories": {
       "get": {
         "summary": "List Repositories",
@@ -202,9 +387,9 @@
         }
       }
     },
-    "/v1/pipelines": {
+    "/v1/workspaces": {
       "get": {
-        "summary": "List Pipelines",
+        "summary": "List Workspaces",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Pipeline"
+                        "$ref": "#/components/schemas/Workspace"
                       }
                     },
                     "has_more": {
@@ -264,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Pipeline",
+        "summary": "Create a Workspace",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PipelineCreate"
+                "$ref": "#/components/schemas/WorkspaceCreate"
               }
             }
           }
@@ -281,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pipeline"
+                  "$ref": "#/components/schemas/Workspace"
                 }
               }
             }
@@ -292,9 +477,9 @@
         }
       }
     },
-    "/v1/pipelines/{id}": {
+    "/v1/workspaces/{id}": {
       "get": {
-        "summary": "Get a Pipeline",
+        "summary": "Get a Workspace",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pipeline"
+                  "$ref": "#/components/schemas/Workspace"
                 }
               }
             }
@@ -329,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Pipeline",
+        "summary": "Update a Workspace",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PipelineCreate"
+                "$ref": "#/components/schemas/WorkspaceCreate"
               }
             }
           }
@@ -355,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pipeline"
+                  "$ref": "#/components/schemas/Workspace"
                 }
               }
             }
@@ -366,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Pipeline",
+        "summary": "Delete a Workspace",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +572,9 @@
         }
       }
     },
-    "/v1/builds": {
+    "/v1/projects": {
       "get": {
-        "summary": "List Builds",
+        "summary": "List Projects",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Build"
+                        "$ref": "#/components/schemas/Project"
                       }
                     },
                     "has_more": {
@@ -449,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Build",
+        "summary": "Create a Project",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BuildCreate"
+                "$ref": "#/components/schemas/ProjectCreate"
               }
             }
           }
@@ -466,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Build"
+                  "$ref": "#/components/schemas/Project"
                 }
               }
             }
@@ -477,9 +662,9 @@
         }
       }
     },
-    "/v1/builds/{id}": {
+    "/v1/projects/{id}": {
       "get": {
-        "summary": "Get a Build",
+        "summary": "Get a Project",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Build"
+                  "$ref": "#/components/schemas/Project"
                 }
               }
             }
@@ -514,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Build",
+        "summary": "Update a Project",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BuildCreate"
+                "$ref": "#/components/schemas/ProjectCreate"
               }
             }
           }
@@ -540,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Build"
+                  "$ref": "#/components/schemas/Project"
                 }
               }
             }
@@ -551,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Build",
+        "summary": "Delete a Project",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +757,9 @@
         }
       }
     },
-    "/v1/artifacts": {
+    "/v1/issues": {
       "get": {
-        "summary": "List Artifacts",
+        "summary": "List Issues",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Artifact"
+                        "$ref": "#/components/schemas/Issue"
                       }
                     },
                     "has_more": {
@@ -634,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Artifact",
+        "summary": "Create a Issue",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ArtifactCreate"
+                "$ref": "#/components/schemas/IssueCreate"
               }
             }
           }
@@ -651,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Artifact"
+                  "$ref": "#/components/schemas/Issue"
                 }
               }
             }
@@ -662,9 +847,9 @@
         }
       }
     },
-    "/v1/artifacts/{id}": {
+    "/v1/issues/{id}": {
       "get": {
-        "summary": "Get a Artifact",
+        "summary": "Get a Issue",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Artifact"
+                  "$ref": "#/components/schemas/Issue"
                 }
               }
             }
@@ -699,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Artifact",
+        "summary": "Update a Issue",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ArtifactCreate"
+                "$ref": "#/components/schemas/IssueCreate"
               }
             }
           }
@@ -725,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Artifact"
+                  "$ref": "#/components/schemas/Issue"
                 }
               }
             }
@@ -736,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Artifact",
+        "summary": "Delete a Issue",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +942,9 @@
         }
       }
     },
-    "/v1/deployments": {
+    "/v1/commits": {
       "get": {
-        "summary": "List Deployments",
+        "summary": "List Commits",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +984,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Deployment"
+                        "$ref": "#/components/schemas/Commit"
                       }
                     },
                     "has_more": {
@@ -819,13 +1004,13 @@
         }
       },
       "post": {
-        "summary": "Create a Deployment",
+        "summary": "Create a Commit",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DeploymentCreate"
+                "$ref": "#/components/schemas/CommitCreate"
               }
             }
           }
@@ -836,7 +1021,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Deployment"
+                  "$ref": "#/components/schemas/Commit"
                 }
               }
             }
@@ -847,9 +1032,9 @@
         }
       }
     },
-    "/v1/deployments/{id}": {
+    "/v1/commits/{id}": {
       "get": {
-        "summary": "Get a Deployment",
+        "summary": "Get a Commit",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +1058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Deployment"
+                  "$ref": "#/components/schemas/Commit"
                 }
               }
             }
@@ -884,7 +1069,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Deployment",
+        "summary": "Update a Commit",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +1084,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DeploymentCreate"
+                "$ref": "#/components/schemas/CommitCreate"
               }
             }
           }
@@ -910,7 +1095,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Deployment"
+                  "$ref": "#/components/schemas/Commit"
                 }
               }
             }
@@ -921,192 +1106,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Deployment",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/webhooks": {
-      "get": {
-        "summary": "List Webhooks",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Webhook"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Webhook",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/WebhookCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Webhook"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/webhooks/{id}": {
-      "get": {
-        "summary": "Get a Webhook",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Webhook"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Webhook",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/WebhookCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Webhook"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Webhook",
+        "summary": "Delete a Commit",
         "parameters": [
           {
             "name": "id",
@@ -1140,6 +1140,71 @@
   },
   "components": {
     "schemas": {
+      "PullRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "OPEN",
+              "MERGED",
+              "DECLINED",
+              "SUPERSEDED"
+            ]
+          },
+          "draft": {
+            "type": "boolean"
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "PullRequestCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "OPEN",
+              "MERGED",
+              "DECLINED",
+              "SUPERSEDED"
+            ]
+          },
+          "draft": {
+            "type": "boolean"
+          },
+          "createdOn": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title"
+        ]
+      },
       "Repository": {
         "type": "object",
         "properties": {
@@ -1149,14 +1214,24 @@
           "name": {
             "type": "string"
           },
-          "owner": {
+          "fullName": {
             "type": "string"
           },
-          "defaultBranch": {
-            "type": "string"
+          "scm": {
+            "type": "string",
+            "enum": [
+              "git"
+            ]
           },
-          "private": {
+          "isPrivate": {
             "type": "boolean"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
           },
           "createdAt": {
             "type": "string",
@@ -1174,84 +1249,51 @@
           "name": {
             "type": "string"
           },
-          "owner": {
+          "fullName": {
             "type": "string"
           },
-          "defaultBranch": {
-            "type": "string"
+          "scm": {
+            "type": "string",
+            "enum": [
+              "git"
+            ]
           },
-          "private": {
+          "isPrivate": {
             "type": "boolean"
-          }
-        },
-        "required": [
-          "name",
-          "owner"
-        ]
-      },
-      "Pipeline": {
-        "type": "object",
-        "properties": {
-          "id": {
+          },
+          "uuid": {
             "type": "string"
           },
-          "repoId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "trigger": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "PipelineCreate": {
-        "type": "object",
-        "properties": {
-          "repoId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "trigger": {
+          "createdOn": {
             "type": "string"
           }
         },
         "required": [
           "name",
-          "trigger"
+          "fullName"
         ]
       },
-      "Build": {
+      "Workspace": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "pipelineId": {
+          "name": {
             "type": "string"
           },
-          "number": {
-            "type": "integer"
-          },
-          "status": {
+          "slug": {
             "type": "string"
           },
-          "commitSha": {
+          "uuid": {
             "type": "string"
           },
-          "durationMs": {
-            "type": "integer"
+          "isPrivate": {
+            "type": "boolean"
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
           },
           "createdAt": {
             "type": "string",
@@ -1263,92 +1305,191 @@
           }
         }
       },
-      "BuildCreate": {
+      "WorkspaceCreate": {
         "type": "object",
         "properties": {
-          "pipelineId": {
-            "type": "string"
-          },
-          "number": {
-            "type": "integer"
-          },
-          "status": {
-            "type": "string"
-          },
-          "commitSha": {
-            "type": "string"
-          },
-          "durationMs": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "number",
-          "status"
-        ]
-      },
-      "Artifact": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "buildId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "sizeBytes": {
-            "type": "integer"
-          },
-          "contentRef": {
+          "slug": {
             "type": "string"
           },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ArtifactCreate": {
-        "type": "object",
-        "properties": {
-          "buildId": {
+          "uuid": {
             "type": "string"
           },
-          "name": {
-            "type": "string"
+          "isPrivate": {
+            "type": "boolean"
           },
-          "sizeBytes": {
-            "type": "integer"
-          },
-          "contentRef": {
+          "createdOn": {
             "type": "string"
           }
         },
         "required": [
           "name",
-          "sizeBytes"
+          "slug"
         ]
       },
-      "Deployment": {
+      "Project": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "buildId": {
+          "name": {
             "type": "string"
           },
-          "environment": {
+          "key": {
             "type": "string"
           },
-          "status": {
+          "uuid": {
+            "type": "string"
+          },
+          "isPrivate": {
+            "type": "boolean"
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ProjectCreate": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "key": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "isPrivate": {
+            "type": "boolean"
+          },
+          "createdOn": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "key"
+        ]
+      },
+      "Issue": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "trivial",
+              "minor",
+              "major",
+              "critical",
+              "blocker"
+            ]
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "bug",
+              "enhancement",
+              "proposal",
+              "task"
+            ]
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "IssueCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "trivial",
+              "minor",
+              "major",
+              "critical",
+              "blocker"
+            ]
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "bug",
+              "enhancement",
+              "proposal",
+              "task"
+            ]
+          },
+          "createdOn": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title"
+        ]
+      },
+      "Commit": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "hash": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "author": {
             "type": "string"
           },
           "createdAt": {
@@ -1361,71 +1502,28 @@
           }
         }
       },
-      "DeploymentCreate": {
+      "CommitCreate": {
         "type": "object",
         "properties": {
-          "buildId": {
+          "hash": {
             "type": "string"
           },
-          "environment": {
+          "message": {
             "type": "string"
           },
-          "status": {
+          "date": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "author": {
             "type": "string"
           }
         },
         "required": [
-          "environment",
-          "status"
-        ]
-      },
-      "Webhook": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "repoId": {
-            "type": "string"
-          },
-          "url": {
-            "type": "string"
-          },
-          "event": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "WebhookCreate": {
-        "type": "object",
-        "properties": {
-          "repoId": {
-            "type": "string"
-          },
-          "url": {
-            "type": "string"
-          },
-          "event": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "url",
-          "event"
+          "hash",
+          "message"
         ]
       }
     }
