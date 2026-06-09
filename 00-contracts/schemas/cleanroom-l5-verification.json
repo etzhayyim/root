@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 63,
+  "count": 64,
   "actors": [
     {
       "handle": "square-compat",
@@ -8926,6 +8926,105 @@
       ],
       "notApplicable": [],
       "note": "Remodeled from a mismatched APM/error-tracking archetype to a faithful incident-response model. 6/6 entities field-verified vs PagerDuty's official OpenAPI. Discovered closed enums (10): Incident.status/assignedVia/urgency, Service.status/alertCreation/alertGrouping, EscalationPolicy.onCallHandoffNotifications, User.role, Team.defaultRole."
+    },
+    {
+      "handle": "contentful-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/contentful/contentful-management.js (lib/entities/*.ts — official CMA SDK types)",
+      "remodeled": "Remodeled from the generic headless_ec_logistics archetype (ContentEntry/Product/Shipment/SearchIndex/Order — an e-commerce shape) to a faithful Contentful Content Management API model (ContentType/Space/Environment/Locale/ApiKey/Webhook), verified field-by-field against the official contentful-management.js *Props TypeScript interfaces. Entry/Asset omitted: their user-data lives in a schemaless `fields` map (actor models scalar fields only). Space/Environment are genuinely thin (name + sys) in the real CMA. The L5 gate had correctly rejected the prior mismatched model (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "ContentType",
+          "source": "lib/entities/content-type.ts (ContentTypeProps)",
+          "verifiedFields": [
+            "name",
+            "description",
+            "displayField"
+          ],
+          "fieldStatus": "confirmed vs ContentTypeProps (name/description/displayField)",
+          "discoveredEnums": {},
+          "gaps": [
+            "fields(array of Field)",
+            "metadata(object)",
+            "sys(object)"
+          ]
+        },
+        {
+          "entity": "Space",
+          "source": "lib/entities/space.ts (SpaceProps)",
+          "verifiedFields": [
+            "name"
+          ],
+          "fieldStatus": "confirmed vs SpaceProps (name); genuinely thin in the real CMA (rest is sys)",
+          "discoveredEnums": {},
+          "gaps": [
+            "sys(object incl. organization/createdBy)"
+          ]
+        },
+        {
+          "entity": "Environment",
+          "source": "lib/entities/environment.ts (EnvironmentProps)",
+          "verifiedFields": [
+            "name"
+          ],
+          "fieldStatus": "confirmed vs EnvironmentProps (name); genuinely thin in the real CMA",
+          "discoveredEnums": {},
+          "gaps": [
+            "sys(object incl. status/aliases)"
+          ]
+        },
+        {
+          "entity": "Locale",
+          "source": "lib/entities/locale.ts (LocaleProps)",
+          "verifiedFields": [
+            "name",
+            "code",
+            "fallbackCode",
+            "default",
+            "optional",
+            "contentDeliveryApi",
+            "contentManagementApi"
+          ],
+          "fieldStatus": "confirmed vs LocaleProps (name/code/fallbackCode/default/optional/contentDeliveryApi/contentManagementApi)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "ApiKey",
+          "source": "lib/entities/api-key.ts (ApiKeyProps)",
+          "verifiedFields": [
+            "name",
+            "description",
+            "accessToken"
+          ],
+          "fieldStatus": "confirmed vs ApiKeyProps (name/description/accessToken)",
+          "discoveredEnums": {},
+          "gaps": [
+            "preview_api_key(object)",
+            "environments(array)"
+          ]
+        },
+        {
+          "entity": "Webhook",
+          "source": "lib/entities/webhook.ts (WebhookProps)",
+          "verifiedFields": [
+            "name",
+            "url",
+            "httpBasicUsername",
+            "active"
+          ],
+          "fieldStatus": "confirmed vs WebhookProps (name/url/httpBasicUsername/active); httpBasicPassword is a write-only secret -> omitted",
+          "discoveredEnums": {},
+          "gaps": [
+            "topics(array)",
+            "headers(array)",
+            "filters(array)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "Remodeled from a mismatched e-commerce archetype to a faithful headless-CMS (CMA) model. 6/6 entities field-verified vs the official contentful-management.js SDK types. No closed enums in these CMA objects (all open strings). Schemaless Entry/Asset user-fields intentionally not modeled (scalar-only actor)."
     }
   ]
 }

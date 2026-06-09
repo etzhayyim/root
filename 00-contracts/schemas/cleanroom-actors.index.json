@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 937,
-    "L5": 63
+    "L4": 936,
+    "L5": 64
   },
   "actors": [
     {
@@ -3602,7 +3602,7 @@
       "wasmCid": "bafkreidaqvilflgmapzg3jmtkkuq4alba6w64jac34eqffsdgfrun5nv7m",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "contentful clean-room actor",
       "category": "headless_ec_logistics",
       "capabilities": [

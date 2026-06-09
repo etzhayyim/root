@@ -1110,6 +1110,18 @@ PLATFORM_OVERRIDES = {
         "User": E(name="string", email="string", timeZone="string", color="string", role="string", avatarUrl="string", description="string", invitationSent="boolean", jobTitle="string", createdViaSso="boolean"),
         "Team": E(name="string", description="string", defaultRole="string"),
     },
+    # Faithful Contentful (Content Management API) model (remodeled from the
+    # generic headless_ec_logistics archetype whose Product/Shipment/Order
+    # e-commerce entities did not match Contentful's headless-CMS API),
+    # doc-verified L5 vs github.com/contentful/contentful-management.js.
+    "contentful": {
+        "ContentType": E(name="string", description="string", displayField="string"),
+        "Space": E(name="string"),
+        "Environment": E(name="string"),
+        "Locale": E(name="string", code="string", fallbackCode="string", default="boolean", optional="boolean", contentDeliveryApi="boolean", contentManagementApi="boolean"),
+        "ApiKey": E(name="string", description="string", accessToken="string"),
+        "Webhook": E(name="string", url="string", httpBasicUsername="string", active="boolean"),
+    },
     # Faithful Airtable model (remodeled from generic office_productivity), L5.
     "airtable": {
         "Base": E(name="string", permissionLevel="string"),
