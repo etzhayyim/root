@@ -94,6 +94,14 @@
       "output": ["out/alerts.md", "out/itonami-alerts.kotoba.edn"],
       "pipeline": "compare each line/station KPI to documented (warn, critical) thresholds (polarity-aware) → graded {warn/critical} advisory alert list → transient alert datoms",
       "doc": "R9 operational threshold alerts — the HMI alarm half, ADVISORY ONLY (G1): raises a flag for a human/Council, NEVER halts the line / trips an e-stop / writes to the OT bus (safety interlocks live in the PLC, not here; no actuation token is representable). Thresholds are documented config (G5), station/line scope (G2)"
+    },
+    {
+      "id": "cell:itonami.fleet",
+      "method": "methods/fleet.py",
+      "input": "data/seed-fleet-ops.kotoba.edn",
+      "output": ["out/fleet-rollup.md", "out/itonami-fleet.kotoba.edn"],
+      "pipeline": "group stations by :station/line → per-line analyze + alert.evaluate → plant rollup (per-line OEE/energy/scrap + alert counts) → rank lines worst-first (critical alerts, then lowest OEE)",
+      "doc": "R10 multi-line FLEET rollup — the whole-plant scope (a plant brain oversees >1 line); recommends which line to attend first, never actuates (G1); ranks LINES, never people — no worker dimension (G2); per-line KPIs transient (G3)"
     }
   ],
   "gates": {

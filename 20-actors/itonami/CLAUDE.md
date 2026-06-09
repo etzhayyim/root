@@ -59,6 +59,7 @@ python3 tests/test_digest.py           # 11 tests — R4 daily digest + R6 throu
 python3 tests/test_plan.py             # 8 tests — R5 throughput / line-balance plan
 python3 tests/test_trend.py            # 8 tests — R7 KPI trend / drift detector
 python3 tests/test_alert.py            # 9 tests — R9 operational threshold alerts
+python3 tests/test_fleet.py            # 7 tests — R10 multi-line fleet rollup
 python3 methods/analyze.py             # → out/operations-report.md
 python3 methods/datom_emit.py --tx 1   # → out/itonami-datoms.kotoba.edn
 python3 methods/optimize.py            # → out/optimization-proposals.md (+ proposal datoms)
@@ -68,6 +69,7 @@ python3 methods/digest.py              # → out/daily-digest.md (Murakumo-narra
 python3 methods/plan.py                # → out/throughput-plan.md (units/day + relief)
 python3 methods/trend.py               # → out/trend-report.md (KPI drift over days)
 python3 methods/alert.py               # → out/alerts.md (graded threshold alerts, advisory)
+python3 methods/fleet.py               # → out/fleet-rollup.md (multi-line plant rollup + rank)
 ```
 
 End-to-end (gap-(3) loop): `ingest.py` (scan-cycle Datoms → ticks) → `analyze.py` (KPIs) →
@@ -120,6 +122,11 @@ on the canonical Datom log.
   flag for a human/Council, NEVER halts the line / trips an e-stop / writes to the OT bus (no
   actuation token is even representable in the output, test-enforced). Thresholds caller-
   overridable (G5). 9 tests. ✅
-- **R10** — live scan-cycle socket (Modbus/OPC-UA/EtherCAT via kotoba-os device worlds, Council
+- **R10 (landed)** — `methods/fleet.py`: multi-line FLEET rollup (whole-plant scope — a plant
+  brain oversees >1 line). Groups stations by `:station/line`, runs per-line analyze + alert,
+  rolls up a plant view, and ranks lines worst-first (critical alerts, then lowest OEE). On the
+  fleet seed: sarutahiko (OEE 37.5%, criticals) ranked above giemon (83.3%, clean). Recommends
+  which line to attend, never actuates (G1); ranks LINES not people (G2). 7 tests. ✅
+- **R11** — live scan-cycle socket (Modbus/OPC-UA/EtherCAT via kotoba-os device worlds, Council
   + operator DID gated); cross-check OEE against the sarutahiko produce sim; componentize-py
   WASM build + CID advertisement.
