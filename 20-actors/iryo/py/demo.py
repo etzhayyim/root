@@ -66,7 +66,7 @@ def main() -> None:
                                 "shinryoYear": 2026, "shinryoMonth": 6})
     print("\n── レセ電 (レセプト電算処理) レコード ──")
     print(rec["csv"].rstrip())
-    print(f"\n  件数: {rec['summary']}   状態: {rec['state']} (G3 no-server-key)")
+    print("\n  件数/状態: (ログ出力抑止; G3 no-server-key)")
 
     val = agent.handle_validate({"encounter": ENCOUNTER, "karte": KARTE})
     print("\n── 算定整合性チェック (G5 non-adjudicating) ──")
