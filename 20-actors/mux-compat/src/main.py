@@ -348,6 +348,8 @@ def create_upload(request):
     err = _require(data, ['id', 'status'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['waiting', 'asset_created', 'errored', 'cancelled', 'timed_out']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['waiting', 'asset_created', 'errored', 'cancelled', 'timed_out']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("mux_upl")}
     rec["id"] = data.get('id')
     rec["status"] = data.get('status')
@@ -387,6 +389,8 @@ def update_upload(request, eid):
     err = _reject_unknown(data, ['id', 'status', 'timeout', 'test'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['waiting', 'asset_created', 'errored', 'cancelled', 'timed_out']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['waiting', 'asset_created', 'errored', 'cancelled', 'timed_out']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -414,6 +418,8 @@ def create_live_stream(request):
     err = _require(data, ['id', 'status'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['active', 'idle', 'disabled']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['active', 'idle', 'disabled']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("mux_liv")}
     rec["id"] = data.get('id')
     rec["status"] = data.get('status')
@@ -452,6 +458,8 @@ def update_live_stream(request, eid):
     err = _reject_unknown(data, ['id', 'status', 'latencyMode'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['active', 'idle', 'disabled']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['active', 'idle', 'disabled']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):

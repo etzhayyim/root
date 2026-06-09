@@ -1193,7 +1193,14 @@
             "type": "string"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "waiting",
+              "asset_created",
+              "errored",
+              "cancelled",
+              "timed_out"
+            ]
           },
           "timeout": {
             "type": "integer"
@@ -1218,7 +1225,14 @@
             "type": "string"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "waiting",
+              "asset_created",
+              "errored",
+              "cancelled",
+              "timed_out"
+            ]
           },
           "timeout": {
             "type": "integer"
@@ -1239,7 +1253,12 @@
             "type": "string"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "active",
+              "idle",
+              "disabled"
+            ]
           },
           "latencyMode": {
             "type": "string"
@@ -1261,7 +1280,12 @@
             "type": "string"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "active",
+              "idle",
+              "disabled"
+            ]
           },
           "latencyMode": {
             "type": "string"

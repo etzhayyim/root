@@ -9180,7 +9180,7 @@
             "kind",
             "createdOn"
           ],
-          "fieldStatus": "fields confirmed; state array appeared padded ('submitted') -> state not enforced",
+          "fieldStatus": "confirmed (state enum re-fetch-confirmed exhaustive incl 'submitted' as first value — prior padding judgment corrected)",
           "discoveredEnums": {
             "priority": [
               "trivial",
@@ -9194,11 +9194,20 @@
               "enhancement",
               "proposal",
               "task"
+            ],
+            "state": [
+              "submitted",
+              "new",
+              "open",
+              "resolved",
+              "on hold",
+              "invalid",
+              "duplicate",
+              "wontfix",
+              "closed"
             ]
           },
-          "gaps": [
-            "state-enum-not-exhaustively-confirmed"
-          ]
+          "gaps": []
         },
         {
           "entity": "Commit",
@@ -9218,7 +9227,7 @@
         }
       ],
       "notApplicable": [],
-      "note": "FULLY VERIFIED (6/6) vs official Bitbucket swagger. Enforced enums: PullRequest.state(4 canonical), Repository.scm(git), Issue.priority(5), Issue.kind(4) = 4 enums. PullRequest.state DRAFT/QUEUED + Issue.state padding rejected to keep the enum faithful (honesty over coverage)."
+      "note": "FULLY VERIFIED (6/6) vs official Bitbucket swagger. Enforced enums: PullRequest.state(4 canonical), Repository.scm(git), Issue.priority(5)/kind(4)/state(9) = 5 enums. (Issue.state gap closed by re-fetch: 'submitted' IS a documented state.)"
     },
     {
       "handle": "contentful-compat",
@@ -10576,11 +10585,17 @@
             "timeout",
             "test"
           ],
-          "fieldStatus": "fields confirmed; status enum not accessible -> not enforced",
-          "discoveredEnums": {},
-          "gaps": [
-            "status-enum-not-accessible"
-          ]
+          "fieldStatus": "confirmed (status re-fetch-confirmed from official Mux Node SDK)",
+          "discoveredEnums": {
+            "status": [
+              "waiting",
+              "asset_created",
+              "errored",
+              "cancelled",
+              "timed_out"
+            ]
+          },
+          "gaps": []
         },
         {
           "entity": "LiveStream",
@@ -10590,15 +10605,19 @@
             "status",
             "latencyMode"
           ],
-          "fieldStatus": "fields confirmed; status enum not accessible -> not enforced",
-          "discoveredEnums": {},
-          "gaps": [
-            "status-enum-not-accessible"
-          ]
+          "fieldStatus": "confirmed (status re-fetch-confirmed from official Mux Node SDK)",
+          "discoveredEnums": {
+            "status": [
+              "active",
+              "idle",
+              "disabled"
+            ]
+          },
+          "gaps": []
         }
       ],
       "notApplicable": [],
-      "note": "PARTIAL: Asset/PlaybackId/Track FULLY verified vs official Mux docs (6 enforced enums: Asset.status/resolutionTier/videoQuality, PlaybackId.policy, Track.type/status); Upload/LiveStream status enums not publicly accessible -> gaps. Honesty over coverage."
+      "note": "FULLY VERIFIED (5/5) vs official Mux docs + Node SDK. Enforced enums: Asset.status/resolutionTier/videoQuality, PlaybackId.policy, Track.type/status, Upload.status(5), LiveStream.status(3) = 8 enums. (Upload/LiveStream gaps closed by SDK re-fetch.)"
     },
     {
       "handle": "netlify-compat",
@@ -11451,11 +11470,16 @@
             "isGrafanaAdmin",
             "isDisabled"
           ],
-          "fieldStatus": "confirmed; org role enum incomplete in fetch -> not enforced",
-          "discoveredEnums": {},
-          "gaps": [
-            "role-enum-incomplete"
-          ]
+          "fieldStatus": "confirmed (org role re-fetch-confirmed exhaustive across 3 sources: None/Viewer/Editor/Admin)",
+          "discoveredEnums": {
+            "role": [
+              "None",
+              "Viewer",
+              "Editor",
+              "Admin"
+            ]
+          },
+          "gaps": []
         },
         {
           "entity": "Organization",
@@ -11471,7 +11495,7 @@
         }
       ],
       "notApplicable": [],
-      "note": "FULLY VERIFIED (6/6 schemas) vs official Grafana HTTP API docs. Enforced enum: DataSource.access(proxy/direct). Alert-state + role enums left gaps (version-dependent / fetch unreliable) — honesty over coverage."
+      "note": "FULLY VERIFIED (6/6) vs official Grafana sources. Enforced enums: DataSource.access(2), User.role(4) = 2 enums. (User.role gap closed by re-fetch.) Alert-state enums remain version-dependent -> still gaps."
     },
     {
       "handle": "webflow-compat",

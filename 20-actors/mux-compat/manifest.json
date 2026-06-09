@@ -61,6 +61,22 @@
           "errored",
           "deleted"
         ]
+      },
+      "Upload": {
+        "status": [
+          "waiting",
+          "asset_created",
+          "errored",
+          "cancelled",
+          "timed_out"
+        ]
+      },
+      "LiveStream": {
+        "status": [
+          "active",
+          "idle",
+          "disabled"
+        ]
       }
     }
   },

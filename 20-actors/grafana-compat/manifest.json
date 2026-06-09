@@ -29,6 +29,14 @@
           "proxy",
           "direct"
         ]
+      },
+      "User": {
+        "role": [
+          "None",
+          "Viewer",
+          "Editor",
+          "Admin"
+        ]
       }
     }
   },

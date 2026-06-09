@@ -50,6 +50,17 @@
           "enhancement",
           "proposal",
           "task"
+        ],
+        "state": [
+          "submitted",
+          "new",
+          "open",
+          "resolved",
+          "on hold",
+          "invalid",
+          "duplicate",
+          "wontfix",
+          "closed"
         ]
       }
     }

@@ -1395,7 +1395,18 @@
             "type": "string"
           },
           "state": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "submitted",
+              "new",
+              "open",
+              "resolved",
+              "on hold",
+              "invalid",
+              "duplicate",
+              "wontfix",
+              "closed"
+            ]
           },
           "priority": {
             "type": "string",
@@ -1440,7 +1451,18 @@
             "type": "string"
           },
           "state": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "submitted",
+              "new",
+              "open",
+              "resolved",
+              "on hold",
+              "invalid",
+              "duplicate",
+              "wontfix",
+              "closed"
+            ]
           },
           "priority": {
             "type": "string",

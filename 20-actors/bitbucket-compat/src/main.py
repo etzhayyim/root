@@ -402,6 +402,8 @@ def create_issue(request):
         return {"error": {"message": "invalid priority; allowed: " + ", ".join(['trivial', 'minor', 'major', 'critical', 'blocker']), "type": "invalid_request_error"}}, 400
     if data.get('kind') and data['kind'] not in ['bug', 'enhancement', 'proposal', 'task']:
         return {"error": {"message": "invalid kind; allowed: " + ", ".join(['bug', 'enhancement', 'proposal', 'task']), "type": "invalid_request_error"}}, 400
+    if data.get('state') and data['state'] not in ['submitted', 'new', 'open', 'resolved', 'on hold', 'invalid', 'duplicate', 'wontfix', 'closed']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['submitted', 'new', 'open', 'resolved', 'on hold', 'invalid', 'duplicate', 'wontfix', 'closed']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("bitbucke_iss")}
     rec["id"] = _as_int(data.get('id'))
     rec["title"] = data.get('title')
@@ -447,6 +449,8 @@ def update_issue(request, eid):
         return {"error": {"message": "invalid priority; allowed: " + ", ".join(['trivial', 'minor', 'major', 'critical', 'blocker']), "type": "invalid_request_error"}}, 400
     if data.get('kind') and data['kind'] not in ['bug', 'enhancement', 'proposal', 'task']:
         return {"error": {"message": "invalid kind; allowed: " + ", ".join(['bug', 'enhancement', 'proposal', 'task']), "type": "invalid_request_error"}}, 400
+    if data.get('state') and data['state'] not in ['submitted', 'new', 'open', 'resolved', 'on hold', 'invalid', 'duplicate', 'wontfix', 'closed']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['submitted', 'new', 'open', 'resolved', 'on hold', 'invalid', 'duplicate', 'wontfix', 'closed']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
