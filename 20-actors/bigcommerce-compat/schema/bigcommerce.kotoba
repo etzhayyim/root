@@ -5,42 +5,71 @@ namespace bigcommerce {
 
     entity Product {
         id: string @unique
+        name: string
+        type: string
         sku: string
-        title: string
+        description: string
+        weight: float
         price: float
-        currency: string
-        inventory: integer
+        costPrice: float
+        retailPrice: float
+        salePrice: float
+        brandId: integer
+        inventoryLevel: integer
+        inventoryTracking: string
+        isFreeShipping: boolean
+        isVisible: boolean
+        isFeatured: boolean
+        availability: string
+        condition: string
+        upc: string
+        gtin: string
+        mpn: string
+        totalSold: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Variant {
         id: string @unique
-        productId: string
+        productId: integer
         sku: string
         price: float
-        optionValues: string
+        costPrice: float
+        salePrice: float
+        weight: float
+        upc: string
+        gtin: string
+        mpn: string
+        inventoryLevel: integer
+        purchasingDisabled: boolean
+        calculatedPrice: float
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Order {
+    entity Category {
         id: string @unique
-        customerId: string
-        number: string
-        total: float
-        currency: string
-        status: string
+        parentId: integer
+        name: string
+        description: string
+        views: integer
+        sortOrder: integer
+        pageTitle: string
+        isVisible: boolean
+        defaultProductSort: string
+        imageUrl: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity LineItem {
+    entity Brand {
         id: string @unique
-        orderId: string
-        productId: string
-        quantity: integer
-        unitPrice: float
+        name: string
+        pageTitle: string
+        metaDescription: string
+        searchKeywords: string
+        imageUrl: string
         createdAt: datetime
         updatedAt: datetime
     }
@@ -50,27 +79,35 @@ namespace bigcommerce {
         email: string
         firstName: string
         lastName: string
+        company: string
         phone: string
+        notes: string
+        taxExemptCategory: string
+        customerGroupId: integer
+        addressCount: integer
+        originChannelId: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Collection {
+    entity Order {
         id: string @unique
-        title: string
-        handle: string
-        published: boolean
+        status: string
+        statusId: integer
+        paymentStatus: string
+        paymentMethod: string
+        currencyCode: string
+        totalIncTax: string
+        subtotalIncTax: string
+        customerId: integer
+        customerMessage: string
+        orderSource: string
+        ipAddress: string
+        isDeleted: boolean
+        geoipCountry: string
+        taxProviderId: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

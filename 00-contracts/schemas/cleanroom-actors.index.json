@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 925,
-    "L5": 75
+    "L4": 924,
+    "L5": 76
   },
   "actors": [
     {
@@ -1766,7 +1766,7 @@
       "wasmCid": "bafkreihtbxjxoqzzurvhc4c3wq6ki76lpgwlkhtnvk7usbzifd3rhfjs7i",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "bigcommerce clean-room actor",
       "category": "ecommerce",
       "capabilities": [

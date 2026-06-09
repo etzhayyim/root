@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 75,
+  "count": 76,
   "actors": [
     {
       "handle": "square-compat",
@@ -10674,6 +10674,211 @@
       ],
       "notApplicable": [],
       "note": "Remodeled from a mismatched chat archetype to a faithful microblog model. 6/6 entities field-verified vs X's official API v2 OpenAPI. Discovered closed enums (4): User.verifiedType/subscriptionType, Space.state, Poll.votingStatus. Tweet/List/Media id-and-text fields are $ref-typed scalars in the spec."
+    },
+    {
+      "handle": "bigcommerce-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/bigcommerce/api-specs (reference/catalog/*, orders.v2, customers.v3 — official OpenAPI)",
+      "remodeled": "Verified and refined from the prior e-commerce model (Product/Variant/Order/LineItem/Customer/Collection): the non-BigCommerce 'Collection' entity (a Shopify concept) was replaced with the real Category and Brand entities, and all fields were verified against BigCommerce's official OpenAPI specs (allOf/$ref resolved). The L5 gate distinguishes real platform entities from generic e-commerce stand-ins (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Product",
+          "source": "reference/catalog/products_catalog.v3.yml product_Full",
+          "verifiedFields": [
+            "name",
+            "type",
+            "sku",
+            "description",
+            "weight",
+            "price",
+            "costPrice",
+            "retailPrice",
+            "salePrice",
+            "brandId",
+            "inventoryLevel",
+            "inventoryTracking",
+            "isFreeShipping",
+            "isVisible",
+            "isFeatured",
+            "availability",
+            "condition",
+            "upc",
+            "gtin",
+            "mpn",
+            "totalSold"
+          ],
+          "fieldStatus": "confirmed vs product_Full schema",
+          "discoveredEnums": {
+            "type": [
+              "physical",
+              "digital"
+            ],
+            "inventoryTracking": [
+              "none",
+              "product",
+              "variant"
+            ],
+            "availability": [
+              "available",
+              "disabled",
+              "preorder"
+            ],
+            "condition": [
+              "New",
+              "Used",
+              "Refurbished"
+            ]
+          },
+          "gaps": [
+            "variants(array)",
+            "images(array)",
+            "custom_fields(array)",
+            "categories(array of int)"
+          ]
+        },
+        {
+          "entity": "Variant",
+          "source": "reference/catalog/product-variants_catalog.v3.yml productVariant_Full",
+          "verifiedFields": [
+            "productId",
+            "sku",
+            "price",
+            "costPrice",
+            "salePrice",
+            "weight",
+            "upc",
+            "gtin",
+            "mpn",
+            "inventoryLevel",
+            "purchasingDisabled",
+            "calculatedPrice"
+          ],
+          "fieldStatus": "confirmed vs productVariant_Full schema",
+          "discoveredEnums": {},
+          "gaps": [
+            "option_values(array)"
+          ]
+        },
+        {
+          "entity": "Category",
+          "source": "reference/catalog/categories_catalog.v3.yml category_Full",
+          "verifiedFields": [
+            "parentId",
+            "name",
+            "description",
+            "views",
+            "sortOrder",
+            "pageTitle",
+            "isVisible",
+            "defaultProductSort",
+            "imageUrl"
+          ],
+          "fieldStatus": "confirmed vs category_Full schema",
+          "discoveredEnums": {
+            "defaultProductSort": [
+              "use_store_settings",
+              "featured",
+              "newest",
+              "best_selling",
+              "alpha_asc",
+              "alpha_desc"
+            ]
+          },
+          "gaps": [
+            "custom_url(object)"
+          ]
+        },
+        {
+          "entity": "Brand",
+          "source": "reference/catalog/brands_catalog.v3.yml brand_Full",
+          "verifiedFields": [
+            "name",
+            "pageTitle",
+            "metaDescription",
+            "searchKeywords",
+            "imageUrl"
+          ],
+          "fieldStatus": "confirmed vs brand_Full schema",
+          "discoveredEnums": {},
+          "gaps": [
+            "custom_url(object)",
+            "meta_keywords(array)"
+          ]
+        },
+        {
+          "entity": "Customer",
+          "source": "reference/customers.v3.yml customer_Full",
+          "verifiedFields": [
+            "email",
+            "firstName",
+            "lastName",
+            "company",
+            "phone",
+            "notes",
+            "taxExemptCategory",
+            "customerGroupId",
+            "addressCount",
+            "originChannelId"
+          ],
+          "fieldStatus": "confirmed vs customer_Full schema",
+          "discoveredEnums": {},
+          "gaps": [
+            "addresses(array)",
+            "attributes(array)",
+            "authentication(object)"
+          ]
+        },
+        {
+          "entity": "Order",
+          "source": "reference/orders.v2.oas2.yml order_Resp",
+          "verifiedFields": [
+            "status",
+            "statusId",
+            "paymentStatus",
+            "paymentMethod",
+            "currencyCode",
+            "totalIncTax",
+            "subtotalIncTax",
+            "customerId",
+            "customerMessage",
+            "orderSource",
+            "ipAddress",
+            "isDeleted",
+            "geoipCountry",
+            "taxProviderId"
+          ],
+          "fieldStatus": "confirmed vs order_Resp schema (v2 returns decimal money as strings)",
+          "discoveredEnums": {
+            "paymentStatus": [
+              "authorized",
+              "captured",
+              "capture pending",
+              "declined",
+              "held for review",
+              "paid"
+            ],
+            "paymentMethod": [
+              "Credit Card",
+              "Cash",
+              "Test Payment Gateway",
+              "Manual"
+            ],
+            "taxProviderId": [
+              "BasicTaxProvider",
+              "AvaTaxProvider",
+              ""
+            ]
+          },
+          "gaps": [
+            "products(resource)",
+            "shipping_addresses(resource)",
+            "coupons(resource)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "Verified + refined real BigCommerce entities (Collection -> Category/Brand). 6/6 entities field-verified vs the official BigCommerce OpenAPI. Discovered closed enums (8): Product.type/inventoryTracking/availability/condition, Category.defaultProductSort, Order.paymentStatus/paymentMethod/taxProviderId. v2 Order money fields are strings (modeled faithfully)."
     }
   ]
 }

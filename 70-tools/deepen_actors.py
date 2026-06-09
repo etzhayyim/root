@@ -1248,6 +1248,17 @@ PLATFORM_OVERRIDES = {
         "Media": E(type="string"),
         "Poll": E(durationMinutes="integer", endDatetime="datetime", votingStatus="string"),
     },
+    # Faithful BigCommerce model (verified + refined from the prior e-commerce
+    # model — Collection replaced with the real Category/Brand entities), doc-
+    # verified L5 vs github.com/bigcommerce/api-specs (official OpenAPI).
+    "bigcommerce": {
+        "Product": E(name="string", type="string", sku="string", description="string", weight="float", price="float", costPrice="float", retailPrice="float", salePrice="float", brandId="integer", inventoryLevel="integer", inventoryTracking="string", isFreeShipping="boolean", isVisible="boolean", isFeatured="boolean", availability="string", condition="string", upc="string", gtin="string", mpn="string", totalSold="integer"),
+        "Variant": E(productId="integer", sku="string", price="float", costPrice="float", salePrice="float", weight="float", upc="string", gtin="string", mpn="string", inventoryLevel="integer", purchasingDisabled="boolean", calculatedPrice="float"),
+        "Category": E(parentId="integer", name="string", description="string", views="integer", sortOrder="integer", pageTitle="string", isVisible="boolean", defaultProductSort="string", imageUrl="string"),
+        "Brand": E(name="string", pageTitle="string", metaDescription="string", searchKeywords="string", imageUrl="string"),
+        "Customer": E(email="string", firstName="string", lastName="string", company="string", phone="string", notes="string", taxExemptCategory="string", customerGroupId="integer", addressCount="integer", originChannelId="integer"),
+        "Order": E(status="string", statusId="integer", paymentStatus="string", paymentMethod="string", currencyCode="string", totalIncTax="string", subtotalIncTax="string", customerId="integer", customerMessage="string", orderSource="string", ipAddress="string", isDeleted="boolean", geoipCountry="string", taxProviderId="string"),
+    },
     # Faithful Airtable model (remodeled from generic office_productivity), L5.
     "airtable": {
         "Base": E(name="string", permissionLevel="string"),
