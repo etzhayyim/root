@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 58,
+  "count": 59,
   "actors": [
     {
       "handle": "square-compat",
@@ -8148,6 +8148,165 @@
       ],
       "notApplicable": [],
       "note": "Remodeled from generic iaas_cloud archetype. 6/6 entities field-verified vs the official digitalocean/openapi spec. Enforced/discovered closed enums (5): Droplet.status, Image.type, Image.status, Project.environment, Database.engine, Database.status."
+    },
+    {
+      "handle": "netlify-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/netlify/open-api (go/models/*.go — generated from the official swagger.yml)",
+      "remodeled": "Remodeled from the generic iaas_cloud archetype (GCP/AWS-shaped Project/ComputeInstance/Bucket/Network/IamRole with machineType/billingId) to a faithful Netlify model (Site/Deploy/Build/Form/Submission/Hook), verified field-by-field against the Go model structs generated from Netlify's official OpenAPI (netlify/open-api). The L5 gate had correctly rejected the prior mismatched model (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Site",
+          "source": "go/models/site.go",
+          "verifiedFields": [
+            "name",
+            "url",
+            "adminUrl",
+            "customDomain",
+            "state",
+            "plan",
+            "accountId",
+            "accountSlug",
+            "gitProvider",
+            "buildImage",
+            "sslUrl",
+            "ssl",
+            "forceSsl",
+            "userId",
+            "createdAt",
+            "updatedAt"
+          ],
+          "fieldStatus": "confirmed vs Site struct json tags (name/url/admin_url/custom_domain/state/plan/account_id/account_slug/git_provider/build_image/ssl_url/ssl/force_ssl/user_id)",
+          "discoveredEnums": {},
+          "gaps": [
+            "build_settings(object)",
+            "capabilities(object)",
+            "domain_aliases(array)",
+            "published_deploy(object)"
+          ]
+        },
+        {
+          "entity": "Deploy",
+          "source": "go/models/deploy.go",
+          "verifiedFields": [
+            "siteId",
+            "name",
+            "state",
+            "branch",
+            "context",
+            "commitRef",
+            "deployUrl",
+            "sslUrl",
+            "draft",
+            "locked",
+            "buildId",
+            "errorMessage",
+            "title",
+            "url",
+            "createdAt",
+            "updatedAt"
+          ],
+          "fieldStatus": "confirmed vs Deploy struct json tags (site_id/name/state/branch/context/commit_ref/deploy_url/ssl_url/draft/locked/build_id/error_message/title/url)",
+          "discoveredEnums": {
+            "state": [
+              "new",
+              "pending_review",
+              "accepted",
+              "rejected",
+              "enqueued",
+              "building",
+              "uploading",
+              "uploaded",
+              "preparing",
+              "prepared",
+              "processing",
+              "processed",
+              "ready",
+              "error",
+              "retrying"
+            ]
+          },
+          "gaps": [
+            "review_id",
+            "published_at",
+            "function_schedules(array)",
+            "links(object)"
+          ]
+        },
+        {
+          "entity": "Build",
+          "source": "go/models/build.go",
+          "verifiedFields": [
+            "deployId",
+            "sha",
+            "done",
+            "error",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed vs Build struct json tags (deploy_id/sha/done/error/created_at); no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "error_message detail"
+          ]
+        },
+        {
+          "entity": "Form",
+          "source": "go/models/form.go",
+          "verifiedFields": [
+            "siteId",
+            "name",
+            "submissionCount",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed vs Form struct json tags (site_id/name/submission_count/created_at); no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "fields(array)",
+            "paths(array)"
+          ]
+        },
+        {
+          "entity": "Submission",
+          "source": "go/models/submission.go",
+          "verifiedFields": [
+            "siteUrl",
+            "name",
+            "email",
+            "firstName",
+            "lastName",
+            "company",
+            "summary",
+            "body",
+            "number",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed vs Submission struct json tags (site_url/name/email/first_name/last_name/company/summary/body/number/created_at)",
+          "discoveredEnums": {},
+          "gaps": [
+            "data(open object)"
+          ]
+        },
+        {
+          "entity": "Hook",
+          "source": "go/models/hook.go",
+          "verifiedFields": [
+            "siteId",
+            "type",
+            "event",
+            "disabled",
+            "createdAt",
+            "updatedAt"
+          ],
+          "fieldStatus": "confirmed vs Hook struct json tags (site_id/type/event/disabled/created_at/updated_at); type/event are open string identifiers, not a closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "data(open object)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "Remodeled from generic iaas_cloud archetype. 6/6 entities field-verified vs the Go model structs generated from Netlify's official OpenAPI (netlify/open-api). Discovered closed enum (1): Deploy.state (15 documented states)."
     }
   ]
 }

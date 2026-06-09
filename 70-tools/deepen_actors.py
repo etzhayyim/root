@@ -1055,6 +1055,17 @@ PLATFORM_OVERRIDES = {
         "Region": E(slug="string", name="string", available="boolean"),
         "Database": E(name="string", engine="string", version="string", semanticVersion="string", status="string", region="string", size="string", numNodes="integer"),
     },
+    # Faithful Netlify model (remodeled from the generic iaas_cloud archetype
+    # whose GCP/AWS-shaped ComputeInstance/Bucket/IamRole entities did not match
+    # Netlify's real API), doc-verified L5 vs github.com/netlify/open-api (Go models).
+    "netlify": {
+        "Site": E(name="string", url="string", adminUrl="string", customDomain="string", state="string", plan="string", accountId="string", accountSlug="string", gitProvider="string", buildImage="string", sslUrl="string", ssl="boolean", forceSsl="boolean", userId="string"),
+        "Deploy": E(siteId="string", name="string", state="string", branch="string", context="string", commitRef="string", deployUrl="string", sslUrl="string", draft="boolean", locked="boolean", buildId="string", errorMessage="string", title="string", url="string"),
+        "Build": E(deployId="string", sha="string", done="boolean", error="string"),
+        "Form": E(siteId="string", name="string", submissionCount="integer"),
+        "Submission": E(siteUrl="string", name="string", email="string", firstName="string", lastName="string", company="string", summary="string", body="string", number="integer"),
+        "Hook": E(siteId="string", type="string", event="string", disabled="boolean"),
+    },
     # Faithful Airtable model (remodeled from generic office_productivity), L5.
     "airtable": {
         "Base": E(name="string", permissionLevel="string"),

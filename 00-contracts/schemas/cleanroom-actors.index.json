@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 942,
-    "L5": 58
+    "L4": 941,
+    "L5": 59
   },
   "actors": [
     {
@@ -11162,7 +11162,7 @@
       "wasmCid": "bafkreiglqpl644udux3il6l7pmrjy5ocpsjkzsxtoml5i72vghvx4jvd5m",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "netlify clean-room actor",
       "category": "iaas_cloud",
       "capabilities": [

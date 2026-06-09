@@ -3,71 +3,88 @@
 
 namespace netlify {
 
-    entity Project {
+    entity Site {
         id: string @unique
         name: string
-        region: string
-        billingId: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity ComputeInstance {
-        id: string @unique
-        projectId: string
-        name: string
-        machineType: string
+        url: string
+        adminUrl: string
+        customDomain: string
         state: string
-        ipAddress: string
+        plan: string
+        accountId: string
+        accountSlug: string
+        gitProvider: string
+        buildImage: string
+        sslUrl: string
+        ssl: boolean
+        forceSsl: boolean
+        userId: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Volume {
+    entity Deploy {
         id: string @unique
-        projectId: string
-        sizeGb: integer
+        siteId: string
+        name: string
+        state: string
+        branch: string
+        context: string
+        commitRef: string
+        deployUrl: string
+        sslUrl: string
+        draft: boolean
+        locked: boolean
+        buildId: string
+        errorMessage: string
+        title: string
+        url: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Build {
+        id: string @unique
+        deployId: string
+        sha: string
+        done: boolean
+        error: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Form {
+        id: string @unique
+        siteId: string
+        name: string
+        submissionCount: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Submission {
+        id: string @unique
+        siteUrl: string
+        name: string
+        email: string
+        firstName: string
+        lastName: string
+        company: string
+        summary: string
+        body: string
+        number: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Hook {
+        id: string @unique
+        siteId: string
         type: string
-        attachedTo: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Bucket {
-        id: string @unique
-        projectId: string
-        name: string
-        region: string
-        public: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Network {
-        id: string @unique
-        projectId: string
-        cidr: string
-        region: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity IamRole {
-        id: string @unique
-        projectId: string
-        name: string
-        policy: string
+        event: string
+        disabled: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }
