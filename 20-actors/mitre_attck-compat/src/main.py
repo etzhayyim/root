@@ -111,348 +111,23 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/indicators", methods=["POST"])
-def create_indicator(request):
-    """Create a Indicator."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['type', 'value', 'confidence', 'firstSeen'])
-    if err:
-        return err, 400
-    err = _require(data, ['type', 'value'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("mitreatt_ind")}
-    rec["type"] = data.get('type')
-    rec["value"] = data.get('value')
-    rec["confidence"] = _as_int(data.get('confidence'))
-    rec["firstSeen"] = data.get('firstSeen')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Indicator", rec)
-    return rec, 201
-
-@app.route("/v1/indicators", methods=["GET"])
-def list_indicators(request):
-    """List Indicators with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Indicator")
-    rows = _apply_filters(rows, params, ['type', 'value', 'confidence', 'firstSeen'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/indicators/<eid>", methods=["GET"])
-def get_indicator(request, eid):
-    """Retrieve a Indicator by id (supports ?expand=)."""
-    rows = _query("Indicator", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/indicators/<eid>", methods=["POST", "PATCH"])
-def update_indicator(request, eid):
-    """Update a Indicator."""
-    rows = _query("Indicator", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['type', 'value', 'confidence', 'firstSeen'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Indicator", rec)
-    return rec, 200
-
-@app.route("/v1/indicators/<eid>", methods=["DELETE"])
-def delete_indicator(request, eid):
-    """Delete a Indicator."""
-    rows = _query("Indicator", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mitre_attck.Indicator", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/vulnerabilities", methods=["POST"])
-def create_vulnerability(request):
-    """Create a Vulnerability."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['cveId', 'cvss', 'description', 'published'])
-    if err:
-        return err, 400
-    err = _require(data, ['cvss', 'description'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("mitreatt_vul")}
-    rec["cveId"] = data.get('cveId')
-    rec["cvss"] = _as_float(data.get('cvss'))
-    rec["description"] = data.get('description')
-    rec["published"] = data.get('published')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Vulnerability", rec)
-    return rec, 201
-
-@app.route("/v1/vulnerabilities", methods=["GET"])
-def list_vulnerabilities(request):
-    """List Vulnerabilities with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Vulnerability")
-    rows = _apply_filters(rows, params, ['cveId', 'cvss', 'description', 'published'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/vulnerabilities/<eid>", methods=["GET"])
-def get_vulnerability(request, eid):
-    """Retrieve a Vulnerability by id (supports ?expand=)."""
-    rows = _query("Vulnerability", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/vulnerabilities/<eid>", methods=["POST", "PATCH"])
-def update_vulnerability(request, eid):
-    """Update a Vulnerability."""
-    rows = _query("Vulnerability", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['cveId', 'cvss', 'description', 'published'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Vulnerability", rec)
-    return rec, 200
-
-@app.route("/v1/vulnerabilities/<eid>", methods=["DELETE"])
-def delete_vulnerability(request, eid):
-    """Delete a Vulnerability."""
-    rows = _query("Vulnerability", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mitre_attck.Vulnerability", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/threatactors", methods=["POST"])
-def create_threat_actor(request):
-    """Create a ThreatActor."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'motivation', 'sophistication'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'motivation'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("mitreatt_thr")}
-    rec["name"] = data.get('name')
-    rec["motivation"] = data.get('motivation')
-    rec["sophistication"] = data.get('sophistication')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("ThreatActor", rec)
-    return rec, 201
-
-@app.route("/v1/threatactors", methods=["GET"])
-def list_threat_actors(request):
-    """List ThreatActors with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("ThreatActor")
-    rows = _apply_filters(rows, params, ['name', 'motivation', 'sophistication'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/threatactors/<eid>", methods=["GET"])
-def get_threat_actor(request, eid):
-    """Retrieve a ThreatActor by id (supports ?expand=)."""
-    rows = _query("ThreatActor", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/threatactors/<eid>", methods=["POST", "PATCH"])
-def update_threat_actor(request, eid):
-    """Update a ThreatActor."""
-    rows = _query("ThreatActor", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'motivation', 'sophistication'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("ThreatActor", rec)
-    return rec, 200
-
-@app.route("/v1/threatactors/<eid>", methods=["DELETE"])
-def delete_threat_actor(request, eid):
-    """Delete a ThreatActor."""
-    rows = _query("ThreatActor", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mitre_attck.ThreatActor", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/campaigns", methods=["POST"])
-def create_campaign(request):
-    """Create a Campaign."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'actorId', 'firstSeen'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'firstSeen'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("mitreatt_cam")}
-    rec["name"] = data.get('name')
-    rec["actorId"] = data.get('actorId')
-    rec["firstSeen"] = data.get('firstSeen')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Campaign", rec)
-    return rec, 201
-
-@app.route("/v1/campaigns", methods=["GET"])
-def list_campaigns(request):
-    """List Campaigns with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Campaign")
-    rows = _apply_filters(rows, params, ['name', 'actorId', 'firstSeen'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/campaigns/<eid>", methods=["GET"])
-def get_campaign(request, eid):
-    """Retrieve a Campaign by id (supports ?expand=)."""
-    rows = _query("Campaign", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/campaigns/<eid>", methods=["POST", "PATCH"])
-def update_campaign(request, eid):
-    """Update a Campaign."""
-    rows = _query("Campaign", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'actorId', 'firstSeen'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Campaign", rec)
-    return rec, 200
-
-@app.route("/v1/campaigns/<eid>", methods=["DELETE"])
-def delete_campaign(request, eid):
-    """Delete a Campaign."""
-    rows = _query("Campaign", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mitre_attck.Campaign", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/hosts", methods=["POST"])
-def create_host(request):
-    """Create a Host."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['ipAddress', 'asn', 'country', 'openPorts'])
-    if err:
-        return err, 400
-    err = _require(data, ['ipAddress', 'asn'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("mitreatt_hos")}
-    rec["ipAddress"] = data.get('ipAddress')
-    rec["asn"] = data.get('asn')
-    rec["country"] = data.get('country')
-    rec["openPorts"] = data.get('openPorts')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Host", rec)
-    return rec, 201
-
-@app.route("/v1/hosts", methods=["GET"])
-def list_hosts(request):
-    """List Hosts with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Host")
-    rows = _apply_filters(rows, params, ['ipAddress', 'asn', 'country', 'openPorts'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/hosts/<eid>", methods=["GET"])
-def get_host(request, eid):
-    """Retrieve a Host by id (supports ?expand=)."""
-    rows = _query("Host", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/hosts/<eid>", methods=["POST", "PATCH"])
-def update_host(request, eid):
-    """Update a Host."""
-    rows = _query("Host", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['ipAddress', 'asn', 'country', 'openPorts'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Host", rec)
-    return rec, 200
-
-@app.route("/v1/hosts/<eid>", methods=["DELETE"])
-def delete_host(request, eid):
-    """Delete a Host."""
-    rows = _query("Host", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mitre_attck.Host", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
 @app.route("/v1/techniques", methods=["POST"])
 def create_technique(request):
     """Create a Technique."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['attckId', 'tactic', 'name'])
+    err = _reject_unknown(data, ['techniqueId', 'name', 'description', 'isSubtechnique', 'created', 'modified'])
     if err:
         return err, 400
-    err = _require(data, ['tactic', 'name'])
+    err = _require(data, ['name', 'description'])
     if err:
         return err, 400
     rec = {"id": new_id("mitreatt_tec")}
-    rec["attckId"] = data.get('attckId')
-    rec["tactic"] = data.get('tactic')
+    rec["techniqueId"] = data.get('techniqueId')
     rec["name"] = data.get('name')
+    rec["description"] = data.get('description')
+    rec["isSubtechnique"] = _as_bool(data.get('isSubtechnique'))
+    rec["created"] = data.get('created')
+    rec["modified"] = data.get('modified')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Technique", rec)
@@ -463,7 +138,7 @@ def list_techniques(request):
     """List Techniques with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Technique")
-    rows = _apply_filters(rows, params, ['attckId', 'tactic', 'name'])
+    rows = _apply_filters(rows, params, ['techniqueId', 'name', 'description', 'isSubtechnique', 'created', 'modified'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -475,6 +150,7 @@ def get_technique(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'techniqueId': 'Technique'})
     return rec, 200
 
 @app.route("/v1/techniques/<eid>", methods=["POST", "PATCH"])
@@ -484,7 +160,7 @@ def update_technique(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['attckId', 'tactic', 'name'])
+    err = _reject_unknown(data, ['techniqueId', 'name', 'description', 'isSubtechnique', 'created', 'modified'])
     if err:
         return err, 400
     rec = rows[0]
@@ -504,10 +180,286 @@ def delete_technique(request, eid):
     db.retract({"entity": f"mitre_attck.Technique", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
+@app.route("/v1/tactics", methods=["POST"])
+def create_tactic(request):
+    """Create a Tactic."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['tacticId', 'shortName', 'name', 'description', 'created'])
+    if err:
+        return err, 400
+    err = _require(data, ['shortName', 'name'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("mitreatt_tac")}
+    rec["tacticId"] = data.get('tacticId')
+    rec["shortName"] = data.get('shortName')
+    rec["name"] = data.get('name')
+    rec["description"] = data.get('description')
+    rec["created"] = data.get('created')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Tactic", rec)
+    return rec, 201
+
+@app.route("/v1/tactics", methods=["GET"])
+def list_tactics(request):
+    """List Tactics with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Tactic")
+    rows = _apply_filters(rows, params, ['tacticId', 'shortName', 'name', 'description', 'created'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/tactics/<eid>", methods=["GET"])
+def get_tactic(request, eid):
+    """Retrieve a Tactic by id (supports ?expand=)."""
+    rows = _query("Tactic", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'tacticId': 'Tactic'})
+    return rec, 200
+
+@app.route("/v1/tactics/<eid>", methods=["POST", "PATCH"])
+def update_tactic(request, eid):
+    """Update a Tactic."""
+    rows = _query("Tactic", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['tacticId', 'shortName', 'name', 'description', 'created'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Tactic", rec)
+    return rec, 200
+
+@app.route("/v1/tactics/<eid>", methods=["DELETE"])
+def delete_tactic(request, eid):
+    """Delete a Tactic."""
+    rows = _query("Tactic", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"mitre_attck.Tactic", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/softwares", methods=["POST"])
+def create_software(request):
+    """Create a Software."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['softwareId', 'name', 'type', 'description', 'isFamily', 'created'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'type'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['malware', 'tool']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['malware', 'tool']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("mitreatt_sof")}
+    rec["softwareId"] = data.get('softwareId')
+    rec["name"] = data.get('name')
+    rec["type"] = data.get('type')
+    rec["description"] = data.get('description')
+    rec["isFamily"] = _as_bool(data.get('isFamily'))
+    rec["created"] = data.get('created')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Software", rec)
+    return rec, 201
+
+@app.route("/v1/softwares", methods=["GET"])
+def list_softwares(request):
+    """List Softwares with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Software")
+    rows = _apply_filters(rows, params, ['softwareId', 'name', 'type', 'description', 'isFamily', 'created'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/softwares/<eid>", methods=["GET"])
+def get_software(request, eid):
+    """Retrieve a Software by id (supports ?expand=)."""
+    rows = _query("Software", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'softwareId': 'Software'})
+    return rec, 200
+
+@app.route("/v1/softwares/<eid>", methods=["POST", "PATCH"])
+def update_software(request, eid):
+    """Update a Software."""
+    rows = _query("Software", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['softwareId', 'name', 'type', 'description', 'isFamily', 'created'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['malware', 'tool']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['malware', 'tool']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Software", rec)
+    return rec, 200
+
+@app.route("/v1/softwares/<eid>", methods=["DELETE"])
+def delete_software(request, eid):
+    """Delete a Software."""
+    rows = _query("Software", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"mitre_attck.Software", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/groups", methods=["POST"])
+def create_group(request):
+    """Create a Group."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['groupId', 'name', 'description', 'created'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'description'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("mitreatt_gro")}
+    rec["groupId"] = data.get('groupId')
+    rec["name"] = data.get('name')
+    rec["description"] = data.get('description')
+    rec["created"] = data.get('created')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Group", rec)
+    return rec, 201
+
+@app.route("/v1/groups", methods=["GET"])
+def list_groups(request):
+    """List Groups with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Group")
+    rows = _apply_filters(rows, params, ['groupId', 'name', 'description', 'created'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/groups/<eid>", methods=["GET"])
+def get_group(request, eid):
+    """Retrieve a Group by id (supports ?expand=)."""
+    rows = _query("Group", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'groupId': 'Group'})
+    return rec, 200
+
+@app.route("/v1/groups/<eid>", methods=["POST", "PATCH"])
+def update_group(request, eid):
+    """Update a Group."""
+    rows = _query("Group", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['groupId', 'name', 'description', 'created'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Group", rec)
+    return rec, 200
+
+@app.route("/v1/groups/<eid>", methods=["DELETE"])
+def delete_group(request, eid):
+    """Delete a Group."""
+    rows = _query("Group", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"mitre_attck.Group", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/mitigations", methods=["POST"])
+def create_mitigation(request):
+    """Create a Mitigation."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['mitigationId', 'name', 'description', 'deprecated', 'created'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'description'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("mitreatt_mit")}
+    rec["mitigationId"] = data.get('mitigationId')
+    rec["name"] = data.get('name')
+    rec["description"] = data.get('description')
+    rec["deprecated"] = _as_bool(data.get('deprecated'))
+    rec["created"] = data.get('created')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Mitigation", rec)
+    return rec, 201
+
+@app.route("/v1/mitigations", methods=["GET"])
+def list_mitigations(request):
+    """List Mitigations with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Mitigation")
+    rows = _apply_filters(rows, params, ['mitigationId', 'name', 'description', 'deprecated', 'created'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/mitigations/<eid>", methods=["GET"])
+def get_mitigation(request, eid):
+    """Retrieve a Mitigation by id (supports ?expand=)."""
+    rows = _query("Mitigation", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'mitigationId': 'Mitigation'})
+    return rec, 200
+
+@app.route("/v1/mitigations/<eid>", methods=["POST", "PATCH"])
+def update_mitigation(request, eid):
+    """Update a Mitigation."""
+    rows = _query("Mitigation", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['mitigationId', 'name', 'description', 'deprecated', 'created'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Mitigation", rec)
+    return rec, 200
+
+@app.route("/v1/mitigations/<eid>", methods=["DELETE"])
+def delete_mitigation(request, eid):
+    """Delete a Mitigation."""
+    rows = _query("Mitigation", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"mitre_attck.Mitigation", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "mitre_attck-compat", "tier": "L4",
-            "entities": ['Indicator', 'Vulnerability', 'ThreatActor', 'Campaign', 'Host', 'Technique']}, 200
+            "entities": ['Technique', 'Tactic', 'Software', 'Group', 'Mitigation']}, 200
 
 
 if __name__ == "__main__":

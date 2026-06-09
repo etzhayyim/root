@@ -11,15 +11,83 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreifadegkbjriotklhgnjxsata3txjamtctkrvlu3zifh5yn6cmpvsm",
   "schema": "schema/cve_nvd.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://www.first.org/cvss/v3.1/specification-document",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "CveItem",
+      "CvssV3Metric",
+      "CvssV3Vector",
+      "Reference",
+      "Weakness",
+      "CveMetrics"
+    ],
+    "enums": {
+      "CvssV3Metric": {
+        "baseSeverity": [
+          "NONE",
+          "LOW",
+          "MEDIUM",
+          "HIGH",
+          "CRITICAL"
+        ]
+      },
+      "CvssV3Vector": {
+        "attackVector": [
+          "NETWORK",
+          "ADJACENT_NETWORK",
+          "LOCAL",
+          "PHYSICAL"
+        ],
+        "attackComplexity": [
+          "LOW",
+          "HIGH"
+        ],
+        "privilegesRequired": [
+          "NONE",
+          "LOW",
+          "HIGH"
+        ],
+        "userInteraction": [
+          "NONE",
+          "REQUIRED"
+        ],
+        "scope": [
+          "UNCHANGED",
+          "CHANGED"
+        ],
+        "confidentialityImpact": [
+          "NONE",
+          "LOW",
+          "HIGH"
+        ],
+        "integrityImpact": [
+          "NONE",
+          "LOW",
+          "HIGH"
+        ],
+        "availabilityImpact": [
+          "NONE",
+          "LOW",
+          "HIGH"
+        ]
+      },
+      "CveMetrics": {
+        "type": [
+          "Primary",
+          "Secondary"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Indicator",
-    "Vulnerability",
-    "ThreatActor",
-    "Campaign",
-    "Host",
-    "Technique"
+    "CveItem",
+    "CvssV3Metric",
+    "CvssV3Vector",
+    "Reference",
+    "Weakness",
+    "CveMetrics"
   ],
   "adr": [
     "260607",
@@ -35,153 +103,153 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/indicators",
-          "op": "create Indicator"
+          "path": "/v1/cveitems",
+          "op": "create CveItem"
         },
         {
           "method": "GET",
-          "path": "/v1/indicators",
-          "op": "list Indicator"
+          "path": "/v1/cveitems",
+          "op": "list CveItem"
         },
         {
           "method": "GET",
-          "path": "/v1/indicators/{id}",
-          "op": "get Indicator"
+          "path": "/v1/cveitems/{id}",
+          "op": "get CveItem"
         },
         {
           "method": "PATCH",
-          "path": "/v1/indicators/{id}",
-          "op": "update Indicator"
+          "path": "/v1/cveitems/{id}",
+          "op": "update CveItem"
         },
         {
           "method": "DELETE",
-          "path": "/v1/indicators/{id}",
-          "op": "delete Indicator"
+          "path": "/v1/cveitems/{id}",
+          "op": "delete CveItem"
         },
         {
           "method": "POST",
-          "path": "/v1/vulnerabilities",
-          "op": "create Vulnerability"
+          "path": "/v1/cvssv3metrics",
+          "op": "create CvssV3Metric"
         },
         {
           "method": "GET",
-          "path": "/v1/vulnerabilities",
-          "op": "list Vulnerability"
+          "path": "/v1/cvssv3metrics",
+          "op": "list CvssV3Metric"
         },
         {
           "method": "GET",
-          "path": "/v1/vulnerabilities/{id}",
-          "op": "get Vulnerability"
+          "path": "/v1/cvssv3metrics/{id}",
+          "op": "get CvssV3Metric"
         },
         {
           "method": "PATCH",
-          "path": "/v1/vulnerabilities/{id}",
-          "op": "update Vulnerability"
+          "path": "/v1/cvssv3metrics/{id}",
+          "op": "update CvssV3Metric"
         },
         {
           "method": "DELETE",
-          "path": "/v1/vulnerabilities/{id}",
-          "op": "delete Vulnerability"
+          "path": "/v1/cvssv3metrics/{id}",
+          "op": "delete CvssV3Metric"
         },
         {
           "method": "POST",
-          "path": "/v1/threatactors",
-          "op": "create ThreatActor"
+          "path": "/v1/cvssv3vectors",
+          "op": "create CvssV3Vector"
         },
         {
           "method": "GET",
-          "path": "/v1/threatactors",
-          "op": "list ThreatActor"
+          "path": "/v1/cvssv3vectors",
+          "op": "list CvssV3Vector"
         },
         {
           "method": "GET",
-          "path": "/v1/threatactors/{id}",
-          "op": "get ThreatActor"
+          "path": "/v1/cvssv3vectors/{id}",
+          "op": "get CvssV3Vector"
         },
         {
           "method": "PATCH",
-          "path": "/v1/threatactors/{id}",
-          "op": "update ThreatActor"
+          "path": "/v1/cvssv3vectors/{id}",
+          "op": "update CvssV3Vector"
         },
         {
           "method": "DELETE",
-          "path": "/v1/threatactors/{id}",
-          "op": "delete ThreatActor"
+          "path": "/v1/cvssv3vectors/{id}",
+          "op": "delete CvssV3Vector"
         },
         {
           "method": "POST",
-          "path": "/v1/campaigns",
-          "op": "create Campaign"
+          "path": "/v1/references",
+          "op": "create Reference"
         },
         {
           "method": "GET",
-          "path": "/v1/campaigns",
-          "op": "list Campaign"
+          "path": "/v1/references",
+          "op": "list Reference"
         },
         {
           "method": "GET",
-          "path": "/v1/campaigns/{id}",
-          "op": "get Campaign"
+          "path": "/v1/references/{id}",
+          "op": "get Reference"
         },
         {
           "method": "PATCH",
-          "path": "/v1/campaigns/{id}",
-          "op": "update Campaign"
+          "path": "/v1/references/{id}",
+          "op": "update Reference"
         },
         {
           "method": "DELETE",
-          "path": "/v1/campaigns/{id}",
-          "op": "delete Campaign"
+          "path": "/v1/references/{id}",
+          "op": "delete Reference"
         },
         {
           "method": "POST",
-          "path": "/v1/hosts",
-          "op": "create Host"
+          "path": "/v1/weaknesses",
+          "op": "create Weakness"
         },
         {
           "method": "GET",
-          "path": "/v1/hosts",
-          "op": "list Host"
+          "path": "/v1/weaknesses",
+          "op": "list Weakness"
         },
         {
           "method": "GET",
-          "path": "/v1/hosts/{id}",
-          "op": "get Host"
+          "path": "/v1/weaknesses/{id}",
+          "op": "get Weakness"
         },
         {
           "method": "PATCH",
-          "path": "/v1/hosts/{id}",
-          "op": "update Host"
+          "path": "/v1/weaknesses/{id}",
+          "op": "update Weakness"
         },
         {
           "method": "DELETE",
-          "path": "/v1/hosts/{id}",
-          "op": "delete Host"
+          "path": "/v1/weaknesses/{id}",
+          "op": "delete Weakness"
         },
         {
           "method": "POST",
-          "path": "/v1/techniques",
-          "op": "create Technique"
+          "path": "/v1/cvemetricses",
+          "op": "create CveMetrics"
         },
         {
           "method": "GET",
-          "path": "/v1/techniques",
-          "op": "list Technique"
+          "path": "/v1/cvemetricses",
+          "op": "list CveMetrics"
         },
         {
           "method": "GET",
-          "path": "/v1/techniques/{id}",
-          "op": "get Technique"
+          "path": "/v1/cvemetricses/{id}",
+          "op": "get CveMetrics"
         },
         {
           "method": "PATCH",
-          "path": "/v1/techniques/{id}",
-          "op": "update Technique"
+          "path": "/v1/cvemetricses/{id}",
+          "op": "update CveMetrics"
         },
         {
           "method": "DELETE",
-          "path": "/v1/techniques/{id}",
-          "op": "delete Technique"
+          "path": "/v1/cvemetricses/{id}",
+          "op": "delete CveMetrics"
         }
       ],
       "features": {
@@ -247,131 +315,44 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_indicator",
-          "description": "Create a Indicator.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string"
-              },
-              "value": {
-                "type": "string"
-              },
-              "confidence": {
-                "type": "integer"
-              },
-              "firstSeen": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "type",
-              "value"
-            ]
-          }
-        },
-        {
-          "name": "list_indicators",
-          "description": "List Indicators.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_indicator",
-          "description": "Get a Indicator by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_indicator",
-          "description": "Update a Indicator.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "value": {
-                "type": "string"
-              },
-              "confidence": {
-                "type": "integer"
-              },
-              "firstSeen": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_indicator",
-          "description": "Delete a Indicator.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_vulnerability",
-          "description": "Create a Vulnerability.",
+          "name": "create_cve_item",
+          "description": "Create a CveItem.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "cveId": {
                 "type": "string"
               },
-              "cvss": {
-                "type": "number"
+              "sourceIdentifier": {
+                "type": "string"
               },
-              "description": {
+              "vulnStatus": {
                 "type": "string"
               },
               "published": {
                 "type": "string"
+              },
+              "lastModified": {
+                "type": "string"
               }
             },
             "required": [
-              "cvss",
-              "description"
+              "sourceIdentifier",
+              "vulnStatus"
             ]
           }
         },
         {
-          "name": "list_vulnerabilities",
-          "description": "List Vulnerabilities.",
+          "name": "list_cve_items",
+          "description": "List CveItems.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_vulnerability",
-          "description": "Get a Vulnerability by id.",
+          "name": "get_cve_item",
+          "description": "Get a CveItem by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -385,8 +366,8 @@
           }
         },
         {
-          "name": "update_vulnerability",
-          "description": "Update a Vulnerability.",
+          "name": "update_cve_item",
+          "description": "Update a CveItem.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -396,14 +377,17 @@
               "cveId": {
                 "type": "string"
               },
-              "cvss": {
-                "type": "number"
+              "sourceIdentifier": {
+                "type": "string"
               },
-              "description": {
+              "vulnStatus": {
                 "type": "string"
               },
               "published": {
                 "type": "string"
+              },
+              "lastModified": {
+                "type": "string"
               }
             },
             "required": [
@@ -412,8 +396,8 @@
           }
         },
         {
-          "name": "delete_vulnerability",
-          "description": "Delete a Vulnerability.",
+          "name": "delete_cve_item",
+          "description": "Delete a CveItem.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -427,38 +411,41 @@
           }
         },
         {
-          "name": "create_threat_actor",
-          "description": "Create a ThreatActor.",
+          "name": "create_cvss_v3_metric",
+          "description": "Create a CvssV3Metric.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "baseScore": {
+                "type": "number"
+              },
+              "baseSeverity": {
                 "type": "string"
               },
-              "motivation": {
-                "type": "string"
+              "exploitabilityScore": {
+                "type": "number"
               },
-              "sophistication": {
-                "type": "string"
+              "impactScore": {
+                "type": "number"
               }
             },
             "required": [
-              "name",
-              "motivation"
+              "baseScore",
+              "baseSeverity"
             ]
           }
         },
         {
-          "name": "list_threat_actors",
-          "description": "List ThreatActors.",
+          "name": "list_cvss_v3_metrics",
+          "description": "List CvssV3Metrics.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_threat_actor",
-          "description": "Get a ThreatActor by id.",
+          "name": "get_cvss_v3_metric",
+          "description": "Get a CvssV3Metric by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -472,21 +459,39 @@
           }
         },
         {
-          "name": "update_threat_actor",
-          "description": "Update a ThreatActor.",
+          "name": "update_cvss_v3_metric",
+          "description": "Update a CvssV3Metric.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
+              "baseScore": {
+                "type": "number"
+              },
+              "baseSeverity": {
                 "type": "string"
               },
-              "motivation": {
-                "type": "string"
+              "exploitabilityScore": {
+                "type": "number"
               },
-              "sophistication": {
+              "impactScore": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_cvss_v3_metric",
+          "description": "Delete a CvssV3Metric.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               }
             },
@@ -496,53 +501,59 @@
           }
         },
         {
-          "name": "delete_threat_actor",
-          "description": "Delete a ThreatActor.",
+          "name": "create_cvss_v3_vector",
+          "description": "Create a CvssV3Vector.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "id": {
+              "version": {
+                "type": "string"
+              },
+              "vectorString": {
+                "type": "string"
+              },
+              "attackVector": {
+                "type": "string"
+              },
+              "attackComplexity": {
+                "type": "string"
+              },
+              "privilegesRequired": {
+                "type": "string"
+              },
+              "userInteraction": {
+                "type": "string"
+              },
+              "scope": {
+                "type": "string"
+              },
+              "confidentialityImpact": {
+                "type": "string"
+              },
+              "integrityImpact": {
+                "type": "string"
+              },
+              "availabilityImpact": {
                 "type": "string"
               }
             },
             "required": [
-              "id"
+              "version",
+              "vectorString"
             ]
           }
         },
         {
-          "name": "create_campaign",
-          "description": "Create a Campaign.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "actorId": {
-                "type": "string"
-              },
-              "firstSeen": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "firstSeen"
-            ]
-          }
-        },
-        {
-          "name": "list_campaigns",
-          "description": "List Campaigns.",
+          "name": "list_cvss_v3_vectors",
+          "description": "List CvssV3Vectors.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_campaign",
-          "description": "Get a Campaign by id.",
+          "name": "get_cvss_v3_vector",
+          "description": "Get a CvssV3Vector by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -556,21 +567,42 @@
           }
         },
         {
-          "name": "update_campaign",
-          "description": "Update a Campaign.",
+          "name": "update_cvss_v3_vector",
+          "description": "Update a CvssV3Vector.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
+              "version": {
                 "type": "string"
               },
-              "actorId": {
+              "vectorString": {
                 "type": "string"
               },
-              "firstSeen": {
+              "attackVector": {
+                "type": "string"
+              },
+              "attackComplexity": {
+                "type": "string"
+              },
+              "privilegesRequired": {
+                "type": "string"
+              },
+              "userInteraction": {
+                "type": "string"
+              },
+              "scope": {
+                "type": "string"
+              },
+              "confidentialityImpact": {
+                "type": "string"
+              },
+              "integrityImpact": {
+                "type": "string"
+              },
+              "availabilityImpact": {
                 "type": "string"
               }
             },
@@ -580,8 +612,8 @@
           }
         },
         {
-          "name": "delete_campaign",
-          "description": "Delete a Campaign.",
+          "name": "delete_cvss_v3_vector",
+          "description": "Delete a CvssV3Vector.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -595,41 +627,35 @@
           }
         },
         {
-          "name": "create_host",
-          "description": "Create a Host.",
+          "name": "create_reference",
+          "description": "Create a Reference.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "ipAddress": {
+              "url": {
                 "type": "string"
               },
-              "asn": {
-                "type": "string"
-              },
-              "country": {
-                "type": "string"
-              },
-              "openPorts": {
+              "source": {
                 "type": "string"
               }
             },
             "required": [
-              "ipAddress",
-              "asn"
+              "url",
+              "source"
             ]
           }
         },
         {
-          "name": "list_hosts",
-          "description": "List Hosts.",
+          "name": "list_references",
+          "description": "List References.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_host",
-          "description": "Get a Host by id.",
+          "name": "get_reference",
+          "description": "Get a Reference by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -643,24 +669,18 @@
           }
         },
         {
-          "name": "update_host",
-          "description": "Update a Host.",
+          "name": "update_reference",
+          "description": "Update a Reference.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "ipAddress": {
+              "url": {
                 "type": "string"
               },
-              "asn": {
-                "type": "string"
-              },
-              "country": {
-                "type": "string"
-              },
-              "openPorts": {
+              "source": {
                 "type": "string"
               }
             },
@@ -670,8 +690,8 @@
           }
         },
         {
-          "name": "delete_host",
-          "description": "Delete a Host.",
+          "name": "delete_reference",
+          "description": "Delete a Reference.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -685,38 +705,38 @@
           }
         },
         {
-          "name": "create_technique",
-          "description": "Create a Technique.",
+          "name": "create_weakness",
+          "description": "Create a Weakness.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "attckId": {
+              "source": {
                 "type": "string"
               },
-              "tactic": {
+              "type": {
                 "type": "string"
               },
-              "name": {
+              "description": {
                 "type": "string"
               }
             },
             "required": [
-              "tactic",
-              "name"
+              "source",
+              "type"
             ]
           }
         },
         {
-          "name": "list_techniques",
-          "description": "List Techniques.",
+          "name": "list_weaknesses",
+          "description": "List Weaknesses.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_technique",
-          "description": "Get a Technique by id.",
+          "name": "get_weakness",
+          "description": "Get a Weakness by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -730,21 +750,21 @@
           }
         },
         {
-          "name": "update_technique",
-          "description": "Update a Technique.",
+          "name": "update_weakness",
+          "description": "Update a Weakness.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "attckId": {
+              "source": {
                 "type": "string"
               },
-              "tactic": {
+              "type": {
                 "type": "string"
               },
-              "name": {
+              "description": {
                 "type": "string"
               }
             },
@@ -754,8 +774,86 @@
           }
         },
         {
-          "name": "delete_technique",
-          "description": "Delete a Technique.",
+          "name": "delete_weakness",
+          "description": "Delete a Weakness.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_cve_metrics",
+          "description": "Create a CveMetrics.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "source": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "source",
+              "type"
+            ]
+          }
+        },
+        {
+          "name": "list_cve_metricses",
+          "description": "List CveMetricses.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_cve_metrics",
+          "description": "Get a CveMetrics by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_cve_metrics",
+          "description": "Update a CveMetrics.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "source": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_cve_metrics",
+          "description": "Delete a CveMetrics.",
           "inputSchema": {
             "type": "object",
             "properties": {

@@ -6,10 +6,10 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29750,
+  "totalEndpoints": 29745,
   "l4SpecsAvailable": 1000,
-  "l5VerifiedActors": 124,
-  "totalVerifiedEnumFields": 553,
+  "l5VerifiedActors": 126,
+  "totalVerifiedEnumFields": 564,
   "apis": [
     {
       "handle": "8th_wall-compat",
@@ -4213,7 +4213,7 @@
     {
       "handle": "cve_nvd-compat",
       "did": "did:web:etzhayyim.com:actor:cve_nvd-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreifadegkbjriotklhgnjxsata3txjamtctkrvlu3zifh5yn6cmpvsm",
@@ -4225,8 +4225,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 10,
       "openapi": "20-actors/cve_nvd-compat/openapi.json"
     },
     {
@@ -10958,10 +10958,10 @@
     {
       "handle": "mitre_attck-compat",
       "did": "did:web:etzhayyim.com:actor:mitre_attck-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreigtohobsf6nnyu2e7gyrtuwc7knvwyn5fxy5islj2aj33u7yhfana",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreicx3a3w63grrfqmuroohv4gz662kpfscawqsa3zjm62vicvtnlbjq",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -10970,8 +10970,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 1,
       "openapi": "20-actors/mitre_attck-compat/openapi.json"
     },
     {

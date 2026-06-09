@@ -3769,12 +3769,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Indicator",
-        "Vulnerability",
-        "ThreatActor",
-        "Campaign",
-        "Host",
-        "Technique"
+        "CveItem",
+        "CvssV3Metric",
+        "CvssV3Vector",
+        "Reference",
+        "Weakness",
+        "CveMetrics"
       ]
     },
     {
@@ -9784,17 +9784,16 @@
       "handle": "mitre_attck-compat",
       "platform": "mitre_attck",
       "bytes": 2125,
-      "wasmCid": "bafkreigtohobsf6nnyu2e7gyrtuwc7knvwyn5fxy5islj2aj33u7yhfana",
+      "wasmCid": "bafkreicx3a3w63grrfqmuroohv4gz662kpfscawqsa3zjm62vicvtnlbjq",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Indicator",
-        "Vulnerability",
-        "ThreatActor",
-        "Campaign",
-        "Host",
-        "Technique"
+        "Technique",
+        "Tactic",
+        "Software",
+        "Group",
+        "Mitigation"
       ]
     },
     {

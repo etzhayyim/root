@@ -3,70 +3,66 @@
 
 namespace cve_nvd {
 
-    entity Indicator {
-        id: string @unique
-        type: string
-        value: string
-        confidence: integer
-        firstSeen: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Vulnerability {
+    entity CveItem {
         id: string @unique
         cveId: string
-        cvss: float
-        description: string
+        sourceIdentifier: string
+        vulnStatus: string
         published: datetime
+        lastModified: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity ThreatActor {
+    entity CvssV3Metric {
         id: string @unique
-        name: string
-        motivation: string
-        sophistication: string
+        baseScore: float
+        baseSeverity: string
+        exploitabilityScore: float
+        impactScore: float
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Campaign {
+    entity CvssV3Vector {
         id: string @unique
-        name: string
-        actorId: string
-        firstSeen: datetime
+        version: string
+        vectorString: string
+        attackVector: string
+        attackComplexity: string
+        privilegesRequired: string
+        userInteraction: string
+        scope: string
+        confidentialityImpact: string
+        integrityImpact: string
+        availabilityImpact: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Host {
+    entity Reference {
         id: string @unique
-        ipAddress: string
-        asn: string
-        country: string
-        openPorts: string
+        url: string
+        source: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Technique {
+    entity Weakness {
         id: string @unique
-        attckId: string
-        tactic: string
-        name: string
+        source: string
+        type: string
+        description: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity CveMetrics {
+        id: string @unique
+        source: string
+        type: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

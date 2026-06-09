@@ -7513,11 +7513,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible cyber threat intelligence actor (mitre_attck); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "mitre_attck.kotoba"
-   :actor/wasm-cid "bafkreigtohobsf6nnyu2e7gyrtuwc7knvwyn5fxy5islj2aj33u7yhfana"
+   :actor/wasm-cid "bafkreicx3a3w63grrfqmuroohv4gz662kpfscawqsa3zjm62vicvtnlbjq"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:mitre_attck-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreigtohobsf6nnyu2e7gyrtuwc7knvwyn5fxy5islj2aj33u7yhfana" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:mitre_attck-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreigtohobsf6nnyu2e7gyrtuwc7knvwyn5fxy5islj2aj33u7yhfana" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:mitre_attck-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreigtohobsf6nnyu2e7gyrtuwc7knvwyn5fxy5islj2aj33u7yhfana" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:mitre_attck-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreigtohobsf6nnyu2e7gyrtuwc7knvwyn5fxy5islj2aj33u7yhfana" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:mitre_attck-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreicx3a3w63grrfqmuroohv4gz662kpfscawqsa3zjm62vicvtnlbjq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:mitre_attck-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreicx3a3w63grrfqmuroohv4gz662kpfscawqsa3zjm62vicvtnlbjq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:mitre_attck-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreicx3a3w63grrfqmuroohv4gz662kpfscawqsa3zjm62vicvtnlbjq" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:mitre_attck-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreicx3a3w63grrfqmuroohv4gz662kpfscawqsa3zjm62vicvtnlbjq" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "mitsubishi_centum-compat"
    :actor/did "did:web:etzhayyim.com:actor:mitsubishi_centum-compat"
    :actor/kind :compat

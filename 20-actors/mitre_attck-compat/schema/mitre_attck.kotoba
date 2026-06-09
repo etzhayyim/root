@@ -3,70 +3,60 @@
 
 namespace mitre_attck {
 
-    entity Indicator {
-        id: string @unique
-        type: string
-        value: string
-        confidence: integer
-        firstSeen: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Vulnerability {
-        id: string @unique
-        cveId: string
-        cvss: float
-        description: string
-        published: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity ThreatActor {
-        id: string @unique
-        name: string
-        motivation: string
-        sophistication: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Campaign {
-        id: string @unique
-        name: string
-        actorId: string
-        firstSeen: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Host {
-        id: string @unique
-        ipAddress: string
-        asn: string
-        country: string
-        openPorts: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
     entity Technique {
         id: string @unique
-        attckId: string
-        tactic: string
+        techniqueId: string
         name: string
+        description: string
+        isSubtechnique: boolean
+        created: datetime
+        modified: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Tactic {
+        id: string @unique
+        tacticId: string
+        shortName: string
+        name: string
+        description: string
+        created: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Software {
+        id: string @unique
+        softwareId: string
+        name: string
+        type: string
+        description: string
+        isFamily: boolean
+        created: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Group {
+        id: string @unique
+        groupId: string
+        name: string
+        description: string
+        created: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Mitigation {
+        id: string @unique
+        mitigationId: string
+        name: string
+        description: string
+        deprecated: boolean
+        created: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

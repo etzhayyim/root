@@ -7,8 +7,8 @@
     "260607"
   ],
   "count": 1000,
-  "l5VerifiedActors": 124,
-  "totalVerifiedEnumFields": 553,
+  "l5VerifiedActors": 126,
+  "totalVerifiedEnumFields": 564,
   "feeds": [
     {
       "handle": "8th_wall-compat",
@@ -2227,8 +2227,8 @@
       "source": "cve_nvd.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 10
     },
     {
       "handle": "cvent-compat",
@@ -5777,8 +5777,8 @@
       "source": "mitre_attck.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 1
     },
     {
       "handle": "mitsubishi_centum-compat",

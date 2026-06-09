@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 872,
-    "L5": 128
+    "L4": 870,
+    "L5": 130
   },
   "actors": [
     {
@@ -3998,7 +3998,7 @@
       "wasmCid": "bafkreifadegkbjriotklhgnjxsata3txjamtctkrvlu3zifh5yn6cmpvsm",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "cve_nvd clean-room actor",
       "category": "cyber_threat_intel",
       "capabilities": [
@@ -10385,10 +10385,10 @@
     {
       "handle": "mitre_attck-compat",
       "did": "did:web:etzhayyim.com:actor:mitre_attck-compat",
-      "wasmCid": "bafkreigtohobsf6nnyu2e7gyrtuwc7knvwyn5fxy5islj2aj33u7yhfana",
+      "wasmCid": "bafkreicx3a3w63grrfqmuroohv4gz662kpfscawqsa3zjm62vicvtnlbjq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "mitre_attck clean-room actor",
       "category": "cyber_threat_intel",
       "capabilities": [

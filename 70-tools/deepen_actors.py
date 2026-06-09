@@ -1621,6 +1621,26 @@ PLATFORM_OVERRIDES = {
         "Deployment": E(id="string", status="string", projectName="string", stackName="string", paused="boolean", created="datetime", modified="datetime"),
         "Organization": E(name="string", role="string"),
     },
+    # Faithful CVE/NVD + CVSS v3.1 model — verified vs the FIRST CVSS v3.1 spec +
+    # the official NIST NVD API schema. All CVSS metric value sets are closed.
+    "cve_nvd": {
+        "CveItem": E(cveId="string", sourceIdentifier="string", vulnStatus="string", published="datetime", lastModified="datetime"),
+        "CvssV3Metric": E(baseScore="float", baseSeverity="string", exploitabilityScore="float", impactScore="float"),
+        "CvssV3Vector": E(version="string", vectorString="string", attackVector="string", attackComplexity="string", privilegesRequired="string", userInteraction="string", scope="string", confidentialityImpact="string", integrityImpact="string", availabilityImpact="string"),
+        "Reference": E(url="string", source="string"),
+        "Weakness": E(source="string", type="string", description="string"),
+        "CveMetrics": E(source="string", type="string"),
+    },
+    # Faithful MITRE ATT&CK model — verified vs the official attack-stix-data. Only
+    # Software.type (closed STIX object set) enforced; Tactic.shortName fetch was
+    # contaminated (bogus values) -> gapped rather than enforce a corrupted set.
+    "mitre_attck": {
+        "Technique": E(techniqueId="string", name="string", description="string", isSubtechnique="boolean", created="datetime", modified="datetime"),
+        "Tactic": E(tacticId="string", shortName="string", name="string", description="string", created="datetime"),
+        "Software": E(softwareId="string", name="string", type="string", description="string", isFamily="boolean", created="datetime"),
+        "Group": E(groupId="string", name="string", description="string", created="datetime"),
+        "Mitigation": E(mitigationId="string", name="string", description="string", deprecated="boolean", created="datetime"),
+    },
     # Faithful WebRTC model — verified against the official W3C WebRTC 1.0 spec.
     "webrtc_core": {
         "RTCPeerConnection": E(signalingState="string", iceConnectionState="string", iceGatheringState="string", connectionState="string"),

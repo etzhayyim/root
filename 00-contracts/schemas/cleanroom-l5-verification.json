@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 128,
+  "count": 130,
   "actors": [
     {
       "handle": "square-compat",
@@ -17849,6 +17849,242 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (4/4) vs RFC 9293 + RFC 791/792 + IANA. Enforced enum: TcpConnection.state(11, the closed TCP FSM). ICMP type + IP protocol (large extensible registries) intentionally not enforced."
+    },
+    {
+      "handle": "cve_nvd-compat",
+      "verifiedAt": "2026-06-10",
+      "tier": "L5",
+      "source": "https://www.first.org/cvss/v3.1/specification-document",
+      "remodeled": "Remodeled from generic category model to a faithful CVE/NVD + CVSS v3.1 model, verified against the FIRST CVSS v3.1 specification + the official NIST NVD API 2.0 schema. All CVSS metric value sets are closed.",
+      "resources": [
+        {
+          "entity": "CveItem",
+          "source": "https://nvd.nist.gov/developers/vulnerabilities",
+          "verifiedFields": [
+            "cveId",
+            "sourceIdentifier",
+            "vulnStatus",
+            "published",
+            "lastModified"
+          ],
+          "fieldStatus": "confirmed; vulnStatus values not fully enumerated -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "vulnStatus"
+          ]
+        },
+        {
+          "entity": "CvssV3Metric",
+          "source": "https://www.first.org/cvss/v3.1/specification-document",
+          "verifiedFields": [
+            "baseScore",
+            "baseSeverity",
+            "exploitabilityScore",
+            "impactScore"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "baseSeverity": [
+              "NONE",
+              "LOW",
+              "MEDIUM",
+              "HIGH",
+              "CRITICAL"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "CvssV3Vector",
+          "source": "https://www.first.org/cvss/v3.1/specification-document",
+          "verifiedFields": [
+            "version",
+            "vectorString",
+            "attackVector",
+            "attackComplexity",
+            "privilegesRequired",
+            "userInteraction",
+            "scope",
+            "confidentialityImpact",
+            "integrityImpact",
+            "availabilityImpact"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "attackVector": [
+              "NETWORK",
+              "ADJACENT_NETWORK",
+              "LOCAL",
+              "PHYSICAL"
+            ],
+            "attackComplexity": [
+              "LOW",
+              "HIGH"
+            ],
+            "privilegesRequired": [
+              "NONE",
+              "LOW",
+              "HIGH"
+            ],
+            "userInteraction": [
+              "NONE",
+              "REQUIRED"
+            ],
+            "scope": [
+              "UNCHANGED",
+              "CHANGED"
+            ],
+            "confidentialityImpact": [
+              "NONE",
+              "LOW",
+              "HIGH"
+            ],
+            "integrityImpact": [
+              "NONE",
+              "LOW",
+              "HIGH"
+            ],
+            "availabilityImpact": [
+              "NONE",
+              "LOW",
+              "HIGH"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Reference",
+          "source": "NVD API schema",
+          "verifiedFields": [
+            "url",
+            "source"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Weakness",
+          "source": "NVD API schema",
+          "verifiedFields": [
+            "source",
+            "type",
+            "description"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "CveMetrics",
+          "source": "NVD API schema",
+          "verifiedFields": [
+            "source",
+            "type"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "Primary",
+              "Secondary"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs FIRST CVSS v3.1 spec + NIST NVD API schema. Enforced enums: CvssV3Metric.baseSeverity(5), CvssV3Vector.attackVector(4)/attackComplexity(2)/privilegesRequired(3)/userInteraction(2)/scope(2)/confidentialityImpact(3)/integrityImpact(3)/availabilityImpact(3), CveMetrics.type(2) = 10 enums."
+    },
+    {
+      "handle": "mitre_attck-compat",
+      "verifiedAt": "2026-06-10",
+      "tier": "L5",
+      "source": "https://github.com/mitre-attack/attack-stix-data",
+      "remodeled": "Remodeled from generic category model to a faithful MITRE ATT&CK model, verified against the official attack-stix-data (STIX 2.1). Only Software.type (closed STIX object set malware/tool) enforced. Tactic.shortName left a GAP: the fetch returned a contaminated set (a bogus 'stealth' tactic + dubious extra) so it is not enforced rather than risk a corrupted enum. Technique IDs are a large growing set -> not enforced.",
+      "resources": [
+        {
+          "entity": "Technique",
+          "source": "https://github.com/mitre-attack/attack-stix-data enterprise-attack.json",
+          "verifiedFields": [
+            "techniqueId",
+            "name",
+            "description",
+            "isSubtechnique",
+            "created",
+            "modified"
+          ],
+          "fieldStatus": "confirmed; technique IDs large growing set -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "techniqueId-large-set"
+          ]
+        },
+        {
+          "entity": "Tactic",
+          "source": "https://github.com/mitre-attack/attack-stix-data enterprise-attack.json",
+          "verifiedFields": [
+            "tacticId",
+            "shortName",
+            "name",
+            "description",
+            "created"
+          ],
+          "fieldStatus": "fields confirmed; shortName fetch contaminated -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "shortName-fetch-contaminated"
+          ]
+        },
+        {
+          "entity": "Software",
+          "source": "https://github.com/mitre-attack/attack-stix-data enterprise-attack.json",
+          "verifiedFields": [
+            "softwareId",
+            "name",
+            "type",
+            "description",
+            "isFamily",
+            "created"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "malware",
+              "tool"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Group",
+          "source": "https://github.com/mitre-attack/attack-stix-data enterprise-attack.json",
+          "verifiedFields": [
+            "groupId",
+            "name",
+            "description",
+            "created"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Mitigation",
+          "source": "https://github.com/mitre-attack/attack-stix-data enterprise-attack.json",
+          "verifiedFields": [
+            "mitigationId",
+            "name",
+            "description",
+            "deprecated",
+            "created"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5 schemas) vs official MITRE attack-stix-data. Enforced enum: Software.type(malware/tool). Tactic.shortName gapped (fetch contaminated with bogus values — honesty over coverage); technique IDs large-set -> gapped."
     }
   ]
 }
