@@ -11,15 +11,27 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreih232kk4eal3cvlywe6nk56lowufafbio7zjcjdyb7p4uckig7hau",
   "schema": "schema/fastly.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://github.com/fastly/go-fastly (official Fastly Go SDK structs)",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Service",
+      "Backend",
+      "Domain",
+      "HealthCheck",
+      "ACL",
+      "Dictionary"
+    ],
+    "enums": {}
+  },
   "entities": [
-    "Asset",
-    "Rendition",
-    "Channel",
-    "Playlist",
-    "ContentEntry",
-    "Experiment"
+    "Service",
+    "Backend",
+    "Domain",
+    "HealthCheck",
+    "ACL",
+    "Dictionary"
   ],
   "adr": [
     "260607",
@@ -35,160 +47,160 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/assets",
-          "op": "create Asset"
+          "path": "/v1/services",
+          "op": "create Service"
         },
         {
           "method": "GET",
-          "path": "/v1/assets",
-          "op": "list Asset"
+          "path": "/v1/services",
+          "op": "list Service"
         },
         {
           "method": "GET",
-          "path": "/v1/assets/{id}",
-          "op": "get Asset"
+          "path": "/v1/services/{id}",
+          "op": "get Service"
         },
         {
           "method": "PATCH",
-          "path": "/v1/assets/{id}",
-          "op": "update Asset"
+          "path": "/v1/services/{id}",
+          "op": "update Service"
         },
         {
           "method": "DELETE",
-          "path": "/v1/assets/{id}",
-          "op": "delete Asset"
+          "path": "/v1/services/{id}",
+          "op": "delete Service"
         },
         {
           "method": "POST",
-          "path": "/v1/renditions",
-          "op": "create Rendition"
+          "path": "/v1/backends",
+          "op": "create Backend"
         },
         {
           "method": "GET",
-          "path": "/v1/renditions",
-          "op": "list Rendition"
+          "path": "/v1/backends",
+          "op": "list Backend"
         },
         {
           "method": "GET",
-          "path": "/v1/renditions/{id}",
-          "op": "get Rendition"
+          "path": "/v1/backends/{id}",
+          "op": "get Backend"
         },
         {
           "method": "PATCH",
-          "path": "/v1/renditions/{id}",
-          "op": "update Rendition"
+          "path": "/v1/backends/{id}",
+          "op": "update Backend"
         },
         {
           "method": "DELETE",
-          "path": "/v1/renditions/{id}",
-          "op": "delete Rendition"
+          "path": "/v1/backends/{id}",
+          "op": "delete Backend"
         },
         {
           "method": "POST",
-          "path": "/v1/channels",
-          "op": "create Channel"
+          "path": "/v1/domains",
+          "op": "create Domain"
         },
         {
           "method": "GET",
-          "path": "/v1/channels",
-          "op": "list Channel"
+          "path": "/v1/domains",
+          "op": "list Domain"
         },
         {
           "method": "GET",
-          "path": "/v1/channels/{id}",
-          "op": "get Channel"
+          "path": "/v1/domains/{id}",
+          "op": "get Domain"
         },
         {
           "method": "PATCH",
-          "path": "/v1/channels/{id}",
-          "op": "update Channel"
+          "path": "/v1/domains/{id}",
+          "op": "update Domain"
         },
         {
           "method": "DELETE",
-          "path": "/v1/channels/{id}",
-          "op": "delete Channel"
+          "path": "/v1/domains/{id}",
+          "op": "delete Domain"
         },
         {
           "method": "POST",
-          "path": "/v1/playlists",
-          "op": "create Playlist"
+          "path": "/v1/healthchecks",
+          "op": "create HealthCheck"
         },
         {
           "method": "GET",
-          "path": "/v1/playlists",
-          "op": "list Playlist"
+          "path": "/v1/healthchecks",
+          "op": "list HealthCheck"
         },
         {
           "method": "GET",
-          "path": "/v1/playlists/{id}",
-          "op": "get Playlist"
+          "path": "/v1/healthchecks/{id}",
+          "op": "get HealthCheck"
         },
         {
           "method": "PATCH",
-          "path": "/v1/playlists/{id}",
-          "op": "update Playlist"
+          "path": "/v1/healthchecks/{id}",
+          "op": "update HealthCheck"
         },
         {
           "method": "DELETE",
-          "path": "/v1/playlists/{id}",
-          "op": "delete Playlist"
+          "path": "/v1/healthchecks/{id}",
+          "op": "delete HealthCheck"
         },
         {
           "method": "POST",
-          "path": "/v1/contententries",
-          "op": "create ContentEntry"
+          "path": "/v1/acls",
+          "op": "create ACL"
         },
         {
           "method": "GET",
-          "path": "/v1/contententries",
-          "op": "list ContentEntry"
+          "path": "/v1/acls",
+          "op": "list ACL"
         },
         {
           "method": "GET",
-          "path": "/v1/contententries/{id}",
-          "op": "get ContentEntry"
+          "path": "/v1/acls/{id}",
+          "op": "get ACL"
         },
         {
           "method": "PATCH",
-          "path": "/v1/contententries/{id}",
-          "op": "update ContentEntry"
+          "path": "/v1/acls/{id}",
+          "op": "update ACL"
         },
         {
           "method": "DELETE",
-          "path": "/v1/contententries/{id}",
-          "op": "delete ContentEntry"
+          "path": "/v1/acls/{id}",
+          "op": "delete ACL"
         },
         {
           "method": "POST",
-          "path": "/v1/experiments",
-          "op": "create Experiment"
+          "path": "/v1/dictionaries",
+          "op": "create Dictionary"
         },
         {
           "method": "GET",
-          "path": "/v1/experiments",
-          "op": "list Experiment"
+          "path": "/v1/dictionaries",
+          "op": "list Dictionary"
         },
         {
           "method": "GET",
-          "path": "/v1/experiments/{id}",
-          "op": "get Experiment"
+          "path": "/v1/dictionaries/{id}",
+          "op": "get Dictionary"
         },
         {
           "method": "PATCH",
-          "path": "/v1/experiments/{id}",
-          "op": "update Experiment"
+          "path": "/v1/dictionaries/{id}",
+          "op": "update Dictionary"
         },
         {
           "method": "DELETE",
-          "path": "/v1/experiments/{id}",
-          "op": "delete Experiment"
+          "path": "/v1/dictionaries/{id}",
+          "op": "delete Dictionary"
         }
       ],
       "features": {
-        "pagination": true,
-        "filtering": true,
-        "relationExpansion": true,
-        "strictValidation": true,
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
         "contractTest": true
       },
       "health": "/healthz"
@@ -247,41 +259,44 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_asset",
-          "description": "Create a Asset.",
+          "name": "create_service",
+          "description": "Create a Service.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "title": {
+              "name": {
                 "type": "string"
               },
               "type": {
                 "type": "string"
               },
-              "durationMs": {
-                "type": "integer"
-              },
-              "contentRef": {
+              "comment": {
                 "type": "string"
+              },
+              "customerId": {
+                "type": "string"
+              },
+              "activeVersion": {
+                "type": "integer"
               }
             },
             "required": [
-              "title",
+              "name",
               "type"
             ]
           }
         },
         {
-          "name": "list_assets",
-          "description": "List Assets.",
+          "name": "list_services",
+          "description": "List Services.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_asset",
-          "description": "Get a Asset by id.",
+          "name": "get_service",
+          "description": "Get a Service by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,25 +310,28 @@
           }
         },
         {
-          "name": "update_asset",
-          "description": "Update a Asset.",
+          "name": "update_service",
+          "description": "Update a Service.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "title": {
+              "name": {
                 "type": "string"
               },
               "type": {
                 "type": "string"
               },
-              "durationMs": {
+              "comment": {
+                "type": "string"
+              },
+              "customerId": {
+                "type": "string"
+              },
+              "activeVersion": {
                 "type": "integer"
-              },
-              "contentRef": {
-                "type": "string"
               }
             },
             "required": [
@@ -322,8 +340,8 @@
           }
         },
         {
-          "name": "delete_asset",
-          "description": "Delete a Asset.",
+          "name": "delete_service",
+          "description": "Delete a Service.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -337,128 +355,74 @@
           }
         },
         {
-          "name": "create_rendition",
-          "description": "Create a Rendition.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "assetId": {
-                "type": "string"
-              },
-              "format": {
-                "type": "string"
-              },
-              "bitrate": {
-                "type": "integer"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "format",
-              "bitrate"
-            ]
-          }
-        },
-        {
-          "name": "list_renditions",
-          "description": "List Renditions.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_rendition",
-          "description": "Get a Rendition by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_rendition",
-          "description": "Update a Rendition.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "assetId": {
-                "type": "string"
-              },
-              "format": {
-                "type": "string"
-              },
-              "bitrate": {
-                "type": "integer"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_rendition",
-          "description": "Delete a Rendition.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_channel",
-          "description": "Create a Channel.",
+          "name": "create_backend",
+          "description": "Create a Backend.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "description": {
+              "address": {
                 "type": "string"
               },
-              "public": {
+              "hostname": {
+                "type": "string"
+              },
+              "port": {
+                "type": "integer"
+              },
+              "useSsl": {
                 "type": "boolean"
+              },
+              "sslCertHostname": {
+                "type": "string"
+              },
+              "weight": {
+                "type": "integer"
+              },
+              "shield": {
+                "type": "string"
+              },
+              "comment": {
+                "type": "string"
+              },
+              "connectTimeout": {
+                "type": "integer"
+              },
+              "maxConn": {
+                "type": "integer"
+              },
+              "autoLoadbalance": {
+                "type": "boolean"
+              },
+              "overrideHost": {
+                "type": "string"
+              },
+              "minTlsVersion": {
+                "type": "string"
+              },
+              "maxTlsVersion": {
+                "type": "string"
               }
             },
             "required": [
               "name",
-              "description"
+              "address"
             ]
           }
         },
         {
-          "name": "list_channels",
-          "description": "List Channels.",
+          "name": "list_backends",
+          "description": "List Backends.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_channel",
-          "description": "Get a Channel by id.",
+          "name": "get_backend",
+          "description": "Get a Backend by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -472,8 +436,8 @@
           }
         },
         {
-          "name": "update_channel",
-          "description": "Update a Channel.",
+          "name": "update_backend",
+          "description": "Update a Backend.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -483,95 +447,47 @@
               "name": {
                 "type": "string"
               },
-              "description": {
+              "address": {
                 "type": "string"
               },
-              "public": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_channel",
-          "description": "Delete a Channel.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_playlist",
-          "description": "Create a Playlist.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "channelId": {
+              "hostname": {
                 "type": "string"
               },
-              "title": {
-                "type": "string"
-              },
-              "itemCount": {
+              "port": {
                 "type": "integer"
-              }
-            },
-            "required": [
-              "title",
-              "itemCount"
-            ]
-          }
-        },
-        {
-          "name": "list_playlists",
-          "description": "List Playlists.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_playlist",
-          "description": "Get a Playlist by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_playlist",
-          "description": "Update a Playlist.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              },
+              "useSsl": {
+                "type": "boolean"
+              },
+              "sslCertHostname": {
                 "type": "string"
               },
-              "channelId": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "itemCount": {
+              "weight": {
                 "type": "integer"
+              },
+              "shield": {
+                "type": "string"
+              },
+              "comment": {
+                "type": "string"
+              },
+              "connectTimeout": {
+                "type": "integer"
+              },
+              "maxConn": {
+                "type": "integer"
+              },
+              "autoLoadbalance": {
+                "type": "boolean"
+              },
+              "overrideHost": {
+                "type": "string"
+              },
+              "minTlsVersion": {
+                "type": "string"
+              },
+              "maxTlsVersion": {
+                "type": "string"
               }
             },
             "required": [
@@ -580,8 +496,8 @@
           }
         },
         {
-          "name": "delete_playlist",
-          "description": "Delete a Playlist.",
+          "name": "delete_backend",
+          "description": "Delete a Backend.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -595,41 +511,41 @@
           }
         },
         {
-          "name": "create_content_entry",
-          "description": "Create a ContentEntry.",
+          "name": "create_domain",
+          "description": "Create a Domain.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "modelName": {
+              "serviceId": {
                 "type": "string"
               },
-              "title": {
+              "serviceVersion": {
+                "type": "integer"
+              },
+              "name": {
                 "type": "string"
               },
-              "locale": {
+              "comment": {
                 "type": "string"
-              },
-              "published": {
-                "type": "boolean"
               }
             },
             "required": [
-              "modelName",
-              "title"
+              "serviceVersion",
+              "name"
             ]
           }
         },
         {
-          "name": "list_content_entries",
-          "description": "List ContentEntries.",
+          "name": "list_domains",
+          "description": "List Domains.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_content_entry",
-          "description": "Get a ContentEntry by id.",
+          "name": "get_domain",
+          "description": "Get a Domain by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -643,24 +559,348 @@
           }
         },
         {
-          "name": "update_content_entry",
-          "description": "Update a ContentEntry.",
+          "name": "update_domain",
+          "description": "Update a Domain.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "modelName": {
+              "serviceId": {
                 "type": "string"
               },
-              "title": {
+              "serviceVersion": {
+                "type": "integer"
+              },
+              "name": {
                 "type": "string"
               },
-              "locale": {
+              "comment": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_domain",
+          "description": "Delete a Domain.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_health_check",
+          "description": "Create a HealthCheck.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "serviceId": {
                 "type": "string"
               },
-              "published": {
+              "serviceVersion": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "method": {
+                "type": "string"
+              },
+              "host": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "expectedResponse": {
+                "type": "integer"
+              },
+              "checkInterval": {
+                "type": "integer"
+              },
+              "timeout": {
+                "type": "integer"
+              },
+              "threshold": {
+                "type": "integer"
+              },
+              "window": {
+                "type": "integer"
+              },
+              "initial": {
+                "type": "integer"
+              },
+              "httpVersion": {
+                "type": "string"
+              },
+              "comment": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "serviceVersion",
+              "name"
+            ]
+          }
+        },
+        {
+          "name": "list_health_checks",
+          "description": "List HealthChecks.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_health_check",
+          "description": "Get a HealthCheck by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_health_check",
+          "description": "Update a HealthCheck.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "serviceId": {
+                "type": "string"
+              },
+              "serviceVersion": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "method": {
+                "type": "string"
+              },
+              "host": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "expectedResponse": {
+                "type": "integer"
+              },
+              "checkInterval": {
+                "type": "integer"
+              },
+              "timeout": {
+                "type": "integer"
+              },
+              "threshold": {
+                "type": "integer"
+              },
+              "window": {
+                "type": "integer"
+              },
+              "initial": {
+                "type": "integer"
+              },
+              "httpVersion": {
+                "type": "string"
+              },
+              "comment": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_health_check",
+          "description": "Delete a HealthCheck.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_a_c_l",
+          "description": "Create a ACL.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "serviceId": {
+                "type": "string"
+              },
+              "serviceVersion": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "serviceVersion",
+              "name"
+            ]
+          }
+        },
+        {
+          "name": "list_a_c_ls",
+          "description": "List ACLs.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_a_c_l",
+          "description": "Get a ACL by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_a_c_l",
+          "description": "Update a ACL.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "serviceId": {
+                "type": "string"
+              },
+              "serviceVersion": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_a_c_l",
+          "description": "Delete a ACL.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_dictionary",
+          "description": "Create a Dictionary.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "serviceId": {
+                "type": "string"
+              },
+              "serviceVersion": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "writeOnly": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "serviceVersion",
+              "name"
+            ]
+          }
+        },
+        {
+          "name": "list_dictionaries",
+          "description": "List Dictionaries.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_dictionary",
+          "description": "Get a Dictionary by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_dictionary",
+          "description": "Update a Dictionary.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "serviceId": {
+                "type": "string"
+              },
+              "serviceVersion": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "writeOnly": {
                 "type": "boolean"
               }
             },
@@ -670,92 +910,8 @@
           }
         },
         {
-          "name": "delete_content_entry",
-          "description": "Delete a ContentEntry.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_experiment",
-          "description": "Create a Experiment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "variant": {
-                "type": "string"
-              },
-              "conversionRate": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "name",
-              "variant"
-            ]
-          }
-        },
-        {
-          "name": "list_experiments",
-          "description": "List Experiments.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_experiment",
-          "description": "Get a Experiment by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_experiment",
-          "description": "Update a Experiment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "variant": {
-                "type": "string"
-              },
-              "conversionRate": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_experiment",
-          "description": "Delete a Experiment.",
+          "name": "delete_dictionary",
+          "description": "Delete a Dictionary.",
           "inputSchema": {
             "type": "object",
             "properties": {

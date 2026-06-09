@@ -1077,6 +1077,17 @@ PLATFORM_OVERRIDES = {
         "Firewall": E(label="string", status="string"),
         "LKECluster": E(label="string", region="string", status="string", k8sVersion="string", tier="string", aplEnabled="boolean", subnetId="integer", vpcId="integer"),
     },
+    # Faithful Fastly model (remodeled from the generic media_video_cms archetype
+    # whose Asset/Rendition/Channel/Playlist entities did not match Fastly's real
+    # CDN/edge API), doc-verified L5 vs github.com/fastly/go-fastly.
+    "fastly": {
+        "Service": E(name="string", type="string", comment="string", customerId="string", activeVersion="integer"),
+        "Backend": E(name="string", address="string", hostname="string", port="integer", useSsl="boolean", sslCertHostname="string", weight="integer", shield="string", comment="string", connectTimeout="integer", maxConn="integer", autoLoadbalance="boolean", overrideHost="string", minTlsVersion="string", maxTlsVersion="string"),
+        "Domain": E(serviceId="string", serviceVersion="integer", name="string", comment="string"),
+        "HealthCheck": E(serviceId="string", serviceVersion="integer", name="string", method="string", host="string", path="string", expectedResponse="integer", checkInterval="integer", timeout="integer", threshold="integer", window="integer", initial="integer", httpVersion="string", comment="string"),
+        "ACL": E(serviceId="string", serviceVersion="integer", name="string"),
+        "Dictionary": E(serviceId="string", serviceVersion="integer", name="string", writeOnly="boolean"),
+    },
     # Faithful Airtable model (remodeled from generic office_productivity), L5.
     "airtable": {
         "Base": E(name="string", permissionLevel="string"),

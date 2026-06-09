@@ -3,70 +3,85 @@
 
 namespace fastly {
 
-    entity Asset {
+    entity Service {
         id: string @unique
-        title: string
+        name: string
         type: string
-        durationMs: integer
-        contentRef: string
+        comment: string
+        customerId: string
+        activeVersion: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Rendition {
-        id: string @unique
-        assetId: string
-        format: string
-        bitrate: integer
-        contentRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Channel {
+    entity Backend {
         id: string @unique
         name: string
-        description: string
-        public: boolean
+        address: string
+        hostname: string
+        port: integer
+        useSsl: boolean
+        sslCertHostname: string
+        weight: integer
+        shield: string
+        comment: string
+        connectTimeout: integer
+        maxConn: integer
+        autoLoadbalance: boolean
+        overrideHost: string
+        minTlsVersion: string
+        maxTlsVersion: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Playlist {
+    entity Domain {
         id: string @unique
-        channelId: string
-        title: string
-        itemCount: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity ContentEntry {
-        id: string @unique
-        modelName: string
-        title: string
-        locale: string
-        published: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Experiment {
-        id: string @unique
+        serviceId: string
+        serviceVersion: integer
         name: string
-        variant: string
-        conversionRate: float
+        comment: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity HealthCheck {
+        id: string @unique
+        serviceId: string
+        serviceVersion: integer
+        name: string
+        method: string
+        host: string
+        path: string
+        expectedResponse: integer
+        checkInterval: integer
+        timeout: integer
+        threshold: integer
+        window: integer
+        initial: integer
+        httpVersion: string
+        comment: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity ACL {
+        id: string @unique
+        serviceId: string
+        serviceVersion: integer
+        name: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Dictionary {
+        id: string @unique
+        serviceId: string
+        serviceVersion: integer
+        name: string
+        writeOnly: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

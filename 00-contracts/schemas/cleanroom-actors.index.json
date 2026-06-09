@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 940,
-    "L5": 60
+    "L4": 939,
+    "L5": 61
   },
   "actors": [
     {
@@ -5780,7 +5780,7 @@
       "wasmCid": "bafkreih232kk4eal3cvlywe6nk56lowufafbio7zjcjdyb7p4uckig7hau",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "fastly clean-room actor",
       "category": "media_video_cms",
       "capabilities": [

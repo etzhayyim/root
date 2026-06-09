@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 60,
+  "count": 61,
   "actors": [
     {
       "handle": "square-compat",
@@ -8496,6 +8496,127 @@
       ],
       "notApplicable": [],
       "note": "Remodeled from generic iaas_cloud archetype. 6/6 entities field-verified vs the official linodego Go SDK. Discovered closed enums (7): Instance.status, Volume.status, Domain.type, Domain.status, Image.status, Firewall.status, LKECluster.status."
+    },
+    {
+      "handle": "fastly-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/fastly/go-fastly (official Fastly Go SDK structs)",
+      "remodeled": "Remodeled from the generic media_video_cms archetype (Asset/Rendition/Channel/Playlist/ContentEntry/Experiment) — which did not match Fastly at all (Fastly is a CDN/edge-cloud platform, not a media CMS) — to a faithful Fastly model (Service/Backend/Domain/HealthCheck/ACL/Dictionary), verified field-by-field against the official go-fastly SDK structs. Category metadata (media_video_cms) is left unchanged as a separate follow-up; the L5 gate asserts schema fidelity, now satisfied (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Service",
+          "source": "service_details.go (struct Service)",
+          "verifiedFields": [
+            "name",
+            "type",
+            "comment",
+            "customerId",
+            "activeVersion"
+          ],
+          "fieldStatus": "confirmed vs Service struct mapstructure tags (id/name/type/comment/customer_id/version->activeVersion)",
+          "discoveredEnums": {},
+          "gaps": [
+            "type is a documented closed set [vcl,wasm] but not a constant in the SDK struct -> not enforced",
+            "versions(array)",
+            "updated_at"
+          ]
+        },
+        {
+          "entity": "Backend",
+          "source": "backend.go (struct Backend)",
+          "verifiedFields": [
+            "name",
+            "address",
+            "hostname",
+            "port",
+            "useSsl",
+            "sslCertHostname",
+            "weight",
+            "shield",
+            "comment",
+            "connectTimeout",
+            "maxConn",
+            "autoLoadbalance",
+            "overrideHost",
+            "minTlsVersion",
+            "maxTlsVersion"
+          ],
+          "fieldStatus": "confirmed vs Backend struct mapstructure tags (name/address/hostname/port/use_ssl/ssl_cert_hostname/weight/shield/comment/connect_timeout/max_conn/auto_loadbalance/override_host/min_tls_version/max_tls_version)",
+          "discoveredEnums": {},
+          "gaps": [
+            "ssl_ciphers",
+            "healthcheck",
+            "request_condition",
+            "tcp_keepalive_* tuning fields"
+          ]
+        },
+        {
+          "entity": "Domain",
+          "source": "domain.go (struct Domain)",
+          "verifiedFields": [
+            "serviceId",
+            "serviceVersion",
+            "name",
+            "comment"
+          ],
+          "fieldStatus": "confirmed vs Domain struct mapstructure tags (service_id/version->serviceVersion/name/comment)",
+          "discoveredEnums": {},
+          "gaps": [
+            "staging_ip"
+          ]
+        },
+        {
+          "entity": "HealthCheck",
+          "source": "health_check.go (struct HealthCheck)",
+          "verifiedFields": [
+            "serviceId",
+            "serviceVersion",
+            "name",
+            "method",
+            "host",
+            "path",
+            "expectedResponse",
+            "checkInterval",
+            "timeout",
+            "threshold",
+            "window",
+            "initial",
+            "httpVersion",
+            "comment"
+          ],
+          "fieldStatus": "confirmed vs HealthCheck struct mapstructure tags (service_id/version/name/method/host/path/expected_response/check_interval/timeout/threshold/window/initial/http_version/comment)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "ACL",
+          "source": "acl.go (struct ACL)",
+          "verifiedFields": [
+            "serviceId",
+            "serviceVersion",
+            "name"
+          ],
+          "fieldStatus": "confirmed vs ACL struct mapstructure tags (id/name/service_id/version->serviceVersion)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Dictionary",
+          "source": "dictionary.go (struct Dictionary)",
+          "verifiedFields": [
+            "serviceId",
+            "serviceVersion",
+            "name",
+            "writeOnly"
+          ],
+          "fieldStatus": "confirmed vs Dictionary struct mapstructure tags (id/name/service_id/version->serviceVersion/write_only)",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "Remodeled from a wholly-mismatched media_video_cms archetype to a faithful CDN/edge model. 6/6 entities field-verified vs the official go-fastly SDK. No closed enums in the SDK structs (Service.type [vcl,wasm] is documented but not a struct constant -> recorded as a gap, not enforced)."
     }
   ]
 }
