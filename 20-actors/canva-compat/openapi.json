@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreifiwxk3qruothrh7n7vi3h7k5nr66r5s76txl7rtzc3lbmdutg7be",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,9 +17,9 @@
     }
   ],
   "paths": {
-    "/v1/projects": {
+    "/v1/designs": {
       "get": {
-        "summary": "List Projects",
+        "summary": "List Designs",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Project"
+                        "$ref": "#/components/schemas/Design"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Project",
+        "summary": "Create a Design",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProjectCreate"
+                "$ref": "#/components/schemas/DesignCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Project"
+                  "$ref": "#/components/schemas/Design"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/projects/{id}": {
+    "/v1/designs/{id}": {
       "get": {
-        "summary": "Get a Project",
+        "summary": "Get a Design",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Project"
+                  "$ref": "#/components/schemas/Design"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Project",
+        "summary": "Update a Design",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProjectCreate"
+                "$ref": "#/components/schemas/DesignCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Project"
+                  "$ref": "#/components/schemas/Design"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Project",
+        "summary": "Delete a Design",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/files": {
+    "/v1/assets": {
       "get": {
-        "summary": "List Files",
+        "summary": "List Assets",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/File"
+                        "$ref": "#/components/schemas/Asset"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a File",
+        "summary": "Create a Asset",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FileCreate"
+                "$ref": "#/components/schemas/AssetCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/File"
+                  "$ref": "#/components/schemas/Asset"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/files/{id}": {
+    "/v1/assets/{id}": {
       "get": {
-        "summary": "Get a File",
+        "summary": "Get a Asset",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/File"
+                  "$ref": "#/components/schemas/Asset"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a File",
+        "summary": "Update a Asset",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FileCreate"
+                "$ref": "#/components/schemas/AssetCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/File"
+                  "$ref": "#/components/schemas/Asset"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a File",
+        "summary": "Delete a Asset",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/frames": {
+    "/v1/folders": {
       "get": {
-        "summary": "List Frames",
+        "summary": "List Folders",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Frame"
+                        "$ref": "#/components/schemas/Folder"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Frame",
+        "summary": "Create a Folder",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FrameCreate"
+                "$ref": "#/components/schemas/FolderCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Frame"
+                  "$ref": "#/components/schemas/Folder"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/frames/{id}": {
+    "/v1/folders/{id}": {
       "get": {
-        "summary": "Get a Frame",
+        "summary": "Get a Folder",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Frame"
+                  "$ref": "#/components/schemas/Folder"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Frame",
+        "summary": "Update a Folder",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FrameCreate"
+                "$ref": "#/components/schemas/FolderCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Frame"
+                  "$ref": "#/components/schemas/Folder"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Frame",
+        "summary": "Delete a Folder",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/components": {
+    "/v1/brandtemplates": {
       "get": {
-        "summary": "List Components",
+        "summary": "List BrandTemplates",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Component"
+                        "$ref": "#/components/schemas/BrandTemplate"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Component",
+        "summary": "Create a BrandTemplate",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ComponentCreate"
+                "$ref": "#/components/schemas/BrandTemplateCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Component"
+                  "$ref": "#/components/schemas/BrandTemplate"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/components/{id}": {
+    "/v1/brandtemplates/{id}": {
       "get": {
-        "summary": "Get a Component",
+        "summary": "Get a BrandTemplate",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Component"
+                  "$ref": "#/components/schemas/BrandTemplate"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Component",
+        "summary": "Update a BrandTemplate",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ComponentCreate"
+                "$ref": "#/components/schemas/BrandTemplateCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Component"
+                  "$ref": "#/components/schemas/BrandTemplate"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Component",
+        "summary": "Delete a BrandTemplate",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/comments": {
+    "/v1/exportjobs": {
       "get": {
-        "summary": "List Comments",
+        "summary": "List ExportJobs",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Comment"
+                        "$ref": "#/components/schemas/ExportJob"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Comment",
+        "summary": "Create a ExportJob",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CommentCreate"
+                "$ref": "#/components/schemas/ExportJobCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Comment"
+                  "$ref": "#/components/schemas/ExportJob"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/comments/{id}": {
+    "/v1/exportjobs/{id}": {
       "get": {
-        "summary": "Get a Comment",
+        "summary": "Get a ExportJob",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Comment"
+                  "$ref": "#/components/schemas/ExportJob"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Comment",
+        "summary": "Update a ExportJob",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CommentCreate"
+                "$ref": "#/components/schemas/ExportJobCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Comment"
+                  "$ref": "#/components/schemas/ExportJob"
                 }
               }
             }
@@ -921,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Comment",
+        "summary": "Delete a ExportJob",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +942,9 @@
         }
       }
     },
-    "/v1/exports": {
+    "/v1/users": {
       "get": {
-        "summary": "List Exports",
+        "summary": "List Users",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +984,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Export"
+                        "$ref": "#/components/schemas/User"
                       }
                     },
                     "has_more": {
@@ -1004,13 +1004,13 @@
         }
       },
       "post": {
-        "summary": "Create a Export",
+        "summary": "Create a User",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ExportCreate"
+                "$ref": "#/components/schemas/UserCreate"
               }
             }
           }
@@ -1021,7 +1021,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Export"
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
@@ -1032,9 +1032,9 @@
         }
       }
     },
-    "/v1/exports/{id}": {
+    "/v1/users/{id}": {
       "get": {
-        "summary": "Get a Export",
+        "summary": "Get a User",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +1058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Export"
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
@@ -1069,7 +1069,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Export",
+        "summary": "Update a User",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +1084,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ExportCreate"
+                "$ref": "#/components/schemas/UserCreate"
               }
             }
           }
@@ -1095,7 +1095,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Export"
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
@@ -1106,7 +1106,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Export",
+        "summary": "Delete a User",
         "parameters": [
           {
             "name": "id",
@@ -1140,20 +1140,17 @@
   },
   "components": {
     "schemas": {
-      "Project": {
+      "Design": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
+          "title": {
             "type": "string"
           },
-          "ownerId": {
-            "type": "string"
-          },
-          "teamId": {
-            "type": "string"
+          "pageCount": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1165,40 +1162,92 @@
           }
         }
       },
-      "ProjectCreate": {
+      "DesignCreate": {
         "type": "object",
         "properties": {
-          "name": {
+          "id": {
             "type": "string"
           },
-          "ownerId": {
+          "title": {
             "type": "string"
           },
-          "teamId": {
-            "type": "string"
+          "pageCount": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "integer"
+          },
+          "updatedAt": {
+            "type": "integer"
           }
         },
         "required": [
+          "id",
+          "title"
+        ]
+      },
+      "Asset": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "image",
+              "video"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "AssetCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "image",
+              "video"
+            ]
+          },
+          "createdAt": {
+            "type": "integer"
+          },
+          "updatedAt": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
           "name"
         ]
       },
-      "File": {
+      "Folder": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "projectId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
-          },
-          "contentRef": {
-            "type": "string"
-          },
-          "version": {
-            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1210,89 +1259,37 @@
           }
         }
       },
-      "FileCreate": {
+      "FolderCreate": {
         "type": "object",
         "properties": {
-          "projectId": {
+          "id": {
             "type": "string"
           },
           "name": {
             "type": "string"
           },
-          "contentRef": {
-            "type": "string"
+          "createdAt": {
+            "type": "integer"
           },
-          "version": {
+          "updatedAt": {
             "type": "integer"
           }
         },
         "required": [
-          "name",
-          "version"
+          "id",
+          "name"
         ]
       },
-      "Frame": {
+      "BrandTemplate": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "fileId": {
+          "title": {
             "type": "string"
           },
-          "name": {
-            "type": "string"
-          },
-          "width": {
-            "type": "number"
-          },
-          "height": {
-            "type": "number"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "FrameCreate": {
-        "type": "object",
-        "properties": {
-          "fileId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "width": {
-            "type": "number"
-          },
-          "height": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "name",
-          "width"
-        ]
-      },
-      "Component": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "fileId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "description": {
+          "viewUrl": {
             "type": "string"
           },
           "createdAt": {
@@ -1305,89 +1302,109 @@
           }
         }
       },
-      "ComponentCreate": {
-        "type": "object",
-        "properties": {
-          "fileId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "description"
-        ]
-      },
-      "Comment": {
+      "BrandTemplateCreate": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "fileId": {
+          "title": {
             "type": "string"
           },
-          "authorId": {
+          "viewUrl": {
             "type": "string"
-          },
-          "body": {
-            "type": "string"
-          },
-          "resolved": {
-            "type": "boolean"
           },
           "createdAt": {
-            "type": "string",
-            "format": "date-time"
+            "type": "integer"
           },
           "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "CommentCreate": {
-        "type": "object",
-        "properties": {
-          "fileId": {
-            "type": "string"
-          },
-          "authorId": {
-            "type": "string"
-          },
-          "body": {
-            "type": "string"
-          },
-          "resolved": {
-            "type": "boolean"
+            "type": "integer"
           }
         },
         "required": [
-          "body",
-          "resolved"
+          "id",
+          "title"
         ]
       },
-      "Export": {
+      "ExportJob": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "fileId": {
-            "type": "string"
+          "status": {
+            "type": "string",
+            "enum": [
+              "in_progress",
+              "success",
+              "failed"
+            ]
           },
           "format": {
+            "type": "string",
+            "enum": [
+              "pdf",
+              "jpg",
+              "png",
+              "gif",
+              "pptx",
+              "mp4",
+              "svg",
+              "html_bundle",
+              "html_standalone"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ExportJobCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "string"
           },
-          "scale": {
-            "type": "number"
+          "status": {
+            "type": "string",
+            "enum": [
+              "in_progress",
+              "success",
+              "failed"
+            ]
           },
-          "contentRef": {
+          "format": {
+            "type": "string",
+            "enum": [
+              "pdf",
+              "jpg",
+              "png",
+              "gif",
+              "pptx",
+              "mp4",
+              "svg",
+              "html_bundle",
+              "html_standalone"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "status"
+        ]
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "displayName": {
             "type": "string"
           },
           "createdAt": {
@@ -1400,25 +1417,19 @@
           }
         }
       },
-      "ExportCreate": {
+      "UserCreate": {
         "type": "object",
         "properties": {
-          "fileId": {
+          "id": {
             "type": "string"
           },
-          "format": {
-            "type": "string"
-          },
-          "scale": {
-            "type": "number"
-          },
-          "contentRef": {
+          "displayName": {
             "type": "string"
           }
         },
         "required": [
-          "format",
-          "scale"
+          "id",
+          "displayName"
         ]
       }
     }

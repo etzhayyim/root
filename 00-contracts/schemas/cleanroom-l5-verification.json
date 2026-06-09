@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 69,
+  "count": 71,
   "actors": [
     {
       "handle": "square-compat",
@@ -9744,6 +9744,259 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official Shippo OpenAPI + SDK. Enforced enums: Parcel.massUnit/distanceUnit, Shipment.status, Transaction.status/objectState, TrackingStatus.status = 6 enums. Rate.attributes array intentionally not enforced as a scalar enum."
+    },
+    {
+      "handle": "trello-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://dac-static.atlassian.com/cloud/trello/swagger.v3.json",
+      "remodeled": "Remodeled from generic devtools_saas to a faithful Trello model, verified against the official Trello swagger v3. Array fields (idMembers/idLabels) dropped. Nested Board.prefs enums recorded but not enforced (not top-level scalar fields). null members of color/cardRole excluded from the enforced set.",
+      "resources": [
+        {
+          "entity": "Card",
+          "source": "https://dac-static.atlassian.com/cloud/trello/swagger.v3.json",
+          "verifiedFields": [
+            "id",
+            "idShort",
+            "name",
+            "desc",
+            "closed",
+            "due",
+            "dueComplete",
+            "pos",
+            "url",
+            "idBoard",
+            "idList",
+            "cardRole",
+            "dateLastActivity"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "cardRole": [
+              "separator",
+              "board",
+              "mirror",
+              "link"
+            ]
+          },
+          "gaps": [
+            "idMembers(array)",
+            "idLabels(array)"
+          ]
+        },
+        {
+          "entity": "Board",
+          "source": "https://dac-static.atlassian.com/cloud/trello/swagger.v3.json",
+          "verifiedFields": [
+            "id",
+            "name",
+            "desc",
+            "closed",
+            "url",
+            "idOrganization",
+            "pinned",
+            "starred",
+            "dateLastActivity"
+          ],
+          "fieldStatus": "confirmed; prefs.permissionLevel/voting/comments/cardAging are nested under prefs -> not enforced as top-level scalar enums",
+          "discoveredEnums": {},
+          "gaps": [
+            "prefs(object)"
+          ]
+        },
+        {
+          "entity": "List",
+          "source": "https://dac-static.atlassian.com/cloud/trello/swagger.v3.json",
+          "verifiedFields": [
+            "id",
+            "name",
+            "closed",
+            "pos",
+            "idBoard"
+          ],
+          "fieldStatus": "confirmed; no closed scalar enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "softLimit"
+          ]
+        },
+        {
+          "entity": "Member",
+          "source": "https://dac-static.atlassian.com/cloud/trello/swagger.v3.json",
+          "verifiedFields": [
+            "id",
+            "username",
+            "fullName",
+            "initials",
+            "memberType",
+            "confirmed"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "memberType": [
+              "normal",
+              "ghost"
+            ]
+          },
+          "gaps": [
+            "status-enum-partial"
+          ]
+        },
+        {
+          "entity": "Label",
+          "source": "https://dac-static.atlassian.com/cloud/trello/swagger.v3.json",
+          "verifiedFields": [
+            "id",
+            "idBoard",
+            "name",
+            "color"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "color": [
+              "green",
+              "yellow",
+              "orange",
+              "red",
+              "purple",
+              "blue",
+              "sky",
+              "lime",
+              "pink",
+              "black"
+            ]
+          },
+          "gaps": [
+            "null-color-excluded-from-enforced-set"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs official Trello swagger v3. Enforced enums: Label.color(10), Card.cardRole(4), Member.memberType(2) = 3 enums. Board.prefs.* enums are nested (not scalar) + null color/cardRole members -> not enforced; honesty over coverage."
+    },
+    {
+      "handle": "canva-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/canva-sdks/canva-connect-api-starter-kit/blob/main/openapi/spec.yml",
+      "remodeled": "Remodeled from generic devtools_saas to a faithful Canva Connect API model, verified against the official OpenAPI (canva-connect-api-starter-kit spec.yml, v2026-02-02). snake_case->camelCase; timestamps are Unix integer seconds.",
+      "resources": [
+        {
+          "entity": "Design",
+          "source": "https://github.com/canva-sdks/canva-connect-api-starter-kit/blob/main/openapi/spec.yml",
+          "verifiedFields": [
+            "id",
+            "title",
+            "pageCount",
+            "createdAt",
+            "updatedAt"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "thumbnail(object)",
+            "urls(object)"
+          ]
+        },
+        {
+          "entity": "Asset",
+          "source": "https://github.com/canva-sdks/canva-connect-api-starter-kit/blob/main/openapi/spec.yml",
+          "verifiedFields": [
+            "id",
+            "name",
+            "type",
+            "createdAt",
+            "updatedAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "image",
+              "video"
+            ]
+          },
+          "gaps": [
+            "tags(array)"
+          ]
+        },
+        {
+          "entity": "Folder",
+          "source": "https://github.com/canva-sdks/canva-connect-api-starter-kit/blob/main/openapi/spec.yml",
+          "verifiedFields": [
+            "id",
+            "name",
+            "createdAt",
+            "updatedAt"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "thumbnail(object)"
+          ]
+        },
+        {
+          "entity": "BrandTemplate",
+          "source": "https://github.com/canva-sdks/canva-connect-api-starter-kit/blob/main/openapi/spec.yml",
+          "verifiedFields": [
+            "id",
+            "title",
+            "viewUrl",
+            "createdAt",
+            "updatedAt"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "createUrl"
+          ]
+        },
+        {
+          "entity": "ExportJob",
+          "source": "https://github.com/canva-sdks/canva-connect-api-starter-kit/blob/main/openapi/spec.yml",
+          "verifiedFields": [
+            "id",
+            "status",
+            "format"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "in_progress",
+              "success",
+              "failed"
+            ],
+            "format": [
+              "pdf",
+              "jpg",
+              "png",
+              "gif",
+              "pptx",
+              "mp4",
+              "svg",
+              "html_bundle",
+              "html_standalone"
+            ]
+          },
+          "gaps": [
+            "urls(array)"
+          ]
+        },
+        {
+          "entity": "User",
+          "source": "https://github.com/canva-sdks/canva-connect-api-starter-kit/blob/main/openapi/spec.yml",
+          "verifiedFields": [
+            "id",
+            "displayName"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "email"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official Canva Connect API OpenAPI. Enforced enums: Asset.type(2), ExportJob.status(3), ExportJob.format(9) = 3 enums."
     }
   ]
 }

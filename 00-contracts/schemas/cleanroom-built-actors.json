@@ -2452,12 +2452,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Project",
-        "File",
-        "Frame",
-        "Component",
-        "Comment",
-        "Export"
+        "Design",
+        "Asset",
+        "Folder",
+        "BrandTemplate",
+        "ExportJob",
+        "User"
       ]
     },
     {
@@ -15161,17 +15161,16 @@
       "handle": "trello-compat",
       "platform": "trello",
       "bytes": 2120,
-      "wasmCid": "bafkreihf73msim45tmmldw2cxptta6hgdkbnsqi4j77p74e3fqrbmhva6i",
+      "wasmCid": "bafkreigcbjl76pbrxuo4xeas4kjdjb3tzvk7jmwrs7cvkpl5zpckwjxefu",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Workspace",
-        "Document",
-        "Folder",
-        "Comment",
-        "Permission",
-        "User"
+        "Card",
+        "Board",
+        "List",
+        "Member",
+        "Label"
       ]
     },
     {

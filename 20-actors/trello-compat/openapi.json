@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible office / productivity suite actor (trello); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:trello-compat",
-    "x-wasm-cid": "bafkreihf73msim45tmmldw2cxptta6hgdkbnsqi4j77p74e3fqrbmhva6i",
+    "x-wasm-cid": "bafkreigcbjl76pbrxuo4xeas4kjdjb3tzvk7jmwrs7cvkpl5zpckwjxefu",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreihf73msim45tmmldw2cxptta6hgdkbnsqi4j77p74e3fqrbmhva6i",
+      "url": "ipfs://bafkreigcbjl76pbrxuo4xeas4kjdjb3tzvk7jmwrs7cvkpl5zpckwjxefu",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/workspaces": {
+    "/v1/cards": {
       "get": {
-        "summary": "List Workspaces",
+        "summary": "List Cards",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Workspace"
+                        "$ref": "#/components/schemas/Card"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Workspace",
+        "summary": "Create a Card",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/WorkspaceCreate"
+                "$ref": "#/components/schemas/CardCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Workspace"
+                  "$ref": "#/components/schemas/Card"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/workspaces/{id}": {
+    "/v1/cards/{id}": {
       "get": {
-        "summary": "Get a Workspace",
+        "summary": "Get a Card",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Workspace"
+                  "$ref": "#/components/schemas/Card"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Workspace",
+        "summary": "Update a Card",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/WorkspaceCreate"
+                "$ref": "#/components/schemas/CardCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Workspace"
+                  "$ref": "#/components/schemas/Card"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Workspace",
+        "summary": "Delete a Card",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/documents": {
+    "/v1/boards": {
       "get": {
-        "summary": "List Documents",
+        "summary": "List Boards",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Document"
+                        "$ref": "#/components/schemas/Board"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Document",
+        "summary": "Create a Board",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DocumentCreate"
+                "$ref": "#/components/schemas/BoardCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Document"
+                  "$ref": "#/components/schemas/Board"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/documents/{id}": {
+    "/v1/boards/{id}": {
       "get": {
-        "summary": "Get a Document",
+        "summary": "Get a Board",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Document"
+                  "$ref": "#/components/schemas/Board"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Document",
+        "summary": "Update a Board",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DocumentCreate"
+                "$ref": "#/components/schemas/BoardCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Document"
+                  "$ref": "#/components/schemas/Board"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Document",
+        "summary": "Delete a Board",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/folders": {
+    "/v1/lists": {
       "get": {
-        "summary": "List Folders",
+        "summary": "List Lists",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Folder"
+                        "$ref": "#/components/schemas/List"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Folder",
+        "summary": "Create a List",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FolderCreate"
+                "$ref": "#/components/schemas/ListCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Folder"
+                  "$ref": "#/components/schemas/List"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/folders/{id}": {
+    "/v1/lists/{id}": {
       "get": {
-        "summary": "Get a Folder",
+        "summary": "Get a List",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Folder"
+                  "$ref": "#/components/schemas/List"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Folder",
+        "summary": "Update a List",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FolderCreate"
+                "$ref": "#/components/schemas/ListCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Folder"
+                  "$ref": "#/components/schemas/List"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Folder",
+        "summary": "Delete a List",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/comments": {
+    "/v1/members": {
       "get": {
-        "summary": "List Comments",
+        "summary": "List Members",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Comment"
+                        "$ref": "#/components/schemas/Member"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Comment",
+        "summary": "Create a Member",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CommentCreate"
+                "$ref": "#/components/schemas/MemberCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Comment"
+                  "$ref": "#/components/schemas/Member"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/comments/{id}": {
+    "/v1/members/{id}": {
       "get": {
-        "summary": "Get a Comment",
+        "summary": "Get a Member",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Comment"
+                  "$ref": "#/components/schemas/Member"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Comment",
+        "summary": "Update a Member",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CommentCreate"
+                "$ref": "#/components/schemas/MemberCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Comment"
+                  "$ref": "#/components/schemas/Member"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Comment",
+        "summary": "Delete a Member",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/permissions": {
+    "/v1/labels": {
       "get": {
-        "summary": "List Permissions",
+        "summary": "List Labels",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Permission"
+                        "$ref": "#/components/schemas/Label"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Permission",
+        "summary": "Create a Label",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PermissionCreate"
+                "$ref": "#/components/schemas/LabelCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Permission"
+                  "$ref": "#/components/schemas/Label"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/permissions/{id}": {
+    "/v1/labels/{id}": {
       "get": {
-        "summary": "Get a Permission",
+        "summary": "Get a Label",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Permission"
+                  "$ref": "#/components/schemas/Label"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Permission",
+        "summary": "Update a Label",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PermissionCreate"
+                "$ref": "#/components/schemas/LabelCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Permission"
+                  "$ref": "#/components/schemas/Label"
                 }
               }
             }
@@ -921,192 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Permission",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/users": {
-      "get": {
-        "summary": "List Users",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/User"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a User",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/users/{id}": {
-      "get": {
-        "summary": "Get a User",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a User",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a User",
+        "summary": "Delete a Label",
         "parameters": [
           {
             "name": "id",
@@ -1140,20 +955,55 @@
   },
   "components": {
     "schemas": {
-      "Workspace": {
+      "Card": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
+          "idShort": {
+            "type": "integer"
+          },
           "name": {
             "type": "string"
           },
-          "ownerId": {
+          "desc": {
             "type": "string"
           },
-          "plan": {
+          "closed": {
+            "type": "boolean"
+          },
+          "due": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dueComplete": {
+            "type": "boolean"
+          },
+          "pos": {
+            "type": "number"
+          },
+          "url": {
             "type": "string"
+          },
+          "idBoard": {
+            "type": "string"
+          },
+          "idList": {
+            "type": "string"
+          },
+          "cardRole": {
+            "type": "string",
+            "enum": [
+              "separator",
+              "board",
+              "mirror",
+              "link"
+            ]
+          },
+          "dateLastActivity": {
+            "type": "string",
+            "format": "date-time"
           },
           "createdAt": {
             "type": "string",
@@ -1165,41 +1015,90 @@
           }
         }
       },
-      "WorkspaceCreate": {
+      "CardCreate": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string"
+          },
+          "idShort": {
+            "type": "integer"
+          },
           "name": {
             "type": "string"
           },
-          "ownerId": {
+          "desc": {
             "type": "string"
           },
-          "plan": {
+          "closed": {
+            "type": "boolean"
+          },
+          "due": {
+            "type": "string"
+          },
+          "dueComplete": {
+            "type": "boolean"
+          },
+          "pos": {
+            "type": "number"
+          },
+          "url": {
+            "type": "string"
+          },
+          "idBoard": {
+            "type": "string"
+          },
+          "idList": {
+            "type": "string"
+          },
+          "cardRole": {
+            "type": "string",
+            "enum": [
+              "separator",
+              "board",
+              "mirror",
+              "link"
+            ]
+          },
+          "dateLastActivity": {
             "type": "string"
           }
         },
         "required": [
-          "name",
-          "plan"
+          "id",
+          "idShort"
         ]
       },
-      "Document": {
+      "Board": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "workspaceId": {
+          "name": {
             "type": "string"
           },
-          "title": {
+          "desc": {
             "type": "string"
           },
-          "contentRef": {
+          "closed": {
+            "type": "boolean"
+          },
+          "url": {
             "type": "string"
           },
-          "ownerId": {
+          "idOrganization": {
             "type": "string"
+          },
+          "pinned": {
+            "type": "boolean"
+          },
+          "starred": {
+            "type": "boolean"
+          },
+          "dateLastActivity": {
+            "type": "string",
+            "format": "date-time"
           },
           "createdAt": {
             "type": "string",
@@ -1211,81 +1110,58 @@
           }
         }
       },
-      "DocumentCreate": {
-        "type": "object",
-        "properties": {
-          "workspaceId": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "contentRef": {
-            "type": "string"
-          },
-          "ownerId": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "title"
-        ]
-      },
-      "Folder": {
+      "BoardCreate": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "workspaceId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "parentId": {
+          "desc": {
             "type": "string"
           },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
+          "closed": {
+            "type": "boolean"
           },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "FolderCreate": {
-        "type": "object",
-        "properties": {
-          "workspaceId": {
+          "url": {
             "type": "string"
           },
-          "name": {
+          "idOrganization": {
             "type": "string"
           },
-          "parentId": {
+          "pinned": {
+            "type": "boolean"
+          },
+          "starred": {
+            "type": "boolean"
+          },
+          "dateLastActivity": {
             "type": "string"
           }
         },
         "required": [
+          "id",
           "name"
         ]
       },
-      "Comment": {
+      "List": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "documentId": {
+          "name": {
             "type": "string"
           },
-          "authorId": {
-            "type": "string"
+          "closed": {
+            "type": "boolean"
           },
-          "body": {
+          "pos": {
+            "type": "number"
+          },
+          "idBoard": {
             "type": "string"
           },
           "createdAt": {
@@ -1298,37 +1174,54 @@
           }
         }
       },
-      "CommentCreate": {
+      "ListCreate": {
         "type": "object",
         "properties": {
-          "documentId": {
+          "id": {
             "type": "string"
           },
-          "authorId": {
+          "name": {
             "type": "string"
           },
-          "body": {
+          "closed": {
+            "type": "boolean"
+          },
+          "pos": {
+            "type": "number"
+          },
+          "idBoard": {
             "type": "string"
           }
         },
         "required": [
-          "body"
+          "id",
+          "name"
         ]
       },
-      "Permission": {
+      "Member": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "resourceId": {
+          "username": {
             "type": "string"
           },
-          "principalId": {
+          "fullName": {
             "type": "string"
           },
-          "role": {
+          "initials": {
             "type": "string"
+          },
+          "memberType": {
+            "type": "string",
+            "enum": [
+              "normal",
+              "ghost"
+            ]
+          },
+          "confirmed": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1340,37 +1233,63 @@
           }
         }
       },
-      "PermissionCreate": {
+      "MemberCreate": {
         "type": "object",
         "properties": {
-          "resourceId": {
+          "id": {
             "type": "string"
           },
-          "principalId": {
+          "username": {
             "type": "string"
           },
-          "role": {
+          "fullName": {
             "type": "string"
+          },
+          "initials": {
+            "type": "string"
+          },
+          "memberType": {
+            "type": "string",
+            "enum": [
+              "normal",
+              "ghost"
+            ]
+          },
+          "confirmed": {
+            "type": "boolean"
           }
         },
         "required": [
-          "role"
+          "id",
+          "username"
         ]
       },
-      "User": {
+      "Label": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "email": {
+          "idBoard": {
             "type": "string"
           },
-          "displayName": {
+          "name": {
             "type": "string"
           },
-          "status": {
-            "type": "string"
+          "color": {
+            "type": "string",
+            "enum": [
+              "green",
+              "yellow",
+              "orange",
+              "red",
+              "purple",
+              "blue",
+              "sky",
+              "lime",
+              "pink",
+              "black"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1382,22 +1301,37 @@
           }
         }
       },
-      "UserCreate": {
+      "LabelCreate": {
         "type": "object",
         "properties": {
-          "email": {
+          "id": {
             "type": "string"
           },
-          "displayName": {
+          "idBoard": {
             "type": "string"
           },
-          "status": {
+          "name": {
             "type": "string"
+          },
+          "color": {
+            "type": "string",
+            "enum": [
+              "green",
+              "yellow",
+              "orange",
+              "red",
+              "purple",
+              "blue",
+              "sky",
+              "lime",
+              "pink",
+              "black"
+            ]
           }
         },
         "required": [
-          "email",
-          "displayName"
+          "id",
+          "idBoard"
         ]
       }
     }

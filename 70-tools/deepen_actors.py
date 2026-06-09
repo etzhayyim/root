@@ -1424,6 +1424,25 @@ PLATFORM_OVERRIDES = {
         "Transaction": E(objectId="string", status="string", objectState="string", trackingNumber="string", trackingStatus="string", labelUrl="string", labelFileType="string", rate="string", test="boolean", objectCreated="datetime"),
         "TrackingStatus": E(objectId="string", status="string", statusDetails="string", substatus="string", statusDate="datetime"),
     },
+    # Faithful Trello model — verified against the official Trello swagger
+    # (dac-static.atlassian.com/cloud/trello/swagger.v3.json). Array fields dropped.
+    "trello": {
+        "Card": E(id="string", idShort="integer", name="string", desc="string", closed="boolean", due="datetime", dueComplete="boolean", pos="float", url="string", idBoard="string", idList="string", cardRole="string", dateLastActivity="datetime"),
+        "Board": E(id="string", name="string", desc="string", closed="boolean", url="string", idOrganization="string", pinned="boolean", starred="boolean", dateLastActivity="datetime"),
+        "List": E(id="string", name="string", closed="boolean", pos="float", idBoard="string"),
+        "Member": E(id="string", username="string", fullName="string", initials="string", memberType="string", confirmed="boolean"),
+        "Label": E(id="string", idBoard="string", name="string", color="string"),
+    },
+    # Faithful Canva Connect API model — verified against the official OpenAPI
+    # (canva-sdks/canva-connect-api-starter-kit spec.yml). Timestamps Unix int seconds.
+    "canva": {
+        "Design": E(id="string", title="string", pageCount="integer", createdAt="integer", updatedAt="integer"),
+        "Asset": E(id="string", name="string", type="string", createdAt="integer", updatedAt="integer"),
+        "Folder": E(id="string", name="string", createdAt="integer", updatedAt="integer"),
+        "BrandTemplate": E(id="string", title="string", viewUrl="string", createdAt="integer", updatedAt="integer"),
+        "ExportJob": E(id="string", status="string", format="string"),
+        "User": E(id="string", displayName="string"),
+    },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).
     "square": {

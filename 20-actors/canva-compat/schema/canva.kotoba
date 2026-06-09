@@ -3,71 +3,64 @@
 
 namespace canva {
 
-    entity Project {
+    entity Design {
         id: string @unique
+        id: string
+        title: string
+        pageCount: integer
+        createdAt: integer
+        updatedAt: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Asset {
+        id: string @unique
+        id: string
         name: string
-        ownerId: string
-        teamId: string
+        type: string
+        createdAt: integer
+        updatedAt: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity File {
+    entity Folder {
         id: string @unique
-        projectId: string
+        id: string
         name: string
-        contentRef: string
-        version: integer
+        createdAt: integer
+        updatedAt: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Frame {
+    entity BrandTemplate {
         id: string @unique
-        fileId: string
-        name: string
-        width: float
-        height: float
+        id: string
+        title: string
+        viewUrl: string
+        createdAt: integer
+        updatedAt: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Component {
+    entity ExportJob {
         id: string @unique
-        fileId: string
-        name: string
-        description: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Comment {
-        id: string @unique
-        fileId: string
-        authorId: string
-        body: string
-        resolved: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Export {
-        id: string @unique
-        fileId: string
+        id: string
+        status: string
         format: string
-        scale: float
-        contentRef: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity User {
+        id: string @unique
+        id: string
+        displayName: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }
