@@ -207,7 +207,8 @@ gas-exempt up to a quota (donation-funded), like the existing write-cost exempti
 | R | Scope |
 |---|---|
 | **R0** ✅ | EVM state model as Datoms (`evm/*`) + read-side eth_* projection (`eth_chainId`/`getBalance`/`getTransactionCount`/`getCode`/`getStorageAt`) over a Datom view — **LANDED** in `kotoba-kqe::evm_state` (kotoba#91): `EvmStateView` reducer + `account_datoms`/`storage_datom` + geth/viem `quantity_hex`/`data_hex` encodings, 6 tests, `KOTOBA_EVM_CHAIN_ID` `0x6b6f74` |
-| R1 | revm + `DatomDatabase`; typed-tx RLP decode + secp256k1 recovery; `eth_call` / `eth_estimateGas` / `eth_sendRawTransaction` |
+| **R1** ✅ | revm + `DatomDatabase` execution over the Datom state — **LANDED** in the `kotoba-evm` crate (kotoba#92): `revm 14` `DatabaseRef` over `EvmStateView`, `apply_call` (message-call → `ExecOutcome` + `evm/*` state-diff Datoms), `state_to_datoms`; verified value-transfer executes + balances/nonce round-trip through the produced Datoms; gas priced 0 (§2(b)). |
+| R1b | signed-tx RLP decode (legacy/2930/1559) + secp256k1 sender recovery → `eth_sendRawTransaction`; `eth_call` / `eth_estimateGas` RPC surface |
 | R2 | block production (CommitDag EVM blocks: txList CID + stateRoot + receipts) + IPFS CAR DA |
 | R3 | Base L1 anchor of the state root (AnchorBridge) + `eth_getLogs` / receipts / bloom |
 | R4 | genesis + redeploy GCC + escrows via forge; repoint the Mishmar tick; retire geth-private |
