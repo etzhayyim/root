@@ -6,7 +6,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29950,
+  "totalEndpoints": 29940,
   "l4SpecsAvailable": 1000,
   "apis": [
     {
@@ -1457,10 +1457,10 @@
     {
       "handle": "bandwidth-compat",
       "did": "did:web:etzhayyim.com:actor:bandwidth-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreigvtfeqjfqit2wi7ydcbsxssvnjttv3cfkuktmajbffjvzhrfwn3e",
+      "endpointCount": 20,
+      "ipfs": "ipfs://bafkreiaj2bywijhppzf27phhzr42dppuhflmzmp2s5a6g6dra35wqsxjxa",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -4942,7 +4942,7 @@
     {
       "handle": "elevenlabs-compat",
       "did": "did:web:etzhayyim.com:actor:elevenlabs-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreibg5ziqrvwg5676ahgu6wuktjva35akzwtyarlrifpjm4svwfq7ku",
@@ -6625,7 +6625,7 @@
     {
       "handle": "grafana-compat",
       "did": "did:web:etzhayyim.com:actor:grafana-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreidljzcjkllk5suekgtz7hmk6w6ga5i5q5xhufl6o2rmiee5viro3a",
@@ -16111,7 +16111,7 @@
     {
       "handle": "webflow-compat",
       "did": "did:web:etzhayyim.com:actor:webflow-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreifvh6rtorgwik6i77ghzp7hw646i3tisp6rkdhfbermklzvuhccfu",

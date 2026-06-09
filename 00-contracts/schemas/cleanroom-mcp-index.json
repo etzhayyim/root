@@ -7,7 +7,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 29950,
+  "totalTools": 29940,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -777,10 +777,10 @@
     {
       "handle": "bandwidth-compat",
       "did": "did:web:etzhayyim.com:actor:bandwidth-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreigvtfeqjfqit2wi7ydcbsxssvnjttv3cfkuktmajbffjvzhrfwn3e",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreiaj2bywijhppzf27phhzr42dppuhflmzmp2s5a6g6dra35wqsxjxa",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 20,
       "manifest": "20-actors/bandwidth-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -2622,7 +2622,7 @@
     {
       "handle": "elevenlabs-compat",
       "did": "did:web:etzhayyim.com:actor:elevenlabs-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreibg5ziqrvwg5676ahgu6wuktjva35akzwtyarlrifpjm4svwfq7ku",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -3513,7 +3513,7 @@
     {
       "handle": "grafana-compat",
       "did": "did:web:etzhayyim.com:actor:grafana-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreidljzcjkllk5suekgtz7hmk6w6ga5i5q5xhufl6o2rmiee5viro3a",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -8535,7 +8535,7 @@
     {
       "handle": "webflow-compat",
       "did": "did:web:etzhayyim.com:actor:webflow-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreifvh6rtorgwik6i77ghzp7hw646i3tisp6rkdhfbermklzvuhccfu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,

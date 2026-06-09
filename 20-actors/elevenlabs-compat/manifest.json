@@ -11,15 +11,69 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreibg5ziqrvwg5676ahgu6wuktjva35akzwtyarlrifpjm4svwfq7ku",
   "schema": "schema/elevenlabs.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://api.elevenlabs.io/openapi.json",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Voice",
+      "Sample",
+      "HistoryItem",
+      "Model",
+      "Subscription",
+      "Project"
+    ],
+    "enums": {
+      "Voice": {
+        "category": [
+          "generated",
+          "cloned",
+          "premade",
+          "professional",
+          "famous",
+          "high_quality"
+        ]
+      },
+      "HistoryItem": {
+        "state": [
+          "created",
+          "deleted",
+          "processing"
+        ]
+      },
+      "Subscription": {
+        "status": [
+          "trialing",
+          "active",
+          "incomplete",
+          "past_due",
+          "free",
+          "free_disabled"
+        ]
+      },
+      "Project": {
+        "state": [
+          "creating",
+          "default",
+          "converting",
+          "in_queue"
+        ],
+        "accessLevel": [
+          "admin",
+          "editor",
+          "commenter",
+          "viewer"
+        ]
+      }
+    }
+  },
   "entities": [
+    "Voice",
+    "Sample",
+    "HistoryItem",
     "Model",
-    "Completion",
-    "Embedding",
-    "FineTune",
-    "Dataset",
-    "File"
+    "Subscription",
+    "Project"
   ],
   "adr": [
     "260607",
@@ -33,6 +87,81 @@
       "runtime": "kotoba-wasm",
       "endpointCount": 30,
       "routes": [
+        {
+          "method": "POST",
+          "path": "/v1/voices",
+          "op": "create Voice"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/voices",
+          "op": "list Voice"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/voices/{id}",
+          "op": "get Voice"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/voices/{id}",
+          "op": "update Voice"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/voices/{id}",
+          "op": "delete Voice"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/samples",
+          "op": "create Sample"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/samples",
+          "op": "list Sample"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/samples/{id}",
+          "op": "get Sample"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/samples/{id}",
+          "op": "update Sample"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/samples/{id}",
+          "op": "delete Sample"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/historyitems",
+          "op": "create HistoryItem"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/historyitems",
+          "op": "list HistoryItem"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/historyitems/{id}",
+          "op": "get HistoryItem"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/historyitems/{id}",
+          "op": "update HistoryItem"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/historyitems/{id}",
+          "op": "delete HistoryItem"
+        },
         {
           "method": "POST",
           "path": "/v1/models",
@@ -60,128 +189,53 @@
         },
         {
           "method": "POST",
-          "path": "/v1/completions",
-          "op": "create Completion"
+          "path": "/v1/subscriptions",
+          "op": "create Subscription"
         },
         {
           "method": "GET",
-          "path": "/v1/completions",
-          "op": "list Completion"
+          "path": "/v1/subscriptions",
+          "op": "list Subscription"
         },
         {
           "method": "GET",
-          "path": "/v1/completions/{id}",
-          "op": "get Completion"
+          "path": "/v1/subscriptions/{id}",
+          "op": "get Subscription"
         },
         {
           "method": "PATCH",
-          "path": "/v1/completions/{id}",
-          "op": "update Completion"
+          "path": "/v1/subscriptions/{id}",
+          "op": "update Subscription"
         },
         {
           "method": "DELETE",
-          "path": "/v1/completions/{id}",
-          "op": "delete Completion"
+          "path": "/v1/subscriptions/{id}",
+          "op": "delete Subscription"
         },
         {
           "method": "POST",
-          "path": "/v1/embeddings",
-          "op": "create Embedding"
+          "path": "/v1/projects",
+          "op": "create Project"
         },
         {
           "method": "GET",
-          "path": "/v1/embeddings",
-          "op": "list Embedding"
+          "path": "/v1/projects",
+          "op": "list Project"
         },
         {
           "method": "GET",
-          "path": "/v1/embeddings/{id}",
-          "op": "get Embedding"
+          "path": "/v1/projects/{id}",
+          "op": "get Project"
         },
         {
           "method": "PATCH",
-          "path": "/v1/embeddings/{id}",
-          "op": "update Embedding"
+          "path": "/v1/projects/{id}",
+          "op": "update Project"
         },
         {
           "method": "DELETE",
-          "path": "/v1/embeddings/{id}",
-          "op": "delete Embedding"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/finetunes",
-          "op": "create FineTune"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/finetunes",
-          "op": "list FineTune"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/finetunes/{id}",
-          "op": "get FineTune"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/finetunes/{id}",
-          "op": "update FineTune"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/finetunes/{id}",
-          "op": "delete FineTune"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/datasets",
-          "op": "create Dataset"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/datasets",
-          "op": "list Dataset"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/datasets/{id}",
-          "op": "get Dataset"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/datasets/{id}",
-          "op": "update Dataset"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/datasets/{id}",
-          "op": "delete Dataset"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/files",
-          "op": "create File"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/files",
-          "op": "list File"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/files/{id}",
-          "op": "get File"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/files/{id}",
-          "op": "update File"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/files/{id}",
-          "op": "delete File"
+          "path": "/v1/projects/{id}",
+          "op": "delete Project"
         }
       ],
       "features": {
@@ -247,27 +301,366 @@
       "toolCount": 30,
       "tools": [
         {
+          "name": "create_voice",
+          "description": "Create a Voice.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "voiceId": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "category": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "previewUrl": {
+                "type": "string"
+              },
+              "createdAtUnix": {
+                "type": "integer"
+              },
+              "isOwner": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "name",
+              "category"
+            ]
+          }
+        },
+        {
+          "name": "list_voices",
+          "description": "List Voices.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_voice",
+          "description": "Get a Voice by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_voice",
+          "description": "Update a Voice.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "voiceId": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "category": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "previewUrl": {
+                "type": "string"
+              },
+              "createdAtUnix": {
+                "type": "integer"
+              },
+              "isOwner": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_voice",
+          "description": "Delete a Voice.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_sample",
+          "description": "Create a Sample.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "sampleId": {
+                "type": "string"
+              },
+              "fileName": {
+                "type": "string"
+              },
+              "mimeType": {
+                "type": "string"
+              },
+              "sizeBytes": {
+                "type": "integer"
+              },
+              "durationSecs": {
+                "type": "number"
+              },
+              "hash": {
+                "type": "string"
+              },
+              "removeBackgroundNoise": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "fileName",
+              "mimeType"
+            ]
+          }
+        },
+        {
+          "name": "list_samples",
+          "description": "List Samples.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_sample",
+          "description": "Get a Sample by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_sample",
+          "description": "Update a Sample.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "sampleId": {
+                "type": "string"
+              },
+              "fileName": {
+                "type": "string"
+              },
+              "mimeType": {
+                "type": "string"
+              },
+              "sizeBytes": {
+                "type": "integer"
+              },
+              "durationSecs": {
+                "type": "number"
+              },
+              "hash": {
+                "type": "string"
+              },
+              "removeBackgroundNoise": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_sample",
+          "description": "Delete a Sample.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_history_item",
+          "description": "Create a HistoryItem.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "historyItemId": {
+                "type": "string"
+              },
+              "voiceId": {
+                "type": "string"
+              },
+              "modelId": {
+                "type": "string"
+              },
+              "text": {
+                "type": "string"
+              },
+              "dateUnix": {
+                "type": "integer"
+              },
+              "state": {
+                "type": "string"
+              },
+              "characterCountChangeTo": {
+                "type": "integer"
+              },
+              "contentType": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "text",
+              "dateUnix"
+            ]
+          }
+        },
+        {
+          "name": "list_history_items",
+          "description": "List HistoryItems.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_history_item",
+          "description": "Get a HistoryItem by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_history_item",
+          "description": "Update a HistoryItem.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "historyItemId": {
+                "type": "string"
+              },
+              "voiceId": {
+                "type": "string"
+              },
+              "modelId": {
+                "type": "string"
+              },
+              "text": {
+                "type": "string"
+              },
+              "dateUnix": {
+                "type": "integer"
+              },
+              "state": {
+                "type": "string"
+              },
+              "characterCountChangeTo": {
+                "type": "integer"
+              },
+              "contentType": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_history_item",
+          "description": "Delete a HistoryItem.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
           "name": "create_model",
           "description": "Create a Model.",
           "inputSchema": {
             "type": "object",
             "properties": {
+              "modelId": {
+                "type": "string"
+              },
               "name": {
                 "type": "string"
               },
-              "family": {
-                "type": "string"
+              "canBeFinetune": {
+                "type": "boolean"
               },
-              "contextWindow": {
-                "type": "integer"
+              "canDoTextToSpeech": {
+                "type": "boolean"
               },
-              "modality": {
+              "canUseStyle": {
+                "type": "boolean"
+              },
+              "tokenCostFactor": {
+                "type": "number"
+              },
+              "description": {
                 "type": "string"
               }
             },
             "required": [
               "name",
-              "family"
+              "canBeFinetune"
             ]
           }
         },
@@ -303,16 +696,25 @@
               "id": {
                 "type": "string"
               },
+              "modelId": {
+                "type": "string"
+              },
               "name": {
                 "type": "string"
               },
-              "family": {
-                "type": "string"
+              "canBeFinetune": {
+                "type": "boolean"
               },
-              "contextWindow": {
-                "type": "integer"
+              "canDoTextToSpeech": {
+                "type": "boolean"
               },
-              "modality": {
+              "canUseStyle": {
+                "type": "boolean"
+              },
+              "tokenCostFactor": {
+                "type": "number"
+              },
+              "description": {
                 "type": "string"
               }
             },
@@ -337,221 +739,50 @@
           }
         },
         {
-          "name": "create_completion",
-          "description": "Create a Completion.",
+          "name": "create_subscription",
+          "description": "Create a Subscription.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "modelId": {
+              "tier": {
                 "type": "string"
               },
-              "prompt": {
-                "type": "string"
-              },
-              "output": {
-                "type": "string"
-              },
-              "tokens": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "prompt",
-              "output"
-            ]
-          }
-        },
-        {
-          "name": "list_completions",
-          "description": "List Completions.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_completion",
-          "description": "Get a Completion by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_completion",
-          "description": "Update a Completion.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "modelId": {
-                "type": "string"
-              },
-              "prompt": {
-                "type": "string"
-              },
-              "output": {
-                "type": "string"
-              },
-              "tokens": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_completion",
-          "description": "Delete a Completion.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_embedding",
-          "description": "Create a Embedding.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "modelId": {
-                "type": "string"
-              },
-              "input": {
-                "type": "string"
-              },
-              "dimensions": {
+              "characterCount": {
                 "type": "integer"
               },
-              "vectorRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "input",
-              "dimensions"
-            ]
-          }
-        },
-        {
-          "name": "list_embeddings",
-          "description": "List Embeddings.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_embedding",
-          "description": "Get a Embedding by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_embedding",
-          "description": "Update a Embedding.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "modelId": {
-                "type": "string"
-              },
-              "input": {
-                "type": "string"
-              },
-              "dimensions": {
+              "characterLimit": {
                 "type": "integer"
               },
-              "vectorRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_embedding",
-          "description": "Delete a Embedding.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_fine_tune",
-          "description": "Create a FineTune.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "baseModelId": {
-                "type": "string"
+              "voiceSlotsUsed": {
+                "type": "integer"
               },
-              "datasetId": {
-                "type": "string"
+              "voiceLimit": {
+                "type": "integer"
               },
               "status": {
                 "type": "string"
               },
-              "epochs": {
-                "type": "integer"
+              "canExtendCharacterLimit": {
+                "type": "boolean"
               }
             },
             "required": [
-              "status",
-              "epochs"
+              "tier",
+              "characterCount"
             ]
           }
         },
         {
-          "name": "list_fine_tunes",
-          "description": "List FineTunes.",
+          "name": "list_subscriptions",
+          "description": "List Subscriptions.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_fine_tune",
-          "description": "Get a FineTune by id.",
+          "name": "get_subscription",
+          "description": "Get a Subscription by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -565,25 +796,34 @@
           }
         },
         {
-          "name": "update_fine_tune",
-          "description": "Update a FineTune.",
+          "name": "update_subscription",
+          "description": "Update a Subscription.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "baseModelId": {
+              "tier": {
                 "type": "string"
               },
-              "datasetId": {
-                "type": "string"
+              "characterCount": {
+                "type": "integer"
+              },
+              "characterLimit": {
+                "type": "integer"
+              },
+              "voiceSlotsUsed": {
+                "type": "integer"
+              },
+              "voiceLimit": {
+                "type": "integer"
               },
               "status": {
                 "type": "string"
               },
-              "epochs": {
-                "type": "integer"
+              "canExtendCharacterLimit": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -592,8 +832,8 @@
           }
         },
         {
-          "name": "delete_fine_tune",
-          "description": "Delete a FineTune.",
+          "name": "delete_subscription",
+          "description": "Delete a Subscription.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -607,38 +847,53 @@
           }
         },
         {
-          "name": "create_dataset",
-          "description": "Create a Dataset.",
+          "name": "create_project",
+          "description": "Create a Project.",
           "inputSchema": {
             "type": "object",
             "properties": {
+              "projectId": {
+                "type": "string"
+              },
               "name": {
                 "type": "string"
               },
-              "rows": {
+              "title": {
+                "type": "string"
+              },
+              "author": {
+                "type": "string"
+              },
+              "createDateUnix": {
                 "type": "integer"
               },
-              "contentRef": {
+              "state": {
                 "type": "string"
+              },
+              "accessLevel": {
+                "type": "string"
+              },
+              "canBeDownloaded": {
+                "type": "boolean"
               }
             },
             "required": [
               "name",
-              "rows"
+              "title"
             ]
           }
         },
         {
-          "name": "list_datasets",
-          "description": "List Datasets.",
+          "name": "list_projects",
+          "description": "List Projects.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_dataset",
-          "description": "Get a Dataset by id.",
+          "name": "get_project",
+          "description": "Get a Project by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -652,22 +907,37 @@
           }
         },
         {
-          "name": "update_dataset",
-          "description": "Update a Dataset.",
+          "name": "update_project",
+          "description": "Update a Project.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
+                "type": "string"
+              },
+              "projectId": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "rows": {
+              "title": {
+                "type": "string"
+              },
+              "author": {
+                "type": "string"
+              },
+              "createDateUnix": {
                 "type": "integer"
               },
-              "contentRef": {
+              "state": {
                 "type": "string"
+              },
+              "accessLevel": {
+                "type": "string"
+              },
+              "canBeDownloaded": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -676,98 +946,8 @@
           }
         },
         {
-          "name": "delete_dataset",
-          "description": "Delete a Dataset.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_file",
-          "description": "Create a File.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "purpose": {
-                "type": "string"
-              },
-              "filename": {
-                "type": "string"
-              },
-              "sizeBytes": {
-                "type": "integer"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "purpose",
-              "filename"
-            ]
-          }
-        },
-        {
-          "name": "list_files",
-          "description": "List Files.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_file",
-          "description": "Get a File by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_file",
-          "description": "Update a File.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "purpose": {
-                "type": "string"
-              },
-              "filename": {
-                "type": "string"
-              },
-              "sizeBytes": {
-                "type": "integer"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_file",
-          "description": "Delete a File.",
+          "name": "delete_project",
+          "description": "Delete a Project.",
           "inputSchema": {
             "type": "object",
             "properties": {

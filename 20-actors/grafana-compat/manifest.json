@@ -11,15 +11,34 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreidljzcjkllk5suekgtz7hmk6w6ga5i5q5xhufl6o2rmiee5viro3a",
   "schema": "schema/grafana.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://grafana.com/docs/grafana/latest/developers/http_api/",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Dashboard",
+      "DataSource",
+      "Folder",
+      "AlertRule",
+      "User",
+      "Organization"
+    ],
+    "enums": {
+      "DataSource": {
+        "access": [
+          "proxy",
+          "direct"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Service",
-    "Error",
-    "Trace",
-    "Metric",
-    "Alert",
-    "Incident"
+    "Dashboard",
+    "DataSource",
+    "Folder",
+    "AlertRule",
+    "User",
+    "Organization"
   ],
   "adr": [
     "260607",
@@ -35,153 +54,153 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/services",
-          "op": "create Service"
+          "path": "/v1/dashboards",
+          "op": "create Dashboard"
         },
         {
           "method": "GET",
-          "path": "/v1/services",
-          "op": "list Service"
+          "path": "/v1/dashboards",
+          "op": "list Dashboard"
         },
         {
           "method": "GET",
-          "path": "/v1/services/{id}",
-          "op": "get Service"
+          "path": "/v1/dashboards/{id}",
+          "op": "get Dashboard"
         },
         {
           "method": "PATCH",
-          "path": "/v1/services/{id}",
-          "op": "update Service"
+          "path": "/v1/dashboards/{id}",
+          "op": "update Dashboard"
         },
         {
           "method": "DELETE",
-          "path": "/v1/services/{id}",
-          "op": "delete Service"
+          "path": "/v1/dashboards/{id}",
+          "op": "delete Dashboard"
         },
         {
           "method": "POST",
-          "path": "/v1/errors",
-          "op": "create Error"
+          "path": "/v1/datasources",
+          "op": "create DataSource"
         },
         {
           "method": "GET",
-          "path": "/v1/errors",
-          "op": "list Error"
+          "path": "/v1/datasources",
+          "op": "list DataSource"
         },
         {
           "method": "GET",
-          "path": "/v1/errors/{id}",
-          "op": "get Error"
+          "path": "/v1/datasources/{id}",
+          "op": "get DataSource"
         },
         {
           "method": "PATCH",
-          "path": "/v1/errors/{id}",
-          "op": "update Error"
+          "path": "/v1/datasources/{id}",
+          "op": "update DataSource"
         },
         {
           "method": "DELETE",
-          "path": "/v1/errors/{id}",
-          "op": "delete Error"
+          "path": "/v1/datasources/{id}",
+          "op": "delete DataSource"
         },
         {
           "method": "POST",
-          "path": "/v1/traces",
-          "op": "create Trace"
+          "path": "/v1/folders",
+          "op": "create Folder"
         },
         {
           "method": "GET",
-          "path": "/v1/traces",
-          "op": "list Trace"
+          "path": "/v1/folders",
+          "op": "list Folder"
         },
         {
           "method": "GET",
-          "path": "/v1/traces/{id}",
-          "op": "get Trace"
+          "path": "/v1/folders/{id}",
+          "op": "get Folder"
         },
         {
           "method": "PATCH",
-          "path": "/v1/traces/{id}",
-          "op": "update Trace"
+          "path": "/v1/folders/{id}",
+          "op": "update Folder"
         },
         {
           "method": "DELETE",
-          "path": "/v1/traces/{id}",
-          "op": "delete Trace"
+          "path": "/v1/folders/{id}",
+          "op": "delete Folder"
         },
         {
           "method": "POST",
-          "path": "/v1/metrics",
-          "op": "create Metric"
+          "path": "/v1/alertrules",
+          "op": "create AlertRule"
         },
         {
           "method": "GET",
-          "path": "/v1/metrics",
-          "op": "list Metric"
+          "path": "/v1/alertrules",
+          "op": "list AlertRule"
         },
         {
           "method": "GET",
-          "path": "/v1/metrics/{id}",
-          "op": "get Metric"
+          "path": "/v1/alertrules/{id}",
+          "op": "get AlertRule"
         },
         {
           "method": "PATCH",
-          "path": "/v1/metrics/{id}",
-          "op": "update Metric"
+          "path": "/v1/alertrules/{id}",
+          "op": "update AlertRule"
         },
         {
           "method": "DELETE",
-          "path": "/v1/metrics/{id}",
-          "op": "delete Metric"
+          "path": "/v1/alertrules/{id}",
+          "op": "delete AlertRule"
         },
         {
           "method": "POST",
-          "path": "/v1/alerts",
-          "op": "create Alert"
+          "path": "/v1/users",
+          "op": "create User"
         },
         {
           "method": "GET",
-          "path": "/v1/alerts",
-          "op": "list Alert"
+          "path": "/v1/users",
+          "op": "list User"
         },
         {
           "method": "GET",
-          "path": "/v1/alerts/{id}",
-          "op": "get Alert"
+          "path": "/v1/users/{id}",
+          "op": "get User"
         },
         {
           "method": "PATCH",
-          "path": "/v1/alerts/{id}",
-          "op": "update Alert"
+          "path": "/v1/users/{id}",
+          "op": "update User"
         },
         {
           "method": "DELETE",
-          "path": "/v1/alerts/{id}",
-          "op": "delete Alert"
+          "path": "/v1/users/{id}",
+          "op": "delete User"
         },
         {
           "method": "POST",
-          "path": "/v1/incidents",
-          "op": "create Incident"
+          "path": "/v1/organizations",
+          "op": "create Organization"
         },
         {
           "method": "GET",
-          "path": "/v1/incidents",
-          "op": "list Incident"
+          "path": "/v1/organizations",
+          "op": "list Organization"
         },
         {
           "method": "GET",
-          "path": "/v1/incidents/{id}",
-          "op": "get Incident"
+          "path": "/v1/organizations/{id}",
+          "op": "get Organization"
         },
         {
           "method": "PATCH",
-          "path": "/v1/incidents/{id}",
-          "op": "update Incident"
+          "path": "/v1/organizations/{id}",
+          "op": "update Organization"
         },
         {
           "method": "DELETE",
-          "path": "/v1/incidents/{id}",
-          "op": "delete Incident"
+          "path": "/v1/organizations/{id}",
+          "op": "delete Organization"
         }
       ],
       "features": {
@@ -247,38 +266,50 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_service",
-          "description": "Create a Service.",
+          "name": "create_dashboard",
+          "description": "Create a Dashboard.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "id": {
+                "type": "integer"
+              },
+              "uid": {
                 "type": "string"
               },
-              "environment": {
+              "title": {
                 "type": "string"
               },
-              "language": {
+              "schemaVersion": {
+                "type": "integer"
+              },
+              "version": {
+                "type": "integer"
+              },
+              "editable": {
+                "type": "boolean"
+              },
+              "timezone": {
                 "type": "string"
               }
             },
             "required": [
-              "name",
-              "environment"
+              "id",
+              "uid"
             ]
           }
         },
         {
-          "name": "list_services",
-          "description": "List Services.",
+          "name": "list_dashboards",
+          "description": "List Dashboards.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_service",
-          "description": "Get a Service by id.",
+          "name": "get_dashboard",
+          "description": "Get a Dashboard by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -292,350 +323,98 @@
           }
         },
         {
-          "name": "update_service",
-          "description": "Update a Service.",
+          "name": "update_dashboard",
+          "description": "Update a Dashboard.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
+                "type": "integer"
+              },
+              "uid": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "schemaVersion": {
+                "type": "integer"
+              },
+              "version": {
+                "type": "integer"
+              },
+              "editable": {
+                "type": "boolean"
+              },
+              "timezone": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_dashboard",
+          "description": "Delete a Dashboard.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_data_source",
+          "description": "Create a DataSource.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "uid": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "environment": {
+              "type": {
                 "type": "string"
               },
-              "language": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_service",
-          "description": "Delete a Service.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_error",
-          "description": "Create a Error.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "serviceId": {
+              "access": {
                 "type": "string"
               },
-              "message": {
+              "url": {
                 "type": "string"
               },
-              "culprit": {
-                "type": "string"
-              },
-              "count": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "message",
-              "culprit"
-            ]
-          }
-        },
-        {
-          "name": "list_errors",
-          "description": "List Errors.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_error",
-          "description": "Get a Error by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_error",
-          "description": "Update a Error.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "serviceId": {
-                "type": "string"
-              },
-              "message": {
-                "type": "string"
-              },
-              "culprit": {
-                "type": "string"
-              },
-              "count": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_error",
-          "description": "Delete a Error.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_trace",
-          "description": "Create a Trace.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "serviceId": {
-                "type": "string"
-              },
-              "operation": {
-                "type": "string"
-              },
-              "durationMs": {
-                "type": "integer"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "operation",
-              "durationMs"
-            ]
-          }
-        },
-        {
-          "name": "list_traces",
-          "description": "List Traces.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_trace",
-          "description": "Get a Trace by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_trace",
-          "description": "Update a Trace.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "serviceId": {
-                "type": "string"
-              },
-              "operation": {
-                "type": "string"
-              },
-              "durationMs": {
-                "type": "integer"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_trace",
-          "description": "Delete a Trace.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_metric",
-          "description": "Create a Metric.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "serviceId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "unit": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "value"
-            ]
-          }
-        },
-        {
-          "name": "list_metrics",
-          "description": "List Metrics.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_metric",
-          "description": "Get a Metric by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_metric",
-          "description": "Update a Metric.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "serviceId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "unit": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_metric",
-          "description": "Delete a Metric.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_alert",
-          "description": "Create a Alert.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "serviceId": {
-                "type": "string"
-              },
-              "condition": {
-                "type": "string"
-              },
-              "severity": {
-                "type": "string"
-              },
-              "active": {
+              "isDefault": {
                 "type": "boolean"
               }
             },
             "required": [
-              "condition",
-              "severity"
+              "id",
+              "uid"
             ]
           }
         },
         {
-          "name": "list_alerts",
-          "description": "List Alerts.",
+          "name": "list_data_sources",
+          "description": "List DataSources.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_alert",
-          "description": "Get a Alert by id.",
+          "name": "get_data_source",
+          "description": "Get a DataSource by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -649,24 +428,30 @@
           }
         },
         {
-          "name": "update_alert",
-          "description": "Update a Alert.",
+          "name": "update_data_source",
+          "description": "Update a DataSource.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
+                "type": "integer"
+              },
+              "uid": {
                 "type": "string"
               },
-              "serviceId": {
+              "name": {
                 "type": "string"
               },
-              "condition": {
+              "type": {
                 "type": "string"
               },
-              "severity": {
+              "access": {
                 "type": "string"
               },
-              "active": {
+              "url": {
+                "type": "string"
+              },
+              "isDefault": {
                 "type": "boolean"
               }
             },
@@ -676,8 +461,8 @@
           }
         },
         {
-          "name": "delete_alert",
-          "description": "Delete a Alert.",
+          "name": "delete_data_source",
+          "description": "Delete a DataSource.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -691,41 +476,44 @@
           }
         },
         {
-          "name": "create_incident",
-          "description": "Create a Incident.",
+          "name": "create_folder",
+          "description": "Create a Folder.",
           "inputSchema": {
             "type": "object",
             "properties": {
+              "uid": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
               "title": {
                 "type": "string"
               },
-              "status": {
+              "resourceVersion": {
                 "type": "string"
               },
-              "severity": {
-                "type": "string"
-              },
-              "startedAt": {
+              "creationTimestamp": {
                 "type": "string"
               }
             },
             "required": [
-              "title",
-              "status"
+              "uid",
+              "name"
             ]
           }
         },
         {
-          "name": "list_incidents",
-          "description": "List Incidents.",
+          "name": "list_folders",
+          "description": "List Folders.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_incident",
-          "description": "Get a Incident by id.",
+          "name": "get_folder",
+          "description": "Get a Folder by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -739,24 +527,27 @@
           }
         },
         {
-          "name": "update_incident",
-          "description": "Update a Incident.",
+          "name": "update_folder",
+          "description": "Update a Folder.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
+                "type": "string"
+              },
+              "uid": {
+                "type": "string"
+              },
+              "name": {
                 "type": "string"
               },
               "title": {
                 "type": "string"
               },
-              "status": {
+              "resourceVersion": {
                 "type": "string"
               },
-              "severity": {
-                "type": "string"
-              },
-              "startedAt": {
+              "creationTimestamp": {
                 "type": "string"
               }
             },
@@ -766,8 +557,290 @@
           }
         },
         {
-          "name": "delete_incident",
-          "description": "Delete a Incident.",
+          "name": "delete_folder",
+          "description": "Delete a Folder.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_alert_rule",
+          "description": "Create a AlertRule.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "uid": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "condition": {
+                "type": "string"
+              },
+              "noDataState": {
+                "type": "string"
+              },
+              "execErrState": {
+                "type": "string"
+              },
+              "isPaused": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "uid",
+              "title"
+            ]
+          }
+        },
+        {
+          "name": "list_alert_rules",
+          "description": "List AlertRules.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_alert_rule",
+          "description": "Get a AlertRule by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_alert_rule",
+          "description": "Update a AlertRule.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "uid": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "condition": {
+                "type": "string"
+              },
+              "noDataState": {
+                "type": "string"
+              },
+              "execErrState": {
+                "type": "string"
+              },
+              "isPaused": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_alert_rule",
+          "description": "Delete a AlertRule.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_user",
+          "description": "Create a User.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "email": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "login": {
+                "type": "string"
+              },
+              "isGrafanaAdmin": {
+                "type": "boolean"
+              },
+              "isDisabled": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "email"
+            ]
+          }
+        },
+        {
+          "name": "list_users",
+          "description": "List Users.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_user",
+          "description": "Get a User by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_user",
+          "description": "Update a User.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "email": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "login": {
+                "type": "string"
+              },
+              "isGrafanaAdmin": {
+                "type": "boolean"
+              },
+              "isDisabled": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_user",
+          "description": "Delete a User.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_organization",
+          "description": "Create a Organization.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "address": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          }
+        },
+        {
+          "name": "list_organizations",
+          "description": "List Organizations.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_organization",
+          "description": "Get a Organization by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_organization",
+          "description": "Update a Organization.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "address": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_organization",
+          "description": "Delete a Organization.",
           "inputSchema": {
             "type": "object",
             "properties": {

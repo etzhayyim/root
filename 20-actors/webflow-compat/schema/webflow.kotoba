@@ -3,68 +3,83 @@
 
 namespace webflow {
 
-    entity Flow {
+    entity Site {
         id: string @unique
-        name: string
-        trigger: string
-        status: string
+        id: string
+        displayName: string
+        shortName: string
+        timeZone: string
+        createdOn: datetime
+        lastUpdated: datetime
+        lastPublished: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Step {
+    entity Collection {
         id: string @unique
-        flowId: string
-        appName: string
-        action: string
-        position: integer
+        id: string
+        displayName: string
+        singularName: string
+        slug: string
+        createdOn: datetime
+        lastUpdated: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Connection {
+    entity CollectionItem {
         id: string @unique
-        appName: string
-        authType: string
-        active: boolean
+        id: string
+        cmsLocaleId: string
+        isArchived: boolean
+        isDraft: boolean
+        createdOn: datetime
+        lastUpdated: datetime
+        lastPublished: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Run {
+    entity Page {
         id: string @unique
-        flowId: string
-        status: string
-        durationMs: integer
-        startedAt: datetime
+        id: string
+        siteId: string
+        title: string
+        slug: string
+        archived: boolean
+        draft: boolean
+        publishedPath: string
+        parentId: string
+        createdOn: datetime
+        lastUpdated: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity App {
+    entity Form {
         id: string @unique
-        name: string
-        category: string
+        id: string
+        displayName: string
+        siteId: string
+        pageId: string
+        pageName: string
+        formElementId: string
+        createdOn: datetime
+        lastUpdated: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Webhook {
+    entity Field {
         id: string @unique
-        flowId: string
-        url: string
-        active: boolean
+        id: string
+        displayName: string
+        slug: string
+        type: string
+        isRequired: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

@@ -1521,6 +1521,45 @@ PLATFORM_OVERRIDES = {
         "Answer": E(fieldId="string", fieldType="string", type="string", value="string"),
         "Webhook": E(eventId="string", eventType="string", timestamp="datetime"),
     },
+    # Faithful ElevenLabs model — verified against the live official OpenAPI
+    # (api.elevenlabs.io/openapi.json). timestamps Unix int seconds.
+    "elevenlabs": {
+        "Voice": E(voiceId="string", name="string", category="string", description="string", previewUrl="string", createdAtUnix="integer", isOwner="boolean"),
+        "Sample": E(sampleId="string", fileName="string", mimeType="string", sizeBytes="integer", durationSecs="float", hash="string", removeBackgroundNoise="boolean"),
+        "HistoryItem": E(historyItemId="string", voiceId="string", modelId="string", text="string", dateUnix="integer", state="string", characterCountChangeTo="integer", contentType="string"),
+        "Model": E(modelId="string", name="string", canBeFinetune="boolean", canDoTextToSpeech="boolean", canUseStyle="boolean", tokenCostFactor="float", description="string"),
+        "Subscription": E(tier="string", characterCount="integer", characterLimit="integer", voiceSlotsUsed="integer", voiceLimit="integer", status="string", canExtendCharacterLimit="boolean"),
+        "Project": E(projectId="string", name="string", title="string", author="string", createDateUnix="integer", state="string", accessLevel="string", canBeDownloaded="boolean"),
+    },
+    # Faithful Grafana HTTP API model — verified against the official Grafana docs.
+    # Only DataSource.access enforced (alert-state enums are version-dependent).
+    "grafana": {
+        "Dashboard": E(id="integer", uid="string", title="string", schemaVersion="integer", version="integer", editable="boolean", timezone="string"),
+        "DataSource": E(id="integer", uid="string", name="string", type="string", access="string", url="string", isDefault="boolean"),
+        "Folder": E(uid="string", name="string", title="string", resourceVersion="string", creationTimestamp="datetime"),
+        "AlertRule": E(uid="string", title="string", condition="string", noDataState="string", execErrState="string", isPaused="boolean"),
+        "User": E(id="integer", email="string", name="string", login="string", isGrafanaAdmin="boolean", isDisabled="boolean"),
+        "Organization": E(id="integer", name="string", address="string"),
+    },
+    # Faithful Webflow Data API v2 model — verified against the official OpenAPI
+    # (github.com/webflow/openapi-spec). Object/array fields dropped.
+    "webflow": {
+        "Site": E(id="string", displayName="string", shortName="string", timeZone="string", createdOn="datetime", lastUpdated="datetime", lastPublished="datetime"),
+        "Collection": E(id="string", displayName="string", singularName="string", slug="string", createdOn="datetime", lastUpdated="datetime"),
+        "CollectionItem": E(id="string", cmsLocaleId="string", isArchived="boolean", isDraft="boolean", createdOn="datetime", lastUpdated="datetime", lastPublished="datetime"),
+        "Page": E(id="string", siteId="string", title="string", slug="string", archived="boolean", draft="boolean", publishedPath="string", parentId="string", createdOn="datetime", lastUpdated="datetime"),
+        "Form": E(id="string", displayName="string", siteId="string", pageId="string", pageName="string", formElementId="string", createdOn="datetime", lastUpdated="datetime"),
+        "Field": E(id="string", displayName="string", slug="string", type="string", isRequired="boolean"),
+    },
+    # Faithful Bandwidth model — verified against the OFFICIAL Bandwidth repo
+    # (github.com/Bandwidth/api-docs). Only enums both official sources agree on are
+    # enforced (directions + fileFormat); disputed lifecycle enums left as gaps.
+    "bandwidth": {
+        "Message": E(id="string", owner="string", applicationId="string", time="datetime", segmentCount="integer", direction="string", toNumber="string", fromNumber="string", text="string", tag="string"),
+        "Call": E(callId="string", accountId="string", applicationId="string", toNumber="string", fromNumber="string", state="string", direction="string", createdTime="datetime", startTime="datetime", endTime="datetime"),
+        "Conference": E(id="string", name="string", status="string", redirectUrl="string", createdTime="datetime"),
+        "Recording": E(recordingId="string", applicationId="string", accountId="string", name="string", status="string", fileFormat="string", startTime="datetime", endTime="datetime", duration="integer"),
+    },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).
     "square": {

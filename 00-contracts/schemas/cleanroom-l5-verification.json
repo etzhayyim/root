@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 79,
+  "count": 83,
   "actors": [
     {
       "handle": "square-compat",
@@ -11200,6 +11200,511 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (5/5) vs official Typeform docs. Enforced enums: Field.type(24), Answer.type(14) = 2 enums (38 values). Webhook.eventType left a gap (only form_response in examples) — honesty over coverage."
+    },
+    {
+      "handle": "elevenlabs-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://api.elevenlabs.io/openapi.json",
+      "remodeled": "Remodeled from generic ai_ml to a faithful ElevenLabs model, verified against the live official OpenAPI. snake_case->camelCase; timestamps Unix int seconds. Subscription.tier left a gap (untyped string in spec).",
+      "resources": [
+        {
+          "entity": "Voice",
+          "source": "https://api.elevenlabs.io/openapi.json",
+          "verifiedFields": [
+            "voiceId",
+            "name",
+            "category",
+            "description",
+            "previewUrl",
+            "createdAtUnix",
+            "isOwner"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "category": [
+              "generated",
+              "cloned",
+              "premade",
+              "professional",
+              "famous",
+              "high_quality"
+            ]
+          },
+          "gaps": [
+            "labels(object)"
+          ]
+        },
+        {
+          "entity": "Sample",
+          "source": "https://api.elevenlabs.io/openapi.json",
+          "verifiedFields": [
+            "sampleId",
+            "fileName",
+            "mimeType",
+            "sizeBytes",
+            "durationSecs",
+            "hash",
+            "removeBackgroundNoise"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "HistoryItem",
+          "source": "https://api.elevenlabs.io/openapi.json",
+          "verifiedFields": [
+            "historyItemId",
+            "voiceId",
+            "modelId",
+            "text",
+            "dateUnix",
+            "state",
+            "characterCountChangeTo",
+            "contentType"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "state": [
+              "created",
+              "deleted",
+              "processing"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Model",
+          "source": "https://api.elevenlabs.io/openapi.json",
+          "verifiedFields": [
+            "modelId",
+            "name",
+            "canBeFinetune",
+            "canDoTextToSpeech",
+            "canUseStyle",
+            "tokenCostFactor",
+            "description"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "languages(array)"
+          ]
+        },
+        {
+          "entity": "Subscription",
+          "source": "https://api.elevenlabs.io/openapi.json",
+          "verifiedFields": [
+            "tier",
+            "characterCount",
+            "characterLimit",
+            "voiceSlotsUsed",
+            "voiceLimit",
+            "status",
+            "canExtendCharacterLimit"
+          ],
+          "fieldStatus": "confirmed; tier untyped -> not enforced",
+          "discoveredEnums": {
+            "status": [
+              "trialing",
+              "active",
+              "incomplete",
+              "past_due",
+              "free",
+              "free_disabled"
+            ]
+          },
+          "gaps": [
+            "tier-untyped-string"
+          ]
+        },
+        {
+          "entity": "Project",
+          "source": "https://api.elevenlabs.io/openapi.json",
+          "verifiedFields": [
+            "projectId",
+            "name",
+            "title",
+            "author",
+            "createDateUnix",
+            "state",
+            "accessLevel",
+            "canBeDownloaded"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "state": [
+              "creating",
+              "default",
+              "converting",
+              "in_queue"
+            ],
+            "accessLevel": [
+              "admin",
+              "editor",
+              "commenter",
+              "viewer"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs live official ElevenLabs OpenAPI. Enforced enums: Voice.category(6), HistoryItem.state(3), Subscription.status(6), Project.state(4), Project.accessLevel(4) = 5 enums. Subscription.tier untyped in spec -> not enforced."
+    },
+    {
+      "handle": "grafana-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://grafana.com/docs/grafana/latest/developers/http_api/",
+      "remodeled": "Remodeled from generic devtools_saas to a faithful Grafana HTTP API model, verified against the official Grafana HTTP API docs. Only DataSource.access enforced: AlertRule.noDataState/execErrState are version-dependent + the fetch conflated them, so they are left as gaps.",
+      "resources": [
+        {
+          "entity": "Dashboard",
+          "source": "https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/",
+          "verifiedFields": [
+            "id",
+            "uid",
+            "title",
+            "schemaVersion",
+            "version",
+            "editable",
+            "timezone"
+          ],
+          "fieldStatus": "confirmed; schemaVersion is int (not enum)",
+          "discoveredEnums": {},
+          "gaps": [
+            "panels(array)"
+          ]
+        },
+        {
+          "entity": "DataSource",
+          "source": "https://grafana.com/docs/grafana/latest/developers/http_api/data_source/",
+          "verifiedFields": [
+            "id",
+            "uid",
+            "name",
+            "type",
+            "access",
+            "url",
+            "isDefault"
+          ],
+          "fieldStatus": "confirmed; type is an open string -> not enforced",
+          "discoveredEnums": {
+            "access": [
+              "proxy",
+              "direct"
+            ]
+          },
+          "gaps": [
+            "type-open-string"
+          ]
+        },
+        {
+          "entity": "Folder",
+          "source": "https://grafana.com/docs/grafana/latest/developers/http_api/folder/",
+          "verifiedFields": [
+            "uid",
+            "name",
+            "title",
+            "resourceVersion",
+            "creationTimestamp"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "AlertRule",
+          "source": "https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/",
+          "verifiedFields": [
+            "uid",
+            "title",
+            "condition",
+            "noDataState",
+            "execErrState",
+            "isPaused"
+          ],
+          "fieldStatus": "fields confirmed; noDataState/execErrState are version-dependent + fetch conflated them -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "noDataState-version-dependent",
+            "execErrState-version-dependent"
+          ]
+        },
+        {
+          "entity": "User",
+          "source": "https://grafana.com/docs/grafana/latest/developers/http_api/user/",
+          "verifiedFields": [
+            "id",
+            "email",
+            "name",
+            "login",
+            "isGrafanaAdmin",
+            "isDisabled"
+          ],
+          "fieldStatus": "confirmed; org role enum incomplete in fetch -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "role-enum-incomplete"
+          ]
+        },
+        {
+          "entity": "Organization",
+          "source": "https://grafana.com/docs/grafana/latest/developers/http_api/org/",
+          "verifiedFields": [
+            "id",
+            "name",
+            "address"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6 schemas) vs official Grafana HTTP API docs. Enforced enum: DataSource.access(proxy/direct). Alert-state + role enums left gaps (version-dependent / fetch unreliable) — honesty over coverage."
+    },
+    {
+      "handle": "webflow-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/webflow/openapi-spec",
+      "remodeled": "Remodeled from generic devtools_saas/cms to a faithful Webflow Data API v2 model, verified against the official webflow/openapi-spec. Object/array fields dropped. FormField.type left a gap (only Plain/Email seen).",
+      "resources": [
+        {
+          "entity": "Site",
+          "source": "https://github.com/webflow/openapi-spec/blob/main/openapi/v2.yml",
+          "verifiedFields": [
+            "id",
+            "displayName",
+            "shortName",
+            "timeZone",
+            "createdOn",
+            "lastUpdated",
+            "lastPublished"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "customDomains(array)"
+          ]
+        },
+        {
+          "entity": "Collection",
+          "source": "https://github.com/webflow/openapi-spec/blob/main/openapi/v2.yml",
+          "verifiedFields": [
+            "id",
+            "displayName",
+            "singularName",
+            "slug",
+            "createdOn",
+            "lastUpdated"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "fields(array)"
+          ]
+        },
+        {
+          "entity": "CollectionItem",
+          "source": "https://github.com/webflow/openapi-spec/blob/main/openapi/v2.yml",
+          "verifiedFields": [
+            "id",
+            "cmsLocaleId",
+            "isArchived",
+            "isDraft",
+            "createdOn",
+            "lastUpdated",
+            "lastPublished"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "fieldData(object)"
+          ]
+        },
+        {
+          "entity": "Page",
+          "source": "https://github.com/webflow/openapi-spec/blob/main/openapi/v2.yml",
+          "verifiedFields": [
+            "id",
+            "siteId",
+            "title",
+            "slug",
+            "archived",
+            "draft",
+            "publishedPath",
+            "parentId",
+            "createdOn",
+            "lastUpdated"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "seo(object)"
+          ]
+        },
+        {
+          "entity": "Form",
+          "source": "https://github.com/webflow/openapi-spec/blob/main/openapi/v2.yml",
+          "verifiedFields": [
+            "id",
+            "displayName",
+            "siteId",
+            "pageId",
+            "pageName",
+            "formElementId",
+            "createdOn",
+            "lastUpdated"
+          ],
+          "fieldStatus": "fields confirmed; FormField.type only Plain/Email seen -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "formFieldType-enum-incomplete"
+          ]
+        },
+        {
+          "entity": "Field",
+          "source": "https://github.com/webflow/openapi-spec/blob/main/openapi/v2.yml",
+          "verifiedFields": [
+            "id",
+            "displayName",
+            "slug",
+            "type",
+            "isRequired"
+          ],
+          "fieldStatus": "confirmed (collection field definition)",
+          "discoveredEnums": {
+            "type": [
+              "PlainText",
+              "RichText",
+              "Image",
+              "Link",
+              "Email",
+              "Phone",
+              "Number",
+              "DateTime",
+              "Switch",
+              "Color",
+              "Option",
+              "Reference",
+              "MultiReference",
+              "File",
+              "VideoLink"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official webflow/openapi-spec. Enforced enum: Field.type(15, full CollectionField type array). FormField.type left a gap (only Plain/Email observed)."
+    },
+    {
+      "handle": "bandwidth-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/Bandwidth/api-docs",
+      "remodeled": "Remodeled from generic comms_social to a faithful Bandwidth model, verified against the OFFICIAL github.com/Bandwidth/api-docs repo (a prior 3rd-party-fork attempt was rejected). Wire fields from/to mapped to fromNumber/toNumber to avoid the Python keyword. CONSERVATIVE: only enums that the official repo AND the prior fork agree on are enforced (directions + fileFormat); Call.state/Recording.status disagreed between sources -> left as gaps.",
+      "resources": [
+        {
+          "entity": "Message",
+          "source": "https://github.com/Bandwidth/api-docs site/specs/messaging.yml",
+          "verifiedFields": [
+            "id",
+            "owner",
+            "applicationId",
+            "time",
+            "segmentCount",
+            "direction",
+            "toNumber",
+            "fromNumber",
+            "text",
+            "tag"
+          ],
+          "fieldStatus": "confirmed (wire from/to -> fromNumber/toNumber)",
+          "discoveredEnums": {
+            "direction": [
+              "in",
+              "out"
+            ]
+          },
+          "gaps": [
+            "media(array)"
+          ]
+        },
+        {
+          "entity": "Call",
+          "source": "https://github.com/Bandwidth/api-docs site/specs/voice.yml",
+          "verifiedFields": [
+            "callId",
+            "accountId",
+            "applicationId",
+            "toNumber",
+            "fromNumber",
+            "state",
+            "direction",
+            "createdTime",
+            "startTime",
+            "endTime"
+          ],
+          "fieldStatus": "confirmed; state enum disagreed between official+fork sources -> not enforced",
+          "discoveredEnums": {
+            "direction": [
+              "inbound",
+              "outbound"
+            ]
+          },
+          "gaps": [
+            "state-enum-source-disagreement"
+          ]
+        },
+        {
+          "entity": "Conference",
+          "source": "https://github.com/Bandwidth/api-docs site/specs/voice.yml",
+          "verifiedFields": [
+            "id",
+            "name",
+            "status",
+            "redirectUrl",
+            "createdTime"
+          ],
+          "fieldStatus": "confirmed; status enum not cross-confirmed -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "status-enum-not-cross-confirmed"
+          ]
+        },
+        {
+          "entity": "Recording",
+          "source": "https://github.com/Bandwidth/api-docs site/specs/voice.yml",
+          "verifiedFields": [
+            "recordingId",
+            "applicationId",
+            "accountId",
+            "name",
+            "status",
+            "fileFormat",
+            "startTime",
+            "endTime",
+            "duration"
+          ],
+          "fieldStatus": "confirmed; status disagreed between sources -> not enforced; fileFormat agreed -> enforced",
+          "discoveredEnums": {
+            "fileFormat": [
+              "mp3",
+              "wav"
+            ]
+          },
+          "gaps": [
+            "status-enum-source-disagreement"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "RECOVERED from defer via OFFICIAL github.com/Bandwidth/api-docs. Enforced enums (cross-source agreed): Message.direction(2), Call.direction(2), Recording.fileFormat(2) = 3. Call.state/Recording.status DISAGREED between the official repo and the prior fork -> left as gaps rather than pick one (honesty over coverage)."
     }
   ]
 }

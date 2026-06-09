@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 921,
-    "L5": 79
+    "L4": 917,
+    "L5": 83
   },
   "actors": [
     {
@@ -1547,10 +1547,10 @@
     {
       "handle": "bandwidth-compat",
       "did": "did:web:etzhayyim.com:actor:bandwidth-compat",
-      "wasmCid": "bafkreigvtfeqjfqit2wi7ydcbsxssvnjttv3cfkuktmajbffjvzhrfwn3e",
+      "wasmCid": "bafkreiaj2bywijhppzf27phhzr42dppuhflmzmp2s5a6g6dra35wqsxjxa",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "bandwidth clean-room actor",
       "category": "comms_social",
       "capabilities": [
@@ -5240,7 +5240,7 @@
       "wasmCid": "bafkreibg5ziqrvwg5676ahgu6wuktjva35akzwtyarlrifpjm4svwfq7ku",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "elevenlabs clean-room actor",
       "category": "ai_ml",
       "capabilities": [
@@ -7022,7 +7022,7 @@
       "wasmCid": "bafkreidljzcjkllk5suekgtz7hmk6w6ga5i5q5xhufl6o2rmiee5viro3a",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "grafana clean-room actor",
       "category": "devtools_apm",
       "capabilities": [
@@ -17066,7 +17066,7 @@
       "wasmCid": "bafkreifvh6rtorgwik6i77ghzp7hw646i3tisp6rkdhfbermklzvuhccfu",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "webflow clean-room actor",
       "category": "lowcode_ipaas",
       "capabilities": [

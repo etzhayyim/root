@@ -1461,17 +1461,15 @@
       "handle": "bandwidth-compat",
       "platform": "bandwidth",
       "bytes": 2123,
-      "wasmCid": "bafkreigvtfeqjfqit2wi7ydcbsxssvnjttv3cfkuktmajbffjvzhrfwn3e",
+      "wasmCid": "bafkreiaj2bywijhppzf27phhzr42dppuhflmzmp2s5a6g6dra35wqsxjxa",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Channel",
         "Message",
-        "User",
-        "Room",
-        "Stream",
-        "Webhook"
+        "Call",
+        "Conference",
+        "Recording"
       ]
     },
     {
@@ -4947,12 +4945,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
+        "Voice",
+        "Sample",
+        "HistoryItem",
         "Model",
-        "Completion",
-        "Embedding",
-        "FineTune",
-        "Dataset",
-        "File"
+        "Subscription",
+        "Project"
       ]
     },
     {
@@ -6630,12 +6628,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Service",
-        "Error",
-        "Trace",
-        "Metric",
-        "Alert",
-        "Incident"
+        "Dashboard",
+        "DataSource",
+        "Folder",
+        "AlertRule",
+        "User",
+        "Organization"
       ]
     },
     {
@@ -16112,12 +16110,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Flow",
-        "Step",
-        "Connection",
-        "Run",
-        "App",
-        "Webhook"
+        "Site",
+        "Collection",
+        "CollectionItem",
+        "Page",
+        "Form",
+        "Field"
       ]
     },
     {
