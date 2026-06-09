@@ -1621,6 +1621,25 @@ PLATFORM_OVERRIDES = {
         "Deployment": E(id="string", status="string", projectName="string", stackName="string", paused="boolean", created="datetime", modified="datetime"),
         "Organization": E(name="string", role="string"),
     },
+    # Faithful MAVLink model — verified against the official mavlink XML message defs.
+    # Only the stable/confirmed-complete enums enforced (MAV_STATE, MAV_MISSION_TYPE);
+    # version-growing enums (MAV_TYPE/GPS_FIX_TYPE/MAV_FRAME) left as gaps.
+    "mavlink_drones": {
+        "Heartbeat": E(type="integer", autopilot="integer", baseMode="integer", customMode="integer", systemStatus="integer", mavlinkVersion="integer"),
+        "SysStatus": E(load="integer", voltageBattery="integer", currentBattery="integer", batteryRemaining="integer", dropRateComm="integer", errorsComm="integer"),
+        "GpsRawInt": E(timeUsec="integer", fixType="integer", lat="integer", lon="integer", alt="integer", vel="integer", satellitesVisible="integer"),
+        "Attitude": E(timeBootMs="integer", roll="float", pitch="float", yaw="float", rollspeed="float", pitchspeed="float", yawspeed="float"),
+        "GlobalPositionInt": E(timeBootMs="integer", lat="integer", lon="integer", alt="integer", relativeAlt="integer", vx="integer", vy="integer", vz="integer", hdg="integer"),
+        "MissionItem": E(targetSystem="integer", targetComponent="integer", seq="integer", frame="integer", command="integer", current="integer", autocontinue="integer", x="float", y="float", z="float", missionType="integer"),
+    },
+    # Faithful Modbus TCP model — verified against the Modbus Application Protocol spec
+    # (public function/exception code tables). protocolId is always 0 for Modbus/TCP.
+    "modbus_tcp": {
+        "MbapHeader": E(transactionId="integer", protocolId="integer", length="integer", unitId="integer"),
+        "Request": E(transactionId="integer", protocolId="integer", unitId="integer", functionCode="integer", startingAddress="integer", quantity="integer"),
+        "Response": E(transactionId="integer", unitId="integer", functionCode="integer", byteCount="integer"),
+        "ExceptionResponse": E(transactionId="integer", unitId="integer", exceptionFunctionCode="integer", exceptionCode="integer"),
+    },
     # Faithful GS1 EPCIS 2.0 model — verified against the official GS1 EPCIS 2.0
     # standard (ref.gs1.org). bizStep/disposition are large CBV vocabs -> not enforced.
     "gs1_epcis": {

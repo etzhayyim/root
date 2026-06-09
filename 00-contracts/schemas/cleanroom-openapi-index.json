@@ -6,10 +6,10 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29805,
+  "totalEndpoints": 29795,
   "l4SpecsAvailable": 1000,
-  "l5VerifiedActors": 115,
-  "totalVerifiedEnumFields": 517,
+  "l5VerifiedActors": 117,
+  "totalVerifiedEnumFields": 523,
   "apis": [
     {
       "handle": "8th_wall-compat",
@@ -10578,7 +10578,7 @@
     {
       "handle": "mavlink_drones-compat",
       "did": "did:web:etzhayyim.com:actor:mavlink_drones-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreicbz5mvt5hpzumfurl7gzvt27j4qzejptocifzymtkqumjts4vpqm",
@@ -10590,8 +10590,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 2,
       "openapi": "20-actors/mavlink_drones-compat/openapi.json"
     },
     {
@@ -11034,10 +11034,10 @@
     {
       "handle": "modbus_tcp-compat",
       "did": "did:web:etzhayyim.com:actor:modbus_tcp-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreiagm4krxnsrz627kd6czpkv6k6z4y2u4vz3a36uxtcv2kja6i3k3u",
+      "endpointCount": 20,
+      "ipfs": "ipfs://bafkreicm5cgwhb4kqaisazf4s6rxzjifhyx42mn57jyxqlz267d2l4dspu",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -11046,8 +11046,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 4,
       "openapi": "20-actors/modbus_tcp-compat/openapi.json"
     },
     {

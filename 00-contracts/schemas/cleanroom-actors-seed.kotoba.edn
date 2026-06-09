@@ -7565,11 +7565,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible energy / smart grid actor (modbus_tcp); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "modbus_tcp.kotoba"
-   :actor/wasm-cid "bafkreiagm4krxnsrz627kd6czpkv6k6z4y2u4vz3a36uxtcv2kja6i3k3u"
+   :actor/wasm-cid "bafkreicm5cgwhb4kqaisazf4s6rxzjifhyx42mn57jyxqlz267d2l4dspu"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:modbus_tcp-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiagm4krxnsrz627kd6czpkv6k6z4y2u4vz3a36uxtcv2kja6i3k3u" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:modbus_tcp-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiagm4krxnsrz627kd6czpkv6k6z4y2u4vz3a36uxtcv2kja6i3k3u" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:modbus_tcp-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiagm4krxnsrz627kd6czpkv6k6z4y2u4vz3a36uxtcv2kja6i3k3u" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:modbus_tcp-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiagm4krxnsrz627kd6czpkv6k6z4y2u4vz3a36uxtcv2kja6i3k3u" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:modbus_tcp-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreicm5cgwhb4kqaisazf4s6rxzjifhyx42mn57jyxqlz267d2l4dspu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:modbus_tcp-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreicm5cgwhb4kqaisazf4s6rxzjifhyx42mn57jyxqlz267d2l4dspu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:modbus_tcp-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreicm5cgwhb4kqaisazf4s6rxzjifhyx42mn57jyxqlz267d2l4dspu" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:modbus_tcp-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreicm5cgwhb4kqaisazf4s6rxzjifhyx42mn57jyxqlz267d2l4dspu" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "monday-compat"
    :actor/did "did:web:etzhayyim.com:actor:monday-compat"
    :actor/kind :compat

@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 881,
-    "L5": 119
+    "L4": 879,
+    "L5": 121
   },
   "actors": [
     {
@@ -10028,7 +10028,7 @@
       "wasmCid": "bafkreicbz5mvt5hpzumfurl7gzvt27j4qzejptocifzymtkqumjts4vpqm",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "mavlink_drones clean-room actor",
       "category": "mobility_auto_ev",
       "capabilities": [
@@ -10457,10 +10457,10 @@
     {
       "handle": "modbus_tcp-compat",
       "did": "did:web:etzhayyim.com:actor:modbus_tcp-compat",
-      "wasmCid": "bafkreiagm4krxnsrz627kd6czpkv6k6z4y2u4vz3a36uxtcv2kja6i3k3u",
+      "wasmCid": "bafkreicm5cgwhb4kqaisazf4s6rxzjifhyx42mn57jyxqlz267d2l4dspu",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "modbus_tcp clean-room actor",
       "category": "energy_grid_utilities",
       "capabilities": [

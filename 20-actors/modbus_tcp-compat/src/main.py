@@ -111,184 +111,199 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/meters", methods=["POST"])
-def create_meter(request):
-    """Create a Meter."""
+@app.route("/v1/mbapheaders", methods=["POST"])
+def create_mbap_header(request):
+    """Create a MbapHeader."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serial', 'type', 'location'])
+    err = _reject_unknown(data, ['transactionId', 'protocolId', 'length', 'unitId'])
     if err:
         return err, 400
-    err = _require(data, ['serial', 'type'])
+    err = _require(data, ['length'])
     if err:
         return err, 400
-    rec = {"id": new_id("modbustc_met")}
-    rec["serial"] = data.get('serial')
-    rec["type"] = data.get('type')
-    rec["location"] = data.get('location')
+    if data.get('protocolId') and data['protocolId'] not in [0]:
+        return {"error": {"message": "invalid protocolId; allowed: " + ", ".join([0]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("modbustc_mba")}
+    rec["transactionId"] = _as_int(data.get('transactionId'))
+    rec["protocolId"] = _as_int(data.get('protocolId'))
+    rec["length"] = _as_int(data.get('length'))
+    rec["unitId"] = _as_int(data.get('unitId'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Meter", rec)
+    _persist("MbapHeader", rec)
     return rec, 201
 
-@app.route("/v1/meters", methods=["GET"])
-def list_meters(request):
-    """List Meters with filtering + cursor pagination."""
+@app.route("/v1/mbapheaders", methods=["GET"])
+def list_mbap_headers(request):
+    """List MbapHeaders with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Meter")
-    rows = _apply_filters(rows, params, ['serial', 'type', 'location'])
+    rows = _query("MbapHeader")
+    rows = _apply_filters(rows, params, ['transactionId', 'protocolId', 'length', 'unitId'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/meters/<eid>", methods=["GET"])
-def get_meter(request, eid):
-    """Retrieve a Meter by id (supports ?expand=)."""
-    rows = _query("Meter", eid)
+@app.route("/v1/mbapheaders/<eid>", methods=["GET"])
+def get_mbap_header(request, eid):
+    """Retrieve a MbapHeader by id (supports ?expand=)."""
+    rows = _query("MbapHeader", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/meters/<eid>", methods=["POST", "PATCH"])
-def update_meter(request, eid):
-    """Update a Meter."""
-    rows = _query("Meter", eid)
+@app.route("/v1/mbapheaders/<eid>", methods=["POST", "PATCH"])
+def update_mbap_header(request, eid):
+    """Update a MbapHeader."""
+    rows = _query("MbapHeader", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serial', 'type', 'location'])
+    err = _reject_unknown(data, ['transactionId', 'protocolId', 'length', 'unitId'])
     if err:
         return err, 400
+    if data.get('protocolId') and data['protocolId'] not in [0]:
+        return {"error": {"message": "invalid protocolId; allowed: " + ", ".join([0]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Meter", rec)
+    _persist("MbapHeader", rec)
     return rec, 200
 
-@app.route("/v1/meters/<eid>", methods=["DELETE"])
-def delete_meter(request, eid):
-    """Delete a Meter."""
-    rows = _query("Meter", eid)
+@app.route("/v1/mbapheaders/<eid>", methods=["DELETE"])
+def delete_mbap_header(request, eid):
+    """Delete a MbapHeader."""
+    rows = _query("MbapHeader", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"modbus_tcp.Meter", "id": eid})
+    db.retract({"entity": f"modbus_tcp.MbapHeader", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/readings", methods=["POST"])
-def create_reading(request):
-    """Create a Reading."""
+@app.route("/v1/requests", methods=["POST"])
+def create_request(request):
+    """Create a Request."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['meterId', 'value', 'unit', 'readAt'])
+    err = _reject_unknown(data, ['transactionId', 'protocolId', 'unitId', 'functionCode', 'startingAddress', 'quantity'])
     if err:
         return err, 400
-    err = _require(data, ['value', 'unit'])
+    err = _require(data, ['functionCode', 'startingAddress'])
     if err:
         return err, 400
-    rec = {"id": new_id("modbustc_rea")}
-    rec["meterId"] = data.get('meterId')
-    rec["value"] = _as_float(data.get('value'))
-    rec["unit"] = data.get('unit')
-    rec["readAt"] = data.get('readAt')
+    if data.get('functionCode') and data['functionCode'] not in [1, 2, 3, 4, 5, 6, 7, 8, 11, 12, 15, 16, 17, 20, 21, 22, 23, 24, 43]:
+        return {"error": {"message": "invalid functionCode; allowed: " + ", ".join([1, 2, 3, 4, 5, 6, 7, 8, 11, 12, 15, 16, 17, 20, 21, 22, 23, 24, 43]), "type": "invalid_request_error"}}, 400
+    if data.get('protocolId') and data['protocolId'] not in [0]:
+        return {"error": {"message": "invalid protocolId; allowed: " + ", ".join([0]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("modbustc_req")}
+    rec["transactionId"] = _as_int(data.get('transactionId'))
+    rec["protocolId"] = _as_int(data.get('protocolId'))
+    rec["unitId"] = _as_int(data.get('unitId'))
+    rec["functionCode"] = _as_int(data.get('functionCode'))
+    rec["startingAddress"] = _as_int(data.get('startingAddress'))
+    rec["quantity"] = _as_int(data.get('quantity'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Reading", rec)
+    _persist("Request", rec)
     return rec, 201
 
-@app.route("/v1/readings", methods=["GET"])
-def list_readings(request):
-    """List Readings with filtering + cursor pagination."""
+@app.route("/v1/requests", methods=["GET"])
+def list_requests(request):
+    """List Requests with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Reading")
-    rows = _apply_filters(rows, params, ['meterId', 'value', 'unit', 'readAt'])
+    rows = _query("Request")
+    rows = _apply_filters(rows, params, ['transactionId', 'protocolId', 'unitId', 'functionCode', 'startingAddress', 'quantity'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/readings/<eid>", methods=["GET"])
-def get_reading(request, eid):
-    """Retrieve a Reading by id (supports ?expand=)."""
-    rows = _query("Reading", eid)
+@app.route("/v1/requests/<eid>", methods=["GET"])
+def get_request(request, eid):
+    """Retrieve a Request by id (supports ?expand=)."""
+    rows = _query("Request", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'meterId': 'Meter'})
     return rec, 200
 
-@app.route("/v1/readings/<eid>", methods=["POST", "PATCH"])
-def update_reading(request, eid):
-    """Update a Reading."""
-    rows = _query("Reading", eid)
+@app.route("/v1/requests/<eid>", methods=["POST", "PATCH"])
+def update_request(request, eid):
+    """Update a Request."""
+    rows = _query("Request", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['meterId', 'value', 'unit', 'readAt'])
+    err = _reject_unknown(data, ['transactionId', 'protocolId', 'unitId', 'functionCode', 'startingAddress', 'quantity'])
     if err:
         return err, 400
+    if data.get('functionCode') and data['functionCode'] not in [1, 2, 3, 4, 5, 6, 7, 8, 11, 12, 15, 16, 17, 20, 21, 22, 23, 24, 43]:
+        return {"error": {"message": "invalid functionCode; allowed: " + ", ".join([1, 2, 3, 4, 5, 6, 7, 8, 11, 12, 15, 16, 17, 20, 21, 22, 23, 24, 43]), "type": "invalid_request_error"}}, 400
+    if data.get('protocolId') and data['protocolId'] not in [0]:
+        return {"error": {"message": "invalid protocolId; allowed: " + ", ".join([0]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Reading", rec)
+    _persist("Request", rec)
     return rec, 200
 
-@app.route("/v1/readings/<eid>", methods=["DELETE"])
-def delete_reading(request, eid):
-    """Delete a Reading."""
-    rows = _query("Reading", eid)
+@app.route("/v1/requests/<eid>", methods=["DELETE"])
+def delete_request(request, eid):
+    """Delete a Request."""
+    rows = _query("Request", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"modbus_tcp.Reading", "id": eid})
+    db.retract({"entity": f"modbus_tcp.Request", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/nodes", methods=["POST"])
-def create_node(request):
-    """Create a Node."""
+@app.route("/v1/responses", methods=["POST"])
+def create_response(request):
+    """Create a Response."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'region', 'voltageKv'])
+    err = _reject_unknown(data, ['transactionId', 'unitId', 'functionCode', 'byteCount'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'region'])
+    err = _require(data, ['functionCode', 'byteCount'])
     if err:
         return err, 400
-    rec = {"id": new_id("modbustc_nod")}
-    rec["name"] = data.get('name')
-    rec["region"] = data.get('region')
-    rec["voltageKv"] = _as_float(data.get('voltageKv'))
+    rec = {"id": new_id("modbustc_res")}
+    rec["transactionId"] = _as_int(data.get('transactionId'))
+    rec["unitId"] = _as_int(data.get('unitId'))
+    rec["functionCode"] = _as_int(data.get('functionCode'))
+    rec["byteCount"] = _as_int(data.get('byteCount'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Node", rec)
+    _persist("Response", rec)
     return rec, 201
 
-@app.route("/v1/nodes", methods=["GET"])
-def list_nodes(request):
-    """List Nodes with filtering + cursor pagination."""
+@app.route("/v1/responses", methods=["GET"])
+def list_responses(request):
+    """List Responses with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Node")
-    rows = _apply_filters(rows, params, ['name', 'region', 'voltageKv'])
+    rows = _query("Response")
+    rows = _apply_filters(rows, params, ['transactionId', 'unitId', 'functionCode', 'byteCount'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/nodes/<eid>", methods=["GET"])
-def get_node(request, eid):
-    """Retrieve a Node by id (supports ?expand=)."""
-    rows = _query("Node", eid)
+@app.route("/v1/responses/<eid>", methods=["GET"])
+def get_response(request, eid):
+    """Retrieve a Response by id (supports ?expand=)."""
+    rows = _query("Response", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/nodes/<eid>", methods=["POST", "PATCH"])
-def update_node(request, eid):
-    """Update a Node."""
-    rows = _query("Node", eid)
+@app.route("/v1/responses/<eid>", methods=["POST", "PATCH"])
+def update_response(request, eid):
+    """Update a Response."""
+    rows = _query("Response", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'region', 'voltageKv'])
+    err = _reject_unknown(data, ['transactionId', 'unitId', 'functionCode', 'byteCount'])
     if err:
         return err, 400
     rec = rows[0]
@@ -296,222 +311,92 @@ def update_node(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Node", rec)
+    _persist("Response", rec)
     return rec, 200
 
-@app.route("/v1/nodes/<eid>", methods=["DELETE"])
-def delete_node(request, eid):
-    """Delete a Node."""
-    rows = _query("Node", eid)
+@app.route("/v1/responses/<eid>", methods=["DELETE"])
+def delete_response(request, eid):
+    """Delete a Response."""
+    rows = _query("Response", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"modbus_tcp.Node", "id": eid})
+    db.retract({"entity": f"modbus_tcp.Response", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/loadforecasts", methods=["POST"])
-def create_load_forecast(request):
-    """Create a LoadForecast."""
+@app.route("/v1/exceptionresponses", methods=["POST"])
+def create_exception_response(request):
+    """Create a ExceptionResponse."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['nodeId', 'period', 'megawatts'])
+    err = _reject_unknown(data, ['transactionId', 'unitId', 'exceptionFunctionCode', 'exceptionCode'])
     if err:
         return err, 400
-    err = _require(data, ['period', 'megawatts'])
+    err = _require(data, ['exceptionFunctionCode', 'exceptionCode'])
     if err:
         return err, 400
-    rec = {"id": new_id("modbustc_loa")}
-    rec["nodeId"] = data.get('nodeId')
-    rec["period"] = data.get('period')
-    rec["megawatts"] = _as_float(data.get('megawatts'))
+    if data.get('exceptionCode') and data['exceptionCode'] not in [1, 2, 3, 4, 5, 6, 7, 8, 10, 11]:
+        return {"error": {"message": "invalid exceptionCode; allowed: " + ", ".join([1, 2, 3, 4, 5, 6, 7, 8, 10, 11]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("modbustc_exc")}
+    rec["transactionId"] = _as_int(data.get('transactionId'))
+    rec["unitId"] = _as_int(data.get('unitId'))
+    rec["exceptionFunctionCode"] = _as_int(data.get('exceptionFunctionCode'))
+    rec["exceptionCode"] = _as_int(data.get('exceptionCode'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("LoadForecast", rec)
+    _persist("ExceptionResponse", rec)
     return rec, 201
 
-@app.route("/v1/loadforecasts", methods=["GET"])
-def list_load_forecasts(request):
-    """List LoadForecasts with filtering + cursor pagination."""
+@app.route("/v1/exceptionresponses", methods=["GET"])
+def list_exception_responses(request):
+    """List ExceptionResponses with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("LoadForecast")
-    rows = _apply_filters(rows, params, ['nodeId', 'period', 'megawatts'])
+    rows = _query("ExceptionResponse")
+    rows = _apply_filters(rows, params, ['transactionId', 'unitId', 'exceptionFunctionCode', 'exceptionCode'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/loadforecasts/<eid>", methods=["GET"])
-def get_load_forecast(request, eid):
-    """Retrieve a LoadForecast by id (supports ?expand=)."""
-    rows = _query("LoadForecast", eid)
+@app.route("/v1/exceptionresponses/<eid>", methods=["GET"])
+def get_exception_response(request, eid):
+    """Retrieve a ExceptionResponse by id (supports ?expand=)."""
+    rows = _query("ExceptionResponse", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'nodeId': 'Node'})
     return rec, 200
 
-@app.route("/v1/loadforecasts/<eid>", methods=["POST", "PATCH"])
-def update_load_forecast(request, eid):
-    """Update a LoadForecast."""
-    rows = _query("LoadForecast", eid)
+@app.route("/v1/exceptionresponses/<eid>", methods=["POST", "PATCH"])
+def update_exception_response(request, eid):
+    """Update a ExceptionResponse."""
+    rows = _query("ExceptionResponse", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['nodeId', 'period', 'megawatts'])
+    err = _reject_unknown(data, ['transactionId', 'unitId', 'exceptionFunctionCode', 'exceptionCode'])
     if err:
         return err, 400
+    if data.get('exceptionCode') and data['exceptionCode'] not in [1, 2, 3, 4, 5, 6, 7, 8, 10, 11]:
+        return {"error": {"message": "invalid exceptionCode; allowed: " + ", ".join([1, 2, 3, 4, 5, 6, 7, 8, 10, 11]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("LoadForecast", rec)
+    _persist("ExceptionResponse", rec)
     return rec, 200
 
-@app.route("/v1/loadforecasts/<eid>", methods=["DELETE"])
-def delete_load_forecast(request, eid):
-    """Delete a LoadForecast."""
-    rows = _query("LoadForecast", eid)
+@app.route("/v1/exceptionresponses/<eid>", methods=["DELETE"])
+def delete_exception_response(request, eid):
+    """Delete a ExceptionResponse."""
+    rows = _query("ExceptionResponse", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"modbus_tcp.LoadForecast", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/marketbids", methods=["POST"])
-def create_market_bid(request):
-    """Create a MarketBid."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['nodeId', 'price', 'megawatts', 'interval'])
-    if err:
-        return err, 400
-    err = _require(data, ['price', 'megawatts'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("modbustc_mar")}
-    rec["nodeId"] = data.get('nodeId')
-    rec["price"] = _as_float(data.get('price'))
-    rec["megawatts"] = _as_float(data.get('megawatts'))
-    rec["interval"] = data.get('interval')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("MarketBid", rec)
-    return rec, 201
-
-@app.route("/v1/marketbids", methods=["GET"])
-def list_market_bids(request):
-    """List MarketBids with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("MarketBid")
-    rows = _apply_filters(rows, params, ['nodeId', 'price', 'megawatts', 'interval'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/marketbids/<eid>", methods=["GET"])
-def get_market_bid(request, eid):
-    """Retrieve a MarketBid by id (supports ?expand=)."""
-    rows = _query("MarketBid", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'nodeId': 'Node'})
-    return rec, 200
-
-@app.route("/v1/marketbids/<eid>", methods=["POST", "PATCH"])
-def update_market_bid(request, eid):
-    """Update a MarketBid."""
-    rows = _query("MarketBid", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['nodeId', 'price', 'megawatts', 'interval'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("MarketBid", rec)
-    return rec, 200
-
-@app.route("/v1/marketbids/<eid>", methods=["DELETE"])
-def delete_market_bid(request, eid):
-    """Delete a MarketBid."""
-    rows = _query("MarketBid", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"modbus_tcp.MarketBid", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/tags", methods=["POST"])
-def create_tag(request):
-    """Create a Tag."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['nodeId', 'address', 'value', 'quality'])
-    if err:
-        return err, 400
-    err = _require(data, ['address', 'value'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("modbustc_tag")}
-    rec["nodeId"] = data.get('nodeId')
-    rec["address"] = data.get('address')
-    rec["value"] = _as_float(data.get('value'))
-    rec["quality"] = data.get('quality')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Tag", rec)
-    return rec, 201
-
-@app.route("/v1/tags", methods=["GET"])
-def list_tags(request):
-    """List Tags with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Tag")
-    rows = _apply_filters(rows, params, ['nodeId', 'address', 'value', 'quality'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/tags/<eid>", methods=["GET"])
-def get_tag(request, eid):
-    """Retrieve a Tag by id (supports ?expand=)."""
-    rows = _query("Tag", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'nodeId': 'Node'})
-    return rec, 200
-
-@app.route("/v1/tags/<eid>", methods=["POST", "PATCH"])
-def update_tag(request, eid):
-    """Update a Tag."""
-    rows = _query("Tag", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['nodeId', 'address', 'value', 'quality'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Tag", rec)
-    return rec, 200
-
-@app.route("/v1/tags/<eid>", methods=["DELETE"])
-def delete_tag(request, eid):
-    """Delete a Tag."""
-    rows = _query("Tag", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"modbus_tcp.Tag", "id": eid})
+    db.retract({"entity": f"modbus_tcp.ExceptionResponse", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "modbus_tcp-compat", "tier": "L4",
-            "entities": ['Meter', 'Reading', 'Node', 'LoadForecast', 'MarketBid', 'Tag']}, 200
+            "entities": ['MbapHeader', 'Request', 'Response', 'ExceptionResponse']}, 200
 
 
 if __name__ == "__main__":

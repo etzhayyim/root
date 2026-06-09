@@ -7,9 +7,9 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 29805,
-  "l5VerifiedActors": 115,
-  "totalVerifiedEnumFields": 517,
+  "totalTools": 29795,
+  "l5VerifiedActors": 117,
+  "totalVerifiedEnumFields": 523,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -6130,12 +6130,12 @@
     {
       "handle": "mavlink_drones-compat",
       "did": "did:web:etzhayyim.com:actor:mavlink_drones-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreicbz5mvt5hpzumfurl7gzvt27j4qzejptocifzymtkqumjts4vpqm",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 2,
       "manifest": "20-actors/mavlink_drones-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -6394,12 +6394,12 @@
     {
       "handle": "modbus_tcp-compat",
       "did": "did:web:etzhayyim.com:actor:modbus_tcp-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreiagm4krxnsrz627kd6czpkv6k6z4y2u4vz3a36uxtcv2kja6i3k3u",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreicm5cgwhb4kqaisazf4s6rxzjifhyx42mn57jyxqlz267d2l4dspu",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "toolCount": 20,
+      "l5Verified": true,
+      "verifiedEnumFields": 4,
       "manifest": "20-actors/modbus_tcp-compat/manifest.json#/capabilities/mcp"
     },
     {

@@ -9451,12 +9451,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Vehicle",
-        "Signal",
-        "ChargeSession",
-        "Connector",
-        "Trip",
-        "Command"
+        "Heartbeat",
+        "SysStatus",
+        "GpsRawInt",
+        "Attitude",
+        "GlobalPositionInt",
+        "MissionItem"
       ]
     },
     {
@@ -9854,17 +9854,15 @@
       "handle": "modbus_tcp-compat",
       "platform": "modbus_tcp",
       "bytes": 2124,
-      "wasmCid": "bafkreiagm4krxnsrz627kd6czpkv6k6z4y2u4vz3a36uxtcv2kja6i3k3u",
+      "wasmCid": "bafkreicm5cgwhb4kqaisazf4s6rxzjifhyx42mn57jyxqlz267d2l4dspu",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Meter",
-        "Reading",
-        "Node",
-        "LoadForecast",
-        "MarketBid",
-        "Tag"
+        "MbapHeader",
+        "Request",
+        "Response",
+        "ExceptionResponse"
       ]
     },
     {

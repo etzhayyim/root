@@ -11,15 +11,49 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreicbz5mvt5hpzumfurl7gzvt27j4qzejptocifzymtkqumjts4vpqm",
   "schema": "schema/mavlink_drones.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "Heartbeat",
+      "SysStatus",
+      "GpsRawInt",
+      "Attitude",
+      "GlobalPositionInt",
+      "MissionItem"
+    ],
+    "enums": {
+      "Heartbeat": {
+        "systemStatus": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      },
+      "MissionItem": {
+        "missionType": [
+          0,
+          1,
+          2,
+          255
+        ]
+      }
+    }
+  },
   "entities": [
-    "Vehicle",
-    "Signal",
-    "ChargeSession",
-    "Connector",
-    "Trip",
-    "Command"
+    "Heartbeat",
+    "SysStatus",
+    "GpsRawInt",
+    "Attitude",
+    "GlobalPositionInt",
+    "MissionItem"
   ],
   "adr": [
     "260607",
@@ -35,153 +69,153 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/vehicles",
-          "op": "create Vehicle"
+          "path": "/v1/heartbeats",
+          "op": "create Heartbeat"
         },
         {
           "method": "GET",
-          "path": "/v1/vehicles",
-          "op": "list Vehicle"
+          "path": "/v1/heartbeats",
+          "op": "list Heartbeat"
         },
         {
           "method": "GET",
-          "path": "/v1/vehicles/{id}",
-          "op": "get Vehicle"
+          "path": "/v1/heartbeats/{id}",
+          "op": "get Heartbeat"
         },
         {
           "method": "PATCH",
-          "path": "/v1/vehicles/{id}",
-          "op": "update Vehicle"
+          "path": "/v1/heartbeats/{id}",
+          "op": "update Heartbeat"
         },
         {
           "method": "DELETE",
-          "path": "/v1/vehicles/{id}",
-          "op": "delete Vehicle"
+          "path": "/v1/heartbeats/{id}",
+          "op": "delete Heartbeat"
         },
         {
           "method": "POST",
-          "path": "/v1/signals",
-          "op": "create Signal"
+          "path": "/v1/sysstatuses",
+          "op": "create SysStatus"
         },
         {
           "method": "GET",
-          "path": "/v1/signals",
-          "op": "list Signal"
+          "path": "/v1/sysstatuses",
+          "op": "list SysStatus"
         },
         {
           "method": "GET",
-          "path": "/v1/signals/{id}",
-          "op": "get Signal"
+          "path": "/v1/sysstatuses/{id}",
+          "op": "get SysStatus"
         },
         {
           "method": "PATCH",
-          "path": "/v1/signals/{id}",
-          "op": "update Signal"
+          "path": "/v1/sysstatuses/{id}",
+          "op": "update SysStatus"
         },
         {
           "method": "DELETE",
-          "path": "/v1/signals/{id}",
-          "op": "delete Signal"
+          "path": "/v1/sysstatuses/{id}",
+          "op": "delete SysStatus"
         },
         {
           "method": "POST",
-          "path": "/v1/chargesessions",
-          "op": "create ChargeSession"
+          "path": "/v1/gpsrawints",
+          "op": "create GpsRawInt"
         },
         {
           "method": "GET",
-          "path": "/v1/chargesessions",
-          "op": "list ChargeSession"
+          "path": "/v1/gpsrawints",
+          "op": "list GpsRawInt"
         },
         {
           "method": "GET",
-          "path": "/v1/chargesessions/{id}",
-          "op": "get ChargeSession"
+          "path": "/v1/gpsrawints/{id}",
+          "op": "get GpsRawInt"
         },
         {
           "method": "PATCH",
-          "path": "/v1/chargesessions/{id}",
-          "op": "update ChargeSession"
+          "path": "/v1/gpsrawints/{id}",
+          "op": "update GpsRawInt"
         },
         {
           "method": "DELETE",
-          "path": "/v1/chargesessions/{id}",
-          "op": "delete ChargeSession"
+          "path": "/v1/gpsrawints/{id}",
+          "op": "delete GpsRawInt"
         },
         {
           "method": "POST",
-          "path": "/v1/connectors",
-          "op": "create Connector"
+          "path": "/v1/attitudes",
+          "op": "create Attitude"
         },
         {
           "method": "GET",
-          "path": "/v1/connectors",
-          "op": "list Connector"
+          "path": "/v1/attitudes",
+          "op": "list Attitude"
         },
         {
           "method": "GET",
-          "path": "/v1/connectors/{id}",
-          "op": "get Connector"
+          "path": "/v1/attitudes/{id}",
+          "op": "get Attitude"
         },
         {
           "method": "PATCH",
-          "path": "/v1/connectors/{id}",
-          "op": "update Connector"
+          "path": "/v1/attitudes/{id}",
+          "op": "update Attitude"
         },
         {
           "method": "DELETE",
-          "path": "/v1/connectors/{id}",
-          "op": "delete Connector"
+          "path": "/v1/attitudes/{id}",
+          "op": "delete Attitude"
         },
         {
           "method": "POST",
-          "path": "/v1/trips",
-          "op": "create Trip"
+          "path": "/v1/globalpositionints",
+          "op": "create GlobalPositionInt"
         },
         {
           "method": "GET",
-          "path": "/v1/trips",
-          "op": "list Trip"
+          "path": "/v1/globalpositionints",
+          "op": "list GlobalPositionInt"
         },
         {
           "method": "GET",
-          "path": "/v1/trips/{id}",
-          "op": "get Trip"
+          "path": "/v1/globalpositionints/{id}",
+          "op": "get GlobalPositionInt"
         },
         {
           "method": "PATCH",
-          "path": "/v1/trips/{id}",
-          "op": "update Trip"
+          "path": "/v1/globalpositionints/{id}",
+          "op": "update GlobalPositionInt"
         },
         {
           "method": "DELETE",
-          "path": "/v1/trips/{id}",
-          "op": "delete Trip"
+          "path": "/v1/globalpositionints/{id}",
+          "op": "delete GlobalPositionInt"
         },
         {
           "method": "POST",
-          "path": "/v1/commands",
-          "op": "create Command"
+          "path": "/v1/missionitems",
+          "op": "create MissionItem"
         },
         {
           "method": "GET",
-          "path": "/v1/commands",
-          "op": "list Command"
+          "path": "/v1/missionitems",
+          "op": "list MissionItem"
         },
         {
           "method": "GET",
-          "path": "/v1/commands/{id}",
-          "op": "get Command"
+          "path": "/v1/missionitems/{id}",
+          "op": "get MissionItem"
         },
         {
           "method": "PATCH",
-          "path": "/v1/commands/{id}",
-          "op": "update Command"
+          "path": "/v1/missionitems/{id}",
+          "op": "update MissionItem"
         },
         {
           "method": "DELETE",
-          "path": "/v1/commands/{id}",
-          "op": "delete Command"
+          "path": "/v1/missionitems/{id}",
+          "op": "delete MissionItem"
         }
       ],
       "features": {
@@ -247,41 +281,47 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_vehicle",
-          "description": "Create a Vehicle.",
+          "name": "create_heartbeat",
+          "description": "Create a Heartbeat.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "vin": {
-                "type": "string"
+              "type": {
+                "type": "integer"
               },
-              "model": {
-                "type": "string"
+              "autopilot": {
+                "type": "integer"
               },
-              "state": {
-                "type": "string"
+              "baseMode": {
+                "type": "integer"
               },
-              "odometerKm": {
-                "type": "number"
+              "customMode": {
+                "type": "integer"
+              },
+              "systemStatus": {
+                "type": "integer"
+              },
+              "mavlinkVersion": {
+                "type": "integer"
               }
             },
             "required": [
-              "vin",
-              "model"
+              "type",
+              "autopilot"
             ]
           }
         },
         {
-          "name": "list_vehicles",
-          "description": "List Vehicles.",
+          "name": "list_heartbeats",
+          "description": "List Heartbeats.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_vehicle",
-          "description": "Get a Vehicle by id.",
+          "name": "get_heartbeat",
+          "description": "Get a Heartbeat by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,25 +335,31 @@
           }
         },
         {
-          "name": "update_vehicle",
-          "description": "Update a Vehicle.",
+          "name": "update_heartbeat",
+          "description": "Update a Heartbeat.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "vin": {
-                "type": "string"
+              "type": {
+                "type": "integer"
               },
-              "model": {
-                "type": "string"
+              "autopilot": {
+                "type": "integer"
               },
-              "state": {
-                "type": "string"
+              "baseMode": {
+                "type": "integer"
               },
-              "odometerKm": {
-                "type": "number"
+              "customMode": {
+                "type": "integer"
+              },
+              "systemStatus": {
+                "type": "integer"
+              },
+              "mavlinkVersion": {
+                "type": "integer"
               }
             },
             "required": [
@@ -322,8 +368,8 @@
           }
         },
         {
-          "name": "delete_vehicle",
-          "description": "Delete a Vehicle.",
+          "name": "delete_heartbeat",
+          "description": "Delete a Heartbeat.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -337,41 +383,47 @@
           }
         },
         {
-          "name": "create_signal",
-          "description": "Create a Signal.",
+          "name": "create_sys_status",
+          "description": "Create a SysStatus.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "vehicleId": {
-                "type": "string"
+              "load": {
+                "type": "integer"
               },
-              "name": {
-                "type": "string"
+              "voltageBattery": {
+                "type": "integer"
               },
-              "value": {
-                "type": "number"
+              "currentBattery": {
+                "type": "integer"
               },
-              "unit": {
-                "type": "string"
+              "batteryRemaining": {
+                "type": "integer"
+              },
+              "dropRateComm": {
+                "type": "integer"
+              },
+              "errorsComm": {
+                "type": "integer"
               }
             },
             "required": [
-              "name",
-              "value"
+              "load",
+              "voltageBattery"
             ]
           }
         },
         {
-          "name": "list_signals",
-          "description": "List Signals.",
+          "name": "list_sys_statuses",
+          "description": "List SysStatuses.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_signal",
-          "description": "Get a Signal by id.",
+          "name": "get_sys_status",
+          "description": "Get a SysStatus by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -385,24 +437,45 @@
           }
         },
         {
-          "name": "update_signal",
-          "description": "Update a Signal.",
+          "name": "update_sys_status",
+          "description": "Update a SysStatus.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "vehicleId": {
-                "type": "string"
+              "load": {
+                "type": "integer"
               },
-              "name": {
-                "type": "string"
+              "voltageBattery": {
+                "type": "integer"
               },
-              "value": {
-                "type": "number"
+              "currentBattery": {
+                "type": "integer"
               },
-              "unit": {
+              "batteryRemaining": {
+                "type": "integer"
+              },
+              "dropRateComm": {
+                "type": "integer"
+              },
+              "errorsComm": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_sys_status",
+          "description": "Delete a SysStatus.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               }
             },
@@ -412,56 +485,50 @@
           }
         },
         {
-          "name": "delete_signal",
-          "description": "Delete a Signal.",
+          "name": "create_gps_raw_int",
+          "description": "Create a GpsRawInt.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "id": {
-                "type": "string"
+              "timeUsec": {
+                "type": "integer"
+              },
+              "fixType": {
+                "type": "integer"
+              },
+              "lat": {
+                "type": "integer"
+              },
+              "lon": {
+                "type": "integer"
+              },
+              "alt": {
+                "type": "integer"
+              },
+              "vel": {
+                "type": "integer"
+              },
+              "satellitesVisible": {
+                "type": "integer"
               }
             },
             "required": [
-              "id"
+              "timeUsec",
+              "fixType"
             ]
           }
         },
         {
-          "name": "create_charge_session",
-          "description": "Create a ChargeSession.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "vehicleId": {
-                "type": "string"
-              },
-              "connectorId": {
-                "type": "string"
-              },
-              "energyKwh": {
-                "type": "number"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "energyKwh",
-              "status"
-            ]
-          }
-        },
-        {
-          "name": "list_charge_sessions",
-          "description": "List ChargeSessions.",
+          "name": "list_gps_raw_ints",
+          "description": "List GpsRawInts.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_charge_session",
-          "description": "Get a ChargeSession by id.",
+          "name": "get_gps_raw_int",
+          "description": "Get a GpsRawInt by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -475,83 +542,101 @@
           }
         },
         {
-          "name": "update_charge_session",
-          "description": "Update a ChargeSession.",
+          "name": "update_gps_raw_int",
+          "description": "Update a GpsRawInt.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "vehicleId": {
-                "type": "string"
+              "timeUsec": {
+                "type": "integer"
               },
-              "connectorId": {
-                "type": "string"
+              "fixType": {
+                "type": "integer"
               },
-              "energyKwh": {
+              "lat": {
+                "type": "integer"
+              },
+              "lon": {
+                "type": "integer"
+              },
+              "alt": {
+                "type": "integer"
+              },
+              "vel": {
+                "type": "integer"
+              },
+              "satellitesVisible": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_gps_raw_int",
+          "description": "Delete a GpsRawInt.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_attitude",
+          "description": "Create a Attitude.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "timeBootMs": {
+                "type": "integer"
+              },
+              "roll": {
                 "type": "number"
               },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_charge_session",
-          "description": "Delete a ChargeSession.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_connector",
-          "description": "Create a Connector.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "stationId": {
-                "type": "string"
-              },
-              "standard": {
-                "type": "string"
-              },
-              "powerKw": {
+              "pitch": {
                 "type": "number"
               },
-              "status": {
-                "type": "string"
+              "yaw": {
+                "type": "number"
+              },
+              "rollspeed": {
+                "type": "number"
+              },
+              "pitchspeed": {
+                "type": "number"
+              },
+              "yawspeed": {
+                "type": "number"
               }
             },
             "required": [
-              "standard",
-              "powerKw"
+              "timeBootMs",
+              "roll"
             ]
           }
         },
         {
-          "name": "list_connectors",
-          "description": "List Connectors.",
+          "name": "list_attitudes",
+          "description": "List Attitudes.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_connector",
-          "description": "Get a Connector by id.",
+          "name": "get_attitude",
+          "description": "Get a Attitude by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -565,25 +650,34 @@
           }
         },
         {
-          "name": "update_connector",
-          "description": "Update a Connector.",
+          "name": "update_attitude",
+          "description": "Update a Attitude.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "stationId": {
-                "type": "string"
+              "timeBootMs": {
+                "type": "integer"
               },
-              "standard": {
-                "type": "string"
-              },
-              "powerKw": {
+              "roll": {
                 "type": "number"
               },
-              "status": {
-                "type": "string"
+              "pitch": {
+                "type": "number"
+              },
+              "yaw": {
+                "type": "number"
+              },
+              "rollspeed": {
+                "type": "number"
+              },
+              "pitchspeed": {
+                "type": "number"
+              },
+              "yawspeed": {
+                "type": "number"
               }
             },
             "required": [
@@ -592,8 +686,8 @@
           }
         },
         {
-          "name": "delete_connector",
-          "description": "Delete a Connector.",
+          "name": "delete_attitude",
+          "description": "Delete a Attitude.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -607,38 +701,56 @@
           }
         },
         {
-          "name": "create_trip",
-          "description": "Create a Trip.",
+          "name": "create_global_position_int",
+          "description": "Create a GlobalPositionInt.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "vehicleId": {
-                "type": "string"
+              "timeBootMs": {
+                "type": "integer"
               },
-              "distanceKm": {
-                "type": "number"
+              "lat": {
+                "type": "integer"
               },
-              "startedAt": {
-                "type": "string"
+              "lon": {
+                "type": "integer"
+              },
+              "alt": {
+                "type": "integer"
+              },
+              "relativeAlt": {
+                "type": "integer"
+              },
+              "vx": {
+                "type": "integer"
+              },
+              "vy": {
+                "type": "integer"
+              },
+              "vz": {
+                "type": "integer"
+              },
+              "hdg": {
+                "type": "integer"
               }
             },
             "required": [
-              "distanceKm",
-              "startedAt"
+              "timeBootMs",
+              "lat"
             ]
           }
         },
         {
-          "name": "list_trips",
-          "description": "List Trips.",
+          "name": "list_global_position_ints",
+          "description": "List GlobalPositionInts.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_trip",
-          "description": "Get a Trip by id.",
+          "name": "get_global_position_int",
+          "description": "Get a GlobalPositionInt by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -652,77 +764,119 @@
           }
         },
         {
-          "name": "update_trip",
-          "description": "Update a Trip.",
+          "name": "update_global_position_int",
+          "description": "Update a GlobalPositionInt.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "vehicleId": {
-                "type": "string"
+              "timeBootMs": {
+                "type": "integer"
               },
-              "distanceKm": {
+              "lat": {
+                "type": "integer"
+              },
+              "lon": {
+                "type": "integer"
+              },
+              "alt": {
+                "type": "integer"
+              },
+              "relativeAlt": {
+                "type": "integer"
+              },
+              "vx": {
+                "type": "integer"
+              },
+              "vy": {
+                "type": "integer"
+              },
+              "vz": {
+                "type": "integer"
+              },
+              "hdg": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_global_position_int",
+          "description": "Delete a GlobalPositionInt.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_mission_item",
+          "description": "Create a MissionItem.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "targetSystem": {
+                "type": "integer"
+              },
+              "targetComponent": {
+                "type": "integer"
+              },
+              "seq": {
+                "type": "integer"
+              },
+              "frame": {
+                "type": "integer"
+              },
+              "command": {
+                "type": "integer"
+              },
+              "current": {
+                "type": "integer"
+              },
+              "autocontinue": {
+                "type": "integer"
+              },
+              "x": {
                 "type": "number"
               },
-              "startedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_trip",
-          "description": "Delete a Trip.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_command",
-          "description": "Create a Command.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "vehicleId": {
-                "type": "string"
+              "y": {
+                "type": "number"
               },
-              "name": {
-                "type": "string"
+              "z": {
+                "type": "number"
               },
-              "status": {
-                "type": "string"
+              "missionType": {
+                "type": "integer"
               }
             },
             "required": [
-              "name",
-              "status"
+              "targetSystem",
+              "targetComponent"
             ]
           }
         },
         {
-          "name": "list_commands",
-          "description": "List Commands.",
+          "name": "list_mission_items",
+          "description": "List MissionItems.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_command",
-          "description": "Get a Command by id.",
+          "name": "get_mission_item",
+          "description": "Get a MissionItem by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -736,22 +890,46 @@
           }
         },
         {
-          "name": "update_command",
-          "description": "Update a Command.",
+          "name": "update_mission_item",
+          "description": "Update a MissionItem.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "vehicleId": {
-                "type": "string"
+              "targetSystem": {
+                "type": "integer"
               },
-              "name": {
-                "type": "string"
+              "targetComponent": {
+                "type": "integer"
               },
-              "status": {
-                "type": "string"
+              "seq": {
+                "type": "integer"
+              },
+              "frame": {
+                "type": "integer"
+              },
+              "command": {
+                "type": "integer"
+              },
+              "current": {
+                "type": "integer"
+              },
+              "autocontinue": {
+                "type": "integer"
+              },
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "z": {
+                "type": "number"
+              },
+              "missionType": {
+                "type": "integer"
               }
             },
             "required": [
@@ -760,8 +938,8 @@
           }
         },
         {
-          "name": "delete_command",
-          "description": "Delete a Command.",
+          "name": "delete_mission_item",
+          "description": "Delete a MissionItem.",
           "inputSchema": {
             "type": "object",
             "properties": {
