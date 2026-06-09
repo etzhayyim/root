@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 61,
+  "count": 62,
   "actors": [
     {
       "handle": "square-compat",
@@ -8617,6 +8617,136 @@
       ],
       "notApplicable": [],
       "note": "Remodeled from a wholly-mismatched media_video_cms archetype to a faithful CDN/edge model. 6/6 entities field-verified vs the official go-fastly SDK. No closed enums in the SDK structs (Service.type [vcl,wasm] is documented but not a struct constant -> recorded as a gap, not enforced)."
+    },
+    {
+      "handle": "heroku-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/heroku/heroku-go (v5/heroku.go — official, schema-generated Platform API SDK)",
+      "remodeled": "Remodeled from the generic iaas_cloud archetype (GCP/AWS-shaped Project/ComputeInstance/Bucket/Network/IamRole with machineType/billingId) to a faithful Heroku Platform API (PaaS) model (App/Dyno/Addon/Release/Build/Domain), verified field-by-field against the official heroku-go SDK structs (downloaded + grepped, not memory). The L5 gate had correctly rejected the prior mismatched model (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "App",
+          "source": "v5/heroku.go (type App struct)",
+          "verifiedFields": [
+            "name",
+            "acm",
+            "gitUrl",
+            "webUrl",
+            "maintenance",
+            "internalRouting",
+            "buildpackProvidedDescription",
+            "repoSize",
+            "slugSize"
+          ],
+          "fieldStatus": "confirmed vs App struct json tags (name/acm/git_url/web_url/maintenance/internal_routing/buildpack_provided_description/repo_size/slug_size)",
+          "discoveredEnums": {},
+          "gaps": [
+            "build_stack(object)",
+            "owner(object)",
+            "region(object)",
+            "space(object)",
+            "stack(object)",
+            "team(object)",
+            "released_at"
+          ]
+        },
+        {
+          "entity": "Dyno",
+          "source": "v5/heroku.go (type Dyno struct)",
+          "verifiedFields": [
+            "name",
+            "command",
+            "size",
+            "state",
+            "type",
+            "attachUrl"
+          ],
+          "fieldStatus": "confirmed vs Dyno struct json tags (name/command/size/state/type/attach_url)",
+          "discoveredEnums": {},
+          "gaps": [
+            "state has documented values (starting/up/idle/crashed/down) not encoded as SDK constants -> not enforced",
+            "app(object)",
+            "release(object)"
+          ]
+        },
+        {
+          "entity": "Addon",
+          "source": "v5/heroku.go (type AddOn struct)",
+          "verifiedFields": [
+            "name",
+            "providerId",
+            "state",
+            "webUrl"
+          ],
+          "fieldStatus": "confirmed vs AddOn struct json tags (name/provider_id/state/web_url)",
+          "discoveredEnums": {},
+          "gaps": [
+            "state has documented values (provisioning/provisioned/deprovisioned) not SDK constants",
+            "addon_service(object)",
+            "plan(object)",
+            "app(object)"
+          ]
+        },
+        {
+          "entity": "Release",
+          "source": "v5/heroku.go (type Release struct)",
+          "verifiedFields": [
+            "description",
+            "status",
+            "version",
+            "current",
+            "outputStreamUrl"
+          ],
+          "fieldStatus": "confirmed vs Release struct json tags (description/status/version/current/output_stream_url)",
+          "discoveredEnums": {},
+          "gaps": [
+            "status has documented values (failed/pending/succeeded) not SDK constants",
+            "app(object)",
+            "slug(object)",
+            "user(object)"
+          ]
+        },
+        {
+          "entity": "Build",
+          "source": "v5/heroku.go (type Build struct)",
+          "verifiedFields": [
+            "status",
+            "stack",
+            "outputStreamUrl"
+          ],
+          "fieldStatus": "confirmed vs Build struct json tags (status/stack/output_stream_url)",
+          "discoveredEnums": {},
+          "gaps": [
+            "status has documented values (failed/pending/succeeded) not SDK constants",
+            "app(object)",
+            "slug(object)",
+            "source_blob(object)",
+            "buildpacks(array)"
+          ]
+        },
+        {
+          "entity": "Domain",
+          "source": "v5/heroku.go (type Domain struct)",
+          "verifiedFields": [
+            "hostname",
+            "cname",
+            "kind",
+            "status",
+            "acmStatus",
+            "acmStatusReason"
+          ],
+          "fieldStatus": "confirmed vs Domain struct json tags (hostname/cname/kind/status/acm_status/acm_status_reason)",
+          "discoveredEnums": {},
+          "gaps": [
+            "kind has documented values (heroku/custom) not SDK constants",
+            "app(object)",
+            "sni_endpoint(object)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "Remodeled from generic iaas_cloud archetype to a faithful PaaS model. 6/6 entities field-verified vs the official heroku-go SDK (schema-generated). The Go structs type state/status/kind as plain string (the enums live in the Platform API JSON hyper-schema, not the SDK structs) -> recorded as gaps rather than over-claimed/enforced."
     }
   ]
 }

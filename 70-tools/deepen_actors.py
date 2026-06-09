@@ -1088,6 +1088,17 @@ PLATFORM_OVERRIDES = {
         "ACL": E(serviceId="string", serviceVersion="integer", name="string"),
         "Dictionary": E(serviceId="string", serviceVersion="integer", name="string", writeOnly="boolean"),
     },
+    # Faithful Heroku (Platform API) model (remodeled from the generic iaas_cloud
+    # archetype whose GCP/AWS-shaped ComputeInstance/Bucket/IamRole entities did
+    # not match Heroku's PaaS API), doc-verified L5 vs github.com/heroku/heroku-go.
+    "heroku": {
+        "App": E(name="string", acm="boolean", gitUrl="string", webUrl="string", maintenance="boolean", internalRouting="boolean", buildpackProvidedDescription="string", repoSize="integer", slugSize="integer"),
+        "Dyno": E(name="string", command="string", size="string", state="string", type="string", attachUrl="string"),
+        "Addon": E(name="string", providerId="string", state="string", webUrl="string"),
+        "Release": E(description="string", status="string", version="integer", current="boolean", outputStreamUrl="string"),
+        "Build": E(status="string", stack="string", outputStreamUrl="string"),
+        "Domain": E(hostname="string", cname="string", kind="string", status="string", acmStatus="string", acmStatusReason="string"),
+    },
     # Faithful Airtable model (remodeled from generic office_productivity), L5.
     "airtable": {
         "Base": E(name="string", permissionLevel="string"),

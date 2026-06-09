@@ -3,71 +3,73 @@
 
 namespace heroku {
 
-    entity Project {
+    entity App {
         id: string @unique
         name: string
-        region: string
-        billingId: string
+        acm: boolean
+        gitUrl: string
+        webUrl: string
+        maintenance: boolean
+        internalRouting: boolean
+        buildpackProvidedDescription: string
+        repoSize: integer
+        slugSize: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity ComputeInstance {
+    entity Dyno {
         id: string @unique
-        projectId: string
         name: string
-        machineType: string
+        command: string
+        size: string
         state: string
-        ipAddress: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Volume {
-        id: string @unique
-        projectId: string
-        sizeGb: integer
         type: string
-        attachedTo: string
+        attachUrl: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Bucket {
+    entity Addon {
         id: string @unique
-        projectId: string
         name: string
-        region: string
-        public: boolean
+        providerId: string
+        state: string
+        webUrl: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Network {
+    entity Release {
         id: string @unique
-        projectId: string
-        cidr: string
-        region: string
+        description: string
+        status: string
+        version: integer
+        current: boolean
+        outputStreamUrl: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity IamRole {
+    entity Build {
         id: string @unique
-        projectId: string
-        name: string
-        policy: string
+        status: string
+        stack: string
+        outputStreamUrl: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Domain {
+        id: string @unique
+        hostname: string
+        cname: string
+        kind: string
+        status: string
+        acmStatus: string
+        acmStatusReason: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }
