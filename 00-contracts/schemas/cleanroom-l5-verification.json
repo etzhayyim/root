@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 78,
+  "count": 79,
   "actors": [
     {
       "handle": "square-compat",
@@ -11250,6 +11250,200 @@
       ],
       "notApplicable": [],
       "note": "Remodeled from a mismatched Stripe-shaped archetype to a faithful Paystack model. 6/6 entities field-verified vs Paystack's official OpenAPI (writable fields from the *Create request schemas). Discovered closed enums (4): Transaction.bearer, Plan.interval, Page.currency, Page.type. Server-assigned codes (customer_code/plan_code/etc.) are response-only -> recorded as gaps."
+    },
+    {
+      "handle": "vimeo-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "Vimeo official OpenAPI 3.4 (via apis.guru mirror: api.apis.guru/v2/specs/vimeo.com/3.4/openapi.json)",
+      "remodeled": "Remodeled from the generic media_video_cms archetype (Asset/Rendition/Channel/Playlist/ContentEntry/Experiment — a streaming-CMS shape) to a faithful Vimeo model (Video/Channel/Album/User/Group/Category), verified field-by-field against Vimeo's official OpenAPI. Vimeo uses uri/resource_key as identifiers (no numeric id); created_time/modified_time map to scaffold createdAt/updatedAt. The L5 gate had correctly rejected the prior mismatched model (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Video",
+          "source": "vimeo OpenAPI video",
+          "verifiedFields": [
+            "name",
+            "description",
+            "duration",
+            "width",
+            "height",
+            "language",
+            "license",
+            "status",
+            "link",
+            "releaseTime",
+            "resourceKey",
+            "uri"
+          ],
+          "fieldStatus": "confirmed vs video schema (name/description/duration/width/height/language/license/status/link/release_time/resource_key/uri)",
+          "discoveredEnums": {
+            "license": [
+              "by",
+              "by-nc",
+              "by-nc-nd",
+              "by-nc-sa",
+              "by-nd",
+              "by-sa",
+              "cc0"
+            ],
+            "status": [
+              "available",
+              "quota_exceeded",
+              "total_cap_exceeded",
+              "transcode_starting",
+              "transcoding",
+              "transcoding_error",
+              "unavailable",
+              "uploading"
+            ]
+          },
+          "gaps": [
+            "privacy(object)",
+            "stats(object)",
+            "pictures(object)",
+            "files(array)",
+            "embed(object)"
+          ]
+        },
+        {
+          "entity": "Channel",
+          "source": "vimeo OpenAPI channel",
+          "verifiedFields": [
+            "name",
+            "description",
+            "link",
+            "resourceKey",
+            "uri"
+          ],
+          "fieldStatus": "confirmed vs channel schema (name/description/link/resource_key/uri)",
+          "discoveredEnums": {},
+          "gaps": [
+            "privacy(object)",
+            "pictures(object)",
+            "metadata(object)"
+          ]
+        },
+        {
+          "entity": "Album",
+          "source": "vimeo OpenAPI album",
+          "verifiedFields": [
+            "name",
+            "description",
+            "duration",
+            "layout",
+            "sort",
+            "theme",
+            "brandColor",
+            "allowDownloads",
+            "allowShare",
+            "allowContinuousPlay",
+            "reviewMode",
+            "hideNav",
+            "link",
+            "url",
+            "resourceKey",
+            "uri"
+          ],
+          "fieldStatus": "confirmed vs album schema (name/description/duration/layout/sort/theme/brand_color/allow_downloads/allow_share/allow_continuous_play/review_mode/hide_nav/link/url/resource_key/uri)",
+          "discoveredEnums": {
+            "layout": [
+              "grid",
+              "player"
+            ],
+            "sort": [
+              "added_first",
+              "added_last",
+              "alphabetical",
+              "arranged",
+              "comments",
+              "likes",
+              "newest",
+              "oldest"
+            ],
+            "theme": [
+              "dark",
+              "standard"
+            ]
+          },
+          "gaps": [
+            "privacy(object)",
+            "embed(object)",
+            "pictures(object)"
+          ]
+        },
+        {
+          "entity": "User",
+          "source": "vimeo OpenAPI user",
+          "verifiedFields": [
+            "name",
+            "bio",
+            "email",
+            "location",
+            "account",
+            "link",
+            "resourceKey",
+            "uri"
+          ],
+          "fieldStatus": "confirmed vs user schema (name/bio/email/location/account/link/resource_key/uri)",
+          "discoveredEnums": {
+            "account": [
+              "basic",
+              "business",
+              "live_business",
+              "live_premium",
+              "live_pro",
+              "plus",
+              "pro",
+              "pro_unlimited"
+            ]
+          },
+          "gaps": [
+            "pictures(object)",
+            "websites(array)",
+            "metadata(object)",
+            "preferences(object)"
+          ]
+        },
+        {
+          "entity": "Group",
+          "source": "vimeo OpenAPI group",
+          "verifiedFields": [
+            "name",
+            "description",
+            "link",
+            "resourceKey",
+            "uri"
+          ],
+          "fieldStatus": "confirmed vs group schema (name/description/link/resource_key/uri)",
+          "discoveredEnums": {},
+          "gaps": [
+            "privacy(object)",
+            "pictures(object)",
+            "metadata(object)"
+          ]
+        },
+        {
+          "entity": "Category",
+          "source": "vimeo OpenAPI category",
+          "verifiedFields": [
+            "name",
+            "topLevel",
+            "lastVideoFeaturedTime",
+            "link",
+            "resourceKey",
+            "uri"
+          ],
+          "fieldStatus": "confirmed vs category schema (name/top_level/last_video_featured_time/link/resource_key/uri)",
+          "discoveredEnums": {},
+          "gaps": [
+            "subcategories(array)",
+            "pictures(object)",
+            "parent(object)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "Remodeled from a mismatched streaming-CMS archetype to a faithful Vimeo model. 6/6 entities field-verified vs Vimeo's official OpenAPI 3.4. Discovered closed enums (6): Video.license/status, Album.layout/sort/theme, User.account. Vimeo identifiers are uri/resource_key (no numeric id)."
     }
   ]
 }

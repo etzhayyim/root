@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 922,
-    "L5": 78
+    "L4": 921,
+    "L5": 79
   },
   "actors": [
     {
@@ -16832,7 +16832,7 @@
       "wasmCid": "bafkreickkwfjveogek6bhoayalvunmvijx6mkwijdgirxaffx5jysny3gi",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "vimeo clean-room actor",
       "category": "media_video_cms",
       "capabilities": [

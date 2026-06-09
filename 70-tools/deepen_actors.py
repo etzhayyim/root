@@ -1281,6 +1281,17 @@ PLATFORM_OVERRIDES = {
         "Product": E(name="string", description="string", price="integer", currency="string", unlimited="boolean", quantity="integer", splitCode="string", metadata="string"),
         "Page": E(name="string", description="string", amount="integer", currency="string", slug="string", type="string", plan="string", fixedAmount="boolean", splitCode="string", redirectUrl="string", successMessage="string", notificationEmail="string", collectPhone="boolean"),
     },
+    # Faithful Vimeo model (remodeled from the generic media_video_cms archetype
+    # whose Asset/Rendition/Channel/Playlist entities did not match Vimeo's video
+    # API), doc-verified L5 vs Vimeo's official OpenAPI (via apis.guru).
+    "vimeo": {
+        "Video": E(name="string", description="string", duration="float", width="integer", height="integer", language="string", license="string", status="string", link="string", releaseTime="datetime", resourceKey="string", uri="string"),
+        "Channel": E(name="string", description="string", link="string", resourceKey="string", uri="string"),
+        "Album": E(name="string", description="string", duration="float", layout="string", sort="string", theme="string", brandColor="string", allowDownloads="boolean", allowShare="boolean", allowContinuousPlay="boolean", reviewMode="boolean", hideNav="boolean", link="string", url="string", resourceKey="string", uri="string"),
+        "User": E(name="string", bio="string", email="string", location="string", account="string", link="string", resourceKey="string", uri="string"),
+        "Group": E(name="string", description="string", link="string", resourceKey="string", uri="string"),
+        "Category": E(name="string", topLevel="boolean", lastVideoFeaturedTime="datetime", link="string", resourceKey="string", uri="string"),
+    },
     # Faithful Airtable model (remodeled from generic office_productivity), L5.
     "airtable": {
         "Base": E(name="string", permissionLevel="string"),
