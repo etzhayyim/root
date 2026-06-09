@@ -7,8 +7,8 @@
     "260607"
   ],
   "count": 1000,
-  "l5VerifiedActors": 127,
-  "totalVerifiedEnumFields": 568,
+  "l5VerifiedActors": 129,
+  "totalVerifiedEnumFields": 578,
   "feeds": [
     {
       "handle": "8th_wall-compat",
@@ -217,8 +217,8 @@
       "source": "ais_marine.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 6
     },
     {
       "handle": "alchemy-compat",
@@ -567,8 +567,8 @@
       "source": "as2_protocol.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 4
     },
     {
       "handle": "as_400_ibmi-compat",

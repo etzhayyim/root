@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 131,
+  "count": 133,
   "actors": [
     {
       "handle": "square-compat",
@@ -18207,6 +18207,293 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (5/5 schemas; M3UA/SUA RFC-verified). Enforced enums: M3uaMessage.messageClass(6, RFC 4666), SuaMessage.messageClass(7, RFC 3868), ProtocolData.ni(4), Mtp3Message.networkIndicator(4) = 4 enums. SCCP/ISUP message types (ITU-T Q.713/Q.764 paywalled) intentionally not enforced."
+    },
+    {
+      "handle": "ais_marine-compat",
+      "verifiedAt": "2026-06-10",
+      "tier": "L5",
+      "source": "https://gpsd.gitlab.io/gpsd/AIVDM.html",
+      "remodeled": "Remodeled from generic category model to a faithful AIS (ITU-R M.1371) model, verified against the gpsd AIVDM canonical reference. shipType (0-99 IMO code list) -> not enforced.",
+      "resources": [
+        {
+          "entity": "Message",
+          "source": "https://gpsd.gitlab.io/gpsd/AIVDM.html",
+          "verifiedFields": [
+            "messageType",
+            "repeatIndicator",
+            "mmsi"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "messageType": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "PositionReport",
+          "source": "https://gpsd.gitlab.io/gpsd/AIVDM.html",
+          "verifiedFields": [
+            "messageType",
+            "mmsi",
+            "navigationStatus",
+            "rateOfTurn",
+            "speedOverGround",
+            "longitude",
+            "latitude",
+            "courseOverGround",
+            "trueHeading",
+            "maneuverIndicator"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "navigationStatus": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15
+            ],
+            "maneuverIndicator": [
+              0,
+              1,
+              2
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "BaseStationReport",
+          "source": "https://gpsd.gitlab.io/gpsd/AIVDM.html",
+          "verifiedFields": [
+            "messageType",
+            "mmsi",
+            "longitude",
+            "latitude",
+            "typeOfEpfd"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "typeOfEpfd": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              15
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "StaticVoyageData",
+          "source": "https://gpsd.gitlab.io/gpsd/AIVDM.html",
+          "verifiedFields": [
+            "messageType",
+            "mmsi",
+            "imoNumber",
+            "callSign",
+            "vesselName",
+            "shipType",
+            "draught",
+            "destination"
+          ],
+          "fieldStatus": "confirmed; shipType large IMO list -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "shipType-0-99"
+          ]
+        },
+        {
+          "entity": "AidToNavigationReport",
+          "source": "https://gpsd.gitlab.io/gpsd/AIVDM.html",
+          "verifiedFields": [
+            "messageType",
+            "mmsi",
+            "typeOfAid",
+            "name",
+            "longitude",
+            "latitude",
+            "typeOfEpfd"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "typeOfAid": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ],
+            "typeOfEpfd": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              15
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs gpsd AIVDM (canonical ITU-R M.1371). Enforced enums: Message.messageType(27), PositionReport.navigationStatus(16)/maneuverIndicator(3), BaseStationReport.typeOfEpfd(10), AidToNavigationReport.typeOfAid(32)/typeOfEpfd(10) = 6 enums. shipType (0-99) not enforced."
+    },
+    {
+      "handle": "as2_protocol-compat",
+      "verifiedAt": "2026-06-10",
+      "tier": "L5",
+      "source": "https://datatracker.ietf.org/doc/html/rfc4130",
+      "remodeled": "Remodeled from generic category model to a faithful AS2 (RFC 4130) model, verified against the official RFC (exact section citations). The MDN disposition-mode grammar enums are stable + enforced; micalg/digestAlgorithm algorithm sets evolve past RFC 4130 (sha1/md5 -> modern sha-256) -> not enforced to avoid false-rejecting current values.",
+      "resources": [
+        {
+          "entity": "As2Message",
+          "source": "https://datatracker.ietf.org/doc/html/rfc4130#section-5.2",
+          "verifiedFields": [
+            "messageId",
+            "as2From",
+            "as2To",
+            "as2Version",
+            "contentType",
+            "micalg",
+            "contentTransferEncoding",
+            "dispositionNotificationTo"
+          ],
+          "fieldStatus": "confirmed; micalg/contentTransferEncoding algorithm sets evolve -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "micalg-evolving",
+            "cte-scoped"
+          ]
+        },
+        {
+          "entity": "Mdn",
+          "source": "https://datatracker.ietf.org/doc/html/rfc4130#section-7.4.3",
+          "verifiedFields": [
+            "messageId",
+            "originalMessageId",
+            "finalRecipient",
+            "dispositionType",
+            "dispositionMode",
+            "actionMode",
+            "sendingMode",
+            "dispositionModifier",
+            "digestAlgorithm"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "dispositionType": [
+              "processed",
+              "failed"
+            ],
+            "dispositionModifier": [
+              "error",
+              "warning"
+            ],
+            "actionMode": [
+              "manual-action",
+              "automatic-action"
+            ],
+            "sendingMode": [
+              "MDN-sent-manually",
+              "MDN-sent-automatically"
+            ]
+          },
+          "gaps": [
+            "digestAlgorithm-evolving"
+          ]
+        },
+        {
+          "entity": "DispositionNotification",
+          "source": "https://datatracker.ietf.org/doc/html/rfc4130#section-7.4",
+          "verifiedFields": [
+            "reportingUa",
+            "finalRecipient",
+            "originalMessageId",
+            "disposition",
+            "receivedContentMic"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (3/3) vs official RFC 4130. Enforced enums: Mdn.dispositionType(2), dispositionModifier(2), actionMode(2), sendingMode(2) = 4 (stable MDN disposition-mode grammar). micalg/digestAlgorithm (evolving algorithm sets) intentionally not enforced."
     }
   ]
 }

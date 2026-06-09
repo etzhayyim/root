@@ -355,17 +355,16 @@
       "handle": "ais_marine-compat",
       "platform": "ais_marine",
       "bytes": 2124,
-      "wasmCid": "bafkreiaurouzqkvzc2wdnrwbm3xtcds6za42vpgnmtrdpejan7n7ekctfi",
+      "wasmCid": "bafkreid2xjpudgotp7vx2zor6zjc2i4c72gsm3kv6mw2wnx5b2kr2cgbhe",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Object",
-        "Position",
-        "Observation",
-        "Scene",
-        "Float",
-        "Station"
+        "Message",
+        "PositionReport",
+        "BaseStationReport",
+        "StaticVoyageData",
+        "AidToNavigationReport"
       ]
     },
     {
@@ -949,17 +948,14 @@
       "handle": "as2_protocol-compat",
       "platform": "as2_protocol",
       "bytes": 2126,
-      "wasmCid": "bafkreib5rcm2vpuociso7dx67i7osvenbh74bovulqiic4z45qfkus2mg4",
+      "wasmCid": "bafkreih64ia2wcfkmp3b4wfrg4bq2kn5nfs2cdzkdb3rg46p62orcfvlra",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "TradeItem",
-        "Event",
-        "Document",
-        "Container",
-        "Party",
-        "Shipment"
+        "As2Message",
+        "Mdn",
+        "DispositionNotification"
       ]
     },
     {

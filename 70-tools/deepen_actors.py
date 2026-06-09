@@ -1693,6 +1693,22 @@ PLATFORM_OVERRIDES = {
         "Transform": E(type="integer", transformId="integer", transformLength="integer", attributes="string"),
         "Notify": E(protocolId="integer", spiSize="integer", notifyMessageType="integer", spi="string", notificationData="string"),
     },
+    # Faithful AIS (ITU-R M.1371) model — verified vs gpsd AIVDM canonical reference.
+    # shipType (0-99) is a large IMO code list -> not enforced.
+    "ais_marine": {
+        "Message": E(messageType="integer", repeatIndicator="integer", mmsi="integer"),
+        "PositionReport": E(messageType="integer", mmsi="integer", navigationStatus="integer", rateOfTurn="float", speedOverGround="float", longitude="float", latitude="float", courseOverGround="float", trueHeading="integer", maneuverIndicator="integer"),
+        "BaseStationReport": E(messageType="integer", mmsi="integer", longitude="float", latitude="float", typeOfEpfd="integer"),
+        "StaticVoyageData": E(messageType="integer", mmsi="integer", imoNumber="integer", callSign="string", vesselName="string", shipType="integer", draught="float", destination="string"),
+        "AidToNavigationReport": E(messageType="integer", mmsi="integer", typeOfAid="integer", name="string", longitude="float", latitude="float", typeOfEpfd="integer"),
+    },
+    # Faithful AS2 (RFC 4130) model — verified vs the official RFC. micalg/digestAlgorithm
+    # algorithm sets evolve past RFC 4130 (sha1/md5) -> not enforced; MDN grammar enums are.
+    "as2_protocol": {
+        "As2Message": E(messageId="string", as2From="string", as2To="string", as2Version="string", contentType="string", micalg="string", contentTransferEncoding="string", dispositionNotificationTo="string"),
+        "Mdn": E(messageId="string", originalMessageId="string", finalRecipient="string", dispositionType="string", dispositionMode="string", actionMode="string", sendingMode="string", dispositionModifier="string", digestAlgorithm="string"),
+        "DispositionNotification": E(reportingUa="string", finalRecipient="string", originalMessageId="string", disposition="string", receivedContentMic="string"),
+    },
     # Faithful BGP-4 (RFC 4271) model — verified against the official RFC 4271 + IANA
     # BGP parameters registry. Enums scoped to RFC 4271 core (ROUTE-REFRESH is RFC 2918).
     "bgp_routing": {

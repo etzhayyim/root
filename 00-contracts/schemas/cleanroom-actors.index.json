@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 869,
-    "L5": 131
+    "L4": 867,
+    "L5": 133
   },
   "actors": [
     {
@@ -377,10 +377,10 @@
     {
       "handle": "ais_marine-compat",
       "did": "did:web:etzhayyim.com:actor:ais_marine-compat",
-      "wasmCid": "bafkreiaurouzqkvzc2wdnrwbm3xtcds6za42vpgnmtrdpejan7n7ekctfi",
+      "wasmCid": "bafkreid2xjpudgotp7vx2zor6zjc2i4c72gsm3kv6mw2wnx5b2kr2cgbhe",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "ais_marine clean-room actor",
       "category": "space_ocean_earth",
       "capabilities": [
@@ -1007,10 +1007,10 @@
     {
       "handle": "as2_protocol-compat",
       "did": "did:web:etzhayyim.com:actor:as2_protocol-compat",
-      "wasmCid": "bafkreib5rcm2vpuociso7dx67i7osvenbh74bovulqiic4z45qfkus2mg4",
+      "wasmCid": "bafkreih64ia2wcfkmp3b4wfrg4bq2kn5nfs2cdzkdb3rg46p62orcfvlra",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "as2_protocol clean-room actor",
       "category": "deep_logistics_supply",
       "capabilities": [
