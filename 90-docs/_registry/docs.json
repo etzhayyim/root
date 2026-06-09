@@ -23200,6 +23200,35 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606091800-infra-robotics-3layer-operational-substrate.md",
+      "id": "adr-2606091800-infra-robotics-3layer-operational-substrate",
+      "title": "ADR-2606091800: Basic-infrastructure robotics — 3-layer operational substrate (electric/water/gas/telecom)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "infra-robotics-3layer-operational-substrate",
+      "authoritative": true,
+      "authoritative_for": [
+        "infra-robotics-operational-substrate",
+        "kuni-umi-robotics-reference-engine"
+      ],
+      "related": [
+        "2605201400",
+        "2605261100",
+        "2605263100",
+        "2606051500",
+        "2606051600",
+        "2605215000",
+        "2605312345",
+        "2605231525"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [],
+      "last_verified": "2026-06-09",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606092000-tsumugi-scale-agnostic-and-hata-banner-power-dynamics.md",
       "id": "adr-2606092000-tsumugi-scale-agnostic-and-hata-banner-power-dynamics",
       "title": "ADR-2606092000: tsumugi 紡ぎ — scale-agnostic 産官学報 concentration (A) + 旗 hata ideology/faction dimension (B)",
