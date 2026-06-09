@@ -81,4 +81,32 @@
  {:tie/id "tie.gakubatsu.B.gov" :tie/kind :seats-on :tie/from "seat.univ.jp.B.chair" :tie/to "seat.gov.jp.ministry-council" :tie/grasping-load 0.46 :tie/sources ["審議会 委員名簿 (公開)" "省庁 公開資料"] :tie/sourcing :representative}
  ;; コミュニティ: coop ↔ town hall ↔ community paper (民官報 local weave)
  {:tie/id "tie.communityX.coop.town" :tie/kind :co-member :tie/from "org.coop.jp.communityX" :tie/to "org.gov.jp.townX" :tie/grasping-load 0.40 :tie/sources ["X町 広報 (公開)" "協同組合X 総会資料 (公開)"] :tie/sourcing :representative}
- {:tie/id "tie.communityX.press.coop" :tie/kind :covers :tie/from "org.press.jp.communityX" :tie/to "org.coop.jp.communityX" :tie/grasping-load 0.34 :tie/sources ["X町 コミュニティ紙 紙面 (公開)" "協同組合X 公開情報"] :tie/sourcing :representative}]
+ {:tie/id "tie.communityX.press.coop" :tie/kind :covers :tie/from "org.press.jp.communityX" :tie/to "org.coop.jp.communityX" :tie/grasping-load 0.34 :tie/sources ["X町 コミュニティ紙 紙面 (公開)" "協同組合X 公開情報"] :tie/sourcing :representative}
+
+ ;; ═══════════ granularity wave 2 (/loop): more world coverage — real JP regional 産官学報 ═══════════
+ ;; (7) 愛知 — トヨタ城下町: the densest real domestic 産官学報 cluster (structural-public facts)
+ {:pwr/id "org.plant.jp.toyota-aichi" :pwr/label "トヨタ自動車 (愛知 本社・工場群)" :pwr/standing :institutional :pwr/scale :local :pwr/sector :san :pwr/locality "jp.aichi" :pwr/parent "org.corp.jp.7203" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.gov.jp.aichi-ken" :pwr/label "愛知県 (県庁)" :pwr/standing :institutional :pwr/scale :regional :pwr/sector :kan :pwr/locality "jp.aichi" :pwr/collective-kind :region :pwr/sourcing :representative}
+ {:pwr/id "seat.gov.jp.aichi.shingikai" :pwr/label "愛知県 産業労働 審議会 — 委員 seat (public)" :pwr/standing :public-seat :pwr/scale :regional :pwr/sector :kan :pwr/locality "jp.aichi" :pwr/parent "org.gov.jp.aichi-ken" :pwr/collective-kind :advisory-body :pwr/sourcing :representative}
+ {:pwr/id "org.univ.jp.nagoya-u" :pwr/label "名古屋大学" :pwr/standing :institutional :pwr/scale :local :pwr/sector :gaku :pwr/locality "jp.aichi" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.press.jp.chunichi" :pwr/label "中日新聞" :pwr/standing :institutional :pwr/scale :regional :pwr/sector :hou :pwr/locality "jp.aichi" :pwr/collective-kind :org :pwr/sourcing :representative}
+
+ ;; (8) 広島 — マツダ城下町 (structural-public facts)
+ {:pwr/id "org.plant.jp.mazda-hiroshima" :pwr/label "マツダ (広島 本社・工場)" :pwr/standing :institutional :pwr/scale :local :pwr/sector :san :pwr/locality "jp.hiroshima" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.gov.jp.hiroshima-ken" :pwr/label "広島県 (県庁)" :pwr/standing :institutional :pwr/scale :regional :pwr/sector :kan :pwr/locality "jp.hiroshima" :pwr/collective-kind :region :pwr/sourcing :representative}
+ {:pwr/id "org.univ.jp.hiroshima-u" :pwr/label "広島大学" :pwr/standing :institutional :pwr/scale :local :pwr/sector :gaku :pwr/locality "jp.hiroshima" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.press.jp.chugoku-shimbun" :pwr/label "中国新聞" :pwr/standing :institutional :pwr/scale :regional :pwr/sector :hou :pwr/locality "jp.hiroshima" :pwr/collective-kind :org :pwr/sourcing :representative}
+
+ ;; ───────────── granularity wave 2 ties ─────────────
+ ;; 愛知
+ {:tie/id "tie.aichi.toyota.employs" :tie/kind :employs :tie/from "org.plant.jp.toyota-aichi" :tie/to "org.gov.jp.aichi-ken" :tie/grasping-load 0.80 :tie/sources ["トヨタ 有価証券報告書 事業所" "愛知県 統計年鑑 製造業"] :tie/sourcing :representative}
+ {:tie/id "tie.aichi.toyota.seats" :tie/kind :seats-on :tie/from "org.plant.jp.toyota-aichi" :tie/to "seat.gov.jp.aichi.shingikai" :tie/grasping-load 0.62 :tie/sources ["愛知県 審議会 委員名簿 (公開)" "愛知県 産業労働部 公開資料"] :tie/sourcing :representative}
+ {:tie/id "tie.aichi.u.seats" :tie/kind :seats-on :tie/from "org.univ.jp.nagoya-u" :tie/to "seat.gov.jp.aichi.shingikai" :tie/grasping-load 0.50 :tie/sources ["愛知県 審議会 委員名簿 (公開)" "名古屋大学 産学連携 公開資料"] :tie/sourcing :representative}
+ {:tie/id "tie.aichi.u.depends" :tie/kind :depends-on :tie/from "org.univ.jp.nagoya-u" :tie/to "org.plant.jp.toyota-aichi" :tie/grasping-load 0.52 :tie/sources ["名古屋大学 共同研究 公表実績" "トヨタ 産学連携 公開資料"] :tie/sourcing :representative}
+ {:tie/id "tie.aichi.press.covers" :tie/kind :covers :tie/from "org.press.jp.chunichi" :tie/to "org.plant.jp.toyota-aichi" :tie/grasping-load 0.44 :tie/sources ["中日新聞 紙面 (経済面)" "中日新聞社 社史 公開情報"] :tie/sourcing :representative}
+ {:tie/id "tie.aichi.press.covers-ken" :tie/kind :covers :tie/from "org.press.jp.chunichi" :tie/to "org.gov.jp.aichi-ken" :tie/grasping-load 0.42 :tie/sources ["中日新聞 紙面 (県政面)" "愛知県 記者クラブ 公開情報"] :tie/sourcing :representative}
+ ;; 広島
+ {:tie/id "tie.hiroshima.mazda.employs" :tie/kind :employs :tie/from "org.plant.jp.mazda-hiroshima" :tie/to "org.gov.jp.hiroshima-ken" :tie/grasping-load 0.70 :tie/sources ["マツダ 有価証券報告書 事業所" "広島県 統計年鑑 製造業"] :tie/sourcing :representative}
+ {:tie/id "tie.hiroshima.u.depends" :tie/kind :depends-on :tie/from "org.univ.jp.hiroshima-u" :tie/to "org.plant.jp.mazda-hiroshima" :tie/grasping-load 0.44 :tie/sources ["広島大学 産学連携 公開資料" "マツダ 共同研究 公表実績"] :tie/sourcing :representative}
+ {:tie/id "tie.hiroshima.press.covers" :tie/kind :covers :tie/from "org.press.jp.chugoku-shimbun" :tie/to "org.plant.jp.mazda-hiroshima" :tie/grasping-load 0.40 :tie/sources ["中国新聞 紙面 (経済面)" "中国新聞社 社史 公開情報"] :tie/sourcing :representative}
+ {:tie/id "tie.hiroshima.press.covers-ken" :tie/kind :covers :tie/from "org.press.jp.chugoku-shimbun" :tie/to "org.gov.jp.hiroshima-ken" :tie/grasping-load 0.40 :tie/sources ["中国新聞 紙面 (県政面)" "広島県 記者クラブ 公開情報"] :tie/sourcing :representative}]

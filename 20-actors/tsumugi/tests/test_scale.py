@@ -39,11 +39,15 @@ def main():
     nodes, ties = A.load()
     result = A.analyze(nodes, ties)
 
-    # 長崎 is the flagship — full 産官学報 (4 sectors), top concentration
-    top = result["localities"][0]
-    check("top locality is jp.nagasaki", top["locality"] == "jp.nagasaki")
-    check("長崎 weaves all 4 産官学報 sectors", top["sector_diversity"] == 4)
-    check("長崎 concentration is positive", top["concentration"] > 0)
+    # 長崎 is a full 産官学報 (4 sectors) cluster; the top cluster is always a 4-sector weave
+    # (as more real regional clusters land — 愛知/広島 — the #1 slot reflects true density)
+    by_loc = {x["locality"]: x for x in result["localities"]}
+    nagasaki = by_loc.get("jp.nagasaki")
+    check("jp.nagasaki present as a cluster", nagasaki is not None)
+    check("長崎 weaves all 4 産官学報 sectors", nagasaki and nagasaki["sector_diversity"] == 4)
+    check("長崎 concentration is positive", nagasaki and nagasaki["concentration"] > 0)
+    check("top locality is a full 4-sector 産官学報 cluster",
+          result["localities"][0]["sector_diversity"] >= 4)
 
     # broker is an org/seat id (never a private person) and spans sectors
     brokers = result["brokers"]
