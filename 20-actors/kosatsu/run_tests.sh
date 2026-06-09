@@ -11,6 +11,7 @@ SUITES=(
   "methods/test_lexicons.py"
   "methods/test_analyze.py"
   "methods/test_consistency.py"
+  "methods/test_autorun.py"
   "cells/test_state_machines.py"
 )
 

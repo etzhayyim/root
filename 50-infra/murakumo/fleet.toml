@@ -70,6 +70,9 @@ cells = [
   "CharterRehabilitationCell",
   "SiteSurveyCell",  # kuni-umi Phase 1 (ADR-2605201400)
   "shionome_social_post",  # 潮目 dry-run capital-flow post (cron 0 9 * * *) (ADR-2606072200)
+  "kosatsu_designation_ingest",  # 高札 crime/sanctions designation-event offline seed intake (cron 8 * * * *) (ADR-2606072000; G8 live list ingest gated)
+  "kosatsu_divergence_weave",    # competing-claim divergence {contested|unanimous|single-asserter} + agreement index + by-authority (cron 13 * * * *) (ADR-2606072000; G2 asserter-mandatory, no verdict/score)
+  "kosatsu_claim_persist",       # 高札 competing-claim autonomous heartbeat → append-only kotoba Datom log (cron 18 * * * *) (ADR-2606072000; every designation ATTRIBUTED, etzhayyim authors none; local persist, G8 gated)
 ]
 replicas_of = []
 
