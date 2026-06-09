@@ -206,7 +206,7 @@ gas-exempt up to a quota (donation-funded), like the existing write-cost exempti
 
 | R | Scope |
 |---|---|
-| **R0** | EVM state model as Datoms (`evm/*`) + read-side eth_* projection (`eth_chainId`/`getBalance`/`getTransactionCount`/`getCode`/`getStorageAt`) over a Datom view — **this ADR's first commit** |
+| **R0** ✅ | EVM state model as Datoms (`evm/*`) + read-side eth_* projection (`eth_chainId`/`getBalance`/`getTransactionCount`/`getCode`/`getStorageAt`) over a Datom view — **LANDED** in `kotoba-kqe::evm_state` (kotoba#91): `EvmStateView` reducer + `account_datoms`/`storage_datom` + geth/viem `quantity_hex`/`data_hex` encodings, 6 tests, `KOTOBA_EVM_CHAIN_ID` `0x6b6f74` |
 | R1 | revm + `DatomDatabase`; typed-tx RLP decode + secp256k1 recovery; `eth_call` / `eth_estimateGas` / `eth_sendRawTransaction` |
 | R2 | block production (CommitDag EVM blocks: txList CID + stateRoot + receipts) + IPFS CAR DA |
 | R3 | Base L1 anchor of the state root (AnchorBridge) + `eth_getLogs` / receipts / bloom |
