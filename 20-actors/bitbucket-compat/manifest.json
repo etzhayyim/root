@@ -11,15 +11,79 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreicglcgmrpnibv7viji54n5wiyxj5jbif4jd77okhxvvavqcmzlvyq",
   "schema": "schema/bitbucket.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://dac-static.atlassian.com/cloud/bitbucket/swagger.v3.json (official Atlassian Bitbucket Cloud OpenAPI)",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Repository",
+      "PullRequest",
+      "Commit",
+      "Workspace",
+      "Issue",
+      "Project"
+    ],
+    "enums": {
+      "Repository": {
+        "scm": [
+          "git"
+        ],
+        "forkPolicy": [
+          "allow_forks",
+          "no_public_forks",
+          "no_forks"
+        ]
+      },
+      "PullRequest": {
+        "state": [
+          "OPEN",
+          "DRAFT",
+          "QUEUED",
+          "MERGED",
+          "DECLINED",
+          "SUPERSEDED"
+        ]
+      },
+      "Workspace": {
+        "forkingMode": [
+          "allow_forks",
+          "internal_only"
+        ]
+      },
+      "Issue": {
+        "state": [
+          "submitted",
+          "new",
+          "open",
+          "resolved",
+          "on hold",
+          "invalid",
+          "duplicate",
+          "wontfix"
+        ],
+        "kind": [
+          "bug",
+          "enhancement",
+          "proposal",
+          "task"
+        ],
+        "priority": [
+          "trivial",
+          "minor",
+          "major",
+          "critical",
+          "blocker"
+        ]
+      }
+    }
+  },
   "entities": [
     "Repository",
-    "Pipeline",
-    "Build",
-    "Artifact",
-    "Deployment",
-    "Webhook"
+    "PullRequest",
+    "Commit",
+    "Workspace",
+    "Issue",
+    "Project"
   ],
   "adr": [
     "260607",
@@ -60,135 +124,135 @@
         },
         {
           "method": "POST",
-          "path": "/v1/pipelines",
-          "op": "create Pipeline"
+          "path": "/v1/pullrequests",
+          "op": "create PullRequest"
         },
         {
           "method": "GET",
-          "path": "/v1/pipelines",
-          "op": "list Pipeline"
+          "path": "/v1/pullrequests",
+          "op": "list PullRequest"
         },
         {
           "method": "GET",
-          "path": "/v1/pipelines/{id}",
-          "op": "get Pipeline"
+          "path": "/v1/pullrequests/{id}",
+          "op": "get PullRequest"
         },
         {
           "method": "PATCH",
-          "path": "/v1/pipelines/{id}",
-          "op": "update Pipeline"
+          "path": "/v1/pullrequests/{id}",
+          "op": "update PullRequest"
         },
         {
           "method": "DELETE",
-          "path": "/v1/pipelines/{id}",
-          "op": "delete Pipeline"
+          "path": "/v1/pullrequests/{id}",
+          "op": "delete PullRequest"
         },
         {
           "method": "POST",
-          "path": "/v1/builds",
-          "op": "create Build"
+          "path": "/v1/commits",
+          "op": "create Commit"
         },
         {
           "method": "GET",
-          "path": "/v1/builds",
-          "op": "list Build"
+          "path": "/v1/commits",
+          "op": "list Commit"
         },
         {
           "method": "GET",
-          "path": "/v1/builds/{id}",
-          "op": "get Build"
+          "path": "/v1/commits/{id}",
+          "op": "get Commit"
         },
         {
           "method": "PATCH",
-          "path": "/v1/builds/{id}",
-          "op": "update Build"
+          "path": "/v1/commits/{id}",
+          "op": "update Commit"
         },
         {
           "method": "DELETE",
-          "path": "/v1/builds/{id}",
-          "op": "delete Build"
+          "path": "/v1/commits/{id}",
+          "op": "delete Commit"
         },
         {
           "method": "POST",
-          "path": "/v1/artifacts",
-          "op": "create Artifact"
+          "path": "/v1/workspaces",
+          "op": "create Workspace"
         },
         {
           "method": "GET",
-          "path": "/v1/artifacts",
-          "op": "list Artifact"
+          "path": "/v1/workspaces",
+          "op": "list Workspace"
         },
         {
           "method": "GET",
-          "path": "/v1/artifacts/{id}",
-          "op": "get Artifact"
+          "path": "/v1/workspaces/{id}",
+          "op": "get Workspace"
         },
         {
           "method": "PATCH",
-          "path": "/v1/artifacts/{id}",
-          "op": "update Artifact"
+          "path": "/v1/workspaces/{id}",
+          "op": "update Workspace"
         },
         {
           "method": "DELETE",
-          "path": "/v1/artifacts/{id}",
-          "op": "delete Artifact"
+          "path": "/v1/workspaces/{id}",
+          "op": "delete Workspace"
         },
         {
           "method": "POST",
-          "path": "/v1/deployments",
-          "op": "create Deployment"
+          "path": "/v1/issues",
+          "op": "create Issue"
         },
         {
           "method": "GET",
-          "path": "/v1/deployments",
-          "op": "list Deployment"
+          "path": "/v1/issues",
+          "op": "list Issue"
         },
         {
           "method": "GET",
-          "path": "/v1/deployments/{id}",
-          "op": "get Deployment"
+          "path": "/v1/issues/{id}",
+          "op": "get Issue"
         },
         {
           "method": "PATCH",
-          "path": "/v1/deployments/{id}",
-          "op": "update Deployment"
+          "path": "/v1/issues/{id}",
+          "op": "update Issue"
         },
         {
           "method": "DELETE",
-          "path": "/v1/deployments/{id}",
-          "op": "delete Deployment"
+          "path": "/v1/issues/{id}",
+          "op": "delete Issue"
         },
         {
           "method": "POST",
-          "path": "/v1/webhooks",
-          "op": "create Webhook"
+          "path": "/v1/projects",
+          "op": "create Project"
         },
         {
           "method": "GET",
-          "path": "/v1/webhooks",
-          "op": "list Webhook"
+          "path": "/v1/projects",
+          "op": "list Project"
         },
         {
           "method": "GET",
-          "path": "/v1/webhooks/{id}",
-          "op": "get Webhook"
+          "path": "/v1/projects/{id}",
+          "op": "get Project"
         },
         {
           "method": "PATCH",
-          "path": "/v1/webhooks/{id}",
-          "op": "update Webhook"
+          "path": "/v1/projects/{id}",
+          "op": "update Project"
         },
         {
           "method": "DELETE",
-          "path": "/v1/webhooks/{id}",
-          "op": "delete Webhook"
+          "path": "/v1/projects/{id}",
+          "op": "delete Project"
         }
       ],
       "features": {
-        "pagination": true,
-        "filtering": true,
-        "relationExpansion": true,
-        "strictValidation": true,
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
         "contractTest": true
       },
       "health": "/healthz"
@@ -252,22 +316,43 @@
           "inputSchema": {
             "type": "object",
             "properties": {
+              "uuid": {
+                "type": "string"
+              },
+              "fullName": {
+                "type": "string"
+              },
               "name": {
                 "type": "string"
               },
-              "owner": {
+              "description": {
                 "type": "string"
               },
-              "defaultBranch": {
-                "type": "string"
-              },
-              "private": {
+              "isPrivate": {
                 "type": "boolean"
+              },
+              "scm": {
+                "type": "string"
+              },
+              "size": {
+                "type": "integer"
+              },
+              "language": {
+                "type": "string"
+              },
+              "hasIssues": {
+                "type": "boolean"
+              },
+              "hasWiki": {
+                "type": "boolean"
+              },
+              "forkPolicy": {
+                "type": "string"
               }
             },
             "required": [
-              "name",
-              "owner"
+              "uuid",
+              "fullName"
             ]
           }
         },
@@ -303,17 +388,38 @@
               "id": {
                 "type": "string"
               },
+              "uuid": {
+                "type": "string"
+              },
+              "fullName": {
+                "type": "string"
+              },
               "name": {
                 "type": "string"
               },
-              "owner": {
+              "description": {
                 "type": "string"
               },
-              "defaultBranch": {
-                "type": "string"
-              },
-              "private": {
+              "isPrivate": {
                 "type": "boolean"
+              },
+              "scm": {
+                "type": "string"
+              },
+              "size": {
+                "type": "integer"
+              },
+              "language": {
+                "type": "string"
+              },
+              "hasIssues": {
+                "type": "boolean"
+              },
+              "hasWiki": {
+                "type": "boolean"
+              },
+              "forkPolicy": {
+                "type": "string"
               }
             },
             "required": [
@@ -337,395 +443,56 @@
           }
         },
         {
-          "name": "create_pipeline",
-          "description": "Create a Pipeline.",
+          "name": "create_pull_request",
+          "description": "Create a PullRequest.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "repoId": {
+              "title": {
                 "type": "string"
               },
-              "name": {
+              "state": {
                 "type": "string"
               },
-              "trigger": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "trigger"
-            ]
-          }
-        },
-        {
-          "name": "list_pipelines",
-          "description": "List Pipelines.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_pipeline",
-          "description": "Get a Pipeline by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_pipeline",
-          "description": "Update a Pipeline.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "repoId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "trigger": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_pipeline",
-          "description": "Delete a Pipeline.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_build",
-          "description": "Create a Build.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "pipelineId": {
-                "type": "string"
-              },
-              "number": {
+              "commentCount": {
                 "type": "integer"
               },
-              "status": {
-                "type": "string"
-              },
-              "commitSha": {
-                "type": "string"
-              },
-              "durationMs": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "number",
-              "status"
-            ]
-          }
-        },
-        {
-          "name": "list_builds",
-          "description": "List Builds.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_build",
-          "description": "Get a Build by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_build",
-          "description": "Update a Build.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "pipelineId": {
-                "type": "string"
-              },
-              "number": {
+              "taskCount": {
                 "type": "integer"
               },
-              "status": {
+              "closeSourceBranch": {
+                "type": "boolean"
+              },
+              "reason": {
                 "type": "string"
               },
-              "commitSha": {
-                "type": "string"
+              "draft": {
+                "type": "boolean"
               },
-              "durationMs": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_build",
-          "description": "Delete a Build.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_artifact",
-          "description": "Create a Artifact.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "buildId": {
-                "type": "string"
+              "queued": {
+                "type": "boolean"
               },
-              "name": {
-                "type": "string"
-              },
-              "sizeBytes": {
-                "type": "integer"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "sizeBytes"
-            ]
-          }
-        },
-        {
-          "name": "list_artifacts",
-          "description": "List Artifacts.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_artifact",
-          "description": "Get a Artifact by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_artifact",
-          "description": "Update a Artifact.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "buildId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "sizeBytes": {
-                "type": "integer"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_artifact",
-          "description": "Delete a Artifact.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_deployment",
-          "description": "Create a Deployment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "buildId": {
-                "type": "string"
-              },
-              "environment": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "environment",
-              "status"
-            ]
-          }
-        },
-        {
-          "name": "list_deployments",
-          "description": "List Deployments.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_deployment",
-          "description": "Get a Deployment by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_deployment",
-          "description": "Update a Deployment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "buildId": {
-                "type": "string"
-              },
-              "environment": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_deployment",
-          "description": "Delete a Deployment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_webhook",
-          "description": "Create a Webhook.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "repoId": {
-                "type": "string"
-              },
-              "url": {
-                "type": "string"
-              },
-              "event": {
-                "type": "string"
-              },
-              "active": {
+              "mergeable": {
                 "type": "boolean"
               }
             },
             "required": [
-              "url",
-              "event"
+              "title",
+              "state"
             ]
           }
         },
         {
-          "name": "list_webhooks",
-          "description": "List Webhooks.",
+          "name": "list_pull_requests",
+          "description": "List PullRequests.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_webhook",
-          "description": "Get a Webhook by id.",
+          "name": "get_pull_request",
+          "description": "Get a PullRequest by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -739,24 +506,39 @@
           }
         },
         {
-          "name": "update_webhook",
-          "description": "Update a Webhook.",
+          "name": "update_pull_request",
+          "description": "Update a PullRequest.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "repoId": {
+              "title": {
                 "type": "string"
               },
-              "url": {
+              "state": {
                 "type": "string"
               },
-              "event": {
+              "commentCount": {
+                "type": "integer"
+              },
+              "taskCount": {
+                "type": "integer"
+              },
+              "closeSourceBranch": {
+                "type": "boolean"
+              },
+              "reason": {
                 "type": "string"
               },
-              "active": {
+              "draft": {
+                "type": "boolean"
+              },
+              "queued": {
+                "type": "boolean"
+              },
+              "mergeable": {
                 "type": "boolean"
               }
             },
@@ -766,8 +548,392 @@
           }
         },
         {
-          "name": "delete_webhook",
-          "description": "Delete a Webhook.",
+          "name": "delete_pull_request",
+          "description": "Delete a PullRequest.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_commit",
+          "description": "Create a Commit.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "hash": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "hash",
+              "date"
+            ]
+          }
+        },
+        {
+          "name": "list_commits",
+          "description": "List Commits.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_commit",
+          "description": "Get a Commit by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_commit",
+          "description": "Update a Commit.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "hash": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_commit",
+          "description": "Delete a Commit.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_workspace",
+          "description": "Create a Workspace.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "uuid": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "slug": {
+                "type": "string"
+              },
+              "isPrivate": {
+                "type": "boolean"
+              },
+              "isPrivacyEnforced": {
+                "type": "boolean"
+              },
+              "forkingMode": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "uuid",
+              "name"
+            ]
+          }
+        },
+        {
+          "name": "list_workspaces",
+          "description": "List Workspaces.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_workspace",
+          "description": "Get a Workspace by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_workspace",
+          "description": "Update a Workspace.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "uuid": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "slug": {
+                "type": "string"
+              },
+              "isPrivate": {
+                "type": "boolean"
+              },
+              "isPrivacyEnforced": {
+                "type": "boolean"
+              },
+              "forkingMode": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_workspace",
+          "description": "Delete a Workspace.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_issue",
+          "description": "Create a Issue.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "priority": {
+                "type": "string"
+              },
+              "votes": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "title",
+              "state"
+            ]
+          }
+        },
+        {
+          "name": "list_issues",
+          "description": "List Issues.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_issue",
+          "description": "Get a Issue by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_issue",
+          "description": "Update a Issue.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "priority": {
+                "type": "string"
+              },
+              "votes": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_issue",
+          "description": "Delete a Issue.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_project",
+          "description": "Create a Project.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "uuid": {
+                "type": "string"
+              },
+              "key": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "isPrivate": {
+                "type": "boolean"
+              },
+              "hasPubliclyVisibleRepos": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "uuid",
+              "key"
+            ]
+          }
+        },
+        {
+          "name": "list_projects",
+          "description": "List Projects.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_project",
+          "description": "Get a Project by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_project",
+          "description": "Update a Project.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "uuid": {
+                "type": "string"
+              },
+              "key": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "isPrivate": {
+                "type": "boolean"
+              },
+              "hasPubliclyVisibleRepos": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_project",
+          "description": "Delete a Project.",
           "inputSchema": {
             "type": "object",
             "properties": {

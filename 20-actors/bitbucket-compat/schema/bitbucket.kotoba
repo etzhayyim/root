@@ -5,70 +5,78 @@ namespace bitbucket {
 
     entity Repository {
         id: string @unique
+        uuid: string
+        fullName: string
         name: string
-        owner: string
-        defaultBranch: string
-        private: boolean
+        description: string
+        isPrivate: boolean
+        scm: string
+        size: integer
+        language: string
+        hasIssues: boolean
+        hasWiki: boolean
+        forkPolicy: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Pipeline {
+    entity PullRequest {
         id: string @unique
-        repoId: string
+        title: string
+        state: string
+        commentCount: integer
+        taskCount: integer
+        closeSourceBranch: boolean
+        reason: string
+        draft: boolean
+        queued: boolean
+        mergeable: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Commit {
+        id: string @unique
+        hash: string
+        date: datetime
+        message: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Workspace {
+        id: string @unique
+        uuid: string
         name: string
-        trigger: string
+        slug: string
+        isPrivate: boolean
+        isPrivacyEnforced: boolean
+        forkingMode: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Build {
+    entity Issue {
         id: string @unique
-        pipelineId: string
-        number: integer
-        status: string
-        commitSha: string
-        durationMs: integer
+        title: string
+        state: string
+        kind: string
+        priority: string
+        votes: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Artifact {
+    entity Project {
         id: string @unique
-        buildId: string
+        uuid: string
+        key: string
         name: string
-        sizeBytes: integer
-        contentRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Deployment {
-        id: string @unique
-        buildId: string
-        environment: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Webhook {
-        id: string @unique
-        repoId: string
-        url: string
-        event: string
-        active: boolean
+        description: string
+        isPrivate: boolean
+        hasPubliclyVisibleRepos: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

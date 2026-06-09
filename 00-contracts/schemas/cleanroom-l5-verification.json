@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 70,
+  "count": 71,
   "actors": [
     {
       "handle": "square-compat",
@@ -9898,6 +9898,183 @@
       ],
       "notApplicable": [],
       "note": "Remodeled from a mismatched APM/error-tracking archetype to a faithful feature-management model. 6/6 entities field-verified vs LaunchDarkly's official OpenAPI. Discovered closed enum (1): FeatureFlag.kind. Credential fields (apiKey/mobileKey/webhook secret) intentionally omitted from the clean-room schema."
+    },
+    {
+      "handle": "bitbucket-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://dac-static.atlassian.com/cloud/bitbucket/swagger.v3.json (official Atlassian Bitbucket Cloud OpenAPI)",
+      "remodeled": "Remodeled from the generic devops_ci archetype (Repository/Pipeline/Build/Artifact/Deployment/Webhook — a CI-only shape that under-covered Bitbucket) to a faithful Bitbucket Cloud Git-collaboration model (Repository/PullRequest/Commit/Workspace/Issue/Project), verified field-by-field against Atlassian's official OpenAPI components.schemas. The L5 gate had correctly rejected the prior mismatched model (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Repository",
+          "source": "swagger.v3.json repository",
+          "verifiedFields": [
+            "uuid",
+            "fullName",
+            "name",
+            "description",
+            "isPrivate",
+            "scm",
+            "size",
+            "language",
+            "hasIssues",
+            "hasWiki",
+            "forkPolicy"
+          ],
+          "fieldStatus": "confirmed vs repository schema (uuid/full_name/name/description/is_private/scm/size/language/has_issues/has_wiki/fork_policy)",
+          "discoveredEnums": {
+            "scm": [
+              "git"
+            ],
+            "forkPolicy": [
+              "allow_forks",
+              "no_public_forks",
+              "no_forks"
+            ]
+          },
+          "gaps": [
+            "owner(object)",
+            "mainbranch(object)",
+            "project(object)",
+            "links(object)"
+          ]
+        },
+        {
+          "entity": "PullRequest",
+          "source": "swagger.v3.json pullrequest",
+          "verifiedFields": [
+            "title",
+            "state",
+            "commentCount",
+            "taskCount",
+            "closeSourceBranch",
+            "reason",
+            "draft",
+            "queued",
+            "mergeable"
+          ],
+          "fieldStatus": "confirmed vs pullrequest schema (id/title/state/comment_count/task_count/close_source_branch/reason/draft/queued/mergeable)",
+          "discoveredEnums": {
+            "state": [
+              "OPEN",
+              "DRAFT",
+              "QUEUED",
+              "MERGED",
+              "DECLINED",
+              "SUPERSEDED"
+            ]
+          },
+          "gaps": [
+            "source(object)",
+            "destination(object)",
+            "author(object)",
+            "participants(array)"
+          ]
+        },
+        {
+          "entity": "Commit",
+          "source": "swagger.v3.json commit",
+          "verifiedFields": [
+            "hash",
+            "date",
+            "message"
+          ],
+          "fieldStatus": "confirmed vs commit schema (hash/date/message)",
+          "discoveredEnums": {},
+          "gaps": [
+            "author(object)",
+            "parents(array)",
+            "repository(object)"
+          ]
+        },
+        {
+          "entity": "Workspace",
+          "source": "swagger.v3.json workspace",
+          "verifiedFields": [
+            "uuid",
+            "name",
+            "slug",
+            "isPrivate",
+            "isPrivacyEnforced",
+            "forkingMode"
+          ],
+          "fieldStatus": "confirmed vs workspace schema (uuid/name/slug/is_private/is_privacy_enforced/forking_mode)",
+          "discoveredEnums": {
+            "forkingMode": [
+              "allow_forks",
+              "internal_only"
+            ]
+          },
+          "gaps": [
+            "links(object)"
+          ]
+        },
+        {
+          "entity": "Issue",
+          "source": "swagger.v3.json issue",
+          "verifiedFields": [
+            "title",
+            "state",
+            "kind",
+            "priority",
+            "votes"
+          ],
+          "fieldStatus": "confirmed vs issue schema (id/title/state/kind/priority/votes)",
+          "discoveredEnums": {
+            "state": [
+              "submitted",
+              "new",
+              "open",
+              "resolved",
+              "on hold",
+              "invalid",
+              "duplicate",
+              "wontfix"
+            ],
+            "kind": [
+              "bug",
+              "enhancement",
+              "proposal",
+              "task"
+            ],
+            "priority": [
+              "trivial",
+              "minor",
+              "major",
+              "critical",
+              "blocker"
+            ]
+          },
+          "gaps": [
+            "reporter(object)",
+            "assignee(object)",
+            "content(object)",
+            "component(object)"
+          ]
+        },
+        {
+          "entity": "Project",
+          "source": "swagger.v3.json project",
+          "verifiedFields": [
+            "uuid",
+            "key",
+            "name",
+            "description",
+            "isPrivate",
+            "hasPubliclyVisibleRepos"
+          ],
+          "fieldStatus": "confirmed vs project schema (uuid/key/name/description/is_private/has_publicly_visible_repos)",
+          "discoveredEnums": {},
+          "gaps": [
+            "owner(object)",
+            "workspace(object)",
+            "links(object)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "Remodeled from a CI-only archetype to a faithful Git-collaboration model. 6/6 entities field-verified vs Atlassian's official Bitbucket Cloud OpenAPI. Discovered closed enums (7): Repository.scm/forkPolicy, PullRequest.state, Workspace.forkingMode, Issue.state/kind/priority."
     }
   ]
 }

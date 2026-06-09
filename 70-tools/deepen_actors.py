@@ -1191,6 +1191,18 @@ PLATFORM_OVERRIDES = {
         "Webhook": E(name="string", url="string", on="boolean"),
         "UserSegment": E(key="string", name="string", description="string", unbounded="boolean", unboundedContextKind="string", deleted="boolean", generation="integer"),
     },
+    # Faithful Bitbucket Cloud model (remodeled from the generic devops_ci
+    # archetype whose Pipeline/Build/Artifact/Deployment CI entities under-covered
+    # Bitbucket's Git-collaboration API), doc-verified L5 vs Atlassian's official
+    # Bitbucket Cloud OpenAPI (dac-static.atlassian.com/cloud/bitbucket/swagger.v3.json).
+    "bitbucket": {
+        "Repository": E(uuid="string", fullName="string", name="string", description="string", isPrivate="boolean", scm="string", size="integer", language="string", hasIssues="boolean", hasWiki="boolean", forkPolicy="string"),
+        "PullRequest": E(title="string", state="string", commentCount="integer", taskCount="integer", closeSourceBranch="boolean", reason="string", draft="boolean", queued="boolean", mergeable="boolean"),
+        "Commit": E(hash="string", date="datetime", message="string"),
+        "Workspace": E(uuid="string", name="string", slug="string", isPrivate="boolean", isPrivacyEnforced="boolean", forkingMode="string"),
+        "Issue": E(title="string", state="string", kind="string", priority="string", votes="integer"),
+        "Project": E(uuid="string", key="string", name="string", description="string", isPrivate="boolean", hasPubliclyVisibleRepos="boolean"),
+    },
     # Faithful Airtable model (remodeled from generic office_productivity), L5.
     "airtable": {
         "Base": E(name="string", permissionLevel="string"),
