@@ -2712,7 +2712,7 @@
     {
       "handle": "epic_fhir-compat",
       "did": "did:web:etzhayyim.com:actor:epic_fhir-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreih4p3ipmeeo3jpdm4fb7omctr3mcpfhatsok3niv3fp5xx7fj2fja",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -7419,7 +7419,7 @@
     {
       "handle": "smart_on_fhir-compat",
       "did": "did:web:etzhayyim.com:actor:smart_on_fhir-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreifg7lifowfmqqfex4kpv623cl5oqqguzktwaty5xb7tla3yy6a3hq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
