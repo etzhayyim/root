@@ -11,15 +11,41 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreidv2qf4dwlmkuz6tkw44z4izydinilxs4vbh7y2dz2rvkd4w7kctu",
   "schema": "schema/shippo.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://docs.goshippo.com/spec/shippoapi/public-api.yaml (official Shippo public OpenAPI)",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Shipment",
+      "Rate",
+      "Transaction",
+      "Address",
+      "Parcel",
+      "CarrierAccount"
+    ],
+    "enums": {
+      "Shipment": {
+        "status": [
+          "ERROR",
+          "QUEUED",
+          "SUCCESS",
+          "WAITING"
+        ]
+      },
+      "Parcel": {
+        "objectState": [
+          "VALID"
+        ]
+      }
+    }
+  },
   "entities": [
-    "ContentEntry",
-    "Product",
     "Shipment",
-    "SearchIndex",
-    "Webhook",
-    "Order"
+    "Rate",
+    "Transaction",
+    "Address",
+    "Parcel",
+    "CarrierAccount"
   ],
   "adr": [
     "260607",
@@ -33,56 +59,6 @@
       "runtime": "kotoba-wasm",
       "endpointCount": 30,
       "routes": [
-        {
-          "method": "POST",
-          "path": "/v1/contententries",
-          "op": "create ContentEntry"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/contententries",
-          "op": "list ContentEntry"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/contententries/{id}",
-          "op": "get ContentEntry"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/contententries/{id}",
-          "op": "update ContentEntry"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/contententries/{id}",
-          "op": "delete ContentEntry"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/products",
-          "op": "create Product"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/products",
-          "op": "list Product"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/products/{id}",
-          "op": "get Product"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/products/{id}",
-          "op": "update Product"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/products/{id}",
-          "op": "delete Product"
-        },
         {
           "method": "POST",
           "path": "/v1/shipments",
@@ -110,85 +86,135 @@
         },
         {
           "method": "POST",
-          "path": "/v1/searchindexes",
-          "op": "create SearchIndex"
+          "path": "/v1/rates",
+          "op": "create Rate"
         },
         {
           "method": "GET",
-          "path": "/v1/searchindexes",
-          "op": "list SearchIndex"
+          "path": "/v1/rates",
+          "op": "list Rate"
         },
         {
           "method": "GET",
-          "path": "/v1/searchindexes/{id}",
-          "op": "get SearchIndex"
+          "path": "/v1/rates/{id}",
+          "op": "get Rate"
         },
         {
           "method": "PATCH",
-          "path": "/v1/searchindexes/{id}",
-          "op": "update SearchIndex"
+          "path": "/v1/rates/{id}",
+          "op": "update Rate"
         },
         {
           "method": "DELETE",
-          "path": "/v1/searchindexes/{id}",
-          "op": "delete SearchIndex"
+          "path": "/v1/rates/{id}",
+          "op": "delete Rate"
         },
         {
           "method": "POST",
-          "path": "/v1/webhooks",
-          "op": "create Webhook"
+          "path": "/v1/transactions",
+          "op": "create Transaction"
         },
         {
           "method": "GET",
-          "path": "/v1/webhooks",
-          "op": "list Webhook"
+          "path": "/v1/transactions",
+          "op": "list Transaction"
         },
         {
           "method": "GET",
-          "path": "/v1/webhooks/{id}",
-          "op": "get Webhook"
+          "path": "/v1/transactions/{id}",
+          "op": "get Transaction"
         },
         {
           "method": "PATCH",
-          "path": "/v1/webhooks/{id}",
-          "op": "update Webhook"
+          "path": "/v1/transactions/{id}",
+          "op": "update Transaction"
         },
         {
           "method": "DELETE",
-          "path": "/v1/webhooks/{id}",
-          "op": "delete Webhook"
+          "path": "/v1/transactions/{id}",
+          "op": "delete Transaction"
         },
         {
           "method": "POST",
-          "path": "/v1/orders",
-          "op": "create Order"
+          "path": "/v1/addresses",
+          "op": "create Address"
         },
         {
           "method": "GET",
-          "path": "/v1/orders",
-          "op": "list Order"
+          "path": "/v1/addresses",
+          "op": "list Address"
         },
         {
           "method": "GET",
-          "path": "/v1/orders/{id}",
-          "op": "get Order"
+          "path": "/v1/addresses/{id}",
+          "op": "get Address"
         },
         {
           "method": "PATCH",
-          "path": "/v1/orders/{id}",
-          "op": "update Order"
+          "path": "/v1/addresses/{id}",
+          "op": "update Address"
         },
         {
           "method": "DELETE",
-          "path": "/v1/orders/{id}",
-          "op": "delete Order"
+          "path": "/v1/addresses/{id}",
+          "op": "delete Address"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/parcels",
+          "op": "create Parcel"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/parcels",
+          "op": "list Parcel"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/parcels/{id}",
+          "op": "get Parcel"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/parcels/{id}",
+          "op": "update Parcel"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/parcels/{id}",
+          "op": "delete Parcel"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/carrieraccounts",
+          "op": "create CarrierAccount"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/carrieraccounts",
+          "op": "list CarrierAccount"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/carrieraccounts/{id}",
+          "op": "get CarrierAccount"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/carrieraccounts/{id}",
+          "op": "update CarrierAccount"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/carrieraccounts/{id}",
+          "op": "delete CarrierAccount"
         }
       ],
       "features": {
-        "pagination": true,
-        "filtering": true,
-        "relationExpansion": true,
-        "strictValidation": true,
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
         "contractTest": true
       },
       "health": "/healthz"
@@ -247,207 +273,24 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_content_entry",
-          "description": "Create a ContentEntry.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "modelName": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "locale": {
-                "type": "string"
-              },
-              "published": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "modelName",
-              "title"
-            ]
-          }
-        },
-        {
-          "name": "list_content_entries",
-          "description": "List ContentEntries.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_content_entry",
-          "description": "Get a ContentEntry by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_content_entry",
-          "description": "Update a ContentEntry.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "modelName": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "locale": {
-                "type": "string"
-              },
-              "published": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_content_entry",
-          "description": "Delete a ContentEntry.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_product",
-          "description": "Create a Product.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "sku": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "price": {
-                "type": "number"
-              },
-              "currency": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "sku",
-              "title"
-            ]
-          }
-        },
-        {
-          "name": "list_products",
-          "description": "List Products.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_product",
-          "description": "Get a Product by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_product",
-          "description": "Update a Product.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "sku": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "price": {
-                "type": "number"
-              },
-              "currency": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_product",
-          "description": "Delete a Product.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
           "name": "create_shipment",
           "description": "Create a Shipment.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "orderId": {
-                "type": "string"
-              },
-              "carrier": {
-                "type": "string"
-              },
-              "tracking": {
+              "shipmentDate": {
                 "type": "string"
               },
               "status": {
                 "type": "string"
+              },
+              "test": {
+                "type": "boolean"
               }
             },
             "required": [
-              "carrier",
-              "tracking"
+              "shipmentDate",
+              "status"
             ]
           }
         },
@@ -483,17 +326,14 @@
               "id": {
                 "type": "string"
               },
-              "orderId": {
-                "type": "string"
-              },
-              "carrier": {
-                "type": "string"
-              },
-              "tracking": {
+              "shipmentDate": {
                 "type": "string"
               },
               "status": {
                 "type": "string"
+              },
+              "test": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -517,38 +357,320 @@
           }
         },
         {
-          "name": "create_search_index",
-          "description": "Create a SearchIndex.",
+          "name": "create_rate",
+          "description": "Create a Rate.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "amount": {
+                "type": "string"
+              },
+              "currency": {
+                "type": "string"
+              },
+              "amountLocal": {
+                "type": "string"
+              },
+              "currencyLocal": {
+                "type": "string"
+              },
+              "arrivesBy": {
+                "type": "string"
+              },
+              "carrierAccount": {
+                "type": "string"
+              },
+              "durationTerms": {
+                "type": "string"
+              },
+              "estimatedDays": {
+                "type": "integer"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "shipment": {
+                "type": "string"
+              },
+              "zone": {
+                "type": "string"
+              },
+              "test": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "amount",
+              "currency"
+            ]
+          }
+        },
+        {
+          "name": "list_rates",
+          "description": "List Rates.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_rate",
+          "description": "Get a Rate by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_rate",
+          "description": "Update a Rate.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "string"
+              },
+              "currency": {
+                "type": "string"
+              },
+              "amountLocal": {
+                "type": "string"
+              },
+              "currencyLocal": {
+                "type": "string"
+              },
+              "arrivesBy": {
+                "type": "string"
+              },
+              "carrierAccount": {
+                "type": "string"
+              },
+              "durationTerms": {
+                "type": "string"
+              },
+              "estimatedDays": {
+                "type": "integer"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "shipment": {
+                "type": "string"
+              },
+              "zone": {
+                "type": "string"
+              },
+              "test": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_rate",
+          "description": "Delete a Rate.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_transaction",
+          "description": "Create a Transaction.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "labelUrl": {
+                "type": "string"
+              },
+              "trackingNumber": {
+                "type": "string"
+              },
+              "trackingUrlProvider": {
+                "type": "string"
+              },
+              "commercialInvoiceUrl": {
+                "type": "string"
+              },
+              "eta": {
+                "type": "string"
+              },
+              "qrCodeUrl": {
+                "type": "string"
+              },
+              "parcel": {
+                "type": "string"
+              },
+              "test": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "labelUrl",
+              "trackingNumber"
+            ]
+          }
+        },
+        {
+          "name": "list_transactions",
+          "description": "List Transactions.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_transaction",
+          "description": "Get a Transaction by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_transaction",
+          "description": "Update a Transaction.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "labelUrl": {
+                "type": "string"
+              },
+              "trackingNumber": {
+                "type": "string"
+              },
+              "trackingUrlProvider": {
+                "type": "string"
+              },
+              "commercialInvoiceUrl": {
+                "type": "string"
+              },
+              "eta": {
+                "type": "string"
+              },
+              "qrCodeUrl": {
+                "type": "string"
+              },
+              "parcel": {
+                "type": "string"
+              },
+              "test": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_transaction",
+          "description": "Delete a Transaction.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_address",
+          "description": "Create a Address.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "recordCount": {
-                "type": "integer"
-              },
-              "primaryKey": {
+              "company": {
                 "type": "string"
+              },
+              "street1": {
+                "type": "string"
+              },
+              "street2": {
+                "type": "string"
+              },
+              "streetNo": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "zip": {
+                "type": "string"
+              },
+              "country": {
+                "type": "string"
+              },
+              "phone": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "isResidential": {
+                "type": "boolean"
+              },
+              "isComplete": {
+                "type": "boolean"
               }
             },
             "required": [
               "name",
-              "recordCount"
+              "company"
             ]
           }
         },
         {
-          "name": "list_search_indexes",
-          "description": "List SearchIndexes.",
+          "name": "list_addresses",
+          "description": "List Addresses.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_search_index",
-          "description": "Get a SearchIndex by id.",
+          "name": "get_address",
+          "description": "Get a Address by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -562,8 +684,8 @@
           }
         },
         {
-          "name": "update_search_index",
-          "description": "Update a SearchIndex.",
+          "name": "update_address",
+          "description": "Update a Address.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -573,94 +695,40 @@
               "name": {
                 "type": "string"
               },
-              "recordCount": {
-                "type": "integer"
-              },
-              "primaryKey": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_search_index",
-          "description": "Delete a SearchIndex.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_webhook",
-          "description": "Create a Webhook.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "event": {
+              "company": {
                 "type": "string"
               },
-              "url": {
+              "street1": {
                 "type": "string"
               },
-              "active": {
+              "street2": {
+                "type": "string"
+              },
+              "streetNo": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "zip": {
+                "type": "string"
+              },
+              "country": {
+                "type": "string"
+              },
+              "phone": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "isResidential": {
                 "type": "boolean"
-              }
-            },
-            "required": [
-              "event",
-              "url"
-            ]
-          }
-        },
-        {
-          "name": "list_webhooks",
-          "description": "List Webhooks.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_webhook",
-          "description": "Get a Webhook by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_webhook",
-          "description": "Update a Webhook.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
               },
-              "event": {
-                "type": "string"
-              },
-              "url": {
-                "type": "string"
-              },
-              "active": {
+              "isComplete": {
                 "type": "boolean"
               }
             },
@@ -670,8 +738,8 @@
           }
         },
         {
-          "name": "delete_webhook",
-          "description": "Delete a Webhook.",
+          "name": "delete_address",
+          "description": "Delete a Address.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -685,41 +753,47 @@
           }
         },
         {
-          "name": "create_order",
-          "description": "Create a Order.",
+          "name": "create_parcel",
+          "description": "Create a Parcel.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "number": {
+              "weight": {
                 "type": "string"
               },
-              "total": {
-                "type": "number"
-              },
-              "currency": {
+              "height": {
                 "type": "string"
               },
-              "status": {
+              "length": {
                 "type": "string"
+              },
+              "width": {
+                "type": "string"
+              },
+              "objectState": {
+                "type": "string"
+              },
+              "test": {
+                "type": "boolean"
               }
             },
             "required": [
-              "number",
-              "total"
+              "weight",
+              "height"
             ]
           }
         },
         {
-          "name": "list_orders",
-          "description": "List Orders.",
+          "name": "list_parcels",
+          "description": "List Parcels.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_order",
-          "description": "Get a Order by id.",
+          "name": "get_parcel",
+          "description": "Get a Parcel by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -733,24 +807,45 @@
           }
         },
         {
-          "name": "update_order",
-          "description": "Update a Order.",
+          "name": "update_parcel",
+          "description": "Update a Parcel.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "number": {
+              "weight": {
                 "type": "string"
               },
-              "total": {
-                "type": "number"
-              },
-              "currency": {
+              "height": {
                 "type": "string"
               },
-              "status": {
+              "length": {
+                "type": "string"
+              },
+              "width": {
+                "type": "string"
+              },
+              "objectState": {
+                "type": "string"
+              },
+              "test": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_parcel",
+          "description": "Delete a Parcel.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               }
             },
@@ -760,8 +855,89 @@
           }
         },
         {
-          "name": "delete_order",
-          "description": "Delete a Order.",
+          "name": "create_carrier_account",
+          "description": "Create a CarrierAccount.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "accountId": {
+                "type": "string"
+              },
+              "active": {
+                "type": "boolean"
+              },
+              "carrier": {
+                "type": "string"
+              },
+              "isShippoAccount": {
+                "type": "boolean"
+              },
+              "test": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "active",
+              "carrier"
+            ]
+          }
+        },
+        {
+          "name": "list_carrier_accounts",
+          "description": "List CarrierAccounts.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_carrier_account",
+          "description": "Get a CarrierAccount by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_carrier_account",
+          "description": "Update a CarrierAccount.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "accountId": {
+                "type": "string"
+              },
+              "active": {
+                "type": "boolean"
+              },
+              "carrier": {
+                "type": "string"
+              },
+              "isShippoAccount": {
+                "type": "boolean"
+              },
+              "test": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_carrier_account",
+          "description": "Delete a CarrierAccount.",
           "inputSchema": {
             "type": "object",
             "properties": {

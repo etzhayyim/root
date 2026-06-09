@@ -1225,6 +1225,18 @@ PLATFORM_OVERRIDES = {
         "Label": E(idBoard="string", name="string", color="string"),
         "Organization": E(name="string", displayName="string", url="string", offering="string", dateLastActivity="datetime"),
     },
+    # Faithful Shippo model (remodeled from the generic headless_ec_logistics
+    # e-commerce archetype whose ContentEntry/Product/SearchIndex/Order entities
+    # did not match Shippo's shipping API), doc-verified L5 vs Shippo's official
+    # public OpenAPI (docs.goshippo.com/spec/shippoapi/public-api.yaml).
+    "shippo": {
+        "Shipment": E(shipmentDate="datetime", status="string", test="boolean"),
+        "Rate": E(amount="string", currency="string", amountLocal="string", currencyLocal="string", arrivesBy="datetime", carrierAccount="string", durationTerms="string", estimatedDays="integer", provider="string", shipment="string", zone="string", test="boolean"),
+        "Transaction": E(labelUrl="string", trackingNumber="string", trackingUrlProvider="string", commercialInvoiceUrl="string", eta="datetime", qrCodeUrl="string", parcel="string", test="boolean"),
+        "Address": E(name="string", company="string", street1="string", street2="string", streetNo="string", city="string", state="string", zip="string", country="string", phone="string", email="string", isResidential="boolean", isComplete="boolean"),
+        "Parcel": E(weight="string", height="string", length="string", width="string", objectState="string", test="boolean"),
+        "CarrierAccount": E(accountId="string", active="boolean", carrier="string", isShippoAccount="boolean", test="boolean"),
+    },
     # Faithful Airtable model (remodeled from generic office_productivity), L5.
     "airtable": {
         "Base": E(name="string", permissionLevel="string"),

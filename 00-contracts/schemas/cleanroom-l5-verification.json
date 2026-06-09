@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 73,
+  "count": 74,
   "actors": [
     {
       "handle": "square-compat",
@@ -10382,6 +10382,150 @@
       ],
       "notApplicable": [],
       "note": "Remodeled from a mismatched docs archetype (shared with old calendly/miro) to a faithful kanban model. 6/6 entities field-verified vs Atlassian's official Trello OpenAPI. Discovered closed enums (3): Card.cardRole, Member.memberType, Member.status."
+    },
+    {
+      "handle": "shippo-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://docs.goshippo.com/spec/shippoapi/public-api.yaml (official Shippo public OpenAPI)",
+      "remodeled": "Remodeled from the generic headless_ec_logistics e-commerce archetype (ContentEntry/Product/Shipment/SearchIndex/Order — shared with old contentful/algolia) to a faithful Shippo shipping model (Shipment/Rate/Transaction/Address/Parcel/CarrierAccount), verified field-by-field against Shippo's official public OpenAPI. Shippo's object_id/object_created/object_updated map to scaffold id/createdAt/updatedAt. The L5 gate had correctly rejected the prior mismatched model (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Shipment",
+          "source": "public-api.yaml Shipment",
+          "verifiedFields": [
+            "shipmentDate",
+            "status",
+            "test"
+          ],
+          "fieldStatus": "confirmed vs Shipment schema (shipment_date/status/test; object_id->scaffold id)",
+          "discoveredEnums": {
+            "status": [
+              "ERROR",
+              "QUEUED",
+              "SUCCESS",
+              "WAITING"
+            ]
+          },
+          "gaps": [
+            "address_from(object)",
+            "address_to(object)",
+            "parcels(array)",
+            "rates(array)"
+          ]
+        },
+        {
+          "entity": "Rate",
+          "source": "public-api.yaml Rate",
+          "verifiedFields": [
+            "amount",
+            "currency",
+            "amountLocal",
+            "currencyLocal",
+            "arrivesBy",
+            "carrierAccount",
+            "durationTerms",
+            "estimatedDays",
+            "provider",
+            "shipment",
+            "zone",
+            "test"
+          ],
+          "fieldStatus": "confirmed vs Rate schema (amount/currency/amount_local/currency_local/arrives_by/carrier_account/duration_terms/estimated_days/provider/shipment/zone/test)",
+          "discoveredEnums": {},
+          "gaps": [
+            "servicelevel(object)",
+            "attributes(array)"
+          ]
+        },
+        {
+          "entity": "Transaction",
+          "source": "public-api.yaml Transaction",
+          "verifiedFields": [
+            "labelUrl",
+            "trackingNumber",
+            "trackingUrlProvider",
+            "commercialInvoiceUrl",
+            "eta",
+            "qrCodeUrl",
+            "parcel",
+            "test"
+          ],
+          "fieldStatus": "confirmed vs Transaction schema (label_url/tracking_number/tracking_url_provider/commercial_invoice_url/eta/qr_code_url/parcel/test)",
+          "discoveredEnums": {},
+          "gaps": [
+            "status",
+            "rate(object)",
+            "messages(array)"
+          ]
+        },
+        {
+          "entity": "Address",
+          "source": "public-api.yaml Address",
+          "verifiedFields": [
+            "name",
+            "company",
+            "street1",
+            "street2",
+            "streetNo",
+            "city",
+            "state",
+            "zip",
+            "country",
+            "phone",
+            "email",
+            "isResidential",
+            "isComplete"
+          ],
+          "fieldStatus": "confirmed vs Address schema (name/company/street1/street2/street_no/city/state/zip/country/phone/email/is_residential/is_complete)",
+          "discoveredEnums": {},
+          "gaps": [
+            "validation_results(object)"
+          ]
+        },
+        {
+          "entity": "Parcel",
+          "source": "public-api.yaml Parcel",
+          "verifiedFields": [
+            "weight",
+            "height",
+            "length",
+            "width",
+            "objectState",
+            "test"
+          ],
+          "fieldStatus": "confirmed vs Parcel schema (weight/height/length/width/object_state/test)",
+          "discoveredEnums": {
+            "objectState": [
+              "VALID"
+            ]
+          },
+          "gaps": [
+            "mass_unit",
+            "distance_unit",
+            "extra(object)"
+          ]
+        },
+        {
+          "entity": "CarrierAccount",
+          "source": "public-api.yaml CarrierAccount",
+          "verifiedFields": [
+            "accountId",
+            "active",
+            "carrier",
+            "isShippoAccount",
+            "test"
+          ],
+          "fieldStatus": "confirmed vs CarrierAccount schema (account_id/active/carrier/is_shippo_account/test)",
+          "discoveredEnums": {},
+          "gaps": [
+            "parameters(object)",
+            "service_levels(array)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "Remodeled from a mismatched e-commerce archetype (shared with old contentful/algolia) to a faithful shipping/logistics model. 6/6 entities field-verified vs Shippo's official public OpenAPI. Discovered closed enums (2): Shipment.status, Parcel.objectState. Decimal amounts/dimensions are strings in the Shippo API (modeled faithfully as string)."
     }
   ]
 }

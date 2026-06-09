@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 927,
-    "L5": 73
+    "L4": 926,
+    "L5": 74
   },
   "actors": [
     {
@@ -14510,7 +14510,7 @@
       "wasmCid": "bafkreidv2qf4dwlmkuz6tkw44z4izydinilxs4vbh7y2dz2rvkd4w7kctu",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "shippo clean-room actor",
       "category": "headless_ec_logistics",
       "capabilities": [

@@ -3,71 +3,87 @@
 
 namespace shippo {
 
-    entity ContentEntry {
-        id: string @unique
-        modelName: string
-        title: string
-        locale: string
-        published: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Product {
-        id: string @unique
-        sku: string
-        title: string
-        price: float
-        currency: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
     entity Shipment {
         id: string @unique
-        orderId: string
-        carrier: string
-        tracking: string
+        shipmentDate: datetime
         status: string
+        test: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity SearchIndex {
+    entity Rate {
+        id: string @unique
+        amount: string
+        currency: string
+        amountLocal: string
+        currencyLocal: string
+        arrivesBy: datetime
+        carrierAccount: string
+        durationTerms: string
+        estimatedDays: integer
+        provider: string
+        shipment: string
+        zone: string
+        test: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Transaction {
+        id: string @unique
+        labelUrl: string
+        trackingNumber: string
+        trackingUrlProvider: string
+        commercialInvoiceUrl: string
+        eta: datetime
+        qrCodeUrl: string
+        parcel: string
+        test: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Address {
         id: string @unique
         name: string
-        recordCount: integer
-        primaryKey: string
+        company: string
+        street1: string
+        street2: string
+        streetNo: string
+        city: string
+        state: string
+        zip: string
+        country: string
+        phone: string
+        email: string
+        isResidential: boolean
+        isComplete: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Webhook {
+    entity Parcel {
         id: string @unique
-        event: string
-        url: string
+        weight: string
+        height: string
+        length: string
+        width: string
+        objectState: string
+        test: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity CarrierAccount {
+        id: string @unique
+        accountId: string
         active: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Order {
-        id: string @unique
-        number: string
-        total: float
-        currency: string
-        status: string
+        carrier: string
+        isShippoAccount: boolean
+        test: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }
