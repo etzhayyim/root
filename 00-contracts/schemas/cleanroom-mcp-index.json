@@ -7,7 +7,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 29905,
+  "totalTools": 29900,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -2595,7 +2595,7 @@
     {
       "handle": "elastic-compat",
       "did": "did:web:etzhayyim.com:actor:elastic-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreieol5cq3fzweufduj2ucqn42niwutcntjjspq6e6dfgblrlnjspxi",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -6510,10 +6510,10 @@
     {
       "handle": "pulumi-compat",
       "did": "did:web:etzhayyim.com:actor:pulumi-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreide7d6jn5tgovt557t254n3jfn577tnv5rvht3ntgbwbvvthanfl4",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreiacvan7mnyzqs64ystmdo7ooym57bcclvuwv5l3qjryxjvyxbfgc4",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "manifest": "20-actors/pulumi-compat/manifest.json#/capabilities/mcp"
     },
     {

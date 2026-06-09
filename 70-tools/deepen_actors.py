@@ -1603,6 +1603,24 @@ PLATFORM_OVERRIDES = {
         "Computer": E(displayName="string", name="string", url="string", offline="boolean", offlineCauseReason="string", numExecutors="integer"),
         "View": E(name="string", url="string", description="string"),
     },
+    # Faithful Elasticsearch model — verified against official Elastic.co reference docs.
+    "elastic": {
+        "ClusterHealth": E(clusterName="string", status="string", numberOfNodes="integer", numberOfDataNodes="integer", activePrimaryShards="integer", activeShards="integer", relocatingShards="integer", initializingShards="integer", unassignedShards="integer", timedOut="boolean"),
+        "Index": E(name="string", health="string", status="string", uuid="string", numberOfShards="integer", numberOfReplicas="integer", docsCount="integer", docsDeleted="integer", storeSize="string"),
+        "Shard": E(index="string", shardNumber="integer", primaryOrReplica="string", state="string", docsCount="integer", nodeName="string", nodeId="string"),
+        "Node": E(id="string", ip="string", port="integer", name="string", version="string", heapPercent="integer", ramPercent="integer", diskUsedPercent="integer", master="string"),
+        "Alias": E(alias="string", index="string", routingIndex="string", routingSearch="string", isWriteIndex="string"),
+        "Document": E(index="string", id="string", version="integer", seqNo="integer", primaryTerm="integer", found="boolean", routing="string"),
+    },
+    # Faithful Pulumi Cloud model — verified against the official Pulumi Go SDK
+    # apitype package (github.com/pulumi/pulumi). Organization.role left open.
+    "pulumi": {
+        "Update": E(kind="string", result="string", message="string", version="integer", resourceCount="integer", startTime="integer", endTime="integer"),
+        "Stack": E(stackName="string", orgName="string", projectName="string", id="string", lastUpdate="integer", resourceCount="integer"),
+        "Policy": E(name="string", displayName="string", description="string", enforcementLevel="string", severity="string", message="string"),
+        "Deployment": E(id="string", status="string", projectName="string", stackName="string", paused="boolean", created="datetime", modified="datetime"),
+        "Organization": E(name="string", role="string"),
+    },
     # Faithful Ramp model — verified against the official Ramp Developer API OpenAPI
     # (docs.ramp.com/openapi/developer-api.json). snake_case->camelCase.
     "ramp": {

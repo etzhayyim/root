@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 910,
-    "L5": 90
+    "L4": 908,
+    "L5": 92
   },
   "actors": [
     {
@@ -5186,7 +5186,7 @@
       "wasmCid": "bafkreieol5cq3fzweufduj2ucqn42niwutcntjjspq6e6dfgblrlnjspxi",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "elastic clean-room actor",
       "category": "devtools_apm",
       "capabilities": [
@@ -13013,10 +13013,10 @@
     {
       "handle": "pulumi-compat",
       "did": "did:web:etzhayyim.com:actor:pulumi-compat",
-      "wasmCid": "bafkreide7d6jn5tgovt557t254n3jfn577tnv5rvht3ntgbwbvvthanfl4",
+      "wasmCid": "bafkreiacvan7mnyzqs64ystmdo7ooym57bcclvuwv5l3qjryxjvyxbfgc4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "pulumi clean-room actor",
       "category": "devsecops_serverless",
       "capabilities": [

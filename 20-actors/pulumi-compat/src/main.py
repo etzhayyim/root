@@ -111,53 +111,132 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/services", methods=["POST"])
-def create_service(request):
-    """Create a Service."""
+@app.route("/v1/updates", methods=["POST"])
+def create_update(request):
+    """Create a Update."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'runtime', 'region', 'status'])
+    err = _reject_unknown(data, ['kind', 'result', 'message', 'version', 'resourceCount', 'startTime', 'endTime'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'runtime'])
+    err = _require(data, ['kind', 'result'])
     if err:
         return err, 400
-    rec = {"id": new_id("pulumi_ser")}
-    rec["name"] = data.get('name')
-    rec["runtime"] = data.get('runtime')
-    rec["region"] = data.get('region')
-    rec["status"] = data.get('status')
+    if data.get('kind') and data['kind'] not in ['update', 'preview', 'refresh', 'rename', 'destroy', 'import', 'resource-import']:
+        return {"error": {"message": "invalid kind; allowed: " + ", ".join(['update', 'preview', 'refresh', 'rename', 'destroy', 'import', 'resource-import']), "type": "invalid_request_error"}}, 400
+    if data.get('result') and data['result'] not in ['not-started', 'in-progress', 'succeeded', 'failed']:
+        return {"error": {"message": "invalid result; allowed: " + ", ".join(['not-started', 'in-progress', 'succeeded', 'failed']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("pulumi_upd")}
+    rec["kind"] = data.get('kind')
+    rec["result"] = data.get('result')
+    rec["message"] = data.get('message')
+    rec["version"] = _as_int(data.get('version'))
+    rec["resourceCount"] = _as_int(data.get('resourceCount'))
+    rec["startTime"] = _as_int(data.get('startTime'))
+    rec["endTime"] = _as_int(data.get('endTime'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Service", rec)
+    _persist("Update", rec)
     return rec, 201
 
-@app.route("/v1/services", methods=["GET"])
-def list_services(request):
-    """List Services with filtering + cursor pagination."""
+@app.route("/v1/updates", methods=["GET"])
+def list_updates(request):
+    """List Updates with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Service")
-    rows = _apply_filters(rows, params, ['name', 'runtime', 'region', 'status'])
+    rows = _query("Update")
+    rows = _apply_filters(rows, params, ['kind', 'result', 'message', 'version', 'resourceCount', 'startTime', 'endTime'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/services/<eid>", methods=["GET"])
-def get_service(request, eid):
-    """Retrieve a Service by id (supports ?expand=)."""
-    rows = _query("Service", eid)
+@app.route("/v1/updates/<eid>", methods=["GET"])
+def get_update(request, eid):
+    """Retrieve a Update by id (supports ?expand=)."""
+    rows = _query("Update", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/services/<eid>", methods=["POST", "PATCH"])
-def update_service(request, eid):
-    """Update a Service."""
-    rows = _query("Service", eid)
+@app.route("/v1/updates/<eid>", methods=["POST", "PATCH"])
+def update_update(request, eid):
+    """Update a Update."""
+    rows = _query("Update", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'runtime', 'region', 'status'])
+    err = _reject_unknown(data, ['kind', 'result', 'message', 'version', 'resourceCount', 'startTime', 'endTime'])
+    if err:
+        return err, 400
+    if data.get('kind') and data['kind'] not in ['update', 'preview', 'refresh', 'rename', 'destroy', 'import', 'resource-import']:
+        return {"error": {"message": "invalid kind; allowed: " + ", ".join(['update', 'preview', 'refresh', 'rename', 'destroy', 'import', 'resource-import']), "type": "invalid_request_error"}}, 400
+    if data.get('result') and data['result'] not in ['not-started', 'in-progress', 'succeeded', 'failed']:
+        return {"error": {"message": "invalid result; allowed: " + ", ".join(['not-started', 'in-progress', 'succeeded', 'failed']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Update", rec)
+    return rec, 200
+
+@app.route("/v1/updates/<eid>", methods=["DELETE"])
+def delete_update(request, eid):
+    """Delete a Update."""
+    rows = _query("Update", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"pulumi.Update", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/stacks", methods=["POST"])
+def create_stack(request):
+    """Create a Stack."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['stackName', 'orgName', 'projectName', 'id', 'lastUpdate', 'resourceCount'])
+    if err:
+        return err, 400
+    err = _require(data, ['stackName', 'orgName'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("pulumi_sta")}
+    rec["stackName"] = data.get('stackName')
+    rec["orgName"] = data.get('orgName')
+    rec["projectName"] = data.get('projectName')
+    rec["id"] = data.get('id')
+    rec["lastUpdate"] = _as_int(data.get('lastUpdate'))
+    rec["resourceCount"] = _as_int(data.get('resourceCount'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Stack", rec)
+    return rec, 201
+
+@app.route("/v1/stacks", methods=["GET"])
+def list_stacks(request):
+    """List Stacks with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Stack")
+    rows = _apply_filters(rows, params, ['stackName', 'orgName', 'projectName', 'id', 'lastUpdate', 'resourceCount'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/stacks/<eid>", methods=["GET"])
+def get_stack(request, eid):
+    """Retrieve a Stack by id (supports ?expand=)."""
+    rows = _query("Stack", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/stacks/<eid>", methods=["POST", "PATCH"])
+def update_stack(request, eid):
+    """Update a Stack."""
+    rows = _query("Stack", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['stackName', 'orgName', 'projectName', 'id', 'lastUpdate', 'resourceCount'])
     if err:
         return err, 400
     rec = rows[0]
@@ -165,33 +244,114 @@ def update_service(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Service", rec)
+    _persist("Stack", rec)
     return rec, 200
 
-@app.route("/v1/services/<eid>", methods=["DELETE"])
-def delete_service(request, eid):
-    """Delete a Service."""
-    rows = _query("Service", eid)
+@app.route("/v1/stacks/<eid>", methods=["DELETE"])
+def delete_stack(request, eid):
+    """Delete a Stack."""
+    rows = _query("Stack", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"pulumi.Service", "id": eid})
+    db.retract({"entity": f"pulumi.Stack", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/policies", methods=["POST"])
+def create_policy(request):
+    """Create a Policy."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'displayName', 'description', 'enforcementLevel', 'severity', 'message'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'displayName'])
+    if err:
+        return err, 400
+    if data.get('enforcementLevel') and data['enforcementLevel'] not in ['Advisory', 'Mandatory', 'Remediate', 'Disabled']:
+        return {"error": {"message": "invalid enforcementLevel; allowed: " + ", ".join(['Advisory', 'Mandatory', 'Remediate', 'Disabled']), "type": "invalid_request_error"}}, 400
+    if data.get('severity') and data['severity'] not in ['PolicySeverityUnspecified', 'PolicySeverityLow', 'PolicySeverityMedium', 'PolicySeverityHigh', 'PolicySeverityCritical']:
+        return {"error": {"message": "invalid severity; allowed: " + ", ".join(['PolicySeverityUnspecified', 'PolicySeverityLow', 'PolicySeverityMedium', 'PolicySeverityHigh', 'PolicySeverityCritical']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("pulumi_pol")}
+    rec["name"] = data.get('name')
+    rec["displayName"] = data.get('displayName')
+    rec["description"] = data.get('description')
+    rec["enforcementLevel"] = data.get('enforcementLevel')
+    rec["severity"] = data.get('severity')
+    rec["message"] = data.get('message')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Policy", rec)
+    return rec, 201
+
+@app.route("/v1/policies", methods=["GET"])
+def list_policies(request):
+    """List Policies with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Policy")
+    rows = _apply_filters(rows, params, ['name', 'displayName', 'description', 'enforcementLevel', 'severity', 'message'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/policies/<eid>", methods=["GET"])
+def get_policy(request, eid):
+    """Retrieve a Policy by id (supports ?expand=)."""
+    rows = _query("Policy", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/policies/<eid>", methods=["POST", "PATCH"])
+def update_policy(request, eid):
+    """Update a Policy."""
+    rows = _query("Policy", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'displayName', 'description', 'enforcementLevel', 'severity', 'message'])
+    if err:
+        return err, 400
+    if data.get('enforcementLevel') and data['enforcementLevel'] not in ['Advisory', 'Mandatory', 'Remediate', 'Disabled']:
+        return {"error": {"message": "invalid enforcementLevel; allowed: " + ", ".join(['Advisory', 'Mandatory', 'Remediate', 'Disabled']), "type": "invalid_request_error"}}, 400
+    if data.get('severity') and data['severity'] not in ['PolicySeverityUnspecified', 'PolicySeverityLow', 'PolicySeverityMedium', 'PolicySeverityHigh', 'PolicySeverityCritical']:
+        return {"error": {"message": "invalid severity; allowed: " + ", ".join(['PolicySeverityUnspecified', 'PolicySeverityLow', 'PolicySeverityMedium', 'PolicySeverityHigh', 'PolicySeverityCritical']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Policy", rec)
+    return rec, 200
+
+@app.route("/v1/policies/<eid>", methods=["DELETE"])
+def delete_policy(request, eid):
+    """Delete a Policy."""
+    rows = _query("Policy", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"pulumi.Policy", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/v1/deployments", methods=["POST"])
 def create_deployment(request):
     """Create a Deployment."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'version', 'status', 'deployedAt'])
+    err = _reject_unknown(data, ['id', 'status', 'projectName', 'stackName', 'paused', 'created', 'modified'])
     if err:
         return err, 400
-    err = _require(data, ['version', 'status'])
+    err = _require(data, ['id', 'status'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['not-started', 'accepted', 'running', 'failed', 'succeeded', 'skipped']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['not-started', 'accepted', 'running', 'failed', 'succeeded', 'skipped']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("pulumi_dep")}
-    rec["serviceId"] = data.get('serviceId')
-    rec["version"] = data.get('version')
+    rec["id"] = data.get('id')
     rec["status"] = data.get('status')
-    rec["deployedAt"] = data.get('deployedAt')
+    rec["projectName"] = data.get('projectName')
+    rec["stackName"] = data.get('stackName')
+    rec["paused"] = _as_bool(data.get('paused'))
+    rec["created"] = data.get('created')
+    rec["modified"] = data.get('modified')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Deployment", rec)
@@ -202,7 +362,7 @@ def list_deployments(request):
     """List Deployments with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Deployment")
-    rows = _apply_filters(rows, params, ['serviceId', 'version', 'status', 'deployedAt'])
+    rows = _apply_filters(rows, params, ['id', 'status', 'projectName', 'stackName', 'paused', 'created', 'modified'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -214,7 +374,6 @@ def get_deployment(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
     return rec, 200
 
 @app.route("/v1/deployments/<eid>", methods=["POST", "PATCH"])
@@ -224,9 +383,11 @@ def update_deployment(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'version', 'status', 'deployedAt'])
+    err = _reject_unknown(data, ['id', 'status', 'projectName', 'stackName', 'paused', 'created', 'modified'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['not-started', 'accepted', 'running', 'failed', 'succeeded', 'skipped']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['not-started', 'accepted', 'running', 'failed', 'succeeded', 'skipped']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -244,52 +405,51 @@ def delete_deployment(request, eid):
     db.retract({"entity": f"pulumi.Deployment", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/secrets", methods=["POST"])
-def create_secret(request):
-    """Create a Secret."""
+@app.route("/v1/organizations", methods=["POST"])
+def create_organization(request):
+    """Create a Organization."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'scope', 'rotatedAt'])
+    err = _reject_unknown(data, ['name', 'role'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'scope'])
+    err = _require(data, ['name', 'role'])
     if err:
         return err, 400
-    rec = {"id": new_id("pulumi_sec")}
+    rec = {"id": new_id("pulumi_org")}
     rec["name"] = data.get('name')
-    rec["scope"] = data.get('scope')
-    rec["rotatedAt"] = data.get('rotatedAt')
+    rec["role"] = data.get('role')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Secret", rec)
+    _persist("Organization", rec)
     return rec, 201
 
-@app.route("/v1/secrets", methods=["GET"])
-def list_secrets(request):
-    """List Secrets with filtering + cursor pagination."""
+@app.route("/v1/organizations", methods=["GET"])
+def list_organizations(request):
+    """List Organizations with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Secret")
-    rows = _apply_filters(rows, params, ['name', 'scope', 'rotatedAt'])
+    rows = _query("Organization")
+    rows = _apply_filters(rows, params, ['name', 'role'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/secrets/<eid>", methods=["GET"])
-def get_secret(request, eid):
-    """Retrieve a Secret by id (supports ?expand=)."""
-    rows = _query("Secret", eid)
+@app.route("/v1/organizations/<eid>", methods=["GET"])
+def get_organization(request, eid):
+    """Retrieve a Organization by id (supports ?expand=)."""
+    rows = _query("Organization", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/secrets/<eid>", methods=["POST", "PATCH"])
-def update_secret(request, eid):
-    """Update a Secret."""
-    rows = _query("Secret", eid)
+@app.route("/v1/organizations/<eid>", methods=["POST", "PATCH"])
+def update_organization(request, eid):
+    """Update a Organization."""
+    rows = _query("Organization", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'scope', 'rotatedAt'])
+    err = _reject_unknown(data, ['name', 'role'])
     if err:
         return err, 400
     rec = rows[0]
@@ -297,221 +457,22 @@ def update_secret(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Secret", rec)
+    _persist("Organization", rec)
     return rec, 200
 
-@app.route("/v1/secrets/<eid>", methods=["DELETE"])
-def delete_secret(request, eid):
-    """Delete a Secret."""
-    rows = _query("Secret", eid)
+@app.route("/v1/organizations/<eid>", methods=["DELETE"])
+def delete_organization(request, eid):
+    """Delete a Organization."""
+    rows = _query("Organization", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"pulumi.Secret", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/apiproxies", methods=["POST"])
-def create_api_proxy(request):
-    """Create a ApiProxy."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'basePath', 'target', 'active'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'basePath'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("pulumi_api")}
-    rec["name"] = data.get('name')
-    rec["basePath"] = data.get('basePath')
-    rec["target"] = data.get('target')
-    rec["active"] = _as_bool(data.get('active'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("ApiProxy", rec)
-    return rec, 201
-
-@app.route("/v1/apiproxies", methods=["GET"])
-def list_api_proxies(request):
-    """List ApiProxies with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("ApiProxy")
-    rows = _apply_filters(rows, params, ['name', 'basePath', 'target', 'active'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/apiproxies/<eid>", methods=["GET"])
-def get_api_proxy(request, eid):
-    """Retrieve a ApiProxy by id (supports ?expand=)."""
-    rows = _query("ApiProxy", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/apiproxies/<eid>", methods=["POST", "PATCH"])
-def update_api_proxy(request, eid):
-    """Update a ApiProxy."""
-    rows = _query("ApiProxy", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'basePath', 'target', 'active'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("ApiProxy", rec)
-    return rec, 200
-
-@app.route("/v1/apiproxies/<eid>", methods=["DELETE"])
-def delete_api_proxy(request, eid):
-    """Delete a ApiProxy."""
-    rows = _query("ApiProxy", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"pulumi.ApiProxy", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/databases", methods=["POST"])
-def create_database(request):
-    """Create a Database."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'engine', 'region', 'sizeGb'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'engine'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("pulumi_dat")}
-    rec["name"] = data.get('name')
-    rec["engine"] = data.get('engine')
-    rec["region"] = data.get('region')
-    rec["sizeGb"] = _as_int(data.get('sizeGb'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Database", rec)
-    return rec, 201
-
-@app.route("/v1/databases", methods=["GET"])
-def list_databases(request):
-    """List Databases with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Database")
-    rows = _apply_filters(rows, params, ['name', 'engine', 'region', 'sizeGb'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/databases/<eid>", methods=["GET"])
-def get_database(request, eid):
-    """Retrieve a Database by id (supports ?expand=)."""
-    rows = _query("Database", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/databases/<eid>", methods=["POST", "PATCH"])
-def update_database(request, eid):
-    """Update a Database."""
-    rows = _query("Database", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'engine', 'region', 'sizeGb'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Database", rec)
-    return rec, 200
-
-@app.route("/v1/databases/<eid>", methods=["DELETE"])
-def delete_database(request, eid):
-    """Delete a Database."""
-    rows = _query("Database", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"pulumi.Database", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/functions", methods=["POST"])
-def create_function(request):
-    """Create a Function."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'name', 'memoryMb', 'timeoutMs'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'memoryMb'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("pulumi_fun")}
-    rec["serviceId"] = data.get('serviceId')
-    rec["name"] = data.get('name')
-    rec["memoryMb"] = _as_int(data.get('memoryMb'))
-    rec["timeoutMs"] = _as_int(data.get('timeoutMs'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Function", rec)
-    return rec, 201
-
-@app.route("/v1/functions", methods=["GET"])
-def list_functions(request):
-    """List Functions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Function")
-    rows = _apply_filters(rows, params, ['serviceId', 'name', 'memoryMb', 'timeoutMs'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/functions/<eid>", methods=["GET"])
-def get_function(request, eid):
-    """Retrieve a Function by id (supports ?expand=)."""
-    rows = _query("Function", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
-    return rec, 200
-
-@app.route("/v1/functions/<eid>", methods=["POST", "PATCH"])
-def update_function(request, eid):
-    """Update a Function."""
-    rows = _query("Function", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'name', 'memoryMb', 'timeoutMs'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Function", rec)
-    return rec, 200
-
-@app.route("/v1/functions/<eid>", methods=["DELETE"])
-def delete_function(request, eid):
-    """Delete a Function."""
-    rows = _query("Function", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"pulumi.Function", "id": eid})
+    db.retract({"entity": f"pulumi.Organization", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "pulumi-compat", "tier": "L4",
-            "entities": ['Service', 'Deployment', 'Secret', 'ApiProxy', 'Database', 'Function']}, 200
+            "entities": ['Update', 'Stack', 'Policy', 'Deployment', 'Organization']}, 200
 
 
 if __name__ == "__main__":

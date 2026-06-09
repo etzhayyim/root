@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 90,
+  "count": 92,
   "actors": [
     {
       "handle": "square-compat",
@@ -12785,6 +12785,276 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (5/5) vs official Jenkins core source. Enforced enums: Build.result(5), Job.color(14) = 2 enums."
+    },
+    {
+      "handle": "elastic-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://www.elastic.co/guide/en/elasticsearch/reference/current",
+      "remodeled": "Remodeled from generic devtools_saas to a faithful Elasticsearch model, verified against official Elastic.co reference docs (_cat APIs + cluster health). ClusterHealth.status enforced as the canonical green/yellow/red (the agent's unknown/unavailable are from the separate Health-Report API -> excluded to keep the closed set accurate).",
+      "resources": [
+        {
+          "entity": "ClusterHealth",
+          "source": "https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-health.html",
+          "verifiedFields": [
+            "clusterName",
+            "status",
+            "numberOfNodes",
+            "numberOfDataNodes",
+            "activePrimaryShards",
+            "activeShards",
+            "relocatingShards",
+            "initializingShards",
+            "unassignedShards",
+            "timedOut"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "green",
+              "yellow",
+              "red"
+            ]
+          },
+          "gaps": [
+            "health-report-api-extends-with-unknown/unavailable"
+          ]
+        },
+        {
+          "entity": "Index",
+          "source": "https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-indices.html",
+          "verifiedFields": [
+            "name",
+            "health",
+            "status",
+            "uuid",
+            "numberOfShards",
+            "numberOfReplicas",
+            "docsCount",
+            "docsDeleted",
+            "storeSize"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "health": [
+              "green",
+              "yellow",
+              "red"
+            ],
+            "status": [
+              "open",
+              "closed"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Shard",
+          "source": "https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-shards.html",
+          "verifiedFields": [
+            "index",
+            "shardNumber",
+            "primaryOrReplica",
+            "state",
+            "docsCount",
+            "nodeName",
+            "nodeId"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "state": [
+              "UNASSIGNED",
+              "INITIALIZING",
+              "STARTED",
+              "RELOCATING"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Node",
+          "source": "https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-nodes.html",
+          "verifiedFields": [
+            "id",
+            "ip",
+            "port",
+            "name",
+            "version",
+            "heapPercent",
+            "ramPercent",
+            "diskUsedPercent",
+            "master"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "roles(array)"
+          ]
+        },
+        {
+          "entity": "Alias",
+          "source": "https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-alias.html",
+          "verifiedFields": [
+            "alias",
+            "index",
+            "routingIndex",
+            "routingSearch",
+            "isWriteIndex"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Document",
+          "source": "https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-get.html",
+          "verifiedFields": [
+            "index",
+            "id",
+            "version",
+            "seqNo",
+            "primaryTerm",
+            "found",
+            "routing"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "source(object)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official Elastic.co docs. Enforced enums: ClusterHealth.status(3), Index.health(3)/status(2), Shard.state(4) = 4 enums. ClusterHealth.status kept to canonical green/yellow/red (Health-Report API's unknown/unavailable noted as a gap, different endpoint)."
+    },
+    {
+      "handle": "pulumi-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/pulumi/pulumi/blob/master/sdk/go/common/apitype",
+      "remodeled": "Remodeled from generic devtools_saas to a faithful Pulumi Cloud model, verified against the official Pulumi Go SDK apitype package. Organization.role left open (FGA roles may extend the base set).",
+      "resources": [
+        {
+          "entity": "Update",
+          "source": "https://github.com/pulumi/pulumi/blob/master/sdk/go/common/apitype/history.go",
+          "verifiedFields": [
+            "kind",
+            "result",
+            "message",
+            "version",
+            "resourceCount",
+            "startTime",
+            "endTime"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "kind": [
+              "update",
+              "preview",
+              "refresh",
+              "rename",
+              "destroy",
+              "import",
+              "resource-import"
+            ],
+            "result": [
+              "not-started",
+              "in-progress",
+              "succeeded",
+              "failed"
+            ]
+          },
+          "gaps": [
+            "config(object)"
+          ]
+        },
+        {
+          "entity": "Stack",
+          "source": "https://github.com/pulumi/pulumi/blob/master/sdk/go/common/apitype/stacks.go",
+          "verifiedFields": [
+            "stackName",
+            "orgName",
+            "projectName",
+            "id",
+            "lastUpdate",
+            "resourceCount"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "tags(object)"
+          ]
+        },
+        {
+          "entity": "Policy",
+          "source": "https://github.com/pulumi/pulumi/blob/master/sdk/go/common/apitype/policy.go",
+          "verifiedFields": [
+            "name",
+            "displayName",
+            "description",
+            "enforcementLevel",
+            "severity",
+            "message"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "enforcementLevel": [
+              "Advisory",
+              "Mandatory",
+              "Remediate",
+              "Disabled"
+            ],
+            "severity": [
+              "PolicySeverityUnspecified",
+              "PolicySeverityLow",
+              "PolicySeverityMedium",
+              "PolicySeverityHigh",
+              "PolicySeverityCritical"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Deployment",
+          "source": "https://github.com/pulumi/pulumi/blob/master/sdk/go/common/apitype/list_deployments.go",
+          "verifiedFields": [
+            "id",
+            "status",
+            "projectName",
+            "stackName",
+            "paused",
+            "created",
+            "modified"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "not-started",
+              "accepted",
+              "running",
+              "failed",
+              "succeeded",
+              "skipped"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Organization",
+          "source": "https://github.com/pulumi/pulumi/blob/master/sdk/go/common/apitype/organizations.go",
+          "verifiedFields": [
+            "name",
+            "role"
+          ],
+          "fieldStatus": "fields confirmed; role base set member/admin/billing-manager may be extended by FGA -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "role-may-extend-via-FGA"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5 schemas) vs official Pulumi Go SDK apitype. Enforced enums: Update.kind(7)/result(4), Policy.enforcementLevel(4)/severity(5), Deployment.status(6) = 5 enums. Organization.role left open (FGA-extensible)."
     }
   ]
 }

@@ -6,7 +6,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29905,
+  "totalEndpoints": 29900,
   "l4SpecsAvailable": 1000,
   "apis": [
     {
@@ -4891,7 +4891,7 @@
     {
       "handle": "elastic-compat",
       "did": "did:web:etzhayyim.com:actor:elastic-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreieol5cq3fzweufduj2ucqn42niwutcntjjspq6e6dfgblrlnjspxi",
@@ -12286,10 +12286,10 @@
     {
       "handle": "pulumi-compat",
       "did": "did:web:etzhayyim.com:actor:pulumi-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreide7d6jn5tgovt557t254n3jfn577tnv5rvht3ntgbwbvvthanfl4",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreiacvan7mnyzqs64ystmdo7ooym57bcclvuwv5l3qjryxjvyxbfgc4",
       "health": "/healthz",
       "features": {
         "pagination": true,

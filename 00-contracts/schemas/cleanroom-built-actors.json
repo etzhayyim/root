@@ -4890,12 +4890,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Service",
-        "Error",
-        "Trace",
-        "Metric",
-        "Alert",
-        "Incident"
+        "ClusterHealth",
+        "Index",
+        "Shard",
+        "Node",
+        "Alias",
+        "Document"
       ]
     },
     {
@@ -12275,17 +12275,16 @@
       "handle": "pulumi-compat",
       "platform": "pulumi",
       "bytes": 2120,
-      "wasmCid": "bafkreide7d6jn5tgovt557t254n3jfn577tnv5rvht3ntgbwbvvthanfl4",
+      "wasmCid": "bafkreiacvan7mnyzqs64ystmdo7ooym57bcclvuwv5l3qjryxjvyxbfgc4",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Service",
+        "Update",
+        "Stack",
+        "Policy",
         "Deployment",
-        "Secret",
-        "ApiProxy",
-        "Database",
-        "Function"
+        "Organization"
       ]
     },
     {
