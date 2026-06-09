@@ -1693,6 +1693,33 @@ PLATFORM_OVERRIDES = {
         "Transform": E(type="integer", transformId="integer", transformLength="integer", attributes="string"),
         "Notify": E(protocolId="integer", spiSize="integer", notifyMessageType="integer", spi="string", notificationData="string"),
     },
+    # Faithful GTFS Schedule model — verified vs gtfs.org/schedule/reference. Many
+    # small closed integer enums. (newer/experimental carsAllowed/cemvSupport excluded.)
+    "gtfs": {
+        "Agency": E(agencyId="string", agencyName="string", agencyUrl="string", agencyTimezone="string", agencyLang="string", agencyPhone="string", agencyEmail="string"),
+        "Route": E(routeId="string", agencyId="string", routeShortName="string", routeLongName="string", routeDesc="string", routeType="integer", routeColor="string", routeSortOrder="integer", continuousPickup="integer", continuousDropOff="integer"),
+        "Trip": E(routeId="string", serviceId="string", tripId="string", tripHeadsign="string", directionId="integer", blockId="string", shapeId="string", wheelchairAccessible="integer", bikesAllowed="integer"),
+        "Stop": E(stopId="string", stopCode="string", stopName="string", stopDesc="string", stopLat="float", stopLon="float", zoneId="string", locationType="integer", parentStation="string", wheelchairBoarding="integer"),
+        "StopTime": E(tripId="string", arrivalTime="datetime", departureTime="datetime", stopId="string", stopSequence="integer", pickupType="integer", dropOffType="integer", timepoint="integer", shapeDistTraveled="float"),
+        "Transfer": E(fromStopId="string", toStopId="string", transferType="integer", minTransferTime="integer"),
+    },
+    # Faithful UN/LOCODE model — function classifier is a closed UNECE set; status codes
+    # gapped (UNECE site 403; public reference may be incomplete).
+    "un_locode": {
+        "Location": E(countryCode="string", locationCode="string", name="string", nameWoDiacritics="string", function="string", status="string", subdivision="string", iataCode="string", latitude="float", longitude="float"),
+        "FunctionClassifier": E(code="string", definition="string"),
+        "StatusCode": E(code="string", definition="string"),
+    },
+    # Faithful OMOP CDM v5.4 (OHDSI) model — verified vs ohdsi.github.io/CommonDataModel.
+    # *_concept_id fields are CONCEPT-table vocab refs (not enums) -> not enforced.
+    "omop_cdm": {
+        "Person": E(personId="integer", genderConceptId="integer", yearOfBirth="integer", monthOfBirth="integer", dayOfBirth="integer", birthDatetime="datetime", raceConceptId="integer", ethnicityConceptId="integer"),
+        "Concept": E(conceptId="integer", conceptName="string", domainId="string", vocabularyId="string", conceptClassId="string", standardConcept="string", conceptCode="string", validStartDate="datetime", validEndDate="datetime", invalidReason="string"),
+        "ConditionOccurrence": E(conditionOccurrenceId="integer", personId="integer", conditionConceptId="integer", conditionStartDate="datetime", conditionEndDate="datetime", visitOccurrenceId="integer"),
+        "DrugExposure": E(drugExposureId="integer", personId="integer", drugConceptId="integer", drugExposureStartDate="datetime", quantity="float", daysSupply="integer"),
+        "VisitOccurrence": E(visitOccurrenceId="integer", personId="integer", visitConceptId="integer", visitStartDate="datetime", visitEndDate="datetime", providerId="integer"),
+        "Observation": E(observationId="integer", personId="integer", observationConceptId="integer", observationDate="datetime", valueAsNumber="float", valueAsString="string"),
+    },
     # Faithful AIS (ITU-R M.1371) model — verified vs gpsd AIVDM canonical reference.
     # shipType (0-99) is a large IMO code list -> not enforced.
     "ais_marine": {

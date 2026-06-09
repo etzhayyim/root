@@ -3,69 +3,36 @@
 
 namespace un_locode {
 
-    entity Code {
-        id: string @unique
-        code: string
-        description: string
-        scheme: string
-        parentCode: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Unit {
-        id: string @unique
-        symbol: string
-        name: string
-        quantity: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Reference {
-        id: string @unique
-        name: string
-        value: float
-        uncertainty: float
-        unit: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Mapping {
-        id: string @unique
-        fromCode: string
-        toScheme: string
-        toCode: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
     entity Location {
         id: string @unique
-        unLocode: string
+        countryCode: string
+        locationCode: string
         name: string
-        country: string
+        nameWoDiacritics: string
+        function: string
+        status: string
+        subdivision: string
+        iataCode: string
+        latitude: float
+        longitude: float
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Epoch {
+    entity FunctionClassifier {
         id: string @unique
-        name: string
-        utcOffset: string
-        asOf: datetime
+        code: string
+        definition: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity StatusCode {
+        id: string @unique
+        code: string
+        definition: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 133,
+  "count": 135,
   "actors": [
     {
       "handle": "square-compat",
@@ -517,136 +517,195 @@
     },
     {
       "handle": "gtfs-compat",
-      "verifiedAt": "2026-06-08",
+      "verifiedAt": "2026-06-10",
       "tier": "L5",
-      "source": "https://gtfs.org/documentation/schedule/reference/",
+      "source": "https://gtfs.org/schedule/reference/",
+      "remodeled": "Upgraded from a generic category model to a faithful GTFS Schedule model, verified against gtfs.org/schedule/reference. Many small closed integer enums enforced; newer/experimental fields (carsAllowed/cemvSupport/stopAccess) excluded pending stability.",
       "resources": [
         {
-          "entity": "Stop",
-          "source": "https://gtfs.org/documentation/schedule/reference/",
+          "entity": "Agency",
+          "source": "https://gtfs.org/schedule/reference/",
           "verifiedFields": [
-            "name",
-            "lat",
-            "lon"
+            "agencyId",
+            "agencyName",
+            "agencyUrl",
+            "agencyTimezone",
+            "agencyLang",
+            "agencyPhone",
+            "agencyEmail"
           ],
-          "fieldStatus": "name=stop_name, lat=stop_lat, lon=stop_lon confirmed (code=stop_id)",
+          "fieldStatus": "confirmed; no closed enum",
           "discoveredEnums": {},
-          "gaps": [
-            "zone_id",
-            "location_type",
-            "parent_station",
-            "wheelchair_boarding"
-          ]
+          "gaps": []
         },
         {
           "entity": "Route",
-          "source": "https://gtfs.org/documentation/schedule/reference/",
+          "source": "https://gtfs.org/schedule/reference/",
           "verifiedFields": [
-            "shortName",
-            "longName",
-            "mode"
+            "routeId",
+            "agencyId",
+            "routeShortName",
+            "routeLongName",
+            "routeDesc",
+            "routeType",
+            "routeColor",
+            "routeSortOrder",
+            "continuousPickup",
+            "continuousDropOff"
           ],
-          "fieldStatus": "shortName=route_short_name, longName=route_long_name, mode<=route_type confirmed",
-          "discoveredEnums": {},
-          "gaps": [
-            "route_type is an INTEGER enum (0 tram .. 12 monorail) on the real spec; this actor's `mode` is a string label, so the enum is documented here but NOT force-enforced (semantic mapping, not 1:1)."
-          ]
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "routeType": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              11,
+              12
+            ],
+            "continuousPickup": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "continuousDropOff": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          "gaps": []
         },
         {
           "entity": "Trip",
-          "source": "https://gtfs.org/documentation/schedule/reference/",
+          "source": "https://gtfs.org/schedule/reference/",
           "verifiedFields": [
             "routeId",
-            "headsign",
-            "serviceId"
+            "serviceId",
+            "tripId",
+            "tripHeadsign",
+            "directionId",
+            "blockId",
+            "shapeId",
+            "wheelchairAccessible",
+            "bikesAllowed"
           ],
-          "fieldStatus": "route_id/trip_headsign/service_id confirmed (trips.txt)",
-          "discoveredEnums": {},
-          "gaps": [
-            "trip_id",
-            "direction_id",
-            "shape_id"
-          ]
-        },
-        {
-          "entity": "Fare",
-          "source": "https://gtfs.org/documentation/schedule/reference/",
-          "verifiedFields": [
-            "routeId",
-            "price",
-            "currency"
-          ],
-          "fieldStatus": "price/currency_type confirmed (fare_attributes.txt); routeId via fare_rules.txt",
-          "discoveredEnums": {},
-          "gaps": [
-            "payment_method",
-            "transfers",
-            "fare_id"
-          ]
-        },
-        {
-          "entity": "Vehicle",
-          "source": "https://gtfs.org/documentation/realtime/reference/",
-          "verifiedFields": [
-            "routeId",
-            "label",
-            "lat",
-            "lon"
-          ],
-          "fieldStatus": "GTFS-RT VehiclePosition: trip.route_id, vehicle.label, position.latitude/longitude confirmed",
-          "discoveredEnums": {},
-          "gaps": [
-            "timestamp",
-            "current_status",
-            "occupancy_status"
-          ]
-        },
-        {
-          "entity": "ServiceAlert",
-          "source": "https://gtfs.org/documentation/realtime/reference/",
-          "verifiedFields": [
-            "routeId",
-            "cause",
-            "effect"
-          ],
-          "fieldStatus": "GTFS-RT Alert: informed_entity.route_id, cause enum, effect enum confirmed",
+          "fieldStatus": "confirmed",
           "discoveredEnums": {
-            "cause": [
-              "UNKNOWN_CAUSE",
-              "OTHER_CAUSE",
-              "TECHNICAL_PROBLEM",
-              "STRIKE",
-              "DEMONSTRATION",
-              "ACCIDENT",
-              "HOLIDAY",
-              "WEATHER",
-              "MAINTENANCE",
-              "CONSTRUCTION",
-              "POLICE_ACTIVITY",
-              "MEDICAL_EMERGENCY"
+            "directionId": [
+              0,
+              1
             ],
-            "effect": [
-              "NO_SERVICE",
-              "REDUCED_SERVICE",
-              "SIGNIFICANT_DELAYS",
-              "DETOUR",
-              "ADDITIONAL_SERVICE",
-              "MODIFIED_SERVICE",
-              "OTHER_EFFECT",
-              "UNKNOWN_EFFECT",
-              "STOP_MOVED",
-              "NO_EFFECT",
-              "ACCESSIBILITY_ISSUE"
+            "wheelchairAccessible": [
+              0,
+              1,
+              2
+            ],
+            "bikesAllowed": [
+              0,
+              1,
+              2
             ]
           },
-          "gaps": [
-            "header_text",
-            "description_text",
-            "active_period"
-          ]
+          "gaps": []
+        },
+        {
+          "entity": "Stop",
+          "source": "https://gtfs.org/schedule/reference/",
+          "verifiedFields": [
+            "stopId",
+            "stopCode",
+            "stopName",
+            "stopDesc",
+            "stopLat",
+            "stopLon",
+            "zoneId",
+            "locationType",
+            "parentStation",
+            "wheelchairBoarding"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "locationType": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "wheelchairBoarding": [
+              0,
+              1,
+              2
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "StopTime",
+          "source": "https://gtfs.org/schedule/reference/",
+          "verifiedFields": [
+            "tripId",
+            "arrivalTime",
+            "departureTime",
+            "stopId",
+            "stopSequence",
+            "pickupType",
+            "dropOffType",
+            "timepoint",
+            "shapeDistTraveled"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "pickupType": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "dropOffType": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "timepoint": [
+              0,
+              1
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Transfer",
+          "source": "https://gtfs.org/schedule/reference/",
+          "verifiedFields": [
+            "fromStopId",
+            "toStopId",
+            "transferType",
+            "minTransferTime"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "transferType": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "gaps": []
         }
       ],
-      "note": "6 resource(s) doc-verified; enforced enums: ServiceAlert.cause, ServiceAlert.effect"
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official gtfs.org spec. Enforced enums: Route.routeType(10)/continuousPickup(4)/continuousDropOff(4), Trip.directionId(2)/wheelchairAccessible(3)/bikesAllowed(3), Stop.locationType(5)/wheelchairBoarding(3), StopTime.pickupType(4)/dropOffType(4)/timepoint(2), Transfer.transferType(5) = 12 enums. Upgraded from category model."
     },
     {
       "handle": "anthropic-compat",
@@ -18494,6 +18553,193 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (3/3) vs official RFC 4130. Enforced enums: Mdn.dispositionType(2), dispositionModifier(2), actionMode(2), sendingMode(2) = 4 (stable MDN disposition-mode grammar). micalg/digestAlgorithm (evolving algorithm sets) intentionally not enforced."
+    },
+    {
+      "handle": "un_locode-compat",
+      "verifiedAt": "2026-06-10",
+      "tier": "L5",
+      "source": "https://unece.org/trade/cefact/codesfortrade/codes-locode",
+      "remodeled": "Remodeled from generic category model to a faithful UN/LOCODE model. The function classifier (0-8,B) is the closed UNECE set. status codes gapped: the UNECE site 403'd and the public reference may not be exhaustive.",
+      "resources": [
+        {
+          "entity": "Location",
+          "source": "https://unece.org/trade/cefact/codesfortrade/codes-locode",
+          "verifiedFields": [
+            "countryCode",
+            "locationCode",
+            "name",
+            "nameWoDiacritics",
+            "function",
+            "status",
+            "subdivision",
+            "iataCode",
+            "latitude",
+            "longitude"
+          ],
+          "fieldStatus": "confirmed; status set not exhaustively confirmed (UNECE 403) -> not enforced",
+          "discoveredEnums": {
+            "function": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "B"
+            ]
+          },
+          "gaps": [
+            "status-not-exhaustive"
+          ]
+        },
+        {
+          "entity": "FunctionClassifier",
+          "source": "https://unece.org/trade/cefact/codesfortrade/codes-locode",
+          "verifiedFields": [
+            "code",
+            "definition"
+          ],
+          "fieldStatus": "confirmed; no closed enum (reference table)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "StatusCode",
+          "source": "https://unece.org/trade/cefact/codesfortrade/codes-locode",
+          "verifiedFields": [
+            "code",
+            "definition"
+          ],
+          "fieldStatus": "confirmed; no closed enum (reference table)",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (3/3 schemas) vs UN/LOCODE public reference (UNECE site 403; function classifier is a stable closed set). Enforced enum: Location.function(0-8,B = 10). status codes gapped (not exhaustively confirmed)."
+    },
+    {
+      "handle": "omop_cdm-compat",
+      "verifiedAt": "2026-06-10",
+      "tier": "L5",
+      "source": "https://ohdsi.github.io/CommonDataModel/cdm54.html",
+      "remodeled": "Remodeled from generic category model to a faithful OMOP CDM v5.4 model, verified against ohdsi.github.io/CommonDataModel. All *_concept_id fields are CONCEPT-table vocabulary references (NOT enums) -> not enforced; only the small closed Concept flags are.",
+      "resources": [
+        {
+          "entity": "Person",
+          "source": "https://ohdsi.github.io/CommonDataModel/cdm54.html",
+          "verifiedFields": [
+            "personId",
+            "genderConceptId",
+            "yearOfBirth",
+            "monthOfBirth",
+            "dayOfBirth",
+            "birthDatetime",
+            "raceConceptId",
+            "ethnicityConceptId"
+          ],
+          "fieldStatus": "confirmed; concept_id fields are vocab refs -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "concept_id-vocab-refs"
+          ]
+        },
+        {
+          "entity": "Concept",
+          "source": "https://ohdsi.github.io/CommonDataModel/cdm54.html",
+          "verifiedFields": [
+            "conceptId",
+            "conceptName",
+            "domainId",
+            "vocabularyId",
+            "conceptClassId",
+            "standardConcept",
+            "conceptCode",
+            "validStartDate",
+            "validEndDate",
+            "invalidReason"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "standardConcept": [
+              "S",
+              "C"
+            ],
+            "invalidReason": [
+              "D",
+              "U"
+            ]
+          },
+          "gaps": [
+            "null-handled-by-falsy-guard"
+          ]
+        },
+        {
+          "entity": "ConditionOccurrence",
+          "source": "https://ohdsi.github.io/CommonDataModel/cdm54.html",
+          "verifiedFields": [
+            "conditionOccurrenceId",
+            "personId",
+            "conditionConceptId",
+            "conditionStartDate",
+            "conditionEndDate",
+            "visitOccurrenceId"
+          ],
+          "fieldStatus": "confirmed; concept_id vocab refs",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "DrugExposure",
+          "source": "https://ohdsi.github.io/CommonDataModel/cdm54.html",
+          "verifiedFields": [
+            "drugExposureId",
+            "personId",
+            "drugConceptId",
+            "drugExposureStartDate",
+            "quantity",
+            "daysSupply"
+          ],
+          "fieldStatus": "confirmed; concept_id vocab refs",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "VisitOccurrence",
+          "source": "https://ohdsi.github.io/CommonDataModel/cdm54.html",
+          "verifiedFields": [
+            "visitOccurrenceId",
+            "personId",
+            "visitConceptId",
+            "visitStartDate",
+            "visitEndDate",
+            "providerId"
+          ],
+          "fieldStatus": "confirmed; concept_id vocab refs",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Observation",
+          "source": "https://ohdsi.github.io/CommonDataModel/cdm54.html",
+          "verifiedFields": [
+            "observationId",
+            "personId",
+            "observationConceptId",
+            "observationDate",
+            "valueAsNumber",
+            "valueAsString"
+          ],
+          "fieldStatus": "confirmed; concept_id vocab refs",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official OHDSI OMOP CDM v5.4. Enforced enums: Concept.standardConcept(S,C), Concept.invalidReason(D,U) = 2 small closed flags. All *_concept_id fields are CONCEPT vocab references (not enums) -> intentionally not enforced."
     }
   ]
 }

@@ -7,9 +7,9 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 29720,
-  "l5VerifiedActors": 129,
-  "totalVerifiedEnumFields": 578,
+  "totalTools": 29705,
+  "l5VerifiedActors": 131,
+  "totalVerifiedEnumFields": 591,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -4375,7 +4375,7 @@
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "l5Verified": true,
-      "verifiedEnumFields": 2,
+      "verifiedEnumFields": 12,
       "manifest": "20-actors/gtfs-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -7197,12 +7197,12 @@
     {
       "handle": "omop_cdm-compat",
       "did": "did:web:etzhayyim.com:actor:omop_cdm-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreif6sucsenrlr4lzzhz6jdfglqksfsuhvyzqcszd4rggowzlouddhy",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 2,
       "manifest": "20-actors/omop_cdm-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -10035,12 +10035,12 @@
     {
       "handle": "un_locode-compat",
       "did": "did:web:etzhayyim.com:actor:un_locode-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreifkwfppuplhncwvhcmzb4t4edc3asm4gfqnfq7t7aysw6zoyumtxm",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreiauaghvq5rzecl7lsus5wzr3o23z4p5iu4mkcy4cihuoz2ci6ujia",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "toolCount": 15,
+      "l5Verified": true,
+      "verifiedEnumFields": 1,
       "manifest": "20-actors/un_locode-compat/manifest.json#/capabilities/mcp"
     },
     {

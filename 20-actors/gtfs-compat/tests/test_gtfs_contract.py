@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "gtfs.kotoba")
-ENTITIES = ['Stop', 'Route', 'Trip', 'Vehicle', 'ServiceAlert', 'Fare']
-PLURALS = {'Stop': 'stops', 'Route': 'routes', 'Trip': 'trips', 'Vehicle': 'vehicles', 'ServiceAlert': 'servicealerts', 'Fare': 'fares'}
+ENTITIES = ['Agency', 'Route', 'Trip', 'Stop', 'StopTime', 'Transfer']
+PLURALS = {'Agency': 'agencies', 'Route': 'routes', 'Trip': 'trips', 'Stop': 'stops', 'StopTime': 'stoptimes', 'Transfer': 'transfers'}
 
 
 class GtfsContract(unittest.TestCase):
@@ -65,7 +65,7 @@ class GtfsContract(unittest.TestCase):
 
     def test_verified_enums_enforced(self):
         """L5: discovered enums from official docs are enforced."""
-        for field in ['cause', 'effect']:
+        for field in ['bikesAllowed', 'continuousDropOff', 'continuousPickup', 'directionId', 'dropOffType', 'locationType', 'pickupType', 'routeType', 'timepoint', 'transferType', 'wheelchairAccessible', 'wheelchairBoarding']:
             self.assertIn(f"invalid {field}; allowed:", self.src,
                           f"verified enum for {field} not enforced")
 

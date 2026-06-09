@@ -6730,12 +6730,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Stop",
+        "Agency",
         "Route",
         "Trip",
-        "Vehicle",
-        "ServiceAlert",
-        "Fare"
+        "Stop",
+        "StopTime",
+        "Transfer"
       ]
     },
     {
@@ -11085,12 +11085,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Patient",
-        "Observation",
-        "Condition",
-        "DiagnosticReport",
-        "Sequence",
-        "Specimen"
+        "Person",
+        "Concept",
+        "ConditionOccurrence",
+        "DrugExposure",
+        "VisitOccurrence",
+        "Observation"
       ]
     },
     {
@@ -15452,17 +15452,14 @@
       "handle": "un_locode-compat",
       "platform": "un_locode",
       "bytes": 2123,
-      "wasmCid": "bafkreifkwfppuplhncwvhcmzb4t4edc3asm4gfqnfq7t7aysw6zoyumtxm",
+      "wasmCid": "bafkreiauaghvq5rzecl7lsus5wzr3o23z4p5iu4mkcy4cihuoz2ci6ujia",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Code",
-        "Unit",
-        "Reference",
-        "Mapping",
         "Location",
-        "Epoch"
+        "FunctionClassifier",
+        "StatusCode"
       ]
     },
     {

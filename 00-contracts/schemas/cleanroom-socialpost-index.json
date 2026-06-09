@@ -7,8 +7,8 @@
     "260607"
   ],
   "count": 1000,
-  "l5VerifiedActors": 129,
-  "totalVerifiedEnumFields": 578,
+  "l5VerifiedActors": 131,
+  "totalVerifiedEnumFields": 591,
   "feeds": [
     {
       "handle": "8th_wall-compat",
@@ -3978,7 +3978,7 @@
       "mode": "dry-run",
       "gate": "G8",
       "l5Verified": true,
-      "verifiedEnumFields": 2
+      "verifiedEnumFields": 12
     },
     {
       "handle": "guidewire_claimcenter-compat",
@@ -6547,8 +6547,8 @@
       "source": "omop_cdm.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 2
     },
     {
       "handle": "omron_sysmac-compat",
@@ -9127,8 +9127,8 @@
       "source": "un_locode.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 1
     },
     {
       "handle": "undata-compat",
