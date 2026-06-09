@@ -3,69 +3,86 @@
 
 namespace gbfs {
 
-    entity Stop {
+    entity SystemInformation {
         id: string @unique
-        code: string
+        systemId: string
+        name: string
+        operator: string
+        url: string
+        timezone: string
+        openingHours: string
+        phoneNumber: string
+        email: string
+        feedContactEmail: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity VehicleType {
+        id: string @unique
+        vehicleTypeId: string
+        formFactor: string
+        propulsionType: string
+        returnConstraint: string
+        maxRangeMeters: float
+        riderCapacity: integer
+        wheelCount: integer
+        maxPermittedSpeed: integer
+        minAge: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Station {
+        id: string @unique
+        stationId: string
         name: string
         lat: float
         lon: float
+        address: string
+        city: string
+        regionId: string
+        capacity: integer
+        isVirtualStation: boolean
+        isChargingStation: boolean
+        parkingType: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Route {
+    entity StationStatus {
         id: string @unique
-        shortName: string
-        longName: string
-        mode: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Trip {
-        id: string @unique
-        routeId: string
-        headsign: string
-        serviceId: string
+        stationId: string
+        numVehiclesAvailable: integer
+        numDocksAvailable: integer
+        isInstalled: boolean
+        isRenting: boolean
+        isReturning: boolean
+        lastReported: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Vehicle {
         id: string @unique
-        routeId: string
-        label: string
+        vehicleId: string
         lat: float
         lon: float
+        isReserved: boolean
+        isDisabled: boolean
+        vehicleTypeId: string
+        currentRangeMeters: float
+        lastReported: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity ServiceAlert {
+    entity Region {
         id: string @unique
-        routeId: string
-        cause: string
-        effect: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Fare {
-        id: string @unique
-        routeId: string
-        price: float
-        currency: string
+        regionId: string
+        name: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

@@ -3297,7 +3297,7 @@
     {
       "handle": "gbfs-compat",
       "did": "did:web:etzhayyim.com:actor:gbfs-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreidthlawcfjorq2a764yfh6igvm2k3uwj25uowlo7ylftzrmxg63ke",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,

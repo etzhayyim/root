@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 105,
+  "count": 106,
   "actors": [
     {
       "handle": "square-compat",
@@ -14857,6 +14857,153 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (5/5) vs official Patreon API v2 docs. Enforced enums: Member.patronStatus(3), Member.lastChargeStatus(12) = 2 enums. payPerName left a gap (not exhaustively documented)."
+    },
+    {
+      "handle": "gbfs-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/MobilityData/gbfs",
+      "remodeled": "Remodeled from generic category model to a faithful GBFS model, verified against the official MobilityData/gbfs spec (v3.x). rentalMethods is array-valued -> not enforced as a scalar field enum.",
+      "resources": [
+        {
+          "entity": "SystemInformation",
+          "source": "https://github.com/MobilityData/gbfs system_information.json",
+          "verifiedFields": [
+            "systemId",
+            "name",
+            "operator",
+            "url",
+            "timezone",
+            "openingHours",
+            "phoneNumber",
+            "email",
+            "feedContactEmail"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "VehicleType",
+          "source": "https://github.com/MobilityData/gbfs vehicle_types.json",
+          "verifiedFields": [
+            "vehicleTypeId",
+            "formFactor",
+            "propulsionType",
+            "returnConstraint",
+            "maxRangeMeters",
+            "riderCapacity",
+            "wheelCount",
+            "maxPermittedSpeed",
+            "minAge"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "formFactor": [
+              "bicycle",
+              "cargo_bicycle",
+              "car",
+              "moped",
+              "scooter_standing",
+              "scooter_seated",
+              "other"
+            ],
+            "propulsionType": [
+              "human",
+              "electric_assist",
+              "electric",
+              "combustion",
+              "combustion_diesel",
+              "hybrid",
+              "plug_in_hybrid",
+              "hydrogen_fuel_cell"
+            ],
+            "returnConstraint": [
+              "free_floating",
+              "roundtrip_station",
+              "any_station",
+              "hybrid"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Station",
+          "source": "https://github.com/MobilityData/gbfs station_information.json",
+          "verifiedFields": [
+            "stationId",
+            "name",
+            "lat",
+            "lon",
+            "address",
+            "city",
+            "regionId",
+            "capacity",
+            "isVirtualStation",
+            "isChargingStation",
+            "parkingType"
+          ],
+          "fieldStatus": "confirmed; rentalMethods array -> not enforced",
+          "discoveredEnums": {
+            "parkingType": [
+              "parking_lot",
+              "street_parking",
+              "underground_parking",
+              "sidewalk_parking",
+              "other"
+            ]
+          },
+          "gaps": [
+            "rentalMethods(array)"
+          ]
+        },
+        {
+          "entity": "StationStatus",
+          "source": "https://github.com/MobilityData/gbfs station_status.json",
+          "verifiedFields": [
+            "stationId",
+            "numVehiclesAvailable",
+            "numDocksAvailable",
+            "isInstalled",
+            "isRenting",
+            "isReturning",
+            "lastReported"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Vehicle",
+          "source": "https://github.com/MobilityData/gbfs vehicle_status.json",
+          "verifiedFields": [
+            "vehicleId",
+            "lat",
+            "lon",
+            "isReserved",
+            "isDisabled",
+            "vehicleTypeId",
+            "currentRangeMeters",
+            "lastReported"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Region",
+          "source": "https://github.com/MobilityData/gbfs system_regions.json",
+          "verifiedFields": [
+            "regionId",
+            "name"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official MobilityData/gbfs spec. Enforced enums: VehicleType.formFactor(7)/propulsionType(8)/returnConstraint(4), Station.parkingType(5) = 4 enums. rentalMethods array -> not enforced."
     }
   ]
 }

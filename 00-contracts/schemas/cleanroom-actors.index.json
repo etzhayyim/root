@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 895,
-    "L5": 105
+    "L4": 894,
+    "L5": 106
   },
   "actors": [
     {
@@ -6590,7 +6590,7 @@
       "wasmCid": "bafkreidthlawcfjorq2a764yfh6igvm2k3uwj25uowlo7ylftzrmxg63ke",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "gbfs clean-room actor",
       "category": "transit_smart_cities",
       "capabilities": [

@@ -6210,12 +6210,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Stop",
-        "Route",
-        "Trip",
+        "SystemInformation",
+        "VehicleType",
+        "Station",
+        "StationStatus",
         "Vehicle",
-        "ServiceAlert",
-        "Fare"
+        "Region"
       ]
     },
     {

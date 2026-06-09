@@ -1621,6 +1621,16 @@ PLATFORM_OVERRIDES = {
         "Deployment": E(id="string", status="string", projectName="string", stackName="string", paused="boolean", created="datetime", modified="datetime"),
         "Organization": E(name="string", role="string"),
     },
+    # Faithful GBFS (General Bikeshare Feed Spec) model — verified against the
+    # official MobilityData/gbfs spec. rentalMethods is array-valued -> not enforced.
+    "gbfs": {
+        "SystemInformation": E(systemId="string", name="string", operator="string", url="string", timezone="string", openingHours="string", phoneNumber="string", email="string", feedContactEmail="string"),
+        "VehicleType": E(vehicleTypeId="string", formFactor="string", propulsionType="string", returnConstraint="string", maxRangeMeters="float", riderCapacity="integer", wheelCount="integer", maxPermittedSpeed="integer", minAge="integer"),
+        "Station": E(stationId="string", name="string", lat="float", lon="float", address="string", city="string", regionId="string", capacity="integer", isVirtualStation="boolean", isChargingStation="boolean", parkingType="string"),
+        "StationStatus": E(stationId="string", numVehiclesAvailable="integer", numDocksAvailable="integer", isInstalled="boolean", isRenting="boolean", isReturning="boolean", lastReported="datetime"),
+        "Vehicle": E(vehicleId="string", lat="float", lon="float", isReserved="boolean", isDisabled="boolean", vehicleTypeId="string", currentRangeMeters="float", lastReported="datetime"),
+        "Region": E(regionId="string", name="string"),
+    },
     # Faithful Mambu API v2 model — verified against the official Mambu OpenAPI
     # (api.mambu.com / demo.mambu.com openapi resources).
     "mambu": {
