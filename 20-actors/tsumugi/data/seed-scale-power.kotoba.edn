@@ -173,4 +173,34 @@
  ;; Wolfsburg
  {:tie/id "tie.wob.vw.employs" :tie/kind :employs :tie/from "org.corp.de.vw" :tie/to "org.gov.de.wolfsburg" :tie/grasping-load 0.86 :tie/sources ["VW AG annual report (Wolfsburg site)" "Stadt Wolfsburg Statistik (public)"] :tie/sourcing :representative}
  {:tie/id "tie.wob.vw.funds" :tie/kind :funds :tie/from "org.corp.de.vw" :tie/to "org.gov.de.wolfsburg" :tie/grasping-load 0.64 :tie/sources ["Stadt Wolfsburg Gewerbesteuer (public budget)" "Stadt Wolfsburg Haushalt (public)"] :tie/sourcing :representative}
- {:tie/id "tie.wob.union.vw" :tie/kind :co-member :tie/from "org.union.de.igmetall-wob" :tie/to "org.corp.de.vw" :tie/grasping-load 0.58 :tie/sources ["VW Aufsichtsrat co-determination (public, Mitbestimmung)" "IG Metall public records"] :tie/sourcing :representative}]
+ {:tie/id "tie.wob.union.vw" :tie/kind :co-member :tie/from "org.union.de.igmetall-wob" :tie/to "org.corp.de.vw" :tie/grasping-load 0.58 :tie/sources ["VW Aufsichtsrat co-determination (public, Mitbestimmung)" "IG Metall public records"] :tie/sourcing :representative}
+
+ ;; ═══════════ granularity wave 5 (/loop): more OVERSEAS company cities + 系列 (keiretsu) ═══════════
+ ;; (15) Ulsan, KR — Hyundai の企業城下町 (structural-public facts)
+ {:pwr/id "org.gov.kr.ulsan" :pwr/label "Ulsan Metropolitan City (울산광역시)" :pwr/standing :institutional :pwr/scale :regional :pwr/sector :kan :pwr/locality "kr.ulsan" :pwr/collective-kind :region :pwr/sourcing :representative}
+ {:pwr/id "org.corp.kr.hyundai" :pwr/label "Hyundai Motor / HHI (Ulsan works)" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "kr.ulsan" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.union.kr.hyundai" :pwr/label "Hyundai Motor labour union (공개)" :pwr/standing :institutional :pwr/scale :municipal :pwr/sector :min :pwr/locality "kr.ulsan" :pwr/collective-kind :org :pwr/sourcing :representative}
+
+ ;; (16) Detroit, US — auto-industry city; a full 産官民報 overseas weave (incl. the local paper)
+ {:pwr/id "org.gov.us.detroit" :pwr/label "City of Detroit (municipality)" :pwr/standing :institutional :pwr/scale :municipal :pwr/sector :kan :pwr/locality "us.detroit" :pwr/collective-kind :municipality :pwr/sourcing :representative}
+ {:pwr/id "org.corp.us.gm" :pwr/label "General Motors (Detroit HQ)" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "us.detroit" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.union.us.uaw" :pwr/label "United Auto Workers (UAW)" :pwr/standing :institutional :pwr/scale :national :pwr/sector :min :pwr/locality "us.detroit" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.press.us.detroit-free-press" :pwr/label "Detroit Free Press" :pwr/standing :institutional :pwr/scale :municipal :pwr/sector :hou :pwr/locality "us.detroit" :pwr/collective-kind :org :pwr/sourcing :representative}
+
+ ;; (17) 系列 (keiretsu) — a holding + two subsidiaries (exercises the :keiretsu granularity)
+ {:pwr/id "org.holding.jp.kx" :pwr/label "(representative) 持株会社KX" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "jp.keiretsu-kx" :pwr/collective-kind :keiretsu :pwr/sourcing :representative}
+ {:pwr/id "org.sub.jp.kx1" :pwr/label "(representative) KX 子会社1" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "jp.keiretsu-kx" :pwr/parent "org.holding.jp.kx" :pwr/collective-kind :keiretsu :pwr/sourcing :representative}
+ {:pwr/id "org.sub.jp.kx2" :pwr/label "(representative) KX 子会社2" :pwr/standing :institutional :pwr/scale :national :pwr/sector :kin :pwr/locality "jp.keiretsu-kx" :pwr/parent "org.holding.jp.kx" :pwr/collective-kind :keiretsu :pwr/sourcing :representative}
+
+ ;; ───────────── granularity wave 5 ties ─────────────
+ ;; Ulsan
+ {:tie/id "tie.ulsan.hyundai.employs" :tie/kind :employs :tie/from "org.corp.kr.hyundai" :tie/to "org.gov.kr.ulsan" :tie/grasping-load 0.82 :tie/sources ["Hyundai annual report (Ulsan plant)" "Ulsan City statistics (public)"] :tie/sourcing :representative}
+ {:tie/id "tie.ulsan.union.hyundai" :tie/kind :co-member :tie/from "org.union.kr.hyundai" :tie/to "org.corp.kr.hyundai" :tie/grasping-load 0.56 :tie/sources ["Hyundai labour-relations public filings" "union public records"] :tie/sourcing :representative}
+ ;; Detroit (産官民報)
+ {:tie/id "tie.detroit.gm.employs" :tie/kind :employs :tie/from "org.corp.us.gm" :tie/to "org.gov.us.detroit" :tie/grasping-load 0.70 :tie/sources ["GM 10-K (Detroit HQ)" "City of Detroit public economic data"] :tie/sourcing :representative}
+ {:tie/id "tie.detroit.uaw.gm" :tie/kind :co-member :tie/from "org.union.us.uaw" :tie/to "org.corp.us.gm" :tie/grasping-load 0.58 :tie/sources ["UAW–GM national agreement (public)" "NLRB public filings"] :tie/sourcing :representative}
+ {:tie/id "tie.detroit.press.gm" :tie/kind :covers :tie/from "org.press.us.detroit-free-press" :tie/to "org.corp.us.gm" :tie/grasping-load 0.40 :tie/sources ["Detroit Free Press business section" "public archives"] :tie/sourcing :representative}
+ {:tie/id "tie.detroit.press.city" :tie/kind :covers :tie/from "org.press.us.detroit-free-press" :tie/to "org.gov.us.detroit" :tie/grasping-load 0.40 :tie/sources ["Detroit Free Press city-hall coverage" "public archives"] :tie/sourcing :representative}
+ ;; 系列 (keiretsu): holding custodies two subsidiaries
+ {:tie/id "tie.kx.hold.sub1" :tie/kind :custodies :tie/from "org.holding.jp.kx" :tie/to "org.sub.jp.kx1" :tie/grasping-load 0.78 :tie/sources ["KX 有価証券報告書 子会社一覧 (representative)" "KX グループ 公開情報"] :tie/sourcing :representative}
+ {:tie/id "tie.kx.hold.sub2" :tie/kind :custodies :tie/from "org.holding.jp.kx" :tie/to "org.sub.jp.kx2" :tie/grasping-load 0.72 :tie/sources ["KX 有価証券報告書 子会社一覧 (representative)" "KX グループ 公開情報"] :tie/sourcing :representative}]
