@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 69,
+  "count": 70,
   "actors": [
     {
       "handle": "square-compat",
@@ -9763,6 +9763,141 @@
       ],
       "notApplicable": [],
       "note": "Remodeled from a mismatched docs archetype (shared with old calendly) to a faithful whiteboard model. 6/6 entities field-verified vs the official miroapp/api-clients SDK. Discovered closed enums (4): Tag.fillColor, BoardMember.role, Organization.plan, Connector.shape. Item is intentionally thin (polymorphic; data/geometry are nested objects)."
+    },
+    {
+      "handle": "launchdarkly-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://app.launchdarkly.com/api/v2/openapi.json (official LaunchDarkly REST API OpenAPI)",
+      "remodeled": "Remodeled from the generic devtools_apm archetype (Service/Error/Trace/Metric/Alert/Incident — an APM/error-tracking shape) to a faithful LaunchDarkly feature-management model (FeatureFlag/Project/Environment/Member/Webhook/UserSegment), verified field-by-field against LaunchDarkly's official OpenAPI components.schemas (allOf/$ref resolved). Credential fields (apiKey/mobileKey/secret) intentionally omitted. The L5 gate had correctly rejected the prior mismatched model (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "FeatureFlag",
+          "source": "openapi.json FeatureFlag",
+          "verifiedFields": [
+            "key",
+            "name",
+            "kind",
+            "description",
+            "includeInSnippet",
+            "temporary",
+            "maintainerId",
+            "maintainerTeamKey",
+            "archived",
+            "deprecated"
+          ],
+          "fieldStatus": "confirmed vs FeatureFlag schema (key/name/kind/description/includeInSnippet/temporary/maintainerId/maintainerTeamKey/archived/deprecated)",
+          "discoveredEnums": {
+            "kind": [
+              "boolean",
+              "multivariate"
+            ]
+          },
+          "gaps": [
+            "variations(array)",
+            "environments(object)",
+            "_version",
+            "tags(array)",
+            "defaults(object)"
+          ]
+        },
+        {
+          "entity": "Project",
+          "source": "openapi.json Project",
+          "verifiedFields": [
+            "key",
+            "name",
+            "includeInSnippetByDefault",
+            "defaultReleasePipelineKey"
+          ],
+          "fieldStatus": "confirmed vs Project schema (key/name/includeInSnippetByDefault/defaultReleasePipelineKey); _id maps to scaffold id",
+          "discoveredEnums": {},
+          "gaps": [
+            "environments(array)",
+            "tags(array)"
+          ]
+        },
+        {
+          "entity": "Environment",
+          "source": "openapi.json Environment",
+          "verifiedFields": [
+            "key",
+            "name",
+            "color",
+            "defaultTtl",
+            "secureMode",
+            "defaultTrackEvents",
+            "requireComments",
+            "confirmChanges",
+            "critical"
+          ],
+          "fieldStatus": "confirmed vs Environment schema (key/name/color/defaultTtl/secureMode/defaultTrackEvents/requireComments/confirmChanges/critical)",
+          "discoveredEnums": {},
+          "gaps": [
+            "apiKey/mobileKey (credentials — omitted)",
+            "tags(array)",
+            "approvalSettings(object)"
+          ]
+        },
+        {
+          "entity": "Member",
+          "source": "openapi.json Member",
+          "verifiedFields": [
+            "firstName",
+            "lastName",
+            "role",
+            "email",
+            "mfa"
+          ],
+          "fieldStatus": "confirmed vs Member schema (firstName/lastName/role/email/mfa); role is a plain string in the schema (documented values reader/writer/admin/owner not enum-encoded)",
+          "discoveredEnums": {},
+          "gaps": [
+            "role enum not encoded -> not enforced",
+            "_pendingInvite",
+            "customRoles(array)",
+            "teams(array)"
+          ]
+        },
+        {
+          "entity": "Webhook",
+          "source": "openapi.json Webhook",
+          "verifiedFields": [
+            "name",
+            "url",
+            "on"
+          ],
+          "fieldStatus": "confirmed vs Webhook schema (name/url/on); secret omitted (write-only)",
+          "discoveredEnums": {},
+          "gaps": [
+            "statements(array)",
+            "tags(array)",
+            "secret(omitted)"
+          ]
+        },
+        {
+          "entity": "UserSegment",
+          "source": "openapi.json UserSegment",
+          "verifiedFields": [
+            "key",
+            "name",
+            "description",
+            "unbounded",
+            "unboundedContextKind",
+            "deleted",
+            "generation"
+          ],
+          "fieldStatus": "confirmed vs UserSegment schema (key/name/description/unbounded/unboundedContextKind/deleted/generation)",
+          "discoveredEnums": {},
+          "gaps": [
+            "rules(array)",
+            "included(array)",
+            "excluded(array)",
+            "tags(array)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "Remodeled from a mismatched APM/error-tracking archetype to a faithful feature-management model. 6/6 entities field-verified vs LaunchDarkly's official OpenAPI. Discovered closed enum (1): FeatureFlag.kind. Credential fields (apiKey/mobileKey/webhook secret) intentionally omitted from the clean-room schema."
     }
   ]
 }

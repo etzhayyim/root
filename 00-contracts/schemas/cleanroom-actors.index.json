@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 931,
-    "L5": 69
+    "L4": 930,
+    "L5": 70
   },
   "actors": [
     {
@@ -9236,7 +9236,7 @@
       "wasmCid": "bafkreigf4zm5jromrz2a3o747yxudc7xpc3i2wgo4khg4hs5gcctlnpu7e",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "launchdarkly clean-room actor",
       "category": "devtools_apm",
       "capabilities": [

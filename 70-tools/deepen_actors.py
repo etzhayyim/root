@@ -1179,6 +1179,18 @@ PLATFORM_OVERRIDES = {
         "Organization": E(name="string", plan="string", fullLicensesPurchased="integer", type="string"),
         "Connector": E(shape="string", isSupported="boolean", type="string"),
     },
+    # Faithful LaunchDarkly model (remodeled from the generic devtools_apm
+    # archetype whose Service/Error/Trace/Metric entities did not match
+    # LaunchDarkly's feature-flag API), doc-verified L5 vs the official
+    # app.launchdarkly.com/api/v2/openapi.json.
+    "launchdarkly": {
+        "FeatureFlag": E(key="string", name="string", kind="string", description="string", includeInSnippet="boolean", temporary="boolean", maintainerId="string", maintainerTeamKey="string", archived="boolean", deprecated="boolean"),
+        "Project": E(key="string", name="string", includeInSnippetByDefault="boolean", defaultReleasePipelineKey="string"),
+        "Environment": E(key="string", name="string", color="string", defaultTtl="integer", secureMode="boolean", defaultTrackEvents="boolean", requireComments="boolean", confirmChanges="boolean", critical="boolean"),
+        "Member": E(firstName="string", lastName="string", role="string", email="string", mfa="string"),
+        "Webhook": E(name="string", url="string", on="boolean"),
+        "UserSegment": E(key="string", name="string", description="string", unbounded="boolean", unboundedContextKind="string", deleted="boolean", generation="integer"),
+    },
     # Faithful Airtable model (remodeled from generic office_productivity), L5.
     "airtable": {
         "Base": E(name="string", permissionLevel="string"),
