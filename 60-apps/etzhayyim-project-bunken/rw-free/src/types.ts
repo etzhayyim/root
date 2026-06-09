@@ -66,6 +66,14 @@ export interface BunkenRecord {
   /** ISO 639-1 / 639-3. */
   language?: string;
   sourceUrl?: string;
+  /**
+   * Collection-pipeline state (set by the CDX → enrich → registerDids flow):
+   *   enriched      — Murakumo LLM has filled title/authors/year (false = discovered-only).
+   *   didRegistered — path-based DID has been registered with the identity service.
+   * Records created via registerRecord (manual) are enriched:true by construction.
+   */
+  enriched?: boolean;
+  didRegistered?: boolean;
   collectedAt: string;
   createdAt: string;
 }
