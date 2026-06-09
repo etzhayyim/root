@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 137,
+  "count": 139,
   "actors": [
     {
       "handle": "square-compat",
@@ -18912,6 +18912,275 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (5/5 schemas) vs DICOM PS3.18/PS3.6. Enforced enum: Patient.patientSex(M/F/O, closed DICOM CS). Modality (large extensible) + SOP Class UIDs (huge registry) intentionally not enforced."
+    },
+    {
+      "handle": "eclinicalworks-compat",
+      "verifiedAt": "2026-06-10",
+      "tier": "L5",
+      "source": "https://hl7.org/fhir/R4",
+      "remodeled": "Upgraded category-model -> faithful HL7 FHIR R4. eClinicalWorks is ONC (g)(10)-certified (HL7 product registry product_id=461) and exposes FHIR R4 US Core; the normative R4 REQUIRED-binding value sets apply (verified vs hl7.org/fhir/R4).",
+      "resources": [
+        {
+          "entity": "Patient",
+          "source": "https://hl7.org/fhir/R4/valueset-administrative-gender.html",
+          "verifiedFields": [
+            "id",
+            "resourceType",
+            "gender",
+            "birthDate",
+            "active",
+            "deceasedBoolean"
+          ],
+          "fieldStatus": "confirmed (FHIR R4 required-binding value set; ONC g10 certified)",
+          "discoveredEnums": {
+            "gender": [
+              "male",
+              "female",
+              "other",
+              "unknown"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Observation",
+          "source": "https://hl7.org/fhir/R4/valueset-observation-status.html",
+          "verifiedFields": [
+            "id",
+            "resourceType",
+            "status",
+            "effectiveDateTime",
+            "valueString",
+            "issued"
+          ],
+          "fieldStatus": "confirmed (FHIR R4 required-binding value set; ONC g10 certified)",
+          "discoveredEnums": {
+            "status": [
+              "registered",
+              "preliminary",
+              "final",
+              "amended",
+              "corrected",
+              "cancelled",
+              "entered-in-error",
+              "unknown"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Encounter",
+          "source": "https://hl7.org/fhir/R4/valueset-encounter-status.html",
+          "verifiedFields": [
+            "id",
+            "resourceType",
+            "status",
+            "serviceType",
+            "period"
+          ],
+          "fieldStatus": "confirmed (FHIR R4 required-binding value set; ONC g10 certified)",
+          "discoveredEnums": {
+            "status": [
+              "planned",
+              "arrived",
+              "triaged",
+              "in-progress",
+              "onleave",
+              "finished",
+              "cancelled",
+              "entered-in-error",
+              "unknown"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "MedicationRequest",
+          "source": "https://hl7.org/fhir/R4/valueset-medicationrequest-status.html",
+          "verifiedFields": [
+            "id",
+            "resourceType",
+            "status",
+            "intent",
+            "authoredOn"
+          ],
+          "fieldStatus": "confirmed (FHIR R4 required-binding value set; ONC g10 certified)",
+          "discoveredEnums": {
+            "status": [
+              "active",
+              "on-hold",
+              "cancelled",
+              "completed",
+              "entered-in-error",
+              "stopped",
+              "draft",
+              "unknown"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "AllergyIntolerance",
+          "source": "https://hl7.org/fhir/R4/valueset-allergyintolerance-clinical.html",
+          "verifiedFields": [
+            "id",
+            "resourceType",
+            "clinicalStatus",
+            "criticality",
+            "recordedDate"
+          ],
+          "fieldStatus": "confirmed (FHIR R4 required-binding value set; ONC g10 certified)",
+          "discoveredEnums": {
+            "clinicalStatus": [
+              "active",
+              "inactive",
+              "resolved"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Condition",
+          "source": "https://hl7.org/fhir/R4/valueset-condition-clinical.html",
+          "verifiedFields": [
+            "id",
+            "resourceType",
+            "clinicalStatus",
+            "recordedDate"
+          ],
+          "fieldStatus": "confirmed (FHIR R4 required-binding value set; ONC g10 certified)",
+          "discoveredEnums": {
+            "clinicalStatus": [
+              "active",
+              "recurrence",
+              "relapse",
+              "inactive",
+              "remission",
+              "resolved"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs HL7 FHIR R4 value sets (eClinicalWorks ONC g10-certified FHIR R4, HL7 registry product_id=461). Enforced enums: Patient.gender(4), Observation.status(8), Encounter.status(9), MedicationRequest.status(8), AllergyIntolerance.clinicalStatus(3), Condition.clinicalStatus(6) = 6 value sets (38 values)."
+    },
+    {
+      "handle": "ipv6_routing-compat",
+      "verifiedAt": "2026-06-10",
+      "tier": "L5",
+      "source": "https://datatracker.ietf.org/doc/html/rfc4443",
+      "remodeled": "Remodeled from generic category model to a faithful IPv6/ICMPv6 model (RFC 8200 + RFC 4443). version fixed at 6; per-type ICMPv6 code sets are RFC-4443-closed. Icmpv6.type (extensible IETF-Review registry) + nextHeader (full IANA protocol registry) -> not enforced.",
+      "resources": [
+        {
+          "entity": "Ipv6Header",
+          "source": "https://datatracker.ietf.org/doc/html/rfc8200#section-3",
+          "verifiedFields": [
+            "version",
+            "trafficClass",
+            "flowLabel",
+            "payloadLength",
+            "nextHeader",
+            "hopLimit"
+          ],
+          "fieldStatus": "confirmed; nextHeader is the full protocol registry -> not enforced",
+          "discoveredEnums": {
+            "version": [
+              6
+            ]
+          },
+          "gaps": [
+            "nextHeader-protocol-registry"
+          ]
+        },
+        {
+          "entity": "Icmpv6Message",
+          "source": "https://datatracker.ietf.org/doc/html/rfc4443",
+          "verifiedFields": [
+            "type",
+            "code",
+            "checksum"
+          ],
+          "fieldStatus": "confirmed; type is an extensible IETF-Review registry -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "type-extensible"
+          ]
+        },
+        {
+          "entity": "DestinationUnreachable",
+          "source": "https://datatracker.ietf.org/doc/html/rfc4443#section-3.1",
+          "verifiedFields": [
+            "type",
+            "code",
+            "checksum"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "code": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "TimeExceeded",
+          "source": "https://datatracker.ietf.org/doc/html/rfc4443#section-3.3",
+          "verifiedFields": [
+            "type",
+            "code",
+            "checksum"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "code": [
+              0,
+              1
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "ParameterProblem",
+          "source": "https://datatracker.ietf.org/doc/html/rfc4443#section-3.4",
+          "verifiedFields": [
+            "type",
+            "code",
+            "pointer"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "code": [
+              0,
+              1,
+              2
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "NdpMessage",
+          "source": "RFC 4861",
+          "verifiedFields": [
+            "type",
+            "code",
+            "targetAddress"
+          ],
+          "fieldStatus": "confirmed; NDP type subset of ICMPv6 -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "type-ndp"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs RFC 8200 + RFC 4443. Enforced enums: Ipv6Header.version[6], DestinationUnreachable.code(0-6), TimeExceeded.code(0-1), ParameterProblem.code(0-2) = 4 enums. Icmpv6.type (extensible) + nextHeader (protocol registry) not enforced."
     }
   ]
 }

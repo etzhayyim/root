@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 863,
-    "L5": 137
+    "L4": 861,
+    "L5": 139
   },
   "actors": [
     {
@@ -5006,7 +5006,7 @@
       "wasmCid": "bafkreidtqkozc2uu2pqn4itn35niea6g3hng5j54b4fejsyskdli3ihqze",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "eclinicalworks clean-room actor",
       "category": "ehr_health",
       "capabilities": [
@@ -8354,7 +8354,7 @@
       "wasmCid": "bafkreihnffa4h4rin4arl7wp7szb3s5id7vdhbzboizgtiexlcs764z7xq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "ipv6_routing clean-room actor",
       "category": "internet_routing",
       "capabilities": [

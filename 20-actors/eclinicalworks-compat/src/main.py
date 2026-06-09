@@ -115,18 +115,21 @@ def _expand(rec, params, refs):
 def create_patient(request):
     """Create a Patient."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['mrn', 'givenName', 'familyName', 'birthDate', 'sex'])
+    err = _reject_unknown(data, ['id', 'resourceType', 'gender', 'birthDate', 'active', 'deceasedBoolean'])
     if err:
         return err, 400
-    err = _require(data, ['mrn', 'givenName'])
+    err = _require(data, ['id', 'resourceType'])
     if err:
         return err, 400
+    if data.get('gender') and data['gender'] not in ['male', 'female', 'other', 'unknown']:
+        return {"error": {"message": "invalid gender; allowed: " + ", ".join(['male', 'female', 'other', 'unknown']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("eclinica_pat")}
-    rec["mrn"] = data.get('mrn')
-    rec["givenName"] = data.get('givenName')
-    rec["familyName"] = data.get('familyName')
+    rec["id"] = data.get('id')
+    rec["resourceType"] = data.get('resourceType')
+    rec["gender"] = data.get('gender')
     rec["birthDate"] = data.get('birthDate')
-    rec["sex"] = data.get('sex')
+    rec["active"] = _as_bool(data.get('active'))
+    rec["deceasedBoolean"] = _as_bool(data.get('deceasedBoolean'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Patient", rec)
@@ -137,7 +140,7 @@ def list_patients(request):
     """List Patients with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Patient")
-    rows = _apply_filters(rows, params, ['mrn', 'givenName', 'familyName', 'birthDate', 'sex'])
+    rows = _apply_filters(rows, params, ['id', 'resourceType', 'gender', 'birthDate', 'active', 'deceasedBoolean'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -158,9 +161,11 @@ def update_patient(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['mrn', 'givenName', 'familyName', 'birthDate', 'sex'])
+    err = _reject_unknown(data, ['id', 'resourceType', 'gender', 'birthDate', 'active', 'deceasedBoolean'])
     if err:
         return err, 400
+    if data.get('gender') and data['gender'] not in ['male', 'female', 'other', 'unknown']:
+        return {"error": {"message": "invalid gender; allowed: " + ", ".join(['male', 'female', 'other', 'unknown']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -178,89 +183,25 @@ def delete_patient(request, eid):
     db.retract({"entity": f"eclinicalworks.Patient", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/encounters", methods=["POST"])
-def create_encounter(request):
-    """Create a Encounter."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['patientId', 'type', 'status', 'startedAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['type', 'status'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("eclinica_enc")}
-    rec["patientId"] = data.get('patientId')
-    rec["type"] = data.get('type')
-    rec["status"] = data.get('status')
-    rec["startedAt"] = data.get('startedAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Encounter", rec)
-    return rec, 201
-
-@app.route("/v1/encounters", methods=["GET"])
-def list_encounters(request):
-    """List Encounters with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Encounter")
-    rows = _apply_filters(rows, params, ['patientId', 'type', 'status', 'startedAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/encounters/<eid>", methods=["GET"])
-def get_encounter(request, eid):
-    """Retrieve a Encounter by id (supports ?expand=)."""
-    rows = _query("Encounter", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'patientId': 'Patient'})
-    return rec, 200
-
-@app.route("/v1/encounters/<eid>", methods=["POST", "PATCH"])
-def update_encounter(request, eid):
-    """Update a Encounter."""
-    rows = _query("Encounter", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['patientId', 'type', 'status', 'startedAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Encounter", rec)
-    return rec, 200
-
-@app.route("/v1/encounters/<eid>", methods=["DELETE"])
-def delete_encounter(request, eid):
-    """Delete a Encounter."""
-    rows = _query("Encounter", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"eclinicalworks.Encounter", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
 @app.route("/v1/observations", methods=["POST"])
 def create_observation(request):
     """Create a Observation."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['patientId', 'code', 'value', 'unit', 'takenAt'])
+    err = _reject_unknown(data, ['id', 'resourceType', 'status', 'effectiveDateTime', 'valueString', 'issued'])
     if err:
         return err, 400
-    err = _require(data, ['code', 'value'])
+    err = _require(data, ['id', 'resourceType'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['registered', 'preliminary', 'final', 'amended', 'corrected', 'cancelled', 'entered-in-error', 'unknown']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['registered', 'preliminary', 'final', 'amended', 'corrected', 'cancelled', 'entered-in-error', 'unknown']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("eclinica_obs")}
-    rec["patientId"] = data.get('patientId')
-    rec["code"] = data.get('code')
-    rec["value"] = data.get('value')
-    rec["unit"] = data.get('unit')
-    rec["takenAt"] = data.get('takenAt')
+    rec["id"] = data.get('id')
+    rec["resourceType"] = data.get('resourceType')
+    rec["status"] = data.get('status')
+    rec["effectiveDateTime"] = data.get('effectiveDateTime')
+    rec["valueString"] = data.get('valueString')
+    rec["issued"] = data.get('issued')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Observation", rec)
@@ -271,7 +212,7 @@ def list_observations(request):
     """List Observations with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Observation")
-    rows = _apply_filters(rows, params, ['patientId', 'code', 'value', 'unit', 'takenAt'])
+    rows = _apply_filters(rows, params, ['id', 'resourceType', 'status', 'effectiveDateTime', 'valueString', 'issued'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -283,7 +224,6 @@ def get_observation(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'patientId': 'Patient'})
     return rec, 200
 
 @app.route("/v1/observations/<eid>", methods=["POST", "PATCH"])
@@ -293,9 +233,11 @@ def update_observation(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['patientId', 'code', 'value', 'unit', 'takenAt'])
+    err = _reject_unknown(data, ['id', 'resourceType', 'status', 'effectiveDateTime', 'valueString', 'issued'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['registered', 'preliminary', 'final', 'amended', 'corrected', 'cancelled', 'entered-in-error', 'unknown']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['registered', 'preliminary', 'final', 'amended', 'corrected', 'cancelled', 'entered-in-error', 'unknown']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -313,211 +255,293 @@ def delete_observation(request, eid):
     db.retract({"entity": f"eclinicalworks.Observation", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/medications", methods=["POST"])
-def create_medication(request):
-    """Create a Medication."""
+@app.route("/v1/encounters", methods=["POST"])
+def create_encounter(request):
+    """Create a Encounter."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['patientId', 'code', 'dose', 'route', 'active'])
+    err = _reject_unknown(data, ['id', 'resourceType', 'status', 'serviceType', 'period'])
     if err:
         return err, 400
-    err = _require(data, ['code', 'dose'])
+    err = _require(data, ['id', 'resourceType'])
     if err:
         return err, 400
-    rec = {"id": new_id("eclinica_med")}
-    rec["patientId"] = data.get('patientId')
-    rec["code"] = data.get('code')
-    rec["dose"] = data.get('dose')
-    rec["route"] = data.get('route')
-    rec["active"] = _as_bool(data.get('active'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Medication", rec)
-    return rec, 201
-
-@app.route("/v1/medications", methods=["GET"])
-def list_medications(request):
-    """List Medications with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Medication")
-    rows = _apply_filters(rows, params, ['patientId', 'code', 'dose', 'route', 'active'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/medications/<eid>", methods=["GET"])
-def get_medication(request, eid):
-    """Retrieve a Medication by id (supports ?expand=)."""
-    rows = _query("Medication", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'patientId': 'Patient'})
-    return rec, 200
-
-@app.route("/v1/medications/<eid>", methods=["POST", "PATCH"])
-def update_medication(request, eid):
-    """Update a Medication."""
-    rows = _query("Medication", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['patientId', 'code', 'dose', 'route', 'active'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Medication", rec)
-    return rec, 200
-
-@app.route("/v1/medications/<eid>", methods=["DELETE"])
-def delete_medication(request, eid):
-    """Delete a Medication."""
-    rows = _query("Medication", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"eclinicalworks.Medication", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/practitioners", methods=["POST"])
-def create_practitioner(request):
-    """Create a Practitioner."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['npi', 'givenName', 'familyName', 'specialty'])
-    if err:
-        return err, 400
-    err = _require(data, ['npi', 'givenName'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("eclinica_pra")}
-    rec["npi"] = data.get('npi')
-    rec["givenName"] = data.get('givenName')
-    rec["familyName"] = data.get('familyName')
-    rec["specialty"] = data.get('specialty')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Practitioner", rec)
-    return rec, 201
-
-@app.route("/v1/practitioners", methods=["GET"])
-def list_practitioners(request):
-    """List Practitioners with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Practitioner")
-    rows = _apply_filters(rows, params, ['npi', 'givenName', 'familyName', 'specialty'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/practitioners/<eid>", methods=["GET"])
-def get_practitioner(request, eid):
-    """Retrieve a Practitioner by id (supports ?expand=)."""
-    rows = _query("Practitioner", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/practitioners/<eid>", methods=["POST", "PATCH"])
-def update_practitioner(request, eid):
-    """Update a Practitioner."""
-    rows = _query("Practitioner", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['npi', 'givenName', 'familyName', 'specialty'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Practitioner", rec)
-    return rec, 200
-
-@app.route("/v1/practitioners/<eid>", methods=["DELETE"])
-def delete_practitioner(request, eid):
-    """Delete a Practitioner."""
-    rows = _query("Practitioner", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"eclinicalworks.Practitioner", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/appointments", methods=["POST"])
-def create_appointment(request):
-    """Create a Appointment."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['patientId', 'practitionerId', 'start', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['start', 'status'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("eclinica_app")}
-    rec["patientId"] = data.get('patientId')
-    rec["practitionerId"] = data.get('practitionerId')
-    rec["start"] = data.get('start')
+    if data.get('status') and data['status'] not in ['planned', 'arrived', 'triaged', 'in-progress', 'onleave', 'finished', 'cancelled', 'entered-in-error', 'unknown']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['planned', 'arrived', 'triaged', 'in-progress', 'onleave', 'finished', 'cancelled', 'entered-in-error', 'unknown']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("eclinica_enc")}
+    rec["id"] = data.get('id')
+    rec["resourceType"] = data.get('resourceType')
     rec["status"] = data.get('status')
+    rec["serviceType"] = data.get('serviceType')
+    rec["period"] = data.get('period')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Appointment", rec)
+    _persist("Encounter", rec)
     return rec, 201
 
-@app.route("/v1/appointments", methods=["GET"])
-def list_appointments(request):
-    """List Appointments with filtering + cursor pagination."""
+@app.route("/v1/encounters", methods=["GET"])
+def list_encounters(request):
+    """List Encounters with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Appointment")
-    rows = _apply_filters(rows, params, ['patientId', 'practitionerId', 'start', 'status'])
+    rows = _query("Encounter")
+    rows = _apply_filters(rows, params, ['id', 'resourceType', 'status', 'serviceType', 'period'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/appointments/<eid>", methods=["GET"])
-def get_appointment(request, eid):
-    """Retrieve a Appointment by id (supports ?expand=)."""
-    rows = _query("Appointment", eid)
+@app.route("/v1/encounters/<eid>", methods=["GET"])
+def get_encounter(request, eid):
+    """Retrieve a Encounter by id (supports ?expand=)."""
+    rows = _query("Encounter", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'patientId': 'Patient', 'practitionerId': 'Practitioner'})
     return rec, 200
 
-@app.route("/v1/appointments/<eid>", methods=["POST", "PATCH"])
-def update_appointment(request, eid):
-    """Update a Appointment."""
-    rows = _query("Appointment", eid)
+@app.route("/v1/encounters/<eid>", methods=["POST", "PATCH"])
+def update_encounter(request, eid):
+    """Update a Encounter."""
+    rows = _query("Encounter", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['patientId', 'practitionerId', 'start', 'status'])
+    err = _reject_unknown(data, ['id', 'resourceType', 'status', 'serviceType', 'period'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['planned', 'arrived', 'triaged', 'in-progress', 'onleave', 'finished', 'cancelled', 'entered-in-error', 'unknown']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['planned', 'arrived', 'triaged', 'in-progress', 'onleave', 'finished', 'cancelled', 'entered-in-error', 'unknown']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Appointment", rec)
+    _persist("Encounter", rec)
     return rec, 200
 
-@app.route("/v1/appointments/<eid>", methods=["DELETE"])
-def delete_appointment(request, eid):
-    """Delete a Appointment."""
-    rows = _query("Appointment", eid)
+@app.route("/v1/encounters/<eid>", methods=["DELETE"])
+def delete_encounter(request, eid):
+    """Delete a Encounter."""
+    rows = _query("Encounter", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"eclinicalworks.Appointment", "id": eid})
+    db.retract({"entity": f"eclinicalworks.Encounter", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/medicationrequests", methods=["POST"])
+def create_medication_request(request):
+    """Create a MedicationRequest."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'resourceType', 'status', 'intent', 'authoredOn'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'resourceType'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['active', 'on-hold', 'cancelled', 'completed', 'entered-in-error', 'stopped', 'draft', 'unknown']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['active', 'on-hold', 'cancelled', 'completed', 'entered-in-error', 'stopped', 'draft', 'unknown']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("eclinica_med")}
+    rec["id"] = data.get('id')
+    rec["resourceType"] = data.get('resourceType')
+    rec["status"] = data.get('status')
+    rec["intent"] = data.get('intent')
+    rec["authoredOn"] = data.get('authoredOn')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("MedicationRequest", rec)
+    return rec, 201
+
+@app.route("/v1/medicationrequests", methods=["GET"])
+def list_medication_requests(request):
+    """List MedicationRequests with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("MedicationRequest")
+    rows = _apply_filters(rows, params, ['id', 'resourceType', 'status', 'intent', 'authoredOn'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/medicationrequests/<eid>", methods=["GET"])
+def get_medication_request(request, eid):
+    """Retrieve a MedicationRequest by id (supports ?expand=)."""
+    rows = _query("MedicationRequest", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/medicationrequests/<eid>", methods=["POST", "PATCH"])
+def update_medication_request(request, eid):
+    """Update a MedicationRequest."""
+    rows = _query("MedicationRequest", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'resourceType', 'status', 'intent', 'authoredOn'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['active', 'on-hold', 'cancelled', 'completed', 'entered-in-error', 'stopped', 'draft', 'unknown']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['active', 'on-hold', 'cancelled', 'completed', 'entered-in-error', 'stopped', 'draft', 'unknown']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("MedicationRequest", rec)
+    return rec, 200
+
+@app.route("/v1/medicationrequests/<eid>", methods=["DELETE"])
+def delete_medication_request(request, eid):
+    """Delete a MedicationRequest."""
+    rows = _query("MedicationRequest", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"eclinicalworks.MedicationRequest", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/allergyintolerances", methods=["POST"])
+def create_allergy_intolerance(request):
+    """Create a AllergyIntolerance."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'resourceType', 'clinicalStatus', 'criticality', 'recordedDate'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'resourceType'])
+    if err:
+        return err, 400
+    if data.get('clinicalStatus') and data['clinicalStatus'] not in ['active', 'inactive', 'resolved']:
+        return {"error": {"message": "invalid clinicalStatus; allowed: " + ", ".join(['active', 'inactive', 'resolved']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("eclinica_all")}
+    rec["id"] = data.get('id')
+    rec["resourceType"] = data.get('resourceType')
+    rec["clinicalStatus"] = data.get('clinicalStatus')
+    rec["criticality"] = data.get('criticality')
+    rec["recordedDate"] = data.get('recordedDate')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("AllergyIntolerance", rec)
+    return rec, 201
+
+@app.route("/v1/allergyintolerances", methods=["GET"])
+def list_allergy_intolerances(request):
+    """List AllergyIntolerances with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("AllergyIntolerance")
+    rows = _apply_filters(rows, params, ['id', 'resourceType', 'clinicalStatus', 'criticality', 'recordedDate'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/allergyintolerances/<eid>", methods=["GET"])
+def get_allergy_intolerance(request, eid):
+    """Retrieve a AllergyIntolerance by id (supports ?expand=)."""
+    rows = _query("AllergyIntolerance", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/allergyintolerances/<eid>", methods=["POST", "PATCH"])
+def update_allergy_intolerance(request, eid):
+    """Update a AllergyIntolerance."""
+    rows = _query("AllergyIntolerance", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'resourceType', 'clinicalStatus', 'criticality', 'recordedDate'])
+    if err:
+        return err, 400
+    if data.get('clinicalStatus') and data['clinicalStatus'] not in ['active', 'inactive', 'resolved']:
+        return {"error": {"message": "invalid clinicalStatus; allowed: " + ", ".join(['active', 'inactive', 'resolved']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("AllergyIntolerance", rec)
+    return rec, 200
+
+@app.route("/v1/allergyintolerances/<eid>", methods=["DELETE"])
+def delete_allergy_intolerance(request, eid):
+    """Delete a AllergyIntolerance."""
+    rows = _query("AllergyIntolerance", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"eclinicalworks.AllergyIntolerance", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/conditions", methods=["POST"])
+def create_condition(request):
+    """Create a Condition."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'resourceType', 'clinicalStatus', 'recordedDate'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'resourceType'])
+    if err:
+        return err, 400
+    if data.get('clinicalStatus') and data['clinicalStatus'] not in ['active', 'recurrence', 'relapse', 'inactive', 'remission', 'resolved']:
+        return {"error": {"message": "invalid clinicalStatus; allowed: " + ", ".join(['active', 'recurrence', 'relapse', 'inactive', 'remission', 'resolved']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("eclinica_con")}
+    rec["id"] = data.get('id')
+    rec["resourceType"] = data.get('resourceType')
+    rec["clinicalStatus"] = data.get('clinicalStatus')
+    rec["recordedDate"] = data.get('recordedDate')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Condition", rec)
+    return rec, 201
+
+@app.route("/v1/conditions", methods=["GET"])
+def list_conditions(request):
+    """List Conditions with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Condition")
+    rows = _apply_filters(rows, params, ['id', 'resourceType', 'clinicalStatus', 'recordedDate'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/conditions/<eid>", methods=["GET"])
+def get_condition(request, eid):
+    """Retrieve a Condition by id (supports ?expand=)."""
+    rows = _query("Condition", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/conditions/<eid>", methods=["POST", "PATCH"])
+def update_condition(request, eid):
+    """Update a Condition."""
+    rows = _query("Condition", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'resourceType', 'clinicalStatus', 'recordedDate'])
+    if err:
+        return err, 400
+    if data.get('clinicalStatus') and data['clinicalStatus'] not in ['active', 'recurrence', 'relapse', 'inactive', 'remission', 'resolved']:
+        return {"error": {"message": "invalid clinicalStatus; allowed: " + ", ".join(['active', 'recurrence', 'relapse', 'inactive', 'remission', 'resolved']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Condition", rec)
+    return rec, 200
+
+@app.route("/v1/conditions/<eid>", methods=["DELETE"])
+def delete_condition(request, eid):
+    """Delete a Condition."""
+    rows = _query("Condition", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"eclinicalworks.Condition", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "eclinicalworks-compat", "tier": "L4",
-            "entities": ['Patient', 'Encounter', 'Observation', 'Medication', 'Practitioner', 'Appointment']}, 200
+            "entities": ['Patient', 'Observation', 'Encounter', 'MedicationRequest', 'AllergyIntolerance', 'Condition']}, 200
 
 
 if __name__ == "__main__":

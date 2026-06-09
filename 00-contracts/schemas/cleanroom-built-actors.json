@@ -4708,11 +4708,11 @@
       "tier": "browser-local",
       "entities": [
         "Patient",
-        "Encounter",
         "Observation",
-        "Medication",
-        "Practitioner",
-        "Appointment"
+        "Encounter",
+        "MedicationRequest",
+        "AllergyIntolerance",
+        "Condition"
       ]
     },
     {
@@ -7866,12 +7866,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Prefix",
-        "Route",
-        "Peer",
-        "Zone",
-        "Record",
-        "Tunnel"
+        "Ipv6Header",
+        "Icmpv6Message",
+        "DestinationUnreachable",
+        "TimeExceeded",
+        "ParameterProblem",
+        "NdpMessage"
       ]
     },
     {

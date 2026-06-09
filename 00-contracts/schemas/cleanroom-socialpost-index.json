@@ -7,8 +7,8 @@
     "260607"
   ],
   "count": 1000,
-  "l5VerifiedActors": 133,
-  "totalVerifiedEnumFields": 594,
+  "l5VerifiedActors": 135,
+  "totalVerifiedEnumFields": 604,
   "feeds": [
     {
       "handle": "8th_wall-compat",
@@ -2787,8 +2787,8 @@
       "source": "eclinicalworks.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 6
     },
     {
       "handle": "ecwid-compat",
@@ -4647,8 +4647,8 @@
       "source": "ipv6_routing.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 4
     },
     {
       "handle": "irena-compat",

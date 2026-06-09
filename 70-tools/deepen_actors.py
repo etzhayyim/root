@@ -1737,6 +1737,26 @@ PLATFORM_OVERRIDES = {
         "Patient": E(patientId="string", patientName="string", patientBirthDate="string", patientSex="string"),
         "QidoQuery": E(patientId="string", patientName="string", studyInstanceUid="string", modality="string", fuzzyMatching="boolean"),
     },
+    # Faithful eClinicalWorks FHIR R4 model — ONC (g)(10)-certified (HL7 product registry
+    # product_id=461) exposes HL7 FHIR R4 US Core; normative R4 value sets (hl7.org/fhir/R4).
+    "eclinicalworks": {
+        "Patient": E(id="string", resourceType="string", gender="string", birthDate="string", active="boolean", deceasedBoolean="boolean"),
+        "Observation": E(id="string", resourceType="string", status="string", effectiveDateTime="datetime", valueString="string", issued="datetime"),
+        "Encounter": E(id="string", resourceType="string", status="string", serviceType="string", period="string"),
+        "MedicationRequest": E(id="string", resourceType="string", status="string", intent="string", authoredOn="datetime"),
+        "AllergyIntolerance": E(id="string", resourceType="string", clinicalStatus="string", criticality="string", recordedDate="datetime"),
+        "Condition": E(id="string", resourceType="string", clinicalStatus="string", recordedDate="datetime"),
+    },
+    # Faithful IPv6/ICMPv6 model (RFC 8200 + RFC 4443). version is fixed (6); per-type
+    # ICMPv6 code sets are closed. Icmpv6.type (extensible) + nextHeader (protocol registry) gapped.
+    "ipv6_routing": {
+        "Ipv6Header": E(version="integer", trafficClass="integer", flowLabel="integer", payloadLength="integer", nextHeader="integer", hopLimit="integer"),
+        "Icmpv6Message": E(type="integer", code="integer", checksum="integer"),
+        "DestinationUnreachable": E(type="integer", code="integer", checksum="integer"),
+        "TimeExceeded": E(type="integer", code="integer", checksum="integer"),
+        "ParameterProblem": E(type="integer", code="integer", pointer="integer"),
+        "NdpMessage": E(type="integer", code="integer", targetAddress="string"),
+    },
     # Faithful AIS (ITU-R M.1371) model — verified vs gpsd AIVDM canonical reference.
     # shipType (0-99) is a large IMO code list -> not enforced.
     "ais_marine": {

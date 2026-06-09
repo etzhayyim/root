@@ -8,8 +8,8 @@
   ],
   "count": 1000,
   "totalTools": 29690,
-  "l5VerifiedActors": 133,
-  "totalVerifiedEnumFields": 594,
+  "l5VerifiedActors": 135,
+  "totalVerifiedEnumFields": 604,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -3061,12 +3061,12 @@
     {
       "handle": "eclinicalworks-compat",
       "did": "did:web:etzhayyim.com:actor:eclinicalworks-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreidtqkozc2uu2pqn4itn35niea6g3hng5j54b4fejsyskdli3ihqze",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 6,
       "manifest": "20-actors/eclinicalworks-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -5107,12 +5107,12 @@
     {
       "handle": "ipv6_routing-compat",
       "did": "did:web:etzhayyim.com:actor:ipv6_routing-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreihnffa4h4rin4arl7wp7szb3s5id7vdhbzboizgtiexlcs764z7xq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 4,
       "manifest": "20-actors/ipv6_routing-compat/manifest.json#/capabilities/mcp"
     },
     {

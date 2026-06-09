@@ -11,15 +11,57 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihnffa4h4rin4arl7wp7szb3s5id7vdhbzboizgtiexlcs764z7xq",
   "schema": "schema/ipv6_routing.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://datatracker.ietf.org/doc/html/rfc4443",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "Ipv6Header",
+      "Icmpv6Message",
+      "DestinationUnreachable",
+      "TimeExceeded",
+      "ParameterProblem",
+      "NdpMessage"
+    ],
+    "enums": {
+      "Ipv6Header": {
+        "version": [
+          6
+        ]
+      },
+      "DestinationUnreachable": {
+        "code": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      "TimeExceeded": {
+        "code": [
+          0,
+          1
+        ]
+      },
+      "ParameterProblem": {
+        "code": [
+          0,
+          1,
+          2
+        ]
+      }
+    }
+  },
   "entities": [
-    "Prefix",
-    "Route",
-    "Peer",
-    "Zone",
-    "Record",
-    "Tunnel"
+    "Ipv6Header",
+    "Icmpv6Message",
+    "DestinationUnreachable",
+    "TimeExceeded",
+    "ParameterProblem",
+    "NdpMessage"
   ],
   "adr": [
     "260607",
@@ -35,153 +77,153 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/prefixes",
-          "op": "create Prefix"
+          "path": "/v1/ipv6headers",
+          "op": "create Ipv6Header"
         },
         {
           "method": "GET",
-          "path": "/v1/prefixes",
-          "op": "list Prefix"
+          "path": "/v1/ipv6headers",
+          "op": "list Ipv6Header"
         },
         {
           "method": "GET",
-          "path": "/v1/prefixes/{id}",
-          "op": "get Prefix"
+          "path": "/v1/ipv6headers/{id}",
+          "op": "get Ipv6Header"
         },
         {
           "method": "PATCH",
-          "path": "/v1/prefixes/{id}",
-          "op": "update Prefix"
+          "path": "/v1/ipv6headers/{id}",
+          "op": "update Ipv6Header"
         },
         {
           "method": "DELETE",
-          "path": "/v1/prefixes/{id}",
-          "op": "delete Prefix"
+          "path": "/v1/ipv6headers/{id}",
+          "op": "delete Ipv6Header"
         },
         {
           "method": "POST",
-          "path": "/v1/routes",
-          "op": "create Route"
+          "path": "/v1/icmpv6messages",
+          "op": "create Icmpv6Message"
         },
         {
           "method": "GET",
-          "path": "/v1/routes",
-          "op": "list Route"
+          "path": "/v1/icmpv6messages",
+          "op": "list Icmpv6Message"
         },
         {
           "method": "GET",
-          "path": "/v1/routes/{id}",
-          "op": "get Route"
+          "path": "/v1/icmpv6messages/{id}",
+          "op": "get Icmpv6Message"
         },
         {
           "method": "PATCH",
-          "path": "/v1/routes/{id}",
-          "op": "update Route"
+          "path": "/v1/icmpv6messages/{id}",
+          "op": "update Icmpv6Message"
         },
         {
           "method": "DELETE",
-          "path": "/v1/routes/{id}",
-          "op": "delete Route"
+          "path": "/v1/icmpv6messages/{id}",
+          "op": "delete Icmpv6Message"
         },
         {
           "method": "POST",
-          "path": "/v1/peers",
-          "op": "create Peer"
+          "path": "/v1/destinationunreachables",
+          "op": "create DestinationUnreachable"
         },
         {
           "method": "GET",
-          "path": "/v1/peers",
-          "op": "list Peer"
+          "path": "/v1/destinationunreachables",
+          "op": "list DestinationUnreachable"
         },
         {
           "method": "GET",
-          "path": "/v1/peers/{id}",
-          "op": "get Peer"
+          "path": "/v1/destinationunreachables/{id}",
+          "op": "get DestinationUnreachable"
         },
         {
           "method": "PATCH",
-          "path": "/v1/peers/{id}",
-          "op": "update Peer"
+          "path": "/v1/destinationunreachables/{id}",
+          "op": "update DestinationUnreachable"
         },
         {
           "method": "DELETE",
-          "path": "/v1/peers/{id}",
-          "op": "delete Peer"
+          "path": "/v1/destinationunreachables/{id}",
+          "op": "delete DestinationUnreachable"
         },
         {
           "method": "POST",
-          "path": "/v1/zones",
-          "op": "create Zone"
+          "path": "/v1/timeexceededs",
+          "op": "create TimeExceeded"
         },
         {
           "method": "GET",
-          "path": "/v1/zones",
-          "op": "list Zone"
+          "path": "/v1/timeexceededs",
+          "op": "list TimeExceeded"
         },
         {
           "method": "GET",
-          "path": "/v1/zones/{id}",
-          "op": "get Zone"
+          "path": "/v1/timeexceededs/{id}",
+          "op": "get TimeExceeded"
         },
         {
           "method": "PATCH",
-          "path": "/v1/zones/{id}",
-          "op": "update Zone"
+          "path": "/v1/timeexceededs/{id}",
+          "op": "update TimeExceeded"
         },
         {
           "method": "DELETE",
-          "path": "/v1/zones/{id}",
-          "op": "delete Zone"
+          "path": "/v1/timeexceededs/{id}",
+          "op": "delete TimeExceeded"
         },
         {
           "method": "POST",
-          "path": "/v1/records",
-          "op": "create Record"
+          "path": "/v1/parameterproblems",
+          "op": "create ParameterProblem"
         },
         {
           "method": "GET",
-          "path": "/v1/records",
-          "op": "list Record"
+          "path": "/v1/parameterproblems",
+          "op": "list ParameterProblem"
         },
         {
           "method": "GET",
-          "path": "/v1/records/{id}",
-          "op": "get Record"
+          "path": "/v1/parameterproblems/{id}",
+          "op": "get ParameterProblem"
         },
         {
           "method": "PATCH",
-          "path": "/v1/records/{id}",
-          "op": "update Record"
+          "path": "/v1/parameterproblems/{id}",
+          "op": "update ParameterProblem"
         },
         {
           "method": "DELETE",
-          "path": "/v1/records/{id}",
-          "op": "delete Record"
+          "path": "/v1/parameterproblems/{id}",
+          "op": "delete ParameterProblem"
         },
         {
           "method": "POST",
-          "path": "/v1/tunnels",
-          "op": "create Tunnel"
+          "path": "/v1/ndpmessages",
+          "op": "create NdpMessage"
         },
         {
           "method": "GET",
-          "path": "/v1/tunnels",
-          "op": "list Tunnel"
+          "path": "/v1/ndpmessages",
+          "op": "list NdpMessage"
         },
         {
           "method": "GET",
-          "path": "/v1/tunnels/{id}",
-          "op": "get Tunnel"
+          "path": "/v1/ndpmessages/{id}",
+          "op": "get NdpMessage"
         },
         {
           "method": "PATCH",
-          "path": "/v1/tunnels/{id}",
-          "op": "update Tunnel"
+          "path": "/v1/ndpmessages/{id}",
+          "op": "update NdpMessage"
         },
         {
           "method": "DELETE",
-          "path": "/v1/tunnels/{id}",
-          "op": "delete Tunnel"
+          "path": "/v1/ndpmessages/{id}",
+          "op": "delete NdpMessage"
         }
       ],
       "features": {
@@ -247,290 +289,47 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_prefix",
-          "description": "Create a Prefix.",
+          "name": "create_ipv6_header",
+          "description": "Create a Ipv6Header.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "cidr": {
-                "type": "string"
-              },
-              "originAsn": {
-                "type": "string"
-              },
-              "validity": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "cidr",
-              "originAsn"
-            ]
-          }
-        },
-        {
-          "name": "list_prefixes",
-          "description": "List Prefixes.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_prefix",
-          "description": "Get a Prefix by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_prefix",
-          "description": "Update a Prefix.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "cidr": {
-                "type": "string"
-              },
-              "originAsn": {
-                "type": "string"
-              },
-              "validity": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_prefix",
-          "description": "Delete a Prefix.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_route",
-          "description": "Create a Route.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "prefixId": {
-                "type": "string"
-              },
-              "nextHop": {
-                "type": "string"
-              },
-              "asPath": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "nextHop",
-              "asPath"
-            ]
-          }
-        },
-        {
-          "name": "list_routes",
-          "description": "List Routes.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_route",
-          "description": "Get a Route by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_route",
-          "description": "Update a Route.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "prefixId": {
-                "type": "string"
-              },
-              "nextHop": {
-                "type": "string"
-              },
-              "asPath": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_route",
-          "description": "Delete a Route.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_peer",
-          "description": "Create a Peer.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "asn": {
-                "type": "string"
-              },
-              "ipAddress": {
-                "type": "string"
-              },
-              "state": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "asn",
-              "ipAddress"
-            ]
-          }
-        },
-        {
-          "name": "list_peers",
-          "description": "List Peers.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_peer",
-          "description": "Get a Peer by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_peer",
-          "description": "Update a Peer.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "asn": {
-                "type": "string"
-              },
-              "ipAddress": {
-                "type": "string"
-              },
-              "state": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_peer",
-          "description": "Delete a Peer.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_zone",
-          "description": "Create a Zone.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "serial": {
+              "version": {
                 "type": "integer"
               },
-              "refreshSec": {
+              "trafficClass": {
+                "type": "integer"
+              },
+              "flowLabel": {
+                "type": "integer"
+              },
+              "payloadLength": {
+                "type": "integer"
+              },
+              "nextHeader": {
+                "type": "integer"
+              },
+              "hopLimit": {
                 "type": "integer"
               }
             },
             "required": [
-              "name",
-              "serial"
+              "version",
+              "trafficClass"
             ]
           }
         },
         {
-          "name": "list_zones",
-          "description": "List Zones.",
+          "name": "list_ipv6_headers",
+          "description": "List Ipv6Headers.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_zone",
-          "description": "Get a Zone by id.",
+          "name": "get_ipv6_header",
+          "description": "Get a Ipv6Header by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -544,21 +343,30 @@
           }
         },
         {
-          "name": "update_zone",
-          "description": "Update a Zone.",
+          "name": "update_ipv6_header",
+          "description": "Update a Ipv6Header.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
-                "type": "string"
-              },
-              "serial": {
+              "version": {
                 "type": "integer"
               },
-              "refreshSec": {
+              "trafficClass": {
+                "type": "integer"
+              },
+              "flowLabel": {
+                "type": "integer"
+              },
+              "payloadLength": {
+                "type": "integer"
+              },
+              "nextHeader": {
+                "type": "integer"
+              },
+              "hopLimit": {
                 "type": "integer"
               }
             },
@@ -568,8 +376,8 @@
           }
         },
         {
-          "name": "delete_zone",
-          "description": "Delete a Zone.",
+          "name": "delete_ipv6_header",
+          "description": "Delete a Ipv6Header.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -583,41 +391,77 @@
           }
         },
         {
-          "name": "create_record",
-          "description": "Create a Record.",
+          "name": "create_icmpv6_message",
+          "description": "Create a Icmpv6Message.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "zoneId": {
-                "type": "string"
+              "type": {
+                "type": "integer"
               },
-              "name": {
+              "code": {
+                "type": "integer"
+              },
+              "checksum": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "type",
+              "code"
+            ]
+          }
+        },
+        {
+          "name": "list_icmpv6_messages",
+          "description": "List Icmpv6Messages.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_icmpv6_message",
+          "description": "Get a Icmpv6Message by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_icmpv6_message",
+          "description": "Update a Icmpv6Message.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               },
               "type": {
-                "type": "string"
+                "type": "integer"
               },
-              "value": {
-                "type": "string"
+              "code": {
+                "type": "integer"
+              },
+              "checksum": {
+                "type": "integer"
               }
             },
             "required": [
-              "name",
-              "type"
+              "id"
             ]
           }
         },
         {
-          "name": "list_records",
-          "description": "List Records.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_record",
-          "description": "Get a Record by id.",
+          "name": "delete_icmpv6_message",
+          "description": "Delete a Icmpv6Message.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -631,25 +475,67 @@
           }
         },
         {
-          "name": "update_record",
-          "description": "Update a Record.",
+          "name": "create_destination_unreachable",
+          "description": "Create a DestinationUnreachable.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "integer"
+              },
+              "code": {
+                "type": "integer"
+              },
+              "checksum": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "type",
+              "code"
+            ]
+          }
+        },
+        {
+          "name": "list_destination_unreachables",
+          "description": "List DestinationUnreachables.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_destination_unreachable",
+          "description": "Get a DestinationUnreachable by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
-              },
-              "zoneId": {
-                "type": "string"
-              },
-              "name": {
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_destination_unreachable",
+          "description": "Update a DestinationUnreachable.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               },
               "type": {
-                "type": "string"
+                "type": "integer"
               },
-              "value": {
-                "type": "string"
+              "code": {
+                "type": "integer"
+              },
+              "checksum": {
+                "type": "integer"
               }
             },
             "required": [
@@ -658,8 +544,8 @@
           }
         },
         {
-          "name": "delete_record",
-          "description": "Delete a Record.",
+          "name": "delete_destination_unreachable",
+          "description": "Delete a DestinationUnreachable.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -673,41 +559,38 @@
           }
         },
         {
-          "name": "create_tunnel",
-          "description": "Create a Tunnel.",
+          "name": "create_time_exceeded",
+          "description": "Create a TimeExceeded.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "localAddr": {
-                "type": "string"
+              "type": {
+                "type": "integer"
               },
-              "remoteAddr": {
-                "type": "string"
+              "code": {
+                "type": "integer"
               },
-              "protocol": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
+              "checksum": {
+                "type": "integer"
               }
             },
             "required": [
-              "localAddr",
-              "remoteAddr"
+              "type",
+              "code"
             ]
           }
         },
         {
-          "name": "list_tunnels",
-          "description": "List Tunnels.",
+          "name": "list_time_exceededs",
+          "description": "List TimeExceededs.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_tunnel",
-          "description": "Get a Tunnel by id.",
+          "name": "get_time_exceeded",
+          "description": "Get a TimeExceeded by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -721,25 +604,22 @@
           }
         },
         {
-          "name": "update_tunnel",
-          "description": "Update a Tunnel.",
+          "name": "update_time_exceeded",
+          "description": "Update a TimeExceeded.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "localAddr": {
-                "type": "string"
+              "type": {
+                "type": "integer"
               },
-              "remoteAddr": {
-                "type": "string"
+              "code": {
+                "type": "integer"
               },
-              "protocol": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
+              "checksum": {
+                "type": "integer"
               }
             },
             "required": [
@@ -748,8 +628,176 @@
           }
         },
         {
-          "name": "delete_tunnel",
-          "description": "Delete a Tunnel.",
+          "name": "delete_time_exceeded",
+          "description": "Delete a TimeExceeded.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_parameter_problem",
+          "description": "Create a ParameterProblem.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "integer"
+              },
+              "code": {
+                "type": "integer"
+              },
+              "pointer": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "type",
+              "code"
+            ]
+          }
+        },
+        {
+          "name": "list_parameter_problems",
+          "description": "List ParameterProblems.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_parameter_problem",
+          "description": "Get a ParameterProblem by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_parameter_problem",
+          "description": "Update a ParameterProblem.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "type": "integer"
+              },
+              "code": {
+                "type": "integer"
+              },
+              "pointer": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_parameter_problem",
+          "description": "Delete a ParameterProblem.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_ndp_message",
+          "description": "Create a NdpMessage.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "integer"
+              },
+              "code": {
+                "type": "integer"
+              },
+              "targetAddress": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "code"
+            ]
+          }
+        },
+        {
+          "name": "list_ndp_messages",
+          "description": "List NdpMessages.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_ndp_message",
+          "description": "Get a NdpMessage by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_ndp_message",
+          "description": "Update a NdpMessage.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "type": "integer"
+              },
+              "code": {
+                "type": "integer"
+              },
+              "targetAddress": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_ndp_message",
+          "description": "Delete a NdpMessage.",
           "inputSchema": {
             "type": "object",
             "properties": {

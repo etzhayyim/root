@@ -8,8 +8,8 @@
   "count": 1000,
   "totalEndpoints": 29690,
   "l4SpecsAvailable": 1000,
-  "l5VerifiedActors": 133,
-  "totalVerifiedEnumFields": 594,
+  "l5VerifiedActors": 135,
+  "totalVerifiedEnumFields": 604,
   "apis": [
     {
       "handle": "8th_wall-compat",
@@ -5277,7 +5277,7 @@
     {
       "handle": "eclinicalworks-compat",
       "did": "did:web:etzhayyim.com:actor:eclinicalworks-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreidtqkozc2uu2pqn4itn35niea6g3hng5j54b4fejsyskdli3ihqze",
@@ -5289,8 +5289,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 6,
       "openapi": "20-actors/eclinicalworks-compat/openapi.json"
     },
     {
@@ -8811,7 +8811,7 @@
     {
       "handle": "ipv6_routing-compat",
       "did": "did:web:etzhayyim.com:actor:ipv6_routing-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreihnffa4h4rin4arl7wp7szb3s5id7vdhbzboizgtiexlcs764z7xq",
@@ -8823,8 +8823,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 4,
       "openapi": "20-actors/ipv6_routing-compat/openapi.json"
     },
     {
