@@ -1315,6 +1315,18 @@ PLATFORM_OVERRIDES = {
         "Cart": E(customerIsGuest="boolean", customerNote="string", isActive="boolean", isVirtual="boolean", itemsCount="integer", itemsQty="float", reservedOrderId="string", storeId="integer", origOrderId="integer"),
         "Invoice": E(incrementId="string", state="integer", grandTotal="float", baseGrandTotal="float", orderCurrencyCode="string", baseCurrencyCode="string", subtotal="float", taxAmount="float", shippingAmount="float", storeId="integer", orderId="integer"),
     },
+    # Faithful DrChrono (EHR) model (remodeled from the generic FHIR-shaped health
+    # archetype — Encounter/Observation/Practitioner — to DrChrono's proprietary
+    # REST entities), doc-verified L5 vs DrChrono's official OpenAPI (via apis.guru).
+    # API-shape only (field names/types); no real PHI is stored.
+    "drchrono": {
+        "Patient": E(chartId="string", dateOfBirth="string", email="string", cellPhone="string", address="string", city="string", copay="string", defaultPharmacy="string", disableSmsMessages="boolean", doctor="integer", emergencyContactName="string", emergencyContactPhone="string", employer="string", dateOfFirstAppointment="string", dateOfLastAppointment="string"),
+        "Appointment": E(doctor="integer", duration="integer", examRoom="integer", color="string", billingStatus="string", ins1Status="string", allowOverlapping="boolean", apptIsBreak="boolean", deletedFlag="boolean", baseRecurringAppointment="string", billingProvider="string", firstBilledDate="string"),
+        "Doctor": E(firstName="string", lastName="string", email="string", cellPhone="string", officePhone="string", npiNumber="string", groupNpiNumber="string", specialty="string", jobTitle="string", practiceGroupName="string", isAccountSuspended="boolean"),
+        "Office": E(name="string", address="string", city="string", state="string", zipCode="string", phoneNumber="string", faxNumber="string", doctor="string", archived="boolean", onlineScheduling="boolean", startTime="string", endTime="string", taxIdNumberProfessional="string"),
+        "ClinicalNote": E(patient="string", appointment="string", archived="boolean"),
+        "LabResult": E(labTest="integer", labOrder="string", observationCode="string", observationDescription="string", value="string", unit="string", normalRange="string", abnormalStatus="string", status="string", comments="string", groupCode="string", testPerformed="string", specimenReceived="string"),
+    },
     # Faithful Airtable model (remodeled from generic office_productivity), L5.
     "airtable": {
         "Base": E(name="string", permissionLevel="string"),

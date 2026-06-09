@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 81,
+  "count": 82,
   "actors": [
     {
       "handle": "square-compat",
@@ -11741,6 +11741,194 @@
       ],
       "notApplicable": [],
       "note": "Verified + refined to faithful Magento REST entities. 6/6 entities field-verified vs Magento's official OpenAPI module-data interfaces. No string enums (Magento encodes status/visibility/state as integer codes); recorded faithfully as integer. Money fields are number/float."
+    },
+    {
+      "handle": "drchrono-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "DrChrono official OpenAPI v4 (via apis.guru mirror: drchrono.com)",
+      "remodeled": "Remodeled from the generic FHIR-shaped health archetype (Patient/Encounter/Observation/Medication/Practitioner/Appointment) to DrChrono's PROPRIETARY REST entities (Patient/Appointment/Doctor/Office/ClinicalNote/LabResult) — DrChrono's API is not FHIR. Verified field-by-field against DrChrono's official OpenAPI. API-SHAPE ONLY: the schema models field names/types, never actual PHI. The L5 gate had correctly rejected the prior FHIR-shaped model (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Patient",
+          "source": "drchrono OpenAPI Patient",
+          "verifiedFields": [
+            "chartId",
+            "dateOfBirth",
+            "email",
+            "cellPhone",
+            "address",
+            "city",
+            "copay",
+            "defaultPharmacy",
+            "disableSmsMessages",
+            "doctor",
+            "emergencyContactName",
+            "emergencyContactPhone",
+            "employer",
+            "dateOfFirstAppointment",
+            "dateOfLastAppointment"
+          ],
+          "fieldStatus": "confirmed vs Patient schema (45 scalar fields total; modeled the salient subset)",
+          "discoveredEnums": {},
+          "gaps": [
+            "gender/state/country are large ISO/code lists",
+            "insurance fields",
+            "custom demographics"
+          ]
+        },
+        {
+          "entity": "Appointment",
+          "source": "drchrono OpenAPI Appointment",
+          "verifiedFields": [
+            "doctor",
+            "duration",
+            "examRoom",
+            "color",
+            "billingStatus",
+            "ins1Status",
+            "allowOverlapping",
+            "apptIsBreak",
+            "deletedFlag",
+            "baseRecurringAppointment",
+            "billingProvider",
+            "firstBilledDate"
+          ],
+          "fieldStatus": "confirmed vs Appointment schema",
+          "discoveredEnums": {
+            "ins1Status": [
+              "",
+              "Incomplete Information",
+              "In Process Emdeon",
+              "Rejected Emdeon",
+              "Rejected Jopari",
+              "In Process Payor"
+            ]
+          },
+          "gaps": [
+            "status (separate field)",
+            "reason",
+            "profile",
+            "recurring_event(object)"
+          ]
+        },
+        {
+          "entity": "Doctor",
+          "source": "drchrono OpenAPI Doctor",
+          "verifiedFields": [
+            "firstName",
+            "lastName",
+            "email",
+            "cellPhone",
+            "officePhone",
+            "npiNumber",
+            "groupNpiNumber",
+            "specialty",
+            "jobTitle",
+            "practiceGroupName",
+            "isAccountSuspended"
+          ],
+          "fieldStatus": "confirmed vs Doctor schema",
+          "discoveredEnums": {
+            "jobTitle": [
+              "",
+              "Provider/Staff (Private Practice)",
+              "Provider/Staff (Hospital)",
+              "Patients/Interview Candidate",
+              "Educator/Student",
+              "API/Developer"
+            ]
+          },
+          "gaps": [
+            "country (ISO list)",
+            "timezone",
+            "specialty_board"
+          ]
+        },
+        {
+          "entity": "Office",
+          "source": "drchrono OpenAPI Office",
+          "verifiedFields": [
+            "name",
+            "address",
+            "city",
+            "state",
+            "zipCode",
+            "phoneNumber",
+            "faxNumber",
+            "doctor",
+            "archived",
+            "onlineScheduling",
+            "startTime",
+            "endTime",
+            "taxIdNumberProfessional"
+          ],
+          "fieldStatus": "confirmed vs Office schema (state/country are large code lists -> not enumerated)",
+          "discoveredEnums": {},
+          "gaps": [
+            "state/country (ISO lists)",
+            "exam_rooms detail"
+          ]
+        },
+        {
+          "entity": "ClinicalNote",
+          "source": "drchrono OpenAPI ClinicalNote",
+          "verifiedFields": [
+            "patient",
+            "appointment",
+            "archived"
+          ],
+          "fieldStatus": "confirmed vs ClinicalNote schema (thin top-level; note content is in nested sections)",
+          "discoveredEnums": {},
+          "gaps": [
+            "sections(array)",
+            "template(object)"
+          ]
+        },
+        {
+          "entity": "LabResult",
+          "source": "drchrono OpenAPI LabResult",
+          "verifiedFields": [
+            "labTest",
+            "labOrder",
+            "observationCode",
+            "observationDescription",
+            "value",
+            "unit",
+            "normalRange",
+            "abnormalStatus",
+            "status",
+            "comments",
+            "groupCode",
+            "testPerformed",
+            "specimenReceived"
+          ],
+          "fieldStatus": "confirmed vs LabResult schema",
+          "discoveredEnums": {
+            "abnormalStatus": [
+              "L",
+              "LL",
+              "H",
+              "HH",
+              "<",
+              ">"
+            ],
+            "status": [
+              "P",
+              "I",
+              "C",
+              "F",
+              "X"
+            ]
+          },
+          "gaps": [
+            "is_abnormal",
+            "document(int ref)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "Remodeled from a mismatched FHIR archetype to DrChrono's faithful PROPRIETARY model (DrChrono is not FHIR). 6/6 entities field-verified vs the official OpenAPI. Discovered closed enums (4): Appointment.ins1Status, Doctor.jobTitle, LabResult.abnormalStatus/status. Large ISO code lists (state/country/gender) recorded as gaps. API-shape only — no real PHI is represented."
     }
   ]
 }
