@@ -33,6 +33,17 @@ def main():
 
     check("prompt carries (A) locality intel", "jp.nagasaki" in prompt and "産官学報" in prompt)
     check("prompt carries (B) camp intel", "reach" in prompt and "bridges" in prompt)
+    check("prompt carries vertical-integration intel", "vertically-integrated" in prompt)
+
+    # fused kotoba-EDN digest is valid + aggregate-only
+    digest = N.build_digest(scale, banner)
+    parsed = A.read_edn(digest)
+    check("digest is valid kotoba-EDN", isinstance(parsed, list) and parsed
+          and parsed[0].get(":digest/kind") == ":tsumugi-power-intel")
+    check("digest published=false (G7)", parsed[0].get(":digest/published") is False)
+    check("digest has fused scale+banner sections",
+          ":digest/scale-top-localities" in parsed[0] and ":digest/banner-camps" in parsed[0]
+          and ":digest/vertical" in parsed[0])
     check("prompt is aggregate-only (no private-person marker)",
           ":private-person" not in prompt and "private-person" not in prompt)
 

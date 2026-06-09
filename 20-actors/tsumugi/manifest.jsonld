@@ -89,8 +89,8 @@
       "method": "methods/narrate.py",
       "deploy": "deploy/agent.py",
       "input": ["data/seed-scale-power.kotoba.edn", "data/seed-banner.kotoba.edn"],
-      "output": ["out/narration.dryrun.md", "out/narration.md"],
-      "pipeline": "analyze(scale+banner) → build-prompt(aggregate-only) → infer(Murakumo LiteLLM 127.0.0.1:4000 / gemma3:4b·Maxwell, G6) → emit(published=false, G7)",
+      "output": ["out/intel-digest.kotoba.edn", "out/narration.dryrun.md", "out/narration.md"],
+      "pipeline": "analyze(scale+banner+vertical) → build-digest(fused kotoba-EDN, Datom/Murakumo-consumable) → build-prompt(aggregate-only) → infer(Murakumo LiteLLM 127.0.0.1:4000 / gemma3:4b·Maxwell, G6) → emit(published=false, G7)",
       "doc": "Murakumo-only intel narration: stdlib twin methods/narrate.py (urllib, operator-gated, refuses non-fleet host) + canonical in-WASM deploy/agent.py (kotoba_langgraph → KotobaLLM → host MURAKUMO_DEFAULT_MODEL gemma4; himawari pattern). Mirror + non-adjudicating; no published post.",
       "gate": "G6 Murakumo-only (ADR-2605215000) + G7 dry-run by default (TSUMUGI_MURAKUMO_GATE=1 + fleet reachable for a live call)"
     }

@@ -75,6 +75,12 @@ def build_prompt(scale_result: dict, banner_result: dict) -> str:
     lines.append("(A) top cross-sector brokers (seat/org ids):")
     for x in top_brokers:
         lines.append(f"  - {x['id']} ({x['sector']} → {' '.join(x['bridges_to'])}, span {x['span']})")
+    vertical = scale_result.get("vertical", [])[:5]
+    if vertical:
+        lines.append("(A) vertically-integrated orgs (跨-scale 縦の集中):")
+        for x in vertical:
+            lines.append(f"  - {x['label']}: spans {x['scale_span']} scales "
+                         f"({' '.join(x['scales'])}) across {x['locality_span']} localities (load {x['load']})")
     lines.append("(B) declared camps by reach:")
     for c in camps:
         lines.append(f"  - {c['label']} (kind {c['kind']}, reach {c['reach']}, {c['member_count']} members)")
@@ -82,6 +88,43 @@ def build_prompt(scale_result: dict, banner_result: dict) -> str:
     for b in bridges:
         lines.append(f"  - {b['label']}: {' · '.join(b['banners'])}")
     return "\n".join(lines)
+
+
+def _edn_str(s: str) -> str:
+    return '"' + str(s).replace('\\', '\\\\').replace('"', '\\"') + '"'
+
+
+def build_digest(scale_result: dict, banner_result: dict) -> str:
+    """Fuse scale (A) + banner (B) into ONE kotoba-EDN intel digest — the canonical, machine-
+    readable summary the Murakumo fleet / kotoba Datom log consumes (S1: aggregate readouts,
+    never per-node/per-person scores; mirror; published=false)."""
+    L = [";; tsumugi power-intel digest — GENERATED (ADR-2606092000); aggregate readouts only.",
+         ";; consumed by the Murakumo-only narration (G6) + the kotoba Datom log. No hand-edit.",
+         "[{:digest/kind :tsumugi-power-intel",
+         " :digest/scale-top-localities ["]
+    for x in scale_result["localities"][:5]:
+        L.append(f"   {{:locality {_edn_str(x['locality'])} :diversity {x['sector_diversity']} "
+                 f":concentration {x['concentration']}}}")
+    L.append(" ]")
+    L.append(" :digest/vertical [")
+    for x in scale_result.get("vertical", [])[:5]:
+        L.append(f"   {{:org {_edn_str(x['label'])} :scale-span {x['scale_span']} "
+                 f":locality-span {x['locality_span']} :load {x['load']}}}")
+    L.append(" ]")
+    L.append(" :digest/collective-kinds [")
+    for x in scale_result.get("collective_kinds", []):
+        L.append(f"   {{:kind {x['kind']} :nodes {x['node_count']} :load {x['load']}}}")
+    L.append(" ]")
+    L.append(" :digest/banner-camps [")
+    for c in banner_result["camps"][:6]:
+        L.append(f"   {{:banner {_edn_str(c['label'])} :reach {c['reach']} :members {c['member_count']}}}")
+    L.append(" ]")
+    L.append(" :digest/bridges [")
+    for b in banner_result["bridges"][:5]:
+        L.append(f"   {{:ent {_edn_str(b['label'])} :span {b['span']}}}")
+    L.append(" ]")
+    L.append(" :digest/published false}]")
+    return "\n".join(L) + "\n"
 
 
 def infer(prompt: str, *, gate: bool, base_url: str = MURAKUMO_BASE_URL,
@@ -118,6 +161,9 @@ def run(gate: bool | None = None, out: pathlib.Path | None = None) -> dict:
     scale_result = A.analyze(*A.load())
     banner_result = Bnr.analyze(*Bnr.load())
     prompt = build_prompt(scale_result, banner_result)
+    # the canonical fused intel digest (kotoba-native; consumed by Murakumo + the Datom log)
+    (out / "intel-digest.kotoba.edn").write_text(
+        build_digest(scale_result, banner_result), encoding="utf-8")
     text, status = infer(prompt, gate=gate)
     # G7 — dry-run artifact always written; a published post is NOT emitted here.
     (out / "narration.dryrun.md").write_text(
