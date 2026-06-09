@@ -22981,6 +22981,38 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606082700-uchiwake-g7-worldwide-ingest-authorization-proposal.md",
+      "id": "adr-2606082700",
+      "title": "ADR-2606082700: uchiwake (内訳) — G7 Worldwide-Ingest Authorization Proposal (full GTIN / GS1 / GLEIF universe)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "uchiwake-g7-worldwide-ingest-authorization",
+      "authoritative": true,
+      "authoritative_for": [
+        "uchiwake G7 live-ingest authorization request + phased rollout plan",
+        "data-source inventory + volume + license analysis for full product-BOM coverage",
+        "Charter Rider compliance analysis (G1 public-record, G9 no-PII, no-server-key) for bulk ingest"
+      ],
+      "related": [
+        "adr-2606081800-uchiwake-world-product-bom-gtin-kg",
+        "adr-2606022000-kabuto-public-company-supply-chain-kg",
+        "adr-2606042330-entity-as-actor-society-scale-social-mirror",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606081800 (uchiwake actor — the ingest target + gates G1..G12)",
+        "ADR-2606022000 (kabuto — shared org.corp.* company id space)",
+        "ADR-2605262130 (kotoba storage substrate)",
+        "ADR-2605312345 (kotoba Datom log = first-class canonical state)",
+        "ADR-2605231525 (no-server-key invariant)"
+      ],
+      "last_verified": "2026-06-08",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606090900-session-close-uchiwake-product-bom-gtin-worldwide-coverage.md",
       "id": "adr-2606090900",
       "title": "ADR-2606090900: Session-Close — uchiwake (内訳) product-BOM/GTIN worldwide-coverage wave",
