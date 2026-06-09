@@ -1697,6 +1697,30 @@ baseline_score = "2/8 (25%) on gemma4:e4b 2026-05-25"
 remaining_work = "Populate 42 more prompts + graders (send + subgraph + tool + error + streaming categories not yet seeded); each gap-deepen prompt costs ~30-60 LoC grader"
 
 [[modules]]
+path = "20-actors"
+kind = "clean-room-actor-corpus"
+version = "0.1.0"
+status = "1000-registered-L4-baseline-57-L5-verified"
+description = "Clean-room actor corpus (ADR-260607): 1000 `20-actors/<platform>-compat/` interop actors, each with deps.toml + README + schema/<platform>.kotoba + src/main.py + manifest.json + tests + openapi.json. Maturity ladder L1 (scaffold) → L3 (domain CRUD) → L4 (pagination/filtering/relation-expand/strict-validation + contract test) → L5 (reconciled field-for-field against the platform's OFFICIAL API docs/SDK, enums enforced in runtime + OpenAPI 3.1 + provenance ledger). Corpus-wide state 2026-06-09: 100% ≥ L4 (943 L4 / 57 L5), all 1000 registered at etzhayyim.com (did:web:etzhayyim.com:actor:<h> + actors-v1 graph) and browser-runnable as content-addressed kotoba-wasm on IPFS. L5 = 40 fully verified + 17 partial; only 4 honestly DEFERRED (bamboohr/calendly/servicenow/checkout — no reachable official spec). Capability surfaces (api/supplychain/socialpost/mcp) indexed corpus-wide under 00-contracts/schemas/cleanroom-*-index.json. Honesty gate: an actor reaches L5 only on a fetched official source; unconfirmable enums are recorded as gaps, never fabricated."
+adr = ["260607", "2606014500", "2606014600", "2606036000"]
+ssot = [
+  "00-contracts/schemas/cleanroom-l5-verification.json",     # L5 provenance ledger (per-field source + enums + gaps)
+  "00-contracts/schemas/cleanroom-actors.index.json",        # registration index + tierCounts
+  "00-contracts/schemas/cleanroom-built-actors.json",        # per-actor built WASM CIDs
+  "00-contracts/schemas/cleanroom-actors-seed.kotoba.edn",   # actors-v1 graph seed EDN
+]
+tooling = [
+  "70-tools/deepen_actors.py",            # category-driven generator + PLATFORM_OVERRIDES (L5 faithful models)
+  "70-tools/promote_l4.py",               # L4 generator + runtime enum enforcement from L5 ledger
+  "70-tools/register_cleanroom_actors.py",# etzhayyim.com registration (DID + manifest verified block)
+  "70-tools/build_capability_indexes.py", # api/supplychain/socialpost/mcp corpus indexes + per-actor OpenAPI
+  "70-tools/gen_rust_actor.py",           # per-actor Rust→raw-WASM (content-addressed CIDv1)
+  "70-tools/verify_cleanroom_system.py",  # integrity gate (tier ∈ {L3,L4,L5}, PASS 0/0 invariant)
+]
+runtime = "60-apps/cleanroom-browser-runtime (kotoba-wasm JS reference runtime + componentize-py + Rust raw-WASM)"
+tier_counts = "L4 943 / L5 57 (40 full + 17 partial); deferred 4"
+
+[[modules]]
 path = "50-infra/silicon"
 kind = "first-party-silicon-rtl-cad"
 version = "0.1.0-phase1-scaffold"
@@ -10156,9 +10180,9 @@ adr = ["2606072100", "2606072300", "2605260000", "2605181100", "2605231525", "26
 id = "2606082100"
 title = "Mishmar Storage Covenant — social-capital-funded bonded pinning for unstoppable persistence"
 status = "proposed"
-status_note = "Session-close ADR for the 2026-06-08 persistence/economic-security gap review. Chooses the Charter-clean incentive model for third-party data persistence: non-yielding bonded pinning, slash-to-commons through TitheRouter/Public Fund, social-capital-denominated retainers, and kotoba read+verify-only observation. It closes the design gap without creating live staking resources, Kubernetes resources, external-payment paths, or a yield-bearing/security-like token. Follow-ups: Social Capital ledger predicates, MishmarBondEscrow, witness challenge scheduler, and mKOTO retainer settlement."
+status_note = "Session-close ADR for the 2026-06-08 persistence/economic-security gap review. Chooses the Charter-clean incentive model for third-party data persistence: non-yielding bonded pinning, slash-to-commons through TitheRouter/Public Fund, social-capital-denominated retainers, moyai-family social-capital reuse, and kotoba read+verify-only observation. It closes the design gap without creating live staking resources, Kubernetes resources, external-payment paths, or a yield-bearing/security-like token. Follow-ups: Social Capital ledger predicates, MishmarBondEscrow, witness challenge scheduler, and mKOTO retainer settlement."
 path = "90-docs/adr/2606082100-mishmar-storage-covenant-social-capital.md"
-adr = ["2606082100", "2605231400", "2605282100", "2604261717", "2605192100", "2605192200", "2605192130", "2605192145", "2605172100", "2605172300", "0075", "2605240001", "2605231525"]
+adr = ["2606082100", "2605262130", "2606062100", "2605231400", "2605282100", "2604261717", "2605192100", "2605192200", "2605192130", "2605192145", "2605172100", "2605172300", "0075", "2605240001", "2605231525"]
 
 # ─── Donation policy (machine-readable SSoT, ADR-2606012100) ─────────────────
 # Public declaration: https://etzhayyim.com/donate + /.well-known/donation.json
