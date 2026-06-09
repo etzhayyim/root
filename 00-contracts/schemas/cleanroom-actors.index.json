@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 903,
-    "L5": 97
+    "L4": 900,
+    "L5": 100
   },
   "actors": [
     {
@@ -4607,10 +4607,10 @@
     {
       "handle": "docker-compat",
       "did": "did:web:etzhayyim.com:actor:docker-compat",
-      "wasmCid": "bafkreiaiele3kpygfcrjpg2w26elqc52kbhbrgclvmxypvxuipzc5mg7nu",
+      "wasmCid": "bafkreibrglytkq324ezeamsdswizhld6iyivtwdy465rmtncvwtvg6ix5u",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "docker clean-room actor",
       "category": "devops_ci",
       "capabilities": [
@@ -9110,7 +9110,7 @@
       "wasmCid": "bafkreif5hmro634h4czwutwcp7uas2vgpknxtvh6jrhc4jhwxkbpnwno74",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "kubernetes clean-room actor",
       "category": "devops_ci",
       "capabilities": [
@@ -9380,7 +9380,7 @@
       "wasmCid": "bafkreif3nq5rlp7a2ebjsyyawtp7dbf2v2q4f3llwgqt5lgrblxp4h527u",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "line_api clean-room actor",
       "category": "comms_social",
       "capabilities": [

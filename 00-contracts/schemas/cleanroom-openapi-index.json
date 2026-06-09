@@ -6,7 +6,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29875,
+  "totalEndpoints": 29865,
   "l4SpecsAvailable": 1000,
   "apis": [
     {
@@ -4347,10 +4347,10 @@
     {
       "handle": "docker-compat",
       "did": "did:web:etzhayyim.com:actor:docker-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreiaiele3kpygfcrjpg2w26elqc52kbhbrgclvmxypvxuipzc5mg7nu",
+      "endpointCount": 20,
+      "ipfs": "ipfs://bafkreibrglytkq324ezeamsdswizhld6iyivtwdy465rmtncvwtvg6ix5u",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -8597,7 +8597,7 @@
     {
       "handle": "kubernetes-compat",
       "did": "did:web:etzhayyim.com:actor:kubernetes-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreif5hmro634h4czwutwcp7uas2vgpknxtvh6jrhc4jhwxkbpnwno74",
@@ -8852,7 +8852,7 @@
     {
       "handle": "line_api-compat",
       "did": "did:web:etzhayyim.com:actor:line_api-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreif3nq5rlp7a2ebjsyyawtp7dbf2v2q4f3llwgqt5lgrblxp4h527u",

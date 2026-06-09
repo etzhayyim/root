@@ -11,15 +11,64 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreif5hmro634h4czwutwcp7uas2vgpknxtvh6jrhc4jhwxkbpnwno74",
   "schema": "schema/kubernetes.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://github.com/kubernetes/kubernetes/tree/master/api/openapi-spec",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Pod",
+      "Service",
+      "Deployment",
+      "Namespace",
+      "Node",
+      "PersistentVolume"
+    ],
+    "enums": {
+      "Pod": {
+        "phase": [
+          "Pending",
+          "Running",
+          "Succeeded",
+          "Failed",
+          "Unknown"
+        ],
+        "restartPolicy": [
+          "Always",
+          "OnFailure",
+          "Never"
+        ]
+      },
+      "Service": {
+        "type": [
+          "ClusterIP",
+          "NodePort",
+          "LoadBalancer",
+          "ExternalName"
+        ]
+      },
+      "Namespace": {
+        "phase": [
+          "Active",
+          "Terminating"
+        ]
+      },
+      "PersistentVolume": {
+        "phase": [
+          "Available",
+          "Bound",
+          "Released",
+          "Failed"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Repository",
-    "Pipeline",
-    "Build",
-    "Artifact",
+    "Pod",
+    "Service",
     "Deployment",
-    "Webhook"
+    "Namespace",
+    "Node",
+    "PersistentVolume"
   ],
   "adr": [
     "260607",
@@ -35,103 +84,53 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/repositories",
-          "op": "create Repository"
+          "path": "/v1/pods",
+          "op": "create Pod"
         },
         {
           "method": "GET",
-          "path": "/v1/repositories",
-          "op": "list Repository"
+          "path": "/v1/pods",
+          "op": "list Pod"
         },
         {
           "method": "GET",
-          "path": "/v1/repositories/{id}",
-          "op": "get Repository"
+          "path": "/v1/pods/{id}",
+          "op": "get Pod"
         },
         {
           "method": "PATCH",
-          "path": "/v1/repositories/{id}",
-          "op": "update Repository"
+          "path": "/v1/pods/{id}",
+          "op": "update Pod"
         },
         {
           "method": "DELETE",
-          "path": "/v1/repositories/{id}",
-          "op": "delete Repository"
+          "path": "/v1/pods/{id}",
+          "op": "delete Pod"
         },
         {
           "method": "POST",
-          "path": "/v1/pipelines",
-          "op": "create Pipeline"
+          "path": "/v1/services",
+          "op": "create Service"
         },
         {
           "method": "GET",
-          "path": "/v1/pipelines",
-          "op": "list Pipeline"
+          "path": "/v1/services",
+          "op": "list Service"
         },
         {
           "method": "GET",
-          "path": "/v1/pipelines/{id}",
-          "op": "get Pipeline"
+          "path": "/v1/services/{id}",
+          "op": "get Service"
         },
         {
           "method": "PATCH",
-          "path": "/v1/pipelines/{id}",
-          "op": "update Pipeline"
+          "path": "/v1/services/{id}",
+          "op": "update Service"
         },
         {
           "method": "DELETE",
-          "path": "/v1/pipelines/{id}",
-          "op": "delete Pipeline"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/builds",
-          "op": "create Build"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/builds",
-          "op": "list Build"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/builds/{id}",
-          "op": "get Build"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/builds/{id}",
-          "op": "update Build"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/builds/{id}",
-          "op": "delete Build"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/artifacts",
-          "op": "create Artifact"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/artifacts",
-          "op": "list Artifact"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/artifacts/{id}",
-          "op": "get Artifact"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/artifacts/{id}",
-          "op": "update Artifact"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/artifacts/{id}",
-          "op": "delete Artifact"
+          "path": "/v1/services/{id}",
+          "op": "delete Service"
         },
         {
           "method": "POST",
@@ -160,28 +159,78 @@
         },
         {
           "method": "POST",
-          "path": "/v1/webhooks",
-          "op": "create Webhook"
+          "path": "/v1/namespaces",
+          "op": "create Namespace"
         },
         {
           "method": "GET",
-          "path": "/v1/webhooks",
-          "op": "list Webhook"
+          "path": "/v1/namespaces",
+          "op": "list Namespace"
         },
         {
           "method": "GET",
-          "path": "/v1/webhooks/{id}",
-          "op": "get Webhook"
+          "path": "/v1/namespaces/{id}",
+          "op": "get Namespace"
         },
         {
           "method": "PATCH",
-          "path": "/v1/webhooks/{id}",
-          "op": "update Webhook"
+          "path": "/v1/namespaces/{id}",
+          "op": "update Namespace"
         },
         {
           "method": "DELETE",
-          "path": "/v1/webhooks/{id}",
-          "op": "delete Webhook"
+          "path": "/v1/namespaces/{id}",
+          "op": "delete Namespace"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/nodes",
+          "op": "create Node"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/nodes",
+          "op": "list Node"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/nodes/{id}",
+          "op": "get Node"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/nodes/{id}",
+          "op": "update Node"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/nodes/{id}",
+          "op": "delete Node"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/persistentvolumes",
+          "op": "create PersistentVolume"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/persistentvolumes",
+          "op": "list PersistentVolume"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/persistentvolumes/{id}",
+          "op": "get PersistentVolume"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/persistentvolumes/{id}",
+          "op": "update PersistentVolume"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/persistentvolumes/{id}",
+          "op": "delete PersistentVolume"
         }
       ],
       "features": {
@@ -247,128 +296,50 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_repository",
-          "description": "Create a Repository.",
+          "name": "create_pod",
+          "description": "Create a Pod.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "owner": {
+              "namespace": {
                 "type": "string"
               },
-              "defaultBranch": {
+              "phase": {
                 "type": "string"
               },
-              "private": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "name",
-              "owner"
-            ]
-          }
-        },
-        {
-          "name": "list_repositories",
-          "description": "List Repositories.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_repository",
-          "description": "Get a Repository by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_repository",
-          "description": "Update a Repository.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              "nodeName": {
                 "type": "string"
               },
-              "name": {
+              "podIP": {
                 "type": "string"
               },
-              "owner": {
+              "qosClass": {
                 "type": "string"
               },
-              "defaultBranch": {
-                "type": "string"
-              },
-              "private": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_repository",
-          "description": "Delete a Repository.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_pipeline",
-          "description": "Create a Pipeline.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "repoId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "trigger": {
+              "restartPolicy": {
                 "type": "string"
               }
             },
             "required": [
               "name",
-              "trigger"
+              "namespace"
             ]
           }
         },
         {
-          "name": "list_pipelines",
-          "description": "List Pipelines.",
+          "name": "list_pods",
+          "description": "List Pods.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_pipeline",
-          "description": "Get a Pipeline by id.",
+          "name": "get_pod",
+          "description": "Get a Pod by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -382,21 +353,33 @@
           }
         },
         {
-          "name": "update_pipeline",
-          "description": "Update a Pipeline.",
+          "name": "update_pod",
+          "description": "Update a Pod.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "repoId": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "trigger": {
+              "namespace": {
+                "type": "string"
+              },
+              "phase": {
+                "type": "string"
+              },
+              "nodeName": {
+                "type": "string"
+              },
+              "podIP": {
+                "type": "string"
+              },
+              "qosClass": {
+                "type": "string"
+              },
+              "restartPolicy": {
                 "type": "string"
               }
             },
@@ -406,8 +389,8 @@
           }
         },
         {
-          "name": "delete_pipeline",
-          "description": "Delete a Pipeline.",
+          "name": "delete_pod",
+          "description": "Delete a Pod.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -421,137 +404,44 @@
           }
         },
         {
-          "name": "create_build",
-          "description": "Create a Build.",
+          "name": "create_service",
+          "description": "Create a Service.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "pipelineId": {
-                "type": "string"
-              },
-              "number": {
-                "type": "integer"
-              },
-              "status": {
-                "type": "string"
-              },
-              "commitSha": {
-                "type": "string"
-              },
-              "durationMs": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "number",
-              "status"
-            ]
-          }
-        },
-        {
-          "name": "list_builds",
-          "description": "List Builds.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_build",
-          "description": "Get a Build by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_build",
-          "description": "Update a Build.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "pipelineId": {
-                "type": "string"
-              },
-              "number": {
-                "type": "integer"
-              },
-              "status": {
-                "type": "string"
-              },
-              "commitSha": {
-                "type": "string"
-              },
-              "durationMs": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_build",
-          "description": "Delete a Build.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_artifact",
-          "description": "Create a Artifact.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "buildId": {
-                "type": "string"
-              },
               "name": {
                 "type": "string"
               },
-              "sizeBytes": {
-                "type": "integer"
+              "namespace": {
+                "type": "string"
               },
-              "contentRef": {
+              "type": {
+                "type": "string"
+              },
+              "clusterIP": {
+                "type": "string"
+              },
+              "externalName": {
                 "type": "string"
               }
             },
             "required": [
               "name",
-              "sizeBytes"
+              "namespace"
             ]
           }
         },
         {
-          "name": "list_artifacts",
-          "description": "List Artifacts.",
+          "name": "list_services",
+          "description": "List Services.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_artifact",
-          "description": "Get a Artifact by id.",
+          "name": "get_service",
+          "description": "Get a Service by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -565,24 +455,27 @@
           }
         },
         {
-          "name": "update_artifact",
-          "description": "Update a Artifact.",
+          "name": "update_service",
+          "description": "Update a Service.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "buildId": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "sizeBytes": {
-                "type": "integer"
+              "namespace": {
+                "type": "string"
               },
-              "contentRef": {
+              "type": {
+                "type": "string"
+              },
+              "clusterIP": {
+                "type": "string"
+              },
+              "externalName": {
                 "type": "string"
               }
             },
@@ -592,8 +485,8 @@
           }
         },
         {
-          "name": "delete_artifact",
-          "description": "Delete a Artifact.",
+          "name": "delete_service",
+          "description": "Delete a Service.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -612,19 +505,28 @@
           "inputSchema": {
             "type": "object",
             "properties": {
-              "buildId": {
+              "name": {
                 "type": "string"
               },
-              "environment": {
+              "namespace": {
                 "type": "string"
               },
-              "status": {
-                "type": "string"
+              "replicas": {
+                "type": "integer"
+              },
+              "readyReplicas": {
+                "type": "integer"
+              },
+              "updatedReplicas": {
+                "type": "integer"
+              },
+              "observedGeneration": {
+                "type": "integer"
               }
             },
             "required": [
-              "environment",
-              "status"
+              "name",
+              "namespace"
             ]
           }
         },
@@ -660,14 +562,23 @@
               "id": {
                 "type": "string"
               },
-              "buildId": {
+              "name": {
                 "type": "string"
               },
-              "environment": {
+              "namespace": {
                 "type": "string"
               },
-              "status": {
-                "type": "string"
+              "replicas": {
+                "type": "integer"
+              },
+              "readyReplicas": {
+                "type": "integer"
+              },
+              "updatedReplicas": {
+                "type": "integer"
+              },
+              "observedGeneration": {
+                "type": "integer"
               }
             },
             "required": [
@@ -691,41 +602,38 @@
           }
         },
         {
-          "name": "create_webhook",
-          "description": "Create a Webhook.",
+          "name": "create_namespace",
+          "description": "Create a Namespace.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "repoId": {
+              "name": {
                 "type": "string"
               },
-              "url": {
+              "phase": {
                 "type": "string"
               },
-              "event": {
+              "deletionTimestamp": {
                 "type": "string"
-              },
-              "active": {
-                "type": "boolean"
               }
             },
             "required": [
-              "url",
-              "event"
+              "name",
+              "phase"
             ]
           }
         },
         {
-          "name": "list_webhooks",
-          "description": "List Webhooks.",
+          "name": "list_namespaces",
+          "description": "List Namespaces.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_webhook",
-          "description": "Get a Webhook by id.",
+          "name": "get_namespace",
+          "description": "Get a Namespace by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -739,25 +647,22 @@
           }
         },
         {
-          "name": "update_webhook",
-          "description": "Update a Webhook.",
+          "name": "update_namespace",
+          "description": "Update a Namespace.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "repoId": {
+              "name": {
                 "type": "string"
               },
-              "url": {
+              "phase": {
                 "type": "string"
               },
-              "event": {
+              "deletionTimestamp": {
                 "type": "string"
-              },
-              "active": {
-                "type": "boolean"
               }
             },
             "required": [
@@ -766,8 +671,176 @@
           }
         },
         {
-          "name": "delete_webhook",
-          "description": "Delete a Webhook.",
+          "name": "delete_namespace",
+          "description": "Delete a Namespace.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_node",
+          "description": "Create a Node.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "address": {
+                "type": "string"
+              },
+              "addressType": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "address"
+            ]
+          }
+        },
+        {
+          "name": "list_nodes",
+          "description": "List Nodes.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_node",
+          "description": "Get a Node by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_node",
+          "description": "Update a Node.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "address": {
+                "type": "string"
+              },
+              "addressType": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_node",
+          "description": "Delete a Node.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_persistent_volume",
+          "description": "Create a PersistentVolume.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "phase": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "phase"
+            ]
+          }
+        },
+        {
+          "name": "list_persistent_volumes",
+          "description": "List PersistentVolumes.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_persistent_volume",
+          "description": "Get a PersistentVolume by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_persistent_volume",
+          "description": "Update a PersistentVolume.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "phase": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_persistent_volume",
+          "description": "Delete a PersistentVolume.",
           "inputSchema": {
             "type": "object",
             "properties": {

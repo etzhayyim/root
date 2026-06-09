@@ -5,21 +5,47 @@
   "kind": "compat",
   "title": "docker clean-room actor",
   "description": "Clean-room, API-compatible DevOps / CI-CD actor (docker); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiaiele3kpygfcrjpg2w26elqc52kbhbrgclvmxypvxuipzc5mg7nu",
+  "wasmCid": "bafkreibrglytkq324ezeamsdswizhld6iyivtwdy465rmtncvwtvg6ix5u",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiaiele3kpygfcrjpg2w26elqc52kbhbrgclvmxypvxuipzc5mg7nu",
+  "ipfs": "ipfs://bafkreibrglytkq324ezeamsdswizhld6iyivtwdy465rmtncvwtvg6ix5u",
   "schema": "schema/docker.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://github.com/moby/moby/blob/master/api/swagger.yaml",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Container",
+      "Image",
+      "Network",
+      "Volume"
+    ],
+    "enums": {
+      "Container": {
+        "state": [
+          "created",
+          "running",
+          "paused",
+          "restarting",
+          "removing",
+          "exited",
+          "dead"
+        ]
+      },
+      "Volume": {
+        "scope": [
+          "local",
+          "global"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Repository",
-    "Pipeline",
-    "Build",
-    "Artifact",
-    "Deployment",
-    "Webhook"
+    "Container",
+    "Image",
+    "Network",
+    "Volume"
   ],
   "adr": [
     "260607",
@@ -31,157 +57,107 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 20,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/repositories",
-          "op": "create Repository"
+          "path": "/v1/containers",
+          "op": "create Container"
         },
         {
           "method": "GET",
-          "path": "/v1/repositories",
-          "op": "list Repository"
+          "path": "/v1/containers",
+          "op": "list Container"
         },
         {
           "method": "GET",
-          "path": "/v1/repositories/{id}",
-          "op": "get Repository"
+          "path": "/v1/containers/{id}",
+          "op": "get Container"
         },
         {
           "method": "PATCH",
-          "path": "/v1/repositories/{id}",
-          "op": "update Repository"
+          "path": "/v1/containers/{id}",
+          "op": "update Container"
         },
         {
           "method": "DELETE",
-          "path": "/v1/repositories/{id}",
-          "op": "delete Repository"
+          "path": "/v1/containers/{id}",
+          "op": "delete Container"
         },
         {
           "method": "POST",
-          "path": "/v1/pipelines",
-          "op": "create Pipeline"
+          "path": "/v1/images",
+          "op": "create Image"
         },
         {
           "method": "GET",
-          "path": "/v1/pipelines",
-          "op": "list Pipeline"
+          "path": "/v1/images",
+          "op": "list Image"
         },
         {
           "method": "GET",
-          "path": "/v1/pipelines/{id}",
-          "op": "get Pipeline"
+          "path": "/v1/images/{id}",
+          "op": "get Image"
         },
         {
           "method": "PATCH",
-          "path": "/v1/pipelines/{id}",
-          "op": "update Pipeline"
+          "path": "/v1/images/{id}",
+          "op": "update Image"
         },
         {
           "method": "DELETE",
-          "path": "/v1/pipelines/{id}",
-          "op": "delete Pipeline"
+          "path": "/v1/images/{id}",
+          "op": "delete Image"
         },
         {
           "method": "POST",
-          "path": "/v1/builds",
-          "op": "create Build"
+          "path": "/v1/networks",
+          "op": "create Network"
         },
         {
           "method": "GET",
-          "path": "/v1/builds",
-          "op": "list Build"
+          "path": "/v1/networks",
+          "op": "list Network"
         },
         {
           "method": "GET",
-          "path": "/v1/builds/{id}",
-          "op": "get Build"
+          "path": "/v1/networks/{id}",
+          "op": "get Network"
         },
         {
           "method": "PATCH",
-          "path": "/v1/builds/{id}",
-          "op": "update Build"
+          "path": "/v1/networks/{id}",
+          "op": "update Network"
         },
         {
           "method": "DELETE",
-          "path": "/v1/builds/{id}",
-          "op": "delete Build"
+          "path": "/v1/networks/{id}",
+          "op": "delete Network"
         },
         {
           "method": "POST",
-          "path": "/v1/artifacts",
-          "op": "create Artifact"
+          "path": "/v1/volumes",
+          "op": "create Volume"
         },
         {
           "method": "GET",
-          "path": "/v1/artifacts",
-          "op": "list Artifact"
+          "path": "/v1/volumes",
+          "op": "list Volume"
         },
         {
           "method": "GET",
-          "path": "/v1/artifacts/{id}",
-          "op": "get Artifact"
+          "path": "/v1/volumes/{id}",
+          "op": "get Volume"
         },
         {
           "method": "PATCH",
-          "path": "/v1/artifacts/{id}",
-          "op": "update Artifact"
+          "path": "/v1/volumes/{id}",
+          "op": "update Volume"
         },
         {
           "method": "DELETE",
-          "path": "/v1/artifacts/{id}",
-          "op": "delete Artifact"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/deployments",
-          "op": "create Deployment"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/deployments",
-          "op": "list Deployment"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/deployments/{id}",
-          "op": "get Deployment"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/deployments/{id}",
-          "op": "update Deployment"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/deployments/{id}",
-          "op": "delete Deployment"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/webhooks",
-          "op": "create Webhook"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/webhooks",
-          "op": "list Webhook"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/webhooks/{id}",
-          "op": "get Webhook"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/webhooks/{id}",
-          "op": "update Webhook"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/webhooks/{id}",
-          "op": "delete Webhook"
+          "path": "/v1/volumes/{id}",
+          "op": "delete Volume"
         }
       ],
       "features": {
@@ -244,44 +220,362 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 20,
       "tools": [
         {
-          "name": "create_repository",
-          "description": "Create a Repository.",
+          "name": "create_container",
+          "description": "Create a Container.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "image": {
+                "type": "string"
+              },
+              "imageID": {
+                "type": "string"
+              },
+              "command": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "created": {
+                "type": "integer"
+              },
+              "sizeRw": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id",
+              "image"
+            ]
+          }
+        },
+        {
+          "name": "list_containers",
+          "description": "List Containers.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_container",
+          "description": "Get a Container by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_container",
+          "description": "Update a Container.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "image": {
+                "type": "string"
+              },
+              "imageID": {
+                "type": "string"
+              },
+              "command": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "created": {
+                "type": "integer"
+              },
+              "sizeRw": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_container",
+          "description": "Delete a Container.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_image",
+          "description": "Create a Image.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "parent": {
+                "type": "string"
+              },
+              "comment": {
+                "type": "string"
+              },
+              "container": {
+                "type": "string"
+              },
+              "size": {
+                "type": "integer"
+              },
+              "created": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "parent"
+            ]
+          }
+        },
+        {
+          "name": "list_images",
+          "description": "List Images.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_image",
+          "description": "Get a Image by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_image",
+          "description": "Update a Image.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "parent": {
+                "type": "string"
+              },
+              "comment": {
+                "type": "string"
+              },
+              "container": {
+                "type": "string"
+              },
+              "size": {
+                "type": "integer"
+              },
+              "created": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_image",
+          "description": "Delete a Image.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_network",
+          "description": "Create a Network.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "scope": {
+                "type": "string"
+              },
+              "driver": {
+                "type": "string"
+              },
+              "enableIPv6": {
+                "type": "boolean"
+              },
+              "internal": {
+                "type": "boolean"
+              },
+              "attachable": {
+                "type": "boolean"
+              },
+              "created": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          }
+        },
+        {
+          "name": "list_networks",
+          "description": "List Networks.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_network",
+          "description": "Get a Network by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_network",
+          "description": "Update a Network.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "scope": {
+                "type": "string"
+              },
+              "driver": {
+                "type": "string"
+              },
+              "enableIPv6": {
+                "type": "boolean"
+              },
+              "internal": {
+                "type": "boolean"
+              },
+              "attachable": {
+                "type": "boolean"
+              },
+              "created": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_network",
+          "description": "Delete a Network.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_volume",
+          "description": "Create a Volume.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "owner": {
+              "driver": {
                 "type": "string"
               },
-              "defaultBranch": {
+              "mountpoint": {
                 "type": "string"
               },
-              "private": {
-                "type": "boolean"
+              "scope": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
               }
             },
             "required": [
               "name",
-              "owner"
+              "driver"
             ]
           }
         },
         {
-          "name": "list_repositories",
-          "description": "List Repositories.",
+          "name": "list_volumes",
+          "description": "List Volumes.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_repository",
-          "description": "Get a Repository by id.",
+          "name": "get_volume",
+          "description": "Get a Volume by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,8 +589,8 @@
           }
         },
         {
-          "name": "update_repository",
-          "description": "Update a Repository.",
+          "name": "update_volume",
+          "description": "Update a Volume.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -306,28 +600,16 @@
               "name": {
                 "type": "string"
               },
-              "owner": {
+              "driver": {
                 "type": "string"
               },
-              "defaultBranch": {
+              "mountpoint": {
                 "type": "string"
               },
-              "private": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_repository",
-          "description": "Delete a Repository.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              "scope": {
+                "type": "string"
+              },
+              "createdAt": {
                 "type": "string"
               }
             },
@@ -337,437 +619,8 @@
           }
         },
         {
-          "name": "create_pipeline",
-          "description": "Create a Pipeline.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "repoId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "trigger": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "trigger"
-            ]
-          }
-        },
-        {
-          "name": "list_pipelines",
-          "description": "List Pipelines.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_pipeline",
-          "description": "Get a Pipeline by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_pipeline",
-          "description": "Update a Pipeline.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "repoId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "trigger": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_pipeline",
-          "description": "Delete a Pipeline.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_build",
-          "description": "Create a Build.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "pipelineId": {
-                "type": "string"
-              },
-              "number": {
-                "type": "integer"
-              },
-              "status": {
-                "type": "string"
-              },
-              "commitSha": {
-                "type": "string"
-              },
-              "durationMs": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "number",
-              "status"
-            ]
-          }
-        },
-        {
-          "name": "list_builds",
-          "description": "List Builds.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_build",
-          "description": "Get a Build by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_build",
-          "description": "Update a Build.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "pipelineId": {
-                "type": "string"
-              },
-              "number": {
-                "type": "integer"
-              },
-              "status": {
-                "type": "string"
-              },
-              "commitSha": {
-                "type": "string"
-              },
-              "durationMs": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_build",
-          "description": "Delete a Build.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_artifact",
-          "description": "Create a Artifact.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "buildId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "sizeBytes": {
-                "type": "integer"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "sizeBytes"
-            ]
-          }
-        },
-        {
-          "name": "list_artifacts",
-          "description": "List Artifacts.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_artifact",
-          "description": "Get a Artifact by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_artifact",
-          "description": "Update a Artifact.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "buildId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "sizeBytes": {
-                "type": "integer"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_artifact",
-          "description": "Delete a Artifact.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_deployment",
-          "description": "Create a Deployment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "buildId": {
-                "type": "string"
-              },
-              "environment": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "environment",
-              "status"
-            ]
-          }
-        },
-        {
-          "name": "list_deployments",
-          "description": "List Deployments.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_deployment",
-          "description": "Get a Deployment by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_deployment",
-          "description": "Update a Deployment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "buildId": {
-                "type": "string"
-              },
-              "environment": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_deployment",
-          "description": "Delete a Deployment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_webhook",
-          "description": "Create a Webhook.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "repoId": {
-                "type": "string"
-              },
-              "url": {
-                "type": "string"
-              },
-              "event": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "url",
-              "event"
-            ]
-          }
-        },
-        {
-          "name": "list_webhooks",
-          "description": "List Webhooks.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_webhook",
-          "description": "Get a Webhook by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_webhook",
-          "description": "Update a Webhook.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "repoId": {
-                "type": "string"
-              },
-              "url": {
-                "type": "string"
-              },
-              "event": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_webhook",
-          "description": "Delete a Webhook.",
+          "name": "delete_volume",
+          "description": "Delete a Volume.",
           "inputSchema": {
             "type": "object",
             "properties": {

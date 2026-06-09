@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 97,
+  "count": 100,
   "actors": [
     {
       "handle": "square-compat",
@@ -13756,6 +13756,376 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official Kong entity schemas. Enforced enums: Service.protocol(7), Route.pathHandling(2), Upstream.algorithm(4)/hashOn(8)/hashFallback(8) = 5 enums. Route.protocols array -> not enforced."
+    },
+    {
+      "handle": "docker-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/moby/moby/blob/master/api/swagger.yaml",
+      "remodeled": "Remodeled from generic category model to a faithful Docker Engine API model, verified against the official moby/moby swagger.yaml (v1.44). PascalCase->camelCase; array/object fields dropped. Network.scope/driver left gaps (driver open to plugins, scope not an explicit enum).",
+      "resources": [
+        {
+          "entity": "Container",
+          "source": "https://github.com/moby/moby/blob/master/api/swagger.yaml",
+          "verifiedFields": [
+            "id",
+            "image",
+            "imageID",
+            "command",
+            "state",
+            "created",
+            "sizeRw"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "state": [
+              "created",
+              "running",
+              "paused",
+              "restarting",
+              "removing",
+              "exited",
+              "dead"
+            ]
+          },
+          "gaps": [
+            "ports(array)"
+          ]
+        },
+        {
+          "entity": "Image",
+          "source": "https://github.com/moby/moby/blob/master/api/swagger.yaml",
+          "verifiedFields": [
+            "id",
+            "parent",
+            "comment",
+            "container",
+            "size",
+            "created"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "repoTags(array)"
+          ]
+        },
+        {
+          "entity": "Network",
+          "source": "https://github.com/moby/moby/blob/master/api/swagger.yaml",
+          "verifiedFields": [
+            "id",
+            "name",
+            "scope",
+            "driver",
+            "enableIPv6",
+            "internal",
+            "attachable",
+            "created"
+          ],
+          "fieldStatus": "confirmed; scope/driver are not explicit closed enums (driver plugin-extensible) -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "scope-driver-open"
+          ]
+        },
+        {
+          "entity": "Volume",
+          "source": "https://github.com/moby/moby/blob/master/api/swagger.yaml",
+          "verifiedFields": [
+            "name",
+            "driver",
+            "mountpoint",
+            "scope",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "scope": [
+              "local",
+              "global"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (4/4) vs official moby/moby swagger.yaml. Enforced enums: Container.state(7), Volume.scope(2) = 2 enums. Network.scope/driver left open (plugin-extensible)."
+    },
+    {
+      "handle": "kubernetes-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/kubernetes/kubernetes/tree/master/api/openapi-spec",
+      "remodeled": "Remodeled from generic category model to a faithful Kubernetes API model, verified against the official k8s OpenAPI swagger.json (v1.31). metadata/status/spec flattened to scalar fields.",
+      "resources": [
+        {
+          "entity": "Pod",
+          "source": "https://github.com/kubernetes/kubernetes/tree/master/api/openapi-spec",
+          "verifiedFields": [
+            "name",
+            "namespace",
+            "phase",
+            "nodeName",
+            "podIP",
+            "qosClass",
+            "restartPolicy"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "phase": [
+              "Pending",
+              "Running",
+              "Succeeded",
+              "Failed",
+              "Unknown"
+            ],
+            "restartPolicy": [
+              "Always",
+              "OnFailure",
+              "Never"
+            ]
+          },
+          "gaps": [
+            "containers(array)"
+          ]
+        },
+        {
+          "entity": "Service",
+          "source": "https://github.com/kubernetes/kubernetes/tree/master/api/openapi-spec",
+          "verifiedFields": [
+            "name",
+            "namespace",
+            "type",
+            "clusterIP",
+            "externalName"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "ClusterIP",
+              "NodePort",
+              "LoadBalancer",
+              "ExternalName"
+            ]
+          },
+          "gaps": [
+            "ports(array)"
+          ]
+        },
+        {
+          "entity": "Deployment",
+          "source": "https://github.com/kubernetes/kubernetes/tree/master/api/openapi-spec",
+          "verifiedFields": [
+            "name",
+            "namespace",
+            "replicas",
+            "readyReplicas",
+            "updatedReplicas",
+            "observedGeneration"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "selector(object)"
+          ]
+        },
+        {
+          "entity": "Namespace",
+          "source": "https://github.com/kubernetes/kubernetes/tree/master/api/openapi-spec",
+          "verifiedFields": [
+            "name",
+            "phase",
+            "deletionTimestamp"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "phase": [
+              "Active",
+              "Terminating"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Node",
+          "source": "https://github.com/kubernetes/kubernetes/tree/master/api/openapi-spec",
+          "verifiedFields": [
+            "name",
+            "address",
+            "addressType"
+          ],
+          "fieldStatus": "confirmed; no closed scalar enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "capacity(object)"
+          ]
+        },
+        {
+          "entity": "PersistentVolume",
+          "source": "https://github.com/kubernetes/kubernetes/tree/master/api/openapi-spec",
+          "verifiedFields": [
+            "name",
+            "phase",
+            "message"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "phase": [
+              "Available",
+              "Bound",
+              "Released",
+              "Failed"
+            ]
+          },
+          "gaps": [
+            "accessModes(array)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official Kubernetes OpenAPI. Enforced enums: Pod.phase(5)/restartPolicy(3), Service.type(4), Namespace.phase(2), PersistentVolume.phase(4) = 5 enums."
+    },
+    {
+      "handle": "line_api-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/line/line-openapi/blob/main/messaging-api.yml",
+      "remodeled": "Remodeled from generic category model to a faithful LINE Messaging API model, verified against the official line/line-openapi messaging-api.yml. timestamps Unix int ms. (Event.type 'videoPlayComplete' corrected from an agent transcription typo.)",
+      "resources": [
+        {
+          "entity": "Message",
+          "source": "https://github.com/line/line-openapi/blob/main/messaging-api.yml",
+          "verifiedFields": [
+            "type",
+            "text",
+            "originalContentUrl",
+            "previewImageUrl",
+            "duration"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "text",
+              "image",
+              "video",
+              "audio",
+              "file",
+              "location",
+              "sticker",
+              "imagemap",
+              "buttons",
+              "confirm",
+              "carousel",
+              "flexMessage",
+              "template"
+            ]
+          },
+          "gaps": [
+            "subtype-specific-fields"
+          ]
+        },
+        {
+          "entity": "Source",
+          "source": "https://github.com/line/line-openapi/blob/main/messaging-api.yml",
+          "verifiedFields": [
+            "type",
+            "userId",
+            "groupId",
+            "roomId"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "user",
+              "group",
+              "room"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Event",
+          "source": "https://github.com/line/line-openapi/blob/main/messaging-api.yml",
+          "verifiedFields": [
+            "type",
+            "mode",
+            "replyToken",
+            "timestamp",
+            "webhookEventId"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "message",
+              "follow",
+              "unfollow",
+              "join",
+              "leave",
+              "postback",
+              "beacon",
+              "memberJoined",
+              "memberLeft",
+              "things",
+              "accountLink",
+              "videoPlayComplete",
+              "delivery",
+              "read"
+            ],
+            "mode": [
+              "active",
+              "standby"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Profile",
+          "source": "https://github.com/line/line-openapi/blob/main/messaging-api.yml",
+          "verifiedFields": [
+            "displayName",
+            "userId",
+            "pictureUrl",
+            "statusMessage",
+            "language"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "SentMessage",
+          "source": "https://github.com/line/line-openapi/blob/main/messaging-api.yml",
+          "verifiedFields": [
+            "id",
+            "quoteToken"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "NarrowcastProgress",
+          "source": "https://github.com/line/line-openapi/blob/main/messaging-api.yml",
+          "verifiedFields": [
+            "phase",
+            "successCount",
+            "failureCount",
+            "targetCount"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "phase": [
+              "waiting",
+              "sending",
+              "succeeded",
+              "failed"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official LINE messaging-api.yml. Enforced enums: Message.type(13), Source.type(3), Event.type(14), Event.mode(2), NarrowcastProgress.phase(4) = 5 enums."
     }
   ]
 }

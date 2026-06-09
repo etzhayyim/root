@@ -1621,6 +1621,32 @@ PLATFORM_OVERRIDES = {
         "Deployment": E(id="string", status="string", projectName="string", stackName="string", paused="boolean", created="datetime", modified="datetime"),
         "Organization": E(name="string", role="string"),
     },
+    # Faithful Docker Engine API model — verified against the official moby/moby
+    # swagger.yaml. Network scope/driver are open (plugins) -> not enforced.
+    "docker": {
+        "Container": E(id="string", image="string", imageID="string", command="string", state="string", created="integer", sizeRw="integer"),
+        "Image": E(id="string", parent="string", comment="string", container="string", size="integer", created="string"),
+        "Network": E(id="string", name="string", scope="string", driver="string", enableIPv6="boolean", internal="boolean", attachable="boolean", created="string"),
+        "Volume": E(name="string", driver="string", mountpoint="string", scope="string", createdAt="string"),
+    },
+    # Faithful Kubernetes API model — verified against the official k8s OpenAPI.
+    "kubernetes": {
+        "Pod": E(name="string", namespace="string", phase="string", nodeName="string", podIP="string", qosClass="string", restartPolicy="string"),
+        "Service": E(name="string", namespace="string", type="string", clusterIP="string", externalName="string"),
+        "Deployment": E(name="string", namespace="string", replicas="integer", readyReplicas="integer", updatedReplicas="integer", observedGeneration="integer"),
+        "Namespace": E(name="string", phase="string", deletionTimestamp="datetime"),
+        "Node": E(name="string", address="string", addressType="string"),
+        "PersistentVolume": E(name="string", phase="string", message="string"),
+    },
+    # Faithful LINE Messaging API model — verified against github.com/line/line-openapi.
+    "line_api": {
+        "Message": E(type="string", text="string", originalContentUrl="string", previewImageUrl="string", duration="integer"),
+        "Source": E(type="string", userId="string", groupId="string", roomId="string"),
+        "Event": E(type="string", mode="string", replyToken="string", timestamp="integer", webhookEventId="string"),
+        "Profile": E(displayName="string", userId="string", pictureUrl="string", statusMessage="string", language="string"),
+        "SentMessage": E(id="string", quoteToken="string"),
+        "NarrowcastProgress": E(phase="string", successCount="integer", failureCount="integer", targetCount="integer"),
+    },
     # Faithful Telegram Bot API model — verified against core.telegram.org/bots/api.
     # timestamps Unix integer; nested object refs dropped.
     "telegram_api": {

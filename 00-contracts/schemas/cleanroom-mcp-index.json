@@ -7,7 +7,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 29875,
+  "totalTools": 29865,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -2307,10 +2307,10 @@
     {
       "handle": "docker-compat",
       "did": "did:web:etzhayyim.com:actor:docker-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreiaiele3kpygfcrjpg2w26elqc52kbhbrgclvmxypvxuipzc5mg7nu",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreibrglytkq324ezeamsdswizhld6iyivtwdy465rmtncvwtvg6ix5u",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 20,
       "manifest": "20-actors/docker-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -4557,7 +4557,7 @@
     {
       "handle": "kubernetes-compat",
       "did": "did:web:etzhayyim.com:actor:kubernetes-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreif5hmro634h4czwutwcp7uas2vgpknxtvh6jrhc4jhwxkbpnwno74",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -4692,7 +4692,7 @@
     {
       "handle": "line_api-compat",
       "did": "did:web:etzhayyim.com:actor:line_api-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreif3nq5rlp7a2ebjsyyawtp7dbf2v2q4f3llwgqt5lgrblxp4h527u",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,

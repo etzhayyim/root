@@ -4341,17 +4341,15 @@
       "handle": "docker-compat",
       "platform": "docker",
       "bytes": 2120,
-      "wasmCid": "bafkreiaiele3kpygfcrjpg2w26elqc52kbhbrgclvmxypvxuipzc5mg7nu",
+      "wasmCid": "bafkreibrglytkq324ezeamsdswizhld6iyivtwdy465rmtncvwtvg6ix5u",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Repository",
-        "Pipeline",
-        "Build",
-        "Artifact",
-        "Deployment",
-        "Webhook"
+        "Container",
+        "Image",
+        "Network",
+        "Volume"
       ]
     },
     {
@@ -8592,12 +8590,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Repository",
-        "Pipeline",
-        "Build",
-        "Artifact",
+        "Pod",
+        "Service",
         "Deployment",
-        "Webhook"
+        "Namespace",
+        "Node",
+        "PersistentVolume"
       ]
     },
     {
@@ -8847,12 +8845,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Channel",
         "Message",
-        "User",
-        "Room",
-        "Stream",
-        "Webhook"
+        "Source",
+        "Event",
+        "Profile",
+        "SentMessage",
+        "NarrowcastProgress"
       ]
     },
     {
