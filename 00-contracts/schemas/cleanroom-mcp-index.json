@@ -8,8 +8,8 @@
   ],
   "count": 1000,
   "totalTools": 29815,
-  "l5VerifiedActors": 111,
-  "totalVerifiedEnumFields": 496,
+  "l5VerifiedActors": 113,
+  "totalVerifiedEnumFields": 508,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -6196,12 +6196,12 @@
     {
       "handle": "meditech-compat",
       "did": "did:web:etzhayyim.com:actor:meditech-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreigt3bzjxehmzljtlvnr6455uwwjoziqo6mkcven4cc4zox3i7s3zu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 6,
       "manifest": "20-actors/meditech-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -6889,12 +6889,12 @@
     {
       "handle": "nextgen-compat",
       "did": "did:web:etzhayyim.com:actor:nextgen-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreiheao3qlxt6dmrmfeetblrak5fu4qotbqextdwl23tlqlhsqq2tqm",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 6,
       "manifest": "20-actors/nextgen-compat/manifest.json#/capabilities/mcp"
     },
     {

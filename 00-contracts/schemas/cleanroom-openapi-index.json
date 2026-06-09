@@ -8,8 +8,8 @@
   "count": 1000,
   "totalEndpoints": 29815,
   "l4SpecsAvailable": 1000,
-  "l5VerifiedActors": 111,
-  "totalVerifiedEnumFields": 496,
+  "l5VerifiedActors": 113,
+  "totalVerifiedEnumFields": 508,
   "apis": [
     {
       "handle": "8th_wall-compat",
@@ -10692,7 +10692,7 @@
     {
       "handle": "meditech-compat",
       "did": "did:web:etzhayyim.com:actor:meditech-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreigt3bzjxehmzljtlvnr6455uwwjoziqo6mkcven4cc4zox3i7s3zu",
@@ -10704,8 +10704,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 6,
       "openapi": "20-actors/meditech-compat/openapi.json"
     },
     {
@@ -11889,7 +11889,7 @@
     {
       "handle": "nextgen-compat",
       "did": "did:web:etzhayyim.com:actor:nextgen-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreiheao3qlxt6dmrmfeetblrak5fu4qotbqextdwl23tlqlhsqq2tqm",
@@ -11901,8 +11901,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 6,
       "openapi": "20-actors/nextgen-compat/openapi.json"
     },
     {

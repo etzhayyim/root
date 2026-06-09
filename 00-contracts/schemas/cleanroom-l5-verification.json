@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 115,
+  "count": 117,
   "actors": [
     {
       "handle": "square-compat",
@@ -16193,6 +16193,310 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (5/5) vs official graph-network-subgraph schema + Studio API. Enforced enum: Allocation.status(5). Subgraph.status array + IndexingStatus (not in official schema) intentionally not enforced."
+    },
+    {
+      "handle": "meditech-compat",
+      "verifiedAt": "2026-06-10",
+      "tier": "L5",
+      "source": "https://hl7.org/fhir/R4",
+      "remodeled": "Upgraded from a generic category model to a faithful MEDITECH FHIR R4 model. MEDITECH FHIR R4 is an ONC-certified EHR that exposes HL7 FHIR R4 US Core (Cures Act mandated); status fields use the normative R4 REQUIRED-binding value sets verified against the official FHIR R4 spec (hl7.org/fhir/R4).",
+      "resources": [
+        {
+          "entity": "Patient",
+          "source": "https://hl7.org/fhir/R4/valueset-administrative-gender.html",
+          "verifiedFields": [
+            "id",
+            "resourceType",
+            "gender",
+            "birthDate",
+            "active",
+            "deceasedBoolean"
+          ],
+          "fieldStatus": "confirmed (FHIR R4 required-binding value set)",
+          "discoveredEnums": {
+            "gender": [
+              "male",
+              "female",
+              "other",
+              "unknown"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Observation",
+          "source": "https://hl7.org/fhir/R4/valueset-observation-status.html",
+          "verifiedFields": [
+            "id",
+            "resourceType",
+            "status",
+            "effectiveDateTime",
+            "valueString",
+            "issued"
+          ],
+          "fieldStatus": "confirmed (FHIR R4 required-binding value set)",
+          "discoveredEnums": {
+            "status": [
+              "registered",
+              "preliminary",
+              "final",
+              "amended",
+              "corrected",
+              "cancelled",
+              "entered-in-error",
+              "unknown"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Encounter",
+          "source": "https://hl7.org/fhir/R4/valueset-encounter-status.html",
+          "verifiedFields": [
+            "id",
+            "resourceType",
+            "status",
+            "serviceType",
+            "period"
+          ],
+          "fieldStatus": "confirmed (FHIR R4 required-binding value set)",
+          "discoveredEnums": {
+            "status": [
+              "planned",
+              "arrived",
+              "triaged",
+              "in-progress",
+              "onleave",
+              "finished",
+              "cancelled",
+              "entered-in-error",
+              "unknown"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "MedicationRequest",
+          "source": "https://hl7.org/fhir/R4/valueset-medicationrequest-status.html",
+          "verifiedFields": [
+            "id",
+            "resourceType",
+            "status",
+            "intent",
+            "authoredOn"
+          ],
+          "fieldStatus": "confirmed (FHIR R4 required-binding value set)",
+          "discoveredEnums": {
+            "status": [
+              "active",
+              "on-hold",
+              "cancelled",
+              "completed",
+              "entered-in-error",
+              "stopped",
+              "draft",
+              "unknown"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "AllergyIntolerance",
+          "source": "https://hl7.org/fhir/R4/valueset-allergyintolerance-clinical.html",
+          "verifiedFields": [
+            "id",
+            "resourceType",
+            "clinicalStatus",
+            "criticality",
+            "recordedDate"
+          ],
+          "fieldStatus": "confirmed (FHIR R4 required-binding value set)",
+          "discoveredEnums": {
+            "clinicalStatus": [
+              "active",
+              "inactive",
+              "resolved"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Condition",
+          "source": "https://hl7.org/fhir/R4/valueset-condition-clinical.html",
+          "verifiedFields": [
+            "id",
+            "resourceType",
+            "clinicalStatus",
+            "recordedDate"
+          ],
+          "fieldStatus": "confirmed (FHIR R4 required-binding value set)",
+          "discoveredEnums": {
+            "clinicalStatus": [
+              "active",
+              "recurrence",
+              "relapse",
+              "inactive",
+              "remission",
+              "resolved"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official HL7 FHIR R4 value sets (MEDITECH FHIR R4 = ONC-certified FHIR R4). Enforced enums: Patient.gender(4), Observation.status(8), Encounter.status(9), MedicationRequest.status(8), AllergyIntolerance.clinicalStatus(3), Condition.clinicalStatus(6) = 6 REQUIRED-binding value sets (38 values)."
+    },
+    {
+      "handle": "nextgen-compat",
+      "verifiedAt": "2026-06-10",
+      "tier": "L5",
+      "source": "https://hl7.org/fhir/R4",
+      "remodeled": "Upgraded from a generic category model to a faithful NextGen Healthcare FHIR R4 model. NextGen Healthcare FHIR R4 is an ONC-certified EHR that exposes HL7 FHIR R4 US Core (Cures Act mandated); status fields use the normative R4 REQUIRED-binding value sets verified against the official FHIR R4 spec (hl7.org/fhir/R4).",
+      "resources": [
+        {
+          "entity": "Patient",
+          "source": "https://hl7.org/fhir/R4/valueset-administrative-gender.html",
+          "verifiedFields": [
+            "id",
+            "resourceType",
+            "gender",
+            "birthDate",
+            "active",
+            "deceasedBoolean"
+          ],
+          "fieldStatus": "confirmed (FHIR R4 required-binding value set)",
+          "discoveredEnums": {
+            "gender": [
+              "male",
+              "female",
+              "other",
+              "unknown"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Observation",
+          "source": "https://hl7.org/fhir/R4/valueset-observation-status.html",
+          "verifiedFields": [
+            "id",
+            "resourceType",
+            "status",
+            "effectiveDateTime",
+            "valueString",
+            "issued"
+          ],
+          "fieldStatus": "confirmed (FHIR R4 required-binding value set)",
+          "discoveredEnums": {
+            "status": [
+              "registered",
+              "preliminary",
+              "final",
+              "amended",
+              "corrected",
+              "cancelled",
+              "entered-in-error",
+              "unknown"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Encounter",
+          "source": "https://hl7.org/fhir/R4/valueset-encounter-status.html",
+          "verifiedFields": [
+            "id",
+            "resourceType",
+            "status",
+            "serviceType",
+            "period"
+          ],
+          "fieldStatus": "confirmed (FHIR R4 required-binding value set)",
+          "discoveredEnums": {
+            "status": [
+              "planned",
+              "arrived",
+              "triaged",
+              "in-progress",
+              "onleave",
+              "finished",
+              "cancelled",
+              "entered-in-error",
+              "unknown"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "MedicationRequest",
+          "source": "https://hl7.org/fhir/R4/valueset-medicationrequest-status.html",
+          "verifiedFields": [
+            "id",
+            "resourceType",
+            "status",
+            "intent",
+            "authoredOn"
+          ],
+          "fieldStatus": "confirmed (FHIR R4 required-binding value set)",
+          "discoveredEnums": {
+            "status": [
+              "active",
+              "on-hold",
+              "cancelled",
+              "completed",
+              "entered-in-error",
+              "stopped",
+              "draft",
+              "unknown"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "AllergyIntolerance",
+          "source": "https://hl7.org/fhir/R4/valueset-allergyintolerance-clinical.html",
+          "verifiedFields": [
+            "id",
+            "resourceType",
+            "clinicalStatus",
+            "criticality",
+            "recordedDate"
+          ],
+          "fieldStatus": "confirmed (FHIR R4 required-binding value set)",
+          "discoveredEnums": {
+            "clinicalStatus": [
+              "active",
+              "inactive",
+              "resolved"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Condition",
+          "source": "https://hl7.org/fhir/R4/valueset-condition-clinical.html",
+          "verifiedFields": [
+            "id",
+            "resourceType",
+            "clinicalStatus",
+            "recordedDate"
+          ],
+          "fieldStatus": "confirmed (FHIR R4 required-binding value set)",
+          "discoveredEnums": {
+            "clinicalStatus": [
+              "active",
+              "recurrence",
+              "relapse",
+              "inactive",
+              "remission",
+              "resolved"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official HL7 FHIR R4 value sets (NextGen Healthcare FHIR R4 = ONC-certified FHIR R4). Enforced enums: Patient.gender(4), Observation.status(8), Encounter.status(9), MedicationRequest.status(8), AllergyIntolerance.clinicalStatus(3), Condition.clinicalStatus(6) = 6 REQUIRED-binding value sets (38 values)."
     }
   ]
 }

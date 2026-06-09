@@ -1648,6 +1648,26 @@ PLATFORM_OVERRIDES = {
         "UploadPreset": E(name="string", unsigned="boolean", externalId="string", live="boolean"),
         "Tag": E(name="string"),
     },
+    # Faithful MEDITECH FHIR R4 model — ONC-certified EHR exposes HL7 FHIR R4 US Core;
+    # normative R4 REQUIRED-binding value sets (hl7.org/fhir/R4).
+    "meditech": {
+        "Patient": E(id="string", resourceType="string", gender="string", birthDate="string", active="boolean", deceasedBoolean="boolean"),
+        "Observation": E(id="string", resourceType="string", status="string", effectiveDateTime="datetime", valueString="string", issued="datetime"),
+        "Encounter": E(id="string", resourceType="string", status="string", serviceType="string", period="string"),
+        "MedicationRequest": E(id="string", resourceType="string", status="string", intent="string", authoredOn="datetime"),
+        "AllergyIntolerance": E(id="string", resourceType="string", clinicalStatus="string", criticality="string", recordedDate="datetime"),
+        "Condition": E(id="string", resourceType="string", clinicalStatus="string", recordedDate="datetime"),
+    },
+    # Faithful NextGen Healthcare FHIR R4 model — ONC-certified EHR exposes HL7 FHIR R4
+    # US Core; normative R4 REQUIRED-binding value sets (hl7.org/fhir/R4).
+    "nextgen": {
+        "Patient": E(id="string", resourceType="string", gender="string", birthDate="string", active="boolean", deceasedBoolean="boolean"),
+        "Observation": E(id="string", resourceType="string", status="string", effectiveDateTime="datetime", valueString="string", issued="datetime"),
+        "Encounter": E(id="string", resourceType="string", status="string", serviceType="string", period="string"),
+        "MedicationRequest": E(id="string", resourceType="string", status="string", intent="string", authoredOn="datetime"),
+        "AllergyIntolerance": E(id="string", resourceType="string", clinicalStatus="string", criticality="string", recordedDate="datetime"),
+        "Condition": E(id="string", resourceType="string", clinicalStatus="string", recordedDate="datetime"),
+    },
     # Faithful Cerner/Oracle Health Ignite FHIR R4 model — Cerner Millennium exposes
     # HL7 FHIR R4; normative R4 REQUIRED-binding value sets (hl7.org/fhir/R4).
     "cerner_ignite": {

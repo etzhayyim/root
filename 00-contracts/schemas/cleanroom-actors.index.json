@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 885,
-    "L5": 115
+    "L4": 883,
+    "L5": 117
   },
   "actors": [
     {
@@ -10136,7 +10136,7 @@
       "wasmCid": "bafkreigt3bzjxehmzljtlvnr6455uwwjoziqo6mkcven4cc4zox3i7s3zu",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "meditech clean-room actor",
       "category": "ehr_health",
       "capabilities": [
@@ -11270,7 +11270,7 @@
       "wasmCid": "bafkreiheao3qlxt6dmrmfeetblrak5fu4qotbqextdwl23tlqlhsqq2tqm",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "nextgen clean-room actor",
       "category": "ehr_health",
       "capabilities": [
