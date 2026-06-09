@@ -14707,6 +14707,31 @@
       "lastVerified": "2026-06-09"
     },
     {
+      "id": "doc:adr-2606091000-infra-intel-observatory-autonomous-heartbeat-kotoba-persistence",
+      "type": "TechArticle",
+      "title": "ADR-2606091000: infra-intel / observatory actors — autonomous Murakumo-fleet heartbeat + local kotoba Datom-log persistence (shionome pattern)",
+      "status": "proposed",
+      "topic": "infra-intel-observatory-autonomous-heartbeat-kotoba-persistence",
+      "authoritative": true,
+      "authoritativeFor": [
+        "infra-intel-actor-autonomous-loops",
+        "observatory-actor-kotoba-persistence"
+      ],
+      "related": [
+        "doc:2605301400",
+        "doc:2605301600",
+        "doc:2606022000",
+        "doc:2606032000",
+        "doc:2606066000",
+        "doc:2606072000",
+        "doc:2606012600",
+        "doc:2606041827",
+        "doc:2606071600",
+        "doc:2605191346"
+      ],
+      "lastVerified": "2026-06-09"
+    },
+    {
       "id": "doc:adr-2606091500-kotoba-evm-datomic-ipfs-l2",
       "type": "TechArticle",
       "title": "ADR-2606091500: kotoba-EVM — a Datomic+IPFS EVM-compatible L2 (geth-less); kotoba IS the chain",

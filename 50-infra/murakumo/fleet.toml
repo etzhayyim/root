@@ -70,6 +70,9 @@ cells = [
   "CharterRehabilitationCell",
   "SiteSurveyCell",  # kuni-umi Phase 1 (ADR-2605201400)
   "shionome_social_post",  # 潮目 dry-run capital-flow post (cron 0 9 * * *) (ADR-2606072200)
+  "kosatsu_designation_ingest",  # 高札 crime/sanctions designation-event offline seed intake (cron 8 * * * *) (ADR-2606072000; G8 live list ingest gated)
+  "kosatsu_divergence_weave",    # competing-claim divergence {contested|unanimous|single-asserter} + agreement index + by-authority (cron 13 * * * *) (ADR-2606072000; G2 asserter-mandatory, no verdict/score)
+  "kosatsu_claim_persist",       # 高札 competing-claim autonomous heartbeat → append-only kotoba Datom log (cron 18 * * * *) (ADR-2606072000; every designation ATTRIBUTED, etzhayyim authors none; local persist, G8 gated)
 ]
 replicas_of = []
 
@@ -136,6 +139,9 @@ cells = [
   "KaizenObserverCell",  # ecosystem self-reflection (ADR-2605240200)
   "KaizenPrAgentCell",  # self-evolution actuator — drains observer.ndjson → PR/issue (ADR-2605240200 Wave 4)
   "FeedPostCell",  # kotoba-datomic §4 L3 verdict for app.bsky.feed.post (ADR-2605231400 SPEC §4)
+  "keizu_relation_ingest",      # 系図 gov power-relation offline seed intake (cron 40 * * * *) (ADR-2606066000; G8 live public-source ingest gated)
+  "keizu_concentration_weave",  # committee cross-organ + money/payer HHI + revolving-door + award-and-fund (cron 45 * * * *) (ADR-2606066000; G4 edge-primary, non-adjudicating)
+  "keizu_relation_persist",     # 系図 power-relations autonomous heartbeat → append-only kotoba Datom log (cron 50 * * * *) (ADR-2606066000; accountability map not target-list; local persist, G8 gated)
 ]
 replicas_of = []
 
@@ -214,6 +220,9 @@ cells = [
   "ForceAuthorizationCell",
   "ForceLogMonitoringCell",
   "EthicsContentClassifierCell",
+  "danjo_corpus_ingest",        # 弾正 pre-published gov procurement corpus intake (cron 25 * * * *) (ADR-2605301600; G3 passive-only, no live portal fetch)
+  "danjo_crossref_weave",       # open-method discrepancy detectors (single-bidder-streak …) over the public record (cron 30 * * * *) (ADR-2605301600; G4 non-adjudicating, G5 ≥2 CIDs, G6 method-note)
+  "danjo_oversight_persist",    # 弾正 public-accountability autonomous heartbeat → append-only kotoba Datom log (cron 35 * * * *) (ADR-2605301600; censor's EYE never SWORD; named-party publish G10+1SBT gated)
 ]
 replicas_of = []
 
