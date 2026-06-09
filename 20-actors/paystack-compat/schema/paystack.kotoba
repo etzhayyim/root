@@ -3,74 +3,89 @@
 
 namespace paystack {
 
+    entity Transaction {
+        id: string @unique
+        email: string
+        amount: integer
+        reference: string
+        callbackUrl: string
+        plan: string
+        invoiceLimit: integer
+        splitCode: string
+        subaccount: string
+        transactionCharge: string
+        bearer: string
+        label: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
     entity Customer {
         id: string @unique
         email: string
-        name: string
+        firstName: string
+        lastName: string
         phone: string
-        balance: integer
+        metadata: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity PaymentIntent {
+    entity Plan {
         id: string @unique
-        customerId: string
+        name: string
+        amount: integer
+        interval: string
+        description: string
+        sendInvoices: boolean
+        sendSms: boolean
+        currency: string
+        invoiceLimit: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Subscription {
+        id: string @unique
+        customer: string
+        plan: string
+        authorization: string
+        startDate: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Product {
+        id: string @unique
+        name: string
+        description: string
+        price: integer
+        currency: string
+        unlimited: boolean
+        quantity: integer
+        splitCode: string
+        metadata: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Page {
+        id: string @unique
+        name: string
+        description: string
         amount: integer
         currency: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Charge {
-        id: string @unique
-        customerId: string
-        paymentIntentId: string
-        amount: integer
-        currency: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Refund {
-        id: string @unique
-        chargeId: string
-        amount: integer
-        reason: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Payout {
-        id: string @unique
-        amount: integer
-        currency: string
-        arrivalDate: datetime
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity PaymentMethod {
-        id: string @unique
-        customerId: string
+        slug: string
         type: string
-        last4: string
-        brand: string
+        plan: string
+        fixedAmount: boolean
+        splitCode: string
+        redirectUrl: string
+        successMessage: string
+        notificationEmail: string
+        collectPhone: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 923,
-    "L5": 77
+    "L4": 922,
+    "L5": 78
   },
   "actors": [
     {
@@ -12476,7 +12476,7 @@
       "wasmCid": "bafkreicrintup4eeza5yxcnofsfkkxpufyyuthm2qs6reghp4t2lhkarzq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "paystack clean-room actor",
       "category": "payments",
       "capabilities": [

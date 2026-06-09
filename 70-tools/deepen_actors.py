@@ -1270,6 +1270,17 @@ PLATFORM_OVERRIDES = {
         "Coupon": E(code="string", amount="string", discountType="string", description="string", dateExpires="string", usageCount="integer", individualUse="boolean", usageLimit="integer", usageLimitPerUser="integer", limitUsageToXItems="integer", freeShipping="boolean", excludeSaleItems="boolean", minimumAmount="string", maximumAmount="string"),
         "ProductCategory": E(name="string", slug="string", parent="integer", description="string", display="string", menuOrder="integer", count="integer"),
     },
+    # Faithful Paystack model (remodeled from the generic Stripe-shaped payments
+    # archetype whose Customer/PaymentIntent/Charge/Payout entities did not match
+    # Paystack's API), doc-verified L5 vs github.com/PaystackOSS/openapi.
+    "paystack": {
+        "Transaction": E(email="string", amount="integer", reference="string", callbackUrl="string", plan="string", invoiceLimit="integer", splitCode="string", subaccount="string", transactionCharge="string", bearer="string", label="string"),
+        "Customer": E(email="string", firstName="string", lastName="string", phone="string", metadata="string"),
+        "Plan": E(name="string", amount="integer", interval="string", description="string", sendInvoices="boolean", sendSms="boolean", currency="string", invoiceLimit="integer"),
+        "Subscription": E(customer="string", plan="string", authorization="string", startDate="datetime"),
+        "Product": E(name="string", description="string", price="integer", currency="string", unlimited="boolean", quantity="integer", splitCode="string", metadata="string"),
+        "Page": E(name="string", description="string", amount="integer", currency="string", slug="string", type="string", plan="string", fixedAmount="boolean", splitCode="string", redirectUrl="string", successMessage="string", notificationEmail="string", collectPhone="boolean"),
+    },
     # Faithful Airtable model (remodeled from generic office_productivity), L5.
     "airtable": {
         "Base": E(name="string", permissionLevel="string"),

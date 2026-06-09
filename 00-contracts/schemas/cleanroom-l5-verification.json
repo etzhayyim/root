@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 77,
+  "count": 78,
   "actors": [
     {
       "handle": "square-compat",
@@ -11092,6 +11092,164 @@
         "Refund (the order-refunds object table in the docs does not expose parseable scalar property rows beyond parent_id; modeled entities kept to fully-verified ones)"
       ],
       "note": "Verified + refined real WooCommerce REST v3 entities (Collection/Variant/LineItem -> Product/Order/Customer/Coupon/ProductCategory). 5/5 modeled entities field-verified vs the official WooCommerce docs property tables. Discovered closed enums (10) across Product (6), Order, Coupon, ProductCategory. WC money fields are strings (modeled faithfully)."
+    },
+    {
+      "handle": "paystack-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/PaystackOSS/openapi (dist/paystack.yaml — official Paystack OpenAPI)",
+      "remodeled": "Remodeled from the generic Stripe-shaped payments archetype (Customer/PaymentIntent/Charge/Refund/Payout/PaymentMethod) to a faithful Paystack model (Transaction/Customer/Plan/Subscription/Product/Page), verified field-by-field against Paystack's official OpenAPI (the *Create request schemas define each entity's writable fields). The L5 gate had correctly rejected the prior mismatched model (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Transaction",
+          "source": "paystack.yaml TransactionInitialize",
+          "verifiedFields": [
+            "email",
+            "amount",
+            "reference",
+            "callbackUrl",
+            "plan",
+            "invoiceLimit",
+            "splitCode",
+            "subaccount",
+            "transactionCharge",
+            "bearer",
+            "label"
+          ],
+          "fieldStatus": "confirmed vs TransactionInitialize schema (email/amount/reference/callback_url/plan/invoice_limit/split_code/subaccount/transaction_charge/bearer/label)",
+          "discoveredEnums": {
+            "bearer": [
+              "account",
+              "subaccount"
+            ]
+          },
+          "gaps": [
+            "channels(array)",
+            "metadata(object)",
+            "status (on fetch response)"
+          ]
+        },
+        {
+          "entity": "Customer",
+          "source": "paystack.yaml CustomerCreate",
+          "verifiedFields": [
+            "email",
+            "firstName",
+            "lastName",
+            "phone",
+            "metadata"
+          ],
+          "fieldStatus": "confirmed vs CustomerCreate schema (email/first_name/last_name/phone/metadata)",
+          "discoveredEnums": {},
+          "gaps": [
+            "customer_code (on response)",
+            "risk_action"
+          ]
+        },
+        {
+          "entity": "Plan",
+          "source": "paystack.yaml PlanCreate",
+          "verifiedFields": [
+            "name",
+            "amount",
+            "interval",
+            "description",
+            "sendInvoices",
+            "sendSms",
+            "currency",
+            "invoiceLimit"
+          ],
+          "fieldStatus": "confirmed vs PlanCreate schema (name/amount/interval/description/send_invoices/send_sms/currency/invoice_limit)",
+          "discoveredEnums": {
+            "interval": [
+              "daily",
+              "weekly",
+              "monthly",
+              "biannually",
+              "annually"
+            ]
+          },
+          "gaps": [
+            "plan_code (on response)"
+          ]
+        },
+        {
+          "entity": "Subscription",
+          "source": "paystack.yaml SubscriptionCreate",
+          "verifiedFields": [
+            "customer",
+            "plan",
+            "authorization",
+            "startDate"
+          ],
+          "fieldStatus": "confirmed vs SubscriptionCreate schema (customer/plan/authorization/start_date)",
+          "discoveredEnums": {},
+          "gaps": [
+            "subscription_code/status (on response)"
+          ]
+        },
+        {
+          "entity": "Product",
+          "source": "paystack.yaml ProductCreate",
+          "verifiedFields": [
+            "name",
+            "description",
+            "price",
+            "currency",
+            "unlimited",
+            "quantity",
+            "splitCode",
+            "metadata"
+          ],
+          "fieldStatus": "confirmed vs ProductCreate schema (name/description/price/currency/unlimited/quantity/split_code/metadata)",
+          "discoveredEnums": {},
+          "gaps": [
+            "product_code (on response)",
+            "files(array)"
+          ]
+        },
+        {
+          "entity": "Page",
+          "source": "paystack.yaml PageCreate",
+          "verifiedFields": [
+            "name",
+            "description",
+            "amount",
+            "currency",
+            "slug",
+            "type",
+            "plan",
+            "fixedAmount",
+            "splitCode",
+            "redirectUrl",
+            "successMessage",
+            "notificationEmail",
+            "collectPhone"
+          ],
+          "fieldStatus": "confirmed vs PageCreate schema (name/description/amount/currency/slug/type/plan/fixed_amount/split_code/redirect_url/success_message/notification_email/collect_phone)",
+          "discoveredEnums": {
+            "currency": [
+              "NGN",
+              "GHS",
+              "ZAR",
+              "KES",
+              "USD"
+            ],
+            "type": [
+              "payment",
+              "subscription",
+              "product",
+              "plan"
+            ]
+          },
+          "gaps": [
+            "custom_fields(array)",
+            "metadata(object)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "Remodeled from a mismatched Stripe-shaped archetype to a faithful Paystack model. 6/6 entities field-verified vs Paystack's official OpenAPI (writable fields from the *Create request schemas). Discovered closed enums (4): Transaction.bearer, Plan.interval, Page.currency, Page.type. Server-assigned codes (customer_code/plan_code/etc.) are response-only -> recorded as gaps."
     }
   ]
 }
