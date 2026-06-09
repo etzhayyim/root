@@ -5,85 +5,66 @@ namespace openai {
 
     entity Model {
         id: string @unique
-        name: string
         ownedBy: string
-        contextWindow: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity ChatCompletion {
-        id: string @unique
-        modelId: string
-        prompt: string
-        output: string
-        promptTokens: integer
-        completionTokens: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Embedding {
-        id: string @unique
-        modelId: string
-        input: string
-        dimensions: integer
-        vectorRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity FineTuningJob {
-        id: string @unique
-        baseModel: string
-        trainingFile: string
-        status: string
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity File {
         id: string @unique
-        purpose: string
-        filename: string
         bytes: integer
+        filename: string
+        purpose: string
+        status: string
+        statusDetails: string
+        expiresAt: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity FineTuningJob {
+        id: string @unique
+        model: string
+        organizationId: string
+        status: string
+        trainingFile: string
+        seed: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Assistant {
         id: string @unique
+        model: string
         name: string
-        modelId: string
+        description: string
         instructions: string
+        temperature: float
+        topP: float
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Thread {
+    entity VectorStore {
         id: string @unique
-        assistantId: string
+        name: string
+        usageBytes: integer
         status: string
         createdAt: datetime
         updatedAt: datetime
     }
 
+    entity Batch {
+        id: string @unique
+        endpoint: string
+        model: string
+        inputFileId: string
+        completionWindow: string
+        status: string
+        outputFileId: string
+        errorFileId: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

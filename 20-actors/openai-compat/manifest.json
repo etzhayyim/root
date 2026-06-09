@@ -11,16 +11,74 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihbgc6ybuatnm44w6zzs2xmwb35hqe5dakdztcbq7be72l3gsqylu",
   "schema": "schema/openai.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://github.com/openai/openai-openapi (openapi.yaml — official OpenAI REST API spec)",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Model",
+      "File",
+      "FineTuningJob",
+      "Assistant",
+      "VectorStore",
+      "Batch"
+    ],
+    "enums": {
+      "File": {
+        "purpose": [
+          "assistants",
+          "assistants_output",
+          "batch",
+          "batch_output",
+          "fine-tune",
+          "fine-tune-results",
+          "vision",
+          "user_data"
+        ],
+        "status": [
+          "uploaded",
+          "processed",
+          "error"
+        ]
+      },
+      "FineTuningJob": {
+        "status": [
+          "validating_files",
+          "queued",
+          "running",
+          "succeeded",
+          "failed",
+          "cancelled"
+        ]
+      },
+      "VectorStore": {
+        "status": [
+          "expired",
+          "in_progress",
+          "completed"
+        ]
+      },
+      "Batch": {
+        "status": [
+          "validating",
+          "failed",
+          "in_progress",
+          "finalizing",
+          "completed",
+          "expired",
+          "cancelling",
+          "cancelled"
+        ]
+      }
+    }
+  },
   "entities": [
     "Model",
-    "ChatCompletion",
-    "Embedding",
-    "FineTuningJob",
     "File",
+    "FineTuningJob",
     "Assistant",
-    "Thread"
+    "VectorStore",
+    "Batch"
   ],
   "adr": [
     "260607",
@@ -32,7 +90,7 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 35,
+      "endpointCount": 30,
       "routes": [
         {
           "method": "POST",
@@ -61,53 +119,28 @@
         },
         {
           "method": "POST",
-          "path": "/v1/chatcompletions",
-          "op": "create ChatCompletion"
+          "path": "/v1/files",
+          "op": "create File"
         },
         {
           "method": "GET",
-          "path": "/v1/chatcompletions",
-          "op": "list ChatCompletion"
+          "path": "/v1/files",
+          "op": "list File"
         },
         {
           "method": "GET",
-          "path": "/v1/chatcompletions/{id}",
-          "op": "get ChatCompletion"
+          "path": "/v1/files/{id}",
+          "op": "get File"
         },
         {
           "method": "PATCH",
-          "path": "/v1/chatcompletions/{id}",
-          "op": "update ChatCompletion"
+          "path": "/v1/files/{id}",
+          "op": "update File"
         },
         {
           "method": "DELETE",
-          "path": "/v1/chatcompletions/{id}",
-          "op": "delete ChatCompletion"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/embeddings",
-          "op": "create Embedding"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/embeddings",
-          "op": "list Embedding"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/embeddings/{id}",
-          "op": "get Embedding"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/embeddings/{id}",
-          "op": "update Embedding"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/embeddings/{id}",
-          "op": "delete Embedding"
+          "path": "/v1/files/{id}",
+          "op": "delete File"
         },
         {
           "method": "POST",
@@ -136,31 +169,6 @@
         },
         {
           "method": "POST",
-          "path": "/v1/files",
-          "op": "create File"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/files",
-          "op": "list File"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/files/{id}",
-          "op": "get File"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/files/{id}",
-          "op": "update File"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/files/{id}",
-          "op": "delete File"
-        },
-        {
-          "method": "POST",
           "path": "/v1/assistants",
           "op": "create Assistant"
         },
@@ -186,35 +194,60 @@
         },
         {
           "method": "POST",
-          "path": "/v1/threads",
-          "op": "create Thread"
+          "path": "/v1/vectorstores",
+          "op": "create VectorStore"
         },
         {
           "method": "GET",
-          "path": "/v1/threads",
-          "op": "list Thread"
+          "path": "/v1/vectorstores",
+          "op": "list VectorStore"
         },
         {
           "method": "GET",
-          "path": "/v1/threads/{id}",
-          "op": "get Thread"
+          "path": "/v1/vectorstores/{id}",
+          "op": "get VectorStore"
         },
         {
           "method": "PATCH",
-          "path": "/v1/threads/{id}",
-          "op": "update Thread"
+          "path": "/v1/vectorstores/{id}",
+          "op": "update VectorStore"
         },
         {
           "method": "DELETE",
-          "path": "/v1/threads/{id}",
-          "op": "delete Thread"
+          "path": "/v1/vectorstores/{id}",
+          "op": "delete VectorStore"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/batches",
+          "op": "create Batch"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/batches",
+          "op": "list Batch"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/batches/{id}",
+          "op": "get Batch"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/batches/{id}",
+          "op": "update Batch"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/batches/{id}",
+          "op": "delete Batch"
         }
       ],
       "features": {
-        "pagination": true,
-        "filtering": true,
-        "relationExpansion": true,
-        "strictValidation": true,
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
         "contractTest": true
       },
       "health": "/healthz"
@@ -270,7 +303,7 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 35,
+      "toolCount": 30,
       "tools": [
         {
           "name": "create_model",
@@ -278,18 +311,11 @@
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
-                "type": "string"
-              },
               "ownedBy": {
                 "type": "string"
-              },
-              "contextWindow": {
-                "type": "integer"
               }
             },
             "required": [
-              "name",
               "ownedBy"
             ]
           }
@@ -326,14 +352,8 @@
               "id": {
                 "type": "string"
               },
-              "name": {
-                "type": "string"
-              },
               "ownedBy": {
                 "type": "string"
-              },
-              "contextWindow": {
-                "type": "integer"
               }
             },
             "required": [
@@ -357,293 +377,32 @@
           }
         },
         {
-          "name": "create_chat_completion",
-          "description": "Create a ChatCompletion.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "modelId": {
-                "type": "string"
-              },
-              "prompt": {
-                "type": "string"
-              },
-              "output": {
-                "type": "string"
-              },
-              "promptTokens": {
-                "type": "integer"
-              },
-              "completionTokens": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "prompt",
-              "output"
-            ]
-          }
-        },
-        {
-          "name": "list_chat_completions",
-          "description": "List ChatCompletions.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_chat_completion",
-          "description": "Get a ChatCompletion by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_chat_completion",
-          "description": "Update a ChatCompletion.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "modelId": {
-                "type": "string"
-              },
-              "prompt": {
-                "type": "string"
-              },
-              "output": {
-                "type": "string"
-              },
-              "promptTokens": {
-                "type": "integer"
-              },
-              "completionTokens": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_chat_completion",
-          "description": "Delete a ChatCompletion.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_embedding",
-          "description": "Create a Embedding.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "modelId": {
-                "type": "string"
-              },
-              "input": {
-                "type": "string"
-              },
-              "dimensions": {
-                "type": "integer"
-              },
-              "vectorRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "input",
-              "dimensions"
-            ]
-          }
-        },
-        {
-          "name": "list_embeddings",
-          "description": "List Embeddings.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_embedding",
-          "description": "Get a Embedding by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_embedding",
-          "description": "Update a Embedding.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "modelId": {
-                "type": "string"
-              },
-              "input": {
-                "type": "string"
-              },
-              "dimensions": {
-                "type": "integer"
-              },
-              "vectorRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_embedding",
-          "description": "Delete a Embedding.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_fine_tuning_job",
-          "description": "Create a FineTuningJob.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "baseModel": {
-                "type": "string"
-              },
-              "trainingFile": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "baseModel",
-              "trainingFile"
-            ]
-          }
-        },
-        {
-          "name": "list_fine_tuning_jobs",
-          "description": "List FineTuningJobs.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_fine_tuning_job",
-          "description": "Get a FineTuningJob by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_fine_tuning_job",
-          "description": "Update a FineTuningJob.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "baseModel": {
-                "type": "string"
-              },
-              "trainingFile": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_fine_tuning_job",
-          "description": "Delete a FineTuningJob.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
           "name": "create_file",
           "description": "Create a File.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "purpose": {
-                "type": "string"
+              "bytes": {
+                "type": "integer"
               },
               "filename": {
                 "type": "string"
               },
-              "bytes": {
+              "purpose": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "statusDetails": {
+                "type": "string"
+              },
+              "expiresAt": {
                 "type": "integer"
               }
             },
             "required": [
-              "purpose",
+              "bytes",
               "filename"
             ]
           }
@@ -680,13 +439,22 @@
               "id": {
                 "type": "string"
               },
-              "purpose": {
-                "type": "string"
+              "bytes": {
+                "type": "integer"
               },
               "filename": {
                 "type": "string"
               },
-              "bytes": {
+              "purpose": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "statusDetails": {
+                "type": "string"
+              },
+              "expiresAt": {
                 "type": "integer"
               }
             },
@@ -711,24 +479,129 @@
           }
         },
         {
+          "name": "create_fine_tuning_job",
+          "description": "Create a FineTuningJob.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "model": {
+                "type": "string"
+              },
+              "organizationId": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "trainingFile": {
+                "type": "string"
+              },
+              "seed": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "model",
+              "status"
+            ]
+          }
+        },
+        {
+          "name": "list_fine_tuning_jobs",
+          "description": "List FineTuningJobs.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_fine_tuning_job",
+          "description": "Get a FineTuningJob by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_fine_tuning_job",
+          "description": "Update a FineTuningJob.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "model": {
+                "type": "string"
+              },
+              "organizationId": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "trainingFile": {
+                "type": "string"
+              },
+              "seed": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_fine_tuning_job",
+          "description": "Delete a FineTuningJob.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
           "name": "create_assistant",
           "description": "Create a Assistant.",
           "inputSchema": {
             "type": "object",
             "properties": {
+              "model": {
+                "type": "string"
+              },
               "name": {
                 "type": "string"
               },
-              "modelId": {
+              "description": {
                 "type": "string"
               },
               "instructions": {
                 "type": "string"
+              },
+              "temperature": {
+                "type": "number"
+              },
+              "topP": {
+                "type": "number"
               }
             },
             "required": [
-              "name",
-              "instructions"
+              "model",
+              "name"
             ]
           }
         },
@@ -764,14 +637,23 @@
               "id": {
                 "type": "string"
               },
+              "model": {
+                "type": "string"
+              },
               "name": {
                 "type": "string"
               },
-              "modelId": {
+              "description": {
                 "type": "string"
               },
               "instructions": {
                 "type": "string"
+              },
+              "temperature": {
+                "type": "number"
+              },
+              "topP": {
+                "type": "number"
               }
             },
             "required": [
@@ -795,34 +677,38 @@
           }
         },
         {
-          "name": "create_thread",
-          "description": "Create a Thread.",
+          "name": "create_vector_store",
+          "description": "Create a VectorStore.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "assistantId": {
+              "name": {
                 "type": "string"
+              },
+              "usageBytes": {
+                "type": "integer"
               },
               "status": {
                 "type": "string"
               }
             },
             "required": [
-              "status"
+              "name",
+              "usageBytes"
             ]
           }
         },
         {
-          "name": "list_threads",
-          "description": "List Threads.",
+          "name": "list_vector_stores",
+          "description": "List VectorStores.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_thread",
-          "description": "Get a Thread by id.",
+          "name": "get_vector_store",
+          "description": "Get a VectorStore by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -836,16 +722,19 @@
           }
         },
         {
-          "name": "update_thread",
-          "description": "Update a Thread.",
+          "name": "update_vector_store",
+          "description": "Update a VectorStore.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "assistantId": {
+              "name": {
                 "type": "string"
+              },
+              "usageBytes": {
+                "type": "integer"
               },
               "status": {
                 "type": "string"
@@ -857,8 +746,116 @@
           }
         },
         {
-          "name": "delete_thread",
-          "description": "Delete a Thread.",
+          "name": "delete_vector_store",
+          "description": "Delete a VectorStore.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_batch",
+          "description": "Create a Batch.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "endpoint": {
+                "type": "string"
+              },
+              "model": {
+                "type": "string"
+              },
+              "inputFileId": {
+                "type": "string"
+              },
+              "completionWindow": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "outputFileId": {
+                "type": "string"
+              },
+              "errorFileId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "endpoint",
+              "model"
+            ]
+          }
+        },
+        {
+          "name": "list_batches",
+          "description": "List Batches.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_batch",
+          "description": "Get a Batch by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_batch",
+          "description": "Update a Batch.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "endpoint": {
+                "type": "string"
+              },
+              "model": {
+                "type": "string"
+              },
+              "inputFileId": {
+                "type": "string"
+              },
+              "completionWindow": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "outputFileId": {
+                "type": "string"
+              },
+              "errorFileId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_batch",
+          "description": "Delete a Batch.",
           "inputSchema": {
             "type": "object",
             "properties": {

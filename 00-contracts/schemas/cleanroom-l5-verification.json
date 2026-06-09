@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 71,
+  "count": 72,
   "actors": [
     {
       "handle": "square-compat",
@@ -10075,6 +10075,162 @@
       ],
       "notApplicable": [],
       "note": "Remodeled from a CI-only archetype to a faithful Git-collaboration model. 6/6 entities field-verified vs Atlassian's official Bitbucket Cloud OpenAPI. Discovered closed enums (7): Repository.scm/forkPolicy, PullRequest.state, Workspace.forkingMode, Issue.state/kind/priority."
+    },
+    {
+      "handle": "openai-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/openai/openai-openapi (openapi.yaml — official OpenAI REST API spec)",
+      "remodeled": "Refined from the prior ai_ml model that mixed transient request/response shapes (ChatCompletion/Embedding/Thread) into the resource set, to a faithful set of STATEFUL OpenAI resources (Model/File/FineTuningJob/Assistant/VectorStore/Batch), verified field-by-field against OpenAI's official OpenAPI components.schemas (allOf/$ref resolved). The L5 gate distinguishes stored resources from per-call payloads (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Model",
+          "source": "openapi.yaml Model",
+          "verifiedFields": [
+            "ownedBy"
+          ],
+          "fieldStatus": "confirmed vs Model schema (id/created/owned_by; created maps to scaffold createdAt)",
+          "discoveredEnums": {},
+          "gaps": [
+            "created(unix int -> scaffold createdAt)"
+          ]
+        },
+        {
+          "entity": "File",
+          "source": "openapi.yaml OpenAIFile",
+          "verifiedFields": [
+            "bytes",
+            "filename",
+            "purpose",
+            "status",
+            "statusDetails",
+            "expiresAt"
+          ],
+          "fieldStatus": "confirmed vs OpenAIFile schema (bytes/filename/purpose/status/status_details/expires_at)",
+          "discoveredEnums": {
+            "purpose": [
+              "assistants",
+              "assistants_output",
+              "batch",
+              "batch_output",
+              "fine-tune",
+              "fine-tune-results",
+              "vision",
+              "user_data"
+            ],
+            "status": [
+              "uploaded",
+              "processed",
+              "error"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "FineTuningJob",
+          "source": "openapi.yaml FineTuningJob",
+          "verifiedFields": [
+            "model",
+            "organizationId",
+            "status",
+            "trainingFile",
+            "seed"
+          ],
+          "fieldStatus": "confirmed vs FineTuningJob schema (model/organization_id/status/training_file/seed)",
+          "discoveredEnums": {
+            "status": [
+              "validating_files",
+              "queued",
+              "running",
+              "succeeded",
+              "failed",
+              "cancelled"
+            ]
+          },
+          "gaps": [
+            "hyperparameters(object)",
+            "result_files(array)",
+            "error(object)",
+            "validation_file"
+          ]
+        },
+        {
+          "entity": "Assistant",
+          "source": "openapi.yaml AssistantObject",
+          "verifiedFields": [
+            "model",
+            "name",
+            "description",
+            "instructions",
+            "temperature",
+            "topP"
+          ],
+          "fieldStatus": "confirmed present in AssistantObject (model/name/description/instructions/temperature/top_p); name/description/instructions are nullable strings",
+          "discoveredEnums": {},
+          "gaps": [
+            "tools(array)",
+            "tool_resources(object)",
+            "metadata(object)",
+            "response_format"
+          ]
+        },
+        {
+          "entity": "VectorStore",
+          "source": "openapi.yaml VectorStoreObject",
+          "verifiedFields": [
+            "name",
+            "usageBytes",
+            "status"
+          ],
+          "fieldStatus": "confirmed vs VectorStoreObject schema (name/usage_bytes/status)",
+          "discoveredEnums": {
+            "status": [
+              "expired",
+              "in_progress",
+              "completed"
+            ]
+          },
+          "gaps": [
+            "file_counts(object)",
+            "expires_after(object)",
+            "last_active_at"
+          ]
+        },
+        {
+          "entity": "Batch",
+          "source": "openapi.yaml Batch",
+          "verifiedFields": [
+            "endpoint",
+            "model",
+            "inputFileId",
+            "completionWindow",
+            "status",
+            "outputFileId",
+            "errorFileId"
+          ],
+          "fieldStatus": "confirmed vs Batch schema (endpoint/model/input_file_id/completion_window/status/output_file_id/error_file_id)",
+          "discoveredEnums": {
+            "status": [
+              "validating",
+              "failed",
+              "in_progress",
+              "finalizing",
+              "completed",
+              "expired",
+              "cancelling",
+              "cancelled"
+            ]
+          },
+          "gaps": [
+            "request_counts(object)",
+            "errors(object)",
+            "metadata(object)",
+            "many *_at timestamps"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "Refined to faithful STATEFUL resources (vs per-call ChatCompletion/Embedding payloads). 6/6 entities field-verified vs OpenAI's official OpenAPI. Discovered closed enums (5): File.purpose/status, FineTuningJob.status, VectorStore.status, Batch.status. The `object` discriminator (single-value enum per entity) omitted as redundant type tag."
     }
   ]
 }

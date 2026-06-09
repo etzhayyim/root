@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 929,
-    "L5": 71
+    "L4": 928,
+    "L5": 72
   },
   "actors": [
     {
@@ -11936,7 +11936,7 @@
       "wasmCid": "bafkreihbgc6ybuatnm44w6zzs2xmwb35hqe5dakdztcbq7be72l3gsqylu",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "openai clean-room actor",
       "category": "ai_ml",
       "capabilities": [

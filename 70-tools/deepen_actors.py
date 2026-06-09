@@ -1203,6 +1203,17 @@ PLATFORM_OVERRIDES = {
         "Issue": E(title="string", state="string", kind="string", priority="string", votes="integer"),
         "Project": E(uuid="string", key="string", name="string", description="string", isPrivate="boolean", hasPubliclyVisibleRepos="boolean"),
     },
+    # Faithful OpenAI model (refined from the prior ai_ml model that mixed
+    # transient request/response shapes — ChatCompletion/Embedding/Thread — into
+    # the stateful resource set), doc-verified L5 vs github.com/openai/openai-openapi.
+    "openai": {
+        "Model": E(ownedBy="string"),
+        "File": E(bytes="integer", filename="string", purpose="string", status="string", statusDetails="string", expiresAt="integer"),
+        "FineTuningJob": E(model="string", organizationId="string", status="string", trainingFile="string", seed="integer"),
+        "Assistant": E(model="string", name="string", description="string", instructions="string", temperature="float", topP="float"),
+        "VectorStore": E(name="string", usageBytes="integer", status="string"),
+        "Batch": E(endpoint="string", model="string", inputFileId="string", completionWindow="string", status="string", outputFileId="string", errorFileId="string"),
+    },
     # Faithful Airtable model (remodeled from generic office_productivity), L5.
     "airtable": {
         "Base": E(name="string", permissionLevel="string"),
