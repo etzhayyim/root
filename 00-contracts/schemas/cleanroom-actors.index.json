@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 941,
-    "L5": 59
+    "L4": 940,
+    "L5": 60
   },
   "actors": [
     {
@@ -9398,7 +9398,7 @@
       "wasmCid": "bafkreidxoepgun3rftxe43fzln5wkqsa4fjnlyvqdqyeliglkg3qdrfice",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "linode clean-room actor",
       "category": "iaas_cloud",
       "capabilities": [

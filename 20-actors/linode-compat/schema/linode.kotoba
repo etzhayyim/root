@@ -3,71 +3,93 @@
 
 namespace linode {
 
-    entity Project {
+    entity Instance {
         id: string @unique
-        name: string
+        label: string
         region: string
-        billingId: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity ComputeInstance {
-        id: string @unique
-        projectId: string
-        name: string
-        machineType: string
-        state: string
-        ipAddress: string
+        image: string
+        group: string
+        ipv6: string
+        type: string
+        status: string
+        hypervisor: string
+        hostUuid: string
+        watchdogEnabled: boolean
+        hasUserData: boolean
+        lkeClusterId: integer
+        maintenancePolicy: string
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Volume {
         id: string @unique
-        projectId: string
-        sizeGb: integer
+        label: string
+        status: string
+        region: string
+        size: integer
+        linodeId: integer
+        filesystemPath: string
+        hardwareType: string
+        linodeLabel: string
+        ioReady: boolean
+        encryption: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Domain {
+        id: string @unique
+        domain: string
         type: string
-        attachedTo: string
+        status: string
+        description: string
+        soaEmail: string
+        retrySec: integer
+        expireSec: integer
+        refreshSec: integer
+        ttlSec: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Bucket {
+    entity Image {
         id: string @unique
-        projectId: string
-        name: string
+        label: string
+        createdBy: string
+        description: string
+        type: string
+        vendor: string
+        status: string
+        size: integer
+        totalSize: integer
+        isPublic: boolean
+        isShared: boolean
+        deprecated: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Firewall {
+        id: string @unique
+        label: string
+        status: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity LKECluster {
+        id: string @unique
+        label: string
         region: string
-        public: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Network {
-        id: string @unique
-        projectId: string
-        cidr: string
-        region: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity IamRole {
-        id: string @unique
-        projectId: string
-        name: string
-        policy: string
+        status: string
+        k8sVersion: string
+        tier: string
+        aplEnabled: boolean
+        subnetId: integer
+        vpcId: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

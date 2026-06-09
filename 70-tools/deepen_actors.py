@@ -1066,6 +1066,17 @@ PLATFORM_OVERRIDES = {
         "Submission": E(siteUrl="string", name="string", email="string", firstName="string", lastName="string", company="string", summary="string", body="string", number="integer"),
         "Hook": E(siteId="string", type="string", event="string", disabled="boolean"),
     },
+    # Faithful Linode (Akamai) model (remodeled from the generic iaas_cloud
+    # archetype whose GCP/AWS-shaped ComputeInstance/Bucket/IamRole entities did
+    # not match Linode's real API), doc-verified L5 vs github.com/linode/linodego.
+    "linode": {
+        "Instance": E(label="string", region="string", image="string", group="string", ipv6="string", type="string", status="string", hypervisor="string", hostUuid="string", watchdogEnabled="boolean", hasUserData="boolean", lkeClusterId="integer", maintenancePolicy="string"),
+        "Volume": E(label="string", status="string", region="string", size="integer", linodeId="integer", filesystemPath="string", hardwareType="string", linodeLabel="string", ioReady="boolean", encryption="string"),
+        "Domain": E(domain="string", type="string", status="string", description="string", soaEmail="string", retrySec="integer", expireSec="integer", refreshSec="integer", ttlSec="integer"),
+        "Image": E(label="string", createdBy="string", description="string", type="string", vendor="string", status="string", size="integer", totalSize="integer", isPublic="boolean", isShared="boolean", deprecated="boolean"),
+        "Firewall": E(label="string", status="string"),
+        "LKECluster": E(label="string", region="string", status="string", k8sVersion="string", tier="string", aplEnabled="boolean", subnetId="integer", vpcId="integer"),
+    },
     # Faithful Airtable model (remodeled from generic office_productivity), L5.
     "airtable": {
         "Base": E(name="string", permissionLevel="string"),

@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 59,
+  "count": 60,
   "actors": [
     {
       "handle": "square-compat",
@@ -8307,6 +8307,195 @@
       ],
       "notApplicable": [],
       "note": "Remodeled from generic iaas_cloud archetype. 6/6 entities field-verified vs the Go model structs generated from Netlify's official OpenAPI (netlify/open-api). Discovered closed enum (1): Deploy.state (15 documented states)."
+    },
+    {
+      "handle": "linode-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/linode/linodego (official Akamai/Linode Go SDK structs)",
+      "remodeled": "Remodeled from the generic iaas_cloud archetype (GCP/AWS-shaped Project/ComputeInstance/Bucket/Network/IamRole with machineType/billingId) to a faithful Linode (Akamai Connected Cloud) model (Instance/Volume/Domain/Image/Firewall/LKECluster), verified field-by-field against the official linodego Go SDK structs. The L5 gate had correctly rejected the prior mismatched model (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Instance",
+          "source": "instances.go (struct Instance)",
+          "verifiedFields": [
+            "label",
+            "region",
+            "image",
+            "group",
+            "ipv6",
+            "type",
+            "status",
+            "hypervisor",
+            "hostUuid",
+            "watchdogEnabled",
+            "hasUserData",
+            "lkeClusterId",
+            "maintenancePolicy"
+          ],
+          "fieldStatus": "confirmed vs Instance struct json tags (label/region/image/group/ipv6/type/status/hypervisor/host_uuid/watchdog_enabled/has_user_data/lke_cluster_id/maintenance_policy)",
+          "discoveredEnums": {
+            "status": [
+              "booting",
+              "running",
+              "offline",
+              "shutting_down",
+              "rebooting",
+              "provisioning",
+              "deleting",
+              "migrating",
+              "rebuilding",
+              "cloning",
+              "restoring",
+              "resizing"
+            ]
+          },
+          "gaps": [
+            "specs(object)",
+            "alerts(object)",
+            "backups(object)",
+            "ipv4(array)"
+          ]
+        },
+        {
+          "entity": "Volume",
+          "source": "volumes.go (struct Volume)",
+          "verifiedFields": [
+            "label",
+            "status",
+            "region",
+            "size",
+            "linodeId",
+            "filesystemPath",
+            "hardwareType",
+            "linodeLabel",
+            "ioReady",
+            "encryption"
+          ],
+          "fieldStatus": "confirmed vs Volume struct json tags (label/status/region/size/linode_id/filesystem_path/hardware_type/linode_label/io_ready/encryption)",
+          "discoveredEnums": {
+            "status": [
+              "creating",
+              "active",
+              "resizing",
+              "contact_support"
+            ]
+          },
+          "gaps": [
+            "tags(array)"
+          ]
+        },
+        {
+          "entity": "Domain",
+          "source": "domains.go (struct Domain)",
+          "verifiedFields": [
+            "domain",
+            "type",
+            "status",
+            "description",
+            "soaEmail",
+            "retrySec",
+            "expireSec",
+            "refreshSec",
+            "ttlSec"
+          ],
+          "fieldStatus": "confirmed vs Domain struct json tags (domain/type/status/description/soa_email/retry_sec/expire_sec/refresh_sec/ttl_sec)",
+          "discoveredEnums": {
+            "type": [
+              "master",
+              "slave"
+            ],
+            "status": [
+              "disabled",
+              "active",
+              "edit_mode",
+              "has_errors"
+            ]
+          },
+          "gaps": [
+            "master_ips(array)",
+            "axfr_ips(array)",
+            "tags(array)"
+          ]
+        },
+        {
+          "entity": "Image",
+          "source": "images.go (struct Image)",
+          "verifiedFields": [
+            "label",
+            "createdBy",
+            "description",
+            "type",
+            "vendor",
+            "status",
+            "size",
+            "totalSize",
+            "isPublic",
+            "isShared",
+            "deprecated"
+          ],
+          "fieldStatus": "confirmed vs Image struct json tags (label/created_by/description/type/vendor/status/size/total_size/is_public/is_shared/deprecated)",
+          "discoveredEnums": {
+            "status": [
+              "creating",
+              "pending_upload",
+              "available"
+            ]
+          },
+          "gaps": [
+            "regions(array)",
+            "capabilities(array)",
+            "expiry",
+            "eol"
+          ]
+        },
+        {
+          "entity": "Firewall",
+          "source": "firewalls.go (struct Firewall)",
+          "verifiedFields": [
+            "label",
+            "status"
+          ],
+          "fieldStatus": "confirmed vs Firewall struct json tags (label/status)",
+          "discoveredEnums": {
+            "status": [
+              "enabled",
+              "disabled",
+              "deleted"
+            ]
+          },
+          "gaps": [
+            "rules(object)",
+            "tags(array)"
+          ]
+        },
+        {
+          "entity": "LKECluster",
+          "source": "lke_clusters.go (struct LKECluster)",
+          "verifiedFields": [
+            "label",
+            "region",
+            "status",
+            "k8sVersion",
+            "tier",
+            "aplEnabled",
+            "subnetId",
+            "vpcId"
+          ],
+          "fieldStatus": "confirmed vs LKECluster struct json tags (label/region/status/k8s_version/tier/apl_enabled/subnet_id/vpc_id)",
+          "discoveredEnums": {
+            "status": [
+              "ready",
+              "not_ready"
+            ]
+          },
+          "gaps": [
+            "control_plane(object)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "Remodeled from generic iaas_cloud archetype. 6/6 entities field-verified vs the official linodego Go SDK. Discovered closed enums (7): Instance.status, Volume.status, Domain.type, Domain.status, Image.status, Firewall.status, LKECluster.status."
     }
   ]
 }
