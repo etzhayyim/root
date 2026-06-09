@@ -63,6 +63,7 @@ def main():
     # 市区町村 scale is one step below 県 (regional) — 豊田市/長崎市 clusters surface
     scale_names = {s["scale"] for s in result["scales"]}
     check("municipal scale present (市区町村)", ":municipal" in scale_names)
+    check("supranational scale present (EU)", ":supranational" in scale_names)
     check("豊田市 (jp.aichi.toyota-shi) cluster surfaces", "jp.aichi.toyota-shi" in by_loc)
     # 全世界 coverage has begun — at least one non-JP locality present
     check("overseas (non-jp) locality present", any(not l.startswith("jp") for l in by_loc))

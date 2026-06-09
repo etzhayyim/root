@@ -226,4 +226,19 @@
  ;; Hsinchu (産官学)
  {:tie/id "tie.hsinchu.tsmc.depends" :tie/kind :depends-on :tie/from "org.corp.tw.tsmc-hsinchu" :tie/to "org.gov.tw.hsinchu-park" :tie/grasping-load 0.68 :tie/sources ["Hsinchu Science Park public records" "TSMC annual report (Hsinchu sites)"] :tie/sourcing :representative}
  {:tie/id "tie.hsinchu.u.depends" :tie/kind :depends-on :tie/from "org.univ.tw.nycu-nthu" :tie/to "org.corp.tw.tsmc-hsinchu" :tie/grasping-load 0.52 :tie/sources ["university–industry public collaboration records" "TSMC talent-pipeline public info"] :tie/sourcing :representative}
- {:tie/id "tie.hsinchu.u.park" :tie/kind :seats-on :tie/from "org.univ.tw.nycu-nthu" :tie/to "org.gov.tw.hsinchu-park" :tie/grasping-load 0.46 :tie/sources ["park advisory committee public roster" "public records"] :tie/sourcing :representative}]
+ {:tie/id "tie.hsinchu.u.park" :tie/kind :seats-on :tie/from "org.univ.tw.nycu-nthu" :tie/to "org.gov.tw.hsinchu-park" :tie/grasping-load 0.46 :tie/sources ["park advisory committee public roster" "public records"] :tie/sourcing :representative}
+
+ ;; ═══════════ granularity wave 7 (/loop): SUPRANATIONAL scale — the EU "Brussels bubble" ═══════════
+ ;; (20) Brussels — fills the unused :supranational scale; a 官産報 supranational governance arena
+ ;;      (EU institutions are public; the industry federation + press are :representative placeholders)
+ {:pwr/id "org.gov.eu.commission" :pwr/label "European Commission" :pwr/standing :institutional :pwr/scale :supranational :pwr/sector :kan :pwr/locality "eu.brussels" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.gov.eu.parliament" :pwr/label "European Parliament" :pwr/standing :institutional :pwr/scale :supranational :pwr/sector :kan :pwr/locality "eu.brussels" :pwr/collective-kind :advisory-body :pwr/sourcing :representative}
+ {:pwr/id "org.industry.eu.federation" :pwr/label "(representative) European industry federation" :pwr/standing :institutional :pwr/scale :supranational :pwr/sector :san :pwr/locality "eu.brussels" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.press.eu.brussels" :pwr/label "(representative) Brussels EU-affairs press" :pwr/standing :institutional :pwr/scale :supranational :pwr/sector :hou :pwr/locality "eu.brussels" :pwr/collective-kind :org :pwr/sourcing :representative}
+
+ ;; ───────────── granularity wave 7 ties (官産報 supranational) ─────────────
+ {:tie/id "tie.eu.fed.seats" :tie/kind :seats-on :tie/from "org.industry.eu.federation" :tie/to "org.gov.eu.commission" :tie/grasping-load 0.58 :tie/sources ["EU Transparency Register (public)" "Commission expert-group rosters (public)"] :tie/sourcing :representative}
+ {:tie/id "tie.eu.fed.depends" :tie/kind :depends-on :tie/from "org.industry.eu.federation" :tie/to "org.gov.eu.parliament" :tie/grasping-load 0.50 :tie/sources ["EU Transparency Register (public)" "Parliament intergroup public records"] :tie/sourcing :representative}
+ {:tie/id "tie.eu.press.commission" :tie/kind :covers :tie/from "org.press.eu.brussels" :tie/to "org.gov.eu.commission" :tie/grasping-load 0.44 :tie/sources ["Brussels press-corps accreditation (public)" "public archives"] :tie/sourcing :representative}
+ {:tie/id "tie.eu.press.fed" :tie/kind :covers :tie/from "org.press.eu.brussels" :tie/to "org.industry.eu.federation" :tie/grasping-load 0.40 :tie/sources ["EU-affairs press coverage" "public archives"] :tie/sourcing :representative}
+ {:tie/id "tie.eu.parl.commission" :tie/kind :co-member :tie/from "org.gov.eu.parliament" :tie/to "org.gov.eu.commission" :tie/grasping-load 0.48 :tie/sources ["EU institutional procedure (public, TFEU)" "public records"] :tie/sourcing :representative}]
