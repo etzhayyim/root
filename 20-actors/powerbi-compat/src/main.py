@@ -115,17 +115,21 @@ def _expand(rec, params, refs):
 def create_dataset(request):
     """Create a Dataset."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'source', 'schemaRef', 'rowCount'])
+    err = _reject_unknown(data, ['name', 'description', 'contentProviderType', 'targetStorageMode', 'isRefreshable', 'addRowsAPIEnabled'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'source'])
+    err = _require(data, ['name', 'description'])
     if err:
         return err, 400
+    if data.get('contentProviderType') and data['contentProviderType'] not in ['Excel', 'CSV', 'UsageMetricsUserReport', 'UsageMetricsUserDashboard', 'RealTimeInPushMode', 'RealTimeInPubNubMode', 'RealTimeInStreamingMode', 'PowerBIDesktop', 'PowerBIModelingService', 'PbixInImportMode', 'PbixInDirectQueryMode', 'PbixInCompositeMode', 'InImportMode', 'InDirectQueryMode', 'InCompositeMode']:
+        return {"error": {"message": "invalid contentProviderType; allowed: " + ", ".join(['Excel', 'CSV', 'UsageMetricsUserReport', 'UsageMetricsUserDashboard', 'RealTimeInPushMode', 'RealTimeInPubNubMode', 'RealTimeInStreamingMode', 'PowerBIDesktop', 'PowerBIModelingService', 'PbixInImportMode', 'PbixInDirectQueryMode', 'PbixInCompositeMode', 'InImportMode', 'InDirectQueryMode', 'InCompositeMode']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("powerbi_dat")}
     rec["name"] = data.get('name')
-    rec["source"] = data.get('source')
-    rec["schemaRef"] = data.get('schemaRef')
-    rec["rowCount"] = _as_int(data.get('rowCount'))
+    rec["description"] = data.get('description')
+    rec["contentProviderType"] = data.get('contentProviderType')
+    rec["targetStorageMode"] = data.get('targetStorageMode')
+    rec["isRefreshable"] = _as_bool(data.get('isRefreshable'))
+    rec["addRowsAPIEnabled"] = _as_bool(data.get('addRowsAPIEnabled'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Dataset", rec)
@@ -136,7 +140,7 @@ def list_datasets(request):
     """List Datasets with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Dataset")
-    rows = _apply_filters(rows, params, ['name', 'source', 'schemaRef', 'rowCount'])
+    rows = _apply_filters(rows, params, ['name', 'description', 'contentProviderType', 'targetStorageMode', 'isRefreshable', 'addRowsAPIEnabled'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -157,9 +161,11 @@ def update_dataset(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'source', 'schemaRef', 'rowCount'])
+    err = _reject_unknown(data, ['name', 'description', 'contentProviderType', 'targetStorageMode', 'isRefreshable', 'addRowsAPIEnabled'])
     if err:
         return err, 400
+    if data.get('contentProviderType') and data['contentProviderType'] not in ['Excel', 'CSV', 'UsageMetricsUserReport', 'UsageMetricsUserDashboard', 'RealTimeInPushMode', 'RealTimeInPubNubMode', 'RealTimeInStreamingMode', 'PowerBIDesktop', 'PowerBIModelingService', 'PbixInImportMode', 'PbixInDirectQueryMode', 'PbixInCompositeMode', 'InImportMode', 'InDirectQueryMode', 'InCompositeMode']:
+        return {"error": {"message": "invalid contentProviderType; allowed: " + ", ".join(['Excel', 'CSV', 'UsageMetricsUserReport', 'UsageMetricsUserDashboard', 'RealTimeInPushMode', 'RealTimeInPubNubMode', 'RealTimeInStreamingMode', 'PowerBIDesktop', 'PowerBIModelingService', 'PbixInImportMode', 'PbixInDirectQueryMode', 'PbixInCompositeMode', 'InImportMode', 'InDirectQueryMode', 'InCompositeMode']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -177,86 +183,91 @@ def delete_dataset(request, eid):
     db.retract({"entity": f"powerbi.Dataset", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/queries", methods=["POST"])
-def create_query(request):
-    """Create a Query."""
+@app.route("/v1/reports", methods=["POST"])
+def create_report(request):
+    """Create a Report."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['datasetId', 'sql', 'ownerId'])
+    err = _reject_unknown(data, ['name', 'description', 'reportType', 'datasetId', 'isOwnedByMe'])
     if err:
         return err, 400
-    err = _require(data, ['sql'])
+    err = _require(data, ['name', 'description'])
     if err:
         return err, 400
-    rec = {"id": new_id("powerbi_que")}
+    if data.get('reportType') and data['reportType'] not in ['PaginatedReport', 'PowerBIReport']:
+        return {"error": {"message": "invalid reportType; allowed: " + ", ".join(['PaginatedReport', 'PowerBIReport']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("powerbi_rep")}
+    rec["name"] = data.get('name')
+    rec["description"] = data.get('description')
+    rec["reportType"] = data.get('reportType')
     rec["datasetId"] = data.get('datasetId')
-    rec["sql"] = data.get('sql')
-    rec["ownerId"] = data.get('ownerId')
+    rec["isOwnedByMe"] = _as_bool(data.get('isOwnedByMe'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Query", rec)
+    _persist("Report", rec)
     return rec, 201
 
-@app.route("/v1/queries", methods=["GET"])
-def list_queries(request):
-    """List Queries with filtering + cursor pagination."""
+@app.route("/v1/reports", methods=["GET"])
+def list_reports(request):
+    """List Reports with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Query")
-    rows = _apply_filters(rows, params, ['datasetId', 'sql', 'ownerId'])
+    rows = _query("Report")
+    rows = _apply_filters(rows, params, ['name', 'description', 'reportType', 'datasetId', 'isOwnedByMe'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/queries/<eid>", methods=["GET"])
-def get_query(request, eid):
-    """Retrieve a Query by id (supports ?expand=)."""
-    rows = _query("Query", eid)
+@app.route("/v1/reports/<eid>", methods=["GET"])
+def get_report(request, eid):
+    """Retrieve a Report by id (supports ?expand=)."""
+    rows = _query("Report", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     rec = _expand(rec, request.query or {}, {'datasetId': 'Dataset'})
     return rec, 200
 
-@app.route("/v1/queries/<eid>", methods=["POST", "PATCH"])
-def update_query(request, eid):
-    """Update a Query."""
-    rows = _query("Query", eid)
+@app.route("/v1/reports/<eid>", methods=["POST", "PATCH"])
+def update_report(request, eid):
+    """Update a Report."""
+    rows = _query("Report", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['datasetId', 'sql', 'ownerId'])
+    err = _reject_unknown(data, ['name', 'description', 'reportType', 'datasetId', 'isOwnedByMe'])
     if err:
         return err, 400
+    if data.get('reportType') and data['reportType'] not in ['PaginatedReport', 'PowerBIReport']:
+        return {"error": {"message": "invalid reportType; allowed: " + ", ".join(['PaginatedReport', 'PowerBIReport']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Query", rec)
+    _persist("Report", rec)
     return rec, 200
 
-@app.route("/v1/queries/<eid>", methods=["DELETE"])
-def delete_query(request, eid):
-    """Delete a Query."""
-    rows = _query("Query", eid)
+@app.route("/v1/reports/<eid>", methods=["DELETE"])
+def delete_report(request, eid):
+    """Delete a Report."""
+    rows = _query("Report", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"powerbi.Query", "id": eid})
+    db.retract({"entity": f"powerbi.Report", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/v1/dashboards", methods=["POST"])
 def create_dashboard(request):
     """Create a Dashboard."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'layout'])
+    err = _reject_unknown(data, ['displayName', 'isReadOnly'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'layout'])
+    err = _require(data, ['displayName', 'isReadOnly'])
     if err:
         return err, 400
     rec = {"id": new_id("powerbi_das")}
-    rec["name"] = data.get('name')
-    rec["ownerId"] = data.get('ownerId')
-    rec["layout"] = data.get('layout')
+    rec["displayName"] = data.get('displayName')
+    rec["isReadOnly"] = _as_bool(data.get('isReadOnly'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Dashboard", rec)
@@ -267,7 +278,7 @@ def list_dashboards(request):
     """List Dashboards with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Dashboard")
-    rows = _apply_filters(rows, params, ['name', 'ownerId', 'layout'])
+    rows = _apply_filters(rows, params, ['displayName', 'isReadOnly'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -288,7 +299,7 @@ def update_dashboard(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'layout'])
+    err = _reject_unknown(data, ['displayName', 'isReadOnly'])
     if err:
         return err, 400
     rec = rows[0]
@@ -308,53 +319,125 @@ def delete_dashboard(request, eid):
     db.retract({"entity": f"powerbi.Dashboard", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/reports", methods=["POST"])
-def create_report(request):
-    """Create a Report."""
+@app.route("/v1/groups", methods=["POST"])
+def create_group(request):
+    """Create a Group."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['dashboardId', 'name', 'schedule'])
+    err = _reject_unknown(data, ['name', 'isReadOnly', 'isOnDedicatedCapacity', 'defaultDatasetStorageFormat'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'schedule'])
+    err = _require(data, ['name', 'isReadOnly'])
     if err:
         return err, 400
-    rec = {"id": new_id("powerbi_rep")}
-    rec["dashboardId"] = data.get('dashboardId')
+    if data.get('defaultDatasetStorageFormat') and data['defaultDatasetStorageFormat'] not in ['Small', 'Large']:
+        return {"error": {"message": "invalid defaultDatasetStorageFormat; allowed: " + ", ".join(['Small', 'Large']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("powerbi_gro")}
     rec["name"] = data.get('name')
-    rec["schedule"] = data.get('schedule')
+    rec["isReadOnly"] = _as_bool(data.get('isReadOnly'))
+    rec["isOnDedicatedCapacity"] = _as_bool(data.get('isOnDedicatedCapacity'))
+    rec["defaultDatasetStorageFormat"] = data.get('defaultDatasetStorageFormat')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Report", rec)
+    _persist("Group", rec)
     return rec, 201
 
-@app.route("/v1/reports", methods=["GET"])
-def list_reports(request):
-    """List Reports with filtering + cursor pagination."""
+@app.route("/v1/groups", methods=["GET"])
+def list_groups(request):
+    """List Groups with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Report")
-    rows = _apply_filters(rows, params, ['dashboardId', 'name', 'schedule'])
+    rows = _query("Group")
+    rows = _apply_filters(rows, params, ['name', 'isReadOnly', 'isOnDedicatedCapacity', 'defaultDatasetStorageFormat'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/reports/<eid>", methods=["GET"])
-def get_report(request, eid):
-    """Retrieve a Report by id (supports ?expand=)."""
-    rows = _query("Report", eid)
+@app.route("/v1/groups/<eid>", methods=["GET"])
+def get_group(request, eid):
+    """Retrieve a Group by id (supports ?expand=)."""
+    rows = _query("Group", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'dashboardId': 'Dashboard'})
     return rec, 200
 
-@app.route("/v1/reports/<eid>", methods=["POST", "PATCH"])
-def update_report(request, eid):
-    """Update a Report."""
-    rows = _query("Report", eid)
+@app.route("/v1/groups/<eid>", methods=["POST", "PATCH"])
+def update_group(request, eid):
+    """Update a Group."""
+    rows = _query("Group", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['dashboardId', 'name', 'schedule'])
+    err = _reject_unknown(data, ['name', 'isReadOnly', 'isOnDedicatedCapacity', 'defaultDatasetStorageFormat'])
+    if err:
+        return err, 400
+    if data.get('defaultDatasetStorageFormat') and data['defaultDatasetStorageFormat'] not in ['Small', 'Large']:
+        return {"error": {"message": "invalid defaultDatasetStorageFormat; allowed: " + ", ".join(['Small', 'Large']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Group", rec)
+    return rec, 200
+
+@app.route("/v1/groups/<eid>", methods=["DELETE"])
+def delete_group(request, eid):
+    """Delete a Group."""
+    rows = _query("Group", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"powerbi.Group", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/tiles", methods=["POST"])
+def create_tile(request):
+    """Create a Tile."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['title', 'reportId', 'datasetId', 'rowSpan', 'colSpan'])
+    if err:
+        return err, 400
+    err = _require(data, ['title', 'rowSpan'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("powerbi_til")}
+    rec["title"] = data.get('title')
+    rec["reportId"] = data.get('reportId')
+    rec["datasetId"] = data.get('datasetId')
+    rec["rowSpan"] = _as_int(data.get('rowSpan'))
+    rec["colSpan"] = _as_int(data.get('colSpan'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Tile", rec)
+    return rec, 201
+
+@app.route("/v1/tiles", methods=["GET"])
+def list_tiles(request):
+    """List Tiles with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Tile")
+    rows = _apply_filters(rows, params, ['title', 'reportId', 'datasetId', 'rowSpan', 'colSpan'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/tiles/<eid>", methods=["GET"])
+def get_tile(request, eid):
+    """Retrieve a Tile by id (supports ?expand=)."""
+    rows = _query("Tile", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'reportId': 'Report', 'datasetId': 'Dataset'})
+    return rec, 200
+
+@app.route("/v1/tiles/<eid>", methods=["POST", "PATCH"])
+def update_tile(request, eid):
+    """Update a Tile."""
+    rows = _query("Tile", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['title', 'reportId', 'datasetId', 'rowSpan', 'colSpan'])
     if err:
         return err, 400
     rec = rows[0]
@@ -362,65 +445,64 @@ def update_report(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Report", rec)
+    _persist("Tile", rec)
     return rec, 200
 
-@app.route("/v1/reports/<eid>", methods=["DELETE"])
-def delete_report(request, eid):
-    """Delete a Report."""
-    rows = _query("Report", eid)
+@app.route("/v1/tiles/<eid>", methods=["DELETE"])
+def delete_tile(request, eid):
+    """Delete a Tile."""
+    rows = _query("Tile", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"powerbi.Report", "id": eid})
+    db.retract({"entity": f"powerbi.Tile", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/connections", methods=["POST"])
-def create_connection(request):
-    """Create a Connection."""
+@app.route("/v1/gateways", methods=["POST"])
+def create_gateway(request):
+    """Create a Gateway."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'type', 'host', 'active'])
+    err = _reject_unknown(data, ['name', 'type', 'gatewayStatus'])
     if err:
         return err, 400
     err = _require(data, ['name', 'type'])
     if err:
         return err, 400
-    rec = {"id": new_id("powerbi_con")}
+    rec = {"id": new_id("powerbi_gat")}
     rec["name"] = data.get('name')
     rec["type"] = data.get('type')
-    rec["host"] = data.get('host')
-    rec["active"] = _as_bool(data.get('active'))
+    rec["gatewayStatus"] = data.get('gatewayStatus')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Connection", rec)
+    _persist("Gateway", rec)
     return rec, 201
 
-@app.route("/v1/connections", methods=["GET"])
-def list_connections(request):
-    """List Connections with filtering + cursor pagination."""
+@app.route("/v1/gateways", methods=["GET"])
+def list_gateways(request):
+    """List Gateways with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Connection")
-    rows = _apply_filters(rows, params, ['name', 'type', 'host', 'active'])
+    rows = _query("Gateway")
+    rows = _apply_filters(rows, params, ['name', 'type', 'gatewayStatus'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/connections/<eid>", methods=["GET"])
-def get_connection(request, eid):
-    """Retrieve a Connection by id (supports ?expand=)."""
-    rows = _query("Connection", eid)
+@app.route("/v1/gateways/<eid>", methods=["GET"])
+def get_gateway(request, eid):
+    """Retrieve a Gateway by id (supports ?expand=)."""
+    rows = _query("Gateway", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/connections/<eid>", methods=["POST", "PATCH"])
-def update_connection(request, eid):
-    """Update a Connection."""
-    rows = _query("Connection", eid)
+@app.route("/v1/gateways/<eid>", methods=["POST", "PATCH"])
+def update_gateway(request, eid):
+    """Update a Gateway."""
+    rows = _query("Gateway", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'type', 'host', 'active'])
+    err = _reject_unknown(data, ['name', 'type', 'gatewayStatus'])
     if err:
         return err, 400
     rec = rows[0]
@@ -428,89 +510,22 @@ def update_connection(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Connection", rec)
+    _persist("Gateway", rec)
     return rec, 200
 
-@app.route("/v1/connections/<eid>", methods=["DELETE"])
-def delete_connection(request, eid):
-    """Delete a Connection."""
-    rows = _query("Connection", eid)
+@app.route("/v1/gateways/<eid>", methods=["DELETE"])
+def delete_gateway(request, eid):
+    """Delete a Gateway."""
+    rows = _query("Gateway", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"powerbi.Connection", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/metrics", methods=["POST"])
-def create_metric(request):
-    """Create a Metric."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['datasetId', 'name', 'expression', 'unit'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'expression'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("powerbi_met")}
-    rec["datasetId"] = data.get('datasetId')
-    rec["name"] = data.get('name')
-    rec["expression"] = data.get('expression')
-    rec["unit"] = data.get('unit')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Metric", rec)
-    return rec, 201
-
-@app.route("/v1/metrics", methods=["GET"])
-def list_metrics(request):
-    """List Metrics with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Metric")
-    rows = _apply_filters(rows, params, ['datasetId', 'name', 'expression', 'unit'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/metrics/<eid>", methods=["GET"])
-def get_metric(request, eid):
-    """Retrieve a Metric by id (supports ?expand=)."""
-    rows = _query("Metric", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'datasetId': 'Dataset'})
-    return rec, 200
-
-@app.route("/v1/metrics/<eid>", methods=["POST", "PATCH"])
-def update_metric(request, eid):
-    """Update a Metric."""
-    rows = _query("Metric", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['datasetId', 'name', 'expression', 'unit'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Metric", rec)
-    return rec, 200
-
-@app.route("/v1/metrics/<eid>", methods=["DELETE"])
-def delete_metric(request, eid):
-    """Delete a Metric."""
-    rows = _query("Metric", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"powerbi.Metric", "id": eid})
+    db.retract({"entity": f"powerbi.Gateway", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "powerbi-compat", "tier": "L4",
-            "entities": ['Dataset', 'Query', 'Dashboard', 'Report', 'Connection', 'Metric']}, 200
+            "entities": ['Dataset', 'Report', 'Dashboard', 'Group', 'Tile', 'Gateway']}, 200
 
 
 if __name__ == "__main__":

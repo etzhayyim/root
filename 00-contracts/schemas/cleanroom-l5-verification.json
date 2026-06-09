@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 44,
+  "count": 47,
   "actors": [
     {
       "handle": "square-compat",
@@ -5884,6 +5884,470 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official Snowflake REST API specs. Enforced enums: Warehouse.warehouseType/warehouseSize/scalingPolicy/state, Database.kind, Schema.kind, Table.kind, Task.state (8)."
+    },
+    {
+      "handle": "powerbi-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://learn.microsoft.com/en-us/rest/api/power-bi",
+      "remodeled": "Remodeled from generic iaas_cloud to a faithful Power BI REST model, verified against official Microsoft Learn REST docs (explicit enum arrays).",
+      "resources": [
+        {
+          "entity": "Dataset",
+          "source": "https://learn.microsoft.com/en-us/rest/api/power-bi/datasets/get-dataset",
+          "verifiedFields": [
+            "name",
+            "description",
+            "contentProviderType",
+            "targetStorageMode",
+            "isRefreshable",
+            "addRowsAPIEnabled"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "contentProviderType": [
+              "Excel",
+              "CSV",
+              "UsageMetricsUserReport",
+              "UsageMetricsUserDashboard",
+              "RealTimeInPushMode",
+              "RealTimeInPubNubMode",
+              "RealTimeInStreamingMode",
+              "PowerBIDesktop",
+              "PowerBIModelingService",
+              "PbixInImportMode",
+              "PbixInDirectQueryMode",
+              "PbixInCompositeMode",
+              "InImportMode",
+              "InDirectQueryMode",
+              "InCompositeMode"
+            ]
+          },
+          "gaps": [
+            "webUrl",
+            "encryption"
+          ]
+        },
+        {
+          "entity": "Report",
+          "source": "https://learn.microsoft.com/en-us/rest/api/power-bi/reports/get-report",
+          "verifiedFields": [
+            "name",
+            "description",
+            "reportType",
+            "datasetId",
+            "isOwnedByMe"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "reportType": [
+              "PaginatedReport",
+              "PowerBIReport"
+            ]
+          },
+          "gaps": [
+            "embedUrl",
+            "appId"
+          ]
+        },
+        {
+          "entity": "Dashboard",
+          "source": "https://learn.microsoft.com/en-us/rest/api/power-bi/dashboards/get-dashboard",
+          "verifiedFields": [
+            "displayName",
+            "isReadOnly"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "embedUrl"
+          ]
+        },
+        {
+          "entity": "Group",
+          "source": "https://learn.microsoft.com/en-us/rest/api/power-bi/groups/get-group",
+          "verifiedFields": [
+            "name",
+            "isReadOnly",
+            "isOnDedicatedCapacity",
+            "defaultDatasetStorageFormat"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "defaultDatasetStorageFormat": [
+              "Small",
+              "Large"
+            ]
+          },
+          "gaps": [
+            "capacityId"
+          ]
+        },
+        {
+          "entity": "Tile",
+          "source": "https://learn.microsoft.com/en-us/rest/api/power-bi/dashboards/get-tile",
+          "verifiedFields": [
+            "title",
+            "reportId",
+            "datasetId",
+            "rowSpan",
+            "colSpan"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "embedUrl"
+          ]
+        },
+        {
+          "entity": "Gateway",
+          "source": "https://learn.microsoft.com/en-us/rest/api/power-bi/gateways/get-gateway",
+          "verifiedFields": [
+            "name",
+            "type",
+            "gatewayStatus"
+          ],
+          "fieldStatus": "fields confirmed; gatewayStatus enum not enumerated this fetch -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "gatewayStatus-enum",
+            "publicKey"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official Power BI REST docs. Enforced enums: Dataset.contentProviderType, Report.reportType, Group.defaultDatasetStorageFormat (3)."
+    },
+    {
+      "handle": "alpaca-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/alpacahq/alpaca-py/blob/master/alpaca/trading",
+      "remodeled": "Remodeled from generic fintech_web3 to a faithful Alpaca Trading model, verified against the official alpaca-py SDK. Numeric values are strings per the SDK.",
+      "resources": [
+        {
+          "entity": "Asset",
+          "source": "https://github.com/alpacahq/alpaca-py/blob/master/alpaca/trading/models.py",
+          "verifiedFields": [
+            "symbol",
+            "assetClass",
+            "exchange",
+            "status",
+            "tradable",
+            "fractionable"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "assetClass": [
+              "us_equity",
+              "us_option",
+              "crypto",
+              "crypto_perp"
+            ],
+            "status": [
+              "active",
+              "inactive"
+            ]
+          },
+          "gaps": [
+            "marginable",
+            "shortable"
+          ]
+        },
+        {
+          "entity": "Order",
+          "source": "https://github.com/alpacahq/alpaca-py/blob/master/alpaca/trading/models.py",
+          "verifiedFields": [
+            "symbol",
+            "side",
+            "type",
+            "status",
+            "qty",
+            "timeInForce"
+          ],
+          "fieldStatus": "confirmed (time_in_force)",
+          "discoveredEnums": {
+            "side": [
+              "buy",
+              "sell"
+            ],
+            "type": [
+              "market",
+              "limit",
+              "stop",
+              "stop_limit",
+              "trailing_stop"
+            ],
+            "status": [
+              "new",
+              "partially_filled",
+              "filled",
+              "done_for_day",
+              "canceled",
+              "expired",
+              "replaced",
+              "pending_cancel",
+              "pending_replace",
+              "pending_review",
+              "accepted",
+              "pending_new",
+              "accepted_for_bidding",
+              "stopped",
+              "rejected",
+              "suspended",
+              "calculated",
+              "held"
+            ],
+            "timeInForce": [
+              "day",
+              "gtc",
+              "opg",
+              "cls",
+              "ioc",
+              "fok"
+            ]
+          },
+          "gaps": [
+            "limit_price",
+            "stop_price",
+            "filled_avg_price"
+          ]
+        },
+        {
+          "entity": "Position",
+          "source": "https://github.com/alpacahq/alpaca-py/blob/master/alpaca/trading/models.py",
+          "verifiedFields": [
+            "symbol",
+            "qty",
+            "side",
+            "avgEntryPrice",
+            "marketValue"
+          ],
+          "fieldStatus": "confirmed (avg_entry_price, market_value)",
+          "discoveredEnums": {
+            "side": [
+              "long",
+              "short"
+            ]
+          },
+          "gaps": [
+            "unrealized_pl",
+            "current_price"
+          ]
+        },
+        {
+          "entity": "TradeAccount",
+          "source": "https://github.com/alpacahq/alpaca-py/blob/master/alpaca/trading/models.py",
+          "verifiedFields": [
+            "accountNumber",
+            "status",
+            "equity",
+            "cash",
+            "buyingPower",
+            "patternDayTrader"
+          ],
+          "fieldStatus": "confirmed (account_number, buying_power, pattern_day_trader)",
+          "discoveredEnums": {
+            "status": [
+              "ACCOUNT_CLOSED",
+              "ACCOUNT_UPDATED",
+              "ACTION_REQUIRED",
+              "ACTIVE",
+              "AML_REVIEW",
+              "APPROVAL_PENDING",
+              "APPROVED",
+              "DISABLED",
+              "DISABLE_PENDING",
+              "EDITED",
+              "INACTIVE",
+              "KYC_SUBMITTED",
+              "LIMITED",
+              "ONBOARDING",
+              "PAPER_ONLY",
+              "REAPPROVAL_PENDING",
+              "REJECTED",
+              "RESUBMITTED",
+              "SIGNED_UP",
+              "SUBMISSION_FAILED",
+              "SUBMITTED"
+            ]
+          },
+          "gaps": [
+            "multiplier",
+            "daytrade_count"
+          ]
+        },
+        {
+          "entity": "TradeActivity",
+          "source": "https://github.com/alpacahq/alpaca-py/blob/master/alpaca/trading/models.py",
+          "verifiedFields": [
+            "symbol",
+            "side",
+            "price",
+            "qty",
+            "type",
+            "orderId"
+          ],
+          "fieldStatus": "confirmed (order_id)",
+          "discoveredEnums": {
+            "type": [
+              "partial_fill",
+              "fill"
+            ]
+          },
+          "gaps": [
+            "transaction_time",
+            "cum_qty"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs official alpaca-py SDK. Enforced enums: Asset.assetClass/status, Order.side/type/status/timeInForce, Position.side, TradeAccount.status, TradeActivity.type (9)."
+    },
+    {
+      "handle": "vonage-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://developer.vonage.com/en/api",
+      "remodeled": "Remodeled from generic comms_social to a faithful Vonage model, verified against official Vonage API docs.",
+      "resources": [
+        {
+          "entity": "Call",
+          "source": "https://developer.vonage.com/en/api/voice",
+          "verifiedFields": [
+            "fromNumber",
+            "toNumber",
+            "status",
+            "direction",
+            "duration",
+            "price"
+          ],
+          "fieldStatus": "confirmed (from/to)",
+          "discoveredEnums": {
+            "status": [
+              "started",
+              "ringing",
+              "answered",
+              "machine",
+              "completed",
+              "busy",
+              "cancelled",
+              "failed",
+              "rejected",
+              "timeout",
+              "unanswered"
+            ],
+            "direction": [
+              "inbound",
+              "outbound"
+            ]
+          },
+          "gaps": [
+            "uuid",
+            "conversation_uuid",
+            "rate"
+          ]
+        },
+        {
+          "entity": "Message",
+          "source": "https://developer.vonage.com/en/api/messages",
+          "verifiedFields": [
+            "messageId",
+            "toNumber",
+            "fromNumber",
+            "status",
+            "messageType",
+            "channel"
+          ],
+          "fieldStatus": "confirmed (message_id, message_type)",
+          "discoveredEnums": {
+            "messageType": [
+              "text",
+              "unicode",
+              "binary"
+            ],
+            "channel": [
+              "sms",
+              "mms",
+              "whatsapp",
+              "messenger",
+              "viber",
+              "rcs"
+            ]
+          },
+          "gaps": [
+            "message_price",
+            "client_ref"
+          ]
+        },
+        {
+          "entity": "Number",
+          "source": "https://developer.vonage.com/en/api/numbers",
+          "verifiedFields": [
+            "msisdn",
+            "country",
+            "type",
+            "cost"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "landline",
+              "landline-toll-free",
+              "mobile-lvn"
+            ]
+          },
+          "gaps": [
+            "features",
+            "voiceCallbackValue"
+          ]
+        },
+        {
+          "entity": "Verification",
+          "source": "https://developer.vonage.com/en/api/verify",
+          "verifiedFields": [
+            "requestId",
+            "number",
+            "status",
+            "codeLength"
+          ],
+          "fieldStatus": "confirmed (request_id, code_length)",
+          "discoveredEnums": {
+            "status": [
+              "IN PROGRESS",
+              "SUCCESS",
+              "FAILED",
+              "EXPIRED",
+              "CANCELLED"
+            ]
+          },
+          "gaps": [
+            "pin_expiry"
+          ]
+        },
+        {
+          "entity": "Application",
+          "source": "https://developer.vonage.com/en/api/application",
+          "verifiedFields": [
+            "name",
+            "type",
+            "answerUrl"
+          ],
+          "fieldStatus": "confirmed (answer_url)",
+          "discoveredEnums": {
+            "type": [
+              "voice",
+              "messages"
+            ]
+          },
+          "gaps": [
+            "event_url",
+            "keys"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs official Vonage docs. Enforced enums: Call.status/direction, Message.messageType/channel, Number.type, Verification.status, Application.type (7)."
     }
   ]
 }

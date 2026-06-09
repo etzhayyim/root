@@ -7,7 +7,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 30010,
+  "totalTools": 30000,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -246,10 +246,10 @@
     {
       "handle": "alpaca-compat",
       "did": "did:web:etzhayyim.com:actor:alpaca-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreiatpwy7xvusilnghito4rv5ln6nuu7yuttvokoarzo6k2cb56pymq",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreib4bqxnbuvdgcgxixoc72zsqixfjtd6zujo2gygg5mmrspqs4ikk4",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "manifest": "20-actors/alpaca-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -6438,7 +6438,7 @@
     {
       "handle": "powerbi-compat",
       "did": "did:web:etzhayyim.com:actor:powerbi-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreic4tuyqmrtnoognjngjeetpcz67yqlzuvowjbjuumigdijhiaohg4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -8463,10 +8463,10 @@
     {
       "handle": "vonage-compat",
       "did": "did:web:etzhayyim.com:actor:vonage-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreidljtkyiyvaalt7tti5ekjd3l6xldc6wefemmuvvlf5xs3pbrtxuu",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreifqilsec4lwet333vrzs7rcujememvzuz6pguihin7qrnf7bwqeu4",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "manifest": "20-actors/vonage-compat/manifest.json#/capabilities/mcp"
     },
     {

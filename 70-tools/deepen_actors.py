@@ -1242,6 +1242,31 @@ PLATFORM_OVERRIDES = {
         "Task": E(name="string", warehouse="string", state="string", owner="string"),
         "Role": E(name="string", owner="string", comment="string"),
     },
+    # Faithful Power BI model (recovered via official Microsoft Learn REST docs), L5.
+    "powerbi": {
+        "Dataset": E(name="string", description="string", contentProviderType="string", targetStorageMode="string", isRefreshable="boolean", addRowsAPIEnabled="boolean"),
+        "Report": E(name="string", description="string", reportType="string", datasetId="string", isOwnedByMe="boolean"),
+        "Dashboard": E(displayName="string", isReadOnly="boolean"),
+        "Group": E(name="string", isReadOnly="boolean", isOnDedicatedCapacity="boolean", defaultDatasetStorageFormat="string"),
+        "Tile": E(title="string", reportId="string", datasetId="string", rowSpan="integer", colSpan="integer"),
+        "Gateway": E(name="string", type="string", gatewayStatus="string"),
+    },
+    # Faithful Alpaca Trading model (recovered via alpaca-py SDK), L5. Numeric=string.
+    "alpaca": {
+        "Asset": E(symbol="string", assetClass="string", exchange="string", status="string", tradable="boolean", fractionable="boolean"),
+        "Order": E(symbol="string", side="string", type="string", status="string", qty="string", timeInForce="string"),
+        "Position": E(symbol="string", qty="string", side="string", avgEntryPrice="string", marketValue="string"),
+        "TradeAccount": E(accountNumber="string", status="string", equity="string", cash="string", buyingPower="string", patternDayTrader="boolean"),
+        "TradeActivity": E(symbol="string", side="string", price="float", qty="float", type="string", orderId="string"),
+    },
+    # Faithful Vonage model (recovered via official Vonage API docs), L5.
+    "vonage": {
+        "Call": E(fromNumber="string", toNumber="string", status="string", direction="string", duration="integer", price="float"),
+        "Message": E(messageId="string", toNumber="string", fromNumber="string", status="string", messageType="string", channel="string"),
+        "Number": E(msisdn="string", country="string", type="string", cost="float"),
+        "Verification": E(requestId="string", number="string", status="string", codeLength="integer"),
+        "Application": E(name="string", type="string", answerUrl="string"),
+    },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).
     "square": {

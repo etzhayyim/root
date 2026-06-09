@@ -6,67 +6,62 @@ namespace powerbi {
     entity Dataset {
         id: string @unique
         name: string
-        source: string
-        schemaRef: string
-        rowCount: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Query {
-        id: string @unique
-        datasetId: string
-        sql: string
-        ownerId: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Dashboard {
-        id: string @unique
-        name: string
-        ownerId: string
-        layout: string
+        description: string
+        contentProviderType: string
+        targetStorageMode: string
+        isRefreshable: boolean
+        addRowsAPIEnabled: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Report {
         id: string @unique
-        dashboardId: string
         name: string
-        schedule: string
+        description: string
+        reportType: string
+        datasetId: string
+        isOwnedByMe: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Connection {
+    entity Dashboard {
+        id: string @unique
+        displayName: string
+        isReadOnly: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Group {
+        id: string @unique
+        name: string
+        isReadOnly: boolean
+        isOnDedicatedCapacity: boolean
+        defaultDatasetStorageFormat: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Tile {
+        id: string @unique
+        title: string
+        reportId: string
+        datasetId: string
+        rowSpan: integer
+        colSpan: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Gateway {
         id: string @unique
         name: string
         type: string
-        host: string
-        active: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Metric {
-        id: string @unique
-        datasetId: string
-        name: string
-        expression: string
-        unit: string
+        gatewayStatus: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

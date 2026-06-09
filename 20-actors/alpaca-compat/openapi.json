@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible fintech / web3 actor (alpaca); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:alpaca-compat",
-    "x-wasm-cid": "bafkreiatpwy7xvusilnghito4rv5ln6nuu7yuttvokoarzo6k2cb56pymq",
+    "x-wasm-cid": "bafkreib4bqxnbuvdgcgxixoc72zsqixfjtd6zujo2gygg5mmrspqs4ikk4",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreiatpwy7xvusilnghito4rv5ln6nuu7yuttvokoarzo6k2cb56pymq",
+      "url": "ipfs://bafkreib4bqxnbuvdgcgxixoc72zsqixfjtd6zujo2gygg5mmrspqs4ikk4",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/accounts": {
+    "/v1/assets": {
       "get": {
-        "summary": "List Accounts",
+        "summary": "List Assets",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Account"
+                        "$ref": "#/components/schemas/Asset"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Account",
+        "summary": "Create a Asset",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AccountCreate"
+                "$ref": "#/components/schemas/AssetCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Account"
+                  "$ref": "#/components/schemas/Asset"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/accounts/{id}": {
+    "/v1/assets/{id}": {
       "get": {
-        "summary": "Get a Account",
+        "summary": "Get a Asset",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Account"
+                  "$ref": "#/components/schemas/Asset"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Account",
+        "summary": "Update a Asset",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AccountCreate"
+                "$ref": "#/components/schemas/AssetCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Account"
+                  "$ref": "#/components/schemas/Asset"
                 }
               }
             }
@@ -181,377 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Account",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/cards": {
-      "get": {
-        "summary": "List Cards",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Card"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Card",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CardCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Card"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/cards/{id}": {
-      "get": {
-        "summary": "Get a Card",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Card"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Card",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CardCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Card"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Card",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/transactions": {
-      "get": {
-        "summary": "List Transactions",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Transaction"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Transaction",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TransactionCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Transaction"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/transactions/{id}": {
-      "get": {
-        "summary": "Get a Transaction",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Transaction"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Transaction",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TransactionCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Transaction"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Transaction",
+        "summary": "Delete a Asset",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +387,9 @@
         }
       }
     },
-    "/v1/wallets": {
+    "/v1/positions": {
       "get": {
-        "summary": "List Wallets",
+        "summary": "List Positions",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Wallet"
+                        "$ref": "#/components/schemas/Position"
                       }
                     },
                     "has_more": {
@@ -819,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Wallet",
+        "summary": "Create a Position",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/WalletCreate"
+                "$ref": "#/components/schemas/PositionCreate"
               }
             }
           }
@@ -836,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Wallet"
+                  "$ref": "#/components/schemas/Position"
                 }
               }
             }
@@ -847,9 +477,9 @@
         }
       }
     },
-    "/v1/wallets/{id}": {
+    "/v1/positions/{id}": {
       "get": {
-        "summary": "Get a Wallet",
+        "summary": "Get a Position",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Wallet"
+                  "$ref": "#/components/schemas/Position"
                 }
               }
             }
@@ -884,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Wallet",
+        "summary": "Update a Position",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/WalletCreate"
+                "$ref": "#/components/schemas/PositionCreate"
               }
             }
           }
@@ -910,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Wallet"
+                  "$ref": "#/components/schemas/Position"
                 }
               }
             }
@@ -921,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Wallet",
+        "summary": "Delete a Position",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +572,9 @@
         }
       }
     },
-    "/v1/ledgers": {
+    "/v1/tradeaccounts": {
       "get": {
-        "summary": "List Ledgers",
+        "summary": "List TradeAccounts",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Ledger"
+                        "$ref": "#/components/schemas/TradeAccount"
                       }
                     },
                     "has_more": {
@@ -1004,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Ledger",
+        "summary": "Create a TradeAccount",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LedgerCreate"
+                "$ref": "#/components/schemas/TradeAccountCreate"
               }
             }
           }
@@ -1021,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Ledger"
+                  "$ref": "#/components/schemas/TradeAccount"
                 }
               }
             }
@@ -1032,9 +662,9 @@
         }
       }
     },
-    "/v1/ledgers/{id}": {
+    "/v1/tradeaccounts/{id}": {
       "get": {
-        "summary": "Get a Ledger",
+        "summary": "Get a TradeAccount",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Ledger"
+                  "$ref": "#/components/schemas/TradeAccount"
                 }
               }
             }
@@ -1069,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Ledger",
+        "summary": "Update a TradeAccount",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LedgerCreate"
+                "$ref": "#/components/schemas/TradeAccountCreate"
               }
             }
           }
@@ -1095,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Ledger"
+                  "$ref": "#/components/schemas/TradeAccount"
                 }
               }
             }
@@ -1106,7 +736,192 @@
         }
       },
       "delete": {
-        "summary": "Delete a Ledger",
+        "summary": "Delete a TradeAccount",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/tradeactivities": {
+      "get": {
+        "summary": "List TradeActivities",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/TradeActivity"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a TradeActivity",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TradeActivityCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TradeActivity"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/tradeactivities/{id}": {
+      "get": {
+        "summary": "Get a TradeActivity",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TradeActivity"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a TradeActivity",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TradeActivityCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TradeActivity"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a TradeActivity",
         "parameters": [
           {
             "name": "id",
@@ -1140,23 +955,39 @@
   },
   "components": {
     "schemas": {
-      "Account": {
+      "Asset": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "holderId": {
+          "symbol": {
             "type": "string"
           },
-          "currency": {
-            "type": "string"
+          "assetClass": {
+            "type": "string",
+            "enum": [
+              "us_equity",
+              "us_option",
+              "crypto",
+              "crypto_perp"
+            ]
           },
-          "balance": {
-            "type": "number"
+          "exchange": {
+            "type": "string"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "active",
+              "inactive"
+            ]
+          },
+          "tradable": {
+            "type": "boolean"
+          },
+          "fractionable": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1168,129 +999,41 @@
           }
         }
       },
-      "AccountCreate": {
+      "AssetCreate": {
         "type": "object",
         "properties": {
-          "holderId": {
+          "symbol": {
             "type": "string"
           },
-          "currency": {
-            "type": "string"
-          },
-          "balance": {
-            "type": "number"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "currency",
-          "balance"
-        ]
-      },
-      "Card": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "accountId": {
-            "type": "string"
-          },
-          "last4": {
-            "type": "string"
-          },
-          "network": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "createdAt": {
+          "assetClass": {
             "type": "string",
-            "format": "date-time"
+            "enum": [
+              "us_equity",
+              "us_option",
+              "crypto",
+              "crypto_perp"
+            ]
           },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "CardCreate": {
-        "type": "object",
-        "properties": {
-          "accountId": {
-            "type": "string"
-          },
-          "last4": {
-            "type": "string"
-          },
-          "network": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "last4",
-          "network"
-        ]
-      },
-      "Transaction": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "accountId": {
-            "type": "string"
-          },
-          "amount": {
-            "type": "number"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "type": {
+          "exchange": {
             "type": "string"
           },
           "status": {
-            "type": "string"
-          },
-          "createdAt": {
             "type": "string",
-            "format": "date-time"
+            "enum": [
+              "active",
+              "inactive"
+            ]
           },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "TransactionCreate": {
-        "type": "object",
-        "properties": {
-          "accountId": {
-            "type": "string"
+          "tradable": {
+            "type": "boolean"
           },
-          "amount": {
-            "type": "number"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
+          "fractionable": {
+            "type": "boolean"
           }
         },
         "required": [
-          "amount",
-          "currency"
+          "symbol",
+          "assetClass"
         ]
       },
       "Order": {
@@ -1303,16 +1046,58 @@
             "type": "string"
           },
           "side": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "buy",
+              "sell"
+            ]
           },
-          "quantity": {
-            "type": "number"
-          },
-          "price": {
-            "type": "number"
+          "type": {
+            "type": "string",
+            "enum": [
+              "market",
+              "limit",
+              "stop",
+              "stop_limit",
+              "trailing_stop"
+            ]
           },
           "status": {
+            "type": "string",
+            "enum": [
+              "new",
+              "partially_filled",
+              "filled",
+              "done_for_day",
+              "canceled",
+              "expired",
+              "replaced",
+              "pending_cancel",
+              "pending_replace",
+              "pending_review",
+              "accepted",
+              "pending_new",
+              "accepted_for_bidding",
+              "stopped",
+              "rejected",
+              "suspended",
+              "calculated",
+              "held"
+            ]
+          },
+          "qty": {
             "type": "string"
+          },
+          "timeInForce": {
+            "type": "string",
+            "enum": [
+              "day",
+              "gtc",
+              "opg",
+              "cls",
+              "ioc",
+              "fok"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1331,16 +1116,58 @@
             "type": "string"
           },
           "side": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "buy",
+              "sell"
+            ]
           },
-          "quantity": {
-            "type": "number"
-          },
-          "price": {
-            "type": "number"
+          "type": {
+            "type": "string",
+            "enum": [
+              "market",
+              "limit",
+              "stop",
+              "stop_limit",
+              "trailing_stop"
+            ]
           },
           "status": {
+            "type": "string",
+            "enum": [
+              "new",
+              "partially_filled",
+              "filled",
+              "done_for_day",
+              "canceled",
+              "expired",
+              "replaced",
+              "pending_cancel",
+              "pending_replace",
+              "pending_review",
+              "accepted",
+              "pending_new",
+              "accepted_for_bidding",
+              "stopped",
+              "rejected",
+              "suspended",
+              "calculated",
+              "held"
+            ]
+          },
+          "qty": {
             "type": "string"
+          },
+          "timeInForce": {
+            "type": "string",
+            "enum": [
+              "day",
+              "gtc",
+              "opg",
+              "cls",
+              "ioc",
+              "fok"
+            ]
           }
         },
         "required": [
@@ -1348,20 +1175,30 @@
           "side"
         ]
       },
-      "Wallet": {
+      "Position": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "address": {
+          "symbol": {
             "type": "string"
           },
-          "chain": {
+          "qty": {
             "type": "string"
           },
-          "balance": {
-            "type": "number"
+          "side": {
+            "type": "string",
+            "enum": [
+              "long",
+              "short"
+            ]
+          },
+          "avgEntryPrice": {
+            "type": "string"
+          },
+          "marketValue": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -1373,40 +1210,167 @@
           }
         }
       },
-      "WalletCreate": {
+      "PositionCreate": {
         "type": "object",
         "properties": {
-          "address": {
+          "symbol": {
             "type": "string"
           },
-          "chain": {
+          "qty": {
             "type": "string"
           },
-          "balance": {
-            "type": "number"
+          "side": {
+            "type": "string",
+            "enum": [
+              "long",
+              "short"
+            ]
+          },
+          "avgEntryPrice": {
+            "type": "string"
+          },
+          "marketValue": {
+            "type": "string"
           }
         },
         "required": [
-          "address",
-          "chain"
+          "symbol",
+          "qty"
         ]
       },
-      "Ledger": {
+      "TradeAccount": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "accountId": {
+          "accountNumber": {
             "type": "string"
           },
-          "debit": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "ACCOUNT_CLOSED",
+              "ACCOUNT_UPDATED",
+              "ACTION_REQUIRED",
+              "ACTIVE",
+              "AML_REVIEW",
+              "APPROVAL_PENDING",
+              "APPROVED",
+              "DISABLED",
+              "DISABLE_PENDING",
+              "EDITED",
+              "INACTIVE",
+              "KYC_SUBMITTED",
+              "LIMITED",
+              "ONBOARDING",
+              "PAPER_ONLY",
+              "REAPPROVAL_PENDING",
+              "REJECTED",
+              "RESUBMITTED",
+              "SIGNED_UP",
+              "SUBMISSION_FAILED",
+              "SUBMITTED"
+            ]
+          },
+          "equity": {
+            "type": "string"
+          },
+          "cash": {
+            "type": "string"
+          },
+          "buyingPower": {
+            "type": "string"
+          },
+          "patternDayTrader": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "TradeAccountCreate": {
+        "type": "object",
+        "properties": {
+          "accountNumber": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ACCOUNT_CLOSED",
+              "ACCOUNT_UPDATED",
+              "ACTION_REQUIRED",
+              "ACTIVE",
+              "AML_REVIEW",
+              "APPROVAL_PENDING",
+              "APPROVED",
+              "DISABLED",
+              "DISABLE_PENDING",
+              "EDITED",
+              "INACTIVE",
+              "KYC_SUBMITTED",
+              "LIMITED",
+              "ONBOARDING",
+              "PAPER_ONLY",
+              "REAPPROVAL_PENDING",
+              "REJECTED",
+              "RESUBMITTED",
+              "SIGNED_UP",
+              "SUBMISSION_FAILED",
+              "SUBMITTED"
+            ]
+          },
+          "equity": {
+            "type": "string"
+          },
+          "cash": {
+            "type": "string"
+          },
+          "buyingPower": {
+            "type": "string"
+          },
+          "patternDayTrader": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "accountNumber",
+          "status"
+        ]
+      },
+      "TradeActivity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "symbol": {
+            "type": "string"
+          },
+          "side": {
+            "type": "string"
+          },
+          "price": {
             "type": "number"
           },
-          "credit": {
+          "qty": {
             "type": "number"
           },
-          "memo": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "partial_fill",
+              "fill"
+            ]
+          },
+          "orderId": {
             "type": "string"
           },
           "createdAt": {
@@ -1419,25 +1383,35 @@
           }
         }
       },
-      "LedgerCreate": {
+      "TradeActivityCreate": {
         "type": "object",
         "properties": {
-          "accountId": {
+          "symbol": {
             "type": "string"
           },
-          "debit": {
+          "side": {
+            "type": "string"
+          },
+          "price": {
             "type": "number"
           },
-          "credit": {
+          "qty": {
             "type": "number"
           },
-          "memo": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "partial_fill",
+              "fill"
+            ]
+          },
+          "orderId": {
             "type": "string"
           }
         },
         "required": [
-          "debit",
-          "credit"
+          "symbol",
+          "side"
         ]
       }
     }

@@ -6,7 +6,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 30010,
+  "totalEndpoints": 30000,
   "l4SpecsAvailable": 1000,
   "apis": [
     {
@@ -454,10 +454,10 @@
     {
       "handle": "alpaca-compat",
       "did": "did:web:etzhayyim.com:actor:alpaca-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreiatpwy7xvusilnghito4rv5ln6nuu7yuttvokoarzo6k2cb56pymq",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreib4bqxnbuvdgcgxixoc72zsqixfjtd6zujo2gygg5mmrspqs4ikk4",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -12150,7 +12150,7 @@
     {
       "handle": "powerbi-compat",
       "did": "did:web:etzhayyim.com:actor:powerbi-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreic4tuyqmrtnoognjngjeetpcz67yqlzuvowjbjuumigdijhiaohg4",
@@ -15975,10 +15975,10 @@
     {
       "handle": "vonage-compat",
       "did": "did:web:etzhayyim.com:actor:vonage-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreidljtkyiyvaalt7tti5ekjd3l6xldc6wefemmuvvlf5xs3pbrtxuu",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreifqilsec4lwet333vrzs7rcujememvzuz6pguihin7qrnf7bwqeu4",
       "health": "/healthz",
       "features": {
         "pagination": true,

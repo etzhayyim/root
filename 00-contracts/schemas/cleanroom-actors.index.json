@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 956,
-    "L5": 44
+    "L4": 953,
+    "L5": 47
   },
   "actors": [
     {
@@ -485,10 +485,10 @@
     {
       "handle": "alpaca-compat",
       "did": "did:web:etzhayyim.com:actor:alpaca-compat",
-      "wasmCid": "bafkreiatpwy7xvusilnghito4rv5ln6nuu7yuttvokoarzo6k2cb56pymq",
+      "wasmCid": "bafkreib4bqxnbuvdgcgxixoc72zsqixfjtd6zujo2gygg5mmrspqs4ikk4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "alpaca clean-room actor",
       "category": "fintech_web3",
       "capabilities": [
@@ -12872,7 +12872,7 @@
       "wasmCid": "bafkreic4tuyqmrtnoognjngjeetpcz67yqlzuvowjbjuumigdijhiaohg4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "powerbi clean-room actor",
       "category": "data_analytics",
       "capabilities": [
@@ -16919,10 +16919,10 @@
     {
       "handle": "vonage-compat",
       "did": "did:web:etzhayyim.com:actor:vonage-compat",
-      "wasmCid": "bafkreidljtkyiyvaalt7tti5ekjd3l6xldc6wefemmuvvlf5xs3pbrtxuu",
+      "wasmCid": "bafkreifqilsec4lwet333vrzs7rcujememvzuz6pguihin7qrnf7bwqeu4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "vonage clean-room actor",
       "category": "comms_social",
       "capabilities": [

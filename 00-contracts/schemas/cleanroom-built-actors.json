@@ -459,17 +459,16 @@
       "handle": "alpaca-compat",
       "platform": "alpaca",
       "bytes": 2120,
-      "wasmCid": "bafkreiatpwy7xvusilnghito4rv5ln6nuu7yuttvokoarzo6k2cb56pymq",
+      "wasmCid": "bafkreib4bqxnbuvdgcgxixoc72zsqixfjtd6zujo2gygg5mmrspqs4ikk4",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Account",
-        "Card",
-        "Transaction",
+        "Asset",
         "Order",
-        "Wallet",
-        "Ledger"
+        "Position",
+        "TradeAccount",
+        "TradeActivity"
       ]
     },
     {
@@ -12161,11 +12160,11 @@
       "tier": "browser-local",
       "entities": [
         "Dataset",
-        "Query",
-        "Dashboard",
         "Report",
-        "Connection",
-        "Metric"
+        "Dashboard",
+        "Group",
+        "Tile",
+        "Gateway"
       ]
     },
     {
@@ -15983,17 +15982,16 @@
       "handle": "vonage-compat",
       "platform": "vonage",
       "bytes": 2120,
-      "wasmCid": "bafkreidljtkyiyvaalt7tti5ekjd3l6xldc6wefemmuvvlf5xs3pbrtxuu",
+      "wasmCid": "bafkreifqilsec4lwet333vrzs7rcujememvzuz6pguihin7qrnf7bwqeu4",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Channel",
+        "Call",
         "Message",
-        "User",
-        "Room",
-        "Stream",
-        "Webhook"
+        "Number",
+        "Verification",
+        "Application"
       ]
     },
     {
