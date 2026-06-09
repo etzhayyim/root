@@ -3,71 +3,65 @@
 
 namespace algolia {
 
-    entity ContentEntry {
-        id: string @unique
-        modelName: string
-        title: string
-        locale: string
-        published: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Product {
-        id: string @unique
-        sku: string
-        title: string
-        price: float
-        currency: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Shipment {
-        id: string @unique
-        orderId: string
-        carrier: string
-        tracking: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity SearchIndex {
+    entity Index {
         id: string @unique
         name: string
-        recordCount: integer
-        primaryKey: string
+        entries: integer
+        dataSize: integer
+        fileSize: integer
+        lastBuildTimeS: integer
+        numberOfPendingTasks: integer
+        pendingTask: boolean
+        primary: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Webhook {
+    entity Rule {
         id: string @unique
-        event: string
-        url: string
-        active: boolean
+        objectID: string
+        description: string
+        enabled: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Order {
+    entity Synonym {
         id: string @unique
-        number: string
-        total: float
-        currency: string
+        objectID: string
+        type: string
+        word: string
+        input: string
+        placeholder: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Cluster {
+        id: string @unique
+        clusterName: string
+        nbRecords: integer
+        nbUserIDs: integer
+        dataSize: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity UserId {
+        id: string @unique
+        userID: string
+        clusterName: string
+        nbRecords: integer
+        dataSize: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Task {
+        id: string @unique
         status: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

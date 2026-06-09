@@ -11,15 +11,46 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigiitzaomidocd3udgm4st4cw3je6wy35fb66ab55itf3oej2lxue",
   "schema": "schema/algolia.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://github.com/algolia/api-clients-automation (specs/search — official OpenAPI source-of-truth)",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Index",
+      "Rule",
+      "Synonym",
+      "Cluster",
+      "UserId",
+      "Task"
+    ],
+    "enums": {
+      "Synonym": {
+        "type": [
+          "synonym",
+          "onewaysynonym",
+          "altcorrection1",
+          "altcorrection2",
+          "placeholder",
+          "oneWaySynonym",
+          "altCorrection1",
+          "altCorrection2"
+        ]
+      },
+      "Task": {
+        "status": [
+          "published",
+          "notPublished"
+        ]
+      }
+    }
+  },
   "entities": [
-    "ContentEntry",
-    "Product",
-    "Shipment",
-    "SearchIndex",
-    "Webhook",
-    "Order"
+    "Index",
+    "Rule",
+    "Synonym",
+    "Cluster",
+    "UserId",
+    "Task"
   ],
   "adr": [
     "260607",
@@ -35,160 +66,160 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/contententries",
-          "op": "create ContentEntry"
+          "path": "/v1/indexes",
+          "op": "create Index"
         },
         {
           "method": "GET",
-          "path": "/v1/contententries",
-          "op": "list ContentEntry"
+          "path": "/v1/indexes",
+          "op": "list Index"
         },
         {
           "method": "GET",
-          "path": "/v1/contententries/{id}",
-          "op": "get ContentEntry"
+          "path": "/v1/indexes/{id}",
+          "op": "get Index"
         },
         {
           "method": "PATCH",
-          "path": "/v1/contententries/{id}",
-          "op": "update ContentEntry"
+          "path": "/v1/indexes/{id}",
+          "op": "update Index"
         },
         {
           "method": "DELETE",
-          "path": "/v1/contententries/{id}",
-          "op": "delete ContentEntry"
+          "path": "/v1/indexes/{id}",
+          "op": "delete Index"
         },
         {
           "method": "POST",
-          "path": "/v1/products",
-          "op": "create Product"
+          "path": "/v1/rules",
+          "op": "create Rule"
         },
         {
           "method": "GET",
-          "path": "/v1/products",
-          "op": "list Product"
+          "path": "/v1/rules",
+          "op": "list Rule"
         },
         {
           "method": "GET",
-          "path": "/v1/products/{id}",
-          "op": "get Product"
+          "path": "/v1/rules/{id}",
+          "op": "get Rule"
         },
         {
           "method": "PATCH",
-          "path": "/v1/products/{id}",
-          "op": "update Product"
+          "path": "/v1/rules/{id}",
+          "op": "update Rule"
         },
         {
           "method": "DELETE",
-          "path": "/v1/products/{id}",
-          "op": "delete Product"
+          "path": "/v1/rules/{id}",
+          "op": "delete Rule"
         },
         {
           "method": "POST",
-          "path": "/v1/shipments",
-          "op": "create Shipment"
+          "path": "/v1/synonyms",
+          "op": "create Synonym"
         },
         {
           "method": "GET",
-          "path": "/v1/shipments",
-          "op": "list Shipment"
+          "path": "/v1/synonyms",
+          "op": "list Synonym"
         },
         {
           "method": "GET",
-          "path": "/v1/shipments/{id}",
-          "op": "get Shipment"
+          "path": "/v1/synonyms/{id}",
+          "op": "get Synonym"
         },
         {
           "method": "PATCH",
-          "path": "/v1/shipments/{id}",
-          "op": "update Shipment"
+          "path": "/v1/synonyms/{id}",
+          "op": "update Synonym"
         },
         {
           "method": "DELETE",
-          "path": "/v1/shipments/{id}",
-          "op": "delete Shipment"
+          "path": "/v1/synonyms/{id}",
+          "op": "delete Synonym"
         },
         {
           "method": "POST",
-          "path": "/v1/searchindexes",
-          "op": "create SearchIndex"
+          "path": "/v1/clusters",
+          "op": "create Cluster"
         },
         {
           "method": "GET",
-          "path": "/v1/searchindexes",
-          "op": "list SearchIndex"
+          "path": "/v1/clusters",
+          "op": "list Cluster"
         },
         {
           "method": "GET",
-          "path": "/v1/searchindexes/{id}",
-          "op": "get SearchIndex"
+          "path": "/v1/clusters/{id}",
+          "op": "get Cluster"
         },
         {
           "method": "PATCH",
-          "path": "/v1/searchindexes/{id}",
-          "op": "update SearchIndex"
+          "path": "/v1/clusters/{id}",
+          "op": "update Cluster"
         },
         {
           "method": "DELETE",
-          "path": "/v1/searchindexes/{id}",
-          "op": "delete SearchIndex"
+          "path": "/v1/clusters/{id}",
+          "op": "delete Cluster"
         },
         {
           "method": "POST",
-          "path": "/v1/webhooks",
-          "op": "create Webhook"
+          "path": "/v1/userids",
+          "op": "create UserId"
         },
         {
           "method": "GET",
-          "path": "/v1/webhooks",
-          "op": "list Webhook"
+          "path": "/v1/userids",
+          "op": "list UserId"
         },
         {
           "method": "GET",
-          "path": "/v1/webhooks/{id}",
-          "op": "get Webhook"
+          "path": "/v1/userids/{id}",
+          "op": "get UserId"
         },
         {
           "method": "PATCH",
-          "path": "/v1/webhooks/{id}",
-          "op": "update Webhook"
+          "path": "/v1/userids/{id}",
+          "op": "update UserId"
         },
         {
           "method": "DELETE",
-          "path": "/v1/webhooks/{id}",
-          "op": "delete Webhook"
+          "path": "/v1/userids/{id}",
+          "op": "delete UserId"
         },
         {
           "method": "POST",
-          "path": "/v1/orders",
-          "op": "create Order"
+          "path": "/v1/tasks",
+          "op": "create Task"
         },
         {
           "method": "GET",
-          "path": "/v1/orders",
-          "op": "list Order"
+          "path": "/v1/tasks",
+          "op": "list Task"
         },
         {
           "method": "GET",
-          "path": "/v1/orders/{id}",
-          "op": "get Order"
+          "path": "/v1/tasks/{id}",
+          "op": "get Task"
         },
         {
           "method": "PATCH",
-          "path": "/v1/orders/{id}",
-          "op": "update Order"
+          "path": "/v1/tasks/{id}",
+          "op": "update Task"
         },
         {
           "method": "DELETE",
-          "path": "/v1/orders/{id}",
-          "op": "delete Order"
+          "path": "/v1/tasks/{id}",
+          "op": "delete Task"
         }
       ],
       "features": {
-        "pagination": true,
-        "filtering": true,
-        "relationExpansion": true,
-        "strictValidation": true,
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
         "contractTest": true
       },
       "health": "/healthz"
@@ -247,308 +278,53 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_content_entry",
-          "description": "Create a ContentEntry.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "modelName": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "locale": {
-                "type": "string"
-              },
-              "published": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "modelName",
-              "title"
-            ]
-          }
-        },
-        {
-          "name": "list_content_entries",
-          "description": "List ContentEntries.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_content_entry",
-          "description": "Get a ContentEntry by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_content_entry",
-          "description": "Update a ContentEntry.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "modelName": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "locale": {
-                "type": "string"
-              },
-              "published": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_content_entry",
-          "description": "Delete a ContentEntry.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_product",
-          "description": "Create a Product.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "sku": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "price": {
-                "type": "number"
-              },
-              "currency": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "sku",
-              "title"
-            ]
-          }
-        },
-        {
-          "name": "list_products",
-          "description": "List Products.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_product",
-          "description": "Get a Product by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_product",
-          "description": "Update a Product.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "sku": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "price": {
-                "type": "number"
-              },
-              "currency": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_product",
-          "description": "Delete a Product.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_shipment",
-          "description": "Create a Shipment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "orderId": {
-                "type": "string"
-              },
-              "carrier": {
-                "type": "string"
-              },
-              "tracking": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "carrier",
-              "tracking"
-            ]
-          }
-        },
-        {
-          "name": "list_shipments",
-          "description": "List Shipments.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_shipment",
-          "description": "Get a Shipment by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_shipment",
-          "description": "Update a Shipment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "orderId": {
-                "type": "string"
-              },
-              "carrier": {
-                "type": "string"
-              },
-              "tracking": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_shipment",
-          "description": "Delete a Shipment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_search_index",
-          "description": "Create a SearchIndex.",
+          "name": "create_index",
+          "description": "Create a Index.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "recordCount": {
+              "entries": {
                 "type": "integer"
               },
-              "primaryKey": {
+              "dataSize": {
+                "type": "integer"
+              },
+              "fileSize": {
+                "type": "integer"
+              },
+              "lastBuildTimeS": {
+                "type": "integer"
+              },
+              "numberOfPendingTasks": {
+                "type": "integer"
+              },
+              "pendingTask": {
+                "type": "boolean"
+              },
+              "primary": {
                 "type": "string"
               }
             },
             "required": [
               "name",
-              "recordCount"
+              "entries"
             ]
           }
         },
         {
-          "name": "list_search_indexes",
-          "description": "List SearchIndexes.",
+          "name": "list_indexes",
+          "description": "List Indexes.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_search_index",
-          "description": "Get a SearchIndex by id.",
+          "name": "get_index",
+          "description": "Get a Index by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -562,8 +338,8 @@
           }
         },
         {
-          "name": "update_search_index",
-          "description": "Update a SearchIndex.",
+          "name": "update_index",
+          "description": "Update a Index.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -573,10 +349,25 @@
               "name": {
                 "type": "string"
               },
-              "recordCount": {
+              "entries": {
                 "type": "integer"
               },
-              "primaryKey": {
+              "dataSize": {
+                "type": "integer"
+              },
+              "fileSize": {
+                "type": "integer"
+              },
+              "lastBuildTimeS": {
+                "type": "integer"
+              },
+              "numberOfPendingTasks": {
+                "type": "integer"
+              },
+              "pendingTask": {
+                "type": "boolean"
+              },
+              "primary": {
                 "type": "string"
               }
             },
@@ -586,8 +377,8 @@
           }
         },
         {
-          "name": "delete_search_index",
-          "description": "Delete a SearchIndex.",
+          "name": "delete_index",
+          "description": "Delete a Index.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -601,38 +392,38 @@
           }
         },
         {
-          "name": "create_webhook",
-          "description": "Create a Webhook.",
+          "name": "create_rule",
+          "description": "Create a Rule.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "event": {
+              "objectID": {
                 "type": "string"
               },
-              "url": {
+              "description": {
                 "type": "string"
               },
-              "active": {
+              "enabled": {
                 "type": "boolean"
               }
             },
             "required": [
-              "event",
-              "url"
+              "objectID",
+              "description"
             ]
           }
         },
         {
-          "name": "list_webhooks",
-          "description": "List Webhooks.",
+          "name": "list_rules",
+          "description": "List Rules.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_webhook",
-          "description": "Get a Webhook by id.",
+          "name": "get_rule",
+          "description": "Get a Rule by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -646,21 +437,21 @@
           }
         },
         {
-          "name": "update_webhook",
-          "description": "Update a Webhook.",
+          "name": "update_rule",
+          "description": "Update a Rule.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "event": {
+              "objectID": {
                 "type": "string"
               },
-              "url": {
+              "description": {
                 "type": "string"
               },
-              "active": {
+              "enabled": {
                 "type": "boolean"
               }
             },
@@ -670,8 +461,8 @@
           }
         },
         {
-          "name": "delete_webhook",
-          "description": "Delete a Webhook.",
+          "name": "delete_rule",
+          "description": "Delete a Rule.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -685,18 +476,326 @@
           }
         },
         {
-          "name": "create_order",
-          "description": "Create a Order.",
+          "name": "create_synonym",
+          "description": "Create a Synonym.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "number": {
+              "objectID": {
                 "type": "string"
               },
-              "total": {
-                "type": "number"
+              "type": {
+                "type": "string"
               },
-              "currency": {
+              "word": {
+                "type": "string"
+              },
+              "input": {
+                "type": "string"
+              },
+              "placeholder": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "objectID",
+              "type"
+            ]
+          }
+        },
+        {
+          "name": "list_synonyms",
+          "description": "List Synonyms.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_synonym",
+          "description": "Get a Synonym by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_synonym",
+          "description": "Update a Synonym.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "objectID": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "word": {
+                "type": "string"
+              },
+              "input": {
+                "type": "string"
+              },
+              "placeholder": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_synonym",
+          "description": "Delete a Synonym.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_cluster",
+          "description": "Create a Cluster.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "clusterName": {
+                "type": "string"
+              },
+              "nbRecords": {
+                "type": "integer"
+              },
+              "nbUserIDs": {
+                "type": "integer"
+              },
+              "dataSize": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "clusterName",
+              "nbRecords"
+            ]
+          }
+        },
+        {
+          "name": "list_clusters",
+          "description": "List Clusters.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_cluster",
+          "description": "Get a Cluster by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_cluster",
+          "description": "Update a Cluster.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "clusterName": {
+                "type": "string"
+              },
+              "nbRecords": {
+                "type": "integer"
+              },
+              "nbUserIDs": {
+                "type": "integer"
+              },
+              "dataSize": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_cluster",
+          "description": "Delete a Cluster.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_user_id",
+          "description": "Create a UserId.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "userID": {
+                "type": "string"
+              },
+              "clusterName": {
+                "type": "string"
+              },
+              "nbRecords": {
+                "type": "integer"
+              },
+              "dataSize": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "userID",
+              "clusterName"
+            ]
+          }
+        },
+        {
+          "name": "list_user_ids",
+          "description": "List UserIds.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_user_id",
+          "description": "Get a UserId by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_user_id",
+          "description": "Update a UserId.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "userID": {
+                "type": "string"
+              },
+              "clusterName": {
+                "type": "string"
+              },
+              "nbRecords": {
+                "type": "integer"
+              },
+              "dataSize": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_user_id",
+          "description": "Delete a UserId.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_task",
+          "description": "Create a Task.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          }
+        },
+        {
+          "name": "list_tasks",
+          "description": "List Tasks.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_task",
+          "description": "Get a Task by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_task",
+          "description": "Update a Task.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               },
               "status": {
@@ -704,64 +803,13 @@
               }
             },
             "required": [
-              "number",
-              "total"
-            ]
-          }
-        },
-        {
-          "name": "list_orders",
-          "description": "List Orders.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_order",
-          "description": "Get a Order by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
               "id"
             ]
           }
         },
         {
-          "name": "update_order",
-          "description": "Update a Order.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "number": {
-                "type": "string"
-              },
-              "total": {
-                "type": "number"
-              },
-              "currency": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_order",
-          "description": "Delete a Order.",
+          "name": "delete_task",
+          "description": "Delete a Task.",
           "inputSchema": {
             "type": "object",
             "properties": {

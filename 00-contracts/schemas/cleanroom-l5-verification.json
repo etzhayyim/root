@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 64,
+  "count": 65,
   "actors": [
     {
       "handle": "square-compat",
@@ -9025,6 +9025,123 @@
       ],
       "notApplicable": [],
       "note": "Remodeled from a mismatched e-commerce archetype to a faithful headless-CMS (CMA) model. 6/6 entities field-verified vs the official contentful-management.js SDK types. No closed enums in these CMA objects (all open strings). Schemaless Entry/Asset user-fields intentionally not modeled (scalar-only actor)."
+    },
+    {
+      "handle": "algolia-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/algolia/api-clients-automation (specs/search — official OpenAPI source-of-truth)",
+      "remodeled": "Remodeled from the generic headless_ec_logistics archetype (ContentEntry/Product/Shipment/SearchIndex/Order — an e-commerce shape shared with the old contentful model) to a faithful Algolia Search API model (Index/Rule/Synonym/Cluster/UserId/Task), verified field-by-field against Algolia's official OpenAPI spec files. Schemaless search Records (Hit) intentionally not modeled (user-defined attributes; actor models scalar fields only). The L5 gate had correctly rejected the prior mismatched model (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Index",
+          "source": "specs/search/common/schemas/listIndicesResponse.yml (fetchedIndex)",
+          "verifiedFields": [
+            "name",
+            "entries",
+            "dataSize",
+            "fileSize",
+            "lastBuildTimeS",
+            "numberOfPendingTasks",
+            "pendingTask",
+            "primary"
+          ],
+          "fieldStatus": "confirmed vs fetchedIndex schema (name/entries/dataSize/fileSize/lastBuildTimeS/numberOfPendingTasks/pendingTask/primary)",
+          "discoveredEnums": {},
+          "gaps": [
+            "replicas(array)",
+            "virtual(boolean)"
+          ]
+        },
+        {
+          "entity": "Rule",
+          "source": "specs/search/paths/rules/common/schemas.yml (rule)",
+          "verifiedFields": [
+            "objectID",
+            "description",
+            "enabled"
+          ],
+          "fieldStatus": "confirmed vs rule schema (objectID/description/enabled)",
+          "discoveredEnums": {},
+          "gaps": [
+            "conditions(array)",
+            "consequence(object)",
+            "validity(array)"
+          ]
+        },
+        {
+          "entity": "Synonym",
+          "source": "specs/search/paths/synonyms/common/schemas.yml (synonymHit)",
+          "verifiedFields": [
+            "objectID",
+            "type",
+            "word",
+            "input",
+            "placeholder"
+          ],
+          "fieldStatus": "confirmed vs synonymHit schema (objectID/type/word/input/placeholder)",
+          "discoveredEnums": {
+            "type": [
+              "synonym",
+              "onewaysynonym",
+              "altcorrection1",
+              "altcorrection2",
+              "placeholder",
+              "oneWaySynonym",
+              "altCorrection1",
+              "altCorrection2"
+            ]
+          },
+          "gaps": [
+            "synonyms(array)",
+            "corrections(array)",
+            "replacements(array)"
+          ]
+        },
+        {
+          "entity": "Cluster",
+          "source": "specs/search/common/schemas/Cluster.yml (cluster)",
+          "verifiedFields": [
+            "clusterName",
+            "nbRecords",
+            "nbUserIDs",
+            "dataSize"
+          ],
+          "fieldStatus": "confirmed vs cluster schema (clusterName/nbRecords/nbUserIDs/dataSize)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "UserId",
+          "source": "specs/search/common/schemas/UserId.yml (userId)",
+          "verifiedFields": [
+            "userID",
+            "clusterName",
+            "nbRecords",
+            "dataSize"
+          ],
+          "fieldStatus": "confirmed vs userId schema (userID/clusterName/nbRecords/dataSize)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Task",
+          "source": "specs/search/common/schemas/GetTaskResponse.yml + common/responses/common.yml#/taskStatus",
+          "verifiedFields": [
+            "status"
+          ],
+          "fieldStatus": "confirmed vs getTaskResponse schema (status)",
+          "discoveredEnums": {
+            "status": [
+              "published",
+              "notPublished"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "Remodeled from a mismatched e-commerce archetype (shared with old contentful) to a faithful search-engine model. 6/6 entities field-verified vs Algolia's official OpenAPI spec. Discovered closed enums (2): Synonym.type (SynonymType), Task.status. Schemaless search Records intentionally not modeled."
     }
   ]
 }

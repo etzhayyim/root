@@ -1122,6 +1122,17 @@ PLATFORM_OVERRIDES = {
         "ApiKey": E(name="string", description="string", accessToken="string"),
         "Webhook": E(name="string", url="string", httpBasicUsername="string", active="boolean"),
     },
+    # Faithful Algolia (Search API) model (remodeled from the generic
+    # headless_ec_logistics e-commerce archetype — Algolia is a search engine,
+    # not a storefront), doc-verified L5 vs algolia/api-clients-automation specs.
+    "algolia": {
+        "Index": E(name="string", entries="integer", dataSize="integer", fileSize="integer", lastBuildTimeS="integer", numberOfPendingTasks="integer", pendingTask="boolean", primary="string"),
+        "Rule": E(objectID="string", description="string", enabled="boolean"),
+        "Synonym": E(objectID="string", type="string", word="string", input="string", placeholder="string"),
+        "Cluster": E(clusterName="string", nbRecords="integer", nbUserIDs="integer", dataSize="integer"),
+        "UserId": E(userID="string", clusterName="string", nbRecords="integer", dataSize="integer"),
+        "Task": E(status="string"),
+    },
     # Faithful Airtable model (remodeled from generic office_productivity), L5.
     "airtable": {
         "Base": E(name="string", permissionLevel="string"),
