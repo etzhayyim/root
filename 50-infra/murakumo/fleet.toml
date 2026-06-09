@@ -81,6 +81,12 @@ role = "ipfs-pinner + stewardship-leader + kuni-umi-commission-leader"
 cells = [
   "LandStewardshipMonitoringCell",
   "CommissioningCell",  # kuni-umi Phase 4 (ADR-2605201400)
+  "watatsuna_cable_ingest",     # 綿津綱 submarine-cable offline merged-graph intake (cron 23 * * * *) (ADR-2606012600; G7 live TeleGeography/AIS feed gated)
+  "watatsuna_resilience_weave", # chokepoint-load + station degree/capacity + cable-diversity + redundancy-gap (cron 28 * * * *) (ADR-2606012600; G2 resilience not interdiction)
+  "watatsuna_resilience_persist",  # 綿津綱 cable-resilience autonomous heartbeat → append-only kotoba Datom log (cron 33 * * * *) (ADR-2606012600; local persist, G7 live-node push gated)
+  "watari_craft_ingest",        # 渡り live moving-craft (AIS/ADS-B) offline merged-graph intake (cron 38 * * * *) (ADR-2606041827; G7 live feed gated)
+  "watari_situation_weave",     # latest-fix-per-craft + lane/corridor load + chokepoint transit + freshness tail (cron 43 * * * *) (ADR-2606041827; G2/G4 awareness not surveillance, no person-tracking)
+  "watari_situation_persist",   # 渡り moving-craft situational-awareness autonomous heartbeat → append-only kotoba Datom log (cron 48 * * * *) (ADR-2606041827; local persist, G7 gated; 動 sibling of watatsuna 静)
 ]
 infrastructure = ["ipfs-pinner (existing, ADR-2605171800)"]
 replicas_of = []
@@ -94,6 +100,9 @@ cells = [
   "LandDonationProcessingCell",
   "LandDisputeResolutionCell",
   "StewardSuccessionCell",
+  "kanjo_filing_ingest",        # 勘定 financial-disclosure (決算) offline merged-graph intake (cron 49 * * * *) (ADR-2606032000; G7 live EDGAR/EDINET gated)
+  "kanjo_metrics_weave",        # per-company ratios + as-of YoY + sector/currency aggregates (:synthesized) (cron 54 * * * *) (ADR-2606032000; G2/G4 non-adjudicating, no forecast)
+  "kanjo_disclosure_persist",   # 勘定 financial-disclosure autonomous heartbeat → append-only kotoba Datom log (cron 59 * * * *) (ADR-2606032000; local persist, G7 gated; restatement = new fact 非終末論 G11)
 ]
 replicas_of = []
 
@@ -108,6 +117,9 @@ cells = [
   "PublicFundGrantCell",
   "TitheRoutingCell",
   "DeploymentPlanningCell",  # kuni-umi Phase 2 (ADR-2605201400) — treasury-adjacent for BoM cost
+  "kabuto_company_ingest",      # 兜 public-company supply-chain offline merged-graph intake (cron 24 * * * *) (ADR-2606022000; G7 live GLEIF/EDGAR universe gated)
+  "kabuto_concentration_weave", # supplier-concentration / single-source / tier-depth / cross-bloc / cap-HHI (cron 29 * * * *) (ADR-2606022000; G2 resilience not target-list)
+  "kabuto_supply_persist",      # 兜 supply-chain resilience autonomous heartbeat → append-only kotoba Datom log (cron 34 * * * *) (ADR-2606022000; local persist, G7/G11 gated)
 ]
 replicas_of = []
 
@@ -161,6 +173,13 @@ cells = [
   "ossekai_emergency_advisory",
   "shionome_ingest",       # 潮目 capital-flow intake (cron 5 * * * *) (ADR-2606072200)
   "shionome_flow_graph",   # 潮目 net-flow index (cron 10 * * * *) (ADR-2606072200)
+  "ipaddress_ingest",      # IP/ASN offline merged-graph intake (cron 7 * * * *) (ADR-2605301400 §T2; G7 live RIR pull gated)
+  "ipaddress_concentration_weave",  # RIR coverage + ASN prefix-load + hosting-class HHI (cron 12 * * * *) (ADR-2605301400 §T2)
+  "yabai_cti_ingest",      # CTI/passive-DNS offline merged-graph intake (cron 22 * * * *) (ADR-2605301400 §T3; G7 live CT/PDNS pull gated)
+  "yabai_cti_weave",       # fast-flux + hosting concentration + IOC load + cert pivots (cron 27 * * * *) (ADR-2605301400 §T3)
+  "tadori_silen_review",   # 辿 autonomous Transparent-Force self-audit heartbeat → append-only kotoba log (cron 37 * * * *) (ADR-2605301400 §D1; G3/G5/G12: counters ONLY, no case/PII/obs; live case-ingest gated)
+  "sukashi_adsupply_ingest",  # 透かし ad-supply-chain offline merged-graph intake (cron 42 * * * *) (ADR-2606071600; G7 live crawl gated)
+  "sukashi_fraud_weave",      # 透かし auth-handshake + delivery-infra concentration + scam-network clusters (cron 47 * * * *) (ADR-2606071600; G4 non-adjudicating)
 ]
 shard_index = 1
 total_shards = 3
@@ -178,6 +197,9 @@ cells = [
   "UnispscOrganismFleetCell",  # 5204 organisms, segments 45-60 (ADR-2605240000) — subsumes UnispscOrganismC10101500Cell
   "shionome_rotation_weave",    # 潮目 rotation pairs + regime (cron 15 * * * *) (ADR-2606072200)
   "shionome_regime_observer",   # 潮目 cross-asset regime (cron 20 * * * *) (ADR-2606072200)
+  "ipaddress_persist",          # IP/ASN autonomous heartbeat → append-only kotoba Datom log (cron 17 * * * *) (ADR-2605301400 §T2; local persist, G8 live-node push gated)
+  "yabai_cti_persist",          # CTI autonomous heartbeat → append-only kotoba Datom log; G6/G10 hard-stops plaintext :access PII (cron 32 * * * *) (ADR-2605301400 §T3; local persist, G8 gated)
+  "sukashi_adsupply_persist",   # 透かし ad-supply-chain + fraud autonomous heartbeat → append-only kotoba Datom log (cron 52 * * * *) (ADR-2606071600; observatory-only G2, local persist, G11 gated)
 ]
 shard_index = 2
 total_shards = 3
