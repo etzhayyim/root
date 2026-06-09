@@ -60,6 +60,8 @@ python3 tests/test_plan.py             # 8 tests — R5 throughput / line-balanc
 python3 tests/test_trend.py            # 8 tests — R7 KPI trend / drift detector
 python3 tests/test_alert.py            # 9 tests — R9 operational threshold alerts
 python3 tests/test_fleet.py            # 7 tests — R10 multi-line fleet rollup
+python3 tests/test_actor.py            # 9 tests — R11 WASM actor entrypoint (JSON/EDN API)
+python3 methods/actor.py summary       # one-screen brain view (JSON) — also: analyze|digest|alert|fleet|datoms
 python3 methods/analyze.py             # → out/operations-report.md
 python3 methods/datom_emit.py --tx 1   # → out/itonami-datoms.kotoba.edn
 python3 methods/optimize.py            # → out/optimization-proposals.md (+ proposal datoms)
@@ -127,6 +129,12 @@ on the canonical Datom log.
   rolls up a plant view, and ranks lines worst-first (critical alerts, then lowest OEE). On the
   fleet seed: sarutahiko (OEE 37.5%, criticals) ranked above giemon (83.3%, clean). Recommends
   which line to attend, never actuates (G1); ranks LINES not people (G2). 7 tests. ✅
-- **R11** — live scan-cycle socket (Modbus/OPC-UA/EtherCAT via kotoba-os device worlds, Council
-  + operator DID gated); cross-check OEE against the sarutahiko produce sim; componentize-py
-  WASM build + CID advertisement.
+- **R11 (landed)** — `methods/actor.py`: the pywasm actor entrypoint. Wires the nine cells into
+  one WIT-sketched export surface (`summary`/`analyze`/`digest`/`alert`/`fleet` as JSON +
+  `datoms` as EDN), so itonami is actually invokable as a content-addressed WASM actor. READ-ONLY
+  by construction (no OT socket/filesystem/network at runtime) — the component cannot violate G1/
+  G2/G7 because it contains no machinery that could. `summary()` fuses the headline signals into
+  one screen. 9 tests. ✅
+- **R12** — live scan-cycle socket (Modbus/OPC-UA/EtherCAT via kotoba-os device worlds, Council
+  + operator DID gated); cross-check OEE against the sarutahiko produce sim; componentize-py WASM
+  build + CID advertisement (the actual `.wasm` + `did.json` service wiring).

@@ -21,18 +21,25 @@ the DID-doc CID before executing). This matters for **G1**: a read-only WASM com
 package etzhayyim:itonami@0.1.0;
 
 world itonami-actor {
-  /// per-station OEE / energy / quality + routed findings over the embedded scan-cycle log
-  /// (G2: station scale only — no worker dimension exists). returns JSON:
-  ///   { line:{oee,kwh,...}, stations:[{id,oee,...}], routed:{bottleneck,energy_target,...} }
+  /// one-screen brain view: line OEE + bottleneck + top alert + drift + attend-first line (JSON)
+  export summary: func() -> string;
+  /// per-station + line OEE/energy/quality + routed findings (JSON)
   export analyze: func() -> string;
-
-  /// emit the kotoba Datom log (EAVT) for the embedded ops log as EDN text.
+  /// fused daily digest + Murakumo narration (G7) (JSON)
+  export digest: func() -> string;
+  /// graded threshold alerts — advisory only, never actuates (G1) (JSON)
+  export alert: func() -> string;
+  /// multi-line plant rollup + attention ranking (JSON)
+  export fleet: func() -> string;
+  /// canonical EAVT Datom log (durable ground state) as EDN text
   export datoms: func(tx: u32) -> string;
 }
 ```
 
-`analyze.py` / `datom_emit.py` become the two export bodies; the embedded seed is bundled
-read-only (no filesystem, no network, no OT bus at runtime).
+`methods/actor.py` is the single entrypoint that wires the nine cells into these export
+bodies; the embedded seeds are bundled read-only (no filesystem, no network, no OT bus at
+runtime). `python3 methods/actor.py <summary|analyze|digest|alert|fleet|datoms>` exercises the
+same surface from the CLI.
 
 ## Build & verify (target)
 

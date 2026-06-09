@@ -102,6 +102,14 @@
       "output": ["out/fleet-rollup.md", "out/itonami-fleet.kotoba.edn"],
       "pipeline": "group stations by :station/line → per-line analyze + alert.evaluate → plant rollup (per-line OEE/energy/scrap + alert counts) → rank lines worst-first (critical alerts, then lowest OEE)",
       "doc": "R10 multi-line FLEET rollup — the whole-plant scope (a plant brain oversees >1 line); recommends which line to attend first, never actuates (G1); ranks LINES, never people — no worker dimension (G2); per-line KPIs transient (G3)"
+    },
+    {
+      "id": "cell:itonami.actor",
+      "method": "methods/actor.py",
+      "input": ["data/*.kotoba.edn (bundled read-only)"],
+      "output": ["JSON views (summary/analyze/digest/alert/fleet) + EDN datom log"],
+      "pipeline": "single WASM-actor entrypoint wiring the nine cells into the WIT-sketched export surface (summary/analyze/digest/alert/fleet/datoms); JSON for views, EDN for the canonical Datom log",
+      "doc": "R11 pywasm actor entrypoint (componentize-py target, one-Worker-many-WASM model ADR-2606014500). READ-ONLY by construction — no OT socket / filesystem / network at runtime; cannot actuate (G1), no worker dimension (G2), Murakumo-only inference (G7). The component cannot violate the gates because it contains no machinery that could."
     }
   ],
   "gates": {
