@@ -1621,6 +1621,24 @@ PLATFORM_OVERRIDES = {
         "Deployment": E(id="string", status="string", projectName="string", stackName="string", paused="boolean", created="datetime", modified="datetime"),
         "Organization": E(name="string", role="string"),
     },
+    # Faithful HL7 FHIR R4 model — verified against the official HL7 FHIR R4 spec
+    # (hl7.org/fhir/R4). Status fields use the REQUIRED-binding closed value sets.
+    "hl7_fhir": {
+        "Patient": E(id="string", resourceType="string", gender="string", birthDate="string", active="boolean", deceasedBoolean="boolean"),
+        "Observation": E(id="string", resourceType="string", status="string", effectiveDateTime="datetime", valueString="string", issued="datetime"),
+        "Encounter": E(id="string", resourceType="string", status="string", serviceType="string", period="string"),
+        "MedicationRequest": E(id="string", resourceType="string", status="string", intent="string", authoredOn="datetime"),
+        "AllergyIntolerance": E(id="string", resourceType="string", clinicalStatus="string", criticality="string", recordedDate="datetime"),
+        "Condition": E(id="string", resourceType="string", clinicalStatus="string", recordedDate="datetime"),
+    },
+    # Faithful ChEMBL Web Services model — verified against the EBI ChEMBL API.
+    "chembl": {
+        "Molecule": E(chemblId="string", prefName="string", moleculeType="string", blackBoxWarning="integer", therapeuticFlag="boolean", firstApproval="integer"),
+        "Assay": E(chemblId="string", assayType="string", description="string", confidenceScore="integer", targetChemblId="string", documentChemblId="string"),
+        "Target": E(chemblId="string", prefName="string", targetType="string", organism="string", speciesGroupFlag="boolean"),
+        "Activity": E(activityId="integer", moleculeChemblId="string", assayChemblId="string", standardValue="string", standardType="string", documentYear="integer"),
+        "Document": E(chemblId="string", title="string", docType="string", year="integer", pubmedId="integer", doi="string"),
+    },
     # Faithful Discord model — verified against the official discord-api-docs
     # (Channel Types table, etc.). Channel.type is the documented int-coded enum.
     "discord": {

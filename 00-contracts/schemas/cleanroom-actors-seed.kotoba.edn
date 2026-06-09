@@ -2196,11 +2196,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible materials / bio / chemical actor (chembl); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "chembl.kotoba"
-   :actor/wasm-cid "bafkreigafkztqebpzq726rnj2lttzqszs4dyqldbgu3kvp4p5wmyvwa6la"
+   :actor/wasm-cid "bafkreierpvv43twftkr4fev6rzlewwh3qjzwvgdevmynyhi36vogcij7im"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:chembl-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreigafkztqebpzq726rnj2lttzqszs4dyqldbgu3kvp4p5wmyvwa6la" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:chembl-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreigafkztqebpzq726rnj2lttzqszs4dyqldbgu3kvp4p5wmyvwa6la" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:chembl-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreigafkztqebpzq726rnj2lttzqszs4dyqldbgu3kvp4p5wmyvwa6la" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:chembl-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreigafkztqebpzq726rnj2lttzqszs4dyqldbgu3kvp4p5wmyvwa6la" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:chembl-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreierpvv43twftkr4fev6rzlewwh3qjzwvgdevmynyhi36vogcij7im" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:chembl-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreierpvv43twftkr4fev6rzlewwh3qjzwvgdevmynyhi36vogcij7im" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:chembl-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreierpvv43twftkr4fev6rzlewwh3qjzwvgdevmynyhi36vogcij7im" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:chembl-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreierpvv43twftkr4fev6rzlewwh3qjzwvgdevmynyhi36vogcij7im" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "chime-compat"
    :actor/did "did:web:etzhayyim.com:actor:chime-compat"
    :actor/kind :compat

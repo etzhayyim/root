@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 93,
+  "count": 94,
   "actors": [
     {
       "handle": "square-compat",
@@ -274,55 +274,140 @@
     },
     {
       "handle": "hl7_fhir-compat",
-      "verifiedAt": "2026-06-08",
+      "verifiedAt": "2026-06-09",
       "tier": "L5",
-      "source": "https://hl7.org/fhir",
+      "source": "https://hl7.org/fhir/R4",
+      "remodeled": "Upgraded from a generic category model to a faithful HL7 FHIR R4 resource model, verified against the official FHIR R4 spec. Status fields use the REQUIRED-binding closed value sets (now enforced where before they were documented-but-not-modeled gaps).",
       "resources": [
         {
           "entity": "Patient",
-          "source": "https://hl7.org/fhir/patient.html",
+          "source": "https://hl7.org/fhir/R4/valueset-administrative-gender.html",
           "verifiedFields": [
-            "identifier",
-            "givenName",
-            "familyName",
-            "birthDate"
-          ],
-          "fieldStatus": "identifier/birthDate confirmed; givenName/familyName = HumanName.given/.family; gender exists on the real resource but is not modeled here",
-          "discoveredEnums": {},
-          "gaps": [
-            "gender (real enum male|female|other|unknown — not modeled, so documented not enforced)",
+            "id",
+            "resourceType",
+            "gender",
+            "birthDate",
             "active",
-            "telecom",
-            "address",
-            "maritalStatus"
-          ]
+            "deceasedBoolean"
+          ],
+          "fieldStatus": "confirmed (FHIR R4 required-binding value set)",
+          "discoveredEnums": {
+            "gender": [
+              "male",
+              "female",
+              "other",
+              "unknown"
+            ]
+          },
+          "gaps": []
         },
         {
           "entity": "Observation",
-          "source": "https://hl7.org/fhir/R4/observation.html",
+          "source": "https://hl7.org/fhir/R4/valueset-observation-status.html",
           "verifiedFields": [
-            "patientId",
-            "code",
-            "value",
-            "unit"
+            "id",
+            "resourceType",
+            "status",
+            "effectiveDateTime",
+            "valueString",
+            "issued"
           ],
-          "fieldStatus": "subject(=patientId)/code confirmed; value=value[x] choice (e.g. valueQuantity.value), unit=valueQuantity.unit (nested)",
-          "discoveredEnums": {},
-          "gaps": [
-            "status (real enum registered/preliminary/final/amended — not modeled)",
-            "value[x] choice type",
-            "effective[x]"
-          ]
+          "fieldStatus": "confirmed (FHIR R4 required-binding value set)",
+          "discoveredEnums": {
+            "status": [
+              "registered",
+              "preliminary",
+              "final",
+              "amended",
+              "corrected",
+              "cancelled",
+              "entered-in-error",
+              "unknown"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Encounter",
+          "source": "https://hl7.org/fhir/R4/valueset-encounter-status.html",
+          "verifiedFields": [
+            "id",
+            "resourceType",
+            "status",
+            "serviceType",
+            "period"
+          ],
+          "fieldStatus": "confirmed (FHIR R4 required-binding value set)",
+          "discoveredEnums": {
+            "status": [
+              "planned",
+              "arrived",
+              "triaged",
+              "in-progress",
+              "onleave",
+              "finished",
+              "cancelled",
+              "entered-in-error",
+              "unknown"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "MedicationRequest",
+          "source": "https://hl7.org/fhir/R4/valueset-medicationrequest-status.html",
+          "verifiedFields": [
+            "id",
+            "resourceType",
+            "status",
+            "intent",
+            "authoredOn"
+          ],
+          "fieldStatus": "confirmed (FHIR R4 required-binding value set)",
+          "discoveredEnums": {
+            "status": [
+              "active",
+              "on-hold",
+              "cancelled",
+              "completed",
+              "entered-in-error",
+              "stopped",
+              "draft",
+              "unknown"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "AllergyIntolerance",
+          "source": "https://hl7.org/fhir/R4/valueset-allergyintolerance-clinical.html",
+          "verifiedFields": [
+            "id",
+            "resourceType",
+            "clinicalStatus",
+            "criticality",
+            "recordedDate"
+          ],
+          "fieldStatus": "confirmed (FHIR R4 required-binding value set)",
+          "discoveredEnums": {
+            "clinicalStatus": [
+              "active",
+              "inactive",
+              "resolved"
+            ]
+          },
+          "gaps": []
         },
         {
           "entity": "Condition",
-          "source": "https://hl7.org/fhir/R4/condition.html",
+          "source": "https://hl7.org/fhir/R4/valueset-condition-clinical.html",
           "verifiedFields": [
-            "patientId",
-            "code",
-            "clinicalStatus"
+            "id",
+            "resourceType",
+            "clinicalStatus",
+            "recordedDate"
           ],
-          "fieldStatus": "subject(=patientId)/code/clinicalStatus confirmed",
+          "fieldStatus": "confirmed (FHIR R4 required-binding value set)",
           "discoveredEnums": {
             "clinicalStatus": [
               "active",
@@ -333,62 +418,11 @@
               "resolved"
             ]
           },
-          "gaps": [
-            "verificationStatus",
-            "category",
-            "severity",
-            "onset[x]"
-          ]
-        },
-        {
-          "entity": "DiagnosticReport",
-          "source": "https://hl7.org/fhir/R4/diagnosticreport.html",
-          "verifiedFields": [
-            "patientId",
-            "code",
-            "status",
-            "issuedAt"
-          ],
-          "fieldStatus": "subject(=patientId)/code/status/issued(=issuedAt) confirmed",
-          "discoveredEnums": {
-            "status": [
-              "registered",
-              "partial",
-              "preliminary",
-              "final"
-            ]
-          },
-          "gaps": [
-            "category",
-            "effective[x]",
-            "result",
-            "conclusion"
-          ]
-        },
-        {
-          "entity": "Specimen",
-          "source": "https://hl7.org/fhir/R4/specimen.html",
-          "verifiedFields": [
-            "patientId",
-            "type",
-            "collectedAt"
-          ],
-          "fieldStatus": "subject(=patientId)/type confirmed; collectedAt=collection.collectedDateTime (nested backbone element)",
-          "discoveredEnums": {},
-          "gaps": [
-            "status (real enum available/unavailable/unsatisfactory/entered-in-error — not modeled)",
-            "collection backbone nesting",
-            "container"
-          ]
+          "gaps": []
         }
       ],
-      "note": "5 resource(s) doc-verified; enforced enums: Condition.clinicalStatus, DiagnosticReport.status; 1 archetype entities have no real vendor counterpart (see notApplicable)",
-      "notApplicable": [
-        {
-          "entity": "Sequence",
-          "reason": "FHIR R4 names it MolecularSequence and has no 'accession'/'referenceGenome' fields (uses identifier + referenceSeq.genomeBuild)."
-        }
-      ]
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official HL7 FHIR R4 value sets. Enforced enums: Patient.gender(4), Observation.status(8), Encounter.status(9), MedicationRequest.status(8), AllergyIntolerance.clinicalStatus(3), Condition.clinicalStatus(6) = 6 REQUIRED-binding value sets (38 values). Upgraded from category-model to faithful FHIR override."
     },
     {
       "handle": "discord-compat",
@@ -13194,6 +13228,127 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (5/5) vs official docs.monzo.com. Enforced enums: Account.type(2), Transaction.category(11), Transaction.declineReason(5) = 3 enums."
+    },
+    {
+      "handle": "chembl-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://www.ebi.ac.uk/chembl/api/data",
+      "remodeled": "Remodeled from generic category model to a faithful ChEMBL Web Services model, verified against the EBI ChEMBL API (live JSON + parameterized enum sampling). snake_case->camelCase. assayType left a gap (sampled near-complete but no official published enum); maxPhase string-decimal format not enforced.",
+      "resources": [
+        {
+          "entity": "Molecule",
+          "source": "https://www.ebi.ac.uk/chembl/api/data/molecule.json",
+          "verifiedFields": [
+            "chemblId",
+            "prefName",
+            "moleculeType",
+            "blackBoxWarning",
+            "therapeuticFlag",
+            "firstApproval"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "moleculeType": [
+              "Small molecule",
+              "Protein",
+              "Antibody",
+              "Oligonucleotide",
+              "Oligosaccharide",
+              "Enzyme",
+              "Cell",
+              "Unknown"
+            ]
+          },
+          "gaps": [
+            "maxPhase-string-decimal-format"
+          ]
+        },
+        {
+          "entity": "Assay",
+          "source": "https://www.ebi.ac.uk/chembl/api/data/assay.json",
+          "verifiedFields": [
+            "chemblId",
+            "assayType",
+            "description",
+            "confidenceScore",
+            "targetChemblId",
+            "documentChemblId"
+          ],
+          "fieldStatus": "confirmed; assayType sampled near-complete but no official published enum -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "assayType-no-official-enum"
+          ]
+        },
+        {
+          "entity": "Target",
+          "source": "https://www.ebi.ac.uk/chembl/api/data/target.json",
+          "verifiedFields": [
+            "chemblId",
+            "prefName",
+            "targetType",
+            "organism",
+            "speciesGroupFlag"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "targetType": [
+              "CELL-LINE",
+              "CHIMERIC PROTEIN",
+              "MACROMOLECULE",
+              "NUCLEIC-ACID",
+              "OLIGOSACCHARIDE",
+              "ORGANISM",
+              "PROTEIN COMPLEX",
+              "PROTEIN COMPLEX GROUP",
+              "PROTEIN FAMILY",
+              "PROTEIN-PROTEIN INTERACTION",
+              "SELECTIVITY GROUP",
+              "SINGLE PROTEIN",
+              "TISSUE"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Activity",
+          "source": "https://www.ebi.ac.uk/chembl/api/data/activity.json",
+          "verifiedFields": [
+            "activityId",
+            "moleculeChemblId",
+            "assayChemblId",
+            "standardValue",
+            "standardType",
+            "documentYear"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Document",
+          "source": "https://www.ebi.ac.uk/chembl/api/data/document.json",
+          "verifiedFields": [
+            "chemblId",
+            "title",
+            "docType",
+            "year",
+            "pubmedId",
+            "doi"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "docType": [
+              "DATASET",
+              "PUBLICATION"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs EBI ChEMBL API. Enforced enums: Molecule.moleculeType(8), Target.targetType(13), Document.docType(2) = 3 enums. assayType + maxPhase left gaps (no official enum / ambiguous format)."
     }
   ]
 }

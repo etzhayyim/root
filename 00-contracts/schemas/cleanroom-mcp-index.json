@@ -7,7 +7,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 29890,
+  "totalTools": 29885,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -1515,10 +1515,10 @@
     {
       "handle": "chembl-compat",
       "did": "did:web:etzhayyim.com:actor:chembl-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreigafkztqebpzq726rnj2lttzqszs4dyqldbgu3kvp4p5wmyvwa6la",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreierpvv43twftkr4fev6rzlewwh3qjzwvgdevmynyhi36vogcij7im",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "manifest": "20-actors/chembl-compat/manifest.json#/capabilities/mcp"
     },
     {

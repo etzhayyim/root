@@ -2852,17 +2852,16 @@
       "handle": "chembl-compat",
       "platform": "chembl",
       "bytes": 2120,
-      "wasmCid": "bafkreigafkztqebpzq726rnj2lttzqszs4dyqldbgu3kvp4p5wmyvwa6la",
+      "wasmCid": "bafkreierpvv43twftkr4fev6rzlewwh3qjzwvgdevmynyhi36vogcij7im",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Substance",
-        "Compound",
-        "Structure",
-        "Material",
-        "Standard",
-        "Property"
+        "Molecule",
+        "Assay",
+        "Target",
+        "Activity",
+        "Document"
       ]
     },
     {
@@ -7015,10 +7014,10 @@
       "entities": [
         "Patient",
         "Observation",
-        "Condition",
-        "DiagnosticReport",
-        "Sequence",
-        "Specimen"
+        "Encounter",
+        "MedicationRequest",
+        "AllergyIntolerance",
+        "Condition"
       ]
     },
     {

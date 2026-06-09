@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 907,
-    "L5": 93
+    "L4": 906,
+    "L5": 94
   },
   "actors": [
     {
@@ -3023,10 +3023,10 @@
     {
       "handle": "chembl-compat",
       "did": "did:web:etzhayyim.com:actor:chembl-compat",
-      "wasmCid": "bafkreigafkztqebpzq726rnj2lttzqszs4dyqldbgu3kvp4p5wmyvwa6la",
+      "wasmCid": "bafkreierpvv43twftkr4fev6rzlewwh3qjzwvgdevmynyhi36vogcij7im",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "chembl clean-room actor",
       "category": "materials_bio_chemical",
       "capabilities": [

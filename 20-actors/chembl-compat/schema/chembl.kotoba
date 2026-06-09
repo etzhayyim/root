@@ -3,70 +3,63 @@
 
 namespace chembl {
 
-    entity Substance {
+    entity Molecule {
         id: string @unique
-        casNumber: string
-        name: string
-        formula: string
-        molarMass: float
+        chemblId: string
+        prefName: string
+        moleculeType: string
+        blackBoxWarning: integer
+        therapeuticFlag: boolean
+        firstApproval: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Compound {
+    entity Assay {
         id: string @unique
-        inchiKey: string
-        smiles: string
-        name: string
+        chemblId: string
+        assayType: string
+        description: string
+        confidenceScore: integer
+        targetChemblId: string
+        documentChemblId: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Structure {
+    entity Target {
         id: string @unique
-        pdbId: string
+        chemblId: string
+        prefName: string
+        targetType: string
+        organism: string
+        speciesGroupFlag: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Activity {
+        id: string @unique
+        activityId: integer
+        moleculeChemblId: string
+        assayChemblId: string
+        standardValue: string
+        standardType: string
+        documentYear: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Document {
+        id: string @unique
+        chemblId: string
         title: string
-        method: string
-        resolution: float
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Material {
-        id: string @unique
-        materialId: string
-        formula: string
-        bandGap: float
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Standard {
-        id: string @unique
-        designation: string
-        title: string
-        organization: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Property {
-        id: string @unique
-        substanceId: string
-        name: string
-        value: float
-        unit: string
+        docType: string
+        year: integer
+        pubmedId: integer
+        doi: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

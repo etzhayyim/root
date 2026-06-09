@@ -6,7 +6,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29890,
+  "totalEndpoints": 29885,
   "l4SpecsAvailable": 1000,
   "apis": [
     {
@@ -2851,10 +2851,10 @@
     {
       "handle": "chembl-compat",
       "did": "did:web:etzhayyim.com:actor:chembl-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreigafkztqebpzq726rnj2lttzqszs4dyqldbgu3kvp4p5wmyvwa6la",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreierpvv43twftkr4fev6rzlewwh3qjzwvgdevmynyhi36vogcij7im",
       "health": "/healthz",
       "features": {
         "pagination": true,

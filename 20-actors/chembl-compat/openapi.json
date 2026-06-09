@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible materials / bio / chemical actor (chembl); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:chembl-compat",
-    "x-wasm-cid": "bafkreigafkztqebpzq726rnj2lttzqszs4dyqldbgu3kvp4p5wmyvwa6la",
+    "x-wasm-cid": "bafkreierpvv43twftkr4fev6rzlewwh3qjzwvgdevmynyhi36vogcij7im",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreigafkztqebpzq726rnj2lttzqszs4dyqldbgu3kvp4p5wmyvwa6la",
+      "url": "ipfs://bafkreierpvv43twftkr4fev6rzlewwh3qjzwvgdevmynyhi36vogcij7im",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/substances": {
+    "/v1/molecules": {
       "get": {
-        "summary": "List Substances",
+        "summary": "List Molecules",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Substance"
+                        "$ref": "#/components/schemas/Molecule"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Substance",
+        "summary": "Create a Molecule",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SubstanceCreate"
+                "$ref": "#/components/schemas/MoleculeCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Substance"
+                  "$ref": "#/components/schemas/Molecule"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/substances/{id}": {
+    "/v1/molecules/{id}": {
       "get": {
-        "summary": "Get a Substance",
+        "summary": "Get a Molecule",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Substance"
+                  "$ref": "#/components/schemas/Molecule"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Substance",
+        "summary": "Update a Molecule",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SubstanceCreate"
+                "$ref": "#/components/schemas/MoleculeCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Substance"
+                  "$ref": "#/components/schemas/Molecule"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Substance",
+        "summary": "Delete a Molecule",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/compounds": {
+    "/v1/assays": {
       "get": {
-        "summary": "List Compounds",
+        "summary": "List Assays",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Compound"
+                        "$ref": "#/components/schemas/Assay"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Compound",
+        "summary": "Create a Assay",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CompoundCreate"
+                "$ref": "#/components/schemas/AssayCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Compound"
+                  "$ref": "#/components/schemas/Assay"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/compounds/{id}": {
+    "/v1/assays/{id}": {
       "get": {
-        "summary": "Get a Compound",
+        "summary": "Get a Assay",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Compound"
+                  "$ref": "#/components/schemas/Assay"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Compound",
+        "summary": "Update a Assay",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CompoundCreate"
+                "$ref": "#/components/schemas/AssayCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Compound"
+                  "$ref": "#/components/schemas/Assay"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Compound",
+        "summary": "Delete a Assay",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/structures": {
+    "/v1/targets": {
       "get": {
-        "summary": "List Structures",
+        "summary": "List Targets",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Structure"
+                        "$ref": "#/components/schemas/Target"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Structure",
+        "summary": "Create a Target",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StructureCreate"
+                "$ref": "#/components/schemas/TargetCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Structure"
+                  "$ref": "#/components/schemas/Target"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/structures/{id}": {
+    "/v1/targets/{id}": {
       "get": {
-        "summary": "Get a Structure",
+        "summary": "Get a Target",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Structure"
+                  "$ref": "#/components/schemas/Target"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Structure",
+        "summary": "Update a Target",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StructureCreate"
+                "$ref": "#/components/schemas/TargetCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Structure"
+                  "$ref": "#/components/schemas/Target"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Structure",
+        "summary": "Delete a Target",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/materials": {
+    "/v1/activities": {
       "get": {
-        "summary": "List Materials",
+        "summary": "List Activities",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Material"
+                        "$ref": "#/components/schemas/Activity"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Material",
+        "summary": "Create a Activity",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MaterialCreate"
+                "$ref": "#/components/schemas/ActivityCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Material"
+                  "$ref": "#/components/schemas/Activity"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/materials/{id}": {
+    "/v1/activities/{id}": {
       "get": {
-        "summary": "Get a Material",
+        "summary": "Get a Activity",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Material"
+                  "$ref": "#/components/schemas/Activity"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Material",
+        "summary": "Update a Activity",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MaterialCreate"
+                "$ref": "#/components/schemas/ActivityCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Material"
+                  "$ref": "#/components/schemas/Activity"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Material",
+        "summary": "Delete a Activity",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/standards": {
+    "/v1/documents": {
       "get": {
-        "summary": "List Standards",
+        "summary": "List Documents",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Standard"
+                        "$ref": "#/components/schemas/Document"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Standard",
+        "summary": "Create a Document",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StandardCreate"
+                "$ref": "#/components/schemas/DocumentCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Standard"
+                  "$ref": "#/components/schemas/Document"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/standards/{id}": {
+    "/v1/documents/{id}": {
       "get": {
-        "summary": "Get a Standard",
+        "summary": "Get a Document",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Standard"
+                  "$ref": "#/components/schemas/Document"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Standard",
+        "summary": "Update a Document",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StandardCreate"
+                "$ref": "#/components/schemas/DocumentCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Standard"
+                  "$ref": "#/components/schemas/Document"
                 }
               }
             }
@@ -921,192 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Standard",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/properties": {
-      "get": {
-        "summary": "List Properties",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Property"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Property",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PropertyCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Property"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/properties/{id}": {
-      "get": {
-        "summary": "Get a Property",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Property"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Property",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PropertyCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Property"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Property",
+        "summary": "Delete a Document",
         "parameters": [
           {
             "name": "id",
@@ -1140,23 +955,39 @@
   },
   "components": {
     "schemas": {
-      "Substance": {
+      "Molecule": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "casNumber": {
+          "chemblId": {
             "type": "string"
           },
-          "name": {
+          "prefName": {
             "type": "string"
           },
-          "formula": {
-            "type": "string"
+          "moleculeType": {
+            "type": "string",
+            "enum": [
+              "Small molecule",
+              "Protein",
+              "Antibody",
+              "Oligonucleotide",
+              "Oligosaccharide",
+              "Enzyme",
+              "Cell",
+              "Unknown"
+            ]
           },
-          "molarMass": {
-            "type": "number"
+          "blackBoxWarning": {
+            "type": "integer"
+          },
+          "therapeuticFlag": {
+            "type": "boolean"
+          },
+          "firstApproval": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1168,40 +999,65 @@
           }
         }
       },
-      "SubstanceCreate": {
+      "MoleculeCreate": {
         "type": "object",
         "properties": {
-          "casNumber": {
+          "chemblId": {
             "type": "string"
           },
-          "name": {
+          "prefName": {
             "type": "string"
           },
-          "formula": {
-            "type": "string"
+          "moleculeType": {
+            "type": "string",
+            "enum": [
+              "Small molecule",
+              "Protein",
+              "Antibody",
+              "Oligonucleotide",
+              "Oligosaccharide",
+              "Enzyme",
+              "Cell",
+              "Unknown"
+            ]
           },
-          "molarMass": {
-            "type": "number"
+          "blackBoxWarning": {
+            "type": "integer"
+          },
+          "therapeuticFlag": {
+            "type": "boolean"
+          },
+          "firstApproval": {
+            "type": "integer"
           }
         },
         "required": [
-          "casNumber",
-          "name"
+          "prefName",
+          "moleculeType"
         ]
       },
-      "Compound": {
+      "Assay": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "inchiKey": {
+          "chemblId": {
             "type": "string"
           },
-          "smiles": {
+          "assayType": {
             "type": "string"
           },
-          "name": {
+          "description": {
+            "type": "string"
+          },
+          "confidenceScore": {
+            "type": "integer"
+          },
+          "targetChemblId": {
+            "type": "string"
+          },
+          "documentChemblId": {
             "type": "string"
           },
           "createdAt": {
@@ -1214,41 +1070,206 @@
           }
         }
       },
-      "CompoundCreate": {
+      "AssayCreate": {
         "type": "object",
         "properties": {
-          "inchiKey": {
+          "chemblId": {
             "type": "string"
           },
-          "smiles": {
+          "assayType": {
             "type": "string"
           },
-          "name": {
+          "description": {
+            "type": "string"
+          },
+          "confidenceScore": {
+            "type": "integer"
+          },
+          "targetChemblId": {
+            "type": "string"
+          },
+          "documentChemblId": {
             "type": "string"
           }
         },
         "required": [
-          "inchiKey",
-          "smiles"
+          "assayType",
+          "description"
         ]
       },
-      "Structure": {
+      "Target": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "pdbId": {
+          "chemblId": {
+            "type": "string"
+          },
+          "prefName": {
+            "type": "string"
+          },
+          "targetType": {
+            "type": "string",
+            "enum": [
+              "CELL-LINE",
+              "CHIMERIC PROTEIN",
+              "MACROMOLECULE",
+              "NUCLEIC-ACID",
+              "OLIGOSACCHARIDE",
+              "ORGANISM",
+              "PROTEIN COMPLEX",
+              "PROTEIN COMPLEX GROUP",
+              "PROTEIN FAMILY",
+              "PROTEIN-PROTEIN INTERACTION",
+              "SELECTIVITY GROUP",
+              "SINGLE PROTEIN",
+              "TISSUE"
+            ]
+          },
+          "organism": {
+            "type": "string"
+          },
+          "speciesGroupFlag": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "TargetCreate": {
+        "type": "object",
+        "properties": {
+          "chemblId": {
+            "type": "string"
+          },
+          "prefName": {
+            "type": "string"
+          },
+          "targetType": {
+            "type": "string",
+            "enum": [
+              "CELL-LINE",
+              "CHIMERIC PROTEIN",
+              "MACROMOLECULE",
+              "NUCLEIC-ACID",
+              "OLIGOSACCHARIDE",
+              "ORGANISM",
+              "PROTEIN COMPLEX",
+              "PROTEIN COMPLEX GROUP",
+              "PROTEIN FAMILY",
+              "PROTEIN-PROTEIN INTERACTION",
+              "SELECTIVITY GROUP",
+              "SINGLE PROTEIN",
+              "TISSUE"
+            ]
+          },
+          "organism": {
+            "type": "string"
+          },
+          "speciesGroupFlag": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "prefName",
+          "targetType"
+        ]
+      },
+      "Activity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "activityId": {
+            "type": "integer"
+          },
+          "moleculeChemblId": {
+            "type": "string"
+          },
+          "assayChemblId": {
+            "type": "string"
+          },
+          "standardValue": {
+            "type": "string"
+          },
+          "standardType": {
+            "type": "string"
+          },
+          "documentYear": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ActivityCreate": {
+        "type": "object",
+        "properties": {
+          "activityId": {
+            "type": "integer"
+          },
+          "moleculeChemblId": {
+            "type": "string"
+          },
+          "assayChemblId": {
+            "type": "string"
+          },
+          "standardValue": {
+            "type": "string"
+          },
+          "standardType": {
+            "type": "string"
+          },
+          "documentYear": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "standardValue",
+          "standardType"
+        ]
+      },
+      "Document": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "chemblId": {
             "type": "string"
           },
           "title": {
             "type": "string"
           },
-          "method": {
-            "type": "string"
+          "docType": {
+            "type": "string",
+            "enum": [
+              "DATASET",
+              "PUBLICATION"
+            ]
           },
-          "resolution": {
-            "type": "number"
+          "year": {
+            "type": "integer"
+          },
+          "pubmedId": {
+            "type": "integer"
+          },
+          "doi": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -1260,160 +1281,35 @@
           }
         }
       },
-      "StructureCreate": {
+      "DocumentCreate": {
         "type": "object",
         "properties": {
-          "pdbId": {
+          "chemblId": {
             "type": "string"
           },
           "title": {
             "type": "string"
           },
-          "method": {
-            "type": "string"
+          "docType": {
+            "type": "string",
+            "enum": [
+              "DATASET",
+              "PUBLICATION"
+            ]
           },
-          "resolution": {
-            "type": "number"
+          "year": {
+            "type": "integer"
+          },
+          "pubmedId": {
+            "type": "integer"
+          },
+          "doi": {
+            "type": "string"
           }
         },
         "required": [
           "title",
-          "method"
-        ]
-      },
-      "Material": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "materialId": {
-            "type": "string"
-          },
-          "formula": {
-            "type": "string"
-          },
-          "bandGap": {
-            "type": "number"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "MaterialCreate": {
-        "type": "object",
-        "properties": {
-          "materialId": {
-            "type": "string"
-          },
-          "formula": {
-            "type": "string"
-          },
-          "bandGap": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "formula",
-          "bandGap"
-        ]
-      },
-      "Standard": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "designation": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "organization": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "StandardCreate": {
-        "type": "object",
-        "properties": {
-          "designation": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "organization": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "designation",
-          "title"
-        ]
-      },
-      "Property": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "substanceId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "value": {
-            "type": "number"
-          },
-          "unit": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "PropertyCreate": {
-        "type": "object",
-        "properties": {
-          "substanceId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "value": {
-            "type": "number"
-          },
-          "unit": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "value"
+          "docType"
         ]
       }
     }
