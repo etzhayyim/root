@@ -1167,6 +1167,18 @@ PLATFORM_OVERRIDES = {
         "Webhook": E(formId="string", tag="string", url="string", enabled="boolean", verifySsl="boolean"),
         "Workspace": E(name="string", default="boolean", shared="boolean", accountId="string"),
     },
+    # Faithful Miro (REST API v2) model (remodeled from the generic
+    # office_productivity archetype whose Workspace/Document/Folder doc entities
+    # did not match Miro's whiteboard API), doc-verified L5 vs
+    # github.com/miroapp/api-clients (generated miro-api model TS).
+    "miro": {
+        "Board": E(name="string", description="string", type="string", viewLink="string"),
+        "Item": E(type="string"),
+        "Tag": E(title="string", fillColor="string", type="string"),
+        "BoardMember": E(name="string", role="string", type="string"),
+        "Organization": E(name="string", plan="string", fullLicensesPurchased="integer", type="string"),
+        "Connector": E(shape="string", isSupported="boolean", type="string"),
+    },
     # Faithful Airtable model (remodeled from generic office_productivity), L5.
     "airtable": {
         "Base": E(name="string", permissionLevel="string"),

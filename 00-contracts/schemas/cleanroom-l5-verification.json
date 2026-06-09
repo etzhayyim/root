@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 68,
+  "count": 69,
   "actors": [
     {
       "handle": "square-compat",
@@ -9625,6 +9625,144 @@
       ],
       "notApplicable": [],
       "note": "Remodeled from a mismatched helpdesk archetype to a faithful form-builder model. 6/6 entities field-verified vs the official Typeform/js-api-client SDK types. No closed enums modeled (Form.language is a large locale union, recorded as a gap). Form/Response/Theme are intentionally thin — their substance is in nested arrays/objects an EAVT scalar actor does not model."
+    },
+    {
+      "handle": "miro-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/miroapp/api-clients (packages/miro-api/model — official generated REST API v2 SDK)",
+      "remodeled": "Remodeled from the generic office_productivity archetype (Workspace/Document/Folder/Comment/Permission/User — a docs shape shared with the old calendly model) to a faithful Miro whiteboard model (Board/Item/Tag/BoardMember/Organization/Connector), verified field-by-field against the official miroapp/api-clients generated model classes. Item is thin (its data/geometry/position are nested objects). The L5 gate had correctly rejected the prior mismatched model (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Board",
+          "source": "model/board.ts",
+          "verifiedFields": [
+            "name",
+            "description",
+            "type",
+            "viewLink"
+          ],
+          "fieldStatus": "confirmed vs Board class (id/name/description/type/viewLink; createdAt/modifiedAt are Date -> scaffold)",
+          "discoveredEnums": {},
+          "gaps": [
+            "owner(object)",
+            "policy(object)",
+            "team(object)",
+            "project(object)",
+            "picture(object)"
+          ]
+        },
+        {
+          "entity": "Item",
+          "source": "model/genericItem.ts",
+          "verifiedFields": [
+            "type"
+          ],
+          "fieldStatus": "confirmed vs GenericItem class (id/type); data/geometry/position are nested objects -> not modeled",
+          "discoveredEnums": {},
+          "gaps": [
+            "data(object)",
+            "geometry(object)",
+            "position(object)",
+            "parent(object)"
+          ]
+        },
+        {
+          "entity": "Tag",
+          "source": "model/tag.ts",
+          "verifiedFields": [
+            "title",
+            "fillColor",
+            "type"
+          ],
+          "fieldStatus": "confirmed vs Tag class (id/title/fillColor/type)",
+          "discoveredEnums": {
+            "fillColor": [
+              "red",
+              "light_green",
+              "cyan",
+              "yellow",
+              "magenta",
+              "green",
+              "blue",
+              "gray",
+              "violet",
+              "dark_green",
+              "dark_blue"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "BoardMember",
+          "source": "model/boardMember.ts",
+          "verifiedFields": [
+            "name",
+            "role",
+            "type"
+          ],
+          "fieldStatus": "confirmed vs BoardMember class (id/name/role/type)",
+          "discoveredEnums": {
+            "role": [
+              "viewer",
+              "commenter",
+              "editor",
+              "coowner",
+              "owner"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Organization",
+          "source": "model/organization.ts",
+          "verifiedFields": [
+            "name",
+            "plan",
+            "fullLicensesPurchased",
+            "type"
+          ],
+          "fieldStatus": "confirmed vs Organization class (id/name/plan/fullLicensesPurchased/type)",
+          "discoveredEnums": {
+            "plan": [
+              "company",
+              "consultant",
+              "consultant_slf",
+              "business",
+              "paid_team_org",
+              "integration_org",
+              "edu_team_org",
+              "free_team_org"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Connector",
+          "source": "model/connectorWithLinks.ts",
+          "verifiedFields": [
+            "shape",
+            "isSupported",
+            "type"
+          ],
+          "fieldStatus": "confirmed vs ConnectorWithLinks class (id/shape/isSupported/type)",
+          "discoveredEnums": {
+            "shape": [
+              "straight",
+              "elbowed",
+              "curved"
+            ]
+          },
+          "gaps": [
+            "style(object)",
+            "captions(array)",
+            "startItem(object)",
+            "endItem(object)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "Remodeled from a mismatched docs archetype (shared with old calendly) to a faithful whiteboard model. 6/6 entities field-verified vs the official miroapp/api-clients SDK. Discovered closed enums (4): Tag.fillColor, BoardMember.role, Organization.plan, Connector.shape. Item is intentionally thin (polymorphic; data/geometry are nested objects)."
     }
   ]
 }
