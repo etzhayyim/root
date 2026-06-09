@@ -1621,6 +1621,24 @@ PLATFORM_OVERRIDES = {
         "Deployment": E(id="string", status="string", projectName="string", stackName="string", paused="boolean", created="datetime", modified="datetime"),
         "Organization": E(name="string", role="string"),
     },
+    # Faithful GS1 EPCIS 2.0 model — verified against the official GS1 EPCIS 2.0
+    # standard (ref.gs1.org). bizStep/disposition are large CBV vocabs -> not enforced.
+    "gs1_epcis": {
+        "EPCISEvent": E(eventId="string", eventType="string", eventTime="datetime", recordTime="datetime", eventTimeZoneOffset="string", certificationInfo="string"),
+        "ObjectEvent": E(eventId="string", action="string", bizStep="string", disposition="string", readPoint="string", bizLocation="string", eventTime="datetime", recordTime="datetime"),
+        "AggregationEvent": E(eventId="string", parentID="string", action="string", bizStep="string", disposition="string", readPoint="string", eventTime="datetime"),
+        "TransactionEvent": E(eventId="string", parentID="string", action="string", bizStep="string", eventTime="datetime"),
+        "TransformationEvent": E(eventId="string", transformationID="string", bizStep="string", disposition="string", readPoint="string", eventTime="datetime"),
+        "AssociationEvent": E(eventId="string", parentID="string", action="string", bizStep="string", eventTime="datetime"),
+    },
+    # Faithful ISO 8583 model — MTI-position enums from the public ISO 8583 reference
+    # (the ISO standard itself is paywalled). transactionType/responseCode partial -> gapped.
+    "iso_8583": {
+        "Message": E(mti="string", messageClass="string", messageFunction="string", messageOrigin="string", version="string", stan="string", processingCode="string", transmissionDateTime="datetime"),
+        "ProcessingCode": E(transactionType="string", accountTypeFrom="string", accountTypeTo="string"),
+        "DataElement": E(fieldNumber="integer", name="string", dataType="string", length="integer", value="string"),
+        "ResponseCode": E(code="string", meaning="string", requiresCardPickup="boolean"),
+    },
     # Faithful The Graph (Studio + Network) model — verified against the official
     # graph-network-subgraph schema + Studio API. Subgraph.status is array -> dropped.
     "thegraph": {

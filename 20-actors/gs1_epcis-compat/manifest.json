@@ -11,15 +11,65 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigsqzft63uvihvebhqzrrk2w2bnj2zzb4osu653hsmnczjhpcdoeu",
   "schema": "schema/gs1_epcis.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://ref.gs1.org/standards/epcis/2.0.1/",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "EPCISEvent",
+      "ObjectEvent",
+      "AggregationEvent",
+      "TransactionEvent",
+      "TransformationEvent",
+      "AssociationEvent"
+    ],
+    "enums": {
+      "EPCISEvent": {
+        "eventType": [
+          "ObjectEvent",
+          "AggregationEvent",
+          "TransactionEvent",
+          "TransformationEvent",
+          "AssociationEvent"
+        ]
+      },
+      "ObjectEvent": {
+        "action": [
+          "ADD",
+          "OBSERVE",
+          "DELETE"
+        ]
+      },
+      "AggregationEvent": {
+        "action": [
+          "ADD",
+          "OBSERVE",
+          "DELETE"
+        ]
+      },
+      "TransactionEvent": {
+        "action": [
+          "ADD",
+          "OBSERVE",
+          "DELETE"
+        ]
+      },
+      "AssociationEvent": {
+        "action": [
+          "ADD",
+          "OBSERVE",
+          "DELETE"
+        ]
+      }
+    }
+  },
   "entities": [
-    "TradeItem",
-    "Event",
-    "Document",
-    "Container",
-    "Party",
-    "Shipment"
+    "EPCISEvent",
+    "ObjectEvent",
+    "AggregationEvent",
+    "TransactionEvent",
+    "TransformationEvent",
+    "AssociationEvent"
   ],
   "adr": [
     "260607",
@@ -35,153 +85,153 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/tradeitems",
-          "op": "create TradeItem"
+          "path": "/v1/epcisevents",
+          "op": "create EPCISEvent"
         },
         {
           "method": "GET",
-          "path": "/v1/tradeitems",
-          "op": "list TradeItem"
+          "path": "/v1/epcisevents",
+          "op": "list EPCISEvent"
         },
         {
           "method": "GET",
-          "path": "/v1/tradeitems/{id}",
-          "op": "get TradeItem"
+          "path": "/v1/epcisevents/{id}",
+          "op": "get EPCISEvent"
         },
         {
           "method": "PATCH",
-          "path": "/v1/tradeitems/{id}",
-          "op": "update TradeItem"
+          "path": "/v1/epcisevents/{id}",
+          "op": "update EPCISEvent"
         },
         {
           "method": "DELETE",
-          "path": "/v1/tradeitems/{id}",
-          "op": "delete TradeItem"
+          "path": "/v1/epcisevents/{id}",
+          "op": "delete EPCISEvent"
         },
         {
           "method": "POST",
-          "path": "/v1/events",
-          "op": "create Event"
+          "path": "/v1/objectevents",
+          "op": "create ObjectEvent"
         },
         {
           "method": "GET",
-          "path": "/v1/events",
-          "op": "list Event"
+          "path": "/v1/objectevents",
+          "op": "list ObjectEvent"
         },
         {
           "method": "GET",
-          "path": "/v1/events/{id}",
-          "op": "get Event"
+          "path": "/v1/objectevents/{id}",
+          "op": "get ObjectEvent"
         },
         {
           "method": "PATCH",
-          "path": "/v1/events/{id}",
-          "op": "update Event"
+          "path": "/v1/objectevents/{id}",
+          "op": "update ObjectEvent"
         },
         {
           "method": "DELETE",
-          "path": "/v1/events/{id}",
-          "op": "delete Event"
+          "path": "/v1/objectevents/{id}",
+          "op": "delete ObjectEvent"
         },
         {
           "method": "POST",
-          "path": "/v1/documents",
-          "op": "create Document"
+          "path": "/v1/aggregationevents",
+          "op": "create AggregationEvent"
         },
         {
           "method": "GET",
-          "path": "/v1/documents",
-          "op": "list Document"
+          "path": "/v1/aggregationevents",
+          "op": "list AggregationEvent"
         },
         {
           "method": "GET",
-          "path": "/v1/documents/{id}",
-          "op": "get Document"
+          "path": "/v1/aggregationevents/{id}",
+          "op": "get AggregationEvent"
         },
         {
           "method": "PATCH",
-          "path": "/v1/documents/{id}",
-          "op": "update Document"
+          "path": "/v1/aggregationevents/{id}",
+          "op": "update AggregationEvent"
         },
         {
           "method": "DELETE",
-          "path": "/v1/documents/{id}",
-          "op": "delete Document"
+          "path": "/v1/aggregationevents/{id}",
+          "op": "delete AggregationEvent"
         },
         {
           "method": "POST",
-          "path": "/v1/containers",
-          "op": "create Container"
+          "path": "/v1/transactionevents",
+          "op": "create TransactionEvent"
         },
         {
           "method": "GET",
-          "path": "/v1/containers",
-          "op": "list Container"
+          "path": "/v1/transactionevents",
+          "op": "list TransactionEvent"
         },
         {
           "method": "GET",
-          "path": "/v1/containers/{id}",
-          "op": "get Container"
+          "path": "/v1/transactionevents/{id}",
+          "op": "get TransactionEvent"
         },
         {
           "method": "PATCH",
-          "path": "/v1/containers/{id}",
-          "op": "update Container"
+          "path": "/v1/transactionevents/{id}",
+          "op": "update TransactionEvent"
         },
         {
           "method": "DELETE",
-          "path": "/v1/containers/{id}",
-          "op": "delete Container"
+          "path": "/v1/transactionevents/{id}",
+          "op": "delete TransactionEvent"
         },
         {
           "method": "POST",
-          "path": "/v1/parties",
-          "op": "create Party"
+          "path": "/v1/transformationevents",
+          "op": "create TransformationEvent"
         },
         {
           "method": "GET",
-          "path": "/v1/parties",
-          "op": "list Party"
+          "path": "/v1/transformationevents",
+          "op": "list TransformationEvent"
         },
         {
           "method": "GET",
-          "path": "/v1/parties/{id}",
-          "op": "get Party"
+          "path": "/v1/transformationevents/{id}",
+          "op": "get TransformationEvent"
         },
         {
           "method": "PATCH",
-          "path": "/v1/parties/{id}",
-          "op": "update Party"
+          "path": "/v1/transformationevents/{id}",
+          "op": "update TransformationEvent"
         },
         {
           "method": "DELETE",
-          "path": "/v1/parties/{id}",
-          "op": "delete Party"
+          "path": "/v1/transformationevents/{id}",
+          "op": "delete TransformationEvent"
         },
         {
           "method": "POST",
-          "path": "/v1/shipments",
-          "op": "create Shipment"
+          "path": "/v1/associationevents",
+          "op": "create AssociationEvent"
         },
         {
           "method": "GET",
-          "path": "/v1/shipments",
-          "op": "list Shipment"
+          "path": "/v1/associationevents",
+          "op": "list AssociationEvent"
         },
         {
           "method": "GET",
-          "path": "/v1/shipments/{id}",
-          "op": "get Shipment"
+          "path": "/v1/associationevents/{id}",
+          "op": "get AssociationEvent"
         },
         {
           "method": "PATCH",
-          "path": "/v1/shipments/{id}",
-          "op": "update Shipment"
+          "path": "/v1/associationevents/{id}",
+          "op": "update AssociationEvent"
         },
         {
           "method": "DELETE",
-          "path": "/v1/shipments/{id}",
-          "op": "delete Shipment"
+          "path": "/v1/associationevents/{id}",
+          "op": "delete AssociationEvent"
         }
       ],
       "features": {
@@ -247,38 +297,47 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_trade_item",
-          "description": "Create a TradeItem.",
+          "name": "create_e_p_c_i_s_event",
+          "description": "Create a EPCISEvent.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "gtin": {
+              "eventId": {
                 "type": "string"
               },
-              "description": {
+              "eventType": {
                 "type": "string"
               },
-              "brand": {
+              "eventTime": {
+                "type": "string"
+              },
+              "recordTime": {
+                "type": "string"
+              },
+              "eventTimeZoneOffset": {
+                "type": "string"
+              },
+              "certificationInfo": {
                 "type": "string"
               }
             },
             "required": [
-              "gtin",
-              "description"
+              "eventType",
+              "eventTime"
             ]
           }
         },
         {
-          "name": "list_trade_items",
-          "description": "List TradeItems.",
+          "name": "list_e_p_c_i_s_events",
+          "description": "List EPCISEvents.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_trade_item",
-          "description": "Get a TradeItem by id.",
+          "name": "get_e_p_c_i_s_event",
+          "description": "Get a EPCISEvent by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -292,21 +351,30 @@
           }
         },
         {
-          "name": "update_trade_item",
-          "description": "Update a TradeItem.",
+          "name": "update_e_p_c_i_s_event",
+          "description": "Update a EPCISEvent.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "gtin": {
+              "eventId": {
                 "type": "string"
               },
-              "description": {
+              "eventType": {
                 "type": "string"
               },
-              "brand": {
+              "eventTime": {
+                "type": "string"
+              },
+              "recordTime": {
+                "type": "string"
+              },
+              "eventTimeZoneOffset": {
+                "type": "string"
+              },
+              "certificationInfo": {
                 "type": "string"
               }
             },
@@ -316,8 +384,8 @@
           }
         },
         {
-          "name": "delete_trade_item",
-          "description": "Delete a TradeItem.",
+          "name": "delete_e_p_c_i_s_event",
+          "description": "Delete a EPCISEvent.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -331,12 +399,15 @@
           }
         },
         {
-          "name": "create_event",
-          "description": "Create a Event.",
+          "name": "create_object_event",
+          "description": "Create a ObjectEvent.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "itemId": {
+              "eventId": {
+                "type": "string"
+              },
+              "action": {
                 "type": "string"
               },
               "bizStep": {
@@ -345,27 +416,36 @@
               "disposition": {
                 "type": "string"
               },
-              "recordedAt": {
+              "readPoint": {
+                "type": "string"
+              },
+              "bizLocation": {
+                "type": "string"
+              },
+              "eventTime": {
+                "type": "string"
+              },
+              "recordTime": {
                 "type": "string"
               }
             },
             "required": [
-              "bizStep",
-              "disposition"
+              "action",
+              "bizStep"
             ]
           }
         },
         {
-          "name": "list_events",
-          "description": "List Events.",
+          "name": "list_object_events",
+          "description": "List ObjectEvents.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_event",
-          "description": "Get a Event by id.",
+          "name": "get_object_event",
+          "description": "Get a ObjectEvent by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -379,15 +459,18 @@
           }
         },
         {
-          "name": "update_event",
-          "description": "Update a Event.",
+          "name": "update_object_event",
+          "description": "Update a ObjectEvent.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "itemId": {
+              "eventId": {
+                "type": "string"
+              },
+              "action": {
                 "type": "string"
               },
               "bizStep": {
@@ -396,7 +479,16 @@
               "disposition": {
                 "type": "string"
               },
-              "recordedAt": {
+              "readPoint": {
+                "type": "string"
+              },
+              "bizLocation": {
+                "type": "string"
+              },
+              "eventTime": {
+                "type": "string"
+              },
+              "recordTime": {
                 "type": "string"
               }
             },
@@ -406,8 +498,8 @@
           }
         },
         {
-          "name": "delete_event",
-          "description": "Delete a Event.",
+          "name": "delete_object_event",
+          "description": "Delete a ObjectEvent.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -421,41 +513,50 @@
           }
         },
         {
-          "name": "create_document",
-          "description": "Create a Document.",
+          "name": "create_aggregation_event",
+          "description": "Create a AggregationEvent.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "type": {
+              "eventId": {
                 "type": "string"
               },
-              "senderId": {
+              "parentID": {
                 "type": "string"
               },
-              "receiverId": {
+              "action": {
                 "type": "string"
               },
-              "status": {
+              "bizStep": {
+                "type": "string"
+              },
+              "disposition": {
+                "type": "string"
+              },
+              "readPoint": {
+                "type": "string"
+              },
+              "eventTime": {
                 "type": "string"
               }
             },
             "required": [
-              "type",
-              "status"
+              "parentID",
+              "action"
             ]
           }
         },
         {
-          "name": "list_documents",
-          "description": "List Documents.",
+          "name": "list_aggregation_events",
+          "description": "List AggregationEvents.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_document",
-          "description": "Get a Document by id.",
+          "name": "get_aggregation_event",
+          "description": "Get a AggregationEvent by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -469,24 +570,33 @@
           }
         },
         {
-          "name": "update_document",
-          "description": "Update a Document.",
+          "name": "update_aggregation_event",
+          "description": "Update a AggregationEvent.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "type": {
+              "eventId": {
                 "type": "string"
               },
-              "senderId": {
+              "parentID": {
                 "type": "string"
               },
-              "receiverId": {
+              "action": {
                 "type": "string"
               },
-              "status": {
+              "bizStep": {
+                "type": "string"
+              },
+              "disposition": {
+                "type": "string"
+              },
+              "readPoint": {
+                "type": "string"
+              },
+              "eventTime": {
                 "type": "string"
               }
             },
@@ -496,8 +606,8 @@
           }
         },
         {
-          "name": "delete_document",
-          "description": "Delete a Document.",
+          "name": "delete_aggregation_event",
+          "description": "Delete a AggregationEvent.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -511,38 +621,44 @@
           }
         },
         {
-          "name": "create_container",
-          "description": "Create a Container.",
+          "name": "create_transaction_event",
+          "description": "Create a TransactionEvent.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "bicCode": {
+              "eventId": {
                 "type": "string"
               },
-              "type": {
+              "parentID": {
                 "type": "string"
               },
-              "status": {
+              "action": {
+                "type": "string"
+              },
+              "bizStep": {
+                "type": "string"
+              },
+              "eventTime": {
                 "type": "string"
               }
             },
             "required": [
-              "bicCode",
-              "type"
+              "parentID",
+              "action"
             ]
           }
         },
         {
-          "name": "list_containers",
-          "description": "List Containers.",
+          "name": "list_transaction_events",
+          "description": "List TransactionEvents.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_container",
-          "description": "Get a Container by id.",
+          "name": "get_transaction_event",
+          "description": "Get a TransactionEvent by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -556,21 +672,27 @@
           }
         },
         {
-          "name": "update_container",
-          "description": "Update a Container.",
+          "name": "update_transaction_event",
+          "description": "Update a TransactionEvent.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "bicCode": {
+              "eventId": {
                 "type": "string"
               },
-              "type": {
+              "parentID": {
                 "type": "string"
               },
-              "status": {
+              "action": {
+                "type": "string"
+              },
+              "bizStep": {
+                "type": "string"
+              },
+              "eventTime": {
                 "type": "string"
               }
             },
@@ -580,8 +702,8 @@
           }
         },
         {
-          "name": "delete_container",
-          "description": "Delete a Container.",
+          "name": "delete_transaction_event",
+          "description": "Delete a TransactionEvent.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -595,38 +717,47 @@
           }
         },
         {
-          "name": "create_party",
-          "description": "Create a Party.",
+          "name": "create_transformation_event",
+          "description": "Create a TransformationEvent.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "gln": {
+              "eventId": {
                 "type": "string"
               },
-              "name": {
+              "transformationID": {
                 "type": "string"
               },
-              "role": {
+              "bizStep": {
+                "type": "string"
+              },
+              "disposition": {
+                "type": "string"
+              },
+              "readPoint": {
+                "type": "string"
+              },
+              "eventTime": {
                 "type": "string"
               }
             },
             "required": [
-              "gln",
-              "name"
+              "transformationID",
+              "bizStep"
             ]
           }
         },
         {
-          "name": "list_parties",
-          "description": "List Parties.",
+          "name": "list_transformation_events",
+          "description": "List TransformationEvents.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_party",
-          "description": "Get a Party by id.",
+          "name": "get_transformation_event",
+          "description": "Get a TransformationEvent by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -640,21 +771,30 @@
           }
         },
         {
-          "name": "update_party",
-          "description": "Update a Party.",
+          "name": "update_transformation_event",
+          "description": "Update a TransformationEvent.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "gln": {
+              "eventId": {
                 "type": "string"
               },
-              "name": {
+              "transformationID": {
                 "type": "string"
               },
-              "role": {
+              "bizStep": {
+                "type": "string"
+              },
+              "disposition": {
+                "type": "string"
+              },
+              "readPoint": {
+                "type": "string"
+              },
+              "eventTime": {
                 "type": "string"
               }
             },
@@ -664,8 +804,8 @@
           }
         },
         {
-          "name": "delete_party",
-          "description": "Delete a Party.",
+          "name": "delete_transformation_event",
+          "description": "Delete a TransformationEvent.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -679,41 +819,44 @@
           }
         },
         {
-          "name": "create_shipment",
-          "description": "Create a Shipment.",
+          "name": "create_association_event",
+          "description": "Create a AssociationEvent.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "documentId": {
+              "eventId": {
                 "type": "string"
               },
-              "origin": {
+              "parentID": {
                 "type": "string"
               },
-              "destination": {
+              "action": {
                 "type": "string"
               },
-              "status": {
+              "bizStep": {
+                "type": "string"
+              },
+              "eventTime": {
                 "type": "string"
               }
             },
             "required": [
-              "origin",
-              "destination"
+              "parentID",
+              "action"
             ]
           }
         },
         {
-          "name": "list_shipments",
-          "description": "List Shipments.",
+          "name": "list_association_events",
+          "description": "List AssociationEvents.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_shipment",
-          "description": "Get a Shipment by id.",
+          "name": "get_association_event",
+          "description": "Get a AssociationEvent by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -727,24 +870,27 @@
           }
         },
         {
-          "name": "update_shipment",
-          "description": "Update a Shipment.",
+          "name": "update_association_event",
+          "description": "Update a AssociationEvent.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "documentId": {
+              "eventId": {
                 "type": "string"
               },
-              "origin": {
+              "parentID": {
                 "type": "string"
               },
-              "destination": {
+              "action": {
                 "type": "string"
               },
-              "status": {
+              "bizStep": {
+                "type": "string"
+              },
+              "eventTime": {
                 "type": "string"
               }
             },
@@ -754,8 +900,8 @@
           }
         },
         {
-          "name": "delete_shipment",
-          "description": "Delete a Shipment.",
+          "name": "delete_association_event",
+          "description": "Delete a AssociationEvent.",
           "inputSchema": {
             "type": "object",
             "properties": {

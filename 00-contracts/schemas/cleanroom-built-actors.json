@@ -6685,12 +6685,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "TradeItem",
-        "Event",
-        "Document",
-        "Container",
-        "Party",
-        "Shipment"
+        "EPCISEvent",
+        "ObjectEvent",
+        "AggregationEvent",
+        "TransactionEvent",
+        "TransformationEvent",
+        "AssociationEvent"
       ]
     },
     {
@@ -7989,17 +7989,15 @@
       "handle": "iso_8583-compat",
       "platform": "iso_8583",
       "bytes": 2122,
-      "wasmCid": "bafkreicvml64rgkqlpzx56sx6gag2hmlg6576afbunxy26txw6t2tpvqry",
+      "wasmCid": "bafkreidy3mtzo2iveh64modihcf3ac5nvmfg2wzp5uo7bx5jm66r2pmzjm",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Customer",
-        "PaymentIntent",
-        "Charge",
-        "Refund",
-        "Payout",
-        "PaymentMethod"
+        "Message",
+        "ProcessingCode",
+        "DataElement",
+        "ResponseCode"
       ]
     },
     {

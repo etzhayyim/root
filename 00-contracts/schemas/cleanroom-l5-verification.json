@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 117,
+  "count": 119,
   "actors": [
     {
       "handle": "square-compat",
@@ -16497,6 +16497,252 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official HL7 FHIR R4 value sets (NextGen Healthcare FHIR R4 = ONC-certified FHIR R4). Enforced enums: Patient.gender(4), Observation.status(8), Encounter.status(9), MedicationRequest.status(8), AllergyIntolerance.clinicalStatus(3), Condition.clinicalStatus(6) = 6 REQUIRED-binding value sets (38 values)."
+    },
+    {
+      "handle": "gs1_epcis-compat",
+      "verifiedAt": "2026-06-10",
+      "tier": "L5",
+      "source": "https://ref.gs1.org/standards/epcis/2.0.1/",
+      "remodeled": "Remodeled from generic category model to a faithful GS1 EPCIS 2.0 event model, verified against the official GS1 EPCIS 2.0 standard (ratified Jun 2022). List/object fields flattened to string. bizStep/disposition are large CBV vocabularies -> not enforced.",
+      "resources": [
+        {
+          "entity": "EPCISEvent",
+          "source": "https://ref.gs1.org/standards/epcis/2.0.1/ §7.4.1",
+          "verifiedFields": [
+            "eventId",
+            "eventType",
+            "eventTime",
+            "recordTime",
+            "eventTimeZoneOffset",
+            "certificationInfo"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "eventType": [
+              "ObjectEvent",
+              "AggregationEvent",
+              "TransactionEvent",
+              "TransformationEvent",
+              "AssociationEvent"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "ObjectEvent",
+          "source": "https://ref.gs1.org/standards/epcis/2.0.1/ §7.4.2",
+          "verifiedFields": [
+            "eventId",
+            "action",
+            "bizStep",
+            "disposition",
+            "readPoint",
+            "bizLocation",
+            "eventTime",
+            "recordTime"
+          ],
+          "fieldStatus": "confirmed; bizStep/disposition CBV -> not enforced",
+          "discoveredEnums": {
+            "action": [
+              "ADD",
+              "OBSERVE",
+              "DELETE"
+            ]
+          },
+          "gaps": [
+            "bizStep-CBV",
+            "disposition-CBV"
+          ]
+        },
+        {
+          "entity": "AggregationEvent",
+          "source": "https://ref.gs1.org/standards/epcis/2.0.1/ §7.4.3",
+          "verifiedFields": [
+            "eventId",
+            "parentID",
+            "action",
+            "bizStep",
+            "disposition",
+            "readPoint",
+            "eventTime"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "action": [
+              "ADD",
+              "OBSERVE",
+              "DELETE"
+            ]
+          },
+          "gaps": [
+            "bizStep-CBV"
+          ]
+        },
+        {
+          "entity": "TransactionEvent",
+          "source": "https://ref.gs1.org/standards/epcis/2.0.1/ §7.4.4",
+          "verifiedFields": [
+            "eventId",
+            "parentID",
+            "action",
+            "bizStep",
+            "eventTime"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "action": [
+              "ADD",
+              "OBSERVE",
+              "DELETE"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "TransformationEvent",
+          "source": "https://ref.gs1.org/standards/epcis/2.0.1/ §7.4.5",
+          "verifiedFields": [
+            "eventId",
+            "transformationID",
+            "bizStep",
+            "disposition",
+            "readPoint",
+            "eventTime"
+          ],
+          "fieldStatus": "confirmed; TransformationEvent has no action field",
+          "discoveredEnums": {},
+          "gaps": [
+            "bizStep-CBV"
+          ]
+        },
+        {
+          "entity": "AssociationEvent",
+          "source": "https://ref.gs1.org/standards/epcis/2.0.1/ §7.4.6",
+          "verifiedFields": [
+            "eventId",
+            "parentID",
+            "action",
+            "bizStep",
+            "eventTime"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "action": [
+              "ADD",
+              "OBSERVE",
+              "DELETE"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official GS1 EPCIS 2.0 standard. Enforced enums: EPCISEvent.eventType(5), action(3) on ObjectEvent/AggregationEvent/TransactionEvent/AssociationEvent = 5 enums. bizStep/disposition (CBV extensible vocabs) intentionally not enforced."
+    },
+    {
+      "handle": "iso_8583-compat",
+      "verifiedAt": "2026-06-10",
+      "tier": "L5",
+      "source": "https://en.wikipedia.org/wiki/ISO_8583",
+      "remodeled": "Remodeled from generic category model to a faithful ISO 8583 message model. The MTI-position enums (class/function/origin/version) are stable + universally documented; source is the public ISO 8583 reference since the ISO standard itself is paywalled. transactionType/responseCode/panEntryMode are version-dependent + only partially documented -> gapped.",
+      "resources": [
+        {
+          "entity": "Message",
+          "source": "https://en.wikipedia.org/wiki/ISO_8583",
+          "verifiedFields": [
+            "mti",
+            "messageClass",
+            "messageFunction",
+            "messageOrigin",
+            "version",
+            "stan",
+            "processingCode",
+            "transmissionDateTime"
+          ],
+          "fieldStatus": "confirmed (MTI decomposition)",
+          "discoveredEnums": {
+            "messageClass": [
+              "authorization",
+              "financial",
+              "fileActions",
+              "reversals",
+              "reconciliation",
+              "administrative",
+              "feeCollection",
+              "networkManagement"
+            ],
+            "messageFunction": [
+              "request",
+              "response",
+              "advice",
+              "adviceResponse",
+              "notification",
+              "notificationAcknowledgment",
+              "instruction",
+              "instructionAcknowledgment"
+            ],
+            "messageOrigin": [
+              "acquirer",
+              "acquirerRepeat",
+              "issuer",
+              "issuerRepeat",
+              "other"
+            ],
+            "version": [
+              "1987",
+              "1993",
+              "2003",
+              "reserved",
+              "national"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "ProcessingCode",
+          "source": "https://en.wikipedia.org/wiki/ISO_8583",
+          "verifiedFields": [
+            "transactionType",
+            "accountTypeFrom",
+            "accountTypeTo"
+          ],
+          "fieldStatus": "fields confirmed; transactionType not fully enumerated -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "transactionType-partial"
+          ]
+        },
+        {
+          "entity": "DataElement",
+          "source": "https://en.wikipedia.org/wiki/ISO_8583",
+          "verifiedFields": [
+            "fieldNumber",
+            "name",
+            "dataType",
+            "length",
+            "value"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "ResponseCode",
+          "source": "https://en.wikipedia.org/wiki/ISO_8583",
+          "verifiedFields": [
+            "code",
+            "meaning",
+            "requiresCardPickup"
+          ],
+          "fieldStatus": "fields confirmed; response-code set version-dependent + partial -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "responseCode-partial"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (4/4 schemas) vs the public ISO 8583 reference (ISO standard paywalled). Enforced enums: Message.messageClass(8), messageFunction(8), messageOrigin(5), version(5) = 4 MTI-position enums. transactionType/responseCode partial -> gapped."
     }
   ]
 }

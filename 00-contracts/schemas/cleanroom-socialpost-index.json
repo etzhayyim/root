@@ -7,8 +7,8 @@
     "260607"
   ],
   "count": 1000,
-  "l5VerifiedActors": 113,
-  "totalVerifiedEnumFields": 508,
+  "l5VerifiedActors": 115,
+  "totalVerifiedEnumFields": 517,
   "feeds": [
     {
       "handle": "8th_wall-compat",
@@ -3947,8 +3947,8 @@
       "source": "gs1_epcis.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 5
     },
     {
       "handle": "gs_markets-compat",
@@ -4717,8 +4717,8 @@
       "source": "iso_8583.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 4
     },
     {
       "handle": "iso_claimsearch-compat",

@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreigsqzft63uvihvebhqzrrk2w2bnj2zzb4osu653hsmnczjhpcdoeu",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,9 +17,9 @@
     }
   ],
   "paths": {
-    "/v1/tradeitems": {
+    "/v1/epcisevents": {
       "get": {
-        "summary": "List TradeItems",
+        "summary": "List EPCISEvents",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/TradeItem"
+                        "$ref": "#/components/schemas/EPCISEvent"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a TradeItem",
+        "summary": "Create a EPCISEvent",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TradeItemCreate"
+                "$ref": "#/components/schemas/EPCISEventCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TradeItem"
+                  "$ref": "#/components/schemas/EPCISEvent"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/tradeitems/{id}": {
+    "/v1/epcisevents/{id}": {
       "get": {
-        "summary": "Get a TradeItem",
+        "summary": "Get a EPCISEvent",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TradeItem"
+                  "$ref": "#/components/schemas/EPCISEvent"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a TradeItem",
+        "summary": "Update a EPCISEvent",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TradeItemCreate"
+                "$ref": "#/components/schemas/EPCISEventCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TradeItem"
+                  "$ref": "#/components/schemas/EPCISEvent"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a TradeItem",
+        "summary": "Delete a EPCISEvent",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/events": {
+    "/v1/objectevents": {
       "get": {
-        "summary": "List Events",
+        "summary": "List ObjectEvents",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Event"
+                        "$ref": "#/components/schemas/ObjectEvent"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Event",
+        "summary": "Create a ObjectEvent",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/EventCreate"
+                "$ref": "#/components/schemas/ObjectEventCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Event"
+                  "$ref": "#/components/schemas/ObjectEvent"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/events/{id}": {
+    "/v1/objectevents/{id}": {
       "get": {
-        "summary": "Get a Event",
+        "summary": "Get a ObjectEvent",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Event"
+                  "$ref": "#/components/schemas/ObjectEvent"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Event",
+        "summary": "Update a ObjectEvent",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/EventCreate"
+                "$ref": "#/components/schemas/ObjectEventCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Event"
+                  "$ref": "#/components/schemas/ObjectEvent"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Event",
+        "summary": "Delete a ObjectEvent",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/documents": {
+    "/v1/aggregationevents": {
       "get": {
-        "summary": "List Documents",
+        "summary": "List AggregationEvents",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Document"
+                        "$ref": "#/components/schemas/AggregationEvent"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Document",
+        "summary": "Create a AggregationEvent",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DocumentCreate"
+                "$ref": "#/components/schemas/AggregationEventCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Document"
+                  "$ref": "#/components/schemas/AggregationEvent"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/documents/{id}": {
+    "/v1/aggregationevents/{id}": {
       "get": {
-        "summary": "Get a Document",
+        "summary": "Get a AggregationEvent",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Document"
+                  "$ref": "#/components/schemas/AggregationEvent"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Document",
+        "summary": "Update a AggregationEvent",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DocumentCreate"
+                "$ref": "#/components/schemas/AggregationEventCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Document"
+                  "$ref": "#/components/schemas/AggregationEvent"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Document",
+        "summary": "Delete a AggregationEvent",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/containers": {
+    "/v1/transactionevents": {
       "get": {
-        "summary": "List Containers",
+        "summary": "List TransactionEvents",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Container"
+                        "$ref": "#/components/schemas/TransactionEvent"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Container",
+        "summary": "Create a TransactionEvent",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ContainerCreate"
+                "$ref": "#/components/schemas/TransactionEventCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Container"
+                  "$ref": "#/components/schemas/TransactionEvent"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/containers/{id}": {
+    "/v1/transactionevents/{id}": {
       "get": {
-        "summary": "Get a Container",
+        "summary": "Get a TransactionEvent",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Container"
+                  "$ref": "#/components/schemas/TransactionEvent"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Container",
+        "summary": "Update a TransactionEvent",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ContainerCreate"
+                "$ref": "#/components/schemas/TransactionEventCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Container"
+                  "$ref": "#/components/schemas/TransactionEvent"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Container",
+        "summary": "Delete a TransactionEvent",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/parties": {
+    "/v1/transformationevents": {
       "get": {
-        "summary": "List Parties",
+        "summary": "List TransformationEvents",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Party"
+                        "$ref": "#/components/schemas/TransformationEvent"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Party",
+        "summary": "Create a TransformationEvent",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PartyCreate"
+                "$ref": "#/components/schemas/TransformationEventCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Party"
+                  "$ref": "#/components/schemas/TransformationEvent"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/parties/{id}": {
+    "/v1/transformationevents/{id}": {
       "get": {
-        "summary": "Get a Party",
+        "summary": "Get a TransformationEvent",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Party"
+                  "$ref": "#/components/schemas/TransformationEvent"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Party",
+        "summary": "Update a TransformationEvent",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PartyCreate"
+                "$ref": "#/components/schemas/TransformationEventCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Party"
+                  "$ref": "#/components/schemas/TransformationEvent"
                 }
               }
             }
@@ -921,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Party",
+        "summary": "Delete a TransformationEvent",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +942,9 @@
         }
       }
     },
-    "/v1/shipments": {
+    "/v1/associationevents": {
       "get": {
-        "summary": "List Shipments",
+        "summary": "List AssociationEvents",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +984,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Shipment"
+                        "$ref": "#/components/schemas/AssociationEvent"
                       }
                     },
                     "has_more": {
@@ -1004,13 +1004,13 @@
         }
       },
       "post": {
-        "summary": "Create a Shipment",
+        "summary": "Create a AssociationEvent",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ShipmentCreate"
+                "$ref": "#/components/schemas/AssociationEventCreate"
               }
             }
           }
@@ -1021,7 +1021,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Shipment"
+                  "$ref": "#/components/schemas/AssociationEvent"
                 }
               }
             }
@@ -1032,9 +1032,9 @@
         }
       }
     },
-    "/v1/shipments/{id}": {
+    "/v1/associationevents/{id}": {
       "get": {
-        "summary": "Get a Shipment",
+        "summary": "Get a AssociationEvent",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +1058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Shipment"
+                  "$ref": "#/components/schemas/AssociationEvent"
                 }
               }
             }
@@ -1069,7 +1069,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Shipment",
+        "summary": "Update a AssociationEvent",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +1084,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ShipmentCreate"
+                "$ref": "#/components/schemas/AssociationEventCreate"
               }
             }
           }
@@ -1095,7 +1095,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Shipment"
+                  "$ref": "#/components/schemas/AssociationEvent"
                 }
               }
             }
@@ -1106,7 +1106,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Shipment",
+        "summary": "Delete a AssociationEvent",
         "parameters": [
           {
             "name": "id",
@@ -1140,19 +1140,37 @@
   },
   "components": {
     "schemas": {
-      "TradeItem": {
+      "EPCISEvent": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "gtin": {
+          "eventId": {
             "type": "string"
           },
-          "description": {
+          "eventType": {
+            "type": "string",
+            "enum": [
+              "ObjectEvent",
+              "AggregationEvent",
+              "TransactionEvent",
+              "TransformationEvent",
+              "AssociationEvent"
+            ]
+          },
+          "eventTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "recordTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "eventTimeZoneOffset": {
             "type": "string"
           },
-          "brand": {
+          "certificationInfo": {
             "type": "string"
           },
           "createdAt": {
@@ -1165,31 +1183,279 @@
           }
         }
       },
-      "TradeItemCreate": {
+      "EPCISEventCreate": {
         "type": "object",
         "properties": {
-          "gtin": {
+          "eventId": {
             "type": "string"
           },
-          "description": {
+          "eventType": {
+            "type": "string",
+            "enum": [
+              "ObjectEvent",
+              "AggregationEvent",
+              "TransactionEvent",
+              "TransformationEvent",
+              "AssociationEvent"
+            ]
+          },
+          "eventTime": {
             "type": "string"
           },
-          "brand": {
+          "recordTime": {
+            "type": "string"
+          },
+          "eventTimeZoneOffset": {
+            "type": "string"
+          },
+          "certificationInfo": {
             "type": "string"
           }
         },
         "required": [
-          "gtin",
-          "description"
+          "eventType",
+          "eventTime"
         ]
       },
-      "Event": {
+      "ObjectEvent": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "itemId": {
+          "eventId": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "ADD",
+              "OBSERVE",
+              "DELETE"
+            ]
+          },
+          "bizStep": {
+            "type": "string"
+          },
+          "disposition": {
+            "type": "string"
+          },
+          "readPoint": {
+            "type": "string"
+          },
+          "bizLocation": {
+            "type": "string"
+          },
+          "eventTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "recordTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ObjectEventCreate": {
+        "type": "object",
+        "properties": {
+          "eventId": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "ADD",
+              "OBSERVE",
+              "DELETE"
+            ]
+          },
+          "bizStep": {
+            "type": "string"
+          },
+          "disposition": {
+            "type": "string"
+          },
+          "readPoint": {
+            "type": "string"
+          },
+          "bizLocation": {
+            "type": "string"
+          },
+          "eventTime": {
+            "type": "string"
+          },
+          "recordTime": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "action",
+          "bizStep"
+        ]
+      },
+      "AggregationEvent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "eventId": {
+            "type": "string"
+          },
+          "parentID": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "ADD",
+              "OBSERVE",
+              "DELETE"
+            ]
+          },
+          "bizStep": {
+            "type": "string"
+          },
+          "disposition": {
+            "type": "string"
+          },
+          "readPoint": {
+            "type": "string"
+          },
+          "eventTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "AggregationEventCreate": {
+        "type": "object",
+        "properties": {
+          "eventId": {
+            "type": "string"
+          },
+          "parentID": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "ADD",
+              "OBSERVE",
+              "DELETE"
+            ]
+          },
+          "bizStep": {
+            "type": "string"
+          },
+          "disposition": {
+            "type": "string"
+          },
+          "readPoint": {
+            "type": "string"
+          },
+          "eventTime": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "parentID",
+          "action"
+        ]
+      },
+      "TransactionEvent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "eventId": {
+            "type": "string"
+          },
+          "parentID": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "ADD",
+              "OBSERVE",
+              "DELETE"
+            ]
+          },
+          "bizStep": {
+            "type": "string"
+          },
+          "eventTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "TransactionEventCreate": {
+        "type": "object",
+        "properties": {
+          "eventId": {
+            "type": "string"
+          },
+          "parentID": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "ADD",
+              "OBSERVE",
+              "DELETE"
+            ]
+          },
+          "bizStep": {
+            "type": "string"
+          },
+          "eventTime": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "parentID",
+          "action"
+        ]
+      },
+      "TransformationEvent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "eventId": {
+            "type": "string"
+          },
+          "transformationID": {
             "type": "string"
           },
           "bizStep": {
@@ -1198,7 +1464,10 @@
           "disposition": {
             "type": "string"
           },
-          "recordedAt": {
+          "readPoint": {
+            "type": "string"
+          },
+          "eventTime": {
             "type": "string",
             "format": "date-time"
           },
@@ -1212,10 +1481,13 @@
           }
         }
       },
-      "EventCreate": {
+      "TransformationEventCreate": {
         "type": "object",
         "properties": {
-          "itemId": {
+          "eventId": {
+            "type": "string"
+          },
+          "transformationID": {
             "type": "string"
           },
           "bizStep": {
@@ -1224,32 +1496,44 @@
           "disposition": {
             "type": "string"
           },
-          "recordedAt": {
+          "readPoint": {
+            "type": "string"
+          },
+          "eventTime": {
             "type": "string"
           }
         },
         "required": [
-          "bizStep",
-          "disposition"
+          "transformationID",
+          "bizStep"
         ]
       },
-      "Document": {
+      "AssociationEvent": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "type": {
+          "eventId": {
             "type": "string"
           },
-          "senderId": {
+          "parentID": {
             "type": "string"
           },
-          "receiverId": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "ADD",
+              "OBSERVE",
+              "DELETE"
+            ]
+          },
+          "bizStep": {
             "type": "string"
           },
-          "status": {
-            "type": "string"
+          "eventTime": {
+            "type": "string",
+            "format": "date-time"
           },
           "createdAt": {
             "type": "string",
@@ -1261,160 +1545,33 @@
           }
         }
       },
-      "DocumentCreate": {
+      "AssociationEventCreate": {
         "type": "object",
         "properties": {
-          "type": {
+          "eventId": {
             "type": "string"
           },
-          "senderId": {
+          "parentID": {
             "type": "string"
           },
-          "receiverId": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "ADD",
+              "OBSERVE",
+              "DELETE"
+            ]
+          },
+          "bizStep": {
             "type": "string"
           },
-          "status": {
+          "eventTime": {
             "type": "string"
           }
         },
         "required": [
-          "type",
-          "status"
-        ]
-      },
-      "Container": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "bicCode": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ContainerCreate": {
-        "type": "object",
-        "properties": {
-          "bicCode": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "bicCode",
-          "type"
-        ]
-      },
-      "Party": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "gln": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "role": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "PartyCreate": {
-        "type": "object",
-        "properties": {
-          "gln": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "role": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "gln",
-          "name"
-        ]
-      },
-      "Shipment": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "documentId": {
-            "type": "string"
-          },
-          "origin": {
-            "type": "string"
-          },
-          "destination": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ShipmentCreate": {
-        "type": "object",
-        "properties": {
-          "documentId": {
-            "type": "string"
-          },
-          "origin": {
-            "type": "string"
-          },
-          "destination": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "origin",
-          "destination"
+          "parentID",
+          "action"
         ]
       }
     }
