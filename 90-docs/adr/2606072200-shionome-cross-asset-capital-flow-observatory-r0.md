@@ -128,6 +128,27 @@ onto the physical Mac-mini fleet is the **operator** step — an agent cannot ex
 (ADR-2606071000). Cron cells fire the analyze→dry-run cycle over substrate-resident data; live
 market-data ingest + live external posting remain G8-gated.
 
+### Stock layer (R1 addendum, 2026-06-09) — the money-and-markets pyramid
+
+The R0 graph is **flow-first** (edge-primary): it answers *where capital moved*, but not *how big
+each pool is*. To cover the Visual-Capitalist "All of the World's Money and Markets in One
+Visualization" view — the proportional SIZING of every asset class against each other — the
+snapshot mechanism is extended with one metric rather than a new entity type:
+
+- **`:outstanding-usd`** is added to `:ontology/snapshot-metrics` / `:snap/metric` (and its three
+  homes: ontology `:db/allowed`, `bucketSnapshot` lexicon `:enum`, `weave.SNAPSHOT_METRICS`). It
+  records the observed total SIZE (stock) of a bucket in **USD trillions**.
+- **`weave.stock_pyramid`** aggregates the *latest* `:outstanding-usd` snapshot per bucket up to the
+  asset-class level and sizes each layer against the grand total — the money pyramid (physical
+  currency < broad money < equities < debt < real estate < derivatives notional, with gold/crypto
+  sized against them). The `:representative` seed adds 8 global layers totalling **1,383 tn**.
+- **Why this does NOT weaken any gate**: a SIZE is a factual observed quantity, exactly like
+  `:return-pct` / `:yield-pct` — it is descriptive, carries `no_trade_notice=true`, and is **not** a
+  per-asset rating / signal / target (G2/G4 untouched; `:bucket/rating` et al. remain
+  unrepresentable). Stock (usd-tn) is computed on a **separate** read path and is never summed with
+  flow magnitudes (usd-bn) — a unit guard, not a new capability. The no-trade boundary is unchanged:
+  shionome now says how large each pool of capital is, still never what to do with it (トレードはしない).
+
 ## Consequences
 
 - **Positive**: a new, distinct cross-asset capital-rotation lens for the commons; a hard,

@@ -19,6 +19,10 @@ signal, no price target, no over/under-weight call, no portfolio instruction. Ev
 - **From where, to where?** — ranked rotation pairs (どこからどこへ)
 - **Is capital crowding?** — inflow concentration (HHI)
 - **Which asset class / region?** — by-asset-class + by-region slices
+- **How big is everything?** — the **stock pyramid** (`stock_pyramid`): the money-and-markets
+  sizing view (à la Visual Capitalist) from `:outstanding-usd` snapshots — total SIZE per asset
+  class in USD trillions (physical currency < broad money < equities < debt < real estate <
+  derivatives notional, gold/crypto sized against them). A *size*, never a signal (トレードはしない).
 - **What's the cross-asset mood?** — a *factual* risk-on / risk-off / mixed regime descriptor
 
 ## What it is NOT (by construction)
@@ -42,7 +46,8 @@ transaction linked into a verifiable commit-DAG. Inference/narration is Murakumo
 ## Run
 
 ```bash
-./run_tests.sh                                       # 153 tests, 14 suites
+./run_tests.sh                                       # 158 tests, 14 suites
+cd methods && python3 weave.py                       # concentration + stock pyramid
 cd methods && python3 analyze.py                     # dry-run intel report
 cd methods && python3 autorun.py --cycles 3 --fresh  # autonomous loop over the kotoba Datom log
 ```
