@@ -5,42 +5,61 @@ namespace woocommerce {
 
     entity Product {
         id: string @unique
+        name: string
+        slug: string
+        permalink: string
+        type: string
+        status: string
+        featured: boolean
+        catalogVisibility: string
+        description: string
+        shortDescription: string
         sku: string
-        title: string
-        price: float
-        currency: string
-        inventory: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Variant {
-        id: string @unique
-        productId: string
-        sku: string
-        price: float
-        optionValues: string
+        price: string
+        regularPrice: string
+        salePrice: string
+        onSale: boolean
+        purchasable: boolean
+        totalSales: integer
+        virtual: boolean
+        downloadable: boolean
+        taxStatus: string
+        manageStock: boolean
+        stockQuantity: integer
+        stockStatus: string
+        backorders: string
+        weight: string
+        averageRating: string
+        ratingCount: integer
+        parentId: integer
+        menuOrder: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Order {
         id: string @unique
-        customerId: string
         number: string
-        total: float
-        currency: string
+        orderKey: string
+        createdVia: string
+        version: string
         status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity LineItem {
-        id: string @unique
-        orderId: string
-        productId: string
-        quantity: integer
-        unitPrice: float
+        currency: string
+        discountTotal: string
+        shippingTotal: string
+        cartTax: string
+        total: string
+        totalTax: string
+        pricesIncludeTax: boolean
+        customerId: integer
+        customerIpAddress: string
+        customerNote: string
+        paymentMethod: string
+        paymentMethodTitle: string
+        transactionId: string
+        cartHash: string
+        setPaid: boolean
+        parentId: integer
         createdAt: datetime
         updatedAt: datetime
     }
@@ -50,27 +69,44 @@ namespace woocommerce {
         email: string
         firstName: string
         lastName: string
-        phone: string
+        role: string
+        username: string
+        avatarUrl: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Collection {
+    entity Coupon {
         id: string @unique
-        title: string
-        handle: string
-        published: boolean
+        code: string
+        amount: string
+        discountType: string
+        description: string
+        dateExpires: string
+        usageCount: integer
+        individualUse: boolean
+        usageLimit: integer
+        usageLimitPerUser: integer
+        limitUsageToXItems: integer
+        freeShipping: boolean
+        excludeSaleItems: boolean
+        minimumAmount: string
+        maximumAmount: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity ProductCategory {
+        id: string @unique
+        name: string
+        slug: string
+        parent: integer
+        description: string
+        display: string
+        menuOrder: integer
+        count: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

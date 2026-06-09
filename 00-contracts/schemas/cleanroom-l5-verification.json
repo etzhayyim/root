@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 76,
+  "count": 77,
   "actors": [
     {
       "handle": "square-compat",
@@ -10879,6 +10879,219 @@
       ],
       "notApplicable": [],
       "note": "Verified + refined real BigCommerce entities (Collection -> Category/Brand). 6/6 entities field-verified vs the official BigCommerce OpenAPI. Discovered closed enums (8): Product.type/inventoryTracking/availability/condition, Category.defaultProductSort, Order.paymentStatus/paymentMethod/taxProviderId. v2 Order money fields are strings (modeled faithfully)."
+    },
+    {
+      "handle": "woocommerce-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/woocommerce/woocommerce-rest-api-docs (wp-api-v3 property tables — official WooCommerce REST API v3 docs)",
+      "remodeled": "Verified and refined from the prior e-commerce model (Product/Variant/Order/LineItem/Customer/Collection): the Shopify-ism 'Collection' and generic 'Variant/LineItem' stand-ins were replaced with the real WooCommerce REST v3 entities (Product/Order/Customer/Coupon/ProductCategory), with all fields verified against WooCommerce's official documentation property tables. The L5 gate distinguishes real platform entities from generic e-commerce stand-ins (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Product",
+          "source": "wp-api-v3/_products.md Product properties",
+          "verifiedFields": [
+            "name",
+            "slug",
+            "permalink",
+            "type",
+            "status",
+            "featured",
+            "catalogVisibility",
+            "description",
+            "shortDescription",
+            "sku",
+            "price",
+            "regularPrice",
+            "salePrice",
+            "onSale",
+            "purchasable",
+            "totalSales",
+            "virtual",
+            "downloadable",
+            "taxStatus",
+            "manageStock",
+            "stockQuantity",
+            "stockStatus",
+            "backorders",
+            "weight",
+            "averageRating",
+            "ratingCount",
+            "parentId",
+            "menuOrder"
+          ],
+          "fieldStatus": "confirmed vs Product properties table",
+          "discoveredEnums": {
+            "type": [
+              "simple",
+              "grouped",
+              "external",
+              "variable"
+            ],
+            "status": [
+              "draft",
+              "pending",
+              "private",
+              "publish"
+            ],
+            "catalogVisibility": [
+              "visible",
+              "catalog",
+              "search",
+              "hidden"
+            ],
+            "taxStatus": [
+              "taxable",
+              "shipping",
+              "none"
+            ],
+            "stockStatus": [
+              "instock",
+              "outofstock",
+              "onbackorder"
+            ],
+            "backorders": [
+              "no",
+              "notify",
+              "yes"
+            ]
+          },
+          "gaps": [
+            "categories(array)",
+            "images(array)",
+            "attributes(array)",
+            "variations(array)",
+            "meta_data(array)"
+          ]
+        },
+        {
+          "entity": "Order",
+          "source": "wp-api-v3/_orders.md Order properties",
+          "verifiedFields": [
+            "number",
+            "orderKey",
+            "createdVia",
+            "version",
+            "status",
+            "currency",
+            "discountTotal",
+            "shippingTotal",
+            "cartTax",
+            "total",
+            "totalTax",
+            "pricesIncludeTax",
+            "customerId",
+            "customerIpAddress",
+            "customerNote",
+            "paymentMethod",
+            "paymentMethodTitle",
+            "transactionId",
+            "cartHash",
+            "setPaid",
+            "parentId"
+          ],
+          "fieldStatus": "confirmed vs Order properties table (money fields are strings)",
+          "discoveredEnums": {
+            "status": [
+              "pending",
+              "processing",
+              "on-hold",
+              "completed",
+              "cancelled",
+              "refunded",
+              "failed"
+            ]
+          },
+          "gaps": [
+            "billing(object)",
+            "shipping(object)",
+            "line_items(array)",
+            "tax_lines(array)",
+            "coupon_lines(array)"
+          ]
+        },
+        {
+          "entity": "Customer",
+          "source": "wp-api-v3/_customers.md Customer properties",
+          "verifiedFields": [
+            "email",
+            "firstName",
+            "lastName",
+            "role",
+            "username",
+            "avatarUrl"
+          ],
+          "fieldStatus": "confirmed vs Customer properties table",
+          "discoveredEnums": {},
+          "gaps": [
+            "billing(object)",
+            "shipping(object)",
+            "meta_data(array)"
+          ]
+        },
+        {
+          "entity": "Coupon",
+          "source": "wp-api-v3/_coupons.md Coupon properties",
+          "verifiedFields": [
+            "code",
+            "amount",
+            "discountType",
+            "description",
+            "dateExpires",
+            "usageCount",
+            "individualUse",
+            "usageLimit",
+            "usageLimitPerUser",
+            "limitUsageToXItems",
+            "freeShipping",
+            "excludeSaleItems",
+            "minimumAmount",
+            "maximumAmount"
+          ],
+          "fieldStatus": "confirmed vs Coupon properties table",
+          "discoveredEnums": {
+            "discountType": [
+              "percent",
+              "fixed_cart",
+              "fixed_product"
+            ]
+          },
+          "gaps": [
+            "product_ids(array)",
+            "excluded_product_ids(array)",
+            "email_restrictions(array)"
+          ]
+        },
+        {
+          "entity": "ProductCategory",
+          "source": "wp-api-v3/_product-categories.md properties",
+          "verifiedFields": [
+            "name",
+            "slug",
+            "parent",
+            "description",
+            "display",
+            "menuOrder",
+            "count"
+          ],
+          "fieldStatus": "confirmed vs Product category properties table",
+          "discoveredEnums": {
+            "display": [
+              "default",
+              "products",
+              "subcategories",
+              "both"
+            ]
+          },
+          "gaps": [
+            "image(object)"
+          ]
+        }
+      ],
+      "notApplicable": [
+        "Refund (the order-refunds object table in the docs does not expose parseable scalar property rows beyond parent_id; modeled entities kept to fully-verified ones)"
+      ],
+      "note": "Verified + refined real WooCommerce REST v3 entities (Collection/Variant/LineItem -> Product/Order/Customer/Coupon/ProductCategory). 5/5 modeled entities field-verified vs the official WooCommerce docs property tables. Discovered closed enums (10) across Product (6), Order, Coupon, ProductCategory. WC money fields are strings (modeled faithfully)."
     }
   ]
 }

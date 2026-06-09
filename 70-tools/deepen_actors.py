@@ -1259,6 +1259,17 @@ PLATFORM_OVERRIDES = {
         "Customer": E(email="string", firstName="string", lastName="string", company="string", phone="string", notes="string", taxExemptCategory="string", customerGroupId="integer", addressCount="integer", originChannelId="integer"),
         "Order": E(status="string", statusId="integer", paymentStatus="string", paymentMethod="string", currencyCode="string", totalIncTax="string", subtotalIncTax="string", customerId="integer", customerMessage="string", orderSource="string", ipAddress="string", isDeleted="boolean", geoipCountry="string", taxProviderId="string"),
     },
+    # Faithful WooCommerce model (verified + refined from the prior e-commerce
+    # model — Shopify-ism 'Collection' + generic 'Variant/LineItem' replaced with
+    # the real WC REST v3 entities), doc-verified L5 vs the official
+    # woocommerce/woocommerce-rest-api-docs property tables.
+    "woocommerce": {
+        "Product": E(name="string", slug="string", permalink="string", type="string", status="string", featured="boolean", catalogVisibility="string", description="string", shortDescription="string", sku="string", price="string", regularPrice="string", salePrice="string", onSale="boolean", purchasable="boolean", totalSales="integer", virtual="boolean", downloadable="boolean", taxStatus="string", manageStock="boolean", stockQuantity="integer", stockStatus="string", backorders="string", weight="string", averageRating="string", ratingCount="integer", parentId="integer", menuOrder="integer"),
+        "Order": E(number="string", orderKey="string", createdVia="string", version="string", status="string", currency="string", discountTotal="string", shippingTotal="string", cartTax="string", total="string", totalTax="string", pricesIncludeTax="boolean", customerId="integer", customerIpAddress="string", customerNote="string", paymentMethod="string", paymentMethodTitle="string", transactionId="string", cartHash="string", setPaid="boolean", parentId="integer"),
+        "Customer": E(email="string", firstName="string", lastName="string", role="string", username="string", avatarUrl="string"),
+        "Coupon": E(code="string", amount="string", discountType="string", description="string", dateExpires="string", usageCount="integer", individualUse="boolean", usageLimit="integer", usageLimitPerUser="integer", limitUsageToXItems="integer", freeShipping="boolean", excludeSaleItems="boolean", minimumAmount="string", maximumAmount="string"),
+        "ProductCategory": E(name="string", slug="string", parent="integer", description="string", display="string", menuOrder="integer", count="integer"),
+    },
     # Faithful Airtable model (remodeled from generic office_productivity), L5.
     "airtable": {
         "Base": E(name="string", permissionLevel="string"),
